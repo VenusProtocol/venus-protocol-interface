@@ -4,6 +4,7 @@ import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'packages/analytics';
 import { useGetVTokenContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
@@ -17,6 +18,7 @@ const useRedeemUnderlying = (
   { vToken, poolName }: { vToken: VToken; poolName: string },
   options?: Options,
 ) => {
+  const { chainId } = useChainId();
   const vTokenContract = useGetVTokenContract({ vToken, passSigner: true });
 
   const { captureAnalyticEvent } = useAnalytics();
@@ -46,6 +48,7 @@ const useRedeemUnderlying = (
       queryClient.invalidateQueries([
         FunctionKey.GET_V_TOKEN_BALANCE,
         {
+          chainId,
           accountAddress,
           vTokenAddress: vToken.address,
         },

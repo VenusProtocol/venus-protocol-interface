@@ -4,6 +4,7 @@ import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTran
 import { useAnalytics } from 'packages/analytics';
 import { useGetVaiVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 type TrimmedWithdrawFromVaiVaultInput = Omit<WithdrawFromVaiVaultInput, 'vaiVaultContract'>;
@@ -18,6 +19,7 @@ const useWithdrawFromVaiVault = (options?: Options) => {
     symbol: 'VAI',
   });
 
+  const { chainId } = useChainId();
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
@@ -44,6 +46,7 @@ const useWithdrawFromVaiVault = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
+            chainId,
             accountAddress,
             tokenAddress: vai.address,
           },
@@ -53,17 +56,25 @@ const useWithdrawFromVaiVault = (options?: Options) => {
         queryClient.invalidateQueries([
           FunctionKey.GET_BALANCE_OF,
           {
+            chainId,
             accountAddress: vaiVaultContract?.address,
             tokenAddress: vai.address,
           },
         ]);
       }
 
-      queryClient.invalidateQueries([FunctionKey.GET_VAI_VAULT_USER_INFO, accountAddress]);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_VAI_VAULT_USER_INFO,
+        {
+          chainId,
+          accountAddress,
+        },
+      ]);
 
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_BALANCES,
         {
+          chainId,
           accountAddress,
         },
       ]);

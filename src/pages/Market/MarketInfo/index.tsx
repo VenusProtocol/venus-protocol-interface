@@ -2,7 +2,7 @@
 import { LabeledInlineContent } from 'components';
 import { useTranslation } from 'packages/translations';
 
-import Card from '../Card';
+import { MarketCard } from '../MarketCard';
 import { Stat } from '../types';
 import { useStyles } from './styles';
 
@@ -16,7 +16,7 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ stats, testId }) => {
   const styles = useStyles();
 
   return (
-    <Card title={t('asset.marketInfo.title')} testId={testId}>
+    <MarketCard title={t('asset.marketInfo.title')} testId={testId}>
       <ul css={styles.itemList}>
         {stats.map(stat => (
           <li css={styles.item} key={`market-info-stat-${stat.label}`}>
@@ -26,7 +26,7 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ stats, testId }) => {
           </li>
         ))}
       </ul>
-    </Card>
+    </MarketCard>
   );
 };
 

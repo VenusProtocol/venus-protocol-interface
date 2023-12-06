@@ -4,7 +4,7 @@ import { GetTokenUsdPriceInput, GetTokenUsdPriceOutput, getTokenUsdPrice } from 
 import FunctionKey from 'constants/functionKey';
 import { useGetResilientOracleContract } from 'packages/contracts';
 import { useChainId } from 'packages/wallet';
-import { ChainId } from 'types';
+import { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetTokenUsdPriceInput = Omit<GetTokenUsdPriceInput, 'resilientOracleContract'>;
@@ -17,7 +17,7 @@ export type UseGetTokenBalancesQueryKey = [
   },
 ];
 
-export type Options = QueryObserverOptions<
+type Options = QueryObserverOptions<
   GetTokenUsdPriceOutput,
   Error,
   GetTokenUsdPriceOutput,
@@ -25,7 +25,11 @@ export type Options = QueryObserverOptions<
   UseGetTokenBalancesQueryKey
 >;
 
-const useGetTokenUsdPrice = ({ token }: TrimmedGetTokenUsdPriceInput, options?: Options) => {
+interface UseGetTokenUsdPriceInput extends Omit<TrimmedGetTokenUsdPriceInput, 'token'> {
+  token?: Token;
+}
+
+const useGetTokenUsdPrice = ({ token }: UseGetTokenUsdPriceInput, options?: Options) => {
   const { chainId } = useChainId();
   const resilientOracleContract = useGetResilientOracleContract({
     chainId,

@@ -8,6 +8,7 @@ import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTran
 import { useAnalytics } from 'packages/analytics';
 import { useGetXvsVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 type TrimmedRequestWithdrawalFromXvsVaultInput = Omit<
@@ -17,6 +18,7 @@ type TrimmedRequestWithdrawalFromXvsVaultInput = Omit<
 type Options = UseSendTransactionOptions<TrimmedRequestWithdrawalFromXvsVaultInput>;
 
 const useRequestWithdrawalFromXvsVault = (options?: Options) => {
+  const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract({
     passSigner: true,
   });
@@ -54,13 +56,13 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
         // Invalidate cached user info
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_USER_INFO,
-          { accountAddress, rewardTokenAddress: xvs.address, poolIndex },
+          { chainId, accountAddress, rewardTokenAddress: xvs.address, poolIndex },
         ]);
 
         // Invalidate cached user withdrawal requests
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
-          { accountAddress, rewardTokenAddress: xvs.address, poolIndex },
+          { chainId, accountAddress, rewardTokenAddress: xvs.address, poolIndex },
         ]);
       }
     },

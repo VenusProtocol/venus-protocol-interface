@@ -2,11 +2,13 @@ import { queryClient, withdrawXvs } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetXvsVestingContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { callOrThrow } from 'utilities';
 
 type Options = UseSendTransactionOptions<void>;
 
 const useWithdrawXvs = (options?: Options) => {
+  const { chainId } = useChainId();
   const xvsVestingContract = useGetXvsVestingContract({
     passSigner: true,
   });
@@ -23,6 +25,7 @@ const useWithdrawXvs = (options?: Options) => {
       queryClient.invalidateQueries([
         FunctionKey.GET_PRIME_STATUS,
         {
+          chainId,
           accountAddress,
         },
       ]);
@@ -30,6 +33,7 @@ const useWithdrawXvs = (options?: Options) => {
       queryClient.invalidateQueries([
         FunctionKey.GET_PRIME_TOKEN,
         {
+          chainId,
           accountAddress,
         },
       ]);

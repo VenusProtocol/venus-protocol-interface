@@ -7,12 +7,17 @@ import { vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
 import { getVTokenApySimulations, useGetAsset } from 'clients/api';
+import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import CorePoolMarket from '..';
 import TEST_IDS from '../../testIds';
 
-describe('CorePoolMarket', () => {
+describe('CorePoolMarket - Feature flag enabled: marketParticipantCounts', () => {
   beforeEach(() => {
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabled) => name === 'marketParticipantCounts',
+    );
+
     (useGetAsset as Vi.Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
@@ -23,13 +28,6 @@ describe('CorePoolMarket', () => {
     (getVTokenApySimulations as Vi.Mock).mockImplementation(() => ({
       apySimulations: vTokenApySimulations,
     }));
-  });
-
-  it('renders without crashing', () => {
-    renderComponent(<CorePoolMarket />, {
-      routerInitialEntries: [`/${vXvs.address}`],
-      routePath: '/:vTokenAddress',
-    });
   });
 
   it('fetches market details and displays them correctly', async () => {

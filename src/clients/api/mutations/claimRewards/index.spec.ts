@@ -45,7 +45,7 @@ const fakeClaims: Claim[] = [
 ];
 
 describe('claimRewards', () => {
-  test('calls multicall correctly', async () => {
+  it('calls multicall correctly', async () => {
     const fakeMulticallContract = {
       tryBlockAndAggregate: vi.fn(async () => fakeContractTransaction),
     } as unknown as Multicall3;
@@ -56,6 +56,27 @@ describe('claimRewards', () => {
       vaiVaultContractAddress: 'fake-vai-vault-address',
       xvsVaultContractAddress: 'fake-xvs-vault-address',
       primeContractAddress: 'fake-prime-contract-address',
+      accountAddress: fakeAddress,
+      claims: fakeClaims,
+    });
+
+    expect(fakeMulticallContract.tryBlockAndAggregate).toHaveBeenCalledTimes(1);
+    expect((fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][0]).toBe(true);
+    expect(
+      (fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][1],
+    ).toMatchSnapshot();
+
+    expect(res).toBe(fakeContractTransaction);
+  });
+
+  it('skips claims for which a contract address was not passed', async () => {
+    const fakeMulticallContract = {
+      tryBlockAndAggregate: vi.fn(async () => fakeContractTransaction),
+    } as unknown as Multicall3;
+
+    const res = await claimRewards({
+      multicallContract: fakeMulticallContract,
+      xvsVaultContractAddress: 'fake-xvs-vault-address',
       accountAddress: fakeAddress,
       claims: fakeClaims,
     });

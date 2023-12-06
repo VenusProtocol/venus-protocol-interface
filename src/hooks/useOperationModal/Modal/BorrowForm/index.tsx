@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
 import { useBorrow } from 'clients/api';
-import { Delimiter, IsolatedAssetWarning, LabeledInlineContent, TokenTextField } from 'components';
+import { AssetWarning, Delimiter, LabeledInlineContent, TokenTextField } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
@@ -109,14 +109,12 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      {pool.isIsolated && (
-        <IsolatedAssetWarning
-          pool={pool}
-          token={asset.vToken.underlyingToken}
-          type="borrow"
-          css={sharedStyles.isolatedAssetWarning}
-        />
-      )}
+      <AssetWarning
+        pool={pool}
+        token={asset.vToken.underlyingToken}
+        type="borrow"
+        css={sharedStyles.assetWarningWarning}
+      />
 
       <div css={[sharedStyles.getRow({ isLast: true })]}>
         <TokenTextField

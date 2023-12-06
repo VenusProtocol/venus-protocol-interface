@@ -20,7 +20,7 @@ export const useStyles = () => {
     getRow: ({ isLast }: { isLast: boolean }) => css`
       margin-bottom: ${theme.spacing(isLast ? 6 : 3)};
     `,
-    isolatedAssetWarning: css`
+    assetWarningWarning: css`
       margin-bottom: ${theme.spacing(6)};
     `,
   };

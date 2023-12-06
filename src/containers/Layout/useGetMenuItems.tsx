@@ -8,11 +8,11 @@ import { MenuItem } from './types';
 
 const useGetMenuItems = () => {
   const { accountAddress } = useAccountAddress();
-  const corePoolRouteEnabled = useIsFeatureEnabled({ name: 'corePoolRoute' });
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
+  const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
 
   return useMemo(() => {
     const menuItems: MenuItem[] = [
@@ -36,15 +36,13 @@ const useGetMenuItems = () => {
       });
     }
 
-    if (corePoolRouteEnabled) {
-      menuItems.push({
-        to: routes.corePool.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.corePool')
-        i18nKey: 'layout.menuItems.corePool',
-        iconName: 'venus',
-      });
-    }
+    menuItems.push({
+      to: routes.corePool.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.corePool')
+      i18nKey: 'layout.menuItems.corePool',
+      iconName: 'venus',
+    });
 
     menuItems.push(
       {
@@ -83,22 +81,23 @@ const useGetMenuItems = () => {
       });
     }
 
-    menuItems.push(
-      {
-        to: routes.governance.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.governance')
-        i18nKey: 'layout.menuItems.governance',
-        iconName: 'market',
-      },
-      {
+    menuItems.push({
+      to: routes.governance.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.governance')
+      i18nKey: 'layout.menuItems.governance',
+      iconName: 'market',
+    });
+
+    if (xvsRouteEnabled) {
+      menuItems.push({
         to: routes.xvs.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.xvs')
         i18nKey: 'layout.menuItems.xvs',
         iconName: 'circledVenus',
-      },
-    );
+      });
+    }
 
     if (vaiRouteEnabled) {
       menuItems.push({
@@ -125,10 +124,10 @@ const useGetMenuItems = () => {
   }, [
     accountAddress,
     convertVrtRouteEnabled,
-    corePoolRouteEnabled,
     swapRouteEnabled,
     historyRouteEnabled,
     vaiRouteEnabled,
+    xvsRouteEnabled,
   ]);
 };
 

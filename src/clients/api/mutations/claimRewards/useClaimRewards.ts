@@ -9,6 +9,7 @@ import {
   useGetVaiVaultContractAddress,
   useGetXvsVaultContractAddress,
 } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { callOrThrow } from 'utilities';
 
 type TrimmedClaimRewardsInput = Omit<
@@ -22,6 +23,7 @@ type TrimmedClaimRewardsInput = Omit<
 type Options = UseSendTransactionOptions<TrimmedClaimRewardsInput>;
 
 const useClaimRewards = (options?: Options) => {
+  const { chainId } = useChainId();
   const multicallContract = useGetMulticall3Contract({
     passSigner: true,
   });
@@ -39,13 +41,13 @@ const useClaimRewards = (options?: Options) => {
       callOrThrow(
         {
           multicallContract,
-          legacyPoolComptrollerContractAddress,
-          vaiVaultContractAddress,
           xvsVaultContractAddress,
         },
         params =>
           claimRewards({
             primeContractAddress,
+            legacyPoolComptrollerContractAddress,
+            vaiVaultContractAddress,
             ...params,
             ...input,
           }),
@@ -54,7 +56,7 @@ const useClaimRewards = (options?: Options) => {
       input.claims.forEach(claim => {
         if (claim.contract === 'legacyPoolComptroller') {
           captureAnalyticEvent('Pool reward claimed', {
-            comptrollerAddress: legacyPoolComptrollerContractAddress!,
+            comptrollerAddress: legacyPoolComptrollerContractAddress || '',
             vTokenAddressesWithPendingReward: claim.vTokenAddressesWithPendingReward,
           });
         } else if (claim.contract === 'rewardsDistributor') {
@@ -72,7 +74,10 @@ const useClaimRewards = (options?: Options) => {
         }
       });
 
-      queryClient.invalidateQueries([FunctionKey.GET_PENDING_REWARDS, input.accountAddress]);
+      queryClient.invalidateQueries([
+        FunctionKey.GET_PENDING_REWARDS,
+        { accountAddress: input.accountAddress, chainId },
+      ]);
     },
     options,
   });

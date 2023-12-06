@@ -107,7 +107,6 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Unitroller,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Unitroller,
-      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.Comptroller_Core,
     },
   },
   {
@@ -148,8 +147,8 @@ export const contracts: ContractConfig[] = [
     name: 'GovernorBravoDelegate',
     abi: GovernorBravoDelegateAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusGovernanceBscTestnetDeployments.addresses.GovernorBravoDelegate,
-      [ChainId.BSC_MAINNET]: venusGovernanceBscMainnetDeployments.addresses.GovernorBravoDelegate,
+      [ChainId.BSC_TESTNET]: venusGovernanceBscTestnetDeployments.addresses.GovernorBravoDelegator_Proxy,
+      [ChainId.BSC_MAINNET]: venusGovernanceBscMainnetDeployments.addresses.GovernorBravoDelegator_Proxy,
     },
   },
   {

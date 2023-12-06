@@ -4,8 +4,8 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import {
+  AssetWarning,
   Delimiter,
-  IsolatedAssetWarning,
   LabeledInlineContent,
   SelectTokenTextField,
   SpendingLimit,
@@ -176,15 +176,13 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   return (
     <>
       <form onSubmit={handleSubmit}>
-        {pool.isIsolated && (
-          <IsolatedAssetWarning
-            token={asset.vToken.underlyingToken}
-            pool={pool}
-            type="supply"
-            css={sharedStyles.isolatedAssetWarning}
-            data-testid={TEST_IDS.noticeIsolatedAsset}
-          />
-        )}
+        <AssetWarning
+          token={asset.vToken.underlyingToken}
+          pool={pool}
+          type="supply"
+          css={sharedStyles.assetWarningWarning}
+          data-testid={TEST_IDS.noticeAssetWarning}
+        />
 
         {(asset.collateralFactor || asset.isCollateralOfUser) && (
           <LabeledInlineContent

@@ -14,8 +14,10 @@ import {
 } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'packages/translations';
 import {
+  areAddressesEqual,
   compareBigNumbers,
   compareBooleans,
   compareStrings,
@@ -73,6 +75,7 @@ const useGenerateColumns = ({
   columnKeys: ColumnKey[];
   collateralOnChange: (poolAsset: PoolAsset) => void;
 }) => {
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
   const { t, Trans } = useTranslation();
   const styles = useStyles();
 
@@ -171,12 +174,15 @@ const useGenerateColumns = ({
             }
 
             if (column === 'pool') {
-              const to = poolAsset.pool.isIsolated
-                ? routes.isolatedPool.path.replace(
+              const to = areAddressesEqual(
+                corePoolComptrollerContractAddress,
+                poolAsset.pool.comptrollerAddress,
+              )
+                ? routes.corePool.path
+                : routes.isolatedPool.path.replace(
                     ':poolComptrollerAddress',
                     poolAsset.pool.comptrollerAddress,
-                  )
-                : routes.corePool.path;
+                  );
 
               return (
                 <div>
@@ -371,7 +377,7 @@ const useGenerateColumns = ({
                 },
         };
       }),
-    [poolAssets, columnKeys, Trans, t],
+    [poolAssets, corePoolComptrollerContractAddress, columnKeys, Trans, t],
   );
 
   return columns;

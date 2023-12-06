@@ -28,11 +28,10 @@ const Xvs = lazy(() => import('pages/Xvs'));
 
 const Router = () => {
   const { accountAddress } = useAccountAddress();
-  const corePoolRouteEnabled = useIsFeatureEnabled({ name: 'corePoolRoute' });
-  const corePoolMarketRouteEnabled = useIsFeatureEnabled({ name: 'corePoolMarketRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
+  const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -103,27 +102,23 @@ const Router = () => {
         }
       />
 
-      {corePoolRouteEnabled && (
-        <Route
-          path={routes.corePool.path}
-          element={
-            <PageSuspense>
-              <CorePool />
-            </PageSuspense>
-          }
-        />
-      )}
+      <Route
+        path={routes.corePool.path}
+        element={
+          <PageSuspense>
+            <CorePool />
+          </PageSuspense>
+        }
+      />
 
-      {corePoolMarketRouteEnabled && (
-        <Route
-          path={routes.corePoolMarket.path}
-          element={
-            <PageSuspense>
-              <CorePoolMarket />
-            </PageSuspense>
-          }
-        />
-      )}
+      <Route
+        path={routes.corePoolMarket.path}
+        element={
+          <PageSuspense>
+            <CorePoolMarket />
+          </PageSuspense>
+        }
+      />
 
       <Route
         path={routes.vaults.path}
@@ -180,14 +175,16 @@ const Router = () => {
         }
       />
 
-      <Route
-        path={routes.xvs.path}
-        element={
-          <PageSuspense>
-            <Xvs />
-          </PageSuspense>
-        }
-      />
+      {xvsRouteEnabled && (
+        <Route
+          path={routes.xvs.path}
+          element={
+            <PageSuspense>
+              <Xvs />
+            </PageSuspense>
+          }
+        />
+      )}
 
       {convertVrtRouteEnabled && (
         <Route

@@ -13,9 +13,9 @@ const Xvs: React.FC = () => {
   return (
     <div>
       <Notice
-        css={styles.isolatedAssetsWarningNotice}
+        css={styles.assetWarningsWarningNotice}
         variant="warning"
-        description={t('xvsPage.isolatedAssetsWarning')}
+        description={t('xvsPage.assetWarningsWarning')}
       />
 
       <Header css={styles.header} />

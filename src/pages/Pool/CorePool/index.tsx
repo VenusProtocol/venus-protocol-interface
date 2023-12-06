@@ -1,18 +1,11 @@
-import { Navigate } from 'react-router-dom';
-
-import { routes } from 'constants/routing';
-import { useGetLegacyPoolComptrollerContractAddress } from 'packages/contracts';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 
 import Pool from '..';
 
 const CorePool: React.FC = () => {
-  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
-  if (!legacyPoolComptrollerContractAddress) {
-    return <Navigate to={routes.dashboard.path} />;
-  }
-
-  return <Pool poolComptrollerAddress={legacyPoolComptrollerContractAddress} />;
+  return <Pool poolComptrollerAddress={corePoolComptrollerContractAddress} />;
 };
 
 export default CorePool;

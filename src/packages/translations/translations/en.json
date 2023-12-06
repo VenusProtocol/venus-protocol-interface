@@ -270,17 +270,17 @@
       "utilizationRate": "Utilization rate"
     }
   },
-  "isolatedAssetWarning": {
+  "assetWarningWarning": {
     "assetTable": {
       "assetColumnTitle": "Asset",
       "borrowApyColumnTitle": "Borrow APY",
       "liquidityColumnTitle": "Liquidity",
       "supplyApyColumnTitle": "Supply APY"
     },
-    "borrowDescription": "This is an isolated token. You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool.",
+    "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool.",
     "hideAssetsButtonLabel": "Hide assets",
     "showMarketsButtonLabel": "Show tokens from the {{poolName}} pool",
-    "supplyDescription": "This is an isolated token. Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively."
+    "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively."
   },
   "layout": {
     "chainSelect": {
@@ -547,7 +547,7 @@
       "totalBorrowLabel": "Total Borrow",
       "totalSupplyLabel": "Total Supply"
     },
-    "isolatedPoolWarning": "You are currently looking at an isolated pool. Supplying tokens to an isolated pool market will increase your borrow limit for this pool only, effectively enabling you to borrow tokens from this pool only."
+    "poolWarning": "Supplying tokens to the {{poolName}} pool will increase your borrow limit for this pool only, effectively enabling you to borrow tokens from this pool only."
   },
   "pools": {
     "poolTable": {
@@ -1124,6 +1124,6 @@
     "remaining": "Remaining:"
   },
   "xvsPage": {
-    "isolatedAssetsWarning": "Isolated assets are not included on this page"
+    "assetWarningsWarning": "Isolated assets are not included on this page"
   }
 }

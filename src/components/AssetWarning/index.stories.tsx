@@ -4,16 +4,16 @@ import { poolData } from '__mocks__/models/pools';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
-import IsolatedAssetWarning from '.';
+import AssetWarning from '.';
 
 export default {
-  title: 'Components/IsolatedAssetWarningUi',
-  component: IsolatedAssetWarning,
+  title: 'Components/AssetWarningUi',
+  component: AssetWarning,
   decorators: [withThemeProvider, withCenterStory({ width: 500 })],
-} as Meta<typeof IsolatedAssetWarning>;
+} as Meta<typeof AssetWarning>;
 
 export const Borrow = () => (
-  <IsolatedAssetWarning
+  <AssetWarning
     pool={poolData[0]}
     token={poolData[0].assets[0].vToken.underlyingToken}
     type="borrow"
@@ -21,7 +21,7 @@ export const Borrow = () => (
 );
 
 export const Supply = () => (
-  <IsolatedAssetWarning
+  <AssetWarning
     pool={poolData[0]}
     token={poolData[0].assets[0].vToken.underlyingToken}
     type="supply"

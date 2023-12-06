@@ -2,6 +2,7 @@ import { ApproveTokenInput, approveToken, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetTokenContract } from 'packages/contracts';
+import { useChainId } from 'packages/wallet';
 import { Token } from 'types';
 import { callOrThrow } from 'utilities';
 
@@ -9,6 +10,7 @@ type TrimmedApproveTokenInput = Omit<ApproveTokenInput, 'tokenContract'>;
 type Options = UseSendTransactionOptions<TrimmedApproveTokenInput>;
 
 const useApproveToken = ({ token }: { token: Token }, options?: Options) => {
+  const { chainId } = useChainId();
   const tokenContract = useGetTokenContract({ token, passSigner: true });
 
   return useSendTransaction({
@@ -26,6 +28,7 @@ const useApproveToken = ({ token }: { token: Token }, options?: Options) => {
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_ALLOWANCE,
         {
+          chainId,
           tokenAddress: token.address,
           spenderAddress: input.spenderAddress,
           accountAddress,

@@ -8,6 +8,7 @@ import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTran
 import { useAnalytics } from 'packages/analytics';
 import { useGetXvsVaultContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
+import { useChainId } from 'packages/wallet';
 import { Token } from 'types';
 import { callOrThrow } from 'utilities';
 
@@ -21,6 +22,7 @@ const useExecuteWithdrawalFromXvsVault = (
   { stakedToken }: { stakedToken: Token },
   options?: Options,
 ) => {
+  const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract({
     passSigner: true,
   });
@@ -53,13 +55,19 @@ const useExecuteWithdrawalFromXvsVault = (
         // Invalidate cached user info
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_USER_INFO,
-          { accountAddress, rewardTokenAddress: xvs.address, poolIndex },
+          {
+            chainId,
+            accountAddress,
+            rewardTokenAddress: xvs.address,
+            poolIndex,
+          },
         ]);
 
         // Invalidate cached user withdrawal requests
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
           {
+            chainId,
             rewardTokenAddress: xvs.address,
             poolIndex,
             accountAddress,
@@ -68,7 +76,11 @@ const useExecuteWithdrawalFromXvsVault = (
 
         queryClient.invalidateQueries([
           FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-          { rewardTokenAddress: xvs.address, poolIndex },
+          {
+            chainId,
+            rewardTokenAddress: xvs.address,
+            poolIndex,
+          },
         ]);
       }
 
@@ -76,6 +88,7 @@ const useExecuteWithdrawalFromXvsVault = (
       queryClient.invalidateQueries([
         FunctionKey.GET_BALANCE_OF,
         {
+          chainId,
           accountAddress,
           tokenAddress: stakedToken.address,
         },
@@ -84,6 +97,7 @@ const useExecuteWithdrawalFromXvsVault = (
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_BALANCES,
         {
+          chainId,
           accountAddress,
         },
       ]);
@@ -92,6 +106,7 @@ const useExecuteWithdrawalFromXvsVault = (
       queryClient.invalidateQueries([
         FunctionKey.GET_BALANCE_OF,
         {
+          chainId,
           accountAddress: xvsVaultContract?.address,
           tokenAddress: stakedToken.address,
         },
