@@ -1,7 +1,7 @@
 import { Icon, Link, Tooltip } from 'components';
-import { PRIME_DOC_URL } from 'constants/prime';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import { usePrimeSimulationPagePath } from 'hooks/usePrimeSimulationPagePath';
 import { useTranslation } from 'packages/translations';
 import { PrimeSimulationDistribution, Token } from 'types';
 
@@ -21,6 +21,7 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
   xvs,
 }) => {
   const { t, Trans } = useTranslation();
+  const primeSimulationPageUrl = usePrimeSimulationPagePath();
 
   const readablePrimeApy = useFormatPercentageToReadableValue({
     value: primeSimulationDistribution.apyPercentage,
@@ -69,7 +70,7 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
                 xvsStaked: readableReferenceXvsStaked,
               }}
               components={{
-                Link: <Link href={PRIME_DOC_URL} onClick={e => e.stopPropagation()} />,
+                Link: <Link to={primeSimulationPageUrl} onClick={e => e.stopPropagation()} />,
               }}
             />
           }

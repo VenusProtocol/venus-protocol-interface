@@ -11,10 +11,10 @@ import {
   useGetXvsVaultUserInfo,
 } from 'clients/api';
 import { Card, Link, PrimaryButton, ProgressBar } from 'components';
-import { PRIME_DOC_URL } from 'constants/prime';
 import { routes } from 'constants/routing';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertMantissaToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
+import { usePrimeSimulationPagePath } from 'hooks/usePrimeSimulationPagePath';
 import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
@@ -146,6 +146,8 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     t,
   ]);
 
+  const primeSimulationPageUrl = usePrimeSimulationPagePath();
+
   const displayProgress = !isUserXvsStakeHighEnoughForPrime;
   const displayWarning = haveAllPrimeTokensBeenClaimed;
   const displayStakeButton =
@@ -218,7 +220,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                   i18nKey="primeStatusBanner.description"
                   components={{
                     WhiteText: <span className="text-offWhite" />,
-                    Link: <Link href={PRIME_DOC_URL} />,
+                    Link: <Link to={primeSimulationPageUrl} />,
                   }}
                   values={{
                     stakeDelta: readableStakeDeltaTokens,

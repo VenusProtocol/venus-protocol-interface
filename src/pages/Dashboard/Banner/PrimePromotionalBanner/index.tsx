@@ -1,5 +1,5 @@
 import { ButtonWrapper, Card, Icon, Link } from 'components';
-import { PRIME_DOC_URL } from 'constants/prime';
+import { usePrimeSimulationPagePath } from 'hooks/usePrimeSimulationPagePath';
 import { useTranslation } from 'packages/translations';
 
 import boostsIllustration from './boostsIllustration.png';
@@ -13,6 +13,7 @@ export interface PrimePromotionalBannerProps {
 
 export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ onHide }) => {
   const { t, Trans } = useTranslation();
+  const primeSimulationPageUrl = usePrimeSimulationPagePath();
 
   return (
     <Card className="relative mb-8 overflow-hidden border border-lightGrey py-6 sm:p-0 md:p-0">
@@ -66,7 +67,10 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
             </p>
 
             <ButtonWrapper variant="secondary" className="w-full sm:w-auto" asChild>
-              <Link href={PRIME_DOC_URL} className="text-offWhite no-underline hover:no-underline">
+              <Link
+                to={primeSimulationPageUrl}
+                className="text-offWhite no-underline hover:no-underline"
+              >
                 {t('dashboard.primePromotionalBanner.buttonLabel')}
               </Link>
             </ButtonWrapper>

@@ -25,6 +25,7 @@ const Vaults = lazy(() => import('pages/Vault'));
 const Voter = lazy(() => import('pages/Voter'));
 const VoterLeaderboard = lazy(() => import('pages/VoterLeaderboard'));
 const Xvs = lazy(() => import('pages/Xvs'));
+const PrimeSimulator = lazy(() => import('pages/PrimeSimulator'));
 
 const Router = () => {
   const { accountAddress } = useAccountAddress();
@@ -32,6 +33,7 @@ const Router = () => {
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
+  const primeEnabled = useIsFeatureEnabled({ name: 'prime' });
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -56,7 +58,7 @@ const Router = () => {
   return (
     <Routes>
       <Route
-        path={routes.dashboard.path}
+        path={`${routes.dashboard.path}/*`}
         element={
           <PageSuspense>
             <Dashboard />
@@ -64,12 +66,34 @@ const Router = () => {
         }
       />
 
+      {primeEnabled && (
+        <Route
+          path={routes.dashboardPrimeSimulator.path}
+          element={
+            <PageSuspense>
+              <PrimeSimulator />
+            </PageSuspense>
+          }
+        />
+      )}
+
       {!!accountAddress && (
         <Route
-          path={routes.account.path}
+          path={`${routes.account.path}/*`}
           element={
             <PageSuspense>
               <Account />
+            </PageSuspense>
+          }
+        />
+      )}
+
+      {!!accountAddress && primeEnabled && (
+        <Route
+          path={routes.accountPrimeSimulator.path}
+          element={
+            <PageSuspense>
+              <PrimeSimulator />
             </PageSuspense>
           }
         />
@@ -121,13 +145,24 @@ const Router = () => {
       />
 
       <Route
-        path={routes.vaults.path}
+        path={`${routes.vaults.path}/*`}
         element={
           <PageSuspense>
             <Vaults />
           </PageSuspense>
         }
       />
+
+      {primeEnabled && (
+        <Route
+          path={routes.vaultsPrimeSimulator.path}
+          element={
+            <PageSuspense>
+              <PrimeSimulator />
+            </PageSuspense>
+          }
+        />
+      )}
 
       {historyRouteEnabled && (
         <Route
@@ -140,7 +175,6 @@ const Router = () => {
         />
       )}
 
-      {/* suffix with a /* to make it accept nested routes */}
       <Route
         path={`${routes.governance.path}/*`}
         element={

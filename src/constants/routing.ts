@@ -1,5 +1,5 @@
 export enum Subdirectory {
-  DASHBOARD = '/',
+  DASHBOARD = '',
   ACCOUNT = '/account',
   XVS = '/xvs',
   CORE_POOL = '/core-pool',
@@ -21,11 +21,14 @@ export enum Subdirectory {
   SWAP = '/swap',
   CONVERT_VRT = '/convert-vrt',
   VAI = '/vai',
+  PRIME_SIMULATOR = '/prime-simulator',
 }
 
 const routeSubdirectories = {
   dashboard: [Subdirectory.DASHBOARD],
+  dashboardPrimeSimulator: [Subdirectory.DASHBOARD, Subdirectory.PRIME_SIMULATOR],
   account: [Subdirectory.ACCOUNT],
+  accountPrimeSimulator: [Subdirectory.ACCOUNT, Subdirectory.PRIME_SIMULATOR],
   xvs: [Subdirectory.XVS],
   isolatedPools: [Subdirectory.ISOLATED_POOLS],
   corePool: [Subdirectory.CORE_POOL],
@@ -49,6 +52,7 @@ const routeSubdirectories = {
   swap: [Subdirectory.SWAP],
   convertVrt: [Subdirectory.CONVERT_VRT],
   vaults: [Subdirectory.VAULTS],
+  vaultsPrimeSimulator: [Subdirectory.VAULTS, Subdirectory.PRIME_SIMULATOR],
   vai: [Subdirectory.VAI],
 };
 
