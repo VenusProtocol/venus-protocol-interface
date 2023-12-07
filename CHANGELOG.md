@@ -1,3 +1,15 @@
+## [2.60.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.59.1...v2.60.0) (2023-12-07)
+
+
+### Features
+
+* add Prime Simulator blank page ([#1910](https://github.com/VenusProtocol/venus-protocol-interface/issues/1910)) ([0ea2c60](https://github.com/VenusProtocol/venus-protocol-interface/commit/0ea2c605030e3473957ac4e4697bbbdf4953d1b3))
+
+
+### Bug Fixes
+
+* update BNB chain copy ([0326e30](https://github.com/VenusProtocol/venus-protocol-interface/commit/0326e30f85a6756129e295fe56a0843247f45b41))
+
 ## [2.59.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.59.0...v2.59.1) (2023-12-07)
 
 ## [2.59.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.58.0...v2.59.0) (2023-12-06)
