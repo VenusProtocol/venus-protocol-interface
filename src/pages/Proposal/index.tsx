@@ -60,14 +60,14 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         <NoticeInfo
           className="mb-8 w-full"
           data-testid={TEST_IDS.votingDisabledWarning}
-          title={t('vote.multichain.votingOnlyEnabledOnBsc')}
+          title={t('vote.multichain.votingOnlyEnabledOnBnb')}
           description={
             <Button
               className="h-auto"
               variant="text"
               onClick={() => switchChain({ chainId: governanceChain.id })}
             >
-              {t('vote.multichain.switchToBsc')}
+              {t('vote.multichain.switchToBnb')}
             </Button>
           }
         />

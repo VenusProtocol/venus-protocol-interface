@@ -104,14 +104,14 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         <NoticeInfo
           className="mt-4 w-full md:mt-6"
           data-testid={TEST_IDS.votingDisabledWarning}
-          title={t('vote.multichain.votingOnlyEnabledOnBsc')}
+          title={t('vote.multichain.votingOnlyEnabledOnBnb')}
           description={
             <Button
               className="h-auto"
               variant="text"
               onClick={() => switchChain({ chainId: governanceChain.id })}
             >
-              {t('vote.multichain.switchToBsc')}
+              {t('vote.multichain.switchToBnb')}
             </Button>
           }
         />
