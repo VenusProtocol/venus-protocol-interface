@@ -605,6 +605,9 @@
   "PrimeButton": {
     "primeLogoAlt": "Venus Prime logo"
   },
+  "primeCalculator": {
+    "topMessage": "Message TBD. <Link>Learn more</Link>"
+  },
   "primeStatusBanner": {
     "becomePrimeTitle": "You can now become a Prime user",
     "claimButtonLabel": "Claim Prime token",
