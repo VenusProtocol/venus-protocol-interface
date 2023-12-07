@@ -606,7 +606,12 @@
     "primeLogoAlt": "Venus Prime logo"
   },
   "primeCalculator": {
-    "topMessage": "Message TBD. <Link>Learn more</Link>"
+    "topMessage": "You can use the Prime calculator to estimate the rewards you'd receive from holding a Prime token based on your positions. <Link>Learn more</Link>"
+  },
+  "primeSimulator": {
+    "tokenSelect": {
+      "label": "Token"
+    }
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "You can now become a Prime user",
