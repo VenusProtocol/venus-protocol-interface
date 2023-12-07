@@ -1054,6 +1054,7 @@
     "votes": "Votes"
   },
   "wallets": {
+    "binanceWallet": "Binance Wallet",
     "bitKeep": "BitKeep",
     "braveWallet": "Brave Wallet",
     "coinbaseWallet": "Coinbase Wallet",
