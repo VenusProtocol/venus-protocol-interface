@@ -921,8 +921,8 @@
     "for": "For",
     "goToXvsSnapshot": "Go to XVS Snapshot",
     "multichain": {
-      "switchToBsc": "Switch to BSC chain",
-      "votingOnlyEnabledOnBsc": "Voting is only available on the BSC chain"
+      "switchToBnb": "Switch to BNB chain",
+      "votingOnlyEnabledOnBnb": "Voting is only available on the BNB chain"
     },
     "pages": {
       "actions": "3 of 3 Actions",
