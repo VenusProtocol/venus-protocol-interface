@@ -9,13 +9,18 @@ export const LunaUstWarningModal: React.FC = () => {
     closeLunaUstWarningModal,
     openLunaUstWarningModal,
     userHasLunaOrUstCollateralEnabled,
+    hasLunaUstWarningModalBeenOpened,
   } = useLunaUstWarning();
 
   useEffect(() => {
-    if (userHasLunaOrUstCollateralEnabled) {
+    if (userHasLunaOrUstCollateralEnabled && !hasLunaUstWarningModalBeenOpened) {
       openLunaUstWarningModal();
     }
-  }, [openLunaUstWarningModal, userHasLunaOrUstCollateralEnabled]);
+  }, [
+    openLunaUstWarningModal,
+    userHasLunaOrUstCollateralEnabled,
+    hasLunaUstWarningModalBeenOpened,
+  ]);
 
   return <Modal isOpen={isLunaUstWarningModalOpen} onClose={closeLunaUstWarningModal} />;
 };
