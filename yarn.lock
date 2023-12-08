@@ -7550,6 +7550,11 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-1.1.0.tgz#1481c66aac8b203351a1c9f9ae122f02f0135a58"
   integrity sha512-w9/6izVgEgMa4XHah57vzEppXNUWkQbDjgkDgNjGvd++FtFn1aEu7ROQgyx25vSMAeGoRN5h87ZV26UhPYOEYQ==
 
+"@venusprotocol/solidity-utilities@^1.1.1-dev.1":
+  version "1.1.1-dev.1"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-1.1.1-dev.1.tgz#b44703a687e4fd9a4f9a82724971dddaa6d8ee8b"
+  integrity sha512-jYXq+atoyBu0EQ4JykfdYXBzAaVDmfBrHtxEmLXqdlWw0n4ze9gBJobJBFZWt947290ihzaImvQ8fKGZvwKeAQ==
+
 "@venusprotocol/venus-protocol@0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-0.7.0.tgz#4cc1df0483348545d73cb95bac95acba48885846"
@@ -7558,16 +7563,16 @@
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
     dotenv "^16.0.1"
 
-"@venusprotocol/venus-protocol@^6.1.0-dev.5":
-  version "6.1.0-dev.5"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-6.1.0-dev.5.tgz#6bbed48e5c68538f3d7b216655fc6e9d7465dd6d"
-  integrity sha512-7A0LwmIHlzYzUxTtJHx9rzo6k65IRnGOe3tHQE95jQu1CxDDbGkHgFnlHVTA6FmJPWlhsch1NItynapz3lQNbA==
+"@venusprotocol/venus-protocol@^7.0.0-dev.1":
+  version "7.0.0-dev.1"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-7.0.0-dev.1.tgz#68714e367e9561d0bca25fb8b048408a75fda39c"
+  integrity sha512-sTqpashE0b8rGWsupnvYkZn6tiDZ2oqw/vfhQfVLKqvl06pBZwU3uURJzTx33RQqtqgX4PXls+zaew8D9ngpiQ==
   dependencies:
     "@openzeppelin/contracts" "4.9.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
     "@venusprotocol/governance-contracts" "^1.4.0-dev.2"
     "@venusprotocol/protocol-reserve" "1.2.0-dev.2"
-    "@venusprotocol/solidity-utilities" "^1.1.0"
+    "@venusprotocol/solidity-utilities" "^1.1.1-dev.1"
     bignumber.js "^9.1.2"
     dotenv "^16.0.1"
     module-alias "^2.2.2"
