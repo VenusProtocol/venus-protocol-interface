@@ -1,3 +1,10 @@
+## [2.60.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.1...v2.60.2) (2023-12-08)
+
+
+### Bug Fixes
+
+* stuck LUNA/UST warning modal ([#1924](https://github.com/VenusProtocol/venus-protocol-interface/issues/1924)) ([ec3ee21](https://github.com/VenusProtocol/venus-protocol-interface/commit/ec3ee212d3e1eeca27b60a44ceaceecb066dfb63))
+
 ## [2.60.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.0...v2.60.1) (2023-12-08)
 
 ## [2.60.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.59.1...v2.60.0) (2023-12-07)
