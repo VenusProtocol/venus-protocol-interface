@@ -96,7 +96,7 @@
     "@semantic-release/npm": "^10.0.5",
     "@semantic-release/release-notes-generator": "^11.0.7",
     "@storybook/addon-essentials": "7.2.1",
-    "@storybook/addon-interactions": "7.2.1",
+    "@storybook/addon-interactions": "7.6.4",
     "@storybook/addon-links": "7.2.1",
     "@storybook/blocks": "7.2.1",
     "@storybook/react": "7.2.1",
