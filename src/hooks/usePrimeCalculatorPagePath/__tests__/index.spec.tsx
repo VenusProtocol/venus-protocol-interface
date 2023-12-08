@@ -5,7 +5,7 @@ import { renderHook } from 'testUtils/render';
 
 import { routes } from 'constants/routing';
 
-import { usePrimeSimulationPagePath } from '..';
+import { usePrimeCalculatorPagePath } from '..';
 
 vi.mock('react-router', () => ({
   ...vi.importActual('react-router'),
@@ -13,21 +13,21 @@ vi.mock('react-router', () => ({
   matchPath: vi.fn(),
 }));
 
-describe('usePrimeSimulationPagePath', () => {
+describe('usePrimeCalculatorPagePath', () => {
   beforeEach(() => {
     (matchPath as Vi.Mock).mockImplementation((a, b) => a === b);
   });
 
   it.each([
-    { pathname: routes.account.path, expectedResult: routes.accountPrimeSimulator.path },
-    { pathname: routes.vaults.path, expectedResult: routes.vaultsPrimeSimulator.path },
-    { pathname: '/fake/path', expectedResult: routes.dashboardPrimeSimulator.path },
+    { pathname: routes.account.path, expectedResult: routes.accountPrimeCalculator.path },
+    { pathname: routes.vaults.path, expectedResult: routes.vaultsPrimeCalculator.path },
+    { pathname: '/fake/path', expectedResult: routes.dashboardPrimeCalculator.path },
   ])(
     'should return the right path based on the current location %s',
     ({ pathname, expectedResult }) => {
       (useLocation as Vi.Mock).mockImplementation(() => ({ pathname }));
 
-      const { result } = renderHook(() => usePrimeSimulationPagePath());
+      const { result } = renderHook(() => usePrimeCalculatorPagePath());
 
       expect(result.current).toBe(expectedResult);
     },

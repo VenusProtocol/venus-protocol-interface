@@ -1,7 +1,9 @@
 import { Icon, Link, Tooltip } from 'components';
+import { PRIME_DOC_URL } from 'constants/prime';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import { usePrimeSimulationPagePath } from 'hooks/usePrimeSimulationPagePath';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
 import { useTranslation } from 'packages/translations';
 import { PrimeSimulationDistribution, Token } from 'types';
 
@@ -21,7 +23,10 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
   xvs,
 }) => {
   const { t, Trans } = useTranslation();
-  const primeSimulationPageUrl = usePrimeSimulationPagePath();
+  const primeCalculatorPagePath = usePrimeCalculatorPagePath();
+  const isPrimeCalculatorEnabled = useIsFeatureEnabled({
+    name: 'primeCalculator',
+  });
 
   const readablePrimeApy = useFormatPercentageToReadableValue({
     value: primeSimulationDistribution.apyPercentage,
@@ -45,6 +50,12 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
     addSymbol: true,
   });
 
+  const values = {
+    supplyBalance: readableReferenceSupplyBalance,
+    borrowBalance: readableReferenceBorrowBalance,
+    xvsStaked: readableReferenceXvsStaked,
+  };
+
   return (
     <div>
       <p className="text-sm">
@@ -62,17 +73,23 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
         <Tooltip
           className="inline-block align-middle"
           title={
-            <Trans
-              i18nKey="marketTable.apy.primeSimulationBoost.tooltip"
-              values={{
-                supplyBalance: readableReferenceSupplyBalance,
-                borrowBalance: readableReferenceBorrowBalance,
-                xvsStaked: readableReferenceXvsStaked,
-              }}
-              components={{
-                Link: <Link to={primeSimulationPageUrl} onClick={e => e.stopPropagation()} />,
-              }}
-            />
+            isPrimeCalculatorEnabled ? (
+              <Trans
+                i18nKey="marketTable.apy.primeSimulationBoost.tooltip.primeCalculator"
+                values={values}
+                components={{
+                  Link: <Link to={primeCalculatorPagePath} onClick={e => e.stopPropagation()} />,
+                }}
+              />
+            ) : (
+              <Trans
+                i18nKey="marketTable.apy.primeSimulationBoost.tooltip.primeDoc"
+                values={values}
+                components={{
+                  Link: <Link href={PRIME_DOC_URL} onClick={e => e.stopPropagation()} />,
+                }}
+              />
+            )
           }
         >
           <Icon name="info" />

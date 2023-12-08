@@ -11,10 +11,12 @@ import {
   useGetXvsVaultUserInfo,
 } from 'clients/api';
 import { Card, Link, PrimaryButton, ProgressBar } from 'components';
+import { PRIME_DOC_URL } from 'constants/prime';
 import { routes } from 'constants/routing';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertMantissaToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
-import { usePrimeSimulationPagePath } from 'hooks/usePrimeSimulationPagePath';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
 import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
@@ -146,7 +148,10 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     t,
   ]);
 
-  const primeSimulationPageUrl = usePrimeSimulationPagePath();
+  const primeCalculatorPagePath = usePrimeCalculatorPagePath();
+  const isPrimeCalculatorEnabled = useIsFeatureEnabled({
+    name: 'primeCalculator',
+  });
 
   const displayProgress = !isUserXvsStakeHighEnoughForPrime;
   const displayWarning = haveAllPrimeTokensBeenClaimed;
@@ -216,17 +221,31 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
             {displayProgress && (
               <p className="text-grey">
-                <Trans
-                  i18nKey="primeStatusBanner.description"
-                  components={{
-                    WhiteText: <span className="text-offWhite" />,
-                    Link: <Link to={primeSimulationPageUrl} />,
-                  }}
-                  values={{
-                    stakeDelta: readableStakeDeltaTokens,
-                    claimWaitingPeriod: readableClaimWaitingPeriod,
-                  }}
-                />
+                {isPrimeCalculatorEnabled ? (
+                  <Trans
+                    i18nKey="primeStatusBanner.description.primeCalculator"
+                    components={{
+                      WhiteText: <span className="text-offWhite" />,
+                      Link: <Link to={primeCalculatorPagePath} />,
+                    }}
+                    values={{
+                      stakeDelta: readableStakeDeltaTokens,
+                      claimWaitingPeriod: readableClaimWaitingPeriod,
+                    }}
+                  />
+                ) : (
+                  <Trans
+                    i18nKey="primeStatusBanner.description.primeDoc"
+                    components={{
+                      WhiteText: <span className="text-offWhite" />,
+                      Link: <Link href={PRIME_DOC_URL} />,
+                    }}
+                    values={{
+                      stakeDelta: readableStakeDeltaTokens,
+                      claimWaitingPeriod: readableClaimWaitingPeriod,
+                    }}
+                  />
+                )}
               </p>
             )}
           </div>

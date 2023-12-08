@@ -107,6 +107,18 @@
       "supplyApyTooltip": "Supply APY + Distribution APYs"
     }
   },
+  "assetWarning": {
+    "assetTable": {
+      "assetColumnTitle": "Asset",
+      "borrowApyColumnTitle": "Borrow APY",
+      "liquidityColumnTitle": "Liquidity",
+      "supplyApyColumnTitle": "Supply APY"
+    },
+    "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool.",
+    "hideAssetsButtonLabel": "Hide assets",
+    "showMarketsButtonLabel": "Show tokens from the {{poolName}} pool",
+    "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively."
+  },
   "authModal": {
     "accountDetails": {
       "logOutButtonLabel": "Log out"
@@ -130,7 +142,7 @@
     "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
     "markets": "Markets",
-    "primeSimulator": "Prime simulator",
+    "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
     "swap": "Swap",
     "vai": "VAI",
@@ -185,7 +197,10 @@
       "title": "Connect your wallet"
     },
     "primePromotionalBanner": {
-      "buttonLabel": "Calculate your Prime rewards",
+      "buttonLabel": {
+        "primeCalculator": "Calculate your Prime rewards",
+        "primeDoc": "Learn more"
+      },
       "description": "Venus Prime and the Venus Prime Token reward dedicated users of Venus with real yield for superior rates with their lending and borrowing activities.",
       "illustration": {
         "alt": "Prime promotional banner"
@@ -270,18 +285,6 @@
       "supplyApy": "Supply APY",
       "utilizationRate": "Utilization rate"
     }
-  },
-  "assetWarningWarning": {
-    "assetTable": {
-      "assetColumnTitle": "Asset",
-      "borrowApyColumnTitle": "Borrow APY",
-      "liquidityColumnTitle": "Liquidity",
-      "supplyApyColumnTitle": "Supply APY"
-    },
-    "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool.",
-    "hideAssetsButtonLabel": "Hide assets",
-    "showMarketsButtonLabel": "Show tokens from the {{poolName}} pool",
-    "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively."
   },
   "layout": {
     "chainSelect": {
@@ -399,7 +402,10 @@
       },
       "primeSimulationBoost": {
         "label": "{{apyPrimeBoost}} Prime boost",
-        "tooltip": "Prime boost based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Calculate your Prime rewards</Link>"
+        "tooltip": {
+          "primeCalculator": "Prime boost based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Calculate your Prime rewards</Link>",
+          "primeDoc": "Prime boost based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Learn more</Link>"
+        }
       }
     },
     "columnKeys": {
@@ -567,7 +573,10 @@
   "primeStatusBanner": {
     "becomePrimeTitle": "You can now become a Prime user",
     "claimButtonLabel": "Claim Prime token",
-    "description": "Stake <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Calculate your Prime rewards</Link>",
+    "description": {
+      "primeCalculator": "Stake <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Calculate your Prime rewards</Link>",
+      "primeDoc": "Stake <WhiteText>{{stakeDelta}}</WhiteText> more then wait {{claimWaitingPeriod}} to claim your Prime token and boost your earnings. <Link>Learn more</Link>"
+    },
     "noPrimeTokenWarning": {
       "text": "All Prime tokens have been claimed",
       "tooltip": "All {{primeTokenLimit}} Prime tokens are currently claimed. Some may become available if owners no longer meet the eligibility criteria or if we add more."

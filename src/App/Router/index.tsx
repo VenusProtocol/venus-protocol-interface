@@ -25,7 +25,7 @@ const Vaults = lazy(() => import('pages/Vault'));
 const Voter = lazy(() => import('pages/Voter'));
 const VoterLeaderboard = lazy(() => import('pages/VoterLeaderboard'));
 const Xvs = lazy(() => import('pages/Xvs'));
-const PrimeSimulator = lazy(() => import('pages/PrimeSimulator'));
+const PrimeCalculator = lazy(() => import('pages/PrimeCalculator'));
 
 const Router = () => {
   const { accountAddress } = useAccountAddress();
@@ -33,7 +33,9 @@ const Router = () => {
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
-  const primeEnabled = useIsFeatureEnabled({ name: 'prime' });
+  const primeCalculatorEnabled = useIsFeatureEnabled({
+    name: 'primeCalculator',
+  });
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -66,12 +68,12 @@ const Router = () => {
         }
       />
 
-      {primeEnabled && (
+      {primeCalculatorEnabled && (
         <Route
-          path={routes.dashboardPrimeSimulator.path}
+          path={routes.dashboardPrimeCalculator.path}
           element={
             <PageSuspense>
-              <PrimeSimulator />
+              <PrimeCalculator />
             </PageSuspense>
           }
         />
@@ -88,12 +90,12 @@ const Router = () => {
         />
       )}
 
-      {!!accountAddress && primeEnabled && (
+      {!!accountAddress && primeCalculatorEnabled && (
         <Route
-          path={routes.accountPrimeSimulator.path}
+          path={routes.accountPrimeCalculator.path}
           element={
             <PageSuspense>
-              <PrimeSimulator />
+              <PrimeCalculator />
             </PageSuspense>
           }
         />
@@ -153,12 +155,12 @@ const Router = () => {
         }
       />
 
-      {primeEnabled && (
+      {primeCalculatorEnabled && (
         <Route
-          path={routes.vaultsPrimeSimulator.path}
+          path={routes.vaultsPrimeCalculator.path}
           element={
             <PageSuspense>
-              <PrimeSimulator />
+              <PrimeCalculator />
             </PageSuspense>
           }
         />

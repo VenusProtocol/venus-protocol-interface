@@ -33,11 +33,11 @@ export const AssetTable: React.FC<AssetTableProps> = ({
   const parentStyles = useParentStyles();
 
   const headerColumnLabels = [
-    t('assetWarningWarning.assetTable.assetColumnTitle'),
+    t('assetWarning.assetTable.assetColumnTitle'),
     type === 'borrow'
-      ? t('assetWarningWarning.assetTable.borrowApyColumnTitle')
-      : t('assetWarningWarning.assetTable.supplyApyColumnTitle'),
-    t('assetWarningWarning.assetTable.liquidityColumnTitle'),
+      ? t('assetWarning.assetTable.borrowApyColumnTitle')
+      : t('assetWarning.assetTable.supplyApyColumnTitle'),
+    t('assetWarning.assetTable.liquidityColumnTitle'),
   ];
 
   const sortedAssets = [...assets].sort((a, b) =>
@@ -86,7 +86,7 @@ export const AssetTable: React.FC<AssetTableProps> = ({
       <div css={[styles.row, styles.footer]}>
         <TextButton css={parentStyles.inlineButton} onClick={onHideAssetsButtonClick}>
           <div css={styles.hideAssetButtonContent}>
-            <span>{t('assetWarningWarning.hideAssetsButtonLabel')}</span>
+            <span>{t('assetWarning.hideAssetsButtonLabel')}</span>
 
             <Icon name="arrowUp" css={styles.hideAssetButtonIcon} />
           </div>

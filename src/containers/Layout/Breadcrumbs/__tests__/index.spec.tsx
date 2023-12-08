@@ -59,9 +59,9 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     [routes.vaults.path, routes.vaults.path],
     [routes.convertVrt.path, routes.convertVrt.path],
     [routes.swap.path, routes.swap.path],
-    [routes.accountPrimeSimulator.path, routes.accountPrimeSimulator.path],
-    [routes.dashboardPrimeSimulator.path, routes.dashboardPrimeSimulator.path],
-    [routes.vaultsPrimeSimulator.path, routes.vaultsPrimeSimulator.path],
+    [routes.accountPrimeCalculator.path, routes.accountPrimeCalculator.path],
+    [routes.dashboardPrimeCalculator.path, routes.dashboardPrimeCalculator.path],
+    [routes.vaultsPrimeCalculator.path, routes.vaultsPrimeCalculator.path],
   ])('outputs the right DOM based on the current path: %s', async (pathname, originalRoute) => {
     const { container } = renderComponent(<Breadcrumbs />, {
       routerInitialEntries: [pathname],

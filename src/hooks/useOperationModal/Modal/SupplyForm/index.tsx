@@ -180,7 +180,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           token={asset.vToken.underlyingToken}
           pool={pool}
           type="supply"
-          css={sharedStyles.assetWarningWarning}
+          css={sharedStyles.assetWarning}
           data-testid={TEST_IDS.noticeAssetWarning}
         />
 

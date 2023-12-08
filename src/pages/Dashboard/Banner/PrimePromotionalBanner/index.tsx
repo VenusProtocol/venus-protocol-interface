@@ -1,5 +1,7 @@
 import { ButtonWrapper, Card, Icon, Link } from 'components';
-import { usePrimeSimulationPagePath } from 'hooks/usePrimeSimulationPagePath';
+import { PRIME_DOC_URL } from 'constants/prime';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
 import { useTranslation } from 'packages/translations';
 
 import boostsIllustration from './boostsIllustration.png';
@@ -13,7 +15,10 @@ export interface PrimePromotionalBannerProps {
 
 export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ onHide }) => {
   const { t, Trans } = useTranslation();
-  const primeSimulationPageUrl = usePrimeSimulationPagePath();
+  const primeCalculatorPagePath = usePrimeCalculatorPagePath();
+  const isPrimeCalculatorEnabled = useIsFeatureEnabled({
+    name: 'primeCalculator',
+  });
 
   return (
     <Card className="relative mb-8 overflow-hidden border border-lightGrey py-6 sm:p-0 md:p-0">
@@ -67,12 +72,21 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
             </p>
 
             <ButtonWrapper variant="secondary" className="w-full sm:w-auto" asChild>
-              <Link
-                to={primeSimulationPageUrl}
-                className="text-offWhite no-underline hover:no-underline"
-              >
-                {t('dashboard.primePromotionalBanner.buttonLabel')}
-              </Link>
+              {isPrimeCalculatorEnabled ? (
+                <Link
+                  to={primeCalculatorPagePath}
+                  className="text-offWhite no-underline hover:no-underline"
+                >
+                  {t('dashboard.primePromotionalBanner.buttonLabel.primeCalculator')}
+                </Link>
+              ) : (
+                <Link
+                  href={PRIME_DOC_URL}
+                  className="text-offWhite no-underline hover:no-underline"
+                >
+                  {t('dashboard.primePromotionalBanner.buttonLabel.primeDoc')}
+                </Link>
+              )}
             </ButtonWrapper>
           </div>
         </div>
