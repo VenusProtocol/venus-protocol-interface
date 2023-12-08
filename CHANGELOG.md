@@ -1,3 +1,10 @@
+## [2.60.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.2...v2.60.3) (2023-12-08)
+
+
+### Bug Fixes
+
+* provider and signer initialization in contract hooks ([#1925](https://github.com/VenusProtocol/venus-protocol-interface/issues/1925)) ([e878864](https://github.com/VenusProtocol/venus-protocol-interface/commit/e8788649a212685aab197b9d8f737fc643538efb))
+
 ## [2.60.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.1...v2.60.2) (2023-12-08)
 
 
