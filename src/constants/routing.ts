@@ -21,14 +21,14 @@ export enum Subdirectory {
   SWAP = '/swap',
   CONVERT_VRT = '/convert-vrt',
   VAI = '/vai',
-  PRIME_SIMULATOR = '/prime-simulator',
+  PRIME_CALCULATOR = '/prime-calculator',
 }
 
 const routeSubdirectories = {
   dashboard: [Subdirectory.DASHBOARD],
-  dashboardPrimeSimulator: [Subdirectory.DASHBOARD, Subdirectory.PRIME_SIMULATOR],
+  dashboardPrimeCalculator: [Subdirectory.DASHBOARD, Subdirectory.PRIME_CALCULATOR],
   account: [Subdirectory.ACCOUNT],
-  accountPrimeSimulator: [Subdirectory.ACCOUNT, Subdirectory.PRIME_SIMULATOR],
+  accountPrimeCalculator: [Subdirectory.ACCOUNT, Subdirectory.PRIME_CALCULATOR],
   xvs: [Subdirectory.XVS],
   isolatedPools: [Subdirectory.ISOLATED_POOLS],
   corePool: [Subdirectory.CORE_POOL],
@@ -52,7 +52,7 @@ const routeSubdirectories = {
   swap: [Subdirectory.SWAP],
   convertVrt: [Subdirectory.CONVERT_VRT],
   vaults: [Subdirectory.VAULTS],
-  vaultsPrimeSimulator: [Subdirectory.VAULTS, Subdirectory.PRIME_SIMULATOR],
+  vaultsPrimeCalculator: [Subdirectory.VAULTS, Subdirectory.PRIME_CALCULATOR],
   vai: [Subdirectory.VAI],
 };
 

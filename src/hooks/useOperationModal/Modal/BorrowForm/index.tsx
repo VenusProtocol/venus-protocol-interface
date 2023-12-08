@@ -113,7 +113,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         pool={pool}
         token={asset.vToken.underlyingToken}
         type="borrow"
-        css={sharedStyles.assetWarningWarning}
+        css={sharedStyles.assetWarning}
       />
 
       <div css={[sharedStyles.getRow({ isLast: true })]}>

@@ -130,8 +130,8 @@ export const Breadcrumbs: React.FC = () => {
         case Subdirectory.VAI:
           dom = t('breadcrumbs.vai');
           break;
-        case Subdirectory.PRIME_SIMULATOR:
-          dom = t('breadcrumbs.primeSimulator');
+        case Subdirectory.PRIME_CALCULATOR:
+          dom = t('breadcrumbs.primeCalculator');
           break;
         default:
           break;

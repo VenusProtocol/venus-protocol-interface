@@ -31,7 +31,7 @@ describe('components/AssetWarning', () => {
     );
 
     const showAssetsButton = getByText(
-      en.assetWarningWarning.showMarketsButtonLabel.replace('{{poolName}}', fakePool.name),
+      en.assetWarning.showMarketsButtonLabel.replace('{{poolName}}', fakePool.name),
     );
     fireEvent.click(showAssetsButton);
 

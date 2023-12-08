@@ -49,12 +49,12 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
           <>
             <div css={styles.description}>
               {type === 'borrow'
-                ? t('assetWarningWarning.borrowDescription', translationArgs)
-                : t('assetWarningWarning.supplyDescription', translationArgs)}
+                ? t('assetWarning.borrowDescription', translationArgs)
+                : t('assetWarning.supplyDescription', translationArgs)}
             </div>
 
             <TextButton css={styles.inlineButton} onClick={handleShowAssets}>
-              {t('assetWarningWarning.showMarketsButtonLabel', {
+              {t('assetWarning.showMarketsButtonLabel', {
                 poolName: pool.name,
               })}
             </TextButton>
