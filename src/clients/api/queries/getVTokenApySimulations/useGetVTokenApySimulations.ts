@@ -10,6 +10,7 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'packages/contracts';
 import { useChainId, useProvider } from 'packages/wallet';
 import { Asset, ChainId, VToken } from 'types';
+import { callOrThrow } from 'utilities';
 
 export type UseGetVTokenApySimulationsQueryKey = [
   FunctionKey.GET_V_TOKEN_APY_SIMULATIONS,
@@ -60,12 +61,13 @@ const useGetVTokenApySimulations = (
   return useQuery(
     [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: vToken.address, chainId }],
     () =>
-      getVTokenApySimulations({
-        interestRateModelContract: interestRateModelContract!, // Checked through enabled option
-        asset: asset!, // Checked through enabled option
-        isIsolatedPoolMarket,
-        blocksPerDay,
-      }),
+      callOrThrow({ interestRateModelContract, asset }, params =>
+        getVTokenApySimulations({
+          ...params,
+          isIsolatedPoolMarket,
+          blocksPerDay,
+        }),
+      ),
     {
       ...options,
       enabled:

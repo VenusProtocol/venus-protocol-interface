@@ -1,12 +1,12 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
+import { useMemo } from 'react';
+
 import abi from 'packages/contracts/generated/infos/abis/{{contractName}}.json';
 import addresses from 'packages/contracts/generated/infos/addresses';
 import { {{contractName}} } from 'packages/contracts/generated/infos/contractTypes';
-import { useMemo } from 'react';
-import { ChainId } from 'types';
-
 import { useChainId, useProvider, useSigner } from 'packages/wallet';
+import { ChainId } from 'types';
 
 interface Get{{contractName}}ContractAddressInput {
   comptrollerContractAddress: string;

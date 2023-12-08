@@ -1,21 +1,18 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
+import { useMemo } from 'react';
+
 import abi from 'packages/contracts/generated/infos/abis/{{contractName}}.json';
 import { {{contractName}} } from 'packages/contracts/generated/infos/contractTypes';
-import { useMemo } from 'react';
-import { ChainId } from 'types';
-
 import { useProvider, useSigner } from 'packages/wallet';
+import { ChainId } from 'types';
 
 interface Get{{contractName}}ContractInput {
   address: string;
   signerOrProvider: Signer | Provider;
 }
 
-export const get{{contractName}}Contract = ({
-  signerOrProvider,
-  address,
-}: Get{{contractName}}ContractInput) =>
+export const get{{contractName}}Contract = ({ signerOrProvider, address }: Get{{contractName}}ContractInput) =>
   new Contract(address, abi, signerOrProvider) as {{contractName}};
 
 interface UseGet{{contractName}}ContractInput {
