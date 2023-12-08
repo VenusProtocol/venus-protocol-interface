@@ -3,6 +3,7 @@ import { useWalletClient } from 'wagmi';
 
 import { ChainId } from 'types';
 
+import { useChainId } from '../useChainId';
 import { getSigner } from './getSigner';
 
 export interface UseSignerInput {
@@ -10,7 +11,10 @@ export interface UseSignerInput {
 }
 
 export const useSigner = (input?: UseSignerInput) => {
-  const { data: walletClient } = useWalletClient({ chainId: input?.chainId });
+  const { chainId: currentChainId } = useChainId();
+  const chainId = input?.chainId || currentChainId;
+  const { data: walletClient } = useWalletClient({ chainId });
+
   const signer = useMemo(
     () => getSigner({ walletClient: walletClient || undefined }),
     [walletClient],

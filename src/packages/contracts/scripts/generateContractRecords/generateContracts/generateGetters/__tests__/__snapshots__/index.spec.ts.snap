@@ -3,22 +3,23 @@
 exports[`generateGetters > calls writeFile with the right arguments 1`] = `
 [
   {
-    "content": "/* Automatically generated file, do not update manually */
-import type { Provider } from '@ethersproject/abstract-provider';
+    "content": "import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
+import { useMemo } from 'react';
+
 import abi from 'packages/contracts/generated/infos/abis/PoolLens.json';
 import { PoolLens } from 'packages/contracts/generated/infos/contractTypes';
-import { useMemo } from 'react';
-import { ChainId } from 'types';
-
 import { getUniqueContractAddress } from 'packages/contracts/utilities/getUniqueContractAddress';
 import { useChainId, useProvider, useSigner } from 'packages/wallet';
+import { ChainId } from 'types';
 
 interface GetPoolLensContractAddressInput {
   chainId: ChainId;
 }
 
-export const getPoolLensContractAddress = ({ chainId }: GetPoolLensContractAddressInput) =>
+export const getPoolLensContractAddress = ({
+  chainId,
+}: GetPoolLensContractAddressInput) =>
   getUniqueContractAddress({ name: 'PoolLens', chainId });
 
 export const useGetPoolLensContractAddress = () => {
@@ -38,7 +39,10 @@ interface GetPoolLensContractInput {
   signerOrProvider: Signer | Provider;
 }
 
-export const getPoolLensContract = ({ chainId, signerOrProvider }: GetPoolLensContractInput) => {
+export const getPoolLensContract = ({
+  chainId,
+  signerOrProvider,
+}: GetPoolLensContractInput) => {
   const address = getPoolLensContractAddress({ chainId });
   return address ? (new Contract(address, abi, signerOrProvider) as PoolLens) : undefined;
 };
@@ -78,22 +82,19 @@ exports[`generateGetters > calls writeFile with the right arguments 2`] = `
   {
     "content": "import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
+import { useMemo } from 'react';
+
 import abi from 'packages/contracts/generated/infos/abis/IsolatedPoolComptroller.json';
 import { IsolatedPoolComptroller } from 'packages/contracts/generated/infos/contractTypes';
-import { useMemo } from 'react';
-import { ChainId } from 'types';
-
 import { useProvider, useSigner } from 'packages/wallet';
+import { ChainId } from 'types';
 
 interface GetIsolatedPoolComptrollerContractInput {
   address: string;
   signerOrProvider: Signer | Provider;
 }
 
-export const getIsolatedPoolComptrollerContract = ({
-  signerOrProvider,
-  address,
-}: GetIsolatedPoolComptrollerContractInput) =>
+export const getIsolatedPoolComptrollerContract = ({ signerOrProvider, address }: GetIsolatedPoolComptrollerContractInput) =>
   new Contract(address, abi, signerOrProvider) as IsolatedPoolComptroller;
 
 interface UseGetIsolatedPoolComptrollerContractInput {
@@ -133,13 +134,13 @@ exports[`generateGetters > calls writeFile with the right arguments 3`] = `
   {
     "content": "import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
+import { useMemo } from 'react';
+
 import abi from 'packages/contracts/generated/infos/abis/SwapRouter.json';
 import addresses from 'packages/contracts/generated/infos/addresses';
 import { SwapRouter } from 'packages/contracts/generated/infos/contractTypes';
-import { useMemo } from 'react';
-import { ChainId } from 'types';
-
 import { useChainId, useProvider, useSigner } from 'packages/wallet';
+import { ChainId } from 'types';
 
 interface GetSwapRouterContractAddressInput {
   comptrollerContractAddress: string;

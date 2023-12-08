@@ -1,19 +1,20 @@
-/* Automatically generated file, do not update manually */
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
+import { useMemo } from 'react';
+
 import abi from 'packages/contracts/generated/infos/abis/{{contractName}}.json';
 import { {{contractName}} } from 'packages/contracts/generated/infos/contractTypes';
-import { useMemo } from 'react';
-import { ChainId } from 'types';
-
 import { getUniqueContractAddress } from 'packages/contracts/utilities/getUniqueContractAddress';
 import { useChainId, useProvider, useSigner } from 'packages/wallet';
+import { ChainId } from 'types';
 
 interface Get{{contractName}}ContractAddressInput {
   chainId: ChainId;
 }
 
-export const get{{contractName}}ContractAddress = ({ chainId }: Get{{contractName}}ContractAddressInput) =>
+export const get{{contractName}}ContractAddress = ({
+  chainId,
+}: Get{{contractName}}ContractAddressInput) =>
   getUniqueContractAddress({ name: '{{contractName}}', chainId });
 
 export const useGet{{contractName}}ContractAddress = () => {
@@ -33,7 +34,10 @@ interface Get{{contractName}}ContractInput {
   signerOrProvider: Signer | Provider;
 }
 
-export const get{{contractName}}Contract = ({ chainId, signerOrProvider }: Get{{contractName}}ContractInput) => {
+export const get{{contractName}}Contract = ({
+  chainId,
+  signerOrProvider,
+}: Get{{contractName}}ContractInput) => {
   const address = get{{contractName}}ContractAddress({ chainId });
   return address ? (new Contract(address, abi, signerOrProvider) as {{contractName}}) : undefined;
 };
