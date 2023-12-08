@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { useGetLegacyPool } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -17,10 +17,18 @@ export const useLunaUstWarning = () => {
   });
 
   const isLunaUstWarningModalOpen = store.use.isModalOpen();
-  const setIsModalOpen = store.use.setIsModalOpen();
 
-  const openLunaUstWarningModal = () => setIsModalOpen({ isModalOpen: true });
-  const closeLunaUstWarningModal = () => setIsModalOpen({ isModalOpen: false });
+  const setIsModalOpen = store.use.setIsModalOpen();
+  const hasLunaUstWarningModalBeenOpened = store.use.wasModalOpenedThisSession();
+
+  const openLunaUstWarningModal = useCallback(
+    () => setIsModalOpen({ isModalOpen: true }),
+    [setIsModalOpen],
+  );
+  const closeLunaUstWarningModal = useCallback(
+    () => setIsModalOpen({ isModalOpen: false }),
+    [setIsModalOpen],
+  );
 
   const userHasLunaOrUstCollateralEnabled = useMemo(
     () =>
@@ -40,5 +48,6 @@ export const useLunaUstWarning = () => {
     openLunaUstWarningModal,
     closeLunaUstWarningModal,
     isLunaUstWarningModalOpen,
+    hasLunaUstWarningModalBeenOpened,
   };
 };
