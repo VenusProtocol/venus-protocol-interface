@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 
 import { useGetLegacyPool } from 'clients/api';
@@ -19,6 +20,7 @@ export const Form: React.FC = () => {
   const { t } = useTranslation();
   const { data: getLegacyPoolData, isLoading: isGetLegacyPoolLoading } = useGetLegacyPool();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { register, handleSubmit, watch } = useForm();
 
   const options = useMemo(() => {
     // Extract tokens affected by Prime
