@@ -36,6 +36,21 @@ export const disabledTokenActions: DisabledTokenAction[] = [
     address: '0x250632378E573c6Be1AC2f97Fcdf00515d0Aa91B',
     disabledActions: ['borrow'],
   },
+  {
+    // stkBNB
+    address: '0xc2E9d07F66A89c44062459A47a0D2Dc038E4fb16',
+    disabledActions: ['borrow', 'supply'],
+  },
+  {
+    // SnBNB
+    address: '0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B',
+    disabledActions: ['borrow', 'supply'],
+  },
+  {
+    // agEUR
+    address: '0x12f31b73d812c6bb0d735a218c086d44d5fe5f89',
+    disabledActions: ['borrow', 'supply'],
+  },
   // BNB
   {
     address: '0x0000000000000000000000000000000000000000',
