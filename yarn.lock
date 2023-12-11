@@ -7435,9 +7435,9 @@
     module-alias "^2.2.2"
 
 "@venusprotocol/isolated-pools@^2.3.0-dev.4":
-  version "2.3.0-dev.4"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.3.0-dev.4.tgz#7ef6227b6096dc1fc4013f739d4e1ed93edbe72c"
-  integrity sha512-+x917UvUIeVZ2BVI/RhWkQTAgmLvKYqNWZmiHeTPUmP7PCaIvLjTeby7ig67X1TOgtRvu+GAXpiJv0fGSpU5HQ==
+  version "2.3.0-dev.6"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.3.0-dev.6.tgz#58091e09cc8d2a5402937ccd236e606fbe44ddd6"
+  integrity sha512-RUEExamnvc6fIFTyypdtWogDQFlteITYEZaVpGDh9tds0ph2C8cDFjc75pM1/RgqQFjRHWxZ5hqma165+nLH5g==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
