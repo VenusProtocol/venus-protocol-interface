@@ -54,8 +54,9 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     if (
       !asset ||
       !asset.isCollateralOfUser ||
+      pool?.userBorrowLimitCents === undefined ||
       pool?.userBorrowBalanceCents === undefined ||
-      pool?.userBorrowLimitCents === undefined
+      pool.userBorrowBalanceCents.isEqualTo(0)
     ) {
       return maxTokensBeforeLiquidation;
     }
