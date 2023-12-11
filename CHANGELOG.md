@@ -1,3 +1,10 @@
+## [2.60.5](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.4...v2.60.5) (2023-12-11)
+
+
+### Bug Fixes
+
+* disable actions for stkBNB, SnBNB and agEUR ([38c3521](https://github.com/VenusProtocol/venus-protocol-interface/commit/38c3521999324e685495dc5551feef1b07b63a21))
+
 ## [2.60.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.3...v2.60.4) (2023-12-08)
 
 ## [2.60.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.2...v2.60.3) (2023-12-08)
