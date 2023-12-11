@@ -1,6 +1,7 @@
 import { BaseProvider, FallbackProvider, JsonRpcProvider } from '@ethersproject/providers';
 
 export enum Connector {
+  BinanceWallet = 'BinanceW3W',
   MetaMask = 'MetaMask',
   TrustWallet = 'TrustWallet',
   WalletConnect = 'WalletConnect',

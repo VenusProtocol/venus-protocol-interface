@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@0xsequence/multicall": "^1.2.9",
+    "@binance/w3w-wagmi-connector" : "^1.0.1",
     "@binance-chain/bsc-connector": "^1.0.0",
     "@emotion/react": "^11.11.1",
     "@ethersproject/abstract-signer": "^5.7.0",
@@ -82,6 +83,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "17.7.0",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@graphql-codegen/add": "^5.0.0",

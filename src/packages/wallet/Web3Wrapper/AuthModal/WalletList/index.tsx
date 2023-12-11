@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import { Trans } from 'react-i18next';
 
-import { NoticeInfo } from 'components/Notice';
 import config from 'config';
 import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
@@ -29,10 +27,6 @@ export const WalletList: React.FC<WalletListProps> = ({ onLogIn }) => {
 
   return (
     <div css={styles.container}>
-      <NoticeInfo
-        className="mb-4"
-        description={<Trans i18nKey="authModal.binanceChainWalletMigrationInfo" />}
-      />
       <div css={styles.walletList}>
         {WALLETS.filter(({ mainnetOnly }) => !mainnetOnly || !config.isOnTestnet).map(
           ({ name, connector, Logo }) => (
