@@ -1,3 +1,12 @@
+## [2.61.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.6...v2.61.0) (2023-12-11)
+
+
+### Features
+
+* add Binance connector logic ([fee85a1](https://github.com/VenusProtocol/venus-protocol-interface/commit/fee85a1143ab7ffb7e54141f65d5eaf5fd71d7ce))
+* remove warning about Binance Chain Wallet ([54cd8cb](https://github.com/VenusProtocol/venus-protocol-interface/commit/54cd8cbfdb657d5720e2854e2747bcd664fd1743))
+* set isIsolatedPoolMarket for non BNB core pools ([399d41b](https://github.com/VenusProtocol/venus-protocol-interface/commit/399d41b509a4de3311aba959de689530061fe81a))
+
 ## [2.60.6](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.5...v2.60.6) (2023-12-11)
 
 ## [2.60.5](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.4...v2.60.5) (2023-12-11)
