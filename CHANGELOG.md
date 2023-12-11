@@ -1,3 +1,10 @@
+## [2.61.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.61.0...v2.61.1) (2023-12-11)
+
+
+### Bug Fixes
+
+* withdrawable amount edge case ([#1935](https://github.com/VenusProtocol/venus-protocol-interface/issues/1935)) ([87f74f0](https://github.com/VenusProtocol/venus-protocol-interface/commit/87f74f06aedc6270ef684c983e6c3bcc343ae831))
+
 ## [2.61.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.60.6...v2.61.0) (2023-12-11)
 
 
