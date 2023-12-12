@@ -11,14 +11,8 @@ import {
   useGetProposalThreshold,
   useQueueProposal,
 } from 'clients/api';
-import {
-  ChainExplorerLink,
-  Chip,
-  Countdown,
-  PrimaryButton,
-  ProposalTypeChip,
-  SecondaryButton,
-} from 'components';
+import { Chip, Countdown, PrimaryButton, ProposalTypeChip, SecondaryButton } from 'components';
+import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress, useChainId } from 'packages/wallet';

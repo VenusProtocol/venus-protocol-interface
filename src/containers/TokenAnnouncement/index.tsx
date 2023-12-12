@@ -3,8 +3,8 @@ import { useTranslation } from 'packages/translations';
 import { Token } from 'types';
 import { areAddressesEqual } from 'utilities';
 
-import { Link } from '../../components/Link';
 import { NoticeInfo, NoticeWarning } from '../../components/Notice';
+import { Link } from '../Link';
 
 export interface TokenAnnouncementProps {
   token: Token;

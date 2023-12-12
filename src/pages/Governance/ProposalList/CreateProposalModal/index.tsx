@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Form, Formik, useFormikContext } from 'formik';
 import { useMemo, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { CreateProposalInput } from 'clients/api';
 import { Modal } from 'components';
 import { routes } from 'constants/routing';
+import { useNavigate } from 'hooks/useNavigate';
 import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import formatProposalPayload from 'pages/Governance/ProposalList/CreateProposalModal/formatProposalPayload';

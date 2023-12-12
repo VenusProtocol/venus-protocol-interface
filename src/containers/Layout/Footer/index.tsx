@@ -1,5 +1,5 @@
 import { useGetBlockNumber } from 'clients/api';
-import { Link } from 'components';
+import { Link } from 'containers/Link';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';

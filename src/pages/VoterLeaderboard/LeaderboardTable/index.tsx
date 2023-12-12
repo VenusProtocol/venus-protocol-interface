@@ -2,10 +2,10 @@
 import { Typography } from '@mui/material';
 import _cloneDeep from 'lodash/cloneDeep';
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 
 import { EllipseAddress, Table, TableColumn } from 'components';
 import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { VoterAccount } from 'types';

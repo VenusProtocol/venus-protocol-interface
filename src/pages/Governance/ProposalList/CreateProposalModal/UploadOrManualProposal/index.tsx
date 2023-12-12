@@ -2,7 +2,8 @@
 import { Box } from '@mui/material';
 import { useRef } from 'react';
 
-import { Link, NoticeInfo, SecondaryButton } from 'components';
+import { NoticeInfo, SecondaryButton } from 'components';
+import { Link } from 'containers/Link';
 import { useTranslation } from 'packages/translations';
 
 import TEST_IDS from '../testIds';

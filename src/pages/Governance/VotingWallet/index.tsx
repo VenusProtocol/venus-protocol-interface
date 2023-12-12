@@ -14,19 +14,19 @@ import {
   Delimiter,
   Icon,
   InfoIcon,
-  Link,
   NoticeInfo,
   PrimaryButton,
   TokenIcon,
 } from 'components';
 import { routes } from 'constants/routing';
 import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
+import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'packages/wallet';
 import { Token } from 'types';
-import { areTokensEqual, cn, convertMantissaToTokens } from 'utilities';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import DelegateModal from './DelegateModal';
 import TEST_IDS from './testIds';
@@ -92,9 +92,6 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
     !isDataLoading && connectedWallet && !userHasLockedXVS && voteProposalFeatureEnabled;
   const showDelegateButton =
     !isDataLoading && connectedWallet && userHasLockedXVS && voteProposalFeatureEnabled;
-  const shouldApplyMarginToTotalLocked =
-    voteProposalFeatureEnabled &&
-    (showDepositXvs || showDelegateButton || !isDataLoading || !connectedWallet);
 
   return (
     <div className="flex flex-1 flex-col lg:ml-4">
@@ -130,12 +127,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
         <Delimiter className="w-full sm:hidden lg:block" />
 
-        <div
-          className={cn(
-            'mt-4 sm:ml-[26px] sm:mr-auto sm:mt-0 md:ml-10 lg:ml-0 lg:mr-0 lg:mt-4',
-            shouldApplyMarginToTotalLocked && 'mb-6 sm:mb-0 lg:mb-6',
-          )}
-        >
+        <div className="mt-4 sm:ml-[26px] sm:mr-auto sm:mt-0 md:ml-10 lg:ml-0 lg:mr-0 lg:mt-4">
           <div className="mb-1 flex items-end sm:mb-0 lg:mb-1">
             <p className="mr-2 text-base font-semibold text-grey sm:text-sm md:text-base">
               {t('vote.totalLocked')}
@@ -156,20 +148,26 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         </div>
 
         {!connectedWallet && (
-          <PrimaryButton className="text-offWhite lg:w-full" onClick={openAuthModal}>
+          <PrimaryButton
+            className="mt-6 text-offWhite sm:mt-0 lg:mt-6 lg:w-full"
+            onClick={openAuthModal}
+          >
             {t('connectWallet.connectButton')}
           </PrimaryButton>
         )}
 
         {showDepositXvs && (
-          <ButtonWrapper className="text-offWhite hover:no-underline sm:w-auto lg:w-full" asChild>
+          <ButtonWrapper
+            className="mt-6 text-offWhite hover:no-underline sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
+            asChild
+          >
             <Link to={routes.vaults.path}>{t('vote.depositXvs')}</Link>
           </ButtonWrapper>
         )}
 
         {showDelegateButton && (
           <PrimaryButton
-            className="text-offWhite sm:w-auto lg:w-full"
+            className="mt-6 text-offWhite sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
             onClick={() => setDelegateModelIsOpen(true)}
             data-testid={TEST_IDS.delegateButton}
           >

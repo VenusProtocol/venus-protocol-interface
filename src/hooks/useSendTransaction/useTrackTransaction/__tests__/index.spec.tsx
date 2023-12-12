@@ -5,8 +5,8 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeProvider from '__mocks__/models/provider';
 import { renderHook } from 'testUtils/render';
 
-import { ChainExplorerLink } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,

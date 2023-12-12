@@ -1,7 +1,7 @@
 import { ContractReceipt, ContractTransaction } from 'ethers';
 import { useCallback } from 'react';
 
-import { ChainExplorerLink } from 'components';
+import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import {
   checkForComptrollerTransactionError,

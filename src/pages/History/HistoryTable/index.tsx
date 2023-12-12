@@ -2,8 +2,9 @@
 import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { EllipseAddress, Link, Table, TableColumn, TokenIcon } from 'components';
+import { EllipseAddress, Table, TableColumn, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { Link } from 'containers/Link';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import { useTranslation } from 'packages/translations';
 import { useChainId } from 'packages/wallet';

@@ -1,5 +1,7 @@
-import { useEffect, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
+import { useNavigate } from 'hooks/useNavigate';
 
 export type UseUrlPaginationOutput = {
   currentPage: number;
@@ -8,42 +10,46 @@ export type UseUrlPaginationOutput = {
 
 export const PAGE_PARAM_NAME = 'page';
 
-const useUrlPagination = (): UseUrlPaginationOutput => {
-  const location = useLocation();
-  const navigate = useNavigate();
+// TODO: add tests
 
-  const { search } = location;
+const useUrlPagination = (): UseUrlPaginationOutput => {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageIndex = searchParams.get(PAGE_PARAM_NAME) ?? undefined;
+
+  const setPageIndex = useCallback(
+    (newPageIndex: string | number) =>
+      setSearchParams(
+        currentSearchParams => ({
+          ...Object.fromEntries(currentSearchParams),
+          [PAGE_PARAM_NAME]: String(newPageIndex),
+        }),
+        {
+          replace: true,
+        },
+      ),
+    [setSearchParams],
+  );
 
   useEffect(() => {
     // Add page param to URL if none has been set
-    const searchParams = new URLSearchParams(search);
-
-    if (!searchParams.get(PAGE_PARAM_NAME)) {
+    if (!pageIndex) {
       // Note: although the pagination starts from 0, we make it start from 1 in the
       // URL to make it more user-friendly. This is something we need to account for
       // when updating the page search param
-      searchParams.set(PAGE_PARAM_NAME, '1');
-      navigate(`${location.pathname}?${searchParams.toString()}`);
+      setPageIndex(1);
     }
 
     // Scroll to the top of the page on search change
     window.scrollTo(0, 0);
-  }, [search, location.pathname, navigate]);
+  }, [navigate, pageIndex, setPageIndex]);
 
-  const currentPage = useMemo(() => {
-    const searchParams = new URLSearchParams(search);
-    return searchParams.get(PAGE_PARAM_NAME)
-      ? +(searchParams.get(PAGE_PARAM_NAME) as string) - 1
-      : 0;
-  }, [search]);
+  const currentPage = useMemo(() => (pageIndex ? +pageIndex - 1 : 0), [pageIndex]);
 
-  const setCurrentPage = (newPageIndex: number) => {
-    const searchParams = new URLSearchParams(search);
-
-    // Update page param in URL search
-    searchParams.set(PAGE_PARAM_NAME, `${newPageIndex + 1}`);
-    navigate(`${location.pathname}?${searchParams.toString()}`);
-  };
+  const setCurrentPage = useCallback(
+    (newPageIndex: number) => setPageIndex(newPageIndex + 1),
+    [setPageIndex],
+  );
 
   return { currentPage, setCurrentPage };
 };

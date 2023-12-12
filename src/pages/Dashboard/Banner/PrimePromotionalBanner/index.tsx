@@ -1,5 +1,6 @@
-import { ButtonWrapper, Card, Icon, Link } from 'components';
+import { ButtonWrapper, Card, Icon } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
+import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
 import { useTranslation } from 'packages/translations';

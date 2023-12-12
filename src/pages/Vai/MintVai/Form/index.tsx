@@ -14,13 +14,13 @@ import {
   FormikSubmitButton,
   FormikTokenTextField,
   LabeledInlineContent,
-  Link,
   NoticeWarning,
   Spinner,
 } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { AmountForm } from 'containers/AmountForm';
+import { Link } from 'containers/Link';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError, displayMutationError } from 'packages/errors';

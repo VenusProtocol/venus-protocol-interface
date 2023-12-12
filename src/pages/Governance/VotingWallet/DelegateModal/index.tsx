@@ -6,13 +6,13 @@ import {
   ButtonWrapper,
   FormikSubmitButton,
   FormikTextField,
-  Link,
   Modal,
   NoticeInfo,
   PrimaryButton,
   TextButton,
 } from 'components';
 import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
 import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 

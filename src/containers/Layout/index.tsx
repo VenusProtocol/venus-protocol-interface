@@ -1,3 +1,5 @@
+import { Outlet } from 'react-router';
+
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { Footer } from './Footer';
@@ -6,11 +8,7 @@ import { Menu } from './Menu';
 import ScrollToTop from './ScrollToTop';
 import { store } from './store';
 
-export interface LayoutProps {
-  children?: React.ReactNode;
-}
-
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout: React.FC = () => {
   const setScrollToTopVisible = store.use.setScrollToTopVisible();
   const isScrollToTopVisible = store.use.isScrollToTopVisible();
   const viewportHeight = window.innerHeight;
@@ -38,7 +36,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Header />
 
         <main className="w-full shrink-0 grow px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
-          {children}
+          <Outlet />
         </main>
 
         <ScrollToTop />

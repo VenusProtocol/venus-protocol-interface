@@ -1,6 +1,7 @@
 import { NavLink as RRNavLink, NavLinkProps as RRNavLinkProps } from 'react-router-dom';
 
 import { Icon } from 'components';
+import { useFormatTo } from 'hooks/useFormatTo';
 import { useTranslation } from 'packages/translations';
 import { cn } from 'utilities';
 
@@ -12,9 +13,11 @@ export const NavLink: React.FC<NavLinkProps> = ({
   iconName,
   i18nKey,
   className,
+  to,
   ...otherProps
 }) => {
   const { t } = useTranslation();
+  const formatTo = useFormatTo();
 
   return (
     <RRNavLink
@@ -27,6 +30,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
           className,
         )
       }
+      to={formatTo({ to })}
       {...otherProps}
     >
       <Icon name={iconName} className="mr-4 h-6 w-6 text-inherit md:mr-0 xl:mr-4" />
