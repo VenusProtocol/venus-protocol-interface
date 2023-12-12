@@ -6,7 +6,7 @@ import { version as APP_VERSION } from 'constants/version';
 import { displayNotification } from 'packages/notifications';
 import { useTranslation } from 'packages/translations';
 
-export const AppVersionChecker: React.FC = () => {
+const AppVersionChecker: React.FC = () => {
   const { t } = useTranslation();
   const { data } = useGetLatestAppVersion();
   const latestAppVersion = data?.version;
@@ -22,3 +22,5 @@ export const AppVersionChecker: React.FC = () => {
 
   return null;
 };
+
+export default AppVersionChecker;
