@@ -4,8 +4,6 @@ import { To } from 'react-router-dom';
 import { CHAIN_ID_SEARCH_PARAM } from 'packages/wallet/constants';
 import { useChainId } from 'packages/wallet/hooks/useChainId';
 
-// TODO: add tests
-
 export const useFormatTo = () => {
   const { chainId } = useChainId();
 
@@ -24,7 +22,7 @@ export const useFormatTo = () => {
 
       if (typeof to === 'string') {
         return {
-          pathname: to,
+          pathname: to.indexOf('?') > -1 ? to.substring(0, to.indexOf('?')) : to,
           search,
         };
       }
