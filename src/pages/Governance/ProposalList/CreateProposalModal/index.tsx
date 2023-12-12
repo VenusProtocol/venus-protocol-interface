@@ -50,7 +50,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
     matchProposalPreviewStep,
   });
 
-  const navigate = useNavigate();
+  const { navigate } = useNavigate();
   const styles = useStyles();
   const { t } = useTranslation();
   const [proposalMode, setProposalMode] = useState<'file' | 'manual'>('manual');

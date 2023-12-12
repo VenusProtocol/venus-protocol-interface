@@ -8,7 +8,7 @@ export type LinkProps = (RRLinkProps | React.AnchorHTMLAttributes<HTMLAnchorElem
 };
 
 export const Link: React.FC<LinkProps> = ({ className, children, ...otherProps }) => {
-  const formatTo = useFormatTo();
+  const { formatTo } = useFormatTo();
   const formattedTo = 'to' in otherProps ? formatTo({ to: otherProps.to }) : undefined;
 
   const classes = cn('text-blue hover:underline', className);

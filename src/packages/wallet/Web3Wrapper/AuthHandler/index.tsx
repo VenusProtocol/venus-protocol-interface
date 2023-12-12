@@ -14,7 +14,7 @@ export const AuthHandler: React.FC = () => {
   const { chain: walletChain } = useNetwork();
   const { disconnectAsync } = useDisconnect();
   const { updateUrlChainId } = useUpdateUrlChainId();
-  const navigate = useNavigate();
+  const { navigate } = useNavigate();
 
   const location = useLocation();
   const initialLocationRef = useRef(location);

@@ -1,8 +1,7 @@
 import Markdown from 'react-markdown';
 
+import { Link } from 'containers/Link';
 import { cn } from 'utilities';
-
-import { Link } from '../../containers/Link';
 
 export interface MarkdownViewerProps {
   content: string;

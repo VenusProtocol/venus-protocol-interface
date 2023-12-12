@@ -3,11 +3,9 @@ import { NavigateOptions, To, useNavigate as useRRNavigate } from 'react-router-
 
 import { useFormatTo } from 'hooks/useFormatTo';
 
-// TODO: add tests
-
 export const useNavigate = () => {
   const navigateRR = useRRNavigate();
-  const formatTo = useFormatTo();
+  const { formatTo } = useFormatTo();
 
   const navigate = useCallback(
     (to: To, options?: NavigateOptions) => {
@@ -17,5 +15,5 @@ export const useNavigate = () => {
     [navigateRR, formatTo],
   );
 
-  return navigate;
+  return { navigate };
 };

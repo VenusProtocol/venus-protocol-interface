@@ -10,10 +10,8 @@ export type UseUrlPaginationOutput = {
 
 export const PAGE_PARAM_NAME = 'page';
 
-// TODO: add tests
-
-const useUrlPagination = (): UseUrlPaginationOutput => {
-  const navigate = useNavigate();
+export const useUrlPagination = (): UseUrlPaginationOutput => {
+  const { navigate } = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const pageIndex = searchParams.get(PAGE_PARAM_NAME) ?? undefined;
 
@@ -53,5 +51,3 @@ const useUrlPagination = (): UseUrlPaginationOutput => {
 
   return { currentPage, setCurrentPage };
 };
-
-export default useUrlPagination;

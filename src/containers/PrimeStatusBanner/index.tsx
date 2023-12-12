@@ -330,7 +330,7 @@ export type PrimeStatusBannerProps = Pick<
 >;
 
 const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
-  const navigate = useNavigate();
+  const { navigate } = useNavigate();
   const redirectToXvsPage = () => navigate(routes.vaults.path);
 
   const { accountAddress } = useAccountAddress();

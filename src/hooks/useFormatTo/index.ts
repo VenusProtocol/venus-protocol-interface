@@ -35,5 +35,5 @@ export const useFormatTo = () => {
     [chainId],
   );
 
-  return formatTo;
+  return { formatTo };
 };

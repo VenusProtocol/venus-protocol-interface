@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { useGetVestingVaults, useGetVoterAccounts } from 'clients/api';
 import { Pagination } from 'components';
-import useUrlPagination from 'hooks/useUrlPagination';
+import { useUrlPagination } from 'hooks/useUrlPagination';
 import { VoterAccount } from 'types';
 
 import LeaderboardTable from './LeaderboardTable';

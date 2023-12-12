@@ -17,7 +17,7 @@ describe('useFormatTo', () => {
 
   it('formats string with existing query', () => {
     const { result } = renderHook(() => useFormatTo());
-    const formattedTo = result.current({ to: '/path?param=value' });
+    const formattedTo = result.current.formatTo({ to: '/path?param=value' });
 
     expect(formattedTo).toEqual({
       pathname: '/path',
@@ -27,7 +27,7 @@ describe('useFormatTo', () => {
 
   it('formats string without query', () => {
     const { result } = renderHook(() => useFormatTo());
-    const formattedTo = result.current({ to: '/path' });
+    const formattedTo = result.current.formatTo({ to: '/path' });
 
     expect(formattedTo).toEqual({
       pathname: '/path',
@@ -37,7 +37,9 @@ describe('useFormatTo', () => {
 
   it('formats object with search property', () => {
     const { result } = renderHook(() => useFormatTo());
-    const formattedTo = result.current({ to: { pathname: '/path', search: 'param=value' } });
+    const formattedTo = result.current.formatTo({
+      to: { pathname: '/path', search: 'param=value' },
+    });
 
     expect(formattedTo).toEqual({
       pathname: '/path',
@@ -47,7 +49,7 @@ describe('useFormatTo', () => {
 
   it('formats object without search property', () => {
     const { result } = renderHook(() => useFormatTo());
-    const formattedTo = result.current({ to: { pathname: '/path' } });
+    const formattedTo = result.current.formatTo({ to: { pathname: '/path' } });
 
     expect(formattedTo).toEqual({
       pathname: '/path',

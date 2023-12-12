@@ -17,7 +17,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
   ...otherProps
 }) => {
   const { t } = useTranslation();
-  const formatTo = useFormatTo();
+  const { formatTo } = useFormatTo();
 
   return (
     <RRNavLink

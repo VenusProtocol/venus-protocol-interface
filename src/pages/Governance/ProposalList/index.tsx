@@ -48,7 +48,7 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
   canCreateProposal,
 }) => {
   const createProposalEnabled = useIsFeatureEnabled({ name: 'createProposal' });
-  const navigate = useNavigate();
+  const { navigate } = useNavigate();
   const { newProposalStep } = useParams<{
     newProposalStep: 'create' | 'file' | 'manual' | undefined;
   }>();

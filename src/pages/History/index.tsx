@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { useGetTransactions } from 'clients/api';
 import { Pagination } from 'components';
-import useUrlPagination from 'hooks/useUrlPagination';
+import { useUrlPagination } from 'hooks/useUrlPagination';
 import { useAccountAddress } from 'packages/wallet';
 import { Transaction, TransactionEvent } from 'types';
 

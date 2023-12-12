@@ -8,6 +8,8 @@ import MuiTableRow from '@mui/material/TableRow';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useFormatTo } from 'hooks/useFormatTo';
+
 import { Spinner } from '../Spinner';
 import Head from './Head';
 import TableCards from './TableCards';
@@ -31,6 +33,7 @@ export function Table<R>({
   isFetching,
 }: TableProps<R>) {
   const styles = useStyles();
+  const { formatTo } = useFormatTo();
 
   const [order, setOrder] = useState<Order<R> | undefined>(initialOrder);
 
@@ -92,7 +95,7 @@ export function Table<R>({
               const additionalProps = getRowHref
                 ? {
                     component: Link,
-                    to: getRowHref(row),
+                    to: formatTo({ to: getRowHref(row) }),
                   }
                 : {};
 

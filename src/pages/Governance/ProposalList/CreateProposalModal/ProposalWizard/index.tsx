@@ -91,7 +91,7 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
   isCreateProposalLoading,
   currentStep,
 }) => {
-  const navigate = useNavigate();
+  const { navigate } = useNavigate();
   const { t } = useTranslation();
 
   const formikContext = useFormikContext<FormValues>();
