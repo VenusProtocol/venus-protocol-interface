@@ -86,7 +86,10 @@ export const Breadcrumbs: React.FC = () => {
           dom = t('breadcrumbs.governance');
           break;
         case Subdirectory.PROPOSAL:
-          dom = t('breadcrumbs.proposal', { proposalId: params.proposalId });
+          dom = t('breadcrumbs.proposal', {
+            proposalId:
+              params.proposalId && !Number.isNaN(+params.proposalId) ? params.proposalId : '',
+          });
           break;
         case Subdirectory.LEADER_BOARD:
           dom = t('breadcrumbs.leaderboard');

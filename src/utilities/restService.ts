@@ -13,10 +13,10 @@ interface RestServiceInput {
 }
 
 interface ApiErrorResponse {
-  status: boolean;
-  data: undefined;
-  result: 'error';
-  message: string;
+  status: number;
+  data: {
+    error: string;
+  };
 }
 
 type ApiResponse<D> =
@@ -76,6 +76,7 @@ export async function restService<D>({
     const queryParams = createQueryParams(params);
     path = `${path}?${queryParams}`;
   }
+
   return fetch(path, { headers })
     .then(async response => {
       const { status } = response;
@@ -95,9 +96,9 @@ export async function restService<D>({
       return { status, data };
     })
     .catch(error => ({
-      status: false,
-      data: undefined,
-      result: 'error',
-      message: error,
+      status: error.status,
+      data: {
+        error,
+      },
     }));
 }

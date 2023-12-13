@@ -16,7 +16,9 @@ exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on th
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /governance/leaderboard 1`] = `"Governance/Leaderboard"`;
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /governance/proposal/FAKE-PROPOSAL-ID 1`] = `"Governance/Proposal #FAKE-PROPOSAL-ID"`;
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /governance/proposal/1 1`] = `"Governance/Proposal #1"`;
+
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /governance/proposal/FAKE-PROPOSAL-ID 1`] = `"Governance/Proposal #"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /governance/voter/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `"Governance/0x3d759121234cd36F8124C21aFe1c6852d2bEd8480x3d...d848"`;
 

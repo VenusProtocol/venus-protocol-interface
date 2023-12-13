@@ -18,11 +18,11 @@ const getProposals = async ({
   const payload = response.data;
 
   // @todo Add specific api error handling
-  if ('result' in response && response.result === 'error') {
+  if (payload && 'error' in payload) {
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
-      data: { message: response.message },
+      data: { message: payload.error },
     });
   }
 

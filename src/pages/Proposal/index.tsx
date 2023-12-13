@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
 import { Button, NoticeInfo, Spinner } from 'components';
+import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { UseVoteParams } from 'hooks/useVote';
 import { useGetToken, useGetTokens } from 'packages/tokens';
@@ -135,10 +136,11 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 const Proposal = () => {
   const { accountAddress } = useAccountAddress();
   const { proposalId = '' } = useParams<{ proposalId: string }>();
-  const { data: proposal } = useGetProposal(
+  const { data: proposal, error: getProposalError } = useGetProposal(
     { proposalId, accountAddress },
     { enabled: !!proposalId },
   );
+
   const xvs = useGetToken({
     symbol: 'XVS',
   });
@@ -177,6 +179,10 @@ const Proposal = () => {
     userVoteReceipt?.voteSupport === undefined &&
     // user has some voting weight
     votingWeightData.votesMantissa.isGreaterThan(0);
+
+  if (getProposalError) {
+    return <Navigate to={routes.governance.path} />;
+  }
 
   return (
     <ProposalUi

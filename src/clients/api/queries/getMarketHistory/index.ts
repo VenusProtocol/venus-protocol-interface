@@ -38,16 +38,18 @@ const getMarketHistory = async ({
     method: 'GET',
   });
 
+  const payload = response.data;
+
   // @todo Add specific api error handling
-  if ('result' in response && response.result === 'error') {
+  if (payload && 'error' in payload) {
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
-      data: { message: response.message },
+      data: { message: payload.error },
     });
   }
 
-  let sampleSize = response.data?.result?.data.length || 0;
+  let sampleSize = payload?.result?.data.length || 0;
 
   switch (type) {
     case '1 year':
@@ -64,7 +66,7 @@ const getMarketHistory = async ({
       break;
   }
 
-  const marketSnapshots = response.data?.result?.data.slice(-sampleSize) || [];
+  const marketSnapshots = payload?.result?.data.slice(-sampleSize) || [];
 
   return {
     marketSnapshots,
