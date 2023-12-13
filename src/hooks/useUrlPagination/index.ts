@@ -37,9 +37,6 @@ export const useUrlPagination = (): UseUrlPaginationOutput => {
       // when updating the page search param
       setPageIndex(1);
     }
-
-    // Scroll to the top of the page on search change
-    window.scrollTo(0, 0);
   }, [navigate, pageIndex, setPageIndex]);
 
   const currentPage = useMemo(() => (pageIndex ? +pageIndex - 1 : 0), [pageIndex]);

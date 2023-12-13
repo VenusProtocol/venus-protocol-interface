@@ -123,7 +123,6 @@ export const ProposalListUi: React.FC<ProposalListUiProps> = ({
           itemsCount={total}
           onChange={(nextIndex: number) => {
             setCurrentPage(nextIndex);
-            window.scrollTo(0, 0);
           }}
           itemsPerPageCount={limit}
         />

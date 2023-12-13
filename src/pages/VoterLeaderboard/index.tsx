@@ -37,7 +37,6 @@ export const VoterLeaderboardUi: React.FC<VoterLeaderboardProps> = ({
           itemsCount={total}
           onChange={(nextIndex: number) => {
             setCurrentPage(nextIndex);
-            window.scrollTo(0, 0);
           }}
           itemsPerPageCount={limit}
         />
