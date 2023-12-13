@@ -1,5 +1,6 @@
 import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import { Navigate } from 'react-router-dom';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -17,8 +18,10 @@ import {
   queueProposal,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
+import { routes } from 'constants/routing';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote from 'hooks/useVote';
+import { VError } from 'packages/errors';
 import { en } from 'packages/translations';
 import { VoteSupport } from 'types';
 
@@ -29,6 +32,17 @@ import TEST_IDS from './testIds';
 
 vi.mock('hooks/useVote');
 vi.mock('hooks/useIsFeatureEnabled');
+
+const MOCK_NAVIGATE_CONTENT = 'Mock navigate';
+
+vi.mock('react-router-dom', async () => {
+  const actual = (await vi.importActual('react-router-dom')) as any;
+
+  return {
+    ...actual,
+    Navigate: vi.fn(() => <>{MOCK_NAVIGATE_CONTENT}</>),
+  };
+});
 
 const incorrectAction = proposals[0];
 const activeProposal = proposals[1];
@@ -93,6 +107,25 @@ describe('pages/Proposal', () => {
   it('renders without crashing on', async () => {
     (getProposal as Vi.Mock).mockImplementation(() => incorrectAction);
     renderComponent(<Proposal />);
+  });
+
+  it('redirects to proposal page on error', async () => {
+    (getProposal as Vi.Mock).mockImplementation(() => {
+      throw new VError({
+        type: 'unexpected',
+        code: 'somethingWentWrong',
+        data: { message: 'Fake error message' },
+      });
+    });
+    const { getByText } = renderComponent(<Proposal />);
+
+    await waitFor(() => expect(getByText(MOCK_NAVIGATE_CONTENT)));
+    expect(Navigate).toHaveBeenCalledWith(
+      {
+        to: routes.governance.path,
+      },
+      {},
+    );
   });
 
   it('vote buttons are disabled when wallet is not connected', async () => {

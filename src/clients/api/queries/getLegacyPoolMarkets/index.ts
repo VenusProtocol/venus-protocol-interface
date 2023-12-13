@@ -35,11 +35,13 @@ const getLegacyPoolMarkets = async ({
     },
   });
 
-  if ('result' in response && response.result === 'error') {
-    throw new Error(response.message);
+  const payload = response.data;
+
+  if (payload && 'error' in payload) {
+    throw new Error(payload.error);
   }
 
-  const markets: Market[] = (response?.data?.result || []).map(apiMarket => {
+  const markets: Market[] = (payload?.result || []).map(apiMarket => {
     const totalXvsDistributedTokens = apiMarket.totalDistributedMantissa
       ? convertMantissaToTokens({
           value: new BigNumber(apiMarket.totalDistributedMantissa),
