@@ -1,5 +1,6 @@
-import { store } from '../../store';
+import { getChainIdFromSearchParams } from 'packages/wallet/utilities/getChainIdFromSearchParams';
 
-export const getChainId = () => ({
-  chainId: store.getState().chainId,
-});
+export const getChainId = () => {
+  const searchParams = new URLSearchParams(document.location.search);
+  return getChainIdFromSearchParams({ searchParams });
+};

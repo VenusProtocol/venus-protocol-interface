@@ -2,10 +2,11 @@ import { useState } from 'react';
 
 import venusLogoSrc from 'assets/img/venusLogo.svg';
 import venusLogoWithTextSrc from 'assets/img/venusLogoWithText.svg';
-import { Icon, Link } from 'components';
+import { Icon } from 'components';
 import config from 'config';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
 import { useTranslation } from 'packages/translations';
 import { cn } from 'utilities';
 

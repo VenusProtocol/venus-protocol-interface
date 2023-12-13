@@ -3,8 +3,6 @@ import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
 
 import { queryClient } from 'clients/api';
-import { AppVersionChecker } from 'containers/AppVersionChecker';
-import { Layout } from 'containers/Layout';
 import { AnalyticProvider } from 'packages/analytics';
 import { ErrorBoundary } from 'packages/errors';
 import { SentryErrorInfo } from 'packages/errors/SentryErrorInfo';
@@ -12,35 +10,36 @@ import { LunaUstWarningModal } from 'packages/lunaUstWarning';
 import { Web3Wrapper } from 'packages/wallet';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
-import Router from './Router';
+import Routes from './Routes';
 
 const NotificationCenter = lazy(() => import('packages/notifications/NotificationCenter'));
+const AppVersionChecker = lazy(() => import('containers/AppVersionChecker'));
 
 const App = () => (
   <ErrorBoundary>
-    <MuiThemeProvider>
-      <QueryClientProvider client={queryClient}>
-        <Web3Wrapper>
-          <SentryErrorInfo />
-
-          <AnalyticProvider>
-            <HashRouter>
-              <Layout>
-                <Router />
-              </Layout>
-
-              <AppVersionChecker />
+    <HashRouter>
+      <MuiThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <Web3Wrapper>
+            <AnalyticProvider>
+              <Routes />
 
               <LunaUstWarningModal />
 
               <Suspense>
                 <NotificationCenter />
               </Suspense>
-            </HashRouter>
-          </AnalyticProvider>
-        </Web3Wrapper>
-      </QueryClientProvider>
-    </MuiThemeProvider>
+
+              <Suspense>
+                <AppVersionChecker />
+              </Suspense>
+
+              <SentryErrorInfo />
+            </AnalyticProvider>
+          </Web3Wrapper>
+        </QueryClientProvider>
+      </MuiThemeProvider>
+    </HashRouter>
   </ErrorBoundary>
 );
 

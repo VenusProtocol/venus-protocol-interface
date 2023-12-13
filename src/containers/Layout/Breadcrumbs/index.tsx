@@ -2,8 +2,9 @@ import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 import { Params, matchPath, useLocation } from 'react-router-dom';
 
-import { EllipseAddress, Icon, Link } from 'components';
+import { EllipseAddress, Icon } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
+import { Link } from 'containers/Link';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'packages/translations';
 

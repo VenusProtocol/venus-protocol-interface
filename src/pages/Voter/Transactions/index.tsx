@@ -2,7 +2,8 @@
 import { Paper, Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { ButtonWrapper, Icon, Link, Spinner, Table, TableColumn } from 'components';
+import { ButtonWrapper, Icon, Spinner, Table, TableColumn } from 'components';
+import { Link } from 'containers/Link';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { useChainId } from 'packages/wallet';

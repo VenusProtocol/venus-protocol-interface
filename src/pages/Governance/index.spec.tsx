@@ -21,6 +21,8 @@ import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThreshol
 import { routes } from 'constants/routing';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'packages/translations';
+import { CHAIN_ID_SEARCH_PARAM } from 'packages/wallet/constants';
+import { ChainId } from 'types';
 
 import Governance from '.';
 import GOVERNANCE_PROPOSAL_TEST_IDS from './ProposalList/GovernanceProposal/testIds';
@@ -122,7 +124,10 @@ describe('Governance', () => {
     const { getByTestId } = renderComponent(<Governance />);
     const deposityYourTokensText = getByTestId(VOTING_WALLET_TEST_IDS.depositYourTokens);
 
-    expect(deposityYourTokensText).toHaveAttribute('href', routes.vaults.path);
+    expect(deposityYourTokensText).toHaveAttribute(
+      'href',
+      `${routes.vaults.path}?${CHAIN_ID_SEARCH_PARAM}=${ChainId.BSC_TESTNET}`,
+    );
   });
 
   it('prompts user to connect Wallet', async () => {
@@ -155,7 +160,10 @@ describe('Governance', () => {
       expect(getByTestId(VOTING_WALLET_TEST_IDS.votingWeightValue)).toHaveTextContent('0'),
     );
     expect(getByTestId(VOTING_WALLET_TEST_IDS.totalLockedValue)).toHaveTextContent('0');
-    expect(depositXvsButton).toHaveAttribute('href', routes.vaults.path);
+    expect(depositXvsButton).toHaveAttribute(
+      'href',
+      `${routes.vaults.path}?${CHAIN_ID_SEARCH_PARAM}=${ChainId.BSC_TESTNET}`,
+    );
   });
 
   it('successfully delegates to other address', async () => {
@@ -235,7 +243,9 @@ describe('Governance', () => {
 
     expect(firstProposalAnchor[0].firstChild).toHaveAttribute(
       'href',
-      routes.governanceProposal.path.replace(':proposalId', '98'),
+      `${routes.governanceProposal.path.replace(':proposalId', '98')}?${CHAIN_ID_SEARCH_PARAM}=${
+        ChainId.BSC_TESTNET
+      }`,
     );
   });
 

@@ -1,4 +1,4 @@
-import { Connector } from '../../types';
+import { Connector } from 'packages/wallet/types';
 
 export type BaseWallet = {
   name: string;

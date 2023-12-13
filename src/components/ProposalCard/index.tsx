@@ -2,8 +2,8 @@
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
 
+import { Link } from 'containers/Link';
 import { VoteSupport } from 'types';
 
 import { Chip } from '../Chip';

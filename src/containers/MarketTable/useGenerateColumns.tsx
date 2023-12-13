@@ -6,7 +6,6 @@ import { useMemo } from 'react';
 import {
   InfoIcon,
   LayeredValues,
-  Link,
   ProgressBar,
   TableColumn,
   Toggle,
@@ -14,6 +13,7 @@ import {
 } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'packages/translations';
 import {

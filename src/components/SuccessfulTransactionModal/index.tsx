@@ -2,11 +2,11 @@
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 
+import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useChainId } from 'packages/wallet';
 import { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
-import { ChainExplorerLink } from '../ChainExplorerLink';
 import { Icon } from '../Icon';
 import { Modal, ModalProps } from '../Modal';
 import { TokenIcon } from '../TokenIcon';

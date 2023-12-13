@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import useUrlPagination, { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
+import { UseUrlPaginationOutput, useUrlPagination } from 'hooks/useUrlPagination';
 
 import ProposalList from './ProposalList';
 import VotingWallet from './VotingWallet';

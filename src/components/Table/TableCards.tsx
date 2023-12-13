@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 
 import { Spinner } from 'components/Spinner';
+import { Link } from 'containers/Link';
 import { useTranslation } from 'packages/translations';
 
 import { Delimiter } from '../Delimiter';

@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router';
 
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import {
@@ -10,12 +9,14 @@ import {
   useGetPrimeToken,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
-import { Card, Link, PrimaryButton, ProgressBar } from 'components';
+import { Card, PrimaryButton, ProgressBar } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useConvertMantissaToReadableTokenString from 'hooks/useFormatTokensToReadableValue';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useNavigate } from 'hooks/useNavigate';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
 import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
@@ -329,7 +330,7 @@ export type PrimeStatusBannerProps = Pick<
 >;
 
 const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
-  const navigate = useNavigate();
+  const { navigate } = useNavigate();
   const redirectToXvsPage = () => navigate(routes.vaults.path);
 
   const { accountAddress } = useAccountAddress();

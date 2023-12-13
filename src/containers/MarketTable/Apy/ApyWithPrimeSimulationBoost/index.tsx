@@ -1,5 +1,6 @@
-import { Icon, Link, Tooltip } from 'components';
+import { Icon, Tooltip } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
+import { Link } from 'containers/Link';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';

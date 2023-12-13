@@ -3,10 +3,10 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
 import { useCallback } from 'react';
-import { Link } from 'react-router-dom';
 
 import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
 import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { VotersDetails } from 'types';

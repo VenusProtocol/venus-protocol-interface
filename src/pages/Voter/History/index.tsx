@@ -76,7 +76,6 @@ export const History: React.FC<HistoryProps> = ({
           itemsCount={total}
           onChange={(nextIndex: number) => {
             setCurrentPage(nextIndex);
-            window.scrollTo(0, 0);
           }}
           itemsPerPageCount={limit}
         />

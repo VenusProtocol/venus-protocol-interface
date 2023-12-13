@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { useFormikContext } from 'formik';
 import { useCallback } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { FormikSubmitButton, PrimaryButton } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
+import { useNavigate } from 'hooks/useNavigate';
 import { useTranslation } from 'packages/translations';
 
 import ActionAccordion from '../ActionAccordion';
@@ -90,7 +91,7 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
   isCreateProposalLoading,
   currentStep,
 }) => {
-  const navigate = useNavigate();
+  const { navigate } = useNavigate();
   const { t } = useTranslation();
 
   const formikContext = useFormikContext<FormValues>();

@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useParams } from 'react-router-dom';
 
 import { useGetVoterDetails, useGetVoterHistory, useGetVoters } from 'clients/api';
-import useUrlPagination from 'hooks/useUrlPagination';
+import { useUrlPagination } from 'hooks/useUrlPagination';
 import { VoteDetail, VoterHistory } from 'types';
 
 import History from './History';

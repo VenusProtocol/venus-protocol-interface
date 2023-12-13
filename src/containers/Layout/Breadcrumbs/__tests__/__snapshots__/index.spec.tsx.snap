@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path:  1`] = `"Dashboard"`;
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: / 1`] = `"Dashboard"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /account 1`] = `"Account"`;
 
