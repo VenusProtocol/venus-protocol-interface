@@ -1,3 +1,10 @@
+## [2.62.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.62.0...v2.62.1) (2023-12-13)
+
+
+### Bug Fixes
+
+* update rest error handling ([#1947](https://github.com/VenusProtocol/venus-protocol-interface/issues/1947)) ([2ded65d](https://github.com/VenusProtocol/venus-protocol-interface/commit/2ded65d8891a9b477ff1d1748a86b6090d9a7053))
+
 ## [2.62.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.61.3...v2.62.0) (2023-12-13)
 
 
