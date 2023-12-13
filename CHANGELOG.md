@@ -1,3 +1,10 @@
+## [2.62.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.61.3...v2.62.0) (2023-12-13)
+
+
+### Features
+
+* add ChainID to URL ([#1941](https://github.com/VenusProtocol/venus-protocol-interface/issues/1941)) ([bdfbe80](https://github.com/VenusProtocol/venus-protocol-interface/commit/bdfbe80731c566424a8be4ef45cd90dadb1abcac))
+
 ## [2.61.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.61.2...v2.61.3) (2023-12-13)
 
 ## [2.61.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.61.1...v2.61.2) (2023-12-12)
