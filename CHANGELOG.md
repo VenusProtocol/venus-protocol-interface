@@ -1,3 +1,10 @@
+## [2.62.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.62.2...v2.62.3) (2023-12-14)
+
+
+### Bug Fixes
+
+* update wagmi libraries to remove LedgerConnector due to security vulnerability ([#1954](https://github.com/VenusProtocol/venus-protocol-interface/issues/1954)) ([8626ef6](https://github.com/VenusProtocol/venus-protocol-interface/commit/8626ef6a7ac92bb449a38013efe9e42323b55dce))
+
 ## [2.62.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.62.1...v2.62.2) (2023-12-14)
 
 
