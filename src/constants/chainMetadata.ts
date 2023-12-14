@@ -24,7 +24,7 @@ export const CHAIN_METADATA: {
   [ChainId.ETHEREUM]: {
     name: 'Ethereum',
     logoSrc: ethLogo,
-    explorerUrl: 'https://etherscan.io/',
+    explorerUrl: 'https://etherscan.io',
     blockTimeMs: 12000,
     blocksPerDay: 7200,
     corePoolComptrollerContractAddress: '', // TODO: add record (see VEN-2120)
@@ -32,7 +32,7 @@ export const CHAIN_METADATA: {
   [ChainId.SEPOLIA]: {
     name: 'Sepolia',
     logoSrc: ethLogo,
-    explorerUrl: 'https://sepolia.etherscan.io/',
+    explorerUrl: 'https://sepolia.etherscan.io',
     blockTimeMs: 12000,
     blocksPerDay: 7200,
     corePoolComptrollerContractAddress: '0x7Aa39ab4BcA897F403425C9C6FDbd0f882Be0D70',
