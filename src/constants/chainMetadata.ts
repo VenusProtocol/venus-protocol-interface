@@ -6,7 +6,7 @@ export const CHAIN_METADATA: {
   [chainId in ChainId]: ChainMetadata;
 } = {
   [ChainId.BSC_MAINNET]: {
-    name: 'BSC',
+    name: 'BNB mainnet',
     logoSrc: bnbLogo,
     explorerUrl: 'https://bscscan.com',
     blockTimeMs: 3000,
@@ -14,7 +14,7 @@ export const CHAIN_METADATA: {
     corePoolComptrollerContractAddress: '0xfD36E2c2a6789Db23113685031d7F16329158384',
   },
   [ChainId.BSC_TESTNET]: {
-    name: 'BSC Testnet',
+    name: 'BNB testnet',
     logoSrc: bnbLogo,
     explorerUrl: 'https://testnet.bscscan.com',
     blockTimeMs: 3000,
