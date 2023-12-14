@@ -1,3 +1,10 @@
+## [2.62.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.62.1...v2.62.2) (2023-12-14)
+
+
+### Bug Fixes
+
+* multichain-related bugs ([#1953](https://github.com/VenusProtocol/venus-protocol-interface/issues/1953)) ([c724283](https://github.com/VenusProtocol/venus-protocol-interface/commit/c72428385ea1ea7dc1c816ad7b448b882a2be47b))
+
 ## [2.62.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.62.0...v2.62.1) (2023-12-13)
 
 
