@@ -13,6 +13,7 @@ import {
 } from 'clients/api';
 import { Chip, Countdown, PrimaryButton, ProposalTypeChip, SecondaryButton } from 'components';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { displayMutationError } from 'packages/errors';
 import { useTranslation } from 'packages/translations';
 import { useAccountAddress, useChainId } from 'packages/wallet';
@@ -56,6 +57,7 @@ export const ProposalSummaryUi: React.FC<
   const styles = useStyles();
   const { t, Trans } = useTranslation();
   const { chainId } = useChainId();
+  const voteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
 
   const {
     state,
@@ -223,7 +225,7 @@ export const ProposalSummaryUi: React.FC<
             )}
           </div>
 
-          <div>{updateProposalButton}</div>
+          {voteProposalFeatureEnabled && <div>{updateProposalButton}</div>}
         </div>
       </div>
 

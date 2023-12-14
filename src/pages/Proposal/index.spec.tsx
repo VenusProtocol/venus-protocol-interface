@@ -50,23 +50,12 @@ const cancelledProposal = proposals[3];
 const succeededProposal = proposals[4];
 const queuedProposal = proposals[5];
 
-const checkAllButtons = async (
-  getByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement,
-  check: (element: HTMLElement) => void,
+const checkVoteButtonsAreHidden = async (
+  queryByTestId: (id: Matcher, options?: MatcherOptions | undefined) => HTMLElement | null,
 ) => {
-  const voteForButton = await waitFor(async () =>
-    within(getByTestId(TEST_IDS.voteSummary.for)).getByRole('button'),
-  );
-  const voteAgainstButton = await waitFor(async () =>
-    within(getByTestId(TEST_IDS.voteSummary.against)).getByRole('button'),
-  );
-  const voteAbstainButton = await waitFor(async () =>
-    within(getByTestId(TEST_IDS.voteSummary.abstain)).getByRole('button'),
-  );
-
-  check(voteForButton);
-  check(voteAgainstButton);
-  check(voteAbstainButton);
+  await waitFor(() => expect(queryByTestId(TEST_IDS.voteSummary.for)).toBeNull());
+  waitFor(() => expect(queryByTestId(TEST_IDS.voteSummary.against)).toBeNull());
+  waitFor(() => expect(queryByTestId(TEST_IDS.voteSummary.abstain)).toBeNull());
 };
 
 describe('pages/Proposal', () => {
@@ -128,56 +117,72 @@ describe('pages/Proposal', () => {
     );
   });
 
-  it('vote buttons are disabled when wallet is not connected', async () => {
-    const { getByTestId } = renderComponent(<Proposal />);
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
+  it('vote buttons are hidden when wallet is not connected', async () => {
+    const { queryByTestId } = renderComponent(<Proposal />);
+
+    await checkVoteButtonsAreHidden(queryByTestId);
   });
 
-  it('vote buttons are disabled when proposal is not active', async () => {
+  it('vote buttons are hidden when proposal is not active', async () => {
     (getProposal as Vi.Mock).mockImplementationOnce(() => cancelledProposal);
-    const { getByTestId } = renderComponent(<Proposal />, {
+
+    const { queryByTestId } = renderComponent(<Proposal />, {
       accountAddress: fakeAddress,
     });
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
+
+    await checkVoteButtonsAreHidden(queryByTestId);
   });
 
-  it('vote buttons are disabled when vote is cast', async () => {
+  it('vote buttons are hidden when vote is cast', async () => {
     (getVoteReceipt as Vi.Mock).mockImplementation(() => ({
       voteSupport: VoteSupport.For,
     }));
 
-    const { getByTestId } = renderComponent(<Proposal />, {
+    const { queryByTestId } = renderComponent(<Proposal />, {
       accountAddress: fakeAddress,
     });
 
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
+    await checkVoteButtonsAreHidden(queryByTestId);
   });
 
-  it('vote buttons are disabled when voting weight is 0', async () => {
+  it('vote buttons are hidden when voting weight is 0', async () => {
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({ votesMantissa: new BigNumber(0) }));
 
-    const { getByTestId } = renderComponent(<Proposal />, {
+    const { queryByTestId } = renderComponent(<Proposal />, {
       accountAddress: fakeAddress,
     });
 
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
+    await checkVoteButtonsAreHidden(queryByTestId);
   });
 
-  it('vote buttons are enabled when requirements are met', async () => {
-    const { getByTestId } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
-    });
-
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeEnabled());
-  });
-
-  it('vote buttons are not enabled when feature flag is disabled', async () => {
+  it('vote buttons are hidden when vote feature is disabled', async () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    const { queryByTestId } = renderComponent(<Proposal />, {
+      accountAddress: fakeAddress,
+    });
+
+    await checkVoteButtonsAreHidden(queryByTestId);
+  });
+
+  it('vote buttons are displayed and enabled when requirements are met', async () => {
     const { getByTestId } = renderComponent(<Proposal />, {
       accountAddress: fakeAddress,
     });
 
-    await checkAllButtons(getByTestId, (element: HTMLElement) => expect(element).toBeDisabled());
+    const voteForButton = await waitFor(async () =>
+      within(getByTestId(TEST_IDS.voteSummary.for)).getByRole('button'),
+    );
+    expect(voteForButton).toBeEnabled();
+
+    const voteAgainstButton = await waitFor(async () =>
+      within(getByTestId(TEST_IDS.voteSummary.against)).getByRole('button'),
+    );
+    expect(voteAgainstButton).toBeEnabled();
+
+    const voteAbstainButton = await waitFor(async () =>
+      within(getByTestId(TEST_IDS.voteSummary.abstain)).getByRole('button'),
+    );
+    expect(voteAbstainButton).toBeEnabled();
   });
 
   it('does not render the voting disabled warning when feature flag is enabled', async () => {
