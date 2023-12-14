@@ -26,9 +26,16 @@ export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const url = useMemo(
+    () => generateChainExplorerUrl({ hash, urlType, chainId }),
+    [hash, urlType, chainId],
+  );
+
   const content = useMemo(() => {
     if (!text) {
-      return t('chainExplorerLink.content');
+      // Extract domain name from URL
+      const domainName = new URL(url).hostname.replace('wwww.', '');
+      return t('chainExplorerLink.content', { domainName });
     }
 
     if (text && ellipseBreakpoint) {
@@ -36,14 +43,11 @@ export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
     }
 
     return text;
-  }, [text, ellipseBreakpoint, t]);
+  }, [url, text, ellipseBreakpoint, t]);
 
   return (
     <div className={cn('inline-block text-sm font-semibold text-blue', className)}>
-      <Link
-        href={generateChainExplorerUrl({ hash, urlType, chainId })}
-        className="flex items-center"
-      >
+      <Link href={url} className="flex items-center">
         {content}
 
         <Icon name="open" className="ml-2 text-inherit" />

@@ -149,7 +149,7 @@
     "xvs": "XVS"
   },
   "chainExplorerLink": {
-    "content": "View on bscscan.com"
+    "content": "View on {{domainName}}"
   },
   "chip": {
     "proposalType": {
