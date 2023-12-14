@@ -71,9 +71,11 @@ const VoteSummary = ({
           />
         </div>
 
-        <Button css={styles.button} onClick={openVoteModal} disabled={!votingEnabled}>
-          {label}
-        </Button>
+        {votingEnabled && (
+          <Button css={styles.button} onClick={openVoteModal}>
+            {label}
+          </Button>
+        )}
       </div>
 
       <div css={styles.votesHeader}>
