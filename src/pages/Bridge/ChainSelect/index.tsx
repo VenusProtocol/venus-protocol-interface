@@ -26,7 +26,6 @@ export const ChainSelect: React.FC<ChainSelectProps> = ({ value, ...props }) => 
   <Select
     value={value}
     options={options}
-    menuPosition="left"
     buttonClassName="bg-lightGrey hover:border-blue"
     {...props}
   />

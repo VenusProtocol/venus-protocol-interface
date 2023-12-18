@@ -150,11 +150,31 @@
     "xvs": "XVS"
   },
   "bridgePage": {
+    "amountInput": {
+      "label": "Amount",
+      "maxButtonLabel": "MAX"
+    },
+    "bridgeGasFee": {
+      "label": "Bridge gas fee",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "connectWalletButton": {
+      "label": "Connect wallet"
+    },
     "fromChainSelect": {
       "label": "From"
     },
+    "submitButton": {
+      "label": {
+        "enterValidAmount": "Enter valid amount",
+        "submit": "Confirm"
+      }
+    },
     "toChainSelect": {
       "label": "To"
+    },
+    "walletBalance": {
+      "label": "Wallet balance"
     }
   },
   "chainExplorerLink": {

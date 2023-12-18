@@ -36,7 +36,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
     >
       <Icon name={iconName} className="mr-4 h-6 w-6 text-inherit md:mr-0 xl:mr-4" />
 
-      <div className="flex grow items-center md:max-xl:hidden">
+      <div className="flex grow items-center md:hidden xl:flex">
         <p className="overflow-hidden text-ellipsis text-offWhite xl:text-inherit">{t(i18nKey)}</p>
 
         {isNew && (
