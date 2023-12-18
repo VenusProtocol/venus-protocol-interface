@@ -1,4 +1,4 @@
-import { BinanceW3WConnector } from '@binance/w3w-wagmi-connector';
+import { getWagmiConnector as getBinanceW3WConnector } from '@binance/w3w-wagmi-connector';
 import { configureChains, createConfig } from 'wagmi';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -10,6 +10,8 @@ import localConfig from 'config';
 import { WALLET_CONNECT_PROJECT_ID } from 'constants/walletConnect';
 import { chains } from 'packages/wallet/chains';
 import { ChainId } from 'types';
+
+const BinanceW3WConnector = getBinanceW3WConnector();
 
 const { publicClient, webSocketPublicClient } = configureChains(
   chains,
