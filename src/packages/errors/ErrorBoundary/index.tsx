@@ -12,6 +12,7 @@ Sentry.init({
   environment: config.environment,
   release: APP_VERSION,
   attachStacktrace: true,
+  tracesSampleRate: 0,
 });
 
 export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => (
