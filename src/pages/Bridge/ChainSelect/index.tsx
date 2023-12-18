@@ -1,3 +1,5 @@
+import { forwardRef } from 'react';
+
 import { Select, SelectOption, SelectProps } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { chains } from 'packages/wallet';
@@ -22,11 +24,14 @@ const options = chains.map(chain => {
 
 export type ChainSelectProps = Omit<SelectProps, 'options'>;
 
-export const ChainSelect: React.FC<ChainSelectProps> = ({ value, ...props }) => (
-  <Select
-    value={value}
-    options={options}
-    buttonClassName="bg-lightGrey hover:border-blue"
-    {...props}
-  />
+export const ChainSelect = forwardRef<HTMLInputElement, ChainSelectProps>(
+  ({ value, ...props }, ref) => (
+    <Select
+      value={value}
+      options={options}
+      ref={ref}
+      buttonClassName="bg-lightGrey hover:border-blue"
+      {...props}
+    />
+  ),
 );
