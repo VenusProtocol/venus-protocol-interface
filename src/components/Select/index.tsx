@@ -113,14 +113,7 @@ export const Select = <TValue extends string | number = string | number>({
 
         {!!label && (
           <div className={cn(placeLabelToLeft ? 'mr-3 shrink-0' : 'mb-1')}>
-            <p
-              className={cn(
-                'text-sm font-semibold text-grey',
-                !placeLabelToLeft && 'text-offWhite',
-              )}
-            >
-              {label}
-            </p>
+            <p className={cn('text-sm font-semibold text-grey')}>{label}</p>
           </div>
         )}
 

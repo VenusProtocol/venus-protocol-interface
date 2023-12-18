@@ -149,6 +149,14 @@
     "vaults": "Vaults",
     "xvs": "XVS"
   },
+  "bridgePage": {
+    "fromChainSelect": {
+      "label": "From"
+    },
+    "toChainSelect": {
+      "label": "To"
+    }
+  },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
   },
