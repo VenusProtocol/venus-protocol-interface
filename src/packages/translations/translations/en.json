@@ -161,6 +161,10 @@
     "connectWalletButton": {
       "label": "Connect wallet"
     },
+    "footer": {
+      "bridgeDocLink": "How to bridge",
+      "poweredBy": "Powered by"
+    },
     "fromChainSelect": {
       "label": "From"
     },
