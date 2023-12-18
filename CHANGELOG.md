@@ -1,3 +1,10 @@
+## [2.64.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.63.0...v2.64.0) (2023-12-18)
+
+
+### Features
+
+* update Binance wallet to 1.1.0 ([6bce778](https://github.com/VenusProtocol/venus-protocol-interface/commit/6bce778b4629c12afb6af3ff91e202aae999299d))
+
 ## [2.63.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.62.5...v2.63.0) (2023-12-18)
 
 
