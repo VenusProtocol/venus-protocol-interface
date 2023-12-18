@@ -133,6 +133,7 @@
   },
   "breadcrumbs": {
     "account": "Account",
+    "bridge": "Bridge",
     "convertVrt": "Convert VRT",
     "corePool": "Core pool",
     "dashboard": "Dashboard",
@@ -298,12 +299,15 @@
       "vestingVaultGroup": "{{stakedTokenSymbol}} vesting vault"
     },
     "menu": {
+      "navLink": {
+        "new": "NEW"
+      },
       "venusLogoAlt": "Venus logo"
     },
     "menuItems": {
       "account": "Account",
+      "bridge": "Bridge",
       "convertVrt": "Convert VRT",
-      "convertVrtTitle": "Convert VRT to XVS",
       "corePool": "Core pool",
       "dashboard": "Dashboard",
       "governance": "Governance",

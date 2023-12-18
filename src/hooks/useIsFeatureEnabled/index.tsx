@@ -20,6 +20,7 @@ const featureFlags = {
   marketHistory: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   marketParticipantCounts: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   vaiMintPrimeOnlyWarning: [ChainId.BSC_TESTNET],
+  bridgeRoute: [ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

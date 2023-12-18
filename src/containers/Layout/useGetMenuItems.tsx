@@ -13,6 +13,7 @@ const useGetMenuItems = () => {
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
+  const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
 
   return useMemo(() => {
     const menuItems: MenuItem[] = [
@@ -114,9 +115,19 @@ const useGetMenuItems = () => {
         to: routes.convertVrt.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.convertVrt')
-        // t('layout.menuItems.convertVrtTitle')
         i18nKey: 'layout.menuItems.convertVrt',
         iconName: 'convert',
+      });
+    }
+
+    if (bridgeRouteEnabled) {
+      menuItems.push({
+        to: routes.bridge.path,
+        isNew: true,
+        // Translation key: do not remove this comment
+        // t('layout.menuItems.bridge')
+        i18nKey: 'layout.menuItems.bridge',
+        iconName: 'bridge',
       });
     }
 
@@ -128,6 +139,7 @@ const useGetMenuItems = () => {
     historyRouteEnabled,
     vaiRouteEnabled,
     xvsRouteEnabled,
+    bridgeRouteEnabled,
   ]);
 };
 

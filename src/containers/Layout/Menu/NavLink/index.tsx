@@ -14,6 +14,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
   i18nKey,
   className,
   to,
+  isNew = false,
   ...otherProps
 }) => {
   const { t } = useTranslation();
@@ -35,11 +36,19 @@ export const NavLink: React.FC<NavLinkProps> = ({
     >
       <Icon name={iconName} className="mr-4 h-6 w-6 text-inherit md:mr-0 xl:mr-4" />
 
-      <p className="mr-4 flex-1 overflow-hidden text-ellipsis text-offWhite md:hidden xl:mr-0 xl:block xl:text-inherit">
-        {t(i18nKey)}
-      </p>
+      <div className="flex grow items-center md:max-xl:hidden">
+        <p className="overflow-hidden text-ellipsis text-offWhite xl:text-inherit">{t(i18nKey)}</p>
 
-      <Icon name="chevronRight" className="h-6 w-6 text-offWhite md:hidden" />
+        {isNew && (
+          <div className="ml-3 inline-flex rounded-[4px] border border-green bg-green/10 px-[4px] py-[2px]">
+            <span className="mt-[1px] text-xs leading-[15px] text-green">
+              {t('layout.menu.navLink.new')}
+            </span>
+          </div>
+        )}
+      </div>
+
+      <Icon name="chevronRight" className="ml-4 h-6 w-6 text-offWhite md:hidden" />
     </RRNavLink>
   );
 };
