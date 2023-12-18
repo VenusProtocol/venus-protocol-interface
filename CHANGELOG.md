@@ -1,3 +1,15 @@
+## [2.63.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.62.5...v2.63.0) (2023-12-18)
+
+
+### Features
+
+* disable performance tracking from Sentry ([#1965](https://github.com/VenusProtocol/venus-protocol-interface/issues/1965)) ([697cd31](https://github.com/VenusProtocol/venus-protocol-interface/commit/697cd316234de88c8c964c988f6448a0252d68f1))
+
+
+### Bug Fixes
+
+* asset field on PancakeSwap tokens ([#1966](https://github.com/VenusProtocol/venus-protocol-interface/issues/1966)) ([881e9d3](https://github.com/VenusProtocol/venus-protocol-interface/commit/881e9d380a0b4428fbed3fadb47c105dd9760e16))
+
 ## [2.62.5](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.62.4...v2.62.5) (2023-12-18)
 
 ## [2.62.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.62.3...v2.62.4) (2023-12-15)
