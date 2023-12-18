@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -15,14 +15,22 @@ import {
   TokenTextField,
 } from 'components';
 import { Link } from 'containers/Link';
+import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { useGetMaximillionContract } from 'packages/contracts';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
-import { chains, useAccountAddress, useAuthModal, useChainId } from 'packages/wallet';
+import {
+  chains,
+  useAccountAddress,
+  useAuthModal,
+  useChainId,
+  useSwitchChain,
+} from 'packages/wallet';
+import { ChainId } from 'types';
 
 import { ChainSelect } from './ChainSelect';
 import { ReactComponent as LayerZeroLogo } from './layerZeroLogo.svg';
+import TEST_IDS from './testIds';
 
 const formSchema = z.object({
   fromChainId: z.number(),
@@ -30,28 +38,33 @@ const formSchema = z.object({
   amountTokens: z.string().min(1),
 });
 
-const BRIDGE_DOC_URL = ''; // TODO: add link
+const BRIDGE_DOC_URL = ''; // TODO: add link (see VEN-2248)
 
 const BridgePage: React.FC = () => {
   const { t } = useTranslation();
-  const bridgeContract = useGetMaximillionContract(); // TODO: get address from bridge contract
+  const bridgeContractAddress = ''; // TODO: get address from bridge contract (see VEN-2248)
   const { chainId } = useChainId();
+  const { switchChain } = useSwitchChain();
   const { openAuthModal } = useAuthModal();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
-  // TODO: pass chain ID from form
-  const xvs = useGetToken({
-    symbol: 'XVS',
-  });
-
-  const { control, handleSubmit, formState } = useForm<z.infer<typeof formSchema>>({
+  const { control, handleSubmit, formState, watch, getValues, setValue } = useForm<
+    z.infer<typeof formSchema>
+  >({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fromChainId: chainId,
       toChainId: chains.find(chain => chain.id !== chainId)?.id,
       amountTokens: '',
     },
+  });
+
+  const fromChainIdValue = watch('fromChainId');
+
+  const xvs = useGetToken({
+    symbol: 'XVS',
+    chainId: fromChainIdValue,
   });
 
   const {
@@ -64,17 +77,79 @@ const BridgePage: React.FC = () => {
     isRevokeWalletSpendingLimitLoading: isRevokeXvsWalletSpendingLimitLoading,
   } = useTokenApproval({
     token: xvs!,
-    spenderAddress: bridgeContract?.address,
+    spenderAddress: bridgeContractAddress,
     accountAddress,
   });
 
+  const handleChainFieldChange = useCallback(
+    ({ fromChainId, toChainId }: { fromChainId?: ChainId; toChainId?: ChainId }) => {
+      const formValues = getValues();
+
+      if (fromChainId && toChainId) {
+        switchChain({
+          chainId: fromChainId,
+          callback: () => {
+            setValue('fromChainId', fromChainId);
+            setValue('toChainId', toChainId);
+          },
+        });
+        return;
+      }
+
+      if (fromChainId) {
+        switchChain({
+          chainId: fromChainId,
+          callback: () => {
+            setValue('fromChainId', fromChainId);
+
+            if (formValues.toChainId === fromChainId) {
+              setValue('toChainId', formValues.fromChainId);
+            }
+          },
+        });
+        return;
+      }
+
+      if (toChainId && formValues.fromChainId === toChainId) {
+        switchChain({
+          chainId: formValues.toChainId,
+          callback: () => {
+            setValue('fromChainId', formValues.toChainId);
+            setValue('toChainId', toChainId);
+          },
+        });
+        return;
+      }
+
+      if (toChainId) {
+        setValue('toChainId', toChainId);
+      }
+    },
+    [setValue, switchChain, getValues],
+  );
+
+  const switchChains = useCallback(() => {
+    const formValues = getValues();
+
+    handleChainFieldChange({
+      fromChainId: formValues.toChainId,
+      toChainId: formValues.fromChainId,
+    });
+  }, [getValues, handleChainFieldChange]);
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // TODO: send transaction
+    // TODO: send transaction (see VEN-2248)
     console.log(values);
   };
 
   // TODO: wire up
-  const readableWalletBalance = '10 XVS';
+  const walletBalanceTokens = new BigNumber(10);
+  const limitTokens = walletBalanceTokens;
+
+  const readableWalletBalance = useFormatTokensToReadableValue({
+    value: walletBalanceTokens,
+    token: xvs!,
+  });
 
   const submitButtonLabel = useMemo(() => {
     if (formState.isValid) {
@@ -97,16 +172,22 @@ const BridgePage: React.FC = () => {
                 <ChainSelect
                   label={t('bridgePage.fromChainSelect.label')}
                   className="mb-4 w-full min-w-0 grow md:mb-0"
+                  testId={TEST_IDS.fromChainIdSelect}
                   {...field}
+                  onChange={newChainId =>
+                    handleChainFieldChange({
+                      fromChainId: newChainId as ChainId,
+                    })
+                  }
                 />
               )}
             />
 
             <TextButton
               className="mx-auto mb-2 flex h-auto flex-none p-2 md:mb-[3px]"
-              // TODO: wire up
-              onClick={() => {}}
+              onClick={switchChains}
               disabled={formState.isSubmitting}
+              data-testid={TEST_IDS.switchChainsButton}
             >
               <Icon name="convert" className="h-6 w-6 rotate-90 text-blue md:rotate-0" />
             </TextButton>
@@ -120,7 +201,13 @@ const BridgePage: React.FC = () => {
                   menuPosition="right"
                   className="w-full min-w-0 grow"
                   label={t('bridgePage.toChainSelect.label')}
+                  testId={TEST_IDS.toChainIdSelect}
                   {...field}
+                  onChange={newChainId =>
+                    handleChainFieldChange({
+                      toChainId: newChainId as ChainId,
+                    })
+                  }
                 />
               )}
             />
@@ -132,13 +219,14 @@ const BridgePage: React.FC = () => {
             rules={{ required: true }}
             render={({ field }) => (
               <TokenTextField
+                data-testid={TEST_IDS.tokenTextField}
                 token={xvs!}
                 label={t('bridgePage.amountInput.label')}
                 className="mb-6"
                 disabled={formState.isValid || isApproveXvsLoading}
                 rightMaxButton={{
                   label: t('bridgePage.amountInput.maxButtonLabel'),
-                  onClick: () => {}, // TODO: wire up
+                  onClick: () => setValue('amountTokens', limitTokens.toFixed()),
                 }}
                 {...field}
               />
@@ -152,7 +240,7 @@ const BridgePage: React.FC = () => {
 
             <SpendingLimit
               token={xvs!}
-              walletBalanceTokens={new BigNumber(100)} // TODO: wire up
+              walletBalanceTokens={walletBalanceTokens}
               walletSpendingLimitTokens={xvsWalletSpendingLimitTokens}
               onRevoke={revokeXvsWalletSpendingLimit}
               isRevokeLoading={isRevokeXvsWalletSpendingLimitLoading}

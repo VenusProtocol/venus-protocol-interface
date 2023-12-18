@@ -15,7 +15,7 @@ describe('useGetTokens', () => {
     (getTokens as Vi.Mock).mockImplementation(() => tokens);
   });
 
-  it('returns tokens', () => {
+  it('returns tokens of the current chain', () => {
     const { result } = renderHook(() => useGetTokens(), {
       chainId: ChainId.BSC_TESTNET,
     });
@@ -23,6 +23,23 @@ describe('useGetTokens', () => {
     expect(result.current).toBe(tokens);
     expect(getTokens).toHaveBeenCalledWith({
       chainId: ChainId.BSC_TESTNET,
+    });
+  });
+
+  it('passes chainId parameter to getTokens when passed through input', () => {
+    const { result } = renderHook(
+      () =>
+        useGetTokens({
+          chainId: ChainId.SEPOLIA,
+        }),
+      {
+        chainId: ChainId.BSC_TESTNET,
+      },
+    );
+
+    expect(result.current).toBe(tokens);
+    expect(getTokens).toHaveBeenCalledWith({
+      chainId: ChainId.SEPOLIA,
     });
   });
 });

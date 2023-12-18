@@ -24,7 +24,7 @@ const options = chains.map(chain => {
 
 export type ChainSelectProps = Omit<SelectProps, 'options'>;
 
-export const ChainSelect = forwardRef<HTMLInputElement, ChainSelectProps>(
+export const ChainSelect = forwardRef<React.ElementRef<typeof Select>, ChainSelectProps>(
   ({ value, ...props }, ref) => (
     <Select
       value={value}
