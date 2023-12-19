@@ -141,7 +141,7 @@ export const Breadcrumbs: React.FC = () => {
           break;
       }
 
-      href += hrefFragment;
+      href += `${hrefFragment}/`;
 
       return dom
         ? [
