@@ -589,6 +589,26 @@
     "tokensLeft": "<WhiteText>{{tokensLeft}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
   },
+  "primeCalculator": {
+    "rewardDetails": {
+      "fromBorrowedTokens": "From borrowed tokens",
+      "fromSuppliedTokens": "From supplied tokens",
+      "title": "Reward Details",
+      "totalYearlyRewards": {
+        "title": "Total yearly rewards",
+        "tooltip": "Amount of all Prime rewards distributed for this token"
+      },
+      "primeBorrowApy": {
+        "title": "Prime borrow APY",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "primeSupplyApy": {
+        "title": "Prime supply APY",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "yourYearlyRewards": "Your yearly rewards"
+    }
+  },
   "select": {
     "defaultLabel": "Select option"
   },

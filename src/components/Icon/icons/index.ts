@@ -29,6 +29,7 @@ export { default as copy } from './copy';
 export { default as attention } from './attention';
 export { default as burger } from './burger';
 export { default as arrowRight } from './arrowRight';
+export { default as blueArrowRight } from './blueArrowRight';
 export { default as venus } from './venus';
 export { default as circledVenus } from './circledVenus';
 export { default as predictions } from './predictions';
