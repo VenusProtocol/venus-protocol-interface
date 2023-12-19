@@ -1,3 +1,10 @@
+## [2.64.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.64.1...v2.64.2) (2023-12-19)
+
+
+### Bug Fixes
+
+* nested breadcrumbs ([#1975](https://github.com/VenusProtocol/venus-protocol-interface/issues/1975)) ([a151059](https://github.com/VenusProtocol/venus-protocol-interface/commit/a1510592b2119e953025b09ed39afa325df0b77f))
+
 ## [2.64.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.64.0...v2.64.1) (2023-12-19)
 
 ## [2.64.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.63.0...v2.64.0) (2023-12-18)
