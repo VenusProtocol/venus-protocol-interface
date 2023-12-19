@@ -1,3 +1,12 @@
+## [2.65.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.64.2...v2.65.0) (2023-12-19)
+
+
+### Features
+
+* add blue arrow right SVG ([f2bff11](https://github.com/VenusProtocol/venus-protocol-interface/commit/f2bff1134396ab3792a557f4e563d580fa39a1b0))
+* add RewardDetails component ([84dcdd4](https://github.com/VenusProtocol/venus-protocol-interface/commit/84dcdd47cbe0f7de88175001c3ddb30ffa1e263f))
+* add TokenAmountAndApy component ([15ff17d](https://github.com/VenusProtocol/venus-protocol-interface/commit/15ff17dcc0e326719c3e662fcd5725513cac727b))
+
 ## [2.64.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.64.1...v2.64.2) (2023-12-19)
 
 
