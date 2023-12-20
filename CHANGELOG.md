@@ -1,3 +1,10 @@
+## [2.66.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.65.1...v2.66.0) (2023-12-20)
+
+
+### Features
+
+* bump @venusprotocol/venus-protocol to 7.0.0-dev.1 ([ec185d5](https://github.com/VenusProtocol/venus-protocol-interface/commit/ec185d505975397843f908010639f8ea347a7261))
+
 ## [2.65.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.65.0...v2.65.1) (2023-12-20)
 
 ## [2.65.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.64.2...v2.65.0) (2023-12-19)
