@@ -48,21 +48,23 @@ export const RewardDetails: React.FC<RewardDetailsProps> = ({
 
       <Delimiter />
 
-      <TokenAmountAndApy
-        apy={primeSupplyApy}
-        apyTitle={t('primeCalculator.rewardDetails.primeSupplyApy.title')}
-        apyTooltip={t('primeCalculator.rewardDetails.primeSupplyApy.tooltip')}
-        tokenAmount={userSuppliedTokens}
-        tokenAmountTitle={t('primeCalculator.rewardDetails.fromSuppliedTokens')}
-      />
+      <div className="mt-6 space-y-8 lg:space-y-6">
+        <TokenAmountAndApy
+          apy={primeSupplyApy}
+          apyTitle={t('primeCalculator.rewardDetails.primeSupplyApy.title')}
+          apyTooltip={t('primeCalculator.rewardDetails.primeSupplyApy.tooltip')}
+          tokenAmount={userSuppliedTokens}
+          tokenAmountTitle={t('primeCalculator.rewardDetails.fromSuppliedTokens')}
+        />
 
-      <TokenAmountAndApy
-        apy={primeBorrowApy}
-        apyTitle={t('primeCalculator.rewardDetails.primeBorrowApy.title')}
-        apyTooltip={t('primeCalculator.rewardDetails.primeBorrowApy.tooltip')}
-        tokenAmount={userBorrowedTokens}
-        tokenAmountTitle={t('primeCalculator.rewardDetails.fromBorrowedTokens')}
-      />
+        <TokenAmountAndApy
+          apy={primeBorrowApy}
+          apyTitle={t('primeCalculator.rewardDetails.primeBorrowApy.title')}
+          apyTooltip={t('primeCalculator.rewardDetails.primeBorrowApy.tooltip')}
+          tokenAmount={userBorrowedTokens}
+          tokenAmountTitle={t('primeCalculator.rewardDetails.fromBorrowedTokens')}
+        />
+      </div>
     </Card>
   );
 };

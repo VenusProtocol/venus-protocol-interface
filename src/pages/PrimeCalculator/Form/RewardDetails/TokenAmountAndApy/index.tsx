@@ -15,7 +15,7 @@ const TokenAmountAndApy = ({
   tokenAmount,
   tokenAmountTitle,
 }: TokenAmountAndApyProps) => (
-  <div className="mb-8 mt-6 flex lg:mb-6">
+  <div className="flex">
     <div className="flex w-[110px] flex-col sm:w-35 md:w-[110px] lg:w-40">
       <span className="text-grey">{tokenAmountTitle}</span>
       <span>{tokenAmount}</span>

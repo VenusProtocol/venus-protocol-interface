@@ -433,7 +433,7 @@
   "marketTable": {
     "apy": {
       "primeBoost": {
-        "tooltip": "Total APY after applying Prime boost"
+        "tooltip": "Total APY after applying Prime boost. <Link>Calculate your Prime rewards</Link>"
       },
       "primeSimulationBoost": {
         "label": "{{apyPrimeBoost}} Prime boost",
@@ -606,6 +606,24 @@
     "primeLogoAlt": "Venus Prime logo"
   },
   "primeCalculator": {
+    "rewardDetails": {
+      "fromBorrowedTokens": "From borrowed tokens",
+      "fromSuppliedTokens": "From supplied tokens",
+      "primeBorrowApy": {
+        "title": "Prime borrow APY",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "primeSupplyApy": {
+        "title": "Prime supply APY",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "title": "Reward Details",
+      "totalYearlyRewards": {
+        "title": "Total yearly rewards",
+        "tooltip": "Amount of all Prime rewards distributed for this token"
+      },
+      "yourYearlyRewards": "Your yearly rewards"
+    },
     "topMessage": "You can use the Prime calculator to estimate the rewards you'd receive from holding a Prime token based on your positions. <Link>Learn more</Link>"
   },
   "primeSimulator": {
@@ -632,26 +650,6 @@
     "stakeButtonLabel": "Stake XVS",
     "tokensLeft": "<WhiteText>{{tokensLeft}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
-  },
-  "primeCalculator": {
-    "rewardDetails": {
-      "fromBorrowedTokens": "From borrowed tokens",
-      "fromSuppliedTokens": "From supplied tokens",
-      "title": "Reward Details",
-      "totalYearlyRewards": {
-        "title": "Total yearly rewards",
-        "tooltip": "Amount of all Prime rewards distributed for this token"
-      },
-      "primeBorrowApy": {
-        "title": "Prime borrow APY",
-        "tooltip": "TRANSLATION NEEDED"
-      },
-      "primeSupplyApy": {
-        "title": "Prime supply APY",
-        "tooltip": "TRANSLATION NEEDED"
-      },
-      "yourYearlyRewards": "Your yearly rewards"
-    }
   },
   "select": {
     "defaultLabel": "Select option"
