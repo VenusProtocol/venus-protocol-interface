@@ -7516,15 +7516,10 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.3.0.tgz#b5852e453b95429acbfba1135d5bbe92b93edf63"
   integrity sha512-AdAtAgPC9UjJJlY8/ydGnDHkE+99MCCIIb5cg9lFrmv9gL0icHWjKVNxdfskZxj9CJ1BknOgTULsbUmLj0+VzA==
 
-"@venusprotocol/governance-contracts@^1.4.0-dev.2":
-  version "1.4.0-dev.2"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.4.0-dev.2.tgz#9470310af69df2f981b0e6498393fddfc235039c"
-  integrity sha512-ArBw+ahDnVNzv4b+1/cIY4bFBpHG6ucZmaQzy+bqAZRaN8avaI95hm0mPMg99p1yTGJyX6uei0KuQZI4GsSHOw==
-
-"@venusprotocol/governance-contracts@^1.4.0-dev.6":
-  version "1.4.0-dev.6"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.4.0-dev.6.tgz#465c1f8a991acc3f713a3aa59e60f62d8d54fa65"
-  integrity sha512-V6G9E+ltsiYwyOhnIOD2QA5Kggk5drP2M49JN1XVEKCNw3JJBAMLnrwkTKqBRS3lfMO1pqmkMw+ZIBve2RYiog==
+"@venusprotocol/governance-contracts@^1.4.0-dev.2", "@venusprotocol/governance-contracts@^1.4.0-dev.6":
+  version "1.4.0-dev.13"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.4.0-dev.13.tgz#3e39292d8704b4e03397dcdb9ed4d913742264a4"
+  integrity sha512-/n1oQx1MYjjA6+2MvVNzUKqUl1rl5t/8iQR5oFBptIC8z78e9+SNHLCksFaz32AuaYgdtnaqUPEVNYbEppsXAw==
   dependencies:
     "@venusprotocol/solidity-utilities" "^1.1.0"
     hardhat-deploy-ethers "^0.3.0-beta.13"
