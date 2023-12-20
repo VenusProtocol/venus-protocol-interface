@@ -82,7 +82,9 @@ const OperationModal: React.FC<OperationModalProps> = ({
   return (
     <Modal
       isOpen
-      title={<TokenIconWithSymbol token={vToken.underlyingToken} variant="h4" />}
+      title={
+        <TokenIconWithSymbol token={vToken.underlyingToken} className="text-lg font-semibold" />
+      }
       handleClose={onClose}
     >
       <Tabs tabsContent={tabsContent} initialActiveTabIndex={initialActiveTabIndex} />

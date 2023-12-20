@@ -50,7 +50,7 @@ export const ApyWithPrimeBoost: React.FC<ApyWithPrimeBoostProps> = ({
             <Trans
               i18nKey="marketTable.apy.primeBoost.tooltip"
               components={{
-                Link: <Link to={primeCalculatorPagePath} />,
+                Link: <Link to={primeCalculatorPagePath} onClick={e => e.stopPropagation()} />,
               }}
             />
           }

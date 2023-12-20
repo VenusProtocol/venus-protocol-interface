@@ -606,9 +606,18 @@
     "primeLogoAlt": "Venus Prime logo"
   },
   "primeCalculator": {
+    "borrowedTokens": {
+      "infos": {
+        "label": "Qualified borrowed {{tokenSymbol}}",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "textField": {
+        "label": "Borrowed {{tokenSymbol}}"
+      }
+    },
     "rewardDetails": {
-      "fromBorrowedTokens": "From borrowed tokens",
-      "fromSuppliedTokens": "From supplied tokens",
+      "fromBorrowedTokens": "From borrowed {{tokenSymbol}}",
+      "fromSuppliedTokens": "From supplied {{tokenSymbol}}",
       "primeBorrowApy": {
         "title": "Prime borrow APY",
         "tooltip": "TRANSLATION NEEDED"
@@ -624,12 +633,24 @@
       },
       "yourYearlyRewards": "Your yearly rewards"
     },
-    "topMessage": "You can use the Prime calculator to estimate the rewards you'd receive from holding a Prime token based on your positions. <Link>Learn more</Link>"
-  },
-  "primeSimulator": {
+    "stakedTokens": {
+      "textField": {
+        "label": "Staked XVS"
+      }
+    },
+    "suppliedTokens": {
+      "infos": {
+        "label": "Qualified supplied {{tokenSymbol}}",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "textField": {
+        "label": "Supplied {{tokenSymbol}}"
+      }
+    },
     "tokenSelect": {
       "label": "Token"
-    }
+    },
+    "topMessage": "You can use the Prime calculator to estimate the rewards you'd receive from holding a Prime token based on your positions. <Link>Learn more</Link>"
   },
   "primeStatusBanner": {
     "becomePrimeTitle": "You can now become a Prime user",

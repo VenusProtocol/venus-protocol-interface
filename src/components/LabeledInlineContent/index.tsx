@@ -23,7 +23,7 @@ export const LabeledInlineContent = ({
   ...otherContainerProps
 }: LabeledInlineContentProps) => (
   <div
-    className={cn(className, 'flex w-full items-center justify-between space-x-4')}
+    className={cn('flex w-full items-center justify-between space-x-4', className)}
     {...otherContainerProps}
   >
     <div className="flex items-center text-sm md:text-base">

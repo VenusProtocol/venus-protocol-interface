@@ -1,9 +1,11 @@
+import BigNumber from 'bignumber.js';
 import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { useGetLegacyPool } from 'clients/api';
 import {
   Card,
+  Delimiter,
   LabeledInlineContent,
   Select,
   SelectOption,
@@ -15,6 +17,7 @@ import { useTranslation } from 'packages/translations';
 import { Token } from 'types';
 
 import { RewardDetails } from './RewardDetails';
+import { TextField } from './TextField';
 
 const QUERY_PARAM_TOKEN_ADDRESS = 'tokenAddress';
 
@@ -25,6 +28,9 @@ export const Form: React.FC = () => {
 
   const usdt = useGetToken({
     symbol: 'USDT',
+  });
+  const xvs = useGetToken({
+    symbol: 'XVS',
   });
 
   const options = useMemo(() => {
@@ -69,7 +75,7 @@ export const Form: React.FC = () => {
 
   // TODO: set form field value (use useEffect hook)
 
-  if (!usdt) {
+  if (!usdt || !xvs) {
     return null;
   }
 
@@ -77,7 +83,7 @@ export const Form: React.FC = () => {
     <div className="space-y-4 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
       <div className="space-y-4">
         <Card>
-          <LabeledInlineContent label={t('primeSimulator.tokenSelect.label')}>
+          <LabeledInlineContent label={t('primeCalculator.tokenSelect.label')}>
             {isGetLegacyPoolLoading ? (
               <Spinner />
             ) : (
@@ -86,23 +92,66 @@ export const Form: React.FC = () => {
                 value={usdt.address}
                 onChange={tokenAddress => console.log(tokenAddress)}
                 options={options}
-                className="w-[150px"
+                className="w-[150px]"
                 buttonClassName="bg-lightGrey hover:border-blue"
               />
             )}
           </LabeledInlineContent>
         </Card>
+
+        <Card className="space-y-4 lg:space-y-6">
+          <TextField
+            // TODO: wire up
+            token={xvs}
+            label={t('primeCalculator.stakedTokens.textField.label')}
+            disabled={isGetLegacyPoolLoading}
+          />
+
+          <Delimiter />
+
+          <TextField
+            // TODO: wire up
+            token={usdt}
+            infosAmountTokens={new BigNumber(1000)}
+            label={t('primeCalculator.borrowedTokens.textField.label', {
+              tokenSymbol: usdt.symbol,
+            })}
+            infosLabel={t('primeCalculator.borrowedTokens.infos.label', {
+              tokenSymbol: usdt.symbol,
+            })}
+            infosTooltip={t('primeCalculator.borrowedTokens.infos.tooltip')}
+            disabled={isGetLegacyPoolLoading}
+          />
+
+          <Delimiter />
+
+          <TextField
+            // TODO: wire up
+            token={usdt}
+            infosAmountTokens={new BigNumber(1000)}
+            label={t('primeCalculator.suppliedTokens.textField.label', {
+              tokenSymbol: usdt.symbol,
+            })}
+            infosLabel={t('primeCalculator.suppliedTokens.infos.label', {
+              tokenSymbol: usdt.symbol,
+            })}
+            infosTooltip={t('primeCalculator.suppliedTokens.infos.tooltip')}
+            disabled={isGetLegacyPoolLoading}
+          />
+        </Card>
       </div>
 
-      <RewardDetails
-        primeBorrowApy="-"
-        primeSupplyApy="-"
-        token={usdt}
-        totalYearlyRewards="-"
-        userYearlyRewards="-"
-        userSuppliedTokens="-"
-        userBorrowedTokens="-"
-      />
+      <div>
+        <RewardDetails
+          primeBorrowApy="-"
+          primeSupplyApy="-"
+          token={usdt}
+          totalYearlyRewards="-"
+          userYearlyRewards="-"
+          userSuppliedTokens="-"
+          userBorrowedTokens="-"
+        />
+      </div>
     </div>
   );
 };

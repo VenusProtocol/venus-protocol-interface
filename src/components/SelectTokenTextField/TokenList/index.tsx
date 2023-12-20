@@ -2,13 +2,13 @@
 import { Typography } from '@mui/material';
 import { InputHTMLAttributes, useMemo, useState } from 'react';
 
+import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { useTranslation } from 'packages/translations';
 import { Token, TokenBalance } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { SenaryButton } from '../../Button';
 import { TextField } from '../../TextField';
-import { TokenIconWithSymbol } from '../../TokenIconWithSymbol';
 import { useStyles as useParentStyles } from '../styles';
 import { getTokenListItemTestId } from '../testIdGetters';
 import { useStyles } from './styles';

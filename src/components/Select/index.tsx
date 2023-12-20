@@ -141,7 +141,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 buttonClassName,
               )}
               contentClassName={cn(
-                'w-full justify-between text-sm',
+                'w-full justify-between text-sm font-semibold',
                 variant === 'secondary' && 'font-normal',
               )}
             >
