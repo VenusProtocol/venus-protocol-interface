@@ -1,3 +1,10 @@
+## [2.67.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.66.0...v2.67.0) (2023-12-20)
+
+
+### Features
+
+* Bridge page UI ([#1968](https://github.com/VenusProtocol/venus-protocol-interface/issues/1968)) ([d33b053](https://github.com/VenusProtocol/venus-protocol-interface/commit/d33b053d1f8114d1ebfa90c5aed7397d22087d7f))
+
 ## [2.66.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.65.1...v2.66.0) (2023-12-20)
 
 
