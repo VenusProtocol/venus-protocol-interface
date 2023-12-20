@@ -22,6 +22,7 @@ export enum Subdirectory {
   CONVERT_VRT = 'convert-vrt',
   VAI = 'vai',
   PRIME_CALCULATOR = 'prime-calculator',
+  BRIDGE = 'bridge',
 }
 
 const routeSubdirectories = {
@@ -54,6 +55,7 @@ const routeSubdirectories = {
   vaults: [Subdirectory.VAULTS],
   vaultsPrimeCalculator: [Subdirectory.VAULTS, Subdirectory.PRIME_CALCULATOR],
   vai: [Subdirectory.VAI],
+  bridge: [Subdirectory.BRIDGE],
 };
 
 export type RouteName = keyof typeof routeSubdirectories;

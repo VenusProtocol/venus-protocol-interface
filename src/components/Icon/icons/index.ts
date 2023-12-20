@@ -52,3 +52,4 @@ export { default as lightening } from './lightening';
 export { default as fourDots } from './fourDots';
 export { default as bin } from './bin';
 export { default as telegram } from './telegram';
+export { default as bridge } from './bridge';

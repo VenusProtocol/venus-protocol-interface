@@ -27,6 +27,7 @@ const Voter = lazy(() => import('pages/Voter'));
 const VoterLeaderboard = lazy(() => import('pages/VoterLeaderboard'));
 const Xvs = lazy(() => import('pages/Xvs'));
 const PrimeCalculator = lazy(() => import('pages/PrimeCalculator'));
+const Bridge = lazy(() => import('pages/Bridge'));
 
 const AppRoutes = () => {
   const { accountAddress } = useAccountAddress();
@@ -34,6 +35,7 @@ const AppRoutes = () => {
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
+  const bridgeEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const primeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
@@ -251,6 +253,17 @@ const AppRoutes = () => {
             element={
               <PageSuspense>
                 <Vai />
+              </PageSuspense>
+            }
+          />
+        )}
+
+        {bridgeEnabled && (
+          <Route
+            path={Subdirectory.BRIDGE}
+            element={
+              <PageSuspense>
+                <Bridge />
               </PageSuspense>
             }
           />

@@ -8,7 +8,7 @@ export const useStyles = () => {
     getLabel: ({ hasError }: { hasError: boolean }) => css`
       display: block;
       margin-bottom: ${theme.spacing(1)};
-      color: ${hasError ? theme.palette.error.main : theme.palette.text.primary};
+      color: ${hasError ? theme.palette.error.main : theme.palette.text.secondary};
     `,
     getInputContainer: ({
       hasError,

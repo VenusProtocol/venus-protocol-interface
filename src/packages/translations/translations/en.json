@@ -133,6 +133,7 @@
   },
   "breadcrumbs": {
     "account": "Account",
+    "bridge": "Bridge",
     "convertVrt": "Convert VRT",
     "corePool": "Core pool",
     "dashboard": "Dashboard",
@@ -147,6 +148,38 @@
     "vai": "VAI",
     "vaults": "Vaults",
     "xvs": "XVS"
+  },
+  "bridgePage": {
+    "amountInput": {
+      "label": "Amount",
+      "maxButtonLabel": "MAX"
+    },
+    "bridgeGasFee": {
+      "label": "Bridge gas fee",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "connectWalletButton": {
+      "label": "Connect wallet"
+    },
+    "footer": {
+      "bridgeDocLink": "How to bridge",
+      "poweredBy": "Powered by"
+    },
+    "fromChainSelect": {
+      "label": "From"
+    },
+    "submitButton": {
+      "label": {
+        "enterValidAmount": "Enter valid amount",
+        "submit": "Confirm"
+      }
+    },
+    "toChainSelect": {
+      "label": "To"
+    },
+    "walletBalance": {
+      "label": "Wallet balance"
+    }
   },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
@@ -298,12 +331,15 @@
       "vestingVaultGroup": "{{stakedTokenSymbol}} vesting vault"
     },
     "menu": {
+      "navLink": {
+        "new": "NEW"
+      },
       "venusLogoAlt": "Venus logo"
     },
     "menuItems": {
       "account": "Account",
+      "bridge": "Bridge",
       "convertVrt": "Convert VRT",
-      "convertVrtTitle": "Convert VRT to XVS",
       "corePool": "Core pool",
       "dashboard": "Dashboard",
       "governance": "Governance",

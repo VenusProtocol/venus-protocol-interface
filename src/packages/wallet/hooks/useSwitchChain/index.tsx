@@ -12,7 +12,7 @@ export const useSwitchChain = () => {
   const { updateUrlChainId } = useUpdateUrlChainId();
 
   const switchChain = useCallback(
-    async (input: { chainId: ChainId }) => {
+    async (input: { chainId: ChainId; callback?: () => void }) => {
       try {
         if (switchNetworkAsync) {
           // Change wallet network if it is connected
@@ -26,6 +26,8 @@ export const useSwitchChain = () => {
 
         // Update URL
         updateUrlChainId(input);
+
+        input.callback?.();
       } catch (error) {
         if (error instanceof VError && error.code === 'couldNotSwitchChain') {
           displayMutationError({ error });

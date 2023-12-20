@@ -128,6 +128,7 @@ export const Breadcrumbs: React.FC = () => {
         case Subdirectory.CONVERT_VRT:
           dom = t('breadcrumbs.convertVrt');
           break;
+
         case Subdirectory.SWAP:
           dom = t('breadcrumbs.swap');
           break;
@@ -136,6 +137,9 @@ export const Breadcrumbs: React.FC = () => {
           break;
         case Subdirectory.PRIME_CALCULATOR:
           dom = t('breadcrumbs.primeCalculator');
+          break;
+        case Subdirectory.BRIDGE:
+          dom = t('breadcrumbs.bridge');
           break;
         default:
           break;

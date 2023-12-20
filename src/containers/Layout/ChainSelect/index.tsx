@@ -40,7 +40,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClass
   return (
     <Select
       value={chainId}
-      onChange={newChainId => switchChain({ chainId: newChainId })}
+      onChange={newChainId => switchChain({ chainId: Number(newChainId) })}
       options={options}
       menuPosition="right"
       menuTitle={t('layout.chainSelect.label')}

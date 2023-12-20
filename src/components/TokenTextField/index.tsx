@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import { Token } from 'types';
 
@@ -24,49 +24,50 @@ export interface TokenTextFieldProps
   max?: string;
 }
 
-export const TokenTextField: React.FC<TokenTextFieldProps> = ({
-  token,
-  rightMaxButton,
-  onChange,
-  disabled,
-  max,
-  displayTokenIcon = true,
-  ...otherProps
-}) => {
-  const step = useMemo(() => {
-    const tmpOneTokenInMantissa = new BigNumber(10 ** token.decimals);
-    const tmpOneMantissaInTokens = new BigNumber(1).dividedBy(tmpOneTokenInMantissa);
+export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
+  HTMLInputElement,
+  TokenTextFieldProps
+>(
+  (
+    { token, rightMaxButton, onChange, disabled, max, displayTokenIcon = true, ...otherProps },
+    ref,
+  ) => {
+    const step = useMemo(() => {
+      const tmpOneTokenInMantissa = new BigNumber(10 ** token.decimals);
+      const tmpOneMantissaInTokens = new BigNumber(1).dividedBy(tmpOneTokenInMantissa);
 
-    return tmpOneMantissaInTokens.toFixed();
-  }, [token.decimals]);
+      return tmpOneMantissaInTokens.toFixed();
+    }, [token.decimals]);
 
-  const handleChange: TextFieldProps['onChange'] = ({ currentTarget: { value } }) => {
-    // Forbid values with more decimals than the token provided supports
-    const valueDecimals = value.includes('.') ? value.split('.')[1].length : 0;
+    const handleChange: TextFieldProps['onChange'] = ({ currentTarget: { value } }) => {
+      // Forbid values with more decimals than the token provided supports
+      const valueDecimals = value.includes('.') ? value.split('.')[1].length : 0;
 
-    if (valueDecimals <= token.decimals) {
-      onChange(value);
-    }
-  };
-
-  return (
-    <TextField
-      placeholder="0.00"
-      min={0}
-      max={max}
-      step={step}
-      onChange={handleChange}
-      type="number"
-      leftIconSrc={displayTokenIcon ? token : undefined}
-      rightAdornment={
-        rightMaxButton ? (
-          <TertiaryButton disabled={disabled} {...rightMaxButton}>
-            {rightMaxButton.label}
-          </TertiaryButton>
-        ) : undefined
+      if (valueDecimals <= token.decimals) {
+        onChange(value);
       }
-      disabled={disabled}
-      {...otherProps}
-    />
-  );
-};
+    };
+
+    return (
+      <TextField
+        ref={ref}
+        placeholder="0.00"
+        min={0}
+        max={max}
+        step={step}
+        onChange={handleChange}
+        type="number"
+        leftIconSrc={displayTokenIcon ? token : undefined}
+        rightAdornment={
+          rightMaxButton ? (
+            <TertiaryButton disabled={disabled} {...rightMaxButton}>
+              {rightMaxButton.label}
+            </TertiaryButton>
+          ) : undefined
+        }
+        disabled={disabled}
+        {...otherProps}
+      />
+    );
+  },
+);
