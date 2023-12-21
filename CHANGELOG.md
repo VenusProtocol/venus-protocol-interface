@@ -1,3 +1,10 @@
+## [2.69.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.68.0...v2.69.0) (2023-12-21)
+
+
+### Features
+
+* Prime Calculator form UI ([#1987](https://github.com/VenusProtocol/venus-protocol-interface/issues/1987)) ([5a2570b](https://github.com/VenusProtocol/venus-protocol-interface/commit/5a2570b89f4a92df965d7800720f4ece96693f81))
+
 ## [2.68.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.67.1...v2.68.0) (2023-12-21)
 
 
