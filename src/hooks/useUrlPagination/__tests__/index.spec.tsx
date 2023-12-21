@@ -4,11 +4,7 @@ import Vi from 'vitest';
 
 import { renderHook } from 'testUtils/render';
 
-import { useNavigate } from 'hooks/useNavigate';
-
 import { PAGE_PARAM_NAME, useUrlPagination } from '..';
-
-vi.mock('hooks/useNavigate');
 
 vi.mock('react-router-dom', async () => {
   const actual = (await vi.importActual('react-router-dom')) as any;
@@ -20,12 +16,6 @@ vi.mock('react-router-dom', async () => {
 });
 
 describe('useUrlPagination', () => {
-  beforeEach(() => {
-    (useNavigate as Vi.Mock).mockImplementation(() => ({
-      navigate: vi.fn(),
-    }));
-  });
-
   it('defaults to page 1 if no page param is set', () => {
     const mockSearchParams = new URLSearchParams();
     const mockSetSearchParams = vi.fn();

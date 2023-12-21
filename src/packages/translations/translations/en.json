@@ -626,7 +626,7 @@
         "title": "Prime supply APY",
         "tooltip": "TRANSLATION NEEDED"
       },
-      "title": "Reward Details",
+      "title": "Reward details",
       "totalYearlyRewards": {
         "title": "Total yearly rewards",
         "tooltip": "Amount of all Prime rewards distributed for this token"

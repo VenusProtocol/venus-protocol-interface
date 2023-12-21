@@ -52,6 +52,7 @@ export const RewardDetails: React.FC<RewardDetailsProps> = ({
         <TokenAmountAndApy
           apy={primeSupplyApy}
           apyTitle={t('primeCalculator.rewardDetails.primeSupplyApy.title')}
+          // TODO: define tooltip text
           apyTooltip={t('primeCalculator.rewardDetails.primeSupplyApy.tooltip')}
           tokenAmount={userSuppliedTokens}
           tokenAmountTitle={t('primeCalculator.rewardDetails.fromSuppliedTokens', {
@@ -62,6 +63,7 @@ export const RewardDetails: React.FC<RewardDetailsProps> = ({
         <TokenAmountAndApy
           apy={primeBorrowApy}
           apyTitle={t('primeCalculator.rewardDetails.primeBorrowApy.title')}
+          // TODO: define tooltip text
           apyTooltip={t('primeCalculator.rewardDetails.primeBorrowApy.tooltip')}
           tokenAmount={userBorrowedTokens}
           tokenAmountTitle={t('primeCalculator.rewardDetails.fromBorrowedTokens', {

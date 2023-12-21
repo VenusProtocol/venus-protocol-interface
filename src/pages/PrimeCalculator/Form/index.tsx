@@ -1,6 +1,8 @@
-import BigNumber from 'bignumber.js';
-import { useEffect, useMemo } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useCallback, useEffect, useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
+import { z } from 'zod';
 
 import { useGetLegacyPool } from 'clients/api';
 import {
@@ -15,68 +17,109 @@ import {
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { Token } from 'types';
+import { areAddressesEqual } from 'utilities';
 
+import TEST_IDS from '../testIds';
+import { Field } from './Field';
 import { RewardDetails } from './RewardDetails';
-import { TextField } from './TextField';
 
-const QUERY_PARAM_TOKEN_ADDRESS = 'tokenAddress';
+export const QUERY_PARAM_TOKEN_ADDRESS = 'tokenAddress';
+
+const formSchema = z.object({
+  stakedAmountXvs: z.string().min(1),
+  suppliedAmountTokens: z.string().min(1),
+  borrowedAmountTokens: z.string().min(1),
+});
 
 export const Form: React.FC = () => {
   const { t } = useTranslation();
   const { data: getLegacyPoolData, isLoading: isGetLegacyPoolLoading } = useGetLegacyPool();
+
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const usdt = useGetToken({
-    symbol: 'USDT',
+  const { setValue, control } = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      stakedAmountXvs: '',
+      suppliedAmountTokens: '',
+      borrowedAmountTokens: '',
+    },
   });
+
   const xvs = useGetToken({
     symbol: 'XVS',
   });
 
+  // Extract tokens affected by Prime
+  const primeTokens = useMemo(
+    () =>
+      (getLegacyPoolData?.pool.assets || []).reduce<Token[]>((acc, asset) => {
+        const distributions = asset.borrowDistributions.concat(asset.supplyDistributions);
+        const hasPrimeDistribution = distributions.some(
+          distribution => distribution.type === 'prime' || distribution.type === 'primeSimulation',
+        );
+
+        return hasPrimeDistribution ? [...acc, asset.vToken.underlyingToken] : acc;
+      }, []),
+    [getLegacyPoolData?.pool.assets],
+  );
+
+  // Generate options from tokens affected by Primes
   const options = useMemo(() => {
-    // Extract tokens affected by Prime
-    const primeTokens = (getLegacyPoolData?.pool.assets || []).reduce<Token[]>((acc, asset) => {
-      const distributions = asset.borrowDistributions.concat(asset.supplyDistributions);
-      const hasPrimeDistribution = distributions.some(
-        distribution => distribution.type === 'prime' || distribution.type === 'primeSimulation',
-      );
-
-      return hasPrimeDistribution ? [...acc, asset.vToken.underlyingToken] : acc;
-    }, []);
-
-    // Generate options from tokens affected by Prime
     const selectOptions: SelectOption[] = primeTokens.map(primeToken => ({
       label: () => <TokenIconWithSymbol token={primeToken} />,
       value: primeToken.address,
     }));
 
     return selectOptions;
-  }, [getLegacyPoolData?.pool.assets]);
+  }, [primeTokens]);
 
-  // Detect token address query param change and update form accordingly
-  useEffect(() => {
-    const tokenAddressParam = searchParams.get(QUERY_PARAM_TOKEN_ADDRESS);
-    const isTokenAddressParamValid =
-      tokenAddressParam && options.find(option => option.value === tokenAddressParam);
+  const defaultTokenAddress = options[0]?.value as string | undefined;
 
-    // Set default tokenAddress query param if none is present in the URL
-    if (!isTokenAddressParamValid && options.length > 0) {
+  const urlTokenAddress = searchParams.get(QUERY_PARAM_TOKEN_ADDRESS);
+  const selectedToken = useMemo(
+    () =>
+      urlTokenAddress
+        ? primeTokens.find(token => areAddressesEqual(token.address, urlTokenAddress))
+        : undefined,
+    [urlTokenAddress, primeTokens],
+  );
+
+  const updateUrlTokenAddress = useCallback(
+    ({ tokenAddress }: { tokenAddress: string }) => {
       setSearchParams(
         {
-          ...searchParams,
-          [QUERY_PARAM_TOKEN_ADDRESS]: String(options[0].value),
+          ...Object.fromEntries(searchParams),
+          [QUERY_PARAM_TOKEN_ADDRESS]: tokenAddress,
         },
         {
           replace: true,
         },
       );
-    }
-  }, [searchParams, setSearchParams, options]);
+    },
+    [setSearchParams, searchParams],
+  );
 
-  // TODO: set form field value (use useEffect hook)
+  // Initialize URL token address
+  useEffect(() => {
+    const fn = () => {
+      const isUrlTokenAddressValid =
+        urlTokenAddress && options.find(option => option.value === urlTokenAddress);
 
-  if (!usdt || !xvs) {
+      if ((!urlTokenAddress || !isUrlTokenAddressValid) && defaultTokenAddress) {
+        updateUrlTokenAddress({ tokenAddress: defaultTokenAddress });
+      }
+    };
+
+    fn();
+  }, [options, updateUrlTokenAddress, setValue, urlTokenAddress, defaultTokenAddress]);
+
+  if (!xvs) {
     return null;
+  }
+
+  if (isGetLegacyPoolLoading || !selectedToken) {
+    return <Spinner />;
   }
 
   return (
@@ -84,59 +127,75 @@ export const Form: React.FC = () => {
       <div className="space-y-4">
         <Card>
           <LabeledInlineContent label={t('primeCalculator.tokenSelect.label')}>
-            {isGetLegacyPoolLoading ? (
-              <Spinner />
-            ) : (
-              <Select
-                // TODO: wire up
-                value={usdt.address}
-                onChange={tokenAddress => console.log(tokenAddress)}
-                options={options}
-                className="w-[150px]"
-                buttonClassName="bg-lightGrey hover:border-blue"
-              />
-            )}
+            <Select
+              options={options}
+              className="w-[150px]"
+              buttonClassName="bg-lightGrey hover:border-blue"
+              value={selectedToken.address}
+              testId={TEST_IDS.tokenSelect}
+              onChange={newSelectedTokenAddress =>
+                updateUrlTokenAddress({ tokenAddress: newSelectedTokenAddress as string })
+              }
+            />
           </LabeledInlineContent>
         </Card>
 
         <Card className="space-y-4 lg:space-y-6">
-          <TextField
-            // TODO: wire up
-            token={xvs}
-            label={t('primeCalculator.stakedTokens.textField.label')}
-            disabled={isGetLegacyPoolLoading}
+          <Controller
+            name="stakedAmountXvs"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Field
+                token={xvs}
+                label={t('primeCalculator.stakedTokens.textField.label')}
+                {...field}
+              />
+            )}
           />
 
           <Delimiter />
 
-          <TextField
-            // TODO: wire up
-            token={usdt}
-            infosAmountTokens={new BigNumber(1000)}
-            label={t('primeCalculator.borrowedTokens.textField.label', {
-              tokenSymbol: usdt.symbol,
-            })}
-            infosLabel={t('primeCalculator.borrowedTokens.infos.label', {
-              tokenSymbol: usdt.symbol,
-            })}
-            infosTooltip={t('primeCalculator.borrowedTokens.infos.tooltip')}
-            disabled={isGetLegacyPoolLoading}
+          <Controller
+            name="suppliedAmountTokens"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Field
+                token={selectedToken}
+                label={t('primeCalculator.suppliedTokens.textField.label', {
+                  tokenSymbol: selectedToken.symbol,
+                })}
+                infosLabel={t('primeCalculator.suppliedTokens.infos.label', {
+                  tokenSymbol: selectedToken.symbol,
+                })}
+                // TODO: define tooltip text
+                infosTooltip={t('primeCalculator.suppliedTokens.infos.tooltip')}
+                {...field}
+              />
+            )}
           />
 
           <Delimiter />
 
-          <TextField
-            // TODO: wire up
-            token={usdt}
-            infosAmountTokens={new BigNumber(1000)}
-            label={t('primeCalculator.suppliedTokens.textField.label', {
-              tokenSymbol: usdt.symbol,
-            })}
-            infosLabel={t('primeCalculator.suppliedTokens.infos.label', {
-              tokenSymbol: usdt.symbol,
-            })}
-            infosTooltip={t('primeCalculator.suppliedTokens.infos.tooltip')}
-            disabled={isGetLegacyPoolLoading}
+          <Controller
+            name="borrowedAmountTokens"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Field
+                token={selectedToken}
+                label={t('primeCalculator.borrowedTokens.textField.label', {
+                  tokenSymbol: selectedToken.symbol,
+                })}
+                infosLabel={t('primeCalculator.borrowedTokens.infos.label', {
+                  tokenSymbol: selectedToken.symbol,
+                })}
+                // TODO: define tooltip text
+                infosTooltip={t('primeCalculator.borrowedTokens.infos.tooltip')}
+                {...field}
+              />
+            )}
           />
         </Card>
       </div>
@@ -145,7 +204,7 @@ export const Form: React.FC = () => {
         <RewardDetails
           primeBorrowApy="-"
           primeSupplyApy="-"
-          token={usdt}
+          token={selectedToken}
           totalYearlyRewards="-"
           userYearlyRewards="-"
           userSuppliedTokens="-"

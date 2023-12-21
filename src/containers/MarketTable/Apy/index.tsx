@@ -78,6 +78,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
     return (
       <ApyWithPrimeSimulationBoost
         type={type}
+        tokenAddress={asset.vToken.underlyingToken.address}
         readableApy={readableApy}
         readableLtv={readableLtv}
         primeSimulationDistribution={primeSimulationDistribution}
