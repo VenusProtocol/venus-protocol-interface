@@ -1,3 +1,10 @@
+## [2.68.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.67.1...v2.68.0) (2023-12-21)
+
+
+### Features
+
+* add support for FDUSD token on BSC networks ([#1986](https://github.com/VenusProtocol/venus-protocol-interface/issues/1986)) ([f33975e](https://github.com/VenusProtocol/venus-protocol-interface/commit/f33975e4f80c162667349c69545826fb186fb0ae))
+
 ## [2.67.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.67.0...v2.67.1) (2023-12-21)
 
 ## [2.67.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.66.0...v2.67.0) (2023-12-20)
