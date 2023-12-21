@@ -15,6 +15,7 @@ import busdLogo from 'packages/tokens/img/busd.svg';
 import cakeLogo from 'packages/tokens/img/cake.svg';
 import dogeLogo from 'packages/tokens/img/doge.svg';
 import ethLogo from 'packages/tokens/img/eth.svg';
+import fdusdLogo from 'packages/tokens/img/fdusd.svg';
 import flokiLogo from 'packages/tokens/img/floki.svg';
 import hayLogo from 'packages/tokens/img/hay.png';
 import ltcLogo from 'packages/tokens/img/ltc.svg';
@@ -337,5 +338,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'PLANET',
     asset: planetLogo,
+  },
+  {
+    address: '0xcF27439fA231af9931ee40c4f27Bb77B83826F3C',
+    decimals: 18,
+    symbol: 'FDUSD',
+    asset: fdusdLogo,
   },
 ];
