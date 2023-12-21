@@ -2,11 +2,11 @@
 import { Typography } from '@mui/material';
 import { useState } from 'react';
 
+import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { Token, TokenBalance } from 'types';
 
 import { TertiaryButton } from '../Button';
 import { Icon } from '../Icon';
-import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
 import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';

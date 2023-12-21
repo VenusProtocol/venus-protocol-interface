@@ -61,7 +61,7 @@ export const AssetTable: React.FC<AssetTableProps> = ({
             key={`isolated-asset-warning-asset-table-data-row-${asset.vToken.underlyingToken.address}`}
           >
             <div css={styles.cell}>
-              <TokenIconWithSymbol token={asset.vToken.underlyingToken} variant="small2" />
+              <TokenIconWithSymbol token={asset.vToken.underlyingToken} className="text-sm" />
             </div>
 
             <div css={styles.cell}>

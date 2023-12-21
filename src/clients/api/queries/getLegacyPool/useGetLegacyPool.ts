@@ -50,7 +50,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetLegacyPool = (input: TrimmedInput, options?: Options) => {
+const useGetLegacyPool = (input?: TrimmedInput, options?: Options) => {
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
 

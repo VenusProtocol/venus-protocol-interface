@@ -65,6 +65,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
     return (
       <ApyWithPrimeBoost
         type={type}
+        tokenAddress={asset.vToken.underlyingToken.address}
         apyPercentage={apyPercentage}
         apyPercentageWithoutPrimeBoost={apyPercentageWithoutPrimeBoost}
         readableLtv={readableLtv}
@@ -77,6 +78,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
     return (
       <ApyWithPrimeSimulationBoost
         type={type}
+        tokenAddress={asset.vToken.underlyingToken.address}
         readableApy={readableApy}
         readableLtv={readableLtv}
         primeSimulationDistribution={primeSimulationDistribution}

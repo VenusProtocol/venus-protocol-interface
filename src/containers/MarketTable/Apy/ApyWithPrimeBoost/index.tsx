@@ -1,11 +1,14 @@
 import BigNumber from 'bignumber.js';
 
 import { Icon, Tooltip } from 'components';
+import { Link } from 'containers/Link';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
+import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
 import { useTranslation } from 'packages/translations';
 
 export interface ApyWithPrimeBoostProps {
   type: 'supply' | 'borrow';
+  tokenAddress: string;
   apyPercentage: BigNumber;
   apyPercentageWithoutPrimeBoost: BigNumber;
   readableLtv: string;
@@ -13,11 +16,13 @@ export interface ApyWithPrimeBoostProps {
 
 export const ApyWithPrimeBoost: React.FC<ApyWithPrimeBoostProps> = ({
   type,
+  tokenAddress,
   apyPercentage,
   apyPercentageWithoutPrimeBoost,
   readableLtv,
 }) => {
-  const { t } = useTranslation();
+  const { Trans } = useTranslation();
+  const primeCalculatorPagePath = usePrimeCalculatorPagePath({ tokenAddress });
 
   const readableApy = useFormatPercentageToReadableValue({
     value: apyPercentage,
@@ -41,7 +46,14 @@ export const ApyWithPrimeBoost: React.FC<ApyWithPrimeBoostProps> = ({
 
         <Tooltip
           className="inline-block align-middle"
-          title={t('marketTable.apy.primeBoost.tooltip')}
+          title={
+            <Trans
+              i18nKey="marketTable.apy.primeBoost.tooltip"
+              components={{
+                Link: <Link to={primeCalculatorPagePath} onClick={e => e.stopPropagation()} />,
+              }}
+            />
+          }
         >
           <Icon name="info" />
         </Tooltip>

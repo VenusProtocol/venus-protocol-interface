@@ -10,6 +10,7 @@ import { PrimeSimulationDistribution, Token } from 'types';
 
 export interface ApyWithPrimeSimulationBoostProps {
   type: 'supply' | 'borrow';
+  tokenAddress: string;
   primeSimulationDistribution: PrimeSimulationDistribution;
   readableApy: string;
   readableLtv: string;
@@ -18,13 +19,14 @@ export interface ApyWithPrimeSimulationBoostProps {
 
 export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostProps> = ({
   type,
+  tokenAddress,
   primeSimulationDistribution,
   readableApy,
   readableLtv,
   xvs,
 }) => {
   const { t, Trans } = useTranslation();
-  const primeCalculatorPagePath = usePrimeCalculatorPagePath();
+  const primeCalculatorPagePath = usePrimeCalculatorPagePath({ tokenAddress });
   const isPrimeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });

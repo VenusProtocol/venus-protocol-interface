@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { useNavigate } from 'hooks/useNavigate';
-
 export type UseUrlPaginationOutput = {
   currentPage: number;
   setCurrentPage: (newPageIndex: number) => void;
@@ -11,7 +9,6 @@ export type UseUrlPaginationOutput = {
 export const PAGE_PARAM_NAME = 'page';
 
 export const useUrlPagination = (): UseUrlPaginationOutput => {
-  const { navigate } = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const pageIndex = searchParams.get(PAGE_PARAM_NAME) ?? undefined;
 
@@ -37,7 +34,7 @@ export const useUrlPagination = (): UseUrlPaginationOutput => {
       // when updating the page search param
       setPageIndex(1);
     }
-  }, [navigate, pageIndex, setPageIndex]);
+  }, [pageIndex, setPageIndex]);
 
   const currentPage = useMemo(() => (pageIndex ? +pageIndex - 1 : 0), [pageIndex]);
 

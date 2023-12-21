@@ -1,32 +1,17 @@
-/** @jsxImportSource @emotion/react */
-import Typography from '@mui/material/Typography';
-
-import { TypographyVariant } from 'theme/MuiThemeProvider/muiTheme';
 import { Token } from 'types';
+import { cn } from 'utilities';
 
 import { TokenIcon } from '../TokenIcon';
-import { useStyles } from './styles';
 
 export interface TokenIconWithSymbolProps {
   token: Token;
   className?: string;
-  variant?: TypographyVariant;
 }
 
-export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
-  className,
-  token,
-  variant,
-}) => {
-  const styles = useStyles();
+export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({ token, className }) => (
+  <div className={cn(className, 'flex items-center')}>
+    <TokenIcon token={token} className="mr-2 h-6 w-6" />
 
-  return (
-    <div className={className} css={styles.container}>
-      <TokenIcon token={token} css={styles.icon} />
-
-      <Typography component="span" variant={variant}>
-        {token.symbol}
-      </Typography>
-    </div>
-  );
-};
+    <div className="mt-[2px]">{token.symbol}</div>
+  </div>
+);

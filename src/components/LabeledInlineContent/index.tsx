@@ -1,12 +1,9 @@
-/** @jsxImportSource @emotion/react */
-import Typography from '@mui/material/Typography';
-
 import { Token } from 'types';
+import { cn } from 'utilities';
 
 import { Icon, IconName } from '../Icon';
 import { TokenIcon } from '../TokenIcon';
 import { Tooltip } from '../Tooltip';
-import { useStyles } from './styles';
 
 export interface LabeledInlineContentProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
@@ -22,36 +19,38 @@ export const LabeledInlineContent = ({
   iconSrc,
   invertTextColors = false,
   children,
+  className,
   ...otherContainerProps
-}: LabeledInlineContentProps) => {
-  const styles = useStyles();
+}: LabeledInlineContentProps) => (
+  <div
+    className={cn('flex w-full items-center justify-between space-x-4', className)}
+    {...otherContainerProps}
+  >
+    <div className="flex items-center text-sm md:text-base">
+      {typeof iconSrc === 'string' && <Icon name={iconSrc} className="-mt-[2px] mr-2 h-5 w-5" />}
 
-  return (
-    <div css={styles.container} {...otherContainerProps}>
-      <div css={styles.column}>
-        {typeof iconSrc === 'string' && <Icon name={iconSrc} css={styles.icon} />}
+      {!!iconSrc && typeof iconSrc !== 'string' && (
+        <TokenIcon token={iconSrc} className="-mt-[2px] mr-2 h-5 w-5" />
+      )}
 
-        {!!iconSrc && typeof iconSrc !== 'string' && (
-          <TokenIcon token={iconSrc} css={styles.icon} />
-        )}
+      <p className={cn('text-sm md:text-base', invertTextColors ? 'text-offWhite' : 'text-grey')}>
+        {label}
+      </p>
 
-        <Typography component="span" css={styles.getLabel({ invertTextColors })} variant="body1">
-          {label}
-        </Typography>
-        {!!tooltip && (
-          <Tooltip css={styles.tooltip} title={tooltip}>
-            <Icon css={styles.infoIcon} name="info" />
-          </Tooltip>
-        )}
-      </div>
-
-      <Typography
-        component="div"
-        css={[styles.column, styles.getContent({ invertTextColors, hasIcon: !!iconSrc })]}
-        variant="body1"
-      >
-        {children}
-      </Typography>
+      {!!tooltip && (
+        <Tooltip className="ml-2 inline-flex items-center" title={tooltip}>
+          <Icon className="cursor-help" name="info" />
+        </Tooltip>
+      )}
     </div>
-  );
-};
+
+    <div
+      className={cn(
+        'flex items-center text-sm md:text-base',
+        invertTextColors ? 'text-grey' : 'text-offWhite',
+      )}
+    >
+      {children}
+    </div>
+  </div>
+);
