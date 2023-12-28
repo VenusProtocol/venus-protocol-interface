@@ -1,12 +1,7 @@
 import BigNumber from 'bignumber.js';
 
-import {
-  borrowAveragesForToken,
-  supplyAveragesForToken,
-  xvsStakedAveragesForToken,
-} from 'constants/prime';
 import { Asset, Token } from 'types';
-import { convertTokensToMantissa } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 interface GetInitialValuesInput {
   assetData: Asset;
@@ -15,28 +10,37 @@ interface GetInitialValuesInput {
   xvs: Token;
 }
 
+const ZERO_TOKENS = new BigNumber(0);
+
 export const getInitialValues = ({
   assetData,
   userXvsStakedMantissa,
   primeMinimumStakedXvsMantissa,
   xvs,
 }: GetInitialValuesInput) => {
-  const underlyingSymbol = assetData.vToken.underlyingToken.symbol;
-  let initialStakedAmountXvsTokens = xvsStakedAveragesForToken[underlyingSymbol];
-  const initialBorrowAmountTokens = borrowAveragesForToken[underlyingSymbol];
-  const initialSupplyAmountTokens = supplyAveragesForToken[underlyingSymbol];
+  let initialStakedAmountXvsTokens = new BigNumber(0);
+  let initialBorrowAmountTokens = new BigNumber(0);
+  let initialSupplyAmountTokens = new BigNumber(0);
 
   if (userXvsStakedMantissa) {
-    const moreThanMinimumXvsStaked = userXvsStakedMantissa.isGreaterThan(
+    const gteMinimumXvsStaked = userXvsStakedMantissa.isGreaterThanOrEqualTo(
       primeMinimumStakedXvsMantissa,
     );
-    if (moreThanMinimumXvsStaked) {
-      const userStakedXvsTokens = convertTokensToMantissa({
+    if (gteMinimumXvsStaked) {
+      const userStakedXvsTokens = convertMantissaToTokens({
         value: userXvsStakedMantissa,
         token: xvs,
       });
       initialStakedAmountXvsTokens = userStakedXvsTokens;
     }
+  }
+
+  if (
+    assetData.userBorrowBalanceTokens.isGreaterThan(ZERO_TOKENS) ||
+    assetData.userSupplyBalanceTokens.isGreaterThan(ZERO_TOKENS)
+  ) {
+    initialBorrowAmountTokens = assetData.userBorrowBalanceTokens;
+    initialSupplyAmountTokens = assetData.userSupplyBalanceTokens;
   }
 
   return {

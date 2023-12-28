@@ -38,6 +38,7 @@ type TrimmedInput = Omit<
 export type UseGetLegacyPoolQueryKey = [
   FunctionKey.GET_LEGACY_POOL,
   TrimmedInput & { chainId: ChainId },
+  additionalQueryKey?: 'PrimeCalculator',
 ];
 
 type Options = QueryObserverOptions<
@@ -77,7 +78,7 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Options) => {
     (options?.enabled === undefined || options?.enabled);
 
   return useQuery(
-    [FunctionKey.GET_LEGACY_POOL, { ...input, chainId }],
+    options?.queryKey ? options.queryKey : [FunctionKey.GET_LEGACY_POOL, { ...input, chainId }],
     () =>
       callOrThrow(
         {

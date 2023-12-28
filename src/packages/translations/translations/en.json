@@ -609,7 +609,8 @@
     "borrowedTokens": {
       "infos": {
         "label": "Qualified borrowed {{tokenSymbol}}",
-        "tooltip": "Borrow cap: {{borrowCapUsd}}"
+        "tooltip": "Borrow cap: {{borrowCapTokens}} ({{borrowCapUsd}})",
+        "tooltip_empty": "Borrow cap: -"
       },
       "textField": {
         "label": "Borrowed {{tokenSymbol}}"
@@ -620,20 +621,25 @@
       "fromSuppliedTokens": "From supplied {{tokenSymbol}}",
       "primeBorrowApy": {
         "title": "Prime borrow APY",
-        "tooltip": "TRANSLATION NEEDED"
+        "tooltip": "Prime boost to be added to the market borrow APY. <Link>Learn more</Link>"
       },
       "primeSupplyApy": {
         "title": "Prime supply APY",
-        "tooltip": "TRANSLATION NEEDED"
+        "tooltip": "Prime boost to be added to the market supply APY. <Link>Learn more</Link>"
       },
       "title": "Reward details",
-      "totalYearlyRewards": {
-        "title": "Total yearly rewards",
-        "tooltip": "Amount of all Prime rewards distributed for this token"
+      "totalDailyRewards": {
+        "title": "Total daily rewards",
+        "tooltip": "Amount of all rewards distributed for Prime users in a day"
       },
-      "yourYearlyRewards": "Your yearly rewards"
+      "yourDailyRewards": "Your daily rewards"
     },
     "stakedTokens": {
+      "infos": {
+        "label": "Qualified staked XVS",
+        "tooltip": "Up to {{maximumXvsStaked}} will be taken into account for your Prime rewards",
+        "error": "To be eligible for Prime rewards, at least {{minimumXvsStaked}} XVS tokens must be staked."
+      },
       "textField": {
         "label": "Staked XVS"
       }
@@ -641,7 +647,8 @@
     "suppliedTokens": {
       "infos": {
         "label": "Qualified supplied {{tokenSymbol}}",
-        "tooltip": "Supply cap: {{supplyCapUsd}}"
+        "tooltip": "Supply cap: {{supplyCapTokens}} ({{supplyCapUsd}})",
+        "tooltip_empty": "Supply cap: -"
       },
       "textField": {
         "label": "Supplied {{tokenSymbol}}"

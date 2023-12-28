@@ -11,18 +11,27 @@ import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { useGetToken } from 'packages/tokens';
 import { VToken } from 'types';
-import {
-  convertMantissaToTokens,
-  convertPriceMantissaToDollars,
-  convertTokensToMantissa,
-} from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 interface UseGetPrimeEstimationInput {
   accountAddress?: string;
-  suppliedAmountTokens: string;
-  borrowedAmountTokens: string;
-  stakedAmountXvsTokens: string;
+  suppliedAmountMantissa: BigNumber;
+  borrowedAmountMantissa: BigNumber;
+  stakedAmountXvsMantissa: BigNumber;
   vToken: VToken | undefined;
+}
+
+interface UseGetPrimeEstimationOutput {
+  dailyTokensDistributedAmount: BigNumber | undefined;
+  borrowedTokens: BigNumber | undefined;
+  borrowApyPercentage: BigNumber | undefined;
+  borrowCapTokens: BigNumber | undefined;
+  borrowCapCents: BigNumber | undefined;
+  suppliedTokens: BigNumber | undefined;
+  supplyApyPercentage: BigNumber | undefined;
+  supplyCapTokens: BigNumber | undefined;
+  supplyCapCents: BigNumber | undefined;
+  userDailyPrimeRewards: BigNumber | undefined;
 }
 
 export type UseGetPrimeEstimationQueryKey = [
@@ -41,9 +50,9 @@ type Options = QueryObserverOptions<
 const useGetPrimeEstimation = (
   {
     accountAddress,
-    borrowedAmountTokens,
-    stakedAmountXvsTokens,
-    suppliedAmountTokens,
+    borrowedAmountMantissa,
+    stakedAmountXvsMantissa,
+    suppliedAmountMantissa,
     vToken,
   }: UseGetPrimeEstimationInput,
   options?: Options,
@@ -52,57 +61,23 @@ const useGetPrimeEstimation = (
     symbol: 'XVS',
   });
 
-  const noEmptyValues = !!borrowedAmountTokens && !!stakedAmountXvsTokens && !!suppliedAmountTokens;
-  const enabled = !!options?.enabled && noEmptyValues && !!vToken;
+  const enabled = !!options?.enabled && !!vToken;
 
   const { data: primeDistributionForMarketData } = useGetPrimeDistributionForMarket(
     {
       vTokenAddress: vToken?.address || '',
     },
     {
-      enabled: !!vToken,
+      enabled,
     },
   );
-
-  const primeTokensDistributedAmount = convertMantissaToTokens({
-    value: primeDistributionForMarketData?.totalDistributedMantissa || new BigNumber(0),
-    token: vToken?.underlyingToken,
-  });
-
-  const { userSupplyBalanceMantissa, userBorrowBalanceMantissa, userXvsStakedMantissa } =
-    useMemo(() => {
-      const userSupplyBalance = vToken
-        ? convertTokensToMantissa({
-            value: new BigNumber(suppliedAmountTokens),
-            token: vToken.underlyingToken,
-          })
-        : new BigNumber(0);
-      const userBorrowBalance = vToken
-        ? convertTokensToMantissa({
-            value: new BigNumber(borrowedAmountTokens),
-            token: vToken.underlyingToken,
-          })
-        : new BigNumber(0);
-      const userXvsStaked = xvs
-        ? convertTokensToMantissa({
-            value: new BigNumber(stakedAmountXvsTokens),
-            token: xvs,
-          })
-        : BigNumber(0);
-
-      return {
-        userSupplyBalanceMantissa: userSupplyBalance,
-        userBorrowBalanceMantissa: userBorrowBalance,
-        userXvsStakedMantissa: userXvsStaked,
-      };
-    }, [suppliedAmountTokens, borrowedAmountTokens, stakedAmountXvsTokens, vToken, xvs]);
 
   const { data: hypotheticalPrimeApysData } = useGetHypotheticalPrimeApys(
     {
       vTokenAddress: vToken?.address || '',
-      userSupplyBalanceMantissa,
-      userBorrowBalanceMantissa,
-      userXvsStakedMantissa,
+      userSupplyBalanceMantissa: suppliedAmountMantissa,
+      userBorrowBalanceMantissa: borrowedAmountMantissa,
+      userXvsStakedMantissa: stakedAmountXvsMantissa,
       accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
@@ -111,38 +86,38 @@ const useGetPrimeEstimation = (
   );
 
   const estimation = useMemo(() => {
-    let primeEstimation = {
-      tokensDistributedAmount: '-',
-      borrowedTokens: '-',
-      borrowApyPercentage: '-',
-      borrowCapTokens: new BigNumber(0),
-      borrowCapUsd: '-',
-      suppliedTokens: '-',
-      supplyApyPercentage: '-',
-      supplyCapTokens: new BigNumber(0),
-      supplyCapUsd: '-',
-      userYearlyPrimeRewards: '-',
+    let primeEstimation: UseGetPrimeEstimationOutput = {
+      dailyTokensDistributedAmount: undefined,
+      borrowedTokens: undefined,
+      borrowApyPercentage: undefined,
+      borrowCapTokens: undefined,
+      borrowCapCents: undefined,
+      suppliedTokens: undefined,
+      supplyApyPercentage: undefined,
+      supplyCapTokens: undefined,
+      supplyCapCents: undefined,
+      userDailyPrimeRewards: undefined,
     };
 
-    if (hypotheticalPrimeApysData && vToken && xvs) {
+    if (hypotheticalPrimeApysData && primeDistributionForMarketData && vToken && xvs) {
       const {
         borrowApyPercentage,
         borrowCapMantissa,
-        borrowCapUsd: borrowCapPriceMantissa,
+        borrowCapCents,
         supplyApyPercentage,
         supplyCapMantissa,
-        supplyCapUsd: supplyCapPriceMantissa,
+        supplyCapCents,
         userPrimeRewardsShare,
       } = hypotheticalPrimeApysData;
 
-      const supplyCapUsd = convertPriceMantissaToDollars({
-        priceMantissa: supplyCapPriceMantissa,
-        token: xvs,
+      const borrowedTokens = convertMantissaToTokens({
+        value: borrowedAmountMantissa,
+        token: vToken.underlyingToken,
       });
 
-      const borrowCapUsd = convertPriceMantissaToDollars({
-        priceMantissa: borrowCapPriceMantissa,
-        token: xvs,
+      const suppliedTokens = convertMantissaToTokens({
+        value: suppliedAmountMantissa,
+        token: vToken.underlyingToken,
       });
 
       const borrowCapTokens = convertMantissaToTokens({
@@ -155,32 +130,38 @@ const useGetPrimeEstimation = (
         token: vToken.underlyingToken,
       });
 
-      const userYearlyPrimeRewards =
-        primeTokensDistributedAmount.multipliedBy(userPrimeRewardsShare);
+      const primeTokensDistributedAmount = convertMantissaToTokens({
+        value: primeDistributionForMarketData.totalDistributedMantissa,
+        token: vToken.underlyingToken,
+      });
+
+      const dailyTokensDistributedAmount = primeTokensDistributedAmount.dividedBy(365);
+
+      const userDailyPrimeRewards = primeTokensDistributedAmount
+        .multipliedBy(userPrimeRewardsShare)
+        .dividedBy(365);
 
       primeEstimation = {
-        tokensDistributedAmount: primeTokensDistributedAmount.toString(),
-        userYearlyPrimeRewards: userYearlyPrimeRewards.toString(),
-        borrowedTokens: borrowedAmountTokens,
-        borrowApyPercentage: borrowApyPercentage.toFixed(2),
+        dailyTokensDistributedAmount,
+        userDailyPrimeRewards,
+        borrowedTokens,
+        borrowApyPercentage,
         borrowCapTokens,
-        borrowCapUsd: borrowCapUsd.toFixed(2),
-        suppliedTokens: suppliedAmountTokens,
-        supplyApyPercentage: supplyApyPercentage.toFixed(2),
+        borrowCapCents,
+        suppliedTokens,
+        supplyApyPercentage,
         supplyCapTokens,
-        supplyCapUsd: supplyCapUsd.toFixed(2),
+        supplyCapCents,
       };
     }
 
     return primeEstimation;
   }, [
-    accountAddress,
-    borrowedAmountTokens,
-    suppliedAmountTokens,
-    primeTokensDistributedAmount,
+    borrowedAmountMantissa,
+    suppliedAmountMantissa,
+    primeDistributionForMarketData,
     vToken,
     xvs,
-    enabled,
     hypotheticalPrimeApysData,
   ]);
 

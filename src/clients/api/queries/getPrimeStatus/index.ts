@@ -12,6 +12,7 @@ export interface GetPrimeStatusOutput {
   claimedPrimeTokenCount: number;
   primeTokenLimit: number;
   primeMarkets: string[];
+  primeMaximumStakedXvsMantissa: BigNumber;
   primeMinimumStakedXvsMantissa: BigNumber;
   xvsVault: string;
   xvsVaultPoolId: number;
@@ -25,6 +26,7 @@ const getPrimeStatus = async ({
 }: GetPrimeStatusInput): Promise<GetPrimeStatusOutput> => {
   const [
     claimWaitingPeriodSeconds,
+    primeMaximumStakedXvsMantissa,
     primeMinimumStakedXvsMantissa,
     claimedPrimeTokens,
     revocableLimit,
@@ -35,6 +37,7 @@ const getPrimeStatus = async ({
     userClaimTimeRemainingSeconds,
   ] = await Promise.all([
     primeContract.STAKING_PERIOD(),
+    primeContract.MAXIMUM_XVS_CAP(),
     primeContract.MINIMUM_STAKED_XVS(),
     primeContract.totalRevocable(),
     primeContract.revocableLimit(),
@@ -47,6 +50,7 @@ const getPrimeStatus = async ({
 
   return {
     claimWaitingPeriodSeconds: claimWaitingPeriodSeconds.toNumber(),
+    primeMaximumStakedXvsMantissa: new BigNumber(primeMaximumStakedXvsMantissa.toString()),
     primeMinimumStakedXvsMantissa: new BigNumber(primeMinimumStakedXvsMantissa.toString()),
     claimedPrimeTokenCount: claimedPrimeTokens.toNumber(),
     primeTokenLimit: revocableLimit.toNumber(),

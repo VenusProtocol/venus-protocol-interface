@@ -9,20 +9,22 @@ const PrimeCalculator: React.FC = () => {
   const { Trans } = useTranslation();
 
   return (
-    <div>
-      <NoticeInfo
-        className="mb-6"
-        description={
-          <Trans
-            i18nKey="primeCalculator.topMessage"
-            components={{
-              Link: <Link href={PRIME_DOC_URL} />,
-            }}
-          />
-        }
-      />
+    <div className="flex justify-center">
+      <div className="max-w-[930px]">
+        <NoticeInfo
+          className="mb-6"
+          description={
+            <Trans
+              i18nKey="primeCalculator.topMessage"
+              components={{
+                Link: <Link href={PRIME_DOC_URL} />,
+              }}
+            />
+          }
+        />
 
-      <Form />
+        <Form />
+      </div>
     </div>
   );
 };

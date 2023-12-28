@@ -22,7 +22,6 @@ describe('getHypotheticalPrimeApys', () => {
     const fakeTotalScore = new BigNumber('10');
     const fakeUserScore = new BigNumber('1');
 
-
     const fakePrimeContract = {
       estimateAPR: vi.fn(async () => ({
         supplyAPR: fakeSupplyAprPercentage,
@@ -57,11 +56,11 @@ describe('getHypotheticalPrimeApys', () => {
     expect(response).toMatchInlineSnapshot(`
       {
         "borrowApyPercentage": "0.3405770666813801",
+        "borrowCapCents": "20000",
         "borrowCapMantissa": "100000000000000000000",
-        "borrowCapUsd": "200000000000000000000",
         "supplyApyPercentage": "0.2603373646915319",
+        "supplyCapCents": "40000",
         "supplyCapMantissa": "200000000000000000000",
-        "supplyCapUsd": "400000000000000000000",
         "userPrimeRewardsShare": "0.1",
       }
     `);
