@@ -7516,7 +7516,7 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@venusprotocol/governance-contracts@^1.4.0-dev.1", "@venusprotocol/governance-contracts@^1.4.0-dev.2", "@venusprotocol/governance-contracts@^1.4.0-dev.6", "@venusprotocol/governance-contracts@^1.4.0-dev.9":
+"@venusprotocol/governance-contracts@^1.4.0", "@venusprotocol/governance-contracts@^1.4.0-dev.1", "@venusprotocol/governance-contracts@^1.4.0-dev.6", "@venusprotocol/governance-contracts@^1.4.0-dev.9":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.4.0.tgz#b7748e5f80907bc6030ef110c42cc6661ad5d7b4"
   integrity sha512-T6pAQIxha1XTUjkrZDnHYhgMsZ1T21OhliRnxn8nNvU1EqmwGZGJ8EwufJXlS08XdFosCL2GqbjgKySnOmHbRw==
@@ -7557,22 +7557,7 @@
     module-alias "^2.2.2"
     solidity-docgen "^0.6.0-beta.29"
 
-"@venusprotocol/protocol-reserve@1.2.0-dev.2":
-  version "1.2.0-dev.2"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/protocol-reserve/-/protocol-reserve-1.2.0-dev.2.tgz#7c53d95ee8ea650610029c19bbd293cb6c876780"
-  integrity sha512-1yJetVULQASjb5rnKDc6H21+EU2KRKpSQcXRbyX47Op5YEK1HE0AKcr1ZKKVT7s8hYT0dyeNGJjIRsVc6JD4Xg==
-  dependencies:
-    "@nomiclabs/hardhat-ethers" "^2.2.3"
-    "@openzeppelin/contracts" "^4.8.3"
-    "@openzeppelin/contracts-upgradeable" "^4.8.3"
-    "@openzeppelin/hardhat-upgrades" "^1.21.0"
-    "@solidity-parser/parser" "^0.13.2"
-    "@venusprotocol/solidity-utilities" "^1.0.1"
-    ethers "^5.7.0"
-    hardhat-deploy "^0.11.14"
-    module-alias "^2.2.2"
-
-"@venusprotocol/protocol-reserve@^1.1.0":
+"@venusprotocol/protocol-reserve@^1.1.0", "@venusprotocol/protocol-reserve@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/protocol-reserve/-/protocol-reserve-1.2.0.tgz#7a006f357e9b987c9e0abc73a6d8c5bda39079f4"
   integrity sha512-PfIMH0FdqibgYnNI2N1H9V8RcrXPcjtiB8XQMiHO5pxLgLZyCaLNr+3MSt9aLLEAS3XgeY61Qm/K0Cs+OskG3Q==
@@ -7592,6 +7577,11 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-1.1.0.tgz#1481c66aac8b203351a1c9f9ae122f02f0135a58"
   integrity sha512-w9/6izVgEgMa4XHah57vzEppXNUWkQbDjgkDgNjGvd++FtFn1aEu7ROQgyx25vSMAeGoRN5h87ZV26UhPYOEYQ==
 
+"@venusprotocol/solidity-utilities@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-1.2.0.tgz#a13c226de73a89a2218cc4dac9c2cbbae0ffba5a"
+  integrity sha512-C9XWedEP7IXs8PJ0tlTvPX/IoC9998JeGX9D5PlUmmv7EAk2C+bPcicAfXbOAXXCbGe6wj4t5KOx3G7JfG5qZg==
+
 "@venusprotocol/venus-protocol@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-6.0.0.tgz#335c9d95f8092f9777aa5890dbac312ed9680a2b"
@@ -7605,16 +7595,16 @@
     dotenv "^16.0.1"
     module-alias "^2.2.2"
 
-"@venusprotocol/venus-protocol@^6.1.0-dev.5":
-  version "6.1.0-dev.11"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-6.1.0-dev.11.tgz#b64a6cbc32ef05942b9e9ea0713075a95f8f0c88"
-  integrity sha512-BMzNNt8fZNiLOTGDYLLByfMVBqv5IpoNuX5UAYFXJGPbuUMgC9gVS+l7sUznt/9qEGXImZaDn14XihCMZ3Nnvg==
+"@venusprotocol/venus-protocol@^7.0.0-dev.3":
+  version "7.0.0-dev.3"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-7.0.0-dev.3.tgz#63165ed60f9ac552b359b7985901f2a420cb6da4"
+  integrity sha512-Bjw91SOHayzJSiJ98Muwwlz0GjVwQ0H0Q3v3TBEtqyR9fTJH+yf5y2ziOYzb8Y2yyN+zuwVQU0+LaNKY3mIJHQ==
   dependencies:
     "@openzeppelin/contracts" "4.9.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
-    "@venusprotocol/governance-contracts" "^1.4.0-dev.2"
-    "@venusprotocol/protocol-reserve" "1.2.0-dev.2"
-    "@venusprotocol/solidity-utilities" "^1.1.0"
+    "@venusprotocol/governance-contracts" "^1.4.0"
+    "@venusprotocol/protocol-reserve" "^1.2.0"
+    "@venusprotocol/solidity-utilities" "^1.2.0"
     bignumber.js "^9.1.2"
     dotenv "^16.0.1"
     module-alias "^2.2.2"
