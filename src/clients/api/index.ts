@@ -352,3 +352,9 @@ export { default as useGetPrimeStatus } from './queries/getPrimeStatus/useGetPri
 
 export * from './queries/getLatestAppVersion';
 export { default as useGetLatestAppVersion } from './queries/getLatestAppVersion/useGetLatestAppVersion';
+
+export { default as useGetPrimeEstimation } from './queries/useGetPrimeEstimation';
+
+export { default as getPrimeDistributionForMarket } from './queries/getPrimeDistributionForMarket';
+export * from './queries/getPrimeDistributionForMarket';
+export { default as useGetPrimeDistributionForMarket } from './queries/getPrimeDistributionForMarket/useGetPrimeDistributionForMarket';
