@@ -609,7 +609,7 @@
     "borrowedTokens": {
       "infos": {
         "label": "Qualified borrowed {{tokenSymbol}}",
-        "tooltip": "TRANSLATION NEEDED"
+        "tooltip": "Borrow cap: {{borrowCapUsd}}"
       },
       "textField": {
         "label": "Borrowed {{tokenSymbol}}"
@@ -641,7 +641,7 @@
     "suppliedTokens": {
       "infos": {
         "label": "Qualified supplied {{tokenSymbol}}",
-        "tooltip": "TRANSLATION NEEDED"
+        "tooltip": "Supply cap: {{supplyCapUsd}}"
       },
       "textField": {
         "label": "Supplied {{tokenSymbol}}"
