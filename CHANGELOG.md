@@ -1,3 +1,10 @@
+## [2.69.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.69.2...v2.69.3) (2023-12-28)
+
+
+### Bug Fixes
+
+* rollback @venusprotocol/venus-protocol package version to 6.1.0-dev.5 ([a865d7c](https://github.com/VenusProtocol/venus-protocol-interface/commit/a865d7c094c8d586793eb6ef94f7004d6d44fa76))
+
 ## [2.69.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.69.1...v2.69.2) (2023-12-22)
 
 ## [2.69.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.69.0...v2.69.1) (2023-12-22)
