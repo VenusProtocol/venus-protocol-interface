@@ -15,6 +15,11 @@ export interface GetHypotheticalPrimeApysInput {
 export interface GetHypotheticalPrimeApysOutput {
   supplyApyPercentage: BigNumber;
   borrowApyPercentage: BigNumber;
+  supplyCapMantissa: BigNumber;
+  borrowCapMantissa: BigNumber;
+  supplyCapUsd: BigNumber;
+  borrowCapUsd: BigNumber;
+  userPrimeRewardsShare: BigNumber;
 }
 
 const getHypotheticalPrimeApys = async ({
@@ -25,7 +30,7 @@ const getHypotheticalPrimeApys = async ({
   userSupplyBalanceMantissa,
   userXvsStakedMantissa,
 }: GetHypotheticalPrimeApysInput): Promise<GetHypotheticalPrimeApysOutput> => {
-  const { borrowAPR, supplyAPR } = await primeContract.estimateAPR(
+  const data = await primeContract.estimateAPR(
     vTokenAddress,
     accountAddress,
     userBorrowBalanceMantissa.toFixed(),
@@ -33,13 +38,39 @@ const getHypotheticalPrimeApys = async ({
     userXvsStakedMantissa.toFixed(),
   );
 
+  const {
+    borrowAPR,
+    supplyAPR,
+    cappedSupply,
+    cappedBorrow,
+    borrowCapUSD,
+    supplyCapUSD,
+    totalScore,
+    userScore,
+  } = data;
+
   // Convert APRs to APYs
   const supplyApyPercentage = convertAprToApy({ aprBips: supplyAPR.toString() });
   const borrowApyPercentage = convertAprToApy({ aprBips: borrowAPR.toString() });
 
+  const supplyCapMantissa = new BigNumber(cappedSupply.toString());
+  const borrowCapMantissa = new BigNumber(cappedBorrow.toString());
+
+  const supplyCapUsd = new BigNumber(supplyCapUSD.toString());
+  const borrowCapUsd = new BigNumber(borrowCapUSD.toString());
+
+  const userScoreBN = new BigNumber(userScore.toString());
+  const totalScoreBN = new BigNumber(totalScore.toString());
+  const userPrimeRewardsShare = new BigNumber(userScoreBN.dividedBy(totalScoreBN).toString());
+
   return {
     supplyApyPercentage,
     borrowApyPercentage,
+    supplyCapMantissa,
+    borrowCapMantissa,
+    supplyCapUsd,
+    borrowCapUsd,
+    userPrimeRewardsShare,
   };
 };
 
