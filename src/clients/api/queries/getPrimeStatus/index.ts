@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { Prime } from 'packages/contracts';
 
 export interface GetPrimeStatusInput {
-  accountAddress: string;
+  accountAddress?: string;
   primeContract: Prime;
 }
 
@@ -45,7 +46,7 @@ const getPrimeStatus = async ({
     primeContract.xvsVault(),
     primeContract.xvsVaultPoolId(),
     primeContract.xvsVaultRewardToken(),
-    primeContract.claimTimeRemaining(accountAddress),
+    primeContract.claimTimeRemaining(accountAddress || NULL_ADDRESS),
   ]);
 
   return {
