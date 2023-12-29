@@ -3,10 +3,11 @@ import { useSearchParams } from 'react-router-dom';
 import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
+import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import { renderComponent } from 'testUtils/render';
 
-import { useGetLegacyPool } from 'clients/api';
-import { Token } from 'types';
+import { useGetLegacyPool, useGetPrimeEstimation, useGetPrimeStatus } from 'clients/api';
+import { Asset } from 'types';
 
 import PrimeCalculator from '..';
 import { QUERY_PARAM_TOKEN_ADDRESS } from '../Form';
@@ -14,13 +15,13 @@ import TEST_IDS from '../testIds';
 
 const pool = poolData[0];
 
-const primeTokens = pool.assets.reduce<Token[]>((acc, asset) => {
+const primeAssets = pool.assets.reduce<Asset[]>((acc, asset) => {
   const distributions = asset.borrowDistributions.concat(asset.supplyDistributions);
   const hasPrimeDistribution = distributions.some(
     distribution => distribution.type === 'prime' || distribution.type === 'primeSimulation',
   );
 
-  return hasPrimeDistribution ? [...acc, asset.vToken.underlyingToken] : acc;
+  return hasPrimeDistribution ? [...acc, asset] : acc;
 }, []);
 
 vi.mock('react-router-dom', async () => {
@@ -35,6 +36,14 @@ vi.mock('react-router-dom', async () => {
 describe('PrimeCalculator', () => {
   beforeEach(() => {
     (useSearchParams as Vi.Mock).mockImplementation(() => [new URLSearchParams(), vi.fn()]);
+
+    (useGetPrimeEstimation as Vi.Mock).mockImplementation(() => ({
+      data: primeEstimationData,
+    }));
+
+    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+      isLoading: false,
+    }));
 
     (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -58,7 +67,7 @@ describe('PrimeCalculator', () => {
     await waitFor(() =>
       expect(mockSetSearchParams).toHaveBeenCalledWith(
         {
-          tokenAddress: primeTokens[0].address,
+          tokenAddress: primeAssets[0].vToken.address,
         },
         {
           replace: true,
@@ -79,7 +88,7 @@ describe('PrimeCalculator', () => {
     await waitFor(() =>
       expect(mockSetSearchParams).toHaveBeenCalledWith(
         {
-          tokenAddress: primeTokens[0].address,
+          tokenAddress: primeAssets[0].vToken.address,
         },
         {
           replace: true,
@@ -90,7 +99,7 @@ describe('PrimeCalculator', () => {
 
   it('initializes the form correctly when token address parameter is valid', async () => {
     const mockSearchParams = new URLSearchParams({
-      [QUERY_PARAM_TOKEN_ADDRESS]: primeTokens[1].address,
+      [QUERY_PARAM_TOKEN_ADDRESS]: primeAssets[1].vToken.address,
     });
     const mockSetSearchParams = vi.fn();
     (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
@@ -102,12 +111,12 @@ describe('PrimeCalculator', () => {
     const tokenSelect = getByTestId(TEST_IDS.tokenSelect) as HTMLInputElement;
 
     // Check value of select
-    expect(tokenSelect.value).toEqual(primeTokens[1].address);
+    await waitFor(() => expect(tokenSelect.value).toEqual(primeAssets[1].vToken.address));
   });
 
   it('updates the search params correctly when changing selected token', async () => {
     const mockSearchParams = new URLSearchParams({
-      [QUERY_PARAM_TOKEN_ADDRESS]: primeTokens[0].address,
+      [QUERY_PARAM_TOKEN_ADDRESS]: primeAssets[0].vToken.address,
     });
     const mockSetSearchParams = vi.fn();
     (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
@@ -119,16 +128,16 @@ describe('PrimeCalculator', () => {
     const tokenSelect = getByTestId(TEST_IDS.tokenSelect) as HTMLInputElement;
 
     // Check value of select
-    expect(tokenSelect.value).toEqual(primeTokens[0].address);
+    expect(tokenSelect.value).toEqual(primeAssets[0].vToken.address);
 
     // Change select value
     fireEvent.change(tokenSelect, {
-      target: { value: primeTokens[1].address },
+      target: { value: primeAssets[1].vToken.address },
     });
 
     expect(mockSetSearchParams).toHaveBeenCalledWith(
       {
-        tokenAddress: primeTokens[1].address,
+        tokenAddress: primeAssets[1].vToken.address,
       },
       {
         replace: true,

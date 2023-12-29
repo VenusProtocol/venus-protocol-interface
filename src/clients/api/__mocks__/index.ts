@@ -5,6 +5,7 @@ import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { poolData } from '__mocks__/models/pools';
+import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import proposals from '__mocks__/models/proposals';
 import vTokens from '__mocks__/models/vTokens';
 import { vaults } from '__mocks__/models/vaults';
@@ -277,6 +278,17 @@ export const useGetLatestAppVersion = () =>
 export const getTokenUsdPrice = vi.fn(async () => ({ tokenPriceUsd: new BigNumber('1') }));
 export const useGetTokenUsdPrice = () =>
   useQuery(FunctionKey.GET_TOKEN_USD_PRICE, getTokenUsdPrice);
+
+export const getPrimeEstimation = vi.fn(async () => primeEstimationData);
+export const useGetPrimeEstimation = vi.fn(() =>
+  useQuery(FunctionKey.GET_PRIME_ESTIMATION, getPrimeEstimation),
+);
+
+export const getPrimeDistributionForMarket = vi.fn(async () => ({
+  totalDistributedMantissa: new BigNumber('1230000000000000000000000'),
+}));
+export const useGetPrimeDistributionForMarket = () =>
+  useQuery(FunctionKey.GET_PRIME_DISTRIBUTION_FOR_MARKET, getPrimeDistributionForMarket);
 
 // Mutations
 export const approveToken = vi.fn();

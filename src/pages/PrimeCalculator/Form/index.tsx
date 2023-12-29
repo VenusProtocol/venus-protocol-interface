@@ -101,11 +101,15 @@ export const Form: React.FC = () => {
     },
   );
 
-  const userXvsStakedMantissa = useMemo(() => getXvsVaultUserInfoData
-      ? getXvsVaultUserInfoData.stakedAmountMantissa.minus(
-          getXvsVaultUserInfoData.pendingWithdrawalsTotalAmountMantissa,
-        )
-      : undefined, [getXvsVaultUserInfoData]);
+  const userXvsStakedMantissa = useMemo(
+    () =>
+      getXvsVaultUserInfoData
+        ? getXvsVaultUserInfoData.stakedAmountMantissa.minus(
+            getXvsVaultUserInfoData.pendingWithdrawalsTotalAmountMantissa,
+          )
+        : undefined,
+    [getXvsVaultUserInfoData],
+  );
 
   const [searchParams, setSearchParams] = useSearchParams();
 
