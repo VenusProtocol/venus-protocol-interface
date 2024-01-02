@@ -249,7 +249,7 @@ describe('useIsFeatureEnabled', () => {
     expect(result.current).toBe(false);
   });
 
-  it('should return false for the VAI mint warning for Prime users on BSC_MAINNET', () => {
+  it('should return true for the VAI mint warning for Prime users on BSC_MAINNET', () => {
     (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_MAINNET,
     }));
@@ -260,7 +260,7 @@ describe('useIsFeatureEnabled', () => {
       }),
     );
 
-    expect(result.current).toBe(false);
+    expect(result.current).toBe(true);
   });
 
   it('should return true for the VAI mint warning for Prime users on BSC_TESTNET', () => {
