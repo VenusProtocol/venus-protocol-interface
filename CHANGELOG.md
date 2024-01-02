@@ -1,3 +1,10 @@
+## [2.70.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.69.7...v2.70.0) (2024-01-02)
+
+
+### Features
+
+* activate vaiMintPrimeOnlyWarning on BSC_MAINNET ([f3fb3e2](https://github.com/VenusProtocol/venus-protocol-interface/commit/f3fb3e24071182f01df5eeb3da4acae00dac7db4))
+
 ## [2.69.7](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.69.6...v2.69.7) (2024-01-02)
 
 ## [2.69.6](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.69.5...v2.69.6) (2023-12-29)
