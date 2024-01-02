@@ -55,7 +55,7 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
           />
         </div>
 
-        <div className="xxl:max-w-150 sm:order-1 sm:basis-8/12 sm:p-4 md:p-6">
+        <div className="sm:order-1 sm:basis-8/12 sm:p-4 md:p-6 xxl:max-w-150">
           <div className="xxl:max-w-2xl">
             <p className="mb-2 text-lg">
               <Trans
