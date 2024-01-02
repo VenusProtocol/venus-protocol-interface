@@ -1,3 +1,10 @@
+## [2.70.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.70.0...v2.70.1) (2024-01-02)
+
+
+### Bug Fixes
+
+* disable VAI minting ([89e5a6e](https://github.com/VenusProtocol/venus-protocol-interface/commit/89e5a6e8de7eedf6674001608cde0a6d78bc571f))
+
 ## [2.70.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.69.7...v2.70.0) (2024-01-02)
 
 
