@@ -7595,10 +7595,10 @@
     dotenv "^16.0.1"
     module-alias "^2.2.2"
 
-"@venusprotocol/venus-protocol@^7.0.0-dev.3":
-  version "7.0.0-dev.3"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-7.0.0-dev.3.tgz#63165ed60f9ac552b359b7985901f2a420cb6da4"
-  integrity sha512-Bjw91SOHayzJSiJ98Muwwlz0GjVwQ0H0Q3v3TBEtqyR9fTJH+yf5y2ziOYzb8Y2yyN+zuwVQU0+LaNKY3mIJHQ==
+"@venusprotocol/venus-protocol@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-7.0.0.tgz#5955bb3ee08fab369795fd9717a4e8b39950d844"
+  integrity sha512-ld6PlMlpHrAgi/vY4DFWTgm01G1Bl8oXJT1q8VqLVES/SUN29oVbNHslGyPgxWC08Sq2FtWDIBfV7rEPiWmqYQ==
   dependencies:
     "@openzeppelin/contracts" "4.9.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
