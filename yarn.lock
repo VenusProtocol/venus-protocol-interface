@@ -1783,94 +1783,94 @@
     "@web3-react/types" "^6.0.7"
     tiny-warning "^1.0.3"
 
-"@binance/w3w-core@1.1.0-alpha.1":
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-core/-/w3w-core-1.1.0-alpha.1.tgz#a01b9ba9394c6d1d310f6e4aaa93681417de0785"
-  integrity sha512-ePQ8jFEz89VbdlDm3JrfAm//P291jhE6KqLMIZtJAEvBmOr6h3aWpu7HCh2CLPaPlArSHPa7wVIN9VpXDj02jg==
+"@binance/w3w-core@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-core/-/w3w-core-1.1.0.tgz#a6f5eddebe62e6d70bfd668f5f51c2cd297fc94c"
+  integrity sha512-GMNZa2/rm4BTUueN3ytU/lwrTLHVAR2UVdfypai0ea/kUGKu17jRlaBzgcLIpLaavyawuc0qm9bNGmQCnHFMaw==
   dependencies:
-    "@binance/w3w-qrcode-modal" "1.1.0-alpha.1"
-    "@binance/w3w-socket-transport" "1.1.0-alpha.1"
-    "@binance/w3w-types" "1.1.0-alpha.1"
-    "@binance/w3w-utils" "1.1.0-alpha.1"
+    "@binance/w3w-qrcode-modal" "1.1.0"
+    "@binance/w3w-socket-transport" "1.1.0"
+    "@binance/w3w-types" "1.1.0"
+    "@binance/w3w-utils" "1.1.0"
     "@ethersproject/abi" "^5.7.0"
     axios "^1.3.5"
     js-base64 "^3.7.5"
 
-"@binance/w3w-ethereum-provider@1.1.0-alpha.1":
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-ethereum-provider/-/w3w-ethereum-provider-1.1.0-alpha.1.tgz#d84edfa78b2edbe1d36f0e090f43ba65b486a8cb"
-  integrity sha512-e0JEFi8twRcNaLt/LF6JFL7i0VtjHiV/qGv9GrfMEF1vpluu7QZW/YIVa5LAWZZ0VyZ81GYxJXTtxWC8Ui8dXw==
+"@binance/w3w-ethereum-provider@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-ethereum-provider/-/w3w-ethereum-provider-1.1.0.tgz#e956c32d3358e75a212447bad4247b44fdc28275"
+  integrity sha512-7mJZNVh75XoXFGhal2GEs5Q4Uj1F1O/m1KBg+DWbAV/Daec7E5mLZuu/JsDXKRclyFOZRW+Ab2d/z/xT7Dfomw==
   dependencies:
-    "@binance/w3w-http-client" "1.1.0-alpha.1"
-    "@binance/w3w-sign-client" "1.1.0-alpha.1"
-    "@binance/w3w-types" "1.1.0-alpha.1"
-    "@binance/w3w-utils" "1.1.0-alpha.1"
+    "@binance/w3w-http-client" "1.1.0"
+    "@binance/w3w-sign-client" "1.1.0"
+    "@binance/w3w-types" "1.1.0"
+    "@binance/w3w-utils" "1.1.0"
     eip1193-provider "^1.0.1"
     eventemitter3 "^5.0.0"
 
-"@binance/w3w-http-client@1.1.0-alpha.1":
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-http-client/-/w3w-http-client-1.1.0-alpha.1.tgz#4339f8470255b2ed97b73ed8e72ee1c0ea6d7ab5"
-  integrity sha512-GPRtLVvKL462WZgWECfHU5YNohhm75OcA6wN9sBCUGYRkClgX7jhugzXnEg23y78hlM3+4IAVu4/s+qmoAhugQ==
+"@binance/w3w-http-client@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-http-client/-/w3w-http-client-1.1.0.tgz#608643aec24cb5c8e23d29c068d84266eaec4ab3"
+  integrity sha512-spS/Ly6tdZdPos58gGxA2ML2T/yq5TLEvhnufg63dx0pLVkBOsMZb0Td/JsD4mJ+5bpSDFnkCRlEaDAKZgepcw==
   dependencies:
-    "@binance/w3w-types" "1.1.0-alpha.1"
-    "@binance/w3w-utils" "1.1.0-alpha.1"
+    "@binance/w3w-types" "1.1.0"
+    "@binance/w3w-utils" "1.1.0"
     cross-fetch "^3.1.5"
     eventemitter3 "^5.0.0"
 
-"@binance/w3w-qrcode-modal@1.1.0-alpha.1":
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-qrcode-modal/-/w3w-qrcode-modal-1.1.0-alpha.1.tgz#c0d30dc6fce2481fe54b33940a60b56029c3f337"
-  integrity sha512-1UpfKcdVMsjN7kmYhJVbrurhJXeIxXN4UR1S+iJLX5NCGZFMa+Xaa8tgxF8/Uhx8gQbUHzHPgy+4gSjDahMh1Q==
+"@binance/w3w-qrcode-modal@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-qrcode-modal/-/w3w-qrcode-modal-1.1.0.tgz#972ad7a074025ae58f41d3b235f4781f67d335cb"
+  integrity sha512-fYkgmDssS77cDQPGkuOwKeAIY3160yrqGrRSw5f36KNdYDupyrd1n6UmvPZMquM1qWWhAWjKhjAkDtWs5sf5Sw==
   dependencies:
-    "@binance/w3w-types" "1.1.0-alpha.1"
-    "@binance/w3w-utils" "1.1.0-alpha.1"
+    "@binance/w3w-types" "1.1.0"
+    "@binance/w3w-utils" "1.1.0"
     qrcode "^1.5.1"
     qrcode.react "^3.1.0"
     tailwindcss "^3.3.1"
 
-"@binance/w3w-sign-client@1.1.0-alpha.1":
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-sign-client/-/w3w-sign-client-1.1.0-alpha.1.tgz#b5b69e148d6b7806a3cfd8a64946cd752694c522"
-  integrity sha512-VD9SeXIv8Gu0RwEjeRzB8WEsbqJ8x8o7Mp1gIWmaYJHD83C/XfVcQkaB2sl/uPrwygvAVZncZcxU80OxIURycg==
+"@binance/w3w-sign-client@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-sign-client/-/w3w-sign-client-1.1.0.tgz#61640967207f427ee5f7d77b76999985b9d91ae0"
+  integrity sha512-JxBfJiXtRGfUotiRnbwS+o4pF+2zgjEkA3zrvIYQ4S7jkFlYvPdSmglX8jcs8f2TryiFbwsGq8SD9gOpwl8wYw==
   dependencies:
-    "@binance/w3w-core" "1.1.0-alpha.1"
-    "@binance/w3w-types" "1.1.0-alpha.1"
-    "@binance/w3w-utils" "1.1.0-alpha.1"
+    "@binance/w3w-core" "1.1.0"
+    "@binance/w3w-types" "1.1.0"
+    "@binance/w3w-utils" "1.1.0"
 
-"@binance/w3w-socket-transport@1.1.0-alpha.1":
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-socket-transport/-/w3w-socket-transport-1.1.0-alpha.1.tgz#4a9f77f936e7dd778794dddc941ec20df717dfc5"
-  integrity sha512-H3AVqe0F8ed5M1V6D7GpJggOIKjAbfZ4nmTiYRTqyzjVim3zEXZZExGesZ7tHP2py6+y3NDsHCQvI+aDFbSJZA==
+"@binance/w3w-socket-transport@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-socket-transport/-/w3w-socket-transport-1.1.0.tgz#afd83b7ecc1e9f784349fdb926d8bffd5fe5f76b"
+  integrity sha512-nVYw8A65F0WWyG6uNM5t/yrBYvzPs7/uWwXxZEVdexjZVNcTsk5tuH8zKKPydSHe5Hh+eRd7Vi41gBdtxVm3ag==
   dependencies:
-    "@binance/w3w-types" "1.1.0-alpha.1"
-    "@binance/w3w-utils" "1.1.0-alpha.1"
+    "@binance/w3w-types" "1.1.0"
+    "@binance/w3w-utils" "1.1.0"
     ws "^8.13.0"
 
-"@binance/w3w-types@1.1.0-alpha.1":
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-types/-/w3w-types-1.1.0-alpha.1.tgz#3420e2f19b8f2eb266895402441e9e25dfda56ec"
-  integrity sha512-a3R2pNaUxW1YMk9tu6xbl/8fT+6+1Ue7E7DGbMpINGlD9XhEQfDC+cFAJ7+f97UVnjm1GB3TC80OOyImoJvwjA==
+"@binance/w3w-types@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-types/-/w3w-types-1.1.0.tgz#8849897c93d0154a2f2c19107b6509a8b343b254"
+  integrity sha512-uIvATXPF2gSulVGJlFRuUXxWMpd+7egm/IOvyVGWF5CmOvRaDaiIFBN+IcHDwHE5pDUc9pMW8Z9WBP3hihzTQQ==
   dependencies:
     eventemitter3 "^5.0.0"
 
-"@binance/w3w-utils@1.1.0-alpha.1":
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-utils/-/w3w-utils-1.1.0-alpha.1.tgz#c029f8af576aa16570b7f652e47068385115d4fe"
-  integrity sha512-S7+vgXunRjHKOJuL2rd5lwTqzdrgN+htaSaJXzItCRTNi5c0ueiDJwWMCgobr3YOY6Fud/AcMv19GQH30E3l0w==
+"@binance/w3w-utils@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-utils/-/w3w-utils-1.1.0.tgz#f3cd8da031f07d8f7a81d03eb1b9551970a788e6"
+  integrity sha512-mmGBULkIUngyC0WQjQ27Z9yfEeLnLzvkmzMfqobrxr7EtEhGxT6APRHehOPw7tu+1V4J0INhEJMIWE8OyEB8bw==
   dependencies:
-    "@binance/w3w-types" "1.1.0-alpha.1"
+    "@binance/w3w-types" "1.1.0"
     eventemitter3 "^5.0.0"
     hash.js "^1.1.7"
     js-base64 "^3.7.5"
 
 "@binance/w3w-wagmi-connector@^1.1.0-alpha.0":
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-wagmi-connector/-/w3w-wagmi-connector-1.1.0-alpha.1.tgz#01f4b2b320003f95621181feea8a498f1a58249d"
-  integrity sha512-uBtWUKQ1uncmByehTJ9qGCfnZpOD6tikMyMm3q3e2QS4+YyzF3K7Yy8nGUxJ3m01T5hwD0syCsdOX9513EZYIQ==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-wagmi-connector/-/w3w-wagmi-connector-1.1.0.tgz#afae83e8e8ddd4515f19c79f7402567920c9352b"
+  integrity sha512-SzjLe0vmR77Wmd5xnJjRjte/+2PislJsSI5croTZndoos/9rB2UZTjI7l2/C0A+OI1Yv/7VVB3BHW+uH/6suAw==
   dependencies:
-    "@binance/w3w-ethereum-provider" "1.1.0-alpha.1"
-    "@binance/w3w-utils" "1.1.0-alpha.1"
+    "@binance/w3w-ethereum-provider" "1.1.0"
+    "@binance/w3w-utils" "1.1.0"
 
 "@bundled-es-modules/cookie@^2.0.0":
   version "2.0.0"
