@@ -1,4 +1,4 @@
-import formatDate from 'date-fns/format';
+import { format as formatDate } from 'date-fns/format';
 
 const READABLE_DATE_FORMAT = 'MM.dd.yy';
 
