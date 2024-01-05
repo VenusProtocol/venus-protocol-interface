@@ -5,11 +5,20 @@ export * from './types';
 
 const getMintableVai = async ({
   vaiControllerContract,
+  vaiContract,
   accountAddress,
 }: GetMintableVaiInput): Promise<GetMintableVaiOutput> => {
-  const res = await vaiControllerContract.getMintableVAI(accountAddress);
+  const [vaiTotalSupplyResponse, mintCapResponse, accountMintableVaiResponse] = await Promise.all([
+    vaiContract.totalSupply(),
+    vaiControllerContract.mintCap(),
+    vaiControllerContract.getMintableVAI(accountAddress),
+  ]);
 
-  return formatToOutput(res);
+  return formatToOutput({
+    mintCapResponse,
+    accountMintableVaiResponse,
+    vaiTotalSupplyResponse,
+  });
 };
 
 export default getMintableVai;

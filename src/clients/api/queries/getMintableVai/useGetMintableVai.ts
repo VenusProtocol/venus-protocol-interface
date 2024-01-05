@@ -5,12 +5,18 @@ import getMintableVai, {
   GetMintableVaiOutput,
 } from 'clients/api/queries/getMintableVai';
 import FunctionKey from 'constants/functionKey';
-import { useGetVaiControllerContract } from 'packages/contracts';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetVaiContract, useGetVaiControllerContract } from 'packages/contracts';
 import { useChainId } from 'packages/wallet';
-import { ChainId } from 'types';
+import { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetMintableVaiInput = Omit<GetMintableVaiInput, 'vaiControllerContract'>;
+type TrimmedGetMintableVaiInput = Omit<
+  GetMintableVaiInput,
+  'vaiControllerContract' | 'vaiContract'
+> & {
+  vai: Token;
+};
 
 export type UseGetMintableVaiQueryKey = [
   FunctionKey.GET_MINTABLE_VAI,
@@ -25,20 +31,29 @@ type Options = QueryObserverOptions<
   UseGetMintableVaiQueryKey
 >;
 
-const useGetMintableVai = (input: TrimmedGetMintableVaiInput, options?: Options) => {
+const useGetMintableVai = ({ vai, ...input }: TrimmedGetMintableVaiInput, options?: Options) => {
   const { chainId } = useChainId();
   const vaiControllerContract = useGetVaiControllerContract();
+  const { blockTimeMs } = useGetChainMetadata();
+  const vaiContract = useGetVaiContract({
+    address: vai.address,
+    chainId,
+    passSigner: false,
+  });
 
   return useQuery(
-    [FunctionKey.GET_MINTABLE_VAI, { ...input, chainId }],
+    [FunctionKey.GET_MINTABLE_VAI, { ...input, vai, chainId }],
     () =>
-      callOrThrow({ vaiControllerContract }, params =>
+      callOrThrow({ vaiControllerContract, vaiContract }, params =>
         getMintableVai({
           ...params,
           ...input,
         }),
       ),
-    options,
+    {
+      refetchInterval: blockTimeMs,
+      ...options,
+    },
   );
 };
 
