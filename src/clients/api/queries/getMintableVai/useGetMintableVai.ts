@@ -5,6 +5,7 @@ import getMintableVai, {
   GetMintableVaiOutput,
 } from 'clients/api/queries/getMintableVai';
 import FunctionKey from 'constants/functionKey';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetVaiContract, useGetVaiControllerContract } from 'packages/contracts';
 import { useChainId } from 'packages/wallet';
 import { ChainId, Token } from 'types';
@@ -33,6 +34,7 @@ type Options = QueryObserverOptions<
 const useGetMintableVai = ({ vai, ...input }: TrimmedGetMintableVaiInput, options?: Options) => {
   const { chainId } = useChainId();
   const vaiControllerContract = useGetVaiControllerContract();
+  const { blockTimeMs } = useGetChainMetadata();
   const vaiContract = useGetVaiContract({
     address: vai.address,
     chainId,
@@ -48,7 +50,10 @@ const useGetMintableVai = ({ vai, ...input }: TrimmedGetMintableVaiInput, option
           ...input,
         }),
       ),
-    options,
+    {
+      refetchInterval: blockTimeMs,
+      ...options,
+    },
   );
 };
 
