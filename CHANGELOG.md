@@ -1,3 +1,19 @@
+## [2.72.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.71.0...v2.72.0) (2024-01-05)
+
+
+### Features
+
+* activate primeCalculator feature flag on BSC_MAINNET ([086ce0c](https://github.com/VenusProtocol/venus-protocol-interface/commit/086ce0c50166a08f8812967b785e7936693c0d5e))
+* add getInitialValues function ([6da525a](https://github.com/VenusProtocol/venus-protocol-interface/commit/6da525a2e7b80eff6d17ac7325b7947efadefe5d))
+* add keys for new Prime queries ([142bd0e](https://github.com/VenusProtocol/venus-protocol-interface/commit/142bd0e9817fe9c5979ac832c23f5b6de931b3ab))
+* add new Prime estimation hooks ([4694570](https://github.com/VenusProtocol/venus-protocol-interface/commit/469457035b27e49b23e342138963b6f413a6cae1))
+* avoid form reset when window loses focus ([be30264](https://github.com/VenusProtocol/venus-protocol-interface/commit/be30264f26a479a6240b67f623199f1588dfd90a))
+* bump @venusprotocol/venus-protocol to 7.0.0-dev.3 ([c9e7f11](https://github.com/VenusProtocol/venus-protocol-interface/commit/c9e7f1199816bfb2be7519e15c48a5080929a5b2))
+* send accountAddress or NULL_ACCOUNT to claimTimeRemaining ([0485565](https://github.com/VenusProtocol/venus-protocol-interface/commit/0485565f7356e0ac4be51b35adf8b35cf2e49240))
+* update borrow/supply cap tooltips ([db0b6bf](https://github.com/VenusProtocol/venus-protocol-interface/commit/db0b6bf6db58cdb1af064b4e4103d9dbe6150d46))
+* update estimateAPR return values ([9a15759](https://github.com/VenusProtocol/venus-protocol-interface/commit/9a157595912b20675514776cbd5f87d7637acf68))
+* wire up Prime calculator ([5379d78](https://github.com/VenusProtocol/venus-protocol-interface/commit/5379d78981a2134e67c6789d10388c8df3b7af08))
+
 ## [2.71.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.70.5...v2.71.0) (2024-01-05)
 
 
