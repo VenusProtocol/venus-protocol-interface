@@ -4,7 +4,7 @@ import { ChainId } from 'types';
 const featureFlags = {
   integratedSwap: [ChainId.BSC_TESTNET, ChainId.BSC_MAINNET],
   prime: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  primeCalculator: [ChainId.BSC_TESTNET],
+  primeCalculator: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   tusdMigrationWarning: [ChainId.BSC_MAINNET],
   trxMigrationWarning: [ChainId.BSC_MAINNET],
   sxpDisablingWarning: [ChainId.BSC_MAINNET],

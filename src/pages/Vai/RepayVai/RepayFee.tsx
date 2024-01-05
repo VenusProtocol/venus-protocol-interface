@@ -12,8 +12,6 @@ import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { useStyles } from '../styles';
 
-const DEBOUNCE_DELAY = 300;
-
 export interface IRepayFeeProps {
   repayAmountTokens: string;
 }
@@ -26,7 +24,7 @@ const RepayFee = ({ repayAmountTokens }: IRepayFeeProps) => {
     symbol: 'VAI',
   });
 
-  const debouncedAmountTokens = useDebounceValue(repayAmountTokens, DEBOUNCE_DELAY);
+  const debouncedAmountTokens = useDebounceValue(repayAmountTokens);
 
   const { data: vaiRepayAmountData } = useGetVaiCalculateRepayAmount(
     {

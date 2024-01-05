@@ -3,7 +3,7 @@ import { Icon, Tooltip } from 'components';
 interface TokenAmountAndApyProps {
   apy: string;
   apyTitle: string;
-  apyTooltip: string;
+  apyTooltip: string | React.ReactElement;
   tokenAmountTitle: string;
   tokenAmount: string;
 }

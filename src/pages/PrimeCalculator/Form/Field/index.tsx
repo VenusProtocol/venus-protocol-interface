@@ -9,10 +9,22 @@ export interface FieldsProps extends TokenTextFieldProps {
   infosLabel?: string;
   infosTooltip?: string;
   infosAmountTokens?: BigNumber;
+  errorLabel?: string;
 }
 
 export const Field: React.FC<FieldsProps> = forwardRef<HTMLInputElement, FieldsProps>(
-  ({ token, label, infosLabel, infosTooltip, infosAmountTokens, ...tokenTextFieldProps }, ref) => {
+  (
+    {
+      token,
+      label,
+      infosLabel,
+      infosTooltip,
+      infosAmountTokens,
+      errorLabel,
+      ...tokenTextFieldProps
+    },
+    ref,
+  ) => {
     const readableValue = useFormatTokensToReadableValue({
       token,
       value: infosAmountTokens,
@@ -39,6 +51,8 @@ export const Field: React.FC<FieldsProps> = forwardRef<HTMLInputElement, FieldsP
             <div className="pl-4 font-semibold">{readableValue}</div>
           </LabeledInlineContent>
         )}
+
+        {errorLabel && <p className="mt-4 text-sm text-grey md:text-base">{errorLabel}</p>}
       </div>
     );
   },

@@ -1,29 +1,84 @@
+import BigNumber from 'bignumber.js';
+import { useMemo } from 'react';
+
 import { Card, Delimiter, LabeledInlineContent } from 'components';
+import { PRIME_APY_DOC_URL } from 'constants/prime';
+import { Link } from 'containers/Link';
 import { useTranslation } from 'packages/translations';
 import { Token } from 'types';
+import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 
 import TokenAmountAndApy from './TokenAmountAndApy';
 
 interface RewardDetailsProps {
   token: Token;
-  totalYearlyRewards: string;
-  userYearlyRewards: string;
-  userSuppliedTokens: string;
-  userBorrowedTokens: string;
-  primeSupplyApy: string;
-  primeBorrowApy: string;
+  totalDailyRewards: BigNumber | undefined;
+  userDailyRewards: BigNumber | undefined;
+  userSuppliedTokens: BigNumber | undefined;
+  userBorrowedTokens: BigNumber | undefined;
+  primeSupplyApy: BigNumber | undefined;
+  primeBorrowApy: BigNumber | undefined;
 }
 
 export const RewardDetails: React.FC<RewardDetailsProps> = ({
   primeBorrowApy,
   primeSupplyApy,
   token,
-  totalYearlyRewards,
+  totalDailyRewards,
   userBorrowedTokens,
   userSuppliedTokens,
-  userYearlyRewards,
+  userDailyRewards,
 }: RewardDetailsProps) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
+
+  const {
+    borrowApyPercentageReadable,
+    borrowedTokensReadable,
+    supplyApyPercentageReadable,
+    suppliedTokensReadable,
+    primeTokensDistributedAmountReadable,
+    userDailyPrimeRewardsReadable,
+  } = useMemo(() => {
+    const suppliedTokens = formatTokensToReadableValue({
+      value: userSuppliedTokens,
+      token,
+    });
+
+    const borrowedTokens = formatTokensToReadableValue({
+      value: userBorrowedTokens,
+      token,
+    });
+
+    const primeTokensDistributedAmount = formatTokensToReadableValue({
+      value: totalDailyRewards,
+      token,
+    });
+
+    const userDailyPrimeRewards = formatTokensToReadableValue({
+      value: userDailyRewards,
+      token,
+    });
+
+    const borrowApyPercentage = formatPercentageToReadableValue(primeBorrowApy?.multipliedBy(-1));
+    const supplyApyPercentage = formatPercentageToReadableValue(primeSupplyApy);
+
+    return {
+      borrowApyPercentageReadable: borrowApyPercentage,
+      borrowedTokensReadable: borrowedTokens,
+      supplyApyPercentageReadable: supplyApyPercentage,
+      suppliedTokensReadable: suppliedTokens,
+      primeTokensDistributedAmountReadable: primeTokensDistributedAmount,
+      userDailyPrimeRewardsReadable: userDailyPrimeRewards,
+    };
+  }, [
+    primeBorrowApy,
+    primeSupplyApy,
+    token,
+    totalDailyRewards,
+    userBorrowedTokens,
+    userSuppliedTokens,
+    userDailyRewards,
+  ]);
 
   return (
     <Card>
@@ -32,17 +87,17 @@ export const RewardDetails: React.FC<RewardDetailsProps> = ({
         <LabeledInlineContent
           className="flex-1"
           iconSrc={token}
-          tooltip={t('primeCalculator.rewardDetails.totalYearlyRewards.tooltip')}
-          label={t('primeCalculator.rewardDetails.totalYearlyRewards.title')}
+          tooltip={t('primeCalculator.rewardDetails.totalDailyRewards.tooltip')}
+          label={t('primeCalculator.rewardDetails.totalDailyRewards.title')}
         >
-          {totalYearlyRewards}
+          {primeTokensDistributedAmountReadable}
         </LabeledInlineContent>
         <LabeledInlineContent
           className="flex-1"
           iconSrc={token}
-          label={t('primeCalculator.rewardDetails.yourYearlyRewards')}
+          label={t('primeCalculator.rewardDetails.yourDailyRewards')}
         >
-          {userYearlyRewards}
+          {userDailyPrimeRewardsReadable}
         </LabeledInlineContent>
       </div>
 
@@ -50,22 +105,34 @@ export const RewardDetails: React.FC<RewardDetailsProps> = ({
 
       <div className="mt-6 space-y-8 lg:space-y-6">
         <TokenAmountAndApy
-          apy={primeSupplyApy}
+          apy={supplyApyPercentageReadable}
           apyTitle={t('primeCalculator.rewardDetails.primeSupplyApy.title')}
-          // TODO: define tooltip text
-          apyTooltip={t('primeCalculator.rewardDetails.primeSupplyApy.tooltip')}
-          tokenAmount={userSuppliedTokens}
+          apyTooltip={
+            <Trans
+              i18nKey="primeCalculator.rewardDetails.primeSupplyApy.tooltip"
+              components={{
+                Link: <Link href={PRIME_APY_DOC_URL} />,
+              }}
+            />
+          }
+          tokenAmount={suppliedTokensReadable}
           tokenAmountTitle={t('primeCalculator.rewardDetails.fromSuppliedTokens', {
             tokenSymbol: token.symbol,
           })}
         />
 
         <TokenAmountAndApy
-          apy={primeBorrowApy}
+          apy={borrowApyPercentageReadable}
           apyTitle={t('primeCalculator.rewardDetails.primeBorrowApy.title')}
-          // TODO: define tooltip text
-          apyTooltip={t('primeCalculator.rewardDetails.primeBorrowApy.tooltip')}
-          tokenAmount={userBorrowedTokens}
+          apyTooltip={
+            <Trans
+              i18nKey="primeCalculator.rewardDetails.primeBorrowApy.tooltip"
+              components={{
+                Link: <Link href={PRIME_APY_DOC_URL} />,
+              }}
+            />
+          }
+          tokenAmount={borrowedTokensReadable}
           tokenAmountTitle={t('primeCalculator.rewardDetails.fromBorrowedTokens', {
             tokenSymbol: token.symbol,
           })}

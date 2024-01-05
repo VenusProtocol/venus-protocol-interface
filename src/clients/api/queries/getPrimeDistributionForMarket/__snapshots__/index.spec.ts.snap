@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getPrimeDistributionForMarket > returns the amount of rewards distributed for a given market 1`] = `
+{
+  "totalDistributedMantissa": "1000000000",
+}
+`;

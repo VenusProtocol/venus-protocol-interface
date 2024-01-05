@@ -12,11 +12,13 @@ describe('getPrimeStatus', () => {
   it('returns the the data describing the status of the Prime contract', async () => {
     const mockPeriodInSeconds = 600;
     const mockMinimumStakedXvs = 1000;
+    const mockMaximumStakedXvs = 10000;
     const tokenLimit = 1000;
     const claimedTokens = 300;
 
     const fakePrimeContract = {
       STAKING_PERIOD: vi.fn(() => new BigNumber(mockPeriodInSeconds)),
+      MAXIMUM_XVS_CAP: vi.fn(() => new BigNumber(mockMaximumStakedXvs)),
       MINIMUM_STAKED_XVS: vi.fn(() => new BigNumber(mockMinimumStakedXvs)),
       totalRevocable: vi.fn(() => new BigNumber(tokenLimit)),
       revocableLimit: vi.fn(() => new BigNumber(claimedTokens)),

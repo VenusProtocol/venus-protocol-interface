@@ -15,11 +15,23 @@ describe('getHypotheticalPrimeApys', () => {
     const fakeUserBorrowBalanceMantissa = new BigNumber('100000000000000000000');
     const fakeUserSupplyBalanceMantissa = new BigNumber('200000000000000000000');
     const fakeUserXvsStakedMantissa = new BigNumber('1000000000000000000000');
+    const fakeCappedSupply = new BigNumber('200000000000000000000');
+    const fakeCappedBorrow = new BigNumber('100000000000000000000');
+    const fakeBorrowCapUsd = new BigNumber('200000000000000000000');
+    const fakeSupplyCapUsd = new BigNumber('400000000000000000000');
+    const fakeTotalScore = new BigNumber('10');
+    const fakeUserScore = new BigNumber('1');
 
     const fakePrimeContract = {
       estimateAPR: vi.fn(async () => ({
         supplyAPR: fakeSupplyAprPercentage,
         borrowAPR: fakeBorrowAprPercentage,
+        cappedSupply: fakeCappedSupply,
+        cappedBorrow: fakeCappedBorrow,
+        borrowCapUSD: fakeBorrowCapUsd,
+        supplyCapUSD: fakeSupplyCapUsd,
+        totalScore: fakeTotalScore,
+        userScore: fakeUserScore,
       })),
     } as unknown as Prime;
 
@@ -44,7 +56,12 @@ describe('getHypotheticalPrimeApys', () => {
     expect(response).toMatchInlineSnapshot(`
       {
         "borrowApyPercentage": "0.3405770666813801",
+        "borrowCapCents": "20000",
+        "borrowCapMantissa": "100000000000000000000",
         "supplyApyPercentage": "0.2603373646915319",
+        "supplyCapCents": "40000",
+        "supplyCapMantissa": "200000000000000000000",
+        "userPrimeRewardsShare": "0.1",
       }
     `);
   });

@@ -1,6 +1,11 @@
 import BigNumber from 'bignumber.js';
 
 import { NULL_ADDRESS } from 'constants/address';
+import {
+  borrowAveragesForToken,
+  supplyAveragesForToken,
+  xvsStakedAveragesForToken,
+} from 'constants/prime';
 import { Prime } from 'packages/contracts';
 import { Asset, Token } from 'types';
 import {
@@ -18,27 +23,6 @@ export interface ResolvePrimeSimulationDistributionsInput {
   primeMinimumXvsToStakeMantissa: BigNumber;
   accountAddress?: string;
 }
-
-const supplyAveragesForToken: Record<string, BigNumber> = {
-  BTCB: new BigNumber('0.71'),
-  ETH: new BigNumber('9.86'),
-  USDT: new BigNumber('5003.94'),
-  USDC: new BigNumber('13068.75'),
-};
-
-const borrowAveragesForToken: Record<string, BigNumber> = {
-  BTCB: new BigNumber('0.04'),
-  ETH: new BigNumber('0.49'),
-  USDT: new BigNumber('10009.21'),
-  USDC: new BigNumber('2405.43'),
-};
-
-const xvsStakedAveragesForToken: Record<string, BigNumber> = {
-  BTCB: new BigNumber('4124.59'),
-  ETH: new BigNumber('4788.05'),
-  USDT: new BigNumber('3731.33'),
-  USDC: new BigNumber('3265.30'),
-};
 
 export const appendPrimeSimulationDistributions = async ({
   primeContract,
