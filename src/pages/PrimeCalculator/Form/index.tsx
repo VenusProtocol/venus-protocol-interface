@@ -59,7 +59,10 @@ export const Form: React.FC = () => {
       refetchInterval: false,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
+      refetchIntervalInBackground: false,
+      refetchOnReconnect: false,
       staleTime: Infinity,
+      cacheTime: Infinity,
       queryKey: [FunctionKey.GET_LEGACY_POOL, { accountAddress, chainId }, 'PrimeCalculator'],
     },
   );
@@ -137,6 +140,26 @@ export const Form: React.FC = () => {
     return selectOptions;
   }, [primeAssets]);
 
+  const formSchema = z.object({
+    stakedAmountXvsTokens: z
+      .string()
+      .refine(v => validateNumericString(v, primeMinimumStakedXvsTokens)),
+    suppliedAmountTokens: z.string().refine(validateNumericString),
+    borrowedAmountTokens: z.string().refine(validateNumericString),
+  });
+
+  const { control, setValue, reset } = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    mode: 'onBlur',
+    defaultValues: {
+      stakedAmountXvsTokens: '',
+      suppliedAmountTokens: '',
+      borrowedAmountTokens: '',
+    },
+  });
+
+  const formState = useFormState({ control });
+
   const defaultTokenAddress = options[0]?.value as string | undefined;
 
   const urlTokenAddress = searchParams.get(QUERY_PARAM_TOKEN_ADDRESS);
@@ -177,26 +200,6 @@ export const Form: React.FC = () => {
     fn();
   }, [options, updateUrlTokenAddress, urlTokenAddress, defaultTokenAddress]);
 
-  const formSchema = z.object({
-    stakedAmountXvsTokens: z
-      .string()
-      .refine(v => validateNumericString(v, primeMinimumStakedXvsTokens)),
-    suppliedAmountTokens: z.string().refine(validateNumericString),
-    borrowedAmountTokens: z.string().refine(validateNumericString),
-  });
-
-  const { control, setValue, reset } = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    mode: 'onBlur',
-    defaultValues: {
-      stakedAmountXvsTokens: '',
-      suppliedAmountTokens: '',
-      borrowedAmountTokens: '',
-    },
-  });
-
-  const formState = useFormState({ control });
-
   // Load default form values
   const defaultValues = useMemo(() => {
     let initialStakedAmountXvsTokens;
@@ -218,6 +221,8 @@ export const Form: React.FC = () => {
     };
   }, [selectedAsset, xvs, primeMinimumStakedXvsMantissa, userXvsStakedMantissa]);
 
+  const [lastSelectedAsset, setLastSelectedAsset] = useState('');
+
   const { initialStakedAmountXvsTokens, initialBorrowAmountTokens, initialSupplyAmountTokens } =
     defaultValues;
   useEffect(() => {
@@ -233,12 +238,16 @@ export const Form: React.FC = () => {
     if (formState.touchedFields.stakedAmountXvsTokens) {
       setValue('borrowedAmountTokens', borrowedAmountTokens);
       setValue('suppliedAmountTokens', suppliedAmountTokens);
-    } else {
+    } else if (
+      !!selectedAsset &&
+      !areAddressesEqual(selectedAsset.vToken.address, lastSelectedAsset)
+    ) {
       reset({
         stakedAmountXvsTokens,
         suppliedAmountTokens,
         borrowedAmountTokens,
       });
+      setLastSelectedAsset(selectedAsset.vToken.address);
     }
   }, [
     initialStakedAmountXvsTokens,
@@ -246,6 +255,8 @@ export const Form: React.FC = () => {
     initialSupplyAmountTokens,
     formState.touchedFields.stakedAmountXvsTokens,
     setValue,
+    selectedAsset,
+    lastSelectedAsset,
     reset,
   ]);
 
