@@ -32,8 +32,9 @@ export const useGetVaiRepayAmountWithInterests = () =>
   useQuery(FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS, getVaiRepayAmountWithInterests);
 
 export const getVaiTreasuryPercentage = vi.fn();
-export const useGetVaiTreasuryPercentage = () =>
-  useQuery(FunctionKey.GET_VAI_TREASURY_PERCENTAGE, getVaiTreasuryPercentage);
+export const useGetVaiTreasuryPercentage = vi.fn(() =>
+  useQuery(FunctionKey.GET_VAI_TREASURY_PERCENTAGE, getVaiTreasuryPercentage),
+);
 
 export const getHypotheticalAccountLiquidity = vi.fn();
 
@@ -53,7 +54,9 @@ export const getMintedVai = vi.fn();
 export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMintedVai);
 
 export const getMintableVai = vi.fn();
-export const useGetMintableVai = () => useQuery(FunctionKey.GET_MINTABLE_VAI, getMintableVai);
+export const useGetMintableVai = vi.fn(() =>
+  useQuery(FunctionKey.GET_MINTABLE_VAI, getMintableVai),
+);
 
 export const getPendingRewards = vi.fn();
 export const useGetPendingRewards = () =>

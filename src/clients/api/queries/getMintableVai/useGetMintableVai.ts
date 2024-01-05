@@ -51,7 +51,7 @@ const useGetMintableVai = ({ vai, ...input }: TrimmedGetMintableVaiInput, option
         }),
       ),
     {
-      refetchInterval: blockTimeMs,
+      refetchInterval: blockTimeMs * 3,
       ...options,
     },
   );

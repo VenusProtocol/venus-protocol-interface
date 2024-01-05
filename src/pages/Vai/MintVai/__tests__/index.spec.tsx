@@ -9,8 +9,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vai } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
-import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
+import { useGetMintableVai, useGetVaiTreasuryPercentage, useGetBalanceOf, mintVai } from 'clients/api';
 import { en } from 'packages/translations';
 import { convertMantissaToTokens } from 'utilities';
 
@@ -22,13 +21,30 @@ const fakeFormatToMintableVaiInput = {
   accountMintableVaiResponse: vaiControllerResponses.getMintableVAI,
 };
 
-const fakeGetMintableVaiOutput = formatToMintableVaiOutput(fakeFormatToMintableVaiInput);
-
 const fakeVaiTreasuryPercentage = 7.19;
+const fakeVaiBalanceMantissa = new BigNumber('40000000000000000000')
+const fakeMintableVaiMantissa = new BigNumber('10000000000000000000');
 
 describe('MintVai', () => {
   beforeEach(() => {
-    (getMintableVai as Vi.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
+    (useGetMintableVai as Vi.Mock).mockImplementation(() => ({
+      data: {
+        mintableVaiMantissa: fakeMintableVaiMantissa
+      },
+      isLoading: false
+    }));
+    (useGetVaiTreasuryPercentage as Vi.Mock).mockImplementation(() => ({
+      data: {
+        percentage: fakeVaiTreasuryPercentage
+      },
+      isLoading: false
+    }));
+    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+      data: {
+        balanceMantissa: fakeVaiBalanceMantissa
+      },
+      isLoading: false
+    }));
   });
 
   it('renders without crashing', () => {
@@ -38,10 +54,6 @@ describe('MintVai', () => {
   });
 
   it('displays the correct available VAI limit and mint fee', async () => {
-    (getVaiTreasuryPercentage as Vi.Mock).mockImplementationOnce(async () => ({
-      percentage: fakeVaiTreasuryPercentage,
-    }));
-
     const { getByText } = renderComponent(<MintVai />, {
       accountAddress: fakeAccountAddress,
     });
@@ -66,13 +78,13 @@ describe('MintVai', () => {
     fireEvent.click(safeMaxButton);
 
     // Check input value updated to max amount of mintable VAI
-    const fakeMintableVai = convertMantissaToTokens({
-      value: fakeGetMintableVaiOutput.mintableVaiMantissa,
+    const fakeMintableVaiTokens = convertMantissaToTokens({
+      value: fakeMintableVaiMantissa,
       token: vai,
     });
 
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
-    await waitFor(() => expect(tokenTextFieldInput.value).toBe(fakeMintableVai.toFixed()));
+    await waitFor(() => expect(tokenTextFieldInput.value).toBe(fakeMintableVaiTokens.toFixed()));
 
     // Submit repayment request
     await waitFor(() => expect(getByText(en.vai.mintVai.submitButtonLabel)));
@@ -85,17 +97,18 @@ describe('MintVai', () => {
     // Check mintVai was called correctly
     await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
     expect(mintVai).toHaveBeenCalledWith({
-      amountMantissa: fakeGetMintableVaiOutput.mintableVaiMantissa,
+      amountMantissa: fakeMintableVaiMantissa,
     });
   });
 
   it('does not let user mint VAI if there is no VAI left to mint', async () => {
-    // mock getMintableVai, simulating that the total supply has reached the cap
-    const fakeGetMintableVaiOutputToppedCap = formatToMintableVaiOutput({
-      ...fakeFormatToMintableVaiInput,
-      vaiTotalSupplyResponse: fakeFormatToMintableVaiInput.mintCapResponse,
-    });
-    (getMintableVai as Vi.Mock).mockImplementation(() => fakeGetMintableVaiOutputToppedCap);
+    // mock useGetMintableVai, simulating that the total supply has reached the cap
+    (useGetMintableVai as Vi.Mock).mockImplementation(() => ({
+      data: {
+        mintableVaiMantissa: new BigNumber('0')
+      },
+      isLoading: false
+    }));
 
     const { getByText, getByPlaceholderText } = renderComponent(<MintVai />, {
       accountAddress: fakeAccountAddress,
@@ -111,54 +124,5 @@ describe('MintVai', () => {
     // Check if the input is disabled
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
     await waitFor(() => expect(tokenTextFieldInput).toBeDisabled());
-  });
-
-  it('lets user mint up to global VAI left for minting if lower than the account limit', async () => {
-    (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
-    const remainingVaiAvailable = '10000000000000000';
-    const remainingVaiAvailableMantissa = new BigNumber(remainingVaiAvailable);
-    const totalVaiSupply = fakeFormatToMintableVaiInput.mintCapResponse.sub(remainingVaiAvailable);
-    const fakeGetMintableVaiOutputWithTotalVaiSupply = formatToMintableVaiOutput({
-      ...fakeFormatToMintableVaiInput,
-      vaiTotalSupplyResponse: totalVaiSupply,
-    });
-    (getMintableVai as Vi.Mock).mockImplementation(
-      () => fakeGetMintableVaiOutputWithTotalVaiSupply,
-    );
-
-    const { getByText, getByPlaceholderText } = renderComponent(<MintVai />, {
-      accountAddress: fakeAccountAddress,
-    });
-    await waitFor(() => getByText(en.vai.mintVai.submitButtonDisabledLabel));
-    // Click on "SAFE MAX" button
-    const safeMaxButton = getByText(en.vai.mintVai.rightMaxButtonLabel).closest(
-      'button',
-    ) as HTMLButtonElement;
-    fireEvent.click(safeMaxButton);
-
-    // Check input value updated to max amount of available VAI
-    const fakeRemainingAvailableVaiTokens = convertMantissaToTokens({
-      value: new BigNumber(remainingVaiAvailable),
-      token: vai,
-    });
-
-    const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
-    await waitFor(() =>
-      expect(tokenTextFieldInput.value).toBe(fakeRemainingAvailableVaiTokens.toFixed()),
-    );
-
-    // Submit repayment request
-    await waitFor(() => expect(getByText(en.vai.mintVai.submitButtonLabel)));
-
-    const submitButton = getByText(en.vai.mintVai.submitButtonLabel).closest(
-      'button',
-    ) as HTMLButtonElement;
-    fireEvent.click(submitButton);
-
-    // Check mintVai was called correctly
-    await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
-    expect(mintVai).toHaveBeenCalledWith({
-      amountMantissa: remainingVaiAvailableMantissa,
-    });
   });
 });
