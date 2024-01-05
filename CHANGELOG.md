@@ -1,3 +1,12 @@
+## [2.71.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.70.5...v2.71.0) (2024-01-05)
+
+
+### Features
+
+* add blockTimeMs as the refetchInterval to useGetMintableVai ([b7b1189](https://github.com/VenusProtocol/venus-protocol-interface/commit/b7b1189538769223bc0f2b7ac60b309d466bcb63))
+* enable minting VAI ([65b1581](https://github.com/VenusProtocol/venus-protocol-interface/commit/65b15815cc8e32d5fe0aad8a3ea209bf2f3b6384))
+* update mintableVai logic ([6123895](https://github.com/VenusProtocol/venus-protocol-interface/commit/6123895ab97f1fca3b7fef26421ac83f40b587e4))
+
 ## [2.70.5](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.70.4...v2.70.5) (2024-01-05)
 
 ## [2.70.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.70.3...v2.70.4) (2024-01-04)
