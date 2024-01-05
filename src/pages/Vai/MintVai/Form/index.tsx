@@ -73,21 +73,21 @@ export const Form: React.FC = () => {
   const shouldShowPrimeOnlyWarning =
     isVaiMintPrimeOnlyWarningEnabled && isPrimeEnabled && !isUserPrime;
 
-  const { isLoading: isGetMintableVaiLoading } = useGetMintableVai(
+  const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {
       accountAddress: accountAddress || '',
+      vai: vai!,
     },
     {
-      enabled: !!accountAddress,
+      enabled: !!accountAddress && !!vai,
     },
   );
 
-  // TODO: use VAI contract value
-  const limitMantissa = new BigNumber(0);
+  const limitMantissa = mintableVaiData?.mintableVaiMantissa;
 
   const isInitialLoading = isGetMintableVaiLoading || isGetPrimeTokenLoading;
 
-  const { data: userVaiBalanceData } = useGetBalanceOf(
+  const { data: userVaiBalanceData, isLoading: isGetUserVaiBalance } = useGetBalanceOf(
     {
       accountAddress: accountAddress || '',
       token: vai!,
@@ -101,7 +101,8 @@ export const Form: React.FC = () => {
 
   const { data: getVaiRepayApyData } = useGetVaiRepayApy();
 
-  const { data: vaiTreasuryData } = useGetVaiTreasuryPercentage();
+  const { data: vaiTreasuryData, isLoading: isGetVaiTreasuryPercentageLoading } =
+    useGetVaiTreasuryPercentage();
 
   const mintFeePercentage = vaiTreasuryData?.percentage;
 
@@ -167,8 +168,7 @@ export const Form: React.FC = () => {
     }
   };
 
-  // TODO: use VAI contract values
-  const isDisabled = true;
+  const isDisabled = !accountAddress || isGetVaiTreasuryPercentageLoading || isGetUserVaiBalance;
 
   if (isInitialLoading) {
     return <Spinner />;
