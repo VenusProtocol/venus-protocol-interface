@@ -120,6 +120,10 @@ export { default as claimPrimeToken } from './mutations/claimPrimeToken';
 export * from './mutations/claimPrimeToken';
 export { default as useClaimPrimeToken } from './mutations/claimPrimeToken/useClaimPrimeToken';
 
+export { default as bridgeXvs } from './mutations/bridgeXvs';
+export * from './mutations/bridgeXvs';
+export { default as useBridgeXvs } from './mutations/bridgeXvs/useBridgeXvs';
+
 // Queries
 export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';
 export * from './queries/getVaiCalculateRepayAmount';
