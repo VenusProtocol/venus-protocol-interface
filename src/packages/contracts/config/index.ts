@@ -15,6 +15,11 @@ import { abi as ResilientOracleAbi } from '@venusprotocol/oracle/artifacts/contr
 import venusOracleBscMainnetDeployments from '@venusprotocol/oracle/deployments/bscmainnet_addresses.json';
 import venusOracleBscTestnetDeployments from '@venusprotocol/oracle/deployments/bsctestnet_addresses.json';
 import venusOracleSepoliaDeployments from '@venusprotocol/oracle/deployments/sepolia_addresses.json';
+import { abi as XVSProxyOFTDest } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTDest.sol/XVSProxyOFTDest.json';
+import { abi as XVSProxyOFTSrc } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTSrc.sol/XVSProxyOFTSrc.json';
+import tokenBridgeBscMainnetDeployments from '@venusprotocol/token-bridge/deployments/bscmainnet_addresses.json';
+import tokenBridgeBscTestnetDeployments from '@venusprotocol/token-bridge/deployments/bsctestnet_addresses.json';
+import tokenBridgeSepoliaDeployments from '@venusprotocol/token-bridge/deployments/sepolia_addresses.json';
 import { abi as LegacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as VTreasuryAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasury.sol/VTreasury.json';
 import { abi as VTreasuryV8Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasuryV8.sol/VTreasuryV8.json';
@@ -236,6 +241,21 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.VTreasuryV8,
       [ChainId.OPBNB_TESTNET]: '0x3370915301E8a6A6baAe6f461af703e2498409F3', // TODO: get from package once it's been updated (see VEN-2326)
+    },
+  },
+  {
+    name: 'XVSProxyOFTDest',
+    abi: XVSProxyOFTDest,
+    address: {
+      [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVSProxyOFTDest,
+    },
+  },
+  {
+    name: 'XVSProxyOFTSrc',
+    abi: XVSProxyOFTSrc,
+    address: {
+      [ChainId.BSC_MAINNET]: tokenBridgeBscMainnetDeployments.addresses.XVSProxyOFTSrc,
+      [ChainId.BSC_TESTNET]: tokenBridgeBscTestnetDeployments.addresses.XVSProxyOFTSrc,
     },
   },
   // Generic Contracts
