@@ -368,3 +368,7 @@ export { default as useGetVaiVaultPaused } from './queries/getVaiVaultPaused/use
 
 export * from './queries/getXvsVaultPaused';
 export { default as useGetXvsVaultPaused } from './queries/getXvsVaultPaused/useGetXvsVaultPaused';
+
+export { default as getXvsBridgeFeeEstimation } from './queries/getXvsBridgeFeeEstimation';
+export * from './queries/getXvsBridgeFeeEstimation';
+export { default as useGetXvsBridgeFeeEstimation } from './queries/getXvsBridgeFeeEstimation/useGetXvsBridgeFeeEstimation';
