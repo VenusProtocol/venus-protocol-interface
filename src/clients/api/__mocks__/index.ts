@@ -67,7 +67,7 @@ export const getAllowance = vi.fn();
 export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
 
 export const getBalanceOf = vi.fn();
-export const useGetBalanceOf = (input: Omit<GetBalanceOfInput, 'signer'>) =>
+export const useGetBalanceOf = vi.fn((input: Omit<GetBalanceOfInput, 'signer'>) =>
   useQuery(
     [
       FunctionKey.GET_BALANCE_OF,
@@ -77,7 +77,8 @@ export const useGetBalanceOf = (input: Omit<GetBalanceOfInput, 'signer'>) =>
       },
     ],
     () => getBalanceOf(input),
-  );
+  ),
+);
 
 export const getTokenBalances = vi.fn();
 export const useGetTokenBalances = () => useQuery(FunctionKey.GET_TOKEN_BALANCES, getTokenBalances);
@@ -302,6 +303,13 @@ export const getXvsVaultPaused = vi.fn(async () => ({
 export const useGetXvsVaultPaused = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_PAUSED, getXvsVaultPaused);
 
+export const getXvsBridgeFeeEstimation = vi.fn(async () => ({
+  estimatedFeeMantissa: new BigNumber('12000000'),
+}));
+export const useGetXvsBridgeFeeEstimation = vi.fn(() =>
+  useQuery(FunctionKey.GET_XVS_BRIDGE_FEE_ESTIMATION, getXvsBridgeFeeEstimation),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
@@ -439,3 +447,7 @@ export const useStakeInVault = () => ({
 export const claimPrimeToken = vi.fn();
 export const useClaimPrimeToken = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.CLAIM_PRIME_TOKEN, claimPrimeToken, options);
+
+export const bridgeXvs = vi.fn();
+export const useBridgeXvs = (options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.BRIDGE_XVS, bridgeXvs, options);

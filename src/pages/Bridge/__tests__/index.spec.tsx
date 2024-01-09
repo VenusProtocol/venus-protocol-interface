@@ -1,8 +1,11 @@
 import { fireEvent, waitFor } from '@testing-library/dom';
+import BigNumber from 'bignumber.js';
 import Vi from 'vitest';
 
+import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
+import { bridgeXvs, useGetBalanceOf, useGetXvsBridgeFeeEstimation } from 'clients/api';
 import { en } from 'packages/translations';
 import { useAuthModal, useSwitchChain } from 'packages/wallet';
 import { ChainId } from 'types';
@@ -140,6 +143,12 @@ describe('Bridge', () => {
   });
 
   it('updates input value correctly when clicking on max button', async () => {
+    const fakeBalanceMantissa = new BigNumber('10000000000000000000');
+    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+      data: {
+        balanceMantissa: fakeBalanceMantissa,
+      },
+    }));
     const { getByText, getByTestId } = renderComponent(<Bridge />, {
       chainId: ChainId.BSC_TESTNET,
     });
@@ -151,5 +160,49 @@ describe('Bridge', () => {
     await waitFor(() =>
       expect((getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement).value).toEqual('10'),
     );
+  });
+
+  it('lets the user the bridge XVS', async () => {
+    const fakeBalanceMantissa = new BigNumber('10000000000000000000');
+    const fakeBridgeFeeMantissa = new BigNumber('50000000000000000');
+    (useGetXvsBridgeFeeEstimation as Vi.Mock).mockImplementation(() => ({
+      data: {
+        estimationFeeMantissa: fakeBridgeFeeMantissa,
+      },
+    }));
+    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+      data: {
+        balanceMantissa: fakeBalanceMantissa,
+      },
+    }));
+    const fakeBridgeXvsParams = {
+      accountAddress: fakeAccountAddress,
+      amountMantissa: fakeBalanceMantissa,
+      destinationChainId: ChainId.SEPOLIA,
+      nativeCurrencyFeeMantissa: fakeBridgeFeeMantissa,
+    };
+
+    const { getByText, getByTestId } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
+      chainId: ChainId.BSC_TESTNET,
+    });
+
+    // Click on max button
+    fireEvent.click(getByText(en.bridgePage.amountInput.maxButtonLabel));
+
+    // Check input value was updated correctly
+    await waitFor(() =>
+      expect((getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement).value).toEqual('10'),
+    );
+
+    // Submit bridge request
+    const submitButton = await waitFor(
+      () =>
+        getByText(en.bridgePage.submitButton.label.submit).closest('button') as HTMLButtonElement,
+    );
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(bridgeXvs).toHaveBeenCalledTimes(1));
+    expect(bridgeXvs).toHaveBeenCalledWith(fakeBridgeXvsParams);
   });
 });

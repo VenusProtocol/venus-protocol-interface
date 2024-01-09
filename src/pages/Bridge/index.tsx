@@ -4,6 +4,7 @@ import { useCallback, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { useBridgeXvs, useGetBalanceOf, useGetXvsBridgeFeeEstimation } from 'clients/api';
 import {
   ApproveTokenSteps,
   Card,
@@ -11,12 +12,19 @@ import {
   LabeledInlineContent,
   PrimaryButton,
   SpendingLimit,
+  Spinner,
   TextButton,
   TokenTextField,
 } from 'components';
 import { Link } from 'containers/Link';
-import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import useDebounceValue from 'hooks/useDebounceValue';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import useTokenApproval from 'hooks/useTokenApproval';
+import {
+  getXVSProxyOFTDestContractAddress,
+  getXVSProxyOFTSrcContractAddress,
+} from 'packages/contracts';
+import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import {
@@ -27,45 +35,67 @@ import {
   useSwitchChain,
 } from 'packages/wallet';
 import { ChainId } from 'types';
+import {
+  convertMantissaToTokens,
+  convertTokensToMantissa,
+  formatTokensToReadableValue,
+} from 'utilities';
 
 import { ChainSelect } from './ChainSelect';
 import { ReactComponent as LayerZeroLogo } from './layerZeroLogo.svg';
 import TEST_IDS from './testIds';
 
-const formSchema = z.object({
-  fromChainId: z.number(),
-  toChainId: z.number(),
-  amountTokens: z.string().min(1),
-});
-
-const BRIDGE_DOC_URL = ''; // TODO: add link (see VEN-2248)
+const BRIDGE_DOC_URL =
+  'https://docs-v4.venus.io/technical-reference/reference-technical-articles/technical-doc-xvs-bridge';
 
 const BridgePage: React.FC = () => {
   const { t } = useTranslation();
-  const bridgeContractAddress = ''; // TODO: get address from bridge contract (see VEN-2248)
   const { chainId } = useChainId();
+  const { nativeCurrencySymbol } = useGetChainMetadata();
   const { switchChain } = useSwitchChain();
   const { openAuthModal } = useAuthModal();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
-
-  const { control, handleSubmit, formState, watch, getValues, setValue } = useForm<
-    z.infer<typeof formSchema>
-  >({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      fromChainId: chainId,
-      toChainId: chains.find(chain => chain.id !== chainId)?.id,
-      amountTokens: '',
-    },
+  const nativeToken = useGetToken({
+    symbol: nativeCurrencySymbol,
+    chainId,
   });
-
-  const fromChainIdValue = watch('fromChainId');
-
   const xvs = useGetToken({
     symbol: 'XVS',
-    chainId: fromChainIdValue,
+    chainId,
   });
+
+  const bridgeContractAddress = useMemo(() => {
+    switch (chainId) {
+      case ChainId.ETHEREUM:
+      case ChainId.SEPOLIA:
+        return getXVSProxyOFTDestContractAddress({ chainId });
+      default:
+        return getXVSProxyOFTSrcContractAddress({ chainId });
+    }
+  }, [chainId]);
+
+  const { data: getBalanceOfData } = useGetBalanceOf(
+    {
+      accountAddress: accountAddress || '',
+      token: xvs,
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
+
+  const [walletBalanceTokens, readableWalletBalance] = useMemo(() => {
+    const balanceTokens = convertMantissaToTokens({
+      value: getBalanceOfData?.balanceMantissa || new BigNumber(0),
+      token: xvs,
+    });
+    const balanceRedable = formatTokensToReadableValue({
+      value: balanceTokens,
+      token: xvs,
+    });
+    return [balanceTokens, balanceRedable];
+  }, [getBalanceOfData, xvs]);
 
   const {
     isTokenApproved: isXvsApproved,
@@ -81,28 +111,95 @@ const BridgePage: React.FC = () => {
     accountAddress,
   });
 
+  const defaultValues = useMemo(
+    () => ({
+      fromChainId: chainId,
+      toChainId: chains.find(chain => chain.id !== chainId)?.id as ChainId,
+      amountTokens: new BigNumber(0),
+    }),
+    [chainId],
+  );
+
+  const formSchema = useMemo(
+    () =>
+      z.object({
+        fromChainId: z.nativeEnum(ChainId),
+        toChainId: z.nativeEnum(ChainId),
+        amountTokens: z.custom<BigNumber>(
+          val =>
+            BigNumber.isBigNumber(val) &&
+            val.lte(walletBalanceTokens) &&
+            !!xvsWalletSpendingLimitTokens &&
+            val.lte(xvsWalletSpendingLimitTokens) &&
+            val.gt(0),
+        ),
+      }),
+    [xvsWalletSpendingLimitTokens, walletBalanceTokens],
+  );
+
+  const { control, handleSubmit, formState, getValues, watch, trigger, setValue } = useForm<
+    z.infer<typeof formSchema>
+  >({
+    resolver: zodResolver(formSchema),
+    defaultValues,
+  });
+
+  const { amountTokens, toChainId } = watch();
+
+  const amountMantissa = useDebounceValue(
+    xvs
+      ? convertTokensToMantissa({
+          value: amountTokens,
+          token: xvs,
+        })
+      : new BigNumber(0),
+  );
+
+  const { data: getXvsBridgeFeeEstimationData, isLoading: isGetXvsBridgeFeeEstimationLoading } =
+    useGetXvsBridgeFeeEstimation(
+      {
+        accountAddress: accountAddress || '',
+        destinationChain: toChainId!,
+        amountMantissa,
+      },
+      {
+        enabled: !!accountAddress && amountMantissa.gt(0),
+      },
+    );
+
+  const [bridgeEstimatedFeeMantissa, brigeEstimatedFeeTokens] = useMemo(() => {
+    const feeMantissa = getXvsBridgeFeeEstimationData?.estimationFeeMantissa || new BigNumber(0);
+    return [
+      feeMantissa,
+      convertMantissaToTokens({
+        value: feeMantissa,
+        token: nativeToken,
+      }),
+    ];
+  }, [getXvsBridgeFeeEstimationData, nativeToken]);
+
   const handleChainFieldChange = useCallback(
-    ({ fromChainId, toChainId }: { fromChainId?: ChainId; toChainId?: ChainId }) => {
+    ({ newFromChainId, newToChainId }: { newFromChainId?: ChainId; newToChainId?: ChainId }) => {
       const formValues = getValues();
 
-      if (fromChainId && toChainId) {
+      if (newFromChainId && newToChainId) {
         switchChain({
-          chainId: fromChainId,
+          chainId: newFromChainId,
           callback: () => {
-            setValue('fromChainId', fromChainId);
-            setValue('toChainId', toChainId);
+            setValue('fromChainId', newFromChainId);
+            setValue('toChainId', newToChainId);
           },
         });
         return;
       }
 
-      if (fromChainId) {
+      if (newFromChainId) {
         switchChain({
-          chainId: fromChainId,
+          chainId: newFromChainId,
           callback: () => {
-            setValue('fromChainId', fromChainId);
+            setValue('fromChainId', newFromChainId);
 
-            if (formValues.toChainId === fromChainId) {
+            if (formValues.toChainId === newFromChainId) {
               setValue('toChainId', formValues.fromChainId);
             }
           },
@@ -110,19 +207,19 @@ const BridgePage: React.FC = () => {
         return;
       }
 
-      if (toChainId && formValues.fromChainId === toChainId) {
+      if (newToChainId && formValues.fromChainId === newToChainId) {
         switchChain({
           chainId: formValues.toChainId,
           callback: () => {
             setValue('fromChainId', formValues.toChainId);
-            setValue('toChainId', toChainId);
+            setValue('toChainId', newToChainId);
           },
         });
         return;
       }
 
-      if (toChainId) {
-        setValue('toChainId', toChainId);
+      if (newToChainId) {
+        setValue('toChainId', newToChainId);
       }
     },
     [setValue, switchChain, getValues],
@@ -132,24 +229,27 @@ const BridgePage: React.FC = () => {
     const formValues = getValues();
 
     handleChainFieldChange({
-      fromChainId: formValues.toChainId,
-      toChainId: formValues.fromChainId,
+      newFromChainId: formValues.toChainId,
+      newToChainId: formValues.fromChainId,
     });
   }, [getValues, handleChainFieldChange]);
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // TODO: send transaction (see VEN-2248)
-    console.log(values);
+  const { mutateAsync: bridgeXvs } = useBridgeXvs();
+
+  const onSubmit = async () => {
+    if (accountAddress) {
+      try {
+        await bridgeXvs({
+          accountAddress,
+          amountMantissa,
+          destinationChainId: toChainId,
+          nativeCurrencyFeeMantissa: bridgeEstimatedFeeMantissa,
+        });
+      } catch (error) {
+        displayMutationError({ error });
+      }
+    }
   };
-
-  // TODO: wire up
-  const walletBalanceTokens = new BigNumber(10);
-  const limitTokens = walletBalanceTokens;
-
-  const readableWalletBalance = useFormatTokensToReadableValue({
-    value: walletBalanceTokens,
-    token: xvs!,
-  });
 
   const submitButtonLabel = useMemo(() => {
     if (formState.isValid) {
@@ -158,6 +258,15 @@ const BridgePage: React.FC = () => {
 
     return t('bridgePage.submitButton.label.enterValidAmount');
   }, [t, formState.isValid]);
+
+  if (!nativeToken) {
+    return <Spinner />;
+  }
+
+  const readableFee = formatTokensToReadableValue({
+    token: nativeToken,
+    value: brigeEstimatedFeeTokens,
+  });
 
   return (
     <div className="mx-auto w-full space-y-6 md:max-w-[544px]">
@@ -174,11 +283,11 @@ const BridgePage: React.FC = () => {
                   className="mb-4 w-full min-w-0 grow md:mb-0"
                   testId={TEST_IDS.fromChainIdSelect}
                   {...field}
-                  onChange={newChainId =>
+                  onChange={newChainId => {
                     handleChainFieldChange({
-                      fromChainId: newChainId as ChainId,
-                    })
-                  }
+                      newFromChainId: newChainId as ChainId,
+                    });
+                  }}
                 />
               )}
             />
@@ -203,11 +312,11 @@ const BridgePage: React.FC = () => {
                   label={t('bridgePage.toChainSelect.label')}
                   testId={TEST_IDS.toChainIdSelect}
                   {...field}
-                  onChange={newChainId =>
+                  onChange={newChainId => {
                     handleChainFieldChange({
-                      toChainId: newChainId as ChainId,
-                    })
-                  }
+                      newToChainId: newChainId as ChainId,
+                    });
+                  }}
                 />
               )}
             />
@@ -217,7 +326,7 @@ const BridgePage: React.FC = () => {
             name="amountTokens"
             control={control}
             rules={{ required: true }}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <TokenTextField
                 data-testid={TEST_IDS.tokenTextField}
                 token={xvs!}
@@ -226,9 +335,16 @@ const BridgePage: React.FC = () => {
                 disabled={formState.isValid || isApproveXvsLoading}
                 rightMaxButton={{
                   label: t('bridgePage.amountInput.maxButtonLabel'),
-                  onClick: () => setValue('amountTokens', limitTokens.toFixed()),
+                  onClick: () => {
+                    setValue('amountTokens', walletBalanceTokens);
+                    trigger();
+                  },
                 }}
                 {...field}
+                onChange={(val: string) => {
+                  field.onChange(new BigNumber(val));
+                }}
+                value={fieldState.isTouched || field.value.gt(0) ? field.value.toFixed() : ''}
               />
             )}
           />
@@ -252,13 +368,13 @@ const BridgePage: React.FC = () => {
             tooltip={t('bridgePage.bridgeGasFee.tooltip')}
             className="mb-10"
           >
-            -
+            {readableFee}
           </LabeledInlineContent>
 
           <ApproveTokenSteps
             className="mt-10"
             token={xvs!}
-            hideTokenEnablingStep={!isUserConnected || !formState.isValid}
+            hideTokenEnablingStep={!isUserConnected}
             isTokenApproved={isXvsApproved}
             approveToken={approveXvs}
             isApproveTokenLoading={isApproveXvsLoading}
@@ -274,6 +390,7 @@ const BridgePage: React.FC = () => {
                   isApproveXvsLoading ||
                   isXvsWalletSpendingLimitLoading ||
                   isRevokeXvsWalletSpendingLimitLoading ||
+                  isGetXvsBridgeFeeEstimationLoading ||
                   !isXvsApproved
                 }
                 className="w-full"
