@@ -22,6 +22,7 @@ export interface ChainMetadata {
   blocksPerDay: number;
   explorerUrl: string;
   corePoolComptrollerContractAddress: string;
+  nativeCurrencySymbol: string;
 }
 
 export interface Token {
