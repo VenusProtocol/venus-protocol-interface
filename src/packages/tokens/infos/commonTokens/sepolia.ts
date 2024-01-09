@@ -1,5 +1,6 @@
 import crvLogo from 'packages/tokens/img/crv.svg';
 import crvUsdLogo from 'packages/tokens/img/crvUsd.svg';
+import ethLogo from 'packages/tokens/img/eth.svg';
 import usdcLogo from 'packages/tokens/img/usdc.svg';
 import usdtLogo from 'packages/tokens/img/usdt.svg';
 import wbtcLogo from 'packages/tokens/img/wbtc.svg';
@@ -45,9 +46,16 @@ export const tokens: Token[] = [
     asset: crvUsdLogo,
   },
   {
-    address: '0xdb633c11d3f9e6b8d17ac2c972c9e3b05da59bf9',
+    address: '0x66ebd019E86e0af5f228a0439EBB33f045CBe63E',
     decimals: 18,
     symbol: 'XVS',
     asset: xvsLogo,
+  },
+  {
+    address: '0x0000000000000000000000000000000000000000',
+    decimals: 18,
+    symbol: 'ETH',
+    asset: ethLogo,
+    isNative: true,
   },
 ];
