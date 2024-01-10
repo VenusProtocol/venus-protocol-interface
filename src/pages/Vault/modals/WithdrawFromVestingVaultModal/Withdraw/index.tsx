@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import isBefore from 'date-fns/isBefore';
+import { isBefore } from 'date-fns/isBefore';
 import { useMemo } from 'react';
 
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';

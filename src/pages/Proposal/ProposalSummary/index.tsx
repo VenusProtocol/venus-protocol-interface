@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import isAfter from 'date-fns/isAfter';
+import { isAfter } from 'date-fns/isAfter';
 import { useMemo } from 'react';
 
 import {
