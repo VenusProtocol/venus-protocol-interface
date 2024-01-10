@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import BigNumber from 'bignumber.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Controller, useForm, useFormState, useWatch } from 'react-hook-form';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import { z } from 'zod';
 
@@ -39,7 +39,6 @@ import {
 import TEST_IDS from '../testIds';
 import { Field } from './Field';
 import { RewardDetails } from './RewardDetails';
-import { getInitialValues } from './getInitialValues';
 import { validateNumericString } from './validateNumericString';
 
 export const QUERY_PARAM_TOKEN_ADDRESS = 'tokenAddress';
@@ -56,16 +55,10 @@ export const Form: React.FC = () => {
       accountAddress,
     },
     {
-      refetchInterval: false,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      refetchIntervalInBackground: false,
-      refetchOnReconnect: false,
-      staleTime: Infinity,
-      cacheTime: Infinity,
       queryKey: [FunctionKey.GET_LEGACY_POOL, { accountAddress, chainId }, 'PrimeCalculator'],
     },
   );
+
   const { data: getPrimeStatusData, isLoading: isGetPrimeStatusLoading } = useGetPrimeStatus({
     accountAddress,
   });
@@ -104,14 +97,23 @@ export const Form: React.FC = () => {
     },
   );
 
-  const userXvsStakedMantissa = useMemo(
+  const userStakedXvsMantissa = useMemo(
     () =>
-      getXvsVaultUserInfoData
-        ? getXvsVaultUserInfoData.stakedAmountMantissa.minus(
-            getXvsVaultUserInfoData.pendingWithdrawalsTotalAmountMantissa,
-          )
-        : undefined,
+      getXvsVaultUserInfoData &&
+      getXvsVaultUserInfoData.stakedAmountMantissa.minus(
+        getXvsVaultUserInfoData.pendingWithdrawalsTotalAmountMantissa,
+      ),
     [getXvsVaultUserInfoData],
+  );
+
+  const userStakedXvsTokens = useMemo(
+    () =>
+      userStakedXvsMantissa &&
+      convertMantissaToTokens({
+        value: userStakedXvsMantissa,
+        token: xvs,
+      }),
+    [userStakedXvsMantissa, xvs],
   );
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -139,26 +141,6 @@ export const Form: React.FC = () => {
 
     return selectOptions;
   }, [primeAssets]);
-
-  const formSchema = z.object({
-    stakedAmountXvsTokens: z
-      .string()
-      .refine(v => validateNumericString(v, primeMinimumStakedXvsTokens)),
-    suppliedAmountTokens: z.string().refine(validateNumericString),
-    borrowedAmountTokens: z.string().refine(validateNumericString),
-  });
-
-  const { control, setValue, reset } = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    mode: 'onBlur',
-    defaultValues: {
-      stakedAmountXvsTokens: '',
-      suppliedAmountTokens: '',
-      borrowedAmountTokens: '',
-    },
-  });
-
-  const formState = useFormState({ control });
 
   const defaultTokenAddress = options[0]?.value as string | undefined;
 
@@ -188,76 +170,87 @@ export const Form: React.FC = () => {
 
   // Initialize URL token address
   useEffect(() => {
-    const fn = () => {
-      const isUrlTokenAddressValid =
-        urlTokenAddress && options.find(option => option.value === urlTokenAddress);
+    const isUrlTokenAddressValid =
+      urlTokenAddress && options.find(option => option.value === urlTokenAddress);
 
-      if ((!urlTokenAddress || !isUrlTokenAddressValid) && defaultTokenAddress) {
-        updateUrlTokenAddress({ tokenAddress: defaultTokenAddress });
+    if ((!urlTokenAddress || !isUrlTokenAddressValid) && defaultTokenAddress) {
+      updateUrlTokenAddress({ tokenAddress: defaultTokenAddress });
+    }
+  }, [options, updateUrlTokenAddress, urlTokenAddress, defaultTokenAddress]);
+
+  // Initialize form
+  const isFormInitializedRef = useRef(false);
+
+  const { data: tokenPriceData, isLoading: isGetTokenPriceLoading } = useGetTokenUsdPrice(
+    {
+      token: selectedAsset?.vToken.underlyingToken,
+    },
+    {
+      enabled: !!selectedAsset,
+    },
+  );
+
+  const formSchema = useMemo(
+    () =>
+      z.object({
+        stakedAmountXvsTokens: z
+          .string()
+          .refine(v => validateNumericString(v, primeMinimumStakedXvsTokens)),
+        suppliedAmountTokens: z.string().refine(validateNumericString),
+        borrowedAmountTokens: z.string().refine(validateNumericString),
+      }),
+    [primeMinimumStakedXvsTokens],
+  );
+
+  const { control, setValue, formState } = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    disabled: isGetLegacyPoolLoading || isGetTokenPriceLoading,
+    mode: 'onBlur',
+    defaultValues: {
+      stakedAmountXvsTokens: '',
+      suppliedAmountTokens: '',
+      borrowedAmountTokens: '',
+    },
+  });
+
+  useEffect(() => {
+    const fn = () => {
+      if (
+        !isGetLegacyPoolLoading &&
+        !isGetPrimeStatusLoading &&
+        !isFormInitializedRef.current &&
+        xvs &&
+        getXvsVaultUserInfoData &&
+        userStakedXvsTokens &&
+        userStakedXvsMantissa?.isGreaterThanOrEqualTo(primeMinimumStakedXvsMantissa) &&
+        (selectedAsset?.userBorrowBalanceTokens.isGreaterThan(0) ||
+          selectedAsset?.userSupplyBalanceTokens.isGreaterThan(0))
+      ) {
+        if (!formState.dirtyFields.stakedAmountXvsTokens) {
+          setValue('stakedAmountXvsTokens', userStakedXvsTokens.toFixed(), {
+            shouldValidate: true,
+          });
+        }
+        setValue('suppliedAmountTokens', selectedAsset.userSupplyBalanceTokens.toFixed());
+        setValue('borrowedAmountTokens', selectedAsset.userBorrowBalanceTokens.toFixed());
+
+        // Mark form as initialized
+        isFormInitializedRef.current = true;
       }
     };
 
     fn();
-  }, [options, updateUrlTokenAddress, urlTokenAddress, defaultTokenAddress]);
-
-  // Load default form values
-  const defaultValues = useMemo(() => {
-    let initialStakedAmountXvsTokens;
-    let initialBorrowAmountTokens;
-    let initialSupplyAmountTokens;
-    if (selectedAsset && xvs) {
-      ({ initialStakedAmountXvsTokens, initialBorrowAmountTokens, initialSupplyAmountTokens } =
-        getInitialValues({
-          assetData: selectedAsset,
-          primeMinimumStakedXvsMantissa,
-          userXvsStakedMantissa,
-          xvs,
-        }));
-    }
-    return {
-      initialStakedAmountXvsTokens,
-      initialBorrowAmountTokens,
-      initialSupplyAmountTokens,
-    };
-  }, [selectedAsset, xvs, primeMinimumStakedXvsMantissa, userXvsStakedMantissa]);
-
-  const [lastSelectedAsset, setLastSelectedAsset] = useState('');
-
-  const { initialStakedAmountXvsTokens, initialBorrowAmountTokens, initialSupplyAmountTokens } =
-    defaultValues;
-  useEffect(() => {
-    const stakedAmountXvsTokens = initialStakedAmountXvsTokens?.gt(0)
-      ? initialStakedAmountXvsTokens.toFixed()
-      : '';
-    const borrowedAmountTokens = initialBorrowAmountTokens?.gt(0)
-      ? initialBorrowAmountTokens.toFixed()
-      : '';
-    const suppliedAmountTokens = initialSupplyAmountTokens?.gt(0)
-      ? initialSupplyAmountTokens.toFixed()
-      : '';
-    if (formState.touchedFields.stakedAmountXvsTokens) {
-      setValue('borrowedAmountTokens', borrowedAmountTokens);
-      setValue('suppliedAmountTokens', suppliedAmountTokens);
-    } else if (
-      !!selectedAsset &&
-      !areAddressesEqual(selectedAsset.vToken.address, lastSelectedAsset)
-    ) {
-      reset({
-        stakedAmountXvsTokens,
-        suppliedAmountTokens,
-        borrowedAmountTokens,
-      });
-      setLastSelectedAsset(selectedAsset.vToken.address);
-    }
   }, [
-    initialStakedAmountXvsTokens,
-    initialBorrowAmountTokens,
-    initialSupplyAmountTokens,
-    formState.touchedFields.stakedAmountXvsTokens,
-    setValue,
+    formState,
+    getXvsVaultUserInfoData,
+    isGetPrimeStatusLoading,
+    isGetLegacyPoolLoading,
+    primeMinimumStakedXvsMantissa,
     selectedAsset,
-    lastSelectedAsset,
-    reset,
+    setValue,
+    userStakedXvsTokens,
+    userStakedXvsMantissa,
+    xvs,
   ]);
 
   const { borrowedAmountTokens, stakedAmountXvsTokens, suppliedAmountTokens } = useWatch({
@@ -305,15 +298,6 @@ export const Form: React.FC = () => {
     },
   );
 
-  const { data: tokenPriceData, isLoading: isGetTokenPriceLoading } = useGetTokenUsdPrice(
-    {
-      token: selectedAsset?.vToken.underlyingToken,
-    },
-    {
-      enabled: !!selectedAsset,
-    },
-  );
-
   const [borrowCapTokensForXvsStaked, supplyCapTokensForXvsStaked] = useMemo(() => {
     let borrowCapTokens = new BigNumber(0);
     let supplyCapTokens = new BigNumber(0);
@@ -332,15 +316,6 @@ export const Form: React.FC = () => {
     return [borrowCapTokens, supplyCapTokens];
   }, [tokenPriceData?.tokenPriceUsd, primeEstimationData]);
 
-  const [showMinimumXvsStakedError, setShowMinimumXvsStakedError] = useState(false);
-  useEffect(() => {
-    if (formState.errors.stakedAmountXvsTokens) {
-      setShowMinimumXvsStakedError(true);
-    } else {
-      setShowMinimumXvsStakedError(false);
-    }
-  }, [formState.errors.stakedAmountXvsTokens]);
-
   const showInfoXvsMaximumStakedAmount = new BigNumber(stakedAmountXvsMantissa).isGreaterThan(
     primeMaximumStakedXvsMantissa,
   );
@@ -349,12 +324,7 @@ export const Form: React.FC = () => {
     return null;
   }
 
-  if (
-    isGetLegacyPoolLoading ||
-    isGetPrimeStatusLoading ||
-    !selectedAsset ||
-    isGetTokenPriceLoading
-  ) {
+  if (isGetPrimeStatusLoading || !selectedAsset) {
     return <Spinner />;
   }
 
@@ -369,9 +339,11 @@ export const Form: React.FC = () => {
               buttonClassName="bg-lightGrey hover:border-blue"
               value={selectedAsset.vToken.address}
               testId={TEST_IDS.tokenSelect}
-              onChange={newSelectedTokenAddress =>
-                updateUrlTokenAddress({ tokenAddress: newSelectedTokenAddress as string })
-              }
+              onChange={newSelectedTokenAddress => {
+                // Mark form as not initialized so it gets reinitialized
+                isFormInitializedRef.current = false;
+                updateUrlTokenAddress({ tokenAddress: newSelectedTokenAddress as string });
+              }}
             />
           </LabeledInlineContent>
         </Card>
@@ -380,7 +352,7 @@ export const Form: React.FC = () => {
           <Controller
             name="stakedAmountXvsTokens"
             control={control}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <Field
                 token={xvs}
                 label={t('primeCalculator.stakedTokens.textField.label')}
@@ -396,9 +368,9 @@ export const Form: React.FC = () => {
                     token: xvs,
                   }),
                 })}
-                hasError={showMinimumXvsStakedError}
+                hasError={!!fieldState.error}
                 errorLabel={
-                  showMinimumXvsStakedError
+                  fieldState.error
                     ? t('primeCalculator.stakedTokens.infos.error', {
                         minimumXvsStaked: primeMinimumStakedXvsTokens.toFixed(),
                       })

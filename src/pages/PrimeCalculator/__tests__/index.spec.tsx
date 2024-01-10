@@ -144,4 +144,6 @@ describe('PrimeCalculator', () => {
       },
     );
   });
+
+  // TODO: add more tests to cover other features
 });
