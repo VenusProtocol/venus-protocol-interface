@@ -1,3 +1,10 @@
+## [2.73.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.72.5...v2.73.0) (2024-01-10)
+
+
+### Features
+
+* update date-fns imports ([e71aa59](https://github.com/VenusProtocol/venus-protocol-interface/commit/e71aa59d9ab3b16a51300b7adef999e780d56795))
+
 ## [2.72.5](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.72.4...v2.72.5) (2024-01-09)
 
 ## [2.72.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.72.3...v2.72.4) (2024-01-09)
