@@ -36,6 +36,7 @@ const useBridgeXvs = (options?: Options) => {
           ...input,
         }),
       ),
+    transactionType: 'LayerZero',
     onConfirmed: async ({ input: accountAddress }) => {
       if (xvs && xvsVaultContract) {
         queryClient.invalidateQueries([

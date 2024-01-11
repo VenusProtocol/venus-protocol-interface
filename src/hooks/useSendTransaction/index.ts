@@ -2,6 +2,7 @@ import { ContractReceipt, ContractTransaction } from 'ethers';
 import { MutationObserverOptions, useMutation } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
+import { TransactionType } from 'types';
 
 import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
 
@@ -13,6 +14,7 @@ export interface UseSendTransactionOptions<TMutateInput extends Record<string, u
 export interface UseSendTransactionInput<TMutateInput extends Record<string, unknown> | void> {
   fn: (input: TMutateInput) => Promise<ContractTransaction>;
   fnKey: FunctionKey | [FunctionKey, ...unknown[]];
+  transactionType?: TransactionType;
   onConfirmed?: (input: {
     transaction: ContractTransaction;
     transactionReceipt: ContractReceipt;
@@ -28,11 +30,12 @@ export interface UseSendTransactionInput<TMutateInput extends Record<string, unk
 export const useSendTransaction = <TMutateInput extends Record<string, unknown> | void>({
   fn,
   fnKey,
+  transactionType,
   onConfirmed,
   onReverted,
   options,
 }: UseSendTransactionInput<TMutateInput>) => {
-  const trackTransaction = useTrackTransaction();
+  const trackTransaction = useTrackTransaction({ transactionType });
 
   return useMutation(
     fnKey,
