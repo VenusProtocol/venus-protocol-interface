@@ -142,7 +142,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           {readableUserStakedTokens}
         </Typography>
 
-        {isPrimeEnabled && poolIndex === primePoolIndex && (
+        {isPrimeEnabled && primePoolIndex !== undefined && poolIndex === primePoolIndex && (
           <PrimeStatusBanner className="bg-background p-4 sm:mt-2" hidePromotionalTitle />
         )}
 
