@@ -15,7 +15,7 @@ export enum ChainId {
   'OPBNB_TESTNET' = 5611,
 }
 
-export type TransactionType = 'Chain' | 'LayerZero';
+export type TransactionType = 'chain' | 'layerZero';
 
 export interface ChainMetadata {
   name: string;

@@ -156,10 +156,21 @@
     },
     "bridgeGasFee": {
       "label": "Bridge gas fee",
-      "tooltip": "TRANSLATION NEEDED"
+      "tooltip": "Used to cover the gas cost for sending your transfer on the destination chain"
     },
     "connectWalletButton": {
       "label": "Connect wallet"
+    },
+    "errors": {
+      "dailyTransactionLimitExceeded": {
+        "message": "You cannot bridge more than {{readableAmountTokens}} ({{readableAmountUsd}}) on the destination chain due to the 24-hour limit. This limit will be reset on {{ date, dd MMM yyyy h:mm a }}",
+        "submitButton": "Amount entered higher than the daily limit"
+      },
+      "singleTransactionLimitExceeded": {
+        "message": "You cannot bridge more than {{readableAmountTokens}} ({{readableAmountUsd}}) on the destination chain in a single transaction",
+        "submitButton": "Amount entered higher than the limit"
+      },
+      "doesNotHaveEnoughNativeFunds": "Insufficient {{tokenSymbol}} balance"
     },
     "footer": {
       "bridgeDocLink": "How to bridge",

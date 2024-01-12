@@ -311,6 +311,7 @@ export const useGetXvsBridgeFeeEstimation = vi.fn(() =>
 );
 
 export const getXvsBridgeStatus = vi.fn(async () => ({
+  dailyLimitResetTimestamp: new BigNumber('0'),
   maxDailyLimitUsd: new BigNumber('0'),
   totalTransferredLast24HourUsd: new BigNumber('0'),
   maxSingleTransactionLimitUsd: new BigNumber('0'),

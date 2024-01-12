@@ -1,7 +1,7 @@
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { ChainId } from 'types';
 
-export type UrlType = 'address' | 'token' | 'tx' | 'lztx';
+export type UrlType = 'address' | 'token' | 'tx' | 'layerZeroTx';
 
 export interface GenerateChainExplorerUrlInput<T extends UrlType = 'address'> {
   hash: string;
@@ -21,7 +21,7 @@ export const generateChainExplorerUrl = <T extends UrlType = 'address'>({
 }: GenerateChainExplorerUrlInput<T>) => {
   const safeUrlType = urlType || 'address';
 
-  if (safeUrlType === 'lztx') {
+  if (safeUrlType === 'layerZeroTx') {
     return generateLayerZeroScanUrl({ hash, chainId });
   }
 

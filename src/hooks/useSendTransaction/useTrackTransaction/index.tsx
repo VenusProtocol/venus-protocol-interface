@@ -32,7 +32,7 @@ interface TrackTransactionInput {
 }
 
 export const useTrackTransaction = (
-  { transactionType }: UseTrackTransactionInput = { transactionType: 'Chain' },
+  { transactionType }: UseTrackTransactionInput = { transactionType: 'chain' },
 ) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
@@ -41,7 +41,7 @@ export const useTrackTransaction = (
 
   const trackTransaction = useCallback(
     async ({ transaction, onConfirmed, onReverted }: TrackTransactionInput) => {
-      const urlType: UrlType = transactionType === 'LayerZero' ? 'lztx' : 'tx';
+      const urlType: UrlType = transactionType === 'layerZero' ? 'layerZeroTx' : 'tx';
       // Display notification indicating transaction is being processed
       const notificationId = displayNotification({
         id: transaction.hash,

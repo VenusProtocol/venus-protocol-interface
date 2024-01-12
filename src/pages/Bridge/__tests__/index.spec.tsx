@@ -5,7 +5,12 @@ import Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
-import { bridgeXvs, useGetBalanceOf, useGetXvsBridgeFeeEstimation } from 'clients/api';
+import {
+  bridgeXvs,
+  useGetBalanceOf,
+  useGetXvsBridgeFeeEstimation,
+  useGetXvsBridgeStatus,
+} from 'clients/api';
 import { en } from 'packages/translations';
 import { useAuthModal, useSwitchChain } from 'packages/wallet';
 import { ChainId } from 'types';
@@ -13,7 +18,33 @@ import { ChainId } from 'types';
 import Bridge from '..';
 import TEST_IDS from '../testIds';
 
+const fakeBalanceMantissa = new BigNumber('10000000000000000000');
+const fakeBridgeFeeMantissa = new BigNumber('50000000000000000');
+const fakeBridgeStatusData = {
+  dailyLimitResetTimestamp: new BigNumber('1705060800'),
+  maxDailyLimitUsd: new BigNumber('100000000000000000000'),
+  totalTransferredLast24HourUsd: new BigNumber('0'),
+  maxSingleTransactionLimitUsd: new BigNumber('100000000000000000000'),
+};
+
 describe('Bridge', () => {
+  beforeEach(() => {
+    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+      data: {
+        balanceMantissa: fakeBalanceMantissa,
+      },
+      isLoading: false,
+    }));
+    (useGetXvsBridgeFeeEstimation as Vi.Mock).mockImplementation(() => ({
+      data: {
+        estimationFeeMantissa: fakeBridgeFeeMantissa,
+      },
+    }));
+    (useGetXvsBridgeStatus as Vi.Mock).mockImplementation(() => ({
+      data: fakeBridgeStatusData,
+    }));
+  });
+
   it('renders without crashing', () => {
     renderComponent(<Bridge />);
   });
@@ -143,12 +174,6 @@ describe('Bridge', () => {
   });
 
   it('updates input value correctly when clicking on max button', async () => {
-    const fakeBalanceMantissa = new BigNumber('10000000000000000000');
-    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
-      data: {
-        balanceMantissa: fakeBalanceMantissa,
-      },
-    }));
     const { getByText, getByTestId } = renderComponent(<Bridge />, {
       chainId: ChainId.BSC_TESTNET,
     });
@@ -162,19 +187,7 @@ describe('Bridge', () => {
     );
   });
 
-  it('lets the user the bridge XVS', async () => {
-    const fakeBalanceMantissa = new BigNumber('10000000000000000000');
-    const fakeBridgeFeeMantissa = new BigNumber('50000000000000000');
-    (useGetXvsBridgeFeeEstimation as Vi.Mock).mockImplementation(() => ({
-      data: {
-        estimationFeeMantissa: fakeBridgeFeeMantissa,
-      },
-    }));
-    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
-      data: {
-        balanceMantissa: fakeBalanceMantissa,
-      },
-    }));
+  it('lets the user bridge XVS', async () => {
     const fakeBridgeXvsParams = {
       accountAddress: fakeAccountAddress,
       amountMantissa: fakeBalanceMantissa,
@@ -202,7 +215,89 @@ describe('Bridge', () => {
     );
     fireEvent.click(submitButton);
 
+    await waitFor(() => expect(submitButton).toBeEnabled());
+
     await waitFor(() => expect(bridgeXvs).toHaveBeenCalledTimes(1));
     expect(bridgeXvs).toHaveBeenCalledWith(fakeBridgeXvsParams);
+  });
+
+  it('it warns the user they are over the single transaction limit amount', async () => {
+    const fakeBridgeDataLowSingleTransactionLimit = {
+      ...fakeBridgeStatusData,
+      maxSingleTransactionLimitUsd: new BigNumber('0'),
+    };
+    (useGetXvsBridgeStatus as Vi.Mock).mockImplementation(() => ({
+      data: fakeBridgeDataLowSingleTransactionLimit,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
+      chainId: ChainId.BSC_TESTNET,
+    });
+
+    // Click on max button
+    fireEvent.click(getByText(en.bridgePage.amountInput.maxButtonLabel));
+
+    // Check input value was updated correctly
+    await waitFor(() =>
+      expect((getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement).value).toEqual('10'),
+    );
+
+    // Check the warning shown to the user
+    await waitFor(() =>
+      expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
+        '"You cannot bridge more than 0 XVS ($0) on the destination chain in a single transaction"',
+      ),
+    );
+
+    // Check if submit button is disabled and its label
+    const submitButton = await waitFor(
+      () =>
+        getByText(en.bridgePage.errors.singleTransactionLimitExceeded.submitButton).closest(
+          'button',
+        ) as HTMLButtonElement,
+    );
+
+    await waitFor(() => expect(submitButton).toBeDisabled());
+  });
+
+  it('it warns the user they are over the daily transaction limit', async () => {
+    const fakeBridgeDataLowDailyLimit = {
+      ...fakeBridgeStatusData,
+      maxDailyLimitUsd: new BigNumber('0'),
+    };
+    (useGetXvsBridgeStatus as Vi.Mock).mockImplementation(() => ({
+      data: fakeBridgeDataLowDailyLimit,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
+      chainId: ChainId.BSC_TESTNET,
+    });
+
+    // Click on max button
+    fireEvent.click(getByText(en.bridgePage.amountInput.maxButtonLabel));
+
+    // Check input value was updated correctly
+    await waitFor(() =>
+      expect((getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement).value).toEqual('10'),
+    );
+
+    // Check the warning shown to the user
+    await waitFor(() =>
+      expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
+        '"You cannot bridge more than 0 XVS ($0) on the destination chain due to the 24-hour limit. This limit will be reset on 13 Jan 2024 12:00 PM"',
+      ),
+    );
+
+    // Check if submit button is disabled and its label
+    const submitButton = await waitFor(
+      () =>
+        getByText(en.bridgePage.errors.dailyTransactionLimitExceeded.submitButton).closest(
+          'button',
+        ) as HTMLButtonElement,
+    );
+
+    await waitFor(() => expect(submitButton).toBeDisabled());
   });
 });
