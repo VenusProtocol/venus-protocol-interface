@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import { USD_PRICE_TOKEN } from 'constants/usdPriceToken';
 import { Prime } from 'packages/contracts';
 import { convertAprToApy, convertDollarsToCents, convertPriceMantissaToDollars } from 'utilities';
 
@@ -21,14 +22,6 @@ export interface GetHypotheticalPrimeApysOutput {
   borrowCapCents: BigNumber;
   userPrimeRewardsShare: BigNumber;
 }
-
-// by convention, USD prices are informed with 18 decimals
-const usdPriceToken = {
-  decimals: 18,
-  address: '',
-  asset: '',
-  symbol: '',
-};
 
 const getHypotheticalPrimeApys = async ({
   primeContract,
@@ -64,13 +57,13 @@ const getHypotheticalPrimeApys = async ({
 
   const supplyCapUsd = convertPriceMantissaToDollars({
     priceMantissa: new BigNumber(supplyCapPriceMantissa.toString()),
-    token: usdPriceToken,
+    token: USD_PRICE_TOKEN,
   });
 
   const supplyCapCents = convertDollarsToCents(supplyCapUsd);
   const borrowCapUsd = convertPriceMantissaToDollars({
     priceMantissa: new BigNumber(borrowCapPriceMantissa.toString()),
-    token: usdPriceToken,
+    token: USD_PRICE_TOKEN,
   });
 
   const borrowCapCents = convertDollarsToCents(borrowCapUsd);

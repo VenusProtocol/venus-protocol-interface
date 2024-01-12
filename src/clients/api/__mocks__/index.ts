@@ -310,6 +310,15 @@ export const useGetXvsBridgeFeeEstimation = vi.fn(() =>
   useQuery(FunctionKey.GET_XVS_BRIDGE_FEE_ESTIMATION, getXvsBridgeFeeEstimation),
 );
 
+export const getXvsBridgeStatus = vi.fn(async () => ({
+  maxDailyLimitUsd: new BigNumber('0'),
+  totalTransferredLast24HourUsd: new BigNumber('0'),
+  maxSingleTransactionLimitUsd: new BigNumber('0'),
+}));
+export const useGetXvsBridgeStatus = vi.fn(() =>
+  useQuery(FunctionKey.GET_XVS_BRIDGE_STATUS, getXvsBridgeStatus),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
