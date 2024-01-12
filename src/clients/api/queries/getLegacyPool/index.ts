@@ -1,11 +1,15 @@
 import BigNumber from 'bignumber.js';
 
-import { convertAprToApy, extractSettledPromiseValue } from 'utilities';
+import { PrimeApy } from 'types';
+import {
+  appendPrimeSimulationDistributions,
+  convertAprToApy,
+  extractSettledPromiseValue,
+} from 'utilities';
 
 import getLegacyPoolMarkets from '../getLegacyPoolMarkets';
-import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
 import { formatToPool } from './formatToPool';
-import { GetLegacyPoolInput, GetLegacyPoolOutput, PrimeApy } from './types';
+import { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 
 export type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 

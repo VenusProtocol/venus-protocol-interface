@@ -1,8 +1,15 @@
+import BigNumber from 'bignumber.js';
+
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'packages/contracts';
 import { logError } from 'packages/errors';
-import { Token } from 'types';
-import { areTokensEqual, findTokenByAddress } from 'utilities';
+import { Asset, PrimeApy, Token } from 'types';
+import {
+  appendPrimeSimulationDistributions,
+  areTokensEqual,
+  convertAprToApy,
+  findTokenByAddress,
+} from 'utilities';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import removeDuplicates from 'utilities/removeDuplicates';
 
@@ -27,25 +34,50 @@ const safelyGetIsolatedPoolParticipantsCount = async () => {
 };
 
 const getIsolatedPools = async ({
+  xvs,
   blocksPerDay,
   accountAddress,
   poolLensContract,
   poolRegistryContractAddress,
   resilientOracleContract,
+  primeContract,
   provider,
   tokens,
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
-  const [poolResults, poolParticipantsCountResult, currentBlockNumberResult] = await Promise.all([
+  const [
+    poolResults,
+    poolParticipantsCountResult,
+    currentBlockNumberResult,
+    primeVTokenAddressesResult,
+    primeMinimumXvsToStakeResult,
+    userPrimeTokenResult,
+  ] = await Promise.allSettled([
     // Fetch all pools
     poolLensContract.getAllPools(poolRegistryContractAddress),
     // Fetch borrower and supplier counts of each isolated token
     safelyGetIsolatedPoolParticipantsCount(),
     // Fetch current block number
     getBlockNumber({ provider }),
+    // Prime related calls
+    primeContract?.getAllMarkets(),
+    primeContract?.MINIMUM_STAKED_XVS(),
+    accountAddress ? primeContract?.tokens(accountAddress) : undefined,
   ]);
 
+  if (poolResults.status === 'rejected') {
+    throw new Error(poolResults.reason);
+  }
+
+  if (poolParticipantsCountResult.status === 'rejected') {
+    throw new Error(poolParticipantsCountResult.reason);
+  }
+
+  if (currentBlockNumberResult.status === 'rejected') {
+    throw new Error(currentBlockNumberResult.reason);
+  }
+
   // Extract token records and addresses
-  const [vTokenAddresses, underlyingTokens, underlyingTokenAddresses] = poolResults.reduce<
+  const [vTokenAddresses, underlyingTokens, underlyingTokenAddresses] = poolResults.value.reduce<
     [string[], Token[], string[]]
   >(
     (acc, poolResult) => {
@@ -90,13 +122,18 @@ const getIsolatedPools = async ({
     [[], [], []],
   );
 
+  // Extract Prime data
+  const primeVTokenAddresses = extractSettledPromiseValue(primeVTokenAddressesResult) || [];
+  const primeMinimumXvsToStakeMantissa = extractSettledPromiseValue(primeMinimumXvsToStakeResult);
+  const isUserPrime = extractSettledPromiseValue(userPrimeTokenResult)?.exists || false;
+
   // Fetch reward distributors and addresses of user collaterals
   const getRewardDistributorsPromises: ReturnType<
     IsolatedPoolComptroller['getRewardDistributors']
   >[] = [];
   const getAssetsInPromises: ReturnType<IsolatedPoolComptroller['getAssetsIn']>[] = [];
 
-  poolResults.forEach(poolResult => {
+  poolResults.value.forEach(poolResult => {
     const comptrollerContract = getIsolatedPoolComptrollerContract({
       signerOrProvider: provider,
       address: poolResult.comptroller,
@@ -124,9 +161,22 @@ const getIsolatedPools = async ({
       : undefined,
   ]);
 
+  // Fetch Prime distributions
+  const settledPrimeAprPromises =
+    primeContract && isUserPrime
+      ? Promise.allSettled(
+          accountAddress
+            ? primeVTokenAddresses.map(primeVTokenAddress =>
+                primeContract.calculateAPR(primeVTokenAddress, accountAddress),
+              )
+            : [],
+        )
+      : undefined;
+
   const getRewardDistributorsResults = await settledGetRewardDistributorsPromises;
   const [userVTokenBalancesAllResult, userTokenBalancesResult] = await settledUserPromises;
   const userAssetsInResults = await settledGetAssetsInPromises;
+  const primeAprResults = (await settledPrimeAprPromises) || [];
 
   // Get addresses of user collaterals
   const userCollateralizedVTokenAddresses = removeDuplicates(
@@ -141,10 +191,27 @@ const getIsolatedPools = async ({
     }, []),
   );
 
+  // Get Prime APYs
+  const primeApyMap = new Map<string, PrimeApy>();
+  primeAprResults.forEach((primeAprResult, index) => {
+    if (primeAprResult.status !== 'fulfilled') {
+      return;
+    }
+
+    const primeApr = primeAprResult.value;
+
+    const apys: PrimeApy = {
+      borrowApy: convertAprToApy({ aprBips: primeApr?.borrowAPR.toString() || '0' }),
+      supplyApy: convertAprToApy({ aprBips: primeApr?.supplyAPR.toString() || '0' }),
+    };
+
+    primeApyMap.set(primeVTokenAddresses[index], apys);
+  });
+
   // Fetch reward settings
   const rewardsDistributorSettingsMapping = await getRewardsDistributorSettingsMapping({
     provider,
-    poolResults,
+    poolResults: poolResults.value,
     getRewardDistributorsResults,
   });
 
@@ -159,15 +226,28 @@ const getIsolatedPools = async ({
   const pools = formatOutput({
     blocksPerDay,
     tokens,
-    currentBlockNumber: currentBlockNumberResult.blockNumber,
-    poolResults,
-    poolParticipantsCountResult,
+    currentBlockNumber: currentBlockNumberResult.value.blockNumber,
+    poolResults: poolResults.value,
+    poolParticipantsCountResult: poolParticipantsCountResult.value,
     rewardsDistributorSettingsMapping,
     tokenPriceDollarsMapping,
     userCollateralizedVTokenAddresses,
     userVTokenBalancesAll: extractSettledPromiseValue(userVTokenBalancesAllResult),
     userTokenBalancesAll: extractSettledPromiseValue(userTokenBalancesResult),
+    primeApyMap,
   });
+
+  // Fetch Prime simulations and add them to distributions
+  if (primeContract && primeMinimumXvsToStakeMantissa) {
+    await appendPrimeSimulationDistributions({
+      assets: pools.reduce<Asset[]>((acc, pool) => acc.concat(pool.assets), []),
+      primeContract,
+      primeVTokenAddresses,
+      accountAddress,
+      primeMinimumXvsToStakeMantissa: new BigNumber(primeMinimumXvsToStakeMantissa.toString()),
+      xvs,
+    });
+  }
 
   return {
     pools,

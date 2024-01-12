@@ -45,3 +45,4 @@ export * from './cn';
 export * from './createStoreSelectors';
 export * from './convertAprToApy';
 export { default as extractSettledPromiseValue } from './extractSettledPromiseValue';
+export { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';

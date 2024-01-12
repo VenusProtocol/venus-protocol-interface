@@ -399,3 +399,8 @@ export type SwapError =
   | 'UNWRAPPING_UNSUPPORTED';
 
 export type PSTokenCombination = [PSToken, PSToken];
+
+export interface PrimeApy {
+  borrowApy: BigNumber;
+  supplyApy: BigNumber;
+}
