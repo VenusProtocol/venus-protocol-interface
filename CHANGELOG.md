@@ -1,3 +1,11 @@
+## [2.73.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.73.2...v2.73.3) (2024-01-12)
+
+
+### Bug Fixes
+
+* chain ID detection from URL in getChainId function ([#2048](https://github.com/VenusProtocol/venus-protocol-interface/issues/2048)) ([55c7ddf](https://github.com/VenusProtocol/venus-protocol-interface/commit/55c7ddf95e644a923e42dbe7f09507756e1e28b5))
+* hide Prime status banner when no user is logged in ([#2047](https://github.com/VenusProtocol/venus-protocol-interface/issues/2047)) ([102f821](https://github.com/VenusProtocol/venus-protocol-interface/commit/102f8217e7fec9b656df247ffa1be7910482a747))
+
 ## [2.73.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.73.1...v2.73.2) (2024-01-12)
 
 ## [2.73.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.73.0...v2.73.1) (2024-01-11)
