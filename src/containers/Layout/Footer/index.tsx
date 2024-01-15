@@ -1,14 +1,13 @@
-import { useGetBlockNumber } from 'clients/api';
-import { Link } from 'containers/Link';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
 import { useChainId } from 'packages/wallet';
 import { generateChainExplorerUrl } from 'utilities';
 
+import { Link } from '../../Link';
 import { IconLink } from './IconLink';
 import {
   VENUS_DISCORD_URL,
+  VENUS_DOC_URL,
   VENUS_GITHUB_URL,
   VENUS_MEDIUM_URL,
   VENUS_TELEGRAM_URL,
@@ -17,31 +16,21 @@ import {
 
 export const Footer: React.FC = () => {
   const { chainId } = useChainId();
-  const { data: getBlockNumberData } = useGetBlockNumber();
-
   const { t } = useTranslation();
-  const currentBlockNumber = getBlockNumberData?.blockNumber;
+
   const xvs = useGetToken({
     symbol: 'XVS',
   });
 
-  const { explorerUrl } = useGetChainMetadata();
-
   return (
-    <footer className="flex h-14 flex-none items-center justify-between bg-background px-4 sm:justify-end md:px-6 xl:px-10">
-      {!!currentBlockNumber && (
-        <Link
-          className="text-sm text-grey hover:no-underline sm:mr-6"
-          href={explorerUrl}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {t('footer.latestNumber')}
-          <br className="sm:hidden" /> <span className="text-offWhite">{currentBlockNumber}</span>
-        </Link>
-      )}
+    <footer className="bg-background p-4 sm:flex sm:h-14 sm:flex-none sm:items-center sm:justify-end sm:space-x-6 md:px-6 xl:px-10">
+      <Link className="mb-4 block text-sm text-offWhite underline sm:mb-0" href={VENUS_DOC_URL}>
+        {t('footer.links.documentation')}
+      </Link>
 
-      <div className="flex">
+      <div className="hidden h-full w-[1px] bg-lightGrey sm:block" />
+
+      <div className="flex flex-none items-center">
         <IconLink
           href={
             xvs &&
