@@ -268,7 +268,9 @@
     "walletNotConnected": "Wallet not connected"
   },
   "footer": {
-    "latestNumber": "Latest Block:"
+    "links": {
+      "documentation": "Documentation"
+    }
   },
   "history": {
     "all": "All",
@@ -636,9 +638,9 @@
     },
     "stakedTokens": {
       "infos": {
+        "error": "To be eligible for Prime rewards, at least {{minimumXvsStaked}} XVS tokens must be staked.",
         "label": "Qualified staked XVS",
-        "tooltip": "Up to {{maximumXvsStaked}} will be taken into account for your Prime rewards",
-        "error": "To be eligible for Prime rewards, at least {{minimumXvsStaked}} XVS tokens must be staked."
+        "tooltip": "Up to {{maximumXvsStaked}} will be taken into account for your Prime rewards"
       },
       "textField": {
         "label": "Staked XVS"
