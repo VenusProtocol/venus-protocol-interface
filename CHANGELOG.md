@@ -1,3 +1,10 @@
+## [2.74.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.73.4...v2.74.0) (2024-01-15)
+
+
+### Features
+
+* remove BNB chain from meta tags ([#2055](https://github.com/VenusProtocol/venus-protocol-interface/issues/2055)) ([bed95fd](https://github.com/VenusProtocol/venus-protocol-interface/commit/bed95fd56b971713a2dd3c7481041d030a7ac803))
+
 ## [2.73.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.73.3...v2.73.4) (2024-01-15)
 
 ## [2.73.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.73.2...v2.73.3) (2024-01-12)
