@@ -1,3 +1,10 @@
+## [2.75.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.74.0...v2.75.0) (2024-01-15)
+
+
+### Features
+
+* update footer ([#2056](https://github.com/VenusProtocol/venus-protocol-interface/issues/2056)) ([10f05aa](https://github.com/VenusProtocol/venus-protocol-interface/commit/10f05aa985847bae803821af2289a5e20c9a927d))
+
 ## [2.74.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.73.4...v2.74.0) (2024-01-15)
 
 
