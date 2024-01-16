@@ -4,7 +4,7 @@ import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import { PoolLens } from 'packages/contracts';
 import { logError } from 'packages/errors';
-import { Asset, Pool, Token, VToken } from 'types';
+import { Asset, Pool, PrimeApy, Token, VToken } from 'types';
 import addUserPropsToPool from 'utilities/addUserPropsToPool';
 import areAddressesEqual from 'utilities/areAddressesEqual';
 import areTokensEqual from 'utilities/areTokensEqual';
@@ -27,8 +27,9 @@ export interface FormatToPoolsInput {
   poolResults: Awaited<ReturnType<PoolLens['getAllPools']>>;
   rewardsDistributorSettingsMapping: GetRewardsDistributorSettingsMappingOutput;
   tokenPriceDollarsMapping: GetTokenPriceDollarsMappingOutput;
-  poolParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
+  primeApyMap: Map<string, PrimeApy>;
   userCollateralizedVTokenAddresses: string[];
+  poolParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
   userVTokenBalancesAll?: Awaited<ReturnType<PoolLens['callStatic']['vTokenBalancesAll']>>;
   userTokenBalancesAll?: GetTokenBalancesOutput;
 }
@@ -42,6 +43,7 @@ const formatToPools = ({
   tokenPriceDollarsMapping,
   poolParticipantsCountResult,
   userCollateralizedVTokenAddresses,
+  primeApyMap,
   userVTokenBalancesAll,
   userTokenBalancesAll,
 }: FormatToPoolsInput) => {
@@ -197,6 +199,7 @@ const formatToPools = ({
 
       const { supplyDistributions, borrowDistributions } = formatDistributions({
         blocksPerDay,
+        underlyingToken,
         underlyingTokenPriceDollars: tokenPriceDollars,
         tokens,
         tokenPriceDollarsMapping,
@@ -205,6 +208,7 @@ const formatToPools = ({
         currentBlockNumber,
         rewardsDistributorSettings:
           rewardsDistributorSettingsMapping[vToken.address.toLowerCase()] || [],
+        primeApy: primeApyMap.get(vToken.address),
       });
 
       const asset: Asset = {

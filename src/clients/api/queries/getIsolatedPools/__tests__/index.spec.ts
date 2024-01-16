@@ -3,6 +3,8 @@ import { BigNumber as BN } from 'ethers';
 import Vi from 'vitest';
 
 import fakePoolLensResponses from '__mocks__/contracts/poolLens';
+import fakePrimeContractResponses from '__mocks__/contracts/prime';
+import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import tokens, { xvs } from '__mocks__/models/tokens';
 
@@ -12,6 +14,7 @@ import MAX_UINT256 from 'constants/maxUint256';
 import {
   IsolatedPoolComptroller,
   PoolLens,
+  Prime,
   ResilientOracle,
   RewardsDistributor,
   getIsolatedPoolComptrollerContract,
@@ -89,12 +92,64 @@ describe('api/queries/getIsolatedPools', () => {
     );
 
     const response = await getIsolatedPools({
+      xvs,
       blocksPerDay: 28800,
       tokens,
       provider: fakeProvider,
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
       poolLensContract: fakePoolLensContract,
       resilientOracleContract: fakeResilientOracleContract,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  it('fetches and formats Prime distributions and Prime distribution simulations if user is Prime', async () => {
+    const fakePrimeContract = {
+      tokens: async () => fakePrimeContractResponses.tokens,
+      MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
+      getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
+      estimateAPR: async () => fakePrimeContractResponses.estimateAPR,
+      calculateAPR: async () => fakePrimeContractResponses.calculateAPR,
+    } as unknown as Prime;
+
+    const response = await getIsolatedPools({
+      xvs,
+      blocksPerDay: 28800,
+      tokens,
+      accountAddress: fakeAccountAddress,
+      provider: fakeProvider,
+      poolRegistryContractAddress: fakePoolRegistryContractAddress,
+      poolLensContract: fakePoolLensContract,
+      resilientOracleContract: fakeResilientOracleContract,
+      primeContract: fakePrimeContract,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  it('does not fetch Prime distributions if user is not Prime', async () => {
+    const fakePrimeContract = {
+      tokens: async () => ({
+        ...fakePrimeContractResponses.tokens,
+        exists: false,
+      }),
+      MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
+      getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
+      estimateAPR: async () => fakePrimeContractResponses.estimateAPR,
+      calculateAPR: async () => fakePrimeContractResponses.calculateAPR,
+    } as unknown as Prime;
+
+    const response = await getIsolatedPools({
+      xvs,
+      blocksPerDay: 28800,
+      tokens,
+      accountAddress: fakeAccountAddress,
+      provider: fakeProvider,
+      poolRegistryContractAddress: fakePoolRegistryContractAddress,
+      poolLensContract: fakePoolLensContract,
+      resilientOracleContract: fakeResilientOracleContract,
+      primeContract: fakePrimeContract,
     });
 
     expect(response).toMatchSnapshot();

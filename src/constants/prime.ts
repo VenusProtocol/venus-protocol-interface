@@ -5,6 +5,8 @@ export const PRIME_DOC_URL = 'https://docs-v4.venus.io/whats-new/prime-yield';
 export const PRIME_APY_DOC_URL =
   'https://docs-v4.venus.io/technical-reference/reference-technical-articles/prime#calculate-apr-associated-with-a-prime-market-and-user';
 
+// TODO: add other tokens and update to use vToken addresses instead
+
 export const supplyAveragesForToken: Record<string, BigNumber> = {
   BTCB: new BigNumber('0.71'),
   ETH: new BigNumber('9.86'),

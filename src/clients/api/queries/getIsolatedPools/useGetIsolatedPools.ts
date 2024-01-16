@@ -9,17 +9,20 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import {
   useGetPoolLensContract,
   useGetPoolRegistryContractAddress,
+  useGetPrimeContract,
   useGetResilientOracleContract,
 } from 'packages/contracts';
-import { useGetTokens } from 'packages/tokens';
+import { useGetToken, useGetTokens } from 'packages/tokens';
 import { useChainId, useProvider } from 'packages/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedInput = Omit<
   GetIsolatedPoolsInput,
+  | 'xvs'
   | 'blocksPerDay'
   | 'provider'
+  | 'primeContract'
   | 'poolLensContract'
   | 'poolRegistryContractAddress'
   | 'resilientOracleContract'
@@ -49,8 +52,10 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const { blocksPerDay } = useGetChainMetadata();
 
   const tokens = useGetTokens();
+  const xvs = useGetToken({ symbol: 'XVS' });
 
   const poolLensContract = useGetPoolLensContract();
+  const primeContract = useGetPrimeContract();
   const resilientOracleContract = useGetResilientOracleContract();
   const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
 
@@ -58,12 +63,13 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
     [FunctionKey.GET_ISOLATED_POOLS, { ...input, chainId }],
     () =>
       callOrThrow(
-        { poolLensContract, poolRegistryContractAddress, resilientOracleContract },
+        { poolLensContract, poolRegistryContractAddress, resilientOracleContract, xvs },
         params =>
           getIsolatedPools({
             provider,
             tokens,
             blocksPerDay,
+            primeContract,
             ...input,
             ...params,
           }),

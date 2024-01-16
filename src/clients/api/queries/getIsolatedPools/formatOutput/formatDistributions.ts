@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { logError } from 'packages/errors';
-import { AssetDistribution, Token } from 'types';
+import { AssetDistribution, PrimeApy, Token } from 'types';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from 'utilities/formatRewardDistribution';
 import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
@@ -11,6 +11,7 @@ import { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMappin
 
 export interface FormatDistributionsInput {
   blocksPerDay: number;
+  underlyingToken: Token;
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
   tokenPriceDollarsMapping: GetTokenPriceDollarsMappingOutput;
@@ -18,10 +19,12 @@ export interface FormatDistributionsInput {
   currentBlockNumber: number;
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
+  primeApy?: PrimeApy;
 }
 
 const formatDistributions = ({
   blocksPerDay,
+  underlyingToken,
   underlyingTokenPriceDollars,
   tokens,
   tokenPriceDollarsMapping,
@@ -29,6 +32,7 @@ const formatDistributions = ({
   currentBlockNumber,
   supplyBalanceTokens,
   borrowBalanceTokens,
+  primeApy,
 }: FormatDistributionsInput) => {
   const supplyDistributions: AssetDistribution[] = [];
   const borrowDistributions: AssetDistribution[] = [];
@@ -106,6 +110,21 @@ const formatDistributions = ({
       }
     },
   );
+
+  // Add Prime distributions
+  if (primeApy) {
+    supplyDistributions.push({
+      type: 'prime',
+      apyPercentage: primeApy.supplyApy,
+      token: underlyingToken,
+    });
+
+    borrowDistributions.push({
+      type: 'prime',
+      apyPercentage: primeApy.borrowApy,
+      token: underlyingToken,
+    });
+  }
 
   return {
     supplyDistributions,

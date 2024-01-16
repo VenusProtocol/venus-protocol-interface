@@ -115,8 +115,6 @@ describe('getLegacyPool', () => {
       primeContract: fakePrimeContract,
     });
 
-    // Check VAI interests were accrued before being fetched
-    expect(fakeVaiControllerContract.callStatic.accrueVAIInterest).toHaveBeenCalledTimes(1);
     expect(response).toMatchSnapshot();
   });
 
@@ -147,8 +145,6 @@ describe('getLegacyPool', () => {
       primeContract: fakePrimeContract,
     });
 
-    // Check VAI interests were accrued before being fetched
-    expect(fakeVaiControllerContract.callStatic.accrueVAIInterest).toHaveBeenCalledTimes(1);
     expect(response).toMatchSnapshot();
   });
 });

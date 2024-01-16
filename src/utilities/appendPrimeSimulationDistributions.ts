@@ -51,7 +51,8 @@ export const appendPrimeSimulationDistributions = async ({
         const { symbol } = asset.vToken.underlyingToken;
         const averageBorrowBalanceTokens =
           borrowAveragesForToken[symbol] ||
-          asset.borrowBalanceTokens.dividedBy(asset.borrowerCount);
+          asset.borrowBalanceTokens.dividedBy(asset.borrowerCount || 1);
+
         const averageBorrowBalanceMantissa = convertTokensToMantissa({
           value: averageBorrowBalanceTokens,
           token: asset.vToken.underlyingToken,
@@ -59,7 +60,7 @@ export const appendPrimeSimulationDistributions = async ({
 
         const averageSupplyBalanceTokens =
           supplyAveragesForToken[symbol] ||
-          asset.supplyBalanceTokens.dividedBy(asset.supplierCount);
+          asset.supplyBalanceTokens.dividedBy(asset.supplierCount || 1);
         const averageSupplyBalanceMantissa = convertTokensToMantissa({
           value: averageSupplyBalanceTokens,
           token: asset.vToken.underlyingToken,

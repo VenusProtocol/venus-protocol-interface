@@ -1,5 +1,3 @@
-import BigNumber from 'bignumber.js';
-
 import {
   LegacyPoolComptroller,
   Prime,
@@ -26,9 +24,4 @@ export interface GetLegacyPoolInput {
 
 export interface GetLegacyPoolOutput {
   pool: Pool;
-}
-
-export interface PrimeApy {
-  borrowApy: BigNumber;
-  supplyApy: BigNumber;
 }
