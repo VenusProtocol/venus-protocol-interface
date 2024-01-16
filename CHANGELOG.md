@@ -1,3 +1,10 @@
+## [2.77.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.76.2...v2.77.0) (2024-01-16)
+
+
+### Features
+
+* handle fetching Prime distributions for isolated pools ([#2049](https://github.com/VenusProtocol/venus-protocol-interface/issues/2049)) ([c7dc500](https://github.com/VenusProtocol/venus-protocol-interface/commit/c7dc5001e15e97a43ae6417335781f27805e2c5e))
+
 ## [2.76.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.76.1...v2.76.2) (2024-01-16)
 
 ## [2.76.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.76.0...v2.76.1) (2024-01-16)
