@@ -1,3 +1,10 @@
+## [2.76.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.75.0...v2.76.0) (2024-01-16)
+
+
+### Features
+
+* update how Prime simulation boosts are displayed ([#2057](https://github.com/VenusProtocol/venus-protocol-interface/issues/2057)) ([b5ca0c0](https://github.com/VenusProtocol/venus-protocol-interface/commit/b5ca0c0450179635de316de10b7c93db05e91e86))
+
 ## [2.75.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.74.0...v2.75.0) (2024-01-15)
 
 
