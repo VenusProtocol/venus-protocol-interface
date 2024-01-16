@@ -7,7 +7,7 @@ import convertPriceMantissaToDollars from '..';
 describe('utilities/convertPriceMantissaToDollars', () => {
   it('should convert price mantissa to dollars', () => {
     const result = convertPriceMantissaToDollars({
-      token: xvs,
+      decimals: xvs.decimals,
       priceMantissa: '1000000000000000000',
     });
 

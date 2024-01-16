@@ -1,13 +1,11 @@
 import BigNumber from 'bignumber.js';
 
-import { Token } from 'types';
-
 const convertPriceMantissaToDollars = ({
   priceMantissa,
-  token,
+  decimals,
 }: {
   priceMantissa: BigNumber | string;
-  token: Token;
-}) => new BigNumber(priceMantissa).dividedBy(10 ** (36 - token.decimals));
+  decimals: number;
+}) => new BigNumber(priceMantissa).dividedBy(10 ** (36 - decimals));
 
 export default convertPriceMantissaToDollars;

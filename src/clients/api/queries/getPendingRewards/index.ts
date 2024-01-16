@@ -142,7 +142,7 @@ const getPendingRewards = async ({
 
     const rewardTokenPriceDollars = convertPriceMantissaToDollars({
       priceMantissa: new BigNumber(rewardTokenPricesResult.value.toString()),
-      token: rewardToken,
+      decimals: rewardToken.decimals,
     });
 
     return {
