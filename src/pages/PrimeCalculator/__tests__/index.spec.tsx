@@ -1,4 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 import { useSearchParams } from 'react-router-dom';
 import Vi from 'vitest';
 
@@ -7,6 +8,7 @@ import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import { renderComponent } from 'testUtils/render';
 
 import { useGetLegacyPool, useGetPrimeEstimation, useGetPrimeStatus } from 'clients/api';
+import { en } from 'packages/translations';
 import { Asset } from 'types';
 
 import PrimeCalculator from '..';
@@ -33,15 +35,24 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
+const mockSetSearchParams = vi.fn();
+
 describe('PrimeCalculator', () => {
   beforeEach(() => {
-    (useSearchParams as Vi.Mock).mockImplementation(() => [new URLSearchParams(), vi.fn()]);
+    const mockSearchParams = new URLSearchParams({
+      [QUERY_PARAM_TOKEN_ADDRESS]: primeAssets[0].vToken.address,
+    });
+    (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
     (useGetPrimeEstimation as Vi.Mock).mockImplementation(() => ({
       data: primeEstimationData,
     }));
 
     (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+      data: {
+        primeMaximumStakedXvsMantissa: new BigNumber('10000000000000000000000'),
+        primeMinimumStakedXvsMantissa: new BigNumber('1000000000000000000000'),
+      },
       isLoading: false,
     }));
 
@@ -59,7 +70,6 @@ describe('PrimeCalculator', () => {
 
   it('initializes the search params and form correctly when it contains no token address parameter', async () => {
     const mockSearchParams = new URLSearchParams();
-    const mockSetSearchParams = vi.fn();
     (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
     renderComponent(<PrimeCalculator />);
@@ -80,7 +90,6 @@ describe('PrimeCalculator', () => {
     const mockSearchParams = new URLSearchParams({
       [QUERY_PARAM_TOKEN_ADDRESS]: 'invalid-token-address',
     });
-    const mockSetSearchParams = vi.fn();
     (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
     renderComponent(<PrimeCalculator />);
@@ -101,7 +110,6 @@ describe('PrimeCalculator', () => {
     const mockSearchParams = new URLSearchParams({
       [QUERY_PARAM_TOKEN_ADDRESS]: primeAssets[1].vToken.address,
     });
-    const mockSetSearchParams = vi.fn();
     (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
     const { getByTestId } = renderComponent(<PrimeCalculator />);
@@ -115,12 +123,6 @@ describe('PrimeCalculator', () => {
   });
 
   it('updates the search params correctly when changing selected token', async () => {
-    const mockSearchParams = new URLSearchParams({
-      [QUERY_PARAM_TOKEN_ADDRESS]: primeAssets[0].vToken.address,
-    });
-    const mockSetSearchParams = vi.fn();
-    (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
-
     const { getByTestId } = renderComponent(<PrimeCalculator />);
 
     await waitFor(() => getByTestId(TEST_IDS.tokenSelect));
@@ -145,5 +147,109 @@ describe('PrimeCalculator', () => {
     );
   });
 
-  // TODO: add more tests to cover other features
+  it('informs the user the minimum XVS that must be staked if they input a lower amount', async () => {
+    const { getByTestId, getByText } = renderComponent(<PrimeCalculator />);
+
+    const stakedAmountInput = await waitFor(
+      () => getByTestId(TEST_IDS.stakedAmountTokens) as HTMLInputElement,
+    );
+
+    // Check input's value
+    expect(stakedAmountInput.value).toEqual('');
+
+    // Change input's value
+    fireEvent.change(stakedAmountInput, {
+      target: { value: '100' },
+    });
+
+    fireEvent.blur(stakedAmountInput);
+
+    // Check message is shown
+    await waitFor(() =>
+      getByText('To be eligible for Prime rewards, at least 1000 XVS tokens must be staked.'),
+    );
+  });
+
+  it('informs the user the minimum XVS that must be staked if they input a lower amount', async () => {
+    const { getByTestId, getByText } = renderComponent(<PrimeCalculator />);
+
+    const stakedAmountInput = await waitFor(
+      () => getByTestId(TEST_IDS.stakedAmountTokens) as HTMLInputElement,
+    );
+
+    // Check input's value
+    expect(stakedAmountInput.value).toEqual('');
+
+    // Change input's value
+    fireEvent.change(stakedAmountInput, {
+      target: { value: '100' },
+    });
+
+    fireEvent.blur(stakedAmountInput);
+
+    // Check message is shown
+    await waitFor(() =>
+      getByText('To be eligible for Prime rewards, at least 1000 XVS tokens must be staked.'),
+    );
+  });
+
+  it('informs the user the maximum XVS that will be taken into account for their Prime rewards', async () => {
+    const { getByTestId, getByText } = renderComponent(<PrimeCalculator />);
+
+    const stakedAmountInput = await waitFor(
+      () => getByTestId(TEST_IDS.stakedAmountTokens) as HTMLInputElement,
+    );
+
+    // Check input's value
+    expect(stakedAmountInput.value).toEqual('');
+
+    // Change input's value
+    fireEvent.change(stakedAmountInput, {
+      target: { value: '99999' },
+    });
+
+    fireEvent.blur(stakedAmountInput);
+
+    // Check message is shown
+    await waitFor(() => getByText(en.primeCalculator.stakedTokens.infos.label));
+  });
+
+  it('estimates Prime rewards based on the input of the user', async () => {
+    const { getByTestId, getByText } = renderComponent(<PrimeCalculator />);
+
+    const stakedAmountInput = await waitFor(
+      () => getByTestId(TEST_IDS.stakedAmountTokens) as HTMLInputElement,
+    );
+    const suppliedAmountTokensInput = await waitFor(
+      () => getByTestId(TEST_IDS.suppliedAmountTokens) as HTMLInputElement,
+    );
+    const borrowedAmountTokensInput = await waitFor(
+      () => getByTestId(TEST_IDS.borrowedAmountTokens) as HTMLInputElement,
+    );
+
+    // Check input's value
+    expect(stakedAmountInput.value).toEqual('');
+
+    // Change input's value
+    fireEvent.change(stakedAmountInput, {
+      target: { value: '1000' },
+    });
+    fireEvent.change(suppliedAmountTokensInput, {
+      target: { value: '3000' },
+    });
+    fireEvent.change(borrowedAmountTokensInput, {
+      target: { value: '2000' },
+    });
+
+    // Check if estimated values are rendered
+
+    // Total daily rewards distributed
+    await waitFor(() => getByText('5.00K USDC'));
+    // User daily rewards
+    await waitFor(() => getByText('125.00 USDC'));
+    // From supplied tokens
+    await waitFor(() => getByText('100.00 USDC'));
+    // From borrowed tokens
+    await waitFor(() => getByText('25.00 USDC'));
+  });
 });
