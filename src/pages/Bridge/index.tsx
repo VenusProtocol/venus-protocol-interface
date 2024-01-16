@@ -73,15 +73,11 @@ const formSchema = z.object({
 const BridgePage: React.FC = () => {
   const { t } = useTranslation();
   const { chainId } = useChainId();
-  const { nativeCurrencySymbol } = useGetChainMetadata();
+  const { nativeToken } = useGetChainMetadata();
   const { switchChain } = useSwitchChain();
   const { openAuthModal } = useAuthModal();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
-  const nativeToken = useGetToken({
-    symbol: nativeCurrencySymbol,
-    chainId,
-  });
   const xvs = useGetToken({
     symbol: 'XVS',
     chainId,

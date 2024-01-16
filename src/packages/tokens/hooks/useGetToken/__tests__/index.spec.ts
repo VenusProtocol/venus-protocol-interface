@@ -21,7 +21,7 @@ describe('useGetToken', () => {
       }),
     );
 
-    expect(result.current).toBe(xvs);
+    expect(result.current).toStrictEqual(xvs);
   });
 
   it('returns undefined when no corresponding token is found', () => {

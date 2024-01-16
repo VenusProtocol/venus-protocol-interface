@@ -1,5 +1,6 @@
 export * from './infos';
 export * from './utilities/getTokens';
+export * from './utilities/getToken';
 export * from './utilities/getSwapTokens';
 export * from './utilities/isTokenActionEnabled';
 export * from './hooks/useGetToken';
