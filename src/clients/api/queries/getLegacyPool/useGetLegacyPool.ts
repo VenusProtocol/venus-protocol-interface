@@ -78,7 +78,7 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Options) => {
     (options?.enabled === undefined || options?.enabled);
 
   return useQuery(
-    options?.queryKey ? options.queryKey : [FunctionKey.GET_LEGACY_POOL, { ...input, chainId }],
+    [FunctionKey.GET_LEGACY_POOL, { ...input, chainId }],
     () =>
       callOrThrow(
         {

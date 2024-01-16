@@ -21,11 +21,10 @@ import {
   Spinner,
   TokenIconWithSymbol,
 } from 'components';
-import FunctionKey from 'constants/functionKey';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
-import { useAccountAddress, useChainId } from 'packages/wallet';
+import { useAccountAddress } from 'packages/wallet';
 import { Asset } from 'types';
 import {
   areAddressesEqual,
@@ -44,20 +43,14 @@ import { validateNumericString } from './validateNumericString';
 export const QUERY_PARAM_TOKEN_ADDRESS = 'tokenAddress';
 
 export const Form: React.FC = () => {
-  const { chainId } = useChainId();
   const { t } = useTranslation();
   const xvs = useGetToken({
     symbol: 'XVS',
   });
   const { accountAddress } = useAccountAddress();
-  const { data: getLegacyPoolData, isLoading: isGetLegacyPoolLoading } = useGetLegacyPool(
-    {
-      accountAddress,
-    },
-    {
-      queryKey: [FunctionKey.GET_LEGACY_POOL, { accountAddress, chainId }, 'PrimeCalculator'],
-    },
-  );
+  const { data: getLegacyPoolData, isLoading: isGetLegacyPoolLoading } = useGetLegacyPool({
+    accountAddress,
+  });
 
   const { data: getPrimeStatusData, isLoading: isGetPrimeStatusLoading } = useGetPrimeStatus({
     accountAddress,
@@ -132,7 +125,7 @@ export const Form: React.FC = () => {
     [getLegacyPoolData?.pool.assets],
   );
 
-  // Generate options from tokens affected by Primes
+  // Generate options from tokens affected by Prime
   const options = useMemo(() => {
     const selectOptions: SelectOption[] = primeAssets.map(primeToken => ({
       label: () => <TokenIconWithSymbol token={primeToken.vToken.underlyingToken} />,
@@ -226,6 +219,7 @@ export const Form: React.FC = () => {
         (selectedAsset?.userBorrowBalanceTokens.isGreaterThan(0) ||
           selectedAsset?.userSupplyBalanceTokens.isGreaterThan(0))
       ) {
+        // only set stakedAmountXvsTokens if it wasn't previously edited
         if (!formState.dirtyFields.stakedAmountXvsTokens) {
           setValue('stakedAmountXvsTokens', userStakedXvsTokens.toFixed(), {
             shouldValidate: true,
@@ -316,7 +310,7 @@ export const Form: React.FC = () => {
     return [borrowCapTokens, supplyCapTokens];
   }, [tokenPriceData?.tokenPriceUsd, primeEstimationData]);
 
-  const showInfoXvsMaximumStakedAmount = new BigNumber(stakedAmountXvsMantissa).isGreaterThan(
+  const showInfoXvsMaximumStakedAmount = stakedAmountXvsMantissa.isGreaterThan(
     primeMaximumStakedXvsMantissa,
   );
 
@@ -376,6 +370,7 @@ export const Form: React.FC = () => {
                       })
                     : undefined
                 }
+                data-testid={TEST_IDS.stakedAmountTokens}
                 {...field}
               />
             )}
@@ -410,6 +405,7 @@ export const Form: React.FC = () => {
                     : undefined,
                   context: supplyCapTokensForXvsStaked.lte(0) ? 'empty' : undefined,
                 })}
+                data-testid={TEST_IDS.suppliedAmountTokens}
                 {...field}
               />
             )}
@@ -445,6 +441,7 @@ export const Form: React.FC = () => {
                   context: borrowCapTokensForXvsStaked.lte(0) ? 'empty' : undefined,
                 })}
                 {...field}
+                data-testid={TEST_IDS.borrowedAmountTokens}
               />
             )}
           />
