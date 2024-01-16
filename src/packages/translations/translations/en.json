@@ -438,9 +438,9 @@
         "tooltip": "Total APY after applying Prime boost. <Link>Calculate your Prime rewards</Link>"
       },
       "primeSimulationBoost": {
-        "label": "{{apyPrimeBoost}} Prime boost",
+        "primeLogoAlt": "Prime logo",
         "tooltip": {
-          "primeCalculator": "Prime boost based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Calculate your Prime rewards</Link>",
+          "primeCalculator": "APY boosted by Prime based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Calculate your Prime rewards</Link>",
           "primeDoc": "Prime boost based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Learn more</Link>"
         }
       }

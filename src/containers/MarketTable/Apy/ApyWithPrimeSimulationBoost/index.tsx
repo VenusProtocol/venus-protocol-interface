@@ -1,4 +1,6 @@
-import { Icon, Tooltip } from 'components';
+import BigNumber from 'bignumber.js';
+
+import { SenaryButton, Tooltip } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { Link } from 'containers/Link';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
@@ -8,11 +10,13 @@ import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
 import { useTranslation } from 'packages/translations';
 import { PrimeSimulationDistribution, Token } from 'types';
 
+import primeLogoSrc from './primeLogo.svg';
+
 export interface ApyWithPrimeSimulationBoostProps {
   type: 'supply' | 'borrow';
   tokenAddress: string;
   primeSimulationDistribution: PrimeSimulationDistribution;
-  readableApy: string;
+  apyPercentage: BigNumber;
   readableLtv: string;
   xvs: Token;
 }
@@ -21,7 +25,7 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
   type,
   tokenAddress,
   primeSimulationDistribution,
-  readableApy,
+  apyPercentage,
   readableLtv,
   xvs,
 }) => {
@@ -31,8 +35,15 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
     name: 'primeCalculator',
   });
 
-  const readablePrimeApy = useFormatPercentageToReadableValue({
-    value: primeSimulationDistribution.apyPercentage,
+  const readableApy = useFormatPercentageToReadableValue({
+    value: apyPercentage,
+  });
+
+  const readableApyWithPrime = useFormatPercentageToReadableValue({
+    value:
+      type === 'borrow'
+        ? apyPercentage.minus(primeSimulationDistribution.apyPercentage)
+        : apyPercentage.plus(primeSimulationDistribution.apyPercentage),
   });
 
   const readableReferenceXvsStaked = useFormatTokensToReadableValue({
@@ -67,12 +78,6 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
       </p>
 
       <div className="whitespace-nowrap">
-        <p className="mr-1 inline-block align-middle text-sm text-green">
-          {t('marketTable.apy.primeSimulationBoost.label', {
-            apyPrimeBoost: `${type === 'supply' ? '+' : '-'}${readablePrimeApy}`,
-          })}
-        </p>
-
         <Tooltip
           className="inline-block align-middle"
           title={
@@ -95,7 +100,18 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
             )
           }
         >
-          <Icon name="info" />
+          <SenaryButton
+            className="h-6 cursor-help rounded-full p-1 hover:border-lightGrey"
+            onClick={e => e.stopPropagation()}
+          >
+            <img
+              src={primeLogoSrc}
+              className="mr-1 h-4"
+              alt={t('marketTable.apy.primeSimulationBoost.primeLogoAlt')}
+            />
+
+            <span className="text-green">{readableApyWithPrime}</span>
+          </SenaryButton>
         </Tooltip>
       </div>
     </div>
