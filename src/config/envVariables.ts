@@ -27,6 +27,16 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET
       : import.meta.env.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET,
 
+  // opBNB testnet RPC provider
+  VITE_RPC_HTTP_URL_OPBNB_TESTNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_HTTP_URL_OPBNB_TESTNET
+      : import.meta.env.VITE_RPC_HTTP_URL_OPBNB_TESTNET,
+  VITE_RPC_WEBSOCKET_URL_OPBNB_TESTNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_WEBSOCKET_URL_OPBNB_TESTNET
+      : import.meta.env.VITE_RPC_WEBSOCKET_URL_OPBNB_TESTNET,
+
   // Ethereum RPC provider
   VITE_RPC_HTTP_URL_ETHEREUM:
     typeof process !== 'undefined'
@@ -36,6 +46,7 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_WEBSOCKET_URL_ETHEREUM
       : import.meta.env.VITE_RPC_WEBSOCKET_URL_ETHEREUM,
+
   // Sepolia (Ethereum testnet) RPC provider
   VITE_RPC_HTTP_URL_SEPOLIA:
     typeof process !== 'undefined'
