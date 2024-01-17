@@ -25,10 +25,11 @@ import {
 
 interface UseBridgeFormInput {
   toChainId: ChainId | undefined;
+  walletBalanceTokens: BigNumber;
   xvs: Token | undefined;
 }
 
-const useBridgeForm = ({ toChainId, xvs }: UseBridgeFormInput) => {
+const useBridgeForm = ({ toChainId, walletBalanceTokens, xvs }: UseBridgeFormInput) => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
@@ -104,6 +105,7 @@ const useBridgeForm = ({ toChainId, xvs }: UseBridgeFormInput) => {
       const xvsAmountUsd = xvsAmountTokens.times(xvsPriceUsd);
       const isSingleTransactionLimitExceeded = xvsAmountUsd.gt(maxSingleTransactionLimitUsd);
       const maxSingleTransactionLimitTokens = maxSingleTransactionLimitUsd.dividedBy(xvsPriceUsd);
+      const doesNotHaveEnoughXvs = walletBalanceTokens.lt(xvsAmountTokens);
 
       if (isSingleTransactionLimitExceeded) {
         const readableAmountTokens = formatTokensToReadableValue({
@@ -144,6 +146,16 @@ const useBridgeForm = ({ toChainId, xvs }: UseBridgeFormInput) => {
           path: ['dailyTransactionLimitExceeded'],
         });
       }
+
+      if (doesNotHaveEnoughXvs) {
+        ctx.addIssue({
+          code: 'custom',
+          message: t('bridgePage.errors.doesNotHaveEnoughXvs', {
+            tokenSymbol: xvs?.symbol,
+          }),
+          path: ['doesNotHaveEnoughXvs'],
+        });
+      }
     },
     [
       dailyLimitResetTimestamp,
@@ -151,6 +163,7 @@ const useBridgeForm = ({ toChainId, xvs }: UseBridgeFormInput) => {
       t,
       remainingXvsDailyLimitTokens,
       remainingXvsDailyLimitUsd,
+      walletBalanceTokens,
       xvsPriceUsd,
       xvs,
     ],

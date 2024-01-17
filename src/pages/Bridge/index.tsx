@@ -98,9 +98,10 @@ const BridgePage: React.FC = () => {
   });
 
   const [storedChainId, setStoredChainId] = useState<ChainId | undefined>(undefined);
-  const { control, handleSubmit, formState, getValues, watch, setValue, amountMantissa } =
+  const { control, handleSubmit, formState, getValues, watch, setValue, reset, amountMantissa } =
     useBridgeForm({
       toChainId: storedChainId,
+      walletBalanceTokens,
       xvs,
     });
 
@@ -122,7 +123,7 @@ const BridgePage: React.FC = () => {
     },
   );
 
-  const [bridgeEstimatedFeeMantissa, brigeEstimatedFeeTokens] = useMemo(() => {
+  const [bridgeEstimatedFeeMantissa, bridgeEstimatedFeeTokens] = useMemo(() => {
     const feeMantissa = getXvsBridgeFeeEstimationData?.estimationFeeMantissa || new BigNumber(0);
     return [
       feeMantissa,
@@ -199,6 +200,7 @@ const BridgePage: React.FC = () => {
           destinationChainId: toChainId,
           nativeCurrencyFeeMantissa: bridgeEstimatedFeeMantissa,
         });
+        reset({ amountTokens: '' });
       } catch (error) {
         displayMutationError({ error });
       }
@@ -215,30 +217,40 @@ const BridgePage: React.FC = () => {
   );
 
   const submitButtonLabel = useMemo(() => {
-    // @ts-expect-error the custom error path is not inferred by the resolver
-    if (formState.errors.amountTokens?.singleTransactionLimitExceeded) {
-      return t('bridgePage.errors.singleTransactionLimitExceeded.submitButton');
-    }
-    // @ts-expect-error the custom error path is not inferred by the resolver
-    if (formState.errors.amountTokens?.dailyTransactionLimitExceeded) {
-      return t('bridgePage.errors.dailyTransactionLimitExceeded.submitButton');
-    }
-    if (formState.errors.bridgeEstimatedFeeMantissa) {
-      return t('bridgePage.errors.doesNotHaveEnoughNativeFunds', {
-        tokenSymbol: nativeToken?.symbol,
-      });
-    }
-    if (formState.isValid) {
-      return t('bridgePage.submitButton.label.submit');
+    if (isXvsApproved) {
+      // @ts-expect-error the custom error path is not inferred by the resolver
+      if (formState.errors.amountTokens?.singleTransactionLimitExceeded) {
+        return t('bridgePage.errors.singleTransactionLimitExceeded.submitButton');
+      }
+      // @ts-expect-error the custom error path is not inferred by the resolver
+      if (formState.errors.amountTokens?.dailyTransactionLimitExceeded) {
+        return t('bridgePage.errors.dailyTransactionLimitExceeded.submitButton');
+      }
+      // @ts-expect-error the custom error path is not inferred by the resolver
+      if (formState.errors.amountTokens?.doesNotHaveEnoughXvs) {
+        return t('bridgePage.errors.doesNotHaveEnoughXvs', {
+          tokenSymbol: xvs?.symbol,
+        });
+      }
+      if (formState.errors.bridgeEstimatedFeeMantissa) {
+        return t('bridgePage.errors.doesNotHaveEnoughNativeFunds', {
+          tokenSymbol: nativeToken?.symbol,
+        });
+      }
+      if (formState.isValid) {
+        return t('bridgePage.submitButton.label.submit');
+      }
     }
 
     return t('bridgePage.submitButton.label.enterValidAmount');
   }, [
+    isXvsApproved,
     t,
     nativeToken,
     formState.errors.amountTokens,
     formState.errors.bridgeEstimatedFeeMantissa,
     formState.isValid,
+    xvs,
   ]);
 
   if (!nativeToken || !xvs) {
@@ -247,7 +259,7 @@ const BridgePage: React.FC = () => {
 
   const readableFee = formatTokensToReadableValue({
     token: nativeToken,
-    value: brigeEstimatedFeeTokens,
+    value: bridgeEstimatedFeeTokens,
   });
 
   return (
@@ -324,9 +336,7 @@ const BridgePage: React.FC = () => {
                   },
                 }}
                 {...field}
-                disabled={
-                  field.disabled || isApproveXvsLoading || !isXvsApproved || !accountAddress
-                }
+                disabled={field.disabled || isApproveXvsLoading || !accountAddress}
               />
             )}
           />
@@ -365,7 +375,7 @@ const BridgePage: React.FC = () => {
           <ApproveTokenSteps
             className="mt-10"
             token={xvs}
-            hideTokenEnablingStep={!isUserConnected}
+            hideTokenEnablingStep={!formState.isDirty || !accountAddress}
             isTokenApproved={isXvsApproved}
             approveToken={approveXvs}
             isApproveTokenLoading={isApproveXvsLoading}

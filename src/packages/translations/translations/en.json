@@ -170,6 +170,7 @@
         "message": "You cannot bridge more than {{readableAmountTokens}} ({{readableAmountUsd}}) on the destination chain in a single transaction",
         "submitButton": "Amount entered higher than the limit"
       },
+      "doesNotHaveEnoughXvs": "Insufficient {{tokenSymbol}} balance",
       "doesNotHaveEnoughNativeFunds": "Insufficient {{tokenSymbol}} balance"
     },
     "footer": {
