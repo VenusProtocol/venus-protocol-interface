@@ -1,3 +1,10 @@
+## [2.77.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.77.0...v2.77.1) (2024-01-17)
+
+
+### Bug Fixes
+
+* initialization of Prime calculator form ([4c80153](https://github.com/VenusProtocol/venus-protocol-interface/commit/4c801531943f719ed160c1c55aa54bbd6ae32e9a))
+
 ## [2.77.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.76.2...v2.77.0) (2024-01-16)
 
 
