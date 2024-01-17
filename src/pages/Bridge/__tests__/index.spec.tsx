@@ -175,11 +175,15 @@ describe('Bridge', () => {
 
   it('updates input value correctly when clicking on max button', async () => {
     const { getByText, getByTestId } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
       chainId: ChainId.BSC_TESTNET,
     });
 
     // Click on max button
-    fireEvent.click(getByText(en.bridgePage.amountInput.maxButtonLabel));
+    const maxButton = await waitFor(
+      () => getByText(en.bridgePage.amountInput.maxButtonLabel) as HTMLButtonElement,
+    );
+    fireEvent.click(maxButton);
 
     // Check input value was updated correctly
     await waitFor(() =>
@@ -236,7 +240,10 @@ describe('Bridge', () => {
     });
 
     // Click on max button
-    fireEvent.click(getByText(en.bridgePage.amountInput.maxButtonLabel));
+    const maxButton = await waitFor(
+      () => getByText(en.bridgePage.amountInput.maxButtonLabel) as HTMLButtonElement,
+    );
+    fireEvent.click(maxButton);
 
     // Check input value was updated correctly
     await waitFor(() =>
@@ -276,7 +283,10 @@ describe('Bridge', () => {
     });
 
     // Click on max button
-    fireEvent.click(getByText(en.bridgePage.amountInput.maxButtonLabel));
+    const maxButton = await waitFor(
+      () => getByText(en.bridgePage.amountInput.maxButtonLabel) as HTMLButtonElement,
+    );
+    fireEvent.click(maxButton);
 
     // Check input value was updated correctly
     await waitFor(() =>

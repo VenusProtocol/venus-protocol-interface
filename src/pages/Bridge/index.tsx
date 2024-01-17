@@ -1,17 +1,8 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import BigNumber from 'bignumber.js';
-import { fromUnixTime } from 'date-fns';
-import { useCallback, useEffect, useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Controller } from 'react-hook-form';
 
-import {
-  useBridgeXvs,
-  useGetBalanceOf,
-  useGetTokenUsdPrice,
-  useGetXvsBridgeFeeEstimation,
-  useGetXvsBridgeStatus,
-} from 'clients/api';
+import { useBridgeXvs, useGetBalanceOf, useGetXvsBridgeFeeEstimation } from 'clients/api';
 import {
   ApproveTokenSteps,
   Card,
@@ -25,7 +16,6 @@ import {
   TokenTextField,
 } from 'components';
 import { Link } from 'containers/Link';
-import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import useTokenApproval from 'hooks/useTokenApproval';
 import {
@@ -35,40 +25,17 @@ import {
 import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
-import {
-  chains,
-  useAccountAddress,
-  useAuthModal,
-  useChainId,
-  useSwitchChain,
-} from 'packages/wallet';
+import { useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'packages/wallet';
 import { ChainId } from 'types';
-import {
-  convertDollarsToCents,
-  convertMantissaToTokens,
-  convertTokensToMantissa,
-  formatCentsToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
 
 import { ChainSelect } from './ChainSelect';
 import { ReactComponent as LayerZeroLogo } from './layerZeroLogo.svg';
 import TEST_IDS from './testIds';
+import useBridgeForm from './useBridgeForm';
 
 const BRIDGE_DOC_URL =
   'https://docs-v4.venus.io/technical-reference/reference-technical-articles/technical-doc-xvs-bridge';
-
-const formSchema = z.object({
-  doesNotHaveEnoughNativeFunds: z.boolean().refine((v: boolean) => !v),
-  isDailyTransactionLimitExceeded: z.boolean().refine((v: boolean) => !v),
-  isSingleTransactionLimitExceeded: z.boolean().refine((v: boolean) => !v),
-  fromChainId: z.nativeEnum(ChainId),
-  toChainId: z.nativeEnum(ChainId),
-  amountTokens: z
-    .string()
-    .min(1)
-    .refine((v: string) => !Number.isNaN(v)),
-});
 
 const BridgePage: React.FC = () => {
   const { t } = useTranslation();
@@ -78,19 +45,11 @@ const BridgePage: React.FC = () => {
   const { openAuthModal } = useAuthModal();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
+
   const xvs = useGetToken({
     symbol: 'XVS',
     chainId,
   });
-
-  const { data: getTokenUsdPriceData } = useGetTokenUsdPrice(
-    {
-      token: xvs,
-    },
-    {
-      enabled: !!xvs,
-    },
-  );
 
   const bridgeContractAddress = useMemo(() => {
     switch (chainId) {
@@ -110,23 +69,6 @@ const BridgePage: React.FC = () => {
     {
       enabled: !!accountAddress,
     },
-  );
-
-  const { data: getBalanceOfNativeTokenData, isLoading: isLoadingGetBalanceOfNativeToken } =
-    useGetBalanceOf(
-      {
-        accountAddress: accountAddress || '',
-        token: nativeToken,
-      },
-      {
-        enabled: !!accountAddress,
-      },
-    );
-
-  const nativeTokenBalanceMantissa = useMemo(
-    () =>
-      getBalanceOfNativeTokenData ? getBalanceOfNativeTokenData.balanceMantissa : new BigNumber(0),
-    [getBalanceOfNativeTokenData],
   );
 
   const [walletBalanceTokens, readableWalletBalance] = useMemo(() => {
@@ -155,56 +97,19 @@ const BridgePage: React.FC = () => {
     accountAddress,
   });
 
-  const defaultValues = useMemo(
-    () => ({
-      doesNotHaveEnoughNativeFunds: false,
-      dailyTransactionLimitExceeded: false,
-      isSingleTransactionLimitExceeded: false,
-      fromChainId: chainId,
-      toChainId: chains.find(chain => chain.id !== chainId)?.id as ChainId,
-      amountTokens: undefined,
-    }),
-    [chainId],
-  );
+  const [storedChainId, setStoredChainId] = useState<ChainId | undefined>(undefined);
+  const { control, handleSubmit, formState, getValues, watch, setValue, amountMantissa } =
+    useBridgeForm({
+      toChainId: storedChainId,
+      xvs,
+    });
 
-  const { control, handleSubmit, formState, getValues, watch, setValue } = useForm<
-    z.infer<typeof formSchema>
-  >({
-    resolver: zodResolver(formSchema),
-    defaultValues,
-  });
+  const { toChainId } = watch();
 
-  const {
-    doesNotHaveEnoughNativeFunds,
-    isDailyTransactionLimitExceeded,
-    isSingleTransactionLimitExceeded,
-    amountTokens,
-    toChainId,
-  } = watch();
-
-  const { data: getXvsBridgeStatusData } = useGetXvsBridgeStatus({ toChainId });
-
-  const [maxSingleTransactionLimitUsd, dailyLimitResetTimestamp] = useMemo(
-    () => [
-      getXvsBridgeStatusData?.maxSingleTransactionLimitUsd || new BigNumber(0),
-      getXvsBridgeStatusData?.dailyLimitResetTimestamp || new BigNumber(0),
-    ],
-    [getXvsBridgeStatusData],
-  );
-
-  const amountMantissa = useDebounceValue(
-    xvs
-      ? convertTokensToMantissa({
-          value: new BigNumber(amountTokens) || new BigNumber(0),
-          token: xvs,
-        })
-      : new BigNumber(0),
-  );
-
-  const xvsAmountUsd = useMemo(() => {
-    const xvsPriceDollars = getTokenUsdPriceData?.tokenPriceUsd || BigNumber(0);
-    return xvsPriceDollars.times(amountTokens || BigNumber(0));
-  }, [amountTokens, getTokenUsdPriceData]);
+  // save toChainId in state so it can be fed into the form's validation
+  useEffect(() => {
+    setStoredChainId(toChainId);
+  }, [toChainId]);
 
   const { data: getXvsBridgeFeeEstimationData } = useGetXvsBridgeFeeEstimation(
     {
@@ -216,20 +121,6 @@ const BridgePage: React.FC = () => {
       enabled: !!accountAddress && amountMantissa.gt(0),
     },
   );
-
-  const [remainingXvsDailyLimitUsd, remainingXvsDailyLimitTokens] = useMemo(() => {
-    if (getXvsBridgeStatusData && getTokenUsdPriceData) {
-      const { totalTransferredLast24HourUsd, maxDailyLimitUsd } = getXvsBridgeStatusData;
-      const remainingUsdValue = maxDailyLimitUsd.minus(totalTransferredLast24HourUsd);
-      const xvsPriceUsd = getTokenUsdPriceData.tokenPriceUsd || new BigNumber(0);
-      const remaningTokensAmount = !xvsPriceUsd.isZero()
-        ? remainingUsdValue.dividedBy(xvsPriceUsd)
-        : new BigNumber(0);
-      return [remainingUsdValue, remaningTokensAmount];
-    }
-
-    return [new BigNumber(0), new BigNumber(0)];
-  }, [getXvsBridgeStatusData, getTokenUsdPriceData]);
 
   const [bridgeEstimatedFeeMantissa, brigeEstimatedFeeTokens] = useMemo(() => {
     const feeMantissa = getXvsBridgeFeeEstimationData?.estimationFeeMantissa || new BigNumber(0);
@@ -289,31 +180,6 @@ const BridgePage: React.FC = () => {
     [setValue, switchChain, getValues],
   );
 
-  // check if there is enough native token to pay the estimated fee
-  useEffect(() => {
-    const val =
-      bridgeEstimatedFeeMantissa.gt(0) &&
-      nativeTokenBalanceMantissa.lte(bridgeEstimatedFeeMantissa);
-
-    setValue('doesNotHaveEnoughNativeFunds', val, { shouldValidate: true });
-  }, [bridgeEstimatedFeeMantissa, nativeTokenBalanceMantissa, setValue]);
-
-  // check if amount of XVS informed by the user is over the max single transaction limit in USD
-  useEffect(() => {
-    const val =
-      !!getXvsBridgeStatusData &&
-      xvsAmountUsd.gt(getXvsBridgeStatusData.maxSingleTransactionLimitUsd);
-
-    setValue('isSingleTransactionLimitExceeded', val, { shouldValidate: true });
-  }, [getXvsBridgeStatusData, setValue, xvsAmountUsd]);
-
-  // check if the global daily limit of XVS transferred was reached
-  useEffect(() => {
-    const val = xvsAmountUsd.gt(remainingXvsDailyLimitUsd);
-
-    setValue('isDailyTransactionLimitExceeded', val, { shouldValidate: true });
-  }, [remainingXvsDailyLimitUsd, setValue, xvsAmountUsd]);
-
   const switchChains = useCallback(() => {
     const formValues = getValues();
 
@@ -339,60 +205,25 @@ const BridgePage: React.FC = () => {
     }
   };
 
-  const errorLabel = useMemo(() => {
-    if (isSingleTransactionLimitExceeded) {
-      const xvsPriceUsd = getTokenUsdPriceData?.tokenPriceUsd || new BigNumber(0);
-      const maxSingleTransactionLimitTokens = maxSingleTransactionLimitUsd.dividedBy(xvsPriceUsd);
-      const readableAmountTokens = formatTokensToReadableValue({
-        value: maxSingleTransactionLimitTokens,
-        token: xvs,
-      });
-      const readableAmountUsd = formatCentsToReadableValue({
-        value: convertDollarsToCents(maxSingleTransactionLimitUsd),
-      });
-      return t('bridgePage.errors.singleTransactionLimitExceeded.message', {
-        readableAmountTokens,
-        readableAmountUsd,
-      });
-    }
-    if (isDailyTransactionLimitExceeded) {
-      const readableAmountTokens = formatTokensToReadableValue({
-        value: remainingXvsDailyLimitTokens,
-        token: xvs,
-      });
-      const readableAmountUsd = formatCentsToReadableValue({
-        value: convertDollarsToCents(remainingXvsDailyLimitUsd),
-      });
-      const date = fromUnixTime(dailyLimitResetTimestamp.toNumber());
-      date.setDate(date.getDate() + 1);
-      return t('bridgePage.errors.dailyTransactionLimitExceeded.message', {
-        readableAmountTokens,
-        readableAmountUsd,
-        date,
-      });
-    }
-
-    return undefined;
-  }, [
-    t,
-    isDailyTransactionLimitExceeded,
-    isSingleTransactionLimitExceeded,
-    getTokenUsdPriceData,
-    dailyLimitResetTimestamp,
-    maxSingleTransactionLimitUsd,
-    remainingXvsDailyLimitTokens,
-    remainingXvsDailyLimitUsd,
-    xvs,
-  ]);
+  const errorLabel = useMemo(
+    () =>
+      // @ts-expect-error the custom error path is not inferred by the resolver
+      formState.errors.amountTokens?.singleTransactionLimitExceeded?.message ||
+      // @ts-expect-error the custom error path is not inferred by the resolver
+      formState.errors.amountTokens?.dailyTransactionLimitExceeded?.message,
+    [formState.errors.amountTokens],
+  );
 
   const submitButtonLabel = useMemo(() => {
-    if (isSingleTransactionLimitExceeded) {
+    // @ts-expect-error the custom error path is not inferred by the resolver
+    if (formState.errors.amountTokens?.singleTransactionLimitExceeded) {
       return t('bridgePage.errors.singleTransactionLimitExceeded.submitButton');
     }
-    if (isDailyTransactionLimitExceeded) {
+    // @ts-expect-error the custom error path is not inferred by the resolver
+    if (formState.errors.amountTokens?.dailyTransactionLimitExceeded) {
       return t('bridgePage.errors.dailyTransactionLimitExceeded.submitButton');
     }
-    if (doesNotHaveEnoughNativeFunds) {
+    if (formState.errors.bridgeEstimatedFeeMantissa) {
       return t('bridgePage.errors.doesNotHaveEnoughNativeFunds', {
         tokenSymbol: nativeToken?.symbol,
       });
@@ -405,10 +236,9 @@ const BridgePage: React.FC = () => {
   }, [
     t,
     nativeToken,
-    doesNotHaveEnoughNativeFunds,
+    formState.errors.amountTokens,
+    formState.errors.bridgeEstimatedFeeMantissa,
     formState.isValid,
-    isDailyTransactionLimitExceeded,
-    isSingleTransactionLimitExceeded,
   ]);
 
   if (!nativeToken || !xvs) {
@@ -478,13 +308,13 @@ const BridgePage: React.FC = () => {
             name="amountTokens"
             control={control}
             rules={{ required: true }}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <TokenTextField
                 data-testid={TEST_IDS.tokenTextField}
                 token={xvs}
                 label={t('bridgePage.amountInput.label')}
                 className="mb-3"
-                disabled={formState.isValid || isApproveXvsLoading || !!accountAddress}
+                hasError={fieldState.invalid}
                 rightMaxButton={{
                   label: t('bridgePage.amountInput.maxButtonLabel'),
                   onClick: () => {
@@ -494,6 +324,9 @@ const BridgePage: React.FC = () => {
                   },
                 }}
                 {...field}
+                disabled={
+                  field.disabled || isApproveXvsLoading || !isXvsApproved || !accountAddress
+                }
               />
             )}
           />
@@ -548,7 +381,6 @@ const BridgePage: React.FC = () => {
                   isApproveXvsLoading ||
                   isXvsWalletSpendingLimitLoading ||
                   isRevokeXvsWalletSpendingLimitLoading ||
-                  isLoadingGetBalanceOfNativeToken ||
                   !isXvsApproved
                 }
                 className="w-full"
