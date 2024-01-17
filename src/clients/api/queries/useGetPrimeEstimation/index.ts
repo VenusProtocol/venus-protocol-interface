@@ -8,6 +8,7 @@ import {
   useGetPrimeDistributionForMarket,
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
+import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import FunctionKey from 'constants/functionKey';
 import { useGetToken } from 'packages/tokens';
 import { VToken } from 'types';
@@ -135,11 +136,11 @@ const useGetPrimeEstimation = (
         token: vToken.underlyingToken,
       });
 
-      const dailyTokensDistributedAmount = primeTokensDistributedAmount.dividedBy(365);
+      const dailyTokensDistributedAmount = primeTokensDistributedAmount.dividedBy(DAYS_PER_YEAR);
 
       const userDailyPrimeRewards = primeTokensDistributedAmount
         .multipliedBy(userPrimeRewardsShare)
-        .dividedBy(365);
+        .dividedBy(DAYS_PER_YEAR);
 
       primeEstimation = {
         dailyTokensDistributedAmount,

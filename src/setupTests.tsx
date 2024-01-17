@@ -15,6 +15,9 @@ vi.mock('hooks/useTokenApproval');
 vi.mock('clients/api');
 vi.mock('packages/tokens');
 vi.mock('packages/wallet');
+vi.mock('hooks/useDebounceValue', () => ({
+  default: (value: unknown) => value,
+}));
 
 // Mock zustand library (optimized state manager)
 vi.mock('zustand');
