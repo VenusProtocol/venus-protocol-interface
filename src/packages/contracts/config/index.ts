@@ -90,6 +90,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens,
       [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens,
       [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens,
+      [ChainId.OPBNB_TESTNET]: '0x8983fd85133877BE52c019ce9538354EFbb238c6', // TODO: get from package once it'sπ been updated
     },
   },
   {
@@ -99,6 +100,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolRegistry_Proxy,
       [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolRegistry_Proxy,
       [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolRegistry_Proxy,
+      [ChainId.OPBNB_TESTNET]: '0x560eA4e1cC42591E9f5F5D83Ad2fd65F30128951', // TODO: get from package once it's been updated (see VEN-2326)
     },
   },
   {
@@ -132,6 +134,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVaultProxy,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVaultProxy,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSVaultProxy,
+      [ChainId.OPBNB_TESTNET]: '0xB14A0e72C5C202139F78963C9e89252c1ad16f01', // TODO: get from package once it's been updated (see VEN-2326)
     },
   },
   {
@@ -141,6 +144,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSStore,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSStore,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSStore,
+      [ChainId.OPBNB_TESTNET]: '0x06473fB3f7bF11e2E8EfEcC95aC55ABEFCb2e0A0', // TODO: get from package once it's been updated (see VEN-2326)
     },
   },
   {
@@ -185,6 +189,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
       [ChainId.ETHEREUM]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
       [ChainId.SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
+      [ChainId.OPBNB_TESTNET]: '0x34D4c29902769a0168b9965CbC4147771206328D',
     },
   },
   {
@@ -194,6 +199,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.BSC_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.SEPOLIA]: '0xca11bde05977b3631167028862be2a173976ca11',
+      [ChainId.OPBNB_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
     },
   },
   {
@@ -203,6 +209,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: venusOracleBscTestnetDeployments.addresses.ResilientOracle,
       [ChainId.BSC_MAINNET]: venusOracleBscMainnetDeployments.addresses.ResilientOracle,
       [ChainId.SEPOLIA]: venusOracleSepoliaDeployments.addresses.ResilientOracle,
+      [ChainId.OPBNB_TESTNET]: '0xEF4e53a9A4565ef243A2f0ee9a7fc2410E1aA623', // TODO: get from package once it's been updated (see VEN-2326)
     },
   },
   {
@@ -228,6 +235,7 @@ export const contracts: ContractConfig[] = [
     abi: VTreasuryV8Abi,
     address: {
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.VTreasuryV8,
+      [ChainId.OPBNB_TESTNET]: '0x3370915301E8a6A6baAe6f461af703e2498409F3', // TODO: get from package once it's been updated (see VEN-2326)
     },
   },
   // Generic Contracts
@@ -312,6 +320,7 @@ export const contracts: ContractConfig[] = [
         [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
           isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_LiquidStakedBNB,
       },
+      [ChainId.OPBNB_TESTNET]: {},
       [ChainId.ETHEREUM]: {},
       [ChainId.SEPOLIA]: {},
     },

@@ -21,6 +21,14 @@ export const CHAIN_METADATA: {
     blocksPerDay: 28800,
     corePoolComptrollerContractAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
   },
+  [ChainId.OPBNB_TESTNET]: {
+    name: 'opBNB testnet',
+    logoSrc: bnbLogo,
+    explorerUrl: 'https://opbnb-testnet.bscscan.com/',
+    blockTimeMs: 1000,
+    blocksPerDay: 86400,
+    corePoolComptrollerContractAddress: '0x2FCABb31E57F010D623D8d68e1E18Aed11d5A388',
+  },
   [ChainId.ETHEREUM]: {
     name: 'Ethereum',
     logoSrc: ethLogo,

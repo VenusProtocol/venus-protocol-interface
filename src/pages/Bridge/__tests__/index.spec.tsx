@@ -50,7 +50,7 @@ describe('Bridge', () => {
       ),
     );
     expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
-      String(ChainId.SEPOLIA),
+      String(ChainId.OPBNB_TESTNET),
     );
 
     // Change from chain ID
@@ -84,7 +84,7 @@ describe('Bridge', () => {
 
     await waitFor(() =>
       expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
-        String(ChainId.SEPOLIA),
+        String(ChainId.OPBNB_TESTNET),
       ),
     );
 
@@ -117,7 +117,7 @@ describe('Bridge', () => {
       ),
     );
     expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
-      String(ChainId.SEPOLIA),
+      String(ChainId.OPBNB_TESTNET),
     );
 
     // Click on switch button
@@ -125,13 +125,13 @@ describe('Bridge', () => {
 
     await waitFor(() => expect(switchChainMock).toHaveBeenCalledTimes(1));
     expect(switchChainMock).toHaveBeenCalledWith({
-      chainId: ChainId.SEPOLIA,
+      chainId: ChainId.OPBNB_TESTNET,
       callback: expect.any(Function),
     });
 
     await waitFor(() =>
       expect((getByTestId(TEST_IDS.fromChainIdSelect) as HTMLInputElement).value).toEqual(
-        String(ChainId.SEPOLIA),
+        String(ChainId.OPBNB_TESTNET),
       ),
     );
     expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
