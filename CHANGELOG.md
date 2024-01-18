@@ -1,3 +1,15 @@
+## [2.78.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.77.2...v2.78.0) (2024-01-18)
+
+
+### Features
+
+* add support for opBNB testnet network ([#2063](https://github.com/VenusProtocol/venus-protocol-interface/issues/2063)) ([1c7e304](https://github.com/VenusProtocol/venus-protocol-interface/commit/1c7e30498537c624eb2c9e7a53ddb9eb1da5a5cc))
+
+
+### Bug Fixes
+
+* tooltip for Prime ([#2069](https://github.com/VenusProtocol/venus-protocol-interface/issues/2069)) ([281067a](https://github.com/VenusProtocol/venus-protocol-interface/commit/281067a32f751711f9120579ab7cf57b2165cdc2))
+
 ## [2.77.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.77.1...v2.77.2) (2024-01-17)
 
 ## [2.77.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.77.0...v2.77.1) (2024-01-17)
