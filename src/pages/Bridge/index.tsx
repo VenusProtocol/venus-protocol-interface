@@ -388,7 +388,6 @@ const BridgePage: React.FC = () => {
                 disabled={
                   !formState.isValid ||
                   formState.isSubmitting ||
-                  isApproveXvsLoading ||
                   isXvsWalletSpendingLimitLoading ||
                   isRevokeXvsWalletSpendingLimitLoading ||
                   !isXvsApproved
