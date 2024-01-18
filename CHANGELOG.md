@@ -1,3 +1,10 @@
+## [2.78.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.78.1...v2.78.2) (2024-01-18)
+
+
+### Bug Fixes
+
+* label of max button on VAI ([#2075](https://github.com/VenusProtocol/venus-protocol-interface/issues/2075)) ([504daa7](https://github.com/VenusProtocol/venus-protocol-interface/commit/504daa7ca750dd1d28b0f61305efbe76903fd488))
+
 ## [2.78.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.78.0...v2.78.1) (2024-01-18)
 
 ## [2.78.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.77.2...v2.78.0) (2024-01-18)
