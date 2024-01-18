@@ -5,6 +5,7 @@ export const LAYER_ZERO_CHAIN_IDS: Record<ChainId, number> = {
   [ChainId.BSC_TESTNET]: 10102,
   [ChainId.ETHEREUM]: 101,
   [ChainId.SEPOLIA]: 10161,
+  [ChainId.OPBNB_TESTNET]: 10202,
 };
 
 export const DEFAULT_ADAPTER_PARAMS =

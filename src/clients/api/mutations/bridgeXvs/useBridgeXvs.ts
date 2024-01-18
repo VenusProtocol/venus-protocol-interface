@@ -23,9 +23,9 @@ const useBridgeXvs = (options?: Options) => {
   const tokenBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId, passSigner: true });
   const tokenBridgeContractDest = useGetXVSProxyOFTDestContract({ chainId, passSigner: true });
   const tokenBridgeContract =
-    chainId === ChainId.SEPOLIA || chainId === ChainId.ETHEREUM
-      ? tokenBridgeContractDest
-      : tokenBridgeContractSrc;
+    chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
+      ? tokenBridgeContractSrc
+      : tokenBridgeContractDest;
 
   return useSendTransaction({
     fnKey: FunctionKey.BRIDGE_XVS,

@@ -195,7 +195,7 @@ describe('Bridge', () => {
     const fakeBridgeXvsParams = {
       accountAddress: fakeAccountAddress,
       amountMantissa: fakeBalanceMantissa,
-      destinationChainId: ChainId.SEPOLIA,
+      destinationChainId: ChainId.OPBNB_TESTNET,
       nativeCurrencyFeeMantissa: fakeBridgeFeeMantissa,
     };
 

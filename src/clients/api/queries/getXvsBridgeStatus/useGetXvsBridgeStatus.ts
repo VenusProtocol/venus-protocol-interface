@@ -24,14 +24,14 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetPrimeStatus = ({ toChainId }: TrimmedGetXvsBridgeStatusInput, options?: Options) => {
+const useGetBridgeStatus = ({ toChainId }: TrimmedGetXvsBridgeStatusInput, options?: Options) => {
   const { chainId } = useChainId();
   const tokenBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId });
   const tokenBridgeContractDest = useGetXVSProxyOFTDestContract({ chainId });
   const tokenBridgeContract =
-    chainId === ChainId.SEPOLIA || chainId === ChainId.ETHEREUM
-      ? tokenBridgeContractDest
-      : tokenBridgeContractSrc;
+    chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
+      ? tokenBridgeContractSrc
+      : tokenBridgeContractDest;
 
   return useQuery(
     [FunctionKey.GET_XVS_BRIDGE_STATUS, { chainId }],
@@ -45,4 +45,4 @@ const useGetPrimeStatus = ({ toChainId }: TrimmedGetXvsBridgeStatusInput, option
   );
 };
 
-export default useGetPrimeStatus;
+export default useGetBridgeStatus;

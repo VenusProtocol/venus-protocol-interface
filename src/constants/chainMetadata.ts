@@ -30,9 +30,11 @@ export const CHAIN_METADATA: {
     name: 'opBNB testnet',
     logoSrc: bnbLogo,
     explorerUrl: 'https://opbnb-testnet.bscscan.com/',
+    layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
     blockTimeMs: 1000,
     blocksPerDay: 86400,
     corePoolComptrollerContractAddress: '0x2FCABb31E57F010D623D8d68e1E18Aed11d5A388',
+    nativeToken: getToken({ chainId: ChainId.OPBNB_TESTNET, symbol: 'BNB' })!,
   },
   [ChainId.ETHEREUM]: {
     name: 'Ethereum',
