@@ -441,7 +441,7 @@
         "primeLogoAlt": "Prime logo",
         "tooltip": {
           "primeCalculator": "APY boosted by Prime based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Calculate your Prime rewards</Link>",
-          "primeDoc": "Prime boost based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Learn more</Link>"
+          "primeDoc": "APY boosted by Prime based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Learn more</Link>"
         }
       }
     },
