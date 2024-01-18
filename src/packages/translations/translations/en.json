@@ -939,7 +939,7 @@
       "connectWallet": "Please connect your wallet to mint VAI",
       "mintFeeLabel": "Mint fee",
       "primeOnlyWarning": "Only users who hold a Prime token can mint VAI. Learn more about Prime <Link>here</Link>.",
-      "rightMaxButtonLabel": "SAFE MAX",
+      "rightMaxButtonLabel": "MAX",
       "submitButtonDisabledLabel": "Enter a valid amount to mint",
       "submitButtonLabel": "Mint",
       "vaiLimitLabel": "Available VAI limit",
