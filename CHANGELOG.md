@@ -1,3 +1,10 @@
+## [2.79.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.78.3...v2.79.0) (2024-01-19)
+
+
+### Features
+
+* add isPaused prop to Vault type ([7298d7b](https://github.com/VenusProtocol/venus-protocol-interface/commit/7298d7bab9dd4a313b84c152ed269da424017ef2))
+
 ## [2.78.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.78.2...v2.78.3) (2024-01-19)
 
 ## [2.78.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.78.1...v2.78.2) (2024-01-18)
