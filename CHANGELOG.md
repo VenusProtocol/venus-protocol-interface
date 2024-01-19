@@ -1,3 +1,10 @@
+## [2.80.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.79.0...v2.80.0) (2024-01-19)
+
+
+### Features
+
+* add support for disabled vaults ([#2083](https://github.com/VenusProtocol/venus-protocol-interface/issues/2083)) ([9510bbf](https://github.com/VenusProtocol/venus-protocol-interface/commit/9510bbf767f0d7b20ccbf22a488757e3c6003684))
+
 ## [2.79.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.78.3...v2.79.0) (2024-01-19)
 
 
