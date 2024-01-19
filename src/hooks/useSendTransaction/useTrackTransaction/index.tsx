@@ -14,7 +14,7 @@ import { displayNotification, updateNotification } from 'packages/notifications'
 import { useTranslation } from 'packages/translations';
 import { useChainId, useProvider } from 'packages/wallet';
 
-export const CONFIRMATIONS = 2;
+export const CONFIRMATIONS = 1;
 
 interface TrackTransactionInput {
   transaction: ContractTransaction;
