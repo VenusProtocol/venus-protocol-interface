@@ -20,6 +20,7 @@ export type UseGetTokenBalancesQueryKey = [
     accountAddress: string;
     amountMantissa: BigNumber;
     chainId: ChainId;
+    destinationChain: ChainId;
   },
 ];
 
@@ -56,6 +57,7 @@ const useGetXvsBridgeFeeEstimation = (
         accountAddress,
         amountMantissa,
         chainId,
+        destinationChain,
       },
     ],
     () =>

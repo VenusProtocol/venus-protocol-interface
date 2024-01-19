@@ -11,7 +11,7 @@ type TrimmedGetXvsBridgeStatusInput = Omit<GetXvsBridgeStatusInput, 'tokenBridge
 
 export type UseGetXvsBridgeStatusQueryKey = [
   FunctionKey.GET_XVS_BRIDGE_STATUS,
-  { chainId: ChainId },
+  { chainId: ChainId; toChainId: ChainId },
 ];
 
 type Options = QueryObserverOptions<
@@ -34,7 +34,7 @@ const useGetBridgeStatus = ({ toChainId }: TrimmedGetXvsBridgeStatusInput, optio
       : tokenBridgeContractDest;
 
   return useQuery(
-    [FunctionKey.GET_XVS_BRIDGE_STATUS, { chainId }],
+    [FunctionKey.GET_XVS_BRIDGE_STATUS, { chainId, toChainId }],
     () =>
       callOrThrow({ tokenBridgeContract, toChainId }, params => getXvsBridgeStatus({ ...params })),
     {

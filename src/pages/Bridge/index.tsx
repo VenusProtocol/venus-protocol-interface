@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { useBridgeXvs, useGetBalanceOf, useGetXvsBridgeFeeEstimation } from 'clients/api';
@@ -25,11 +25,17 @@ import {
 import { displayMutationError } from 'packages/errors';
 import { useGetToken } from 'packages/tokens';
 import { useTranslation } from 'packages/translations';
-import { useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'packages/wallet';
+import {
+  chains,
+  useAccountAddress,
+  useAuthModal,
+  useChainId,
+  useSwitchChain,
+} from 'packages/wallet';
 import { ChainId } from 'types';
 import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
 
-import { ChainSelect } from './ChainSelect';
+import { ChainSelect, getOptionsFromChainsList } from './ChainSelect';
 import { ReactComponent as LayerZeroLogo } from './layerZeroLogo.svg';
 import TEST_IDS from './testIds';
 import useBridgeForm from './useBridgeForm';
@@ -53,11 +59,11 @@ const BridgePage: React.FC = () => {
 
   const bridgeContractAddress = useMemo(() => {
     switch (chainId) {
-      case ChainId.ETHEREUM:
-      case ChainId.SEPOLIA:
-        return getXVSProxyOFTDestContractAddress({ chainId });
-      default:
+      case ChainId.BSC_MAINNET:
+      case ChainId.BSC_TESTNET:
         return getXVSProxyOFTSrcContractAddress({ chainId });
+      default:
+        return getXVSProxyOFTDestContractAddress({ chainId });
     }
   }, [chainId]);
 
@@ -97,20 +103,16 @@ const BridgePage: React.FC = () => {
     accountAddress,
   });
 
-  const [storedChainId, setStoredChainId] = useState<ChainId | undefined>(undefined);
+  const toChainIdRef = useRef(chains.find(c => c.id !== chainId)?.id);
+
   const { control, handleSubmit, formState, getValues, watch, setValue, reset, amountMantissa } =
     useBridgeForm({
-      toChainId: storedChainId,
+      toChainIdRef,
       walletBalanceTokens,
       xvs,
     });
 
   const { toChainId } = watch();
-
-  // save toChainId in state so it can be fed into the form's validation
-  useEffect(() => {
-    setStoredChainId(toChainId);
-  }, [toChainId]);
 
   const { data: getXvsBridgeFeeEstimationData } = useGetXvsBridgeFeeEstimation(
     {
@@ -253,6 +255,21 @@ const BridgePage: React.FC = () => {
     xvs,
   ]);
 
+  // filter out which options to present when selecting chains
+  // either BSC mainnet or BSC testnet must be the origin or the destination
+  const [fromChainIdOptions, toChainIdOptions] = useMemo(() => {
+    const bscChainListOptions = getOptionsFromChainsList(
+      chains.filter(c => c.id === ChainId.BSC_MAINNET || c.id === ChainId.BSC_TESTNET),
+    );
+    const otherChainsListOptions = getOptionsFromChainsList(
+      chains.filter(c => c.id !== ChainId.BSC_MAINNET && c.id !== ChainId.BSC_TESTNET),
+    );
+    if (chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET) {
+      return [bscChainListOptions, otherChainsListOptions];
+    }
+    return [otherChainsListOptions, bscChainListOptions];
+  }, [chainId]);
+
   if (!nativeToken || !xvs) {
     return <Spinner />;
   }
@@ -276,6 +293,7 @@ const BridgePage: React.FC = () => {
                   label={t('bridgePage.fromChainSelect.label')}
                   className="mb-4 w-full min-w-0 grow md:mb-0"
                   testId={TEST_IDS.fromChainIdSelect}
+                  options={fromChainIdOptions}
                   {...field}
                   onChange={newChainId => {
                     handleChainFieldChange({
@@ -305,6 +323,7 @@ const BridgePage: React.FC = () => {
                   className="w-full min-w-0 grow"
                   label={t('bridgePage.toChainSelect.label')}
                   testId={TEST_IDS.toChainIdSelect}
+                  options={toChainIdOptions}
                   {...field}
                   onChange={newChainId => {
                     handleChainFieldChange({

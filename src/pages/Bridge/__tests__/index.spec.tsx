@@ -12,7 +12,7 @@ import {
   useGetXvsBridgeStatus,
 } from 'clients/api';
 import { en } from 'packages/translations';
-import { useAuthModal, useSwitchChain } from 'packages/wallet';
+import { useAuthModal, useChainId, useSwitchChain } from 'packages/wallet';
 import { ChainId } from 'types';
 
 import Bridge from '..';
@@ -27,8 +27,21 @@ const fakeBridgeStatusData = {
   maxSingleTransactionLimitUsd: new BigNumber('100000000000000000000'),
 };
 
+const switchChainMock = vi.fn(
+  ({ chainId, callback }: { chainId: ChainId; callback: () => void }) => {
+    // simulate that calling swtichChain makes useChainId return an updated chainId
+    (useChainId as Vi.Mock).mockImplementation(() => ({
+      chainId,
+    }));
+    callback();
+  },
+);
+
 describe('Bridge', () => {
   beforeEach(() => {
+    (useSwitchChain as Vi.Mock).mockImplementation(() => ({
+      switchChain: switchChainMock,
+    }));
     (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: fakeBalanceMantissa,
@@ -68,34 +81,8 @@ describe('Bridge', () => {
   });
 
   it('handles changing from chain ID correctly', async () => {
-    const switchChainMock = vi.fn(({ callback }: { callback: () => void }) => callback());
-
-    (useSwitchChain as Vi.Mock).mockImplementation(() => ({
-      switchChain: switchChainMock,
-    }));
-
     const { getByTestId } = renderComponent(<Bridge />, {
-      chainId: ChainId.BSC_TESTNET,
-    });
-
-    await waitFor(() =>
-      expect((getByTestId(TEST_IDS.fromChainIdSelect) as HTMLInputElement).value).toEqual(
-        String(ChainId.BSC_TESTNET),
-      ),
-    );
-    expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
-      String(ChainId.OPBNB_TESTNET),
-    );
-
-    // Change from chain ID
-    fireEvent.change(getByTestId(TEST_IDS.fromChainIdSelect), {
-      target: { value: ChainId.SEPOLIA },
-    });
-
-    await waitFor(() => expect(switchChainMock).toHaveBeenCalledTimes(1));
-    expect(switchChainMock).toHaveBeenCalledWith({
       chainId: ChainId.SEPOLIA,
-      callback: expect.any(Function),
     });
 
     await waitFor(() =>
@@ -103,15 +90,29 @@ describe('Bridge', () => {
         String(ChainId.SEPOLIA),
       ),
     );
+    expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
+      String(ChainId.BSC_TESTNET),
+    );
+
+    // Change from chain ID
+    fireEvent.change(getByTestId(TEST_IDS.fromChainIdSelect), {
+      target: { value: ChainId.OPBNB_TESTNET },
+    });
+
+    await waitFor(() => expect(switchChainMock).toHaveBeenCalledTimes(1));
+    expect(switchChainMock).toHaveBeenCalledWith({
+      chainId: ChainId.OPBNB_TESTNET,
+      callback: expect.any(Function),
+    });
+
+    await waitFor(() =>
+      expect((getByTestId(TEST_IDS.fromChainIdSelect) as HTMLInputElement).value).toEqual(
+        String(ChainId.OPBNB_TESTNET),
+      ),
+    );
   });
 
   it('handles changing to chain ID correctly', async () => {
-    const switchChainMock = vi.fn(({ callback }: { callback: () => void }) => callback());
-
-    (useSwitchChain as Vi.Mock).mockImplementation(() => ({
-      switchChain: switchChainMock,
-    }));
-
     const { getByTestId } = renderComponent(<Bridge />, {
       chainId: ChainId.BSC_TESTNET,
     });
@@ -124,19 +125,17 @@ describe('Bridge', () => {
 
     // Change from chain ID
     fireEvent.change(getByTestId(TEST_IDS.toChainIdSelect), {
-      target: { value: ChainId.BSC_TESTNET },
+      target: { value: ChainId.SEPOLIA },
     });
 
     await waitFor(() =>
       expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
-        String(ChainId.BSC_TESTNET),
+        String(ChainId.SEPOLIA),
       ),
     );
   });
 
   it('handles chain switch correctly', async () => {
-    const switchChainMock = vi.fn(({ callback }: { callback: () => void }) => callback());
-
     (useSwitchChain as Vi.Mock).mockImplementation(() => ({
       switchChain: switchChainMock,
     }));

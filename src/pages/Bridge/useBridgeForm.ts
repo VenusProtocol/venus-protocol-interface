@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import BigNumber from 'bignumber.js';
 import { fromUnixTime } from 'date-fns';
-import { useCallback, useEffect, useMemo } from 'react';
+import { MutableRefObject, useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -24,12 +24,12 @@ import {
 } from 'utilities';
 
 interface UseBridgeFormInput {
-  toChainId: ChainId | undefined;
+  toChainIdRef: MutableRefObject<ChainId | undefined>;
   walletBalanceTokens: BigNumber;
   xvs: Token | undefined;
 }
 
-const useBridgeForm = ({ toChainId, walletBalanceTokens, xvs }: UseBridgeFormInput) => {
+const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeFormInput) => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
@@ -42,6 +42,8 @@ const useBridgeForm = ({ toChainId, walletBalanceTokens, xvs }: UseBridgeFormInp
     () => getTokenUsdPriceData?.tokenPriceUsd || new BigNumber(0),
     [getTokenUsdPriceData?.tokenPriceUsd],
   );
+
+  const toChainId = toChainIdRef.current;
 
   const { data: getXvsBridgeStatusData } = useGetXvsBridgeStatus(
     {
@@ -191,7 +193,11 @@ const useBridgeForm = ({ toChainId, walletBalanceTokens, xvs }: UseBridgeFormInp
     defaultValues,
   });
 
-  const { toChainId: formToChainId, amountTokens } = form.watch();
+  const { fromChainId: formFromChainId, toChainId: formToChainId, amountTokens } = form.watch();
+
+  // save toChainId in a ref so it can be fed into the form's validation
+  toChainIdRef.current = formToChainId;
+
   const amountMantissa = useDebounceValue(
     xvs
       ? convertTokensToMantissa({
@@ -219,6 +225,21 @@ const useBridgeForm = ({ toChainId, walletBalanceTokens, xvs }: UseBridgeFormInp
       shouldValidate: true,
     });
   }, [form, bridgeEstimatedFeeMantissa]);
+
+  // the chain can be changed either by the form or the header dropdown
+  // we have to ensure a BNB chain is either the origin or the destination of a bridge operation
+  useEffect(() => {
+    const previousFromChainId = formFromChainId;
+    if (chainId !== formFromChainId) {
+      form.setValue('fromChainId', chainId);
+      if (chainId !== ChainId.BSC_MAINNET && chainId !== ChainId.BSC_TESTNET) {
+        const bscChainId = chains.find(c => c.nativeCurrency.name === 'BNB')?.id as ChainId;
+        form.setValue('toChainId', bscChainId);
+      } else {
+        form.setValue('toChainId', previousFromChainId);
+      }
+    }
+  }, [chainId, form, formFromChainId, formToChainId]);
 
   return { ...form, amountMantissa };
 };

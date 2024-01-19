@@ -15,7 +15,7 @@ export const tokens: Token[] = [
     isNative: true,
   },
   {
-    address: '0x3d0e20D4caD958bc848B045e1da19Fe378f86f03',
+    address: '0xc2931B1fEa69b6D6dA65a50363A8D75d285e4da9',
     decimals: 18,
     symbol: 'XVS',
     asset: xvsLogo,
