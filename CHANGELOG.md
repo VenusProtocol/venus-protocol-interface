@@ -1,3 +1,10 @@
+## [2.81.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.80.0...v2.81.0) (2024-01-19)
+
+
+### Features
+
+* enable Prime on Sepolia ([#2084](https://github.com/VenusProtocol/venus-protocol-interface/issues/2084)) ([71899fa](https://github.com/VenusProtocol/venus-protocol-interface/commit/71899fa49b2d61bf5455bf407f05f625609ccfda))
+
 ## [2.80.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.79.0...v2.80.0) (2024-01-19)
 
 
