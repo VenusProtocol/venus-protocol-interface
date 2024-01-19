@@ -218,7 +218,6 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
                     disabled ||
                     !dirty ||
                     isVaiApprovalStatusLoading ||
-                    isApproveVaiLoading ||
                     !isVaiApproved ||
                     isRevokeVaiWalletSpendingLimitLoading
                   }

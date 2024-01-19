@@ -129,7 +129,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
           !isFormValid ||
           isFormSubmitting ||
           isSwapLoading ||
-          isApproveFromTokenLoading ||
           isFromTokenWalletSpendingLimitLoading ||
           isRevokeFromTokenWalletSpendingLimitLoading ||
           !isFromTokenApproved

@@ -190,7 +190,6 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
                   !dirty ||
                   isSubmitting ||
                   !isTokenApproved ||
-                  isApproveTokenLoading ||
                   isWalletSpendingLimitLoading ||
                   isRevokeWalletSpendingLimitLoading
                 }
