@@ -14,6 +14,7 @@ const useGetMenuItems = () => {
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
+  const isolatedPoolsRouteEnabled = useIsFeatureEnabled({ name: 'isolatedPools' });
 
   return useMemo(() => {
     const menuItems: MenuItem[] = [
@@ -45,22 +46,23 @@ const useGetMenuItems = () => {
       iconName: 'venus',
     });
 
-    menuItems.push(
-      {
+    if (isolatedPoolsRouteEnabled) {
+      menuItems.push({
         to: routes.isolatedPools.path,
         // Translation key: do not remove this comment
         // t('layout.menuItems.isolatedPools')
         i18nKey: 'layout.menuItems.isolatedPools',
         iconName: 'fourDots',
-      },
-      {
-        to: routes.vaults.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.vaults')
-        i18nKey: 'layout.menuItems.vaults',
-        iconName: 'vault',
-      },
-    );
+      });
+    }
+
+    menuItems.push({
+      to: routes.vaults.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.vaults')
+      i18nKey: 'layout.menuItems.vaults',
+      iconName: 'vault',
+    });
 
     if (swapRouteEnabled) {
       menuItems.push({
@@ -140,6 +142,7 @@ const useGetMenuItems = () => {
     vaiRouteEnabled,
     xvsRouteEnabled,
     bridgeRouteEnabled,
+    isolatedPoolsRouteEnabled,
   ]);
 };
 
