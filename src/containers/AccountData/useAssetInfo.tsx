@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { LabeledInlineContentProps } from 'components/LabeledInlineContent';
 import { ValueUpdate } from 'components/ValueUpdate';
+import { useTranslation } from 'packages/translations';
 import { Asset } from 'types';
 import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
 

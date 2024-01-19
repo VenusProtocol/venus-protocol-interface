@@ -3,6 +3,7 @@ import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
 
 import { queryClient } from 'clients/api';
+import { version as APP_VERSION } from 'constants/version';
 import { AnalyticProvider } from 'packages/analytics';
 import { ErrorBoundary } from 'packages/errors';
 import { SentryErrorInfo } from 'packages/errors/SentryErrorInfo';
@@ -21,7 +22,7 @@ const App = () => (
       <MuiThemeProvider>
         <QueryClientProvider client={queryClient}>
           <Web3Wrapper>
-            <AnalyticProvider>
+            <AnalyticProvider appVersion={APP_VERSION}>
               <Routes />
 
               <LunaUstWarningModal />
