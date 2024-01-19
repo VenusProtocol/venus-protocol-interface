@@ -4,6 +4,8 @@ export const fakeGetPriceOutput = BN.from('0x30f7dc8a6370b000');
 
 export const fakeGetPendingXvsOutput = BN.from('1000000000000000000');
 
+export const fakeGetVaultPaused = false;
+
 export const fakeGetIsolatedPoolPendingRewardsOutput = [
   {
     distributorAddress: '0xb0269d68CfdCc30Cb7Cd2E0b52b08Fa7Ffd3079b',

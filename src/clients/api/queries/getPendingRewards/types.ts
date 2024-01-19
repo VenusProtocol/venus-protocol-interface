@@ -53,6 +53,7 @@ export interface LegacyPoolPendingRewardGroup {
 
 export interface VaultPendingRewardGroup {
   type: 'vault';
+  isDisabled: boolean;
   stakedToken: Token;
   rewardToken: Token;
   rewardAmountMantissa: BigNumber;
@@ -61,6 +62,7 @@ export interface VaultPendingRewardGroup {
 
 export interface XvsVestingVaultPendingRewardGroup {
   type: 'xvsVestingVault';
+  isDisabled: boolean;
   poolIndex: number;
   stakedToken: Token;
   rewardToken: Token;

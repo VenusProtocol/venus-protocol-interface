@@ -329,8 +329,13 @@
         "disabledContractWarningMessage": "The Prime contract is currently paused. Interests from Prime are still accruing but can't be claimed until the contract is unpaused.",
         "name": "Prime"
       },
-      "vaultGroup": "{{stakedTokenSymbol}} vault",
-      "vestingVaultGroup": "{{stakedTokenSymbol}} vesting vault"
+      "vaultGroup": {
+        "disabledContractWarningMessage": "This vault is currently paused. Interest rates are still accruing but can't be claimed until the vault is unpaused.",
+        "name": "{{stakedTokenSymbol}} vault"
+      },
+      "vestingVaultGroup": {
+        "name": "{{stakedTokenSymbol}} vesting vault"
+      }
     },
     "menu": {
       "navLink": {
@@ -972,6 +977,7 @@
   "vaultItem": {
     "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
     "dailyEmission": "Daily Emission",
+    "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Stake APR",
     "totalStaked": "Total Staked",

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ClaimRewardButton > it claims only selected rewards on submit button click on success 1`] = `
+exports[`ClaimRewardButton > it claims only selected and enabled rewards on submit button click on success 1`] = `
 {
   "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "claims": [
@@ -20,16 +20,6 @@ exports[`ClaimRewardButton > it claims only selected rewards on submit button cl
       "vTokenAddressesWithPendingReward": [
         "0xcfc8a73f9c888eea9af9ccca24646e84a915510b",
       ],
-    },
-    {
-      "contract": "xvsVestingVault",
-      "poolIndex": 0,
-      "rewardToken": {
-        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/packages/tokens/img/xvs.svg",
-        "decimals": 18,
-        "symbol": "XVS",
-      },
     },
     {
       "contract": "prime",

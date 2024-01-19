@@ -43,6 +43,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
   },
   {
     type: 'vault',
+    isDisabled: false,
     stakedToken: vai,
     rewardToken: xvs,
     rewardAmountMantissa: new BigNumber('3000000000000000000000000000'),
@@ -50,6 +51,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
   },
   {
     type: 'xvsVestingVault',
+    isDisabled: false,
     stakedToken: xvs,
     rewardToken: xvs,
     rewardAmountMantissa: new BigNumber('4000000000000000000000000000'),

@@ -37,7 +37,7 @@ describe('pages/Vault/VaultItem', () => {
     );
   });
 
-  it('hides withdraw button userStakedMantissa is equal to 0', async () => {
+  it('hides withdraw button if userStakedMantissa is equal to 0', async () => {
     const customBaseProps: VaultItemProps = {
       ...baseProps,
       stakedToken: vrt,
@@ -50,5 +50,22 @@ describe('pages/Vault/VaultItem', () => {
 
     // Click on withdraw button
     expect(queryByText(en.vaultItem.withdrawButton)).toBeNull();
+  });
+
+  it('disables stake and withdraw buttons and displays message if isPaused is true', async () => {
+    const customBaseProps: VaultItemProps = {
+      ...baseProps,
+      isPaused: true,
+    };
+
+    const { queryByText } = renderComponent(<VaultItem {...customBaseProps} />, {
+      accountAddress: fakeAddress,
+    });
+
+    // Check stake and withdraw buttons are disabled
+    expect(queryByText(en.vaultItem.stakeButton)?.closest('button')).toBeDisabled();
+    expect(queryByText(en.vaultItem.withdrawButton)?.closest('button')).toBeDisabled();
+    // Check warning is displayed
+    expect(queryByText(en.vaultItem.pausedWarning));
   });
 });

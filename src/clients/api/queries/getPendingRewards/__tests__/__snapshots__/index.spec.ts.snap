@@ -41,6 +41,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       "type": "isolatedPool",
     },
     {
+      "isDisabled": false,
       "rewardAmountCents": "352.853132",
       "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
@@ -58,6 +59,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       "type": "vault",
     },
     {
+      "isDisabled": false,
       "poolIndex": 0,
       "rewardAmountCents": "227.6612616584371779",
       "rewardAmountMantissa": "645201192825000000",
@@ -120,6 +122,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "type": "isolatedPool",
     },
     {
+      "isDisabled": false,
       "rewardAmountCents": "352.853132",
       "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
@@ -137,6 +140,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "type": "vault",
     },
     {
+      "isDisabled": false,
       "poolIndex": 0,
       "rewardAmountCents": "227.6612616584371779",
       "rewardAmountMantissa": "645201192825000000",

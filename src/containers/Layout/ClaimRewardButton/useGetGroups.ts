@@ -45,10 +45,10 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
 
             const name =
               pendingRewardGroup.type === 'vault'
-                ? t('layout.claimRewardModal.vaultGroup', {
+                ? t('layout.claimRewardModal.vaultGroup.name', {
                     stakedTokenSymbol: pendingRewardGroup.stakedToken.symbol,
                   })
-                : t('layout.claimRewardModal.vestingVaultGroup', {
+                : t('layout.claimRewardModal.vestingVaultGroup.name', {
                     stakedTokenSymbol: xvs?.symbol,
                   });
 
@@ -66,7 +66,11 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
             const group: Group = {
               id,
               name,
-              isChecked: !uncheckedGroupIds.includes(id),
+              isChecked: !uncheckedGroupIds.includes(id) && !pendingRewardGroup.isDisabled,
+              isDisabled: pendingRewardGroup.isDisabled,
+              warningMessage: pendingRewardGroup.isDisabled
+                ? t('layout.claimRewardModal.vaultGroup.disabledContractWarningMessage')
+                : undefined,
               pendingRewards: [
                 {
                   rewardToken: pendingRewardGroup.rewardToken,
@@ -86,10 +90,10 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
 
             const group: Group = {
               id,
-              name: t('layout.claimRewardModal.primeGroup.name'),
               isChecked: !uncheckedGroupIds.includes(id) && !pendingRewardGroup.isDisabled,
-              pendingRewards: pendingRewardGroup.pendingRewards,
+              name: t('layout.claimRewardModal.primeGroup.name'),
               isDisabled: pendingRewardGroup.isDisabled,
+              pendingRewards: pendingRewardGroup.pendingRewards,
               warningMessage: pendingRewardGroup.isDisabled
                 ? t('layout.claimRewardModal.primeGroup.disabledContractWarningMessage')
                 : undefined,

@@ -10,6 +10,7 @@ import { XvsVestingVaultPendingRewardGroup } from '../types';
 
 const formatToVestingVaultPendingRewardGroup = ({
   poolIndex,
+  isDisabled,
   userPendingRewardsAmountMantissa,
   userPendingWithdrawalsBeforeUpgradeAmountMantissa,
   tokenPriceMapping,
@@ -17,6 +18,7 @@ const formatToVestingVaultPendingRewardGroup = ({
   stakedTokenAddress,
 }: {
   poolIndex: number;
+  isDisabled: boolean;
   userPendingRewardsAmountMantissa: BigNumber;
   userPendingWithdrawalsBeforeUpgradeAmountMantissa: BigNumber;
   tokenPriceMapping: Record<string, BigNumber>;
@@ -72,6 +74,7 @@ const formatToVestingVaultPendingRewardGroup = ({
 
   const vaiVaultRewardGroup: XvsVestingVaultPendingRewardGroup = {
     type: 'xvsVestingVault',
+    isDisabled,
     poolIndex,
     stakedToken,
     rewardToken,

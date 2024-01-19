@@ -63,7 +63,63 @@ describe('ClaimRewardButton', () => {
     expect(getByTestId(TEST_IDS.claimRewardBreakdown).textContent).toMatchSnapshot();
   });
 
-  it('displays warning message and removes checkbox of Prime group when Prime group is disabled', async () => {
+  it('displays warning message and removes checkbox of vault group when it is disabled', async () => {
+    (getPendingRewards as Vi.Mock).mockImplementation(() => ({
+      pendingRewardGroups: fakePendingRewardGroups.map(fakePendingRewardGroup => {
+        if (fakePendingRewardGroup.type !== 'vault') {
+          return fakePendingRewardGroup;
+        }
+
+        return {
+          ...fakePendingRewardGroup,
+          isDisabled: true,
+        };
+      }),
+    }));
+
+    const { getByTestId, getByText } = renderComponent(<ClaimRewardButton />, {
+      accountAddress: fakeAddress,
+    });
+
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
+
+    // Open modal
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
+
+    await waitFor(() =>
+      expect(getByText(en.layout.claimRewardModal.vaultGroup.disabledContractWarningMessage)),
+    );
+  });
+
+  it('displays warning message and removes checkbox of XVS vesting vault group when it is disabled', async () => {
+    (getPendingRewards as Vi.Mock).mockImplementation(() => ({
+      pendingRewardGroups: fakePendingRewardGroups.map(fakePendingRewardGroup => {
+        if (fakePendingRewardGroup.type !== 'xvsVestingVault') {
+          return fakePendingRewardGroup;
+        }
+
+        return {
+          ...fakePendingRewardGroup,
+          isDisabled: true,
+        };
+      }),
+    }));
+
+    const { getByTestId, getByText } = renderComponent(<ClaimRewardButton />, {
+      accountAddress: fakeAddress,
+    });
+
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
+
+    // Open modal
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
+
+    await waitFor(() =>
+      expect(getByText(en.layout.claimRewardModal.vaultGroup.disabledContractWarningMessage)),
+    );
+  });
+
+  it('displays warning message and removes checkbox of Prime group when it is disabled', async () => {
     (getPendingRewards as Vi.Mock).mockImplementation(() => ({
       pendingRewardGroups: fakePendingRewardGroups.map(fakePendingRewardGroup => {
         if (fakePendingRewardGroup.type !== 'prime') {
@@ -188,8 +244,21 @@ describe('ClaimRewardButton', () => {
     await waitFor(() => expect(queryByTestId(TEST_IDS.claimRewardSubmitButton)).toBeNull());
   });
 
-  it('it claims only selected rewards on submit button click on success', async () => {
+  it('it claims only selected and enabled rewards on submit button click on success', async () => {
     (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractTransaction);
+
+    (getPendingRewards as Vi.Mock).mockImplementation(() => ({
+      pendingRewardGroups: fakePendingRewardGroups.map(fakePendingRewardGroup => {
+        if (fakePendingRewardGroup.type !== 'xvsVestingVault') {
+          return fakePendingRewardGroup;
+        }
+
+        return {
+          ...fakePendingRewardGroup,
+          isDisabled: true,
+        };
+      }),
+    }));
 
     const { getByTestId } = renderComponent(<ClaimRewardButton />, {
       accountAddress: fakeAddress,
