@@ -1,8 +1,8 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "@venus-interface/ts-config/base.json",
   "compilerOptions": {
     "types": ["@types/node"],
     "noEmit": true,
     "allowJs": true
-  },
+  }
 }
