@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import {
   useGetBalanceOf,
   useGetTokenUsdPrice,
+  useGetVaiVaultPaused,
   useGetVaiVaultUserInfo,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
@@ -52,6 +53,9 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: vaiVaultDailyRateData, isLoading: isGetVaiVaultDailyRateMantissaLoading } =
     useGetVenusVaiVaultDailyRate();
 
+  const { data: getVaiVaultPausedData, isLoading: isGetVaiVaultPausedLoading } =
+    useGetVaiVaultPaused();
+
   const { data: xvsPriceData, isLoading: isGetXvsPriceLoading } = useGetTokenUsdPrice(
     {
       token: xvs,
@@ -62,7 +66,14 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   );
 
   const data: Vault | undefined = useMemo(() => {
-    if (!totalVaiStakedData || !vaiVaultDailyRateData || !xvsPriceData || !xvs || !vai) {
+    if (
+      !totalVaiStakedData ||
+      !vaiVaultDailyRateData ||
+      !xvsPriceData ||
+      !xvs ||
+      !vai ||
+      !getVaiVaultPausedData
+    ) {
       return undefined;
     }
 
@@ -84,6 +95,7 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       .toNumber();
 
     return {
+      isPaused: getVaiVaultPausedData.isVaultPaused,
       rewardToken: xvs,
       stakedToken: vai,
       dailyEmissionMantissa: vaiVaultDailyRateData.dailyRateMantissa,
@@ -91,13 +103,22 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
       stakingAprPercentage,
       userStakedMantissa: vaiVaultUserInfo?.stakedVaiMantissa,
     };
-  }, [xvsPriceData, vaiVaultUserInfo, totalVaiStakedData, vaiVaultDailyRateData, xvs, vai]);
+  }, [
+    xvsPriceData,
+    vaiVaultUserInfo,
+    totalVaiStakedData,
+    vaiVaultDailyRateData,
+    xvs,
+    vai,
+    getVaiVaultPausedData,
+  ]);
 
   const isLoading =
     isGetTotalVaiStakedMantissaLoading ||
     isGetVaiVaultDailyRateMantissaLoading ||
     isGetXvsPriceLoading ||
-    isGetVaiVaultUserInfoLoading;
+    isGetVaiVaultUserInfoLoading ||
+    isGetVaiVaultPausedLoading;
 
   return {
     data,

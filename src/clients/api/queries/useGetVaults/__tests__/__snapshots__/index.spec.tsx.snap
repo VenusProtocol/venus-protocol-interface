@@ -5,6 +5,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
   {
     "dailyEmissionMantissa": "28800000000",
     "hasPendingWithdrawalsFromBeforeUpgrade": true,
+    "isPaused": false,
     "lockingPeriodMs": 200000,
     "poolIndex": 0,
     "rewardToken": {
@@ -26,6 +27,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
   {
     "dailyEmissionMantissa": "28800000000",
     "hasPendingWithdrawalsFromBeforeUpgrade": true,
+    "isPaused": false,
     "lockingPeriodMs": 200000,
     "poolIndex": 1,
     "rewardToken": {
@@ -47,6 +49,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
   {
     "dailyEmissionMantissa": "28800000000",
     "hasPendingWithdrawalsFromBeforeUpgrade": true,
+    "isPaused": false,
     "lockingPeriodMs": 200000,
     "poolIndex": 2,
     "rewardToken": {
@@ -68,6 +71,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
   {
     "dailyEmissionMantissa": "28800000000",
     "hasPendingWithdrawalsFromBeforeUpgrade": true,
+    "isPaused": false,
     "lockingPeriodMs": 200000,
     "poolIndex": 3,
     "rewardToken": {
@@ -89,6 +93,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
   {
     "dailyEmissionMantissa": "28800000000",
     "hasPendingWithdrawalsFromBeforeUpgrade": true,
+    "isPaused": false,
     "lockingPeriodMs": 200000,
     "poolIndex": 4,
     "rewardToken": {
@@ -109,6 +114,7 @@ exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
   },
   {
     "dailyEmissionMantissa": "5000000000",
+    "isPaused": false,
     "rewardToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
       "asset": "/src/packages/tokens/img/xvs.svg",

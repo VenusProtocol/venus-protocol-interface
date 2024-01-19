@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getVaiVaultPaused > returns whether the vault is paused, on success 1`] = `
+{
+  "isVaultPaused": true,
+}
+`;

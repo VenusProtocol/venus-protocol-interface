@@ -313,6 +313,7 @@ export interface Vault {
   stakingAprPercentage: number;
   totalStakedMantissa: BigNumber;
   dailyEmissionMantissa: BigNumber;
+  isPaused: boolean;
   lockingPeriodMs?: number;
   userStakedMantissa?: BigNumber;
   poolIndex?: number;

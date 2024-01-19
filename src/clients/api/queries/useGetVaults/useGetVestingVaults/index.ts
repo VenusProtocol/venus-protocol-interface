@@ -5,6 +5,7 @@ import {
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
   GetXvsVaultPoolInfoOutput,
   GetXvsVaultUserInfoOutput,
+  useGetXvsVaultPaused,
   useGetXvsVaultPoolCount,
   useGetXvsVaultRewardPerBlock,
   useGetXvsVaultTotalAllocationPoints,
@@ -45,7 +46,7 @@ const useGetVestingVaults = ({
   const { data: xvsVaultRewardMantissaPerBlock, isLoading: isGetXvsVaultRewardPerBlockLoading } =
     useGetXvsVaultRewardPerBlock(
       {
-        tokenAddress: xvs!.address, // We ensure vai exists through the enabled option
+        tokenAddress: xvs!.address, // We ensure XVS exists through the enabled option
       },
       {
         enabled: !!xvs,
@@ -57,12 +58,15 @@ const useGetVestingVaults = ({
     isLoading: isGetXvsVaultTotalAllocationPointsLoading,
   } = useGetXvsVaultTotalAllocationPoints(
     {
-      tokenAddress: xvs!.address, // We ensure vai exists through the enabled option
+      tokenAddress: xvs!.address, // We ensure XVS exists through the enabled option
     },
     {
       enabled: !!xvs,
     },
   );
+
+  const { data: getXvsVaultPausedData, isLoading: isGetXvsVaultPausedLoading } =
+    useGetXvsVaultPaused();
 
   // Fetch pools
   const poolQueryResults = useGetXvsVaultPools({
@@ -143,7 +147,8 @@ const useGetVestingVaults = ({
     isGetXvsVaultRewardPerBlockLoading ||
     isGetXvsVaultTotalAllocationPointsLoading ||
     arePoolQueriesLoading ||
-    arePoolBalanceQueriesLoading;
+    arePoolBalanceQueriesLoading ||
+    isGetXvsVaultPausedLoading;
 
   // Format query results into Vaults
   const data: Vault[] = useMemo(
@@ -196,9 +201,11 @@ const useGetVestingVaults = ({
             dailyEmissionMantissa !== undefined &&
             totalStakedMantissaData !== undefined &&
             stakingAprPercentage !== undefined &&
+            getXvsVaultPausedData?.isVaultPaused !== undefined &&
             !!xvs
           ) {
             const vault: Vault = {
+              isPaused: getXvsVaultPausedData.isVaultPaused,
               rewardToken: xvs,
               stakedToken,
               lockingPeriodMs,
@@ -223,6 +230,7 @@ const useGetVestingVaults = ({
       poolBalances,
       xvsVaultRewardMantissaPerBlock?.rewardPerBlockMantissa,
       xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
+      getXvsVaultPausedData?.isVaultPaused,
       xvs,
       tokens,
       blocksPerDay,

@@ -89,8 +89,8 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens,
       [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens,
+      [ChainId.OPBNB_TESTNET]: '0x8983fd85133877BE52c019ce9538354EFbb238c6', // TODO: get from package once it's been updated (see VEN-2326)
       [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens,
-      [ChainId.OPBNB_TESTNET]: '0x8983fd85133877BE52c019ce9538354EFbb238c6', // TODO: get from package once it'sπ been updated
     },
   },
   {

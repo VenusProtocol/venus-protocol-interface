@@ -290,6 +290,18 @@ export const getPrimeDistributionForMarket = vi.fn(async () => ({
 export const useGetPrimeDistributionForMarket = () =>
   useQuery(FunctionKey.GET_PRIME_DISTRIBUTION_FOR_MARKET, getPrimeDistributionForMarket);
 
+export const getVaiVaultPaused = vi.fn(async () => ({
+  isVaultPaused: false,
+}));
+export const useGetVaiVaultPaused = () =>
+  useQuery(FunctionKey.GET_VAI_VAULT_PAUSED, getVaiVaultPaused);
+
+export const getXvsVaultPaused = vi.fn(async () => ({
+  isVaultPaused: false,
+}));
+export const useGetXvsVaultPaused = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_PAUSED, getXvsVaultPaused);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
