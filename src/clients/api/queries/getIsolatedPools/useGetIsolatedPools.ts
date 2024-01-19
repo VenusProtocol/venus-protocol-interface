@@ -6,6 +6,7 @@ import getIsolatedPools, {
 } from 'clients/api/queries/getIsolatedPools';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
   useGetPoolLensContract,
   useGetPoolRegistryContractAddress,
@@ -53,6 +54,9 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
 
   const tokens = useGetTokens();
   const xvs = useGetToken({ symbol: 'XVS' });
+  const isPrimeEnabled = useIsFeatureEnabled({
+    name: 'prime',
+  });
 
   const poolLensContract = useGetPoolLensContract();
   const primeContract = useGetPrimeContract();
@@ -69,7 +73,7 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
             provider,
             tokens,
             blocksPerDay,
-            primeContract,
+            primeContract: isPrimeEnabled ? primeContract : undefined,
             ...input,
             ...params,
           }),

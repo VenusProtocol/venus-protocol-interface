@@ -3,8 +3,8 @@ import { ChainId } from 'types';
 
 const featureFlags = {
   integratedSwap: [ChainId.BSC_TESTNET, ChainId.BSC_MAINNET],
-  prime: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  primeCalculator: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  prime: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.SEPOLIA],
+  primeCalculator: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.SEPOLIA],
   tusdMigrationWarning: [ChainId.BSC_MAINNET],
   trxMigrationWarning: [ChainId.BSC_MAINNET],
   sxpDisablingWarning: [ChainId.BSC_MAINNET],
