@@ -30,6 +30,7 @@ export interface VaultItemUiProps {
   onStake: () => void;
   onWithdraw: () => void;
   closeActiveModal: () => void;
+  isPaused: boolean;
   canWithdraw?: boolean;
   poolIndex?: number;
   activeModal?: ActiveModal;
@@ -47,6 +48,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   totalStakedMantissa,
   onStake,
   onWithdraw,
+  isPaused,
   canWithdraw = true,
   activeModal,
   poolIndex,
@@ -164,9 +166,13 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           ))}
         </ul>
 
-        {hasPendingWithdrawalsFromBeforeUpgrade && (
+        {(isPaused || hasPendingWithdrawalsFromBeforeUpgrade) && (
           <NoticeWarning
-            description={t('vaultItem.blockingPendingWithdrawalsWarning')}
+            description={
+              isPaused
+                ? t('vaultItem.pausedWarning')
+                : t('vaultItem.blockingPendingWithdrawalsWarning')
+            }
             className="mt-6"
           />
         )}
@@ -176,13 +182,18 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
             onClick={onStake}
             css={styles.button}
             variant="primary"
-            disabled={hasPendingWithdrawalsFromBeforeUpgrade}
+            disabled={isPaused || hasPendingWithdrawalsFromBeforeUpgrade}
           >
             {t('vaultItem.stakeButton')}
           </Button>
 
           {canWithdraw && (
-            <Button onClick={onWithdraw} css={styles.button} variant="secondary">
+            <Button
+              onClick={onWithdraw}
+              css={styles.button}
+              variant="secondary"
+              disabled={isPaused}
+            >
               {t('vaultItem.withdrawButton')}
             </Button>
           )}

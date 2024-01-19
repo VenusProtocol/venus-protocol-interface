@@ -17,6 +17,7 @@ import {
   fakeGetPendingXvsOutput,
   fakeGetPriceOutput,
   fakeGetPrimePendingRewardsOutput,
+  fakeGetVaultPaused,
   fakeGetXvsVaultPendingRewardOutput,
   fakeGetXvsVaultPendingWithdrawalsBeforeUpgradeOutput,
   fakeGetXvsVaultPoolInfosOutput,
@@ -39,10 +40,12 @@ const fakeVenusLensContract = {
 
 const fakeVaiVaultContract = {
   pendingXVS: async () => fakeGetPendingXvsOutput,
+  vaultPaused: async () => fakeGetVaultPaused,
 } as unknown as VaiVault;
 
 const fakeXvsVaultContract = {
   poolInfos: async () => fakeGetXvsVaultPoolInfosOutput,
+  vaultPaused: async () => fakeGetVaultPaused,
   pendingReward: async () => fakeGetXvsVaultPendingRewardOutput,
   pendingWithdrawalsBeforeUpgrade: async () => fakeGetXvsVaultPendingWithdrawalsBeforeUpgradeOutput,
 } as unknown as XvsVault;

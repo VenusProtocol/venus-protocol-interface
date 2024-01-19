@@ -163,7 +163,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
 
     // Extract all claims from checked groups
     const claims = groups.reduce<Claim[]>(
-      (acc, group) => (group.isChecked ? acc.concat(group.claims) : acc),
+      (acc, group) => (group.isChecked && !group.isDisabled ? acc.concat(group.claims) : acc),
       [],
     );
 

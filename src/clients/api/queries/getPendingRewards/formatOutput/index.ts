@@ -27,9 +27,10 @@ const formatOutput = ({
   venusLensPendingRewards,
   primePendingRewards,
   isPrimeContractPaused,
+  isVaiVaultContractPaused,
+  isXvsVestingVaultContractPaused,
 }: {
   tokens: Token[];
-  vaiVaultPendingXvs?: Awaited<ReturnType<VaiVault['pendingXVS']>>;
   isolatedPoolsPendingRewards: Array<
     Awaited<ReturnType<PoolLens['getPendingRewards']>> | undefined
   >;
@@ -40,7 +41,10 @@ const formatOutput = ({
   >;
   tokenPriceMapping: Record<string, BigNumber>;
   isolatedPoolComptrollerAddresses: string[];
+  isVaiVaultContractPaused: boolean;
+  isXvsVestingVaultContractPaused: boolean;
   isPrimeContractPaused: boolean;
+  vaiVaultPendingXvs?: Awaited<ReturnType<VaiVault['pendingXVS']>>;
   venusLensPendingRewards?: Awaited<ReturnType<VenusLens['pendingRewards']>>;
   legacyPoolComptrollerContractAddress?: string;
   primePendingRewards?: Awaited<ReturnType<Prime['callStatic']['getPendingRewards']>>;
@@ -87,6 +91,7 @@ const formatOutput = ({
   const vaiVaultPendingRewardGroup =
     vaiVaultPendingRewardAmountMantissa &&
     formatToVaultPendingRewardGroup({
+      isDisabled: isVaiVaultContractPaused,
       pendingRewardAmountMantissa: vaiVaultPendingRewardAmountMantissa,
       tokenPriceMapping,
       stakedTokenSymbol: 'VAI',
@@ -124,6 +129,7 @@ const formatOutput = ({
 
       return formatToVestingVaultPendingRewardGroup({
         poolIndex: index,
+        isDisabled: isXvsVestingVaultContractPaused,
         userPendingRewardsAmountMantissa,
         userPendingWithdrawalsBeforeUpgradeAmountMantissa,
         tokenPriceMapping,

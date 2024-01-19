@@ -8,6 +8,7 @@ export const vaults: Vault[] = [
   {
     rewardToken: xvs,
     stakedToken: vai,
+    isPaused: false,
     lockingPeriodMs: 300000,
     dailyEmissionMantissa: new BigNumber('144000000000000000000'),
     totalStakedMantissa: new BigNumber('415000000000000000000'),
@@ -16,6 +17,7 @@ export const vaults: Vault[] = [
   {
     rewardToken: xvs,
     stakedToken: xvs,
+    isPaused: false,
     lockingPeriodMs: 300000,
     dailyEmissionMantissa: new BigNumber('144000000000000000000'),
     totalStakedMantissa: new BigNumber('400000000000000000000000000'),

@@ -8,12 +8,14 @@ import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 import { VaultPendingRewardGroup } from '../types';
 
 const formatToVaultPendingRewardGroup = ({
+  isDisabled,
   pendingRewardAmountMantissa,
   tokenPriceMapping,
   stakedTokenSymbol,
   rewardTokenSymbol,
   tokens,
 }: {
+  isDisabled: boolean;
   pendingRewardAmountMantissa: BigNumber;
   tokenPriceMapping: Record<string, BigNumber>;
   stakedTokenSymbol: string;
@@ -50,6 +52,7 @@ const formatToVaultPendingRewardGroup = ({
 
   const vaiVaultRewardGroup: VaultPendingRewardGroup = {
     type: 'vault',
+    isDisabled,
     stakedToken,
     rewardToken,
     rewardAmountMantissa: pendingRewardAmountMantissa,

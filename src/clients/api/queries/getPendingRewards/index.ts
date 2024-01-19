@@ -33,6 +33,7 @@ const getPendingRewards = async ({
 
   const vaiVaultVenusLensPromises = Promise.allSettled([
     vaiVaultContract ? vaiVaultContract.pendingXVS(accountAddress) : undefined,
+    vaiVaultContract ? vaiVaultContract.vaultPaused() : undefined,
     venusLensContract && !!legacyPoolComptrollerContractAddress
       ? venusLensContract.pendingRewards(accountAddress, legacyPoolComptrollerContractAddress)
       : undefined,
@@ -44,6 +45,7 @@ const getPendingRewards = async ({
     ),
   );
 
+  const xvsVestingVaultPausedPromise = xvsVaultContract.vaultPaused();
   const xvsVestingVaultPoolInfosPromises: ReturnType<(typeof xvsVaultContract)['poolInfos']>[] = [];
   const xvsVestingVaultPendingRewardPromises: ReturnType<
     (typeof xvsVaultContract)['pendingReward']
@@ -77,8 +79,10 @@ const getPendingRewards = async ({
     primeContract?.callStatic.getPendingRewards(accountAddress),
   ]);
 
-  const [vaiVaultPendingXvsResult, venusLensPendingRewardsResult] = await vaiVaultVenusLensPromises;
+  const [vaiVaultPendingXvsResult, vaiVaultPausedResult, venusLensPendingRewardsResult] =
+    await vaiVaultVenusLensPromises;
   const isolatedPoolsPendingRewardsResults = await isolatedPoolsPendingRewardsPromises;
+  const xvsVestingVaultPausedResult = await xvsVestingVaultPausedPromise;
   const xvsVestingVaultPoolInfosResults = await xvsVestingVaultPoolInfosSettledPromises;
   const xvsVestingVaultPendingRewardResults = await xvsVestingVaultPendingRewardSettledPromises;
   const xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults =
@@ -162,7 +166,9 @@ const getPendingRewards = async ({
       xvsVestingVaultPendingWithdrawalsBeforeUpgradeResults.map(extractSettledPromiseValue),
     tokenPriceMapping,
     primePendingRewards,
-    isPrimeContractPaused: extractSettledPromiseValue(isPrimeContractPausedResult) || false,
+    isVaiVaultContractPaused: extractSettledPromiseValue(vaiVaultPausedResult) ?? false,
+    isXvsVestingVaultContractPaused: xvsVestingVaultPausedResult,
+    isPrimeContractPaused: extractSettledPromiseValue(isPrimeContractPausedResult) ?? false,
   });
 
   return {
