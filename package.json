@@ -130,7 +130,7 @@
     "@vitejs/plugin-react": "^4.0.4",
     "@vitest/coverage-v8": "^0.34.4",
     "autoprefixer": "^10.4.16",
-    "c8": "^8.0.1",
+    "c8": "^9.1.0",
     "commitlint": "^18.1.0",
     "eslint": "^8.48.0",
     "eslint-config-airbnb": "17.1.1",
