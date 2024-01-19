@@ -57,15 +57,3 @@ Start application with production build
 ```ssh
 yarn serve
 ```
-
-## Packages
-
-| Packages                                             | Description                                               |
-| ---------------------------------------------------- | --------------------------------------------------------- |
-| [contracts](/src/packages/contracts/README.md)       | Generates instances of contracts for each supported chain |
-| [tokens](/src/packages/tokens/README.md)             | Generates lists of tokens for each supported chain        |
-| [analytics](/src/packages/analytics)                 | Captures analytic events                                  |
-| [translations](/src/packages/translations/README.md) | Renders texts in every supported language                 |
-| [lunaUstWarning](/src/packages/lunaUstWarning)       | Handles blocking the UI when user has LUNA or UST enabled |
-| [wallet](/src/packages/wallet)                       | Handles connection with web3 provider and wallet          |
-| [errors](/src/packages/errors)                       | Handles error reporting and displaying error messages     |

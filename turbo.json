@@ -1,26 +1,48 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    ".eslint.js",
+    ".nvmrc",
+    ".prettierignore",
+    ".prettierrc.js",
+    "tsconfig.json",
+    "vite.config.ts"
+  ],
   "pipeline": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["build/**"]
-    },
-    "lint": {},
-    "test": {},
-    "format": {},
     "generate": {
       "outputs": [
         "src/constants/version.ts",
         "src/packages/tokens/infos/pancakeSwapTokens/bscMainnet.ts",
-        "src/packages/contracts/generated/getters/**/*.{ts,json}",
-        "src/packages/contracts/generated/infos/**/*.{ts,json}",
+        "src/packages/contracts/generated/**/*",
         "src/clients/subgraph/gql/mainnet.ts",
         "src/clients/subgraph/gql/testnet.ts"
       ]
     },
     "start": {
+      "dependsOn": ["^build", "generate"],
       "cache": false,
       "persistent": true
+    },
+    "test": {
+      "outputs": ["coverage/**/*"]
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["build/**/*"]
+    },
+    "lint": {},
+    "lint:ts": {},
+    "lint:format": {},
+    "lint:styles": {},
+    "tsc": {
+      "cache": false
+    },
+    "format": {},
+    "extract-translations": {
+      "cache": false
+    },
+    "clean": {
+      "cache": false
     }
   }
 }
