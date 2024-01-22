@@ -1,3 +1,10 @@
+## [2.82.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.81.1...v2.82.0) (2024-01-22)
+
+
+### Features
+
+* disable supplying and borrowing TUSD ([#2092](https://github.com/VenusProtocol/venus-protocol-interface/issues/2092)) ([47b3217](https://github.com/VenusProtocol/venus-protocol-interface/commit/47b321717114669432736d4a1fe476b4d14fc076))
+
 ## [2.81.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.81.0...v2.81.1) (2024-01-20)
 
 ## [2.81.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.80.0...v2.81.0) (2024-01-19)
