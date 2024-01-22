@@ -7526,7 +7526,7 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@venusprotocol/governance-contracts@^1.4.0", "@venusprotocol/governance-contracts@^1.4.0-dev.1", "@venusprotocol/governance-contracts@^1.4.0-dev.6", "@venusprotocol/governance-contracts@^1.4.0-dev.9":
+"@venusprotocol/governance-contracts@^1.4.0", "@venusprotocol/governance-contracts@^1.4.0-dev.1", "@venusprotocol/governance-contracts@^1.4.0-dev.9":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-1.4.0.tgz#b7748e5f80907bc6030ef110c42cc6661ad5d7b4"
   integrity sha512-T6pAQIxha1XTUjkrZDnHYhgMsZ1T21OhliRnxn8nNvU1EqmwGZGJ8EwufJXlS08XdFosCL2GqbjgKySnOmHbRw==
@@ -7535,10 +7535,10 @@
     hardhat-deploy-ethers "^0.3.0-beta.13"
     module-alias "^2.2.2"
 
-"@venusprotocol/isolated-pools@^2.3.0-dev.4":
-  version "2.3.0-dev.4"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.3.0-dev.4.tgz#7ef6227b6096dc1fc4013f739d4e1ed93edbe72c"
-  integrity sha512-+x917UvUIeVZ2BVI/RhWkQTAgmLvKYqNWZmiHeTPUmP7PCaIvLjTeby7ig67X1TOgtRvu+GAXpiJv0fGSpU5HQ==
+"@venusprotocol/isolated-pools@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.3.0.tgz#b4a18277df89af0bfecbddefbe7c29f05011bf30"
+  integrity sha512-biISkZhfR6IY+2Q7TIM/Q6jXxmvgOlI5ABS2P+2j4a6/2WmlTjD6/Zq3M0PNetbXUxyl/2RDfX0qNZnQUS3Zuw==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
@@ -7549,7 +7549,7 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@venusprotocol/oracle@^1.8.0-dev.4":
+"@venusprotocol/oracle@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.8.0.tgz#b5fd5b7c200153b2c62743ac0c80d3ee556d4447"
   integrity sha512-/Z2XhSJZO4vRKxJ1Fw/KSzA0c9Vxmk8GhNFrlyY4QwtdfvYeKkUu5lTUMx0k+DMNP41fx9JFX3ED67Rmo5CYNA==
