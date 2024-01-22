@@ -5,10 +5,24 @@ import usdcLogo from 'packages/tokens/img/usdc.svg';
 import usdtLogo from 'packages/tokens/img/usdt.svg';
 import wbtcLogo from 'packages/tokens/img/wbtc.svg';
 import wethLogo from 'packages/tokens/img/weth.svg';
+import wstEthLogo from 'packages/tokens/img/wstEth.svg';
 import xvsLogo from 'packages/tokens/img/xvs.svg';
 import { Token } from 'types';
 
 export const tokens: Token[] = [
+  {
+    address: '0x66ebd019E86e0af5f228a0439EBB33f045CBe63E',
+    decimals: 18,
+    symbol: 'XVS',
+    asset: xvsLogo,
+  },
+  {
+    address: '0x0000000000000000000000000000000000000000',
+    decimals: 18,
+    symbol: 'ETH',
+    asset: ethLogo,
+    isNative: true,
+  },
   {
     address: '0x92A2928f5634BEa89A195e7BeCF0f0FEEDAB885b',
     decimals: 8,
@@ -46,16 +60,9 @@ export const tokens: Token[] = [
     asset: crvUsdLogo,
   },
   {
-    address: '0x66ebd019E86e0af5f228a0439EBB33f045CBe63E',
+    address: '0x9b87ea90fdb55e1a0f17fbeddcf7eb0ac4d50493',
     decimals: 18,
-    symbol: 'XVS',
-    asset: xvsLogo,
-  },
-  {
-    address: '0x0000000000000000000000000000000000000000',
-    decimals: 18,
-    symbol: 'ETH',
-    asset: ethLogo,
-    isNative: true,
+    symbol: 'wstETH',
+    asset: wstEthLogo,
   },
 ];
