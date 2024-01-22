@@ -357,8 +357,8 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     accountAddress,
   });
 
-  const primeAssets = getLegacyPoolData?.pool.assets.filter(
-    a => primeStatusData?.primeMarkets.includes(a.vToken.address),
+  const primeAssets = getLegacyPoolData?.pool.assets.filter(a =>
+    primeStatusData?.primeMarkets.includes(a.vToken.address),
   );
   const primeApySimulations = primeAssets?.reduce<AssetDistribution[]>(
     (acc, a) =>

@@ -22,14 +22,6 @@ export interface GetHypotheticalPrimeApysOutput {
   userPrimeRewardsShare: BigNumber;
 }
 
-// by convention, USD prices are informed with 18 decimals
-const usdPriceToken = {
-  decimals: 18,
-  address: '',
-  asset: '',
-  symbol: '',
-};
-
 const getHypotheticalPrimeApys = async ({
   primeContract,
   vTokenAddress,
@@ -64,13 +56,13 @@ const getHypotheticalPrimeApys = async ({
 
   const supplyCapUsd = convertPriceMantissaToDollars({
     priceMantissa: new BigNumber(supplyCapPriceMantissa.toString()),
-    token: usdPriceToken,
+    decimals: 18,
   });
 
   const supplyCapCents = convertDollarsToCents(supplyCapUsd);
   const borrowCapUsd = convertPriceMantissaToDollars({
     priceMantissa: new BigNumber(borrowCapPriceMantissa.toString()),
-    token: usdPriceToken,
+    decimals: 18,
   });
 
   const borrowCapCents = convertDollarsToCents(borrowCapUsd);

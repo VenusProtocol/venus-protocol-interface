@@ -120,6 +120,10 @@ export { default as claimPrimeToken } from './mutations/claimPrimeToken';
 export * from './mutations/claimPrimeToken';
 export { default as useClaimPrimeToken } from './mutations/claimPrimeToken/useClaimPrimeToken';
 
+export { default as bridgeXvs } from './mutations/bridgeXvs';
+export * from './mutations/bridgeXvs';
+export { default as useBridgeXvs } from './mutations/bridgeXvs/useBridgeXvs';
+
 // Queries
 export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';
 export * from './queries/getVaiCalculateRepayAmount';
@@ -364,3 +368,11 @@ export { default as useGetVaiVaultPaused } from './queries/getVaiVaultPaused/use
 
 export * from './queries/getXvsVaultPaused';
 export { default as useGetXvsVaultPaused } from './queries/getXvsVaultPaused/useGetXvsVaultPaused';
+
+export { default as getXvsBridgeFeeEstimation } from './queries/getXvsBridgeFeeEstimation';
+export * from './queries/getXvsBridgeFeeEstimation';
+export { default as useGetXvsBridgeFeeEstimation } from './queries/getXvsBridgeFeeEstimation/useGetXvsBridgeFeeEstimation';
+
+export { default as getXvsBridgeStatus } from './queries/getXvsBridgeStatus';
+export * from './queries/getXvsBridgeStatus';
+export { default as useGetXvsBridgeStatus } from './queries/getXvsBridgeStatus/useGetXvsBridgeStatus';

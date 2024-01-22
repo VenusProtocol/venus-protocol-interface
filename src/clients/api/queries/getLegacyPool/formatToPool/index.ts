@@ -153,7 +153,7 @@ export const formatToPool = ({
 
     const tokenPriceDollars = convertPriceMantissaToDollars({
       priceMantissa: underlyingTokenPriceMantissa,
-      token: underlyingToken,
+      decimals: underlyingToken.decimals,
     });
 
     const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
@@ -246,7 +246,7 @@ export const formatToPool = ({
 
     const xvsPriceDollars = convertPriceMantissaToDollars({
       priceMantissa: xvsPriceMantissa,
-      token: xvs,
+      decimals: xvs.decimals,
     });
 
     const borrowDistributions = formatDistributions({

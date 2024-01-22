@@ -64,7 +64,7 @@ const getTokenPriceDollarsMapping = async ({
 
       const tokenPriceDollars = convertPriceMantissaToDollars({
         priceMantissa: new BigNumber(priceMantissa.toString()),
-        token,
+        decimals: token.decimals,
       });
 
       return {

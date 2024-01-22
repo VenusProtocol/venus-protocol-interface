@@ -1,3 +1,4 @@
+import bnbLogo from 'packages/tokens/img/bnb.svg';
 import btcbLogo from 'packages/tokens/img/btcb.svg';
 import ethLogo from 'packages/tokens/img/eth.svg';
 import usdtLogo from 'packages/tokens/img/usdt.svg';
@@ -7,7 +8,14 @@ import { Token } from 'types';
 
 export const tokens: Token[] = [
   {
-    address: '0x3d0e20D4caD958bc848B045e1da19Fe378f86f03',
+    address: '0x0000000000000000000000000000000000000000',
+    decimals: 18,
+    symbol: 'BNB',
+    asset: bnbLogo,
+    isNative: true,
+  },
+  {
+    address: '0xc2931B1fEa69b6D6dA65a50363A8D75d285e4da9',
     decimals: 18,
     symbol: 'XVS',
     asset: xvsLogo,

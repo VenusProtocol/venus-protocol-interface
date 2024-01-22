@@ -15,6 +15,8 @@ export enum ChainId {
   'OPBNB_TESTNET' = 5611,
 }
 
+export type TransactionType = 'chain' | 'layerZero';
+
 export interface ChainMetadata {
   name: string;
   logoSrc: string;
@@ -22,6 +24,8 @@ export interface ChainMetadata {
   blocksPerDay: number;
   explorerUrl: string;
   corePoolComptrollerContractAddress: string;
+  nativeToken: Token;
+  layerZeroScanUrl: string;
 }
 
 export interface Token {

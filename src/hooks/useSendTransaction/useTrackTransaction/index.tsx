@@ -13,8 +13,14 @@ import {
 import { displayNotification, updateNotification } from 'packages/notifications';
 import { useTranslation } from 'packages/translations';
 import { useChainId, useProvider } from 'packages/wallet';
+import { TransactionType } from 'types';
+import { UrlType } from 'utilities';
 
 export const CONFIRMATIONS = 2;
+
+interface UseTrackTransactionInput {
+  transactionType?: TransactionType;
+}
 
 interface TrackTransactionInput {
   transaction: ContractTransaction;
@@ -25,7 +31,9 @@ interface TrackTransactionInput {
   onReverted?: (input: { transaction: ContractTransaction }) => Promise<unknown> | unknown;
 }
 
-export const useTrackTransaction = () => {
+export const useTrackTransaction = (
+  { transactionType }: UseTrackTransactionInput = { transactionType: 'chain' },
+) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
   const { blockTimeMs } = useGetChainMetadata();
@@ -33,13 +41,16 @@ export const useTrackTransaction = () => {
 
   const trackTransaction = useCallback(
     async ({ transaction, onConfirmed, onReverted }: TrackTransactionInput) => {
+      const urlType: UrlType = transactionType === 'layerZero' ? 'layerZeroTx' : 'tx';
       // Display notification indicating transaction is being processed
       const notificationId = displayNotification({
         id: transaction.hash,
         variant: 'loading',
         autoClose: false,
         title: t('transactionNotification.pending.title'),
-        description: <ChainExplorerLink chainId={chainId} hash={transaction.hash} urlType="tx" />,
+        description: (
+          <ChainExplorerLink chainId={chainId} hash={transaction.hash} urlType={urlType} />
+        ),
       });
 
       let transactionReceipt: ContractReceipt | undefined;
@@ -103,7 +114,7 @@ export const useTrackTransaction = () => {
       // Execute callback
       await onConfirmed?.({ transaction, transactionReceipt });
     },
-    [chainId, provider, t, blockTimeMs],
+    [chainId, provider, t, blockTimeMs, transactionType],
   );
 
   return trackTransaction;

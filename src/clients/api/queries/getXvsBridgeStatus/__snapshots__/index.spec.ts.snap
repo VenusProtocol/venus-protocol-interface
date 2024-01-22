@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getXvsBridgeStatus > returns the the data describing the status of the XVS bridge contract 1`] = `
+{
+  "dailyLimitResetTimestamp": "1705273290",
+  "maxDailyLimitUsd": "500",
+  "maxSingleTransactionLimitUsd": "10",
+  "totalTransferredLast24HourUsd": "9.310366874",
+}
+`;

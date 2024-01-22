@@ -18,7 +18,7 @@ const getTokenUsdPrice = async ({
   resilientOracleContract,
 }: GetTokenUsdPriceInput): Promise<GetTokenUsdPriceOutput> => {
   const priceMantissa = (await resilientOracleContract.getPrice(token.address)).toString();
-  const tokenPriceUsd = convertPriceMantissaToDollars({ priceMantissa, token });
+  const tokenPriceUsd = convertPriceMantissaToDollars({ priceMantissa, decimals: token.decimals });
   return { tokenPriceUsd };
 };
 
