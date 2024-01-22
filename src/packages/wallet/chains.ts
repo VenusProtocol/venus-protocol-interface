@@ -7,7 +7,11 @@ const getSupportedChains = (): Chain[] => {
     return [bscTestnet, opBNBTestnet, sepolia];
   }
 
-  return [bsc, mainnet];
+  if (localConfig.environment === 'preview') {
+    return [bsc, mainnet];
+  }
+
+  return [bsc];
 };
 
 export const governanceChain = localConfig.isOnTestnet ? bscTestnet : bsc;
