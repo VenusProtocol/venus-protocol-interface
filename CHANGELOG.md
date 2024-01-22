@@ -1,3 +1,28 @@
+## [2.84.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.83.0...v2.84.0) (2024-01-22)
+
+
+### Features
+
+* add addresses for ResilientOracle and VTreasuryV8 in Ethereum ([025e7a6](https://github.com/VenusProtocol/venus-protocol-interface/commit/025e7a6a2a20833bfc4177bff4f3792a603fcc3b))
+* add bridge support for opBNB testnet ([262b64f](https://github.com/VenusProtocol/venus-protocol-interface/commit/262b64fafd9bd1bdbe4e04118330ae02a4df7716))
+* add bridgeXvs mutation ([905ff15](https://github.com/VenusProtocol/venus-protocol-interface/commit/905ff1525bbd6a485c583c22c49b5ad7eddac547))
+* add errors to bridge form ([3fe3d29](https://github.com/VenusProtocol/venus-protocol-interface/commit/3fe3d2904e792869c8cb5011cc58c4b3e9ad2dea))
+* add getToken to tokens package ([706c8da](https://github.com/VenusProtocol/venus-protocol-interface/commit/706c8dae795f8f3e4a0c58b2613824983f1b28bd))
+* add getXvsBridgeFeeEstimation query ([da8383b](https://github.com/VenusProtocol/venus-protocol-interface/commit/da8383bb502a6dfbe99ed5f096c72783364e5b30))
+* add getXvsBridgeStatus ([a7f9c81](https://github.com/VenusProtocol/venus-protocol-interface/commit/a7f9c81c5733711d87438717b8ace4741d7d8035))
+* add LayerZero transaction toasts ([bbb2d29](https://github.com/VenusProtocol/venus-protocol-interface/commit/bbb2d2911f710a96ed24c7cd5435f7acdce58743))
+* add nativeCurrencySymbol to chain metadata ([f44cb06](https://github.com/VenusProtocol/venus-protocol-interface/commit/f44cb06b6920a821d30d2728dbc42d55ed83bf7a))
+* add token bridge config ([fbddb1a](https://github.com/VenusProtocol/venus-protocol-interface/commit/fbddb1a2c384c7c443e22ce9adabc2e68da32537))
+* add useBridgeForm hook ([9372f88](https://github.com/VenusProtocol/venus-protocol-interface/commit/9372f885937636dd7d80757cc0f72c0f963f9a6c))
+* add XVS and ETH to Ethereum chain tokens ([3ad03a6](https://github.com/VenusProtocol/venus-protocol-interface/commit/3ad03a665effe37e7820211885c5a44035d2a79b))
+* add XVSProxyOFTDest Ethereum address ([6db20ea](https://github.com/VenusProtocol/venus-protocol-interface/commit/6db20ea499d4150790c294898b98b0453c996127))
+* adjust getSupportedChains for environment mainnet ([b468b27](https://github.com/VenusProtocol/venus-protocol-interface/commit/b468b27f8b63e54ea688bab47394ceb9be42051b))
+* enable chain switch and bridge on BSC_MAINNET and Ethereum ([65a4c0e](https://github.com/VenusProtocol/venus-protocol-interface/commit/65a4c0e74dff85412ff95186c2d84d49c4e6b6bd))
+* filter chain options based on BSC being the origin or destination ([ffea2a9](https://github.com/VenusProtocol/venus-protocol-interface/commit/ffea2a9b9a7881dc905326734fce61a79b2f8ef7))
+* remove isApproveXvsLoading as a submit button disable condition ([a39bdda](https://github.com/VenusProtocol/venus-protocol-interface/commit/a39bddad8c04e5de7edce5474270e475ea8edb05))
+* update Sepolia tokens ([f996036](https://github.com/VenusProtocol/venus-protocol-interface/commit/f9960362a1fac29d7188f67377d494dd49479547))
+* wire up XVS Bridge ([71fe1dc](https://github.com/VenusProtocol/venus-protocol-interface/commit/71fe1dc38b1008c1ccc56e9dc97465460b1b7d90))
+
 ## [2.83.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.82.0...v2.83.0) (2024-01-22)
 
 
