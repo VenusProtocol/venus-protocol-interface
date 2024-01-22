@@ -1,3 +1,10 @@
+## [2.83.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.82.0...v2.83.0) (2024-01-22)
+
+
+### Features
+
+* update Venus packages to their stable versions ([#2094](https://github.com/VenusProtocol/venus-protocol-interface/issues/2094)) ([5b5cce7](https://github.com/VenusProtocol/venus-protocol-interface/commit/5b5cce75f1e1a1ab6f86642f85e989a406875da4))
+
 ## [2.82.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.81.1...v2.82.0) (2024-01-22)
 
 
