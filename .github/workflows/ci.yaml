@@ -54,7 +54,7 @@ jobs:
         run: yarn
 
       - name: Run tests and collect coverage
-        run: yarn test:ci --coverage
+        run: yarn test --coverage
 
       - name: 'Report coverage'
         if: always() # Also generate the report even if tests are failing
