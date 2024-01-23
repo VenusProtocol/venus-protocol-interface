@@ -10,11 +10,14 @@ import { abi as RewardsDistributorAbi } from '@venusprotocol/isolated-pools/arti
 import { abi as VBep20Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/VToken.sol/VToken.json';
 import isolatedPoolsBscMainnetDeployments from '@venusprotocol/isolated-pools/deployments/bscmainnet_addresses.json';
 import isolatedPoolsBscTestnetDeployments from '@venusprotocol/isolated-pools/deployments/bsctestnet_addresses.json';
+import isolatedPoolsEthereumDeployments from '@venusprotocol/isolated-pools/deployments/ethereum_addresses.json';
+import isolatedPoolsOpBnbTestnetDeployments from '@venusprotocol/isolated-pools/deployments/opbnbtestnet_addresses.json';
 import isolatedPoolsSepoliaDeployments from '@venusprotocol/isolated-pools/deployments/sepolia_addresses.json';
 import { abi as ResilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
 import venusOracleBscMainnetDeployments from '@venusprotocol/oracle/deployments/bscmainnet_addresses.json';
 import venusOracleBscTestnetDeployments from '@venusprotocol/oracle/deployments/bsctestnet_addresses.json';
 import venusOracleEthereumDeployments from '@venusprotocol/oracle/deployments/ethereum_addresses.json';
+import venusOracleOpBnbTestnetDeployments from '@venusprotocol/oracle/deployments/opbnbtestnet_addresses.json';
 import venusOracleSepoliaDeployments from '@venusprotocol/oracle/deployments/sepolia_addresses.json';
 import { abi as XVSProxyOFTDest } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTDest.sol/XVSProxyOFTDest.json';
 import { abi as XVSProxyOFTSrc } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTSrc.sol/XVSProxyOFTSrc.json';
@@ -43,6 +46,7 @@ import { abi as XvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/cont
 import venusProtocolBscMainnetDeployments from '@venusprotocol/venus-protocol/deployments/bscmainnet_addresses.json';
 import venusProtocolBscTestnetDeployments from '@venusprotocol/venus-protocol/deployments/bsctestnet_addresses.json';
 import venusProtocolEthereumDeployments from '@venusprotocol/venus-protocol/deployments/ethereum_addresses.json';
+import venusProtocolOpBnbTestnetDeployments from '@venusprotocol/venus-protocol/deployments/opbnbtestnet_addresses.json';
 import venusProtocolSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/sepolia_addresses.json';
 import { type ContractInterface } from 'ethers';
 
@@ -98,7 +102,8 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens,
       [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens,
-      [ChainId.OPBNB_TESTNET]: '0x8983fd85133877BE52c019ce9538354EFbb238c6', // TODO: get from package once it's been updated (see VEN-2326)
+      [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolLens,
+      [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses.PoolLens,
       [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens,
     },
   },
@@ -108,8 +113,9 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolRegistry_Proxy,
       [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolRegistry_Proxy,
+      [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolRegistry_Proxy,
+      [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses.PoolRegistry_Proxy,
       [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.OPBNB_TESTNET]: '0x560eA4e1cC42591E9f5F5D83Ad2fd65F30128951', // TODO: get from package once it's been updated (see VEN-2326)
     },
   },
   {
@@ -142,8 +148,9 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVaultProxy,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVaultProxy,
+      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.XVSVault,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSVaultProxy,
-      [ChainId.OPBNB_TESTNET]: '0xB14A0e72C5C202139F78963C9e89252c1ad16f01', // TODO: get from package once it's been updated (see VEN-2326)
+      [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses.XVSVaultProxy,
     },
   },
   {
@@ -152,8 +159,9 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSStore,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSStore,
+      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.XVSStore,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSStore,
-      [ChainId.OPBNB_TESTNET]: '0x06473fB3f7bF11e2E8EfEcC95aC55ABEFCb2e0A0', // TODO: get from package once it's been updated (see VEN-2326)
+      [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses.XVSVaultProxy,
     },
   },
   {
@@ -217,9 +225,9 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: venusOracleBscTestnetDeployments.addresses.ResilientOracle,
       [ChainId.BSC_MAINNET]: venusOracleBscMainnetDeployments.addresses.ResilientOracle,
-      [ChainId.SEPOLIA]: venusOracleSepoliaDeployments.addresses.ResilientOracle,
       [ChainId.ETHEREUM]: venusOracleEthereumDeployments.addresses.ResilientOracle,
-      [ChainId.OPBNB_TESTNET]: '0xEF4e53a9A4565ef243A2f0ee9a7fc2410E1aA623', // TODO: get from package once it's been updated (see VEN-2326)
+      [ChainId.OPBNB_TESTNET]: venusOracleEthereumDeployments.addresses.ResilientOracle,
+      [ChainId.SEPOLIA]: venusOracleSepoliaDeployments.addresses.ResilientOracle,
     },
   },
   {
@@ -228,8 +236,7 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Prime,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Prime,
-      // TODO: get address from package once it's been added
-      [ChainId.SEPOLIA]: '0x27A8ca2aFa10B9Bc1E57FC4Ca610d9020Aab3739',
+      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.Prime,
     },
   },
   {
@@ -246,7 +253,7 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.VTreasuryV8,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.VTreasuryV8,
-      [ChainId.OPBNB_TESTNET]: '0x3370915301E8a6A6baAe6f461af703e2498409F3', // TODO: get from package once it's been updated (see VEN-2326)
+      [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses.VTreasuryV8,
     },
   },
   {
