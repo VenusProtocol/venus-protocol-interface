@@ -1,3 +1,10 @@
+## [2.85.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.84.0...v2.85.0) (2024-01-23)
+
+
+### Features
+
+* add support for wstETH on Sepolia and Ethereum ([#2093](https://github.com/VenusProtocol/venus-protocol-interface/issues/2093)) ([26af643](https://github.com/VenusProtocol/venus-protocol-interface/commit/26af643aa2e3d891df3a479b501f24d4ba176d59))
+
 ## [2.84.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.83.0...v2.84.0) (2024-01-22)
 
 
