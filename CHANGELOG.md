@@ -1,3 +1,10 @@
+## [2.87.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.86.0...v2.87.0) (2024-01-23)
+
+
+### Features
+
+* add Turbo with workspaces ([#2091](https://github.com/VenusProtocol/venus-protocol-interface/issues/2091)) ([34004e1](https://github.com/VenusProtocol/venus-protocol-interface/commit/34004e1cff7d41aabfa301acf3c3175d3ec314ab))
+
 ## [2.86.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.85.1...v2.86.0) (2024-01-23)
 
 
