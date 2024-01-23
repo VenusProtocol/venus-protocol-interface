@@ -1,4 +1,5 @@
 import ethLogo from 'packages/tokens/img/eth.svg';
+import wstEthLogo from 'packages/tokens/img/wstEth.svg';
 import xvsLogo from 'packages/tokens/img/xvs.svg';
 import { Token } from 'types';
 
@@ -15,5 +16,11 @@ export const tokens: Token[] = [
     symbol: 'ETH',
     asset: ethLogo,
     isNative: true,
+  },
+  {
+    address: '0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0',
+    decimals: 18,
+    symbol: 'wstETH',
+    asset: wstEthLogo,
   },
 ];
