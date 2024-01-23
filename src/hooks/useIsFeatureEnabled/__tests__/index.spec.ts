@@ -318,4 +318,46 @@ describe('useIsFeatureEnabled', () => {
 
     expect(result.current).toBe(true);
   });
+
+  it('should return false for the chain select feature flag on BSC_MAINNET', () => {
+    (useChainId as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.BSC_MAINNET,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'chainSelect',
+      }),
+    );
+
+    expect(result.current).toBe(false);
+  });
+
+  it('should return false for the chain select feature flag on ETHEREUM', () => {
+    (useChainId as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.ETHEREUM,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'chainSelect',
+      }),
+    );
+
+    expect(result.current).toBe(false);
+  });
+
+  it('should return false for the chain select feature flag on BSC_TESTNET', () => {
+    (useChainId as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.BSC_TESTNET,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'chainSelect',
+      }),
+    );
+
+    expect(result.current).toBe(true);
+  });
 });

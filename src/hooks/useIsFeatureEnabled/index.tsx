@@ -21,13 +21,8 @@ const featureFlags = {
   marketParticipantCounts: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   vaiMintPrimeOnlyWarning: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   isolatedPools: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.SEPOLIA],
-  bridgeRoute: [
-    ChainId.BSC_MAINNET,
-    ChainId.ETHEREUM,
-    ChainId.BSC_TESTNET,
-    ChainId.SEPOLIA,
-    ChainId.OPBNB_TESTNET,
-  ],
+  bridgeRoute: [ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.OPBNB_TESTNET],
+  chainSelect: [ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.OPBNB_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
