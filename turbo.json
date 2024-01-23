@@ -1,0 +1,26 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["build/**"]
+    },
+    "lint": {},
+    "test": {},
+    "format": {},
+    "generate": {
+      "outputs": [
+        "src/constants/version.ts",
+        "src/packages/tokens/infos/pancakeSwapTokens/bscMainnet.ts",
+        "src/packages/contracts/generated/getters/**/*.{ts,json}",
+        "src/packages/contracts/generated/infos/**/*.{ts,json}",
+        "src/clients/subgraph/gql/mainnet.ts",
+        "src/clients/subgraph/gql/testnet.ts"
+      ]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

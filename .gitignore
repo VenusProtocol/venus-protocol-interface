@@ -13,7 +13,7 @@
 .env.sentry-build-plugin
 
 # dependencies
-/node_modules
+node_modules
 /build
 yarn-error.log
 # IDEs and editors
@@ -40,7 +40,8 @@ bundleStats.html
 npm-debug.log
 testem.log
 /typings
-.eslintcache
+.turbo
+storybook-static
 
 # e2e
 /e2e/*.js
@@ -49,8 +50,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-storybook-static
 
 /public/mockServiceWorker.js
 
