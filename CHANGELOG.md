@@ -1,3 +1,11 @@
+## [2.86.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.85.1...v2.86.0) (2024-01-23)
+
+
+### Features
+
+* add chainSelect feature flag ([8ee64e7](https://github.com/VenusProtocol/venus-protocol-interface/commit/8ee64e72aef30a65eaaf60186804773cfc01527d))
+* disable bridge UI on mainnet ([aa62299](https://github.com/VenusProtocol/venus-protocol-interface/commit/aa622994d2f1c79adb0715bda1e32e53b5e6166a))
+
 ## [2.85.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.85.0...v2.85.1) (2024-01-23)
 
 ## [2.85.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.84.0...v2.85.0) (2024-01-23)
