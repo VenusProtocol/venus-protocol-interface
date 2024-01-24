@@ -18252,14 +18252,14 @@ reg-keygen-git-hash-plugin@^0.12.2:
     reg-suit-util "^0.12.2"
     shell-escape "^0.2.0"
 
-reg-notify-github-plugin@^0.12.2:
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/reg-notify-github-plugin/-/reg-notify-github-plugin-0.12.2.tgz#cb72dd790475f10c9877c25aa15999a1c2466965"
-  integrity sha512-OeEQnSdneXYDQX95bghp0nTC59fqNtT6AOQ3ouy06FeMySzmu2vbyi/Qg0opJ3aCn7hpwY5iL25JSoEhVCGRGA==
+reg-notify-github-plugin@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/reg-notify-github-plugin/-/reg-notify-github-plugin-0.13.0.tgz#8be5ae40498316713b62df3f75b2b09285d5a27f"
+  integrity sha512-+wlx4shJqRNnY0I44bGvigdJ6eSs0sigDcn6khHoHb5lgg73Yy2ouxILpLvBXcmiJr7rxjGjZmDMb2PV5eIG1Q==
   dependencies:
     open "^8.0.0"
     reg-gh-app-interface "^1.3.0"
-    reg-suit-util "^0.12.2"
+    reg-suit-util "^0.13.0"
     tiny-commit-walker "^1.1.2"
     undici "^5.22.1"
 
@@ -18286,6 +18286,25 @@ reg-suit-util@^0.12.2:
   version "0.12.2"
   resolved "https://registry.yarnpkg.com/reg-suit-util/-/reg-suit-util-0.12.2.tgz#e5a0f4a9a2d5944e6c572e4af810de2209089820"
   integrity sha512-1PUzeH7Uddwv9e1ns9x8qgbp6FzJqqau6AckVCLg3XiS2BvAgrh7RgJ7UNxBT+4m0UWzc7bYRyJTw4F31ihklA==
+  dependencies:
+    "@types/cli-progress" "^3.8.0"
+    "@types/cli-spinner" "^0.2.0"
+    "@types/glob" "^7.1.3"
+    "@types/lodash" "^4.14.161"
+    "@types/mime-types" "^2.1.0"
+    "@types/mkdirp" "^1.0.1"
+    chalk "^4.1.0"
+    cli-progress "^3.8.2"
+    cli-spinner "^0.2.6"
+    glob "^7.1.6"
+    lodash "^4.17.20"
+    mime-types "^2.1.27"
+    mkdirp "^1.0.4"
+
+reg-suit-util@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/reg-suit-util/-/reg-suit-util-0.13.0.tgz#138bf506afbc2f13739ac57962c12253ea253fab"
+  integrity sha512-SPVDGH36sadPS/FETwklaMydjvUsqS4fZRbVs7flw7HTBQG3ajqwbsZZ9dKY4gcsIdYIaubC7iQxMaxULZ6HIw==
   dependencies:
     "@types/cli-progress" "^3.8.0"
     "@types/cli-spinner" "^0.2.0"
