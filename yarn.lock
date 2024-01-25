@@ -18291,13 +18291,13 @@ reg-publish-s3-plugin@^0.12.2:
     reg-suit-util "^0.12.2"
     uuid "^8.3.0"
 
-reg-suit-core@^0.12.2:
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/reg-suit-core/-/reg-suit-core-0.12.2.tgz#c88575ffdc08296f8f465506a7c9cd237637aa7d"
-  integrity sha512-9bgFBn5hFi5lyqGwhh3mAymuPDgeIks+NjAaoLkIJw0d6pQw6/OhmZfztg7rwcncgSQ0An5LaLF+gw8KL9nzrw==
+reg-suit-core@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/reg-suit-core/-/reg-suit-core-0.13.0.tgz#8365854d1694e33f57f3ac75f9c266f39cb08f2e"
+  integrity sha512-UVs8PtbyYu25Gd6RzRpkDnakPVYRKTiTRy/KynulmnsofYiGQYoo8stIFg+QHtOf4xjwrenMHdY4/MvCj9U2Tw==
   dependencies:
     reg-cli "^0.17.0"
-    reg-suit-util "^0.12.2"
+    reg-suit-util "^0.13.0"
     rimraf "^5.0.1"
 
 reg-suit-util@^0.12.2:
@@ -18338,16 +18338,16 @@ reg-suit-util@^0.13.0:
     mime-types "^2.1.27"
     mkdirp "^1.0.4"
 
-reg-suit@^0.12.2:
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/reg-suit/-/reg-suit-0.12.2.tgz#c3bb258dc52c26c3fd3001ba2c16e4b05f7490e4"
-  integrity sha512-zYZ8T77pWFmQblavMd+CJ5Ok5UHkp0TkFLXmMm6nMqea7wymopGb4nvProvSmcItnFDNVaB8ocvnE+FBupCVmw==
+reg-suit@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/reg-suit/-/reg-suit-0.13.0.tgz#d2f3322302940b49a8a679e0bc8ef1e6ebe37806"
+  integrity sha512-79W93mUzVmJuyriirsRLoW6R512rhVeUZVVbreg98GQsc0AaLwycho+Px8VfzV/QOiIAtrLmrmLGXWXcG5h3PQ==
   dependencies:
     cp-file "9.1.0"
     ignore "5.1.8"
     inquirer "8.2.1"
-    reg-suit-core "^0.12.2"
-    reg-suit-util "^0.12.2"
+    reg-suit-core "^0.13.0"
+    reg-suit-util "^0.13.0"
     yargs "17.0.1"
 
 regenerate-unicode-properties@^10.1.0:
