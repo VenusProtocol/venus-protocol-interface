@@ -1,3 +1,10 @@
+## [2.88.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.87.2...v2.88.0) (2024-01-25)
+
+
+### Features
+
+* add missing Ethereum and opBNB addresses ([7f47db1](https://github.com/VenusProtocol/venus-protocol-interface/commit/7f47db1e3719c43693b3baaa8f74887eb53155d2))
+
 ## [2.87.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.87.1...v2.87.2) (2024-01-25)
 
 ## [2.87.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.87.0...v2.87.1) (2024-01-23)
