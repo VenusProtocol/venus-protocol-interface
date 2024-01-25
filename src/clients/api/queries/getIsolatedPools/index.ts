@@ -1,6 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
+import {
+  GetIsolatedPoolParticipantsCountInput,
+  getIsolatedPoolParticipantsCount,
+} from 'clients/subgraph';
 import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'packages/contracts';
 import { logError } from 'packages/errors';
 import { Asset, PrimeApy, Token } from 'types';
@@ -24,9 +27,11 @@ export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
 // Since the borrower and supplier counts aren't essential information, we make the logic so the
 // dApp can still function if the subgraph is down
-const safelyGetIsolatedPoolParticipantsCount = async () => {
+const safelyGetIsolatedPoolParticipantsCount = async ({
+  chainId,
+}: GetIsolatedPoolParticipantsCountInput) => {
   try {
-    const res = await getIsolatedPoolParticipantsCount();
+    const res = await getIsolatedPoolParticipantsCount({ chainId });
     return res;
   } catch (error) {
     logError(error);
@@ -34,6 +39,7 @@ const safelyGetIsolatedPoolParticipantsCount = async () => {
 };
 
 const getIsolatedPools = async ({
+  chainId,
   xvs,
   blocksPerDay,
   accountAddress,
@@ -55,7 +61,7 @@ const getIsolatedPools = async ({
     // Fetch all pools
     poolLensContract.getAllPools(poolRegistryContractAddress),
     // Fetch borrower and supplier counts of each isolated token
-    safelyGetIsolatedPoolParticipantsCount(),
+    safelyGetIsolatedPoolParticipantsCount({ chainId }),
     // Fetch current block number
     getBlockNumber({ provider }),
     // Prime related calls

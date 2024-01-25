@@ -1,8 +1,9 @@
 import { PoolLens, Prime, ResilientOracle } from 'packages/contracts';
 import { type Provider } from 'packages/wallet';
-import { Pool, Token } from 'types';
+import { ChainId, Pool, Token } from 'types';
 
 export interface GetIsolatedPoolsInput {
+  chainId: ChainId;
   xvs: Token;
   blocksPerDay: number;
   tokens: Token[];
