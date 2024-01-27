@@ -1,3 +1,12 @@
+## [2.89.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.88.3...v2.89.0) (2024-01-27)
+
+
+### Features
+
+* activate marketParticipantCounts in Ethereum and Sepolia ([4f8f9ac](https://github.com/VenusProtocol/venus-protocol-interface/commit/4f8f9ac7d7d05206b9be57126ead23dd6a98e348))
+* add Ethereum and Sepolia subgraph URLs ([c4d23a7](https://github.com/VenusProtocol/venus-protocol-interface/commit/c4d23a7f8bb366d4d0563afef106043bf9885bda))
+* fetch participants count based on chainId ([6337b86](https://github.com/VenusProtocol/venus-protocol-interface/commit/6337b86670ee27351dbbe9c2e1dba4a401c9bc40))
+
 ## [2.88.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.88.2...v2.88.3) (2024-01-27)
 
 ## [2.88.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.88.1...v2.88.2) (2024-01-25)
