@@ -20,6 +20,7 @@ import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedInput = Omit<
   GetIsolatedPoolsInput,
+  | 'chainId'
   | 'xvs'
   | 'blocksPerDay'
   | 'provider'
@@ -67,7 +68,7 @@ const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
     [FunctionKey.GET_ISOLATED_POOLS, { ...input, chainId }],
     () =>
       callOrThrow(
-        { poolLensContract, poolRegistryContractAddress, resilientOracleContract, xvs },
+        { chainId, poolLensContract, poolRegistryContractAddress, resilientOracleContract, xvs },
         params =>
           getIsolatedPools({
             provider,

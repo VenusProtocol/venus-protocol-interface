@@ -1,7 +1,12 @@
 import { API_ENDPOINT_URLS } from 'constants/endpoints';
 import { ChainId, Environment } from 'types';
 
-import { MAINNET_SUBGRAPH_URL, TESTNET_SUBGRAPH_URL } from './codegen';
+import {
+  BSC_MAINNET_SUBGRAPH_URL,
+  BSC_TESTNET_SUBGRAPH_URL,
+  ETHEREUM_SUBGRAPH_URL,
+  SEPOLIA_SUBGRAPH_URL,
+} from './codegen';
 import { ENV_VARIABLES } from './envVariables';
 
 export interface Config {
@@ -15,7 +20,7 @@ export interface Config {
       webSocket?: string;
     };
   };
-  subgraphUrl: string;
+  subgraphUrls: Partial<Record<ChainId, string>>;
   sentryDsn: string;
   posthog: {
     apiKey: string;
@@ -55,7 +60,13 @@ const rpcUrls = {
 };
 
 const apiUrl = API_ENDPOINT_URLS[environment];
-const subgraphUrl = isOnTestnet ? TESTNET_SUBGRAPH_URL : MAINNET_SUBGRAPH_URL;
+const subgraphUrls = {
+  [ChainId.BSC_MAINNET]: BSC_MAINNET_SUBGRAPH_URL,
+  [ChainId.BSC_TESTNET]: BSC_TESTNET_SUBGRAPH_URL,
+  // TODO: add opBNB testnet subgraph URL
+  [ChainId.ETHEREUM]: ETHEREUM_SUBGRAPH_URL,
+  [ChainId.SEPOLIA]: SEPOLIA_SUBGRAPH_URL,
+};
 
 const config: Config = {
   environment,
@@ -63,7 +74,7 @@ const config: Config = {
   isLocalServer,
   apiUrl,
   rpcUrls,
-  subgraphUrl,
+  subgraphUrls,
   sentryDsn: ENV_VARIABLES.VITE_SENTRY_DSN || '',
   posthog: {
     apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',

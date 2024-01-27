@@ -18,7 +18,12 @@ const featureFlags = {
   voteProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   lunaUstWarning: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   marketHistory: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  marketParticipantCounts: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  marketParticipantCounts: [
+    ChainId.BSC_MAINNET,
+    ChainId.BSC_TESTNET,
+    ChainId.ETHEREUM,
+    ChainId.SEPOLIA,
+  ],
   vaiMintPrimeOnlyWarning: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   isolatedPools: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.SEPOLIA],
   bridgeRoute: [ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.OPBNB_TESTNET],

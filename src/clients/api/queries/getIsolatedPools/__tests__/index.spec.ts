@@ -20,7 +20,7 @@ import {
   getIsolatedPoolComptrollerContract,
   getRewardsDistributorContract,
 } from 'packages/contracts';
-import { Token } from 'types';
+import { ChainId, Token } from 'types';
 
 import getIsolatedPools from '..';
 import {
@@ -92,6 +92,7 @@ describe('api/queries/getIsolatedPools', () => {
     );
 
     const response = await getIsolatedPools({
+      chainId: ChainId.BSC_TESTNET,
       xvs,
       blocksPerDay: 28800,
       tokens,
@@ -114,6 +115,7 @@ describe('api/queries/getIsolatedPools', () => {
     } as unknown as Prime;
 
     const response = await getIsolatedPools({
+      chainId: ChainId.BSC_TESTNET,
       xvs,
       blocksPerDay: 28800,
       tokens,
@@ -141,6 +143,7 @@ describe('api/queries/getIsolatedPools', () => {
     } as unknown as Prime;
 
     const response = await getIsolatedPools({
+      chainId: ChainId.BSC_TESTNET,
       xvs,
       blocksPerDay: 28800,
       tokens,
