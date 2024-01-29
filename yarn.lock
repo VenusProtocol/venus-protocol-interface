@@ -17247,10 +17247,10 @@ postcss-safe-parser@^6.0.0:
   resolved "https://registry.yarnpkg.com/postcss-safe-parser/-/postcss-safe-parser-6.0.0.tgz#bb4c29894171a94bc5c996b9a30317ef402adaa1"
   integrity sha512-FARHN8pwH+WiS2OPCxJI8FuRJpTVnn6ZNFiqAM2aeW2LwTHWWmWgIyKC6cUo0L8aeKiF/14MNvnpls6R2PBeMQ==
 
-postcss-selector-parser@^6.0.10, postcss-selector-parser@^6.0.11, postcss-selector-parser@^6.0.13:
-  version "6.0.13"
-  resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.0.13.tgz#d05d8d76b1e8e173257ef9d60b706a8e5e99bf1b"
-  integrity sha512-EaV1Gl4mUEV4ddhDnv/xtj7sxwrwxdetHdWUGnT4VJQf+4d05v6lHYZr8N573k5Z0BViss7BDhfWtKS3+sfAqQ==
+postcss-selector-parser@^6.0.10, postcss-selector-parser@^6.0.11, postcss-selector-parser@^6.0.13, postcss-selector-parser@^6.0.15:
+  version "6.0.15"
+  resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.0.15.tgz#11cc2b21eebc0b99ea374ffb9887174855a01535"
+  integrity sha512-rEYkQOMUCEMhsKbK66tbEU9QVIxbhN18YiniAwA7XQYTVBqrBy+P2p5JcdqsHgKM2zWylp8d7J6eszocfds5Sw==
   dependencies:
     cssesc "^3.0.0"
     util-deprecate "^1.0.2"
@@ -19694,15 +19694,15 @@ stylelint-config-standard@^34.0.0:
   dependencies:
     stylelint-config-recommended "^13.0.0"
 
-stylelint-scss@^5.1.0:
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-5.3.2.tgz#c54564dfbd98de0c08742b9c43025cda91acf940"
-  integrity sha512-4LzLaayFhFyneJwLo0IUa8knuIvj+zF0vBFueQs4e3tEaAMIQX8q5th8ziKkgOavr6y/y9yoBe+RXN/edwLzsQ==
+stylelint-scss@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/stylelint-scss/-/stylelint-scss-6.1.0.tgz#b7ef162c417132e8df2b69d1759ae07395d54fb5"
+  integrity sha512-kCfK8TQzthGwb4vaZniZgxRsVbCM4ZckmT1b/H5m4FU3I8Dz0id9llKsy1NMp3XXqC8+OPD4rVKtUbSxXlJb5g==
   dependencies:
     known-css-properties "^0.29.0"
     postcss-media-query-parser "^0.2.3"
     postcss-resolve-nested-selector "^0.1.1"
-    postcss-selector-parser "^6.0.13"
+    postcss-selector-parser "^6.0.15"
     postcss-value-parser "^4.2.0"
 
 stylelint@^15.10.3:
