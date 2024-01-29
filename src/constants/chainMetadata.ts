@@ -43,7 +43,7 @@ export const CHAIN_METADATA: {
     layerZeroScanUrl: 'https://layerzeroscan.com/',
     blockTimeMs: 12000,
     blocksPerDay: 7200,
-    corePoolComptrollerContractAddress: '', // TODO: add record (see VEN-2120)
+    corePoolComptrollerContractAddress: '0x687a01ecF6d3907658f7A7c714749fAC32336D1B',
     nativeToken: getToken({ chainId: ChainId.ETHEREUM, symbol: 'ETH' })!,
   },
   [ChainId.SEPOLIA]: {
