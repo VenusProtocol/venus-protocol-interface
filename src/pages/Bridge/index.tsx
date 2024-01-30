@@ -40,8 +40,7 @@ import { ReactComponent as LayerZeroLogo } from './layerZeroLogo.svg';
 import TEST_IDS from './testIds';
 import useBridgeForm from './useBridgeForm';
 
-const BRIDGE_DOC_URL =
-  'https://docs-v4.venus.io/technical-reference/reference-technical-articles/technical-doc-xvs-bridge';
+const BRIDGE_DOC_URL = 'https://docs-v4.venus.io/guides/xvs-bridge';
 
 const BridgePage: React.FC = () => {
   const { t } = useTranslation();
