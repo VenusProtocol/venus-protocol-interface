@@ -319,7 +319,7 @@ describe('useIsFeatureEnabled', () => {
     expect(result.current).toBe(true);
   });
 
-  it('should return true for the chain select feature flag on BSC_MAINNET', () => {
+  it('should return false for the chain select feature flag on BSC_MAINNET', () => {
     (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.BSC_MAINNET,
     }));
@@ -330,10 +330,10 @@ describe('useIsFeatureEnabled', () => {
       }),
     );
 
-    expect(result.current).toBe(true);
+    expect(result.current).toBe(false);
   });
 
-  it('should return true for the chain select feature flag on ETHEREUM', () => {
+  it('should return false for the chain select feature flag on ETHEREUM', () => {
     (useChainId as Vi.Mock).mockImplementation(() => ({
       chainId: ChainId.ETHEREUM,
     }));
@@ -344,7 +344,7 @@ describe('useIsFeatureEnabled', () => {
       }),
     );
 
-    expect(result.current).toBe(true);
+    expect(result.current).toBe(false);
   });
 
   it('should return false for the chain select feature flag on BSC_TESTNET', () => {
