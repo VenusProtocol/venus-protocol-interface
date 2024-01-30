@@ -148,7 +148,7 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVaultProxy,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVaultProxy,
-      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.XVSVault,
+      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.XVSVaultProxy,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSVaultProxy,
       [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses.XVSVaultProxy,
     },

@@ -25,9 +25,21 @@ const featureFlags = {
     ChainId.SEPOLIA,
   ],
   vaiMintPrimeOnlyWarning: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  isolatedPools: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.SEPOLIA],
-  bridgeRoute: [ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.OPBNB_TESTNET],
-  chainSelect: [ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.OPBNB_TESTNET],
+  isolatedPools: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.ETHEREUM, ChainId.SEPOLIA],
+  bridgeRoute: [
+    ChainId.BSC_MAINNET,
+    ChainId.BSC_TESTNET,
+    ChainId.ETHEREUM,
+    ChainId.SEPOLIA,
+    ChainId.OPBNB_TESTNET,
+  ],
+  chainSelect: [
+    ChainId.BSC_MAINNET,
+    ChainId.BSC_TESTNET,
+    ChainId.ETHEREUM,
+    ChainId.SEPOLIA,
+    ChainId.OPBNB_TESTNET,
+  ],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
