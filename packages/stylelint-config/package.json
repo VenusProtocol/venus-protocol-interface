@@ -10,6 +10,6 @@
     "stylelint": "^15.10.3",
     "stylelint-config-prettier": "^9.0.4",
     "stylelint-config-standard": "^34.0.0",
-    "stylelint-scss": "^5.1.0"
+    "stylelint-scss": "^6.1.0"
   }
 }
