@@ -1,3 +1,17 @@
+## [2.90.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.89.3...v2.90.0) (2024-01-30)
+
+
+### Features
+
+* add corePoolComptrollerContractAddress to Ethereum ([880d960](https://github.com/VenusProtocol/venus-protocol-interface/commit/880d960d7558e8edfe4be2e017e3974ba6796d88))
+* add Ethereum tokens ([cb2ff36](https://github.com/VenusProtocol/venus-protocol-interface/commit/cb2ff365efca75205d924faddc557db7da04d556))
+* enable multichain on mainnet ([67161d5](https://github.com/VenusProtocol/venus-protocol-interface/commit/67161d5cea40abfb8f5b1944fefc50c1ea1993a2))
+
+
+### Bug Fixes
+
+* ethereum XVSVault proxy address ([252d9cf](https://github.com/VenusProtocol/venus-protocol-interface/commit/252d9cf3cbbc96e653d65a6f65d6a2788d6973c8))
+
 ## [2.89.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.89.2...v2.89.3) (2024-01-30)
 
 ## [2.89.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.89.1...v2.89.2) (2024-01-30)
