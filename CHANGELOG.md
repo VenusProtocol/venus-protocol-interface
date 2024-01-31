@@ -1,3 +1,14 @@
+## [2.92.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.91.2...v2.92.0) (2024-01-31)
+
+
+### Features
+
+* add notice about wrapping native tokens on Uniswap ([44f2d54](https://github.com/VenusProtocol/venus-protocol-interface/commit/44f2d54a8bef7520e71b58bf84986b41b88bcd78))
+* add optional wrapsNative attribute to Token ([249a82d](https://github.com/VenusProtocol/venus-protocol-interface/commit/249a82d418631c8c618fbae54bfab278a2ba935b))
+* add youCanWrapNative translation ([e51683e](https://github.com/VenusProtocol/venus-protocol-interface/commit/e51683eb103ce78a65c1635ad589aa479dee9c1e))
+* enable multichain on mainnet ([8a75d23](https://github.com/VenusProtocol/venus-protocol-interface/commit/8a75d238e87438dea44363d88407d477eb7e52d8))
+* update WETH and WBTC in Ethereum ([d86687d](https://github.com/VenusProtocol/venus-protocol-interface/commit/d86687d64cd631781e2ea91d82dcdc001d3d1dc3))
+
 ## [2.91.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.91.1...v2.91.2) (2024-01-31)
 
 ## [2.91.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.91.0...v2.91.1) (2024-01-31)
