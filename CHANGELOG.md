@@ -1,3 +1,10 @@
+## [2.91.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.90.1...v2.91.0) (2024-01-31)
+
+
+### Features
+
+* disable multichain features on mainnet ([eeac6fb](https://github.com/VenusProtocol/venus-protocol-interface/commit/eeac6fb2aced18f25594f35f270e04800e516a65))
+
 ## [2.90.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.90.0...v2.90.1) (2024-01-30)
 
 ## [2.90.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.89.3...v2.90.0) (2024-01-30)
