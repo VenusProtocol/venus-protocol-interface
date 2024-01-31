@@ -1,3 +1,10 @@
+## [2.92.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.92.0...v2.92.1) (2024-01-31)
+
+
+### Bug Fixes
+
+* display chain select on mobile ([891e0f9](https://github.com/VenusProtocol/venus-protocol-interface/commit/891e0f9f50f7ac4e6a2a04446b24f16d5111f7a7))
+
 ## [2.92.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.91.2...v2.92.0) (2024-01-31)
 
 
