@@ -34,6 +34,7 @@ export interface Token {
   asset: string;
   address: string;
   isNative?: boolean;
+  wrapsNative?: boolean;
 }
 
 export interface VToken extends Omit<Token, 'isNative' | 'asset'> {
