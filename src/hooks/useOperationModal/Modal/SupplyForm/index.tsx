@@ -7,6 +7,7 @@ import {
   AssetWarning,
   Delimiter,
   LabeledInlineContent,
+  NoticeInfo,
   SelectTokenTextField,
   SpendingLimit,
   SwapDetails,
@@ -14,8 +15,10 @@ import {
   TokenTextField,
 } from 'components';
 import { AccountData } from 'containers/AccountData';
+import { Link } from 'containers/Link';
 import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -35,6 +38,9 @@ import TEST_IDS from './testIds';
 import useForm, { FormValues, UseFormInput } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
+// TODO: rework or remove this URL, as this is likely to be a temporary solution
+const UNISWAP_URL =
+  'https://app.uniswap.org/swap?chain=mainnet&inputCurrency=ETH&outputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
 
 export interface SupplyFormUiProps
   extends Pick<
@@ -84,9 +90,10 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   swap,
   swapError,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
   const sharedStyles = useSharedStyles();
   const { CollateralModal, toggleCollateral } = useCollateral();
+  const { nativeToken } = useGetChainMetadata();
 
   const isIntegratedSwapFeatureEnabled = useMemo(
     () =>
@@ -183,6 +190,24 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           css={sharedStyles.assetWarning}
           data-testid={TEST_IDS.noticeAssetWarning}
         />
+
+        {asset.vToken.underlyingToken.wrapsNative && (
+          <NoticeInfo
+            className="mb-6"
+            description={
+              <Trans
+                i18nKey="operationModal.supply.youCanWrapNative"
+                components={{
+                  Link: <Link href={UNISWAP_URL} />,
+                }}
+                values={{
+                  nativeTokenSymbol: nativeToken.symbol,
+                  wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
+                }}
+              />
+            }
+          />
+        )}
 
         {(asset.collateralFactor || asset.isCollateralOfUser) && (
           <LabeledInlineContent
