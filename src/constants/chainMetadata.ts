@@ -7,7 +7,7 @@ export const CHAIN_METADATA: {
   [chainId in ChainId]: ChainMetadata;
 } = {
   [ChainId.BSC_MAINNET]: {
-    name: 'BNB mainnet',
+    name: 'BNB Chain',
     logoSrc: bnbLogo,
     explorerUrl: 'https://bscscan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com/',
