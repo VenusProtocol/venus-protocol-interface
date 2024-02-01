@@ -106,7 +106,7 @@
     "@storybook/addon-interactions": "7.2.1",
     "@storybook/addon-links": "7.2.1",
     "@storybook/blocks": "7.2.1",
-    "@storybook/react": "7.2.1",
+    "@storybook/react": "7.6.12",
     "@storybook/react-vite": "7.3.2",
     "@storybook/testing-library": "^0.2.0",
     "@stylelint/postcss-css-in-js": "0.38.0",
