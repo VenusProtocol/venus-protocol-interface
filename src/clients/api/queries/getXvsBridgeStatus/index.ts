@@ -17,6 +17,10 @@ export interface GetXvsBridgeStatusOutput {
   maxSingleTransactionLimitUsd: BigNumber;
 }
 
+// the XVS price might vary during the time it takes to complete a bridge operation,
+// so this is used as a safe margin (90% of the actual limit)
+const BRIDGE_USD_LIMIT_FACTOR = new BigNumber('0.9');
+
 const getXvsBridgeStatus = async ({
   toChainId,
   tokenBridgeContract,
@@ -37,7 +41,7 @@ const getXvsBridgeStatus = async ({
   const maxDailyLimitUsd = convertPriceMantissaToDollars({
     priceMantissa: new BigNumber(maxDailyLimitUsdMantissa.toString()),
     decimals: 18,
-  });
+  }).multipliedBy(BRIDGE_USD_LIMIT_FACTOR);
   const totalTransferredLast24HourUsd = convertPriceMantissaToDollars({
     priceMantissa: new BigNumber(totalTransferredLast24HourUsdMantissa.toString()),
     decimals: 18,
@@ -45,7 +49,7 @@ const getXvsBridgeStatus = async ({
   const maxSingleTransactionLimitUsd = convertPriceMantissaToDollars({
     priceMantissa: new BigNumber(maxSingleTransactionLimitUsdMantissa.toString()),
     decimals: 18,
-  });
+  }).multipliedBy(BRIDGE_USD_LIMIT_FACTOR);
 
   return {
     dailyLimitResetTimestamp,
