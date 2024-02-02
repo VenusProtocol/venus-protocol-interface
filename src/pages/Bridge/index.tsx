@@ -350,6 +350,7 @@ const BridgePage: React.FC = () => {
                   onClick: () => {
                     setValue('amountTokens', walletBalanceTokens.toFixed(), {
                       shouldValidate: true,
+                      shouldDirty: true,
                     });
                   },
                 }}
