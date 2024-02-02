@@ -1,3 +1,15 @@
+## [2.93.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.92.4...v2.93.0) (2024-02-02)
+
+
+### Features
+
+* multiply bridge USD limits by BRIDGE_USD_LIMIT_FACTOR ([68148f6](https://github.com/VenusProtocol/venus-protocol-interface/commit/68148f692c2e21c3e272a1a0cb9bd84ca91d32c2))
+
+
+### Bug Fixes
+
+* max button dirties form ([300585a](https://github.com/VenusProtocol/venus-protocol-interface/commit/300585a6100380641093976ad8188c197f1f1023))
+
 ## [2.92.4](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.92.3...v2.92.4) (2024-02-02)
 
 ## [2.92.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.92.2...v2.92.3) (2024-02-01)
