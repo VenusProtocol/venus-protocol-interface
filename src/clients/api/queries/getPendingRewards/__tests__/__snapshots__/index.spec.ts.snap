@@ -27,9 +27,9 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
           "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-            "asset": "/src/packages/tokens/img/hay.png",
+            "asset": "/src/packages/tokens/img/lisUSD.png",
             "decimals": 18,
-            "symbol": "HAY",
+            "symbol": "lisUSD",
           },
           "rewardsDistributorAddress": "0x2aBEf3602B688493fe698EF11D27DCa43a0CE4BE",
           "vTokenAddressesWithPendingReward": [
@@ -108,9 +108,9 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
           "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-            "asset": "/src/packages/tokens/img/hay.png",
+            "asset": "/src/packages/tokens/img/lisUSD.png",
             "decimals": 18,
-            "symbol": "HAY",
+            "symbol": "lisUSD",
           },
           "rewardsDistributorAddress": "0x2aBEf3602B688493fe698EF11D27DCa43a0CE4BE",
           "vTokenAddressesWithPendingReward": [
@@ -166,9 +166,9 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
           "rewardAmountMantissa": "13463630382",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-            "asset": "/src/packages/tokens/img/hay.png",
+            "asset": "/src/packages/tokens/img/lisUSD.png",
             "decimals": 18,
-            "symbol": "HAY",
+            "symbol": "lisUSD",
           },
         },
         {

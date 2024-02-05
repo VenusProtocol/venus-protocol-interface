@@ -16,9 +16,9 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
       "balanceMantissa": "10000",
       "token": {
         "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-        "asset": "/src/packages/tokens/img/hay.png",
+        "asset": "/src/packages/tokens/img/lisUSD.png",
         "decimals": 18,
-        "symbol": "HAY",
+        "symbol": "lisUSD",
       },
     },
   ],
@@ -41,9 +41,9 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
       "balanceMantissa": "10000",
       "token": {
         "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-        "asset": "/src/packages/tokens/img/hay.png",
+        "asset": "/src/packages/tokens/img/lisUSD.png",
         "decimals": 18,
-        "symbol": "HAY",
+        "symbol": "lisUSD",
       },
     },
     {

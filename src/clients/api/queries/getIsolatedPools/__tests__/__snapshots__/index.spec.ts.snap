@@ -84,12 +84,12 @@ exports[`api/queries/getIsolatedPools > does not fetch Prime distributions if us
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "decimals": 8,
-            "symbol": "vHAY",
+            "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/packages/tokens/img/hay.png",
+              "asset": "/src/packages/tokens/img/lisUSD.png",
               "decimals": 18,
-              "symbol": "HAY",
+              "symbol": "lisUSD",
             },
           },
         },
@@ -852,12 +852,12 @@ exports[`api/queries/getIsolatedPools > fetches and formats Prime distributions 
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "decimals": 8,
-            "symbol": "vHAY",
+            "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/packages/tokens/img/hay.png",
+              "asset": "/src/packages/tokens/img/lisUSD.png",
               "decimals": 18,
-              "symbol": "HAY",
+              "symbol": "lisUSD",
             },
           },
         },
@@ -1680,12 +1680,12 @@ exports[`api/queries/getIsolatedPools > returns isolated pools in the correct fo
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "decimals": 8,
-            "symbol": "vHAY",
+            "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/packages/tokens/img/hay.png",
+              "asset": "/src/packages/tokens/img/lisUSD.png",
               "decimals": 18,
-              "symbol": "HAY",
+              "symbol": "lisUSD",
             },
           },
         },
