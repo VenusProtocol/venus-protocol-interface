@@ -127,7 +127,7 @@ export const useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade = () =>
     getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
   );
 
-export const useGetTreasuryTotals = vi.fn();
+export const useGetIsolatedPoolsTreasuryTotals = vi.fn();
 
 export const useGetLegacyPoolTotalXvsDistributed = vi.fn();
 

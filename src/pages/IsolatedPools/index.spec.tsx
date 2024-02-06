@@ -3,13 +3,13 @@ import Vi from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 
-import { useGetTreasuryTotals } from 'clients/api';
+import { useGetIsolatedPoolsTreasuryTotals } from 'clients/api';
 
 import Pools from '.';
 
 describe('pages/Pools', () => {
   beforeEach(() => {
-    (useGetTreasuryTotals as Vi.Mock).mockImplementation(() => ({
+    (useGetIsolatedPoolsTreasuryTotals as Vi.Mock).mockImplementation(() => ({
       data: {
         treasurySupplyBalanceCents: new BigNumber(0),
         treasuryBorrowBalanceCents: new BigNumber(0),
