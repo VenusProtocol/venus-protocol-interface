@@ -17,7 +17,7 @@ import dogeLogo from 'packages/tokens/img/doge.svg';
 import ethLogo from 'packages/tokens/img/eth.svg';
 import fdusdLogo from 'packages/tokens/img/fdusd.svg';
 import flokiLogo from 'packages/tokens/img/floki.svg';
-import hayLogo from 'packages/tokens/img/hay.png';
+import lisUsdLogo from 'packages/tokens/img/lisUSD.png';
 import ltcLogo from 'packages/tokens/img/ltc.svg';
 import lunaLogo from 'packages/tokens/img/luna.svg';
 import maticLogo from 'packages/tokens/img/matic.svg';
@@ -25,7 +25,7 @@ import nftLogo from 'packages/tokens/img/nft.png';
 import planetLogo from 'packages/tokens/img/planet.svg';
 import racaLogo from 'packages/tokens/img/raca.png';
 import sdLogo from 'packages/tokens/img/sd.svg';
-import snbnbLogo from 'packages/tokens/img/snBNB.svg';
+import slisBnbLogo from 'packages/tokens/img/slisBNB.png';
 import stkBNBLogo from 'packages/tokens/img/stkBNB.svg';
 import sxpLogo from 'packages/tokens/img/sxp.svg';
 import theLogo from 'packages/tokens/img/the.svg';
@@ -240,8 +240,8 @@ export const tokens: Token[] = [
   {
     address: '0xe73774DfCD551BF75650772dC2cC56a2B6323453',
     decimals: 18,
-    symbol: 'HAY',
-    asset: hayLogo,
+    symbol: 'lisUSD',
+    asset: lisUsdLogo,
   },
   {
     address: '0xc440e4F21AFc2C3bDBA1Af7D0E338ED35d3e25bA',
@@ -312,8 +312,8 @@ export const tokens: Token[] = [
   {
     address: '0xd2aF6A916Bc77764dc63742BC30f71AF4cF423F4',
     decimals: 18,
-    symbol: 'SnBNB',
-    asset: snbnbLogo,
+    symbol: 'slisBNB',
+    asset: slisBnbLogo,
   },
   {
     address: '0x63061de4A25f24279AAab80400040684F92Ee319',

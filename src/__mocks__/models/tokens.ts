@@ -1,7 +1,7 @@
 import bnbLogo from 'packages/tokens/img/bnb.svg';
 import busdLogo from 'packages/tokens/img/busd.svg';
 import ethLogo from 'packages/tokens/img/eth.svg';
-import hayLogo from 'packages/tokens/img/hay.png';
+import lisUsdLogo from 'packages/tokens/img/lisUSD.png';
 import lunaLogo from 'packages/tokens/img/luna.svg';
 import usdcLogo from 'packages/tokens/img/usdc.svg';
 import usdtLogo from 'packages/tokens/img/usdt.svg';
@@ -93,8 +93,8 @@ export const eth: Token = {
 export const hay: Token = {
   address: '0xe73774DfCD551BF75650772dC2cC56a2B6323453',
   decimals: 18,
-  symbol: 'HAY',
-  asset: hayLogo,
+  symbol: 'lisUSD',
+  asset: lisUsdLogo,
 };
 
 export default [xvs, bnb, usdc, usdt, busd, ust, luna, vai, wbnb, eth, vrt, hay];

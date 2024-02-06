@@ -22,8 +22,8 @@ import ethLogo from 'packages/tokens/img/eth.svg';
 import fdusdLogo from 'packages/tokens/img/fdusd.svg';
 import filLogo from 'packages/tokens/img/fil.svg';
 import flokiLogo from 'packages/tokens/img/floki.svg';
-import hayLogo from 'packages/tokens/img/hay.png';
 import linkLogo from 'packages/tokens/img/link.svg';
+import lisUsdLogo from 'packages/tokens/img/lisUSD.png';
 import ltcLogo from 'packages/tokens/img/ltc.svg';
 import lunaLogo from 'packages/tokens/img/luna.svg';
 import maticLogo from 'packages/tokens/img/matic.svg';
@@ -31,7 +31,7 @@ import nftLogo from 'packages/tokens/img/nft.png';
 import planetLogo from 'packages/tokens/img/planet.svg';
 import racaLogo from 'packages/tokens/img/raca.png';
 import sdLogo from 'packages/tokens/img/sd.svg';
-import snbnbLogo from 'packages/tokens/img/snBNB.svg';
+import slisBnbLogo from 'packages/tokens/img/slisBNB.png';
 import stkbnbLogo from 'packages/tokens/img/stkBNB.svg';
 import sxpLogo from 'packages/tokens/img/sxp.svg';
 import theLogo from 'packages/tokens/img/the.svg';
@@ -238,8 +238,8 @@ export const tokens: Token[] = [
   {
     address: '0x0782b6d8c4551B9760e74c0545a9bCD90bdc41E5',
     decimals: 18,
-    symbol: 'HAY',
-    asset: hayLogo,
+    symbol: 'lisUSD',
+    asset: lisUsdLogo,
   },
   {
     address: '0xd17479997F34dd9156Deef8F95A52D81D265be9c',
@@ -346,8 +346,8 @@ export const tokens: Token[] = [
   {
     address: '0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B',
     decimals: 18,
-    symbol: 'SnBNB',
-    asset: snbnbLogo,
+    symbol: 'slisBNB',
+    asset: slisBnbLogo,
   },
   {
     address: '0x12f31b73d812c6bb0d735a218c086d44d5fe5f89',
