@@ -1,3 +1,10 @@
+## [2.93.3](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.93.2...v2.93.3) (2024-02-06)
+
+
+### Bug Fixes
+
+* filter core pool from isolated pools totals ([b8887c2](https://github.com/VenusProtocol/venus-protocol-interface/commit/b8887c2e4bb88278d62b30e568b8e18bd5555617))
+
 ## [2.93.2](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.93.1...v2.93.2) (2024-02-05)
 
 ## [2.93.1](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.93.0...v2.93.1) (2024-02-05)
