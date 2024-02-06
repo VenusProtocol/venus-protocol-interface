@@ -6,10 +6,11 @@ import {
   useGetIsolatedPools,
   useGetVTokenBalancesAll,
 } from 'clients/api';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'packages/contracts';
 import { useAccountAddress, useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
-import { convertMantissaToTokens, indexBy } from 'utilities';
+import { areAddressesEqual, convertMantissaToTokens, indexBy } from 'utilities';
 
 export interface Data {
   treasurySupplyBalanceCents: BigNumber;
@@ -26,6 +27,7 @@ export interface UseGetTreasuryTotalsOutput {
 const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
   const treasuryAddress = useMemo(() => {
     switch (chainId) {
       case ChainId.BSC_MAINNET:
@@ -42,11 +44,15 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
 
   const vTokenAddresses = useMemo(
     () =>
-      (getPoolsData?.pools || []).reduce(
-        (acc, pool) => acc.concat(pool.assets.map(asset => asset.vToken.address)),
-        [] as string[],
-      ),
-    [getPoolsData?.pools],
+      (getPoolsData?.pools || [])
+        .filter(
+          pool => !areAddressesEqual(pool.comptrollerAddress, corePoolComptrollerContractAddress),
+        )
+        .reduce(
+          (acc, pool) => acc.concat(pool.assets.map(asset => asset.vToken.address)),
+          [] as string[],
+        ),
+    [getPoolsData?.pools, corePoolComptrollerContractAddress],
   );
 
   const {
