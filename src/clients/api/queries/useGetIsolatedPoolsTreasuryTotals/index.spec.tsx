@@ -6,9 +6,9 @@ import { renderComponent } from 'testUtils/render';
 
 import { useGetPools, useGetVTokenBalancesAll } from 'clients/api';
 
-import useGetTreasuryTotals, { UseGetTreasuryTotalsOutput } from '.';
+import useGetIsolatedPoolsTreasuryTotals, { UseGetIsolatedPoolsTreasuryTotalsOutput } from '.';
 
-describe('api/queries/useGetTreasuryTotals', () => {
+describe('api/queries/useGetIsolatedPoolsTreasuryTotals', () => {
   beforeEach(() => {
     (useGetPools as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -25,10 +25,10 @@ describe('api/queries/useGetTreasuryTotals', () => {
   });
 
   it('calculates totals correctly', async () => {
-    let data: UseGetTreasuryTotalsOutput['data'];
+    let data: UseGetIsolatedPoolsTreasuryTotalsOutput['data'];
 
     const CallMarketContext = () => {
-      ({ data } = useGetTreasuryTotals());
+      ({ data } = useGetIsolatedPoolsTreasuryTotals());
       expect(data).toMatchSnapshot();
       return <div />;
     };

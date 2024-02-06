@@ -19,12 +19,12 @@ export interface Data {
   treasuryLiquidityBalanceCents: BigNumber;
 }
 
-export interface UseGetTreasuryTotalsOutput {
+export interface UseGetIsolatedPoolsTreasuryTotalsOutput {
   isLoading: boolean;
   data: Data;
 }
 
-const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
+const useGetIsolatedPoolsTreasuryTotals = (): UseGetIsolatedPoolsTreasuryTotalsOutput => {
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
   const { corePoolComptrollerContractAddress } = useGetChainMetadata();
@@ -138,4 +138,4 @@ const useGetTreasuryTotals = (): UseGetTreasuryTotalsOutput => {
   };
 };
 
-export default useGetTreasuryTotals;
+export default useGetIsolatedPoolsTreasuryTotals;

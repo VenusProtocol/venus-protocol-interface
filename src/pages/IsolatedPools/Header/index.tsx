@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 
-import { useGetTreasuryTotals } from 'clients/api';
+import { useGetIsolatedPoolsTreasuryTotals } from 'clients/api';
 import { Cell, CellGroup } from 'components';
 import { useTranslation } from 'packages/translations';
 import { formatCentsToReadableValue } from 'utilities';
@@ -55,7 +55,7 @@ const Header = () => {
       treasuryLiquidityBalanceCents,
       treasuryBalanceCents,
     },
-  } = useGetTreasuryTotals();
+  } = useGetIsolatedPoolsTreasuryTotals();
 
   return (
     <HeaderUi
