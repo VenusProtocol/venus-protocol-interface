@@ -320,6 +320,14 @@ export const useGetXvsBridgeStatus = vi.fn(() =>
   useQuery(FunctionKey.GET_XVS_BRIDGE_STATUS, getXvsBridgeStatus),
 );
 
+export const getXvsBridgeMintStatus = vi.fn(async () => ({
+  minterToCapMantissa: new BigNumber('500000000000000000000000'),
+  bridgeAmountMintedMantissa: new BigNumber('10000000000000000'),
+}));
+export const useGetXvsBridgeMintStatus = vi.fn(() =>
+  useQuery(FunctionKey.GET_XVS_BRIDGE_MINT_STATUS, getXvsBridgeMintStatus),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>

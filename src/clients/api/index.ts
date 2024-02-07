@@ -376,3 +376,7 @@ export { default as useGetXvsBridgeFeeEstimation } from './queries/getXvsBridgeF
 export { default as getXvsBridgeStatus } from './queries/getXvsBridgeStatus';
 export * from './queries/getXvsBridgeStatus';
 export { default as useGetXvsBridgeStatus } from './queries/getXvsBridgeStatus/useGetXvsBridgeStatus';
+
+export { default as getXvsBridgeMintStatus } from './queries/getXvsBridgeMintStatus';
+export * from './queries/getXvsBridgeMintStatus';
+export { default as useGetXvsBridgeMintStatus } from './queries/getXvsBridgeMintStatus/useGetXvsBridgeMintStatus';
