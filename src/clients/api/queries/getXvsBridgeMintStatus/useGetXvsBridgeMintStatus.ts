@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetXvsMintStatusOutput, getXvsBridgeMintStatus } from 'clients/api';
@@ -9,15 +8,15 @@ import {
 } from 'packages/contracts';
 import { useProvider } from 'packages/wallet';
 import { ChainId } from 'types';
-import { generatePseudoRandomRefetchInterval } from 'utilities';
+import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
-interface UseGetXvsBridgeFeeInput {
-  destinationChain: ChainId;
+interface UseGetXvsBridgeMintStatusInput {
+  destinationChainId: ChainId;
 }
 
 export type UseGetTokenBalancesQueryKey = [
   FunctionKey.GET_XVS_BRIDGE_MINT_STATUS,
-  UseGetXvsBridgeFeeInput,
+  UseGetXvsBridgeMintStatusInput,
 ];
 
 type Options = QueryObserverOptions<
@@ -30,41 +29,39 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetXvsBridgeFeeEstimation = (
-  { destinationChain }: UseGetXvsBridgeFeeInput,
+const useGetXvsBridgeMintStatus = (
+  { destinationChainId }: UseGetXvsBridgeMintStatusInput,
   options?: Options,
 ) => {
-  const { provider } = useProvider({ chainId: destinationChain });
+  const { provider } = useProvider({ chainId: destinationChainId });
   const xvsTokenMultichainContract = getXvsTokenMultichainContract({
-    chainId: destinationChain,
+    chainId: destinationChainId,
     signerOrProvider: provider,
   });
   const chainXvsProxyOftDestContractAddress = getXVSProxyOFTDestContractAddress({
-    chainId: destinationChain,
+    chainId: destinationChainId,
   });
-  const getXvsBridgeMintStatusIfAvailable = useCallback(() => {
-    if (xvsTokenMultichainContract && chainXvsProxyOftDestContractAddress) {
-      return getXvsBridgeMintStatus({
-        xvsTokenMultichainContract,
-        chainXvsProxyOftDestContractAddress,
-      });
-    }
-    return undefined;
-  }, [xvsTokenMultichainContract, chainXvsProxyOftDestContractAddress]);
 
   return useQuery(
     [
       FunctionKey.GET_XVS_BRIDGE_MINT_STATUS,
       {
-        destinationChain,
+        destinationChainId,
       },
     ],
-    () => getXvsBridgeMintStatusIfAvailable(),
+    () =>
+      callOrThrow({ xvsTokenMultichainContract, chainXvsProxyOftDestContractAddress }, params =>
+        getXvsBridgeMintStatus({ ...params }),
+      ),
     {
       refetchInterval,
       ...options,
+      enabled:
+        destinationChainId !== ChainId.BSC_MAINNET &&
+        destinationChainId !== ChainId.BSC_TESTNET &&
+        options?.enabled,
     },
   );
 };
 
-export default useGetXvsBridgeFeeEstimation;
+export default useGetXvsBridgeMintStatus;

@@ -9,6 +9,7 @@ import {
   useGetBalanceOf,
   useGetTokenUsdPrice,
   useGetXvsBridgeFeeEstimation,
+  useGetXvsBridgeMintStatus,
   useGetXvsBridgeStatus,
 } from 'clients/api';
 import useDebounceValue from 'hooks/useDebounceValue';
@@ -18,6 +19,7 @@ import { chains, useAccountAddress, useChainId } from 'packages/wallet';
 import { ChainId, Token } from 'types';
 import {
   convertDollarsToCents,
+  convertMantissaToTokens,
   convertTokensToMantissa,
   formatCentsToReadableValue,
   formatTokensToReadableValue,
@@ -51,6 +53,15 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
     },
     {
       enabled: !!toChainId,
+    },
+  );
+
+  const { data: getXvsBridgeMintStatusData } = useGetXvsBridgeMintStatus(
+    {
+      destinationChainId: toChainIdRef.current!,
+    },
+    {
+      enabled: toChainIdRef.current !== undefined,
     },
   );
 
@@ -104,11 +115,49 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
   const validateAmountMantissa = useCallback(
     (v: string, ctx: z.RefinementCtx) => {
       const xvsAmountTokens = new BigNumber(v);
+      const xvsAmountMantissa = xvs
+        ? convertTokensToMantissa({
+            value: xvsAmountTokens,
+            token: xvs,
+          })
+        : BigNumber(0);
       const xvsAmountUsd = xvsAmountTokens.times(xvsPriceUsd);
       const isSingleTransactionLimitExceeded = xvsAmountUsd.gt(maxSingleTransactionLimitUsd);
       const maxSingleTransactionLimitTokens = maxSingleTransactionLimitUsd.dividedBy(xvsPriceUsd);
       const doesNotHaveEnoughXvs = walletBalanceTokens.lt(xvsAmountTokens);
 
+      // checks the if the XVS mint cap in the destination was or is going to be reached if the user tries
+      // to bridge the informed amount of tokens
+      const isMintCapReached = getXvsBridgeMintStatusData
+        ? getXvsBridgeMintStatusData.minterToCapMantissa.lte(
+            getXvsBridgeMintStatusData.bridgeAmountMintedMantissa.plus(xvsAmountMantissa),
+          )
+        : false;
+
+      if (getXvsBridgeMintStatusData && isMintCapReached) {
+        const { bridgeAmountMintedMantissa, minterToCapMantissa } = getXvsBridgeMintStatusData;
+        // calculate how much XVS is still available to be minted
+        const mintableXvsAmountMantissa = minterToCapMantissa.gt(bridgeAmountMintedMantissa)
+          ? minterToCapMantissa.minus(bridgeAmountMintedMantissa)
+          : BigNumber(0);
+        const mintableXvsAmountTokens = convertMantissaToTokens({
+          value: mintableXvsAmountMantissa,
+          token: xvs,
+        });
+        const readableAmountTokens = formatTokensToReadableValue({
+          value: mintableXvsAmountTokens,
+          token: xvs,
+        });
+        ctx.addIssue({
+          code: 'custom',
+          message: t('bridgePage.errors.mintCapReached.message', {
+            readableAmountTokens,
+          }),
+          path: ['mintCapReached'],
+        });
+      }
+
+      // checks if this bridge transaction is going to exceed the single transaction limit in USD
       if (isSingleTransactionLimitExceeded) {
         const readableAmountTokens = formatTokensToReadableValue({
           value: maxSingleTransactionLimitTokens,
@@ -127,6 +176,7 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
         });
       }
 
+      // checks if this bridge transaction is going to exceed the global daily limit in USD
       const isDailyTransactionLimitExceeded = xvsAmountUsd.gt(remainingXvsDailyLimitUsd);
       if (isDailyTransactionLimitExceeded) {
         const readableAmountTokens = formatTokensToReadableValue({
@@ -161,6 +211,7 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
     },
     [
       dailyLimitResetTimestamp,
+      getXvsBridgeMintStatusData,
       maxSingleTransactionLimitUsd,
       t,
       remainingXvsDailyLimitTokens,
