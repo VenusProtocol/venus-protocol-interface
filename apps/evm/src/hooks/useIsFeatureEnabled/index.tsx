@@ -30,6 +30,7 @@ const featureFlags = {
     ChainId.BSC_TESTNET,
     ChainId.ETHEREUM,
     ChainId.SEPOLIA,
+    ChainId.OPBNB_MAINNET,
     ChainId.OPBNB_TESTNET,
   ],
   chainSelect: [
@@ -37,6 +38,7 @@ const featureFlags = {
     ChainId.BSC_TESTNET,
     ChainId.ETHEREUM,
     ChainId.SEPOLIA,
+    ChainId.OPBNB_MAINNET,
     ChainId.OPBNB_TESTNET,
   ],
   wrapUnwrapNativeToken: [ChainId.SEPOLIA],
