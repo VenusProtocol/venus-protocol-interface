@@ -148,6 +148,7 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVS,
       [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVS,
+      [ChainId.OPBNB_MAINNET]: '0x3E2e61F1c075881F3fB8dd568043d8c221fd5c61', // TODO: replace once added to the token-bridge package
       [ChainId.OPBNB_TESTNET]: tokenBridgeOpBnbTestnetDeployments.addresses.XVS,
     },
   },
@@ -159,6 +160,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVaultProxy,
       [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.XVSVaultProxy,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSVaultProxy,
+      [ChainId.OPBNB_MAINNET]: '0x7dc969122450749A8B0777c0e324522d67737988', // TODO: replace once added to the venus-protocol package
       [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses.XVSVaultProxy,
     },
   },
