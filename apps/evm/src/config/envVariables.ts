@@ -27,6 +27,16 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET
       : import.meta.env.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET,
 
+  // opBNB mainnet RPC provider
+  VITE_RPC_HTTP_URL_OPBNB_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_HTTP_URL_OPBNB_MAINNET
+      : import.meta.env.VITE_RPC_HTTP_URL_OPBNB_MAINNET,
+  VITE_RPC_WEBSOCKET_URL_OPBNB_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_WEBSOCKET_URL_OPBNB_MAINNET
+      : import.meta.env.VITE_RPC_WEBSOCKET_URL_OPBNB_MAINNET,
+
   // opBNB testnet RPC provider
   VITE_RPC_HTTP_URL_OPBNB_TESTNET:
     typeof process !== 'undefined'

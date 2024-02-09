@@ -215,6 +215,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
       [ChainId.ETHEREUM]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
       [ChainId.SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
+      [ChainId.OPBNB_MAINNET]: '0x3E5f527Adf40B65Fcbb4918e6507ecB89AF7Cdf5',
       [ChainId.OPBNB_TESTNET]: '0x34D4c29902769a0168b9965CbC4147771206328D',
     },
   },
@@ -225,6 +226,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.BSC_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.SEPOLIA]: '0xca11bde05977b3631167028862be2a173976ca11',
+      [ChainId.OPBNB_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.OPBNB_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
     },
   },
@@ -235,6 +237,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: venusOracleBscTestnetDeployments.addresses.ResilientOracle,
       [ChainId.BSC_MAINNET]: venusOracleBscMainnetDeployments.addresses.ResilientOracle,
       [ChainId.ETHEREUM]: venusOracleEthereumDeployments.addresses.ResilientOracle,
+      [ChainId.OPBNB_MAINNET]: '0x8f3618c4F0183e14A218782c116fb2438571dAC9', // TODO: replace once added to the oracle package
       [ChainId.OPBNB_TESTNET]: venusOracleEthereumDeployments.addresses.ResilientOracle,
       [ChainId.SEPOLIA]: venusOracleSepoliaDeployments.addresses.ResilientOracle,
     },
@@ -271,6 +274,7 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVSProxyOFTDest,
       [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVSProxyOFTDest,
+      [ChainId.OPBNB_MAINNET]: '0x100D331C1B5Dcd41eACB1eCeD0e83DCEbf3498B2', // TODO: replace once added to the token bridge package
       [ChainId.OPBNB_TESTNET]: tokenBridgeOpBnbTestnetDeployments.addresses.XVSProxyOFTDest,
     },
   },
@@ -364,6 +368,7 @@ export const contracts: ContractConfig[] = [
         [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
           isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_LiquidStakedBNB,
       },
+      [ChainId.OPBNB_MAINNET]: {},
       [ChainId.OPBNB_TESTNET]: {},
       [ChainId.ETHEREUM]: {},
       [ChainId.SEPOLIA]: {},

@@ -26,6 +26,16 @@ export const CHAIN_METADATA: {
     corePoolComptrollerContractAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
     nativeToken: getToken({ chainId: ChainId.BSC_TESTNET, symbol: 'BNB' })!,
   },
+  [ChainId.OPBNB_MAINNET]: {
+    name: 'opBNB',
+    logoSrc: bnbLogo,
+    explorerUrl: 'https://opbnb.bscscan.com/',
+    layerZeroScanUrl: 'https://layerzeroscan.com/',
+    blockTimeMs: 1000,
+    blocksPerDay: 86400,
+    corePoolComptrollerContractAddress: '', // TODO: update address once it is deployed to opBNB mainnet
+    nativeToken: getToken({ chainId: ChainId.OPBNB_MAINNET, symbol: 'BNB' })!,
+  },
   [ChainId.OPBNB_TESTNET]: {
     name: 'opBNB testnet',
     logoSrc: bnbLogo,
