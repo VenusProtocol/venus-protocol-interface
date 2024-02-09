@@ -1,3 +1,12 @@
+## [2.94.0](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.93.9...v2.94.0) (2024-02-09)
+
+
+### Features
+
+* add error for reaching the XVS bridge mint cap ([6d05447](https://github.com/VenusProtocol/venus-protocol-interface/commit/6d054477b2e4246325b91f105b9b664ff93ad541))
+* add getXvsBridgeMintStatus ([b3058a6](https://github.com/VenusProtocol/venus-protocol-interface/commit/b3058a65762af77d3355c767a2525b82c713e7e3))
+* add XvsTokenMultichain contract ([7c6c2c3](https://github.com/VenusProtocol/venus-protocol-interface/commit/7c6c2c322d954021de336182797632a83d400dcf))
+
 ## [2.93.9](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.93.8...v2.93.9) (2024-02-08)
 
 ## [2.93.8](https://github.com/VenusProtocol/venus-protocol-interface/compare/v2.93.7...v2.93.8) (2024-02-08)
