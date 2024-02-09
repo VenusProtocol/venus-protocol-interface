@@ -17,14 +17,14 @@ import { abi as ResilientOracleAbi } from '@venusprotocol/oracle/artifacts/contr
 import venusOracleBscMainnetDeployments from '@venusprotocol/oracle/deployments/bscmainnet_addresses.json';
 import venusOracleBscTestnetDeployments from '@venusprotocol/oracle/deployments/bsctestnet_addresses.json';
 import venusOracleEthereumDeployments from '@venusprotocol/oracle/deployments/ethereum_addresses.json';
-import venusOracleOpBnbTestnetDeployments from '@venusprotocol/oracle/deployments/opbnbtestnet_addresses.json';
 import venusOracleSepoliaDeployments from '@venusprotocol/oracle/deployments/sepolia_addresses.json';
 import { abi as XVSProxyOFTDest } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTDest.sol/XVSProxyOFTDest.json';
 import { abi as XVSProxyOFTSrc } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTSrc.sol/XVSProxyOFTSrc.json';
+import { abi as XvsTokenMultichainAbi } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/token/XVS.sol/XVS.json';
 import tokenBridgeBscMainnetDeployments from '@venusprotocol/token-bridge/deployments/bscmainnet_addresses.json';
 import tokenBridgeBscTestnetDeployments from '@venusprotocol/token-bridge/deployments/bsctestnet_addresses.json';
 import tokenBridgeEthereumDeployments from '@venusprotocol/token-bridge/deployments/ethereum_addresses.json';
-import tokenBridgeOpBnbDeployments from '@venusprotocol/token-bridge/deployments/opbnbtestnet_addresses.json';
+import tokenBridgeOpBnbTestnetDeployments from '@venusprotocol/token-bridge/deployments/opbnbtestnet_addresses.json';
 import tokenBridgeSepoliaDeployments from '@venusprotocol/token-bridge/deployments/sepolia_addresses.json';
 import { abi as LegacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as VTreasuryAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasury.sol/VTreasury.json';
@@ -140,6 +140,15 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VAIVaultProxy,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VAIVaultProxy,
+    },
+  },
+  {
+    name: 'XvsTokenMultichain',
+    abi: XvsTokenMultichainAbi,
+    address: {
+      [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVS,
+      [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVS,
+      [ChainId.OPBNB_TESTNET]: tokenBridgeOpBnbTestnetDeployments.addresses.XVS,
     },
   },
   {
@@ -262,7 +271,7 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVSProxyOFTDest,
       [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.OPBNB_TESTNET]: tokenBridgeOpBnbDeployments.addresses.XVSProxyOFTDest,
+      [ChainId.OPBNB_TESTNET]: tokenBridgeOpBnbTestnetDeployments.addresses.XVSProxyOFTDest,
     },
   },
   {

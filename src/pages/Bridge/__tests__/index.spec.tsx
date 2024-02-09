@@ -9,6 +9,7 @@ import {
   bridgeXvs,
   useGetBalanceOf,
   useGetXvsBridgeFeeEstimation,
+  useGetXvsBridgeMintStatus,
   useGetXvsBridgeStatus,
 } from 'clients/api';
 import { en } from 'packages/translations';
@@ -308,5 +309,86 @@ describe('Bridge', () => {
     );
 
     await waitFor(() => expect(submitButton).toBeDisabled());
+  });
+
+  it('it warns the user they cannot bridge over the mint cap', async () => {
+    const fakeBridgeMintStatusData = {
+      minterToCapMantissa: new BigNumber('10000000000000000000'),
+      bridgeAmountMintedMantissa: new BigNumber('9000000000000000000'),
+    };
+    (useGetXvsBridgeMintStatus as Vi.Mock).mockImplementation(() => ({
+      data: fakeBridgeMintStatusData,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
+      chainId: ChainId.BSC_TESTNET,
+    });
+
+    // Click on max button
+    const maxButton = await waitFor(
+      () => getByText(en.bridgePage.amountInput.maxButtonLabel) as HTMLButtonElement,
+    );
+    fireEvent.click(maxButton);
+
+    // Check input value was updated correctly
+    await waitFor(() =>
+      expect((getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement).value).toEqual('10'),
+    );
+
+    // Check the warning shown to the user
+    await waitFor(() =>
+      expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
+        '"You cannot bridge more than 1.00 XVS due to the bridge mint cap"',
+      ),
+    );
+
+    // Check if submit button is disabled and its label
+    const submitButton = await waitFor(
+      () =>
+        getByText(en.bridgePage.errors.mintCapReached.submitButton).closest(
+          'button',
+        ) as HTMLButtonElement,
+    );
+
+    await waitFor(() => expect(submitButton).toBeDisabled());
+  });
+
+  it('it show no warning about minting caps if there is no mint status data', async () => {
+    // simulate returning no mint status data if the destination chain is BSC
+    const fakeBridgeMintStatusData = undefined;
+    (useGetXvsBridgeMintStatus as Vi.Mock).mockImplementation(() => ({
+      data: fakeBridgeMintStatusData,
+    }));
+    const { queryByTestId, getByTestId, getByText } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
+      chainId: ChainId.SEPOLIA,
+    });
+    expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
+      String(ChainId.BSC_TESTNET),
+    );
+
+    // Click on max button
+    const maxButton = await waitFor(
+      () => getByText(en.bridgePage.amountInput.maxButtonLabel) as HTMLButtonElement,
+    );
+    fireEvent.click(maxButton);
+
+    // Check input value was updated correctly
+    await waitFor(() =>
+      expect((getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement).value).toEqual('10'),
+    );
+
+    // Check the warning is not shown to the user
+    await waitFor(() => expect(queryByTestId(TEST_IDS.notice)).toBeNull());
+
+    // Check if submit button is enabled
+    const submitButton = await waitFor(
+      () =>
+        getByText(en.bridgePage.submitButton.label.submit).closest('button') as HTMLButtonElement,
+    );
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(submitButton).toBeEnabled());
   });
 });

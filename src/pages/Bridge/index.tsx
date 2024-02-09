@@ -213,7 +213,9 @@ const BridgePage: React.FC = () => {
       // @ts-expect-error the custom error path is not inferred by the resolver
       formState.errors.amountTokens?.singleTransactionLimitExceeded?.message ||
       // @ts-expect-error the custom error path is not inferred by the resolver
-      formState.errors.amountTokens?.dailyTransactionLimitExceeded?.message,
+      formState.errors.amountTokens?.dailyTransactionLimitExceeded?.message ||
+      // @ts-expect-error the custom error path is not inferred by the resolver
+      formState.errors.amountTokens?.mintCapReached?.message,
     [formState.errors.amountTokens],
   );
 
@@ -232,6 +234,10 @@ const BridgePage: React.FC = () => {
         return t('bridgePage.errors.doesNotHaveEnoughXvs', {
           tokenSymbol: xvs?.symbol,
         });
+      }
+      // @ts-expect-error the custom error path is not inferred by the resolver
+      if (formState.errors.amountTokens?.mintCapReached) {
+        return t('bridgePage.errors.mintCapReached.submitButton');
       }
       if (formState.errors.bridgeEstimatedFeeMantissa) {
         return t('bridgePage.errors.doesNotHaveEnoughNativeFunds', {
