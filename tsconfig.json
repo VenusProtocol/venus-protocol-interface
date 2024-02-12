@@ -1,7 +1,0 @@
-{
-  "extends": "@venus-interface/ts-config/base.json",
-  "compilerOptions": {
-    "rootDir": ".",
-    "baseUrl": "./src",
-  },
-}

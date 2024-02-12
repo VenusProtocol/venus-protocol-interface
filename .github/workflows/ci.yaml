@@ -3,8 +3,10 @@ name: Tests and Checks
 on: [pull_request]
 
 env:
-  VITE_ENVIRONMENT: 'ci'
-  NODE_OPTIONS: '--max_old_space_size=4096'
+  VITE_ENVIRONMENT: "ci"
+  NODE_OPTIONS: "--max_old_space_size=4096"
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
 concurrency:
   group: ${{ github.ref }}
@@ -19,14 +21,14 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '18.16.1'
-          cache: 'yarn'
+          node-version: "18.16.1"
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn
 
       - name: Typecheck
-        run: yarn type-check
+        run: yarn tsc
 
       - name: Pretty
         run: yarn lint:format
@@ -47,15 +49,17 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '18.16.1'
-          cache: 'yarn'
+          node-version: "18.16.1"
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn
 
       - name: Run tests and collect coverage
-        run: yarn test --coverage
+        run: yarn test -- -- --coverage
 
-      - name: 'Report coverage'
+      - name: "Report coverage"
         if: always() # Also generate the report even if tests are failing
         uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: "./apps/evm"
