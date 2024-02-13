@@ -4,7 +4,7 @@ import { BigNumber as BN } from 'ethers';
 import fakeAccountAddress from '__mocks__/models/address';
 import { vXvs } from '__mocks__/models/vTokens';
 
-import { Prime } from 'packages/contracts';
+import { Prime } from 'libs/contracts';
 
 import getHypotheticalPrimeApys from '.';
 

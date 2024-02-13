@@ -9,9 +9,9 @@ import { Button, NoticeWarning, TokenIcon } from 'components';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useLunaUstWarning } from 'packages/lunaUstWarning';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useLunaUstWarning } from 'libs/lunaUstWarning';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Token } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 

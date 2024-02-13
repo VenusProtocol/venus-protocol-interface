@@ -5,7 +5,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
-import { XVSProxyOFTSrc } from 'packages/contracts';
+import { XVSProxyOFTSrc } from 'libs/contracts';
 import { ChainId } from 'types';
 
 import bridgeXvs from '.';

@@ -1,6 +1,6 @@
 import { BigNumber as BN } from 'ethers';
 
-import { LegacyPoolComptroller } from 'packages/contracts';
+import { LegacyPoolComptroller } from 'libs/contracts';
 
 const comptrollerResponses: {
   venusVAIVaultRate: Awaited<ReturnType<LegacyPoolComptroller['venusVAIVaultRate']>>;

@@ -1,7 +1,7 @@
 import { Select, SelectOption } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useTranslation } from 'packages/translations';
-import { chains, useChainId, useSwitchChain } from 'packages/wallet';
+import { useTranslation } from 'libs/translations';
+import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 import { cn } from 'utilities';
 

@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 
 import { NoticeError } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Asset } from 'types';
 
 import { useStyles as useSharedStyles } from '../styles';

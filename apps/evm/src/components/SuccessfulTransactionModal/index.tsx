@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
 
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
-import { useChainId } from 'packages/wallet';
+import { useChainId } from 'libs/wallet';
 import { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

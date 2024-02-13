@@ -8,7 +8,7 @@ import { vai, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import { getBalanceOf, useStakeInVault } from 'clients/api';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import StakeModal, { StakeModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';

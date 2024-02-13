@@ -8,7 +8,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
 import { getVTokenBalanceOf, redeem, redeemUnderlying } from 'clients/api';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 import { Asset, Pool } from 'types';
 
 import Withdraw from '..';

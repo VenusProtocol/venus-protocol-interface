@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 
 import { BorrowLimitUsedAccountHealth, Cell, CellGroup, Icon, Tooltip } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Pool, Vault } from 'types';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 

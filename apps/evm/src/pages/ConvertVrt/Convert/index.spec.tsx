@@ -2,7 +2,7 @@ import { waitFor } from '@testing-library/react';
 
 import { renderComponent } from 'testUtils/render';
 
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import Convert from '.';
 

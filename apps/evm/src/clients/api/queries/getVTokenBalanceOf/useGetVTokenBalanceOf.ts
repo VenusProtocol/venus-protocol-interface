@@ -5,8 +5,8 @@ import getVTokenBalanceOf, {
   GetVTokenBalanceOfOutput,
 } from 'clients/api/queries/getVTokenBalanceOf';
 import FunctionKey from 'constants/functionKey';
-import { useGetVTokenContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
+import { useGetVTokenContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 

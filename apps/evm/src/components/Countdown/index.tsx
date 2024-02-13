@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import ReactCountdown from 'react-countdown';
 import { CountdownRenderProps } from 'react-countdown/dist/Countdown';
 
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 interface CountdownProps {
   date: Date;

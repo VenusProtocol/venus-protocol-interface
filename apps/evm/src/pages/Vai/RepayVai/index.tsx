@@ -19,11 +19,11 @@ import { AmountForm, AmountFormProps } from 'containers/AmountForm';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { useGetVaiControllerContractAddress } from 'packages/contracts';
-import { displayMutationError } from 'packages/errors';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useGetVaiControllerContractAddress } from 'libs/contracts';
+import { displayMutationError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Token } from 'types';
 import {
   convertMantissaToTokens,

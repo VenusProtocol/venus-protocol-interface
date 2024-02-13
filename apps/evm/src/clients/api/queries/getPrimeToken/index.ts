@@ -1,4 +1,4 @@
-import { Prime } from 'packages/contracts';
+import { Prime } from 'libs/contracts';
 
 export interface GetPrimeTokenInput {
   accountAddress: string;

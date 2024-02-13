@@ -10,7 +10,7 @@ import {
   YAxis,
 } from 'recharts';
 
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { formatPercentageToReadableValue } from 'utilities';
 
 import TooltipContent from '../TooltipContent';

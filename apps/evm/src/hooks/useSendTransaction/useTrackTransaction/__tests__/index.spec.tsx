@@ -13,17 +13,17 @@ import {
   checkForVaiControllerTransactionError,
   checkForVaiVaultTransactionError,
   checkForXvsVaultProxyTransactionError,
-} from 'packages/errors';
-import { displayNotification, updateNotification } from 'packages/notifications';
-import { en } from 'packages/translations';
-import { useProvider } from 'packages/wallet';
+} from 'libs/errors';
+import { displayNotification, updateNotification } from 'libs/notifications';
+import { en } from 'libs/translations';
+import { useProvider } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import { CONFIRMATIONS, useTrackTransaction } from '..';
 
 vi.mock('context/ErrorLogger');
-vi.mock('packages/notifications');
-vi.mock('packages/errors');
+vi.mock('libs/notifications');
+vi.mock('libs/errors');
 vi.mock('errors');
 
 const fakeError = new Error('Fake error');

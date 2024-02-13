@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { useGetTokenBalances } from 'clients/api';
 import { Options as UseGetTokenBalancesOptions } from 'clients/api/queries/getTokenBalances/useGetTokenBalances';
-import { useGetSwapTokens } from 'packages/tokens';
+import { useGetSwapTokens } from 'libs/tokens';
 import { TokenBalance } from 'types';
 
 const useGetSwapTokenUserBalances = (

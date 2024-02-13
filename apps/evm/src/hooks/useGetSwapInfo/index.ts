@@ -9,8 +9,8 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useGetPancakeSwapPairs } from 'clients/api';
-import { useGetToken } from 'packages/tokens';
-import { useChainId } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useChainId } from 'libs/wallet';
 import { SwapError } from 'types';
 import { areTokensEqual, convertTokensToMantissa } from 'utilities';
 

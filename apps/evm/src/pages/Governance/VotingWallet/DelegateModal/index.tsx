@@ -13,8 +13,8 @@ import {
 } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { displayMutationError } from 'packages/errors';
-import { useTranslation } from 'packages/translations';
+import { displayMutationError } from 'libs/errors';
+import { useTranslation } from 'libs/translations';
 
 import addressValidationSchema from './addressValidationSchema';
 import { useStyles } from './styles';

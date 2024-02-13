@@ -1,6 +1,6 @@
 import { BigNumber as BN } from 'ethers';
 
-import { XvsVesting } from 'packages/contracts';
+import { XvsVesting } from 'libs/contracts';
 
 const xvsVestingResponses: {
   withdrawableAmount: Awaited<ReturnType<XvsVesting['getWithdrawableAmount']>>;

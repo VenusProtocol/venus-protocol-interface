@@ -3,9 +3,9 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';
-import { useGetVaiVaultContractAddress, useGetXvsVaultContractAddress } from 'packages/contracts';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useGetVaiVaultContractAddress, useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Token } from 'types';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';

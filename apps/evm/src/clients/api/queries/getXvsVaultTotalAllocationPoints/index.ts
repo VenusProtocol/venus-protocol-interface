@@ -1,4 +1,4 @@
-import { XvsVault } from 'packages/contracts';
+import { XvsVault } from 'libs/contracts';
 
 export interface GetXvsVaultTotalAllocPointsInput {
   xvsVaultContract: XvsVault;

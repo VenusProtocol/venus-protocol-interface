@@ -1,4 +1,4 @@
-import { VError } from 'packages/errors';
+import { VError } from 'libs/errors';
 import { Voter } from 'types';
 import { restService } from 'utilities';
 

@@ -14,9 +14,9 @@ import {
   ProposalTypeChip,
 } from 'components';
 import { routes } from 'constants/routing';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { ProposalState, ProposalType, Token, VoteSupport } from 'types';
 
 import greenPulseAnimation from './greenPulseAnimation.gif';

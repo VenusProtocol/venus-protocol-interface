@@ -4,10 +4,10 @@ import { useMemo, useState } from 'react';
 import { Claim, useClaimRewards } from 'clients/api';
 import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { VError, displayMutationError } from 'packages/errors';
-import { useLunaUstWarning } from 'packages/lunaUstWarning';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { VError, displayMutationError } from 'libs/errors';
+import { useLunaUstWarning } from 'libs/lunaUstWarning';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { formatCentsToReadableValue } from 'utilities';
 
 import TEST_IDS from '../testIds';
@@ -102,7 +102,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
         }
       >
         <>
-          <div className="mb-4 flex items-center justify-between border-b border-lightGrey pb-4">
+          <div className="border-lightGrey mb-4 flex items-center justify-between border-b pb-4">
             <p className="text-lg">{t('claimReward.modal.selectAll')}</p>
 
             <Checkbox

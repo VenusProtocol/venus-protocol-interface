@@ -9,9 +9,9 @@ import {
   getXvsVaultUserInfo,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { useGetToken } from 'packages/tokens';
-import { useChainId } from 'packages/wallet';
+import { useGetXvsVaultContract } from 'libs/contracts';
+import { useGetToken } from 'libs/tokens';
+import { useChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 export interface UseGetXvsVaultPoolsInput {

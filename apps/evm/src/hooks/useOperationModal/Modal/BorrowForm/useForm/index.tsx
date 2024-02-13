@@ -1,4 +1,4 @@
-import { displayMutationError } from 'packages/errors';
+import { displayMutationError } from 'libs/errors';
 import { Asset, Token } from 'types';
 
 import { FormError, FormValues } from './types';

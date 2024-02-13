@@ -3,7 +3,7 @@ import Vi from 'vitest';
 import { renderHook } from 'testUtils/render';
 
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useChainId } from 'packages/wallet';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import { useGetChainMetadata } from '..';

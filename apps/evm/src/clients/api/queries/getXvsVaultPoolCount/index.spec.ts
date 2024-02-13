@@ -2,7 +2,7 @@ import { BigNumber as BN } from 'ethers';
 
 import { xvs } from '__mocks__/models/tokens';
 
-import { XvsVault } from 'packages/contracts';
+import { XvsVault } from 'libs/contracts';
 
 import getXvsVaultPoolCount from '.';
 

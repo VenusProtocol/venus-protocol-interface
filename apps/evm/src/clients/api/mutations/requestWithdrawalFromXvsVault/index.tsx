@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractTransaction } from 'ethers';
 
-import { XvsVault } from 'packages/contracts';
+import { XvsVault } from 'libs/contracts';
 
 export interface RequestWithdrawalFromXvsVaultInput {
   xvsVaultContract: XvsVault;

@@ -23,11 +23,11 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { useGetSwapRouterContractAddress } from 'packages/contracts';
-import { VError, displayMutationError } from 'packages/errors';
-import { isTokenActionEnabled } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress, useChainId } from 'packages/wallet';
+import { useGetSwapRouterContractAddress } from 'libs/contracts';
+import { VError, displayMutationError } from 'libs/errors';
+import { isTokenActionEnabled } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 

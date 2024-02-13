@@ -6,7 +6,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { useGetPrimeToken } from 'clients/api';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import MintVai from '..';
 import TEST_IDS from '../../testIds';

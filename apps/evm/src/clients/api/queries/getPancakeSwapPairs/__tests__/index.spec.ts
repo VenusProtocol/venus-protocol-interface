@@ -5,11 +5,11 @@ import Vi from 'vitest';
 import fakeProvider from '__mocks__/models/provider';
 import fakeTokenCombinations from '__mocks__/models/tokenCombinations';
 
-import { PancakePairV2, getPancakePairV2Contract } from 'packages/contracts';
+import { PancakePairV2, getPancakePairV2Contract } from 'libs/contracts';
 
 import getPancakeSwapPairs from '..';
 
-vi.mock('packages/contracts');
+vi.mock('libs/contracts');
 
 const fakePancakePairV2Contract = {
   getReserves: async () => ({

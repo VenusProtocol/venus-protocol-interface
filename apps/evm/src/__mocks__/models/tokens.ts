@@ -1,15 +1,15 @@
-import bnbLogo from 'packages/tokens/img/bnb.svg';
-import busdLogo from 'packages/tokens/img/busd.svg';
-import ethLogo from 'packages/tokens/img/eth.svg';
-import lisUsdLogo from 'packages/tokens/img/lisUSD.png';
-import lunaLogo from 'packages/tokens/img/luna.svg';
-import usdcLogo from 'packages/tokens/img/usdc.svg';
-import usdtLogo from 'packages/tokens/img/usdt.svg';
-import ustLogo from 'packages/tokens/img/ust.svg';
-import vaiLogo from 'packages/tokens/img/vai.svg';
-import vrtLogo from 'packages/tokens/img/vrt.svg';
-import wbnbLogo from 'packages/tokens/img/wbnb.svg';
-import xvsLogo from 'packages/tokens/img/xvs.svg';
+import bnbLogo from 'libs/tokens/img/bnb.svg';
+import busdLogo from 'libs/tokens/img/busd.svg';
+import ethLogo from 'libs/tokens/img/eth.svg';
+import lisUsdLogo from 'libs/tokens/img/lisUSD.png';
+import lunaLogo from 'libs/tokens/img/luna.svg';
+import usdcLogo from 'libs/tokens/img/usdc.svg';
+import usdtLogo from 'libs/tokens/img/usdt.svg';
+import ustLogo from 'libs/tokens/img/ust.svg';
+import vaiLogo from 'libs/tokens/img/vai.svg';
+import vrtLogo from 'libs/tokens/img/vrt.svg';
+import wbnbLogo from 'libs/tokens/img/wbnb.svg';
+import xvsLogo from 'libs/tokens/img/xvs.svg';
 import { Token } from 'types';
 
 export const xvs: Token = {

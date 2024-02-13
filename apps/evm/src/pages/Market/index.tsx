@@ -10,7 +10,7 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 import useOperationModal from 'hooks/useOperationModal';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Asset, Token } from 'types';
 import {
   formatCentsToReadableValue,

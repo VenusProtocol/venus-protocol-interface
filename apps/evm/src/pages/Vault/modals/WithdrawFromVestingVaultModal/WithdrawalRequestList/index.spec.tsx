@@ -7,7 +7,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import WithdrawalRequestList from '.';
 import TEST_IDS from './testIds';

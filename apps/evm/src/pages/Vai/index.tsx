@@ -2,7 +2,7 @@
 import Paper from '@mui/material/Paper';
 
 import { Tabs } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import MintVai from './MintVai';
 import RepayVai from './RepayVai';

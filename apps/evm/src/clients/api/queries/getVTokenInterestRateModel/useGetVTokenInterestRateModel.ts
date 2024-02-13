@@ -4,8 +4,8 @@ import getVTokenInterestRateModel, {
   GetVTokenInterestRateModelOutput,
 } from 'clients/api/queries/getVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
-import { useGetVTokenContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
+import { useGetVTokenContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 

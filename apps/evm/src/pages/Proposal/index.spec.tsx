@@ -21,8 +21,8 @@ import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThreshol
 import { routes } from 'constants/routing';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote from 'hooks/useVote';
-import { VError } from 'packages/errors';
-import { en } from 'packages/translations';
+import { VError } from 'libs/errors';
+import { en } from 'libs/translations';
 import { VoteSupport } from 'types';
 
 import Proposal from '.';

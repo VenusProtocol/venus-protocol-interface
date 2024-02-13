@@ -1,7 +1,7 @@
 import { forwardRef, useMemo, useState } from 'react';
 
 import { useBreakpointUp } from 'hooks/responsive';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
 import { Button } from '../Button';
@@ -22,13 +22,13 @@ const getVariantClasses = ({
   switch (variant) {
     case 'secondary':
       return cn(
-        'h-10 border-cards bg-cards px-3 hover:border-grey hover:bg-cards active:border-grey active:bg-cards',
+        'border-cards bg-cards hover:border-grey hover:bg-cards active:border-grey active:bg-cards h-10 px-3',
         isMenuOpened && 'border-blue hover:border-blue',
       );
     // primary
     default:
       return cn(
-        'border-lightGrey bg-cards px-3 hover:border-lightGrey hover:bg-lightGrey active:bg-lightGrey sm:px-4',
+        'border-lightGrey bg-cards hover:border-lightGrey hover:bg-lightGrey active:bg-lightGrey px-3 sm:px-4',
         isMenuOpened && 'border-blue bg-lightGrey hover:border-blue',
       );
   }
@@ -78,7 +78,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
             onClick={() => handleChange(option.value)}
             type="button"
             className={cn(
-              'flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold hover:bg-lightGrey active:bg-lightGrey',
+              'hover:bg-lightGrey active:bg-lightGrey flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold',
               variant === 'primary' ? 'px-3 sm:px-4' : 'px-3',
             )}
           >
@@ -91,7 +91,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
             <Icon
               name="mark"
               className={cn(
-                'ml-4 w-3 shrink-0 text-green opacity-0',
+                'text-green ml-4 w-3 shrink-0 opacity-0',
                 value === option.value && 'opacity-1',
               )}
             />
@@ -120,7 +120,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
 
           {!!label && (
             <div className={cn(placeLabelToLeft ? 'mr-3 shrink-0' : 'mb-1')}>
-              <p className={cn('text-sm font-semibold text-grey')}>{label}</p>
+              <p className={cn('text-grey text-sm font-semibold')}>{label}</p>
             </div>
           )}
 
@@ -153,7 +153,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               <Icon
                 name="arrowUp"
                 className={cn(
-                  'ml-3 w-[10px] flex-none text-offWhite',
+                  'text-offWhite ml-3 w-[10px] flex-none',
                   isMenuOpened ? 'text-blue' : 'rotate-180',
                 )}
               />
@@ -164,14 +164,14 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               <div className="relative z-10 hidden min-w-full md:block">
                 <div
                   className={cn(
-                    'absolute top-2 min-w-full overflow-hidden rounded-lg border border-lightGrey bg-cards shadow',
+                    'border-lightGrey bg-cards absolute top-2 min-w-full overflow-hidden rounded-lg border shadow',
                     menuPosition === 'right' && 'right-0',
                   )}
                 >
                   {!!menuTitle && (
                     <div
                       className={cn(
-                        'w-full py-3 text-xs text-grey',
+                        'text-grey w-full py-3 text-xs',
                         variant === 'primary' ? 'px-3 sm:px-4' : 'px-3',
                       )}
                     >

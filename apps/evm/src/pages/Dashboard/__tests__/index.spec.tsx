@@ -5,7 +5,7 @@ import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
 import { useGetPools } from 'clients/api';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import Dashboard from '..';
 import TEST_IDS from '../testIds';

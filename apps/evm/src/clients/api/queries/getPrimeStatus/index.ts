@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { NULL_ADDRESS } from 'constants/address';
-import { Prime } from 'packages/contracts';
+import { Prime } from 'libs/contracts';
 
 export interface GetPrimeStatusInput {
   accountAddress?: string;

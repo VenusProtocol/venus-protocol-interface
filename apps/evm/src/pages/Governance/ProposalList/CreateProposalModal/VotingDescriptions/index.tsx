@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { FormikTextField } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import { ErrorCode } from '../proposalSchema';
 import { useStyles } from '../styles';

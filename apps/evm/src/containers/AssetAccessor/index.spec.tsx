@@ -6,8 +6,8 @@ import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
 import { TokenAnnouncement } from 'containers/TokenAnnouncement';
-import { isTokenActionEnabled } from 'packages/tokens';
-import { en } from 'packages/translations';
+import { isTokenActionEnabled } from 'libs/tokens';
+import { en } from 'libs/translations';
 import { Asset, Pool } from 'types';
 
 import AssetAccessor, { AssetAccessorProps } from '.';

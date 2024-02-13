@@ -24,7 +24,7 @@ export const Notice = ({
 }: NoticeProps) => (
   <div
     className={cn(
-      'relative flex overflow-hidden rounded-xl border p-2 transition-colors ease-linear before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:z-[-1] before:bg-background before:transition-colors',
+      'before:bg-background relative flex overflow-hidden rounded-xl border p-2 transition-colors ease-linear before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:z-[-1] before:transition-colors',
       (variant === 'info' || variant === 'loading') && 'border-lightGrey',
       variant === 'error' && 'border-red bg-red/5',
       variant === 'success' && 'border-green bg-green/5',
@@ -58,7 +58,7 @@ export const Notice = ({
 
     {onClose && (
       <TextButton className="group h-5 p-0" onClick={onClose}>
-        <Icon name="close" className="h-5 w-5 transition-colors group-hover:text-offWhite" />
+        <Icon name="close" className="group-hover:text-offWhite h-5 w-5 transition-colors" />
       </TextButton>
     )}
   </div>

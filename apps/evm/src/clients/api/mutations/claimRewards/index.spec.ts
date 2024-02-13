@@ -4,7 +4,7 @@ import fakeAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { xvs } from '__mocks__/models/tokens';
 
-import { Multicall3 } from 'packages/contracts';
+import { Multicall3 } from 'libs/contracts';
 
 import claimRewards from '.';
 import { Claim } from './types';

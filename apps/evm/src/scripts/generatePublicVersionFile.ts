@@ -10,8 +10,6 @@ const generatePublicVersionFile = async () => {
     version,
   });
 
-  console.log(searchForWorkspaceRoot(__dirname));
-
   // Generate file
   const outputPath = path.join(searchForWorkspaceRoot(__dirname), './apps/evm/public/version.json');
 

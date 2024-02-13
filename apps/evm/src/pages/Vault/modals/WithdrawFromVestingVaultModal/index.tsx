@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 import { Modal, ModalProps, Tabs, TextButton } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Token } from 'types';
 
 import RequestWithdrawal from './RequestWithdrawal';

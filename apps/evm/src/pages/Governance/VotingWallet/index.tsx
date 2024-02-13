@@ -22,9 +22,9 @@ import { routes } from 'constants/routing';
 import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'libs/wallet';
 import { Token } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
@@ -116,7 +116,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
       <Card className="mt-6 flex flex-col px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:py-10 lg:flex-col lg:items-start lg:py-6">
         <div className="border-r-[#21293A] pb-4 sm:border-r sm:pb-0 sm:pr-[26px] md:pr-10 lg:border-r-0 lg:pb-4">
-          <p className="text-base font-semibold text-grey sm:text-sm md:text-base">
+          <p className="text-grey text-base font-semibold sm:text-sm md:text-base">
             {t('vote.votingWeight')}
           </p>
 
@@ -129,7 +129,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
         <div className="mt-4 sm:ml-[26px] sm:mr-auto sm:mt-0 md:ml-10 lg:ml-0 lg:mr-0 lg:mt-4">
           <div className="mb-1 flex items-end sm:mb-0 lg:mb-1">
-            <p className="mr-2 text-base font-semibold text-grey sm:text-sm md:text-base">
+            <p className="text-grey mr-2 text-base font-semibold sm:text-sm md:text-base">
               {t('vote.totalLocked')}
             </p>
 
@@ -149,7 +149,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
         {!connectedWallet && (
           <PrimaryButton
-            className="mt-6 text-offWhite sm:mt-0 lg:mt-6 lg:w-full"
+            className="text-offWhite mt-6 sm:mt-0 lg:mt-6 lg:w-full"
             onClick={openAuthModal}
           >
             {t('connectWallet.connectButton')}
@@ -158,7 +158,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
         {showDepositXvs && (
           <ButtonWrapper
-            className="mt-6 text-offWhite hover:no-underline sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
+            className="text-offWhite mt-6 hover:no-underline sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
             asChild
           >
             <Link to={routes.vaults.path}>{t('vote.depositXvs')}</Link>
@@ -167,7 +167,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
         {showDelegateButton && (
           <PrimaryButton
-            className="mt-6 text-offWhite sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
+            className="text-offWhite mt-6 sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
             onClick={() => setDelegateModelIsOpen(true)}
             data-testid={TEST_IDS.delegateButton}
           >
@@ -211,7 +211,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
 
           <ButtonWrapper
             variant="secondary"
-            className="mt-6 w-full text-offWhite hover:no-underline"
+            className="text-offWhite mt-6 w-full hover:no-underline"
             asChild
           >
             <Link href={XVS_SNAPSHOT_URL}>

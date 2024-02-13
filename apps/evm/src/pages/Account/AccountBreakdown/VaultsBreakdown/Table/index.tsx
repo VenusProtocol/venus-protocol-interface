@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { Table, TableProps, TokenIconWithSymbol } from 'components';
 import { routes } from 'constants/routing';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Vault } from 'types';
 import {
   compareBigNumbers,

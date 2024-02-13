@@ -4,8 +4,8 @@ import {
   GetIsolatedPoolParticipantsCountInput,
   getIsolatedPoolParticipantsCount,
 } from 'clients/subgraph';
-import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'packages/contracts';
-import { logError } from 'packages/errors';
+import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'libs/contracts';
+import { logError } from 'libs/errors';
 import { Asset, PrimeApy, Token } from 'types';
 import {
   appendPrimeSimulationDistributions,

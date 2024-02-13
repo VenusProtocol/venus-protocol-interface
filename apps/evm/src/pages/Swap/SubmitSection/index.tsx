@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Swap, SwapError } from 'types';
 import { cn } from 'utilities';
 

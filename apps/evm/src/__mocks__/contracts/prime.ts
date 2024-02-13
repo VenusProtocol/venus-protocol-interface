@@ -1,6 +1,6 @@
 import { BigNumber as BN } from 'ethers';
 
-import { Prime } from 'packages/contracts';
+import { Prime } from 'libs/contracts';
 
 const primeResponses: {
   MINIMUM_STAKED_XVS: Awaited<ReturnType<Prime['MINIMUM_STAKED_XVS']>>;

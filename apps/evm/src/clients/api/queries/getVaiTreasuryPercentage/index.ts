@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { VaiController } from 'packages/contracts';
+import { VaiController } from 'libs/contracts';
 
 export interface GetVaiTreasuryPercentageInput {
   vaiControllerContract: VaiController;

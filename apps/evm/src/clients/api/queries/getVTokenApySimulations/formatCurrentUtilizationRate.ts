@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { JumpRateModel, JumpRateModelV2 } from 'packages/contracts';
+import { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
 
 export interface FormatCurrentUtilizationRateInput {
   utilizationRatePercentage: Awaited<

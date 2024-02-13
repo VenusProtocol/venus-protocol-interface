@@ -4,9 +4,9 @@ import { useMemo } from 'react';
 
 import { ButtonWrapper, Icon, Spinner, Table, TableColumn } from 'components';
 import { Link } from 'containers/Link';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useChainId } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
 import { VoteDetail, VoteSupport } from 'types';
 import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
 
@@ -113,7 +113,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
 
       <ButtonWrapper
         variant="secondary"
-        className="mt-4 text-offWhite hover:no-underline sm:mx-6 sm:mt-0"
+        className="text-offWhite mt-4 hover:no-underline sm:mx-6 sm:mt-0"
         asChild
       >
         <Link

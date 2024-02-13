@@ -3,7 +3,7 @@ import { PRIME_DOC_URL } from 'constants/prime';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import boostsIllustration from './boostsIllustration.png';
 import illustrationSm from './illustrationSm.png';
@@ -22,14 +22,14 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
   });
 
   return (
-    <Card className="relative mb-8 overflow-hidden border border-lightGrey py-6 sm:p-0 md:p-0">
+    <Card className="border-lightGrey relative mb-8 overflow-hidden border py-6 sm:p-0 md:p-0">
       <button
         onClick={onHide}
         className="absolute right-4 top-4 z-10"
         type="button"
         data-testid={TEST_IDS.closeButton}
       >
-        <Icon name="close" className="h-6 w-6 text-offWhite hover:text-grey" />
+        <Icon name="close" className="text-offWhite hover:text-grey h-6 w-6" />
       </button>
 
       <div className="sm:flex sm:flex-row">
@@ -37,14 +37,14 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
           {/* Mobile illustration */}
           <img
             src={illustrationSm}
-            className="mx-auto h-35 max-w-none sm:hidden"
+            className="h-35 mx-auto max-w-none sm:hidden"
             alt={t('dashboard.primePromotionalBanner.illustration.alt')}
           />
 
           {/* SM and up illustration */}
           <img
             src={primeTokenIllustration}
-            className="hidden sm:absolute sm:left-7 sm:top-[50%] sm:-mt-30 sm:block sm:h-60 sm:max-w-none md:-top-[12%] md:mt-0 md:h-[124%] lg:-top-[20%] lg:h-[140%] xl:-top-[30%] xl:h-[160%] xxl:-top-[40%] xxl:h-[180%]"
+            className="sm:-mt-30 xxl:-top-[40%] xxl:h-[180%] hidden sm:absolute sm:left-7 sm:top-[50%] sm:block sm:h-60 sm:max-w-none md:-top-[12%] md:mt-0 md:h-[124%] lg:-top-[20%] lg:h-[140%] xl:-top-[30%] xl:h-[160%]"
             alt={t('dashboard.primePromotionalBanner.illustration.alt')}
           />
 
@@ -55,7 +55,7 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
           />
         </div>
 
-        <div className="sm:order-1 sm:basis-8/12 sm:p-4 md:p-6 xxl:max-w-150">
+        <div className="xxl:max-w-150 sm:order-1 sm:basis-8/12 sm:p-4 md:p-6">
           <div className="xxl:max-w-2xl">
             <p className="mb-2 text-lg">
               <Trans
@@ -68,7 +68,7 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
               />
             </p>
 
-            <p className="mb-8 text-sm text-grey xl:text-base">
+            <p className="text-grey mb-8 text-sm xl:text-base">
               {t('dashboard.primePromotionalBanner.description')}
             </p>
 

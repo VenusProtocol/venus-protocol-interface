@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useGetLegacyPoolMarkets } from 'clients/api';
-import { useGetToken } from 'packages/tokens';
+import { useGetToken } from 'libs/tokens';
 import { convertTokensToMantissa } from 'utilities';
 
 export interface UseGetLegacyPoolTotalXvsDistributedOutput {

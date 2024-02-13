@@ -8,9 +8,9 @@ import { Button, NoticeInfo, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { UseVoteParams } from 'hooks/useVote';
-import { useGetToken, useGetTokens } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { governanceChain, useAccountAddress, useSwitchChain } from 'packages/wallet';
+import { useGetToken, useGetTokens } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet';
 import { ProposalState, Proposal as ProposalType, Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

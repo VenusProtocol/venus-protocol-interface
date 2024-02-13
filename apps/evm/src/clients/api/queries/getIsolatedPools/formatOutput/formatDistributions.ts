@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { logError } from 'packages/errors';
+import { logError } from 'libs/errors';
 import { AssetDistribution, PrimeApy, Token } from 'types';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from 'utilities/formatRewardDistribution';

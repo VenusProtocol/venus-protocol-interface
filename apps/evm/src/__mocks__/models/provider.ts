@@ -1,6 +1,6 @@
 import { BigNumber, providers } from 'ethers';
 
-import { type Provider } from 'packages/wallet';
+import { type Provider } from 'libs/wallet';
 
 export const blockNumber = 123;
 export const balance = BigNumber.from('1000000000000000000');

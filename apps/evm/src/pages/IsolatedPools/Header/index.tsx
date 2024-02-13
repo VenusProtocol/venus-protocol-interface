@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { useGetIsolatedPoolsTreasuryTotals } from 'clients/api';
 import { Cell, CellGroup } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 
 import { useStyles } from './styles';

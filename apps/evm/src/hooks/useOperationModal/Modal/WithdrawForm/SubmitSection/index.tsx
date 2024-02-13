@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 
 import { PrimaryButton } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import { FormError } from '../useForm/types';
 

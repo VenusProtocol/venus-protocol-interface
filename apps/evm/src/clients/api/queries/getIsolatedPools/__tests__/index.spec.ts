@@ -19,7 +19,7 @@ import {
   RewardsDistributor,
   getIsolatedPoolComptrollerContract,
   getRewardsDistributorContract,
-} from 'packages/contracts';
+} from 'libs/contracts';
 import { ChainId, Token } from 'types';
 
 import getIsolatedPools from '..';
@@ -30,7 +30,7 @@ import {
   fakeIsolatedPoolParticipantsCount,
 } from '../__testUtils__/fakeData';
 
-vi.mock('packages/contracts');
+vi.mock('libs/contracts');
 vi.mock('clients/subgraph');
 
 const fakePoolRegistryContractAddress = '0x4301F2213c0eeD49a7E28Ae4c3e91722919B8B45';

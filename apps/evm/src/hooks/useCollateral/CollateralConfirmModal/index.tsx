@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 
 import { ReactComponent as LogoWithText } from 'assets/img/venusLogoWithText.svg';
 import { Icon, Modal, ModalProps } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Asset } from 'types';
 
 import { useStyles } from './styles';

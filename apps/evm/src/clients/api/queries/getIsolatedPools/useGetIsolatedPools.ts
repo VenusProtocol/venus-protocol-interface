@@ -12,9 +12,9 @@ import {
   useGetPoolRegistryContractAddress,
   useGetPrimeContract,
   useGetResilientOracleContract,
-} from 'packages/contracts';
-import { useGetToken, useGetTokens } from 'packages/tokens';
-import { useChainId, useProvider } from 'packages/wallet';
+} from 'libs/contracts';
+import { useGetToken, useGetTokens } from 'libs/tokens';
+import { useChainId, useProvider } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 

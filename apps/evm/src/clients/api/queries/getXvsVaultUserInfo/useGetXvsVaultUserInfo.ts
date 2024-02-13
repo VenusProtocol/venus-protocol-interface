@@ -5,8 +5,8 @@ import getXvsVaultUserInfo, {
   GetXvsVaultUserInfoOutput,
 } from 'clients/api/queries/getXvsVaultUserInfo';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
+import { useGetXvsVaultContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

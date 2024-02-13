@@ -3,7 +3,7 @@ import { fireEvent } from '@testing-library/react';
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import AssetWarning from '.';
 import TEST_IDS from './AssetTable/testIds';

@@ -4,8 +4,8 @@ import getVrtConversionRatio, {
   GetVrtConversionRatioOutput,
 } from 'clients/api/queries/getVrtConversionRatio';
 import FunctionKey from 'constants/functionKey';
-import { useGetVrtConverterContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
+import { useGetVrtConverterContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

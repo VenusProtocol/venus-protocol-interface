@@ -2,8 +2,8 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetVaiVaultPausedOutput, getVaiVaultPaused } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetVaiVaultContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
+import { useGetVaiVaultContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

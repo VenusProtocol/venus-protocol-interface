@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { LabeledInlineContentProps } from 'components/LabeledInlineContent';
 import { ValueUpdate } from 'components/ValueUpdate';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Asset } from 'types';
 import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
 

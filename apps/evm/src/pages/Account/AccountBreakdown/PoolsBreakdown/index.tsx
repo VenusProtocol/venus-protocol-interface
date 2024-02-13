@@ -2,7 +2,7 @@
 import { useMemo, useState } from 'react';
 
 import { ProgressCircle, Tag, TagGroup, Tooltip } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Pool } from 'types';
 import { calculatePercentage, formatPercentageToReadableValue } from 'utilities';
 

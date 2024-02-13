@@ -6,7 +6,7 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Swap } from 'types';
 import {
   convertMantissaToTokens,

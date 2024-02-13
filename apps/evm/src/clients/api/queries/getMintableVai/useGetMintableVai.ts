@@ -6,8 +6,8 @@ import getMintableVai, {
 } from 'clients/api/queries/getMintableVai';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useGetVaiContract, useGetVaiControllerContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
+import { useGetVaiContract, useGetVaiControllerContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 

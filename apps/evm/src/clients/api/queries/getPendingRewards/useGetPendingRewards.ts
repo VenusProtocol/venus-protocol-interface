@@ -11,9 +11,9 @@ import {
   useGetVaiVaultContract,
   useGetVenusLensContract,
   useGetXvsVaultContract,
-} from 'packages/contracts';
-import { useGetTokens } from 'packages/tokens';
-import { useChainId } from 'packages/wallet';
+} from 'libs/contracts';
+import { useGetTokens } from 'libs/tokens';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 

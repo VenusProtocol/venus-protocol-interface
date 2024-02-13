@@ -6,8 +6,8 @@ import { useGetIsolatedPools } from 'clients/api';
 import { Table, TableColumn, TokenGroup } from 'components';
 import { routes } from 'constants/routing';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Pool } from 'types';
 import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
 

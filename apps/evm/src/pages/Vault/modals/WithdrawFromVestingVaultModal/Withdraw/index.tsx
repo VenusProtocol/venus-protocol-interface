@@ -7,9 +7,9 @@ import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from '
 import { LabeledInlineContent, PrimaryButton, Spinner } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Token } from 'types';
 
 import { useStyles } from './styles';

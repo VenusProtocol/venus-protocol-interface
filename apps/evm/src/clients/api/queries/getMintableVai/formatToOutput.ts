@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { Vai, VaiController } from 'packages/contracts';
+import { Vai, VaiController } from 'libs/contracts';
 
 import { GetMintableVaiOutput } from './types';
 

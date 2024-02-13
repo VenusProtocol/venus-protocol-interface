@@ -1,9 +1,0 @@
-src/assets/images
-src/assets/font
-src/clients/subgraph/gql/mainnet.ts
-src/clients/subgraph/gql/testnet.ts
-src/packages/contracts/types/contracts
-src/storybook-static
-
-# Handlerbars files
-*.hbs

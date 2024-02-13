@@ -1,10 +1,10 @@
 import fakeAccountAddress from '__mocks__/models/address';
 
-import { Prime } from 'packages/contracts';
+import { Prime } from 'libs/contracts';
 
 import getPrimeToken from '.';
 
-vi.mock('packages/contracts');
+vi.mock('libs/contracts');
 
 describe('getPrimeToken', () => {
   it('returns Prime status of passed account', async () => {

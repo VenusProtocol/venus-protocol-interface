@@ -20,8 +20,8 @@ import {
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { en } from 'packages/translations';
-import { CHAIN_ID_SEARCH_PARAM } from 'packages/wallet/constants';
+import { en } from 'libs/translations';
+import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import { ChainId } from 'types';
 
 import Governance from '.';

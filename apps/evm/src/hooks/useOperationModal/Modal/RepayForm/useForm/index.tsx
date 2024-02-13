@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useEffect } from 'react';
 
 import useIsMounted from 'hooks/useIsMounted';
-import { displayMutationError } from 'packages/errors';
+import { displayMutationError } from 'libs/errors';
 import { Swap, SwapError, Token, VToken } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 

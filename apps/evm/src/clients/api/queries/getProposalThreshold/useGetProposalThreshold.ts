@@ -4,8 +4,8 @@ import getProposalThreshold, {
   GetProposalThresholdOutput,
 } from 'clients/api/queries/getProposalThreshold';
 import FunctionKey from 'constants/functionKey';
-import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
-import { governanceChain } from 'packages/wallet';
+import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
+import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 type Options = QueryObserverOptions<

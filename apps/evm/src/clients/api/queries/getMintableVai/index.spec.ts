@@ -4,7 +4,7 @@ import vaiContractResponses from '__mocks__/contracts/vai';
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAddress from '__mocks__/models/address';
 
-import { Vai, VaiController } from 'packages/contracts';
+import { Vai, VaiController } from 'libs/contracts';
 
 import getMintableVai from '.';
 

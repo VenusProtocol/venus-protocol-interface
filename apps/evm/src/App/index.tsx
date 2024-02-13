@@ -3,16 +3,16 @@ import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
 
 import { queryClient } from 'clients/api';
-import { AnalyticProvider } from 'packages/analytics';
-import { ErrorBoundary } from 'packages/errors';
-import { SentryErrorInfo } from 'packages/errors/SentryErrorInfo';
-import { LunaUstWarningModal } from 'packages/lunaUstWarning';
-import { Web3Wrapper } from 'packages/wallet';
+import { AnalyticProvider } from 'libs/analytics';
+import { ErrorBoundary } from 'libs/errors';
+import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
+import { LunaUstWarningModal } from 'libs/lunaUstWarning';
+import { Web3Wrapper } from 'libs/wallet';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 import Routes from './Routes';
 
-const NotificationCenter = lazy(() => import('packages/notifications/NotificationCenter'));
+const NotificationCenter = lazy(() => import('libs/notifications/NotificationCenter'));
 const AppVersionChecker = lazy(() => import('containers/AppVersionChecker'));
 
 const App = () => (

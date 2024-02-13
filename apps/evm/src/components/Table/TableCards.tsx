@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { Spinner } from 'components/Spinner';
 import { Link } from 'containers/Link';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import { Delimiter } from '../Delimiter';
 import { Select, SelectOption, SelectProps } from '../Select';

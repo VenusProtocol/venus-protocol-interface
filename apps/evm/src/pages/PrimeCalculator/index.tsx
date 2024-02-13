@@ -1,7 +1,7 @@
 import { NoticeInfo } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { Link } from 'containers/Link';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import { Form } from './Form';
 

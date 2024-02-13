@@ -7,7 +7,7 @@ import Vi from 'vitest';
 
 import fakeSigner from '__mocks__/models/signer';
 
-import { Web3Wrapper, useAccountAddress, useChainId, useSigner } from 'packages/wallet';
+import { Web3Wrapper, useAccountAddress, useChainId, useSigner } from 'libs/wallet';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 import { ChainId } from 'types';
 

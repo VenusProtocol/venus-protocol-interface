@@ -5,9 +5,9 @@ import {
   useGetXVSProxyOFTDestContract,
   useGetXVSProxyOFTSrcContract,
   useGetXvsVaultContract,
-} from 'packages/contracts';
-import { useGetToken } from 'packages/tokens';
-import { useChainId } from 'packages/wallet';
+} from 'libs/contracts';
+import { useGetToken } from 'libs/tokens';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

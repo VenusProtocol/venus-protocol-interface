@@ -12,8 +12,8 @@ import {
   useGetXvsBridgeMintStatus,
   useGetXvsBridgeStatus,
 } from 'clients/api';
-import { en } from 'packages/translations';
-import { useAuthModal, useChainId, useSwitchChain } from 'packages/wallet';
+import { en } from 'libs/translations';
+import { useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import Bridge from '..';

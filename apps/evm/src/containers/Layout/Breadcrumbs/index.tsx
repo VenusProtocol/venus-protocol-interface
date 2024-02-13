@@ -6,7 +6,7 @@ import { EllipseAddress, Icon } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import PoolName from './PoolName';
 import VTokenSymbol from './VTokenSymbol';
@@ -105,7 +105,7 @@ export const Breadcrumbs: React.FC = () => {
 
               <button
                 type="button"
-                className="ml-3 cursor-pointer text-blue transition-colors hover:text-darkBlue active:text-darkBlue"
+                className="text-blue hover:text-darkBlue active:text-darkBlue ml-3 cursor-pointer transition-colors"
               >
                 <Icon
                   name="copy"
@@ -169,13 +169,13 @@ export const Breadcrumbs: React.FC = () => {
           {pathNodes.length > 0 && index < pathNodes.length - 1 ? (
             <>
               <Link
-                className="text-grey transition-colors hover:text-offWhite hover:no-underline"
+                className="text-grey hover:text-offWhite transition-colors hover:no-underline"
                 to={pathNode.href}
               >
                 {pathNode.dom}
               </Link>
 
-              <span className="mx-3 text-grey">/</span>
+              <span className="text-grey mx-3">/</span>
             </>
           ) : (
             pathNode.dom

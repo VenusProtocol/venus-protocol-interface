@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 
 import { useGetPools, useGetVaults } from 'clients/api';
 import { Spinner } from 'components';
-import { useGetToken } from 'packages/tokens';
-import { useAccountAddress } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useAccountAddress } from 'libs/wallet';
 import { Pool, Vault } from 'types';
 import { areTokensEqual } from 'utilities';
 

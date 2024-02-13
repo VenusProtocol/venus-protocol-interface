@@ -6,7 +6,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { renderComponent } from 'testUtils/render';
 
 import { claimRewards, getPendingRewards } from 'clients/api';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import ClaimRewardButton from '..';
 import TEST_IDS from '../../testIds';

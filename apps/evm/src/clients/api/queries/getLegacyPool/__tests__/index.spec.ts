@@ -13,7 +13,7 @@ import {
   ResilientOracle,
   VaiController,
   VenusLens,
-} from 'packages/contracts';
+} from 'libs/contracts';
 
 import getLegacyPool from '..';
 import getLegacyPoolMarkets from '../../getLegacyPoolMarkets';

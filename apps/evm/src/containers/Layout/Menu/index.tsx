@@ -7,7 +7,7 @@ import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
 import { ChainSelect } from '../ChainSelect';
@@ -53,18 +53,18 @@ export const Menu: React.FC = () => {
           <button
             onClick={toggleMobileMenu}
             type="button"
-            className="ml-5 flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-cards p-0 hover:bg-lightGrey active:bg-lightGrey"
+            className="bg-cards hover:bg-lightGrey active:bg-lightGrey ml-5 flex h-9 w-9 flex-none items-center justify-center rounded-lg p-0"
           >
             <Icon
               name={isMobileMenuOpened ? 'closeRounded' : 'burger'}
-              className={cn('h-auto text-offWhite', isMobileMenuOpened ? 'w-[14px]' : 'w-[18px]')}
+              className={cn('text-offWhite h-auto', isMobileMenuOpened ? 'w-[14px]' : 'w-[18px]')}
             />
           </button>
         </header>
 
         <div
           className={cn(
-            'fixed bottom-0 left-0 right-0 top-14 z-50 overflow-y-auto bg-background pb-8 pt-4',
+            'bg-background fixed bottom-0 left-0 right-0 top-14 z-50 overflow-y-auto pb-8 pt-4',
             isMobileMenuOpened ? 'block' : 'hidden',
           )}
         >
@@ -81,7 +81,7 @@ export const Menu: React.FC = () => {
       </div>
 
       {/* MD and up menu */}
-      <div className="hidden bg-cards pt-7 md:flex md:flex-col md:items-center xl:w-56">
+      <div className="bg-cards hidden pt-7 md:flex md:flex-col md:items-center xl:w-56">
         <Link
           className="mb-4 flex w-full items-center justify-center py-2"
           to={routes.dashboard.path}

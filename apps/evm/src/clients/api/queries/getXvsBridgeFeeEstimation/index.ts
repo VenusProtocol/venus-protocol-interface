@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
-import { XVSProxyOFTDest, XVSProxyOFTSrc } from 'packages/contracts';
+import { XVSProxyOFTDest, XVSProxyOFTSrc } from 'libs/contracts';
 import { ChainId } from 'types';
 
 export interface GetXvsBridgeEstimationInput {

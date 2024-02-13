@@ -22,9 +22,9 @@ import {
   TokenIconWithSymbol,
 } from 'components';
 import useDebounceValue from 'hooks/useDebounceValue';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Asset } from 'types';
 import {
   areAddressesEqual,

@@ -1,6 +1,6 @@
 import { ContractTransaction } from 'ethers';
 
-import { XvsVesting } from 'packages/contracts';
+import { XvsVesting } from 'libs/contracts';
 
 export interface WithdrawXvsInput {
   xvsVestingContract: XvsVesting;

@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import compTrollerResponses from '__mocks__/contracts/legacyPoolComptroller';
 
-import { LegacyPoolComptroller } from 'packages/contracts';
+import { LegacyPoolComptroller } from 'libs/contracts';
 
 import getHypotheticalAccountLiquidity from '.';
 

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { Breakpoint, EllipseAddress } from 'components/EllipseAddress';
 import { Icon } from 'components/Icon';
 import { Link } from 'containers/Link';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { ChainId } from 'types';
 import { UrlType, cn, generateChainExplorerUrl } from 'utilities';
 
@@ -46,7 +46,7 @@ export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
   }, [url, text, ellipseBreakpoint, t]);
 
   return (
-    <div className={cn('inline-block text-sm font-semibold text-blue', className)}>
+    <div className={cn('text-blue inline-block text-sm font-semibold', className)}>
       <Link href={url} className="flex items-center">
         {content}
 

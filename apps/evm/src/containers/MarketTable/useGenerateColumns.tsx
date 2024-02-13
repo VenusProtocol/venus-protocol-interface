@@ -15,7 +15,7 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import {
   areAddressesEqual,
   compareBigNumbers,
@@ -186,7 +186,7 @@ const useGenerateColumns = ({
 
               return (
                 <div>
-                  <Link to={to} className="text-sm text-offWhite underline hover:text-blue">
+                  <Link to={to} className="text-offWhite hover:text-blue text-sm underline">
                     {poolAsset.pool.name}
                   </Link>
                 </div>

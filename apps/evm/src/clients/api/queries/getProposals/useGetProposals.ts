@@ -6,7 +6,7 @@ import getProposals, {
 } from 'clients/api/queries/getProposals';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
-import { governanceChain } from 'packages/wallet';
+import { governanceChain } from 'libs/wallet';
 
 type Options = QueryObserverOptions<
   GetProposalsOutput,

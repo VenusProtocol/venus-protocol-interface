@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { Fragment, useMemo } from 'react';
 
 import { Icon } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { ProposalState } from 'types';
 
 import { useStyles } from './styles';

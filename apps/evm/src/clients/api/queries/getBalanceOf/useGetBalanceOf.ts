@@ -2,7 +2,7 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetBalanceOfInput, GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useChainId, useProvider } from 'packages/wallet';
+import { useChainId, useProvider } from 'libs/wallet';
 import { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 

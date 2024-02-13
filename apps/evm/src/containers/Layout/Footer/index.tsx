@@ -1,6 +1,6 @@
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useChainId } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
 import { generateChainExplorerUrl } from 'utilities';
 
 import { Link } from '../../Link';
@@ -24,11 +24,11 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="bg-background p-4 sm:flex sm:h-14 sm:flex-none sm:items-center sm:justify-end sm:space-x-6 md:px-6 xl:px-10">
-      <Link className="mb-4 block text-sm text-offWhite underline sm:mb-0" href={VENUS_DOC_URL}>
+      <Link className="text-offWhite mb-4 block text-sm underline sm:mb-0" href={VENUS_DOC_URL}>
         {t('footer.links.documentation')}
       </Link>
 
-      <div className="hidden h-full w-[1px] bg-lightGrey sm:block" />
+      <div className="bg-lightGrey hidden h-full w-[1px] sm:block" />
 
       <div className="flex flex-none items-center">
         <IconLink

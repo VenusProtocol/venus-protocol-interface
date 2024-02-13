@@ -1,5 +1,5 @@
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import { Form } from './Form';
 

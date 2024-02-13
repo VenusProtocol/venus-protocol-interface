@@ -4,7 +4,7 @@ import { FieldArray, useField } from 'formik';
 import { useState } from 'react';
 
 import { Accordion, FormikTextField, Icon, SecondaryButton } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import { ErrorCode, initialActionData } from '../proposalSchema';
 import CallDataFields from './CallDataFields';

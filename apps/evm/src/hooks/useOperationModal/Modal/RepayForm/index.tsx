@@ -18,10 +18,10 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { useGetSwapRouterContractAddress } from 'packages/contracts';
-import { VError } from 'packages/errors';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useGetSwapRouterContractAddress } from 'libs/contracts';
+import { VError } from 'libs/errors';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,

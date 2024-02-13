@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { InputHTMLAttributes, useMemo, useState } from 'react';
 
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Token, TokenBalance } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

@@ -35,7 +35,7 @@ export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }
   }, [group.pendingRewards]);
 
   return (
-    <div className="mb-4 border-b border-lightGrey pb-4 last:border-none last:pb-0">
+    <div className="border-lightGrey mb-4 border-b pb-4 last:border-none last:pb-0">
       <div className="mb-4">
         <div className="flex items-center justify-between">
           <p className="text-lg">{group.name}</p>
@@ -43,7 +43,7 @@ export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }
           {!group.isDisabled && <Checkbox onChange={handleOnCheckChange} value={group.isChecked} />}
         </div>
 
-        {group.warningMessage && <p className="mt-2 text-orange">{group.warningMessage}</p>}
+        {group.warningMessage && <p className="text-orange mt-2">{group.warningMessage}</p>}
       </div>
 
       {pendingRewards.map(pendingReward => (

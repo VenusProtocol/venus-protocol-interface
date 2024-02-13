@@ -5,8 +5,8 @@ import getXvsWithdrawableAmount, {
   GetXvsWithdrawableAmountOutput,
 } from 'clients/api/queries/getXvsWithdrawableAmount';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVestingContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
+import { useGetXvsVestingContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

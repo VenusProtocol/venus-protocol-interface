@@ -3,7 +3,7 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 import { getBlockNumber } from 'clients/api/';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useChainId, useProvider } from 'packages/wallet';
+import { useChainId, useProvider } from 'libs/wallet';
 import { ChainId } from 'types';
 
 export type UseGetBlockNumberQueryKey = [FunctionKey.GET_BLOCK_NUMBER, { chainId: ChainId }];

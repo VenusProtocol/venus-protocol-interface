@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { VError, logError } from 'packages/errors';
+import { VError, logError } from 'libs/errors';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';

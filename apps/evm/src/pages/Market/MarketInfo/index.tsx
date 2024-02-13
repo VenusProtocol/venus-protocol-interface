@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { LabeledInlineContent } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import { MarketCard } from '../MarketCard';
 import { Stat } from '../types';

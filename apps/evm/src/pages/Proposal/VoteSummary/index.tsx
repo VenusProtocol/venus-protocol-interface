@@ -7,8 +7,8 @@ import { useCallback } from 'react';
 import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
 import { VotersDetails } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

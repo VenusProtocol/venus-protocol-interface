@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { PrimaryButton } from 'components';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
 import { FormError } from '../useForm/types';

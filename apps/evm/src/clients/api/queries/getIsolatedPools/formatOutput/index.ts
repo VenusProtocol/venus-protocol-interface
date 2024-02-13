@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
-import { PoolLens } from 'packages/contracts';
-import { logError } from 'packages/errors';
+import { PoolLens } from 'libs/contracts';
+import { logError } from 'libs/errors';
 import { Asset, Pool, PrimeApy, Token, VToken } from 'types';
 import addUserPropsToPool from 'utilities/addUserPropsToPool';
 import areAddressesEqual from 'utilities/areAddressesEqual';

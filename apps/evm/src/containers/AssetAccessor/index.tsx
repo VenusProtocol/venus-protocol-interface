@@ -3,7 +3,7 @@ import { useGetPool } from 'clients/api';
 import { Spinner } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
-import { useAccountAddress } from 'packages/wallet';
+import { useAccountAddress } from 'libs/wallet';
 import { Asset, Pool, TokenAction, VToken } from 'types';
 import { areTokensEqual } from 'utilities';
 

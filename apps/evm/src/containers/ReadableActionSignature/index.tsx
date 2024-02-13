@@ -2,8 +2,8 @@
 import { Typography } from '@mui/material';
 
 import { useGetVTokens } from 'clients/api';
-import { useGetTokens } from 'packages/tokens';
-import { useChainId } from 'packages/wallet';
+import { useGetTokens } from 'libs/tokens';
+import { useChainId } from 'libs/wallet';
 import { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
 import { ChainId, ProposalAction, Token, VToken } from 'types';
 import { generateChainExplorerUrl } from 'utilities';

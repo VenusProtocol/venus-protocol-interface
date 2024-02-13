@@ -5,9 +5,9 @@ import { useMemo } from 'react';
 import { useGetVaiCalculateRepayAmount } from 'clients/api';
 import { LabeledInlineContent } from 'components';
 import useDebounceValue from 'hooks/useDebounceValue';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { useStyles } from '../styles';

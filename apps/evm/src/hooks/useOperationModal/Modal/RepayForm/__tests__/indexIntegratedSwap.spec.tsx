@@ -18,7 +18,7 @@ import {
 import useGetSwapInfo, { UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 import { Asset, Swap, TokenBalance } from 'types';
 
 import Repay, { PRESET_PERCENTAGES } from '..';

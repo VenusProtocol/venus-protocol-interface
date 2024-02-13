@@ -5,10 +5,10 @@ import { useMemo } from 'react';
 
 import { useGetBalanceOf, useGetLegacyPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
 import { Table, TableColumn, TokenIconWithSymbol } from 'components';
-import { useGetVaiVaultContractAddress } from 'packages/contracts';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useGetVaiVaultContractAddress } from 'libs/contracts';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { RewardDistributorDistribution, Token } from 'types';
 import {
   areTokensEqual,

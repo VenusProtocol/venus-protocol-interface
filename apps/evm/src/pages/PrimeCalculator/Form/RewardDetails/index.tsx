@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { Card, Delimiter, LabeledInlineContent } from 'components';
 import { PRIME_APY_DOC_URL } from 'constants/prime';
 import { Link } from 'containers/Link';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Token } from 'types';
 import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 

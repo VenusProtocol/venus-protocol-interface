@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import { ButtonWrapper } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import { useStyles } from './styles';
 import wallet from './wallet.png';

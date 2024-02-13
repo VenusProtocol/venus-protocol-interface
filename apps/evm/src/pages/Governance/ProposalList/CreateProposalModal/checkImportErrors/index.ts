@@ -1,6 +1,6 @@
 import { FormikErrors } from 'formik';
 
-import { VError } from 'packages/errors';
+import { VError } from 'libs/errors';
 
 import { FormValues } from '../proposalSchema';
 

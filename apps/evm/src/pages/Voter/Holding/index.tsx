@@ -5,8 +5,8 @@ import BigNumber from 'bignumber.js';
 import { Delimiter, Icon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
 
 import { useStyles } from './styles';
 

@@ -26,7 +26,7 @@ import {
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 import { Swap } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

@@ -6,7 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import { FormikSubmitButton, PrimaryButton } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
 import { useNavigate } from 'hooks/useNavigate';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 
 import ActionAccordion from '../ActionAccordion';
 import ProposalInfo from '../ProposalInfo';

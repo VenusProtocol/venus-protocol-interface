@@ -5,11 +5,11 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { bnb, busd, lisUsd } from '__mocks__/models/tokens';
 
-import { getTokenContract } from 'packages/contracts';
+import { getTokenContract } from 'libs/contracts';
 
 import getTokenBalances from '.';
 
-vi.mock('packages/contracts/utilities/getTokenContract');
+vi.mock('libs/contracts/utilities/getTokenContract');
 
 const tokens = [busd, lisUsd];
 const tokensWithBnB = [...tokens, bnb];

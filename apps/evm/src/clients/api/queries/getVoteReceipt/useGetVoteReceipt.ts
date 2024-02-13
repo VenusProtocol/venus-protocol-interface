@@ -1,8 +1,8 @@
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
-import { governanceChain } from 'packages/wallet';
+import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
+import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 import getVoteReceipt, { GetVoteReceiptInput, GetVoteReceiptOutput } from '.';

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractTransaction } from 'ethers';
 
-import { VaiController } from 'packages/contracts';
+import { VaiController } from 'libs/contracts';
 
 export interface MintVaiInput {
   vaiControllerContract: VaiController;

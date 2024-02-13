@@ -6,7 +6,7 @@ import {
   supplyAveragesForToken,
   xvsStakedAveragesForToken,
 } from 'constants/prime';
-import { Prime } from 'packages/contracts';
+import { Prime } from 'libs/contracts';
 import { Asset, Token } from 'types';
 import {
   areAddressesEqual,

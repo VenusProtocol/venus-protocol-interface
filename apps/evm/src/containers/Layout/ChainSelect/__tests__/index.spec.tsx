@@ -3,7 +3,7 @@ import Vi from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 
-import { useSwitchChain } from 'packages/wallet';
+import { useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import { ChainSelect } from '..';

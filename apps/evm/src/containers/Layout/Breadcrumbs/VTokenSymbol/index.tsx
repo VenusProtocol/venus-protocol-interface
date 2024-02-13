@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { useGetVTokens } from 'clients/api';
 import { Icon, TertiaryButton } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { addTokenToWallet, canAddTokenToWallet, useAccountAddress } from 'packages/wallet';
+import { addTokenToWallet, canAddTokenToWallet, useAccountAddress } from 'libs/wallet';
 import { VToken } from 'types';
 import { findTokenByAddress } from 'utilities';
 
@@ -18,7 +18,7 @@ export const VTokenSymbolUi: React.FC<VTokenSymbolUiProps> = ({ vToken, isUserCo
 
     {isUserConnected && vToken && canAddTokenToWallet() && (
       <TertiaryButton
-        className="ml-4 h-auto border-cards bg-cards p-1 text-blue hover:text-offWhite"
+        className="border-cards bg-cards text-blue hover:text-offWhite ml-4 h-auto p-1"
         onClick={() => addTokenToWallet(vToken.underlyingToken)}
       >
         <Icon name="wallet" className="ml-[1px] h-5 w-5 text-inherit " />

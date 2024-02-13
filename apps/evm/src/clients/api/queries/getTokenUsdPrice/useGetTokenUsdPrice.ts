@@ -2,8 +2,8 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetTokenUsdPriceInput, GetTokenUsdPriceOutput, getTokenUsdPrice } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetResilientOracleContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
+import { useGetResilientOracleContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 

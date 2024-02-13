@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { useGetAsset } from 'clients/api';
 import { Spinner } from 'components';
 import { routes } from 'constants/routing';
-import { useAccountAddress } from 'packages/wallet';
+import { useAccountAddress } from 'libs/wallet';
 import { Asset } from 'types';
 
 export interface MarketLoaderProps {

@@ -5,10 +5,10 @@ import BigNumber from 'bignumber.js';
 import { PrimaryButton } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import { displayMutationError } from 'packages/errors';
-import { useLunaUstWarning } from 'packages/lunaUstWarning';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
+import { displayMutationError } from 'libs/errors';
+import { useLunaUstWarning } from 'libs/lunaUstWarning';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
 
 import { useStyles } from '../styles';
 

@@ -8,7 +8,7 @@ import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import { renderComponent } from 'testUtils/render';
 
 import { useGetLegacyPool, useGetPrimeEstimation, useGetPrimeStatus } from 'clients/api';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 import { Asset } from 'types';
 
 import PrimeCalculator from '..';

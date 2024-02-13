@@ -1,6 +1,6 @@
-import bnbLogo from 'packages/tokens/img/bnb.svg';
-import ethLogo from 'packages/tokens/img/eth.svg';
-import { getToken } from 'packages/tokens/utilities/getToken';
+import bnbLogo from 'libs/tokens/img/bnb.svg';
+import ethLogo from 'libs/tokens/img/eth.svg';
+import { getToken } from 'libs/tokens/utilities/getToken';
 import { ChainId, ChainMetadata } from 'types';
 
 export const CHAIN_METADATA: {

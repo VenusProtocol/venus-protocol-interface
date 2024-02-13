@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
 
-import { VaiController } from 'packages/contracts';
+import { VaiController } from 'libs/contracts';
 
 import getVaiRepayApy from '.';
 

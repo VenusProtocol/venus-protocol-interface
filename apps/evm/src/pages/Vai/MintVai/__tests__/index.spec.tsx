@@ -11,7 +11,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 import { convertMantissaToTokens } from 'utilities';
 
 import MintVai from '..';

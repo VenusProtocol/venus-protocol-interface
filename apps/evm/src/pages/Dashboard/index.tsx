@@ -3,8 +3,8 @@ import { InputHTMLAttributes, useMemo, useState } from 'react';
 import { useGetPools } from 'clients/api';
 import { Tag, TagGroup, TextField } from 'components';
 import { MarketTable } from 'containers/MarketTable';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 
 import { Banner } from './Banner';
 import TEST_IDS from './testIds';

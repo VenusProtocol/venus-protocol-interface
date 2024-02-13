@@ -5,8 +5,8 @@ import getVTokenBalancesAll, {
   GetVTokenBalancesAllOutput,
 } from 'clients/api/queries/getVTokenBalancesAll';
 import FunctionKey from 'constants/functionKey';
-import { useGetPoolLensContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
+import { useGetPoolLensContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

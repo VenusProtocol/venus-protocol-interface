@@ -2,7 +2,7 @@
 import { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { theme } from 'theme';
 import { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';

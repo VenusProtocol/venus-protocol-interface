@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 import { MarkdownViewer } from 'components';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { DescriptionV1, DescriptionV2, ProposalAction, Token } from 'types';
 
 import { useStyles } from './styles';

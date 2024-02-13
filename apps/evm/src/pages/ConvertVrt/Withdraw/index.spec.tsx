@@ -8,7 +8,7 @@ import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
 import { useGetLegacyPool } from 'clients/api';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import Withdraw from '.';
 

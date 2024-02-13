@@ -1,9 +1,9 @@
 import { StakeInXvsVaultInput, queryClient, stakeInXvsVault } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { useAnalytics } from 'packages/analytics';
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
+import { useAnalytics } from 'libs/analytics';
+import { useGetXvsVaultContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { Token } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 

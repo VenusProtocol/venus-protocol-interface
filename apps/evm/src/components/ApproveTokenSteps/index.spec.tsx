@@ -4,7 +4,7 @@ import noop from 'noop-ts';
 import { assetData } from '__mocks__/models/asset';
 import { renderComponent } from 'testUtils/render';
 
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import { ApproveTokenSteps } from '.';
 

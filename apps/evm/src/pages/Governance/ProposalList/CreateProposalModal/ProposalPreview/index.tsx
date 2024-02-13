@@ -4,8 +4,8 @@ import { useFormikContext } from 'formik';
 
 import { MarkdownViewer } from 'components';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';
-import { useGetTokens } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
+import { useGetTokens } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
 import { ProposalType } from 'types';
 
 import { FormValues } from '../proposalSchema';

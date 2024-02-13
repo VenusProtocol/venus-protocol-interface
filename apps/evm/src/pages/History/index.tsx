@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useGetTransactions } from 'clients/api';
 import { Pagination } from 'components';
 import { useUrlPagination } from 'hooks/useUrlPagination';
-import { useAccountAddress } from 'packages/wallet';
+import { useAccountAddress } from 'libs/wallet';
 import { Transaction, TransactionEvent } from 'types';
 
 import Filters, { ALL_VALUE, FilterProps } from './Filters';

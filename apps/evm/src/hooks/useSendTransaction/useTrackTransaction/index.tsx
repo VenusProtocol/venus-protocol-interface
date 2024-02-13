@@ -9,10 +9,10 @@ import {
   checkForVaiControllerTransactionError,
   checkForVaiVaultTransactionError,
   checkForXvsVaultProxyTransactionError,
-} from 'packages/errors';
-import { displayNotification, updateNotification } from 'packages/notifications';
-import { useTranslation } from 'packages/translations';
-import { useChainId, useProvider } from 'packages/wallet';
+} from 'libs/errors';
+import { displayNotification, updateNotification } from 'libs/notifications';
+import { useTranslation } from 'libs/translations';
+import { useChainId, useProvider } from 'libs/wallet';
 import { TransactionType } from 'types';
 import { UrlType } from 'utilities';
 

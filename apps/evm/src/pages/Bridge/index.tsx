@@ -21,17 +21,11 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import {
   getXVSProxyOFTDestContractAddress,
   getXVSProxyOFTSrcContractAddress,
-} from 'packages/contracts';
-import { displayMutationError } from 'packages/errors';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import {
-  chains,
-  useAccountAddress,
-  useAuthModal,
-  useChainId,
-  useSwitchChain,
-} from 'packages/wallet';
+} from 'libs/contracts';
+import { displayMutationError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { chains, useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
 
@@ -315,7 +309,7 @@ const BridgePage: React.FC = () => {
               disabled={formState.isSubmitting}
               data-testid={TEST_IDS.switchChainsButton}
             >
-              <Icon name="convert" className="h-6 w-6 rotate-90 text-blue md:rotate-0" />
+              <Icon name="convert" className="text-blue h-6 w-6 rotate-90 md:rotate-0" />
             </TextButton>
 
             <Controller
@@ -432,11 +426,11 @@ const BridgePage: React.FC = () => {
 
       <div className="flex items-center justify-center space-x-3">
         <div className="flex items-center">
-          <span className="mr-1 text-sm text-grey">{t('bridgePage.footer.poweredBy')}</span>
+          <span className="text-grey mr-1 text-sm">{t('bridgePage.footer.poweredBy')}</span>
           <LayerZeroLogo className="w-[80px]" />
         </div>
 
-        <div className="h-5 w-[1px] bg-lightGrey" />
+        <div className="bg-lightGrey h-5 w-[1px]" />
 
         <Link href={BRIDGE_DOC_URL} className="flex items-center text-sm">
           {t('bridgePage.footer.bridgeDocLink')}

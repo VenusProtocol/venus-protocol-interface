@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Asset, Pool, Swap, TokenAction } from 'types';
 import { cn, formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 

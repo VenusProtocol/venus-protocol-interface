@@ -6,8 +6,8 @@ import {
   useGetPrimeStatus,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
-import { useGetToken } from 'packages/tokens';
-import { useAccountAddress } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useAccountAddress } from 'libs/wallet';
 import { Asset, TokenAction } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 

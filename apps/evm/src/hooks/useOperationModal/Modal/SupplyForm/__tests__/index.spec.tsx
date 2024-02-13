@@ -12,7 +12,7 @@ import { renderComponent } from 'testUtils/render';
 import { supply } from 'clients/api';
 import useCollateral from 'hooks/useCollateral';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 import { Asset, Pool } from 'types';
 
 import SupplyForm from '..';

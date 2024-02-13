@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Swap } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

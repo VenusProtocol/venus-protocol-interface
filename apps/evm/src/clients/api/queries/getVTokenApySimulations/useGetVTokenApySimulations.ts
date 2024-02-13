@@ -7,8 +7,8 @@ import getVTokenApySimulations, {
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'packages/contracts';
-import { useChainId, useProvider } from 'packages/wallet';
+import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'libs/contracts';
+import { useChainId, useProvider } from 'libs/wallet';
 import { Asset, ChainId, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 

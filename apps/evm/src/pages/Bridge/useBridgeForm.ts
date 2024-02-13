@@ -14,8 +14,8 @@ import {
 } from 'clients/api';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useTranslation } from 'packages/translations';
-import { chains, useAccountAddress, useChainId } from 'packages/wallet';
+import { useTranslation } from 'libs/translations';
+import { chains, useAccountAddress, useChainId } from 'libs/wallet';
 import { ChainId, Token } from 'types';
 import {
   convertDollarsToCents,

@@ -6,8 +6,8 @@ import { EllipseAddress, Table, TableColumn, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { Link } from 'containers/Link';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
-import { useTranslation } from 'packages/translations';
-import { useChainId } from 'packages/wallet';
+import { useTranslation } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
 import { Transaction } from 'types';
 import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
 

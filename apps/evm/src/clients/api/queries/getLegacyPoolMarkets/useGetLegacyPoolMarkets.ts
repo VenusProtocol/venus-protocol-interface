@@ -4,7 +4,7 @@ import getLegacyPoolMarkets, {
   GetLegacyPoolMarketsOutput,
 } from 'clients/api/queries/getLegacyPoolMarkets';
 import FunctionKey from 'constants/functionKey';
-import { useGetToken } from 'packages/tokens';
+import { useGetToken } from 'libs/tokens';
 import { callOrThrow } from 'utilities';
 
 type Options = QueryObserverOptions<

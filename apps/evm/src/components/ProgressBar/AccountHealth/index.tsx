@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useProgressColor from 'hooks/useProgressColor';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import {
   calculatePercentage,
   formatCentsToReadableValue,

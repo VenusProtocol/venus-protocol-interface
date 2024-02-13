@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import { Select, SelectOption, SelectProps } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { chains } from 'packages/wallet';
+import { chains } from 'libs/wallet';
 import { ChainId } from 'types';
 
 export const getOptionsFromChainsList = (chainsList: typeof chains) =>

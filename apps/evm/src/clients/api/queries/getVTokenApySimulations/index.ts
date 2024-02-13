@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import { JumpRateModel, JumpRateModelV2 } from 'packages/contracts';
+import { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
 import { convertTokensToMantissa } from 'utilities';
 
 import formatCurrentUtilizationRate from './formatCurrentUtilizationRate';

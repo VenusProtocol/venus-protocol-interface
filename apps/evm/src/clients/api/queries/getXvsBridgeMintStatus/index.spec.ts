@@ -3,7 +3,7 @@ import { BigNumber as BN } from 'ethers';
 
 import fakeAddress from '__mocks__/models/address';
 
-import { XvsTokenMultichain } from 'packages/contracts';
+import { XvsTokenMultichain } from 'libs/contracts';
 
 import getXvsBridgeMintStatus from '.';
 

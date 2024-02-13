@@ -1,4 +1,4 @@
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
 import spinnerAnimation from './spinnerAnimation.gif';

@@ -20,11 +20,11 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import {
   useGetLegacyPoolComptrollerContractAddress,
   useGetSwapRouterContractAddress,
-} from 'packages/contracts';
-import { displayMutationError } from 'packages/errors';
-import { useGetToken, useGetTokens } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
+} from 'libs/contracts';
+import { displayMutationError } from 'libs/errors';
+import { useGetToken, useGetTokens } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 

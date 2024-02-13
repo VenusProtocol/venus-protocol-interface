@@ -10,7 +10,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
 import formatToUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import WithdrawFromVaiVaultModal, { WithdrawFromVaiVaultModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';

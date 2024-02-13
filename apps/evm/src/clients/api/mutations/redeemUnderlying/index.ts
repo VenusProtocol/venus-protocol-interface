@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractTransaction } from 'ethers';
 
-import { VBep20, VBnb } from 'packages/contracts';
+import { VBep20, VBnb } from 'libs/contracts';
 
 export interface RedeemUnderlyingInput {
   vTokenContract: VBep20 | VBnb;

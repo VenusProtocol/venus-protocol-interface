@@ -10,7 +10,7 @@ import {
 import { NULL_ADDRESS } from 'constants/address';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import FunctionKey from 'constants/functionKey';
-import { useGetToken } from 'packages/tokens';
+import { useGetToken } from 'libs/tokens';
 import { VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

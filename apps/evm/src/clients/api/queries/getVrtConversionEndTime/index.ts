@@ -1,4 +1,4 @@
-import { VrtConverter } from 'packages/contracts';
+import { VrtConverter } from 'libs/contracts';
 
 export interface GetVrtConversionEndTimeInput {
   vrtConverterContract: VrtConverter;

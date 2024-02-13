@@ -1,6 +1,6 @@
 import { BigNumber as BN } from 'ethers';
 
-import { GovernorBravoDelegate } from 'packages/contracts';
+import { GovernorBravoDelegate } from 'libs/contracts';
 
 const governorBravoDelegateResponses: {
   proposals: Awaited<ReturnType<GovernorBravoDelegate['proposals']>>;

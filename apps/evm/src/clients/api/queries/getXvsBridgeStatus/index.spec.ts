@@ -1,12 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
 
-import { XVSProxyOFTDest } from 'packages/contracts';
+import { XVSProxyOFTDest } from 'libs/contracts';
 import { ChainId } from 'types';
 
 import getXvsBridgeStatus from '.';
 
-vi.mock('packages/contracts');
+vi.mock('libs/contracts');
 
 describe('getXvsBridgeStatus', () => {
   it('returns the the data describing the status of the XVS bridge contract', async () => {

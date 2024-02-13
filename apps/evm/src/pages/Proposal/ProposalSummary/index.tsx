@@ -14,9 +14,9 @@ import {
 import { Chip, Countdown, PrimaryButton, ProposalTypeChip, SecondaryButton } from 'components';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { displayMutationError } from 'packages/errors';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress, useChainId } from 'packages/wallet';
+import { displayMutationError } from 'libs/errors';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 import { Proposal, ProposalState, ProposalType } from 'types';
 import { areAddressesEqual } from 'utilities';
 

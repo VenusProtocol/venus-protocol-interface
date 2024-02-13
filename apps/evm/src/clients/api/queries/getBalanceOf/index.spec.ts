@@ -4,13 +4,13 @@ import Vi from 'vitest';
 import fakeProvider, { balance as fakeBalanceMantissa } from '__mocks__/models/provider';
 import { bnb, xvs } from '__mocks__/models/tokens';
 
-import { Bep20, getTokenContract } from 'packages/contracts';
+import { Bep20, getTokenContract } from 'libs/contracts';
 
 import getBalanceOf from '.';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 
-vi.mock('packages/contracts');
+vi.mock('libs/contracts');
 
 describe('api/queries/getBalanceOf', () => {
   describe('non-BNB token', () => {

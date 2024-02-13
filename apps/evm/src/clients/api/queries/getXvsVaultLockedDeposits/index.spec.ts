@@ -2,7 +2,7 @@ import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAccountAddress from '__mocks__/models/address';
 import { xvs } from '__mocks__/models/tokens';
 
-import { XvsVault } from 'packages/contracts';
+import { XvsVault } from 'libs/contracts';
 
 import getXvsVaultLockedDeposits from '.';
 

@@ -7,7 +7,7 @@ import { AssetWarning, Delimiter, LabeledInlineContent, TokenTextField } from 'c
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import { useTranslation } from 'packages/translations';
+import { useTranslation } from 'libs/translations';
 import { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 

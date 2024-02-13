@@ -12,7 +12,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { repay } from 'clients/api';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 
 import Repay, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';

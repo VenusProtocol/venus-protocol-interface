@@ -9,7 +9,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { borrow } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { en } from 'packages/translations';
+import { en } from 'libs/translations';
 import { Asset, Pool } from 'types';
 
 import BorrowForm from '..';

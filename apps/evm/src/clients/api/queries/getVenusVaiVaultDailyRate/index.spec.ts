@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
 
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { LegacyPoolComptroller } from 'packages/contracts';
+import { LegacyPoolComptroller } from 'libs/contracts';
 import { ChainId } from 'types';
 
 import getVenusVaiVaultDailyRate from '.';

@@ -1,9 +1,9 @@
 import { RepayInput, queryClient, repay } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { useAnalytics } from 'packages/analytics';
-import { useGetMaximillionContract } from 'packages/contracts';
-import { useAccountAddress, useChainId, useSigner } from 'packages/wallet';
+import { useAnalytics } from 'libs/analytics';
+import { useGetMaximillionContract } from 'libs/contracts';
+import { useAccountAddress, useChainId, useSigner } from 'libs/wallet';
 import { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
