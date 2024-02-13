@@ -7242,10 +7242,10 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@venusprotocol/oracle@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.9.0.tgz#7a9b46cb3909523c33eca0729719a3c5dade03ad"
-  integrity sha512-K6W2AQG60AstBHyR9XL6RzeQ7mfXaUhsLzqAMaWnHplBK9rSZnBIUuLyhnI466T6lqFZKffZXk+tc1Wfctg1cQ==
+"@venusprotocol/oracle@^1.10.0-dev.4":
+  version "1.10.0-dev.4"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.10.0-dev.4.tgz#a42a5816b333241bd8fa3077c585134ee001df85"
+  integrity sha512-G19PaFr3EvqQe8IRPMz5laNJmQZ0P+xPWX0yPMP6xsLl+SwI7l2p8qHVn6xEQ169tmapkHokl4ZXEFOvRqueLg==
   dependencies:
     "@chainlink/contracts" "^0.5.1"
     "@defi-wonderland/smock" "^2.3.4"
@@ -7297,10 +7297,23 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-1.3.0.tgz#73685899195afdf9b19558ca7cb1e500f8879576"
   integrity sha512-OQZmjIb9goOao8hFYvaCw60Ez0E+uB3vWrF/2XqGVJjYXFROMN+x1WrXNusRv+CNKxf6hudJ0T5pjJ7epMXMlg==
 
-"@venusprotocol/token-bridge@1.0.0", "@venusprotocol/token-bridge@^1.0.0":
+"@venusprotocol/token-bridge@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-1.0.0.tgz#5142a30247affd7c6249b2ed860bac37c05c48c7"
   integrity sha512-RWjhtFzD5nezsttNPYIqxsBno6ITbRqHL7soej+uuDeb/Sp2Ug+67hJS6VOrvMalUnfRlya9wjGu7oT/9GIGDg==
+  dependencies:
+    "@layerzerolabs/solidity-examples" "^1.0.0"
+    "@openzeppelin/contracts" "^4.8.3"
+    "@openzeppelin/contracts-upgradeable" "^4.8.3"
+    "@openzeppelin/hardhat-upgrades" "^1.21.0"
+    "@solidity-parser/parser" "^0.13.2"
+    ethers "^5.7.0"
+    module-alias "^2.2.2"
+
+"@venusprotocol/token-bridge@^1.1.0-dev.1":
+  version "1.1.0-dev.1"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-1.1.0-dev.1.tgz#2c25c2760af24fe98fe6924b744f50b64abfe115"
+  integrity sha512-w6ThhOhn7n1wu5+eeM8aaVINqyP7cYDj/84IEWoYnkKqNRspwHKLvan42cdIZG4cXEG6L6TdZrVG2IEVjkHdRA==
   dependencies:
     "@layerzerolabs/solidity-examples" "^1.0.0"
     "@openzeppelin/contracts" "^4.8.3"
@@ -7323,10 +7336,10 @@
     dotenv "^16.0.1"
     module-alias "^2.2.2"
 
-"@venusprotocol/venus-protocol@^7.1.0":
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-7.2.0.tgz#68298a6e55d9739b3bb6cdfa98d1b8339510708b"
-  integrity sha512-ogkWPluQIaqRTHNo/VydytXvom+CIAVqBpTjOSdfhhsaoqL7EB7/N/M9gEHD7xPE118o/jdIqfyrri9DiCGf8w==
+"@venusprotocol/venus-protocol@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-7.3.0.tgz#698f7e751f7f42aa340f6b16d9a4752cd143c950"
+  integrity sha512-ryFK3LBveuB3h98CdHfNDpfSgapiTjAHUDg2kkkurMQffvHp/6nj3Hd/Y3yrDhg8KS80GLBebTdzLeX84Ag+Cw==
   dependencies:
     "@openzeppelin/contracts" "4.9.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
