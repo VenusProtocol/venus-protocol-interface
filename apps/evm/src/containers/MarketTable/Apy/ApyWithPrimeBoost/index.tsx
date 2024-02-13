@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'libs/translations';
 
 import { Icon, Tooltip } from 'components';
 import { Link } from 'containers/Link';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
-import { useTranslation } from 'packages/translations';
 
 export interface ApyWithPrimeBoostProps {
   type: 'supply' | 'borrow';

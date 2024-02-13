@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
 import {
@@ -15,7 +16,6 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useTranslation } from 'packages/translations';
 import {
   areAddressesEqual,
   compareBigNumbers,

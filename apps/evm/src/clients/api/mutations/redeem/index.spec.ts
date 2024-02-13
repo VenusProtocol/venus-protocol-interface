@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { VBep20 } from 'libs/contracts';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-
-import { VBep20 } from 'packages/contracts';
 
 import redeem from '.';
 

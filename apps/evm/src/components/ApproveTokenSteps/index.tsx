@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { displayMutationError } from 'libs/errors';
+import { useTranslation } from 'libs/translations';
 
-import { displayMutationError } from 'packages/errors';
-import { useTranslation } from 'packages/translations';
 import { Token } from 'types';
 
 import { PrimaryButton } from '../Button';

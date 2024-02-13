@@ -13,7 +13,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "0xD4aDbd5ed497c7720127Bfe9b05D725aC72ae2a9",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -30,7 +30,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
     "token": {
       "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-      "asset": "/src/packages/tokens/img/busd.svg",
+      "asset": "/src/libs/tokens/img/busd.svg",
       "decimals": 18,
       "symbol": "BUSD",
     },
@@ -47,7 +47,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "0x8eE02B3FeCcae787992c4790bc31b350E7d1F382",
     "token": {
       "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-      "asset": "/src/packages/tokens/img/usdt.svg",
+      "asset": "/src/libs/tokens/img/usdt.svg",
       "decimals": 8,
       "symbol": "USDT",
     },
@@ -64,7 +64,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -81,7 +81,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -98,7 +98,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "0xa60dF6af57fb55c62511cA96eD6dA0AfE977436b",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -115,7 +115,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -132,7 +132,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -149,7 +149,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -166,7 +166,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -183,7 +183,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -200,7 +200,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "0x7b702744A7F9042670FD3d294eD81C82bA6A0350",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -217,7 +217,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -234,7 +234,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -251,7 +251,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -268,7 +268,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -285,7 +285,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "0xdD8C11CEedB110eC42b467D5861252dA9130Bf6C",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -302,7 +302,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "0xdD8C11CEedB110eC42b467D5861252dA9130Bf6C",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -319,7 +319,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -336,7 +336,7 @@ exports[`api/queries/getTransactions > gets called with correct default argument
     "to": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -358,7 +358,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "0xD4aDbd5ed497c7720127Bfe9b05D725aC72ae2a9",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -375,7 +375,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
     "token": {
       "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-      "asset": "/src/packages/tokens/img/busd.svg",
+      "asset": "/src/libs/tokens/img/busd.svg",
       "decimals": 18,
       "symbol": "BUSD",
     },
@@ -392,7 +392,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "0x8eE02B3FeCcae787992c4790bc31b350E7d1F382",
     "token": {
       "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-      "asset": "/src/packages/tokens/img/usdt.svg",
+      "asset": "/src/libs/tokens/img/usdt.svg",
       "decimals": 8,
       "symbol": "USDT",
     },
@@ -409,7 +409,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -426,7 +426,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -443,7 +443,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "0xa60dF6af57fb55c62511cA96eD6dA0AfE977436b",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -460,7 +460,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -477,7 +477,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -494,7 +494,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -511,7 +511,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -528,7 +528,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -545,7 +545,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "0x7b702744A7F9042670FD3d294eD81C82bA6A0350",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -562,7 +562,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -579,7 +579,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -596,7 +596,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -613,7 +613,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -630,7 +630,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "0xdD8C11CEedB110eC42b467D5861252dA9130Bf6C",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -647,7 +647,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "0xdD8C11CEedB110eC42b467D5861252dA9130Bf6C",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -664,7 +664,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },
@@ -681,7 +681,7 @@ exports[`api/queries/getTransactions > returns transaction models 1`] = `
     "to": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
     "token": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-      "asset": "/src/packages/tokens/img/xvs.svg",
+      "asset": "/src/libs/tokens/img/xvs.svg",
       "decimals": 18,
       "symbol": "XVS",
     },

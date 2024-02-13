@@ -1,7 +1,8 @@
+import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
+
 import { CreateProposalInput, createProposal, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
 import { callOrThrow } from 'utilities';
 
 type Options = UseSendTransactionOptions<CreateProposalInput>;

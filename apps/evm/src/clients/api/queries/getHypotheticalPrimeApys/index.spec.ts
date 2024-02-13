@@ -1,10 +1,9 @@
 import { BigNumber } from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
+import { Prime } from 'libs/contracts';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { vXvs } from '__mocks__/models/vTokens';
-
-import { Prime } from 'packages/contracts';
 
 import getHypotheticalPrimeApys from '.';
 

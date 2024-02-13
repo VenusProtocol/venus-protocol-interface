@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
 
 import { useStakeInVaiVault, useStakeInXvsVault } from 'clients/api';
-import { VError } from 'packages/errors';
-import { useGetToken } from 'packages/tokens';
 import { Token } from 'types';
 import { areTokensEqual } from 'utilities';
 

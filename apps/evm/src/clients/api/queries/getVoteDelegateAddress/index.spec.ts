@@ -1,7 +1,8 @@
+import { XvsVault } from 'libs/contracts';
+
 import fakeAddress from '__mocks__/models/address';
 
 import { NULL_ADDRESS } from 'constants/address';
-import { XvsVault } from 'packages/contracts';
 
 import getVoteDelegateAddress from '.';
 

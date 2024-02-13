@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
+import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 
 import { Modal, ModalProps, Tabs, TextButton } from 'components';
-import { useTranslation } from 'packages/translations';
 import { Token } from 'types';
 
 import RequestWithdrawal from './RequestWithdrawal';

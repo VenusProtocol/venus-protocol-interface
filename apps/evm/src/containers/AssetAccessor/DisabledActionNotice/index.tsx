@@ -1,8 +1,8 @@
+import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
 import { NoticeWarning } from 'components';
 import { TokenAnnouncement } from 'containers/TokenAnnouncement';
-import { useTranslation } from 'packages/translations';
 import { Token, TokenAction } from 'types';
 
 export interface DisabledActionNoticeProps {

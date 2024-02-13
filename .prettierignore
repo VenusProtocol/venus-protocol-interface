@@ -1,0 +1,11 @@
+# Package-specific files. Prettier doesn't support having multiple .prettierignore files so we need
+# to rely on having one at the root only
+apps/evm/src/clients/subgraph/gql/mainnet.ts
+apps/evm/src/clients/subgraph/gql/testnet.ts
+apps/evm/src/libs/contracts/types/contracts
+
+# Storybook
+storybook-static
+
+# Handlerbars files
+**/*.hbs

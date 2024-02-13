@@ -1,3 +1,13 @@
+import {
+  useGetLegacyPoolComptrollerContract,
+  useGetPrimeContract,
+  useGetResilientOracleContract,
+  useGetVaiControllerContract,
+  useGetVenusLensContract,
+} from 'libs/contracts';
+import { useGetToken, useGetTokens } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getLegacyPool, {
@@ -7,16 +17,6 @@ import getLegacyPool, {
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import {
-  useGetLegacyPoolComptrollerContract,
-  useGetPrimeContract,
-  useGetResilientOracleContract,
-  useGetVaiControllerContract,
-  useGetVenusLensContract,
-} from 'packages/contracts';
-import { useGetToken, useGetTokens } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 

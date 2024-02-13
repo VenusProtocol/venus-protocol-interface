@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { XvsVault } from 'libs/contracts';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
-
-import { XvsVault } from 'packages/contracts';
 
 import getXvsVaultPoolInfo from '.';
 

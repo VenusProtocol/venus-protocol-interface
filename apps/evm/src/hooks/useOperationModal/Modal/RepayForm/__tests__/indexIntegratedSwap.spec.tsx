@@ -1,5 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import { en } from 'libs/translations';
 import noop from 'noop-ts';
 import Vi from 'vitest';
 
@@ -18,7 +19,6 @@ import {
 import useGetSwapInfo, { UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { en } from 'packages/translations';
 import { Asset, Swap, TokenBalance } from 'types';
 
 import Repay, { PRESET_PERCENTAGES } from '..';

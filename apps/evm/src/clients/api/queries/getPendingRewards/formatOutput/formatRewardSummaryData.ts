@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { VenusLens } from 'libs/contracts';
+import { logError } from 'libs/errors';
 
-import { VenusLens } from 'packages/contracts';
-import { logError } from 'packages/errors';
 import { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';

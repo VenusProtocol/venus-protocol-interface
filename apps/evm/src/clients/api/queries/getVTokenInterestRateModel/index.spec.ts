@@ -1,4 +1,4 @@
-import { VBep20 } from 'packages/contracts';
+import { VBep20 } from 'libs/contracts';
 
 import getInterestRateModel from '.';
 

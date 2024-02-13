@@ -2,6 +2,9 @@
 import { SerializedStyles } from '@emotion/react';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import { useGetVoteReceipt } from 'clients/api';
@@ -14,9 +17,6 @@ import {
   ProposalTypeChip,
 } from 'components';
 import { routes } from 'constants/routing';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
 import { ProposalState, ProposalType, Token, VoteSupport } from 'types';
 
 import greenPulseAnimation from './greenPulseAnimation.gif';

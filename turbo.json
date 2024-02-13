@@ -12,8 +12,8 @@
     "generate": {
       "outputs": [
         "src/constants/version.ts",
-        "src/packages/tokens/infos/pancakeSwapTokens/bscMainnet.ts",
-        "src/packages/contracts/generated/**/*",
+        "src/libs/tokens/infos/pancakeSwapTokens/bscMainnet.ts",
+        "src/libs/contracts/generated/**/*",
         "src/clients/subgraph/gql/mainnet.ts",
         "src/clients/subgraph/gql/testnet.ts"
       ]

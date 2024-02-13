@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
+import { XvsVault } from 'libs/contracts';
 
 import { xvs } from '__mocks__/models/tokens';
-
-import { XvsVault } from 'packages/contracts';
 
 import getXvsVaultRewardPerBlock from '.';
 

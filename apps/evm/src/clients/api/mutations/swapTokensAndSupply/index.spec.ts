@@ -1,10 +1,11 @@
+import { SwapRouter } from 'libs/contracts';
+
 import { assetData } from '__mocks__/models/asset';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeSigner from '__mocks__/models/signer';
 import { exactAmountInSwap as fakeExactAmountInSwap } from '__mocks__/models/swaps';
 import { bnb, busd } from '__mocks__/models/tokens';
 
-import { SwapRouter } from 'packages/contracts';
 import { ExactAmountInSwap } from 'types';
 
 import swapTokensAndSupply from '.';

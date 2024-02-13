@@ -1,18 +1,18 @@
 import { ContractReceipt, ContractTransaction } from 'ethers';
-import { useCallback } from 'react';
-
-import { ChainExplorerLink } from 'containers/ChainExplorerLink';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,
   checkForVaiControllerTransactionError,
   checkForVaiVaultTransactionError,
   checkForXvsVaultProxyTransactionError,
-} from 'packages/errors';
-import { displayNotification, updateNotification } from 'packages/notifications';
-import { useTranslation } from 'packages/translations';
-import { useChainId, useProvider } from 'packages/wallet';
+} from 'libs/errors';
+import { displayNotification, updateNotification } from 'libs/notifications';
+import { useTranslation } from 'libs/translations';
+import { useChainId, useProvider } from 'libs/wallet';
+import { useCallback } from 'react';
+
+import { ChainExplorerLink } from 'containers/ChainExplorerLink';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { TransactionType } from 'types';
 import { UrlType } from 'utilities';
 

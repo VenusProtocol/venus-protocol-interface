@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
+import { useChainId } from 'libs/wallet';
 
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
-import { useChainId } from 'packages/wallet';
 import { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

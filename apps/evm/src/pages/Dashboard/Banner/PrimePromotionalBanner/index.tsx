@@ -1,9 +1,10 @@
+import { useTranslation } from 'libs/translations';
+
 import { ButtonWrapper, Card, Icon } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
-import { useTranslation } from 'packages/translations';
 
 import boostsIllustration from './boostsIllustration.png';
 import illustrationSm from './illustrationSm.png';

@@ -1,4 +1,12 @@
 import BigNumber from 'bignumber.js';
+import {
+  getXVSProxyOFTDestContractAddress,
+  getXVSProxyOFTSrcContractAddress,
+} from 'libs/contracts';
+import { displayMutationError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { chains, useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
 import { useCallback, useMemo, useRef } from 'react';
 import { Controller } from 'react-hook-form';
 
@@ -18,20 +26,6 @@ import {
 import { Link } from 'containers/Link';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import useTokenApproval from 'hooks/useTokenApproval';
-import {
-  getXVSProxyOFTDestContractAddress,
-  getXVSProxyOFTSrcContractAddress,
-} from 'packages/contracts';
-import { displayMutationError } from 'packages/errors';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import {
-  chains,
-  useAccountAddress,
-  useAuthModal,
-  useChainId,
-  useSwitchChain,
-} from 'packages/wallet';
 import { ChainId } from 'types';
 import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
 

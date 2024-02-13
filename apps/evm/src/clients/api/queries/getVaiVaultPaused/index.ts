@@ -1,4 +1,4 @@
-import { VaiVault } from 'packages/contracts';
+import { VaiVault } from 'libs/contracts';
 
 export interface GetVaiVaultPausedInput {
   vaiVaultContract: VaiVault;

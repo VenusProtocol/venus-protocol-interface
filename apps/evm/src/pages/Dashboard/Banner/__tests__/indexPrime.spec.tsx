@@ -1,4 +1,5 @@
 import { fireEvent } from '@testing-library/react';
+import { en } from 'libs/translations';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -6,7 +7,6 @@ import { renderComponent } from 'testUtils/render';
 
 import { useGetPrimeToken } from 'clients/api';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { en } from 'packages/translations';
 
 import { Banner } from '..';
 import TEST_IDS from '../PrimePromotionalBanner/testIds';

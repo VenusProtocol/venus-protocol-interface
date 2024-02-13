@@ -1,8 +1,7 @@
 import copyToClipboard from 'copy-to-clipboard';
+import { displayNotification } from 'libs/notifications';
+import { useTranslation } from 'libs/translations';
 import { useCallback } from 'react';
-
-import { displayNotification } from 'packages/notifications';
-import { useTranslation } from 'packages/translations';
 
 const useCopyToClipboard = (name: string) => {
   const { t } = useTranslation();

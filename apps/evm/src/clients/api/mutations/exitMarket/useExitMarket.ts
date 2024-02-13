@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
+import { useAnalytics } from 'libs/analytics';
 
 import { ExitMarketInput, ExitMarketOutput, exitMarket, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { useAnalytics } from 'packages/analytics';
 
 type EnrichedExitMarketInput = ExitMarketInput & {
   // These properties will be used for analytic purposes only

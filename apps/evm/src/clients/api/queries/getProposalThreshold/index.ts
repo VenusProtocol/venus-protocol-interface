@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-
-import { GovernorBravoDelegate } from 'packages/contracts';
+import { GovernorBravoDelegate } from 'libs/contracts';
 
 export interface GetProposalThresholdInput {
   governorBravoDelegateContract: GovernorBravoDelegate;

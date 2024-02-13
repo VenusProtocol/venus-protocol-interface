@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'libs/translations';
 
-import { useTranslation } from 'packages/translations';
 import { Asset } from 'types';
 import {
   compareBigNumbers,

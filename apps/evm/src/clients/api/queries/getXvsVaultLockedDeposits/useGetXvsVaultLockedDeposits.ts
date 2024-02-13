@@ -1,3 +1,5 @@
+import { useGetXvsVaultContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getXvsVaultLockedDeposits, {
@@ -5,8 +7,6 @@ import getXvsVaultLockedDeposits, {
   GetXvsVaultLockedDepositsOutput,
 } from 'clients/api/queries/getXvsVaultLockedDeposits';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

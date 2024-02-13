@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { useGetToken } from 'libs/tokens';
 import { useMemo } from 'react';
 import { QueryObserverOptions } from 'react-query';
 
@@ -10,7 +11,6 @@ import {
 import { NULL_ADDRESS } from 'constants/address';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import FunctionKey from 'constants/functionKey';
-import { useGetToken } from 'packages/tokens';
 import { VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

@@ -1,4 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
+import { en } from 'libs/translations';
 import noop from 'noop-ts';
 import Vi from 'vitest';
 
@@ -9,7 +10,6 @@ import { renderComponent } from 'testUtils/render';
 
 import { executeWithdrawalFromXvsVault, getXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
-import { en } from 'packages/translations';
 
 import Withdraw from '.';
 import TEST_IDS from './testIds';

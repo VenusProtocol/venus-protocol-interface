@@ -1,9 +1,9 @@
+import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetXvsBridgeStatusInput, GetXvsBridgeStatusOutput, getXvsBridgeStatus } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 

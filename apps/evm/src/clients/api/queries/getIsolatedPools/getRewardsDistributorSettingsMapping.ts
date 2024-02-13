@@ -3,8 +3,9 @@ import {
   PoolLens,
   RewardsDistributor,
   getRewardsDistributorContract,
-} from 'packages/contracts';
-import { Provider } from 'packages/wallet';
+} from 'libs/contracts';
+import { Provider } from 'libs/wallet';
+
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 
 export interface RewardsDistributorSettingsPromise {

@@ -67,7 +67,7 @@ export default defineConfig(({ mode }) => {
           'src/setupTests.tsx',
           'src/stories/',
           'src/config/codegen.ts',
-          'src/packages/contracts/generated',
+          'src/libs/contracts/generated',
         ],
       },
     },

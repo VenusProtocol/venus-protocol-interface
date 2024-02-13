@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
 
 import { Delimiter, Icon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
 
 import { useStyles } from './styles';
 

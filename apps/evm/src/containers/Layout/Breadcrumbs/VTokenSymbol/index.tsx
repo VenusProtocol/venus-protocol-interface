@@ -1,9 +1,9 @@
+import { addTokenToWallet, canAddTokenToWallet, useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import { useGetVTokens } from 'clients/api';
 import { Icon, TertiaryButton } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { addTokenToWallet, canAddTokenToWallet, useAccountAddress } from 'packages/wallet';
 import { VToken } from 'types';
 import { findTokenByAddress } from 'utilities';
 

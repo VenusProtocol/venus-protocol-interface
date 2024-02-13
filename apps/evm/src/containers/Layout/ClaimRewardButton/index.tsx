@@ -1,13 +1,13 @@
 import BigNumber from 'bignumber.js';
+import { VError, displayMutationError } from 'libs/errors';
+import { useLunaUstWarning } from 'libs/lunaUstWarning';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { useMemo, useState } from 'react';
 
 import { Claim, useClaimRewards } from 'clients/api';
 import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { VError, displayMutationError } from 'packages/errors';
-import { useLunaUstWarning } from 'packages/lunaUstWarning';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
 import { formatCentsToReadableValue } from 'utilities';
 
 import TEST_IDS from '../testIds';

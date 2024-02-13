@@ -1,5 +1,6 @@
+import { useTranslation } from 'libs/translations';
+
 import { Card, PrimaryButton } from 'components';
-import { useTranslation } from 'packages/translations';
 
 import illustration from './illustration.png';
 

@@ -1,6 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-
-import { VenusLens } from 'packages/contracts';
+import { VenusLens } from 'libs/contracts';
 
 const venusLensResponses: {
   vTokenMetadataAll: Awaited<ReturnType<VenusLens['callStatic']['vTokenMetadataAll']>>;

@@ -1,10 +1,9 @@
 import { fireEvent, waitFor } from '@testing-library/react';
+import { en } from 'libs/translations';
 import noop from 'noop-ts';
 
 import { assetData } from '__mocks__/models/asset';
 import { renderComponent } from 'testUtils/render';
-
-import { en } from 'packages/translations';
 
 import { ApproveTokenSteps } from '.';
 

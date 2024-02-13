@@ -1,6 +1,6 @@
+import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
-import { useTranslation } from 'packages/translations';
 import { cn } from 'utilities';
 
 import { MarkdownViewer } from '../MarkdownViewer';

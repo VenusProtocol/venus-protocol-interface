@@ -1,5 +1,6 @@
+import { useChainId } from 'libs/wallet';
+
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useChainId } from 'packages/wallet';
 
 export const useGetChainMetadata = () => {
   const { chainId } = useChainId();

@@ -1,6 +1,5 @@
 import { ContractTransaction } from 'ethers';
-
-import { Bep20, Vai, Vrt, Xvs } from 'packages/contracts';
+import { Bep20, Vai, Vrt, Xvs } from 'libs/contracts';
 
 export interface RevokeSpendingLimitInput {
   tokenContract: Vai | Bep20 | Vrt | Xvs;

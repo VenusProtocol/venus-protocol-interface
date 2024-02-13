@@ -1,5 +1,6 @@
 import { Paper } from '@mui/material';
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
 import { useGetVTokenApySimulations } from 'clients/api';
@@ -10,7 +11,6 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 import useOperationModal from 'hooks/useOperationModal';
-import { useTranslation } from 'packages/translations';
 import { Asset, Token } from 'types';
 import {
   formatCentsToReadableValue,

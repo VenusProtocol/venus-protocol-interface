@@ -1,5 +1,14 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
+import {
+  IsolatedPoolComptroller,
+  PoolLens,
+  Prime,
+  ResilientOracle,
+  RewardsDistributor,
+  getIsolatedPoolComptrollerContract,
+  getRewardsDistributorContract,
+} from 'libs/contracts';
 import Vi from 'vitest';
 
 import fakePoolLensResponses from '__mocks__/contracts/poolLens';
@@ -11,15 +20,6 @@ import tokens, { xvs } from '__mocks__/models/tokens';
 import { getTokenBalances } from 'clients/api';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import MAX_UINT256 from 'constants/maxUint256';
-import {
-  IsolatedPoolComptroller,
-  PoolLens,
-  Prime,
-  ResilientOracle,
-  RewardsDistributor,
-  getIsolatedPoolComptrollerContract,
-  getRewardsDistributorContract,
-} from 'packages/contracts';
 import { ChainId, Token } from 'types';
 
 import getIsolatedPools from '..';
@@ -30,7 +30,7 @@ import {
   fakeIsolatedPoolParticipantsCount,
 } from '../__testUtils__/fakeData';
 
-vi.mock('packages/contracts');
+vi.mock('libs/contracts');
 vi.mock('clients/subgraph');
 
 const fakePoolRegistryContractAddress = '0x4301F2213c0eeD49a7E28Ae4c3e91722919B8B45';

@@ -1,3 +1,10 @@
+import {
+  LegacyPoolComptroller,
+  Prime,
+  ResilientOracle,
+  VaiController,
+  VenusLens,
+} from 'libs/contracts';
 import Vi from 'vitest';
 
 import fakeLegacyPoolComptrollerContractResponses from '__mocks__/contracts/legacyPoolComptroller';
@@ -6,14 +13,6 @@ import fakeVenusLensContractResponses from '__mocks__/contracts/venusLens';
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
 import tokens, { vai, xvs } from '__mocks__/models/tokens';
-
-import {
-  LegacyPoolComptroller,
-  Prime,
-  ResilientOracle,
-  VaiController,
-  VenusLens,
-} from 'packages/contracts';
 
 import getLegacyPool from '..';
 import getLegacyPoolMarkets from '../../getLegacyPoolMarkets';

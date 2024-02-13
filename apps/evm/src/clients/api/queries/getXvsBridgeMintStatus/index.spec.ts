@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
+import { XvsTokenMultichain } from 'libs/contracts';
 
 import fakeAddress from '__mocks__/models/address';
-
-import { XvsTokenMultichain } from 'packages/contracts';
 
 import getXvsBridgeMintStatus from '.';
 

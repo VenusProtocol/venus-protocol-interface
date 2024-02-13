@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -7,8 +9,6 @@ import { useGetPool } from 'clients/api';
 import { Cell, CellGroup, Notice, Spinner } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
 import { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 

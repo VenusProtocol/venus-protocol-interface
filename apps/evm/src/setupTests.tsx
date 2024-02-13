@@ -13,8 +13,8 @@ import useTokenApproval from 'hooks/useTokenApproval';
 vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 vi.mock('clients/api');
-vi.mock('packages/tokens');
-vi.mock('packages/wallet');
+vi.mock('libs/tokens');
+vi.mock('libs/wallet');
 vi.mock('hooks/useDebounceValue', () => ({
   default: (value: unknown) => value,
 }));

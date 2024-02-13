@@ -4,7 +4,8 @@ import {
   ResilientOracle,
   VaiController,
   VenusLens,
-} from 'packages/contracts';
+} from 'libs/contracts';
+
 import { Pool, Token } from 'types';
 
 export interface GetLegacyPoolInput {

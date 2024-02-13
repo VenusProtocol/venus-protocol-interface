@@ -1,13 +1,14 @@
-import { BridgeXvsInput, bridgeXvs, queryClient } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import {
   useGetXVSProxyOFTDestContract,
   useGetXVSProxyOFTSrcContract,
   useGetXvsVaultContract,
-} from 'packages/contracts';
-import { useGetToken } from 'packages/tokens';
-import { useChainId } from 'packages/wallet';
+} from 'libs/contracts';
+import { useGetToken } from 'libs/tokens';
+import { useChainId } from 'libs/wallet';
+
+import { BridgeXvsInput, bridgeXvs, queryClient } from 'clients/api';
+import FunctionKey from 'constants/functionKey';
+import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

@@ -1,0 +1,244 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`generateGetters > calls writeFile with the right arguments 1`] = `
+[
+  {
+    "content": "import type { Provider } from '@ethersproject/abstract-provider';
+import { Contract, Signer } from 'ethers';
+import { useMemo } from 'react';
+
+import abi from 'libs/contracts/generated/infos/abis/PoolLens.json';
+import { PoolLens } from 'libs/contracts/generated/infos/contractTypes';
+import { getUniqueContractAddress } from 'libs/contracts/utilities/getUniqueContractAddress';
+import { useChainId, useProvider, useSigner } from 'libs/wallet';
+import { ChainId } from 'types';
+
+interface GetPoolLensContractAddressInput {
+  chainId: ChainId;
+}
+
+export const getPoolLensContractAddress = ({
+  chainId,
+}: GetPoolLensContractAddressInput) =>
+  getUniqueContractAddress({ name: 'PoolLens', chainId });
+
+export const useGetPoolLensContractAddress = () => {
+  const { chainId } = useChainId();
+
+  return useMemo(
+    () =>
+      getPoolLensContractAddress({
+        chainId,
+      }),
+    [chainId],
+  );
+};
+
+interface GetPoolLensContractInput {
+  chainId: ChainId;
+  signerOrProvider: Signer | Provider;
+}
+
+export const getPoolLensContract = ({
+  chainId,
+  signerOrProvider,
+}: GetPoolLensContractInput) => {
+  const address = getPoolLensContractAddress({ chainId });
+  return address ? (new Contract(address, abi, signerOrProvider) as PoolLens) : undefined;
+};
+
+interface UseGetPoolLensContractInput {
+  passSigner?: boolean;
+  chainId?: ChainId;
+}
+
+export const useGetPoolLensContract = (input?: UseGetPoolLensContractInput) => {
+  const { chainId: currentChainId } = useChainId();
+  const chainId = input?.chainId || currentChainId;
+
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
+  const signerOrProvider = input?.passSigner ? signer : provider;
+
+  return useMemo(
+    () =>
+      signerOrProvider
+        ? getPoolLensContract({
+            chainId,
+            signerOrProvider,
+          })
+        : undefined,
+    [signerOrProvider, chainId],
+  );
+};
+",
+    "outputPath": "fake/output/director/path/poolLens.ts",
+  },
+]
+`;
+
+exports[`generateGetters > calls writeFile with the right arguments 2`] = `
+[
+  {
+    "content": "import type { Provider } from '@ethersproject/abstract-provider';
+import { Contract, Signer } from 'ethers';
+import { useMemo } from 'react';
+
+import abi from 'libs/contracts/generated/infos/abis/IsolatedPoolComptroller.json';
+import { IsolatedPoolComptroller } from 'libs/contracts/generated/infos/contractTypes';
+import { useProvider, useSigner } from 'libs/wallet';
+import { ChainId } from 'types';
+
+interface GetIsolatedPoolComptrollerContractInput {
+  address: string;
+  signerOrProvider: Signer | Provider;
+}
+
+export const getIsolatedPoolComptrollerContract = ({ signerOrProvider, address }: GetIsolatedPoolComptrollerContractInput) =>
+  new Contract(address, abi, signerOrProvider) as IsolatedPoolComptroller;
+
+interface UseGetIsolatedPoolComptrollerContractInput {
+  passSigner: boolean;
+  address: string;
+  chainId?: ChainId;
+}
+
+export const useGetIsolatedPoolComptrollerContract = ({
+  passSigner = false,
+  address,
+  chainId,
+}: UseGetIsolatedPoolComptrollerContractInput) => {
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
+  const signerOrProvider = passSigner ? signer : provider;
+
+  return useMemo(
+    () =>
+      signerOrProvider
+        ? getIsolatedPoolComptrollerContract({
+            address,
+            signerOrProvider,
+          })
+        : undefined,
+    [signerOrProvider, address],
+  );
+};
+",
+    "outputPath": "fake/output/director/path/isolatedPoolComptroller.ts",
+  },
+]
+`;
+
+exports[`generateGetters > calls writeFile with the right arguments 3`] = `
+[
+  {
+    "content": "import type { Provider } from '@ethersproject/abstract-provider';
+import { Contract, Signer } from 'ethers';
+import { useMemo } from 'react';
+
+import abi from 'libs/contracts/generated/infos/abis/SwapRouter.json';
+import addresses from 'libs/contracts/generated/infos/addresses';
+import { SwapRouter } from 'libs/contracts/generated/infos/contractTypes';
+import { useChainId, useProvider, useSigner } from 'libs/wallet';
+import { ChainId } from 'types';
+
+interface GetSwapRouterContractAddressInput {
+  comptrollerContractAddress: string;
+  chainId: ChainId;
+}
+
+export const getSwapRouterContractAddress = ({
+  comptrollerContractAddress,
+  chainId,
+}: GetSwapRouterContractAddressInput) => {
+  const SwapRouterContractAddresses = addresses.SwapRouter[chainId];
+  const sanitizedComptrollerAddress =
+    comptrollerContractAddress.toLowerCase() as keyof typeof SwapRouterContractAddresses;
+
+  return SwapRouterContractAddresses?.[sanitizedComptrollerAddress] as string | undefined;
+};
+
+interface UseGetSwapRouterContractAddressInput {
+  comptrollerContractAddress: string;
+  chainId?: ChainId;
+}
+
+export const useGetSwapRouterContractAddress = ({
+  comptrollerContractAddress,
+  chainId: passedChainId,
+}: UseGetSwapRouterContractAddressInput) => {
+  const { chainId: currentChainId } = useChainId();
+  const chainId = passedChainId || currentChainId;
+
+  return useMemo(
+    () =>
+      getSwapRouterContractAddress({
+        chainId,
+        comptrollerContractAddress,
+      }),
+    [chainId, comptrollerContractAddress],
+  );
+};
+
+interface GetSwapRouterContractInput {
+  chainId: ChainId;
+  signerOrProvider: Signer | Provider;
+  comptrollerContractAddress: string;
+}
+
+export const getSwapRouterContract = ({
+  chainId,
+  signerOrProvider,
+  comptrollerContractAddress,
+}: GetSwapRouterContractInput) => {
+  const address = getSwapRouterContractAddress({ chainId, comptrollerContractAddress });
+  return address ? (new Contract(address, abi, signerOrProvider) as SwapRouter) : undefined;
+};
+
+interface UseGetSwapRouterContractInput {
+  passSigner: boolean;
+  comptrollerContractAddress: string;
+  chainId?: ChainId;
+}
+
+export const useGetSwapRouterContract = ({
+  passSigner = false,
+  comptrollerContractAddress,
+  chainId: passedChainId,
+}: UseGetSwapRouterContractInput) => {
+  const { chainId: currentChainId } = useChainId();
+  const chainId = passedChainId || currentChainId;
+
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
+  const signerOrProvider = passSigner ? signer : provider;
+
+  return useMemo(
+    () =>
+      signerOrProvider
+        ? getSwapRouterContract({
+            chainId,
+            comptrollerContractAddress,
+            signerOrProvider,
+          })
+        : undefined,
+    [signerOrProvider, chainId, comptrollerContractAddress],
+  );
+};
+",
+    "outputPath": "fake/output/director/path/swapRouter.ts",
+  },
+]
+`;
+
+exports[`generateGetters > calls writeFile with the right arguments 4`] = `
+[
+  {
+    "content": "export * from './poolLens';
+export * from './isolatedPoolComptroller';
+export * from './swapRouter';
+",
+    "outputPath": "fake/output/director/path/index.ts",
+  },
+]
+`;

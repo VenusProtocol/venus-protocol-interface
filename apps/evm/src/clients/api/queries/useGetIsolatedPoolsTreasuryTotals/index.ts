@@ -1,4 +1,6 @@
 import BigNumber from 'bignumber.js';
+import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'libs/contracts';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import {
@@ -7,8 +9,6 @@ import {
   useGetVTokenBalancesAll,
 } from 'clients/api';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'packages/contracts';
-import { useAccountAddress, useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
 import { areAddressesEqual, convertMantissaToTokens, indexBy } from 'utilities';
 

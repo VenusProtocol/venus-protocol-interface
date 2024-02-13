@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
 import { Table, TableProps, TokenIconWithSymbol } from 'components';
 import { routes } from 'constants/routing';
-import { useTranslation } from 'packages/translations';
 import { Vault } from 'types';
 import {
   compareBigNumbers,

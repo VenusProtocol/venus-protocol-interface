@@ -1,4 +1,8 @@
 import BigNumber from 'bignumber.js';
+import { displayMutationError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
@@ -18,10 +22,6 @@ import useConvertMantissaToReadableTokenString from 'hooks/useFormatTokensToRead
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNavigate } from 'hooks/useNavigate';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
-import { displayMutationError } from 'packages/errors';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
 import { AssetDistribution, Token } from 'types';
 import { cn, convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 

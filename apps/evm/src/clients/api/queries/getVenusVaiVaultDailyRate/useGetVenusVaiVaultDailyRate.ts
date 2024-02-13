@@ -1,10 +1,10 @@
+import { useGetLegacyPoolComptrollerContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetVenusVaiVaultDailyRateOutput, getVenusVaiVaultDailyRate } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useGetLegacyPoolComptrollerContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

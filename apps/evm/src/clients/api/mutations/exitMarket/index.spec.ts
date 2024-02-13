@@ -1,7 +1,7 @@
+import { LegacyPoolComptroller } from 'libs/contracts';
+
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vBusd } from '__mocks__/models/vTokens';
-
-import { LegacyPoolComptroller } from 'packages/contracts';
 
 import exitMarket from '.';
 

@@ -1,5 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import { IsTokenActionEnabledInput, isTokenActionEnabled } from 'libs/tokens';
+import { en } from 'libs/translations';
 import noop from 'noop-ts';
 import Vi from 'vitest';
 
@@ -18,8 +20,6 @@ import {
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { IsTokenActionEnabledInput, isTokenActionEnabled } from 'packages/tokens';
-import { en } from 'packages/translations';
 import { Asset, Swap, TokenBalance } from 'types';
 
 import Repay from '..';
@@ -53,7 +53,7 @@ const fakeSwap: Swap = {
   direction: 'exactAmountIn',
 };
 
-vi.mock('packages/tokens');
+vi.mock('libs/tokens');
 vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useGetSwapRouterContractAddress');

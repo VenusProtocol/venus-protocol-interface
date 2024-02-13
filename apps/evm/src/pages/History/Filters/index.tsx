@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
+import { useTranslation } from 'libs/translations';
 
 import { Checkbox, Select } from 'components';
-import { useTranslation } from 'packages/translations';
 import { TransactionEvent } from 'types';
 
 import { useStyles } from './styles';

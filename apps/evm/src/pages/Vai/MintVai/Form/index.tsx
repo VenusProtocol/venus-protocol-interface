@@ -1,4 +1,8 @@
 import BigNumber from 'bignumber.js';
+import { VError, displayMutationError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { useCallback, useMemo } from 'react';
 
 import {
@@ -23,10 +27,6 @@ import { AmountForm } from 'containers/AmountForm';
 import { Link } from 'containers/Link';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { VError, displayMutationError } from 'packages/errors';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
 import { Token } from 'types';
 import {
   convertMantissaToTokens,

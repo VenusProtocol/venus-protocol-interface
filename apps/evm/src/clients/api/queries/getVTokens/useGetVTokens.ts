@@ -1,15 +1,15 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
-
-import getVTokens, { GetVTokensOutput } from 'clients/api/queries/getVTokens';
-import FunctionKey from 'constants/functionKey';
 import {
   useGetLegacyPoolComptrollerContract,
   useGetPoolLensContract,
   useGetPoolRegistryContractAddress,
   useGetVenusLensContract,
-} from 'packages/contracts';
-import { useGetTokens } from 'packages/tokens';
-import { useChainId } from 'packages/wallet';
+} from 'libs/contracts';
+import { useGetTokens } from 'libs/tokens';
+import { useChainId } from 'libs/wallet';
+import { QueryObserverOptions, useQuery } from 'react-query';
+
+import getVTokens, { GetVTokensOutput } from 'clients/api/queries/getVTokens';
+import FunctionKey from 'constants/functionKey';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

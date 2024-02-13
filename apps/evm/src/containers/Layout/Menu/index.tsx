@@ -1,3 +1,4 @@
+import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 
 import venusLogoSrc from 'assets/img/venusLogo.svg';
@@ -7,7 +8,6 @@ import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useTranslation } from 'packages/translations';
 import { cn } from 'utilities';
 
 import { ChainSelect } from '../ChainSelect';

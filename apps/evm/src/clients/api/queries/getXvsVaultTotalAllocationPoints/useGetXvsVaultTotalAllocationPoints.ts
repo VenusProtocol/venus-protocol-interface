@@ -1,3 +1,5 @@
+import { useGetXvsVaultContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getXvsVaultTotalAllocationPoints, {
@@ -5,8 +7,6 @@ import getXvsVaultTotalAllocationPoints, {
   GetXvsVaultTotalAllocPointsOutput,
 } from 'clients/api/queries/getXvsVaultTotalAllocationPoints';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContract } from 'packages/contracts';
-import { useChainId } from 'packages/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

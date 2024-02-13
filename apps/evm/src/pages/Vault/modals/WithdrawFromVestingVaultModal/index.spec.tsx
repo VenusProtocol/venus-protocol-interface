@@ -1,11 +1,10 @@
 import { waitFor } from '@testing-library/react';
+import { en } from 'libs/translations';
 import noop from 'noop-ts';
 
 import fakeAddress from '__mocks__/models/address';
 import { vai } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
-
-import { en } from 'packages/translations';
 
 import WithdrawFromVestingVaultModal from '.';
 

@@ -1,5 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import { en } from 'libs/translations';
 import Vi from 'vitest';
 
 import vaiContractResponses from '__mocks__/contracts/vai';
@@ -11,7 +12,6 @@ import { renderComponent } from 'testUtils/render';
 
 import { getMintableVai, getVaiTreasuryPercentage, mintVai } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
-import { en } from 'packages/translations';
 import { convertMantissaToTokens } from 'utilities';
 
 import MintVai from '..';

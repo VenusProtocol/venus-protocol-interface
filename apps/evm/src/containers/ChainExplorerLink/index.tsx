@@ -1,9 +1,9 @@
+import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
 import { Breakpoint, EllipseAddress } from 'components/EllipseAddress';
 import { Icon } from 'components/Icon';
 import { Link } from 'containers/Link';
-import { useTranslation } from 'packages/translations';
 import { ChainId } from 'types';
 import { UrlType, cn, generateChainExplorerUrl } from 'utilities';
 

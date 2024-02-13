@@ -1,6 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-
-import { Vai } from 'packages/contracts';
+import { Vai } from 'libs/contracts';
 
 const vaiContractResponses: {
   totalSupply: Awaited<ReturnType<Vai['totalSupply']>>;

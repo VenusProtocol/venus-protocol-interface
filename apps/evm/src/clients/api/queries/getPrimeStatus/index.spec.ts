@@ -1,12 +1,11 @@
 import BigNumber from 'bignumber.js';
+import { Prime } from 'libs/contracts';
 
 import fakeAccountAddress from '__mocks__/models/address';
 
-import { Prime } from 'packages/contracts';
-
 import getPrimeClaimWaitingPeriod from '.';
 
-vi.mock('packages/contracts');
+vi.mock('libs/contracts');
 
 describe('getPrimeStatus', () => {
   it('returns the the data describing the status of the Prime contract', async () => {

@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { VaiVault } from 'libs/contracts';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-
-import { VaiVault } from 'packages/contracts';
 
 import withdrawFromVaiVault from '.';
 

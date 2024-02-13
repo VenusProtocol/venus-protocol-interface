@@ -1,3 +1,4 @@
+import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useMemo } from 'react';
 import { UseQueryResult } from 'react-query';
 
@@ -12,7 +13,6 @@ import {
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useGetToken, useGetTokens } from 'packages/tokens';
 import { Vault } from 'types';
 import { indexBy } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';

@@ -1,6 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-
-import { VaiController } from 'packages/contracts';
+import { VaiController } from 'libs/contracts';
 
 import getVaiTreasuryPercentage from '.';
 

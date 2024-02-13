@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
+import { useGetToken } from 'libs/tokens';
 import { useMemo } from 'react';
 
 import { useGetLegacyPoolMarkets } from 'clients/api';
-import { useGetToken } from 'packages/tokens';
 import { convertTokensToMantissa } from 'utilities';
 
 export interface UseGetLegacyPoolTotalXvsDistributedOutput {

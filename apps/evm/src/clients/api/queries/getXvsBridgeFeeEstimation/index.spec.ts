@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
+import { XVSProxyOFTSrc } from 'libs/contracts';
 
 import fakeAddress from '__mocks__/models/address';
 
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
-import { XVSProxyOFTSrc } from 'packages/contracts';
 import { ChainId } from 'types';
 
 import getXvsBridgeFeeEstimation from '.';

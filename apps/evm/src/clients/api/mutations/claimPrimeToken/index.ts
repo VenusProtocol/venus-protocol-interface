@@ -1,6 +1,5 @@
 import { ContractTransaction } from 'ethers';
-
-import { Prime } from 'packages/contracts';
+import { Prime } from 'libs/contracts';
 
 export interface ClaimPrimeTokenInput {
   primeContract: Prime;

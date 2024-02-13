@@ -1,12 +1,11 @@
 import BigNumber from 'bignumber.js';
+import { Prime } from 'libs/contracts';
 
 import { vUsdt } from '__mocks__/models/vTokens';
 
-import { Prime } from 'packages/contracts';
-
 import getPrimeDistributionForMarket from '.';
 
-vi.mock('packages/contracts');
+vi.mock('libs/contracts');
 
 describe('getPrimeDistributionForMarket', () => {
   it('returns the amount of rewards distributed for a given market', async () => {

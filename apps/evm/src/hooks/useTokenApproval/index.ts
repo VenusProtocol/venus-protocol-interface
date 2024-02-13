@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
+import { VError } from 'libs/errors';
 import { useMemo } from 'react';
 
 import { useApproveToken, useGetAllowance, useRevokeSpendingLimit } from 'clients/api';
-import { VError } from 'packages/errors';
 import { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

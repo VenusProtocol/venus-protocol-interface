@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'libs/translations';
 import { useUID } from 'react-uid';
 import {
   Area,
@@ -11,7 +12,6 @@ import {
   YAxis,
 } from 'recharts';
 
-import { useTranslation } from 'packages/translations';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 
 import TooltipContent from '../TooltipContent';

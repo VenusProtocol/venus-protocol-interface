@@ -7,7 +7,7 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
       "balanceMantissa": "10000",
       "token": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-        "asset": "/src/packages/tokens/img/busd.svg",
+        "asset": "/src/libs/tokens/img/busd.svg",
         "decimals": 18,
         "symbol": "BUSD",
       },
@@ -16,7 +16,7 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
       "balanceMantissa": "10000",
       "token": {
         "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-        "asset": "/src/packages/tokens/img/lisUSD.png",
+        "asset": "/src/libs/tokens/img/lisUSD.png",
         "decimals": 18,
         "symbol": "lisUSD",
       },
@@ -32,7 +32,7 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
       "balanceMantissa": "10000",
       "token": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-        "asset": "/src/packages/tokens/img/busd.svg",
+        "asset": "/src/libs/tokens/img/busd.svg",
         "decimals": 18,
         "symbol": "BUSD",
       },
@@ -41,7 +41,7 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
       "balanceMantissa": "10000",
       "token": {
         "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-        "asset": "/src/packages/tokens/img/lisUSD.png",
+        "asset": "/src/libs/tokens/img/lisUSD.png",
         "decimals": 18,
         "symbol": "lisUSD",
       },
@@ -50,7 +50,7 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
       "balanceMantissa": "1000000000000000000",
       "token": {
         "address": "0x0000000000000000000000000000000000000000",
-        "asset": "/src/packages/tokens/img/bnb.svg",
+        "asset": "/src/libs/tokens/img/bnb.svg",
         "decimals": 18,
         "isNative": true,
         "symbol": "BNB",

@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { LegacyPoolComptroller } from 'libs/contracts';
 
 import address from '__mocks__/models/address';
-
-import { LegacyPoolComptroller } from 'packages/contracts';
 
 import getMintedVai from '.';
 

@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-
-import { XvsVault } from 'packages/contracts';
+import { XvsVault } from 'libs/contracts';
 
 export interface GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput {
   xvsVaultContract: XvsVault;

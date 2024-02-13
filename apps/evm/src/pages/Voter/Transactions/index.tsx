@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import { ButtonWrapper, Icon, Spinner, Table, TableColumn } from 'components';
 import { Link } from 'containers/Link';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useChainId } from 'packages/wallet';
 import { VoteDetail, VoteSupport } from 'types';
 import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
 

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractTransaction } from 'ethers';
+import { XvsVault } from 'libs/contracts';
 
-import { XvsVault } from 'packages/contracts';
 import { Token } from 'types';
 
 export interface StakeInXvsVaultInput {

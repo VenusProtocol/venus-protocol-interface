@@ -1,6 +1,7 @@
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { useChainId } from 'packages/wallet';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
+
 import { generateChainExplorerUrl } from 'utilities';
 
 import { Link } from '../../Link';

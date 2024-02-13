@@ -1,5 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
+import { en } from 'libs/translations';
 import noop from 'noop-ts';
 import Vi from 'vitest';
 
@@ -9,7 +10,6 @@ import { renderComponent } from 'testUtils/render';
 
 import { borrow } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { en } from 'packages/translations';
 import { Asset, Pool } from 'types';
 
 import BorrowForm from '..';

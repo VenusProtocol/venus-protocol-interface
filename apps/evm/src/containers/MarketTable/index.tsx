@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import { displayMutationError } from 'libs/errors';
+import { useLunaUstWarning } from 'libs/lunaUstWarning';
 import { useMemo } from 'react';
 
 import { Table, TableProps, switchAriaLabel } from 'components';
 import useCollateral from 'hooks/useCollateral';
 import useOperationModal from 'hooks/useOperationModal';
-import { displayMutationError } from 'packages/errors';
-import { useLunaUstWarning } from 'packages/lunaUstWarning';
 import { Pool } from 'types';
 
 import { useStyles } from './styles';

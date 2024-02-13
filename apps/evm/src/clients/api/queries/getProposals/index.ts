@@ -1,4 +1,5 @@
-import { VError } from 'packages/errors';
+import { VError } from 'libs/errors';
+
 import { formatToProposal, restService } from 'utilities';
 
 import { GetProposalsInput, GetProposalsOutput, ProposalsApiResponse } from './types';

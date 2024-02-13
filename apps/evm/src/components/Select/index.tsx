@@ -1,7 +1,7 @@
+import { useTranslation } from 'libs/translations';
 import { forwardRef, useMemo, useState } from 'react';
 
 import { useBreakpointUp } from 'hooks/responsive';
-import { useTranslation } from 'packages/translations';
 import { cn } from 'utilities';
 
 import { Button } from '../Button';

@@ -1,11 +1,10 @@
 import { ethers } from 'ethers';
-
-import { Multicall3 } from 'packages/contracts';
-import legacyPoolComptrollerContractAbi from 'packages/contracts/generated/infos/abis/LegacyPoolComptroller.json';
-import primeContractAbi from 'packages/contracts/generated/infos/abis/Prime.json';
-import rewardsDistributorContractAbi from 'packages/contracts/generated/infos/abis/RewardsDistributor.json';
-import vaiVaultContractAbi from 'packages/contracts/generated/infos/abis/VaiVault.json';
-import xvsVaultContractAbi from 'packages/contracts/generated/infos/abis/XvsVault.json';
+import { Multicall3 } from 'libs/contracts';
+import legacyPoolComptrollerContractAbi from 'libs/contracts/generated/infos/abis/LegacyPoolComptroller.json';
+import primeContractAbi from 'libs/contracts/generated/infos/abis/Prime.json';
+import rewardsDistributorContractAbi from 'libs/contracts/generated/infos/abis/RewardsDistributor.json';
+import vaiVaultContractAbi from 'libs/contracts/generated/infos/abis/VaiVault.json';
+import xvsVaultContractAbi from 'libs/contracts/generated/infos/abis/XvsVault.json';
 
 import { ClaimRewardsInput, ClaimRewardsOutput } from './types';
 

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
+import { useTranslation } from 'libs/translations';
 import { useMemo, useState } from 'react';
 
 import { ButtonGroup } from 'components';
 import { MarketTable, MarketTableProps } from 'containers/MarketTable';
 import { useHideMdDownCss, useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
-import { useTranslation } from 'packages/translations';
 import { Pool } from 'types';
 
 import TEST_IDS from '../testIds';

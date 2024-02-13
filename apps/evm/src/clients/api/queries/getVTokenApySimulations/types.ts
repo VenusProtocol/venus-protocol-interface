@@ -1,4 +1,5 @@
-import { JumpRateModel, JumpRateModelV2 } from 'packages/contracts';
+import { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
+
 import { Asset } from 'types';
 
 export interface GetVTokenInterestRatesInput {

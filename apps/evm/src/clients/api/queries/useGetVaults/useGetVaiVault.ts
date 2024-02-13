@@ -1,3 +1,5 @@
+import { useGetVaiVaultContractAddress } from 'libs/contracts';
+import { useGetToken } from 'libs/tokens';
 import { useMemo } from 'react';
 
 import {
@@ -8,8 +10,6 @@ import {
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { useGetVaiVaultContractAddress } from 'packages/contracts';
-import { useGetToken } from 'packages/tokens';
 import { Vault } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

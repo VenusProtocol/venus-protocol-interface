@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 
 import { useGetLatestAppVersion } from 'clients/api';
 import { version as APP_VERSION } from 'constants/version';
-import { displayNotification } from 'packages/notifications';
-import { useTranslation } from 'packages/translations';
+import { displayNotification } from 'libs/notifications';
+import { useTranslation } from 'libs/translations';
 
 const AppVersionChecker: React.FC = () => {
   const { t } = useTranslation();

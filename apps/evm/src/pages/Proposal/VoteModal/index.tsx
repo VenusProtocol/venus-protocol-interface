@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Form, Formik } from 'formik';
+import { displayMutationError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
 
 import { FormikSubmitButton, FormikTextField, Modal, TextField } from 'components';
-import { displayMutationError } from 'packages/errors';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
 
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';

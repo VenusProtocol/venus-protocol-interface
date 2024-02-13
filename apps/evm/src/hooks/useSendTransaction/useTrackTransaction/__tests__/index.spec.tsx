@@ -1,3 +1,13 @@
+import {
+  checkForComptrollerTransactionError,
+  checkForTokenTransactionError,
+  checkForVaiControllerTransactionError,
+  checkForVaiVaultTransactionError,
+  checkForXvsVaultProxyTransactionError,
+} from 'libs/errors';
+import { displayNotification, updateNotification } from 'libs/notifications';
+import { en } from 'libs/translations';
+import { useProvider } from 'libs/wallet';
 import Vi from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -7,23 +17,13 @@ import { renderHook } from 'testUtils/render';
 
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
-import {
-  checkForComptrollerTransactionError,
-  checkForTokenTransactionError,
-  checkForVaiControllerTransactionError,
-  checkForVaiVaultTransactionError,
-  checkForXvsVaultProxyTransactionError,
-} from 'packages/errors';
-import { displayNotification, updateNotification } from 'packages/notifications';
-import { en } from 'packages/translations';
-import { useProvider } from 'packages/wallet';
 import { ChainId } from 'types';
 
 import { CONFIRMATIONS, useTrackTransaction } from '..';
 
 vi.mock('context/ErrorLogger');
-vi.mock('packages/notifications');
-vi.mock('packages/errors');
+vi.mock('libs/notifications');
+vi.mock('libs/errors');
 vi.mock('errors');
 
 const fakeError = new Error('Fake error');

@@ -1,4 +1,7 @@
 import BigNumber from 'bignumber.js';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'libs/wallet';
 import { useMemo, useState } from 'react';
 
 import {
@@ -22,9 +25,6 @@ import { routes } from 'constants/routing';
 import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useGetToken } from 'packages/tokens';
-import { useTranslation } from 'packages/translations';
-import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'packages/wallet';
 import { Token } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 

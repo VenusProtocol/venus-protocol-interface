@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import BigNumber from 'bignumber.js';
 import { fromUnixTime } from 'date-fns';
+import { useTranslation } from 'libs/translations';
+import { chains, useAccountAddress, useChainId } from 'libs/wallet';
 import { MutableRefObject, useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -14,8 +16,6 @@ import {
 } from 'clients/api';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useTranslation } from 'packages/translations';
-import { chains, useAccountAddress, useChainId } from 'packages/wallet';
 import { ChainId, Token } from 'types';
 import {
   convertDollarsToCents,

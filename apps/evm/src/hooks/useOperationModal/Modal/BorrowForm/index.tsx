@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+import { useTranslation } from 'libs/translations';
 import { useCallback, useMemo, useState } from 'react';
 
 import { useBorrow } from 'clients/api';
@@ -7,7 +8,6 @@ import { AssetWarning, Delimiter, LabeledInlineContent, TokenTextField } from 'c
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import { useTranslation } from 'packages/translations';
 import { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 

@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -17,8 +19,6 @@ import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNavigate } from 'hooks/useNavigate';
 import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
-import { useTranslation } from 'packages/translations';
-import { useAccountAddress } from 'packages/wallet';
 import { Proposal } from 'types';
 
 import TEST_IDS from '../testIds';

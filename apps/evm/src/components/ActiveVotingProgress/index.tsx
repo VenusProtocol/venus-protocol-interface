@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
+import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
-import { useTranslation } from 'packages/translations';
 import { theme } from 'theme';
 import { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';

@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { useTranslation } from 'libs/translations';
 import { InputHTMLAttributes, useMemo, useState } from 'react';
 
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
-import { useTranslation } from 'packages/translations';
 import { Token, TokenBalance } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

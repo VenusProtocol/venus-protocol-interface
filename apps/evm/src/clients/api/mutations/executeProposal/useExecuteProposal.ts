@@ -1,7 +1,8 @@
+import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
+
 import { ExecuteProposalInput, executeProposal, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { useGetGovernorBravoDelegateContract } from 'packages/contracts';
 import { callOrThrow } from 'utilities';
 
 type TrimmedExecuteProposalInput = Omit<ExecuteProposalInput, 'governorBravoDelegateContract'>;
