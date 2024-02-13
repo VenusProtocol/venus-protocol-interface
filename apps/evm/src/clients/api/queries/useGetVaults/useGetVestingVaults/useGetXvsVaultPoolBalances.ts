@@ -1,10 +1,10 @@
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
-import { useGetTokens } from 'libs/tokens';
-import { useChainId, useProvider } from 'libs/wallet';
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 
 import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useGetTokens } from 'libs/tokens';
+import { useChainId, useProvider } from 'libs/wallet';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface UseGetXvsVaultPoolBalancesInput {

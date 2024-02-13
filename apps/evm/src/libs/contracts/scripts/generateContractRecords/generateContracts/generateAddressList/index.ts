@@ -1,6 +1,5 @@
 import { ContractConfig } from 'libs/contracts/config';
 import { isSwapRouterContractConfig } from 'libs/contracts/utilities/isSwapRouterContractConfig';
-
 import writeFile from 'utilities/writeFile';
 
 export interface GenerateAddressListInput {

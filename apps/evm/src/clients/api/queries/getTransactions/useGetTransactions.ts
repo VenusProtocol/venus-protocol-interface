@@ -1,4 +1,3 @@
-import { useGetToken, useGetTokens } from 'libs/tokens';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getTransactions, {
@@ -7,6 +6,7 @@ import getTransactions, {
 } from 'clients/api/queries/getTransactions';
 import useGetVTokens from 'clients/api/queries/getVTokens/useGetVTokens';
 import FunctionKey from 'constants/functionKey';
+import { useGetToken, useGetTokens } from 'libs/tokens';
 import { generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedGetTransactionsInput = Omit<

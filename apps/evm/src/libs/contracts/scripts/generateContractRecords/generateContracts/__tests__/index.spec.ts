@@ -1,6 +1,7 @@
+import Vi from 'vitest';
+
 import { fakeContractConfigs } from 'libs/contracts/__testUtils__/fakeConfig';
 import { GetAbsolutePathInput } from 'libs/contracts/utilities/getAbsolutePath';
-import Vi from 'vitest';
 
 import { generateContracts } from '..';
 import { generateAbis } from '../generateAbis';

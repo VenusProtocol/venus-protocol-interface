@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Form, Formik, useFormikContext } from 'formik';
-import { displayMutationError } from 'libs/errors';
-import { useTranslation } from 'libs/translations';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -9,6 +7,8 @@ import { CreateProposalInput } from 'clients/api';
 import { Modal } from 'components';
 import { routes } from 'constants/routing';
 import { useNavigate } from 'hooks/useNavigate';
+import { displayMutationError } from 'libs/errors';
+import { useTranslation } from 'libs/translations';
 import formatProposalPayload from 'pages/Governance/ProposalList/CreateProposalModal/formatProposalPayload';
 import { ProposalType } from 'types';
 

@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { useTranslation } from 'libs/translations';
 
 import { Icon, Tooltip } from 'components';
 import { Link } from 'containers/Link';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
+import { useTranslation } from 'libs/translations';
 
 export interface ApyWithPrimeBoostProps {
   type: 'supply' | 'borrow';
@@ -39,7 +39,7 @@ export const ApyWithPrimeBoost: React.FC<ApyWithPrimeBoostProps> = ({
           <span className="inline-block align-baseline text-sm line-through">
             {readableApyWithoutPrime}
           </span>{' '}
-          <span className="inline-block align-baseline text-base font-semibold text-green">
+          <span className="text-green inline-block align-baseline text-base font-semibold">
             {readableApy}
           </span>
         </p>
@@ -59,7 +59,7 @@ export const ApyWithPrimeBoost: React.FC<ApyWithPrimeBoostProps> = ({
         </Tooltip>
       </div>
 
-      {type === 'supply' && <p className="text-xs text-grey">{readableLtv}</p>}
+      {type === 'supply' && <p className="text-grey text-xs">{readableLtv}</p>}
     </div>
   );
 };

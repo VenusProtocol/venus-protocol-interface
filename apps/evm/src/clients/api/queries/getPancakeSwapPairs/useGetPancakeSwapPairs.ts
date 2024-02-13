@@ -1,4 +1,3 @@
-import { useChainId, useProvider } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getPancakeSwapPairs, {
@@ -7,6 +6,7 @@ import getPancakeSwapPairs, {
 } from 'clients/api/queries/getPancakeSwapPairs';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useChainId, useProvider } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import generateTokenCombinationIds from './generateTokenCombinationIds';

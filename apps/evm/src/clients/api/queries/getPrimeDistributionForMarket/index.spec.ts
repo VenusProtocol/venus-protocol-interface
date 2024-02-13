@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { Prime } from 'libs/contracts';
 
 import { vUsdt } from '__mocks__/models/vTokens';
+
+import { Prime } from 'libs/contracts';
 
 import getPrimeDistributionForMarket from '.';
 

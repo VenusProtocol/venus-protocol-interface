@@ -1,12 +1,12 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Signer } from 'ethers';
+
 import {
   getBep20Contract,
   getVaiContract,
   getVrtContract,
   getXvsContract,
 } from 'libs/contracts/generated/getters';
-
 import { Token } from 'types';
 
 export interface GetTokenContractInput {

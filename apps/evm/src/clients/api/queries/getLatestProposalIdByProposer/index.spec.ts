@@ -1,7 +1,8 @@
 import { BigNumber as BN } from 'ethers';
-import { GovernorBravoDelegate } from 'libs/contracts';
 
 import fakeAddress from '__mocks__/models/address';
+
+import { GovernorBravoDelegate } from 'libs/contracts';
 
 import getLatestProposalIdByProposer from '.';
 

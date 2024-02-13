@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { Vai, VaiController } from 'libs/contracts';
 
 export interface GetMintableVaiInput {

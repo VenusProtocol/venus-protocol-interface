@@ -1,7 +1,7 @@
 import { Pair as PSPair, Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
-import { type Provider } from 'libs/wallet';
 
+import { type Provider } from 'libs/wallet';
 import { PSTokenCombination } from 'types';
 
 export interface GetPancakeSwapPairsInput {

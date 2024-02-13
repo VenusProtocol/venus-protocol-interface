@@ -1,5 +1,3 @@
-import { useGetVTokenContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getVTokenBalanceOf, {
@@ -7,6 +5,8 @@ import getVTokenBalanceOf, {
   GetVTokenBalanceOfOutput,
 } from 'clients/api/queries/getVTokenBalanceOf';
 import FunctionKey from 'constants/functionKey';
+import { useGetVTokenContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 

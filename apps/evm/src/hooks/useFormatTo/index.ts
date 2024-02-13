@@ -1,7 +1,8 @@
-import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
-import { useChainId } from 'libs/wallet/hooks/useChainId';
 import { useCallback } from 'react';
 import { To } from 'react-router-dom';
+
+import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
+import { useChainId } from 'libs/wallet/hooks/useChainId';
 
 export const useFormatTo = () => {
   const { chainId } = useChainId();

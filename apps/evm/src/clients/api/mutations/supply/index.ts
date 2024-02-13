@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { ContractTransaction, Signer } from 'ethers';
-import { VBnb, getVTokenContract } from 'libs/contracts';
 
+import { VBnb, getVTokenContract } from 'libs/contracts';
 import { VToken } from 'types';
 
 export interface SupplyInput {

@@ -1,8 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
-import { useGetToken, useGetTokens } from 'libs/tokens';
-import { useTranslation } from 'libs/translations';
-import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet';
 import { useMemo, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
@@ -11,6 +8,9 @@ import { Button, NoticeInfo, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { UseVoteParams } from 'hooks/useVote';
+import { useGetToken, useGetTokens } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet';
 import { ProposalState, Proposal as ProposalType, Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

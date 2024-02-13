@@ -1,11 +1,10 @@
+import { Modal } from 'components/Modal';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet/hooks/useAccountAddress';
 import { useAuthModal } from 'libs/wallet/hooks/useAuthModal';
 import { useChainId } from 'libs/wallet/hooks/useChainId';
 import { useLogIn } from 'libs/wallet/hooks/useLogIn';
 import { useLogOut } from 'libs/wallet/hooks/useLogOut';
-
-import { Modal } from 'components/Modal';
 
 import { AccountDetails } from './AccountDetails';
 import { WalletList, WalletListProps } from './WalletList';

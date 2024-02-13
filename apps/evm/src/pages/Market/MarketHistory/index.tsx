@@ -1,8 +1,8 @@
-import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
 import { Spinner } from 'components';
 import { ApyChart } from 'components/charts/ApyChart';
+import { useTranslation } from 'libs/translations';
 import { Asset } from 'types';
 import {
   formatCentsToReadableValue,

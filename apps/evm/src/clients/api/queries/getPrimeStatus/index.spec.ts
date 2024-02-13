@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { Prime } from 'libs/contracts';
 
 import fakeAccountAddress from '__mocks__/models/address';
+
+import { Prime } from 'libs/contracts';
 
 import getPrimeClaimWaitingPeriod from '.';
 

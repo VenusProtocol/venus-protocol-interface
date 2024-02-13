@@ -1,4 +1,5 @@
 import { BigNumber as BN } from 'ethers';
+
 import { LegacyPoolComptroller } from 'libs/contracts';
 
 const comptrollerResponses: {

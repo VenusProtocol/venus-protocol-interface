@@ -1,6 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { en } from 'libs/translations';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
 import Vi from 'vitest';
@@ -13,6 +12,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { repay } from 'clients/api';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { en } from 'libs/translations';
 
 import Repay, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';

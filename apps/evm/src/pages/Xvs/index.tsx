@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { useTranslation } from 'libs/translations';
-
 import { Notice } from 'components';
+import { useTranslation } from 'libs/translations';
 
 import Header from './Header';
 import Table from './Table';

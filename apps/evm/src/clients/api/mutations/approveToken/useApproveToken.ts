@@ -1,9 +1,8 @@
-import { useGetTokenContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
-
 import { ApproveTokenInput, approveToken, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetTokenContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { Token } from 'types';
 import { callOrThrow } from 'utilities';
 

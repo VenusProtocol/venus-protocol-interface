@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useProgressColor from 'hooks/useProgressColor';
+import { useTranslation } from 'libs/translations';
 import {
   calculatePercentage,
   formatCentsToReadableValue,

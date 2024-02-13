@@ -22,27 +22,27 @@ const getVariantClasses = ({ variant, active }: { variant: Variant; active: bool
       );
     case 'tertiary':
       return cn(
-        'h-10 border-lightGrey bg-lightGrey px-3 active:border-grey active:bg-grey disabled:border-transparent disabled:bg-lightGrey',
+        'border-lightGrey bg-lightGrey active:border-grey active:bg-grey disabled:bg-lightGrey h-10 px-3 disabled:border-transparent',
         active ? 'border-grey bg-grey' : 'hover:border-blue',
       );
     case 'quaternary':
       return cn(
-        'active:border:text-grey h-8 rounded-full border-lightGrey bg-lightGrey px-6 py-1 active:text-grey disabled:border-transparent',
+        'active:border:text-grey border-lightGrey bg-lightGrey active:text-grey h-8 rounded-full px-6 py-1 disabled:border-transparent',
         active ? 'border-grey bg-grey' : 'hover:border-blue hover:bg-lightGrey',
       );
     case 'quinary':
       return cn(
-        'h-8 rounded-full border-cards border-lightGrey bg-cards px-5 py-1 active:border-blue active:bg-blue disabled:border-background disabled:bg-background',
+        'border-cards border-lightGrey bg-cards active:border-blue active:bg-blue disabled:border-background disabled:bg-background h-8 rounded-full px-5 py-1',
         active ? 'border-blue bg-blue' : 'hover:border-lightGrey hover:bg-lightGrey',
       );
     case 'senary':
       return cn(
-        'h-8 border-lightGrey bg-cards px-2 py-1 hover:border-blue hover:border-blue hover:bg-lightGrey disabled:border-lightGrey disabled:bg-cards',
+        'border-lightGrey bg-cards hover:border-blue hover:border-blue hover:bg-lightGrey disabled:border-lightGrey disabled:bg-cards h-8 px-2 py-1',
         active && 'border-blue bg-lightGrey',
       );
     case 'text':
       return cn(
-        'active:mediumBlue bg-transparent p-0 font-normal text-blue hover:text-mediumBlue',
+        'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0 font-normal',
         active && 'text-mediumBlue',
       );
     // primary
@@ -74,7 +74,7 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   return (
     <Comp
       className={cn(
-        'inline-flex h-12 cursor-pointer items-center justify-center rounded-lg border border-transparent px-6 py-2 font-semibold transition-all duration-[250ms] disabled:cursor-default disabled:text-grey',
+        'disabled:text-grey inline-flex h-12 cursor-pointer items-center justify-center rounded-lg border border-transparent px-6 py-2 font-semibold transition-all duration-[250ms] disabled:cursor-default',
         getVariantClasses({ variant, active }),
         className,
       )}

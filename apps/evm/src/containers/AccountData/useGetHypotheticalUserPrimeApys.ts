@@ -1,6 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { useGetToken } from 'libs/tokens';
-import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import {
@@ -8,6 +6,8 @@ import {
   useGetPrimeStatus,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
+import { useGetToken } from 'libs/tokens';
+import { useAccountAddress } from 'libs/wallet';
 import { Asset, TokenAction } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 

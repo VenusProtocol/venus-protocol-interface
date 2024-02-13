@@ -1,9 +1,9 @@
 import { fireEvent } from '@testing-library/react';
-import { useSwitchChain } from 'libs/wallet';
 import Vi from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 
+import { useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import { ChainSelect } from '..';

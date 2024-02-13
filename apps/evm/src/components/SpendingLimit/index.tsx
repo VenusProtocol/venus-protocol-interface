@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { displayMutationError } from 'libs/errors';
-import { useTranslation } from 'libs/translations';
 
 import { LabeledInlineContent } from 'components/LabeledInlineContent';
 import { Spinner } from 'components/Spinner';
 import { Tooltip } from 'components/Tooltip';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import { displayMutationError } from 'libs/errors';
+import { useTranslation } from 'libs/translations';
 import { Token } from 'types';
 
 import { TextButton } from '../Button';
@@ -67,11 +67,11 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
         <>
           <div>{readableWalletSpendingLimit}</div>
 
-          <TextButton onClick={handleRevoke} className="ml-2 h-auto p-0 text-red">
+          <TextButton onClick={handleRevoke} className="text-red ml-2 h-auto p-0">
             <Tooltip title={t('spendingLimit.revokeButtonTooltip')} className="inline-flex">
               <Icon
                 name="bin"
-                className="h-5 w-5 text-red transition-opacity hover:opacity-50 active:opacity-50"
+                className="text-red h-5 w-5 transition-opacity hover:opacity-50 active:opacity-50"
               />
             </Tooltip>
           </TextButton>

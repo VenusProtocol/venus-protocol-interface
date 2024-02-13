@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { XvsVesting } from 'libs/contracts';
 
 export interface GetXvsWithdrawableAmountInput {

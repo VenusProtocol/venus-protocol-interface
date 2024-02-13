@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import { XVSProxyOFTDest } from 'libs/contracts';
 
+import { XVSProxyOFTDest } from 'libs/contracts';
 import { ChainId } from 'types';
 
 import getXvsBridgeStatus from '.';

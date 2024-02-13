@@ -1,5 +1,4 @@
 import { VError } from 'libs/errors';
-
 import { JsonProposal } from 'types';
 
 const importJsonProposal = async (proposalFile: File) => {

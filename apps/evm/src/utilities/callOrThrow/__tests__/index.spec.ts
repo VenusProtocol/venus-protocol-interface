@@ -1,5 +1,6 @@
-import { Bep20 } from 'libs/contracts';
 import noop from 'noop-ts';
+
+import { Bep20 } from 'libs/contracts';
 
 import callOrThrow from '..';
 

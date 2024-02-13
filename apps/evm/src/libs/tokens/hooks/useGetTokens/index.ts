@@ -1,6 +1,6 @@
-import { useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
 
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import { getTokens } from '../../utilities/getTokens';

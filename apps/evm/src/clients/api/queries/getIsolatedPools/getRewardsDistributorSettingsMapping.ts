@@ -5,7 +5,6 @@ import {
   getRewardsDistributorContract,
 } from 'libs/contracts';
 import { Provider } from 'libs/wallet';
-
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 
 export interface RewardsDistributorSettingsPromise {

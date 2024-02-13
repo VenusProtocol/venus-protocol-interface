@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { useGetToken } from 'libs/tokens';
-import { useTranslation } from 'libs/translations';
 
 import { Pagination, Spinner } from 'components';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
 import { VoterHistory } from 'types';
 
 import VoterProposal from './VoterProposal';

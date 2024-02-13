@@ -1,8 +1,8 @@
-import { logError } from 'libs/errors';
 import _isEmpty from 'lodash/isEmpty';
 import _set from 'lodash/set';
 
 import config from 'config';
+import { logError } from 'libs/errors';
 
 interface RestServiceInput {
   endpoint: string;

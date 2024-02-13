@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { ResilientOracle } from 'libs/contracts';
 
+import { ResilientOracle } from 'libs/contracts';
 import { Token } from 'types';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';

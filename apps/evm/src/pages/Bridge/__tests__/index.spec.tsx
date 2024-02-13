@@ -1,7 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/dom';
 import BigNumber from 'bignumber.js';
-import { en } from 'libs/translations';
-import { useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -14,6 +12,8 @@ import {
   useGetXvsBridgeMintStatus,
   useGetXvsBridgeStatus,
 } from 'clients/api';
+import { en } from 'libs/translations';
+import { useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import Bridge from '..';

@@ -1,10 +1,9 @@
-import { useGetVaiControllerContract } from 'libs/contracts';
-import { useGetToken } from 'libs/tokens';
-import { useChainId } from 'libs/wallet';
-
 import { RepayVaiInput, queryClient, repayVai } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetVaiControllerContract } from 'libs/contracts';
+import { useGetToken } from 'libs/tokens';
+import { useChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 type TrimmedRepayVaiInput = Omit<RepayVaiInput, 'vaiControllerContract'>;

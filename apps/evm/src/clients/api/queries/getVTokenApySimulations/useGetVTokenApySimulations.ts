@@ -1,5 +1,3 @@
-import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'libs/contracts';
-import { useChainId, useProvider } from 'libs/wallet';
 import { useMemo } from 'react';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
@@ -9,6 +7,8 @@ import getVTokenApySimulations, {
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'libs/contracts';
+import { useChainId, useProvider } from 'libs/wallet';
 import { Asset, ChainId, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 

@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { useAnalytics } from 'libs/analytics';
 
 import { EnterMarketInput, EnterMarketOutput, enterMarket, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'libs/analytics';
 
 type EnrichedEnterMarketInput = EnterMarketInput & {
   // These properties will be used for analytic purposes only

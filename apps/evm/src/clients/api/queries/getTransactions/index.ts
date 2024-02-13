@@ -1,5 +1,4 @@
 import { VError } from 'libs/errors';
-
 import { Token, Transaction, TransactionEvent, VToken } from 'types';
 import { restService } from 'utilities';
 

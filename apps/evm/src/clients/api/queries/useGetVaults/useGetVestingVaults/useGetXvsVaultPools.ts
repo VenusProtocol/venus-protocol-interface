@@ -1,6 +1,3 @@
-import { useGetXvsVaultContract } from 'libs/contracts';
-import { useGetToken } from 'libs/tokens';
-import { useChainId } from 'libs/wallet';
 import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
 
 import {
@@ -12,6 +9,9 @@ import {
   getXvsVaultUserInfo,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetXvsVaultContract } from 'libs/contracts';
+import { useGetToken } from 'libs/tokens';
+import { useChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 export interface UseGetXvsVaultPoolsInput {

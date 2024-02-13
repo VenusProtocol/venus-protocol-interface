@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/dom';
-import { en } from 'libs/translations';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -7,6 +6,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { useGetPrimeToken } from 'clients/api';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { en } from 'libs/translations';
 
 import MintVai from '..';
 import TEST_IDS from '../../testIds';

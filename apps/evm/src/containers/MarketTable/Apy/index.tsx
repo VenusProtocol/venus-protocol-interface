@@ -1,8 +1,8 @@
-import { useGetToken } from 'libs/tokens';
 import { useMemo } from 'react';
 
 import { LayeredValues } from 'components';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
+import { useGetToken } from 'libs/tokens';
 import { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
 import { getCombinedDistributionApys } from 'utilities';
 

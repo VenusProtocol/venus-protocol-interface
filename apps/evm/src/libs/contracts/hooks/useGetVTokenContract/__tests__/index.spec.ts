@@ -1,9 +1,4 @@
 import { Contract } from 'ethers';
-import {
-  GetVTokenContractInput,
-  getVTokenContract,
-} from 'libs/contracts/utilities/getVTokenContract';
-import { useProvider, useSigner } from 'libs/wallet';
 import Vi from 'vitest';
 
 import fakeContractAddress from '__mocks__/models/address';
@@ -11,6 +6,12 @@ import fakeProvider from '__mocks__/models/provider';
 import fakeSigner from '__mocks__/models/signer';
 import { vXvs } from '__mocks__/models/vTokens';
 import { renderHook } from 'testUtils/render';
+
+import {
+  GetVTokenContractInput,
+  getVTokenContract,
+} from 'libs/contracts/utilities/getVTokenContract';
+import { useProvider, useSigner } from 'libs/wallet';
 
 import { useGetVTokenContract } from '..';
 

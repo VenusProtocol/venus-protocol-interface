@@ -3,9 +3,17 @@
 apps/evm/src/clients/subgraph/gql/mainnet.ts
 apps/evm/src/clients/subgraph/gql/testnet.ts
 apps/evm/src/libs/contracts/types/contracts
+apps/evm/src/libs/contracts/generated
 
 # Storybook
 storybook-static
-
-# Handlerbars files
 **/*.hbs
+.turbo
+.storybook
+node_modules
+build
+coverage
+.yarn
+.husky
+.github
+.changeset

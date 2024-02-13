@@ -1,11 +1,11 @@
-import { useGetVTokenContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getVTokenInterestRateModel, {
   GetVTokenInterestRateModelOutput,
 } from 'clients/api/queries/getVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
+import { useGetVTokenContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 

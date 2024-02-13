@@ -1,6 +1,7 @@
+import Vi from 'vitest';
+
 import { VError } from 'libs/errors';
 import { displayNotification } from 'libs/notifications';
-import Vi from 'vitest';
 
 import { displayMutationError } from '..';
 

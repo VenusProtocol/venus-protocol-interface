@@ -1,8 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { displayMutationError } from 'libs/errors';
-import { useGetToken } from 'libs/tokens';
-import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
@@ -22,6 +18,10 @@ import useConvertMantissaToReadableTokenString from 'hooks/useFormatTokensToRead
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNavigate } from 'hooks/useNavigate';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
+import { displayMutationError } from 'libs/errors';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { AssetDistribution, Token } from 'types';
 import { cn, convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 
@@ -187,7 +187,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             data-testid={TEST_IDS.primeTokensLeftWarning}
             className={cn(
               !hidePromotionalTitle &&
-                'absolute right-4 top-0 -mt-3 sm:left-18 sm:right-auto md:left-20',
+                'sm:left-18 absolute right-4 top-0 -mt-3 sm:right-auto md:left-20',
               hidePromotionalTitle && 'mb-4 inline-block',
             )}
           >
@@ -217,7 +217,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             <PrimeLogo />
           </div>
 
-          <div className="xl:max-w-[31.25rem] xxl:max-w-[39.75rem]">
+          <div className="xxl:max-w-[39.75rem] xl:max-w-[31.25rem]">
             {!!title && <h3 className={cn('text-xl', displayProgress && 'mb-2')}>{title}</h3>}
 
             {displayProgress && (
@@ -263,7 +263,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
               max={+minXvsToStakeForPrimeTokens.toFixed(0)}
             />
 
-            <p className="text-sm text-grey">
+            <p className="text-grey text-sm">
               <Trans
                 i18nKey="primeStatusBanner.progressBar.label"
                 components={{

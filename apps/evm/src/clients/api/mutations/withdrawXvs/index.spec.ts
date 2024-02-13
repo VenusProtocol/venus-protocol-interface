@@ -1,6 +1,6 @@
-import { XvsVesting } from 'libs/contracts';
-
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+
+import { XvsVesting } from 'libs/contracts';
 
 import withdrawXvs from '.';
 

@@ -1,7 +1,7 @@
-import { logError } from 'libs/errors';
-import { getChainId } from 'libs/wallet';
 import { QueryClient } from 'react-query';
 
+import { logError } from 'libs/errors';
+import { getChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 
 const onError = (error: unknown) => {

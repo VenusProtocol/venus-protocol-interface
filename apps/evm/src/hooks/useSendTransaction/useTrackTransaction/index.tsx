@@ -1,4 +1,8 @@
 import { ContractReceipt, ContractTransaction } from 'ethers';
+import { useCallback } from 'react';
+
+import { ChainExplorerLink } from 'containers/ChainExplorerLink';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,
@@ -9,10 +13,6 @@ import {
 import { displayNotification, updateNotification } from 'libs/notifications';
 import { useTranslation } from 'libs/translations';
 import { useChainId, useProvider } from 'libs/wallet';
-import { useCallback } from 'react';
-
-import { ChainExplorerLink } from 'containers/ChainExplorerLink';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { TransactionType } from 'types';
 import { UrlType } from 'utilities';
 

@@ -52,7 +52,7 @@ export const Field: React.FC<FieldsProps> = forwardRef<HTMLInputElement, FieldsP
           </LabeledInlineContent>
         )}
 
-        {errorLabel && <p className="mt-4 text-sm text-grey md:text-base">{errorLabel}</p>}
+        {errorLabel && <p className="text-grey mt-4 text-sm md:text-base">{errorLabel}</p>}
       </div>
     );
   },

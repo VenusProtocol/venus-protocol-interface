@@ -1,8 +1,8 @@
-import { logError } from 'libs/errors';
-import { useChainId } from 'libs/wallet';
 import { usePostHog } from 'posthog-js/react';
 
 import config from 'config';
+import { logError } from 'libs/errors';
+import { useChainId } from 'libs/wallet';
 
 export type AnalyticEventName =
   | 'Tokens supplied'

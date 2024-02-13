@@ -1,10 +1,10 @@
 import { openInfinityWallet } from '@infinitywallet/infinity-connector';
-import { VError } from 'libs/errors';
-import { connectorIdByName } from 'libs/wallet/connectors';
-import { Connector } from 'libs/wallet/types';
 import { useCallback } from 'react';
 import { ConnectorNotFoundError, useConnect } from 'wagmi';
 
+import { VError } from 'libs/errors';
+import { connectorIdByName } from 'libs/wallet/connectors';
+import { Connector } from 'libs/wallet/types';
 import { isRunningInInfinityWalletApp } from 'utilities/walletDetection';
 
 import { useChainId } from '../useChainId';

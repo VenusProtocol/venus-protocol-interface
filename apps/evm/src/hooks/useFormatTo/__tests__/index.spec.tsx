@@ -1,9 +1,9 @@
-import { useChainId } from 'libs/wallet';
-import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import Vi from 'vitest';
 
 import { renderHook } from 'testUtils/render';
 
+import { useChainId } from 'libs/wallet';
+import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import { ChainId } from 'types';
 
 import { useFormatTo } from '..';

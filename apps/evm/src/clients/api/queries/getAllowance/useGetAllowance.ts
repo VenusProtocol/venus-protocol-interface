@@ -1,5 +1,3 @@
-import { useGetTokenContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getAllowance, {
@@ -7,6 +5,8 @@ import getAllowance, {
   GetAllowanceOutput,
 } from 'clients/api/queries/getAllowance';
 import FunctionKey from 'constants/functionKey';
+import { useGetTokenContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 

@@ -1,6 +1,6 @@
-import { XvsVault } from 'libs/contracts';
-
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+
+import { XvsVault } from 'libs/contracts';
 
 import executeWithdrawalFromXvsVault from '.';
 

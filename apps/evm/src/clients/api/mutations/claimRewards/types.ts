@@ -1,6 +1,6 @@
 import { ContractTransaction } from 'ethers';
-import { Multicall3 } from 'libs/contracts';
 
+import { Multicall3 } from 'libs/contracts';
 import { Token } from 'types';
 
 export interface VaiVaultClaim {

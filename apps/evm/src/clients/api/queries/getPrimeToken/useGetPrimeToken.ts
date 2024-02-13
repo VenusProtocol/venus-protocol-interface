@@ -1,10 +1,10 @@
-import { useGetPrimeContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetPrimeTokenOutput, getPrimeToken } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useGetPrimeContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

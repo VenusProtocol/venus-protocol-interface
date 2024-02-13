@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { XvsVault } from 'libs/contracts';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { busd } from '__mocks__/models/tokens';
+
+import { XvsVault } from 'libs/contracts';
 
 import stakeInXvsVault from '.';
 

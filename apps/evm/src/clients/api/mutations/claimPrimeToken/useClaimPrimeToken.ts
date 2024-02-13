@@ -1,9 +1,8 @@
-import { useGetPrimeContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
-
 import { claimPrimeToken, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetPrimeContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 type Options = UseSendTransactionOptions<void>;

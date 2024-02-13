@@ -50,7 +50,6 @@ import wbnbLogo from 'libs/tokens/img/wbnb.svg';
 import winLogo from 'libs/tokens/img/win.svg';
 import xrpLogo from 'libs/tokens/img/xrp.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
-
 import { Token } from 'types';
 
 export const tokens: Token[] = [

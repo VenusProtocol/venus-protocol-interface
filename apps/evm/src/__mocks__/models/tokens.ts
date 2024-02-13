@@ -10,7 +10,6 @@ import vaiLogo from 'libs/tokens/img/vai.svg';
 import vrtLogo from 'libs/tokens/img/vrt.svg';
 import wbnbLogo from 'libs/tokens/img/wbnb.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
-
 import { Token } from 'types';
 
 export const xvs: Token = {

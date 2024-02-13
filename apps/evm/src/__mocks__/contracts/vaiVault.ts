@@ -1,4 +1,5 @@
 import { BigNumber as BN } from 'ethers';
+
 import { VaiVault } from 'libs/contracts';
 
 const vaiVaultResponses: {

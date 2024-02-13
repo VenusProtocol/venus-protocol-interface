@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
+import { useTranslation } from 'libs/translations';
 import { Swap } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

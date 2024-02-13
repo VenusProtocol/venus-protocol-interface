@@ -1,7 +1,8 @@
 import { BigNumber } from 'ethers';
-import { ResilientOracle } from 'libs/contracts';
 
 import { bnb } from '__mocks__/models/tokens';
+
+import { ResilientOracle } from 'libs/contracts';
 
 import getTokenUsdPrice from '.';
 

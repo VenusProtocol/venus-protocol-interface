@@ -1,8 +1,7 @@
-import { useTranslation } from 'libs/translations';
-import { useAccountAddress, useAuthModal } from 'libs/wallet';
-
 import { useGetPrimeToken } from 'clients/api';
 import { Button, ButtonProps } from 'components';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress, useAuthModal } from 'libs/wallet';
 import { truncateAddress } from 'utilities';
 
 import { PrimeButton } from './PrimeButton';

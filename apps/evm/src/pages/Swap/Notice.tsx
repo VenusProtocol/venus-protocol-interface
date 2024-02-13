@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { useTranslation } from 'libs/translations';
-
 import { NoticeError, NoticeWarning } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import { useTranslation } from 'libs/translations';
 import { Swap } from 'types';
 
 import { useStyles } from './styles';

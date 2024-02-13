@@ -1,7 +1,8 @@
 import { Signer } from 'ethers';
-import { getVBep20Contract, getVBnbContract } from 'libs/contracts/generated/getters';
 
 import { vBnb, vBusd } from '__mocks__/models/vTokens';
+
+import { getVBep20Contract, getVBnbContract } from 'libs/contracts/generated/getters';
 
 import { getVTokenContract } from '..';
 

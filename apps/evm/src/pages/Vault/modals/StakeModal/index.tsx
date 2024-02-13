@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { useGetVaiVaultContractAddress, useGetXvsVaultContractAddress } from 'libs/contracts';
-import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import { useGetBalanceOf, useStakeInVault } from 'clients/api';
+import { useGetVaiVaultContractAddress, useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Token } from 'types';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';

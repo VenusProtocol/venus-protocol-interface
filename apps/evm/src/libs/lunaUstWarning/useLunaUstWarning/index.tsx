@@ -1,8 +1,8 @@
-import { useAccountAddress } from 'libs/wallet';
 import { useCallback, useMemo } from 'react';
 
 import { useGetLegacyPool } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useAccountAddress } from 'libs/wallet';
 
 import { store } from './store';
 

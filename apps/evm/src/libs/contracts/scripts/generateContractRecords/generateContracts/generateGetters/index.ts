@@ -1,8 +1,8 @@
 import { compile } from 'handlebars';
-import { ContractConfig } from 'libs/contracts/config';
-import { isSwapRouterContractConfig } from 'libs/contracts/utilities/isSwapRouterContractConfig';
 import { readFileSync } from 'node:fs';
 
+import { ContractConfig } from 'libs/contracts/config';
+import { isSwapRouterContractConfig } from 'libs/contracts/utilities/isSwapRouterContractConfig';
 import writeFile from 'utilities/writeFile';
 
 const TEMPLATES_DIRECTORY = `${__dirname}/templates`;

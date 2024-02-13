@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { XvsTokenMultichain } from 'libs/contracts';
 
 export interface GetXvsMintStatusInput {

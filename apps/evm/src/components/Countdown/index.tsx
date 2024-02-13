@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { useTranslation } from 'libs/translations';
 import ReactCountdown from 'react-countdown';
 import { CountdownRenderProps } from 'react-countdown/dist/Countdown';
+
+import { useTranslation } from 'libs/translations';
 
 interface CountdownProps {
   date: Date;

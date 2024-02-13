@@ -1,4 +1,5 @@
 import { BigNumber as BN } from 'ethers';
+
 import { Prime } from 'libs/contracts';
 
 const primeResponses: {

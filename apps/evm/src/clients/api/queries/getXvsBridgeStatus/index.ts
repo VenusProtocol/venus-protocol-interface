@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { XVSProxyOFTDest, XVSProxyOFTSrc } from 'libs/contracts';
 
 import { LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
+import { XVSProxyOFTDest, XVSProxyOFTSrc } from 'libs/contracts';
 import { ChainId } from 'types';
 import { convertPriceMantissaToDollars } from 'utilities';
 

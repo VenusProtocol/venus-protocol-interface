@@ -1,6 +1,6 @@
-import { store } from 'libs/notifications/store';
-
 import { renderComponent } from 'testUtils/render';
+
+import { store } from 'libs/notifications/store';
 
 import NotificationCenter from '..';
 import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';

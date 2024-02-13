@@ -1,6 +1,5 @@
-import { useTranslation } from 'libs/translations';
-
 import { Icon, Tooltip } from 'components';
+import { useTranslation } from 'libs/translations';
 
 interface PrimeTokensLeftProps {
   primeTokenLimit: number;
@@ -10,7 +9,7 @@ const NoPrimeTokensLeftWarning = ({ primeTokenLimit }: PrimeTokensLeftProps) => 
   const { t } = useTranslation();
   return (
     <>
-      <p className="mr-2 text-sm text-orange">{t('primeStatusBanner.noPrimeTokenWarning.text')}</p>
+      <p className="text-orange mr-2 text-sm">{t('primeStatusBanner.noPrimeTokenWarning.text')}</p>
 
       <Tooltip
         title={t('primeStatusBanner.noPrimeTokenWarning.tooltip', { primeTokenLimit })}

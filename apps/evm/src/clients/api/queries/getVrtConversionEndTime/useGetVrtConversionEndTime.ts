@@ -1,11 +1,11 @@
-import { useGetVrtConverterContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getVrtConversionEndTime, {
   GetVrtConversionEndTimeOutput,
 } from 'clients/api/queries/getVrtConversionEndTime';
 import FunctionKey from 'constants/functionKey';
+import { useGetVrtConverterContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

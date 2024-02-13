@@ -1,7 +1,7 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Signer } from 'ethers';
-import { getVBep20Contract, getVBnbContract } from 'libs/contracts/generated/getters';
 
+import { getVBep20Contract, getVBnbContract } from 'libs/contracts/generated/getters';
 import { VToken } from 'types';
 
 export interface GetVTokenContractInput {

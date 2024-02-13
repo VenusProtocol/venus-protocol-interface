@@ -5,7 +5,6 @@ import {
   VaiController,
   VenusLens,
 } from 'libs/contracts';
-
 import { Pool, Token } from 'types';
 
 export interface GetLegacyPoolInput {

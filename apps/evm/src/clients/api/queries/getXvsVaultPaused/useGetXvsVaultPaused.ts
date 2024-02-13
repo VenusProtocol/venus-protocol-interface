@@ -1,9 +1,9 @@
-import { useGetXvsVaultContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { GetXvsVaultPausedOutput, getXvsVaultPaused } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetXvsVaultContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

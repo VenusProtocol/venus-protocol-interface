@@ -1,5 +1,4 @@
 import { useChainId } from 'libs/wallet';
-
 import { ChainId } from 'types';
 
 const featureFlags = {

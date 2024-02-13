@@ -1,10 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
-import { useGetLegacyPoolComptrollerContractAddress } from 'libs/contracts';
-import { useGetToken } from 'libs/tokens';
-import { useTranslation } from 'libs/translations';
-import { useAccountAddress, useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import {
@@ -15,6 +11,10 @@ import {
 } from 'clients/api';
 import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
+import { useGetLegacyPoolComptrollerContractAddress } from 'libs/contracts';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 import { RewardDistributorDistribution, Token } from 'types';
 import {
   convertMantissaToTokens,

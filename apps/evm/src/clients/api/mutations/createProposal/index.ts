@@ -1,4 +1,5 @@
 import { ContractTransaction } from 'ethers';
+
 import { GovernorBravoDelegate } from 'libs/contracts';
 
 export type CreateProposalInput = {

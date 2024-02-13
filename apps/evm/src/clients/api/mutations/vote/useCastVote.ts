@@ -1,10 +1,9 @@
-import { useAnalytics } from 'libs/analytics';
-import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
-
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useAnalytics } from 'libs/analytics';
+import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
 import { callOrThrow } from 'utilities';
 
 import castVote, { CastVoteInput } from './castVote';

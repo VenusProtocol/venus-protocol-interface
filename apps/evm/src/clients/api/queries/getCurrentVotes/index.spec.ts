@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
+
 import { XvsVault } from 'libs/contracts';
 
 import getCurrentVotes from '.';

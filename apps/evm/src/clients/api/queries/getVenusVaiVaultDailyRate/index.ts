@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { LegacyPoolComptroller } from 'libs/contracts';
 
 export interface GetVenusVaiVaultDailyRateInput {

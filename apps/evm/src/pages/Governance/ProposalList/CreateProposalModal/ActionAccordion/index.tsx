@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { ethers } from 'ethers';
 import { FieldArray, useField } from 'formik';
-import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 
 import { Accordion, FormikTextField, Icon, SecondaryButton } from 'components';
+import { useTranslation } from 'libs/translations';
 
 import { ErrorCode, initialActionData } from '../proposalSchema';
 import CallDataFields from './CallDataFields';

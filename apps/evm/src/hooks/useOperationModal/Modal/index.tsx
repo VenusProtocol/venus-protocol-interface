@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { useTranslation } from 'libs/translations';
-
 import { Modal, ModalProps, TabContent, Tabs, TokenIconWithSymbol } from 'components';
 import AssetAccessor from 'containers/AssetAccessor';
+import { useTranslation } from 'libs/translations';
 import { VToken } from 'types';
 
 import BorrowForm from './BorrowForm';

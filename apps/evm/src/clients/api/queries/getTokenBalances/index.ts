@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+
 import { getTokenContract } from 'libs/contracts';
 import { type Provider } from 'libs/wallet';
-
 import { Token, TokenBalance } from 'types';
 
 export interface GetTokenBalancesInput {

@@ -1,5 +1,4 @@
 import { VError } from 'libs/errors';
-
 import { restService } from 'utilities';
 
 import formatToVoters from './formatToVoters';

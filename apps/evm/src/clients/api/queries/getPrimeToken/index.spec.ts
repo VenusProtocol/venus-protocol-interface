@@ -1,6 +1,6 @@
-import { Prime } from 'libs/contracts';
-
 import fakeAccountAddress from '__mocks__/models/address';
+
+import { Prime } from 'libs/contracts';
 
 import getPrimeToken from '.';
 

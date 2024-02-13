@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import { useGetIsolatedPools } from 'clients/api';
 import { Table, TableColumn, TokenGroup } from 'components';
 import { routes } from 'constants/routing';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Pool } from 'types';
 import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
 

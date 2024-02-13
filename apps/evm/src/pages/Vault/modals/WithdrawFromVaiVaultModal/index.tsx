@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
+
+import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-
-import { useGetVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 
 import ActionModal, { ActionModalProps } from '../ActionModal';
 

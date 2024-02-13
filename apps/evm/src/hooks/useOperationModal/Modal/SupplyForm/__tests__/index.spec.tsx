@@ -1,6 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { en } from 'libs/translations';
 import noop from 'noop-ts';
 import Vi from 'vitest';
 
@@ -13,6 +12,7 @@ import { renderComponent } from 'testUtils/render';
 import { supply } from 'clients/api';
 import useCollateral from 'hooks/useCollateral';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { en } from 'libs/translations';
 import { Asset, Pool } from 'types';
 
 import SupplyForm from '..';

@@ -1,4 +1,5 @@
 import { BigNumber as BN } from 'ethers';
+
 import { VenusLens } from 'libs/contracts';
 
 const venusLensResponses: {

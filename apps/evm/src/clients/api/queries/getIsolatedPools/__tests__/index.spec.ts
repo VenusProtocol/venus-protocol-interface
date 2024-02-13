@@ -1,14 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
-import {
-  IsolatedPoolComptroller,
-  PoolLens,
-  Prime,
-  ResilientOracle,
-  RewardsDistributor,
-  getIsolatedPoolComptrollerContract,
-  getRewardsDistributorContract,
-} from 'libs/contracts';
 import Vi from 'vitest';
 
 import fakePoolLensResponses from '__mocks__/contracts/poolLens';
@@ -20,6 +11,15 @@ import tokens, { xvs } from '__mocks__/models/tokens';
 import { getTokenBalances } from 'clients/api';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import MAX_UINT256 from 'constants/maxUint256';
+import {
+  IsolatedPoolComptroller,
+  PoolLens,
+  Prime,
+  ResilientOracle,
+  RewardsDistributor,
+  getIsolatedPoolComptrollerContract,
+  getRewardsDistributorContract,
+} from 'libs/contracts';
 import { ChainId, Token } from 'types';
 
 import getIsolatedPools from '..';

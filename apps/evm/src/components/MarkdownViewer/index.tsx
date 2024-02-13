@@ -8,7 +8,7 @@ export interface MarkdownViewerProps {
   className?: string;
 }
 
-const TITLE_CLASSES = cn('mb-2 mt-4 font-semibold text-grey first:mt-0');
+const TITLE_CLASSES = cn('text-grey mb-2 mt-4 font-semibold first:mt-0');
 
 export const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ className, content }) => (
   <Markdown

@@ -1,5 +1,3 @@
-import { useGetVaiContract, useGetVaiControllerContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getMintableVai, {
@@ -8,6 +6,8 @@ import getMintableVai, {
 } from 'clients/api/queries/getMintableVai';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetVaiContract, useGetVaiControllerContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 

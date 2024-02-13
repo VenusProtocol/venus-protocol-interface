@@ -1,6 +1,5 @@
 import { chains, defaultChain } from 'libs/wallet/chains';
 import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
-
 import { ChainId } from 'types';
 
 export const getChainIdFromSearchParams = ({ searchParams }: { searchParams: URLSearchParams }) => {

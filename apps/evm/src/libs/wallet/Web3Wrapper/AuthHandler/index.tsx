@@ -1,13 +1,13 @@
-import { defaultChain } from 'libs/wallet/chains';
-import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
-import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
-import { getChainId } from 'libs/wallet/utilities/getChainId';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
 import { useConfig, useDisconnect, useNetwork } from 'wagmi';
 
 import { routes } from 'constants/routing';
 import { useNavigate } from 'hooks/useNavigate';
+import { defaultChain } from 'libs/wallet/chains';
+import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
+import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
+import { getChainId } from 'libs/wallet/utilities/getChainId';
 
 export const AuthHandler: React.FC = () => {
   const config = useConfig();

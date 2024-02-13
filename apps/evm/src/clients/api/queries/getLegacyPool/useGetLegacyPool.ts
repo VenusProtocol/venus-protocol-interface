@@ -1,3 +1,12 @@
+import { QueryObserverOptions, useQuery } from 'react-query';
+
+import getLegacyPool, {
+  GetLegacyPoolInput,
+  GetLegacyPoolOutput,
+} from 'clients/api/queries/getLegacyPool';
+import FunctionKey from 'constants/functionKey';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
   useGetLegacyPoolComptrollerContract,
   useGetPrimeContract,
@@ -8,15 +17,6 @@ import {
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
-import { QueryObserverOptions, useQuery } from 'react-query';
-
-import getLegacyPool, {
-  GetLegacyPoolInput,
-  GetLegacyPoolOutput,
-} from 'clients/api/queries/getLegacyPool';
-import FunctionKey from 'constants/functionKey';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 

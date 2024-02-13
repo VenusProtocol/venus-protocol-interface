@@ -1,7 +1,7 @@
 import { ContractTransaction } from 'ethers';
+
 import { SwapRouter } from 'libs/contracts';
 import { VError } from 'libs/errors';
-
 import { Swap } from 'types';
 import { generateTransactionDeadline } from 'utilities';
 

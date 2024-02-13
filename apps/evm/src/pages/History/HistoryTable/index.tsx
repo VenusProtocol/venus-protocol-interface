@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { useTranslation } from 'libs/translations';
-import { useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
 
 import { EllipseAddress, Table, TableColumn, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { Link } from 'containers/Link';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
+import { useTranslation } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
 import { Transaction } from 'types';
 import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
 

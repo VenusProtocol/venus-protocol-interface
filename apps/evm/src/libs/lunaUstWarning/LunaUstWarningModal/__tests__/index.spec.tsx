@@ -1,7 +1,8 @@
-import { en } from 'libs/translations';
 import Vi from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
+
+import { en } from 'libs/translations';
 
 import { LunaUstWarningModal } from '..';
 import { useLunaUstWarning } from '../../useLunaUstWarning';

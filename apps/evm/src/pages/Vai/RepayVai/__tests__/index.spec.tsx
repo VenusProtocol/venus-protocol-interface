@@ -1,7 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { getVaiControllerContractAddress } from 'libs/contracts';
-import { en } from 'libs/translations';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -17,6 +15,8 @@ import {
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { getVaiControllerContractAddress } from 'libs/contracts';
+import { en } from 'libs/translations';
 import { ChainId } from 'types';
 import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 

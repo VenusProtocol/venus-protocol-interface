@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { useTranslation } from 'libs/translations';
 
 import { SenaryButton, Tooltip } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
@@ -8,6 +7,7 @@ import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReada
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
+import { useTranslation } from 'libs/translations';
 import { PrimeSimulationDistribution, Token } from 'types';
 
 import primeLogoSrc from './primeLogo.svg';
@@ -74,7 +74,7 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
     <div>
       <p className="text-sm">
         {readableApy}{' '}
-        <span className="text-sm text-grey">{type === 'supply' && <>/ {readableLtv}</>}</span>
+        <span className="text-grey text-sm">{type === 'supply' && <>/ {readableLtv}</>}</span>
       </p>
 
       <div className="whitespace-nowrap">
@@ -101,7 +101,7 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
           }
         >
           <SenaryButton
-            className="h-6 cursor-help rounded-full p-1 hover:border-lightGrey"
+            className="hover:border-lightGrey h-6 cursor-help rounded-full p-1"
             onClick={e => e.stopPropagation()}
           >
             <img

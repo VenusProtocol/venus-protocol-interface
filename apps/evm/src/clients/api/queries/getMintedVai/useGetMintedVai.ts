@@ -1,5 +1,3 @@
-import { useGetLegacyPoolComptrollerContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getMintedVai, {
@@ -7,6 +5,8 @@ import getMintedVai, {
   GetMintedVaiOutput,
 } from 'clients/api/queries/getMintedVai';
 import FunctionKey from 'constants/functionKey';
+import { useGetLegacyPoolComptrollerContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 

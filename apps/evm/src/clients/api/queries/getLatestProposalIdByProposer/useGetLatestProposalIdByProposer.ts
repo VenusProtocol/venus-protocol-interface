@@ -1,5 +1,3 @@
-import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
-import { governanceChain } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getLatestProposalIdByProposer, {
@@ -8,6 +6,8 @@ import getLatestProposalIdByProposer, {
 } from 'clients/api/queries/getLatestProposalIdByProposer';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
+import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 type Options = QueryObserverOptions<

@@ -1,9 +1,9 @@
-import { VError, displayMutationError } from 'libs/errors';
-import { useAccountAddress } from 'libs/wallet/hooks/useAccountAddress';
-import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
 import { useCallback } from 'react';
 import { useSwitchNetwork } from 'wagmi';
 
+import { VError, displayMutationError } from 'libs/errors';
+import { useAccountAddress } from 'libs/wallet/hooks/useAccountAddress';
+import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
 import { ChainId } from 'types';
 
 export const useSwitchChain = () => {

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { Prime } from 'libs/contracts';
 
+import { Prime } from 'libs/contracts';
 import { convertAprToApy, convertDollarsToCents, convertPriceMantissaToDollars } from 'utilities';
 
 export interface GetHypotheticalPrimeApysInput {

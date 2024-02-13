@@ -1,6 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import {
@@ -9,6 +7,8 @@ import {
   getXvsBridgeFeeEstimation,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'libs/contracts';
+import { useChainId } from 'libs/wallet';
 import { ChainId, Token } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { VenusLens } from 'libs/contracts';
 
+import { VenusLens } from 'libs/contracts';
 import { Token } from 'types';
 
 import { LegacyPoolPendingRewardGroup } from '../types';

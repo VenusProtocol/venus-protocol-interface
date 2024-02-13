@@ -1,6 +1,6 @@
-import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 
+import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
 import { MarkdownViewer } from '../MarkdownViewer';
@@ -42,7 +42,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
             value={value}
             data-hasError={hasError}
             className={cn(
-              'hover -mt-6 min-h-[12rem] w-full rounded-xl border border-lightGrey bg-background p-4 font-semibold outline-none transition-colors hover:border-grey focus:border-blue',
+              'hover border-lightGrey bg-background hover:border-grey focus:border-blue -mt-6 min-h-[12rem] w-full rounded-xl border p-4 font-semibold outline-none transition-colors',
               hasError && 'border-red hover:border-red focus:border-red',
             )}
           />

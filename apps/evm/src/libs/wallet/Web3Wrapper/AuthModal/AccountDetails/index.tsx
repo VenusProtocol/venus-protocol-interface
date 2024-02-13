@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import { useTranslation } from 'libs/translations';
 
 import { SecondaryButton } from 'components/Button';
 import { EllipseAddress } from 'components/EllipseAddress';
 import { Icon } from 'components/Icon';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
+import { useTranslation } from 'libs/translations';
 import { ChainId } from 'types';
 
 import { useStyles } from './styles';

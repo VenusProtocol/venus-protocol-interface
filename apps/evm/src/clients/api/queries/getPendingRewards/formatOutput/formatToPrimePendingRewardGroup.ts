@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+
 import { Prime } from 'libs/contracts';
 import { logError } from 'libs/errors';
-
 import { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens, findTokenByAddress } from 'utilities';
 

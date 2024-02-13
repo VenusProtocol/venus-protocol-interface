@@ -1,7 +1,7 @@
-import { XvsVault } from 'libs/contracts';
-
 import fakeAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+
+import { XvsVault } from 'libs/contracts';
 
 import setVoteDelegate from '.';
 

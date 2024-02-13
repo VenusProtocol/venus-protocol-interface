@@ -4,7 +4,6 @@ import ethLogo from 'libs/tokens/img/eth.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
 import wbnbLogo from 'libs/tokens/img/wbnb.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
-
 import { Token } from 'types';
 
 export const tokens: Token[] = [

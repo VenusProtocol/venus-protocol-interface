@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
-import { displayMutationError } from 'libs/errors';
-import { useTranslation } from 'libs/translations';
 
 import {
   ButtonWrapper,
@@ -15,6 +13,8 @@ import {
 } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { displayMutationError } from 'libs/errors';
+import { useTranslation } from 'libs/translations';
 
 import addressValidationSchema from './addressValidationSchema';
 import { useStyles } from './styles';

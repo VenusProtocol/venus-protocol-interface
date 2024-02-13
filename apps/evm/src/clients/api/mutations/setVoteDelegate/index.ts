@@ -1,4 +1,5 @@
 import { ContractReceipt } from 'ethers';
+
 import { XvsVault } from 'libs/contracts';
 
 export interface SetVoteDelegateInput {

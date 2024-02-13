@@ -1,5 +1,4 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
-import { en } from 'libs/translations';
 import Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -7,6 +6,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { renderComponent } from 'testUtils/render';
 
 import { claimRewards, getPendingRewards } from 'clients/api';
+import { en } from 'libs/translations';
 
 import ClaimRewardButton from '..';
 import TEST_IDS from '../../testIds';

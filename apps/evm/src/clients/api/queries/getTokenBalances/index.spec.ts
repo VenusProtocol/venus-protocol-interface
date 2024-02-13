@@ -1,10 +1,11 @@
 import { BigNumber as BN } from 'ethers';
-import { getTokenContract } from 'libs/contracts';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import { bnb, busd, lisUsd } from '__mocks__/models/tokens';
+
+import { getTokenContract } from 'libs/contracts';
 
 import getTokenBalances from '.';
 

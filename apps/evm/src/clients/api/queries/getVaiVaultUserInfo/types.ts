@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+
 import { VaiVault } from 'libs/contracts';
 
 export interface GetVaiVaultUserInfoInput {

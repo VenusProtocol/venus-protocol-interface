@@ -1,4 +1,5 @@
 import { BigNumber as BN } from 'ethers';
+
 import { XvsVault } from 'libs/contracts';
 
 import getXvsVaultTotalAllocationPoints from '.';

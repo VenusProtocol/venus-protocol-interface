@@ -1,8 +1,7 @@
-import { useGetVaiControllerContract } from 'libs/contracts';
-
 import { MintVaiInput, mintVai, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetVaiControllerContract } from 'libs/contracts';
 import { callOrThrow } from 'utilities';
 
 type TrimmedClaimRewardsInput = Omit<MintVaiInput, 'vaiControllerContract'>;

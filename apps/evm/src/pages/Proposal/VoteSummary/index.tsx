@@ -2,13 +2,13 @@
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import { useGetToken } from 'libs/tokens';
-import { useTranslation } from 'libs/translations';
 import { useCallback } from 'react';
 
 import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { useGetToken } from 'libs/tokens';
+import { useTranslation } from 'libs/translations';
 import { VotersDetails } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

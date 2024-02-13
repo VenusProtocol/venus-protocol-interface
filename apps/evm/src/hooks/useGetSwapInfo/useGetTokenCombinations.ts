@@ -1,9 +1,9 @@
 import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
-import { useGetSwapTokens, useGetToken } from 'libs/tokens';
-import { useChainId } from 'libs/wallet';
 import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
 
+import { useGetSwapTokens, useGetToken } from 'libs/tokens';
+import { useChainId } from 'libs/wallet';
 import { ChainId, PSTokenCombination, Token } from 'types';
 
 import wrapToken from './wrapToken';

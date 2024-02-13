@@ -1,4 +1,5 @@
 import { BigNumber as BN } from 'ethers';
+
 import { VrtConverter } from 'libs/contracts';
 
 import getVrtConversionEndTime from '.';

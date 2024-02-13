@@ -1,9 +1,9 @@
-import { useAccountAddress, useChainId } from 'libs/wallet';
 import { PostHogProvider, usePostHog } from 'posthog-js/react';
 import { useEffect } from 'react';
 
 import config from 'config';
 import { version as APP_VERSION } from 'constants/version';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 
 const UserIdentifier: React.FC = () => {
   const { accountAddress } = useAccountAddress();

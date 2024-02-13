@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
+
+import config from 'config';
 import { displayMutationError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { Connector } from 'libs/wallet/types';
-
-import config from 'config';
 
 import { INTEGRATED_WALLETS, UPCOMING_WALLETS, WALLETS } from '../constants';
 import { useStyles } from './styles';

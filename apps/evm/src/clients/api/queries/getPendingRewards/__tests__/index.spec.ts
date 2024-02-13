@@ -1,7 +1,7 @@
-import { PoolLens, Prime, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
-
 import fakeAddress from '__mocks__/models/address';
 import tokens from '__mocks__/models/tokens';
+
+import { PoolLens, Prime, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
 
 import getPendingRewards from '..';
 import {

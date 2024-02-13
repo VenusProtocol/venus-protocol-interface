@@ -1,11 +1,3 @@
-import {
-  useGetPoolLensContract,
-  useGetPoolRegistryContractAddress,
-  useGetPrimeContract,
-  useGetResilientOracleContract,
-} from 'libs/contracts';
-import { useGetToken, useGetTokens } from 'libs/tokens';
-import { useChainId, useProvider } from 'libs/wallet';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getIsolatedPools, {
@@ -15,6 +7,14 @@ import getIsolatedPools, {
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import {
+  useGetPoolLensContract,
+  useGetPoolRegistryContractAddress,
+  useGetPrimeContract,
+  useGetResilientOracleContract,
+} from 'libs/contracts';
+import { useGetToken, useGetTokens } from 'libs/tokens';
+import { useChainId, useProvider } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 

@@ -1,8 +1,9 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import { en } from 'libs/translations';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
+
+import { en } from 'libs/translations';
 
 import Vai from '.';
 
