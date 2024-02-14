@@ -1,6 +1,7 @@
 import { useGetPrimeToken } from 'clients/api';
+import { useAuthModal } from 'hooks/useAuthModal';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useAccountAddress, useAuthModal } from 'libs/wallet';
+import { useAccountAddress } from 'libs/wallet';
 
 import { ConnectWalletBanner } from './ConnectWalletBanner';
 import { PrimePromotionalBanner } from './PrimePromotionalBanner';

@@ -3,6 +3,7 @@ import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
 
 import { queryClient } from 'clients/api';
+import { AuthModal } from 'containers/AuthModal';
 import { AnalyticProvider } from 'libs/analytics';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
@@ -23,6 +24,8 @@ const App = () => (
           <Web3Wrapper>
             <AnalyticProvider>
               <Routes />
+
+              <AuthModal />
 
               <LunaUstWarningModal />
 

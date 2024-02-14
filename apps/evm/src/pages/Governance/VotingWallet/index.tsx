@@ -21,10 +21,11 @@ import {
 import { routes } from 'constants/routing';
 import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { Link } from 'containers/Link';
+import { useAuthModal } from 'hooks/useAuthModal';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'libs/wallet';
+import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet';
 import { Token } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 

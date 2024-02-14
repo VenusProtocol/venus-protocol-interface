@@ -16,6 +16,7 @@ import {
   TokenTextField,
 } from 'components';
 import { Link } from 'containers/Link';
+import { useAuthModal } from 'hooks/useAuthModal';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import useTokenApproval from 'hooks/useTokenApproval';
 import {
@@ -25,7 +26,7 @@ import {
 import { displayMutationError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { chains, useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
+import { chains, useAccountAddress, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
 

@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import { useAuthModal } from 'hooks/useAuthModal';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress, useAuthModal } from 'libs/wallet';
+import { useAccountAddress } from 'libs/wallet';
 
 import { SecondaryButton } from '../../components/Button';
 import { NoticeInfo } from '../../components/Notice';

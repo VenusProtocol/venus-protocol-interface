@@ -12,12 +12,15 @@ import {
   useGetXvsBridgeMintStatus,
   useGetXvsBridgeStatus,
 } from 'clients/api';
+import { useAuthModal } from 'hooks/useAuthModal';
 import { en } from 'libs/translations';
-import { useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
+import { useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import Bridge from '..';
 import TEST_IDS from '../testIds';
+
+vi.mock('hooks/useAuthModal');
 
 const fakeBalanceMantissa = new BigNumber('10000000000000000000');
 const fakeBridgeFeeMantissa = new BigNumber('50000000000000000');

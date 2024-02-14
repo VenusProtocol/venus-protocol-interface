@@ -19,7 +19,7 @@
       ]
     },
     "start": {
-      "dependsOn": ["^build", "generate"],
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },

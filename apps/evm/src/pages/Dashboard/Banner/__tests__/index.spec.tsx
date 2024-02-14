@@ -5,10 +5,12 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
 import { useGetPrimeToken } from 'clients/api';
+import { useAuthModal } from 'hooks/useAuthModal';
 import { en } from 'libs/translations';
-import { useAuthModal } from 'libs/wallet';
 
 import { Banner } from '..';
+
+vi.mock('hooks/useAuthModal');
 
 describe('Banner', () => {
   beforeEach(() => {

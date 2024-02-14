@@ -1,4 +1,4 @@
-import { store } from 'libs/wallet/store';
+import { store } from './store';
 
 export const useAuthModal = () => {
   const isAuthModalOpen = store.use.isAuthModalOpen();

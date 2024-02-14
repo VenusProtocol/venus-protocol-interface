@@ -12,4 +12,3 @@ export * from 'libs/wallet/hooks/useSwitchChain/__mocks__';
 export * from 'libs/wallet/hooks/useChainId/__mocks__';
 export * from 'libs/wallet/hooks/useLogIn/__mocks__';
 export * from 'libs/wallet/hooks/useLogOut/__mocks__';
-export * from 'libs/wallet/hooks/useAuthModal/__mocks__';
