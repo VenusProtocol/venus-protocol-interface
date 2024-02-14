@@ -2,55 +2,55 @@
 # yarn lockfile v1
 
 
-"@0xsequence/abi@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@0xsequence/abi/-/abi-1.8.1.tgz#10fc176139a9f379bbcd8cc9033c4fd0791be5b7"
-  integrity sha512-cHjA+2UN2KR8WEuGCv2N+g2Jw2RFrHKAdG1iLLrL1U5zlcvbpenpbbCJ8VNFr8X8/al/E1PkX31N9yXHsVHaHA==
+"@0xsequence/abi@1.8.7":
+  version "1.8.7"
+  resolved "https://registry.yarnpkg.com/@0xsequence/abi/-/abi-1.8.7.tgz#4a638feb34d9789d41400af7a1725e2648ce6601"
+  integrity sha512-j6y7Imfe5eQs9Ln62tr7AjjvKStO4X5RG4CQIViTQh08hMBMbuNVygOD3FxSMPDeXNgtlRK3XcqnD+h4jrKU1w==
 
-"@0xsequence/core@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@0xsequence/core/-/core-1.8.1.tgz#334d2fe58d0414f1e97d2d21c335933cd2859984"
-  integrity sha512-7RknlmSS7z9ZoVzMLHRbF/Gyia/Wb4KCpxwv1P/Q0ZBmoo9jsyWlk60fQk0A0ZI0N29yTLXG5iZXRdsmu558dQ==
+"@0xsequence/core@1.8.7":
+  version "1.8.7"
+  resolved "https://registry.yarnpkg.com/@0xsequence/core/-/core-1.8.7.tgz#4e0a0a98395297b95c144bbc548cb81e9f8dc6dd"
+  integrity sha512-pu2pAxlgKw1Rglk5p7rox1ARpC1C9AlkkZ7ZCNFmxG1LpQ+sZkfKB9jnh99yfTlG/09EBjpmsNQEqNloB8B94w==
   dependencies:
-    "@0xsequence/abi" "1.8.1"
+    "@0xsequence/abi" "1.8.7"
 
-"@0xsequence/indexer@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@0xsequence/indexer/-/indexer-1.8.1.tgz#c3d41007e2987d461a52ff435b9c5559f8f9ce04"
-  integrity sha512-W8VUJWjeioXEOISx4JSm2rC2GbxkOzyiow1FMueW5cjD54gHLbEBV4IHkqh8Fl6Lnv4g/nGDnKeKvohJ6HIzrQ==
+"@0xsequence/indexer@1.8.7":
+  version "1.8.7"
+  resolved "https://registry.yarnpkg.com/@0xsequence/indexer/-/indexer-1.8.7.tgz#4c36f3b4d3ecb772f0aaf8dec7a0658ee7dcb2f0"
+  integrity sha512-SVGQFbCZcWDTri99p4UpdKUiAjw+kzOdL+Uemv4ATpoCdA5QJZQpilDwx2ocHlxxPI2OD7wL7on3fBsuuRk34A==
 
 "@0xsequence/multicall@^1.2.9":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@0xsequence/multicall/-/multicall-1.8.1.tgz#38f2a1b32e26ba5ed55570ac02f49afd25594750"
-  integrity sha512-gA5aBZMKdDf7ihgUvhXeuqjVcl+a705Jurw678dZ1cyV0ZSCNL7y/Id5mlYnZx+jXblqQRde0NtXCJq/Eqi9vQ==
+  version "1.8.7"
+  resolved "https://registry.yarnpkg.com/@0xsequence/multicall/-/multicall-1.8.7.tgz#324d94e9869ba0e96408ad2f32eccb2d5a42f898"
+  integrity sha512-vMkjhQNE0bxuH0D9et/J2F1POyay0jUrPmSZRtlYjxgPJjJLjaSv+UsQymL2M3+yszgXyiUNZWjtuEh424mTcA==
   dependencies:
-    "@0xsequence/abi" "1.8.1"
-    "@0xsequence/network" "1.8.1"
-    "@0xsequence/utils" "1.8.1"
+    "@0xsequence/abi" "1.8.7"
+    "@0xsequence/network" "1.8.7"
+    "@0xsequence/utils" "1.8.7"
 
-"@0xsequence/network@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@0xsequence/network/-/network-1.8.1.tgz#9ff9354f544d4b9d60fb9bc0eb5ddefec7e1f13f"
-  integrity sha512-pAIV1LggXZhuxThgSsFVC7OUr75X6ci93/9Qeb8BqMMwaT9pIXQhNgcs0FErwPSDecQWPCTLKRBQ4FcVqlyVog==
+"@0xsequence/network@1.8.7":
+  version "1.8.7"
+  resolved "https://registry.yarnpkg.com/@0xsequence/network/-/network-1.8.7.tgz#919f0ea34b8c2a002ca17d97ea1c531fdf67b8fa"
+  integrity sha512-Xob+FeUBJ2Hkm1mpMO4ba17LFBcx2NYWNYy3np4KlBWD2Q1wiyUYtxdK8CK8702a0Qeidp8iYsuUqSSJei/FWg==
   dependencies:
-    "@0xsequence/core" "1.8.1"
-    "@0xsequence/indexer" "1.8.1"
-    "@0xsequence/relayer" "1.8.1"
-    "@0xsequence/utils" "1.8.1"
+    "@0xsequence/core" "1.8.7"
+    "@0xsequence/indexer" "1.8.7"
+    "@0xsequence/relayer" "1.8.7"
+    "@0xsequence/utils" "1.8.7"
 
-"@0xsequence/relayer@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@0xsequence/relayer/-/relayer-1.8.1.tgz#41857720a1cc40d076c8cd89e4b4db69377bc8a7"
-  integrity sha512-gGTW1z4RGEoOgE/Koeu3G+RoUyCFv/lG9iV8PiFfgzA5DHRd3IDJwNCwz3zh17APw9IvJ5n54bibsSWiycufJA==
+"@0xsequence/relayer@1.8.7":
+  version "1.8.7"
+  resolved "https://registry.yarnpkg.com/@0xsequence/relayer/-/relayer-1.8.7.tgz#aee2d63520ec563a42573cf6e4e82639d31c8c6f"
+  integrity sha512-Jvk5H1wACY8AiWZFva/aZitQiOTCxrBoAg4vmETExhzueKX696saGp93c7TWkJtiJ/TLpF/LpKyrDZQbJVIvvA==
   dependencies:
-    "@0xsequence/abi" "1.8.1"
-    "@0xsequence/core" "1.8.1"
-    "@0xsequence/utils" "1.8.1"
+    "@0xsequence/abi" "1.8.7"
+    "@0xsequence/core" "1.8.7"
+    "@0xsequence/utils" "1.8.7"
 
-"@0xsequence/utils@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@0xsequence/utils/-/utils-1.8.1.tgz#48ab5edfbec5d02850908d84f39fff21ac7cb65a"
-  integrity sha512-i+5uvluUNha2VeJXu0hP0PQ28irmYTdaTIXf+n1usteoT8tjeVZLsNeNmdkZp3twI93wGwuDO5BK9VdVzPlSHA==
+"@0xsequence/utils@1.8.7":
+  version "1.8.7"
+  resolved "https://registry.yarnpkg.com/@0xsequence/utils/-/utils-1.8.7.tgz#21d0fdd2aa0ad8aeacf21cc865fe4cd69dd22f80"
+  integrity sha512-Q8fmjO5wgo1Jlizmqbbw3PIYtp1nTU4Cig90drdWpv2wDTKshcLmXwWxskwoHlf0B7WO2WwfLwzNFHWlbZIDjQ==
   dependencies:
     js-base64 "^3.7.2"
 
