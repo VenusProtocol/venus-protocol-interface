@@ -575,6 +575,7 @@
         "processing": "Processing",
         "supply": "Supply",
         "supplyCapReached": "Supply cap reached",
+        "wrapAndSupply": "Wrap and supply",
         "swapAndSupply": "Swap and supply",
         "swapAndSupplyWithHighPriceImpact": "Swap and supply with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
