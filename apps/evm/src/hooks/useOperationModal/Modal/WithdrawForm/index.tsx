@@ -3,9 +3,11 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
 import { useGetVTokenBalanceOf, useRedeem, useRedeemUnderlying } from 'clients/api';
-import { Delimiter, LabeledInlineContent, TokenTextField } from 'components';
+import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -39,6 +41,20 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
+  const { nativeToken } = useGetChainMetadata();
+  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
+
+  const canUnwrapToNativeToken = useMemo(
+    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.wrapsNative,
+    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.wrapsNative],
+  );
+
+  const handleToggleReceiveNativeToken = async () => {
+    setFormValues(currentFormValues => ({
+      ...currentFormValues,
+      receiveNativeToken: !currentFormValues.receiveNativeToken,
+    }));
+  };
 
   const limitTokens = useMemo(() => {
     const assetLiquidityTokens = new BigNumber(asset.liquidityCents).dividedBy(
@@ -140,6 +156,30 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           hasError={!!formError && Number(formValues.amountTokens) > 0}
         />
 
+        {canUnwrapToNativeToken && (
+          <>
+            <Delimiter className="my-6 md:my-8" />
+
+            <LabeledInlineContent
+              label={t('operationModal.withdraw.receiveNativeToken.label', {
+                tokenSymbol: nativeToken.symbol,
+              })}
+              tooltip={t('operationModal.withdraw.receiveNativeToken.tooltip', {
+                wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
+                nativeTokenSymbol: nativeToken.symbol,
+              })}
+              css={sharedStyles.getRow({ isLast: true })}
+            >
+              <Toggle
+                onChange={handleToggleReceiveNativeToken}
+                value={formValues.receiveNativeToken}
+              />
+            </LabeledInlineContent>
+
+            <Delimiter className="my-6 md:my-8" />
+          </>
+        )}
+
         {!isSubmitting && (
           <Notice amount={formValues.amountTokens} formError={formError} asset={asset} />
         )}
@@ -183,6 +223,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
+    receiveNativeToken: false,
   });
 
   const { data: getVTokenBalanceData } = useGetVTokenBalanceOf(

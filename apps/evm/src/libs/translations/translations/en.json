@@ -520,7 +520,7 @@
       "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "receiveNativeToken": {
         "label": "Receive {{tokenSymbol}}",
-        "tooltip": "Select this to unwrap the borrowed {{wrappedNativeTokenSymbol}} onto {{nativeTokenSymbol}}"
+        "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
       },
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButtonLabel": {
@@ -598,6 +598,10 @@
     },
     "withdraw": {
       "connectWalletMessage": "Please connect your wallet to withdraw",
+      "receiveNativeToken": {
+        "label": "Receive {{tokenSymbol}}",
+        "tooltip": "Withdraw supplied {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
+      },
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "enterValidAmount": "Enter a valid amount to withdraw",
