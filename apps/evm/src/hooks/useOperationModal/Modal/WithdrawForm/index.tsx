@@ -157,7 +157,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         />
 
         {canUnwrapToNativeToken && (
-          <>
+          <div data-testid={TEST_IDS.receiveNativeToken}>
             <Delimiter className="my-6 md:my-8" />
 
             <LabeledInlineContent
@@ -177,7 +177,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
             </LabeledInlineContent>
 
             <Delimiter className="my-6 md:my-8" />
-          </>
+          </div>
         )}
 
         {!isSubmitting && (
