@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { useDelimiterStyles as useStyles } from './styles';
+import { cn } from 'utilities';
 
 interface DelimiterProps {
   className?: string;
 }
 
-export const Delimiter = ({ className }: DelimiterProps) => {
-  const styles = useStyles();
-  return <hr css={styles.root} className={className} />;
-};
+export const Delimiter = ({ className }: DelimiterProps) => (
+  <hr className={cn('bg-lightGrey mb-0 mt-0 h-[1px] border-0', className)} />
+);
