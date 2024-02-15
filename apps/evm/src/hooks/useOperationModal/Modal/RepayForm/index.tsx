@@ -202,7 +202,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         {readableUserBorrowBalanceTokens}
       </LabeledInlineContent>
 
-      <div css={sharedStyles.getRow({ isLast: false })}>
+      <div className="mb-3">
         {isIntegratedSwapEnabled || canWrapNativeToken ? (
           <SelectTokenTextField
             data-testid={TEST_IDS.selectTokenTextField}

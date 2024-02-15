@@ -246,7 +246,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           </LabeledInlineContent>
         )}
 
-        <div css={sharedStyles.getRow({ isLast: true })}>
+        <div className="mb-3">
           {isIntegratedSwapFeatureEnabled || canWrapNativeToken ? (
             <SelectTokenTextField
               data-testid={TEST_IDS.selectTokenTextField}

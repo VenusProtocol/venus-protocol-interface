@@ -132,7 +132,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         css={sharedStyles.assetWarning}
       />
 
-      <div css={[sharedStyles.getRow({ isLast: true })]}>
+      <div className="mb-3">
         <TokenTextField
           data-testid={TEST_IDS.tokenTextField}
           name="amountTokens"
@@ -158,30 +158,6 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           hasError={!!formError && Number(formValues.amountTokens) > 0}
         />
 
-        {canUnwrapToNativeToken && (
-          <div data-testid={TEST_IDS.receiveNativeToken}>
-            <Delimiter className="my-6 md:my-8" />
-
-            <LabeledInlineContent
-              label={t('operationModal.borrow.receiveNativeToken.label', {
-                tokenSymbol: nativeToken.symbol,
-              })}
-              tooltip={t('operationModal.borrow.receiveNativeToken.tooltip', {
-                wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
-                nativeTokenSymbol: nativeToken.symbol,
-              })}
-              css={sharedStyles.getRow({ isLast: true })}
-            >
-              <Toggle
-                onChange={handleToggleReceiveNativeToken}
-                value={formValues.receiveNativeToken}
-              />
-            </LabeledInlineContent>
-
-            <Delimiter className="my-6 md:my-8" />
-          </div>
-        )}
-
         {!isSubmitting && (
           <Notice
             hasUserCollateralizedSuppliedAssets={formError !== 'NO_COLLATERALS'}
@@ -194,14 +170,33 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         )}
       </div>
 
-      <LabeledInlineContent
-        label={t('operationModal.borrow.borrowableAmount')}
-        css={sharedStyles.getRow({ isLast: true })}
-      >
+      <LabeledInlineContent label={t('operationModal.borrow.borrowableAmount')}>
         {readableLimit}
       </LabeledInlineContent>
 
-      <Delimiter css={sharedStyles.getRow({ isLast: true })} />
+      <Delimiter className="my-6 md:my-8" />
+
+      {canUnwrapToNativeToken && (
+        <div data-testid={TEST_IDS.receiveNativeToken}>
+          <LabeledInlineContent
+            label={t('operationModal.borrow.receiveNativeToken.label', {
+              tokenSymbol: nativeToken.symbol,
+            })}
+            tooltip={t('operationModal.borrow.receiveNativeToken.tooltip', {
+              wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
+              nativeTokenSymbol: nativeToken.symbol,
+            })}
+            css={sharedStyles.getRow({ isLast: true })}
+          >
+            <Toggle
+              onChange={handleToggleReceiveNativeToken}
+              value={formValues.receiveNativeToken}
+            />
+          </LabeledInlineContent>
+
+          <Delimiter className="my-6 md:my-8" />
+        </div>
+      )}
 
       <AccountData
         asset={asset}
