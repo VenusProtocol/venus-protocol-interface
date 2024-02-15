@@ -159,7 +159,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         />
 
         {canUnwrapToNativeToken && (
-          <>
+          <div data-testid={TEST_IDS.receiveNativeToken}>
             <Delimiter className="my-6 md:my-8" />
 
             <LabeledInlineContent
@@ -179,7 +179,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
             </LabeledInlineContent>
 
             <Delimiter className="my-6 md:my-8" />
-          </>
+          </div>
         )}
 
         {!isSubmitting && (
