@@ -550,6 +550,7 @@
         "priceImpactHigherThanMaximumTolerated": "Price impact too high",
         "processing": "Processing",
         "repay": "Repay",
+        "wrapAndRepay": "Wrap and repay",
         "swapAndRepay": "Swap and repay",
         "swapAndRepayWithHighPriceImpact": "Swap and repay with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",

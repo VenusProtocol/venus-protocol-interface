@@ -14,6 +14,7 @@ import {
 } from 'components';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import useGetNativeWrappedTokenUserBalances from 'hooks/useGetNativeWrappedTokenUserBalances';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -50,11 +51,11 @@ export interface RepayFormUiProps
   > {
   asset: Asset;
   pool: Pool;
-  isIntegratedSwapEnabled: boolean;
   onSubmit: UseFormInput['onSubmit'];
   isSubmitting: boolean;
   onCloseModal: () => void;
-  tokenBalances?: TokenBalance[];
+  nativeWrappedTokenBalances: TokenBalance[];
+  integratedSwapTokenBalances: TokenBalance[];
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
   isSwapLoading: boolean;
@@ -68,11 +69,11 @@ export interface RepayFormUiProps
 export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   asset,
   pool,
-  isIntegratedSwapEnabled,
   onCloseModal,
   onSubmit,
   isSubmitting,
-  tokenBalances = [],
+  nativeWrappedTokenBalances,
+  integratedSwapTokenBalances,
   setFormValues,
   formValues,
   isSwapLoading,
@@ -90,7 +91,22 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
+  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
+  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
 
+  const canWrapNativeToken = useMemo(
+    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.wrapsNative,
+    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.wrapsNative],
+  );
+
+  // a user is trying to wrap the chain's native token if
+  // 1) the wrap/unwrap feature is enabled
+  // 2) the selected form token is the native token
+  // 3) the market's underlying token wraps the native token
+  const isWrappingNativeToken = useMemo(
+    () => canWrapNativeToken && !!formValues.fromToken.isNative,
+    [canWrapNativeToken, formValues.fromToken],
+  );
   const isUsingSwap = useMemo(
     () =>
       isIntegratedSwapEnabled &&
@@ -98,11 +114,16 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     [isIntegratedSwapEnabled, formValues.fromToken, asset.vToken.underlyingToken],
   );
 
+  const tokenBalances = useMemo(
+    () => [...integratedSwapTokenBalances, ...nativeWrappedTokenBalances],
+    [integratedSwapTokenBalances, nativeWrappedTokenBalances],
+  );
+
   const fromTokenUserWalletBalanceTokens = useMemo(() => {
     // Get wallet balance from the list of fetched token balances if integrated
     // swap feature is enabled and the selected token is different from the
     // asset object
-    if (isUsingSwap) {
+    if (isUsingSwap || isWrappingNativeToken) {
       const tokenBalance = tokenBalances.find(item =>
         areTokensEqual(item.token, formValues.fromToken),
       );
@@ -118,7 +139,13 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
     // Otherwise get the wallet balance from the asset object
     return asset.userWalletBalanceTokens;
-  }, [asset.userWalletBalanceTokens, formValues.fromToken, tokenBalances, isUsingSwap]);
+  }, [
+    asset.userWalletBalanceTokens,
+    formValues.fromToken,
+    tokenBalances,
+    isUsingSwap,
+    isWrappingNativeToken,
+  ]);
 
   const { handleSubmit, isFormValid, formError } = useForm({
     toVToken: asset.vToken,
@@ -176,7 +203,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       </LabeledInlineContent>
 
       <div css={sharedStyles.getRow({ isLast: false })}>
-        {isIntegratedSwapEnabled ? (
+        {isIntegratedSwapEnabled || canWrapNativeToken ? (
           <SelectTokenTextField
             data-testid={TEST_IDS.selectTokenTextField}
             selectedToken={formValues.fromToken}
@@ -296,8 +323,9 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         isFormValid={isFormValid}
         swap={swap}
         isSwapLoading={isSwapLoading}
+        isUsingSwap={isUsingSwap}
+        isWrappingNativeToken={isWrappingNativeToken}
         formError={formError}
-        toToken={asset.vToken.underlyingToken}
         fromToken={formValues.fromToken}
         fromTokenAmountTokens={formValues.amountTokens}
         approveFromToken={approveFromToken}
@@ -318,7 +346,6 @@ export interface RepayFormProps {
 
 const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   const { accountAddress } = useAccountAddress();
-  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
 
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
@@ -361,14 +388,18 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
 
   const isSubmitting = isRepayLoading || isSwapAndRepayLoading;
 
-  const { data: tokenBalances } = useGetSwapTokenUserBalances(
+  const { data: nativeWrappedTokenBalancesData } = useGetNativeWrappedTokenUserBalances(
     {
-      accountAddress,
+      accountAddress: accountAddress || '',
     },
     {
-      enabled: isIntegratedSwapEnabled,
+      enabled: !!asset.vToken.underlyingToken.wrapsNative,
     },
   );
+
+  const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances({
+    accountAddress,
+  });
 
   const onSubmit: RepayFormUiProps['onSubmit'] = async ({
     toVToken,
@@ -428,11 +459,11 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     <RepayFormUi
       asset={asset}
       pool={pool}
-      isIntegratedSwapEnabled={isIntegratedSwapEnabled}
       formValues={formValues}
       setFormValues={setFormValues}
       onCloseModal={onCloseModal}
-      tokenBalances={tokenBalances}
+      nativeWrappedTokenBalances={nativeWrappedTokenBalancesData}
+      integratedSwapTokenBalances={integratedSwapTokenBalancesData}
       onSubmit={onSubmit}
       isSubmitting={isSubmitting}
       swap={swapInfo.swap}
