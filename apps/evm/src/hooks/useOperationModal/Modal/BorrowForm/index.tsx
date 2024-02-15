@@ -3,10 +3,12 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
 import { useBorrow } from 'clients/api';
-import { AssetWarning, Delimiter, LabeledInlineContent, TokenTextField } from 'components';
+import { AssetWarning, Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
@@ -38,6 +40,20 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
+  const { nativeToken } = useGetChainMetadata();
+  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
+
+  const canUnwrapToNativeToken = useMemo(
+    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.wrapsNative,
+    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.wrapsNative],
+  );
+
+  const handleToggleReceiveNativeToken = async () => {
+    setFormValues(currentFormValues => ({
+      ...currentFormValues,
+      receiveNativeToken: !currentFormValues.receiveNativeToken,
+    }));
+  };
 
   // Calculate maximum and safe maximum amount of tokens user can borrow
   const [limitTokens, safeLimitTokens] = useMemo(() => {
@@ -142,6 +158,30 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           hasError={!!formError && Number(formValues.amountTokens) > 0}
         />
 
+        {canUnwrapToNativeToken && (
+          <>
+            <Delimiter className="my-6 md:my-8" />
+
+            <LabeledInlineContent
+              label={t('operationModal.borrow.receiveNativeToken.label', {
+                tokenSymbol: nativeToken.symbol,
+              })}
+              tooltip={t('operationModal.borrow.receiveNativeToken.tooltip', {
+                wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
+                nativeTokenSymbol: nativeToken.symbol,
+              })}
+              css={sharedStyles.getRow({ isLast: true })}
+            >
+              <Toggle
+                onChange={handleToggleReceiveNativeToken}
+                value={formValues.receiveNativeToken}
+              />
+            </LabeledInlineContent>
+
+            <Delimiter className="my-6 md:my-8" />
+          </>
+        )}
+
         {!isSubmitting && (
           <Notice
             hasUserCollateralizedSuppliedAssets={formError !== 'NO_COLLATERALS'}
@@ -192,6 +232,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
+    receiveNativeToken: false,
   });
 
   const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({

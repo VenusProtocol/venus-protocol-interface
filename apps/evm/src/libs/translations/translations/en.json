@@ -518,6 +518,10 @@
       "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "connectWalletMessage": "Please connect your wallet to borrow",
       "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
+      "receiveNativeToken": {
+        "label": "Receive {{tokenSymbol}}",
+        "tooltip": "Select this to unwrap the borrowed {{wrappedNativeTokenSymbol}} onto {{nativeTokenSymbol}}"
+      },
       "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
       "submitButtonLabel": {
         "amountHigherThanBorrowableAmount": "Amount entered higher than borrowable amount",

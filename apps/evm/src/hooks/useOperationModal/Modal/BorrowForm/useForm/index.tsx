@@ -42,6 +42,7 @@ const useForm = ({
     e?.preventDefault();
 
     try {
+      // TODO: update flow when receiving native token
       await onSubmit({
         fromTokenAmountTokens: formValues.amountTokens,
         fromToken: formValues.fromToken,
@@ -51,6 +52,7 @@ const useForm = ({
       setFormValues(() => ({
         fromToken: asset.vToken.underlyingToken,
         amountTokens: '',
+        receiveNativeToken: false,
       }));
       onCloseModal();
     } catch (error) {
