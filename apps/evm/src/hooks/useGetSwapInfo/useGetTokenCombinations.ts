@@ -24,6 +24,7 @@ const useGetTokenCombinations = ({
   toToken,
 }: UseGetTokenCombinationsInput): PSTokenCombination[] => {
   const { chainId } = useChainId();
+
   const swapTokens = useGetSwapTokens();
   const wbnb = useGetToken({
     symbol: 'WBNB',

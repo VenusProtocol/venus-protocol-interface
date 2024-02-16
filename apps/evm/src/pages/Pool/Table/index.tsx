@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
+import { areAddressesEqual } from '@venusprotocol/web3';
+
 import { routes } from 'constants/routing';
 import { MarketTable } from 'containers/MarketTable';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { Asset, Pool } from 'types';
-import { areAddressesEqual } from 'utilities';
 
 export interface TableProps {
   pool: Pool;

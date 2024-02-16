@@ -1,3 +1,4 @@
+import { areAddressesEqual } from '@venusprotocol/web3';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
@@ -10,7 +11,7 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'libs/contracts';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
-import { areAddressesEqual, convertMantissaToTokens, indexBy } from 'utilities';
+import { convertMantissaToTokens, indexBy } from 'utilities';
 
 export interface Data {
   treasurySupplyBalanceCents: BigNumber;

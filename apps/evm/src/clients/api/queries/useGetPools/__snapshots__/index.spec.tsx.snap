@@ -15,7 +15,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -41,7 +41,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -63,7 +63,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/libs/tokens/img/xvs.svg",
+              "asset": "/src/@venusprotocol/web3/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -79,7 +79,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -94,7 +94,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -104,7 +104,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "apyPercentage": "0.913105649796123742",
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -130,7 +130,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -145,7 +145,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -155,7 +155,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "apyPercentage": "0.753105649796123742",
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -177,7 +177,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-              "asset": "/src/libs/tokens/img/usdc.svg",
+              "asset": "/src/@venusprotocol/web3/img/usdc.svg",
               "decimals": 6,
               "symbol": "USDC",
             },
@@ -193,7 +193,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -208,7 +208,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -234,7 +234,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -249,7 +249,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -271,7 +271,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/@venusprotocol/web3/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -287,7 +287,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -302,7 +302,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/@venusprotocol/web3/img/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -312,7 +312,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "apyPercentage": "0.913105649796123742",
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/@venusprotocol/web3/img/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -338,7 +338,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -353,7 +353,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/@venusprotocol/web3/img/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -363,7 +363,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -385,7 +385,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-              "asset": "/src/libs/tokens/img/busd.svg",
+              "asset": "/src/@venusprotocol/web3/img/busd.svg",
               "decimals": 18,
               "symbol": "BUSD",
             },
@@ -412,7 +412,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -438,7 +438,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -460,7 +460,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/libs/tokens/img/xvs.svg",
+              "asset": "/src/@venusprotocol/web3/img/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -476,7 +476,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -491,7 +491,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -501,7 +501,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "apyPercentage": "0.913105649796123742",
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -527,7 +527,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -542,7 +542,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -552,7 +552,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "apyPercentage": "0.753105649796123742",
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -574,7 +574,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-              "asset": "/src/libs/tokens/img/usdc.svg",
+              "asset": "/src/@venusprotocol/web3/img/usdc.svg",
               "decimals": 6,
               "symbol": "USDC",
             },
@@ -590,7 +590,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -605,7 +605,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -631,7 +631,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -646,7 +646,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/@venusprotocol/web3/img/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -668,7 +668,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/@venusprotocol/web3/img/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -684,7 +684,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -699,7 +699,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/@venusprotocol/web3/img/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -709,7 +709,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "apyPercentage": "0.913105649796123742",
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/@venusprotocol/web3/img/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -735,7 +735,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "dailyDistributedTokens": "9999999.5",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -750,7 +750,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               },
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/@venusprotocol/web3/img/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -760,7 +760,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/@venusprotocol/web3/img/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -782,7 +782,7 @@ exports[`api/queries/useGetPools > returns data in the correct format 1`] = `
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-              "asset": "/src/libs/tokens/img/busd.svg",
+              "asset": "/src/@venusprotocol/web3/img/busd.svg",
               "decimals": 18,
               "symbol": "BUSD",
             },

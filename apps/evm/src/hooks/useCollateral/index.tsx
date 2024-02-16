@@ -1,3 +1,4 @@
+import { areAddressesEqual } from '@venusprotocol/web3';
 import BigNumber from 'bignumber.js';
 import { useCallback, useState } from 'react';
 
@@ -16,7 +17,6 @@ import { VError } from 'libs/errors';
 import { useLunaUstWarning } from 'libs/lunaUstWarning';
 import { useAccountAddress, useSigner } from 'libs/wallet';
 import { Asset } from 'types';
-import { areAddressesEqual } from 'utilities';
 
 import { CollateralConfirmModal } from './CollateralConfirmModal';
 

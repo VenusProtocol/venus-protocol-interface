@@ -1,3 +1,4 @@
+import { CHAIN_METADATA } from '@venusprotocol/web3';
 import Vi from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
@@ -5,7 +6,6 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeProvider from '__mocks__/models/provider';
 import { renderHook } from 'testUtils/render';
 
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import {
   checkForComptrollerTransactionError,

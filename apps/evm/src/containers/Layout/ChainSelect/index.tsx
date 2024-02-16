@@ -1,5 +1,6 @@
+import { CHAIN_METADATA } from '@venusprotocol/web3';
+
 import { Select, SelectOption } from 'components';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';

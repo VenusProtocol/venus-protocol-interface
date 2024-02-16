@@ -1,7 +1,7 @@
+import { CHAIN_METADATA } from '@venusprotocol/web3';
 import { forwardRef } from 'react';
 
 import { Select, SelectOption, SelectProps } from 'components';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { chains } from 'libs/wallet';
 import { ChainId } from 'types';
 

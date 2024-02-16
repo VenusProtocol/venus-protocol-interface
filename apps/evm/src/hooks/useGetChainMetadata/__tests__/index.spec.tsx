@@ -1,8 +1,8 @@
+import { CHAIN_METADATA } from '@venusprotocol/web3';
 import Vi from 'vitest';
 
 import { renderHook } from 'testUtils/render';
 
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 

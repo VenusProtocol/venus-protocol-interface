@@ -1,9 +1,8 @@
+import { areAddressesEqual } from '@venusprotocol/web3';
 import BigNumber from 'bignumber.js';
 
 import type { ProposalApiResponse } from 'clients/api';
 import { AbstainVoter, AgainstVoter, ForVoter, Proposal, ProposalType, VoteSupport } from 'types';
-
-import areAddressesEqual from './areAddressesEqual';
 
 const createDateFromSecondsTimestamp = (timestampInSeconds: number): Date => {
   const inMilliseconds = timestampInSeconds * 1000;

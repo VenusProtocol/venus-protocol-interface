@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
+import { areAddressesEqual } from '@venusprotocol/web3';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
@@ -17,7 +18,6 @@ import { Link } from 'containers/Link';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import {
-  areAddressesEqual,
   compareBigNumbers,
   compareBooleans,
   compareStrings,

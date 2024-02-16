@@ -1,7 +1,8 @@
+import { areAddressesEqual } from '@venusprotocol/web3';
+
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { Token } from 'types';
-import { areAddressesEqual } from 'utilities';
 
 import { NoticeInfo, NoticeWarning } from '../../components/Notice';
 import { Link } from '../Link';

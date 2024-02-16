@@ -1,9 +1,9 @@
+import { CHAIN_METADATA } from '@venusprotocol/web3';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import { queryClient } from 'clients/api';
 import getProposal from 'clients/api/queries/getProposals/getProposal';
 import { GetProposalInput, GetProposalOutput } from 'clients/api/queries/getProposals/types';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';
 import { Proposal, ProposalState } from 'types';

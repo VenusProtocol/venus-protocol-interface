@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
+import { areAddressesEqual } from '@venusprotocol/web3';
 import { isAfter } from 'date-fns/isAfter';
 import { useMemo } from 'react';
 
@@ -18,7 +19,6 @@ import { displayMutationError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { Proposal, ProposalState, ProposalType } from 'types';
-import { areAddressesEqual } from 'utilities';
 
 import Stepper from './Stepper';
 import { useStyles } from './styles';

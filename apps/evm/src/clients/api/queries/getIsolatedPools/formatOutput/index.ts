@@ -1,3 +1,4 @@
+import { areAddressesEqual } from '@venusprotocol/web3';
 import BigNumber from 'bignumber.js';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
@@ -6,7 +7,6 @@ import { PoolLens } from 'libs/contracts';
 import { logError } from 'libs/errors';
 import { Asset, Pool, PrimeApy, Token, VToken } from 'types';
 import addUserPropsToPool from 'utilities/addUserPropsToPool';
-import areAddressesEqual from 'utilities/areAddressesEqual';
 import areTokensEqual from 'utilities/areTokensEqual';
 import calculateApy from 'utilities/calculateApy';
 import convertDollarsToCents from 'utilities/convertDollarsToCents';

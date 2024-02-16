@@ -1,15 +1,16 @@
-import bnbLogo from 'libs/tokens/img/bnb.svg';
-import busdLogo from 'libs/tokens/img/busd.svg';
-import ethLogo from 'libs/tokens/img/eth.svg';
-import lisUsdLogo from 'libs/tokens/img/lisUSD.png';
-import lunaLogo from 'libs/tokens/img/luna.svg';
-import usdcLogo from 'libs/tokens/img/usdc.svg';
-import usdtLogo from 'libs/tokens/img/usdt.svg';
-import ustLogo from 'libs/tokens/img/ust.svg';
-import vaiLogo from 'libs/tokens/img/vai.svg';
-import vrtLogo from 'libs/tokens/img/vrt.svg';
-import wbnbLogo from 'libs/tokens/img/wbnb.svg';
-import xvsLogo from 'libs/tokens/img/xvs.svg';
+import bnbLogo from '@venusprotocol/web3/img/bnb.svg';
+import busdLogo from '@venusprotocol/web3/img/busd.svg';
+import ethLogo from '@venusprotocol/web3/img/eth.svg';
+import lisUsdLogo from '@venusprotocol/web3/img/lisUSD.png';
+import lunaLogo from '@venusprotocol/web3/img/luna.svg';
+import usdcLogo from '@venusprotocol/web3/img/usdc.svg';
+import usdtLogo from '@venusprotocol/web3/img/usdt.svg';
+import ustLogo from '@venusprotocol/web3/img/ust.svg';
+import vaiLogo from '@venusprotocol/web3/img/vai.svg';
+import vrtLogo from '@venusprotocol/web3/img/vrt.svg';
+import wbnbLogo from '@venusprotocol/web3/img/wbnb.svg';
+import xvsLogo from '@venusprotocol/web3/img/xvs.svg';
+
 import { Token } from 'types';
 
 export const xvs: Token = {

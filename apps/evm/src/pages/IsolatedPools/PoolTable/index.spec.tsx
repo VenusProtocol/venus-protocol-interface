@@ -1,10 +1,10 @@
+import { CHAIN_METADATA } from '@venusprotocol/web3';
 import Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
 import { useGetIsolatedPools } from 'clients/api';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { ChainId } from 'types';
 

@@ -1,7 +1,7 @@
 import { CurrencyAmount as PSCurrencyAmount, Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
+import { areAddressesEqual } from '@venusprotocol/web3';
 
 import { PancakePairV2 } from 'libs/contracts';
-import { areAddressesEqual } from 'utilities';
 
 import { PairAddress } from './types';
 

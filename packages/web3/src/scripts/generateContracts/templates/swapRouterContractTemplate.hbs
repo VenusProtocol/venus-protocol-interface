@@ -1,0 +1,46 @@
+import type { Provider } from '@ethersproject/abstract-provider';
+import { Contract, Signer } from 'ethers';
+
+import { {{name}} } from 'generated/contracts/types';
+import { ChainId } from 'types';
+
+const {{lowercaseFirst name}}ContractAddresses: Partial<{
+  [key in ChainId]: Record<string, string>;
+}> = {
+  {{#each address}}
+    {{@key}}: {{{json this}}},
+  {{/each}}
+};
+
+export const {{lowercaseFirst name}}ContractAbi = {{{json abi}}} as const;
+
+interface Get{{name}}ContractAddressInput {
+  comptrollerContractAddress: string;
+  chainId: ChainId;
+}
+
+export const get{{name}}ContractAddress = ({
+  comptrollerContractAddress,
+  chainId,
+}: Get{{name}}ContractAddressInput) => {
+  const addresses = {{lowercaseFirst name}}ContractAddresses[chainId];
+  const sanitizedComptrollerAddress =
+    comptrollerContractAddress.toLowerCase() as keyof typeof addresses;
+
+  return addresses?.[sanitizedComptrollerAddress] as string | undefined;
+};
+
+interface Get{{name}}ContractInput {
+  chainId: ChainId;
+  signerOrProvider: Signer | Provider;
+  comptrollerContractAddress: string;
+}
+
+export const get{{name}}Contract = ({
+  chainId,
+  signerOrProvider,
+  comptrollerContractAddress,
+}: Get{{name}}ContractInput) => {
+  const address = get{{name}}ContractAddress({ chainId, comptrollerContractAddress });
+  return address ? (new Contract(address, {{lowercaseFirst name}}ContractAbi, signerOrProvider) as {{name}}) : undefined;
+};

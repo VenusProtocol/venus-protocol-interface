@@ -1,3 +1,4 @@
+import { areAddressesEqual } from '@venusprotocol/web3';
 import BigNumber from 'bignumber.js';
 
 import { BSC_MAINNET_CAN_ADDRESS } from 'constants/address';
@@ -8,7 +9,6 @@ import { logError } from 'libs/errors';
 import { Asset, Market, Pool, PrimeApy, Token, VToken } from 'types';
 import {
   addUserPropsToPool,
-  areAddressesEqual,
   calculateApy,
   convertDollarsToCents,
   convertFactorFromSmartContract,

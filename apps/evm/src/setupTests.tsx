@@ -6,14 +6,13 @@ import Vi from 'vitest';
 // Polyfill "window.fetch"
 import 'whatwg-fetch';
 
-import { xvs } from '__mocks__/models/tokens';
+import tokens, { xvs } from '__mocks__/models/tokens';
 
 import useTokenApproval from 'hooks/useTokenApproval';
 
 vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 vi.mock('clients/api');
-vi.mock('libs/tokens');
 vi.mock('libs/wallet');
 vi.mock('hooks/useDebounceValue', () => ({
   default: (value: unknown) => value,
@@ -45,6 +44,16 @@ vi.mock('@uiw/react-md-editor', () => ({
 vi.mock('@uiw/react-markdown-preview', () => ({
   default: ({ content: _content, ...otherProps }: any) => <p {...otherProps}>content</p>,
 }));
+
+vi.mock('@venusprotocol/web3', async () => {
+  const actual: object = await vi.importActual('@venusprotocol/web3');
+
+  return {
+    ...actual,
+    getTokens: vi.fn(() => tokens),
+    getSwapTokens: vi.fn(() => tokens),
+  };
+});
 
 initializeLibraries();
 

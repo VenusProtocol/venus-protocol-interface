@@ -7,6 +7,7 @@ export type NonNullableFields<T> = Required<{
 
 export type Environment = 'storybook' | 'ci' | 'testnet' | 'preview' | 'mainnet';
 
+// TODO: remove in favor of using type from web3 package
 export enum ChainId {
   'BSC_MAINNET' = 56,
   'BSC_TESTNET' = 97,
@@ -17,17 +18,7 @@ export enum ChainId {
 
 export type TransactionType = 'chain' | 'layerZero';
 
-export interface ChainMetadata {
-  name: string;
-  logoSrc: string;
-  blockTimeMs: number;
-  blocksPerDay: number;
-  explorerUrl: string;
-  corePoolComptrollerContractAddress: string;
-  nativeToken: Token;
-  layerZeroScanUrl: string;
-}
-
+// TODO: remove in favor of using type from web3 package
 export interface Token {
   symbol: string;
   decimals: number;
@@ -42,6 +33,7 @@ export interface VToken extends Omit<Token, 'isNative' | 'asset'> {
   underlyingToken: Token;
 }
 
+// TODO: remove in favor of using type from web3 package
 export type TokenAction = 'swapAndSupply' | 'supply' | 'withdraw' | 'borrow' | 'repay';
 
 export interface TokenBalance {

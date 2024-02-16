@@ -1,4 +1,5 @@
-import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { CHAIN_METADATA } from '@venusprotocol/web3';
+
 import { useChainId } from 'libs/wallet';
 
 export const useGetChainMetadata = () => {

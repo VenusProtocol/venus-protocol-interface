@@ -1,5 +1,6 @@
+import { areAddressesEqual } from '@venusprotocol/web3';
+
 import { Token, VToken } from 'types';
-import { areAddressesEqual } from 'utilities';
 
 function findTokenByAddress<TToken extends Token | VToken>({
   address,

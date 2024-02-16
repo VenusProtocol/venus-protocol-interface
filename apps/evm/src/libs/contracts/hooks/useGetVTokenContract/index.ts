@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { getVTokenContract } from 'libs/contracts/utilities/getVTokenContract';
+import { getVTokenContract } from 'libs/contracts';
 import { useProvider, useSigner } from 'libs/wallet';
 import { VToken } from 'types';
 

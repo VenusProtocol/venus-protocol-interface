@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { areAddressesEqual } from '@venusprotocol/web3';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
@@ -9,7 +10,7 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { Pool } from 'types';
-import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 
 import { useStyles } from './styles';
 

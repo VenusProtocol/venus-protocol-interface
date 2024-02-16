@@ -12,7 +12,7 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
         "dailyDistributedTokens": "9999999.5",
         "token": {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-          "asset": "/src/libs/tokens/img/xvs.svg",
+          "asset": "/src/@venusprotocol/web3/img/xvs.svg",
           "decimals": 18,
           "symbol": "XVS",
         },
@@ -38,7 +38,7 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
         "dailyDistributedTokens": "9999999.5",
         "token": {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-          "asset": "/src/libs/tokens/img/xvs.svg",
+          "asset": "/src/@venusprotocol/web3/img/xvs.svg",
           "decimals": 18,
           "symbol": "XVS",
         },
@@ -60,7 +60,7 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
       "symbol": "vXVS",
       "underlyingToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/libs/tokens/img/xvs.svg",
+        "asset": "/src/@venusprotocol/web3/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },

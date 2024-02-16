@@ -1,9 +1,9 @@
 #!/usr/bin/env tsx
+import { writeFileSync } from 'node:fs';
 import * as path from 'path';
 import { searchForWorkspaceRoot } from 'vite';
 
 import { version } from 'constants/version';
-import writeFile from 'utilities/writeFile';
 
 const generatePublicVersionFile = async () => {
   const content = JSON.stringify({
@@ -12,11 +12,7 @@ const generatePublicVersionFile = async () => {
 
   // Generate file
   const outputPath = path.join(searchForWorkspaceRoot(__dirname), './apps/evm/public/version.json');
-
-  writeFile({
-    outputPath,
-    content,
-  });
+  writeFileSync(outputPath, content, 'utf8');
 
   return outputPath;
 };

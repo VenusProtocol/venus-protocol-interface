@@ -7,15 +7,12 @@ import fakeSigner from '__mocks__/models/signer';
 import { vXvs } from '__mocks__/models/vTokens';
 import { renderHook } from 'testUtils/render';
 
-import {
-  GetVTokenContractInput,
-  getVTokenContract,
-} from 'libs/contracts/utilities/getVTokenContract';
+import { GetVTokenContractInput, getVTokenContract } from 'libs/contracts';
 import { useProvider, useSigner } from 'libs/wallet';
 
 import { useGetVTokenContract } from '..';
 
-vi.mock('libs/contracts/utilities/getVTokenContract');
+vi.mock('libs/contracts');
 
 describe('useGetVTokenContract', () => {
   beforeEach(() => {

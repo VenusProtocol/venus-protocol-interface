@@ -17,8 +17,5 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "ts-node": {
-    "experimentalSpecifierResolution": "node"
-  },
   "exclude": ["node_modules"]
 }

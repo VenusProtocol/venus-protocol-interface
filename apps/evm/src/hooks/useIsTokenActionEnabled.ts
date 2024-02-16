@@ -1,6 +1,6 @@
+import { isTokenActionEnabled } from '@venusprotocol/web3';
 import { useMemo } from 'react';
 
-import { isTokenActionEnabled } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
 import { TokenAction } from 'types';
 

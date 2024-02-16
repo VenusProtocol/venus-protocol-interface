@@ -9,7 +9,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       "rewardAmountMantissa": "1.9534041188941933361355e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/libs/tokens/img/xvs.svg",
+        "asset": "/src/@venusprotocol/web3/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
@@ -27,7 +27,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
           "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-            "asset": "/src/libs/tokens/img/lisUSD.png",
+            "asset": "/src/@venusprotocol/web3/img/lisUSD.png",
             "decimals": 18,
             "symbol": "lisUSD",
           },
@@ -46,13 +46,13 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/libs/tokens/img/xvs.svg",
+        "asset": "/src/@venusprotocol/web3/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
       "stakedToken": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-        "asset": "/src/libs/tokens/img/vai.svg",
+        "asset": "/src/@venusprotocol/web3/img/vai.svg",
         "decimals": 18,
         "symbol": "VAI",
       },
@@ -65,13 +65,13 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       "rewardAmountMantissa": "645201192825000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/libs/tokens/img/xvs.svg",
+        "asset": "/src/@venusprotocol/web3/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
       "stakedToken": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-        "asset": "/src/libs/tokens/img/vai.svg",
+        "asset": "/src/@venusprotocol/web3/img/vai.svg",
         "decimals": 18,
         "symbol": "VAI",
       },
@@ -90,7 +90,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "rewardAmountMantissa": "1.9534041188941933361355e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/libs/tokens/img/xvs.svg",
+        "asset": "/src/@venusprotocol/web3/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
@@ -108,7 +108,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
           "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-            "asset": "/src/libs/tokens/img/lisUSD.png",
+            "asset": "/src/@venusprotocol/web3/img/lisUSD.png",
             "decimals": 18,
             "symbol": "lisUSD",
           },
@@ -127,13 +127,13 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/libs/tokens/img/xvs.svg",
+        "asset": "/src/@venusprotocol/web3/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
       "stakedToken": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-        "asset": "/src/libs/tokens/img/vai.svg",
+        "asset": "/src/@venusprotocol/web3/img/vai.svg",
         "decimals": 18,
         "symbol": "VAI",
       },
@@ -146,13 +146,13 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "rewardAmountMantissa": "645201192825000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-        "asset": "/src/libs/tokens/img/xvs.svg",
+        "asset": "/src/@venusprotocol/web3/img/xvs.svg",
         "decimals": 18,
         "symbol": "XVS",
       },
       "stakedToken": {
         "address": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-        "asset": "/src/libs/tokens/img/vai.svg",
+        "asset": "/src/@venusprotocol/web3/img/vai.svg",
         "decimals": 18,
         "symbol": "VAI",
       },
@@ -166,7 +166,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
           "rewardAmountMantissa": "13463630382",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-            "asset": "/src/libs/tokens/img/lisUSD.png",
+            "asset": "/src/@venusprotocol/web3/img/lisUSD.png",
             "decimals": 18,
             "symbol": "lisUSD",
           },
@@ -176,7 +176,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
           "rewardAmountMantissa": "1.7258246849676377299738e+22",
           "rewardToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "asset": "/src/libs/tokens/img/xvs.svg",
+            "asset": "/src/@venusprotocol/web3/img/xvs.svg",
             "decimals": 18,
             "symbol": "XVS",
           },

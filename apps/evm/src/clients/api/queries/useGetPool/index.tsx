@@ -1,8 +1,8 @@
+import { areAddressesEqual } from '@venusprotocol/web3';
 import { useMemo } from 'react';
 
 import { useGetPools } from 'clients/api';
 import { Pool } from 'types';
-import { areAddressesEqual } from 'utilities';
 
 export interface UseGetPoolInput {
   poolComptrollerAddress: string;

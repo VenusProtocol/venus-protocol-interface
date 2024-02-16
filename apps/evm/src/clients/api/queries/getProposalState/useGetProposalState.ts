@@ -1,10 +1,10 @@
+import { CHAIN_METADATA } from '@venusprotocol/web3';
 import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getProposalState, {
   GetProposalStateInput,
   GetProposalStateOutput,
 } from 'clients/api/queries/getProposalState';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
 import { governanceChain } from 'libs/wallet';

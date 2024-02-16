@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { isTokenActionEnabled } from '@venusprotocol/web3';
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
@@ -25,7 +26,6 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useGetSwapRouterContractAddress } from 'libs/contracts';
 import { VError, displayMutationError } from 'libs/errors';
-import { isTokenActionEnabled } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';

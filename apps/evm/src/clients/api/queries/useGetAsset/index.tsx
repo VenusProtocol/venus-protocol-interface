@@ -1,8 +1,8 @@
+import { areAddressesEqual } from '@venusprotocol/web3';
 import { useMemo } from 'react';
 
 import { useGetPools } from 'clients/api';
 import { Asset } from 'types';
-import { areAddressesEqual } from 'utilities';
 
 export interface UseGetAssetInput {
   vTokenAddress?: string;

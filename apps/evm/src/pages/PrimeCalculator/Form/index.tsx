@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { areAddressesEqual } from '@venusprotocol/web3';
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
@@ -27,7 +28,6 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { Asset } from 'types';
 import {
-  areAddressesEqual,
   convertDollarsToCents,
   convertMantissaToTokens,
   convertTokensToMantissa,

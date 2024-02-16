@@ -1,0 +1,17 @@
+import type { Provider } from '@ethersproject/abstract-provider';
+import { Contract, Signer } from 'ethers';
+
+import { {{name}} } from 'generated/contracts/types';
+
+export const {{lowercaseFirst name}}ContractAbi = {{{json abi}}} as const;
+
+interface Get{{name}}ContractInput {
+  address: string;
+  signerOrProvider: Signer | Provider;
+}
+
+export const get{{name}}Contract = ({
+  address,
+  signerOrProvider,
+}: Get{{name}}ContractInput) =>
+  new Contract(address, {{lowercaseFirst name}}ContractAbi, signerOrProvider) as {{name}};

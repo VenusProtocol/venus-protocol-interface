@@ -8,6 +8,7 @@ module.exports = {
       {
         devDependencies: [
           '**/__mocks__/**',
+          '**/scripts/**',
           '**/*.spec.tsx',
           '**/*.spec.ts',
           '**/*.stories.tsx',
@@ -25,7 +26,6 @@ module.exports = {
     'build/',
     'storybook-static/',
     'coverage/',
-    'scripts/',
     '.eslintrc.js',
     'i18next-parser.config.js',
     'vite.config.ts',

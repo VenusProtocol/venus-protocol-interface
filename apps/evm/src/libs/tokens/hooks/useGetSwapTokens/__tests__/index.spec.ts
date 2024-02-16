@@ -1,14 +1,12 @@
+import { getSwapTokens } from '@venusprotocol/web3';
 import Vi from 'vitest';
 
 import tokens from '__mocks__/models/tokens';
 import { renderHook } from 'testUtils/render';
 
-import { getSwapTokens } from 'libs/tokens/utilities/getSwapTokens';
 import { ChainId } from 'types';
 
 import { useGetSwapTokens } from '..';
-
-vi.mock('libs/tokens/utilities/getSwapTokens');
 
 describe('useGetSwapTokens', () => {
   beforeEach(() => {

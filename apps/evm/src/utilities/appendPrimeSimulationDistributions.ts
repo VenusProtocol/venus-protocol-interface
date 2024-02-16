@@ -1,3 +1,4 @@
+import { areAddressesEqual } from '@venusprotocol/web3';
 import BigNumber from 'bignumber.js';
 
 import { NULL_ADDRESS } from 'constants/address';
@@ -8,12 +9,7 @@ import {
 } from 'constants/prime';
 import { Prime } from 'libs/contracts';
 import { Asset, Token } from 'types';
-import {
-  areAddressesEqual,
-  convertAprToApy,
-  convertMantissaToTokens,
-  convertTokensToMantissa,
-} from 'utilities';
+import { convertAprToApy, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 export interface ResolvePrimeSimulationDistributionsInput {
   primeContract: Prime;

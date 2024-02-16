@@ -1,6 +1,6 @@
 var testModulesRegex = '^__mocks__|^__tests__|^__testUtils__|^testUtils';
 var localModulesRegex =
-  '^assets|^libs|^clients|^components|^config|^constants|^containers|^context|^errors|^hooks|^pages|^stories|^theme|^translation|^types|^utilities';
+  '^assets|^libs|^clients|^components|^config|^constants|^containers|^context|^errors|^hooks|^pages|^stories|^theme|^translation|^types|^utilities|^scripts|^config';
 
 module.exports = {
   ...require('prettier-airbnb-config'),

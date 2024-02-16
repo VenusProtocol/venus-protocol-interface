@@ -1,4 +1,5 @@
-import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { CHAIN_METADATA } from '@venusprotocol/web3';
+
 import { ChainId } from 'types';
 
 export type UrlType = 'address' | 'token' | 'tx' | 'layerZeroTx';

@@ -1,8 +1,5 @@
-export * from './infos';
-export * from './utilities/getTokens';
-export * from './utilities/getToken';
-export * from './utilities/getSwapTokens';
-export * from './utilities/isTokenActionEnabled';
+// TODO: move hooks to hooks folder
+
 export * from './hooks/useGetToken';
 export * from './hooks/useGetTokens';
 export * from './hooks/useGetSwapTokens';
