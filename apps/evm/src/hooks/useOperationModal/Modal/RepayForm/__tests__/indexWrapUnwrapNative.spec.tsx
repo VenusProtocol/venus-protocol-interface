@@ -4,18 +4,11 @@ import Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
-import useGetNativeWrappedTokenUserBalances from 'hooks/useGetNativeWrappedTokenUserBalances';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { ChainId } from 'types';
 
 import Supply from '..';
-import {
-  fakeAsset,
-  fakeEthTokenBalance,
-  fakePool,
-  fakeWEthTokenBalance,
-  fakeWethAsset,
-} from '../__testUtils__/fakeData';
+import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('libs/tokens');
@@ -26,10 +19,6 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
     );
-
-    (useGetNativeWrappedTokenUserBalances as Vi.Mock).mockImplementation(() => ({
-      data: [fakeEthTokenBalance, fakeWEthTokenBalance],
-    }));
   });
 
   it('renders without crashing', () => {

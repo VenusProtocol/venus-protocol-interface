@@ -96,7 +96,7 @@ export const weth: Token = {
   decimals: 18,
   symbol: 'WETH',
   asset: wethLogo,
-  wrapsNative: true,
+  tokenWrapped: eth,
 };
 
 export const lisUsd: Token = {

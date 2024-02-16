@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { useRepay, useSwapTokensAndRepay } from 'clients/api';
+import { useGetBalanceOf, useRepay, useSwapTokensAndRepay } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -14,7 +14,6 @@ import {
 } from 'components';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import useGetNativeWrappedTokenUserBalances from 'hooks/useGetNativeWrappedTokenUserBalances';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -95,8 +94,8 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
 
   const canWrapNativeToken = useMemo(
-    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.wrapsNative,
-    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.wrapsNative],
+    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
+    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
   );
 
   // a user is trying to wrap the chain's native token if
@@ -345,6 +344,7 @@ export interface RepayFormProps {
 }
 
 const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
+  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const { accountAddress } = useAccountAddress();
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -388,14 +388,33 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
 
   const isSubmitting = isRepayLoading || isSwapAndRepayLoading;
 
-  const { data: nativeWrappedTokenBalancesData } = useGetNativeWrappedTokenUserBalances(
+  const { data: nativeTokenBalanceData } = useGetBalanceOf(
     {
       accountAddress: accountAddress || '',
+      token: asset.vToken.underlyingToken.tokenWrapped,
     },
     {
-      enabled: !!asset.vToken.underlyingToken.wrapsNative,
+      enabled: isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
     },
   );
+
+  const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
+    if (asset.vToken.underlyingToken.tokenWrapped && nativeTokenBalanceData) {
+      const marketTokenBalance: TokenBalance = {
+        token: asset.vToken.underlyingToken,
+        balanceMantissa: convertTokensToMantissa({
+          token: asset.vToken.underlyingToken,
+          value: asset.userSupplyBalanceTokens,
+        }),
+      };
+      const nativeTokenBalance: TokenBalance = {
+        token: asset.vToken.underlyingToken.tokenWrapped,
+        balanceMantissa: nativeTokenBalanceData.balanceMantissa,
+      };
+      return [marketTokenBalance, nativeTokenBalance];
+    }
+    return [];
+  }, [asset.userSupplyBalanceTokens, asset.vToken.underlyingToken, nativeTokenBalanceData]);
 
   const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances({
     accountAddress,
@@ -462,7 +481,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
       formValues={formValues}
       setFormValues={setFormValues}
       onCloseModal={onCloseModal}
-      nativeWrappedTokenBalances={nativeWrappedTokenBalancesData}
+      nativeWrappedTokenBalances={nativeWrappedTokenBalances}
       integratedSwapTokenBalances={integratedSwapTokenBalancesData}
       onSubmit={onSubmit}
       isSubmitting={isSubmitting}
