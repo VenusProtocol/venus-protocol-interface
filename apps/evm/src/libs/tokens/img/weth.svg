@@ -1,17 +1,15 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_1481_23210)">
-<circle cx="12" cy="12" r="12" fill="#687DE3"/>
-<path opacity="0.7" d="M11.9964 9.50245V2.40002L6.23987 12.1774L11.9964 15.6612V9.50245Z" fill="white"/>
-<path opacity="0.8" d="M11.9965 15.6612L17.7599 12.1774L11.9965 2.40002V9.50245V15.6612Z" fill="#C3CBF4"/>
-<g style="mix-blend-mode:color-burn" opacity="0.8">
-<path d="M11.9964 15.6612L17.7599 12.1774L11.9964 9.50244L6.23987 12.1774L11.9964 15.6612Z" fill="#8697E9"/>
-</g>
-<path opacity="0.8" d="M11.9964 16.7752L6.23987 13.2985L11.9964 21.6V16.7752Z" fill="white"/>
-<path opacity="0.8" d="M17.7599 13.2985L11.9965 16.7752V21.6L17.7599 13.2985Z" fill="#B1BBF1"/>
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1481_22469)">
+<circle cx="10" cy="10" r="10" fill="#EDEFF0"/>
+<path opacity="0.7" d="M9.99706 7.91869V2L5.19995 10.1478L9.99706 13.051V7.91869Z" fill="#9AA2D1"/>
+<path opacity="0.8" d="M9.99707 13.051L14.8 10.1478L9.99707 2V7.91869V13.051Z" fill="#7381C6"/>
+<path opacity="0.8" d="M9.99706 13.051L14.8 10.1478L9.99706 7.9187L5.19995 10.1478L9.99706 13.051Z" fill="#5668B8"/>
+<path opacity="0.8" d="M9.99706 13.9793L5.19995 11.082L9.99706 18V13.9793Z" fill="#96A5D7"/>
+<path opacity="0.8" d="M14.8 11.082L9.99707 13.9793V18L14.8 11.082Z" fill="#6171BC"/>
 </g>
 <defs>
-<clipPath id="clip0_1481_23210">
-<rect width="24" height="24" fill="white"/>
+<clipPath id="clip0_1481_22469">
+<rect width="20" height="20" fill="white"/>
 </clipPath>
 </defs>
 </svg>
