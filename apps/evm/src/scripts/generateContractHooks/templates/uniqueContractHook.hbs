@@ -1,0 +1,40 @@
+import { get{{name}}Contract, get{{name}}ContractAddress } from '@venusprotocol/web3';
+import { useMemo } from 'react';
+
+import { useChainId, useProvider, useSigner } from 'libs/wallet';
+import { ChainId } from 'types';
+
+export const useGet{{name}}ContractAddress = () => {
+  const { chainId } = useChainId();
+
+  return useMemo(
+    () =>
+      get{{name}}ContractAddress({
+        chainId,
+      }),
+    [chainId],
+  );
+};
+
+export const useGet{{name}}Contract = (input?: {
+  passSigner?: boolean;
+  chainId?: ChainId;
+}) => {
+  const { chainId: currentChainId } = useChainId();
+  const chainId = input?.chainId || currentChainId;
+
+  const { provider } = useProvider({ chainId });
+  const { signer } = useSigner({ chainId });
+  const signerOrProvider = input?.passSigner ? signer : provider;
+
+  return useMemo(
+    () =>
+      signerOrProvider
+        ? get{{name}}Contract({
+            chainId,
+            signerOrProvider,
+          })
+        : undefined,
+    [signerOrProvider, chainId],
+  );
+};

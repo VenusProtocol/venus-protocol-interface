@@ -1,5 +1,5 @@
 #!/usr/bin/env tsx
-import { getTemplate, writeFile } from '@venusprotocol/file-system';
+import { generateBarrelFile, cwd, getTemplate, writeFile } from '@venusprotocol/file-system';
 import { rmSync } from 'node:fs';
 import * as path from 'path';
 import { glob, runTypeChain } from 'typechain';
@@ -7,7 +7,6 @@ import { glob, runTypeChain } from 'typechain';
 import { ContractConfig, contracts } from 'scripts/generateContracts/config';
 
 import { GENERATED_DIRECTORY_PATH } from '../constants';
-import cwd from '../cwd';
 import { isSwapRouterContractConfig } from './isSwapRouterContractConfig';
 
 const TEMPLATES_DIRECTORY = `${__dirname}/templates`;
@@ -22,10 +21,6 @@ const genericContractTemplate = getTemplate({
 
 const swapRouterContractTemplate = getTemplate({
   filePath: `${TEMPLATES_DIRECTORY}/swapRouterContractTemplate.hbs`,
-});
-
-const barrelTemplate = getTemplate({
-  filePath: `${TEMPLATES_DIRECTORY}/barrel.hbs`,
 });
 
 const generateContract = (contractConfig: ContractConfig) => {
@@ -86,7 +81,7 @@ const generate = async () => {
 
   writeFile({
     outputPath,
-    content: barrelTemplate({ fileNames }),
+    content: generateBarrelFile({ fileNames }),
   });
 };
 

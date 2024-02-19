@@ -1,2 +1,4 @@
-export * from './src/writeFile';
-export * from './src/getTemplate';
+export * from './writeFile';
+export * from './getTemplate';
+export * from './generateBarrelFile';
+export * from './cwd';

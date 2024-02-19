@@ -22,7 +22,8 @@
     "generate-subgraph-types:testnet": "yarn graphql-codegen --config ./src/config/codegen.ts --project testnet",
     "generate-subgraph-types": "npm-run-all --parallel generate-subgraph-types:mainnet generate-subgraph-types:testnet",
     "generate-version-files": "genversion --es6 --semi src/constants/version.ts && src/scripts/generatePublicVersionFile.ts",
-    "generate": "npm-run-all --parallel generate-version-files generate-subgraph-types",
+    "generate-contract-hooks": "rimraf src/libs/contracts/generated && src/scripts/generateContractHooks/index.ts && yarn prettier --write src/libs/contracts/generated/**/*.ts",
+    "generate": "npm-run-all --parallel generate-version-files generate-subgraph-types generate-contract-hooks",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build"
   },
@@ -115,6 +116,7 @@
     "@venusprotocol/eslint-config": "*",
     "@venusprotocol/stylelint-config": "*",
     "@venusprotocol/typescript-config": "*",
+    "@venusprotocol/file-system": "*",
     "@venusprotocol/governance-contracts": "^1.4.0",
     "@venusprotocol/isolated-pools": "^2.4.0",
     "@venusprotocol/oracle": "^1.9.0",
