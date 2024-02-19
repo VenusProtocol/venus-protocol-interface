@@ -1,18 +1,16 @@
 #!/usr/bin/env tsx
-import { compile } from 'handlebars';
+import { getTemplate, writeFile } from '@venusprotocol/file-system';
 import fetch from 'node-fetch';
-import { readFileSync } from 'node:fs';
 import * as path from 'path';
 
 import { GENERATED_DIRECTORY_PATH } from '../constants';
-import writeFile from '../writeFile';
 
 const PANCAKE_SWAP_TOKEN_LIST_URL =
   'https://raw.githubusercontent.com/pancakeswap/token-list/main/lists/pancakeswap-extended.json';
 
-const TOKEN_LIST_TEMPLATE_FILE_PATH = `${__dirname}/tokenListTemplate.hbs`;
-const tokenListTemplateBuffer = readFileSync(TOKEN_LIST_TEMPLATE_FILE_PATH);
-const tokenListTemplate = compile(tokenListTemplateBuffer.toString());
+const tokenListTemplate = getTemplate({
+  filePath: `${__dirname}/tokenListTemplate.hbs`,
+});
 
 const generatePancakeSwapTokenList = async () => {
   // Fetch token list

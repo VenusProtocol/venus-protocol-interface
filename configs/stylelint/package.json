@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
     "stylelint": "^16.2.1",
     "stylelint-config-prettier": "^9.0.5",

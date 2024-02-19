@@ -8,7 +8,7 @@ export interface WriteFileInput {
 export const AUTOMATICALLY_GENERATED_FILE_WARNING_MESSAGE =
   '/* Automatically generated file, do not update manually */';
 
-const writeFile = ({ outputPath, content }: WriteFileInput) => {
+export const writeFile = ({ outputPath, content }: WriteFileInput) => {
   const fileExtensionElements = outputPath.split('.');
   const fileExtension = fileExtensionElements[fileExtensionElements.length - 1];
 
@@ -30,5 +30,3 @@ const writeFile = ({ outputPath, content }: WriteFileInput) => {
   // Write file
   writeFileSync(outputPath, formattedContent, 'utf8');
 };
-
-export default writeFile;

@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
-import Handlebars, { compile } from 'handlebars';
-import { readFileSync, rmSync } from 'node:fs';
+import { getTemplate, writeFile } from '@venusprotocol/file-system';
+import { rmSync } from 'node:fs';
 import * as path from 'path';
 import { glob, runTypeChain } from 'typechain';
 
@@ -8,36 +8,25 @@ import { ContractConfig, contracts } from 'scripts/generateContracts/config';
 
 import { GENERATED_DIRECTORY_PATH } from '../constants';
 import cwd from '../cwd';
-import writeFile from '../writeFile';
 import { isSwapRouterContractConfig } from './isSwapRouterContractConfig';
-
-// Register Handlebars helper to lowercase the first letter of an expression
-Handlebars.registerHelper(
-  'lowercaseFirst',
-  (text: string) => text.charAt(0).toLowerCase() + text.slice(1),
-);
-
-Handlebars.registerHelper('json', (context: object) => JSON.stringify(context));
 
 const TEMPLATES_DIRECTORY = `${__dirname}/templates`;
 
-const uniqueContractTemplateBuffer = readFileSync(
-  `${TEMPLATES_DIRECTORY}/uniqueContractTemplate.hbs`,
-);
-const uniqueContractTemplate = compile(uniqueContractTemplateBuffer.toString());
+const uniqueContractTemplate = getTemplate({
+  filePath: `${TEMPLATES_DIRECTORY}/uniqueContractTemplate.hbs`,
+});
 
-const genericContractTemplateBuffer = readFileSync(
-  `${TEMPLATES_DIRECTORY}/genericContractTemplate.hbs`,
-);
-const genericContractTemplate = compile(genericContractTemplateBuffer.toString());
+const genericContractTemplate = getTemplate({
+  filePath: `${TEMPLATES_DIRECTORY}/genericContractTemplate.hbs`,
+});
 
-const swapRouterContractTemplateBuffer = readFileSync(
-  `${TEMPLATES_DIRECTORY}/swapRouterContractTemplate.hbs`,
-);
-const swapRouterContractTemplate = compile(swapRouterContractTemplateBuffer.toString());
+const swapRouterContractTemplate = getTemplate({
+  filePath: `${TEMPLATES_DIRECTORY}/swapRouterContractTemplate.hbs`,
+});
 
-const barrelTemplateBuffer = readFileSync(`${TEMPLATES_DIRECTORY}/barrel.hbs`);
-const barrelTemplate = compile(barrelTemplateBuffer.toString());
+const barrelTemplate = getTemplate({
+  filePath: `${TEMPLATES_DIRECTORY}/barrel.hbs`,
+});
 
 const generateContract = (contractConfig: ContractConfig) => {
   let template = genericContractTemplate;
@@ -63,9 +52,8 @@ const generateContract = (contractConfig: ContractConfig) => {
 };
 
 const generate = async () => {
+  // Extract contract ABIs into temporary separate JSON files
   const abiDirectoryPath = path.join(GENERATED_DIRECTORY_PATH, 'contracts/abis');
-
-  // Extract temporary contract ABIs into separate JSON files
   contracts.forEach(contract => {
     writeFile({
       outputPath: path.join(abiDirectoryPath, `${contract.name}.json`),
@@ -73,7 +61,7 @@ const generate = async () => {
     });
   });
 
-  // Generate contract types from ABIs files
+  // Generate contract types from JSON ABIs
   const processCwd = cwd();
   const abiFiles = glob(processCwd, [`${abiDirectoryPath}/**/+([a-zA-Z0-9_]).json`]);
 

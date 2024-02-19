@@ -1,0 +1,15 @@
+{
+  "name": "@venusprotocol/file-system",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.x.x"
+  },
+  "scripts": {
+    "tsc": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.8"
+  }
+}

@@ -9,9 +9,6 @@
   "scripts": {
     "clean": "rm -rf .turbo && rm -rf node_modules"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.62.0",
