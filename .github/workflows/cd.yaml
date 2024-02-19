@@ -42,7 +42,7 @@ jobs:
         with:
           title: "chore: bump package versions"
           commit: "chore: bump package versions"
-          version: pnpm changeset:version
+          version: yarn changeset:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
