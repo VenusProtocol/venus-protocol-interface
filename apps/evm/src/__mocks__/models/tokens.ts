@@ -9,6 +9,7 @@ import ustLogo from 'libs/tokens/img/ust.svg';
 import vaiLogo from 'libs/tokens/img/vai.svg';
 import vrtLogo from 'libs/tokens/img/vrt.svg';
 import wbnbLogo from 'libs/tokens/img/wbnb.svg';
+import wethLogo from 'libs/tokens/img/weth.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
 import { Token } from 'types';
 
@@ -88,6 +89,14 @@ export const eth: Token = {
   decimals: 18,
   symbol: 'ETH',
   asset: ethLogo,
+};
+
+export const weth: Token = {
+  address: '0x700868CAbb60e90d77B6588ce072d9859ec8E281',
+  decimals: 18,
+  symbol: 'WETH',
+  asset: wethLogo,
+  tokenWrapped: eth,
 };
 
 export const lisUsd: Token = {

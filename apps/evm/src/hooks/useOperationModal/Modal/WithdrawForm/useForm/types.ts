@@ -3,6 +3,7 @@ import { Token } from 'types';
 export interface FormValues {
   fromToken: Token;
   amountTokens: string;
+  receiveNativeToken: boolean;
 }
 
 export type FormError =

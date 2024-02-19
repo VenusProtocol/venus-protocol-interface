@@ -73,7 +73,7 @@ export const useGetBalanceOf = vi.fn((input: Omit<GetBalanceOfInput, 'signer'>) 
       FunctionKey.GET_BALANCE_OF,
       {
         accountAddress: input.accountAddress,
-        tokenAddress: input.token.address,
+        tokenAddress: input.token?.address,
       },
     ],
     () => getBalanceOf(input),

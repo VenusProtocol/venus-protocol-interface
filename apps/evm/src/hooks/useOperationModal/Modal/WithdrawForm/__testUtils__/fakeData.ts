@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 
 import { poolData } from '__mocks__/models/pools';
+import { weth } from '__mocks__/models/tokens';
 
-import { Pool } from 'types';
+import { Asset, Pool } from 'types';
 
 export const fakePool: Pool = {
   ...poolData[0],
@@ -16,3 +17,11 @@ fakeAsset.userWalletBalanceTokens = new BigNumber(10000000);
 fakeAsset.tokenPriceCents = new BigNumber(100);
 
 export const fakeVTokenBalanceMantissa = new BigNumber(10000000);
+
+export const fakeWethAsset: Asset = {
+  ...fakeAsset,
+  vToken: {
+    ...fakeAsset.vToken,
+    underlyingToken: weth,
+  },
+};

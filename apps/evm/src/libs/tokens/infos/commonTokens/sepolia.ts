@@ -4,23 +4,26 @@ import ethLogo from 'libs/tokens/img/eth.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
 import wbtcLogo from 'libs/tokens/img/wbtc.svg';
+import wethLogo from 'libs/tokens/img/weth.svg';
 import wstEthLogo from 'libs/tokens/img/wstEth.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
 import { Token } from 'types';
 
+const ethToken: Token = {
+  address: '0x0000000000000000000000000000000000000000',
+  decimals: 18,
+  symbol: 'ETH',
+  asset: ethLogo,
+  isNative: true,
+};
+
 export const tokens: Token[] = [
+  ethToken,
   {
     address: '0x66ebd019E86e0af5f228a0439EBB33f045CBe63E',
     decimals: 18,
     symbol: 'XVS',
     asset: xvsLogo,
-  },
-  {
-    address: '0x0000000000000000000000000000000000000000',
-    decimals: 18,
-    symbol: 'ETH',
-    asset: ethLogo,
-    isNative: true,
   },
   {
     address: '0x92A2928f5634BEa89A195e7BeCF0f0FEEDAB885b',
@@ -32,7 +35,8 @@ export const tokens: Token[] = [
     address: '0x700868CAbb60e90d77B6588ce072d9859ec8E281',
     decimals: 18,
     symbol: 'WETH',
-    asset: ethLogo,
+    asset: wethLogo,
+    tokenWrapped: ethToken,
   },
   {
     address: '0x8d412FD0bc5d826615065B931171Eed10F5AF266',

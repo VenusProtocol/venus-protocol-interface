@@ -18,10 +18,6 @@ export const useStyles = () => {
       box-shadow: 0 4px 15px 0 rgba(22 23 30 80%);
       overflow: hidden;
     `,
-    header: css`
-      padding: ${theme.spacing(3, 3, 0)};
-      margin-bottom: ${theme.spacing(5)};
-    `,
     searchField: css`
       margin-bottom: ${theme.spacing(4)};
 

@@ -5,7 +5,7 @@ import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'compon
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
 import { Swap, Token } from 'types';
-import { areTokensEqual, cn } from 'utilities';
+import { cn } from 'utilities';
 
 import SwapSummary from '../../SwapSummary';
 import { FormError } from '../useForm/types';
@@ -13,7 +13,6 @@ import { FormError } from '../useForm/types';
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
-  toToken: Token;
   fromToken: Token;
   fromTokenAmountTokens: string;
   isSwapLoading: boolean;
@@ -24,12 +23,13 @@ export interface SubmitSectionProps {
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
   swap?: Swap;
   formError?: FormError;
+  isUsingSwap: boolean;
+  isWrappingNativeToken: boolean;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isFormSubmitting,
-  toToken,
   fromToken,
   fromTokenAmountTokens,
   formError,
@@ -40,10 +40,11 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isRevokeFromTokenWalletSpendingLimitLoading,
   swap,
   isSwapLoading,
+  isUsingSwap,
+  isWrappingNativeToken,
 }) => {
   const { t } = useTranslation();
 
-  const isUsingSwap = useMemo(() => !areTokensEqual(fromToken, toToken), [fromToken, toToken]);
   const isSwappingWithHighPriceImpact = useMemo(
     () =>
       !!swap?.priceImpactPercentage &&
@@ -98,6 +99,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('operationModal.supply.submitButtonLabel.swapAndSupplyWithHighPriceImpact');
     }
 
+    if (isWrappingNativeToken) {
+      return t('operationModal.supply.submitButtonLabel.wrapAndSupply');
+    }
+
     if (isUsingSwap) {
       return t('operationModal.supply.submitButtonLabel.swapAndSupply');
     }
@@ -111,6 +116,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     isFormSubmitting,
     isSwappingWithHighPriceImpact,
     isUsingSwap,
+    isWrappingNativeToken,
     fromToken.symbol,
     t,
   ]);

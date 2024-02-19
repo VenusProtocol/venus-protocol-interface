@@ -40,6 +40,7 @@ const featureFlags = {
     ChainId.SEPOLIA,
     ChainId.OPBNB_TESTNET,
   ],
+  wrapUnwrapNativeToken: [ChainId.SEPOLIA],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

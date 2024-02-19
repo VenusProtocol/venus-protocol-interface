@@ -5,7 +5,7 @@ import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'compon
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
 import { Swap, Token } from 'types';
-import { areTokensEqual, cn } from 'utilities';
+import { cn } from 'utilities';
 
 import SwapSummary from '../../SwapSummary';
 import { FormError } from '../useForm/types';
@@ -13,7 +13,8 @@ import { FormError } from '../useForm/types';
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
-  toToken: Token;
+  isWrappingNativeToken: boolean;
+  isUsingSwap: boolean;
   fromToken: Token;
   fromTokenAmountTokens: string;
   isSwapLoading: boolean;
@@ -29,7 +30,8 @@ export interface SubmitSectionProps {
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isFormSubmitting,
-  toToken,
+  isWrappingNativeToken,
+  isUsingSwap,
   fromToken,
   fromTokenAmountTokens,
   formError,
@@ -43,7 +45,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const isUsingSwap = useMemo(() => !areTokensEqual(fromToken, toToken), [fromToken, toToken]);
   const isSwappingWithHighPriceImpact = useMemo(
     () =>
       !!swap?.priceImpactPercentage &&
@@ -94,6 +95,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('operationModal.repay.submitButtonLabel.swapAndRepayWithHighPriceImpact');
     }
 
+    if (isWrappingNativeToken) {
+      return t('operationModal.repay.submitButtonLabel.wrapAndRepay');
+    }
+
     if (isUsingSwap) {
       return t('operationModal.repay.submitButtonLabel.swapAndRepay');
     }
@@ -106,6 +111,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     formError,
     isFormSubmitting,
     isUsingSwap,
+    isWrappingNativeToken,
     isSwappingWithHighPriceImpact,
     fromToken.symbol,
     t,

@@ -5,7 +5,7 @@ import { InputHTMLAttributes, useMemo, useState } from 'react';
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { useTranslation } from 'libs/translations';
 import { Token, TokenBalance } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { cn, convertMantissaToTokens } from 'utilities';
 
 import { SenaryButton } from '../../Button';
 import { TextField } from '../../TextField';
@@ -83,16 +83,18 @@ export const TokenList: React.FC<TokenListProps> = ({
 
   return (
     <div css={styles.container}>
-      <div css={styles.header}>
-        <TextField
-          css={styles.searchField}
-          isSmall
-          autoFocus
-          value={searchValue}
-          onChange={handleSearchInputChange}
-          placeholder={t('selectTokenTextField.searchInput.placeholder')}
-          leftIconSrc="magnifier"
-        />
+      <div className={cn(commonTokenBalances.length > 2 && 'mb-5 pl-3 pr-3 pt-3')}>
+        {commonTokenBalances.length > 2 && (
+          <TextField
+            css={styles.searchField}
+            isSmall
+            autoFocus
+            value={searchValue}
+            onChange={handleSearchInputChange}
+            placeholder={t('selectTokenTextField.searchInput.placeholder')}
+            leftIconSrc="magnifier"
+          />
+        )}
 
         <div css={styles.commonTokenList}>
           {commonTokenBalances.map(commonTokenBalance => (

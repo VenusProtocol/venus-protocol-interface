@@ -360,4 +360,32 @@ describe('useIsFeatureEnabled', () => {
 
     expect(result.current).toBe(true);
   });
+
+  it('should return false for the wrap/unwrap native token feature flag on ETHEREUM', () => {
+    (useChainId as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.ETHEREUM,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'wrapUnwrapNativeToken',
+      }),
+    );
+
+    expect(result.current).toBe(false);
+  });
+
+  it('should return true for the wrap/unwrap native token feature flag on SEPOLIA', () => {
+    (useChainId as Vi.Mock).mockImplementation(() => ({
+      chainId: ChainId.SEPOLIA,
+    }));
+
+    const { result } = renderHook(() =>
+      useIsFeatureEnabled({
+        name: 'wrapUnwrapNativeToken',
+      }),
+    );
+
+    expect(result.current).toBe(true);
+  });
 });
