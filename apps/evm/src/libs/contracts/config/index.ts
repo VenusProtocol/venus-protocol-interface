@@ -59,6 +59,7 @@ import { ChainId } from 'types';
 
 import MaximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
+import NativeTokenGatewayAbi from './externalAbis/NativeTokenGateway.json';
 import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
 import vBnbAbi from './externalAbis/VBnb.json';
 import XsequenceMulticall from './externalAbis/XsequenceMulticall.json';
@@ -241,6 +242,13 @@ export const contracts: ContractConfig[] = [
     },
   },
   {
+    name: 'NativeTokenGateway',
+    abi: NativeTokenGatewayAbi,
+    address: {
+      [ChainId.SEPOLIA]: '0x13B3f65C0e2C64528F678B3C78ccac7341a2A66C', // TODO: replace with address from package once it's added
+    },
+  },
+  {
     name: 'ResilientOracle',
     abi: ResilientOracleAbi,
     address: {
@@ -383,6 +391,23 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPBNB_TESTNET]: {},
       [ChainId.ETHEREUM]: {},
       [ChainId.SEPOLIA]: {},
+    },
+  },
+  // NativeTokenGateway contract addresses for each supported pool
+  {
+    name: 'NativeTokenGateway',
+    abi: NativeTokenGatewayAbi,
+    address: {
+      [ChainId.BSC_TESTNET]: {},
+      [ChainId.BSC_MAINNET]: {},
+      [ChainId.OPBNB_MAINNET]: {},
+      [ChainId.OPBNB_TESTNET]: {},
+      [ChainId.ETHEREUM]: {},
+      [ChainId.SEPOLIA]: {
+        // TODO: replace with package address once it has been added
+        [isolatedPoolsSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
+          '0x02fC3253e6839e001Ac959b9834f6BdDAC7bE705',
+      },
     },
   },
 ];
