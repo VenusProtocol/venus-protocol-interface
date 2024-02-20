@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Location, useLocation } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { useTranslation } from 'libs/translations';
 
@@ -9,20 +9,30 @@ type PaginationProps = {
   itemsPerPageCount?: number;
 };
 
+const PAGE_PARAM_KEY = 'page';
 const PAGES_TO_SHOW_COUNT = 4;
-
-const getInitialPageIndex = ({ location }: { location: Location }) => {
-  const searchParams = new URLSearchParams(location.search);
-  const pageParam = searchParams.get('page');
-  const initialPageIndex = pageParam ? +pageParam - 1 : 0;
-  return initialPageIndex;
-};
 
 export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: PaginationProps) {
   const { t } = useTranslation();
 
-  const location = useLocation();
-  const [activePageIndex, setActivePageIndex] = useState(getInitialPageIndex({ location }));
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [urlPageParam, activePageIndex] = useMemo(() => {
+    const pageParam = searchParams.get(PAGE_PARAM_KEY);
+    const pageIndex = pageParam ? +pageParam - 1 : 0;
+
+    return [pageParam, pageIndex];
+  }, [searchParams]);
+
+  // Automatically set default page param if none was set
+  useEffect(() => {
+    if (urlPageParam === undefined) {
+      setSearchParams({
+        [PAGE_PARAM_KEY]: '1',
+      });
+    }
+  }, [urlPageParam, setSearchParams]);
+
   const [pagesCount, setPagesCount] = useState(0);
 
   /* calculating items per page count */
@@ -56,8 +66,11 @@ export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: 
     : activePageIndex + halfOfPagesCount;
 
   const handlePageChange = (pageIndex: number) => {
+    setSearchParams({
+      [PAGE_PARAM_KEY]: pageIndex.toString(),
+    });
+
     onChange(pageIndex);
-    setActivePageIndex(pageIndex);
   };
 
   return {
