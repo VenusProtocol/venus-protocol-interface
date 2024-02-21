@@ -166,16 +166,16 @@
         "message": "You cannot bridge more than {{readableAmountTokens}} ({{readableAmountUsd}}) on the destination chain due to the 24-hour limit. This limit will be reset on {{ date, dd MMM yyyy h:mm a }}",
         "submitButton": "Amount entered higher than the daily limit"
       },
-      "singleTransactionLimitExceeded": {
-        "message": "You cannot bridge more than {{readableAmountTokens}} ({{readableAmountUsd}}) on the destination chain in a single transaction",
-        "submitButton": "Amount entered higher than the limit"
-      },
+      "doesNotHaveEnoughNativeFunds": "Insufficient {{tokenSymbol}} balance",
+      "doesNotHaveEnoughXvs": "Insufficient {{tokenSymbol}} balance",
       "mintCapReached": {
         "message": "You cannot bridge more than {{readableAmountTokens}} due to the bridge mint cap",
         "submitButton": "Bridge mint cap reached"
       },
-      "doesNotHaveEnoughXvs": "Insufficient {{tokenSymbol}} balance",
-      "doesNotHaveEnoughNativeFunds": "Insufficient {{tokenSymbol}} balance"
+      "singleTransactionLimitExceeded": {
+        "message": "You cannot bridge more than {{readableAmountTokens}} ({{readableAmountUsd}}) on the destination chain in a single transaction",
+        "submitButton": "Amount entered higher than the limit"
+      }
     },
     "footer": {
       "bridgeDocLink": "How to bridge",
@@ -554,10 +554,10 @@
         "priceImpactHigherThanMaximumTolerated": "Price impact too high",
         "processing": "Processing",
         "repay": "Repay",
-        "wrapAndRepay": "Wrap and repay",
         "swapAndRepay": "Swap and repay",
         "swapAndRepayWithHighPriceImpact": "Swap and repay with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
+        "wrapAndRepay": "Wrap and repay",
         "wrappingUnsupported": "Wrapping unsupported"
       },
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
@@ -580,16 +580,16 @@
         "processing": "Processing",
         "supply": "Supply",
         "supplyCapReached": "Supply cap reached",
-        "wrapAndSupply": "Wrap and supply",
         "swapAndSupply": "Swap and supply",
         "swapAndSupplyWithHighPriceImpact": "Swap and supply with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
+        "wrapAndSupply": "Wrap and supply",
         "wrappingUnsupported": "Wrapping unsupported"
       },
       "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
-      "youCanWrapNative": "You can wrap {{nativeTokenSymbol}} into {{wrappedNativeTokenSymbol}} in <Link>Uniswap</Link>",
-      "walletBalance": "Wallet balance"
+      "walletBalance": "Wallet balance",
+      "youCanWrapNative": "You can wrap {{nativeTokenSymbol}} into {{wrappedNativeTokenSymbol}} in <Link>Uniswap</Link>"
     },
     "supplyTabTitle": "Supply",
     "swapSummary": {
@@ -966,6 +966,29 @@
     }
   },
   "vai": {
+    "borrow": {
+      "amountTokensInput": {
+        "limitButtonLabel": "80% LIMIT"
+      },
+      "borrowableAmount": {
+        "label": "Borrowable amount",
+        "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied to the Core pool"
+      },
+      "borrowApy": {
+        "label": "Borrow APY",
+        "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied to the Core pool"
+      },
+      "fee": {
+        "label": "Fee"
+      },
+      "primeOnlyWarning": "Only users who hold a Prime token can borrow VAI. Learn more about Prime <Link>here</Link>.",
+      "submitButton": {
+        "borrowLabel": "Borrow",
+        "enterValidAmountLabel": "Enter a valid amount to borrow"
+      },
+      "tabTitle": "Borrow"
+    },
+    "headerMessage": "VAI is the primary stablecoin of the Venus Protocol. Borrow VAI using your collateral supplied to the Core pool. <Link>Learn more</Link>",
     "mintVai": {
       "apy": "APY",
       "connectWallet": "Please connect your wallet to mint VAI",
@@ -976,6 +999,9 @@
       "submitButtonLabel": "Mint",
       "vaiLimitLabel": "Available VAI limit",
       "walletBalance": "Wallet balance"
+    },
+    "repay": {
+      "tabTitle": "Repay"
     },
     "repayVai": {
       "connectWallet": "Please connect your wallet to repay VAI",

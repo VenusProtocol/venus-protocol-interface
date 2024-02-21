@@ -24,7 +24,6 @@ const featureFlags = {
     ChainId.ETHEREUM,
     ChainId.SEPOLIA,
   ],
-  vaiMintPrimeOnlyWarning: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   isolatedPools: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.ETHEREUM, ChainId.SEPOLIA],
   bridgeRoute: [
     ChainId.BSC_MAINNET,
@@ -41,6 +40,7 @@ const featureFlags = {
     ChainId.OPBNB_TESTNET,
   ],
   wrapUnwrapNativeToken: [ChainId.SEPOLIA],
+  newVaiPage: [ChainId.BSC_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

@@ -43,6 +43,7 @@ export const useStyles = ({
       top: 50%;
       transform: translate(-1px, -50%);
       z-index: 30;
+      background-color: currentColor;
 
       /* theme styles */
       width: ${theme.spacing(1)};

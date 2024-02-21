@@ -7,7 +7,7 @@ export interface GetVaiTreasuryPercentageInput {
 }
 
 export type GetVaiTreasuryPercentageOutput = {
-  percentage: number;
+  percentage: BigNumber;
 };
 
 const getVaiTreasuryPercentage = async ({
@@ -16,8 +16,7 @@ const getVaiTreasuryPercentage = async ({
   const treasuryPercentage = await vaiControllerContract.treasuryPercent();
   const formattedTreasuryPercentage = new BigNumber(treasuryPercentage.toString())
     .times(100)
-    .div(1e18)
-    .toNumber();
+    .div(1e18);
 
   return {
     percentage: formattedTreasuryPercentage,

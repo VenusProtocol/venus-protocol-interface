@@ -46,7 +46,7 @@ const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
   );
 
 export interface GetCombinedDistributionApysInput {
-  asset: Asset;
+  asset: Pick<Asset, 'supplyDistributions' | 'borrowDistributions'>;
 }
 
 const getCombinedDistributionApys = ({ asset }: GetCombinedDistributionApysInput) => {

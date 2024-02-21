@@ -9,7 +9,7 @@ const getReadableFeeVai = ({
   vai,
 }: {
   value: BigNumber;
-  mintFeePercentage: number;
+  mintFeePercentage: BigNumber;
   vai: Token;
 }) => {
   const feeMantissa = value.multipliedBy(mintFeePercentage).dividedBy(100);

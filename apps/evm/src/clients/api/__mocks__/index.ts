@@ -277,8 +277,9 @@ export const useGetLatestAppVersion = () =>
   useQuery(FunctionKey.GET_LATEST_APP_VERSION, getLatestAppVersion);
 
 export const getTokenUsdPrice = vi.fn(async () => ({ tokenPriceUsd: new BigNumber('1') }));
-export const useGetTokenUsdPrice = () =>
-  useQuery(FunctionKey.GET_TOKEN_USD_PRICE, getTokenUsdPrice);
+export const useGetTokenUsdPrice = vi.fn(() =>
+  useQuery(FunctionKey.GET_TOKEN_USD_PRICE, getTokenUsdPrice),
+);
 
 export const getPrimeEstimation = vi.fn(async () => primeEstimationData);
 export const useGetPrimeEstimation = vi.fn(() =>

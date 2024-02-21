@@ -2,14 +2,15 @@
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
 
-import { SecondaryButton } from '../../components/Button';
+import { Button, Variant } from '../../components/Button';
 import { NoticeInfo } from '../../components/Notice';
 import { useStyles } from './styles';
 
 export interface PromptProps {
-  message: string;
   openAuthModal: () => void;
   connected: boolean;
+  buttonVariant?: Variant;
+  message?: string;
   className?: string;
   children?: React.ReactNode;
 }
@@ -20,6 +21,7 @@ export const Prompt: React.FC<PromptProps> = ({
   className,
   children,
   connected,
+  buttonVariant = 'secondary',
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -30,11 +32,11 @@ export const Prompt: React.FC<PromptProps> = ({
   }
   return (
     <div css={styles.container} className={className}>
-      <NoticeInfo css={styles.notice} description={message} />
+      {!!message && <NoticeInfo css={styles.notice} description={message} />}
 
-      <SecondaryButton className="w-full" onClick={openAuthModal}>
+      <Button variant={buttonVariant} className="w-full" onClick={openAuthModal}>
         {t('connectWallet.connectButton')}
-      </SecondaryButton>
+      </Button>
     </div>
   );
 };
