@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.95.2
+
+### Patch Changes
+
+- 973ede4: Fix pagination through URL
+
 ## 2.95.1
 
 ### Patch Changes
