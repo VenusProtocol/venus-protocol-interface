@@ -71,22 +71,28 @@ describe('Borrow', () => {
   });
 
   it('displays the correct available VAI limit and borrow fee', async () => {
-    (getVaiTreasuryPercentage as Vi.Mock).mockImplementationOnce(async () => ({
+    (getVaiTreasuryPercentage as Vi.Mock).mockImplementation(async () => ({
       percentage: fakeVaiTreasuryPercentage,
     }));
 
-    const { getByText } = renderComponent(<Borrow />, {
+    const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
     });
+    await waitFor(() => getByText(en.vai.borrow.submitButton.enterValidAmountLabel));
+
+    const fakeValueTokens = '10';
+
+    const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
+    fireEvent.change(tokenTextFieldInput, { target: { value: fakeValueTokens } });
 
     // Check available VAI limit displays correctly
     await waitFor(() => getByText('40.00 VAI'));
     // Check borrow fee displays correctly
-    await waitFor(() => getByText(`0 VAI (${fakeVaiTreasuryPercentage.toString()}%)`));
+    await waitFor(() => getByText(`0.71 VAI (${fakeVaiTreasuryPercentage.toString()}%)`));
   });
 
   it('lets user borrow VAI', async () => {
-    (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    (mintVai as Vi.Mock).mockImplementation(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
@@ -118,7 +124,7 @@ describe('Borrow', () => {
   });
 
   it('lets user borrow 80% of their borrow limit if there is enough VAI liquidity', async () => {
-    (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    (mintVai as Vi.Mock).mockImplementation(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,

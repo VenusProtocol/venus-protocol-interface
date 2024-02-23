@@ -33,9 +33,9 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import {
   convertDollarsToCents,
-  convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,
+  formatTokensToReadableValue,
 } from 'utilities';
 
 import { AccountVaiData } from '../AccountVaiData';
@@ -107,25 +107,27 @@ export const Borrow: React.FC = () => {
 
   const inputAmountTokens = watch('amountTokens');
 
+  const feeTokens = useMemo(
+    () =>
+      feePercentage &&
+      new BigNumber(inputAmountTokens || 0).multipliedBy(feePercentage).dividedBy(100),
+    [feePercentage, inputAmountTokens],
+  );
+
   const readableFee = useMemo(() => {
-    if (!feePercentage) {
+    if (!feePercentage || !feeTokens) {
       return PLACEHOLDER_KEY;
     }
 
-    const feeMantissa = new BigNumber(inputAmountTokens || 0)
-      .multipliedBy(feePercentage)
-      .dividedBy(100);
-
-    const readableFeeVai = convertMantissaToTokens({
-      value: feeMantissa,
+    const readableFeeVai = formatTokensToReadableValue({
+      value: feeTokens,
       token: vai,
-      returnInReadableFormat: true,
     });
 
     const readableFeePercentage = formatPercentageToReadableValue(feePercentage);
 
     return `${readableFeeVai} (${readableFeePercentage})`;
-  }, [feePercentage, inputAmountTokens, vai]);
+  }, [feePercentage, feeTokens, vai]);
 
   const readableBorrowableAmount = useConvertMantissaToReadableTokenString({
     value: borrowableAmountMantissa,
@@ -267,20 +269,27 @@ export const Borrow: React.FC = () => {
           {readableBorrowApy}
         </LabeledInlineContent>
 
-        <LabeledInlineContent
-          iconSrc="fee"
-          iconClassName="text-lightGrey"
-          label={t('vai.borrow.fee.label')}
-        >
-          {readableFee}
-        </LabeledInlineContent>
+        {feeTokens?.isGreaterThan(0) && (
+          <LabeledInlineContent
+            iconSrc="fee"
+            iconClassName="text-lightGrey"
+            label={t('vai.borrow.fee.label')}
+          >
+            {readableFee}
+          </LabeledInlineContent>
+        )}
       </div>
 
-      <Delimiter />
+      {isUserConnected && (
+        <>
+          <Delimiter />
 
-      <AccountVaiData amountTokens={inputAmountTokens} action="borrow" />
+          <AccountVaiData amountTokens={inputAmountTokens} action="borrow" />
+        </>
+      )}
 
       <RhfSubmitButton
+        requiresConnectedWallet
         control={control}
         isDangerousSubmission={isDangerousTransaction}
         enabledLabel={submitButtonEnabledLabel}
