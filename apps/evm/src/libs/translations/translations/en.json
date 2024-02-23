@@ -978,11 +978,17 @@
         "label": "Borrow APY",
         "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied to the Core pool"
       },
+      "notice": {
+        "amountHigherThanAccountMintableAmount": "Amount entered higher than borrowable amount",
+        "amountHigherThanLiquidity": "Amount entered higher than available VAI liquidity",
+        "riskOfLiquidation": "You entered a high value. There is a risk of liquidation."
+      },
       "fee": {
         "label": "Fee"
       },
       "primeOnlyWarning": "Only users who hold a Prime token can borrow VAI. Learn more about Prime <Link>here</Link>.",
       "submitButton": {
+        "borrowAtHighRiskLabel": "Borrow at high risk",
         "borrowLabel": "Borrow",
         "enterValidAmountLabel": "Enter a valid amount to borrow"
       },

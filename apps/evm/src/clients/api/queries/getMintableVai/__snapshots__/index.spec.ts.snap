@@ -2,6 +2,7 @@
 
 exports[`api/queries/getMintableVai > returns the mintable VAI in the correct format on success 1`] = `
 {
-  "mintableVaiMantissa": "40000000000000000000",
+  "accountMintableVaiMantissa": "40000000000000000000",
+  "vaiLiquidityMantissa": "40000000000000000000",
 }
 `;

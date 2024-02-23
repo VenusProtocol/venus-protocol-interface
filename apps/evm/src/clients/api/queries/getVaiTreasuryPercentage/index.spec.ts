@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
 
 import { VaiController } from 'libs/contracts';
@@ -15,8 +16,7 @@ describe('api/queries/getVaiTreasuryPercentage', () => {
     const response = await getVaiTreasuryPercentage({ vaiControllerContract: fakeContract });
 
     expect(treasuryPercentMock).toHaveBeenCalledTimes(1);
-    expect(response).toEqual({
-      percentage: 0.1,
-    });
+    expect(response).toMatchSnapshot();
+    expect(response.percentage instanceof BigNumber).toBeTruthy();
   });
 });

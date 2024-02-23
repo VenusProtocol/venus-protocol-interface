@@ -20,10 +20,7 @@ const VaiNew: React.FC = () => {
           <Trans
             i18nKey="vai.headerMessage"
             components={{
-              Link: (
-                // TODO: add correct href
-                <Link href="https://google.com" />
-              ),
+              Link: <Link href="https://docs-v4.venus.io/guides/supply-borrow" />,
             }}
           />
         }

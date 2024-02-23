@@ -53,7 +53,9 @@ export const getMintedVai = vi.fn();
 export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMintedVai);
 
 export const getMintableVai = vi.fn();
-export const useGetMintableVai = () => useQuery(FunctionKey.GET_MINTABLE_VAI, getMintableVai);
+export const useGetMintableVai = vi.fn(() =>
+  useQuery(FunctionKey.GET_MINTABLE_VAI, getMintableVai),
+);
 
 export const getPendingRewards = vi.fn();
 export const useGetPendingRewards = () =>

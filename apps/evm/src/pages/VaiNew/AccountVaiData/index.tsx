@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Control, useWatch } from 'react-hook-form';
 
 import {
   useGetLegacyPool,
@@ -9,19 +8,18 @@ import {
   useGetVaiRepayApy,
 } from 'clients/api';
 import { Spinner } from 'components';
-import { AccountData } from 'containers/AccountData';
+import { AccountData, AccountDataProps } from 'containers/AccountData';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
 import { Asset } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
 
-import { FormValues } from '../types';
-
 export interface AccountVaiDataProps {
-  control: Control<FormValues>;
+  amountTokens: string;
+  action: AccountDataProps['action'];
 }
 
-export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ control }) => {
+export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, action }) => {
   const { accountAddress } = useAccountAddress();
 
   const vai = useGetToken({
@@ -51,8 +49,6 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ control }) => {
   );
 
   const userBorrowBalanceMantissa = repayAmountWithInterests?.vaiRepayAmountWithInterestsMantissa;
-
-  const amountTokens = useWatch({ control, name: 'amountTokens' });
 
   const vaiAsset = useMemo(() => {
     if (!borrowApyPercentage || !userBorrowBalanceMantissa || !vaiPriceDollars) {
@@ -129,7 +125,7 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ control }) => {
       asset={vaiAsset}
       pool={legacyPoolWithVai}
       amountTokens={new BigNumber(amountTokens || 0)}
-      action="borrow"
+      action={action}
       className="mb-6"
     />
   );

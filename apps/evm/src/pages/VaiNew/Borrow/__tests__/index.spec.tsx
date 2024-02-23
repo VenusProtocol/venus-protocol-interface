@@ -11,10 +11,10 @@ import { vai } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import {
-  getMintableVai,
   getVaiTreasuryPercentage,
   mintVai,
   useGetLegacyPool,
+  useGetMintableVai,
   useGetTokenUsdPrice,
 } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
@@ -40,7 +40,10 @@ const fakeUserBorrowLimitCents = new BigNumber(fakeVaiPriceCents * 20);
 
 describe('Borrow', () => {
   beforeEach(() => {
-    (getMintableVai as Vi.Mock).mockImplementation(() => fakeGetMintableVaiOutput);
+    (useGetMintableVai as Vi.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: fakeGetMintableVaiOutput,
+    }));
 
     (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
       isLoading: false,
@@ -114,7 +117,7 @@ describe('Borrow', () => {
     });
   });
 
-  it('lets user borrow up to 80% of their borrow limit if there is enough VAI liquidity', async () => {
+  it('lets user borrow 80% of their borrow limit if there is enough VAI liquidity', async () => {
     (mintVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
@@ -138,10 +141,13 @@ describe('Borrow', () => {
       expect(tokenTextFieldInput.value).toBe(marginWithSafeLimitTokens.toFixed()),
     );
 
-    // Submit repayment request
-    await waitFor(() => expect(getByText(en.vai.borrow.submitButton.borrowLabel)));
+    // Check warning is displayed
+    await waitFor(() => getByText(en.vai.borrow.notice.riskOfLiquidation));
 
-    const submitButton = getByText(en.vai.borrow.submitButton.borrowLabel).closest(
+    // Submit repayment request
+    expect(getByText(en.vai.borrow.submitButton.borrowAtHighRiskLabel));
+
+    const submitButton = getByText(en.vai.borrow.submitButton.borrowAtHighRiskLabel).closest(
       'button',
     ) as HTMLButtonElement;
     fireEvent.click(submitButton);
@@ -156,27 +162,63 @@ describe('Borrow', () => {
     });
   });
 
-  it('does not let user borrow VAI if there is no VAI left to borrow', async () => {
-    // mock getMintableVai, simulating that the total supply has reached the cap
-    const fakeGetMintableVaiOutputToppedCap = formatToMintableVaiOutput({
-      ...fakeFormatToMintableVaiInput,
-      vaiTotalSupplyResponse: fakeFormatToMintableVaiInput.mintCapResponse,
-    });
-    (getMintableVai as Vi.Mock).mockImplementation(() => fakeGetMintableVaiOutputToppedCap);
+  it('does not let user borrow more than available liquidity', async () => {
+    (useGetMintableVai as Vi.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        ...fakeGetMintableVaiOutput,
+        vaiLiquidityMantissa: new BigNumber(0),
+      },
+    }));
 
     const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
     });
     await waitFor(() => getByText(en.vai.borrow.submitButton.enterValidAmountLabel));
 
-    // Check if the "80% LIMIT" button is disabled
-    const safeMaxButton = getByText(en.vai.borrow.amountTokensInput.limitButtonLabel).closest(
+    // Update input value
+    const fakeValueTokens = '1';
+
+    const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
+    fireEvent.change(tokenTextFieldInput, { target: { value: fakeValueTokens } });
+
+    // Check error is displayed
+    await waitFor(() => getByText(en.vai.borrow.notice.amountHigherThanLiquidity));
+
+    // Check submit button is disabled
+    const submitButton = getByText(en.vai.borrow.submitButton.enterValidAmountLabel).closest(
       'button',
     ) as HTMLButtonElement;
-    await waitFor(() => expect(safeMaxButton).toBeDisabled());
+    expect(submitButton).toBeDisabled();
+  });
 
-    // Check if the input is disabled
+  it('does not let user borrow more than their borrow limit allows', async () => {
+    (useGetMintableVai as Vi.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        ...fakeGetMintableVaiOutput,
+        accountMintableVaiMantissa: new BigNumber(0),
+      },
+    }));
+
+    const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
+      accountAddress: fakeAccountAddress,
+    });
+    await waitFor(() => getByText(en.vai.borrow.submitButton.enterValidAmountLabel));
+
+    // Update input value
+    const fakeValueTokens = '1';
+
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
-    await waitFor(() => expect(tokenTextFieldInput).toBeDisabled());
+    fireEvent.change(tokenTextFieldInput, { target: { value: fakeValueTokens } });
+
+    // Check error is displayed
+    await waitFor(() => getByText(en.vai.borrow.notice.amountHigherThanAccountMintableAmount));
+
+    // Check submit button is disabled
+    const submitButton = getByText(en.vai.borrow.submitButton.enterValidAmountLabel).closest(
+      'button',
+    ) as HTMLButtonElement;
+    expect(submitButton).toBeDisabled();
   });
 });

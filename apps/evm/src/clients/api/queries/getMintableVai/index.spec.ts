@@ -32,6 +32,7 @@ describe('api/queries/getMintableVai', () => {
     expect(getMintableVAIMock).toHaveBeenCalledTimes(1);
     expect(totalSupplyMock).toHaveBeenCalledTimes(1);
     expect(response).toMatchSnapshot();
-    expect(response.mintableVaiMantissa instanceof BigNumber).toBeTruthy();
+    expect(response.vaiLiquidityMantissa instanceof BigNumber).toBeTruthy();
+    expect(response.accountMintableVaiMantissa instanceof BigNumber).toBeTruthy();
   });
 });

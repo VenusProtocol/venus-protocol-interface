@@ -79,7 +79,14 @@ export const Form: React.FC = () => {
     },
   );
 
-  const limitMantissa = mintableVaiData?.mintableVaiMantissa;
+  const limitMantissa = useMemo(
+    () =>
+      BigNumber.min(
+        mintableVaiData?.vaiLiquidityMantissa || 0,
+        mintableVaiData?.accountMintableVaiMantissa || 0,
+      ),
+    [mintableVaiData?.vaiLiquidityMantissa, mintableVaiData?.accountMintableVaiMantissa],
+  );
 
   const isInitialLoading = isGetMintableVaiLoading || isGetPrimeTokenLoading;
 

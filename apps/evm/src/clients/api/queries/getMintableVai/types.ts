@@ -9,5 +9,6 @@ export interface GetMintableVaiInput {
 }
 
 export interface GetMintableVaiOutput {
-  mintableVaiMantissa: BigNumber;
+  vaiLiquidityMantissa: BigNumber;
+  accountMintableVaiMantissa: BigNumber;
 }

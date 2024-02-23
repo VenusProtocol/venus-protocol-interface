@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { Controller, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler } from 'react-hook-form';
 
 import {
   useGetLegacyPool,
@@ -14,9 +14,11 @@ import {
 import {
   Delimiter,
   LabeledInlineContent,
+  NoticeError,
   NoticeWarning,
+  RhfSubmitButton,
+  RhfTokenTextField,
   Spinner,
-  TokenTextField,
 } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { PRIME_DOC_URL } from 'constants/prime';
@@ -38,9 +40,8 @@ import {
 
 import { AccountVaiData } from '../AccountVaiData';
 import { FormValues } from '../types';
-import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
-import { useForm } from './useForm';
+import { ErrorCode, useForm } from './useForm';
 
 export const Borrow: React.FC = () => {
   const { t, Trans } = useTranslation();
@@ -69,7 +70,7 @@ export const Borrow: React.FC = () => {
     name: 'prime',
   });
 
-  const userPrimeTokenMissing = isUserConnected && isPrimeEnabled && !isUserPrime;
+  const isUserMissingPrimeToken = isUserConnected && isPrimeEnabled && !isUserPrime;
 
   const { mutateAsync: mintVai } = useMintVai();
 
@@ -91,10 +92,17 @@ export const Borrow: React.FC = () => {
       enabled: !!accountAddress && !!vai,
     },
   );
-  const borrowableAmountMantissa = mintableVaiData?.mintableVaiMantissa;
+  const borrowableAmountMantissa = useMemo(
+    () =>
+      BigNumber.min(
+        mintableVaiData?.vaiLiquidityMantissa || 0,
+        mintableVaiData?.accountMintableVaiMantissa || 0,
+      ),
+    [mintableVaiData?.vaiLiquidityMantissa, mintableVaiData?.accountMintableVaiMantissa],
+  );
 
   const { control, handleSubmit, watch, formState, setValue } = useForm({
-    borrowableAmountMantissa,
+    ...mintableVaiData,
   });
 
   const inputAmountTokens = watch('amountTokens');
@@ -154,10 +162,32 @@ export const Borrow: React.FC = () => {
     return safeMaxTokens.dp(vai.decimals, BigNumber.ROUND_DOWN).toFixed();
   }, [vai, vaiPriceDollars, legacyPool]);
 
-  const isAmountHigherThanSafeLimit = useMemo(
+  const isDangerousTransaction = useMemo(
     () => new BigNumber(inputAmountTokens).isGreaterThanOrEqualTo(safeLimitTokens),
     [inputAmountTokens, safeLimitTokens],
   );
+
+  const errorMessage = useMemo(() => {
+    const errorCode = formState.errors.amountTokens?.message;
+
+    if (errorCode === ErrorCode.HIGHER_THAN_LIQUIDITY) {
+      return t('vai.borrow.notice.amountHigherThanLiquidity');
+    }
+
+    if (errorCode === ErrorCode.HIGHER_THAN_MINTABLE_AMOUNT) {
+      return t('vai.borrow.notice.amountHigherThanAccountMintableAmount');
+    }
+
+    return undefined;
+  }, [t, formState.errors.amountTokens]);
+
+  const submitButtonEnabledLabel = useMemo(() => {
+    if (isDangerousTransaction) {
+      return t('vai.borrow.submitButton.borrowAtHighRiskLabel');
+    }
+
+    return t('vai.borrow.submitButton.borrowLabel');
+  }, [t, isDangerousTransaction]);
 
   const onSubmit: SubmitHandler<FormValues> = async ({ amountTokens }) => {
     const amountMantissa = convertTokensToMantissa({
@@ -180,7 +210,7 @@ export const Borrow: React.FC = () => {
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-      {userPrimeTokenMissing && (
+      {isUserMissingPrimeToken && (
         <NoticeWarning
           data-testid={TEST_IDS.primeOnlyWarning}
           description={
@@ -195,34 +225,30 @@ export const Borrow: React.FC = () => {
         />
       )}
 
-      <Controller
-        name="amountTokens"
-        control={control}
-        rules={{ required: true }}
-        render={({ field, fieldState }) => (
-          <TokenTextField
-            token={vai}
-            hasError={fieldState.invalid}
-            rightMaxButton={{
-              label: t('vai.borrow.amountTokensInput.limitButtonLabel'),
-              onClick: () =>
-                setValue('amountTokens', safeLimitTokens, {
-                  shouldValidate: true,
-                  shouldDirty: true,
-                }),
-            }}
-            {...field}
-            disabled={
-              field.disabled ||
-              formState.isSubmitting ||
-              !isUserConnected ||
-              userPrimeTokenMissing ||
-              !borrowableAmountMantissa ||
-              borrowableAmountMantissa.isLessThanOrEqualTo(0)
-            }
-          />
+      <div className="space-y-3">
+        <RhfTokenTextField<FormValues>
+          control={control}
+          name="amountTokens"
+          rules={{ required: true }}
+          disabled={!isUserConnected || isUserMissingPrimeToken}
+          token={vai}
+          rightMaxButton={{
+            label: t('vai.borrow.amountTokensInput.limitButtonLabel'),
+            onClick: () =>
+              setValue('amountTokens', safeLimitTokens, {
+                shouldValidate: true,
+                shouldTouch: true,
+                shouldDirty: true,
+              }),
+          }}
+        />
+
+        {errorMessage && <NoticeError description={errorMessage} />}
+
+        {!errorMessage && isDangerousTransaction && (
+          <NoticeWarning description={t('vai.borrow.notice.riskOfLiquidation')} />
         )}
-      />
+      </div>
 
       <div className="space-y-3">
         <LabeledInlineContent
@@ -252,9 +278,14 @@ export const Borrow: React.FC = () => {
 
       <Delimiter />
 
-      <AccountVaiData control={control} />
+      <AccountVaiData amountTokens={inputAmountTokens} action="borrow" />
 
-      <SubmitSection control={control} isDangerous={isAmountHigherThanSafeLimit} />
+      <RhfSubmitButton
+        control={control}
+        isDangerousSubmission={isDangerousTransaction}
+        enabledLabel={submitButtonEnabledLabel}
+        disabledLabel={t('vai.borrow.submitButton.enterValidAmountLabel')}
+      />
     </form>
   );
 };
