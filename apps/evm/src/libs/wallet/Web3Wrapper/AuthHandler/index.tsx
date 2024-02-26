@@ -1,17 +1,19 @@
+import { getNetwork, watchNetwork } from '@wagmi/core';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
-import { useConfig, useDisconnect, useNetwork } from 'wagmi';
+import { useSearchParams } from 'react-router-dom';
+import { useConfig, useDisconnect } from 'wagmi';
 
 import { routes } from 'constants/routing';
 import { useNavigate } from 'hooks/useNavigate';
-import { defaultChain } from 'libs/wallet/chains';
+import { getUnsafeChainIdFromSearchParams } from 'libs/wallet';
+import { chains, defaultChain } from 'libs/wallet/chains';
 import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
 import { getChainId } from 'libs/wallet/utilities/getChainId';
 
 export const AuthHandler: React.FC = () => {
   const config = useConfig();
-  const { chain: walletChain } = useNetwork();
   const { disconnectAsync } = useDisconnect();
   const { updateUrlChainId } = useUpdateUrlChainId();
   const { navigate } = useNavigate();
@@ -20,8 +22,10 @@ export const AuthHandler: React.FC = () => {
   const initialLocationRef = useRef(location);
   const navigateRef = useRef(navigate);
   const disconnectAsyncRef = useRef(disconnectAsync);
+  const [searchParams] = useSearchParams();
   const hasInitializedRef = useRef(false);
 
+  // Initialize wallet connection on mount
   useEffect(() => {
     const fn = async () => {
       // Automatically connect wallet on mount if it is already linked with the dApp. This is a
@@ -57,8 +61,9 @@ export const AuthHandler: React.FC = () => {
     fn();
   }, [config]);
 
+  // Detect change of chain ID triggered from wallet
   useEffect(() => {
-    const fn = async () => {
+    const stopWatchingNetwork = watchNetwork(async ({ chain: walletChain }) => {
       if (!walletChain || !hasInitializedRef.current) {
         return;
       }
@@ -69,15 +74,47 @@ export const AuthHandler: React.FC = () => {
         return;
       }
 
-      // Update URL when wallet connects to a different chain or if URL is manually changed
+      // Update URL when wallet connects to a different chain
       const { chainId } = getChainId();
+
       if (walletChain.id !== chainId) {
         updateUrlChainId({ chainId: walletChain.id });
+      }
+    });
+
+    return stopWatchingNetwork;
+  }, [disconnectAsync, updateUrlChainId]);
+
+  // Detect change of chain ID triggered from URL
+  useEffect(() => {
+    const fn = async () => {
+      if (!hasInitializedRef.current) {
+        return;
+      }
+
+      const { chain: walletChain } = getNetwork();
+      const { chainId: unsafeSearchParamChainId } = getUnsafeChainIdFromSearchParams({
+        searchParams,
+      });
+
+      // Update URL again if it was updated with an unsupported chain ID or does not contain any
+      // chain ID search param
+      if (
+        unsafeSearchParamChainId === undefined ||
+        !chains.some(chain => chain.id === unsafeSearchParamChainId)
+      ) {
+        updateUrlChainId({ chainId: walletChain?.id ?? defaultChain.id });
+        return;
+      }
+
+      // Disconnect wallet if chain ID changed in URL but wallet is connected to a different network
+      if (walletChain?.id !== unsafeSearchParamChainId) {
+        await disconnectAsync();
       }
     };
 
     fn();
-  }, [walletChain, updateUrlChainId, disconnectAsync]);
+  }, [searchParams, updateUrlChainId, disconnectAsync]);
 
   return null;
 };
