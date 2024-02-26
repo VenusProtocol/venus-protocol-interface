@@ -58,7 +58,9 @@ const getContractName = ({ target, vTokens, tokens, chainId }: GetContractNameIn
 
   if (matchingUniqueContractInfo) {
     const contractName = matchingUniqueContractInfo[0];
-    return `${contractName.charAt(0).toUpperCase()}${contractName.slice(1)}`;
+    // Return "CorePoolComptroller" for the name of the legacy pool Comptroller contract in order to
+    // make it easier for users to understand what pool is concerned here
+    return contractName === 'LegacyPoolComptroller' ? 'CorePoolComptroller' : contractName;
   }
 
   return target;
