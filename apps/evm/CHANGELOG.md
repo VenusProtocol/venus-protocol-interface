@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.96.0
+
+### Minor Changes
+
+- d1d477e: Display LegacyPoolComptroller as CorePoolComptroller
+
 ## 2.95.2
 
 ### Patch Changes
