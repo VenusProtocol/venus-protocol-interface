@@ -235,7 +235,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: venusOracleBscTestnetDeployments.addresses.ResilientOracle,
       [ChainId.BSC_MAINNET]: venusOracleBscMainnetDeployments.addresses.ResilientOracle,
       [ChainId.ETHEREUM]: venusOracleEthereumDeployments.addresses.ResilientOracle,
-      [ChainId.OPBNB_TESTNET]: venusOracleEthereumDeployments.addresses.ResilientOracle,
+      [ChainId.OPBNB_TESTNET]: '0xEF4e53a9A4565ef243A2f0ee9a7fc2410E1aA623',
       [ChainId.SEPOLIA]: venusOracleSepoliaDeployments.addresses.ResilientOracle,
     },
   },
