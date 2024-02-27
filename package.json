@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
-    "@commitlint/config-conventional": "17.7.0",
+    "@commitlint/config-conventional": "19.0.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "commitlint": "^18.1.0",
     "husky": "^9.0.6",
