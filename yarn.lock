@@ -7228,7 +7228,7 @@
     hardhat-deploy-ethers "^0.3.0-beta.13"
     module-alias "^2.2.2"
 
-"@venusprotocol/isolated-pools@^2.3.0", "@venusprotocol/isolated-pools@^2.4.0", "@venusprotocol/isolated-pools@^2.5.0":
+"@venusprotocol/isolated-pools@^2.3.0", "@venusprotocol/isolated-pools@^2.5.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.5.0.tgz#07378ca388bdb843b91bb51e453e47159945cfa2"
   integrity sha512-F+p6/mgnYSa+1KqwBmlYiVebWCPn/nvEvozj91tokGkCOsZ6XUc+YUunvW5Pfz13GMcT/akmjgXPZI+Gb4ONpg==
@@ -7242,10 +7242,24 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@venusprotocol/oracle@^1.10.0-dev.4":
-  version "1.10.0-dev.4"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.10.0-dev.4.tgz#a42a5816b333241bd8fa3077c585134ee001df85"
-  integrity sha512-G19PaFr3EvqQe8IRPMz5laNJmQZ0P+xPWX0yPMP6xsLl+SwI7l2p8qHVn6xEQ169tmapkHokl4ZXEFOvRqueLg==
+"@venusprotocol/isolated-pools@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.6.0.tgz#091ab6373f44d4c32d91ac2093f901ed07ca23a6"
+  integrity sha512-LdR6D9KHApAKVRyyXdg5P9Ux/fBL6sCHOA+5+nK5qCg6NCKVwEOSSC8ZszyT4Jn1V8Z/B/CVDjNcgf8/V3j3Fw==
+  dependencies:
+    "@nomiclabs/hardhat-ethers" "^2.2.3"
+    "@openzeppelin/contracts" "^4.8.3"
+    "@openzeppelin/contracts-upgradeable" "^4.8.3"
+    "@openzeppelin/hardhat-upgrades" "^1.21.0"
+    "@solidity-parser/parser" "^0.13.2"
+    ethers "^5.7.0"
+    hardhat-deploy "^0.11.14"
+    module-alias "^2.2.2"
+
+"@venusprotocol/oracle@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.10.0.tgz#67d3174b99ea0339a1895e21cbe9b981aa60a957"
+  integrity sha512-zuwEhmfW0zfUkNc7n7AlBt9geuzxXYfcT9nbVJ9ZJMTlW0sEz6nWpIyzS3pcOeLP9lozCBjZMnRX1r6GdCJLMQ==
   dependencies:
     "@chainlink/contracts" "^0.5.1"
     "@defi-wonderland/smock" "^2.3.4"
@@ -7310,10 +7324,10 @@
     ethers "^5.7.0"
     module-alias "^2.2.2"
 
-"@venusprotocol/token-bridge@^1.1.0-dev.1":
-  version "1.1.0-dev.1"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-1.1.0-dev.1.tgz#2c25c2760af24fe98fe6924b744f50b64abfe115"
-  integrity sha512-w6ThhOhn7n1wu5+eeM8aaVINqyP7cYDj/84IEWoYnkKqNRspwHKLvan42cdIZG4cXEG6L6TdZrVG2IEVjkHdRA==
+"@venusprotocol/token-bridge@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-1.1.0.tgz#de5ca0ddf8384e85827bbd266ea24a5fa688ac48"
+  integrity sha512-orf6bZUzOzJ9UETgpuXQYEEqLP3hLKu8rj8dP8YDuVahWhWKJWeQBALcb8aeZTVwKE49uFWPqrtPbG+bR8rKEg==
   dependencies:
     "@layerzerolabs/solidity-examples" "^1.0.0"
     "@openzeppelin/contracts" "^4.8.3"
