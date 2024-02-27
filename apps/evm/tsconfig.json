@@ -2,6 +2,6 @@
   "extends": "@venusprotocol/typescript-config/base.json",
   "compilerOptions": {
     "rootDir": ".",
-    "baseUrl": "./src",
-  },
+    "baseUrl": "./src"
+  }
 }
