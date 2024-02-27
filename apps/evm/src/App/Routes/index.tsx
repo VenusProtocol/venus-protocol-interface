@@ -22,6 +22,7 @@ const IsolatedPools = lazy(() => import('pages/IsolatedPools'));
 const Proposal = lazy(() => import('pages/Proposal'));
 const Swap = lazy(() => import('pages/Swap'));
 const Vai = lazy(() => import('pages/Vai'));
+const VaiNew = lazy(() => import('pages/VaiNew'));
 const Vaults = lazy(() => import('pages/Vault'));
 const Voter = lazy(() => import('pages/Voter'));
 const VoterLeaderboard = lazy(() => import('pages/VoterLeaderboard'));
@@ -39,6 +40,7 @@ const AppRoutes = () => {
   const primeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
+  const newVaiPage = useIsFeatureEnabled({ name: 'newVaiPage' });
   const location = useLocation();
 
   // Scroll to the top of the page on route change
@@ -247,7 +249,18 @@ const AppRoutes = () => {
           }
         />
 
-        {vaiRouteEnabled && (
+        {vaiRouteEnabled && newVaiPage && (
+          <Route
+            path={Subdirectory.VAI}
+            element={
+              <PageSuspense>
+                <VaiNew />
+              </PageSuspense>
+            }
+          />
+        )}
+
+        {vaiRouteEnabled && !newVaiPage && (
           <Route
             path={Subdirectory.VAI}
             element={

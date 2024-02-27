@@ -67,11 +67,7 @@ export const Form: React.FC = () => {
   const isPrimeEnabled = useIsFeatureEnabled({
     name: 'prime',
   });
-  const isVaiMintPrimeOnlyWarningEnabled = useIsFeatureEnabled({
-    name: 'vaiMintPrimeOnlyWarning',
-  });
-  const shouldShowPrimeOnlyWarning =
-    isVaiMintPrimeOnlyWarningEnabled && isPrimeEnabled && !isUserPrime;
+  const shouldShowPrimeOnlyWarning = isPrimeEnabled && !isUserPrime;
 
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {
@@ -83,7 +79,14 @@ export const Form: React.FC = () => {
     },
   );
 
-  const limitMantissa = mintableVaiData?.mintableVaiMantissa;
+  const limitMantissa = useMemo(
+    () =>
+      BigNumber.min(
+        mintableVaiData?.vaiLiquidityMantissa || 0,
+        mintableVaiData?.accountMintableVaiMantissa || 0,
+      ),
+    [mintableVaiData?.vaiLiquidityMantissa, mintableVaiData?.accountMintableVaiMantissa],
+  );
 
   const isInitialLoading = isGetMintableVaiLoading || isGetPrimeTokenLoading;
 

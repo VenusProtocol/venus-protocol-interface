@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`api/queries/getVaiTreasuryPercentage > returns the VAI treasury percentage in the correct format 1`] = `
+{
+  "percentage": "0.1",
+}
+`;

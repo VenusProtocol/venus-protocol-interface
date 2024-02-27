@@ -53,7 +53,9 @@ export const getMintedVai = vi.fn();
 export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMintedVai);
 
 export const getMintableVai = vi.fn();
-export const useGetMintableVai = () => useQuery(FunctionKey.GET_MINTABLE_VAI, getMintableVai);
+export const useGetMintableVai = vi.fn(() =>
+  useQuery(FunctionKey.GET_MINTABLE_VAI, getMintableVai),
+);
 
 export const getPendingRewards = vi.fn();
 export const useGetPendingRewards = () =>
@@ -277,8 +279,9 @@ export const useGetLatestAppVersion = () =>
   useQuery(FunctionKey.GET_LATEST_APP_VERSION, getLatestAppVersion);
 
 export const getTokenUsdPrice = vi.fn(async () => ({ tokenPriceUsd: new BigNumber('1') }));
-export const useGetTokenUsdPrice = () =>
-  useQuery(FunctionKey.GET_TOKEN_USD_PRICE, getTokenUsdPrice);
+export const useGetTokenUsdPrice = vi.fn(() =>
+  useQuery(FunctionKey.GET_TOKEN_USD_PRICE, getTokenUsdPrice),
+);
 
 export const getPrimeEstimation = vi.fn(async () => primeEstimationData);
 export const useGetPrimeEstimation = vi.fn(() =>

@@ -17,6 +17,7 @@ export interface AccountDataProps {
   pool: Pool;
   action: TokenAction;
   amountTokens: BigNumber;
+  showAssetInfo?: boolean;
   isUsingSwap?: boolean;
   swap?: Swap;
   className?: string;
@@ -28,6 +29,7 @@ export const AccountData: React.FC<AccountDataProps> = ({
   action,
   amountTokens,
   isUsingSwap = false,
+  showAssetInfo = true,
   swap,
   className,
 }) => {
@@ -55,13 +57,17 @@ export const AccountData: React.FC<AccountDataProps> = ({
 
   return (
     <div className={cn('space-y-6', className)}>
-      <div className="space-y-3">
-        {assetInfo.map(row => (
-          <LabeledInlineContent {...row} key={row.label} />
-        ))}
-      </div>
+      {showAssetInfo && (
+        <>
+          <div className="space-y-3">
+            {assetInfo.map(row => (
+              <LabeledInlineContent {...row} key={row.label} />
+            ))}
+          </div>
 
-      <Delimiter />
+          <Delimiter />
+        </>
+      )}
 
       <BorrowBalanceAccountHealth
         borrowBalanceCents={pool.userBorrowBalanceCents?.toNumber()}

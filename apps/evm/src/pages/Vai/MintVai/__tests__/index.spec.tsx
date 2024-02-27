@@ -67,7 +67,7 @@ describe('MintVai', () => {
 
     // Check input value updated to max amount of mintable VAI
     const fakeMintableVai = convertMantissaToTokens({
-      value: fakeGetMintableVaiOutput.mintableVaiMantissa,
+      value: fakeGetMintableVaiOutput.vaiLiquidityMantissa,
       token: vai,
     });
 
@@ -85,7 +85,7 @@ describe('MintVai', () => {
     // Check mintVai was called correctly
     await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
     expect(mintVai).toHaveBeenCalledWith({
-      amountMantissa: fakeGetMintableVaiOutput.mintableVaiMantissa,
+      amountMantissa: fakeGetMintableVaiOutput.vaiLiquidityMantissa,
     });
   });
 
