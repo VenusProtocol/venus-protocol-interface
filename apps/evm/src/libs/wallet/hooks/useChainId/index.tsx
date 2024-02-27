@@ -1,8 +1,8 @@
 import { useSearchParams } from 'react-router-dom';
 
-import { getChainIdFromSearchParams } from 'libs/wallet/utilities/getChainIdFromSearchParams';
+import { getChainId } from 'libs/wallet/utilities/getChainId';
 
 export const useChainId = () => {
   const [searchParams] = useSearchParams();
-  return getChainIdFromSearchParams({ searchParams });
+  return getChainId({ searchParams });
 };
