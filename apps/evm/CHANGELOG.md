@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.97.0
+
+### Minor Changes
+
+- 85a7f88: Start updating VAI page UI
+
+### Patch Changes
+
+- 04dda84: Improve syncing between wallet and URL chain IDs
+- 582419f: Update MATIC token icon
+
 ## 2.96.0
 
 ### Minor Changes
