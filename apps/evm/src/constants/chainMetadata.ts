@@ -33,7 +33,7 @@ export const CHAIN_METADATA: {
     layerZeroScanUrl: 'https://layerzeroscan.com/',
     blockTimeMs: 1000,
     blocksPerDay: 86400,
-    corePoolComptrollerContractAddress: '', // TODO: update address once it is deployed to opBNB mainnet
+    corePoolComptrollerContractAddress: '0xD6e3E2A1d8d95caE355D15b3b9f8E5c2511874dd',
     nativeToken: getToken({ chainId: ChainId.OPBNB_MAINNET, symbol: 'BNB' })!,
   },
   [ChainId.OPBNB_TESTNET]: {
