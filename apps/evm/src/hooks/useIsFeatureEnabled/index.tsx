@@ -21,6 +21,7 @@ const featureFlags = {
   marketParticipantCounts: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
+    ChainId.OPBNB_MAINNET,
     ChainId.ETHEREUM,
     ChainId.SEPOLIA,
   ],
