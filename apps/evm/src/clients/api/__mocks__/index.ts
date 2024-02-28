@@ -28,8 +28,9 @@ export const useGetVaiCalculateRepayAmount = () =>
   useQuery(FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT, getVaiCalculateRepayAmount);
 
 export const getVaiRepayAmountWithInterests = vi.fn();
-export const useGetVaiRepayAmountWithInterests = () =>
-  useQuery(FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS, getVaiRepayAmountWithInterests);
+export const useGetVaiRepayAmountWithInterests = vi.fn(() =>
+  useQuery(FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS, getVaiRepayAmountWithInterests),
+);
 
 export const getVaiTreasuryPercentage = vi.fn();
 export const useGetVaiTreasuryPercentage = () =>
@@ -252,7 +253,9 @@ export const useGetPancakeSwapPairs = () =>
   useQuery(FunctionKey.GET_PANCAKE_SWAP_PAIRS, getPancakeSwapPairs);
 
 export const getVaiRepayApy = vi.fn();
-export const useGetVaiRepayApy = () => useQuery(FunctionKey.GET_VAI_REPAY_APY, getVaiRepayApy);
+export const useGetVaiRepayApy = vi.fn(() =>
+  useQuery(FunctionKey.GET_VAI_REPAY_APY, getVaiRepayApy),
+);
 
 export const getVTokens = vi.fn(async () => ({
   vTokens,

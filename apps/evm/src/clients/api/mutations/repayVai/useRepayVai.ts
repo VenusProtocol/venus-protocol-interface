@@ -45,7 +45,7 @@ const useRepayVai = (options?: Options) => {
           FunctionKey.GET_TOKEN_ALLOWANCE,
           {
             chainId,
-            tokenAddress: vai,
+            tokenAddress: vai.address,
             accountAddress,
             spenderAddress: vaiControllerContract?.address,
           },

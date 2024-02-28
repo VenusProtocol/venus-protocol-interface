@@ -26,17 +26,19 @@ export const Prompt: React.FC<PromptProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  // Render prompt if user aren't connected with any wallet
-  if (connected) {
-    return <>{children}</>;
-  }
   return (
     <div css={styles.container} className={className}>
-      {!!message && <NoticeInfo css={styles.notice} description={message} />}
+      {connected ? (
+        children
+      ) : (
+        <>
+          {!!message && <NoticeInfo css={styles.notice} description={message} />}
 
-      <Button variant={buttonVariant} className="w-full" onClick={openAuthModal}>
-        {t('connectWallet.connectButton')}
-      </Button>
+          <Button variant={buttonVariant} className="w-full" onClick={openAuthModal}>
+            {t('connectWallet.connectButton')}
+          </Button>
+        </>
+      )}
     </div>
   );
 };

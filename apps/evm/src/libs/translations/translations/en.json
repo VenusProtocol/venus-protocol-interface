@@ -74,7 +74,7 @@
   "approveTokenSteps": {
     "approveTokenButton": {
       "text": "Approve {{tokenSymbol}}",
-      "tooltip": "We use PancakeSwap to support our swap feature, which requires spending approval for any token you wish to exchange from"
+      "tooltip": "We require spending approval for any token you wish to use with the Venus protocol."
     },
     "step1": "Step 1",
     "step2": "Step 2"
@@ -976,15 +976,15 @@
       },
       "borrowApy": {
         "label": "Borrow APY",
-        "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied to the Core pool"
+        "tooltip": "The annualized compound interest rate to be paid in the future, on top of the minted VAI"
+      },
+      "fee": {
+        "label": "Fee"
       },
       "notice": {
         "amountHigherThanAccountMintableAmount": "Amount entered higher than borrowable amount",
         "amountHigherThanLiquidity": "Amount entered higher than available VAI liquidity",
         "riskOfLiquidation": "You entered a high value. There is a risk of liquidation."
-      },
-      "fee": {
-        "label": "Fee"
       },
       "primeOnlyWarning": "Only users who hold a Prime token can borrow VAI. Learn more about Prime <Link>here</Link>.",
       "submitButton": {
@@ -1007,7 +1007,28 @@
       "walletBalance": "Wallet balance"
     },
     "repay": {
-      "tabTitle": "Repay"
+      "amountTokensInput": {
+        "limitButtonLabel": "MAX"
+      },
+      "borrowApy": {
+        "label": "Borrow APY",
+        "tooltip": "The annualized compound interest rate to be paid in the future, on top of the minted VAI"
+      },
+      "borrowBalance": "Currently borrowing",
+      "notice": {
+        "amountHigherThanBorrowBalance": "Amount entered higher than repay balance",
+        "amountHigherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
+        "amountHigherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
+        "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests"
+      },
+      "submitButton": {
+        "enterValidAmountLabel": "Enter a valid amount to repay",
+        "repayLabel": "Repay"
+      },
+      "tabTitle": "Repay",
+      "walletBalance": {
+        "label": "Wallet balance"
+      }
     },
     "repayVai": {
       "connectWallet": "Please connect your wallet to repay VAI",

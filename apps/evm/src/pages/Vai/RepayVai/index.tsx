@@ -211,6 +211,7 @@ export const RepayVaiUi: React.FC<IRepayVaiUiProps> = ({
                 approveToken={approveVai}
                 isApproveTokenLoading={isApproveVaiLoading}
                 isWalletSpendingLimitLoading={isVaiApprovalStatusLoading}
+                secondStepButtonLabel={t('vai.repayVai.submitButtonLabel')}
               >
                 <FormikSubmitButton
                   loading={isSubmitting}

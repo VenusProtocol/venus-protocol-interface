@@ -20,6 +20,7 @@ describe('ApproveTokenSteps', () => {
         isTokenApproved={false}
         isWalletSpendingLimitLoading={false}
         isApproveTokenLoading={false}
+        secondStepButtonLabel={fakeContent}
         approveToken={approveTokenMock}
         token={fakeAsset.vToken.underlyingToken}
       >
@@ -48,6 +49,7 @@ describe('ApproveTokenSteps', () => {
         isApproveTokenLoading={false}
         approveToken={noop}
         token={fakeAsset.vToken.underlyingToken}
+        secondStepButtonLabel={fakeContent}
         hideTokenEnablingStep
       >
         {fakeContent}
@@ -61,6 +63,7 @@ describe('ApproveTokenSteps', () => {
   it('does not render steps to enable token when token is enabled', async () => {
     const { getByText, queryByText } = renderComponent(
       <ApproveTokenSteps
+        secondStepButtonLabel={fakeContent}
         isTokenApproved
         isWalletSpendingLimitLoading={false}
         isApproveTokenLoading={false}
