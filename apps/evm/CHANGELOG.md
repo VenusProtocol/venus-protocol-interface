@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.98.0
+
+### Minor Changes
+
+- 0aeb39b: Added opBNB mainnet to the list of available chains
+
 ## 2.97.0
 
 ### Minor Changes
