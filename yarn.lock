@@ -7228,7 +7228,7 @@
     hardhat-deploy-ethers "^0.3.0-beta.13"
     module-alias "^2.2.2"
 
-"@venusprotocol/isolated-pools@^2.3.0", "@venusprotocol/isolated-pools@^2.4.0", "@venusprotocol/isolated-pools@^2.5.0":
+"@venusprotocol/isolated-pools@^2.3.0", "@venusprotocol/isolated-pools@^2.5.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.5.0.tgz#07378ca388bdb843b91bb51e453e47159945cfa2"
   integrity sha512-F+p6/mgnYSa+1KqwBmlYiVebWCPn/nvEvozj91tokGkCOsZ6XUc+YUunvW5Pfz13GMcT/akmjgXPZI+Gb4ONpg==
@@ -7242,10 +7242,24 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@venusprotocol/oracle@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.9.0.tgz#7a9b46cb3909523c33eca0729719a3c5dade03ad"
-  integrity sha512-K6W2AQG60AstBHyR9XL6RzeQ7mfXaUhsLzqAMaWnHplBK9rSZnBIUuLyhnI466T6lqFZKffZXk+tc1Wfctg1cQ==
+"@venusprotocol/isolated-pools@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.6.0.tgz#091ab6373f44d4c32d91ac2093f901ed07ca23a6"
+  integrity sha512-LdR6D9KHApAKVRyyXdg5P9Ux/fBL6sCHOA+5+nK5qCg6NCKVwEOSSC8ZszyT4Jn1V8Z/B/CVDjNcgf8/V3j3Fw==
+  dependencies:
+    "@nomiclabs/hardhat-ethers" "^2.2.3"
+    "@openzeppelin/contracts" "^4.8.3"
+    "@openzeppelin/contracts-upgradeable" "^4.8.3"
+    "@openzeppelin/hardhat-upgrades" "^1.21.0"
+    "@solidity-parser/parser" "^0.13.2"
+    ethers "^5.7.0"
+    hardhat-deploy "^0.11.14"
+    module-alias "^2.2.2"
+
+"@venusprotocol/oracle@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-1.10.0.tgz#67d3174b99ea0339a1895e21cbe9b981aa60a957"
+  integrity sha512-zuwEhmfW0zfUkNc7n7AlBt9geuzxXYfcT9nbVJ9ZJMTlW0sEz6nWpIyzS3pcOeLP9lozCBjZMnRX1r6GdCJLMQ==
   dependencies:
     "@chainlink/contracts" "^0.5.1"
     "@defi-wonderland/smock" "^2.3.4"
@@ -7297,10 +7311,23 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-1.3.0.tgz#73685899195afdf9b19558ca7cb1e500f8879576"
   integrity sha512-OQZmjIb9goOao8hFYvaCw60Ez0E+uB3vWrF/2XqGVJjYXFROMN+x1WrXNusRv+CNKxf6hudJ0T5pjJ7epMXMlg==
 
-"@venusprotocol/token-bridge@1.0.0", "@venusprotocol/token-bridge@^1.0.0":
+"@venusprotocol/token-bridge@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-1.0.0.tgz#5142a30247affd7c6249b2ed860bac37c05c48c7"
   integrity sha512-RWjhtFzD5nezsttNPYIqxsBno6ITbRqHL7soej+uuDeb/Sp2Ug+67hJS6VOrvMalUnfRlya9wjGu7oT/9GIGDg==
+  dependencies:
+    "@layerzerolabs/solidity-examples" "^1.0.0"
+    "@openzeppelin/contracts" "^4.8.3"
+    "@openzeppelin/contracts-upgradeable" "^4.8.3"
+    "@openzeppelin/hardhat-upgrades" "^1.21.0"
+    "@solidity-parser/parser" "^0.13.2"
+    ethers "^5.7.0"
+    module-alias "^2.2.2"
+
+"@venusprotocol/token-bridge@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-1.1.0.tgz#de5ca0ddf8384e85827bbd266ea24a5fa688ac48"
+  integrity sha512-orf6bZUzOzJ9UETgpuXQYEEqLP3hLKu8rj8dP8YDuVahWhWKJWeQBALcb8aeZTVwKE49uFWPqrtPbG+bR8rKEg==
   dependencies:
     "@layerzerolabs/solidity-examples" "^1.0.0"
     "@openzeppelin/contracts" "^4.8.3"
@@ -7323,10 +7350,10 @@
     dotenv "^16.0.1"
     module-alias "^2.2.2"
 
-"@venusprotocol/venus-protocol@^7.1.0":
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-7.2.0.tgz#68298a6e55d9739b3bb6cdfa98d1b8339510708b"
-  integrity sha512-ogkWPluQIaqRTHNo/VydytXvom+CIAVqBpTjOSdfhhsaoqL7EB7/N/M9gEHD7xPE118o/jdIqfyrri9DiCGf8w==
+"@venusprotocol/venus-protocol@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-7.3.0.tgz#698f7e751f7f42aa340f6b16d9a4752cd143c950"
+  integrity sha512-ryFK3LBveuB3h98CdHfNDpfSgapiTjAHUDg2kkkurMQffvHp/6nj3Hd/Y3yrDhg8KS80GLBebTdzLeX84Ag+Cw==
   dependencies:
     "@openzeppelin/contracts" "4.9.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"

@@ -12,6 +12,7 @@ export enum ChainId {
   'BSC_TESTNET' = 97,
   'ETHEREUM' = 1,
   'SEPOLIA' = 11155111,
+  'OPBNB_MAINNET' = 204,
   'OPBNB_TESTNET' = 5611,
 }
 
