@@ -31,7 +31,7 @@
     "@changesets/cli": "^2.27.1",
     "@commitlint/config-conventional": "17.7.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "commitlint": "^18.1.0",
+    "commitlint": "^19.0.3",
     "husky": "^9.0.6",
     "lint-staged": "^15.0.1",
     "prettier": "^3.0.3",
