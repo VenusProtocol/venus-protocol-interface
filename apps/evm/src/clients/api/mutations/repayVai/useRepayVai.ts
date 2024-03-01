@@ -35,7 +35,6 @@ const useRepayVai = (options?: Options) => {
     onConfirmed: async () => {
       const accountAddress = await vaiControllerContract?.signer.getAddress();
       // Invalidate queries related to fetching the user minted VAI amount
-      queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
       queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
       queryClient.invalidateQueries(FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS);
       queryClient.invalidateQueries(FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT);

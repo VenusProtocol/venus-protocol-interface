@@ -27,7 +27,7 @@ const useMintVai = (options?: Options) => {
       ),
     onConfirmed: () => {
       // Invalidate queries related to fetching the user minted VAI amount
-      queryClient.invalidateQueries(FunctionKey.GET_MINTED_VAI);
+      queryClient.invalidateQueries(FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS);
       queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
     },
     options,
