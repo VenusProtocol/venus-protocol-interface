@@ -25,17 +25,6 @@ describe('RepayForm', () => {
     renderComponent(<Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
   });
 
-  it('displays correct borrow balance', async () => {
-    const { getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    await waitFor(() => getByText('1.00K XVS'));
-  });
-
   it('displays correct wallet balance', async () => {
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,

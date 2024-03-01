@@ -87,16 +87,12 @@ describe('Repay', () => {
     });
   });
 
-  it('displays the correct repay VAI balance, wallet balance and borrow APY', async () => {
+  it('displays the correct wallet balance and borrow APY', async () => {
     const { getByTestId, getByText } = renderComponent(<Repay />, {
       accountAddress: fakeAccountAddress,
     });
     await waitFor(() => getByText(en.vai.repay.submitButton.enterValidAmountLabel));
 
-    // Check user VAI borrow balance displays correctly
-    await waitFor(() =>
-      expect(getByTestId(TEST_IDS.userVaiBorrowBalance).textContent).toMatchSnapshot(),
-    );
     // Check user VAI balance displays correctly
     expect(getByTestId(TEST_IDS.userVaiWalletBalance).textContent).toMatchSnapshot();
     // Check borrow APY displays correctly

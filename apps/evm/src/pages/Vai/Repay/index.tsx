@@ -109,11 +109,6 @@ export const Repay: React.FC = () => {
   const userVaiBorrowBalanceMantissa =
     userVaiBorrowBalanceData?.vaiRepayAmountWithInterestsMantissa;
 
-  const readableUserVaiBorrowBalance = useConvertMantissaToReadableTokenString({
-    value: userVaiBorrowBalanceMantissa,
-    token: vai,
-  });
-
   const {
     limitTokens,
     form: { control, handleSubmit, watch, formState, setValue, reset },
@@ -191,13 +186,6 @@ export const Repay: React.FC = () => {
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-      <LabeledInlineContent
-        label={t('vai.repay.borrowBalance')}
-        data-testid={TEST_IDS.userVaiBorrowBalance}
-      >
-        {readableUserVaiBorrowBalance}
-      </LabeledInlineContent>
-
       <div className="space-y-3">
         <RhfTokenTextField<FormValues>
           control={control}

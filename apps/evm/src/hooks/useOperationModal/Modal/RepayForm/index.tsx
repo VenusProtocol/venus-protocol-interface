@@ -165,11 +165,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     token: formValues.fromToken,
   });
 
-  const readableUserBorrowBalanceTokens = useFormatTokensToReadableValue({
-    value: asset.userBorrowBalanceTokens,
-    token: asset.vToken.underlyingToken,
-  });
-
   const isRepayingFullLoan = useMemo(
     () => formValues.fixedRepayPercentage === 100,
     [formValues.fixedRepayPercentage],
@@ -194,13 +189,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <LabeledInlineContent
-        css={sharedStyles.getRow({ isLast: true })}
-        label={t('operationModal.repay.currentlyBorrowing')}
-      >
-        {readableUserBorrowBalanceTokens}
-      </LabeledInlineContent>
-
       <div className="mb-3">
         {isIntegratedSwapEnabled || canWrapNativeToken ? (
           <SelectTokenTextField
