@@ -421,7 +421,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
         token: asset.vToken.underlyingToken,
         balanceMantissa: convertTokensToMantissa({
           token: asset.vToken.underlyingToken,
-          value: asset.userSupplyBalanceTokens,
+          value: asset.userWalletBalanceTokens,
         }),
       };
       const nativeTokenBalance: TokenBalance = {

@@ -472,3 +472,7 @@ export const useClaimPrimeToken = (options?: MutationObserverOptions) =>
 export const bridgeXvs = vi.fn();
 export const useBridgeXvs = (options?: MutationObserverOptions) =>
   useMutation(FunctionKey.BRIDGE_XVS, bridgeXvs, options);
+
+export const wrapTokensAndSupply = vi.fn();
+export const useWrapTokensAndSupply = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.WRAP_TOKENS_AND_SUPPLY, wrapTokensAndSupply, options);

@@ -1,6 +1,6 @@
 import { VToken } from 'types';
 
-import { bnb, busd, luna, usdc, usdt, ust, xvs } from './tokens';
+import { bnb, busd, luna, usdc, usdt, ust, weth, xvs } from './tokens';
 
 export const vXvs: VToken = {
   address: '0x6d6F697e34145Bb95c54E77482d97cc261Dc237E',
@@ -49,6 +49,13 @@ export const vLuna: VToken = {
   decimals: 8,
   symbol: 'vLUNA',
   underlyingToken: luna,
+};
+
+export const vWeth: VToken = {
+  address: '0xc2931B1fEa69b6D6dA65a50363A8D75d285e4da9',
+  decimals: 8,
+  symbol: 'vWETH',
+  underlyingToken: weth,
 };
 
 export default [vXvs, vBnb, vUsdc, vUsdt, vBusd, vUst, vLuna];
