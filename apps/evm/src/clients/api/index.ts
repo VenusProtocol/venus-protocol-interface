@@ -152,10 +152,6 @@ export { default as getVTokenBalanceOf } from './queries/getVTokenBalanceOf';
 export * from './queries/getVTokenBalanceOf';
 export { default as useGetVTokenBalanceOf } from './queries/getVTokenBalanceOf/useGetVTokenBalanceOf';
 
-export { default as getMintedVai } from './queries/getMintedVai';
-export * from './queries/getMintedVai';
-export { default as useGetMintedVai } from './queries/getMintedVai/useGetMintedVai';
-
 export { default as getPendingRewards } from './queries/getPendingRewards';
 export * from './queries/getPendingRewards';
 export { default as useGetPendingRewards } from './queries/getPendingRewards/useGetPendingRewards';

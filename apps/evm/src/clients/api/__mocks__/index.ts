@@ -50,9 +50,6 @@ export const useGetVTokenBalancesAll = vi.fn(() =>
   useQuery(FunctionKey.GET_V_TOKEN_BALANCES_ALL, getVTokenBalancesAll),
 );
 
-export const getMintedVai = vi.fn();
-export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMintedVai);
-
 export const getMintableVai = vi.fn();
 export const useGetMintableVai = vi.fn(() =>
   useQuery(FunctionKey.GET_MINTABLE_VAI, getMintableVai),
