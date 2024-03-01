@@ -43,8 +43,11 @@ export const useForm = ({ vaiLiquidityMantissa, accountMintableVaiMantissa }: Us
         amountTokens: z.coerce
           .string()
           .min(1)
+          .refine(value => +value > 0)
           .refine(
-            value => !vaiLiquidityTokens || new BigNumber(vaiLiquidityTokens).isGreaterThan(value),
+            value =>
+              !vaiLiquidityTokens ||
+              new BigNumber(vaiLiquidityTokens).isGreaterThanOrEqualTo(value),
             {
               message: ErrorCode.HIGHER_THAN_LIQUIDITY,
             },
@@ -52,7 +55,7 @@ export const useForm = ({ vaiLiquidityMantissa, accountMintableVaiMantissa }: Us
           .refine(
             value =>
               !accountMintableVaiTokens ||
-              new BigNumber(accountMintableVaiTokens).isGreaterThan(value),
+              new BigNumber(accountMintableVaiTokens).isGreaterThanOrEqualTo(value),
             {
               message: ErrorCode.HIGHER_THAN_MINTABLE_AMOUNT,
             },
@@ -69,5 +72,5 @@ export const useForm = ({ vaiLiquidityMantissa, accountMintableVaiMantissa }: Us
     },
   });
 
-  return form;
+  return { form };
 };

@@ -182,6 +182,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
               approveToken={approveToken}
               isApproveTokenLoading={isApproveTokenLoading}
               isWalletSpendingLimitLoading={isWalletSpendingLimitLoading}
+              secondStepButtonLabel={submitButtonLabel}
             >
               <FormikSubmitButton
                 loading={isSubmitting}

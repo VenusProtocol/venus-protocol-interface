@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Repay > displays the correct repay VAI balance, wallet balance and borrow APY 1`] = `"Currently borrowing5.00 VAI"`;
+
+exports[`Repay > displays the correct repay VAI balance, wallet balance and borrow APY 2`] = `"Wallet balance> 100.00T VAI"`;
+
+exports[`Repay > displays the correct repay VAI balance, wallet balance and borrow APY 3`] = `"Borrow APY1.34%"`;

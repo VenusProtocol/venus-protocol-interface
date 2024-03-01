@@ -3,13 +3,14 @@ import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
 import { Borrow } from './Borrow';
+import { Repay } from './Repay';
 
 const VaiNew: React.FC = () => {
   const { t, Trans } = useTranslation();
 
   const tabsContent = [
     { title: t('vai.borrow.tabTitle'), content: <Borrow /> },
-    { title: t('vai.repay.tabTitle'), content: <></> },
+    { title: t('vai.repay.tabTitle'), content: <Repay /> },
   ];
 
   return (

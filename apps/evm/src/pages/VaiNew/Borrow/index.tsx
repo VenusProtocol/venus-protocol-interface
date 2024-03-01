@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 
 import {
@@ -101,7 +101,9 @@ export const Borrow: React.FC = () => {
     [mintableVaiData?.vaiLiquidityMantissa, mintableVaiData?.accountMintableVaiMantissa],
   );
 
-  const { control, handleSubmit, watch, formState, setValue } = useForm({
+  const {
+    form: { control, handleSubmit, watch, formState, setValue, reset },
+  } = useForm({
     ...mintableVaiData,
   });
 
@@ -191,18 +193,24 @@ export const Borrow: React.FC = () => {
     return t('vai.borrow.submitButton.borrowLabel');
   }, [t, isDangerousTransaction]);
 
-  const onSubmit: SubmitHandler<FormValues> = async ({ amountTokens }) => {
-    const amountMantissa = convertTokensToMantissa({
-      value: new BigNumber(amountTokens),
-      token: vai,
-    });
+  const onSubmit: SubmitHandler<FormValues> = useCallback(
+    async ({ amountTokens }) => {
+      const amountMantissa = convertTokensToMantissa({
+        value: new BigNumber(amountTokens),
+        token: vai,
+      });
 
-    try {
-      await mintVai({ amountMantissa });
-    } catch (error) {
-      displayMutationError({ error });
-    }
-  };
+      try {
+        await mintVai({ amountMantissa });
+
+        // Reset form on successful submission
+        reset();
+      } catch (error) {
+        displayMutationError({ error });
+      }
+    },
+    [mintVai, reset, vai],
+  );
 
   const isInitialLoading = isGetMintableVaiLoading || isGetPrimeTokenLoading;
 
@@ -261,8 +269,7 @@ export const Borrow: React.FC = () => {
         </LabeledInlineContent>
 
         <LabeledInlineContent
-          iconSrc="fee"
-          iconClassName="text-lightGrey"
+          iconSrc={vai}
           label={t('vai.borrow.borrowApy.label')}
           tooltip={t('vai.borrow.borrowApy.tooltip')}
         >

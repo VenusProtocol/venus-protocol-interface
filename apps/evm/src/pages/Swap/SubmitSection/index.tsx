@@ -102,6 +102,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
       approveToken={approveFromToken}
       isApproveTokenLoading={isApproveFromTokenLoading}
       isWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+      secondStepButtonLabel={submitButtonLabel}
       css={styles.container}
     >
       <PrimaryButton

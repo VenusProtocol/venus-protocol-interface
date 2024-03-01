@@ -399,6 +399,7 @@ const BridgePage: React.FC = () => {
             approveToken={approveXvs}
             isApproveTokenLoading={isApproveXvsLoading}
             isWalletSpendingLimitLoading={isXvsWalletSpendingLimitLoading}
+            secondStepButtonLabel={submitButtonLabel}
           >
             {isUserConnected ? (
               <PrimaryButton

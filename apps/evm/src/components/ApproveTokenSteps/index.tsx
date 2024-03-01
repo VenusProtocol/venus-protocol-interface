@@ -17,6 +17,7 @@ export interface ApproveTokenStepsProps {
   isWalletSpendingLimitLoading: boolean;
   isApproveTokenLoading: boolean;
   children: React.ReactNode;
+  secondStepButtonLabel: string;
   isUsingSwap?: boolean;
   className?: string;
   hideTokenEnablingStep?: boolean;
@@ -30,6 +31,7 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
   isApproveTokenLoading,
   hideTokenEnablingStep,
   isUsingSwap = false,
+  secondStepButtonLabel,
   className,
   children,
 }) => {
@@ -49,7 +51,7 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
 
   return (
     <div className={className}>
-      {showApproveTokenStep && (
+      {showApproveTokenStep ? (
         <>
           <div css={styles.buttonLabelContainer}>
             <Typography variant="small1" component="label" css={styles.buttonLabel}>
@@ -81,10 +83,14 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
               {t('approveTokenSteps.step2')}
             </Typography>
           </div>
-        </>
-      )}
 
-      {children}
+          <PrimaryButton className="w-full" disabled>
+            {secondStepButtonLabel}
+          </PrimaryButton>
+        </>
+      ) : (
+        children
+      )}
     </div>
   );
 };
