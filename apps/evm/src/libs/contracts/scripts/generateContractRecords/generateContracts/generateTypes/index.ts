@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { glob, runTypeChain } from 'typechain';
 
 import { ContractConfig } from 'libs/contracts/config';
-import { isSwapRouterContractConfig } from 'libs/contracts/utilities/isSwapRouterContractConfig';
+import { isUniquePerPoolContractConfig } from 'libs/contracts/utilities/isUniquePerPoolContractConfig';
 import processCwd from 'utilities/cwd';
 import writeFile from 'utilities/writeFile';
 
@@ -41,16 +41,16 @@ export const generateTypes = async ({
   const contractNames: {
     uniques: string[];
     generics: string[];
-    swapRouter: string;
+    uniquePerPool: string[];
   } = {
     uniques: [],
     generics: [],
-    swapRouter: '',
+    uniquePerPool: [],
   };
 
   contractConfigs.forEach(contractConfig => {
-    if (isSwapRouterContractConfig(contractConfig)) {
-      contractNames.swapRouter = contractConfig.name;
+    if (isUniquePerPoolContractConfig(contractConfig)) {
+      contractNames.uniquePerPool.push(contractConfig.name);
     } else if ('address' in contractConfig) {
       contractNames.uniques.push(contractConfig.name);
     } else {

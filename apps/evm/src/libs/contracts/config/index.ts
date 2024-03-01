@@ -242,13 +242,6 @@ export const contracts: ContractConfig[] = [
     },
   },
   {
-    name: 'NativeTokenGateway',
-    abi: NativeTokenGatewayAbi,
-    address: {
-      [ChainId.SEPOLIA]: '0x13B3f65C0e2C64528F678B3C78ccac7341a2A66C', // TODO: replace with address from package once it's added
-    },
-  },
-  {
     name: 'ResilientOracle',
     abi: ResilientOracleAbi,
     address: {

@@ -40,9 +40,9 @@ exports[`generateTypes > calls runTypeChain and writeFile with the right argumen
 
 export type GenericContractName = | 'IsolatedPoolComptroller';
 
-export type SwapRouterContractName = 'SwapRouter';
+export type UniquePerPoolContractName = | 'SwapRouter';
 
-export type ContractName = UniqueContractName | GenericContractName | SwapRouterContractName;
+export type ContractName = UniqueContractName | GenericContractName | UniquePerPoolContractName;
 ",
     "outputPath": "fake/types/output/directory/path",
   },

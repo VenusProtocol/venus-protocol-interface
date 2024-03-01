@@ -2,7 +2,7 @@ import { compile } from 'handlebars';
 import { readFileSync } from 'node:fs';
 
 import { ContractConfig } from 'libs/contracts/config';
-import { isSwapRouterContractConfig } from 'libs/contracts/utilities/isSwapRouterContractConfig';
+import { isUniquePerPoolContractConfig } from 'libs/contracts/utilities/isUniquePerPoolContractConfig';
 import writeFile from 'utilities/writeFile';
 
 const TEMPLATES_DIRECTORY = `${__dirname}/templates`;
@@ -17,20 +17,20 @@ const genericContractGettersTemplateBuffer = readFileSync(
 );
 const genericContractGettersTemplate = compile(genericContractGettersTemplateBuffer.toString());
 
-const swapRouterContractGettersTemplateBuffer = readFileSync(
-  `${TEMPLATES_DIRECTORY}/swapRouterContractGettersTemplate.hbs`,
+const uniquePerPoolContractGettersTemplateBuffer = readFileSync(
+  `${TEMPLATES_DIRECTORY}/uniquePerPoolContractGettersTemplate.hbs`,
 );
-const swapRouterContractGettersTemplate = compile(
-  swapRouterContractGettersTemplateBuffer.toString(),
+const uniquePerPoolContractGettersTemplate = compile(
+  uniquePerPoolContractGettersTemplateBuffer.toString(),
 );
 
 const indexTemplateBuffer = readFileSync(`${TEMPLATES_DIRECTORY}/index.hbs`);
 const indexTemplate = compile(indexTemplateBuffer.toString());
 
 const getContent = ({ contractConfig }: { contractConfig: ContractConfig }) => {
-  // Handle SwapRouter contract
-  if (isSwapRouterContractConfig(contractConfig)) {
-    return swapRouterContractGettersTemplate({
+  // Handle contracts that are unique in a given pool
+  if (isUniquePerPoolContractConfig(contractConfig)) {
+    return uniquePerPoolContractGettersTemplate({
       contractName: contractConfig.name,
     });
   }
