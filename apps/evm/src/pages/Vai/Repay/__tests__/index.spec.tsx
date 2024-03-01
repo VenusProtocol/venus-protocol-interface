@@ -14,7 +14,7 @@ import {
   useGetLegacyPool,
   useGetTokenUsdPrice,
   useGetVaiRepayAmountWithInterests,
-  useGetVaiRepayApy,
+  useGetVaiRepayApr,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -55,9 +55,9 @@ describe('Repay', () => {
       isLoading: false,
     }));
 
-    (useGetVaiRepayApy as Vi.Mock).mockImplementation(() => ({
+    (useGetVaiRepayApr as Vi.Mock).mockImplementation(() => ({
       data: {
-        repayApyPercentage: new BigNumber(1.34),
+        repayAprPercentage: new BigNumber(1.34),
       },
       isLoading: false,
     }));
@@ -100,7 +100,7 @@ describe('Repay', () => {
     // Check user VAI balance displays correctly
     expect(getByTestId(TEST_IDS.userVaiWalletBalance).textContent).toMatchSnapshot();
     // Check borrow APY displays correctly
-    expect(getByTestId(TEST_IDS.borrowApy).textContent).toMatchSnapshot();
+    expect(getByTestId(TEST_IDS.borrowApr).textContent).toMatchSnapshot();
   });
 
   it('lets user repay some of their VAI loan', async () => {

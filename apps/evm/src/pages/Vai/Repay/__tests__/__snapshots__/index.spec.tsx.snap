@@ -4,4 +4,4 @@ exports[`Repay > displays the correct repay VAI balance, wallet balance and borr
 
 exports[`Repay > displays the correct repay VAI balance, wallet balance and borrow APY 2`] = `"Wallet balance> 100.00T VAI"`;
 
-exports[`Repay > displays the correct repay VAI balance, wallet balance and borrow APY 3`] = `"Borrow APY1.34%"`;
+exports[`Repay > displays the correct repay VAI balance, wallet balance and borrow APY 3`] = `"Borrow APR1.34%"`;

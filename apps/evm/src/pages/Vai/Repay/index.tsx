@@ -5,7 +5,7 @@ import { SubmitHandler } from 'react-hook-form';
 import {
   useGetBalanceOf,
   useGetVaiRepayAmountWithInterests,
-  useGetVaiRepayApy,
+  useGetVaiRepayApr,
   useRepayVai,
 } from 'clients/api';
 import {
@@ -90,10 +90,10 @@ export const Repay: React.FC = () => {
 
   const { mutateAsync: repayVai } = useRepayVai();
 
-  const { data: getVaiRepayApyData } = useGetVaiRepayApy();
+  const { data: getVaiRepayAprData } = useGetVaiRepayApr();
 
-  const readableBorrowApy = useFormatPercentageToReadableValue({
-    value: getVaiRepayApyData?.repayApyPercentage,
+  const readableBorrowApr = useFormatPercentageToReadableValue({
+    value: getVaiRepayAprData?.repayAprPercentage,
   });
 
   const { data: userVaiBorrowBalanceData, isLoading: isGetUserVaiBorrowBalanceLoading } =
@@ -245,11 +245,11 @@ export const Repay: React.FC = () => {
 
         <LabeledInlineContent
           iconSrc={vai}
-          label={t('vai.repay.borrowApy.label')}
-          tooltip={t('vai.repay.borrowApy.tooltip')}
-          data-testid={TEST_IDS.borrowApy}
+          label={t('vai.repay.borrowApr.label')}
+          tooltip={t('vai.repay.borrowApr.tooltip')}
+          data-testid={TEST_IDS.borrowApr}
         >
-          {readableBorrowApy}
+          {readableBorrowApr}
         </LabeledInlineContent>
       </div>
 

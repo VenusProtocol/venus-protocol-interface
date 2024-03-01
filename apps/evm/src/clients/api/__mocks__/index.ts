@@ -249,9 +249,9 @@ export const getPancakeSwapPairs = vi.fn();
 export const useGetPancakeSwapPairs = () =>
   useQuery(FunctionKey.GET_PANCAKE_SWAP_PAIRS, getPancakeSwapPairs);
 
-export const getVaiRepayApy = vi.fn();
-export const useGetVaiRepayApy = vi.fn(() =>
-  useQuery(FunctionKey.GET_VAI_REPAY_APY, getVaiRepayApy),
+export const getVaiRepayApr = vi.fn();
+export const useGetVaiRepayApr = vi.fn(() =>
+  useQuery(FunctionKey.GET_VAI_REPAY_APR, getVaiRepayApr),
 );
 
 export const getVTokens = vi.fn(async () => ({

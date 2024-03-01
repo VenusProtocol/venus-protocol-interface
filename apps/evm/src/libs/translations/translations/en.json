@@ -974,9 +974,9 @@
         "label": "Borrowable amount",
         "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied to the Core pool"
       },
-      "borrowApy": {
-        "label": "Borrow APY",
-        "tooltip": "The annualized compound interest rate to be paid in the future, on top of the minted VAI"
+      "borrowApr": {
+        "label": "Borrow APR",
+        "tooltip": "The annualized interest rate to be paid in the future, on top of the minted VAI"
       },
       "fee": {
         "label": "Fee"
@@ -1010,9 +1010,9 @@
       "amountTokensInput": {
         "limitButtonLabel": "MAX"
       },
-      "borrowApy": {
-        "label": "Borrow APY",
-        "tooltip": "The annualized compound interest rate to be paid in the future, on top of the minted VAI"
+      "borrowApr": {
+        "label": "Borrow APR",
+        "tooltip": "The annualized interest rate to be paid in the future, on top of the minted VAI"
       },
       "borrowBalance": "Currently borrowing",
       "notice": {
