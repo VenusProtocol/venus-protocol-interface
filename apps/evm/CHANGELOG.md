@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.99.0
+
+### Minor Changes
+
+- 6d46003: Add Repay VAI tab
+- 1bd8875: Filter out LST pool from Ethereum network
+
+### Patch Changes
+
+- 058d801: Update underlying token address of WETH
+
 ## 2.98.0
 
 ### Minor Changes
