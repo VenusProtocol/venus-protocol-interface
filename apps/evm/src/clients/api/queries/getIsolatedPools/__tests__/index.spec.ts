@@ -22,7 +22,7 @@ import {
 } from 'libs/contracts';
 import { ChainId, Token } from 'types';
 
-import getIsolatedPools from '..';
+import getIsolatedPools, { LST_POOL_COMPTROLLER_ADDRESS } from '..';
 import {
   fakeGetAssetsInOutput,
   fakeGetPriceOutput,
@@ -84,13 +84,13 @@ describe('api/queries/getIsolatedPools', () => {
     (getRewardsDistributorContract as Vi.Mock).mockImplementation(
       () => fakeRewardsDistributorContract,
     );
+
+    (getIsolatedPoolParticipantsCount as Vi.Mock).mockImplementation(
+      () => fakeIsolatedPoolParticipantsCount,
+    );
   });
 
   it('returns isolated pools in the correct format', async () => {
-    (getIsolatedPoolParticipantsCount as Vi.Mock).mockImplementationOnce(
-      () => fakeIsolatedPoolParticipantsCount,
-    );
-
     const response = await getIsolatedPools({
       chainId: ChainId.BSC_TESTNET,
       xvs,
@@ -156,5 +156,47 @@ describe('api/queries/getIsolatedPools', () => {
     });
 
     expect(response).toMatchSnapshot();
+  });
+
+  it('filters out the LST pool from the Ethereum network', async () => {
+    const customFakePoolLensContract = {
+      getAllPools: async () => [
+        {
+          ...fakePoolLensResponses.getAllPools[0],
+          comptroller: LST_POOL_COMPTROLLER_ADDRESS,
+        },
+        ...fakePoolLensResponses.getAllPools.slice(1),
+      ],
+      callStatic: {
+        vTokenBalancesAll: async (vTokenAddresses: string[]) =>
+          vTokenAddresses.map(vTokenAddress => ({
+            vToken: vTokenAddress,
+            balanceOf: BN.from('1000000000000000000'),
+            balanceOfUnderlying: BN.from('2000000000000000000'),
+            borrowBalanceCurrent: BN.from('300000000000000000'),
+            tokenBalance: BN.from('40000000000000000000'),
+            tokenAllowance: BN.from(MAX_UINT256),
+          })),
+      },
+    } as unknown as PoolLens;
+
+    const response = await getIsolatedPools({
+      chainId: ChainId.ETHEREUM,
+      xvs,
+      blocksPerDay: 28800,
+      tokens,
+      provider: fakeProvider,
+      poolRegistryContractAddress: fakePoolRegistryContractAddress,
+      poolLensContract: customFakePoolLensContract,
+      resilientOracleContract: fakeResilientOracleContract,
+    });
+
+    expect(
+      response.pools.some(
+        pool =>
+          pool.comptrollerAddress.toLocaleLowerCase() ===
+          LST_POOL_COMPTROLLER_ADDRESS.toLocaleLowerCase(),
+      ),
+    ).toBe(false);
   });
 });
