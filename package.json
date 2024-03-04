@@ -37,7 +37,7 @@
     "prettier": "^3.0.3",
     "prettier-airbnb-config": "^1.0.0",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "reg-keygen-git-hash-plugin": "^0.13.0",
+    "reg-keygen-git-hash-plugin": "^0.14.2",
     "reg-notify-github-plugin": "^0.14.2",
     "reg-publish-s3-plugin": "^0.12.2",
     "reg-suit": "^0.14.0",
