@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVaiRepayApr > returns the VAI repay APY in the correct format on success 1`] = `
+exports[`api/queries/getVaiRepayApr > returns the VAI repay APR in the correct format on success 1`] = `
 {
   "repayAprPercentage": "4",
 }

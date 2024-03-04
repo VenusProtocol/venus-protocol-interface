@@ -5,7 +5,7 @@ import { useTranslation } from 'libs/translations';
 import { Borrow } from './Borrow';
 import { Repay } from './Repay';
 
-const VaiNew: React.FC = () => {
+const Vai: React.FC = () => {
   const { t, Trans } = useTranslation();
 
   const tabsContent = [
@@ -34,4 +34,4 @@ const VaiNew: React.FC = () => {
   );
 };
 
-export default VaiNew;
+export default Vai;

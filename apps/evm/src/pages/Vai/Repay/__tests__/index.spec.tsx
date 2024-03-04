@@ -87,7 +87,7 @@ describe('Repay', () => {
     });
   });
 
-  it('displays the correct wallet balance and borrow APY', async () => {
+  it('displays the correct wallet balance and borrow APR', async () => {
     const { getByTestId, getByText } = renderComponent(<Repay />, {
       accountAddress: fakeAccountAddress,
     });
@@ -95,7 +95,7 @@ describe('Repay', () => {
 
     // Check user VAI balance displays correctly
     expect(getByTestId(TEST_IDS.userVaiWalletBalance).textContent).toMatchSnapshot();
-    // Check borrow APY displays correctly
+    // Check borrow APR displays correctly
     expect(getByTestId(TEST_IDS.borrowApr).textContent).toMatchSnapshot();
   });
 
