@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.100.0
+
+### Minor Changes
+
+- 4d66e04: Enable new VAI page
+
 ## 2.99.0
 
 ### Minor Changes
