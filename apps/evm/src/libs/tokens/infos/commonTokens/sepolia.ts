@@ -32,7 +32,7 @@ export const tokens: Token[] = [
     asset: wbtcLogo,
   },
   {
-    address: '0x700868CAbb60e90d77B6588ce072d9859ec8E281',
+    address: '0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9',
     decimals: 18,
     symbol: 'WETH',
     asset: wethLogo,
