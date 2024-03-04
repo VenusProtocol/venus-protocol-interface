@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { displayMutationError } from 'libs/errors';
-import { Asset, Swap, SwapError, Token, VToken } from 'types';
+import { Asset, Swap, SwapError, Token } from 'types';
 
 import { FormError, FormValues } from './types';
 import useFormValidation from './useFormValidation';
@@ -11,7 +11,6 @@ export * from './types';
 export interface UseFormInput {
   asset: Asset;
   onSubmit: (input: {
-    toVToken: VToken;
     fromToken: Token;
     fromTokenAmountTokens: string;
     swap?: Swap;
@@ -63,7 +62,6 @@ const useForm = ({
 
     try {
       await onSubmit({
-        toVToken: asset.vToken,
         fromTokenAmountTokens: formValues.amountTokens,
         fromToken: formValues.fromToken,
         swap,

@@ -22,14 +22,13 @@ describe('wrapTokensAndSupply', () => {
     const response = await wrapTokensAndSupply({
       accountAddress: fakeAddress,
       nativeTokenGatewayContract: fakeNativeTokenGatewayContract,
-      vToken: vWeth,
       amountMantissa: fakeAmountMantissa,
     });
 
     expect(response).toBe(fakeContractTransaction);
 
     expect(wrapAndSupplyMock).toHaveBeenCalledTimes(1);
-    expect(wrapAndSupplyMock).toHaveBeenCalledWith(vWeth.address, fakeAddress, {
+    expect(wrapAndSupplyMock).toHaveBeenCalledWith(fakeAddress, {
       value: fakeAmountMantissa.toFixed(),
     });
   });

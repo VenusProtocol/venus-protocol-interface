@@ -1,11 +1,19 @@
+import { fireEvent, waitFor } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
+import { eth } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
+import { useGetBalanceOf, wrapTokensAndSupply } from 'clients/api';
+import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
+import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { en } from 'libs/translations';
 import { ChainId } from 'types';
+import { convertTokensToMantissa } from 'utilities';
 
 import Supply from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
@@ -14,11 +22,19 @@ import TEST_IDS from '../testIds';
 vi.mock('libs/tokens');
 vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
+const fakeBalanceMantissa = new BigNumber('10000000000000000000');
+
 describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
     );
+    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+      data: {
+        balanceMantissa: fakeBalanceMantissa,
+      },
+      isLoading: false,
+    }));
   });
 
   it('renders without crashing', () => {
@@ -49,5 +65,54 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     );
 
     expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible();
+  });
+
+  it('lets user wrap and supply, then calls onClose callback on success', async () => {
+    const amountTokensToSupply = new BigNumber('1');
+    const amountMantissaToSupply = convertTokensToMantissa({
+      value: amountTokensToSupply,
+      token: eth,
+    });
+
+    const onCloseMock = vi.fn();
+    const { container, getByTestId, queryByTestId, getByText } = renderComponent(
+      <Supply asset={fakeWethAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      {
+        chainId: ChainId.SEPOLIA,
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible();
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: eth,
+    });
+
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    // Enter valid amount in input
+    fireEvent.change(selectTokenTextField, { target: { value: amountTokensToSupply.toString() } });
+
+    const expectedSubmitButtonLabel = en.operationModal.supply.submitButtonLabel.supply;
+
+    // Click on submit button
+    const submitButton = await waitFor(() => getByText(expectedSubmitButtonLabel));
+    expect(submitButton).toBeEnabled();
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(wrapTokensAndSupply).toHaveBeenCalledTimes(1));
+    expect(wrapTokensAndSupply).toHaveBeenCalledWith({
+      accountAddress: fakeAccountAddress,
+      amountMantissa: amountMantissaToSupply,
+    });
+
+    await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
   });
 });

@@ -144,6 +144,7 @@ exports[`api/queries/getVTokens > returns the vTokens on success 1`] = `
         "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
         "asset": "/src/libs/tokens/img/eth.svg",
         "decimals": 18,
+        "isNative": true,
         "symbol": "ETH",
       },
     },

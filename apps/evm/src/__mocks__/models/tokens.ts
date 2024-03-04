@@ -85,7 +85,7 @@ export const wbnb: Token = {
 };
 
 export const eth: Token = {
-  address: '0x0000000000000000000000000000000000000000',
+  address: '0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7',
   decimals: 18,
   symbol: 'ETH',
   asset: ethLogo,
