@@ -1,7 +1,6 @@
 const TEST_IDS = {
-  userVaiBorrowBalance: 'user-vai-borrow-balance',
   userVaiWalletBalance: 'user-vai-wallet-balance',
-  borrowApy: 'borrow-apy',
+  borrowApr: 'borrow-apr',
 };
 
 export default TEST_IDS;

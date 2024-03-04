@@ -7,7 +7,7 @@ import {
   useGetMintableVai,
   useGetPrimeToken,
   useGetTokenUsdPrice,
-  useGetVaiRepayApy,
+  useGetVaiRepayApr,
   useGetVaiTreasuryPercentage,
   useMintVai,
 } from 'clients/api';
@@ -77,10 +77,10 @@ export const Borrow: React.FC = () => {
   const { data: vaiTreasuryData } = useGetVaiTreasuryPercentage();
   const feePercentage = vaiTreasuryData?.percentage;
 
-  const { data: getVaiRepayApyData } = useGetVaiRepayApy();
+  const { data: getVaiRepayAprData } = useGetVaiRepayApr();
 
-  const readableBorrowApy = useFormatPercentageToReadableValue({
-    value: getVaiRepayApyData?.repayApyPercentage,
+  const readableBorrowApr = useFormatPercentageToReadableValue({
+    value: getVaiRepayAprData?.repayAprPercentage,
   });
 
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
@@ -270,10 +270,10 @@ export const Borrow: React.FC = () => {
 
         <LabeledInlineContent
           iconSrc={vai}
-          label={t('vai.borrow.borrowApy.label')}
-          tooltip={t('vai.borrow.borrowApy.tooltip')}
+          label={t('vai.borrow.borrowApr.label')}
+          tooltip={t('vai.borrow.borrowApr.tooltip')}
         >
-          {readableBorrowApy}
+          {readableBorrowApr}
         </LabeledInlineContent>
 
         {feeTokens?.isGreaterThan(0) && (

@@ -152,10 +152,6 @@ export { default as getVTokenBalanceOf } from './queries/getVTokenBalanceOf';
 export * from './queries/getVTokenBalanceOf';
 export { default as useGetVTokenBalanceOf } from './queries/getVTokenBalanceOf/useGetVTokenBalanceOf';
 
-export { default as getMintedVai } from './queries/getMintedVai';
-export * from './queries/getMintedVai';
-export { default as useGetMintedVai } from './queries/getMintedVai/useGetMintedVai';
-
 export { default as getPendingRewards } from './queries/getPendingRewards';
 export * from './queries/getPendingRewards';
 export { default as useGetPendingRewards } from './queries/getPendingRewards/useGetPendingRewards';
@@ -330,9 +326,9 @@ export { default as getPancakeSwapPairs } from './queries/getPancakeSwapPairs';
 export * from './queries/getPancakeSwapPairs';
 export { default as useGetPancakeSwapPairs } from './queries/getPancakeSwapPairs/useGetPancakeSwapPairs';
 
-export { default as getVaiRepayApy } from './queries/getVaiRepayApy';
-export * from './queries/getVaiRepayApy';
-export { default as useGetVaiRepayApy } from './queries/getVaiRepayApy/useGetVaiRepayApy';
+export { default as getVaiRepayApr } from './queries/getVaiRepayApr';
+export * from './queries/getVaiRepayApr';
+export { default as useGetVaiRepayApr } from './queries/getVaiRepayApr/useGetVaiRepayApr';
 
 export { default as getXvsVaultPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
 export * from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';

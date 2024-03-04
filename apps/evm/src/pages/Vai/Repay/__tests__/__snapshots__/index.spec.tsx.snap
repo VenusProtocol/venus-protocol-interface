@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Repay > displays the correct wallet balance and borrow APR 1`] = `"Wallet balance> 100.00T VAI"`;
+
+exports[`Repay > displays the correct wallet balance and borrow APR 2`] = `"Borrow APR1.34%"`;

@@ -974,9 +974,9 @@
         "label": "Borrowable amount",
         "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied to the Core pool"
       },
-      "borrowApy": {
-        "label": "Borrow APY",
-        "tooltip": "The annualized compound interest rate to be paid in the future, on top of the minted VAI"
+      "borrowApr": {
+        "label": "Borrow APR",
+        "tooltip": "The annualized interest rate to be paid in the future, on top of the minted VAI"
       },
       "fee": {
         "label": "Fee"
@@ -995,24 +995,13 @@
       "tabTitle": "Borrow"
     },
     "headerMessage": "VAI is the primary stablecoin of the Venus Protocol. Borrow VAI using your collateral supplied to the Core pool. <Link>Learn more</Link>",
-    "mintVai": {
-      "apy": "APY",
-      "connectWallet": "Please connect your wallet to mint VAI",
-      "mintFeeLabel": "Mint fee",
-      "primeOnlyWarning": "Only users who hold a Prime token can mint VAI. Learn more about Prime <Link>here</Link>.",
-      "rightMaxButtonLabel": "MAX",
-      "submitButtonDisabledLabel": "Enter a valid amount to mint",
-      "submitButtonLabel": "Mint",
-      "vaiLimitLabel": "Available VAI limit",
-      "walletBalance": "Wallet balance"
-    },
     "repay": {
       "amountTokensInput": {
         "limitButtonLabel": "MAX"
       },
-      "borrowApy": {
-        "label": "Borrow APY",
-        "tooltip": "The annualized compound interest rate to be paid in the future, on top of the minted VAI"
+      "borrowApr": {
+        "label": "Borrow APR",
+        "tooltip": "The annualized interest rate to be paid in the future, on top of the minted VAI"
       },
       "borrowBalance": "Currently borrowing",
       "notice": {
@@ -1029,21 +1018,7 @@
       "walletBalance": {
         "label": "Wallet balance"
       }
-    },
-    "repayVai": {
-      "connectWallet": "Please connect your wallet to repay VAI",
-      "fullRepayWarning": "The total repay amount might be slightly higher, due to accrued interests while processing the transaction",
-      "repayFeeLabel": "Repay fee",
-      "repayFeeTooltip": "The amount of interest to be paid when loan is repaid.",
-      "repayVaiBalance": "Repay VAI balance",
-      "repayVaiBalanceTooltip": "Total VAI balance to repay, including interests",
-      "rightMaxButtonLabel": "MAX",
-      "submitButtonDisabledLabel": "Enter a valid amount to repay",
-      "submitButtonLabel": "Repay",
-      "walletBalance": "Wallet balance"
-    },
-    "tabMint": "Mint",
-    "tabRepay": "Repay"
+    }
   },
   "vault": {
     "transactionForm": {

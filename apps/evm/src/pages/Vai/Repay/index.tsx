@@ -5,7 +5,7 @@ import { SubmitHandler } from 'react-hook-form';
 import {
   useGetBalanceOf,
   useGetVaiRepayAmountWithInterests,
-  useGetVaiRepayApy,
+  useGetVaiRepayApr,
   useRepayVai,
 } from 'clients/api';
 import {
@@ -90,10 +90,10 @@ export const Repay: React.FC = () => {
 
   const { mutateAsync: repayVai } = useRepayVai();
 
-  const { data: getVaiRepayApyData } = useGetVaiRepayApy();
+  const { data: getVaiRepayAprData } = useGetVaiRepayApr();
 
-  const readableBorrowApy = useFormatPercentageToReadableValue({
-    value: getVaiRepayApyData?.repayApyPercentage,
+  const readableBorrowApr = useFormatPercentageToReadableValue({
+    value: getVaiRepayAprData?.repayAprPercentage,
   });
 
   const { data: userVaiBorrowBalanceData, isLoading: isGetUserVaiBorrowBalanceLoading } =
@@ -108,11 +108,6 @@ export const Repay: React.FC = () => {
 
   const userVaiBorrowBalanceMantissa =
     userVaiBorrowBalanceData?.vaiRepayAmountWithInterestsMantissa;
-
-  const readableUserVaiBorrowBalance = useConvertMantissaToReadableTokenString({
-    value: userVaiBorrowBalanceMantissa,
-    token: vai,
-  });
 
   const {
     limitTokens,
@@ -191,13 +186,6 @@ export const Repay: React.FC = () => {
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-      <LabeledInlineContent
-        label={t('vai.repay.borrowBalance')}
-        data-testid={TEST_IDS.userVaiBorrowBalance}
-      >
-        {readableUserVaiBorrowBalance}
-      </LabeledInlineContent>
-
       <div className="space-y-3">
         <RhfTokenTextField<FormValues>
           control={control}
@@ -245,11 +233,11 @@ export const Repay: React.FC = () => {
 
         <LabeledInlineContent
           iconSrc={vai}
-          label={t('vai.repay.borrowApy.label')}
-          tooltip={t('vai.repay.borrowApy.tooltip')}
-          data-testid={TEST_IDS.borrowApy}
+          label={t('vai.repay.borrowApr.label')}
+          tooltip={t('vai.repay.borrowApr.tooltip')}
+          data-testid={TEST_IDS.borrowApr}
         >
-          {readableBorrowApy}
+          {readableBorrowApr}
         </LabeledInlineContent>
       </div>
 

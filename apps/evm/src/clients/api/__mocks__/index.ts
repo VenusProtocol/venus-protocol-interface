@@ -50,9 +50,6 @@ export const useGetVTokenBalancesAll = vi.fn(() =>
   useQuery(FunctionKey.GET_V_TOKEN_BALANCES_ALL, getVTokenBalancesAll),
 );
 
-export const getMintedVai = vi.fn();
-export const useGetMintedVai = () => useQuery(FunctionKey.GET_MINTED_VAI, getMintedVai);
-
 export const getMintableVai = vi.fn();
 export const useGetMintableVai = vi.fn(() =>
   useQuery(FunctionKey.GET_MINTABLE_VAI, getMintableVai),
@@ -252,9 +249,9 @@ export const getPancakeSwapPairs = vi.fn();
 export const useGetPancakeSwapPairs = () =>
   useQuery(FunctionKey.GET_PANCAKE_SWAP_PAIRS, getPancakeSwapPairs);
 
-export const getVaiRepayApy = vi.fn();
-export const useGetVaiRepayApy = vi.fn(() =>
-  useQuery(FunctionKey.GET_VAI_REPAY_APY, getVaiRepayApy),
+export const getVaiRepayApr = vi.fn();
+export const useGetVaiRepayApr = vi.fn(() =>
+  useQuery(FunctionKey.GET_VAI_REPAY_APR, getVaiRepayApr),
 );
 
 export const getVTokens = vi.fn(async () => ({

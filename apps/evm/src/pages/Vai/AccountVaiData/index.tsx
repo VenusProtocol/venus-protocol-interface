@@ -5,7 +5,7 @@ import {
   useGetLegacyPool,
   useGetTokenUsdPrice,
   useGetVaiRepayAmountWithInterests,
-  useGetVaiRepayApy,
+  useGetVaiRepayApr,
 } from 'clients/api';
 import { Spinner } from 'components';
 import { AccountData, AccountDataProps } from 'containers/AccountData';
@@ -26,8 +26,8 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
     symbol: 'VAI',
   })!;
 
-  const { data: getVaiRepayApyData } = useGetVaiRepayApy();
-  const borrowApyPercentage = getVaiRepayApyData?.repayApyPercentage;
+  const { data: getVaiRepayAprData } = useGetVaiRepayApr();
+  const borrowAprPercentage = getVaiRepayAprData?.repayAprPercentage;
 
   const { data: getVaiUsdPrice } = useGetTokenUsdPrice({
     token: vai,
@@ -51,7 +51,7 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
   const userBorrowBalanceMantissa = repayAmountWithInterests?.vaiRepayAmountWithInterestsMantissa;
 
   const vaiAsset = useMemo(() => {
-    if (!borrowApyPercentage || !userBorrowBalanceMantissa || !vaiPriceDollars) {
+    if (!borrowAprPercentage || !userBorrowBalanceMantissa || !vaiPriceDollars) {
       return undefined;
     }
 
@@ -73,7 +73,9 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
         symbol: '',
       },
       tokenPriceCents: vaiPriceCents,
-      borrowApyPercentage,
+      // Although this is technically incorrect (we're passing an APR to a property that expects an
+      // APY), it is acceptable for the sake of calculating account health data
+      borrowApyPercentage: borrowAprPercentage,
       supplyApyPercentage: new BigNumber(0),
       userBorrowBalanceTokens,
       userBorrowBalanceCents,
@@ -103,7 +105,7 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
     };
 
     return asset;
-  }, [borrowApyPercentage, userBorrowBalanceMantissa, vai, vaiPriceDollars]);
+  }, [borrowAprPercentage, userBorrowBalanceMantissa, vai, vaiPriceDollars]);
 
   const legacyPoolWithVai = useMemo(
     () =>

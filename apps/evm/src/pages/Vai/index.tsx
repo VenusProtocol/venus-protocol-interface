@@ -1,30 +1,36 @@
-/** @jsxImportSource @emotion/react */
-import Paper from '@mui/material/Paper';
-
-import { Tabs } from 'components';
+import { Card, Notice, Tabs } from 'components';
+import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
-import MintVai from './MintVai';
-import RepayVai from './RepayVai';
-import { useStyles } from './styles';
+import { Borrow } from './Borrow';
+import { Repay } from './Repay';
 
-export interface VaiProps {
-  className?: string;
-}
-
-const Vai: React.FC<VaiProps> = ({ className }) => {
-  const styles = useStyles();
-  const { t } = useTranslation();
+const Vai: React.FC = () => {
+  const { t, Trans } = useTranslation();
 
   const tabsContent = [
-    { title: t('vai.tabMint'), content: <MintVai /> },
-    { title: t('vai.tabRepay'), content: <RepayVai /> },
+    { title: t('vai.borrow.tabTitle'), content: <Borrow /> },
+    { title: t('vai.repay.tabTitle'), content: <Repay /> },
   ];
 
   return (
-    <Paper className={className} css={styles.container}>
-      <Tabs tabsContent={tabsContent} />
-    </Paper>
+    <div className="mx-auto w-full max-w-[544px]">
+      <Notice
+        className="mb-6"
+        description={
+          <Trans
+            i18nKey="vai.headerMessage"
+            components={{
+              Link: <Link href="https://docs-v4.venus.io/tokens/vai" />,
+            }}
+          />
+        }
+      />
+
+      <Card>
+        <Tabs tabsContent={tabsContent} />
+      </Card>
+    </div>
   );
 };
 
