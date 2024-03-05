@@ -37,7 +37,7 @@ export const Table: React.FC<TableProps> = ({ pool }) => {
         'price',
       ]}
       initialOrder={{
-        orderBy: 'liquidity',
+        orderBy: 'labeledSupplyApyLtv',
         orderDirection: 'desc',
       }}
     />
