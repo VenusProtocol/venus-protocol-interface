@@ -557,7 +557,6 @@
         "swapAndRepay": "Swap and repay",
         "swapAndRepayWithHighPriceImpact": "Swap and repay with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
-        "wrapAndRepay": "Wrap and repay",
         "wrappingUnsupported": "Wrapping unsupported"
       },
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",

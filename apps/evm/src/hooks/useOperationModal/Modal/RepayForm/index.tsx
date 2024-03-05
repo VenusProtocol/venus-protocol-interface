@@ -2,7 +2,12 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { useGetBalanceOf, useRepay, useSwapTokensAndRepay } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useRepay,
+  useSwapTokensAndRepay,
+  useWrapTokensAndRepay,
+} from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -18,7 +23,10 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { useGetSwapRouterContractAddress } from 'libs/contracts';
+import {
+  useGetNativeTokenGatewayContractAddress,
+  useGetSwapRouterContractAddress,
+} from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -58,6 +66,10 @@ export interface RepayFormUiProps
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
   isSwapLoading: boolean;
+  isIntegratedSwapFeatureEnabled: boolean;
+  canWrapNativeToken: boolean;
+  isWrappingNativeToken: boolean;
+  isUsingSwap: boolean;
   revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
@@ -80,6 +92,10 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   isApproveFromTokenLoading,
   isFromTokenApproved,
   isFromTokenWalletSpendingLimitLoading,
+  isIntegratedSwapFeatureEnabled,
+  canWrapNativeToken,
+  isWrappingNativeToken,
+  isUsingSwap,
   fromTokenWalletSpendingLimitTokens,
   revokeFromTokenWalletSpendingLimit,
   isRevokeFromTokenWalletSpendingLimitLoading,
@@ -90,28 +106,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
   const sharedStyles = useSharedStyles();
   const styles = useStyles();
-  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
-  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
-
-  const canWrapNativeToken = useMemo(
-    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
-    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
-  );
-
-  // a user is trying to wrap the chain's native token if
-  // 1) the wrap/unwrap feature is enabled
-  // 2) the selected form token is the native token
-  // 3) the market's underlying token wraps the native token
-  const isWrappingNativeToken = useMemo(
-    () => canWrapNativeToken && !!formValues.fromToken.isNative,
-    [canWrapNativeToken, formValues.fromToken],
-  );
-  const isUsingSwap = useMemo(
-    () =>
-      isIntegratedSwapEnabled &&
-      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
-    [isIntegratedSwapEnabled, formValues.fromToken, asset.vToken.underlyingToken],
-  );
 
   const tokenBalances = useMemo(
     () => [...integratedSwapTokenBalances, ...nativeWrappedTokenBalances],
@@ -190,7 +184,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
-        {isIntegratedSwapEnabled || canWrapNativeToken ? (
+        {isIntegratedSwapFeatureEnabled || canWrapNativeToken ? (
           <SelectTokenTextField
             data-testid={TEST_IDS.selectTokenTextField}
             selectedToken={formValues.fromToken}
@@ -333,6 +327,7 @@ export interface RepayFormProps {
 
 const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
+  const isIntegratedSwapFeatureEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
   const { accountAddress } = useAccountAddress();
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -341,13 +336,51 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     fixedRepayPercentage: undefined,
   });
 
+  const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
+    comptrollerContractAddress: pool.comptrollerAddress,
+  });
+
+  const canWrapNativeToken = useMemo(
+    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
+    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
+  );
+
   const swapRouterContractAddress = useGetSwapRouterContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
   });
 
-  const spenderAddress = areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)
-    ? asset.vToken.address
-    : swapRouterContractAddress;
+  // a user is trying to wrap the chain's native token if
+  // 1) the wrap/unwrap feature is enabled
+  // 2) the selected form token is the native token
+  // 3) the market's underlying token wraps the native token
+  const isWrappingNativeToken = useMemo(
+    () => canWrapNativeToken && !!formValues.fromToken.isNative,
+    [canWrapNativeToken, formValues.fromToken],
+  );
+
+  const isUsingSwap = useMemo(
+    () =>
+      isIntegratedSwapFeatureEnabled &&
+      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
+    [isIntegratedSwapFeatureEnabled, formValues.fromToken, asset.vToken.underlyingToken],
+  );
+
+  const spenderAddress = useMemo(() => {
+    if (isWrappingNativeToken) {
+      return nativeTokenGatewayContractAddress;
+    }
+    if (isUsingSwap) {
+      return swapRouterContractAddress;
+    }
+
+    return asset.vToken.address;
+  }, [
+    isWrappingNativeToken,
+    isUsingSwap,
+    asset.vToken.address,
+    nativeTokenGatewayContractAddress,
+    swapRouterContractAddress,
+  ]);
 
   const {
     isTokenApproved: isFromTokenApproved,
@@ -366,6 +399,12 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   const { mutateAsync: onRepay, isLoading: isRepayLoading } = useRepay({
     vToken: asset.vToken,
     poolName: pool.name,
+  });
+
+  const { mutateAsync: wrapTokensAndRepay } = useWrapTokensAndRepay({
+    vToken: asset.vToken,
+    poolComptrollerAddress: pool.comptrollerAddress,
+    accountAddress: accountAddress || '',
   });
 
   const { mutateAsync: onSwapAndRepay, isLoading: isSwapAndRepayLoading } = useSwapTokensAndRepay({
@@ -408,43 +447,44 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     accountAddress,
   });
 
-  const onSubmit: RepayFormUiProps['onSubmit'] = async ({
-    toVToken,
-    fromToken,
-    fromTokenAmountTokens,
-    swap,
-    fixedRepayPercentage,
-  }) => {
-    const isSwapping = !areTokensEqual(fromToken, toVToken.underlyingToken);
-    const isRepayingFullLoan = fixedRepayPercentage === 100;
-
-    // Handle repay flow
-    if (!isSwapping) {
+  const onSubmit: RepayFormUiProps['onSubmit'] = useCallback(
+    async ({ fromToken, fromTokenAmountTokens, swap, fixedRepayPercentage }) => {
+      const isRepayingFullLoan = fixedRepayPercentage === 100;
       const amountMantissa = convertTokensToMantissa({
         value: new BigNumber(fromTokenAmountTokens.trim()),
         token: fromToken,
       });
 
-      return onRepay({
+      // Handle repay flow
+      if (!isUsingSwap && !isWrappingNativeToken) {
+        return onRepay({
+          isRepayingFullLoan,
+          amountMantissa,
+        });
+      }
+
+      if (isWrappingNativeToken) {
+        return wrapTokensAndRepay({
+          amountMantissa,
+        });
+      }
+
+      // Throw an error if we're meant to execute a swap but no swap was
+      // passed through props. This should never happen since the form is
+      // disabled while swap infos are being fetched, but we add this logic
+      // as a safeguard
+      if (!swap) {
+        throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+      }
+
+      // Handle swap and repay flow
+      return onSwapAndRepay({
         isRepayingFullLoan,
-        amountMantissa,
+        swap,
       });
-    }
-
-    // Throw an error if we're meant to execute a swap but no swap was
-    // passed through props. This should never happen since the form is
-    // disabled while swap infos are being fetched, but we add this logic
-    // as a safeguard
-    if (!swap) {
-      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
-    }
-
-    // Handle swap and repay flow
-    return onSwapAndRepay({
-      isRepayingFullLoan,
-      swap,
-    });
-  };
+    },
+    [accountAddress, isUsingSwap, isWrappingNativeToken],
+  );
 
   const swapDirection = formValues.fixedRepayPercentage ? 'exactAmountOut' : 'exactAmountIn';
 
@@ -466,6 +506,10 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     <RepayFormUi
       asset={asset}
       pool={pool}
+      isIntegratedSwapFeatureEnabled={isIntegratedSwapFeatureEnabled}
+      canWrapNativeToken={canWrapNativeToken}
+      isWrappingNativeToken={isWrappingNativeToken}
+      isUsingSwap={isUsingSwap}
       formValues={formValues}
       setFormValues={setFormValues}
       onCloseModal={onCloseModal}
