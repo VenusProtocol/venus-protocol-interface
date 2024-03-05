@@ -145,6 +145,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     fromTokenUserWalletBalanceTokens,
     fromTokenUserBorrowBalanceTokens: asset.userBorrowBalanceTokens,
     fromTokenWalletSpendingLimitTokens,
+    isUsingSwap,
     swap,
     swapError,
     onCloseModal,
@@ -246,6 +247,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               onClick={() =>
                 setFormValues(currentFormValues => ({
                   ...currentFormValues,
+                  // amountTokens: fromTokenUserWalletBalanceTokens?.multipliedBy(percentage / 100).toFixed() || '',
                   fixedRepayPercentage: percentage,
                 }))
               }
@@ -361,8 +363,14 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   const isUsingSwap = useMemo(
     () =>
       isIntegratedSwapFeatureEnabled &&
+      !isWrappingNativeToken &&
       !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
-    [isIntegratedSwapFeatureEnabled, formValues.fromToken, asset.vToken.underlyingToken],
+    [
+      isIntegratedSwapFeatureEnabled,
+      isWrappingNativeToken,
+      formValues.fromToken,
+      asset.vToken.underlyingToken,
+    ],
   );
 
   const spenderAddress = useMemo(() => {
@@ -401,11 +409,12 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     poolName: pool.name,
   });
 
-  const { mutateAsync: wrapTokensAndRepay } = useWrapTokensAndRepay({
-    vToken: asset.vToken,
-    poolComptrollerAddress: pool.comptrollerAddress,
-    accountAddress: accountAddress || '',
-  });
+  const { mutateAsync: wrapTokensAndRepay, isLoading: isWrapAndRepayLoading } =
+    useWrapTokensAndRepay({
+      vToken: asset.vToken,
+      poolComptrollerAddress: pool.comptrollerAddress,
+      accountAddress: accountAddress || '',
+    });
 
   const { mutateAsync: onSwapAndRepay, isLoading: isSwapAndRepayLoading } = useSwapTokensAndRepay({
     poolName: pool.name,
@@ -413,7 +422,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     vToken: asset.vToken,
   });
 
-  const isSubmitting = isRepayLoading || isSwapAndRepayLoading;
+  const isSubmitting = isRepayLoading || isSwapAndRepayLoading || isWrapAndRepayLoading;
 
   const { data: nativeTokenBalanceData } = useGetBalanceOf(
     {
@@ -483,7 +492,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
         swap,
       });
     },
-    [accountAddress, isUsingSwap, isWrappingNativeToken],
+    [isUsingSwap, onRepay, isWrappingNativeToken, onSwapAndRepay, wrapTokensAndRepay],
   );
 
   const swapDirection = formValues.fixedRepayPercentage ? 'exactAmountOut' : 'exactAmountIn';
