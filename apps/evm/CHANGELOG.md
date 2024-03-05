@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.101.0
+
+### Minor Changes
+
+- 1a5dbbc: order markets by their supply APY by default
+
 ## 2.100.0
 
 ### Minor Changes
