@@ -124,6 +124,14 @@ export { default as bridgeXvs } from './mutations/bridgeXvs';
 export * from './mutations/bridgeXvs';
 export { default as useBridgeXvs } from './mutations/bridgeXvs/useBridgeXvs';
 
+export { default as wrapTokensAndSupply } from './mutations/wrapTokensAndSupply';
+export * from './mutations/wrapTokensAndSupply';
+export { default as useWrapTokensAndSupply } from './mutations/wrapTokensAndSupply/useWrapTokensAndSupply';
+
+export { default as wrapTokensAndRepay } from './mutations/wrapTokensAndRepay';
+export * from './mutations/wrapTokensAndRepay';
+export { default as useWrapTokensAndRepay } from './mutations/wrapTokensAndRepay/useWrapTokensAndRepay';
+
 // Queries
 export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';
 export * from './queries/getVaiCalculateRepayAmount';

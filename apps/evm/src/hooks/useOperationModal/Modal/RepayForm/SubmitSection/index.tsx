@@ -95,10 +95,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('operationModal.repay.submitButtonLabel.swapAndRepayWithHighPriceImpact');
     }
 
-    if (isWrappingNativeToken) {
-      return t('operationModal.repay.submitButtonLabel.wrapAndRepay');
-    }
-
     if (isUsingSwap) {
       return t('operationModal.repay.submitButtonLabel.swapAndRepay');
     }

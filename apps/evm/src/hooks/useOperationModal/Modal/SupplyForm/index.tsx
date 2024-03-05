@@ -2,7 +2,12 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { useGetBalanceOf, useSupply, useSwapTokensAndSupply } from 'clients/api';
+import {
+  useGetBalanceOf,
+  useSupply,
+  useSwapTokensAndSupply,
+  useWrapTokensAndSupply,
+} from 'clients/api';
 import {
   AssetWarning,
   Delimiter,
@@ -22,12 +27,15 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { useGetSwapRouterContractAddress } from 'libs/contracts';
+import {
+  useGetNativeTokenGatewayContractAddress,
+  useGetSwapRouterContractAddress,
+} from 'libs/contracts';
 import { VError, displayMutationError } from 'libs/errors';
 import { isTokenActionEnabled } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
-import { Asset, ChainId, Pool, Swap, SwapError, TokenBalance } from 'types';
+import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { useStyles as useSharedStyles } from '../styles';
@@ -61,7 +69,11 @@ export interface SupplyFormUiProps
   isSwapLoading: boolean;
   revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
-  chainId: ChainId;
+  isWrapUnwrapNativeTokenEnabled: boolean;
+  isIntegratedSwapFeatureEnabled: boolean;
+  canWrapNativeToken: boolean;
+  isWrappingNativeToken: boolean;
+  isUsingSwap: boolean;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
@@ -85,54 +97,17 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   fromTokenWalletSpendingLimitTokens,
   revokeFromTokenWalletSpendingLimit,
   isRevokeFromTokenWalletSpendingLimitLoading,
-  chainId,
+  isWrapUnwrapNativeTokenEnabled,
+  isIntegratedSwapFeatureEnabled,
+  canWrapNativeToken,
+  isWrappingNativeToken,
+  isUsingSwap,
   swap,
   swapError,
 }) => {
   const { t, Trans } = useTranslation();
   const sharedStyles = useSharedStyles();
   const { CollateralModal, toggleCollateral } = useCollateral();
-  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
-  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
-
-  const isIntegratedSwapFeatureEnabled = useMemo(
-    () =>
-      isIntegratedSwapEnabled &&
-      // Check swap and supply action is enabled for underlying token
-      isTokenActionEnabled({
-        tokenAddress: asset.vToken.underlyingToken.address,
-        action: 'swapAndSupply',
-        chainId,
-      }) &&
-      // Check swap and supply action is enabled for vToken
-      isTokenActionEnabled({
-        tokenAddress: asset.vToken.address,
-        action: 'swapAndSupply',
-        chainId,
-      }),
-    [asset.vToken.underlyingToken, asset.vToken.address, chainId, isIntegratedSwapEnabled],
-  );
-
-  const canWrapNativeToken = useMemo(
-    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
-    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
-  );
-
-  // a user is trying to wrap the chain's native token if
-  // 1) the wrap/unwrap feature is enabled
-  // 2) the selected form token is the native token
-  // 3) the market's underlying token wraps the native token
-  const isWrappingNativeToken = useMemo(
-    () => canWrapNativeToken && !!formValues.fromToken.isNative,
-    [canWrapNativeToken, formValues.fromToken],
-  );
-
-  const isUsingSwap = useMemo(
-    () =>
-      isIntegratedSwapFeatureEnabled &&
-      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
-    [isIntegratedSwapFeatureEnabled, formValues.fromToken, asset.vToken.underlyingToken],
-  );
 
   const tokenBalances = useMemo(
     () => [...integratedSwapTokenBalances, ...nativeWrappedTokenBalances],
@@ -375,6 +350,7 @@ export interface SupplyFormProps {
 
 const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
+  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
 
@@ -383,13 +359,69 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     fromToken: asset.vToken.underlyingToken,
   });
 
+  const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
+    comptrollerContractAddress: pool.comptrollerAddress,
+  });
+
+  const isIntegratedSwapFeatureEnabled = useMemo(
+    () =>
+      isIntegratedSwapEnabled &&
+      // Check swap and supply action is enabled for underlying token
+      isTokenActionEnabled({
+        tokenAddress: asset.vToken.underlyingToken.address,
+        action: 'swapAndSupply',
+        chainId,
+      }) &&
+      // Check swap and supply action is enabled for vToken
+      isTokenActionEnabled({
+        tokenAddress: asset.vToken.address,
+        action: 'swapAndSupply',
+        chainId,
+      }),
+    [asset.vToken.underlyingToken, asset.vToken.address, chainId, isIntegratedSwapEnabled],
+  );
+
+  const canWrapNativeToken = useMemo(
+    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
+    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
+  );
+
+  // a user is trying to wrap the chain's native token if
+  // 1) the wrap/unwrap feature is enabled
+  // 2) the selected form token is the native token
+  // 3) the market's underlying token wraps the native token
+  const isWrappingNativeToken = useMemo(
+    () => canWrapNativeToken && !!formValues.fromToken.isNative,
+    [canWrapNativeToken, formValues.fromToken],
+  );
+
+  const isUsingSwap = useMemo(
+    () =>
+      isIntegratedSwapFeatureEnabled &&
+      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
+    [isIntegratedSwapFeatureEnabled, formValues.fromToken, asset.vToken.underlyingToken],
+  );
+
   const swapRouterContractAddress = useGetSwapRouterContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
   });
 
-  const spenderAddress = areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken)
-    ? asset.vToken.address
-    : swapRouterContractAddress;
+  const spenderAddress = useMemo(() => {
+    if (isWrappingNativeToken) {
+      return nativeTokenGatewayContractAddress;
+    }
+    if (isUsingSwap) {
+      return swapRouterContractAddress;
+    }
+
+    return asset.vToken.address;
+  }, [
+    isWrappingNativeToken,
+    isUsingSwap,
+    asset.vToken.address,
+    nativeTokenGatewayContractAddress,
+    swapRouterContractAddress,
+  ]);
 
   const {
     isTokenApproved: isFromTokenApproved,
@@ -421,7 +453,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
         token: asset.vToken.underlyingToken,
         balanceMantissa: convertTokensToMantissa({
           token: asset.vToken.underlyingToken,
-          value: asset.userSupplyBalanceTokens,
+          value: asset.userWalletBalanceTokens,
         }),
       };
       const nativeTokenBalance: TokenBalance = {
@@ -442,6 +474,12 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     vToken: asset.vToken,
   });
 
+  const { mutateAsync: wrapTokensAndSupply, isLoading: isWrapAndSupplyLoading } =
+    useWrapTokensAndSupply({
+      vToken: asset.vToken,
+      poolComptrollerAddress: pool.comptrollerAddress,
+    });
+
   const { mutateAsync: swapExactTokensForTokensAndSupply, isLoading: isSwapAndSupplyLoading } =
     useSwapTokensAndSupply({
       poolName: pool.name,
@@ -449,38 +487,48 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       vToken: asset.vToken,
     });
 
-  const isSubmitting = isSupplyLoading || isSwapAndSupplyLoading;
+  const isSubmitting = isSupplyLoading || isSwapAndSupplyLoading || isWrapAndSupplyLoading;
 
-  const onSubmit: SupplyFormUiProps['onSubmit'] = async ({
-    toVToken,
-    fromToken,
-    fromTokenAmountTokens,
-    swap,
-  }) => {
-    const isSwapping = !areTokensEqual(fromToken, toVToken.underlyingToken);
-
-    // Handle supply flow
-    if (!isSwapping) {
+  const onSubmit: SupplyFormUiProps['onSubmit'] = useCallback(
+    async ({ fromToken, fromTokenAmountTokens, swap }) => {
       const amountMantissa = convertTokensToMantissa({
         value: new BigNumber(fromTokenAmountTokens.trim()),
         token: fromToken,
       });
 
-      return supply({ amountMantissa });
-    }
+      // Handle supply flow
+      if (!isUsingSwap && !isWrappingNativeToken) {
+        return supply({ amountMantissa });
+      }
 
-    // Throw an error if we're meant to execute a swap but no swap was
-    // passed through props. This should never happen since the form is
-    // disabled while swap infos are being fetched, but we add this logic
-    // as a safeguard
-    if (!swap) {
-      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
-    }
+      if (isWrappingNativeToken) {
+        return wrapTokensAndSupply({
+          accountAddress: accountAddress || '',
+          amountMantissa,
+        });
+      }
 
-    return swapExactTokensForTokensAndSupply({
-      swap,
-    });
-  };
+      // Throw an error if we're meant to execute a swap but no swap was
+      // passed through props. This should never happen since the form is
+      // disabled while swap infos are being fetched, but we add this logic
+      // as a safeguard
+      if (!swap) {
+        throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+      }
+
+      return swapExactTokensForTokensAndSupply({
+        swap,
+      });
+    },
+    [
+      accountAddress,
+      isUsingSwap,
+      isWrappingNativeToken,
+      supply,
+      swapExactTokensForTokensAndSupply,
+      wrapTokensAndSupply,
+    ],
+  );
 
   const swapInfo = useGetSwapInfo({
     fromToken: formValues.fromToken,
@@ -493,7 +541,11 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     <SupplyFormUi
       asset={asset}
       pool={pool}
-      chainId={chainId}
+      isWrapUnwrapNativeTokenEnabled={isWrapUnwrapNativeTokenEnabled}
+      isIntegratedSwapFeatureEnabled={isIntegratedSwapFeatureEnabled}
+      canWrapNativeToken={canWrapNativeToken}
+      isWrappingNativeToken={isWrappingNativeToken}
+      isUsingSwap={isUsingSwap}
       formValues={formValues}
       setFormValues={setFormValues}
       onCloseModal={onCloseModal}

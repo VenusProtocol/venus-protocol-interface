@@ -1,5 +1,5 @@
 import { ContractConfig } from 'libs/contracts/config';
-import { isSwapRouterContractConfig } from 'libs/contracts/utilities/isSwapRouterContractConfig';
+import { isUniquePerPoolContractConfig } from 'libs/contracts/utilities/isUniquePerPoolContractConfig';
 import writeFile from 'utilities/writeFile';
 
 export interface GenerateAddressListInput {
@@ -24,12 +24,12 @@ export const generateAddressList = async ({
     addressesOutput += `${contractConfig.name}: {
       ${Object.entries(contractConfig.address)
         .map(([chainId, address]) => {
-          if (isSwapRouterContractConfig(contractConfig)) {
-            // Handle SwapRouter contract
+          if (isUniquePerPoolContractConfig(contractConfig)) {
+            // Handle contracts that are unique in a given pool
             return `${chainId}: {${Object.entries(address)
               .map(
-                ([comptrollerContractAddress, swapRouterContractAddress]) =>
-                  `'${comptrollerContractAddress}': '${swapRouterContractAddress}',`,
+                ([comptrollerContractAddress, uniquePerPoolContractAddress]) =>
+                  `'${comptrollerContractAddress}': '${uniquePerPoolContractAddress}',`,
               )
               .join('')}},`;
           }

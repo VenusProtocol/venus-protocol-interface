@@ -89,6 +89,7 @@ export const eth: Token = {
   decimals: 18,
   symbol: 'ETH',
   asset: ethLogo,
+  isNative: true,
 };
 
 export const weth: Token = {

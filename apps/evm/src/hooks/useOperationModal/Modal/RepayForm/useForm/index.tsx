@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import useIsMounted from 'hooks/useIsMounted';
 import { displayMutationError } from 'libs/errors';
 import { Swap, SwapError, Token, VToken } from 'types';
-import { areTokensEqual, convertMantissaToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
 import calculatePercentageOfUserBorrowBalance from '../calculatePercentageOfUserBorrowBalance';
 import { FormError, FormValues } from './types';
@@ -28,6 +28,7 @@ export interface UseFormInput {
   fromTokenUserWalletBalanceTokens?: BigNumber;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   isFromTokenApproved?: boolean;
+  isUsingSwap: boolean;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -50,6 +51,7 @@ const useForm = ({
   formValues,
   setFormValues,
   onSubmit,
+  isUsingSwap,
 }: UseFormInput): UseFormOutput => {
   const isMounted = useIsMounted();
 
@@ -96,9 +98,7 @@ const useForm = ({
   // the total loan value changes, for example when interests accumulate)
   useEffect(() => {
     // Fixed percentage without swapping
-    const isNotSwapping = areTokensEqual(formValues.fromToken, toVToken.underlyingToken);
-
-    if (isMounted() && formValues.fixedRepayPercentage && isNotSwapping) {
+    if (isMounted() && formValues.fixedRepayPercentage && !isUsingSwap) {
       const fixedAmountToRepayTokens = calculatePercentageOfUserBorrowBalance({
         userBorrowBalanceTokens: fromTokenUserBorrowBalanceTokens,
         token: formValues.fromToken,
@@ -117,6 +117,7 @@ const useForm = ({
     fromTokenUserBorrowBalanceTokens,
     setFormValues,
     isMounted,
+    isUsingSwap,
   ]);
 
   useEffect(() => {
