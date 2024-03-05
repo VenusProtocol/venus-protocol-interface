@@ -85,7 +85,7 @@ const Dashboard: React.FC = () => {
         ]}
         marketType="supply"
         initialOrder={{
-          orderBy: 'userWalletBalance',
+          orderBy: 'labeledSupplyApyLtv',
           orderDirection: 'desc',
         }}
         testId={TEST_IDS.marketTable}
