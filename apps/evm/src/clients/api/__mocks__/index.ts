@@ -476,3 +476,7 @@ export const useBridgeXvs = (options?: MutationObserverOptions) =>
 export const wrapTokensAndSupply = vi.fn();
 export const useWrapTokensAndSupply = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.WRAP_TOKENS_AND_SUPPLY, wrapTokensAndSupply, options);
+
+export const wrapTokensAndRepay = vi.fn();
+export const useWrapTokensAndRepay = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.WRAP_TOKENS_AND_REPAY, wrapTokensAndRepay, options);
