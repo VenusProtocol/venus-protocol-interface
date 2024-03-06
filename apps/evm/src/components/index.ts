@@ -7,7 +7,7 @@ export * from './Chip';
 export * from './Countdown';
 export * from './Delimiter';
 export * from './EllipseAddress';
-export * from './ApproveTokenSteps';
+export * from './ApproveSteps/ApproveTokenSteps';
 export * from './Form';
 export * from './Icon';
 export * from './LabeledInlineContent';
