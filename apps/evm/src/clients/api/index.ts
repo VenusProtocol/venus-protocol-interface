@@ -384,3 +384,7 @@ export { default as useGetXvsBridgeStatus } from './queries/getXvsBridgeStatus/u
 export { default as getXvsBridgeMintStatus } from './queries/getXvsBridgeMintStatus';
 export * from './queries/getXvsBridgeMintStatus';
 export { default as useGetXvsBridgeMintStatus } from './queries/getXvsBridgeMintStatus/useGetXvsBridgeMintStatus';
+
+export { default as getNativeTokenGatewayDelegateApproval } from './queries/getNativeTokenGatewayDelegateApproval';
+export * from './queries/getNativeTokenGatewayDelegateApproval';
+export { default as useGetNativeTokenGatewayDelegateApproval } from './queries/getNativeTokenGatewayDelegateApproval/useGetNativeTokenGatewayDelegateApproval';

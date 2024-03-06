@@ -331,6 +331,14 @@ export const useGetXvsBridgeMintStatus = vi.fn(() =>
   useQuery(FunctionKey.GET_XVS_BRIDGE_MINT_STATUS, getXvsBridgeMintStatus),
 );
 
+export const getNativeTokenGatewayDelegateApproval = vi.fn(async () => undefined);
+export const useGetNativeTokenGatewayDelegateApproval = vi.fn(() =>
+  useQuery(
+    FunctionKey.GET_NATIVE_TOKEN_GATEWAY_DELEGATE_APPROVAL,
+    getNativeTokenGatewayDelegateApproval,
+  ),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
