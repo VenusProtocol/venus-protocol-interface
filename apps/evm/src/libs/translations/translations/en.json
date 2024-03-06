@@ -71,6 +71,14 @@
       "description": "Venus supports the new TUSD token in a new market. Borrowing and supplying has been paused for the old TUSD token. For more information see the <Link>official announcement by Binance</Link>."
     }
   },
+  "approveDelegateSteps": {
+    "approveDelegateButton": {
+      "text": "Approve delegate contract",
+      "tooltip": "We require approving the delegate contract to perform this operation in your behalf."
+    },
+    "step1": "Step 1",
+    "step2": "Step 2"
+  },
   "approveTokenSteps": {
     "approveTokenButton": {
       "text": "Approve {{tokenSymbol}}",
