@@ -489,3 +489,7 @@ export const useWrapTokensAndRepay = (_variables: never, options?: MutationObser
 export const updatePoolDelegateStatus = vi.fn();
 export const useUpdatePoolDelegateStatus = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.UPDATE_POOL_DELEGATE_STATUS, updatePoolDelegateStatus, options);
+
+export const borrowAndUnwrap = vi.fn();
+export const useBorrowAndUnwrap = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.BORROW_AND_UNWRAP, borrowAndUnwrap, options);
