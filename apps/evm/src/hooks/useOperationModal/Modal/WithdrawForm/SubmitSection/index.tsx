@@ -10,10 +10,10 @@ export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
   formError?: FormError;
-  approveDelegateAction: ApproveDelegateStepsProps['approveDelegateAction'];
-  isApproveDelegateLoading: ApproveDelegateStepsProps['isApproveDelegateLoading'];
-  isDelegateApproved: ApproveDelegateStepsProps['isDelegateApproved'];
-  isDelegateApprovedLoading: ApproveDelegateStepsProps['isDelegateApprovedLoading'];
+  approveDelegateAction: ApproveDelegateStepsProps['approveDelegateeAction'];
+  isApproveDelegateLoading: ApproveDelegateStepsProps['isApproveDelegateeLoading'];
+  isDelegateApproved: ApproveDelegateStepsProps['isDelegateeApproved'];
+  isDelegateApprovedLoading: ApproveDelegateStepsProps['isDelegateeApprovedLoading'];
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
@@ -41,11 +41,12 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
 
   return (
     <ApproveDelegateSteps
-      approveDelegateAction={approveDelegateAction}
-      isApproveDelegateLoading={isApproveDelegateLoading}
-      isDelegateApproved={isDelegateApproved}
-      isDelegateApprovedLoading={isDelegateApprovedLoading}
+      approveDelegateeAction={approveDelegateAction}
+      isApproveDelegateeLoading={isApproveDelegateLoading}
+      isDelegateeApproved={isDelegateApproved}
+      isDelegateeApprovedLoading={isDelegateApprovedLoading}
       secondStepButtonLabel={submitButtonLabel}
+      hideDelegateeApprovalStep={!isFormValid}
     >
       <PrimaryButton
         type="submit"

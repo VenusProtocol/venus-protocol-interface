@@ -15,11 +15,11 @@ describe('ApproveDelegateSteps', () => {
 
     const { getByText } = renderComponent(
       <ApproveDelegateSteps
-        isDelegateApproved={false}
-        isApproveDelegateLoading={false}
-        isDelegateApprovedLoading={false}
+        isDelegateeApproved={false}
+        isApproveDelegateeLoading={false}
+        isDelegateeApprovedLoading={false}
         secondStepButtonLabel={fakeContent}
-        approveDelegateAction={approveTokenMock}
+        approveDelegateeAction={approveTokenMock}
       >
         {fakeContent}
       </ApproveDelegateSteps>,
@@ -39,10 +39,10 @@ describe('ApproveDelegateSteps', () => {
     const { getByText, queryByText } = renderComponent(
       <ApproveDelegateSteps
         secondStepButtonLabel={fakeContent}
-        isDelegateApproved
-        isApproveDelegateLoading={false}
-        isDelegateApprovedLoading={false}
-        approveDelegateAction={noop}
+        isDelegateeApproved
+        isApproveDelegateeLoading={false}
+        isDelegateeApprovedLoading={false}
+        approveDelegateeAction={noop}
       >
         {fakeContent}
       </ApproveDelegateSteps>,

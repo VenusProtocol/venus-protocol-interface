@@ -3,38 +3,43 @@ import { useTranslation } from 'libs/translations';
 import { ApprovalSteps, ApprovalStepsProps } from '..';
 
 export type ApproveDelegateStepsProps = {
-  approveDelegateAction: () => Promise<unknown>;
-  isDelegateApproved: boolean | undefined;
-  isDelegateApprovedLoading: boolean;
-  isApproveDelegateLoading: boolean;
+  approveDelegateeAction: () => Promise<unknown>;
+  isDelegateeApproved: boolean | undefined;
+  isDelegateeApprovedLoading: boolean;
+  isApproveDelegateeLoading: boolean;
+  hideDelegateeApprovalStep?: boolean;
 } & ApprovalStepsProps;
 
 export const ApproveDelegateSteps: React.FC<ApproveDelegateStepsProps> = ({
-  approveDelegateAction,
-  isDelegateApproved,
-  isDelegateApprovedLoading,
-  isApproveDelegateLoading,
+  approveDelegateeAction,
+  isDelegateeApproved,
+  isDelegateeApprovedLoading,
+  isApproveDelegateeLoading,
   secondStepButtonLabel,
   className,
   children,
+  hideDelegateeApprovalStep,
 }) => {
   const { t } = useTranslation();
 
   const showApproveDelegateStep =
-    !isDelegateApprovedLoading && isDelegateApproved !== undefined && !isDelegateApproved;
+    !isDelegateeApprovedLoading &&
+    isDelegateeApproved !== undefined &&
+    !isDelegateeApproved &&
+    !hideDelegateeApprovalStep;
 
   return (
     <ApprovalSteps
       className={className}
       showApprovalSteps={showApproveDelegateStep}
-      isApprovalActionLoading={isApproveDelegateLoading}
-      approvalAction={approveDelegateAction}
+      isApprovalActionLoading={isApproveDelegateeLoading}
+      approvalAction={approveDelegateeAction}
       firstStepLabel={t('approveDelegateSteps.step1')}
       firstStepTooltip={t('approveDelegateSteps.approveDelegateButton.tooltip')}
       firstStepButtonLabel={t('approveDelegateSteps.approveDelegateButton.text')}
       secondStepLabel={t('approveTokenSteps.step2')}
       secondStepButtonLabel={secondStepButtonLabel}
-      isApproved={isDelegateApproved}
+      isApproved={isDelegateeApproved}
     >
       {children}
     </ApprovalSteps>
