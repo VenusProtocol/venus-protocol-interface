@@ -42,7 +42,7 @@ const featureFlags = {
     ChainId.OPBNB_MAINNET,
     ChainId.OPBNB_TESTNET,
   ],
-  wrapUnwrapNativeToken: [ChainId.SEPOLIA],
+  wrapUnwrapNativeToken: [ChainId.SEPOLIA, ChainId.BSC_TESTNET, ChainId.OPBNB_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
