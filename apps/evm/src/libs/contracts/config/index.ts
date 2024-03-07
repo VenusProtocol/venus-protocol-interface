@@ -396,8 +396,14 @@ export const contracts: ContractConfig[] = [
         [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
           '0xae5A30d694DFF2268C864834DEDa745B784c48bD',
       },
-      [ChainId.BSC_MAINNET]: {},
-      [ChainId.OPBNB_MAINNET]: {},
+      [ChainId.BSC_MAINNET]: {
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
+          '0xa8433F284795aE7f8652127af47482578b58673d',
+      },
+      [ChainId.OPBNB_MAINNET]: {
+        [isolatedPoolsOpBnbMainnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
+          '0x996597fc8726eC0f62BCA0aF4f2Af67D2f7563Ee',
+      },
       [ChainId.OPBNB_TESTNET]: {
         [isolatedPoolsOpBnbTestnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
           '0xbA12d0BFC59fd29C44795FfFa8A3Ccc877A41325',
