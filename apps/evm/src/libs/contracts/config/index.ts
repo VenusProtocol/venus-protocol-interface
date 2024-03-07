@@ -389,18 +389,26 @@ export const contracts: ContractConfig[] = [
   },
   // NativeTokenGateway contract addresses for each supported pool
   {
+    // TODO: replace with package addresses once they have been added
     name: 'NativeTokenGateway',
     abi: NativeTokenGatewayAbi,
     address: {
-      [ChainId.BSC_TESTNET]: {},
+      [ChainId.BSC_TESTNET]: {
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
+          '0xae5A30d694DFF2268C864834DEDa745B784c48bD',
+      },
       [ChainId.BSC_MAINNET]: {},
       [ChainId.OPBNB_MAINNET]: {},
-      [ChainId.OPBNB_TESTNET]: {},
+      [ChainId.OPBNB_TESTNET]: {
+        [isolatedPoolsOpBnbTestnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
+          '0xbA12d0BFC59fd29C44795FfFa8A3Ccc877A41325',
+      },
       [ChainId.ETHEREUM]: {},
       [ChainId.SEPOLIA]: {
-        // TODO: replace with package address once it has been added
         [isolatedPoolsSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
           '0x02fC3253e6839e001Ac959b9834f6BdDAC7bE705',
+        [isolatedPoolsSepoliaDeployments.addresses['Comptroller_Liquid Staked ETH'].toLowerCase()]:
+          '0xe6FF9010852a14fA58CdBe3F2e91d6FbCB3567f9',
       },
     },
   },
