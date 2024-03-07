@@ -6,14 +6,16 @@ import wbnbLogo from 'libs/tokens/img/wbnb.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
 import { Token } from 'types';
 
+const bnbToken: Token = {
+  address: '0x0000000000000000000000000000000000000000',
+  decimals: 18,
+  symbol: 'BNB',
+  asset: bnbLogo,
+  isNative: true,
+};
+
 export const tokens: Token[] = [
-  {
-    address: '0x0000000000000000000000000000000000000000',
-    decimals: 18,
-    symbol: 'BNB',
-    asset: bnbLogo,
-    isNative: true,
-  },
+  bnbToken,
   {
     address: '0xc2931B1fEa69b6D6dA65a50363A8D75d285e4da9',
     decimals: 18,
@@ -37,6 +39,7 @@ export const tokens: Token[] = [
     decimals: 18,
     address: '0xF9ce72611a1BE9797FdD2c995dB6fB61FD20E4eB',
     asset: wbnbLogo,
+    tokenWrapped: bnbToken,
   },
   {
     symbol: 'BTCB',
