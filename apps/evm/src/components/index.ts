@@ -8,6 +8,7 @@ export * from './Countdown';
 export * from './Delimiter';
 export * from './EllipseAddress';
 export * from './ApproveSteps/ApproveTokenSteps';
+export * from './ApproveSteps/ApproveDelegateSteps';
 export * from './Form';
 export * from './Icon';
 export * from './LabeledInlineContent';

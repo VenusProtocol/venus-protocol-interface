@@ -2,14 +2,20 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { useBorrow } from 'clients/api';
+import {
+  useBorrow,
+  useGetPoolDelegateApprovalStatus,
+  useUpdatePoolDelegateStatus,
+} from 'clients/api';
 import { AssetWarning, Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useGetNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
@@ -27,6 +33,10 @@ export interface BorrowFormUiProps {
   onCloseModal: () => void;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
+  isDelegateApproved: boolean | undefined;
+  isDelegateAppovedLoading: boolean;
+  isApproveDelegateLoading: boolean;
+  approveDelegateAction: () => Promise<unknown>;
 }
 
 export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
@@ -37,6 +47,10 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   isSubmitting,
   setFormValues,
   formValues,
+  isDelegateApproved,
+  isDelegateAppovedLoading,
+  isApproveDelegateLoading,
+  approveDelegateAction,
 }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
@@ -212,6 +226,10 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         isFormValid={isFormValid}
         formError={formError}
         fromTokenAmountTokens={formValues.amountTokens}
+        isDelegateApproved={isDelegateApproved}
+        isDelegateApprovedLoading={isDelegateAppovedLoading}
+        approveDelegateAction={approveDelegateAction}
+        isApproveDelegateLoading={isApproveDelegateLoading}
       />
     </form>
   );
@@ -224,6 +242,7 @@ export interface BorrowFormProps {
 }
 
 const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) => {
+  const { accountAddress } = useAccountAddress();
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
@@ -234,6 +253,29 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
     poolName: pool.name,
     vToken: asset.vToken,
   });
+
+  const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
+    comptrollerContractAddress: pool.comptrollerAddress,
+  });
+
+  const { mutateAsync: updatePoolDelegateStatus, isLoading: isUseUpdatePoolDelegateStatusLoading } =
+    useUpdatePoolDelegateStatus({
+      delegateAddress: nativeTokenGatewayContractAddress || '',
+      poolComptrollerAddress: pool.comptrollerAddress,
+    });
+
+  const { data: isDelegateApproved, isLoading: isDelegateApprovedLoading } =
+    useGetPoolDelegateApprovalStatus(
+      {
+        poolComptrollerAddress: pool.comptrollerAddress,
+        delegateAddress: nativeTokenGatewayContractAddress!,
+        accountAddress: accountAddress || '',
+      },
+      {
+        enabled:
+          formValues.receiveNativeToken && !!nativeTokenGatewayContractAddress && !!accountAddress,
+      },
+    );
 
   const isSubmitting = isBorrowLoading;
 
@@ -255,6 +297,10 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
       onCloseModal={onCloseModal}
       onSubmit={onSubmit}
       isSubmitting={isSubmitting}
+      isDelegateApproved={isDelegateApproved}
+      isDelegateAppovedLoading={isDelegateApprovedLoading}
+      isApproveDelegateLoading={isUseUpdatePoolDelegateStatusLoading}
+      approveDelegateAction={() => updatePoolDelegateStatus({ approvedStatus: true })}
     />
   );
 };
