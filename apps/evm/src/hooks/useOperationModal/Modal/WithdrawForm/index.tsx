@@ -2,7 +2,12 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { useGetVTokenBalanceOf, useRedeem, useRedeemUnderlying } from 'clients/api';
+import {
+  useGetVTokenBalanceOf,
+  useRedeem,
+  useRedeemAndUnwrap,
+  useRedeemUnderlying,
+} from 'clients/api';
 import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { AccountData } from 'containers/AccountData';
 import useDelegateApproval from 'hooks/useDelegateApproval';
@@ -251,6 +256,11 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
     vToken: asset.vToken,
   });
 
+  const { mutateAsync: redeemAndUnwrap, isLoading: isRedeemAndUnwrapLoading } = useRedeemAndUnwrap({
+    poolComptrollerAddress: pool.comptrollerAddress,
+    vToken: asset.vToken,
+  });
+
   const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
   });
@@ -272,7 +282,8 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
       vToken: asset.vToken,
     });
 
-  const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
+  const isWithdrawLoading =
+    isRedeemLoading || isRedeemUnderlyingLoading || isRedeemAndUnwrapLoading;
 
   const onSubmit: UseFormInput['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
     // This cose should never be reached, but just in case we throw a generic
@@ -294,6 +305,12 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
         token: fromToken,
       });
 
+      if (formValues.receiveNativeToken) {
+        return redeemAndUnwrap({
+          amountMantissa: withdrawAmountMantissa,
+        });
+      }
+
       return redeemUnderlying({
         amountMantissa: withdrawAmountMantissa,
       });
@@ -301,6 +318,11 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
 
     // Withdraw entire supply
     if (vTokenBalanceMantissa) {
+      if (formValues.receiveNativeToken) {
+        return redeemAndUnwrap({
+          amountMantissa: vTokenBalanceMantissa,
+        });
+      }
       return redeem({ amountMantissa: vTokenBalanceMantissa });
     }
 
