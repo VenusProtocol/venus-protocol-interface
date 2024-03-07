@@ -142,6 +142,25 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     tokenBalances,
   ]);
 
+  // Determine the amount of tokens the user can supply, taking the supply cap and their wallet
+  // balance in consideration
+  const supplyableFromTokenAmountTokens = useMemo(() => {
+    if (isUsingSwap || !fromTokenUserWalletBalanceTokens) {
+      return undefined;
+    }
+
+    const marginWithSupplyCapTokens = asset.supplyCapTokens
+      ? asset.supplyCapTokens.minus(asset.supplyBalanceTokens)
+      : new BigNumber(Infinity);
+
+    return BigNumber.min(marginWithSupplyCapTokens, fromTokenUserWalletBalanceTokens);
+  }, [
+    isUsingSwap,
+    asset.supplyBalanceTokens,
+    fromTokenUserWalletBalanceTokens,
+    asset.supplyCapTokens,
+  ]);
+
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     fromTokenUserWalletBalanceTokens,
@@ -160,6 +179,11 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     token: formValues.fromToken,
   });
 
+  const readableSupplyableFromTokenAmountTokens = useFormatTokensToReadableValue({
+    value: supplyableFromTokenAmountTokens,
+    token: formValues.fromToken,
+  });
+
   const handleToggleCollateral = async () => {
     try {
       await toggleCollateral({
@@ -173,12 +197,31 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   };
 
   const handleRightMaxButtonClick = useCallback(() => {
-    // Update field value to correspond to user's wallet balance
+    // If user is using swap, we fill the input with the user's wallet balance as we don't have a
+    // way to know in advance exactly how much of the fromToken they can supply to
+    let amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0);
+
+    // If a user is not swapping, we fill the input with the maximum supplyable amount of fromTokens
+    if (!isUsingSwap && supplyableFromTokenAmountTokens) {
+      amountTokens = supplyableFromTokenAmountTokens;
+    }
+
+    // If user has set a spending limit for fromToken, then we take it in consideration
+    if (fromTokenWalletSpendingLimitTokens && fromTokenWalletSpendingLimitTokens.isGreaterThan(0)) {
+      amountTokens = BigNumber.min(amountTokens, fromTokenWalletSpendingLimitTokens);
+    }
+
     setFormValues(currentFormValues => ({
       ...currentFormValues,
-      amountTokens: new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed(),
+      amountTokens: amountTokens.toFixed(),
     }));
-  }, [fromTokenUserWalletBalanceTokens, setFormValues]);
+  }, [
+    fromTokenUserWalletBalanceTokens,
+    setFormValues,
+    isUsingSwap,
+    fromTokenWalletSpendingLimitTokens,
+    supplyableFromTokenAmountTokens,
+  ]);
 
   return (
     <>
@@ -282,10 +325,16 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
         <div css={sharedStyles.getRow({ isLast: true })}>
           <LabeledInlineContent
-            label={t('operationModal.supply.walletBalance')}
+            label={
+              isUsingSwap
+                ? t('operationModal.supply.walletBalance')
+                : t('operationModal.supply.supplyableAmount')
+            }
             css={sharedStyles.getRow({ isLast: false })}
           >
-            {readableFromTokenUserWalletBalanceTokens}
+            {isUsingSwap
+              ? readableFromTokenUserWalletBalanceTokens
+              : readableSupplyableFromTokenAmountTokens}
           </LabeledInlineContent>
 
           <SpendingLimit

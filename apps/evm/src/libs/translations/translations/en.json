@@ -542,8 +542,8 @@
     "repay": {
       "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "connectWalletMessage": "Please connect your wallet to repay",
-      "currentlyBorrowing": "Currently borrowing",
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
+      "repaybaleAmount": "Repayable amount",
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "amountHigherThanRepayBalance": "Amount entered higher than repay balance",
@@ -559,8 +559,7 @@
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
-      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
-      "walletBalance": "Wallet balance"
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     },
     "repayTabTitle": "Repay",
     "supply": {
@@ -582,9 +581,9 @@
         "swapAndSupply": "Swap and supply",
         "swapAndSupplyWithHighPriceImpact": "Swap and supply with high price impact",
         "unwrappingUnsupported": "Unwrapping unsupported",
-        "wrapAndSupply": "Wrap and supply",
         "wrappingUnsupported": "Wrapping unsupported"
       },
+      "supplyableAmount": "Supplyable amount",
       "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
       "walletBalance": "Wallet balance",
@@ -1002,7 +1001,6 @@
         "label": "Borrow APR",
         "tooltip": "The annualized interest rate to be paid in the future, on top of the minted VAI"
       },
-      "borrowBalance": "Currently borrowing",
       "notice": {
         "amountHigherThanBorrowBalance": "Amount entered higher than repay balance",
         "amountHigherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",

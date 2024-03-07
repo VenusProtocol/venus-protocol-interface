@@ -11,8 +11,9 @@ import { useGetBalanceOf, wrapTokensAndRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
-import { ChainId } from 'types';
+import { Asset, ChainId } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
 import Repay from '..';
@@ -65,6 +66,176 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     );
 
     expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible();
+  });
+
+  it('enables repaying the full loan when clicking on MAX button if wallet balance is high enough', async () => {
+    const customFakeWethAsset: Asset = {
+      ...fakeWethAsset,
+      userBorrowBalanceTokens: new BigNumber(100),
+    };
+
+    // Add 1 WETH to simulate wallet balance being higher than borrow balance
+    const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.plus(1);
+
+    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+      data: {
+        balanceMantissa: fakeUserWethWalletBalance.multipliedBy(
+          10 ** customFakeWethAsset.vToken.underlyingToken.decimals,
+        ),
+      },
+      isLoading: false,
+    }));
+
+    const { container, getByText, getByTestId, queryByTestId } = renderComponent(
+      <Repay asset={customFakeWethAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        chainId: ChainId.SEPOLIA,
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible());
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: eth,
+    });
+
+    // Check input is empty
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+    expect(selectTokenTextField.value).toBe('');
+
+    // Click on MAX button
+    fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
+
+    await waitFor(() =>
+      expect(selectTokenTextField.value).toBe(
+        customFakeWethAsset.userBorrowBalanceTokens.toFixed(),
+      ),
+    );
+
+    // Check notice is displayed
+    await waitFor(() =>
+      expect(getByText(en.operationModal.repay.fullRepaymentWarning)).toBeTruthy(),
+    );
+
+    // Check submit button is enabled
+    expect(
+      getByText(en.operationModal.repay.submitButtonLabel.repay).closest('button'),
+    ).toBeEnabled();
+  });
+
+  it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet balance', async () => {
+    const customFakeWethAsset: Asset = {
+      ...fakeWethAsset,
+      userBorrowBalanceTokens: new BigNumber(100),
+    };
+
+    // Remove 1 WETH to simulate wallet balance being lower than borrow balance
+    const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.minus(1);
+
+    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+      data: {
+        balanceMantissa: fakeUserWethWalletBalance.multipliedBy(
+          10 ** customFakeWethAsset.vToken.underlyingToken.decimals,
+        ),
+      },
+      isLoading: false,
+    }));
+
+    const { container, getByText, getByTestId, queryByTestId } = renderComponent(
+      <Repay asset={customFakeWethAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        chainId: ChainId.SEPOLIA,
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible());
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: eth,
+    });
+
+    // Check input is empty
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+    expect(selectTokenTextField.value).toBe('');
+
+    // Click on MAX button
+    fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
+
+    await waitFor(() =>
+      expect(selectTokenTextField.value).toBe(fakeUserWethWalletBalance.toFixed()),
+    );
+
+    // Check submit button is enabled
+    expect(
+      getByText(en.operationModal.repay.submitButtonLabel.repay).closest('button'),
+    ).toBeEnabled();
+  });
+
+  it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet spending limit', async () => {
+    const originalTokenApprovalOutput = useTokenApproval({
+      token: fakeAsset.vToken.underlyingToken,
+      spenderAddress: fakeAsset.vToken.address,
+      accountAddress: fakeAccountAddress,
+    });
+
+    const fakeWalletSpendingLimitTokens = new BigNumber(10);
+    const fakeRevokeWalletSpendingLimit = vi.fn();
+
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+      ...originalTokenApprovalOutput,
+      revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
+      walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
+    }));
+
+    const { container, getByText, getByTestId, queryByTestId } = renderComponent(
+      <Repay asset={fakeWethAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        chainId: ChainId.SEPOLIA,
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible());
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: eth,
+    });
+
+    // Check input is empty
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+    expect(selectTokenTextField.value).toBe('');
+
+    // Click on MAX button
+    fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
+
+    await waitFor(() =>
+      expect(selectTokenTextField.value).toBe(fakeWalletSpendingLimitTokens.toFixed()),
+    );
+
+    // Check submit button is enabled
+    expect(
+      getByText(en.operationModal.repay.submitButtonLabel.repay).closest('button'),
+    ).toBeEnabled();
   });
 
   it('lets user wrap and repay, then calls onClose callback on success', async () => {
