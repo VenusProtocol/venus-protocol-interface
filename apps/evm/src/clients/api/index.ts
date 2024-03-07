@@ -136,6 +136,10 @@ export { default as updatePoolDelegateStatus } from './mutations/updatePoolDeleg
 export * from './mutations/updatePoolDelegateStatus';
 export { default as useUpdatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus/useUpdatePoolDelegateStatus';
 
+export { default as borrowAndUnwrap } from './mutations/borrowAndUnwrap';
+export * from './mutations/borrowAndUnwrap';
+export { default as useBorrowAndUnwrap } from './mutations/borrowAndUnwrap/useBorrowAndUnwrap';
+
 // Queries
 export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';
 export * from './queries/getVaiCalculateRepayAmount';
