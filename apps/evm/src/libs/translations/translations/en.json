@@ -74,7 +74,7 @@
   "approveDelegateSteps": {
     "approveDelegateButton": {
       "text": "Approve delegate contract",
-      "tooltip": "We require approving the delegate contract to perform this operation in your behalf."
+      "tooltip": "We require approving the delegate contract to perform this operation on your behalf."
     },
     "step1": "Step 1",
     "step2": "Step 2"

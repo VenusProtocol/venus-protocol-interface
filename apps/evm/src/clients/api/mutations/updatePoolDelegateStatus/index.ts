@@ -2,15 +2,15 @@ import { IsolatedPoolComptroller } from 'libs/contracts';
 
 export interface UpdatePoolDelegateStatusInput {
   poolComptrollerContract: IsolatedPoolComptroller;
-  delegateAddress: string;
+  delegateeAddress: string;
   approvedStatus: boolean;
 }
 
 const updateDelegate = async ({
   poolComptrollerContract,
-  delegateAddress,
+  delegateeAddress,
   approvedStatus,
 }: UpdatePoolDelegateStatusInput) =>
-  poolComptrollerContract.updateDelegate(delegateAddress, approvedStatus);
+  poolComptrollerContract.updateDelegate(delegateeAddress, approvedStatus);
 
 export default updateDelegate;

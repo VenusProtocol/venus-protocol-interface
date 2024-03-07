@@ -16,7 +16,7 @@ describe('updatePoolDelegateStatus', () => {
     const response = await updatePoolDelegateStatus({
       poolComptrollerContract: fakeContract,
       approvedStatus: true,
-      delegateAddress: fakeDelegateAddress,
+      delegateeAddress: fakeDelegateAddress,
     });
 
     expect(response).toBe(fakeContractTransaction);

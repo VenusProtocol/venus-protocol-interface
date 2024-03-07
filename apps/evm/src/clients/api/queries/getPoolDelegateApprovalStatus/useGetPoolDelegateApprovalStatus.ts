@@ -2,6 +2,7 @@ import { QueryObserverOptions, useQuery } from 'react-query';
 
 import getPoolDelegateApprovalStatus, {
   GetNativeTokenGatewayDelegateApprovalInput,
+  GetNativeTokenGatewayDelegateApprovalOutput,
 } from 'clients/api/queries/getPoolDelegateApprovalStatus';
 import FunctionKey from 'constants/functionKey';
 import { useGetIsolatedPoolComptrollerContract } from 'libs/contracts';
@@ -18,17 +19,17 @@ export type UseGetPoolDelegateApprovalStatusQueryKey = [
 ];
 
 type Options = QueryObserverOptions<
-  boolean,
+  GetNativeTokenGatewayDelegateApprovalOutput,
   Error,
-  boolean,
-  boolean,
+  GetNativeTokenGatewayDelegateApprovalOutput,
+  GetNativeTokenGatewayDelegateApprovalOutput,
   UseGetPoolDelegateApprovalStatusQueryKey
 >;
 
 const useGetPoolDelegateApprovalStatus = (
   {
     poolComptrollerAddress,
-    delegateAddress,
+    delegateeAddress,
     accountAddress,
   }: TrimmedGetNativeTokenGatewayDelegateApprovalInput,
   options?: Options,
@@ -41,7 +42,7 @@ const useGetPoolDelegateApprovalStatus = (
   const queryKey: UseGetPoolDelegateApprovalStatusQueryKey = [
     FunctionKey.GET_POOL_DELEGATE_APPROVAL_STATUS,
     {
-      delegateAddress,
+      delegateeAddress,
       accountAddress: accountAddress || '',
       poolComptrollerAddress,
     },
@@ -50,7 +51,7 @@ const useGetPoolDelegateApprovalStatus = (
   return useQuery(
     queryKey,
     () =>
-      callOrThrow({ poolComptrollerContract, delegateAddress, accountAddress }, params =>
+      callOrThrow({ poolComptrollerContract, delegateeAddress, accountAddress }, params =>
         getPoolDelegateApprovalStatus({
           ...params,
         }),

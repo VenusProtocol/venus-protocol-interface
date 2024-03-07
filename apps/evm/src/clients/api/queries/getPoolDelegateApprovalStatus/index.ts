@@ -2,18 +2,27 @@ import { IsolatedPoolComptroller } from 'libs/contracts';
 
 export interface GetNativeTokenGatewayDelegateApprovalInput {
   poolComptrollerContract: IsolatedPoolComptroller;
-  delegateAddress: string;
+  delegateeAddress: string;
   accountAddress: string;
+}
+
+export interface GetNativeTokenGatewayDelegateApprovalOutput {
+  isDelegateeApproved: boolean;
 }
 
 const getPoolDelegateApprovalStatus = async ({
   poolComptrollerContract,
-  delegateAddress,
+  delegateeAddress,
   accountAddress,
 }: GetNativeTokenGatewayDelegateApprovalInput) => {
-  const res = await poolComptrollerContract.approvedDelegates(accountAddress, delegateAddress);
+  const isDelegateeApproved = await poolComptrollerContract.approvedDelegates(
+    accountAddress,
+    delegateeAddress,
+  );
 
-  return res;
+  return {
+    isDelegateeApproved,
+  };
 };
 
 export default getPoolDelegateApprovalStatus;
