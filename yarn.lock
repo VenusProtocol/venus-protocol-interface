@@ -18163,13 +18163,13 @@ reg-keygen-git-hash-plugin@^0.14.2:
     shell-escape "^0.2.0"
 
 reg-notify-github-plugin@^0.14.2:
-  version "0.14.2"
-  resolved "https://registry.yarnpkg.com/reg-notify-github-plugin/-/reg-notify-github-plugin-0.14.2.tgz#9f9d59d424124fbbaec1b40a18b24e42ee8c469c"
-  integrity sha512-oAbQ+IMGtEPo87nAqSbBDIuW24foOyqXGXUXxB49xfYqLL2NLVTUMSzrd1amjcyoXyI66JLhHIbOZ/L4vwJsKw==
+  version "0.14.3"
+  resolved "https://registry.yarnpkg.com/reg-notify-github-plugin/-/reg-notify-github-plugin-0.14.3.tgz#c0edf7d99d973efaa3f6d4bf1a85b755971f092a"
+  integrity sha512-HjRnVYLoArLkFM7bpIVnH0CzLuAMlzRsgKjq41ck1b5VUmN+6fyDoXCA8I+Ezv0clXaenseCkP9o+z6PPC5LAQ==
   dependencies:
     open "^8.0.0"
     reg-gh-app-interface "^1.3.0"
-    reg-suit-util "^0.14.2"
+    reg-suit-util "^0.14.3"
     tiny-commit-walker "^1.1.2"
     undici "^5.22.1"
 
