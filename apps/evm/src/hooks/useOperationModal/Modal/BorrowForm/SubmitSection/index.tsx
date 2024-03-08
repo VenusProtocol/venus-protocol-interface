@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { PrimaryButton } from 'components';
+import { ApproveDelegateSteps, ApproveDelegateStepsProps, PrimaryButton } from 'components';
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
@@ -14,6 +14,10 @@ export interface SubmitSectionProps {
   safeLimitTokens: string;
   fromTokenAmountTokens: string;
   formError?: FormError;
+  approveDelegateAction: ApproveDelegateStepsProps['approveDelegateeAction'];
+  isApproveDelegateLoading: ApproveDelegateStepsProps['isApproveDelegateeLoading'];
+  isDelegateApproved: ApproveDelegateStepsProps['isDelegateeApproved'];
+  isDelegateApprovedLoading: ApproveDelegateStepsProps['isDelegateeApprovedLoading'];
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
@@ -22,6 +26,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   safeLimitTokens,
   fromTokenAmountTokens,
   formError,
+  approveDelegateAction,
+  isApproveDelegateLoading,
+  isDelegateApproved,
+  isDelegateApprovedLoading,
 }) => {
   const { t } = useTranslation();
 
@@ -55,14 +63,23 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   }, [isFormValid, formError, isDangerous, isFormSubmitting, t]);
 
   return (
-    <PrimaryButton
-      type="submit"
-      loading={isFormSubmitting}
-      disabled={!isFormValid || isFormSubmitting}
-      className={cn('w-full', isDangerous && 'border-red bg-red')}
+    <ApproveDelegateSteps
+      approveDelegateeAction={approveDelegateAction}
+      isApproveDelegateeLoading={isApproveDelegateLoading}
+      isDelegateeApproved={isDelegateApproved}
+      isDelegateeApprovedLoading={isDelegateApprovedLoading}
+      secondStepButtonLabel={submitButtonLabel}
+      hideDelegateeApprovalStep={!isFormValid}
     >
-      {submitButtonLabel}
-    </PrimaryButton>
+      <PrimaryButton
+        type="submit"
+        loading={isFormSubmitting}
+        disabled={!isFormValid || isFormSubmitting}
+        className={cn('w-full', isDangerous && 'border-red bg-red')}
+      >
+        {submitButtonLabel}
+      </PrimaryButton>
+    </ApproveDelegateSteps>
   );
 };
 

@@ -331,6 +331,11 @@ export const useGetXvsBridgeMintStatus = vi.fn(() =>
   useQuery(FunctionKey.GET_XVS_BRIDGE_MINT_STATUS, getXvsBridgeMintStatus),
 );
 
+export const getPoolDelegateApprovalStatus = vi.fn(async () => undefined);
+export const useGetPoolDelegateApprovalStatus = vi.fn(() =>
+  useQuery(FunctionKey.GET_POOL_DELEGATE_APPROVAL_STATUS, getPoolDelegateApprovalStatus),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
@@ -480,3 +485,7 @@ export const useWrapTokensAndSupply = (_variables: never, options?: MutationObse
 export const wrapTokensAndRepay = vi.fn();
 export const useWrapTokensAndRepay = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.WRAP_TOKENS_AND_REPAY, wrapTokensAndRepay, options);
+
+export const updatePoolDelegateStatus = vi.fn();
+export const useUpdatePoolDelegateStatus = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.UPDATE_POOL_DELEGATE_STATUS, updatePoolDelegateStatus, options);

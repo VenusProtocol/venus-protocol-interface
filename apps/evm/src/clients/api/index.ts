@@ -132,6 +132,10 @@ export { default as wrapTokensAndRepay } from './mutations/wrapTokensAndRepay';
 export * from './mutations/wrapTokensAndRepay';
 export { default as useWrapTokensAndRepay } from './mutations/wrapTokensAndRepay/useWrapTokensAndRepay';
 
+export { default as updatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus';
+export * from './mutations/updatePoolDelegateStatus';
+export { default as useUpdatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus/useUpdatePoolDelegateStatus';
+
 // Queries
 export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';
 export * from './queries/getVaiCalculateRepayAmount';
@@ -384,3 +388,7 @@ export { default as useGetXvsBridgeStatus } from './queries/getXvsBridgeStatus/u
 export { default as getXvsBridgeMintStatus } from './queries/getXvsBridgeMintStatus';
 export * from './queries/getXvsBridgeMintStatus';
 export { default as useGetXvsBridgeMintStatus } from './queries/getXvsBridgeMintStatus/useGetXvsBridgeMintStatus';
+
+export { default as getPoolDelegateApprovalStatus } from './queries/getPoolDelegateApprovalStatus';
+export * from './queries/getPoolDelegateApprovalStatus';
+export { default as useGetPoolDelegateApprovalStatus } from './queries/getPoolDelegateApprovalStatus/useGetPoolDelegateApprovalStatus';

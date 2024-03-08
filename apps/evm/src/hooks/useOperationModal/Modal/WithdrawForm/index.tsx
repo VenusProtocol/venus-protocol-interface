@@ -5,9 +5,11 @@ import { useCallback, useMemo, useState } from 'react';
 import { useGetVTokenBalanceOf, useRedeem, useRedeemUnderlying } from 'clients/api';
 import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { AccountData } from 'containers/AccountData';
+import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useGetNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -28,6 +30,10 @@ export interface WithdrawFormUiProps {
   onCloseModal: () => void;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
+  isDelegateApproved: boolean | undefined;
+  isDelegateApprovedLoading: boolean;
+  isApproveDelegateLoading: boolean;
+  approveDelegateAction: () => Promise<unknown>;
 }
 
 export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
@@ -38,6 +44,10 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   formValues,
   onSubmit,
   isSubmitting,
+  isDelegateApproved,
+  isDelegateApprovedLoading,
+  isApproveDelegateLoading,
+  approveDelegateAction,
 }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
@@ -201,6 +211,10 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         isFormSubmitting={isSubmitting}
         isFormValid={isFormValid}
         formError={formError}
+        isDelegateApproved={isDelegateApproved}
+        isDelegateApprovedLoading={isDelegateApprovedLoading}
+        approveDelegateAction={approveDelegateAction}
+        isApproveDelegateLoading={isApproveDelegateLoading}
       />
     </form>
   );
@@ -235,6 +249,21 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
   const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
     poolName: pool.name,
     vToken: asset.vToken,
+  });
+
+  const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
+    comptrollerContractAddress: pool.comptrollerAddress,
+  });
+
+  const {
+    isDelegateApproved,
+    isDelegateApprovedLoading,
+    isUseUpdatePoolDelegateStatusLoading,
+    updatePoolDelegateStatus,
+  } = useDelegateApproval({
+    delegateeAddress: nativeTokenGatewayContractAddress || '',
+    poolComptrollerAddress: pool.comptrollerAddress,
+    enabled: formValues.receiveNativeToken,
   });
 
   const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
@@ -292,6 +321,10 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
       setFormValues={setFormValues}
       onSubmit={onSubmit}
       isSubmitting={isWithdrawLoading}
+      isDelegateApproved={isDelegateApproved}
+      isDelegateApprovedLoading={isDelegateApprovedLoading}
+      isApproveDelegateLoading={isUseUpdatePoolDelegateStatusLoading}
+      approveDelegateAction={() => updatePoolDelegateStatus({ approvedStatus: true })}
     />
   );
 };

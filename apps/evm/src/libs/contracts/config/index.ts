@@ -2,7 +2,6 @@
 import { abi as GovernorBravoDelegateAbi } from '@venusprotocol/governance-contracts/artifacts/contracts/Governance/GovernorBravoDelegate.sol/GovernorBravoDelegate.json';
 import venusGovernanceBscMainnetDeployments from '@venusprotocol/governance-contracts/deployments/bscmainnet_addresses.json';
 import venusGovernanceBscTestnetDeployments from '@venusprotocol/governance-contracts/deployments/bsctestnet_addresses.json';
-import { abi as IsolatedPoolComptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
 import { abi as JumpRateModelV2Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/JumpRateModelV2.sol/JumpRateModelV2.json';
 import { abi as PoolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { abi as PoolRegistryAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Pool/PoolRegistry.sol/PoolRegistry.json';
@@ -57,6 +56,8 @@ import { type ContractInterface } from 'ethers';
 
 import { ChainId } from 'types';
 
+// TODO: replace with the package ABI once it gets added
+import IsolatedPoolsComptrollerNtgCompatible from './externalAbis/Comptroller_NTG.json';
 import MaximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
 import NativeTokenGatewayAbi from './externalAbis/NativeTokenGateway.json';
@@ -301,7 +302,7 @@ export const contracts: ContractConfig[] = [
   // Generic Contracts
   {
     name: 'IsolatedPoolComptroller',
-    abi: IsolatedPoolComptrollerAbi,
+    abi: IsolatedPoolsComptrollerNtgCompatible,
   },
   {
     name: 'JumpRateModel',
@@ -388,18 +389,26 @@ export const contracts: ContractConfig[] = [
   },
   // NativeTokenGateway contract addresses for each supported pool
   {
+    // TODO: replace with package addresses once they have been added
     name: 'NativeTokenGateway',
     abi: NativeTokenGatewayAbi,
     address: {
-      [ChainId.BSC_TESTNET]: {},
+      [ChainId.BSC_TESTNET]: {
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
+          '0xae5A30d694DFF2268C864834DEDa745B784c48bD',
+      },
       [ChainId.BSC_MAINNET]: {},
       [ChainId.OPBNB_MAINNET]: {},
-      [ChainId.OPBNB_TESTNET]: {},
+      [ChainId.OPBNB_TESTNET]: {
+        [isolatedPoolsOpBnbTestnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
+          '0xbA12d0BFC59fd29C44795FfFa8A3Ccc877A41325',
+      },
       [ChainId.ETHEREUM]: {},
       [ChainId.SEPOLIA]: {
-        // TODO: replace with package address once it has been added
         [isolatedPoolsSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
           '0x02fC3253e6839e001Ac959b9834f6BdDAC7bE705',
+        [isolatedPoolsSepoliaDeployments.addresses['Comptroller_Liquid Staked ETH'].toLowerCase()]:
+          '0xe6FF9010852a14fA58CdBe3F2e91d6FbCB3567f9',
       },
     },
   },

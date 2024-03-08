@@ -6,9 +6,11 @@ import { useBorrow } from 'clients/api';
 import { AssetWarning, Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AccountData } from 'containers/AccountData';
+import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useGetNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { useTranslation } from 'libs/translations';
 import { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
@@ -27,6 +29,10 @@ export interface BorrowFormUiProps {
   onCloseModal: () => void;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
+  isDelegateApproved: boolean | undefined;
+  isDelegateApprovedLoading: boolean;
+  isApproveDelegateLoading: boolean;
+  approveDelegateAction: () => Promise<unknown>;
 }
 
 export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
@@ -37,6 +43,10 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   isSubmitting,
   setFormValues,
   formValues,
+  isDelegateApproved,
+  isDelegateApprovedLoading,
+  isApproveDelegateLoading,
+  approveDelegateAction,
 }) => {
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
@@ -212,6 +222,10 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         isFormValid={isFormValid}
         formError={formError}
         fromTokenAmountTokens={formValues.amountTokens}
+        isDelegateApproved={isDelegateApproved}
+        isDelegateApprovedLoading={isDelegateApprovedLoading}
+        approveDelegateAction={approveDelegateAction}
+        isApproveDelegateLoading={isApproveDelegateLoading}
       />
     </form>
   );
@@ -235,6 +249,21 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
     vToken: asset.vToken,
   });
 
+  const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
+    comptrollerContractAddress: pool.comptrollerAddress,
+  });
+
+  const {
+    isDelegateApproved,
+    isDelegateApprovedLoading,
+    isUseUpdatePoolDelegateStatusLoading,
+    updatePoolDelegateStatus,
+  } = useDelegateApproval({
+    delegateeAddress: nativeTokenGatewayContractAddress || '',
+    poolComptrollerAddress: pool.comptrollerAddress,
+    enabled: formValues.receiveNativeToken,
+  });
+
   const isSubmitting = isBorrowLoading;
 
   const onSubmit: BorrowFormUiProps['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
@@ -255,6 +284,10 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
       onCloseModal={onCloseModal}
       onSubmit={onSubmit}
       isSubmitting={isSubmitting}
+      isDelegateApproved={isDelegateApproved}
+      isDelegateApprovedLoading={isDelegateApprovedLoading}
+      isApproveDelegateLoading={isUseUpdatePoolDelegateStatusLoading}
+      approveDelegateAction={() => updatePoolDelegateStatus({ approvedStatus: true })}
     />
   );
 };
