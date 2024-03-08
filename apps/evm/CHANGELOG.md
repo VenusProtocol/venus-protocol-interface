@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.102.0
+
+### Minor Changes
+
+- 1c4ac58: integrate wrap tokens feature for supply and repay
+
+### Patch Changes
+
+- 3dde06b: Fix a hook's dependency array
+
 ## 2.101.0
 
 ### Minor Changes
