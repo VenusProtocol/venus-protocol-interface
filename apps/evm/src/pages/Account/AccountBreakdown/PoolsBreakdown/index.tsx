@@ -56,7 +56,7 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
           ),
         };
       }),
-    [pools, t],
+    [pools, t, styles.tagTooltip],
   );
 
   return (

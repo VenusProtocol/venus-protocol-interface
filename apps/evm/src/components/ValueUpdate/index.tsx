@@ -43,7 +43,7 @@ export function ValueUpdate<T>({
       original: format(original),
       updated: format(update),
     }),
-    [original, update],
+    [original, update, format],
   );
 
   return (

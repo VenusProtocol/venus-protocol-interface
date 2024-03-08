@@ -114,7 +114,15 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
         ),
       },
     ],
-    [stakedToken, rewardToken, stakingAprPercentage, dailyEmissionMantissa, totalStakedMantissa, t],
+    [
+      stakedToken,
+      rewardToken,
+      stakingAprPercentage,
+      dailyEmissionMantissa,
+      totalStakedMantissa,
+      t,
+      styles.tokenIcon,
+    ],
   );
 
   return (

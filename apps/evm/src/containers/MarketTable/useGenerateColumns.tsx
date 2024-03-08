@@ -67,11 +67,9 @@ import { ColumnKey, PoolAsset } from './types';
 const PRICE_THRESHOLD = new BigNumber(0.0000000000000001);
 
 const useGenerateColumns = ({
-  poolAssets,
   columnKeys,
   collateralOnChange,
 }: {
-  poolAssets: PoolAsset[];
   columnKeys: ColumnKey[];
   collateralOnChange: (poolAsset: PoolAsset) => void;
 }) => {
@@ -377,7 +375,7 @@ const useGenerateColumns = ({
                 },
         };
       }),
-    [poolAssets, corePoolComptrollerContractAddress, columnKeys, Trans, t],
+    [corePoolComptrollerContractAddress, columnKeys, Trans, t, collateralOnChange, styles],
   );
 
   return columns;

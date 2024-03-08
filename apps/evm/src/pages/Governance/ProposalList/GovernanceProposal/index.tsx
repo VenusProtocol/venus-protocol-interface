@@ -85,7 +85,14 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
         label: t('voteProposalUi.statusCard.cancelled'),
       },
     }),
-    [t],
+    [
+      t,
+      styles.iconCheck,
+      styles.iconCloseWrapper,
+      styles.iconDotsWrapper,
+      styles.iconInfoWrapper,
+      styles.iconMarkWrapper,
+    ],
   );
 
   if (state !== undefined && state !== ProposalState.Active) {

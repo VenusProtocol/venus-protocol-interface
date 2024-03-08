@@ -87,7 +87,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         ),
       },
     ],
-    [offset, xvs, t],
+    [offset, xvs, t, styles.address, styles.inline],
   );
 
   const cardColumns = useMemo(() => {

@@ -67,7 +67,7 @@ export const ProgressBar = ({
         )}
       </Box>
     ),
-    [markTooltip, tooltipPlacement],
+    [markTooltip, tooltipPlacement, styles.hasTooltip, styles.mark, styles.tooltipHelper],
   );
 
   const renderTrack = useCallback(
@@ -105,7 +105,7 @@ export const ProgressBar = ({
         </>
       );
     },
-    [trackTooltip, tooltipPlacement, secondaryValue, max],
+    [trackTooltip, tooltipPlacement, secondaryValue, max, styles],
   );
 
   return (
