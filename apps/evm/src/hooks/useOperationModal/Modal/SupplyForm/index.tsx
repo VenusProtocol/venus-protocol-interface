@@ -463,7 +463,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       return [marketTokenBalance, nativeTokenBalance];
     }
     return [];
-  }, [asset.userSupplyBalanceTokens, asset.vToken.underlyingToken, nativeTokenBalanceData]);
+  }, [asset.vToken.underlyingToken, asset.userWalletBalanceTokens, nativeTokenBalanceData]);
 
   const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances({
     accountAddress,
