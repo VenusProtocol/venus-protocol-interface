@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 2.103.0
+
+### Minor Changes
+
+- 4010ecc: Fix box shadow on TokenList component of SelectTokenTextField
+- b437f08: stricten linting rule on hook dependencies
+- 53c1587: ask for approval before unwrapping to native tokens in borrow/withdraw operations
+
 ## 2.102.0
 
 ### Minor Changes
