@@ -13,7 +13,6 @@ import { FormError } from '../useForm/types';
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
-  isWrappingNativeToken: boolean;
   isUsingSwap: boolean;
   fromToken: Token;
   fromTokenAmountTokens: string;
@@ -30,7 +29,6 @@ export interface SubmitSectionProps {
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isFormSubmitting,
-  isWrappingNativeToken,
   isUsingSwap,
   fromToken,
   fromTokenAmountTokens,
@@ -107,7 +105,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     formError,
     isFormSubmitting,
     isUsingSwap,
-    isWrappingNativeToken,
     isSwappingWithHighPriceImpact,
     fromToken.symbol,
     t,

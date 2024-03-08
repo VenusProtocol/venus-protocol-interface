@@ -90,7 +90,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
           }),
       },
     ],
-    [t, xvs],
+    [t, xvs, styles.abstain, styles.against, styles.for, styles.icon, styles.row],
   );
 
   return (

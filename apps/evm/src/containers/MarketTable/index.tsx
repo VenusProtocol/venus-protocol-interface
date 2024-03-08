@@ -70,7 +70,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   );
 
   const columns = useGenerateColumns({
-    poolAssets,
     columnKeys,
     collateralOnChange: handleCollateralChange,
   });

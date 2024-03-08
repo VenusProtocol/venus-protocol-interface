@@ -89,7 +89,7 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets, xvs }) 
           compareBigNumbers(rowA.xvsBorrowApy, rowB.xvsBorrowApy, direction),
       },
     ],
-    [t, xvs],
+    [t, xvs, styles.fontWeight400, styles.whiteText],
   );
 
   return (

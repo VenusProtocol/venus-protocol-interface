@@ -14,7 +14,12 @@ const useProgressColor = (value: number) => {
     }
 
     return theme.palette.interactive.success;
-  }, [value]);
+  }, [
+    value,
+    theme.palette.interactive.error,
+    theme.palette.interactive.success,
+    theme.palette.interactive.warning,
+  ]);
 };
 
 export default useProgressColor;

@@ -307,7 +307,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         swap={swap}
         isSwapLoading={isSwapLoading}
         isUsingSwap={isUsingSwap}
-        isWrappingNativeToken={isWrappingNativeToken}
         formError={formError}
         fromToken={formValues.fromToken}
         fromTokenAmountTokens={formValues.amountTokens}

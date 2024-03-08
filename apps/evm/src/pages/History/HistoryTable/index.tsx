@@ -26,27 +26,30 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
   const showXlDownCss = useShowXlDownCss();
   const hideXlDownCss = useHideXlDownCss();
 
-  const eventTranslationKeys = {
-    All: t('history.all'),
-    Mint: t('history.mint'),
-    Transfer: t('history.transfer'),
-    Borrow: t('history.borrow'),
-    RepayBorrow: t('history.repayBorrow'),
-    Redeem: t('history.redeem'),
-    Approval: t('history.approval'),
-    LiquidateBorrow: t('history.liquidateBorrow'),
-    ReservesAdded: t('history.reservesAdded'),
-    ReservesReduced: t('history.reservesReduced'),
-    MintVAI: t('history.mintVAI'),
-    Withdraw: t('history.withdraw'),
-    RepayVAI: t('history.repayVAI'),
-    Deposit: t('history.deposit'),
-    VoteCast: t('history.voteCast'),
-    ProposalCreated: t('history.proposalCreated'),
-    ProposalQueued: t('history.proposalQueued'),
-    ProposalExecuted: t('history.proposalExecuted'),
-    ProposalCanceled: t('history.proposalCanceled'),
-  };
+  const eventTranslationKeys = useMemo(
+    () => ({
+      All: t('history.all'),
+      Mint: t('history.mint'),
+      Transfer: t('history.transfer'),
+      Borrow: t('history.borrow'),
+      RepayBorrow: t('history.repayBorrow'),
+      Redeem: t('history.redeem'),
+      Approval: t('history.approval'),
+      LiquidateBorrow: t('history.liquidateBorrow'),
+      ReservesAdded: t('history.reservesAdded'),
+      ReservesReduced: t('history.reservesReduced'),
+      MintVAI: t('history.mintVAI'),
+      Withdraw: t('history.withdraw'),
+      RepayVAI: t('history.repayVAI'),
+      Deposit: t('history.deposit'),
+      VoteCast: t('history.voteCast'),
+      ProposalCreated: t('history.proposalCreated'),
+      ProposalQueued: t('history.proposalQueued'),
+      ProposalExecuted: t('history.proposalExecuted'),
+      ProposalCanceled: t('history.proposalCanceled'),
+    }),
+    [t],
+  );
 
   const columns: TableColumn<Transaction>[] = useMemo(
     () => [
@@ -171,7 +174,17 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
         ),
       },
     ],
-    [chainId, eventTranslationKeys, hideXlDownCss, showXlDownCss, t],
+    [
+      chainId,
+      eventTranslationKeys,
+      hideXlDownCss,
+      showXlDownCss,
+      t,
+      styles.cardTitle,
+      styles.icon,
+      styles.typeCol,
+      styles.whiteText,
+    ],
   );
 
   const cardColumns = useMemo(() => {

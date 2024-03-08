@@ -24,7 +24,6 @@ export interface SubmitSectionProps {
   swap?: Swap;
   formError?: FormError;
   isUsingSwap: boolean;
-  isWrappingNativeToken: boolean;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
@@ -41,7 +40,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   swap,
   isSwapLoading,
   isUsingSwap,
-  isWrappingNativeToken,
 }) => {
   const { t } = useTranslation();
 
@@ -112,7 +110,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     isFormSubmitting,
     isSwappingWithHighPriceImpact,
     isUsingSwap,
-    isWrappingNativeToken,
     fromToken.symbol,
     t,
   ]);

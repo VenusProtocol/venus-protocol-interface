@@ -61,7 +61,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
         ),
       },
     ],
-    [value, hasError, placeholder, t, name],
+    [value, hasError, placeholder, t, name, onBlur, onChange],
   );
 
   return (
