@@ -37,7 +37,7 @@ export const tokens: Token[] = [
   {
     symbol: 'WBNB',
     decimals: 18,
-    address: '0xF9ce72611a1BE9797FdD2c995dB6fB61FD20E4eB',
+    address: '0x4200000000000000000000000000000000000006',
     asset: wbnbLogo,
     tokenWrapped: bnbToken,
   },
