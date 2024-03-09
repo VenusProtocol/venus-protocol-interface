@@ -12,11 +12,8 @@
     "test": "TZ=UTC VITE_ENVIRONMENT=testnet vitest run",
     "test:regression": "reg-suit run",
     "clean": "rm -rf .turbo && rm -rf node_modules",
-    "lint": "npm-run-all --parallel lint:ts lint:styles",
-    "lint:ts": "export NODE_OPTIONS=\"--max-old-space-size=4096\" && eslint .",
     "lint:styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
     "tsc": "tsc --noEmit",
-    "format": "yarn lint:ts --fix && yarn lint:styles --fix",
     "extract-translations": "yarn i18next",
     "generate-subgraph-types:mainnet": "yarn graphql-codegen --config ./src/config/codegen.ts --project mainnet",
     "generate-subgraph-types:testnet": "yarn graphql-codegen --config ./src/config/codegen.ts --project testnet",
@@ -114,7 +111,6 @@
     "@types/recharts": "^1.8.23",
     "@types/redux-actions": "^2.6.2",
     "@types/styled-components": "^5.1.26",
-    "@venusprotocol/eslint-config": "*",
     "@venusprotocol/stylelint-config": "*",
     "@venusprotocol/typescript-config": "*",
     "@venusprotocol/governance-contracts": "^1.4.0",
@@ -126,7 +122,6 @@
     "@vitest/coverage-v8": "^0.34.4",
     "autoprefixer": "^10.4.16",
     "c8": "^9.1.0",
-    "eslint": "^8.48.0",
     "fs": "^0.0.1-security",
     "genversion": "^3.1.1",
     "handlebars": "^4.7.8",
@@ -140,7 +135,6 @@
     "path": "^0.12.7",
     "postcss": "^8.4.30",
     "postcss-syntax": "^0.36.2",
-    "prettier": "^3.0.3",
     "prop-types": "^15.8.1",
     "react-error-overlay": "6.0.11",
     "react-powerplug": "^1.0.0",
@@ -160,16 +154,8 @@
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   },
   "msw": {
     "workerDirectory": "public"

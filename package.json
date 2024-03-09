@@ -5,19 +5,13 @@
   "engines": {
     "node": ">=18.x.x"
   },
-  "workspaces": [
-    "packages/*",
-    "configs/*",
-    "apps/*"
-  ],
+  "workspaces": ["packages/*", "configs/*", "apps/*"],
   "scripts": {
     "start": "turbo run start",
     "generate": "turbo run generate",
-    "lint": "turbo run lint",
-    "lint:ts": "turbo run lint:ts",
+    "lint": "biome check . && yarn lint:styles",
     "lint:styles": "turbo run lint:styles",
-    "lint:format": "yarn prettier **/*.{js,ts,tsx,html,json}",
-    "format": "yarn lint:format --write && turbo format",
+    "format": "biome check --apply .",
     "test": "turbo run test",
     "tsc": "turbo run tsc",
     "clean": "turbo run clean && rm -rf node_modules",
@@ -28,6 +22,7 @@
     "postinstall": "husky install && yarn run generate"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.6.0",
     "@changesets/cli": "^2.27.1",
     "@commitlint/config-conventional": "17.7.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",

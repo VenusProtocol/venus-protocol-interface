@@ -1,7 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [
-    ".eslint.js",
     ".nvmrc",
     ".prettierignore",
     ".prettierrc.js",
@@ -30,9 +29,6 @@
       "dependsOn": ["^build"],
       "outputs": ["build/**/*"]
     },
-    "lint": {},
-    "lint:ts": {},
-    "lint:format": {},
     "lint:styles": {},
     "tsc": {
       "cache": false

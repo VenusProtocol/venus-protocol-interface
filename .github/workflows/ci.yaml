@@ -30,14 +30,8 @@ jobs:
       - name: Typecheck
         run: yarn tsc
 
-      - name: Pretty
-        run: yarn lint:format
-
-      - name: Lint styles
-        run: yarn lint:styles
-
       - name: Lint
-        run: yarn lint:ts
+        run: yarn lint
 
   test:
     runs-on: ubuntu-20.04
