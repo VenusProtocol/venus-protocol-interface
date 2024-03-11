@@ -18058,11 +18058,11 @@ reg-gh-app-interface@^1.3.0:
   integrity sha512-p3AXRqXTuBUlud8V7WlyrKE408prM7/TAWXLhcer0492Grhj3K1SzI/v7qadd7gtxTochZsvScL46vIaZB2icg==
 
 reg-keygen-git-hash-plugin@^0.14.2:
-  version "0.14.2"
-  resolved "https://registry.yarnpkg.com/reg-keygen-git-hash-plugin/-/reg-keygen-git-hash-plugin-0.14.2.tgz#0db388692114b3360b38fdc8aa5d1985d2c0d292"
-  integrity sha512-kk/UEbF/AGzv14IKIlWfAaFlN9bMxk/BIYa2ArneH2prEqgrLRQrYhnW1Kd4Rw5JQCP7shqMgEFMHHaBCqjOkg==
+  version "0.14.3"
+  resolved "https://registry.yarnpkg.com/reg-keygen-git-hash-plugin/-/reg-keygen-git-hash-plugin-0.14.3.tgz#934680dc4f987e08494ba195c21c487da42a886e"
+  integrity sha512-qdFj4YKctQKyI1LpFYJelFzwOi7Z2mqXEUXdsPeHgk1eJ4ar44Lns8FD9feZFYFulDbl1V5c49hBZYRPItewIg==
   dependencies:
-    reg-suit-util "^0.14.2"
+    reg-suit-util "^0.14.3"
     shell-escape "^0.2.0"
 
 reg-notify-github-plugin@^0.14.2:
@@ -18114,7 +18114,7 @@ reg-suit-util@^0.12.2:
     mime-types "^2.1.27"
     mkdirp "^1.0.4"
 
-reg-suit-util@^0.14.2, reg-suit-util@^0.14.3:
+reg-suit-util@^0.14.3:
   version "0.14.3"
   resolved "https://registry.yarnpkg.com/reg-suit-util/-/reg-suit-util-0.14.3.tgz#a0adef5b5e0d2169d641bf3db90dc832332b89b8"
   integrity sha512-1Ddn2Nm2Ha7z07ubZeWuINjXRXr6uQWAdUpfbwt7cZyo8wlX2QBtjeet8WM0KVvrz9Ykj8suvUhhd3HLLyOYCQ==
