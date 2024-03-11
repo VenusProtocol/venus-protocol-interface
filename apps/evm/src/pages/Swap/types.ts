@@ -1,4 +1,4 @@
-import { SwapDirection, Token } from 'types';
+import type { SwapDirection, Token } from 'types';
 
 export interface FormValues {
   fromToken: Token;

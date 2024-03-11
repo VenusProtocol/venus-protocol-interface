@@ -1,4 +1,4 @@
-import { Token } from 'types';
+import type { Token } from 'types';
 
 export const addTokenToWallet = async (token: Token) =>
   (window?.ethereum as WindowEthereum)?.request({

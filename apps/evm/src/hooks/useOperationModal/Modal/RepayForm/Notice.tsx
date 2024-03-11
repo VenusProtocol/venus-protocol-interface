@@ -2,10 +2,10 @@
 import { NoticeError, NoticeWarning } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import { Swap } from 'types';
+import type { Swap } from 'types';
 
 import { useStyles as useSharedStyles } from '../styles';
-import { FormError } from './useForm';
+import type { FormError } from './useForm';
 
 export interface NoticeProps {
   isRepayingFullLoan: boolean;

@@ -1,9 +1,9 @@
 import {
-  Currency as PSCurrency,
+  type Currency as PSCurrency,
   CurrencyAmount as PSCurrencyAmount,
   Token as PSToken,
   Trade as PSTrade,
-  TradeType as PSTradeType,
+  type TradeType as PSTradeType,
 } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
@@ -11,11 +11,11 @@ import { useMemo } from 'react';
 import { useGetPancakeSwapPairs } from 'clients/api';
 import { useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
-import { SwapError } from 'types';
+import type { SwapError } from 'types';
 import { areTokensEqual, convertTokensToMantissa } from 'utilities';
 
 import formatToSwap from './formatToSwap';
-import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
+import type { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
 import wrapToken from './wrapToken';
 

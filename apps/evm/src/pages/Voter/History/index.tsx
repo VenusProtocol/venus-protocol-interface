@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import { Pagination, Spinner } from 'components';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { VoterHistory } from 'types';
+import type { VoterHistory } from 'types';
 
 import VoterProposal from './VoterProposal';
 import { useStyles } from './styles';

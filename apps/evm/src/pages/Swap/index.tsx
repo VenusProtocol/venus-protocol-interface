@@ -25,14 +25,14 @@ import { displayMutationError } from 'libs/errors';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Swap, SwapError, TokenBalance } from 'types';
+import type { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import Notice from './Notice';
-import SubmitSection, { SubmitSectionProps } from './SubmitSection';
+import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
-import { FormValues } from './types';
+import type { FormValues } from './types';
 import useFormValidation from './useFormValidation';
 
 export interface SwapPageUiProps

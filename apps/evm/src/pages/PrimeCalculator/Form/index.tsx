@@ -17,7 +17,7 @@ import {
   Delimiter,
   LabeledInlineContent,
   Select,
-  SelectOption,
+  type SelectOption,
   Spinner,
   TokenIconWithSymbol,
 } from 'components';
@@ -25,7 +25,7 @@ import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Asset } from 'types';
+import type { Asset } from 'types';
 import {
   areAddressesEqual,
   convertDollarsToCents,

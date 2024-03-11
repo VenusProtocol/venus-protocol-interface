@@ -1,4 +1,4 @@
-import { ContractReceipt } from 'ethers';
+import type { ContractReceipt } from 'ethers';
 
 export const checkForTransactionError = vi.fn((receipt: ContractReceipt) => receipt);
 export const checkForComptrollerTransactionError = vi.fn((receipt: ContractReceipt) => receipt);

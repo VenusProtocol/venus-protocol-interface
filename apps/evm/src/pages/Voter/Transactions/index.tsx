@@ -2,12 +2,12 @@
 import { Paper, Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { ButtonWrapper, Icon, Spinner, Table, TableColumn } from 'components';
+import { ButtonWrapper, Icon, Spinner, Table, type TableColumn } from 'components';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
-import { VoteDetail, VoteSupport } from 'types';
+import { type VoteDetail, VoteSupport } from 'types';
 import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
 
 import { useStyles } from './styles';

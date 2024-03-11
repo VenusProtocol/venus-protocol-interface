@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import Box from '@mui/material/Box';
 import MaterialSlider from '@mui/material/Slider';
-import { SliderTypeMap } from '@mui/material/Slider/Slider';
+import type { SliderTypeMap } from '@mui/material/Slider/Slider';
 import { useCallback } from 'react';
 
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
-import { Tooltip, TooltipProps } from '../Tooltip';
+import { Tooltip, type TooltipProps } from '../Tooltip';
 import { useStyles } from './styles';
 
 export interface ProgressBarProps {

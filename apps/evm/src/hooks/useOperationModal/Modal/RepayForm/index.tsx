@@ -30,7 +30,7 @@ import {
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
+import type { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
@@ -40,11 +40,11 @@ import {
 
 import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';
-import SubmitSection, { SubmitSectionProps } from './SubmitSection';
+import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import calculatePercentageOfUserBorrowBalance from './calculatePercentageOfUserBorrowBalance';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
-import useForm, { FormValues, UseFormInput } from './useForm';
+import useForm, { type FormValues, type UseFormInput } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
@@ -188,8 +188,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       // If using swap, set input amount to wallet balance
       updatedValues.amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed();
     } else if (
-      fromTokenUserWalletBalanceTokens &&
-      fromTokenUserWalletBalanceTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens) &&
+      fromTokenUserWalletBalanceTokens?.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens) &&
       (!fromTokenWalletSpendingLimitTokens ||
         fromTokenWalletSpendingLimitTokens.isEqualTo(0) ||
         fromTokenWalletSpendingLimitTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens))
@@ -201,7 +200,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       updatedValues.amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed();
     }
 
-    if (fromTokenWalletSpendingLimitTokens && fromTokenWalletSpendingLimitTokens.isGreaterThan(0)) {
+    if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
       // If user has set a spending limit, consider it
       updatedValues.amountTokens = BigNumber.min(
         updatedValues.amountTokens || 0,

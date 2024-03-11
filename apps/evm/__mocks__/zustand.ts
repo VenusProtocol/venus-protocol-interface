@@ -1,5 +1,5 @@
 import { act } from '@testing-library/react';
-import * as zustand from 'zustand';
+import type * as zustand from 'zustand';
 
 const { create: actualCreate, createStore: actualCreateStore } =
   await vi.importActual<typeof zustand>('zustand');

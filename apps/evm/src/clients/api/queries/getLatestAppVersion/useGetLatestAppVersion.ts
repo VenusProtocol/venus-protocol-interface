@@ -1,7 +1,7 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import {
-  GetLatestAppVersionOutput,
+  type GetLatestAppVersionOutput,
   getLatestAppVersion,
 } from 'clients/api/queries/getLatestAppVersion';
 import FunctionKey from 'constants/functionKey';

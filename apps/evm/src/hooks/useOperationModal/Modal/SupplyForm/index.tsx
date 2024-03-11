@@ -35,14 +35,14 @@ import { VError, displayMutationError } from 'libs/errors';
 import { isTokenActionEnabled } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
-import { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
+import type { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';
-import SubmitSection, { SubmitSectionProps } from './SubmitSection';
+import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import TEST_IDS from './testIds';
-import useForm, { FormValues, UseFormInput } from './useForm';
+import useForm, { type FormValues, type UseFormInput } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 // TODO: rework or remove this URL, as this is likely to be a temporary solution
@@ -151,7 +151,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
     const marginWithSupplyCapTokens = asset.supplyCapTokens
       ? asset.supplyCapTokens.minus(asset.supplyBalanceTokens)
-      : new BigNumber(Infinity);
+      : new BigNumber(Number.POSITIVE_INFINITY);
 
     return BigNumber.min(marginWithSupplyCapTokens, fromTokenUserWalletBalanceTokens);
   }, [
@@ -207,7 +207,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     }
 
     // If user has set a spending limit for fromToken, then we take it in consideration
-    if (fromTokenWalletSpendingLimitTokens && fromTokenWalletSpendingLimitTokens.isGreaterThan(0)) {
+    if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
       amountTokens = BigNumber.min(amountTokens, fromTokenWalletSpendingLimitTokens);
     }
 

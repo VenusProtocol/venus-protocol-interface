@@ -1,5 +1,5 @@
 import { Global } from '@emotion/react';
-import MuiTooltip, { TooltipProps as MUITooltipProps } from '@mui/material/Tooltip';
+import MuiTooltip, { type TooltipProps as MUITooltipProps } from '@mui/material/Tooltip';
 
 import { useStyles } from './styles';
 

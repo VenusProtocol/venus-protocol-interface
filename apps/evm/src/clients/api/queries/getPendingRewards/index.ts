@@ -7,7 +7,7 @@ import findTokenByAddress from 'utilities/findTokenByAddress';
 import removeDuplicates from 'utilities/removeDuplicates';
 
 import formatOutput from './formatOutput';
-import { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
+import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
 const getPendingRewards = async ({
   tokens,

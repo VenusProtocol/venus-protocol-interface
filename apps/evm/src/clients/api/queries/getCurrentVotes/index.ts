@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { XvsVault } from 'libs/contracts';
+import type { XvsVault } from 'libs/contracts';
 
 export interface GetCurrentVotesInput {
   xvsVaultContract: XvsVault;

@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import fakeAddress from '__mocks__/models/address';
 
-import { VaiVault } from 'libs/contracts';
+import type { VaiVault } from 'libs/contracts';
 
 import getVaiVaultUserInfo from '.';
 

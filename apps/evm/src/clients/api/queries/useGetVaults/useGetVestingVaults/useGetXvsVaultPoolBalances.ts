@@ -1,6 +1,6 @@
-import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
+import { type UseQueryOptions, type UseQueryResult, useQueries } from 'react-query';
 
-import { GetBalanceOfOutput, getBalanceOf } from 'clients/api';
+import { type GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContractAddress } from 'libs/contracts';
 import { useGetTokens } from 'libs/tokens';

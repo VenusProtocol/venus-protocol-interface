@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { PrimeApy } from 'types';
+import type { PrimeApy } from 'types';
 import {
   appendPrimeSimulationDistributions,
   convertAprToApy,
@@ -9,7 +9,7 @@ import {
 
 import getLegacyPoolMarkets from '../getLegacyPoolMarkets';
 import { formatToPool } from './formatToPool';
-import { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
+import type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 
 export type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 

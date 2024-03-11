@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { NULL_ADDRESS } from 'constants/address';
 import {
@@ -6,8 +6,8 @@ import {
   supplyAveragesForToken,
   xvsStakedAveragesForToken,
 } from 'constants/prime';
-import { Prime } from 'libs/contracts';
-import { Asset, Token } from 'types';
+import type { Prime } from 'libs/contracts';
+import type { Asset, Token } from 'types';
 import {
   areAddressesEqual,
   convertAprToApy,

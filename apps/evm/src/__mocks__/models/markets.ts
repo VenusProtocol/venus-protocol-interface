@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { Market } from 'types';
+import type { Market } from 'types';
 
 export const markets: Market[] = [
   {

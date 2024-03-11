@@ -2,13 +2,13 @@
 import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { EllipseAddress, Table, TableColumn, TokenIcon } from 'components';
+import { EllipseAddress, Table, type TableColumn, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { Link } from 'containers/Link';
 import { useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
-import { Transaction } from 'types';
+import type { Transaction } from 'types';
 import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
 
 import { useStyles } from './styles';

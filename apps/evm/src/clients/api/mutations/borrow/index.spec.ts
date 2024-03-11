@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
-import { VBep20 } from 'libs/contracts';
+import type { VBep20 } from 'libs/contracts';
 
 import borrow from '.';
 

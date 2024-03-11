@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
-import { Token } from 'types';
+import type { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
+import type { Token } from 'types';
 
-import {
+import type {
   PendingRewardGroup,
   PrimePendingRewardGroup,
   XvsVestingVaultPendingRewardGroup,

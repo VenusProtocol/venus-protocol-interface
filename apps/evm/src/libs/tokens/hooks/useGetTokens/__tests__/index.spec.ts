@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import tokens from '__mocks__/models/tokens';
 import { renderHook } from 'testUtils/render';

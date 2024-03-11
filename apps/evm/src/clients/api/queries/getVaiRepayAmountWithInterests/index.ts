@@ -1,6 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import { GetVaiRepayAmountWithInterestsInput, GetVaiRepayAmountWithInterestsOutput } from './types';
+import type {
+  GetVaiRepayAmountWithInterestsInput,
+  GetVaiRepayAmountWithInterestsOutput,
+} from './types';
 
 const getVaiRepayAmountWithInterests = async ({
   vaiControllerContract,

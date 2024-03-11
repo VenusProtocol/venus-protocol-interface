@@ -45,7 +45,7 @@ import winLogo from 'libs/tokens/img/win.svg';
 import wooLogo from 'libs/tokens/img/woo.svg';
 import xrpLogo from 'libs/tokens/img/xrp.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
-import { Token } from 'types';
+import type { Token } from 'types';
 
 const bnbToken: Token = {
   address: '0x0000000000000000000000000000000000000000',

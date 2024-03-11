@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';

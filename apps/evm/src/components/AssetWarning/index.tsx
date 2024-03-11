@@ -2,13 +2,13 @@
 import { useState } from 'react';
 
 import { useTranslation } from 'libs/translations';
-import { Pool, Token } from 'types';
+import type { Pool, Token } from 'types';
 
 import { TextButton } from '../Button';
 import { Notice } from '../Notice';
 import AssetTable from './AssetTable';
 import { useStyles } from './styles';
-import { WarningType } from './types';
+import type { WarningType } from './types';
 
 export interface AssetWarningProps extends React.HTMLAttributes<HTMLDivElement> {
   type: WarningType;

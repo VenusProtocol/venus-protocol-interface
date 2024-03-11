@@ -2,7 +2,7 @@ import { VError } from 'libs/errors';
 import { restService } from 'utilities';
 
 import formatToVoters from './formatToVoters';
-import { GetVotersApiResponse, GetVotersInput, GetVotersOutput } from './types';
+import type { GetVotersApiResponse, GetVotersInput, GetVotersOutput } from './types';
 
 export * from './types';
 

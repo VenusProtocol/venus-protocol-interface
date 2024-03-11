@@ -1,13 +1,13 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getXvsVaultRewardPerBlock, {
-  GetXvsVaultRewardPerBlockInput,
-  GetXvsVaultRewardPerBlockOutput,
+  type GetXvsVaultRewardPerBlockInput,
+  type GetXvsVaultRewardPerBlockOutput,
 } from 'clients/api/queries/getXvsVaultRewardPerBlock';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetXvsVaultRewardPerBlockInput = Omit<

@@ -1,5 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';

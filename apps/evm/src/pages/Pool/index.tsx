@@ -4,12 +4,12 @@ import { useMemo } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { useGetPool } from 'clients/api';
-import { Cell, CellGroup, Notice, Spinner } from 'components';
+import { type Cell, CellGroup, Notice, Spinner } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Pool } from 'types';
+import type { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
 import Table from './Table';

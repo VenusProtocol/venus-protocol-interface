@@ -1,6 +1,6 @@
 import addresses from 'libs/contracts/generated/infos/addresses';
-import { UniqueContractName } from 'libs/contracts/generated/infos/types';
-import { ChainId } from 'types';
+import type { UniqueContractName } from 'libs/contracts/generated/infos/types';
+import type { ChainId } from 'types';
 
 export type GetUniqueContractAddressInput = {
   name: UniqueContractName;

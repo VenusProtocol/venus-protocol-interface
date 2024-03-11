@@ -3,7 +3,7 @@ import { BigNumber } from 'bignumber.js';
 import { poolData } from '__mocks__/models/pools';
 import { vai, xvs } from '__mocks__/models/tokens';
 
-import { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/types';
+import type { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/types';
 
 export const fakePendingRewardGroups: PendingRewardGroup[] = [
   {

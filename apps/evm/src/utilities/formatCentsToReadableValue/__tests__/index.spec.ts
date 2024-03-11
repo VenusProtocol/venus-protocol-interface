@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-import formatCentsToReadableValue, { FormatCentsToReadableValueInput } from '..';
+import formatCentsToReadableValue, { type FormatCentsToReadableValueInput } from '..';
 
 describe('utilities/formatCentsToReadableValue', () => {
   it('should return PLACEHOLDER_KEY when value is undefined', () => {

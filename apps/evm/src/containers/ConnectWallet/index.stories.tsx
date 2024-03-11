@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import noop from 'noop-ts';
 
 import { withCenterStory } from 'stories/decorators';

@@ -1,4 +1,4 @@
-import { PaletteColor as MuiPaletteColor } from '@mui/material/styles/createPalette';
+import type { PaletteColor as MuiPaletteColor } from '@mui/material/styles/createPalette';
 
 declare module '@mui/material/styles' {
   interface PaletteColor extends MuiPaletteColor {

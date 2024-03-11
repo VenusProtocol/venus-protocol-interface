@@ -1,6 +1,6 @@
 import { fireEvent, getByTestId } from '@testing-library/react';
 
-import { Token } from 'types';
+import type { Token } from 'types';
 
 import { getTokenListItemTestId, getTokenSelectButtonTestId } from '../testIdGetters';
 

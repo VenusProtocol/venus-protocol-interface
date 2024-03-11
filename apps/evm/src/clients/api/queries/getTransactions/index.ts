@@ -1,9 +1,9 @@
 import { VError } from 'libs/errors';
-import { Token, Transaction, TransactionEvent, VToken } from 'types';
+import type { Token, Transaction, TransactionEvent, VToken } from 'types';
 import { restService } from 'utilities';
 
 import formatTransaction from './formatTransaction';
-import { TransactionResponse } from './types';
+import type { TransactionResponse } from './types';
 
 export interface GetTransactionsInput {
   vTokens: VToken[];

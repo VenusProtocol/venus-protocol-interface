@@ -1,11 +1,11 @@
-import {
+import type {
   LegacyPoolComptroller,
   Prime,
   ResilientOracle,
   VaiController,
   VenusLens,
 } from 'libs/contracts';
-import { Pool, Token } from 'types';
+import type { Pool, Token } from 'types';
 
 export interface GetLegacyPoolInput {
   blocksPerDay: number;

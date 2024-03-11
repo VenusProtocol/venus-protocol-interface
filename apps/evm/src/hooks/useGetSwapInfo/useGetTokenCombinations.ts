@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { useGetSwapTokens, useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
-import { ChainId, PSTokenCombination, Token } from 'types';
+import { ChainId, type PSTokenCombination, type Token } from 'types';
 
 import wrapToken from './wrapToken';
 

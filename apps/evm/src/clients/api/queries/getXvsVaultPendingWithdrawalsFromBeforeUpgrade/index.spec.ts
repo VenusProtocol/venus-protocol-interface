@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import fakeAddress from '__mocks__/models/address';
 
-import { XvsVault } from 'libs/contracts';
+import type { XvsVault } from 'libs/contracts';
 
 import getXvsVaultPendingWithdrawalsFromBeforeUpgrade from '.';
 

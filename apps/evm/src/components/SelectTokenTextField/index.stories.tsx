@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import { State } from 'react-powerplug';
@@ -6,7 +6,7 @@ import { State } from 'react-powerplug';
 import { busd, wbnb, xvs } from '__mocks__/models/tokens';
 
 import { withCenterStory } from 'stories/decorators';
-import { Token, TokenBalance } from 'types';
+import type { Token, TokenBalance } from 'types';
 
 import { SelectTokenTextField } from '.';
 

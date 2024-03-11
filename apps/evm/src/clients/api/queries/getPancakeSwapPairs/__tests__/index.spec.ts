@@ -1,11 +1,11 @@
-import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
+import type { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
 import { BigNumber as BN } from 'ethers';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeProvider from '__mocks__/models/provider';
 import fakeTokenCombinations from '__mocks__/models/tokenCombinations';
 
-import { PancakePairV2, getPancakePairV2Contract } from 'libs/contracts';
+import { type PancakePairV2, getPancakePairV2Contract } from 'libs/contracts';
 
 import getPancakeSwapPairs from '..';
 

@@ -1,5 +1,5 @@
 import formatToUserInfo from './formatToUserInfo';
-import { GetVaiVaultUserInfoInput, GetVaiVaultUserInfoOutput } from './types';
+import type { GetVaiVaultUserInfoInput, GetVaiVaultUserInfoOutput } from './types';
 
 export * from './types';
 

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import {
+import type {
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
   GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
 } from './types';

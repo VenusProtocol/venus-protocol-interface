@@ -16,10 +16,10 @@ import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToR
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
-import TransactionForm, { TransactionFormProps } from '../../../TransactionForm';
+import TransactionForm, { type TransactionFormProps } from '../../../TransactionForm';
 import { useStyles as useSharedStyles } from '../styles';
 
 export interface RequestWithdrawalUiProps {

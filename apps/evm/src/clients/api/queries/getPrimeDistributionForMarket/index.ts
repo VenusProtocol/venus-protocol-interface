@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { Prime } from 'libs/contracts';
+import type { Prime } from 'libs/contracts';
 
 export interface GetPrimeDistributionForMarketInput {
   vTokenAddress: string;

@@ -1,5 +1,5 @@
 import { VError } from 'libs/errors';
-import { MarketSnapshot, VToken } from 'types';
+import type { MarketSnapshot, VToken } from 'types';
 import { restService } from 'utilities';
 
 const ENTRIES_PER_HOUR = 2;

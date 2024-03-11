@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js';
-import { ContractTransaction } from 'ethers';
+import type BigNumber from 'bignumber.js';
+import type { ContractTransaction } from 'ethers';
 
-import { VaiVault } from 'libs/contracts';
+import type { VaiVault } from 'libs/contracts';
 
 export interface StakeInVaiVaultInput {
   vaiVaultContract: VaiVault;

@@ -1,8 +1,8 @@
 import vTokens, { vUsdt } from '__mocks__/models/vTokens';
 
 import formatTransaction from 'clients/api/queries/getTransactions/formatTransaction';
-import { TransactionResponse } from 'clients/api/queries/getTransactions/types';
-import { Transaction } from 'types';
+import type { TransactionResponse } from 'clients/api/queries/getTransactions/types';
+import type { Transaction } from 'types';
 
 import tokens, { busd, xvs } from './tokens';
 

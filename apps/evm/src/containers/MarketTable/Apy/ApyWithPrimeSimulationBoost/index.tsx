@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { SenaryButton, Tooltip } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
@@ -8,7 +8,7 @@ import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
 import { useTranslation } from 'libs/translations';
-import { PrimeSimulationDistribution, Token } from 'types';
+import type { PrimeSimulationDistribution, Token } from 'types';
 
 import primeLogoSrc from './primeLogo.svg';
 

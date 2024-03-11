@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 export const useUpdateUrlChainId = () => {
   const [, setSearchParams] = useSearchParams();

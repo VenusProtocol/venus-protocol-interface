@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import { useSearchParams } from 'react-router-dom';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
@@ -9,7 +9,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { useGetLegacyPool, useGetPrimeEstimation, useGetPrimeStatus } from 'clients/api';
 import { en } from 'libs/translations';
-import { Asset } from 'types';
+import type { Asset } from 'types';
 
 import PrimeCalculator from '..';
 import { QUERY_PARAM_TOKEN_ADDRESS } from '../Form';

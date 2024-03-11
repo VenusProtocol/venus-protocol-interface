@@ -1,13 +1,16 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import { getVaiRepayAmountWithInterests } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetVaiControllerContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
-import { GetVaiRepayAmountWithInterestsInput, GetVaiRepayAmountWithInterestsOutput } from './types';
+import type {
+  GetVaiRepayAmountWithInterestsInput,
+  GetVaiRepayAmountWithInterestsOutput,
+} from './types';
 
 type TrimmedGetVaiRepayAmountWithInterestsInput = Omit<
   GetVaiRepayAmountWithInterestsInput,

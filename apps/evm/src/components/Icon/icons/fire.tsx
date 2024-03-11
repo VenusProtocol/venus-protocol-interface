@@ -1,4 +1,4 @@
-import { SVGProps } from 'react';
+import type { SVGProps } from 'react';
 
 const SvgFire = (props: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 10 14" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>

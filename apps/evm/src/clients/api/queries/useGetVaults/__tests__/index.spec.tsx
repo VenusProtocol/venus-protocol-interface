@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import compTrollerResponses from '__mocks__/contracts/legacyPoolComptroller';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
@@ -25,7 +25,7 @@ import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/fo
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 
-import useGetVaults, { UseGetVaultsOutput } from '..';
+import useGetVaults, { type UseGetVaultsOutput } from '..';
 
 describe('api/queries/useGetVaults', () => {
   beforeEach(() => {

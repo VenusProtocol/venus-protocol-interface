@@ -4,23 +4,26 @@ import { useMemo } from 'react';
 
 import { useGetVTokenApySimulations } from 'clients/api';
 import { Button, Card, SecondaryButton, Spinner } from 'components';
-import { InterestRateChart, InterestRateChartProps } from 'components/charts/InterestRateChart';
+import {
+  InterestRateChart,
+  type InterestRateChartProps,
+} from 'components/charts/InterestRateChart';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 import useOperationModal from 'hooks/useOperationModal';
 import { useTranslation } from 'libs/translations';
-import { Asset, Token } from 'types';
+import type { Asset, Token } from 'types';
 import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
 
-import { MarketCard, MarketCardProps } from './MarketCard';
+import { MarketCard, type MarketCardProps } from './MarketCard';
 import { MarketHistory } from './MarketHistory';
-import MarketInfo, { MarketInfoProps } from './MarketInfo';
+import MarketInfo, { type MarketInfoProps } from './MarketInfo';
 import TEST_IDS from './testIds';
 
 export interface MarketUiProps {

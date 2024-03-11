@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import Modal, { OperationModalProps } from './Modal';
+import Modal, { type OperationModalProps } from './Modal';
 
 interface Params {
   vToken: OperationModalProps['vToken'];

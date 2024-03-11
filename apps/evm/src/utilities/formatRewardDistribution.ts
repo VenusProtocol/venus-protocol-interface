@@ -1,6 +1,6 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
-import { AssetDistribution, Token } from 'types';
+import type { AssetDistribution, Token } from 'types';
 import { calculateApy } from 'utilities';
 
 export interface FormatDistributionInput {

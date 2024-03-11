@@ -1,15 +1,15 @@
 import {
-  ExecuteWithdrawalFromXvsVaultInput,
+  type ExecuteWithdrawalFromXvsVaultInput,
   executeWithdrawalFromXvsVault,
   queryClient,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { useGetXvsVaultContract } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedExecuteWithdrawalFromXvsVaultInput = Omit<

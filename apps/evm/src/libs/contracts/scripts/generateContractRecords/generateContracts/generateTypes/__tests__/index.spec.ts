@@ -1,5 +1,5 @@
 import { glob, runTypeChain } from 'typechain';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { fakeContractConfigs } from 'libs/contracts/__testUtils__/fakeConfig';
 import cwd from 'utilities/cwd';

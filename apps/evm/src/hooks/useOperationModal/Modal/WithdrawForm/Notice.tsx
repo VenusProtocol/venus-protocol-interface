@@ -3,11 +3,11 @@ import BigNumber from 'bignumber.js';
 
 import { NoticeError } from 'components';
 import { useTranslation } from 'libs/translations';
-import { Asset } from 'types';
+import type { Asset } from 'types';
 
 import { useStyles as useSharedStyles } from '../styles';
 import TEST_IDS from './testIds';
-import { FormError } from './useForm';
+import type { FormError } from './useForm';
 
 export interface NoticeProps {
   amount: string;

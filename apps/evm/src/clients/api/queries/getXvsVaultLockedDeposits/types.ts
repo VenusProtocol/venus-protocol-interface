@@ -1,5 +1,5 @@
-import { XvsVault } from 'libs/contracts';
-import { LockedDeposit } from 'types';
+import type { XvsVault } from 'libs/contracts';
+import type { LockedDeposit } from 'types';
 
 export interface GetXvsVaultLockedDepositsInput {
   xvsVaultContract: XvsVault;

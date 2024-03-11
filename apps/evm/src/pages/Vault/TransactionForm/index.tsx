@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 
 import {
   ApproveTokenSteps,
-  ApproveTokenStepsProps,
+  type ApproveTokenStepsProps,
   FormikSubmitButton,
   FormikTokenTextField,
   LabeledInlineContent,
@@ -16,7 +16,7 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { displayMutationError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { cn, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import TEST_IDS from './testIds';

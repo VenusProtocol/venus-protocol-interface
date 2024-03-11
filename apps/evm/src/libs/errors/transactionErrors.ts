@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { ContractReceipt } from 'ethers';
+import type { ContractReceipt } from 'ethers';
 
-import { VError, VErrorPhraseMap } from './VError';
+import { VError, type VErrorPhraseMap } from './VError';
 import {
   ComptrollerErrorReporterError,
   ComptrollerErrorReporterFailureInfo,

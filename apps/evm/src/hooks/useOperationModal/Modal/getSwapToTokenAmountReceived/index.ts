@@ -1,5 +1,5 @@
-import BigNumber from 'bignumber.js';
-import { Swap } from 'types';
+import type BigNumber from 'bignumber.js';
+import type { Swap } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 export const getSwapToTokenAmountReceivedTokens = (swap?: Swap) => {

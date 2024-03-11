@@ -1,7 +1,7 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getProposalThreshold, {
-  GetProposalThresholdOutput,
+  type GetProposalThresholdOutput,
 } from 'clients/api/queries/getProposalThreshold';
 import FunctionKey from 'constants/functionKey';
 import { useGetGovernorBravoDelegateContract } from 'libs/contracts';

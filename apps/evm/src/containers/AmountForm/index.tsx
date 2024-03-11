@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { Form, Formik, FormikConfig, FormikHelpers, FormikProps } from 'formik';
+import { Form, Formik, type FormikConfig, type FormikHelpers, type FormikProps } from 'formik';
 
 import useIsMounted from 'hooks/useIsMounted';
 
-import getValidationSchema, { FormValues } from './validationSchema';
+import getValidationSchema, { type FormValues } from './validationSchema';
 
 export * from './validationSchema';
 

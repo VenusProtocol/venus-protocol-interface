@@ -1,5 +1,5 @@
 import formatToUserInfo from './formatToUserInfo';
-import { GetXvsVaultUserInfoInput, GetXvsVaultUserInfoOutput } from './types';
+import type { GetXvsVaultUserInfoInput, GetXvsVaultUserInfoOutput } from './types';
 
 export * from './types';
 

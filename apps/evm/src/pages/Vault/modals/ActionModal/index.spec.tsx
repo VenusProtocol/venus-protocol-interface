@@ -8,7 +8,7 @@ import { renderComponent } from 'testUtils/render';
 
 import TEST_IDS from 'components/Spinner/testIds';
 
-import ActionModal, { ActionModalProps } from '.';
+import ActionModal, { type ActionModalProps } from '.';
 
 const fakeXvsVaultAddress = '0x2258a693A403b7e98fd05EE9e1558C760308cFC7';
 

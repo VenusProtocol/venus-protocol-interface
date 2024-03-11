@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -12,7 +12,7 @@ import { getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
 import formatToUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
 import { en } from 'libs/translations';
 
-import WithdrawFromVaiVaultModal, { WithdrawFromVaiVaultModalProps } from '.';
+import WithdrawFromVaiVaultModal, { type WithdrawFromVaiVaultModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';
 
 const fakeVaiVaultUserInfo = formatToUserInfo(vaiVaultResponses.userInfo);

@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import { VoterHistory } from 'types';
+import type { VoterHistory } from 'types';
 import { formatToProposal } from 'utilities';
 
-import { GetVoterHistoryResponse } from './types';
+import type { GetVoterHistoryResponse } from './types';
 
 const formatVoterHistoryResponse = (
   data: GetVoterHistoryResponse,

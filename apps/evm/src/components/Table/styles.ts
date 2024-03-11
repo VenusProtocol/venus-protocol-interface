@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
+import type { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 
 export const useStyles = () => {
   const theme = useTheme();

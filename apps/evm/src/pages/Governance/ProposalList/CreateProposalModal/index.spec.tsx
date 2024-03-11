@@ -1,5 +1,5 @@
-import { Matcher, MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
-import Vi from 'vitest';
+import { type Matcher, type MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
+import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';

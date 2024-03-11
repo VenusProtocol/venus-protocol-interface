@@ -1,9 +1,9 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { MAX_NOTIFICATIONS, displayNotification, hideNotification, updateNotification } from '..';
 import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
 import { store } from '../../store';
-import { AddNotificationInput, UpdateNotificationInput } from '../../store/types';
+import type { AddNotificationInput, UpdateNotificationInput } from '../../store/types';
 
 const fakeNotificationInput: AddNotificationInput = {
   id: 99,

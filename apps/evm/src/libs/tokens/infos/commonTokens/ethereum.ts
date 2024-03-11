@@ -6,7 +6,7 @@ import usdtLogo from 'libs/tokens/img/usdt.svg';
 import wBtcLogo from 'libs/tokens/img/wbtc.svg';
 import wstEthLogo from 'libs/tokens/img/wstEth.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
-import { Token } from 'types';
+import type { Token } from 'types';
 
 const ethToken: Token = {
   address: '0x0000000000000000000000000000000000000000',

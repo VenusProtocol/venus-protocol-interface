@@ -1,11 +1,11 @@
-import { SwapTokensAndSupplyInput, queryClient, swapTokensAndSupply } from 'clients/api';
+import { type SwapTokensAndSupplyInput, queryClient, swapTokensAndSupply } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { useGetSwapRouterContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { VToken } from 'types';
+import type { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 type TrimmedSwapTokensAndSupplyInput = Omit<

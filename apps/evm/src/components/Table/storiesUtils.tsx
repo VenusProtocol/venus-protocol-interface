@@ -8,7 +8,7 @@ import { formatPercentageToReadableValue } from 'utilities';
 
 import { Toggle } from '../Toggle';
 import { TokenIconWithSymbol } from '../TokenIconWithSymbol';
-import { TableColumn } from './types';
+import type { TableColumn } from './types';
 
 export const useTableStyles = () => {
   const theme = useTheme();

@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import { Token, TransactionCategory, TransactionEvent, VToken } from 'types';
+import type { Token, TransactionCategory, TransactionEvent, VToken } from 'types';
 import { findTokenByAddress } from 'utilities';
 
-import { TransactionResponse } from './types';
+import type { TransactionResponse } from './types';
 
 const formatTransaction = ({
   data: { amountMantissa, category, event, tokenAddress, timestamp, from, ...rest },

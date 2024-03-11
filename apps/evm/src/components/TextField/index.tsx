@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { InputHTMLAttributes, forwardRef } from 'react';
+import { type InputHTMLAttributes, forwardRef } from 'react';
 
-import { Token } from 'types';
+import type { Token } from 'types';
 
-import { Icon, IconName } from '../Icon';
+import { Icon, type IconName } from '../Icon';
 import { TokenIcon } from '../TokenIcon';
 import { useStyles } from './styles';
 

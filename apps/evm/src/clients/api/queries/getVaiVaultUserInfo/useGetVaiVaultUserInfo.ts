@@ -1,14 +1,14 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import {
-  GetVaiVaultUserInfoInput,
-  GetVaiVaultUserInfoOutput,
+  type GetVaiVaultUserInfoInput,
+  type GetVaiVaultUserInfoOutput,
   getVaiVaultUserInfo,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetVaiVaultContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetVaiVaultUserInfoInput = Omit<GetVaiVaultUserInfoInput, 'vaiVaultContract'>;

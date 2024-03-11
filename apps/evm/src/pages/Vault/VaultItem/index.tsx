@@ -12,7 +12,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useLunaUstWarning } from 'libs/lunaUstWarning';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';

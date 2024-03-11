@@ -1,13 +1,13 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getXvsVaultPendingWithdrawalsFromBeforeUpgrade, {
-  GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
-  GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
+  type GetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput,
+  type GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
 } from 'clients/api/queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetXvsVaultPendingWithdrawalsFromBeforeUpgradeInput = Omit<

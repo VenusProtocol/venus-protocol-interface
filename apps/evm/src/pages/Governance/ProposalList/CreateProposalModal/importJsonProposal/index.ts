@@ -1,5 +1,5 @@
 import { VError } from 'libs/errors';
-import { JsonProposal } from 'types';
+import type { JsonProposal } from 'types';
 
 const importJsonProposal = async (proposalFile: File) => {
   const contents = await proposalFile.text();

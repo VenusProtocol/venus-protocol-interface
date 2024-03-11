@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { GetVoteSummaryApiResponse } from './types';
+import type { GetVoteSummaryApiResponse } from './types';
 
 const formatToVoteSummary = ({ payload }: { payload: GetVoteSummaryApiResponse }) => ({
   for: new BigNumber(payload.for),

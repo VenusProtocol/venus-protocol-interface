@@ -6,9 +6,9 @@ import { useGetBalanceOf, useStakeInVault } from 'clients/api';
 import { useGetVaiVaultContractAddress, useGetXvsVaultContractAddress } from 'libs/contracts';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Token } from 'types';
+import type { Token } from 'types';
 
-import ActionModal, { ActionModalProps } from '../ActionModal';
+import ActionModal, { type ActionModalProps } from '../ActionModal';
 
 export interface StakeModalProps extends Pick<ActionModalProps, 'handleClose'> {
   stakedToken: Token;

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Paper, Typography } from '@mui/material';
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { Delimiter, Icon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';

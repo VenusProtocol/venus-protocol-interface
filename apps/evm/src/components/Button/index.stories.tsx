@@ -1,10 +1,10 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import { withCenterStory } from 'stories/decorators';
 
 import {
   Button,
-  ButtonProps,
+  type ButtonProps,
   ButtonWrapper as ButtonWrapperComp,
   PrimaryButton,
   QuaternaryButton,

@@ -1,4 +1,4 @@
-import { UseGetSwapInfoOutput } from '../types';
+import type { UseGetSwapInfoOutput } from '../types';
 
 const useGetSwapInfo = vi.fn(
   (): UseGetSwapInfoOutput => ({

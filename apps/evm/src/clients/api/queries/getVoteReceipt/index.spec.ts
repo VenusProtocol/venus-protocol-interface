@@ -1,6 +1,6 @@
 import fakeAddress from '__mocks__/models/address';
 
-import { GovernorBravoDelegate } from 'libs/contracts';
+import type { GovernorBravoDelegate } from 'libs/contracts';
 
 import getVoteReceipt from '.';
 

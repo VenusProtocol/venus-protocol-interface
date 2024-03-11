@@ -15,7 +15,7 @@ import { useGetLegacyPoolComptrollerContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
-import { RewardDistributorDistribution, Token } from 'types';
+import type { RewardDistributorDistribution, Token } from 'types';
 import {
   convertMantissaToTokens,
   formatTokensToReadableValue,

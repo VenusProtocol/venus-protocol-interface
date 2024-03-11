@@ -1,7 +1,7 @@
 import { useTranslation } from 'libs/translations';
-import { Token } from 'types';
+import type { Token } from 'types';
 
-import { ApprovalSteps, ApprovalStepsProps } from '..';
+import { ApprovalSteps, type ApprovalStepsProps } from '..';
 
 export type ApproveTokenStepsProps = {
   token: Token;

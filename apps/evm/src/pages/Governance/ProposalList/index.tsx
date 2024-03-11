@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-  CreateProposalInput,
+  type CreateProposalInput,
   useCreateProposal,
   useGetCurrentVotes,
   useGetLatestProposalIdByProposer,
@@ -16,10 +16,10 @@ import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThreshol
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNavigate } from 'hooks/useNavigate';
-import { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
+import type { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Proposal } from 'types';
+import type { Proposal } from 'types';
 
 import TEST_IDS from '../testIds';
 import CreateProposalModal from './CreateProposalModal';

@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/dom';
 import BigNumber from 'bignumber.js';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 

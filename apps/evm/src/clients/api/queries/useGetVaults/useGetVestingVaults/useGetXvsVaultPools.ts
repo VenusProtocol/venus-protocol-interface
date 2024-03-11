@@ -1,9 +1,9 @@
-import { UseQueryOptions, UseQueryResult, useQueries } from 'react-query';
+import { type UseQueryOptions, type UseQueryResult, useQueries } from 'react-query';
 
 import {
-  GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
-  GetXvsVaultPoolInfoOutput,
-  GetXvsVaultUserInfoOutput,
+  type GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
+  type GetXvsVaultPoolInfoOutput,
+  type GetXvsVaultUserInfoOutput,
   getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
   getXvsVaultPoolInfo,
   getXvsVaultUserInfo,

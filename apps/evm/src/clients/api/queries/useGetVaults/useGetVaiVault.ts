@@ -10,7 +10,7 @@ import {
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { useGetVaiVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
-import { Vault } from 'types';
+import type { Vault } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 export interface UseGetVaiVaultOutput {

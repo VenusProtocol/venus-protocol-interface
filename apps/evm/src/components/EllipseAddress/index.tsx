@@ -2,7 +2,7 @@
 import { truncateAddress } from 'utilities';
 
 import { useStyles } from './styles';
-import { Breakpoint } from './types';
+import type { Breakpoint } from './types';
 
 export * from './types';
 

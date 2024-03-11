@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ReactElement, useState } from 'react';
+import { type ReactElement, useState } from 'react';
 
 import { ButtonGroup } from '../ButtonGroup';
 import { useStyles } from './styles';

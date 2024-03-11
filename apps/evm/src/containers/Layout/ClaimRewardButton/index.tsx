@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { useMemo, useState } from 'react';
 
-import { Claim, useClaimRewards } from 'clients/api';
-import { ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
+import { type Claim, useClaimRewards } from 'clients/api';
+import { type ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { VError, displayMutationError } from 'libs/errors';
 import { useLunaUstWarning } from 'libs/lunaUstWarning';
@@ -12,7 +12,7 @@ import { formatCentsToReadableValue } from 'utilities';
 
 import TEST_IDS from '../testIds';
 import { RewardGroup } from './RewardGroup';
-import { Group } from './types';
+import type { Group } from './types';
 import useGetGroups from './useGetGroups';
 
 export interface ClaimRewardButtonUiProps extends ClaimRewardButtonProps {

@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useChainId } from 'libs/wallet';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { Icon } from '../Icon';
-import { Modal, ModalProps } from '../Modal';
+import { Modal, type ModalProps } from '../Modal';
 import { TokenIcon } from '../TokenIcon';
 import { useStyles } from './styles';
 

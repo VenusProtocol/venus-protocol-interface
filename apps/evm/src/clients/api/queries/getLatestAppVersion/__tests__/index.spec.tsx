@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { PUBLIC_VERSION_FILE_URL, getLatestAppVersion } from '..';
 

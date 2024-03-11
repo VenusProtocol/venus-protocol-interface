@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 
-import { MarkdownEditor, MarkdownEditorProps } from '../MarkdownEditor';
+import { MarkdownEditor, type MarkdownEditorProps } from '../MarkdownEditor';
 
 export interface FormikMarkdownEditorProps
   extends Omit<MarkdownEditorProps, 'name' | 'onChange' | 'value' | 'onBlur'> {

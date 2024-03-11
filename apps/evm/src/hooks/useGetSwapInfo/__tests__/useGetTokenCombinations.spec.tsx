@@ -1,7 +1,7 @@
 import { bnb, busd, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { PSTokenCombination } from 'types';
+import type { PSTokenCombination } from 'types';
 
 import useGetTokenCombinations from '../useGetTokenCombinations';
 

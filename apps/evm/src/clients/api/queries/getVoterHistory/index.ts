@@ -1,9 +1,9 @@
 import { VError } from 'libs/errors';
-import { VoterHistory } from 'types';
+import type { VoterHistory } from 'types';
 import { restService } from 'utilities';
 
 import formatVoterHistoryResponse from './formatVoterHistoryResponse';
-import { GetVoterHistoryResponse } from './types';
+import type { GetVoterHistoryResponse } from './types';
 
 export interface GetVoterHistoryInput {
   page?: number;

@@ -2,12 +2,12 @@
 import { NoticeError, NoticeWarning } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import { Asset, Swap } from 'types';
+import type { Asset, Swap } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 
 import { useStyles as useSharedStyles } from '../styles';
 import TEST_IDS from './testIds';
-import { FormError } from './useForm';
+import type { FormError } from './useForm';
 
 export interface NoticeProps {
   asset: Asset;

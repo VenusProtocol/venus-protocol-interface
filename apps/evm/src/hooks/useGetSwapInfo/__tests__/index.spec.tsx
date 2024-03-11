@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakePancakeSwapPairs from '__mocks__/models/pancakeSwapPairs';
 import { bnb, wbnb, xvs } from '__mocks__/models/tokens';
@@ -8,7 +8,7 @@ import { renderComponent } from 'testUtils/render';
 import { getPancakeSwapPairs } from 'clients/api';
 
 import useGetSwapInfo from '..';
-import { UseGetSwapInfoInput, UseGetSwapInfoOutput } from '../types';
+import type { UseGetSwapInfoInput, UseGetSwapInfoOutput } from '../types';
 
 describe('pages/Swap/useGetSwapInfo', () => {
   it('returns default state when fromToken and toToken reference the same token', async () => {

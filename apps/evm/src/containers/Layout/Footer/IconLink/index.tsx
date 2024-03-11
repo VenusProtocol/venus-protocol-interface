@@ -1,4 +1,4 @@
-import { Icon, IconName } from 'components';
+import { Icon, type IconName } from 'components';
 
 export interface IconLinkProps {
   iconName: IconName;

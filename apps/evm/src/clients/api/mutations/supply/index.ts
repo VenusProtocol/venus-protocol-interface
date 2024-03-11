@@ -1,8 +1,8 @@
-import BigNumber from 'bignumber.js';
-import { ContractTransaction, Signer } from 'ethers';
+import type BigNumber from 'bignumber.js';
+import type { ContractTransaction, Signer } from 'ethers';
 
-import { VBnb, getVTokenContract } from 'libs/contracts';
-import { VToken } from 'types';
+import { type VBnb, getVTokenContract } from 'libs/contracts';
+import type { VToken } from 'types';
 
 export interface SupplyInput {
   vToken: VToken;

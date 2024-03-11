@@ -1,4 +1,4 @@
-import { type Provider } from 'libs/wallet';
+import type { Provider } from 'libs/wallet';
 
 import getBlockNumber from '.';
 

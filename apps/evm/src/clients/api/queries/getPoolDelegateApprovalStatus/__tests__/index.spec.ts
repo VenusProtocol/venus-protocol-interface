@@ -1,7 +1,7 @@
 import fakeAddress from '__mocks__/models/address';
 import fakeSigner from '__mocks__/models/signer';
 
-import { IsolatedPoolComptroller } from 'libs/contracts';
+import type { IsolatedPoolComptroller } from 'libs/contracts';
 
 import getPoolDelegateApprovalStatus from '..';
 

@@ -1,6 +1,6 @@
 import { queryClient, withdrawXvs } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetXvsVestingContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';

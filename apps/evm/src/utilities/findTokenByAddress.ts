@@ -1,4 +1,4 @@
-import { Token, VToken } from 'types';
+import type { Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 
 function findTokenByAddress<TToken extends Token | VToken>({

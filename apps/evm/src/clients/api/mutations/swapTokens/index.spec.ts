@@ -7,8 +7,8 @@ import {
 } from '__mocks__/models/swaps';
 import { bnb, busd } from '__mocks__/models/tokens';
 
-import { SwapRouter } from 'libs/contracts';
-import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
+import type { SwapRouter } from 'libs/contracts';
+import type { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
 
 import swapTokens from '.';
 

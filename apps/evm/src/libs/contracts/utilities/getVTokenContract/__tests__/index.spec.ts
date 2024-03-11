@@ -1,4 +1,4 @@
-import { Signer } from 'ethers';
+import type { Signer } from 'ethers';
 
 import { vBnb, vBusd } from '__mocks__/models/vTokens';
 

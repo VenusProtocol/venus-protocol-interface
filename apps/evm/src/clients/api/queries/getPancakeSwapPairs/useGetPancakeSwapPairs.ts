@@ -1,13 +1,13 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getPancakeSwapPairs, {
-  GetPancakeSwapPairsInput,
-  GetPancakeSwapPairsOutput,
+  type GetPancakeSwapPairsInput,
+  type GetPancakeSwapPairsOutput,
 } from 'clients/api/queries/getPancakeSwapPairs';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useChainId, useProvider } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 import generateTokenCombinationIds from './generateTokenCombinationIds';
 

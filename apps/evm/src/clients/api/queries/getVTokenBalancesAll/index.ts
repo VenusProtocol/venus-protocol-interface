@@ -1,4 +1,4 @@
-import { PoolLens } from 'libs/contracts';
+import type { PoolLens } from 'libs/contracts';
 
 export interface GetVTokenBalancesAllInput {
   account: string;

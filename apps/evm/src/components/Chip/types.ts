@@ -1,6 +1,6 @@
-import { ProposalType } from 'types';
+import type { ProposalType } from 'types';
 
-import { IconName } from '../Icon';
+import type { IconName } from '../Icon';
 
 export type ChipType = 'default' | 'active' | 'inactive' | 'blue' | 'error';
 

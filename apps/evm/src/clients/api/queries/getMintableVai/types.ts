@@ -1,6 +1,6 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
-import { Vai, VaiController } from 'libs/contracts';
+import type { Vai, VaiController } from 'libs/contracts';
 
 export interface GetMintableVaiInput {
   accountAddress: string;

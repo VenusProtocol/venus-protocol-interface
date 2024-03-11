@@ -3,7 +3,7 @@ import { BigNumber as BN } from 'ethers';
 
 import fakeAddress from '__mocks__/models/address';
 
-import { VBep20 } from 'libs/contracts';
+import type { VBep20 } from 'libs/contracts';
 
 import getVTokenBalance from '.';
 

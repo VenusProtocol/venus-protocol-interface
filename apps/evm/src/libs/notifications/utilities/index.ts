@@ -1,5 +1,5 @@
 import { store } from '../store';
-import {
+import type {
   AddNotificationInput,
   Notification,
   RemoveNotificationInput,

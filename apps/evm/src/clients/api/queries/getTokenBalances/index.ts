@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
 import { getTokenContract } from 'libs/contracts';
-import { type Provider } from 'libs/wallet';
-import { Token, TokenBalance } from 'types';
+import type { Provider } from 'libs/wallet';
+import type { Token, TokenBalance } from 'types';
 
 export interface GetTokenBalancesInput {
   provider: Provider;

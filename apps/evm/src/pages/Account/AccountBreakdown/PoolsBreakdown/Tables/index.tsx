@@ -4,10 +4,10 @@ import Paper from '@mui/material/Paper';
 import { useMemo, useState } from 'react';
 
 import { ButtonGroup } from 'components';
-import { MarketTable, MarketTableProps } from 'containers/MarketTable';
+import { MarketTable, type MarketTableProps } from 'containers/MarketTable';
 import { useHideMdDownCss, useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
-import { Pool } from 'types';
+import type { Pool } from 'types';
 
 import TEST_IDS from '../testIds';
 import { useStyles } from './styles';

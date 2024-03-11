@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { Icon, Tooltip } from 'components';
 import { Link } from 'containers/Link';

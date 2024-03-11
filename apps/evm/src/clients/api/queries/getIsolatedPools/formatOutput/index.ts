@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
+import type { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
-import { PoolLens } from 'libs/contracts';
+import type { PoolLens } from 'libs/contracts';
 import { logError } from 'libs/errors';
-import { Asset, Pool, PrimeApy, Token, VToken } from 'types';
+import type { Asset, Pool, PrimeApy, Token, VToken } from 'types';
 import addUserPropsToPool from 'utilities/addUserPropsToPool';
 import areAddressesEqual from 'utilities/areAddressesEqual';
 import areTokensEqual from 'utilities/areTokensEqual';
@@ -15,9 +15,9 @@ import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
-import { GetTokenBalancesOutput } from '../../getTokenBalances';
-import { GetRewardsDistributorSettingsMappingOutput } from '../getRewardsDistributorSettingsMapping';
-import { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
+import type { GetTokenBalancesOutput } from '../../getTokenBalances';
+import type { GetRewardsDistributorSettingsMappingOutput } from '../getRewardsDistributorSettingsMapping';
+import type { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
 import formatDistributions from './formatDistributions';
 
 export interface FormatToPoolsInput {

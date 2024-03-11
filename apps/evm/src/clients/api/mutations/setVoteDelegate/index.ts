@@ -1,6 +1,6 @@
-import { ContractReceipt } from 'ethers';
+import type { ContractReceipt } from 'ethers';
 
-import { XvsVault } from 'libs/contracts';
+import type { XvsVault } from 'libs/contracts';
 
 export interface SetVoteDelegateInput {
   xvsVaultContract: XvsVault;

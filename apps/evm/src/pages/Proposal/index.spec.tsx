@@ -1,7 +1,13 @@
-import { Matcher, MatcherOptions, fireEvent, waitFor, within } from '@testing-library/react';
+import {
+  type Matcher,
+  type MatcherOptions,
+  fireEvent,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import { Navigate } from 'react-router-dom';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import proposals from '__mocks__/models/proposals';
@@ -19,7 +25,7 @@ import {
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
-import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote from 'hooks/useVote';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';

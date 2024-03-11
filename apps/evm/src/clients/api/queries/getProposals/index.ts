@@ -1,7 +1,7 @@
 import { VError } from 'libs/errors';
 import { formatToProposal, restService } from 'utilities';
 
-import { GetProposalsInput, GetProposalsOutput, ProposalsApiResponse } from './types';
+import type { GetProposalsInput, GetProposalsOutput, ProposalsApiResponse } from './types';
 
 export * from './types';
 

@@ -4,8 +4,8 @@ import fakeSigner from '__mocks__/models/signer';
 import { exactAmountInSwap as fakeExactAmountInSwap } from '__mocks__/models/swaps';
 import { bnb, busd } from '__mocks__/models/tokens';
 
-import { SwapRouter } from 'libs/contracts';
-import { ExactAmountInSwap } from 'types';
+import type { SwapRouter } from 'libs/contracts';
+import type { ExactAmountInSwap } from 'types';
 
 import swapTokensAndSupply from '.';
 

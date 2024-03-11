@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { LabeledInlineContentProps } from 'components/LabeledInlineContent';
+import type { LabeledInlineContentProps } from 'components/LabeledInlineContent';
 import { ValueUpdate } from 'components/ValueUpdate';
 import { useTranslation } from 'libs/translations';
-import { Asset } from 'types';
+import type { Asset } from 'types';
 import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
 
 export interface UseAssetInfoInput {

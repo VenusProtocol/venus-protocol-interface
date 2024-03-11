@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
 
-import { Prime } from 'libs/contracts';
+import type { Prime } from 'libs/contracts';
 import { logError } from 'libs/errors';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens, findTokenByAddress } from 'utilities';
 
-import { PrimePendingReward, PrimePendingRewardGroup } from '../types';
+import type { PrimePendingReward, PrimePendingRewardGroup } from '../types';
 
 const formatToPrimePendingRewardGroup = ({
   isPrimeContractPaused,

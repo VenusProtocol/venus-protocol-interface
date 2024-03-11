@@ -1,6 +1,6 @@
-import { ContractTransaction } from 'ethers';
+import type { ContractTransaction } from 'ethers';
 
-import { GovernorBravoDelegate } from 'libs/contracts';
+import type { GovernorBravoDelegate } from 'libs/contracts';
 
 export interface CastVoteInput {
   governorBravoDelegateContract: GovernorBravoDelegate;

@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
 import { renderComponent } from 'testUtils/render';

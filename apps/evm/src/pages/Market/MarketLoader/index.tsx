@@ -5,7 +5,7 @@ import { useGetAsset } from 'clients/api';
 import { Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useAccountAddress } from 'libs/wallet';
-import { Asset } from 'types';
+import type { Asset } from 'types';
 
 export interface MarketLoaderProps {
   children: (props: {

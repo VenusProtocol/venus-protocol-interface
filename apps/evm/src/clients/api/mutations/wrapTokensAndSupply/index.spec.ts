@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import fakeAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
-import { NativeTokenGateway } from 'libs/contracts';
+import type { NativeTokenGateway } from 'libs/contracts';
 
 import wrapTokensAndSupply from '.';
 

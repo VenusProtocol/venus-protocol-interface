@@ -1,6 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';

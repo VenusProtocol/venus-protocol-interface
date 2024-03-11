@@ -1,6 +1,6 @@
 import governorBravoDelegateResponses from '__mocks__/contracts/governanceBravoDelegate';
 
-import { GovernorBravoDelegate } from 'libs/contracts';
+import type { GovernorBravoDelegate } from 'libs/contracts';
 
 import getProposalEta from '.';
 

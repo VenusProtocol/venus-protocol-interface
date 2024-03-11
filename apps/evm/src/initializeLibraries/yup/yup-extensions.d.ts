@@ -1,7 +1,7 @@
-import * as yup from 'Yup';
-import BigNumber from 'bignumber.js';
+import type * as yup from 'Yup';
+import type BigNumber from 'bignumber.js';
 
-import { Swap, Token } from 'types';
+import type { Swap, Token } from 'types';
 
 declare module 'yup' {
   interface StringSchema extends yup.StringSchema {

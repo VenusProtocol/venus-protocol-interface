@@ -3,7 +3,7 @@ import { Paper, Typography } from '@mui/material';
 
 import { Checkbox, Select } from 'components';
 import { useTranslation } from 'libs/translations';
-import { TransactionEvent } from 'types';
+import type { TransactionEvent } from 'types';
 
 import { useStyles } from './styles';
 

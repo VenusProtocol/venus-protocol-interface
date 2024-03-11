@@ -1,13 +1,13 @@
 import BigNumber from 'bignumber.js';
 
-import { ResilientOracle } from 'libs/contracts';
-import { Token } from 'types';
+import type { ResilientOracle } from 'libs/contracts';
+import type { Token } from 'types';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import removeDuplicates from 'utilities/removeDuplicates';
 
-import { GetRewardsDistributorSettingsMappingOutput } from './getRewardsDistributorSettingsMapping';
+import type { GetRewardsDistributorSettingsMappingOutput } from './getRewardsDistributorSettingsMapping';
 
 export interface GetTokenPriceDollarsMappingInput {
   tokens: Token[];

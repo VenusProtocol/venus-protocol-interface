@@ -1,8 +1,8 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import { withCenterStory } from 'stories/decorators';
 
-import { Cell, CellGroup } from '.';
+import { type Cell, CellGroup } from '.';
 
 export default {
   title: 'Components/CellGroup',

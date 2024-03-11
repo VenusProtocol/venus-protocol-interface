@@ -15,7 +15,7 @@ import { t } from 'libs/translations';
 import { Connector } from 'libs/wallet/types';
 import { isRunningInOperaBrowser } from 'utilities/walletDetection';
 
-import { BaseWallet, IntegratedWallet, Wallet } from './types';
+import type { BaseWallet, IntegratedWallet, Wallet } from './types';
 
 export const WALLETS: Wallet[] = [
   {

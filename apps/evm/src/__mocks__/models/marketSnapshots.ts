@@ -1,4 +1,4 @@
-import { MarketSnapshot } from 'types';
+import type { MarketSnapshot } from 'types';
 
 export const marketSnapshots: MarketSnapshot[] = [
   {

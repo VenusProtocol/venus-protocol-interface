@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js';
-import { ContractTransaction } from 'ethers';
+import type BigNumber from 'bignumber.js';
+import type { ContractTransaction } from 'ethers';
 
-import { VaiController } from 'libs/contracts';
+import type { VaiController } from 'libs/contracts';
 
 export interface RepayVaiInput {
   amountMantissa: BigNumber;

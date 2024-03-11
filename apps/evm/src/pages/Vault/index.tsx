@@ -2,7 +2,7 @@
 import { useGetVaults } from 'clients/api';
 import { Spinner } from 'components';
 import { useAccountAddress } from 'libs/wallet';
-import { Vault } from 'types';
+import type { Vault } from 'types';
 
 import VaultItem from './VaultItem';
 import { useStyles } from './styles';

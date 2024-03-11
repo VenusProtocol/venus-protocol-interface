@@ -1,15 +1,15 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import {
-  GetHypotheticalPrimeApysInput,
-  GetHypotheticalPrimeApysOutput,
+  type GetHypotheticalPrimeApysInput,
+  type GetHypotheticalPrimeApysOutput,
   getHypotheticalPrimeApys,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetPrimeContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 interface UseGetPrimeTokenInput

@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
-import { Claim, useGetPendingRewards, useGetPools } from 'clients/api';
+import { type Claim, useGetPendingRewards, useGetPools } from 'clients/api';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 
-import { Group } from './types';
+import type { Group } from './types';
 
 const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) => {
   const { t } = useTranslation();

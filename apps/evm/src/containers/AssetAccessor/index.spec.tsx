@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -8,9 +8,9 @@ import { renderComponent } from 'testUtils/render';
 import { TokenAnnouncement } from 'containers/TokenAnnouncement';
 import { isTokenActionEnabled } from 'libs/tokens';
 import { en } from 'libs/translations';
-import { Asset, Pool } from 'types';
+import type { Asset, Pool } from 'types';
 
-import AssetAccessor, { AssetAccessorProps } from '.';
+import AssetAccessor, { type AssetAccessorProps } from '.';
 
 vi.mock('containers/TokenAnnouncement');
 

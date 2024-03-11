@@ -1,12 +1,12 @@
 import BigNumber from 'bignumber.js';
 
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
+import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
 import { convertTokensToMantissa } from 'utilities';
 
 import formatCurrentUtilizationRate from './formatCurrentUtilizationRate';
 import formatToApySnapshots from './formatToApySnapshots';
-import { GetVTokenApySimulationsOutput, GetVTokenInterestRatesInput } from './types';
+import type { GetVTokenApySimulationsOutput, GetVTokenInterestRatesInput } from './types';
 
 export * from './types';
 

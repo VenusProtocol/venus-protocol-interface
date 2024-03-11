@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-import { Breakpoint } from './types';
+import type { Breakpoint } from './types';
 
 export const useStyles = () => {
   const theme = useTheme();

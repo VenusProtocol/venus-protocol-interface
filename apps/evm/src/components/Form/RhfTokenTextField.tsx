@@ -1,13 +1,13 @@
 import {
-  Control,
+  type Control,
   Controller,
-  FieldValues,
-  Path,
-  RegisterOptions,
+  type FieldValues,
+  type Path,
+  type RegisterOptions,
   useFormState,
 } from 'react-hook-form';
 
-import { TokenTextField, TokenTextFieldProps } from 'components';
+import { TokenTextField, type TokenTextFieldProps } from 'components';
 
 export type RhfTokenTextFieldProps<TFormValues extends FieldValues> = {
   name: Path<TFormValues>;

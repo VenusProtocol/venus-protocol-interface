@@ -1,6 +1,6 @@
 import { BigNumber as BN } from 'ethers';
 
-import { PoolLens } from 'libs/contracts';
+import type { PoolLens } from 'libs/contracts';
 
 const poolLensResponses: {
   getAllPools: Awaited<ReturnType<PoolLens['getAllPools']>>;

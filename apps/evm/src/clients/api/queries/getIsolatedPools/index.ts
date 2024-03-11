@@ -1,12 +1,12 @@
 import BigNumber from 'bignumber.js';
 
 import {
-  GetIsolatedPoolParticipantsCountInput,
+  type GetIsolatedPoolParticipantsCountInput,
   getIsolatedPoolParticipantsCount,
 } from 'clients/subgraph';
-import { IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'libs/contracts';
+import { type IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'libs/contracts';
 import { logError } from 'libs/errors';
-import { Asset, ChainId, PrimeApy, Token } from 'types';
+import { type Asset, ChainId, type PrimeApy, type Token } from 'types';
 import {
   appendPrimeSimulationDistributions,
   areAddressesEqual,
@@ -22,7 +22,7 @@ import getTokenBalances from '../getTokenBalances';
 import formatOutput from './formatOutput';
 import getRewardsDistributorSettingsMapping from './getRewardsDistributorSettingsMapping';
 import getTokenPriceDollarsMapping from './getTokenPriceDollarsMapping';
-import { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
+import type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
 export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 

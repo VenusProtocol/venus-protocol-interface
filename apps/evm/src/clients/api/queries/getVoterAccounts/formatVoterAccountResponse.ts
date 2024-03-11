@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { GetVoterAccountsResponse } from './types';
+import type { GetVoterAccountsResponse } from './types';
 
 const formatVoterResponse = ({
   data,

@@ -1,9 +1,9 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
-import { PoolLens } from 'libs/contracts';
-import { Token } from 'types';
+import type { PoolLens } from 'libs/contracts';
+import type { Token } from 'types';
 
-import { IsolatedPoolPendingReward, IsolatedPoolPendingRewardGroup } from '../types';
+import type { IsolatedPoolPendingReward, IsolatedPoolPendingRewardGroup } from '../types';
 import formatRewardSummaryData from './formatRewardSummaryData';
 
 function formatToPoolPendingRewardGroup({

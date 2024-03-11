@@ -1,6 +1,6 @@
 import { t } from 'libs/translations';
 
-import {
+import type {
   ComptrollerErrorReporterError,
   ComptrollerErrorReporterFailureInfo,
   TokenErrorReporterError,

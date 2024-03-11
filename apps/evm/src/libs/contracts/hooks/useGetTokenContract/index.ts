@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { getTokenContract } from 'libs/contracts/utilities/getTokenContract';
 import { useProvider, useSigner } from 'libs/wallet';
-import { Token } from 'types';
+import type { Token } from 'types';
 
 export interface UseGetTokenContractInput {
   token: Token;

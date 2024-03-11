@@ -4,7 +4,7 @@ import fakeVenusLensContractResponses from '__mocks__/contracts/venusLens';
 import fakePoolRegistryContractAddress from '__mocks__/models/address';
 import tokens from '__mocks__/models/tokens';
 
-import { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
+import type { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
 
 import getVTokens from '..';
 

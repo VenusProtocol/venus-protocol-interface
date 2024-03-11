@@ -1,4 +1,4 @@
-import { SVGProps } from 'react';
+import type { SVGProps } from 'react';
 
 const SvgPerson = (props: SVGProps<SVGSVGElement>) => (
   <svg

@@ -1,7 +1,7 @@
 import { BSC_MAINNET_CAN_ADDRESS } from 'constants/address';
-import { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
+import type { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
 import { logError } from 'libs/errors';
-import { Token, VToken } from 'types';
+import type { Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 

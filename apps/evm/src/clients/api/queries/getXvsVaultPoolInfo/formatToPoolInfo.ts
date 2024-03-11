@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import { XvsVault } from 'libs/contracts';
+import type { XvsVault } from 'libs/contracts';
 
-import { GetXvsVaultPoolInfoOutput } from './types';
+import type { GetXvsVaultPoolInfoOutput } from './types';
 
 const formatToUserInfo = ({
   token,

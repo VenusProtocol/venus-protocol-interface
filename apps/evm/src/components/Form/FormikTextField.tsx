@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 
-import { TextField, TextFieldProps } from '../TextField';
+import { TextField, type TextFieldProps } from '../TextField';
 
 interface FormikTextFieldProps extends Omit<TextFieldProps, 'name' | 'onChange' | 'value'> {
   name: string;

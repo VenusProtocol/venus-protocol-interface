@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
-import { ApproveDelegateSteps, ApproveDelegateStepsProps, PrimaryButton } from 'components';
+import { ApproveDelegateSteps, type ApproveDelegateStepsProps, PrimaryButton } from 'components';
 import { useTranslation } from 'libs/translations';
 
-import { FormError } from '../useForm/types';
+import type { FormError } from '../useForm/types';
 
 export interface SubmitSectionProps {
   isFormValid: boolean;

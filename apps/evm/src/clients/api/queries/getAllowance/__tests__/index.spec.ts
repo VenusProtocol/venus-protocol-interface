@@ -4,7 +4,7 @@ import { BigNumber as BN } from 'ethers';
 import fakeAddress from '__mocks__/models/address';
 import fakeSigner from '__mocks__/models/signer';
 
-import { Vrt } from 'libs/contracts';
+import type { Vrt } from 'libs/contracts';
 
 import getAllowance from '..';
 

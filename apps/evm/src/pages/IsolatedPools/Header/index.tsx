@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { useGetIsolatedPoolsTreasuryTotals } from 'clients/api';
-import { Cell, CellGroup } from 'components';
+import { type Cell, CellGroup } from 'components';
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue } from 'utilities';
 

@@ -9,7 +9,7 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import localConfig from 'config';
 import { WALLET_CONNECT_PROJECT_ID } from 'constants/walletConnect';
 import { chains } from 'libs/wallet/chains';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 const BinanceW3WConnector = getBinanceW3WConnector();
 

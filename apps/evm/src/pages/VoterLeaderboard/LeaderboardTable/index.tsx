@@ -3,12 +3,12 @@ import { Typography } from '@mui/material';
 import _cloneDeep from 'lodash/cloneDeep';
 import { useMemo } from 'react';
 
-import { EllipseAddress, Table, TableColumn } from 'components';
+import { EllipseAddress, Table, type TableColumn } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { VoterAccount } from 'types';
+import type { VoterAccount } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { useStyles } from './styles';

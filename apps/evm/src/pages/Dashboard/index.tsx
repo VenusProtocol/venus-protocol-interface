@@ -1,7 +1,7 @@
-import { InputHTMLAttributes, useMemo, useState } from 'react';
+import { type InputHTMLAttributes, useMemo, useState } from 'react';
 
 import { useGetPools } from 'clients/api';
-import { Tag, TagGroup, TextField } from 'components';
+import { type Tag, TagGroup, TextField } from 'components';
 import { MarketTable } from 'containers/MarketTable';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';

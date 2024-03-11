@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { assetData } from '__mocks__/models/asset';
 import { poolData } from '__mocks__/models/pools';

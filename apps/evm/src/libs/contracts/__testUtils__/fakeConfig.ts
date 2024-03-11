@@ -1,4 +1,4 @@
-import { ContractConfig } from '../config';
+import type { ContractConfig } from '../config';
 
 export const fakeContractConfigs: ContractConfig[] = [
   {

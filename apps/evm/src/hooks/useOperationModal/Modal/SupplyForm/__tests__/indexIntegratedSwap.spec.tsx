@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
@@ -17,10 +17,10 @@ import {
 } from 'constants/swap';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
-import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { IsTokenActionEnabledInput, isTokenActionEnabled } from 'libs/tokens';
+import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type IsTokenActionEnabledInput, isTokenActionEnabled } from 'libs/tokens';
 import { en } from 'libs/translations';
-import { Asset, Swap, TokenBalance } from 'types';
+import type { Asset, Swap, TokenBalance } from 'types';
 
 import Supply from '..';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';

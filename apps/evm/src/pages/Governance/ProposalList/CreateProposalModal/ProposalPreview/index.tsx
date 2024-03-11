@@ -8,7 +8,7 @@ import { useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { ProposalType } from 'types';
 
-import { FormValues } from '../proposalSchema';
+import type { FormValues } from '../proposalSchema';
 import { useStyles } from './styles';
 
 const ProposalPreview: React.FC = () => {

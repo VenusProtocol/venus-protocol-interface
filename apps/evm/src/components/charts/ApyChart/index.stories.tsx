@@ -1,9 +1,9 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
-import { ApyChart, ApyChartItem, BorrowApyChart, SupplyApyChart } from '.';
+import { ApyChart, type ApyChartItem, BorrowApyChart, SupplyApyChart } from '.';
 
 const data: ApyChartItem[] = [
   {

@@ -1,4 +1,4 @@
-import { Signer } from 'ethers';
+import type { Signer } from 'ethers';
 
 import { lisUsd, vai, vrt, xvs } from '__mocks__/models/tokens';
 

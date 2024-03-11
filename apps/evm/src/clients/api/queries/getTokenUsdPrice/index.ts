@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
-import { ResilientOracle } from 'libs/contracts';
-import { Token } from 'types';
+import type { ResilientOracle } from 'libs/contracts';
+import type { Token } from 'types';
 import { convertPriceMantissaToDollars } from 'utilities';
 
 export interface GetTokenUsdPriceInput {

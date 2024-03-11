@@ -1,5 +1,5 @@
 /* https://mui.com/customization/theming/ */
-import { ThemeOptions, createTheme } from '@mui/material/styles';
+import { type ThemeOptions, createTheme } from '@mui/material/styles';
 
 import { theme } from '..';
 

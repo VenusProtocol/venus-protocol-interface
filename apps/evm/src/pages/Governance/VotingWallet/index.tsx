@@ -25,7 +25,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'libs/wallet';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import DelegateModal from './DelegateModal';

@@ -1,4 +1,4 @@
-import { ErrorCodes, VError, VErrorParamMap, VErrorPhraseMap } from '../VError';
+import type { ErrorCodes, VError, VErrorParamMap, VErrorPhraseMap } from '../VError';
 import { importProposalErrorPhrases } from '../importProposalErrorPhrases';
 import { interactionErrorPhrases } from '../interactionErrorPhrases';
 import { transactionErrorPhrases } from '../transactionErrorPhrases';

@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { LabeledInlineContent } from 'components/LabeledInlineContent';
 import { Spinner } from 'components/Spinner';
@@ -6,7 +6,7 @@ import { Tooltip } from 'components/Tooltip';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { displayMutationError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { Token } from 'types';
+import type { Token } from 'types';
 
 import { TextButton } from '../Button';
 import { Icon } from '../Icon';

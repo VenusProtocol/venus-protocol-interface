@@ -1,6 +1,6 @@
 import { ChainId } from 'types';
 
-import { DisabledTokenActionMapping } from '../../types';
+import type { DisabledTokenActionMapping } from '../../types';
 import { disabledTokenActions as bscMainnetDisabledTokenActions } from './bscMainnet';
 import { disabledTokenActions as bscTestnetDisabledTokenActions } from './bscTestnet';
 import { disabledTokenActions as ethereumDisabledTokenActions } from './ethereum';

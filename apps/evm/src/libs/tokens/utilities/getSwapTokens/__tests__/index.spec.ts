@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { busd, vai, vrt, xvs } from '__mocks__/models/tokens';
 

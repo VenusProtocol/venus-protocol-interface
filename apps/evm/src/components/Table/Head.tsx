@@ -8,7 +8,7 @@ import { visuallyHidden } from '@mui/utils';
 
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
-import { TableColumn } from './types';
+import type { TableColumn } from './types';
 
 interface HeadProps<R> {
   columns: TableColumn<R>[];

@@ -13,7 +13,7 @@ import {
 } from 'components';
 import { routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
-import { ProposalState, Token, VoteSupport } from 'types';
+import { ProposalState, type Token, VoteSupport } from 'types';
 
 import { useStyles } from './styles';
 

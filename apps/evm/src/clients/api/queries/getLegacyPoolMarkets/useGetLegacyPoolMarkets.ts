@@ -1,7 +1,7 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getLegacyPoolMarkets, {
-  GetLegacyPoolMarketsOutput,
+  type GetLegacyPoolMarketsOutput,
 } from 'clients/api/queries/getLegacyPoolMarkets';
 import FunctionKey from 'constants/functionKey';
 import { useGetToken } from 'libs/tokens';

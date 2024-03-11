@@ -4,7 +4,7 @@ import { useSwitchNetwork } from 'wagmi';
 import { VError, displayMutationError } from 'libs/errors';
 import { useAccountAddress } from 'libs/wallet/hooks/useAccountAddress';
 import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 export const useSwitchChain = () => {
   const { switchNetworkAsync } = useSwitchNetwork();

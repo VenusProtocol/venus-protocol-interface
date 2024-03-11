@@ -2,7 +2,7 @@ import { VError } from 'libs/errors';
 import { restService } from 'utilities';
 
 import formatToVoteSummary from './formatToVoteSummary';
-import { GetVoteSummaryApiResponse, GetVoteSummaryInput, GetVoteSummaryOutput } from './types';
+import type { GetVoteSummaryApiResponse, GetVoteSummaryInput, GetVoteSummaryOutput } from './types';
 
 export * from './types';
 

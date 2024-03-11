@@ -1,4 +1,4 @@
-import { PSTokenCombination } from 'types';
+import type { PSTokenCombination } from 'types';
 
 const generateTokenCombinationIds = (tokenCombinations: PSTokenCombination[]) =>
   tokenCombinations

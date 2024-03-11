@@ -1,4 +1,4 @@
-import { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
+import type { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 
 export interface TableColumn<R> {
   key: string;

@@ -1,6 +1,6 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
-import { Token, VToken } from 'types';
+import type { Token, VToken } from 'types';
 
 import { formatTokensToReadableValue } from './formatTokensToReadableValue';
 

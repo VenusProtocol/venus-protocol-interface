@@ -2,7 +2,7 @@
 import { routes } from 'constants/routing';
 import { MarketTable } from 'containers/MarketTable';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { Asset, Pool } from 'types';
+import type { Asset, Pool } from 'types';
 import { areAddressesEqual } from 'utilities';
 
 export interface TableProps {

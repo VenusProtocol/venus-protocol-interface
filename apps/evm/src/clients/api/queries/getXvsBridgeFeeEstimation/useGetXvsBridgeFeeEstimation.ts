@@ -1,15 +1,15 @@
-import BigNumber from 'bignumber.js';
-import { QueryObserverOptions, useQuery } from 'react-query';
+import type BigNumber from 'bignumber.js';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import {
-  GetXvsBridgeEstimationInput,
-  GetXvsBridgeEstimationOutput,
+  type GetXvsBridgeEstimationInput,
+  type GetXvsBridgeEstimationOutput,
   getXvsBridgeFeeEstimation,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId, Token } from 'types';
+import { ChainId, type Token } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedGetXvsBridgeEstimationInput = Omit<GetXvsBridgeEstimationInput, 'tokenBridgeContract'>;

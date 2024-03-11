@@ -3,7 +3,7 @@ import { BigNumber as BN } from 'ethers';
 
 import { xvs } from '__mocks__/models/tokens';
 
-import { XvsVault } from 'libs/contracts';
+import type { XvsVault } from 'libs/contracts';
 
 import getXvsVaultRewardPerBlock from '.';
 

@@ -1,12 +1,12 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
 import { callOrThrow } from 'utilities';
 
-import castVoteWithReason, { CastVoteWithReasonInput } from './castVoteWithReason';
+import castVoteWithReason, { type CastVoteWithReasonInput } from './castVoteWithReason';
 
 type TrimmedCastVoteWithReasonInput = Omit<
   CastVoteWithReasonInput,

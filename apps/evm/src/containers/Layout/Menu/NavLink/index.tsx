@@ -1,11 +1,11 @@
-import { NavLink as RRNavLink, NavLinkProps as RRNavLinkProps } from 'react-router-dom';
+import { NavLink as RRNavLink, type NavLinkProps as RRNavLinkProps } from 'react-router-dom';
 
 import { Icon } from 'components';
 import { useFormatTo } from 'hooks/useFormatTo';
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
-import { MenuItem } from '../../types';
+import type { MenuItem } from '../../types';
 
 export type NavLinkProps = MenuItem & Partial<RRNavLinkProps>;
 

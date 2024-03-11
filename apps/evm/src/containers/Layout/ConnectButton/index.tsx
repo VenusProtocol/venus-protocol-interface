@@ -1,5 +1,5 @@
 import { useGetPrimeToken } from 'clients/api';
-import { Button, ButtonProps } from 'components';
+import { Button, type ButtonProps } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
 import { truncateAddress } from 'utilities';

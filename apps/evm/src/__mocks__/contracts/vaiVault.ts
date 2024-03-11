@@ -1,6 +1,6 @@
 import { BigNumber as BN } from 'ethers';
 
-import { VaiVault } from 'libs/contracts';
+import type { VaiVault } from 'libs/contracts';
 
 const vaiVaultResponses: {
   userInfo: Awaited<ReturnType<VaiVault['userInfo']>>;

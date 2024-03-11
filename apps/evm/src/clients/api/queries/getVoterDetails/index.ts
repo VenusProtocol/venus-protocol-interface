@@ -1,9 +1,9 @@
 import { VError } from 'libs/errors';
-import { Voter } from 'types';
+import type { Voter } from 'types';
 import { restService } from 'utilities';
 
 import formatVoterDetailsResponse from './formatVoterDetailsResponse';
-import { GetVoterDetailsResponse } from './types';
+import type { GetVoterDetailsResponse } from './types';
 
 export interface GetVoterDetailsInput {
   address: string;

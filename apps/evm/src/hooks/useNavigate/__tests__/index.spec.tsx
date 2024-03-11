@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useNavigate as useRRNavigate } from 'react-router-dom';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { useFormatTo } from 'hooks/useFormatTo';
 

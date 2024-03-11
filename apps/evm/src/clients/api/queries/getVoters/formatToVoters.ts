@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import { VotersDetails } from 'types';
+import type { VotersDetails } from 'types';
 
-import { GetVotersApiResponse } from './types';
+import type { GetVotersApiResponse } from './types';
 
 const formatToVoter = ({ payload }: { payload: GetVotersApiResponse }): VotersDetails => ({
   result: payload.result.map(

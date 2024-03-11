@@ -2,10 +2,10 @@
 import { Paper, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 
-import { BorrowLimitUsedAccountHealth, Cell, CellGroup, Icon, Tooltip } from 'components';
+import { BorrowLimitUsedAccountHealth, type Cell, CellGroup, Icon, Tooltip } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { useTranslation } from 'libs/translations';
-import { Pool, Vault } from 'types';
+import type { Pool, Vault } from 'types';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 
 import Section from '../Section';

@@ -1,6 +1,6 @@
-import { MintVaiInput, mintVai, queryClient } from 'clients/api';
+import { type MintVaiInput, mintVai, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetVaiControllerContract } from 'libs/contracts';
 import { callOrThrow } from 'utilities';
 

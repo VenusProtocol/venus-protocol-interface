@@ -8,10 +8,10 @@ import {
   useGetVaiRepayApr,
 } from 'clients/api';
 import { Spinner } from 'components';
-import { AccountData, AccountDataProps } from 'containers/AccountData';
+import { AccountData, type AccountDataProps } from 'containers/AccountData';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import { Asset } from 'types';
+import type { Asset } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
 
 export interface AccountVaiDataProps {

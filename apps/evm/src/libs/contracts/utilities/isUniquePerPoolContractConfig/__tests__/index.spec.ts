@@ -1,4 +1,4 @@
-import { ContractConfig } from 'libs/contracts/config';
+import type { ContractConfig } from 'libs/contracts/config';
 
 import { isUniquePerPoolContractConfig } from '..';
 
