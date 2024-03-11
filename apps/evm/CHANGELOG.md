@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 2.104.0
+
+### Minor Changes
+
+- c433570: Change behaviors of Supply and Repay forms MAX buttons
+- 0098840: Replace Prettier and ESLint with Biome
+
+### Patch Changes
+
+- 41030e4: Upgrade Node to 20.x
+- e7cd8ec: lint pass with Biome
+
 ## 2.103.0
 
 ### Minor Changes
