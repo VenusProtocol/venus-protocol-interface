@@ -62,14 +62,16 @@ export const useStyles = () => {
 
       padding: ${theme.spacing(4, 0)};
 
-      ${clickable &&
-      css`
+      ${
+        clickable &&
+        css`
         cursor: pointer;
 
         :hover {
           background-color: ${theme.palette.interactive.hover};
         }
-      `}
+      `
+      }
     `,
     rowTitleMobile: css`
       padding-left: ${theme.spacing(4)};
@@ -85,10 +87,12 @@ export const useStyles = () => {
         background-color: ${theme.palette.interactive.hover} !important;
       }
 
-      ${clickable &&
-      css`
+      ${
+        clickable &&
+        css`
         cursor: pointer;
-      `}
+      `
+      }
     `,
     rowWrapperMobile: css`
       display: grid;

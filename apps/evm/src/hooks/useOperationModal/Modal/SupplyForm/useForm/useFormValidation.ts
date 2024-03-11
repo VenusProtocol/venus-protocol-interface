@@ -5,6 +5,7 @@ import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { Asset, Swap, SwapError } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
+import { getSwapToTokenAmountReceivedTokens } from '../../getSwapToTokenAmountReceived';
 import { FormError, FormValues } from './types';
 
 interface UseFormValidationInput {
@@ -21,24 +22,6 @@ interface UseFormValidationOutput {
   isFormValid: boolean;
   formError?: FormError;
 }
-
-const getSwapToTokenAmountReceivedTokens = (swap?: Swap) => {
-  let swapToTokenAmountReceivedTokens;
-
-  if (swap) {
-    const swapToTokenAmountReceivedMantissa =
-      swap.direction === 'exactAmountOut'
-        ? swap.toTokenAmountReceivedMantissa
-        : swap.expectedToTokenAmountReceivedMantissa;
-
-    swapToTokenAmountReceivedTokens = convertMantissaToTokens({
-      value: swapToTokenAmountReceivedMantissa,
-      token: swap.toToken,
-    });
-  }
-
-  return swapToTokenAmountReceivedTokens;
-};
 
 const useFormValidation = ({
   asset,
@@ -86,7 +69,7 @@ const useFormValidation = ({
 
     const isUsingSwap = !areTokensEqual(formValues.fromToken, asset.vToken.underlyingToken);
     const toTokensAmountSuppliedTokens = isUsingSwap
-      ? getSwapToTokenAmountReceivedTokens(swap)
+      ? getSwapToTokenAmountReceivedTokens(swap).swapToTokenAmountReceivedTokens
       : fromTokenAmountTokens;
 
     if (

@@ -13,8 +13,7 @@ describe('utilities/importJsonProposal', () => {
   });
 
   it('should throw an error if there is no meta key in the file', async () => {
-    const withoutMeta: Partial<typeof TEST_VIP> = { ...TEST_VIP };
-    delete withoutMeta.meta;
+    const { meta, ...withoutMeta }: Partial<typeof TEST_VIP> = { ...TEST_VIP };
     const contents = JSON.stringify(withoutMeta);
     const jsonVip = new File([contents], 'test', { type: 'application/json' });
 
@@ -86,8 +85,7 @@ describe('utilities/importJsonProposal', () => {
   });
 
   it('should throw an error if there are no call signatures', async () => {
-    const withoutSignatures: Partial<typeof TEST_VIP> = { ...TEST_VIP };
-    delete withoutSignatures.signatures;
+    const { signatures, ...withoutSignatures }: Partial<typeof TEST_VIP> = { ...TEST_VIP };
     const contents = JSON.stringify(withoutSignatures);
     const jsonVip = new File([contents], 'test', { type: 'application/json' });
 
@@ -98,8 +96,7 @@ describe('utilities/importJsonProposal', () => {
   });
 
   it('should throw an error if there are no targets', async () => {
-    const withoutTargets: Partial<typeof TEST_VIP> = { ...TEST_VIP };
-    delete withoutTargets.targets;
+    const { targets, ...withoutTargets }: Partial<typeof TEST_VIP> = { ...TEST_VIP };
     const contents = JSON.stringify(withoutTargets);
     const jsonVip = new File([contents], 'test', { type: 'application/json' });
 
@@ -110,8 +107,7 @@ describe('utilities/importJsonProposal', () => {
   });
 
   it('should throw an error if there are no params', async () => {
-    const withoutParams: Partial<typeof TEST_VIP> = { ...TEST_VIP };
-    delete withoutParams.params;
+    const { params, ...withoutParams }: Partial<typeof TEST_VIP> = { ...TEST_VIP };
     const contents = JSON.stringify(withoutParams);
     const jsonVip = new File([contents], 'test', { type: 'application/json' });
 
@@ -122,8 +118,7 @@ describe('utilities/importJsonProposal', () => {
   });
 
   it('should throw an error if there is no proposal type', async () => {
-    const withoutProposalType: Partial<typeof TEST_VIP> = { ...TEST_VIP };
-    delete withoutProposalType.type;
+    const { type, ...withoutProposalType }: Partial<typeof TEST_VIP> = { ...TEST_VIP };
     const contents = JSON.stringify(withoutProposalType);
     const jsonVip = new File([contents], 'test', { type: 'application/json' });
 

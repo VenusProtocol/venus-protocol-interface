@@ -42,6 +42,7 @@ const AppRoutes = () => {
   const location = useLocation();
 
   // Scroll to the top of the page on route change
+  // biome-ignore lint/correctness/useExhaustiveDependencies:
   useEffect(() => {
     document.getElementById(PAGE_CONTAINER_ID)?.scrollTo(0, 0);
   }, [location]);

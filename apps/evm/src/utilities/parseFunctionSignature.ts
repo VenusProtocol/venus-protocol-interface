@@ -6,7 +6,7 @@ const parseFunctionSignature = (value: string | undefined) => {
     const fragment = ethers.utils.FunctionFragment.from(value || '');
     ethers.utils.defaultAbiCoder.getDefaultValue(fragment.inputs);
     return fragment;
-  } catch (err) {
+  } catch {
     return undefined;
   }
 };

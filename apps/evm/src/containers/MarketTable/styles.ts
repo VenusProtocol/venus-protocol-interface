@@ -9,10 +9,12 @@ export const useStyles = () => {
       vertical-align: sub;
       margin-left: ${theme.spacing(1)};
 
-      ${hasRightMargin &&
-      css`
+      ${
+        hasRightMargin &&
+        css`
         margin-right: ${theme.spacing(1)};
-      `};
+      `
+      };
     `,
     cardContentGrid: css`
       .table__table-cards__card-content {

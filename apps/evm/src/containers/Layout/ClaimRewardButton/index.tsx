@@ -45,8 +45,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
 
   const totalRewardsCents = useMemo(
     () =>
-      groups &&
-      groups.reduce<BigNumber>(
+      groups?.reduce<BigNumber>(
         (groupsAcc, g) =>
           groupsAcc.plus(
             g.pendingRewards.reduce<BigNumber>(

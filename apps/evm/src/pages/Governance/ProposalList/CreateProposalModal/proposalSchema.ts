@@ -57,7 +57,7 @@ const proposalSchema = yup.object({
                     [dataTypes[this.options.index]],
                     [formatIfArray(value || '')],
                   );
-                } catch (error) {
+                } catch {
                   valid = false;
                 }
                 return valid;

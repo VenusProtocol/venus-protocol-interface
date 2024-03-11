@@ -165,7 +165,7 @@ const Proposal = () => {
 
   const { vote, isLoading } = useVote();
   const { data: userVoteReceipt } = useGetVoteReceipt(
-    { proposalId: parseInt(proposalId, 10), accountAddress: accountAddress || '' },
+    { proposalId: Number.parseInt(proposalId, 10), accountAddress: accountAddress || '' },
     { enabled: !!accountAddress },
   );
 

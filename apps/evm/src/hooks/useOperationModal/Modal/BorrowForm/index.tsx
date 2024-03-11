@@ -117,7 +117,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
-    userBorrowLimitCents: pool.userBorrowLimitCents && pool.userBorrowLimitCents.toNumber(),
+    userBorrowLimitCents: pool.userBorrowLimitCents?.toNumber(),
     limitTokens,
     onCloseModal,
     onSubmit,

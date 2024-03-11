@@ -78,11 +78,9 @@ const formatToPools = ({
         underlyingToken,
       };
 
-      const userVTokenBalances =
-        userVTokenBalancesAll &&
-        userVTokenBalancesAll.find(userBalances =>
-          areAddressesEqual(userBalances.vToken, vToken.address),
-        );
+      const userVTokenBalances = userVTokenBalancesAll?.find(userBalances =>
+        areAddressesEqual(userBalances.vToken, vToken.address),
+      );
 
       // Extract supplierCount and borrowerCount from subgraph result
       const subgraphPoolMarket = subgraphPool?.markets.find(market =>

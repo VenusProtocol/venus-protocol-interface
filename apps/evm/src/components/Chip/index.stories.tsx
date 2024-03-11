@@ -18,6 +18,6 @@ export const Inactive = () => <InactiveChip text="Some text" />;
 
 export const Blue = () => <BlueChip text="Some text" />;
 
-export const Error = () => <ErrorChip text="Some text" />;
+export const Err = () => <ErrorChip text="Some text" />;
 
 export const ProposalType = () => <ProposalTypeChip proposalType={1} />;

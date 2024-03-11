@@ -44,22 +44,26 @@ export const useStyles = () => {
         transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
         background-color: ${backgroundColor};
 
-        ${isSmall &&
-        css`
+        ${
+          isSmall &&
+          css`
           height: ${theme.spacing(10)};
-        `}
+        `
+        }
 
-        ${!disabled &&
-        css`
+        ${
+          !disabled &&
+          css`
           &:hover {
             border-color: ${theme.palette.text.secondary};
           }
-        `}
+        `
+        }
 
         &:focus-within {
-          border-color: ${hasError
-            ? theme.palette.interactive.error
-            : theme.palette.interactive.primary};
+          border-color: ${
+            hasError ? theme.palette.interactive.error : theme.palette.interactive.primary
+          };
         }
       `;
     },
@@ -91,15 +95,19 @@ export const useStyles = () => {
         opacity: 1; /* Firefox */
       }
 
-      ${isSmall &&
-      css`
+      ${
+        isSmall &&
+        css`
         font-size: ${theme.typography.small2.fontSize};
-      `}
+      `
+      }
 
-      ${hasRightAdornment &&
-      css`
+      ${
+        hasRightAdornment &&
+        css`
         margin-right: ${theme.spacing(1)};
-      `};
+      `
+      };
 
       &:focus {
         outline: 0;

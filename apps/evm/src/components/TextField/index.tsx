@@ -50,10 +50,16 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
       }
       // Prevent value from being updated if it does not follow the rules
       const followsMaxRule =
-        !safeValue || max === undefined || type !== 'number' || parseInt(safeValue, 10) <= +max;
+        !safeValue ||
+        max === undefined ||
+        type !== 'number' ||
+        Number.parseInt(safeValue, 10) <= +max;
 
       const followsMinRule =
-        !safeValue || min === undefined || type !== 'number' || parseInt(safeValue, 10) >= +min;
+        !safeValue ||
+        min === undefined ||
+        type !== 'number' ||
+        Number.parseInt(safeValue, 10) >= +min;
       if (onChange && followsMaxRule && followsMinRule) {
         onChange(e);
       }

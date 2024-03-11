@@ -290,7 +290,7 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
         form.setValue('toChainId', previousFromChainId);
       }
     }
-  }, [chainId, form, formFromChainId, formToChainId]);
+  }, [chainId, form, formFromChainId]);
 
   return { ...form, amountMantissa };
 };

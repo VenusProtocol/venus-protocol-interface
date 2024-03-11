@@ -33,7 +33,6 @@ const useGetXvsVaultPoolBalances = ({
         queryFn: () =>
           getBalanceOf({
             provider,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             token: stakedToken!,
             accountAddress: xvsVaultContractAddress || '',
           }),

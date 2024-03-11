@@ -1,5 +1,5 @@
-import { compile } from 'handlebars';
 import { readFileSync } from 'node:fs';
+import { compile } from 'handlebars';
 import { glob, runTypeChain } from 'typechain';
 
 import { ContractConfig } from 'libs/contracts/config';

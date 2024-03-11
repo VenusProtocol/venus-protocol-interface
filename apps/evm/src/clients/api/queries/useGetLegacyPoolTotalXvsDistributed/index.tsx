@@ -23,12 +23,10 @@ const useGetLegacyPoolTotalXvsDistributed = (): UseGetLegacyPoolTotalXvsDistribu
   });
 
   const totalXvsDistributedMantissa = useMemo(() => {
-    const totalXvsDistributedTokens =
-      getLegacyPoolMarketsData?.markets &&
-      getLegacyPoolMarketsData.markets.reduce(
-        (acc, market) => acc.plus(market.totalXvsDistributedTokens),
-        new BigNumber(0),
-      );
+    const totalXvsDistributedTokens = getLegacyPoolMarketsData?.markets?.reduce(
+      (acc, market) => acc.plus(market.totalXvsDistributedTokens),
+      new BigNumber(0),
+    );
 
     return (
       totalXvsDistributedTokens &&

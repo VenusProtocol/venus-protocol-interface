@@ -62,11 +62,12 @@ const ConvertVrt = () => {
     symbol: 'XVS',
   });
 
-  const { data: { totalWithdrawableAmount: xvsWithdrawableAmount } = {} } =
-    useGetXvsWithdrawableAmount(
-      { accountAddress: accountAddress || '' },
-      { enabled: !!accountAddress },
-    );
+  const {
+    data: { totalWithdrawableAmount: xvsWithdrawableAmount } = {},
+  } = useGetXvsWithdrawableAmount(
+    { accountAddress: accountAddress || '' },
+    { enabled: !!accountAddress },
+  );
 
   const { mutateAsync: withdrawXvs, isLoading: withdrawXvsLoading } = useWithdrawXvs();
 

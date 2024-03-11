@@ -30,14 +30,8 @@ jobs:
       - name: Typecheck
         run: yarn tsc
 
-      - name: Pretty
-        run: yarn lint:format
-
-      - name: Lint styles
-        run: yarn lint:styles
-
       - name: Lint
-        run: yarn lint:ts
+        run: yarn lint
 
   test:
     runs-on: ubuntu-20.04
@@ -56,7 +50,7 @@ jobs:
         run: yarn
 
       - name: Run tests and collect coverage
-        run: yarn test -- -- --coverage
+        run: yarn test --coverage
 
       - name: "Report coverage"
         if: always() # Also generate the report even if tests are failing

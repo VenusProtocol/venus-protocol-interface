@@ -29,9 +29,7 @@ const formatArgToReadableFormat = (argument: Result): string => {
     return `"${argument}"`;
   }
 
-  // eslint-disable-next-line no-underscore-dangle
   if (argument._isBigNumber) {
-    // eslint-disable-next-line no-underscore-dangle
     return new BigNumber(argument._hex).toString();
   }
 

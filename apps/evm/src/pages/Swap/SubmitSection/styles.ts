@@ -13,11 +13,13 @@ export const useStyles = () => {
       }
     `,
     getSubmitButton: ({ isDangerous }: { isDangerous: boolean }) => css`
-      ${isDangerous &&
-      css`
+      ${
+        isDangerous &&
+        css`
         background-color: ${theme.palette.error.main};
         border-color: ${theme.palette.error.main};
-      `}
+      `
+      }
     `,
   };
 };

@@ -1,21 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    ".eslint.js",
-    ".nvmrc",
-    ".prettierignore",
-    ".prettierrc.js",
-    "tsconfig.json",
-    "vite.config.ts"
-  ],
+  "globalDependencies": [".nvmrc", "tsconfig.json", "vite.config.ts"],
   "pipeline": {
     "generate": {
       "outputs": [
         "src/constants/version.ts",
         "src/libs/tokens/infos/pancakeSwapTokens/bscMainnet.ts",
         "src/libs/contracts/generated/**/*",
-        "src/clients/subgraph/gql/mainnet.ts",
-        "src/clients/subgraph/gql/testnet.ts"
+        "src/clients/subgraph/gql/generated/mainnet.ts",
+        "src/clients/subgraph/gql/generated/testnet.ts"
       ]
     },
     "start": {
@@ -31,8 +24,6 @@
       "outputs": ["build/**/*"]
     },
     "lint": {},
-    "lint:ts": {},
-    "lint:format": {},
     "lint:styles": {},
     "tsc": {
       "cache": false

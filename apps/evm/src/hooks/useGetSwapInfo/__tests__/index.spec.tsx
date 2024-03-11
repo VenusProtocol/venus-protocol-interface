@@ -21,7 +21,6 @@ describe('pages/Swap/useGetSwapInfo', () => {
     let result: UseGetSwapInfoOutput | undefined;
 
     const TestComponent: React.FC = () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       result = useGetSwapInfo(input);
       return <></>;
     };
@@ -45,7 +44,6 @@ describe('pages/Swap/useGetSwapInfo', () => {
     let result: UseGetSwapInfoOutput | undefined;
 
     const TestComponent: React.FC = () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       result = useGetSwapInfo(input);
       return <></>;
     };

@@ -67,7 +67,7 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
             isAnimationActive={false}
             cursor={sharedStyles.cursor}
             content={({ payload }) =>
-              payload && payload[0] ? (
+              payload?.[0] ? (
                 <TooltipContent
                   items={[
                     {

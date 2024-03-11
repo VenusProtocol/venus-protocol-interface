@@ -16,7 +16,7 @@ export const Default = () => (
     description="Сheck with the addressee whether transactions from smart contracts are accepted"
   />
 );
-export const Error = () => (
+export const Failure = () => (
   <Notice
     variant="error"
     description="Сheck with the addressee whether transactions from smart contracts are accepted"

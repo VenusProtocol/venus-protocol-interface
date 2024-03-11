@@ -34,14 +34,16 @@ export const useStyles = () => {
       color: ${theme.palette.text.primary};
       text-align: center;
 
-      ${isActionable &&
-      css`
+      ${
+        isActionable &&
+        css`
         cursor: pointer;
 
         :hover {
           background-color: ${theme.palette.secondary.light};
         }
-      `}
+      `
+      }
     `,
     walletLogo: css`
       width: ${theme.spacing(12)};

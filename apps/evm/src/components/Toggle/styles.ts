@@ -37,9 +37,9 @@ export const useStyles = () => {
           }
 
           & + .MuiSwitch-track {
-            background-color: ${isLight
-              ? theme.palette.secondary.light
-              : theme.palette.background.default};
+            background-color: ${
+              isLight ? theme.palette.secondary.light : theme.palette.background.default
+            };
           }
         }
 
@@ -62,9 +62,9 @@ export const useStyles = () => {
 
       .MuiSwitch-track,
       .Mui-checked + .MuiSwitch-track {
-        background-color: ${isLight
-          ? theme.palette.secondary.light
-          : theme.palette.background.default};
+        background-color: ${
+          isLight ? theme.palette.secondary.light : theme.palette.background.default
+        };
         opacity: 1;
       }
     `,

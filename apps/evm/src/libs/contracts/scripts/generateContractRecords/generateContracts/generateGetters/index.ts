@@ -1,5 +1,5 @@
-import { compile } from 'handlebars';
 import { readFileSync } from 'node:fs';
+import { compile } from 'handlebars';
 
 import { ContractConfig } from 'libs/contracts/config';
 import { isUniquePerPoolContractConfig } from 'libs/contracts/utilities/isUniquePerPoolContractConfig';

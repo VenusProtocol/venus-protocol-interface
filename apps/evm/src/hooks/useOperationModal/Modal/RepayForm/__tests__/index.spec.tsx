@@ -339,7 +339,6 @@ describe('RepayForm', () => {
         .dp(customFakeAsset.vToken.underlyingToken.decimals)
         .toFixed();
 
-      // eslint-disable-next-line
       await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
       // Check submit button is enabled

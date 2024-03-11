@@ -63,7 +63,7 @@ export const useTrackTransaction = (
           CONFIRMATIONS,
           timeoutMs,
         );
-      } catch (error) {
+      } catch {
         // Do nothing
       }
 

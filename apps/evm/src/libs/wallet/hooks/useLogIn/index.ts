@@ -31,8 +31,6 @@ export const useLogIn = () => {
       } catch (error) {
         if (error instanceof ConnectorNotFoundError) {
           throw new VError({ type: 'interaction', code: 'noProvider' });
-        } else {
-          // Do nothing
         }
       }
     },

@@ -56,7 +56,6 @@ export function Table<R>({
     }
 
     return [...data].sort((rowA, rowB) =>
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       order.orderBy.sortRows!(rowA, rowB, order.orderDirection),
     );
   }, [data, order]);

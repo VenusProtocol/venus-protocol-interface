@@ -50,7 +50,6 @@ initializeLibraries();
 
 global.fetch = vi.fn();
 
-// eslint-disable-next-line react-hooks/rules-of-hooks
 const useTokenApprovalOriginalOutput = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
   {

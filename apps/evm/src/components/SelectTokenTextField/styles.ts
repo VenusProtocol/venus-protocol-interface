@@ -19,10 +19,12 @@ export const useStyles = () => {
       z-index: 1;
       inset: 0;
 
-      ${isTokenListShown &&
-      css`
+      ${
+        isTokenListShown &&
+        css`
         display: block;
-      `}
+      `
+      }
     `,
     getButton: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
       > span {
@@ -30,15 +32,17 @@ export const useStyles = () => {
         align-items: center;
       }
 
-      ${isTokenListShown &&
-      css`
+      ${
+        isTokenListShown &&
+        css`
         z-index: 2;
 
         :hover:not(:disabled),
         :not(:disabled) {
           border-color: ${theme.palette.interactive.primary};
         }
-      `}
+      `
+      }
     `,
     token: css`
       > img {
@@ -59,10 +63,12 @@ export const useStyles = () => {
       margin-left: ${theme.spacing(3)};
       transition: color 0.3s;
 
-      ${isTokenListShown &&
-      css`
+      ${
+        isTokenListShown &&
+        css`
         color: ${theme.palette.interactive.primary};
-      `}
+      `
+      }
     `,
 
     maxButton: css`

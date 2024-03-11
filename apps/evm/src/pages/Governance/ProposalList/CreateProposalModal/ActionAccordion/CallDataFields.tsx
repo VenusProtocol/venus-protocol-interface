@@ -18,9 +18,7 @@ const parseSignature = (func: string) => {
   try {
     const fragment = ethers.utils.FunctionFragment.from(func);
     funcInputs = fragment.inputs;
-  } catch (err) {
-    // eslint-disable-next-line no-console
-  }
+  } catch {}
   return funcInputs;
 };
 
