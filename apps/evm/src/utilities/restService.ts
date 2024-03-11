@@ -89,7 +89,7 @@ export async function restService<D>({
         if (warning && config.isLocalServer) {
           logError(warning);
         }
-      } catch (error) {
+      } catch {
         // Do nothing
       }
 

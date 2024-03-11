@@ -87,7 +87,7 @@ const useGetIsolatedPoolsTreasuryTotals = (): UseGetIsolatedPoolsTreasuryTotalsO
     const data = (getPoolsData?.pools || []).reduce(
       (acc, pool) => {
         pool.assets.forEach(asset => {
-          if (treasuryBalances && treasuryBalances[asset.vToken.address.toLowerCase()]) {
+          if (treasuryBalances?.[asset.vToken.address.toLowerCase()]) {
             const assetTreasuryBalanceMantissa = new BigNumber(
               treasuryBalances[asset.vToken.address.toLowerCase()].tokenBalance,
             );

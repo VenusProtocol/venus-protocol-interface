@@ -32,9 +32,7 @@ const ActionAccordion: React.FC = () => {
           const numberOfInputs = fragment.inputs.length;
           actionsCopy[expandedIdx].callData = callData.slice(0, numberOfInputs);
           setValue(actionsCopy);
-        } catch (err) {
-          // eslint-disable-next-line no-console
-        }
+        } catch {}
       }
     }
   };

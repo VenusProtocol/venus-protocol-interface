@@ -51,7 +51,7 @@ const formatProposalPayload = (data: FormValues) => {
 export const formatDescription = (description: string) => {
   try {
     return JSON.parse(description);
-  } catch (err) {
+  } catch {
     const [title, descrip] = description.split('\n');
     return {
       version: 'v1',

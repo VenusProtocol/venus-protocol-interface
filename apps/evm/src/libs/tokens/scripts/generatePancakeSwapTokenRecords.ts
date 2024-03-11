@@ -1,8 +1,8 @@
 #!/usr/bin/env tsx
+import { readFileSync } from 'node:fs';
+import * as path from 'node:path';
 import { compile } from 'handlebars';
 import fetch from 'node-fetch';
-import { readFileSync } from 'node:fs';
-import * as path from 'path';
 
 import writeFile from 'utilities/writeFile';
 

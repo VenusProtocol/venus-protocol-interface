@@ -1,5 +1,5 @@
 #!/usr/bin/env tsx
-import * as path from 'path';
+import * as path from 'node:path';
 import { searchForWorkspaceRoot } from 'vite';
 
 import { version } from 'constants/version';

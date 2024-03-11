@@ -74,7 +74,6 @@ export class BinanceWalletConnector extends InjectedConnector {
 
       if (chainId && id !== chainId) {
         const chain = await this.switchChain(chainId);
-        // eslint-disable-next-line prefer-destructuring
         id = chain.id;
         unsupported = this.isChainUnsupported(id);
       }

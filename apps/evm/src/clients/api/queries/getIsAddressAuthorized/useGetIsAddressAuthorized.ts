@@ -29,8 +29,8 @@ const useGetIsAddressAuthorized = (accountAddress: string, options?: Options) =>
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
       refetchInterval: ONE_HOUR_MS,
-      staleTime: Infinity,
-      cacheTime: Infinity,
+      staleTime: Number.POSITIVE_INFINITY,
+      cacheTime: Number.POSITIVE_INFINITY,
       ...options,
     },
   );

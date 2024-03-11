@@ -87,7 +87,7 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type }) => 
             isAnimationActive={false}
             cursor={sharedStyles.cursor}
             content={({ payload }) =>
-              payload && payload[0] ? (
+              payload?.[0] ? (
                 <TooltipContent
                   items={[
                     {

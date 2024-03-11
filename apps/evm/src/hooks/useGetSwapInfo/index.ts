@@ -176,7 +176,7 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
   // content is the same. For that reason, we memoize it using its content as source of truth to
   // check whether it does change from one instance to the other
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // biome-ignore lint/correctness/useExhaustiveDependencies:
   const memoizedSwapInfo = useMemo(() => swapInfo, [JSON.stringify(swapInfo)]);
 
   return {

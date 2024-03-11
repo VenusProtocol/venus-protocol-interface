@@ -99,7 +99,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
         {t('voterDetail.transactions')}
       </Typography>
 
-      {voterTransactions && voterTransactions.length ? (
+      {voterTransactions?.length ? (
         <Table
           columns={columns}
           data={voterTransactions}

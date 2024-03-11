@@ -9,10 +9,12 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
 
-      ${fullWidth &&
-      css`
+      ${
+        fullWidth &&
+        css`
         width: 100%;
-      `}
+      `
+      }
 
       ${theme.breakpoints.down('sm')} {
         width: 100%;
@@ -37,18 +39,23 @@ export const useStyles = () => {
         border-color: ${theme.palette.secondary.light};
       }
 
-      ${fullWidth &&
-      css`
+      ${
+        fullWidth &&
+        css`
         flex: 1;
-      `}
+      `
+      }
 
-      ${!last &&
-      css`
+      ${
+        !last &&
+        css`
         margin-right: ${theme.spacing(2)};
-      `};
+      `
+      };
 
-      ${!active &&
-      css`
+      ${
+        !active &&
+        css`
         background-color: transparent;
         border-color: transparent;
 
@@ -59,7 +66,8 @@ export const useStyles = () => {
         :hover {
           color: ${theme.palette.text.secondary};
         }
-      `};
+      `
+      };
 
       ${theme.breakpoints.down('sm')} {
         flex: 1;

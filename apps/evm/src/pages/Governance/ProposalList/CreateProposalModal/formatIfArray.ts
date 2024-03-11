@@ -8,7 +8,7 @@ export const formatIfArray = (value: string | number): string | number | string[
   if (val?.slice(0, 1) === '[' && val.slice(val.length - 1, val.length) === ']') {
     try {
       return JSON.parse(val);
-    } catch (err) {
+    } catch {
       return value;
     }
   }

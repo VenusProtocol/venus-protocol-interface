@@ -38,8 +38,7 @@ const checkForTransactionError = (
 
   if (failureEvent) {
     const errorIndex = failureEvent.args?.error
-      ? // eslint-disable-next-line no-underscore-dangle
-        new BigNumber(failureEvent.args.error._hex).toNumber()
+      ? new BigNumber(failureEvent.args.error._hex).toNumber()
       : 0;
 
     throw new VError({

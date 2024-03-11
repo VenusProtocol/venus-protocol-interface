@@ -8,7 +8,6 @@ const getVaiCalculateRepayAmount = async ({
   repayAmountMantissa,
 }: GetVaiCalculateRepayAmountInput): Promise<GetVaiCalculateRepayAmountOutput> => {
   const [
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     _accrueVaiInterestResult,
     [
       vaiRepayAmountAfterFeeMantissaResult,

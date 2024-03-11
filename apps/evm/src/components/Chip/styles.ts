@@ -8,8 +8,8 @@ export const useStyles = () => {
 
   return {
     root: ({ chipType }: { chipType: ChipType }) => {
-      let backgroundColor;
-      let textColor;
+      let backgroundColor: string;
+      let textColor: string | undefined;
 
       switch (chipType) {
         case 'active':
@@ -41,12 +41,14 @@ export const useStyles = () => {
         border-radius: ${theme.shape.borderRadius.small}px;
         margin-right: ${theme.spacing(2)};
 
-        ${textColor &&
-        css`
+        ${
+          textColor &&
+          css`
           > span {
             color: ${textColor};
           }
-        `}
+        `
+        }
       `;
     },
     icon: css`

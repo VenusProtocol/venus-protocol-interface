@@ -179,8 +179,7 @@ const useGetVestingVaults = ({
                   .div(xvsVaultTotalAllocationPointsData.totalAllocationPoints)
               : undefined;
 
-          const dailyEmissionMantissa =
-            poolRewardMantissaPerBlock && poolRewardMantissaPerBlock.multipliedBy(blocksPerDay);
+          const dailyEmissionMantissa = poolRewardMantissaPerBlock?.multipliedBy(blocksPerDay);
 
           const stakingAprPercentage =
             dailyEmissionMantissa &&

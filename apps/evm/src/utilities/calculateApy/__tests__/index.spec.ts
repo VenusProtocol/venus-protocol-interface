@@ -10,10 +10,10 @@ describe('calculateApy', () => {
   });
 
   it('should bound returned value to maximum', () => {
-    expect(calculateApy({ dailyRate: Infinity })).toEqual(new BigNumber(MAX_VALUE));
+    expect(calculateApy({ dailyRate: Number.POSITIVE_INFINITY })).toEqual(new BigNumber(MAX_VALUE));
   });
 
   it('should bound returned value to minimum', () => {
-    expect(calculateApy({ dailyRate: -Infinity })).toEqual(new BigNumber(MIN_VALUE));
+    expect(calculateApy({ dailyRate: Number.NEGATIVE_INFINITY })).toEqual(new BigNumber(MIN_VALUE));
   });
 });

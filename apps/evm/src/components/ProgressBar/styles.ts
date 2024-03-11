@@ -61,9 +61,9 @@ export const useStyles = ({
     secondaryRail: (value: number | undefined) => css`
       ${value ? `width: ${value}%;` : 'display: none;'}
       &.MuiSlider-track {
-        background-color: ${secondaryOver
-          ? theme.palette.interactive.error50
-          : theme.palette.interactive.success50};
+        background-color: ${
+          secondaryOver ? theme.palette.interactive.error50 : theme.palette.interactive.success50
+        };
       }
       position: absolute;
       top: 0;

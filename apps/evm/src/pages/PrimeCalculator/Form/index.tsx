@@ -86,14 +86,13 @@ export const Form: React.FC = () => {
     {
       enabled: !!accountAddress && !!xvs && typeof xvsVaultPoolIndex === 'number',
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
+      staleTime: Number.POSITIVE_INFINITY,
     },
   );
 
   const userStakedXvsMantissa = useMemo(
     () =>
-      getXvsVaultUserInfoData &&
-      getXvsVaultUserInfoData.stakedAmountMantissa.minus(
+      getXvsVaultUserInfoData?.stakedAmountMantissa.minus(
         getXvsVaultUserInfoData.pendingWithdrawalsTotalAmountMantissa,
       ),
     [getXvsVaultUserInfoData],

@@ -113,7 +113,6 @@ const useForm = ({
   }, [
     formValues.fixedRepayPercentage,
     formValues.fromToken,
-    toVToken.underlyingToken,
     fromTokenUserBorrowBalanceTokens,
     setFormValues,
     isMounted,

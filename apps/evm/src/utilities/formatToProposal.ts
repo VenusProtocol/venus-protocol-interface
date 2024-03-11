@@ -48,7 +48,7 @@ const formatToProposal = ({
 
   try {
     descriptionObj = JSON.parse(description);
-  } catch (err) {
+  } catch {
     // Split description in half, delimited by the first instance of a break
     // line symbol (\n). The first half corresponds to the title of the
     // proposal, the second to the description

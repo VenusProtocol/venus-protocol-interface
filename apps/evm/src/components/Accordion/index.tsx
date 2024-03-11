@@ -29,7 +29,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   const styles = useStyles();
 
   const handleChange =
-    (actionIdx: number) => (event: React.SyntheticEvent, newExpandedIdx: boolean) => {
+    (actionIdx: number) => (_event: React.SyntheticEvent, newExpandedIdx: boolean) => {
       onChange(newExpandedIdx ? actionIdx : undefined);
     };
   return (

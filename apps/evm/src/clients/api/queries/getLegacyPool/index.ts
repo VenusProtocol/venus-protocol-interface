@@ -35,7 +35,6 @@ const getLegacyPool = async ({
     primeMinimumXvsToStakeResult,
     userPrimeTokenResult,
     assetsInResult,
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     _accrueVaiInterestResult,
     vaiRepayAmountResult,
   ] = await Promise.allSettled([

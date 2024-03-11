@@ -51,10 +51,12 @@ export const useStyles = () => {
     }) => css`
       color: ${invertTextColors ? theme.palette.text.secondary : theme.palette.text.primary};
 
-      ${hasIcon &&
-      css`
+      ${
+        hasIcon &&
+        css`
         margin-left: ${theme.spacing(7)};
-      `}
+      `
+      }
 
       ${theme.breakpoints.down('md')} {
         font-size: ${theme.typography.small1.fontSize};

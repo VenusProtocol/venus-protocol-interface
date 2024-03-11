@@ -7,6 +7,7 @@ const tokenSchema = yup.object().shape({
   asset: yup.string().required(),
   address: yup.string().when('isNative', {
     is: true,
+    // biome-ignore lint/suspicious/noThenProperty:
     then: schema => schema.optional(),
     otherwise: schema => schema.required(),
   }),

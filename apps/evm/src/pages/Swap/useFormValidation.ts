@@ -37,9 +37,7 @@ const useFormValidation = ({
 
     const isInvalid = !fromTokenAmountMantissa || fromTokenAmountMantissa.isLessThanOrEqualTo(0);
 
-    const isHigherThanMax =
-      fromTokenUserBalanceMantissa &&
-      fromTokenUserBalanceMantissa.isLessThan(fromTokenAmountMantissa);
+    const isHigherThanMax = fromTokenUserBalanceMantissa?.isLessThan(fromTokenAmountMantissa);
 
     const errorsTmp: FormError[] = [];
 

@@ -11,10 +11,12 @@ export const useStyles = () => {
       }
     `,
     getPriceImpactText: ({ isHigh }: { isHigh: boolean }) => css`
-      ${isHigh &&
-      css`
+      ${
+        isHigh &&
+        css`
         color: ${theme.palette.interactive.error};
-      `}
+      `
+      }
     `,
   };
 };

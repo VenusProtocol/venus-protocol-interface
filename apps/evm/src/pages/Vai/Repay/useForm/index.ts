@@ -6,7 +6,6 @@ import { z } from 'zod';
 
 import { useGetToken } from 'libs/tokens';
 import { convertMantissaToTokens } from 'utilities';
-
 import { FormValues } from '../../types';
 
 export enum ErrorCode {
@@ -54,7 +53,7 @@ export const useForm = ({
     // If user has set a spending limit for VAI, then we take it consideration to define the limit
     // they can spend. Otherwise we let the limit be defined by their VAI wallet and borrow balances
     // (an error message will be displayed if the amount entered is higher than their spending limit
-    if (userWalletSpendingLimitTokens && userWalletSpendingLimitTokens.isGreaterThan(0)) {
+    if (userWalletSpendingLimitTokens?.isGreaterThan(0)) {
       tmpLimitTokens = BigNumber.min(tmpLimitTokens, userWalletSpendingLimitTokens);
     }
 

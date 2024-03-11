@@ -243,7 +243,7 @@ describe('Swap', () => {
 
     // Enter amount higher than user balance in fromToken input
     fireEvent.change(fromTokenInput, {
-      target: { value: parseInt(FAKE_BNB_BALANCE_TOKENS, 10) + 1 },
+      target: { value: Number.parseInt(FAKE_BNB_BALANCE_TOKENS, 10) + 1 },
     });
 
     const disabledSubmitButtonText = getByText(
@@ -669,7 +669,6 @@ describe('Swap', () => {
     await waitFor(() => expect(submitButton).toBeEnabled());
 
     // Submit form
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     fireEvent.click(submitButton!);
 
     // Check swap was executed
@@ -740,7 +739,6 @@ describe('Swap', () => {
     await waitFor(() => expect(submitButton).toBeEnabled());
 
     // Submit form
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     fireEvent.click(submitButton!);
 
     // Check swap was executed
