@@ -26,7 +26,7 @@ const useGetPool = ({
 
   const pool = useMemo(
     () =>
-      getPoolsData.pools?.find(currPool =>
+      getPoolsData?.pools?.find(currPool =>
         areAddressesEqual(currPool.comptrollerAddress, poolComptrollerAddress),
       ),
     [poolComptrollerAddress, getPoolsData?.pools],

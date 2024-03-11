@@ -56,7 +56,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
   });
 
   // Display Prime boost
-  if (primeDistribution.apyPercentage?.isGreaterThan(0)) {
+  if (primeDistribution?.apyPercentage?.isGreaterThan(0)) {
     const apyPercentageWithoutPrimeBoost =
       type === 'borrow'
         ? apyPercentage.plus(primeDistribution.apyPercentage)

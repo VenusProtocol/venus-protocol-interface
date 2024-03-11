@@ -22,7 +22,7 @@ export const projects = {
     extensions: {
       codegen: {
         generates: {
-          '../clients/subgraph/gql/mainnet.ts': {
+          '../clients/subgraph/gql/generated/mainnet.ts': {
             plugins: ['typescript', 'typed-document-node', 'typescript-operations'],
           },
         },
@@ -35,7 +35,7 @@ export const projects = {
     extensions: {
       codegen: {
         generates: {
-          '../clients/subgraph/gql/testnet.ts': {
+          '../clients/subgraph/gql/generated/testnet.ts': {
             plugins: ['typescript', 'typed-document-node', 'typescript-operations'],
           },
         },

@@ -1,12 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    ".nvmrc",
-    ".prettierignore",
-    ".prettierrc.js",
-    "tsconfig.json",
-    "vite.config.ts"
-  ],
+  "globalDependencies": [".nvmrc", "tsconfig.json", "vite.config.ts"],
   "pipeline": {
     "generate": {
       "outputs": [
@@ -29,6 +23,7 @@
       "dependsOn": ["^build"],
       "outputs": ["build/**/*"]
     },
+    "lint": {},
     "lint:styles": {},
     "tsc": {
       "cache": false
