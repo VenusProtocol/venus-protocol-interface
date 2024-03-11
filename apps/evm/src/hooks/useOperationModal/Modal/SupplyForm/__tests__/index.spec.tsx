@@ -23,7 +23,7 @@ vi.mock('hooks/useCollateral');
 vi.mock('hooks/useTokenApproval');
 
 describe('SupplyForm', () => {
-  it('displays correct token wallet balance', async () => {
+  it('displays correct supplyable amount', async () => {
     const { getByText } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
@@ -31,18 +31,7 @@ describe('SupplyForm', () => {
       },
     );
 
-    await waitFor(() => getByText('10.00M XVS'));
-  });
-
-  it('displays correct token supply balance', async () => {
-    const { getByText } = renderComponent(
-      <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    await waitFor(() => getByText('1.00K'));
+    await waitFor(() => getByText('8.90K XVS'));
   });
 
   it('displays warning notice if asset is from an isolated pool', async () => {
@@ -284,7 +273,7 @@ describe('SupplyForm', () => {
       },
     );
 
-    // Check spending limit is correctly displayedy
+    // Check spending limit is correctly displayed
     await waitFor(() => getByTestId(TEST_IDS.spendingLimit));
     expect(getByTestId(TEST_IDS.spendingLimit).textContent).toMatchSnapshot();
 
@@ -326,6 +315,76 @@ describe('SupplyForm', () => {
       poolName: fakePool.name,
       comptrollerAddress: fakePool.comptrollerAddress,
     });
+  });
+
+  it('updates input value to wallet balance when clicking on max button if supply cap permits it', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      supplyCapTokens: undefined,
+    };
+
+    const { getByText, getByTestId } = renderComponent(
+      <SupplyForm asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
+
+    // Click on max button
+    fireEvent.click(getByText(en.operationModal.supply.rightMaxButtonLabel));
+
+    // Check input value was updated correctly
+    const selectTokenTextField = getByTestId(TEST_IDS.tokenTextField).closest(
+      'input',
+    ) as HTMLInputElement;
+
+    await waitFor(() =>
+      expect(selectTokenTextField.value).toBe(customFakeAsset.userWalletBalanceTokens.toFixed()),
+    );
+
+    // Check submit button is enabled
+    expect(
+      getByText(en.operationModal.supply.submitButtonLabel.supply).closest('button'),
+    ).toBeEnabled();
+  });
+
+  it('updates input value to maximum supplyable amount when clicking on max button if supply cap does not permit supplying the entire wallet balance', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      userWalletBalanceTokens: new BigNumber(95),
+      supplyBalanceTokens: new BigNumber(10),
+      supplyCapTokens: new BigNumber(100),
+    };
+
+    const { getByText, getByTestId } = renderComponent(
+      <SupplyForm asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
+
+    // Click on max button
+    fireEvent.click(getByText(en.operationModal.supply.rightMaxButtonLabel));
+
+    // Check input value was updated correctly
+    const selectTokenTextField = getByTestId(TEST_IDS.tokenTextField).closest(
+      'input',
+    ) as HTMLInputElement;
+
+    await waitFor(() =>
+      expect(selectTokenTextField.value).toBe(
+        customFakeAsset.supplyCapTokens!.minus(customFakeAsset.supplyBalanceTokens).toFixed(),
+      ),
+    );
+
+    // Check submit button is enabled
+    expect(
+      getByText(en.operationModal.supply.submitButtonLabel.supply).closest('button'),
+    ).toBeEnabled();
   });
 
   it('lets user supply BNB then calls onClose callback on success', async () => {

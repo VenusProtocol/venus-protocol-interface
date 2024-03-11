@@ -25,7 +25,7 @@ describe('RepayForm', () => {
     renderComponent(<Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
   });
 
-  it('displays correct wallet balance', async () => {
+  it('displays correct repayable amount', async () => {
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
@@ -33,7 +33,7 @@ describe('RepayForm', () => {
       },
     );
 
-    await waitFor(() => getByText('10.00M XVS'));
+    await waitFor(() => getByText('1.00K XVS'));
   });
 
   it('disables submit button if amount entered in input is higher than user borrow balance', async () => {
@@ -43,7 +43,7 @@ describe('RepayForm', () => {
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Repay asset={customFakeAsset} pool={customFakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -79,7 +79,7 @@ describe('RepayForm', () => {
     customFakeAsset.userWalletBalanceTokens = new BigNumber(1);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Repay asset={customFakeAsset} pool={customFakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -111,8 +111,8 @@ describe('RepayForm', () => {
 
   it('disables submit button and displays error notice if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
-      token: xvs,
-      spenderAddress: vXvs.address,
+      token: fakeAsset.vToken.underlyingToken,
+      spenderAddress: fakeAsset.vToken.address,
       accountAddress: fakeAccountAddress,
     });
 
@@ -202,14 +202,9 @@ describe('RepayForm', () => {
     await waitFor(() => expect(fakeRevokeWalletSpendingLimit).toHaveBeenCalledTimes(1));
   });
 
-  it('updates input value to wallet balance when pressing on max button', async () => {
-    const customFakePool = _cloneDeep(fakePool);
-    const customFakeAsset = customFakePool.assets[0];
-    customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
-    customFakeAsset.userWalletBalanceTokens = new BigNumber(10);
-
+  it('enables repaying the full loan when clicking on MAX button if wallet balance is high enough', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -223,7 +218,43 @@ describe('RepayForm', () => {
     // Press on max button
     fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
 
-    const expectedInputValue = customFakeAsset.userWalletBalanceTokens.toFormat();
+    const expectedInputValue = fakeAsset.userBorrowBalanceTokens.toFixed();
+
+    await waitFor(() => expect(input.value).toBe(expectedInputValue));
+
+    // Check notice is displayed
+    await waitFor(() =>
+      expect(getByText(en.operationModal.repay.fullRepaymentWarning)).toBeTruthy(),
+    );
+
+    // Check submit button is enabled
+    expect(
+      getByText(en.operationModal.repay.submitButtonLabel.repay).closest('button'),
+    ).toBeEnabled();
+  });
+
+  it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet balance', async () => {
+    const customFakePool = _cloneDeep(fakePool);
+    const customFakeAsset = customFakePool.assets[0];
+    customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
+    customFakeAsset.userWalletBalanceTokens = new BigNumber(10);
+
+    const { getByText, getByTestId } = renderComponent(
+      <Repay asset={customFakeAsset} pool={customFakePool} onCloseModal={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+    await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
+
+    // Check input is empty
+    const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
+    expect(input.value).toBe('');
+
+    // Press on max button
+    fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
+
+    const expectedInputValue = customFakeAsset.userWalletBalanceTokens.toFixed();
 
     await waitFor(() => expect(input.value).toBe(expectedInputValue));
 
@@ -233,14 +264,55 @@ describe('RepayForm', () => {
     ).toBeEnabled();
   });
 
-  it('updates input value to correct value when pressing on preset percentage buttons', async () => {
+  it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet spending limit', async () => {
+    const originalTokenApprovalOutput = useTokenApproval({
+      token: fakeAsset.vToken.underlyingToken,
+      spenderAddress: fakeAsset.vToken.address,
+      accountAddress: fakeAccountAddress,
+    });
+
+    const fakeWalletSpendingLimitTokens = new BigNumber(10);
+    const fakeRevokeWalletSpendingLimit = vi.fn();
+
+    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+      ...originalTokenApprovalOutput,
+      revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
+      walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(
+      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+    await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
+
+    // Check input is empty
+    const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
+    expect(input.value).toBe('');
+
+    // Press on max button
+    fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
+
+    const expectedInputValue = fakeWalletSpendingLimitTokens.toFixed();
+
+    await waitFor(() => expect(input.value).toBe(expectedInputValue));
+
+    // Check submit button is enabled
+    expect(
+      getByText(en.operationModal.repay.submitButtonLabel.repay).closest('button'),
+    ).toBeEnabled();
+  });
+
+  it('updates input value to correct value when clicking on preset percentage buttons', async () => {
     const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.userBorrowBalanceTokens = new BigNumber(100);
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Repay asset={customFakeAsset} pool={customFakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },

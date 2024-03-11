@@ -12,7 +12,7 @@ import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testU
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
-import { ChainId } from 'types';
+import { Asset, ChainId } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
 import Supply from '..';
@@ -22,7 +22,8 @@ import TEST_IDS from '../testIds';
 vi.mock('libs/tokens');
 vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
-const fakeBalanceMantissa = new BigNumber('10000000000000000000');
+const fakeNativeTokenBalanceTokens = new BigNumber(10);
+const fakeBalanceMantissa = fakeNativeTokenBalanceTokens.multipliedBy(10 ** 18);
 
 describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
@@ -67,6 +68,50 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible();
   });
 
+  it('updates input value to wallet balance when clicking on MAX button if supply cap permits it', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeWethAsset,
+      supplyCapTokens: undefined,
+    };
+
+    const { container, getByTestId, queryByTestId, getByText } = renderComponent(
+      <Supply asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      {
+        chainId: ChainId.SEPOLIA,
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible());
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: eth,
+    });
+
+    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
+
+    // Click on MAX button
+    fireEvent.click(getByText(en.operationModal.supply.rightMaxButtonLabel));
+
+    // Check input value was updated correctly
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    await waitFor(() =>
+      expect(selectTokenTextField.value).toBe(fakeNativeTokenBalanceTokens.toFixed()),
+    );
+
+    // Check submit button is enabled
+    expect(
+      getByText(en.operationModal.supply.submitButtonLabel.supply).closest('button'),
+    ).toBeEnabled();
+  });
+
   it('lets user wrap and supply, then calls onClose callback on success', async () => {
     const amountTokensToSupply = new BigNumber('1');
     const amountMantissaToSupply = convertTokensToMantissa({
@@ -83,7 +128,7 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       },
     );
 
-    expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible();
+    await waitFor(() => expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeVisible());
 
     selectToken({
       container,

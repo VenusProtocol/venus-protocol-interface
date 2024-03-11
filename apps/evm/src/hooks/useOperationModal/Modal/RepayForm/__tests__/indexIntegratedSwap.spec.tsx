@@ -442,7 +442,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
   });
 
-  it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {
+  it('updates input value to 0 when pressing on MAX button if wallet balance is 0', async () => {
     const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
       ...tokenBalance,
       balanceMantissa:
@@ -478,7 +478,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     ) as HTMLInputElement;
     expect(selectTokenTextField.value).toBe('');
 
-    // Click on max button
+    // Click on MAX button
     fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
 
     // Check input value was updated correctly
@@ -490,7 +490,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     ).toBeDisabled();
   });
 
-  it('updates input value to wallet balance when clicking on max button', async () => {
+  it('updates input value to wallet balance when clicking on MAX button', async () => {
     const { container, getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
@@ -514,7 +514,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     ) as HTMLInputElement;
     expect(selectTokenTextField.value).toBe('');
 
-    // Click on max button
+    // Click on MAX button
     fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
 
     // Check input value was updated correctly

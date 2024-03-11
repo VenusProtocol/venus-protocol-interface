@@ -155,8 +155,18 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     isFromTokenApproved,
   });
 
+  const repayableAmountTokens = useMemo(
+    () => BigNumber.min(fromTokenUserWalletBalanceTokens || 0, asset.userBorrowBalanceTokens),
+    [fromTokenUserWalletBalanceTokens, asset.userBorrowBalanceTokens],
+  );
+
   const readableFromTokenUserWalletBalanceTokens = useFormatTokensToReadableValue({
     value: fromTokenUserWalletBalanceTokens,
+    token: formValues.fromToken,
+  });
+
+  const readableRepayableFromTokenAmountTokens = useFormatTokensToReadableValue({
+    value: repayableAmountTokens,
     token: formValues.fromToken,
   });
 
@@ -166,21 +176,51 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   );
 
   const handleRightMaxButtonClick = useCallback(() => {
+    const updatedValues: Partial<FormValues> = {
+      fixedRepayPercentage: undefined,
+      amountTokens: '',
+    };
+
     if (asset.userBorrowBalanceTokens.isEqualTo(0)) {
-      setFormValues(currentFormValues => ({
-        ...currentFormValues,
-        amountTokens: '0',
-      }));
-      return;
+      // If user's borrow balance is 0, set input amount to 0
+      updatedValues.amountTokens = '0';
+    } else if (isUsingSwap) {
+      // If using swap, set input amount to wallet balance
+      updatedValues.amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed();
+    } else if (
+      fromTokenUserWalletBalanceTokens &&
+      fromTokenUserWalletBalanceTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens) &&
+      (!fromTokenWalletSpendingLimitTokens ||
+        fromTokenWalletSpendingLimitTokens.isEqualTo(0) ||
+        fromTokenWalletSpendingLimitTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens))
+    ) {
+      // If user can repay full loan or has no spending limit, set fixed repay percentage to 100%
+      updatedValues.fixedRepayPercentage = 100;
+    } else {
+      // If user cannot repay full loan, set input amount to wallet balance
+      updatedValues.amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed();
     }
 
-    // Update field value to correspond to user's balance
+    if (fromTokenWalletSpendingLimitTokens && fromTokenWalletSpendingLimitTokens.isGreaterThan(0)) {
+      // If user has set a spending limit, consider it
+      updatedValues.amountTokens = BigNumber.min(
+        updatedValues.amountTokens || 0,
+        fromTokenWalletSpendingLimitTokens,
+      ).toFixed();
+    }
+
+    // Update form values with new values
     setFormValues(currentFormValues => ({
       ...currentFormValues,
-      amountTokens: new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed(),
-      fixedRepayPercentage: undefined,
+      ...updatedValues,
     }));
-  }, [asset.userBorrowBalanceTokens, fromTokenUserWalletBalanceTokens, setFormValues]);
+  }, [
+    asset.userBorrowBalanceTokens,
+    fromTokenUserWalletBalanceTokens,
+    setFormValues,
+    isUsingSwap,
+    fromTokenWalletSpendingLimitTokens,
+  ]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -264,10 +304,12 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
       <div css={sharedStyles.getRow({ isLast: true })}>
         <LabeledInlineContent
-          label={t('operationModal.repay.walletBalance')}
+          label={t('operationModal.repay.repaybaleAmount')}
           css={sharedStyles.getRow({ isLast: false })}
         >
-          {readableFromTokenUserWalletBalanceTokens}
+          {isUsingSwap
+            ? readableFromTokenUserWalletBalanceTokens
+            : readableRepayableFromTokenAmountTokens}
         </LabeledInlineContent>
 
         <SpendingLimit

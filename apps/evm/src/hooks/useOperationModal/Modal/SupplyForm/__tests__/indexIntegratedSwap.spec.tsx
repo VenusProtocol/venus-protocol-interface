@@ -22,7 +22,7 @@ import { IsTokenActionEnabledInput, isTokenActionEnabled } from 'libs/tokens';
 import { en } from 'libs/translations';
 import { Asset, Swap, TokenBalance } from 'types';
 
-import Repay from '..';
+import Supply from '..';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -76,7 +76,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
+    renderComponent(<Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
   });
 
   it('disables swap feature when swapAndSupply action of underlying token is disabled', async () => {
@@ -86,7 +86,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     );
 
     const { queryByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -102,7 +102,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     );
 
     const { queryByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -113,7 +113,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
 
   it('displays correct wallet balance', async () => {
     const { getByText, container } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -130,7 +130,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
 
   it('disables submit button if no amount was entered in input', async () => {
     const { getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -158,7 +158,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     };
 
     const { getByText, container, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -193,7 +193,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     }));
 
     const { getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -220,7 +220,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
 
   it('disables submit button if amount entered in input is higher than wallet balance', async () => {
     const { container, getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -265,7 +265,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     }));
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -301,7 +301,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     }));
 
     const { container, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -327,7 +327,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
   });
 
-  it('updates input value to 0 when pressing on max button if wallet balance is 0', async () => {
+  it('updates input value to 0 when pressing on MAX button if wallet balance is 0', async () => {
     const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
       ...tokenBalance,
       balanceMantissa:
@@ -341,7 +341,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     }));
 
     const { container, getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -363,7 +363,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     ) as HTMLInputElement;
     expect(selectTokenTextField.value).toBe('');
 
-    // Click on max button
+    // Click on MAX button
     fireEvent.click(getByText(en.operationModal.supply.rightMaxButtonLabel));
 
     // Check input value was updated correctly
@@ -375,9 +375,9 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     ).toBeDisabled();
   });
 
-  it('updates input value to wallet balance when clicking on max button', async () => {
+  it('updates input value to wallet balance when clicking on MAX button', async () => {
     const { container, getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -399,7 +399,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     ) as HTMLInputElement;
     expect(selectTokenTextField.value).toBe('');
 
-    // Click on max button
+    // Click on MAX button
     fireEvent.click(getByText(en.operationModal.supply.rightMaxButtonLabel));
 
     // Check input value was updated correctly
@@ -425,7 +425,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const onCloseMock = vi.fn();
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -473,7 +473,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const onCloseMock = vi.fn();
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -513,7 +513,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const onCloseMock = vi.fn();
 
     const { container, getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
         accountAddress: fakeAccountAddress,
       },
