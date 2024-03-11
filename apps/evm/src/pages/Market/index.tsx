@@ -11,7 +11,6 @@ import {
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 import useOperationModal from 'hooks/useOperationModal';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Token } from 'types';
@@ -32,8 +31,6 @@ export interface MarketUiProps {
   poolComptrollerAddress: string;
   currentUtilizationRatePercentage: number;
   asset: Asset;
-  isBorrowActionEnabled: boolean;
-  isSupplyActionEnabled: boolean;
   blocksPerDay: number;
 }
 
@@ -43,8 +40,6 @@ export const MarketUi: React.FC<MarketUiProps> = ({
   isInterestRateChartDataLoading,
   interestRateChartData,
   currentUtilizationRatePercentage,
-  isBorrowActionEnabled,
-  isSupplyActionEnabled,
   blocksPerDay,
 }) => {
   const { t } = useTranslation();
@@ -77,6 +72,23 @@ export const MarketUi: React.FC<MarketUiProps> = ({
     [asset, blocksPerDay],
   );
 
+  const { isBorrowActionEnabled, isSupplyActionEnabled } = useMemo(() => {
+    let tmpIsBorrowActionEnabled = true;
+    let tmpIsSupplyActionEnabled = true;
+
+    asset.disabledTokenActions.forEach(disabledTokenAction => {
+      if (disabledTokenAction === 'borrow') {
+        tmpIsBorrowActionEnabled = false;
+      } else if (disabledTokenAction === 'supply') {
+        tmpIsSupplyActionEnabled = false;
+      }
+    });
+
+    return {
+      isBorrowActionEnabled: tmpIsBorrowActionEnabled,
+      isSupplyActionEnabled: tmpIsSupplyActionEnabled,
+    };
+  }, [asset.disabledTokenActions]);
   const isSupplyOrBorrowEnabled = isSupplyActionEnabled || isBorrowActionEnabled;
 
   const interestRateModelLegends: MarketCardProps['legends'] = [
@@ -348,16 +360,6 @@ const Market: React.FC<MarketProps> = ({
     asset,
   });
 
-  const isBorrowActionEnabled = useIsTokenActionEnabled({
-    tokenAddress: asset.vToken.underlyingToken.address,
-    action: 'borrow',
-  });
-
-  const isSupplyActionEnabled = useIsTokenActionEnabled({
-    tokenAddress: asset.vToken.underlyingToken.address,
-    action: 'supply',
-  });
-
   return (
     <MarketUi
       asset={asset}
@@ -366,8 +368,6 @@ const Market: React.FC<MarketProps> = ({
       isInterestRateChartDataLoading={isInterestRateChartDataLoading}
       interestRateChartData={interestRateChartData.apySimulations}
       currentUtilizationRatePercentage={interestRateChartData.currentUtilizationRatePercentage}
-      isBorrowActionEnabled={isBorrowActionEnabled}
-      isSupplyActionEnabled={isSupplyActionEnabled}
     />
   );
 };

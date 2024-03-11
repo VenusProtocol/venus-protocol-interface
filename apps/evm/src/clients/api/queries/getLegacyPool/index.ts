@@ -14,6 +14,7 @@ import type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 export type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 
 const getLegacyPool = async ({
+  chainId,
   blocksPerDay,
   name,
   description,
@@ -149,6 +150,7 @@ const getLegacyPool = async ({
   const vaiRepayAmountMantissa = extractSettledPromiseValue(vaiRepayAmountResult);
 
   const pool = formatToPool({
+    chainId,
     blocksPerDay,
     name,
     xvs,

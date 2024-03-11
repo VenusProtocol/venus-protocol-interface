@@ -23,6 +23,7 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
     "borrowerCount": 10,
     "cashTokens": "10",
     "collateralFactor": 0.5,
+    "disabledTokenActions": [],
     "exchangeRateVTokens": "49.589181233",
     "isCollateralOfUser": true,
     "liquidityCents": "8036465875",

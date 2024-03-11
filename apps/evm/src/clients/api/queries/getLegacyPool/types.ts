@@ -5,9 +5,10 @@ import type {
   VaiController,
   VenusLens,
 } from 'libs/contracts';
-import type { Pool, Token } from 'types';
+import type { ChainId, Pool, Token } from 'types';
 
 export interface GetLegacyPoolInput {
+  chainId: ChainId;
   blocksPerDay: number;
   name: string;
   description: string;

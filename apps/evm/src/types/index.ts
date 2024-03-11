@@ -100,6 +100,7 @@ export interface Asset {
   borrowPercentageRatePerBlock: BigNumber;
   supplyDistributions: AssetDistribution[];
   borrowDistributions: AssetDistribution[];
+  disabledTokenActions: TokenAction[];
   borrowCapTokens?: BigNumber;
   supplyCapTokens?: BigNumber;
   // User-specific props

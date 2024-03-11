@@ -25,7 +25,6 @@ import flokiLogo from 'libs/tokens/img/floki.svg';
 import linkLogo from 'libs/tokens/img/link.svg';
 import lisUsdLogo from 'libs/tokens/img/lisUSD.png';
 import ltcLogo from 'libs/tokens/img/ltc.svg';
-import lunaLogo from 'libs/tokens/img/luna.svg';
 import maticLogo from 'libs/tokens/img/matic.svg';
 import nftLogo from 'libs/tokens/img/nft.png';
 import planetLogo from 'libs/tokens/img/planet.svg';
@@ -42,7 +41,6 @@ import uniLogo from 'libs/tokens/img/uni.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
 import usddLogo from 'libs/tokens/img/usdd.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
-import ustLogo from 'libs/tokens/img/ust.svg';
 import vaiLogo from 'libs/tokens/img/vai.svg';
 import vrtLogo from 'libs/tokens/img/vrt.svg';
 import wbethLogo from 'libs/tokens/img/wbeth.svg';
@@ -217,19 +215,6 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'TRXOLD',
     asset: trxLogo,
-  },
-
-  {
-    address: '0x3d4350cD54aeF9f9b2C29435e0fa809957B3F30a',
-    decimals: 6,
-    symbol: 'UST',
-    asset: ustLogo,
-  },
-  {
-    address: '0x156ab3346823B651294766e23e6Cf87254d68962',
-    decimals: 6,
-    symbol: 'LUNA',
-    asset: lunaLogo,
   },
   {
     address: '0xa2E3356610840701BDf5611a53974510Ae27E2e1',

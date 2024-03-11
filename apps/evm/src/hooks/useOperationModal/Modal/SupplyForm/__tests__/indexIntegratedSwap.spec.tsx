@@ -18,7 +18,6 @@ import {
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { type IsTokenActionEnabledInput, isTokenActionEnabled } from 'libs/tokens';
 import { en } from 'libs/translations';
 import type { Asset, Swap, TokenBalance } from 'types';
 
@@ -80,30 +79,14 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     renderComponent(<Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />);
   });
 
-  it('disables swap feature when swapAndSupply action of underlying token is disabled', async () => {
-    (isTokenActionEnabled as Vi.Mock).mockImplementation(
-      ({ tokenAddress, action }: IsTokenActionEnabledInput) =>
-        action !== 'swapAndSupply' || tokenAddress !== fakeAsset.vToken.underlyingToken.address,
-    );
+  it('disables swap feature when swapAndSupply action of asset is disabled', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      disabledTokenActions: ['swapAndSupply'],
+    };
 
     const { queryByTestId } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeNull();
-  });
-
-  it('disables swap feature when swapAndSupply action of vToken is disabled', async () => {
-    (isTokenActionEnabled as Vi.Mock).mockImplementation(
-      ({ tokenAddress, action }: IsTokenActionEnabledInput) =>
-        action !== 'swapAndSupply' || tokenAddress !== fakeAsset.vToken.address,
-    );
-
-    const { queryByTestId } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },

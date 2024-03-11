@@ -240,6 +240,7 @@ const getIsolatedPools = async ({
   });
 
   const pools = formatOutput({
+    chainId,
     blocksPerDay,
     tokens,
     currentBlockNumber: currentBlockNumberResult.value.blockNumber,

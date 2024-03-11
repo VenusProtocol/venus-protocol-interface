@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getDisabledTokenActions > returns the list of paused actions from bitmask and local disabled actions, merged correctly 1`] = `
+[
+  "supply",
+  "borrow",
+  "swapAndSupply",
+  "repay",
+]
+`;
+
+exports[`getDisabledTokenActions > returns the list of paused actions from the bitmask correctly 1`] = `
+[
+  "supply",
+  "borrow",
+]
+`;

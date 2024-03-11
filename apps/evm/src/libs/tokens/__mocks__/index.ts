@@ -7,4 +7,4 @@ export * from 'libs/tokens/infos';
 
 export const getTokens = vi.fn(() => tokens);
 export const getSwapTokens = vi.fn(() => tokens);
-export const isTokenActionEnabled = vi.fn(() => true);
+export const getDisabledTokenActions = vi.fn(() => []);

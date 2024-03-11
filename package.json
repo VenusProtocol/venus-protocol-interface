@@ -16,7 +16,7 @@
     "tsc": "turbo run tsc --",
     "clean": "turbo run clean && rm -rf node_modules",
     "build": "turbo build --",
-    "extract-translations": "turbo extract-translations",
+    "extract-translations": "turbo extract-translations --",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "postinstall": "husky install && yarn run generate"

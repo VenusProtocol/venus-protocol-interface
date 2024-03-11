@@ -1,11 +1,19 @@
 import BigNumber from 'bignumber.js';
 
-import { BSC_MAINNET_CAN_ADDRESS } from 'constants/address';
+import { BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES } from 'constants/address';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
 import type { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'libs/contracts';
 import { logError } from 'libs/errors';
-import type { Asset, Market, Pool, PrimeApy, Token, VToken } from 'types';
+import {
+  type Asset,
+  ChainId,
+  type Market,
+  type Pool,
+  type PrimeApy,
+  type Token,
+  type VToken,
+} from 'types';
 import {
   addUserPropsToPool,
   areAddressesEqual,
@@ -14,6 +22,7 @@ import {
   convertFactorFromSmartContract,
   convertMantissaToTokens,
   convertPriceMantissaToDollars,
+  getDisabledTokenActions,
   multiplyMantissaDaily,
 } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -21,6 +30,7 @@ import findTokenByAddress from 'utilities/findTokenByAddress';
 import { formatDistributions } from './formatDistributions';
 
 export interface FormatToPoolInput {
+  chainId: ChainId;
   blocksPerDay: number;
   name: string;
   xvs: Token;
@@ -53,6 +63,7 @@ export interface FormatToPoolInput {
 }
 
 export const formatToPool = ({
+  chainId,
   blocksPerDay,
   name,
   xvs,
@@ -76,9 +87,19 @@ export const formatToPool = ({
   const assets: Asset[] = [];
 
   vTokenMetaDataResults.forEach((vTokenMetaData, index) => {
-    // Temporary workaround to filter out CAN
-    if (areAddressesEqual(vTokenMetaData.underlyingAssetAddress, BSC_MAINNET_CAN_ADDRESS)) {
-      // TODO: remove once a more generic solution has been integrated on the contract side
+    // Temporarily remove unlisted tokens that have not been updated from the contract side yet.
+    // TODO: remove this logic once these tokens have been unlisted from contracts
+    if (
+      chainId === ChainId.BSC_MAINNET &&
+      BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES.some(unlistedTokenAddress =>
+        areAddressesEqual(unlistedTokenAddress, vTokenMetaData.underlyingAssetAddress),
+      )
+    ) {
+      return;
+    }
+
+    // Remove unlisted tokens
+    if (!vTokenMetaData.isListed) {
       return;
     }
 
@@ -301,8 +322,15 @@ export const formatToPool = ({
       areAddressesEqual(mainMarket.address, vToken.address),
     );
 
+    const disabledTokenActions = getDisabledTokenActions({
+      bitmask: vTokenMetaData.pausedActions.toNumber(),
+      tokenAddresses: [vToken.address, vToken.underlyingToken.address],
+      chainId,
+    });
+
     const asset: Asset = {
       vToken,
+      disabledTokenActions,
       tokenPriceCents,
       reserveFactor,
       collateralFactor,

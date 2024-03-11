@@ -1,5 +1,9 @@
 export const NULL_ADDRESS = '0x0000000000000000000000000000000000000000';
-// We do not list the CAN token in the tokens package because it is not meant to be listed on Venus.
-// However we need its address to filter it out without triggering error logs so we keep a reference
-// here
-export const BSC_MAINNET_CAN_ADDRESS = '0x20bff4bbEDa07536FF00e073bd8359E5D80D733d';
+
+// We do not list the following tokens in the tokens package because they are not meant to be listed
+// on Venus. TODO: remove these once the tokens have been unlisted from contracts
+export const BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES = [
+  '0x20bff4bbEDa07536FF00e073bd8359E5D80D733d', // CAN
+  '0x3d4350cD54aeF9f9b2C29435e0fa809957B3F30a', // UST
+  '0x156ab3346823B651294766e23e6Cf87254d68962', // LUNA
+];

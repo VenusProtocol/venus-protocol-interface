@@ -6,6 +6,7 @@ import tokens from '__mocks__/models/tokens';
 
 import type { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
 
+import { ChainId } from 'types';
 import getVTokens from '..';
 
 const fakePoolLensContract = {
@@ -25,6 +26,7 @@ const fakeLegacyPoolComptrollerContract = {
 describe('api/queries/getVTokens', () => {
   it('returns the vTokens on success', async () => {
     const response = await getVTokens({
+      chainId: ChainId.BSC_TESTNET,
       tokens,
       venusLensContract: fakeVenusLensContract,
       legacyPoolComptrollerContract: fakeLegacyPoolComptrollerContract,
@@ -37,6 +39,7 @@ describe('api/queries/getVTokens', () => {
 
   it('still functions without passing venusLensContract or legacyPoolComptrollerContract', async () => {
     const response = await getVTokens({
+      chainId: ChainId.BSC_TESTNET,
       tokens,
       poolLensContract: fakePoolLensContract,
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
