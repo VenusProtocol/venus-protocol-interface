@@ -1,4 +1,4 @@
-import { VBep20, VBnb } from 'libs/contracts';
+import type { VBep20, VBnb } from 'libs/contracts';
 
 export interface GetVTokenInterestRateModelInput {
   vTokenContract: VBep20 | VBnb;

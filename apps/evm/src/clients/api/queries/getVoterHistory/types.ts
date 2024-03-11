@@ -1,4 +1,4 @@
-import { VoteSupport } from 'types';
+import type { VoteSupport } from 'types';
 
 import type { ProposalApiResponse } from '../getProposals/types';
 

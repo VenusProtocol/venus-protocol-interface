@@ -15,7 +15,7 @@ import { useAccountAddress } from 'libs/wallet';
 import { convertMantissaToTokens } from 'utilities';
 
 import Convert from './Convert';
-import Withdraw, { WithdrawProps } from './Withdraw';
+import Withdraw, { type WithdrawProps } from './Withdraw';
 import { useStyles } from './styles';
 
 export type ConvertVrtUiProps = WithdrawProps;

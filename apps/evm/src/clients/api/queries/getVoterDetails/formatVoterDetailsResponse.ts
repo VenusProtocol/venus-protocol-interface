@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 
 import { NULL_ADDRESS } from 'constants/address';
-import { Voter } from 'types';
+import type { Voter } from 'types';
 
-import { GetVoterDetailsResponse } from './types';
+import type { GetVoterDetailsResponse } from './types';
 
 const formatVoterResponse = (
   { balance, delegateCount, delegates, txs, votes }: GetVoterDetailsResponse,

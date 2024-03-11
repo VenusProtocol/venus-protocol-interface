@@ -1,13 +1,13 @@
 import BigNumber from 'bignumber.js';
 
 import { logError } from 'libs/errors';
-import { AssetDistribution, PrimeApy, Token } from 'types';
+import type { AssetDistribution, PrimeApy, Token } from 'types';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from 'utilities/formatRewardDistribution';
 import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
-import { RewardsDistributorSettingsResult } from '../getRewardsDistributorSettingsMapping';
-import { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
+import type { RewardsDistributorSettingsResult } from '../getRewardsDistributorSettingsMapping';
+import type { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
 
 export interface FormatDistributionsInput {
   blocksPerDay: number;

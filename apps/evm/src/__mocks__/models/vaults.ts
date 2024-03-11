@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { Vault } from 'types';
+import type { Vault } from 'types';
 
 import { vai, xvs } from './tokens';
 

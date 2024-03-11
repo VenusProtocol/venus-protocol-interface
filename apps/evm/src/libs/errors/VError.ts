@@ -1,7 +1,7 @@
-import { importProposalErrorPhrases } from './importProposalErrorPhrases';
-import { interactionErrorPhrases } from './interactionErrorPhrases';
-import { transactionErrorPhrases } from './transactionErrorPhrases';
-import { unexpectedErrorPhrases } from './unexpectedErrorPhrases';
+import type { importProposalErrorPhrases } from './importProposalErrorPhrases';
+import type { interactionErrorPhrases } from './interactionErrorPhrases';
+import type { transactionErrorPhrases } from './transactionErrorPhrases';
+import type { unexpectedErrorPhrases } from './unexpectedErrorPhrases';
 
 export interface VErrorParamMap {
   transaction: {

@@ -6,7 +6,7 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 
-import ActionModal, { ActionModalProps } from '../ActionModal';
+import ActionModal, { type ActionModalProps } from '../ActionModal';
 
 export type WithdrawFromVaiVaultModalProps = Pick<ActionModalProps, 'handleClose'>;
 

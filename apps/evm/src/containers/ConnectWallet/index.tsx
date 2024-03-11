@@ -2,7 +2,7 @@
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
 
-import { Button, Variant } from '../../components/Button';
+import { Button, type Variant } from '../../components/Button';
 import { NoticeInfo } from '../../components/Notice';
 import { useStyles } from './styles';
 

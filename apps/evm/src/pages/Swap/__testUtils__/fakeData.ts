@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { FAKE_BNB_BALANCE_TOKENS, FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
 import { bnb, busd } from '__mocks__/models/tokens';
 
-import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
+import type { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
 export const FAKE_BNB_BALANCE_MANTISSA = convertTokensToMantissa({

@@ -2,10 +2,10 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
-import { Swap } from 'types';
+import type { Swap } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
-import { FormError, FormValues } from './types';
+import type { FormError, FormValues } from './types';
 
 interface UseFormValidationInput {
   formValues: FormValues;

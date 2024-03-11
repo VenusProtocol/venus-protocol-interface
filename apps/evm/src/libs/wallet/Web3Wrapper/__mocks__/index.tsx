@@ -1,3 +1,3 @@
-import { Web3WrapperProps } from '..';
+import type { Web3WrapperProps } from '..';
 
 export const Web3Wrapper: React.FC<Web3WrapperProps> = ({ children }) => <>{children}</>;

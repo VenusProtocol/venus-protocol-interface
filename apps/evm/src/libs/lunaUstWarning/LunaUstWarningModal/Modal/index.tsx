@@ -1,4 +1,4 @@
-import { Button, Icon, Modal as ModalComp, ModalProps as ModalCompProps } from 'components';
+import { Button, Icon, Modal as ModalComp, type ModalProps as ModalCompProps } from 'components';
 import { useTranslation } from 'libs/translations';
 
 export interface ModalProps {

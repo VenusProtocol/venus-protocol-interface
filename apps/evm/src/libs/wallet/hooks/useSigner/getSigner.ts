@@ -1,4 +1,4 @@
-import { WalletClient } from '@wagmi/core';
+import type { WalletClient } from '@wagmi/core';
 import { providers } from 'ethers';
 
 // Convert a viem Wallet Client to an ethers.js Signer

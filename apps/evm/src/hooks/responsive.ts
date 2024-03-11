@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { Breakpoint, useTheme } from '@mui/material';
+import { type Breakpoint, useTheme } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 export const useBreakpointDown = (breakpoint: Breakpoint) => {

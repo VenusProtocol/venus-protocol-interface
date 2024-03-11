@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 
 import useIsMounted from 'hooks/useIsMounted';
 import { displayMutationError } from 'libs/errors';
-import { Swap, SwapError, Token, VToken } from 'types';
+import type { Swap, SwapError, Token, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import calculatePercentageOfUserBorrowBalance from '../calculatePercentageOfUserBorrowBalance';
-import { FormError, FormValues } from './types';
+import type { FormError, FormValues } from './types';
 import useFormValidation from './useFormValidation';
 
 export * from './types';

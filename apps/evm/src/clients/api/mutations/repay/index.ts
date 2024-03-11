@@ -1,9 +1,9 @@
-import BigNumber from 'bignumber.js';
-import { ContractTransaction, Signer } from 'ethers';
+import type BigNumber from 'bignumber.js';
+import type { ContractTransaction, Signer } from 'ethers';
 
 import MAX_UINT256 from 'constants/maxUint256';
-import { Maximillion, VBnb, getVTokenContract } from 'libs/contracts';
-import { VToken } from 'types';
+import { type Maximillion, type VBnb, getVTokenContract } from 'libs/contracts';
+import type { VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
 export interface RepayInput {

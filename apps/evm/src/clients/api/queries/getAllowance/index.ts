@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { Bep20, Vai, Vrt, Xvs } from 'libs/contracts';
+import type { Bep20, Vai, Vrt, Xvs } from 'libs/contracts';
 
 export interface GetAllowanceInput {
   tokenContract: Vai | Bep20 | Vrt | Xvs;

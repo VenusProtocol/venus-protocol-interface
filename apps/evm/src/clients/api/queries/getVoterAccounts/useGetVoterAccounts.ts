@@ -1,9 +1,9 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { generatePseudoRandomRefetchInterval } from 'utilities';
 
-import getVoterAccounts, { GetVoterAccountsInput, GetVoterAccountsOutput } from '.';
+import getVoterAccounts, { type GetVoterAccountsInput, type GetVoterAccountsOutput } from '.';
 
 type Options = QueryObserverOptions<
   GetVoterAccountsOutput,

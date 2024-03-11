@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import voterHistoryResponse from '__mocks__/api/voterHistory.json';
 import fakeAddress from '__mocks__/models/address';

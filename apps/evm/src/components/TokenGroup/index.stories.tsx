@@ -1,9 +1,9 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import { bnb, eth, lisUsd, usdc, usdt, xvs } from '__mocks__/models/tokens';
 
 import { withCenterStory } from 'stories/decorators';
-import { Token } from 'types';
+import type { Token } from 'types';
 
 import { TokenGroup } from '.';
 

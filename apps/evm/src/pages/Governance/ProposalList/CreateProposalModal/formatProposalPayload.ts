@@ -1,7 +1,7 @@
-import { CreateProposalInput } from 'clients/api';
+import type { CreateProposalInput } from 'clients/api';
 
 import encodeCallData from './encodeCallData';
-import { FormValues } from './proposalSchema';
+import type { FormValues } from './proposalSchema';
 
 export interface V1Description {
   version: 'v1';

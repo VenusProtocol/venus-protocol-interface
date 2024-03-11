@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
-import { Breakpoint, EllipseAddress } from 'components/EllipseAddress';
+import { type Breakpoint, EllipseAddress } from 'components/EllipseAddress';
 import { Icon } from 'components/Icon';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import { ChainId } from 'types';
-import { UrlType, cn, generateChainExplorerUrl } from 'utilities';
+import type { ChainId } from 'types';
+import { type UrlType, cn, generateChainExplorerUrl } from 'utilities';
 
 export interface ChainExplorerLinkProps {
   hash: string;

@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { Form, Formik, useFormikContext } from 'formik';
+import { Form, Formik, type useFormikContext } from 'formik';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { CreateProposalInput } from 'clients/api';
+import type { CreateProposalInput } from 'clients/api';
 import { Modal } from 'components';
 import { routes } from 'constants/routing';
 import { useNavigate } from 'hooks/useNavigate';
@@ -13,13 +13,13 @@ import formatProposalPayload from 'pages/Governance/ProposalList/CreateProposalM
 import { ProposalType } from 'types';
 
 import ProposalWizard, {
-  ProposalWizardSteps,
+  type ProposalWizardSteps,
   getCurrentStep,
   getPreviousStep,
 } from './ProposalWizard';
 import checkImportErrors from './checkImportErrors';
 import importJsonProposal from './importJsonProposal';
-import proposalSchema, { FormValues, initialActionData } from './proposalSchema';
+import proposalSchema, { type FormValues, initialActionData } from './proposalSchema';
 import { useStyles } from './styles';
 
 interface CreateProposalProps {

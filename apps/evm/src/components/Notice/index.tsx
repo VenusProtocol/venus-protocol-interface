@@ -1,9 +1,9 @@
 import { cn } from 'utilities';
 
 import { TextButton } from '../Button';
-import { Icon, IconName } from '../Icon';
+import { Icon, type IconName } from '../Icon';
 import { Spinner } from '../Spinner';
-import { NoticeProps, NoticeVariant } from './types';
+import type { NoticeProps, NoticeVariant } from './types';
 
 const iconMapping: {
   [variant in Exclude<NoticeVariant, 'loading'>]: IconName;

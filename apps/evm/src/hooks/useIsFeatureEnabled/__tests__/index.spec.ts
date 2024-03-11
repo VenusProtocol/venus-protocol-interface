@@ -1,11 +1,11 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { renderHook } from 'testUtils/render';
 
 import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 
-import { FeatureFlag, useIsFeatureEnabled } from '..';
+import { type FeatureFlag, useIsFeatureEnabled } from '..';
 
 vi.unmock('hooks/useIsFeatureEnabled');
 

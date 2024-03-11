@@ -1,4 +1,4 @@
-import { IconName } from 'components';
+import type { IconName } from 'components';
 
 export interface MenuItem {
   to: string;

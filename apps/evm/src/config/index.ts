@@ -1,5 +1,5 @@
 import { API_ENDPOINT_URLS } from 'constants/endpoints';
-import { ChainId, Environment } from 'types';
+import { ChainId, type Environment } from 'types';
 
 import {
   BSC_MAINNET_SUBGRAPH_URL,

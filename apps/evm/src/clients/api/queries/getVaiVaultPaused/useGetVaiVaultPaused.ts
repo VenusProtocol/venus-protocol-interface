@@ -1,10 +1,10 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
-import { GetVaiVaultPausedOutput, getVaiVaultPaused } from 'clients/api';
+import { type GetVaiVaultPausedOutput, getVaiVaultPaused } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetVaiVaultContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 export type UseGetVaiVaultPausedQueryKey = [FunctionKey.GET_VAI_VAULT_PAUSED, { chainId: ChainId }];

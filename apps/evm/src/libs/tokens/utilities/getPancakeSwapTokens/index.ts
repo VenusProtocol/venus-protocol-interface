@@ -1,5 +1,5 @@
 import { pancakeSwapTokens } from 'libs/tokens/infos/pancakeSwapTokens';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 export interface GetPancakeSwapTokensInput {
   chainId: ChainId;

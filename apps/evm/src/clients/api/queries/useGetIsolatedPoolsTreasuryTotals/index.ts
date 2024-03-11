@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import {
-  GetVTokenBalancesAllOutput,
+  type GetVTokenBalancesAllOutput,
   useGetIsolatedPools,
   useGetVTokenBalancesAll,
 } from 'clients/api';

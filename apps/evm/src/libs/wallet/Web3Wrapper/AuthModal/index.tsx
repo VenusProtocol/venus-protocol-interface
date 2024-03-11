@@ -7,7 +7,7 @@ import { useLogIn } from 'libs/wallet/hooks/useLogIn';
 import { useLogOut } from 'libs/wallet/hooks/useLogOut';
 
 import { AccountDetails } from './AccountDetails';
-import { WalletList, WalletListProps } from './WalletList';
+import { WalletList, type WalletListProps } from './WalletList';
 
 export const AuthModal: React.FC = () => {
   const { isAuthModalOpen, closeAuthModal } = useAuthModal();

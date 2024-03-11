@@ -4,7 +4,7 @@ import ethLogo from 'libs/tokens/img/eth.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
 import wbnbLogo from 'libs/tokens/img/wbnb.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
-import { Token } from 'types';
+import type { Token } from 'types';
 
 const bnbToken: Token = {
   address: '0x0000000000000000000000000000000000000000',

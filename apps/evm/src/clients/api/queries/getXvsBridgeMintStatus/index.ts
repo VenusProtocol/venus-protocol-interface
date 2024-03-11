@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { XvsTokenMultichain } from 'libs/contracts';
+import type { XvsTokenMultichain } from 'libs/contracts';
 
 export interface GetXvsMintStatusInput {
   chainXvsProxyOftDestContractAddress: string;

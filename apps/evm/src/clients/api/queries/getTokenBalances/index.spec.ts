@@ -1,5 +1,5 @@
 import { BigNumber as BN } from 'ethers';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';

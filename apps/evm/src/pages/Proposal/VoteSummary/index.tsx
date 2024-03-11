@@ -9,7 +9,7 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { VotersDetails } from 'types';
+import type { VotersDetails } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { useStyles } from './styles';

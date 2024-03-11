@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { useGetToken } from 'libs/tokens';
 import { convertMantissaToTokens } from 'utilities';
 
-import { FormValues } from '../../types';
+import type { FormValues } from '../../types';
 
 export enum ErrorCode {
   HIGHER_THAN_LIQUIDITY = 'HIGHER_THAN_LIQUIDITY',

@@ -4,7 +4,7 @@ import { busd } from '__mocks__/models/tokens';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 
-import formatTokensToReadableValue, { FormatTokensToReadableValueInput } from '..';
+import formatTokensToReadableValue, { type FormatTokensToReadableValueInput } from '..';
 
 describe('formatTokensToReadableValue', () => {
   test('should return placeholder when value is undefined', () => {

@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
@@ -10,7 +10,7 @@ import { renderComponent } from 'testUtils/render';
 import { getBalanceOf, useStakeInVault } from 'clients/api';
 import { en } from 'libs/translations';
 
-import StakeModal, { StakeModalProps } from '.';
+import StakeModal, { type StakeModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';
 
 const fakeBalanceMantissa = new BigNumber('100000000000000000000000');

@@ -1,6 +1,6 @@
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
-import { IsolatedPoolComptroller } from 'libs/contracts';
+import type { IsolatedPoolComptroller } from 'libs/contracts';
 
 import updatePoolDelegateStatus from '.';
 

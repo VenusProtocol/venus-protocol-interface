@@ -1,7 +1,7 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getIsAddressAuthorized, {
-  GetIsAddressAuthorizedOutput,
+  type GetIsAddressAuthorizedOutput,
 } from 'clients/api/queries/getIsAddressAuthorized';
 import FunctionKey from 'constants/functionKey';
 

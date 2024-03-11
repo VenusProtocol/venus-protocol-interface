@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 
-import { Select, SelectProps } from '../Select';
+import { Select, type SelectProps } from '../Select';
 
 interface FormikSelectFieldProps extends Omit<SelectProps, 'name' | 'onChange' | 'value'> {
   name: string;

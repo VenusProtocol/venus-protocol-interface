@@ -1,7 +1,7 @@
 import bnbLogo from 'libs/tokens/img/bnb.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
 import { getToken } from 'libs/tokens/utilities/getToken';
-import { ChainId, ChainMetadata } from 'types';
+import { ChainId, type ChainMetadata } from 'types';
 
 export const CHAIN_METADATA: {
   [chainId in ChainId]: ChainMetadata;

@@ -1,7 +1,7 @@
-import { Token } from 'types';
+import type { Token } from 'types';
 import { cn } from 'utilities';
 
-import { Icon, IconName } from '../Icon';
+import { Icon, type IconName } from '../Icon';
 import { TokenIcon } from '../TokenIcon';
 import { Tooltip } from '../Tooltip';
 

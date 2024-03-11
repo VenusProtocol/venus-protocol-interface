@@ -1,10 +1,10 @@
 import type { Result } from '@ethersproject/abi';
 import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
-import { ParamType } from 'ethers/lib/utils';
+import type { ParamType } from 'ethers/lib/utils';
 
-import { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
-import { ProposalAction } from 'types';
+import type { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
+import type { ProposalAction } from 'types';
 
 const formatParamType = (paramType: ParamType): string => {
   if (paramType.type !== 'tuple' && paramType.type !== 'tuple[]') {

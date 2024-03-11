@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 
 import { displayMutationError } from 'libs/errors';
-import { Asset, Swap, SwapError, Token } from 'types';
+import type { Asset, Swap, SwapError, Token } from 'types';
 
-import { FormError, FormValues } from './types';
+import type { FormError, FormValues } from './types';
 import useFormValidation from './useFormValidation';
 
 export * from './types';

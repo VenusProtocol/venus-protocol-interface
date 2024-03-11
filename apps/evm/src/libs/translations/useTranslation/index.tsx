@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import {
   Trans as I18NextTrans,
-  TransProps as I18NextTransProps,
+  type TransProps as I18NextTransProps,
   useTranslation as useI18NextTranslation,
 } from 'react-i18next';
 

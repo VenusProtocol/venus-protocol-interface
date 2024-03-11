@@ -1,8 +1,8 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getLatestProposalIdByProposer, {
-  GetLatestProposalIdByProposerInput,
-  GetLatestProposalIdByProposerOutput,
+  type GetLatestProposalIdByProposerInput,
+  type GetLatestProposalIdByProposerOutput,
 } from 'clients/api/queries/getLatestProposalIdByProposer';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';

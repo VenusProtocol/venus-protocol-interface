@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useGetPools } from 'clients/api';
-import { Asset } from 'types';
+import type { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
 
 export interface UseGetAssetInput {

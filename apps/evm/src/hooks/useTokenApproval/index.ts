@@ -1,9 +1,9 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useApproveToken, useGetAllowance, useRevokeSpendingLimit } from 'clients/api';
 import { VError } from 'libs/errors';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 export interface UseTokenApprovalInput {

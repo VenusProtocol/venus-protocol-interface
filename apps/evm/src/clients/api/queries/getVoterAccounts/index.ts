@@ -1,11 +1,11 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { VError } from 'libs/errors';
-import { VoterAccount } from 'types';
+import type { VoterAccount } from 'types';
 import { restService } from 'utilities';
 
 import formatVoterAccountResponse from './formatVoterAccountResponse';
-import { GetVoterAccountsResponse } from './types';
+import type { GetVoterAccountsResponse } from './types';
 
 export interface GetVoterAccountsInput {
   totalStakedXvs: BigNumber;

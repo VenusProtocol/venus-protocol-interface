@@ -1,4 +1,4 @@
-import { Proposal, ProposalState, ProposalType, VoteSupport } from 'types';
+import type { Proposal, ProposalState, ProposalType, VoteSupport } from 'types';
 
 export interface GetProposalsInput {
   limit?: number;

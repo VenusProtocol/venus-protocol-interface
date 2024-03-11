@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -14,13 +14,13 @@ import {
 } from 'libs/contracts';
 import { useGetTokens } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getPendingRewards from '.';
 import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
 import useGetPools from '../useGetPools';
-import { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
+import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
 type TrimmedGetPendingRewardsInput = Omit<
   GetPendingRewardsInput,

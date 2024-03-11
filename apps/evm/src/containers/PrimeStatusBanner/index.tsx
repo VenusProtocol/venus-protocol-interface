@@ -22,7 +22,7 @@ import { displayMutationError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { AssetDistribution, Token } from 'types';
+import type { AssetDistribution, Token } from 'types';
 import { cn, convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';

@@ -1,9 +1,9 @@
 import { forwardRef } from 'react';
 
-import { Select, SelectOption, SelectProps } from 'components';
+import { Select, type SelectOption, type SelectProps } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { chains } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 export const getOptionsFromChainsList = (chainsList: typeof chains) =>
   chainsList.map(chain => {

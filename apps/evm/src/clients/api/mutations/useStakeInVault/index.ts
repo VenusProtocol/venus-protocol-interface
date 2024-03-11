@@ -1,9 +1,9 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { useStakeInVaiVault, useStakeInXvsVault } from 'clients/api';
 import { VError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { areTokensEqual } from 'utilities';
 
 export interface UseStakeInVaultInput {

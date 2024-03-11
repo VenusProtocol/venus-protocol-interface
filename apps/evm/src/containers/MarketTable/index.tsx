@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
-import { Table, TableProps, switchAriaLabel } from 'components';
+import { Table, type TableProps, switchAriaLabel } from 'components';
 import useCollateral from 'hooks/useCollateral';
 import useOperationModal from 'hooks/useOperationModal';
 import { displayMutationError } from 'libs/errors';
 import { useLunaUstWarning } from 'libs/lunaUstWarning';
-import { Pool } from 'types';
+import type { Pool } from 'types';
 
 import { useStyles } from './styles';
-import { ColumnKey, PoolAsset } from './types';
+import type { ColumnKey, PoolAsset } from './types';
 import useGenerateColumns from './useGenerateColumns';
 
 export interface MarketTableProps

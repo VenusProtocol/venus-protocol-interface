@@ -1,8 +1,8 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getLegacyPool, {
-  GetLegacyPoolInput,
-  GetLegacyPoolOutput,
+  type GetLegacyPoolInput,
+  type GetLegacyPoolOutput,
 } from 'clients/api/queries/getLegacyPool';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -17,7 +17,7 @@ import {
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedInput = Omit<

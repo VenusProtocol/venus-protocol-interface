@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { NavigateOptions, To, useNavigate as useRRNavigate } from 'react-router-dom';
+import { type NavigateOptions, type To, useNavigate as useRRNavigate } from 'react-router-dom';
 
 import { useFormatTo } from 'hooks/useFormatTo';
 

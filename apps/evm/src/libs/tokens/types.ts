@@ -1,4 +1,4 @@
-import { ChainId, Token, TokenAction } from 'types';
+import type { ChainId, Token, TokenAction } from 'types';
 
 export type TokenMapping = {
   [chainId in ChainId]: Token[];

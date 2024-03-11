@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 

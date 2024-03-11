@@ -7,7 +7,7 @@ import { Icon } from 'components/Icon';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'libs/translations';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 import { useStyles } from './styles';
 

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Vault } from 'types';
+import type { Vault } from 'types';
 
 import useGetVaiVault from './useGetVaiVault';
 import useGetVestingVaults from './useGetVestingVaults';

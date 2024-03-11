@@ -1,10 +1,10 @@
-import {
+import type {
   Currency as PSCurrency,
   Trade as PSTrade,
   TradeType as PSTradeType,
 } from '@pancakeswap/sdk/dist/index.js';
 
-import { Swap, SwapDirection, SwapError, Token } from 'types';
+import type { Swap, SwapDirection, SwapError, Token } from 'types';
 
 export interface UseGetSwapInfoInput {
   fromToken: Token;

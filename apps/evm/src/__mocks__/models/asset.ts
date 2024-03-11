@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { busd, usdc, usdt, xvs } from '__mocks__/models/tokens';
 import { vBusd, vUsdc, vUsdt, vXvs } from '__mocks__/models/vTokens';
 
-import { Asset } from 'types';
+import type { Asset } from 'types';
 
 export const assetData: Asset[] = [
   {

@@ -1,4 +1,4 @@
-import { Environment } from 'types';
+import type { Environment } from 'types';
 
 export const API_ENDPOINT_URLS: Record<Environment, string> = {
   mainnet: 'https://api.venus.io',

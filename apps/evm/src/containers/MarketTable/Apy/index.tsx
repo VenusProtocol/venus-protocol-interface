@@ -3,10 +3,10 @@ import { useMemo } from 'react';
 import { LayeredValues } from 'components';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import { useGetToken } from 'libs/tokens';
-import { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
+import type { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
 import { getCombinedDistributionApys } from 'utilities';
 
-import { ColumnKey } from '../types';
+import type { ColumnKey } from '../types';
 import { ApyWithPrimeBoost } from './ApyWithPrimeBoost';
 import { ApyWithPrimeSimulationBoost } from './ApyWithPrimeSimulationBoost';
 

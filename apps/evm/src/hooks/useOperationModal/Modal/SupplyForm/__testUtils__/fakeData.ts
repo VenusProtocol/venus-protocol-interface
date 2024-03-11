@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { poolData } from '__mocks__/models/pools';
 import { eth, weth } from '__mocks__/models/tokens';
 
-import { Asset, Pool, TokenBalance } from 'types';
+import type { Asset, Pool, TokenBalance } from 'types';
 
 export const fakePool: Pool = {
   ...poolData[0],

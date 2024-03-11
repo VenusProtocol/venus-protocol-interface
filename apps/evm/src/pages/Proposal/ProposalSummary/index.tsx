@@ -17,7 +17,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { displayMutationError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
-import { Proposal, ProposalState, ProposalType } from 'types';
+import { type Proposal, ProposalState, ProposalType } from 'types';
 import { areAddressesEqual } from 'utilities';
 
 import Stepper from './Stepper';

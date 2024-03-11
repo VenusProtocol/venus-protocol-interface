@@ -1,8 +1,8 @@
-import { FormikErrors } from 'formik';
+import type { FormikErrors } from 'formik';
 
 import { VError } from 'libs/errors';
 
-import { FormValues } from '../proposalSchema';
+import type { FormValues } from '../proposalSchema';
 
 const checkImportErrors = (errors: FormikErrors<FormValues>) => {
   const keys = Object.values(errors);

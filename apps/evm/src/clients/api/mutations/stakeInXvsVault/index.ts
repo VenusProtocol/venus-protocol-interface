@@ -1,8 +1,8 @@
-import BigNumber from 'bignumber.js';
-import { ContractTransaction } from 'ethers';
+import type BigNumber from 'bignumber.js';
+import type { ContractTransaction } from 'ethers';
 
-import { XvsVault } from 'libs/contracts';
-import { Token } from 'types';
+import type { XvsVault } from 'libs/contracts';
+import type { Token } from 'types';
 
 export interface StakeInXvsVaultInput {
   xvsVaultContract: XvsVault;

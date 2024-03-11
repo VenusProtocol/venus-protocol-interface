@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { compile } from 'handlebars';
 import { glob, runTypeChain } from 'typechain';
 
-import { ContractConfig } from 'libs/contracts/config';
+import type { ContractConfig } from 'libs/contracts/config';
 import { isUniquePerPoolContractConfig } from 'libs/contracts/utilities/isUniquePerPoolContractConfig';
 import processCwd from 'utilities/cwd';
 import writeFile from 'utilities/writeFile';

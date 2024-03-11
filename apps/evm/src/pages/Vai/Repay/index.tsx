@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo } from 'react';
-import { SubmitHandler } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 
 import {
   useGetBalanceOf,
@@ -34,7 +34,7 @@ import {
 } from 'utilities';
 
 import { AccountVaiData } from '../AccountVaiData';
-import { FormValues } from '../types';
+import type { FormValues } from '../types';
 import TEST_IDS from './testIds';
 import { ErrorCode, useForm } from './useForm';
 

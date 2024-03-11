@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { NoticeWarning } from 'components';
 import { TokenAnnouncement } from 'containers/TokenAnnouncement';
 import { useTranslation } from 'libs/translations';
-import { Token, TokenAction } from 'types';
+import type { Token, TokenAction } from 'types';
 
 export interface DisabledActionNoticeProps {
   token: Token;

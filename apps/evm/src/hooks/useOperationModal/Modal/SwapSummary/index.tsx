@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
-import { Swap } from 'types';
+import type { Swap } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { useStyles } from './styles';

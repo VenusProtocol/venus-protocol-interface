@@ -1,10 +1,10 @@
 import { waitFor } from '@testing-library/dom';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
-import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 
 import { Borrow } from '..';

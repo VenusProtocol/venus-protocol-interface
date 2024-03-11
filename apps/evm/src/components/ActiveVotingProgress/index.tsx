@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { BigNumber } from 'bignumber.js';
+import type { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
 import { theme } from 'theme';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';

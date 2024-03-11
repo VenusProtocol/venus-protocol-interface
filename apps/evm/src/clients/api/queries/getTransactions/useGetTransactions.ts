@@ -1,8 +1,8 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getTransactions, {
-  GetTransactionsInput,
-  GetTransactionsOutput,
+  type GetTransactionsInput,
+  type GetTransactionsOutput,
 } from 'clients/api/queries/getTransactions';
 import useGetVTokens from 'clients/api/queries/getVTokens/useGetVTokens';
 import FunctionKey from 'constants/functionKey';

@@ -1,13 +1,13 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getVTokenBalanceOf, {
-  GetVTokenBalanceOfInput,
-  GetVTokenBalanceOfOutput,
+  type GetVTokenBalanceOfInput,
+  type GetVTokenBalanceOfOutput,
 } from 'clients/api/queries/getVTokenBalanceOf';
 import FunctionKey from 'constants/functionKey';
 import { useGetVTokenContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId, VToken } from 'types';
+import type { ChainId, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
 interface TrimmedGetVTokenBalanceOfInput extends Omit<GetVTokenBalanceOfInput, 'vTokenContract'> {

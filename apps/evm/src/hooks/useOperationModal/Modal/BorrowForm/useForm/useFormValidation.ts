@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { Asset } from 'types';
+import type { Asset } from 'types';
 
-import { FormError, FormValues } from './types';
+import type { FormError, FormValues } from './types';
 
 interface UseFormValidationInput {
   asset: Asset;

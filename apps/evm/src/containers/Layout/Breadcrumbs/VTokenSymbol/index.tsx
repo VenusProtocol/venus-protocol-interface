@@ -4,7 +4,7 @@ import { useGetVTokens } from 'clients/api';
 import { Icon, TertiaryButton } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { addTokenToWallet, canAddTokenToWallet, useAccountAddress } from 'libs/wallet';
-import { VToken } from 'types';
+import type { VToken } from 'types';
 import { findTokenByAddress } from 'utilities';
 
 export interface VTokenSymbolUiProps {

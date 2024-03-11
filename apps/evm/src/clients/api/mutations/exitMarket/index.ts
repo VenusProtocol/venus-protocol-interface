@@ -1,7 +1,7 @@
-import { ContractTransaction } from 'ethers';
+import type { ContractTransaction } from 'ethers';
 
-import { IsolatedPoolComptroller, LegacyPoolComptroller } from 'libs/contracts';
-import { VToken } from 'types';
+import type { IsolatedPoolComptroller, LegacyPoolComptroller } from 'libs/contracts';
+import type { VToken } from 'types';
 
 export type ExitMarketInput = {
   comptrollerContract: LegacyPoolComptroller | IsolatedPoolComptroller;

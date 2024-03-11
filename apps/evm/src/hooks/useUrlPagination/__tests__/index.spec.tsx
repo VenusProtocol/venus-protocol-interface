@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import { useSearchParams } from 'react-router-dom';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { renderHook } from 'testUtils/render';
 

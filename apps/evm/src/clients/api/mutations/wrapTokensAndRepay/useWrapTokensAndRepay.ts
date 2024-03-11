@@ -1,12 +1,12 @@
 import wrapTokensAndRepay, {
-  WrapTokensAndRepayInput,
+  type WrapTokensAndRepayInput,
 } from 'clients/api/mutations/wrapTokensAndRepay';
 import queryClient from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetNativeTokenGatewayContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { VToken } from 'types';
+import type { VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedWrapTokensAndRepayInput = Omit<WrapTokensAndRepayInput, 'nativeTokenGatewayContract'>;

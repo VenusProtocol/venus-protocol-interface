@@ -2,10 +2,10 @@ import { Percent as PSPercent } from '@pancakeswap/sdk/dist/index.js';
 import BigNumber from 'bignumber.js';
 
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
-import { Swap } from 'types';
+import type { Swap } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
-import { FormatToSwapInput, FormatToSwapOutput } from './types';
+import type { FormatToSwapInput, FormatToSwapOutput } from './types';
 
 // Format trade to swap info
 const slippagePercent = new PSPercent(`${SLIPPAGE_TOLERANCE_PERCENTAGE * 10}`, 1000);

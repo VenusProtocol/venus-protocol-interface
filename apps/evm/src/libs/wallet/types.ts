@@ -1,4 +1,4 @@
-import { BaseProvider, FallbackProvider, JsonRpcProvider } from '@ethersproject/providers';
+import type { BaseProvider, FallbackProvider, JsonRpcProvider } from '@ethersproject/providers';
 
 export enum Connector {
   BinanceWallet = 'BinanceW3W',

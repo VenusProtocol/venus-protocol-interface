@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 
-import { XvsVault } from 'libs/contracts';
+import type { XvsVault } from 'libs/contracts';
 
 import getXvsVaultPoolInfo from '.';
 

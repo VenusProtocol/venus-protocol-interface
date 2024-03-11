@@ -1,4 +1,4 @@
-import { VToken } from 'types';
+import type { VToken } from 'types';
 
 import { bnb, busd, luna, usdc, usdt, ust, weth, xvs } from './tokens';
 

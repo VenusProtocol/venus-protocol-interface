@@ -1,7 +1,14 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
-import { PoolLens, Prime, ResilientOracle, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
-import { Token } from 'types';
+import type {
+  PoolLens,
+  Prime,
+  ResilientOracle,
+  VaiVault,
+  VenusLens,
+  XvsVault,
+} from 'libs/contracts';
+import type { Token } from 'types';
 
 export interface GetPendingRewardsInput {
   tokens: Token[];

@@ -1,9 +1,9 @@
 import Typography from '@mui/material/Typography';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
-import { Modal, ModalProps } from '.';
+import { Modal, type ModalProps } from '.';
 
 export default {
   title: 'Components/Modal',

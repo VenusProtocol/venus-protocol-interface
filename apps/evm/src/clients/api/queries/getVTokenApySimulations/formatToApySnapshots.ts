@@ -2,9 +2,9 @@ import BigNumber from 'bignumber.js';
 
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
+import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
 
-import { VTokenApySnapshot } from './types';
+import type { VTokenApySnapshot } from './types';
 
 export interface FormatToApySnapshotsInput {
   blocksPerDay: number;

@@ -1,11 +1,11 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { logError } from 'libs/errors';
-import { Token } from 'types';
+import type { Token } from 'types';
 import convertDollarsToCents from 'utilities/convertDollarsToCents';
 import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 
-import { VaultPendingRewardGroup } from '../types';
+import type { VaultPendingRewardGroup } from '../types';
 
 const formatToVaultPendingRewardGroup = ({
   isDisabled,

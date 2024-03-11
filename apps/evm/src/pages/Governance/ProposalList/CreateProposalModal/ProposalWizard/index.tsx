@@ -13,7 +13,7 @@ import ProposalInfo from '../ProposalInfo';
 import ProposalPreview from '../ProposalPreview';
 import UploadOrManualProposal from '../UploadOrManualProposal';
 import VotingDescriptions from '../VotingDescriptions';
-import { FormValues } from '../proposalSchema';
+import type { FormValues } from '../proposalSchema';
 
 export type ProposalFormContext = ReturnType<typeof useFormikContext<FormValues>>;
 

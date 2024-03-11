@@ -1,10 +1,10 @@
 import {
-  ProviderRpcError,
+  type ProviderRpcError,
   ResourceUnavailableRpcError,
   UserRejectedRequestError,
   toHex,
 } from 'viem';
-import { Chain, ConnectorNotFoundError, SwitchChainNotSupportedError } from 'wagmi';
+import { type Chain, ConnectorNotFoundError, SwitchChainNotSupportedError } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
 const mappingNetwork: Record<number, string> = {

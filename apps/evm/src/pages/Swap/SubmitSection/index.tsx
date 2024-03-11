@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
-import { ApproveTokenSteps, ApproveTokenStepsProps, PrimaryButton } from 'components';
+import { ApproveTokenSteps, type ApproveTokenStepsProps, PrimaryButton } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import { Swap, SwapError } from 'types';
+import type { Swap, SwapError } from 'types';
 import { cn } from 'utilities';
 
-import { FormError, FormValues } from '../types';
+import type { FormError, FormValues } from '../types';
 import { useStyles } from './styles';
 
 export interface SubmitSectionProps {

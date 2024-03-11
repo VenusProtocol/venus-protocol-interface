@@ -1,4 +1,4 @@
-import { BigNumber, Signer } from 'ethers';
+import { BigNumber, type Signer } from 'ethers';
 
 import fakeAddress from './address';
 

@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
-import { Checkbox, CheckboxProps, LayeredValues, TokenIconWithSymbol } from 'components';
+import { Checkbox, type CheckboxProps, LayeredValues, TokenIconWithSymbol } from 'components';
 import { convertMantissaToTokens, formatCentsToReadableValue } from 'utilities';
 
-import { Group, PendingReward } from '../types';
+import type { Group, PendingReward } from '../types';
 
 export interface RewardGroupProps {
   group: Group;

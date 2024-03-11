@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 export type NoticeVariant = 'info' | 'loading' | 'error' | 'success' | 'warning';
 

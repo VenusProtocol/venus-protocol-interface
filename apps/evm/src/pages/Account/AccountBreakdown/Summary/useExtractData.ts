@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { Pool, Vault } from 'types';
+import type { Pool, Vault } from 'types';
 import {
   calculateDailyEarningsCents,
   calculateYearlyEarningsForAssets,

@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { VError } from 'libs/errors';
 import { displayNotification } from 'libs/notifications';

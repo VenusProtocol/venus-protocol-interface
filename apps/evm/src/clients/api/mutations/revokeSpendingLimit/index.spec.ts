@@ -1,7 +1,7 @@
 import fakeAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
-import { Bep20 } from 'libs/contracts';
+import type { Bep20 } from 'libs/contracts';
 
 import approveToken from '.';
 

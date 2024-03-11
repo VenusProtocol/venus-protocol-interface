@@ -1,8 +1,8 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import { withCenterStory, withThemeProvider } from 'stories/decorators';
 
-import { InterestRateChart, InterestRateItem } from '.';
+import { InterestRateChart, type InterestRateItem } from '.';
 
 const data: InterestRateItem[] = [
   {

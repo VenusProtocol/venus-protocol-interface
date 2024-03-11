@@ -1,11 +1,11 @@
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 
 import { vai, xvs } from '__mocks__/models/tokens';
 
 import { withCenterStory } from 'stories/decorators';
 
-import StakeModal, { StakeModalProps } from '.';
+import StakeModal, { type StakeModalProps } from '.';
 
 export default {
   title: 'Pages/Vault/modals/StakeModal',

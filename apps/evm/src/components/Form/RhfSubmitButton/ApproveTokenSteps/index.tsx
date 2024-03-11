@@ -1,7 +1,7 @@
 import { ApproveTokenSteps as ApproveTokenStepsUi } from 'components';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAccountAddress } from 'libs/wallet';
-import { Token } from 'types';
+import type { Token } from 'types';
 
 export interface ApproveTokenStepsProps {
   token: Token;

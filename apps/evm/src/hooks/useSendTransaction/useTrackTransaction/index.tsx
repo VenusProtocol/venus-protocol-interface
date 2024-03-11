@@ -1,4 +1,4 @@
-import { ContractReceipt, ContractTransaction } from 'ethers';
+import type { ContractReceipt, ContractTransaction } from 'ethers';
 import { useCallback } from 'react';
 
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
@@ -13,8 +13,8 @@ import {
 import { displayNotification, updateNotification } from 'libs/notifications';
 import { useTranslation } from 'libs/translations';
 import { useChainId, useProvider } from 'libs/wallet';
-import { TransactionType } from 'types';
-import { UrlType } from 'utilities';
+import type { TransactionType } from 'types';
+import type { UrlType } from 'utilities';
 
 export const CONFIRMATIONS = 2;
 

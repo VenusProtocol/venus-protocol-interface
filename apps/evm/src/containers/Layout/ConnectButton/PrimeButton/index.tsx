@@ -1,5 +1,5 @@
 import primeLogoSrc from 'assets/img/primeLogo.svg';
-import { ButtonProps, SecondaryButton } from 'components';
+import { type ButtonProps, SecondaryButton } from 'components';
 import { useTranslation } from 'libs/translations';
 import { cn, truncateAddress } from 'utilities';
 

@@ -1,6 +1,6 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
-import { AssetDistribution, Token, VToken } from 'types';
+import type { AssetDistribution, Token, VToken } from 'types';
 import { formatRewardDistribution, multiplyMantissaDaily } from 'utilities';
 
 export interface FormatDistributionsInput {

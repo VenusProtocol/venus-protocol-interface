@@ -2,9 +2,9 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useGetTokenBalances } from 'clients/api';
-import { Options as UseGetTokenBalancesOptions } from 'clients/api/queries/getTokenBalances/useGetTokenBalances';
+import type { Options as UseGetTokenBalancesOptions } from 'clients/api/queries/getTokenBalances/useGetTokenBalances';
 import { useGetSwapTokens } from 'libs/tokens';
-import { TokenBalance } from 'types';
+import type { TokenBalance } from 'types';
 
 import { useIsFeatureEnabled } from './useIsFeatureEnabled';
 

@@ -1,4 +1,4 @@
-import { BigNumber as BN, ContractReceipt } from 'ethers';
+import { BigNumber as BN, type ContractReceipt } from 'ethers';
 
 const contractReceipt: ContractReceipt = {
   status: 1,

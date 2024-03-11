@@ -3,12 +3,12 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useGetIsolatedPools } from 'clients/api';
-import { Table, TableColumn, TokenGroup } from 'components';
+import { Table, type TableColumn, TokenGroup } from 'components';
 import { routes } from 'constants/routing';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Pool } from 'types';
+import type { Pool } from 'types';
 import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
 
 import { useStyles } from './styles';

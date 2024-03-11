@@ -1,4 +1,4 @@
-import { VoteSupport, VotersDetails } from 'types';
+import type { VoteSupport, VotersDetails } from 'types';
 
 export interface GetVotersInput {
   proposalId?: number;

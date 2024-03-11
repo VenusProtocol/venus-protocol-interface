@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { vTokenBalanceTreasury } from '__mocks__/models/vTokenBalanceTreasury';
@@ -6,7 +6,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { useGetPools, useGetVTokenBalancesAll } from 'clients/api';
 
-import useGetIsolatedPoolsTreasuryTotals, { UseGetIsolatedPoolsTreasuryTotalsOutput } from '.';
+import useGetIsolatedPoolsTreasuryTotals, { type UseGetIsolatedPoolsTreasuryTotalsOutput } from '.';
 
 describe('api/queries/useGetIsolatedPoolsTreasuryTotals', () => {
   beforeEach(() => {

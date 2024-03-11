@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { assetData } from '__mocks__/models/asset';
 import { poolData } from '__mocks__/models/pools';
@@ -8,7 +8,7 @@ import { vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
 import { getVTokenApySimulations, useGetAsset } from 'clients/api';
-import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import IsolatedPoolMarket from '..';
 import TEST_IDS from '../../testIds';

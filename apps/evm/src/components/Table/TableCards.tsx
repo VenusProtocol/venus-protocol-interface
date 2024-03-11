@@ -7,9 +7,9 @@ import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
 import { Delimiter } from '../Delimiter';
-import { Select, SelectOption, SelectProps } from '../Select';
+import { Select, type SelectOption, type SelectProps } from '../Select';
 import { useStyles } from './styles';
-import { Order, TableProps } from './types';
+import type { Order, TableProps } from './types';
 
 interface TableCardProps<R>
   extends Pick<

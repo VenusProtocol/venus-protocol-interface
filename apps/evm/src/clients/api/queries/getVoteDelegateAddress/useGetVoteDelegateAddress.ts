@@ -1,8 +1,8 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import {
-  GetVoteDelegateAddressInput,
-  GetVoteDelegateAddressOutput,
+  type GetVoteDelegateAddressInput,
+  type GetVoteDelegateAddressOutput,
   getVoteDelegateAddress,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';

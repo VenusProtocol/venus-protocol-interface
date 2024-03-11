@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { InputHTMLAttributes, useMemo, useState } from 'react';
+import { type InputHTMLAttributes, useMemo, useState } from 'react';
 
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { useTranslation } from 'libs/translations';
-import { Token, TokenBalance } from 'types';
+import type { Token, TokenBalance } from 'types';
 import { cn, convertMantissaToTokens } from 'utilities';
 
 import { SenaryButton } from '../../Button';

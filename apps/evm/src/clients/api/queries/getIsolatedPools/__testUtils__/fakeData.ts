@@ -2,7 +2,7 @@ import { BigNumber as BN } from 'ethers';
 
 import fakePoolLensContractResponses from '__mocks__/contracts/poolLens';
 
-import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
+import type { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 
 export const fakeIsolatedPoolParticipantsCount: Awaited<
   ReturnType<typeof getIsolatedPoolParticipantsCount>

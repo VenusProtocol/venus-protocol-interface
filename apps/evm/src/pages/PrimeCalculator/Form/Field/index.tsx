@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 import { forwardRef } from 'react';
 
-import { LabeledInlineContent, TokenTextField, TokenTextFieldProps } from 'components';
+import { LabeledInlineContent, TokenTextField, type TokenTextFieldProps } from 'components';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 
 export interface FieldsProps extends TokenTextFieldProps {

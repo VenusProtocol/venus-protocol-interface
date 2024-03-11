@@ -7,7 +7,7 @@ import {
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import { Swap } from 'types';
+import type { Swap } from 'types';
 import {
   convertMantissaToTokens,
   formatPercentageToReadableValue,

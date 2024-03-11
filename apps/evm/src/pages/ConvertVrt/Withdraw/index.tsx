@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { PrimaryButton } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';

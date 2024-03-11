@@ -15,7 +15,7 @@ import {
 import { VError } from 'libs/errors';
 import { useLunaUstWarning } from 'libs/lunaUstWarning';
 import { useAccountAddress, useSigner } from 'libs/wallet';
-import { Asset } from 'types';
+import type { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
 
 import { CollateralConfirmModal } from './CollateralConfirmModal';

@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { TokenBalance } from 'types';
+import type { TokenBalance } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
 import tokens, { busd } from './tokens';

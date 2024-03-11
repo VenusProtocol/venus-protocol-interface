@@ -1,6 +1,6 @@
-import { ContractTransaction } from 'ethers';
+import type { ContractTransaction } from 'ethers';
 
-import { XvsVault } from 'libs/contracts';
+import type { XvsVault } from 'libs/contracts';
 
 export interface ExecuteWithdrawalFromXvsVaultInput {
   xvsVaultContract: XvsVault;

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 
-import { Token } from 'types';
+import type { Token } from 'types';
 
 import { TokenIcon } from '../TokenIcon';
 import { useStyles } from './styles';

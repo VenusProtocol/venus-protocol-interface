@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { assetData } from '__mocks__/models/asset';
 
-import { Pool } from 'types';
+import type { Pool } from 'types';
 
 export const poolData: Pool[] = [
   {

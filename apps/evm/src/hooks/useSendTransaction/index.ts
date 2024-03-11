@@ -1,8 +1,8 @@
-import { ContractReceipt, ContractTransaction } from 'ethers';
-import { MutationObserverOptions, useMutation } from 'react-query';
+import type { ContractReceipt, ContractTransaction } from 'ethers';
+import { type MutationObserverOptions, useMutation } from 'react-query';
 
-import FunctionKey from 'constants/functionKey';
-import { TransactionType } from 'types';
+import type FunctionKey from 'constants/functionKey';
+import type { TransactionType } from 'types';
 
 import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
 

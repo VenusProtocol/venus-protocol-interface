@@ -4,7 +4,7 @@ import { Spinner } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 import { useAccountAddress } from 'libs/wallet';
-import { Asset, Pool, TokenAction, VToken } from 'types';
+import type { Asset, Pool, TokenAction, VToken } from 'types';
 import { areTokensEqual } from 'utilities';
 
 import DisabledActionNotice from './DisabledActionNotice';

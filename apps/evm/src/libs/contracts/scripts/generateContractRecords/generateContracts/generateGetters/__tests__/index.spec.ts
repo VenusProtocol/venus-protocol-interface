@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { fakeContractConfigs } from 'libs/contracts/__testUtils__/fakeConfig';
 import writeFile from 'utilities/writeFile';

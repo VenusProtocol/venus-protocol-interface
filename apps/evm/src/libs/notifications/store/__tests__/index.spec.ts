@@ -1,6 +1,6 @@
 import { store } from '..';
 import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
-import { AddNotificationInput } from '../types';
+import type { AddNotificationInput } from '../types';
 
 describe('store', () => {
   beforeEach(() => {

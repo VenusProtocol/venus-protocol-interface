@@ -1,10 +1,10 @@
 import {
-  IsolatedPoolComptroller,
-  PoolLens,
-  RewardsDistributor,
+  type IsolatedPoolComptroller,
+  type PoolLens,
+  type RewardsDistributor,
   getRewardsDistributorContract,
 } from 'libs/contracts';
-import { Provider } from 'libs/wallet';
+import type { Provider } from 'libs/wallet';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 
 export interface RewardsDistributorSettingsPromise {

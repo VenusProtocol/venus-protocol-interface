@@ -1,12 +1,12 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getVrtConversionEndTime, {
-  GetVrtConversionEndTimeOutput,
+  type GetVrtConversionEndTimeOutput,
 } from 'clients/api/queries/getVrtConversionEndTime';
 import FunctionKey from 'constants/functionKey';
 import { useGetVrtConverterContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 export type UseGetVrtConversionEndTimeIndexQueryIndex = [

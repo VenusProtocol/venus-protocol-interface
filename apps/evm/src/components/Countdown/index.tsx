@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 import ReactCountdown from 'react-countdown';
-import { CountdownRenderProps } from 'react-countdown/dist/Countdown';
+import type { CountdownRenderProps } from 'react-countdown/dist/Countdown';
 
 import { useTranslation } from 'libs/translations';
 

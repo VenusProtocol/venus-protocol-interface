@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 
-import { TokenTextField, TokenTextFieldProps } from '../TokenTextField';
+import { TokenTextField, type TokenTextFieldProps } from '../TokenTextField';
 
 interface FormikTokenTextFieldProps
   extends Omit<TokenTextFieldProps, 'name' | 'onChange' | 'value'> {

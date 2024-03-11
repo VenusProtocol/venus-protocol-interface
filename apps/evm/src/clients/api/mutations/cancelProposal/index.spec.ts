@@ -1,6 +1,6 @@
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
-import { GovernorBravoDelegate } from 'libs/contracts';
+import type { GovernorBravoDelegate } from 'libs/contracts';
 
 import cancelProposal from '.';
 

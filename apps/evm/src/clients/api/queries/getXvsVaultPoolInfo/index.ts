@@ -1,5 +1,5 @@
 import formatToPoolInfo from './formatToPoolInfo';
-import { GetXvsVaultPoolInfoInput, GetXvsVaultPoolInfoOutput } from './types';
+import type { GetXvsVaultPoolInfoInput, GetXvsVaultPoolInfoOutput } from './types';
 
 export * from './types';
 

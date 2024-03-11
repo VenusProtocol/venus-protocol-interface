@@ -2,7 +2,7 @@ import { request } from 'graphql-request';
 
 import gql from 'clients/subgraph/gql';
 import config from 'config';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 export interface GetIsolatedPoolParticipantsCountInput {
   chainId: ChainId;

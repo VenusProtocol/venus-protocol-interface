@@ -1,10 +1,10 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
-import getVaiRepayApr, { GetVaiRepayAprOutput } from 'clients/api/queries/getVaiRepayApr';
+import getVaiRepayApr, { type GetVaiRepayAprOutput } from 'clients/api/queries/getVaiRepayApr';
 import FunctionKey from 'constants/functionKey';
 import { useGetVaiControllerContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 export type UseGetVaiRepayAprQueryKey = [FunctionKey.GET_VAI_REPAY_APR, { chainId: ChainId }];

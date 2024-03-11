@@ -1,6 +1,6 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
-import { VaiVault } from 'libs/contracts';
+import type { VaiVault } from 'libs/contracts';
 
 export interface GetVaiVaultUserInfoInput {
   vaiVaultContract: VaiVault;

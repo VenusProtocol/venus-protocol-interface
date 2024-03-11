@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import { VaiVault } from 'libs/contracts';
+import type { VaiVault } from 'libs/contracts';
 
-import { GetVaiVaultUserInfoOutput } from './types';
+import type { GetVaiVaultUserInfoOutput } from './types';
 
 const formatToUserInfo = ({
   amount,

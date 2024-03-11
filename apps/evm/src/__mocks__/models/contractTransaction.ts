@@ -1,4 +1,4 @@
-import { BigNumber as BN, ContractTransaction } from 'ethers';
+import { BigNumber as BN, type ContractTransaction } from 'ethers';
 
 import { ChainId } from 'types';
 

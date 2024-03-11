@@ -1,6 +1,6 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
-import { Asset, Token } from 'types';
+import type { Asset, Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 const calculateCollateralValue = ({

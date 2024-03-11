@@ -1,8 +1,8 @@
-import { Select, SelectOption } from 'components';
+import { Select, type SelectOption } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { cn } from 'utilities';
 
 export interface ChainSelectProps {

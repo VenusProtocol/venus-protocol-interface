@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import tokens, { xvs } from '__mocks__/models/tokens';

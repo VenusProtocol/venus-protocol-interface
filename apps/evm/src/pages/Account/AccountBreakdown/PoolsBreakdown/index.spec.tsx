@@ -1,7 +1,7 @@
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
-import PoolsBreakdown, { PoolsBreakdownProps } from '.';
+import PoolsBreakdown, { type PoolsBreakdownProps } from '.';
 import TEST_IDS from './testIds';
 
 const baseProps: PoolsBreakdownProps = {

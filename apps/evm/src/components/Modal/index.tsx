@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Modal as MUIModal, ModalProps as MUIModalProps } from '@mui/material';
+import { Button, Modal as MUIModal, type ModalProps as MUIModalProps } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 import config from 'config';
 

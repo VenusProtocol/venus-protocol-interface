@@ -1,7 +1,7 @@
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vBusd } from '__mocks__/models/vTokens';
 
-import { LegacyPoolComptroller } from 'libs/contracts';
+import type { LegacyPoolComptroller } from 'libs/contracts';
 
 import enterMarket from '.';
 

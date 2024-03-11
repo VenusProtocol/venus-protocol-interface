@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
@@ -10,9 +10,9 @@ import { renderComponent } from 'testUtils/render';
 import { useGetBalanceOf, wrapTokensAndSupply } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
-import { UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
-import { Asset, ChainId } from 'types';
+import { type Asset, ChainId } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
 import Supply from '..';

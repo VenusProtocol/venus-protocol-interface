@@ -1,6 +1,6 @@
-import { WithdrawFromVaiVaultInput, queryClient, withdrawFromVaiVault } from 'clients/api';
+import { type WithdrawFromVaiVaultInput, queryClient, withdrawFromVaiVault } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { useGetVaiVaultContract } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';

@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useGetBalanceOf, useGetLegacyPool, useGetVenusVaiVaultDailyRate } from 'clients/api';
-import { Table, TableColumn, TokenIconWithSymbol } from 'components';
+import { Table, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useGetVaiVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { RewardDistributorDistribution, Token } from 'types';
+import type { RewardDistributorDistribution, Token } from 'types';
 import {
   areTokensEqual,
   calculateApy,

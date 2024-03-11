@@ -1,8 +1,8 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getIsolatedPools, {
-  GetIsolatedPoolsInput,
-  GetIsolatedPoolsOutput,
+  type GetIsolatedPoolsInput,
+  type GetIsolatedPoolsOutput,
 } from 'clients/api/queries/getIsolatedPools';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -15,7 +15,7 @@ import {
 } from 'libs/contracts';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useChainId, useProvider } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedInput = Omit<

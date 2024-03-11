@@ -1,6 +1,6 @@
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { areAddressesEqual } from 'utilities';
 
 import { NoticeInfo, NoticeWarning } from '../../components/Notice';

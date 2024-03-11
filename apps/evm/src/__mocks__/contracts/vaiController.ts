@@ -1,6 +1,6 @@
 import { BigNumber as BN } from 'ethers';
 
-import { VaiController } from 'libs/contracts';
+import type { VaiController } from 'libs/contracts';
 
 const vaiControllerResponses: {
   getMintableVAI: Awaited<ReturnType<VaiController['getMintableVAI']>>;

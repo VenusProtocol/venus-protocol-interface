@@ -7,11 +7,11 @@ import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/a
 import { Button, NoticeInfo, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import useVote, { UseVoteParams } from 'hooks/useVote';
+import useVote, { type UseVoteParams } from 'hooks/useVote';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet';
-import { ProposalState, Proposal as ProposalType, Token } from 'types';
+import { ProposalState, type Proposal as ProposalType, type Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { Description } from './Description';

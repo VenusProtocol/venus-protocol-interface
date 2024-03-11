@@ -1,17 +1,17 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import { QueryObserverOptions } from 'react-query';
+import type { QueryObserverOptions } from 'react-query';
 
 import {
-  GetHypotheticalPrimeApysOutput,
+  type GetHypotheticalPrimeApysOutput,
   useGetHypotheticalPrimeApys,
   useGetPrimeDistributionForMarket,
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import FunctionKey from 'constants/functionKey';
+import type FunctionKey from 'constants/functionKey';
 import { useGetToken } from 'libs/tokens';
-import { VToken } from 'types';
+import type { VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 interface UseGetPrimeEstimationInput {

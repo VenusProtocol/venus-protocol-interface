@@ -1,5 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';

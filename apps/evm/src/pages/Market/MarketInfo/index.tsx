@@ -3,7 +3,7 @@ import { LabeledInlineContent } from 'components';
 import { useTranslation } from 'libs/translations';
 
 import { MarketCard } from '../MarketCard';
-import { Stat } from '../types';
+import type { Stat } from '../types';
 import { useStyles } from './styles';
 
 export interface MarketInfoProps {

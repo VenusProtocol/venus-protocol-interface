@@ -1,6 +1,6 @@
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
-import { Prime } from 'libs/contracts';
+import type { Prime } from 'libs/contracts';
 
 import claimPrimeToken from '.';
 

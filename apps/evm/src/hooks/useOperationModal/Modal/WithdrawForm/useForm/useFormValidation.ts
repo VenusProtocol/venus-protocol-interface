@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { FormError, FormValues } from './types';
+import type { FormError, FormValues } from './types';
 
 interface UseFormValidationInput {
   limitTokens: BigNumber;

@@ -2,7 +2,7 @@
 // this adds jest-dom's custom assertions
 import '@testing-library/jest-dom';
 import initializeLibraries from 'initializeLibraries';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 // Polyfill "window.fetch"
 import 'whatwg-fetch';
 

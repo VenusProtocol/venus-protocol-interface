@@ -1,8 +1,8 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getPoolDelegateApprovalStatus, {
-  GetNativeTokenGatewayDelegateApprovalInput,
-  GetNativeTokenGatewayDelegateApprovalOutput,
+  type GetNativeTokenGatewayDelegateApprovalInput,
+  type GetNativeTokenGatewayDelegateApprovalOutput,
 } from 'clients/api/queries/getPoolDelegateApprovalStatus';
 import FunctionKey from 'constants/functionKey';
 import { useGetIsolatedPoolComptrollerContract } from 'libs/contracts';

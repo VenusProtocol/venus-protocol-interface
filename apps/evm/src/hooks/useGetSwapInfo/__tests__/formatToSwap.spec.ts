@@ -6,7 +6,7 @@ import { busd, xvs } from '__mocks__/models/tokens';
 import { ChainId } from 'types';
 
 import formatToSwap from '../formatToSwap';
-import { FormatToSwapInput } from '../types';
+import type { FormatToSwapInput } from '../types';
 
 const fakeRoute = {
   path: [

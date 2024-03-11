@@ -8,7 +8,7 @@ import {
 } from 'clients/api';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import { Asset, TokenAction } from 'types';
+import type { Asset, TokenAction } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
 export interface UseGetHypotheticalUserPrimeApysInput {

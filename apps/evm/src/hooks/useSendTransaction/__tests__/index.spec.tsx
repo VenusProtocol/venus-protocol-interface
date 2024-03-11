@@ -1,5 +1,5 @@
 import noop from 'noop-ts';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { renderHook } from 'testUtils/render';

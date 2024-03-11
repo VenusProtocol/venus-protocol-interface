@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
-import { AccountData, AccountDataProps } from '..';
+import { AccountData, type AccountDataProps } from '..';
 
 describe('AccountData', () => {
   it('renders without crashing', async () => {

@@ -2,7 +2,7 @@
 import Typography from '@mui/material/Typography';
 
 import { useTranslation } from 'libs/translations';
-import { Asset } from 'types';
+import type { Asset } from 'types';
 import {
   compareBigNumbers,
   formatCentsToReadableValue,
@@ -13,7 +13,7 @@ import { TextButton } from '../../Button';
 import { Icon } from '../../Icon';
 import { TokenIconWithSymbol } from '../../TokenIconWithSymbol';
 import { useStyles as useParentStyles } from '../styles';
-import { WarningType } from '../types';
+import type { WarningType } from '../types';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 

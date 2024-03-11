@@ -2,10 +2,10 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { Table, TableProps, TokenIconWithSymbol } from 'components';
+import { Table, type TableProps, TokenIconWithSymbol } from 'components';
 import { routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
-import { Vault } from 'types';
+import type { Vault } from 'types';
 import {
   compareBigNumbers,
   compareNumbers,

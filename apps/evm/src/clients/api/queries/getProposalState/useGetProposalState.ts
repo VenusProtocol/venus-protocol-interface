@@ -1,8 +1,8 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getProposalState, {
-  GetProposalStateInput,
-  GetProposalStateOutput,
+  type GetProposalStateInput,
+  type GetProposalStateOutput,
 } from 'clients/api/queries/getProposalState';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';

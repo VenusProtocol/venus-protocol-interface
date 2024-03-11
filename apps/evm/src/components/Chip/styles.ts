@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { alpha, useTheme } from '@mui/material';
 
-import { ChipType } from './types';
+import type { ChipType } from './types';
 
 export const useStyles = () => {
   const theme = useTheme();

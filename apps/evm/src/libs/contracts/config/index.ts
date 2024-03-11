@@ -51,7 +51,7 @@ import venusProtocolEthereumDeployments from '@venusprotocol/venus-protocol/depl
 import venusProtocolOpBnbMainnetDeployments from '@venusprotocol/venus-protocol/deployments/opbnbmainnet_addresses.json';
 import venusProtocolOpBnbTestnetDeployments from '@venusprotocol/venus-protocol/deployments/opbnbtestnet_addresses.json';
 import venusProtocolSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/sepolia_addresses.json';
-import { type ContractInterface } from 'ethers';
+import type { ContractInterface } from 'ethers';
 
 import { ChainId } from 'types';
 

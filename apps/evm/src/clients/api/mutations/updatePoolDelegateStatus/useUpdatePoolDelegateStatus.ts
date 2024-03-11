@@ -1,6 +1,10 @@
-import { UpdatePoolDelegateStatusInput, queryClient, updatePoolDelegateStatus } from 'clients/api';
+import {
+  type UpdatePoolDelegateStatusInput,
+  queryClient,
+  updatePoolDelegateStatus,
+} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetIsolatedPoolComptrollerContract } from 'libs/contracts';
 import { callOrThrow } from 'utilities';
 

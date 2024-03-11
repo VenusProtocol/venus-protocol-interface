@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
+import type { ExactAmountInSwap, ExactAmountOutSwap } from 'types';
 
 import { busd, xvs } from './tokens';
 

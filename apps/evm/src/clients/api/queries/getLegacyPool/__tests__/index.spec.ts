@@ -1,4 +1,4 @@
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeLegacyPoolComptrollerContractResponses from '__mocks__/contracts/legacyPoolComptroller';
 import fakePrimeContractResponses from '__mocks__/contracts/prime';
@@ -7,7 +7,7 @@ import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
 import tokens, { vai, xvs } from '__mocks__/models/tokens';
 
-import {
+import type {
   LegacyPoolComptroller,
   Prime,
   ResilientOracle,

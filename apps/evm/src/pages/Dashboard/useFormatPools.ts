@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Asset, Pool } from 'types';
+import type { Asset, Pool } from 'types';
 
 const isAssetInSearch = ({ asset, searchValue }: { asset: Asset; searchValue: string }) => {
   const lowerCasedSearchValue = searchValue.toLowerCase();

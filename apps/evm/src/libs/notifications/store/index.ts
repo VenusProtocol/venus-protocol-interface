@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import { createStoreSelectors } from 'utilities/createStoreSelectors';
 
-import { Notification, StoreState } from './types';
+import type { Notification, StoreState } from './types';
 
 const useStore = create<StoreState>()(set => ({
   notifications: [],

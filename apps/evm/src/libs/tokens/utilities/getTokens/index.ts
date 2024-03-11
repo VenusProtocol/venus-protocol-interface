@@ -1,4 +1,4 @@
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 import { tokens } from '../../infos/commonTokens';
 

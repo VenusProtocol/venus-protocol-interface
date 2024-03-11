@@ -2,7 +2,7 @@ import { BigNumber as BN } from 'ethers';
 
 import fakeAddress from '__mocks__/models/address';
 
-import { PoolLens } from 'libs/contracts';
+import type { PoolLens } from 'libs/contracts';
 
 import getVTokenBalancesAll from '..';
 

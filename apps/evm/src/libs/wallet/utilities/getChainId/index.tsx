@@ -1,6 +1,6 @@
 import { chains, defaultChain } from 'libs/wallet/chains';
 import { getUnsafeChainIdFromSearchParams } from 'libs/wallet/utilities/getUnsafeChainIdFromSearchParams';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 export const getChainId = (input?: { searchParams?: URLSearchParams }) => {
   const defaultedSearchParams =

@@ -1,4 +1,4 @@
-import { IsolatedPoolComptroller } from 'libs/contracts';
+import type { IsolatedPoolComptroller } from 'libs/contracts';
 
 export interface UpdatePoolDelegateStatusInput {
   poolComptrollerContract: IsolatedPoolComptroller;

@@ -1,5 +1,5 @@
 import formatToLockedDeposit from './formatToLockedDeposit';
-import { GetXvsVaultLockedDepositsInput, GetXvsVaultLockedDepositsOutput } from './types';
+import type { GetXvsVaultLockedDepositsInput, GetXvsVaultLockedDepositsOutput } from './types';
 
 export * from './types';
 

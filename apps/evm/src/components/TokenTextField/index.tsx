@@ -2,10 +2,10 @@
 import BigNumber from 'bignumber.js';
 import { forwardRef, useMemo } from 'react';
 
-import { Token } from 'types';
+import type { Token } from 'types';
 
-import { ButtonProps, TertiaryButton } from '../Button';
-import { TextField, TextFieldProps } from '../TextField';
+import { type ButtonProps, TertiaryButton } from '../Button';
+import { TextField, type TextFieldProps } from '../TextField';
 
 export interface RightMaxButton extends Omit<ButtonProps, 'variant' | 'children' | 'small'> {
   label: string;

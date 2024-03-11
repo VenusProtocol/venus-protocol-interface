@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 import { useGetToken } from 'libs/tokens';
 import { convertMantissaToTokens } from 'utilities';
-import { FormValues } from '../../types';
+import type { FormValues } from '../../types';
 
 export enum ErrorCode {
   HIGHER_THAN_WALLET_BALANCE = 'HIGHER_THAN_WALLET_BALANCE',

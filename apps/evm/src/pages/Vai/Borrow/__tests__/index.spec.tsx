@@ -1,6 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import vaiContractResponses from '__mocks__/contracts/vai';
 import vaiControllerResponses from '__mocks__/contracts/vaiController';

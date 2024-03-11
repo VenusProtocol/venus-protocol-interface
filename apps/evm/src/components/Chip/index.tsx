@@ -7,7 +7,7 @@ import { ProposalType } from 'types';
 
 import { Icon } from '../Icon';
 import { useStyles } from './styles';
-import { ChipProps, ProposalTypeChipProps } from './types';
+import type { ChipProps, ProposalTypeChipProps } from './types';
 
 export * from './types';
 

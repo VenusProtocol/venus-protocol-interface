@@ -11,7 +11,7 @@ import vrtLogo from 'libs/tokens/img/vrt.svg';
 import wbnbLogo from 'libs/tokens/img/wbnb.svg';
 import wethLogo from 'libs/tokens/img/weth.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
-import { Token } from 'types';
+import type { Token } from 'types';
 
 export const xvs: Token = {
   address: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',

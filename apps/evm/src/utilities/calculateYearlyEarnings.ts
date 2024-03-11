@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { Asset } from 'types';
+import type { Asset } from 'types';
 
 import getCombinedDistributionApys from './getCombinedDistributionApys';
 

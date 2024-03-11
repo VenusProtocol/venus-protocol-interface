@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
-import { XvsVault } from 'libs/contracts';
-import { LockedDeposit } from 'types';
+import type { XvsVault } from 'libs/contracts';
+import type { LockedDeposit } from 'types';
 
 const formatToLockedDeposit = ([amount, lockedUntil]: Awaited<
   ReturnType<XvsVault['getWithdrawalRequests']>

@@ -2,7 +2,7 @@ import { BigNumber as BN } from 'ethers';
 
 import { assetData } from '__mocks__/models/asset';
 
-import { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
+import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
 
 import getVTokenApySimulations from '..';
 

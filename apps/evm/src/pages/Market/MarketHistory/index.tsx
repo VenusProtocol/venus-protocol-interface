@@ -3,14 +3,14 @@ import { useMemo } from 'react';
 import { Spinner } from 'components';
 import { ApyChart } from 'components/charts/ApyChart';
 import { useTranslation } from 'libs/translations';
-import { Asset } from 'types';
+import type { Asset } from 'types';
 import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   getCombinedDistributionApys,
 } from 'utilities';
 
-import { MarketCard, MarketCardProps } from '../MarketCard';
+import { MarketCard, type MarketCardProps } from '../MarketCard';
 import TEST_IDS from '../testIds';
 import useGetChartData from './useGetChartData';
 

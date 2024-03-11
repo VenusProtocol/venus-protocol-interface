@@ -1,8 +1,8 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getCurrentVotes, {
-  GetCurrentVotesInput,
-  GetCurrentVotesOutput,
+  type GetCurrentVotesInput,
+  type GetCurrentVotesOutput,
 } from 'clients/api/queries/getCurrentVotes';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract } from 'libs/contracts';

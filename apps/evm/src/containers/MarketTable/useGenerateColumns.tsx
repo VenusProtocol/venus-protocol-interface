@@ -7,7 +7,7 @@ import {
   InfoIcon,
   LayeredValues,
   ProgressBar,
-  TableColumn,
+  type TableColumn,
   Toggle,
   TokenIconWithSymbol,
 } from 'components';
@@ -29,7 +29,7 @@ import {
 
 import { Apy } from './Apy';
 import { useStyles } from './styles';
-import { ColumnKey, PoolAsset } from './types';
+import type { ColumnKey, PoolAsset } from './types';
 
 // Translation keys: do not remove this comment
 // t('marketTable.columnKeys.asset')

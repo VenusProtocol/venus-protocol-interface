@@ -1,8 +1,8 @@
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 
 import { withCenterStory } from 'stories/decorators';
 
-import { Icon, IconName, IconProps } from '.';
+import { Icon, type IconName, type IconProps } from '.';
 import * as Svgs from './icons';
 
 export default {

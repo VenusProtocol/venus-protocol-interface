@@ -1,6 +1,6 @@
-import { BridgeXvsInput, bridgeXvs, queryClient } from 'clients/api';
+import { type BridgeXvsInput, bridgeXvs, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import {
   useGetXVSProxyOFTDestContract,
   useGetXVSProxyOFTSrcContract,

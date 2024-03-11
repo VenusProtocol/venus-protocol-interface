@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import { Vai, VaiController } from 'libs/contracts';
+import type { Vai, VaiController } from 'libs/contracts';
 
-import { GetMintableVaiOutput } from './types';
+import type { GetMintableVaiOutput } from './types';
 
 interface FormatMintableVaiInput {
   mintCapResponse: Awaited<ReturnType<VaiController['mintCap']>>;

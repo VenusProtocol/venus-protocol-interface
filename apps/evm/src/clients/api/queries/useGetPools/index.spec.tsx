@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -7,7 +7,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { useGetLegacyPool } from 'clients/api';
 
-import useGetPools, { UseGetPoolsOutput } from '.';
+import useGetPools, { type UseGetPoolsOutput } from '.';
 
 describe('api/queries/useGetPools', () => {
   beforeEach(() => {

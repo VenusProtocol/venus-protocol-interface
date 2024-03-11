@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -10,7 +10,7 @@ import { renderComponent } from 'testUtils/render';
 import { borrow } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { en } from 'libs/translations';
-import { Asset, Pool } from 'types';
+import type { Asset, Pool } from 'types';
 
 import BorrowForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';

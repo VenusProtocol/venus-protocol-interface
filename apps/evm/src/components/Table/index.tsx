@@ -14,7 +14,7 @@ import { Spinner } from '../Spinner';
 import Head from './Head';
 import TableCards from './TableCards';
 import { useStyles } from './styles';
-import { Order, TableColumn, TableProps } from './types';
+import type { Order, TableColumn, TableProps } from './types';
 
 export * from './types';
 

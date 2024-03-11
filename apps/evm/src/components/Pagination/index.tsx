@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 import { Button } from '../Button';
-import { Icon, IconProps } from '../Icon';
+import { Icon, type IconProps } from '../Icon';
 import { useStyles } from './styles';
 import { usePagination } from './usePagination';
 

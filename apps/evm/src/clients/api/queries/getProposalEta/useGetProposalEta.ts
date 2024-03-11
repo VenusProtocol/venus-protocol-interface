@@ -1,8 +1,8 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getProposalEta, {
-  GetProposalEtaInput,
-  GetProposalEtaOutput,
+  type GetProposalEtaInput,
+  type GetProposalEtaOutput,
 } from 'clients/api/queries/getProposalEta';
 import FunctionKey from 'constants/functionKey';
 import { useGetGovernorBravoDelegateContract } from 'libs/contracts';

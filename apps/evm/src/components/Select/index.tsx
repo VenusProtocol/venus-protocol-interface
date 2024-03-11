@@ -8,7 +8,7 @@ import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Modal } from '../Modal';
 import { renderLabel } from './renderLabel';
-import { SelectOption, SelectProps } from './types';
+import type { SelectOption, SelectProps } from './types';
 
 export * from './types';
 

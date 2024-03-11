@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { MutationObserverOptions, useMutation, useQuery } from 'react-query';
+import { type MutationObserverOptions, useMutation, useQuery } from 'react-query';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -13,7 +13,7 @@ import voters from '__mocks__/models/voters';
 
 import FunctionKey from 'constants/functionKey';
 
-import { GetBalanceOfInput } from '../queries/getBalanceOf';
+import type { GetBalanceOfInput } from '../queries/getBalanceOf';
 
 // Queries
 export const getIsAddressAuthorized = vi.fn(async accountAddress => fakeAddress !== accountAddress);

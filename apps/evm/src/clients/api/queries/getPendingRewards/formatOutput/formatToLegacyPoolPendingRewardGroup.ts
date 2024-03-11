@@ -1,9 +1,9 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
-import { VenusLens } from 'libs/contracts';
-import { Token } from 'types';
+import type { VenusLens } from 'libs/contracts';
+import type { Token } from 'types';
 
-import { LegacyPoolPendingRewardGroup } from '../types';
+import type { LegacyPoolPendingRewardGroup } from '../types';
 import formatRewardSummaryData from './formatRewardSummaryData';
 
 function formatToLegacyPoolPendingRewardGroup({

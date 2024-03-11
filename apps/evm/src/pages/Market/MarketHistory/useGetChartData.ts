@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useGetMarketHistory } from 'clients/api';
-import { type ApyChartProps } from 'components/charts/ApyChart';
-import { VToken } from 'types';
+import type { ApyChartProps } from 'components/charts/ApyChart';
+import type { VToken } from 'types';
 
 const useGetChartData = ({ vToken }: { vToken: VToken }) => {
   const {

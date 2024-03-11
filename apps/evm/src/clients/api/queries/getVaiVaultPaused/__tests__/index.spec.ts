@@ -1,4 +1,4 @@
-import { VaiVault } from 'libs/contracts';
+import type { VaiVault } from 'libs/contracts';
 
 import { getVaiVaultPaused } from '..';
 

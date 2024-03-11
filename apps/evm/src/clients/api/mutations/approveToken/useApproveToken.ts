@@ -1,9 +1,9 @@
-import { ApproveTokenInput, approveToken, queryClient } from 'clients/api';
+import { type ApproveTokenInput, approveToken, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetTokenContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { Token } from 'types';
+import type { Token } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedApproveTokenInput = Omit<ApproveTokenInput, 'tokenContract'>;

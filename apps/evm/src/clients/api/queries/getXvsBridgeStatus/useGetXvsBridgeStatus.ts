@@ -1,6 +1,10 @@
-import { QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from 'react-query';
 
-import { GetXvsBridgeStatusInput, GetXvsBridgeStatusOutput, getXvsBridgeStatus } from 'clients/api';
+import {
+  type GetXvsBridgeStatusInput,
+  type GetXvsBridgeStatusOutput,
+  getXvsBridgeStatus,
+} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';

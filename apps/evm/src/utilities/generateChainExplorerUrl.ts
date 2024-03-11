@@ -1,5 +1,5 @@
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 export type UrlType = 'address' | 'token' | 'tx' | 'layerZeroTx';
 

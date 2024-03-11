@@ -3,7 +3,7 @@ import { Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
 import { getPancakePairV2Contract } from 'libs/contracts';
 
 import formatToPairs from './formatToPairs';
-import { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from './types';
+import type { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from './types';
 
 export * from './types';
 

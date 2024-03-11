@@ -13,14 +13,14 @@ import { useGetNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { Asset, Pool } from 'types';
+import type { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
 import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
-import useForm, { FormValues, UseFormInput } from './useForm';
+import useForm, { type FormValues, type UseFormInput } from './useForm';
 
 export interface WithdrawFormUiProps {
   asset: Asset;

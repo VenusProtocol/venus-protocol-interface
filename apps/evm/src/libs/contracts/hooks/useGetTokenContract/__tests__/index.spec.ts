@@ -1,5 +1,5 @@
 import { Contract } from 'ethers';
-import Vi from 'vitest';
+import type Vi from 'vitest';
 
 import fakeContractAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
@@ -7,7 +7,10 @@ import fakeSigner from '__mocks__/models/signer';
 import { xvs } from '__mocks__/models/tokens';
 import { renderHook } from 'testUtils/render';
 
-import { GetTokenContractInput, getTokenContract } from 'libs/contracts/utilities/getTokenContract';
+import {
+  type GetTokenContractInput,
+  getTokenContract,
+} from 'libs/contracts/utilities/getTokenContract';
 import { useProvider, useSigner } from 'libs/wallet';
 
 import { useGetTokenContract } from '..';

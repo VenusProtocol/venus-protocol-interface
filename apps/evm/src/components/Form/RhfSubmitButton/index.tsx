@@ -1,10 +1,10 @@
-import { Control, useFormState } from 'react-hook-form';
+import { type Control, useFormState } from 'react-hook-form';
 
-import { ButtonProps, PrimaryButton } from 'components';
+import { type ButtonProps, PrimaryButton } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { cn } from 'utilities';
 
-import { ApproveTokenSteps, ApproveTokenStepsProps } from './ApproveTokenSteps';
+import { ApproveTokenSteps, type ApproveTokenStepsProps } from './ApproveTokenSteps';
 
 export interface RhfSubmitButtonProps extends ButtonProps {
   control: Control<any>;

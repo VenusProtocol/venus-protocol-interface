@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 
 import { getToken } from '../../utilities/getToken';
 

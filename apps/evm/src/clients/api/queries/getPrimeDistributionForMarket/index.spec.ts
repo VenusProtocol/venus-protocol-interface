@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { vUsdt } from '__mocks__/models/vTokens';
 
-import { Prime } from 'libs/contracts';
+import type { Prime } from 'libs/contracts';
 
 import getPrimeDistributionForMarket from '.';
 

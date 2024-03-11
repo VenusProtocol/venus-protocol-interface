@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js';
-import { ContractTransaction } from 'ethers';
+import type BigNumber from 'bignumber.js';
+import type { ContractTransaction } from 'ethers';
 
-import { VBep20, VBnb } from 'libs/contracts';
+import type { VBep20, VBnb } from 'libs/contracts';
 
 export interface RedeemInput {
   tokenContract: VBep20 | VBnb;

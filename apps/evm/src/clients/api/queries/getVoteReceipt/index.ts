@@ -1,5 +1,5 @@
-import { GovernorBravoDelegate } from 'libs/contracts';
-import { VoteSupport } from 'types';
+import type { GovernorBravoDelegate } from 'libs/contracts';
+import type { VoteSupport } from 'types';
 
 export interface GetVoteReceiptInput {
   governorBravoDelegateContract: GovernorBravoDelegate;
