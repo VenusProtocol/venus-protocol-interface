@@ -26,7 +26,6 @@
     "@commitlint/config-conventional": "17.7.0",
     "commitlint": "^18.1.0",
     "husky": "^9.0.6",
-    "lint-staged": "^15.0.1",
     "reg-keygen-git-hash-plugin": "^0.14.2",
     "reg-notify-github-plugin": "^0.14.2",
     "reg-publish-s3-plugin": "^0.12.2",
