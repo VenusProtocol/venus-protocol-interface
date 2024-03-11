@@ -21,7 +21,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: "18.16.1"
+          node-version: "20.11.1"
           cache: "yarn"
 
       - name: Install dependencies
@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: "18.16.1"
+          node-version: "20.11.1"
           cache: "yarn"
 
       - name: Install dependencies
