@@ -12,7 +12,7 @@
     "test": "TZ=UTC VITE_ENVIRONMENT=testnet vitest run",
     "test:regression": "reg-suit run",
     "clean": "rm -rf .turbo && rm -rf node_modules",
-    "lint": "biome check . ",
+    "lint": "biome check . && yarn lint:styles",
     "lint:styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
     "tsc": "tsc --noEmit",
     "extract-translations": "yarn i18next",
