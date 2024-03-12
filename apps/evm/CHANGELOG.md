@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.0.0
+
+### Major Changes
+
+- 678f33b: move chain logos to wallets lib
+
 ## 2.104.0
 
 ### Minor Changes
