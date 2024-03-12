@@ -31,11 +31,6 @@ export const disabledTokenActions: DisabledTokenAction[] = [
     address: '0xFeC3A63401Eb9C1476200d7C32c4009Be0154169',
     disabledActions: ['borrow', 'supply'],
   },
-  {
-    // TUSD
-    address: '0xB32171ecD878607FFc4F8FC0bCcE6852BB3149E0',
-    disabledActions: ['borrow', 'supply'],
-  },
   // BNB
   {
     address: '0x0000000000000000000000000000000000000000',
