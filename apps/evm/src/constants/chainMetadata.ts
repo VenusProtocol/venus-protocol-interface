@@ -1,6 +1,7 @@
-import bnbLogo from 'libs/tokens/img/bnb.svg';
-import ethLogo from 'libs/tokens/img/eth.svg';
 import { getToken } from 'libs/tokens/utilities/getToken';
+import bscLogo from 'libs/wallet/chains/img/bsc.svg';
+import ethLogo from 'libs/wallet/chains/img/eth.svg';
+import opbnbLogo from 'libs/wallet/chains/img/opbnb.svg';
 import { ChainId, type ChainMetadata } from 'types';
 
 export const CHAIN_METADATA: {
@@ -8,7 +9,7 @@ export const CHAIN_METADATA: {
 } = {
   [ChainId.BSC_MAINNET]: {
     name: 'BNB Chain',
-    logoSrc: bnbLogo,
+    logoSrc: bscLogo,
     explorerUrl: 'https://bscscan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com/',
     blockTimeMs: 3000,
@@ -18,7 +19,7 @@ export const CHAIN_METADATA: {
   },
   [ChainId.BSC_TESTNET]: {
     name: 'BNB testnet',
-    logoSrc: bnbLogo,
+    logoSrc: bscLogo,
     explorerUrl: 'https://testnet.bscscan.com',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
     blockTimeMs: 3000,
@@ -28,7 +29,7 @@ export const CHAIN_METADATA: {
   },
   [ChainId.OPBNB_MAINNET]: {
     name: 'opBNB',
-    logoSrc: bnbLogo,
+    logoSrc: opbnbLogo,
     explorerUrl: 'https://opbnb.bscscan.com/',
     layerZeroScanUrl: 'https://layerzeroscan.com/',
     blockTimeMs: 1000,
@@ -38,7 +39,7 @@ export const CHAIN_METADATA: {
   },
   [ChainId.OPBNB_TESTNET]: {
     name: 'opBNB testnet',
-    logoSrc: bnbLogo,
+    logoSrc: opbnbLogo,
     explorerUrl: 'https://opbnb-testnet.bscscan.com/',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
     blockTimeMs: 1000,
