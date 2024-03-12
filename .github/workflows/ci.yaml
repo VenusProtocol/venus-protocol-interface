@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   checks:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -34,9 +34,7 @@ jobs:
         run: yarn lint
 
   test:
-    runs-on: ubuntu-20.04
-    container:
-      image: node:14.15.1-buster
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
