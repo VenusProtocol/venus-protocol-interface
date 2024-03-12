@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.1.0
+
+### Minor Changes
+
+- 8516602: Enable supply and borrow actions for TUSD
+
 ## 3.0.0
 
 ### Major Changes
