@@ -12,10 +12,12 @@ export interface ApyWithPrimeBoostProps {
   apyPercentage: BigNumber;
   apyPercentageWithoutPrimeBoost: BigNumber;
   readableLtv: string;
+  className?: string;
 }
 
 export const ApyWithPrimeBoost: React.FC<ApyWithPrimeBoostProps> = ({
   type,
+  className,
   tokenAddress,
   apyPercentage,
   apyPercentageWithoutPrimeBoost,
@@ -33,7 +35,7 @@ export const ApyWithPrimeBoost: React.FC<ApyWithPrimeBoostProps> = ({
   });
 
   return (
-    <div>
+    <div className={className}>
       <div className="whitespace-nowrap">
         <p className="mr-1 inline-block align-middle">
           <span className="inline-block align-baseline text-sm line-through">

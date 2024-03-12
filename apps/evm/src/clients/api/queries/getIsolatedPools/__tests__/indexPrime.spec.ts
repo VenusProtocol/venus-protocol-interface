@@ -109,7 +109,6 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
 
     expect(response).toMatchSnapshot();
   });
-<<<<<<< HEAD
 
   it('filters out Prime distributions and simulations that are 0', async () => {
     const fakePrimeContract = {
@@ -141,6 +140,4 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
 
     expect(response).toMatchSnapshot();
   });
-=======
->>>>>>> 6aec71ab (feat: handle deprecated assets)
 });

@@ -1,7 +1,7 @@
 import { type InputHTMLAttributes, useMemo, useState } from 'react';
 
 import { useGetPools } from 'clients/api';
-import { type Tag, TagGroup, TextField } from 'components';
+import { type Tag, TagGroup, TextField, Toggle } from 'components';
 import { MarketTable } from 'containers/MarketTable';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -15,6 +15,7 @@ const Dashboard: React.FC = () => {
   const { accountAddress } = useAccountAddress();
 
   const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
+  const [shouldDisplayDeprecatedAssets, setShouldDisplayDeprecatedAssets] = useState(false);
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
@@ -27,6 +28,7 @@ const Dashboard: React.FC = () => {
   const pools = useFormatPools({
     pools: getPoolData?.pools || [],
     searchValue,
+    shouldDisplayDeprecatedAssets,
     selectedPoolIndex: selectedPoolTagIndex - 1,
   });
 
@@ -50,9 +52,26 @@ const Dashboard: React.FC = () => {
     <>
       <Banner />
 
-      <div className="mb-6 lg:flex lg:items-center lg:justify-between">
+      <div className="mb-6 space-y-6 lg:flex lg:items-center lg:justify-between lg:space-x-6 lg:space-y-0">
+        {pools.length > 0 && (
+          <TagGroup
+            tags={poolTags}
+            activeTagIndex={selectedPoolTagIndex}
+            onTagClick={setSelectedPoolTagIndex}
+            className="mx-[-16px] px-4 md:mx-0 md:px-0 lg:mr-6"
+          />
+        )}
+
+        <Toggle
+          onChange={() => setShouldDisplayDeprecatedAssets(currentValue => !currentValue)}
+          value={shouldDisplayDeprecatedAssets}
+          label={t('dashboard.deprecatedAssetsToggle.label')}
+          className="flex-shrink-0 lg:ml-auto"
+          isLight
+        />
+
         <TextField
-          className="mb-6 lg:order-2 lg:mb-0 lg:ml-auto lg:w-[300px]"
+          className="shrink-0 lg:w-[300px]"
           isSmall
           value={searchValue}
           onChange={handleSearchInputChange}
@@ -60,15 +79,6 @@ const Dashboard: React.FC = () => {
           leftIconSrc="magnifier"
           variant="secondary"
         />
-
-        {pools.length > 0 && (
-          <TagGroup
-            className="mx-[-16px] px-4 md:mx-0 md:px-0 lg:order-1 lg:mr-6"
-            tags={poolTags}
-            activeTagIndex={selectedPoolTagIndex}
-            onTagClick={setSelectedPoolTagIndex}
-          />
-        )}
       </div>
 
       <MarketTable

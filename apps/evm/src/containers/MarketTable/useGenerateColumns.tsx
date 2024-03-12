@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
@@ -18,6 +17,7 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import {
   areAddressesEqual,
+  cn,
   compareBigNumbers,
   compareBooleans,
   compareStrings,
@@ -25,6 +25,7 @@ import {
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
   getCombinedDistributionApys,
+  isAssetDeprecated,
 } from 'utilities';
 
 import { Apy } from './Apy';
@@ -122,8 +123,27 @@ const useGenerateColumns = ({
           selectOptionLabel: t(`marketTable.columnSelectOptionLabel.${column}`),
           align: index === 0 ? 'left' : 'right',
           renderCell: poolAsset => {
+            const isDeprecated = isAssetDeprecated({
+              disabledTokenActions: poolAsset.disabledTokenActions,
+            });
+
             if (column === 'asset') {
-              return <TokenIconWithSymbol token={poolAsset.vToken.underlyingToken} />;
+              return (
+                <div className="flex items-center space-x-2">
+                  <TokenIconWithSymbol
+                    token={poolAsset.vToken.underlyingToken}
+                    className="flex-shrink-0"
+                  />
+
+                  {isDeprecated && (
+                    <InfoIcon
+                      iconClassName="text-orange"
+                      iconName="attention"
+                      tooltip={t('marketTable.assetColumn.deprecatedAssetTooltip')}
+                    />
+                  )}
+                </div>
+              );
             }
 
             if (
@@ -132,7 +152,13 @@ const useGenerateColumns = ({
               column === 'labeledSupplyApyLtv' ||
               column === 'labeledBorrowApy'
             ) {
-              return <Apy asset={poolAsset} column={column} />;
+              return (
+                <Apy
+                  className={cn(isDeprecated && 'text-grey')}
+                  asset={poolAsset}
+                  column={column}
+                />
+              );
             }
 
             if (column === 'collateral') {
@@ -149,6 +175,7 @@ const useGenerateColumns = ({
             if (column === 'liquidity') {
               return (
                 <LayeredValues
+                  className={cn(isDeprecated && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.cashTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -165,10 +192,15 @@ const useGenerateColumns = ({
               const price = tokenPriceCents.isGreaterThan(PRICE_THRESHOLD)
                 ? tokenPriceCents
                 : new BigNumber(0);
-              return formatCentsToReadableValue({
-                value: price,
-                isTokenPrice: true,
-              });
+
+              return (
+                <span className={cn(isDeprecated && 'text-grey')}>
+                  {formatCentsToReadableValue({
+                    value: price,
+                    isTokenPrice: true,
+                  })}
+                </span>
+              );
             }
 
             if (column === 'pool') {
@@ -184,7 +216,13 @@ const useGenerateColumns = ({
 
               return (
                 <div>
-                  <Link to={to} className="text-offWhite hover:text-blue text-sm underline">
+                  <Link
+                    to={to}
+                    className={cn(
+                      'hover:text-blue text-sm underline',
+                      isDeprecated ? 'text-grey' : 'text-offWhite',
+                    )}
+                  >
                     {poolAsset.pool.name}
                   </Link>
                 </div>
@@ -194,6 +232,7 @@ const useGenerateColumns = ({
             if (column === 'userWalletBalance') {
               return (
                 <LayeredValues
+                  className={cn(isDeprecated && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.userWalletBalanceTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -208,6 +247,7 @@ const useGenerateColumns = ({
             if (column === 'userSupplyBalance') {
               return (
                 <LayeredValues
+                  className={cn(isDeprecated && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.userSupplyBalanceTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -222,6 +262,7 @@ const useGenerateColumns = ({
             if (column === 'userBorrowBalance') {
               return (
                 <LayeredValues
+                  className={cn(isDeprecated && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.userBorrowBalanceTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -236,6 +277,7 @@ const useGenerateColumns = ({
             if (column === 'supplyBalance') {
               return (
                 <LayeredValues
+                  className={cn(isDeprecated && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.supplyBalanceTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -250,6 +292,7 @@ const useGenerateColumns = ({
             if (column === 'borrowBalance') {
               return (
                 <LayeredValues
+                  className={cn(isDeprecated && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.borrowBalanceTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -273,9 +316,9 @@ const useGenerateColumns = ({
                     css={styles.percentOfLimitProgressBar}
                   />
 
-                  <Typography variant="small2" css={styles.white}>
+                  <span className={cn(isDeprecated ? 'text-grey' : 'text-offWhite')}>
                     {formatPercentageToReadableValue(poolAsset.userPercentOfLimit)}
-                  </Typography>
+                  </span>
                 </div>
               );
             }

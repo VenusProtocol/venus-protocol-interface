@@ -19,6 +19,7 @@ export interface ApyWithPrimeSimulationBoostProps {
   apyPercentage: BigNumber;
   readableLtv: string;
   xvs: Token;
+  className?: string;
 }
 
 export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostProps> = ({
@@ -28,6 +29,7 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
   apyPercentage,
   readableLtv,
   xvs,
+  className,
 }) => {
   const { t, Trans } = useTranslation();
   const primeCalculatorPagePath = usePrimeCalculatorPagePath({ tokenAddress });
@@ -71,7 +73,7 @@ export const ApyWithPrimeSimulationBoost: React.FC<ApyWithPrimeSimulationBoostPr
   };
 
   return (
-    <div>
+    <div className={className}>
       <p className="text-sm">
         {readableApy}{' '}
         <span className="text-grey text-sm">{type === 'supply' && <>/ {readableLtv}</>}</span>

@@ -1,8 +1,30 @@
 import { useMemo } from 'react';
 
 import type { Asset, Pool } from 'types';
+import { isAssetDeprecated } from 'utilities';
 
-const isAssetInSearch = ({ asset, searchValue }: { asset: Asset; searchValue: string }) => {
+const isAssetIncluded = ({
+  asset,
+  shouldDisplayDeprecatedAssets,
+  searchValue,
+}: {
+  asset: Asset;
+  searchValue: string;
+  shouldDisplayDeprecatedAssets: boolean;
+}) => {
+  // Handle deprecated assets
+  if (
+    !shouldDisplayDeprecatedAssets &&
+    isAssetDeprecated({ disabledTokenActions: asset.disabledTokenActions })
+  ) {
+    return false;
+  }
+
+  // Handle search
+  if (!searchValue) {
+    return true;
+  }
+
   const lowerCasedSearchValue = searchValue.toLowerCase();
   return asset.vToken.underlyingToken.symbol.toLowerCase().includes(lowerCasedSearchValue);
 };
@@ -10,29 +32,28 @@ const isAssetInSearch = ({ asset, searchValue }: { asset: Asset; searchValue: st
 const useFormatPools = ({
   pools,
   searchValue,
+  shouldDisplayDeprecatedAssets,
   selectedPoolIndex,
 }: {
   pools: Pool[];
   searchValue: string;
+  shouldDisplayDeprecatedAssets: boolean;
   selectedPoolIndex: number;
 }) => {
   const formattedPools = useMemo(() => {
     const filteredPools = selectedPoolIndex < 0 ? pools : [pools[selectedPoolIndex]];
 
-    if (!searchValue) {
-      return filteredPools;
-    }
-
     return filteredPools.map(pool => ({
       ...pool,
       assets: pool.assets.filter(asset =>
-        isAssetInSearch({
+        isAssetIncluded({
           asset,
+          shouldDisplayDeprecatedAssets,
           searchValue,
         }),
       ),
     }));
-  }, [pools, searchValue, selectedPoolIndex]);
+  }, [pools, searchValue, selectedPoolIndex, shouldDisplayDeprecatedAssets]);
 
   return formattedPools;
 };

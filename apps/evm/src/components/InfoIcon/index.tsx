@@ -1,19 +1,23 @@
 /** @jsxImportSource @emotion/react */
-import { Icon } from '../Icon';
+import { cn } from 'utilities';
+
+import { Icon, type IconName } from '../Icon';
 import { Tooltip } from '../Tooltip';
-import { useStyles } from './styles';
 
 export interface InfoIconProps {
   tooltip: string;
+  iconName?: IconName;
+  iconClassName?: string;
   className?: string;
 }
 
-export const InfoIcon = ({ tooltip, className }: InfoIconProps) => {
-  const styles = useStyles();
-
-  return (
-    <Tooltip css={styles.container} className={className} title={tooltip}>
-      <Icon css={styles.icon} name="info" />
-    </Tooltip>
-  );
-};
+export const InfoIcon = ({
+  tooltip,
+  className,
+  iconName = 'info',
+  iconClassName,
+}: InfoIconProps) => (
+  <Tooltip className={cn('inline-flex', className)} title={tooltip}>
+    <Icon className={cn('cursor-help', iconClassName)} name={iconName} />
+  </Tooltip>
+);
