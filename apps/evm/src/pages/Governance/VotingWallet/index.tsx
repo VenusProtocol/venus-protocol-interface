@@ -25,41 +25,50 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'libs/wallet';
-import type { Token } from 'types';
-import { areTokensEqual, convertMantissaToTokens } from 'utilities';
+import { areTokensEqual, cn, convertMantissaToTokens } from 'utilities';
 
 import DelegateModal from './DelegateModal';
 import TEST_IDS from './testIds';
 
-interface VotingWalletUiProps {
-  votingWeightMantissa: BigNumber;
-  openAuthModal: () => void;
-  userStakedMantissa: BigNumber;
-  isDataLoading: boolean;
-  connectedWallet: boolean;
-  currentUserAccountAddress: string | undefined;
-  delegate: string | undefined;
-  setVoteDelegation: (address: string) => Promise<unknown>;
-  isVoteDelegationLoading: boolean;
-  delegateModelIsOpen: boolean;
-  setDelegateModelIsOpen: (open: boolean) => void;
-  xvs?: Token;
+export interface VotingWalletProps {
+  className?: string;
 }
 
-export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
-  xvs,
-  votingWeightMantissa,
-  userStakedMantissa,
-  connectedWallet,
-  isDataLoading,
-  openAuthModal,
-  currentUserAccountAddress,
-  delegate,
-  setVoteDelegation,
-  isVoteDelegationLoading,
-  delegateModelIsOpen,
-  setDelegateModelIsOpen,
-}) => {
+const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
+  const [delegateModelIsOpen, setDelegateModelIsOpen] = useState(false);
+  const { accountAddress } = useAccountAddress();
+  const isUserConnected = !!accountAddress;
+  const { openAuthModal } = useAuthModal();
+  const xvs = useGetToken({
+    symbol: 'XVS',
+  });
+
+  const { data: currentVotesData, isLoading: areCurrentVotesLoading } = useGetCurrentVotes(
+    { accountAddress: accountAddress || '' },
+    { enabled: !!accountAddress },
+  );
+  const votingWeightMantissa = currentVotesData?.votesMantissa || new BigNumber(0);
+
+  const { data: delegateData, isLoading: isGetVoteDelegateAddressLoading } =
+    useGetVoteDelegateAddress(
+      { accountAddress: accountAddress || '' },
+      { enabled: !!accountAddress },
+    );
+  const delegate = delegateData?.delegateAddress;
+
+  const { data: vaults, isLoading: isGetVestingVaultsLoading } = useGetVestingVaults({
+    accountAddress,
+  });
+
+  const xvsVault = xvs && vaults.find(v => areTokensEqual(v.stakedToken, xvs));
+  const userStakedMantissa = xvsVault?.userStakedMantissa || new BigNumber(0);
+
+  const { mutateAsync: setVoteDelegation, isLoading: isVoteDelegationLoading } = useSetVoteDelegate(
+    {
+      onSuccess: () => setDelegateModelIsOpen(false),
+    },
+  );
+
   const { switchChain } = useSwitchChain();
   const voteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
   const { t, Trans } = useTranslation();
@@ -86,15 +95,21 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
     [votingWeightMantissa, xvs],
   );
 
+  const isDataLoading =
+    areCurrentVotesLoading ||
+    isGetVoteDelegateAddressLoading ||
+    isGetVestingVaultsLoading ||
+    isVoteDelegationLoading;
+
   const previouslyDelegated = !!delegate;
   const userHasLockedXVS = userStakedMantissa.isGreaterThan(0);
   const showDepositXvs =
-    !isDataLoading && connectedWallet && !userHasLockedXVS && voteProposalFeatureEnabled;
+    !isDataLoading && isUserConnected && !userHasLockedXVS && voteProposalFeatureEnabled;
   const showDelegateButton =
-    !isDataLoading && connectedWallet && userHasLockedXVS && voteProposalFeatureEnabled;
+    !isDataLoading && isUserConnected && userHasLockedXVS && voteProposalFeatureEnabled;
 
   return (
-    <div className="flex flex-1 flex-col lg:ml-4">
+    <div className={cn('flex flex-col', className)}>
       <h4 className="text-lg font-semibold">{t('vote.votingWallet')}</h4>
 
       {!voteProposalFeatureEnabled && (
@@ -147,7 +162,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
           </div>
         </div>
 
-        {!connectedWallet && (
+        {!isUserConnected && (
           <PrimaryButton
             className="text-offWhite mt-6 sm:mt-0 lg:mt-6 lg:w-full"
             onClick={openAuthModal}
@@ -223,7 +238,7 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
           <DelegateModal
             onClose={() => setDelegateModelIsOpen(false)}
             isOpen={delegateModelIsOpen}
-            currentUserAccountAddress={currentUserAccountAddress}
+            currentUserAccountAddress={accountAddress}
             previouslyDelegated={previouslyDelegated}
             setVoteDelegation={setVoteDelegation}
             isVoteDelegationLoading={isVoteDelegationLoading}
@@ -232,61 +247,6 @@ export const VotingWalletUi: React.FC<VotingWalletUiProps> = ({
         </>
       )}
     </div>
-  );
-};
-
-const VotingWallet: React.FC = () => {
-  const [delegateModelIsOpen, setDelegateModelIsOpen] = useState(false);
-  const { accountAddress } = useAccountAddress();
-  const { openAuthModal } = useAuthModal();
-  const xvs = useGetToken({
-    symbol: 'XVS',
-  });
-
-  const { data: currentVotesData, isLoading: areCurrentVotesLoading } = useGetCurrentVotes(
-    { accountAddress: accountAddress || '' },
-    { enabled: !!accountAddress },
-  );
-
-  const { data: delegateData, isLoading: isGetVoteDelegateAddressLoading } =
-    useGetVoteDelegateAddress(
-      { accountAddress: accountAddress || '' },
-      { enabled: !!accountAddress },
-    );
-
-  const { data: vaults, isLoading: isGetVestingVaultsLoading } = useGetVestingVaults({
-    accountAddress,
-  });
-
-  const xvsVault = xvs && vaults.find(v => areTokensEqual(v.stakedToken, xvs));
-  const userStakedMantissa = xvsVault?.userStakedMantissa || new BigNumber(0);
-
-  const { mutateAsync: setVoteDelegation, isLoading: isVoteDelegationLoading } = useSetVoteDelegate(
-    {
-      onSuccess: () => setDelegateModelIsOpen(false),
-    },
-  );
-
-  return (
-    <VotingWalletUi
-      connectedWallet={!!accountAddress}
-      openAuthModal={openAuthModal}
-      currentUserAccountAddress={accountAddress}
-      votingWeightMantissa={currentVotesData?.votesMantissa || new BigNumber(0)}
-      isDataLoading={
-        areCurrentVotesLoading ||
-        isGetVoteDelegateAddressLoading ||
-        isGetVestingVaultsLoading ||
-        isVoteDelegationLoading
-      }
-      userStakedMantissa={userStakedMantissa}
-      delegate={delegateData?.delegateAddress}
-      setVoteDelegation={(delegateAddress: string) => setVoteDelegation({ delegateAddress })}
-      isVoteDelegationLoading={isVoteDelegationLoading}
-      delegateModelIsOpen={delegateModelIsOpen}
-      setDelegateModelIsOpen={setDelegateModelIsOpen}
-      xvs={xvs}
-    />
   );
 };
 

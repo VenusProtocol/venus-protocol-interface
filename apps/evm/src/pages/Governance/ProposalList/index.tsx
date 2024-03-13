@@ -1,10 +1,7 @@
-/** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-  type CreateProposalInput,
   useCreateProposal,
   useGetCurrentVotes,
   useGetLatestProposalIdByProposer,
@@ -19,133 +16,20 @@ import { useNavigate } from 'hooks/useNavigate';
 import type { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Proposal } from 'types';
 
 import TEST_IDS from '../testIds';
 import CreateProposalModal from './CreateProposalModal';
 import GovernanceProposal from './GovernanceProposal';
-import { useStyles } from './styles';
 
-interface ProposalListUiProps {
-  proposals: Proposal[];
-  isLoading: boolean;
-  total: number | undefined;
-  limit: number;
-  setCurrentPage: (page: number) => void;
-  createProposal: (payload: Omit<CreateProposalInput, 'accountAddress'>) => Promise<unknown>;
-  isCreateProposalLoading: boolean;
-  canCreateProposal: boolean;
+export interface ProposalListPageProps extends UseUrlPaginationOutput {
+  className?: string;
 }
 
-export const ProposalListUi: React.FC<ProposalListUiProps> = ({
-  proposals,
-  isLoading,
-  total,
-  limit,
+const ProposalList: React.FC<ProposalListPageProps> = ({
+  currentPage,
   setCurrentPage,
-  createProposal,
-  isCreateProposalLoading,
-  canCreateProposal,
+  className,
 }) => {
-  const createProposalEnabled = useIsFeatureEnabled({ name: 'createProposal' });
-  const { navigate } = useNavigate();
-  const { newProposalStep } = useParams<{
-    newProposalStep: 'create' | 'file' | 'manual' | undefined;
-  }>();
-  const [showCreateProposalModal, setShowCreateProposalModal] = useState(!!newProposalStep);
-  const { t } = useTranslation();
-  const styles = useStyles();
-
-  return (
-    <div css={styles.root}>
-      <div css={[styles.header, styles.bottomSpace]}>
-        <Typography variant="h4">{t('vote.proposals')}</Typography>
-
-        {createProposalEnabled && (
-          <div css={styles.createProposal} data-testid={TEST_IDS.createProposal}>
-            <TextButton
-              onClick={() => {
-                setShowCreateProposalModal(true);
-                navigate(routes.governanceProposalCreate.path);
-              }}
-              css={styles.marginLess}
-              disabled={!canCreateProposal}
-            >
-              {t('vote.createProposalPlus')}
-            </TextButton>
-
-            <InfoIcon tooltip={t('vote.requiredVotingPower')} css={styles.infoIconWrapper} />
-          </div>
-        )}
-      </div>
-
-      {isLoading && <Spinner css={styles.loader} />}
-
-      <div>
-        {proposals.map(
-          ({
-            proposalId,
-            description,
-            state,
-            endDate,
-            cancelDate,
-            queuedDate,
-            etaDate,
-            forVotesMantissa,
-            abstainedVotesMantissa,
-            againstVotesMantissa,
-            executedDate,
-            proposalType,
-          }) => (
-            <GovernanceProposal
-              key={proposalId}
-              css={styles.bottomSpace}
-              proposalId={proposalId}
-              proposalTitle={description.title}
-              proposalState={state}
-              endDate={endDate}
-              executedDate={executedDate}
-              cancelDate={cancelDate}
-              queuedDate={queuedDate}
-              etaDate={etaDate}
-              forVotesMantissa={forVotesMantissa}
-              againstVotesMantissa={againstVotesMantissa}
-              abstainedVotesMantissa={abstainedVotesMantissa}
-              proposalType={proposalType}
-            />
-          ),
-        )}
-      </div>
-
-      {!!total && total > 0 && (
-        <Pagination
-          css={styles.pagination}
-          itemsCount={total}
-          onChange={(nextIndex: number) => {
-            setCurrentPage(nextIndex);
-          }}
-          itemsPerPageCount={limit}
-        />
-      )}
-
-      {createProposalEnabled && showCreateProposalModal && (
-        <CreateProposalModal
-          isOpen={showCreateProposalModal}
-          handleClose={() => {
-            setShowCreateProposalModal(false);
-            navigate(routes.governance.path);
-          }}
-          createProposal={createProposal}
-          isCreateProposalLoading={isCreateProposalLoading}
-        />
-      )}
-    </div>
-  );
-};
-
-export type ProposalListPageProps = UseUrlPaginationOutput;
-
-const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrentPage }) => {
   const { accountAddress } = useAccountAddress();
 
   const {
@@ -184,17 +68,96 @@ const ProposalList: React.FC<ProposalListPageProps> = ({ currentPage, setCurrent
     latestProposalStateData?.state !== 0 &&
     latestProposalStateData?.state !== 1;
 
+  const createProposalEnabled = useIsFeatureEnabled({ name: 'createProposal' });
+  const { navigate } = useNavigate();
+  const { newProposalStep } = useParams<{
+    newProposalStep: 'create' | 'file' | 'manual' | undefined;
+  }>();
+  const [showCreateProposalModal, setShowCreateProposalModal] = useState(!!newProposalStep);
+  const { t } = useTranslation();
+
   return (
-    <ProposalListUi
-      proposals={proposals}
-      isLoading={isFetchingProposals}
-      total={total}
-      limit={limit}
-      setCurrentPage={setCurrentPage}
-      canCreateProposal={!!canCreateProposal}
-      createProposal={createProposal}
-      isCreateProposalLoading={isCreateProposalLoading}
-    />
+    <div className={className}>
+      <div className="mb-6 flex justify-between items-end">
+        <h4 className="text-lg">{t('vote.proposals')}</h4>
+
+        {createProposalEnabled && (
+          <div className="flex items-center" data-testid={TEST_IDS.createProposal}>
+            <TextButton
+              onClick={() => {
+                setShowCreateProposalModal(true);
+                navigate(routes.governanceProposalCreate.path);
+              }}
+              className="p-0 h-7 mr-2"
+              disabled={!canCreateProposal}
+            >
+              {t('vote.createProposalPlus')}
+            </TextButton>
+
+            <InfoIcon tooltip={t('vote.requiredVotingPower')} />
+          </div>
+        )}
+      </div>
+
+      {isFetchingProposals && <Spinner className="h-auto mb-6" />}
+
+      <div className="space-y-6">
+        {proposals.map(
+          ({
+            proposalId,
+            description,
+            state,
+            endDate,
+            cancelDate,
+            queuedDate,
+            etaDate,
+            forVotesMantissa,
+            abstainedVotesMantissa,
+            againstVotesMantissa,
+            executedDate,
+            proposalType,
+          }) => (
+            <GovernanceProposal
+              key={proposalId}
+              proposalId={proposalId}
+              proposalTitle={description.title}
+              proposalState={state}
+              endDate={endDate}
+              executedDate={executedDate}
+              cancelDate={cancelDate}
+              queuedDate={queuedDate}
+              etaDate={etaDate}
+              forVotesMantissa={forVotesMantissa}
+              againstVotesMantissa={againstVotesMantissa}
+              abstainedVotesMantissa={abstainedVotesMantissa}
+              proposalType={proposalType}
+            />
+          ),
+        )}
+      </div>
+
+      {!!total && total > 0 && (
+        <Pagination
+          itemsCount={total}
+          onChange={(nextIndex: number) => {
+            setCurrentPage(nextIndex);
+          }}
+          itemsPerPageCount={limit}
+        />
+      )}
+
+      {createProposalEnabled && showCreateProposalModal && (
+        <CreateProposalModal
+          isOpen={showCreateProposalModal}
+          handleClose={() => {
+            setShowCreateProposalModal(false);
+            navigate(routes.governance.path);
+          }}
+          createProposal={createProposal}
+          isCreateProposalLoading={isCreateProposalLoading}
+        />
+      )}
+    </div>
   );
 };
 

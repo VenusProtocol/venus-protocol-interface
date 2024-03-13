@@ -23,7 +23,7 @@ interface DelegateModalProps {
   onClose: () => void;
   isOpen: boolean;
   currentUserAccountAddress: string | undefined;
-  setVoteDelegation: (address: string) => Promise<unknown>;
+  setVoteDelegation: (input: { delegateAddress: string }) => unknown;
   previouslyDelegated: boolean;
   isVoteDelegationLoading: boolean;
   openAuthModal: () => void;
@@ -41,9 +41,9 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const onSubmit = async (address: string) => {
+  const onSubmit = async (delegateAddress: string) => {
     try {
-      await setVoteDelegation(address);
+      await setVoteDelegation({ delegateAddress });
     } catch (error) {
       displayMutationError({ error });
     }
