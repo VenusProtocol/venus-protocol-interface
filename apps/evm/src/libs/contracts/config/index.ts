@@ -394,26 +394,20 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: {
         [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
-          '0xae5A30d694DFF2268C864834DEDa745B784c48bD',
+          '0xCf4C75398DaD73f16c762026144a1496f6869CD1',
       },
-      [ChainId.BSC_MAINNET]: {
-        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
-          '0xa8433F284795aE7f8652127af47482578b58673d',
-      },
-      [ChainId.OPBNB_MAINNET]: {
-        [isolatedPoolsOpBnbMainnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          '0x996597fc8726eC0f62BCA0aF4f2Af67D2f7563Ee',
-      },
+      [ChainId.BSC_MAINNET]: {},
+      [ChainId.OPBNB_MAINNET]: {},
       [ChainId.OPBNB_TESTNET]: {
         [isolatedPoolsOpBnbTestnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          '0xbA12d0BFC59fd29C44795FfFa8A3Ccc877A41325',
+          '0x78FB73687209019CC1799B99Af30b6FB0A5b8e14',
       },
       [ChainId.ETHEREUM]: {},
       [ChainId.SEPOLIA]: {
         [isolatedPoolsSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          '0x02fC3253e6839e001Ac959b9834f6BdDAC7bE705',
+          '0xb8fD67f215117FADeF06447Af31590309750529D',
         [isolatedPoolsSepoliaDeployments.addresses['Comptroller_Liquid Staked ETH'].toLowerCase()]:
-          '0xe6FF9010852a14fA58CdBe3F2e91d6FbCB3567f9',
+          '0x1FD30e761C3296fE36D9067b1e398FD97B4C0407',
       },
     },
   },
