@@ -7,6 +7,7 @@ import {
   useRedeem,
   useRedeemAndUnwrap,
   useRedeemUnderlying,
+  useRedeemUnderlyingAndUnwrap,
 } from 'clients/api';
 import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { AccountData } from 'containers/AccountData';
@@ -261,6 +262,12 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
     vToken: asset.vToken,
   });
 
+  const { mutateAsync: redeemUnderlyingAndUnwrap, isLoading: isRedeemUnderlyingAndUnwrapLoading } =
+    useRedeemUnderlyingAndUnwrap({
+      poolComptrollerAddress: pool.comptrollerAddress,
+      vToken: asset.vToken,
+    });
+
   const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
   });
@@ -283,10 +290,13 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
     });
 
   const isWithdrawLoading =
-    isRedeemLoading || isRedeemUnderlyingLoading || isRedeemAndUnwrapLoading;
+    isRedeemLoading ||
+    isRedeemUnderlyingLoading ||
+    isRedeemAndUnwrapLoading ||
+    isRedeemUnderlyingAndUnwrapLoading;
 
   const onSubmit: UseFormInput['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
-    // This cose should never be reached, but just in case we throw a generic
+    // This case should never be reached, but just in case we throw a generic
     // internal error
     if (!asset) {
       throw new VError({
@@ -306,7 +316,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
       });
 
       if (formValues.receiveNativeToken) {
-        return redeemAndUnwrap({
+        return redeemUnderlyingAndUnwrap({
           amountMantissa: withdrawAmountMantissa,
         });
       }
@@ -326,7 +336,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
       return redeem({ amountMantissa: vTokenBalanceMantissa });
     }
 
-    // This cose should never be reached, but just in case we throw a generic
+    // This case should never be reached, but just in case we throw a generic
     // internal error
     throw new VError({
       type: 'unexpected',
