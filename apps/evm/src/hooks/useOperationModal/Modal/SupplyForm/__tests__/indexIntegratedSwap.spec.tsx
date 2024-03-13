@@ -60,9 +60,10 @@ vi.mock('hooks/useGetSwapRouterContractAddress');
 
 describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'integratedSwap',
-    );
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(({ name }: UseIsFeatureEnabled) => {
+      console.log('powerslave222', name);
+      return name === 'integratedSwap';
+    });
 
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,
@@ -192,12 +193,18 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       isLoading: false,
     }));
 
-    const { getByTestId, getByText } = renderComponent(
+    const { getByTestId, getByText, container } = renderComponent(
       <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
     );
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: busd,
+    });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({

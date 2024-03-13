@@ -214,12 +214,18 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
       isLoading: false,
     }));
 
-    const { getByTestId, getByText } = renderComponent(
+    const { getByTestId, getByText, container } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
     );
+
+    selectToken({
+      container,
+      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      token: busd,
+    });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
