@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 3.2.0
+
+### Minor Changes
+
+- 5d3eb68: Filter out 0 Prime APYs
+
+### Patch Changes
+
+- 49a2268: Fix linting issue
+
 ## 3.1.0
 
 ### Minor Changes
