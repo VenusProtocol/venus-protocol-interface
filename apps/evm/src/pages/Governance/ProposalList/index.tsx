@@ -45,6 +45,9 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
 }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
+  const isSearchFeatureEnabled = useIsFeatureEnabled({
+    name: 'governanceSearch',
+  });
 
   // Generate select options from proposal states
   const selectOptions = useMemo(() => {
@@ -145,29 +148,31 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
         )}
       </div>
 
-      <div className="space-y-4 sm:flex sm:gap-x-6 sm:space-y-0 sm:justify-between">
-        <Select
-          label={t('vote.proposalStateFilter.label')}
-          variant="secondary"
-          placeLabelToLeft
-          options={selectOptions}
-          className="min-w-[230px]"
-          value={selectedProposalState}
-          onChange={newValue =>
-            setSelectedProposalState(newValue as ProposalState | typeof ALL_OPTION_VALUE)
-          }
-        />
+      {isSearchFeatureEnabled && (
+        <div className="space-y-4 sm:flex sm:gap-x-6 sm:space-y-0 sm:justify-between">
+          <Select
+            label={t('vote.proposalStateFilter.label')}
+            variant="secondary"
+            placeLabelToLeft
+            options={selectOptions}
+            className="min-w-[230px]"
+            value={selectedProposalState}
+            onChange={newValue =>
+              setSelectedProposalState(newValue as ProposalState | typeof ALL_OPTION_VALUE)
+            }
+          />
 
-        <TextField
-          isSmall
-          value={searchValue}
-          onChange={handleSearchInputChange}
-          placeholder={t('vote.searchInput.placeholder')}
-          leftIconSrc="magnifier"
-          variant="secondary"
-          className="sm:max-w-[300px] w-full"
-        />
-      </div>
+          <TextField
+            isSmall
+            value={searchValue}
+            onChange={handleSearchInputChange}
+            placeholder={t('vote.searchInput.placeholder')}
+            leftIconSrc="magnifier"
+            variant="secondary"
+            className="sm:max-w-[300px] w-full"
+          />
+        </div>
+      )}
 
       {isFetchingProposals && <Spinner className="h-auto" />}
 

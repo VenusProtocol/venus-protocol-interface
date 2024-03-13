@@ -5,8 +5,6 @@ on: [pull_request]
 env:
   VITE_ENVIRONMENT: "ci"
   NODE_OPTIONS: "--max_old_space_size=4096"
-  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
 concurrency:
   group: ${{ github.ref }}

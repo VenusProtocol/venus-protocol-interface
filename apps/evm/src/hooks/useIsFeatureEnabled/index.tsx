@@ -1,7 +1,7 @@
 import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 
-const featureFlags = {
+export const featureFlags = {
   integratedSwap: [ChainId.BSC_TESTNET, ChainId.BSC_MAINNET],
   prime: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.SEPOLIA],
   primeCalculator: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.SEPOLIA],
@@ -43,6 +43,7 @@ const featureFlags = {
     ChainId.OPBNB_TESTNET,
   ],
   wrapUnwrapNativeToken: [ChainId.SEPOLIA, ChainId.BSC_TESTNET, ChainId.OPBNB_TESTNET],
+  governanceSearch: [ChainId.SEPOLIA, ChainId.BSC_TESTNET, ChainId.OPBNB_TESTNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

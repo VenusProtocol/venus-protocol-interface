@@ -17,14 +17,19 @@
       "persistent": true
     },
     "test": {
+      "cache": false,
       "outputs": ["coverage/**/*"]
     },
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["build/**/*"]
     },
-    "lint": {},
-    "lint:styles": {},
+    "lint": {
+      "cache": false
+    },
+    "lint:styles": {
+      "cache": false
+    },
     "tsc": {
       "cache": false
     },
