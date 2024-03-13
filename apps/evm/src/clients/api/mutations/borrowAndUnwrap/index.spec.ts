@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
-import { NativeTokenGateway } from 'libs/contracts';
+import type { NativeTokenGateway } from 'libs/contracts';
 
 import borrowAndUnwrap from '.';
 

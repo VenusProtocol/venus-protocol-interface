@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js';
-import { ContractTransaction } from 'ethers';
+import type BigNumber from 'bignumber.js';
+import type { ContractTransaction } from 'ethers';
 
-import { NativeTokenGateway } from 'libs/contracts';
+import type { NativeTokenGateway } from 'libs/contracts';
 
 export interface BorrowAndUnwrapInput {
   nativeTokenGatewayContract: NativeTokenGateway;

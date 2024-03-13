@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js';
-import { ContractTransaction } from 'ethers';
+import type BigNumber from 'bignumber.js';
+import type { ContractTransaction } from 'ethers';
 
-import { NativeTokenGateway } from 'libs/contracts';
+import type { NativeTokenGateway } from 'libs/contracts';
 
 export interface RedeemAndUnwrapInput {
   nativeTokenGatewayContract: NativeTokenGateway;
@@ -13,7 +13,6 @@ export type RedeemAndUnwrapOutput = ContractTransaction;
 const redeemAndUnwrap = async ({
   nativeTokenGatewayContract,
   amountMantissa,
-}: RedeemAndUnwrapInput) =>
-  nativeTokenGatewayContract.redeemUnderlyingAndUnwrap(amountMantissa.toFixed());
+}: RedeemAndUnwrapInput) => nativeTokenGatewayContract.redeemAndUnwrap(amountMantissa.toFixed());
 
 export default redeemAndUnwrap;

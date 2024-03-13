@@ -10,12 +10,12 @@ const fakeAmountMantissa = new BigNumber('10000000000000000');
 
 vi.mock('libs/contracts');
 
-describe('redeemAndUnwrap', () => {
+describe('redeemUnderlyingAndUnwrap', () => {
   it('returns transaction when request succeeds', async () => {
-    const redeemAndUnwrapMock = vi.fn(() => fakeContractTransaction);
+    const redeemUnderlyingAndUnwrapMock = vi.fn(() => fakeContractTransaction);
 
     const fakeNativeTokenGatewayContract = {
-      redeemAndUnwrap: redeemAndUnwrapMock,
+      redeemUnderlyingAndUnwrap: redeemUnderlyingAndUnwrapMock,
     } as unknown as NativeTokenGateway;
 
     const response = await redeemAndUnwrap({
@@ -25,7 +25,7 @@ describe('redeemAndUnwrap', () => {
 
     expect(response).toBe(fakeContractTransaction);
 
-    expect(redeemAndUnwrapMock).toHaveBeenCalledTimes(1);
-    expect(redeemAndUnwrapMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+    expect(redeemUnderlyingAndUnwrapMock).toHaveBeenCalledTimes(1);
+    expect(redeemUnderlyingAndUnwrapMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
   });
 });

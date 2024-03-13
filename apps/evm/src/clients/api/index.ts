@@ -144,6 +144,10 @@ export { default as redeemAndUnwrap } from './mutations/redeemAndUnwrap';
 export * from './mutations/redeemAndUnwrap';
 export { default as useRedeemAndUnwrap } from './mutations/redeemAndUnwrap/useRedeemAndUnwrap';
 
+export { default as redeemUnderlyingAndUnwrap } from './mutations/redeemUnderlyingAndUnwrap';
+export * from './mutations/redeemUnderlyingAndUnwrap';
+export { default as useRedeemUnderlyingAndUnwrap } from './mutations/redeemUnderlyingAndUnwrap/useRedeemUnderlyingAndUnwrap';
+
 // Queries
 export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';
 export * from './queries/getVaiCalculateRepayAmount';

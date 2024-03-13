@@ -497,3 +497,9 @@ export const useBorrowAndUnwrap = (_variables: never, options?: MutationObserver
 export const redeemAndUnwrap = vi.fn();
 export const useRedeemAndUnwrap = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.REDEEM_AND_UNWRAP, redeemAndUnwrap, options);
+
+export const redeemUnderlyingAndUnwrap = vi.fn();
+export const useRedeemUnderlyingAndUnwrap = (
+  _variables: never,
+  options?: MutationObserverOptions,
+) => useMutation(FunctionKey.REDEEM_UNDERLYING_AND_UNWRAP, redeemUnderlyingAndUnwrap, options);

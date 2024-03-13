@@ -1,4 +1,6 @@
-import borrowAndUnwrap, { type BorrowAndUnwrapInput } from 'clients/api/mutations/borrowAndUnwrap';
+import redeemUnderlyingAndUnwrap, {
+  type RedeemUnderlyingAndUnwrapInput,
+} from 'clients/api/mutations/redeemUnderlyingAndUnwrap';
 import queryClient from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
@@ -7,10 +9,13 @@ import { useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
-type TrimmedBorrowAndUnwrapInput = Omit<BorrowAndUnwrapInput, 'nativeTokenGatewayContract'>;
-type Options = UseSendTransactionOptions<TrimmedBorrowAndUnwrapInput>;
+type TrimmedRedeemUnderlyingAndUnwrapInput = Omit<
+  RedeemUnderlyingAndUnwrapInput,
+  'nativeTokenGatewayContract'
+>;
+type Options = UseSendTransactionOptions<TrimmedRedeemUnderlyingAndUnwrapInput>;
 
-const useBorrowAndUnwrap = (
+const useRedeemUnderlyingAndUnwrap = (
   { vToken, poolComptrollerAddress }: { vToken: VToken; poolComptrollerAddress: string },
   options?: Options,
 ) => {
@@ -22,10 +27,10 @@ const useBorrowAndUnwrap = (
   });
 
   return useSendTransaction({
-    fnKey: FunctionKey.BORROW_AND_UNWRAP,
-    fn: (input: TrimmedBorrowAndUnwrapInput) =>
+    fnKey: FunctionKey.REDEEM_AND_UNWRAP,
+    fn: (input: TrimmedRedeemUnderlyingAndUnwrapInput) =>
       callOrThrow({ nativeTokenGatewayContract }, params =>
-        borrowAndUnwrap({
+        redeemUnderlyingAndUnwrap({
           ...input,
           ...params,
         }),
@@ -57,4 +62,4 @@ const useBorrowAndUnwrap = (
   });
 };
 
-export default useBorrowAndUnwrap;
+export default useRedeemUnderlyingAndUnwrap;

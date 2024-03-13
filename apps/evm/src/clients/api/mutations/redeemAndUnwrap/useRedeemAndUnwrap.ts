@@ -1,10 +1,10 @@
-import redeemAndUnwrap, { RedeemAndUnwrapInput } from 'clients/api/mutations/redeemAndUnwrap';
+import redeemAndUnwrap, { type RedeemAndUnwrapInput } from 'clients/api/mutations/redeemAndUnwrap';
 import queryClient from 'clients/api/queryClient';
 import FunctionKey from 'constants/functionKey';
-import { UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetNativeTokenGatewayContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { VToken } from 'types';
+import type { VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedRedeemAndUnwrapInput = Omit<RedeemAndUnwrapInput, 'nativeTokenGatewayContract'>;
