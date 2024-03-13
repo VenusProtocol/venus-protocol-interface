@@ -76,8 +76,7 @@
       "text": "Approve delegate contract",
       "tooltip": "We require approving the delegate contract to perform this operation on your behalf."
     },
-    "step1": "Step 1",
-    "step2": "Step 2"
+    "step1": "Step 1"
   },
   "approveTokenSteps": {
     "approveTokenButton": {
@@ -719,6 +718,23 @@
     "tokensLeft": "<WhiteText>{{tokensLeft}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
   },
+  "proposalList": {
+    "selectOptions": {
+      "all": {
+        "label": "All"
+      }
+    }
+  },
+  "proposalState": {
+    "active": "Active",
+    "canceled": "Canceled",
+    "defeated": "Defeated",
+    "executed": "Executed",
+    "expired": "Expired",
+    "pending": "Pending",
+    "queued": "Queued",
+    "succeeded": "Succeeded"
+  },
   "select": {
     "defaultLabel": "Select option"
   },
@@ -1100,6 +1116,9 @@
     "pasteYourAddress": "Paste your address",
     "pleasePayAttention": "Please pay attention",
     "proposals": "Proposals",
+    "proposalStateFilter": {
+      "label": "State"
+    },
     "proposalType": {
       "critical": "Critical",
       "fastTrack": "Fast track",
@@ -1108,6 +1127,9 @@
     "redelegate": "Redelegate",
     "redelegateVoting": "Redelegate voting",
     "requiredVotingPower": "You need to have 300k voting power to create a proposal",
+    "searchInput": {
+      "placeholder": "Search proposal"
+    },
     "summaryProgressBar": "Vote Summary Progress Bar - {{voteType}}",
     "totalLocked": "Total locked",
     "toVoteYouShould": "To vote you should:",
@@ -1162,19 +1184,10 @@
       "ariaLabelAbstain": "votes abstain",
       "ariaLabelAgainst": "votes against",
       "ariaLabelFor": "votes for",
-      "canceled": "Canceled",
-      "cancelled": "Cancelled",
       "created": "Created",
       "dateOnly": "{{date, dd MMM yyyy}}",
-      "defeated": "Defeated",
       "execute": "Execute",
-      "executed": "Executed",
-      "expired": "Expired",
-      "pending": "Pending",
       "queue": "Queue",
-      "queued": "Queued",
-      "readyToQueue": "Ready to queue",
-      "succeed": "Succeed",
       "timeOnly": "{{date, h:mm a}}"
     },
     "timeUntilExecutable": "Time until executable",
