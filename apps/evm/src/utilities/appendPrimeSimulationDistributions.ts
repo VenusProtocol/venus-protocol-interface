@@ -87,27 +87,31 @@ export const appendPrimeSimulationDistributions = async ({
           userXvsStakedTokens: averageXvsStakedTokens,
         };
 
-        const borrowSimulatedPrimeApy = convertAprToApy({
-          aprBips: simulatedPrimeAprs.borrowAPR.toString(),
-        });
+        if (!simulatedPrimeAprs.borrowAPR.isZero()) {
+          const borrowSimulatedPrimeApy = convertAprToApy({
+            aprBips: simulatedPrimeAprs.borrowAPR.toString(),
+          });
 
-        asset.borrowDistributions.push({
-          type: 'primeSimulation',
-          token: asset.vToken.underlyingToken,
-          apyPercentage: borrowSimulatedPrimeApy,
-          referenceValues,
-        });
+          asset.borrowDistributions.push({
+            type: 'primeSimulation',
+            token: asset.vToken.underlyingToken,
+            apyPercentage: borrowSimulatedPrimeApy,
+            referenceValues,
+          });
+        }
 
-        const supplySimulatedPrimeApy = convertAprToApy({
-          aprBips: simulatedPrimeAprs.supplyAPR.toString(),
-        });
+        if (!simulatedPrimeAprs.supplyAPR.isZero()) {
+          const supplySimulatedPrimeApy = convertAprToApy({
+            aprBips: simulatedPrimeAprs.supplyAPR.toString(),
+          });
 
-        asset.supplyDistributions.push({
-          type: 'primeSimulation',
-          token: asset.vToken.underlyingToken,
-          apyPercentage: supplySimulatedPrimeApy,
-          referenceValues,
-        });
+          asset.supplyDistributions.push({
+            type: 'primeSimulation',
+            token: asset.vToken.underlyingToken,
+            apyPercentage: supplySimulatedPrimeApy,
+            referenceValues,
+          });
+        }
       };
 
       return promise();

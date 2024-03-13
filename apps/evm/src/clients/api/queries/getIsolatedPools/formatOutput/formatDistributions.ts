@@ -112,13 +112,15 @@ const formatDistributions = ({
   );
 
   // Add Prime distributions
-  if (primeApy) {
+  if (primeApy && !primeApy.supplyApy.isEqualTo(0)) {
     supplyDistributions.push({
       type: 'prime',
       apyPercentage: primeApy.supplyApy,
       token: underlyingToken,
     });
+  }
 
+  if (primeApy && !primeApy.borrowApy.isEqualTo(0)) {
     borrowDistributions.push({
       type: 'prime',
       apyPercentage: primeApy.borrowApy,
