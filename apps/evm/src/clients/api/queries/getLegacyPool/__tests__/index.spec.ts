@@ -6,6 +6,7 @@ import fakeVenusLensContractResponses from '__mocks__/contracts/venusLens';
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
 import tokens, { vai, xvs } from '__mocks__/models/tokens';
+import { BigNumber as BN } from 'ethers';
 
 import type {
   LegacyPoolComptroller,
@@ -91,7 +92,7 @@ describe('getLegacyPool', () => {
     expect(response).toMatchSnapshot();
   });
 
-  it('fetches and formats Prime distributions and Prime distribution simulations if user is Prime', async () => {
+  it('fetches and formats Prime distributions and simulations if user is Prime', async () => {
     const fakePrimeContract = {
       tokens: async () => fakePrimeContractResponses.tokens,
       MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
@@ -128,6 +129,39 @@ describe('getLegacyPool', () => {
       getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
       estimateAPR: async () => fakePrimeContractResponses.estimateAPR,
       calculateAPR: async () => fakePrimeContractResponses.calculateAPR,
+    } as unknown as Prime;
+
+    const response = await getLegacyPool({
+      blocksPerDay: 28800,
+      name: 'Fake pool name',
+      description: 'Fake pool description',
+      xvs,
+      vai,
+      tokens,
+      accountAddress: fakeAccountAddress,
+      legacyPoolComptrollerContract: fakeLegacyPoolComptrollerContract,
+      venusLensContract: fakeVenusLensContract,
+      vaiControllerContract: fakeVaiControllerContract,
+      resilientOracleContract: fakeResilientOracleContract,
+      primeContract: fakePrimeContract,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  it('filters out Prime distributions and simulations that are 0', async () => {
+    const fakePrimeContract = {
+      tokens: async () => fakePrimeContractResponses.tokens,
+      MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
+      getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
+      estimateAPR: async () => ({
+        borrowAPR: BN.from(0),
+        supplyAPR: BN.from(0),
+      }),
+      calculateAPR: async () => ({
+        borrowAPR: BN.from(0),
+        supplyAPR: BN.from(0),
+      }),
     } as unknown as Prime;
 
     const response = await getLegacyPool({

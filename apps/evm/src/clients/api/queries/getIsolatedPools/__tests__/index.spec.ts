@@ -105,7 +105,7 @@ describe('api/queries/getIsolatedPools', () => {
     expect(response).toMatchSnapshot();
   });
 
-  it('fetches and formats Prime distributions and Prime distribution simulations if user is Prime', async () => {
+  it('fetches and formats Prime distributions and simulations if user is Prime', async () => {
     const fakePrimeContract = {
       tokens: async () => fakePrimeContractResponses.tokens,
       MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
@@ -140,6 +140,37 @@ describe('api/queries/getIsolatedPools', () => {
       getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
       estimateAPR: async () => fakePrimeContractResponses.estimateAPR,
       calculateAPR: async () => fakePrimeContractResponses.calculateAPR,
+    } as unknown as Prime;
+
+    const response = await getIsolatedPools({
+      chainId: ChainId.BSC_TESTNET,
+      xvs,
+      blocksPerDay: 28800,
+      tokens,
+      accountAddress: fakeAccountAddress,
+      provider: fakeProvider,
+      poolRegistryContractAddress: fakePoolRegistryContractAddress,
+      poolLensContract: fakePoolLensContract,
+      resilientOracleContract: fakeResilientOracleContract,
+      primeContract: fakePrimeContract,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  it('filters out Prime distributions and simulations that are 0', async () => {
+    const fakePrimeContract = {
+      tokens: async () => fakePrimeContractResponses.tokens,
+      MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
+      getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
+      estimateAPR: async () => ({
+        borrowAPR: BN.from(0),
+        supplyAPR: BN.from(0),
+      }),
+      calculateAPR: async () => ({
+        borrowAPR: BN.from(0),
+        supplyAPR: BN.from(0),
+      }),
     } as unknown as Prime;
 
     const response = await getIsolatedPools({
