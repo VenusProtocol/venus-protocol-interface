@@ -60,8 +60,9 @@ export const useGetPendingRewards = () =>
   useQuery(FunctionKey.GET_PENDING_REWARDS, getPendingRewards);
 
 export const getVTokenBalanceOf = vi.fn();
-export const useGetVTokenBalanceOf = () =>
-  useQuery(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalanceOf);
+export const useGetVTokenBalanceOf = vi.fn(() =>
+  useQuery(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalanceOf),
+);
 
 export const getAllowance = vi.fn();
 export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);

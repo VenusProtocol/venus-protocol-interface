@@ -65,7 +65,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
   );
 
-  const handleToggleReceiveNativeToken = async () => {
+  const handleToggleReceiveNativeToken = () => {
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       receiveNativeToken: !currentFormValues.receiveNativeToken,

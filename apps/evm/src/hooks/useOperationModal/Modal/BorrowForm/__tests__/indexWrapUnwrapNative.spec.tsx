@@ -1,12 +1,15 @@
-import noop from 'noop-ts';
-import type Vi from 'vitest';
-
+import { fireEvent, waitFor } from '@testing-library/react';
 import fakeAccountAddress from '__mocks__/models/address';
+import noop from 'noop-ts';
 import { renderComponent } from 'testUtils/render';
+import type Vi from 'vitest';
 
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { ChainId } from 'types';
 
+import BigNumber from 'bignumber.js';
+import { borrowAndUnwrap } from 'clients/api';
+import { en } from 'libs/translations';
 import Borrow from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -49,5 +52,41 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     );
 
     expect(queryByTestId(TEST_IDS.receiveNativeToken)).toBeVisible();
+  });
+
+  it('lets the user borrow native tokens by unwrapping', async () => {
+    const onCloseMock = vi.fn();
+    const { getByText, getByTestId, getByRole } = renderComponent(
+      <Borrow asset={fakeWethAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      {
+        chainId: ChainId.SEPOLIA,
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    // click on receive native token
+    const receiveNativeTokenSwitch = getByRole('checkbox');
+    fireEvent.click(receiveNativeTokenSwitch);
+
+    // Enter amount in input
+    const correctAmountTokens = 1;
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
+      target: { value: correctAmountTokens },
+    });
+
+    // Click on submit button
+    await waitFor(() => getByText(en.operationModal.borrow.submitButtonLabel.borrow));
+    fireEvent.click(getByText(en.operationModal.borrow.submitButtonLabel.borrow));
+
+    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
+      new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
+    );
+
+    await waitFor(() => expect(borrowAndUnwrap).toHaveBeenCalledTimes(1));
+    expect(borrowAndUnwrap).toHaveBeenCalledWith({
+      amountMantissa: expectedAmountMantissa,
+    });
+
+    expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
 });
