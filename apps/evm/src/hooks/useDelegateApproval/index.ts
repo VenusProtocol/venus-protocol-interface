@@ -44,9 +44,7 @@ const useDelegateApproval = ({
       },
     );
 
-  const isDelegateApproved = isDelegateApprovedData
-    ? isDelegateApprovedData.isDelegateeApproved
-    : undefined;
+  const isDelegateApproved = enabled ? isDelegateApprovedData?.isDelegateeApproved : undefined;
 
   return {
     updatePoolDelegateStatus,
