@@ -5,6 +5,7 @@ import { Fragment, useMemo } from 'react';
 import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { ProposalState } from 'types';
+import { getProposalStateLabel } from 'utilities/getProposalStateLabel';
 
 import { useStyles } from './styles';
 
@@ -71,18 +72,7 @@ const Stepper: React.FC<StepperProps> = ({
         ),
       },
       {
-        getLabel: () => {
-          switch (state) {
-            case ProposalState.Canceled:
-              return t('voteProposalUi.statusCard.canceled');
-            case ProposalState.Defeated:
-              return t('voteProposalUi.statusCard.defeated');
-            case ProposalState.Expired:
-              return t('voteProposalUi.statusCard.expired');
-            default:
-              return t('voteProposalUi.statusCard.succeed');
-          }
-        },
+        getLabel: () => getProposalStateLabel({ state }),
         getTimestamp: () => {
           if (state === ProposalState.Canceled) {
             return cancelDate;

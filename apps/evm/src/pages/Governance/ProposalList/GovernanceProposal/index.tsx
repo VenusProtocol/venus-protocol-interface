@@ -18,6 +18,7 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { ProposalState, ProposalType, type Token, VoteSupport } from 'types';
+import { getProposalStateLabel } from 'utilities/getProposalStateLabel';
 
 import greenPulseAnimation from './greenPulseAnimation.gif';
 import { useStyles } from './styles';
@@ -46,54 +47,56 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
       iconCss?: SerializedStyles;
       label: string;
     }
-  > = useMemo(
-    () => ({
+  > = useMemo(() => {
+    const label = state ? getProposalStateLabel({ state }) : t('proposalState.active');
+
+    return {
       [ProposalState.Queued]: {
         iconWrapperCss: styles.iconDotsWrapper,
         iconName: 'dots',
-        label: t('voteProposalUi.statusCard.queued'),
+        label,
       },
       [ProposalState.Pending]: {
         iconWrapperCss: styles.iconDotsWrapper,
         iconName: 'dots',
-        label: t('voteProposalUi.statusCard.pending'),
+        label,
       },
       [ProposalState.Executed]: {
         iconWrapperCss: styles.iconMarkWrapper,
         iconName: 'mark',
         iconCss: styles.iconCheck,
-        label: t('voteProposalUi.statusCard.executed'),
+        label,
       },
       [ProposalState.Defeated]: {
         iconWrapperCss: styles.iconCloseWrapper,
         iconName: 'closeRounded',
-        label: t('voteProposalUi.statusCard.defeated'),
+        label,
       },
       [ProposalState.Succeeded]: {
         iconWrapperCss: styles.iconInfoWrapper,
         iconName: 'exclamation',
-        label: t('voteProposalUi.statusCard.readyToQueue'),
+        label,
       },
       [ProposalState.Expired]: {
         iconWrapperCss: styles.iconCloseWrapper,
         iconName: 'closeRounded',
-        label: t('voteProposalUi.statusCard.expired'),
+        label,
       },
       [ProposalState.Canceled]: {
         iconWrapperCss: styles.iconCloseWrapper,
         iconName: 'closeRounded',
-        label: t('voteProposalUi.statusCard.cancelled'),
+        label,
       },
-    }),
-    [
-      t,
-      styles.iconCheck,
-      styles.iconCloseWrapper,
-      styles.iconDotsWrapper,
-      styles.iconInfoWrapper,
-      styles.iconMarkWrapper,
-    ],
-  );
+    };
+  }, [
+    t,
+    styles.iconCheck,
+    styles.iconCloseWrapper,
+    styles.iconDotsWrapper,
+    styles.iconInfoWrapper,
+    styles.iconMarkWrapper,
+    state,
+  ]);
 
   if (state !== undefined && state !== ProposalState.Active) {
     return (

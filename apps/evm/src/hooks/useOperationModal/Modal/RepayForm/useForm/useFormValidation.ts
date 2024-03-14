@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import type { Swap, SwapError, Token } from 'types';
-import { areTokensEqual, convertMantissaToTokens } from 'utilities';
+import { areTokensEqual } from 'utilities';
 
 import { getSwapToTokenAmountReceivedTokens } from '../../getSwapToTokenAmountReceived';
 import type { FormError, FormValues } from './types';
