@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
   "formatter": {
+    "ignore": ["package.json"],
     "indentStyle": "space",
     "lineWidth": 100
   },
