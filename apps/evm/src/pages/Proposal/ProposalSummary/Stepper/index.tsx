@@ -5,7 +5,6 @@ import { Fragment, useMemo } from 'react';
 import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { ProposalState } from 'types';
-import { getProposalStateLabel } from 'utilities/getProposalStateLabel';
 
 import { useStyles } from './styles';
 
@@ -22,19 +21,20 @@ export interface StepperProps {
 
 const getActiveStepIndex = (proposalState: ProposalState) => {
   switch (proposalState) {
-    case ProposalState.Pending:
-      return 0;
     case ProposalState.Active:
       return 1;
     case ProposalState.Defeated:
     case ProposalState.Succeeded:
     case ProposalState.Canceled:
-    case ProposalState.Expired:
       return 2;
     case ProposalState.Queued:
       return 3;
-    default:
+    case ProposalState.Expired:
+    case ProposalState.Executed:
       return 4;
+    // Pending case
+    default:
+      return 0;
   }
 };
 
@@ -51,28 +51,42 @@ const Stepper: React.FC<StepperProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const steps = useMemo(
-    () => [
+  const steps = useMemo(() => {
+    const SuccessIcon = () => (
+      <span css={[styles.iconContainer, styles.markIconContainer]}>
+        <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
+      </span>
+    );
+
+    const FailIcon = () => (
+      <span css={[styles.iconContainer, styles.errorIconContainer]}>
+        <Icon name="closeRounded" css={styles.closeIcon} />
+      </span>
+    );
+
+    return [
       {
-        getLabel: () => t('voteProposalUi.statusCard.created'),
+        getLabel: () => t('proposalState.created'),
         getTimestamp: () => createdDate,
-        completedIcon: () => (
-          <span css={[styles.iconContainer, styles.markIconContainer]}>
-            <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
-          </span>
-        ),
+        completedIcon: SuccessIcon,
       },
       {
-        getLabel: () => t('voteProposalUi.statusCard.active'),
+        getLabel: () => t('proposalState.active'),
         getTimestamp: () => startDate,
-        completedIcon: () => (
-          <span css={[styles.iconContainer, styles.markIconContainer]}>
-            <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
-          </span>
-        ),
+        completedIcon: SuccessIcon,
       },
       {
-        getLabel: () => getProposalStateLabel({ state }),
+        getLabel: () => {
+          if (state === ProposalState.Canceled) {
+            return t('proposalState.canceled');
+          }
+
+          if (state === ProposalState.Defeated) {
+            return t('proposalState.defeated');
+          }
+
+          return t('proposalState.succeeded');
+        },
         getTimestamp: () => {
           if (state === ProposalState.Canceled) {
             return cancelDate;
@@ -84,60 +98,40 @@ const Stepper: React.FC<StepperProps> = ({
 
           return endDate;
         },
-        completedIcon: () => {
-          if (
-            state === ProposalState.Canceled ||
-            state === ProposalState.Defeated ||
-            state === ProposalState.Expired
-          ) {
-            return (
-              <span css={[styles.iconContainer, styles.errorIconContainer]}>
-                <Icon name="closeRounded" css={styles.closeIcon} />
-              </span>
-            );
-          }
-          return (
-            <span css={[styles.iconContainer, styles.markIconContainer]}>
-              <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
-            </span>
-          );
-        },
+        completedIcon:
+          state === ProposalState.Canceled || state === ProposalState.Defeated
+            ? FailIcon
+            : SuccessIcon,
       },
       {
-        getLabel: () => t('voteProposalUi.statusCard.queue'),
+        getLabel: () => t('proposalState.queued'),
         getTimestamp: () => queuedDate,
-        completedIcon: () => (
-          <span css={[styles.iconContainer, styles.markIconContainer]}>
-            <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
-          </span>
-        ),
+        completedIcon: SuccessIcon,
       },
       {
-        getLabel: () => t('voteProposalUi.statusCard.execute'),
-        getTimestamp: () => executedDate,
-        completedIcon: () => (
-          <span css={[styles.iconContainer, styles.markIconContainer]}>
-            <Icon name="mark" css={styles.markIcon} className="text-offWhite" />
-          </span>
-        ),
+        getLabel: () =>
+          state === ProposalState.Expired
+            ? t('proposalState.expired')
+            : t('proposalState.executed'),
+        getTimestamp: () => (state === ProposalState.Expired ? undefined : executedDate),
+        completedIcon: state === ProposalState.Expired ? FailIcon : SuccessIcon,
       },
-    ],
-    [
-      createdDate,
-      startDate,
-      cancelDate,
-      queuedDate,
-      executedDate,
-      state,
-      endDate,
-      t,
-      styles.closeIcon,
-      styles.errorIconContainer,
-      styles.iconContainer,
-      styles.markIcon,
-      styles.markIconContainer,
-    ],
-  );
+    ];
+  }, [
+    createdDate,
+    startDate,
+    cancelDate,
+    queuedDate,
+    executedDate,
+    state,
+    endDate,
+    t,
+    styles.closeIcon,
+    styles.errorIconContainer,
+    styles.iconContainer,
+    styles.markIcon,
+    styles.markIconContainer,
+  ]);
   const activeStepIndex = getActiveStepIndex(state);
 
   return (

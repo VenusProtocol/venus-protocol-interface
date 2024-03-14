@@ -728,6 +728,7 @@
   "proposalState": {
     "active": "Active",
     "canceled": "Canceled",
+    "created": "Created",
     "defeated": "Defeated",
     "executed": "Executed",
     "expired": "Expired",
@@ -1144,7 +1145,6 @@
   },
   "voteProposalUi": {
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "cancel": "Cancel",
     "cancelledDate": "Cancelled: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
@@ -1154,7 +1154,6 @@
     },
     "defeatedDate": "Defeated: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "description": "Description",
-    "execute": "Execute",
     "executedDate": "Executed: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "greenPulseAnimation": {
       "altText": "Green pulse animation"
@@ -1162,32 +1161,20 @@
     "operation": "Operation",
     "proposalHistory": "Proposal History",
     "proposalState": {
-      "active": "Active",
       "activeTimestamp": "Active since: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "canceled": "Canceled",
       "canceledTimestamp": "Canceled: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "defeated": "Defeated",
       "defeatedTimestamp": "Defeated: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "executed": "Executed",
       "executedTimestamp": "Executed: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "expired": "Expired",
       "expiredTimestamp": "Expired: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
-      "passed": "Passed",
-      "queued": "Queued",
       "queuedTimestamp": "Queued: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
-    "queue": "Queue",
     "queuedUntilDate": "Queued until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "statusCard": {
-      "active": "Active",
       "ariaLabelAbstain": "votes abstain",
       "ariaLabelAgainst": "votes against",
       "ariaLabelFor": "votes for",
-      "created": "Created",
       "dateOnly": "{{date, dd MMM yyyy}}",
-      "execute": "Execute",
-      "queue": "Queue",
       "timeOnly": "{{date, h:mm a}}"
     },
     "timeUntilExecutable": "Time until executable",
