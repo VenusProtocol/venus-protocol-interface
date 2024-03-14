@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.3.0
+
+### Minor Changes
+
+- 5865b86: UI for Governance search
+
 ## 3.2.0
 
 ### Minor Changes
