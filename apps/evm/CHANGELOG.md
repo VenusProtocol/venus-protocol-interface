@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.107.0
+
+### Minor Changes
+
+- eb990da: unwrap native token in borrow/withdraw operations
+
 ## 2.106.0
 
 ### Minor Changes
