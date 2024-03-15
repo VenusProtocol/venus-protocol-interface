@@ -52,6 +52,14 @@ import xrpLogo from 'libs/tokens/img/xrp.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
 import type { Token } from 'types';
 
+const bnbToken: Token = {
+  address: '0x0000000000000000000000000000000000000000',
+  decimals: 18,
+  symbol: 'BNB',
+  asset: bnbLogo,
+  isNative: true,
+};
+
 export const tokens: Token[] = [
   {
     address: '0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63',
@@ -71,13 +79,7 @@ export const tokens: Token[] = [
     symbol: 'VRT',
     asset: vrtLogo,
   },
-  {
-    address: '0x0000000000000000000000000000000000000000',
-    decimals: 18,
-    symbol: 'BNB',
-    asset: bnbLogo,
-    isNative: true,
-  },
+  bnbToken,
   {
     address: '0x47BEAd2563dCBf3bF2c9407fEa4dC236fAbA485A',
     decimals: 18,
@@ -324,6 +326,7 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'WBNB',
     asset: wbnbLogo,
+    tokenWrapped: bnbToken,
   },
   {
     address: '0x3BC5AC0dFdC871B365d159f728dd1B9A0B5481E8',

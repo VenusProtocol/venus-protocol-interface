@@ -56,11 +56,11 @@ const useForm = ({
   const isMounted = useIsMounted();
 
   const { isFormValid, formError } = useFormValidation({
-    toToken: toVToken.underlyingToken,
     formValues,
     swap,
     swapError,
     isFromTokenApproved,
+    isUsingSwap,
     fromTokenUserWalletBalanceTokens,
     fromTokenUserBorrowBalanceTokens,
     fromTokenWalletSpendingLimitTokens,

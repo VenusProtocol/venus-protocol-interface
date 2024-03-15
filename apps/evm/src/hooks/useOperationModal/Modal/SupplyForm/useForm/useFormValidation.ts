@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import type { Asset, Swap, SwapError } from 'types';
-import { areTokensEqual } from 'utilities';
 
 import { getSwapToTokenAmountReceivedTokens } from '../../getSwapToTokenAmountReceived';
 import type { FormError, FormValues } from './types';
@@ -14,6 +13,7 @@ interface UseFormValidationInput {
   fromTokenUserWalletBalanceTokens?: BigNumber;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   isFromTokenApproved?: boolean;
+  isUsingSwap: boolean;
   swap?: Swap;
   swapError?: SwapError;
 }
@@ -29,6 +29,7 @@ const useFormValidation = ({
   swapError,
   formValues,
   isFromTokenApproved,
+  isUsingSwap,
   fromTokenUserWalletBalanceTokens,
   fromTokenWalletSpendingLimitTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
@@ -41,7 +42,7 @@ const useFormValidation = ({
       UNWRAPPING_UNSUPPORTED: 'SWAP_UNWRAPPING_UNSUPPORTED',
     };
 
-    if (swapError && swapError in swapErrorMapping) {
+    if (isUsingSwap && swapError && swapError in swapErrorMapping) {
       return swapErrorMapping[swapError];
     }
 
@@ -67,7 +68,6 @@ const useFormValidation = ({
       return 'HIGHER_THAN_WALLET_BALANCE';
     }
 
-    const isUsingSwap = !areTokensEqual(formValues.fromToken, asset.vToken.underlyingToken);
     const toTokensAmountSuppliedTokens = isUsingSwap
       ? getSwapToTokenAmountReceivedTokens(swap).swapToTokenAmountReceivedTokens
       : fromTokenAmountTokens;
@@ -97,14 +97,13 @@ const useFormValidation = ({
       return 'PRICE_IMPACT_TOO_HIGH';
     }
   }, [
-    asset.vToken.underlyingToken,
     asset.supplyCapTokens,
     asset.supplyBalanceTokens,
     fromTokenUserWalletBalanceTokens,
     fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,
+    isUsingSwap,
     formValues.amountTokens,
-    formValues.fromToken,
     swap,
     swapError,
   ]);

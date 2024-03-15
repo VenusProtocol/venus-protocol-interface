@@ -60,8 +60,9 @@ export const useGetPendingRewards = () =>
   useQuery(FunctionKey.GET_PENDING_REWARDS, getPendingRewards);
 
 export const getVTokenBalanceOf = vi.fn();
-export const useGetVTokenBalanceOf = () =>
-  useQuery(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalanceOf);
+export const useGetVTokenBalanceOf = vi.fn(() =>
+  useQuery(FunctionKey.GET_V_TOKEN_BALANCE, getVTokenBalanceOf),
+);
 
 export const getAllowance = vi.fn();
 export const useGetAllowance = () => useQuery(FunctionKey.GET_TOKEN_ALLOWANCE, getAllowance);
@@ -489,3 +490,17 @@ export const useWrapTokensAndRepay = (_variables: never, options?: MutationObser
 export const updatePoolDelegateStatus = vi.fn();
 export const useUpdatePoolDelegateStatus = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.UPDATE_POOL_DELEGATE_STATUS, updatePoolDelegateStatus, options);
+
+export const borrowAndUnwrap = vi.fn();
+export const useBorrowAndUnwrap = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.BORROW_AND_UNWRAP, borrowAndUnwrap, options);
+
+export const redeemAndUnwrap = vi.fn();
+export const useRedeemAndUnwrap = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.REDEEM_AND_UNWRAP, redeemAndUnwrap, options);
+
+export const redeemUnderlyingAndUnwrap = vi.fn();
+export const useRedeemUnderlyingAndUnwrap = (
+  _variables: never,
+  options?: MutationObserverOptions,
+) => useMutation(FunctionKey.REDEEM_UNDERLYING_AND_UNWRAP, redeemUnderlyingAndUnwrap, options);

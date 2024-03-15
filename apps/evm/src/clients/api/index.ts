@@ -136,6 +136,18 @@ export { default as updatePoolDelegateStatus } from './mutations/updatePoolDeleg
 export * from './mutations/updatePoolDelegateStatus';
 export { default as useUpdatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus/useUpdatePoolDelegateStatus';
 
+export { default as borrowAndUnwrap } from './mutations/borrowAndUnwrap';
+export * from './mutations/borrowAndUnwrap';
+export { default as useBorrowAndUnwrap } from './mutations/borrowAndUnwrap/useBorrowAndUnwrap';
+
+export { default as redeemAndUnwrap } from './mutations/redeemAndUnwrap';
+export * from './mutations/redeemAndUnwrap';
+export { default as useRedeemAndUnwrap } from './mutations/redeemAndUnwrap/useRedeemAndUnwrap';
+
+export { default as redeemUnderlyingAndUnwrap } from './mutations/redeemUnderlyingAndUnwrap';
+export * from './mutations/redeemUnderlyingAndUnwrap';
+export { default as useRedeemUnderlyingAndUnwrap } from './mutations/redeemUnderlyingAndUnwrap/useRedeemUnderlyingAndUnwrap';
+
 // Queries
 export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';
 export * from './queries/getVaiCalculateRepayAmount';

@@ -261,6 +261,19 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "redeemTokens",
+        "type": "uint256"
+      }
+    ],
+    "name": "redeemAndUnwrap",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "redeemAmount",
         "type": "uint256"
       }

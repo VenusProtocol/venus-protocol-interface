@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { useBorrow } from 'clients/api';
+import { useBorrow, useBorrowAndUnwrap } from 'clients/api';
 import { AssetWarning, Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AccountData } from 'containers/AccountData';
@@ -58,7 +58,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
   );
 
-  const handleToggleReceiveNativeToken = async () => {
+  const handleToggleReceiveNativeToken = () => {
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       receiveNativeToken: !currentFormValues.receiveNativeToken,
@@ -241,11 +241,16 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
-    receiveNativeToken: false,
+    receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
   });
 
   const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({
     poolName: pool.name,
+    vToken: asset.vToken,
+  });
+
+  const { mutateAsync: borrowAndUnwrap, isLoading: isBorrowAndUnwrapLoading } = useBorrowAndUnwrap({
+    poolComptrollerAddress: pool.comptrollerAddress,
     vToken: asset.vToken,
   });
 
@@ -264,13 +269,17 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
     enabled: formValues.receiveNativeToken,
   });
 
-  const isSubmitting = isBorrowLoading;
+  const isSubmitting = isBorrowLoading || isBorrowAndUnwrapLoading;
 
   const onSubmit: BorrowFormUiProps['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
     const amountMantissa = convertTokensToMantissa({
       value: new BigNumber(fromTokenAmountTokens.trim()),
       token: fromToken,
     });
+
+    if (formValues.receiveNativeToken) {
+      return borrowAndUnwrap({ amountMantissa });
+    }
 
     return borrow({ amountMantissa });
   };

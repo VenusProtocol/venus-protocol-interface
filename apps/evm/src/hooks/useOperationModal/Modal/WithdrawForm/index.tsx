@@ -2,7 +2,13 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { useGetVTokenBalanceOf, useRedeem, useRedeemUnderlying } from 'clients/api';
+import {
+  useGetVTokenBalanceOf,
+  useRedeem,
+  useRedeemAndUnwrap,
+  useRedeemUnderlying,
+  useRedeemUnderlyingAndUnwrap,
+} from 'clients/api';
 import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { AccountData } from 'containers/AccountData';
 import useDelegateApproval from 'hooks/useDelegateApproval';
@@ -59,7 +65,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
   );
 
-  const handleToggleReceiveNativeToken = async () => {
+  const handleToggleReceiveNativeToken = () => {
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       receiveNativeToken: !currentFormValues.receiveNativeToken,
@@ -232,7 +238,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
-    receiveNativeToken: false,
+    receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
   });
 
   const { data: getVTokenBalanceData } = useGetVTokenBalanceOf(
@@ -250,6 +256,17 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
     poolName: pool.name,
     vToken: asset.vToken,
   });
+
+  const { mutateAsync: redeemAndUnwrap, isLoading: isRedeemAndUnwrapLoading } = useRedeemAndUnwrap({
+    poolComptrollerAddress: pool.comptrollerAddress,
+    vToken: asset.vToken,
+  });
+
+  const { mutateAsync: redeemUnderlyingAndUnwrap, isLoading: isRedeemUnderlyingAndUnwrapLoading } =
+    useRedeemUnderlyingAndUnwrap({
+      poolComptrollerAddress: pool.comptrollerAddress,
+      vToken: asset.vToken,
+    });
 
   const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
@@ -272,10 +289,14 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
       vToken: asset.vToken,
     });
 
-  const isWithdrawLoading = isRedeemLoading || isRedeemUnderlyingLoading;
+  const isWithdrawLoading =
+    isRedeemLoading ||
+    isRedeemUnderlyingLoading ||
+    isRedeemAndUnwrapLoading ||
+    isRedeemUnderlyingAndUnwrapLoading;
 
   const onSubmit: UseFormInput['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
-    // This cose should never be reached, but just in case we throw a generic
+    // This case should never be reached, but just in case we throw a generic
     // internal error
     if (!asset) {
       throw new VError({
@@ -294,6 +315,12 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
         token: fromToken,
       });
 
+      if (formValues.receiveNativeToken) {
+        return redeemUnderlyingAndUnwrap({
+          amountMantissa: withdrawAmountMantissa,
+        });
+      }
+
       return redeemUnderlying({
         amountMantissa: withdrawAmountMantissa,
       });
@@ -301,10 +328,15 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
 
     // Withdraw entire supply
     if (vTokenBalanceMantissa) {
+      if (formValues.receiveNativeToken) {
+        return redeemAndUnwrap({
+          amountMantissa: vTokenBalanceMantissa,
+        });
+      }
       return redeem({ amountMantissa: vTokenBalanceMantissa });
     }
 
-    // This cose should never be reached, but just in case we throw a generic
+    // This case should never be reached, but just in case we throw a generic
     // internal error
     throw new VError({
       type: 'unexpected',

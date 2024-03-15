@@ -36,6 +36,7 @@ import {
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,
+  getUniqueTokenBalances,
 } from 'utilities';
 
 import { useStyles as useSharedStyles } from '../styles';
@@ -108,7 +109,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   const styles = useStyles();
 
   const tokenBalances = useMemo(
-    () => [...integratedSwapTokenBalances, ...nativeWrappedTokenBalances],
+    () => getUniqueTokenBalances(...integratedSwapTokenBalances, ...nativeWrappedTokenBalances),
     [integratedSwapTokenBalances, nativeWrappedTokenBalances],
   );
 
@@ -372,11 +373,15 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   const isIntegratedSwapFeatureEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
   const { accountAddress } = useAccountAddress();
 
-  const [formValues, setFormValues] = useState<FormValues>({
-    amountTokens: '',
-    fromToken: asset.vToken.underlyingToken,
-    fixedRepayPercentage: undefined,
-  });
+  const { data: userWalletNativeTokenBalanceData } = useGetBalanceOf(
+    {
+      accountAddress: accountAddress || '',
+      token: asset.vToken.underlyingToken.tokenWrapped,
+    },
+    {
+      enabled: isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
+    },
+  );
 
   const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
@@ -386,6 +391,27 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
     [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
   );
+
+  const userWalletNativeTokenBalanceTokens = useMemo(() => {
+    return userWalletNativeTokenBalanceData
+      ? convertMantissaToTokens({
+          token: asset.vToken.underlyingToken.tokenWrapped,
+          value: userWalletNativeTokenBalanceData?.balanceMantissa,
+        })
+      : undefined;
+  }, [asset.vToken.underlyingToken.tokenWrapped, userWalletNativeTokenBalanceData]);
+
+  const shouldSelectNativeToken =
+    canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
+
+  const [formValues, setFormValues] = useState<FormValues>({
+    amountTokens: '',
+    fromToken:
+      shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
+        ? asset.vToken.underlyingToken.tokenWrapped
+        : asset.vToken.underlyingToken,
+    fixedRepayPercentage: undefined,
+  });
 
   const swapRouterContractAddress = useGetSwapRouterContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
@@ -464,33 +490,27 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
 
   const isSubmitting = isRepayLoading || isSwapAndRepayLoading || isWrapAndRepayLoading;
 
-  const { data: nativeTokenBalanceData } = useGetBalanceOf(
-    {
-      accountAddress: accountAddress || '',
-      token: asset.vToken.underlyingToken.tokenWrapped,
-    },
-    {
-      enabled: isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
-    },
-  );
-
   const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
-    if (asset.vToken.underlyingToken.tokenWrapped && nativeTokenBalanceData) {
+    if (asset.vToken.underlyingToken.tokenWrapped && userWalletNativeTokenBalanceData) {
       const marketTokenBalance: TokenBalance = {
         token: asset.vToken.underlyingToken,
         balanceMantissa: convertTokensToMantissa({
           token: asset.vToken.underlyingToken,
-          value: asset.userSupplyBalanceTokens,
+          value: asset.userWalletBalanceTokens,
         }),
       };
       const nativeTokenBalance: TokenBalance = {
         token: asset.vToken.underlyingToken.tokenWrapped,
-        balanceMantissa: nativeTokenBalanceData.balanceMantissa,
+        balanceMantissa: userWalletNativeTokenBalanceData.balanceMantissa,
       };
       return [marketTokenBalance, nativeTokenBalance];
     }
     return [];
-  }, [asset.userSupplyBalanceTokens, asset.vToken.underlyingToken, nativeTokenBalanceData]);
+  }, [
+    asset.userWalletBalanceTokens,
+    asset.vToken.underlyingToken,
+    userWalletNativeTokenBalanceData,
+  ]);
 
   const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances({
     accountAddress,

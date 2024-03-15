@@ -46,3 +46,4 @@ export * from './createStoreSelectors';
 export * from './convertAprToApy';
 export { default as extractSettledPromiseValue } from './extractSettledPromiseValue';
 export { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
+export { default as getUniqueTokenBalances } from './getUniqueTokenBalances';
