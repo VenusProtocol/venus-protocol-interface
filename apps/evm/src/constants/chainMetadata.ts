@@ -30,7 +30,7 @@ export const CHAIN_METADATA: {
   [ChainId.OPBNB_MAINNET]: {
     name: 'opBNB',
     logoSrc: opbnbLogo,
-    explorerUrl: 'https://opbnb.bscscan.com/',
+    explorerUrl: 'https://opbnbscan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com/',
     blockTimeMs: 1000,
     blocksPerDay: 86400,
@@ -40,7 +40,7 @@ export const CHAIN_METADATA: {
   [ChainId.OPBNB_TESTNET]: {
     name: 'opBNB testnet',
     logoSrc: opbnbLogo,
-    explorerUrl: 'https://opbnb-testnet.bscscan.com/',
+    explorerUrl: 'https://testnet.opbnbscan.com',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
     blockTimeMs: 1000,
     blocksPerDay: 86400,
