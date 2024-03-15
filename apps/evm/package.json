@@ -16,9 +16,9 @@
     "lint:styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
     "tsc": "tsc --noEmit",
     "extract-translations": "yarn i18next",
-    "generate-subgraph-types:mainnet": "yarn graphql-codegen --config src/config/codegen.ts --project mainnet",
-    "generate-subgraph-types:testnet": "yarn graphql-codegen --config src/config/codegen.ts --project testnet",
-    "generate-subgraph-types": "npm-run-all --parallel generate-subgraph-types:mainnet generate-subgraph-types:testnet",
+    "generate-subgraph-types:isolated-pools": "yarn graphql-codegen --config src/config/codegen.ts --project isolatedPools",
+    "generate-subgraph-types:governance": "yarn graphql-codegen --config src/config/codegen.ts --project governance",
+    "generate-subgraph-types": "npm-run-all --parallel generate-subgraph-types:isolated-pools generate-subgraph-types:governance",
     "generate-contracts": "rimraf src/libs/contracts/generated/getters && rimraf src/libs/contracts/generated/infos && src/libs/contracts/scripts/generateContractRecords/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/contracts/generated",
     "generate-pancake-swap-tokens": "src/libs/tokens/scripts/generatePancakeSwapTokenRecords.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/tokens/infos/pancakeSwapTokens/bscMainnet.ts",
     "generate-version-files": "genversion --es6 --semi src/constants/version.ts && src/scripts/generatePublicVersionFile.ts && yarn biome format --vcs-use-ignore-file=false --write public/version.json",
@@ -156,16 +156,8 @@
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   },
   "msw": {
     "workerDirectory": "public"

@@ -12,7 +12,7 @@
       ]
     },
     "start": {
-      "dependsOn": ["^build", "^generate"],
+      "dependsOn": ["^build", "generate"],
       "cache": false,
       "persistent": true
     },
