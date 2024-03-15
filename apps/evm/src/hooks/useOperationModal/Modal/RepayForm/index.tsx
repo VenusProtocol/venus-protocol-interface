@@ -402,7 +402,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
   }, [asset.vToken.underlyingToken.tokenWrapped, userWalletNativeTokenBalanceData]);
 
   const shouldSelectNativeToken =
-    canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gte(asset.userWalletBalanceTokens);
+    canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
 
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
