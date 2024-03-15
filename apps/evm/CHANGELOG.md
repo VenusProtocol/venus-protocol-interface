@@ -1,31 +1,11 @@
 # @venusprotocol/evm
 
-## 3.3.0
-
-### Minor Changes
+## 2.105.0
 
 - 5865b86: UI for Governance search
-
-## 3.2.0
-
-### Minor Changes
-
 - 5d3eb68: Filter out 0 Prime APYs
-
-### Patch Changes
-
 - 49a2268: Fix linting issue
-
-## 3.1.0
-
-### Minor Changes
-
 - 8516602: Enable supply and borrow actions for TUSD
-
-## 3.0.0
-
-### Major Changes
-
 - 678f33b: move chain logos to wallets lib
 
 ## 2.104.0
