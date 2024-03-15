@@ -31,6 +31,7 @@ const Bridge = lazy(() => import('pages/Bridge'));
 
 const AppRoutes = () => {
   const { accountAddress } = useAccountAddress();
+  const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
@@ -239,14 +240,16 @@ const AppRoutes = () => {
           />
         )}
 
-        <Route
-          path={Subdirectory.SWAP}
-          element={
-            <PageSuspense>
-              <Swap />
-            </PageSuspense>
-          }
-        />
+        {swapRouteEnabled && (
+          <Route
+            path={Subdirectory.SWAP}
+            element={
+              <PageSuspense>
+                <Swap />
+              </PageSuspense>
+            }
+          />
+        )}
 
         {vaiRouteEnabled && (
           <Route
