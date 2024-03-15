@@ -75,7 +75,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
     switch (proposalState) {
       case ProposalState.Active:
         return [
-          <ActiveChip text={t('voteProposalUi.proposalState.active')} />,
+          <ActiveChip text={t('proposalState.active')} />,
           createdDate && (
             <Trans
               i18nKey="voteProposalUi.proposalState.activeTimestamp"
@@ -90,7 +90,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
         ];
       case ProposalState.Canceled:
         return [
-          <InactiveChip text={t('voteProposalUi.proposalState.canceled')} />,
+          <InactiveChip text={t('proposalState.canceled')} />,
           cancelDate && (
             <Trans
               i18nKey="voteProposalUi.proposalState.canceledTimestamp"
@@ -105,7 +105,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
         ];
       case ProposalState.Succeeded:
         return [
-          <ActiveChip text={t('voteProposalUi.proposalState.passed')} />,
+          <ActiveChip text={t('proposalState.succeeded')} />,
           endDate && (
             <Trans
               i18nKey="voteProposalUi.proposalState.succeededTimestamp"
@@ -120,7 +120,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
         ];
       case ProposalState.Queued:
         return [
-          <InactiveChip text={t('voteProposalUi.proposalState.queued')} />,
+          <InactiveChip text={t('proposalState.queued')} />,
           queuedDate && (
             <Trans
               i18nKey="voteProposalUi.proposalState.queuedTimestamp"
@@ -135,7 +135,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
         ];
       case ProposalState.Defeated:
         return [
-          <ErrorChip text={t('voteProposalUi.proposalState.defeated')} />,
+          <ErrorChip text={t('proposalState.defeated')} />,
           endDate && (
             <Trans
               i18nKey="voteProposalUi.proposalState.defeatedTimestamp"
@@ -150,7 +150,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
         ];
       case ProposalState.Expired:
         return [
-          <ErrorChip text={t('voteProposalUi.proposalState.expired')} />,
+          <ErrorChip text={t('proposalState.expired')} />,
           endDate && (
             <Trans
               i18nKey="voteProposalUi.proposalState.expiredTimestamp"
@@ -165,7 +165,7 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
         ];
       case ProposalState.Executed:
         return [
-          <BlueChip text={t('voteProposalUi.proposalState.executed')} />,
+          <BlueChip text={t('proposalState.executed')} />,
           executedDate && (
             <Trans
               i18nKey="voteProposalUi.proposalState.executedTimestamp"
