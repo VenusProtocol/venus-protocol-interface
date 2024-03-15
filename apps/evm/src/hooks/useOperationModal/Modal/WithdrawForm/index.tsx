@@ -238,7 +238,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
-    receiveNativeToken: false,
+    receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
   });
 
   const { data: getVTokenBalanceData } = useGetVTokenBalanceOf(

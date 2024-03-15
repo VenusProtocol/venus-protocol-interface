@@ -57,7 +57,7 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('lets the user partially withdraw directly to native tokens by unwrapping', async () => {
     const onCloseMock = vi.fn();
-    const { getByText, getByTestId, getByRole } = renderComponent(
+    const { getByText, getByTestId } = renderComponent(
       <Withdraw asset={fakeWethAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
         chainId: ChainId.SEPOLIA,
@@ -65,9 +65,7 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       },
     );
 
-    // click on receive native token
-    const receiveNativeTokenSwitch = getByRole('checkbox');
-    fireEvent.click(receiveNativeTokenSwitch);
+    // receive native token is active by default, so no need to click on it
 
     // Enter amount in input
     const correctAmountTokens = 1;
@@ -105,7 +103,7 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       },
     }));
     const onCloseMock = vi.fn();
-    const { getByText, getByRole } = renderComponent(
+    const { getByText } = renderComponent(
       <Withdraw asset={fakeWethAsset} pool={fakePoolWithLiquidity} onCloseModal={onCloseMock} />,
       {
         chainId: ChainId.SEPOLIA,
@@ -113,9 +111,7 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       },
     );
 
-    // click on receive native token
-    const receiveNativeTokenSwitch = getByRole('checkbox');
-    fireEvent.click(receiveNativeTokenSwitch);
+    // receive native token is active by default, so no need to click on it
 
     // click on MAX button
     fireEvent.click(getByText(en.operationModal.withdraw.rightMaxButtonLabel));

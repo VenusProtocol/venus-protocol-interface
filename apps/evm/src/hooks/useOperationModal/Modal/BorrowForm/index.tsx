@@ -241,7 +241,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
-    receiveNativeToken: false,
+    receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
   });
 
   const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({

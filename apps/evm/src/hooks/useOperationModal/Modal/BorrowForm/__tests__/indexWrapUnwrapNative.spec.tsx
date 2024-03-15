@@ -56,7 +56,7 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('lets the user borrow native tokens by unwrapping', async () => {
     const onCloseMock = vi.fn();
-    const { getByText, getByTestId, getByRole } = renderComponent(
+    const { getByText, getByTestId } = renderComponent(
       <Borrow asset={fakeWethAsset} pool={fakePool} onCloseModal={onCloseMock} />,
       {
         chainId: ChainId.SEPOLIA,
@@ -64,9 +64,7 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       },
     );
 
-    // click on receive native token
-    const receiveNativeTokenSwitch = getByRole('checkbox');
-    fireEvent.click(receiveNativeTokenSwitch);
+    // receive native token is active by default, so no need to click on it
 
     // Enter amount in input
     const correctAmountTokens = 1;
