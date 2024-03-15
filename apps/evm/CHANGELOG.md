@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 2.106.0
+
+### Minor Changes
+
+- fec36e4: Fix governance proposal history
+- 30ca2ae: swap page now redirects when switching to a chain that has swap disabled
+- 911d718: updated opBNB explorer URLs
+
+### Patch Changes
+
+- 9537bed: Fix evm app version
+
 ## 2.105.0
 
 - 5865b86: UI for Governance search
