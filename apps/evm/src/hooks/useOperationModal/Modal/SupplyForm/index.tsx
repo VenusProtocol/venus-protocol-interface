@@ -408,7 +408,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
 
-  const { data: nativeTokenBalanceData } = useGetBalanceOf(
+  const { data: userWalletNativeTokenBalanceData } = useGetBalanceOf(
     {
       accountAddress: accountAddress || '',
       token: asset.vToken.underlyingToken.tokenWrapped,
@@ -445,17 +445,17 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
   );
 
-  const nativeTokenBalanceTokens = useMemo(() => {
-    return nativeTokenBalanceData
+  const userWalletNativeTokenBalanceTokens = useMemo(() => {
+    return userWalletNativeTokenBalanceData
       ? convertMantissaToTokens({
           token: asset.vToken.underlyingToken.tokenWrapped,
-          value: nativeTokenBalanceData?.balanceMantissa,
+          value: userWalletNativeTokenBalanceData?.balanceMantissa,
         })
       : undefined;
-  }, [asset.vToken.underlyingToken.tokenWrapped, nativeTokenBalanceData]);
+  }, [asset.vToken.underlyingToken.tokenWrapped, userWalletNativeTokenBalanceData]);
 
   const shouldSelectNativeToken =
-    canWrapNativeToken && nativeTokenBalanceTokens?.gte(asset.userWalletBalanceTokens);
+    canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gte(asset.userWalletBalanceTokens);
 
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
@@ -523,7 +523,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
   });
 
   const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
-    if (asset.vToken.underlyingToken.tokenWrapped && nativeTokenBalanceData) {
+    if (asset.vToken.underlyingToken.tokenWrapped && userWalletNativeTokenBalanceData) {
       const marketTokenBalance: TokenBalance = {
         token: asset.vToken.underlyingToken,
         balanceMantissa: convertTokensToMantissa({
@@ -533,12 +533,16 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       };
       const nativeTokenBalance: TokenBalance = {
         token: asset.vToken.underlyingToken.tokenWrapped,
-        balanceMantissa: nativeTokenBalanceData.balanceMantissa,
+        balanceMantissa: userWalletNativeTokenBalanceData.balanceMantissa,
       };
       return [marketTokenBalance, nativeTokenBalance];
     }
     return [];
-  }, [asset.vToken.underlyingToken, asset.userWalletBalanceTokens, nativeTokenBalanceData]);
+  }, [
+    asset.vToken.underlyingToken,
+    asset.userWalletBalanceTokens,
+    userWalletNativeTokenBalanceData,
+  ]);
 
   const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances({
     accountAddress,
