@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { useBorrow, useBorrowAndUnwrap } from 'clients/api';
+import { useBorrow } from 'clients/api';
 import { AssetWarning, Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AccountData } from 'containers/AccountData';
@@ -249,11 +249,6 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
     vToken: asset.vToken,
   });
 
-  const { mutateAsync: borrowAndUnwrap, isLoading: isBorrowAndUnwrapLoading } = useBorrowAndUnwrap({
-    poolComptrollerAddress: pool.comptrollerAddress,
-    vToken: asset.vToken,
-  });
-
   const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
   });
@@ -269,7 +264,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
     enabled: formValues.receiveNativeToken,
   });
 
-  const isSubmitting = isBorrowLoading || isBorrowAndUnwrapLoading;
+  const isSubmitting = isBorrowLoading;
 
   const onSubmit: BorrowFormUiProps['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
     const amountMantissa = convertTokensToMantissa({
@@ -277,11 +272,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
       token: fromToken,
     });
 
-    if (formValues.receiveNativeToken) {
-      return borrowAndUnwrap({ amountMantissa });
-    }
-
-    return borrow({ amountMantissa });
+    return borrow({ amountMantissa, unwrap: formValues.receiveNativeToken });
   };
 
   return (

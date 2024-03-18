@@ -368,6 +368,7 @@ describe('BorrowForm', () => {
     await waitFor(() => expect(borrow).toHaveBeenCalledTimes(1));
     expect(borrow).toHaveBeenCalledWith({
       amountMantissa: expectedAmountMantissa,
+      unwrap: false,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);

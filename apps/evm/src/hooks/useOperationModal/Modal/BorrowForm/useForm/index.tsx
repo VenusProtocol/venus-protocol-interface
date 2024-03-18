@@ -52,7 +52,7 @@ const useForm = ({
       setFormValues(() => ({
         fromToken: asset.vToken.underlyingToken,
         amountTokens: '',
-        receiveNativeToken: false,
+        receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
       }));
       onCloseModal();
     } catch (error) {
