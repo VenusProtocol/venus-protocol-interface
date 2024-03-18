@@ -33,6 +33,7 @@ export const assetData: Asset[] = [
     borrowBalanceTokens: new BigNumber('1852935.597521220541385584'),
     supplyPercentageRatePerBlock: new BigNumber('0.000001'),
     borrowPercentageRatePerBlock: new BigNumber('0.0000001'),
+    disabledTokenActions: [],
     supplyDistributions: [
       {
         type: 'rewardDistributor',
@@ -77,6 +78,7 @@ export const assetData: Asset[] = [
     borrowBalanceTokens: new BigNumber('73128318.509651061457900627'),
     supplyPercentageRatePerBlock: new BigNumber('0.000002'),
     borrowPercentageRatePerBlock: new BigNumber('0.0000002'),
+    disabledTokenActions: ['borrow', 'supply'],
     supplyDistributions: [
       {
         type: 'rewardDistributor',
@@ -151,6 +153,7 @@ export const assetData: Asset[] = [
     borrowBalanceTokens: new BigNumber('232511166.920938849475104194'),
     supplyPercentageRatePerBlock: new BigNumber('0.000003'),
     borrowPercentageRatePerBlock: new BigNumber('0.0000003'),
+    disabledTokenActions: ['swapAndSupply'],
     supplyDistributions: [
       {
         type: 'rewardDistributor',
@@ -215,6 +218,7 @@ export const assetData: Asset[] = [
     borrowBalanceTokens: new BigNumber('142662020.229587308931217432'),
     supplyPercentageRatePerBlock: new BigNumber('0.000004'),
     borrowPercentageRatePerBlock: new BigNumber('0.0000004'),
+    disabledTokenActions: ['supply'],
     supplyDistributions: [
       {
         type: 'rewardDistributor',

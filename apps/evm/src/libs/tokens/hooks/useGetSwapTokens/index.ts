@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
-import { getSwapTokens } from 'libs/tokens/utilities/getSwapTokens';
 import { useChainId } from 'libs/wallet';
+
+import { getSwapTokens } from '../../utilities/getSwapTokens';
 
 export const useGetSwapTokens = () => {
   const { chainId } = useChainId();

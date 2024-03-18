@@ -1,5 +1,16 @@
 import { BigNumber as BN } from 'ethers';
 
+import fakeLegacyPoolComptrollerContractResponses from '__mocks__/contracts/legacyPoolComptroller';
+import fakeVenusLensContractResponses from '__mocks__/contracts/venusLens';
+import { altAddress } from '__mocks__/models/address';
+
+import type {
+  LegacyPoolComptroller,
+  ResilientOracle,
+  VaiController,
+  VenusLens,
+} from 'libs/contracts';
+
 export const fakeGetXvsPriceOutput = BN.from('0x30f7dc8a6370b000');
 
 export const fakeGetAssetsInOutput = [
@@ -350,3 +361,37 @@ export const fakeVTokenBalancesAllOutput = [
     tokenAllowance: BN.from('0x00'),
   },
 ];
+
+export const fakeLegacyPoolComptrollerContract = {
+  address: altAddress,
+  getAllMarkets: async () => fakeLegacyPoolComptrollerContractResponses.getAllMarkets,
+  getAssetsIn: async () => fakeGetAssetsInOutput,
+  borrowCaps: async (vTokenAddress: keyof typeof fakeBorrowCapsOutputs) =>
+    fakeBorrowCapsOutputs[vTokenAddress],
+  supplyCaps: async (vTokenAddress: keyof typeof fakeSupplyCapsOutputs) =>
+    fakeSupplyCapsOutputs[vTokenAddress],
+  venusBorrowSpeeds: async (vTokenAddress: keyof typeof fakeXvsBorrowSpeedOutputs) =>
+    fakeXvsBorrowSpeedOutputs[vTokenAddress],
+  venusSupplySpeeds: async (vTokenAddress: keyof typeof fakeXvsSupplySpeedOutputs) =>
+    fakeXvsSupplySpeedOutputs[vTokenAddress],
+} as unknown as LegacyPoolComptroller;
+
+export const fakeResilientOracleContract = {
+  getPrice: async () => fakeGetXvsPriceOutput,
+  getUnderlyingPrice: async (vTokenAddress: keyof typeof fakeGetUnderlyingPriceOutputs) =>
+    fakeGetUnderlyingPriceOutputs[vTokenAddress],
+} as unknown as ResilientOracle;
+
+export const fakeVaiControllerContract = {
+  callStatic: {
+    accrueVAIInterest: vi.fn(),
+  },
+  getVAIRepayAmount: async () => fakeGetVaiRepayAmountOutput,
+} as unknown as VaiController;
+
+export const fakeVenusLensContract = {
+  callStatic: {
+    vTokenMetadataAll: async () => fakeVenusLensContractResponses.vTokenMetadataAll,
+    vTokenBalancesAll: async () => fakeVTokenBalancesAllOutput,
+  },
+} as unknown as VenusLens;

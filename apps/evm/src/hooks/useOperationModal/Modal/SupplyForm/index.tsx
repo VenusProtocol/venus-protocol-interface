@@ -32,9 +32,8 @@ import {
   useGetSwapRouterContractAddress,
 } from 'libs/contracts';
 import { VError, displayMutationError } from 'libs/errors';
-import { isTokenActionEnabled } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress, useChainId } from 'libs/wallet';
+import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
@@ -406,7 +405,6 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
   const { accountAddress } = useAccountAddress();
-  const { chainId } = useChainId();
 
   const { data: userWalletNativeTokenBalanceData } = useGetBalanceOf(
     {
@@ -426,18 +424,8 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     () =>
       isIntegratedSwapEnabled &&
       // Check swap and supply action is enabled for underlying token
-      isTokenActionEnabled({
-        tokenAddress: asset.vToken.underlyingToken.address,
-        action: 'swapAndSupply',
-        chainId,
-      }) &&
-      // Check swap and supply action is enabled for vToken
-      isTokenActionEnabled({
-        tokenAddress: asset.vToken.address,
-        action: 'swapAndSupply',
-        chainId,
-      }),
-    [asset.vToken.underlyingToken, asset.vToken.address, chainId, isIntegratedSwapEnabled],
+      !asset.disabledTokenActions.includes('swapAndSupply'),
+    [asset.disabledTokenActions, isIntegratedSwapEnabled],
   );
 
   const canWrapNativeToken = useMemo(

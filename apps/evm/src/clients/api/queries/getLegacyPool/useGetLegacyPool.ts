@@ -22,6 +22,7 @@ import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedInput = Omit<
   GetLegacyPoolInput,
+  | 'chainId'
   | 'blocksPerDay'
   | 'provider'
   | 'name'
@@ -91,6 +92,7 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Options) => {
         },
         params =>
           getLegacyPool({
+            chainId,
             blocksPerDay,
             name: t('legacyPool.name'),
             description: t('legacyPool.description'),

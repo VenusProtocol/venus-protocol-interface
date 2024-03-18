@@ -5,8 +5,8 @@ import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
+import { useGetPool } from 'clients/api';
 import { TokenAnnouncement } from 'containers/TokenAnnouncement';
-import { isTokenActionEnabled } from 'libs/tokens';
 import { en } from 'libs/translations';
 import type { Asset, Pool } from 'types';
 
@@ -34,7 +34,24 @@ describe('containers/AssetAccessor', () => {
   });
 
   it('renders token announcement if action has been disabled and an announcement exists for that token', async () => {
-    (isTokenActionEnabled as Vi.Mock).mockImplementation(() => false);
+    const customFakePool: Pool = {
+      ...fakePool,
+      assets: fakePool.assets.map(asset =>
+        asset.vToken.address === fakeAsset.vToken.address
+          ? {
+              ...asset,
+              disabledTokenActions: ['borrow'],
+            }
+          : asset,
+      ),
+    };
+
+    (useGetPool as Vi.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: customFakePool,
+      },
+    }));
 
     const fakeTokenAnnouncementText = 'Fake token announcement';
     (TokenAnnouncement as Vi.Mock).mockImplementation(() => fakeTokenAnnouncementText);
@@ -50,7 +67,25 @@ describe('containers/AssetAccessor', () => {
   });
 
   it('renders default token announcement if action has been disabled and no announcement exists for that token', async () => {
-    (isTokenActionEnabled as Vi.Mock).mockImplementation(() => false);
+    const customFakePool: Pool = {
+      ...fakePool,
+      assets: fakePool.assets.map(asset =>
+        asset.vToken.address === fakeAsset.vToken.address
+          ? {
+              ...asset,
+              disabledTokenActions: ['borrow'],
+            }
+          : asset,
+      ),
+    };
+
+    (useGetPool as Vi.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: customFakePool,
+      },
+    }));
+
     (TokenAnnouncement as Vi.Mock).mockImplementation(() => null);
 
     const { getByText, queryByText } = renderComponent(

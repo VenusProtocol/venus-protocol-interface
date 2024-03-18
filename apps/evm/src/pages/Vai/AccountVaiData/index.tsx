@@ -87,6 +87,7 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
       userPercentOfLimit: 0,
       supplyDistributions: [],
       borrowDistributions: [],
+      disabledTokenActions: [],
       isCollateralOfUser: false,
       collateralFactor: 0,
       reserveFactor: 0,

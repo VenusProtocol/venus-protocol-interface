@@ -48,17 +48,6 @@ exports[`api/queries/getVTokens > returns the vTokens on success 1`] = `
       },
     },
     {
-      "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
-      "decimals": 8,
-      "symbol": "vWBNB",
-      "underlyingToken": {
-        "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-        "asset": "/src/libs/tokens/img/wbnb.svg",
-        "decimals": 18,
-        "symbol": "WBNB",
-      },
-    },
-    {
       "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
       "decimals": 8,
       "symbol": "vUSDT",
@@ -219,17 +208,6 @@ exports[`api/queries/getVTokens > still functions without passing venusLensContr
         "asset": "/src/libs/tokens/img/usdt.svg",
         "decimals": 6,
         "symbol": "USDT",
-      },
-    },
-    {
-      "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
-      "decimals": 8,
-      "symbol": "vWBNB",
-      "underlyingToken": {
-        "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-        "asset": "/src/libs/tokens/img/wbnb.svg",
-        "decimals": 18,
-        "symbol": "WBNB",
       },
     },
     {

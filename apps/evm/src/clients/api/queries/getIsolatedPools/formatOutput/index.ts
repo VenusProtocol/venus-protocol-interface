@@ -4,7 +4,7 @@ import type { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import type { PoolLens } from 'libs/contracts';
 import { logError } from 'libs/errors';
-import type { Asset, Pool, PrimeApy, Token, VToken } from 'types';
+import type { Asset, ChainId, Pool, PrimeApy, Token, VToken } from 'types';
 import addUserPropsToPool from 'utilities/addUserPropsToPool';
 import areAddressesEqual from 'utilities/areAddressesEqual';
 import areTokensEqual from 'utilities/areTokensEqual';
@@ -13,6 +13,7 @@ import convertDollarsToCents from 'utilities/convertDollarsToCents';
 import convertFactorFromSmartContract from 'utilities/convertFactorFromSmartContract';
 import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 import findTokenByAddress from 'utilities/findTokenByAddress';
+import { getDisabledTokenActions } from 'utilities/getDisabledTokenActions';
 import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
 import type { GetTokenBalancesOutput } from '../../getTokenBalances';
@@ -21,6 +22,7 @@ import type { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsM
 import formatDistributions from './formatDistributions';
 
 export interface FormatToPoolsInput {
+  chainId: ChainId;
   tokens: Token[];
   blocksPerDay: number;
   currentBlockNumber: number;
@@ -35,6 +37,7 @@ export interface FormatToPoolsInput {
 }
 
 const formatToPools = ({
+  chainId,
   tokens,
   blocksPerDay,
   currentBlockNumber,
@@ -53,6 +56,11 @@ const formatToPools = ({
     );
 
     const assets = poolResult.vTokens.reduce<Asset[]>((acc, vTokenMetaData) => {
+      // Remove unlisted tokens
+      if (!vTokenMetaData.isListed) {
+        return acc;
+      }
+
       // Retrieve underlying token record
       const underlyingToken = findTokenByAddress({
         tokens,
@@ -209,8 +217,15 @@ const formatToPools = ({
         primeApy: primeApyMap.get(vToken.address),
       });
 
+      const disabledTokenActions = getDisabledTokenActions({
+        bitmask: vTokenMetaData.pausedActions.toNumber(),
+        tokenAddresses: [vToken.address, vToken.underlyingToken.address],
+        chainId,
+      });
+
       const asset: Asset = {
         vToken,
+        disabledTokenActions,
         tokenPriceCents,
         reserveFactor,
         collateralFactor,

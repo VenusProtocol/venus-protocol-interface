@@ -2,7 +2,6 @@ import { abi as GovernorBravoDelegateAbi } from '@venusprotocol/governance-contr
 import venusGovernanceBscMainnetDeployments from '@venusprotocol/governance-contracts/deployments/bscmainnet_addresses.json';
 import venusGovernanceBscTestnetDeployments from '@venusprotocol/governance-contracts/deployments/bsctestnet_addresses.json';
 import { abi as JumpRateModelV2Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/JumpRateModelV2.sol/JumpRateModelV2.json';
-import { abi as PoolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { abi as PoolRegistryAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Pool/PoolRegistry.sol/PoolRegistry.json';
 import { abi as RewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
 import { abi as VBep20Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/VToken.sol/VToken.json';
@@ -32,7 +31,6 @@ import { abi as LegacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/a
 import { abi as VTreasuryAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasury.sol/VTreasury.json';
 import { abi as VTreasuryV8Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasuryV8.sol/VTreasuryV8.json';
 import { abi as JumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
-import { abi as VenusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import { abi as SwapRouterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Swap/SwapRouter.sol/SwapRouter.json';
 import { abi as Bep20Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/BEP20Interface.sol/BEP20Interface.json';
 import { abi as PrimeAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/Prime/Prime.sol/Prime.json';
@@ -58,11 +56,13 @@ import { ChainId } from 'types';
 // TODO: replace with the package ABI once it gets added
 import IsolatedPoolsComptrollerNtgCompatible from './externalAbis/Comptroller_NTG.json';
 import MaximillionAbi from './externalAbis/Maximillion.json';
-import multicall3Abi from './externalAbis/Multicall3.json';
+import Multicall3Abi from './externalAbis/Multicall3.json';
 import NativeTokenGatewayAbi from './externalAbis/NativeTokenGateway.json';
-import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
-import vBnbAbi from './externalAbis/VBnb.json';
-import XsequenceMulticall from './externalAbis/XsequenceMulticall.json';
+import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
+import PoolLensAbi from './externalAbis/PoolLens.json';
+import VBnbAbi from './externalAbis/VBnb.json';
+import VenusLensAbi from './externalAbis/VenusLens.json';
+import XsequenceMulticallAbi from './externalAbis/XsequenceMulticall.json';
 
 export interface UniqueContractConfig {
   name: string;
@@ -98,20 +98,20 @@ export const contracts: ContractConfig[] = [
     name: 'VenusLens',
     abi: VenusLensAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VenusLens,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VenusLens,
+      [ChainId.BSC_TESTNET]: '0xA78B5575F0ad134302cF8f37a9c3cE4428c05233', // TODO: get from package once it's been updated
+      [ChainId.BSC_MAINNET]: '0xefC61F152D252993Ee507bE1Fc5C23cB8e63DA93', // TODO: get from package once it's been updated
     },
   },
   {
     name: 'PoolLens',
     abi: PoolLensAbi,
     address: {
-      [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens,
-      [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens,
-      [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolLens,
-      [ChainId.OPBNB_MAINNET]: isolatedPoolsOpBnbMainnetDeployments.addresses.PoolLens,
-      [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses.PoolLens,
-      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens,
+      [ChainId.BSC_TESTNET]: '0xe73993e47BA43566cCc010e9d26B874515da77C8', // TODO: get from package once it's been updated
+      [ChainId.BSC_MAINNET]: '0xA460d81625374E4A12e7E1966044280d89C90833', // TODO: get from package once it's been updated
+      [ChainId.ETHEREUM]: '0x57bea400aE7E51855a2e1E1523475d9d2eB0742F', // TODO: get from package once it's been updated
+      [ChainId.OPBNB_MAINNET]: '0x2Ed744F6E722aa5E41E67267774b386D244e5e4e', // TODO: get from package once it's been updated
+      [ChainId.OPBNB_TESTNET]: '0x32B3aA8805b4A4b80BA03Bd8f69c2C0e2710803D', // TODO: get from package once it's been updated
+      [ChainId.SEPOLIA]: '0xa78e0D276203290eB0Be7697104379e14c90698a', // TODO: get from package once it's been updated
     },
   },
   {
@@ -220,7 +220,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XsequenceMulticall',
-    abi: XsequenceMulticall,
+    abi: XsequenceMulticallAbi,
     address: {
       [ChainId.BSC_MAINNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
       [ChainId.BSC_TESTNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
@@ -232,7 +232,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'Multicall3',
-    abi: multicall3Abi,
+    abi: Multicall3Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.BSC_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
@@ -321,7 +321,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VBnb',
-    abi: vBnbAbi,
+    abi: VBnbAbi,
   },
   {
     name: 'Bep20',
@@ -341,7 +341,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'PancakePairV2',
-    abi: pancakePairV2Abi,
+    abi: PancakePairV2Abi,
   },
   // SwapRouter contract
   {

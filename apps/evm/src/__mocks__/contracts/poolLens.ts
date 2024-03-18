@@ -36,6 +36,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('650000000000000000'),
           underlyingAssetAddress: '0xe73774DfCD551BF75650772dC2cC56a2B6323453',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -54,6 +55,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('800000000000000000'),
           underlyingAssetAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('6'),
         },
         {
@@ -72,6 +74,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('650000000000000000'),
           underlyingAssetAddress: '0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x85'),
           underlyingDecimals: BN.from('18'),
         },
       ],
@@ -106,6 +109,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('250000000000000000'),
           underlyingAssetAddress: '0x5B662703775171c4212F2FBAdb7F92e64116c154',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x85'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -124,6 +128,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('250000000000000000'),
           underlyingAssetAddress: '0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -142,6 +147,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('250000000000000000'),
           underlyingAssetAddress: '0x6923189d91fdF62dBAe623a55273F1d20306D9f2',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -160,6 +166,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('800000000000000000'),
           underlyingAssetAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('6'),
         },
         {
@@ -178,6 +185,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('650000000000000000'),
           underlyingAssetAddress: '0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -196,6 +204,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('250000000000000000'),
           underlyingAssetAddress: '0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
       ],
@@ -230,6 +239,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('250000000000000000'),
           underlyingAssetAddress: '0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -248,6 +258,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('250000000000000000'),
           underlyingAssetAddress: '0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -266,6 +277,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('800000000000000000'),
           underlyingAssetAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('6'),
         },
         {
@@ -284,6 +296,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('650000000000000000'),
           underlyingAssetAddress: '0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
       ],
@@ -314,10 +327,11 @@ const poolLensResponses: {
           totalReserves: BN.from('8711571843384730'),
           totalSupply: BN.from('5999999948'),
           totalCash: BN.from('39000000000000000000'),
-          isListed: true,
+          isListed: false,
           collateralFactorMantissa: BN.from('350000000000000000'),
           underlyingAssetAddress: '0x167F1F9EF531b3576201aa3146b13c57dbEda514',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -336,6 +350,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('350000000000000000'),
           underlyingAssetAddress: '0x327d6E6FAC0228070884e913263CFF9eFed4a2C8',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x85'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -354,6 +369,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('350000000000000000'),
           underlyingAssetAddress: '0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -368,10 +384,11 @@ const poolLensResponses: {
           totalReserves: BN.from('1141552511'),
           totalSupply: BN.from('14999999'),
           totalCash: BN.from('100000000000000000'),
-          isListed: true,
+          isListed: false,
           collateralFactorMantissa: BN.from('450000000000000000'),
           underlyingAssetAddress: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -390,6 +407,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('800000000000000000'),
           underlyingAssetAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('6'),
         },
         {
@@ -408,6 +426,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('650000000000000000'),
           underlyingAssetAddress: '0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
       ],
@@ -438,10 +457,11 @@ const poolLensResponses: {
           totalReserves: BN.from('0'),
           totalSupply: BN.from('1675300020500000000'),
           totalCash: BN.from('16753000205000000000000000000'),
-          isListed: true,
+          isListed: false,
           collateralFactorMantissa: BN.from('250000000000000000'),
           underlyingAssetAddress: '0xE98344A7c691B200EF47c9b8829110087D832C64',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x85'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -460,6 +480,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('250000000000000000'),
           underlyingAssetAddress: '0x2E6Af3f3F059F43D764060968658c9F3c8f9479D',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
         {
@@ -478,6 +499,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('250000000000000000'),
           underlyingAssetAddress: '0x7D21841DC10BA1C5797951EFc62fADBBDD06704B',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('6'),
         },
         {
@@ -496,6 +518,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('800000000000000000'),
           underlyingAssetAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('6'),
         },
         {
@@ -514,6 +537,7 @@ const poolLensResponses: {
           collateralFactorMantissa: BN.from('650000000000000000'),
           underlyingAssetAddress: '0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382',
           vTokenDecimals: BN.from('8'),
+          pausedActions: BN.from('0x00'),
           underlyingDecimals: BN.from('18'),
         },
       ],

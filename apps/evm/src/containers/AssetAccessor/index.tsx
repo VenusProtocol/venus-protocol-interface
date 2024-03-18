@@ -2,7 +2,6 @@
 import { useGetPool } from 'clients/api';
 import { Spinner } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
-import useIsTokenActionEnabled from 'hooks/useIsTokenActionEnabled';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool, TokenAction, VToken } from 'types';
 import { areTokensEqual } from 'utilities';
@@ -25,10 +24,6 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
   action,
 }) => {
   const { accountAddress } = useAccountAddress();
-  const isTokenActionEnabled = useIsTokenActionEnabled({
-    action,
-    tokenAddress: vToken.underlyingToken.address,
-  });
 
   const { data: getPoolData } = useGetPool({
     poolComptrollerAddress,
@@ -37,15 +32,15 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
   const pool = getPoolData?.pool;
   const asset = pool?.assets.find(item => areTokensEqual(item.vToken, vToken));
 
-  if (!isTokenActionEnabled) {
+  if (!pool || !asset) {
+    return <Spinner />;
+  }
+
+  if (asset.disabledTokenActions.includes(action)) {
     return <DisabledActionNotice token={vToken.underlyingToken} action={action} />;
   }
 
-  return (
-    <ConnectWallet message={connectWalletMessage}>
-      {pool && asset ? children({ asset, pool }) : <Spinner />}
-    </ConnectWallet>
-  );
+  return <ConnectWallet message={connectWalletMessage}>{children({ asset, pool })}</ConnectWallet>;
 };
 
 export default AssetAccessor;
