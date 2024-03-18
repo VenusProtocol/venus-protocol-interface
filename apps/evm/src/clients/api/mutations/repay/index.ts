@@ -2,7 +2,13 @@ import type BigNumber from 'bignumber.js';
 import type { ContractTransaction, Signer } from 'ethers';
 
 import MAX_UINT256 from 'constants/maxUint256';
-import { type Maximillion, type VBnb, getVTokenContract } from 'libs/contracts';
+import {
+  type Maximillion,
+  type NativeTokenGateway,
+  type VBnb,
+  getVTokenContract,
+} from 'libs/contracts';
+import { VError } from 'libs/errors';
 import type { VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
@@ -10,69 +16,73 @@ export interface RepayInput {
   signer: Signer;
   vToken: VToken;
   amountMantissa: BigNumber;
-  isRepayingFullLoan: boolean;
+  repayFullLoan?: boolean;
+  wrap?: boolean;
   maximillionContract?: Maximillion;
+  nativeTokenGatewayContract?: NativeTokenGateway;
 }
 
 export type RepayOutput = ContractTransaction;
 
-export const REPAYMENT_BNB_BUFFER_PERCENTAGE = 0.001;
+export const FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE = 0.1;
 
-const repayFullBnbLoan = async ({
-  vToken,
-  amountMantissa,
-  signer,
-  maximillionContract,
-}: {
-  vToken: VToken;
-  amountMantissa: BigNumber;
-  signer: Signer;
-  maximillionContract: Maximillion;
-}) => {
-  const amountWithBufferMantissa = amountMantissa.multipliedBy(1 + REPAYMENT_BNB_BUFFER_PERCENTAGE);
-  const accountAddress = await signer.getAddress();
-
-  return maximillionContract.repayBehalfExplicit(accountAddress, vToken.address, {
-    value: amountWithBufferMantissa.toFixed(0),
-  });
-};
+const bufferAmount = ({ amountMantissa }: { amountMantissa: BigNumber }) =>
+  amountMantissa.multipliedBy(1 + FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE / 100);
 
 const repay = async ({
   signer,
   vToken,
   amountMantissa,
   maximillionContract,
-  isRepayingFullLoan = false,
+  nativeTokenGatewayContract,
+  wrap = false,
+  repayFullLoan = false,
 }: RepayInput): Promise<RepayOutput> => {
-  // Handle repaying tokens other than BNB
-  if (!vToken.underlyingToken.isNative) {
-    const vTokenContract = getVTokenContract({ vToken, signerOrProvider: signer });
+  // Handle repaying full BNB loan.  Note that we only check for the isNative prop; that's because
+  // at the moment BNB is the only native market we have
+  if (vToken.underlyingToken.isNative && repayFullLoan) {
+    return callOrThrow({ maximillionContract, signer }, async ({ maximillionContract }) => {
+      const bufferedAmountMantissa = bufferAmount({ amountMantissa });
+      const accountAddress = await signer.getAddress();
 
-    return vTokenContract.repayBorrow(
-      isRepayingFullLoan ? MAX_UINT256.toFixed() : amountMantissa.toFixed(),
-    );
-  }
-
-  // Handle repaying full BNB loan
-  if (isRepayingFullLoan) {
-    return callOrThrow({ maximillionContract, signer }, params =>
-      repayFullBnbLoan({
-        amountMantissa,
-        vToken,
-        ...params,
-      }),
-    );
+      return maximillionContract.repayBehalfExplicit(accountAddress, vToken.address, {
+        value: bufferedAmountMantissa.toFixed(0),
+      });
+    });
   }
 
   // Handle repaying partial BNB loan
-  const vBnbContract = getVTokenContract({
-    vToken,
-    signerOrProvider: signer,
-  }) as VBnb;
+  if (vToken.underlyingToken.isNative) {
+    const vBnbContract = getVTokenContract({
+      vToken,
+      signerOrProvider: signer,
+    }) as VBnb;
 
-  return vBnbContract.repayBorrow({
-    value: amountMantissa.toFixed(),
-  });
+    return vBnbContract.repayBorrow({
+      value: amountMantissa.toFixed(),
+    });
+  }
+
+  // Handle repaying native loan by first wrapping tokens
+  if (wrap && (!nativeTokenGatewayContract || !vToken.underlyingToken.tokenWrapped)) {
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+    });
+  }
+
+  if (wrap) {
+    return nativeTokenGatewayContract!.wrapAndRepay({
+      value: repayFullLoan ? bufferAmount({ amountMantissa }).toFixed() : amountMantissa.toFixed(),
+    });
+  }
+
+  // Handle repaying tokens other than native
+  const vTokenContract = getVTokenContract({ vToken, signerOrProvider: signer });
+
+  return vTokenContract.repayBorrow(
+    repayFullLoan ? MAX_UINT256.toFixed() : amountMantissa.toFixed(),
+  );
 };
 
 export default repay;

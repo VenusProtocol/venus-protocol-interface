@@ -7,7 +7,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useGetBalanceOf, wrapTokensAndRepay } from 'clients/api';
+import { repay, useGetBalanceOf } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -278,9 +278,11 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(submitButton).toBeEnabled();
     fireEvent.click(submitButton);
 
-    await waitFor(() => expect(wrapTokensAndRepay).toHaveBeenCalledTimes(1));
-    expect(wrapTokensAndRepay).toHaveBeenCalledWith({
+    await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
+    expect(repay).toHaveBeenCalledWith({
       amountMantissa: amountMantissaToRepay,
+      repayFullLoan: false,
+      wrap: true,
     });
 
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));

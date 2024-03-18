@@ -128,10 +128,6 @@ export { default as wrapTokensAndSupply } from './mutations/wrapTokensAndSupply'
 export * from './mutations/wrapTokensAndSupply';
 export { default as useWrapTokensAndSupply } from './mutations/wrapTokensAndSupply/useWrapTokensAndSupply';
 
-export { default as wrapTokensAndRepay } from './mutations/wrapTokensAndRepay';
-export * from './mutations/wrapTokensAndRepay';
-export { default as useWrapTokensAndRepay } from './mutations/wrapTokensAndRepay/useWrapTokensAndRepay';
-
 export { default as updatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus';
 export * from './mutations/updatePoolDelegateStatus';
 export { default as useUpdatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus/useUpdatePoolDelegateStatus';
