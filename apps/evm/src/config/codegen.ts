@@ -1,42 +1,29 @@
 /** @type {import('graphql-config').IGraphQLConfig } */
 
-export const BSC_MAINNET_SUBGRAPH_URL =
-  'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-isolated-pools';
-
-export const BSC_TESTNET_SUBGRAPH_URL =
-  'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-isolated-pools-chapel';
-
-export const OPBNB_MAINNET_SUBGRAPH_URL =
-  'https://open-platform-ap.nodereal.io/5c42a03458b64b33af7cf9ff0c70c088/opbnb-mainnet-graph-query/subgraphs/name/venusprotocol/venus-isolated-pools-opbnb';
-
-export const ETHEREUM_SUBGRAPH_URL =
-  'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-isolated-pools-ethereum';
-
-export const SEPOLIA_SUBGRAPH_URL =
-  'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-isolated-pools-sepolia';
+const plugins = ['typescript', 'typed-document-node', 'typescript-operations'];
 
 export const projects = {
-  mainnet: {
-    schema: BSC_MAINNET_SUBGRAPH_URL,
-    documents: ['../clients/subgraph/**/*.graphql'],
+  isolatedPools: {
+    schema: 'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-isolated-pools',
+    documents: ['../clients/subgraph/queries/isolatedPools/**/*.graphql'],
     extensions: {
       codegen: {
         generates: {
-          '../clients/subgraph/gql/generated/mainnet.ts': {
-            plugins: ['typescript', 'typed-document-node', 'typescript-operations'],
+          '../clients/subgraph/gql/generated/isolatedPools.ts': {
+            plugins,
           },
         },
       },
     },
   },
-  testnet: {
-    schema: BSC_TESTNET_SUBGRAPH_URL,
-    documents: ['../clients/subgraph/**/*.graphql'],
+  governance: {
+    schema: 'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-governance',
+    documents: ['../clients/subgraph/queries/governance/**/*.graphql'],
     extensions: {
       codegen: {
         generates: {
-          '../clients/subgraph/gql/generated/testnet.ts': {
-            plugins: ['typescript', 'typed-document-node', 'typescript-operations'],
+          '../clients/subgraph/gql/generated/governance.ts': {
+            plugins,
           },
         },
       },
