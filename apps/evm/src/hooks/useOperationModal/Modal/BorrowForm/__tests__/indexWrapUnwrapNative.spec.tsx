@@ -8,7 +8,7 @@ import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatur
 import { ChainId } from 'types';
 
 import BigNumber from 'bignumber.js';
-import { borrowAndUnwrap } from 'clients/api';
+import { borrow } from 'clients/api';
 import { en } from 'libs/translations';
 import Borrow from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
@@ -54,7 +54,7 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(queryByTestId(TEST_IDS.receiveNativeToken)).toBeVisible();
   });
 
-  it('lets the user borrow native tokens by unwrapping', async () => {
+  it('lets the user borrow and unwrap tokens', async () => {
     const onCloseMock = vi.fn();
     const { getByText, getByTestId } = renderComponent(
       <Borrow asset={fakeWethAsset} pool={fakePool} onCloseModal={onCloseMock} />,
@@ -80,9 +80,10 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
     );
 
-    await waitFor(() => expect(borrowAndUnwrap).toHaveBeenCalledTimes(1));
-    expect(borrowAndUnwrap).toHaveBeenCalledWith({
+    await waitFor(() => expect(borrow).toHaveBeenCalledTimes(1));
+    expect(borrow).toHaveBeenCalledWith({
       amountMantissa: expectedAmountMantissa,
+      unwrap: true,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);

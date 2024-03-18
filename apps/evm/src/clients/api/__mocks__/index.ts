@@ -491,10 +491,6 @@ export const updatePoolDelegateStatus = vi.fn();
 export const useUpdatePoolDelegateStatus = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.UPDATE_POOL_DELEGATE_STATUS, updatePoolDelegateStatus, options);
 
-export const borrowAndUnwrap = vi.fn();
-export const useBorrowAndUnwrap = (_variables: never, options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.BORROW_AND_UNWRAP, borrowAndUnwrap, options);
-
 export const redeemAndUnwrap = vi.fn();
 export const useRedeemAndUnwrap = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.REDEEM_AND_UNWRAP, redeemAndUnwrap, options);
