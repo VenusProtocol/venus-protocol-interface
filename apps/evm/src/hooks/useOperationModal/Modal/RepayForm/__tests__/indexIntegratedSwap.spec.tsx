@@ -670,7 +670,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));
     expect(swapTokensAndRepay).toHaveBeenCalledWith({
       swap: fakeSwap,
-      isRepayingFullLoan: false,
+      repayFullLoan: false,
     });
 
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
@@ -715,7 +715,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));
     expect(swapTokensAndRepay).toHaveBeenCalledWith({
       swap: fakeFullRepaymentSwap,
-      isRepayingFullLoan: true,
+      repayFullLoan: true,
     });
 
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));

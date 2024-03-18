@@ -383,7 +383,7 @@ describe('RepayForm', () => {
     await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
     expect(repay).toHaveBeenCalledWith({
       amountMantissa: expectedAmountMantissa,
-      isRepayingFullLoan: false,
+      repayFullLoan: false,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
@@ -419,7 +419,7 @@ describe('RepayForm', () => {
     await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
     expect(repay).toHaveBeenCalledWith({
       amountMantissa: fakeAsset.userBorrowBalanceTokens.multipliedBy(1e18), // Convert borrow balance to mantissa
-      isRepayingFullLoan: true,
+      repayFullLoan: true,
     });
   });
 });

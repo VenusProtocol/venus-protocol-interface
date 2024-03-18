@@ -27,7 +27,7 @@ describe('swapTokensAndRepay', () => {
       swapRouterContract: fakeContract,
       swap: fakeExactAmountOutSwap,
       vToken: fakeVToken,
-      isRepayingFullLoan: true,
+      repayFullLoan: true,
     });
 
     expect(result).toBe(fakeContractTransaction);
@@ -58,7 +58,7 @@ describe('swapTokensAndRepay', () => {
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
       vToken: fakeVToken,
-      isRepayingFullLoan: true,
+      repayFullLoan: true,
     });
 
     expect(result).toBe(fakeContractTransaction);
@@ -88,7 +88,7 @@ describe('swapTokensAndRepay', () => {
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
       vToken: fakeVToken,
-      isRepayingFullLoan: true,
+      repayFullLoan: true,
     });
 
     expect(result).toBe(fakeContractTransaction);
@@ -115,7 +115,7 @@ describe('swapTokensAndRepay', () => {
       swapRouterContract: fakeContract,
       swap: fakeExactAmountInSwap,
       vToken: fakeVToken,
-      isRepayingFullLoan: false,
+      repayFullLoan: false,
     });
 
     expect(result).toBe(fakeContractTransaction);
@@ -147,7 +147,7 @@ describe('swapTokensAndRepay', () => {
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountInSwap,
       vToken: fakeVToken,
-      isRepayingFullLoan: false,
+      repayFullLoan: false,
     });
 
     expect(result).toBe(fakeContractTransaction);
@@ -181,7 +181,7 @@ describe('swapTokensAndRepay', () => {
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountInSwap,
       vToken: fakeVToken,
-      isRepayingFullLoan: false,
+      repayFullLoan: false,
     });
 
     expect(result).toBe(fakeContractTransaction);
@@ -206,7 +206,7 @@ describe('swapTokensAndRepay', () => {
       swapRouterContract: fakeContract,
       swap: fakeExactAmountOutSwap,
       vToken: fakeVToken,
-      isRepayingFullLoan: false,
+      repayFullLoan: false,
     });
 
     expect(result).toBe(fakeContractTransaction);
@@ -238,7 +238,7 @@ describe('swapTokensAndRepay', () => {
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
       vToken: fakeVToken,
-      isRepayingFullLoan: false,
+      repayFullLoan: false,
     });
 
     expect(result).toBe(fakeContractTransaction);
@@ -272,7 +272,7 @@ describe('swapTokensAndRepay', () => {
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
       vToken: fakeVToken,
-      isRepayingFullLoan: false,
+      repayFullLoan: false,
     });
 
     expect(result).toBe(fakeContractTransaction);

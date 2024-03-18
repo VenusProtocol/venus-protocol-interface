@@ -62,7 +62,7 @@ const useSwapTokensAndRepayAndRepay = (
         slippageTolerancePercentage: SLIPPAGE_TOLERANCE_PERCENTAGE,
         exchangeRate: input.swap.exchangeRate.toNumber(),
         routePath: input.swap.routePath,
-        repaidFullLoan: input.isRepayingFullLoan,
+        repaidFullLoan: input.repayFullLoan,
       });
 
       const accountAddress = await swapRouterContract?.signer.getAddress();

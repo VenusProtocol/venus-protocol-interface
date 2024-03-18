@@ -9,7 +9,7 @@ export interface SwapTokensAndRepayInput {
   swapRouterContract: SwapRouter;
   swap: Swap;
   vToken: VToken;
-  isRepayingFullLoan: boolean;
+  repayFullLoan: boolean;
 }
 
 export type SwapTokensAndRepayOutput = ContractTransaction;
@@ -18,13 +18,13 @@ const swapTokensAndRepay = async ({
   swapRouterContract,
   swap,
   vToken,
-  isRepayingFullLoan = false,
+  repayFullLoan = false,
 }: SwapTokensAndRepayInput): Promise<SwapTokensAndRepayOutput> => {
   const transactionDeadline = generateTransactionDeadline();
 
   // Repay full loan in tokens using tokens
   if (
-    isRepayingFullLoan &&
+    repayFullLoan &&
     swap.direction === 'exactAmountOut' &&
     !swap.fromToken.isNative &&
     !swap.toToken.isNative
@@ -39,7 +39,7 @@ const swapTokensAndRepay = async ({
 
   // Repay full loan in BNBs using tokens
   if (
-    isRepayingFullLoan &&
+    repayFullLoan &&
     swap.direction === 'exactAmountOut' &&
     !swap.fromToken.isNative &&
     swap.toToken.isNative
@@ -53,7 +53,7 @@ const swapTokensAndRepay = async ({
 
   // Repay full loan in tokens using BNBs
   if (
-    isRepayingFullLoan &&
+    repayFullLoan &&
     swap.direction === 'exactAmountOut' &&
     swap.fromToken.isNative &&
     !swap.toToken.isNative

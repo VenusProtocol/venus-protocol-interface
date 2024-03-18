@@ -2,12 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import {
-  useGetBalanceOf,
-  useRepay,
-  useSwapTokensAndRepay,
-  useWrapTokensAndRepay,
-} from 'clients/api';
+import { useGetBalanceOf, useRepay, useSwapTokensAndRepay } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -419,7 +414,7 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
 
   // a user is trying to wrap the chain's native token if
   // 1) the wrap/unwrap feature is enabled
-  // 2) the selected form token is the native token
+  // 2) the selected fromToken is the native token
   // 3) the market's underlying token wraps the native token
   const isWrappingNativeToken = useMemo(
     () => canWrapNativeToken && !!formValues.fromToken.isNative,
@@ -475,20 +470,13 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
     poolName: pool.name,
   });
 
-  const { mutateAsync: wrapTokensAndRepay, isLoading: isWrapAndRepayLoading } =
-    useWrapTokensAndRepay({
-      vToken: asset.vToken,
-      poolComptrollerAddress: pool.comptrollerAddress,
-      accountAddress: accountAddress || '',
-    });
-
   const { mutateAsync: onSwapAndRepay, isLoading: isSwapAndRepayLoading } = useSwapTokensAndRepay({
     poolName: pool.name,
     poolComptrollerAddress: pool.comptrollerAddress,
     vToken: asset.vToken,
   });
 
-  const isSubmitting = isRepayLoading || isSwapAndRepayLoading || isWrapAndRepayLoading;
+  const isSubmitting = isRepayLoading || isSwapAndRepayLoading;
 
   const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
     if (asset.vToken.underlyingToken.tokenWrapped && userWalletNativeTokenBalanceData) {
@@ -518,23 +506,18 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
 
   const onSubmit: RepayFormUiProps['onSubmit'] = useCallback(
     async ({ fromToken, fromTokenAmountTokens, swap, fixedRepayPercentage }) => {
-      const isRepayingFullLoan = fixedRepayPercentage === 100;
+      const repayFullLoan = fixedRepayPercentage === 100;
       const amountMantissa = convertTokensToMantissa({
         value: new BigNumber(fromTokenAmountTokens.trim()),
         token: fromToken,
       });
 
       // Handle repay flow
-      if (!isUsingSwap && !isWrappingNativeToken) {
+      if (!isUsingSwap) {
         return onRepay({
-          isRepayingFullLoan,
           amountMantissa,
-        });
-      }
-
-      if (isWrappingNativeToken) {
-        return wrapTokensAndRepay({
-          amountMantissa,
+          repayFullLoan,
+          wrap: isWrappingNativeToken,
         });
       }
 
@@ -548,11 +531,11 @@ const RepayForm: React.FC<RepayFormProps> = ({ asset, pool, onCloseModal }) => {
 
       // Handle swap and repay flow
       return onSwapAndRepay({
-        isRepayingFullLoan,
+        repayFullLoan,
         swap,
       });
     },
-    [isUsingSwap, onRepay, isWrappingNativeToken, onSwapAndRepay, wrapTokensAndRepay],
+    [isUsingSwap, onRepay, isWrappingNativeToken, onSwapAndRepay],
   );
 
   const swapDirection = formValues.fixedRepayPercentage ? 'exactAmountOut' : 'exactAmountIn';
