@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.108.0
+
+### Minor Changes
+
+- b219c96: Fetch disabled token actions from contracts
+
 ## 2.107.0
 
 ### Minor Changes
