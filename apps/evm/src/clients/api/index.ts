@@ -120,10 +120,6 @@ export { default as bridgeXvs } from './mutations/bridgeXvs';
 export * from './mutations/bridgeXvs';
 export { default as useBridgeXvs } from './mutations/bridgeXvs/useBridgeXvs';
 
-export { default as wrapTokensAndSupply } from './mutations/wrapTokensAndSupply';
-export * from './mutations/wrapTokensAndSupply';
-export { default as useWrapTokensAndSupply } from './mutations/wrapTokensAndSupply/useWrapTokensAndSupply';
-
 export { default as updatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus';
 export * from './mutations/updatePoolDelegateStatus';
 export { default as useUpdatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus/useUpdatePoolDelegateStatus';

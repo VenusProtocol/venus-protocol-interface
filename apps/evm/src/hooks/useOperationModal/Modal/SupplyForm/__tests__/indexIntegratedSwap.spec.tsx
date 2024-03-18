@@ -59,10 +59,9 @@ vi.mock('hooks/useGetSwapRouterContractAddress');
 
 describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(({ name }: UseIsFeatureEnabled) => {
-      console.log('powerslave222', name);
-      return name === 'integratedSwap';
-    });
+    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+      ({ name }: UseIsFeatureEnabled) => name === 'integratedSwap',
+    );
 
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: undefined,

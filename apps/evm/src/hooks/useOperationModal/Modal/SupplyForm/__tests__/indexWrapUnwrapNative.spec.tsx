@@ -7,7 +7,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useGetBalanceOf, wrapTokensAndSupply } from 'clients/api';
+import { supply, useGetBalanceOf } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -152,10 +152,12 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(submitButton).toBeEnabled();
     fireEvent.click(submitButton);
 
-    await waitFor(() => expect(wrapTokensAndSupply).toHaveBeenCalledTimes(1));
-    expect(wrapTokensAndSupply).toHaveBeenCalledWith({
+    await waitFor(() => expect(supply).toHaveBeenCalledTimes(1));
+    expect(supply).toHaveBeenCalledWith({
       accountAddress: fakeAccountAddress,
       amountMantissa: amountMantissaToSupply,
+      wrap: true,
+      poolComptrollerContractAddress: fakePool.comptrollerAddress,
     });
 
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
