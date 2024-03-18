@@ -48,10 +48,6 @@ const useBorrow = (
 
       const accountAddress = await vTokenContract?.signer.getAddress();
 
-      queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
-      queryClient.invalidateQueries(FunctionKey.GET_LEGACY_POOL);
-      queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
-
       queryClient.invalidateQueries([
         FunctionKey.GET_TOKEN_BALANCES,
         {
@@ -79,6 +75,10 @@ const useBorrow = (
           },
         ]);
       }
+
+      queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
+      queryClient.invalidateQueries(FunctionKey.GET_LEGACY_POOL);
+      queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
     },
     options,
   });
