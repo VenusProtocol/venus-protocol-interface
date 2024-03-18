@@ -121,7 +121,7 @@
     "@venusprotocol/token-bridge": "^1.1.0",
     "@venusprotocol/venus-protocol": "^7.3.0",
     "@vitejs/plugin-react": "^4.0.4",
-    "@vitest/coverage-v8": "^0.34.4",
+    "@vitest/coverage-v8": "^1.4.0",
     "autoprefixer": "^10.4.16",
     "c8": "^9.1.0",
     "fs": "^0.0.1-security",
