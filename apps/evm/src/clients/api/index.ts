@@ -30,17 +30,13 @@ export * from './mutations/supply';
 export { default as useSupply } from './mutations/supply/useSupply';
 export * from './mutations/supply/useSupply';
 
-export { default as redeem } from './mutations/redeem';
-export * from './mutations/redeem';
-export { default as useRedeem } from './mutations/redeem/useRedeem';
+export { default as withdraw } from './mutations/withdraw';
+export * from './mutations/withdraw';
+export { default as useWithdraw } from './mutations/withdraw/useWithdraw';
 
 export { default as repay } from './mutations/repay';
 export * from './mutations/repay';
 export { default as useRepay } from './mutations/repay/useRepay';
-
-export { default as redeemUnderlying } from './mutations/redeemUnderlying';
-export * from './mutations/redeemUnderlying';
-export { default as useRedeemUnderlying } from './mutations/redeemUnderlying/useRedeemUnderlying';
 
 export { default as borrow } from './mutations/borrow';
 export * from './mutations/borrow';
@@ -131,14 +127,6 @@ export { default as useWrapTokensAndSupply } from './mutations/wrapTokensAndSupp
 export { default as updatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus';
 export * from './mutations/updatePoolDelegateStatus';
 export { default as useUpdatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus/useUpdatePoolDelegateStatus';
-
-export { default as redeemAndUnwrap } from './mutations/redeemAndUnwrap';
-export * from './mutations/redeemAndUnwrap';
-export { default as useRedeemAndUnwrap } from './mutations/redeemAndUnwrap/useRedeemAndUnwrap';
-
-export { default as redeemUnderlyingAndUnwrap } from './mutations/redeemUnderlyingAndUnwrap';
-export * from './mutations/redeemUnderlyingAndUnwrap';
-export { default as useRedeemUnderlyingAndUnwrap } from './mutations/redeemUnderlyingAndUnwrap/useRedeemUnderlyingAndUnwrap';
 
 // Queries
 export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';

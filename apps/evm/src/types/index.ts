@@ -38,7 +38,7 @@ export interface Token {
   tokenWrapped?: Token;
 }
 
-export interface VToken extends Omit<Token, 'isNative' | 'asset'> {
+export interface VToken extends Omit<Token, 'isNative' | 'asset' | 'tokenWrapped'> {
   decimals: 8; // VBep tokens all have 8 decimals
   underlyingToken: Token;
 }
