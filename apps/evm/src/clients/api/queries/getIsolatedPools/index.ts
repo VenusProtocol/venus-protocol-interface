@@ -1,9 +1,5 @@
 import BigNumber from 'bignumber.js';
 
-import {
-  type GetIsolatedPoolParticipantsCountInput,
-  getIsolatedPoolParticipantsCount,
-} from 'clients/subgraph';
 import { type IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'libs/contracts';
 import { logError } from 'libs/errors';
 import { type Asset, ChainId, type PrimeApy, type Token } from 'types';
@@ -28,19 +24,6 @@ export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
 export const LST_POOL_COMPTROLLER_ADDRESS = '0xF522cd0360EF8c2FF48B648d53EA1717Ec0F3Ac3';
 
-// Since the borrower and supplier counts aren't essential information, we make the logic so the
-// dApp can still function if the subgraph is down
-const safelyGetIsolatedPoolParticipantsCount = async ({
-  chainId,
-}: GetIsolatedPoolParticipantsCountInput) => {
-  try {
-    const res = await getIsolatedPoolParticipantsCount({ chainId });
-    return res;
-  } catch (error) {
-    logError(error);
-  }
-};
-
 const getIsolatedPools = async ({
   chainId,
   xvs,
@@ -55,7 +38,6 @@ const getIsolatedPools = async ({
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
   const [
     poolResults,
-    poolParticipantsCountResult,
     currentBlockNumberResult,
     primeVTokenAddressesResult,
     primeMinimumXvsToStakeResult,
@@ -64,7 +46,6 @@ const getIsolatedPools = async ({
     // Fetch all pools
     poolLensContract.getAllPools(poolRegistryContractAddress),
     // Fetch borrower and supplier counts of each isolated token
-    safelyGetIsolatedPoolParticipantsCount({ chainId }),
     // Fetch current block number
     getBlockNumber({ provider }),
     // Prime related calls
@@ -75,10 +56,6 @@ const getIsolatedPools = async ({
 
   if (poolResults.status === 'rejected') {
     throw new Error(poolResults.reason);
-  }
-
-  if (poolParticipantsCountResult.status === 'rejected') {
-    throw new Error(poolParticipantsCountResult.reason);
   }
 
   if (currentBlockNumberResult.status === 'rejected') {
@@ -244,7 +221,6 @@ const getIsolatedPools = async ({
     tokens,
     currentBlockNumber: currentBlockNumberResult.value.blockNumber,
     poolResults: filteredPoolResults,
-    poolParticipantsCountResult: poolParticipantsCountResult.value,
     rewardsDistributorSettingsMapping,
     tokenPriceDollarsMapping,
     userCollateralizedVTokenAddresses,
