@@ -4215,6 +4215,14 @@
     mcl-wasm "^0.7.1"
     rustbn.js "~0.2.0"
 
+"@nomicfoundation/hardhat-ethers@^3.0.0":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@nomicfoundation/hardhat-ethers/-/hardhat-ethers-3.0.5.tgz#0422c2123dec7c42e7fb2be8e1691f1d9708db56"
+  integrity sha512-RNFe8OtbZK6Ila9kIlHp0+S80/0Bu/3p41HUpaRIoHLm6X3WekTd83vob3rE54Duufu1edCiBDxspBzi2rxHHw==
+  dependencies:
+    debug "^4.1.1"
+    lodash.isequal "^4.5.0"
+
 "@nomicfoundation/hardhat-network-helpers@^1.0.8":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@nomicfoundation/hardhat-network-helpers/-/hardhat-network-helpers-1.0.8.tgz#e4fe1be93e8a65508c46d73c41fa26c7e9f84931"
@@ -7368,10 +7376,10 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@venusprotocol/isolated-pools@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.6.0.tgz#091ab6373f44d4c32d91ac2093f901ed07ca23a6"
-  integrity sha512-LdR6D9KHApAKVRyyXdg5P9Ux/fBL6sCHOA+5+nK5qCg6NCKVwEOSSC8ZszyT4Jn1V8Z/B/CVDjNcgf8/V3j3Fw==
+"@venusprotocol/isolated-pools@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.7.0.tgz#18ac94070ec67911093eda4a9ebddfb455834c2e"
+  integrity sha512-nzQuOJc7ZACc44HyKp+DRejjYaJeEYKPSJ26yUOcOTI0EYcYyj4uHBxfBkU0jwP2WTGvDwsLf8J5Y6J9doR10w==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
@@ -7476,11 +7484,12 @@
     dotenv "^16.0.1"
     module-alias "^2.2.2"
 
-"@venusprotocol/venus-protocol@^7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-7.3.0.tgz#698f7e751f7f42aa340f6b16d9a4752cd143c950"
-  integrity sha512-ryFK3LBveuB3h98CdHfNDpfSgapiTjAHUDg2kkkurMQffvHp/6nj3Hd/Y3yrDhg8KS80GLBebTdzLeX84Ag+Cw==
+"@venusprotocol/venus-protocol@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-7.4.0.tgz#f8bd4509d0fe52b837f0b47ac44c7ff143217cd4"
+  integrity sha512-2PzhzSdaarTCzvrM+U2yC6z4BGcnQLJcduf5/0GGeHTurcb8QAzuKrvBm2PDc9olU2/KKMImk4d75z5sDzI7qw==
   dependencies:
+    "@nomicfoundation/hardhat-ethers" "^3.0.0"
     "@openzeppelin/contracts" "4.9.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
     "@venusprotocol/governance-contracts" "^1.4.0"
