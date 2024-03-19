@@ -2,13 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import {
-  useGetVTokenBalanceOf,
-  useRedeem,
-  useRedeemAndUnwrap,
-  useRedeemUnderlying,
-  useRedeemUnderlyingAndUnwrap,
-} from 'clients/api';
+import { useGetVTokenBalanceOf, useWithdraw } from 'clients/api';
 import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { AccountData } from 'containers/AccountData';
 import useDelegateApproval from 'hooks/useDelegateApproval';
@@ -252,21 +246,10 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
   );
   const vTokenBalanceMantissa = getVTokenBalanceData?.balanceMantissa;
 
-  const { mutateAsync: redeem, isLoading: isRedeemLoading } = useRedeem({
+  const { mutateAsync: withdraw, isLoading: isWithdrawLoading } = useWithdraw({
     poolName: pool.name,
     vToken: asset.vToken,
   });
-
-  const { mutateAsync: redeemAndUnwrap, isLoading: isRedeemAndUnwrapLoading } = useRedeemAndUnwrap({
-    poolComptrollerAddress: pool.comptrollerAddress,
-    vToken: asset.vToken,
-  });
-
-  const { mutateAsync: redeemUnderlyingAndUnwrap, isLoading: isRedeemUnderlyingAndUnwrapLoading } =
-    useRedeemUnderlyingAndUnwrap({
-      poolComptrollerAddress: pool.comptrollerAddress,
-      vToken: asset.vToken,
-    });
 
   const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
@@ -283,64 +266,27 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
     enabled: formValues.receiveNativeToken,
   });
 
-  const { mutateAsync: redeemUnderlying, isLoading: isRedeemUnderlyingLoading } =
-    useRedeemUnderlying({
-      poolName: pool.name,
-      vToken: asset.vToken,
-    });
-
-  const isWithdrawLoading =
-    isRedeemLoading ||
-    isRedeemUnderlyingLoading ||
-    isRedeemAndUnwrapLoading ||
-    isRedeemUnderlyingAndUnwrapLoading;
-
   const onSubmit: UseFormInput['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
+    const withdrawFullSupply = asset.userSupplyBalanceTokens.isEqualTo(fromTokenAmountTokens);
+
     // This case should never be reached, but just in case we throw a generic
     // internal error
-    if (!asset) {
+    if (!asset || (withdrawFullSupply && !vTokenBalanceMantissa)) {
       throw new VError({
         type: 'unexpected',
         code: 'somethingWentWrong',
       });
     }
 
-    const amountEqualsSupplyBalance =
-      asset.userSupplyBalanceTokens.isEqualTo(fromTokenAmountTokens);
-
-    // Withdraw partial supply
-    if (!amountEqualsSupplyBalance) {
-      const withdrawAmountMantissa = convertTokensToMantissa({
-        value: new BigNumber(fromTokenAmountTokens),
-        token: fromToken,
-      });
-
-      if (formValues.receiveNativeToken) {
-        return redeemUnderlyingAndUnwrap({
-          amountMantissa: withdrawAmountMantissa,
-        });
-      }
-
-      return redeemUnderlying({
-        amountMantissa: withdrawAmountMantissa,
-      });
-    }
-
-    // Withdraw entire supply
-    if (vTokenBalanceMantissa) {
-      if (formValues.receiveNativeToken) {
-        return redeemAndUnwrap({
-          amountMantissa: vTokenBalanceMantissa,
-        });
-      }
-      return redeem({ amountMantissa: vTokenBalanceMantissa });
-    }
-
-    // This case should never be reached, but just in case we throw a generic
-    // internal error
-    throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
+    return withdraw({
+      withdrawFullSupply,
+      unwrap: formValues.receiveNativeToken,
+      amountMantissa: withdrawFullSupply
+        ? vTokenBalanceMantissa!
+        : convertTokensToMantissa({
+            value: new BigNumber(fromTokenAmountTokens),
+            token: fromToken,
+          }),
     });
   };
 

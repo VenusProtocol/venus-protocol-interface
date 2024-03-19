@@ -9,7 +9,7 @@ import { ChainId } from 'types';
 
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { redeemAndUnwrap, redeemUnderlyingAndUnwrap, useGetVTokenBalanceOf } from 'clients/api';
+import { useGetVTokenBalanceOf, withdraw } from 'clients/api';
 import { en } from 'libs/translations';
 import Withdraw from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
@@ -81,9 +81,11 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
     );
 
-    await waitFor(() => expect(redeemUnderlyingAndUnwrap).toHaveBeenCalledTimes(1));
-    expect(redeemUnderlyingAndUnwrap).toHaveBeenCalledWith({
+    await waitFor(() => expect(withdraw).toHaveBeenCalledTimes(1));
+    expect(withdraw).toHaveBeenCalledWith({
       amountMantissa: expectedAmountMantissa,
+      withdrawFullSupply: false,
+      unwrap: true,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
@@ -120,9 +122,11 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     await waitFor(() => getByText(en.operationModal.withdraw.submitButtonLabel.withdraw));
     fireEvent.click(getByText(en.operationModal.withdraw.submitButtonLabel.withdraw));
 
-    await waitFor(() => expect(redeemAndUnwrap).toHaveBeenCalledTimes(1));
-    expect(redeemAndUnwrap).toHaveBeenCalledWith({
+    await waitFor(() => expect(withdraw).toHaveBeenCalledTimes(1));
+    expect(withdraw).toHaveBeenCalledWith({
       amountMantissa: fakeVTokenBalanceMantissa,
+      withdrawFullSupply: true,
+      unwrap: true,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);

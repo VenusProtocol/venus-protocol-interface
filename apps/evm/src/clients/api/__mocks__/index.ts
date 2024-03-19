@@ -374,13 +374,9 @@ export const supply = vi.fn();
 export const useSupply = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.SUPPLY, supply, options);
 
-export const redeem = vi.fn();
-export const useRedeem = (_variables: never, options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.REDEEM, redeem, options);
-
-export const redeemUnderlying = vi.fn();
-export const useRedeemUnderlying = (_variables: never, options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.REDEEM, redeemUnderlying, options);
+export const withdraw = vi.fn();
+export const useWithdraw = (_variables: never, options?: MutationObserverOptions) =>
+  useMutation(FunctionKey.WITHDRAW, withdraw, options);
 
 export const borrow = vi.fn();
 export const useBorrow = (_variables: never, options?: MutationObserverOptions) =>
@@ -486,13 +482,3 @@ export const useWrapTokensAndSupply = (_variables: never, options?: MutationObse
 export const updatePoolDelegateStatus = vi.fn();
 export const useUpdatePoolDelegateStatus = (_variables: never, options?: MutationObserverOptions) =>
   useMutation(FunctionKey.UPDATE_POOL_DELEGATE_STATUS, updatePoolDelegateStatus, options);
-
-export const redeemAndUnwrap = vi.fn();
-export const useRedeemAndUnwrap = (_variables: never, options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.REDEEM_AND_UNWRAP, redeemAndUnwrap, options);
-
-export const redeemUnderlyingAndUnwrap = vi.fn();
-export const useRedeemUnderlyingAndUnwrap = (
-  _variables: never,
-  options?: MutationObserverOptions,
-) => useMutation(FunctionKey.REDEEM_UNDERLYING_AND_UNWRAP, redeemUnderlyingAndUnwrap, options);

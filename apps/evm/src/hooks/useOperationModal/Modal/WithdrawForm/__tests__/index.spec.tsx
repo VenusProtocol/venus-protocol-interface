@@ -7,7 +7,7 @@ import type Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
-import { getVTokenBalanceOf, redeem, redeemUnderlying } from 'clients/api';
+import { getVTokenBalanceOf, withdraw } from 'clients/api';
 import { en } from 'libs/translations';
 import type { Asset, Pool } from 'types';
 
@@ -84,7 +84,7 @@ describe('WithdrawForm', () => {
     await waitFor(() => getByText('19.80 XVS'));
   });
 
-  it('redeem is called when full amount is withdrawn', async () => {
+  it('returns contract transaction when request to withdraw full supply succeeds', async () => {
     const customFakePool = _cloneDeep(fakePool);
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.isCollateralOfUser = false;
@@ -115,11 +115,15 @@ describe('WithdrawForm', () => {
     fireEvent.click(submitButton);
 
     await waitFor(() =>
-      expect(redeem).toHaveBeenCalledWith({ amountMantissa: fakeVTokenBalanceMantissa }),
+      expect(withdraw).toHaveBeenCalledWith({
+        amountMantissa: fakeVTokenBalanceMantissa,
+        withdrawFullSupply: true,
+        unwrap: false,
+      }),
     );
   });
 
-  it('redeemUnderlying is called when partial amount is withdrawn', async () => {
+  it('returns contract transaction when request to withdraw partial supply succeeds', async () => {
     const { getByTestId } = renderComponent(
       <Withdraw onCloseModal={noop} asset={fakeAsset} pool={fakePool} />,
       {
@@ -142,7 +146,11 @@ describe('WithdrawForm', () => {
     );
 
     await waitFor(() =>
-      expect(redeemUnderlying).toHaveBeenCalledWith({ amountMantissa: expectedAmountMantissa }),
+      expect(withdraw).toHaveBeenCalledWith({
+        amountMantissa: expectedAmountMantissa,
+        withdrawFullSupply: false,
+        unwrap: false,
+      }),
     );
   });
 });
