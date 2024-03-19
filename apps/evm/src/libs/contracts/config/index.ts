@@ -44,6 +44,7 @@ import { abi as XvsVestingAbi } from '@venusprotocol/venus-protocol/artifacts/co
 import { abi as VaiVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/VAIVault/VAIVault.sol/VAIVault.json';
 import { abi as XvsStoreAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSStore.sol/XVSStore.json';
 import { abi as XvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSVault.sol/XVSVault.json';
+import { abi as VenusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import venusProtocolBscMainnetDeployments from '@venusprotocol/venus-protocol/deployments/bscmainnet_addresses.json';
 import venusProtocolBscTestnetDeployments from '@venusprotocol/venus-protocol/deployments/bsctestnet_addresses.json';
 import venusProtocolEthereumDeployments from '@venusprotocol/venus-protocol/deployments/ethereum_addresses.json';
@@ -61,7 +62,6 @@ import Multicall3Abi from './externalAbis/Multicall3.json';
 import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
 import PoolLensAbi from './externalAbis/PoolLens.json';
 import VBnbAbi from './externalAbis/VBnb.json';
-import VenusLensAbi from './externalAbis/VenusLens.json';
 import XsequenceMulticallAbi from './externalAbis/XsequenceMulticall.json';
 
 export interface UniqueContractConfig {
@@ -98,8 +98,8 @@ export const contracts: ContractConfig[] = [
     name: 'VenusLens',
     abi: VenusLensAbi,
     address: {
-      [ChainId.BSC_TESTNET]: '0xA78B5575F0ad134302cF8f37a9c3cE4428c05233', // TODO: get from package once it's been updated
-      [ChainId.BSC_MAINNET]: '0xefC61F152D252993Ee507bE1Fc5C23cB8e63DA93', // TODO: get from package once it's been updated
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VenusLens,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VenusLens,
     },
   },
   {
