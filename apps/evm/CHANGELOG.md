@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.109.0
+
+### Minor Changes
+
+- 16c1ad4: Update repay mutation function to handle unwrap scenario
+- 3ed112d: Add support for Governance subgraph
+- 2996aa9: Update borrow mutation function to handle borrow and unwrap flow
+- 7b8217d: hide commonTokenBalances section if token list has 2 or less tokens
+- ec86402: Update redeem mutation function to handle withdraw and unwrap flow
+
 ## 2.108.0
 
 ### Minor Changes
