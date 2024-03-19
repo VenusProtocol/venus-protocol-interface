@@ -85,28 +85,29 @@ export const TokenList: React.FC<TokenListProps> = ({
     <div css={styles.container}>
       <div className={cn(commonTokenBalances.length > 2 && 'mb-5 pl-3 pr-3 pt-3')}>
         {commonTokenBalances.length > 2 && (
-          <TextField
-            css={styles.searchField}
-            isSmall
-            autoFocus
-            value={searchValue}
-            onChange={handleSearchInputChange}
-            placeholder={t('selectTokenTextField.searchInput.placeholder')}
-            leftIconSrc="magnifier"
-          />
+          <>
+            <TextField
+              css={styles.searchField}
+              isSmall
+              autoFocus
+              value={searchValue}
+              onChange={handleSearchInputChange}
+              placeholder={t('selectTokenTextField.searchInput.placeholder')}
+              leftIconSrc="magnifier"
+            />
+            <div css={styles.commonTokenList}>
+              {commonTokenBalances.map(commonTokenBalance => (
+                <SenaryButton
+                  onClick={() => onTokenClick(commonTokenBalance.token)}
+                  css={styles.commonTokenButton}
+                  key={`select-token-text-field-common-token-${commonTokenBalance.token.symbol}`}
+                >
+                  <TokenIconWithSymbol css={parentStyles.token} token={commonTokenBalance.token} />
+                </SenaryButton>
+              ))}
+            </div>
+          </>
         )}
-
-        <div css={styles.commonTokenList}>
-          {commonTokenBalances.map(commonTokenBalance => (
-            <SenaryButton
-              onClick={() => onTokenClick(commonTokenBalance.token)}
-              css={styles.commonTokenButton}
-              key={`select-token-text-field-common-token-${commonTokenBalance.token.symbol}`}
-            >
-              <TokenIconWithSymbol css={parentStyles.token} token={commonTokenBalance.token} />
-            </SenaryButton>
-          ))}
-        </div>
       </div>
 
       <div css={styles.list}>
