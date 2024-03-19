@@ -27,6 +27,7 @@ import tokenBridgeEthereumDeployments from '@venusprotocol/token-bridge/deployme
 import tokenBridgeOpBnbMainnetDeployments from '@venusprotocol/token-bridge/deployments/opbnbmainnet_addresses.json';
 import tokenBridgeOpBnbTestnetDeployments from '@venusprotocol/token-bridge/deployments/opbnbtestnet_addresses.json';
 import tokenBridgeSepoliaDeployments from '@venusprotocol/token-bridge/deployments/sepolia_addresses.json';
+import { abi as NativeTokenGatewayAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Gateway/NativeTokenGateway.sol/NativeTokenGateway.json';
 import { abi as LegacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as VTreasuryAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasury.sol/VTreasury.json';
 import { abi as VTreasuryV8Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasuryV8.sol/VTreasuryV8.json';
@@ -57,7 +58,6 @@ import { ChainId } from 'types';
 import IsolatedPoolsComptrollerNtgCompatible from './externalAbis/Comptroller_NTG.json';
 import MaximillionAbi from './externalAbis/Maximillion.json';
 import Multicall3Abi from './externalAbis/Multicall3.json';
-import NativeTokenGatewayAbi from './externalAbis/NativeTokenGateway.json';
 import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
 import PoolLensAbi from './externalAbis/PoolLens.json';
 import VBnbAbi from './externalAbis/VBnb.json';
@@ -388,26 +388,36 @@ export const contracts: ContractConfig[] = [
   },
   // NativeTokenGateway contract addresses for each supported pool
   {
-    // TODO: replace with package addresses once they have been added
     name: 'NativeTokenGateway',
     abi: NativeTokenGatewayAbi,
     address: {
       [ChainId.BSC_TESTNET]: {
         [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
-          '0xCf4C75398DaD73f16c762026144a1496f6869CD1',
+          isolatedPoolsBscTestnetDeployments.addresses.NativeTokenGateway_vWBNB_LiquidStakedBNB,
       },
-      [ChainId.BSC_MAINNET]: {},
-      [ChainId.OPBNB_MAINNET]: {},
+      [ChainId.BSC_MAINNET]: {
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
+          isolatedPoolsBscMainnetDeployments.addresses.NativeTokenGateway_vWBNB_LiquidStakedBNB,
+      },
+      [ChainId.OPBNB_MAINNET]: {
+        [isolatedPoolsOpBnbMainnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
+          isolatedPoolsOpBnbMainnetDeployments.addresses.NativeTokenGateway_vWBNB_Core,
+      },
       [ChainId.OPBNB_TESTNET]: {
         [isolatedPoolsOpBnbTestnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          '0x78FB73687209019CC1799B99Af30b6FB0A5b8e14',
+          isolatedPoolsOpBnbTestnetDeployments.addresses.NativeTokenGateway_vWBNB_Core,
       },
-      [ChainId.ETHEREUM]: {},
+      [ChainId.ETHEREUM]: {
+        [isolatedPoolsEthereumDeployments.addresses.Comptroller_Core.toLowerCase()]:
+          isolatedPoolsEthereumDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsEthereumDeployments.addresses['Comptroller_Liquid Staked ETH'].toLowerCase()]:
+          isolatedPoolsEthereumDeployments.addresses.NativeTokenGateway_vWETH_LiquidStakedETH,
+      },
       [ChainId.SEPOLIA]: {
         [isolatedPoolsSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          '0xb8fD67f215117FADeF06447Af31590309750529D',
+          isolatedPoolsSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
         [isolatedPoolsSepoliaDeployments.addresses['Comptroller_Liquid Staked ETH'].toLowerCase()]:
-          '0x1FD30e761C3296fE36D9067b1e398FD97B4C0407',
+          isolatedPoolsSepoliaDeployments.addresses.NativeTokenGateway_vWETH_LiquidStakedETH,
       },
     },
   },
