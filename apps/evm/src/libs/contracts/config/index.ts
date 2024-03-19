@@ -44,6 +44,7 @@ import { abi as XvsVestingAbi } from '@venusprotocol/venus-protocol/artifacts/co
 import { abi as VaiVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/VAIVault/VAIVault.sol/VAIVault.json';
 import { abi as XvsStoreAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSStore.sol/XVSStore.json';
 import { abi as XvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSVault.sol/XVSVault.json';
+import { abi as PoolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { abi as VenusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import venusProtocolBscMainnetDeployments from '@venusprotocol/venus-protocol/deployments/bscmainnet_addresses.json';
 import venusProtocolBscTestnetDeployments from '@venusprotocol/venus-protocol/deployments/bsctestnet_addresses.json';
@@ -60,7 +61,6 @@ import IsolatedPoolsComptrollerNtgCompatible from './externalAbis/Comptroller_NT
 import MaximillionAbi from './externalAbis/Maximillion.json';
 import Multicall3Abi from './externalAbis/Multicall3.json';
 import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
-import PoolLensAbi from './externalAbis/PoolLens.json';
 import VBnbAbi from './externalAbis/VBnb.json';
 import XsequenceMulticallAbi from './externalAbis/XsequenceMulticall.json';
 
@@ -106,12 +106,12 @@ export const contracts: ContractConfig[] = [
     name: 'PoolLens',
     abi: PoolLensAbi,
     address: {
-      [ChainId.BSC_TESTNET]: '0xe73993e47BA43566cCc010e9d26B874515da77C8', // TODO: get from package once it's been updated
-      [ChainId.BSC_MAINNET]: '0xA460d81625374E4A12e7E1966044280d89C90833', // TODO: get from package once it's been updated
-      [ChainId.ETHEREUM]: '0x57bea400aE7E51855a2e1E1523475d9d2eB0742F', // TODO: get from package once it's been updated
-      [ChainId.OPBNB_MAINNET]: '0x2Ed744F6E722aa5E41E67267774b386D244e5e4e', // TODO: get from package once it's been updated
-      [ChainId.OPBNB_TESTNET]: '0x32B3aA8805b4A4b80BA03Bd8f69c2C0e2710803D', // TODO: get from package once it's been updated
-      [ChainId.SEPOLIA]: '0xa78e0D276203290eB0Be7697104379e14c90698a', // TODO: get from package once it's been updated
+      [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens,
+      [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens,
+      [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolLens,
+      [ChainId.OPBNB_MAINNET]: isolatedPoolsOpBnbMainnetDeployments.addresses.PoolLens,
+      [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses.PoolLens,
+      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens,
     },
   },
   {
