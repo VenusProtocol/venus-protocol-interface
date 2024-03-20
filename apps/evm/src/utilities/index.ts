@@ -1,17 +1,6 @@
-export { restService } from './restService';
 export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
-export {
-  calculateYearlyEarningsForAssets,
-  calculateYearlyEarningsForAsset,
-  calculateYearlyInterests,
-} from './calculateYearlyEarnings';
 export { default as calculateCollateralValue } from './calculateCollateralValue';
-export * from './generateChainExplorerUrl';
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
-
-export * from './formatTokensToReadableValue';
-export * from './convertMantissaToTokens';
-export * from './generatePseudoRandomRefetchInterval';
 export { default as encodeParameters } from './encodeParameters';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
@@ -20,7 +9,6 @@ export { default as convertTokensToMantissa } from './convertTokensToMantissa';
 export { default as indexBy } from './indexBy';
 export { default as notUndefined } from './notUndefined';
 export { default as calculatePercentage } from './calculatePercentage';
-export { truncateAddress } from './truncateAddress';
 export { default as parseFunctionSignature } from './parseFunctionSignature';
 export { default as formatToProposal } from './formatToProposal';
 export { default as compareBigNumbers } from './compareBigNumbers';
@@ -48,3 +36,13 @@ export { default as extractSettledPromiseValue } from './extractSettledPromiseVa
 export { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
 export { default as getUniqueTokenBalances } from './getUniqueTokenBalances';
 export { getDisabledTokenActions } from './getDisabledTokenActions';
+export * from './appendPrimeSimulationDistributions';
+export * from './getDisabledTokenActions';
+export * from './isAssetDeprecated';
+export * from './restService';
+export * from './formatTokensToReadableValue';
+export * from './convertMantissaToTokens';
+export * from './generatePseudoRandomRefetchInterval';
+export * from './calculateYearlyEarnings';
+export * from './generateChainExplorerUrl';
+export * from './truncateAddress';

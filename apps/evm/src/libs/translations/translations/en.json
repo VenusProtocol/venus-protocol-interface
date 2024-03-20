@@ -251,6 +251,9 @@
       },
       "title": "Connect your wallet"
     },
+    "deprecatedAssetsToggle": {
+      "label": "Deprecated assets"
+    },
     "primePromotionalBanner": {
       "buttonLabel": {
         "primeCalculator": "Calculate your Prime rewards",
@@ -472,6 +475,9 @@
           "primeDoc": "APY boosted by Prime based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Learn more</Link>"
         }
       }
+    },
+    "assetColumn": {
+      "deprecatedAssetTooltip": "This asset is deprecated"
     },
     "columnKeys": {
       "asset": "Asset",

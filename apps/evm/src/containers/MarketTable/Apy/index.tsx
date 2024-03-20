@@ -13,9 +13,10 @@ import { ApyWithPrimeSimulationBoost } from './ApyWithPrimeSimulationBoost';
 export interface ApyProps {
   asset: Asset;
   column: ColumnKey;
+  className?: string;
 }
 
-export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
+export const Apy: React.FC<ApyProps> = ({ asset, column, className }) => {
   const type = column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv' ? 'supply' : 'borrow';
 
   const xvs = useGetToken({
@@ -64,6 +65,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
 
     return (
       <ApyWithPrimeBoost
+        className={className}
         type={type}
         tokenAddress={asset.vToken.underlyingToken.address}
         apyPercentage={apyPercentage}
@@ -77,6 +79,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
   if (primeSimulationDistribution?.apyPercentage.isGreaterThan(0)) {
     return (
       <ApyWithPrimeSimulationBoost
+        className={className}
         type={type}
         tokenAddress={asset.vToken.underlyingToken.address}
         apyPercentage={apyPercentage}
@@ -91,9 +94,9 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
 
   // Display supply APY
   if (type === 'supply') {
-    return <LayeredValues topValue={readableApy} bottomValue={readableLtv} />;
+    return <LayeredValues className={className} topValue={readableApy} bottomValue={readableLtv} />;
   }
 
   // Display borrow APY
-  return readableApy;
+  return <span className={className}>{readableApy}</span>;
 };
