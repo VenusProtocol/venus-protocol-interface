@@ -38,7 +38,7 @@ export { default as getUniqueTokenBalances } from './getUniqueTokenBalances';
 export { getDisabledTokenActions } from './getDisabledTokenActions';
 export * from './appendPrimeSimulationDistributions';
 export * from './getDisabledTokenActions';
-export * from './isAssetDeprecated';
+export * from './isAssetPaused';
 export * from './restService';
 export * from './formatTokensToReadableValue';
 export * from './convertMantissaToTokens';

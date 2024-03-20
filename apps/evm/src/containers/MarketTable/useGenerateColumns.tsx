@@ -25,7 +25,7 @@ import {
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
   getCombinedDistributionApys,
-  isAssetDeprecated,
+  isAssetPaused,
 } from 'utilities';
 
 import { Apy } from './Apy';
@@ -123,7 +123,7 @@ const useGenerateColumns = ({
           selectOptionLabel: t(`marketTable.columnSelectOptionLabel.${column}`),
           align: index === 0 ? 'left' : 'right',
           renderCell: poolAsset => {
-            const isDeprecated = isAssetDeprecated({
+            const isPaused = isAssetPaused({
               disabledTokenActions: poolAsset.disabledTokenActions,
             });
 
@@ -135,11 +135,11 @@ const useGenerateColumns = ({
                     className="flex-shrink-0"
                   />
 
-                  {isDeprecated && (
+                  {isPaused && (
                     <InfoIcon
                       iconClassName="text-orange"
                       iconName="attention"
-                      tooltip={t('marketTable.assetColumn.deprecatedAssetTooltip')}
+                      tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
                     />
                   )}
                 </div>
@@ -153,11 +153,7 @@ const useGenerateColumns = ({
               column === 'labeledBorrowApy'
             ) {
               return (
-                <Apy
-                  className={cn(isDeprecated && 'text-grey')}
-                  asset={poolAsset}
-                  column={column}
-                />
+                <Apy className={cn(isPaused && 'text-grey')} asset={poolAsset} column={column} />
               );
             }
 
@@ -175,7 +171,7 @@ const useGenerateColumns = ({
             if (column === 'liquidity') {
               return (
                 <LayeredValues
-                  className={cn(isDeprecated && 'text-grey')}
+                  className={cn(isPaused && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.cashTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -194,7 +190,7 @@ const useGenerateColumns = ({
                 : new BigNumber(0);
 
               return (
-                <span className={cn(isDeprecated && 'text-grey')}>
+                <span className={cn(isPaused && 'text-grey')}>
                   {formatCentsToReadableValue({
                     value: price,
                     isTokenPrice: true,
@@ -220,7 +216,7 @@ const useGenerateColumns = ({
                     to={to}
                     className={cn(
                       'hover:text-blue text-sm underline',
-                      isDeprecated ? 'text-grey' : 'text-offWhite',
+                      isPaused ? 'text-grey' : 'text-offWhite',
                     )}
                   >
                     {poolAsset.pool.name}
@@ -232,7 +228,7 @@ const useGenerateColumns = ({
             if (column === 'userWalletBalance') {
               return (
                 <LayeredValues
-                  className={cn(isDeprecated && 'text-grey')}
+                  className={cn(isPaused && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.userWalletBalanceTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -247,7 +243,7 @@ const useGenerateColumns = ({
             if (column === 'userSupplyBalance') {
               return (
                 <LayeredValues
-                  className={cn(isDeprecated && 'text-grey')}
+                  className={cn(isPaused && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.userSupplyBalanceTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -262,7 +258,7 @@ const useGenerateColumns = ({
             if (column === 'userBorrowBalance') {
               return (
                 <LayeredValues
-                  className={cn(isDeprecated && 'text-grey')}
+                  className={cn(isPaused && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.userBorrowBalanceTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -277,7 +273,7 @@ const useGenerateColumns = ({
             if (column === 'supplyBalance') {
               return (
                 <LayeredValues
-                  className={cn(isDeprecated && 'text-grey')}
+                  className={cn(isPaused && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.supplyBalanceTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -292,7 +288,7 @@ const useGenerateColumns = ({
             if (column === 'borrowBalance') {
               return (
                 <LayeredValues
-                  className={cn(isDeprecated && 'text-grey')}
+                  className={cn(isPaused && 'text-grey')}
                   topValue={formatTokensToReadableValue({
                     value: poolAsset.borrowBalanceTokens,
                     token: poolAsset.vToken.underlyingToken,
@@ -316,7 +312,7 @@ const useGenerateColumns = ({
                     css={styles.percentOfLimitProgressBar}
                   />
 
-                  <span className={cn(isDeprecated ? 'text-grey' : 'text-offWhite')}>
+                  <span className={cn(isPaused ? 'text-grey' : 'text-offWhite')}>
                     {formatPercentageToReadableValue(poolAsset.userPercentOfLimit)}
                   </span>
                 </div>

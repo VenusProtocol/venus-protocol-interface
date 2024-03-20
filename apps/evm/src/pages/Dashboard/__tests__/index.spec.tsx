@@ -46,14 +46,14 @@ describe('Dashboard', () => {
     expect(supplyMarketTable.textContent).toMatchSnapshot();
   });
 
-  it('displays deprecated assets when switching the toggle', async () => {
+  it('displays paused assets when switching the toggle', async () => {
     const { getByTestId, getByRole } = renderComponent(<Dashboard />);
 
     await waitFor(() => getByTestId(TEST_IDS.marketTable));
 
     // Switch toggle
-    const deprecatedAssetsToggle = getByRole('checkbox');
-    fireEvent.click(deprecatedAssetsToggle);
+    const pausedAssetsToggle = getByRole('checkbox');
+    fireEvent.click(pausedAssetsToggle);
 
     const supplyMarketTable = getByTestId(TEST_IDS.marketTable);
     expect(supplyMarketTable.textContent).toMatchSnapshot();
