@@ -24,24 +24,6 @@ describe('withdraw', () => {
     });
 
     it('returns contract transaction when request to withdraw full supply succeeds', async () => {
-      const redeemUnderlyingMock = vi.fn(async () => fakeContractTransaction);
-
-      const fakeVTokenContract = {
-        redeemUnderlying: redeemUnderlyingMock,
-      } as unknown as VBep20;
-
-      const response = await withdraw({
-        tokenContract: fakeVTokenContract,
-        amountMantissa: fakeAmount,
-        withdrawFullSupply: true,
-      });
-
-      expect(response).toBe(fakeContractTransaction);
-      expect(redeemUnderlyingMock).toHaveBeenCalledTimes(1);
-      expect(redeemUnderlyingMock).toHaveBeenCalledWith(fakeAmount.toFixed());
-    });
-
-    it('returns contract transaction when request to withdraw partial supply succeeds', async () => {
       const redeemMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeVTokenContract = {
@@ -51,11 +33,29 @@ describe('withdraw', () => {
       const response = await withdraw({
         tokenContract: fakeVTokenContract,
         amountMantissa: fakeAmount,
+        withdrawFullSupply: true,
       });
 
       expect(response).toBe(fakeContractTransaction);
       expect(redeemMock).toHaveBeenCalledTimes(1);
       expect(redeemMock).toHaveBeenCalledWith(fakeAmount.toFixed());
+    });
+
+    it('returns contract transaction when request to withdraw partial supply succeeds', async () => {
+      const redeemUnderlyingMock = vi.fn(async () => fakeContractTransaction);
+
+      const fakeVTokenContract = {
+        redeemUnderlying: redeemUnderlyingMock,
+      } as unknown as VBep20;
+
+      const response = await withdraw({
+        tokenContract: fakeVTokenContract,
+        amountMantissa: fakeAmount,
+      });
+
+      expect(response).toBe(fakeContractTransaction);
+      expect(redeemUnderlyingMock).toHaveBeenCalledTimes(1);
+      expect(redeemUnderlyingMock).toHaveBeenCalledWith(fakeAmount.toFixed());
     });
   });
 
@@ -74,10 +74,10 @@ describe('withdraw', () => {
     });
 
     it('returns contract transaction when request to withdraw full supply succeeds', async () => {
-      const redeemUnderlyingAndUnwrapMock = vi.fn(async () => fakeContractTransaction);
+      const redeemAndUnwrapMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeNativeTokenGatewayContract = {
-        redeemUnderlyingAndUnwrap: redeemUnderlyingAndUnwrapMock,
+        redeemAndUnwrap: redeemAndUnwrapMock,
       } as unknown as NativeTokenGateway;
 
       const response = await withdraw({
@@ -88,15 +88,15 @@ describe('withdraw', () => {
       });
 
       expect(response).toBe(fakeContractTransaction);
-      expect(redeemUnderlyingAndUnwrapMock).toHaveBeenCalledTimes(1);
-      expect(redeemUnderlyingAndUnwrapMock).toHaveBeenCalledWith(fakeAmount.toFixed());
+      expect(redeemAndUnwrapMock).toHaveBeenCalledTimes(1);
+      expect(redeemAndUnwrapMock).toHaveBeenCalledWith(fakeAmount.toFixed());
     });
 
     it('returns contract transaction when request to withdraw partial supply succeeds', async () => {
-      const redeemAndUnwrapMock = vi.fn(async () => fakeContractTransaction);
+      const redeemUnderlyingAndUnwrapMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeNativeTokenGatewayContract = {
-        redeemAndUnwrap: redeemAndUnwrapMock,
+        redeemUnderlyingAndUnwrap: redeemUnderlyingAndUnwrapMock,
       } as unknown as NativeTokenGateway;
 
       const response = await withdraw({
@@ -106,8 +106,8 @@ describe('withdraw', () => {
       });
 
       expect(response).toBe(fakeContractTransaction);
-      expect(redeemAndUnwrapMock).toHaveBeenCalledTimes(1);
-      expect(redeemAndUnwrapMock).toHaveBeenCalledWith(fakeAmount.toFixed());
+      expect(redeemUnderlyingAndUnwrapMock).toHaveBeenCalledTimes(1);
+      expect(redeemUnderlyingAndUnwrapMock).toHaveBeenCalledWith(fakeAmount.toFixed());
     });
   });
 });

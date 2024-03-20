@@ -31,8 +31,8 @@ const withdraw = async ({
 
   if (unwrap) {
     return withdrawFullSupply
-      ? nativeTokenGatewayContract!.redeemUnderlyingAndUnwrap(amountMantissa.toFixed())
-      : nativeTokenGatewayContract!.redeemAndUnwrap(amountMantissa.toFixed());
+      ? nativeTokenGatewayContract!.redeemAndUnwrap(amountMantissa.toFixed())
+      : nativeTokenGatewayContract!.redeemUnderlyingAndUnwrap(amountMantissa.toFixed());
   }
 
   // Handle withdraw flow
@@ -44,8 +44,8 @@ const withdraw = async ({
   }
 
   return withdrawFullSupply
-    ? tokenContract.redeemUnderlying(amountMantissa.toFixed())
-    : tokenContract.redeem(amountMantissa.toFixed());
+    ? tokenContract.redeem(amountMantissa.toFixed())
+    : tokenContract.redeemUnderlying(amountMantissa.toFixed());
 };
 
 export default withdraw;
