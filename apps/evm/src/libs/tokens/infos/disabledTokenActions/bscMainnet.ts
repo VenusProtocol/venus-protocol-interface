@@ -47,7 +47,7 @@ export const disabledTokenActions: DisabledTokenAction[] = [
     disabledActions: ['borrow', 'supply'],
   },
   {
-    // agEUR
+    // EURA
     address: '0x12f31b73d812c6bb0d735a218c086d44d5fe5f89',
     disabledActions: ['borrow', 'supply'],
   },

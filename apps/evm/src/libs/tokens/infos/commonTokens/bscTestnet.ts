@@ -1,6 +1,5 @@
 import aaveLogo from 'libs/tokens/img/aave.svg';
 import adaLogo from 'libs/tokens/img/ada.svg';
-import ageurLogo from 'libs/tokens/img/agEUR.svg';
 import alpacaLogo from 'libs/tokens/img/alpaca.png';
 import angleLogo from 'libs/tokens/img/angle.svg';
 import ankrLogo from 'libs/tokens/img/ankr.svg';
@@ -15,6 +14,7 @@ import busdLogo from 'libs/tokens/img/busd.svg';
 import cakeLogo from 'libs/tokens/img/cake.svg';
 import dogeLogo from 'libs/tokens/img/doge.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
+import euraLogo from 'libs/tokens/img/eura.svg';
 import fdusdLogo from 'libs/tokens/img/fdusd.svg';
 import flokiLogo from 'libs/tokens/img/floki.svg';
 import lisUsdLogo from 'libs/tokens/img/lisUSD.png';
@@ -306,8 +306,8 @@ export const tokens: Token[] = [
   {
     address: '0x63061de4A25f24279AAab80400040684F92Ee319',
     decimals: 18,
-    symbol: 'agEUR',
-    asset: ageurLogo,
+    symbol: 'EURA',
+    asset: euraLogo,
   },
   {
     address: '0xD1Bc731d188ACc3f52a6226B328a89056B0Ec71a',
