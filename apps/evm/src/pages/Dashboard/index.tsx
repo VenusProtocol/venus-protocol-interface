@@ -62,23 +62,25 @@ const Dashboard: React.FC = () => {
           />
         )}
 
-        <Toggle
-          onChange={() => setShouldDisplayPausedAssets(currentValue => !currentValue)}
-          value={shouldDisplayPausedAssets}
-          label={t('dashboard.pausedAssetsToggle.label')}
-          className="flex-shrink-0 lg:ml-auto"
-          isLight
-        />
+        <div className="space-y-6 lg:flex lg:items-center lg:space-y-0 lg:space-x-6 ml-auto">
+          <Toggle
+            onChange={() => setShouldDisplayPausedAssets(currentValue => !currentValue)}
+            value={shouldDisplayPausedAssets}
+            label={t('dashboard.pausedAssetsToggle.label')}
+            className="flex-shrink-0 lg:ml-auto"
+            isLight
+          />
 
-        <TextField
-          className="shrink-0 lg:w-[300px]"
-          isSmall
-          value={searchValue}
-          onChange={handleSearchInputChange}
-          placeholder={t('dashboard.searchInput.placeholder')}
-          leftIconSrc="magnifier"
-          variant="secondary"
-        />
+          <TextField
+            className="shrink-0 lg:w-[300px]"
+            isSmall
+            value={searchValue}
+            onChange={handleSearchInputChange}
+            placeholder={t('dashboard.searchInput.placeholder')}
+            leftIconSrc="magnifier"
+            variant="secondary"
+          />
+        </div>
       </div>
 
       <MarketTable
