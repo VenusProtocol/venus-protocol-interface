@@ -21,7 +21,7 @@ const useCreateProposal = (options?: Options) => {
         }),
       ),
     onConfirmed: async () => {
-      queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
+      queryClient.invalidateQueries(FunctionKey.GET_PROPOSAL_PREVIEWS);
     },
     options,
   });

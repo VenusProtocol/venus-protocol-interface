@@ -14,7 +14,6 @@ import {
   fakeVenusLensContract,
 } from '../__testUtils__/fakeData';
 
-vi.mock('clients/subgraph');
 vi.mock('../../getLegacyPoolMarkets');
 
 describe('getLegacyPool', () => {

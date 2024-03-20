@@ -1,8 +1,8 @@
 import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import { queryClient } from 'clients/api';
-import getProposal from 'clients/api/queries/getProposals/getProposal';
-import type { GetProposalInput, GetProposalOutput } from 'clients/api/queries/getProposals/types';
+import getProposal from 'clients/api/queries/getProposal';
+import type { GetProposalInput, GetProposalOutput } from 'clients/api/queries/getProposal/types';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';

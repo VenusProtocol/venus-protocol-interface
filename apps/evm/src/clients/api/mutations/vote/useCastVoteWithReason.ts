@@ -47,7 +47,7 @@ const useCastVoteWithReason = (options?: Options) => {
       ]);
 
       // Invalidate query to fetch proposal list
-      queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
+      queryClient.invalidateQueries(FunctionKey.GET_PROPOSAL_PREVIEWS);
     },
     options,
   });

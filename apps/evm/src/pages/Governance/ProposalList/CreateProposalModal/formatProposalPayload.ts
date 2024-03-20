@@ -48,17 +48,4 @@ const formatProposalPayload = (data: FormValues) => {
   return payload;
 };
 
-export const formatDescription = (description: string) => {
-  try {
-    return JSON.parse(description);
-  } catch {
-    const [title, descrip] = description.split('\n');
-    return {
-      version: 'v1',
-      title,
-      description: descrip,
-    };
-  }
-};
-
 export default formatProposalPayload;

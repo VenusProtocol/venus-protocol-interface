@@ -203,34 +203,37 @@ export type AbstainVoter = Omit<ProposalVoter, 'support'> & {
   support: VoteSupport.Abstain;
 };
 
-export interface Proposal {
-  abstainedVotesMantissa: BigNumber;
-  againstVotesMantissa: BigNumber;
-  createdDate: Date | undefined;
-  description: DescriptionV1 | DescriptionV2;
-  proposalType: ProposalType;
-  endBlock: number;
-  executedDate: Date | undefined;
-  forVotesMantissa: BigNumber;
+export interface ProposalPreview {
   proposalId: number;
-  proposer: string;
+  description: DescriptionV1 | DescriptionV2;
+  againstVotesMantissa: BigNumber;
+  forVotesMantissa: BigNumber;
+  abstainedVotesMantissa: BigNumber;
+  proposalType: ProposalType;
+  executedDate: Date | undefined;
   queuedDate: Date | undefined;
   etaDate: Date | undefined;
-  startDate: Date | undefined;
-  state: ProposalState;
   cancelDate: Date | undefined;
+  state: ProposalState;
+  userVoteSupport?: VoteSupport;
+  endDate?: Date;
+}
+
+export interface Proposal extends ProposalPreview {
+  startDate: Date | undefined;
+  createdDate: Date | undefined;
+  endBlock: number;
+  proposer: string;
   createdTxHash: string | undefined;
   cancelTxHash: string | undefined;
   executedTxHash: string | undefined;
   queuedTxHash: string | undefined;
   totalVotesMantissa: BigNumber;
   blockNumber?: number;
-  endDate?: Date;
   proposalActions: ProposalAction[];
   forVotes: ForVoter[];
   againstVotes: AgainstVoter[];
   abstainVotes: AbstainVoter[];
-  userHasVoted: boolean;
 }
 
 export interface JsonProposal {
