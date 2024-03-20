@@ -2,12 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import {
-  useGetBalanceOf,
-  useSupply,
-  useSwapTokensAndSupply,
-  useWrapTokensAndSupply,
-} from 'clients/api';
+import { useGetBalanceOf, useSupply, useSwapTokensAndSupply } from 'clients/api';
 import {
   AssetWarning,
   Delimiter,
@@ -541,12 +536,6 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
     vToken: asset.vToken,
   });
 
-  const { mutateAsync: wrapTokensAndSupply, isLoading: isWrapAndSupplyLoading } =
-    useWrapTokensAndSupply({
-      vToken: asset.vToken,
-      poolComptrollerAddress: pool.comptrollerAddress,
-    });
-
   const { mutateAsync: swapExactTokensForTokensAndSupply, isLoading: isSwapAndSupplyLoading } =
     useSwapTokensAndSupply({
       poolName: pool.name,
@@ -554,7 +543,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       vToken: asset.vToken,
     });
 
-  const isSubmitting = isSupplyLoading || isSwapAndSupplyLoading || isWrapAndSupplyLoading;
+  const isSubmitting = isSupplyLoading || isSwapAndSupplyLoading;
 
   const onSubmit: SupplyFormUiProps['onSubmit'] = useCallback(
     async ({ fromToken, fromTokenAmountTokens, swap }) => {
@@ -569,9 +558,11 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       }
 
       if (isWrappingNativeToken) {
-        return wrapTokensAndSupply({
+        return supply({
           accountAddress: accountAddress || '',
           amountMantissa,
+          wrap: true,
+          poolComptrollerContractAddress: pool.comptrollerAddress,
         });
       }
 
@@ -593,7 +584,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) =>
       isWrappingNativeToken,
       supply,
       swapExactTokensForTokensAndSupply,
-      wrapTokensAndSupply,
+      pool.comptrollerAddress,
     ],
   );
 
