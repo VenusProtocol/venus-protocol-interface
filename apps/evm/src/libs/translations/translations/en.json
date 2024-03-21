@@ -477,7 +477,7 @@
       }
     },
     "assetColumn": {
-      "pausedAssetTooltip": "This asset is paused"
+      "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled."
     },
     "columnKeys": {
       "asset": "Asset",
