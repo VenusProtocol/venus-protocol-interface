@@ -249,7 +249,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
   const vTokenBalanceMantissa = getVTokenBalanceData?.balanceMantissa;
 
   const { mutateAsync: withdraw, isLoading: isWithdrawLoading } = useWithdraw({
-    poolName: pool.name,
+    pool,
     vToken: asset.vToken,
   });
 
