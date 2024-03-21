@@ -4,24 +4,17 @@ import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSen
 import { useAnalytics } from 'libs/analytics';
 import { useGetNativeTokenGatewayContract, useGetVTokenContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { VToken } from 'types';
+import type { Pool, VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 type TrimmedBorrowInput = Omit<BorrowInput, 'vTokenContract' | 'nativeTokenGatewayContract'>;
 type Options = UseSendTransactionOptions<TrimmedBorrowInput>;
 
-const useBorrow = (
-  {
-    vToken,
-    poolName,
-    poolComptrollerAddress,
-  }: { vToken: VToken; poolName: string; poolComptrollerAddress?: string },
-  options?: Options,
-) => {
+const useBorrow = ({ vToken, pool }: { vToken: VToken; pool: Pool }, options?: Options) => {
   const vTokenContract = useGetVTokenContract({ vToken, passSigner: true });
   const nativeTokenGatewayContract = useGetNativeTokenGatewayContract({
     passSigner: true,
-    comptrollerContractAddress: poolComptrollerAddress || '',
+    comptrollerContractAddress: pool.comptrollerAddress,
   });
   const { captureAnalyticEvent } = useAnalytics();
   const { chainId } = useChainId();
@@ -38,7 +31,7 @@ const useBorrow = (
       ),
     onConfirmed: async ({ input }) => {
       captureAnalyticEvent('Tokens borrowed', {
-        poolName,
+        poolName: pool.name,
         tokenSymbol: vToken.underlyingToken.symbol,
         tokenAmountTokens: convertMantissaToTokens({
           token: vToken.underlyingToken,
