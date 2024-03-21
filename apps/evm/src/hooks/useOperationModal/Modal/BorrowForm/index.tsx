@@ -29,6 +29,7 @@ export interface BorrowFormUiProps {
   onCloseModal: () => void;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
+  isWrapUnwrapNativeTokenEnabled: boolean;
   isDelegateApproved: boolean | undefined;
   isDelegateApprovedLoading: boolean;
   isApproveDelegateLoading: boolean;
@@ -43,6 +44,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   isSubmitting,
   setFormValues,
   formValues,
+  isWrapUnwrapNativeTokenEnabled,
   isDelegateApproved,
   isDelegateApprovedLoading,
   isApproveDelegateLoading,
@@ -51,7 +53,6 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
   const { nativeToken } = useGetChainMetadata();
-  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
 
   const canUnwrapToNativeToken = useMemo(
     () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
@@ -238,6 +239,7 @@ export interface BorrowFormProps {
 }
 
 const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) => {
+  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const [formValues, setFormValues] = useState<FormValues>({
     amountTokens: '',
     fromToken: asset.vToken.underlyingToken,
@@ -261,7 +263,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
   } = useDelegateApproval({
     delegateeAddress: nativeTokenGatewayContractAddress || '',
     poolComptrollerAddress: pool.comptrollerAddress,
-    enabled: formValues.receiveNativeToken,
+    enabled: formValues.receiveNativeToken && isWrapUnwrapNativeTokenEnabled,
   });
 
   const isSubmitting = isBorrowLoading;
@@ -277,6 +279,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
 
   return (
     <BorrowFormUi
+      isWrapUnwrapNativeTokenEnabled={isWrapUnwrapNativeTokenEnabled}
       asset={asset}
       pool={pool}
       formValues={formValues}
