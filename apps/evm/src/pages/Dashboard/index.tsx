@@ -15,7 +15,7 @@ const Dashboard: React.FC = () => {
   const { accountAddress } = useAccountAddress();
 
   const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
-  const [shouldDisplayDeprecatedAssets, setShouldDisplayDeprecatedAssets] = useState(false);
+  const [shouldDisplayPausedAssets, setShouldDisplayPausedAssets] = useState(false);
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
   const pools = useFormatPools({
     pools: getPoolData?.pools || [],
     searchValue,
-    shouldDisplayDeprecatedAssets,
+    shouldDisplayPausedAssets,
     selectedPoolIndex: selectedPoolTagIndex - 1,
   });
 
@@ -62,23 +62,25 @@ const Dashboard: React.FC = () => {
           />
         )}
 
-        <Toggle
-          onChange={() => setShouldDisplayDeprecatedAssets(currentValue => !currentValue)}
-          value={shouldDisplayDeprecatedAssets}
-          label={t('dashboard.deprecatedAssetsToggle.label')}
-          className="flex-shrink-0 lg:ml-auto"
-          isLight
-        />
+        <div className="space-y-6 lg:flex lg:items-center lg:space-y-0 lg:space-x-6 ml-auto">
+          <Toggle
+            onChange={() => setShouldDisplayPausedAssets(currentValue => !currentValue)}
+            value={shouldDisplayPausedAssets}
+            label={t('dashboard.pausedAssetsToggle.label')}
+            className="flex-shrink-0 lg:ml-auto"
+            isLight
+          />
 
-        <TextField
-          className="shrink-0 lg:w-[300px]"
-          isSmall
-          value={searchValue}
-          onChange={handleSearchInputChange}
-          placeholder={t('dashboard.searchInput.placeholder')}
-          leftIconSrc="magnifier"
-          variant="secondary"
-        />
+          <TextField
+            className="shrink-0 lg:w-[300px]"
+            isSmall
+            value={searchValue}
+            onChange={handleSearchInputChange}
+            placeholder={t('dashboard.searchInput.placeholder')}
+            leftIconSrc="magnifier"
+            variant="secondary"
+          />
+        </div>
       </div>
 
       <MarketTable

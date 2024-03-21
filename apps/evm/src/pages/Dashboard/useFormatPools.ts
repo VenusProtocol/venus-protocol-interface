@@ -1,21 +1,21 @@
 import { useMemo } from 'react';
 
 import type { Asset, Pool } from 'types';
-import { isAssetDeprecated } from 'utilities';
+import { isAssetPaused } from 'utilities';
 
 const isAssetIncluded = ({
   asset,
-  shouldDisplayDeprecatedAssets,
+  shouldDisplayPausedAssets,
   searchValue,
 }: {
   asset: Asset;
   searchValue: string;
-  shouldDisplayDeprecatedAssets: boolean;
+  shouldDisplayPausedAssets: boolean;
 }) => {
-  // Handle deprecated assets
+  // Handle paused assets
   if (
-    !shouldDisplayDeprecatedAssets &&
-    isAssetDeprecated({ disabledTokenActions: asset.disabledTokenActions })
+    !shouldDisplayPausedAssets &&
+    isAssetPaused({ disabledTokenActions: asset.disabledTokenActions })
   ) {
     return false;
   }
@@ -32,12 +32,12 @@ const isAssetIncluded = ({
 const useFormatPools = ({
   pools,
   searchValue,
-  shouldDisplayDeprecatedAssets,
+  shouldDisplayPausedAssets,
   selectedPoolIndex,
 }: {
   pools: Pool[];
   searchValue: string;
-  shouldDisplayDeprecatedAssets: boolean;
+  shouldDisplayPausedAssets: boolean;
   selectedPoolIndex: number;
 }) => {
   const formattedPools = useMemo(() => {
@@ -48,12 +48,12 @@ const useFormatPools = ({
       assets: pool.assets.filter(asset =>
         isAssetIncluded({
           asset,
-          shouldDisplayDeprecatedAssets,
+          shouldDisplayPausedAssets,
           searchValue,
         }),
       ),
     }));
-  }, [pools, searchValue, selectedPoolIndex, shouldDisplayDeprecatedAssets]);
+  }, [pools, searchValue, selectedPoolIndex, shouldDisplayPausedAssets]);
 
   return formattedPools;
 };

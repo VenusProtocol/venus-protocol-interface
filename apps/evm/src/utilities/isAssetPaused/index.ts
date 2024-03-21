@@ -2,7 +2,7 @@ import type { TokenAction } from 'types';
 
 // TODO: add tests
 
-export const isAssetDeprecated = ({
+export const isAssetPaused = ({
   disabledTokenActions,
 }: {
   disabledTokenActions: TokenAction[];

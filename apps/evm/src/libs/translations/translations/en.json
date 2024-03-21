@@ -251,8 +251,8 @@
       },
       "title": "Connect your wallet"
     },
-    "deprecatedAssetsToggle": {
-      "label": "Deprecated assets"
+    "pausedAssetsToggle": {
+      "label": "Paused assets"
     },
     "primePromotionalBanner": {
       "buttonLabel": {
@@ -390,7 +390,7 @@
   },
   "lunaUstWarningModal": {
     "closeButtonLabel": "Got it",
-    "content": "LUNA and UST have been deprecated, please disable them as collateral to get access to the Venus protocol again.",
+    "content": "LUNA and UST have been paused, please disable them as collateral to get access to the Venus protocol again.",
     "title": "Please disable LUNA and UST as collateral"
   },
   "markdownEditor": {
@@ -477,7 +477,7 @@
       }
     },
     "assetColumn": {
-      "deprecatedAssetTooltip": "This asset is deprecated"
+      "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled."
     },
     "columnKeys": {
       "asset": "Asset",
