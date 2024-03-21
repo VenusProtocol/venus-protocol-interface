@@ -30,6 +30,7 @@ export interface WithdrawFormUiProps {
   onCloseModal: () => void;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
+  isWrapUnwrapNativeTokenEnabled: boolean;
   isDelegateApproved: boolean | undefined;
   isDelegateApprovedLoading: boolean;
   isApproveDelegateLoading: boolean;
@@ -44,6 +45,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   formValues,
   onSubmit,
   isSubmitting,
+  isWrapUnwrapNativeTokenEnabled,
   isDelegateApproved,
   isDelegateApprovedLoading,
   isApproveDelegateLoading,
@@ -52,7 +54,6 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   const { t } = useTranslation();
   const sharedStyles = useSharedStyles();
   const { nativeToken } = useGetChainMetadata();
-  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
 
   const canUnwrapToNativeToken = useMemo(
     () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
@@ -227,6 +228,7 @@ export interface WithdrawFormProps {
 }
 
 const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }) => {
+  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const { accountAddress } = useAccountAddress();
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -263,7 +265,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
   } = useDelegateApproval({
     delegateeAddress: nativeTokenGatewayContractAddress || '',
     poolComptrollerAddress: pool.comptrollerAddress,
-    enabled: formValues.receiveNativeToken,
+    enabled: formValues.receiveNativeToken && isWrapUnwrapNativeTokenEnabled,
   });
 
   const onSubmit: UseFormInput['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
@@ -292,6 +294,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
 
   return (
     <WithdrawFormUi
+      isWrapUnwrapNativeTokenEnabled={isWrapUnwrapNativeTokenEnabled}
       onCloseModal={onCloseModal}
       asset={asset}
       pool={pool}
