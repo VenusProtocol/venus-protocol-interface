@@ -132,6 +132,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
         onSubmit={handleCreateProposal}
         validateOnBlur
         validateOnMount
+        validateOnChange
       >
         <Form>
           <ProposalWizard
