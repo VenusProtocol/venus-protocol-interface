@@ -5,16 +5,23 @@ import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSen
 import { useAnalytics } from 'libs/analytics';
 import { useGetNativeTokenGatewayContract, useGetVTokenContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { Pool, VToken } from 'types';
+import type { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 
 type TrimmedRedeemInput = Omit<WithdrawInput, 'tokenContract' | 'accountAddress'>;
 type Options = UseSendTransactionOptions<TrimmedRedeemInput>;
 
-const useWithdraw = ({ vToken, pool }: { vToken: VToken; pool: Pool }, options?: Options) => {
+const useWithdraw = (
+  {
+    vToken,
+    poolName,
+    poolComptrollerAddress,
+  }: { vToken: VToken; poolName: string; poolComptrollerAddress: string },
+  options?: Options,
+) => {
   const { chainId } = useChainId();
   const nativeTokenGatewayContract = useGetNativeTokenGatewayContract({
-    comptrollerContractAddress: pool.comptrollerAddress,
+    comptrollerContractAddress: poolComptrollerAddress,
     passSigner: true,
   });
   const tokenContract = useGetVTokenContract({
@@ -36,7 +43,7 @@ const useWithdraw = ({ vToken, pool }: { vToken: VToken; pool: Pool }, options?:
       ),
     onConfirmed: async ({ input }) => {
       captureAnalyticEvent('Tokens withdrawn', {
-        poolName: pool.name,
+        poolName,
         tokenSymbol: vToken.underlyingToken.symbol,
         tokenAmountTokens: convertMantissaToTokens({
           token: vToken.underlyingToken,

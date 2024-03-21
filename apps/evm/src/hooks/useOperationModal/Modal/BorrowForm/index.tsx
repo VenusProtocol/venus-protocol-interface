@@ -247,7 +247,8 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) =>
   });
 
   const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({
-    pool,
+    poolName: pool.name,
+    poolComptrollerAddress: pool.comptrollerAddress,
     vToken: asset.vToken,
   });
 
