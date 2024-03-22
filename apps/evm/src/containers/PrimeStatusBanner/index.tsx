@@ -39,7 +39,7 @@ export interface PrimeStatusBannerUiProps {
   onRedirectToXvsVaultPage: () => void;
   userStakedXvsTokens: BigNumber;
   minXvsToStakeForPrimeTokens: BigNumber;
-  highestPrimeSimulationApyBoostPercentage: BigNumber;
+  highestPrimeSimulationApyBoostPercentage: BigNumber | undefined;
   primeClaimWaitingPeriodSeconds: number;
   userPrimeClaimWaitingPeriodSeconds: number;
   hidePromotionalTitle?: boolean;
@@ -126,7 +126,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
       return t('primeStatusBanner.becomePrimeTitle');
     }
 
-    if (!hidePromotionalTitle) {
+    if (readableApyBoostPercentage && !hidePromotionalTitle) {
       return (
         <Trans
           i18nKey="primeStatusBanner.promotionalTitle"
@@ -400,7 +400,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     isGetLegacyPoolDataLoading;
 
   // Hide component while loading or if user is Prime already
-  if (isAccountPrime || isLoading || !primeStatusData || !primeOrderedApys) {
+  if (isAccountPrime || isLoading || !primeStatusData) {
     return null;
   }
 
@@ -422,7 +422,9 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     token: xvs,
   });
 
-  const highestPrimeSimulationApyBoostPercentage = primeOrderedApys[0];
+  const highestPrimeSimulationApyBoostPercentage = primeOrderedApys
+    ? primeOrderedApys[0]
+    : undefined;
 
   return (
     <PrimeStatusBannerUi
@@ -437,6 +439,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
       minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
       highestPrimeSimulationApyBoostPercentage={highestPrimeSimulationApyBoostPercentage}
       isClaimPrimeTokenLoading={isClaimPrimeTokenLoading}
+      hidePromotionalTitle={!!highestPrimeSimulationApyBoostPercentage}
       {...props}
     />
   );
