@@ -26,8 +26,9 @@ export type RepayOutput = ContractTransaction;
 
 export const FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE = 0.1;
 
+// calculate buffer and remove decimals
 const bufferAmount = ({ amountMantissa }: { amountMantissa: BigNumber }) =>
-  amountMantissa.multipliedBy(1 + FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE / 100);
+  amountMantissa.multipliedBy(1 + FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE / 100).toFixed(0);
 
 const repay = async ({
   signer,
@@ -46,7 +47,7 @@ const repay = async ({
       const accountAddress = await signer.getAddress();
 
       return maximillionContract.repayBehalfExplicit(accountAddress, vToken.address, {
-        value: bufferedAmountMantissa.toFixed(0),
+        value: bufferedAmountMantissa,
       });
     });
   }
@@ -73,7 +74,7 @@ const repay = async ({
 
   if (wrap) {
     return nativeTokenGatewayContract!.wrapAndRepay({
-      value: repayFullLoan ? bufferAmount({ amountMantissa }).toFixed() : amountMantissa.toFixed(),
+      value: repayFullLoan ? bufferAmount({ amountMantissa }) : amountMantissa.toFixed(),
     });
   }
 
