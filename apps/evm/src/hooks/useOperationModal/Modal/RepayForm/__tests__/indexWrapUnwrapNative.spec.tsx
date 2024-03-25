@@ -24,6 +24,9 @@ vi.mock('libs/tokens');
 vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
 const fakeBalanceMantissa = new BigNumber('10000000000000000000');
+const fakeUserWalletNativeTokenBalanceData = {
+  balanceMantissa: fakeBalanceMantissa,
+};
 
 describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
@@ -39,14 +42,27 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />, {
-      chainId: ChainId.SEPOLIA,
-    });
+    renderComponent(
+      <Repay
+        asset={fakeAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        onCloseModal={noop}
+      />,
+      {
+        chainId: ChainId.SEPOLIA,
+      },
+    );
   });
 
   it('does not display the token selector if the underlying token does not wrap the chain native token', async () => {
     const { queryByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Repay
+        asset={fakeAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        onCloseModal={noop}
+      />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -58,7 +74,12 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('displays the token selector if the underlying token wraps the chain native token', async () => {
     const { queryByTestId } = renderComponent(
-      <Repay asset={fakeWethAsset} pool={fakePool} onCloseModal={noop} />,
+      <Repay
+        asset={fakeWethAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        onCloseModal={noop}
+      />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -76,6 +97,12 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
     // Add 1 WETH to simulate wallet balance being higher than borrow balance
     const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.plus(1);
+    const fakeHigherNativeTokenBalance = fakeBalanceMantissa.plus(1);
+    const fakeHigherUserWalletNativeTokenBalanceData = {
+      balanceMantissa: fakeHigherNativeTokenBalance.multipliedBy(
+        10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
+      ),
+    };
 
     (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -87,7 +114,12 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
-      <Repay asset={customFakeWethAsset} pool={fakePool} onCloseModal={noop} />,
+      <Repay
+        asset={customFakeWethAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeHigherUserWalletNativeTokenBalanceData}
+        onCloseModal={noop}
+      />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -138,6 +170,12 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
     // Remove 1 WETH to simulate wallet balance being lower than borrow balance
     const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.minus(1);
+    const fakeLowerNativeTokenBalance = fakeUserWethWalletBalance;
+    const fakeLowerUserWalletNativeTokenBalanceData = {
+      balanceMantissa: fakeLowerNativeTokenBalance.multipliedBy(
+        10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
+      ),
+    };
 
     (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -149,7 +187,12 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
-      <Repay asset={customFakeWethAsset} pool={fakePool} onCloseModal={noop} />,
+      <Repay
+        asset={customFakeWethAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeLowerUserWalletNativeTokenBalanceData}
+        onCloseModal={noop}
+      />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -202,7 +245,12 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
-      <Repay asset={fakeWethAsset} pool={fakePool} onCloseModal={noop} />,
+      <Repay
+        asset={fakeWethAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        onCloseModal={noop}
+      />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -247,7 +295,12 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
     const onCloseMock = vi.fn();
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
-      <Repay asset={fakeWethAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      <Repay
+        asset={fakeWethAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        onCloseModal={onCloseMock}
+      />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,

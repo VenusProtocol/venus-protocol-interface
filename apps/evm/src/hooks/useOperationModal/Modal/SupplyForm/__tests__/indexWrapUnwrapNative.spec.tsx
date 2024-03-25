@@ -24,6 +24,9 @@ vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
 const fakeNativeTokenBalanceTokens = new BigNumber(10);
 const fakeBalanceMantissa = fakeNativeTokenBalanceTokens.multipliedBy(10 ** 18);
+const fakeUserWalletNativeTokenBalanceData = {
+  balanceMantissa: fakeBalanceMantissa,
+};
 
 describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
@@ -39,14 +42,27 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />, {
-      chainId: ChainId.SEPOLIA,
-    });
+    renderComponent(
+      <Supply
+        asset={fakeAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        onCloseModal={noop}
+      />,
+      {
+        chainId: ChainId.SEPOLIA,
+      },
+    );
   });
 
   it('does not display the token selector if the underlying token does not wrap the chain native token', async () => {
     const { queryByTestId } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply
+        asset={fakeAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        onCloseModal={noop}
+      />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -58,7 +74,12 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('displays the token selector if the underlying token wraps the chain native token', async () => {
     const { queryByTestId } = renderComponent(
-      <Supply asset={fakeWethAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply
+        asset={fakeWethAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        onCloseModal={noop}
+      />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -75,7 +96,12 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     };
 
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
-      <Supply asset={customFakeAsset} pool={fakePool} onCloseModal={noop} />,
+      <Supply
+        asset={customFakeAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        onCloseModal={noop}
+      />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,
@@ -121,7 +147,12 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
     const onCloseMock = vi.fn();
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
-      <Supply asset={fakeWethAsset} pool={fakePool} onCloseModal={onCloseMock} />,
+      <Supply
+        asset={fakeWethAsset}
+        pool={fakePool}
+        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        onCloseModal={onCloseMock}
+      />,
       {
         chainId: ChainId.SEPOLIA,
         accountAddress: fakeAccountAddress,

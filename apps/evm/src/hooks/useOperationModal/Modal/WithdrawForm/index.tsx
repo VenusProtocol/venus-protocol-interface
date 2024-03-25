@@ -250,6 +250,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }
 
   const { mutateAsync: withdraw, isLoading: isWithdrawLoading } = useWithdraw({
     poolName: pool.name,
+    poolComptrollerAddress: pool.comptrollerAddress,
     vToken: asset.vToken,
   });
 

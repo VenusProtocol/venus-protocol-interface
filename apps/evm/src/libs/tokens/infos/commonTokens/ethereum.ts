@@ -4,6 +4,7 @@ import ethLogo from 'libs/tokens/img/eth.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
 import wBtcLogo from 'libs/tokens/img/wbtc.svg';
+import wethLogo from 'libs/tokens/img/weth.svg';
 import wstEthLogo from 'libs/tokens/img/wstEth.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
 import type { Token } from 'types';
@@ -40,7 +41,7 @@ export const tokens: Token[] = [
     address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
     decimals: 18,
     symbol: 'WETH',
-    asset: ethLogo,
+    asset: wethLogo,
     tokenWrapped: ethToken,
   },
   {

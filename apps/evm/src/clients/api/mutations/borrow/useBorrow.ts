@@ -15,13 +15,13 @@ const useBorrow = (
     vToken,
     poolName,
     poolComptrollerAddress,
-  }: { vToken: VToken; poolName: string; poolComptrollerAddress?: string },
+  }: { vToken: VToken; poolName: string; poolComptrollerAddress: string },
   options?: Options,
 ) => {
   const vTokenContract = useGetVTokenContract({ vToken, passSigner: true });
   const nativeTokenGatewayContract = useGetNativeTokenGatewayContract({
     passSigner: true,
-    comptrollerContractAddress: poolComptrollerAddress || '',
+    comptrollerContractAddress: poolComptrollerAddress,
   });
   const { captureAnalyticEvent } = useAnalytics();
   const { chainId } = useChainId();

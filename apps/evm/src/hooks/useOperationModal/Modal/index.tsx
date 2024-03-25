@@ -5,6 +5,7 @@ import { useTranslation } from 'libs/translations';
 import type { VToken } from 'types';
 
 import BorrowForm from './BorrowForm';
+import NativeTokenBalanceWrapper from './NativeTokenBalanceWrapper';
 import RepayForm from './RepayForm';
 import SupplyForm from './SupplyForm';
 import WithdrawForm from './WithdrawForm';
@@ -34,7 +35,18 @@ const OperationModal: React.FC<OperationModalProps> = ({
           connectWalletMessage={t('operationModal.supply.connectWalletMessage')}
           action="supply"
         >
-          {({ asset, pool }) => <SupplyForm asset={asset} pool={pool} onCloseModal={onClose} />}
+          {({ asset, pool }) => (
+            <NativeTokenBalanceWrapper asset={asset} pool={pool}>
+              {({ asset, pool, userWalletNativeTokenBalanceData }) => (
+                <SupplyForm
+                  asset={asset}
+                  pool={pool}
+                  userWalletNativeTokenBalanceData={userWalletNativeTokenBalanceData}
+                  onCloseModal={onClose}
+                />
+              )}
+            </NativeTokenBalanceWrapper>
+          )}
         </AssetAccessor>
       ),
     },
@@ -73,7 +85,18 @@ const OperationModal: React.FC<OperationModalProps> = ({
           connectWalletMessage={t('operationModal.repay.connectWalletMessage')}
           action="repay"
         >
-          {({ asset, pool }) => <RepayForm asset={asset} pool={pool} onCloseModal={onClose} />}
+          {({ asset, pool }) => (
+            <NativeTokenBalanceWrapper asset={asset} pool={pool}>
+              {({ asset, pool, userWalletNativeTokenBalanceData }) => (
+                <RepayForm
+                  asset={asset}
+                  pool={pool}
+                  userWalletNativeTokenBalanceData={userWalletNativeTokenBalanceData}
+                  onCloseModal={onClose}
+                />
+              )}
+            </NativeTokenBalanceWrapper>
+          )}
         </AssetAccessor>
       ),
     },

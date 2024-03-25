@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { useGetBalanceOf, useSupply, useSwapTokensAndSupply } from 'clients/api';
+import { type GetBalanceOfOutput, useSupply, useSwapTokensAndSupply } from 'clients/api';
 import {
   AssetWarning,
   Delimiter,
@@ -393,23 +393,19 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 export interface SupplyFormProps {
   asset: Asset;
   pool: Pool;
+  userWalletNativeTokenBalanceData?: GetBalanceOfOutput;
   onCloseModal: () => void;
 }
 
-const SupplyForm: React.FC<SupplyFormProps> = ({ asset, pool, onCloseModal }) => {
+const SupplyForm: React.FC<SupplyFormProps> = ({
+  asset,
+  pool,
+  userWalletNativeTokenBalanceData,
+  onCloseModal,
+}) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
   const { accountAddress } = useAccountAddress();
-
-  const { data: userWalletNativeTokenBalanceData } = useGetBalanceOf(
-    {
-      accountAddress: accountAddress || '',
-      token: asset.vToken.underlyingToken.tokenWrapped,
-    },
-    {
-      enabled: isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
-    },
-  );
 
   const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,

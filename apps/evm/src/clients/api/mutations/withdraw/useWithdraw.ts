@@ -3,7 +3,7 @@ import withdraw, { type WithdrawInput } from 'clients/api/mutations/withdraw';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetVTokenContract } from 'libs/contracts';
+import { useGetNativeTokenGatewayContract, useGetVTokenContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
@@ -12,10 +12,18 @@ type TrimmedRedeemInput = Omit<WithdrawInput, 'tokenContract' | 'accountAddress'
 type Options = UseSendTransactionOptions<TrimmedRedeemInput>;
 
 const useWithdraw = (
-  { vToken, poolName }: { vToken: VToken; poolName: string },
+  {
+    vToken,
+    poolName,
+    poolComptrollerAddress,
+  }: { vToken: VToken; poolName: string; poolComptrollerAddress: string },
   options?: Options,
 ) => {
   const { chainId } = useChainId();
+  const nativeTokenGatewayContract = useGetNativeTokenGatewayContract({
+    comptrollerContractAddress: poolComptrollerAddress,
+    passSigner: true,
+  });
   const tokenContract = useGetVTokenContract({
     vToken,
     passSigner: true,
@@ -30,6 +38,7 @@ const useWithdraw = (
         withdraw({
           ...params,
           ...input,
+          nativeTokenGatewayContract,
         }),
       ),
     onConfirmed: async ({ input }) => {

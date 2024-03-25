@@ -18,7 +18,7 @@ const useRepay = (
     vToken,
     poolName,
     poolComptrollerAddress,
-  }: { vToken: VToken; poolName: string; poolComptrollerAddress?: string },
+  }: { vToken: VToken; poolName: string; poolComptrollerAddress: string },
   options?: Options,
 ) => {
   const { chainId } = useChainId();
@@ -32,7 +32,7 @@ const useRepay = (
 
   const nativeTokenGatewayContract = useGetNativeTokenGatewayContract({
     passSigner: true,
-    comptrollerContractAddress: poolComptrollerAddress || '',
+    comptrollerContractAddress: poolComptrollerAddress,
   });
 
   return useSendTransaction({
