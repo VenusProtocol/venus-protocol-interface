@@ -14,7 +14,7 @@ import TEST_IDS from './testIds';
 
 const fakeName = 'Proposal';
 const fakeDescription = 'Interesting idea';
-const fakeSignature = '_setAbc(string, bool)';
+const fakeSignature = '_setAbc(string,address)';
 const fakeForOption = 'fakeForOption';
 const fakeAgainstOption = 'fakeAgainstOption';
 const fakeAbstainOption = 'fakeAbstainOption';
@@ -188,7 +188,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
 
     fireEvent.change(dataInput0, { target: { value: 'root' } });
-    fireEvent.change(dataInput1, { target: { value: 'false' } });
+    fireEvent.change(dataInput1, { target: { value: fakeAddress } });
 
     await waitFor(() => expect(addActionButton).toBeEnabled());
     await waitFor(() => fireEvent.click(addActionButton));
@@ -243,18 +243,12 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
 
     fireEvent.change(dataInput0, { target: { value: 'root' } });
-    fireEvent.change(dataInput1, { target: { value: 'false' } });
+    fireEvent.change(dataInput1, { target: { value: 'invalid-address' } });
 
-    await waitFor(() => fireEvent.click(addActionButton));
-
-    fireEvent.change(signatureInput0, { target: { value: 'bad Address' } });
     await waitFor(() => expect(addActionButton).toBeDisabled());
 
-    fireEvent.change(signatureInput0, { target: { value: fakeSignature } });
+    fireEvent.change(dataInput1, { target: { value: fakeAddress } });
     await waitFor(() => expect(addActionButton).toBeEnabled());
-
-    fireEvent.change(signatureInput0, { target: { value: '' } });
-    await waitFor(() => expect(addActionButton).toBeDisabled());
   });
 
   it('Sets signature as accordion title', async () => {
@@ -306,7 +300,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
     const dataInput1 = await waitFor(() => getByTestId('actions.0.callData.1'));
 
     fireEvent.change(dataInput0, { target: { value: 'root' } });
-    fireEvent.change(dataInput1, { target: { value: 'false' } });
+    fireEvent.change(dataInput1, { target: { value: fakeAddress } });
 
     await waitFor(() => expect(addActionButton).toBeEnabled()); // failing
 
@@ -363,9 +357,9 @@ describe('pages/Proposal/CreateProposalModal', () => {
     fireEvent.change(addressInputs[0], { target: { value: fakeAddress } });
     fireEvent.change(signatureInputs[0], { target: { value: fakeSignature } });
 
-    // fake Signature should add an input with a bool placeholder and on with a string placeholder
+    // fake Signature should add an input with an address and a string placeholder
     getByPlaceholderText('string');
-    getByPlaceholderText('bool');
+    getByPlaceholderText('address');
   });
 
   it('Imports a valid proposal file and allows the VIP creation', async () => {
