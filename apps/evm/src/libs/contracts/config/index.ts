@@ -258,6 +258,7 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Prime,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Prime,
+      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.Prime,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.Prime,
     },
   },
