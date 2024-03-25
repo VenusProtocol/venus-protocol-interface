@@ -76,7 +76,6 @@ export const WALLETS: Wallet[] = [
     name: t('wallets.rabbyWallet'),
     Logo: RabbyWalletLogo,
     connector: Connector.RabbyWallet,
-    mainnetOnly: true,
   },
 ];
 
