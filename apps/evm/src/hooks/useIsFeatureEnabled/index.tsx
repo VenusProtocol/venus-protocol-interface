@@ -34,14 +34,6 @@ export const featureFlags = {
     ChainId.OPBNB_MAINNET,
     ChainId.OPBNB_TESTNET,
   ],
-  chainSelect: [
-    ChainId.BSC_MAINNET,
-    ChainId.BSC_TESTNET,
-    ChainId.ETHEREUM,
-    ChainId.SEPOLIA,
-    ChainId.OPBNB_MAINNET,
-    ChainId.OPBNB_TESTNET,
-  ],
   wrapUnwrapNativeToken: [
     ChainId.BSC_TESTNET,
     ChainId.ETHEREUM,
