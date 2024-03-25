@@ -4,7 +4,7 @@ import proposalResponse from '__mocks__/api/proposals.json';
 
 import { restService } from 'utilities';
 
-import getProposal from './getProposal';
+import getProposal from '..';
 
 vi.mock('utilities/restService');
 

@@ -11,11 +11,8 @@ import {
 } from 'types';
 
 import areAddressesEqual from './areAddressesEqual';
-
-const createDateFromSecondsTimestamp = (timestampInSeconds: number): Date => {
-  const inMilliseconds = timestampInSeconds * 1000;
-  return new Date(inMilliseconds);
-};
+import { convertToDate } from './convertToDate';
+import { formatToProposalDescription } from './formatToProposalDescription';
 
 const formatToProposal = ({
   cancelTimestamp,
@@ -42,32 +39,9 @@ const formatToProposal = ({
   againstVotesMantissa,
   accountAddress,
 }: ProposalApiResponse & { accountAddress: string }): Proposal => {
-  const endDate = endTimestamp ? createDateFromSecondsTimestamp(endTimestamp) : undefined;
+  const endDate = endTimestamp ? convertToDate({ timestampSeconds: endTimestamp }) : undefined;
 
-  let descriptionObj: Proposal['description'] = {
-    version: 'v2',
-    title: '',
-    description: '',
-    forDescription: '',
-    againstDescription: '',
-    abstainDescription: '',
-  };
-
-  try {
-    descriptionObj = JSON.parse(description);
-  } catch {
-    // Split description in half, delimited by the first instance of a break
-    // line symbol (\n). The first half corresponds to the title of the
-    // proposal, the second to the description
-    const [title, descriptionText] = description.split(/\n(.*)/s);
-
-    // Remove markdown characters from title since it's rendered as plain text
-    // on the front end
-    const plainTitle = title.replaceAll('*', '').replaceAll('#', '');
-
-    descriptionObj = { version: 'v1', title: plainTitle, description: descriptionText };
-  }
-
+  const formattedDescription = formatToProposalDescription({ description });
   const allVotes = votes || [];
   const forVotes: ForVoter[] = [];
   const againstVotes: AgainstVoter[] = [];
@@ -99,7 +73,7 @@ const formatToProposal = ({
 
   const totalVotesMantissa = abstainVotesValue.plus(againstVotesValue).plus(forVotesValue);
 
-  const userHasVoted = !!votes?.find(v => areAddressesEqual(v.address, accountAddress));
+  const userVoteSupport = votes?.find(v => areAddressesEqual(v.address, accountAddress))?.support;
 
   const formattedActions = (proposalActions || [])
     .map(({ calldata, value, ...action }) => ({
@@ -112,18 +86,22 @@ const formatToProposal = ({
   const proposal: Proposal = {
     abstainedVotesMantissa: abstainVotesValue,
     againstVotesMantissa: againstVotesValue,
-    cancelDate: cancelTimestamp ? createDateFromSecondsTimestamp(cancelTimestamp) : undefined,
-    createdDate: createdTimestamp ? createDateFromSecondsTimestamp(createdTimestamp) : undefined,
-    description: descriptionObj,
+    cancelDate: cancelTimestamp ? convertToDate({ timestampSeconds: cancelTimestamp }) : undefined,
+    createdDate: createdTimestamp
+      ? convertToDate({ timestampSeconds: createdTimestamp })
+      : undefined,
+    description: formattedDescription,
     endBlock,
     endDate,
-    executedDate: executedTimestamp ? createDateFromSecondsTimestamp(executedTimestamp) : undefined,
+    executedDate: executedTimestamp
+      ? convertToDate({ timestampSeconds: executedTimestamp })
+      : undefined,
     forVotesMantissa: forVotesValue,
     proposalId,
     proposer,
-    queuedDate: queuedTimestamp ? createDateFromSecondsTimestamp(queuedTimestamp) : undefined,
-    etaDate: eta ? createDateFromSecondsTimestamp(eta) : undefined,
-    startDate: createDateFromSecondsTimestamp(startTimestamp),
+    queuedDate: queuedTimestamp ? convertToDate({ timestampSeconds: queuedTimestamp }) : undefined,
+    etaDate: eta ? convertToDate({ timestampSeconds: eta }) : undefined,
+    startDate: convertToDate({ timestampSeconds: startTimestamp }),
     state,
     createdTxHash: createdTxHash ?? undefined,
     cancelTxHash: cancelTxHash ?? undefined,
@@ -135,7 +113,7 @@ const formatToProposal = ({
     againstVotes,
     abstainVotes,
     proposalType: proposalType ?? ProposalType.NORMAL,
-    userHasVoted,
+    userVoteSupport,
   };
 
   return proposal;

@@ -28,7 +28,6 @@ import {
 } from '../__testUtils__/fakeData';
 
 vi.mock('libs/contracts');
-vi.mock('clients/subgraph');
 
 describe('getIsolatedPools - Feature enabled: Prime', () => {
   beforeEach(() => {

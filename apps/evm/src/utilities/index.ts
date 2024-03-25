@@ -46,3 +46,5 @@ export * from './generatePseudoRandomRefetchInterval';
 export * from './calculateYearlyEarnings';
 export * from './generateChainExplorerUrl';
 export * from './truncateAddress';
+export * from './convertToDate';
+export * from './formatToProposalDescription';

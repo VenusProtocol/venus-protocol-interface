@@ -5,8 +5,8 @@ import {
   useCreateProposal,
   useGetCurrentVotes,
   useGetLatestProposalIdByProposer,
+  useGetProposalPreviews,
   useGetProposalState,
-  useGetProposals,
 } from 'clients/api';
 import {
   InfoIcon,
@@ -33,6 +33,7 @@ import CreateProposalModal from './CreateProposalModal';
 import GovernanceProposal from './GovernanceProposal';
 
 const ALL_OPTION_VALUE = 'all';
+const PROPOSALS_PER_PAGE = 10;
 
 export interface ProposalListPageProps extends UseUrlPaginationOutput {
   className?: string;
@@ -79,17 +80,17 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
   const [searchValue, setSearchValue] = useState('');
 
   const {
-    data: { proposals, total, limit = 10 } = { proposals: [] },
+    data: { proposalPreviews, total } = { proposalPreviews: [] },
     isFetching: isGetProposalsFetching,
     isPreviousData: isGetProposalsPreviousData,
-  } = useGetProposals({
+  } = useGetProposalPreviews({
     page: currentPage,
-    limit: 10,
+    limit: PROPOSALS_PER_PAGE,
     accountAddress,
   });
 
   const isFetchingProposals =
-    isGetProposalsFetching && (isGetProposalsPreviousData || proposals.length === 0);
+    isGetProposalsFetching && (isGetProposalsPreviousData || proposalPreviews.length === 0);
 
   const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
 
@@ -177,38 +178,9 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
       {isFetchingProposals && <Spinner className="h-auto" />}
 
       <div className="space-y-4 md:space-y-6">
-        {proposals.map(
-          ({
-            proposalId,
-            description,
-            state,
-            endDate,
-            cancelDate,
-            queuedDate,
-            etaDate,
-            forVotesMantissa,
-            abstainedVotesMantissa,
-            againstVotesMantissa,
-            executedDate,
-            proposalType,
-          }) => (
-            <GovernanceProposal
-              key={proposalId}
-              proposalId={proposalId}
-              proposalTitle={description.title}
-              proposalState={state}
-              endDate={endDate}
-              executedDate={executedDate}
-              cancelDate={cancelDate}
-              queuedDate={queuedDate}
-              etaDate={etaDate}
-              forVotesMantissa={forVotesMantissa}
-              againstVotesMantissa={againstVotesMantissa}
-              abstainedVotesMantissa={abstainedVotesMantissa}
-              proposalType={proposalType}
-            />
-          ),
-        )}
+        {proposalPreviews.map(proposalPreview => (
+          <GovernanceProposal key={proposalPreview.proposalId} {...proposalPreview} />
+        ))}
       </div>
 
       {!!total && total > 0 && (
@@ -217,7 +189,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
           onChange={(nextIndex: number) => {
             setCurrentPage(nextIndex);
           }}
-          itemsPerPageCount={limit}
+          itemsPerPageCount={PROPOSALS_PER_PAGE}
         />
       )}
 

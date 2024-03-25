@@ -22,7 +22,7 @@ const useCancelProposal = (options?: Options) => {
         }),
       ),
     onConfirmed: ({ input }) => {
-      queryClient.invalidateQueries(FunctionKey.GET_PROPOSALS);
+      queryClient.invalidateQueries(FunctionKey.GET_PROPOSAL_PREVIEWS);
       queryClient.invalidateQueries([
         FunctionKey.GET_PROPOSAL,
         {

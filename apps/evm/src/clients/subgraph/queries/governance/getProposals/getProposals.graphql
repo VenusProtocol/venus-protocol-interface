@@ -1,5 +1,0 @@
-query Proposals {
-  proposals {
-    id
-  }
-}

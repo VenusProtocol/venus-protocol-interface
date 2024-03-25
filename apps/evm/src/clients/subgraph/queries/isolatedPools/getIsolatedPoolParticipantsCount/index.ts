@@ -1,6 +1,6 @@
 import { request } from 'graphql-request';
 
-import { IsolatedPoolParticipantsCountDocument } from 'clients/subgraph/gql';
+import { IsolatedPoolParticipantsCountDocument } from 'clients/subgraph';
 import { SUBGRAPH_URlS } from 'constants/subgraphUrls';
 import type { ChainId } from 'types';
 

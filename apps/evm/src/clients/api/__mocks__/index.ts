@@ -13,6 +13,7 @@ import voters from '__mocks__/models/voters';
 
 import FunctionKey from 'constants/functionKey';
 
+import { proposalPreviews } from '__mocks__/models/proposalPreviews';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
 
 // Queries
@@ -197,8 +198,12 @@ export const useGetXvsVaultUserInfo = vi.fn(() =>
 export const getCurrentVotes = vi.fn(async () => new BigNumber(100000000000000000));
 export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, getCurrentVotes);
 
-export const getProposals = vi.fn();
-export const useGetProposals = () => useQuery(FunctionKey.GET_PROPOSALS, getProposals);
+export const getProposalPreviews = vi.fn(async () => ({
+  proposalPreviews,
+}));
+export const useGetProposalPreviews = vi.fn(() =>
+  useQuery(FunctionKey.GET_PROPOSAL_PREVIEWS, getProposalPreviews),
+);
 
 export const getProposal = vi.fn(async () => proposals[0]);
 export const useGetProposal = () => useQuery(FunctionKey.GET_PROPOSAL, getProposal);

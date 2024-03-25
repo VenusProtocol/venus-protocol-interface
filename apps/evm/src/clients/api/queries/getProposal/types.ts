@@ -1,28 +1,8 @@
 import type { Proposal, ProposalState, ProposalType, VoteSupport } from 'types';
 
-export interface GetProposalsInput {
-  limit?: number;
-  page?: number;
-  accountAddress: string | undefined;
-}
-
 export interface GetProposalInput {
   proposalId: number | string;
   accountAddress: string | undefined;
-}
-
-export interface ProposalsApiResponse {
-  page: number;
-  result: ProposalApiResponse[];
-  limit: number;
-  total: number;
-}
-
-export interface GetProposalsOutput {
-  page: number;
-  proposals: Proposal[];
-  limit: number;
-  total: number;
 }
 
 export interface ProposalActionApiResponse {

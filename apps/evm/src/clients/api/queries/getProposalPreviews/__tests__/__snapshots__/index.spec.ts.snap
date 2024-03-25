@@ -1,0 +1,272 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getProposalPreviews > returns proposal previews in the correct format 1`] = `
+{
+  "proposalPreviews": [
+    {
+      "abstainedVotesMantissa": "1.05462e+23",
+      "againstVotesMantissa": "2.05462e+23",
+      "cancelDate": undefined,
+      "description": {
+        "abstainDescription": "I am indifferent to whether Venus Protocol proceeds or not",
+        "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+        "description": "
+    This VIP does the following:
+    1. Updates the implementation of all VTokens and Comptroller market facet in Core Pool
+    2. Updates the implementation of VTokens and Comptrollers in IL
+    3. Accepts the ownership of the NativeTokenGateway contract
+    4. Gives call permissions to Timelocks for seizeVenus function
+    5. Sets XVS and vXVS address in unitroller",
+        "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+        "title": "VIP-Gateway Update VToken and comptroller implementation in IL and Core Pool and introduces the NativeTokenGateway contract",
+        "version": "v2",
+      },
+      "endDate": 2027-11-13T07:27:47.000Z,
+      "etaDate": 2024-03-14T07:34:08.000Z,
+      "executedDate": 2024-03-14T07:38:32.000Z,
+      "forVotesMantissa": "6.05462e+23",
+      "proposalId": 387,
+      "proposalType": 0,
+      "queuedDate": 2024-03-14T07:24:08.000Z,
+      "state": 0,
+      "userVoteSupport": 1,
+    },
+    {
+      "abstainedVotesMantissa": "0",
+      "againstVotesMantissa": "0",
+      "cancelDate": undefined,
+      "description": {
+        "abstainDescription": "I am indifferent to whether Venus Protocol proceeds or not",
+        "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+        "description": "
+    This VIP does the following:
+    1. Updates the implementation of all VTokens and Comptroller market facet in Core Pool
+    2. Sets the AccessControlManager, ProtocolShareReserve and ReduceReservesBlockDelta in vTRX, vUST and vLUNA
+    3. Updates the implementation of VTokens and Comptrollers in IL
+    4. Accepts the ownership of the NativeTokenGateway contract",
+        "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+        "title": "VIP-Gateway Update VToken and comptroller implementation in IL and Core Pool and introduces the NativeTokenGateway contract",
+        "version": "v2",
+      },
+      "endDate": 2027-11-05T13:32:44.000Z,
+      "etaDate": 2024-03-06T13:33:52.000Z,
+      "executedDate": 2024-03-06T13:38:28.000Z,
+      "forVotesMantissa": "6.05462e+23",
+      "proposalId": 386,
+      "proposalType": 0,
+      "queuedDate": 2024-03-06T13:23:52.000Z,
+      "state": 0,
+      "userVoteSupport": 1,
+    },
+    {
+      "abstainedVotesMantissa": "0",
+      "againstVotesMantissa": "0",
+      "cancelDate": undefined,
+      "description": {
+        "abstainDescription": "I am indifferent to whether Venus Protocol proceeds or not",
+        "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+        "description": "
+        This VIP upgrades the implementation of RiskFundConverter and SingleTokenConverter.",
+        "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+        "title": "VIP-Converter2 upgrades the implementation of token converters",
+        "version": "v2",
+      },
+      "endDate": 2027-10-29T09:19:29.000Z,
+      "etaDate": 2024-02-28T09:06:22.000Z,
+      "executedDate": 2024-02-28T09:15:01.000Z,
+      "forVotesMantissa": "6.05462e+23",
+      "proposalId": 385,
+      "proposalType": 0,
+      "queuedDate": 2024-02-28T08:56:22.000Z,
+      "state": 0,
+      "userVoteSupport": 1,
+    },
+    {
+      "abstainedVotesMantissa": "0",
+      "againstVotesMantissa": "0",
+      "cancelDate": undefined,
+      "description": {
+        "abstainDescription": "I am indifferent to whether Venus Protocol proceeds or not",
+        "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+        "description": "
+        This VIP upgrades the implementation of RiskFundConverter and SingleTokenConverter.",
+        "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+        "title": "VIP-Converter2 upgrades the implementation of token converters",
+        "version": "v2",
+      },
+      "endDate": 2027-10-29T09:03:41.000Z,
+      "etaDate": undefined,
+      "executedDate": undefined,
+      "forVotesMantissa": "0",
+      "proposalId": 384,
+      "proposalType": 0,
+      "queuedDate": undefined,
+      "state": 0,
+      "userVoteSupport": undefined,
+    },
+    {
+      "abstainedVotesMantissa": "0",
+      "againstVotesMantissa": "0",
+      "cancelDate": undefined,
+      "description": {
+        "abstainDescription": "I am indifferent to whether Venus Protocol proceeds or not",
+        "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+        "description": "#### Description
+The borrow cap for WBETH on Venus Core Pool is currently at 100% utilization.
+
+There is currently a single user borrowing 1.06k WBETH, amounting to 53% of the total borrows of the asset. The user is currently borrowing $8.19M (in WBETH and USDT) against his $13.2M BTCB collateral, bringing his health score to 1.29.
+
+Utilizing our supply and borrow cap methodology, Chaos Labs recommends doubling the borrow cap, setting it at 4K WBETH.
+
+#### References
+* [VIP Simulation](https://github.com/VenusProtocol/vips/pull/214)
+  ",
+        "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+        "title": "VIP-260 WBETH (Core Pool) - increase borrow cap to 4,000",
+        "version": "v2",
+      },
+      "endDate": 2027-10-23T20:39:26.000Z,
+      "etaDate": 2024-02-22T20:25:43.000Z,
+      "executedDate": 2024-02-22T20:28:43.000Z,
+      "forVotesMantissa": "1.2054657949832e+24",
+      "proposalId": 383,
+      "proposalType": 0,
+      "queuedDate": 2024-02-22T20:15:43.000Z,
+      "state": 0,
+      "userVoteSupport": 1,
+    },
+    {
+      "abstainedVotesMantissa": "0",
+      "againstVotesMantissa": "0",
+      "cancelDate": undefined,
+      "description": {
+        "abstainDescription": "I am indifferent to whether Venus Protocol proceeds with this proposal",
+        "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+        "description": "Configure VAI Price",
+        "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+        "title": "VIP-260 Configure VAI Price",
+        "version": "v2",
+      },
+      "endDate": 2027-10-23T15:34:05.000Z,
+      "etaDate": 2024-02-22T15:20:24.000Z,
+      "executedDate": 2024-02-22T15:22:42.000Z,
+      "forVotesMantissa": "6.05462e+23",
+      "proposalId": 382,
+      "proposalType": 0,
+      "queuedDate": 2024-02-22T15:10:24.000Z,
+      "state": 0,
+      "userVoteSupport": 1,
+    },
+    {
+      "abstainedVotesMantissa": "0",
+      "againstVotesMantissa": "0",
+      "cancelDate": undefined,
+      "description": {
+        "abstainDescription": "I am indifferent to whether Venus Protocol proceeds or not",
+        "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+        "description": "
+The borrow cap for WBETH on Venus Core Pool is currently at 100% utilization.
+
+There is currently a single user borrowing 1.06k WBETH, amounting to 53% of the total borrows of the asset. The user is currently borrowing $8.19M (in WBETH and USDT) against his $13.2M BTCB collateral, bringing his health score to 1.29.
+
+Utilizing our supply and borrow cap methodology, Chaos Labs recommends doubling the borrow cap, setting it at 4K WBETH.
+
+#### References
+* [VIP Simulation](https://github.com/VenusProtocol/vips/pull/180)
+  ",
+        "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+        "title": "VIP-260 WBETH (Core Pool) - increase borrow cap to 4,000",
+        "version": "v2",
+      },
+      "endDate": 2027-10-22T17:07:08.000Z,
+      "etaDate": 2024-02-21T16:48:09.000Z,
+      "executedDate": undefined,
+      "forVotesMantissa": "7.00103849974598612445922e+23",
+      "proposalId": 381,
+      "proposalType": 1,
+      "queuedDate": 2024-02-21T16:43:09.000Z,
+      "state": 0,
+      "userVoteSupport": undefined,
+    },
+    {
+      "abstainedVotesMantissa": "0",
+      "againstVotesMantissa": "0",
+      "cancelDate": undefined,
+      "description": {
+        "abstainDescription": "I am indifferent to whether Venus Protocol proceeds or not",
+        "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+        "description": "
+The borrow cap for WBETH on Venus Core Pool is currently at 100% utilization.
+
+There is currently a single user borrowing 1.06k WBETH, amounting to 53% of the total borrows of the asset. The user is currently borrowing $8.19M (in WBETH and USDT) against his $13.2M BTCB collateral, bringing his health score to 1.29.
+
+Utilizing our supply and borrow cap methodology, Chaos Labs recommends doubling the borrow cap, setting it at 4K WBETH.
+
+#### References
+* [VIP Simulation](https://github.com/VenusProtocol/vips/pull/180)
+  ",
+        "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+        "title": "VIP-260 WBETH (Core Pool) - increase borrow cap to 4,000",
+        "version": "v2",
+      },
+      "endDate": 2027-10-22T16:46:08.000Z,
+      "etaDate": undefined,
+      "executedDate": undefined,
+      "forVotesMantissa": "3e+23",
+      "proposalId": 380,
+      "proposalType": 1,
+      "queuedDate": undefined,
+      "state": 0,
+      "userVoteSupport": undefined,
+    },
+    {
+      "abstainedVotesMantissa": "0",
+      "againstVotesMantissa": "0",
+      "cancelDate": undefined,
+      "description": {
+        "abstainDescription": "I am indifferent to whether Venus Protocol proceeds or not",
+        "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+        "description": "
+            1. This VIP upgrades the implementation of RiskFundConverter, SingleTokenConverter.
+            2. This VIP sets the address of the PSR in the Liquidator contract.",
+        "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+        "title": "VIP-Converter upgrades the implementation of token converter and sets the PSR address in liquidator contract.",
+        "version": "v2",
+      },
+      "endDate": 2027-10-21T15:08:29.000Z,
+      "etaDate": 2024-02-20T14:58:20.000Z,
+      "executedDate": 2024-02-20T19:00:18.000Z,
+      "forVotesMantissa": "6.05462e+23",
+      "proposalId": 379,
+      "proposalType": 0,
+      "queuedDate": 2024-02-20T14:48:20.000Z,
+      "state": 0,
+      "userVoteSupport": 1,
+    },
+    {
+      "abstainedVotesMantissa": "0",
+      "againstVotesMantissa": "0",
+      "cancelDate": undefined,
+      "description": {
+        "abstainDescription": "I am indifferent to whether Venus Protocol proceeds or not",
+        "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+        "description": "
+            This VIP upgrades the implementation of RiskFundConverter and SingleTokenConverter",
+        "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+        "title": "VIP-Converter upgrades the implementation of token converter",
+        "version": "v2",
+      },
+      "endDate": 2027-10-21T14:46:20.000Z,
+      "etaDate": undefined,
+      "executedDate": undefined,
+      "forVotesMantissa": "0",
+      "proposalId": 378,
+      "proposalType": 0,
+      "queuedDate": undefined,
+      "state": 0,
+      "userVoteSupport": undefined,
+    },
+  ],
+  "total": 387,
+}
+`;

@@ -1,6 +1,6 @@
 import type { VoteSupport } from 'types';
 
-import type { ProposalApiResponse } from '../getProposals/types';
+import type { ProposalApiResponse } from '../getProposal/types';
 
 export type GetVoterHistoryResponse = {
   limit: number;

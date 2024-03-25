@@ -3,6 +3,8 @@ import { formatToProposal, restService } from 'utilities';
 
 import type { GetProposalInput, GetProposalOutput, ProposalApiResponse } from './types';
 
+export * from './types';
+
 const getProposal = async ({
   proposalId,
   accountAddress = '',

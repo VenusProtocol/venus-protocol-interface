@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useGetVoteReceipt } from 'clients/api';
 import {
   ActiveVotingProgress,
   Countdown,
@@ -17,7 +16,7 @@ import { routes } from 'constants/routing';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { ProposalState, ProposalType, type Token, VoteSupport } from 'types';
+import { type ProposalPreview, ProposalState, ProposalType, type Token, VoteSupport } from 'types';
 import { getProposalStateLabel } from 'utilities/getProposalStateLabel';
 
 import greenPulseAnimation from './greenPulseAnimation.gif';
@@ -117,35 +116,22 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
   return null;
 };
 
-interface GovernanceProposalProps {
+interface GovernanceProposalProps extends ProposalPreview {
   className?: string;
-  proposalId: number;
-  proposalTitle: string;
-  proposalState: ProposalState;
-  endDate?: Date;
-  cancelDate?: Date;
-  queuedDate?: Date;
-  etaDate?: Date;
-  executedDate?: Date;
-  userVoteStatus?: VoteSupport;
-  forVotesMantissa?: BigNumber;
-  againstVotesMantissa?: BigNumber;
-  abstainedVotesMantissa?: BigNumber;
   isUserConnected: boolean;
-  proposalType: ProposalType;
   xvs?: Token;
 }
 
 const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   className,
   proposalId,
-  proposalTitle,
-  proposalState,
+  description,
+  state,
   executedDate,
   etaDate,
   cancelDate,
   endDate,
-  userVoteStatus,
+  userVoteSupport,
   forVotesMantissa,
   againstVotesMantissa,
   abstainedVotesMantissa,
@@ -157,7 +143,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   const { t, Trans } = useTranslation();
 
   const voteStatusText = useMemo(() => {
-    switch (userVoteStatus) {
+    switch (userVoteSupport) {
       case VoteSupport.For:
         return t('voteProposalUi.voteStatus.votedFor');
       case VoteSupport.Against:
@@ -167,7 +153,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       default:
         return t('voteProposalUi.voteStatus.notVoted');
     }
-  }, [userVoteStatus, t]);
+  }, [userVoteSupport, t]);
 
   const votedTotalMantissa = BigNumber.sum.apply(null, [
     forVotesMantissa || 0,
@@ -176,7 +162,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   ]);
 
   const [statusDate, statusKey] = useMemo(() => {
-    switch (proposalState) {
+    switch (state) {
       case ProposalState.Active:
         return [endDate, 'voteProposalUi.activeUntilDate'];
       case ProposalState.Canceled:
@@ -190,7 +176,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       default:
         return [undefined, undefined];
     }
-  }, [proposalState, cancelDate, executedDate, endDate, etaDate]);
+  }, [state, cancelDate, executedDate, endDate, etaDate]);
 
   return (
     <ProposalCard
@@ -205,9 +191,9 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
           <ProposalTypeChip proposalType={proposalType} />
         ) : undefined
       }
-      title={proposalTitle}
+      title={description.title}
       contentRightItem={
-        proposalState === ProposalState.Active ? (
+        state === ProposalState.Active ? (
           <ActiveVotingProgress
             votedForMantissa={forVotesMantissa}
             votedAgainstMantissa={againstVotesMantissa}
@@ -216,14 +202,14 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
             xvs={xvs}
           />
         ) : (
-          <StatusCard state={proposalState} />
+          <StatusCard state={state} />
         )
       }
       footer={
         statusDate && statusKey ? (
           <div css={styles.timestamp}>
             <Typography variant="small2">
-              {proposalState === ProposalState.Active && (
+              {state === ProposalState.Active && (
                 <div css={styles.greenPulseContainer}>
                   <img
                     src={greenPulseAnimation}
@@ -252,29 +238,15 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   );
 };
 
-const GovernanceProposal: React.FC<
-  Omit<GovernanceProposalProps, 'userVoteStatus' | 'isUserConnected'>
-> = ({ proposalId, ...props }) => {
-  const { accountAddress } = useAccountAddress();
+const GovernanceProposal: React.FC<Omit<GovernanceProposalProps, 'xvs' | 'isUserConnected'>> =
+  props => {
+    const { accountAddress } = useAccountAddress();
 
-  const xvs = useGetToken({
-    symbol: 'XVS',
-  });
+    const xvs = useGetToken({
+      symbol: 'XVS',
+    });
 
-  const { data: userVoteReceipt } = useGetVoteReceipt(
-    { proposalId, accountAddress: accountAddress || '' },
-    { enabled: !!accountAddress },
-  );
-
-  return (
-    <GovernanceProposalUi
-      xvs={xvs}
-      userVoteStatus={userVoteReceipt?.voteSupport}
-      proposalId={proposalId}
-      isUserConnected={!!accountAddress}
-      {...props}
-    />
-  );
-};
+    return <GovernanceProposalUi xvs={xvs} isUserConnected={!!accountAddress} {...props} />;
+  };
 
 export default GovernanceProposal;

@@ -44,6 +44,6 @@ exports[`api/queries/getProposal > returns proposal 1`] = `
   "startDate": 2023-09-20T07:47:05.000Z,
   "state": 3,
   "totalVotesMantissa": "6.05461e+23",
-  "userHasVoted": false,
+  "userVoteSupport": undefined,
 }
 `;

@@ -5,7 +5,7 @@ import type Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import proposals from '__mocks__/models/proposals';
+import { proposalPreviews } from '__mocks__/models/proposalPreviews';
 import { vaults } from '__mocks__/models/vaults';
 import { renderComponent } from 'testUtils/render';
 
@@ -13,7 +13,6 @@ import {
   getCurrentVotes,
   getLatestProposalIdByProposer,
   getProposalState,
-  getProposals,
   setVoteDelegate,
   useGetVestingVaults,
 } from 'clients/api';
@@ -41,12 +40,6 @@ describe('Governance', () => {
     (useGetVestingVaults as Vi.Mock).mockImplementation(() => ({
       data: [],
       isLoading: false,
-    }));
-    (getProposals as Vi.Mock).mockImplementation(() => ({
-      proposals,
-      limit: 10,
-      total: 100,
-      offset: 10,
     }));
     (setVoteDelegate as Vi.Mock).mockImplementation(() => fakeContractTransaction);
     (getLatestProposalIdByProposer as Vi.Mock).mockImplementation(() => '1');
@@ -236,16 +229,19 @@ describe('Governance', () => {
 
   it('proposals navigate to details', async () => {
     const { getAllByTestId } = renderComponent(<Governance />);
+    const firstProposalId = proposalPreviews[0].proposalId.toString();
+
     // Getting all because the cards are rendered twice (once for mobile and once for larger screens)
     const firstProposalAnchor = await waitFor(async () =>
-      getAllByTestId(GOVERNANCE_PROPOSAL_TEST_IDS.governanceProposal('98')),
+      getAllByTestId(GOVERNANCE_PROPOSAL_TEST_IDS.governanceProposal(firstProposalId)),
     );
 
     expect(firstProposalAnchor[0].firstChild).toHaveAttribute(
       'href',
-      `${routes.governanceProposal.path.replace(':proposalId', '98')}?${CHAIN_ID_SEARCH_PARAM}=${
-        ChainId.BSC_TESTNET
-      }`,
+      `${routes.governanceProposal.path.replace(
+        ':proposalId',
+        firstProposalId,
+      )}?${CHAIN_ID_SEARCH_PARAM}=${ChainId.BSC_TESTNET}`,
     );
   });
 
