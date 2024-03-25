@@ -1,5 +1,5 @@
 import { type InputHTMLAttributes, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 import {
   useCreateProposal,
@@ -32,7 +32,9 @@ import TEST_IDS from '../testIds';
 import CreateProposalModal from './CreateProposalModal';
 import GovernanceProposal from './GovernanceProposal';
 
-const ALL_OPTION_VALUE = 'all';
+const PROPOSAL_STATE_PARAM_KEY = 'proposalState';
+const SEARCH_PARAM_KEY = 'search';
+const PROPOSAL_STATE_ALL_OPTION_VALUE = 'all';
 const PROPOSALS_PER_PAGE = 10;
 
 export interface ProposalListPageProps extends UseUrlPaginationOutput {
@@ -52,12 +54,12 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
 
   // Generate select options from proposal states
   const selectOptions = useMemo(() => {
-    const allOption: SelectOption = {
+    const allOption: SelectOption<ProposalState | typeof PROPOSAL_STATE_ALL_OPTION_VALUE> = {
       label: t('proposalList.selectOptions.all.label'),
-      value: ALL_OPTION_VALUE,
+      value: PROPOSAL_STATE_ALL_OPTION_VALUE,
     };
 
-    const otherOptions: SelectOption[] = [];
+    const otherOptions: SelectOption<ProposalState | typeof PROPOSAL_STATE_ALL_OPTION_VALUE>[] = [];
 
     for (const s in ProposalState) {
       const state = +s;
@@ -73,11 +75,52 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
     return [allOption, ...otherOptions];
   }, [t]);
 
-  // TODO: integrate search with subgraph (see VEN-2477)
-  const [selectedProposalState, setSelectedProposalState] = useState<
-    ProposalState | typeof ALL_OPTION_VALUE
-  >(ALL_OPTION_VALUE);
-  const [searchValue, setSearchValue] = useState('');
+  // Sync proposal filters with search params
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const selectedProposalState = useMemo(
+    () =>
+      !searchParams.get(PROPOSAL_STATE_PARAM_KEY)
+        ? PROPOSAL_STATE_ALL_OPTION_VALUE
+        : +searchParams.get(PROPOSAL_STATE_PARAM_KEY)!,
+    [searchParams],
+  );
+
+  const handleSelectedProposalStateChange = ({
+    proposalState,
+  }: { proposalState: (typeof selectOptions)[number]['value'] }) =>
+    setSearchParams(currentSearchParams => {
+      const { [PROPOSAL_STATE_PARAM_KEY]: _, ...filteredCurrentSearchParams } =
+        Object.fromEntries(currentSearchParams);
+
+      return {
+        ...filteredCurrentSearchParams,
+        ...(proposalState === PROPOSAL_STATE_ALL_OPTION_VALUE
+          ? {}
+          : {
+              [PROPOSAL_STATE_PARAM_KEY]: proposalState.toString(),
+            }),
+      };
+    });
+
+  const searchValue = searchParams.get(SEARCH_PARAM_KEY) ?? undefined;
+
+  const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
+    setSearchParams(currentSearchParams => {
+      const { [SEARCH_PARAM_KEY]: _, ...filteredCurrentSearchParams } =
+        Object.fromEntries(currentSearchParams);
+
+      const newSearchValue = changeEvent.currentTarget.value;
+
+      if (!newSearchValue) {
+        return filteredCurrentSearchParams;
+      }
+
+      return {
+        ...filteredCurrentSearchParams,
+        [SEARCH_PARAM_KEY]: newSearchValue,
+      };
+    });
 
   const {
     data: { proposalPreviews, total } = { proposalPreviews: [] },
@@ -86,6 +129,8 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
   } = useGetProposalPreviews({
     page: currentPage,
     limit: PROPOSALS_PER_PAGE,
+    proposalState:
+      selectedProposalState === PROPOSAL_STATE_ALL_OPTION_VALUE ? undefined : selectedProposalState,
     accountAddress,
   });
 
@@ -115,9 +160,6 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
     newProposalStep: 'create' | 'file' | 'manual' | undefined;
   }>();
   const [showCreateProposalModal, setShowCreateProposalModal] = useState(!!newProposalStep);
-
-  const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
-    setSearchValue(changeEvent.currentTarget.value);
 
   // User has enough voting weight to create proposal and doesn't currently have an active or
   // pending proposal
@@ -157,9 +199,12 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
             placeLabelToLeft
             options={selectOptions}
             className="min-w-[230px]"
+            testId={TEST_IDS.proposalStateSelect}
             value={selectedProposalState}
             onChange={newValue =>
-              setSelectedProposalState(newValue as ProposalState | typeof ALL_OPTION_VALUE)
+              handleSelectedProposalStateChange({
+                proposalState: newValue as (typeof selectOptions)[number]['value'],
+              })
             }
           />
 

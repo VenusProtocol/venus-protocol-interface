@@ -1,5 +1,5 @@
-query ProposalPreviews($limit: Int = 10, $skip: Int = 0, $accountAddress: String) {
-  proposals(first: $limit, skip: $skip, orderBy: startBlock, orderDirection: desc) {
+query ProposalPreviews($limit: Int = 10, $skip: Int = 0, $accountAddress: String, $where: Proposal_filter) {
+  proposals(first: $limit, skip: $skip, where: $where, orderBy: startBlock, orderDirection: desc) {
     id
     type
     startBlock
