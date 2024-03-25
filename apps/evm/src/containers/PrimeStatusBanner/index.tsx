@@ -155,7 +155,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
   });
 
   const displayProgress = !isUserXvsStakeHighEnoughForPrime;
-  const displayWarning = haveAllPrimeTokensBeenClaimed;
+  const displayWarning = haveAllPrimeTokensBeenClaimed && primeTokenLimit > 0;
   const displayStakeButton =
     !haveAllPrimeTokensBeenClaimed && !hidePromotionalTitle && !isUserXvsStakeHighEnoughForPrime;
   const displayClaimButton =
@@ -194,11 +194,10 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             <PrimeTokensLeft tokensLeft={primeTokensLeft} />
           </div>
         )}
-        {displayWarning && (
+        {displayWarning && hidePromotionalTitle && (
           <div
             className={cn(
-              'mb-4 flex items-center text-right sm:hidden',
-              hidePromotionalTitle && 'sm:flex',
+              'mb-4 flex items-center text-right sm:flex',
               displayProgress && 'md:mb-4',
             )}
           >
