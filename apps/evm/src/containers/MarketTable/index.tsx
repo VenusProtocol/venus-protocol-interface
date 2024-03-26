@@ -40,7 +40,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const styles = useStyles();
 
   const { OperationModal, openOperationModal } = useOperationModal();
-  const { CollateralModal, toggleCollateral } = useCollateral();
+  const { toggleCollateral } = useCollateral();
 
   const { userHasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useLunaUstWarning();
 
@@ -129,7 +129,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         {...otherTableProps}
       />
 
-      <CollateralModal />
       <OperationModal />
     </div>
   );
