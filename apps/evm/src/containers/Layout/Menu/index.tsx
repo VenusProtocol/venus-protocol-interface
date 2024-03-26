@@ -6,7 +6,6 @@ import { Icon } from 'components';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
@@ -19,7 +18,6 @@ import { NavLink } from './NavLink';
 export const Menu: React.FC = () => {
   const { t } = useTranslation();
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState<boolean>(false);
-  const isChainSelectEnabled = useIsFeatureEnabled({ name: 'chainSelect' });
 
   const toggleMobileMenu = () => {
     // Toggle scroll on page container and body tags
@@ -45,7 +43,7 @@ export const Menu: React.FC = () => {
           </Link>
 
           <div className="flex flex-1 items-center justify-center">
-            {isChainSelectEnabled && <ChainSelect className="mr-4" buttonClassName="h-9" />}
+            <ChainSelect className="mr-4" buttonClassName="h-9" />
 
             <ConnectButton className="h-9 max-w-xs flex-1 px-1" />
           </div>
