@@ -1,5 +1,29 @@
 # @venusprotocol/evm
 
+## 2.110.0
+
+### Minor Changes
+
+- 35b0c0a: Rename "deprecated" assets to "paused"
+- 4c972b5: remove chainSelect feature flag
+- 96d2302: update Prime on Ethereum and Sepolia
+- 5a8b92c: update Venus packages and contracts config
+- d95e34a: consider feature flag when asking for NativeTokenGateway approval
+- 5b11a09: Fetch disabled token actions from contracts
+- 558c27a: show LST pool on Ethereum
+- 25f7df1: NativeTokenGateway flow fixes
+- 6c6dfeb: activate wrapUnwrapNativeToken on BSC_MAINNET
+- 3249aa5: hide the "all Prime tokens claimed" warning if the Prime token limit is 0
+- 0f8fe29: Update supply mutation function to handle all supply flows
+- 7b857f7: Fix withdraw mutation function
+- 25a6c79: Fetch proposal previews from subgraph
+
+### Patch Changes
+
+- df0eeed: Enable wrapUnwrapNativeToken feature on all chains
+- 060f529: Rename agEUR token to EURA
+- 065f69d: Update Create proposal form to accept empty strings
+
 ## 2.109.0
 
 ### Minor Changes
