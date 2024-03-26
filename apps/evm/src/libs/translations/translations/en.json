@@ -556,7 +556,7 @@
       "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "connectWalletMessage": "Please connect your wallet to repay",
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
-      "repaybaleAmount": "Repayable amount",
+      "repayableAmount": "Repayable amount",
       "rightMaxButtonLabel": "MAX",
       "submitButtonLabel": {
         "amountHigherThanRepayBalance": "Amount entered higher than repay balance",
