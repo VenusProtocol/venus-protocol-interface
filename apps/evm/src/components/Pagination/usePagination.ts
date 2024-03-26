@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import { PAGE_PARAM_KEY } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 
 type PaginationProps = {
@@ -9,7 +10,6 @@ type PaginationProps = {
   itemsPerPageCount?: number;
 };
 
-const PAGE_PARAM_KEY = 'page';
 const PAGES_TO_SHOW_COUNT = 4;
 
 export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: PaginationProps) {

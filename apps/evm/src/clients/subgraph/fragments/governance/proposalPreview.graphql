@@ -1,0 +1,27 @@
+fragment ProposalPreviewFragment on Proposal {
+  id
+  type
+  startBlock
+  endBlock
+  description
+  executionEta
+  forVotes
+  againstVotes
+  abstainVotes
+  passing
+
+  queued {
+    id
+    timestamp
+  }
+
+  canceled {
+    id
+    timestamp
+  }
+
+  executed {
+    id
+    timestamp
+  }
+}

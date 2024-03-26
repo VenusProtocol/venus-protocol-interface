@@ -1,8 +1,8 @@
-import type Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
-import { ChainId, ProposalState } from 'types';
 import { getProposalPreviews as getGqlProposalPreviews } from 'clients/subgraph';
-import { getProposalPreviews, type GetProposalPreviewsInput } from '..';
+import { ChainId, ProposalState } from 'types';
+import type Vi from 'vitest';
+import { type GetProposalPreviewsInput, getProposalPreviews } from '..';
 
 const fakeParams: GetProposalPreviewsInput = {
   chainId: ChainId.BSC_TESTNET,
@@ -22,7 +22,7 @@ describe('getProposalPreviews', () => {
     expect(res).toMatchSnapshot();
   });
 
-  it('sets "where" parameter correctly based on passed "proposalState"', async () => {
+  it('sets "where" parameter correctly based on passed "proposalState" parameter', async () => {
     const proposalStates = Object.values(ProposalState).filter(
       (value): value is ProposalState => !Number.isNaN(+value),
     );
@@ -37,5 +37,14 @@ describe('getProposalPreviews', () => {
 
       expect((getGqlProposalPreviews as Vi.Mock).mock.calls[i][0]).toMatchSnapshot();
     }
+  });
+
+  it('sets "where" parameter correctly based on passed "search" parameter', async () => {
+    await getProposalPreviews({
+      ...fakeParams,
+      search: 'fake search',
+    });
+
+    expect((getGqlProposalPreviews as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
   });
 });

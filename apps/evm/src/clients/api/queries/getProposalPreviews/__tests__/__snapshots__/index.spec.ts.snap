@@ -267,110 +267,140 @@ Utilizing our supply and borrow cap methodology, Chaos Labs recommends doubling 
       "userVoteSupport": undefined,
     },
   ],
-  "total": 387,
+  "total": 1,
 }
 `;
 
-exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" 1`] = `
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 1`] = `
 {
-  "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "chainId": 97,
-  "limit": 10,
-  "page": 0,
-  "where": {
-    "startBlock_gt": 1,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "startBlock_gt": 1,
+    },
   },
 }
 `;
 
-exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" 2`] = `
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 2`] = `
 {
-  "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "chainId": 97,
-  "limit": 10,
-  "page": 0,
-  "where": {
-    "endBlock_gt": 1,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "endBlock_gt": 1,
+    },
   },
 }
 `;
 
-exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" 3`] = `
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 3`] = `
 {
-  "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "chainId": 97,
-  "limit": 10,
-  "page": 0,
-  "where": {
-    "canceled_not": null,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "canceled_not": null,
+    },
   },
 }
 `;
 
-exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" 4`] = `
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 4`] = `
 {
-  "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "chainId": 97,
-  "limit": 10,
-  "page": 0,
-  "where": {
-    "endBlock_lt": 1,
-    "passing": false,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "endBlock_lt": 1,
+      "passing": false,
+    },
   },
 }
 `;
 
-exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" 5`] = `
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 5`] = `
 {
-  "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "chainId": 97,
-  "limit": 10,
-  "page": 0,
-  "where": {
-    "endBlock_lt": 1,
-    "passing": true,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "endBlock_lt": 1,
+      "passing": true,
+    },
   },
 }
 `;
 
-exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" 6`] = `
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 6`] = `
 {
-  "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "chainId": 97,
-  "limit": 10,
-  "page": 0,
-  "where": {
-    "canceled": null,
-    "executed": null,
-    "executionEta_gt": "1710401645000000",
-    "queued_not": null,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "canceled": null,
+      "executed": null,
+      "executionEta_gt": "1710401645000000",
+      "queued_not": null,
+    },
   },
 }
 `;
 
-exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" 7`] = `
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 7`] = `
 {
-  "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "chainId": 97,
-  "limit": 10,
-  "page": 0,
-  "where": {
-    "canceled": null,
-    "executed": null,
-    "executionEta_lt": "1710401645000000",
-    "queued_not": null,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "canceled": null,
+      "executed": null,
+      "executionEta_lt": "1710401645000000",
+      "queued_not": null,
+    },
   },
 }
 `;
 
-exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" 8`] = `
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 8`] = `
 {
-  "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "chainId": 97,
-  "limit": 10,
-  "page": 0,
-  "where": {
-    "executed_not": null,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "executed_not": null,
+    },
+  },
+}
+`;
+
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "search" parameter 1`] = `
+{
+  "chainId": 97,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "description_contains_nocase": "fake search",
+    },
   },
 }
 `;

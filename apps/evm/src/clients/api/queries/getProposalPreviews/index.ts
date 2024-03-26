@@ -1,7 +1,8 @@
 import {
+  type GetProposalPreviewsInput as GetGqlProposalPreviewsInput,
+  type Proposal_Filter,
   formatToProposalPreview,
   getProposalPreviews as getGqlProposalPreviews,
-  type Proposal_Filter,
 } from 'clients/subgraph';
 import { type ChainId, type ProposalPreview, ProposalState } from 'types';
 
@@ -11,6 +12,7 @@ export interface GetProposalPreviewsInput {
   blockTimeMs: number;
   accountAddress?: string;
   proposalState?: ProposalState;
+  search?: string;
   page?: number;
   limit?: number;
 }
@@ -27,9 +29,10 @@ export const getProposalPreviews = async ({
   page = 0,
   limit = 10,
   proposalState,
+  search,
   accountAddress = '',
 }: GetProposalPreviewsInput): Promise<GetProposalPreviewsOutput> => {
-  // Handle searching by proposal state
+  // Handle filtering by proposal state
   let where: Proposal_Filter | undefined;
   const nowSeconds = new Date().getTime() * 1000;
 
@@ -70,15 +73,36 @@ export const getProposalPreviews = async ({
       break;
   }
 
-  const response = await getGqlProposalPreviews({
-    page,
-    limit,
-    accountAddress,
-    chainId,
-    where,
-  });
+  // Handle searching by text
+  if (search) {
+    where = {
+      ...where,
+      description_contains_nocase: search || undefined,
+    };
+  }
 
-  const proposalPreviews = (response?.proposals || []).map(gqlProposal =>
+  const getGqlProposals = async () => {
+    const variables: GetGqlProposalPreviewsInput['variables'] = {
+      skip: page * limit,
+      limit,
+      accountAddress,
+      where,
+    };
+
+    const response = await getGqlProposalPreviews({
+      chainId,
+      variables,
+    });
+
+    return {
+      gqlProposals: response?.proposals || [],
+      total: response?.total.length ?? 0,
+    };
+  };
+
+  const { gqlProposals, total } = await getGqlProposals();
+
+  const proposalPreviews = (gqlProposals || []).map(gqlProposal =>
     formatToProposalPreview({
       gqlProposal,
       currentBlockNumber,
@@ -88,6 +112,6 @@ export const getProposalPreviews = async ({
 
   return {
     proposalPreviews,
-    total: +(response?.total[0].id || 0), // We use the ID of the most recent proposal as total counter
+    total,
   };
 };
