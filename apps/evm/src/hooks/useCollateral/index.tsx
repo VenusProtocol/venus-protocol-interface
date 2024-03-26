@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useState } from 'react';
 
 import {
   getHypotheticalAccountLiquidity,
@@ -18,12 +17,9 @@ import { useAccountAddress, useSigner } from 'libs/wallet';
 import type { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
 
-import { CollateralConfirmModal } from './CollateralConfirmModal';
-
 const useCollateral = () => {
   const { signer } = useSigner();
   const { accountAddress } = useAccountAddress();
-  const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>(undefined);
   const { userHasLunaOrUstCollateralEnabled } = useLunaUstWarning();
 
   const { mutateAsync: enterMarket } = useEnterMarket({
@@ -166,32 +162,15 @@ const useCollateral = () => {
       });
     }
 
-    setSelectedAsset(asset);
-
-    try {
-      await contractToggleCollateral({
-        asset,
-        comptrollerAddress,
-        poolName,
-      });
-    } finally {
-      setSelectedAsset(undefined);
-    }
+    return contractToggleCollateral({
+      asset,
+      comptrollerAddress,
+      poolName,
+    });
   };
-
-  const CollateralModal: React.FC = useCallback(
-    () => (
-      <CollateralConfirmModal
-        asset={selectedAsset}
-        handleClose={() => setSelectedAsset(undefined)}
-      />
-    ),
-    [selectedAsset],
-  );
 
   return {
     toggleCollateral,
-    CollateralModal,
   };
 };
 
