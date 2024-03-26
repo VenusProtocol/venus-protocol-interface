@@ -1,13 +1,14 @@
-import type Vi from 'vitest';
 import { fireEvent, waitFor } from '@testing-library/dom';
+import type Vi from 'vitest';
 
-import { ProposalState } from 'types';
-import { renderComponent } from 'testUtils/render';
 import { useGetProposalPreviews } from 'clients/api';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { en } from 'libs/translations';
+import { renderComponent } from 'testUtils/render';
+import { ProposalState } from 'types';
 
-import TEST_IDS from '../testIds';
 import Governance from '..';
+import TEST_IDS from '../testIds';
 
 describe('Governance - Feature enabled: governanceSearch', () => {
   beforeEach(() => {
@@ -33,7 +34,29 @@ describe('Governance - Feature enabled: governanceSearch', () => {
         page: expect.any(Number),
         limit: expect.any(Number),
         accountAddress: undefined,
+        search: undefined,
         proposalState: ProposalState.Executed,
+      }),
+    );
+  });
+
+  it('lets user search proposals by text', async () => {
+    const { getByPlaceholderText } = renderComponent(<Governance />);
+
+    const fakeSearchInput = 'fake search';
+
+    // Change proposal state select value
+    fireEvent.change(getByPlaceholderText(en.vote.searchInput.placeholder), {
+      target: { value: fakeSearchInput },
+    });
+
+    await waitFor(() =>
+      expect(useGetProposalPreviews).toHaveBeenCalledWith({
+        page: expect.any(Number),
+        limit: expect.any(Number),
+        accountAddress: undefined,
+        proposalState: undefined,
+        search: fakeSearchInput,
       }),
     );
   });
