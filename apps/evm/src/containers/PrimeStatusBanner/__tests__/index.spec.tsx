@@ -6,6 +6,7 @@ import { renderComponent } from 'testUtils/render';
 
 import { useGetPrimeStatus, useGetPrimeToken, useGetXvsVaultUserInfo } from 'clients/api';
 
+import { en } from 'libs/translations';
 import PrimeStatusBanner from '..';
 import TEST_IDS from '../testIds';
 
@@ -128,5 +129,32 @@ describe('PrimeStatusBanner', () => {
 
     expect(queryByTestId(TEST_IDS.claimPrimeTokenButton)).toBeVisible();
     expect(queryByTestId(TEST_IDS.claimPrimeTokenButton)).toBeEnabled();
+  });
+
+  it('shows the all Prime tokens claimed warning if all Prime tokens have been claimed', async () => {
+    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+      data: {
+        ...MOCK_DEFAULT_PRIME_STATUS,
+        claimedPrimeTokenCount: 1000,
+      },
+    }));
+
+    const { queryByText } = renderComponent(<PrimeStatusBanner />);
+    await waitFor(() => queryByText(en.primeStatusBanner.noPrimeTokenWarning.text));
+    expect(queryByText(en.primeStatusBanner.noPrimeTokenWarning.text)).toBeVisible();
+  });
+
+  it('does not show the all Prime tokens claimed warning if there are no tokens to be claimed', async () => {
+    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+      data: {
+        ...MOCK_DEFAULT_PRIME_STATUS,
+        primeTokenLimit: 0,
+      },
+    }));
+
+    const { queryByText } = renderComponent(<PrimeStatusBanner />);
+    await waitFor(() =>
+      expect(queryByText(en.primeStatusBanner.noPrimeTokenWarning.text)).toBeNull(),
+    );
   });
 });
