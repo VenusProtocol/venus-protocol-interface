@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 2.111.0
+
+### Minor Changes
+
+- 465fb48: filter deprecated markets in BSC testnet
+- f0e8c81: Remove LUNA and UST specific logics
+- a035bef: Remove collateral modal
+
+### Patch Changes
+
+- dd4f590: Add tooltip on rewards from reward distributors
+- cb5cdef: always fetch governance previews using governance chain provider
+
 ## 2.110.0
 
 ### Minor Changes
