@@ -44,6 +44,8 @@ const useDelegateApproval = ({
       },
     );
 
+  console.log(poolComptrollerAddress);
+
   const isDelegateApproved = enabled ? isDelegateApprovedData?.isDelegateeApproved : undefined;
 
   return {

@@ -299,7 +299,11 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
       <div css={sharedStyles.getRow({ isLast: true })}>
         <LabeledInlineContent
-          label={t('operationModal.repay.repaybaleAmount')}
+          label={
+            isUsingSwap
+              ? t('operationModal.repay.walletBalance')
+              : t('operationModal.repay.repayableAmount')
+          }
           css={sharedStyles.getRow({ isLast: false })}
         >
           {isUsingSwap
