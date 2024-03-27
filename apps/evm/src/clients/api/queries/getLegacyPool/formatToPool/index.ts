@@ -1,6 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import { BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES } from 'constants/address';
+import {
+  BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES,
+  BSC_TESTNET_UNLISTED_TOKEN_ADDRESSES,
+} from 'constants/address';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
 import type { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'libs/contracts';
@@ -92,6 +95,14 @@ export const formatToPool = ({
     if (
       chainId === ChainId.BSC_MAINNET &&
       BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES.some(unlistedTokenAddress =>
+        areAddressesEqual(unlistedTokenAddress, vTokenMetaData.underlyingAssetAddress),
+      )
+    ) {
+      return;
+    }
+    if (
+      chainId === ChainId.BSC_TESTNET &&
+      BSC_TESTNET_UNLISTED_TOKEN_ADDRESSES.some(unlistedTokenAddress =>
         areAddressesEqual(unlistedTokenAddress, vTokenMetaData.underlyingAssetAddress),
       )
     ) {
