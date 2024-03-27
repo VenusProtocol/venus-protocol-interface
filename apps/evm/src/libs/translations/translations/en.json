@@ -106,6 +106,7 @@
   "assetInfo": {
     "borrowApy": "Borrow APY",
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
+    "distributionTooltip": "Rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
     "primeApy": "Prime APY ({{tokenSymbol}})",
     "supplyApy": "Supply APY",
     "totalApy": {

@@ -42,7 +42,7 @@ const useAssetInfo = ({
       type === 'borrow' ? asset.borrowDistributions : asset.supplyDistributions
     )
       .filter(distribution => distribution.type !== 'primeSimulation')
-      .map(distribution => {
+      .map<LabeledInlineContentProps>(distribution => {
         const children =
           distribution.type === 'prime' ? (
             <ValueUpdate
@@ -64,6 +64,10 @@ const useAssetInfo = ({
               ? t('assetInfo.primeApy', { tokenSymbol: distribution.token.symbol })
               : t('assetInfo.distributionApy', { tokenSymbol: distribution.token.symbol }),
           iconSrc: distribution.token,
+          tooltip:
+            distribution.type === 'rewardDistributor'
+              ? t('assetInfo.distributionTooltip')
+              : undefined,
           children,
         };
       });
