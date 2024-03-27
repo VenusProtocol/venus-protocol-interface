@@ -6,7 +6,6 @@ import { queryClient } from 'clients/api';
 import { AnalyticProvider } from 'libs/analytics';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
-import { LunaUstWarningModal } from 'libs/lunaUstWarning';
 import { Web3Wrapper } from 'libs/wallet';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
@@ -23,8 +22,6 @@ const App = () => (
           <Web3Wrapper>
             <AnalyticProvider>
               <Routes />
-
-              <LunaUstWarningModal />
 
               <Suspense>
                 <NotificationCenter />

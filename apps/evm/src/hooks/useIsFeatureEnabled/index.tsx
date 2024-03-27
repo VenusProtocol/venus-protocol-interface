@@ -16,7 +16,6 @@ export const featureFlags = {
   xvsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   createProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   voteProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  lunaUstWarning: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   marketHistory: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   marketParticipantCounts: [
     ChainId.BSC_MAINNET,

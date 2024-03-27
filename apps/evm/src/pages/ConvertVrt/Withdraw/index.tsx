@@ -6,7 +6,6 @@ import { PrimaryButton } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { displayMutationError } from 'libs/errors';
-import { useLunaUstWarning } from 'libs/lunaUstWarning';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 
@@ -29,20 +28,12 @@ const Withdraw: React.FC<WithdrawProps> = ({
     symbol: 'XVS',
   });
 
-  const { userHasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useLunaUstWarning();
-
   const readableXvsAvailable = useConvertMantissaToReadableTokenString({
     value: xvsWithdrawableAmount,
     token: xvs,
   });
 
   const onSubmit = async () => {
-    // Block action is user has LUNA or UST enabled as collateral
-    if (userHasLunaOrUstCollateralEnabled) {
-      openLunaUstWarningModal();
-      return;
-    }
-
     try {
       await withdrawXvs();
     } catch (error) {

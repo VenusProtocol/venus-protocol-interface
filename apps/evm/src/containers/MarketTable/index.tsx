@@ -5,7 +5,6 @@ import { Table, type TableProps, switchAriaLabel } from 'components';
 import useCollateral from 'hooks/useCollateral';
 import useOperationModal from 'hooks/useOperationModal';
 import { displayMutationError } from 'libs/errors';
-import { useLunaUstWarning } from 'libs/lunaUstWarning';
 import type { Pool } from 'types';
 
 import { useStyles } from './styles';
@@ -41,8 +40,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
   const { OperationModal, openOperationModal } = useOperationModal();
   const { toggleCollateral } = useCollateral();
-
-  const { userHasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useLunaUstWarning();
 
   const handleCollateralChange = async (poolAssetToUpdate: PoolAsset) => {
     try {
@@ -90,19 +87,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   }, [columns, initialOrder]);
 
   const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: PoolAsset) => {
-    // Block action and show warning modal if user has LUNA or UST enabled as
-    // collateral and is attempting to open the supply modal of other assets
-    if (
-      userHasLunaOrUstCollateralEnabled &&
-      row.vToken.underlyingToken.symbol !== 'LUNA' &&
-      row.vToken.underlyingToken.symbol !== 'UST'
-    ) {
-      e.preventDefault();
-      e.stopPropagation();
-      openLunaUstWarningModal();
-      return;
-    }
-
     // Do nothing if user clicked on switch (the switch element will handle the
     // click event)
     if ((e.target as HTMLElement).ariaLabel === switchAriaLabel) {

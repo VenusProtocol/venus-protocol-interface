@@ -5,7 +5,6 @@ import { type Claim, useClaimRewards } from 'clients/api';
 import { type ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { VError, displayMutationError } from 'libs/errors';
-import { useLunaUstWarning } from 'libs/lunaUstWarning';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { formatCentsToReadableValue } from 'utilities';
@@ -146,8 +145,6 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
 
   const chainMetadata = useGetChainMetadata();
 
-  const { userHasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useLunaUstWarning();
-
   const [uncheckedGroupIds, setUncheckedGroupIds] = useState<string[]>([]);
   const groups = useGetGroups({
     uncheckedGroupIds,
@@ -173,12 +170,6 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
   };
 
   const handleOpenModal = () => {
-    // Block action if user has LUNA or UST enabled as collateral
-    if (userHasLunaOrUstCollateralEnabled) {
-      openLunaUstWarningModal();
-      return;
-    }
-
     // Select all claimable rewards
     setUncheckedGroupIds([]);
     // Open modal
