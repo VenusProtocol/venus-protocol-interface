@@ -12,7 +12,6 @@ import {
   useGetLegacyPoolComptrollerContract,
 } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import { useLunaUstWarning } from 'libs/lunaUstWarning';
 import { useAccountAddress, useSigner } from 'libs/wallet';
 import type { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
@@ -20,7 +19,6 @@ import { areAddressesEqual } from 'utilities';
 const useCollateral = () => {
   const { signer } = useSigner();
   const { accountAddress } = useAccountAddress();
-  const { userHasLunaOrUstCollateralEnabled } = useLunaUstWarning();
 
   const { mutateAsync: enterMarket } = useEnterMarket({
     waitForConfirmation: true,
@@ -138,16 +136,6 @@ const useCollateral = () => {
     comptrollerAddress: string;
     poolName: string;
   }) => {
-    // Prevent action if user has UST or LUNA enabled as collateral while trying
-    // to enable/disable a different token
-    if (
-      userHasLunaOrUstCollateralEnabled &&
-      asset.vToken.underlyingToken.symbol !== 'UST' &&
-      asset.vToken.underlyingToken.symbol !== 'LUNA'
-    ) {
-      return;
-    }
-
     if (!accountAddress) {
       throw new VError({
         type: 'interaction',

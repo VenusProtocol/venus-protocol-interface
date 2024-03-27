@@ -9,7 +9,6 @@ import { Button, NoticeWarning, TokenIcon } from 'components';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useLunaUstWarning } from 'libs/lunaUstWarning';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
@@ -244,28 +243,10 @@ const VaultItem: React.FC<VaultItemProps> = ({
   poolIndex,
   ...vaultItemUiProps
 }) => {
-  const { userHasLunaOrUstCollateralEnabled, openLunaUstWarningModal } = useLunaUstWarning();
-
   const [activeModal, setActiveModal] = useState<ActiveModal | undefined>();
-  const onStake = () => {
-    // Block action is user has LUNA or UST enabled as collateral
-    if (userHasLunaOrUstCollateralEnabled) {
-      openLunaUstWarningModal();
-      return;
-    }
 
-    setActiveModal('stake');
-  };
-
-  const onWithdraw = async () => {
-    // Block action is user has LUNA or UST enabled as collateral
-    if (userHasLunaOrUstCollateralEnabled) {
-      openLunaUstWarningModal();
-      return;
-    }
-
-    setActiveModal('withdraw');
-  };
+  const onStake = () => setActiveModal('stake');
+  const onWithdraw = () => setActiveModal('withdraw');
 
   const closeActiveModal = () => setActiveModal(undefined);
 
