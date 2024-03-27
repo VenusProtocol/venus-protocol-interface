@@ -30,7 +30,9 @@ export const useGetProposalPreviews = (
   params: TrimmedGetProposalPreviewsInput = {},
   options?: Options,
 ) => {
-  const { data } = useGetBlockNumber();
+  const { data } = useGetBlockNumber({
+    chainId: governanceChain.id,
+  });
   const { blockTimeMs } = CHAIN_METADATA[governanceChain.id];
   const page = params.page || 0;
   const limit = params.limit || 10;
