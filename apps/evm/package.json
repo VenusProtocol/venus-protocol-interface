@@ -82,7 +82,7 @@
     "zustand": "^4.4.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.6.1",
+    "@biomejs/biome": "1.6.3",
     "@changesets/cli": "^2.27.1",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@ethersproject/abi": "^5.7.0",
