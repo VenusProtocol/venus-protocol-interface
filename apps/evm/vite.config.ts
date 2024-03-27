@@ -14,6 +14,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
+    base: './', // Force Vite to use relative imports in generated build
     plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
     optimizeDeps: {
       esbuildOptions: {
