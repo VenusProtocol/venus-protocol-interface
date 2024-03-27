@@ -23,12 +23,10 @@ import { en } from 'libs/translations';
 import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import { ChainId } from 'types';
 
-import Governance from '.';
-import GOVERNANCE_PROPOSAL_TEST_IDS from './ProposalList/GovernanceProposal/testIds';
-import VOTING_WALLET_TEST_IDS from './VotingWallet/testIds';
-import TEST_IDS from './testIds';
-
-vi.mock('hooks/useIsFeatureEnabled');
+import Governance from '..';
+import GOVERNANCE_PROPOSAL_TEST_IDS from '../ProposalList/GovernanceProposal/testIds';
+import VOTING_WALLET_TEST_IDS from '../VotingWallet/testIds';
+import TEST_IDS from '../testIds';
 
 const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_MANTISSA;
 
@@ -37,10 +35,6 @@ describe('Governance', () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'voteProposal' || name === 'createProposal',
     );
-    (useGetVestingVaults as Vi.Mock).mockImplementation(() => ({
-      data: [],
-      isLoading: false,
-    }));
     (setVoteDelegate as Vi.Mock).mockImplementation(() => fakeContractTransaction);
     (getLatestProposalIdByProposer as Vi.Mock).mockImplementation(() => '1');
 
