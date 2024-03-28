@@ -18,10 +18,7 @@ export const projects = {
   },
   governance: {
     schema: 'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-governance',
-    documents: [
-      '../clients/subgraph/fragments/governance/**/*.graphql',
-      '../clients/subgraph/queries/governance/**/*.graphql',
-    ],
+    documents: ['../clients/subgraph/queries/governance/**/*.graphql'],
     extensions: {
       codegen: {
         generates: {

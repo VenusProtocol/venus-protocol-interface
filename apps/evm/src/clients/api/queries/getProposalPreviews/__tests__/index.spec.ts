@@ -1,4 +1,5 @@
 import fakeAccountAddress from '__mocks__/models/address';
+import BigNumber from 'bignumber.js';
 import { getProposalPreviews as getGqlProposalPreviews } from 'clients/subgraph';
 import { ChainId, ProposalState } from 'types';
 import type Vi from 'vitest';
@@ -7,6 +8,7 @@ import { type GetProposalPreviewsInput, getProposalPreviews } from '..';
 const fakeParams: GetProposalPreviewsInput = {
   chainId: ChainId.BSC_TESTNET,
   currentBlockNumber: 1,
+  proposalMinQuorumVotesMantissa: new BigNumber(10),
   blockTimeMs: 3000,
   accountAddress: fakeAccountAddress,
 };

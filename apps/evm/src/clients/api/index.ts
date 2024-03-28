@@ -379,3 +379,6 @@ export { default as useGetXvsBridgeMintStatus } from './queries/getXvsBridgeMint
 export { default as getPoolDelegateApprovalStatus } from './queries/getPoolDelegateApprovalStatus';
 export * from './queries/getPoolDelegateApprovalStatus';
 export { default as useGetPoolDelegateApprovalStatus } from './queries/getPoolDelegateApprovalStatus/useGetPoolDelegateApprovalStatus';
+
+export * from './queries/getProposalMinQuorumVotes';
+export * from './queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';

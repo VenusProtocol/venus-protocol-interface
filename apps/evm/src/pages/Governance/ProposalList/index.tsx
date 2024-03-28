@@ -90,7 +90,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
       [PROPOSAL_STATE_PARAM_KEY]: !searchParams.get(PROPOSAL_STATE_PARAM_KEY)
         ? PROPOSAL_STATE_ALL_OPTION_VALUE
         : +searchParams.get(PROPOSAL_STATE_PARAM_KEY)!,
-      [SEARCH_PARAM_KEY]: searchParams.get(SEARCH_PARAM_KEY) ?? undefined,
+      [SEARCH_PARAM_KEY]: searchParams.get(SEARCH_PARAM_KEY) ?? '',
     }),
     [searchParams],
   );

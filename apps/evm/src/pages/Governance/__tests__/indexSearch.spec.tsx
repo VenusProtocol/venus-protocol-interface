@@ -34,7 +34,7 @@ describe('Governance - Feature enabled: governanceSearch', () => {
         page: expect.any(Number),
         limit: expect.any(Number),
         accountAddress: undefined,
-        search: undefined,
+        search: '',
         proposalState: ProposalState.Executed,
       }),
     );

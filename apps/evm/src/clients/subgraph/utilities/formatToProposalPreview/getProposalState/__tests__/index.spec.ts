@@ -1,9 +1,12 @@
+import BigNumber from 'bignumber.js';
 import { ProposalState } from 'types';
 import { type GetProposalStateInput, getProposalState } from '..';
 
 const fakeParams: GetProposalStateInput = {
   startBlockNumber: 8,
   endBlockNumber: 9,
+  forVotesMantissa: new BigNumber(10),
+  proposalMinQuorumVotesMantissa: new BigNumber(10),
   currentBlockNumber: 10,
   passing: false,
   queued: false,
@@ -75,6 +78,14 @@ describe('getProposalState', () => {
       params: {
         ...fakeParams,
         passing: false,
+      },
+      expectedProposalState: ProposalState.Defeated,
+    },
+    {
+      params: {
+        ...fakeParams,
+        forVotesMantissa: fakeParams.proposalMinQuorumVotesMantissa.minus(1),
+        passing: true,
       },
       expectedProposalState: ProposalState.Defeated,
     },

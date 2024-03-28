@@ -1,6 +1,30 @@
 query ProposalPreviews($limit: Int = 10, $skip: Int = 0, $accountAddress: String, $where: Proposal_filter) {
   proposals(first: $limit, skip: $skip, where: $where, orderBy: startBlock, orderDirection: desc) {
-    ...ProposalPreviewFragment
+    id
+    type
+    startBlock
+    endBlock
+    description
+    executionEta
+    forVotes
+    againstVotes
+    abstainVotes
+    passing
+
+    queued {
+      id
+      timestamp
+    }
+
+    canceled {
+      id
+      timestamp
+    }
+
+    executed {
+      id
+      timestamp
+    }
 
     votes(where: { voter: $accountAddress }) {
       id

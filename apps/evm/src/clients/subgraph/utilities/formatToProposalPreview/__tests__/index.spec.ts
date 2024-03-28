@@ -1,4 +1,5 @@
 import proposalPreviewsResponse from '__mocks__/subgraph/proposalPreviews.json';
+import BigNumber from 'bignumber.js';
 import type { ProposalPreviewsQuery } from 'clients/subgraph';
 import { formatToProposalPreview } from '..';
 
@@ -12,6 +13,7 @@ describe('formatToProposalPreview', () => {
       gqlProposal: proposalPreviewsResponse
         .proposals[0] as ProposalPreviewsQuery['proposals'][number],
       currentBlockNumber: 38563073,
+      proposalMinQuorumVotesMantissa: new BigNumber('600000000000000000000000'),
       blockTimeMs: 3000,
     });
 

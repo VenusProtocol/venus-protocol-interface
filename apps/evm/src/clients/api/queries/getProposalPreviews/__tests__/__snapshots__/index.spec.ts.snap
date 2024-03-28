@@ -321,8 +321,22 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
     "limit": 10,
     "skip": 0,
     "where": {
-      "endBlock_lt": 1,
-      "passing": false,
+      "or": [
+        {
+          "canceled": null,
+          "endBlock_lt": 1,
+          "passing": false,
+        },
+        {
+          "or": [
+            {
+              "canceled": null,
+              "endBlock_lt": 1,
+              "forVotes_lt": "10",
+            },
+          ],
+        },
+      ],
     },
   },
 }
@@ -336,8 +350,12 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
     "limit": 10,
     "skip": 0,
     "where": {
+      "canceled": null,
       "endBlock_lt": 1,
+      "executed": null,
+      "forVotes_gte": "10",
       "passing": true,
+      "queued": null,
     },
   },
 }

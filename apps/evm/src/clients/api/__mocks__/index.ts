@@ -85,6 +85,10 @@ export const useGetBalanceOf = vi.fn((input: Omit<GetBalanceOfInput, 'signer'>) 
 export const getTokenBalances = vi.fn();
 export const useGetTokenBalances = () => useQuery(FunctionKey.GET_TOKEN_BALANCES, getTokenBalances);
 
+export const getProposalMinQuorumVotes = vi.fn();
+export const useGetProposalMinQuorumVotes = () =>
+  useQuery(FunctionKey.GET_PROPOSAL_MIN_QUORUM_VOTES, getProposalMinQuorumVotes);
+
 export const getVrtConversionEndTime = vi.fn();
 export const useGetVrtConversionEndTime = () =>
   useQuery(FunctionKey.GET_VRT_CONVERSION_END_TIME, getVrtConversionEndTime);

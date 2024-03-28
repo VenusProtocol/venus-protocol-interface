@@ -41,7 +41,14 @@ export const featureFlags = {
     ChainId.OPBNB_MAINNET,
     ChainId.OPBNB_TESTNET,
   ],
-  governanceSearch: [ChainId.SEPOLIA, ChainId.BSC_TESTNET, ChainId.OPBNB_TESTNET],
+  governanceSearch: [
+    ChainId.BSC_MAINNET,
+    ChainId.BSC_TESTNET,
+    ChainId.ETHEREUM,
+    ChainId.SEPOLIA,
+    ChainId.OPBNB_MAINNET,
+    ChainId.OPBNB_TESTNET,
+  ],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

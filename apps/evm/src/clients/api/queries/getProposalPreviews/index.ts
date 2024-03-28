@@ -1,3 +1,4 @@
+import type BigNumber from 'bignumber.js';
 import {
   type GetProposalPreviewsInput as GetGqlProposalPreviewsInput,
   type Proposal_Filter,
@@ -9,6 +10,7 @@ import { type ChainId, type ProposalPreview, ProposalState } from 'types';
 export interface GetProposalPreviewsInput {
   chainId: ChainId;
   currentBlockNumber: number;
+  proposalMinQuorumVotesMantissa: BigNumber;
   blockTimeMs: number;
   accountAddress?: string;
   proposalState?: ProposalState;
@@ -25,6 +27,7 @@ export interface GetProposalPreviewsOutput {
 export const getProposalPreviews = async ({
   chainId,
   currentBlockNumber,
+  proposalMinQuorumVotesMantissa,
   blockTimeMs,
   page = 0,
   limit = 10,
@@ -47,29 +50,49 @@ export const getProposalPreviews = async ({
       where = { canceled_not: null };
       break;
     case ProposalState.Defeated:
-      where = { passing: false, endBlock_lt: currentBlockNumber };
+      where = {
+        or: [
+          { canceled: null, passing: false, endBlock_lt: currentBlockNumber },
+          {
+            or: [
+              {
+                canceled: null,
+                endBlock_lt: currentBlockNumber,
+                forVotes_lt: proposalMinQuorumVotesMantissa.toFixed(),
+              },
+            ],
+          },
+        ],
+      };
       break;
-    case ProposalState.Executed:
-      where = { executed_not: null };
+    case ProposalState.Succeeded:
+      where = {
+        passing: true,
+        canceled: null,
+        queued: null,
+        executed: null,
+        endBlock_lt: currentBlockNumber,
+        forVotes_gte: proposalMinQuorumVotesMantissa.toFixed(),
+      };
       break;
     case ProposalState.Queued:
       where = {
+        canceled: null,
         queued_not: null,
         executed: null,
-        canceled: null,
         executionEta_gt: nowSeconds.toString(),
       };
       break;
     case ProposalState.Expired:
       where = {
+        canceled: null,
         queued_not: null,
         executed: null,
-        canceled: null,
         executionEta_lt: nowSeconds.toString(),
       };
       break;
-    case ProposalState.Succeeded:
-      where = { passing: true, endBlock_lt: currentBlockNumber };
+    case ProposalState.Executed:
+      where = { executed_not: null };
       break;
   }
 
@@ -105,6 +128,7 @@ export const getProposalPreviews = async ({
   const proposalPreviews = (gqlProposals || []).map(gqlProposal =>
     formatToProposalPreview({
       gqlProposal,
+      proposalMinQuorumVotesMantissa,
       currentBlockNumber,
       blockTimeMs,
     }),
