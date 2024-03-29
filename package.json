@@ -24,7 +24,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@commitlint/config-conventional": "17.7.0",
-    "commitlint": "^18.1.0",
+    "commitlint": "^19.2.1",
     "husky": "^9.0.6",
     "reg-keygen-git-hash-plugin": "^0.14.2",
     "reg-notify-github-plugin": "^0.14.2",
