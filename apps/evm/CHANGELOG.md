@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.111.1
+
+### Patch Changes
+
+- f2b914c: fix label on Repay form when using integrated swap
+- fa33fb8: Update distribution reward tooltip
+
 ## 2.111.0
 
 ### Minor Changes
