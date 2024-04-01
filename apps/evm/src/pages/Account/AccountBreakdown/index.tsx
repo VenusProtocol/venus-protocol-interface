@@ -1,34 +1,55 @@
 /** @jsxImportSource @emotion/react */
-import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useGetPools, useGetVaults } from 'clients/api';
+import { useGetPools, useGetTokenUsdPrice, useGetVaults } from 'clients/api';
 import { Spinner } from 'components';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import type { Pool, Vault } from 'types';
-import { areTokensEqual } from 'utilities';
 
+import BigNumber from 'bignumber.js';
+import { useConvertDollarsToCents } from 'hooks/useConvertDollarsToCents';
 import { useStyles } from '../styles';
 import AccountPlaceholder from './AccountPlaceholder';
 import PoolsBreakdown from './PoolsBreakdown';
 import Summary from './Summary';
 import VaultsBreakdown from './VaultsBreakdown';
 
-export interface AccountUiProps {
-  pools: Pool[];
-  vaults: Vault[];
-  isFetching?: boolean;
-}
+const Account: React.FC = () => {
+  const { accountAddress } = useAccountAddress();
+  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
+    accountAddress,
+  });
+  const pools = getPoolsData?.pools || [];
 
-// We assume 1 VAI = 1 dollar
-const VAI_PRICE_CENTS = new BigNumber(100);
+  const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
+    accountAddress,
+  });
+  const vaults = getVaultsData || [];
 
-export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools }) => {
-  const styles = useStyles();
   const xvs = useGetToken({
     symbol: 'XVS',
   });
+  const { data: getXvsUsdPriceData, isLoading: isGetXvsUsdPriceLoading } = useGetTokenUsdPrice({
+    token: xvs,
+  });
+  const xvsPriceCents = useConvertDollarsToCents({
+    value: getXvsUsdPriceData?.tokenPriceUsd || new BigNumber(0),
+  });
+
+  const vai = useGetToken({
+    symbol: 'VAI',
+  });
+  const { data: getVaiUsdPriceData, isLoading: isGetVaiUsdPriceLoading } = useGetTokenUsdPrice({
+    token: vai,
+  });
+  const vaiPriceCents = useConvertDollarsToCents({
+    value: getVaiUsdPriceData?.tokenPriceUsd || new BigNumber(0),
+  });
+
+  const isFetching =
+    isGetPoolsLoading || isGetVaultsLoading || isGetXvsUsdPriceLoading || isGetVaiUsdPriceLoading;
+
+  const styles = useStyles();
 
   // Filter out vaults user has not staked in
   const filteredVaults = useMemo(
@@ -51,23 +72,6 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
     [pools],
   );
 
-  const xvsPriceCents = useMemo(() => {
-    let priceCents = new BigNumber(0);
-
-    pools.forEach(pool =>
-      pool.assets.every(asset => {
-        if (xvs && areTokensEqual(asset.vToken.underlyingToken, xvs)) {
-          priceCents = asset.tokenPriceCents;
-          return false;
-        }
-
-        return true;
-      }),
-    );
-
-    return priceCents;
-  }, [pools, xvs]);
-
   if (isFetching) {
     return <Spinner />;
   }
@@ -85,7 +89,7 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
         pools={filteredPools}
         vaults={filteredVaults}
         xvsPriceCents={xvsPriceCents}
-        vaiPriceCents={VAI_PRICE_CENTS}
+        vaiPriceCents={vaiPriceCents}
         displayTotalVaultStake
       />
 
@@ -95,27 +99,6 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
 
       {filteredPools.length > 0 && <PoolsBreakdown css={styles.section} pools={filteredPools} />}
     </>
-  );
-};
-
-const Account: React.FC = () => {
-  const { accountAddress } = useAccountAddress();
-  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
-    accountAddress,
-  });
-
-  const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
-    accountAddress,
-  });
-
-  const isFetching = isGetPoolsLoading || isGetVaultsLoading;
-
-  return (
-    <AccountUi
-      isFetching={isFetching}
-      pools={getPoolsData?.pools || []}
-      vaults={getVaultsData || []}
-    />
   );
 };
 
