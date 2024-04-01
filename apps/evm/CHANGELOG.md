@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.112.1
+
+### Patch Changes
+
+- e5af749: Add Multicall3 contract record on Ethereum
+
 ## 2.112.0
 
 ### Minor Changes
