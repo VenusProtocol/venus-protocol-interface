@@ -6,7 +6,6 @@ import { useGetPools, useGetVaults } from 'clients/api';
 import { Spinner } from 'components';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import type { Pool, Vault } from 'types';
 import { areTokensEqual } from 'utilities';
 
 import { useStyles } from '../styles';
@@ -15,16 +14,24 @@ import PoolsBreakdown from './PoolsBreakdown';
 import Summary from './Summary';
 import VaultsBreakdown from './VaultsBreakdown';
 
-export interface AccountUiProps {
-  pools: Pool[];
-  vaults: Vault[];
-  isFetching?: boolean;
-}
-
-// We assume 1 VAI = 1 dollar
+// We assume the price of VAI to be $1
 const VAI_PRICE_CENTS = new BigNumber(100);
 
-export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools }) => {
+const Account: React.FC = () => {
+  const { accountAddress } = useAccountAddress();
+  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
+    accountAddress,
+  });
+
+  const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
+    accountAddress,
+  });
+
+  const isFetching = isGetPoolsLoading || isGetVaultsLoading;
+
+  const pools = getPoolsData?.pools || [];
+  const vaults = getVaultsData || [];
+
   const styles = useStyles();
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -95,27 +102,6 @@ export const AccountUi: React.FC<AccountUiProps> = ({ isFetching, vaults, pools 
 
       {filteredPools.length > 0 && <PoolsBreakdown css={styles.section} pools={filteredPools} />}
     </>
-  );
-};
-
-const Account: React.FC = () => {
-  const { accountAddress } = useAccountAddress();
-  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
-    accountAddress,
-  });
-
-  const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
-    accountAddress,
-  });
-
-  const isFetching = isGetPoolsLoading || isGetVaultsLoading;
-
-  return (
-    <AccountUi
-      isFetching={isFetching}
-      pools={getPoolsData?.pools || []}
-      vaults={getVaultsData || []}
-    />
   );
 };
 
