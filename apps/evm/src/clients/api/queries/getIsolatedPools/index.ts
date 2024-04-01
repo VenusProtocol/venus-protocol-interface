@@ -184,6 +184,15 @@ const getIsolatedPools = async ({
   const userAssetsInResults = await settledGetAssetsInPromises;
   const primeAprResults = (await settledPrimeAprPromises) || [];
 
+  // Log errors without throwing so that assets can still be displayed
+  if (userVTokenBalancesAllResult?.status === 'rejected') {
+    logError(userVTokenBalancesAllResult.reason);
+  }
+
+  if (userTokenBalancesResult?.status === 'rejected') {
+    logError(userTokenBalancesResult.reason);
+  }
+
   // Get addresses of user collaterals
   const userCollateralizedVTokenAddresses = removeDuplicates(
     userAssetsInResults.reduce<string[]>((acc, userAssetsInResult) => {
