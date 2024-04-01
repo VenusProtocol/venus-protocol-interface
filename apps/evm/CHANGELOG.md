@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.111.2
+
+### Patch Changes
+
+- 9969c53: Remove .htaccess file
+- 0b9d8cf: fetch VAI and XVS price from contracts on Account page
+
 ## 2.111.1
 
 ### Patch Changes
