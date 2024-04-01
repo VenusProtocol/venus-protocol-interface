@@ -49,7 +49,10 @@ const useGetTokenUsdPrice = ({ token }: UseGetTokenUsdPriceInput, options?: Opti
     ],
     () =>
       callOrThrow({ token, resilientOracleContract }, params => getTokenUsdPrice({ ...params })),
-    options,
+    {
+      ...options,
+      enabled: (options?.enabled === undefined || options?.enabled) && !!token,
+    },
   );
 };
 

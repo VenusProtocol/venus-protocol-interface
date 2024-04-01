@@ -1,41 +1,55 @@
 /** @jsxImportSource @emotion/react */
-import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useGetPools, useGetVaults } from 'clients/api';
+import { useGetPools, useGetTokenUsdPrice, useGetVaults } from 'clients/api';
 import { Spinner } from 'components';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
-import { areTokensEqual } from 'utilities';
 
+import BigNumber from 'bignumber.js';
+import { useConvertDollarsToCents } from 'hooks/useConvertDollarsToCents';
 import { useStyles } from '../styles';
 import AccountPlaceholder from './AccountPlaceholder';
 import PoolsBreakdown from './PoolsBreakdown';
 import Summary from './Summary';
 import VaultsBreakdown from './VaultsBreakdown';
 
-// We assume the price of VAI to be $1
-const VAI_PRICE_CENTS = new BigNumber(100);
-
 const Account: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
+  const pools = getPoolsData?.pools || [];
 
   const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
     accountAddress,
   });
-
-  const isFetching = isGetPoolsLoading || isGetVaultsLoading;
-
-  const pools = getPoolsData?.pools || [];
   const vaults = getVaultsData || [];
 
-  const styles = useStyles();
   const xvs = useGetToken({
     symbol: 'XVS',
   });
+  const { data: getXvsUsdPriceData, isLoading: isGetXvsUsdPriceLoading } = useGetTokenUsdPrice({
+    token: xvs,
+  });
+  const xvsPriceCents = useConvertDollarsToCents({
+    value: getXvsUsdPriceData?.tokenPriceUsd || new BigNumber(0),
+  });
+
+  const vai = useGetToken({
+    symbol: 'VAI',
+  });
+  const { data: getVaiUsdPriceData, isLoading: isGetVaiUsdPriceLoading } = useGetTokenUsdPrice({
+    token: vai,
+  });
+  const vaiPriceCents = useConvertDollarsToCents({
+    value: getVaiUsdPriceData?.tokenPriceUsd || new BigNumber(0),
+  });
+
+  const isFetching =
+    isGetPoolsLoading || isGetVaultsLoading || isGetXvsUsdPriceLoading || isGetVaiUsdPriceLoading;
+
+  const styles = useStyles();
 
   // Filter out vaults user has not staked in
   const filteredVaults = useMemo(
@@ -58,23 +72,6 @@ const Account: React.FC = () => {
     [pools],
   );
 
-  const xvsPriceCents = useMemo(() => {
-    let priceCents = new BigNumber(0);
-
-    pools.forEach(pool =>
-      pool.assets.every(asset => {
-        if (xvs && areTokensEqual(asset.vToken.underlyingToken, xvs)) {
-          priceCents = asset.tokenPriceCents;
-          return false;
-        }
-
-        return true;
-      }),
-    );
-
-    return priceCents;
-  }, [pools, xvs]);
-
   if (isFetching) {
     return <Spinner />;
   }
@@ -92,7 +89,7 @@ const Account: React.FC = () => {
         pools={filteredPools}
         vaults={filteredVaults}
         xvsPriceCents={xvsPriceCents}
-        vaiPriceCents={VAI_PRICE_CENTS}
+        vaiPriceCents={vaiPriceCents}
         displayTotalVaultStake
       />
 
