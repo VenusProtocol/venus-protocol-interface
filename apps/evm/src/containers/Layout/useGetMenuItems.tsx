@@ -54,7 +54,7 @@ const useGetMenuItems = () => {
         // Translation key: do not remove this comment
         // t('layout.menuItems.lidoPool')
         i18nKey: 'layout.menuItems.lidoPool',
-        iconName: 'venus',
+        iconName: 'lido',
       });
     }
 
