@@ -149,6 +149,7 @@
     "history": "History",
     "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
+    "lidoPool": "Lido pool",
     "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
@@ -260,7 +261,7 @@
         "primeCalculator": "Calculate your Prime rewards",
         "primeDoc": "Learn more"
       },
-      "description": "Venus Prime and the Venus Prime Token reward dedicated users of Venus with real yield for superior rates with their lending and borrowing activities.",
+      "description": "Venus Prime rewards dedicated users for their lending and borrowing activities.",
       "illustration": {
         "alt": "Prime promotional banner"
       },
@@ -379,6 +380,7 @@
       "governance": "Governance",
       "history": "History",
       "isolatedPools": "Isolated pools",
+      "lidoPool": "Lido pool",
       "swap": "Swap",
       "vai": "VAI",
       "vaults": "Vaults",
@@ -447,11 +449,6 @@
     "totalTreasury": "Total Treasury"
   },
   "markets": {
-    "collateralConfirmModal": {
-      "confirmText": "Confirm the transaction",
-      "disable": "Disable {{asset}} as collateral",
-      "enable": "Enable {{asset}} as collateral"
-    },
     "errors": {
       "accountError": "Account Required - Please connect your wallet.",
       "collateralDisableError": "Collateral Disable Error - There was a problem disabling {{assetName}} as a collateral. Please try again.",
@@ -568,7 +565,8 @@
         "unwrappingUnsupported": "Unwrapping unsupported",
         "wrappingUnsupported": "Wrapping unsupported"
       },
-      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
+      "walletBalance": "Wallet balance"
     },
     "repayTabTitle": "Repay",
     "supply": {

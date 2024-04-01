@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LidoPoolMarket - Feature flag enabled: marketParticipantCounts > fetches market details and displays them correctly 1`] = `"Interest Rate ModelUtilization rateBorrow APYSupply APY"`;
+
+exports[`LidoPoolMarket - Feature flag enabled: marketParticipantCounts > fetches market details and displays them correctly 2`] = `"Market infoPrice$1.278673Market liquidity$80.36M# of suppliers100# of borrowers10Supply capUncappedBorrow capUncappedDaily supplying interests$20.11KDaily borrowing interests$510.84Daily XVS distributed19.99MReserves1.00K XVSReserve factor25%Collateral factor50%vXVS minted> 100.00TExchange rate1 XVS=49.589181 vXVS"`;

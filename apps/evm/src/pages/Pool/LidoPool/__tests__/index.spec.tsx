@@ -1,9 +1,9 @@
 import { renderComponent } from 'testUtils/render';
 
-import IsolatedPool from '..';
+import LidoPool from '..';
 
-describe('IsolatedPool', () => {
+describe('LidoPool', () => {
   it('renders without crashing', async () => {
-    renderComponent(<IsolatedPool />);
+    renderComponent(<LidoPool />);
   });
 });
