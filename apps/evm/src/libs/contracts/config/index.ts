@@ -236,6 +236,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.BSC_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.SEPOLIA]: '0xca11bde05977b3631167028862be2a173976ca11',
+      [ChainId.ETHEREUM]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.OPBNB_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.OPBNB_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
     },
