@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.112.0
+
+### Minor Changes
+
+- 4302b16: Separate Lido pool on Ethereum and Sepolia
+- 27c28ab: Add search on Governance page
+
+### Patch Changes
+
+- ec82baa: Log errors when calls to retrieve user balances fail
+
 ## 2.111.2
 
 ### Patch Changes
