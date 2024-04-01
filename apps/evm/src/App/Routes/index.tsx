@@ -7,6 +7,7 @@ import { Layout } from 'containers/Layout';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import PageSuspense from './PageSuspense';
 
 const Dashboard = lazy(() => import('pages/Dashboard'));
@@ -15,6 +16,8 @@ const CorePoolMarket = lazy(() => import('pages/Market/CorePoolMarket'));
 const IsolatedPoolMarket = lazy(() => import('pages/Market/IsolatedPoolMarket'));
 const CorePool = lazy(() => import('pages/Pool/CorePool'));
 const IsolatedPool = lazy(() => import('pages/Pool/IsolatedPool'));
+const LidoPool = lazy(() => import('pages/Pool/LidoPool'));
+const LidoPoolMarket = lazy(() => import('pages/Market/LidoPoolMarket'));
 const ConvertVrt = lazy(() => import('pages/ConvertVrt'));
 const Governance = lazy(() => import('pages/Governance'));
 const History = lazy(() => import('pages/History'));
@@ -31,6 +34,7 @@ const Bridge = lazy(() => import('pages/Bridge'));
 
 const AppRoutes = () => {
   const { accountAddress } = useAccountAddress();
+  const { lidoPoolComptrollerContractAddress } = useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
@@ -149,6 +153,28 @@ const AppRoutes = () => {
             }
           />
         </Route>
+
+        {!!lidoPoolComptrollerContractAddress && (
+          <Route path={Subdirectory.LIDO_POOL}>
+            <Route
+              index
+              element={
+                <PageSuspense>
+                  <LidoPool />
+                </PageSuspense>
+              }
+            />
+
+            <Route
+              path={Subdirectory.MARKET}
+              element={
+                <PageSuspense>
+                  <LidoPoolMarket />
+                </PageSuspense>
+              }
+            />
+          </Route>
+        )}
 
         <Route path={Subdirectory.VAULTS}>
           <Route
