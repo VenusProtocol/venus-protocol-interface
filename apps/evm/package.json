@@ -1,6 +1,6 @@
 {
   "name": "@venusprotocol/evm",
-  "version": "2.111.2",
+  "version": "2.112.0",
   "private": true,
   "engines": {
     "node": ">=20.x.x"
