@@ -6,18 +6,19 @@ export type UseUrlPaginationOutput = {
   setCurrentPage: (newPageIndex: number) => void;
 };
 
-export const PAGE_PARAM_NAME = 'page';
+export const PAGE_PARAM_DEFAULT_VALUE = 1;
+export const PAGE_PARAM_KEY = 'page';
 
 export const useUrlPagination = (): UseUrlPaginationOutput => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const pageIndex = searchParams.get(PAGE_PARAM_NAME) ?? undefined;
+  const pageIndex = searchParams.get(PAGE_PARAM_KEY) ?? undefined;
 
   const setPageIndex = useCallback(
     (newPageIndex: string | number) =>
       setSearchParams(
         currentSearchParams => ({
           ...Object.fromEntries(currentSearchParams),
-          [PAGE_PARAM_NAME]: String(newPageIndex),
+          [PAGE_PARAM_KEY]: String(newPageIndex),
         }),
         {
           replace: true,
@@ -32,7 +33,7 @@ export const useUrlPagination = (): UseUrlPaginationOutput => {
       // Note: although the pagination starts from 0, we make it start from 1 in the
       // URL to make it more user-friendly. This is something we need to account for
       // when updating the page search param
-      setPageIndex(1);
+      setPageIndex(PAGE_PARAM_DEFAULT_VALUE);
     }
   }, [pageIndex, setPageIndex]);
 

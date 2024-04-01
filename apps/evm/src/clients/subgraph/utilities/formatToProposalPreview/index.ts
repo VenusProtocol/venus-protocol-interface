@@ -9,14 +9,17 @@ import { getUserVoteSupport } from './getUserVoteSupport';
 export const formatToProposalPreview = ({
   gqlProposal,
   currentBlockNumber,
+  proposalMinQuorumVotesMantissa,
   blockTimeMs,
 }: {
   gqlProposal: ProposalPreviewsQuery['proposals'][number];
   currentBlockNumber: number;
+  proposalMinQuorumVotesMantissa: BigNumber;
   blockTimeMs: number;
 }) => {
   const nowMs = new Date().getTime();
-  const endDate = new Date(nowMs + (gqlProposal.endBlock - currentBlockNumber) * blockTimeMs); // TODO: get from query if it exists
+  const endDate = new Date(nowMs + (gqlProposal.endBlock - currentBlockNumber) * blockTimeMs);
+  const forVotesMantissa = new BigNumber(gqlProposal.forVotes);
 
   const res: ProposalPreview = {
     proposalId: +gqlProposal.id,
@@ -24,15 +27,17 @@ export const formatToProposalPreview = ({
     state: getProposalState({
       startBlockNumber: gqlProposal.startBlock,
       endBlockNumber: gqlProposal.endBlock,
+      proposalMinQuorumVotesMantissa,
       currentBlockNumber,
       passing: gqlProposal.passing,
       queued: !!gqlProposal.queued,
       executed: !!gqlProposal.executed,
       canceled: !!gqlProposal.canceled,
+      forVotesMantissa,
       executionEtaTimestampSeconds: gqlProposal.executionEta,
     }),
     againstVotesMantissa: new BigNumber(gqlProposal.againstVotes),
-    forVotesMantissa: new BigNumber(gqlProposal.forVotes),
+    forVotesMantissa,
     abstainedVotesMantissa: new BigNumber(gqlProposal.abstainVotes),
     executedDate: gqlProposal.executed
       ? convertToDate({ timestampSeconds: gqlProposal.executed.timestamp })

@@ -85,6 +85,10 @@ export const useGetBalanceOf = vi.fn((input: Omit<GetBalanceOfInput, 'signer'>) 
 export const getTokenBalances = vi.fn();
 export const useGetTokenBalances = () => useQuery(FunctionKey.GET_TOKEN_BALANCES, getTokenBalances);
 
+export const getProposalMinQuorumVotes = vi.fn();
+export const useGetProposalMinQuorumVotes = () =>
+  useQuery(FunctionKey.GET_PROPOSAL_MIN_QUORUM_VOTES, getProposalMinQuorumVotes);
+
 export const getVrtConversionEndTime = vi.fn();
 export const useGetVrtConversionEndTime = () =>
   useQuery(FunctionKey.GET_VRT_CONVERSION_END_TIME, getVrtConversionEndTime);
@@ -195,7 +199,9 @@ export const useGetXvsVaultUserInfo = vi.fn(() =>
   useQuery(FunctionKey.GET_XVS_VAULT_USER_INFO, getXvsVaultUserInfo),
 );
 
-export const getCurrentVotes = vi.fn(async () => new BigNumber(100000000000000000));
+export const getCurrentVotes = vi.fn(async () => ({
+  votesMantissa: new BigNumber(100000000000000000),
+}));
 export const useGetCurrentVotes = () => useQuery(FunctionKey.GET_CURRENT_VOTES, getCurrentVotes);
 
 export const getProposalPreviews = vi.fn(async () => ({
@@ -224,7 +230,10 @@ export const getVaiVaultUserInfo = vi.fn();
 export const useGetVaiVaultUserInfo = () =>
   useQuery([FunctionKey.GET_VAI_VAULT_USER_INFO, fakeAddress], getVaiVaultUserInfo);
 
-export const useGetVestingVaults = vi.fn();
+export const useGetVestingVaults = vi.fn(() => ({
+  data: [],
+  isLoading: false,
+}));
 
 export const getVoteDelegateAddress = vi.fn();
 export const useGetVoteDelegateAddress = () =>

@@ -1,8 +1,11 @@
+import type BigNumber from 'bignumber.js';
 import { ProposalState } from 'types';
 
 export interface GetProposalStateInput {
   startBlockNumber: number;
   currentBlockNumber: number;
+  proposalMinQuorumVotesMantissa: BigNumber;
+  forVotesMantissa: BigNumber;
   endBlockNumber: number;
   passing: boolean;
   queued: boolean;
@@ -15,6 +18,8 @@ export const getProposalState = ({
   startBlockNumber,
   endBlockNumber,
   currentBlockNumber,
+  proposalMinQuorumVotesMantissa,
+  forVotesMantissa,
   passing,
   queued,
   executed,
@@ -59,7 +64,11 @@ export const getProposalState = ({
     return ProposalState.Expired;
   }
 
-  if (passing && endBlockNumber < currentBlockNumber) {
+  if (
+    passing &&
+    endBlockNumber < currentBlockNumber &&
+    forVotesMantissa.isGreaterThanOrEqualTo(proposalMinQuorumVotesMantissa)
+  ) {
     return ProposalState.Succeeded;
   }
 

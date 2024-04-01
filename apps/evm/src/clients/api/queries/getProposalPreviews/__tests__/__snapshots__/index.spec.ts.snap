@@ -267,6 +267,158 @@ Utilizing our supply and borrow cap methodology, Chaos Labs recommends doubling 
       "userVoteSupport": undefined,
     },
   ],
-  "total": 387,
+  "total": 1,
+}
+`;
+
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 1`] = `
+{
+  "chainId": 97,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "startBlock_gt": 1,
+    },
+  },
+}
+`;
+
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 2`] = `
+{
+  "chainId": 97,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "endBlock_gt": 1,
+    },
+  },
+}
+`;
+
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 3`] = `
+{
+  "chainId": 97,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "canceled_not": null,
+    },
+  },
+}
+`;
+
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 4`] = `
+{
+  "chainId": 97,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "or": [
+        {
+          "canceled": null,
+          "endBlock_lt": 1,
+          "passing": false,
+        },
+        {
+          "or": [
+            {
+              "canceled": null,
+              "endBlock_lt": 1,
+              "forVotes_lt": "10",
+            },
+          ],
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 5`] = `
+{
+  "chainId": 97,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "canceled": null,
+      "endBlock_lt": 1,
+      "executed": null,
+      "forVotes_gte": "10",
+      "passing": true,
+      "queued": null,
+    },
+  },
+}
+`;
+
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 6`] = `
+{
+  "chainId": 97,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "canceled": null,
+      "executed": null,
+      "executionEta_gt": "1710401645000000",
+      "queued_not": null,
+    },
+  },
+}
+`;
+
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 7`] = `
+{
+  "chainId": 97,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "canceled": null,
+      "executed": null,
+      "executionEta_lt": "1710401645000000",
+      "queued_not": null,
+    },
+  },
+}
+`;
+
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "proposalState" parameter 8`] = `
+{
+  "chainId": 97,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "executed_not": null,
+    },
+  },
+}
+`;
+
+exports[`getProposalPreviews > sets "where" parameter correctly based on passed "search" parameter 1`] = `
+{
+  "chainId": 97,
+  "variables": {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "limit": 10,
+    "skip": 0,
+    "where": {
+      "description_contains_nocase": "fake search",
+    },
+  },
 }
 `;
