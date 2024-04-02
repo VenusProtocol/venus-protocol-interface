@@ -16,14 +16,21 @@ import { en } from 'libs/translations';
 import { useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 
+import { fromUnixTime } from 'date-fns';
 import Bridge from '..';
 import TEST_IDS from '../testIds';
+
+const fakeDailyLimitResetTimestamp = new BigNumber('1705060800');
+const fakeMaxDailyLimitUsd = new BigNumber('100000000000000000000');
+// tests will run inside the 24 hour daily transaction window
+const fakeNowDate = fromUnixTime(fakeDailyLimitResetTimestamp.toNumber());
+fakeNowDate.setMinutes(fakeNowDate.getMinutes() + 5);
 
 const fakeBalanceMantissa = new BigNumber('10000000000000000000');
 const fakeBridgeFeeMantissa = new BigNumber('50000000000000000');
 const fakeBridgeStatusData = {
-  dailyLimitResetTimestamp: new BigNumber('1705060800'),
-  maxDailyLimitUsd: new BigNumber('100000000000000000000'),
+  dailyLimitResetTimestamp: fakeDailyLimitResetTimestamp,
+  maxDailyLimitUsd: fakeMaxDailyLimitUsd,
   totalTransferredLast24HourUsd: new BigNumber('0'),
   maxSingleTransactionLimitUsd: new BigNumber('100000000000000000000'),
 };
@@ -40,6 +47,8 @@ const switchChainMock = vi.fn(
 
 describe('Bridge', () => {
   beforeEach(() => {
+    vi.useFakeTimers().setSystemTime(fakeNowDate);
+
     (useSwitchChain as Vi.Mock).mockImplementation(() => ({
       switchChain: switchChainMock,
     }));
@@ -269,9 +278,10 @@ describe('Bridge', () => {
   });
 
   it('it warns the user they are over the daily transaction limit', async () => {
+    // totalTransferredLast24HourUsd has reached the maxDailyLimitUsd
     const fakeBridgeDataLowDailyLimit = {
       ...fakeBridgeStatusData,
-      maxDailyLimitUsd: new BigNumber('0'),
+      totalTransferredLast24HourUsd: fakeMaxDailyLimitUsd,
     };
     (useGetXvsBridgeStatus as Vi.Mock).mockImplementation(() => ({
       data: fakeBridgeDataLowDailyLimit,
@@ -309,6 +319,45 @@ describe('Bridge', () => {
     );
 
     await waitFor(() => expect(submitButton).toBeDisabled());
+  });
+
+  it('validates the daily transaction limit based on the maxDailyLimitUsd, if outside the 24 hour window', async () => {
+    // test will run outside the 24 hour daily transaction window
+    const fakeNowFutureDate = fromUnixTime(fakeDailyLimitResetTimestamp.toNumber());
+    fakeNowFutureDate.setDate(fakeNowDate.getDate() + 1);
+    vi.useFakeTimers().setSystemTime(fakeNowFutureDate);
+    // totalTransferredLast24HourUsd will be an old value, validation should consider maxDailyLimitUsd instead
+    const fakeBridgeDataLowDailyLimit = {
+      ...fakeBridgeStatusData,
+      totalTransferredLast24HourUsd: fakeMaxDailyLimitUsd,
+    };
+    (useGetXvsBridgeStatus as Vi.Mock).mockImplementation(() => ({
+      data: fakeBridgeDataLowDailyLimit,
+    }));
+
+    const { getByText, getByTestId } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
+      chainId: ChainId.BSC_TESTNET,
+    });
+
+    // Click on max button
+    const maxButton = await waitFor(
+      () => getByText(en.bridgePage.amountInput.maxButtonLabel) as HTMLButtonElement,
+    );
+    fireEvent.click(maxButton);
+
+    // Check input value was updated correctly
+    await waitFor(() =>
+      expect((getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement).value).toEqual('10'),
+    );
+
+    // Check if submit button is enabled and its label
+    const submitButton = await waitFor(
+      () =>
+        getByText(en.bridgePage.submitButton.label.submit).closest('button') as HTMLButtonElement,
+    );
+
+    await waitFor(() => expect(submitButton).toBeEnabled());
   });
 
   it('it warns the user they cannot bridge over the mint cap', async () => {

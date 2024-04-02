@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import BigNumber from 'bignumber.js';
-import { fromUnixTime } from 'date-fns';
+import { fromUnixTime, isBefore } from 'date-fns';
 import { type MutableRefObject, useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -80,17 +80,18 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
     [getBalanceOfNativeTokenData],
   );
 
-  const [maxSingleTransactionLimitUsd, dailyLimitResetTimestamp] = useMemo(
+  const [maxSingleTransactionLimitUsd, dailyLimitResetTimestamp, maxDailyLimitUsd] = useMemo(
     () => [
       getXvsBridgeStatusData?.maxSingleTransactionLimitUsd || new BigNumber(0),
       getXvsBridgeStatusData?.dailyLimitResetTimestamp || new BigNumber(0),
+      getXvsBridgeStatusData?.maxDailyLimitUsd || new BigNumber(0),
     ],
     [getXvsBridgeStatusData],
   );
 
   const [remainingXvsDailyLimitUsd, remainingXvsDailyLimitTokens] = useMemo(() => {
     if (getXvsBridgeStatusData) {
-      const { totalTransferredLast24HourUsd, maxDailyLimitUsd } = getXvsBridgeStatusData;
+      const { totalTransferredLast24HourUsd } = getXvsBridgeStatusData;
       const remainingUsdValue = maxDailyLimitUsd.minus(totalTransferredLast24HourUsd);
       const remaningTokensAmount = !xvsPriceUsd.isZero()
         ? remainingUsdValue.dividedBy(xvsPriceUsd)
@@ -99,7 +100,7 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
     }
 
     return [new BigNumber(0), new BigNumber(0)];
-  }, [getXvsBridgeStatusData, xvsPriceUsd]);
+  }, [maxDailyLimitUsd, getXvsBridgeStatusData, xvsPriceUsd]);
 
   const validateBridgeFeeMantissa = useCallback(
     (bridgeFeeMantissa: unknown) => {
@@ -177,7 +178,16 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
       }
 
       // checks if this bridge transaction is going to exceed the global daily limit in USD
-      const isDailyTransactionLimitExceeded = xvsAmountUsd.gt(remainingXvsDailyLimitUsd);
+      // and if we are inside the daily limit transaction window (24 hours from the informed dailyLimitResetTimestamp)
+      const dailyLimitResetDate = fromUnixTime(dailyLimitResetTimestamp.toNumber());
+      dailyLimitResetDate.setDate(dailyLimitResetDate.getDate() + 1);
+      const nowDate = new Date();
+      const isNowBeforeDailyLimitReset = isBefore(nowDate, dailyLimitResetDate);
+      const dailyBridgeUsdLimit = isNowBeforeDailyLimitReset
+        ? remainingXvsDailyLimitUsd
+        : maxDailyLimitUsd;
+      const isDailyTransactionLimitExceeded = xvsAmountUsd.gt(dailyBridgeUsdLimit);
+
       if (isDailyTransactionLimitExceeded) {
         const readableAmountTokens = formatTokensToReadableValue({
           value: remainingXvsDailyLimitTokens,
@@ -186,14 +196,12 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
         const readableAmountUsd = formatCentsToReadableValue({
           value: convertDollarsToCents(remainingXvsDailyLimitUsd),
         });
-        const date = fromUnixTime(dailyLimitResetTimestamp.toNumber());
-        date.setDate(date.getDate() + 1);
         ctx.addIssue({
           code: 'custom',
           message: t('bridgePage.errors.dailyTransactionLimitExceeded.message', {
             readableAmountTokens,
             readableAmountUsd,
-            date,
+            date: dailyLimitResetDate,
           }),
           path: ['dailyTransactionLimitExceeded'],
         });
@@ -212,6 +220,7 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
     [
       dailyLimitResetTimestamp,
       getXvsBridgeMintStatusData,
+      maxDailyLimitUsd,
       maxSingleTransactionLimitUsd,
       t,
       remainingXvsDailyLimitTokens,
