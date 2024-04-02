@@ -5,6 +5,7 @@ import { type Tag, TagGroup, TextField, Toggle } from 'components';
 import { MarketTable } from 'containers/MarketTable';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
+import { isAssetPaused } from 'utilities';
 
 import { Banner } from './Banner';
 import TEST_IDS from './testIds';
@@ -24,9 +25,22 @@ const Dashboard: React.FC = () => {
   const { data: getPoolData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
+  const pools = getPoolData?.pools || [];
 
-  const pools = useFormatPools({
-    pools: getPoolData?.pools || [],
+  const pausedAssetsExist = useMemo(
+    () =>
+      pools.some(pool =>
+        pool.assets.some(asset =>
+          isAssetPaused({
+            disabledTokenActions: asset.disabledTokenActions,
+          }),
+        ),
+      ),
+    [pools],
+  );
+
+  const formattedPools = useFormatPools({
+    pools,
     searchValue,
     shouldDisplayPausedAssets,
     selectedPoolIndex: selectedPoolTagIndex - 1,
@@ -40,12 +54,12 @@ const Dashboard: React.FC = () => {
           content: t('dashboard.allTag'),
         },
       ].concat(
-        (getPoolData?.pools || []).map(pool => ({
+        formattedPools.map(pool => ({
           id: pool.comptrollerAddress,
           content: pool.name,
         })),
       ),
-    [getPoolData?.pools, t],
+    [formattedPools, t],
   );
 
   return (
@@ -63,13 +77,15 @@ const Dashboard: React.FC = () => {
         )}
 
         <div className="space-y-6 lg:flex lg:items-center lg:space-y-0 lg:space-x-6 ml-auto">
-          <Toggle
-            onChange={() => setShouldDisplayPausedAssets(currentValue => !currentValue)}
-            value={shouldDisplayPausedAssets}
-            label={t('dashboard.pausedAssetsToggle.label')}
-            className="flex-shrink-0 lg:ml-auto"
-            isLight
-          />
+          {pausedAssetsExist && (
+            <Toggle
+              onChange={() => setShouldDisplayPausedAssets(currentValue => !currentValue)}
+              value={shouldDisplayPausedAssets}
+              label={t('dashboard.pausedAssetsToggle.label')}
+              className="flex-shrink-0 lg:ml-auto"
+              isLight
+            />
+          )}
 
           <TextField
             className="shrink-0 lg:w-[300px]"
@@ -84,7 +100,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       <MarketTable
-        pools={pools}
+        pools={formattedPools}
         isFetching={isGetPoolsLoading}
         breakpoint="lg"
         columns={[
