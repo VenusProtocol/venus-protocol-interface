@@ -21,7 +21,7 @@
     "generate-subgraph-types": "npm-run-all --parallel generate-subgraph-types:isolated-pools generate-subgraph-types:governance",
     "generate-contracts": "rimraf src/libs/contracts/generated/getters && rimraf src/libs/contracts/generated/infos && src/libs/contracts/scripts/generateContractRecords/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/contracts/generated",
     "generate-pancake-swap-tokens": "src/libs/tokens/scripts/generatePancakeSwapTokenRecords.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/tokens/infos/pancakeSwapTokens/bscMainnet.ts",
-    "generate-version-files": "genversion --es6 --semi src/constants/version.ts && src/scripts/generatePublicVersionFile.ts && yarn biome format --vcs-use-ignore-file=false --write public/version.json",
+    "generate-version-files": "src/libs/appVersion/scripts/generateVersionFile/index.ts",
     "generate": "npm-run-all --parallel generate-version-files generate-contracts generate-subgraph-types && yarn generate-pancake-swap-tokens",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build"
@@ -113,19 +113,18 @@
     "@types/recharts": "^1.8.23",
     "@types/redux-actions": "^2.6.2",
     "@types/styled-components": "^5.1.26",
-    "@venusprotocol/stylelint-config": "*",
-    "@venusprotocol/typescript-config": "*",
     "@venusprotocol/governance-contracts": "^1.4.0",
     "@venusprotocol/isolated-pools": "^2.7.0",
     "@venusprotocol/oracle": "^1.10.0",
+    "@venusprotocol/stylelint-config": "*",
     "@venusprotocol/token-bridge": "^1.1.0",
+    "@venusprotocol/typescript-config": "*",
     "@venusprotocol/venus-protocol": "^7.5.0",
     "@vitejs/plugin-react": "^4.0.4",
     "@vitest/coverage-v8": "^0.34.4",
     "autoprefixer": "^10.4.16",
     "c8": "^9.1.0",
     "fs": "^0.0.1-security",
-    "genversion": "^3.1.1",
     "handlebars": "^4.7.8",
     "history": "^5.3.0",
     "i18next-parser": "^8.4.0",
@@ -156,16 +155,8 @@
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   },
   "msw": {
     "workerDirectory": "public"
