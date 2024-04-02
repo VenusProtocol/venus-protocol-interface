@@ -1,15 +1,24 @@
 import { Carousel, CarouselItem } from 'components';
 
+import { LidoBanner } from './LidoBanner';
 import { PrimePromotionalBanner } from './PrimePromotionalBanner';
 
 export const BannerCarousel: React.FC = () => (
-  <Carousel className="h-[220px] mb-6">
+  <Carousel className="mb-6">
+    <CarouselItem>
+      <LidoBanner />
+    </CarouselItem>
+
     <CarouselItem>
       <PrimePromotionalBanner />
     </CarouselItem>
 
     <CarouselItem>
-      <>Test banner</>
+      <LidoBanner />
+    </CarouselItem>
+
+    <CarouselItem>
+      <PrimePromotionalBanner />
     </CarouselItem>
   </Carousel>
 );

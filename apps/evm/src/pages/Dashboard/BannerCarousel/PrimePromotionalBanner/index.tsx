@@ -17,7 +17,7 @@ export const PrimePromotionalBanner: React.FC = () => {
   });
 
   return (
-    <div className="relative py-6 sm:p-0 md:p-0">
+    <div className="relative py-6 sm:p-0 md:p-0 h-[220px]">
       <div className="sm:flex sm:flex-row">
         <div className="relative mb-6 justify-center sm:order-2 sm:mb-0 sm:basis-4/12 xl:grow">
           {/* Mobile illustration */}

@@ -6,9 +6,9 @@ import { MarketTable } from 'containers/MarketTable';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 
+import { BannerCarousel } from './BannerCarousel';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
-import { BannerCarousel } from './BannerCarousel';
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
@@ -17,6 +17,8 @@ const Dashboard: React.FC = () => {
   const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
   const [shouldDisplayPausedAssets, setShouldDisplayPausedAssets] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+
+  const [counter, setCounter] = useState<number>(0);
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     setSearchValue(changeEvent.currentTarget.value);
@@ -51,6 +53,8 @@ const Dashboard: React.FC = () => {
   return (
     <>
       <BannerCarousel />
+
+      <button onClick={() => setCounter(counter++)}>Press me </button>
 
       <div className="mb-6 space-y-6 lg:flex lg:items-center lg:justify-between lg:space-x-6 lg:space-y-0">
         {pools.length > 0 && (
