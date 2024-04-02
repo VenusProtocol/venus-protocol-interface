@@ -46,6 +46,28 @@ describe('Dashboard', () => {
     expect(supplyMarketTable.textContent).toMatchSnapshot();
   });
 
+  it('hides toggle to display paused assets when there are no paused assets', async () => {
+    (useGetPools as Vi.Mock).mockImplementation(() => ({
+      data: {
+        pools: poolData.map(pool => ({
+          ...pool,
+          assets: pool.assets.map(asset => ({
+            ...asset,
+            disabledTokenActions: [],
+          })),
+        })),
+      },
+      isLoading: false,
+    }));
+
+    const { getByTestId, queryByRole } = renderComponent(<Dashboard />);
+
+    await waitFor(() => getByTestId(TEST_IDS.marketTable));
+
+    // Check toggle is hidden
+    await waitFor(() => expect(queryByRole('checkbox')).not.toBeInTheDocument());
+  });
+
   it('displays paused assets when switching the toggle', async () => {
     const { getByTestId, getByRole } = renderComponent(<Dashboard />);
 
