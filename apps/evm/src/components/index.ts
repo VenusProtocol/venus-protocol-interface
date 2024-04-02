@@ -45,3 +45,4 @@ export * from './TagGroup';
 export * from './SpendingLimit';
 export * from './MarkdownEditor';
 export * from './MarkdownViewer';
+export * from './ErrorState';

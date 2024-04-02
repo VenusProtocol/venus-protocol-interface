@@ -5,6 +5,8 @@ import { Icon, type IconName } from '../Icon';
 import { Spinner } from '../Spinner';
 import type { NoticeProps, NoticeVariant } from './types';
 
+export * from './types';
+
 const iconMapping: {
   [variant in Exclude<NoticeVariant, 'loading'>]: IconName;
 } = {

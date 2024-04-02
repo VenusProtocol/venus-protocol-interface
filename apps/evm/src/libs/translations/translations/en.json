@@ -295,6 +295,9 @@
     "validationError": "Validation failed for imported proposal:",
     "walletNotConnected": "Wallet not connected"
   },
+  "errorState": {
+    "defaultMessage": "An error occurred"
+  },
   "footer": {
     "links": {
       "documentation": "Documentation"
@@ -1102,6 +1105,10 @@
     "depositXvs": "Deposit XVS",
     "depositYourTokens": "1. <Link>Deposit your tokens</Link> in the XVS Vault ",
     "enterContactAddress": "Enter contact address",
+    "errorState": {
+      "buttonLabel": "Retry",
+      "message": "Proposals failed to fetch"
+    },
     "for": "For",
     "goToXvsSnapshot": "Go to XVS Snapshot",
     "multichain": {

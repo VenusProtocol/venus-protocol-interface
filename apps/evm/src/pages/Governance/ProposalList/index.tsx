@@ -9,6 +9,7 @@ import {
   useGetProposalState,
 } from 'clients/api';
 import {
+  ErrorState,
   InfoIcon,
   Pagination,
   Select,
@@ -127,7 +128,10 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
 
   const {
     data: { proposalPreviews, total } = { proposalPreviews: [] },
+    error: proposalsError,
+    refetch: refetchProposals,
     isFetching: isGetProposalsFetching,
+    isRefetching,
     isPreviousData: isGetProposalsPreviousData,
   } = useGetProposalPreviews({
     limit: PROPOSALS_PER_PAGE,
@@ -139,7 +143,8 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
   });
 
   const isFetchingProposals =
-    isGetProposalsFetching && (isGetProposalsPreviousData || proposalPreviews.length === 0);
+    (isGetProposalsFetching || isRefetching) &&
+    (isGetProposalsPreviousData || proposalPreviews.length === 0);
 
   const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
 
@@ -229,6 +234,16 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
       )}
 
       {isFetchingProposals && <Spinner className="h-auto" />}
+
+      {!isFetchingProposals && proposalsError && (
+        <ErrorState
+          message={t('vote.errorState.message')}
+          button={{
+            label: t('vote.errorState.buttonLabel'),
+            onClick: refetchProposals,
+          }}
+        />
+      )}
 
       <div className="space-y-4 md:space-y-6">
         {proposalPreviews.map(proposalPreview => (
