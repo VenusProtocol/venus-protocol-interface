@@ -303,6 +303,10 @@ const useGenerateColumns = ({
             if (column === 'userPercentOfLimit') {
               return (
                 <div css={styles.userPercentOfLimit}>
+                  <span className={cn(isPaused ? 'text-grey' : 'text-offWhite')}>
+                    {formatPercentageToReadableValue(poolAsset.userPercentOfLimit)}
+                  </span>
+
                   <ProgressBar
                     min={0}
                     max={100}
@@ -311,10 +315,6 @@ const useGenerateColumns = ({
                     ariaLabel={t('marketTable.columnKeys.userPercentOfLimit')}
                     css={styles.percentOfLimitProgressBar}
                   />
-
-                  <span className={cn(isPaused ? 'text-grey' : 'text-offWhite')}>
-                    {formatPercentageToReadableValue(poolAsset.userPercentOfLimit)}
-                  </span>
                 </div>
               );
             }
