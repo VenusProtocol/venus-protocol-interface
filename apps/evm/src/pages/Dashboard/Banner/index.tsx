@@ -6,6 +6,8 @@ import { ConnectWalletBanner } from './ConnectWalletBanner';
 import { PrimePromotionalBanner } from './PrimePromotionalBanner';
 import { store } from './store';
 
+// TODO: remove
+
 export const Banner: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const { openAuthModal } = useAuthModal();
