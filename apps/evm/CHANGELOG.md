@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.113.0
+
+### Minor Changes
+
+- 4b3ccbb: Add error state to Governance page
+
+### Patch Changes
+
+- b427490: Hide paused assets toggle when there are no paused assets
+- 0e7d58e: Integration of OKX wallet
+
 ## 2.112.1
 
 ### Patch Changes
