@@ -3,7 +3,7 @@ import { ChainId } from 'types';
 
 export const featureFlags = {
   integratedSwap: [ChainId.BSC_TESTNET, ChainId.BSC_MAINNET],
-  prime: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.ETHEREUM],
+  prime: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.SEPOLIA],
   primeCalculator: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   tusdMigrationWarning: [ChainId.BSC_MAINNET],
   trxMigrationWarning: [ChainId.BSC_MAINNET],
@@ -42,12 +42,12 @@ export const featureFlags = {
     ChainId.OPBNB_TESTNET,
   ],
   governanceSearch: [
-    ChainId.BSC_TESTNET,
     ChainId.BSC_MAINNET,
-    ChainId.SEPOLIA,
+    ChainId.BSC_TESTNET,
     ChainId.ETHEREUM,
-    ChainId.OPBNB_TESTNET,
+    ChainId.SEPOLIA,
     ChainId.OPBNB_MAINNET,
+    ChainId.OPBNB_TESTNET,
   ],
 };
 

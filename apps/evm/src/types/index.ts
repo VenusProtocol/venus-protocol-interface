@@ -24,10 +24,9 @@ export interface ChainMetadata {
   blockTimeMs: number;
   blocksPerDay: number;
   explorerUrl: string;
+  corePoolComptrollerContractAddress: string;
   nativeToken: Token;
   layerZeroScanUrl: string;
-  corePoolComptrollerContractAddress: string;
-  lidoPoolComptrollerContractAddress?: string;
 }
 
 export interface Token {

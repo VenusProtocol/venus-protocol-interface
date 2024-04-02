@@ -4,12 +4,10 @@ import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import type { MenuItem } from './types';
 
 const useGetMenuItems = () => {
   const { accountAddress } = useAccountAddress();
-  const { lidoPoolComptrollerContractAddress } = useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
@@ -47,16 +45,6 @@ const useGetMenuItems = () => {
       i18nKey: 'layout.menuItems.corePool',
       iconName: 'venus',
     });
-
-    if (lidoPoolComptrollerContractAddress) {
-      menuItems.push({
-        to: routes.lidoPool.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.lidoPool')
-        i18nKey: 'layout.menuItems.lidoPool',
-        iconName: 'lido',
-      });
-    }
 
     if (isolatedPoolsRouteEnabled) {
       menuItems.push({
@@ -155,7 +143,6 @@ const useGetMenuItems = () => {
     xvsRouteEnabled,
     bridgeRouteEnabled,
     isolatedPoolsRouteEnabled,
-    lidoPoolComptrollerContractAddress,
   ]);
 };
 

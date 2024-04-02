@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`LidoPoolMarket - Feature flag enabled: marketHistory > fetches market details and displays them correctly 1`] = `"Supply infoSupply APYTotal supply$2.78MAPY0.05%Distribution APY0.11%"`;
-
-exports[`LidoPoolMarket - Feature flag enabled: marketHistory > fetches market details and displays them correctly 2`] = `"Borrow infoBorrow APYTotal borrow$709.25KAPY-2.3%Distribution APY4.17%"`;
-
-exports[`LidoPoolMarket - Feature flag enabled: marketHistory > fetches market details and displays them correctly 3`] = `"Interest Rate ModelUtilization rateBorrow APYSupply APY"`;
-
-exports[`LidoPoolMarket - Feature flag enabled: marketHistory > fetches market details and displays them correctly 4`] = `"Market infoPrice$1.278673Market liquidity$80.36MSupply capUncappedBorrow capUncappedDaily supplying interests$20.11KDaily borrowing interests$510.84Daily XVS distributed19.99MReserves1.00K XVSReserve factor25%Collateral factor50%vXVS minted> 100.00TExchange rate1 XVS=49.589181 vXVS"`;

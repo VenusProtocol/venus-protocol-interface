@@ -55,7 +55,6 @@ export const CHAIN_METADATA: {
     blockTimeMs: 12000,
     blocksPerDay: 7200,
     corePoolComptrollerContractAddress: '0x687a01ecF6d3907658f7A7c714749fAC32336D1B',
-    lidoPoolComptrollerContractAddress: '0xF522cd0360EF8c2FF48B648d53EA1717Ec0F3Ac3',
     nativeToken: getToken({ chainId: ChainId.ETHEREUM, symbol: 'ETH' })!,
   },
   [ChainId.SEPOLIA]: {
@@ -66,7 +65,6 @@ export const CHAIN_METADATA: {
     blockTimeMs: 12000,
     blocksPerDay: 7200,
     corePoolComptrollerContractAddress: '0x7Aa39ab4BcA897F403425C9C6FDbd0f882Be0D70',
-    lidoPoolComptrollerContractAddress: '0xd79CeB8EF8188E44b7Eb899094e8A3A4d7A1e236',
     nativeToken: getToken({ chainId: ChainId.SEPOLIA, symbol: 'ETH' })!,
   },
 };

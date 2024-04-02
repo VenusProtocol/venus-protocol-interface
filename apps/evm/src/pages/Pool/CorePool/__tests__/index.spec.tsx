@@ -2,7 +2,7 @@ import { renderComponent } from 'testUtils/render';
 
 import CorePool from '..';
 
-describe('CorePool', () => {
+describe('pages/Pool/CorePool', () => {
   it('renders without crashing', async () => {
     renderComponent(<CorePool />);
   });

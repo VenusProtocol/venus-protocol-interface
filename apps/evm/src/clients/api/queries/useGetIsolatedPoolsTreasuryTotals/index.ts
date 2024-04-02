@@ -27,8 +27,7 @@ export interface UseGetIsolatedPoolsTreasuryTotalsOutput {
 const useGetIsolatedPoolsTreasuryTotals = (): UseGetIsolatedPoolsTreasuryTotalsOutput => {
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
-  const { corePoolComptrollerContractAddress, lidoPoolComptrollerContractAddress } =
-    useGetChainMetadata();
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
   const treasuryAddress = useMemo(() => {
     switch (chainId) {
       case ChainId.BSC_MAINNET:
@@ -47,16 +46,13 @@ const useGetIsolatedPoolsTreasuryTotals = (): UseGetIsolatedPoolsTreasuryTotalsO
     () =>
       (getPoolsData?.pools || [])
         .filter(
-          pool =>
-            !areAddressesEqual(pool.comptrollerAddress, corePoolComptrollerContractAddress) &&
-            (!lidoPoolComptrollerContractAddress ||
-              !areAddressesEqual(pool.comptrollerAddress, lidoPoolComptrollerContractAddress)),
+          pool => !areAddressesEqual(pool.comptrollerAddress, corePoolComptrollerContractAddress),
         )
         .reduce(
           (acc, pool) => acc.concat(pool.assets.map(asset => asset.vToken.address)),
           [] as string[],
         ),
-    [getPoolsData?.pools, corePoolComptrollerContractAddress, lidoPoolComptrollerContractAddress],
+    [getPoolsData?.pools, corePoolComptrollerContractAddress],
   );
 
   const {
