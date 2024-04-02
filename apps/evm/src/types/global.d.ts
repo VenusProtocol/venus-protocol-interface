@@ -7,6 +7,7 @@ declare global {
 
   interface Window {
     ethereum?: WindowEthereum;
+    okxwallet?: WindowEthereum;
     BinanceChain?: {
       bnbSign?: (
         address: string,

@@ -1,5 +1,5 @@
 import { getWagmiConnector as getBinanceW3WConnector } from '@binance/w3w-wagmi-connector';
-import { configureChains, createConfig } from 'wagmi';
+import { type WindowProvider, configureChains, createConfig } from 'wagmi';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
@@ -33,7 +33,15 @@ const config = createConfig({
   publicClient,
   webSocketPublicClient,
   connectors: [
-    new InjectedConnector({ chains }),
+    new InjectedConnector({
+      chains,
+      options: {
+        getProvider: () =>
+          typeof window !== 'undefined'
+            ? window.okxwallet || (window.ethereum as WindowProvider)
+            : undefined,
+      },
+    }),
     new MetaMaskConnector({ chains }),
     new WalletConnectConnector({
       chains,
