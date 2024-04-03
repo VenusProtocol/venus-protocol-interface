@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.113.1
+
+### Patch Changes
+
+- cdf3898: fix the alignment of the borrow percentage of limit bars
+- 4052e50: fix bridge max daily limit when the last transaction happened 24 hours in the past
+
 ## 2.113.0
 
 ### Minor Changes
