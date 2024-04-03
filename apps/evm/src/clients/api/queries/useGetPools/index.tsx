@@ -1,9 +1,12 @@
 import { useMemo } from 'react';
 
 import { useGetIsolatedPools, useGetLegacyPool } from 'clients/api';
-import type { Pool } from 'types';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useChainId } from 'libs/wallet';
+import { ChainId, type Pool } from 'types';
 
 export interface UseGetPoolsInput {
+  poolComptrollerAddress?: string;
   accountAddress?: string;
 }
 
@@ -14,15 +17,29 @@ export interface UseGetPoolsOutput {
   };
 }
 
-const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput => {
+const useGetPools = ({
+  accountAddress,
+  poolComptrollerAddress,
+}: UseGetPoolsInput): UseGetPoolsOutput => {
+  const { chainId } = useChainId();
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
+
   const { data: getLegacyPoolData, isLoading: isGetLegacyPoolDataLoading } = useGetLegacyPool({
     accountAddress,
   });
 
   const { data: getIsolatedPoolsData, isLoading: isGetIsolatedPoolsDataLoading } =
-    useGetIsolatedPools({
-      accountAddress,
-    });
+    useGetIsolatedPools(
+      {
+        accountAddress,
+      },
+      {
+        enabled:
+          (chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET) &&
+          corePoolComptrollerContractAddress !== poolComptrollerAddress &&
+          !(poolComptrollerAddress === undefined),
+      },
+    );
 
   const isLoading = isGetLegacyPoolDataLoading || isGetIsolatedPoolsDataLoading;
 

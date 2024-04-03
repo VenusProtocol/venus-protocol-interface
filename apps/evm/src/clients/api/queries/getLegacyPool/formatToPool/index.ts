@@ -6,7 +6,7 @@ import {
 } from 'constants/address';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
-import type { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'libs/contracts';
+import type { LegacyPoolComptroller, VenusLens } from 'libs/contracts';
 import { logError } from 'libs/errors';
 import {
   type Asset,
@@ -20,7 +20,6 @@ import {
 import {
   addUserPropsToPool,
   areAddressesEqual,
-  calculateApy,
   convertDollarsToCents,
   convertFactorFromSmartContract,
   convertMantissaToTokens,
@@ -41,16 +40,6 @@ export interface FormatToPoolInput {
   tokens: Token[];
   description: string;
   comptrollerContractAddress: string;
-  vTokenMetaDataResults: Awaited<ReturnType<VenusLens['callStatic']['vTokenMetadataAll']>>;
-  underlyingTokenPriceResults: PromiseSettledResult<
-    Awaited<ReturnType<ResilientOracle['getPrice']>>
-  >[];
-  borrowCapsResults: PromiseSettledResult<
-    Awaited<ReturnType<LegacyPoolComptroller['borrowCaps']>>
-  >[];
-  supplyCapsResults: PromiseSettledResult<
-    Awaited<ReturnType<LegacyPoolComptroller['supplyCaps']>>
-  >[];
   xvsBorrowSpeedResults: PromiseSettledResult<
     Awaited<ReturnType<LegacyPoolComptroller['venusBorrowSpeeds']>>
   >[];
@@ -62,7 +51,7 @@ export interface FormatToPoolInput {
   userCollateralizedVTokenAddresses?: string[];
   userVTokenBalances?: Awaited<ReturnType<VenusLens['callStatic']['vTokenBalancesAll']>>;
   userVaiBorrowBalanceMantissa?: BigNumber;
-  mainMarkets?: Market[];
+  mainMarkets: Market[];
 }
 
 export const formatToPool = ({
@@ -74,10 +63,6 @@ export const formatToPool = ({
   tokens,
   description,
   comptrollerContractAddress,
-  vTokenMetaDataResults,
-  underlyingTokenPriceResults,
-  borrowCapsResults,
-  supplyCapsResults,
   xvsBorrowSpeedResults,
   xvsSupplySpeedResults,
   xvsPriceMantissa,
@@ -89,13 +74,13 @@ export const formatToPool = ({
 }: FormatToPoolInput) => {
   const assets: Asset[] = [];
 
-  vTokenMetaDataResults.forEach((vTokenMetaData, index) => {
+  mainMarkets.forEach((marketData, index) => {
     // Temporarily remove unlisted tokens that have not been updated from the contract side yet.
     // TODO: remove this logic once these tokens have been unlisted from contracts
     if (
       chainId === ChainId.BSC_MAINNET &&
       BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES.some(unlistedTokenAddress =>
-        areAddressesEqual(unlistedTokenAddress, vTokenMetaData.underlyingAssetAddress),
+        areAddressesEqual(unlistedTokenAddress, marketData.underlyingAddress),
       )
     ) {
       return;
@@ -103,63 +88,44 @@ export const formatToPool = ({
     if (
       chainId === ChainId.BSC_TESTNET &&
       BSC_TESTNET_UNLISTED_TOKEN_ADDRESSES.some(unlistedTokenAddress =>
-        areAddressesEqual(unlistedTokenAddress, vTokenMetaData.underlyingAssetAddress),
+        areAddressesEqual(unlistedTokenAddress, marketData.underlyingAddress),
       )
     ) {
       return;
     }
 
     // Remove unlisted tokens
-    if (!vTokenMetaData.isListed) {
+    if (!marketData.isListed) {
       return;
     }
 
     const underlyingToken = findTokenByAddress({
       tokens,
-      address: vTokenMetaData.underlyingAssetAddress,
+      address: marketData.underlyingAddress,
     });
 
     if (!underlyingToken) {
-      logError(`Record missing for token: ${vTokenMetaData.underlyingAssetAddress}`);
+      logError(`Record missing for token: ${marketData.underlyingAddress}`);
       return;
     }
 
     const vToken: VToken = {
       decimals: 8,
-      address: vTokenMetaData.vToken,
+      address: marketData.address,
       symbol: `v${underlyingToken.symbol}`,
       underlyingToken,
     };
 
-    const underlyingTokenPriceResult = underlyingTokenPriceResults[index];
-    const underlyingTokenPriceMantissa =
-      underlyingTokenPriceResult.status === 'fulfilled'
-        ? new BigNumber(underlyingTokenPriceResult.value.toString())
-        : undefined;
-
-    if (!underlyingTokenPriceMantissa) {
-      return;
-    }
-
-    const borrowCapsResult = borrowCapsResults[index];
-    const borrowCapsMantissa =
-      borrowCapsResult.status === 'fulfilled'
-        ? new BigNumber(borrowCapsResult.value.toString())
-        : undefined;
-
-    if (!borrowCapsMantissa) {
-      return;
-    }
-
-    const supplyCapsResult = supplyCapsResults[index];
-    const supplyCapsMantissa =
-      supplyCapsResult.status === 'fulfilled'
-        ? new BigNumber(supplyCapsResult.value.toString())
-        : undefined;
-
-    if (!supplyCapsMantissa) {
-      return;
-    }
+    const {
+      supplyApyPercentage,
+      borrowApyPercentage,
+      supplierCount,
+      borrowerCount,
+      exchangeRateMantissa,
+      underlyingTokenPriceMantissa,
+      borrowCapsMantissa,
+      supplyCapsMantissa,
+    } = marketData;
 
     const xvsBorrowSpeedResult = xvsBorrowSpeedResults[index];
     const xvsBorrowSpeedMantissa =
@@ -211,26 +177,24 @@ export const formatToPool = ({
       : unformattedSupplyCapTokens;
 
     const reserveFactor = convertFactorFromSmartContract({
-      factor: new BigNumber(vTokenMetaData.reserveFactorMantissa.toString()),
+      factor: marketData.reserveFactorMantissa,
     });
 
     const collateralFactor = convertFactorFromSmartContract({
-      factor: new BigNumber(vTokenMetaData.collateralFactorMantissa.toString()),
+      factor: marketData.collateralFactorMantissa,
     });
 
     const cashTokens = convertMantissaToTokens({
-      value: new BigNumber(vTokenMetaData.totalCash.toString()),
+      value: marketData.cashMantissa,
       token: vToken.underlyingToken,
     });
 
     const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
     const reserveTokens = convertMantissaToTokens({
-      value: new BigNumber(vTokenMetaData.totalReserves.toString()),
+      value: marketData.totalReservesMantissa,
       token: vToken.underlyingToken,
     });
-
-    const exchangeRateMantissa = new BigNumber(vTokenMetaData.exchangeRateCurrent.toString());
 
     const exchangeRateVTokens = exchangeRateMantissa.isEqualTo(0)
       ? new BigNumber(0)
@@ -241,28 +205,20 @@ export const formatToPool = ({
         );
 
     const supplyDailyPercentageRate = multiplyMantissaDaily({
-      mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
+      mantissa: marketData.supplyRatePerBlock,
       blocksPerDay,
-    });
-
-    const supplyApyPercentage = calculateApy({
-      dailyRate: supplyDailyPercentageRate,
     });
 
     const borrowDailyPercentageRate = multiplyMantissaDaily({
-      mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+      mantissa: marketData.borrowRatePerBlock,
       blocksPerDay,
-    });
-
-    const borrowApyPercentage = calculateApy({
-      dailyRate: borrowDailyPercentageRate,
     });
 
     const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(blocksPerDay);
     const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(blocksPerDay);
 
     const supplyBalanceVTokens = convertMantissaToTokens({
-      value: new BigNumber(vTokenMetaData.totalSupply.toString()),
+      value: new BigNumber(marketData.totalSupplyMantissa.toString()),
       token: vToken,
     });
     const supplyBalanceTokens = supplyBalanceVTokens.div(exchangeRateVTokens);
@@ -270,7 +226,7 @@ export const formatToPool = ({
     const supplyBalanceCents = convertDollarsToCents(supplyBalanceDollars);
 
     const borrowBalanceTokens = convertMantissaToTokens({
-      value: new BigNumber(vTokenMetaData.totalBorrows.toString()),
+      value: new BigNumber(marketData.totalBorrowsMantissa.toString()),
       token: vToken.underlyingToken,
     });
     const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(tokenPriceDollars);
@@ -302,7 +258,7 @@ export const formatToPool = ({
     });
 
     const isCollateralOfUser = (userCollateralizedVTokenAddresses || []).includes(
-      vTokenMetaData.vToken,
+      marketData.address,
     );
     const userSupplyBalanceTokens = userVTokenBalancesResult?.balanceOfUnderlying
       ? convertMantissaToTokens({
@@ -329,12 +285,8 @@ export const formatToPool = ({
       : new BigNumber(0);
     const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
-    const market = (mainMarkets || []).find(mainMarket =>
-      areAddressesEqual(mainMarket.address, vToken.address),
-    );
-
     const disabledTokenActions = getDisabledTokenActions({
-      bitmask: vTokenMetaData.pausedActions.toNumber(),
+      bitmask: marketData.pausedActionsBitmap,
       tokenAddresses: [vToken.address, vToken.underlyingToken.address],
       chainId,
     });
@@ -361,8 +313,8 @@ export const formatToPool = ({
       borrowBalanceCents,
       supplyDistributions,
       borrowDistributions,
-      supplierCount: market?.supplierCount || 0,
-      borrowerCount: market?.borrowerCount || 0,
+      supplierCount,
+      borrowerCount,
       // User-specific props
       userSupplyBalanceTokens,
       userSupplyBalanceCents,

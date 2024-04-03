@@ -269,6 +269,25 @@ export interface Market {
   borrowerCount: number;
   supplierCount: number;
   totalXvsDistributedTokens: BigNumber;
+  supplyApyPercentage: BigNumber;
+  borrowApyPercentage: BigNumber;
+  borrowRatePerBlock: BigNumber;
+  supplyRatePerBlock: BigNumber;
+  exchangeRateMantissa: BigNumber;
+  underlyingAddress: string;
+  underlyingTokenPriceMantissa: BigNumber;
+  supplyCapsMantissa: BigNumber;
+  borrowCapsMantissa: BigNumber;
+  cashMantissa: BigNumber;
+  reserveFactorMantissa: BigNumber;
+  collateralFactorMantissa: BigNumber;
+  totalReservesMantissa: BigNumber;
+  totalBorrowsMantissa: BigNumber;
+  totalSupplyMantissa: BigNumber;
+  estimatedPrimeBorrowApyBoost: BigNumber | undefined;
+  estimatedPrimeSupplyApyBoost: BigNumber | undefined;
+  pausedActionsBitmap: number;
+  isListed: boolean;
 }
 
 export interface MarketSnapshot {

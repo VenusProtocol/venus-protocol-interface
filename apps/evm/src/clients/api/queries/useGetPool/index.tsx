@@ -22,6 +22,7 @@ const useGetPool = ({
 }: UseGetPoolInput): UseGetPoolOutput => {
   const { data: getPoolsData, isLoading } = useGetPools({
     accountAddress,
+    poolComptrollerAddress,
   });
 
   const pool = useMemo(
