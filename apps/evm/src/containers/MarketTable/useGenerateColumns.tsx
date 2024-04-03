@@ -74,7 +74,8 @@ const useGenerateColumns = ({
   columnKeys: ColumnKey[];
   collateralOnChange: (poolAsset: PoolAsset) => void;
 }) => {
-  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
+  const { corePoolComptrollerContractAddress, lidoPoolComptrollerContractAddress } =
+    useGetChainMetadata();
   const { t, Trans } = useTranslation();
   const styles = useStyles();
 
@@ -200,15 +201,33 @@ const useGenerateColumns = ({
             }
 
             if (column === 'pool') {
-              const to = areAddressesEqual(
-                corePoolComptrollerContractAddress,
-                poolAsset.pool.comptrollerAddress,
-              )
-                ? routes.corePool.path
-                : routes.isolatedPool.path.replace(
-                    ':poolComptrollerAddress',
+              const getTo = () => {
+                if (
+                  areAddressesEqual(
+                    corePoolComptrollerContractAddress,
                     poolAsset.pool.comptrollerAddress,
-                  );
+                  )
+                ) {
+                  return routes.corePool.path;
+                }
+
+                if (
+                  lidoPoolComptrollerContractAddress &&
+                  areAddressesEqual(
+                    lidoPoolComptrollerContractAddress,
+                    poolAsset.pool.comptrollerAddress,
+                  )
+                ) {
+                  return routes.lidoPool.path;
+                }
+
+                return routes.isolatedPool.path.replace(
+                  ':poolComptrollerAddress',
+                  poolAsset.pool.comptrollerAddress,
+                );
+              };
+
+              const to = getTo();
 
               return (
                 <div>
@@ -414,7 +433,15 @@ const useGenerateColumns = ({
                 },
         };
       }),
-    [corePoolComptrollerContractAddress, columnKeys, Trans, t, collateralOnChange, styles],
+    [
+      corePoolComptrollerContractAddress,
+      lidoPoolComptrollerContractAddress,
+      columnKeys,
+      Trans,
+      t,
+      collateralOnChange,
+      styles,
+    ],
   );
 
   return columns;
