@@ -1152,6 +1152,7 @@
   },
   "voteProposalUi": {
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "cancelButtonLabel": "Cancel",
     "cancelledDate": "Cancelled: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
@@ -1161,6 +1162,7 @@
     },
     "defeatedDate": "Defeated: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "description": "Description",
+    "executeButtonLabel": "Execute",
     "executedDate": "Executed: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "greenPulseAnimation": {
       "altText": "Green pulse animation"
@@ -1176,6 +1178,7 @@
       "queuedTimestamp": "Queued: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
+    "queueButtonLabel": "Queue",
     "queuedUntilDate": "Queued until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "statusCard": {
       "ariaLabelAbstain": "votes abstain",
