@@ -108,7 +108,7 @@ export const getProposalPreviews = async ({
     const variables: GetGqlProposalPreviewsInput['variables'] = {
       skip: page * limit,
       limit,
-      accountAddress,
+      accountAddress: accountAddress?.toLocaleLowerCase(),
       where,
     };
 

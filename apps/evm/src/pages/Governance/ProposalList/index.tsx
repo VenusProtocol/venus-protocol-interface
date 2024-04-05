@@ -160,7 +160,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
 
   const { data: latestProposalStateData } = useGetProposalState(
     { proposalId: latestProposalData?.proposalId || '' },
-    { enabled: !!latestProposalData?.proposalId },
+    { enabled: !!latestProposalData?.proposalId && !!+latestProposalData?.proposalId },
   );
 
   const createProposalEnabled = useIsFeatureEnabled({ name: 'createProposal' });
