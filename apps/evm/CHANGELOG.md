@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.113.2
+
+### Patch Changes
+
+- 1f85ef7: Fix CTA labels on Proposal page
+- d98a9ed: Fix link to Lido market
+
 ## 2.113.1
 
 ### Patch Changes
