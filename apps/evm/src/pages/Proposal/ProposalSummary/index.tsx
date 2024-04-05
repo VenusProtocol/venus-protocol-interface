@@ -113,7 +113,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
             data-testid={TEST_IDS.cancelButton}
             disabled={!canCancelProposal}
           >
-            {t('proposalState.canceled')}
+            {t('voteProposalUi.cancelButtonLabel')}
           </SecondaryButton>
         );
         transactionHash = createdTxHash;
@@ -129,7 +129,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
             loading={isQueueProposalLoading}
             data-testid={TEST_IDS.queueButton}
           >
-            {t('proposalState.queued')}
+            {t('voteProposalUi.queueButtonLabel')}
           </PrimaryButton>
         );
         break;
@@ -142,7 +142,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
               loading={isExecuteProposalLoading}
               data-testid={TEST_IDS.executeButton}
             >
-              {t('proposalState.executed')}
+              {t('voteProposalUi.executeButtonLabel')}
             </PrimaryButton>
           );
         }
