@@ -72,23 +72,23 @@ const Dashboard: React.FC = () => {
             tags={poolTags}
             activeTagIndex={selectedPoolTagIndex}
             onTagClick={setSelectedPoolTagIndex}
-            className="mx-[-16px] px-4 md:mx-0 md:px-0 lg:mr-6"
+            className="mx-[-16px] px-4 md:mx-0 md:px-0 lg:mr-6 grow"
           />
         )}
 
-        <div className="space-y-6 lg:flex lg:items-center lg:space-y-0 lg:space-x-6 ml-auto">
+        <div className="space-y-6 lg:flex lg:items-center lg:space-y-0 lg:space-x-6 ml-auto shrink-0">
           {pausedAssetsExist && (
             <Toggle
               onChange={() => setShouldDisplayPausedAssets(currentValue => !currentValue)}
               value={shouldDisplayPausedAssets}
               label={t('dashboard.pausedAssetsToggle.label')}
-              className="flex-shrink-0 lg:ml-auto"
+              className="lg:ml-auto"
               isLight
             />
           )}
 
           <TextField
-            className="shrink-0 lg:w-[300px]"
+            className="lg:w-[300px]"
             isSmall
             value={searchValue}
             onChange={handleSearchInputChange}
