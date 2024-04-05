@@ -32,12 +32,7 @@ type Options = QueryObserverOptions<
 >;
 
 export const useGetProposalPreviews = (
-  {
-    page: unsafePage,
-    limit: unsafeLimit,
-    proposalState,
-    search,
-  }: TrimmedGetProposalPreviewsInput = {},
+  input: TrimmedGetProposalPreviewsInput = {},
   options?: Options,
 ) => {
   const { data: getProposalMinQuorumVotesData } = useGetProposalMinQuorumVotes();
@@ -50,17 +45,18 @@ export const useGetProposalPreviews = (
   const currentBlockNumber = getBlockNumberData?.blockNumber;
 
   const { blockTimeMs } = CHAIN_METADATA[governanceChain.id];
-  const page = unsafePage ?? 0;
-  const limit = unsafeLimit ?? 10;
+
+  const sanitizedInput: TrimmedGetProposalPreviewsInput = {
+    ...input,
+    page: input.page ?? 0,
+    limit: input.limit ?? 10,
+  };
 
   return useQuery(
     [
       FunctionKey.GET_PROPOSAL_PREVIEWS,
       {
-        page,
-        limit,
-        proposalState,
-        search,
+        ...sanitizedInput,
         // We will check that the current block number exists through the enabled parameter
         chainId: governanceChain.id,
       },
@@ -71,13 +67,10 @@ export const useGetProposalPreviews = (
           currentBlockNumber,
           proposalMinQuorumVotesMantissa,
         },
-        sanitizedParams =>
+        params =>
           getProposalPreviews({
-            ...sanitizedParams,
-            page,
-            limit,
-            search,
-            proposalState,
+            ...sanitizedInput,
+            ...params,
             blockTimeMs,
             chainId: governanceChain.id,
           }),
@@ -86,12 +79,12 @@ export const useGetProposalPreviews = (
     {
       keepPreviousData: true,
       placeholderData: {
-        limit,
-        page,
+        limit: sanitizedInput.limit,
+        page: sanitizedInput.page,
         total: 0,
         proposalPreviews: [],
       },
-      refetchInterval: page === 0 ? blockTimeMs * 5 : undefined,
+      refetchInterval: sanitizedInput.page === 0 ? blockTimeMs * 5 : undefined,
       ...options,
       enabled:
         typeof currentBlockNumber === 'number' &&

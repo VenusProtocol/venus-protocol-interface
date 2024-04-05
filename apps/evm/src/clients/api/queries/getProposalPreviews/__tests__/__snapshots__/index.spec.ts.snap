@@ -275,7 +275,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
 {
   "chainId": 97,
   "variables": {
-    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "accountAddress": "0x3d759121234cd36f8124c21afe1c6852d2bed848",
     "limit": 10,
     "skip": 0,
     "where": {
@@ -289,7 +289,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
 {
   "chainId": 97,
   "variables": {
-    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "accountAddress": "0x3d759121234cd36f8124c21afe1c6852d2bed848",
     "limit": 10,
     "skip": 0,
     "where": {
@@ -303,7 +303,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
 {
   "chainId": 97,
   "variables": {
-    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "accountAddress": "0x3d759121234cd36f8124c21afe1c6852d2bed848",
     "limit": 10,
     "skip": 0,
     "where": {
@@ -317,7 +317,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
 {
   "chainId": 97,
   "variables": {
-    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "accountAddress": "0x3d759121234cd36f8124c21afe1c6852d2bed848",
     "limit": 10,
     "skip": 0,
     "where": {
@@ -346,7 +346,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
 {
   "chainId": 97,
   "variables": {
-    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "accountAddress": "0x3d759121234cd36f8124c21afe1c6852d2bed848",
     "limit": 10,
     "skip": 0,
     "where": {
@@ -365,7 +365,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
 {
   "chainId": 97,
   "variables": {
-    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "accountAddress": "0x3d759121234cd36f8124c21afe1c6852d2bed848",
     "limit": 10,
     "skip": 0,
     "where": {
@@ -382,7 +382,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
 {
   "chainId": 97,
   "variables": {
-    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "accountAddress": "0x3d759121234cd36f8124c21afe1c6852d2bed848",
     "limit": 10,
     "skip": 0,
     "where": {
@@ -399,7 +399,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
 {
   "chainId": 97,
   "variables": {
-    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "accountAddress": "0x3d759121234cd36f8124c21afe1c6852d2bed848",
     "limit": 10,
     "skip": 0,
     "where": {
@@ -413,7 +413,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
 {
   "chainId": 97,
   "variables": {
-    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "accountAddress": "0x3d759121234cd36f8124c21afe1c6852d2bed848",
     "limit": 10,
     "skip": 0,
     "where": {
