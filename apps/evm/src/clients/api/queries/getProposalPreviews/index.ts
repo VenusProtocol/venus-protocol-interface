@@ -37,7 +37,7 @@ export const getProposalPreviews = async ({
 }: GetProposalPreviewsInput): Promise<GetProposalPreviewsOutput> => {
   // Handle filtering by proposal state
   let where: Proposal_Filter | undefined;
-  const nowSeconds = new Date().getTime() * 1000;
+  const nowSeconds = Math.floor(new Date().getTime() / 1000);
 
   switch (proposalState) {
     case ProposalState.Pending:
