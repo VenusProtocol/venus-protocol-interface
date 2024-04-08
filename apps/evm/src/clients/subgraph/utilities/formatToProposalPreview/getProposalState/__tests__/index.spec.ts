@@ -14,11 +14,11 @@ const fakeParams: GetProposalStateInput = {
   canceled: false,
 };
 
-const fakeNowSeconds = 1656603774;
+const fakeNowMs = 1656603774000;
 
 describe('getProposalState', () => {
   beforeEach(() => {
-    vi.useFakeTimers().setSystemTime(new Date(fakeNowSeconds * 1000));
+    vi.useFakeTimers().setSystemTime(new Date(fakeNowMs));
   });
 
   const tests: { params: GetProposalStateInput; expectedProposalState: ProposalState }[] = [
@@ -48,7 +48,7 @@ describe('getProposalState', () => {
       params: {
         ...fakeParams,
         queued: true,
-        executionEtaTimestampSeconds: fakeNowSeconds,
+        executionEtaTimestampMs: fakeNowMs,
       },
       expectedProposalState: ProposalState.Queued,
     },
@@ -63,7 +63,8 @@ describe('getProposalState', () => {
       params: {
         ...fakeParams,
         queued: true,
-        executionEtaTimestampSeconds: fakeNowSeconds - 1,
+        executionEtaTimestampMs: fakeNowMs - 2,
+        proposalExecutionGracePeriodMs: 1,
       },
       expectedProposalState: ProposalState.Expired,
     },

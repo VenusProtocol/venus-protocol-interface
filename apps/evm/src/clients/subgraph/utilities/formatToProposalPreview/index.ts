@@ -10,12 +10,14 @@ export const formatToProposalPreview = ({
   gqlProposal,
   currentBlockNumber,
   proposalMinQuorumVotesMantissa,
+  proposalExecutionGracePeriodMs,
   blockTimeMs,
 }: {
   gqlProposal: ProposalPreviewsQuery['proposals'][number];
   currentBlockNumber: number;
   proposalMinQuorumVotesMantissa: BigNumber;
   blockTimeMs: number;
+  proposalExecutionGracePeriodMs?: number;
 }) => {
   const nowMs = new Date().getTime();
   const endDate = new Date(nowMs + (gqlProposal.endBlock - currentBlockNumber) * blockTimeMs);
@@ -28,13 +30,14 @@ export const formatToProposalPreview = ({
       startBlockNumber: gqlProposal.startBlock,
       endBlockNumber: gqlProposal.endBlock,
       proposalMinQuorumVotesMantissa,
+      proposalExecutionGracePeriodMs,
       currentBlockNumber,
       passing: gqlProposal.passing,
       queued: !!gqlProposal.queued,
       executed: !!gqlProposal.executed,
       canceled: !!gqlProposal.canceled,
       forVotesMantissa,
-      executionEtaTimestampSeconds: gqlProposal.executionEta,
+      executionEtaTimestampMs: gqlProposal.executionEta * 1000,
     }),
     againstVotesMantissa: new BigNumber(gqlProposal.againstVotes),
     forVotesMantissa,

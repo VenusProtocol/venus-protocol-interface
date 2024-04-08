@@ -12,6 +12,7 @@ export interface GetProposalPreviewsInput {
   currentBlockNumber: number;
   proposalMinQuorumVotesMantissa: BigNumber;
   blockTimeMs: number;
+  proposalExecutionGracePeriodMs?: number;
   accountAddress?: string;
   proposalState?: ProposalState;
   search?: string;
@@ -28,6 +29,7 @@ export const getProposalPreviews = async ({
   chainId,
   currentBlockNumber,
   proposalMinQuorumVotesMantissa,
+  proposalExecutionGracePeriodMs,
   blockTimeMs,
   page = 0,
   limit = 10,
@@ -37,7 +39,10 @@ export const getProposalPreviews = async ({
 }: GetProposalPreviewsInput): Promise<GetProposalPreviewsOutput> => {
   // Handle filtering by proposal state
   let where: Proposal_Filter | undefined;
-  const nowSeconds = new Date().getTime() * 1000;
+
+  const proposalExpiredTimestampSeconds = Math.floor(
+    (new Date().getTime() - (proposalExecutionGracePeriodMs ?? 0)) / 1000,
+  );
 
   switch (proposalState) {
     case ProposalState.Pending:
@@ -80,7 +85,7 @@ export const getProposalPreviews = async ({
         canceled: null,
         queued_not: null,
         executed: null,
-        executionEta_gt: nowSeconds.toString(),
+        executionEta_gte: proposalExpiredTimestampSeconds.toString(),
       };
       break;
     case ProposalState.Expired:
@@ -88,7 +93,7 @@ export const getProposalPreviews = async ({
         canceled: null,
         queued_not: null,
         executed: null,
-        executionEta_lt: nowSeconds.toString(),
+        executionEta_lt: proposalExpiredTimestampSeconds.toString(),
       };
       break;
     case ProposalState.Executed:
@@ -129,6 +134,7 @@ export const getProposalPreviews = async ({
     formatToProposalPreview({
       gqlProposal,
       proposalMinQuorumVotesMantissa,
+      proposalExecutionGracePeriodMs,
       currentBlockNumber,
       blockTimeMs,
     }),
