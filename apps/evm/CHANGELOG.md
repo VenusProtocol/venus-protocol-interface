@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 2.113.3
+
+### Patch Changes
+
+- d0be6dc: Fix calculation of execution ETA when filtering proposals
+- ca6f7c5: Design tweaks
+- 9eec9f2: Fix user vote fetching on proposals
+
 ## 2.113.2
 
 ### Patch Changes
