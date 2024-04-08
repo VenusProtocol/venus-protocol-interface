@@ -371,7 +371,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
     "where": {
       "canceled": null,
       "executed": null,
-      "executionEta_gt": "1710401645",
+      "executionEta_gte": "1709192045",
       "queued_not": null,
     },
   },
@@ -388,7 +388,7 @@ exports[`getProposalPreviews > sets "where" parameter correctly based on passed 
     "where": {
       "canceled": null,
       "executed": null,
-      "executionEta_lt": "1710401645",
+      "executionEta_lt": "1709192045",
       "queued_not": null,
     },
   },

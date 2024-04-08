@@ -11,7 +11,8 @@ export interface GetProposalStateInput {
   queued: boolean;
   executed: boolean;
   canceled: boolean;
-  executionEtaTimestampSeconds?: number;
+  executionEtaTimestampMs?: number;
+  proposalExecutionGracePeriodMs?: number;
 }
 
 export const getProposalState = ({
@@ -19,12 +20,13 @@ export const getProposalState = ({
   endBlockNumber,
   currentBlockNumber,
   proposalMinQuorumVotesMantissa,
+  proposalExecutionGracePeriodMs,
   forVotesMantissa,
   passing,
   queued,
   executed,
   canceled,
-  executionEtaTimestampSeconds,
+  executionEtaTimestampMs,
 }: GetProposalStateInput) => {
   if (startBlockNumber > currentBlockNumber) {
     return ProposalState.Pending;
@@ -39,29 +41,25 @@ export const getProposalState = ({
   }
 
   const nowMs = new Date().getTime();
+  const expiredEtaTimestampMs =
+    (executionEtaTimestampMs ?? 0) + (proposalExecutionGracePeriodMs ?? 0);
+
+  if (queued && !executed && !canceled && expiredEtaTimestampMs < nowMs) {
+    return ProposalState.Expired;
+  }
 
   if (
     queued &&
     !executed &&
     !canceled &&
-    executionEtaTimestampSeconds &&
-    executionEtaTimestampSeconds * 1000 >= nowMs
+    executionEtaTimestampMs &&
+    executionEtaTimestampMs >= nowMs
   ) {
     return ProposalState.Queued;
   }
 
   if (executed) {
     return ProposalState.Executed;
-  }
-
-  if (
-    queued &&
-    !executed &&
-    !canceled &&
-    executionEtaTimestampSeconds &&
-    executionEtaTimestampSeconds * 1000 < nowMs
-  ) {
-    return ProposalState.Expired;
   }
 
   if (

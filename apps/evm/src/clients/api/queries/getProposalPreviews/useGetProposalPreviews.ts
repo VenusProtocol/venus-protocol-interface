@@ -44,7 +44,7 @@ export const useGetProposalPreviews = (
   });
   const currentBlockNumber = getBlockNumberData?.blockNumber;
 
-  const { blockTimeMs } = CHAIN_METADATA[governanceChain.id];
+  const { blockTimeMs, proposalExecutionGracePeriodMs } = CHAIN_METADATA[governanceChain.id];
 
   const sanitizedInput: TrimmedGetProposalPreviewsInput = {
     ...input,
@@ -73,6 +73,7 @@ export const useGetProposalPreviews = (
             ...params,
             blockTimeMs,
             chainId: governanceChain.id,
+            proposalExecutionGracePeriodMs,
           }),
       );
     },

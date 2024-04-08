@@ -28,6 +28,7 @@ export interface ChainMetadata {
   layerZeroScanUrl: string;
   corePoolComptrollerContractAddress: string;
   lidoPoolComptrollerContractAddress?: string;
+  proposalExecutionGracePeriodMs?: number;
 }
 
 export interface Token {
