@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.114.0
+
+### Minor Changes
+
+- 8d42b50: Add support for weETH token on Sepolia and Ethereum
+
+### Patch Changes
+
+- 42861c5: Fix pool tag selection on Dashboard page
+
 ## 2.113.3
 
 ### Patch Changes
