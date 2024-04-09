@@ -54,12 +54,12 @@ const Dashboard: React.FC = () => {
           content: t('dashboard.allTag'),
         },
       ].concat(
-        formattedPools.map(pool => ({
+        pools.map(pool => ({
           id: pool.comptrollerAddress,
           content: pool.name,
         })),
       ),
-    [formattedPools, t],
+    [pools, t],
   );
 
   return (
