@@ -1,7 +1,7 @@
 import { Card } from 'components';
 import { cn } from 'utilities';
 
-import type { Stat } from '../types';
+import type { Stat } from '../../types';
 
 export interface Legend {
   label: string;

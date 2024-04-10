@@ -1,11 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { useParams } from 'react-router-dom';
 
-import Market from '..';
-import MarketLoader from '../MarketLoader';
+import MarketLoader from 'containers/MarketLoader';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { Market } from '../Market';
+import MarketOld from '../MarketOld';
 
 const IsolatedPoolMarket: React.FC = () => {
   const { vTokenAddress, poolComptrollerAddress } = useParams();
+  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
 
   return (
     <MarketLoader
@@ -13,7 +16,9 @@ const IsolatedPoolMarket: React.FC = () => {
       vTokenAddress={vTokenAddress}
       isIsolatedPoolMarket
     >
-      {marketProps => <Market {...marketProps} />}
+      {marketProps =>
+        isNewMarketPageEnabled ? <Market {...marketProps} /> : <MarketOld {...marketProps} />
+      }
     </MarketLoader>
   );
 };
