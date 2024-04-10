@@ -178,15 +178,15 @@ export const Breadcrumbs: React.FC = () => {
                 {pathNode.dom}
               </Link>
 
-              <span className="text-grey mx-3">/</span>
+              <span className="text-grey mx-2">/</span>
             </>
           ) : (
-            pathNode.dom
+            <span className="font-bold">{pathNode.dom}</span>
           )}
         </span>
       )),
     [pathNodes],
   );
 
-  return <p className="flex flex-wrap items-center text-xl">{pathNodeDom}</p>;
+  return <p className="flex flex-wrap items-center text-md">{pathNodeDom}</p>;
 };
