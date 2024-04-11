@@ -3,9 +3,12 @@ import { cn } from 'utilities';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
 import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 export const Header: React.FC = () => {
   const currentRoutePath = useGetCurrentRoutePath();
+
+  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
   const isOnMarketPage =
     currentRoutePath === routes.corePoolMarket.path ||
     currentRoutePath === routes.lidoPoolMarket.path ||
@@ -17,12 +20,14 @@ export const Header: React.FC = () => {
       // TODO: animate gradient on mount
       className={cn(
         'transition-all duration-500',
-        isOnMarketPage && 'bg-gradient-to-b from-[rgba(42,90,218,0.30)] to-transparent',
+        isNewMarketPageEnabled &&
+          isOnMarketPage &&
+          'bg-gradient-to-b from-[rgba(42,90,218,0.30)] to-transparent',
       )}
     >
       <TopBar />
 
-      {isOnMarketPage && <MarketInfo />}
+      {isNewMarketPageEnabled && isOnMarketPage && <MarketInfo />}
     </header>
   );
 };

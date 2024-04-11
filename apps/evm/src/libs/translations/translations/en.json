@@ -368,6 +368,13 @@
         "name": "{{stakedTokenSymbol}} vesting vault"
       }
     },
+    "header": {
+      "isolated": "Isolated",
+      "liquidity": "Liquidity",
+      "price": "Price",
+      "reserves": "Reserves",
+      "utilizationRate": "Utilization rate"
+    },
     "menu": {
       "navLink": {
         "new": "NEW"
@@ -407,9 +414,6 @@
         "totalBorrow": "Total borrow"
       },
       "title": "Borrow info"
-    },
-    "header": {
-      "isolated": "Isolated"
     },
     "interestRateModel": {
       "title": "Interest Rate Model"
