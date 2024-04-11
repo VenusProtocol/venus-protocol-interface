@@ -1,5 +1,5 @@
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
-import ConnectButton from 'containers/Layout/ConnectButton';
+import { ConnectButton } from 'containers/Layout/ConnectButton';
 import { ChainSelect } from '../ChainSelect';
 
 export const MdUpControls: React.FC = () => (

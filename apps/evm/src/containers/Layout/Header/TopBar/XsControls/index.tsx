@@ -9,7 +9,7 @@ import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
-import ConnectButton from 'containers/Layout/ConnectButton';
+import { ConnectButton } from 'containers/Layout/ConnectButton';
 import useGetMenuItems from 'containers/Layout/useGetMenuItems';
 import { ChainSelect } from '../ChainSelect';
 import { NavLink } from './NavLink';
@@ -36,13 +36,8 @@ export const XsControls: React.FC = () => {
   };
 
   return (
-    <div className="md:hidden">
-      <div
-        className={cn(
-          'flex h-14 items-center pr-4 md:h-auto',
-          isMobileMenuOpened && 'bg-background',
-        )}
-      >
+    <div className={cn('md:hidden', isMobileMenuOpened && 'bg-background')}>
+      <div className="flex h-14 items-center pr-4 md:h-auto relative">
         <Link
           className="mr-5 flex h-full flex-none items-center justify-center pl-4"
           to={routes.dashboard.path}
