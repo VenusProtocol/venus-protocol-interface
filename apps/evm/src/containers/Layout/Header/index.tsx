@@ -1,22 +1,28 @@
-import { Breadcrumbs } from '../Breadcrumbs';
-import { ChainSelect } from '../ChainSelect';
-import ClaimRewardButton from '../ClaimRewardButton';
-import ConnectButton from '../ConnectButton';
+import { routes } from 'constants/routing';
+import { cn } from 'utilities';
+import { MarketInfo } from './MarketInfo';
+import { TopBar } from './TopBar';
+import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
 
 export const Header: React.FC = () => {
+  const currentRoutePath = useGetCurrentRoutePath();
+  const isOnMarketPage =
+    currentRoutePath === routes.corePoolMarket.path ||
+    currentRoutePath === routes.lidoPoolMarket.path ||
+    currentRoutePath === routes.isolatedPoolMarket.path;
+
   return (
-    <div className="px-4 pb-4 pt-6 md:flex md:justify-between md:px-6 md:py-8 xl:px-10">
-      <div className="flex flex-1 items-center">
-        <Breadcrumbs />
-      </div>
+    <header
+      // TODO: get accent color dynamically for each asset
+      // TODO: animate gradient on mount
+      className={cn(
+        'transition-all duration-500',
+        isOnMarketPage && 'bg-gradient-to-b from-[rgba(42,90,218,0.30)] to-transparent',
+      )}
+    >
+      <TopBar />
 
-      <div className="hidden md:flex md:h-12 md:items-center md:space-x-4 md:pl-6">
-        <ClaimRewardButton className="flex-none md:whitespace-nowrap" />
-
-        <ChainSelect />
-
-        <ConnectButton className="flex-none" />
-      </div>
-    </div>
+      {isOnMarketPage && <MarketInfo />}
+    </header>
   );
 };

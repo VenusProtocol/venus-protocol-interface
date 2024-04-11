@@ -7,7 +7,6 @@ import { Subdirectory, routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'libs/translations';
-
 import PoolName from './PoolName';
 import VTokenSymbol from './VTokenSymbol';
 
@@ -188,5 +187,5 @@ export const Breadcrumbs: React.FC = () => {
     [pathNodes],
   );
 
-  return <p className="flex flex-wrap items-center text-md">{pathNodeDom}</p>;
+  return <span className="flex flex-wrap items-center">{pathNodeDom}</span>;
 };

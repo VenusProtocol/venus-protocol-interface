@@ -1,3 +1,4 @@
+import { Pill } from 'components';
 import { useTranslation } from 'libs/translations';
 
 interface PrimeTokensLeftProps {
@@ -6,8 +7,9 @@ interface PrimeTokensLeftProps {
 
 const PrimeTokensLeft = ({ tokensLeft }: PrimeTokensLeftProps) => {
   const { Trans } = useTranslation();
+
   return (
-    <div className="border-yellow text-yellow flex flex-row rounded-full border bg-[#2E2C2A] px-3 py-1 text-xs font-semibold uppercase lining-nums proportional-nums leading-[15px] tracking-[0.5px] [font-variant:all-small-caps]">
+    <Pill>
       <p>
         <Trans
           i18nKey="primeStatusBanner.tokensLeft"
@@ -19,7 +21,7 @@ const PrimeTokensLeft = ({ tokensLeft }: PrimeTokensLeftProps) => {
           }}
         />
       </p>
-    </div>
+    </Pill>
   );
 };
 

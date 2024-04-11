@@ -46,3 +46,5 @@ export * from './SpendingLimit';
 export * from './MarkdownEditor';
 export * from './MarkdownViewer';
 export * from './ErrorState';
+export * from './Pill';
+export * from './AddTokenToWalletButton';

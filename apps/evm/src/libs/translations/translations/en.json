@@ -408,6 +408,9 @@
       },
       "title": "Borrow info"
     },
+    "header": {
+      "isolated": "Isolated"
+    },
     "interestRateModel": {
       "title": "Interest Rate Model"
     },
