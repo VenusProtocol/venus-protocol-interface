@@ -20,10 +20,10 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
+import TEST_IDS from '../testIds';
 import { MarketCard, type MarketCardProps } from './MarketCard';
 import { MarketHistory } from './MarketHistory';
 import MarketInfo, { type MarketInfoProps } from './MarketInfo';
-import TEST_IDS from './testIds';
 
 export interface MarketUiProps {
   interestRateChartData: InterestRateChartProps['data'];

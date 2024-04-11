@@ -2,8 +2,8 @@
 import { LabeledInlineContent } from 'components';
 import { useTranslation } from 'libs/translations';
 
+import type { Stat } from '../../types';
 import { MarketCard } from '../MarketCard';
-import type { Stat } from '../types';
 import { useStyles } from './styles';
 
 export interface MarketInfoProps {
