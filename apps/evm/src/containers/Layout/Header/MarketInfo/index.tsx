@@ -68,7 +68,7 @@ export const MarketInfo = () => {
     poolComptrollerAddress,
   ]);
 
-  // TODO: improve loading state (currently partially hides content)
+  // TODO: improve loading state (currently partially hides content while loading)
 
   return (
     <div className="pt-4 pb-12 md:pb-10 border-b-lightGrey border-b">

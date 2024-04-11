@@ -1,8 +1,5 @@
-/** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
-
 import { InfoIcon } from '../InfoIcon';
-import { useStyles } from './styles';
+import { cn } from 'utilities';
 
 export interface Cell {
   label: string;
@@ -13,36 +10,51 @@ export interface Cell {
 
 export interface CellGroupProps {
   cells: Cell[];
+  naked?: boolean;
   smallValues?: boolean;
   className?: string;
 }
 
 export const CellGroup: React.FC<CellGroupProps> = ({
   cells,
+  naked = false,
   smallValues = false,
+  className,
   ...containerProps
-}) => {
-  const styles = useStyles();
+}) => (
+  <div
+    className={cn(
+      'grid grid-cols-1 gap-2 bg-transparent p-0 sm:grid-cols-2 xl:flex xl:flex-wrap xl:bg-cards xl:p-6 xl:rounded-2xl xl:gap-x-0',
+      className,
+    )}
+    {...containerProps}
+  >
+    {cells.map(({ label, value, tooltip, color }) => (
+      <div
+        className="flex flex-col justify-center rounded-2xl p-4 bg-cards xl: xl:bg-transparent xl:p-0 xl:rounded-none xl:pr-6 xl:pl-6 xl:first-of-type:pl-0 xl:last-of-type:pr-0 xl:border-r xl:last-of-type:border-r-0 xl:border-lightGrey"
+        key={`cell-group-item-${label}`}
+      >
+        <div className="flex items-center mb-1">
+          <span className={cn('text-grey', smallValues && 'text-sm')}>{label}</span>
 
-  return (
-    <Paper css={styles.container} {...containerProps}>
-      {cells.map(({ label, value, tooltip, color }) => (
-        <div css={styles.cell} key={`cell-group-item-${label}`}>
-          <div css={styles.labelContainer}>
-            <Typography variant={smallValues ? 'small2' : 'body2'} css={styles.label}>
-              {label}
-            </Typography>
-
-            {!!tooltip && <InfoIcon tooltip={tooltip} css={styles.labelInfoIcon} />}
-          </div>
-
-          <Typography variant={smallValues ? 'h4' : 'h3'} css={styles.getValue({ color })}>
-            {value}
-          </Typography>
+          {!!tooltip && <InfoIcon tooltip={tooltip} className="ml-2" />}
         </div>
-      ))}
-    </Paper>
-  );
-};
+
+        <p
+          className={cn(smallValues ? 'text-lg' : 'text-xl')}
+          style={
+            color
+              ? {
+                  color,
+                }
+              : undefined
+          }
+        >
+          {value}
+        </p>
+      </div>
+    ))}
+  </div>
+);
 
 export default CellGroup;
