@@ -1,13 +1,11 @@
-import BigNumber from 'bignumber.js';
 import type Vi from 'vitest';
 
 import fakeProvider from '__mocks__/models/provider';
 import tokens, { xvs } from '__mocks__/models/tokens';
 
-import { getTokenBalances } from 'clients/api';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { getIsolatedPoolComptrollerContract, getRewardsDistributorContract } from 'libs/contracts';
-import { ChainId, type Token } from 'types';
+import { ChainId } from 'types';
 
 import getIsolatedPools from '..';
 import {
@@ -23,14 +21,6 @@ vi.mock('libs/contracts');
 
 describe('getIsolatedPools', () => {
   beforeEach(() => {
-    (getTokenBalances as Vi.Mock).mockImplementation(
-      ({ tokens: requestedTokens }: { tokens: Token[] }) =>
-        requestedTokens.map(token => ({
-          token,
-          balanceMantissa: new BigNumber('10000000000000000000'),
-        })),
-    );
-
     (getIsolatedPoolComptrollerContract as Vi.Mock).mockImplementation(
       () => fakeIsolatedPoolComptrollerContract,
     );

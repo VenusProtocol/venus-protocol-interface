@@ -14,7 +14,9 @@ import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
 import { proposalPreviews } from '__mocks__/models/proposalPreviews';
+import type { Token } from 'types';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
+import type { GetTokenBalancesInput } from '../queries/getTokenBalances';
 
 // Queries
 export const getIsAddressAuthorized = vi.fn(async accountAddress => fakeAddress !== accountAddress);
@@ -82,8 +84,16 @@ export const useGetBalanceOf = vi.fn((input: Omit<GetBalanceOfInput, 'signer'>) 
   ),
 );
 
-export const getTokenBalances = vi.fn();
-export const useGetTokenBalances = () => useQuery(FunctionKey.GET_TOKEN_BALANCES, getTokenBalances);
+export const getTokenBalances = vi.fn(async ({ tokens }: { tokens: Token[] }) => ({
+  tokenBalances: tokens.map(token => ({
+    token,
+    balanceMantissa: new BigNumber('10000000000000000000'),
+  })),
+}));
+
+export const useGetTokenBalances = vi.fn((input: GetTokenBalancesInput) =>
+  useQuery(FunctionKey.GET_TOKEN_BALANCES, () => getTokenBalances(input)),
+);
 
 export const getProposalMinQuorumVotes = vi.fn();
 export const useGetProposalMinQuorumVotes = () =>
@@ -132,8 +142,6 @@ export const useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade = () =>
     FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE,
     getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
   );
-
-export const useGetIsolatedPoolsTreasuryTotals = vi.fn();
 
 export const useGetLegacyPoolTotalXvsDistributed = vi.fn();
 

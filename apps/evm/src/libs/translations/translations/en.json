@@ -400,7 +400,6 @@
     "previewTabLabel": "Preview"
   },
   "market": {
-    "availableLiquidity": "Available Liquidity",
     "borrowButtonLabel": "Borrow",
     "borrowInfo": {
       "stats": {
@@ -446,10 +445,7 @@
         "totalSupply": "Total supply"
       },
       "title": "Supply info"
-    },
-    "totalBorrow": "Total Borrow",
-    "totalSupply": "Total Supply",
-    "totalTreasury": "Total Treasury"
+    }
   },
   "markets": {
     "errors": {
@@ -625,12 +621,6 @@
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
   "pool": {
-    "header": {
-      "assetsLabel": "Assets",
-      "availableLiquidityLabel": "Available Liquidity",
-      "totalBorrowLabel": "Total Borrow",
-      "totalSupplyLabel": "Total Supply"
-    },
     "poolWarning": "Supplying tokens to the {{poolName}} pool will increase your borrow limit for this pool only, effectively enabling you to borrow tokens from this pool only."
   },
   "pools": {
@@ -642,6 +632,15 @@
         "totalBorrow": "Total borrow",
         "totalSupply": "Total supply"
       }
+    }
+  },
+  "poolsStats": {
+    "cell": {
+      "assetsLabel": "Assets",
+      "availableLiquidityLabel": "Available liquidity",
+      "totalBorrowLabel": "Total borrow",
+      "totalSupplyLabel": "Total supply",
+      "treasuryLabel": "Treasury"
     }
   },
   "PrimeButton": {
