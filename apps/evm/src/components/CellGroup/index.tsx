@@ -1,5 +1,5 @@
-import { InfoIcon } from '../InfoIcon';
 import { cn } from 'utilities';
+import { InfoIcon } from '../InfoIcon';
 
 export interface Cell {
   label: string;

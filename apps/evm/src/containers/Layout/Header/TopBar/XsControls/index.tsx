@@ -11,9 +11,9 @@ import { cn } from 'utilities';
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import useGetMenuItems from 'containers/Layout/useGetMenuItems';
+import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
 import { ChainSelect } from '../ChainSelect';
 import { NavLink } from './NavLink';
-import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
 
 export const XsControls: React.FC = () => {
   const { t } = useTranslation();

@@ -5,8 +5,8 @@ import {
   CellGroup,
   Icon,
   Pill,
-  TokenIcon,
   Spinner,
+  TokenIcon,
 } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
@@ -102,7 +102,7 @@ export const MarketInfo = () => {
       },
       {
         label: t('layout.header.utilizationRate'),
-        value: formatPercentageToReadableValue(10), // TODO: fetch
+        value: formatPercentageToReadableValue(10), // TODO: fetch (see VEN-2545)
       },
     ];
   }, [asset, t]);

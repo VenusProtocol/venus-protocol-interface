@@ -2,8 +2,8 @@ import { matchRoutes } from 'react-router';
 import type Vi from 'vitest';
 
 import { routes } from 'constants/routing';
-import { useGetCurrentRoutePath } from '..';
 import { renderHook } from 'testUtils/render';
+import { useGetCurrentRoutePath } from '..';
 
 vi.mock('react-router');
 

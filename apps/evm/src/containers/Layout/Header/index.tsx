@@ -1,9 +1,9 @@
 import { routes } from 'constants/routing';
+import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { cn } from 'utilities';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
-import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 export const Header: React.FC = () => {
   const currentRoutePath = useGetCurrentRoutePath();
@@ -16,8 +16,7 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      // TODO: get accent color dynamically for each asset
-      // TODO: animate gradient on mount
+      // TODO: get accent color dynamically for each asset (see VEN-2545)
       className={cn(
         'transition-all duration-500',
         isNewMarketPageEnabled &&

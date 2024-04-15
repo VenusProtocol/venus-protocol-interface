@@ -1,6 +1,6 @@
-import { matchRoutes, useLocation } from 'react-router';
 import { routes } from 'constants/routing';
 import { useMemo } from 'react';
+import { matchRoutes, useLocation } from 'react-router';
 
 const formattedRoutes = Object.values(routes).map(route => ({ path: route.path }));
 
