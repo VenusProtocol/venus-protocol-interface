@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PoolStats > only displays the requested stats 1`] = `"Assets8Total supply$41.98TTreasury$40.00T"`;
+
+exports[`PoolStats > renders stats correctly 1`] = `"Total supply$41.98TTotal borrow$17.17TAvailable liquidity$24.80TTreasury$40.00TAssets8"`;

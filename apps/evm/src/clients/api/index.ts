@@ -204,8 +204,6 @@ export { default as useGetPools } from './queries/useGetPools';
 
 export { default as useGetPool } from './queries/useGetPool';
 
-export { default as useGetIsolatedPoolsTreasuryTotals } from './queries/useGetIsolatedPoolsTreasuryTotals';
-
 export { default as getIsolatedPools } from './queries/getIsolatedPools';
 export * from './queries/getIsolatedPools';
 export { default as useGetIsolatedPools } from './queries/getIsolatedPools/useGetIsolatedPools';

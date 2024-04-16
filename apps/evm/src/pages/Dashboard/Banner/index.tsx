@@ -1,14 +1,12 @@
 import { useGetPrimeToken } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useAccountAddress, useAuthModal } from 'libs/wallet';
+import { useAccountAddress } from 'libs/wallet';
 
-import { ConnectWalletBanner } from './ConnectWalletBanner';
 import { PrimePromotionalBanner } from './PrimePromotionalBanner';
 import { store } from './store';
 
 export const Banner: React.FC = () => {
   const { accountAddress } = useAccountAddress();
-  const { openAuthModal } = useAuthModal();
 
   const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
     accountAddress,
@@ -29,10 +27,6 @@ export const Banner: React.FC = () => {
     ((!isAccountPrime && !isGetPrimeTokenLoading) || !accountAddress)
   ) {
     return <PrimePromotionalBanner onHide={hidePrimePromotionalBanner} />;
-  }
-
-  if (!accountAddress && !isGetPrimeTokenLoading) {
-    return <ConnectWalletBanner openAuthModal={openAuthModal} />;
   }
 
   return null;

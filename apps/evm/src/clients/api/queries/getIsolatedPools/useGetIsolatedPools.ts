@@ -48,7 +48,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
+const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();

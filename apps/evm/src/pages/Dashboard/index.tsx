@@ -7,6 +7,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { isAssetPaused } from 'utilities';
 
+import { PoolStats } from 'containers/PoolStats';
 import { Banner } from './Banner';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
@@ -65,6 +66,12 @@ const Dashboard: React.FC = () => {
   return (
     <>
       <Banner />
+
+      <PoolStats
+        pools={pools}
+        className="mb-6 sm:mb-8 xxl:mb-10"
+        stats={['supply', 'borrow', 'liquidity', 'treasury', 'assetCount']}
+      />
 
       <div className="mb-6 space-y-6 lg:flex lg:items-center lg:justify-between lg:space-x-6 lg:space-y-0">
         {pools.length > 0 && (

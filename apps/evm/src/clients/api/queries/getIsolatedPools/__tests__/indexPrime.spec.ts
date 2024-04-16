@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
 import type Vi from 'vitest';
 
@@ -7,7 +6,6 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import tokens, { xvs } from '__mocks__/models/tokens';
 
-import { getTokenBalances } from 'clients/api';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
@@ -15,7 +13,7 @@ import {
   getIsolatedPoolComptrollerContract,
   getRewardsDistributorContract,
 } from 'libs/contracts';
-import { ChainId, type Token } from 'types';
+import { ChainId } from 'types';
 
 import getIsolatedPools from '..';
 import {
@@ -33,14 +31,6 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'prime',
-    );
-
-    (getTokenBalances as Vi.Mock).mockImplementation(
-      ({ tokens: requestedTokens }: { tokens: Token[] }) =>
-        requestedTokens.map(token => ({
-          token,
-          balanceMantissa: new BigNumber('10000000000000000000'),
-        })),
     );
 
     (getIsolatedPoolComptrollerContract as Vi.Mock).mockImplementation(

@@ -44,15 +44,15 @@ describe('Banner - Feature flag enabled: prime', () => {
     expect(getByText(en.dashboard.primePromotionalBanner.description));
   });
 
-  it('renders Connect Wallet banner when user is not Connected and has closed the Prime promotional banner before', () => {
+  it('renders nothing when user is not Connected and has closed the Prime promotional banner before', () => {
     // Update store to simulate Prime promotional banner having been closed before
     store.setState({
       shouldShowBanner: false,
     });
 
-    const { getByText } = renderComponent(<Banner />);
+    const { baseElement } = renderComponent(<Banner />);
 
-    expect(getByText(en.dashboard.connectWalletBanner.description));
+    expect(baseElement.textContent).toEqual('');
   });
 
   it('renders nothing when connected user is Prime', () => {
