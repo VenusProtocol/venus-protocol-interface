@@ -7149,24 +7149,10 @@
     hardhat-deploy-ethers "^0.3.0-beta.13"
     module-alias "^2.2.2"
 
-"@venusprotocol/isolated-pools@^2.3.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.5.0.tgz#07378ca388bdb843b91bb51e453e47159945cfa2"
-  integrity sha512-F+p6/mgnYSa+1KqwBmlYiVebWCPn/nvEvozj91tokGkCOsZ6XUc+YUunvW5Pfz13GMcT/akmjgXPZI+Gb4ONpg==
-  dependencies:
-    "@nomiclabs/hardhat-ethers" "^2.2.3"
-    "@openzeppelin/contracts" "^4.8.3"
-    "@openzeppelin/contracts-upgradeable" "^4.8.3"
-    "@openzeppelin/hardhat-upgrades" "^1.21.0"
-    "@solidity-parser/parser" "^0.13.2"
-    ethers "^5.7.0"
-    hardhat-deploy "^0.11.14"
-    module-alias "^2.2.2"
-
-"@venusprotocol/isolated-pools@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.7.0.tgz#18ac94070ec67911093eda4a9ebddfb455834c2e"
-  integrity sha512-nzQuOJc7ZACc44HyKp+DRejjYaJeEYKPSJ26yUOcOTI0EYcYyj4uHBxfBkU0jwP2WTGvDwsLf8J5Y6J9doR10w==
+"@venusprotocol/isolated-pools@^2.3.0", "@venusprotocol/isolated-pools@^2.7.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.8.0.tgz#768a0b9e16c41fec36d18b49682cb97c8a4e29c1"
+  integrity sha512-Yza8HvvjSGjN+Ts6zhoHzoaG4J94PwEsiDsMUG9ygfRGpZJgPn+qSddt5Pu+6Nj5djFGMC+GIWs8oUrhw9cAIg==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
