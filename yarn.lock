@@ -1290,12 +1290,12 @@
     "@web3-react/types" "^6.0.7"
     tiny-warning "^1.0.3"
 
-"@binance/w3w-core@1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-core/-/w3w-core-1.1.4.tgz#32121111a9ccb7423dfb7b5b41cfa2245b151bf7"
-  integrity sha512-ze5lRMlrp+0YnDdFGc2wmvJl6NnsGjCzVjYtOThzggBzJf9K0iMEdZ6s1+LRhOfjZToCTFqe+/hVX1laDyNEaQ==
+"@binance/w3w-core@1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-core/-/w3w-core-1.1.5.tgz#08f2072658ff9eecce7612f2d7f1ccee52789ece"
+  integrity sha512-yAnPTvdnOqXXUfBvDRi2V7fRKzgM/456g76emie0wwik25yT4gQElyBGOJJK4zdDfTrAV+7lV+AquHy/tUCXLQ==
   dependencies:
-    "@binance/w3w-qrcode-modal" "1.1.4"
+    "@binance/w3w-qrcode-modal" "1.1.5"
     "@binance/w3w-socket-transport" "1.1.4"
     "@binance/w3w-types" "1.1.4"
     "@binance/w3w-utils" "1.1.4"
@@ -1303,13 +1303,13 @@
     axios "^1.3.5"
     js-base64 "^3.7.5"
 
-"@binance/w3w-ethereum-provider@1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-ethereum-provider/-/w3w-ethereum-provider-1.1.4.tgz#5e4ad050a6f426f54c04d7733ad6f44887eac7b9"
-  integrity sha512-pxIaC39J36Z0Ye3rIsdPgGLC4tqtZ4wfq9f75kn5VoU37quFtAHLNPrKSNzdeAKMo0OEfTIJVSC6ZUqU3O0krg==
+"@binance/w3w-ethereum-provider@1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-ethereum-provider/-/w3w-ethereum-provider-1.1.5.tgz#1907868951ea7ae14007635a871069d4579f3ef8"
+  integrity sha512-sSPX+eD04sYzCoJ9dvczYx7rgFzDpm0dLIu+u/6zHVDxzzTZ1SNU9oTTyckJU9wGK6H+gktrBOkiBKpXi+lLaA==
   dependencies:
     "@binance/w3w-http-client" "1.1.4"
-    "@binance/w3w-sign-client" "1.1.4"
+    "@binance/w3w-sign-client" "1.1.5"
     "@binance/w3w-types" "1.1.4"
     "@binance/w3w-utils" "1.1.4"
     eip1193-provider "^1.0.1"
@@ -1325,10 +1325,10 @@
     cross-fetch "^3.1.5"
     eventemitter3 "^5.0.0"
 
-"@binance/w3w-qrcode-modal@1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-qrcode-modal/-/w3w-qrcode-modal-1.1.4.tgz#7b345f89a2d627b0ea0812129ed107465d015c15"
-  integrity sha512-72lVPuvNozyF8Nr8/YX+0omRnYitKRbSz35Zr8Zqhno+fYzXdTwolMaZcgVFTCp8+mieMd7QgvGA2jx1GHcP0w==
+"@binance/w3w-qrcode-modal@1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-qrcode-modal/-/w3w-qrcode-modal-1.1.5.tgz#e330035a20c58965a784af5eb19225aad8266b54"
+  integrity sha512-SFwA9PeCAlPBjfgLf9chLoia3D5pWpDjDZOZ6wD3G3Xspd4XKrtQl4UvFpAm6hkrgw6fShtI2zis9PQYAxQjiA==
   dependencies:
     "@binance/w3w-types" "1.1.4"
     "@binance/w3w-utils" "1.1.4"
@@ -1338,12 +1338,12 @@
     react-dom "18.2.0"
     tailwindcss "^3.3.1"
 
-"@binance/w3w-sign-client@1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-sign-client/-/w3w-sign-client-1.1.4.tgz#d3d627a598a0a5e3a234a125944162a503881b62"
-  integrity sha512-9Qb/iWZZku/WZUhJmSfEoZoG7xmFU9FunAHRDXWeFtJvgsmdmpPHZzJGZdoBeHzeRUZxt+LlwswdXg1n9OPIfQ==
+"@binance/w3w-sign-client@1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-sign-client/-/w3w-sign-client-1.1.5.tgz#3bf06ec9ae89fe603417f782daeefd48518a3958"
+  integrity sha512-1gJ3mAlNnTzba/Orz2gmzIlgXIvL3LAMXUwZjQtgwh+VoRd7Or3PLxljY/6H7DPZ6azEcItug1Zmel4xFAFccQ==
   dependencies:
-    "@binance/w3w-core" "1.1.4"
+    "@binance/w3w-core" "1.1.5"
     "@binance/w3w-types" "1.1.4"
     "@binance/w3w-utils" "1.1.4"
 
@@ -1374,11 +1374,11 @@
     js-base64 "^3.7.5"
 
 "@binance/w3w-wagmi-connector@^1.1.0-alpha.0":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-wagmi-connector/-/w3w-wagmi-connector-1.1.4.tgz#8721ec0978a397231c9845d7669e01064a542ed0"
-  integrity sha512-wMC6XjRU1IRb/CYWcaM0KbIhdzHBhx9ArrhZUkg2G11K1jwYgM0WdwSdOauRHHotIP958tFfimmwL+pmn2LQdA==
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-wagmi-connector/-/w3w-wagmi-connector-1.1.5.tgz#381b95e40f13061fa7be0cd68a35e8b7f8af9a5e"
+  integrity sha512-L+QIM17ZCa7m5CQPgBzkneeV2bfyWHZi4PPqrBA8RdGe+igXyySMg9CHum20wWEQ3wkK9cgAsWSKHnvlWpvrzw==
   dependencies:
-    "@binance/w3w-ethereum-provider" "1.1.4"
+    "@binance/w3w-ethereum-provider" "1.1.5"
     "@binance/w3w-utils" "1.1.4"
 
 "@biomejs/biome@1.6.4":
