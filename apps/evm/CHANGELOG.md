@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.115.0
+
+### Minor Changes
+
+- 72eaf87: Add network statistics to Dashboard
+- 00811fd: Add basic structure for new market page
+
+### Patch Changes
+
+- e9761fa: Fix stats on Isolated Pools page
+
 ## 2.114.0
 
 ### Minor Changes
