@@ -189,7 +189,7 @@ export const tokens: Token[] = [
     asset: ankrLogo,
   },
   {
-    address: '0x167F1F9EF531b3576201aa3146b13c57dbEda514',
+    address: '0x5269b7558D3d5E113010Ef1cFF0901c367849CC9',
     decimals: 18,
     symbol: 'ankrBNB',
     asset: ankrBNBLogo,
@@ -274,7 +274,7 @@ export const tokens: Token[] = [
     asset: wooLogo,
   },
   {
-    address: '0xf9F98365566F4D55234f24b99caA1AfBE6428D44',
+    address: '0x9c37E59Ba22c4320547F00D4f1857AF1abd1Dd6f',
     decimals: 18,
     symbol: 'WBETH',
     asset: wbethLogo,
