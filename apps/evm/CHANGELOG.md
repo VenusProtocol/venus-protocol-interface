@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.116.0
+
+### Minor Changes
+
+- 2a43475: Add query function to fetch utilization rate of a vToken
+- 9e5142b: Update header to support new Market page
+
+### Patch Changes
+
+- c09ce8e: Rename StakedEth pool to Staked ETH
+
 ## 2.115.0
 
 ### Minor Changes
