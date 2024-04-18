@@ -23,7 +23,7 @@ export const XsControls: React.FC = () => {
   const currentRoutePath = useGetCurrentRoutePath();
   const isOnMarketPage =
     currentRoutePath === routes.corePoolMarket.path ||
-    currentRoutePath === routes.lidoPoolMarket.path ||
+    currentRoutePath === routes.stakedEthPoolMarket.path ||
     currentRoutePath === routes.isolatedPoolMarket.path;
 
   const toggleMobileMenu = () => {

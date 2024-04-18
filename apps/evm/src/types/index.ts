@@ -27,7 +27,7 @@ export interface ChainMetadata {
   nativeToken: Token;
   layerZeroScanUrl: string;
   corePoolComptrollerContractAddress: string;
-  lidoPoolComptrollerContractAddress?: string;
+  stakedEthPoolComptrollerContractAddress?: string;
   proposalExecutionGracePeriodMs?: number;
 }
 

@@ -75,8 +75,8 @@ export const Breadcrumbs: React.FC = () => {
         case Subdirectory.CORE_POOL:
           dom = t('breadcrumbs.corePool');
           break;
-        case Subdirectory.LIDO_POOL:
-          dom = t('breadcrumbs.lidoPool');
+        case Subdirectory.STAKED_ETH_POOL:
+          dom = t('breadcrumbs.stakedEthPool');
           break;
         case Subdirectory.MARKET: {
           hrefFragment = Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress || '');

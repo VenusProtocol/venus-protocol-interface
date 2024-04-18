@@ -43,7 +43,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const styles = useStyles();
 
   const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
-  const { corePoolComptrollerContractAddress, lidoPoolComptrollerContractAddress } =
+  const { corePoolComptrollerContractAddress, stakedEthPoolComptrollerContractAddress } =
     useGetChainMetadata();
   const { OperationModal, openOperationModal } = useOperationModal();
   const { toggleCollateral } = useCollateral();
@@ -117,10 +117,10 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       }
 
       if (
-        lidoPoolComptrollerContractAddress &&
-        areAddressesEqual(row.pool.comptrollerAddress, lidoPoolComptrollerContractAddress)
+        stakedEthPoolComptrollerContractAddress &&
+        areAddressesEqual(row.pool.comptrollerAddress, stakedEthPoolComptrollerContractAddress)
       ) {
-        return routes.lidoPoolMarket.path.replace(':vTokenAddress', row.vToken.address);
+        return routes.stakedEthPoolMarket.path.replace(':vTokenAddress', row.vToken.address);
       }
 
       return routes.isolatedPoolMarket.path
@@ -129,8 +129,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     },
     [
       corePoolComptrollerContractAddress,
-      lidoPoolComptrollerContractAddress,
-      lidoPoolComptrollerContractAddress,
+      stakedEthPoolComptrollerContractAddress,
+      stakedEthPoolComptrollerContractAddress,
     ],
   );
 

@@ -74,7 +74,7 @@ const useGenerateColumns = ({
   columnKeys: ColumnKey[];
   collateralOnChange: (poolAsset: PoolAsset) => void;
 }) => {
-  const { corePoolComptrollerContractAddress, lidoPoolComptrollerContractAddress } =
+  const { corePoolComptrollerContractAddress, stakedEthPoolComptrollerContractAddress } =
     useGetChainMetadata();
   const { t, Trans } = useTranslation();
   const styles = useStyles();
@@ -212,13 +212,13 @@ const useGenerateColumns = ({
                 }
 
                 if (
-                  lidoPoolComptrollerContractAddress &&
+                  stakedEthPoolComptrollerContractAddress &&
                   areAddressesEqual(
-                    lidoPoolComptrollerContractAddress,
+                    stakedEthPoolComptrollerContractAddress,
                     poolAsset.pool.comptrollerAddress,
                   )
                 ) {
-                  return routes.lidoPool.path;
+                  return routes.stakedEthPool.path;
                 }
 
                 return routes.isolatedPool.path.replace(
@@ -435,7 +435,7 @@ const useGenerateColumns = ({
       }),
     [
       corePoolComptrollerContractAddress,
-      lidoPoolComptrollerContractAddress,
+      stakedEthPoolComptrollerContractAddress,
       columnKeys,
       Trans,
       t,

@@ -16,8 +16,8 @@ const CorePoolMarket = lazy(() => import('pages/Market/CorePoolMarket'));
 const IsolatedPoolMarket = lazy(() => import('pages/Market/IsolatedPoolMarket'));
 const CorePool = lazy(() => import('pages/Pool/CorePool'));
 const IsolatedPool = lazy(() => import('pages/Pool/IsolatedPool'));
-const LidoPool = lazy(() => import('pages/Pool/LidoPool'));
-const LidoPoolMarket = lazy(() => import('pages/Market/LidoPoolMarket'));
+const StakedEthPool = lazy(() => import('pages/Pool/StakedEthPool'));
+const StakedEthPoolMarket = lazy(() => import('pages/Market/StakedEthPoolMarket'));
 const ConvertVrt = lazy(() => import('pages/ConvertVrt'));
 const Governance = lazy(() => import('pages/Governance'));
 const History = lazy(() => import('pages/History'));
@@ -34,7 +34,7 @@ const Bridge = lazy(() => import('pages/Bridge'));
 
 const AppRoutes = () => {
   const { accountAddress } = useAccountAddress();
-  const { lidoPoolComptrollerContractAddress } = useGetChainMetadata();
+  const { stakedEthPoolComptrollerContractAddress } = useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
@@ -154,13 +154,13 @@ const AppRoutes = () => {
           />
         </Route>
 
-        {!!lidoPoolComptrollerContractAddress && (
-          <Route path={Subdirectory.LIDO_POOL}>
+        {!!stakedEthPoolComptrollerContractAddress && (
+          <Route path={Subdirectory.STAKED_ETH_POOL}>
             <Route
               index
               element={
                 <PageSuspense>
-                  <LidoPool />
+                  <StakedEthPool />
                 </PageSuspense>
               }
             />
@@ -169,7 +169,7 @@ const AppRoutes = () => {
               path={Subdirectory.MARKET}
               element={
                 <PageSuspense>
-                  <LidoPoolMarket />
+                  <StakedEthPoolMarket />
                 </PageSuspense>
               }
             />
