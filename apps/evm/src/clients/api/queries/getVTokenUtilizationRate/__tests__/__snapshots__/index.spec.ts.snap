@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getVTokenUtilizationRate > returns the utilization rate in the correct format on success 1`] = `
+{
+  "currentUtilizationRatePercentage": 10,
+}
+`;
+
+exports[`getVTokenUtilizationRate > returns the utilization rate of an isolated asset in the correct format on success 1`] = `
+{
+  "currentUtilizationRatePercentage": 10,
+}
+`;
