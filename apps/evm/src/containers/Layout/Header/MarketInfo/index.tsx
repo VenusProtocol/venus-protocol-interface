@@ -26,7 +26,7 @@ export const MarketInfo = () => {
     useParams();
   const { pathname } = useLocation();
 
-  const { corePoolComptrollerContractAddress, lidoPoolComptrollerContractAddress } =
+  const { corePoolComptrollerContractAddress, stakedEthPoolComptrollerContractAddress } =
     useGetChainMetadata();
 
   const poolComptrollerAddress = useMemo(() => {
@@ -34,14 +34,17 @@ export const MarketInfo = () => {
       return corePoolComptrollerContractAddress;
     }
 
-    if (lidoPoolComptrollerContractAddress && matchPath(routes.lidoPoolMarket.path, pathname)) {
-      return lidoPoolComptrollerContractAddress;
+    if (
+      stakedEthPoolComptrollerContractAddress &&
+      matchPath(routes.stakedEthPoolMarket.path, pathname)
+    ) {
+      return stakedEthPoolComptrollerContractAddress;
     }
 
     return poolComptrollerAddressParam;
   }, [
     corePoolComptrollerContractAddress,
-    lidoPoolComptrollerContractAddress,
+    stakedEthPoolComptrollerContractAddress,
     poolComptrollerAddressParam,
     pathname,
   ]);
@@ -67,16 +70,16 @@ export const MarketInfo = () => {
     }
 
     if (
-      lidoPoolComptrollerContractAddress &&
-      areAddressesEqual(poolComptrollerAddress, lidoPoolComptrollerContractAddress)
+      stakedEthPoolComptrollerContractAddress &&
+      areAddressesEqual(poolComptrollerAddress, stakedEthPoolComptrollerContractAddress)
     ) {
-      return routes.lidoPool.path;
+      return routes.stakedEthPool.path;
     }
 
     return routes.isolatedPool.path.replace(':poolComptrollerAddress', poolComptrollerAddress);
   }, [
     corePoolComptrollerContractAddress,
-    lidoPoolComptrollerContractAddress,
+    stakedEthPoolComptrollerContractAddress,
     poolComptrollerAddress,
   ]);
 

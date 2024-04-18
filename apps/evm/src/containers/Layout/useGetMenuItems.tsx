@@ -9,7 +9,7 @@ import type { MenuItem } from './types';
 
 const useGetMenuItems = () => {
   const { accountAddress } = useAccountAddress();
-  const { lidoPoolComptrollerContractAddress } = useGetChainMetadata();
+  const { stakedEthPoolComptrollerContractAddress } = useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
@@ -48,13 +48,13 @@ const useGetMenuItems = () => {
       iconName: 'venus',
     });
 
-    if (lidoPoolComptrollerContractAddress) {
+    if (stakedEthPoolComptrollerContractAddress) {
       menuItems.push({
-        to: routes.lidoPool.path,
+        to: routes.stakedEthPool.path,
         // Translation key: do not remove this comment
-        // t('layout.menuItems.lidoPool')
-        i18nKey: 'layout.menuItems.lidoPool',
-        iconName: 'lido',
+        // t('layout.menuItems.stakedEthPool')
+        i18nKey: 'layout.menuItems.stakedEthPool',
+        iconName: 'eth',
       });
     }
 
@@ -155,7 +155,7 @@ const useGetMenuItems = () => {
     xvsRouteEnabled,
     bridgeRouteEnabled,
     isolatedPoolsRouteEnabled,
-    lidoPoolComptrollerContractAddress,
+    stakedEthPoolComptrollerContractAddress,
   ]);
 };
 

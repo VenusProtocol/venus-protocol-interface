@@ -11,12 +11,12 @@ export const useGetFilteredPools = () => {
       (getPoolsData?.pools || []).filter(
         pool =>
           pool.comptrollerAddress !== chainMetaData.corePoolComptrollerContractAddress &&
-          pool.comptrollerAddress !== chainMetaData.lidoPoolComptrollerContractAddress,
+          pool.comptrollerAddress !== chainMetaData.stakedEthPoolComptrollerContractAddress,
       ),
     [
       getPoolsData?.pools,
       chainMetaData.corePoolComptrollerContractAddress,
-      chainMetaData.lidoPoolComptrollerContractAddress,
+      chainMetaData.stakedEthPoolComptrollerContractAddress,
     ],
   );
 

@@ -10,7 +10,7 @@ export interface TableProps {
 }
 
 export const Table: React.FC<TableProps> = ({ pool }) => {
-  const { corePoolComptrollerContractAddress, lidoPoolComptrollerContractAddress } =
+  const { corePoolComptrollerContractAddress, stakedEthPoolComptrollerContractAddress } =
     useGetChainMetadata();
 
   const getRowHref = (row: Asset) => {
@@ -19,10 +19,10 @@ export const Table: React.FC<TableProps> = ({ pool }) => {
     }
 
     if (
-      lidoPoolComptrollerContractAddress &&
-      areAddressesEqual(pool.comptrollerAddress, lidoPoolComptrollerContractAddress)
+      stakedEthPoolComptrollerContractAddress &&
+      areAddressesEqual(pool.comptrollerAddress, stakedEthPoolComptrollerContractAddress)
     ) {
-      return routes.lidoPoolMarket.path.replace(':vTokenAddress', row.vToken.address);
+      return routes.stakedEthPoolMarket.path.replace(':vTokenAddress', row.vToken.address);
     }
 
     return routes.isolatedPoolMarket.path

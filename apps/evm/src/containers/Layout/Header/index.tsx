@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
   const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
   const isOnMarketPage =
     currentRoutePath === routes.corePoolMarket.path ||
-    currentRoutePath === routes.lidoPoolMarket.path ||
+    currentRoutePath === routes.stakedEthPoolMarket.path ||
     currentRoutePath === routes.isolatedPoolMarket.path;
 
   return (
