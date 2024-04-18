@@ -2,7 +2,7 @@ import { Button, Icon } from 'components';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { cn } from 'utilities';
 
-import { store } from '../store';
+import { store } from 'containers/Layout/store';
 
 const ScrollToTop = () => {
   const isVisible = store.use.isScrollToTopVisible();

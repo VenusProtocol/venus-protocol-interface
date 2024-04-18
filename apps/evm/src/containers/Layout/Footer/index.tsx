@@ -3,7 +3,7 @@ import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import { generateChainExplorerUrl } from 'utilities';
 
-import { Link } from '../../Link';
+import { Link } from 'containers/Link';
 import { IconLink } from './IconLink';
 import {
   VENUS_DISCORD_URL,

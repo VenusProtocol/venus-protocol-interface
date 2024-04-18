@@ -1,12 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { Table, type TableProps, switchAriaLabel } from 'components';
 import useCollateral from 'hooks/useCollateral';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useOperationModal from 'hooks/useOperationModal';
 import { displayMutationError } from 'libs/errors';
 import type { Pool } from 'types';
 
+import { routes } from 'constants/routing';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { areAddressesEqual } from 'utilities';
 import { useStyles } from './styles';
 import type { ColumnKey, PoolAsset } from './types';
 import useGenerateColumns from './useGenerateColumns';
@@ -38,6 +42,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 }) => {
   const styles = useStyles();
 
+  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
+  const { corePoolComptrollerContractAddress, lidoPoolComptrollerContractAddress } =
+    useGetChainMetadata();
   const { OperationModal, openOperationModal } = useOperationModal();
   const { toggleCollateral } = useCollateral();
 
@@ -86,19 +93,55 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     );
   }, [columns, initialOrder]);
 
-  const rowOnClick = (e: React.MouseEvent<HTMLElement>, row: PoolAsset) => {
-    // Do nothing if user clicked on switch (the switch element will handle the
-    // click event)
-    if ((e.target as HTMLElement).ariaLabel === switchAriaLabel) {
-      return;
-    }
+  const rowOnClick = useCallback(
+    (e: React.MouseEvent<HTMLElement>, row: PoolAsset) => {
+      // Do nothing if user clicked on switch (the switch element will handle the
+      // click event)
+      if ((e.target as HTMLElement).ariaLabel === switchAriaLabel) {
+        return;
+      }
 
-    openOperationModal({
-      vToken: row.vToken,
-      poolComptrollerAddress: row.pool.comptrollerAddress,
-      initialActiveTabIndex: marketType === 'supply' ? 0 : 2,
-    });
-  };
+      openOperationModal({
+        vToken: row.vToken,
+        poolComptrollerAddress: row.pool.comptrollerAddress,
+        initialActiveTabIndex: marketType === 'supply' ? 0 : 2,
+      });
+    },
+    [marketType, openOperationModal],
+  );
+
+  const rowHref = useCallback(
+    (row: PoolAsset) => {
+      if (areAddressesEqual(row.pool.comptrollerAddress, corePoolComptrollerContractAddress)) {
+        return routes.corePoolMarket.path.replace(':vTokenAddress', row.vToken.address);
+      }
+
+      if (
+        lidoPoolComptrollerContractAddress &&
+        areAddressesEqual(row.pool.comptrollerAddress, lidoPoolComptrollerContractAddress)
+      ) {
+        return routes.lidoPoolMarket.path.replace(':vTokenAddress', row.vToken.address);
+      }
+
+      return routes.isolatedPoolMarket.path
+        .replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
+        .replace(':vTokenAddress', row.vToken.address);
+    },
+    [
+      corePoolComptrollerContractAddress,
+      lidoPoolComptrollerContractAddress,
+      lidoPoolComptrollerContractAddress,
+    ],
+  );
+
+  const navProps: Partial<TableProps<PoolAsset>> = isNewMarketPageEnabled
+    ? {
+        getRowHref: getRowHref || rowHref,
+      }
+    : {
+        rowOnClick: getRowHref ? undefined : rowOnClick,
+        getRowHref: getRowHref,
+      };
 
   return (
     <div data-testid={testId}>
@@ -107,9 +150,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         data={poolAssets}
         css={styles.cardContentGrid}
         rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
-        rowOnClick={getRowHref ? undefined : rowOnClick}
-        getRowHref={getRowHref}
         initialOrder={formattedInitialOrder}
+        {...navProps}
         {...otherTableProps}
       />
 

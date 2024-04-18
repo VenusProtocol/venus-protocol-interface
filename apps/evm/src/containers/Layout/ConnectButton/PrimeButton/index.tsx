@@ -17,7 +17,7 @@ export const PrimeButton: React.FC<PrimeButtonProps> = ({
   return (
     <SecondaryButton
       className={cn(
-        'bg-background hover:bg-cards active:bg-cards relative border-transparent bg-clip-padding before:absolute before:inset-0 before:-z-[1] before:-m-[1px] before:rounded-lg before:bg-gradient-to-r before:from-[#805c4e] before:to-[#e3cdc3] hover:border-transparent active:border-transparent',
+        'border-[#805C4E] hover:border-[#805C4E] active:border-[#805C4E] hover:bg-lightGrey active:bg-lightGrey',
         className,
       )}
       {...otherProps}

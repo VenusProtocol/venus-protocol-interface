@@ -368,6 +368,13 @@
         "name": "{{stakedTokenSymbol}} vesting vault"
       }
     },
+    "header": {
+      "isolated": "Isolated",
+      "liquidity": "Liquidity",
+      "price": "Price",
+      "reserves": "Reserves",
+      "utilizationRate": "Utilization rate"
+    },
     "menu": {
       "navLink": {
         "new": "NEW"

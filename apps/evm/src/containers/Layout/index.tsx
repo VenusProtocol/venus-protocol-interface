@@ -4,8 +4,8 @@ import { PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { Footer } from './Footer';
 import { Header } from './Header';
-import { Menu } from './Menu';
 import ScrollToTop from './ScrollToTop';
+import { Sidebar } from './Sidebar';
 import { store } from './store';
 
 export const Layout: React.FC = () => {
@@ -26,7 +26,7 @@ export const Layout: React.FC = () => {
 
   return (
     <div className="flex h-screen flex-col md:flex-row">
-      <Menu />
+      <Sidebar />
 
       <div
         className="flex flex-1 flex-col overflow-y-auto"
