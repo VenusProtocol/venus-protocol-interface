@@ -8,6 +8,7 @@ import {
   Spinner,
   TokenIcon,
 } from 'components';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -15,11 +16,8 @@ import { useTranslation } from 'libs/translations';
 import { canAddTokenToWallet, useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { matchPath, useLocation, useParams } from 'react-router';
-import {
-  areAddressesEqual,
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-} from 'utilities';
+import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
+import { UtilizationRate } from './UtilizationRate';
 
 export const MarketInfo = () => {
   const { poolComptrollerAddress: poolComptrollerAddressParam = '', vTokenAddress = '' } =
@@ -105,10 +103,15 @@ export const MarketInfo = () => {
       },
       {
         label: t('layout.header.utilizationRate'),
-        value: formatPercentageToReadableValue(10), // TODO: fetch (see VEN-2545)
+        value:
+          asset && pool ? (
+            <UtilizationRate asset={asset} isIsolatedPoolMarket={pool.isIsolated} />
+          ) : (
+            PLACEHOLDER_KEY
+          ),
       },
     ];
-  }, [asset, t]);
+  }, [asset, t, asset, pool]);
 
   return (
     <div className="pt-4 pb-12 md:pb-10 border-b-lightGrey border-b space-y-8">

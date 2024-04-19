@@ -3,7 +3,7 @@ import { InfoIcon } from '../InfoIcon';
 
 export interface Cell {
   label: string;
-  value: string | number;
+  value: string | number | React.ReactNode;
   tooltip?: string;
   color?: string;
 }

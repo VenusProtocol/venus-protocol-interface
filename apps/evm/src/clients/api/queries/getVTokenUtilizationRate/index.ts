@@ -14,10 +14,10 @@ export interface GetVTokenUtilizationRateInput {
 }
 
 export type GetVTokenUtilizationRateOutput = {
-  currentUtilizationRatePercentage: number;
+  utilizationRatePercentage: number;
 };
 
-const getVTokenUtilizationRate = async ({
+export const getVTokenUtilizationRate = async ({
   interestRateModelContract,
   isIsolatedPoolMarket,
   asset,
@@ -48,13 +48,11 @@ const getVTokenUtilizationRate = async ({
         reservesMantissa,
       );
 
-  const utilizationRatePercentage = await utilizationRatePromise;
+  const utilizationRateMantissa = await utilizationRatePromise;
 
-  const currentUtilizationRatePercentage = new BigNumber(utilizationRatePercentage.toString())
+  const utilizationRatePercentage = new BigNumber(utilizationRateMantissa.toString())
     .dividedToIntegerBy(DIVIDER)
     .toNumber();
 
-  return { currentUtilizationRatePercentage };
+  return { utilizationRatePercentage };
 };
-
-export default getVTokenUtilizationRate;

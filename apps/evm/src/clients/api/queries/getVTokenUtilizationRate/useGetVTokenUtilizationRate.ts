@@ -2,13 +2,14 @@ import { useMemo } from 'react';
 import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
-import getVTokenUtilizationRate, {
+import {
+  getVTokenUtilizationRate,
   type GetVTokenUtilizationRateOutput,
 } from 'clients/api/queries/getVTokenUtilizationRate';
 import FunctionKey from 'constants/functionKey';
 import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'libs/contracts';
 import { useChainId, useProvider } from 'libs/wallet';
-import type { Asset, ChainId, VToken } from 'types';
+import type { Asset, ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 export type UseGetVTokenUtilizationRateQueryKey = [
@@ -24,14 +25,12 @@ type Options = QueryObserverOptions<
   UseGetVTokenUtilizationRateQueryKey
 >;
 
-const useGetVTokenUtilizationRate = (
+export const useGetVTokenUtilizationRate = (
   {
     asset,
-    vToken,
     isIsolatedPoolMarket,
   }: {
     asset: Asset | undefined;
-    vToken: VToken;
     isIsolatedPoolMarket: boolean;
   },
   options?: Options,
@@ -39,7 +38,12 @@ const useGetVTokenUtilizationRate = (
   const { provider } = useProvider();
   const { chainId } = useChainId();
 
-  const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vToken });
+  const { data: interestRateModelData } = useGetVTokenInterestRateModel(
+    { vToken: asset?.vToken! },
+    {
+      enabled: !!asset,
+    },
+  );
 
   const interestRateModelContract = useMemo(() => {
     if (!interestRateModelData?.contractAddress) {
@@ -57,7 +61,10 @@ const useGetVTokenUtilizationRate = (
   }, [interestRateModelData?.contractAddress, isIsolatedPoolMarket, provider]);
 
   return useQuery(
-    [FunctionKey.GET_V_TOKEN_UTILIZATION_RATE, { vTokenAddress: vToken.address, chainId }],
+    [
+      FunctionKey.GET_V_TOKEN_UTILIZATION_RATE,
+      { vTokenAddress: asset?.vToken.address || '', chainId },
+    ],
     () =>
       callOrThrow({ interestRateModelContract, asset }, params =>
         getVTokenUtilizationRate({
@@ -74,5 +81,3 @@ const useGetVTokenUtilizationRate = (
     },
   );
 };
-
-export default useGetVTokenUtilizationRate;
