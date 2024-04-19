@@ -25,6 +25,11 @@ const getVariantClasses = ({
         'border-cards bg-cards hover:border-grey hover:bg-cards active:border-grey active:bg-cards h-10 px-3',
         isMenuOpened && 'border-blue hover:border-blue',
       );
+    case 'tertiary':
+      return cn(
+        'border-transparent bg-background/40 hover:bg-background/40 hover:border-offWhite active:bg-background/40 px-3 sm:px-4',
+        isMenuOpened && 'border-blue hover:border-blue',
+      );
     // primary
     default:
       return cn(

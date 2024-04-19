@@ -17,7 +17,7 @@ export interface SelectProps<TValue extends string | number = string | number> {
   label?: string;
   className?: string;
   buttonClassName?: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'tertiary';
   menuTitle?: string;
   menuPosition?: 'left' | 'right';
 }

@@ -4,6 +4,7 @@ import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { cn } from 'utilities';
+import { useNewMarketFeature } from '../../useNewMarketFeature';
 
 export interface ChainSelectProps {
   className?: string;
@@ -36,6 +37,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClass
   const { t } = useTranslation();
   const { chainId } = useChainId();
   const { switchChain } = useSwitchChain();
+  const shouldUseNewMarketFeature = useNewMarketFeature();
 
   return (
     <Select
@@ -43,6 +45,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClass
       onChange={newChainId => switchChain({ chainId: Number(newChainId) })}
       options={options}
       menuPosition="right"
+      variant={shouldUseNewMarketFeature ? 'tertiary' : 'primary'}
       menuTitle={t('layout.chainSelect.label')}
       buttonClassName={buttonClassName}
       className={cn('lg:min-w-[200px]', className)}
