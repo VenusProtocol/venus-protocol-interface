@@ -1,7 +1,7 @@
+import { tokens as bscMainnetTokens } from 'libs/tokens/generated/pancakeSwapTokens/bscMainnet';
+import type { TokenMapping } from 'libs/tokens/types';
 import { ChainId } from 'types';
 
-import type { TokenMapping } from '../../types';
-import { tokens as bscMainnetTokens } from './bscMainnet';
 import { tokens as bscTestnetTokens } from './bscTestnet';
 import { tokens as ethereumTokens } from './ethereum';
 import { tokens as opBnbMainnetTokens } from './opBnbMainnet';

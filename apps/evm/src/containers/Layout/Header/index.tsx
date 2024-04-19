@@ -1,3 +1,7 @@
+import { useParams } from 'react-router';
+
+import { useGetAsset } from 'clients/api';
+import { useImageAccentColor } from 'hooks/useImageAccentColor';
 import { cn } from 'utilities';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
@@ -6,13 +10,29 @@ import { useNewMarketFeature } from './useNewMarketFeature';
 export const Header: React.FC = () => {
   const shouldUseNewMarketFeature = useNewMarketFeature();
 
+  const { vTokenAddress = '' } = useParams();
+  const { data: getAssetData } = useGetAsset({
+    vTokenAddress,
+  });
+  const asset = getAssetData?.asset;
+  const { color: gradientAccentColor } = useImageAccentColor({
+    imagePath: asset?.vToken.underlyingToken.asset,
+  });
+
   return (
     <header
-      // TODO: get accent color dynamically for each asset (see VEN-2545)
       className={cn(
-        'transition-all duration-500',
-        shouldUseNewMarketFeature && 'bg-gradient-to-b from-[rgba(42,90,218,0.30)] to-transparent',
+        // The gradient will only be visible when a background color is applied. It is built this
+        // way to support gradient background using a solid background color
+        'transition-all duration-500 bg-gradient-to-b from-background/60 to-background',
       )}
+      style={
+        shouldUseNewMarketFeature && gradientAccentColor
+          ? {
+              backgroundColor: gradientAccentColor,
+            }
+          : undefined
+      }
     >
       <TopBar />
 

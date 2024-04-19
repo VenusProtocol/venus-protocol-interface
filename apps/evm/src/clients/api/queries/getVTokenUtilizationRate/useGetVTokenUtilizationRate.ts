@@ -3,8 +3,8 @@ import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 import {
-  getVTokenUtilizationRate,
   type GetVTokenUtilizationRateOutput,
+  getVTokenUtilizationRate,
 } from 'clients/api/queries/getVTokenUtilizationRate';
 import FunctionKey from 'constants/functionKey';
 import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'libs/contracts';
