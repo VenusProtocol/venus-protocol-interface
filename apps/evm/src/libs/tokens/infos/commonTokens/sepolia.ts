@@ -1,6 +1,8 @@
 import crvLogo from 'libs/tokens/img/crv.svg';
 import crvUsdLogo from 'libs/tokens/img/crvUsd.svg';
+import daiLogo from 'libs/tokens/img/dai.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
+import tusdLogo from 'libs/tokens/img/tusd.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
 import wbtcLogo from 'libs/tokens/img/wbtc.svg';
@@ -74,5 +76,17 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'weETH',
     asset: weEthLogo,
+  },
+  {
+    address: '0x78b292069da1661b7C12B6E766cB506C220b987a',
+    decimals: 18,
+    symbol: 'TUSD',
+    asset: tusdLogo,
+  },
+  {
+    address: '0x75236711d42D0f7Ba91E03fdCe0C9377F5b76c07',
+    decimals: 18,
+    symbol: 'DAI',
+    asset: daiLogo,
   },
 ];
