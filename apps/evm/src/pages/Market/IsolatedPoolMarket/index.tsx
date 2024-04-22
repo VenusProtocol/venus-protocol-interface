@@ -11,11 +11,7 @@ const IsolatedPoolMarket: React.FC = () => {
   const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
 
   return (
-    <MarketLoader
-      poolComptrollerAddress={poolComptrollerAddress}
-      vTokenAddress={vTokenAddress}
-      isIsolatedPoolMarket
-    >
+    <MarketLoader poolComptrollerAddress={poolComptrollerAddress} vTokenAddress={vTokenAddress}>
       {marketProps =>
         isNewMarketPageEnabled ? <Market {...marketProps} /> : <MarketOld {...marketProps} />
       }

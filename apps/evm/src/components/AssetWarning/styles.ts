@@ -12,9 +12,6 @@ export const useStyles = () => {
       border-radius: ${theme.spacing(3)};
       margin-bottom: ${theme.spacing(2)};
     `,
-    description: css`
-      margin-bottom: ${theme.spacing(2)};
-    `,
     inlineButton: css`
       padding: 0;
       height: auto;

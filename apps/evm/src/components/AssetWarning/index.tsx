@@ -26,7 +26,7 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
 }) => {
   const [showAssets, setShowAssets] = useState(false);
   const styles = useStyles();
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const translationArgs = {
     poolName: pool?.name,
@@ -46,19 +46,23 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
         css={styles.notice}
         variant="warning"
         description={
-          <>
-            <div css={styles.description}>
-              {type === 'borrow'
-                ? t('assetWarning.borrowDescription', translationArgs)
-                : t('assetWarning.supplyDescription', translationArgs)}
-            </div>
-
-            <TextButton css={styles.inlineButton} onClick={handleShowAssets}>
-              {t('assetWarning.showMarketsButtonLabel', {
-                poolName: pool.name,
-              })}
-            </TextButton>
-          </>
+          <Trans
+            i18nKey={
+              type === 'borrow'
+                ? 'assetWarning.borrowDescription'
+                : 'assetWarning.supplyDescription'
+            }
+            values={translationArgs}
+            components={{
+              Button: (
+                <TextButton className="p-0 h-auto" onClick={handleShowAssets}>
+                  {t('assetWarning.showMarketsButtonLabel', {
+                    poolName: pool.name,
+                  })}
+                </TextButton>
+              ),
+            }}
+          />
         }
       />
 

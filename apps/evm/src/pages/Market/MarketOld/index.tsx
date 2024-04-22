@@ -13,7 +13,7 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useOperationModal from 'hooks/useOperationModal';
 import { useTranslation } from 'libs/translations';
-import type { Asset, Token } from 'types';
+import type { Asset, Pool, Token } from 'types';
 import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
@@ -336,16 +336,11 @@ export const MarketUi: React.FC<MarketUiProps> = ({
 };
 
 interface MarketProps {
-  poolComptrollerAddress: string;
+  pool: Pool;
   asset: Asset;
-  isIsolatedPoolMarket: boolean;
 }
 
-const Market: React.FC<MarketProps> = ({
-  poolComptrollerAddress,
-  asset,
-  isIsolatedPoolMarket = false,
-}) => {
+const Market: React.FC<MarketProps> = ({ pool, asset }) => {
   const { blocksPerDay } = useGetChainMetadata();
 
   const {
@@ -356,7 +351,7 @@ const Market: React.FC<MarketProps> = ({
     },
   } = useGetVTokenApySimulations({
     vToken: asset.vToken,
-    isIsolatedPoolMarket,
+    isIsolatedPoolMarket: pool.isIsolated,
     asset,
   });
 
@@ -364,7 +359,7 @@ const Market: React.FC<MarketProps> = ({
     <MarketUi
       asset={asset}
       blocksPerDay={blocksPerDay}
-      poolComptrollerAddress={poolComptrollerAddress}
+      poolComptrollerAddress={pool.comptrollerAddress}
       isInterestRateChartDataLoading={isInterestRateChartDataLoading}
       interestRateChartData={interestRateChartData.apySimulations}
       currentUtilizationRatePercentage={interestRateChartData.currentUtilizationRatePercentage}

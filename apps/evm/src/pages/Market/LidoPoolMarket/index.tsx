@@ -16,7 +16,6 @@ const StakedEthPoolMarket: React.FC = () => {
     <MarketLoader
       poolComptrollerAddress={stakedEthPoolComptrollerContractAddress}
       vTokenAddress={vTokenAddress}
-      isIsolatedPoolMarket
     >
       {marketProps =>
         isNewMarketPageEnabled ? <Market {...marketProps} /> : <MarketOld {...marketProps} />
