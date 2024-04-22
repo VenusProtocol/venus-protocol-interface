@@ -6,41 +6,41 @@ import type { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 export const useStyles = () => {
   const theme = useTheme();
   return {
-    getRoot: ({ breakpoint }: { breakpoint: keyof (typeof BREAKPOINTS)['values'] }) => css`
+    getRoot: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
       padding-left: 0;
       padding-right: 0;
 
-      ${theme.breakpoints.down(breakpoint)} {
+      ${breakpoint && theme.breakpoints.down(breakpoint)} {
         background-color: transparent;
         padding-top: 0;
         padding-bottom: 0;
       }
     `,
-    getTitle: ({ breakpoint }: { breakpoint: keyof (typeof BREAKPOINTS)['values'] }) => css`
+    getTitle: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
       margin-bottom: ${theme.spacing(4)};
       padding: ${theme.spacing(0, 6)};
 
-      ${theme.breakpoints.down(breakpoint)} {
+      ${breakpoint && theme.breakpoints.down(breakpoint)} {
         padding: 0;
       }
     `,
     getTableContainer: ({
       breakpoint,
     }: {
-      breakpoint: keyof (typeof BREAKPOINTS)['values'];
+      breakpoint?: keyof (typeof BREAKPOINTS)['values'];
     }) => css`
-      ${theme.breakpoints.down(breakpoint)} {
+      ${breakpoint && theme.breakpoints.down(breakpoint)} {
         display: none;
       }
     `,
     getCardsContainer: ({
       breakpoint,
     }: {
-      breakpoint: keyof (typeof BREAKPOINTS)['values'];
+      breakpoint?: keyof (typeof BREAKPOINTS)['values'];
     }) => css`
       display: none;
 
-      ${theme.breakpoints.down(breakpoint)} {
+      ${breakpoint && theme.breakpoints.down(breakpoint)} {
         display: block;
       }
     `,

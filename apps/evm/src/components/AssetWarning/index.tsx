@@ -1,13 +1,13 @@
-/** @jsxImportSource @emotion/react */
 import { useState } from 'react';
 
 import { useTranslation } from 'libs/translations';
 import type { Pool, Token } from 'types';
 
+import { MarketTable } from 'containers/MarketTable';
 import { TextButton } from '../Button';
+import { Modal } from '../Modal';
 import { Notice } from '../Notice';
-import AssetTable from './AssetTable';
-import { useStyles } from './styles';
+import TEST_IDS from './testIds';
 import type { WarningType } from './types';
 
 export interface AssetWarningProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,7 +25,6 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
   ...otherProps
 }) => {
   const [showAssets, setShowAssets] = useState(false);
-  const styles = useStyles();
   const { t, Trans } = useTranslation();
 
   const translationArgs = {
@@ -41,12 +40,15 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
   }
 
   return (
-    <div css={styles.container} className={className} {...otherProps}>
+    <div className={className} {...otherProps}>
       <Notice
-        css={styles.notice}
+        className="rounded-md mb-2"
         variant="warning"
         description={
           <Trans
+            // Translation key: do not remove this comment
+            // t('assetWarning.borrowDescription')
+            // t('assetWarning.supplyDescription')
             i18nKey={
               type === 'borrow'
                 ? 'assetWarning.borrowDescription'
@@ -54,21 +56,32 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
             }
             values={translationArgs}
             components={{
-              Button: (
-                <TextButton className="p-0 h-auto" onClick={handleShowAssets}>
-                  {t('assetWarning.showMarketsButtonLabel', {
-                    poolName: pool.name,
-                  })}
-                </TextButton>
-              ),
+              Button: <TextButton className="p-0 h-auto" onClick={handleShowAssets} />,
             }}
           />
         }
       />
 
-      {showAssets && (
-        <AssetTable assets={pool.assets} type={type} onHideAssetsButtonClick={handleHideAssets} />
-      )}
+      <Modal
+        isOpen={showAssets}
+        handleClose={handleHideAssets}
+        noHorizontalPadding
+        title={t('assetWarning.modalTitle', {
+          poolName: pool.name,
+        })}
+      >
+        <MarketTable
+          testId={TEST_IDS.marketTable}
+          rowOnClick={handleHideAssets}
+          className="my-0 p-0 sm:p-0"
+          pools={[pool]}
+          columns={['asset', type === 'borrow' ? 'labeledBorrowApy' : 'supplyApyLtv', 'liquidity']}
+          initialOrder={{
+            orderBy: type === 'borrow' ? 'labeledBorrowApy' : 'supplyApyLtv',
+            orderDirection: type === 'borrow' ? 'desc' : 'asc',
+          }}
+        />
+      </Modal>
     </div>
   );
 };

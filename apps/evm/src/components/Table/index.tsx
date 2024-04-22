@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import Paper from '@mui/material/Paper';
 import MuiTable from '@mui/material/Table';
 import MuiTableBody from '@mui/material/TableBody';
 import MuiTableCell from '@mui/material/TableCell';
@@ -10,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 import { useFormatTo } from 'hooks/useFormatTo';
 
+import { Card } from '../Card';
 import { Spinner } from '../Spinner';
 import Head from './Head';
 import TableCards from './TableCards';
@@ -31,6 +31,7 @@ export function Table<R>({
   className,
   breakpoint,
   isFetching,
+  testId,
 }: TableProps<R>) {
   const styles = useStyles();
   const { formatTo } = useFormatTo();
@@ -61,7 +62,7 @@ export function Table<R>({
   }, [data, order]);
 
   return (
-    <Paper css={styles.getRoot({ breakpoint })} className={className}>
+    <Card css={styles.getRoot({ breakpoint })} data-testid={testId} className={className}>
       {title && (
         <h4 css={styles.getTitle({ breakpoint })} className="text-lg">
           {title}
@@ -102,9 +103,12 @@ export function Table<R>({
                 <MuiTableRow
                   hover
                   key={rowKey}
-                  css={[styles.link, styles.getTableRow({ clickable: !!rowOnClick })]}
+                  css={[
+                    styles.link,
+                    styles.getTableRow({ clickable: !!getRowHref || !!rowOnClick }),
+                  ]}
                   onClick={
-                    !getRowHref && rowOnClick
+                    rowOnClick
                       ? (e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row)
                       : undefined
                   }
@@ -143,6 +147,6 @@ export function Table<R>({
         order={order}
         onOrderChange={setOrder}
       />
-    </Paper>
+    </Card>
   );
 }
