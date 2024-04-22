@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.117.0
+
+### Minor Changes
+
+- b6f0562: Improve new Market page's design
+- ccf2b79: Add TUSD and DAI to Sepolia and Ethereum
+
+### Patch Changes
+
+- 45fefe1: Fix addresses on ankrBNB and WETH on testnet
+
 ## 2.116.0
 
 ### Minor Changes
