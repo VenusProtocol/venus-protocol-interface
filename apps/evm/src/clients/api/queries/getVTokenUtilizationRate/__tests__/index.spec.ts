@@ -4,7 +4,7 @@ import { assetData } from '__mocks__/models/asset';
 
 import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
 
-import getVTokenApySimulations from '..';
+import { getVTokenUtilizationRate } from '..';
 
 const fakeInterestRateModelContract = {
   getBorrowRate: async () => BN.from(1),
@@ -16,7 +16,7 @@ const fakeInterestRateModelV2Contract = fakeInterestRateModelContract as unknown
 
 describe('getVTokenUtilizationRate', () => {
   test('returns the utilization rate in the correct format on success', async () => {
-    const response = await getVTokenApySimulations({
+    const response = await getVTokenUtilizationRate({
       interestRateModelContract: fakeInterestRateModelContract,
       isIsolatedPoolMarket: false,
       asset: assetData[0],
@@ -26,7 +26,7 @@ describe('getVTokenUtilizationRate', () => {
   });
 
   test('returns the utilization rate of an isolated asset in the correct format on success', async () => {
-    const response = await getVTokenApySimulations({
+    const response = await getVTokenUtilizationRate({
       interestRateModelContract: fakeInterestRateModelV2Contract,
       isIsolatedPoolMarket: false,
       asset: assetData[0],

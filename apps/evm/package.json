@@ -20,7 +20,8 @@
     "generate-subgraph-types:governance": "yarn graphql-codegen --config src/config/codegen.ts --project governance",
     "generate-subgraph-types": "npm-run-all --parallel generate-subgraph-types:isolated-pools generate-subgraph-types:governance",
     "generate-contracts": "rimraf src/libs/contracts/generated/getters && rimraf src/libs/contracts/generated/infos && src/libs/contracts/scripts/generateContractRecords/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/contracts/generated",
-    "generate-pancake-swap-tokens": "src/libs/tokens/scripts/generatePancakeSwapTokenRecords.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/tokens/infos/pancakeSwapTokens/bscMainnet.ts",
+    "generate-pancake-swap-tokens": "src/libs/tokens/scripts/generatePancakeSwapTokenRecords/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/tokens/generated/pancakeSwapTokens/bscMainnet.ts",
+    "generate-token-accent-colors": "src/libs/tokens/scripts/generateTokenAccentColors/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/tokens/generated/tokenAccentColors.ts",
     "generate-version-files": "genversion --es6 --semi src/constants/version.ts && src/scripts/generatePublicVersionFile.ts && yarn biome format --vcs-use-ignore-file=false --write public/version.json",
     "generate": "npm-run-all --parallel generate-version-files generate-contracts generate-subgraph-types && yarn generate-pancake-swap-tokens",
     "storybook": "storybook dev -p 6006",
@@ -39,6 +40,7 @@
     "@ethersproject/web": "^5.7.1",
     "@hookform/resolvers": "^3.3.2",
     "@infinitywallet/infinity-connector": "^1.0.5",
+    "@lauriys/react-palette": "^1.0.5",
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.4.2",
     "@pancakeswap/sdk": "^3.1.0",
@@ -106,6 +108,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^8.0.1",
     "@typechain/ethers-v5": "^11.1.1",
+    "@types/get-pixels": "^3.3.4",
     "@types/lodash": "^4.14.197",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
@@ -130,7 +133,6 @@
     "history": "^5.3.0",
     "i18next-parser": "^8.4.0",
     "jsdom": "^24.0.0",
-    "msw": "^2.0.11",
     "node-fetch": "^3.3.2",
     "npm-run-all2": "^6.0.6",
     "path": "^0.12.7",
@@ -165,8 +167,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "msw": {
-    "workerDirectory": "public"
   }
 }

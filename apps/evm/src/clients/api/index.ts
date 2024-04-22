@@ -380,3 +380,6 @@ export { default as useGetPoolDelegateApprovalStatus } from './queries/getPoolDe
 
 export * from './queries/getProposalMinQuorumVotes';
 export * from './queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
+
+export * from './queries/getVTokenUtilizationRate';
+export * from './queries/getVTokenUtilizationRate/useGetVTokenUtilizationRate';

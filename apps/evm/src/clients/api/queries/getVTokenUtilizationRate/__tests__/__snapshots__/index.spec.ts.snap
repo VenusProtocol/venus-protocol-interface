@@ -2,12 +2,12 @@
 
 exports[`getVTokenUtilizationRate > returns the utilization rate in the correct format on success 1`] = `
 {
-  "currentUtilizationRatePercentage": 10,
+  "utilizationRatePercentage": 10,
 }
 `;
 
 exports[`getVTokenUtilizationRate > returns the utilization rate of an isolated asset in the correct format on success 1`] = `
 {
-  "currentUtilizationRatePercentage": 10,
+  "utilizationRatePercentage": 10,
 }
 `;

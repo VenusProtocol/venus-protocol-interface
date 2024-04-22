@@ -359,6 +359,13 @@ export const useGetPoolDelegateApprovalStatus = vi.fn(() =>
   useQuery(FunctionKey.GET_POOL_DELEGATE_APPROVAL_STATUS, getPoolDelegateApprovalStatus),
 );
 
+export const getVTokenUtilizationRate = vi.fn(async () => ({
+  utilizationRatePercentage: 10,
+}));
+export const useGetVTokenUtilizationRate = vi.fn(() =>
+  useQuery(FunctionKey.GET_V_TOKEN_UTILIZATION_RATE, getVTokenUtilizationRate),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>

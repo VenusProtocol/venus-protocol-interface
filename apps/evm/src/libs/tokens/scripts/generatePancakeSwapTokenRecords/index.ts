@@ -9,7 +9,7 @@ import writeFile from 'utilities/writeFile';
 const PANCAKE_SWAP_TOKEN_LIST_URL =
   'https://raw.githubusercontent.com/pancakeswap/token-list/main/lists/pancakeswap-extended.json';
 
-const TOKEN_LIST_TEMPLATE_FILE_PATH = `${__dirname}/tokenListTemplate.hbs`;
+const TOKEN_LIST_TEMPLATE_FILE_PATH = `${__dirname}/template.hbs`;
 const tokenListTemplateBuffer = readFileSync(TOKEN_LIST_TEMPLATE_FILE_PATH);
 const tokenListTemplate = compile(tokenListTemplateBuffer.toString());
 
@@ -22,7 +22,7 @@ const generatePancakeSwapTokenRecords = async () => {
   // Generate file
   const outputPath = path.join(
     process.cwd(),
-    './src/libs/tokens/infos/pancakeSwapTokens/bscMainnet.ts',
+    './src/libs/tokens/generated/pancakeSwapTokens/bscMainnet.ts',
   );
 
   writeFile({
