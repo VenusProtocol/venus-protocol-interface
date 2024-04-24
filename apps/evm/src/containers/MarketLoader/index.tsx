@@ -1,27 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import { Navigate } from 'react-router-dom';
 
-import { useGetAsset } from 'clients/api';
+import { useGetAsset, useGetPool } from 'clients/api';
 import { Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useAccountAddress } from 'libs/wallet';
-import type { Asset } from 'types';
+import type { Asset, Pool } from 'types';
 
 export interface MarketLoaderProps {
   children: (props: {
     asset: Asset;
-    isIsolatedPoolMarket: boolean;
-    poolComptrollerAddress: string;
+    pool: Pool;
   }) => React.ReactNode;
   poolComptrollerAddress?: string;
   vTokenAddress?: string;
-  isIsolatedPoolMarket?: boolean;
 }
 
 export const MarketLoader: React.FC<MarketLoaderProps> = ({
   poolComptrollerAddress,
   vTokenAddress,
-  isIsolatedPoolMarket = false,
   children,
 }) => {
   const { accountAddress } = useAccountAddress();
@@ -33,16 +30,22 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
   const asset = getAssetData?.asset;
   const isVTokenAddressInvalid = !isGetAssetLoading && !asset;
 
+  const { data: getPoolData } = useGetPool({
+    poolComptrollerAddress: poolComptrollerAddress || '',
+    accountAddress,
+  });
+  const pool = getPoolData?.pool;
+
   // Redirect to dashboard page if params are invalid
   if (isVTokenAddressInvalid || !poolComptrollerAddress) {
     return <Navigate to={routes.dashboard.path} />;
   }
 
-  if (!asset) {
+  if (!asset || !pool) {
     return <Spinner />;
   }
 
-  return <>{children({ asset, isIsolatedPoolMarket, poolComptrollerAddress })}</>;
+  return <>{children({ asset, pool })}</>;
 };
 
 export default MarketLoader;

@@ -12,8 +12,8 @@ export interface TableColumn<R> {
 export interface TableProps<R> {
   data: R[];
   rowKeyExtractor: (row: R) => string;
-  breakpoint: keyof (typeof BREAKPOINTS)['values'];
   columns: TableColumn<R>[];
+  breakpoint?: keyof (typeof BREAKPOINTS)['values'];
   cardColumns?: TableColumn<R>[];
   minWidth?: string;
   initialOrder?: {
@@ -25,6 +25,7 @@ export interface TableProps<R> {
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
   getRowHref?: (row: R) => string;
   title?: string;
+  testId?: string;
 }
 
 export interface Order<R> {

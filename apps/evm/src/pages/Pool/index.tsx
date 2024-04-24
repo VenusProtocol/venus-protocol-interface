@@ -8,8 +8,8 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Pool } from 'types';
 
+import { MarketTable } from 'containers/MarketTable';
 import { PoolStats } from 'containers/PoolStats';
-import Table from './Table';
 import { useStyles } from './styles';
 
 export interface PoolUiProps {
@@ -34,7 +34,23 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
         description={t('pool.poolWarning', { poolName: pool.name })}
       />
 
-      <Table pool={pool} />
+      <MarketTable
+        pools={[pool]}
+        breakpoint="xl"
+        columns={[
+          'asset',
+          'supplyBalance',
+          'labeledSupplyApyLtv',
+          'borrowBalance',
+          'labeledBorrowApy',
+          'liquidity',
+          'price',
+        ]}
+        initialOrder={{
+          orderBy: 'labeledSupplyApyLtv',
+          orderDirection: 'desc',
+        }}
+      />
     </>
   ) : (
     <Spinner />
