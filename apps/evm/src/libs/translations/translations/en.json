@@ -434,6 +434,12 @@
         "unlimitedSupplyCap": "Uncapped"
       }
     },
+    "operationForm": {
+      "borrowTabTitle": "Borrow",
+      "repayTabTitle": "Repay",
+      "supplyTabTitle": "Supply",
+      "withdrawTabTitle": "Withdraw"
+    },
     "supplyButtonLabel": "Supply",
     "supplyInfo": {
       "stats": {

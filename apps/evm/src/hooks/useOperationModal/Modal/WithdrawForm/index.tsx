@@ -27,7 +27,6 @@ export interface WithdrawFormUiProps {
   pool: Pool;
   onSubmit: UseFormInput['onSubmit'];
   isSubmitting: boolean;
-  onCloseModal: () => void;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
   isWrapUnwrapNativeTokenEnabled: boolean;
@@ -35,6 +34,7 @@ export interface WithdrawFormUiProps {
   isDelegateApprovedLoading: boolean;
   isApproveDelegateLoading: boolean;
   approveDelegateAction: () => Promise<unknown>;
+  onCloseModal?: () => void;
 }
 
 export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
@@ -224,7 +224,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 export interface WithdrawFormProps {
   asset: Asset;
   pool: Pool;
-  onCloseModal: () => void;
+  onCloseModal?: () => void;
 }
 
 const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onCloseModal }) => {

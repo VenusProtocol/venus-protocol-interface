@@ -1,5 +1,6 @@
 import { AssetWarning, Card } from 'components';
 import type { Asset, Pool } from 'types';
+import { OperationForm } from './OperationForm';
 
 export interface MarketProps {
   asset: Asset;
@@ -17,8 +18,8 @@ export const Market: React.FC<MarketProps> = ({ asset, pool }) => {
       />
 
       <div className="space-y-6 lg:flex lg:space-y-0 lg:gap-x-6">
-        <Card className="h-[300px] lg:order-2 lg:sticky lg:top-6 w-auto lg:w-[400px]">
-          Supply/Borrow/Withdraw/Repay form
+        <Card className="lg:order-2 lg:sticky lg:top-6 w-auto lg:w-[400px] self-start">
+          <OperationForm asset={asset} pool={pool} />
         </Card>
 
         <div className="space-y-6 lg:grow lg:order-1">
