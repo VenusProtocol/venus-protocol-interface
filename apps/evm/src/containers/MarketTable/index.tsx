@@ -35,7 +35,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   columns: columnKeys,
   clickableRows = true,
   initialOrder,
-  breakpoint,
   ...otherTableProps
 }) => {
   const styles = useStyles();
