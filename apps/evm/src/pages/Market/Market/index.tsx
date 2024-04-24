@@ -1,6 +1,7 @@
 import { AssetWarning, Card } from 'components';
 import type { Asset, Pool } from 'types';
 import { OperationForm } from './OperationForm';
+import { InterestRateChart } from './InterestRateChart';
 
 export interface MarketProps {
   asset: Asset;
@@ -27,7 +28,7 @@ export const Market: React.FC<MarketProps> = ({ asset, pool }) => {
 
           <Card className="h-[300px]">Borrow info</Card>
 
-          <Card className="h-[300px]">Market info</Card>
+          <InterestRateChart asset={asset} isIsolatedPoolMarket={pool.isIsolated} />
         </div>
       </div>
     </div>

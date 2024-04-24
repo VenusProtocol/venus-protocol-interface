@@ -21,7 +21,7 @@ import {
 } from 'utilities';
 
 import TEST_IDS from '../testIds';
-import { MarketCard, type MarketCardProps } from './MarketCard';
+import { MarketCard, type MarketCardProps } from 'pages/Market/Market/MarketCard';
 import { MarketHistory } from './MarketHistory';
 import MarketInfo, { type MarketInfoProps } from './MarketInfo';
 
