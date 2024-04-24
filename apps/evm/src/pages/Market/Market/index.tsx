@@ -1,7 +1,10 @@
 import { AssetWarning, Card } from 'components';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Asset, Pool } from 'types';
-import { OperationForm } from './OperationForm';
 import { InterestRateChart } from './InterestRateChart';
+import { MarketHistory } from './MarketHistory';
+import MarketInfo from './MarketInfo';
+import { OperationForm } from './OperationForm';
 
 export interface MarketProps {
   asset: Asset;
@@ -9,6 +12,10 @@ export interface MarketProps {
 }
 
 export const Market: React.FC<MarketProps> = ({ asset, pool }) => {
+  const isMarketHistoryFeatureEnabled = useIsFeatureEnabled({
+    name: 'marketHistory',
+  });
+
   return (
     <div className="py-6 md:py-8 xl:py-12">
       <AssetWarning
@@ -24,11 +31,11 @@ export const Market: React.FC<MarketProps> = ({ asset, pool }) => {
         </Card>
 
         <div className="space-y-6 lg:grow lg:order-1">
-          <Card className="h-[300px]">Supply info</Card>
-
-          <Card className="h-[300px]">Borrow info</Card>
+          {isMarketHistoryFeatureEnabled && <MarketHistory asset={asset} />}
 
           <InterestRateChart asset={asset} isIsolatedPoolMarket={pool.isIsolated} />
+
+          <MarketInfo asset={asset} />
         </div>
       </div>
     </div>

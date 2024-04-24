@@ -1,10 +1,10 @@
 import { useGetVTokenApySimulations } from 'clients/api';
-import type { Asset } from 'types';
-import { MarketCard, type MarketCardProps } from '../MarketCard';
-import { useTranslation } from 'libs/translations';
-import TEST_IDS from '../../testIds';
 import { Spinner } from 'components';
 import { InterestRateChart as InterestRateChartUi } from 'components/charts/InterestRateChart';
+import { useTranslation } from 'libs/translations';
+import type { Asset } from 'types';
+import TEST_IDS from '../../testIds';
+import { MarketCard, type MarketCardProps } from '../MarketCard';
 
 export interface InterestRateChartProps {
   className?: string;
