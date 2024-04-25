@@ -43,6 +43,7 @@ export const Toggle = ({
         focusVisibleClassName=".Mui-focusVisible"
         disableRipple
         onChange={onChange}
+        onClick={e => e.stopPropagation()}
         checked={value}
         {...otherSwitchProps}
       />
