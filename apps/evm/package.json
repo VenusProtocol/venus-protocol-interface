@@ -120,7 +120,7 @@
     "@venusprotocol/isolated-pools": "^2.7.0",
     "@venusprotocol/oracle": "^1.10.0",
     "@venusprotocol/stylelint-config": "*",
-    "@venusprotocol/token-bridge": "^1.1.0",
+    "@venusprotocol/token-bridge": "^2.0.0",
     "@venusprotocol/typescript-config": "*",
     "@venusprotocol/venus-protocol": "^7.5.0",
     "@vitejs/plugin-react": "^4.0.4",
