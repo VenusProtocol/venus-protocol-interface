@@ -56,7 +56,6 @@ export interface RepayFormUiProps
   pool: Pool;
   onSubmit: UseFormInput['onSubmit'];
   isSubmitting: boolean;
-  onCloseModal: () => void;
   nativeWrappedTokenBalances: TokenBalance[];
   integratedSwapTokenBalances: TokenBalance[];
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
@@ -68,6 +67,7 @@ export interface RepayFormUiProps
   isUsingSwap: boolean;
   revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
+  onCloseModal?: () => void;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
@@ -365,7 +365,7 @@ export interface RepayFormProps {
   asset: Asset;
   pool: Pool;
   userWalletNativeTokenBalanceData?: GetBalanceOfOutput;
-  onCloseModal: () => void;
+  onCloseModal?: () => void;
 }
 
 const RepayForm: React.FC<RepayFormProps> = ({

@@ -12,10 +12,10 @@ export interface UseFormInput {
   asset: Asset;
   limitTokens: BigNumber;
   onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
-  onCloseModal: () => void;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
   userBorrowLimitCents?: number;
+  onCloseModal?: () => void;
 }
 
 interface UseFormOutput {
@@ -56,7 +56,7 @@ const useForm = ({
         amountTokens: '',
         receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
       }));
-      onCloseModal();
+      onCloseModal?.();
     } catch (error) {
       displayMutationError({ error });
     }

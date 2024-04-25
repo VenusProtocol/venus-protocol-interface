@@ -26,7 +26,6 @@ export interface BorrowFormUiProps {
   pool: Pool;
   onSubmit: UseFormInput['onSubmit'];
   isSubmitting: boolean;
-  onCloseModal: () => void;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
   isWrapUnwrapNativeTokenEnabled: boolean;
@@ -34,6 +33,7 @@ export interface BorrowFormUiProps {
   isDelegateApprovedLoading: boolean;
   isApproveDelegateLoading: boolean;
   approveDelegateAction: () => Promise<unknown>;
+  onCloseModal?: () => void;
 }
 
 export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
@@ -235,7 +235,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
 export interface BorrowFormProps {
   asset: Asset;
   pool: Pool;
-  onCloseModal: () => void;
+  onCloseModal?: () => void;
 }
 
 const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onCloseModal }) => {

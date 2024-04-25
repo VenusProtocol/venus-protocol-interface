@@ -60,7 +60,6 @@ export interface SupplyFormUiProps
   pool: Pool;
   onSubmit: UseFormInput['onSubmit'];
   isSubmitting: boolean;
-  onCloseModal: () => void;
   nativeWrappedTokenBalances: TokenBalance[];
   integratedSwapTokenBalances: TokenBalance[];
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
@@ -73,6 +72,7 @@ export interface SupplyFormUiProps
   canWrapNativeToken: boolean;
   isWrappingNativeToken: boolean;
   isUsingSwap: boolean;
+  onCloseModal?: () => void;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   swap?: Swap;
   swapError?: SwapError;
@@ -390,7 +390,7 @@ export interface SupplyFormProps {
   asset: Asset;
   pool: Pool;
   userWalletNativeTokenBalanceData?: GetBalanceOfOutput;
-  onCloseModal: () => void;
+  onCloseModal?: () => void;
 }
 
 const SupplyForm: React.FC<SupplyFormProps> = ({

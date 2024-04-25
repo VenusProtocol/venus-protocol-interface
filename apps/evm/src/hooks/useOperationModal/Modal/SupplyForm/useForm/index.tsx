@@ -15,9 +15,9 @@ export interface UseFormInput {
     fromTokenAmountTokens: string;
     swap?: Swap;
   }) => Promise<unknown>;
-  onCloseModal: () => void;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
+  onCloseModal?: () => void;
   isFromTokenApproved?: boolean;
   isUsingSwap: boolean;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
@@ -75,7 +75,7 @@ const useForm = ({
         fromToken: asset.vToken.underlyingToken,
         amountTokens: '',
       }));
-      onCloseModal();
+      onCloseModal?.();
     } catch (error) {
       displayMutationError({ error });
     }
