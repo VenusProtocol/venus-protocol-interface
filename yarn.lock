@@ -1374,9 +1374,9 @@
     js-base64 "^3.7.5"
 
 "@binance/w3w-wagmi-connector@^1.1.0-alpha.0":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/@binance/w3w-wagmi-connector/-/w3w-wagmi-connector-1.1.6.tgz#962e8c6c55cc2f181807a28aadf3996227fc7024"
-  integrity sha512-wMVp5TMk3dU5bTLO33P8cXGp8tMVz4F7IYkClveX1rsHW8gDwJLslivebG1VjerDIA8nzNxiCNJYOOfgN1o4kw==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@binance/w3w-wagmi-connector/-/w3w-wagmi-connector-1.2.0.tgz#87b3f823f119c91e60b6c4f8d4cb30791e6f8809"
+  integrity sha512-d5UzCmzqxIwFAzryjq+qcFzKeIbITyIn+9YMLjSLIck3pIjsmUmOwvXRnwx5BMCVnZdOJCEE6Adg7ehH9ltQCA==
   dependencies:
     "@binance/w3w-ethereum-provider" "1.1.6"
     "@binance/w3w-utils" "1.1.4"
