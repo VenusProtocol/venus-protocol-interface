@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 2.118.0
+
+### Minor Changes
+
+- ac89afc: Update Market navigation
+- b851df2: Add blocks into new Market page
+
+### Patch Changes
+
+- fd72e03: Remove local supply/borrow disabled token actions. These will now be fully controlled from contracts
+- 24cd069: fix breakpoint prop not being passed to Table component in MarketTable
+- 382f4cb: Stop event propagation when clicking on collateral toggle
+
 ## 2.117.0
 
 ### Minor Changes
