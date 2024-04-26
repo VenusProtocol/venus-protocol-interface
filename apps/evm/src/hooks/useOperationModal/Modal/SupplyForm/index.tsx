@@ -8,11 +8,11 @@ import {
   NoticeInfo,
   SelectTokenTextField,
   SpendingLimit,
-  SwapDetails,
   Toggle,
   TokenTextField,
 } from 'components';
 import { AccountData } from 'containers/AccountData';
+import { SwapDetails } from '../SwapDetails';
 import { Link } from 'containers/Link';
 import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
@@ -325,7 +325,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
       <Delimiter />
 
-      {isUsingSwap && (
+      {isUsingSwap && swap && (
         <>
           <SwapDetails action="supply" swap={swap} data-testid={TEST_IDS.swapDetails} />
 

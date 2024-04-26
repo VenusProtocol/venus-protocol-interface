@@ -70,9 +70,7 @@ export const AccountData: React.FC<AccountDataProps> = ({
           <SecondaryAccordion
             title={
               <div className="flex items-center gap-x-2">
-                <p className={cn('text-sm md:text-base', 'text-grey')}>
-                  {t('accountData.totalApy.label')}
-                </p>
+                <p className={cn('text-sm md:text-base')}>{t('accountData.totalApy.label')}</p>
 
                 <Tooltip
                   className="inline-flex items-center"

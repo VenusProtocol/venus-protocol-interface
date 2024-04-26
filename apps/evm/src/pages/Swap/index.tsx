@@ -9,9 +9,9 @@ import {
   LabeledInlineContent,
   SelectTokenTextField,
   SpendingLimit,
-  SwapDetails,
   TextButton,
 } from 'components';
+import { SwapDetails } from './SwapDetails';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -326,7 +326,6 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         </LabeledInlineContent>
 
         <SwapDetails
-          action="swap"
           swap={swap}
           data-testid={TEST_IDS.swapDetails}
           css={styles.getRow({ isLast: true })}

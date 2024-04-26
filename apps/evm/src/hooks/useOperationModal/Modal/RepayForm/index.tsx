@@ -8,9 +8,9 @@ import {
   QuaternaryButton,
   SelectTokenTextField,
   SpendingLimit,
-  SwapDetails,
   TokenTextField,
 } from 'components';
+import { SwapDetails } from '../SwapDetails';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -313,7 +313,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
       <Delimiter />
 
-      {isUsingSwap && (
+      {isUsingSwap && swap && (
         <>
           <SwapDetails action="repay" swap={swap} data-testid={TEST_IDS.swapDetails} />
 

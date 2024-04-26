@@ -289,7 +289,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       isLoading: false,
     }));
 
-    const { container, getByTestId } = renderComponent(
+    const { container, getByTestId, getByText } = renderComponent(
       <Supply asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
@@ -312,6 +312,10 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
+
+    // Open swap details accordion
+    fireEvent.click(getByText(en.operationModal.swapDetails.label.supply).closest('button')!);
+
     expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
     expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
   });
@@ -493,7 +497,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     expect(submitButton).toBeDisabled();
   });
 
-  it('lets user swap and supplythen calls onClose callback on success', async () => {
+  it('lets user swap and supply then calls onClose callback on success', async () => {
     (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
       swap: fakeSwap,
       isLoading: false,

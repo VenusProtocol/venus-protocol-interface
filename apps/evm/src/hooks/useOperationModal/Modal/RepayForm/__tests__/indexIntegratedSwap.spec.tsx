@@ -421,7 +421,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
       isLoading: false,
     }));
 
-    const { container, getByTestId } = renderComponent(
+    const { container, getByTestId, getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onCloseModal={noop} />,
       {
         accountAddress: fakeAccountAddress,
@@ -444,6 +444,10 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
+
+    // Open swap details accordion
+    fireEvent.click(getByText(en.operationModal.swapDetails.label.repay).closest('button')!);
+
     expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
     expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
   });

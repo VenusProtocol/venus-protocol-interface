@@ -599,6 +599,24 @@
       "youCanWrapNative": "You can wrap {{nativeTokenSymbol}} into {{wrappedNativeTokenSymbol}} in <Link>Uniswap</Link>"
     },
     "supplyTabTitle": "Supply",
+    "swapDetails": {
+      "label": {
+        "exchangeRate": "Exchange rate",
+        "priceImpact": "Price impact",
+        "repay": "You will repay",
+        "slippageTolerance": "Slippage tolerance",
+        "supply": "You will supply"
+      },
+      "tooltip": {
+        "priceImpact": "Difference between the market price and estimated price due to trade size."
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}",
+        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
+        "priceImpact": "{{ priceImpact }}"
+      }
+    },
     "swapSummary": {
       "repay": "You will repay {{toTokenAmount}} using {{fromTokenAmount}}",
       "supply": "You will supply {{toTokenAmount}} using {{fromTokenAmount}}"
@@ -768,26 +786,23 @@
     "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
     "errors": {
       "incorrectSwapInput": "Incorrect input provided for swap"
-    }
-  },
-  "swapDetails": {
-    "label": {
-      "exchangeRate": "Exchange rate",
-      "maximumSold": "Maximum sold",
-      "minimumReceived": "Minimum received",
-      "priceImpact": "Price impact",
-      "repay": "You will repay",
-      "slippageTolerance": "Slippage tolerance",
-      "supply": "You will supply"
     },
-    "tooltip": {
-      "priceImpact": "Difference between the market price and estimated price due to trade size."
-    },
-    "value": {
-      "estimatedAmount": "≈ {{ value }}",
-      "exactAmount": "{{ value }}",
-      "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
-      "priceImpact": "{{ priceImpact }}"
+    "swapDetails": {
+      "label": {
+        "exchangeRate": "Exchange rate",
+        "maximumSold": "Maximum sold",
+        "minimumReceived": "Minimum received",
+        "priceImpact": "Price impact",
+        "slippageTolerance": "Slippage tolerance"
+      },
+      "tooltip": {
+        "priceImpact": "Difference between the market price and estimated price due to trade size."
+      },
+      "value": {
+        "exactAmount": "{{ value }}",
+        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
+        "priceImpact": "{{ priceImpact }}"
+      }
     }
   },
   "swapPage": {
