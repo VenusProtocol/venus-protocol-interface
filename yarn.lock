@@ -7205,16 +7205,17 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@venusprotocol/isolated-pools@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-2.7.0.tgz#18ac94070ec67911093eda4a9ebddfb455834c2e"
-  integrity sha512-nzQuOJc7ZACc44HyKp+DRejjYaJeEYKPSJ26yUOcOTI0EYcYyj4uHBxfBkU0jwP2WTGvDwsLf8J5Y6J9doR10w==
+"@venusprotocol/isolated-pools@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-3.1.0.tgz#bd5f76f01ca2e680cd1f42990d0f472efc2e7003"
+  integrity sha512-NgWTLy9Gq+eCLYoqHWRkYR2KcON/1k8SD97eBRH8CBJpGEq7ZiF+X3aEbLbsx4XuLQGcps60nzA6iJrwVzNiQA==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.3"
     "@openzeppelin/hardhat-upgrades" "^1.21.0"
     "@solidity-parser/parser" "^0.13.2"
+    "@venusprotocol/solidity-utilities" "^2.0.0"
     ethers "^5.7.0"
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
@@ -7273,6 +7274,11 @@
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-1.3.0.tgz#73685899195afdf9b19558ca7cb1e500f8879576"
   integrity sha512-OQZmjIb9goOao8hFYvaCw60Ez0E+uB3vWrF/2XqGVJjYXFROMN+x1WrXNusRv+CNKxf6hudJ0T5pjJ7epMXMlg==
+
+"@venusprotocol/solidity-utilities@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.1.tgz#e3f1d736b572a6858e9345d534fc4ab3eb0f4ad4"
+  integrity sha512-kP6G2RrWPhIi+Dhu4WmI7I9nd+SmEuQ/OVKDykwsex7bViceqBGM+SlRQgaIVoGnwX/6MCdeMzX3wPnnWB5Kyw==
 
 "@venusprotocol/token-bridge@^1.1.0":
   version "1.1.0"
