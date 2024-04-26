@@ -71,11 +71,13 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       {/* Desktop view */}
       <div css={[styles.desktopContainer, hideXlDownCss]}>
         <MarketTable
+          openOperationModalOnRowClick
           {...marketTableProps.supply}
           title={t('account.marketBreakdown.tables.supplyTableTitle')}
         />
 
         <MarketTable
+          openOperationModalOnRowClick
           {...marketTableProps.borrow}
           title={t('account.marketBreakdown.tables.borrowTableTitle')}
         />
@@ -102,12 +104,14 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
         {activeTabIndex === 0 ? (
           <MarketTable
             key="supply-market-table"
+            openOperationModalOnRowClick
             {...marketTableProps.supply}
             css={styles.tabletMarketTable}
           />
         ) : (
           <MarketTable
             key="borrow-market-table"
+            openOperationModalOnRowClick
             {...marketTableProps.borrow}
             css={styles.tabletMarketTable}
           />
