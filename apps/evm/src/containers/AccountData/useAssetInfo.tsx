@@ -24,13 +24,17 @@ const useAssetInfo = ({
   const { t } = useTranslation();
 
   return useMemo(() => {
-    const rows: LabeledInlineContentProps[] = [];
+    const apyBreakdownRows: LabeledInlineContentProps[] = [];
 
     if (!asset) {
-      return rows;
+      return {
+        hypotheticalTotalDistributionBorrowApyPercentage: undefined,
+        hypotheticalTotalDistributionSupplyApyPercentage: undefined,
+        apyBreakdownRows,
+      };
     }
 
-    rows.push({
+    apyBreakdownRows.push({
       label: type === 'borrow' ? t('assetInfo.borrowApy') : t('assetInfo.supplyApy'),
       iconSrc: asset.vToken.underlyingToken,
       children: formatPercentageToReadableValue(
@@ -94,20 +98,13 @@ const useAssetInfo = ({
           .plus(hypotheticalAssetSupplyPrimeApyPercentage);
     }
 
-    rows.push(...distributionRows, {
-      label: t('assetInfo.totalApy.label'),
-      tooltip:
-        type === 'borrow'
-          ? t('assetInfo.totalApy.borrowApyTooltip')
-          : t('assetInfo.totalApy.supplyApyTooltip'),
-      children: formatPercentageToReadableValue(
-        type === 'borrow'
-          ? asset.borrowApyPercentage.minus(hypotheticalTotalDistributionBorrowApyPercentage)
-          : asset.supplyApyPercentage.plus(hypotheticalTotalDistributionSupplyApyPercentage),
-      ),
-    });
+    apyBreakdownRows.push(...distributionRows);
 
-    return rows;
+    return {
+      hypotheticalTotalDistributionBorrowApyPercentage,
+      hypotheticalTotalDistributionSupplyApyPercentage,
+      apyBreakdownRows,
+    };
   }, [
     asset,
     t,

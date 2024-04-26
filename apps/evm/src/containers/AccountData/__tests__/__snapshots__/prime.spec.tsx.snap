@@ -1,17 +1,17 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'borrow', amountToken: +0 } 1`] = `"Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%Total APY-7.94%Current:$123.33Max:$1.92K.Borrow balance (USDC)0Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'borrow', amountToken: +0 } 1`] = `"Total APY-7.94%Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%Current:$123.33Max:$1.92K.Borrow balance (USDC)0Borrow limit used6.4%Daily earnings$0.03"`;
 
-exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'borrow', amountToken: 50 } 1`] = `"Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%10.4%Total APY-17.43%Current:$123.33Max:$1.92K.Borrow balance (USDC)050.00Borrow limit used6.4%8.99%Daily earnings$0.03$0.05"`;
+exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'borrow', amountToken: 50 } 1`] = `"Total APY-17.43%Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%10.4%Current:$123.33Max:$1.92K.Borrow balance (USDC)050.00Borrow limit used6.4%8.99%Daily earnings$0.03$0.05"`;
 
-exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'repay', amountToken: +0 } 1`] = `"Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%Total APY-7.94%Current:$123.33Max:$1.92K.Borrow balance (USDC)0Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'repay', amountToken: +0 } 1`] = `"Total APY-7.94%Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%Current:$123.33Max:$1.92K.Borrow balance (USDC)0Borrow limit used6.4%Daily earnings$0.03"`;
 
-exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'repay', amountToken: 50 } 1`] = `"Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%10.4%Total APY-17.43%Current:$123.33Max:$1.92K.Borrow balance (USDC)0Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'repay', amountToken: 50 } 1`] = `"Total APY-17.43%Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%10.4%Current:$123.33Max:$1.92K.Borrow balance (USDC)0Borrow limit used6.4%Daily earnings$0.03"`;
 
-exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'supply', amountToken: +0 } 1`] = `"Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%Total APY5.99%Current:$123.33Max:$1.92K.Supply balance (USDC)100.00Borrow limit$1.92KDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'supply', amountToken: +0 } 1`] = `"Total APY5.99%Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%Current:$123.33Max:$1.92K.Supply balance (USDC)100.00Borrow limit$1.92KDaily earnings$0.03"`;
 
-exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'supply', amountToken: 50 } 1`] = `"Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%13.4%Total APY18.64%Current:$123.33Max:$1.92K.Supply balance (USDC)100.00150.00Borrow limit$1.92KDaily earnings$0.03$0.09"`;
+exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'supply', amountToken: 50 } 1`] = `"Total APY18.64%Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%13.4%Current:$123.33Max:$1.92K.Supply balance (USDC)100.00150.00Borrow limit$1.92KDaily earnings$0.03$0.09"`;
 
-exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'withdraw', amountToken: +0 } 1`] = `"Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%Total APY5.99%Current:$123.33Max:$1.92K.Supply balance (USDC)100.00Borrow limit$1.92KDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'withdraw', amountToken: +0 } 1`] = `"Total APY5.99%Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%Current:$123.33Max:$1.92K.Supply balance (USDC)100.00Borrow limit$1.92KDaily earnings$0.03"`;
 
-exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'withdraw', amountToken: 50 } 1`] = `"Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%13.4%Total APY18.64%Current:$123.33Max:$1.92K.Supply balance (USDC)100.0050.00Borrow limit$1.92KDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: integratedSwap > displays Prime APY correctly: { action: 'withdraw', amountToken: 50 } 1`] = `"Total APY18.64%Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%13.4%Current:$123.33Max:$1.92K.Supply balance (USDC)100.0050.00Borrow limit$1.92KDaily earnings$0.03"`;

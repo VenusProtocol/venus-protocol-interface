@@ -1,4 +1,5 @@
 export * from './Accordion';
+export * from './SecondaryAccordion';
 export * from './ActiveVotingProgress';
 export * from './ButtonGroup';
 export * from './Button';

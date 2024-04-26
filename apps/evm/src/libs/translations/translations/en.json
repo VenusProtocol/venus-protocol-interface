@@ -42,7 +42,12 @@
     "borrowLimit": "Borrow limit",
     "borrowLimitUsed": "Borrow limit used",
     "dailyEarnings": "Daily earnings",
-    "supplyBalance": "Supply balance ({{tokenSymbol}})"
+    "supplyBalance": "Supply balance ({{tokenSymbol}})",
+    "totalApy": {
+      "borrowApyTooltip": "Borrow APY - Distribution APYs",
+      "label": "Total APY",
+      "supplyApyTooltip": "Supply APY + Distribution APYs"
+    }
   },
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
@@ -108,12 +113,7 @@
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
     "distributionTooltip": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
     "primeApy": "Prime APY ({{tokenSymbol}})",
-    "supplyApy": "Supply APY",
-    "totalApy": {
-      "borrowApyTooltip": "Borrow APY - Distribution APYs",
-      "label": "Total APY",
-      "supplyApyTooltip": "Supply APY + Distribution APYs"
-    }
+    "supplyApy": "Supply APY"
   },
   "assetWarning": {
     "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool. <Button>Show all tokens</Button>",
