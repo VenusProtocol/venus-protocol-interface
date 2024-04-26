@@ -94,9 +94,9 @@ export const useModalStyles = ({
     `,
     closeIconSize: theme.shape.iconSize.xLarge,
     contentWrapper: css`
-      padding-bottom: ${theme.spacing(10)};
-      padding-left: ${noHorizontalPadding ? 0 : theme.spacing(10)};
-      padding-right: ${noHorizontalPadding ? 0 : theme.spacing(10)};
+      padding-bottom: ${theme.spacing(6)};
+      padding-left: ${noHorizontalPadding ? 0 : theme.spacing(6)};
+      padding-right: ${noHorizontalPadding ? 0 : theme.spacing(6)};
       ${theme.breakpoints.down('md')} {
         padding-bottom: ${theme.spacing(4)};
         padding-left: ${noHorizontalPadding ? 0 : theme.spacing(4)};

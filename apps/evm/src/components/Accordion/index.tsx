@@ -45,7 +45,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         css={styles.accordionSummary}
       >
         <div css={styles.accordionLeft}>
-          <Icon name="arrowUp" css={styles.arrow(expanded)} />
+          <Icon name="arrowUp" css={styles.arrow(expanded)} className="w-5 h-5" />
           <Typography color={expanded ? 'textPrimary' : 'textSecondary'}>{title}</Typography>
         </div>
         {rightAdornment || <div />}

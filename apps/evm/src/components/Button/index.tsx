@@ -27,7 +27,7 @@ const getVariantClasses = ({ variant, active }: { variant: Variant; active: bool
       );
     case 'quaternary':
       return cn(
-        'active:border:text-grey border-lightGrey bg-lightGrey active:text-grey h-8 rounded-full px-6 py-1 disabled:border-transparent',
+        'active:border:text-grey border-lightGrey bg-lightGrey active:text-grey h-8 rounded-full px-2 py-1 disabled:border-transparent',
         active ? 'border-grey bg-grey' : 'hover:border-blue hover:bg-lightGrey',
       );
     case 'quinary':

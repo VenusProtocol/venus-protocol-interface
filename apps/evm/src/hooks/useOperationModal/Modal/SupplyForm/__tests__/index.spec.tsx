@@ -13,7 +13,7 @@ import { supply } from 'clients/api';
 import useCollateral from 'hooks/useCollateral';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
-import type { Asset, Pool } from 'types';
+import type { Asset } from 'types';
 
 import SupplyForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
@@ -32,25 +32,6 @@ describe('SupplyForm', () => {
     );
 
     await waitFor(() => getByText('8.90K XVS'));
-  });
-
-  it('displays warning notice if asset is from an isolated pool', async () => {
-    const customFakePool: Pool = {
-      ...fakePool,
-      isIsolated: true,
-    };
-
-    const { getByTestId } = renderComponent(
-      <SupplyForm onCloseModal={noop} pool={customFakePool} asset={fakeAsset} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    await waitFor(() => getByTestId(TEST_IDS.noticeAssetWarning));
-    expect(getByTestId(TEST_IDS.noticeAssetWarning).textContent).toMatchInlineSnapshot(
-      '"Supplying XVS to the Venus pool will enable you to borrow tokens from this pool exclusively. Show all tokens"',
-    );
   });
 
   it('submit is disabled with no amount', async () => {

@@ -7,7 +7,7 @@ export const useStyles = () => {
   return {
     row: css`
       :not(:last-of-type) {
-        margin-bottom: ${theme.spacing(3)};
+        margin-bottom: ${theme.spacing(2)};
       }
     `,
     getPriceImpactText: ({ isHigh }: { isHigh: boolean }) => css`
