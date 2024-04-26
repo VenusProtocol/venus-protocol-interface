@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import type Vi from 'vitest';
 
+import { fireEvent } from '@testing-library/react';
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
-import { fireEvent } from '@testing-library/react';
 
 import {
   useGetHypotheticalPrimeApys,

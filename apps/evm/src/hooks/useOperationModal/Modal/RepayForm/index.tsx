@@ -10,7 +10,6 @@ import {
   SpendingLimit,
   TokenTextField,
 } from 'components';
-import { SwapDetails } from '../SwapDetails';
 import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -32,6 +31,7 @@ import {
   formatPercentageToReadableValue,
   getUniqueTokenBalances,
 } from 'utilities';
+import { SwapDetails } from '../SwapDetails';
 
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';

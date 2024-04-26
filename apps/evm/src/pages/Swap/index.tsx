@@ -11,7 +11,6 @@ import {
   SpendingLimit,
   TextButton,
 } from 'components';
-import { SwapDetails } from './SwapDetails';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -27,6 +26,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
+import { SwapDetails } from './SwapDetails';
 
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';

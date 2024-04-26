@@ -4,11 +4,11 @@ import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
+import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
+import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useTranslation } from 'libs/translations';
 import type { Swap } from 'types';
 import { cn, formatPercentageToReadableValue } from 'utilities';
-import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 
 import { LabeledInlineContent, SecondaryAccordion } from 'components';
 

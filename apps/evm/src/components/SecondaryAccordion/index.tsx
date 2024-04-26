@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Icon } from '../Icon';
-import { cn } from 'utilities';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
+import { cn } from 'utilities';
+import { Icon } from '../Icon';
 
 export interface SecondaryAccordionProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {

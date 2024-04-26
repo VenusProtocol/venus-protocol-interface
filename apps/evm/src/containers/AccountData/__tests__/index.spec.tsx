@@ -1,9 +1,9 @@
-import BigNumber from 'bignumber.js';
 import { fireEvent } from '@testing-library/react';
+import BigNumber from 'bignumber.js';
 
 import { poolData } from '__mocks__/models/pools';
-import { renderComponent } from 'testUtils/render';
 import { en } from 'libs/translations';
+import { renderComponent } from 'testUtils/render';
 import { AccountData, type AccountDataProps } from '..';
 
 describe('AccountData', () => {

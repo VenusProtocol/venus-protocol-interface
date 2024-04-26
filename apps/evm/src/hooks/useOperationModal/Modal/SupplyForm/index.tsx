@@ -12,7 +12,6 @@ import {
   TokenTextField,
 } from 'components';
 import { AccountData } from 'containers/AccountData';
-import { SwapDetails } from '../SwapDetails';
 import { Link } from 'containers/Link';
 import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
@@ -34,6 +33,7 @@ import {
   convertTokensToMantissa,
   getUniqueTokenBalances,
 } from 'utilities';
+import { SwapDetails } from '../SwapDetails';
 
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';

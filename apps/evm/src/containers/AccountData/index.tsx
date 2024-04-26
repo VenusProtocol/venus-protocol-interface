@@ -1,18 +1,18 @@
 import type BigNumber from 'bignumber.js';
 
+import {
+  BorrowBalanceAccountHealth,
+  Delimiter,
+  Icon,
+  LabeledInlineContent,
+  SecondaryAccordion,
+  Tooltip,
+  ValueUpdate,
+} from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool, Swap, TokenAction } from 'types';
 import { cn, formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
-import {
-  Delimiter,
-  LabeledInlineContent,
-  BorrowBalanceAccountHealth,
-  ValueUpdate,
-  SecondaryAccordion,
-  Tooltip,
-  Icon,
-} from 'components';
 import useAssetInfo from './useAssetInfo';
 import useGetValues from './useGetValues';
 
