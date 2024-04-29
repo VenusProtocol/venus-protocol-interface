@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.118.1
+
+### Patch Changes
+
+- 9d3cd8f: open Operation modal when clicking on asset listed in Account page
+
 ## 2.118.0
 
 ### Minor Changes
