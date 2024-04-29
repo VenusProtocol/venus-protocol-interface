@@ -134,8 +134,9 @@ const formatToPools = ({
         ),
       );
 
+      // TODO: handle time based rates
       const supplyDailyPercentageRate = multiplyMantissaDaily({
-        mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
+        mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlockOrTimestamp.toString()),
         blocksPerDay,
       });
 
@@ -143,8 +144,9 @@ const formatToPools = ({
         dailyRate: supplyDailyPercentageRate,
       });
 
+      // TODO: handle time based rates
       const borrowDailyPercentageRate = multiplyMantissaDaily({
-        mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+        mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlockOrTimestamp.toString()),
         blocksPerDay,
       });
 

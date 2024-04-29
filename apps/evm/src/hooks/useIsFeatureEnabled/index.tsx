@@ -24,7 +24,13 @@ export const featureFlags = {
     ChainId.ETHEREUM,
     ChainId.SEPOLIA,
   ],
-  isolatedPools: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.ETHEREUM, ChainId.SEPOLIA],
+  isolatedPools: [
+    ChainId.BSC_MAINNET,
+    ChainId.BSC_TESTNET,
+    ChainId.ETHEREUM,
+    ChainId.SEPOLIA,
+    ChainId.ARBITRUM_SEPOLIA,
+  ],
   bridgeRoute: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
@@ -32,6 +38,7 @@ export const featureFlags = {
     ChainId.SEPOLIA,
     ChainId.OPBNB_MAINNET,
     ChainId.OPBNB_TESTNET,
+    ChainId.ARBITRUM_SEPOLIA,
   ],
   wrapUnwrapNativeToken: [
     ChainId.BSC_MAINNET,
@@ -48,8 +55,14 @@ export const featureFlags = {
     ChainId.ETHEREUM,
     ChainId.OPBNB_TESTNET,
     ChainId.OPBNB_MAINNET,
+    ChainId.ARBITRUM_SEPOLIA,
   ],
-  newMarketPage: [ChainId.BSC_TESTNET, ChainId.OPBNB_TESTNET, ChainId.SEPOLIA],
+  newMarketPage: [
+    ChainId.BSC_TESTNET,
+    ChainId.SEPOLIA,
+    ChainId.OPBNB_TESTNET,
+    ChainId.ARBITRUM_SEPOLIA,
+  ],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

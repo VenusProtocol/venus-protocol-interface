@@ -1,4 +1,5 @@
 import { getToken } from 'libs/tokens/utilities/getToken';
+import arbitrumLogo from 'libs/wallet/chains/img/arbitrum.svg';
 import bscLogo from 'libs/wallet/chains/img/bsc.svg';
 import ethLogo from 'libs/wallet/chains/img/eth.svg';
 import opbnbLogo from 'libs/wallet/chains/img/opbnb.svg';
@@ -71,6 +72,16 @@ export const CHAIN_METADATA: {
     blocksPerDay: 7200,
     corePoolComptrollerContractAddress: '0x7Aa39ab4BcA897F403425C9C6FDbd0f882Be0D70',
     stakedEthPoolComptrollerContractAddress: '0xd79CeB8EF8188E44b7Eb899094e8A3A4d7A1e236',
+    nativeToken: getToken({ chainId: ChainId.SEPOLIA, symbol: 'ETH' })!,
+  },
+  [ChainId.ARBITRUM_SEPOLIA]: {
+    name: 'Arbitrum Sepolia',
+    logoSrc: arbitrumLogo,
+    explorerUrl: 'https://sepolia.arbiscan.io/',
+    layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
+    blockTimeMs: 12000, // TODO: remove
+    blocksPerDay: 7200, // TODO: remove
+    corePoolComptrollerContractAddress: '0xA198909e8432f262f6978F2C81B04b32c55eb063',
     nativeToken: getToken({ chainId: ChainId.SEPOLIA, symbol: 'ETH' })!,
   },
 };

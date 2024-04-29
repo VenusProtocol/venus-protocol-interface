@@ -14,6 +14,7 @@ export enum ChainId {
   SEPOLIA = 11155111,
   OPBNB_MAINNET = 204,
   OPBNB_TESTNET = 5611,
+  ARBITRUM_SEPOLIA = 421614,
 }
 
 export type TransactionType = 'chain' | 'layerZero';
@@ -21,8 +22,9 @@ export type TransactionType = 'chain' | 'layerZero';
 export interface ChainMetadata {
   name: string;
   logoSrc: string;
-  blockTimeMs: number;
-  blocksPerDay: number;
+  blockTimeMs: number; // TODO: mark as optional
+  blocksPerDay: number; // TODO: mark as optional
+  // TODO: handle chains for which the block rate is not constant
   explorerUrl: string;
   nativeToken: Token;
   layerZeroScanUrl: string;

@@ -1,6 +1,7 @@
 import { ChainId } from 'types';
 
 import type { DisabledTokenActionMapping } from '../../types';
+import { disabledTokenActions as arbitrumSepoliaDisabledTokenActions } from './arbitrumSepolia';
 import { disabledTokenActions as bscMainnetDisabledTokenActions } from './bscMainnet';
 import { disabledTokenActions as bscTestnetDisabledTokenActions } from './bscTestnet';
 import { disabledTokenActions as ethereumDisabledTokenActions } from './ethereum';
@@ -15,6 +16,7 @@ const disabledTokenActions: DisabledTokenActionMapping = {
   [ChainId.OPBNB_TESTNET]: opBnbTestnetDisabledTokenActions,
   [ChainId.ETHEREUM]: ethereumDisabledTokenActions,
   [ChainId.SEPOLIA]: sepoliaDisabledTokenActions,
+  [ChainId.ARBITRUM_SEPOLIA]: arbitrumSepoliaDisabledTokenActions,
 };
 
 export default disabledTokenActions;

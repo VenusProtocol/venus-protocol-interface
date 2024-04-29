@@ -21,7 +21,7 @@ const xvsVaultResponses: {
   poolInfo: {
     token: xvs.address,
     allocPoint: BN.from('10'),
-    lastRewardBlock: BN.from('100000'),
+    lastRewardBlockOrSecond: BN.from('100000'),
     accRewardPerShare: BN.from('123871680'),
     lockPeriod: BN.from('200'),
   } as Awaited<ReturnType<XvsVault['poolInfos']>>,
