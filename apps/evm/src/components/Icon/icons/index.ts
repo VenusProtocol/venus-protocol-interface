@@ -17,7 +17,6 @@ export { default as checked } from './checked';
 export { default as chevronRight } from './chevronRight';
 export { default as chevronLeft } from './chevronLeft';
 export { default as longArrow } from './longArrow';
-export { default as medium } from './medium';
 export { default as discord } from './discord';
 export { default as twitter } from './twitter';
 export { default as github } from './github';
