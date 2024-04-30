@@ -12,6 +12,6 @@ export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({ token,
   <div className={cn(className, 'flex items-center')}>
     <TokenIcon token={token} className="mr-2 h-6 w-6" />
 
-    <div className="mt-[2px]">{token.symbol}</div>
+    <div>{token.symbol}</div>
   </div>
 );

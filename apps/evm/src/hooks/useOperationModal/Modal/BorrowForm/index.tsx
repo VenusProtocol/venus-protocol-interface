@@ -1,9 +1,8 @@
-/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
 import { useBorrow } from 'clients/api';
-import { AssetWarning, Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
+import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { AccountData } from 'containers/AccountData';
 import useDelegateApproval from 'hooks/useDelegateApproval';
@@ -15,7 +14,6 @@ import { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
-import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
@@ -51,7 +49,6 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   approveDelegateAction,
 }) => {
   const { t } = useTranslation();
-  const sharedStyles = useSharedStyles();
   const { nativeToken } = useGetChainMetadata();
 
   const canUnwrapToNativeToken = useMemo(
@@ -135,61 +132,53 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   }, [safeLimitTokens, setFormValues]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <AssetWarning
-        pool={pool}
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <TokenTextField
+        data-testid={TEST_IDS.tokenTextField}
+        name="amountTokens"
         token={asset.vToken.underlyingToken}
-        type="borrow"
-        css={sharedStyles.assetWarning}
+        value={formValues.amountTokens}
+        onChange={amountTokens =>
+          setFormValues(currentFormValues => ({
+            ...currentFormValues,
+            amountTokens,
+          }))
+        }
+        disabled={
+          isSubmitting ||
+          formError === 'BORROW_CAP_ALREADY_REACHED' ||
+          formError === 'NO_COLLATERALS'
+        }
+        rightMaxButton={{
+          label: t('operationModal.borrow.rightMaxButtonLabel', {
+            limitPercentage: SAFE_BORROW_LIMIT_PERCENTAGE,
+          }),
+          onClick: handleRightMaxButtonClick,
+        }}
+        hasError={!!formError && Number(formValues.amountTokens) > 0}
       />
 
-      <div className="mb-3">
-        <TokenTextField
-          data-testid={TEST_IDS.tokenTextField}
-          name="amountTokens"
-          token={asset.vToken.underlyingToken}
-          value={formValues.amountTokens}
-          onChange={amountTokens =>
-            setFormValues(currentFormValues => ({
-              ...currentFormValues,
-              amountTokens,
-            }))
-          }
-          disabled={
-            isSubmitting ||
-            formError === 'BORROW_CAP_ALREADY_REACHED' ||
-            formError === 'NO_COLLATERALS'
-          }
-          rightMaxButton={{
-            label: t('operationModal.borrow.rightMaxButtonLabel', {
-              limitPercentage: SAFE_BORROW_LIMIT_PERCENTAGE,
-            }),
-            onClick: handleRightMaxButtonClick,
-          }}
-          hasError={!!formError && Number(formValues.amountTokens) > 0}
+      {!isSubmitting && (
+        <Notice
+          hasUserCollateralizedSuppliedAssets={formError !== 'NO_COLLATERALS'}
+          amount={formValues.amountTokens}
+          safeLimitTokens={safeLimitTokens}
+          limitTokens={limitTokens}
+          formError={formError}
+          asset={asset}
         />
-
-        {!isSubmitting && (
-          <Notice
-            hasUserCollateralizedSuppliedAssets={formError !== 'NO_COLLATERALS'}
-            amount={formValues.amountTokens}
-            safeLimitTokens={safeLimitTokens}
-            limitTokens={limitTokens}
-            formError={formError}
-            asset={asset}
-          />
-        )}
-      </div>
+      )}
 
       <LabeledInlineContent label={t('operationModal.borrow.borrowableAmount')}>
         {readableLimit}
       </LabeledInlineContent>
 
-      <Delimiter className="my-6 md:my-8" />
+      <Delimiter />
 
       {canUnwrapToNativeToken && (
-        <div data-testid={TEST_IDS.receiveNativeToken}>
+        <>
           <LabeledInlineContent
+            data-testid={TEST_IDS.receiveNativeToken}
             label={t('operationModal.borrow.receiveNativeToken.label', {
               tokenSymbol: nativeToken.symbol,
             })}
@@ -197,7 +186,6 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
               wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
               nativeTokenSymbol: nativeToken.symbol,
             })}
-            css={sharedStyles.getRow({ isLast: true })}
           >
             <Toggle
               onChange={handleToggleReceiveNativeToken}
@@ -205,29 +193,30 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
             />
           </LabeledInlineContent>
 
-          <Delimiter className="my-6 md:my-8" />
-        </div>
+          <Delimiter />
+        </>
       )}
 
-      <AccountData
-        asset={asset}
-        pool={pool}
-        amountTokens={new BigNumber(formValues.amountTokens || 0)}
-        action="borrow"
-        className="mb-6"
-      />
+      <div className="space-y-6">
+        <AccountData
+          asset={asset}
+          pool={pool}
+          amountTokens={new BigNumber(formValues.amountTokens || 0)}
+          action="borrow"
+        />
 
-      <SubmitSection
-        isFormSubmitting={isSubmitting}
-        safeLimitTokens={safeLimitTokens}
-        isFormValid={isFormValid}
-        formError={formError}
-        fromTokenAmountTokens={formValues.amountTokens}
-        isDelegateApproved={isDelegateApproved}
-        isDelegateApprovedLoading={isDelegateApprovedLoading}
-        approveDelegateAction={approveDelegateAction}
-        isApproveDelegateLoading={isApproveDelegateLoading}
-      />
+        <SubmitSection
+          isFormSubmitting={isSubmitting}
+          safeLimitTokens={safeLimitTokens}
+          isFormValid={isFormValid}
+          formError={formError}
+          fromTokenAmountTokens={formValues.amountTokens}
+          isDelegateApproved={isDelegateApproved}
+          isDelegateApprovedLoading={isDelegateApprovedLoading}
+          approveDelegateAction={approveDelegateAction}
+          isApproveDelegateLoading={isApproveDelegateLoading}
+        />
+      </div>
     </form>
   );
 };

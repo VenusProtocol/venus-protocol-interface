@@ -5,9 +5,7 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     arrow: (expanded: boolean) => css`
-      margin-right: ${theme.spacing(4.5)};
-      height: ${theme.spacing(3)};
-      width: ${theme.spacing(3)};
+      margin-right: ${theme.spacing(3)};
       color: ${theme.palette.text.primary};
       ${!expanded && 'transform: rotate(180deg)'};
     `,

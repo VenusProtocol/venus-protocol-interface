@@ -1,12 +1,9 @@
-/** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
 import type { Swap } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
-import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 export interface SwapSummaryProps {
@@ -16,7 +13,6 @@ export interface SwapSummaryProps {
 
 export const SwapSummary: React.FC<SwapSummaryProps> = ({ swap, type }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
   const swapSummary = useMemo(() => {
     if (!swap) {
@@ -59,14 +55,9 @@ export const SwapSummary: React.FC<SwapSummaryProps> = ({ swap, type }) => {
   }
 
   return (
-    <Typography
-      data-testid={TEST_IDS.swapSummary}
-      css={styles.swapSummary}
-      variant="small2"
-      component="div"
-    >
+    <p data-testid={TEST_IDS.swapSummary} className="text-sm text-grey text-center mt-2">
       {swapSummary}
-    </Typography>
+    </p>
   );
 };
 

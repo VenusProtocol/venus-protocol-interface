@@ -158,7 +158,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               <Icon
                 name="arrowUp"
                 className={cn(
-                  'text-offWhite ml-3 w-[10px] flex-none',
+                  'text-offWhite ml-2 w-5 h-5 flex-none',
                   isMenuOpened ? 'text-blue' : 'rotate-180',
                 )}
               />

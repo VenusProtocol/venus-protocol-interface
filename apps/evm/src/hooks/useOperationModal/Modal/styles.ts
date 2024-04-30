@@ -18,7 +18,7 @@ export const useStyles = () => {
       margin-top: ${theme.spacing(3)};
     `,
     getRow: ({ isLast }: { isLast: boolean }) => css`
-      margin-bottom: ${theme.spacing(isLast ? 6 : 3)};
+      margin-bottom: ${theme.spacing(isLast ? 4 : 2)};
     `,
     assetWarning: css`
       margin-bottom: ${theme.spacing(6)};

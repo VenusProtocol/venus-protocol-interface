@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -9,27 +8,25 @@ import {
 import { useTranslation } from 'libs/translations';
 import type { Swap } from 'types';
 import {
+  cn,
   convertMantissaToTokens,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
 
-import { LabeledInlineContent } from '../LabeledInlineContent';
-import { useStyles } from './styles';
+import { LabeledInlineContent } from 'components';
 
 const readableSlippageTolerancePercentage = formatPercentageToReadableValue(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
 );
 
-export interface SwapDetailsProps {
-  action: 'repay' | 'supply' | 'swap';
+export interface SwapDetailsProps extends React.HTMLAttributes<HTMLDivElement> {
   swap?: Swap;
   className?: string;
 }
 
-export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...containerProps }) => {
+export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, className, ...otherProps }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
   const readableFromTokenAmountSold = useMemo(
     () =>
@@ -75,17 +72,9 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
       return PLACEHOLDER_KEY;
     }
 
-    if (action === 'repay') {
-      return t('swapDetails.label.repay');
-    }
-
-    if (action === 'supply') {
-      return t('swapDetails.label.supply');
-    }
-
     return swap.direction === 'exactAmountIn'
-      ? t('swapDetails.label.minimumReceived')
-      : t('swapDetails.label.maximumSold');
+      ? t('swap.swapDetails.label.minimumReceived')
+      : t('swap.swapDetails.label.maximumSold');
   };
 
   const getLastLineValue = () => {
@@ -93,30 +82,12 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
       return PLACEHOLDER_KEY;
     }
 
-    if (action === 'repay') {
-      return swap.direction === 'exactAmountIn'
-        ? t('swapDetails.value.estimatedAmount', {
-            value: readableToTokenAmountReceived,
-          })
-        : t('swapDetails.value.exactAmount', {
-            value: readableToTokenAmountReceived,
-          });
-    }
-
-    if (action === 'supply') {
-      return t('swapDetails.value.estimatedAmount', {
-        value: readableToTokenAmountReceived,
-      });
-    }
-
-    if (action === 'swap' && swap) {
-      return t('swapDetails.value.exactAmount', {
-        value:
-          swap.direction === 'exactAmountIn'
-            ? readableToTokenAmountReceived
-            : readableFromTokenAmountSold,
-      });
-    }
+    return t('swap.swapDetails.value.exactAmount', {
+      value:
+        swap.direction === 'exactAmountIn'
+          ? readableToTokenAmountReceived
+          : readableFromTokenAmountSold,
+    });
   };
 
   const readablePriceImpact = useMemo(
@@ -125,10 +96,10 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
   );
 
   return (
-    <div {...containerProps}>
+    <div className={cn('space-y-2', className)} {...otherProps}>
       {swap && (
-        <LabeledInlineContent label={t('swapDetails.label.exchangeRate')} css={styles.row}>
-          {t('swapDetails.value.exchangeRate', {
+        <LabeledInlineContent label={t('swap.swapDetails.label.exchangeRate')}>
+          {t('swap.swapDetails.value.exchangeRate', {
             fromTokenSymbol: swap.fromToken.symbol,
             toTokenSymbol: swap.toToken.symbol,
             rate: readableExchangeRate,
@@ -136,27 +107,26 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...conta
         </LabeledInlineContent>
       )}
 
-      <LabeledInlineContent label={t('swapDetails.label.slippageTolerance')} css={styles.row}>
+      <LabeledInlineContent label={t('swap.swapDetails.label.slippageTolerance')}>
         {readableSlippageTolerancePercentage}
       </LabeledInlineContent>
 
       {swap && (
         <>
           <LabeledInlineContent
-            label={t('swapDetails.label.priceImpact')}
-            css={styles.row}
-            tooltip={t('swapDetails.tooltip.priceImpact')}
+            label={t('swap.swapDetails.label.priceImpact')}
+            tooltip={t('swap.swapDetails.tooltip.priceImpact')}
           >
             <span
-              css={styles.getPriceImpactText({
-                isHigh: swap.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
-              })}
+              className={cn(
+                swap.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE && 'text-red',
+              )}
             >
-              {t('swapDetails.value.priceImpact', { priceImpact: readablePriceImpact })}
+              {t('swap.swapDetails.value.priceImpact', { priceImpact: readablePriceImpact })}
             </span>
           </LabeledInlineContent>
 
-          <LabeledInlineContent label={getLastLineLabel()} css={styles.row}>
+          <LabeledInlineContent label={getLastLineLabel()}>
             {getLastLineValue()}
           </LabeledInlineContent>
         </>

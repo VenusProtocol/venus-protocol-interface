@@ -59,12 +59,17 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
             <TertiaryButton
               onClick={handleButtonClick}
               css={styles.getButton({ isTokenListShown })}
+              className="p-2"
               disabled={disabled}
               data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
             >
               <TokenIconWithSymbol token={selectedToken} css={styles.token} />
 
-              <Icon css={styles.getArrowIcon({ isTokenListShown })} name="arrowUp" />
+              <Icon
+                css={styles.getArrowIcon({ isTokenListShown })}
+                name="arrowUp"
+                className="w-5 h-5"
+              />
             </TertiaryButton>
 
             {rightMaxButton && (

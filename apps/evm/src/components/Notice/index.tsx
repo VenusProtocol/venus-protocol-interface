@@ -26,7 +26,7 @@ export const Notice = ({
 }: NoticeProps) => (
   <div
     className={cn(
-      'before:bg-background relative flex overflow-hidden rounded-xl border p-2 transition-colors ease-linear before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:z-[-1] before:transition-colors',
+      'before:bg-background relative flex overflow-hidden rounded-xl border px-4 py-3 transition-colors ease-linear before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:z-[-1] before:transition-colors',
       (variant === 'info' || variant === 'loading') && 'border-lightGrey',
       variant === 'error' && 'border-red bg-red/5',
       variant === 'success' && 'border-green bg-green/5',
@@ -35,7 +35,7 @@ export const Notice = ({
     )}
     {...otherProps}
   >
-    <div className="flex grow overflow-hidden p-2">
+    <div className="flex grow overflow-hidden">
       {variant === 'loading' ? (
         <Spinner variant="small" className="mr-3 shrink-0 items-start" />
       ) : (

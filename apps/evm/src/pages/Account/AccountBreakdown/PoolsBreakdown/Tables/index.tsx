@@ -103,15 +103,15 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
 
         {activeTabIndex === 0 ? (
           <MarketTable
-            key="supply-market-table"
             openOperationModalOnRowClick
+            key="supply-market-table"
             {...marketTableProps.supply}
             css={styles.tabletMarketTable}
           />
         ) : (
           <MarketTable
-            key="borrow-market-table"
             openOperationModalOnRowClick
+            key="borrow-market-table"
             {...marketTableProps.borrow}
             css={styles.tabletMarketTable}
           />

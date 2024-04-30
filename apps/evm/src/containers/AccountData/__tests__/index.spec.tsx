@@ -1,8 +1,9 @@
+import { fireEvent } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
 import { poolData } from '__mocks__/models/pools';
+import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-
 import { AccountData, type AccountDataProps } from '..';
 
 describe('AccountData', () => {
@@ -29,7 +30,7 @@ describe('AccountData', () => {
   ] as { action: AccountDataProps['action']; amountToken: number }[])(
     'renders correctly for core pool asset: %s',
     async ({ action, amountToken }) => {
-      const { container } = renderComponent(
+      const { container, getByText } = renderComponent(
         <AccountData
           asset={poolData[0].assets[0]}
           pool={poolData[0]}
@@ -37,6 +38,9 @@ describe('AccountData', () => {
           amountTokens={new BigNumber(amountToken)}
         />,
       );
+
+      // Open total APY accordion
+      fireEvent.click(getByText(en.accountData.totalApy.label).closest('button')!);
 
       expect(container.textContent).toMatchSnapshot();
     },
@@ -54,7 +58,7 @@ describe('AccountData', () => {
   ] as { action: AccountDataProps['action']; amountToken: number }[])(
     'renders correctly for isolated pool asset: %s',
     async ({ action, amountToken }) => {
-      const { container } = renderComponent(
+      const { container, getByText } = renderComponent(
         <AccountData
           asset={poolData[1].assets[0]}
           pool={poolData[1]}
@@ -62,6 +66,9 @@ describe('AccountData', () => {
           amountTokens={new BigNumber(amountToken)}
         />,
       );
+
+      // Open total APY accordion
+      fireEvent.click(getByText(en.accountData.totalApy.label).closest('button')!);
 
       expect(container.textContent).toMatchSnapshot();
     },

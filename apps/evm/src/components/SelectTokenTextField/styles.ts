@@ -56,11 +56,9 @@ export const useStyles = () => {
       }
     `,
     getArrowIcon: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
-      right: ${theme.spacing(4)};
-      width: ${theme.spacing(2)};
       transform: rotate(${isTokenListShown ? '0' : '180deg'});
       color: inherit;
-      margin-left: ${theme.spacing(3)};
+      margin-left: ${theme.spacing(2)};
       transition: color 0.3s;
 
       ${

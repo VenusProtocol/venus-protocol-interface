@@ -9,7 +9,6 @@ import {
   LabeledInlineContent,
   SelectTokenTextField,
   SpendingLimit,
-  SwapDetails,
   TextButton,
 } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
@@ -27,6 +26,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
+import { SwapDetails } from './SwapDetails';
 
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
@@ -326,7 +326,6 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
         </LabeledInlineContent>
 
         <SwapDetails
-          action="swap"
           swap={swap}
           data-testid={TEST_IDS.swapDetails}
           css={styles.getRow({ isLast: true })}

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import type Vi from 'vitest';
 
+import { fireEvent } from '@testing-library/react';
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
@@ -9,6 +10,7 @@ import {
   useGetPrimeStatus,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
+import { en } from 'libs/translations';
 
 import { AccountData, type AccountDataProps } from '..';
 
@@ -46,7 +48,7 @@ describe('AccountData - Feature flag enabled: integratedSwap', () => {
   ] as { action: AccountDataProps['action']; amountToken: number }[])(
     'displays Prime APY correctly: %s',
     async ({ action, amountToken }) => {
-      const { container } = renderComponent(
+      const { container, getByText } = renderComponent(
         <AccountData
           asset={poolData[0].assets[1]}
           pool={poolData[0]}
@@ -54,6 +56,9 @@ describe('AccountData - Feature flag enabled: integratedSwap', () => {
           amountTokens={new BigNumber(amountToken)}
         />,
       );
+
+      // Open total APY accordion
+      fireEvent.click(getByText(en.accountData.totalApy.label).closest('button')!);
 
       expect(container.textContent).toMatchSnapshot();
     },

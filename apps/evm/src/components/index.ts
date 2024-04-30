@@ -1,4 +1,5 @@
 export * from './Accordion';
+export * from './SecondaryAccordion';
 export * from './ActiveVotingProgress';
 export * from './ButtonGroup';
 export * from './Button';
@@ -40,7 +41,6 @@ export * from './InfoIcon';
 export * from './CellGroup';
 export * from './TokenGroup';
 export * from './AssetWarning';
-export * from './SwapDetails';
 export * from './TagGroup';
 export * from './SpendingLimit';
 export * from './MarkdownEditor';

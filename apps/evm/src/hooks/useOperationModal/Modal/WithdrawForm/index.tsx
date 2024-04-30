@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
@@ -16,7 +15,6 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
-import { useStyles as useSharedStyles } from '../styles';
 import Notice from './Notice';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
@@ -52,7 +50,6 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   approveDelegateAction,
 }) => {
   const { t } = useTranslation();
-  const sharedStyles = useSharedStyles();
   const { nativeToken } = useGetChainMetadata();
 
   const canUnwrapToNativeToken = useMemo(
@@ -146,41 +143,40 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="mb-3">
-        <TokenTextField
-          data-testid={TEST_IDS.valueInput}
-          name="amountTokens"
-          token={asset.vToken.underlyingToken}
-          value={formValues.amountTokens}
-          onChange={amountTokens =>
-            setFormValues(currentFormValues => ({
-              ...currentFormValues,
-              amountTokens,
-            }))
-          }
-          disabled={isSubmitting}
-          rightMaxButton={{
-            label: t('operationModal.withdraw.rightMaxButtonLabel'),
-            onClick: handleRightMaxButtonClick,
-          }}
-          hasError={!!formError && Number(formValues.amountTokens) > 0}
-        />
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <TokenTextField
+        data-testid={TEST_IDS.valueInput}
+        name="amountTokens"
+        token={asset.vToken.underlyingToken}
+        value={formValues.amountTokens}
+        onChange={amountTokens =>
+          setFormValues(currentFormValues => ({
+            ...currentFormValues,
+            amountTokens,
+          }))
+        }
+        disabled={isSubmitting}
+        rightMaxButton={{
+          label: t('operationModal.withdraw.rightMaxButtonLabel'),
+          onClick: handleRightMaxButtonClick,
+        }}
+        hasError={!!formError && Number(formValues.amountTokens) > 0}
+      />
 
-        {!isSubmitting && (
-          <Notice amount={formValues.amountTokens} formError={formError} asset={asset} />
-        )}
-      </div>
+      {!isSubmitting && (
+        <Notice amount={formValues.amountTokens} formError={formError} asset={asset} />
+      )}
 
       <LabeledInlineContent label={t('operationModal.withdraw.withdrawableAmount')}>
         {readableWithdrawableAmountTokens}
       </LabeledInlineContent>
 
-      <Delimiter className="my-6 md:my-8" />
+      <Delimiter />
 
       {canUnwrapToNativeToken && (
-        <div data-testid={TEST_IDS.receiveNativeToken}>
+        <>
           <LabeledInlineContent
+            data-testid={TEST_IDS.receiveNativeToken}
             label={t('operationModal.withdraw.receiveNativeToken.label', {
               tokenSymbol: nativeToken.symbol,
             })}
@@ -188,7 +184,6 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
               wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
               nativeTokenSymbol: nativeToken.symbol,
             })}
-            css={sharedStyles.getRow({ isLast: true })}
           >
             <Toggle
               onChange={handleToggleReceiveNativeToken}
@@ -196,27 +191,28 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
             />
           </LabeledInlineContent>
 
-          <Delimiter className="my-6 md:my-8" />
-        </div>
+          <Delimiter />
+        </>
       )}
 
-      <AccountData
-        amountTokens={new BigNumber(formValues.amountTokens || 0)}
-        asset={asset}
-        pool={pool}
-        action="withdraw"
-        className="mb-6"
-      />
+      <div className="space-y-6">
+        <AccountData
+          amountTokens={new BigNumber(formValues.amountTokens || 0)}
+          asset={asset}
+          pool={pool}
+          action="withdraw"
+        />
 
-      <SubmitSection
-        isFormSubmitting={isSubmitting}
-        isFormValid={isFormValid}
-        formError={formError}
-        isDelegateApproved={isDelegateApproved}
-        isDelegateApprovedLoading={isDelegateApprovedLoading}
-        approveDelegateAction={approveDelegateAction}
-        isApproveDelegateLoading={isApproveDelegateLoading}
-      />
+        <SubmitSection
+          isFormSubmitting={isSubmitting}
+          isFormValid={isFormValid}
+          formError={formError}
+          isDelegateApproved={isDelegateApproved}
+          isDelegateApprovedLoading={isDelegateApprovedLoading}
+          approveDelegateAction={approveDelegateAction}
+          isApproveDelegateLoading={isApproveDelegateLoading}
+        />
+      </div>
     </form>
   );
 };
