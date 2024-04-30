@@ -48,3 +48,4 @@ export * from './generateChainExplorerUrl';
 export * from './truncateAddress';
 export * from './convertToDate';
 export * from './formatToProposalDescription';
+export * from './getSwapToTokenAmountReceived';
