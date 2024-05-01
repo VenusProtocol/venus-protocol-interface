@@ -15,7 +15,7 @@ const fakeInterestRateModelContract = {
 const fakeInterestRateModelV2Contract = fakeInterestRateModelContract as unknown as JumpRateModelV2;
 
 describe('api/queries/getVTokenApySimulations', () => {
-  test('returns the APY simulations in the correct format on success', async () => {
+  it('returns the APY simulations in the correct format on success', async () => {
     const response = await getVTokenApySimulations({
       interestRateModelContract: fakeInterestRateModelContract,
       isIsolatedPoolMarket: false,
@@ -26,12 +26,22 @@ describe('api/queries/getVTokenApySimulations', () => {
     expect(response).toMatchSnapshot();
   });
 
-  test('returns the APY simulations of an isolated asset in the correct format on success', async () => {
+  it('returns the APY simulations of an isolated asset on a chain with block based rates in the correct format on success', async () => {
     const response = await getVTokenApySimulations({
       interestRateModelContract: fakeInterestRateModelV2Contract,
       isIsolatedPoolMarket: false,
       asset: assetData[0],
       blocksPerDay: 28800,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  it('returns the APY simulations of an isolated asset on a chain with time based rates in the correct format on success', async () => {
+    const response = await getVTokenApySimulations({
+      interestRateModelContract: fakeInterestRateModelV2Contract,
+      isIsolatedPoolMarket: false,
+      asset: assetData[0],
     });
 
     expect(response).toMatchSnapshot();

@@ -9,6 +9,7 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useChainId, useProvider } from 'libs/wallet';
 import type { ChainId } from 'types';
 
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import generateTokenCombinationIds from './generateTokenCombinationIds';
 
 export type UseGetPancakeSwapPairsQueryKey = [
@@ -41,7 +42,7 @@ const useGetPancakeSwapPairs = (
     () => getPancakeSwapPairs({ ...input, provider }),
     {
       // Refresh request on every new block
-      refetchInterval: blockTimeMs,
+      refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
       staleTime: 0,
       cacheTime: 0,
       ...options,

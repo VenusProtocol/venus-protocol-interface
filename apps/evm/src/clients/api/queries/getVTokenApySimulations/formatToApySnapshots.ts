@@ -1,16 +1,26 @@
 import BigNumber from 'bignumber.js';
 
-import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
+import { calculateDailyTokenRate, calculateYearlyPercentageRate } from 'utilities';
 
 import type { VTokenApySnapshot } from './types';
 
-export interface FormatToApySnapshotsInput {
-  blocksPerDay: number;
+const calculateApy = ({ rate, blocksPerDay }: { rate: BigNumber; blocksPerDay?: number }) => {
+  const dailyPercentageRate = calculateDailyTokenRate({
+    rateMantissa: rate,
+    blocksPerDay: blocksPerDay,
+  });
+
+  return calculateYearlyPercentageRate({
+    dailyPercentageRate,
+  });
+};
+
+export type FormatToApySnapshotsInput = {
   supplyRates: Awaited<ReturnType<(JumpRateModel | JumpRateModelV2)['getSupplyRate']>>[];
   borrowRates: Awaited<ReturnType<(JumpRateModel | JumpRateModelV2)['getBorrowRate']>>[];
-}
+  blocksPerDay?: number;
+};
 
 const formatToApySnapshots = ({
   blocksPerDay,
@@ -19,24 +29,16 @@ const formatToApySnapshots = ({
 }: FormatToApySnapshotsInput) => {
   let utilizationRatePercentage = 0;
 
-  const apySimulations: VTokenApySnapshot[] = supplyRates.map((supplyRate, index) => {
-    const supplyBase = new BigNumber(supplyRate.toString())
-      .div(COMPOUND_MANTISSA)
-      .times(blocksPerDay)
-      .plus(1);
-    const supplyApyPercentage = new BigNumber(supplyBase.toNumber() ** (DAYS_PER_YEAR - 1))
-      .minus(1)
-      .times(100)
-      .toNumber();
+  const apySimulations: VTokenApySnapshot[] = supplyRates.map((unformattedSupplyRate, index) => {
+    const supplyApyPercentage = calculateApy({
+      rate: new BigNumber(unformattedSupplyRate.toString()),
+      blocksPerDay,
+    });
 
-    const borrowBase = new BigNumber(borrowRates[index].toString())
-      .div(COMPOUND_MANTISSA)
-      .times(blocksPerDay)
-      .plus(1);
-    const borrowApyPercentage = new BigNumber(borrowBase.toNumber() ** (DAYS_PER_YEAR - 1))
-      .minus(1)
-      .times(100)
-      .toNumber();
+    const borrowApyPercentage = calculateApy({
+      rate: new BigNumber(borrowRates[index].toString()),
+      blocksPerDay,
+    });
 
     utilizationRatePercentage += 1;
 

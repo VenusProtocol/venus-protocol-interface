@@ -34,11 +34,25 @@ describe('getIsolatedPools', () => {
     );
   });
 
-  it('returns isolated pools in the correct format', async () => {
+  it('returns isolated pools with block based reward rates in the correct format', async () => {
     const response = await getIsolatedPools({
       chainId: ChainId.BSC_TESTNET,
       xvs,
       blocksPerDay: 28800,
+      tokens,
+      provider: fakeProvider,
+      poolRegistryContractAddress: fakePoolRegistryContractAddress,
+      poolLensContract: fakePoolLensContract,
+      resilientOracleContract: fakeResilientOracleContract,
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+
+  it('returns isolated pools with time based reward rates in the correct format', async () => {
+    const response = await getIsolatedPools({
+      chainId: ChainId.BSC_TESTNET,
+      xvs,
       tokens,
       provider: fakeProvider,
       poolRegistryContractAddress: fakePoolRegistryContractAddress,

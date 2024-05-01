@@ -6,7 +6,7 @@ import { convertTokensToMantissa } from 'utilities';
 
 import formatCurrentUtilizationRate from './formatCurrentUtilizationRate';
 import formatToApySnapshots from './formatToApySnapshots';
-import type { GetVTokenApySimulationsOutput, GetVTokenInterestRatesInput } from './types';
+import type { GetVTokenApySimulationsInput, GetVTokenApySimulationsOutput } from './types';
 
 export * from './types';
 
@@ -18,7 +18,7 @@ const getVTokenApySimulations = async ({
   isIsolatedPoolMarket,
   asset,
   blocksPerDay,
-}: GetVTokenInterestRatesInput): Promise<GetVTokenApySimulationsOutput> => {
+}: GetVTokenApySimulationsInput): Promise<GetVTokenApySimulationsOutput> => {
   const reserveFactorMantissa = new BigNumber(asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA);
 
   const getBorrowRatePromises: ReturnType<(typeof interestRateModelContract)['getBorrowRate']>[] =

@@ -13,7 +13,6 @@ const formatToUserInfo = ({
 }: Awaited<ReturnType<XvsVault['poolInfos']>>): GetXvsVaultPoolInfoOutput => ({
   stakedTokenAddress: token,
   allocationPoint: allocPoint.toNumber(),
-  // TODO: handle time based rates
   lastRewardBlock: lastRewardBlockOrSecond.toNumber(),
   accRewardPerShare: new BigNumber(accRewardPerShare.toString()),
   // Convert lockPeriod from seconds to milliseconds

@@ -12,7 +12,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { RewardDistributorDistribution, Token } from 'types';
 import {
   areTokensEqual,
-  calculateApy,
+  calculateYearlyPercentageRate,
   compareBigNumbers,
   convertMantissaToTokens,
   formatPercentageToReadableValue,
@@ -171,11 +171,11 @@ const XvsTable: React.FC = () => {
         token: vai,
       });
 
-      const dailyRate = vaiVaultDailyXvsRateTokens
+      const dailyPercentageRate = vaiVaultDailyXvsRateTokens
         .times(xvsAsset.tokenPriceCents.div(100))
         .div(vaiVaultStakedTokens);
 
-      const vaiApy = calculateApy({ dailyRate });
+      const vaiApy = calculateYearlyPercentageRate({ dailyPercentageRate });
 
       allAssets.unshift({
         token: vai!,

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { LabeledInlineContent } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { DAYS_PER_YEAR } from 'constants/time';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
@@ -21,7 +21,6 @@ export interface MarketInfoProps {
 
 const MarketInfo: React.FC<MarketInfoProps> = ({ asset, testId }) => {
   const { t } = useTranslation();
-  const { blocksPerDay } = useGetChainMetadata();
 
   const isMarketParticipantCountFeatureEnabled = useIsFeatureEnabled({
     name: 'marketParticipantCounts',
@@ -29,21 +28,16 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset, testId }) => {
 
   const { dailySupplyInterestsCents, dailyBorrowInterestsCents } = useMemo(
     () => ({
-      // Calculate daily interests for suppliers and borrowers. Note that we don't
-      // use BigNumber to calculate these values, as this would slow down
-      // calculation a lot while the end result doesn't need to be extremely
-      // precise
-
-      dailySupplyInterestsCents:
-        asset &&
-        +asset.supplyBalanceCents *
-          ((1 + asset.supplyPercentageRatePerBlock.toNumber()) ** blocksPerDay - 1),
-      dailyBorrowInterestsCents:
-        asset &&
-        +asset.borrowBalanceCents *
-          ((1 + asset.borrowPercentageRatePerBlock.toNumber()) ** blocksPerDay - 1),
+      dailySupplyInterestsCents: asset.supplyBalanceCents
+        .multipliedBy(asset.supplyApyPercentage)
+        .div(100)
+        .div(DAYS_PER_YEAR),
+      dailyBorrowInterestsCents: asset.borrowBalanceCents
+        .multipliedBy(asset.borrowApyPercentage)
+        .div(100)
+        .div(DAYS_PER_YEAR),
     }),
-    [asset, blocksPerDay],
+    [asset],
   );
 
   const stats: Stat[] = useMemo(() => {

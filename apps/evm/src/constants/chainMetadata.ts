@@ -79,8 +79,6 @@ export const CHAIN_METADATA: {
     logoSrc: arbitrumLogo,
     explorerUrl: 'https://sepolia.arbiscan.io/',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
-    blockTimeMs: 12000, // TODO: remove
-    blocksPerDay: 7200, // TODO: remove
     corePoolComptrollerContractAddress: '0xA198909e8432f262f6978F2C81B04b32c55eb063',
     nativeToken: getToken({ chainId: ChainId.SEPOLIA, symbol: 'ETH' })!,
   },

@@ -1,3 +1,4 @@
+import ethLogo from 'libs/tokens/img/eth.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
 import wbtcLogo from 'libs/tokens/img/wbtc.svg';
@@ -5,16 +6,20 @@ import wethLogo from 'libs/tokens/img/weth.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
 import type { Token } from 'types';
 
-const arbToken: Token = {
-  address: '0x4371bb358aB5cC192E481543417D2F67b8781731',
-  decimals: 18,
-  symbol: 'ETH',
-  asset: xvsLogo, // TODO: add correct icon
-  isNative: true,
-};
-
 export const tokens: Token[] = [
-  arbToken,
+  {
+    address: '0x0000000000000000000000000000000000000000',
+    decimals: 18,
+    symbol: 'ETH',
+    asset: ethLogo,
+    isNative: true,
+  },
+  {
+    address: '0x4371bb358aB5cC192E481543417D2F67b8781731',
+    decimals: 18,
+    symbol: 'ARB',
+    asset: xvsLogo, // TODO: add correct icon
+  },
   {
     address: '0xFb8d93FD3Cf18386a5564bb5619cD1FdB130dF7D',
     decimals: 8,

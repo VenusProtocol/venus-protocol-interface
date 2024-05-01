@@ -187,9 +187,9 @@ export const getXvsVaultPoolInfo = vi.fn();
 export const useGetXvsVaultPoolInfo = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_POOL_INFOS, getXvsVaultPoolInfo);
 
-export const getXvsVaultRewardPerBlock = vi.fn();
-export const useGetXvsVaultRewardPerBlock = () =>
-  useQuery(FunctionKey.GET_XVS_VAULT_REWARD_PER_BLOCK, getXvsVaultRewardPerBlock);
+export const getXvsVaultsTotalDailyDistributedXvs = vi.fn();
+export const useGetXvsVaultsTotalDailyDistributedXvs = () =>
+  useQuery(FunctionKey.GET_XVS_VAULT_DAILY_REWARD_TOKENS, getXvsVaultsTotalDailyDistributedXvs);
 
 export const getXvsVaultTotalAllocationPoints = vi.fn();
 export const useGetXvsVaultTotalAllocationPoints = () =>

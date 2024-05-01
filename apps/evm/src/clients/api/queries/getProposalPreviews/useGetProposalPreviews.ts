@@ -8,6 +8,7 @@ import {
   getProposalPreviews,
 } from 'clients/api/queries/getProposalPreviews';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
@@ -66,12 +67,12 @@ export const useGetProposalPreviews = (
         {
           currentBlockNumber,
           proposalMinQuorumVotesMantissa,
+          blockTimeMs,
         },
         params =>
           getProposalPreviews({
             ...sanitizedInput,
             ...params,
-            blockTimeMs,
             chainId: governanceChain.id,
             proposalExecutionGracePeriodMs,
           }),
@@ -85,7 +86,8 @@ export const useGetProposalPreviews = (
         total: 0,
         proposalPreviews: [],
       },
-      refetchInterval: sanitizedInput.page === 0 ? blockTimeMs * 5 : undefined,
+      refetchInterval:
+        sanitizedInput.page === 0 ? (blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS) * 5 : undefined,
       ...options,
       enabled:
         typeof currentBlockNumber === 'number' &&

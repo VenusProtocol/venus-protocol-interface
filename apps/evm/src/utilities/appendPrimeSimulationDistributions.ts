@@ -10,7 +10,7 @@ import type { Prime } from 'libs/contracts';
 import type { Asset, Token } from 'types';
 import {
   areAddressesEqual,
-  convertAprToApy,
+  convertAprBipsToApy,
   convertMantissaToTokens,
   convertTokensToMantissa,
 } from 'utilities';
@@ -88,7 +88,7 @@ export const appendPrimeSimulationDistributions = async ({
         };
 
         if (!simulatedPrimeAprs.borrowAPR.isZero()) {
-          const borrowSimulatedPrimeApy = convertAprToApy({
+          const borrowSimulatedPrimeApy = convertAprBipsToApy({
             aprBips: simulatedPrimeAprs.borrowAPR.toString(),
           });
 
@@ -101,7 +101,7 @@ export const appendPrimeSimulationDistributions = async ({
         }
 
         if (!simulatedPrimeAprs.supplyAPR.isZero()) {
-          const supplySimulatedPrimeApy = convertAprToApy({
+          const supplySimulatedPrimeApy = convertAprBipsToApy({
             aprBips: simulatedPrimeAprs.supplyAPR.toString(),
           });
 

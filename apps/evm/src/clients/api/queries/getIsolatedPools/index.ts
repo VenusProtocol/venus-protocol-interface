@@ -10,7 +10,7 @@ import type { Asset, PrimeApy, Token } from 'types';
 import {
   appendPrimeSimulationDistributions,
   areTokensEqual,
-  convertAprToApy,
+  convertAprBipsToApy,
   findTokenByAddress,
 } from 'utilities';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
@@ -216,8 +216,8 @@ const getIsolatedPools = async ({
     const primeApr = primeAprResult.value;
 
     const apys: PrimeApy = {
-      borrowApy: convertAprToApy({ aprBips: primeApr?.borrowAPR.toString() || '0' }),
-      supplyApy: convertAprToApy({ aprBips: primeApr?.supplyAPR.toString() || '0' }),
+      borrowApy: convertAprBipsToApy({ aprBips: primeApr?.borrowAPR.toString() || '0' }),
+      supplyApy: convertAprBipsToApy({ aprBips: primeApr?.supplyAPR.toString() || '0' }),
     };
 
     primeApyMap.set(primeVTokenAddresses[index], apys);

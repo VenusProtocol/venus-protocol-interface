@@ -1,8 +1,8 @@
-import { convertAprToApy } from '..';
+import { convertAprBipsToApy } from '..';
 
-describe('convertAprToApy', () => {
+describe('convertAprBipsToApy', () => {
   it('converts APR bips to APY', () => {
-    const res = convertAprToApy({
+    const res = convertAprBipsToApy({
       aprBips: '23',
     });
 

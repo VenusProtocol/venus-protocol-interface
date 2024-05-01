@@ -2,7 +2,6 @@ import type { ContractReceipt, ContractTransaction } from 'ethers';
 import { useCallback } from 'react';
 
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import {
   checkForComptrollerTransactionError,
   checkForTokenTransactionError,
@@ -17,6 +16,7 @@ import type { TransactionType } from 'types';
 import type { UrlType } from 'utilities';
 
 export const CONFIRMATIONS = 2;
+export const TIMEOUT_MS = 180000; // 3 minutes
 
 interface UseTrackTransactionInput {
   transactionType?: TransactionType;
@@ -36,7 +36,6 @@ export const useTrackTransaction = (
 ) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
-  const { blockTimeMs } = useGetChainMetadata();
   const { t } = useTranslation();
 
   const trackTransaction = useCallback(
@@ -55,13 +54,11 @@ export const useTrackTransaction = (
 
       let transactionReceipt: ContractReceipt | undefined;
 
-      const timeoutMs = blockTimeMs * 10; // 10 blocks
-
       try {
         transactionReceipt = await provider.waitForTransaction(
           transaction.hash,
           CONFIRMATIONS,
-          timeoutMs,
+          TIMEOUT_MS,
         );
       } catch {
         // Do nothing
@@ -114,7 +111,7 @@ export const useTrackTransaction = (
       // Execute callback
       await onConfirmed?.({ transaction, transactionReceipt });
     },
-    [chainId, provider, t, blockTimeMs, transactionType],
+    [chainId, provider, t, transactionType],
   );
 
   return trackTransaction;

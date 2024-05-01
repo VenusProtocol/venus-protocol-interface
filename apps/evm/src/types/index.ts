@@ -22,8 +22,6 @@ export type TransactionType = 'chain' | 'layerZero';
 export interface ChainMetadata {
   name: string;
   logoSrc: string;
-  blockTimeMs: number; // TODO: mark as optional
-  blocksPerDay: number; // TODO: mark as optional
   // TODO: handle chains for which the block rate is not constant
   explorerUrl: string;
   nativeToken: Token;
@@ -31,6 +29,8 @@ export interface ChainMetadata {
   corePoolComptrollerContractAddress: string;
   stakedEthPoolComptrollerContractAddress?: string;
   proposalExecutionGracePeriodMs?: number;
+  blockTimeMs?: number;
+  blocksPerDay?: number;
 }
 
 export interface Token {
@@ -100,8 +100,6 @@ export interface Asset {
   supplyBalanceCents: BigNumber;
   borrowBalanceTokens: BigNumber;
   borrowBalanceCents: BigNumber;
-  supplyPercentageRatePerBlock: BigNumber;
-  borrowPercentageRatePerBlock: BigNumber;
   supplyDistributions: AssetDistribution[];
   borrowDistributions: AssetDistribution[];
   disabledTokenActions: TokenAction[];

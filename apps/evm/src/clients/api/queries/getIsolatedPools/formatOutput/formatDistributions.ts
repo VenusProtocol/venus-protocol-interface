@@ -2,15 +2,14 @@ import BigNumber from 'bignumber.js';
 
 import { logError } from 'libs/errors';
 import type { AssetDistribution, PrimeApy, Token } from 'types';
+import { calculateDailyTokenRate } from 'utilities/calculateDailyTokenRate';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from 'utilities/formatRewardDistribution';
-import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
 import type { RewardsDistributorSettingsResult } from '../getRewardsDistributorSettingsMapping';
 import type { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
 
 export interface FormatDistributionsInput {
-  blocksPerDay: number;
   underlyingToken: Token;
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
@@ -19,6 +18,7 @@ export interface FormatDistributionsInput {
   currentBlockNumber: number;
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
+  blocksPerDay?: number;
   primeApy?: PrimeApy;
 }
 
@@ -71,8 +71,8 @@ const formatDistributions = ({
           currentBlockNumber <= rewardTokenSupplyState.lastRewardingBlock) &&
         new BigNumber(rewardTokenSupplySpeeds.toString()).isGreaterThan(0)
       ) {
-        const supplyDailyDistributedRewardTokens = multiplyMantissaDaily({
-          mantissa: rewardTokenSupplySpeeds.toString(),
+        const supplyDailyDistributedRewardTokens = calculateDailyTokenRate({
+          rateMantissa: rewardTokenSupplySpeeds.toString(),
           decimals: rewardToken.decimals,
           blocksPerDay,
         });
@@ -93,8 +93,8 @@ const formatDistributions = ({
           currentBlockNumber <= rewardTokenBorrowState.lastRewardingBlock) &&
         new BigNumber(rewardTokenBorrowSpeeds.toString()).isGreaterThan(0)
       ) {
-        const borrowDailyDistributedRewardTokens = multiplyMantissaDaily({
-          mantissa: rewardTokenBorrowSpeeds.toString(),
+        const borrowDailyDistributedRewardTokens = calculateDailyTokenRate({
+          rateMantissa: rewardTokenBorrowSpeeds.toString(),
           decimals: rewardToken.decimals,
           blocksPerDay,
         });

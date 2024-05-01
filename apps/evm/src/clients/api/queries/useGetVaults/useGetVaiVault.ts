@@ -7,7 +7,7 @@ import {
   useGetVaiVaultUserInfo,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
+import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetVaiVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import type { Vault } from 'types';

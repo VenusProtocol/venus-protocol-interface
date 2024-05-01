@@ -5,7 +5,6 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeProvider from '__mocks__/models/provider';
 import { renderHook } from 'testUtils/render';
 
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import {
   checkForComptrollerTransactionError,
@@ -19,7 +18,7 @@ import { en } from 'libs/translations';
 import { useProvider } from 'libs/wallet';
 import { ChainId } from 'types';
 
-import { CONFIRMATIONS, useTrackTransaction } from '..';
+import { CONFIRMATIONS, TIMEOUT_MS, useTrackTransaction } from '..';
 
 vi.mock('context/ErrorLogger');
 vi.mock('libs/notifications');
@@ -74,7 +73,7 @@ describe('useTrackTransaction', () => {
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
       fakeContractTransaction.hash,
       CONFIRMATIONS,
-      CHAIN_METADATA[ChainId.BSC_TESTNET].blockTimeMs * 10,
+      TIMEOUT_MS,
     );
 
     // Check notification was updated
@@ -134,7 +133,7 @@ describe('useTrackTransaction', () => {
       expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
         fakeContractTransaction.hash,
         CONFIRMATIONS,
-        CHAIN_METADATA[ChainId.BSC_TESTNET].blockTimeMs * 10,
+        TIMEOUT_MS,
       );
 
       // Test check functions were called
@@ -188,7 +187,7 @@ describe('useTrackTransaction', () => {
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
       fakeContractTransaction.hash,
       CONFIRMATIONS,
-      CHAIN_METADATA[ChainId.BSC_TESTNET].blockTimeMs * 10,
+      TIMEOUT_MS,
     );
 
     // Check notification was updated
@@ -236,7 +235,7 @@ describe('useTrackTransaction', () => {
     expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
       fakeContractTransaction.hash,
       CONFIRMATIONS,
-      CHAIN_METADATA[ChainId.BSC_TESTNET].blockTimeMs * 10,
+      TIMEOUT_MS,
     );
 
     // Check notification was updated
