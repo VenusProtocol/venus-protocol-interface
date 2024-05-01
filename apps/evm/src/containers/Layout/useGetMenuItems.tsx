@@ -12,7 +12,6 @@ const useGetMenuItems = () => {
   const { stakedEthPoolComptrollerContractAddress } = useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
-  const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
@@ -124,16 +123,6 @@ const useGetMenuItems = () => {
       });
     }
 
-    if (convertVrtRouteEnabled) {
-      menuItems.push({
-        to: routes.convertVrt.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.convertVrt')
-        i18nKey: 'layout.menuItems.convertVrt',
-        iconName: 'convert',
-      });
-    }
-
     if (bridgeRouteEnabled) {
       menuItems.push({
         to: routes.bridge.path,
@@ -148,7 +137,6 @@ const useGetMenuItems = () => {
     return menuItems;
   }, [
     accountAddress,
-    convertVrtRouteEnabled,
     swapRouteEnabled,
     historyRouteEnabled,
     vaiRouteEnabled,
