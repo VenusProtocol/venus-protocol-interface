@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 2.119.0
+
+### Minor Changes
+
+- a5201ad: Remove the Medium link from the footer
+- 1e1db9b: Remove Convert VRT from the navigation menu
+- 05e8f84: update operation form
+- d1ff9a6: add FRAX and sFRAX to Ethereum
+
+### Patch Changes
+
+- b5dc3c8: Dashboard markets table opens operation modal on click
+
 ## 2.118.1
 
 ### Patch Changes
