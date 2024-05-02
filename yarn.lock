@@ -17332,15 +17332,15 @@ reg-keygen-git-hash-plugin@^0.14.2:
     shell-escape "^0.2.0"
 
 reg-notify-github-plugin@^0.14.2:
-  version "0.14.3"
-  resolved "https://registry.yarnpkg.com/reg-notify-github-plugin/-/reg-notify-github-plugin-0.14.3.tgz#c0edf7d99d973efaa3f6d4bf1a85b755971f092a"
-  integrity sha512-HjRnVYLoArLkFM7bpIVnH0CzLuAMlzRsgKjq41ck1b5VUmN+6fyDoXCA8I+Ezv0clXaenseCkP9o+z6PPC5LAQ==
+  version "0.14.4"
+  resolved "https://registry.yarnpkg.com/reg-notify-github-plugin/-/reg-notify-github-plugin-0.14.4.tgz#2102e80ac5f3a6f533f27134747ffec6e1d95f0c"
+  integrity sha512-p3VZyyQuty6Kj+MzY+T/vZQP+QK0VjU2RwK8oR6iT/oKskrtxq3SGB1dxdsMYprttSG3y4hkxZenN07ZluvSPg==
   dependencies:
     open "^8.0.0"
     reg-gh-app-interface "^1.3.0"
     reg-suit-util "^0.14.3"
     tiny-commit-walker "^1.1.2"
-    undici "^5.22.1"
+    undici "^6.0.0"
 
 reg-publish-s3-plugin@^0.12.2:
   version "0.12.2"
@@ -19636,12 +19636,17 @@ underscore.string@~3.3.4:
     sprintf-js "^1.1.1"
     util-deprecate "^1.0.2"
 
-undici@^5.14.0, undici@^5.22.1:
+undici@^5.14.0:
   version "5.28.4"
   resolved "https://registry.yarnpkg.com/undici/-/undici-5.28.4.tgz#6b280408edb6a1a604a9b20340f45b422e373068"
   integrity sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==
   dependencies:
     "@fastify/busboy" "^2.0.0"
+
+undici@^6.0.0:
+  version "6.15.0"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-6.15.0.tgz#ce97f0a0734439e65acc7059cd60824693987103"
+  integrity sha512-VviMt2tlMg1BvQ0FKXxrz1eJuyrcISrL2sPfBf7ZskX/FCEc/7LeThQaoygsMJpNqrATWQIsRVx+1Dpe4jaYuQ==
 
 unenv@^1.7.4:
   version "1.8.0"
