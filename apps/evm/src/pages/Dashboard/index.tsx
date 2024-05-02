@@ -107,6 +107,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       <MarketTable
+        openOperationModalOnRowClick
         pools={formattedPools}
         isFetching={isGetPoolsLoading}
         breakpoint="lg"
