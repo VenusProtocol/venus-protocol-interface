@@ -1,3 +1,4 @@
+import arbLogo from 'libs/tokens/img/arb.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
@@ -18,7 +19,7 @@ export const tokens: Token[] = [
     address: '0x4371bb358aB5cC192E481543417D2F67b8781731',
     decimals: 18,
     symbol: 'ARB',
-    asset: xvsLogo, // TODO: add correct icon
+    asset: arbLogo,
   },
   {
     address: '0xFb8d93FD3Cf18386a5564bb5619cD1FdB130dF7D',
