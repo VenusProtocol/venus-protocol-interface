@@ -442,7 +442,10 @@ export const contracts: ContractConfig[] = [
         [isolatedPoolsSepoliaDeployments.addresses['Comptroller_Liquid Staked ETH'].toLowerCase()]:
           isolatedPoolsSepoliaDeployments.addresses.NativeTokenGateway_vWETH_LiquidStakedETH,
       },
-      [ChainId.ARBITRUM_SEPOLIA]: {},
+      [ChainId.ARBITRUM_SEPOLIA]: {
+        [isolatedPoolsArbitrumSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
+          '0xa9D6d0dc76a9f0B87E52df1326F2f0E4e422BC52', // TODO: replace with the package address once it gets updated
+      },
     },
   },
 ];

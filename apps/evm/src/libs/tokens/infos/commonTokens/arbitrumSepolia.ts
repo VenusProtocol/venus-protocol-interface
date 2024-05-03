@@ -7,14 +7,16 @@ import wethLogo from 'libs/tokens/img/weth.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
 import type { Token } from 'types';
 
+const ethToken: Token = {
+  address: '0x0000000000000000000000000000000000000000',
+  decimals: 18,
+  symbol: 'ETH',
+  asset: ethLogo,
+  isNative: true,
+};
+
 export const tokens: Token[] = [
-  {
-    address: '0x0000000000000000000000000000000000000000',
-    decimals: 18,
-    symbol: 'ETH',
-    asset: ethLogo,
-    isNative: true,
-  },
+  ethToken,
   {
     address: '0x4371bb358aB5cC192E481543417D2F67b8781731',
     decimals: 18,
@@ -32,6 +34,7 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'WETH',
     asset: wethLogo,
+    tokenWrapped: ethToken,
   },
   {
     address: '0x86f096B1D970990091319835faF3Ee011708eAe8',
