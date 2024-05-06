@@ -2,6 +2,8 @@ import crvLogo from 'libs/tokens/img/crv.svg';
 import crvUsdLogo from 'libs/tokens/img/crvUsd.svg';
 import daiLogo from 'libs/tokens/img/dai.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
+import fraxLogo from 'libs/tokens/img/frax.svg';
+import sFraxLogo from 'libs/tokens/img/sFrax.svg';
 import tusdLogo from 'libs/tokens/img/tusd.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
@@ -88,5 +90,17 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'DAI',
     asset: daiLogo,
+  },
+  {
+    address: '0x10630d59848547c9F59538E2d8963D63B912C075',
+    decimals: 18,
+    symbol: 'FRAX',
+    asset: fraxLogo,
+  },
+  {
+    address: '0xd85FfECdB4287587BC53c1934D548bF7480F11C4',
+    decimals: 18,
+    symbol: 'sFRAX',
+    asset: sFraxLogo,
   },
 ];
