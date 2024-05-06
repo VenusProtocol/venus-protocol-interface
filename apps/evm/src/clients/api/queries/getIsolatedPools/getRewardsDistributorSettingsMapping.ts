@@ -16,6 +16,8 @@ export interface RewardsDistributorSettingsPromise {
     ReturnType<RewardsDistributor['rewardTokenBorrowSpeeds']>,
     ReturnType<RewardsDistributor['rewardTokenSupplyState']>,
     ReturnType<RewardsDistributor['rewardTokenBorrowState']>,
+    ReturnType<RewardsDistributor['rewardTokenSupplyStateTimeBased']>,
+    ReturnType<RewardsDistributor['rewardTokenBorrowStateTimeBased']>,
   ];
 }
 
@@ -26,6 +28,12 @@ export interface RewardsDistributorSettingsResult {
   rewardTokenBorrowSpeeds: Awaited<ReturnType<RewardsDistributor['rewardTokenBorrowSpeeds']>>;
   rewardTokenSupplyState: Awaited<ReturnType<RewardsDistributor['rewardTokenSupplyState']>>;
   rewardTokenBorrowState: Awaited<ReturnType<RewardsDistributor['rewardTokenBorrowState']>>;
+  rewardTokenSupplyStateTimeBased: Awaited<
+    ReturnType<RewardsDistributor['rewardTokenSupplyStateTimeBased']>
+  >;
+  rewardTokenBorrowStateTimeBased: Awaited<
+    ReturnType<RewardsDistributor['rewardTokenBorrowStateTimeBased']>
+  >;
 }
 
 export interface GetRewardsDistributorSettingsMappingInput {
@@ -74,6 +82,8 @@ const getRewardsDistributorSettingsMapping = async ({
             rewardDistributorContract.rewardTokenBorrowSpeeds(vTokenAddress),
             rewardDistributorContract.rewardTokenSupplyState(vTokenAddress),
             rewardDistributorContract.rewardTokenBorrowState(vTokenAddress),
+            rewardDistributorContract.rewardTokenSupplyStateTimeBased(vTokenAddress),
+            rewardDistributorContract.rewardTokenBorrowStateTimeBased(vTokenAddress),
           ],
         });
       }),
@@ -110,6 +120,8 @@ const getRewardsDistributorSettingsMapping = async ({
         rewardTokenBorrowSpeeds: result[2],
         rewardTokenSupplyState: result[3],
         rewardTokenBorrowState: result[4],
+        rewardTokenSupplyStateTimeBased: result[5],
+        rewardTokenBorrowStateTimeBased: result[6],
       };
 
       return {

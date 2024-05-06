@@ -41,6 +41,7 @@ export const fakeGetRewardDistributorsOutput = [
 export const fakePoolRegistryContractAddress = '0x4301F2213c0eeD49a7E28Ae4c3e91722919B8B45';
 
 export const fakePoolLensContract = {
+  isTimeBased: async () => false,
   getAllPools: async () => fakePoolLensContractResponses.getAllPools,
   callStatic: {
     vTokenBalancesAll: async (vTokenAddresses: string[]) =>
@@ -70,4 +71,6 @@ export const fakeRewardsDistributorContract = {
   rewardTokenBorrowSpeeds: async () => BN.from('868055555555556'),
   rewardTokenSupplyState: async () => ({ lastRewardingBlock: 0 }),
   rewardTokenBorrowState: async () => ({ lastRewardingBlock: 0 }),
+  rewardTokenSupplyStateTimeBased: async () => ({ lastRewardingTimestamp: BN.from(0) }),
+  rewardTokenBorrowStateTimeBased: async () => ({ lastRewardingTimestamp: BN.from(0) }),
 } as unknown as RewardsDistributor;

@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { getUnixTime } from 'date-fns';
 
 import { logError } from 'libs/errors';
 import type { AssetDistribution, PrimeApy, Token } from 'types';
@@ -18,11 +19,13 @@ export interface FormatDistributionsInput {
   currentBlockNumber: number;
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
+  isNetworkTimeBased: boolean;
   blocksPerDay?: number;
   primeApy?: PrimeApy;
 }
 
 const formatDistributions = ({
+  isNetworkTimeBased,
   blocksPerDay,
   underlyingToken,
   underlyingTokenPriceDollars,
@@ -48,6 +51,8 @@ const formatDistributions = ({
       rewardTokenBorrowState,
       rewardTokenSupplySpeeds,
       rewardTokenBorrowSpeeds,
+      rewardTokenBorrowStateTimeBased,
+      rewardTokenSupplyStateTimeBased,
     }) => {
       const rewardToken = findTokenByAddress({
         tokens,
@@ -65,12 +70,31 @@ const formatDistributions = ({
         return;
       }
 
+      // to check if rewards are still being distributed in time based networks,
+      // we compare the current date to the lastRewardingTimestamp
+      // in a block based network, we compare the current block to the lastRewardingBlock
+      const nowTimestamp = getUnixTime(new Date());
+      const isDistributingSupplyRewards = isNetworkTimeBased
+        ? rewardTokenSupplyStateTimeBased.lastRewardingTimestamp.isZero() ||
+          new BigNumber(rewardTokenSupplyStateTimeBased.lastRewardingTimestamp.toString()).gte(
+            nowTimestamp,
+          )
+        : rewardTokenSupplyState.lastRewardingBlock === 0 ||
+          currentBlockNumber <= rewardTokenSupplyState.lastRewardingBlock;
+      const areSupplyRewardsSpeedsPositive = new BigNumber(
+        rewardTokenSupplySpeeds.toString(),
+      ).isGreaterThan(0);
+      const isDistributingBorrowRewards = isNetworkTimeBased
+        ? rewardTokenBorrowStateTimeBased.lastRewardingTimestamp.isZero() ||
+          rewardTokenBorrowStateTimeBased.lastRewardingTimestamp.gte(nowTimestamp)
+        : rewardTokenBorrowState.lastRewardingBlock === 0 ||
+          currentBlockNumber <= rewardTokenBorrowState.lastRewardingBlock;
+      const areBorrowRewardsSpeedsPositive = new BigNumber(
+        rewardTokenBorrowSpeeds.toString(),
+      ).isGreaterThan(0);
+
       // Filter out passed and nil supply distributions
-      if (
-        (rewardTokenSupplyState.lastRewardingBlock === 0 ||
-          currentBlockNumber <= rewardTokenSupplyState.lastRewardingBlock) &&
-        new BigNumber(rewardTokenSupplySpeeds.toString()).isGreaterThan(0)
-      ) {
+      if (isDistributingSupplyRewards && areSupplyRewardsSpeedsPositive) {
         const supplyDailyDistributedRewardTokens = calculateDailyTokenRate({
           rateMantissa: rewardTokenSupplySpeeds.toString(),
           decimals: rewardToken.decimals,
@@ -88,11 +112,7 @@ const formatDistributions = ({
       }
 
       // Filter out passed and nil borrow distributions
-      if (
-        (rewardTokenBorrowState.lastRewardingBlock === 0 ||
-          currentBlockNumber <= rewardTokenBorrowState.lastRewardingBlock) &&
-        new BigNumber(rewardTokenBorrowSpeeds.toString()).isGreaterThan(0)
-      ) {
+      if (isDistributingBorrowRewards && areBorrowRewardsSpeedsPositive) {
         const borrowDailyDistributedRewardTokens = calculateDailyTokenRate({
           rateMantissa: rewardTokenBorrowSpeeds.toString(),
           decimals: rewardToken.decimals,

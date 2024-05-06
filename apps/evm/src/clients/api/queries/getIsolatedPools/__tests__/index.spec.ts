@@ -4,7 +4,11 @@ import fakeProvider from '__mocks__/models/provider';
 import tokens, { xvs } from '__mocks__/models/tokens';
 
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
-import { getIsolatedPoolComptrollerContract, getRewardsDistributorContract } from 'libs/contracts';
+import {
+  type PoolLens,
+  getIsolatedPoolComptrollerContract,
+  getRewardsDistributorContract,
+} from 'libs/contracts';
 import { ChainId } from 'types';
 
 import getIsolatedPools from '..';
@@ -50,13 +54,18 @@ describe('getIsolatedPools', () => {
   });
 
   it('returns isolated pools with time based reward rates in the correct format', async () => {
+    const fakeTimeBasedPoolLensContract = {
+      ...fakePoolLensContract,
+      isTimeBased: async () => true,
+    } as unknown as PoolLens;
+
     const response = await getIsolatedPools({
       chainId: ChainId.BSC_TESTNET,
       xvs,
       tokens,
       provider: fakeProvider,
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
-      poolLensContract: fakePoolLensContract,
+      poolLensContract: fakeTimeBasedPoolLensContract,
       resilientOracleContract: fakeResilientOracleContract,
     });
 

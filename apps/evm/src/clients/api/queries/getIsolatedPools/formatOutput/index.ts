@@ -24,6 +24,7 @@ import formatDistributions from './formatDistributions';
 export interface FormatToPoolsInput {
   chainId: ChainId;
   tokens: Token[];
+  isNetworkTimeBased: boolean;
   currentBlockNumber: number;
   poolResults: Awaited<ReturnType<PoolLens['getAllPools']>>;
   rewardsDistributorSettingsMapping: GetRewardsDistributorSettingsMappingOutput;
@@ -39,6 +40,7 @@ export interface FormatToPoolsInput {
 const formatToPools = ({
   chainId,
   tokens,
+  isNetworkTimeBased,
   blocksPerDay,
   currentBlockNumber,
   poolResults,
@@ -201,6 +203,7 @@ const formatToPools = ({
       );
 
       const { supplyDistributions, borrowDistributions } = formatDistributions({
+        isNetworkTimeBased,
         blocksPerDay,
         underlyingToken,
         underlyingTokenPriceDollars: tokenPriceDollars,
