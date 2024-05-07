@@ -28,7 +28,7 @@
     "husky": "^9.0.6",
     "reg-keygen-git-hash-plugin": "^0.14.2",
     "reg-notify-github-plugin": "^0.14.2",
-    "reg-publish-s3-plugin": "^0.12.2",
+    "reg-publish-s3-plugin": "^0.14.4",
     "reg-suit": "^0.14.0",
     "rollup-plugin-visualizer": "^5.9.2",
     "sass": "^1.68.0",
