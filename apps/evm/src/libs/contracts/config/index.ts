@@ -113,8 +113,8 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens,
       [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolLens,
       [ChainId.OPBNB_MAINNET]: isolatedPoolsOpBnbMainnetDeployments.addresses.PoolLens,
-      [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses.PoolLens,
-      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens,
+      [ChainId.OPBNB_TESTNET]: '0x4b37f99703b2302127ba7E2785d32e3dF1F94452', // TODO: get from package once it's been updated
+      [ChainId.SEPOLIA]: '0x88EEE51a178519Ffd386861F4B17F593af955c7c', // TODO: get from package once it's been updated
       [ChainId.ARBITRUM_SEPOLIA]: '0xd08422A9A7b19404cC01FB970a247d19CE4EA7fE', // TODO: get from package once it's been updated
     },
   },
