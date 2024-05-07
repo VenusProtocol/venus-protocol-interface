@@ -5335,20 +5335,13 @@
     polished "^4.2.2"
     ts-dedent "^2.2.0"
 
-"@storybook/addon-links@7.2.1":
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-7.2.1.tgz#b1052d9ce58c63f7363ce8d5a1a4361349c188db"
-  integrity sha512-3UQfOZ1+wGlPsHWWjXjPskq6nsDXuB+8QvOcpqy51mK+5Zv/EQe386hWj9VUpjLNMxXarWETa5CXGfoQdFzJTA==
+"@storybook/addon-links@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-8.0.10.tgz#6852c5a046df137f1d16dd971b14ef4191f4f79e"
+  integrity sha512-+mIyH2UcrgQfAyRM4+ARkB/D0OOY8UMwkZsD8dD23APZ8oru7W/NHX3lXl0WjPfQcOIx/QwWNWI3+DgVZJY3jw==
   dependencies:
-    "@storybook/client-logger" "7.2.1"
-    "@storybook/core-events" "7.2.1"
-    "@storybook/csf" "^0.1.0"
+    "@storybook/csf" "^0.1.4"
     "@storybook/global" "^5.0.0"
-    "@storybook/manager-api" "7.2.1"
-    "@storybook/preview-api" "7.2.1"
-    "@storybook/router" "7.2.1"
-    "@storybook/types" "7.2.1"
-    prop-types "^15.7.2"
     ts-dedent "^2.0.0"
 
 "@storybook/addon-measure@7.2.1":
@@ -5785,10 +5778,10 @@
   dependencies:
     lodash "^4.17.15"
 
-"@storybook/csf@^0.1.0":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.1.tgz#abccc8c3e49aed0a6a7e87beb0d1c262b1921c06"
-  integrity sha512-4hE3AlNVxR60Wc5KSC68ASYzUobjPqtSKyhV6G+ge0FIXU55N5nTY7dXGRZHQGDBPq+XqchMkIdlkHPRs8nTHg==
+"@storybook/csf@^0.1.0", "@storybook/csf@^0.1.4":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.7.tgz#dcc6c16a353bc09c8c619ba1a23ba93b2aab0b9d"
+  integrity sha512-53JeLZBibjQxi0Ep+/AJTfxlofJlxy1jXcSKENlnKxHjWEYyHQCumMP5yTFjf7vhNnMjEpV3zx6t23ssFiGRyw==
   dependencies:
     type-fest "^2.19.0"
 
