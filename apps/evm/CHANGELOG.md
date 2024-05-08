@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.120.0
+
+### Minor Changes
+
+- 074ccd4: added source=venusprotocol-ui to subgraph URLs
+- d73d020: add FRAX and sFRAX to Sepolia
+
 ## 2.119.0
 
 ### Minor Changes
