@@ -274,6 +274,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Prime,
       [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.Prime,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.Prime,
+      [ChainId.ARBITRUM_SEPOLIA]: '0xAdB04AC4942683bc41E27d18234C8DC884786E89', // TODO: replace with the package address once it gets updated
     },
   },
   {
