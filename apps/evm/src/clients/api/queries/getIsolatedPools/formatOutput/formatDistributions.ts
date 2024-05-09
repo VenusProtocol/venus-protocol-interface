@@ -10,7 +10,7 @@ import formatRewardDistribution from 'utilities/formatRewardDistribution';
 import type { RewardsDistributorSettingsResult } from '../getRewardsDistributorSettingsMapping';
 import type { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
 
-export interface FormatDistributionsInput {
+export type FormatDistributionsInput = {
   underlyingToken: Token;
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
@@ -22,7 +22,7 @@ export interface FormatDistributionsInput {
   isNetworkTimeBased: boolean;
   blocksPerDay?: number;
   primeApy?: PrimeApy;
-}
+};
 
 const formatDistributions = ({
   isNetworkTimeBased,
@@ -74,21 +74,25 @@ const formatDistributions = ({
       // we compare the current date to the lastRewardingTimestamp
       // in a block based network, we compare the current block to the lastRewardingBlock
       const nowTimestamp = getUnixTime(new Date());
-      const isDistributingSupplyRewards = isNetworkTimeBased
-        ? rewardTokenSupplyStateTimeBased.lastRewardingTimestamp.isZero() ||
-          new BigNumber(rewardTokenSupplyStateTimeBased.lastRewardingTimestamp.toString()).gte(
-            nowTimestamp,
-          )
-        : rewardTokenSupplyState.lastRewardingBlock === 0 ||
-          currentBlockNumber <= rewardTokenSupplyState.lastRewardingBlock;
+      const isDistributingSupplyRewards =
+        isNetworkTimeBased && rewardTokenSupplyStateTimeBased
+          ? rewardTokenSupplyStateTimeBased.lastRewardingTimestamp.isZero() ||
+            new BigNumber(rewardTokenSupplyStateTimeBased.lastRewardingTimestamp.toString()).gte(
+              nowTimestamp,
+            )
+          : rewardTokenSupplyState?.lastRewardingBlock === 0 ||
+            (rewardTokenSupplyState &&
+              currentBlockNumber <= rewardTokenSupplyState.lastRewardingBlock);
       const areSupplyRewardsSpeedsPositive = new BigNumber(
         rewardTokenSupplySpeeds.toString(),
       ).isGreaterThan(0);
-      const isDistributingBorrowRewards = isNetworkTimeBased
-        ? rewardTokenBorrowStateTimeBased.lastRewardingTimestamp.isZero() ||
-          rewardTokenBorrowStateTimeBased.lastRewardingTimestamp.gte(nowTimestamp)
-        : rewardTokenBorrowState.lastRewardingBlock === 0 ||
-          currentBlockNumber <= rewardTokenBorrowState.lastRewardingBlock;
+      const isDistributingBorrowRewards =
+        isNetworkTimeBased && rewardTokenBorrowStateTimeBased
+          ? rewardTokenBorrowStateTimeBased.lastRewardingTimestamp.isZero() ||
+            rewardTokenBorrowStateTimeBased.lastRewardingTimestamp.gte(nowTimestamp)
+          : rewardTokenBorrowState?.lastRewardingBlock === 0 ||
+            (rewardTokenBorrowState &&
+              currentBlockNumber <= rewardTokenBorrowState.lastRewardingBlock);
       const areBorrowRewardsSpeedsPositive = new BigNumber(
         rewardTokenBorrowSpeeds.toString(),
       ).isGreaterThan(0);

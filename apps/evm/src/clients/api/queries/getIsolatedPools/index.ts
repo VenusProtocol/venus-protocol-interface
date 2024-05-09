@@ -77,6 +77,8 @@ const getIsolatedPools = async ({
     throw new Error(isNetworkTimeBasedResult.reason);
   }
 
+  const isNetworkTimeBased = isNetworkTimeBasedResult.value;
+
   if (poolResults.status === 'rejected') {
     throw new Error(poolResults.reason);
   }
@@ -232,6 +234,7 @@ const getIsolatedPools = async ({
 
   // Fetch reward settings
   const rewardsDistributorSettingsMapping = await getRewardsDistributorSettingsMapping({
+    isNetworkTimeBased,
     provider,
     poolResults: poolResults.value,
     getRewardDistributorsResults,
@@ -247,7 +250,7 @@ const getIsolatedPools = async ({
 
   const pools = formatOutput({
     chainId,
-    isNetworkTimeBased: isNetworkTimeBasedResult.value,
+    isNetworkTimeBased,
     blocksPerDay,
     tokens,
     currentBlockNumber: currentBlockNumberResult.value.blockNumber,
