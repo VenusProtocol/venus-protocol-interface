@@ -139,7 +139,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
   // Determine the amount of tokens the user can supply, taking the supply cap and their wallet
   // balance in consideration
-  const supplyableFromTokenAmountTokens = useMemo(() => {
+  const suppliableFromTokenAmountTokens = useMemo(() => {
     if (isUsingSwap || !fromTokenUserWalletBalanceTokens) {
       return undefined;
     }
@@ -175,8 +175,8 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     token: formValues.fromToken,
   });
 
-  const readableSupplyableFromTokenAmountTokens = useFormatTokensToReadableValue({
-    value: supplyableFromTokenAmountTokens,
+  const readableSuppliableFromTokenAmountTokens = useFormatTokensToReadableValue({
+    value: suppliableFromTokenAmountTokens,
     token: formValues.fromToken,
   });
 
@@ -197,9 +197,9 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     // way to know in advance exactly how much of the fromToken they can supply to
     let amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0);
 
-    // If a user is not swapping, we fill the input with the maximum supplyable amount of fromTokens
-    if (!isUsingSwap && supplyableFromTokenAmountTokens) {
-      amountTokens = supplyableFromTokenAmountTokens;
+    // If a user is not swapping, we fill the input with the maximum suppliable amount of fromTokens
+    if (!isUsingSwap && suppliableFromTokenAmountTokens) {
+      amountTokens = suppliableFromTokenAmountTokens;
     }
 
     // If user has set a spending limit for fromToken, then we take it in consideration
@@ -216,7 +216,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     setFormValues,
     isUsingSwap,
     fromTokenWalletSpendingLimitTokens,
-    supplyableFromTokenAmountTokens,
+    suppliableFromTokenAmountTokens,
   ]);
 
   return (
@@ -305,12 +305,12 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           label={
             isUsingSwap
               ? t('operationModal.supply.walletBalance')
-              : t('operationModal.supply.supplyableAmount')
+              : t('operationModal.supply.suppliableAmount')
           }
         >
           {isUsingSwap
             ? readableFromTokenUserWalletBalanceTokens
-            : readableSupplyableFromTokenAmountTokens}
+            : readableSuppliableFromTokenAmountTokens}
         </LabeledInlineContent>
 
         <SpendingLimit

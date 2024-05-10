@@ -23,7 +23,7 @@ vi.mock('hooks/useCollateral');
 vi.mock('hooks/useTokenApproval');
 
 describe('SupplyForm', () => {
-  it('displays correct supplyable amount', async () => {
+  it('displays correct suppliable amount', async () => {
     const { getByText } = renderComponent(
       <SupplyForm onCloseModal={noop} pool={fakePool} asset={fakeAsset} />,
       {
@@ -331,7 +331,7 @@ describe('SupplyForm', () => {
     ).toBeEnabled();
   });
 
-  it('updates input value to maximum supplyable amount when clicking on max button if supply cap does not permit supplying the entire wallet balance', async () => {
+  it('updates input value to maximum suppliable amount when clicking on max button if supply cap does not permit supplying the entire wallet balance', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       userWalletBalanceTokens: new BigNumber(95),
