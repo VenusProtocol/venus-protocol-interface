@@ -1,4 +1,3 @@
-import type BigNumber from 'bignumber.js';
 import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
 import type { Asset } from 'types';
 
@@ -11,8 +10,8 @@ export interface GetVTokenApySimulationsInput {
 
 export interface VTokenApySnapshot {
   utilizationRatePercentage: number;
-  borrowApyPercentage: BigNumber;
-  supplyApyPercentage: BigNumber;
+  borrowApyPercentage: number;
+  supplyApyPercentage: number;
 }
 
 export type GetVTokenApySimulationsOutput = {

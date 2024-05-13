@@ -13,15 +13,14 @@ import {
 import { useTranslation } from 'libs/translations';
 import { formatPercentageToReadableValue } from 'utilities';
 
-import type BigNumber from 'bignumber.js';
 import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';
 import { useStyles as useLocalStyles } from './styles';
 
 export interface InterestRateItem {
   utilizationRatePercentage: number;
-  borrowApyPercentage: BigNumber;
-  supplyApyPercentage: BigNumber;
+  borrowApyPercentage: number;
+  supplyApyPercentage: number;
 }
 
 export interface InterestRateChartProps {

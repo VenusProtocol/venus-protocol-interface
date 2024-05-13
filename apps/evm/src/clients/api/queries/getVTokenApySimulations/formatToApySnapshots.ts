@@ -33,12 +33,12 @@ const formatToApySnapshots = ({
     const supplyApyPercentage = calculateApy({
       rate: new BigNumber(unformattedSupplyRate.toString()),
       blocksPerDay,
-    });
+    }).toNumber();
 
     const borrowApyPercentage = calculateApy({
       rate: new BigNumber(borrowRates[index].toString()),
       blocksPerDay,
-    });
+    }).toNumber();
 
     utilizationRatePercentage += 1;
 
