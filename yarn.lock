@@ -2,55 +2,55 @@
 # yarn lockfile v1
 
 
-"@0xsequence/abi@1.9.24":
-  version "1.9.24"
-  resolved "https://registry.yarnpkg.com/@0xsequence/abi/-/abi-1.9.24.tgz#2259195fb78659c7508001500b39a7d8335b659d"
-  integrity sha512-hea0r5m618yLEFZKZgOd4/ZNy7SuabG9srbIohw4keHvzo/0jG8m6RaOyYTMeNW8/AI8kEcE4i7CQGyUSLyd7g==
+"@0xsequence/abi@1.9.26":
+  version "1.9.26"
+  resolved "https://registry.yarnpkg.com/@0xsequence/abi/-/abi-1.9.26.tgz#8ddaa9da715bae28c2add088c37648c75fc0cca4"
+  integrity sha512-/a6alRBdU87pA3iFU06epNqy8BdGPJcJVRYuTrhSSM8Ne0e/+ca2V9WHyx+5uxl/UAk5Gp/K+txWp8id6bqH8w==
 
-"@0xsequence/core@1.9.24":
-  version "1.9.24"
-  resolved "https://registry.yarnpkg.com/@0xsequence/core/-/core-1.9.24.tgz#c8c9beb176efc7db7d76df5625bb701f91fb077c"
-  integrity sha512-3m+NHx+hfaEtkO+seRTx9DeRLOwNhgCWzWu9divm8AJP+1GfBTMj3k8DlR0MLCGHEuHsO+bvCClbIBDnRRAkuQ==
+"@0xsequence/core@1.9.26":
+  version "1.9.26"
+  resolved "https://registry.yarnpkg.com/@0xsequence/core/-/core-1.9.26.tgz#83dd9bca79cf2d2339df7b33516975b6f59cbe8c"
+  integrity sha512-1h3LFDJ4paJwa3mWK8BHoRLdxgAYUV5WYGAQ1c+LLDeUCMWLanBfRHYPkP2Rr778GTvx8zQFLK+b/d870beCOg==
   dependencies:
-    "@0xsequence/abi" "1.9.24"
+    "@0xsequence/abi" "1.9.26"
 
-"@0xsequence/indexer@1.9.24":
-  version "1.9.24"
-  resolved "https://registry.yarnpkg.com/@0xsequence/indexer/-/indexer-1.9.24.tgz#473a765d23f4441a1c99a6faf901dcb3381e45c9"
-  integrity sha512-tCJTrMjpDt1h2T5uGEUORjtDZhH4d2DEbqu70Hfv6GfMdWnKMkyVEdJ82VRHXCfoZipqeMfN83XeeI85feCJXQ==
+"@0xsequence/indexer@1.9.26":
+  version "1.9.26"
+  resolved "https://registry.yarnpkg.com/@0xsequence/indexer/-/indexer-1.9.26.tgz#19b297469f315bd9e1cc977f67fbaee076a2ee1a"
+  integrity sha512-rAjzB03Wu3+Kzb1lagnqZZG54M228jnTD/1mvAXH6wMqpMYo+pxFPL/yAR/eT6uxuFHr6KK4PF+uR58Am0TWeg==
 
 "@0xsequence/multicall@^1.2.9":
-  version "1.9.24"
-  resolved "https://registry.yarnpkg.com/@0xsequence/multicall/-/multicall-1.9.24.tgz#0d64f23426f5a4ac3f25545270b1fa52b3a93459"
-  integrity sha512-hKrH8aefbfo+AnjHH1lVeOnpnFyyZeJ+UOFqmy/qVGZfQbRAO/0/jv8YTzfZCR3pq4/r/Xr/E/2HYaFUbzetlQ==
+  version "1.9.26"
+  resolved "https://registry.yarnpkg.com/@0xsequence/multicall/-/multicall-1.9.26.tgz#0e92c791fd299d2265a5ed3b5aefccbe38e775bb"
+  integrity sha512-194x7uLHG59BKsmlsIZXY/fXIAEnwQonzdVFwWQHLvRowaDap2FGhqIrrPHJ3MNl+dtgx+8z3K6DUWM6nTdjSg==
   dependencies:
-    "@0xsequence/abi" "1.9.24"
-    "@0xsequence/network" "1.9.24"
-    "@0xsequence/utils" "1.9.24"
+    "@0xsequence/abi" "1.9.26"
+    "@0xsequence/network" "1.9.26"
+    "@0xsequence/utils" "1.9.26"
 
-"@0xsequence/network@1.9.24":
-  version "1.9.24"
-  resolved "https://registry.yarnpkg.com/@0xsequence/network/-/network-1.9.24.tgz#2fb8e10c7176b8ce23cc9c0128a13a812fb8bfff"
-  integrity sha512-+4EQwiIXsA7catsyRiSHcSDHGACL0RXUobNb3XR6ILBMs6Bjnot+FLnKYSfJswWDutlfX8YKD3cNFgFOnY7cFA==
+"@0xsequence/network@1.9.26":
+  version "1.9.26"
+  resolved "https://registry.yarnpkg.com/@0xsequence/network/-/network-1.9.26.tgz#65d1357f154e019cbe89c6201281ad0784e8b694"
+  integrity sha512-GKSjmf+BqPTv2VoIO8GcViVJnig3ymfct0K12QLCfng9CJiKQa2k9LuyV2HDUhmIRglbHJKMCRDwVLrohQw+PA==
   dependencies:
-    "@0xsequence/core" "1.9.24"
-    "@0xsequence/indexer" "1.9.24"
-    "@0xsequence/relayer" "1.9.24"
-    "@0xsequence/utils" "1.9.24"
+    "@0xsequence/core" "1.9.26"
+    "@0xsequence/indexer" "1.9.26"
+    "@0xsequence/relayer" "1.9.26"
+    "@0xsequence/utils" "1.9.26"
 
-"@0xsequence/relayer@1.9.24":
-  version "1.9.24"
-  resolved "https://registry.yarnpkg.com/@0xsequence/relayer/-/relayer-1.9.24.tgz#8430e493446bd9c8a92af5b9499d68eed75403b1"
-  integrity sha512-v+9gPRYLNhDuoymkE6/WcuL6fR5WsjHq0rpCqzZb1etPN51GakIO8NFHabyiEvLWRwaPAWtJ8XCgwpg8QpxwoA==
+"@0xsequence/relayer@1.9.26":
+  version "1.9.26"
+  resolved "https://registry.yarnpkg.com/@0xsequence/relayer/-/relayer-1.9.26.tgz#9e0cf630df0abd28f616016e89afb6d9ff0f8a67"
+  integrity sha512-f4MmKBLwyuqh6IKpPXh2v/LGwDE1dEyzFxrncwWZCmqxmcKVGFxfcVdeFtzsqClWpfliwNAjESfKXf4S2+DLWw==
   dependencies:
-    "@0xsequence/abi" "1.9.24"
-    "@0xsequence/core" "1.9.24"
-    "@0xsequence/utils" "1.9.24"
+    "@0xsequence/abi" "1.9.26"
+    "@0xsequence/core" "1.9.26"
+    "@0xsequence/utils" "1.9.26"
 
-"@0xsequence/utils@1.9.24":
-  version "1.9.24"
-  resolved "https://registry.yarnpkg.com/@0xsequence/utils/-/utils-1.9.24.tgz#7b605070e6d9131849394e2890ef32be487f620c"
-  integrity sha512-HRc2WzY52+8qXerw7Vx/GJModZQGrWyU/wK/dNErE6ABUmnvuvD8BLegs+gfawftFsMGKjLSh4DDWKmdPYomJA==
+"@0xsequence/utils@1.9.26":
+  version "1.9.26"
+  resolved "https://registry.yarnpkg.com/@0xsequence/utils/-/utils-1.9.26.tgz#550c36fc4e56c9226686b03df953e91976255546"
+  integrity sha512-Wm4ZStWwZQT6R+FD8pfkd1asdX2nlQlglWm+WSKO1FAi+wCWlVyw3vOMoAwGx8XYBGDcpv6wFDsyk13UL+PT5Q==
   dependencies:
     js-base64 "^3.7.2"
 
