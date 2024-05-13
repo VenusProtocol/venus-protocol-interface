@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.120.1
+
+### Patch Changes
+
+- 14e1ce0: update Discord link
+
 ## 2.120.0
 
 ### Minor Changes
