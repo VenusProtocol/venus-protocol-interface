@@ -80,11 +80,11 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       return undefined;
     }
 
-    const oderByColumn = columns.find(column => column.key === initialOrder.orderBy);
+    const orderByColumn = columns.find(column => column.key === initialOrder.orderBy);
 
     return (
-      oderByColumn && {
-        orderBy: oderByColumn,
+      orderByColumn && {
+        orderBy: orderByColumn,
         orderDirection: initialOrder.orderDirection,
       }
     );
