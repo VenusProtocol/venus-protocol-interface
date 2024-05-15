@@ -4,6 +4,7 @@ import alpacaLogo from 'libs/tokens/img/alpaca.png';
 import angleLogo from 'libs/tokens/img/angle.svg';
 import ankrLogo from 'libs/tokens/img/ankr.svg';
 import ankrBNBLogo from 'libs/tokens/img/ankrBNB.svg';
+import babyDogeLogo from 'libs/tokens/img/babyDoge.svg';
 import bifiLogo from 'libs/tokens/img/bifi.png';
 import bnbLogo from 'libs/tokens/img/bnb.svg';
 import bnbxLogo from 'libs/tokens/img/bnbx.png';
@@ -332,5 +333,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'FDUSD',
     asset: fdusdLogo,
+  },
+  {
+    address: '0x4FA37fFA9f36Ec0e0e685C06a7bF169bb50409ce',
+    decimals: 9,
+    symbol: 'BabyDoge',
+    asset: babyDogeLogo,
   },
 ];

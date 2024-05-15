@@ -364,6 +364,9 @@ export const contracts: ContractConfig[] = [
           isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_DeFi,
         [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
           isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_LiquidStakedBNB,
+        // TODO: replace with the Meme pool comptroller and swap router addresses once the package has been updated
+        ['0x92e8E3C202093A495e98C10f9fcaa5Abe288F74A'.toLowerCase()]:
+          '0x18995825f033F33fa30CF59c117aD21ff6BdB48c',
       },
       [ChainId.BSC_MAINNET]: {
         // Core pool
@@ -380,6 +383,9 @@ export const contracts: ContractConfig[] = [
           isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_DeFi,
         [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
           isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_LiquidStakedBNB,
+        // TODO: replace with the Meme pool comptroller and swap router addresses once the package has been updated
+        ['0x33B6fa34cd23e5aeeD1B112d5988B026b8A5567d'.toLowerCase()]:
+          '0x9Db0CBD9A73339949f98C5E6a51e036d0dEaFf21',
       },
       [ChainId.OPBNB_MAINNET]: {},
       [ChainId.OPBNB_TESTNET]: {},
