@@ -131,10 +131,7 @@ const useGenerateColumns = ({
             if (column === 'asset') {
               return (
                 <div className="flex items-center space-x-2">
-                  <TokenIconWithSymbol
-                    token={poolAsset.vToken.underlyingToken}
-                    className="flex-shrink-0"
-                  />
+                  <TokenIconWithSymbol token={poolAsset.vToken.underlyingToken} />
 
                   {isPaused && (
                     <InfoIcon
