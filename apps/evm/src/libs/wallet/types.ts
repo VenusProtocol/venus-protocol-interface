@@ -13,6 +13,7 @@ export enum Connector {
   OperaWallet = 'OperaWallet',
   BitKeep = 'BitKeep',
   RabbyWallet = 'RabbyWallet',
+  GateWallet = 'GateWallet',
 }
 
 export type Provider = JsonRpcProvider | FallbackProvider | BaseProvider;

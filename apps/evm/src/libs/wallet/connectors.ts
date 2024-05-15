@@ -20,4 +20,5 @@ export const connectorIdByName: {
   [Connector.RabbyWallet]: 'injected',
   [Connector.CoinbaseWallet]: 'coinbaseWallet',
   [Connector.WalletConnect]: 'walletConnect',
+  [Connector.GateWallet]: 'injected',
 };
