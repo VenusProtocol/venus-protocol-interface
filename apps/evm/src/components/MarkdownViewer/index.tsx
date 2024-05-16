@@ -1,4 +1,5 @@
 import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 import { Link } from 'containers/Link';
 import { cn } from 'utilities';
@@ -13,7 +14,26 @@ const TITLE_CLASSES = cn('text-grey mb-2 mt-4 font-semibold first:mt-0');
 export const MarkdownViewer: React.FC<MarkdownViewerProps> = ({ className, content }) => (
   <Markdown
     className={className}
-    allowedElements={['h1', 'h2', 'h3', 'h4', 'p', 'a', 'ul', 'li', 'ol', 'strong', 'em']}
+    remarkPlugins={[remarkGfm]}
+    allowedElements={[
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'p',
+      'a',
+      'ul',
+      'li',
+      'ol',
+      'strong',
+      'em',
+      'table',
+      'thead',
+      'tbody',
+      'th',
+      'tr',
+      'td',
+    ]}
     skipHtml
     components={{
       h1: ({ children, ...otherProps }) => (
