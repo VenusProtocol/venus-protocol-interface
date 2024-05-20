@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 2.121.0
+
+### Minor Changes
+
+- 9309c37: Update icon of Baby Doge token
+- 9972941: add BabyDoge token to BSC mainnet and testnet
+- 3f37e82: added Gate wallet
+
+### Patch Changes
+
+- 455c19a: fix typo in the word suppliable
+- aa51a2e: Add PT-weETH-26DEC2024 token
+
 ## 2.120.1
 
 ### Patch Changes
