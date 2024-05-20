@@ -15,7 +15,6 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
-import Notice from './Notice';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
@@ -161,11 +160,12 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           onClick: handleRightMaxButtonClick,
         }}
         hasError={!!formError && Number(formValues.amountTokens) > 0}
+        description={
+          !isSubmitting && !!formError?.message ? (
+            <p className="text-red">{formError.message}</p>
+          ) : undefined
+        }
       />
-
-      {!isSubmitting && (
-        <Notice amount={formValues.amountTokens} formError={formError} asset={asset} />
-      )}
 
       <LabeledInlineContent label={t('operationModal.withdraw.withdrawableAmount')}>
         {readableWithdrawableAmountTokens}
@@ -206,7 +206,6 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         <SubmitSection
           isFormSubmitting={isSubmitting}
           isFormValid={isFormValid}
-          formError={formError}
           isDelegateApproved={isDelegateApproved}
           isDelegateApprovedLoading={isDelegateApprovedLoading}
           approveDelegateAction={approveDelegateAction}

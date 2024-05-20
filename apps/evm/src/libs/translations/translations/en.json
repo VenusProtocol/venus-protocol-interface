@@ -434,12 +434,6 @@
         "unlimitedSupplyCap": "Uncapped"
       }
     },
-    "operationForm": {
-      "borrowTabTitle": "Borrow",
-      "repayTabTitle": "Repay",
-      "supplyTabTitle": "Supply",
-      "withdrawTabTitle": "Withdraw"
-    },
     "supplyButtonLabel": "Supply",
     "supplyInfo": {
       "stats": {
@@ -516,6 +510,16 @@
   "myAccount": {
     "safeLimit": "Your safe limit:",
     "safeLimitTooltip": "{{safeBorrowLimitPercentage}} of your borrow limit. We consider borrowing above this threshold unsafe."
+  },
+  "operationForm": {
+    "error": {
+      "higherThanAvailableLiquidities": "Insufficient asset liquidity",
+      "higherThanWithdrawableAmount": "Amount entered higher than withdrawable amount"
+    },
+    "submitButtonLabel": {
+      "enterValidAmount": "Enter valid amount",
+      "withdraw": "Withdraw"
+    }
   },
   "operationModal": {
     "borrow": {
@@ -628,11 +632,6 @@
         "tooltip": "Withdraw supplied {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
       },
       "rightMaxButtonLabel": "MAX",
-      "submitButtonLabel": {
-        "enterValidAmount": "Enter a valid amount to withdraw",
-        "higherThanWithdrawableAmount": "Amount entered higher than withdrawable amount",
-        "withdraw": "Withdraw"
-      },
       "withdrawableAmount": "Withdrawable amount"
     },
     "withdrawTabTitle": "Withdraw"

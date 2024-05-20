@@ -74,8 +74,8 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     });
 
     // Click on submit button
-    await waitFor(() => getByText(en.operationModal.withdraw.submitButtonLabel.withdraw));
-    fireEvent.click(getByText(en.operationModal.withdraw.submitButtonLabel.withdraw));
+    await waitFor(() => getByText(en.operationForm.submitButtonLabel.withdraw));
+    fireEvent.click(getByText(en.operationForm.submitButtonLabel.withdraw));
 
     const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
       new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
@@ -119,8 +119,8 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     fireEvent.click(getByText(en.operationModal.withdraw.rightMaxButtonLabel));
 
     // Click on submit button
-    await waitFor(() => getByText(en.operationModal.withdraw.submitButtonLabel.withdraw));
-    fireEvent.click(getByText(en.operationModal.withdraw.submitButtonLabel.withdraw));
+    await waitFor(() => getByText(en.operationForm.submitButtonLabel.withdraw));
+    fireEvent.click(getByText(en.operationForm.submitButtonLabel.withdraw));
 
     await waitFor(() => expect(withdraw).toHaveBeenCalledTimes(1));
     expect(withdraw).toHaveBeenCalledWith({

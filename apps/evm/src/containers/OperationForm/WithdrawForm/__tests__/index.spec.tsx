@@ -23,14 +23,12 @@ describe('WithdrawForm', () => {
 
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     await waitFor(() =>
-      expect(submitButton).toHaveTextContent(
-        en.operationModal.withdraw.submitButtonLabel.enterValidAmount,
-      ),
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
     );
     expect(submitButton).toBeDisabled();
   });
 
-  it('submit button is disabled when entering a value higher than the withdrawable amount', async () => {
+  it('submit button is disabled when entering a value higher than the available liquidity', async () => {
     const customFakePool: Pool = {
       ...fakePool,
       userBorrowBalanceCents: new BigNumber(0),
@@ -44,7 +42,7 @@ describe('WithdrawForm', () => {
       userSupplyBalanceTokens: new BigNumber(100),
     };
 
-    const { getByTestId } = renderComponent(
+    const { getByTestId, getByText } = renderComponent(
       <Withdraw onSubmitSuccess={noop} asset={customFakeAsset} pool={customFakePool} />,
       {
         accountAddress: fakeAccountAddress,
@@ -59,16 +57,53 @@ describe('WithdrawForm', () => {
     });
 
     // Check warning is displayed
-    await waitFor(() => getByTestId(TEST_IDS.notice));
-    expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-      '"Insufficient asset liquidity"',
+    await waitFor(() =>
+      expect(getByText(en.operationForm.error.higherThanAvailableLiquidities)).toBeInTheDocument(),
     );
 
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     await waitFor(() =>
-      expect(submitButton).toHaveTextContent(
-        en.operationModal.withdraw.submitButtonLabel.higherThanWithdrawableAmount,
-      ),
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
+    );
+    expect(submitButton).toBeDisabled();
+  });
+
+  it('submit button is disabled when entering a value higher than the withdrawable amount', async () => {
+    const customFakePool: Pool = {
+      ...fakePool,
+      userBorrowBalanceCents: new BigNumber(0),
+      userBorrowLimitCents: new BigNumber(10000000000),
+    };
+
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      tokenPriceCents: new BigNumber(1),
+      liquidityCents: new BigNumber(60000),
+      userSupplyBalanceTokens: new BigNumber(100),
+    };
+
+    const { getByTestId, getByText } = renderComponent(
+      <Withdraw onSubmitSuccess={noop} asset={customFakeAsset} pool={customFakePool} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const incorrectAmountTokens = 110;
+
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.valueInput));
+    await waitFor(() => {
+      fireEvent.change(tokenTextInput, { target: { value: incorrectAmountTokens } });
+    });
+
+    // Check warning is displayed
+    await waitFor(() =>
+      expect(getByText(en.operationForm.error.higherThanWithdrawableAmount)).toBeInTheDocument(),
+    );
+
+    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    await waitFor(() =>
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
     );
     expect(submitButton).toBeDisabled();
   });
@@ -110,7 +145,7 @@ describe('WithdrawForm', () => {
     );
 
     await waitFor(() =>
-      expect(submitButton).toHaveTextContent(en.operationModal.withdraw.submitButtonLabel.withdraw),
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.withdraw),
     );
     fireEvent.click(submitButton);
 
@@ -138,7 +173,7 @@ describe('WithdrawForm', () => {
       fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
     });
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    expect(submitButton).toHaveTextContent(en.operationModal.withdraw.submitButtonLabel.withdraw);
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.withdraw);
     fireEvent.click(submitButton);
 
     const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
