@@ -107,7 +107,7 @@ export const tokens: Token[] = [
   {
     address: '0x6ee2b5e19ecba773a352e5b21415dc419a700d1d',
     decimals: 18,
-    symbol: 'PT-weETH-DEC2424',
+    symbol: 'PT-weETH-DEC24',
     asset: ptWeethLogo,
   },
 ];
