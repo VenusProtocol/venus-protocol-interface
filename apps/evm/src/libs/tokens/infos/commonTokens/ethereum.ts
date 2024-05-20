@@ -3,6 +3,7 @@ import crvUsdLogo from 'libs/tokens/img/crvUsd.svg';
 import daiLogo from 'libs/tokens/img/dai.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
 import fraxLogo from 'libs/tokens/img/frax.svg';
+import ptWeethLogo from 'libs/tokens/img/ptWeeth.svg';
 import sFraxLogo from 'libs/tokens/img/sFrax.svg';
 import tusdLogo from 'libs/tokens/img/tusd.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
@@ -102,5 +103,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'sFRAX',
     asset: sFraxLogo,
+  },
+  {
+    address: '0x6ee2b5e19ecba773a352e5b21415dc419a700d1d',
+    decimals: 18,
+    symbol: 'PT-weETH-DEC24',
+    asset: ptWeethLogo,
   },
 ];
