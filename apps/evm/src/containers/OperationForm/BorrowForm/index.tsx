@@ -146,8 +146,8 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         }
         disabled={
           isSubmitting ||
-          formError === 'BORROW_CAP_ALREADY_REACHED' ||
-          formError === 'NO_COLLATERALS'
+          formError?.code === 'BORROW_CAP_ALREADY_REACHED' ||
+          formError?.code === 'NO_COLLATERALS'
         }
         rightMaxButton={{
           label: t('operationModal.borrow.rightMaxButtonLabel', {
@@ -156,16 +156,18 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           onClick: handleRightMaxButtonClick,
         }}
         hasError={!!formError && Number(formValues.amountTokens) > 0}
+        description={
+          !isSubmitting && !!formError?.message ? (
+            <p className="text-red">{formError.message}</p>
+          ) : undefined
+        }
       />
 
-      {!isSubmitting && (
+      {!isSubmitting && !formError && (
         <Notice
-          hasUserCollateralizedSuppliedAssets={formError !== 'NO_COLLATERALS'}
           amount={formValues.amountTokens}
           safeLimitTokens={safeLimitTokens}
           limitTokens={limitTokens}
-          formError={formError}
-          asset={asset}
         />
       )}
 
@@ -209,7 +211,6 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           isFormSubmitting={isSubmitting}
           safeLimitTokens={safeLimitTokens}
           isFormValid={isFormValid}
-          formError={formError}
           fromTokenAmountTokens={formValues.amountTokens}
           isDelegateApproved={isDelegateApproved}
           isDelegateApprovedLoading={isDelegateApprovedLoading}

@@ -374,7 +374,6 @@
     "menuItems": {
       "account": "Account",
       "bridge": "Bridge",
-      "convertVrt": "Convert VRT",
       "corePool": "Core pool",
       "dashboard": "Dashboard",
       "governance": "Governance",
@@ -513,36 +512,31 @@
   },
   "operationForm": {
     "error": {
-      "higherThanAvailableLiquidities": "Insufficient asset liquidity",
-      "higherThanWithdrawableAmount": "Amount entered higher than withdrawable amount"
+      "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
+      "higherThanAvailableLiquidity": "Insufficient asset liquidity",
+      "higherThanBorrowableAmount": "Amount entered higher than borrowable amount",
+      "higherThanBorrowCap": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
+      "higherThanWithdrawableAmount": "Amount entered higher than withdrawable amount",
+      "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool"
     },
     "submitButtonLabel": {
+      "borrow": "Borrow",
       "enterValidAmount": "Enter valid amount",
       "withdraw": "Withdraw"
+    },
+    "warning": {
+      "aboveSafeLimit": "You entered a high value. There is a risk of liquidation."
     }
   },
   "operationModal": {
     "borrow": {
-      "aboveBorrowCapWarning": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
-      "aboveLiquidityWarning": "Insufficient asset liquidity",
-      "aboveSafeLimitWarning": "You entered a high value. There is a risk of liquidation.",
       "borrowableAmount": "Borrowable amount",
-      "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "connectWalletMessage": "Please connect your wallet to borrow",
-      "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "receiveNativeToken": {
         "label": "Receive {{tokenSymbol}}",
         "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
       },
-      "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
-      "submitButtonLabel": {
-        "amountHigherThanBorrowableAmount": "Amount entered higher than borrowable amount",
-        "amountHigherThanBorrowCap": "Amount entered higher than borrow cap",
-        "borrow": "Borrow",
-        "borrowCapReached": "Borrow cap reached",
-        "borrowHighRiskAmount": "Borrow at high risk",
-        "enterValidAmount": "Enter a valid amount to borrow"
-      }
+      "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT"
     },
     "borrowTabTitle": "Borrow",
     "disabledActionNotice": {

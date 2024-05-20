@@ -56,7 +56,7 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('lets the user borrow and unwrap tokens', async () => {
     const onCloseMock = vi.fn();
-    const { getByText, getByTestId } = renderComponent(
+    const { getByTestId } = renderComponent(
       <Borrow asset={fakeWethAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
       {
         chainId: ChainId.SEPOLIA,
@@ -73,8 +73,12 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     });
 
     // Click on submit button
-    await waitFor(() => getByText(en.operationModal.borrow.submitButtonLabel.borrow));
-    fireEvent.click(getByText(en.operationModal.borrow.submitButtonLabel.borrow));
+    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    await waitFor(() =>
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.borrow),
+    );
+    expect(submitButton).toBeEnabled();
+    fireEvent.click(submitButton);
 
     const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
       new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),

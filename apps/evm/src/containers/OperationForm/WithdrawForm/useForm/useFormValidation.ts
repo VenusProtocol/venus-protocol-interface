@@ -42,8 +42,8 @@ const useFormValidation = ({
     if (fromTokenAmountTokens.isGreaterThan(assetLiquidityTokens)) {
       // User is trying to withdraw more than available liquidity
       return {
-        code: 'HIGHER_THAN_WITHDRAWABLE_AMOUNT',
-        message: t('operationForm.error.higherThanAvailableLiquidities'),
+        code: 'HIGHER_THAN_LIQUIDITY',
+        message: t('operationForm.error.higherThanAvailableLiquidity'),
       };
     }
 

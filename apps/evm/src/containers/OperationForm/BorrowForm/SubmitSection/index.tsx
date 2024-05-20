@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
@@ -6,14 +5,11 @@ import { ApproveDelegateSteps, type ApproveDelegateStepsProps, PrimaryButton } f
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
-import type { FormError } from '../useForm/types';
-
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
   safeLimitTokens: string;
   fromTokenAmountTokens: string;
-  formError?: FormError;
   approveDelegateAction: ApproveDelegateStepsProps['approveDelegateeAction'];
   isApproveDelegateLoading: ApproveDelegateStepsProps['isApproveDelegateeLoading'];
   isDelegateApproved: ApproveDelegateStepsProps['isDelegateeApproved'];
@@ -25,7 +21,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormSubmitting,
   safeLimitTokens,
   fromTokenAmountTokens,
-  formError,
   approveDelegateAction,
   isApproveDelegateLoading,
   isDelegateApproved,
@@ -39,28 +34,12 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   );
 
   const submitButtonLabel = useMemo(() => {
-    if (!isFormSubmitting && formError === 'BORROW_CAP_ALREADY_REACHED') {
-      return t('operationModal.borrow.submitButtonLabel.borrowCapReached');
-    }
-
-    if (!isFormSubmitting && formError === 'HIGHER_THAN_BORROWABLE_AMOUNT') {
-      return t('operationModal.borrow.submitButtonLabel.amountHigherThanBorrowableAmount');
-    }
-
-    if (!isFormSubmitting && formError === 'HIGHER_THAN_BORROW_CAP') {
-      return t('operationModal.borrow.submitButtonLabel.amountHigherThanBorrowCap');
-    }
-
     if (!isFormValid) {
-      return t('operationModal.borrow.submitButtonLabel.enterValidAmount');
+      return t('operationForm.submitButtonLabel.enterValidAmount');
     }
 
-    if (!isFormSubmitting && isDangerous) {
-      return t('operationModal.borrow.submitButtonLabel.borrowHighRiskAmount');
-    }
-
-    return t('operationModal.borrow.submitButtonLabel.borrow');
-  }, [isFormValid, formError, isDangerous, isFormSubmitting, t]);
+    return t('operationForm.submitButtonLabel.borrow');
+  }, [isFormValid, t]);
 
   return (
     <ApproveDelegateSteps

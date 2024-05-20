@@ -1,97 +1,18 @@
 import BigNumber from 'bignumber.js';
 
-import { NoticeError, NoticeWarning } from 'components';
+import { NoticeWarning } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { Asset } from 'types';
-import { formatTokensToReadableValue } from 'utilities';
-
-import TEST_IDS from './testIds';
-import type { FormError } from './useForm';
 
 export interface NoticeProps {
-  hasUserCollateralizedSuppliedAssets: boolean;
   amount: string;
   safeLimitTokens: string;
   limitTokens: string;
-  asset: Asset;
-  formError?: FormError;
 }
 
-const Notice: React.FC<NoticeProps> = ({
-  hasUserCollateralizedSuppliedAssets,
-  amount,
-  asset,
-  safeLimitTokens,
-  formError,
-  limitTokens,
-}) => {
+const Notice: React.FC<NoticeProps> = ({ amount, safeLimitTokens, limitTokens }) => {
   const { t } = useTranslation();
 
-  if (asset.borrowCapTokens && formError === 'BORROW_CAP_ALREADY_REACHED') {
-    // Borrow cap has been reached so borrowing more is forbidden
-    return (
-      <NoticeError
-        data-testid={TEST_IDS.notice}
-        description={t('operationModal.borrow.borrowCapReachedWarning', {
-          assetBorrowCap: formatTokensToReadableValue({
-            value: asset.borrowCapTokens,
-            token: asset.vToken.underlyingToken,
-          }),
-        })}
-      />
-    );
-  }
-
-  if (!hasUserCollateralizedSuppliedAssets) {
-    // User has not supplied any collateral yet
-    return (
-      <NoticeWarning
-        className="mt-3"
-        data-testid={TEST_IDS.notice}
-        description={t('operationModal.borrow.noCollateralizedSuppliedAssetWarning', {
-          tokenSymbol: asset.vToken.underlyingToken.symbol,
-        })}
-      />
-    );
-  }
-
-  if (asset.borrowCapTokens && formError === 'HIGHER_THAN_BORROW_CAP') {
-    // User is trying to borrow above borrow cap
-    return (
-      <NoticeError
-        data-testid={TEST_IDS.notice}
-        description={t('operationModal.borrow.aboveBorrowCapWarning', {
-          userMaxBorrowAmount: formatTokensToReadableValue({
-            value: asset.borrowCapTokens.minus(asset.borrowBalanceTokens),
-            token: asset.vToken.underlyingToken,
-          }),
-          assetBorrowCap: formatTokensToReadableValue({
-            value: asset.borrowCapTokens,
-            token: asset.vToken.underlyingToken,
-          }),
-          assetBorrowBalance: formatTokensToReadableValue({
-            value: asset.borrowBalanceTokens,
-            token: asset.vToken.underlyingToken,
-          }),
-        })}
-      />
-    );
-  }
-
-  const assetLiquidityTokens = new BigNumber(asset.liquidityCents).dividedBy(asset.tokenPriceCents);
-
-  if (new BigNumber(amount).isGreaterThan(assetLiquidityTokens)) {
-    // User is trying to borrow more than available liquidity
-    return (
-      <NoticeError
-        data-testid={TEST_IDS.notice}
-        description={t('operationModal.borrow.aboveLiquidityWarning')}
-      />
-    );
-  }
-
   if (
-    !formError &&
     new BigNumber(amount).isGreaterThan(0) &&
     new BigNumber(amount).isGreaterThanOrEqualTo(safeLimitTokens) &&
     new BigNumber(amount).isLessThanOrEqualTo(limitTokens)
@@ -99,11 +20,7 @@ const Notice: React.FC<NoticeProps> = ({
     // User is trying to borrow above their safe limit (allowed but puts them at
     // risk of liquidation)
     return (
-      <NoticeWarning
-        className="mt-3"
-        data-testid={TEST_IDS.notice}
-        description={t('operationModal.borrow.aboveSafeLimitWarning')}
-      />
+      <NoticeWarning className="mt-3" description={t('operationForm.warning.aboveSafeLimit')} />
     );
   }
 

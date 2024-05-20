@@ -58,7 +58,7 @@ describe('WithdrawForm', () => {
 
     // Check warning is displayed
     await waitFor(() =>
-      expect(getByText(en.operationForm.error.higherThanAvailableLiquidities)).toBeInTheDocument(),
+      expect(getByText(en.operationForm.error.higherThanAvailableLiquidity)).toBeInTheDocument(),
     );
 
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
