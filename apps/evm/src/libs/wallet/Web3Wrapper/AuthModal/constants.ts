@@ -2,6 +2,7 @@ import { ReactComponent as BinanceWalletLogo } from 'assets/img/wallets/binanceW
 import { ReactComponent as BitKeepLogo } from 'assets/img/wallets/bitKeepLogo.svg';
 import { ReactComponent as BraveWalletLogo } from 'assets/img/wallets/braveWalletLogo.svg';
 import { ReactComponent as CoinbaseWalletLogo } from 'assets/img/wallets/coinbaseWalletLogo.svg';
+import { ReactComponent as GateWalletLogo } from 'assets/img/wallets/gateWalletLogo.svg';
 import { ReactComponent as InfinityWalletLogo } from 'assets/img/wallets/infinityWalletLogo.svg';
 import { ReactComponent as LedgerLogo } from 'assets/img/wallets/ledgerLogo.svg';
 import { ReactComponent as MetaMaskLogo } from 'assets/img/wallets/metaMaskLogo.svg';
@@ -76,6 +77,12 @@ export const WALLETS: Wallet[] = [
     name: t('wallets.rabbyWallet'),
     Logo: RabbyWalletLogo,
     connector: Connector.RabbyWallet,
+  },
+  {
+    name: t('wallets.gateWallet'),
+    Logo: GateWalletLogo,
+    connector: Connector.GateWallet,
+    mainnetOnly: true,
   },
 ];
 

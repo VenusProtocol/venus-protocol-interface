@@ -1256,6 +1256,7 @@
       "noProvider": "If you are connecting an external wallet, make sure you have a provider such as MetaMask or compatible wallet such as Brave",
       "unsupportedWallet": "Unable to connect. Make sure your selection matches your desired wallet."
     },
+    "gateWallet": "Gate Wallet",
     "infinityWallet": "Infinity Wallet",
     "ledger": "Ledger",
     "metamask": "MetaMask",
