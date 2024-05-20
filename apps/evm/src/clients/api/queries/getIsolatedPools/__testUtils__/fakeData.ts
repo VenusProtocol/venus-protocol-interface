@@ -41,7 +41,6 @@ export const fakeGetRewardDistributorsOutput = [
 export const fakePoolRegistryContractAddress = '0x4301F2213c0eeD49a7E28Ae4c3e91722919B8B45';
 
 export const fakePoolLensContract = {
-  isTimeBased: async () => false,
   getAllPools: async () => fakePoolLensContractResponses.getAllPools,
   callStatic: {
     vTokenBalancesAll: async (vTokenAddresses: string[]) =>

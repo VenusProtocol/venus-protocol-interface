@@ -51,7 +51,6 @@ const getIsolatedPools = async ({
   tokens,
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
   const [
-    isNetworkTimeBasedResult,
     poolResults,
     poolParticipantsCountResult,
     currentBlockNumberResult,
@@ -59,8 +58,6 @@ const getIsolatedPools = async ({
     primeMinimumXvsToStakeResult,
     userPrimeTokenResult,
   ] = await Promise.allSettled([
-    // Fetch if network is time based
-    poolLensContract.isTimeBased(),
     // Fetch all pools
     poolLensContract.getAllPools(poolRegistryContractAddress),
     // Fetch borrower and supplier counts of each isolated token
@@ -72,12 +69,6 @@ const getIsolatedPools = async ({
     primeContract?.MINIMUM_STAKED_XVS(),
     accountAddress ? primeContract?.tokens(accountAddress) : undefined,
   ]);
-
-  if (isNetworkTimeBasedResult.status === 'rejected') {
-    throw new Error(isNetworkTimeBasedResult.reason);
-  }
-
-  const isNetworkTimeBased = isNetworkTimeBasedResult.value;
 
   if (poolResults.status === 'rejected') {
     throw new Error(poolResults.reason);
@@ -234,7 +225,7 @@ const getIsolatedPools = async ({
 
   // Fetch reward settings
   const rewardsDistributorSettingsMapping = await getRewardsDistributorSettingsMapping({
-    isNetworkTimeBased,
+    isChainTimeBased: !!blocksPerDay,
     provider,
     poolResults: poolResults.value,
     getRewardDistributorsResults,
@@ -250,7 +241,6 @@ const getIsolatedPools = async ({
 
   const pools = formatOutput({
     chainId,
-    isNetworkTimeBased,
     blocksPerDay,
     tokens,
     currentBlockNumber: currentBlockNumberResult.value.blockNumber,

@@ -19,13 +19,11 @@ export type FormatDistributionsInput = {
   currentBlockNumber: number;
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
-  isNetworkTimeBased: boolean;
   blocksPerDay?: number;
   primeApy?: PrimeApy;
 };
 
 const formatDistributions = ({
-  isNetworkTimeBased,
   blocksPerDay,
   underlyingToken,
   underlyingTokenPriceDollars,
@@ -70,12 +68,14 @@ const formatDistributions = ({
         return;
       }
 
+      const isChainTimeBased = !!blocksPerDay;
+
       // to check if rewards are still being distributed in time based networks,
       // we compare the current date to the lastRewardingTimestamp
       // in a block based network, we compare the current block to the lastRewardingBlock
       const nowTimestamp = getUnixTime(new Date());
       const isDistributingSupplyRewards =
-        isNetworkTimeBased && rewardTokenSupplyStateTimeBased
+        isChainTimeBased && rewardTokenSupplyStateTimeBased
           ? rewardTokenSupplyStateTimeBased.lastRewardingTimestamp.isZero() ||
             new BigNumber(rewardTokenSupplyStateTimeBased.lastRewardingTimestamp.toString()).gte(
               nowTimestamp,
@@ -87,7 +87,7 @@ const formatDistributions = ({
         rewardTokenSupplySpeeds.toString(),
       ).isGreaterThan(0);
       const isDistributingBorrowRewards =
-        isNetworkTimeBased && rewardTokenBorrowStateTimeBased
+        isChainTimeBased && rewardTokenBorrowStateTimeBased
           ? rewardTokenBorrowStateTimeBased.lastRewardingTimestamp.isZero() ||
             rewardTokenBorrowStateTimeBased.lastRewardingTimestamp.gte(nowTimestamp)
           : rewardTokenBorrowState?.lastRewardingBlock === 0 ||

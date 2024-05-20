@@ -43,7 +43,7 @@ export type RewardsDistributorSettingsResult = {
 };
 
 export interface GetRewardsDistributorSettingsMappingInput {
-  isNetworkTimeBased: boolean;
+  isChainTimeBased: boolean;
   provider: Provider;
   getRewardDistributorsResults: PromiseSettledResult<
     Awaited<ReturnType<IsolatedPoolComptroller['getRewardDistributors']>>
@@ -56,7 +56,7 @@ export interface GetRewardsDistributorSettingsMappingOutput {
 }
 
 const getRewardsDistributorSettingsMapping = async ({
-  isNetworkTimeBased,
+  isChainTimeBased,
   getRewardDistributorsResults,
   poolResults,
   provider,
@@ -84,7 +84,7 @@ const getRewardsDistributorSettingsMapping = async ({
         // we can't call both rewardTokenSupplyState/rewardTokenSupplyStateTimeBased
         // and rewardTokenBorrowState/rewardTokenBorrowStateTimeBased
         // as the call to the time based functions might fail in block based networks (the implementation won't change for now)
-        if (isNetworkTimeBased) {
+        if (isChainTimeBased) {
           rewardsDistributorSettingsPromises.push({
             vTokenAddress,
             rewardsDistributorAddress,
@@ -136,7 +136,7 @@ const getRewardsDistributorSettingsMapping = async ({
         acc[vTokenAddress] = [];
       }
 
-      const settings: RewardsDistributorSettingsResult = isNetworkTimeBased
+      const settings: RewardsDistributorSettingsResult = isChainTimeBased
         ? {
             rewardsDistributorAddress,
             rewardTokenAddress: result[0],
