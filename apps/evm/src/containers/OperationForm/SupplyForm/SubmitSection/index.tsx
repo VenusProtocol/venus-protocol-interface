@@ -7,8 +7,8 @@ import { useTranslation } from 'libs/translations';
 import type { Swap, Token } from 'types';
 import { cn } from 'utilities';
 
-import SwapSummary from '../../SwapSummary';
 import type { FormError } from 'containers/OperationForm/types';
+import SwapSummary from '../../SwapSummary';
 import type { FormErrorCode } from '../useForm/types';
 
 export interface SubmitSectionProps {

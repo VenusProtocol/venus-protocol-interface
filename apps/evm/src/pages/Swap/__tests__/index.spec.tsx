@@ -302,7 +302,7 @@ describe('Swap', () => {
     fireEvent.change(fromTokenInput, { target: { value: incorrectValueTokens } });
 
     // Check error notice is displayed
-    await waitFor(() => expect(getByText(en.swap.amountAboveWalletSpendingLimit)));
+    await waitFor(() => expect(getByText(en.swap.errors.amountAboveWalletSpendingLimit)));
 
     // Check submit button is still disabled
     await waitFor(() => getByText(en.swapPage.submitButton.disabledLabels.spendingLimitTooLow));
@@ -598,7 +598,7 @@ describe('Swap', () => {
     fireEvent.change(fromTokenInput, { target: { value: FAKE_BNB_BALANCE_TOKENS } });
 
     // Check warning notice is displayed
-    await waitFor(() => getByText(en.operationForm.supply.swappingWithHighPriceImpactWarning));
+    await waitFor(() => getByText(en.operationForm.warning.swappingWithHighPriceImpactWarning));
 
     // Check submit button has correct label and is enabled
     await waitFor(() => getByText(en.swapPage.submitButton.enabledLabels.swapWithHighPriceImpact));

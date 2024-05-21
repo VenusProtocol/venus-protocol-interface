@@ -2,11 +2,11 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import type { FormError } from 'containers/OperationForm/types';
+import { useTranslation } from 'libs/translations';
 import type { Swap, SwapError } from 'types';
 import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
-import type { FormError } from 'containers/OperationForm/types';
 import type { FormErrorCode, FormValues } from './types';
-import { useTranslation } from 'libs/translations';
 
 interface UseFormValidationInput {
   formValues: FormValues;

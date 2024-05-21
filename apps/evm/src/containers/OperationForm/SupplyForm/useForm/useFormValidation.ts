@@ -2,12 +2,12 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
-import type { Asset, Swap, SwapError } from 'types';
-import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
-import type { FormErrorCode, FormValues } from './types';
 import type { FormError } from 'containers/OperationForm/types';
 import { useTranslation } from 'libs/translations';
+import type { Asset, Swap, SwapError } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
+import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
+import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
   asset: Asset;
