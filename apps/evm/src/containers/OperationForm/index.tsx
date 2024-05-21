@@ -26,12 +26,12 @@ export const OperationForm: React.FC<OperationFormProps> = ({
 
   const tabsContent: TabContent[] = [
     {
-      title: t('operationModal.supplyTabTitle'),
+      title: t('operationForm.supplyTabTitle'),
       content: (
         <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-          connectWalletMessage={t('operationModal.supply.connectWalletMessage')}
+          connectWalletMessage={t('operationForm.supply.connectWalletMessage')}
           action="supply"
         >
           {({ asset, pool }) => (
@@ -50,12 +50,12 @@ export const OperationForm: React.FC<OperationFormProps> = ({
       ),
     },
     {
-      title: t('operationModal.withdrawTabTitle'),
+      title: t('operationForm.withdrawTabTitle'),
       content: (
         <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-          connectWalletMessage={t('operationModal.withdraw.connectWalletMessage')}
+          connectWalletMessage={t('operationForm.withdraw.connectWalletMessage')}
           action="withdraw"
         >
           {({ asset, pool }) => (
@@ -65,12 +65,12 @@ export const OperationForm: React.FC<OperationFormProps> = ({
       ),
     },
     {
-      title: t('operationModal.borrowTabTitle'),
+      title: t('operationForm.borrowTabTitle'),
       content: (
         <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-          connectWalletMessage={t('operationModal.borrow.connectWalletMessage')}
+          connectWalletMessage={t('operationForm.borrow.connectWalletMessage')}
           action="borrow"
         >
           {({ asset, pool }) => (
@@ -80,12 +80,12 @@ export const OperationForm: React.FC<OperationFormProps> = ({
       ),
     },
     {
-      title: t('operationModal.repayTabTitle'),
+      title: t('operationForm.repayTabTitle'),
       content: (
         <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-          connectWalletMessage={t('operationModal.repay.connectWalletMessage')}
+          connectWalletMessage={t('operationForm.repay.connectWalletMessage')}
           action="repay"
         >
           {({ asset, pool }) => (

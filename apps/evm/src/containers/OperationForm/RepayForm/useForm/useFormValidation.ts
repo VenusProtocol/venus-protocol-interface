@@ -4,7 +4,9 @@ import { useMemo } from 'react';
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import type { Swap, SwapError } from 'types';
 import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
-import type { FormError, FormValues } from './types';
+import type { FormError } from 'containers/OperationForm/types';
+import type { FormErrorCode, FormValues } from './types';
+import { useTranslation } from 'libs/translations';
 
 interface UseFormValidationInput {
   formValues: FormValues;
@@ -19,7 +21,7 @@ interface UseFormValidationInput {
 
 interface UseFormValidationOutput {
   isFormValid: boolean;
-  formError?: FormError;
+  formError?: FormError<FormErrorCode>;
 }
 
 const useFormValidation = ({
@@ -32,13 +34,24 @@ const useFormValidation = ({
   fromTokenUserBorrowBalanceTokens,
   fromTokenWalletSpendingLimitTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
-  const formError: FormError | undefined = useMemo(() => {
+  const { t } = useTranslation();
+
+  const formError: FormError<FormErrorCode> | undefined = useMemo(() => {
     const swapErrorMapping: {
-      [key: string]: FormError;
+      [key: string]: FormError<FormErrorCode>;
     } = {
-      INSUFFICIENT_LIQUIDITY: 'SWAP_INSUFFICIENT_LIQUIDITY',
-      WRAPPING_UNSUPPORTED: 'SWAP_WRAPPING_UNSUPPORTED',
-      UNWRAPPING_UNSUPPORTED: 'SWAP_UNWRAPPING_UNSUPPORTED',
+      INSUFFICIENT_LIQUIDITY: {
+        code: 'SWAP_INSUFFICIENT_LIQUIDITY',
+        message: t('operationForm.error.insufficientSwapLiquidity'),
+      },
+      WRAPPING_UNSUPPORTED: {
+        code: 'SWAP_WRAPPING_UNSUPPORTED',
+        message: t('operationForm.error.wrappingUnsupported'),
+      },
+      UNWRAPPING_UNSUPPORTED: {
+        code: 'SWAP_UNWRAPPING_UNSUPPORTED',
+        message: t('operationForm.error.unwrappingUnsupported'),
+      },
     };
 
     if (isUsingSwap && swapError && swapError in swapErrorMapping) {
@@ -50,14 +63,21 @@ const useFormValidation = ({
       : undefined;
 
     if (!fromTokenAmountTokens || fromTokenAmountTokens.isLessThanOrEqualTo(0)) {
-      return 'INVALID_TOKEN_AMOUNT';
+      return {
+        code: 'EMPTY_TOKEN_AMOUNT',
+      };
     }
 
     if (
       fromTokenUserWalletBalanceTokens &&
       fromTokenAmountTokens.isGreaterThan(fromTokenUserWalletBalanceTokens)
     ) {
-      return 'HIGHER_THAN_WALLET_BALANCE';
+      return {
+        code: 'HIGHER_THAN_WALLET_BALANCE',
+        message: t('operationForm.error.higherThanWalletBalance', {
+          tokenSymbol: formValues.fromToken.symbol,
+        }),
+      };
     }
 
     const toTokensAmountRepaidTokens = isUsingSwap
@@ -69,7 +89,10 @@ const useFormValidation = ({
       fromTokenUserBorrowBalanceTokens &&
       toTokensAmountRepaidTokens.isGreaterThan(fromTokenUserBorrowBalanceTokens)
     ) {
-      return 'HIGHER_THAN_REPAY_BALANCE';
+      return {
+        code: 'HIGHER_THAN_REPAY_BALANCE',
+        message: t('operationForm.error.higherThanRepayBalance'),
+      };
     }
 
     if (
@@ -77,16 +100,23 @@ const useFormValidation = ({
       fromTokenWalletSpendingLimitTokens &&
       fromTokenAmountTokens.isGreaterThan(fromTokenWalletSpendingLimitTokens)
     ) {
-      return 'HIGHER_THAN_WALLET_SPENDING_LIMIT';
+      return {
+        code: 'HIGHER_THAN_WALLET_SPENDING_LIMIT',
+        message: t('operationForm.error.higherThanWalletSpendingLimit'),
+      };
     }
 
     if (
       !!swap?.priceImpactPercentage &&
       swap?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
     ) {
-      return 'PRICE_IMPACT_TOO_HIGH';
+      return {
+        code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
+        message: t('operationForm.error.priceImpactTooHigh'),
+      };
     }
   }, [
+    formValues.fromToken.symbol,
     fromTokenUserBorrowBalanceTokens,
     fromTokenUserWalletBalanceTokens,
     fromTokenWalletSpendingLimitTokens,
@@ -95,6 +125,7 @@ const useFormValidation = ({
     formValues.amountTokens,
     swap,
     swapError,
+    t,
   ]);
 
   return {

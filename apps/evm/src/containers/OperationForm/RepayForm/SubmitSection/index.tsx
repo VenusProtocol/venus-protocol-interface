@@ -8,14 +8,12 @@ import type { Swap, Token } from 'types';
 import { cn } from 'utilities';
 
 import SwapSummary from '../../SwapSummary';
-import type { FormError } from '../useForm/types';
 
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
   isUsingSwap: boolean;
   fromToken: Token;
-  fromTokenAmountTokens: string;
   isSwapLoading: boolean;
   isFromTokenApproved: ApproveTokenStepsProps['isTokenApproved'];
   approveFromToken: ApproveTokenStepsProps['approveToken'];
@@ -23,7 +21,6 @@ export interface SubmitSectionProps {
   isFromTokenWalletSpendingLimitLoading: ApproveTokenStepsProps['isWalletSpendingLimitLoading'];
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
   swap?: Swap;
-  formError?: FormError;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
@@ -31,8 +28,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormSubmitting,
   isUsingSwap,
   fromToken,
-  fromTokenAmountTokens,
-  formError,
   isFromTokenApproved,
   approveFromToken,
   isApproveFromTokenLoading,
@@ -51,64 +46,12 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   );
 
   const submitButtonLabel = useMemo(() => {
-    if (isSwapLoading && Number(fromTokenAmountTokens) > 0) {
-      return t('operationModal.repay.submitButtonLabel.processing');
-    }
-
-    if (!isFormSubmitting && formError === 'SWAP_INSUFFICIENT_LIQUIDITY') {
-      return t('operationModal.repay.submitButtonLabel.insufficientSwapLiquidity');
-    }
-
-    if (!isFormSubmitting && formError === 'SWAP_WRAPPING_UNSUPPORTED') {
-      return t('operationModal.repay.submitButtonLabel.wrappingUnsupported');
-    }
-
-    if (!isFormSubmitting && formError === 'SWAP_UNWRAPPING_UNSUPPORTED') {
-      return t('operationModal.repay.submitButtonLabel.unwrappingUnsupported');
-    }
-
-    if (!isFormSubmitting && formError === 'HIGHER_THAN_REPAY_BALANCE') {
-      return t('operationModal.repay.submitButtonLabel.amountHigherThanRepayBalance');
-    }
-
-    if (!isFormSubmitting && formError === 'HIGHER_THAN_WALLET_BALANCE') {
-      return t('operationModal.repay.submitButtonLabel.insufficientWalletBalance', {
-        tokenSymbol: fromToken.symbol,
-      });
-    }
-
-    if (!isFormSubmitting && formError === 'HIGHER_THAN_WALLET_SPENDING_LIMIT') {
-      return t('operationModal.repay.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit');
-    }
-
-    if (!isFormSubmitting && formError === 'PRICE_IMPACT_TOO_HIGH') {
-      return t('operationModal.repay.submitButtonLabel.priceImpactHigherThanMaximumTolerated');
-    }
-
     if (!isFormValid) {
-      return t('operationModal.repay.submitButtonLabel.enterValidAmount');
+      return t('operationForm.submitButtonLabel.enterValidAmount');
     }
 
-    if (isSwappingWithHighPriceImpact) {
-      return t('operationModal.repay.submitButtonLabel.swapAndRepayWithHighPriceImpact');
-    }
-
-    if (isUsingSwap) {
-      return t('operationModal.repay.submitButtonLabel.swapAndRepay');
-    }
-
-    return t('operationModal.repay.submitButtonLabel.repay');
-  }, [
-    isSwapLoading,
-    fromTokenAmountTokens,
-    isFormValid,
-    formError,
-    isFormSubmitting,
-    isUsingSwap,
-    isSwappingWithHighPriceImpact,
-    fromToken.symbol,
-    t,
-  ]);
+    return t('operationForm.submitButtonLabel.repay');
+  }, [isFormValid, t]);
 
   return (
     <ApproveTokenSteps

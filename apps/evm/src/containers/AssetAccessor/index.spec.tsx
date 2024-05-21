@@ -93,7 +93,7 @@ describe('containers/AssetAccessor', () => {
     );
 
     await waitFor(() =>
-      expect(getByText(en.operationModal.disabledActionNotice.borrow)).toBeInTheDocument(),
+      expect(getByText(en.assetAccessor.disabledActionNotice.borrow)).toBeInTheDocument(),
     );
 
     expect(queryByText(fakeProps.connectWalletMessage)).toBeNull();

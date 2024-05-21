@@ -28,6 +28,14 @@ const fakeUserWalletNativeTokenBalanceData = {
   balanceMantissa: fakeBalanceMantissa,
 };
 
+const checkSubmitButtonIsEnabled = async () => {
+  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+  await waitFor(() =>
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.repay),
+  );
+  expect(submitButton).toBeEnabled();
+};
+
 describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
@@ -143,7 +151,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(selectTokenTextField.value).toBe('');
 
     // Click on MAX button
-    fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     await waitFor(() =>
       expect(selectTokenTextField.value).toBe(
@@ -153,13 +161,10 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
     // Check notice is displayed
     await waitFor(() =>
-      expect(getByText(en.operationModal.repay.fullRepaymentWarning)).toBeTruthy(),
+      expect(getByText(en.operationForm.repay.fullRepaymentWarning)).toBeTruthy(),
     );
 
-    // Check submit button is enabled
-    expect(
-      getByText(en.operationModal.repay.submitButtonLabel.repay).closest('button'),
-    ).toBeEnabled();
+    await checkSubmitButtonIsEnabled();
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet balance', async () => {
@@ -216,16 +221,13 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(selectTokenTextField.value).toBe('');
 
     // Click on MAX button
-    fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     await waitFor(() =>
       expect(selectTokenTextField.value).toBe(fakeUserWethWalletBalance.toFixed()),
     );
 
-    // Check submit button is enabled
-    expect(
-      getByText(en.operationModal.repay.submitButtonLabel.repay).closest('button'),
-    ).toBeEnabled();
+    await checkSubmitButtonIsEnabled();
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet spending limit', async () => {
@@ -274,16 +276,13 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(selectTokenTextField.value).toBe('');
 
     // Click on MAX button
-    fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     await waitFor(() =>
       expect(selectTokenTextField.value).toBe(fakeWalletSpendingLimitTokens.toFixed()),
     );
 
-    // Check submit button is enabled
-    expect(
-      getByText(en.operationModal.repay.submitButtonLabel.repay).closest('button'),
-    ).toBeEnabled();
+    await checkSubmitButtonIsEnabled();
   });
 
   it('lets user wrap and repay, then calls onClose callback on success', async () => {
@@ -324,10 +323,8 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: amountTokensToRepay.toString() } });
 
-    const expectedSubmitButtonLabel = en.operationModal.repay.submitButtonLabel.repay;
-
     // Click on submit button
-    const submitButton = await waitFor(() => getByText(expectedSubmitButtonLabel));
+    const submitButton = await waitFor(() => getByText(en.operationForm.submitButtonLabel.repay));
     expect(submitButton).toBeEnabled();
     fireEvent.click(submitButton);
 

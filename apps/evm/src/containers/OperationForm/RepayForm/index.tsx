@@ -235,10 +235,15 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
             }))
           }
           rightMaxButton={{
-            label: t('operationModal.repay.rightMaxButtonLabel'),
+            label: t('operationForm.rightMaxButtonLabel'),
             onClick: handleRightMaxButtonClick,
           }}
           tokenBalances={tokenBalances}
+          description={
+            !isSubmitting && !!formError?.message ? (
+              <p className="text-red">{formError.message}</p>
+            ) : undefined
+          }
         />
       ) : (
         <TokenTextField
@@ -255,11 +260,16 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           }
           disabled={isSubmitting}
           rightMaxButton={{
-            label: t('operationModal.repay.rightMaxButtonLabel'),
+            label: t('operationForm.rightMaxButtonLabel'),
             onClick: handleRightMaxButtonClick,
           }}
           data-testid={TEST_IDS.tokenTextField}
           hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
+          description={
+            !isSubmitting && !!formError?.message ? (
+              <p className="text-red">{formError.message}</p>
+            ) : undefined
+          }
         />
       )}
 
@@ -284,16 +294,14 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         </div>
       </div>
 
-      {!isSubmitting && !isSwapLoading && (
-        <Notice isRepayingFullLoan={isRepayingFullLoan} formError={formError} swap={swap} />
+      {!isSubmitting && !isSwapLoading && !formError && (
+        <Notice isRepayingFullLoan={isRepayingFullLoan} swap={swap} />
       )}
 
       <div className="space-y-2">
         <LabeledInlineContent
           label={
-            isUsingSwap
-              ? t('operationModal.repay.walletBalance')
-              : t('operationModal.repay.repayableAmount')
+            isUsingSwap ? t('operationForm.walletBalance') : t('operationForm.repayableAmount')
           }
         >
           {isUsingSwap
@@ -338,9 +346,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           swap={swap}
           isSwapLoading={isSwapLoading}
           isUsingSwap={isUsingSwap}
-          formError={formError}
           fromToken={formValues.fromToken}
-          fromTokenAmountTokens={formValues.amountTokens}
           approveFromToken={approveFromToken}
           isApproveFromTokenLoading={isApproveFromTokenLoading}
           isFromTokenApproved={isFromTokenApproved}

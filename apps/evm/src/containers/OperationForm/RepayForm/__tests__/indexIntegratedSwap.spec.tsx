@@ -69,6 +69,22 @@ vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useGetSwapRouterContractAddress');
 
+const checkSubmitButtonIsDisabled = async () => {
+  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+  await waitFor(() =>
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
+  );
+  expect(submitButton).toBeDisabled();
+};
+
+const checkSubmitButtonIsEnabled = async () => {
+  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+  await waitFor(() =>
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.repay),
+  );
+  expect(submitButton).toBeEnabled();
+};
+
 describe('RepayForm - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
@@ -108,17 +124,11 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('disables submit button if no amount was entered in input', async () => {
-    const { getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
+    renderComponent(<Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />, {
+      accountAddress: fakeAccountAddress,
+    });
 
-    await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
-    expect(
-      getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
-    ).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button if swap is a wrap', async () => {
@@ -158,10 +168,12 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.wrappingUnsupported));
-    expect(
-      getByText(en.operationModal.repay.submitButtonLabel.wrappingUnsupported).closest('button'),
-    ).toBeDisabled();
+    // Check error is displayed
+    await waitFor(() =>
+      expect(getByText(en.operationForm.error.wrappingUnsupported)).toBeInTheDocument(),
+    );
+
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button if swap is an unwrap', async () => {
@@ -201,10 +213,12 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.unwrappingUnsupported));
-    expect(
-      getByText(en.operationModal.repay.submitButtonLabel.unwrappingUnsupported).closest('button'),
-    ).toBeDisabled();
+    // Check error is displayed
+    await waitFor(() =>
+      expect(getByText(en.operationForm.error.unwrappingUnsupported)).toBeInTheDocument(),
+    );
+
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button if no swap is found', async () => {
@@ -236,14 +250,12 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
+    // Check error is displayed
     await waitFor(() =>
-      getByText(en.operationModal.repay.submitButtonLabel.insufficientSwapLiquidity),
+      expect(getByText(en.operationForm.error.insufficientSwapLiquidity)).toBeInTheDocument(),
     );
-    expect(
-      getByText(en.operationModal.repay.submitButtonLabel.insufficientSwapLiquidity).closest(
-        'button',
-      ),
-    ).toBeDisabled();
+
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button if amount entered in input is higher than wallet balance', async () => {
@@ -270,17 +282,19 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const invalidAmount = `${Number(FAKE_BUSD_BALANCE_TOKENS) + 1}`;
     fireEvent.change(selectTokenTextField, { target: { value: invalidAmount } });
 
-    const expectedSubmitButtonLabel =
-      en.operationModal.repay.submitButtonLabel.insufficientWalletBalance.replace(
-        '{{tokenSymbol}}',
-        busd.symbol,
-      );
+    // Check error is displayed
+    await waitFor(() =>
+      expect(
+        getByText(
+          en.operationForm.error.higherThanWalletBalance.replace('{{tokenSymbol}}', busd.symbol),
+        ),
+      ).toBeInTheDocument(),
+    );
 
-    await waitFor(() => getByText(expectedSubmitButtonLabel));
-    expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
-  it('disables submit button if amount entered in input would have a higher value than borrow balance after swapping', async () => {
+  it('disables submit button if amount entered in input would have a higher value than repay balance after swapping', async () => {
     const customFakeFullRepaymentSwap: Swap = {
       ...fakeFullRepaymentSwap,
       toTokenAmountReceivedMantissa: fakeXvsUserBorrowBalanceInMantissa.plus(1),
@@ -314,11 +328,12 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     // Enter invalid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
-    const expectedSubmitButtonLabel =
-      en.operationModal.repay.submitButtonLabel.amountHigherThanRepayBalance;
+    // Check error is displayed
+    await waitFor(() =>
+      expect(getByText(en.operationForm.error.higherThanRepayBalance)).toBeInTheDocument(),
+    );
 
-    await waitFor(() => getByText(expectedSubmitButtonLabel));
-    expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('displays warning notice and set correct submit button label if the swap has a high price impact', async () => {
@@ -357,16 +372,10 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
     // Check warning notice is displayed
-    await waitFor(() => getByText(en.operationModal.repay.swappingWithHighPriceImpactWarning));
+    await waitFor(() => getByText(en.operationForm.repay.swappingWithHighPriceImpactWarning));
 
     // Check submit button label is correct
-    await waitFor(() =>
-      getByText(en.operationModal.repay.submitButtonLabel.swapAndRepayWithHighPriceImpact),
-    );
-    const submitButton = getByText(
-      en.operationModal.repay.submitButtonLabel.swapAndRepayWithHighPriceImpact,
-    ).closest('button');
-    expect(submitButton).toBeEnabled();
+    await checkSubmitButtonIsEnabled();
   });
 
   it('disables submit button when price impact has reached the maximum tolerated', async () => {
@@ -404,14 +413,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    // Check submit button has the correct label and is disabled
+    // Check error is displayed
     await waitFor(() =>
-      getByText(en.operationModal.repay.submitButtonLabel.priceImpactHigherThanMaximumTolerated),
+      expect(getByText(en.operationForm.error.priceImpactTooHigh)).toBeInTheDocument(),
     );
-    const submitButton = getByText(
-      en.operationModal.repay.submitButtonLabel.priceImpactHigherThanMaximumTolerated,
-    ).closest('button');
-    expect(submitButton).toBeDisabled();
+
+    // Check submit button has the correct label and is disabled
+    await checkSubmitButtonIsDisabled();
   });
 
   it('displays correct swap details', async () => {
@@ -472,8 +480,6 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
       },
     );
 
-    await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
-
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
@@ -489,15 +495,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     expect(selectTokenTextField.value).toBe('');
 
     // Click on MAX button
-    fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     // Check input value was updated correctly
     await waitFor(() => expect(selectTokenTextField.value).toBe('0'));
 
     // Check submit button is disabled
-    expect(
-      getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount).closest('button'),
-    ).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('updates input value to wallet balance when clicking on MAX button', async () => {
@@ -508,8 +512,6 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
       },
     );
 
-    await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
-
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
@@ -525,15 +527,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     expect(selectTokenTextField.value).toBe('');
 
     // Click on MAX button
-    fireEvent.click(getByText(en.operationModal.repay.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     // Check input value was updated correctly
     await waitFor(() => expect(selectTokenTextField.value).toBe(FAKE_BUSD_BALANCE_TOKENS));
 
     // Check submit button is enabled
-    expect(
-      getByText(en.operationModal.repay.submitButtonLabel.swapAndRepay).closest('button'),
-    ).toBeEnabled();
+    await checkSubmitButtonIsEnabled();
   });
 
   it('updates input value to correct value when pressing on preset percentage buttons', async () => {
@@ -591,8 +591,6 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
         accountAddress: fakeAccountAddress,
       },
     );
-
-    await waitFor(() => getByText(en.operationModal.repay.submitButtonLabel.enterValidAmount));
 
     selectToken({
       container,
@@ -664,11 +662,9 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: validAmountTokens } });
 
-    const expectedSubmitButtonLabel = en.operationModal.repay.submitButtonLabel.swapAndRepay;
-
     // Click on submit button
-    await waitFor(() => getByText(expectedSubmitButtonLabel));
-    fireEvent.click(getByText(expectedSubmitButtonLabel));
+    await waitFor(() => getByText(en.operationForm.submitButtonLabel.repay));
+    fireEvent.click(getByText(en.operationForm.submitButtonLabel.repay));
 
     // Check swapTokensAndRepay is called with correct arguments
     await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));
@@ -706,14 +702,12 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     // Check notice is displayed
     await waitFor(() =>
-      expect(getByText(en.operationModal.repay.fullRepaymentWarning)).toBeTruthy(),
+      expect(getByText(en.operationForm.repay.fullRepaymentWarning)).toBeTruthy(),
     );
 
-    const expectedSubmitButtonLabel = en.operationModal.repay.submitButtonLabel.swapAndRepay;
-
     // Click on submit button
-    await waitFor(() => getByText(expectedSubmitButtonLabel));
-    fireEvent.click(getByText(expectedSubmitButtonLabel));
+    await waitFor(() => getByText(en.operationForm.submitButtonLabel.repay));
+    fireEvent.click(getByText(en.operationForm.submitButtonLabel.repay));
 
     // Check swapTokensAndRepay is called with correct arguments
     await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));

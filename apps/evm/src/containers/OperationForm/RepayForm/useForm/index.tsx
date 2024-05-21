@@ -7,7 +7,8 @@ import type { Swap, SwapError, Token, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import calculatePercentageOfUserBorrowBalance from '../calculatePercentageOfUserBorrowBalance';
-import type { FormError, FormValues } from './types';
+import type { FormError } from 'containers/OperationForm/types';
+import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
 
 export * from './types';
@@ -36,7 +37,7 @@ export interface UseFormInput {
 interface UseFormOutput {
   handleSubmit: (e?: React.SyntheticEvent) => Promise<void>;
   isFormValid: boolean;
-  formError?: FormError;
+  formError?: FormError<FormErrorCode>;
 }
 
 const useForm = ({
