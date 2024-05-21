@@ -156,7 +156,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         }
         disabled={isSubmitting}
         rightMaxButton={{
-          label: t('operationModal.withdraw.rightMaxButtonLabel'),
+          label: t('operationForm.rightMaxButtonLabel'),
           onClick: handleRightMaxButtonClick,
         }}
         hasError={!!formError && Number(formValues.amountTokens) > 0}
@@ -167,7 +167,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         }
       />
 
-      <LabeledInlineContent label={t('operationModal.withdraw.withdrawableAmount')}>
+      <LabeledInlineContent label={t('operationForm.withdrawableAmount')}>
         {readableWithdrawableAmountTokens}
       </LabeledInlineContent>
 
@@ -177,10 +177,10 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         <>
           <LabeledInlineContent
             data-testid={TEST_IDS.receiveNativeToken}
-            label={t('operationModal.withdraw.receiveNativeToken.label', {
+            label={t('operationForm.receiveNativeToken.label', {
               tokenSymbol: nativeToken.symbol,
             })}
-            tooltip={t('operationModal.withdraw.receiveNativeToken.tooltip', {
+            tooltip={t('operationForm.receiveNativeToken.tooltip', {
               wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
               nativeTokenSymbol: nativeToken.symbol,
             })}

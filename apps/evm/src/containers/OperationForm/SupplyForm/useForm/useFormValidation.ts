@@ -4,7 +4,10 @@ import { useMemo } from 'react';
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import type { Asset, Swap, SwapError } from 'types';
 import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
-import type { FormError, FormValues } from './types';
+import type { FormErrorCode, FormValues } from './types';
+import type { FormError } from 'containers/OperationForm/types';
+import { useTranslation } from 'libs/translations';
+import { formatTokensToReadableValue } from 'utilities';
 
 interface UseFormValidationInput {
   asset: Asset;
@@ -19,7 +22,7 @@ interface UseFormValidationInput {
 
 interface UseFormValidationOutput {
   isFormValid: boolean;
-  formError?: FormError;
+  formError?: FormError<FormErrorCode>;
 }
 
 const useFormValidation = ({
@@ -32,13 +35,24 @@ const useFormValidation = ({
   fromTokenUserWalletBalanceTokens,
   fromTokenWalletSpendingLimitTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
-  const formError: FormError | undefined = useMemo(() => {
+  const { t } = useTranslation();
+
+  const formError: FormError<FormErrorCode> | undefined = useMemo(() => {
     const swapErrorMapping: {
-      [key: string]: FormError;
+      [key: string]: FormError<FormErrorCode>;
     } = {
-      INSUFFICIENT_LIQUIDITY: 'SWAP_INSUFFICIENT_LIQUIDITY',
-      WRAPPING_UNSUPPORTED: 'SWAP_WRAPPING_UNSUPPORTED',
-      UNWRAPPING_UNSUPPORTED: 'SWAP_UNWRAPPING_UNSUPPORTED',
+      INSUFFICIENT_LIQUIDITY: {
+        code: 'SWAP_INSUFFICIENT_LIQUIDITY',
+        message: t('operationForm.error.insufficientSwapLiquidity'),
+      },
+      WRAPPING_UNSUPPORTED: {
+        code: 'SWAP_WRAPPING_UNSUPPORTED',
+        message: t('operationForm.error.wrappingUnsupported'),
+      },
+      UNWRAPPING_UNSUPPORTED: {
+        code: 'SWAP_UNWRAPPING_UNSUPPORTED',
+        message: t('operationForm.error.unwrappingUnsupported'),
+      },
     };
 
     if (isUsingSwap && swapError && swapError in swapErrorMapping) {
@@ -49,7 +63,15 @@ const useFormValidation = ({
       asset.supplyCapTokens &&
       asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens)
     ) {
-      return 'SUPPLY_CAP_ALREADY_REACHED';
+      return {
+        code: 'SUPPLY_CAP_ALREADY_REACHED',
+        message: t('operationForm.error.supplyCapReached', {
+          assetSupplyCap: formatTokensToReadableValue({
+            value: asset.supplyCapTokens,
+            token: asset.vToken.underlyingToken,
+          }),
+        }),
+      };
     }
 
     const fromTokenAmountTokens = formValues.amountTokens
@@ -57,14 +79,21 @@ const useFormValidation = ({
       : undefined;
 
     if (!fromTokenAmountTokens || fromTokenAmountTokens.isLessThanOrEqualTo(0)) {
-      return 'INVALID_TOKEN_AMOUNT';
+      return {
+        code: 'EMPTY_TOKEN_AMOUNT',
+      };
     }
 
     if (
       fromTokenUserWalletBalanceTokens &&
       fromTokenAmountTokens.isGreaterThan(fromTokenUserWalletBalanceTokens)
     ) {
-      return 'HIGHER_THAN_WALLET_BALANCE';
+      return {
+        code: 'HIGHER_THAN_WALLET_BALANCE',
+        message: t('operationForm.error.higherThanWalletBalance', {
+          tokenSymbol: asset.vToken.underlyingToken.symbol,
+        }),
+      };
     }
 
     const toTokensAmountSuppliedTokens = isUsingSwap
@@ -78,7 +107,23 @@ const useFormValidation = ({
         .plus(toTokensAmountSuppliedTokens)
         .isGreaterThan(asset.supplyCapTokens)
     ) {
-      return 'HIGHER_THAN_SUPPLY_CAP';
+      return {
+        code: 'HIGHER_THAN_SUPPLY_CAP',
+        message: t('operationForm.error.higherThanSupplyCap', {
+          userMaxSupplyAmount: formatTokensToReadableValue({
+            value: asset.supplyCapTokens.minus(asset.supplyBalanceTokens),
+            token: asset.vToken.underlyingToken,
+          }),
+          assetSupplyCap: formatTokensToReadableValue({
+            value: asset.supplyCapTokens,
+            token: asset.vToken.underlyingToken,
+          }),
+          assetSupplyBalance: formatTokensToReadableValue({
+            value: asset.supplyBalanceTokens,
+            token: asset.vToken.underlyingToken,
+          }),
+        }),
+      };
     }
 
     if (
@@ -86,18 +131,23 @@ const useFormValidation = ({
       fromTokenWalletSpendingLimitTokens &&
       fromTokenAmountTokens.isGreaterThan(fromTokenWalletSpendingLimitTokens)
     ) {
-      return 'HIGHER_THAN_WALLET_SPENDING_LIMIT';
+      return {
+        code: 'HIGHER_THAN_WALLET_SPENDING_LIMIT',
+        message: t('operationForm.error.higherThanWalletSpendingLimit'),
+      };
     }
 
     if (
       !!swap?.priceImpactPercentage &&
       swap?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
     ) {
-      return 'PRICE_IMPACT_TOO_HIGH';
+      return {
+        code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
+        message: t('operationForm.error.priceImpactTooHigh'),
+      };
     }
   }, [
-    asset.supplyCapTokens,
-    asset.supplyBalanceTokens,
+    asset,
     fromTokenUserWalletBalanceTokens,
     fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,
@@ -105,6 +155,7 @@ const useFormValidation = ({
     formValues.amountTokens,
     swap,
     swapError,
+    t,
   ]);
 
   return {

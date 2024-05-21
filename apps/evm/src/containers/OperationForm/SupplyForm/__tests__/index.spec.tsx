@@ -22,6 +22,22 @@ import TEST_IDS from '../testIds';
 vi.mock('hooks/useCollateral');
 vi.mock('hooks/useTokenApproval');
 
+const checkSubmitButtonIsDisabled = async () => {
+  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+  await waitFor(() =>
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
+  );
+  expect(submitButton).toBeDisabled();
+};
+
+const checkSubmitButtonIsEnabled = async () => {
+  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+  await waitFor(() =>
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.supply),
+  );
+  expect(submitButton).toBeEnabled();
+};
+
 describe('SupplyForm', () => {
   it('displays correct suppliable amount', async () => {
     const { getByText } = renderComponent(
@@ -35,23 +51,11 @@ describe('SupplyForm', () => {
   });
 
   it('submit is disabled with no amount', async () => {
-    const { getByText } = renderComponent(
-      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
+    renderComponent(<SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />, {
+      accountAddress: fakeAccountAddress,
+    });
 
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
-
-    const disabledButtonText = getByText(
-      en.operationModal.supply.submitButtonLabel.enterValidAmount,
-    );
-    expect(disabledButtonText).toHaveTextContent(
-      en.operationModal.supply.submitButtonLabel.enterValidAmount,
-    );
-    const disabledButton = document.querySelector('button[type="submit"]');
-    expect(disabledButton).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button if an amount entered in input is higher than token wallet balance', async () => {
@@ -60,39 +64,36 @@ describe('SupplyForm', () => {
       userWalletBalanceTokens: new BigNumber(100),
     };
 
-    const { getByText, getByTestId } = renderComponent(
+    const { getByTestId, getByText } = renderComponent(
       <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={customFakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
     );
 
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
-
-    // Check submit button is disabled
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount).closest('button'),
-    ).toBeDisabled();
-
     const incorrectValueTokens = customFakeAsset.userWalletBalanceTokens.plus(1).toFixed();
 
     // Enter amount in input
-    const tokenTextInput = getByTestId(TEST_IDS.tokenTextField).closest(
-      'input',
-    ) as HTMLInputElement;
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
 
     fireEvent.change(tokenTextInput, {
       target: { value: incorrectValueTokens },
     });
 
-    // Check submit button has a new label and is still disabled
-    const expectedSubmitButtonLabel =
-      en.operationModal.supply.submitButtonLabel.insufficientWalletBalance.replace(
-        '{{tokenSymbol}}',
-        fakeAsset.vToken.underlyingToken.symbol,
-      );
-    await waitFor(() => getByText(expectedSubmitButtonLabel));
-    expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
+    // Check error is displayed
+    await waitFor(() =>
+      expect(
+        getByText(
+          en.operationForm.error.higherThanWalletBalance.replace(
+            '{{tokenSymbol}}',
+            customFakeAsset.vToken.underlyingToken.symbol,
+          ),
+        ),
+      ).toBeInTheDocument(),
+    );
+
+    // Check submit button is disabled
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables form and displays a warning notice if the supply cap of this market has been reached', async () => {
@@ -110,18 +111,19 @@ describe('SupplyForm', () => {
     );
 
     // Check warning is displayed
-    await waitFor(() => getByTestId(TEST_IDS.noticeError));
-    expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
-      '"The supply cap of 100.00 XVS has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased."',
+    await waitFor(() =>
+      expect(
+        getByText(
+          en.operationForm.error.supplyCapReached.replace('{{assetSupplyCap}}', '100.00 XVS'),
+        ),
+      ).toBeInTheDocument(),
     );
-
-    // Check submit button is disabled
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.supplyCapReached).closest('button'),
-    ).toBeDisabled();
 
     // Check input is disabled
     expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
+
+    // Check submit button is disabled
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button and displays error notice if an amount entered in input is higher than asset supply cap', async () => {
@@ -131,18 +133,12 @@ describe('SupplyForm', () => {
       supplyBalanceTokens: new BigNumber(10),
     };
 
-    const { getByText, getByTestId } = renderComponent(
+    const { getByTestId, getByText } = renderComponent(
       <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={customFakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
     );
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
-
-    // Check submit button is disabled
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount).closest('button'),
-    ).toBeDisabled();
 
     const incorrectValueTokens = customFakeAsset
       .supplyCapTokens!.minus(customFakeAsset.supplyBalanceTokens)
@@ -151,28 +147,26 @@ describe('SupplyForm', () => {
       .toFixed();
 
     // Enter amount in input
-    const tokenTextInput = getByTestId(TEST_IDS.tokenTextField).closest(
-      'input',
-    ) as HTMLInputElement;
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+
     fireEvent.change(tokenTextInput, {
       target: { value: incorrectValueTokens },
     });
 
-    // Check error notice is displayed
-    await waitFor(() => expect(getByTestId(TEST_IDS.noticeError)));
-    expect(getByTestId(TEST_IDS.noticeError).textContent).toMatchInlineSnapshot(
-      '"You can not supply more than 90.00 XVS to this pool, as the supply cap for this market is set at 100.00 XVS and 10.00 XVS are currently being supplied to it."',
+    // Check error is displayed
+    await waitFor(() =>
+      expect(
+        getByText(
+          en.operationForm.error.higherThanSupplyCap
+            .replace('{{userMaxSupplyAmount}}', '90.00 XVS')
+            .replace('{{assetSupplyCap}}', '100.00 XVS')
+            .replace('{{assetSupplyBalance}}', '10.00 XVS'),
+        ),
+      ).toBeInTheDocument(),
     );
 
-    // Check submit button is still disabled
-    await waitFor(() =>
-      getByText(en.operationModal.supply.submitButtonLabel.amountHigherThanSupplyCap),
-    );
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.amountHigherThanSupplyCap).closest(
-        'button',
-      ),
-    ).toBeDisabled();
+    // Check submit button is disabled
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button and displays error notice if token has been approved but amount entered is higher than wallet spending limit', async () => {
@@ -195,12 +189,6 @@ describe('SupplyForm', () => {
         accountAddress: fakeAccountAddress,
       },
     );
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
-
-    // Check submit button is disabled
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount).closest('button'),
-    ).toBeDisabled();
 
     const incorrectValueTokens = fakeWalletSpendingLimitTokens
       // Add one token too much
@@ -208,27 +196,19 @@ describe('SupplyForm', () => {
       .toFixed();
 
     // Enter amount in input
-    const tokenTextInput = getByTestId(TEST_IDS.tokenTextField).closest(
-      'input',
-    ) as HTMLInputElement;
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+
     fireEvent.change(tokenTextInput, {
       target: { value: incorrectValueTokens },
     });
 
-    // Check error notice is displayed
-    await waitFor(() => expect(getByText(en.operationModal.supply.amountAboveWalletSpendingLimit)));
+    // Check error is displayed
+    await waitFor(() =>
+      expect(getByText(en.operationForm.error.higherThanWalletSpendingLimit)).toBeInTheDocument(),
+    );
 
     // Check submit button is still disabled
-    await waitFor(() =>
-      getByText(
-        en.operationModal.supply.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit,
-      ),
-    );
-    expect(
-      getByText(
-        en.operationModal.supply.submitButtonLabel.amountHigherThanWalletWalletSpendingLimit,
-      ).closest('button'),
-    ).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
@@ -311,24 +291,20 @@ describe('SupplyForm', () => {
       },
     );
 
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
+    const tokenTextInput = await waitFor(
+      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+    );
 
     // Click on max button
-    fireEvent.click(getByText(en.operationModal.supply.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     // Check input value was updated correctly
-    const selectTokenTextField = getByTestId(TEST_IDS.tokenTextField).closest(
-      'input',
-    ) as HTMLInputElement;
-
     await waitFor(() =>
-      expect(selectTokenTextField.value).toBe(customFakeAsset.userWalletBalanceTokens.toFixed()),
+      expect(tokenTextInput.value).toBe(customFakeAsset.userWalletBalanceTokens.toFixed()),
     );
 
     // Check submit button is enabled
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.supply).closest('button'),
-    ).toBeEnabled();
+    await checkSubmitButtonIsEnabled();
   });
 
   it('updates input value to maximum suppliable amount when clicking on max button if supply cap does not permit supplying the entire wallet balance', async () => {
@@ -346,26 +322,22 @@ describe('SupplyForm', () => {
       },
     );
 
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
+    const tokenTextInput = await waitFor(
+      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+    );
 
     // Click on max button
-    fireEvent.click(getByText(en.operationModal.supply.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     // Check input value was updated correctly
-    const selectTokenTextField = getByTestId(TEST_IDS.tokenTextField).closest(
-      'input',
-    ) as HTMLInputElement;
-
     await waitFor(() =>
-      expect(selectTokenTextField.value).toBe(
+      expect(tokenTextInput.value).toBe(
         customFakeAsset.supplyCapTokens!.minus(customFakeAsset.supplyBalanceTokens).toFixed(),
       ),
     );
 
     // Check submit button is enabled
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.supply).closest('button'),
-    ).toBeEnabled();
+    await checkSubmitButtonIsEnabled();
   });
 
   it('lets user supply BNB then calls onClose callback on success', async () => {
@@ -388,15 +360,15 @@ describe('SupplyForm', () => {
     const correctAmountTokens = fakeAsset.supplyCapTokens
       .minus(fakeAsset.supplyBalanceTokens)
       .minus(1);
-    const tokenTextInput = getByTestId(TEST_IDS.tokenTextField).closest(
-      'input',
-    ) as HTMLInputElement;
+    const tokenTextInput = await waitFor(
+      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+    );
     fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
 
     // Click on submit button
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     await waitFor(() =>
-      expect(submitButton).toHaveTextContent(en.operationModal.supply.submitButtonLabel.supply),
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.supply),
     );
     fireEvent.click(submitButton);
 
@@ -433,7 +405,7 @@ describe('SupplyForm', () => {
     // Click on submit button
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     await waitFor(() =>
-      expect(submitButton).toHaveTextContent(en.operationModal.supply.submitButtonLabel.supply),
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.supply),
     );
     fireEvent.click(submitButton);
 

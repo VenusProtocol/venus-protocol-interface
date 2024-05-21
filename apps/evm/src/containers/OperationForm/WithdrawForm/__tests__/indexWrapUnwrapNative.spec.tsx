@@ -116,7 +116,7 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     // receive native token is active by default, so no need to click on it
 
     // click on MAX button
-    fireEvent.click(getByText(en.operationModal.withdraw.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     // Click on submit button
     await waitFor(() => getByText(en.operationForm.submitButtonLabel.withdraw));

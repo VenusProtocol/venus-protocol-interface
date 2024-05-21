@@ -42,15 +42,15 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
   const getAccordionTitle = () => {
     if (action === 'repay') {
       return swap.direction === 'exactAmountIn'
-        ? t('operationModal.swapDetails.value.estimatedAmount', {
+        ? t('operationForm.swapDetails.value.estimatedAmount', {
             value: readableToTokenAmountReceived,
           })
-        : t('operationModal.swapDetails.value.exactAmount', {
+        : t('operationForm.swapDetails.value.exactAmount', {
             value: readableToTokenAmountReceived,
           });
     }
 
-    return t('operationModal.swapDetails.value.estimatedAmount', {
+    return t('operationForm.swapDetails.value.estimatedAmount', {
       value: readableToTokenAmountReceived,
     });
   };
@@ -64,35 +64,35 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
     <SecondaryAccordion
       title={
         action === 'repay'
-          ? t('operationModal.swapDetails.label.repay')
-          : t('operationModal.swapDetails.label.supply')
+          ? t('operationForm.swapDetails.label.repay')
+          : t('operationForm.swapDetails.label.supply')
       }
       rightLabel={getAccordionTitle()}
       {...otherProps}
     >
       <div className="space-y-2">
-        <LabeledInlineContent label={t('operationModal.swapDetails.label.exchangeRate')}>
-          {t('operationModal.swapDetails.value.exchangeRate', {
+        <LabeledInlineContent label={t('operationForm.swapDetails.label.exchangeRate')}>
+          {t('operationForm.swapDetails.value.exchangeRate', {
             fromTokenSymbol: swap.fromToken.symbol,
             toTokenSymbol: swap.toToken.symbol,
             rate: readableExchangeRate,
           })}
         </LabeledInlineContent>
 
-        <LabeledInlineContent label={t('operationModal.swapDetails.label.slippageTolerance')}>
+        <LabeledInlineContent label={t('operationForm.swapDetails.label.slippageTolerance')}>
           {readableSlippageTolerancePercentage}
         </LabeledInlineContent>
 
         <LabeledInlineContent
-          label={t('operationModal.swapDetails.label.priceImpact')}
-          tooltip={t('operationModal.swapDetails.tooltip.priceImpact')}
+          label={t('operationForm.swapDetails.label.priceImpact')}
+          tooltip={t('operationForm.swapDetails.tooltip.priceImpact')}
         >
           <span
             className={cn(
               swap.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE && 'text-red',
             )}
           >
-            {t('operationModal.swapDetails.value.priceImpact', {
+            {t('operationForm.swapDetails.value.priceImpact', {
               priceImpact: readablePriceImpact,
             })}
           </span>

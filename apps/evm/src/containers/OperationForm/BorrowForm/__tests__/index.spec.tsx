@@ -79,7 +79,7 @@ describe('BorrowForm', () => {
       borrowBalanceTokens: new BigNumber(100),
     };
 
-    const { getByText } = renderComponent(
+    const { getByText, getByTestId } = renderComponent(
       <BorrowForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
@@ -94,6 +94,9 @@ describe('BorrowForm', () => {
         ),
       ).toBeInTheDocument(),
     );
+
+    // Check input is disabled
+    expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
 
     await checkSubmitButtonIsDisabled();
   });

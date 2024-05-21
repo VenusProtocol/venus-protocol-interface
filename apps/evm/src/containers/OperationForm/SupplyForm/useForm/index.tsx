@@ -3,8 +3,9 @@ import BigNumber from 'bignumber.js';
 import { displayMutationError } from 'libs/errors';
 import type { Asset, Swap, SwapError, Token } from 'types';
 
-import type { FormError, FormValues } from './types';
+import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
+import type { FormError } from 'containers/OperationForm/types';
 
 export * from './types';
 
@@ -29,7 +30,7 @@ export interface UseFormInput {
 interface UseFormOutput {
   handleSubmit: (e?: React.SyntheticEvent) => Promise<void>;
   isFormValid: boolean;
-  formError?: FormError;
+  formError?: FormError<FormErrorCode>;
 }
 
 const useForm = ({

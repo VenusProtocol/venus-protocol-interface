@@ -116,10 +116,8 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       token: eth,
     });
 
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
-
     // Click on MAX button
-    fireEvent.click(getByText(en.operationModal.supply.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     // Check input value was updated correctly
     const selectTokenTextField = getByTestId(
@@ -133,9 +131,11 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     );
 
     // Check submit button is enabled
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.supply).closest('button'),
-    ).toBeEnabled();
+    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    await waitFor(() =>
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.supply),
+    );
+    expect(submitButton).toBeEnabled();
   });
 
   it('lets user wrap and supply, then calls onClose callback on success', async () => {
@@ -176,10 +176,8 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: amountTokensToSupply.toString() } });
 
-    const expectedSubmitButtonLabel = en.operationModal.supply.submitButtonLabel.supply;
-
     // Click on submit button
-    const submitButton = await waitFor(() => getByText(expectedSubmitButtonLabel));
+    const submitButton = await waitFor(() => getByText(en.operationForm.submitButtonLabel.supply));
     expect(submitButton).toBeEnabled();
     fireEvent.click(submitButton);
 

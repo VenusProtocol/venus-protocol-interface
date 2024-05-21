@@ -446,7 +446,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
 
     // Open swap details accordion
-    fireEvent.click(getByText(en.operationModal.swapDetails.label.repay).closest('button')!);
+    fireEvent.click(getByText(en.operationForm.swapDetails.label.repay).closest('button')!);
 
     expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
     expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();

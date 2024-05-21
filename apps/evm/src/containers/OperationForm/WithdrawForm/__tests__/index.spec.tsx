@@ -136,7 +136,7 @@ describe('WithdrawForm', () => {
     );
 
     const maxButton = await waitFor(() =>
-      getByText(en.operationModal.withdraw.rightMaxButtonLabel.toUpperCase()),
+      getByText(en.operationForm.rightMaxButtonLabel.toUpperCase()),
     );
     fireEvent.click(maxButton);
 

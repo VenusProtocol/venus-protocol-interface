@@ -150,7 +150,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           formError?.code === 'NO_COLLATERALS'
         }
         rightMaxButton={{
-          label: t('operationModal.borrow.rightMaxButtonLabel', {
+          label: t('operationForm.limitButtonLabel', {
             limitPercentage: SAFE_BORROW_LIMIT_PERCENTAGE,
           }),
           onClick: handleRightMaxButtonClick,
@@ -171,7 +171,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         />
       )}
 
-      <LabeledInlineContent label={t('operationModal.borrow.borrowableAmount')}>
+      <LabeledInlineContent label={t('operationForm.borrowableAmount')}>
         {readableLimit}
       </LabeledInlineContent>
 
@@ -181,10 +181,10 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         <>
           <LabeledInlineContent
             data-testid={TEST_IDS.receiveNativeToken}
-            label={t('operationModal.borrow.receiveNativeToken.label', {
+            label={t('operationForm.receiveNativeToken.label', {
               tokenSymbol: nativeToken.symbol,
             })}
-            tooltip={t('operationModal.borrow.receiveNativeToken.tooltip', {
+            tooltip={t('operationForm.receiveNativeToken.tooltip', {
               wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
               nativeTokenSymbol: nativeToken.symbol,
             })}

@@ -46,8 +46,8 @@ export const SwapSummary: React.FC<SwapSummaryProps> = ({ swap, type }) => {
     };
 
     return type === 'repay'
-      ? t('operationModal.swapSummary.repay', args)
-      : t('operationModal.swapSummary.supply', args);
+      ? t('operationForm.swapSummary.repay', args)
+      : t('operationForm.swapSummary.supply', args);
   }, [swap, type, t]);
 
   if (!swap) {

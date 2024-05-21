@@ -225,7 +225,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
         <NoticeInfo
           description={
             <Trans
-              i18nKey="operationModal.supply.youCanWrapNative"
+              i18nKey="operationForm.supply.youCanWrapNative"
               components={{
                 Link: <Link href={UNISWAP_URL} />,
               }}
@@ -239,7 +239,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
       )}
 
       {(asset.collateralFactor || asset.isCollateralOfUser) && (
-        <LabeledInlineContent label={t('operationModal.supply.collateral')}>
+        <LabeledInlineContent label={t('operationForm.supply.collateral')}>
           <Toggle onChange={handleToggleCollateral} value={asset.isCollateralOfUser} />
         </LabeledInlineContent>
       )}
@@ -251,7 +251,9 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           value={formValues.amountTokens}
           hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
           disabled={
-            isSubmitting || isApproveFromTokenLoading || formError === 'SUPPLY_CAP_ALREADY_REACHED'
+            isSubmitting ||
+            isApproveFromTokenLoading ||
+            formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
           }
           onChange={amountTokens =>
             setFormValues(currentFormValues => ({
@@ -266,10 +268,15 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
             }))
           }
           rightMaxButton={{
-            label: t('operationModal.supply.rightMaxButtonLabel'),
+            label: t('operationForm.rightMaxButtonLabel'),
             onClick: handleRightMaxButtonClick,
           }}
           tokenBalances={tokenBalances}
+          description={
+            !isSubmitting && !!formError?.message ? (
+              <p className="text-red">{formError.message}</p>
+            ) : undefined
+          }
         />
       ) : (
         <TokenTextField
@@ -286,26 +293,29 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
             }))
           }
           disabled={
-            isSubmitting || isApproveFromTokenLoading || formError === 'SUPPLY_CAP_ALREADY_REACHED'
+            isSubmitting ||
+            isApproveFromTokenLoading ||
+            formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
           }
           rightMaxButton={{
-            label: t('operationModal.supply.rightMaxButtonLabel'),
+            label: t('operationForm.rightMaxButtonLabel'),
             onClick: handleRightMaxButtonClick,
           }}
           hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
+          description={
+            !isSubmitting && !!formError?.message ? (
+              <p className="text-red">{formError.message}</p>
+            ) : undefined
+          }
         />
       )}
 
-      {!isSubmitting && !isSwapLoading && (
-        <Notice asset={asset} swap={swap} formError={formError} />
-      )}
+      {!isSubmitting && !isSwapLoading && !formError && <Notice swap={swap} />}
 
       <div className="space-y-2">
         <LabeledInlineContent
           label={
-            isUsingSwap
-              ? t('operationModal.supply.walletBalance')
-              : t('operationModal.supply.suppliableAmount')
+            isUsingSwap ? t('operationForm.walletBalance') : t('operationForm.suppliableAmount')
           }
         >
           {isUsingSwap

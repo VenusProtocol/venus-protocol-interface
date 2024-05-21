@@ -57,7 +57,23 @@ vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useGetSwapRouterContractAddress');
 
-describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap', () => {
+const checkSubmitButtonIsDisabled = async () => {
+  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+  await waitFor(() =>
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
+  );
+  expect(submitButton).toBeDisabled();
+};
+
+const checkSubmitButtonIsEnabled = async () => {
+  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+  await waitFor(() =>
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.supply),
+  );
+  expect(submitButton).toBeEnabled();
+};
+
+describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'integratedSwap',
@@ -112,17 +128,11 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
   });
 
   it('disables submit button if no amount was entered in input', async () => {
-    const { getByText } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
+    renderComponent(<Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />, {
+      accountAddress: fakeAccountAddress,
+    });
 
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount).closest('button'),
-    ).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button if swap is a wrap', async () => {
@@ -140,7 +150,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       },
     };
 
-    const { getByText, container, getByTestId } = renderComponent(
+    const { container, getByTestId } = renderComponent(
       <Supply asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
@@ -162,10 +172,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.wrappingUnsupported));
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.wrappingUnsupported).closest('button'),
-    ).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button if no swap is found', async () => {
@@ -175,7 +182,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       isLoading: false,
     }));
 
-    const { getByTestId, getByText, container } = renderComponent(
+    const { getByTestId, container } = renderComponent(
       <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
@@ -197,18 +204,11 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    await waitFor(() =>
-      getByText(en.operationModal.supply.submitButtonLabel.insufficientSwapLiquidity),
-    );
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.insufficientSwapLiquidity).closest(
-        'button',
-      ),
-    ).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button if amount entered in input is higher than wallet balance', async () => {
-    const { container, getByTestId, getByText } = renderComponent(
+    const { container, getByTestId } = renderComponent(
       <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
@@ -231,14 +231,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     const invalidAmount = `${Number(FAKE_BUSD_BALANCE_TOKENS) + 1}`;
     fireEvent.change(selectTokenTextField, { target: { value: invalidAmount } });
 
-    const expectedSubmitButtonLabel =
-      en.operationModal.supply.submitButtonLabel.insufficientWalletBalance.replace(
-        '{{tokenSymbol}}',
-        busd.symbol,
-      );
-
-    await waitFor(() => getByText(expectedSubmitButtonLabel));
-    expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('disables submit button if amount entered in input would have a higher value than supply cap after swapping', async () => {
@@ -275,11 +268,19 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     // Enter invalid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
-    const expectedSubmitButtonLabel =
-      en.operationModal.supply.submitButtonLabel.amountHigherThanSupplyCap;
+    // Check error is displayed
+    await waitFor(() =>
+      expect(
+        getByText(
+          en.operationForm.error.higherThanSupplyCap
+            .replace('{{userMaxSupplyAmount}}', '8.90K XVS')
+            .replace('{{assetSupplyCap}}', '10.00K XVS')
+            .replace('{{assetSupplyBalance}}', '1.10K XVS'),
+        ),
+      ).toBeInTheDocument(),
+    );
 
-    await waitFor(() => getByText(expectedSubmitButtonLabel));
-    expect(getByText(expectedSubmitButtonLabel).closest('button')).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('displays correct swap details', async () => {
@@ -314,7 +315,7 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     await waitFor(() => getByTestId(TEST_IDS.swapDetails));
 
     // Open swap details accordion
-    fireEvent.click(getByText(en.operationModal.swapDetails.label.supply).closest('button')!);
+    fireEvent.click(getByText(en.operationForm.swapDetails.label.supply).closest('button')!);
 
     expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
     expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
@@ -340,7 +341,14 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       },
     );
 
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
+    const selectTokenTextField = await waitFor(
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
+    );
 
     selectToken({
       container,
@@ -349,23 +357,16 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     });
 
     // Check input is empty
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
     expect(selectTokenTextField.value).toBe('');
 
     // Click on MAX button
-    fireEvent.click(getByText(en.operationModal.supply.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     // Check input value was updated correctly
     await waitFor(() => expect(selectTokenTextField.value).toBe('0'));
 
     // Check submit button is disabled
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount).closest('button'),
-    ).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
   it('updates input value to wallet balance when clicking on MAX button', async () => {
@@ -376,7 +377,14 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       },
     );
 
-    await waitFor(() => getByText(en.operationModal.supply.submitButtonLabel.enterValidAmount));
+    const selectTokenTextField = await waitFor(
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
+    );
 
     selectToken({
       container,
@@ -385,23 +393,16 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     });
 
     // Check input is empty
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
     expect(selectTokenTextField.value).toBe('');
 
     // Click on MAX button
-    fireEvent.click(getByText(en.operationModal.supply.rightMaxButtonLabel));
+    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
 
     // Check input value was updated correctly
     await waitFor(() => expect(selectTokenTextField.value).toBe(FAKE_BUSD_BALANCE_TOKENS));
 
     // Check submit button is enabled
-    expect(
-      getByText(en.operationModal.supply.submitButtonLabel.swapAndSupply).closest('button'),
-    ).toBeEnabled();
+    await checkSubmitButtonIsEnabled();
   });
 
   it('displays warning notice and set correct submit button label if the swap has a high price impact', async () => {
@@ -440,16 +441,10 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
     // Check warning notice is displayed
-    await waitFor(() => getByText(en.operationModal.supply.swappingWithHighPriceImpactWarning));
+    await waitFor(() => getByText(en.operationForm.warning.swappingWithHighPriceImpactWarning));
 
-    // Check submit button has the correct label and is enabled
-    await waitFor(() =>
-      getByText(en.operationModal.supply.submitButtonLabel.swapAndSupplyWithHighPriceImpact),
-    );
-    const submitButton = getByText(
-      en.operationModal.supply.submitButtonLabel.swapAndSupplyWithHighPriceImpact,
-    ).closest('button');
-    expect(submitButton).toBeEnabled();
+    // Check submit button is enabled
+    await checkSubmitButtonIsEnabled();
   });
 
   it('disables submit button when price impact has reached the maximum tolerated', async () => {
@@ -487,14 +482,13 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    // Check submit button has the correct label and is disabled
+    // Check error is displayed
     await waitFor(() =>
-      getByText(en.operationModal.supply.submitButtonLabel.priceImpactHigherThanMaximumTolerated),
+      expect(getByText(en.operationForm.error.priceImpactTooHigh)).toBeInTheDocument(),
     );
-    const submitButton = getByText(
-      en.operationModal.supply.submitButtonLabel.priceImpactHigherThanMaximumTolerated,
-    ).closest('button');
-    expect(submitButton).toBeDisabled();
+
+    // Check submit button is disabled
+    await checkSubmitButtonIsDisabled();
   });
 
   it('lets user swap and supply then calls onClose callback on success', async () => {
@@ -512,26 +506,27 @@ describe('hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integrated
       },
     );
 
+    const selectTokenTextField = await waitFor(
+      () =>
+        getByTestId(
+          getTokenTextFieldTestId({
+            parentTestId: TEST_IDS.selectTokenTextField,
+          }),
+        ) as HTMLInputElement,
+    );
+
     selectToken({
       container,
       selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: '1' } });
 
-    const expectedSubmitButtonLabel = en.operationModal.supply.submitButtonLabel.swapAndSupply;
-
     // Click on submit button
-    await waitFor(() => getByText(expectedSubmitButtonLabel));
-    fireEvent.click(getByText(expectedSubmitButtonLabel));
+    await waitFor(() => getByText(en.operationForm.submitButtonLabel.supply));
+    fireEvent.click(getByText(en.operationForm.submitButtonLabel.supply));
 
     await waitFor(() => expect(swapTokensAndSupply).toHaveBeenCalledTimes(1));
     expect(swapTokensAndSupply).toHaveBeenCalledWith({
