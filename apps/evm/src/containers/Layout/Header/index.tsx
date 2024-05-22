@@ -5,10 +5,13 @@ import { useImageAccentColor } from 'hooks/useImageAccentColor';
 import { cn } from 'utilities';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
-import { useNewMarketFeature } from './useNewMarketFeature';
+import { useIsOnMarketPage } from './useIsOnMarketPage';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 export const Header: React.FC = () => {
-  const shouldUseNewMarketFeature = useNewMarketFeature();
+  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
+  const isOnMarketPage = useIsOnMarketPage();
+  const shouldUseNewMarketFeature = isNewMarketPageEnabled && isOnMarketPage;
 
   const { vTokenAddress = '' } = useParams();
   const { data: getAssetData } = useGetAsset({
