@@ -2,11 +2,11 @@ import { useParams } from 'react-router';
 
 import { useGetAsset } from 'clients/api';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { cn } from 'utilities';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
 import { useIsOnMarketPage } from './useIsOnMarketPage';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 export const Header: React.FC = () => {
   const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });

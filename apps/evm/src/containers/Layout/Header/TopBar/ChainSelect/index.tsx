@@ -1,11 +1,11 @@
 import { Select, type SelectOption } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { cn } from 'utilities';
 import { useIsOnMarketPage } from '../../useIsOnMarketPage';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 export interface ChainSelectProps {
   className?: string;
