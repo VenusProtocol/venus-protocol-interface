@@ -129,7 +129,10 @@ export const MarketInfo = () => {
                 {asset.vToken.underlyingToken.symbol} ({pool?.name})
               </span>
 
-              {pool.isIsolated && <Pill>{t('layout.header.isolated')}</Pill>}
+              {pool.isIsolated &&
+                pool.comptrollerAddress !== corePoolComptrollerContractAddress && (
+                  <Pill>{t('layout.header.isolated')}</Pill>
+                )}
             </div>
 
             {isUserConnected && canAddTokenToWallet() && (
