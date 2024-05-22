@@ -24,9 +24,6 @@ vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
 const fakeNativeTokenBalanceTokens = new BigNumber(10);
 const fakeBalanceMantissa = fakeNativeTokenBalanceTokens.multipliedBy(10 ** 18);
-const fakeUserWalletNativeTokenBalanceData = {
-  balanceMantissa: fakeBalanceMantissa,
-};
 
 describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
@@ -46,7 +43,7 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
         onCloseModal={noop}
       />,
       {
@@ -60,7 +57,7 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
         onCloseModal={noop}
       />,
       {
@@ -77,7 +74,7 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
         onCloseModal={noop}
       />,
       {
@@ -99,7 +96,7 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={customFakeAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
         onCloseModal={noop}
       />,
       {
@@ -150,7 +147,7 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
         onCloseModal={onCloseMock}
       />,
       {

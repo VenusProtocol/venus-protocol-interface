@@ -37,11 +37,11 @@ const OperationModal: React.FC<OperationModalProps> = ({
         >
           {({ asset, pool }) => (
             <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-              {({ asset, pool, userWalletNativeTokenBalanceData }) => (
+              {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
                 <SupplyForm
                   asset={asset}
                   pool={pool}
-                  userWalletNativeTokenBalanceData={userWalletNativeTokenBalanceData}
+                  userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
                   onCloseModal={onClose}
                 />
               )}
@@ -87,11 +87,11 @@ const OperationModal: React.FC<OperationModalProps> = ({
         >
           {({ asset, pool }) => (
             <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-              {({ asset, pool, userWalletNativeTokenBalanceData }) => (
+              {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
                 <RepayForm
                   asset={asset}
                   pool={pool}
-                  userWalletNativeTokenBalanceData={userWalletNativeTokenBalanceData}
+                  userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
                   onCloseModal={onClose}
                 />
               )}

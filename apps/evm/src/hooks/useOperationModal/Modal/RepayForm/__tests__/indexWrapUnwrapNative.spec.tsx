@@ -24,9 +24,6 @@ vi.mock('libs/tokens');
 vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
 const fakeBalanceMantissa = new BigNumber('10000000000000000000');
-const fakeUserWalletNativeTokenBalanceData = {
-  balanceMantissa: fakeBalanceMantissa,
-};
 
 describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
@@ -46,7 +43,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={fakeAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
         onCloseModal={noop}
       />,
       {
@@ -60,7 +57,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={fakeAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
         onCloseModal={noop}
       />,
       {
@@ -77,7 +74,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={fakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
         onCloseModal={noop}
       />,
       {
@@ -98,11 +95,9 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     // Add 1 WETH to simulate wallet balance being higher than borrow balance
     const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.plus(1);
     const fakeHigherNativeTokenBalance = fakeBalanceMantissa.plus(1);
-    const fakeHigherUserWalletNativeTokenBalanceData = {
-      balanceMantissa: fakeHigherNativeTokenBalance.multipliedBy(
-        10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
-      ),
-    };
+    const fakeHigherUserWalletNativeTokenBalanceData = fakeHigherNativeTokenBalance.multipliedBy(
+      10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
+    );
 
     (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -117,7 +112,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={customFakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeHigherUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeHigherUserWalletNativeTokenBalanceData}
         onCloseModal={noop}
       />,
       {
@@ -171,11 +166,9 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     // Remove 1 WETH to simulate wallet balance being lower than borrow balance
     const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.minus(1);
     const fakeLowerNativeTokenBalance = fakeUserWethWalletBalance;
-    const fakeLowerUserWalletNativeTokenBalanceData = {
-      balanceMantissa: fakeLowerNativeTokenBalance.multipliedBy(
-        10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
-      ),
-    };
+    const fakeLowerUserWalletNativeTokenBalanceData = fakeLowerNativeTokenBalance.multipliedBy(
+      10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
+    );
 
     (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -190,7 +183,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={customFakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeLowerUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeLowerUserWalletNativeTokenBalanceData}
         onCloseModal={noop}
       />,
       {
@@ -248,7 +241,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={fakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
         onCloseModal={noop}
       />,
       {
@@ -298,7 +291,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={fakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
         onCloseModal={onCloseMock}
       />,
       {

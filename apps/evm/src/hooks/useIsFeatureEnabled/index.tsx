@@ -49,7 +49,7 @@ export const featureFlags = {
     ChainId.OPBNB_TESTNET,
     ChainId.OPBNB_MAINNET,
   ],
-  newMarketPage: [ChainId.BSC_TESTNET, ChainId.OPBNB_TESTNET],
+  newMarketPage: [ChainId.BSC_TESTNET, ChainId.OPBNB_TESTNET, ChainId.SEPOLIA],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

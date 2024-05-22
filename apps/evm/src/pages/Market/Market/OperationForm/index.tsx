@@ -21,11 +21,11 @@ export const OperationForm: React.FC<OperationFormProps> = ({ pool, asset }) => 
       title: t('market.operationForm.supplyTabTitle'),
       content: (
         <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-          {({ asset, pool, userWalletNativeTokenBalanceData }) => (
+          {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
             <SupplyForm
               asset={asset}
               pool={pool}
-              userWalletNativeTokenBalanceData={userWalletNativeTokenBalanceData}
+              userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
             />
           )}
         </NativeTokenBalanceWrapper>
@@ -43,11 +43,11 @@ export const OperationForm: React.FC<OperationFormProps> = ({ pool, asset }) => 
       title: t('market.operationForm.repayTabTitle'),
       content: (
         <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-          {({ asset, pool, userWalletNativeTokenBalanceData }) => (
+          {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
             <RepayForm
               asset={asset}
               pool={pool}
-              userWalletNativeTokenBalanceData={userWalletNativeTokenBalanceData}
+              userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
             />
           )}
         </NativeTokenBalanceWrapper>
