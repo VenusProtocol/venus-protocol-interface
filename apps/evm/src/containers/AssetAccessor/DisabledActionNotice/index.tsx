@@ -15,19 +15,19 @@ const DisabledActionNotice: React.FC<DisabledActionNoticeProps> = ({ token, acti
 
   const description: string | undefined = useMemo(() => {
     if (action === 'supply') {
-      return t('operationModal.disabledActionNotice.supply');
+      return t('assetAccessor.disabledActionNotice.supply');
     }
 
     if (action === 'withdraw') {
-      return t('operationModal.disabledActionNotice.withdraw');
+      return t('assetAccessor.disabledActionNotice.withdraw');
     }
 
     if (action === 'borrow') {
-      return t('operationModal.disabledActionNotice.borrow');
+      return t('assetAccessor.disabledActionNotice.borrow');
     }
 
     if (action === 'repay') {
-      return t('operationModal.disabledActionNotice.repay');
+      return t('assetAccessor.disabledActionNotice.repay');
     }
   }, [action, t]);
 

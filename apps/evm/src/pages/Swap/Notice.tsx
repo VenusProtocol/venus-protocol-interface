@@ -19,7 +19,10 @@ const Notice: React.FC<NoticeProps> = ({ formErrors, swap }) => {
   if (formErrors[0] === 'FROM_TOKEN_AMOUNT_HIGHER_THAN_WALLET_SPENDING_LIMIT') {
     // User is trying to swap more than their spending limit allows
     return (
-      <NoticeError css={styles.notice} description={t('swap.amountAboveWalletSpendingLimit')} />
+      <NoticeError
+        css={styles.notice}
+        description={t('swap.errors.amountAboveWalletSpendingLimit')}
+      />
     );
   }
 
@@ -32,7 +35,7 @@ const Notice: React.FC<NoticeProps> = ({ formErrors, swap }) => {
     return (
       <NoticeWarning
         css={styles.notice}
-        description={t('operationModal.supply.swappingWithHighPriceImpactWarning')}
+        description={t('swap.warning.swappingWithHighPriceImpactWarning')}
       />
     );
   }

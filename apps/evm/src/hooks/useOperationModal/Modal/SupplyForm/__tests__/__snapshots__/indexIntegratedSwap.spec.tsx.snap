@@ -1,5 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap > displays correct swap details 1`] = `"You will supply≈ 8.90K XVSExchange rate1 BUSD ≈ 0.029 XVSSlippage tolerance0.5%Price impact< 0.01%"`;
-
-exports[`hooks/useSupplyWithdrawModal/Supply - Feature flag enabled: integratedSwap > displays correct swap details 2`] = `"You will supply 8.90K XVS using 299.99K BUSD"`;

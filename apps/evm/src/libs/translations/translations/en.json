@@ -108,6 +108,14 @@
       "title": "Market info"
     }
   },
+  "assetAccessor": {
+    "disabledActionNotice": {
+      "borrow": "Borrowing has been disabled for this token",
+      "repay": "Repaying has been disabled for this token",
+      "supply": "Supplying has been disabled for this token",
+      "withdraw": "Withdrawing has been disabled for this token"
+    }
+  },
   "assetInfo": {
     "borrowApy": "Borrow APY",
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
@@ -374,7 +382,6 @@
     "menuItems": {
       "account": "Account",
       "bridge": "Bridge",
-      "convertVrt": "Convert VRT",
       "corePool": "Core pool",
       "dashboard": "Dashboard",
       "governance": "Governance",
@@ -433,12 +440,6 @@
         "unlimitedBorrowCap": "Uncapped",
         "unlimitedSupplyCap": "Uncapped"
       }
-    },
-    "operationForm": {
-      "borrowTabTitle": "Borrow",
-      "repayTabTitle": "Repay",
-      "supplyTabTitle": "Supply",
-      "withdrawTabTitle": "Withdraw"
     },
     "supplyButtonLabel": "Supply",
     "supplyInfo": {
@@ -517,85 +518,53 @@
     "safeLimit": "Your safe limit:",
     "safeLimitTooltip": "{{safeBorrowLimitPercentage}} of your borrow limit. We consider borrowing above this threshold unsafe."
   },
-  "operationModal": {
+  "operationForm": {
     "borrow": {
-      "aboveBorrowCapWarning": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
-      "aboveLiquidityWarning": "Insufficient asset liquidity",
-      "aboveSafeLimitWarning": "You entered a high value. There is a risk of liquidation.",
-      "borrowableAmount": "Borrowable amount",
-      "borrowCapReachedWarning": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
-      "connectWalletMessage": "Please connect your wallet to borrow",
-      "noCollateralizedSuppliedAssetWarning": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
-      "receiveNativeToken": {
-        "label": "Receive {{tokenSymbol}}",
-        "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
-      },
-      "rightMaxButtonLabel": "{{limitPercentage}}% LIMIT",
-      "submitButtonLabel": {
-        "amountHigherThanBorrowableAmount": "Amount entered higher than borrowable amount",
-        "amountHigherThanBorrowCap": "Amount entered higher than borrow cap",
-        "borrow": "Borrow",
-        "borrowCapReached": "Borrow cap reached",
-        "borrowHighRiskAmount": "Borrow at high risk",
-        "enterValidAmount": "Enter a valid amount to borrow"
-      }
+      "connectWalletMessage": "Please connect your wallet to borrow"
     },
+    "borrowableAmount": "Borrowable Amount",
     "borrowTabTitle": "Borrow",
-    "disabledActionNotice": {
-      "borrow": "Borrowing has been disabled for this token",
-      "repay": "Repaying has been disabled for this token",
-      "supply": "Supplying has been disabled for this token",
-      "withdraw": "Withdrawing has been disabled for this token"
+    "error": {
+      "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
+      "higherThanAvailableLiquidity": "Insufficient asset liquidity",
+      "higherThanBorrowableAmount": "Amount entered higher than borrowable amount",
+      "higherThanBorrowCap": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
+      "higherThanRepayBalance": "Amount entered higher than repay balance",
+      "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
+      "higherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
+      "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
+      "higherThanWithdrawableAmount": "Amount entered higher than withdrawable amount",
+      "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
+      "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
+      "priceImpactTooHigh": "Price impact too high",
+      "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
+      "unwrappingUnsupported": "Unwrapping unsupported",
+      "wrappingUnsupported": "Wrapping unsupported"
+    },
+    "limitButtonLabel": "{{limitPercentage}}% LIMIT",
+    "receiveNativeToken": {
+      "label": "Receive {{tokenSymbol}}",
+      "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
     },
     "repay": {
-      "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "connectWalletMessage": "Please connect your wallet to repay",
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
-      "repayableAmount": "Repayable amount",
-      "rightMaxButtonLabel": "MAX",
-      "submitButtonLabel": {
-        "amountHigherThanRepayBalance": "Amount entered higher than repay balance",
-        "amountHigherThanWalletWalletSpendingLimit": "Amount entered higher than spending limit",
-        "enterValidAmount": "Enter a valid amount to repay",
-        "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
-        "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
-        "priceImpactHigherThanMaximumTolerated": "Price impact too high",
-        "processing": "Processing",
-        "repay": "Repay",
-        "swapAndRepay": "Swap and repay",
-        "swapAndRepayWithHighPriceImpact": "Swap and repay with high price impact",
-        "unwrappingUnsupported": "Unwrapping unsupported",
-        "wrappingUnsupported": "Wrapping unsupported"
-      },
-      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
-      "walletBalance": "Wallet balance"
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     },
+    "repayableAmount": "Repayable amount",
     "repayTabTitle": "Repay",
+    "rightMaxButtonLabel": "MAX",
+    "submitButtonLabel": {
+      "borrow": "Borrow",
+      "enterValidAmount": "Enter valid amount",
+      "repay": "Repay",
+      "supply": "Supply",
+      "withdraw": "Withdraw"
+    },
+    "suppliableAmount": "Suppliable amount",
     "supply": {
-      "amountAboveSupplyCapWarning": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
-      "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "collateral": "Collateral",
       "connectWalletMessage": "Please connect your wallet to supply",
-      "rightMaxButtonLabel": "MAX",
-      "submitButtonLabel": {
-        "amountHigherThanSupplyCap": "Amount entered higher than supply cap",
-        "amountHigherThanWalletWalletSpendingLimit": "Amount entered higher than spending limit",
-        "enterValidAmount": "Enter a valid amount to supply",
-        "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
-        "insufficientWalletBalance": "Insufficient {{tokenSymbol}} balance",
-        "priceImpactHigherThanMaximumTolerated": "Price impact too high",
-        "processing": "Processing",
-        "supply": "Supply",
-        "supplyCapReached": "Supply cap reached",
-        "swapAndSupply": "Swap and supply",
-        "swapAndSupplyWithHighPriceImpact": "Swap and supply with high price impact",
-        "unwrappingUnsupported": "Unwrapping unsupported",
-        "wrappingUnsupported": "Wrapping unsupported"
-      },
-      "suppliableAmount": "Suppliable amount",
-      "supplyCapReachedWarning": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
-      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations.",
-      "walletBalance": "Wallet balance",
       "youCanWrapNative": "You can wrap {{nativeTokenSymbol}} into {{wrappedNativeTokenSymbol}} in <Link>Uniswap</Link>"
     },
     "supplyTabTitle": "Supply",
@@ -621,20 +590,15 @@
       "repay": "You will repay {{toTokenAmount}} using {{fromTokenAmount}}",
       "supply": "You will supply {{toTokenAmount}} using {{fromTokenAmount}}"
     },
-    "withdraw": {
-      "connectWalletMessage": "Please connect your wallet to withdraw",
-      "receiveNativeToken": {
-        "label": "Receive {{tokenSymbol}}",
-        "tooltip": "Withdraw supplied {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
-      },
-      "rightMaxButtonLabel": "MAX",
-      "submitButtonLabel": {
-        "enterValidAmount": "Enter a valid amount to withdraw",
-        "higherThanWithdrawableAmount": "Amount entered higher than withdrawable amount",
-        "withdraw": "Withdraw"
-      },
-      "withdrawableAmount": "Withdrawable amount"
+    "walletBalance": "Wallet balance",
+    "warning": {
+      "aboveSafeLimit": "You entered a high value. There is a risk of liquidation.",
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     },
+    "withdraw": {
+      "connectWalletMessage": "Please connect your wallet to withdraw"
+    },
+    "withdrawableAmount": "Withdrawable amount",
     "withdrawTabTitle": "Withdraw"
   },
   "pagination": {
@@ -783,8 +747,8 @@
     "title": "Stake {{tokenSymbol}}"
   },
   "swap": {
-    "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
     "errors": {
+      "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "incorrectSwapInput": "Incorrect input provided for swap"
     },
     "swapDetails": {
@@ -803,6 +767,9 @@
         "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
         "priceImpact": "{{ priceImpact }}"
       }
+    },
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     }
   },
   "swapPage": {
