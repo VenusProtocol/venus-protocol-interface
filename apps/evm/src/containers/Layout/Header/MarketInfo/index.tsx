@@ -125,11 +125,14 @@ export const MarketInfo = () => {
             <TokenIcon token={asset.vToken.underlyingToken} className="h-full w-8 shrink-0" />
 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <span className="font-bold">
+              <span className="font-bold text-lg">
                 {asset.vToken.underlyingToken.symbol} ({pool?.name})
               </span>
 
-              {pool.isIsolated && <Pill>{t('layout.header.isolated')}</Pill>}
+              {pool.isIsolated &&
+                pool.comptrollerAddress !== corePoolComptrollerContractAddress && (
+                  <Pill>{t('layout.header.isolated')}</Pill>
+                )}
             </div>
 
             {isUserConnected && canAddTokenToWallet() && (

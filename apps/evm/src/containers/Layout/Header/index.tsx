@@ -2,13 +2,16 @@ import { useParams } from 'react-router';
 
 import { useGetAsset } from 'clients/api';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { cn } from 'utilities';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
-import { useNewMarketFeature } from './useNewMarketFeature';
+import { useIsOnMarketPage } from './useIsOnMarketPage';
 
 export const Header: React.FC = () => {
-  const shouldUseNewMarketFeature = useNewMarketFeature();
+  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
+  const isOnMarketPage = useIsOnMarketPage();
+  const shouldUseNewMarketFeature = isNewMarketPageEnabled && isOnMarketPage;
 
   const { vTokenAddress = '' } = useParams();
   const { data: getAssetData } = useGetAsset({

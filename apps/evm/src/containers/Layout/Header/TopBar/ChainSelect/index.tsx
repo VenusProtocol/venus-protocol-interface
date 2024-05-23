@@ -1,10 +1,11 @@
 import { Select, type SelectOption } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { cn } from 'utilities';
-import { useNewMarketFeature } from '../../useNewMarketFeature';
+import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 
 export interface ChainSelectProps {
   className?: string;
@@ -37,7 +38,9 @@ export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClass
   const { t } = useTranslation();
   const { chainId } = useChainId();
   const { switchChain } = useSwitchChain();
-  const shouldUseNewMarketFeature = useNewMarketFeature();
+  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
+  const isOnMarketPage = useIsOnMarketPage();
+  const shouldUseNewMarketFeature = isNewMarketPageEnabled && isOnMarketPage;
 
   return (
     <Select
