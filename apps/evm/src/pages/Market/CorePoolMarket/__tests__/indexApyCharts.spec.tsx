@@ -7,16 +7,22 @@ import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
-import { getMarketHistory, getVTokenApySimulations, useGetAsset } from 'clients/api';
+import {
+  getMarketHistory,
+  getVTokenApySimulations,
+  useGetAsset,
+  useGetIsolatedPoolVTokenLiquidationThreshold,
+  useGetPoolLiquidationIncentive,
+} from 'clients/api';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import CorePoolMarket from '..';
 import TEST_IDS from '../../testIds';
 
-describe('CorePoolMarket - Feature flag enabled: marketHistory', () => {
+describe('CorePoolMarket - Feature flag enabled: apyCharts', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'marketHistory',
+      ({ name }: UseIsFeatureEnabled) => name === 'apyCharts',
     );
 
     (useGetAsset as Vi.Mock).mockImplementation(() => ({
@@ -32,6 +38,20 @@ describe('CorePoolMarket - Feature flag enabled: marketHistory', () => {
 
     (getVTokenApySimulations as Vi.Mock).mockImplementation(() => ({
       apySimulations: vTokenApySimulations,
+    }));
+
+    (useGetPoolLiquidationIncentive as Vi.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        liquidationIncentivePercentage: 10,
+      },
+    }));
+
+    (useGetIsolatedPoolVTokenLiquidationThreshold as Vi.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        liquidationThresholdPercentage: 80,
+      },
     }));
   });
 

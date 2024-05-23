@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { type GetBalanceOfOutput, useRepay, useSwapTokensAndRepay } from 'clients/api';
+import { useRepay, useSwapTokensAndRepay } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -361,15 +361,15 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 export interface RepayFormProps {
   asset: Asset;
   pool: Pool;
-  userWalletNativeTokenBalanceData?: GetBalanceOfOutput;
   onSubmitSuccess?: () => void;
+  userTokenWrappedBalanceMantissa?: BigNumber;
 }
 
 const RepayForm: React.FC<RepayFormProps> = ({
   asset,
   pool,
-  userWalletNativeTokenBalanceData,
   onSubmitSuccess,
+  userTokenWrappedBalanceMantissa,
 }) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const isIntegratedSwapFeatureEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
@@ -385,13 +385,13 @@ const RepayForm: React.FC<RepayFormProps> = ({
   );
 
   const userWalletNativeTokenBalanceTokens = useMemo(() => {
-    return userWalletNativeTokenBalanceData
+    return userTokenWrappedBalanceMantissa
       ? convertMantissaToTokens({
           token: asset.vToken.underlyingToken.tokenWrapped,
-          value: userWalletNativeTokenBalanceData?.balanceMantissa,
+          value: userTokenWrappedBalanceMantissa,
         })
       : undefined;
-  }, [asset.vToken.underlyingToken.tokenWrapped, userWalletNativeTokenBalanceData]);
+  }, [asset.vToken.underlyingToken.tokenWrapped, userTokenWrappedBalanceMantissa]);
 
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
@@ -477,7 +477,7 @@ const RepayForm: React.FC<RepayFormProps> = ({
   const isSubmitting = isRepayLoading || isSwapAndRepayLoading;
 
   const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
-    if (asset.vToken.underlyingToken.tokenWrapped && userWalletNativeTokenBalanceData) {
+    if (asset.vToken.underlyingToken.tokenWrapped && userTokenWrappedBalanceMantissa) {
       const marketTokenBalance: TokenBalance = {
         token: asset.vToken.underlyingToken,
         balanceMantissa: convertTokensToMantissa({
@@ -487,7 +487,7 @@ const RepayForm: React.FC<RepayFormProps> = ({
       };
       const nativeTokenBalance: TokenBalance = {
         token: asset.vToken.underlyingToken.tokenWrapped,
-        balanceMantissa: userWalletNativeTokenBalanceData.balanceMantissa,
+        balanceMantissa: userTokenWrappedBalanceMantissa,
       };
       return [marketTokenBalance, nativeTokenBalance];
     }
@@ -495,7 +495,7 @@ const RepayForm: React.FC<RepayFormProps> = ({
   }, [
     asset.userWalletBalanceTokens,
     asset.vToken.underlyingToken,
-    userWalletNativeTokenBalanceData,
+    userTokenWrappedBalanceMantissa,
   ]);
 
   const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances({

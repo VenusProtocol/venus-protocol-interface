@@ -24,9 +24,6 @@ vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
 const fakeNativeTokenBalanceTokens = new BigNumber(10);
 const fakeBalanceMantissa = fakeNativeTokenBalanceTokens.multipliedBy(10 ** 18);
-const fakeUserWalletNativeTokenBalanceData = {
-  balanceMantissa: fakeBalanceMantissa,
-};
 
 describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
@@ -46,8 +43,8 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
         onSubmitSuccess={noop}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -60,8 +57,8 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
         onSubmitSuccess={noop}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -77,8 +74,8 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
         onSubmitSuccess={noop}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -99,8 +96,8 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={customFakeAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
         onSubmitSuccess={noop}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -150,8 +147,8 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
         onSubmitSuccess={onCloseMock}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,

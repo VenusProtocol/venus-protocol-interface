@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useState } from 'react';
 
-import { type GetBalanceOfOutput, useSupply, useSwapTokensAndSupply } from 'clients/api';
+import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -376,15 +376,15 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 export interface SupplyFormProps {
   asset: Asset;
   pool: Pool;
-  userWalletNativeTokenBalanceData?: GetBalanceOfOutput;
   onSubmitSuccess?: () => void;
+  userTokenWrappedBalanceMantissa?: BigNumber;
 }
 
 const SupplyForm: React.FC<SupplyFormProps> = ({
   asset,
   pool,
-  userWalletNativeTokenBalanceData,
   onSubmitSuccess,
+  userTokenWrappedBalanceMantissa,
 }) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
@@ -408,13 +408,13 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   );
 
   const userWalletNativeTokenBalanceTokens = useMemo(() => {
-    return userWalletNativeTokenBalanceData
+    return userTokenWrappedBalanceMantissa
       ? convertMantissaToTokens({
           token: asset.vToken.underlyingToken.tokenWrapped,
-          value: userWalletNativeTokenBalanceData?.balanceMantissa,
+          value: userTokenWrappedBalanceMantissa,
         })
       : undefined;
-  }, [asset.vToken.underlyingToken.tokenWrapped, userWalletNativeTokenBalanceData]);
+  }, [asset.vToken.underlyingToken.tokenWrapped, userTokenWrappedBalanceMantissa]);
 
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
@@ -485,7 +485,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   });
 
   const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
-    if (asset.vToken.underlyingToken.tokenWrapped && userWalletNativeTokenBalanceData) {
+    if (asset.vToken.underlyingToken.tokenWrapped && userTokenWrappedBalanceMantissa) {
       const marketTokenBalance: TokenBalance = {
         token: asset.vToken.underlyingToken,
         balanceMantissa: convertTokensToMantissa({
@@ -495,7 +495,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
       };
       const nativeTokenBalance: TokenBalance = {
         token: asset.vToken.underlyingToken.tokenWrapped,
-        balanceMantissa: userWalletNativeTokenBalanceData.balanceMantissa,
+        balanceMantissa: userTokenWrappedBalanceMantissa,
       };
       return [marketTokenBalance, nativeTokenBalance];
     }
@@ -503,7 +503,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   }, [
     asset.vToken.underlyingToken,
     asset.userWalletBalanceTokens,
-    userWalletNativeTokenBalanceData,
+    userTokenWrappedBalanceMantissa,
   ]);
 
   const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances({

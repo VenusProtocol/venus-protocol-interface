@@ -16,7 +16,7 @@ export const featureFlags = {
   xvsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   createProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   voteProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  marketHistory: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  apyCharts: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   marketParticipantCounts: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
@@ -49,7 +49,7 @@ export const featureFlags = {
     ChainId.OPBNB_TESTNET,
     ChainId.OPBNB_MAINNET,
   ],
-  newMarketPage: [ChainId.BSC_TESTNET, ChainId.OPBNB_TESTNET],
+  newMarketPage: [ChainId.BSC_TESTNET, ChainId.OPBNB_TESTNET, ChainId.SEPOLIA],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

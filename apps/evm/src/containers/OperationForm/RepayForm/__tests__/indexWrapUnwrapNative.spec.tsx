@@ -24,9 +24,6 @@ vi.mock('libs/tokens');
 vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
 const fakeBalanceMantissa = new BigNumber('10000000000000000000');
-const fakeUserWalletNativeTokenBalanceData = {
-  balanceMantissa: fakeBalanceMantissa,
-};
 
 const checkSubmitButtonIsEnabled = async () => {
   const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
@@ -54,8 +51,8 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={fakeAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
         onSubmitSuccess={noop}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -68,8 +65,8 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={fakeAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
         onSubmitSuccess={noop}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -85,8 +82,8 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={fakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
         onSubmitSuccess={noop}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -106,11 +103,9 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     // Add 1 WETH to simulate wallet balance being higher than borrow balance
     const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.plus(1);
     const fakeHigherNativeTokenBalance = fakeBalanceMantissa.plus(1);
-    const fakeHigherUserWalletNativeTokenBalanceData = {
-      balanceMantissa: fakeHigherNativeTokenBalance.multipliedBy(
-        10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
-      ),
-    };
+    const fakeHigherUserWalletNativeTokenBalanceData = fakeHigherNativeTokenBalance.multipliedBy(
+      10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
+    );
 
     (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -125,8 +120,8 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={customFakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeHigherUserWalletNativeTokenBalanceData}
         onSubmitSuccess={noop}
+        userTokenWrappedBalanceMantissa={fakeHigherUserWalletNativeTokenBalanceData}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -176,11 +171,9 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     // Remove 1 WETH to simulate wallet balance being lower than borrow balance
     const fakeUserWethWalletBalance = customFakeWethAsset.userBorrowBalanceTokens.minus(1);
     const fakeLowerNativeTokenBalance = fakeUserWethWalletBalance;
-    const fakeLowerUserWalletNativeTokenBalanceData = {
-      balanceMantissa: fakeLowerNativeTokenBalance.multipliedBy(
-        10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
-      ),
-    };
+    const fakeLowerUserWalletNativeTokenBalanceData = fakeLowerNativeTokenBalance.multipliedBy(
+      10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
+    );
 
     (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -195,8 +188,8 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={customFakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeLowerUserWalletNativeTokenBalanceData}
         onSubmitSuccess={noop}
+        userTokenWrappedBalanceMantissa={fakeLowerUserWalletNativeTokenBalanceData}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -250,8 +243,8 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={fakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
         onSubmitSuccess={noop}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,
@@ -297,8 +290,8 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Repay
         asset={fakeWethAsset}
         pool={fakePool}
-        userWalletNativeTokenBalanceData={fakeUserWalletNativeTokenBalanceData}
         onSubmitSuccess={onCloseMock}
+        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
         chainId: ChainId.SEPOLIA,
