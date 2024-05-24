@@ -25,7 +25,7 @@ export const Layout: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col md:flex-row">
+    <div className="flex h-dvh flex-col md:flex-row">
       <Sidebar />
 
       <div
