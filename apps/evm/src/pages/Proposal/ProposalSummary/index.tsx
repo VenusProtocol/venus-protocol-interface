@@ -16,10 +16,11 @@ import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { displayMutationError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress, useChainId } from 'libs/wallet';
-import { type Proposal, ProposalState, ProposalType } from 'types';
+import { useAccountAddress } from 'libs/wallet';
+import { ChainId, type Proposal, ProposalState, ProposalType } from 'types';
 import { areAddressesEqual } from 'utilities';
 
+import config from 'config';
 import Stepper from './Stepper';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -55,7 +56,6 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
   }) => {
     const styles = useStyles();
     const { t, Trans } = useTranslation();
-    const { chainId } = useChainId();
     const voteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
 
     const {
@@ -219,7 +219,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
                   hash={transactionHash}
                   css={styles.transactionLink}
                   ellipseBreakpoint="xxl"
-                  chainId={chainId}
+                  chainId={config.isOnTestnet ? ChainId.BSC_TESTNET : ChainId.BSC_MAINNET}
                 />
               )}
             </div>
