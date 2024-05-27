@@ -9,6 +9,7 @@ import { useHideMdDownCss, useHideXlDownCss, useShowXlDownCss } from 'hooks/resp
 import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import TEST_IDS from '../testIds';
 import { useStyles } from './styles';
 
@@ -24,6 +25,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
   const hideXlDownCss = useHideXlDownCss();
   const showXlDownCss = useShowXlDownCss();
   const hideMdDownCss = useHideMdDownCss();
+  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
 
   const marketTableProps: {
     supply: MarketTableProps;
@@ -71,13 +73,13 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       {/* Desktop view */}
       <div css={[styles.desktopContainer, hideXlDownCss]}>
         <MarketTable
-          openOperationModalOnRowClick
+          openOperationModalOnRowClick={!isNewMarketPageEnabled}
           {...marketTableProps.supply}
           title={t('account.marketBreakdown.tables.supplyTableTitle')}
         />
 
         <MarketTable
-          openOperationModalOnRowClick
+          openOperationModalOnRowClick={!isNewMarketPageEnabled}
           {...marketTableProps.borrow}
           title={t('account.marketBreakdown.tables.borrowTableTitle')}
         />
@@ -103,14 +105,14 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
 
         {activeTabIndex === 0 ? (
           <MarketTable
-            openOperationModalOnRowClick
+            openOperationModalOnRowClick={!isNewMarketPageEnabled}
             key="supply-market-table"
             {...marketTableProps.supply}
             css={styles.tabletMarketTable}
           />
         ) : (
           <MarketTable
-            openOperationModalOnRowClick
+            openOperationModalOnRowClick={!isNewMarketPageEnabled}
             key="borrow-market-table"
             {...marketTableProps.borrow}
             css={styles.tabletMarketTable}
