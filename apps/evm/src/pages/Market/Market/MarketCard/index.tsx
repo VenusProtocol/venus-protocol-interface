@@ -54,10 +54,10 @@ export const MarketCard: React.FC<MarketCardProps> = ({
     </div>
 
     {stats.length > 0 && (
-      <div className="flex space-x-6">
+      <div className="flex space-x-6 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0 overflow-x-auto scrollbar-hidden text-nowrap lg:text-wrap">
         {stats.map(stat => (
           <div
-            className="border-lightGrey border-r pr-6 last-of-type:border-0 last-of-type:pr-0"
+            className="border-lightGrey border-r pr-6 last-of-type:border-0 last-of-type:pr-0 flex-shrink-0"
             key={`card-${title}-legend-${stat.label}`}
           >
             <p className="text-grey mb-1 text-sm">{stat.label}</p>

@@ -125,7 +125,7 @@
   },
   "assetWarning": {
     "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool. <Button>Show all tokens</Button>",
-    "modalTitle": "{{ poolName }} pool tokens",
+    "modalTitle": "{{ poolName }} tokens",
     "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all tokens</Button>"
   },
   "authModal": {
@@ -408,6 +408,8 @@
     "borrowInfo": {
       "stats": {
         "apy": "APY",
+        "liquidationPenalty": "Liquidation Penalty",
+        "liquidationThreshold": "Liquidation Threshold",
         "totalBorrow": "Total borrow"
       },
       "title": "Borrow info"

@@ -17,7 +17,7 @@ import TEST_IDS from '../../testIds';
 describe('IsolatedPoolMarket - Feature flag enabled: marketHistory', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'marketHistory',
+      ({ name }: UseIsFeatureEnabled) => name === 'apyCharts',
     );
 
     (useGetAsset as Vi.Mock).mockImplementation(() => ({

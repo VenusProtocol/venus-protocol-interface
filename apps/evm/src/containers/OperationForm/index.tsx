@@ -36,11 +36,11 @@ export const OperationForm: React.FC<OperationFormProps> = ({
         >
           {({ asset, pool }) => (
             <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-              {({ asset, pool, userWalletNativeTokenBalanceData }) => (
+              {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
                 <SupplyForm
                   asset={asset}
                   pool={pool}
-                  userWalletNativeTokenBalanceData={userWalletNativeTokenBalanceData}
+                  userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
                   onSubmitSuccess={onSubmitSuccess}
                 />
               )}
@@ -90,11 +90,11 @@ export const OperationForm: React.FC<OperationFormProps> = ({
         >
           {({ asset, pool }) => (
             <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-              {({ asset, pool, userWalletNativeTokenBalanceData }) => (
+              {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
                 <RepayForm
                   asset={asset}
                   pool={pool}
-                  userWalletNativeTokenBalanceData={userWalletNativeTokenBalanceData}
+                  userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
                   onSubmitSuccess={onSubmitSuccess}
                 />
               )}

@@ -21,7 +21,7 @@ describe('StakedEthPoolMarket - Feature flag enabled: marketHistory', () => {
     (useGetChainMetadata as Vi.Mock).mockImplementation(() => CHAIN_METADATA[ChainId.SEPOLIA]);
 
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'marketHistory',
+      ({ name }: UseIsFeatureEnabled) => name === 'apyCharts',
     );
 
     (useGetAsset as Vi.Mock).mockImplementation(() => ({

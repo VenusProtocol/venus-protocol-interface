@@ -10,20 +10,45 @@ import {
   getCombinedDistributionApys,
 } from 'utilities';
 
+import { useGetPoolLiquidationIncentive } from 'clients/api';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import TEST_IDS from '../../testIds';
 import { MarketCard, type MarketCardProps } from '../MarketCard';
 import useGetChartData from './useGetChartData';
+import { useGetLiquidationThresholdPercentage } from './useGetLiquidationThresholdPercentage';
 
 interface MarketHistoryProps {
   asset: Asset;
+  poolComptrollerContractAddress: string;
 }
 
-export const MarketHistory: React.FC<MarketHistoryProps> = ({ asset }) => {
+export const MarketHistory: React.FC<MarketHistoryProps> = ({
+  asset,
+  poolComptrollerContractAddress,
+}) => {
+  const { t } = useTranslation();
+  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
+
   const { data: chartData, isLoading: isChartDataLoading } = useGetChartData({
     vToken: asset.vToken,
   });
 
-  const { t } = useTranslation();
+  const { data: getPoolLiquidationIncentiveData } = useGetPoolLiquidationIncentive(
+    {
+      poolComptrollerContractAddress,
+    },
+    {
+      enabled: isNewMarketPageEnabled,
+    },
+  );
+
+  const liquidationIncentivePercentage =
+    getPoolLiquidationIncentiveData?.liquidationIncentivePercentage;
+
+  const liquidationThresholdPercentage = useGetLiquidationThresholdPercentage({
+    asset,
+    poolComptrollerContractAddress,
+  });
 
   const distributionApys = useMemo(() => asset && getCombinedDistributionApys({ asset }), [asset]);
 
@@ -87,8 +112,28 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({ asset }) => {
       });
     }
 
+    if (isNewMarketPageEnabled) {
+      stats.push(
+        {
+          label: t('market.borrowInfo.stats.liquidationThreshold'),
+          value: formatPercentageToReadableValue(liquidationThresholdPercentage),
+        },
+        {
+          label: t('market.borrowInfo.stats.liquidationPenalty'),
+          value: formatPercentageToReadableValue(liquidationIncentivePercentage),
+        },
+      );
+    }
+
     return stats;
-  }, [asset, t, distributionApys]);
+  }, [
+    asset,
+    t,
+    distributionApys,
+    liquidationIncentivePercentage,
+    liquidationThresholdPercentage,
+    isNewMarketPageEnabled,
+  ]);
 
   const borrowInfoLegends: MarketCardProps['legends'] = [
     {

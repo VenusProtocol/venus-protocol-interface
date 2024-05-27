@@ -18,8 +18,8 @@ export interface MarketProps {
 export const Market: React.FC<MarketProps> = ({ asset, pool }) => {
   const { t } = useTranslation();
 
-  const isMarketHistoryFeatureEnabled = useIsFeatureEnabled({
-    name: 'marketHistory',
+  const isApyChartsFeatureEnabled = useIsFeatureEnabled({
+    name: 'apyCharts',
   });
 
   const { openOperationModal, OperationModal } = useOperationModal();
@@ -82,7 +82,9 @@ export const Market: React.FC<MarketProps> = ({ asset, pool }) => {
         {isSupplyOrBorrowEnabled && <Card className="xl:hidden">{buttonsDom}</Card>}
 
         <div className="space-y-6 xl:col-span-2 xl:mt-0">
-          {isMarketHistoryFeatureEnabled && <MarketHistory asset={asset} />}
+          {isApyChartsFeatureEnabled && (
+            <MarketHistory asset={asset} poolComptrollerContractAddress={pool.comptrollerAddress} />
+          )}
 
           <InterestRateChart asset={asset} isIsolatedPoolMarket={pool.isIsolated} />
         </div>

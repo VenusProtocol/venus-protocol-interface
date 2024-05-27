@@ -366,6 +366,23 @@ export const useGetVTokenUtilizationRate = vi.fn(() =>
   useQuery(FunctionKey.GET_V_TOKEN_UTILIZATION_RATE, getVTokenUtilizationRate),
 );
 
+export const getPoolLiquidationIncentive = vi.fn(async () => ({
+  liquidationIncentivePercentage: 10,
+}));
+export const useGetPoolLiquidationIncentive = vi.fn(() =>
+  useQuery(FunctionKey.GET_POOL_LIQUIDATION_INCENTIVE, getPoolLiquidationIncentive),
+);
+
+export const getIsolatedPoolVTokenLiquidationThreshold = vi.fn(async () => ({
+  liquidationThresholdPercentage: 10,
+}));
+export const useGetIsolatedPoolVTokenLiquidationThreshold = vi.fn(() =>
+  useQuery(
+    FunctionKey.GET_ISOLATED_POOL_V_TOKEN_LIQUIDATION_THRESHOLD,
+    getIsolatedPoolVTokenLiquidationThreshold,
+  ),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>

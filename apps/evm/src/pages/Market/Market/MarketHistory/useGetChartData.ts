@@ -3,17 +3,24 @@ import { useMemo } from 'react';
 
 import { useGetMarketHistory } from 'clients/api';
 import type { ApyChartProps } from 'components/charts/ApyChart';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { VToken } from 'types';
 
 const useGetChartData = ({ vToken }: { vToken: VToken }) => {
+  const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
   const {
     isLoading,
     data: marketSnapshotsData = {
       marketSnapshots: [],
     },
-  } = useGetMarketHistory({
-    vToken,
-  });
+  } = useGetMarketHistory(
+    {
+      vToken,
+    },
+    {
+      enabled: isApyChartsFeatureEnabled,
+    },
+  );
 
   const data = useMemo(() => {
     const supplyChartData: ApyChartProps['data'] = [];
