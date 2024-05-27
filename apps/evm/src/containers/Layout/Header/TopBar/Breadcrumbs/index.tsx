@@ -7,6 +7,7 @@ import { Subdirectory, routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'libs/translations';
+import { cn } from 'utilities';
 import PoolName from './PoolName';
 import VTokenSymbol from './VTokenSymbol';
 
@@ -187,5 +188,9 @@ export const Breadcrumbs: React.FC = () => {
     [pathNodes],
   );
 
-  return <span className="flex flex-wrap items-center">{pathNodeDom}</span>;
+  return (
+    <span className={cn('flex flex-wrap items-center', pathNodes.length === 1 && 'text-xl')}>
+      {pathNodeDom}
+    </span>
+  );
 };
