@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { Subdirectory, routes } from 'constants/routing';
 import { Layout } from 'containers/Layout';
+import { useFormatTo } from 'hooks/useFormatTo';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
@@ -46,6 +47,9 @@ const AppRoutes = () => {
   });
   const location = useLocation();
 
+  const { formatTo } = useFormatTo();
+  const dashboardTo = formatTo({ to: Subdirectory.DASHBOARD });
+
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
   useEffect(() => {
@@ -76,7 +80,7 @@ const AppRoutes = () => {
             />
           )}
 
-          <Route path="*" element={<Navigate to={Subdirectory.DASHBOARD} replace />} />
+          <Route path="*" element={<Navigate to={dashboardTo} replace />} />
         </Route>
 
         {!!accountAddress && (
@@ -300,8 +304,8 @@ const AppRoutes = () => {
         )}
 
         {/* Redirect to Dashboard if no route matches */}
-        <Route index element={<Navigate to={Subdirectory.DASHBOARD} replace />} />
-        <Route path="*" element={<Navigate to={Subdirectory.DASHBOARD} replace />} />
+        <Route index element={<Navigate to={dashboardTo} replace />} />
+        <Route path="*" element={<Navigate to={dashboardTo} replace />} />
       </Route>
     </Routes>
   );
