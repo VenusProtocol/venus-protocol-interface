@@ -1,7 +1,7 @@
 import { request } from 'graphql-request';
 
 import { IsolatedPoolParticipantsCountDocument } from 'clients/subgraph';
-import { SUBGRAPH_URlS } from 'constants/subgraphUrls';
+import { SUBGRAPH_URLS } from 'constants/subgraphUrls';
 import type { ChainId } from 'types';
 
 export interface GetIsolatedPoolParticipantsCountInput {
@@ -11,6 +11,6 @@ export interface GetIsolatedPoolParticipantsCountInput {
 export const getIsolatedPoolParticipantsCount = ({
   chainId,
 }: GetIsolatedPoolParticipantsCountInput) =>
-  SUBGRAPH_URlS.markets[chainId]
-    ? request(SUBGRAPH_URlS.markets[chainId]!, IsolatedPoolParticipantsCountDocument)
+  SUBGRAPH_URLS.markets[chainId]
+    ? request(SUBGRAPH_URLS.markets[chainId]!, IsolatedPoolParticipantsCountDocument)
     : undefined;

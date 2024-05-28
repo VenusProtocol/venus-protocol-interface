@@ -1,6 +1,6 @@
 import { ChainId } from 'types';
 
-export const SUBGRAPH_URlS: {
+export const SUBGRAPH_URLS: {
   markets: Partial<{ [chainId in ChainId]: string }>;
   governance: Partial<{ [chainId in ChainId]: string }>;
 } = {
