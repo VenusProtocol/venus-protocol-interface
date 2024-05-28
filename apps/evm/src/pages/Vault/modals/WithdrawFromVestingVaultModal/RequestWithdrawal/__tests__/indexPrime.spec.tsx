@@ -70,7 +70,9 @@ describe('RequestWithdrawal - Feature enabled: Prime', () => {
       data: {
         // Set minimum stake to the same value as user's current stake, so that entering any amount
         // should display a warning message regarding the loss of Prime token
-        primeMinimumStakedXvsMantissa: new BigNumber(xvsVaultResponses.userInfo.amount.toString()),
+        primeMinimumStakedXvsMantissa: new BigNumber(
+          xvsVaultResponses.userInfo.amount.toString(),
+        ).minus(xvsVaultResponses.userInfo.pendingWithdrawals.toString()),
         xvsVaultPoolId: fakePoolIndex,
       },
     }));
@@ -98,7 +100,7 @@ describe('RequestWithdrawal - Feature enabled: Prime', () => {
 
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.noticeWarning).textContent).toMatchInlineSnapshot(
-        '"You will lose your Prime token if you withdraw this amount, as your stake in the XVS vault will go below the minimum required of 30.00 XVS to be eligible for Prime."',
+        '"You will lose your Prime token if you withdraw this amount, as your stake in the XVS vault will go below the minimum required of 29.00 XVS to be eligible for Prime."',
       ),
     );
 
