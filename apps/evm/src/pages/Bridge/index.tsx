@@ -98,12 +98,20 @@ const BridgePage: React.FC = () => {
 
   const toChainIdRef = useRef(chains.find(c => c.id !== chainId)?.id);
 
-  const { control, handleSubmit, formState, getValues, watch, setValue, reset, amountMantissa } =
-    useBridgeForm({
-      toChainIdRef,
-      walletBalanceTokens,
-      xvs,
-    });
+  const {
+    control,
+    handleSubmit,
+    formState,
+    getValues,
+    watch,
+    setValue,
+    resetField,
+    amountMantissa,
+  } = useBridgeForm({
+    toChainIdRef,
+    walletBalanceTokens,
+    xvs,
+  });
 
   const { toChainId } = watch();
 
@@ -195,7 +203,7 @@ const BridgePage: React.FC = () => {
           destinationChainId: toChainId,
           nativeCurrencyFeeMantissa: bridgeEstimatedFeeMantissa,
         });
-        reset({ amountTokens: '' });
+        resetField('amountTokens');
       } catch (error) {
         displayMutationError({ error });
       }
