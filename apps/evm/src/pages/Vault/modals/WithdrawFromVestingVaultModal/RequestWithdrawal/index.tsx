@@ -196,11 +196,12 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
       return undefined;
     }
 
-    const primeLossDeltaWei = xvsVaultUserInfo.stakedAmountMantissa.minus(
-      getPrimeStatusData.primeMinimumStakedXvsMantissa,
-    );
+    const primeLossDeltaMantissa = xvsVaultUserInfo.stakedAmountMantissa
+      .minus(xvsVaultUserInfo.pendingWithdrawalsTotalAmountMantissa)
+      .minus(getPrimeStatusData.primeMinimumStakedXvsMantissa);
+
     const primeLossDeltaTokens = convertMantissaToTokens({
-      value: primeLossDeltaWei,
+      value: primeLossDeltaMantissa,
       token: xvs,
     });
 
