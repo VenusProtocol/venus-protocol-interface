@@ -94,6 +94,27 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     renderComponent(<Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />);
   });
 
+  it('prompts user to connect their wallet if they are not connected', async () => {
+    const { getByText, getByTestId, getByRole } = renderComponent(
+      <Supply onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+    );
+
+    // Check "Connect wallet" button is displayed
+    expect(getByText(en.operationForm.connectWalletButtonLabel)).toBeInTheDocument();
+
+    // Check collateral switch is disabled
+    expect(getByRole('checkbox')).toBeDisabled();
+
+    // Check input is disabled
+    expect(
+      getByTestId(
+        getTokenTextFieldTestId({
+          parentTestId: TEST_IDS.selectTokenTextField,
+        }),
+      ),
+    ).toBeDisabled();
+  });
+
   it('disables swap feature when swapAndSupply action of asset is disabled', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,

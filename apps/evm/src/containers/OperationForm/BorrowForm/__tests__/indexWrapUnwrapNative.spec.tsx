@@ -30,6 +30,18 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     });
   });
 
+  it('prompts user to connect their wallet if they are not connected', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <Borrow onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+    );
+
+    // Check "Connect wallet" button is displayed
+    expect(getByText(en.operationForm.connectWalletButtonLabel)).toBeInTheDocument();
+
+    // Check input is disabled
+    expect(getByTestId(TEST_IDS.tokenTextField)).toBeDisabled();
+  });
+
   it('does not display the receive native token toggle if the underlying token does not wrap the chain native token', async () => {
     const { queryByTestId } = renderComponent(
       <Borrow asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
