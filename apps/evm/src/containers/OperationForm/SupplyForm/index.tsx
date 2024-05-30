@@ -35,12 +35,12 @@ import {
 } from 'utilities';
 import { SwapDetails } from '../SwapDetails';
 
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { AssetInfo } from '../AssetInfo';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
-import { ConnectWallet } from 'containers/ConnectWallet';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 // TODO: rework or remove this URL, as this is likely to be a temporary solution

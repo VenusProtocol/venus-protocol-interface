@@ -2,16 +2,16 @@ import type Vi from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import { renderHook } from 'testUtils/render';
-import { useGetHypotheticalUserPrimeApys } from '..';
-import type { TokenAction } from 'types';
-import { useAccountAddress } from 'libs/wallet';
 import BigNumber from 'bignumber.js';
 import {
   useGetHypotheticalPrimeApys,
   useGetPrimeStatus,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
+import { useAccountAddress } from 'libs/wallet';
+import { renderHook } from 'testUtils/render';
+import type { TokenAction } from 'types';
+import { useGetHypotheticalUserPrimeApys } from '..';
 
 vi.mock('libs/wallet');
 

@@ -3,10 +3,10 @@ import type Vi from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { exactAmountInSwap } from '__mocks__/models/swaps';
+import { useGetHypotheticalUserPrimeApys } from 'hooks/useGetHypotheticalUserPrimeApys';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { renderComponent } from 'testUtils/render';
 import { AssetInfo, type AssetInfoProps } from '..';
-import { useGetHypotheticalUserPrimeApys } from 'hooks/useGetHypotheticalUserPrimeApys';
 
 vi.mock('hooks/useGetHypotheticalUserPrimeApys');
 

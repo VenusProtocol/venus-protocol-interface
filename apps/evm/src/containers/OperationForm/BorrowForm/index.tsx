@@ -14,13 +14,13 @@ import { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
+import { ConnectWallet } from 'containers/ConnectWallet';
+import { useAccountAddress } from 'libs/wallet';
+import { AssetInfo } from '../AssetInfo';
 import Notice from './Notice';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
-import { useAccountAddress } from 'libs/wallet';
-import { AssetInfo } from '../AssetInfo';
-import { ConnectWallet } from 'containers/ConnectWallet';
 
 export interface BorrowFormUiProps {
   isUserConnected: boolean;
@@ -208,12 +208,23 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           )}
 
           <div className="space-y-6">
-            <AccountData
-              asset={asset}
-              pool={pool}
-              amountTokens={new BigNumber(formValues.amountTokens || 0)}
-              action="borrow"
-            />
+            <div className="space-y-4">
+              <AssetInfo
+                asset={asset}
+                action="borrow"
+                amountTokens={new BigNumber(formValues.amountTokens || 0)}
+                renderType="accordion"
+              />
+
+              <Delimiter />
+
+              <AccountData
+                asset={asset}
+                pool={pool}
+                amountTokens={new BigNumber(formValues.amountTokens || 0)}
+                action="borrow"
+              />
+            </div>
 
             <SubmitSection
               isFormSubmitting={isSubmitting}
