@@ -1,5 +1,24 @@
 # @venusprotocol/evm
 
+## 2.122.0
+
+### Minor Changes
+
+- 77e0e38: Update error handling on Operation form
+- 559c6f6: Update logic to display market info in page header
+- 65a026a: fix link to transaction from Proposal page
+- 952214a: Fix redirection to Dashboard page when page is not found
+- be1aaa0: Add liquidation info on new Market page
+- da04993: Update new market page navigation
+- de35c0a: fix mobile scrolling
+- 7fb604d: update Breadcrumbs font size
+
+### Patch Changes
+
+- 427be14: Fix typo in constant name
+- b5250e1: remove pending withdrawals when determining amount user can withdraw from XVS vault before losing their Prime token
+- 952fc7d: only reset input after submitting Bridge form
+
 ## 2.121.0
 
 ### Minor Changes
