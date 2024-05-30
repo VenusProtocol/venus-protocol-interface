@@ -39,6 +39,21 @@ const checkSubmitButtonIsEnabled = async () => {
 };
 
 describe('SupplyForm', () => {
+  it('prompts user to connect their wallet if they are not connected', async () => {
+    const { getByText, getByTestId, getByRole } = renderComponent(
+      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+    );
+
+    // Check "Connect wallet" button is displayed
+    expect(getByText(en.operationForm.connectWalletButtonLabel)).toBeInTheDocument();
+
+    // Check collateral switch is disabled
+    expect(getByRole('checkbox')).toBeDisabled();
+
+    // Check input is disabled
+    expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
+  });
+
   it('displays correct suppliable amount', async () => {
     const { getByText } = renderComponent(
       <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,

@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AssetInfo - Feature enabled: Prime > renders correct values when using swap: { action: 'borrow' } 1`] = `"Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%Total APY-7.94%"`;
+
+exports[`AssetInfo - Feature enabled: Prime > renders correct values when using swap: { action: 'repay' } 1`] = `"Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%Total APY-7.94%"`;
+
+exports[`AssetInfo - Feature enabled: Prime > renders correct values when using swap: { action: 'supply' } 1`] = `"Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%Total APY5.99%"`;
+
+exports[`AssetInfo - Feature enabled: Prime > renders correct values when using swap: { action: 'withdraw' } 1`] = `"Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%Total APY5.99%"`;
+
+exports[`AssetInfo - Feature enabled: Prime > renders correct values: { action: 'borrow' } 1`] = `"Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%Total APY-7.94%"`;
+
+exports[`AssetInfo - Feature enabled: Prime > renders correct values: { action: 'repay' } 1`] = `"Borrow APY-5.36%Distribution APY (XVS)1.67%Prime APY (USDC)0.91%Total APY-7.94%"`;
+
+exports[`AssetInfo - Feature enabled: Prime > renders correct values: { action: 'supply' } 1`] = `"Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%Total APY5.99%"`;
+
+exports[`AssetInfo - Feature enabled: Prime > renders correct values: { action: 'withdraw' } 1`] = `"Supply APY3.88%Distribution APY (XVS)1.35%Prime APY (USDC)0.75%Total APY5.99%"`;

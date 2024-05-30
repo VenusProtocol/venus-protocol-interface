@@ -1,0 +1,252 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'borrow', amountTokens: +0 } 1`] = `
+[
+  {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "userBorrowBalanceMantissa": "0",
+    "userSupplyBalanceMantissa": "100000000",
+    "userXvsStakedMantissa": "1000000000000000",
+    "vTokenAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+  },
+  {
+    "enabled": true,
+    "keepPreviousData": true,
+  },
+]
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'borrow', amountTokens: +0 } 2`] = `
+{
+  "borrowApy": undefined,
+  "supplyApy": undefined,
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'borrow', amountTokens: 50 } 1`] = `
+[
+  {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "userBorrowBalanceMantissa": "50000000",
+    "userSupplyBalanceMantissa": "100000000",
+    "userXvsStakedMantissa": "1000000000000000",
+    "vTokenAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+  },
+  {
+    "enabled": true,
+    "keepPreviousData": true,
+  },
+]
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'borrow', amountTokens: 50 } 2`] = `
+{
+  "borrowApy": "10.4",
+  "supplyApy": "13.4",
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'repay', amountTokens: +0 } 1`] = `
+[
+  {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "userBorrowBalanceMantissa": "0",
+    "userSupplyBalanceMantissa": "100000000",
+    "userXvsStakedMantissa": "1000000000000000",
+    "vTokenAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+  },
+  {
+    "enabled": true,
+    "keepPreviousData": true,
+  },
+]
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'repay', amountTokens: +0 } 2`] = `
+{
+  "borrowApy": undefined,
+  "supplyApy": undefined,
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'repay', amountTokens: 50 } 1`] = `
+[
+  {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "userBorrowBalanceMantissa": "0",
+    "userSupplyBalanceMantissa": "100000000",
+    "userXvsStakedMantissa": "1000000000000000",
+    "vTokenAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+  },
+  {
+    "enabled": true,
+    "keepPreviousData": true,
+  },
+]
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'repay', amountTokens: 50 } 2`] = `
+{
+  "borrowApy": "10.4",
+  "supplyApy": "13.4",
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'supply', amountTokens: +0 } 1`] = `
+[
+  {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "userBorrowBalanceMantissa": "0",
+    "userSupplyBalanceMantissa": "100000000",
+    "userXvsStakedMantissa": "1000000000000000",
+    "vTokenAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+  },
+  {
+    "enabled": true,
+    "keepPreviousData": true,
+  },
+]
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'supply', amountTokens: +0 } 2`] = `
+{
+  "borrowApy": undefined,
+  "supplyApy": undefined,
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'supply', amountTokens: 50 } 1`] = `
+[
+  {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "userBorrowBalanceMantissa": "0",
+    "userSupplyBalanceMantissa": "150000000",
+    "userXvsStakedMantissa": "1000000000000000",
+    "vTokenAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+  },
+  {
+    "enabled": true,
+    "keepPreviousData": true,
+  },
+]
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'supply', amountTokens: 50 } 2`] = `
+{
+  "borrowApy": "10.4",
+  "supplyApy": "13.4",
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'swapAndSupply', amountTokens: +0 } 1`] = `
+[
+  {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "userBorrowBalanceMantissa": "0",
+    "userSupplyBalanceMantissa": "100000000",
+    "userXvsStakedMantissa": "1000000000000000",
+    "vTokenAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+  },
+  {
+    "enabled": true,
+    "keepPreviousData": true,
+  },
+]
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'swapAndSupply', amountTokens: +0 } 2`] = `
+{
+  "borrowApy": undefined,
+  "supplyApy": undefined,
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'swapAndSupply', amountTokens: 50 } 1`] = `
+[
+  {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "userBorrowBalanceMantissa": "0",
+    "userSupplyBalanceMantissa": "150000000",
+    "userXvsStakedMantissa": "1000000000000000",
+    "vTokenAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+  },
+  {
+    "enabled": true,
+    "keepPreviousData": true,
+  },
+]
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'swapAndSupply', amountTokens: 50 } 2`] = `
+{
+  "borrowApy": "10.4",
+  "supplyApy": "13.4",
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'withdraw', amountTokens: +0 } 1`] = `
+[
+  {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "userBorrowBalanceMantissa": "0",
+    "userSupplyBalanceMantissa": "100000000",
+    "userXvsStakedMantissa": "1000000000000000",
+    "vTokenAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+  },
+  {
+    "enabled": true,
+    "keepPreviousData": true,
+  },
+]
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'withdraw', amountTokens: +0 } 2`] = `
+{
+  "borrowApy": undefined,
+  "supplyApy": undefined,
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'withdraw', amountTokens: 50 } 1`] = `
+[
+  {
+    "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "userBorrowBalanceMantissa": "0",
+    "userSupplyBalanceMantissa": "50000000",
+    "userXvsStakedMantissa": "1000000000000000",
+    "vTokenAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+  },
+  {
+    "enabled": true,
+    "keepPreviousData": true,
+  },
+]
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'withdraw', amountTokens: 50 } 2`] = `
+{
+  "borrowApy": "10.4",
+  "supplyApy": "13.4",
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns undefined when connected user does not hold a Prime token 1`] = `
+{
+  "borrowApy": "10.4",
+  "supplyApy": "13.4",
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns undefined when passed toTokenAmountTokens parameter equals 0 1`] = `
+{
+  "borrowApy": undefined,
+  "supplyApy": undefined,
+}
+`;
+
+exports[`useGetHypotheticalUserPrimeApys > returns undefined when user is disconnected 1`] = `
+{
+  "borrowApy": "10.4",
+  "supplyApy": "13.4",
+}
+`;

@@ -9,6 +9,7 @@ import { useStyles } from './styles';
 export interface ToggleProps {
   onChange: SwitchBaseProps['onChange'];
   value: boolean;
+  disabled?: boolean;
   className?: string;
   isLight?: boolean;
   label?: string;
@@ -23,6 +24,7 @@ export const Toggle = ({
   value,
   className,
   isLight = false,
+  disabled = false,
   label,
   tooltip,
 }: ToggleProps) => {
@@ -45,6 +47,7 @@ export const Toggle = ({
         onChange={onChange}
         onClick={e => e.stopPropagation()}
         checked={value}
+        disabled={disabled}
         {...otherSwitchProps}
       />
     </div>
