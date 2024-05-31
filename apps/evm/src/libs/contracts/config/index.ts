@@ -4,6 +4,7 @@ import venusGovernanceBscTestnetDeployments from '@venusprotocol/governance-cont
 import { abi as IsolatedPoolComptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
 import { abi as NativeTokenGatewayAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Gateway/NativeTokenGateway.sol/NativeTokenGateway.json';
 import { abi as JumpRateModelV2Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/JumpRateModelV2.sol/JumpRateModelV2.json';
+import { abi as PoolLensAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Lens/PoolLens.sol/PoolLens.json';
 import { abi as PoolRegistryAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Pool/PoolRegistry.sol/PoolRegistry.json';
 import { abi as RewardsDistributorAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Rewards/RewardsDistributor.sol/RewardsDistributor.json';
 import { abi as VBep20Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/VToken.sol/VToken.json';
@@ -57,7 +58,6 @@ import venusProtocolOpBnbMainnetDeployments from '@venusprotocol/venus-protocol/
 import venusProtocolOpBnbTestnetDeployments from '@venusprotocol/venus-protocol/deployments/opbnbtestnet_addresses.json';
 import venusProtocolSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/sepolia_addresses.json';
 import type { ContractInterface } from 'ethers';
-import PoolLensAbi from './externalAbis/PoolLens.json'; // TODO: get from package once it's been updated
 
 import { ChainId } from 'types';
 

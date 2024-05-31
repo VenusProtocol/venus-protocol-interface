@@ -22,7 +22,6 @@ export type TransactionType = 'chain' | 'layerZero';
 export interface ChainMetadata {
   name: string;
   logoSrc: string;
-  // TODO: handle chains for which the block rate is not constant
   explorerUrl: string;
   nativeToken: Token;
   layerZeroScanUrl: string;
