@@ -81,9 +81,9 @@ const getRewardsDistributorSettingsMapping = async ({
           signerOrProvider: provider,
         });
 
-        // we can't call both rewardTokenSupplyState/rewardTokenSupplyStateTimeBased
-        // and rewardTokenBorrowState/rewardTokenBorrowStateTimeBased
-        // as the call to the time based functions might fail in block based networks (the implementation won't change for now)
+        // We can't call both rewardTokenSupplyState/rewardTokenSupplyStateTimeBased and
+        // rewardTokenBorrowState/rewardTokenBorrowStateTimeBased as the call to the time based
+        // functions might fail in block based networks (the implementation won't change for now)
         if (isChainTimeBased) {
           rewardsDistributorSettingsPromises.push({
             vTokenAddress,

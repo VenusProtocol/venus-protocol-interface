@@ -7,8 +7,6 @@ import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { getIsolatedPoolComptrollerContract, getRewardsDistributorContract } from 'libs/contracts';
 import { ChainId } from 'types';
 
-import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import getIsolatedPools from '..';
 import {
   fakeIsolatedPoolComptrollerContract,
@@ -53,10 +51,6 @@ describe('getIsolatedPools', () => {
   });
 
   it('returns isolated pools with time based reward rates in the correct format', async () => {
-    (useGetChainMetadata as Vi.Mock).mockImplementation(
-      () => CHAIN_METADATA[ChainId.ARBITRUM_SEPOLIA],
-    );
-
     const response = await getIsolatedPools({
       chainId: ChainId.BSC_TESTNET,
       xvs,

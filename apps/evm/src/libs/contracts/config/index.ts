@@ -109,13 +109,13 @@ export const contracts: ContractConfig[] = [
     name: 'PoolLens',
     abi: PoolLensAbi,
     address: {
-      [ChainId.BSC_TESTNET]: '0xdba6A250027049c4033970e224E61EDCD84eA630', // TODO: get address from package once it's been updated. We currently use this hard-coded address to check BSC testnet still works after adding support for time based rates
-      [ChainId.BSC_MAINNET]: '0xcD170B0638332242F7307a1Bc75E872738CEF7Cc', // TODO: get from package once it's been updated
-      [ChainId.ETHEREUM]: '0x50695E540E87ceB4E39239C27B9ab160C5aaDd9D', // TODO: get from package once it's been updated
-      [ChainId.OPBNB_MAINNET]: '0x94B41D400F8baF1FBDc30BEA525ee99Ed3D60F51', // TODO: get from package once it's been updated
-      [ChainId.OPBNB_TESTNET]: '0x4b37f99703b2302127ba7E2785d32e3dF1F94452', // TODO: get from package once it's been updated
-      [ChainId.SEPOLIA]: '0x88EEE51a178519Ffd386861F4B17F593af955c7c', // TODO: get from package once it's been updated
-      [ChainId.ARBITRUM_SEPOLIA]: '0xd08422A9A7b19404cC01FB970a247d19CE4EA7fE', // TODO: get from package once it's been updated
+      [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens,
+      [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens,
+      [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolLens,
+      [ChainId.OPBNB_MAINNET]: isolatedPoolsOpBnbMainnetDeployments.addresses.PoolLens,
+      [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses.PoolLens,
+      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens,
+      [ChainId.ARBITRUM_SEPOLIA]: isolatedPoolsArbitrumSepoliaDeployments.addresses.PoolLens,
     },
   },
   {

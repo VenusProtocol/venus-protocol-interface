@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { MAX_VALUE, MIN_VALUE, calculateYearlyPercentageRate } from '..';
 
 describe('calculateYearlyPercentageRate', () => {
-  it('should calculate APY for given daily percentage rates and decimals', () => {
+  it('should calculate APY for given daily percentage rate and decimals', () => {
     const dailyPercentageRate = new BigNumber('0.000012');
 
     expect(calculateYearlyPercentageRate({ dailyPercentageRate })).toMatchInlineSnapshot(
@@ -11,7 +11,7 @@ describe('calculateYearlyPercentageRate', () => {
     );
   });
 
-  it('should calculate APR for given daily percentage rates and decimals', () => {
+  it('should calculate APR for given daily percentage rate and decimals', () => {
     const dailyPercentageRate = new BigNumber('0.000012');
 
     expect(

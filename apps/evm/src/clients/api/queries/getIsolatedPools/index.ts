@@ -225,7 +225,7 @@ const getIsolatedPools = async ({
 
   // Fetch reward settings
   const rewardsDistributorSettingsMapping = await getRewardsDistributorSettingsMapping({
-    isChainTimeBased: !!blocksPerDay,
+    isChainTimeBased: !blocksPerDay,
     provider,
     poolResults: poolResults.value,
     getRewardDistributorsResults,
