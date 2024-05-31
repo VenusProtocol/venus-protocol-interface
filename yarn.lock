@@ -7296,6 +7296,19 @@
     ethers "^5.7.0"
     module-alias "^2.2.2"
 
+"@venusprotocol/token-bridge@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-2.1.0.tgz#b72f9a82b2d4383884e95c1f563618d0528a2972"
+  integrity sha512-+b11Bgr8C7B3XuF9WeWSctNcayW2eDFVgvywDMVMU3lPvP+c8OPohP17Y5LTZa2toIlUcc7l2bwPPQhhX5YiHg==
+  dependencies:
+    "@layerzerolabs/solidity-examples" "^1.0.0"
+    "@openzeppelin/contracts" "^4.8.3"
+    "@openzeppelin/contracts-upgradeable" "^4.8.3"
+    "@openzeppelin/hardhat-upgrades" "^1.21.0"
+    "@solidity-parser/parser" "^0.13.2"
+    ethers "^5.7.0"
+    module-alias "^2.2.2"
+
 "@venusprotocol/venus-protocol@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-6.0.0.tgz#335c9d95f8092f9777aa5890dbac312ed9680a2b"
