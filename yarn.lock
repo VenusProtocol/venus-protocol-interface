@@ -16530,9 +16530,9 @@ postcss@^8.4.23, postcss@^8.4.27, postcss@^8.4.28, postcss@^8.4.30, postcss@^8.4
     source-map-js "^1.2.0"
 
 posthog-js@^1.57.2:
-  version "1.136.1"
-  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.136.1.tgz#4f08815ab4d8366e75c516352ece7c21edd7a67d"
-  integrity sha512-hM3PCDtPdyzO52l0FXEFAw1sI6PJm1U9U3MVanAcrOY3QgeJ+z241OnYm5XMrTyDF5ImCTWzq4p23moLQSZvDA==
+  version "1.136.5"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.136.5.tgz#df89ec9990fe3509799b516a97c30a948464eecf"
+  integrity sha512-jLmR9HX7/zR/EfJ+7Fl6ivvBKJdmaFiB8mhdEITIPWpXVgGRvp3u5JuvlNXPW9r1pfux8qoPJCtsqHP+uv73gw==
   dependencies:
     fflate "^0.4.8"
     preact "^10.19.3"
