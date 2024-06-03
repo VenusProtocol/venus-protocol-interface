@@ -67,6 +67,7 @@ const getLegacyPoolMarkets = async ({
     method: 'GET',
     params: {
       limit: 50,
+      isListed: 1,
     },
   });
 
