@@ -3,8 +3,19 @@ import { ChainId } from 'types';
 
 export const featureFlags = {
   integratedSwap: [ChainId.BSC_TESTNET, ChainId.BSC_MAINNET],
-  prime: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.ETHEREUM],
-  primeCalculator: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  prime: [
+    ChainId.BSC_MAINNET,
+    ChainId.BSC_TESTNET,
+    ChainId.SEPOLIA,
+    ChainId.ETHEREUM,
+    ChainId.ARBITRUM_SEPOLIA,
+  ],
+  primeCalculator: [
+    ChainId.BSC_MAINNET,
+    ChainId.BSC_TESTNET,
+    ChainId.SEPOLIA,
+    ChainId.ARBITRUM_SEPOLIA,
+  ],
   tusdMigrationWarning: [ChainId.BSC_MAINNET],
   trxMigrationWarning: [ChainId.BSC_MAINNET],
   sxpDisablingWarning: [ChainId.BSC_MAINNET],
@@ -51,7 +62,12 @@ export const featureFlags = {
     ChainId.OPBNB_MAINNET,
     ChainId.ARBITRUM_SEPOLIA,
   ],
-  newMarketPage: [ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.OPBNB_TESTNET],
+  newMarketPage: [
+    ChainId.BSC_TESTNET,
+    ChainId.SEPOLIA,
+    ChainId.OPBNB_TESTNET,
+    ChainId.ARBITRUM_SEPOLIA,
+  ],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
