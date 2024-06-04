@@ -163,9 +163,11 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           label: t('operationForm.rightMaxButtonLabel'),
           onClick: handleRightMaxButtonClick,
         }}
-        hasError={!!formError && Number(formValues.amountTokens) > 0}
+        hasError={
+          isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
+        }
         description={
-          !isSubmitting && !!formError?.message ? (
+          isUserConnected && !isSubmitting && !!formError?.message ? (
             <p className="text-red">{formError.message}</p>
           ) : undefined
         }

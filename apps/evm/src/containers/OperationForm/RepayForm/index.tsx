@@ -268,9 +268,11 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
             onClick: handleRightMaxButtonClick,
           }}
           data-testid={TEST_IDS.tokenTextField}
-          hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
+          hasError={
+            isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
+          }
           description={
-            !isSubmitting && !!formError?.message ? (
+            isUserConnected && !isSubmitting && !!formError?.message ? (
               <p className="text-red">{formError.message}</p>
             ) : undefined
           }

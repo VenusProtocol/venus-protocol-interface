@@ -309,9 +309,11 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
             label: t('operationForm.rightMaxButtonLabel'),
             onClick: handleRightMaxButtonClick,
           }}
-          hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
+          hasError={
+            isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
+          }
           description={
-            !isSubmitting && !!formError?.message ? (
+            isUserConnected && !isSubmitting && !!formError?.message ? (
               <p className="text-red">{formError.message}</p>
             ) : undefined
           }

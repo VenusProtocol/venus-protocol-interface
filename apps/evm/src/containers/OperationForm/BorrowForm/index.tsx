@@ -161,9 +161,9 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           }),
           onClick: handleRightMaxButtonClick,
         }}
-        hasError={!!formError && Number(formValues.amountTokens) > 0}
+        hasError={isUserConnected && !!formError && Number(formValues.amountTokens) > 0}
         description={
-          !isSubmitting && !!formError?.message ? (
+          isUserConnected && !isSubmitting && !!formError?.message ? (
             <p className="text-red">{formError.message}</p>
           ) : undefined
         }
