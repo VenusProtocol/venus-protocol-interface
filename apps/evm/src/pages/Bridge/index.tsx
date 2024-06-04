@@ -262,20 +262,11 @@ const BridgePage: React.FC = () => {
     xvs,
   ]);
 
-  // filter out which options to present when selecting chains
-  // either BSC mainnet or BSC testnet must be the origin or the destination
-  const [fromChainIdOptions, toChainIdOptions] = useMemo(() => {
-    const bscChainListOptions = getOptionsFromChainsList(
-      chains.filter(c => c.id === ChainId.BSC_MAINNET || c.id === ChainId.BSC_TESTNET),
-    );
-    const otherChainsListOptions = getOptionsFromChainsList(
-      chains.filter(c => c.id !== ChainId.BSC_MAINNET && c.id !== ChainId.BSC_TESTNET),
-    );
-    if (chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET) {
-      return [bscChainListOptions, otherChainsListOptions];
-    }
-    return [otherChainsListOptions, bscChainListOptions];
-  }, [chainId]);
+  // build the list of chains that can be selected
+  const availableChainsListOptions = useMemo(() => {
+    const allChains = getOptionsFromChainsList(chains);
+    return allChains;
+  }, []);
 
   if (!nativeToken || !xvs) {
     return <Spinner />;
@@ -300,7 +291,7 @@ const BridgePage: React.FC = () => {
                   label={t('bridgePage.fromChainSelect.label')}
                   className="mb-4 w-full min-w-0 grow md:mb-0"
                   testId={TEST_IDS.fromChainIdSelect}
-                  options={fromChainIdOptions}
+                  options={availableChainsListOptions}
                   {...field}
                   onChange={newChainId => {
                     handleChainFieldChange({
@@ -330,7 +321,7 @@ const BridgePage: React.FC = () => {
                   className="w-full min-w-0 grow"
                   label={t('bridgePage.toChainSelect.label')}
                   testId={TEST_IDS.toChainIdSelect}
-                  options={toChainIdOptions}
+                  options={availableChainsListOptions}
                   {...field}
                   onChange={newChainId => {
                     handleChainFieldChange({
