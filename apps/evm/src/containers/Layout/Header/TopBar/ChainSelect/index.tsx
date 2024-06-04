@@ -20,14 +20,9 @@ const options: SelectOption<ChainId>[] = chains.map(chain => {
       <div className="flex items-center">
         <img src={metadata.logoSrc} alt={metadata.name} className="w-5 max-w-none flex-none" />
 
-        <span
-          className={cn(
-            'ml-2 grow overflow-hidden text-ellipsis',
-            isRenderedInButton && 'hidden lg:block',
-          )}
-        >
-          {metadata.name}
-        </span>
+        {!isRenderedInButton && (
+          <span className={cn('ml-2 grow overflow-hidden text-ellipsis')}>{metadata.name}</span>
+        )}
       </div>
     ),
     value: chain.id,
@@ -51,7 +46,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClass
       variant={shouldUseNewMarketFeature ? 'tertiary' : 'primary'}
       menuTitle={t('layout.chainSelect.label')}
       buttonClassName={buttonClassName}
-      className={cn('lg:min-w-[200px]', className)}
+      className={className}
     />
   );
 };
