@@ -10,13 +10,12 @@ import {
 } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
-import { Link } from 'containers/Link';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { canAddTokenToWallet, useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { matchPath, useLocation, useParams } from 'react-router';
-import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 import { UtilizationRate } from './UtilizationRate';
 
 export const MarketInfo = () => {
@@ -62,24 +61,7 @@ export const MarketInfo = () => {
   });
   const pool = getPoolData?.pool;
 
-  const goBackTo = useMemo(() => {
-    if (areAddressesEqual(poolComptrollerAddress, corePoolComptrollerContractAddress)) {
-      return routes.corePool.path;
-    }
-
-    if (
-      stakedEthPoolComptrollerContractAddress &&
-      areAddressesEqual(poolComptrollerAddress, stakedEthPoolComptrollerContractAddress)
-    ) {
-      return routes.stakedEthPool.path;
-    }
-
-    return routes.isolatedPool.path.replace(':poolComptrollerAddress', poolComptrollerAddress);
-  }, [
-    corePoolComptrollerContractAddress,
-    stakedEthPoolComptrollerContractAddress,
-    poolComptrollerAddress,
-  ]);
+  const handleGoBack = () => window.history.back();
 
   const cells: Cell[] = useMemo(() => {
     return [
@@ -116,9 +98,9 @@ export const MarketInfo = () => {
   return (
     <div className="pt-4 pb-12 md:pb-10 border-b-lightGrey border-b space-y-8">
       <div className="flex items-center h-8 px-4 md:px-6 xl:px-10 max-w-[1360px] mx-auto">
-        <Link to={goBackTo} className="h-full pr-3 flex items-center">
+        <button type="button" onClick={handleGoBack} className="h-full pr-3 flex items-center">
           <Icon name="chevronLeft" className="w-6 h-6 text-offWhite" />
-        </Link>
+        </button>
 
         {asset && pool ? (
           <div className="flex items-center gap-3">
