@@ -9,7 +9,9 @@ const xvsVaultResponses: {
   poolInfo: Awaited<ReturnType<XvsVault['poolInfos']>>;
   poolLength: Awaited<ReturnType<XvsVault['poolLength']>>;
   totalAllocPoints: Awaited<ReturnType<XvsVault['totalAllocPoints']>>;
-  rewardTokenAmountsPerBlock: Awaited<ReturnType<XvsVault['rewardTokenAmountsPerBlock']>>;
+  rewardTokenAmountsPerBlockOrSecond: Awaited<
+    ReturnType<XvsVault['rewardTokenAmountsPerBlockOrSecond']>
+  >;
   pendingReward: Awaited<ReturnType<XvsVault['pendingReward']>>;
   getWithdrawalRequests: Awaited<ReturnType<XvsVault['getWithdrawalRequests']>>;
 } = {
@@ -21,13 +23,13 @@ const xvsVaultResponses: {
   poolInfo: {
     token: xvs.address,
     allocPoint: BN.from('10'),
-    lastRewardBlock: BN.from('100000'),
+    lastRewardBlockOrSecond: BN.from('100000'),
     accRewardPerShare: BN.from('123871680'),
     lockPeriod: BN.from('200'),
   } as Awaited<ReturnType<XvsVault['poolInfos']>>,
   poolLength: BN.from('5'),
   totalAllocPoints: BN.from('100'),
-  rewardTokenAmountsPerBlock: BN.from('10000000'),
+  rewardTokenAmountsPerBlockOrSecond: BN.from('10000000'),
   pendingReward: BN.from('200000000'),
   getWithdrawalRequests: [
     [BN.from('1000000000000000000'), BN.from('1656499404'), BN.from('1000000000000000000')],

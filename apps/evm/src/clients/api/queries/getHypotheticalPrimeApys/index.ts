@@ -1,7 +1,11 @@
 import BigNumber from 'bignumber.js';
 
 import type { Prime } from 'libs/contracts';
-import { convertAprToApy, convertDollarsToCents, convertPriceMantissaToDollars } from 'utilities';
+import {
+  convertAprBipsToApy,
+  convertDollarsToCents,
+  convertPriceMantissaToDollars,
+} from 'utilities';
 
 export interface GetHypotheticalPrimeApysInput {
   primeContract: Prime;
@@ -48,8 +52,8 @@ const getHypotheticalPrimeApys = async ({
   );
 
   // Convert APRs to APYs
-  const supplyApyPercentage = convertAprToApy({ aprBips: supplyAPR.toString() });
-  const borrowApyPercentage = convertAprToApy({ aprBips: borrowAPR.toString() });
+  const supplyApyPercentage = convertAprBipsToApy({ aprBips: supplyAPR.toString() });
+  const borrowApyPercentage = convertAprBipsToApy({ aprBips: borrowAPR.toString() });
 
   const supplyCapMantissa = new BigNumber(cappedSupply.toString());
   const borrowCapMantissa = new BigNumber(cappedBorrow.toString());

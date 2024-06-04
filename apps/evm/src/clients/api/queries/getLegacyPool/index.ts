@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import type { PrimeApy } from 'types';
 import {
   appendPrimeSimulationDistributions,
-  convertAprToApy,
+  convertAprBipsToApy,
   extractSettledPromiseValue,
 } from 'utilities';
 
@@ -140,8 +140,8 @@ const getLegacyPool = async ({
     const primeApr = primeAprResult.value;
 
     const apys: PrimeApy = {
-      borrowApy: convertAprToApy({ aprBips: primeApr?.borrowAPR.toString() || '0' }),
-      supplyApy: convertAprToApy({ aprBips: primeApr?.supplyAPR.toString() || '0' }),
+      borrowApy: convertAprBipsToApy({ aprBips: primeApr?.borrowAPR.toString() || '0' }),
+      supplyApy: convertAprBipsToApy({ aprBips: primeApr?.supplyAPR.toString() || '0' }),
     };
 
     primeApyMap.set(primeVTokenAddresses[index], apys);

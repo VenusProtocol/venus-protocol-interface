@@ -7,14 +7,13 @@ import {
   type GetXvsVaultUserInfoOutput,
   useGetXvsVaultPaused,
   useGetXvsVaultPoolCount,
-  useGetXvsVaultRewardPerBlock,
   useGetXvsVaultTotalAllocationPoints,
+  useGetXvsVaultsTotalDailyDistributedXvs,
 } from 'clients/api';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import type { Vault } from 'types';
-import { indexBy } from 'utilities';
+import { convertTokensToMantissa, indexBy } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
@@ -30,8 +29,6 @@ const useGetVestingVaults = ({
 }: {
   accountAddress?: string;
 }): UseGetVestingVaultsOutput => {
-  const { blocksPerDay } = useGetChainMetadata();
-
   const xvs = useGetToken({
     symbol: 'XVS',
   });
@@ -43,15 +40,17 @@ const useGetVestingVaults = ({
   } = useGetXvsVaultPoolCount();
 
   // Fetch data generic to all XVS pools
-  const { data: xvsVaultRewardMantissaPerBlock, isLoading: isGetXvsVaultRewardPerBlockLoading } =
-    useGetXvsVaultRewardPerBlock(
-      {
-        tokenAddress: xvs!.address, // We ensure XVS exists through the enabled option
-      },
-      {
-        enabled: !!xvs,
-      },
-    );
+  const {
+    data: xvsVaultDailyDistributedXvsData,
+    isLoading: isGetXvsVaultsTotalDailyDistributedXvsLoading,
+  } = useGetXvsVaultsTotalDailyDistributedXvs(
+    {
+      stakedToken: xvs!, // We ensure XVS exists through the enabled option
+    },
+    {
+      enabled: !!xvs,
+    },
+  );
 
   const {
     data: xvsVaultTotalAllocationPointsData,
@@ -144,7 +143,7 @@ const useGetVestingVaults = ({
 
   const isLoading =
     isGetXvsVaultPoolCountLoading ||
-    isGetXvsVaultRewardPerBlockLoading ||
+    isGetXvsVaultsTotalDailyDistributedXvsLoading ||
     isGetXvsVaultTotalAllocationPointsLoading ||
     arePoolQueriesLoading ||
     arePoolBalanceQueriesLoading ||
@@ -170,21 +169,26 @@ const useGetVestingVaults = ({
               address: poolData[poolIndex]?.poolInfos.stakedTokenAddress,
             });
 
-          const poolRewardMantissaPerBlock =
-            xvsVaultRewardMantissaPerBlock?.rewardPerBlockMantissa !== undefined &&
+          const dailyDistributedXvs =
+            xvsVaultDailyDistributedXvsData?.dailyDistributedXvs !== undefined &&
             xvsVaultTotalAllocationPointsData?.totalAllocationPoints !== undefined &&
             poolData[poolIndex]?.poolInfos.allocationPoint
-              ? xvsVaultRewardMantissaPerBlock.rewardPerBlockMantissa
+              ? xvsVaultDailyDistributedXvsData?.dailyDistributedXvs
                   .multipliedBy(poolData[poolIndex]?.poolInfos.allocationPoint)
                   .div(xvsVaultTotalAllocationPointsData.totalAllocationPoints)
               : undefined;
 
-          const dailyEmissionMantissa = poolRewardMantissaPerBlock?.multipliedBy(blocksPerDay);
+          const dailyDistributedXvsMantissa =
+            dailyDistributedXvs &&
+            convertTokensToMantissa({
+              value: dailyDistributedXvs,
+              token: xvs!,
+            });
 
           const stakingAprPercentage =
-            dailyEmissionMantissa &&
+            dailyDistributedXvsMantissa &&
             totalStakedMantissaData &&
-            dailyEmissionMantissa
+            dailyDistributedXvsMantissa
               .multipliedBy(DAYS_PER_YEAR)
               .div(
                 totalStakedMantissaData.balanceMantissa.isGreaterThan(0)
@@ -197,7 +201,7 @@ const useGetVestingVaults = ({
           if (
             !!stakedToken &&
             lockingPeriodMs !== undefined &&
-            dailyEmissionMantissa !== undefined &&
+            dailyDistributedXvsMantissa !== undefined &&
             totalStakedMantissaData !== undefined &&
             stakingAprPercentage !== undefined &&
             getXvsVaultPausedData?.isVaultPaused !== undefined &&
@@ -208,7 +212,7 @@ const useGetVestingVaults = ({
               rewardToken: xvs,
               stakedToken,
               lockingPeriodMs,
-              dailyEmissionMantissa,
+              dailyEmissionMantissa: dailyDistributedXvsMantissa,
               totalStakedMantissa: totalStakedMantissaData.balanceMantissa,
               stakingAprPercentage,
               userStakedMantissa,
@@ -227,12 +231,11 @@ const useGetVestingVaults = ({
       xvsVaultPoolCountData.poolCount,
       poolData,
       poolBalances,
-      xvsVaultRewardMantissaPerBlock?.rewardPerBlockMantissa,
+      xvsVaultDailyDistributedXvsData?.dailyDistributedXvs,
       xvsVaultTotalAllocationPointsData?.totalAllocationPoints,
       getXvsVaultPausedData?.isVaultPaused,
       xvs,
       tokens,
-      blocksPerDay,
     ],
   );
 

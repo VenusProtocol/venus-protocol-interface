@@ -20,13 +20,13 @@ import {
 import {
   addUserPropsToPool,
   areAddressesEqual,
-  calculateApy,
+  calculateDailyTokenRate,
+  calculateYearlyPercentageRate,
   convertDollarsToCents,
   convertFactorFromSmartContract,
   convertMantissaToTokens,
   convertPriceMantissaToDollars,
   getDisabledTokenActions,
-  multiplyMantissaDaily,
 } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
@@ -34,7 +34,6 @@ import { formatDistributions } from './formatDistributions';
 
 export interface FormatToPoolInput {
   chainId: ChainId;
-  blocksPerDay: number;
   name: string;
   xvs: Token;
   vai?: Token;
@@ -63,6 +62,7 @@ export interface FormatToPoolInput {
   userVTokenBalances?: Awaited<ReturnType<VenusLens['callStatic']['vTokenBalancesAll']>>;
   userVaiBorrowBalanceMantissa?: BigNumber;
   mainMarkets?: Market[];
+  blocksPerDay?: number;
 }
 
 export const formatToPool = ({
@@ -240,26 +240,23 @@ export const formatToPool = ({
           ),
         );
 
-    const supplyDailyPercentageRate = multiplyMantissaDaily({
-      mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
+    const supplyDailyPercentageRate = calculateDailyTokenRate({
+      rateMantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
       blocksPerDay,
     });
 
-    const supplyApyPercentage = calculateApy({
-      dailyRate: supplyDailyPercentageRate,
+    const supplyApyPercentage = calculateYearlyPercentageRate({
+      dailyPercentageRate: supplyDailyPercentageRate,
     });
 
-    const borrowDailyPercentageRate = multiplyMantissaDaily({
-      mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+    const borrowDailyPercentageRate = calculateDailyTokenRate({
+      rateMantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
       blocksPerDay,
     });
 
-    const borrowApyPercentage = calculateApy({
-      dailyRate: borrowDailyPercentageRate,
+    const borrowApyPercentage = calculateYearlyPercentageRate({
+      dailyPercentageRate: borrowDailyPercentageRate,
     });
-
-    const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(blocksPerDay);
-    const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(blocksPerDay);
 
     const supplyBalanceVTokens = convertMantissaToTokens({
       value: new BigNumber(vTokenMetaData.totalSupply.toString()),
@@ -353,8 +350,6 @@ export const formatToPool = ({
       exchangeRateVTokens,
       borrowApyPercentage,
       supplyApyPercentage,
-      supplyPercentageRatePerBlock,
-      borrowPercentageRatePerBlock,
       supplyBalanceTokens,
       supplyBalanceCents,
       borrowBalanceTokens,

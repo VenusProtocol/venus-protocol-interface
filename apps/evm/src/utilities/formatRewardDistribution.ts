@@ -1,7 +1,7 @@
 import type BigNumber from 'bignumber.js';
 
 import type { AssetDistribution, Token } from 'types';
-import { calculateApy } from 'utilities';
+import { calculateYearlyPercentageRate } from 'utilities';
 
 export interface FormatDistributionInput {
   rewardToken: Token;
@@ -21,8 +21,8 @@ const formatRewardDistribution = ({
     dailyDistributedRewardTokens.multipliedBy(rewardTokenPriceDollars);
 
   // Calculate APY
-  const apyPercentage = calculateApy({
-    dailyRate: dailyDistributedDollars.div(
+  const apyPercentage = calculateYearlyPercentageRate({
+    dailyPercentageRate: dailyDistributedDollars.div(
       // Set default balance of 1 to prevent division by 0 when balance is 0
       balanceDollars.isEqualTo(0) ? 1 : balanceDollars,
     ),

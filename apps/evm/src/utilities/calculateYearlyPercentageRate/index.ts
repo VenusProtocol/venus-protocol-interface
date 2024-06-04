@@ -1,28 +1,31 @@
 import BigNumber from 'bignumber.js';
 
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import { ONE_MILLION } from 'constants/numbers';
+import { DAYS_PER_YEAR } from 'constants/time';
 
 export const MIN_VALUE = -ONE_MILLION;
 export const MAX_VALUE = ONE_MILLION;
 
-export interface CalculateApyInput {
-  dailyRate: BigNumber | number | string;
+export interface CalculateYearlyPercentageRateInput {
+  dailyPercentageRate: BigNumber | number | string;
+  compound?: boolean;
 }
 
-const calculateApy = ({ dailyRate }: CalculateApyInput) => {
-  let formattedDailyRate = dailyRate;
+export const calculateYearlyPercentageRate = ({
+  dailyPercentageRate,
+  compound = true,
+}: CalculateYearlyPercentageRateInput) => {
+  let formattedDailyRate = dailyPercentageRate;
   if (typeof formattedDailyRate === 'string') {
-    formattedDailyRate = +dailyRate;
+    formattedDailyRate = +dailyPercentageRate;
   } else if (typeof formattedDailyRate !== 'number') {
     formattedDailyRate = formattedDailyRate.toNumber();
   }
 
-  let apy = formattedDailyRate + 1;
-  apy **= DAYS_PER_YEAR;
-  apy -= 1;
-  apy *= 100;
+  let apy = compound
+    ? ((formattedDailyRate + 1) ** DAYS_PER_YEAR - 1) * 100
+    : formattedDailyRate * DAYS_PER_YEAR;
 
   if (apy > MAX_VALUE) {
     apy = MAX_VALUE;
@@ -32,5 +35,3 @@ const calculateApy = ({ dailyRate }: CalculateApyInput) => {
 
   return new BigNumber(apy).dp(COMPOUND_DECIMALS);
 };
-
-export default calculateApy;

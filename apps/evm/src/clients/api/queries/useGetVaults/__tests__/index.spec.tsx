@@ -17,9 +17,9 @@ import {
   getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
   getXvsVaultPoolCount,
   getXvsVaultPoolInfo,
-  getXvsVaultRewardPerBlock,
   getXvsVaultTotalAllocationPoints,
   getXvsVaultUserInfo,
+  getXvsVaultsTotalDailyDistributedXvs,
 } from 'clients/api';
 import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
@@ -35,10 +35,8 @@ describe('api/queries/useGetVaults', () => {
     (getXvsVaultTotalAllocationPoints as Vi.Mock).mockImplementation(() => ({
       totalAllocationPoints: new BigNumber(xvsVaultResponses.totalAllocPoints.toString()),
     }));
-    (getXvsVaultRewardPerBlock as Vi.Mock).mockImplementation(() => ({
-      rewardPerBlockMantissa: new BigNumber(
-        xvsVaultResponses.rewardTokenAmountsPerBlock.toString(),
-      ),
+    (getXvsVaultsTotalDailyDistributedXvs as Vi.Mock).mockImplementation(() => ({
+      dailyDistributedXvs: new BigNumber('0.000000288'),
     }));
     (getVenusVaiVaultDailyRate as Vi.Mock).mockImplementation(() => ({
       dailyRateMantissa: new BigNumber(compTrollerResponses.venusVAIVaultRate.toString()),

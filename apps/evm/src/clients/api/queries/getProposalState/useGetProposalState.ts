@@ -5,6 +5,7 @@ import getProposalState, {
   type GetProposalStateOutput,
 } from 'clients/api/queries/getProposalState';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
 import { governanceChain } from 'libs/wallet';
@@ -36,7 +37,7 @@ const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Opti
         }),
       ),
     {
-      refetchInterval: blockTimeMs,
+      refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
       ...options,
     },
   );

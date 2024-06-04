@@ -1,15 +1,15 @@
 import type BigNumber from 'bignumber.js';
 
 import type { AssetDistribution, Token, VToken } from 'types';
-import { formatRewardDistribution, multiplyMantissaDaily } from 'utilities';
+import { calculateDailyTokenRate, formatRewardDistribution } from 'utilities';
 
 export interface FormatDistributionsInput {
-  blocksPerDay: number;
   xvsSpeedMantissa: BigNumber;
   balanceDollars: BigNumber;
   xvsPriceDollars: BigNumber;
   xvs: Token;
   vToken: VToken;
+  blocksPerDay?: number;
   primeApy?: BigNumber;
 }
 
@@ -22,8 +22,8 @@ export const formatDistributions = ({
   vToken,
   primeApy,
 }: FormatDistributionsInput) => {
-  const dailyDistributedXvs = multiplyMantissaDaily({
-    mantissa: xvsSpeedMantissa,
+  const dailyDistributedXvs = calculateDailyTokenRate({
+    rateMantissa: xvsSpeedMantissa,
     decimals: xvs.decimals,
     blocksPerDay,
   });

@@ -14,6 +14,7 @@ export enum ChainId {
   SEPOLIA = 11155111,
   OPBNB_MAINNET = 204,
   OPBNB_TESTNET = 5611,
+  ARBITRUM_SEPOLIA = 421614,
 }
 
 export type TransactionType = 'chain' | 'layerZero';
@@ -21,14 +22,14 @@ export type TransactionType = 'chain' | 'layerZero';
 export interface ChainMetadata {
   name: string;
   logoSrc: string;
-  blockTimeMs: number;
-  blocksPerDay: number;
   explorerUrl: string;
   nativeToken: Token;
   layerZeroScanUrl: string;
   corePoolComptrollerContractAddress: string;
   stakedEthPoolComptrollerContractAddress?: string;
   proposalExecutionGracePeriodMs?: number;
+  blockTimeMs?: number;
+  blocksPerDay?: number;
 }
 
 export interface Token {
@@ -98,8 +99,6 @@ export interface Asset {
   supplyBalanceCents: BigNumber;
   borrowBalanceTokens: BigNumber;
   borrowBalanceCents: BigNumber;
-  supplyPercentageRatePerBlock: BigNumber;
-  borrowPercentageRatePerBlock: BigNumber;
   supplyDistributions: AssetDistribution[];
   borrowDistributions: AssetDistribution[];
   disabledTokenActions: TokenAction[];

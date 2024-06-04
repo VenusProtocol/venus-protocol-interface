@@ -67,6 +67,26 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_RPC_WEBSOCKET_URL_SEPOLIA
       : import.meta.env.VITE_RPC_WEBSOCKET_URL_SEPOLIA,
 
+  // Arbitrum RPC provider
+  VITE_RPC_WEBSOCKET_URL_ARBITRUM_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_MAINNET
+      : import.meta.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_MAINNET,
+  VITE_RPC_HTTP_URL_ARBITRUM_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_HTTP_URL_ARBITRUM_MAINNET
+      : import.meta.env.VITE_RPC_HTTP_URL_ARBITRUM_MAINNET,
+
+  // Arbitrum Sepolia RPC provider
+  VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA
+      : import.meta.env.VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA,
+  VITE_RPC_WEBSOCKET_URL_ARBITRUM_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_SEPOLIA
+      : import.meta.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_SEPOLIA,
+
   // Third-parties
   VITE_SENTRY_DSN:
     typeof process !== 'undefined' ? process.env.VITE_SENTRY_DSN : import.meta.env.VITE_SENTRY_DSN,

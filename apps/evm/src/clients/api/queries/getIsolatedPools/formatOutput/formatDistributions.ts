@@ -1,16 +1,16 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { logError } from 'libs/errors';
 import type { AssetDistribution, PrimeApy, Token } from 'types';
+import { calculateDailyTokenRate } from 'utilities/calculateDailyTokenRate';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from 'utilities/formatRewardDistribution';
-import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
 import type { RewardsDistributorSettingsResult } from '../getRewardsDistributorSettingsMapping';
 import type { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
+import { isDistributingRewards } from './isDistributingRewards';
 
-export interface FormatDistributionsInput {
-  blocksPerDay: number;
+export type FormatDistributionsInput = {
   underlyingToken: Token;
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
@@ -19,8 +19,9 @@ export interface FormatDistributionsInput {
   currentBlockNumber: number;
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
+  blocksPerDay?: number;
   primeApy?: PrimeApy;
-}
+};
 
 const formatDistributions = ({
   blocksPerDay,
@@ -37,7 +38,6 @@ const formatDistributions = ({
   const supplyDistributions: AssetDistribution[] = [];
   const borrowDistributions: AssetDistribution[] = [];
 
-  // Convert balances to dollars
   const supplyBalanceDollars = supplyBalanceTokens.multipliedBy(underlyingTokenPriceDollars);
   const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(underlyingTokenPriceDollars);
 
@@ -48,6 +48,8 @@ const formatDistributions = ({
       rewardTokenBorrowState,
       rewardTokenSupplySpeeds,
       rewardTokenBorrowSpeeds,
+      rewardTokenBorrowStateTimeBased,
+      rewardTokenSupplyStateTimeBased,
     }) => {
       const rewardToken = findTokenByAddress({
         tokens,
@@ -65,14 +67,18 @@ const formatDistributions = ({
         return;
       }
 
-      // Filter out passed and nil supply distributions
-      if (
-        (rewardTokenSupplyState.lastRewardingBlock === 0 ||
-          currentBlockNumber <= rewardTokenSupplyState.lastRewardingBlock) &&
-        new BigNumber(rewardTokenSupplySpeeds.toString()).isGreaterThan(0)
-      ) {
-        const supplyDailyDistributedRewardTokens = multiplyMantissaDaily({
-          mantissa: rewardTokenSupplySpeeds.toString(),
+      const isChainTimeBased = !blocksPerDay;
+
+      const isDistributingSupplyRewards = isDistributingRewards({
+        isTimeBased: isChainTimeBased,
+        lastRewardingTimestamp: rewardTokenSupplyStateTimeBased?.lastRewardingTimestamp.toNumber(),
+        lastRewardingBlock: rewardTokenSupplyState?.lastRewardingBlock,
+        currentBlockNumber,
+      });
+
+      if (isDistributingSupplyRewards && rewardTokenSupplySpeeds.gt(0)) {
+        const dailyDistributedRewardTokens = calculateDailyTokenRate({
+          rateMantissa: rewardTokenSupplySpeeds.toString(),
           decimals: rewardToken.decimals,
           blocksPerDay,
         });
@@ -81,20 +87,22 @@ const formatDistributions = ({
           formatRewardDistribution({
             rewardToken,
             rewardTokenPriceDollars,
-            dailyDistributedRewardTokens: supplyDailyDistributedRewardTokens,
+            dailyDistributedRewardTokens,
             balanceDollars: supplyBalanceDollars,
           }),
         );
       }
 
-      // Filter out passed and nil borrow distributions
-      if (
-        (rewardTokenBorrowState.lastRewardingBlock === 0 ||
-          currentBlockNumber <= rewardTokenBorrowState.lastRewardingBlock) &&
-        new BigNumber(rewardTokenBorrowSpeeds.toString()).isGreaterThan(0)
-      ) {
-        const borrowDailyDistributedRewardTokens = multiplyMantissaDaily({
-          mantissa: rewardTokenBorrowSpeeds.toString(),
+      const isDistributingBorrowRewards = isDistributingRewards({
+        isTimeBased: isChainTimeBased,
+        lastRewardingTimestamp: rewardTokenBorrowStateTimeBased?.lastRewardingTimestamp.toNumber(),
+        lastRewardingBlock: rewardTokenBorrowState?.lastRewardingBlock,
+        currentBlockNumber,
+      });
+
+      if (isDistributingBorrowRewards && rewardTokenBorrowSpeeds.gt(0)) {
+        const dailyDistributedRewardTokens = calculateDailyTokenRate({
+          rateMantissa: rewardTokenBorrowSpeeds.toString(),
           decimals: rewardToken.decimals,
           blocksPerDay,
         });
@@ -103,7 +111,7 @@ const formatDistributions = ({
           formatRewardDistribution({
             rewardToken,
             rewardTokenPriceDollars,
-            dailyDistributedRewardTokens: borrowDailyDistributedRewardTokens,
+            dailyDistributedRewardTokens,
             balanceDollars: borrowBalanceDollars,
           }),
         );

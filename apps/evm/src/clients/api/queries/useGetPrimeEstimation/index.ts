@@ -8,8 +8,8 @@ import {
   useGetPrimeDistributionForMarket,
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
-import { DAYS_PER_YEAR } from 'constants/daysPerYear';
 import type FunctionKey from 'constants/functionKey';
+import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetToken } from 'libs/tokens';
 import type { VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';

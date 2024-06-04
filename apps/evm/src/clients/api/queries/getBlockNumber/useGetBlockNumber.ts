@@ -1,6 +1,7 @@
 import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getBlockNumber, { type GetBlockNumberOutput } from 'clients/api/queries/getBlockNumber';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useChainId, useProvider } from 'libs/wallet';
@@ -27,7 +28,7 @@ const useGetBlockNumber = (input?: Input, options?: Options) => {
   const { blockTimeMs } = useGetChainMetadata();
 
   return useQuery([FunctionKey.GET_BLOCK_NUMBER, { chainId }], () => getBlockNumber({ provider }), {
-    refetchInterval: blockTimeMs,
+    refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
     ...options,
   });
 };

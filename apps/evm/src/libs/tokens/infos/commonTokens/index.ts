@@ -1,6 +1,7 @@
 import type { TokenMapping } from 'libs/tokens/types';
 import { ChainId } from 'types';
 
+import { tokens as arbitrumSepoliaTokens } from './arbitrumSepolia';
 import { tokens as bscMainnetTokens } from './bscMainnet';
 import { tokens as bscTestnetTokens } from './bscTestnet';
 import { tokens as ethereumTokens } from './ethereum';
@@ -15,4 +16,5 @@ export const tokens: TokenMapping = {
   [ChainId.OPBNB_TESTNET]: opBnbTestnetTokens,
   [ChainId.SEPOLIA]: sepoliaTokens,
   [ChainId.ETHEREUM]: ethereumTokens,
+  [ChainId.ARBITRUM_SEPOLIA]: arbitrumSepoliaTokens,
 };

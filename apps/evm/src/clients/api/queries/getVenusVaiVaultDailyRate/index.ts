@@ -3,8 +3,8 @@ import BigNumber from 'bignumber.js';
 import type { LegacyPoolComptroller } from 'libs/contracts';
 
 export interface GetVenusVaiVaultDailyRateInput {
-  blocksPerDay: number;
   legacyPoolComptrollerContract: LegacyPoolComptroller;
+  blocksPerDay: number;
 }
 
 export type GetVenusVaiVaultDailyRateOutput = {

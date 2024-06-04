@@ -89,11 +89,11 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Options) => {
           resilientOracleContract,
           vai,
           vaiControllerContract,
+          blocksPerDay,
         },
         params =>
           getLegacyPool({
             chainId,
-            blocksPerDay,
             name: t('legacyPool.name'),
             description: t('legacyPool.description'),
             tokens,

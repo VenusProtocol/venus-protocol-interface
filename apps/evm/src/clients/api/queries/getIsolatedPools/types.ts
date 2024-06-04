@@ -5,12 +5,12 @@ import type { ChainId, Pool, Token } from 'types';
 export interface GetIsolatedPoolsInput {
   chainId: ChainId;
   xvs: Token;
-  blocksPerDay: number;
   tokens: Token[];
   provider: Provider;
   poolRegistryContractAddress: string;
   poolLensContract: PoolLens;
   resilientOracleContract: ResilientOracle;
+  blocksPerDay?: number;
   primeContract?: Prime;
   accountAddress?: string;
 }

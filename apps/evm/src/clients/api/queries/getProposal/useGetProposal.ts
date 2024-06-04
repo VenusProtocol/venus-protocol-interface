@@ -4,6 +4,7 @@ import { queryClient } from 'clients/api';
 import getProposal from 'clients/api/queries/getProposal';
 import type { GetProposalInput, GetProposalOutput } from 'clients/api/queries/getProposal/types';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';
 import { type Proposal, ProposalState } from 'types';
@@ -33,7 +34,7 @@ const useGetProposal = (params: GetProposalInput, options?: Omit<Options, 'refet
     onSuccess: (data: Proposal) => {
       if (refetchStates.includes(data.state)) {
         queryClient.setQueryDefaults([FunctionKey.GET_PROPOSAL, params], {
-          refetchInterval: blockTimeMs,
+          refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
         });
       }
 

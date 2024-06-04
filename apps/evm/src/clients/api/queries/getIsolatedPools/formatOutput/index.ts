@@ -8,13 +8,13 @@ import type { Asset, ChainId, Pool, PrimeApy, Token, VToken } from 'types';
 import addUserPropsToPool from 'utilities/addUserPropsToPool';
 import areAddressesEqual from 'utilities/areAddressesEqual';
 import areTokensEqual from 'utilities/areTokensEqual';
-import calculateApy from 'utilities/calculateApy';
+import { calculateDailyTokenRate } from 'utilities/calculateDailyTokenRate';
+import { calculateYearlyPercentageRate } from 'utilities/calculateYearlyPercentageRate';
 import convertDollarsToCents from 'utilities/convertDollarsToCents';
 import convertFactorFromSmartContract from 'utilities/convertFactorFromSmartContract';
 import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import { getDisabledTokenActions } from 'utilities/getDisabledTokenActions';
-import multiplyMantissaDaily from 'utilities/multiplyMantissaDaily';
 
 import type { GetTokenBalancesOutput } from '../../getTokenBalances';
 import type { GetRewardsDistributorSettingsMappingOutput } from '../getRewardsDistributorSettingsMapping';
@@ -24,13 +24,13 @@ import formatDistributions from './formatDistributions';
 export interface FormatToPoolsInput {
   chainId: ChainId;
   tokens: Token[];
-  blocksPerDay: number;
   currentBlockNumber: number;
   poolResults: Awaited<ReturnType<PoolLens['getAllPools']>>;
   rewardsDistributorSettingsMapping: GetRewardsDistributorSettingsMappingOutput;
   tokenPriceDollarsMapping: GetTokenPriceDollarsMappingOutput;
   primeApyMap: Map<string, PrimeApy>;
   userCollateralizedVTokenAddresses: string[];
+  blocksPerDay?: number;
   poolParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
   userVTokenBalancesAll?: Awaited<ReturnType<PoolLens['callStatic']['vTokenBalancesAll']>>;
   userTokenBalancesAll?: GetTokenBalancesOutput;
@@ -134,26 +134,23 @@ const formatToPools = ({
         ),
       );
 
-      const supplyDailyPercentageRate = multiplyMantissaDaily({
-        mantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
+      const supplyDailyPercentageRate = calculateDailyTokenRate({
+        rateMantissa: new BigNumber(vTokenMetaData.supplyRatePerBlockOrTimestamp.toString()),
         blocksPerDay,
       });
 
-      const supplyApyPercentage = calculateApy({
-        dailyRate: supplyDailyPercentageRate,
+      const supplyApyPercentage = calculateYearlyPercentageRate({
+        dailyPercentageRate: supplyDailyPercentageRate,
       });
 
-      const borrowDailyPercentageRate = multiplyMantissaDaily({
-        mantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
+      const borrowDailyPercentageRate = calculateDailyTokenRate({
+        rateMantissa: new BigNumber(vTokenMetaData.borrowRatePerBlockOrTimestamp.toString()),
         blocksPerDay,
       });
 
-      const borrowApyPercentage = calculateApy({
-        dailyRate: borrowDailyPercentageRate,
+      const borrowApyPercentage = calculateYearlyPercentageRate({
+        dailyPercentageRate: borrowDailyPercentageRate,
       });
-
-      const supplyPercentageRatePerBlock = supplyDailyPercentageRate.dividedBy(blocksPerDay);
-      const borrowPercentageRatePerBlock = borrowDailyPercentageRate.dividedBy(blocksPerDay);
 
       const supplyBalanceVTokens = convertMantissaToTokens({
         value: new BigNumber(vTokenMetaData.totalSupply.toString()),
@@ -237,8 +234,6 @@ const formatToPools = ({
         borrowerCount,
         borrowApyPercentage,
         supplyApyPercentage,
-        supplyPercentageRatePerBlock,
-        borrowPercentageRatePerBlock,
         supplyBalanceTokens,
         supplyBalanceCents,
         borrowBalanceTokens,

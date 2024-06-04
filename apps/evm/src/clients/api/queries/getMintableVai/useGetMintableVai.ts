@@ -4,6 +4,7 @@ import getMintableVai, {
   type GetMintableVaiInput,
   type GetMintableVaiOutput,
 } from 'clients/api/queries/getMintableVai';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetVaiContract, useGetVaiControllerContract } from 'libs/contracts';
@@ -51,7 +52,7 @@ const useGetMintableVai = ({ vai, ...input }: TrimmedGetMintableVaiInput, option
         }),
       ),
     {
-      refetchInterval: blockTimeMs,
+      refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
       ...options,
     },
   );

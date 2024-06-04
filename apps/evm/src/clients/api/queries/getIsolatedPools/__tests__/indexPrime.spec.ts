@@ -27,6 +27,14 @@ import {
 
 vi.mock('libs/contracts');
 
+const fakePrimeContract = {
+  tokens: async () => fakePrimeContractResponses.tokens,
+  MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
+  getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
+  estimateAPR: async () => fakePrimeContractResponses.estimateAPR,
+  calculateAPR: async () => fakePrimeContractResponses.calculateAPR,
+} as unknown as Prime;
+
 describe('getIsolatedPools - Feature enabled: Prime', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
@@ -47,14 +55,6 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
   });
 
   it('fetches and formats Prime distributions and Prime distribution simulations if user is Prime', async () => {
-    const fakePrimeContract = {
-      tokens: async () => fakePrimeContractResponses.tokens,
-      MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
-      getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
-      estimateAPR: async () => fakePrimeContractResponses.estimateAPR,
-      calculateAPR: async () => fakePrimeContractResponses.calculateAPR,
-    } as unknown as Prime;
-
     const response = await getIsolatedPools({
       chainId: ChainId.BSC_TESTNET,
       xvs,
@@ -72,15 +72,12 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
   });
 
   it('does not fetch Prime distributions if user is not Prime', async () => {
-    const fakePrimeContract = {
+    const customFakePrimeContract = {
+      ...fakePrimeContract,
       tokens: async () => ({
         ...fakePrimeContractResponses.tokens,
         exists: false,
       }),
-      MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
-      getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
-      estimateAPR: async () => fakePrimeContractResponses.estimateAPR,
-      calculateAPR: async () => fakePrimeContractResponses.calculateAPR,
     } as unknown as Prime;
 
     const response = await getIsolatedPools({
@@ -93,17 +90,15 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
       poolLensContract: fakePoolLensContract,
       resilientOracleContract: fakeResilientOracleContract,
-      primeContract: fakePrimeContract,
+      primeContract: customFakePrimeContract,
     });
 
     expect(response).toMatchSnapshot();
   });
 
   it('filters out Prime distributions and simulations that are 0', async () => {
-    const fakePrimeContract = {
-      tokens: async () => fakePrimeContractResponses.tokens,
-      MINIMUM_STAKED_XVS: async () => fakePrimeContractResponses.MINIMUM_STAKED_XVS,
-      getAllMarkets: async () => fakePrimeContractResponses.getAllMarkets,
+    const customFakePrimeContract = {
+      ...fakePrimeContract,
       estimateAPR: async () => ({
         borrowAPR: BN.from(0),
         supplyAPR: BN.from(0),
@@ -124,7 +119,7 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
       poolLensContract: fakePoolLensContract,
       resilientOracleContract: fakeResilientOracleContract,
-      primeContract: fakePrimeContract,
+      primeContract: customFakePrimeContract,
     });
 
     expect(response).toMatchSnapshot();

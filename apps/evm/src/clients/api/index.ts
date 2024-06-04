@@ -236,9 +236,8 @@ export { default as getXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo';
 export * from './queries/getXvsVaultPoolInfo';
 export { default as useGetXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo/useGetXvsVaultPoolInfo';
 
-export { default as getXvsVaultRewardPerBlock } from './queries/getXvsVaultRewardPerBlock';
-export * from './queries/getXvsVaultRewardPerBlock';
-export { default as useGetXvsVaultRewardPerBlock } from './queries/getXvsVaultRewardPerBlock/useGetXvsVaultRewardPerBlock';
+export * from './queries/getXvsVaultsTotalDailyDistributedXvs';
+export * from './queries/getXvsVaultsTotalDailyDistributedXvs/useGetXvsVaultsTotalDailyDistributedXvs';
 
 export { default as getXvsVaultTotalAllocationPoints } from './queries/getXvsVaultTotalAllocationPoints';
 export * from './queries/getXvsVaultTotalAllocationPoints';

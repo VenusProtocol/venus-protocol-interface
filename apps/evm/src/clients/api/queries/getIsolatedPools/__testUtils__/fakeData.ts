@@ -70,4 +70,6 @@ export const fakeRewardsDistributorContract = {
   rewardTokenBorrowSpeeds: async () => BN.from('868055555555556'),
   rewardTokenSupplyState: async () => ({ lastRewardingBlock: 0 }),
   rewardTokenBorrowState: async () => ({ lastRewardingBlock: 0 }),
+  rewardTokenSupplyStateTimeBased: async () => ({ lastRewardingTimestamp: BN.from(0) }),
+  rewardTokenBorrowStateTimeBased: async () => ({ lastRewardingTimestamp: BN.from(0) }),
 } as unknown as RewardsDistributor;
