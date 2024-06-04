@@ -4,7 +4,7 @@ import { cn } from 'utilities';
 import { type ButtonProps, TertiaryButton } from '../Button';
 import { Icon } from '../Icon';
 
-export interface AddTokenToWalletButtonProps extends Omit<ButtonProps, 'onClick'> {
+export interface AddTokenToWalletButtonProps extends Omit<ButtonProps, 'onClick' | 'variant'> {
   token: Token;
 }
 
@@ -15,7 +15,8 @@ export const AddTokenToWalletButton: React.FC<AddTokenToWalletButtonProps> = ({
 }) => (
   <TertiaryButton
     className={cn(
-      'border-cards bg-background text-blue hover:text-offWhite p-1 h-8 w-8',
+      'p-1 h-8 w-8',
+      'border-transparent hover:border-transparent active:border-transparent bg-background/40 hover:bg-background/40 active:bg-background/40 text-grey hover:text-offWhite active:text-blue',
       className,
     )}
     onClick={() => addTokenToWallet(token)}
