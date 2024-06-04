@@ -1,13 +1,27 @@
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import { ChainSelect } from '../ChainSelect';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 
-export const MdUpControls: React.FC = () => (
-  <div className="hidden md:flex md:h-12 md:items-center md:space-x-4 md:pl-6">
-    <ClaimRewardButton className="flex-none md:whitespace-nowrap" />
+export const MdUpControls: React.FC = () => {
+  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
+  const isOnMarketPage = useIsOnMarketPage();
+  const shouldUseNewMarketPageFeature = isNewMarketPageEnabled && isOnMarketPage;
 
-    <ChainSelect />
+  return (
+    <div className="hidden md:flex md:h-12 md:items-center md:space-x-4 md:pl-6">
+      <ClaimRewardButton
+        variant={shouldUseNewMarketPageFeature ? 'secondary' : 'primary'}
+        className="flex-none md:whitespace-nowrap"
+      />
 
-    <ConnectButton className="flex-none" />
-  </div>
-);
+      <ChainSelect variant={shouldUseNewMarketPageFeature ? 'tertiary' : 'primary'} />
+
+      <ConnectButton
+        className="flex-none"
+        variant={shouldUseNewMarketPageFeature ? 'secondary' : 'primary'}
+      />
+    </div>
+  );
+};

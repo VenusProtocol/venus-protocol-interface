@@ -1,14 +1,11 @@
-import { Select, type SelectOption } from 'components';
+import { Select, type SelectProps, type SelectOption } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { cn } from 'utilities';
-import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 
-export interface ChainSelectProps {
-  className?: string;
+export interface ChainSelectProps extends Omit<SelectProps, 'value' | 'onChange' | 'options'> {
   buttonClassName?: string;
 }
 
@@ -29,13 +26,10 @@ const options: SelectOption<ChainId>[] = chains.map(chain => {
   };
 });
 
-export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClassName }) => {
+export const ChainSelect: React.FC<ChainSelectProps> = ({ buttonClassName, ...otherProps }) => {
   const { t } = useTranslation();
   const { chainId } = useChainId();
   const { switchChain } = useSwitchChain();
-  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
-  const isOnMarketPage = useIsOnMarketPage();
-  const shouldUseNewMarketFeature = isNewMarketPageEnabled && isOnMarketPage;
 
   return (
     <Select
@@ -43,10 +37,9 @@ export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClass
       onChange={newChainId => switchChain({ chainId: Number(newChainId) })}
       options={options}
       menuPosition="right"
-      variant={shouldUseNewMarketFeature ? 'tertiary' : 'primary'}
       menuTitle={t('layout.chainSelect.label')}
       buttonClassName={buttonClassName}
-      className={className}
+      {...otherProps}
     />
   );
 };

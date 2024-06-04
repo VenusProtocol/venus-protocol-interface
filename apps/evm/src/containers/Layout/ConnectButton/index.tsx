@@ -6,9 +6,23 @@ import { cn, truncateAddress } from 'utilities';
 
 import { PrimeButton } from './PrimeButton';
 
-export const ConnectButton: React.FC<
-  Omit<ButtonProps, 'isAccountPrime' | 'accountAddress' | 'loading' | 'onClick'>
-> = ({ className, ...otherProps }) => {
+export interface ConnectButtonProps
+  extends Omit<
+    ButtonProps,
+    'isAccountPrime' | 'accountAddress' | 'loading' | 'onClick' | 'variant'
+  > {
+  variant?: 'primary' | 'secondary';
+}
+
+const connectedAccountButtonClasses = cn(
+  'border-offWhite hover:bg-offWhite hover:border-transparent hover:text-background active:bg-grey active:border-transparent',
+);
+
+export const ConnectButton: React.FC<ConnectButtonProps> = ({
+  className,
+  variant = 'primary',
+  ...otherProps
+}) => {
   const { accountAddress } = useAccountAddress();
   const { openAuthModal } = useAuthModal();
   const { t } = useTranslation();
@@ -22,17 +36,30 @@ export const ConnectButton: React.FC<
     return null;
   }
 
-  const props = {
-    onClick: openAuthModal,
-    className: cn('', className),
-  };
-
   if (accountAddress && isAccountPrime) {
-    return <PrimeButton accountAddress={accountAddress} {...props} {...otherProps} />;
+    return (
+      <PrimeButton
+        accountAddress={accountAddress}
+        onClick={openAuthModal}
+        className={cn(variant === 'secondary' && connectedAccountButtonClasses, className)}
+        {...otherProps}
+      />
+    );
   }
 
   return (
-    <Button variant={accountAddress ? 'secondary' : 'primary'} {...props} {...otherProps}>
+    <Button
+      variant={accountAddress ? 'secondary' : 'primary'}
+      onClick={openAuthModal}
+      className={cn(
+        className,
+        variant === 'secondary' && accountAddress && connectedAccountButtonClasses,
+        variant === 'secondary' &&
+          !accountAddress &&
+          'border-transparent bg-offWhite text-background hover:border-transparent hover:bg-grey active:bg-grey active:border-transparent',
+      )}
+      {...otherProps}
+    >
       {accountAddress ? <>{truncateAddress(accountAddress)}</> : t('connectButton.title')}
     </Button>
   );
