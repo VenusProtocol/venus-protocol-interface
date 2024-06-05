@@ -1,4 +1,4 @@
-import { Select, type SelectProps, type SelectOption } from 'components';
+import { Select, type SelectOption, type SelectProps } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';

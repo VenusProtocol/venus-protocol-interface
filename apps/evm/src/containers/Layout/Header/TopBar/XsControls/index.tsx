@@ -11,10 +11,10 @@ import { cn } from 'utilities';
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import useGetMenuItems from 'containers/Layout/useGetMenuItems';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 import { ChainSelect } from '../ChainSelect';
 import { NavLink } from './NavLink';
-import { useIsOnMarketPage } from '../../useIsOnMarketPage';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 export const XsControls: React.FC = () => {
   const { t } = useTranslation();
