@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.124.0
+
+### Minor Changes
+
+- ae8cf22: include token distributions equal to 0
+
 ## 2.123.0
 
 ### Minor Changes
