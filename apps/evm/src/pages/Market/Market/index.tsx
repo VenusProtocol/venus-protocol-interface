@@ -25,7 +25,8 @@ export const Market: React.FC<MarketProps> = ({ asset, pool }) => {
           <OperationForm poolComptrollerAddress={pool.comptrollerAddress} vToken={asset.vToken} />
         </Card>
 
-        <div className="space-y-6 lg:grow lg:order-1">
+        {/* w-0 is a hotfix to force the charts to adapt their size when resizing the window (see https://github.com/recharts/recharts/issues/172#issuecomment-307858843) */}
+        <div className="space-y-6 lg:grow lg:order-1 w-0">
           <MarketHistory asset={asset} poolComptrollerContractAddress={pool.comptrollerAddress} />
 
           <InterestRateChart asset={asset} isIsolatedPoolMarket={pool.isIsolated} />
