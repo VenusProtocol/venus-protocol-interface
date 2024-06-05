@@ -74,12 +74,20 @@ export const CHAIN_METADATA: {
     stakedEthPoolComptrollerContractAddress: '0xd79CeB8EF8188E44b7Eb899094e8A3A4d7A1e236',
     nativeToken: getToken({ chainId: ChainId.SEPOLIA, symbol: 'ETH' })!,
   },
+  [ChainId.ARBITRUM_ONE]: {
+    name: 'Arbitrum One',
+    logoSrc: arbitrumLogo,
+    explorerUrl: 'https://arbiscan.io/',
+    layerZeroScanUrl: 'https://layerzeroscan.com/',
+    corePoolComptrollerContractAddress: '0x317c1A5739F39046E20b08ac9BeEa3f10fD43326',
+    nativeToken: getToken({ chainId: ChainId.ARBITRUM_ONE, symbol: 'ETH' })!,
+  },
   [ChainId.ARBITRUM_SEPOLIA]: {
     name: 'Arbitrum Sepolia',
     logoSrc: arbitrumLogo,
     explorerUrl: 'https://sepolia.arbiscan.io/',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
-    corePoolComptrollerContractAddress: '0xA198909e8432f262f6978F2C81B04b32c55eb063',
-    nativeToken: getToken({ chainId: ChainId.SEPOLIA, symbol: 'ETH' })!,
+    corePoolComptrollerContractAddress: '0x006D44b6f5927b3eD83bD0c1C36Fb1A3BaCaC208',
+    nativeToken: getToken({ chainId: ChainId.ARBITRUM_SEPOLIA, symbol: 'ETH' })!,
   },
 };

@@ -96,14 +96,14 @@ export const ENV_VARIABLES = {
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_SEPOLIA,
 
   // Arbitrum RPC provider
-  VITE_RPC_WEBSOCKET_URL_ARBITRUM_MAINNET:
+  VITE_RPC_WEBSOCKET_URL_ARBITRUM_ONE:
     typeof process !== 'undefined'
-      ? process.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_MAINNET
-      : import.meta.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_MAINNET,
-  VITE_RPC_HTTP_URL_ARBITRUM_MAINNET:
+      ? process.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_ONE
+      : import.meta.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_ONE,
+  VITE_RPC_HTTP_URL_ARBITRUM_ONE:
     typeof process !== 'undefined'
-      ? process.env.VITE_RPC_HTTP_URL_ARBITRUM_MAINNET
-      : import.meta.env.VITE_RPC_HTTP_URL_ARBITRUM_MAINNET,
+      ? process.env.VITE_RPC_HTTP_URL_ARBITRUM_ONE
+      : import.meta.env.VITE_RPC_HTTP_URL_ARBITRUM_ONE,
 
   // Arbitrum Sepolia RPC provider
   VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA:

@@ -1,10 +1,11 @@
 import {
   type Chain,
+  arbitrum as arbitrumOne,
   arbitrumSepolia,
-  bsc,
+  bsc as bscMainnet,
   bscTestnet,
-  mainnet,
-  opBNB,
+  mainnet as ethereum,
+  opBNB as opBNBMainnet,
   opBNBTestnet,
   sepolia,
 } from 'wagmi/chains';
@@ -16,10 +17,10 @@ const getSupportedChains = (): Chain[] => {
     return [bscTestnet, opBNBTestnet, sepolia, arbitrumSepolia];
   }
 
-  return [bsc, mainnet, opBNB];
+  return [bscMainnet, ethereum, opBNBMainnet, arbitrumOne];
 };
 
-export const governanceChain = localConfig.isOnTestnet ? bscTestnet : bsc;
+export const governanceChain = localConfig.isOnTestnet ? bscTestnet : bscMainnet;
 
 export const chains = getSupportedChains();
 
