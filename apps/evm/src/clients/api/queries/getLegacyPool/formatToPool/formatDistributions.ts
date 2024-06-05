@@ -37,7 +37,7 @@ export const formatDistributions = ({
 
   const distributions: AssetDistribution[] = [xvsDistribution];
 
-  if (primeApy && !primeApy.isEqualTo(0)) {
+  if (primeApy) {
     const primeDistribution: AssetDistribution = {
       type: 'prime',
       apyPercentage: primeApy,

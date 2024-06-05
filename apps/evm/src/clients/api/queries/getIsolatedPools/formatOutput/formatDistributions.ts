@@ -76,7 +76,7 @@ const formatDistributions = ({
         currentBlockNumber,
       });
 
-      if (isDistributingSupplyRewards && rewardTokenSupplySpeeds.gt(0)) {
+      if (isDistributingSupplyRewards) {
         const dailyDistributedRewardTokens = calculateDailyTokenRate({
           rateMantissa: rewardTokenSupplySpeeds.toString(),
           decimals: rewardToken.decimals,
@@ -100,7 +100,7 @@ const formatDistributions = ({
         currentBlockNumber,
       });
 
-      if (isDistributingBorrowRewards && rewardTokenBorrowSpeeds.gt(0)) {
+      if (isDistributingBorrowRewards) {
         const dailyDistributedRewardTokens = calculateDailyTokenRate({
           rateMantissa: rewardTokenBorrowSpeeds.toString(),
           decimals: rewardToken.decimals,
@@ -120,15 +120,13 @@ const formatDistributions = ({
   );
 
   // Add Prime distributions
-  if (primeApy && !primeApy.supplyApy.isEqualTo(0)) {
+  if (primeApy) {
     supplyDistributions.push({
       type: 'prime',
       apyPercentage: primeApy.supplyApy,
       token: underlyingToken,
     });
-  }
 
-  if (primeApy && !primeApy.borrowApy.isEqualTo(0)) {
     borrowDistributions.push({
       type: 'prime',
       apyPercentage: primeApy.borrowApy,
