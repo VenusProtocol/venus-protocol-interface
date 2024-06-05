@@ -113,7 +113,7 @@ const BridgePage: React.FC = () => {
     xvs,
   });
 
-  const { toChainId } = watch();
+  const { fromChainId, toChainId } = watch();
 
   const { data: getXvsBridgeFeeEstimationData } = useGetXvsBridgeFeeEstimation(
     {
@@ -263,10 +263,11 @@ const BridgePage: React.FC = () => {
   ]);
 
   // build the list of chains that can be selected
-  const availableChainsListOptions = useMemo(() => {
-    const allChains = getOptionsFromChainsList(chains);
-    return allChains;
-  }, []);
+  const [fromChainIdOptions, toChainIdOptions] = useMemo(() => {
+    const fromChains = getOptionsFromChainsList(chains.filter(c => c.id !== toChainId));
+    const otherChains = getOptionsFromChainsList(chains.filter(c => c.id !== fromChainId));
+    return [fromChains, otherChains];
+  }, [fromChainId, toChainId]);
 
   if (!nativeToken || !xvs) {
     return <Spinner />;
@@ -291,7 +292,7 @@ const BridgePage: React.FC = () => {
                   label={t('bridgePage.fromChainSelect.label')}
                   className="mb-4 w-full min-w-0 grow md:mb-0"
                   testId={TEST_IDS.fromChainIdSelect}
-                  options={availableChainsListOptions}
+                  options={fromChainIdOptions}
                   {...field}
                   onChange={newChainId => {
                     handleChainFieldChange({
@@ -321,7 +322,7 @@ const BridgePage: React.FC = () => {
                   className="w-full min-w-0 grow"
                   label={t('bridgePage.toChainSelect.label')}
                   testId={TEST_IDS.toChainIdSelect}
-                  options={availableChainsListOptions}
+                  options={toChainIdOptions}
                   {...field}
                   onChange={newChainId => {
                     handleChainFieldChange({
