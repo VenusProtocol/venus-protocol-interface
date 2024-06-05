@@ -21,7 +21,7 @@ export const Market: React.FC<MarketProps> = ({ asset, pool }) => {
       />
 
       <div className="space-y-6 lg:flex lg:space-y-0 lg:gap-x-6">
-        <Card className="lg:order-2 lg:sticky lg:top-6 w-auto lg:w-[400px] self-start shrink-0 overflow-x-auto max-h-[calc(100vh-40px)]">
+        <Card className="w-auto self-start shrink-0 overflow-x-auto lg:order-2 lg:sticky lg:w-[400px] lg:top-6 lg:max-h-[calc(100vh-48px)]">
           <OperationForm poolComptrollerAddress={pool.comptrollerAddress} vToken={asset.vToken} />
         </Card>
 
