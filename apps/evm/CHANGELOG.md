@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.123.0
+
+### Minor Changes
+
+- 8ca99f0: Add support for Arbitrum and time based rates
+- 61c42bc: Disable zoom feature on mobile browsers
+
 ## 2.122.0
 
 ### Minor Changes
