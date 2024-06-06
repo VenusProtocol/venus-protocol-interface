@@ -107,7 +107,11 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
         : asset.supplyDistributions
     )
       .filter(distribution => distribution.type !== 'primeSimulation')
-      .map<LabeledInlineContentProps>(distribution => {
+      .reduce<LabeledInlineContentProps[]>((acc, distribution) => {
+        if (distribution.type !== 'prime' && distribution.apyPercentage.isEqualTo(0)) {
+          return acc;
+        }
+
         const children =
           distribution.type === 'prime' ? (
             <ValueUpdate
@@ -123,7 +127,7 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
             formatPercentageToReadableValue(distribution.apyPercentage)
           );
 
-        return {
+        const row: LabeledInlineContentProps = {
           label:
             distribution.type === 'prime'
               ? t('assetInfo.primeApy', { tokenSymbol: distribution.token.symbol })
@@ -135,7 +139,9 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
               : undefined,
           children,
         };
-      });
+
+        return [...acc, row];
+      }, []);
 
     return apyBreakdownRows.concat(distributionRows);
   }, [asset, action, t, hypotheticalUserPrimeApys]);
