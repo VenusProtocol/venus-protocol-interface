@@ -28,6 +28,7 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
 }) => {
   const { t } = useTranslation();
   const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
+  const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
 
   const { data: chartData, isLoading: isChartDataLoading } = useGetChartData({
     vToken: asset.vToken,
@@ -148,7 +149,7 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
         testId={TEST_IDS.supplyInfo}
         title={t('market.supplyInfo.title')}
         stats={supplyInfoStats}
-        legends={supplyInfoLegends}
+        legends={isApyChartsFeatureEnabled ? supplyInfoLegends : undefined}
       >
         {isChartDataLoading && chartData.supplyChartData.length === 0 && <Spinner />}
         {chartData.supplyChartData.length > 0 && (
@@ -162,7 +163,7 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
         testId={TEST_IDS.borrowInfo}
         title={t('market.borrowInfo.title')}
         stats={borrowInfoStats}
-        legends={borrowInfoLegends}
+        legends={isApyChartsFeatureEnabled ? borrowInfoLegends : undefined}
       >
         {isChartDataLoading && chartData.supplyChartData.length === 0 && <Spinner />}
         {chartData.borrowChartData.length > 0 && (
