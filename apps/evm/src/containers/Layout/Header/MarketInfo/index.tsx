@@ -122,7 +122,7 @@ export const MarketInfo = () => {
             )}
           </div>
         ) : (
-          <Spinner className="h-full" />
+          <Spinner className="h-full w-auto" />
         )}
       </div>
 
