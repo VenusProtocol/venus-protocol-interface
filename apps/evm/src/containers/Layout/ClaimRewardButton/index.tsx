@@ -7,7 +7,7 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { VError, displayMutationError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { formatCentsToReadableValue } from 'utilities';
+import { cn, formatCentsToReadableValue } from 'utilities';
 
 import TEST_IDS from '../testIds';
 import { RewardGroup } from './RewardGroup';
@@ -38,6 +38,8 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   groups,
   chainLogoSrc,
   chainName,
+  variant,
+  className,
   ...otherButtonProps
 }) => {
   const { t } = useTranslation();
@@ -77,6 +79,11 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
       <PrimaryButton
         data-testid={TEST_IDS.claimRewardOpenModalButton}
         onClick={onOpenModal}
+        className={cn(
+          className,
+          variant === 'secondary' &&
+            'border-transparent bg-offWhite text-background hover:border-transparent hover:bg-grey active:bg-grey active:border-transparent',
+        )}
         {...otherButtonProps}
       >
         {t('claimReward.openModalButton.label', {
@@ -137,7 +144,9 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   );
 };
 
-export type ClaimRewardButtonProps = Omit<ButtonProps, 'onClick'>;
+export interface ClaimRewardButtonProps extends Omit<ButtonProps, 'onClick' | 'variant'> {
+  variant?: 'primary' | 'secondary';
+}
 
 export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
   const { accountAddress } = useAccountAddress();

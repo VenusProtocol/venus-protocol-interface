@@ -396,7 +396,7 @@
   },
   "legacyPool": {
     "description": "Venus’ primary pool is composed of large-cap tokens that meet minimum liquidity requirements.",
-    "name": "Venus Core Pool"
+    "name": "Core Pool"
   },
   "markdownEditor": {
     "markdownTabLabel": "Write",

@@ -11,7 +11,8 @@ import { cn } from 'utilities';
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import useGetMenuItems from 'containers/Layout/useGetMenuItems';
-import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 import { ChainSelect } from '../ChainSelect';
 import { NavLink } from './NavLink';
 
@@ -20,11 +21,9 @@ export const XsControls: React.FC = () => {
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState<boolean>(false);
   const menuItems = useGetMenuItems();
 
-  const currentRoutePath = useGetCurrentRoutePath();
-  const isOnMarketPage =
-    currentRoutePath === routes.corePoolMarket.path ||
-    currentRoutePath === routes.stakedEthPoolMarket.path ||
-    currentRoutePath === routes.isolatedPoolMarket.path;
+  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
+  const isOnMarketPage = useIsOnMarketPage();
+  const shouldUseNewMarketPageFeature = isNewMarketPageEnabled && isOnMarketPage;
 
   const toggleMobileMenu = () => {
     // Toggle scroll on page container and body tags
@@ -46,9 +45,16 @@ export const XsControls: React.FC = () => {
         </Link>
 
         <div className="flex flex-1 items-center justify-center">
-          <ChainSelect className="mr-4" buttonClassName="h-9" />
+          <ChainSelect
+            className="mr-4"
+            buttonClassName="h-9"
+            variant={shouldUseNewMarketPageFeature && !isMobileMenuOpened ? 'tertiary' : 'primary'}
+          />
 
-          <ConnectButton className="h-9 max-w-xs flex-1 px-1" />
+          <ConnectButton
+            className="h-9 max-w-xs flex-1 px-1"
+            variant={shouldUseNewMarketPageFeature && !isMobileMenuOpened ? 'secondary' : 'primary'}
+          />
         </div>
 
         <button
@@ -79,7 +85,10 @@ export const XsControls: React.FC = () => {
         </div>
 
         <div className="px-4">
-          <ClaimRewardButton className="w-full" />
+          <ClaimRewardButton
+            className="w-full"
+            variant={shouldUseNewMarketPageFeature && !isMobileMenuOpened ? 'secondary' : 'primary'}
+          />
         </div>
       </div>
     </div>

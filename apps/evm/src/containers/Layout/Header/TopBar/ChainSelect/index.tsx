@@ -1,14 +1,11 @@
-import { Select, type SelectOption } from 'components';
+import { Select, type SelectOption, type SelectProps } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { cn } from 'utilities';
-import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 
-export interface ChainSelectProps {
-  className?: string;
+export interface ChainSelectProps extends Omit<SelectProps, 'value' | 'onChange' | 'options'> {
   buttonClassName?: string;
 }
 
@@ -20,27 +17,19 @@ const options: SelectOption<ChainId>[] = chains.map(chain => {
       <div className="flex items-center">
         <img src={metadata.logoSrc} alt={metadata.name} className="w-5 max-w-none flex-none" />
 
-        <span
-          className={cn(
-            'ml-2 grow overflow-hidden text-ellipsis',
-            isRenderedInButton && 'hidden lg:block',
-          )}
-        >
-          {metadata.name}
-        </span>
+        {!isRenderedInButton && (
+          <span className={cn('ml-2 grow overflow-hidden text-ellipsis')}>{metadata.name}</span>
+        )}
       </div>
     ),
     value: chain.id,
   };
 });
 
-export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClassName }) => {
+export const ChainSelect: React.FC<ChainSelectProps> = ({ buttonClassName, ...otherProps }) => {
   const { t } = useTranslation();
   const { chainId } = useChainId();
   const { switchChain } = useSwitchChain();
-  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
-  const isOnMarketPage = useIsOnMarketPage();
-  const shouldUseNewMarketFeature = isNewMarketPageEnabled && isOnMarketPage;
 
   return (
     <Select
@@ -48,10 +37,9 @@ export const ChainSelect: React.FC<ChainSelectProps> = ({ className, buttonClass
       onChange={newChainId => switchChain({ chainId: Number(newChainId) })}
       options={options}
       menuPosition="right"
-      variant={shouldUseNewMarketFeature ? 'tertiary' : 'primary'}
       menuTitle={t('layout.chainSelect.label')}
       buttonClassName={buttonClassName}
-      className={cn('lg:min-w-[200px]', className)}
+      {...otherProps}
     />
   );
 };
