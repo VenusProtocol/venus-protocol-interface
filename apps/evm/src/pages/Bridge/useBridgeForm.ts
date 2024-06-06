@@ -287,17 +287,11 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
   }, [form, bridgeEstimatedFeeMantissa]);
 
   // the chain can be changed either by the form or the header dropdown
-  // we have to ensure a BNB chain is either the origin or the destination of a bridge operation
   useEffect(() => {
     const previousFromChainId = formFromChainId;
     if (chainId !== formFromChainId) {
       form.setValue('fromChainId', chainId);
-      if (chainId !== ChainId.BSC_MAINNET && chainId !== ChainId.BSC_TESTNET) {
-        const bscChainId = chains.find(c => c.nativeCurrency.name === 'BNB')?.id as ChainId;
-        form.setValue('toChainId', bscChainId);
-      } else {
-        form.setValue('toChainId', previousFromChainId);
-      }
+      form.setValue('toChainId', previousFromChainId);
     }
   }, [chainId, form, formFromChainId]);
 

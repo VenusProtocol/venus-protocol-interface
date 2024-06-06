@@ -113,7 +113,7 @@ const BridgePage: React.FC = () => {
     xvs,
   });
 
-  const { toChainId } = watch();
+  const { fromChainId, toChainId } = watch();
 
   const { data: getXvsBridgeFeeEstimationData } = useGetXvsBridgeFeeEstimation(
     {
@@ -262,20 +262,12 @@ const BridgePage: React.FC = () => {
     xvs,
   ]);
 
-  // filter out which options to present when selecting chains
-  // either BSC mainnet or BSC testnet must be the origin or the destination
+  // build the list of chains that can be selected
   const [fromChainIdOptions, toChainIdOptions] = useMemo(() => {
-    const bscChainListOptions = getOptionsFromChainsList(
-      chains.filter(c => c.id === ChainId.BSC_MAINNET || c.id === ChainId.BSC_TESTNET),
-    );
-    const otherChainsListOptions = getOptionsFromChainsList(
-      chains.filter(c => c.id !== ChainId.BSC_MAINNET && c.id !== ChainId.BSC_TESTNET),
-    );
-    if (chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET) {
-      return [bscChainListOptions, otherChainsListOptions];
-    }
-    return [otherChainsListOptions, bscChainListOptions];
-  }, [chainId]);
+    const fromChains = getOptionsFromChainsList(chains.filter(c => c.id !== toChainId));
+    const otherChains = getOptionsFromChainsList(chains.filter(c => c.id !== fromChainId));
+    return [fromChains, otherChains];
+  }, [fromChainId, toChainId]);
 
   if (!nativeToken || !xvs) {
     return <Spinner />;
