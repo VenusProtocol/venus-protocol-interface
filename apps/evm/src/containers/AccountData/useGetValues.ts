@@ -8,11 +8,11 @@ import {
   calculateDailyEarningsCents,
   calculatePercentage,
   calculateYearlyEarningsForAssets,
-  convertMantissaToTokens,
   convertTokensToMantissa,
+  getSwapToTokenAmountReceivedTokens,
 } from 'utilities';
 
-import { useGetHypotheticalUserPrimeApys } from './useGetHypotheticalUserPrimeApys';
+import { useGetHypotheticalUserPrimeApys } from 'hooks/useGetHypotheticalUserPrimeApys';
 
 export interface UseGetValuesInput {
   asset: Asset;
@@ -32,8 +32,6 @@ export interface UseGetValuesOutput {
   hypotheticalPoolUserBorrowLimitCents: BigNumber | undefined;
   hypotheticalPoolUserBorrowLimitUsedPercentage: number | undefined;
   hypotheticalPoolUserDailyEarningsCents: BigNumber | undefined;
-  hypotheticalAssetSupplyPrimeApyPercentage: BigNumber | undefined;
-  hypotheticalAssetBorrowPrimeApyPercentage: BigNumber | undefined;
 }
 
 const useGetValues = ({
@@ -46,15 +44,10 @@ const useGetValues = ({
 }: UseGetValuesInput): UseGetValuesOutput => {
   const toTokenAmountTokens = useMemo(() => {
     if (isUsingSwap) {
-      return swap
-        ? convertMantissaToTokens({
-            value:
-              swap.direction === 'exactAmountIn'
-                ? swap.expectedToTokenAmountReceivedMantissa
-                : swap.toTokenAmountReceivedMantissa,
-            token: swap.toToken,
-          })
-        : new BigNumber(0);
+      return (
+        getSwapToTokenAmountReceivedTokens(swap)?.swapToTokenAmountReceivedTokens ??
+        new BigNumber(0)
+      );
     }
 
     return amountTokens;
@@ -93,8 +86,6 @@ const useGetValues = ({
       hypotheticalPoolUserBorrowLimitCents: undefined,
       hypotheticalPoolUserBorrowLimitUsedPercentage: undefined,
       hypotheticalPoolUserDailyEarningsCents: undefined,
-      hypotheticalAssetSupplyPrimeApyPercentage: hypotheticalUserPrimeApys?.supplyApy,
-      hypotheticalAssetBorrowPrimeApyPercentage: hypotheticalUserPrimeApys?.borrowApy,
     };
 
     const isImpossibleWithdrawAction =
@@ -173,7 +164,7 @@ const useGetValues = ({
       const borrowDistributions = a.borrowDistributions.map(borrowDistribution => {
         if (
           borrowDistribution.type !== 'prime' ||
-          !hypotheticalUserPrimeApys?.borrowApy ||
+          !hypotheticalUserPrimeApys.borrowApy ||
           (action !== 'borrow' && action !== 'repay')
         ) {
           return borrowDistribution;
@@ -188,7 +179,7 @@ const useGetValues = ({
       const supplyDistributions = a.supplyDistributions.map(supplyDistribution => {
         if (
           supplyDistribution.type !== 'prime' ||
-          !hypotheticalUserPrimeApys?.supplyApy ||
+          !hypotheticalUserPrimeApys.supplyApy ||
           (action !== 'supply' && action !== 'withdraw')
         ) {
           return supplyDistribution;

@@ -1,19 +1,10 @@
 import type BigNumber from 'bignumber.js';
 
-import {
-  BorrowBalanceAccountHealth,
-  Delimiter,
-  Icon,
-  LabeledInlineContent,
-  SecondaryAccordion,
-  Tooltip,
-  ValueUpdate,
-} from 'components';
+import { BorrowBalanceAccountHealth, LabeledInlineContent, ValueUpdate } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool, Swap, TokenAction } from 'types';
 import { cn, formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
-import useAssetInfo from './useAssetInfo';
 import useGetValues from './useGetValues';
 
 export interface AccountDataProps {
@@ -21,7 +12,6 @@ export interface AccountDataProps {
   pool: Pool;
   action: TokenAction;
   amountTokens: BigNumber;
-  showAssetInfo?: boolean;
   isUsingSwap?: boolean;
   swap?: Swap;
   className?: string;
@@ -33,7 +23,6 @@ export const AccountData: React.FC<AccountDataProps> = ({
   action,
   amountTokens,
   isUsingSwap = false,
-  showAssetInfo = true,
   swap,
   className,
 }) => {
@@ -48,63 +37,10 @@ export const AccountData: React.FC<AccountDataProps> = ({
     hypotheticalPoolUserBorrowLimitCents,
     hypotheticalPoolUserBorrowLimitUsedPercentage,
     hypotheticalPoolUserDailyEarningsCents,
-    hypotheticalAssetBorrowPrimeApyPercentage,
-    hypotheticalAssetSupplyPrimeApyPercentage,
   } = useGetValues({ asset, pool, swap, amountTokens, action, isUsingSwap });
-
-  const {
-    hypotheticalTotalDistributionBorrowApyPercentage,
-    hypotheticalTotalDistributionSupplyApyPercentage,
-    apyBreakdownRows,
-  } = useAssetInfo({
-    asset,
-    type: action === 'borrow' || action === 'repay' ? 'borrow' : 'supply',
-    hypotheticalAssetBorrowPrimeApyPercentage,
-    hypotheticalAssetSupplyPrimeApyPercentage,
-  });
 
   return (
     <div className={cn('space-y-4', className)}>
-      {showAssetInfo && (
-        <>
-          <SecondaryAccordion
-            title={
-              <div className="flex items-center gap-x-2">
-                <p className={cn('text-sm md:text-base')}>{t('accountData.totalApy.label')}</p>
-
-                <Tooltip
-                  className="inline-flex items-center"
-                  title={
-                    action === 'borrow' || action === 'repay'
-                      ? t('accountData.totalApy.borrowApyTooltip')
-                      : t('accountData.totalApy.supplyApyTooltip')
-                  }
-                >
-                  <Icon className="cursor-help" name="info" />
-                </Tooltip>
-              </div>
-            }
-            rightLabel={formatPercentageToReadableValue(
-              action === 'borrow' || action === 'repay'
-                ? asset.borrowApyPercentage.minus(
-                    hypotheticalTotalDistributionBorrowApyPercentage ?? 0,
-                  )
-                : asset.supplyApyPercentage.plus(
-                    hypotheticalTotalDistributionSupplyApyPercentage ?? 0,
-                  ),
-            )}
-          >
-            <div className="space-y-2">
-              {apyBreakdownRows.map(row => (
-                <LabeledInlineContent {...row} key={row.label} />
-              ))}
-            </div>
-          </SecondaryAccordion>
-
-          <Delimiter />
-        </>
-      )}
-
       <BorrowBalanceAccountHealth
         borrowBalanceCents={pool.userBorrowBalanceCents?.toNumber()}
         borrowLimitCents={

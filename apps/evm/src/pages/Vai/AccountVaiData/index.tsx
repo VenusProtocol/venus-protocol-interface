@@ -122,7 +122,6 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
 
   return (
     <AccountData
-      showAssetInfo={false}
       asset={vaiAsset}
       pool={legacyPoolWithVai}
       amountTokens={new BigNumber(amountTokens || 0)}

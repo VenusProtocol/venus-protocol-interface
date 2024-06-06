@@ -11,7 +11,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import { useGetVTokenBalanceOf, withdraw } from 'clients/api';
 import { en } from 'libs/translations';
-import Withdraw from '..';
+import Withdraw from '../';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
@@ -29,6 +29,18 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     renderComponent(<Withdraw asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />, {
       chainId: ChainId.SEPOLIA,
     });
+  });
+
+  it('prompts user to connect their wallet if they are not connected', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <Withdraw onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+    );
+
+    // Check "Connect wallet" button is displayed
+    expect(getByText(en.operationForm.connectWalletButtonLabel)).toBeInTheDocument();
+
+    // Check input is disabled
+    expect(getByTestId(TEST_IDS.valueInput).closest('input')).toBeDisabled();
   });
 
   it('does not display the receive native token toggle if the underlying token does not wrap the chain native token', async () => {

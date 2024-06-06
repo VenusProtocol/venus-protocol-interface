@@ -31,7 +31,6 @@ export const OperationForm: React.FC<OperationFormProps> = ({
         <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-          connectWalletMessage={t('operationForm.supply.connectWalletMessage')}
           action="supply"
         >
           {({ asset, pool }) => (
@@ -55,7 +54,6 @@ export const OperationForm: React.FC<OperationFormProps> = ({
         <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-          connectWalletMessage={t('operationForm.withdraw.connectWalletMessage')}
           action="withdraw"
         >
           {({ asset, pool }) => (
@@ -70,7 +68,6 @@ export const OperationForm: React.FC<OperationFormProps> = ({
         <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-          connectWalletMessage={t('operationForm.borrow.connectWalletMessage')}
           action="borrow"
         >
           {({ asset, pool }) => (
@@ -85,7 +82,6 @@ export const OperationForm: React.FC<OperationFormProps> = ({
         <AssetAccessor
           vToken={vToken}
           poolComptrollerAddress={poolComptrollerAddress}
-          connectWalletMessage={t('operationForm.repay.connectWalletMessage')}
           action="repay"
         >
           {({ asset, pool }) => (

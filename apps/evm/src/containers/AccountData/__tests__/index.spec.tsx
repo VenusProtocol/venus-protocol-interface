@@ -1,8 +1,7 @@
-import { fireEvent } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
 import { poolData } from '__mocks__/models/pools';
-import { en } from 'libs/translations';
+import { exactAmountInSwap } from '__mocks__/models/swaps';
 import { renderComponent } from 'testUtils/render';
 import { AccountData, type AccountDataProps } from '..';
 
@@ -28,9 +27,9 @@ describe('AccountData', () => {
     { action: 'repay', amountToken: 100 },
     { action: 'repay', amountToken: 0 },
   ] as { action: AccountDataProps['action']; amountToken: number }[])(
-    'renders correctly for core pool asset: %s',
+    'renders correct values: %s',
     async ({ action, amountToken }) => {
-      const { container, getByText } = renderComponent(
+      const { container } = renderComponent(
         <AccountData
           asset={poolData[0].assets[0]}
           pool={poolData[0]}
@@ -39,36 +38,28 @@ describe('AccountData', () => {
         />,
       );
 
-      // Open total APY accordion
-      fireEvent.click(getByText(en.accountData.totalApy.label).closest('button')!);
-
       expect(container.textContent).toMatchSnapshot();
     },
   );
 
   it.each([
-    { action: 'supply', amountToken: 0 },
-    { action: 'supply', amountToken: 100000 },
-    { action: 'withdraw', amountToken: 0 },
-    { action: 'withdraw', amountToken: 50 },
-    { action: 'borrow', amountToken: 0 },
-    { action: 'borrow', amountToken: 100 },
-    { action: 'repay', amountToken: 100 },
-    { action: 'repay', amountToken: 0 },
-  ] as { action: AccountDataProps['action']; amountToken: number }[])(
-    'renders correctly for isolated pool asset: %s',
-    async ({ action, amountToken }) => {
-      const { container, getByText } = renderComponent(
+    { action: 'supply' },
+    { action: 'withdraw' },
+    { action: 'borrow' },
+    { action: 'repay' },
+  ] as { action: AccountDataProps['action'] }[])(
+    'renders correct values when using swap: %s',
+    async ({ action }) => {
+      const { container } = renderComponent(
         <AccountData
-          asset={poolData[1].assets[0]}
-          pool={poolData[1]}
+          asset={poolData[0].assets[0]}
+          pool={poolData[0]}
           action={action}
-          amountTokens={new BigNumber(amountToken)}
+          amountTokens={new BigNumber(1)} // The actual amount used is defined by the swap
+          swap={exactAmountInSwap}
+          isUsingSwap
         />,
       );
-
-      // Open total APY accordion
-      fireEvent.click(getByText(en.accountData.totalApy.label).closest('button')!);
 
       expect(container.textContent).toMatchSnapshot();
     },

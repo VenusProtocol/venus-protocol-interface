@@ -11,11 +11,23 @@ import { getVTokenBalanceOf, withdraw } from 'clients/api';
 import { en } from 'libs/translations';
 import type { Asset, Pool } from 'types';
 
-import Withdraw from '..';
+import Withdraw from '../';
 import { fakeAsset, fakePool, fakeVTokenBalanceMantissa } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 describe('WithdrawForm', () => {
+  it('prompts user to connect their wallet if they are not connected', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <Withdraw onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+    );
+
+    // Check "Connect wallet" button is displayed
+    expect(getByText(en.operationForm.connectWalletButtonLabel)).toBeInTheDocument();
+
+    // Check input is disabled
+    expect(getByTestId(TEST_IDS.valueInput).closest('input')).toBeDisabled();
+  });
+
   it('submit button is disabled with no amount', async () => {
     renderComponent(<Withdraw onSubmitSuccess={noop} asset={fakeAsset} pool={fakePool} />, {
       accountAddress: fakeAccountAddress,

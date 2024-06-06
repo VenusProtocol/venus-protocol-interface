@@ -62,11 +62,19 @@ export const useGetHypotheticalUserPrimeApys = ({
     } else if (action === 'repay') {
       hypotheticalUserBorrowBalanceTokens =
         asset.userBorrowBalanceTokens.minus(toTokenAmountTokens);
-    } else if (action === 'supply') {
+    } else if (action === 'supply' || action === 'swapAndSupply') {
       hypotheticalUserSupplyBalanceTokens = asset.userSupplyBalanceTokens.plus(toTokenAmountTokens);
     } else if (action === 'withdraw') {
       hypotheticalUserSupplyBalanceTokens =
         asset.userSupplyBalanceTokens.minus(toTokenAmountTokens);
+    }
+
+    if (hypotheticalUserBorrowBalanceTokens.isLessThan(0)) {
+      hypotheticalUserBorrowBalanceTokens = new BigNumber(0);
+    }
+
+    if (hypotheticalUserSupplyBalanceTokens.isLessThan(0)) {
+      hypotheticalUserSupplyBalanceTokens = new BigNumber(0);
     }
 
     return {
@@ -102,7 +110,10 @@ export const useGetHypotheticalUserPrimeApys = ({
   );
 
   if (toTokenAmountTokens.isEqualTo(0)) {
-    return undefined;
+    return {
+      borrowApy: undefined,
+      supplyApy: undefined,
+    };
   }
 
   return {

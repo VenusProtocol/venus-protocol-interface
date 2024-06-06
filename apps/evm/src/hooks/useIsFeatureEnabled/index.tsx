@@ -64,8 +64,11 @@ export const featureFlags = {
   ],
   newMarketPage: [
     ChainId.BSC_TESTNET,
+    ChainId.BSC_MAINNET,
     ChainId.SEPOLIA,
+    ChainId.ETHEREUM,
     ChainId.OPBNB_TESTNET,
+    ChainId.OPBNB_MAINNET,
     ChainId.ARBITRUM_SEPOLIA,
   ],
 };

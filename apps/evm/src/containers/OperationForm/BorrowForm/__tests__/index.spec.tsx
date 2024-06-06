@@ -29,6 +29,18 @@ describe('BorrowForm', () => {
     renderComponent(<BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />);
   });
 
+  it('prompts user to connect their wallet if they are not connected', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <BorrowForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+    );
+
+    // Check "Connect wallet" button is displayed
+    expect(getByText(en.operationForm.connectWalletButtonLabel)).toBeInTheDocument();
+
+    // Check input is disabled
+    expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
+  });
+
   it('renders correct token borrowable amount when asset liquidity is higher than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,

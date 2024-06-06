@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useBorrow } from 'clients/api';
 import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
@@ -14,12 +14,16 @@ import { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
+import { ConnectWallet } from 'containers/ConnectWallet';
+import { useAccountAddress } from 'libs/wallet';
+import { AssetInfo } from '../AssetInfo';
 import Notice from './Notice';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
 
 export interface BorrowFormUiProps {
+  isUserConnected: boolean;
   asset: Asset;
   pool: Pool;
   onSubmit: UseFormInput['onSubmit'];
@@ -35,6 +39,7 @@ export interface BorrowFormUiProps {
 }
 
 export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
+  isUserConnected,
   asset,
   pool,
   onSubmitSuccess,
@@ -145,6 +150,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           }))
         }
         disabled={
+          !isUserConnected ||
           isSubmitting ||
           formError?.code === 'BORROW_CAP_ALREADY_REACHED' ||
           formError?.code === 'NO_COLLATERALS'
@@ -155,69 +161,92 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           }),
           onClick: handleRightMaxButtonClick,
         }}
-        hasError={!!formError && Number(formValues.amountTokens) > 0}
+        hasError={isUserConnected && !!formError && Number(formValues.amountTokens) > 0}
         description={
-          !isSubmitting && !!formError?.message ? (
+          isUserConnected && !isSubmitting && !!formError?.message ? (
             <p className="text-red">{formError.message}</p>
           ) : undefined
         }
       />
 
-      {!isSubmitting && !formError && (
-        <Notice
-          amount={formValues.amountTokens}
-          safeLimitTokens={safeLimitTokens}
-          limitTokens={limitTokens}
-        />
-      )}
-
-      <LabeledInlineContent label={t('operationForm.borrowableAmount')}>
-        {readableLimit}
-      </LabeledInlineContent>
-
-      <Delimiter />
-
-      {canUnwrapToNativeToken && (
+      {isUserConnected ? (
         <>
-          <LabeledInlineContent
-            data-testid={TEST_IDS.receiveNativeToken}
-            label={t('operationForm.receiveNativeToken.label', {
-              tokenSymbol: nativeToken.symbol,
-            })}
-            tooltip={t('operationForm.receiveNativeToken.tooltip', {
-              wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
-              nativeTokenSymbol: nativeToken.symbol,
-            })}
-          >
-            <Toggle
-              onChange={handleToggleReceiveNativeToken}
-              value={formValues.receiveNativeToken}
+          {!isSubmitting && !formError && (
+            <Notice
+              amount={formValues.amountTokens}
+              safeLimitTokens={safeLimitTokens}
+              limitTokens={limitTokens}
             />
+          )}
+
+          <LabeledInlineContent label={t('operationForm.borrowableAmount')}>
+            {readableLimit}
           </LabeledInlineContent>
 
           <Delimiter />
+
+          {canUnwrapToNativeToken && (
+            <>
+              <LabeledInlineContent
+                data-testid={TEST_IDS.receiveNativeToken}
+                label={t('operationForm.receiveNativeToken.label', {
+                  tokenSymbol: nativeToken.symbol,
+                })}
+                tooltip={t('operationForm.receiveNativeToken.tooltip', {
+                  wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
+                  nativeTokenSymbol: nativeToken.symbol,
+                })}
+              >
+                <Toggle
+                  onChange={handleToggleReceiveNativeToken}
+                  value={formValues.receiveNativeToken}
+                />
+              </LabeledInlineContent>
+
+              <Delimiter />
+            </>
+          )}
+
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <AssetInfo
+                asset={asset}
+                action="borrow"
+                amountTokens={new BigNumber(formValues.amountTokens || 0)}
+                renderType="accordion"
+              />
+
+              <Delimiter />
+
+              <AccountData
+                asset={asset}
+                pool={pool}
+                amountTokens={new BigNumber(formValues.amountTokens || 0)}
+                action="borrow"
+              />
+            </div>
+
+            <SubmitSection
+              isFormSubmitting={isSubmitting}
+              safeLimitTokens={safeLimitTokens}
+              isFormValid={isFormValid}
+              fromTokenAmountTokens={formValues.amountTokens}
+              isDelegateApproved={isDelegateApproved}
+              isDelegateApprovedLoading={isDelegateApprovedLoading}
+              approveDelegateAction={approveDelegateAction}
+              isApproveDelegateLoading={isApproveDelegateLoading}
+            />
+          </div>
         </>
+      ) : (
+        <div className="space-y-6">
+          <AssetInfo asset={asset} action="borrow" />
+
+          <ConnectWallet buttonVariant="primary">
+            {t('operationForm.connectWalletButtonLabel')}
+          </ConnectWallet>
+        </div>
       )}
-
-      <div className="space-y-6">
-        <AccountData
-          asset={asset}
-          pool={pool}
-          amountTokens={new BigNumber(formValues.amountTokens || 0)}
-          action="borrow"
-        />
-
-        <SubmitSection
-          isFormSubmitting={isSubmitting}
-          safeLimitTokens={safeLimitTokens}
-          isFormValid={isFormValid}
-          fromTokenAmountTokens={formValues.amountTokens}
-          isDelegateApproved={isDelegateApproved}
-          isDelegateApprovedLoading={isDelegateApprovedLoading}
-          approveDelegateAction={approveDelegateAction}
-          isApproveDelegateLoading={isApproveDelegateLoading}
-        />
-      </div>
     </form>
   );
 };
@@ -229,12 +258,27 @@ export interface BorrowFormProps {
 }
 
 const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess }) => {
+  const { accountAddress } = useAccountAddress();
+
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
-  const [formValues, setFormValues] = useState<FormValues>({
-    amountTokens: '',
-    fromToken: asset.vToken.underlyingToken,
-    receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
-  });
+
+  const initialFormValues: FormValues = useMemo(
+    () => ({
+      amountTokens: '',
+      fromToken: asset.vToken.underlyingToken,
+      receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
+    }),
+    [asset],
+  );
+
+  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+
+  // Reset form when user disconnects their wallet
+  useEffect(() => {
+    if (!accountAddress) {
+      setFormValues(initialFormValues);
+    }
+  }, [accountAddress, initialFormValues]);
 
   const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({
     poolName: pool.name,
@@ -270,6 +314,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
 
   return (
     <BorrowFormUi
+      isUserConnected={!!accountAddress}
       isWrapUnwrapNativeTokenEnabled={isWrapUnwrapNativeTokenEnabled}
       asset={asset}
       pool={pool}

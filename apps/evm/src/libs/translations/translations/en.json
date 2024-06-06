@@ -42,12 +42,7 @@
     "borrowLimit": "Borrow limit",
     "borrowLimitUsed": "Borrow limit used",
     "dailyEarnings": "Daily earnings",
-    "supplyBalance": "Supply balance ({{tokenSymbol}})",
-    "totalApy": {
-      "borrowApyTooltip": "Borrow APY - Distribution APYs",
-      "label": "Total APY",
-      "supplyApyTooltip": "Supply APY + Distribution APYs"
-    }
+    "supplyBalance": "Supply balance ({{tokenSymbol}})"
   },
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
@@ -121,7 +116,12 @@
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
     "distributionTooltip": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
     "primeApy": "Prime APY ({{tokenSymbol}})",
-    "supplyApy": "Supply APY"
+    "supplyApy": "Supply APY",
+    "totalApy": {
+      "borrowApyTooltip": "Borrow APY - Distribution APYs",
+      "label": "Total APY",
+      "supplyApyTooltip": "Supply APY + Distribution APYs"
+    }
   },
   "assetWarning": {
     "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool. <Button>Show all tokens</Button>",
@@ -521,11 +521,9 @@
     "safeLimitTooltip": "{{safeBorrowLimitPercentage}} of your borrow limit. We consider borrowing above this threshold unsafe."
   },
   "operationForm": {
-    "borrow": {
-      "connectWalletMessage": "Please connect your wallet to borrow"
-    },
     "borrowableAmount": "Borrowable Amount",
     "borrowTabTitle": "Borrow",
+    "connectWalletButtonLabel": "Connect wallet",
     "error": {
       "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "higherThanAvailableLiquidity": "Insufficient asset liquidity",
@@ -549,7 +547,6 @@
       "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
     },
     "repay": {
-      "connectWalletMessage": "Please connect your wallet to repay",
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     },
@@ -566,7 +563,6 @@
     "suppliableAmount": "Suppliable amount",
     "supply": {
       "collateral": "Collateral",
-      "connectWalletMessage": "Please connect your wallet to supply",
       "youCanWrapNative": "You can wrap {{nativeTokenSymbol}} into {{wrappedNativeTokenSymbol}} in <Link>Uniswap</Link>"
     },
     "supplyTabTitle": "Supply",
@@ -596,9 +592,6 @@
     "warning": {
       "aboveSafeLimit": "You entered a high value. There is a risk of liquidation.",
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
-    },
-    "withdraw": {
-      "connectWalletMessage": "Please connect your wallet to withdraw"
     },
     "withdrawableAmount": "Withdrawable amount",
     "withdrawTabTitle": "Withdraw"
