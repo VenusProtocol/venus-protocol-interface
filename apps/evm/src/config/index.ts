@@ -14,6 +14,12 @@ export interface Config {
       webSocket?: string;
     };
   };
+  subgraphUrls: Partial<{
+    [chainId in ChainId]: {
+      markets?: string;
+      governance?: string;
+    };
+  }>;
   sentryDsn: string;
   posthog: {
     apiKey: string;
@@ -60,6 +66,26 @@ const rpcUrls = {
   },
 };
 
+const subgraphUrls = {
+  [ChainId.BSC_MAINNET]: {
+    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_BSC_MAINNET,
+    governance: ENV_VARIABLES.VITE_SUBGRAPH_GOVERNANCE_URL_BSC_MAINNET,
+  },
+  [ChainId.BSC_TESTNET]: {
+    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_BSC_TESTNET,
+    governance: ENV_VARIABLES.VITE_SUBGRAPH_GOVERNANCE_URL_BSC_TESTNET,
+  },
+  [ChainId.OPBNB_MAINNET]: {
+    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_OPBNB_MAINNET,
+  },
+  [ChainId.ETHEREUM]: {
+    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_ETHEREUM,
+  },
+  [ChainId.SEPOLIA]: {
+    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_SEPOLIA,
+  },
+};
+
 const apiUrl = API_ENDPOINT_URLS[environment];
 
 const config: Config = {
@@ -68,6 +94,7 @@ const config: Config = {
   isLocalServer,
   apiUrl,
   rpcUrls,
+  subgraphUrls,
   sentryDsn: ENV_VARIABLES.VITE_SENTRY_DSN || '',
   posthog: {
     apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',

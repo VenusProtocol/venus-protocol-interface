@@ -1,7 +1,7 @@
 import { request } from 'graphql-request';
 
 import { ProposalPreviewsDocument, type ProposalPreviewsQueryVariables } from 'clients/subgraph';
-import { SUBGRAPH_URLS } from 'constants/subgraphUrls';
+import config from 'config';
 import type { ChainId } from 'types';
 
 export interface GetProposalPreviewsInput {
@@ -10,9 +10,9 @@ export interface GetProposalPreviewsInput {
 }
 
 export const getProposalPreviews = ({ chainId, variables }: GetProposalPreviewsInput) =>
-  SUBGRAPH_URLS.governance[chainId]
+  config.subgraphUrls[chainId]?.governance
     ? request({
-        url: SUBGRAPH_URLS.governance[chainId]!,
+        url: config.subgraphUrls[chainId]!.governance!,
         variables,
         document: ProposalPreviewsDocument,
       })
