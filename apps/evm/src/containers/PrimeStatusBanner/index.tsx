@@ -191,7 +191,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
               hidePromotionalTitle && 'mb-4 inline-block',
             )}
           >
-            <PrimeTokensLeft tokensLeft={primeTokensLeft} />
+            <PrimeTokensLeft count={primeTokensLeft} />
           </div>
         )}
         {displayWarning && hidePromotionalTitle && (

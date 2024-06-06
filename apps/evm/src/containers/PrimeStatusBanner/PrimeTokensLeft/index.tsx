@@ -2,10 +2,10 @@ import { Pill } from 'components';
 import { useTranslation } from 'libs/translations';
 
 interface PrimeTokensLeftProps {
-  tokensLeft: number;
+  count: number;
 }
 
-const PrimeTokensLeft = ({ tokensLeft }: PrimeTokensLeftProps) => {
+const PrimeTokensLeft = ({ count }: PrimeTokensLeftProps) => {
   const { Trans } = useTranslation();
 
   return (
@@ -17,7 +17,7 @@ const PrimeTokensLeft = ({ tokensLeft }: PrimeTokensLeftProps) => {
             WhiteText: <span className="text-offWhite" />,
           }}
           values={{
-            tokensLeft,
+            count,
           }}
         />
       </p>
