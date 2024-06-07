@@ -25,7 +25,7 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
     <Card className="border-lightGrey relative mb-8 overflow-hidden border py-6 sm:p-0 md:p-0">
       <button
         onClick={onHide}
-        className="absolute right-4 top-4 z-10"
+        className="absolute right-4 top-4 z-[1]"
         type="button"
         data-testid={TEST_IDS.closeButton}
       >
