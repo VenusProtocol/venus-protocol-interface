@@ -1,12 +1,14 @@
 import { type UseQueryOptions, type UseQueryResult, useQueries } from 'react-query';
 
 import {
-  type GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
+  type GetXvsVaultPendingWithdrawalsBalanceOutput,
   type GetXvsVaultPoolInfoOutput,
   type GetXvsVaultUserInfoOutput,
-  getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
+  type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput,
+  getXvsVaultPendingWithdrawalsBalance,
   getXvsVaultPoolInfo,
   getXvsVaultUserInfo,
+  getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract } from 'libs/contracts';
@@ -22,7 +24,8 @@ export interface UseGetXvsVaultPoolsInput {
 export type UseGetXvsVaultPoolsOutput = UseQueryResult<
   | GetXvsVaultPoolInfoOutput
   | GetXvsVaultUserInfoOutput
-  | GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput
+  | GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput
+  | GetXvsVaultPendingWithdrawalsBalanceOutput
 >[];
 
 const useGetXvsVaultPools = ({
@@ -40,7 +43,8 @@ const useGetXvsVaultPools = ({
   const poolQueries: UseQueryOptions<
     | GetXvsVaultPoolInfoOutput
     | GetXvsVaultUserInfoOutput
-    | GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput
+    | GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput
+    | GetXvsVaultPendingWithdrawalsBalanceOutput
   >[] = [];
 
   // Fetch pool infos
@@ -64,6 +68,21 @@ const useGetXvsVaultPools = ({
     poolQueries.push({
       queryFn: () =>
         callOrThrow({ xvsVaultContract, xvs }, params =>
+          getXvsVaultPendingWithdrawalsBalance({
+            ...params,
+            rewardTokenAddress: params.xvs.address,
+            poolIndex,
+          }),
+        ),
+      queryKey: [
+        FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_BALANCE,
+        { chainId, accountAddress, rewardTokenAddress: xvs?.address, poolIndex },
+      ],
+    });
+
+    poolQueries.push({
+      queryFn: () =>
+        callOrThrow({ xvsVaultContract, xvs }, params =>
           getXvsVaultUserInfo({
             ...params,
             rewardTokenAddress: params.xvs.address,
@@ -81,7 +100,7 @@ const useGetXvsVaultPools = ({
     poolQueries.push({
       queryFn: () =>
         callOrThrow({ xvsVaultContract, xvs }, params =>
-          getXvsVaultPendingWithdrawalsFromBeforeUpgrade({
+          getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade({
             ...params,
             rewardTokenAddress: params.xvs.address,
             poolIndex,

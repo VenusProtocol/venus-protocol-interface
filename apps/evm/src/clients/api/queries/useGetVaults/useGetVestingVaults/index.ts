@@ -2,9 +2,10 @@ import { useMemo } from 'react';
 import type { UseQueryResult } from 'react-query';
 
 import {
-  type GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput,
+  type GetXvsVaultPendingWithdrawalsBalanceOutput,
   type GetXvsVaultPoolInfoOutput,
   type GetXvsVaultUserInfoOutput,
+  type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput,
   useGetXvsVaultPaused,
   useGetXvsVaultPoolCount,
   useGetXvsVaultTotalAllocationPoints,
@@ -16,6 +17,7 @@ import type { Vault } from 'types';
 import { convertTokensToMantissa, indexBy } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
+import BigNumber from 'bignumber.js';
 import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
 import useGetXvsVaultPools from './useGetXvsVaultPools';
 
@@ -79,8 +81,9 @@ const useGetVestingVaults = ({
     const data: {
       [poolIndex: string]: {
         poolInfos: GetXvsVaultPoolInfoOutput;
+        pendingWithdrawalsBalanceMantissa: BigNumber;
+        userHasPendingWithdrawalsFromBeforeUpgrade: boolean;
         userInfos?: GetXvsVaultUserInfoOutput;
-        hasPendingWithdrawalsFromBeforeUpgrade: boolean;
       };
     } = {};
 
@@ -98,22 +101,31 @@ const useGetVestingVaults = ({
         poolQueryResultStartIndex
       ] as UseQueryResult<GetXvsVaultPoolInfoOutput>;
 
-      const userInfoQueryResult = poolQueryResults[
+      const poolPendingWithdrawalsBalanceQueryResult = poolQueryResults[
         poolQueryResultStartIndex + 1
+      ] as UseQueryResult<GetXvsVaultPendingWithdrawalsBalanceOutput>;
+
+      const userInfoQueryResult = poolQueryResults[
+        poolQueryResultStartIndex + 2
       ] as UseQueryResult<GetXvsVaultUserInfoOutput>;
 
       const userPendingWithdrawalsFromBeforeUpgradeQueryResult = poolQueryResults[
-        poolQueryResultStartIndex + 2
-      ] as UseQueryResult<GetXvsVaultPendingWithdrawalsFromBeforeUpgradeOutput>;
+        poolQueryResultStartIndex + 3
+      ] as UseQueryResult<GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput>;
 
-      if (poolInfosQueryResult?.data) {
+      if (
+        poolInfosQueryResult?.data &&
+        poolPendingWithdrawalsBalanceQueryResult?.data?.balanceMantissa
+      ) {
         tokenAddresses.push(poolInfosQueryResult.data.stakedTokenAddress);
 
         data[poolIndex] = {
           poolInfos: poolInfosQueryResult.data,
           userInfos: userInfoQueryResult.data,
-          hasPendingWithdrawalsFromBeforeUpgrade:
-            userPendingWithdrawalsFromBeforeUpgradeQueryResult.data?.pendingWithdrawalsFromBeforeUpgradeMantissa.isGreaterThan(
+          pendingWithdrawalsBalanceMantissa:
+            poolPendingWithdrawalsBalanceQueryResult.data.balanceMantissa,
+          userHasPendingWithdrawalsFromBeforeUpgrade:
+            userPendingWithdrawalsFromBeforeUpgradeQueryResult.data?.userPendingWithdrawalsFromBeforeUpgradeMantissa.isGreaterThan(
               0,
             ) || false,
         };
@@ -154,13 +166,20 @@ const useGetVestingVaults = ({
     () =>
       Array.from({ length: xvsVaultPoolCountData.poolCount }).reduce<Vault[]>(
         (acc, _item, poolIndex) => {
-          const totalStakedMantissaData = poolBalances[poolIndex];
           const lockingPeriodMs = poolData[poolIndex]?.poolInfos.lockingPeriodMs;
           const userStakedMantissa = poolData[poolIndex]?.userInfos?.stakedAmountMantissa.minus(
             poolData[poolIndex]?.userInfos?.pendingWithdrawalsTotalAmountMantissa || 0,
           );
-          const hasPendingWithdrawalsFromBeforeUpgrade =
-            poolData[poolIndex]?.hasPendingWithdrawalsFromBeforeUpgrade;
+
+          const userHasPendingWithdrawalsFromBeforeUpgrade =
+            poolData[poolIndex]?.userHasPendingWithdrawalsFromBeforeUpgrade;
+
+          const pendingWithdrawalsMantissa = poolData[poolIndex]?.pendingWithdrawalsBalanceMantissa;
+          const totalStakedMantissaData = poolBalances[poolIndex];
+
+          const totalStakedMantissa = totalStakedMantissaData
+            ? totalStakedMantissaData.balanceMantissa.minus(pendingWithdrawalsMantissa ?? 0)
+            : new BigNumber(0);
 
           const stakedToken =
             poolData[poolIndex]?.poolInfos?.stakedTokenAddress &&
@@ -185,18 +204,13 @@ const useGetVestingVaults = ({
               token: xvs!,
             });
 
-          const stakingAprPercentage =
-            dailyDistributedXvsMantissa &&
-            totalStakedMantissaData &&
-            dailyDistributedXvsMantissa
-              .multipliedBy(DAYS_PER_YEAR)
-              .div(
-                totalStakedMantissaData.balanceMantissa.isGreaterThan(0)
-                  ? totalStakedMantissaData.balanceMantissa
-                  : 1, // Prevent dividing by 0 if balance is 0
-              )
-              .multipliedBy(100)
-              .toNumber();
+          const stakingAprPercentage = dailyDistributedXvsMantissa
+            ?.multipliedBy(DAYS_PER_YEAR)
+            .div(
+              totalStakedMantissa.isGreaterThan(0) ? totalStakedMantissa : 1, // Prevent dividing by 0 if balance is 0
+            )
+            .multipliedBy(100)
+            .toNumber();
 
           if (
             !!stakedToken &&
@@ -213,11 +227,11 @@ const useGetVestingVaults = ({
               stakedToken,
               lockingPeriodMs,
               dailyEmissionMantissa: dailyDistributedXvsMantissa,
-              totalStakedMantissa: totalStakedMantissaData.balanceMantissa,
+              totalStakedMantissa,
               stakingAprPercentage,
               userStakedMantissa,
               poolIndex,
-              hasPendingWithdrawalsFromBeforeUpgrade,
+              userHasPendingWithdrawalsFromBeforeUpgrade,
             };
 
             return [...acc, vault];

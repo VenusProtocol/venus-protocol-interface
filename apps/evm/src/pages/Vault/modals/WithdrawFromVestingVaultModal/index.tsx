@@ -14,14 +14,14 @@ export interface WithdrawFromVestingVaultModalProps {
   handleClose: ModalProps['handleClose'];
   stakedToken: Token;
   poolIndex: number;
-  hasPendingWithdrawalsFromBeforeUpgrade: boolean;
+  userHasPendingWithdrawalsFromBeforeUpgrade: boolean;
 }
 
 const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps> = ({
   handleClose,
   stakedToken,
   poolIndex,
-  hasPendingWithdrawalsFromBeforeUpgrade,
+  userHasPendingWithdrawalsFromBeforeUpgrade,
 }) => {
   const [initialActiveTabIndex, setInitialActiveTabIndex] = useState(0);
   const [shouldDisplayWithdrawalRequestList, setShouldDisplayWithdrawalRequestList] =
@@ -59,7 +59,7 @@ const WithdrawFromVestingVaultModal: React.FC<WithdrawFromVestingVaultModalProps
         <WithdrawalRequestList poolIndex={poolIndex} />
       ) : (
         <>
-          {hasPendingWithdrawalsFromBeforeUpgrade ? (
+          {userHasPendingWithdrawalsFromBeforeUpgrade ? (
             <>
               <div css={styles.tabContainer}>
                 <Withdraw

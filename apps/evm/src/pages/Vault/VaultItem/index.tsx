@@ -34,7 +34,7 @@ export interface VaultItemUiProps {
   poolIndex?: number;
   activeModal?: ActiveModal;
   userStakedMantissa?: BigNumber;
-  hasPendingWithdrawalsFromBeforeUpgrade?: boolean;
+  userHasPendingWithdrawalsFromBeforeUpgrade?: boolean;
   className?: string;
 }
 
@@ -52,7 +52,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   activeModal,
   poolIndex,
   closeActiveModal,
-  hasPendingWithdrawalsFromBeforeUpgrade,
+  userHasPendingWithdrawalsFromBeforeUpgrade,
   className,
 }) => {
   const styles = useStyles();
@@ -173,7 +173,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           ))}
         </ul>
 
-        {(isPaused || hasPendingWithdrawalsFromBeforeUpgrade) && (
+        {(isPaused || userHasPendingWithdrawalsFromBeforeUpgrade) && (
           <NoticeWarning
             description={
               isPaused
@@ -189,7 +189,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
             onClick={onStake}
             css={styles.button}
             variant="primary"
-            disabled={isPaused || hasPendingWithdrawalsFromBeforeUpgrade}
+            disabled={isPaused || userHasPendingWithdrawalsFromBeforeUpgrade}
           >
             {t('vaultItem.stakeButton')}
           </Button>
@@ -225,7 +225,9 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
           handleClose={closeActiveModal}
           stakedToken={stakedToken}
           poolIndex={poolIndex}
-          hasPendingWithdrawalsFromBeforeUpgrade={hasPendingWithdrawalsFromBeforeUpgrade || false}
+          userHasPendingWithdrawalsFromBeforeUpgrade={
+            userHasPendingWithdrawalsFromBeforeUpgrade || false
+          }
         />
       )}
     </>

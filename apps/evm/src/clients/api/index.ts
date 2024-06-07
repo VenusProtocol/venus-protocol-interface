@@ -236,6 +236,8 @@ export { default as getXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo';
 export * from './queries/getXvsVaultPoolInfo';
 export { default as useGetXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo/useGetXvsVaultPoolInfo';
 
+export * from './queries/getXvsVaultPendingWithdrawalsBalance';
+
 export * from './queries/getXvsVaultsTotalDailyDistributedXvs';
 export * from './queries/getXvsVaultsTotalDailyDistributedXvs/useGetXvsVaultsTotalDailyDistributedXvs';
 
@@ -326,9 +328,9 @@ export { default as getVaiRepayApr } from './queries/getVaiRepayApr';
 export * from './queries/getVaiRepayApr';
 export { default as useGetVaiRepayApr } from './queries/getVaiRepayApr/useGetVaiRepayApr';
 
-export { default as getXvsVaultPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
-export * from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade';
-export { default as useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade';
+export { default as getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
+export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
+export { default as useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade';
 
 export { default as getVTokens } from './queries/getVTokens';
 export * from './queries/getVTokens';
