@@ -35,6 +35,7 @@ export const featureFlags = {
     ChainId.OPBNB_MAINNET,
     ChainId.ETHEREUM,
     ChainId.SEPOLIA,
+    ChainId.ARBITRUM_ONE,
   ],
   isolatedPools: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.ETHEREUM, ChainId.SEPOLIA],
   bridgeRoute: [
