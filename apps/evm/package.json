@@ -126,7 +126,7 @@
     "@vitejs/plugin-react": "^4.0.4",
     "@vitest/coverage-v8": "^0.34.4",
     "autoprefixer": "^10.4.16",
-    "c8": "^9.1.0",
+    "c8": "^10.0.0",
     "fs": "^0.0.1-security",
     "genversion": "^3.1.1",
     "handlebars": "^4.7.8",
