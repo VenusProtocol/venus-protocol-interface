@@ -104,6 +104,10 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_ARBITRUM_ONE
       : import.meta.env.VITE_RPC_HTTP_URL_ARBITRUM_ONE,
+  VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_ONE:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_ONE
+      : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_ONE,
 
   // Arbitrum Sepolia RPC provider
   VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA:
