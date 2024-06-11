@@ -136,11 +136,11 @@ export const getXvsVaultPoolCount = vi.fn();
 export const useGetXvsVaultPoolCount = () =>
   useQuery(FunctionKey.GET_XVS_VAULT_POOLS_COUNT, getXvsVaultPoolCount);
 
-export const getXvsVaultPendingWithdrawalsFromBeforeUpgrade = vi.fn();
-export const useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade = () =>
+export const getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = vi.fn();
+export const useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = () =>
   useQuery(
     FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE,
-    getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
+    getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
   );
 
 export const useGetLegacyPoolTotalXvsDistributed = vi.fn();
@@ -382,6 +382,10 @@ export const useGetIsolatedPoolVTokenLiquidationThreshold = vi.fn(() =>
     getIsolatedPoolVTokenLiquidationThreshold,
   ),
 );
+
+export const getXvsVaultPendingWithdrawalsBalance = vi.fn(async () => ({
+  balanceMantissa: 0,
+}));
 
 // Mutations
 export const approveToken = vi.fn();

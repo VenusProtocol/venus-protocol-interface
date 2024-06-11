@@ -14,11 +14,12 @@ import {
   getLegacyPoolMarkets,
   getVaiVaultUserInfo,
   getVenusVaiVaultDailyRate,
-  getXvsVaultPendingWithdrawalsFromBeforeUpgrade,
+  getXvsVaultPendingWithdrawalsBalance,
   getXvsVaultPoolCount,
   getXvsVaultPoolInfo,
   getXvsVaultTotalAllocationPoints,
   getXvsVaultUserInfo,
+  getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
   getXvsVaultsTotalDailyDistributedXvs,
 } from 'clients/api';
 import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
@@ -32,6 +33,9 @@ describe('api/queries/useGetVaults', () => {
     (getXvsVaultPoolCount as Vi.Mock).mockImplementation(() => ({
       poolCount: xvsVaultResponses.poolLength,
     }));
+    (getXvsVaultPendingWithdrawalsBalance as Vi.Mock).mockImplementation(() => ({
+      balanceMantissa: new BigNumber('1000000000'),
+    }));
     (getXvsVaultTotalAllocationPoints as Vi.Mock).mockImplementation(() => ({
       totalAllocationPoints: new BigNumber(xvsVaultResponses.totalAllocPoints.toString()),
     }));
@@ -44,8 +48,8 @@ describe('api/queries/useGetVaults', () => {
     (getBalanceOf as Vi.Mock).mockImplementation(() => ({
       balanceMantissa: new BigNumber('4000000000'),
     }));
-    (getXvsVaultPendingWithdrawalsFromBeforeUpgrade as Vi.Mock).mockImplementation(() => ({
-      pendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber('100000'),
+    (getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade as Vi.Mock).mockImplementation(() => ({
+      userPendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber('100000'),
     }));
 
     (getLegacyPoolMarkets as Vi.Mock).mockImplementation(() => ({ markets }));

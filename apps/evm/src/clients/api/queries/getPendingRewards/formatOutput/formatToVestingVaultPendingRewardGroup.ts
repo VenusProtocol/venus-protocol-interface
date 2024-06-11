@@ -25,13 +25,13 @@ const formatToVestingVaultPendingRewardGroup = ({
   tokens: Token[];
   stakedTokenAddress: string;
 }) => {
-  const hasPendingWithdrawalsFromBeforeUpgrade =
+  const userHasPendingWithdrawalsFromBeforeUpgrade =
     userPendingWithdrawalsBeforeUpgradeAmountMantissa.toNumber() > 0;
 
   // Return undefined if user has pending withdrawal requests from before the contract upgrade,
   // meaning they first need to execute their withdrawals before they can do anything with this
   // vault
-  if (hasPendingWithdrawalsFromBeforeUpgrade) {
+  if (userHasPendingWithdrawalsFromBeforeUpgrade) {
     return;
   }
 
