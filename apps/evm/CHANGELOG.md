@@ -1,5 +1,21 @@
 # @venusprotocol/evm
 
+## 2.125.0
+
+### Minor Changes
+
+- 7eb620f: update offline state of Operation forms
+- fafe200: get subgraph URLs from env variables
+- 76425cc: hide 0 distributions on new Market page
+- bbdc37a: enabled the XVS bridge between all networks
+- 1b36d72: Final tweaks following feedbacks on the new Market page before release
+- d463219: Remove pending withdrawals from total staked displayed for vesting XVS vaults
+
+### Patch Changes
+
+- 68b09de: Fix z-index of close icon on Prime promotional banner
+- 1754fd7: Fix pluralization typo
+
 ## 2.124.0
 
 ### Minor Changes
