@@ -4,6 +4,7 @@ import daiLogo from 'libs/tokens/img/dai.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
 import fraxLogo from 'libs/tokens/img/frax.svg';
 import ptWeethLogo from 'libs/tokens/img/ptWeeth.svg';
+import rsEthLogo from 'libs/tokens/img/rsEth.png';
 import sFraxLogo from 'libs/tokens/img/sFrax.svg';
 import tusdLogo from 'libs/tokens/img/tusd.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
@@ -109,5 +110,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'PT-weETH-DEC24',
     asset: ptWeethLogo,
+  },
+  {
+    address: '0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7',
+    decimals: 18,
+    symbol: 'rsETH',
+    asset: rsEthLogo,
   },
 ];
