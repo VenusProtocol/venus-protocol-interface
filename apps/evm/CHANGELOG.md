@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.125.1
+
+### Patch Changes
+
+- 52e317e: Memoize Supply form initial values to prevent render loop
+
 ## 2.125.0
 
 ### Minor Changes
