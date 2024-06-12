@@ -456,13 +456,16 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   const shouldSelectNativeToken =
     canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
 
-  const initialFormValues: FormValues = {
-    amountTokens: '',
-    fromToken:
-      shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
-        ? asset.vToken.underlyingToken.tokenWrapped
-        : asset.vToken.underlyingToken,
-  };
+  const initialFormValues: FormValues = useMemo(
+    () => ({
+      amountTokens: '',
+      fromToken:
+        shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
+          ? asset.vToken.underlyingToken.tokenWrapped
+          : asset.vToken.underlyingToken,
+    }),
+    [asset, shouldSelectNativeToken],
+  );
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
