@@ -9217,9 +9217,9 @@ bytes@3.1.2:
   integrity sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==
 
 c8@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/c8/-/c8-10.0.0.tgz#a28fe2268926e5d7486bc803755f4d5b4db18371"
-  integrity sha512-rdQecjxw16P8kwgMBjruaQyfF+R2o/mucCCK4VPktwq2HFMWLOHGyUasb46+WlUOVJX94d6dZolcJxzjCzWmXg==
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/c8/-/c8-10.1.1.tgz#797e324386257506bff782f9eb2af868d103993d"
+  integrity sha512-+aAvpNMwnzncW27XsEf2eMrGTF8HXIGZ24UQ1dW679+8SQ/UvDXxHNoKwMohcI9ZVj0xl/bI4/meqxvIWOBYaw==
   dependencies:
     "@bcoe/v8-coverage" "^0.2.3"
     "@istanbuljs/schema" "^0.1.3"
