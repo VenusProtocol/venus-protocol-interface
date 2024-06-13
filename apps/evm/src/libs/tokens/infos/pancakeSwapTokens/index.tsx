@@ -2,6 +2,7 @@ import { tokens as bscMainnetTokens } from 'libs/tokens/generated/pancakeSwapTok
 import type { TokenMapping } from 'libs/tokens/types';
 import { ChainId } from 'types';
 
+import { tokens as arbitrumOneTokens } from './arbitrumOne';
 import { tokens as arbitrumSepoliaTokens } from './arbitrumSepolia';
 import { tokens as bscTestnetTokens } from './bscTestnet';
 import { tokens as ethereumTokens } from './ethereum';
@@ -17,4 +18,5 @@ export const pancakeSwapTokens: TokenMapping = {
   [ChainId.ETHEREUM]: ethereumTokens,
   [ChainId.SEPOLIA]: sepoliaTokens,
   [ChainId.ARBITRUM_SEPOLIA]: arbitrumSepoliaTokens,
+  [ChainId.ARBITRUM_ONE]: arbitrumOneTokens,
 };

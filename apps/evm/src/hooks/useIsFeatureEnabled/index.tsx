@@ -9,6 +9,7 @@ export const featureFlags = {
     ChainId.SEPOLIA,
     ChainId.ETHEREUM,
     ChainId.ARBITRUM_SEPOLIA,
+    ChainId.ARBITRUM_ONE,
   ],
   primeCalculator: [
     ChainId.BSC_MAINNET,
@@ -34,6 +35,7 @@ export const featureFlags = {
     ChainId.OPBNB_MAINNET,
     ChainId.ETHEREUM,
     ChainId.SEPOLIA,
+    ChainId.ARBITRUM_ONE,
   ],
   isolatedPools: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.ETHEREUM, ChainId.SEPOLIA],
   bridgeRoute: [
@@ -44,6 +46,7 @@ export const featureFlags = {
     ChainId.OPBNB_MAINNET,
     ChainId.OPBNB_TESTNET,
     ChainId.ARBITRUM_SEPOLIA,
+    ChainId.ARBITRUM_ONE,
   ],
   wrapUnwrapNativeToken: [
     ChainId.BSC_MAINNET,
@@ -52,6 +55,8 @@ export const featureFlags = {
     ChainId.SEPOLIA,
     ChainId.OPBNB_MAINNET,
     ChainId.OPBNB_TESTNET,
+    ChainId.ARBITRUM_SEPOLIA,
+    ChainId.ARBITRUM_ONE,
   ],
   governanceSearch: [
     ChainId.BSC_TESTNET,
@@ -61,6 +66,7 @@ export const featureFlags = {
     ChainId.OPBNB_TESTNET,
     ChainId.OPBNB_MAINNET,
     ChainId.ARBITRUM_SEPOLIA,
+    ChainId.ARBITRUM_ONE,
   ],
   newMarketPage: [
     ChainId.BSC_TESTNET,
@@ -70,6 +76,7 @@ export const featureFlags = {
     ChainId.OPBNB_TESTNET,
     ChainId.OPBNB_MAINNET,
     ChainId.ARBITRUM_SEPOLIA,
+    ChainId.ARBITRUM_ONE,
   ],
 };
 
