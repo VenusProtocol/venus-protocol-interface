@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.126.0
+
+### Minor Changes
+
+- 3272570: Add rsETH token record on Seporia and Ethereum
+- cddb5c5: Add support for Arbitrum One network
+
 ## 2.125.1
 
 ### Patch Changes
