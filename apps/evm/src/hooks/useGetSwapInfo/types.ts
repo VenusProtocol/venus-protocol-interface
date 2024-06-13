@@ -2,7 +2,7 @@ import type {
   Currency as PSCurrency,
   Trade as PSTrade,
   TradeType as PSTradeType,
-} from '@pancakeswap/sdk/dist/index.js';
+} from '@pancakeswap/sdk';
 
 import type { Swap, SwapDirection, SwapError, Token } from 'types';
 

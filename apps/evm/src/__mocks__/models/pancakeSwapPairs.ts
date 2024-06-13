@@ -1,4 +1,4 @@
-import { CurrencyAmount as PSCurrencyAmount, Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
+import { CurrencyAmount as PSCurrencyAmount, Pair as PSPair } from '@pancakeswap/sdk';
 import BigNumber from 'bignumber.js';
 
 import fakeTokenCombinations from '__mocks__/models/tokenCombinations';

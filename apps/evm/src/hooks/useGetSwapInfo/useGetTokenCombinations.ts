@@ -1,4 +1,4 @@
-import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
+import { Token as PSToken } from '@pancakeswap/sdk';
 import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
 

@@ -1,4 +1,4 @@
-import { Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
+import { Pair as PSPair } from '@pancakeswap/sdk';
 
 import { getPancakePairV2Contract } from 'libs/contracts';
 

@@ -1,7 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [".nvmrc", "tsconfig.json", "vite.config.ts"],
-  "pipeline": {
+  "globalDependencies": [
+    ".nvmrc",
+    "tsconfig.json",
+    "vite.config.ts"
+  ],
+  "tasks": {
     "generate": {
       "outputs": [
         "src/constants/version.ts",
@@ -12,17 +16,26 @@
       ]
     },
     "start": {
-      "dependsOn": ["^build", "generate"],
+      "dependsOn": [
+        "^build",
+        "generate"
+      ],
       "cache": false,
       "persistent": true
     },
     "test": {
       "cache": false,
-      "outputs": ["coverage/**/*"]
+      "outputs": [
+        "coverage/**/*"
+      ]
     },
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["build/**/*"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "build/**/*"
+      ]
     },
     "lint": {
       "cache": false
