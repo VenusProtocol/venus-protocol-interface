@@ -4,7 +4,7 @@ import {
   Token as PSToken,
   Trade as PSTrade,
   type TradeType as PSTradeType,
-} from '@pancakeswap/sdk/dist/index.js';
+} from '@pancakeswap/sdk';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 

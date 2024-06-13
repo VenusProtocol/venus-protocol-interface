@@ -1,4 +1,4 @@
-import { Percent as PSPercent } from '@pancakeswap/sdk/dist/index.js';
+import { Percent as PSPercent } from '@pancakeswap/sdk';
 import BigNumber from 'bignumber.js';
 
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';

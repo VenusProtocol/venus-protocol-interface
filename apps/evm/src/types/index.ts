@@ -1,4 +1,4 @@
-import type { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
+import type { Token as PSToken } from '@pancakeswap/sdk';
 import type BigNumber from 'bignumber.js';
 
 export type NonNullableFields<T> = Required<{
