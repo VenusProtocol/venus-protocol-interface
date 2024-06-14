@@ -1,4 +1,4 @@
-import { CurrencyAmount as PSCurrencyAmount, Pair as PSPair } from '@pancakeswap/sdk/dist/index.js';
+import { CurrencyAmount as PSCurrencyAmount, Pair as PSPair } from '@pancakeswap/sdk';
 
 import type { PancakePairV2 } from 'libs/contracts';
 import { areAddressesEqual } from 'utilities';

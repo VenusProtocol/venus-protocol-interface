@@ -1,4 +1,4 @@
-import { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
+import { Token as PSToken } from '@pancakeswap/sdk';
 import BigNumber from 'bignumber.js';
 
 import { busd, xvs } from '__mocks__/models/tokens';

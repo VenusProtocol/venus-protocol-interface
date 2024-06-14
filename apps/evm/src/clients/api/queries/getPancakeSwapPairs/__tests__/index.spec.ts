@@ -1,4 +1,4 @@
-import type { Token as PSToken } from '@pancakeswap/sdk/dist/index.js';
+import type { Token as PSToken } from '@pancakeswap/sdk';
 import { BigNumber as BN } from 'ethers';
 import type Vi from 'vitest';
 
