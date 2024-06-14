@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
-import { Spinner } from 'components';
+import { ButtonGroup, Spinner } from 'components';
 import { ApyChart, type ApyChartProps } from 'components/charts/ApyChart';
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
@@ -10,12 +10,17 @@ import {
   getCombinedDistributionApys,
 } from 'utilities';
 
+import { useGetPoolLiquidationIncentive } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { MarketCard, type MarketCardProps } from '../../MarketCard';
-import { useGetPoolLiquidationIncentive } from 'clients/api';
 import { useGetLiquidationThresholdPercentage } from './useGetLiquidationThresholdPercentage';
 
-interface CardProps {
+const ENTRIES_PER_DAY = 1;
+const ENTRIES_PER_30_DAYS = ENTRIES_PER_DAY * 30;
+const ENTRIES_PER_6_MONTHS = ENTRIES_PER_30_DAYS * 6;
+const ENTRIES_PER_YEAR = ENTRIES_PER_6_MONTHS * 2;
+
+export interface CardProps {
   type: ApyChartProps['type'];
   asset: Asset;
   data: ApyChartProps['data'];
@@ -36,6 +41,33 @@ export const Card: React.FC<CardProps> = ({
   const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
   const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
   const shouldDisplayLiquidationInfo = isNewMarketPageEnabled && type === 'borrow';
+
+  const [selectedPeriodIndex, setSelectedPeriodIndex] = useState(0);
+  const periodOptions = useMemo(
+    () => [
+      {
+        label: t('market.periodOption.thirtyDays'),
+        value: ENTRIES_PER_30_DAYS,
+      },
+      {
+        label: t('market.periodOption.sixMonths'),
+        value: ENTRIES_PER_6_MONTHS,
+      },
+      {
+        label: t('market.periodOption.oneYear'),
+        value: ENTRIES_PER_YEAR,
+      },
+    ],
+    [t],
+  );
+
+  // Splice data based on selected period
+  const formattedData = useMemo(
+    () =>
+      // Data is expected to be received in chronological order, from the oldest entry to the newest
+      data.slice(data.length - periodOptions[selectedPeriodIndex].value),
+    [data, selectedPeriodIndex, periodOptions],
+  );
 
   const { data: getPoolLiquidationIncentiveData } = useGetPoolLiquidationIncentive(
     {
@@ -122,15 +154,21 @@ export const Card: React.FC<CardProps> = ({
 
   return (
     <MarketCard
-      title={t('market.supplyInfo.title')}
+      title={type === 'supply' ? t('market.supplyInfo.title') : t('market.borrowInfo.title')}
       stats={stats}
       legends={isApyChartsFeatureEnabled ? legends : undefined}
-      rightLabel={<div>Test</div>} // TODO: add period select
+      rightLabel={
+        <ButtonGroup
+          buttonLabels={periodOptions.map(p => p.label)}
+          activeButtonIndex={selectedPeriodIndex}
+          onButtonClick={index => setSelectedPeriodIndex(index)}
+        />
+      }
       {...otherProps}
     >
       {isLoading && data.length === 0 && <Spinner />}
 
-      {data.length > 0 && <ApyChart data={data} type={type} />}
+      {data.length > 0 && <ApyChart data={formattedData} type={type} />}
     </MarketCard>
   );
 };

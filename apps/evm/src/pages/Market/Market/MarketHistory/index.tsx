@@ -1,8 +1,8 @@
 import type { Asset } from 'types';
 
 import TEST_IDS from '../../testIds';
-import useGetChartData from './useGetChartData';
 import { Card } from './Card';
+import useGetChartData from './useGetChartData';
 
 interface MarketHistoryProps {
   asset: Asset;

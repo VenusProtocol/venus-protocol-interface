@@ -405,6 +405,9 @@
   },
   "market": {
     "borrowButtonLabel": "Borrow",
+    "borrowInfo": {
+      "title": "Borrow info"
+    },
     "interestRateModel": {
       "title": "Interest Rate Model"
     },
@@ -433,6 +436,11 @@
         "unlimitedBorrowCap": "Uncapped",
         "unlimitedSupplyCap": "Uncapped"
       }
+    },
+    "periodOption": {
+      "oneYear": "1Y",
+      "sixMonths": "6M",
+      "thirtyDays": "30D"
     },
     "stats": {
       "apy": "APY",
