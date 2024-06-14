@@ -126,7 +126,6 @@ const useGetMenuItems = () => {
     if (bridgeRouteEnabled) {
       menuItems.push({
         to: routes.bridge.path,
-        isNew: true,
         // Translation key: do not remove this comment
         // t('layout.menuItems.bridge')
         i18nKey: 'layout.menuItems.bridge',
