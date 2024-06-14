@@ -2,11 +2,10 @@ import BigNumber from 'bignumber.js';
 import { type GetTokenBalancesOutput, useGetTokenBalances } from 'clients/api';
 import { type Cell, CellGroup, type CellGroupProps } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'libs/contracts';
+import { useGetVTreasuryContractAddress } from 'hooks/useGetVTreasuryContractAddress';
 import { useTranslation } from 'libs/translations';
-import { useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
-import { ChainId, type Pool } from 'types';
+import type { Pool } from 'types';
 import { convertMantissaToTokens, formatCentsToReadableValue, indexBy } from 'utilities';
 
 type PoolStat = 'supply' | 'borrow' | 'liquidity' | 'assetCount' | 'treasury';
@@ -18,26 +17,19 @@ export interface PoolStatsProps extends Omit<CellGroupProps, 'cells'> {
 
 export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProps }) => {
   const { t } = useTranslation();
-  const { chainId } = useChainId();
 
   const assets = useMemo(() => pools.flatMap(pool => pool.assets), [pools]);
   const tokens = useMemo(() => assets.map(asset => asset.vToken.underlyingToken), [assets]);
 
-  const treasuryContractAddress = useMemo(
-    () =>
-      chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
-        ? getVTreasuryContractAddress({ chainId })
-        : getVTreasuryV8ContractAddress({ chainId }),
-    [chainId],
-  );
+  const vTreasuryContractAddress = useGetVTreasuryContractAddress();
 
   const { data: getTreasuryTokenBalancesData } = useGetTokenBalances(
     {
-      accountAddress: treasuryContractAddress || '',
+      accountAddress: vTreasuryContractAddress || '',
       tokens,
     },
     {
-      enabled: stats.includes('treasury') && !!treasuryContractAddress,
+      enabled: stats.includes('treasury') && !!vTreasuryContractAddress,
     },
   );
 

@@ -8,6 +8,7 @@ export interface GetIsolatedPoolsInput {
   tokens: Token[];
   provider: Provider;
   poolRegistryContractAddress: string;
+  vTreasuryContractAddress: string;
   poolLensContract: PoolLens;
   resilientOracleContract: ResilientOracle;
   blocksPerDay?: number;

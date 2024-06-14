@@ -2,24 +2,23 @@ import { BigNumber as BN } from 'ethers';
 import type Vi from 'vitest';
 
 import fakePrimeContractResponses from '__mocks__/contracts/prime';
-import fakeAccountAddress from '__mocks__/models/address';
+import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
+import fakeProvider from '__mocks__/models/provider';
 import tokens, { vai, xvs } from '__mocks__/models/tokens';
 
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Prime } from 'libs/contracts';
 import { ChainId } from 'types';
 
+import { getLegacyPoolMarkets } from 'clients/api';
 import getLegacyPool from '..';
-import getLegacyPoolMarkets from '../../getLegacyPoolMarkets';
 import {
   fakeLegacyPoolComptrollerContract,
   fakeResilientOracleContract,
   fakeVaiControllerContract,
   fakeVenusLensContract,
 } from '../__testUtils__/fakeData';
-
-vi.mock('../../getLegacyPoolMarkets');
 
 describe('getLegacyPool - Feature enabled: Prime', () => {
   beforeEach(() => {
@@ -53,6 +52,8 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
       vaiControllerContract: fakeVaiControllerContract,
       resilientOracleContract: fakeResilientOracleContract,
       primeContract: fakePrimeContract,
+      vTreasuryContractAddress: altAddress,
+      provider: fakeProvider,
     });
 
     expect(response).toMatchSnapshot();
@@ -84,6 +85,8 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
       vaiControllerContract: fakeVaiControllerContract,
       resilientOracleContract: fakeResilientOracleContract,
       primeContract: fakePrimeContract,
+      vTreasuryContractAddress: altAddress,
+      provider: fakeProvider,
     });
 
     expect(response).toMatchSnapshot();
@@ -118,6 +121,8 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
       vaiControllerContract: fakeVaiControllerContract,
       resilientOracleContract: fakeResilientOracleContract,
       primeContract: fakePrimeContract,
+      vTreasuryContractAddress: altAddress,
+      provider: fakeProvider,
     });
 
     expect(response).toMatchSnapshot();

@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import { getBlockNumber, getTokenBalances } from 'clients/api';
 import {
   type GetIsolatedPoolParticipantsCountInput,
   getIsolatedPoolParticipantsCount,
@@ -15,9 +16,6 @@ import {
 } from 'utilities';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import removeDuplicates from 'utilities/removeDuplicates';
-
-import getBlockNumber from '../getBlockNumber';
-import getTokenBalances from '../getTokenBalances';
 import formatOutput from './formatOutput';
 import getRewardsDistributorSettingsMapping from './getRewardsDistributorSettingsMapping';
 import getTokenPriceDollarsMapping from './getTokenPriceDollarsMapping';
@@ -45,6 +43,7 @@ const getIsolatedPools = async ({
   accountAddress,
   poolLensContract,
   poolRegistryContractAddress,
+  vTreasuryContractAddress,
   resilientOracleContract,
   primeContract,
   provider,
@@ -154,7 +153,12 @@ const getIsolatedPools = async ({
 
   const settledGetRewardDistributorsPromises = Promise.allSettled(getRewardDistributorsPromises);
   const settledGetAssetsInPromises = Promise.allSettled(getAssetsInPromises);
-  const settledUserPromises = Promise.allSettled([
+  const tokenBalancesPromises = Promise.allSettled([
+    getTokenBalances({
+      accountAddress: vTreasuryContractAddress,
+      tokens: underlyingTokens,
+      provider,
+    }),
     accountAddress
       ? poolLensContract.callStatic.vTokenBalancesAll(vTokenAddresses, accountAddress)
       : undefined,
@@ -180,11 +184,16 @@ const getIsolatedPools = async ({
       : undefined;
 
   const getRewardDistributorsResults = await settledGetRewardDistributorsPromises;
-  const [userVTokenBalancesAllResult, userTokenBalancesResult] = await settledUserPromises;
+  const [vTreasuryTokenBalancesResult, userVTokenBalancesAllResult, userTokenBalancesResult] =
+    await tokenBalancesPromises;
   const userAssetsInResults = await settledGetAssetsInPromises;
   const primeAprResults = (await settledPrimeAprPromises) || [];
 
   // Log errors without throwing so that assets can still be displayed
+  if (vTreasuryTokenBalancesResult?.status === 'rejected') {
+    logError(vTreasuryTokenBalancesResult.reason);
+  }
+
   if (userVTokenBalancesAllResult?.status === 'rejected') {
     logError(userVTokenBalancesAllResult.reason);
   }
@@ -251,6 +260,7 @@ const getIsolatedPools = async ({
     userCollateralizedVTokenAddresses,
     userVTokenBalancesAll: extractSettledPromiseValue(userVTokenBalancesAllResult),
     userTokenBalancesAll: extractSettledPromiseValue(userTokenBalancesResult),
+    vTreasuryTokenBalances: extractSettledPromiseValue(vTreasuryTokenBalancesResult),
     primeApyMap,
   });
 

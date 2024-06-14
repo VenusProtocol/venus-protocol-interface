@@ -1,5 +1,6 @@
 import type Vi from 'vitest';
 
+import fakeAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import tokens, { xvs } from '__mocks__/models/tokens';
 
@@ -45,6 +46,7 @@ describe('getIsolatedPools', () => {
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
       poolLensContract: fakePoolLensContract,
       resilientOracleContract: fakeResilientOracleContract,
+      vTreasuryContractAddress: fakeAddress,
     });
 
     expect(response).toMatchSnapshot();
@@ -59,6 +61,7 @@ describe('getIsolatedPools', () => {
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
       poolLensContract: fakePoolLensContract,
       resilientOracleContract: fakeResilientOracleContract,
+      vTreasuryContractAddress: fakeAddress,
     });
 
     expect(response).toMatchSnapshot();
