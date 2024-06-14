@@ -5,7 +5,7 @@ import { vBusd } from '__mocks__/models/vTokens';
 import type { MarketSnapshot } from 'types';
 import { restService } from 'utilities';
 
-import getMarketHistory from '.';
+import getMarketHistory from '..';
 
 vi.mock('utilities/restService');
 
@@ -18,14 +18,14 @@ const marketSnapshot: MarketSnapshot = {
   totalSupplyCents: '1234567890',
 };
 
-describe('api/queries/getMarketHistory', () => {
+describe('getMarketHistory', () => {
   beforeEach(() => {
     (restService as Vi.Mock).mockImplementation(async () => ({
       data: { result: { data: [marketSnapshot] } },
     }));
   });
 
-  test('returns market history on success', async () => {
+  it('returns market history on success', async () => {
     const response = await getMarketHistory({
       vToken: vBusd,
     });
@@ -35,7 +35,7 @@ describe('api/queries/getMarketHistory', () => {
     });
   });
 
-  test('calls correct endpoint when passing type params', async () => {
+  it('calls correct endpoint', async () => {
     await getMarketHistory({
       vToken: vBusd,
     });
