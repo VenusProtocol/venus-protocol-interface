@@ -234,7 +234,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         </>
       ) : (
         <div className="space-y-6">
-          <AssetInfo asset={asset} action="repay" />
+          <AssetInfo asset={asset} action="withdraw" />
 
           <ConnectWallet buttonVariant="primary">
             {t('operationForm.connectWalletButtonLabel')}
