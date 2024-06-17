@@ -1,20 +1,19 @@
 import type Vi from 'vitest';
 
-import fakeAccountAddress from '__mocks__/models/address';
+import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import { markets } from '__mocks__/models/markets';
+import fakeProvider from '__mocks__/models/provider';
 import tokens, { vai, xvs } from '__mocks__/models/tokens';
 
+import { getLegacyPoolMarkets } from 'clients/api';
 import { ChainId } from 'types';
 import getLegacyPool from '..';
-import getLegacyPoolMarkets from '../../getLegacyPoolMarkets';
 import {
   fakeLegacyPoolComptrollerContract,
   fakeResilientOracleContract,
   fakeVaiControllerContract,
   fakeVenusLensContract,
 } from '../__testUtils__/fakeData';
-
-vi.mock('../../getLegacyPoolMarkets');
 
 describe('getLegacyPool', () => {
   beforeEach(() => {
@@ -35,6 +34,8 @@ describe('getLegacyPool', () => {
       venusLensContract: fakeVenusLensContract,
       vaiControllerContract: fakeVaiControllerContract,
       resilientOracleContract: fakeResilientOracleContract,
+      vTreasuryContractAddress: altAddress,
+      provider: fakeProvider,
     });
 
     // Check VAI interests were accrued before being fetched

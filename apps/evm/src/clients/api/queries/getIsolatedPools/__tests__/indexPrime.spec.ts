@@ -2,7 +2,7 @@ import { BigNumber as BN } from 'ethers';
 import type Vi from 'vitest';
 
 import fakePrimeContractResponses from '__mocks__/contracts/prime';
-import fakeAccountAddress from '__mocks__/models/address';
+import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import tokens, { xvs } from '__mocks__/models/tokens';
 
@@ -66,6 +66,7 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
       poolLensContract: fakePoolLensContract,
       resilientOracleContract: fakeResilientOracleContract,
       primeContract: fakePrimeContract,
+      vTreasuryContractAddress: altAddress,
     });
 
     expect(response).toMatchSnapshot();
@@ -91,6 +92,7 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
       poolLensContract: fakePoolLensContract,
       resilientOracleContract: fakeResilientOracleContract,
       primeContract: customFakePrimeContract,
+      vTreasuryContractAddress: altAddress,
     });
 
     expect(response).toMatchSnapshot();
@@ -120,6 +122,7 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
       poolLensContract: fakePoolLensContract,
       resilientOracleContract: fakeResilientOracleContract,
       primeContract: customFakePrimeContract,
+      vTreasuryContractAddress: altAddress,
     });
 
     expect(response).toMatchSnapshot();

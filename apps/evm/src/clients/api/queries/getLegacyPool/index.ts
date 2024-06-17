@@ -1,13 +1,15 @@
 import BigNumber from 'bignumber.js';
 
-import type { PrimeApy } from 'types';
+import type { PrimeApy, Token } from 'types';
 import {
   appendPrimeSimulationDistributions,
   convertAprBipsToApy,
   extractSettledPromiseValue,
+  findTokenByAddress,
 } from 'utilities';
 
-import getLegacyPoolMarkets from '../getLegacyPoolMarkets';
+import { getLegacyPoolMarkets, getTokenBalances } from 'clients/api';
+import { logError } from 'libs/errors';
 import { formatToPool } from './formatToPool';
 import type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 
@@ -17,11 +19,13 @@ const getLegacyPool = async ({
   chainId,
   blocksPerDay,
   name,
+  provider,
   description,
   xvs,
   vai,
   tokens,
   accountAddress,
+  vTreasuryContractAddress,
   legacyPoolComptrollerContract,
   venusLensContract,
   vaiControllerContract,
@@ -72,6 +76,9 @@ const getLegacyPool = async ({
   const primeMinimumXvsToStakeMantissa = extractSettledPromiseValue(primeMinimumXvsToStakeResult);
   const isUserPrime = extractSettledPromiseValue(userPrimeTokenResult)?.exists || false;
 
+  // Fetch vToken meta data
+  const vTokenMetaDataPromise = venusLensContract.callStatic.vTokenMetadataAll(vTokenAddresses);
+
   // Fetch underlying token prices
   const underlyingTokenPricePromises = Promise.allSettled(
     vTokenAddresses.map(vTokenAddress => resilientOracleContract.getUnderlyingPrice(vTokenAddress)),
@@ -97,16 +104,6 @@ const getLegacyPool = async ({
     ),
   );
 
-  // Fetch vToken meta data and user balance
-  const vTokenMetaDataPromises = Promise.allSettled([
-    // Fetch vToken data
-    venusLensContract.callStatic.vTokenMetadataAll(vTokenAddresses),
-    // Fetch user vToken balances
-    accountAddress
-      ? venusLensContract.callStatic.vTokenBalancesAll(vTokenAddresses, accountAddress)
-      : undefined,
-  ]);
-
   // Fetch Prime distributions
   const primeAprPromises =
     primeContract && isUserPrime
@@ -124,12 +121,8 @@ const getLegacyPool = async ({
   const supplyCapsResults = await supplyCapsPromises;
   const xvsBorrowSpeedResults = await xvsBorrowSpeedPromises;
   const xvsSupplySpeedResults = await xvsSupplySpeedPromises;
-  const [vTokenMetaDataResults, userVTokenBalancesResults] = await vTokenMetaDataPromises;
+  const vTokenMetaDataResults = await vTokenMetaDataPromise;
   const primeAprResults = (await primeAprPromises) || [];
-
-  if (vTokenMetaDataResults.status === 'rejected') {
-    throw new Error(vTokenMetaDataResults.reason);
-  }
 
   const primeApyMap = new Map<string, PrimeApy>();
   primeAprResults.forEach((primeAprResult, index) => {
@@ -149,6 +142,34 @@ const getLegacyPool = async ({
 
   const vaiRepayAmountMantissa = extractSettledPromiseValue(vaiRepayAmountResult);
 
+  const underlyingTokens = vTokenMetaDataResults.reduce<Token[]>((acc, vTokenMetaData) => {
+    const underlyingToken = findTokenByAddress({
+      address: vTokenMetaData.underlyingAssetAddress,
+      tokens,
+    });
+
+    if (!underlyingToken) {
+      logError(`Record missing for underlying token: ${vTokenMetaData.underlyingAssetAddress}`);
+      return acc;
+    }
+
+    return [...acc, underlyingToken];
+  }, []);
+
+  // Fetch vToken meta data and user balance
+  const [vTreasuryTokenBalancesResult, userVTokenBalancesResults] = await Promise.allSettled([
+    // Fetch treasury balances
+    getTokenBalances({
+      accountAddress: vTreasuryContractAddress,
+      tokens: underlyingTokens,
+      provider,
+    }),
+    // Fetch user vToken balances
+    accountAddress
+      ? venusLensContract.callStatic.vTokenBalancesAll(vTokenAddresses, accountAddress)
+      : undefined,
+  ]);
+
   const pool = formatToPool({
     chainId,
     blocksPerDay,
@@ -158,7 +179,7 @@ const getLegacyPool = async ({
     tokens,
     description,
     comptrollerContractAddress: legacyPoolComptrollerContract.address,
-    vTokenMetaDataResults: vTokenMetaDataResults.value,
+    vTokenMetaDataResults,
     underlyingTokenPriceResults,
     borrowCapsResults,
     supplyCapsResults,
@@ -166,6 +187,7 @@ const getLegacyPool = async ({
     xvsSupplySpeedResults,
     xvsPriceMantissa: new BigNumber(xvsPriceMantissaResult.value.toString()),
     userCollateralizedVTokenAddresses: extractSettledPromiseValue(assetsInResult),
+    vTreasuryTokenBalances: extractSettledPromiseValue(vTreasuryTokenBalancesResult),
     userVTokenBalances: extractSettledPromiseValue(userVTokenBalancesResults),
     userVaiBorrowBalanceMantissa: vaiRepayAmountMantissa
       ? new BigNumber(vaiRepayAmountMantissa.toString())
