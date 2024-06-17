@@ -1,5 +1,19 @@
 # @venusprotocol/evm
 
+## 2.127.0
+
+### Minor Changes
+
+- ed08881: fetch asset reserves using treasury balances
+
+### Patch Changes
+
+- a81e6f3: remove "new" label from Bridge nav item
+- a97b4e6: Reduce thresholds used for price impacts by half
+- 449fc27: Upgrade Yarn and Turbo
+- e46dafa: Update icon of rsETH token
+- 1771dfd: display correct data on withdraw form when user is disconnected
+
 ## 2.126.0
 
 ### Minor Changes
