@@ -6,6 +6,7 @@ import fraxLogo from 'libs/tokens/img/frax.svg';
 import ptWeethLogo from 'libs/tokens/img/ptWeeth.svg';
 import rsEthLogo from 'libs/tokens/img/rsEth.svg';
 import sFraxLogo from 'libs/tokens/img/sFrax.svg';
+import sfrxEthLogo from 'libs/tokens/img/sfrxEth.svg';
 import tusdLogo from 'libs/tokens/img/tusd.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
@@ -116,5 +117,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'rsETH',
     asset: rsEthLogo,
+  },
+  {
+    address: '0x14AECeEc177085fd09EA07348B4E1F7Fcc030fA1',
+    decimals: 18,
+    symbol: 'sfrxETH',
+    asset: sfrxEthLogo,
   },
 ];
