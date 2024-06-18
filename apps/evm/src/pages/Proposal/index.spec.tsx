@@ -6,7 +6,6 @@ import {
   within,
 } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { Navigate } from 'react-router-dom';
 import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
@@ -24,13 +23,13 @@ import {
   queueProposal,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
-import { routes } from 'constants/routing';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote from 'hooks/useVote';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import { VoteSupport } from 'types';
 
+import { REDIRECT_TEST_CONTENT } from 'components/Redirect/__mocks__';
 import Proposal from '.';
 import PROPOSAL_SUMMARY_TEST_IDS from './ProposalSummary/testIds';
 import VOTE_MODAL_TEST_IDS from './VoteModal/testIds';
@@ -38,17 +37,6 @@ import TEST_IDS from './testIds';
 
 vi.mock('hooks/useVote');
 vi.mock('hooks/useIsFeatureEnabled');
-
-const MOCK_NAVIGATE_CONTENT = 'Mock navigate';
-
-vi.mock('react-router-dom', async () => {
-  const actual = (await vi.importActual('react-router-dom')) as any;
-
-  return {
-    ...actual,
-    Navigate: vi.fn(() => <>{MOCK_NAVIGATE_CONTENT}</>),
-  };
-});
 
 const incorrectAction = proposals[0];
 const activeProposal = proposals[1];
@@ -114,13 +102,7 @@ describe('pages/Proposal', () => {
     });
     const { getByText } = renderComponent(<Proposal />);
 
-    await waitFor(() => expect(getByText(MOCK_NAVIGATE_CONTENT)));
-    expect(Navigate).toHaveBeenCalledWith(
-      {
-        to: routes.governance.path,
-      },
-      {},
-    );
+    await waitFor(() => expect(getByText(REDIRECT_TEST_CONTENT)));
   });
 
   it('vote buttons are hidden when wallet is not connected', async () => {

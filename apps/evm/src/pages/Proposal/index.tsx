@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
-import { Button, NoticeInfo, Spinner } from 'components';
+import { Button, NoticeInfo, Redirect, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { type UseVoteParams } from 'hooks/useVote';
@@ -181,7 +181,7 @@ const Proposal = () => {
     votingWeightData.votesMantissa.isGreaterThan(0);
 
   if (getProposalError) {
-    return <Navigate to={routes.governance.path} />;
+    return <Redirect to={routes.governance.path} />;
   }
 
   return (

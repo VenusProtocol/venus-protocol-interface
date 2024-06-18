@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { Navigate } from 'react-router-dom';
 
 import { useGetAsset, useGetPool } from 'clients/api';
-import { Spinner } from 'components';
+import { Redirect, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
@@ -38,7 +37,7 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
 
   // Redirect to dashboard page if params are invalid
   if (isVTokenAddressInvalid || !poolComptrollerAddress) {
-    return <Navigate to={routes.dashboard.path} />;
+    return <Redirect to={routes.dashboard.path} />;
   }
 
   if (!asset || !pool) {
