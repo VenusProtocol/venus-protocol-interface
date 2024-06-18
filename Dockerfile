@@ -14,7 +14,7 @@ RUN yarn
 COPY . .
 
 RUN cat .env || true && \
-    yarn build && mkdir -p ipfs && tar cfz ./ipfs/${TAR_FILE_PREFIX}-${VERSION}.tgz apps/evm/build
+    NODE_OPTIONS="--max-old-space-size=4096" yarn build && mkdir -p ipfs && tar cfz ./ipfs/${TAR_FILE_PREFIX}-${VERSION}.tgz apps/evm/build
 
 #----- Upload to S3 ------
 FROM amazon/aws-cli AS s3_uploader
