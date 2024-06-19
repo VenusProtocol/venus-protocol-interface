@@ -1,13 +1,13 @@
 import { lazy, useEffect } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { Subdirectory, routes } from 'constants/routing';
 import { Layout } from 'containers/Layout';
-import { useFormatTo } from 'hooks/useFormatTo';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
+import { Redirect } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import PageSuspense from './PageSuspense';
 
@@ -47,9 +47,6 @@ const AppRoutes = () => {
   });
   const location = useLocation();
 
-  const { formatTo } = useFormatTo();
-  const dashboardTo = formatTo({ to: Subdirectory.DASHBOARD });
-
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
   useEffect(() => {
@@ -80,7 +77,7 @@ const AppRoutes = () => {
             />
           )}
 
-          <Route path="*" element={<Navigate to={dashboardTo} replace />} />
+          <Route path="*" element={<Redirect to={routes.dashboard.path} />} />
         </Route>
 
         {!!accountAddress && (
@@ -304,8 +301,8 @@ const AppRoutes = () => {
         )}
 
         {/* Redirect to Dashboard if no route matches */}
-        <Route index element={<Navigate to={dashboardTo} replace />} />
-        <Route path="*" element={<Navigate to={dashboardTo} replace />} />
+        <Route index element={<Redirect to={routes.dashboard.path} />} />
+        <Route path="*" element={<Redirect to={routes.dashboard.path} />} />
       </Route>
     </Routes>
   );
