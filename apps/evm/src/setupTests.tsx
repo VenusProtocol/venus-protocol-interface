@@ -16,6 +16,7 @@ vi.mock('clients/api');
 vi.mock('clients/subgraph');
 vi.mock('libs/tokens');
 vi.mock('libs/wallet');
+vi.mock('components/Redirect');
 vi.mock('hooks/useDebounceValue', () => ({
   default: (value: unknown) => value,
 }));

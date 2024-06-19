@@ -1,5 +1,31 @@
 # @venusprotocol/evm
 
+## 2.128.0
+
+### Minor Changes
+
+- 3441a9a: Add support for sfrxETH token on Sepolia and Ethereum
+
+### Patch Changes
+
+- e39afb4: update link to documentation on VAI page
+- f5622e8: Fix redirections
+- 6839eb4: Increase memory allocated to build process of evm app
+
+## 2.127.0
+
+### Minor Changes
+
+- ed08881: fetch asset reserves using treasury balances
+
+### Patch Changes
+
+- a81e6f3: remove "new" label from Bridge nav item
+- a97b4e6: Reduce thresholds used for price impacts by half
+- 449fc27: Upgrade Yarn and Turbo
+- e46dafa: Update icon of rsETH token
+- 1771dfd: display correct data on withdraw form when user is disconnected
+
 ## 2.126.0
 
 ### Minor Changes

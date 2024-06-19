@@ -21,7 +21,7 @@ const Vai: React.FC = () => {
           <Trans
             i18nKey="vai.headerMessage"
             components={{
-              Link: <Link href="https://docs-v4.venus.io/tokens/vai" />,
+              Link: <Link href="https://docs-v4.venus.io/guides/borrowing-vai" />,
             }}
           />
         }
