@@ -7,11 +7,7 @@ export const useStyles = () => {
   return {
     header: css`
       flex: 1;
-      margin-bottom: ${theme.spacing(8)};
-
-      ${theme.breakpoints.down('xxl')} {
-        margin-bottom: ${theme.spacing(6)};
-      }
+      margin-bottom: ${theme.spacing(6)};
     `,
     headerDescription: css`
       margin-right: ${theme.spacing(6)};
@@ -19,16 +15,11 @@ export const useStyles = () => {
       flex: 1;
 
       ${theme.breakpoints.down('xxl')} {
-        margin-bottom: ${theme.spacing(6)};
         display: block;
       }
     `,
     poolWarning: css`
-      margin-bottom: ${theme.spacing(8)};
-
-      ${theme.breakpoints.down('xxl')} {
-        margin-bottom: ${theme.spacing(6)};
-      }
+      margin-bottom: ${theme.spacing(6)};
     `,
   };
 };

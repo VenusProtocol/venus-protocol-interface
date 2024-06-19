@@ -8,7 +8,7 @@ export const useStyles = () => {
     container: css`
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: ${theme.spacing(8)};
+      gap: ${theme.spacing(6)};
 
       ${theme.breakpoints.down('xl')} {
         grid-template-columns: 1fr;

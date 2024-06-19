@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
 
       <PoolStats
         pools={pools}
-        className="mb-6 sm:mb-8 xxl:mb-10"
+        className="mb-6"
         stats={['supply', 'borrow', 'liquidity', 'treasury', 'assetCount']}
       />
 
