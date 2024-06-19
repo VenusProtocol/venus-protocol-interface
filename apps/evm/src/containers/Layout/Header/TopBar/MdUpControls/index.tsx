@@ -1,9 +1,9 @@
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { cn } from 'utilities';
 import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 import { ChainSelect } from '../ChainSelect';
-import { cn } from 'utilities';
 
 export const MdUpControls: React.FC = () => {
   const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });

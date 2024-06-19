@@ -5,8 +5,8 @@ import { Card, Checkbox, Select } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { TransactionEvent } from 'types';
 
-import { useStyles } from './styles';
 import { cn } from 'utilities';
+import { useStyles } from './styles';
 
 export const ALL_VALUE = 'All';
 

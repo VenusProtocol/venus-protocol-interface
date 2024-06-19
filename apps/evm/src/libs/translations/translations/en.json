@@ -246,11 +246,6 @@
   },
   "dashboard": {
     "allTag": "All",
-    "connectWalletBanner": {
-      "illustration": {
-        "alt": "Illustration of a wallet"
-      }
-    },
     "pausedAssetsToggle": {
       "label": "Paused assets"
     },

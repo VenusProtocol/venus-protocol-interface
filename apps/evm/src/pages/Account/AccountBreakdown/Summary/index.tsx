@@ -3,8 +3,8 @@ import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 
 import {
-  Card,
   BorrowLimitUsedAccountHealth,
+  Card,
   type Cell,
   CellGroup,
   Icon,
