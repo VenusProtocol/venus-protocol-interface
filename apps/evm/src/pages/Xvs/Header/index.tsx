@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
@@ -82,7 +82,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
   );
 
   return (
-    <Paper className={className} css={styles.headerRoot}>
+    <Card className={className} css={styles.headerRoot}>
       <div css={styles.addressContainer}>
         <TokenIcon token={xvs} />
 
@@ -120,7 +120,7 @@ export const HeaderUi: React.FC<HeaderProps & HeaderContainerProps> = ({
           whiteRightText={readableRemainingDistribution}
         />
       </div>
-    </Paper>
+    </Card>
   );
 };
 

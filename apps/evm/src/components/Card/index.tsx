@@ -1,12 +1,17 @@
+import { Slot } from '@radix-ui/react-slot';
 import { cn } from 'utilities';
 
-interface CardProps {
-  children?: React.ReactNode;
-  className?: string;
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  asChild?: boolean;
 }
 
-export const Card: React.FC<CardProps> = ({ children, className, ...otherProps }) => (
-  <div className={cn('bg-cards w-full rounded-2xl p-4 sm:p-6', className)} {...otherProps}>
-    {children}
-  </div>
-);
+export const Card: React.FC<CardProps> = ({ className, asChild = false, ...otherProps }) => {
+  const Comp = asChild ? Slot : 'div';
+
+  return (
+    <Comp
+      className={cn('bg-cards block w-full rounded-xl p-4 sm:p-6', className)}
+      {...otherProps}
+    />
+  );
+};

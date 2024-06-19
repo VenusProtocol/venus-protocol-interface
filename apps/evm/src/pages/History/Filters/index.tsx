@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 
 import { Checkbox, Select } from 'components';
 import { useTranslation } from 'libs/translations';
@@ -49,7 +49,7 @@ export const Filters: React.FC<FilterProps> = ({
   ];
 
   return (
-    <Paper css={styles.root}>
+    <Card css={styles.root}>
       <div css={styles.myTransactions}>
         {walletConnected && (
           <>
@@ -72,7 +72,7 @@ export const Filters: React.FC<FilterProps> = ({
         css={styles.select}
         variant="secondary"
       />
-    </Paper>
+    </Card>
   );
 };
 export default Filters;

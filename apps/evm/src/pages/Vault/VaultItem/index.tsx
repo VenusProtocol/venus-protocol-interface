@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
+import { Card } from 'components';
 import { useMemo, useState } from 'react';
 
 import { useGetPrimeStatus } from 'clients/api';
@@ -126,7 +126,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
 
   return (
     <>
-      <Paper css={styles.container} className={className}>
+      <Card css={styles.container} className={className}>
         <div css={styles.header}>
           <div css={styles.title}>
             <TokenIcon css={styles.tokenIcon} token={stakedToken} />
@@ -205,7 +205,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
             </Button>
           )}
         </div>
-      </Paper>
+      </Card>
 
       {activeModal === 'stake' && (
         <StakeModal

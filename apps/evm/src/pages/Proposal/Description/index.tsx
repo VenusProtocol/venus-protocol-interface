@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Paper } from '@mui/material';
+import { Card } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 import { MarkdownViewer } from 'components';
@@ -26,7 +26,7 @@ export const Description: React.FC<DescriptionSummary> = ({
   const { t } = useTranslation();
 
   return (
-    <Paper css={styles.root} className={className}>
+    <Card css={styles.root} className={className}>
       <div css={styles.content}>
         <Typography variant="h4" color="textSecondary">
           {t('voteProposalUi.description')}
@@ -67,7 +67,7 @@ export const Description: React.FC<DescriptionSummary> = ({
           />
         ))}
       </div>
-    </Paper>
+    </Card>
   );
 };
 

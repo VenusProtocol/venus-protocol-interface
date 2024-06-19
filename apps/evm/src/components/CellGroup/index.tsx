@@ -29,7 +29,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
       'gap-2 bg-transparent p-0',
       variant === 'secondary'
         ? 'flex overflow-y-auto scrollbar-hidden'
-        : 'grid grid-cols-1 sm:grid-cols-2 xl:bg-cards xl:flex xl:p-6 xl:flex-wrap xl:rounded-2xl xl:gap-x-0',
+        : 'grid grid-cols-1 sm:grid-cols-2 xl:bg-cards xl:flex xl:p-6 xl:flex-wrap xl:rounded-xl xl:gap-x-0',
       className,
     )}
     {...containerProps}
@@ -40,7 +40,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
           'flex flex-col gap-y-1 whitespace-nowrap justify-center xl: xl:bg-transparent',
           variant === 'secondary'
             ? 'px-4 md:px-6 first-of-type:pl-0 last-of-type:pr-0 border-r border-r-lightGrey last-of-type:border-r-0'
-            : 'bg-cards rounded-2xl p-4 xl:py-0 xl:px-6 xl:rounded-none xl:first-of-type:pl-0 xl:last-of-type:pr-0 xl:border-r xl:last-of-type:border-r-0 xl:border-lightGrey',
+            : 'bg-cards rounded-xl p-4 xl:py-0 xl:px-6 xl:rounded-none xl:first-of-type:pl-0 xl:last-of-type:pr-0 xl:border-r xl:last-of-type:border-r-0 xl:border-lightGrey',
         )}
         key={`cell-group-item-${label}`}
       >

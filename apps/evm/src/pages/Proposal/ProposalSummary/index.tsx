@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import { isAfter } from 'date-fns/isAfter';
 import { useMemo } from 'react';
 
@@ -176,7 +176,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
     }, [state, endDate, proposalEta, isExecuteEtaInFuture]);
 
     return (
-      <Paper css={styles.root} className={className}>
+      <Card css={styles.root} className={className}>
         <div css={styles.leftSection}>
           <div css={styles.topRow}>
             <div css={styles.topRowLeftColumn}>
@@ -241,7 +241,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
             state={state}
           />
         </div>
-      </Paper>
+      </Card>
     );
   };
 
