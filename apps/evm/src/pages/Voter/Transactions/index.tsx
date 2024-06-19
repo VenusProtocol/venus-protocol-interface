@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { Card, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { ButtonWrapper, Icon, Spinner, Table, type TableColumn } from 'components';
+import { Card, ButtonWrapper, Icon, Spinner, Table, type TableColumn } from 'components';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';

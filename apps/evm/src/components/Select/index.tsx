@@ -22,18 +22,23 @@ const getVariantClasses = ({
   switch (variant) {
     case 'secondary':
       return cn(
-        'border-cards bg-cards hover:border-grey hover:bg-cards active:border-grey active:bg-cards h-10 px-3',
+        'border-lightGrey bg-lightGrey hover:border-blue hover:bg-lightGrey active:border-blue active:bg-lightGrey',
         isMenuOpened && 'border-blue hover:border-blue',
       );
     case 'tertiary':
       return cn(
-        'border-transparent bg-background/40 hover:bg-background/40 hover:border-offWhite active:bg-background/40 px-3 sm:px-4',
+        'border-transparent bg-cards hover:bg-cards hover:border-offWhite active:bg-cards active:border-blue',
         isMenuOpened && 'border-blue hover:border-blue',
+      );
+    case 'quaternary':
+      return cn(
+        'border-transparent bg-lightGrey rounded-xl hover:bg-lightGrey hover:border-grey active:bg-lightGrey active:border-blue',
+        isMenuOpened && 'border-blue bg-lightGrey hover:border-blue',
       );
     // primary
     default:
       return cn(
-        'border-lightGrey bg-cards hover:border-lightGrey hover:bg-lightGrey active:bg-lightGrey px-3 sm:px-4',
+        'border-lightGrey bg-cards hover:border-lightGrey hover:bg-lightGrey active:border-blue active:bg-lightGrey',
         isMenuOpened && 'border-blue bg-lightGrey hover:border-blue',
       );
   }
@@ -51,6 +56,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       label,
       name,
       placeLabelToLeft = false,
+      size = 'medium',
       variant = 'primary',
       menuTitle,
       menuPosition = 'left',
@@ -75,6 +81,18 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       setIsMenuOpened(false);
     };
 
+    const buttonSizeClasses = useMemo(() => {
+      if (size === 'large') {
+        return cn('px-4 h-14');
+      }
+
+      if (size === 'medium') {
+        return cn('px-4 h-12');
+      }
+
+      return cn('px-3 h-10');
+    }, [size]);
+
     const optionsDom = (
       <>
         {options.map(option => (
@@ -84,12 +102,10 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
             type="button"
             className={cn(
               'hover:bg-lightGrey active:bg-lightGrey flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold',
-              variant === 'primary' ? 'px-3 sm:px-4' : 'px-3',
+              buttonSizeClasses,
             )}
           >
-            <span
-              className={cn('grow whitespace-nowrap', variant === 'secondary' && 'font-normal')}
-            >
+            <span className={cn('grow whitespace-nowrap')}>
               {renderLabel({ label: option.label })}
             </span>
 
@@ -143,12 +159,10 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               className={cn(
                 'relative w-full',
                 getVariantClasses({ variant, isMenuOpened }),
+                buttonSizeClasses,
                 buttonClassName,
               )}
-              contentClassName={cn(
-                'w-full justify-between text-sm font-semibold',
-                variant === 'secondary' && 'font-normal',
-              )}
+              contentClassName={cn('w-full justify-between text-sm font-semibold')}
             >
               <span className="grow overflow-hidden text-ellipsis whitespace-nowrap text-left">
                 {selectedOption &&
@@ -169,8 +183,9 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               <div className="relative z-10 hidden min-w-full md:block">
                 <div
                   className={cn(
-                    'border-lightGrey bg-cards absolute top-2 min-w-full overflow-hidden rounded-lg border shadow',
+                    'border-lightGrey bg-cards absolute top-2 min-w-full overflow-hidden border shadow',
                     menuPosition === 'right' && 'right-0',
+                    variant === 'quaternary' ? 'rounded-xl' : 'rounded-lg',
                   )}
                 >
                   {!!menuTitle && (

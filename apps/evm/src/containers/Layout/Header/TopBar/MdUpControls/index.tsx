@@ -3,6 +3,7 @@ import { ConnectButton } from 'containers/Layout/ConnectButton';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 import { ChainSelect } from '../ChainSelect';
+import { cn } from 'utilities';
 
 export const MdUpControls: React.FC = () => {
   const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
@@ -16,7 +17,13 @@ export const MdUpControls: React.FC = () => {
         className="flex-none md:whitespace-nowrap"
       />
 
-      <ChainSelect variant={shouldUseNewMarketPageFeature ? 'tertiary' : 'primary'} />
+      <ChainSelect
+        variant={shouldUseNewMarketPageFeature ? 'tertiary' : 'primary'}
+        buttonClassName={cn(
+          shouldUseNewMarketPageFeature &&
+            'bg-background/40 hover:bg-background/40 active:bg-background/40',
+        )}
+      />
 
       <ConnectButton
         className="flex-none"

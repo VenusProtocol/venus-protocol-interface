@@ -26,7 +26,7 @@ const options: SelectOption<ChainId>[] = chains.map(chain => {
   };
 });
 
-export const ChainSelect: React.FC<ChainSelectProps> = ({ buttonClassName, ...otherProps }) => {
+export const ChainSelect: React.FC<ChainSelectProps> = props => {
   const { t } = useTranslation();
   const { chainId } = useChainId();
   const { switchChain } = useSwitchChain();
@@ -38,8 +38,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = ({ buttonClassName, ...ot
       options={options}
       menuPosition="right"
       menuTitle={t('layout.chainSelect.label')}
-      buttonClassName={buttonClassName}
-      {...otherProps}
+      {...props}
     />
   );
 };

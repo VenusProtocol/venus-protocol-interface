@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Card, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { isAfter } from 'date-fns/isAfter';
 import { useMemo } from 'react';
 
@@ -11,7 +11,14 @@ import {
   useGetProposalThreshold,
   useQueueProposal,
 } from 'clients/api';
-import { Chip, Countdown, PrimaryButton, ProposalTypeChip, SecondaryButton } from 'components';
+import {
+  Card,
+  Chip,
+  Countdown,
+  PrimaryButton,
+  ProposalTypeChip,
+  SecondaryButton,
+} from 'components';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { displayMutationError } from 'libs/errors';

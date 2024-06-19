@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { Card, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import type BigNumber from 'bignumber.js';
 
-import { Delimiter, Icon } from 'components';
+import { Card, Delimiter, Icon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useGetToken } from 'libs/tokens';

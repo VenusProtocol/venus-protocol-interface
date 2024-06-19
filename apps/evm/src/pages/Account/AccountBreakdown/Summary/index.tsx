@@ -1,8 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import { Card, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 
-import { BorrowLimitUsedAccountHealth, type Cell, CellGroup, Icon, Tooltip } from 'components';
+import {
+  Card,
+  BorrowLimitUsedAccountHealth,
+  type Cell,
+  CellGroup,
+  Icon,
+  Tooltip,
+} from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { useTranslation } from 'libs/translations';
 import type { Pool, Vault } from 'types';

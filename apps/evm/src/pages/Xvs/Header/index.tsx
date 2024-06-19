@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Card, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
@@ -9,7 +9,7 @@ import {
   useGetLegacyPoolTotalXvsDistributed,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
-import { EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
+import { Card, EllipseAddress, Icon, LabeledProgressBar, TokenIcon } from 'components';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useGetLegacyPoolComptrollerContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
