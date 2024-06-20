@@ -1,14 +1,10 @@
-import type {
-  LegacyPoolComptroller,
-  Prime,
-  ResilientOracle,
-  VaiController,
-  VenusLens,
-} from 'libs/contracts';
+import type { LegacyPoolComptroller, Prime, VaiController, VenusLens } from 'libs/contracts';
 import type { Provider } from 'libs/wallet';
 import type { ChainId, Pool, Token } from 'types';
+import type { GetApiPoolsOutput } from '../getApiPools';
 
 export interface GetLegacyPoolInput {
+  legacyPoolData: GetApiPoolsOutput['pools'][number];
   chainId: ChainId;
   blocksPerDay: number;
   provider: Provider;
@@ -19,7 +15,6 @@ export interface GetLegacyPoolInput {
   tokens: Token[];
   legacyPoolComptrollerContract: LegacyPoolComptroller;
   venusLensContract: VenusLens;
-  resilientOracleContract: ResilientOracle;
   vaiControllerContract: VaiController;
   vTreasuryContractAddress: string;
   primeContract?: Prime;

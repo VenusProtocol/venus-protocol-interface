@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from 'react-query';
 
+import type { GetApiPoolsOutput } from 'clients/api';
 import getIsolatedPools, {
   type GetIsolatedPoolsInput,
   type GetIsolatedPoolsOutput,
@@ -31,7 +32,8 @@ type TrimmedInput = Omit<
   | 'poolRegistryContractAddress'
   | 'resilientOracleContract'
   | 'tokens'
->;
+  | 'isolatedPoolsData'
+> & { apiPoolsData: GetApiPoolsOutput };
 
 export type UseGetIsolatedPoolsQueryKey = [
   FunctionKey.GET_ISOLATED_POOLS,
@@ -50,7 +52,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
+const useGetIsolatedPools = (input: TrimmedInput, options?: Options) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
@@ -81,6 +83,7 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
         },
         params =>
           getIsolatedPools({
+            isolatedPoolsData: { pools: input.apiPoolsData.pools.filter(p => p.isIsolated) },
             provider,
             tokens,
             blocksPerDay,
