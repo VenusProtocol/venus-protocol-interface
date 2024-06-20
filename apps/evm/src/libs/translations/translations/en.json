@@ -406,12 +406,6 @@
   "market": {
     "borrowButtonLabel": "Borrow",
     "borrowInfo": {
-      "stats": {
-        "apy": "APY",
-        "liquidationPenalty": "Liquidation Penalty",
-        "liquidationThreshold": "Liquidation Threshold",
-        "totalBorrow": "Total borrow"
-      },
       "title": "Borrow info"
     },
     "interestRateModel": {
@@ -443,13 +437,21 @@
         "unlimitedSupplyCap": "Uncapped"
       }
     },
+    "periodOption": {
+      "oneYear": "1Y",
+      "sixMonths": "6M",
+      "thirtyDays": "30D"
+    },
+    "stats": {
+      "apy": "APY",
+      "distributionApy": "Distribution APY",
+      "liquidationPenalty": "Liquidation Penalty",
+      "liquidationThreshold": "Liquidation Threshold",
+      "totalBorrow": "Total borrow",
+      "totalSupply": "Total supply"
+    },
     "supplyButtonLabel": "Supply",
     "supplyInfo": {
-      "stats": {
-        "apy": "APY",
-        "distributionApy": "Distribution APY",
-        "totalSupply": "Total supply"
-      },
       "title": "Supply info"
     }
   },
@@ -697,8 +699,9 @@
     },
     "promotionalTitle": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>",
     "stakeButtonLabel": "Stake XVS",
+    "tokensLeft": "<WhiteText>{{count}}</WhiteText> prime token left",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> prime token left",
-    "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> prime tokens left",
+    "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
   },
   "proposalList": {

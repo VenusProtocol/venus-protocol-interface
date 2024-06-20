@@ -12,6 +12,9 @@ const PrimeTokensLeft = ({ count }: PrimeTokensLeftProps) => {
     <Pill>
       <p>
         <Trans
+          // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
+          // t('primeStatusBanner.tokensLeft_one')
+          // t('primeStatusBanner.tokensLeft_many')
           i18nKey="primeStatusBanner.tokensLeft"
           components={{
             WhiteText: <span className="text-offWhite" />,

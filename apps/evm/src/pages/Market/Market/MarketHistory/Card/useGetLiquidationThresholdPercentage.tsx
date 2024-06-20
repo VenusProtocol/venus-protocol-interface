@@ -1,16 +1,16 @@
 import { useGetIsolatedPoolVTokenLiquidationThreshold } from 'clients/api';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useChainId } from 'libs/wallet';
 import { type Asset, ChainId } from 'types';
 import { areAddressesEqual } from 'utilities';
 
-export const useGetLiquidationThresholdPercentage = ({
-  asset,
-  poolComptrollerContractAddress,
-}: { asset: Asset; poolComptrollerContractAddress: string }) => {
-  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
-
+export const useGetLiquidationThresholdPercentage = (
+  {
+    asset,
+    poolComptrollerContractAddress,
+  }: { asset: Asset; poolComptrollerContractAddress: string },
+  { enabled }: { enabled: boolean },
+) => {
   const { chainId } = useChainId();
   const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
@@ -25,7 +25,7 @@ export const useGetLiquidationThresholdPercentage = ({
         vTokenAddress: asset.vToken.address,
       },
       {
-        enabled: isNewMarketPageEnabled && !isLegacyCorePoolVToken,
+        enabled: enabled && !isLegacyCorePoolVToken,
       },
     );
 
