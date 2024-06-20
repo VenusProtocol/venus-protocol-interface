@@ -697,6 +697,7 @@
     "tokensLeft": "<WhiteText>{{count}}</WhiteText> prime token left",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> prime token left",
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> prime tokens left",
+    "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
   },
   "proposalList": {
