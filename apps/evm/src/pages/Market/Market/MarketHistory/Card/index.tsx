@@ -158,11 +158,13 @@ export const Card: React.FC<CardProps> = ({
       stats={stats}
       legends={isApyChartsFeatureEnabled ? legends : undefined}
       rightLabel={
-        <ButtonGroup
-          buttonLabels={periodOptions.map(p => p.label)}
-          activeButtonIndex={selectedPeriodIndex}
-          onButtonClick={index => setSelectedPeriodIndex(index)}
-        />
+        isApyChartsFeatureEnabled ? (
+          <ButtonGroup
+            buttonLabels={periodOptions.map(p => p.label)}
+            activeButtonIndex={selectedPeriodIndex}
+            onButtonClick={index => setSelectedPeriodIndex(index)}
+          />
+        ) : undefined
       }
       {...otherProps}
     >

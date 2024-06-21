@@ -27,8 +27,8 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   className,
   testId,
 }) => (
-  <Card className={className} data-testid={testId}>
-    <div className="space-y-6 mb-8">
+  <Card className={cn(className, 'space-y-8')} data-testid={testId}>
+    <div className="space-y-6">
       <div
         className={cn(
           'space-y-6',
