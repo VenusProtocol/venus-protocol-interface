@@ -58,16 +58,6 @@ export const featureFlags = {
     ChainId.ARBITRUM_SEPOLIA,
     ChainId.ARBITRUM_ONE,
   ],
-  governanceSearch: [
-    ChainId.BSC_TESTNET,
-    ChainId.BSC_MAINNET,
-    ChainId.SEPOLIA,
-    ChainId.ETHEREUM,
-    ChainId.OPBNB_TESTNET,
-    ChainId.OPBNB_MAINNET,
-    ChainId.ARBITRUM_SEPOLIA,
-    ChainId.ARBITRUM_ONE,
-  ],
   newMarketPage: [
     ChainId.BSC_TESTNET,
     ChainId.BSC_MAINNET,
