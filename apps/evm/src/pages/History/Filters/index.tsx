@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
-import { Checkbox, Select } from 'components';
+import { Card, Checkbox, Select } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { TransactionEvent } from 'types';
 
+import { cn } from 'utilities';
 import { useStyles } from './styles';
 
 export const ALL_VALUE = 'All';
@@ -49,7 +50,7 @@ export const Filters: React.FC<FilterProps> = ({
   ];
 
   return (
-    <Paper css={styles.root}>
+    <Card css={styles.root}>
       <div css={styles.myTransactions}>
         {walletConnected && (
           <>
@@ -70,9 +71,14 @@ export const Filters: React.FC<FilterProps> = ({
         value={eventType}
         onChange={value => setEventType(value as TransactionEvent | typeof ALL_VALUE)}
         css={styles.select}
-        variant="secondary"
+        size="medium"
+        variant="tertiary"
+        buttonClassName={cn(
+          'xl:bg-lightGrey xl:hover:bg-lightGrey xl:active:bg-lightGrey xl:hover:border-blue xl:active:border-blue',
+        )}
+        menuPosition="right"
       />
-    </Paper>
+    </Card>
   );
 };
 export default Filters;

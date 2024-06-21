@@ -5,10 +5,10 @@ export const useStyles = () => {
   const theme = useTheme();
   return {
     root: css`
-      border-radius: ${theme.shape.borderRadius.medium}px;
+      border-radius: ${theme.spacing(3)};
     `,
     inner: css`
-      border-radius: ${theme.shape.borderRadius.medium}px;
+      border-radius: ${theme.spacing(3)};
     `,
     topSection: css`
       margin-bottom: ${theme.spacing(8)};

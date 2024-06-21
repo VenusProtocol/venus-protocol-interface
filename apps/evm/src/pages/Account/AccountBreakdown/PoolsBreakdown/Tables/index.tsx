@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import Paper from '@mui/material/Paper';
+import { Card } from 'components';
 import { useMemo, useState } from 'react';
 
 import { ButtonGroup } from 'components';
@@ -86,7 +86,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       </div>
 
       {/* Tablet/Mobile view */}
-      <Paper css={[styles.tabletContainer, showXlDownCss]}>
+      <Card css={[styles.tabletContainer, showXlDownCss]}>
         <div css={styles.tabletHeader}>
           <Typography variant="h4" css={[styles.tabletHeaderTitle, hideMdDownCss]}>
             {t('account.marketBreakdown.tables.tabletTitle')}
@@ -118,7 +118,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
             css={styles.tabletMarketTable}
           />
         )}
-      </Paper>
+      </Card>
     </div>
   );
 };

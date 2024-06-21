@@ -28,7 +28,7 @@ export const useStyles = () => {
       ${theme.breakpoints.down('xl')} {
         padding: ${theme.spacing(4)};
         background-color: ${theme.palette.background.paper};
-        border-radius: ${theme.shape.borderRadius.large}px;
+        border-radius: ${theme.spacing(3)};
       }
     `,
     accountHealthProgressBar: css`

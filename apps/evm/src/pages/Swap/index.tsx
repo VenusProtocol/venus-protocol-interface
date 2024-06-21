@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import Paper from '@mui/material/Paper';
 import BigNumber from 'bignumber.js';
+import { Card } from 'components';
 import { useEffect, useMemo, useState } from 'react';
 
 import { useSwapTokens } from 'clients/api';
@@ -222,7 +222,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
     }));
 
   return (
-    <Paper css={styles.container}>
+    <Card css={styles.container}>
       <ConnectWallet message={t('swapPage.connectWalletToSwap')}>
         <SelectTokenTextField
           label={t('swapPage.fromTokenAmountField.label')}
@@ -347,7 +347,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
         />
       </ConnectWallet>
-    </Paper>
+    </Card>
   );
 };
 

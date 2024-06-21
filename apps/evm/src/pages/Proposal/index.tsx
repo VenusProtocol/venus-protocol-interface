@@ -59,7 +59,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 
       {!voteProposalFeatureEnabled && (
         <NoticeInfo
-          className="mb-8 w-full"
+          className="mb-6 w-full"
           data-testid={TEST_IDS.votingDisabledWarning}
           title={t('vote.multichain.votingOnlyEnabledOnBnb')}
           description={

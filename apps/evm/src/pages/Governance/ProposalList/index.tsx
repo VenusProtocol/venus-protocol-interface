@@ -204,7 +204,8 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
         <div className="space-y-4 sm:flex sm:gap-x-6 sm:space-y-0 sm:justify-between">
           <Select
             label={t('vote.proposalStateFilter.label')}
-            variant="secondary"
+            size="small"
+            variant="tertiary"
             placeLabelToLeft
             options={selectOptions}
             className="min-w-[230px]"

@@ -78,7 +78,7 @@ export const Market: React.FC<MarketProps> = ({ asset, pool }) => {
 
   return (
     <>
-      <div className="space-y-6 xl:grid xl:grid-cols-3 xl:gap-8 xl:space-y-0">
+      <div className="space-y-6 xl:grid xl:grid-cols-3 xl:gap-6 xl:space-y-0">
         {isSupplyOrBorrowEnabled && <Card className="xl:hidden">{buttonsDom}</Card>}
 
         <div className="space-y-6 xl:col-span-2 xl:mt-0">

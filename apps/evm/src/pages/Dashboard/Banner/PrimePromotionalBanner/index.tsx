@@ -22,7 +22,7 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
   });
 
   return (
-    <Card className="border-lightGrey relative mb-8 overflow-hidden border py-6 sm:p-0 md:p-0">
+    <Card className="border-lightGrey relative mb-6 overflow-hidden border py-6 sm:p-0 md:p-0">
       <button
         onClick={onHide}
         className="absolute right-4 top-4 z-[1]"
@@ -67,7 +67,7 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
             />
           </p>
 
-          <p className="text-grey mb-8 text-sm xl:text-base">
+          <p className="text-grey mb-6 text-sm xl:text-base">
             {t('dashboard.primePromotionalBanner.description')}
           </p>
 

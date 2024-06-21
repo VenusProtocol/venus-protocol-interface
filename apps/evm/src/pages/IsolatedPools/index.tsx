@@ -8,7 +8,7 @@ const IsolatedPools: React.FC = () => {
   return (
     <>
       <PoolStats
-        className="mb-6 xxl:mb-8"
+        className="mb-6"
         pools={pools}
         stats={['supply', 'borrow', 'liquidity', 'treasury']}
       />

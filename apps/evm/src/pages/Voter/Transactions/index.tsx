@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { ButtonWrapper, Icon, Spinner, Table, type TableColumn } from 'components';
+import { ButtonWrapper, Card, Icon, Spinner, Table, type TableColumn } from 'components';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -94,7 +94,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
   );
 
   return (
-    <Paper css={styles.root} className={className}>
+    <Card css={styles.root} className={className}>
       <Typography css={styles.horizontalPadding} variant="h4">
         {t('voterDetail.transactions')}
       </Typography>
@@ -126,7 +126,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
           {t('voterDetail.viewAll')}
         </Link>
       </ButtonWrapper>
-    </Paper>
+    </Card>
   );
 };
 

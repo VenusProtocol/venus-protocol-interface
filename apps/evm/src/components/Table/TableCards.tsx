@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
 import { Spinner } from 'components/Spinner';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
+import { Card } from 'components';
 import { Delimiter } from '../Delimiter';
 import { Select, type SelectOption, type SelectProps } from '../Select';
 import { useStyles } from './styles';
@@ -87,7 +88,7 @@ export function TableCards<R>({
           value={selectedOption?.value || selectOptions[0].value}
           onChange={handleOrderChange}
           css={styles.cardsSelect}
-          variant="secondary"
+          variant="tertiary"
         />
       )}
 
@@ -96,24 +97,8 @@ export function TableCards<R>({
       <div>
         {data.map((row, rowIndex) => {
           const rowKey = rowKeyExtractor(row);
-
-          return (
-            <Paper
-              key={rowKey}
-              css={styles.tableWrapperMobile({ clickable: !!(rowOnClick || getRowHref) })}
-              onClick={rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))}
-              component={
-                getRowHref
-                  ? ({ children, ...props }) => (
-                      <div {...props}>
-                        <Link css={styles.link} to={getRowHref(row)}>
-                          {children}
-                        </Link>
-                      </div>
-                    )
-                  : 'div'
-              }
-            >
+          const content = (
+            <>
               <div css={styles.rowTitleMobile}>{titleColumn.renderCell(row, rowIndex)}</div>
 
               <Delimiter css={styles.delimiterMobile} />
@@ -131,7 +116,24 @@ export function TableCards<R>({
                   </div>
                 ))}
               </div>
-            </Paper>
+            </>
+          );
+
+          return (
+            <Card
+              key={rowKey}
+              css={styles.tableWrapperMobile({ clickable: !!(rowOnClick || getRowHref) })}
+              onClick={rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))}
+              asChild
+            >
+              {getRowHref ? (
+                <Link css={styles.link} to={getRowHref(row)}>
+                  {content}
+                </Link>
+              ) : (
+                <div>{content}</div>
+              )}
+            </Card>
           );
         })}
       </div>

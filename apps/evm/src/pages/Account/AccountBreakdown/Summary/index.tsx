@@ -1,8 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
 
-import { BorrowLimitUsedAccountHealth, type Cell, CellGroup, Icon, Tooltip } from 'components';
+import {
+  BorrowLimitUsedAccountHealth,
+  Card,
+  type Cell,
+  CellGroup,
+  Icon,
+  Tooltip,
+} from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { useTranslation } from 'libs/translations';
 import type { Pool, Vault } from 'types';
@@ -83,7 +90,7 @@ export const Summary: React.FC<SummaryProps> = ({
 
   return (
     <Section className={className} title={t('account.summary.title')}>
-      <Paper css={styles.container} data-testid={TEST_IDS.container}>
+      <Card css={styles.container} data-testid={TEST_IDS.container}>
         <CellGroup
           smallValues={displayAccountHealth}
           cells={cells}
@@ -126,7 +133,7 @@ export const Summary: React.FC<SummaryProps> = ({
             </div>
           </div>
         )}
-      </Paper>
+      </Card>
     </Section>
   );
 };
