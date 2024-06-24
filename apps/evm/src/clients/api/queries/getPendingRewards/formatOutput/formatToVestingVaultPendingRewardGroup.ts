@@ -1,6 +1,5 @@
 import type BigNumber from 'bignumber.js';
 
-import { logError } from 'libs/errors';
 import type { Token } from 'types';
 import convertDollarsToCents from 'utilities/convertDollarsToCents';
 import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
@@ -38,7 +37,6 @@ const formatToVestingVaultPendingRewardGroup = ({
   const rewardToken = tokens.find(token => token.symbol === 'XVS');
 
   if (!rewardToken) {
-    logError('Record missing for reward token: XVS');
     return;
   }
 
@@ -48,7 +46,6 @@ const formatToVestingVaultPendingRewardGroup = ({
   });
 
   if (!stakedToken) {
-    logError(`Record missing for staked token: ${stakedTokenAddress}`);
     return;
   }
 

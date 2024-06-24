@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 
 import type { Prime } from 'libs/contracts';
-import { logError } from 'libs/errors';
 import type { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens, findTokenByAddress } from 'utilities';
 
@@ -29,7 +28,6 @@ const formatToPrimePendingRewardGroup = ({
 
       // Filter out result if no corresponding token is found
       if (!rewardToken) {
-        logError(`Record missing for reward token: ${primePendingReward.rewardToken}`);
         return acc;
       }
 

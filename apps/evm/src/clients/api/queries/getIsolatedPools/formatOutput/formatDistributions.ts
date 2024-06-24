@@ -1,6 +1,5 @@
 import type BigNumber from 'bignumber.js';
 
-import { logError } from 'libs/errors';
 import type { AssetDistribution, PrimeApy, Token } from 'types';
 import { calculateDailyTokenRate } from 'utilities/calculateDailyTokenRate';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -57,7 +56,6 @@ const formatDistributions = ({
       });
 
       if (!rewardToken) {
-        logError(`Record missing for reward token: ${rewardTokenAddress}`);
         return;
       }
 

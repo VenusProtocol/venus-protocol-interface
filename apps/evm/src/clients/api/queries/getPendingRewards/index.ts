@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { VError, logError } from 'libs/errors';
+import { VError } from 'libs/errors';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -132,7 +132,6 @@ const getPendingRewards = async ({
     });
 
     if (!rewardToken) {
-      logError(`Record missing for reward token: ${rewardTokenAddress}`);
       return acc;
     }
 

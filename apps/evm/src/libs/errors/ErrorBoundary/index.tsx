@@ -13,6 +13,12 @@ Sentry.init({
   release: APP_VERSION,
   attachStacktrace: true,
   tracesSampleRate: 0,
+  integrations: [
+    Sentry.thirdPartyErrorFilterIntegration({
+      filterKeys: ['venus-evm'],
+      behaviour: 'drop-error-if-contains-third-party-frames',
+    }),
+  ],
 });
 
 export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => (

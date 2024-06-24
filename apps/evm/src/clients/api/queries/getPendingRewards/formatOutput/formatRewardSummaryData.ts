@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 
 import type { VenusLens } from 'libs/contracts';
-import { logError } from 'libs/errors';
 import type { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -32,7 +31,6 @@ function formatRewardSummaryData({
 
   // Filter out result if no corresponding token is found
   if (!rewardToken) {
-    logError(`Record missing for reward token: ${rewardSummary.rewardTokenAddress}`);
     return;
   }
 

@@ -9,7 +9,6 @@ import {
 } from 'utilities';
 
 import { getLegacyPoolMarkets, getTokenBalances } from 'clients/api';
-import { logError } from 'libs/errors';
 import { formatToPool } from './formatToPool';
 import type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 
@@ -149,7 +148,6 @@ const getLegacyPool = async ({
     });
 
     if (!underlyingToken) {
-      logError(`Record missing for underlying token: ${vTokenMetaData.underlyingAssetAddress}`);
       return acc;
     }
 
