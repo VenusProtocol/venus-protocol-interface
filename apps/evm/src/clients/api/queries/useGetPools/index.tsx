@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useGetIsolatedPools, useGetLegacyPool } from 'clients/api';
+import { useGetApiPools, useGetIsolatedPools, useGetLegacyPool } from 'clients/api';
 import type { Pool } from 'types';
 
 export interface UseGetPoolsInput {
@@ -15,16 +15,31 @@ export interface UseGetPoolsOutput {
 }
 
 const useGetPools = ({ accountAddress }: UseGetPoolsInput): UseGetPoolsOutput => {
-  const { data: getLegacyPoolData, isLoading: isGetLegacyPoolDataLoading } = useGetLegacyPool({
-    accountAddress,
-  });
+  const { data: getApiPoolData, isLoading: isGetApiPoolDataLoading } = useGetApiPools();
+
+  const { data: getLegacyPoolData, isLoading: isGetLegacyPoolDataLoading } = useGetLegacyPool(
+    {
+      accountAddress,
+      apiPoolsData: getApiPoolData!,
+    },
+    {
+      enabled: !isGetApiPoolDataLoading && !!getApiPoolData,
+    },
+  );
 
   const { data: getIsolatedPoolsData, isLoading: isGetIsolatedPoolsDataLoading } =
-    useGetIsolatedPools({
-      accountAddress,
-    });
+    useGetIsolatedPools(
+      {
+        accountAddress,
+        apiPoolsData: getApiPoolData!,
+      },
+      {
+        enabled: !isGetApiPoolDataLoading && !!getApiPoolData,
+      },
+    );
 
-  const isLoading = isGetLegacyPoolDataLoading || isGetIsolatedPoolsDataLoading;
+  const isLoading =
+    isGetApiPoolDataLoading && isGetLegacyPoolDataLoading && isGetIsolatedPoolsDataLoading;
 
   const data = useMemo(() => {
     if (isLoading) {

@@ -44,12 +44,10 @@ const formatDistributions = ({
   rewardsDistributorSettings.forEach(
     ({
       rewardTokenAddress,
-      rewardTokenSupplyState,
-      rewardTokenBorrowState,
+      rewardTokenLastRewardingSupplyBlockOrTimestamp,
+      rewardTokenLastRewardingBorrowBlockOrTimestamp,
       rewardTokenSupplySpeeds,
       rewardTokenBorrowSpeeds,
-      rewardTokenBorrowStateTimeBased,
-      rewardTokenSupplyStateTimeBased,
     }) => {
       const rewardToken = findTokenByAddress({
         tokens,
@@ -71,8 +69,12 @@ const formatDistributions = ({
 
       const isDistributingSupplyRewards = isDistributingRewards({
         isTimeBased: isChainTimeBased,
-        lastRewardingTimestamp: rewardTokenSupplyStateTimeBased?.lastRewardingTimestamp.toNumber(),
-        lastRewardingBlock: rewardTokenSupplyState?.lastRewardingBlock,
+        lastRewardingTimestamp: isChainTimeBased
+          ? rewardTokenLastRewardingSupplyBlockOrTimestamp.toNumber()
+          : undefined,
+        lastRewardingBlock: !isChainTimeBased
+          ? rewardTokenLastRewardingSupplyBlockOrTimestamp.toNumber()
+          : undefined,
         currentBlockNumber,
       });
 
@@ -95,8 +97,12 @@ const formatDistributions = ({
 
       const isDistributingBorrowRewards = isDistributingRewards({
         isTimeBased: isChainTimeBased,
-        lastRewardingTimestamp: rewardTokenBorrowStateTimeBased?.lastRewardingTimestamp.toNumber(),
-        lastRewardingBlock: rewardTokenBorrowState?.lastRewardingBlock,
+        lastRewardingTimestamp: isChainTimeBased
+          ? rewardTokenLastRewardingBorrowBlockOrTimestamp.toNumber()
+          : undefined,
+        lastRewardingBlock: !isChainTimeBased
+          ? rewardTokenLastRewardingBorrowBlockOrTimestamp.toNumber()
+          : undefined,
         currentBlockNumber,
       });
 

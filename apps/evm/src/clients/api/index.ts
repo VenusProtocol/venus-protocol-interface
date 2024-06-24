@@ -144,6 +144,14 @@ export { default as getLegacyPoolMarkets } from './queries/getLegacyPoolMarkets'
 export * from './queries/getLegacyPoolMarkets';
 export { default as useGetLegacyPoolMarkets } from './queries/getLegacyPoolMarkets/useGetLegacyPoolMarkets';
 
+export { default as getApiMarkets } from './queries/getApiMarkets';
+export * from './queries/getApiMarkets';
+export { default as useGetApiMarkets } from './queries/getApiMarkets/useGetApiMarkets';
+
+export { default as getPools } from './queries/getApiPools';
+export * from './queries/getApiPools';
+export { default as useGetApiPools } from './queries/getApiPools/useGetApiPools';
+
 export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll';
 export * from './queries/getVTokenBalancesAll';
 export { default as useGetVTokenBalancesAll } from './queries/getVTokenBalancesAll/useGetVTokenBalancesAll';
