@@ -66,7 +66,7 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type }) => 
             stroke={sharedStyles.accessoryColor}
             tickMargin={sharedStyles.tickMargin}
             tickCount={data.length}
-            interval={data.length / 10}
+            interval={data.length / 5}
             style={sharedStyles.axis}
           />
           <YAxis
