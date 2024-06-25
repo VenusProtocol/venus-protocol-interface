@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 2.129.0
+
+### Minor Changes
+
+- 3c0164e: filter out errors from third-party frames + remove unnecessary errors
+- 57eb665: Add support for period selection on Market page graphs
+
+### Patch Changes
+
+- 92b9266: Small UI updates
+- e8c5a74: hide periods on charts when apyCharts feature is disabled
+- 37a4c32: adjust ticket interval on APY charts
+
 ## 2.128.0
 
 ### Minor Changes
