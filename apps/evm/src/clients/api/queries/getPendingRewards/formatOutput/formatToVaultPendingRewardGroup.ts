@@ -1,6 +1,5 @@
 import type BigNumber from 'bignumber.js';
 
-import { logError } from 'libs/errors';
 import type { Token } from 'types';
 import convertDollarsToCents from 'utilities/convertDollarsToCents';
 import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
@@ -25,14 +24,12 @@ const formatToVaultPendingRewardGroup = ({
   const stakedToken = tokens.find(token => token.symbol === stakedTokenSymbol);
 
   if (!stakedToken) {
-    logError(`Record missing for staked token: ${stakedTokenSymbol}`);
     return;
   }
 
   const rewardToken = tokens.find(token => token.symbol === rewardTokenSymbol);
 
   if (!rewardToken) {
-    logError(`Record missing for reward token: ${rewardTokenSymbol}`);
     return;
   }
 

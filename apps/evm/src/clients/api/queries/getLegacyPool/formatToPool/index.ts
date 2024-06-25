@@ -8,7 +8,6 @@ import {
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
 import type { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'libs/contracts';
-import { logError } from 'libs/errors';
 import {
   type Asset,
   ChainId,
@@ -123,7 +122,6 @@ export const formatToPool = ({
     });
 
     if (!underlyingToken) {
-      logError(`Record missing for token: ${vTokenMetaData.underlyingAssetAddress}`);
       return;
     }
 

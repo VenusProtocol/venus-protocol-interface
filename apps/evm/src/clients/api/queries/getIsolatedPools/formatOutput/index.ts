@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import type { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import type { PoolLens } from 'libs/contracts';
-import { logError } from 'libs/errors';
 import type { Asset, ChainId, Pool, PrimeApy, Token, VToken } from 'types';
 import addUserPropsToPool from 'utilities/addUserPropsToPool';
 import areAddressesEqual from 'utilities/areAddressesEqual';
@@ -70,7 +69,6 @@ const formatToPools = ({
       });
 
       if (!underlyingToken) {
-        logError(`Record missing for underlying token: ${vTokenMetaData.underlyingAssetAddress}`);
         return acc;
       }
 
