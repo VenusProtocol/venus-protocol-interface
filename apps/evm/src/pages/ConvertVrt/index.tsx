@@ -69,7 +69,7 @@ const ConvertVrt = () => {
     { enabled: !!accountAddress },
   );
 
-  const { mutateAsync: withdrawXvs, isLoading: withdrawXvsLoading } = useWithdrawXvs();
+  const { mutateAsync: withdrawXvs, isPending: withdrawXvsLoading } = useWithdrawXvs();
 
   const conversionRatio = useMemo(() => {
     if (xvs && vrtConversionRatioData?.conversionRatio) {

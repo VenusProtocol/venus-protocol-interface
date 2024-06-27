@@ -7,13 +7,13 @@ import { callOrThrow } from 'utilities';
 type TrimmedClaimRewardsInput = Omit<MintVaiInput, 'vaiControllerContract'>;
 type Options = UseSendTransactionOptions<TrimmedClaimRewardsInput>;
 
-const useMintVai = (options?: Options) => {
+const useMintVai = (options?: Partial<Options>) => {
   const vaiControllerContract = useGetVaiControllerContract({
     passSigner: true,
   });
 
   return useSendTransaction({
-    fnKey: FunctionKey.MINT_VAI,
+    fnKey: [FunctionKey.MINT_VAI],
     fn: (input: TrimmedClaimRewardsInput) =>
       callOrThrow(
         {
@@ -27,8 +27,12 @@ const useMintVai = (options?: Options) => {
       ),
     onConfirmed: () => {
       // Invalidate queries related to fetching the user minted VAI amount
-      queryClient.invalidateQueries(FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS);
-      queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL],
+      });
     },
     options,
   });

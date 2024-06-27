@@ -3,7 +3,6 @@ import type Vi from 'vitest';
 
 import fakePrimeContractResponses from '__mocks__/contracts/prime';
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
-import { markets } from '__mocks__/models/markets';
 import fakeProvider from '__mocks__/models/provider';
 import tokens, { vai, xvs } from '__mocks__/models/tokens';
 
@@ -11,7 +10,6 @@ import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatur
 import type { Prime } from 'libs/contracts';
 import { ChainId } from 'types';
 
-import { getLegacyPoolMarkets } from 'clients/api';
 import getLegacyPool from '..';
 import {
   fakeLegacyPoolComptrollerContract,
@@ -25,8 +23,6 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'prime',
     );
-
-    (getLegacyPoolMarkets as Vi.Mock).mockImplementation(() => ({ markets }));
   });
 
   it('fetches and formats Prime distributions and Prime distribution simulations if user is Prime', async () => {

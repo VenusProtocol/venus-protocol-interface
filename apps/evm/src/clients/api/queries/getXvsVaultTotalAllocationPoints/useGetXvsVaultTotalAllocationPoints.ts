@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getXvsVaultTotalAllocationPoints, {
   type GetXvsVaultTotalAllocPointsInput,
@@ -32,19 +32,21 @@ type Options = QueryObserverOptions<
 
 const useGetXvsVaultTotalAllocationPoints = (
   input: TrimmedGetXvsVaultTotalAllocPointsInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract();
 
-  return useQuery(
-    [FunctionKey.GET_XVS_VAULT_TOTAL_ALLOCATION_POINTS, { ...input, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_XVS_VAULT_TOTAL_ALLOCATION_POINTS, { ...input, chainId }],
+
+    queryFn: () =>
       callOrThrow({ xvsVaultContract }, params =>
         getXvsVaultTotalAllocationPoints({ ...params, ...input }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetXvsVaultTotalAllocationPoints;

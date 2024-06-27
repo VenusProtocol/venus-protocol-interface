@@ -10,7 +10,7 @@ import { callOrThrow, convertMantissaToTokens } from 'utilities';
 type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
 type Options = UseSendTransactionOptions<TrimmedStakeInVaiVaultInput>;
 
-const useStakeInVaiVault = (options?: Options) => {
+const useStakeInVaiVault = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const vaiVaultContract = useGetVaiVaultContract({
     passSigner: true,
@@ -23,7 +23,7 @@ const useStakeInVaiVault = (options?: Options) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: FunctionKey.SET_VOTE_DELEGATE,
+    fnKey: [FunctionKey.SET_VOTE_DELEGATE],
     fn: (input: TrimmedStakeInVaiVaultInput) =>
       callOrThrow(
         {
@@ -47,50 +47,57 @@ const useStakeInVaiVault = (options?: Options) => {
         });
 
         // Invalidate cached user balance
-        queryClient.invalidateQueries([
-          FunctionKey.GET_BALANCE_OF,
-          {
-            chainId,
-            accountAddress,
-            tokenAddress: vai.address,
-          },
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_BALANCE_OF,
+            {
+              chainId,
+              accountAddress,
+              tokenAddress: vai.address,
+            },
+          ],
+        });
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_ALLOWANCE,
-          {
-            chainId,
-            tokenAddress: vai.address,
-            accountAddress,
-          },
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_TOKEN_ALLOWANCE,
+            {
+              chainId,
+              tokenAddress: vai.address,
+              accountAddress,
+            },
+          ],
+        });
 
         // Invalidate cached vault data
-        queryClient.invalidateQueries([
-          FunctionKey.GET_BALANCE_OF,
-          {
-            chainId,
-            accountAddress: vaiVaultContract?.address,
-            tokenAddress: vai.address,
-          },
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_BALANCE_OF,
+            {
+              chainId,
+              accountAddress: vaiVaultContract?.address,
+              tokenAddress: vai.address,
+            },
+          ],
+        });
       }
 
       // Invalidate cached user info, including pending reward
-      queryClient.invalidateQueries([
-        FunctionKey.GET_VAI_VAULT_USER_INFO,
-        { chainId, accountAddress },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_VAI_VAULT_USER_INFO, { chainId, accountAddress }],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_BALANCES,
-        {
-          chainId,
-          accountAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            chainId,
+            accountAddress,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries(FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE);
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE] });
     },
     options,
   });

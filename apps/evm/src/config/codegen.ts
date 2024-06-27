@@ -4,7 +4,7 @@ const plugins = ['typescript', 'typed-document-node', 'typescript-operations'];
 
 export const projects = {
   isolatedPools: {
-    schema: 'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-isolated-pools',
+    schema: 'https://api.studio.thegraph.com/query/77761/venus-isolated-pools/version/latest',
     documents: ['../clients/subgraph/queries/isolatedPools/**/*.graphql'],
     extensions: {
       codegen: {
@@ -17,7 +17,7 @@ export const projects = {
     },
   },
   governance: {
-    schema: 'https://api.thegraph.com/subgraphs/name/venusprotocol/venus-governance',
+    schema: 'https://api.studio.thegraph.com/query/77761/venus-governance/version/latest',
     documents: ['../clients/subgraph/queries/governance/**/*.graphql'],
     extensions: {
       codegen: {

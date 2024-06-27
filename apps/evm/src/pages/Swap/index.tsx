@@ -404,7 +404,7 @@ const SwapPage: React.FC = () => {
     accountAddress,
   });
 
-  const { mutateAsync: swapTokens, isLoading: isSwapTokensLoading } = useSwapTokens({
+  const { mutateAsync: swapTokens, isPending: isSwapTokensLoading } = useSwapTokens({
     poolComptrollerAddress: legacyPoolComptrollerContractAddress || '',
   });
 

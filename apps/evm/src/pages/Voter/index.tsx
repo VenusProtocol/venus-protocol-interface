@@ -74,7 +74,7 @@ const Voter: React.FC = () => {
   const {
     data: { voterHistory, total, limit } = { voterHistory: [], total: 0, limit: 16 },
     isFetching: isGetVoterHistoryFetching,
-    isPreviousData: isGetVoterHistoryPreviousData,
+    isPlaceholderData: isGetVoterHistoryPreviousData,
   } = useGetVoterHistory({ address, page: currentPage });
 
   const isFetching =

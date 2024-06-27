@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getXvsVaultLockedDeposits, {
   type GetXvsVaultLockedDepositsInput,
@@ -32,19 +32,21 @@ type Options = QueryObserverOptions<
 
 const useGetXvsVaultLockedDeposits = (
   input: TrimmedGetXvsVaultLockedDepositsInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract();
 
-  return useQuery(
-    [FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, { ...input, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, { ...input, chainId }],
+
+    queryFn: () =>
       callOrThrow({ xvsVaultContract }, params =>
         getXvsVaultLockedDeposits({ ...params, ...input }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetXvsVaultLockedDeposits;

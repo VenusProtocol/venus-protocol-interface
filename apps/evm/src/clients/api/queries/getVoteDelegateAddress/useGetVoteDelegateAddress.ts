@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import {
   type GetVoteDelegateAddressInput,
@@ -21,18 +21,20 @@ type Options = QueryObserverOptions<
 
 const useGetVoteDelegateAddress = (
   input: TrimmedGetVoteDelegateAddressInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const xvsVaultContract = useGetXvsVaultContract({
     chainId: governanceChain.id,
   });
 
-  return useQuery(
-    [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, input],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, input],
+
+    queryFn: () =>
       callOrThrow({ xvsVaultContract }, params => getVoteDelegateAddress({ ...params, ...input })),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetVoteDelegateAddress;

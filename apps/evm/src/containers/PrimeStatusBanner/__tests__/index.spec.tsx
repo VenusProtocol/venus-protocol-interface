@@ -4,8 +4,14 @@ import type Vi from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 
-import { useGetPrimeStatus, useGetPrimeToken, useGetXvsVaultUserInfo } from 'clients/api';
+import {
+  useGetLegacyPool,
+  useGetPrimeStatus,
+  useGetPrimeToken,
+  useGetXvsVaultUserInfo,
+} from 'clients/api';
 
+import { poolData } from '__mocks__/models/pools';
 import { en } from 'libs/translations';
 import PrimeStatusBanner from '..';
 import TEST_IDS from '../testIds';
@@ -26,10 +32,13 @@ describe('PrimeStatusBanner', () => {
   };
 
   beforeEach(() => {
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
       data: {
-        ...MOCK_DEFAULT_PRIME_STATUS,
+        pool: poolData[0],
       },
+    }));
+    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+      data: MOCK_DEFAULT_PRIME_STATUS,
     }));
     (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
       data: {

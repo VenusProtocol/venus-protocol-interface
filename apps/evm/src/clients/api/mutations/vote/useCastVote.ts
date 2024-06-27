@@ -11,14 +11,14 @@ import castVote, { type CastVoteInput } from './castVote';
 type TrimmedCastVoteInput = Omit<CastVoteInput, 'governorBravoDelegateContract'>;
 type Options = UseSendTransactionOptions<TrimmedCastVoteInput>;
 
-const useCastVote = (options?: Options) => {
+const useCastVote = (options?: Partial<Options>) => {
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     passSigner: true,
   });
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: FunctionKey.CAST_VOTE,
+    fnKey: [FunctionKey.CAST_VOTE],
     fn: (input: TrimmedCastVoteInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         castVote({
@@ -35,16 +35,18 @@ const useCastVote = (options?: Options) => {
       });
 
       // Invalidate query to fetch voters
-      queryClient.invalidateQueries([
-        FunctionKey.GET_VOTERS,
-        {
-          id: proposalId,
-          filter: voteType,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_VOTERS,
+          {
+            id: proposalId,
+            filter: voteType,
+          },
+        ],
+      });
 
       // Invalidate query to fetch proposal list
-      queryClient.invalidateQueries(FunctionKey.GET_PROPOSAL_PREVIEWS);
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_PROPOSAL_PREVIEWS] });
     },
     options,
   });

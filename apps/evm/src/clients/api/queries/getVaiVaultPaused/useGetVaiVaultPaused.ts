@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { type GetVaiVaultPausedOutput, getVaiVaultPaused } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -17,18 +17,16 @@ type Options = QueryObserverOptions<
   UseGetVaiVaultPausedQueryKey
 >;
 
-const useGetVaiVaultPaused = (options?: Options) => {
+const useGetVaiVaultPaused = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const vaiVaultContract = useGetVaiVaultContract();
 
-  return useQuery(
-    [FunctionKey.GET_VAI_VAULT_PAUSED, { chainId }],
-    () => callOrThrow({ vaiVaultContract }, getVaiVaultPaused),
-    {
-      ...options,
-      enabled: !!vaiVaultContract && (options?.enabled === undefined || options?.enabled),
-    },
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_VAI_VAULT_PAUSED, { chainId }],
+    queryFn: () => callOrThrow({ vaiVaultContract }, getVaiVaultPaused),
+    ...options,
+    enabled: !!vaiVaultContract && (options?.enabled === undefined || options?.enabled),
+  });
 };
 
 export default useGetVaiVaultPaused;

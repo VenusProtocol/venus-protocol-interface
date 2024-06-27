@@ -22,7 +22,7 @@ type TrimmedClaimRewardsInput = Omit<
 
 type Options = UseSendTransactionOptions<TrimmedClaimRewardsInput>;
 
-const useClaimRewards = (options?: Options) => {
+const useClaimRewards = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const multicallContract = useGetMulticall3Contract({
     passSigner: true,
@@ -36,7 +36,7 @@ const useClaimRewards = (options?: Options) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: FunctionKey.CLAIM_REWARDS,
+    fnKey: [FunctionKey.CLAIM_REWARDS],
     fn: (input: TrimmedClaimRewardsInput) =>
       callOrThrow(
         {
@@ -74,10 +74,12 @@ const useClaimRewards = (options?: Options) => {
         }
       });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_PENDING_REWARDS,
-        { accountAddress: input.accountAddress, chainId },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_PENDING_REWARDS,
+          { accountAddress: input.accountAddress, chainId },
+        ],
+      });
     },
     options,
   });

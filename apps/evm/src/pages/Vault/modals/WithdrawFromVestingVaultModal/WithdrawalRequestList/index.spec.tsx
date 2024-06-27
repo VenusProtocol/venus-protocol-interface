@@ -5,7 +5,7 @@ import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
-import { getXvsVaultLockedDeposits } from 'clients/api';
+import { useGetXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import { en } from 'libs/translations';
 
@@ -18,8 +18,10 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(new Date(1656603774626));
 
-    (getXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
-      lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
+    (useGetXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
+      data: {
+        lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
+      },
     }));
   });
 
@@ -30,8 +32,10 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
   });
 
   it('fetches withdrawal requests and displays empty state when none was returned', async () => {
-    (getXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
-      lockedDeposits: [],
+    (useGetXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
+      data: {
+        lockedDeposits: [],
+      },
     }));
 
     const { getByText } = renderComponent(<WithdrawalRequestList poolIndex={fakePoolIndex} />, {

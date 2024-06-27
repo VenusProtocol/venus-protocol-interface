@@ -9,7 +9,7 @@ import { callOrThrow } from 'utilities';
 type TrimmedRevokeSpendingLimitInput = Omit<RevokeSpendingLimitInput, 'tokenContract'>;
 type Options = UseSendTransactionOptions<TrimmedRevokeSpendingLimitInput>;
 
-const useRevokeSpendingLimit = ({ token }: { token: Token }, options?: Options) => {
+const useRevokeSpendingLimit = ({ token }: { token: Token }, options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const tokenContract = useGetTokenContract({
     token,
@@ -28,15 +28,17 @@ const useRevokeSpendingLimit = ({ token }: { token: Token }, options?: Options) 
     onConfirmed: async ({ input }) => {
       const accountAddress = await tokenContract?.signer.getAddress();
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_ALLOWANCE,
-        {
-          chainId,
-          tokenAddress: token.address,
-          spenderAddress: input.spenderAddress,
-          accountAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            chainId,
+            tokenAddress: token.address,
+            spenderAddress: input.spenderAddress,
+            accountAddress,
+          },
+        ],
+      });
     },
     options,
   });

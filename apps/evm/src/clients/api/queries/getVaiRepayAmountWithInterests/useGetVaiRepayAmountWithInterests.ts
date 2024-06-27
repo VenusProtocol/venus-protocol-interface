@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { getVaiRepayAmountWithInterests } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -34,28 +34,30 @@ type Options = QueryObserverOptions<
 
 const useGetVaiRepayAmountWithInterests = (
   { accountAddress }: TrimmedGetVaiRepayAmountWithInterestsInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const vaiControllerContract = useGetVaiControllerContract();
 
-  return useQuery(
-    [
+  return useQuery({
+    queryKey: [
       FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS,
       {
         accountAddress,
         chainId,
       },
     ],
-    () =>
+
+    queryFn: () =>
       callOrThrow({ vaiControllerContract }, params =>
         getVaiRepayAmountWithInterests({
           accountAddress,
           ...params,
         }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetVaiRepayAmountWithInterests;

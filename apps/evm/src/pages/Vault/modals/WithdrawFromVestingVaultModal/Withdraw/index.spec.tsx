@@ -7,7 +7,7 @@ import fakeAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { executeWithdrawalFromXvsVault, getXvsVaultLockedDeposits } from 'clients/api';
+import { executeWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import { en } from 'libs/translations';
 
@@ -20,8 +20,11 @@ const fakeStakedToken = vai;
 describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(new Date(1656603774626));
-    (getXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
-      lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
+    (useGetXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
+      },
     }));
   });
 
@@ -50,8 +53,11 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
   });
 
   it('disables submit button when there is no tokens available', async () => {
-    (getXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
-      lockedDeposits: [],
+    (useGetXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        lockedDeposits: [],
+      },
     }));
 
     const { getByTestId, getByText } = renderComponent(
@@ -92,6 +98,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
     // Click on submit button
     fireEvent.click(submitButton);
 
+    await waitFor(() => expect(submitButton).toBeEnabled());
     await waitFor(() => expect(executeWithdrawalFromXvsVault).toHaveBeenCalledTimes(1));
     expect(executeWithdrawalFromXvsVault).toHaveBeenCalledWith({
       poolIndex: fakePoolIndex,

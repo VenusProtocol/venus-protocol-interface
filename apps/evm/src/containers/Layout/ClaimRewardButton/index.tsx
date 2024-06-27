@@ -159,7 +159,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
     uncheckedGroupIds,
   });
 
-  const { mutateAsync: claimRewards, isLoading: isClaimingRewards } = useClaimRewards();
+  const { mutateAsync: claimRewards, isPending: isClaimingRewards } = useClaimRewards();
 
   const handleClaimReward = async () => {
     if (!accountAddress) {

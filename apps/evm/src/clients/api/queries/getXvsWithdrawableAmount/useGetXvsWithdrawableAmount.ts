@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getXvsWithdrawableAmount, {
   type GetXvsWithdrawableAmountInput,
@@ -32,19 +32,21 @@ type Options = QueryObserverOptions<
 
 const useGetXvsWithdrawableAmount = (
   input: TrimmedGetXvsWithdrawableAmountInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const xvsVestingContract = useGetXvsVestingContract();
 
-  return useQuery(
-    [FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT, { ...input, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT, { ...input, chainId }],
+
+    queryFn: () =>
       callOrThrow({ xvsVestingContract }, params =>
         getXvsWithdrawableAmount({ ...params, ...input }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetXvsWithdrawableAmount;

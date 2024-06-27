@@ -284,7 +284,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
   );
   const vTokenBalanceMantissa = getVTokenBalanceData?.balanceMantissa;
 
-  const { mutateAsync: withdraw, isLoading: isWithdrawLoading } = useWithdraw({
+  const { mutateAsync: withdraw, isPending: isWithdrawLoading } = useWithdraw({
     poolName: pool.name,
     poolComptrollerAddress: pool.comptrollerAddress,
     vToken: asset.vToken,

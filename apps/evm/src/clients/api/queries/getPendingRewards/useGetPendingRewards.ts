@@ -1,5 +1,5 @@
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -53,7 +53,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Options) => {
+const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
   const resilientOracleContract = useGetResilientOracleContract();
@@ -86,7 +86,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
   // Get XVS vesting vault pool count
   const { data: getXvsVaultPoolCountData, isLoading: isGetXvsVaultPoolCountLoading } =
     useGetXvsVaultPoolCount({
-      enabled: options?.enabled,
+      enabled: !!options?.enabled,
     });
   const xvsVestingVaultPoolCount = getXvsVaultPoolCountData?.poolCount || 0;
 
@@ -94,9 +94,9 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
   // order. This prevents unnecessary queries
   const sortedIsolatedPoolComptrollerAddresses = [...isolatedPoolComptrollerAddresses].sort();
 
-  return useQuery(
-    [FunctionKey.GET_PENDING_REWARDS, { ...input, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_PENDING_REWARDS, { ...input, chainId }],
+    queryFn: () =>
       callOrThrow(
         {
           resilientOracleContract,
@@ -116,13 +116,10 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Op
             ...params,
           }),
       ),
-    {
-      refetchInterval,
-      ...options,
-      enabled:
-        (!options || options.enabled) && !isGetPoolsLoading && !isGetXvsVaultPoolCountLoading,
-    },
-  );
+    refetchInterval,
+    ...options,
+    enabled: (!options || options.enabled) && !isGetPoolsLoading && !isGetXvsVaultPoolCountLoading,
+  });
 };
 
 export default useGetPendingRewards;

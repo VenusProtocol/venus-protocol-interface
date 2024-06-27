@@ -6,12 +6,10 @@ import compTrollerResponses from '__mocks__/contracts/legacyPoolComptroller';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
-import { markets } from '__mocks__/models/markets';
 import { renderComponent } from 'testUtils/render';
 
 import {
   getBalanceOf,
-  getLegacyPoolMarkets,
   getVaiVaultUserInfo,
   getVenusVaiVaultDailyRate,
   getXvsVaultPendingWithdrawalsBalance,
@@ -51,8 +49,6 @@ describe('api/queries/useGetVaults', () => {
     (getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade as Vi.Mock).mockImplementation(() => ({
       userPendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber('100000'),
     }));
-
-    (getLegacyPoolMarkets as Vi.Mock).mockImplementation(() => ({ markets }));
 
     (getVaiVaultUserInfo as Vi.Mock).mockImplementation(() =>
       formatToVaiVaultUserInfo(vaiVaultResponses.userInfo),

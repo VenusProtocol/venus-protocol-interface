@@ -559,12 +559,12 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
     accountAddress,
   });
 
-  const { mutateAsync: supply, isLoading: isSupplyLoading } = useSupply({
+  const { mutateAsync: supply, isPending: isSupplyLoading } = useSupply({
     poolName: pool.name,
     vToken: asset.vToken,
   });
 
-  const { mutateAsync: swapExactTokensForTokensAndSupply, isLoading: isSwapAndSupplyLoading } =
+  const { mutateAsync: swapExactTokensForTokensAndSupply, isPending: isSwapAndSupplyLoading } =
     useSwapTokensAndSupply({
       poolName: pool.name,
       poolComptrollerAddress: pool.comptrollerAddress,

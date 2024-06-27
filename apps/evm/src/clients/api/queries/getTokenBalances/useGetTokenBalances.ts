@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import {
   type GetTokenBalancesInput,
@@ -28,7 +28,7 @@ export type Options = QueryObserverOptions<
 
 const useGetTokenBalances = (
   { accountAddress, tokens }: Omit<GetTokenBalancesInput, 'multicall3' | 'provider'>,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
@@ -36,8 +36,8 @@ const useGetTokenBalances = (
   // Sort addresses alphabetically to prevent unnecessary re-renders
   const sortedTokenAddresses = [...tokens].map(token => token.address).sort();
 
-  return useQuery(
-    [
+  return useQuery({
+    queryKey: [
       FunctionKey.GET_TOKEN_BALANCES,
       {
         accountAddress,
@@ -45,9 +45,10 @@ const useGetTokenBalances = (
       },
       ...sortedTokenAddresses,
     ],
-    () => getTokenBalances({ accountAddress, tokens, provider }),
-    options,
-  );
+
+    queryFn: () => getTokenBalances({ accountAddress, tokens, provider }),
+    ...options,
+  });
 };
 
 export default useGetTokenBalances;

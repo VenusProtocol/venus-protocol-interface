@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import useGetBlockNumber from 'clients/api/queries/getBlockNumber/useGetBlockNumber';
 import { useGetProposalMinQuorumVotes } from 'clients/api/queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
@@ -34,7 +34,7 @@ type Options = QueryObserverOptions<
 
 export const useGetProposalPreviews = (
   input: TrimmedGetProposalPreviewsInput = {},
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { data: getProposalMinQuorumVotesData } = useGetProposalMinQuorumVotes();
   const proposalMinQuorumVotesMantissa =
@@ -53,8 +53,8 @@ export const useGetProposalPreviews = (
     limit: input.limit ?? 10,
   };
 
-  return useQuery(
-    [
+  return useQuery({
+    queryKey: [
       FunctionKey.GET_PROPOSAL_PREVIEWS,
       {
         ...sanitizedInput,
@@ -62,7 +62,7 @@ export const useGetProposalPreviews = (
         chainId: governanceChain.id,
       },
     ],
-    () => {
+    queryFn: () => {
       return callOrThrow(
         {
           currentBlockNumber,
@@ -78,21 +78,19 @@ export const useGetProposalPreviews = (
           }),
       );
     },
-    {
-      keepPreviousData: true,
-      placeholderData: {
+    placeholderData: a =>
+      a ?? {
         limit: sanitizedInput.limit,
         page: sanitizedInput.page,
         total: 0,
         proposalPreviews: [],
       },
-      refetchInterval:
-        sanitizedInput.page === 0 ? (blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS) * 5 : undefined,
-      ...options,
-      enabled:
-        typeof currentBlockNumber === 'number' &&
-        !!proposalMinQuorumVotesMantissa &&
-        (options?.enabled === undefined || options?.enabled),
-    },
-  );
+    refetchInterval:
+      sanitizedInput.page === 0 ? (blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS) * 5 : undefined,
+    ...options,
+    enabled:
+      typeof currentBlockNumber === 'number' &&
+      !!proposalMinQuorumVotesMantissa &&
+      (options?.enabled === undefined || options?.enabled),
+  });
 };

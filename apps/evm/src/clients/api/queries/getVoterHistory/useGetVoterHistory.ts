@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import getVoterHistory, {
   type GetVoterHistoryInput,
@@ -14,10 +14,11 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_VOTER_HISTORY, GetVoterHistoryInput]
 >;
 
-const useGetVoterHistory = (params: GetVoterHistoryInput, options?: Options) =>
-  // This endpoint is paginated so we keep the previous responses by default to create a more seamless paginating experience
-  useQuery([FunctionKey.GET_VOTER_HISTORY, params], () => getVoterHistory(params), {
-    keepPreviousData: true,
+const useGetVoterHistory = (params: GetVoterHistoryInput, options?: Partial<Options>) =>
+  useQuery({
+    queryKey: [FunctionKey.GET_VOTER_HISTORY, params],
+    queryFn: () => getVoterHistory(params),
+    placeholderData: keepPreviousData,
     ...options,
   });
 

@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getIsolatedPools, {
   type GetIsolatedPoolsInput,
@@ -50,7 +50,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
+const useGetIsolatedPools = (input?: TrimmedInput, options?: Partial<Options>) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
@@ -67,9 +67,10 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
   const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
   const vTreasuryContractAddress = useGetVTreasuryContractAddress();
 
-  return useQuery(
-    [FunctionKey.GET_ISOLATED_POOLS, { ...input, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_ISOLATED_POOLS, { ...input, chainId }],
+
+    queryFn: () =>
       callOrThrow(
         {
           chainId,
@@ -89,11 +90,10 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
             ...params,
           }),
       ),
-    {
-      refetchInterval,
-      ...options,
-    },
-  );
+
+    refetchInterval,
+    ...options,
+  });
 };
 
 export default useGetIsolatedPools;

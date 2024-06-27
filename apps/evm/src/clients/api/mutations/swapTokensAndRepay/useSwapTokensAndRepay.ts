@@ -20,7 +20,7 @@ const useSwapTokensAndRepayAndRepay = (
     poolComptrollerAddress,
     poolName,
   }: { vToken: VToken; poolComptrollerAddress: string; poolName: string },
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const swapRouterContract = useGetSwapRouterContract({
@@ -30,7 +30,7 @@ const useSwapTokensAndRepayAndRepay = (
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: FunctionKey.SWAP_TOKENS_AND_REPAY,
+    fnKey: [FunctionKey.SWAP_TOKENS_AND_REPAY],
     fn: (input: TrimmedSwapTokensAndRepayInput) =>
       callOrThrow({ swapRouterContract }, params =>
         swapTokensAndRepay({
@@ -67,46 +67,54 @@ const useSwapTokensAndRepayAndRepay = (
 
       const accountAddress = await swapRouterContract?.signer.getAddress();
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_BALANCE_OF,
-        {
-          chainId,
-          accountAddress,
-          tokenAddress: input.swap.fromToken.address,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_BALANCE_OF,
+          {
+            chainId,
+            accountAddress,
+            tokenAddress: input.swap.fromToken.address,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_BALANCE_OF,
-        {
-          chainId,
-          accountAddress,
-          tokenAddress: input.swap.toToken.address,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_BALANCE_OF,
+          {
+            chainId,
+            accountAddress,
+            tokenAddress: input.swap.toToken.address,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_ALLOWANCE,
-        {
-          chainId,
-          tokenAddress: input.swap.fromToken.address,
-          accountAddress,
-          spenderAddress: swapRouterContract?.address,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            chainId,
+            tokenAddress: input.swap.fromToken.address,
+            accountAddress,
+            spenderAddress: swapRouterContract?.address,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_BALANCES,
-        {
-          chainId,
-          accountAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            chainId,
+            accountAddress,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries(FunctionKey.GET_V_TOKEN_BALANCES_ALL);
-      queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
-      queryClient.invalidateQueries(FunctionKey.GET_LEGACY_POOL);
-      queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL] });
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_MAIN_MARKETS] });
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_LEGACY_POOL] });
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_ISOLATED_POOLS] });
     },
     options,
   });

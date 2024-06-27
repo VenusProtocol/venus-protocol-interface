@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getPancakeSwapPairs, {
   type GetPancakeSwapPairsInput,
@@ -28,7 +28,7 @@ type Options = QueryObserverOptions<
 
 const useGetPancakeSwapPairs = (
   input: Omit<GetPancakeSwapPairsInput, 'provider' | 'chainId'>,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
@@ -37,17 +37,17 @@ const useGetPancakeSwapPairs = (
   // Generate query key based on token combinations
   const tokenCombinationIds = generateTokenCombinationIds(input.tokenCombinations);
 
-  return useQuery(
-    [FunctionKey.GET_PANCAKE_SWAP_PAIRS, { chainId }, ...tokenCombinationIds],
-    () => getPancakeSwapPairs({ ...input, provider }),
-    {
-      // Refresh request on every new block
-      refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
-      staleTime: 0,
-      cacheTime: 0,
-      ...options,
-    },
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_PANCAKE_SWAP_PAIRS, { chainId }, ...tokenCombinationIds],
+    queryFn: () => getPancakeSwapPairs({ ...input, provider }),
+
+    // Refresh request on every new block
+    refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
+
+    staleTime: 0,
+    gcTime: 0,
+    ...options,
+  });
 };
 
 export default useGetPancakeSwapPairs;
