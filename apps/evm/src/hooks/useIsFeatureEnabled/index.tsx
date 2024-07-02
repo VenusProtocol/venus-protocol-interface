@@ -24,7 +24,7 @@ export const featureFlags = {
   convertVrtRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   historyRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   vaiRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  swapRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  swapRoute: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.SEPOLIA, ChainId.ARBITRUM_ONE],
   xvsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   createProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   voteProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],

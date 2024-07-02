@@ -1,4 +1,9 @@
-import type { BaseProvider, FallbackProvider, JsonRpcProvider } from '@ethersproject/providers';
+import type {
+  BaseProvider,
+  FallbackProvider,
+  JsonRpcProvider,
+  JsonRpcSigner,
+} from '@ethersproject/providers';
 
 export enum Connector {
   BinanceWallet = 'BinanceW3W',
@@ -17,3 +22,5 @@ export enum Connector {
 }
 
 export type Provider = JsonRpcProvider | FallbackProvider | BaseProvider;
+
+export type Signer = JsonRpcSigner;

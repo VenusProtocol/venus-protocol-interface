@@ -1,3 +1,5 @@
+import zeroXContractAddresses from '@0x/contract-addresses/addresses.json';
+import { Exchange as ZeroXSequenceExchangeArtifact } from '@0x/contract-artifacts';
 import { abi as GovernorBravoDelegateAbi } from '@venusprotocol/governance-contracts/artifacts/contracts/Governance/GovernorBravoDelegate.sol/GovernorBravoDelegate.json';
 import venusGovernanceBscMainnetDeployments from '@venusprotocol/governance-contracts/deployments/bscmainnet_addresses.json';
 import venusGovernanceBscTestnetDeployments from '@venusprotocol/governance-contracts/deployments/bsctestnet_addresses.json';
@@ -69,7 +71,7 @@ import MaximillionAbi from './externalAbis/Maximillion.json';
 import Multicall3Abi from './externalAbis/Multicall3.json';
 import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
 import VBnbAbi from './externalAbis/VBnb.json';
-import XsequenceMulticallAbi from './externalAbis/XsequenceMulticall.json';
+import ZeroXSequenceMulticallAbi from './externalAbis/ZeroXSequenceMulticall.json';
 
 export interface UniqueContractConfig {
   name: string;
@@ -237,8 +239,8 @@ export const contracts: ContractConfig[] = [
     },
   },
   {
-    name: 'XsequenceMulticall',
-    abi: XsequenceMulticallAbi,
+    name: 'ZeroXSequenceMulticall',
+    abi: ZeroXSequenceMulticallAbi,
     address: {
       [ChainId.BSC_MAINNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
       [ChainId.BSC_TESTNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
@@ -248,6 +250,16 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPBNB_TESTNET]: '0x34D4c29902769a0168b9965CbC4147771206328D',
       [ChainId.ARBITRUM_SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
       [ChainId.ARBITRUM_ONE]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
+    },
+  },
+  {
+    name: 'ZeroXSequenceExchange',
+    abi: ZeroXSequenceExchangeArtifact.compilerOutput.abi,
+    address: {
+      [ChainId.BSC_MAINNET]: zeroXContractAddresses[ChainId.BSC_MAINNET].exchangeProxy,
+      [ChainId.ETHEREUM]: zeroXContractAddresses[ChainId.ETHEREUM].exchangeProxy,
+      [ChainId.SEPOLIA]: zeroXContractAddresses[ChainId.SEPOLIA].exchangeProxy,
+      [ChainId.ARBITRUM_ONE]: zeroXContractAddresses[ChainId.ARBITRUM_ONE].exchangeProxy,
     },
   },
   {

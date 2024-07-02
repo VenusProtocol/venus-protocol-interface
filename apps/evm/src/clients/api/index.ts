@@ -94,9 +94,7 @@ export { default as executeWithdrawalFromXvsVault } from './mutations/executeWit
 export * from './mutations/executeWithdrawalFromXvsVault';
 export { default as useExecuteWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault/useExecuteWithdrawalFromXvsVault';
 
-export { default as swapTokens } from './mutations/swapTokens';
-export * from './mutations/swapTokens';
-export { default as useSwapTokens } from './mutations/swapTokens/useSwapTokens';
+export * from './mutations/swapTokens/useSwapTokens';
 
 export { default as swapTokensAndRepay } from './mutations/swapTokensAndRepay';
 export * from './mutations/swapTokensAndRepay';
@@ -390,3 +388,6 @@ export * from './queries/getPoolLiquidationIncentive/useGetPoolLiquidationIncent
 
 export * from './queries/getIsolatedPoolVTokenLiquidationThreshold';
 export * from './queries/getIsolatedPoolVTokenLiquidationThreshold/useGetIsolatedPoolVTokenLiquidationThreshold';
+
+export * from './queries/getSwapQuote';
+export * from './queries/getSwapQuote/useGetSwapQuote';
