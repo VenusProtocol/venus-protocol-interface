@@ -11,7 +11,6 @@ import { cn } from 'utilities';
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import useGetMenuItems from 'containers/Layout/useGetMenuItems';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 import { ChainSelect } from '../ChainSelect';
 import { NavLink } from './NavLink';
@@ -21,9 +20,7 @@ export const XsControls: React.FC = () => {
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState<boolean>(false);
   const menuItems = useGetMenuItems();
 
-  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
   const isOnMarketPage = useIsOnMarketPage();
-  const shouldUseNewMarketPageFeature = isNewMarketPageEnabled && isOnMarketPage;
 
   const toggleMobileMenu = () => {
     // Toggle scroll on page container and body tags
@@ -48,12 +45,12 @@ export const XsControls: React.FC = () => {
           <ChainSelect
             className="mr-4"
             buttonClassName="h-9"
-            variant={shouldUseNewMarketPageFeature && !isMobileMenuOpened ? 'tertiary' : 'primary'}
+            variant={isOnMarketPage && !isMobileMenuOpened ? 'tertiary' : 'primary'}
           />
 
           <ConnectButton
             className="h-9 max-w-xs flex-1 px-1"
-            variant={shouldUseNewMarketPageFeature && !isMobileMenuOpened ? 'secondary' : 'primary'}
+            variant={isOnMarketPage && !isMobileMenuOpened ? 'secondary' : 'primary'}
           />
         </div>
 
@@ -87,7 +84,7 @@ export const XsControls: React.FC = () => {
         <div className="px-4">
           <ClaimRewardButton
             className="w-full"
-            variant={shouldUseNewMarketPageFeature && !isMobileMenuOpened ? 'secondary' : 'primary'}
+            variant={isOnMarketPage && !isMobileMenuOpened ? 'secondary' : 'primary'}
           />
         </div>
       </div>

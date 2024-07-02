@@ -8,7 +8,6 @@ import type { Pool } from 'types';
 
 import { routes } from 'constants/routing';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import useOperationModal from 'hooks/useOperationModal';
 import { areAddressesEqual } from 'utilities';
 import { useStyles } from './styles';
 import type { ColumnKey, PoolAsset } from './types';
@@ -24,7 +23,6 @@ export interface MarketTableProps
     orderBy: ColumnKey;
     orderDirection: 'asc' | 'desc';
   };
-  openOperationModalOnRowClick?: boolean;
   marketType?: 'supply' | 'borrow';
   className?: string;
   testId?: string;
@@ -32,7 +30,6 @@ export interface MarketTableProps
 
 export const MarketTable: React.FC<MarketTableProps> = ({
   pools,
-  openOperationModalOnRowClick = false,
   marketType,
   columns: columnKeys,
   initialOrder,
@@ -43,7 +40,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const { corePoolComptrollerContractAddress, stakedEthPoolComptrollerContractAddress } =
     useGetChainMetadata();
   const { toggleCollateral } = useCollateral();
-  const { openOperationModal, OperationModal } = useOperationModal();
 
   const handleCollateralChange = async (poolAssetToUpdate: PoolAsset) => {
     try {
@@ -114,34 +110,15 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     ],
   );
 
-  const rowOnClick = useCallback(
-    (_: React.MouseEvent<HTMLDivElement>, row: PoolAsset) => {
-      const initialActiveTabIndex =
-        columnKeys.includes('supplyApyLtv') || columnKeys.includes('labeledSupplyApyLtv') ? 0 : 2;
-
-      openOperationModal({
-        vToken: row.vToken,
-        poolComptrollerAddress: row.pool.comptrollerAddress,
-        initialActiveTabIndex,
-      });
-    },
-    [openOperationModal, columnKeys],
-  );
-
   return (
-    <>
-      <Table
-        getRowHref={openOperationModalOnRowClick ? undefined : getRowHref}
-        rowOnClick={openOperationModalOnRowClick ? rowOnClick : undefined}
-        columns={columns}
-        data={poolAssets}
-        css={styles.cardContentGrid}
-        rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
-        initialOrder={formattedInitialOrder}
-        {...otherTableProps}
-      />
-
-      <OperationModal />
-    </>
+    <Table
+      getRowHref={getRowHref}
+      columns={columns}
+      data={poolAssets}
+      css={styles.cardContentGrid}
+      rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
+      initialOrder={formattedInitialOrder}
+      {...otherTableProps}
+    />
   );
 };

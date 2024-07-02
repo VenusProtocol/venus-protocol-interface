@@ -552,8 +552,11 @@ const RepayForm: React.FC<RepayFormProps> = ({
         token: fromToken,
       });
 
+      console.log('CALLED');
+
       // Handle repay flow
       if (!isUsingSwap) {
+        console.log('no swap');
         return onRepay({
           amountMantissa,
           repayFullLoan,

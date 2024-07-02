@@ -8,7 +8,6 @@ import { useAccountAddress } from 'libs/wallet';
 import { isAssetPaused } from 'utilities';
 
 import { PoolStats } from 'containers/PoolStats';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { Banner } from './Banner';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
@@ -20,7 +19,6 @@ const Dashboard: React.FC = () => {
   const [selectedPoolTagIndex, setSelectedPoolTagIndex] = useState<number>(0);
   const [shouldDisplayPausedAssets, setShouldDisplayPausedAssets] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     setSearchValue(changeEvent.currentTarget.value);
@@ -109,7 +107,6 @@ const Dashboard: React.FC = () => {
       </div>
 
       <MarketTable
-        openOperationModalOnRowClick={!isNewMarketPageEnabled}
         pools={formattedPools}
         isFetching={isGetPoolsLoading}
         breakpoint="lg"
