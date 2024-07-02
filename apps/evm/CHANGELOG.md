@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.130.0
+
+### Minor Changes
+
+- 7a3ebae: Migrate React-Query to v5
+
+### Patch Changes
+
+- 6176843: Fix subgraph URLs used in codegen config
+
 ## 2.129.0
 
 ### Minor Changes
