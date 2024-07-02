@@ -57,7 +57,7 @@
     "ethers": "^5.7.2",
     "formik": "^2.4.3",
     "framer-motion": "^11.0.5",
-    "graphql": "16.8.2",
+    "graphql": "16.9.0",
     "graphql-request": "^7.0.1",
     "graphql-tag": "2.12.6",
     "i18next": "^23.7.6",
