@@ -44,7 +44,7 @@ export async function restService<D>({
   next = false,
 }: RestServiceInput): Promise<ApiResponse<D>> {
   const headers = {};
-  let path = `${config.apiUrl}${endpoint}`;
+  let path = `${config.venusApiUrl}${endpoint}`;
 
   _set(headers, 'Accept', 'application/json');
 

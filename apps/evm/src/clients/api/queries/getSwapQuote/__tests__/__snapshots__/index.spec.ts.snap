@@ -1,0 +1,59 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getSwapQuote > returns "exact amount in" swap in the correct format on success 1`] = `
+{
+  "error": undefined,
+  "swap": {
+    "direction": "exactAmountIn",
+    "exchangeRate": "20000000000000000",
+    "expectedToTokenAmountReceivedMantissa": "20000000000000000",
+    "fromToken": {
+      "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "asset": "/src/libs/tokens/img/xvs.svg",
+      "decimals": 18,
+      "symbol": "XVS",
+    },
+    "fromTokenAmountSoldMantissa": "10000000000000000",
+    "minimumToTokenAmountReceivedMantissa": "20000000000000000",
+    "priceImpactPercentage": 0.5,
+    "routePath": [],
+    "toToken": {
+      "address": "0x0000000000000000000000000000000000000000",
+      "asset": "/src/libs/tokens/img/bnb.svg",
+      "decimals": 18,
+      "isNative": true,
+      "symbol": "BNB",
+    },
+    "transactionData": "fake-transaction-data",
+  },
+}
+`;
+
+exports[`getSwapQuote > returns "exact amount out" swap in the correct format on success 1`] = `
+{
+  "error": undefined,
+  "swap": {
+    "direction": "exactAmountOut",
+    "exchangeRate": "20000000000000000",
+    "expectedFromTokenAmountSoldMantissa": "10000000000000000",
+    "fromToken": {
+      "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "asset": "/src/libs/tokens/img/xvs.svg",
+      "decimals": 18,
+      "symbol": "XVS",
+    },
+    "maximumFromTokenAmountSoldMantissa": "10000000000000000",
+    "priceImpactPercentage": 0.5,
+    "routePath": [],
+    "toToken": {
+      "address": "0x0000000000000000000000000000000000000000",
+      "asset": "/src/libs/tokens/img/bnb.svg",
+      "decimals": 18,
+      "isNative": true,
+      "symbol": "BNB",
+    },
+    "toTokenAmountReceivedMantissa": "20000000000000000",
+    "transactionData": "fake-transaction-data",
+  },
+}
+`;

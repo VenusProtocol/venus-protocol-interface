@@ -387,6 +387,17 @@ export const getXvsVaultPendingWithdrawalsBalance = vi.fn(async () => ({
   balanceMantissa: 0,
 }));
 
+export const getSwapQuote = vi.fn(async () => ({
+  swap: undefined,
+  error: undefined,
+}));
+export const useGetSwapQuote = vi.fn(() =>
+  useQuery({
+    queryKey: FunctionKey.GET_SWAP_QUOTE,
+    queryFn: getSwapQuote,
+  }),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
@@ -495,9 +506,13 @@ export const useExecuteWithdrawalFromXvsVault = (
     options,
   );
 
-export const swapTokens = vi.fn(async () => fakeContractTransaction);
-export const useSwapTokens = (options?: MutationObserverOptions) =>
-  useMutation(FunctionKey.SWAP_TOKENS, swapTokens, options);
+export const useSwapTokens = vi.fn((options?: MutationObserverOptions) =>
+  useMutation(
+    FunctionKey.SWAP_TOKENS,
+    vi.fn(async () => fakeContractTransaction),
+    options,
+  ),
+);
 
 export const swapTokensAndRepay = vi.fn(async () => fakeContractTransaction);
 export const useSwapTokensAndRepay = (options?: MutationObserverOptions) =>
