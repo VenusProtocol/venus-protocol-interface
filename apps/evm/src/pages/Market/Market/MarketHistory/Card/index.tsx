@@ -39,8 +39,7 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   const { t } = useTranslation();
   const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
-  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
-  const shouldDisplayLiquidationInfo = isNewMarketPageEnabled && type === 'borrow';
+  const shouldDisplayLiquidationInfo = type === 'borrow';
 
   const [selectedPeriodIndex, setSelectedPeriodIndex] = useState(0);
   const periodOptions = useMemo(

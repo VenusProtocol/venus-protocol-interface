@@ -39,7 +39,7 @@ describe('StakedEthPoolMarket', () => {
   });
 
   it('fetches market details and displays them correctly', async () => {
-    const { getByTestId, queryByTestId } = renderComponent(<StakedEthPoolMarket />, {
+    const { getByTestId } = renderComponent(<StakedEthPoolMarket />, {
       routerInitialEntries: [`/${vXvs.address}`],
       routePath: '/:vTokenAddress',
       chainId: ChainId.SEPOLIA,
@@ -49,10 +49,10 @@ describe('StakedEthPoolMarket', () => {
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.interestRateModel).textContent).toMatchSnapshot(),
     );
-    // Check supply info is not displayed
-    expect(queryByTestId(TEST_IDS.supplyInfo)).toBeNull();
-    // Check borrow info is not displayed
-    expect(queryByTestId(TEST_IDS.borrowInfo)).toBeNull();
+    // Check supply info displays correctly
+    expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot();
+    // Check borrow info displays correctly
+    expect(getByTestId(TEST_IDS.borrowInfo).textContent).toMatchSnapshot();
     // Check market info displays correctly
     expect(getByTestId(TEST_IDS.marketInfo).textContent).toMatchSnapshot();
   });

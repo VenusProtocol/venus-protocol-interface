@@ -2,16 +2,13 @@ import { useParams } from 'react-router';
 
 import { useGetAsset } from 'clients/api';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { cn } from 'utilities';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
 import { useIsOnMarketPage } from './useIsOnMarketPage';
 
 export const Header: React.FC = () => {
-  const isNewMarketPageEnabled = useIsFeatureEnabled({ name: 'newMarketPage' });
   const isOnMarketPage = useIsOnMarketPage();
-  const shouldUseNewMarketFeature = isNewMarketPageEnabled && isOnMarketPage;
 
   const { vTokenAddress = '' } = useParams();
   const { data: getAssetData } = useGetAsset({
@@ -30,7 +27,7 @@ export const Header: React.FC = () => {
         'transition-all duration-500 bg-gradient-to-b from-background/60 to-background',
       )}
       style={
-        shouldUseNewMarketFeature && gradientAccentColor
+        isOnMarketPage && gradientAccentColor
           ? {
               backgroundColor: gradientAccentColor,
             }
@@ -39,7 +36,7 @@ export const Header: React.FC = () => {
     >
       <TopBar />
 
-      {shouldUseNewMarketFeature && <MarketInfo />}
+      {isOnMarketPage && <MarketInfo />}
     </header>
   );
 };

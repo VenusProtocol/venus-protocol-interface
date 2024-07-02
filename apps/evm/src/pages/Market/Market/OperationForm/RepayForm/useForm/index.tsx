@@ -6,7 +6,7 @@ import { displayMutationError } from 'libs/errors';
 import type { Swap, SwapError, Token, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
-import type { FormError } from 'containers/OperationForm/types';
+import type { FormError } from '../../types';
 import calculatePercentageOfUserBorrowBalance from '../calculatePercentageOfUserBorrowBalance';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
