@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import {
   type GetTokenUsdPriceInput,
@@ -33,27 +33,27 @@ interface UseGetTokenUsdPriceInput extends Omit<TrimmedGetTokenUsdPriceInput, 't
   token?: Token;
 }
 
-const useGetTokenUsdPrice = ({ token }: UseGetTokenUsdPriceInput, options?: Options) => {
+const useGetTokenUsdPrice = ({ token }: UseGetTokenUsdPriceInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const resilientOracleContract = useGetResilientOracleContract({
     chainId,
   });
 
-  return useQuery(
-    [
+  return useQuery({
+    queryKey: [
       FunctionKey.GET_TOKEN_USD_PRICE,
       {
         tokenAddress: token ? token.address : '',
         chainId,
       },
     ],
-    () =>
+
+    queryFn: () =>
       callOrThrow({ token, resilientOracleContract }, params => getTokenUsdPrice({ ...params })),
-    {
-      ...options,
-      enabled: (options?.enabled === undefined || options?.enabled) && !!token,
-    },
-  );
+
+    ...options,
+    enabled: (options?.enabled === undefined || options?.enabled) && !!token,
+  });
 };
 
 export default useGetTokenUsdPrice;

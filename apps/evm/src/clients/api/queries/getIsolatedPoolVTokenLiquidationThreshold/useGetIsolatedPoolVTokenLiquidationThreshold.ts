@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import {
   type GetIsolatedPoolVTokenLiquidationThresholdInput,
@@ -36,7 +36,7 @@ export const useGetIsolatedPoolVTokenLiquidationThreshold = (
     poolComptrollerContractAddress,
     vTokenAddress,
   }: TrimmedGetIsolatedPoolVTokenLiquidationThresholdInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
 
@@ -45,18 +45,20 @@ export const useGetIsolatedPoolVTokenLiquidationThreshold = (
     passSigner: false,
   });
 
-  return useQuery(
-    [
+  return useQuery({
+    queryKey: [
       FunctionKey.GET_ISOLATED_POOL_V_TOKEN_LIQUIDATION_THRESHOLD,
       { poolComptrollerContractAddress, vTokenAddress, chainId },
     ],
-    () =>
+
+    queryFn: () =>
       callOrThrow({ poolComptrollerContract }, params =>
         getIsolatedPoolVTokenLiquidationThreshold({
           ...params,
           vTokenAddress,
         }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };

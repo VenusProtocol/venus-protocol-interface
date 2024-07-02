@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getCurrentVotes, {
   type GetCurrentVotesInput,
@@ -24,16 +24,17 @@ type Options = QueryObserverOptions<
   UseGetCurrentVotesQueryKey
 >;
 
-const useGetCurrentVotes = (input: TrimmedGetCurrentVotesInput, options?: Options) => {
+const useGetCurrentVotes = (input: TrimmedGetCurrentVotesInput, options?: Partial<Options>) => {
   const xvsVaultContract = useGetXvsVaultContract({
     chainId: governanceChain.id,
   });
 
-  return useQuery(
-    [FunctionKey.GET_CURRENT_VOTES, input],
-    () => callOrThrow({ xvsVaultContract }, params => getCurrentVotes({ ...params, ...input })),
-    options,
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_CURRENT_VOTES, input],
+    queryFn: () =>
+      callOrThrow({ xvsVaultContract }, params => getCurrentVotes({ ...params, ...input })),
+    ...options,
+  });
 };
 
 export default useGetCurrentVotes;

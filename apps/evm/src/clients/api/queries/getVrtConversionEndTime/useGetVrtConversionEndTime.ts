@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getVrtConversionEndTime, {
   type GetVrtConversionEndTimeOutput,
@@ -22,15 +22,15 @@ type Options = QueryObserverOptions<
   UseGetVrtConversionEndTimeIndexQueryIndex
 >;
 
-const useGetVrtConversionEndTimeIndex = (options?: Options) => {
+const useGetVrtConversionEndTimeIndex = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const vrtConverterContract = useGetVrtConverterContract();
 
-  return useQuery(
-    [FunctionKey.GET_VRT_CONVERSION_END_TIME, { chainId }],
-    () => callOrThrow({ vrtConverterContract }, getVrtConversionEndTime),
-    options,
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_VRT_CONVERSION_END_TIME, { chainId }],
+    queryFn: () => callOrThrow({ vrtConverterContract }, getVrtConversionEndTime),
+    ...options,
+  });
 };
 
 export default useGetVrtConversionEndTimeIndex;

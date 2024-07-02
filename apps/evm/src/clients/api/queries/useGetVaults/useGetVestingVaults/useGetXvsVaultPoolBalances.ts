@@ -1,4 +1,4 @@
-import { type UseQueryOptions, type UseQueryResult, useQueries } from 'react-query';
+import { type UseQueryOptions, type UseQueryResult, useQueries } from '@tanstack/react-query';
 
 import { type GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -49,7 +49,7 @@ const useGetXvsVaultPoolBalances = ({
     },
   );
 
-  return useQueries(queries);
+  return useQueries({ queries });
 };
 
 export default useGetXvsVaultPoolBalances;

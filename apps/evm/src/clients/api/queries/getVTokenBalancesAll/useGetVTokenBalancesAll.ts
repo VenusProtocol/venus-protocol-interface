@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getVTokenBalancesAll, {
   type GetVTokenBalancesAllInput,
@@ -27,16 +27,21 @@ type Options = QueryObserverOptions<
   UseGetVTokenBalancesAllQueryKey
 >;
 
-const useGetVTokenBalancesAll = (input: TrimmedGetVTokenBalancesAllInput, options?: Options) => {
+const useGetVTokenBalancesAll = (
+  input: TrimmedGetVTokenBalancesAllInput,
+  options?: Partial<Options>,
+) => {
   const { chainId } = useChainId();
   const poolLensContract = useGetPoolLensContract();
 
-  return useQuery(
-    [FunctionKey.GET_V_TOKEN_BALANCES_ALL, { ...input, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL, { ...input, chainId }],
+
+    queryFn: () =>
       callOrThrow({ poolLensContract }, params => getVTokenBalancesAll({ ...params, ...input })),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetVTokenBalancesAll;

@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getProposalEta, {
   type GetProposalEtaInput,
@@ -19,22 +19,24 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PROPOSAL_ETA, TrimmedGetProposalEtaInput]
 >;
 
-const useGetProposalEta = (input: TrimmedGetProposalEtaInput, options?: Options) => {
+const useGetProposalEta = (input: TrimmedGetProposalEtaInput, options?: Partial<Options>) => {
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     chainId: governanceChain.id,
   });
 
-  return useQuery(
-    [FunctionKey.GET_PROPOSAL_ETA, input],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_PROPOSAL_ETA, input],
+
+    queryFn: () =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         getProposalEta({
           ...input,
           ...params,
         }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetProposalEta;

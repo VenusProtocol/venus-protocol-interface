@@ -1,5 +1,5 @@
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import getVTokenApySimulations, {
   type GetVTokenApySimulationsOutput,
@@ -35,7 +35,7 @@ const useGetVTokenApySimulations = (
     vToken: VToken;
     isIsolatedPoolMarket: boolean;
   },
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
@@ -58,9 +58,10 @@ const useGetVTokenApySimulations = (
       : getJumpRateModelContract(input);
   }, [interestRateModelData?.contractAddress, isIsolatedPoolMarket, provider]);
 
-  return useQuery(
-    [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: vToken.address, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: vToken.address, chainId }],
+
+    queryFn: () =>
       callOrThrow({ interestRateModelContract, asset }, params =>
         getVTokenApySimulations({
           ...params,
@@ -68,14 +69,14 @@ const useGetVTokenApySimulations = (
           blocksPerDay,
         }),
       ),
-    {
-      ...options,
-      enabled:
-        (options?.enabled === undefined || options?.enabled) &&
-        !!interestRateModelContract &&
-        !!asset,
-    },
-  );
+
+    ...options,
+
+    enabled:
+      (options?.enabled === undefined || options?.enabled) &&
+      !!interestRateModelContract &&
+      !!asset,
+  });
 };
 
 export default useGetVTokenApySimulations;

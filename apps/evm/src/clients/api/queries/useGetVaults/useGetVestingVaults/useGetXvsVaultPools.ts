@@ -1,4 +1,4 @@
-import { type UseQueryOptions, type UseQueryResult, useQueries } from 'react-query';
+import { type UseQueryOptions, type UseQueryResult, useQueries } from '@tanstack/react-query';
 
 import {
   type GetXvsVaultPendingWithdrawalsBalanceOutput,
@@ -40,7 +40,7 @@ const useGetXvsVaultPools = ({
     symbol: 'XVS',
   });
 
-  const poolQueries: UseQueryOptions<
+  const queries: UseQueryOptions<
     | GetXvsVaultPoolInfoOutput
     | GetXvsVaultUserInfoOutput
     | GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput
@@ -50,7 +50,7 @@ const useGetXvsVaultPools = ({
   // Fetch pool infos
   // TODO: use multicall
   for (let poolIndex = 0; poolIndex < poolsCount; poolIndex++) {
-    poolQueries.push({
+    queries.push({
       queryFn: () =>
         callOrThrow({ xvsVaultContract, xvs }, params =>
           getXvsVaultPoolInfo({
@@ -65,7 +65,7 @@ const useGetXvsVaultPools = ({
       ],
     });
 
-    poolQueries.push({
+    queries.push({
       queryFn: () =>
         callOrThrow({ xvsVaultContract, xvs }, params =>
           getXvsVaultPendingWithdrawalsBalance({
@@ -80,7 +80,7 @@ const useGetXvsVaultPools = ({
       ],
     });
 
-    poolQueries.push({
+    queries.push({
       queryFn: () =>
         callOrThrow({ xvsVaultContract, xvs }, params =>
           getXvsVaultUserInfo({
@@ -97,7 +97,7 @@ const useGetXvsVaultPools = ({
       enabled: !!accountAddress,
     });
 
-    poolQueries.push({
+    queries.push({
       queryFn: () =>
         callOrThrow({ xvsVaultContract, xvs }, params =>
           getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade({
@@ -115,7 +115,7 @@ const useGetXvsVaultPools = ({
     });
   }
 
-  return useQueries(poolQueries);
+  return useQueries({ queries });
 };
 
 export default useGetXvsVaultPools;

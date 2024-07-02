@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { type GetVenusVaiVaultDailyRateOutput, getVenusVaiVaultDailyRate } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -21,20 +21,20 @@ type Options = QueryObserverOptions<
   UseGetVenusVaiVaultDailyRateQueryKey
 >;
 
-const useGetVenusVaiVaultDailyRate = (options?: Options) => {
+const useGetVenusVaiVaultDailyRate = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
   const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract();
 
-  return useQuery(
-    [FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE, { chainId }],
-    () => callOrThrow({ legacyPoolComptrollerContract, blocksPerDay }, getVenusVaiVaultDailyRate),
-    {
-      ...options,
-      enabled:
-        !!legacyPoolComptrollerContract && (options?.enabled === undefined || options?.enabled),
-    },
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE, { chainId }],
+    queryFn: () =>
+      callOrThrow({ legacyPoolComptrollerContract, blocksPerDay }, getVenusVaiVaultDailyRate),
+    ...options,
+
+    enabled:
+      !!legacyPoolComptrollerContract && (options?.enabled === undefined || options?.enabled),
+  });
 };
 
 export default useGetVenusVaiVaultDailyRate;

@@ -1,6 +1,6 @@
+import type { QueryObserverOptions } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
-import type { QueryObserverOptions } from 'react-query';
 
 import {
   type GetHypotheticalPrimeApysOutput,
@@ -56,7 +56,7 @@ const useGetPrimeEstimation = (
     suppliedAmountMantissa,
     vToken,
   }: UseGetPrimeEstimationInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const xvs = useGetToken({
     symbol: 'XVS',

@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getLatestProposalIdByProposer, {
   type GetLatestProposalIdByProposerInput,
@@ -20,7 +20,7 @@ type Options = QueryObserverOptions<
 
 const useGetLatestProposalIdByProposer = (
   { accountAddress }: Omit<GetLatestProposalIdByProposerInput, 'governorBravoDelegateContract'>,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { blockTimeMs } = useGetChainMetadata();
 
@@ -28,20 +28,20 @@ const useGetLatestProposalIdByProposer = (
     chainId: governanceChain.id,
   });
 
-  return useQuery(
-    [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, accountAddress],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, accountAddress],
+
+    queryFn: () =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         getLatestProposalIdByProposer({
           accountAddress,
           ...params,
         }),
       ),
-    {
-      staleTime: blockTimeMs,
-      ...options,
-    },
-  );
+
+    staleTime: blockTimeMs,
+    ...options,
+  });
 };
 
 export default useGetLatestProposalIdByProposer;

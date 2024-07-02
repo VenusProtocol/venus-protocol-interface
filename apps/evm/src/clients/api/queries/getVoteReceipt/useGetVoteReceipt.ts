@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
@@ -17,28 +17,28 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_VOTE_RECEIPT, TrimmedGetVoteReceiptInput]
 >;
 
-const useGetVoteReceipt = (input: TrimmedGetVoteReceiptInput, options?: Options) => {
+const useGetVoteReceipt = (input: TrimmedGetVoteReceiptInput, options?: Partial<Options>) => {
   const { accountAddress } = input;
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     chainId: governanceChain.id,
   });
 
-  return useQuery(
-    [FunctionKey.GET_VOTE_RECEIPT, input],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_VOTE_RECEIPT, input],
+
+    queryFn: () =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         getVoteReceipt({
           ...input,
           ...params,
         }),
       ),
-    {
-      enabled:
-        (options?.enabled === undefined || options?.enabled) &&
-        // Check user have connected their wallet
-        accountAddress !== undefined,
-    },
-  );
+
+    enabled:
+      (options?.enabled === undefined || options?.enabled) &&
+      // Check user have connected their wallet
+      accountAddress !== undefined,
+  });
 };
 
 export default useGetVoteReceipt;

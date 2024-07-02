@@ -14,7 +14,7 @@ import { callOrThrow } from 'utilities';
 type TrimmedBridgeXvsInput = Omit<BridgeXvsInput, 'tokenBridgeContract'>;
 type Options = UseSendTransactionOptions<TrimmedBridgeXvsInput>;
 
-const useBridgeXvs = (options?: Options) => {
+const useBridgeXvs = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -28,7 +28,7 @@ const useBridgeXvs = (options?: Options) => {
       : tokenBridgeContractDest;
 
   return useSendTransaction({
-    fnKey: FunctionKey.BRIDGE_XVS,
+    fnKey: [FunctionKey.BRIDGE_XVS],
     fn: (input: TrimmedBridgeXvsInput) =>
       callOrThrow({ tokenBridgeContract }, params =>
         bridgeXvs({
@@ -39,22 +39,26 @@ const useBridgeXvs = (options?: Options) => {
     transactionType: 'layerZero',
     onConfirmed: async ({ input: accountAddress }) => {
       if (xvs && xvsVaultContract) {
-        queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_ALLOWANCE,
-          {
-            chainId,
-            tokenAddress: xvs.address,
-            accountAddress,
-          },
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_TOKEN_ALLOWANCE,
+            {
+              chainId,
+              tokenAddress: xvs.address,
+              accountAddress,
+            },
+          ],
+        });
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_TOKEN_BALANCES,
-          {
-            chainId,
-            accountAddress,
-          },
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_TOKEN_BALANCES,
+            {
+              chainId,
+              accountAddress,
+            },
+          ],
+        });
       }
     },
     options,

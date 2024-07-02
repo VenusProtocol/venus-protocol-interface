@@ -280,7 +280,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
     }
   }, [accountAddress, initialFormValues]);
 
-  const { mutateAsync: borrow, isLoading: isBorrowLoading } = useBorrow({
+  const { mutateAsync: borrow, isPending: isBorrowLoading } = useBorrow({
     poolName: pool.name,
     poolComptrollerAddress: pool.comptrollerAddress,
     vToken: asset.vToken,

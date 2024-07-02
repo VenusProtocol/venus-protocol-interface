@@ -4,9 +4,9 @@ export type UseVoteParams = Partial<CastVoteWithReasonInput> &
   Omit<CastVoteWithReasonInput, 'voteReason' | 'governorBravoDelegateContract'>;
 
 const useVote = () => {
-  const { mutateAsync: castVote, isLoading: isCastVoteLoading } = useCastVote();
+  const { mutateAsync: castVote, isPending: isCastVoteLoading } = useCastVote();
 
-  const { mutateAsync: castVoteWithReason, isLoading: isCastVoteWithReasonLoading } =
+  const { mutateAsync: castVoteWithReason, isPending: isCastVoteWithReasonLoading } =
     useCastVoteWithReason();
 
   const isLoading = isCastVoteLoading || isCastVoteWithReasonLoading;

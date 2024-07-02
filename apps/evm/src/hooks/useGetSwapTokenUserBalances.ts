@@ -14,7 +14,7 @@ const useGetSwapTokenUserBalances = (
   }: {
     accountAddress?: string;
   },
-  options: UseGetTokenBalancesOptions = {},
+  options: Partial<UseGetTokenBalancesOptions> = {},
 ) => {
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
   const swapTokens = useGetSwapTokens();

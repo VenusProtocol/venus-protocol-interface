@@ -115,7 +115,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
 
   const {
     mutateAsync: requestWithdrawalFromXvsVault,
-    isLoading: isRequestingWithdrawalFromXvsVault,
+    isPending: isRequestingWithdrawalFromXvsVault,
   } = useRequestWithdrawalFromXvsVault();
 
   const {

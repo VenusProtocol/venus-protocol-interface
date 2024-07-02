@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import {
   type GetPoolLiquidationIncentiveInput,
@@ -37,7 +37,7 @@ type Options = QueryObserverOptions<
 
 export const useGetPoolLiquidationIncentive = (
   { poolComptrollerContractAddress }: TrimmedGetPoolLiquidationIncentiveInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const { corePoolComptrollerContractAddress } = useGetChainMetadata();
@@ -54,9 +54,12 @@ export const useGetPoolLiquidationIncentive = (
       ? legacyPoolComptrollerContract
       : isolatedPoolComptrollerContract;
 
-  return useQuery(
-    [FunctionKey.GET_POOL_LIQUIDATION_INCENTIVE, { poolComptrollerContractAddress, chainId }],
-    () => callOrThrow({ poolComptrollerContract }, getPoolLiquidationIncentive),
-    options,
-  );
+  return useQuery({
+    queryKey: [
+      FunctionKey.GET_POOL_LIQUIDATION_INCENTIVE,
+      { poolComptrollerContractAddress, chainId },
+    ],
+    queryFn: () => callOrThrow({ poolComptrollerContract }, getPoolLiquidationIncentive),
+    ...options,
+  });
 };

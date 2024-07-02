@@ -1,7 +1,7 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render as renderComponentTl } from '@testing-library/react';
 import { renderHook as renderHookTl } from '@testing-library/react-hooks';
 import type { ReactElement } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import type Vi from 'vitest';
 
@@ -16,7 +16,7 @@ const createQueryClient = () =>
     defaultOptions: {
       queries: {
         retry: false,
-        cacheTime: 0,
+        gcTime: 0,
       },
     },
   });
@@ -31,7 +31,7 @@ interface Options {
 interface WrapperProps {
   queryClient: QueryClient;
   children?: React.ReactNode;
-  options?: Options;
+  options?: Partial<Options>;
 }
 
 const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => {
@@ -71,7 +71,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => 
   );
 };
 
-export const renderComponent = (children: ReactElement, options?: Options) => {
+export const renderComponent = (children: ReactElement, options?: Partial<Options>) => {
   const queryClient = createQueryClient();
 
   const renderRes = renderComponentTl(children, {
@@ -86,7 +86,7 @@ export const renderComponent = (children: ReactElement, options?: Options) => {
 
 export const renderHook = <TProps, TResult>(
   hook: (props: TProps) => TResult,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const queryClient = createQueryClient();
 

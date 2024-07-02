@@ -16,12 +16,14 @@ import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
+import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import Repay from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('libs/tokens');
 vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
+vi.mock('hooks/useGetSwapInfo');
 
 const fakeBalanceMantissa = new BigNumber('10000000000000000000');
 
@@ -38,6 +40,13 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
     );
+
+    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+      swap: undefined,
+      error: undefined,
+      isLoading: false,
+    }));
+
     (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: fakeBalanceMantissa,
@@ -321,6 +330,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(submitButton).toBeEnabled();
     fireEvent.click(submitButton);
 
+    await waitFor(() => expect(submitButton).toBeEnabled());
     await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
     expect(repay).toHaveBeenCalledWith({
       amountMantissa: amountMantissaToRepay,

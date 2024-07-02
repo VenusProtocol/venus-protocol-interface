@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getPoolDelegateApprovalStatus, {
   type GetNativeTokenGatewayDelegateApprovalInput,
@@ -32,7 +32,7 @@ const useGetPoolDelegateApprovalStatus = (
     delegateeAddress,
     accountAddress,
   }: TrimmedGetNativeTokenGatewayDelegateApprovalInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const poolComptrollerContract = useGetIsolatedPoolComptrollerContract({
     address: poolComptrollerAddress,
@@ -48,16 +48,18 @@ const useGetPoolDelegateApprovalStatus = (
     },
   ];
 
-  return useQuery(
-    queryKey,
-    () =>
+  return useQuery({
+    queryKey: queryKey,
+
+    queryFn: () =>
       callOrThrow({ poolComptrollerContract, delegateeAddress, accountAddress }, params =>
         getPoolDelegateApprovalStatus({
           ...params,
         }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetPoolDelegateApprovalStatus;

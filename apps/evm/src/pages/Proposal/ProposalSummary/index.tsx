@@ -256,10 +256,10 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   const { accountAddress } = useAccountAddress();
   const { proposalId } = proposal;
 
-  const { mutateAsync: cancelProposal, isLoading: isCancelProposalLoading } = useCancelProposal();
-  const { mutateAsync: executeProposal, isLoading: isExecuteProposalLoading } =
+  const { mutateAsync: cancelProposal, isPending: isCancelProposalLoading } = useCancelProposal();
+  const { mutateAsync: executeProposal, isPending: isExecuteProposalLoading } =
     useExecuteProposal();
-  const { mutateAsync: queueProposal, isLoading: isQueueProposalLoading } = useQueueProposal();
+  const { mutateAsync: queueProposal, isPending: isQueueProposalLoading } = useQueueProposal();
 
   const handleCancelProposal = () => cancelProposal({ proposalId });
   const handleExecuteProposal = () => executeProposal({ proposalId });

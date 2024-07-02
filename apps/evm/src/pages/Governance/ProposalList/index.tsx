@@ -132,7 +132,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
     refetch: refetchProposals,
     isFetching: isGetProposalsFetching,
     isRefetching,
-    isPreviousData: isGetProposalsPreviousData,
+    isPlaceholderData: isGetProposalsPreviousData,
   } = useGetProposalPreviews({
     limit: PROPOSALS_PER_PAGE,
     accountAddress,
@@ -146,7 +146,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
     (isGetProposalsFetching || isRefetching) &&
     (isGetProposalsPreviousData || proposalPreviews.length === 0);
 
-  const { mutateAsync: createProposal, isLoading: isCreateProposalLoading } = useCreateProposal();
+  const { mutateAsync: createProposal, isPending: isCreateProposalLoading } = useCreateProposal();
 
   const { data: currentVotesData } = useGetCurrentVotes(
     { accountAddress: accountAddress || '' },

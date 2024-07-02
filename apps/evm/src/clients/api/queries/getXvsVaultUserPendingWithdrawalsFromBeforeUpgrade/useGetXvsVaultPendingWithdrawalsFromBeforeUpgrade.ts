@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade, {
   type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeInput,
@@ -32,19 +32,24 @@ type Options = QueryObserverOptions<
 
 const useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = (
   input: TrimmedGetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract();
 
-  return useQuery(
-    [FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE, { ...input, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [
+      FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE,
+      { ...input, chainId },
+    ],
+
+    queryFn: () =>
       callOrThrow({ xvsVaultContract }, params =>
         getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade({ ...params, ...input }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade;

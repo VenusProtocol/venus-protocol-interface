@@ -1,5 +1,5 @@
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 import {
@@ -33,7 +33,7 @@ export const useGetVTokenUtilizationRate = (
     asset: Asset | undefined;
     isIsolatedPoolMarket: boolean;
   },
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
@@ -60,24 +60,25 @@ export const useGetVTokenUtilizationRate = (
       : getJumpRateModelContract(input);
   }, [interestRateModelData?.contractAddress, isIsolatedPoolMarket, provider]);
 
-  return useQuery(
-    [
+  return useQuery({
+    queryKey: [
       FunctionKey.GET_V_TOKEN_UTILIZATION_RATE,
       { vTokenAddress: asset?.vToken.address || '', chainId },
     ],
-    () =>
+
+    queryFn: () =>
       callOrThrow({ interestRateModelContract, asset }, params =>
         getVTokenUtilizationRate({
           ...params,
           isIsolatedPoolMarket,
         }),
       ),
-    {
-      ...options,
-      enabled:
-        (options?.enabled === undefined || options?.enabled) &&
-        !!interestRateModelContract &&
-        !!asset,
-    },
-  );
+
+    ...options,
+
+    enabled:
+      (options?.enabled === undefined || options?.enabled) &&
+      !!interestRateModelContract &&
+      !!asset,
+  });
 };

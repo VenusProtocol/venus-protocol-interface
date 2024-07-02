@@ -40,7 +40,7 @@ const useTokenApproval = ({
     },
   );
 
-  const { mutateAsync: revokeAsync, isLoading: isRevokeWalletSpendingLimitLoading } =
+  const { mutateAsync: revokeAsync, isPending: isRevokeWalletSpendingLimitLoading } =
     useRevokeSpendingLimit(
       {
         token,
@@ -75,7 +75,7 @@ const useTokenApproval = ({
     return walletSpendingLimitTokens.isGreaterThan(0);
   }, [token.isNative, walletSpendingLimitTokens]);
 
-  const { mutateAsync: approveTokenMutation, isLoading: isApproveTokenLoading } = useApproveToken(
+  const { mutateAsync: approveTokenMutation, isPending: isApproveTokenLoading } = useApproveToken(
     {
       token,
     },
@@ -89,7 +89,7 @@ const useTokenApproval = ({
       throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
     }
 
-    return approveTokenMutation({
+    await approveTokenMutation({
       spenderAddress,
     });
   };

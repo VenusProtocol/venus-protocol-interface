@@ -12,14 +12,14 @@ type EnrichedExitMarketInput = ExitMarketInput & {
 };
 type Options = UseSendTransactionOptions<EnrichedExitMarketInput>;
 
-const useExitMarket = (options?: Options) => {
+const useExitMarket = (options?: Partial<Options>) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   const wrappedExitMarket: (input: EnrichedExitMarketInput) => Promise<ExitMarketOutput> =
     exitMarket;
 
   return useSendTransaction({
-    fnKey: FunctionKey.EXIT_MARKET,
+    fnKey: [FunctionKey.EXIT_MARKET],
     fn: wrappedExitMarket,
     onConfirmed: ({ input }) => {
       const { poolName, vToken, userSupplyBalanceTokens } = input;
@@ -30,8 +30,12 @@ const useExitMarket = (options?: Options) => {
         userSupplyBalanceTokens: userSupplyBalanceTokens.toNumber(),
       });
 
-      queryClient.invalidateQueries(FunctionKey.GET_LEGACY_POOL);
-      queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_LEGACY_POOL],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_ISOLATED_POOLS],
+      });
     },
     options,
   });

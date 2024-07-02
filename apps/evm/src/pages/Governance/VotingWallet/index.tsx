@@ -63,7 +63,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
   const xvsVault = xvs && vaults.find(v => areTokensEqual(v.stakedToken, xvs));
   const userStakedMantissa = xvsVault?.userStakedMantissa || new BigNumber(0);
 
-  const { mutateAsync: setVoteDelegation, isLoading: isVoteDelegationLoading } = useSetVoteDelegate(
+  const { mutateAsync: setVoteDelegation, isPending: isVoteDelegationLoading } = useSetVoteDelegate(
     {
       onSuccess: () => setDelegateModelIsOpen(false),
     },

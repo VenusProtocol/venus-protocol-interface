@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getVTokens, { type GetVTokensOutput } from 'clients/api/queries/getVTokens';
 import FunctionKey from 'constants/functionKey';
@@ -28,7 +28,7 @@ type Options = QueryObserverOptions<
   UseGetVTokensQueryKey
 >;
 
-const useGetVTokens = (options?: Options) => {
+const useGetVTokens = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const tokens = useGetTokens();
 
@@ -37,14 +37,15 @@ const useGetVTokens = (options?: Options) => {
   const poolLensContract = useGetPoolLensContract();
   const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
 
-  return useQuery(
-    [
+  return useQuery({
+    queryKey: [
       FunctionKey.GET_VTOKENS,
       {
         chainId,
       },
     ],
-    () =>
+
+    queryFn: () =>
       callOrThrow({ poolLensContract, poolRegistryContractAddress }, params =>
         getVTokens({
           chainId,
@@ -54,8 +55,9 @@ const useGetVTokens = (options?: Options) => {
           ...params,
         }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetVTokens;

@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import getTransactions, {
   type GetTransactionsInput,
@@ -24,7 +24,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Options) => {
+const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Partial<Options>) => {
   const { data: getVTokenData } = useGetVTokens();
   const vTokens = getVTokenData?.vTokens || [];
 
@@ -33,16 +33,14 @@ const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Optio
     symbol: 'XVS',
   });
 
-  return useQuery(
-    [FunctionKey.GET_TRANSACTIONS, params],
-    () => getTransactions({ ...params, vTokens, tokens, defaultToken: xvs || tokens[0] }),
-    {
-      keepPreviousData: true,
-      refetchInterval,
-      ...options,
-      enabled: vTokens.length > 0 && (!options || options.enabled),
-    },
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_TRANSACTIONS, params],
+    queryFn: () => getTransactions({ ...params, vTokens, tokens, defaultToken: xvs || tokens[0] }),
+    placeholderData: keepPreviousData,
+    refetchInterval,
+    ...options,
+    enabled: vTokens.length > 0 && (!options || options.enabled),
+  });
 };
 
 export default useGetTransactions;

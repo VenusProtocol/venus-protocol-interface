@@ -16,7 +16,7 @@ type Options = UseSendTransactionOptions<{ approvedStatus: boolean }>;
 
 const useUpdatePoolDelegateStatus = (
   { poolComptrollerAddress, delegateeAddress }: TrimmedUpdatePoolDelegateStatusInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const poolComptrollerContract = useGetIsolatedPoolComptrollerContract({
     address: poolComptrollerAddress,
@@ -35,14 +35,16 @@ const useUpdatePoolDelegateStatus = (
     onConfirmed: async () => {
       const accountAddress = await poolComptrollerContract?.signer.getAddress();
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_POOL_DELEGATE_APPROVAL_STATUS,
-        {
-          delegateeAddress,
-          accountAddress: accountAddress || '',
-          poolComptrollerAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_POOL_DELEGATE_APPROVAL_STATUS,
+          {
+            delegateeAddress,
+            accountAddress: accountAddress || '',
+            poolComptrollerAddress,
+          },
+        ],
+      });
     },
     options,
   });

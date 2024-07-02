@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import getVoters, {
   type GetVotersInput,
@@ -17,10 +17,11 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetVoters = (params: GetVotersInput, options?: Options) =>
-  // This endpoint is paginated so we keep the previous responses by default to create a more seamless paginating experience
-  useQuery([FunctionKey.GET_VOTERS, params], () => getVoters(params), {
-    keepPreviousData: true,
+const useGetVoters = (params: GetVotersInput, options?: Partial<Options>) =>
+  useQuery({
+    queryKey: [FunctionKey.GET_VOTERS, params],
+    queryFn: () => getVoters(params),
+    placeholderData: keepPreviousData,
     refetchInterval,
     ...options,
   });

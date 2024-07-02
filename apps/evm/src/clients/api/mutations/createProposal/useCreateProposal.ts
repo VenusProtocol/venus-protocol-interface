@@ -6,13 +6,13 @@ import { callOrThrow } from 'utilities';
 
 type Options = UseSendTransactionOptions<CreateProposalInput>;
 
-const useCreateProposal = (options?: Options) => {
+const useCreateProposal = (options?: Partial<Options>) => {
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     passSigner: true,
   });
 
   return useSendTransaction({
-    fnKey: FunctionKey.CREATE_PROPOSAL,
+    fnKey: [FunctionKey.CREATE_PROPOSAL],
     fn: (input: CreateProposalInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         createProposal({
@@ -21,7 +21,9 @@ const useCreateProposal = (options?: Options) => {
         }),
       ),
     onConfirmed: async () => {
-      queryClient.invalidateQueries(FunctionKey.GET_PROPOSAL_PREVIEWS);
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_PROPOSAL_PREVIEWS],
+      });
     },
     options,
   });

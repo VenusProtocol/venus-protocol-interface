@@ -19,7 +19,7 @@ const useRepay = (
     poolName,
     poolComptrollerAddress,
   }: { vToken: VToken; poolName: string; poolComptrollerAddress: string },
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const { signer } = useSigner();
@@ -36,7 +36,7 @@ const useRepay = (
   });
 
   return useSendTransaction({
-    fnKey: FunctionKey.REPAY,
+    fnKey: [FunctionKey.REPAY],
     fn: (input: TrimmedRepayInput) =>
       callOrThrow({ signer }, params =>
         repay({
@@ -58,45 +58,59 @@ const useRepay = (
         repaidFullLoan: input.repayFullLoan || false,
       });
 
-      queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
-      queryClient.invalidateQueries(FunctionKey.GET_LEGACY_POOL);
-      queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_MAIN_MARKETS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_LEGACY_POOL],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_ISOLATED_POOLS],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_BALANCE_OF,
-        {
-          chainId,
-          accountAddress,
-          tokenAddress: vToken.underlyingToken.address,
-        },
-      ]);
-
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_ALLOWANCE,
-        {
-          chainId,
-          tokenAddress: vToken.underlyingToken.address,
-          accountAddress,
-        },
-      ]);
-
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_BALANCES,
-        {
-          chainId,
-          accountAddress,
-        },
-      ]);
-
-      if (input.wrap && vToken.underlyingToken.tokenWrapped) {
-        queryClient.invalidateQueries([
+      queryClient.invalidateQueries({
+        queryKey: [
           FunctionKey.GET_BALANCE_OF,
           {
             chainId,
             accountAddress,
-            tokenAddress: vToken.underlyingToken.tokenWrapped.address,
+            tokenAddress: vToken.underlyingToken.address,
           },
-        ]);
+        ],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            chainId,
+            tokenAddress: vToken.underlyingToken.address,
+            accountAddress,
+          },
+        ],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            chainId,
+            accountAddress,
+          },
+        ],
+      });
+
+      if (input.wrap && vToken.underlyingToken.tokenWrapped) {
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_BALANCE_OF,
+            {
+              chainId,
+              accountAddress,
+              tokenAddress: vToken.underlyingToken.tokenWrapped.address,
+            },
+          ],
+        });
       }
     },
     options,

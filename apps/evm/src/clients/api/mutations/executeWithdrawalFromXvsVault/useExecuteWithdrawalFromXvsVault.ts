@@ -20,7 +20,7 @@ type Options = UseSendTransactionOptions<TrimmedExecuteWithdrawalFromXvsVaultInp
 
 const useExecuteWithdrawalFromXvsVault = (
   { stakedToken }: { stakedToken: Token },
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract({
@@ -34,7 +34,7 @@ const useExecuteWithdrawalFromXvsVault = (
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
+    fnKey: [FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT],
     fn: (input: TrimmedExecuteWithdrawalFromXvsVaultInput) =>
       callOrThrow({ xvsVaultContract }, params =>
         executeWithdrawalFromXvsVault({
@@ -53,64 +53,76 @@ const useExecuteWithdrawalFromXvsVault = (
         });
 
         // Invalidate cached user info
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_USER_INFO,
-          {
-            chainId,
-            accountAddress,
-            rewardTokenAddress: xvs.address,
-            poolIndex,
-          },
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_XVS_VAULT_USER_INFO,
+            {
+              chainId,
+              accountAddress,
+              rewardTokenAddress: xvs.address,
+              poolIndex,
+            },
+          ],
+        });
 
         // Invalidate cached user withdrawal requests
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
-          {
-            chainId,
-            rewardTokenAddress: xvs.address,
-            poolIndex,
-            accountAddress,
-          },
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
+            {
+              chainId,
+              rewardTokenAddress: xvs.address,
+              poolIndex,
+              accountAddress,
+            },
+          ],
+        });
 
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-          {
-            chainId,
-            rewardTokenAddress: xvs.address,
-            poolIndex,
-          },
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_XVS_VAULT_POOL_INFOS,
+            {
+              chainId,
+              rewardTokenAddress: xvs.address,
+              poolIndex,
+            },
+          ],
+        });
       }
 
       // Invalidate cached user balance
-      queryClient.invalidateQueries([
-        FunctionKey.GET_BALANCE_OF,
-        {
-          chainId,
-          accountAddress,
-          tokenAddress: stakedToken.address,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_BALANCE_OF,
+          {
+            chainId,
+            accountAddress,
+            tokenAddress: stakedToken.address,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_BALANCES,
-        {
-          chainId,
-          accountAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            chainId,
+            accountAddress,
+          },
+        ],
+      });
 
       // Invalidate cached vault data
-      queryClient.invalidateQueries([
-        FunctionKey.GET_BALANCE_OF,
-        {
-          chainId,
-          accountAddress: xvsVaultContract?.address,
-          tokenAddress: stakedToken.address,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_BALANCE_OF,
+          {
+            chainId,
+            accountAddress: xvsVaultContract?.address,
+            tokenAddress: stakedToken.address,
+          },
+        ],
+      });
     },
     options,
   });

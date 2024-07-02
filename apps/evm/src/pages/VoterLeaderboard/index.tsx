@@ -62,7 +62,7 @@ const VoterLeaderboard: React.FC = () => {
       limit: undefined,
     },
     isFetching: isGetVoterAccountsFetching,
-    isPreviousData: isGetVoterAccountsPreviousData,
+    isPlaceholderData: isGetVoterAccountsPreviousData,
   } = useGetVoterAccounts({ page: currentPage, totalStakedXvs });
 
   const isFetching =

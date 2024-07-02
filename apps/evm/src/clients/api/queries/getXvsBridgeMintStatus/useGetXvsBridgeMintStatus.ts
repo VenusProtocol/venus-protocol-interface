@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { type GetXvsMintStatusOutput, getXvsBridgeMintStatus } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -28,7 +28,7 @@ const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetXvsBridgeMintStatus = (
   { destinationChainId }: UseGetXvsBridgeMintStatusInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { provider } = useProvider({ chainId: destinationChainId });
   const xvsTokenMultichainContract = getXvsTokenMultichainContract({
@@ -39,26 +39,27 @@ const useGetXvsBridgeMintStatus = (
     chainId: destinationChainId,
   });
 
-  return useQuery(
-    [
+  return useQuery({
+    queryKey: [
       FunctionKey.GET_XVS_BRIDGE_MINT_STATUS,
       {
         destinationChainId,
       },
     ],
-    () =>
+
+    queryFn: () =>
       callOrThrow({ xvsTokenMultichainContract, chainXvsProxyOftDestContractAddress }, params =>
         getXvsBridgeMintStatus({ ...params }),
       ),
-    {
-      refetchInterval,
-      ...options,
-      enabled:
-        destinationChainId !== ChainId.BSC_MAINNET &&
-        destinationChainId !== ChainId.BSC_TESTNET &&
-        options?.enabled,
-    },
-  );
+
+    refetchInterval,
+    ...options,
+
+    enabled:
+      destinationChainId !== ChainId.BSC_MAINNET &&
+      destinationChainId !== ChainId.BSC_TESTNET &&
+      options?.enabled,
+  });
 };
 
 export default useGetXvsBridgeMintStatus;

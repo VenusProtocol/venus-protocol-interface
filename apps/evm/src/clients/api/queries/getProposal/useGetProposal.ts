@@ -1,13 +1,11 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { queryClient } from 'clients/api';
 import getProposal from 'clients/api/queries/getProposal';
 import type { GetProposalInput, GetProposalOutput } from 'clients/api/queries/getProposal/types';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';
-import { type Proposal, ProposalState } from 'types';
 
 export type UseGetProposalQueryKey = [FunctionKey.GET_PROPOSAL, GetProposalInput];
 
@@ -19,29 +17,13 @@ type Options = QueryObserverOptions<
   UseGetProposalQueryKey
 >;
 
-const refetchStates = [
-  ProposalState.Pending,
-  ProposalState.Active,
-  ProposalState.Succeeded,
-  ProposalState.Queued,
-];
-
-// refetchInterval is set automatically with onSuccess so it is excluded from being set manually
-const useGetProposal = (params: GetProposalInput, options?: Omit<Options, 'refetchInterval'>) => {
+const useGetProposal = (params: GetProposalInput, options?: Partial<Options>) => {
   const { blockTimeMs } = CHAIN_METADATA[governanceChain.id];
 
-  return useQuery([FunctionKey.GET_PROPOSAL, params], () => getProposal(params), {
-    onSuccess: (data: Proposal) => {
-      if (refetchStates.includes(data.state)) {
-        queryClient.setQueryDefaults([FunctionKey.GET_PROPOSAL, params], {
-          refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
-        });
-      }
-
-      if (options?.onSuccess) {
-        options.onSuccess(data);
-      }
-    },
+  return useQuery({
+    queryKey: [FunctionKey.GET_PROPOSAL, params],
+    queryFn: () => getProposal(params),
+    refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
     ...options,
   });
 };

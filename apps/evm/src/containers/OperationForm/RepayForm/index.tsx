@@ -504,13 +504,13 @@ const RepayForm: React.FC<RepayFormProps> = ({
     accountAddress,
   });
 
-  const { mutateAsync: onRepay, isLoading: isRepayLoading } = useRepay({
+  const { mutateAsync: onRepay, isPending: isRepayLoading } = useRepay({
     vToken: asset.vToken,
     poolName: pool.name,
     poolComptrollerAddress: pool.comptrollerAddress,
   });
 
-  const { mutateAsync: onSwapAndRepay, isLoading: isSwapAndRepayLoading } = useSwapTokensAndRepay({
+  const { mutateAsync: onSwapAndRepay, isPending: isSwapAndRepayLoading } = useSwapTokensAndRepay({
     poolName: pool.name,
     poolComptrollerAddress: pool.comptrollerAddress,
     vToken: asset.vToken,

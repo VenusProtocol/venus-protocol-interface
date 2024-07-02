@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getXvsVaultUserInfo, {
   type GetXvsVaultUserInfoInput,
@@ -27,15 +27,19 @@ type Options = QueryObserverOptions<
   UseGetXvsVaultUserInfoQueryKey
 >;
 
-const useGetXvsVaultUserInfo = (input: TrimmedGetXvsVaultUserInfoInput, options?: Options) => {
+const useGetXvsVaultUserInfo = (
+  input: TrimmedGetXvsVaultUserInfoInput,
+  options?: Partial<Options>,
+) => {
   const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract();
 
-  return useQuery(
-    [FunctionKey.GET_XVS_VAULT_USER_INFO, { ...input, chainId }],
-    () => callOrThrow({ xvsVaultContract }, params => getXvsVaultUserInfo({ ...params, ...input })),
-    options,
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_XVS_VAULT_USER_INFO, { ...input, chainId }],
+    queryFn: () =>
+      callOrThrow({ xvsVaultContract }, params => getXvsVaultUserInfo({ ...params, ...input })),
+    ...options,
+  });
 };
 
 export default useGetXvsVaultUserInfo;

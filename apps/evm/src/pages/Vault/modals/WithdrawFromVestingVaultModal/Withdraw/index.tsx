@@ -125,7 +125,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
 
   const {
     mutateAsync: executeWithdrawalFromXvsVault,
-    isLoading: isExecutingWithdrawalFromXvsVault,
+    isPending: isExecutingWithdrawalFromXvsVault,
   } = useExecuteWithdrawalFromXvsVault({
     stakedToken,
   });

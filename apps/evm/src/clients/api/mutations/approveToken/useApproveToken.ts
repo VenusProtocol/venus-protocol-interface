@@ -9,7 +9,7 @@ import { callOrThrow } from 'utilities';
 type TrimmedApproveTokenInput = Omit<ApproveTokenInput, 'tokenContract'>;
 type Options = UseSendTransactionOptions<TrimmedApproveTokenInput>;
 
-const useApproveToken = ({ token }: { token: Token }, options?: Options) => {
+const useApproveToken = ({ token }: { token: Token }, options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const tokenContract = useGetTokenContract({ token, passSigner: true });
 
@@ -25,15 +25,17 @@ const useApproveToken = ({ token }: { token: Token }, options?: Options) => {
     onConfirmed: async ({ input }) => {
       const accountAddress = await tokenContract?.signer.getAddress();
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_ALLOWANCE,
-        {
-          chainId,
-          tokenAddress: token.address,
-          spenderAddress: input.spenderAddress,
-          accountAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            chainId,
+            tokenAddress: token.address,
+            spenderAddress: input.spenderAddress,
+            accountAddress,
+          },
+        ],
+      });
     },
     options,
   });

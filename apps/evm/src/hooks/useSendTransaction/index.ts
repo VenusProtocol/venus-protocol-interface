@@ -1,7 +1,6 @@
+import { type MutationKey, type MutationObserverOptions, useMutation } from '@tanstack/react-query';
 import type { ContractReceipt, ContractTransaction } from 'ethers';
-import { type MutationObserverOptions, useMutation } from 'react-query';
 
-import type FunctionKey from 'constants/functionKey';
 import type { TransactionType } from 'types';
 
 import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
@@ -13,7 +12,7 @@ export interface UseSendTransactionOptions<TMutateInput extends Record<string, u
 
 export interface UseSendTransactionInput<TMutateInput extends Record<string, unknown> | void> {
   fn: (input: TMutateInput) => Promise<ContractTransaction>;
-  fnKey: FunctionKey | [FunctionKey, ...unknown[]];
+  fnKey: MutationKey;
   transactionType?: TransactionType;
   onConfirmed?: (input: {
     transaction: ContractTransaction;
@@ -37,9 +36,9 @@ export const useSendTransaction = <TMutateInput extends Record<string, unknown> 
 }: UseSendTransactionInput<TMutateInput>) => {
   const trackTransaction = useTrackTransaction({ transactionType });
 
-  return useMutation(
-    fnKey,
-    async input => {
+  return useMutation({
+    mutationKey: fnKey,
+    mutationFn: async input => {
       // Send transaction
       const transaction = await fn(input);
 
@@ -55,6 +54,6 @@ export const useSendTransaction = <TMutateInput extends Record<string, unknown> 
         await transaction.wait(CONFIRMATIONS);
       }
     },
-    options,
-  );
+    ...options,
+  });
 };

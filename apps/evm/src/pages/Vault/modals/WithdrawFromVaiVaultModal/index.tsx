@@ -27,7 +27,7 @@ const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ h
       },
     );
 
-  const { mutateAsync: withdraw, isLoading: isWithdrawLoading } = useWithdrawFromVaiVault();
+  const { mutateAsync: withdraw, isPending: isWithdrawLoading } = useWithdrawFromVaiVault();
 
   const handleWithdraw = async (amountMantissa: BigNumber) => {
     // Send request to withdraw

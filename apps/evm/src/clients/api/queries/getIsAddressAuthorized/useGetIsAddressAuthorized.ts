@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getIsAddressAuthorized, {
   type GetIsAddressAuthorizedOutput,
@@ -20,19 +20,17 @@ type Options = QueryObserverOptions<
 
 const ONE_HOUR_MS = 60 * 60 * 1000;
 
-const useGetIsAddressAuthorized = (accountAddress: string, options?: Options) =>
-  useQuery(
-    [FunctionKey.GET_IS_ADDRESS_AUTHORIZED, { accountAddress }],
-    () => getIsAddressAuthorized({ accountAddress }),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      refetchOnWindowFocus: false,
-      refetchInterval: ONE_HOUR_MS,
-      staleTime: Number.POSITIVE_INFINITY,
-      cacheTime: Number.POSITIVE_INFINITY,
-      ...options,
-    },
-  );
+const useGetIsAddressAuthorized = (accountAddress: string, options?: Partial<Options>) =>
+  useQuery({
+    queryKey: [FunctionKey.GET_IS_ADDRESS_AUTHORIZED, { accountAddress }],
+    queryFn: () => getIsAddressAuthorized({ accountAddress }),
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: ONE_HOUR_MS,
+    staleTime: Number.POSITIVE_INFINITY,
+    gcTime: Number.POSITIVE_INFINITY,
+    ...options,
+  });
 
 export default useGetIsAddressAuthorized;

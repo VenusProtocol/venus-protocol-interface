@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getLegacyPoolMarkets, {
   type GetLegacyPoolMarketsOutput,
@@ -12,19 +12,19 @@ type Options = QueryObserverOptions<
   Error,
   GetLegacyPoolMarketsOutput,
   GetLegacyPoolMarketsOutput,
-  FunctionKey.GET_MAIN_MARKETS
+  [FunctionKey.GET_MAIN_MARKETS]
 >;
 
-const useGetLegacyPoolMarkets = (options?: Options) => {
+const useGetLegacyPoolMarkets = (options?: Partial<Options>) => {
   const xvs = useGetToken({
     symbol: 'XVS',
   });
 
-  return useQuery(
-    FunctionKey.GET_MAIN_MARKETS,
-    () => callOrThrow({ xvs }, getLegacyPoolMarkets),
-    options,
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_MAIN_MARKETS],
+    queryFn: () => callOrThrow({ xvs }, getLegacyPoolMarkets),
+    ...options,
+  });
 };
 
 export default useGetLegacyPoolMarkets;

@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getProposalThreshold, {
   type GetProposalThresholdOutput,
@@ -13,19 +13,19 @@ type Options = QueryObserverOptions<
   Error,
   GetProposalThresholdOutput,
   GetProposalThresholdOutput,
-  FunctionKey.GET_PROPOSAL_THRESHOLD
+  [FunctionKey.GET_PROPOSAL_THRESHOLD]
 >;
 
-const useGetProposalThreshold = (options?: Options) => {
+const useGetProposalThreshold = (options?: Partial<Options>) => {
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     chainId: governanceChain.id,
   });
 
-  return useQuery(
-    FunctionKey.GET_PROPOSAL_THRESHOLD,
-    () => callOrThrow({ governorBravoDelegateContract }, getProposalThreshold),
-    options,
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_PROPOSAL_THRESHOLD],
+    queryFn: () => callOrThrow({ governorBravoDelegateContract }, getProposalThreshold),
+    ...options,
+  });
 };
 
 export default useGetProposalThreshold;
