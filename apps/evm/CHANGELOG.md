@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.129.1
+
+### Patch Changes
+
+- 6176843: Fix subgraph URLs used in codegen config
+
 ## 2.129.0
 
 ### Minor Changes
