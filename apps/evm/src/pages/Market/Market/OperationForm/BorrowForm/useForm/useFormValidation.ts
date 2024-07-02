@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 
 import type { Asset } from 'types';
 
-import type { FormError } from 'containers/OperationForm/types';
 import { useTranslation } from 'libs/translations';
 import { formatTokensToReadableValue } from 'utilities';
+import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {

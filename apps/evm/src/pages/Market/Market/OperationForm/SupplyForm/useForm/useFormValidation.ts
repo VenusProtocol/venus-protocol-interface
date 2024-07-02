@@ -2,16 +2,17 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
-import type { FormError } from 'containers/OperationForm/types';
 import { useTranslation } from 'libs/translations';
-import type { Swap, SwapError } from 'types';
+import type { Asset, Swap, SwapError } from 'types';
+import { formatTokensToReadableValue } from 'utilities';
 import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
+import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
+  asset: Asset;
   formValues: FormValues;
   fromTokenUserWalletBalanceTokens?: BigNumber;
-  fromTokenUserBorrowBalanceTokens?: BigNumber;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   isFromTokenApproved?: boolean;
   isUsingSwap: boolean;
@@ -25,13 +26,13 @@ interface UseFormValidationOutput {
 }
 
 const useFormValidation = ({
+  asset,
   swap,
   swapError,
   formValues,
   isFromTokenApproved,
   isUsingSwap,
   fromTokenUserWalletBalanceTokens,
-  fromTokenUserBorrowBalanceTokens,
   fromTokenWalletSpendingLimitTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
@@ -58,6 +59,21 @@ const useFormValidation = ({
       return swapErrorMapping[swapError];
     }
 
+    if (
+      asset.supplyCapTokens &&
+      asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens)
+    ) {
+      return {
+        code: 'SUPPLY_CAP_ALREADY_REACHED',
+        message: t('operationForm.error.supplyCapReached', {
+          assetSupplyCap: formatTokensToReadableValue({
+            value: asset.supplyCapTokens,
+            token: asset.vToken.underlyingToken,
+          }),
+        }),
+      };
+    }
+
     const fromTokenAmountTokens = formValues.amountTokens
       ? new BigNumber(formValues.amountTokens)
       : undefined;
@@ -75,23 +91,38 @@ const useFormValidation = ({
       return {
         code: 'HIGHER_THAN_WALLET_BALANCE',
         message: t('operationForm.error.higherThanWalletBalance', {
-          tokenSymbol: formValues.fromToken.symbol,
+          tokenSymbol: asset.vToken.underlyingToken.symbol,
         }),
       };
     }
 
-    const toTokensAmountRepaidTokens = isUsingSwap
+    const toTokensAmountSuppliedTokens = isUsingSwap
       ? getSwapToTokenAmountReceivedTokens(swap).swapToTokenAmountReceivedTokens
       : fromTokenAmountTokens;
 
     if (
-      toTokensAmountRepaidTokens &&
-      fromTokenUserBorrowBalanceTokens &&
-      toTokensAmountRepaidTokens.isGreaterThan(fromTokenUserBorrowBalanceTokens)
+      toTokensAmountSuppliedTokens &&
+      asset.supplyCapTokens &&
+      asset.supplyBalanceTokens
+        .plus(toTokensAmountSuppliedTokens)
+        .isGreaterThan(asset.supplyCapTokens)
     ) {
       return {
-        code: 'HIGHER_THAN_REPAY_BALANCE',
-        message: t('operationForm.error.higherThanRepayBalance'),
+        code: 'HIGHER_THAN_SUPPLY_CAP',
+        message: t('operationForm.error.higherThanSupplyCap', {
+          userMaxSupplyAmount: formatTokensToReadableValue({
+            value: asset.supplyCapTokens.minus(asset.supplyBalanceTokens),
+            token: asset.vToken.underlyingToken,
+          }),
+          assetSupplyCap: formatTokensToReadableValue({
+            value: asset.supplyCapTokens,
+            token: asset.vToken.underlyingToken,
+          }),
+          assetSupplyBalance: formatTokensToReadableValue({
+            value: asset.supplyBalanceTokens,
+            token: asset.vToken.underlyingToken,
+          }),
+        }),
       };
     }
 
@@ -116,8 +147,7 @@ const useFormValidation = ({
       };
     }
   }, [
-    formValues.fromToken.symbol,
-    fromTokenUserBorrowBalanceTokens,
+    asset,
     fromTokenUserWalletBalanceTokens,
     fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,

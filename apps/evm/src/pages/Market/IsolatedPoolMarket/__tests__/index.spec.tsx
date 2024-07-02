@@ -34,7 +34,7 @@ describe('IsolatedPoolMarket', () => {
   });
 
   it('fetches market details and displays them correctly', async () => {
-    const { getByTestId, queryByTestId } = renderComponent(<IsolatedPoolMarket />, {
+    const { getByTestId } = renderComponent(<IsolatedPoolMarket />, {
       routerInitialEntries: [`/${vXvs.address}/${poolData[0].comptrollerAddress}`],
       routePath: '/:vTokenAddress/:poolComptrollerAddress',
     });
@@ -43,10 +43,10 @@ describe('IsolatedPoolMarket', () => {
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.interestRateModel).textContent).toMatchSnapshot(),
     );
-    // Check supply info is not displayed
-    expect(queryByTestId(TEST_IDS.supplyInfo)).toBeNull();
-    // Check borrow info is not displayed
-    expect(queryByTestId(TEST_IDS.borrowInfo)).toBeNull();
+    // Check supply info displays correctly
+    expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot();
+    // Check borrow info displays correctly
+    expect(getByTestId(TEST_IDS.borrowInfo).textContent).toMatchSnapshot();
     // Check market info displays correctly
     expect(getByTestId(TEST_IDS.marketInfo).textContent).toMatchSnapshot();
   });
