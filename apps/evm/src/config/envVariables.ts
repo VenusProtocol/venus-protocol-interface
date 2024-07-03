@@ -81,7 +81,7 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_ETHEREUM
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_ETHEREUM,
 
-  // Sepolia (Ethereum testnet)
+  // Sepolia
   VITE_RPC_HTTP_URL_SEPOLIA:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_SEPOLIA
@@ -95,7 +95,7 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_SEPOLIA
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_SEPOLIA,
 
-  // Arbitrum RPC provider
+  // Arbitrum
   VITE_RPC_WEBSOCKET_URL_ARBITRUM_ONE:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_ONE
@@ -109,7 +109,7 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_ONE
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_ONE,
 
-  // Arbitrum Sepolia RPC provider
+  // Arbitrum Sepolia
   VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA
@@ -118,6 +118,10 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_SEPOLIA
       : import.meta.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_SEPOLIA,
+  VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA
+      : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA,
 
   // Third-parties
   VITE_SENTRY_DSN:
