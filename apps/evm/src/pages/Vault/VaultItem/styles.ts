@@ -16,14 +16,9 @@ export const useStyles = () => {
       justify-content: space-between;
       margin-bottom: ${theme.spacing(6)};
     `,
-    title: css`
-      display: flex;
-      align-items: center;
-    `,
     tokenIcon: css`
       width: ${theme.shape.iconSize.xLarge}px;
       height: ${theme.shape.iconSize.xLarge}px;
-      margin-right: ${theme.spacing(1)};
     `,
     tokenIconLarge: css`
       width: ${theme.spacing(8)};

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
-import { Card } from 'components';
+import { AddTokenToWalletButton, Card } from 'components';
 import { useMemo, useState } from 'react';
 
 import { useGetPrimeStatus } from 'clients/api';
@@ -10,7 +10,7 @@ import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
+import { canAddTokenToWallet, useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
@@ -128,12 +128,16 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
     <>
       <Card css={styles.container} className={className}>
         <div css={styles.header}>
-          <div css={styles.title}>
+          <div className="flex items-center gap-x-2">
             <TokenIcon css={styles.tokenIcon} token={stakedToken} />
 
             <Typography variant="h4" css={styles.text} data-testid={TEST_IDS.symbol}>
               {stakedToken.symbol}
             </Typography>
+
+            {!!accountAddress && canAddTokenToWallet() && (
+              <AddTokenToWalletButton className="shrink-0" token={stakedToken} />
+            )}
           </div>
         </div>
 
