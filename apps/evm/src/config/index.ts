@@ -91,6 +91,9 @@ const subgraphUrls = {
   [ChainId.ARBITRUM_ONE]: {
     markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_ONE,
   },
+  [ChainId.ARBITRUM_SEPOLIA]: {
+    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA,
+  },
 };
 
 const apiUrl = API_ENDPOINT_URLS[environment];
