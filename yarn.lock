@@ -3323,9 +3323,9 @@
     is-negated-glob "^1.0.0"
 
 "@hookform/resolvers@^3.3.2":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.6.0.tgz#71ae08acf7f7624fb24ea0505de00b9001a63687"
-  integrity sha512-UBcpyOX3+RR+dNnqBd0lchXpoL8p4xC21XP8H6Meb8uve5Br1GCnmg0PcBoKKqPKgGu9GHQ/oygcmPrQhetwqw==
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.8.0.tgz#6c0a43d9e0ab24748337cb293f5be30b74da5207"
+  integrity sha512-8BY7nM+QhMlGgYOb5Mxa6ZuHRYRvAZJ5LQ7+SxMv1CFGrqvNZajoa1ipEvdnIPllEcQ9R90oBNiRUUi8rj6KPQ==
 
 "@infinitywallet/infinity-connector@^1.0.5":
   version "1.0.6"
