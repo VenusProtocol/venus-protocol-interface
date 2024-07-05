@@ -1,28 +1,18 @@
 import { useCallback } from 'react';
-import { useSwitchNetwork } from 'wagmi';
+import { useSwitchChain as useWagmiSwitchChain } from 'wagmi';
 
 import { VError, displayMutationError } from 'libs/errors';
-import { useAccountAddress } from 'libs/wallet/hooks/useAccountAddress';
 import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
 import type { ChainId } from 'types';
 
 export const useSwitchChain = () => {
-  const { switchNetworkAsync } = useSwitchNetwork();
-  const { accountAddress } = useAccountAddress();
+  const { switchChainAsync } = useWagmiSwitchChain();
   const { updateUrlChainId } = useUpdateUrlChainId();
 
   const switchChain = useCallback(
     async (input: { chainId: ChainId; callback?: () => void }) => {
       try {
-        if (switchNetworkAsync) {
-          // Change wallet network if it is connected
-          await switchNetworkAsync(input.chainId);
-        } else if (accountAddress) {
-          throw new VError({
-            type: 'unexpected',
-            code: 'couldNotSwitchChain',
-          });
-        }
+        await switchChainAsync(input);
 
         // Update URL
         updateUrlChainId(input);
@@ -34,7 +24,7 @@ export const useSwitchChain = () => {
         }
       }
     },
-    [accountAddress, updateUrlChainId, switchNetworkAsync],
+    [updateUrlChainId, switchChainAsync],
   );
 
   return { switchChain };

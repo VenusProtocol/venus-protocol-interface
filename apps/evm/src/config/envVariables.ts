@@ -12,10 +12,6 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_BSC_MAINNET
       : import.meta.env.VITE_RPC_HTTP_URL_BSC_MAINNET,
-  VITE_RPC_WEBSOCKET_URL_BSC_MAINNET:
-    typeof process !== 'undefined'
-      ? process.env.VITE_RPC_WEBSOCKET_URL_BSC_MAINNET
-      : import.meta.env.VITE_RPC_WEBSOCKET_URL_BSC_MAINNET,
   VITE_SUBGRAPH_MARKETS_URL_BSC_MAINNET:
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_BSC_MAINNET
@@ -30,10 +26,6 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_BSC_TESTNET
       : import.meta.env.VITE_RPC_HTTP_URL_BSC_TESTNET,
-  VITE_RPC_WEBSOCKET_URL_BSC_TESTNET:
-    typeof process !== 'undefined'
-      ? process.env.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET
-      : import.meta.env.VITE_RPC_WEBSOCKET_URL_BSC_TESTNET,
   VITE_SUBGRAPH_MARKETS_URL_BSC_TESTNET:
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_BSC_TESTNET
@@ -48,10 +40,6 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_OPBNB_MAINNET
       : import.meta.env.VITE_RPC_HTTP_URL_OPBNB_MAINNET,
-  VITE_RPC_WEBSOCKET_URL_OPBNB_MAINNET:
-    typeof process !== 'undefined'
-      ? process.env.VITE_RPC_WEBSOCKET_URL_OPBNB_MAINNET
-      : import.meta.env.VITE_RPC_WEBSOCKET_URL_OPBNB_MAINNET,
   VITE_SUBGRAPH_MARKETS_URL_OPBNB_MAINNET:
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_OPBNB_MAINNET
@@ -62,20 +50,12 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_OPBNB_TESTNET
       : import.meta.env.VITE_RPC_HTTP_URL_OPBNB_TESTNET,
-  VITE_RPC_WEBSOCKET_URL_OPBNB_TESTNET:
-    typeof process !== 'undefined'
-      ? process.env.VITE_RPC_WEBSOCKET_URL_OPBNB_TESTNET
-      : import.meta.env.VITE_RPC_WEBSOCKET_URL_OPBNB_TESTNET,
 
   // Ethereum
   VITE_RPC_HTTP_URL_ETHEREUM:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_ETHEREUM
       : import.meta.env.VITE_RPC_HTTP_URL_ETHEREUM,
-  VITE_RPC_WEBSOCKET_URL_ETHEREUM:
-    typeof process !== 'undefined'
-      ? process.env.VITE_RPC_WEBSOCKET_URL_ETHEREUM
-      : import.meta.env.VITE_RPC_WEBSOCKET_URL_ETHEREUM,
   VITE_SUBGRAPH_MARKETS_URL_ETHEREUM:
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_ETHEREUM
@@ -86,20 +66,12 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_SEPOLIA
       : import.meta.env.VITE_RPC_HTTP_URL_SEPOLIA,
-  VITE_RPC_WEBSOCKET_URL_SEPOLIA:
-    typeof process !== 'undefined'
-      ? process.env.VITE_RPC_WEBSOCKET_URL_SEPOLIA
-      : import.meta.env.VITE_RPC_WEBSOCKET_URL_SEPOLIA,
   VITE_SUBGRAPH_MARKETS_URL_SEPOLIA:
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_SEPOLIA
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_SEPOLIA,
 
   // Arbitrum
-  VITE_RPC_WEBSOCKET_URL_ARBITRUM_ONE:
-    typeof process !== 'undefined'
-      ? process.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_ONE
-      : import.meta.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_ONE,
   VITE_RPC_HTTP_URL_ARBITRUM_ONE:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_ARBITRUM_ONE
@@ -114,10 +86,6 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA
       : import.meta.env.VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA,
-  VITE_RPC_WEBSOCKET_URL_ARBITRUM_SEPOLIA:
-    typeof process !== 'undefined'
-      ? process.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_SEPOLIA
-      : import.meta.env.VITE_RPC_WEBSOCKET_URL_ARBITRUM_SEPOLIA,
   VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA:
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA

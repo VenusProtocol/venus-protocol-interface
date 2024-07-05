@@ -1,13 +1,13 @@
-import type { WalletClient } from '@wagmi/core';
 import { providers } from 'ethers';
+import type { Account, Chain, Client, Transport } from 'viem';
 
 // Convert a viem Wallet Client to an ethers.js Signer
-export const getSigner = ({ walletClient }: { walletClient?: WalletClient } = {}) => {
-  if (!walletClient) {
-    return undefined;
-  }
-
-  const { account, chain, transport } = walletClient;
+export const getSigner = ({
+  walletClient,
+}: {
+  walletClient: Client<Transport, Chain, Account>;
+}) => {
+  const { account, chain, transport } = walletClient ?? {};
 
   const network = {
     chainId: chain.id,

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useWalletClient } from 'wagmi';
+import { type Config, useConnectorClient } from 'wagmi';
 
 import type { ChainId } from 'types';
 
@@ -13,10 +13,10 @@ export interface UseSignerInput {
 export const useSigner = (input?: UseSignerInput) => {
   const { chainId: currentChainId } = useChainId();
   const chainId = input?.chainId || currentChainId;
-  const { data: walletClient } = useWalletClient({ chainId });
+  const { data: walletClient } = useConnectorClient<Config>({ chainId });
 
   const signer = useMemo(
-    () => getSigner({ walletClient: walletClient || undefined }),
+    () => (walletClient ? getSigner({ walletClient }) : undefined),
     [walletClient],
   );
 

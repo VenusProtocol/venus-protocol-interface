@@ -1,4 +1,4 @@
-import { WagmiConfig } from 'wagmi';
+import { WagmiProvider } from 'wagmi';
 
 import { AuthHandler } from './AuthHandler';
 import { AuthModal } from './AuthModal';
@@ -9,10 +9,10 @@ export interface Web3WrapperProps {
 }
 
 export const Web3Wrapper: React.FC<Web3WrapperProps> = ({ children }) => (
-  <WagmiConfig config={config}>
+  <WagmiProvider config={config}>
     <AuthModal />
     <AuthHandler />
 
     {children}
-  </WagmiConfig>
+  </WagmiProvider>
 );
