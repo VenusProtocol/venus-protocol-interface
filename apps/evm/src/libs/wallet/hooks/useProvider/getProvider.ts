@@ -27,17 +27,17 @@ export const getProvider = ({ client }: { client: Client<Transport, Chain> }) =>
 
   // We can't use the getter function for the 0xsequence multicall contract here because that
   // creates a dependency cycle
-  const xsequenceMulticallAddress =
-    addresses.XsequenceMulticall[network.chainId as keyof typeof addresses.XsequenceMulticall];
+  const zeroXSequenceMulticallAddress =
+    addresses.ZeroXSequenceMulticall[chain.id as keyof typeof addresses.ZeroXSequenceMulticall];
 
-  if (!xsequenceMulticallAddress) {
-    logError(`0xsequence multicall contract address missing on chain with ID ${network.chainId}`);
+  if (!zeroXSequenceMulticallAddress) {
+    logError(`0xsequence multicall contract address missing on chain with ID ${chain.id}`);
     return ethersProvider;
   }
 
   // Wrap with multicall provider
   return new providers.MulticallProvider(ethersProvider, {
-    contract: xsequenceMulticallAddress,
+    contract: zeroXSequenceMulticallAddress,
     batchSize: MULTICALL_BATCH_SIZE,
   });
 };

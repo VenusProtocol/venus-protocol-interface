@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { Card } from 'components';
 import { useEffect, useMemo, useState } from 'react';
 
-import { useSwapTokens } from 'clients/api';
+import { useGetSwapQuote, useSwapTokens } from 'clients/api';
 import {
   Icon,
   LabeledInlineContent,
@@ -13,14 +13,9 @@ import {
 } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
-import {
-  useGetLegacyPoolComptrollerContractAddress,
-  useGetSwapRouterContractAddress,
-} from 'libs/contracts';
-import { displayMutationError } from 'libs/errors';
+import { VError, displayMutationError } from 'libs/errors';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -28,6 +23,7 @@ import type { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 import { SwapDetails } from './SwapDetails';
 
+import { useGetZeroXSequenceExchangeContractAddress } from 'libs/contracts';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import { useStyles } from './styles';
@@ -354,12 +350,6 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 const SwapPage: React.FC = () => {
   const { accountAddress } = useAccountAddress();
 
-  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
-
-  const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerContractAddress: legacyPoolComptrollerContractAddress || '',
-  });
-
   const tokens = useGetTokens();
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -378,13 +368,15 @@ const SwapPage: React.FC = () => {
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
-  const swapInfo = useGetSwapInfo({
+  const { data: getSwapQuoteData, isLoading: isGetSwapQuoteLoading } = useGetSwapQuote({
     fromToken: formValues.fromToken,
     fromTokenAmountTokens: formValues.fromTokenAmountTokens,
     toToken: formValues.toToken,
     toTokenAmountTokens: formValues.toTokenAmountTokens,
     direction: formValues.direction,
   });
+
+  const zeroXExchangeContractAddress = useGetZeroXSequenceExchangeContractAddress();
 
   const {
     isTokenApproved: isFromTokenApproved,
@@ -396,7 +388,7 @@ const SwapPage: React.FC = () => {
     isRevokeWalletSpendingLimitLoading: isRevokeFromTokenWalletSpendingLimitLoading,
   } = useTokenApproval({
     token: formValues.fromToken,
-    spenderAddress: swapRouterContractAddress,
+    spenderAddress: zeroXExchangeContractAddress,
     accountAddress,
   });
 
@@ -404,22 +396,25 @@ const SwapPage: React.FC = () => {
     accountAddress,
   });
 
-  const { mutateAsync: swapTokens, isPending: isSwapTokensLoading } = useSwapTokens({
-    poolComptrollerAddress: legacyPoolComptrollerContractAddress || '',
-  });
+  const { mutateAsync: swapTokens, isPending: isSwapTokensLoading } = useSwapTokens();
 
-  const onSwap = async (swap: Swap) =>
-    swapTokens({
+  const onSwap = async (swap: Swap) => {
+    if (!getSwapQuoteData) {
+      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+    }
+
+    await swapTokens({
       swap,
     });
+  };
 
   return (
     <SwapPageUi
       formValues={formValues}
       setFormValues={setFormValues}
-      swap={swapInfo.swap}
-      swapError={swapInfo.error}
-      isSwapLoading={swapInfo.isLoading}
+      swap={getSwapQuoteData?.swap}
+      swapError={getSwapQuoteData?.error}
+      isSwapLoading={isGetSwapQuoteLoading}
       tokenBalances={tokenBalances}
       onSubmit={onSwap}
       isSubmitting={isSwapTokensLoading}

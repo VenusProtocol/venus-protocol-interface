@@ -85,6 +85,8 @@
     "zustand": "^4.4.3"
   },
   "devDependencies": {
+    "@0x/contract-addresses": "^8.13.0",
+    "@0x/contract-artifacts": "^3.19.0",
     "@biomejs/biome": "1.6.4",
     "@changesets/cli": "^2.27.1",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",

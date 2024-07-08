@@ -618,6 +618,17 @@ export const getXvsVaultPendingWithdrawalsBalance = vi.fn(async () => ({
   balanceMantissa: 0,
 }));
 
+export const getSwapQuote = vi.fn(async () => ({
+  swap: undefined,
+  error: undefined,
+}));
+export const useGetSwapQuote = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_SWAP_QUOTE],
+    queryFn: getSwapQuote,
+  }),
+);
+
 // Mutations
 export const approveToken = vi.fn();
 export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>

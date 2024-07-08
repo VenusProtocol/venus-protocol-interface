@@ -1,38 +1,32 @@
-import { type SwapTokensInput, queryClient, swapTokens } from 'clients/api';
+import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetSwapRouterContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useGetZeroXSequenceExchangeContractAddress } from 'libs/contracts';
+import { useChainId, useSigner } from 'libs/wallet';
+import type { Swap } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
+import { swapTokens } from '.';
 
-type TrimmedSwapTokensInput = Omit<SwapTokensInput, 'swapRouterContract'>;
-type Options = UseSendTransactionOptions<TrimmedSwapTokensInput>;
+type SwapTokensInput = { swap: Swap };
+type Options = UseSendTransactionOptions<SwapTokensInput>;
 
-const useSwapTokens = (
-  { poolComptrollerAddress }: { poolComptrollerAddress: string },
-  options?: Partial<Options>,
-) => {
+export const useSwapTokens = (options?: Options) => {
   const { chainId } = useChainId();
-  const swapRouterContract = useGetSwapRouterContract({
-    comptrollerContractAddress: poolComptrollerAddress,
-    passSigner: true,
-  });
   const { captureAnalyticEvent } = useAnalytics();
+  const { signer } = useSigner();
+  const zeroXExchangeContractAddress = useGetZeroXSequenceExchangeContractAddress();
 
   return useSendTransaction({
     fnKey: [FunctionKey.SWAP_TOKENS],
-    fn: (input: TrimmedSwapTokensInput) =>
+    fn: ({ swap }: SwapTokensInput) =>
       callOrThrow(
         {
-          swapRouterContract,
+          signer,
+          zeroXExchangeContractAddress,
         },
-        params =>
-          swapTokens({
-            ...params,
-            ...input,
-          }),
+        params => swapTokens({ ...params, swap }),
       ),
     onConfirmed: async ({ input }) => {
       const { swap } = input;
@@ -60,7 +54,7 @@ const useSwapTokens = (
         routePath: swap.routePath,
       });
 
-      const accountAddress = await swapRouterContract?.signer.getAddress();
+      const accountAddress = await signer?.getAddress();
 
       queryClient.invalidateQueries({
         queryKey: [
@@ -91,7 +85,7 @@ const useSwapTokens = (
             chainId,
             tokenAddress: swap.fromToken.address,
             accountAddress,
-            spenderAddress: swapRouterContract?.address,
+            spenderAddress: zeroXExchangeContractAddress,
           },
         ],
       });
@@ -114,5 +108,3 @@ const useSwapTokens = (
     options,
   });
 };
-
-export default useSwapTokens;

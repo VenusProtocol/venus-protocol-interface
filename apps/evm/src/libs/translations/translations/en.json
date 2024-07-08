@@ -744,7 +744,8 @@
   "swap": {
     "errors": {
       "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
-      "incorrectSwapInput": "Incorrect input provided for swap"
+      "incorrectSwapInput": "Incorrect input provided for swap",
+      "insufficientAssetLiquidity": "Insufficient asset liquidity"
     },
     "swapDetails": {
       "label": {

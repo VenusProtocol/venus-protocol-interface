@@ -7,7 +7,7 @@ export interface Config {
   environment: Environment;
   isOnTestnet: boolean;
   isLocalServer: boolean;
-  apiUrl: string;
+  venusApiUrl: string;
   rpcUrls: {
     [chainId in ChainId]: string;
   };
@@ -22,6 +22,7 @@ export interface Config {
     apiKey: string;
     hostUrl: string;
   };
+  zeroXApiKey: string;
 }
 
 const environment: Environment =
@@ -69,13 +70,13 @@ const subgraphUrls = {
   },
 };
 
-const apiUrl = API_ENDPOINT_URLS[environment];
+const venusApiUrl = API_ENDPOINT_URLS[environment];
 
 const config: Config = {
   environment,
   isOnTestnet,
   isLocalServer,
-  apiUrl,
+  venusApiUrl,
   rpcUrls,
   subgraphUrls,
   sentryDsn: ENV_VARIABLES.VITE_SENTRY_DSN || '',
@@ -83,6 +84,7 @@ const config: Config = {
     apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',
     hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
   },
+  zeroXApiKey: ENV_VARIABLES.VITE_ZERO_X_API_KEY || '',
 };
 
 export { ENV_VARIABLES } from './envVariables';

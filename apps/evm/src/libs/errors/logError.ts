@@ -5,7 +5,7 @@ import config from 'config';
 export const logError = (error: string | unknown) => {
   // Only log errors in live environments
   if (config.isLocalServer || config.environment !== 'mainnet') {
-    console.error(`[Logger]: ${error}`);
+    console.error('[Logger]:', error);
     return;
   }
 

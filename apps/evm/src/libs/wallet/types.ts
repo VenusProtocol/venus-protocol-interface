@@ -37,4 +37,5 @@ export type IntegratedWallet = BaseWallet & {
 };
 
 export type Provider = JsonRpcProvider | FallbackProvider | BaseProvider;
+
 export type Signer = JsonRpcSigner;
