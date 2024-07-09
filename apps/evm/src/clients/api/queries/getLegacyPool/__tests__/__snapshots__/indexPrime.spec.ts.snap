@@ -347,7 +347,7 @@ exports[`getLegacyPool - Feature enabled: Prime > does not fetch Prime distribut
           "decimals": 8,
           "symbol": "vBNB",
           "underlyingToken": {
-            "address": "0x0000000000000000000000000000000000000000",
+            "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
             "asset": "/src/libs/tokens/img/bnb.svg",
             "decimals": 18,
             "isNative": true,
@@ -905,7 +905,7 @@ exports[`getLegacyPool - Feature enabled: Prime > fetches and formats Prime dist
           "decimals": 8,
           "symbol": "vBNB",
           "underlyingToken": {
-            "address": "0x0000000000000000000000000000000000000000",
+            "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
             "asset": "/src/libs/tokens/img/bnb.svg",
             "decimals": 18,
             "isNative": true,
@@ -1373,7 +1373,7 @@ exports[`getLegacyPool - Feature enabled: Prime > filters out Prime distribution
           "decimals": 8,
           "symbol": "vBNB",
           "underlyingToken": {
-            "address": "0x0000000000000000000000000000000000000000",
+            "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
             "asset": "/src/libs/tokens/img/bnb.svg",
             "decimals": 18,
             "isNative": true,

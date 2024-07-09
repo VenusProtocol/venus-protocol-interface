@@ -1,3 +1,4 @@
+import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import arbLogo from 'libs/tokens/img/arb.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
@@ -8,7 +9,7 @@ import xvsLogo from 'libs/tokens/img/xvs.svg';
 import type { Token } from 'types';
 
 const ethToken: Token = {
-  address: '0x0000000000000000000000000000000000000000',
+  address: NATIVE_TOKEN_ADDRESS,
   decimals: 18,
   symbol: 'ETH',
   asset: ethLogo,

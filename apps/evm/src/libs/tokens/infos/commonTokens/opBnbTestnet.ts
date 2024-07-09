@@ -1,3 +1,4 @@
+import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import bnbLogo from 'libs/tokens/img/bnb.svg';
 import btcbLogo from 'libs/tokens/img/btcb.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
@@ -7,7 +8,7 @@ import xvsLogo from 'libs/tokens/img/xvs.svg';
 import type { Token } from 'types';
 
 const bnbToken: Token = {
-  address: '0x0000000000000000000000000000000000000000',
+  address: NATIVE_TOKEN_ADDRESS,
   decimals: 18,
   symbol: 'BNB',
   asset: bnbLogo,

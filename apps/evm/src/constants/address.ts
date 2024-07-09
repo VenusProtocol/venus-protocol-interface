@@ -1,4 +1,5 @@
 export const NULL_ADDRESS = '0x0000000000000000000000000000000000000000';
+export const NATIVE_TOKEN_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
 
 // We do not list the following tokens in the tokens package because they are not meant to be listed
 // on Venus. TODO: remove these once the tokens have been unlisted from contracts

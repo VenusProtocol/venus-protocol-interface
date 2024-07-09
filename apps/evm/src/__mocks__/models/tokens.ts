@@ -1,3 +1,4 @@
+import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import bnbLogo from 'libs/tokens/img/bnb.svg';
 import busdLogo from 'libs/tokens/img/busd.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
@@ -35,7 +36,7 @@ export const vrt: Token = {
 };
 
 export const bnb: Token = {
-  address: '0x0000000000000000000000000000000000000000',
+  address: NATIVE_TOKEN_ADDRESS,
   isNative: true,
   decimals: 18,
   symbol: 'BNB',

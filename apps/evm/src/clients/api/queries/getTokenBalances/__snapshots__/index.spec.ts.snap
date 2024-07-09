@@ -49,7 +49,7 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
     {
       "balanceMantissa": "1000000000000000000",
       "token": {
-        "address": "0x0000000000000000000000000000000000000000",
+        "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
         "asset": "/src/libs/tokens/img/bnb.svg",
         "decimals": 18,
         "isNative": true,
