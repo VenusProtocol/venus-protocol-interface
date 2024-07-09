@@ -12,7 +12,7 @@ import {
 
 import localConfig from 'config';
 
-const getSupportedChains = (): Chain[] => {
+const getSupportedChains = (): [Chain, ...Chain[]] => {
   if (localConfig.isOnTestnet) {
     return [bscTestnet, opBNBTestnet, sepolia, arbitrumSepolia];
   }

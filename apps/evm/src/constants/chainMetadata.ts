@@ -1,8 +1,8 @@
 import { getToken } from 'libs/tokens/utilities/getToken';
-import arbitrumLogo from 'libs/wallet/chains/img/arbitrum.svg';
-import bscLogo from 'libs/wallet/chains/img/bsc.svg';
-import ethLogo from 'libs/wallet/chains/img/eth.svg';
-import opbnbLogo from 'libs/wallet/chains/img/opbnb.svg';
+import arbitrumLogo from 'libs/wallet/img/chains/arbitrum.svg';
+import bscLogo from 'libs/wallet/img/chains/bsc.svg';
+import ethLogo from 'libs/wallet/img/chains/eth.svg';
+import opbnbLogo from 'libs/wallet/img/chains/opbnb.svg';
 import { ChainId, type ChainMetadata } from 'types';
 
 const PROPOSAL_EXECUTION_GRACE_PERIOD_MS = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds

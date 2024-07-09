@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { usePublicClient } from 'wagmi';
+import { useClient } from 'wagmi';
 
 import type { ChainId } from 'types';
 
@@ -13,9 +13,9 @@ export interface UseProviderInput {
 export const useProvider = (input?: UseProviderInput) => {
   const { chainId: currentChainId } = useChainId();
   const chainId = input?.chainId || currentChainId;
-  const publicClient = usePublicClient({ chainId });
+  const client = useClient({ chainId });
 
-  const provider = useMemo(() => getProvider({ publicClient }), [publicClient]);
+  const provider = useMemo(() => getProvider({ client }), [client]);
 
   return { provider };
 };

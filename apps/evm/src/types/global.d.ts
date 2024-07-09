@@ -3,6 +3,7 @@ import type { WindowProvider } from 'wagmi/window';
 declare global {
   interface WindowEthereum extends WindowProvider {
     isInfinityWallet?: true;
+    isOpera?: true;
   }
 
   interface Window {
@@ -15,6 +16,12 @@ declare global {
       ) => Promise<{ publicKey: string; signature: string }>;
       switchNetwork?: (networkId: string) => Promise<string>;
     } & Ethereum;
+  }
+}
+
+declare module 'wagmi' {
+  interface Register {
+    config: typeof config;
   }
 }
 

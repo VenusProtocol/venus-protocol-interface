@@ -10,7 +10,7 @@ import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
-import { canAddTokenToWallet, useAccountAddress } from 'libs/wallet';
+import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
@@ -135,7 +135,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
               {stakedToken.symbol}
             </Typography>
 
-            {!!accountAddress && canAddTokenToWallet() && (
+            {!!accountAddress && (
               <AddTokenToWalletButton className="shrink-0" token={stakedToken} />
             )}
           </div>

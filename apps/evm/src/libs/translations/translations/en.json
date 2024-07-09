@@ -1210,13 +1210,11 @@
   },
   "wallets": {
     "binanceWallet": "Binance Wallet",
-    "bitKeep": "BitKeep",
+    "bitget": "Bitget Wallet",
     "braveWallet": "Brave Wallet",
     "coinbaseWallet": "Coinbase Wallet",
     "errors": {
-      "authorizeAccess": "You need to authorize access to your account",
-      "noProvider": "If you are connecting an external wallet, make sure you have a provider such as MetaMask or compatible wallet such as Brave",
-      "unsupportedWallet": "Unable to connect. Make sure your selection matches your desired wallet."
+      "noProvider": "Unable to connect. Make sure the wallet you selected is installed in your browser."
     },
     "gateWallet": "Gate Wallet",
     "infinityWallet": "Infinity Wallet",
