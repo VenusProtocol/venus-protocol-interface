@@ -1,5 +1,20 @@
 # @venusprotocol/evm
 
+## 2.130.0
+
+### Minor Changes
+
+- 7ba4802: Upgrade wagmi to v2
+- ed684d0: remove newMarketPage feature flag
+- 3e0a942: use correct address for native token
+- 7a3ebae: Migrate React-Query to v5
+
+### Patch Changes
+
+- 6b64807: add buttons to save token in wallet on Vault page
+- 3145325: add support for market subgraph on Arbitrum Sepolia
+- 6176843: Fix subgraph URLs used in codegen config
+
 ## 2.129.0
 
 ### Minor Changes
