@@ -1,8 +1,8 @@
 import type BigNumber from 'bignumber.js';
 
-import type { FormError } from 'containers/OperationForm/types';
 import { displayMutationError } from 'libs/errors';
 import type { Asset, Token } from 'types';
+import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
 

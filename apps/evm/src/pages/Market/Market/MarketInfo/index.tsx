@@ -11,15 +11,15 @@ import {
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
+import TEST_IDS from '../../testIds';
 import type { Stat } from '../../types';
 import { MarketCard } from '../MarketCard';
 
 export interface MarketInfoProps {
   asset: Asset;
-  testId?: string;
 }
 
-const MarketInfo: React.FC<MarketInfoProps> = ({ asset, testId }) => {
+const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
   const { t } = useTranslation();
 
   const isMarketParticipantCountFeatureEnabled = useIsFeatureEnabled({
@@ -203,7 +203,7 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset, testId }) => {
   ]);
 
   return (
-    <MarketCard title={t('asset.marketInfo.title')} testId={testId}>
+    <MarketCard title={t('asset.marketInfo.title')} testId={TEST_IDS.marketInfo}>
       <ul className="m-0 p-0">
         {stats.map(stat => (
           <li

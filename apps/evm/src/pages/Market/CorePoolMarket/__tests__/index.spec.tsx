@@ -52,7 +52,7 @@ describe('CorePoolMarket', () => {
   });
 
   it('fetches market details and displays them correctly', async () => {
-    const { getByTestId, queryByTestId } = renderComponent(<CorePoolMarket />, {
+    const { getByTestId } = renderComponent(<CorePoolMarket />, {
       routerInitialEntries: [`/${vXvs.address}`],
       routePath: '/:vTokenAddress',
     });
@@ -61,10 +61,10 @@ describe('CorePoolMarket', () => {
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.interestRateModel).textContent).toMatchSnapshot(),
     );
-    // Check supply info is not displayed
-    expect(queryByTestId(TEST_IDS.supplyInfo)).toBeNull();
-    // Check borrow info is not displayed
-    expect(queryByTestId(TEST_IDS.borrowInfo)).toBeNull();
+    // Check supply info displays correctly
+    expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot();
+    // Check borrow info displays correctly
+    expect(getByTestId(TEST_IDS.borrowInfo).textContent).toMatchSnapshot();
     // Check market info displays correctly
     expect(getByTestId(TEST_IDS.marketInfo).textContent).toMatchSnapshot();
   });
