@@ -30,6 +30,6 @@ export const useGetLiquidationThresholdPercentage = (
     );
 
   return isLegacyCorePoolVToken
-    ? asset.collateralFactor
+    ? asset.collateralFactor * 100
     : getIsolatedPoolVTokenLiquidationThresholdData?.liquidationThresholdPercentage;
 };
