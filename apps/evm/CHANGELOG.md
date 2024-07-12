@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.130.1
+
+### Patch Changes
+
+- 547e6b9: Fix liquidation threshold of core pool assets
+
 ## 2.130.0
 
 ### Minor Changes
