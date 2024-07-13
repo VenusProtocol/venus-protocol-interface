@@ -1,0 +1,40 @@
+.socialLinksWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.socialIcon {
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+}
+
+.socialLink {
+    display: inline-flex;
+    background-color: var(--color-icon-bg);
+    border-radius: 4px;
+    transition: background-color .3s;
+
+    &:hover {
+        background-color: var(--color-primary);
+    }
+
+    &:active {
+        background-color: var(--color-primary-hover);
+    }
+
+    &+& {
+        margin-left: 16px;
+
+        @media (min-width: 640px) {
+            margin-left: 24px;
+        }
+    }
+}
+
+.mappedLinks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

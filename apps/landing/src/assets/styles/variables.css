@@ -1,0 +1,31 @@
+:root {
+    --fontSize: 1rem;
+    --color-bg: #181D27;
+    --color-bg-transparent: #12162000;
+    --color-bg-secondary: #1E2431;
+    --color-bg-secondary-transparent: #FFFFFF1A;
+    --color-text: white;
+    --color-primary: #3A78FF;
+    --color-primary-hover: #265ACC;
+    --color-primary-active: #1B4398;
+    --color-text-secondary: #AAB3CA;
+    --color-button-secondary: #343542;
+    --color-card-border: #2D3549;
+    --color-venus-prime: #8E6150;
+    --color-icon-bg: #2D3549;
+    --color-banner-bg: #3A78FF;
+
+    --font-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    --font-default: 'Proxima Nova Rg', var(--font-fallback);
+    --font-bold: 'Proxima Nova Lt', var(--font-fallback);
+    --font-intro: 'Inconsolata', var(--font-fallback);
+
+    --global-max-width: 1280px;
+
+    --breakpoint-desktop: 1280px;
+    --breakpoint-medium: 840px;
+    --breakpoint-tablet: 640px;
+    --breakpoint-mobile: 375px;
+}

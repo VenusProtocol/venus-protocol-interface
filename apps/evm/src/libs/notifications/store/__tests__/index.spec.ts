@@ -66,7 +66,7 @@ describe('store', () => {
         .getState()
         .addNotification({ description: 'Fake description' });
 
-      expect(newNotificationId).toBeTypeOf('number');
+      expect(typeof newNotificationId).toBe('number');
     });
   });
 

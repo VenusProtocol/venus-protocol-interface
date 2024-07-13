@@ -34,7 +34,7 @@ describe('api/queries/getVTokens', () => {
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
     });
 
-    expect(response).matchSnapshot();
+    expect(response).toMatchSnapshot();
   });
 
   it('still functions without passing venusLensContract or legacyPoolComptrollerContract', async () => {
@@ -45,6 +45,6 @@ describe('api/queries/getVTokens', () => {
       poolRegistryContractAddress: fakePoolRegistryContractAddress,
     });
 
-    expect(response).matchSnapshot();
+    expect(response).toMatchSnapshot();
   });
 });

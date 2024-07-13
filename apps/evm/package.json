@@ -29,8 +29,6 @@
   },
   "dependencies": {
     "@0xsequence/multicall": "^1.2.9",
-    "@binance-chain/bsc-connector": "^1.0.0",
-    "@binance/w3w-wagmi-connector": "^1.1.0-alpha.0",
     "@binance/w3w-wagmi-connector-v2": "^1.2.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -87,7 +85,6 @@
   "devDependencies": {
     "@biomejs/biome": "1.6.4",
     "@changesets/cli": "^2.27.1",
-    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/abstract-provider": "^5.7.0",
     "@graphql-codegen/add": "^5.0.0",
@@ -151,22 +148,14 @@
     "tsx": "^4.1.2",
     "typechain": "^8.3.1",
     "typescript": "^5.1.6",
-    "vite": "^4.4.9",
+    "vite": "^5.3.3",
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.34.4",
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   }
 }
