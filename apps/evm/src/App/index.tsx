@@ -1,5 +1,5 @@
+import { QueryClientProvider } from '@tanstack/react-query';
 import { Suspense, lazy } from 'react';
-import { QueryClientProvider } from 'react-query';
 import { HashRouter } from 'react-router-dom';
 
 import { queryClient } from 'clients/api';

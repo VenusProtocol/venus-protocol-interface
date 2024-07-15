@@ -11,7 +11,7 @@ exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'bo
   },
   {
     "enabled": true,
-    "keepPreviousData": true,
+    "placeholderData": [Function],
   },
 ]
 `;
@@ -34,7 +34,7 @@ exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'bo
   },
   {
     "enabled": true,
-    "keepPreviousData": true,
+    "placeholderData": [Function],
   },
 ]
 `;
@@ -57,7 +57,7 @@ exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 're
   },
   {
     "enabled": true,
-    "keepPreviousData": true,
+    "placeholderData": [Function],
   },
 ]
 `;
@@ -80,7 +80,7 @@ exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 're
   },
   {
     "enabled": true,
-    "keepPreviousData": true,
+    "placeholderData": [Function],
   },
 ]
 `;
@@ -103,7 +103,7 @@ exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'su
   },
   {
     "enabled": true,
-    "keepPreviousData": true,
+    "placeholderData": [Function],
   },
 ]
 `;
@@ -126,7 +126,7 @@ exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'su
   },
   {
     "enabled": true,
-    "keepPreviousData": true,
+    "placeholderData": [Function],
   },
 ]
 `;
@@ -149,7 +149,7 @@ exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'sw
   },
   {
     "enabled": true,
-    "keepPreviousData": true,
+    "placeholderData": [Function],
   },
 ]
 `;
@@ -172,7 +172,7 @@ exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'sw
   },
   {
     "enabled": true,
-    "keepPreviousData": true,
+    "placeholderData": [Function],
   },
 ]
 `;
@@ -195,7 +195,7 @@ exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'wi
   },
   {
     "enabled": true,
-    "keepPreviousData": true,
+    "placeholderData": [Function],
   },
 ]
 `;
@@ -218,7 +218,7 @@ exports[`useGetHypotheticalUserPrimeApys > returns correct values: { action: 'wi
   },
   {
     "enabled": true,
-    "keepPreviousData": true,
+    "placeholderData": [Function],
   },
 ]
 `;

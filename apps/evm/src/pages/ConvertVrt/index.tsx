@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import Paper from '@mui/material/Paper';
+import { Card } from 'components';
 import { useMemo } from 'react';
 
 import {
@@ -47,9 +47,9 @@ export const ConvertVrtUi = ({
 
   return (
     <div css={[styles.root]}>
-      <Paper css={styles.tabs}>
+      <Card css={styles.tabs}>
         <Tabs tabsContent={tabsContent} />
-      </Paper>
+      </Card>
     </div>
   );
 };
@@ -69,7 +69,7 @@ const ConvertVrt = () => {
     { enabled: !!accountAddress },
   );
 
-  const { mutateAsync: withdrawXvs, isLoading: withdrawXvsLoading } = useWithdrawXvs();
+  const { mutateAsync: withdrawXvs, isPending: withdrawXvsLoading } = useWithdrawXvs();
 
   const conversionRatio = useMemo(() => {
     if (xvs && vrtConversionRatioData?.conversionRatio) {

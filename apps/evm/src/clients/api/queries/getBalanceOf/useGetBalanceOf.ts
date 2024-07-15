@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { type GetBalanceOfInput, type GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -28,12 +28,15 @@ interface UseGetBalanceOfInput extends Omit<TrimmedGetBalanceOfInput, 'token'> {
   token?: Token;
 }
 
-const useGetBalanceOf = ({ accountAddress, token }: UseGetBalanceOfInput, options?: Options) => {
+const useGetBalanceOf = (
+  { accountAddress, token }: UseGetBalanceOfInput,
+  options?: Partial<Options>,
+) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
 
-  return useQuery(
-    [
+  return useQuery({
+    queryKey: [
       FunctionKey.GET_BALANCE_OF,
       {
         chainId,
@@ -41,7 +44,8 @@ const useGetBalanceOf = ({ accountAddress, token }: UseGetBalanceOfInput, option
         tokenAddress: token?.address || '',
       },
     ],
-    () =>
+
+    queryFn: () =>
       callOrThrow({ token }, params =>
         getBalanceOf({
           provider,
@@ -49,8 +53,9 @@ const useGetBalanceOf = ({ accountAddress, token }: UseGetBalanceOfInput, option
           ...params,
         }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetBalanceOf;

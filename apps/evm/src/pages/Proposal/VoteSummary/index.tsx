@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
+import { Card } from 'components';
 import { useCallback } from 'react';
 
 import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
@@ -55,7 +55,7 @@ const VoteSummary = ({
   );
 
   return (
-    <Paper css={styles.root} className={className} data-testid={testId}>
+    <Card css={styles.root} className={className} data-testid={testId}>
       <div css={styles.topSection}>
         <div css={styles.labeledProgressBarContainer}>
           <LabeledProgressBar
@@ -112,7 +112,7 @@ const VoteSummary = ({
           </li>
         ))}
       </ul>
-    </Paper>
+    </Card>
   );
 };
 

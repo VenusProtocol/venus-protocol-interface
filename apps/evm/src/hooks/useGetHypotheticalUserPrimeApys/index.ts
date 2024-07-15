@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
+import { keepPreviousData } from '@tanstack/react-query';
 import {
   useGetHypotheticalPrimeApys,
   useGetPrimeStatus,
@@ -105,7 +106,7 @@ export const useGetHypotheticalUserPrimeApys = ({
     },
     {
       enabled: shouldFetchHypotheticalUserPrimeApy && !!userXvsStakedMantissa,
-      keepPreviousData: true,
+      placeholderData: keepPreviousData,
     },
   );
 

@@ -159,7 +159,7 @@ export default createTheme({
         root: {
           backgroundImage: 'none',
           backgroundColor: PALETTE.background.paper,
-          borderRadius: SHAPE.borderRadius.large,
+          borderRadius: SPACING * 3,
           padding: SPACING * 6,
           boxShadow: 'none',
         },

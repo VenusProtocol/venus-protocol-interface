@@ -329,7 +329,8 @@ export const Form: React.FC = () => {
             <Select
               options={options}
               className="w-[150px]"
-              buttonClassName="bg-lightGrey hover:border-blue"
+              variant="quaternary"
+              size="large"
               value={selectedAsset.vToken.address}
               testId={TEST_IDS.tokenSelect}
               onChange={newSelectedTokenAddress => {

@@ -16,7 +16,7 @@ const useBorrow = (
     poolName,
     poolComptrollerAddress,
   }: { vToken: VToken; poolName: string; poolComptrollerAddress: string },
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const vTokenContract = useGetVTokenContract({ vToken, passSigner: true });
   const nativeTokenGatewayContract = useGetNativeTokenGatewayContract({
@@ -48,37 +48,49 @@ const useBorrow = (
 
       const accountAddress = await vTokenContract?.signer.getAddress();
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_BALANCES,
-        {
-          chainId,
-          accountAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            chainId,
+            accountAddress,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_BALANCE_OF,
-        {
-          chainId,
-          accountAddress,
-          vTokenAddress: vToken.underlyingToken.address,
-        },
-      ]);
-
-      if (input.unwrap && vToken.underlyingToken.tokenWrapped) {
-        queryClient.invalidateQueries([
+      queryClient.invalidateQueries({
+        queryKey: [
           FunctionKey.GET_BALANCE_OF,
           {
             chainId,
             accountAddress,
-            tokenAddress: vToken.underlyingToken.tokenWrapped.address,
+            vTokenAddress: vToken.underlyingToken.address,
           },
-        ]);
+        ],
+      });
+
+      if (input.unwrap && vToken.underlyingToken.tokenWrapped) {
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_BALANCE_OF,
+            {
+              chainId,
+              accountAddress,
+              tokenAddress: vToken.underlyingToken.tokenWrapped.address,
+            },
+          ],
+        });
       }
 
-      queryClient.invalidateQueries(FunctionKey.GET_MAIN_MARKETS);
-      queryClient.invalidateQueries(FunctionKey.GET_LEGACY_POOL);
-      queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_MAIN_MARKETS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_LEGACY_POOL],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_ISOLATED_POOLS],
+      });
     },
     options,
   });

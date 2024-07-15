@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { type GetPrimeStatusOutput, getPrimeStatus } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -27,19 +27,21 @@ type Options = QueryObserverOptions<
   UseGetPrimeStatusQueryKey
 >;
 
-const useGetPrimeStatus = ({ accountAddress }: UseGetPrimeStatusInput, options?: Options) => {
+const useGetPrimeStatus = (
+  { accountAddress }: UseGetPrimeStatusInput,
+  options?: Partial<Options>,
+) => {
   const { chainId } = useChainId();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
   const primeContract = useGetPrimeContract();
 
-  return useQuery(
-    [FunctionKey.GET_PRIME_STATUS, { accountAddress, chainId }],
-    () => callOrThrow({ primeContract }, params => getPrimeStatus({ accountAddress, ...params })),
-    {
-      ...options,
-      enabled: (options?.enabled === undefined || options?.enabled) && isPrimeEnabled,
-    },
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_PRIME_STATUS, { accountAddress, chainId }],
+    queryFn: () =>
+      callOrThrow({ primeContract }, params => getPrimeStatus({ accountAddress, ...params })),
+    ...options,
+    enabled: (options?.enabled === undefined || options?.enabled) && isPrimeEnabled,
+  });
 };
 
 export default useGetPrimeStatus;

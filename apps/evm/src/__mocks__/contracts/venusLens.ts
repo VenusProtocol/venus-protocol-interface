@@ -1,3 +1,4 @@
+import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { BigNumber as BN } from 'ethers';
 
 import type { VenusLens } from 'libs/contracts';
@@ -103,7 +104,7 @@ const venusLensResponses: {
       isListed: true,
       pausedActions: BN.from('0x00'),
       collateralFactorMantissa: BN.from('0x0b1a2bc2ec500000'),
-      underlyingAssetAddress: '0x0000000000000000000000000000000000000000',
+      underlyingAssetAddress: NATIVE_TOKEN_ADDRESS,
       vTokenDecimals: BN.from('0x08'),
       underlyingDecimals: BN.from('0x12'),
       venusBorrowSpeed: BN.from('0xb90983f22ef200'),

@@ -21,7 +21,7 @@ const useDelegateApproval = ({
 }: UseDelegateApprovalInput): UseDelegateApprovalOutput => {
   const { accountAddress } = useAccountAddress();
 
-  const { mutateAsync: updatePoolDelegateStatus, isLoading: isUseUpdatePoolDelegateStatusLoading } =
+  const { mutateAsync: updatePoolDelegateStatus, isPending: isUseUpdatePoolDelegateStatusLoading } =
     useUpdatePoolDelegateStatus(
       {
         delegateeAddress,

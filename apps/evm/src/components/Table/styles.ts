@@ -57,7 +57,7 @@ export const useStyles = () => {
     `,
     tableWrapperMobile: ({ clickable }: { clickable: boolean }) => css`
       &:not(:last-of-type) {
-        margin-bottom: ${theme.spacing(6)};
+        margin-bottom: ${theme.spacing(4)};
       }
 
       padding: ${theme.spacing(4, 0)};

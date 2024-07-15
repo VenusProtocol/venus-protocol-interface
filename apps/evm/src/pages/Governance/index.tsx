@@ -6,7 +6,7 @@ import VotingWallet from './VotingWallet';
 export type GovernancePageUiProps = UseUrlPaginationOutput;
 
 export const GovernanceUi: React.FC<GovernancePageUiProps> = ({ currentPage, setCurrentPage }) => (
-  <div className="space-y-10 lg:space-y-0 sm:grid lg:grid-cols-[2fr,1fr] lg:gap-x-8">
+  <div className="space-y-10 lg:space-y-0 sm:grid lg:grid-cols-[2fr,1fr] lg:gap-x-6">
     <VotingWallet className="lg:order-2" />
 
     <ProposalList

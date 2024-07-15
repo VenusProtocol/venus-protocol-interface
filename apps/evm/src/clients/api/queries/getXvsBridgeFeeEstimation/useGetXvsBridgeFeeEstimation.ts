@@ -1,5 +1,5 @@
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import type BigNumber from 'bignumber.js';
-import { type QueryObserverOptions, useQuery } from 'react-query';
 
 import {
   type GetXvsBridgeEstimationInput,
@@ -40,7 +40,7 @@ const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetXvsBridgeFeeEstimation = (
   { accountAddress, amountMantissa, destinationChain }: UseGetTokenUsdPriceInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const tokenBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId });
@@ -50,8 +50,8 @@ const useGetXvsBridgeFeeEstimation = (
       ? tokenBridgeContractSrc
       : tokenBridgeContractDest;
 
-  return useQuery(
-    [
+  return useQuery({
+    queryKey: [
       FunctionKey.GET_XVS_BRIDGE_FEE_ESTIMATION,
       {
         accountAddress,
@@ -60,16 +60,16 @@ const useGetXvsBridgeFeeEstimation = (
         destinationChain,
       },
     ],
-    () =>
+
+    queryFn: () =>
       callOrThrow(
         { tokenBridgeContract, accountAddress, amountMantissa, destinationChain },
         params => getXvsBridgeFeeEstimation({ ...params }),
       ),
-    {
-      refetchInterval,
-      ...options,
-    },
-  );
+
+    refetchInterval,
+    ...options,
+  });
 };
 
 export default useGetXvsBridgeFeeEstimation;

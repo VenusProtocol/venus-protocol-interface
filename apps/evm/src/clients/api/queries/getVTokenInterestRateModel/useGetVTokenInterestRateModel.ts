@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getVTokenInterestRateModel, {
   type GetVTokenInterestRateModelOutput,
@@ -22,15 +22,21 @@ type Options = QueryObserverOptions<
   UseGetVTokenInterestRateModelQueryKey
 >;
 
-const useGetVTokenInterestRateModel = ({ vToken }: { vToken: VToken }, options?: Options) => {
+const useGetVTokenInterestRateModel = (
+  { vToken }: { vToken: VToken },
+  options?: Partial<Options>,
+) => {
   const { chainId } = useChainId();
   const vTokenContract = useGetVTokenContract({ vToken });
 
-  return useQuery(
-    [FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL, { vTokenAddress: vToken.address, chainId }],
-    () => callOrThrow({ vTokenContract }, getVTokenInterestRateModel),
-    options,
-  );
+  return useQuery({
+    queryKey: [
+      FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL,
+      { vTokenAddress: vToken.address, chainId },
+    ],
+    queryFn: () => callOrThrow({ vTokenContract }, getVTokenInterestRateModel),
+    ...options,
+  });
 };
 
 export default useGetVTokenInterestRateModel;

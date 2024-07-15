@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getProposalState, {
   type GetProposalStateInput,
@@ -21,26 +21,26 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PROPOSAL_STATE, TrimmedGetProposalStateInput]
 >;
 
-const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Options) => {
+const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Partial<Options>) => {
   const { blockTimeMs } = CHAIN_METADATA[governanceChain.id];
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     chainId: governanceChain.id,
   });
 
-  return useQuery(
-    [FunctionKey.GET_PROPOSAL_STATE, input],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_PROPOSAL_STATE, input],
+
+    queryFn: () =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         getProposalState({
           ...input,
           ...params,
         }),
       ),
-    {
-      refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
-      ...options,
-    },
-  );
+
+    refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
+    ...options,
+  });
 };
 
 export default useGetProposalState;

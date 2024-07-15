@@ -12,7 +12,7 @@ import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
-import { canAddTokenToWallet, useAccountAddress } from 'libs/wallet';
+import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { matchPath, useLocation, useParams } from 'react-router';
 import { formatCentsToReadableValue } from 'utilities';
@@ -117,8 +117,11 @@ export const MarketInfo = () => {
                 )}
             </div>
 
-            {isUserConnected && canAddTokenToWallet() && (
-              <AddTokenToWalletButton className="shrink-0" token={asset.vToken.underlyingToken} />
+            {isUserConnected && (
+              <AddTokenToWalletButton
+                className="shrink-0 bg-background/40 hover:bg-background/40 active:bg-background/40"
+                token={asset.vToken.underlyingToken}
+              />
             )}
           </div>
         ) : (

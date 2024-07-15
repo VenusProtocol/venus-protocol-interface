@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import {
   type GetXvsBridgeStatusInput,
@@ -28,7 +28,10 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetBridgeStatus = ({ toChainId }: TrimmedGetXvsBridgeStatusInput, options?: Options) => {
+const useGetBridgeStatus = (
+  { toChainId }: TrimmedGetXvsBridgeStatusInput,
+  options?: Partial<Options>,
+) => {
   const { chainId } = useChainId();
   const tokenBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId });
   const tokenBridgeContractDest = useGetXVSProxyOFTDestContract({ chainId });
@@ -37,16 +40,16 @@ const useGetBridgeStatus = ({ toChainId }: TrimmedGetXvsBridgeStatusInput, optio
       ? tokenBridgeContractSrc
       : tokenBridgeContractDest;
 
-  return useQuery(
-    [FunctionKey.GET_XVS_BRIDGE_STATUS, { chainId, toChainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_XVS_BRIDGE_STATUS, { chainId, toChainId }],
+
+    queryFn: () =>
       callOrThrow({ tokenBridgeContract, toChainId }, params => getXvsBridgeStatus({ ...params })),
-    {
-      refetchInterval,
-      ...options,
-      enabled: options?.enabled === undefined || options?.enabled,
-    },
-  );
+
+    refetchInterval,
+    ...options,
+    enabled: options?.enabled === undefined || options?.enabled,
+  });
 };
 
 export default useGetBridgeStatus;

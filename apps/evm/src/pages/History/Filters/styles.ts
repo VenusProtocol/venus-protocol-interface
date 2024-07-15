@@ -6,7 +6,7 @@ export const useStyles = () => {
   return {
     root: css`
       display: flex;
-      align-items: flex-end;
+      align-items: flex-center;
       flex-direction: row;
       justify-content: space-between;
       border-bottom-right-radius: 0;
@@ -16,7 +16,7 @@ export const useStyles = () => {
       ${theme.breakpoints.down('xl')} {
         background-color: transparent;
         padding: 0;
-        margin-bottom: ${theme.spacing(3)};
+        margin-bottom: ${theme.spacing(4)};
       }
     `,
     checkbox: css`
@@ -28,7 +28,7 @@ export const useStyles = () => {
       align-items: center;
     `,
     select: css`
-      min-width: ${theme.spacing(41)};
+      min-width: ${theme.spacing(52)};
     `,
   };
 };

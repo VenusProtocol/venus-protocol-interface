@@ -1,7 +1,6 @@
 import { providers } from '@0xsequence/multicall';
-import type { PublicClient } from '@wagmi/core';
 import { providers as ethersProviders } from 'ethers';
-import type { HttpTransport } from 'viem';
+import type { Chain, Client, HttpTransport, Transport } from 'viem';
 
 import addresses from 'libs/contracts/generated/infos/addresses';
 import { logError } from 'libs/errors';
@@ -9,8 +8,8 @@ import { logError } from 'libs/errors';
 const MULTICALL_BATCH_SIZE = 100;
 
 // Convert a viem Public Client to an ethers.js Provider
-export const getProvider = ({ publicClient }: { publicClient: PublicClient }) => {
-  const { chain, transport } = publicClient;
+export const getProvider = ({ client }: { client: Client<Transport, Chain> }) => {
+  const { chain, transport } = client;
   const network = {
     chainId: chain.id,
     name: chain.name,
@@ -29,10 +28,10 @@ export const getProvider = ({ publicClient }: { publicClient: PublicClient }) =>
   // We can't use the getter function for the 0xsequence multicall contract here because that
   // creates a dependency cycle
   const xsequenceMulticallAddress =
-    addresses.XsequenceMulticall[chain.id as keyof typeof addresses.XsequenceMulticall];
+    addresses.XsequenceMulticall[network.chainId as keyof typeof addresses.XsequenceMulticall];
 
   if (!xsequenceMulticallAddress) {
-    logError(`0xsequence multicall contract address missing on chain with ID ${chain.id}`);
+    logError(`0xsequence multicall contract address missing on chain with ID ${network.chainId}`);
     return ethersProvider;
   }
 

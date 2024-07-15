@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getMintableVai, {
   type GetMintableVaiInput,
@@ -32,7 +32,10 @@ type Options = QueryObserverOptions<
   UseGetMintableVaiQueryKey
 >;
 
-const useGetMintableVai = ({ vai, ...input }: TrimmedGetMintableVaiInput, options?: Options) => {
+const useGetMintableVai = (
+  { vai, ...input }: TrimmedGetMintableVaiInput,
+  options?: Partial<Options>,
+) => {
   const { chainId } = useChainId();
   const vaiControllerContract = useGetVaiControllerContract();
   const { blockTimeMs } = useGetChainMetadata();
@@ -42,20 +45,20 @@ const useGetMintableVai = ({ vai, ...input }: TrimmedGetMintableVaiInput, option
     passSigner: false,
   });
 
-  return useQuery(
-    [FunctionKey.GET_MINTABLE_VAI, { ...input, vai, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_MINTABLE_VAI, { ...input, vai, chainId }],
+
+    queryFn: () =>
       callOrThrow({ vaiControllerContract, vaiContract }, params =>
         getMintableVai({
           ...params,
           ...input,
         }),
       ),
-    {
-      refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
-      ...options,
-    },
-  );
+
+    refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
+    ...options,
+  });
 };
 
 export default useGetMintableVai;

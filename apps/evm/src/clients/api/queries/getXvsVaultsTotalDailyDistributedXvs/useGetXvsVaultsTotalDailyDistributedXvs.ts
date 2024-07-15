@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import {
   type GetXvsVaultsTotalDailyDistributedXvsInput,
@@ -34,18 +34,20 @@ type Options = QueryObserverOptions<
 
 export const useGetXvsVaultsTotalDailyDistributedXvs = (
   input: TrimmedGetXvsVaultsTotalDailyDistributedXvsInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
   const xvsVaultContract = useGetXvsVaultContract();
 
-  return useQuery(
-    [FunctionKey.GET_XVS_VAULT_DAILY_REWARD_TOKENS, { ...input, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_XVS_VAULT_DAILY_REWARD_TOKENS, { ...input, chainId }],
+
+    queryFn: () =>
       callOrThrow({ xvsVaultContract }, params =>
         getXvsVaultsTotalDailyDistributedXvs({ blocksPerDay, ...params, ...input }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };

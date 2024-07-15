@@ -1,5 +1,39 @@
 # @venusprotocol/evm
 
+## 2.130.1
+
+### Patch Changes
+
+- 547e6b9: Fix liquidation threshold of core pool assets
+
+## 2.130.0
+
+### Minor Changes
+
+- 7ba4802: Upgrade wagmi to v2
+- ed684d0: remove newMarketPage feature flag
+- 3e0a942: use correct address for native token
+- 7a3ebae: Migrate React-Query to v5
+
+### Patch Changes
+
+- 6b64807: add buttons to save token in wallet on Vault page
+- 3145325: add support for market subgraph on Arbitrum Sepolia
+- 6176843: Fix subgraph URLs used in codegen config
+
+## 2.129.0
+
+### Minor Changes
+
+- 3c0164e: filter out errors from third-party frames + remove unnecessary errors
+- 57eb665: Add support for period selection on Market page graphs
+
+### Patch Changes
+
+- 92b9266: Small UI updates
+- e8c5a74: hide periods on charts when apyCharts feature is disabled
+- 37a4c32: adjust ticket interval on APY charts
+
 ## 2.128.0
 
 ### Minor Changes

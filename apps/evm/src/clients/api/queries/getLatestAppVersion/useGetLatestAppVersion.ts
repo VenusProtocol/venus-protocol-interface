@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import {
   type GetLatestAppVersionOutput,
@@ -13,13 +13,15 @@ type Options = QueryObserverOptions<
   Error,
   GetLatestAppVersionOutput,
   GetLatestAppVersionOutput,
-  FunctionKey.GET_LATEST_APP_VERSION
+  [FunctionKey.GET_LATEST_APP_VERSION]
 >;
 
-const useGetLatestAppVersion = (options?: Options) =>
-  useQuery(FunctionKey.GET_LATEST_APP_VERSION, getLatestAppVersion, {
+const useGetLatestAppVersion = (options?: Partial<Options>) =>
+  useQuery({
+    queryKey: [FunctionKey.GET_LATEST_APP_VERSION],
+    queryFn: getLatestAppVersion,
     staleTime: 0,
-    cacheTime: 0,
+    gcTime: 0,
     refetchInterval: REFETCH_INTERVAL_MS,
     ...options,
   });

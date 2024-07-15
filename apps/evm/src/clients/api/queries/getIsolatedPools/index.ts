@@ -97,7 +97,6 @@ const getIsolatedPools = async ({
         });
 
         if (!underlyingToken) {
-          logError(`Record missing for underlying token: ${vTokenMetaData.underlyingAssetAddress}`);
           return;
         }
 

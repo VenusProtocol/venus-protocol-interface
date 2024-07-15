@@ -17,9 +17,9 @@ export const AuthModal: React.FC = () => {
   const { logIn } = useLogIn();
   const { t } = useTranslation();
 
-  const handleLogIn: WalletListProps['onLogIn'] = connector => {
+  const handleLogIn: WalletListProps['onLogIn'] = connectorId => {
     closeAuthModal();
-    return logIn(connector);
+    return logIn(connectorId);
   };
 
   return (

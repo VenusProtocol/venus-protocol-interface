@@ -29,6 +29,7 @@ import { chains, useAccountAddress, useAuthModal, useChainId, useSwitchChain } f
 import { ChainId } from 'types';
 import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
 
+import type { Chain } from 'viem';
 import { ChainSelect, getOptionsFromChainsList } from './ChainSelect';
 import { ReactComponent as LayerZeroLogo } from './layerZeroLogo.svg';
 import TEST_IDS from './testIds';
@@ -264,8 +265,12 @@ const BridgePage: React.FC = () => {
 
   // build the list of chains that can be selected
   const [fromChainIdOptions, toChainIdOptions] = useMemo(() => {
-    const fromChains = getOptionsFromChainsList(chains.filter(c => c.id !== toChainId));
-    const otherChains = getOptionsFromChainsList(chains.filter(c => c.id !== fromChainId));
+    const fromChains = getOptionsFromChainsList(
+      chains.filter(c => c.id !== toChainId) as [Chain, ...Chain[]],
+    );
+    const otherChains = getOptionsFromChainsList(
+      chains.filter(c => c.id !== fromChainId) as [Chain, ...Chain[]],
+    );
     return [fromChains, otherChains];
   }, [fromChainId, toChainId]);
 

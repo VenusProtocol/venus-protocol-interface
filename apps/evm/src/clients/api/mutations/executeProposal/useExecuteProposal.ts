@@ -7,13 +7,13 @@ import { callOrThrow } from 'utilities';
 type TrimmedExecuteProposalInput = Omit<ExecuteProposalInput, 'governorBravoDelegateContract'>;
 type Options = UseSendTransactionOptions<TrimmedExecuteProposalInput>;
 
-const useExecuteProposal = (options?: Options) => {
+const useExecuteProposal = (options?: Partial<Options>) => {
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     passSigner: true,
   });
 
   return useSendTransaction({
-    fnKey: FunctionKey.EXECUTE_PROPOSAL,
+    fnKey: [FunctionKey.EXECUTE_PROPOSAL],
     fn: (input: TrimmedExecuteProposalInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         executeProposal({
@@ -22,13 +22,17 @@ const useExecuteProposal = (options?: Options) => {
         }),
       ),
     onConfirmed: async ({ input }) => {
-      queryClient.invalidateQueries(FunctionKey.GET_PROPOSAL_PREVIEWS);
-      queryClient.invalidateQueries([
-        FunctionKey.GET_PROPOSAL,
-        {
-          id: input.proposalId,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_PROPOSAL_PREVIEWS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_PROPOSAL,
+          {
+            id: input.proposalId,
+          },
+        ],
+      });
     },
     options,
   });

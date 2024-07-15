@@ -12,7 +12,7 @@ type Options = UseSendTransactionOptions<TrimmedStakeInXvsVaultInput>;
 
 const useStakeInXvsVault = (
   { stakedToken, rewardToken }: { stakedToken: Token; rewardToken: Token },
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract({
@@ -21,7 +21,7 @@ const useStakeInXvsVault = (
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: FunctionKey.STAKE_IN_XVS_VAULT,
+    fnKey: [FunctionKey.STAKE_IN_XVS_VAULT],
     fn: (input: TrimmedStakeInXvsVaultInput) =>
       callOrThrow({ xvsVaultContract }, params =>
         stakeInXvsVault({
@@ -44,78 +44,94 @@ const useStakeInXvsVault = (
       const accountAddress = await xvsVaultContract?.signer.getAddress();
 
       // Invalidate cached user info
-      queryClient.invalidateQueries([
-        FunctionKey.GET_XVS_VAULT_USER_INFO,
-        {
-          chainId,
-          accountAddress,
-          rewardTokenAddress: rewardToken.address,
-          poolIndex,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_XVS_VAULT_USER_INFO,
+          {
+            chainId,
+            accountAddress,
+            rewardTokenAddress: rewardToken.address,
+            poolIndex,
+          },
+        ],
+      });
 
       // Invalidate cached user balance
-      queryClient.invalidateQueries([
-        FunctionKey.GET_BALANCE_OF,
-        {
-          chainId,
-          accountAddress,
-          tokenAddress: stakedToken.address,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_BALANCE_OF,
+          {
+            chainId,
+            accountAddress,
+            tokenAddress: stakedToken.address,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_ALLOWANCE,
-        {
-          chainId,
-          tokenAddress: stakedToken.address,
-          accountAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            chainId,
+            tokenAddress: stakedToken.address,
+            accountAddress,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_TOKEN_BALANCES,
-        {
-          chainId,
-          accountAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_BALANCES,
+          {
+            chainId,
+            accountAddress,
+          },
+        ],
+      });
 
       // Invalidate cached vault data
-      queryClient.invalidateQueries([
-        FunctionKey.GET_BALANCE_OF,
-        {
-          chainId,
-          accountAddress: xvsVaultContract?.address,
-          tokenAddress: stakedToken.address,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_BALANCE_OF,
+          {
+            chainId,
+            accountAddress: xvsVaultContract?.address,
+            tokenAddress: stakedToken.address,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_XVS_VAULT_POOL_INFOS,
-        {
-          chainId,
-          rewardTokenAddress: rewardToken.address,
-          poolIndex,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_XVS_VAULT_POOL_INFOS,
+          {
+            chainId,
+            rewardTokenAddress: rewardToken.address,
+            poolIndex,
+          },
+        ],
+      });
 
       // Invalidate cached Prime data
-      queryClient.invalidateQueries([
-        FunctionKey.GET_PRIME_STATUS,
-        {
-          chainId,
-          accountAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_PRIME_STATUS,
+          {
+            chainId,
+            accountAddress,
+          },
+        ],
+      });
 
-      queryClient.invalidateQueries([
-        FunctionKey.GET_PRIME_TOKEN,
-        {
-          chainId,
-          accountAddress,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_PRIME_TOKEN,
+          {
+            chainId,
+            accountAddress,
+          },
+        ],
+      });
     },
     options,
   });

@@ -222,15 +222,15 @@ describe('Governance', () => {
   });
 
   it('proposals navigate to details', async () => {
-    const { getAllByTestId } = renderComponent(<Governance />);
+    const { getByTestId } = renderComponent(<Governance />);
     const firstProposalId = proposalPreviews[0].proposalId.toString();
 
     // Getting all because the cards are rendered twice (once for mobile and once for larger screens)
     const firstProposalAnchor = await waitFor(async () =>
-      getAllByTestId(GOVERNANCE_PROPOSAL_TEST_IDS.governanceProposal(firstProposalId)),
+      getByTestId(GOVERNANCE_PROPOSAL_TEST_IDS.governanceProposal(firstProposalId)),
     );
 
-    expect(firstProposalAnchor[0].firstChild).toHaveAttribute(
+    expect(firstProposalAnchor).toHaveAttribute(
       'href',
       `${routes.governanceProposal.path.replace(
         ':proposalId',

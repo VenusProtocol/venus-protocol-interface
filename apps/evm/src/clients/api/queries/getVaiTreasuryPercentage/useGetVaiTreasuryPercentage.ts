@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { type GetVaiTreasuryPercentageOutput, getVaiTreasuryPercentage } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
@@ -20,15 +20,15 @@ type Options = QueryObserverOptions<
   UseGetVaiTreasuryPercentageQueryKey
 >;
 
-const useGetVaiTreasuryPercentage = (options?: Options) => {
+const useGetVaiTreasuryPercentage = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const vaiControllerContract = useGetVaiControllerContract();
 
-  return useQuery(
-    [FunctionKey.GET_VAI_TREASURY_PERCENTAGE, { chainId }],
-    () => callOrThrow({ vaiControllerContract }, getVaiTreasuryPercentage),
-    options,
-  );
+  return useQuery({
+    queryKey: [FunctionKey.GET_VAI_TREASURY_PERCENTAGE, { chainId }],
+    queryFn: () => callOrThrow({ vaiControllerContract }, getVaiTreasuryPercentage),
+    ...options,
+  });
 };
 
 export default useGetVaiTreasuryPercentage;

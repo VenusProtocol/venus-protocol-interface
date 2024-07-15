@@ -7,13 +7,13 @@ import { callOrThrow } from 'utilities';
 type TrimmedQueueProposalInput = Omit<QueueProposalInput, 'governorBravoDelegateContract'>;
 type Options = UseSendTransactionOptions<TrimmedQueueProposalInput>;
 
-const useQueueProposal = (options?: Options) => {
+const useQueueProposal = (options?: Partial<Options>) => {
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     passSigner: true,
   });
 
   return useSendTransaction({
-    fnKey: FunctionKey.QUEUE_PROPOSAL,
+    fnKey: [FunctionKey.QUEUE_PROPOSAL],
     fn: (input: TrimmedQueueProposalInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         queueProposal({
@@ -22,13 +22,17 @@ const useQueueProposal = (options?: Options) => {
         }),
       ),
     onConfirmed: ({ input }) => {
-      queryClient.invalidateQueries(FunctionKey.GET_PROPOSAL_PREVIEWS);
-      queryClient.invalidateQueries([
-        FunctionKey.GET_PROPOSAL,
-        {
-          id: input.proposalId,
-        },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_PROPOSAL_PREVIEWS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_PROPOSAL,
+          {
+            id: input.proposalId,
+          },
+        ],
+      });
     },
     options,
   });

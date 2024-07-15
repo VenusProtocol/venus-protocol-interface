@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { Card } from 'components';
 
 import { Link } from 'containers/Link';
 import type { VoteSupport } from 'types';
@@ -35,39 +35,30 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
   const styles = useStyles();
 
   return (
-    <Paper
-      className={className}
-      css={styles.root}
-      component={({ children, ...props }) => (
-        <div {...props}>
-          <Link css={styles.link} to={linkTo}>
-            {children}
-          </Link>
-        </div>
-      )}
-      {...containerProps}
-    >
-      <Grid container>
-        <Grid css={[styles.gridItem, styles.gridItemLeft]} item xs={12} sm={8}>
-          <div css={styles.cardHeader}>
-            <div css={styles.cardHeaderLeft}>
-              <Chip text={`#${proposalNumber}`} />
-              {headerLeftItem}
+    <Card className={className} css={styles.root} asChild {...containerProps}>
+      <Link css={styles.link} to={linkTo}>
+        <Grid container>
+          <Grid css={[styles.gridItem, styles.gridItemLeft]} item xs={12} sm={8}>
+            <div css={styles.cardHeader}>
+              <div css={styles.cardHeaderLeft}>
+                <Chip text={`#${proposalNumber}`} />
+                {headerLeftItem}
+              </div>
+
+              {headerRightItem}
             </div>
 
-            {headerRightItem}
-          </div>
+            <Typography variant="h4" css={styles.cardTitle} color="textPrimary">
+              {title}
+            </Typography>
 
-          <Typography variant="h4" css={styles.cardTitle} color="textPrimary">
-            {title}
-          </Typography>
-
-          {footer}
+            {footer}
+          </Grid>
+          <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
+            {contentRightItem}
+          </Grid>
         </Grid>
-        <Grid css={[styles.gridItem, styles.gridItemRight]} item xs={12} sm={4}>
-          {contentRightItem}
-        </Grid>
-      </Grid>
-    </Paper>
+      </Link>
+    </Card>
   );
 };

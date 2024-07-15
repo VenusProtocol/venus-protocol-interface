@@ -63,9 +63,9 @@ const History: React.FC = () => {
   const [showOnlyMyTxns, setShowOnlyMyTxns] = useState(false);
   const {
     data: { transactions, total, limit } = { transactions: [] },
-    isIdle: isGetTransactionsIdle,
+    isRefetching: isGetTransactionsRefetching,
     isFetching: isGetTransactionsFetching,
-    isPreviousData: isGetTransactionsPreviousData,
+    isPlaceholderData: isGetTransactionsPreviousData,
   } = useGetTransactions({
     page: currentPage,
     from: showOnlyMyTxns ? accountAddress : undefined,
@@ -73,7 +73,7 @@ const History: React.FC = () => {
   });
 
   const isFetching =
-    (isGetTransactionsFetching || isGetTransactionsIdle) &&
+    (isGetTransactionsFetching || isGetTransactionsRefetching) &&
     (isGetTransactionsPreviousData || transactions.length === 0);
 
   return (

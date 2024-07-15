@@ -156,6 +156,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
 
   const displayProgress = !isUserXvsStakeHighEnoughForPrime;
   const displayWarning = haveAllPrimeTokensBeenClaimed && primeTokenLimit > 0;
+
   const displayStakeButton =
     !haveAllPrimeTokensBeenClaimed && !hidePromotionalTitle && !isUserXvsStakeHighEnoughForPrime;
   const displayClaimButton =
@@ -388,7 +389,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     userStakedXvsTokensData.pendingWithdrawalsTotalAmountMantissa,
   );
 
-  const { mutateAsync: claimPrimeToken, isLoading: isClaimPrimeTokenLoading } = useClaimPrimeToken({
+  const { mutateAsync: claimPrimeToken, isPending: isClaimPrimeTokenLoading } = useClaimPrimeToken({
     waitForConfirmation: true,
   });
 

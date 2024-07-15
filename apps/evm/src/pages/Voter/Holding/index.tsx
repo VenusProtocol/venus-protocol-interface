@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import type BigNumber from 'bignumber.js';
 
-import { Delimiter, Icon } from 'components';
+import { Card, Delimiter, Icon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useGetToken } from 'libs/tokens';
@@ -44,7 +44,7 @@ export const Holding: React.FC<HoldingProps> = ({
   });
 
   return (
-    <Paper css={styles.root} className={className}>
+    <Card css={styles.root} className={className}>
       <Typography variant="h4" css={styles.title}>
         {t('voterDetail.holding')}
       </Typography>
@@ -70,7 +70,7 @@ export const Holding: React.FC<HoldingProps> = ({
       <Typography variant="h4" css={styles.value}>
         {delegating ? t('voterDetail.delegated') : t('voterDetail.undelegated')}
       </Typography>
-    </Paper>
+    </Card>
   );
 };
 

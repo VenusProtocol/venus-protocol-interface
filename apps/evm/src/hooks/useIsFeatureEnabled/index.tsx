@@ -36,6 +36,7 @@ export const featureFlags = {
     ChainId.ETHEREUM,
     ChainId.SEPOLIA,
     ChainId.ARBITRUM_ONE,
+    ChainId.ARBITRUM_SEPOLIA,
   ],
   isolatedPools: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.ETHEREUM, ChainId.SEPOLIA],
   bridgeRoute: [
@@ -59,16 +60,6 @@ export const featureFlags = {
     ChainId.ARBITRUM_ONE,
   ],
   governanceSearch: [
-    ChainId.BSC_TESTNET,
-    ChainId.BSC_MAINNET,
-    ChainId.SEPOLIA,
-    ChainId.ETHEREUM,
-    ChainId.OPBNB_TESTNET,
-    ChainId.OPBNB_MAINNET,
-    ChainId.ARBITRUM_SEPOLIA,
-    ChainId.ARBITRUM_ONE,
-  ],
-  newMarketPage: [
     ChainId.BSC_TESTNET,
     ChainId.BSC_MAINNET,
     ChainId.SEPOLIA,

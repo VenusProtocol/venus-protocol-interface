@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getVoterDetails, {
   type GetVoterDetailsInput,
@@ -14,7 +14,11 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_VOTER_DETAILS, GetVoterDetailsInput]
 >;
 
-const useGetVoterDetails = (params: GetVoterDetailsInput, options?: Options) =>
-  useQuery([FunctionKey.GET_VOTER_DETAILS, params], () => getVoterDetails(params), options);
+const useGetVoterDetails = (params: GetVoterDetailsInput, options?: Partial<Options>) =>
+  useQuery({
+    queryKey: [FunctionKey.GET_VOTER_DETAILS, params],
+    queryFn: () => getVoterDetails(params),
+    ...options,
+  });
 
 export default useGetVoterDetails;

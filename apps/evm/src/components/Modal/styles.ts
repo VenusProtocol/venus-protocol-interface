@@ -27,7 +27,7 @@ export const useModalStyles = ({
       }
       width: calc(100% - ${theme.spacing(8)});
       max-width: ${theme.spacing(136)};
-      border-radius: ${theme.spacing(6)};
+      border-radius: ${theme.spacing(3)};
       background-color: ${theme.palette.background.paper};
       overflow: auto;
       max-height: calc(100% - ${theme.spacing(8)});

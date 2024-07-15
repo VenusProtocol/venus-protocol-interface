@@ -17,7 +17,7 @@ type TrimmedRequestWithdrawalFromXvsVaultInput = Omit<
 >;
 type Options = UseSendTransactionOptions<TrimmedRequestWithdrawalFromXvsVaultInput>;
 
-const useRequestWithdrawalFromXvsVault = (options?: Options) => {
+const useRequestWithdrawalFromXvsVault = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract({
     passSigner: true,
@@ -30,7 +30,7 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT,
+    fnKey: [FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT],
     fn: (input: TrimmedRequestWithdrawalFromXvsVaultInput) =>
       callOrThrow({ xvsVaultContract }, params =>
         requestWithdrawalFromXvsVault({
@@ -54,16 +54,20 @@ const useRequestWithdrawalFromXvsVault = (options?: Options) => {
         const accountAddress = await xvsVaultContract?.signer.getAddress();
 
         // Invalidate cached user info
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_USER_INFO,
-          { chainId, accountAddress, rewardTokenAddress: xvs.address, poolIndex },
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_XVS_VAULT_USER_INFO,
+            { chainId, accountAddress, rewardTokenAddress: xvs.address, poolIndex },
+          ],
+        });
 
         // Invalidate cached user withdrawal requests
-        queryClient.invalidateQueries([
-          FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
-          { chainId, accountAddress, rewardTokenAddress: xvs.address, poolIndex },
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: [
+            FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS,
+            { chainId, accountAddress, rewardTokenAddress: xvs.address, poolIndex },
+          ],
+        });
       }
     },
     options,

@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getVTokenBalanceOf, {
   type GetVTokenBalanceOfInput,
@@ -32,22 +32,27 @@ type Options = QueryObserverOptions<
 
 const useGetVTokenBalanceOf = (
   { accountAddress, vToken }: TrimmedGetVTokenBalanceOfInput,
-  options?: Options,
+  options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
   const vTokenContract = useGetVTokenContract({ vToken });
 
-  return useQuery(
-    [FunctionKey.GET_V_TOKEN_BALANCE, { accountAddress, vTokenAddress: vToken.address, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [
+      FunctionKey.GET_V_TOKEN_BALANCE,
+      { accountAddress, vTokenAddress: vToken.address, chainId },
+    ],
+
+    queryFn: () =>
       callOrThrow({ vTokenContract }, params =>
         getVTokenBalanceOf({
           ...params,
           accountAddress,
         }),
       ),
-    options,
-  );
+
+    ...options,
+  });
 };
 
 export default useGetVTokenBalanceOf;

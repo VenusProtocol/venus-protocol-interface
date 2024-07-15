@@ -2,4 +2,8 @@
 
 exports[`CorePoolMarket > fetches market details and displays them correctly 1`] = `"Interest Rate ModelUtilization rateBorrow APYSupply APY"`;
 
-exports[`CorePoolMarket > fetches market details and displays them correctly 2`] = `"Market infoPrice$1.278673Market liquidity$80.36MSupply capUncappedBorrow capUncappedDaily supplying interests$3.98Daily borrowing interests-$44.81Daily XVS distributed19.99MReserves1.00K XVSReserve factor25%Collateral factor50%vXVS minted> 100.00TExchange rate1 XVS=49.589181 vXVS"`;
+exports[`CorePoolMarket > fetches market details and displays them correctly 2`] = `"Supply infoTotal supply$2.78MAPY0.05%Distribution APY0.11%"`;
+
+exports[`CorePoolMarket > fetches market details and displays them correctly 3`] = `"Borrow infoTotal borrow$709.25KAPY-2.3%Distribution APY0.11%Liquidation Threshold50%Liquidation Penalty10%"`;
+
+exports[`CorePoolMarket > fetches market details and displays them correctly 4`] = `"Market infoPrice$1.278673Market liquidity$80.36MSupply capUncappedBorrow capUncappedDaily supplying interests$3.98Daily borrowing interests-$44.81Daily XVS distributed19.99MReserves1.00K XVSReserve factor25%Collateral factor50%vXVS minted> 100.00TExchange rate1 XVS=49.589181 vXVS"`;

@@ -41,6 +41,7 @@ export default defineConfig(({ mode }) => {
           // Put the Sentry vite plugin after all other plugins
           sentryVitePlugin({
             authToken: env.SENTRY_AUTH_TOKEN,
+            applicationKey: 'venus-evm',
             org: 'venus-protocol-km',
             project: 'dapp',
             release: {

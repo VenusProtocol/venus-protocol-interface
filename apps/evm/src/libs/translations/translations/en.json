@@ -246,11 +246,6 @@
   },
   "dashboard": {
     "allTag": "All",
-    "connectWalletBanner": {
-      "illustration": {
-        "alt": "Illustration of a wallet"
-      }
-    },
     "pausedAssetsToggle": {
       "label": "Paused assets"
     },
@@ -406,12 +401,6 @@
   "market": {
     "borrowButtonLabel": "Borrow",
     "borrowInfo": {
-      "stats": {
-        "apy": "APY",
-        "liquidationPenalty": "Liquidation Penalty",
-        "liquidationThreshold": "Liquidation Threshold",
-        "totalBorrow": "Total borrow"
-      },
       "title": "Borrow info"
     },
     "interestRateModel": {
@@ -443,13 +432,21 @@
         "unlimitedSupplyCap": "Uncapped"
       }
     },
+    "periodOption": {
+      "oneYear": "1Y",
+      "sixMonths": "6M",
+      "thirtyDays": "30D"
+    },
+    "stats": {
+      "apy": "APY",
+      "distributionApy": "Distribution APY",
+      "liquidationPenalty": "Liquidation Penalty",
+      "liquidationThreshold": "Liquidation Threshold",
+      "totalBorrow": "Total borrow",
+      "totalSupply": "Total supply"
+    },
     "supplyButtonLabel": "Supply",
     "supplyInfo": {
-      "stats": {
-        "apy": "APY",
-        "distributionApy": "Distribution APY",
-        "totalSupply": "Total supply"
-      },
       "title": "Supply info"
     }
   },
@@ -697,7 +694,9 @@
     },
     "promotionalTitle": "Boost your earnings by up to <GreenText>{{percentage}}</GreenText>",
     "stakeButtonLabel": "Stake XVS",
+    "tokensLeft": "<WhiteText>{{count}}</WhiteText> prime token left",
     "tokensLeft_one": "<WhiteText>{{count}}</WhiteText> prime token left",
+    "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
   },
@@ -1211,13 +1210,11 @@
   },
   "wallets": {
     "binanceWallet": "Binance Wallet",
-    "bitKeep": "BitKeep",
+    "bitget": "Bitget Wallet",
     "braveWallet": "Brave Wallet",
     "coinbaseWallet": "Coinbase Wallet",
     "errors": {
-      "authorizeAccess": "You need to authorize access to your account",
-      "noProvider": "If you are connecting an external wallet, make sure you have a provider such as MetaMask or compatible wallet such as Brave",
-      "unsupportedWallet": "Unable to connect. Make sure your selection matches your desired wallet."
+      "noProvider": "Unable to connect. Make sure the wallet you selected is installed in your browser."
     },
     "gateWallet": "Gate Wallet",
     "infinityWallet": "Infinity Wallet",

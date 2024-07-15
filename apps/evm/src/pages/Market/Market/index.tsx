@@ -1,9 +1,9 @@
 import { AssetWarning, Card } from 'components';
-import { OperationForm } from 'containers/OperationForm';
 import type { Asset, Pool } from 'types';
 import { InterestRateChart } from './InterestRateChart';
 import { MarketHistory } from './MarketHistory';
 import MarketInfo from './MarketInfo';
+import { OperationForm } from './OperationForm';
 
 export interface MarketProps {
   asset: Asset;

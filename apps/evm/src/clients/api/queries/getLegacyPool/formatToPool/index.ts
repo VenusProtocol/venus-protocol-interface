@@ -4,11 +4,12 @@ import type { GetTokenBalancesOutput } from 'clients/api';
 import {
   BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES,
   BSC_TESTNET_UNLISTED_TOKEN_ADDRESSES,
+  NATIVE_TOKEN_ADDRESS,
+  NULL_ADDRESS,
 } from 'constants/address';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
 import type { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'libs/contracts';
-import { logError } from 'libs/errors';
 import {
   type Asset,
   ChainId,
@@ -117,13 +118,19 @@ export const formatToPool = ({
       return;
     }
 
+    const underlyingTokenAddress =
+      // If underlying asset address is the null address, this means the VToken has no underlying
+      // token because it is a native token
+      areAddressesEqual(vTokenMetaData.underlyingAssetAddress, NULL_ADDRESS)
+        ? NATIVE_TOKEN_ADDRESS
+        : vTokenMetaData.underlyingAssetAddress;
+
     const underlyingToken = findTokenByAddress({
       tokens,
-      address: vTokenMetaData.underlyingAssetAddress,
+      address: underlyingTokenAddress,
     });
 
     if (!underlyingToken) {
-      logError(`Record missing for token: ${vTokenMetaData.underlyingAssetAddress}`);
       return;
     }
 

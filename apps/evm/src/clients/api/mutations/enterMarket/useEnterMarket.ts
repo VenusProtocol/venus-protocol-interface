@@ -18,14 +18,14 @@ type EnrichedEnterMarketInput = EnterMarketInput & {
 
 type Options = UseSendTransactionOptions<EnrichedEnterMarketInput>;
 
-const useEnterMarket = (options?: Options) => {
+const useEnterMarket = (options?: Partial<Options>) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   const wrappedEnterMarket: (input: EnrichedEnterMarketInput) => Promise<EnterMarketOutput> =
     enterMarket;
 
   return useSendTransaction({
-    fnKey: FunctionKey.ENTER_MARKET,
+    fnKey: [FunctionKey.ENTER_MARKET],
     fn: wrappedEnterMarket,
     onConfirmed: ({ input }) => {
       const { poolName, vToken, userSupplyBalanceTokens } = input;
@@ -36,8 +36,12 @@ const useEnterMarket = (options?: Options) => {
         userSupplyBalanceTokens: userSupplyBalanceTokens.toNumber(),
       });
 
-      queryClient.invalidateQueries(FunctionKey.GET_LEGACY_POOL);
-      queryClient.invalidateQueries(FunctionKey.GET_ISOLATED_POOLS);
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_LEGACY_POOL],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_ISOLATED_POOLS],
+      });
     },
     options,
   });

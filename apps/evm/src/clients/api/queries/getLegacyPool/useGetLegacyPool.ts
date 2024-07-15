@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, useQuery } from 'react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getLegacyPool, {
   type GetLegacyPoolInput,
@@ -54,7 +54,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetLegacyPool = (input?: TrimmedInput, options?: Options) => {
+const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
@@ -82,9 +82,9 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Options) => {
     !!vaiControllerContract &&
     (options?.enabled === undefined || options?.enabled);
 
-  return useQuery(
-    [FunctionKey.GET_LEGACY_POOL, { ...input, chainId }],
-    () =>
+  return useQuery({
+    queryKey: [FunctionKey.GET_LEGACY_POOL, { ...input, chainId }],
+    queryFn: () =>
       callOrThrow(
         {
           xvs,
@@ -108,12 +108,10 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Options) => {
             ...params,
           }),
       ),
-    {
-      refetchInterval,
-      ...options,
-      enabled: isQueryEnabled,
-    },
-  );
+    refetchInterval,
+    ...options,
+    enabled: isQueryEnabled,
+  });
 };
 
 export default useGetLegacyPool;

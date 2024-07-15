@@ -11,7 +11,7 @@ import { CONFIRMATIONS, useTrackTransaction } from '../useTrackTransaction';
 
 vi.mock('../useTrackTransaction');
 
-const fakeFnKey = FunctionKey.SUPPLY;
+const fakeFnKey = [FunctionKey.SUPPLY];
 const fakeInput = {};
 
 describe('useSendTransaction', () => {

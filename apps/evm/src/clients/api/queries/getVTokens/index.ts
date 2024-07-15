@@ -1,6 +1,5 @@
 import { BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES } from 'constants/address';
 import type { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
-import { logError } from 'libs/errors';
 import { ChainId, type Token, type VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -73,7 +72,6 @@ const getVTokens = async ({
     });
 
     if (!underlyingToken) {
-      logError(`Record missing for token: ${metaData.underlyingAssetAddress}`);
       return acc;
     }
 
