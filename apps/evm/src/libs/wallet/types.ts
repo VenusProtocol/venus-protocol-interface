@@ -7,6 +7,7 @@ import type {
 
 export type ConnectorId =
   | 'BinanceW3WSDK'
+  | 'wallet.binance.com'
   | 'coinbaseWalletSDK'
   | 'io.metamask'
   | 'io.rabby'

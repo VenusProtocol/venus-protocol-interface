@@ -4,6 +4,7 @@ declare global {
   interface WindowEthereum extends WindowProvider {
     isInfinityWallet?: true;
     isOpera?: true;
+    isBinance?: true;
   }
 
   interface Window {

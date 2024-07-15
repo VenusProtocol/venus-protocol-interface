@@ -1,5 +1,5 @@
 import { t } from 'libs/translations';
-import { isRunningInOperaBrowser } from 'utilities/walletDetection';
+import { isRunningInBinanceApp, isRunningInOperaBrowser } from 'utilities/walletDetection';
 import binanceWalletLogoSrc from './img/wallets/binanceWallet.svg';
 import bitGetWalletLogoSrc from './img/wallets/bitgetWallet.png';
 import braveWalletLogoSrc from './img/wallets/braveWallet.svg';
@@ -21,7 +21,7 @@ export const wallets: Wallet[] = [
   {
     name: t('wallets.binanceWallet'),
     logoSrc: binanceWalletLogoSrc,
-    connectorId: 'BinanceW3WSDK',
+    connectorId: isRunningInBinanceApp() ? 'wallet.binance.com' : 'BinanceW3WSDK',
     mainnetOnly: true,
   },
   {
