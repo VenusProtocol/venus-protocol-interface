@@ -272,6 +272,7 @@ const getIsolatedPools = async ({
       accountAddress,
       primeMinimumXvsToStakeMantissa: new BigNumber(primeMinimumXvsToStakeMantissa.toString()),
       xvs,
+      chainId,
     });
   }
 
