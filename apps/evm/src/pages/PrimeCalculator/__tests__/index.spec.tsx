@@ -7,7 +7,7 @@ import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import { renderComponent } from 'testUtils/render';
 
-import { useGetLegacyPool, useGetPrimeEstimation, useGetPrimeStatus } from 'clients/api';
+import { useGetPools, useGetPrimeEstimation, useGetPrimeStatus } from 'clients/api';
 import { en } from 'libs/translations';
 import type { Asset } from 'types';
 
@@ -56,9 +56,9 @@ describe('PrimeCalculator', () => {
       isLoading: false,
     }));
 
-    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPools as Vi.Mock).mockImplementation(() => ({
       data: {
-        pool,
+        pools: poolData,
       },
       isLoading: false,
     }));

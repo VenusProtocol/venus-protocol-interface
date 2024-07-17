@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 import { z } from 'zod';
 
 import {
-  useGetLegacyPool,
+  useGetPools,
   useGetPrimeEstimation,
   useGetPrimeStatus,
   useGetTokenUsdPrice,
@@ -48,7 +48,8 @@ export const Form: React.FC = () => {
     symbol: 'XVS',
   });
   const { accountAddress } = useAccountAddress();
-  const { data: getLegacyPoolData, isLoading: isGetLegacyPoolLoading } = useGetLegacyPool({
+
+  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
 
@@ -111,18 +112,24 @@ export const Form: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Extract assets affected by Prime
-  const primeAssets = useMemo(
-    () =>
-      (getLegacyPoolData?.pool.assets || []).reduce<Asset[]>((acc, asset) => {
+  const primeAssets = useMemo(() => {
+    const acc: Asset[] = [];
+
+    (getPoolsData?.pools || []).forEach(pool => {
+      pool.assets.forEach(asset => {
         const distributions = asset.borrowDistributions.concat(asset.supplyDistributions);
         const hasPrimeDistribution = distributions.some(
           distribution => distribution.type === 'prime' || distribution.type === 'primeSimulation',
         );
 
-        return hasPrimeDistribution ? [...acc, asset] : acc;
-      }, []),
-    [getLegacyPoolData?.pool.assets],
-  );
+        if (hasPrimeDistribution) {
+          acc.push(asset);
+        }
+      });
+    });
+
+    return acc;
+  }, [getPoolsData?.pools]);
 
   // Generate options from tokens affected by Prime
   const options = useMemo(() => {
@@ -196,7 +203,7 @@ export const Form: React.FC = () => {
 
   const { control, setValue, formState } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    disabled: isGetLegacyPoolLoading || isGetTokenPriceLoading,
+    disabled: isGetPoolsLoading || isGetTokenPriceLoading,
     mode: 'onBlur',
     defaultValues: {
       stakedAmountXvsTokens: '',
@@ -208,7 +215,7 @@ export const Form: React.FC = () => {
   useEffect(() => {
     const fn = () => {
       if (
-        !isGetLegacyPoolLoading &&
+        !isGetPoolsLoading &&
         !isGetPrimeStatusLoading &&
         !isFormInitializedRef.current &&
         xvs &&
@@ -237,7 +244,7 @@ export const Form: React.FC = () => {
     formState,
     getXvsVaultUserInfoData,
     isGetPrimeStatusLoading,
-    isGetLegacyPoolLoading,
+    isGetPoolsLoading,
     primeMinimumStakedXvsMantissa,
     selectedAsset,
     setValue,
