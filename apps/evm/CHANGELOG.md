@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.131.0
+
+### Minor Changes
+
+- 79be0fd: Enable Prime calculator on Ethereum
+- aa42057: update ID of Binance Wallet connector based on environment
+
 ## 2.130.1
 
 ### Patch Changes
