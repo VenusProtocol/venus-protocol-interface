@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.131.1
+
+### Patch Changes
+
+- 17d34cd: retrieve Prime assets from all pools on Prime calculator page
+
 ## 2.131.0
 
 ### Minor Changes
