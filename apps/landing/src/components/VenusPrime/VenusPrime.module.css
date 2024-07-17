@@ -1,0 +1,112 @@
+.root {
+    margin-top: 60px;
+    @media (min-width: 840px) {
+        margin-top: 80px;
+    }
+    @media (min-width: 840px) {
+        margin-top: 80px;
+    }
+    @media (min-width: 1280px) {
+        margin-top: 100px;
+    }
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 24px;
+
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: var(--color-bg-secondary);
+
+    padding: 24px;
+
+    @media (min-width: 640px) {
+        background-image: url('./assets/venusPrimeLogo640.png');
+        flex-direction: row;
+        height: 400px;
+    }
+
+    @media (min-width: 840px) {
+        background-image: url('./assets/venusPrimeLogo840.png');
+    }
+
+    @media (min-width: 1280px) {
+        background-image: url('./assets/venusPrimeLogo1280.png');
+    }
+}
+
+.logoMobile {
+    display: none;
+    min-height: 200px;
+    width: 100%;
+    background-image: url('./assets/venusPrimeLogo375.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    @media (max-width: 640px) {
+        display: flex;
+    }
+}
+
+.logoMobile {
+    display: none;
+    flex: 1;
+    background-image: url('./assets/venusPrimeLogo375.png');
+
+    @media (max-width: 640px) {
+        display: flex;
+    } 
+}
+
+.backgroundImg {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex: 1;
+    min-height: 100%;
+}
+
+.textWrapper {
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+        margin-top: 30px;
+        margin-bottom: 24px;
+
+    }
+
+    p {
+        margin-bottom:40px;
+    }
+
+    @media (min-width: 640px) {
+        margin-left: 240px;
+    }
+
+    @media (min-width: 840px) {
+        margin-left: 420px;
+    }
+
+    @media (min-width: 1280px) {
+        margin-left: 590px;
+    }
+}
+
+.accent {
+    background: -webkit-linear-gradient(270deg, #8E6150, #F2E3DB);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--color-venus-prime);
+}
+
+.link {
+    width: fit-content;
+}

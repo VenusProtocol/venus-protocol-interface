@@ -1,12 +1,11 @@
 /// <reference types="vitest" />
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import inject from '@rollup/plugin-inject';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, loadEnv } from 'vite';
 import svgrPlugin from 'vite-plugin-svgr';
-import viteTsconfigPaths from 'vite-tsconfig-paths';
+import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 import { version as APP_VERSION } from './src/constants/version';
 
@@ -14,19 +13,13 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
-    plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+    plugins: [react(), viteTsConfigPaths(), svgrPlugin()],
     optimizeDeps: {
       esbuildOptions: {
         // Node.js global to browser globalThis
         define: {
           global: 'globalThis',
         },
-        // Enable esbuild polyfill plugins
-        plugins: [
-          NodeGlobalsPolyfillPlugin({
-            buffer: true,
-          }),
-        ],
       },
     },
     build: {

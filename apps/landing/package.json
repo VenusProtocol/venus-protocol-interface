@@ -1,0 +1,59 @@
+{
+  "name": "@venusprotocol/landing",
+  "homepage": "https://venus.io/",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "yarn lint:styles && biome check .",
+    "lint:styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
+    "tsc": "tsc --noEmit",
+    "clean": "rm -rf .turbo && rm -rf node_modules"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.40.0",
+    "axios": "^0.26.1",
+    "classnames": "^2.3.1",
+    "normalize.css": "^8.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.3.0",
+    "react-scrolllock": "^5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@stylelint/postcss-css-in-js": "0.38.0",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.11.0",
+    "@typescript-eslint/parser": "^7.11.0",
+    "@venusprotocol/stylelint-config": "*",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^9.0.0",
+    "husky": "^7.0.4",
+    "postcss": "^8.4.8",
+    "postcss-custom-media": "^8.0.0",
+    "postcss-import": "^14.0.2",
+    "postcss-loader": "^6.2.1",
+    "postcss-nested": "^5.0.6",
+    "stylelint": "^15.10.3",
+    "typescript": "^5.4.5",
+    "vite": "^5.3.3",
+    "vite-plugin-svgr": "^4.2.0",
+    "vite-tsconfig-paths": "^4.2.0"
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+  },
+  "resolutions": {
+    "postcss": "^8.4.8"
+  }
+}

@@ -1,0 +1,52 @@
+.root {
+    display: inline-block;
+    transition: background-color .3s, border-color .3s, color .3s;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        color: var(--color-text-secondary);
+    }
+
+    &:active {
+        color: var(--color-primary);
+    }
+}
+
+.button {
+    padding: 12px 32px;
+    background-color: var(--color-primary);
+    border-radius: 8px;
+
+    &:hover {
+        background-color: var(--color-primary-hover);
+    }
+
+    &:active {
+        background-color: var(--color-primary-active);
+    }
+
+    @media (max-width: 360px) {
+        padding: 12px;
+    }
+}
+
+.buttonTransparent {
+    background-color: transparent;
+    border: 1px solid var(--color-primary);
+
+    &:hover {
+        border-color: transparent;
+    }
+
+    &:active {
+        border-color: transparent;
+    }
+}

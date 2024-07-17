@@ -1,0 +1,221 @@
+.root {
+    margin-top: 60px;
+    
+    @media (min-width: 840px) {
+        margin-top: 80px;
+    }
+    @media (min-width: 1280px) {
+        margin-top: 100px;
+    }
+}
+
+.card {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    overflow-y: hidden;
+
+    border: 1px solid var(--color-card-border);
+    border-radius: 24px;
+    background-color: var(--color-bg-secondary);
+
+    height: 542px;
+
+    @media (min-width: 640px) {
+        height: 376px;
+        flex-direction: row;
+    }
+
+    @media (min-width: 1280px) {
+        gap: 24px;
+        height: 500px;
+    }
+}
+
+.rings {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+
+    background-image: url('./assets/planets.png');
+    background-position: center -100px;
+    background-repeat: no-repeat;
+    background-size: 352px;
+
+    @media (min-width: 640px) {
+        background-position: -5px;
+        background-size: cover;
+    }
+
+    @media (min-width: 640px) {
+        width: 295px;
+        max-width: 440px;
+        background-size: 360px;
+        background-position-x: 35px;
+    }
+
+    @media (min-width: 840px) {
+        width: 432px;
+        max-width: 432px;
+        padding-left: 52px;
+        background-size: 445px;
+        background-position-x: 27px;
+        background-position-y: -34px;
+    }
+
+    @media (min-width: 1280px) {
+        margin-left: 0;
+        padding-left: 10px;
+        width: 590px;
+        max-width: 590px;
+        background-size: 605px;
+        background-position: center;
+        background-position-x: 0px;
+    }
+}
+
+.gradient {
+    display: none;
+    background: radial-gradient(56.21% 56.21% at 50% 50%, rgba(41, 52, 79, 0.6) 0%, rgba(22, 27, 39, 0) 100%);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+
+    @media (min-width: 840px) {
+        display: block;
+    } 
+}
+
+.backgroundImg {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex: 1;
+    min-height: 100%;
+}
+
+.textWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex: 1;
+    padding: 24px 0 0 24px;
+    height: 100%;
+    
+    h2 {
+        margin-bottom: 16px;
+    }
+
+    p {
+        margin: 16px 0 40px 0;
+        @media (min-width: 840px) {
+            font-size: 1rem;
+        }
+        @media (min-width: 1240px) {
+            font-size: 1.125rem;
+        }
+    }
+
+    @media (min-width: 640px) {
+        max-width: 50%;
+    }
+
+    @media (min-width: 840px) {
+        max-width: 325px;
+    }
+
+    @media (min-width: 1280px) {
+        max-width: 50%;
+        h2 {
+            margin-bottom: 24px;
+        }
+        padding: 40px 27px 0 40px;
+    }
+}
+
+.link {
+    width: fit-content;
+    margin-bottom: 24px;
+}
+
+.numProposals {
+    font-family: 'BebasNeue';
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: 3.933px;
+
+    @media (min-width: 840px) {
+        font-size: 3.5rem;
+    }
+
+    @media (min-width: 1280px) {
+        font-size: 4rem;
+    }
+}
+
+.proposalsInfo {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-100%);
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 640px) {
+        right: 0;
+        margin-right: 14px;
+        transform: translateY(-50%);
+    }
+
+    @media (min-width: 840px) {
+        margin-right: 0;
+        right: unset;
+    }
+
+    @media (min-width: 840px) and (max-width: 870px) {
+        margin-left: 30px;
+        margin-right: 14px;
+    }
+
+    @media (min-width: 870px) and (max-width: 1280px) {
+        margin-left: 18px;
+    }
+}
+
+.proposals {
+    color: var(--color-text-secondary);
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 18px;
+    max-width: 130px;
+
+    @media (min-width: 640px) {
+        font-size: 0.75rem;
+        line-height: 1.125rem;
+    }
+
+    @media (min-width: 840px) {
+        font-variant: all-small-caps;
+        letter-spacing: 0.07em;
+        line-height: 21px;
+        max-width: 230px;
+    }
+
+    @media (min-width: 1280px) {
+        font-size: 1rem;
+        letter-spacing: 0.07em;
+        max-width: 312px;
+    }
+}
+
+.planets {
+    display: none;
+    
+    @media (min-width: 840px) {
+        display: flex;
+    }
+}

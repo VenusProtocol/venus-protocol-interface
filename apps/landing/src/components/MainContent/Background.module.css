@@ -1,0 +1,19 @@
+.bg {
+  background-image: url('./assets/bgMobile.png');
+  background-size: 100% 862px;
+  background-repeat: no-repeat;
+  background-position: right top;
+
+  @media (min-width: 640px) {
+    background-image: url('./assets/bg.png');
+    background-size: 520px 802px;
+  }
+
+  @media (min-width: 840px) {
+    background-size: 623px 937px;
+  }
+
+  @media (min-width: 1280px) {
+    background-size: 950px 1400px; 
+  }
+}
