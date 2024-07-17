@@ -14,6 +14,7 @@ export const featureFlags = {
   primeCalculator: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
+    ChainId.ETHEREUM,
     ChainId.SEPOLIA,
     ChainId.ARBITRUM_SEPOLIA,
   ],
