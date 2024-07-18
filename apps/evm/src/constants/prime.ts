@@ -6,7 +6,14 @@ export const PRIME_DOC_URL = 'https://docs-v4.venus.io/whats-new/prime-yield';
 export const PRIME_APY_DOC_URL =
   'https://docs-v4.venus.io/technical-reference/reference-technical-articles/prime#calculate-apr-associated-with-a-prime-market-and-user';
 
-const bscPrimeMarketsAddresses = {
+const bscTestnetPrimeMarketsAddresses = {
+  vBTCB: '0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe',
+  vUSDT: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
+  vUSDC: '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
+  vETH: '0x162D005F0Fff510E54958Cfc5CF32A3180A84aab',
+};
+
+const bscMainnetPrimeMarketsAddresses = {
   vBTCB: '0x882C173bC7Ff3b7786CA16dfeD3DFFfb9Ee7847B',
   vUSDT: '0xfD5840Cd36d94D7229439859C0112a4185BC0255',
   vUSDC: '0xecA88125a5ADbe82614ffC12D0DB554E2e2867C8',
@@ -20,11 +27,18 @@ const ethPrimeMarketsAddresses = {
   vWETH_LiquidStakedETH: '0xc82780Db1257C788F262FBbDA960B3706Dfdcaf2',
 };
 
-const bscSupplyAveragesForToken: Record<string, BigNumber> = {
-  [bscPrimeMarketsAddresses.vBTCB]: new BigNumber('0.71'),
-  [bscPrimeMarketsAddresses.vETH]: new BigNumber('9.86'),
-  [bscPrimeMarketsAddresses.vUSDT]: new BigNumber('5003.94'),
-  [bscPrimeMarketsAddresses.vUSDC]: new BigNumber('13068.75'),
+const bscTestnetSupplyAveragesForToken: Record<string, BigNumber> = {
+  [bscTestnetPrimeMarketsAddresses.vBTCB]: new BigNumber('0.71'),
+  [bscTestnetPrimeMarketsAddresses.vETH]: new BigNumber('9.86'),
+  [bscTestnetPrimeMarketsAddresses.vUSDT]: new BigNumber('5003.94'),
+  [bscTestnetPrimeMarketsAddresses.vUSDC]: new BigNumber('13068.75'),
+};
+
+const bscMainnetSupplyAveragesForToken: Record<string, BigNumber> = {
+  [bscMainnetPrimeMarketsAddresses.vBTCB]: new BigNumber('0.71'),
+  [bscMainnetPrimeMarketsAddresses.vETH]: new BigNumber('9.86'),
+  [bscMainnetPrimeMarketsAddresses.vUSDT]: new BigNumber('5003.94'),
+  [bscMainnetPrimeMarketsAddresses.vUSDC]: new BigNumber('13068.75'),
 };
 
 const ethSupplyAveragesForToken: Record<string, BigNumber> = {
@@ -34,11 +48,18 @@ const ethSupplyAveragesForToken: Record<string, BigNumber> = {
   [ethPrimeMarketsAddresses.vWETH_LiquidStakedETH]: new BigNumber('124.77'),
 };
 
-const bscBorrowAveragesForToken: Record<string, BigNumber> = {
-  [bscPrimeMarketsAddresses.vBTCB]: new BigNumber('0.04'),
-  [bscPrimeMarketsAddresses.vETH]: new BigNumber('0.49'),
-  [bscPrimeMarketsAddresses.vUSDT]: new BigNumber('10009.21'),
-  [bscPrimeMarketsAddresses.vUSDC]: new BigNumber('2405.43'),
+const bscTestnetBorrowAveragesForToken: Record<string, BigNumber> = {
+  [bscTestnetPrimeMarketsAddresses.vBTCB]: new BigNumber('0.04'),
+  [bscTestnetPrimeMarketsAddresses.vETH]: new BigNumber('0.49'),
+  [bscTestnetPrimeMarketsAddresses.vUSDT]: new BigNumber('10009.21'),
+  [bscTestnetPrimeMarketsAddresses.vUSDC]: new BigNumber('2405.43'),
+};
+
+const bscMainnetBorrowAveragesForToken: Record<string, BigNumber> = {
+  [bscMainnetPrimeMarketsAddresses.vBTCB]: new BigNumber('0.04'),
+  [bscMainnetPrimeMarketsAddresses.vETH]: new BigNumber('0.49'),
+  [bscMainnetPrimeMarketsAddresses.vUSDT]: new BigNumber('10009.21'),
+  [bscMainnetPrimeMarketsAddresses.vUSDC]: new BigNumber('2405.43'),
 };
 
 const ethBorrowAveragesForToken: Record<string, BigNumber> = {
@@ -48,11 +69,18 @@ const ethBorrowAveragesForToken: Record<string, BigNumber> = {
   [ethPrimeMarketsAddresses.vWETH_LiquidStakedETH]: new BigNumber('11.16'),
 };
 
-const bscXvsStakedAveragesForToken: Record<string, BigNumber> = {
-  [bscPrimeMarketsAddresses.vBTCB]: new BigNumber('4124.59'),
-  [bscPrimeMarketsAddresses.vETH]: new BigNumber('4788.05'),
-  [bscPrimeMarketsAddresses.vUSDT]: new BigNumber('3731.33'),
-  [bscPrimeMarketsAddresses.vUSDC]: new BigNumber('3265.30'),
+const bscTestnetXvsStakedAveragesForToken: Record<string, BigNumber> = {
+  [bscTestnetPrimeMarketsAddresses.vBTCB]: new BigNumber('4124.59'),
+  [bscTestnetPrimeMarketsAddresses.vETH]: new BigNumber('4788.05'),
+  [bscTestnetPrimeMarketsAddresses.vUSDT]: new BigNumber('3731.33'),
+  [bscTestnetPrimeMarketsAddresses.vUSDC]: new BigNumber('3265.30'),
+};
+
+const bscMainnetXvsStakedAveragesForToken: Record<string, BigNumber> = {
+  [bscMainnetPrimeMarketsAddresses.vBTCB]: new BigNumber('4124.59'),
+  [bscMainnetPrimeMarketsAddresses.vETH]: new BigNumber('4788.05'),
+  [bscMainnetPrimeMarketsAddresses.vUSDT]: new BigNumber('3731.33'),
+  [bscMainnetPrimeMarketsAddresses.vUSDC]: new BigNumber('3265.30'),
 };
 
 const ethXvsStakedAveragesForToken: Record<string, BigNumber> = {
@@ -62,10 +90,16 @@ const ethXvsStakedAveragesForToken: Record<string, BigNumber> = {
   [ethPrimeMarketsAddresses.vWETH_LiquidStakedETH]: new BigNumber('7943.09'),
 };
 
-const bscPrimeAverages = {
-  supply: bscSupplyAveragesForToken,
-  borrow: bscBorrowAveragesForToken,
-  xvs: bscXvsStakedAveragesForToken,
+const bscTestnetPrimeAverages = {
+  supply: bscTestnetSupplyAveragesForToken,
+  borrow: bscTestnetBorrowAveragesForToken,
+  xvs: bscTestnetXvsStakedAveragesForToken,
+};
+
+const bscMainnetPrimeAverages = {
+  supply: bscMainnetSupplyAveragesForToken,
+  borrow: bscMainnetBorrowAveragesForToken,
+  xvs: bscMainnetXvsStakedAveragesForToken,
 };
 
 const ethereumPrimeAverages = {
@@ -83,8 +117,8 @@ export const primeAveragesForNetwork: Record<
     }
   | undefined
 > = {
-  [ChainId.BSC_MAINNET]: bscPrimeAverages,
-  [ChainId.BSC_TESTNET]: bscPrimeAverages,
+  [ChainId.BSC_MAINNET]: bscMainnetPrimeAverages,
+  [ChainId.BSC_TESTNET]: bscTestnetPrimeAverages,
   [ChainId.ETHEREUM]: ethereumPrimeAverages,
   [ChainId.SEPOLIA]: ethereumPrimeAverages,
   [ChainId.OPBNB_MAINNET]: undefined,
