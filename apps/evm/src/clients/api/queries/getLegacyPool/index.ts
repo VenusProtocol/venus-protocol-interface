@@ -203,6 +203,7 @@ const getLegacyPool = async ({
       accountAddress,
       primeMinimumXvsToStakeMantissa: new BigNumber(primeMinimumXvsToStakeMantissa.toString()),
       xvs,
+      chainId,
     });
   }
 

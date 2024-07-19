@@ -123,9 +123,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > does not fetch Prime distri
             {
               "apyPercentage": "0.20019958435848473",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "11017.5",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -176,9 +176,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > does not fetch Prime distri
             {
               "apyPercentage": "0.23026397657694986",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "11017.5",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -447,9 +447,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > does not fetch Prime distri
             {
               "apyPercentage": "0.20019958435848473",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "101000",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -500,9 +500,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > does not fetch Prime distri
             {
               "apyPercentage": "0.23026397657694986",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "101000",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -575,9 +575,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > does not fetch Prime distri
             {
               "apyPercentage": "0.20019958435848473",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "1000",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -628,9 +628,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > does not fetch Prime distri
             {
               "apyPercentage": "0.23026397657694986",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "1000",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -807,9 +807,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > fetches and formats Prime d
             {
               "apyPercentage": "0.20019958435848473",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "11017.5",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -870,9 +870,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > fetches and formats Prime d
             {
               "apyPercentage": "0.23026397657694986",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "11017.5",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -1151,9 +1151,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > fetches and formats Prime d
             {
               "apyPercentage": "0.20019958435848473",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "101000",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -1214,9 +1214,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > fetches and formats Prime d
             {
               "apyPercentage": "0.23026397657694986",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "101000",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -1299,9 +1299,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > fetches and formats Prime d
             {
               "apyPercentage": "0.20019958435848473",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "1000",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -1362,9 +1362,9 @@ exports[`getIsolatedPools - Feature enabled: Prime > fetches and formats Prime d
             {
               "apyPercentage": "0.23026397657694986",
               "referenceValues": {
-                "userBorrowBalanceTokens": "10009.21",
-                "userSupplyBalanceTokens": "5003.94",
-                "userXvsStakedTokens": "3731.33",
+                "userBorrowBalanceTokens": "0",
+                "userSupplyBalanceTokens": "1000",
+                "userXvsStakedTokens": "1000",
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",

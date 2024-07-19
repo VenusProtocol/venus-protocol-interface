@@ -1,13 +1,9 @@
 import type BigNumber from 'bignumber.js';
 
 import { NULL_ADDRESS } from 'constants/address';
-import {
-  borrowAveragesForToken,
-  supplyAveragesForToken,
-  xvsStakedAveragesForToken,
-} from 'constants/prime';
+import { primeAveragesForNetwork } from 'constants/prime';
 import type { Prime } from 'libs/contracts';
-import type { Asset, Token } from 'types';
+import type { Asset, ChainId, Token } from 'types';
 import {
   areAddressesEqual,
   convertAprBipsToApy,
@@ -22,6 +18,7 @@ export interface ResolvePrimeSimulationDistributionsInput {
   xvs: Token;
   primeMinimumXvsToStakeMantissa: BigNumber;
   accountAddress?: string;
+  chainId: ChainId;
 }
 
 export const appendPrimeSimulationDistributions = async ({
@@ -31,6 +28,7 @@ export const appendPrimeSimulationDistributions = async ({
   xvs,
   accountAddress,
   primeMinimumXvsToStakeMantissa,
+  chainId,
 }: ResolvePrimeSimulationDistributionsInput) => {
   const primeMinimumXvsToStakeTokens = convertMantissaToTokens({
     value: primeMinimumXvsToStakeMantissa,
@@ -48,9 +46,9 @@ export const appendPrimeSimulationDistributions = async ({
       }
 
       const promise = async () => {
-        const { symbol } = asset.vToken.underlyingToken;
+        const { address } = asset.vToken;
         const averageBorrowBalanceTokens =
-          borrowAveragesForToken[symbol] ||
+          primeAveragesForNetwork[chainId]?.borrow[address] ||
           asset.borrowBalanceTokens.dividedBy(asset.borrowerCount || 1);
 
         const averageBorrowBalanceMantissa = convertTokensToMantissa({
@@ -59,7 +57,7 @@ export const appendPrimeSimulationDistributions = async ({
         });
 
         const averageSupplyBalanceTokens =
-          supplyAveragesForToken[symbol] ||
+          primeAveragesForNetwork[chainId]?.supply[address] ||
           asset.supplyBalanceTokens.dividedBy(asset.supplierCount || 1);
         const averageSupplyBalanceMantissa = convertTokensToMantissa({
           value: averageSupplyBalanceTokens,
@@ -67,7 +65,7 @@ export const appendPrimeSimulationDistributions = async ({
         });
 
         const averageXvsStakedTokens =
-          xvsStakedAveragesForToken[symbol] || primeMinimumXvsToStakeTokens;
+          primeAveragesForNetwork[chainId]?.xvs[address] || primeMinimumXvsToStakeTokens;
         const averageXvsStakedMantissa = convertTokensToMantissa({
           value: averageXvsStakedTokens,
           token: xvs,
