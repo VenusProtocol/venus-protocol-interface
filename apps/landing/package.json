@@ -41,7 +41,7 @@
     "postcss": "^8.4.8",
     "postcss-custom-media": "^8.0.0",
     "postcss-import": "^16.1.0",
-    "postcss-loader": "^6.2.1",
+    "postcss-loader": "^8.1.1",
     "postcss-nested": "^5.0.6",
     "stylelint": "^15.10.3",
     "typescript": "^5.4.5",
