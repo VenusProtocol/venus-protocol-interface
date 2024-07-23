@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useCallback, useMemo } from 'react';
 
 import { Table, type TableProps } from 'components';
@@ -8,38 +7,28 @@ import type { Pool } from 'types';
 
 import { routes } from 'constants/routing';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useNavigate } from 'hooks/useNavigate';
 import { areAddressesEqual } from 'utilities';
-import { useStyles } from './styles';
 import type { ColumnKey, PoolAsset } from './types';
 import useGenerateColumns from './useGenerateColumns';
 
-export interface MarketTableProps
-  extends Partial<
-    Omit<TableProps<PoolAsset>, 'columns' | 'rowKeyIndex' | 'initialOrder' | 'getRowHref'>
-  > {
+export interface MarketTableProps extends Partial<Omit<TableProps<PoolAsset>, 'columns'>> {
   pools: Pool[];
   columns: ColumnKey[];
-  initialOrder?: {
-    orderBy: ColumnKey;
-    orderDirection: 'asc' | 'desc';
-  };
-  marketType?: 'supply' | 'borrow';
   className?: string;
-  testId?: string;
 }
 
 export const MarketTable: React.FC<MarketTableProps> = ({
   pools,
-  marketType,
   columns: columnKeys,
-  initialOrder,
+  initialState,
+  onRowClick,
   ...otherTableProps
 }) => {
-  const styles = useStyles();
-
   const { corePoolComptrollerContractAddress, stakedEthPoolComptrollerContractAddress } =
     useGetChainMetadata();
   const { toggleCollateral } = useCollateral();
+  const { navigate } = useNavigate();
 
   const handleCollateralChange = async (poolAssetToUpdate: PoolAsset) => {
     try {
@@ -71,37 +60,27 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     collateralOnChange: handleCollateralChange,
   });
 
-  const formattedInitialOrder = useMemo(() => {
-    if (!initialOrder) {
-      return undefined;
-    }
-
-    const orderByColumn = columns.find(column => column.key === initialOrder.orderBy);
-
-    return (
-      orderByColumn && {
-        orderBy: orderByColumn,
-        orderDirection: initialOrder.orderDirection,
-      }
-    );
-  }, [columns, initialOrder]);
-
-  const getRowHref = useCallback(
-    (row: PoolAsset) => {
-      if (areAddressesEqual(row.pool.comptrollerAddress, corePoolComptrollerContractAddress)) {
-        return routes.corePoolMarket.path.replace(':vTokenAddress', row.vToken.address);
+  const getHref = useCallback(
+    (poolAsset: PoolAsset) => {
+      if (
+        areAddressesEqual(poolAsset.pool.comptrollerAddress, corePoolComptrollerContractAddress)
+      ) {
+        return routes.corePoolMarket.path.replace(':vTokenAddress', poolAsset.vToken.address);
       }
 
       if (
         stakedEthPoolComptrollerContractAddress &&
-        areAddressesEqual(row.pool.comptrollerAddress, stakedEthPoolComptrollerContractAddress)
+        areAddressesEqual(
+          poolAsset.pool.comptrollerAddress,
+          stakedEthPoolComptrollerContractAddress,
+        )
       ) {
-        return routes.stakedEthPoolMarket.path.replace(':vTokenAddress', row.vToken.address);
+        return routes.stakedEthPoolMarket.path.replace(':vTokenAddress', poolAsset.vToken.address);
       }
 
       return routes.isolatedPoolMarket.path
-        .replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
-        .replace(':vTokenAddress', row.vToken.address);
+        .replace(':poolComptrollerAddress', poolAsset.pool.comptrollerAddress)
+        .replace(':vTokenAddress', poolAsset.vToken.address);
     },
     [
       corePoolComptrollerContractAddress,
@@ -110,14 +89,21 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     ],
   );
 
+  const formattedOnRowClick: TableProps<PoolAsset>['onRowClick'] = (e, row) => {
+    const href = getHref(row.original);
+    navigate(href);
+
+    if (onRowClick) {
+      onRowClick(e, row);
+    }
+  };
+
   return (
     <Table
-      getRowHref={getRowHref}
+      onRowClick={formattedOnRowClick}
       columns={columns}
       data={poolAssets}
-      css={styles.cardContentGrid}
-      rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
-      initialOrder={formattedInitialOrder}
+      initialState={initialState}
       {...otherTableProps}
     />
   );

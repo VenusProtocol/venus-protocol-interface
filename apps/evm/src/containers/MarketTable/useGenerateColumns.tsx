@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
@@ -18,9 +17,6 @@ import { useTranslation } from 'libs/translations';
 import {
   areAddressesEqual,
   cn,
-  compareBigNumbers,
-  compareBooleans,
-  compareStrings,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
@@ -29,7 +25,6 @@ import {
 } from 'utilities';
 
 import { Apy } from './Apy';
-import { useStyles } from './styles';
 import type { ColumnKey, PoolAsset } from './types';
 
 // Translation keys: do not remove this comment
@@ -49,22 +44,6 @@ import type { ColumnKey, PoolAsset } from './types';
 // t('marketTable.columnKeys.liquidity')
 // t('marketTable.columnKeys.price')
 
-// t('marketTable.columnSelectOptionLabel.asset')
-// t('marketTable.columnSelectOptionLabel.supplyApyLtv')
-// t('marketTable.columnSelectOptionLabel.labeledSupplyApyLtv')
-// t('marketTable.columnSelectOptionLabel.borrowApy')
-// t('marketTable.columnSelectOptionLabel.labeledBorrowApy')
-// t('marketTable.columnSelectOptionLabel.pool')
-// t('marketTable.columnSelectOptionLabel.collateral')
-// t('marketTable.columnSelectOptionLabel.supplyBalance')
-// t('marketTable.columnSelectOptionLabel.borrowBalance')
-// t('marketTable.columnSelectOptionLabel.userBorrowBalance')
-// t('marketTable.columnSelectOptionLabel.userSupplyBalance')
-// t('marketTable.columnSelectOptionLabel.userWalletBalance')
-// t('marketTable.columnSelectOptionLabel.userPercentOfLimit')
-// t('marketTable.columnSelectOptionLabel.liquidity')
-// t('marketTable.columnSelectOptionLabel.price')
-
 const PRICE_THRESHOLD = new BigNumber(0.0000000000000001);
 
 const useGenerateColumns = ({
@@ -77,359 +56,323 @@ const useGenerateColumns = ({
   const { corePoolComptrollerContractAddress, stakedEthPoolComptrollerContractAddress } =
     useGetChainMetadata();
   const { t, Trans } = useTranslation();
-  const styles = useStyles();
 
   const columns: TableColumn<PoolAsset>[] = useMemo(
     () =>
-      columnKeys.map((column, index) => {
-        let columnLabel: React.ReactNode | string = t(`marketTable.columnKeys.${column}`);
+      columnKeys.map(columnKey => ({
+        id: columnKey,
+        enableSorting: columnKey !== 'asset',
+        accessorFn: row => {
+          if (columnKey === 'borrowApy' || columnKey === 'labeledBorrowApy') {
+            return row.borrowApyPercentage
+              .minus(getCombinedDistributionApys({ asset: row }).totalBorrowApyPercentage)
+              .toNumber();
+          }
 
-        if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-          columnLabel = (
-            <Trans
-              i18nKey={`marketTable.columnKeys.${column}`}
-              components={{
-                InfoIcon: (
-                  <InfoIcon
-                    tooltip={t('marketTable.columnTooltips.borrowApy')}
-                    css={styles.getColumnLabelInfoIcon({
-                      hasRightMargin: column === 'labeledBorrowApy',
-                    })}
-                  />
-                ),
-              }}
-            />
-          );
-        } else if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
-          columnLabel = (
-            <Trans
-              i18nKey={`marketTable.columnKeys.${column}`}
-              components={{
-                InfoIcon: (
-                  <InfoIcon
-                    tooltip={t('marketTable.columnTooltips.supplyApy')}
-                    css={styles.getColumnLabelInfoIcon({
-                      hasRightMargin: true,
-                    })}
-                  />
-                ),
-              }}
-            />
-          );
-        }
+          if (columnKey === 'supplyApyLtv' || columnKey === 'labeledSupplyApyLtv') {
+            return row.supplyApyPercentage
+              .plus(getCombinedDistributionApys({ asset: row }).totalSupplyApyPercentage)
+              .toNumber();
+          }
 
-        return {
-          key: column,
-          label: columnLabel,
-          selectOptionLabel: t(`marketTable.columnSelectOptionLabel.${column}`),
-          align: index === 0 ? 'left' : 'right',
-          renderCell: poolAsset => {
-            const isPaused = isAssetPaused({
-              disabledTokenActions: poolAsset.disabledTokenActions,
-            });
+          if (columnKey === 'collateral') {
+            return row.collateralFactor === 0
+              ? // Put rows of tokens that can't be enabled as collateral at the
+                // bottom of the list
+                -1
+              : row.isCollateralOfUser;
+          }
 
-            if (column === 'asset') {
-              return (
-                <div className="flex items-center space-x-2">
-                  <TokenIconWithSymbol token={poolAsset.vToken.underlyingToken} />
+          if (columnKey === 'liquidity') {
+            return row.liquidityCents.toNumber();
+          }
 
-                  {isPaused && (
+          if (columnKey === 'price') {
+            return row.tokenPriceCents.toNumber();
+          }
+
+          if (columnKey === 'pool') {
+            return row.pool.name;
+          }
+
+          if (columnKey === 'userWalletBalance') {
+            return row.userWalletBalanceCents.toNumber();
+          }
+
+          if (columnKey === 'userSupplyBalance') {
+            return row.userSupplyBalanceCents.toNumber();
+          }
+
+          if (columnKey === 'userBorrowBalance' || columnKey === 'userPercentOfLimit') {
+            return row.userBorrowBalanceCents.toNumber();
+          }
+
+          if (columnKey === 'supplyBalance') {
+            return row.supplyBalanceCents.toNumber();
+          }
+
+          if (columnKey === 'borrowBalance') {
+            return row.borrowBalanceCents.toNumber();
+          }
+
+          return 0;
+        },
+        meta: {
+          className: columnKey === 'asset' ? 'min-w-43' : undefined,
+        },
+        header: () => {
+          if (columnKey === 'borrowApy' || columnKey === 'labeledBorrowApy') {
+            return (
+              <Trans
+                i18nKey={`marketTable.columnKeys.${columnKey}`}
+                components={{
+                  InfoIcon: (
                     <InfoIcon
-                      iconClassName="text-orange"
-                      iconName="attention"
-                      tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
+                      tooltip={t('marketTable.columnTooltips.borrowApy')}
+                      className="mr-1 align-sub"
                     />
-                  )}
-                </div>
-              );
-            }
+                  ),
+                }}
+              />
+            );
+          }
 
-            if (
-              column === 'supplyApyLtv' ||
-              column === 'borrowApy' ||
-              column === 'labeledSupplyApyLtv' ||
-              column === 'labeledBorrowApy'
-            ) {
-              return (
-                <Apy className={cn(isPaused && 'text-grey')} asset={poolAsset} column={column} />
-              );
-            }
+          if (columnKey === 'supplyApyLtv' || columnKey === 'labeledSupplyApyLtv') {
+            return (
+              <Trans
+                i18nKey={`marketTable.columnKeys.${columnKey}`}
+                components={{
+                  InfoIcon: (
+                    <InfoIcon
+                      tooltip={t('marketTable.columnTooltips.supplyApy')}
+                      className="mr-1 align-sub"
+                    />
+                  ),
+                }}
+              />
+            );
+          }
 
-            if (column === 'collateral') {
-              return poolAsset.collateralFactor || poolAsset.isCollateralOfUser ? (
-                <Toggle
-                  onChange={() => collateralOnChange(poolAsset)}
-                  value={poolAsset.isCollateralOfUser}
-                />
-              ) : (
-                PLACEHOLDER_KEY
-              );
-            }
+          return t(`marketTable.columnKeys.${columnKey}`);
+        },
+        cell: ({ row }) => {
+          const isPaused = isAssetPaused({
+            disabledTokenActions: row.original.disabledTokenActions,
+          });
 
-            if (column === 'liquidity') {
-              return (
-                <LayeredValues
-                  className={cn(isPaused && 'text-grey')}
-                  topValue={formatTokensToReadableValue({
-                    value: poolAsset.cashTokens,
-                    token: poolAsset.vToken.underlyingToken,
-                  })}
-                  bottomValue={formatCentsToReadableValue({
-                    value: poolAsset.liquidityCents,
-                  })}
-                />
-              );
-            }
+          if (columnKey === 'asset') {
+            return (
+              <div className="flex items-center space-x-2">
+                <TokenIconWithSymbol token={row.original.vToken.underlyingToken} />
 
-            if (column === 'price') {
-              const { tokenPriceCents } = poolAsset;
-              const price = tokenPriceCents.isGreaterThan(PRICE_THRESHOLD)
-                ? tokenPriceCents
-                : new BigNumber(0);
-
-              return (
-                <span className={cn(isPaused && 'text-grey')}>
-                  {formatCentsToReadableValue({
-                    value: price,
-                    isTokenPrice: true,
-                  })}
-                </span>
-              );
-            }
-
-            if (column === 'pool') {
-              const getTo = () => {
-                if (
-                  areAddressesEqual(
-                    corePoolComptrollerContractAddress,
-                    poolAsset.pool.comptrollerAddress,
-                  )
-                ) {
-                  return routes.corePool.path;
-                }
-
-                if (
-                  stakedEthPoolComptrollerContractAddress &&
-                  areAddressesEqual(
-                    stakedEthPoolComptrollerContractAddress,
-                    poolAsset.pool.comptrollerAddress,
-                  )
-                ) {
-                  return routes.stakedEthPool.path;
-                }
-
-                return routes.isolatedPool.path.replace(
-                  ':poolComptrollerAddress',
-                  poolAsset.pool.comptrollerAddress,
-                );
-              };
-
-              const to = getTo();
-
-              return (
-                <div>
-                  <Link
-                    to={to}
-                    className={cn(
-                      'hover:text-blue text-sm underline',
-                      isPaused ? 'text-grey' : 'text-offWhite',
-                    )}
-                  >
-                    {poolAsset.pool.name}
-                  </Link>
-                </div>
-              );
-            }
-
-            if (column === 'userWalletBalance') {
-              return (
-                <LayeredValues
-                  className={cn(isPaused && 'text-grey')}
-                  topValue={formatTokensToReadableValue({
-                    value: poolAsset.userWalletBalanceTokens,
-                    token: poolAsset.vToken.underlyingToken,
-                  })}
-                  bottomValue={formatCentsToReadableValue({
-                    value: poolAsset.userWalletBalanceCents,
-                  })}
-                />
-              );
-            }
-
-            if (column === 'userSupplyBalance') {
-              return (
-                <LayeredValues
-                  className={cn(isPaused && 'text-grey')}
-                  topValue={formatTokensToReadableValue({
-                    value: poolAsset.userSupplyBalanceTokens,
-                    token: poolAsset.vToken.underlyingToken,
-                  })}
-                  bottomValue={formatCentsToReadableValue({
-                    value: poolAsset.userSupplyBalanceCents,
-                  })}
-                />
-              );
-            }
-
-            if (column === 'userBorrowBalance') {
-              return (
-                <LayeredValues
-                  className={cn(isPaused && 'text-grey')}
-                  topValue={formatTokensToReadableValue({
-                    value: poolAsset.userBorrowBalanceTokens,
-                    token: poolAsset.vToken.underlyingToken,
-                  })}
-                  bottomValue={formatCentsToReadableValue({
-                    value: poolAsset.userBorrowBalanceCents,
-                  })}
-                />
-              );
-            }
-
-            if (column === 'supplyBalance') {
-              return (
-                <LayeredValues
-                  className={cn(isPaused && 'text-grey')}
-                  topValue={formatTokensToReadableValue({
-                    value: poolAsset.supplyBalanceTokens,
-                    token: poolAsset.vToken.underlyingToken,
-                  })}
-                  bottomValue={formatCentsToReadableValue({
-                    value: poolAsset.supplyBalanceCents,
-                  })}
-                />
-              );
-            }
-
-            if (column === 'borrowBalance') {
-              return (
-                <LayeredValues
-                  className={cn(isPaused && 'text-grey')}
-                  topValue={formatTokensToReadableValue({
-                    value: poolAsset.borrowBalanceTokens,
-                    token: poolAsset.vToken.underlyingToken,
-                  })}
-                  bottomValue={formatCentsToReadableValue({
-                    value: poolAsset.borrowBalanceCents,
-                  })}
-                />
-              );
-            }
-
-            if (column === 'userPercentOfLimit') {
-              return (
-                <div css={styles.userPercentOfLimit}>
-                  <span className={cn(isPaused ? 'text-grey' : 'text-offWhite')}>
-                    {formatPercentageToReadableValue(poolAsset.userPercentOfLimit)}
-                  </span>
-
-                  <ProgressBar
-                    min={0}
-                    max={100}
-                    value={poolAsset.userPercentOfLimit}
-                    step={1}
-                    ariaLabel={t('marketTable.columnKeys.userPercentOfLimit')}
-                    css={styles.percentOfLimitProgressBar}
+                {isPaused && (
+                  <InfoIcon
+                    iconClassName="text-orange"
+                    iconName="attention"
+                    tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
                   />
-                </div>
+                )}
+              </div>
+            );
+          }
+
+          if (
+            columnKey === 'supplyApyLtv' ||
+            columnKey === 'borrowApy' ||
+            columnKey === 'labeledSupplyApyLtv' ||
+            columnKey === 'labeledBorrowApy'
+          ) {
+            return (
+              <Apy
+                className={cn(isPaused && 'text-grey')}
+                asset={row.original}
+                column={columnKey}
+              />
+            );
+          }
+
+          if (columnKey === 'collateral') {
+            return row.original.collateralFactor || row.original.isCollateralOfUser ? (
+              <Toggle
+                onChange={() => collateralOnChange(row.original)}
+                value={row.original.isCollateralOfUser}
+              />
+            ) : (
+              PLACEHOLDER_KEY
+            );
+          }
+
+          if (columnKey === 'liquidity') {
+            return (
+              <LayeredValues
+                className={cn(isPaused && 'text-grey')}
+                topValue={formatTokensToReadableValue({
+                  value: row.original.cashTokens,
+                  token: row.original.vToken.underlyingToken,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: row.original.liquidityCents,
+                })}
+              />
+            );
+          }
+
+          if (columnKey === 'price') {
+            const { tokenPriceCents } = row.original;
+            const price = tokenPriceCents.isGreaterThan(PRICE_THRESHOLD)
+              ? tokenPriceCents
+              : new BigNumber(0);
+
+            return (
+              <span className={cn(isPaused && 'text-grey')}>
+                {formatCentsToReadableValue({
+                  value: price,
+                  isTokenPrice: true,
+                })}
+              </span>
+            );
+          }
+
+          if (columnKey === 'pool') {
+            const getTo = () => {
+              if (
+                areAddressesEqual(
+                  corePoolComptrollerContractAddress,
+                  row.original.pool.comptrollerAddress,
+                )
+              ) {
+                return routes.corePool.path;
+              }
+
+              if (
+                stakedEthPoolComptrollerContractAddress &&
+                areAddressesEqual(
+                  stakedEthPoolComptrollerContractAddress,
+                  row.original.pool.comptrollerAddress,
+                )
+              ) {
+                return routes.stakedEthPool.path;
+              }
+
+              return routes.isolatedPool.path.replace(
+                ':poolComptrollerAddress',
+                row.original.pool.comptrollerAddress,
               );
-            }
-          },
-          sortRows:
-            column === 'asset'
-              ? undefined
-              : (rowA, rowB, direction) => {
-                  if (column === 'borrowApy' || column === 'labeledBorrowApy') {
-                    const roaABorrowApy = rowA.borrowApyPercentage.minus(
-                      getCombinedDistributionApys({ asset: rowA }).totalBorrowApyPercentage,
-                    );
-                    const roaBBorrowApy = rowB.borrowApyPercentage.minus(
-                      getCombinedDistributionApys({ asset: rowB }).totalBorrowApyPercentage,
-                    );
+            };
 
-                    return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
-                  }
+            const to = getTo();
 
-                  if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
-                    const roaASupplyApy = rowA.supplyApyPercentage.plus(
-                      getCombinedDistributionApys({ asset: rowA }).totalSupplyApyPercentage,
-                    );
-                    const roaBSupplyApy = rowB.supplyApyPercentage.plus(
-                      getCombinedDistributionApys({ asset: rowB }).totalSupplyApyPercentage,
-                    );
+            return (
+              <div>
+                <Link
+                  onClick={e => e.stopPropagation()}
+                  to={to}
+                  className={cn(
+                    'hover:text-blue text-sm underline',
+                    isPaused ? 'text-grey' : 'text-offWhite',
+                  )}
+                >
+                  {row.original.pool.name}
+                </Link>
+              </div>
+            );
+          }
 
-                    return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);
-                  }
+          if (columnKey === 'userWalletBalance') {
+            return (
+              <LayeredValues
+                className={cn(isPaused && 'text-grey')}
+                topValue={formatTokensToReadableValue({
+                  value: row.original.userWalletBalanceTokens,
+                  token: row.original.vToken.underlyingToken,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: row.original.userWalletBalanceCents,
+                })}
+              />
+            );
+          }
 
-                  // Put rows of tokens that can't be enabled as collateral at the
-                  // bottom of the list
-                  if (column === 'collateral' && rowA.collateralFactor === 0) return 1;
-                  if (column === 'collateral' && rowB.collateralFactor === 0) return -1;
-                  // Sort other rows normally
-                  if (column === 'collateral') {
-                    return compareBooleans(
-                      rowA.isCollateralOfUser,
-                      rowB.isCollateralOfUser,
-                      direction,
-                    );
-                  }
+          if (columnKey === 'userSupplyBalance') {
+            return (
+              <LayeredValues
+                className={cn(isPaused && 'text-grey')}
+                topValue={formatTokensToReadableValue({
+                  value: row.original.userSupplyBalanceTokens,
+                  token: row.original.vToken.underlyingToken,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: row.original.userSupplyBalanceCents,
+                })}
+              />
+            );
+          }
 
-                  if (column === 'liquidity') {
-                    return compareBigNumbers(rowA.liquidityCents, rowB.liquidityCents, direction);
-                  }
+          if (columnKey === 'userBorrowBalance') {
+            return (
+              <LayeredValues
+                className={cn(isPaused && 'text-grey')}
+                topValue={formatTokensToReadableValue({
+                  value: row.original.userBorrowBalanceTokens,
+                  token: row.original.vToken.underlyingToken,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: row.original.userBorrowBalanceCents,
+                })}
+              />
+            );
+          }
 
-                  if (column === 'price') {
-                    return compareBigNumbers(rowA.tokenPriceCents, rowB.tokenPriceCents, direction);
-                  }
+          if (columnKey === 'supplyBalance') {
+            return (
+              <LayeredValues
+                className={cn(isPaused && 'text-grey')}
+                topValue={formatTokensToReadableValue({
+                  value: row.original.supplyBalanceTokens,
+                  token: row.original.vToken.underlyingToken,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: row.original.supplyBalanceCents,
+                })}
+              />
+            );
+          }
 
-                  if (column === 'pool') {
-                    return compareStrings(rowA.pool.name, rowB.pool.name, direction);
-                  }
+          if (columnKey === 'borrowBalance') {
+            return (
+              <LayeredValues
+                className={cn(isPaused && 'text-grey')}
+                topValue={formatTokensToReadableValue({
+                  value: row.original.borrowBalanceTokens,
+                  token: row.original.vToken.underlyingToken,
+                })}
+                bottomValue={formatCentsToReadableValue({
+                  value: row.original.borrowBalanceCents,
+                })}
+              />
+            );
+          }
 
-                  if (column === 'userWalletBalance') {
-                    return compareBigNumbers(
-                      rowA.userWalletBalanceCents,
-                      rowB.userWalletBalanceCents,
-                      direction,
-                    );
-                  }
+          if (columnKey === 'userPercentOfLimit') {
+            return (
+              <div className="flex items-center justify-end gap-x-2">
+                <span className={cn(isPaused ? 'text-grey' : 'text-offWhite')}>
+                  {formatPercentageToReadableValue(row.original.userPercentOfLimit)}
+                </span>
 
-                  if (column === 'userSupplyBalance') {
-                    return compareBigNumbers(
-                      rowA.userSupplyBalanceCents,
-                      rowB.userSupplyBalanceCents,
-                      direction,
-                    );
-                  }
-
-                  if (column === 'userBorrowBalance' || column === 'userPercentOfLimit') {
-                    return compareBigNumbers(
-                      rowA.userBorrowBalanceCents,
-                      rowB.userBorrowBalanceCents,
-                      direction,
-                    );
-                  }
-
-                  if (column === 'supplyBalance') {
-                    return compareBigNumbers(
-                      rowA.supplyBalanceCents,
-                      rowB.supplyBalanceCents,
-                      direction,
-                    );
-                  }
-
-                  if (column === 'borrowBalance') {
-                    return compareBigNumbers(
-                      rowA.borrowBalanceCents,
-                      rowB.borrowBalanceCents,
-                      direction,
-                    );
-                  }
-
-                  return 0;
-                },
-        };
-      }),
+                <ProgressBar
+                  min={0}
+                  max={100}
+                  value={row.original.userPercentOfLimit}
+                  step={1}
+                  ariaLabel={t('marketTable.columnKeys.userPercentOfLimit')}
+                  className="w-13"
+                />
+              </div>
+            );
+          }
+        },
+      })),
     [
       corePoolComptrollerContractAddress,
       stakedEthPoolComptrollerContractAddress,
@@ -437,7 +380,6 @@ const useGenerateColumns = ({
       Trans,
       t,
       collateralOnChange,
-      styles,
     ],
   );
 

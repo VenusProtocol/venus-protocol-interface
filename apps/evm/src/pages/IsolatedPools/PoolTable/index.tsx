@@ -11,6 +11,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Pool } from 'types';
 import { areAddressesEqual, formatCentsToReadableValue } from 'utilities';
 
+import { useNavigate } from 'hooks/useNavigate';
 import { useStyles } from './styles';
 
 interface PoolRow {
@@ -27,6 +28,7 @@ export interface PoolTableProps {
 export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const { navigate } = useNavigate();
 
   // Format pools into rows
   const data: PoolRow[] = useMemo(
@@ -51,69 +53,46 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
   const columns: TableColumn<PoolRow>[] = useMemo(
     () => [
       {
-        key: 'assets',
-        label: t('pools.poolTable.columns.assets'),
-        selectOptionLabel: t('pools.poolTable.columns.assets'),
-        renderCell: ({ pool }) => (
-          <TokenGroup tokens={pool.assets.map(asset => asset.vToken.underlyingToken)} limit={7} />
+        header: t('pools.poolTable.columns.assets'),
+        enableSorting: false,
+        meta: {
+          className: 'min-w-60',
+        },
+        cell: ({ row }) => (
+          <TokenGroup
+            tokens={row.original.pool.assets.map(asset => asset.vToken.underlyingToken)}
+            limit={7}
+          />
         ),
       },
       {
-        key: 'pool',
-        label: t('pools.poolTable.columns.pool'),
-        selectOptionLabel: t('pools.poolTable.columns.pool'),
-        align: 'right',
-        renderCell: ({ pool }) => pool.name,
-        sortRows: (rowA, rowB, direction) =>
-          direction === 'asc'
-            ? rowA.pool.name.localeCompare(rowB.pool.name)
-            : rowB.pool.name.localeCompare(rowA.pool.name),
+        accessorFn: row => row.pool.name,
+        header: t('pools.poolTable.columns.pool'),
+        cell: ({ row }) => row.original.pool.name,
       },
       {
-        key: 'totalSupply',
-        label: t('pools.poolTable.columns.totalSupply'),
-        selectOptionLabel: t('pools.poolTable.columns.totalSupply'),
-        align: 'right',
-        renderCell: ({ poolTotalSupplyCents }) =>
+        accessorFn: row => row.poolTotalSupplyCents.toNumber(),
+        header: t('pools.poolTable.columns.totalSupply'),
+        cell: ({ row }) =>
           formatCentsToReadableValue({
-            value: poolTotalSupplyCents,
+            value: row.original.poolTotalSupplyCents,
           }),
-        sortRows: (rowA, rowB, direction) =>
-          direction === 'asc'
-            ? rowA.poolTotalSupplyCents.minus(rowB.poolTotalSupplyCents).toNumber()
-            : rowB.poolTotalSupplyCents.minus(rowA.poolTotalSupplyCents).toNumber(),
       },
       {
-        key: 'totalBorrow',
-        label: t('pools.poolTable.columns.totalBorrow'),
-        selectOptionLabel: t('pools.poolTable.columns.totalBorrow'),
-        align: 'right',
-        renderCell: ({ poolTotalBorrowCents }) =>
+        accessorFn: row => row.poolTotalBorrowCents.toNumber(),
+        header: t('pools.poolTable.columns.totalBorrow'),
+        cell: ({ row }) =>
           formatCentsToReadableValue({
-            value: poolTotalBorrowCents,
+            value: row.original.poolTotalBorrowCents,
           }),
-        sortRows: (rowA, rowB, direction) =>
-          direction === 'asc'
-            ? rowA.poolTotalBorrowCents.minus(rowB.poolTotalBorrowCents).toNumber()
-            : rowB.poolTotalBorrowCents.minus(rowA.poolTotalBorrowCents).toNumber(),
       },
       {
-        key: 'liquidity',
-        label: t('pools.poolTable.columns.liquidity'),
-        selectOptionLabel: t('pools.poolTable.columns.liquidity'),
-        align: 'right',
-        renderCell: ({ poolTotalSupplyCents, poolTotalBorrowCents }) =>
+        accessorFn: row => row.poolTotalSupplyCents.minus(row.poolTotalBorrowCents).toNumber(),
+        header: t('pools.poolTable.columns.liquidity'),
+        cell: ({ row }) =>
           formatCentsToReadableValue({
-            value: poolTotalSupplyCents.minus(poolTotalBorrowCents),
+            value: row.original.poolTotalSupplyCents.minus(row.original.poolTotalBorrowCents),
           }),
-        sortRows: (rowA, rowB, direction) => {
-          const poolALiquidityCents = rowA.poolTotalSupplyCents.minus(rowA.poolTotalBorrowCents);
-          const poolBLiquidityCents = rowB.poolTotalSupplyCents.minus(rowB.poolTotalBorrowCents);
-
-          return direction === 'asc'
-            ? poolALiquidityCents.minus(poolBLiquidityCents).toNumber()
-            : poolBLiquidityCents.minus(poolALiquidityCents).toNumber();
-        },
       },
     ],
     [t],
@@ -123,15 +102,22 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
     <Table
       columns={columns}
       data={data}
-      initialOrder={{
-        orderBy: columns[4],
-        orderDirection: 'desc',
+      initialState={{
+        sorting: [
+          {
+            id: 'liquidity',
+            desc: true,
+          },
+        ],
       }}
-      rowKeyExtractor={row => `pool-table-row-${row.pool.comptrollerAddress}`}
-      getRowHref={row =>
-        routes.isolatedPool.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
+      onRowClick={(_e, row) =>
+        navigate(
+          routes.isolatedPool.path.replace(
+            ':poolComptrollerAddress',
+            row.original.pool.comptrollerAddress,
+          ),
+        )
       }
-      breakpoint="xxl"
       css={styles.cardContentGrid}
       isFetching={isFetchingPools}
     />

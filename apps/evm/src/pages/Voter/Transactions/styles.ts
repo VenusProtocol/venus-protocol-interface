@@ -20,20 +20,6 @@ export const useStyles = () => {
         margin: 0 0 ${theme.spacing(6)};
       }
     `,
-    cardContentGrid: css`
-      padding-top: ${theme.spacing(4)};
-      padding-bottom: ${theme.spacing(4)};
-
-      .table__table-cards__card-content {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr;
-        row-gap: ${theme.spacing(5)};
-      }
-
-      ${theme.breakpoints.down('sm')} {
-        background-color: transparent;
-      }
-    `,
     received: css`
       color: ${theme.palette.interactive.success};
       transform: rotate(270deg);

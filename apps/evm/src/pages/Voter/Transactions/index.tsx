@@ -33,11 +33,10 @@ export const Transactions: React.FC<TransactionsProps> = ({
   const columns: TableColumn<VoteDetail>[] = useMemo(
     () => [
       {
-        key: 'action',
-        label: t('voterDetail.actions'),
-        selectOptionLabel: t('voterDetail.actions'),
-        renderCell: transaction => {
-          switch (transaction.support) {
+        accessorKey: 'support',
+        header: t('voterDetail.actions'),
+        cell: ({ row }) => {
+          switch (row.original.support) {
             case VoteSupport.Against:
               return (
                 <div css={styles.row}>
@@ -71,20 +70,16 @@ export const Transactions: React.FC<TransactionsProps> = ({
         },
       },
       {
-        key: 'sent',
-        label: t('voterDetail.sent'),
-        selectOptionLabel: t('voterDetail.sent'),
-        renderCell: transaction =>
-          t('voterDetail.readableSent', { date: transaction.blockTimestamp }),
+        accessorKey: 'blockTimestamp',
+        header: t('voterDetail.sent'),
+        cell: ({ row }) => t('voterDetail.readableSent', { date: row.original.blockTimestamp }),
       },
       {
-        key: 'amount',
-        label: t('voterDetail.amount'),
-        selectOptionLabel: t('voterDetail.amount'),
-        align: 'right',
-        renderCell: transaction =>
+        accessorFn: row => row.votesMantissa.toNumber(),
+        header: t('voterDetail.amount'),
+        cell: ({ row }) =>
           convertMantissaToTokens({
-            value: transaction.votesMantissa,
+            value: row.original.votesMantissa,
             token: xvs,
             returnInReadableFormat: true,
           }),
@@ -100,13 +95,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
       </Typography>
 
       {voterTransactions?.length ? (
-        <Table
-          columns={columns}
-          data={voterTransactions}
-          rowKeyExtractor={row => `voter-transaction-table-row-${row.blockNumber}`}
-          breakpoint="sm"
-          css={styles.cardContentGrid}
-        />
+        <Table columns={columns} data={voterTransactions} />
       ) : (
         <Spinner css={styles.spinner} />
       )}

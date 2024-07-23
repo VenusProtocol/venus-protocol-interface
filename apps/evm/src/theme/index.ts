@@ -26,6 +26,7 @@ export const theme = {
     // The next colors are not in the UI kit, but are used throughout the designs
     mediumBlue: '#265ACC',
     darkBlue: '#1B4398',
+    nightBlue: '#202738',
   },
   fontSize: {
     xs: ['0.75rem', '1.5'],

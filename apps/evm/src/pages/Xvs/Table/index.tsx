@@ -13,7 +13,6 @@ import type { RewardDistributorDistribution, Token } from 'types';
 import {
   areTokensEqual,
   calculateYearlyPercentageRate,
-  compareBigNumbers,
   convertMantissaToTokens,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
@@ -41,52 +40,39 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets, xvs }) 
   const columns: TableColumn<TableAsset>[] = useMemo(
     () => [
       {
-        key: 'asset',
         label: t('xvs.columns.asset'),
-        selectOptionLabel: t('xvs.columns.asset'),
-        renderCell: ({ token }) => <TokenIconWithSymbol token={token} />,
+        header: t('xvs.columns.asset'),
+        cell: ({ row }) => <TokenIconWithSymbol token={row.original.token} />,
       },
       {
-        key: 'xvsPerDay',
-        label: t('xvs.columns.xvsPerDay'),
-        selectOptionLabel: t('xvs.columns.xvsPerDay'),
-        align: 'right',
-        renderCell: ({ xvsPerDay }) => (
+        accessorFn: row => row.xvsPerDay?.toNumber(),
+        header: t('xvs.columns.xvsPerDay'),
+        cell: ({ row }) => (
           <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
             {formatTokensToReadableValue({
-              value: xvsPerDay,
+              value: row.original.xvsPerDay,
               token: xvs,
             })}
           </Typography>
         ),
-        sortRows: (rowA, rowB, direction) =>
-          compareBigNumbers(rowA.xvsPerDay, rowB.xvsPerDay, direction),
       },
       {
-        key: 'supplyXvsApy',
-        label: t('xvs.columns.supplyXvsApy'),
-        selectOptionLabel: t('xvs.columns.supplyXvsApy'),
-        align: 'right',
-        renderCell: ({ xvsSupplyApy }) => (
+        accessorFn: row => row.xvsSupplyApy?.toNumber(),
+        header: t('xvs.columns.supplyXvsApy'),
+        cell: ({ row }) => (
           <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
-            {formatPercentageToReadableValue(xvsSupplyApy)}
+            {formatPercentageToReadableValue(row.original.xvsSupplyApy)}
           </Typography>
         ),
-        sortRows: (rowA, rowB, direction) =>
-          compareBigNumbers(rowA.xvsSupplyApy, rowB.xvsSupplyApy, direction),
       },
       {
-        key: 'borrowXvsApy',
-        label: t('xvs.columns.borrowXvsApy'),
-        selectOptionLabel: t('xvs.columns.borrowXvsApy'),
-        align: 'right',
-        renderCell: ({ xvsBorrowApy }) => (
+        accessorFn: row => row.xvsBorrowApy?.toNumber(),
+        header: t('xvs.columns.borrowXvsApy'),
+        cell: ({ row }) => (
           <Typography variant="small1" css={[styles.whiteText, styles.fontWeight400]}>
-            {formatPercentageToReadableValue(xvsBorrowApy)}
+            {formatPercentageToReadableValue(row.original.xvsBorrowApy)}
           </Typography>
         ),
-        sortRows: (rowA, rowB, direction) =>
-          compareBigNumbers(rowA.xvsBorrowApy, rowB.xvsBorrowApy, direction),
       },
     ],
     [t, xvs, styles.fontWeight400, styles.whiteText],
@@ -97,15 +83,14 @@ const XvsTableUi: React.FC<XvsTableProps> = ({ assets, isFetchingAssets, xvs }) 
       data={assets}
       columns={columns}
       isFetching={isFetchingAssets}
-      initialOrder={{
-        orderBy: columns[1],
-        orderDirection: 'desc',
+      initialState={{
+        sorting: [
+          {
+            id: 'xvsPerDay',
+            desc: true,
+          },
+        ],
       }}
-      rowKeyExtractor={row =>
-        `xvs-table-row-${row.token.address}-${row.xvsBorrowApy}-${row.xvsPerDay}-${row.xvsSupplyApy}`
-      }
-      breakpoint="sm"
-      css={styles.cardContentGrid}
     />
   );
 };

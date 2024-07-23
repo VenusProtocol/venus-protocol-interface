@@ -35,7 +35,6 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
 
       <MarketTable
         pools={[pool]}
-        breakpoint="xl"
         columns={[
           'asset',
           'supplyBalance',
@@ -45,9 +44,8 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
           'liquidity',
           'price',
         ]}
-        initialOrder={{
-          orderBy: 'labeledSupplyApyLtv',
-          orderDirection: 'desc',
+        initialState={{
+          sorting: [{ id: 'labeledSupplyApyLtv', desc: true }],
         }}
       />
     </>

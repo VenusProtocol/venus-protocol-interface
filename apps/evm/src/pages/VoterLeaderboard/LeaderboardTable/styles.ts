@@ -19,18 +19,5 @@ export const useStyles = () => {
         color: ${theme.palette.button.medium};
       }
     `,
-    cardContentGrid: css`
-      .table__table-cards__card-content {
-        ${theme.breakpoints.down('xl')} {
-          grid-template-columns: 1fr 1fr 1fr;
-          grid-template-rows: 1fr;
-        }
-
-        ${theme.breakpoints.down('md')} {
-          grid-template-columns: 1fr 1fr 1fr;
-          grid-template-rows: 1fr;
-        }
-      }
-    `,
   };
 };

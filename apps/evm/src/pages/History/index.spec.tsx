@@ -3,9 +3,10 @@ import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import transactions from '__mocks__/models/transactions';
+import vTokens from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useGetTransactions } from 'clients/api';
+import { useGetTransactions, useGetVTokens } from 'clients/api';
 
 import History from '.';
 
@@ -13,6 +14,13 @@ describe('pages/History', () => {
   beforeEach(() => {
     (useGetTransactions as Vi.Mock).mockImplementation(() => ({
       data: { transactions, total: 120 },
+      isLoading: false,
+    }));
+
+    (useGetVTokens as Vi.Mock).mockImplementation(() => ({
+      data: {
+        vTokens,
+      },
       isLoading: false,
     }));
   });
@@ -26,8 +34,18 @@ describe('pages/History', () => {
       routerInitialEntries: ['/?page=1'],
       routePath: '/',
     });
-    expect(useGetTransactions).toBeCalledTimes(1);
-    expect(useGetTransactions).toBeCalledWith({ from: undefined, event: undefined, page: 0 });
+    expect(useGetTransactions).toHaveBeenCalledTimes(1);
+    expect(useGetTransactions).toHaveBeenCalledWith(
+      {
+        from: undefined,
+        event: undefined,
+        page: 0,
+        vTokens,
+      },
+      {
+        enabled: true,
+      },
+    );
   });
 
   it('rerequests when toggling event filter', async () => {
@@ -41,8 +59,18 @@ describe('pages/History', () => {
         value: 'Mint',
       },
     });
-    expect(useGetTransactions).toBeCalledTimes(2);
-    expect(useGetTransactions).toBeCalledWith({ from: undefined, event: 'Mint', page: 0 });
+    expect(useGetTransactions).toHaveBeenCalledTimes(2);
+    expect(useGetTransactions).toHaveBeenCalledWith(
+      {
+        from: undefined,
+        event: 'Mint',
+        page: 0,
+        vTokens,
+      },
+      {
+        enabled: true,
+      },
+    );
   });
 
   it('rerequests when toggling addressFilter', async () => {
@@ -53,8 +81,18 @@ describe('pages/History', () => {
     });
     const myAddressCheckbox = getByRole('checkbox');
     fireEvent.click(myAddressCheckbox);
-    expect(useGetTransactions).toBeCalledTimes(2);
-    expect(useGetTransactions).toBeCalledWith({ from: fakeAddress, event: undefined, page: 0 });
+    expect(useGetTransactions).toHaveBeenCalledTimes(2);
+    expect(useGetTransactions).toHaveBeenCalledWith(
+      {
+        from: fakeAddress,
+        event: undefined,
+        page: 0,
+        vTokens,
+      },
+      {
+        enabled: true,
+      },
+    );
   });
 
   it('address filter is hidden with no wallet connected', async () => {
@@ -70,7 +108,17 @@ describe('pages/History', () => {
     });
     const pageTwoButton = getByText('2');
     fireEvent.click(pageTwoButton);
-    expect(useGetTransactions).toBeCalledTimes(2);
-    expect(useGetTransactions).toBeCalledWith({ from: undefined, event: undefined, page: 1 });
+    expect(useGetTransactions).toHaveBeenCalledTimes(2);
+    expect(useGetTransactions).toHaveBeenCalledWith(
+      {
+        from: undefined,
+        event: undefined,
+        page: 1,
+        vTokens,
+      },
+      {
+        enabled: true,
+      },
+    );
   });
 });

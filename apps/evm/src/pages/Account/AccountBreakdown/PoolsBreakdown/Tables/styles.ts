@@ -20,7 +20,7 @@ export const useStyles = () => {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: ${theme.spacing(3)};
+      margin-bottom: ${theme.spacing(4)};
 
       ${theme.breakpoints.down('md')} {
         display: block;
@@ -47,7 +47,7 @@ export const useStyles = () => {
       }
     `,
     tabletMarketTable: css`
-      padding: 0;
+      padding: ${theme.spacing(2, 0)};
       margin: ${theme.spacing(0, -6)};
 
       ${theme.breakpoints.down('md')} {

@@ -399,7 +399,6 @@
     "previewTabLabel": "Preview"
   },
   "market": {
-    "borrowButtonLabel": "Borrow",
     "borrowInfo": {
       "title": "Borrow info"
     },
@@ -445,7 +444,6 @@
       "totalBorrow": "Total borrow",
       "totalSupply": "Total supply"
     },
-    "supplyButtonLabel": "Supply",
     "supplyInfo": {
       "title": "Supply info"
     }
@@ -490,23 +488,6 @@
       "userPercentOfLimit": "% of limit",
       "userSupplyBalance": "Balance",
       "userWalletBalance": "Wallet"
-    },
-    "columnSelectOptionLabel": {
-      "asset": "Asset",
-      "borrowApy": "Borrow APY",
-      "borrowBalance": "Total borrow",
-      "collateral": "Collateral",
-      "labeledBorrowApy": "Borrow APY",
-      "labeledSupplyApyLtv": "Supply APY / LTV",
-      "liquidity": "Liquidity",
-      "pool": "Pool",
-      "price": "Price",
-      "supplyApyLtv": "Supply APY / LTV",
-      "supplyBalance": "Total supply",
-      "userBorrowBalance": "Borrow balance",
-      "userPercentOfLimit": "% of limit",
-      "userSupplyBalance": "Supply balance",
-      "userWalletBalance": "Wallet balance"
     },
     "columnTooltips": {
       "borrowApy": "A positive borrow APY means you'll pay interest and a negative one means you'll earn interest",
@@ -795,9 +776,7 @@
     "walletBalance": "Wallet balance"
   },
   "table": {
-    "cardsSelect": {
-      "label": "Sort by"
-    }
+    "noResultPlaceholder": "No results"
   },
   "transactionErrors": {
     "acceptAdminPendingAdminCheck": "Accept Admin Pending Admin Check",

@@ -54,26 +54,25 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
   const columns: TableColumn<Transaction>[] = useMemo(
     () => [
       {
-        key: 'type',
-        label: t('history.columns.type'),
-        selectOptionLabel: t('history.columns.type'),
-        renderCell: transaction =>
-          transaction.token && (
+        accessorKey: 'event',
+        header: t('history.columns.type'),
+        cell: ({ row }) =>
+          row.original.token && (
             <>
               <div css={[styles.whiteText, styles.typeCol, hideXlDownCss]}>
-                <TokenIcon token={transaction.token} css={styles.icon} />
+                <TokenIcon token={row.original.token} css={styles.icon} />
 
                 <Typography variant="small2" color="textPrimary">
-                  {eventTranslationKeys[transaction.event]}
+                  {eventTranslationKeys[row.original.event]}
                 </Typography>
               </div>
 
               <div css={[styles.cardTitle, showXlDownCss]}>
                 <div css={styles.typeCol}>
-                  <TokenIcon token={transaction.token} css={styles.icon} />
+                  <TokenIcon token={row.original.token} css={styles.icon} />
 
                   <Typography variant="small2" color="textPrimary">
-                    {transaction.event}
+                    {row.original.event}
                   </Typography>
                 </div>
               </div>
@@ -81,79 +80,74 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
           ),
       },
       {
-        key: 'hash',
-        label: t('history.columns.hash'),
-        selectOptionLabel: t('history.columns.hash'),
-        renderCell: transaction => (
+        accessorKey: 'hash',
+        header: t('history.columns.hash'),
+        cell: ({ row }) => (
           <Link
             href={generateChainExplorerUrl({
-              hash: transaction.transactionHash,
+              hash: row.original.transactionHash,
               urlType: 'tx',
               chainId,
             })}
             className="text-blue"
           >
-            <EllipseAddress address={transaction.transactionHash} />
+            <EllipseAddress address={row.original.transactionHash} />
           </Link>
         ),
       },
       {
-        key: 'block',
-        label: t('history.columns.block'),
-        selectOptionLabel: t('history.columns.block'),
-        renderCell: transaction => (
+        accessorKey: 'blockNumber',
+        header: t('history.columns.block'),
+        cell: ({ row }) => (
           <Typography variant="small2" color="textPrimary">
-            {transaction.blockNumber}
+            {row.original.blockNumber}
           </Typography>
         ),
       },
       {
-        key: 'from',
-        label: t('history.columns.from'),
-        selectOptionLabel: t('history.columns.from'),
-        renderCell: transaction => (
+        accessorKey: 'from',
+        header: t('history.columns.from'),
+        cell: ({ row }) => (
           <Link
             href={generateChainExplorerUrl({
-              hash: transaction.from,
+              hash: row.original.from,
               urlType: 'address',
               chainId,
             })}
             className="text-blue"
           >
-            <EllipseAddress address={transaction.from} />
+            <EllipseAddress address={row.original.from} />
           </Link>
         ),
       },
       {
-        key: 'to',
-        label: t('history.columns.to'),
-        selectOptionLabel: t('history.columns.to'),
-        renderCell: transaction =>
-          transaction.to ? (
+        accessorKey: 'to',
+        header: t('history.columns.to'),
+        cell: ({ row }) =>
+          row.original.to ? (
             <Link
               href={generateChainExplorerUrl({
-                hash: transaction.to,
+                hash: row.original.to,
                 urlType: 'address',
                 chainId,
               })}
               className="text-blue"
             >
-              <EllipseAddress address={transaction.to} />
+              <EllipseAddress address={row.original.to} />
             </Link>
           ) : (
             PLACEHOLDER_KEY
           ),
       },
       {
-        key: 'amount',
-        label: t('history.columns.amount'),
-        selectOptionLabel: t('history.columns.amount'),
-        renderCell: transaction =>
-          transaction.token && (
+        accessorFn: row => row.amountMantissa.toNumber(),
+        header: t('history.columns.amount'),
+        cell: ({ row }) =>
+          row.original.token && (
             <Typography variant="small2" css={styles.whiteText}>
               {convertMantissaToTokens({
-                value: transaction.amountMantissa,
-                token: transaction.token,
+                value: row.original.amountMantissa,
+                token: row.original.token,
                 returnInReadableFormat: true,
 
                 addSymbol: false,
@@ -162,13 +156,12 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
           ),
       },
       {
-        key: 'created',
-        label: t('history.columns.created'),
-        selectOptionLabel: t('history.columns.created'),
-        renderCell: transaction => (
+        accessorKey: 'timestamp',
+        header: t('history.columns.created'),
+        cell: ({ row }) => (
           <Typography variant="small2" css={styles.whiteText}>
             {t('history.createdAt', {
-              date: transaction.timestamp,
+              date: row.original.timestamp,
             })}
           </Typography>
         ),
@@ -187,29 +180,18 @@ export const HistoryTableUi: React.FC<HistoryTableProps> = ({ transactions, isFe
     ],
   );
 
-  const cardColumns = useMemo(() => {
-    // Copy columns to order them for mobile
-    const newColumns = [...columns];
-    // Place account as the third position on the top row
-    const [amountCol] = newColumns.splice(5, 1);
-    newColumns.splice(3, 0, amountCol);
-    return newColumns;
-  }, [columns]);
-
   return (
     <Table
       columns={columns}
-      cardColumns={cardColumns}
       data={transactions}
-      initialOrder={{
-        orderBy: columns[1],
-        orderDirection: 'desc',
+      initialState={{
+        sorting: [
+          {
+            id: 'block',
+            desc: true,
+          },
+        ],
       }}
-      rowKeyExtractor={row =>
-        `history-table-row-${row.transactionHash}-${row.logIndex}-${row.amountMantissa}-${row.category}-${row.from}-${row.to}-${row.event}-${row.token.address}-${row.blockNumber}`
-      }
-      breakpoint="xl"
-      css={styles.cardContentGrid}
       isFetching={isFetching}
     />
   );

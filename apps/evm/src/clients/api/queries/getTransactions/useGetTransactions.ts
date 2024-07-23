@@ -4,15 +4,11 @@ import getTransactions, {
   type GetTransactionsInput,
   type GetTransactionsOutput,
 } from 'clients/api/queries/getTransactions';
-import useGetVTokens from 'clients/api/queries/getVTokens/useGetVTokens';
 import FunctionKey from 'constants/functionKey';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { generatePseudoRandomRefetchInterval } from 'utilities';
 
-type TrimmedGetTransactionsInput = Omit<
-  GetTransactionsInput,
-  'vTokens' | 'tokens' | 'defaultToken'
->;
+type TrimmedGetTransactionsInput = Omit<GetTransactionsInput, 'tokens' | 'defaultToken'>;
 
 type Options = QueryObserverOptions<
   GetTransactionsOutput,
@@ -25,9 +21,6 @@ type Options = QueryObserverOptions<
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Partial<Options>) => {
-  const { data: getVTokenData } = useGetVTokens();
-  const vTokens = getVTokenData?.vTokens || [];
-
   const tokens = useGetTokens();
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -35,11 +28,10 @@ const useGetTransactions = (params: TrimmedGetTransactionsInput, options?: Parti
 
   return useQuery({
     queryKey: [FunctionKey.GET_TRANSACTIONS, params],
-    queryFn: () => getTransactions({ ...params, vTokens, tokens, defaultToken: xvs || tokens[0] }),
+    queryFn: () => getTransactions({ ...params, tokens, defaultToken: xvs || tokens[0] }),
     placeholderData: keepPreviousData,
     refetchInterval,
     ...options,
-    enabled: vTokens.length > 0 && (!options || options.enabled),
   });
 };
 

@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import _cloneDeep from 'lodash/cloneDeep';
 import { useMemo } from 'react';
 
 import { EllipseAddress, Table, type TableColumn } from 'components';
@@ -33,30 +32,27 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
   const columns: TableColumn<VoterAccount>[] = useMemo(
     () => [
       {
-        key: 'rank',
-        label: t('voterLeaderboard.columns.rank'),
-        selectOptionLabel: t('voterLeaderboard.columns.rank'),
-        renderCell: (voter, rowIndex) => (
+        accessorFn: (_row, index) => index + 1 + offset,
+        header: t('voterLeaderboard.columns.rank'),
+        cell: ({ row }) => (
           <Typography css={styles.inline} color="textPrimary" variant="small2" component="div">
-            {rowIndex + 1 + offset}
+            {row.index + 1 + offset}
             <Link
-              to={routes.governanceVoter.path.replace(':address', voter.address)}
+              to={routes.governanceVoter.path.replace(':address', row.original.address)}
               css={styles.address}
             >
-              <EllipseAddress address={voter.address} ellipseBreakpoint="lg" />
+              <EllipseAddress address={row.original.address} ellipseBreakpoint="lg" />
             </Link>
           </Typography>
         ),
       },
       {
-        key: 'votes',
-        label: t('voterLeaderboard.columns.votes'),
-        selectOptionLabel: t('voterLeaderboard.columns.votes'),
-        align: 'right',
-        renderCell: voter => (
+        accessorFn: row => row.votesMantissa.toNumber(),
+        header: t('voterLeaderboard.columns.votes'),
+        cell: ({ row }) => (
           <Typography color="textPrimary" variant="small2">
             {convertMantissaToTokens({
-              value: voter.votesMantissa,
+              value: row.original.votesMantissa,
               token: xvs,
               returnInReadableFormat: true,
               addSymbol: false,
@@ -65,24 +61,20 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         ),
       },
       {
-        key: 'voteWeight',
-        label: t('voterLeaderboard.columns.voteWeight'),
-        selectOptionLabel: t('voterLeaderboard.columns.voteWeight'),
-        align: 'right',
-        renderCell: voter => (
+        accessorFn: row => +row.voteWeightPercent,
+        header: t('voterLeaderboard.columns.voteWeight'),
+        cell: ({ row }) => (
           <Typography color="textPrimary" variant="small2">
-            {formatPercentageToReadableValue(voter.voteWeightPercent)}
+            {formatPercentageToReadableValue(row.original.voteWeightPercent)}
           </Typography>
         ),
       },
       {
-        key: 'proposalsVoted',
-        label: t('voterLeaderboard.columns.proposalsVoted'),
-        selectOptionLabel: t('voterLeaderboard.columns.proposalsVoted'),
-        align: 'right',
-        renderCell: voter => (
+        accessorKey: 'proposalsVoted',
+        header: t('voterLeaderboard.columns.proposalsVoted'),
+        cell: ({ row }) => (
           <Typography color="textPrimary" variant="small2">
-            {voter.proposalsVoted}
+            {row.original.proposalsVoted}
           </Typography>
         ),
       },
@@ -90,27 +82,20 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
     [offset, xvs, t, styles.address, styles.inline],
   );
 
-  const cardColumns = useMemo(() => {
-    const newColumns = _cloneDeep(columns);
-    newColumns[2].align = 'center';
-    newColumns[3].align = 'left';
-    return newColumns;
-  }, [columns]);
-
   return (
     <Table
       title={t('voterLeaderboard.addressesByVotingWeight')}
       columns={columns}
-      cardColumns={cardColumns}
       data={voterAccounts}
       isFetching={isFetching}
-      initialOrder={{
-        orderBy: columns[0],
-        orderDirection: 'asc',
+      initialState={{
+        sorting: [
+          {
+            id: 'rank',
+            desc: false,
+          },
+        ],
       }}
-      rowKeyExtractor={row => `voter-leaderboard-table-row-${row.address}`}
-      breakpoint="xl"
-      css={styles.cardContentGrid}
     />
   );
 };

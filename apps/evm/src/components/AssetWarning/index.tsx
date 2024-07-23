@@ -71,14 +71,18 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
         })}
       >
         <MarketTable
-          testId={TEST_IDS.marketTable}
-          rowOnClick={handleHideAssets}
+          data-testid={TEST_IDS.marketTable}
+          onRowClick={handleHideAssets}
           className="my-0 p-0 sm:p-0"
           pools={[pool]}
           columns={['asset', type === 'borrow' ? 'labeledBorrowApy' : 'supplyApyLtv', 'liquidity']}
-          initialOrder={{
-            orderBy: type === 'borrow' ? 'labeledBorrowApy' : 'supplyApyLtv',
-            orderDirection: type === 'borrow' ? 'desc' : 'asc',
+          initialState={{
+            sorting: [
+              {
+                id: type === 'borrow' ? 'labeledBorrowApy' : 'supplyApyLtv',
+                desc: type === 'borrow',
+              },
+            ],
           }}
         />
       </Modal>

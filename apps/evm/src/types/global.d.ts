@@ -1,4 +1,11 @@
+import '@tanstack/react-table';
 import type { WindowProvider } from 'wagmi/window';
+
+declare module '@tanstack/react-table' {
+  interface ColumnMeta<_TData extends RowData, _TValue> {
+    className?: string;
+  }
+}
 
 declare global {
   interface WindowEthereum extends WindowProvider {

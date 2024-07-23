@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
 
-import { useGetTransactions } from 'clients/api';
+import { useGetTransactions, useGetVTokens } from 'clients/api';
 import { Pagination } from 'components';
 import { useUrlPagination } from 'hooks/useUrlPagination';
 import { useAccountAddress } from 'libs/wallet';
@@ -49,8 +49,10 @@ export const HistoryUi: React.FC<HistoryUiProps> = ({
 
 const History: React.FC = () => {
   const { currentPage, setCurrentPage } = useUrlPagination();
-
   const { accountAddress } = useAccountAddress();
+
+  const { data: getVTokenData, isLoading: isGetVTokensLoading } = useGetVTokens();
+  const vTokens = getVTokenData?.vTokens || [];
 
   const [eventType, setEventType] = useState<TransactionEvent | typeof ALL_VALUE>(ALL_VALUE);
 
@@ -66,15 +68,22 @@ const History: React.FC = () => {
     isRefetching: isGetTransactionsRefetching,
     isFetching: isGetTransactionsFetching,
     isPlaceholderData: isGetTransactionsPreviousData,
-  } = useGetTransactions({
-    page: currentPage,
-    from: showOnlyMyTxns ? accountAddress : undefined,
-    event: eventType !== ALL_VALUE ? eventType : undefined,
-  });
+  } = useGetTransactions(
+    {
+      page: currentPage,
+      from: showOnlyMyTxns ? accountAddress : undefined,
+      event: eventType !== ALL_VALUE ? eventType : undefined,
+      vTokens,
+    },
+    {
+      enabled: vTokens.length > 0,
+    },
+  );
 
   const isFetching =
-    (isGetTransactionsFetching || isGetTransactionsRefetching) &&
-    (isGetTransactionsPreviousData || transactions.length === 0);
+    isGetVTokensLoading ||
+    ((isGetTransactionsFetching || isGetTransactionsRefetching) &&
+      (isGetTransactionsPreviousData || transactions.length === 0));
 
   return (
     <HistoryUi

@@ -95,11 +95,5 @@ export const useStyles = () => {
     fontWeight400: css`
       font-weight: 400;
     `,
-    cardContentGrid: css`
-      .table__table-cards__card-content {
-        grid-template-columns: 1fr 1fr minmax(${theme.spacing(30)}, 1fr);
-        grid-template-rows: 1fr;
-      }
-    `,
   };
 };

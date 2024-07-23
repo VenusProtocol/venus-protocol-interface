@@ -109,7 +109,6 @@ const Dashboard: React.FC = () => {
       <MarketTable
         pools={formattedPools}
         isFetching={isGetPoolsLoading}
-        breakpoint="lg"
         columns={[
           'asset',
           'pool',
@@ -118,13 +117,10 @@ const Dashboard: React.FC = () => {
           'labeledBorrowApy',
           'liquidity',
         ]}
-        marketType="supply"
-        initialOrder={{
-          orderBy: 'labeledSupplyApyLtv',
-          orderDirection: 'desc',
+        initialState={{
+          sorting: [{ id: 'labeledSupplyApyLtv', desc: true }],
         }}
-        testId={TEST_IDS.marketTable}
-        key="dashboard-market-table"
+        data-testid={TEST_IDS.marketTable}
       />
     </>
   );

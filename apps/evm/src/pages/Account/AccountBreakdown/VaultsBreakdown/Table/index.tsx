@@ -1,19 +1,13 @@
-/** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { Table, type TableProps, TokenIconWithSymbol } from 'components';
-import { routes } from 'constants/routing';
+import { Table, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
-import {
-  compareBigNumbers,
-  compareNumbers,
-  convertMantissaToTokens,
-  formatPercentageToReadableValue,
-} from 'utilities';
+import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
-import { useStyles } from './styles';
+import { routes } from 'constants/routing';
+import { useNavigate } from 'hooks/useNavigate';
 
 export interface VaultTableProps {
   vaults: Vault[];
@@ -21,38 +15,32 @@ export interface VaultTableProps {
 
 export const VaultTable: React.FC<VaultTableProps> = ({ vaults }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
+  const { navigate } = useNavigate();
 
-  const tableColumns: TableProps<Vault>['columns'] = useMemo(
+  const tableColumns: TableColumn<Vault>[] = useMemo(
     () => [
       {
-        key: 'asset',
-        label: t('account.vaultsBreakdown.table.column.asset'),
-        selectOptionLabel: t('account.vaultsBreakdown.table.column.asset'),
-        renderCell: vault => <TokenIconWithSymbol token={vault.stakedToken} />,
+        accessorKey: 'asset',
+        header: t('account.vaultsBreakdown.table.column.asset'),
+        cell: ({ row }) => <TokenIconWithSymbol token={row.original.stakedToken} />,
       },
       {
-        key: 'apr',
-        label: t('account.vaultsBreakdown.table.column.apr'),
-        selectOptionLabel: t('account.vaultsBreakdown.table.column.apr'),
-        renderCell: vault => formatPercentageToReadableValue(vault.stakingAprPercentage),
-        sortRows: (rowA, rowB, direction) =>
-          compareNumbers(rowA.stakingAprPercentage, rowB.stakingAprPercentage, direction),
+        accessorKey: 'apr',
+        accessorFn: row => row.stakingAprPercentage,
+        header: t('account.vaultsBreakdown.table.column.apr'),
+        cell: ({ row }) => formatPercentageToReadableValue(row.original.stakingAprPercentage),
       },
       {
-        key: 'stake',
-        label: t('account.vaultsBreakdown.table.column.stake'),
-        selectOptionLabel: t('account.vaultsBreakdown.table.column.stake'),
-        renderCell: vault =>
+        accessorFn: row => row.userStakedMantissa?.toNumber(),
+        header: t('account.vaultsBreakdown.table.column.stake'),
+        cell: ({ row }) =>
           convertMantissaToTokens({
-            value: new BigNumber(vault.userStakedMantissa || 0),
-            token: vault.stakedToken,
+            value: new BigNumber(row.original.userStakedMantissa || 0),
+            token: row.original.stakedToken,
 
             returnInReadableFormat: true,
             addSymbol: true,
           }),
-        sortRows: (rowA, rowB, direction) =>
-          compareBigNumbers(rowA.userStakedMantissa, rowB.userStakedMantissa, direction),
       },
     ],
     [t],
@@ -60,21 +48,19 @@ export const VaultTable: React.FC<VaultTableProps> = ({ vaults }) => {
 
   return (
     <Table
-      css={styles.table}
       title={t('account.vaultsBreakdown.table.title')}
+      className="lg:w-[calc(50%-1rem)]"
       data={vaults}
       columns={tableColumns}
-      rowKeyExtractor={row =>
-        `account-vaults-breakdown-table-item-${row.stakedToken.address}-${
-          row.rewardToken.address
-        }-${row.poolIndex || 0}-${row.lockingPeriodMs || 0}`
-      }
-      initialOrder={{
-        orderBy: tableColumns[2], // Order by stake initially
-        orderDirection: 'desc',
+      onRowClick={() => navigate(routes.vaults.path)}
+      initialState={{
+        sorting: [
+          {
+            id: 'stake',
+            desc: true,
+          },
+        ],
       }}
-      getRowHref={() => routes.vaults.path}
-      breakpoint="xs"
     />
   );
 };
