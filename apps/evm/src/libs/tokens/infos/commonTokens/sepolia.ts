@@ -3,6 +3,7 @@ import crvLogo from 'libs/tokens/img/crv.svg';
 import crvUsdLogo from 'libs/tokens/img/crvUsd.svg';
 import daiLogo from 'libs/tokens/img/dai.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
+import ezEthLogo from 'libs/tokens/img/ezEth.png';
 import fraxLogo from 'libs/tokens/img/frax.svg';
 import ptWeethLogo from 'libs/tokens/img/ptWeeth.svg';
 import rsEthLogo from 'libs/tokens/img/rsEth.svg';
@@ -124,5 +125,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'sfrxETH',
     asset: sfrxEthLogo,
+  },
+  {
+    address: '0xB8eb706b85Ae7355c9FE4371a499F50f3484809c',
+    decimals: 18,
+    symbol: 'ezETH',
+    asset: ezEthLogo,
   },
 ];
