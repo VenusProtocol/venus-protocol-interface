@@ -70,6 +70,12 @@ export const featureFlags = {
     ChainId.ARBITRUM_SEPOLIA,
     ChainId.ARBITRUM_ONE,
   ],
+  multichainGovernance: [
+    ChainId.BSC_TESTNET,
+    ChainId.SEPOLIA,
+    ChainId.OPBNB_TESTNET,
+    ChainId.ARBITRUM_SEPOLIA,
+  ],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
