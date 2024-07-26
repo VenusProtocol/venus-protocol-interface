@@ -6,6 +6,7 @@ import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 import { useTranslation } from 'libs/translations';
 import type { DescriptionV1, DescriptionV2, ProposalAction, Token } from 'types';
 
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useStyles } from './styles';
 
 interface DescriptionSummary {
@@ -23,6 +24,9 @@ export const Description: React.FC<DescriptionSummary> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const isMultichainGovernanceFeatureEnabled = useIsFeatureEnabled({
+    name: 'multichainGovernance',
+  });
 
   return (
     <Card css={styles.root} className={className}>
@@ -54,17 +58,22 @@ export const Description: React.FC<DescriptionSummary> = ({
             </ul>
           </>
         )}
-        <Typography variant="h4" color="textSecondary" css={styles.section}>
-          {t('voteProposalUi.operation')}
-        </Typography>
 
-        {actions.map(action => (
-          <ReadableActionSignature
-            key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
-            action={action}
-            tokens={tokens}
-          />
-        ))}
+        {!isMultichainGovernanceFeatureEnabled && (
+          <>
+            <Typography variant="h4" color="textSecondary" css={styles.section}>
+              {t('voteProposalUi.operation')}
+            </Typography>
+
+            {actions.map(action => (
+              <ReadableActionSignature
+                key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
+                action={action}
+                tokens={tokens}
+              />
+            ))}
+          </>
+        )}
       </div>
     </Card>
   );
