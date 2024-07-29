@@ -14,6 +14,7 @@ import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet'
 import { ProposalState, type Proposal as ProposalType, type Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
+import { Commands } from './Commands';
 import { Description } from './Description';
 import ProposalSummary from './ProposalSummary';
 import VoteModal from './VoteModal';
@@ -39,7 +40,10 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   isVoteLoading,
 }) => {
   const { switchChain } = useSwitchChain();
-  const voteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
+  const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
+  const isMultichainGovernanceFeatureEnabled = useIsFeatureEnabled({
+    name: 'multichainGovernance',
+  });
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -57,7 +61,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
     <div css={styles.root}>
       <ProposalSummary css={styles.summary} proposal={proposal} />
 
-      {!voteProposalFeatureEnabled && (
+      {!isVoteProposalFeatureEnabled && (
         <NoticeInfo
           className="mb-6 w-full"
           data-testid={TEST_IDS.votingDisabledWarning}
@@ -74,6 +78,8 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
       )}
 
+      {isMultichainGovernanceFeatureEnabled && <Commands className="mb-6" />}
+
       <div css={styles.votes}>
         <VoteSummary
           css={styles.vote}
@@ -83,7 +89,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.forVotes}
           openVoteModal={() => setVoteModalType(1)}
           progressBarColor={styles.successColor}
-          votingEnabled={votingEnabled && voteProposalFeatureEnabled}
+          votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
           testId={TEST_IDS.voteSummary.for}
         />
 
@@ -95,7 +101,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.againstVotes}
           openVoteModal={() => setVoteModalType(0)}
           progressBarColor={styles.againstColor}
-          votingEnabled={votingEnabled && voteProposalFeatureEnabled}
+          votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
           testId={TEST_IDS.voteSummary.against}
         />
 
@@ -107,7 +113,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.abstainVotes}
           openVoteModal={() => setVoteModalType(2)}
           progressBarColor={styles.abstainColor}
-          votingEnabled={votingEnabled && voteProposalFeatureEnabled}
+          votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
           testId={TEST_IDS.voteSummary.abstain}
         />
       </div>
@@ -118,7 +124,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         tokens={tokens}
       />
 
-      {voteProposalFeatureEnabled && voteModalType !== undefined && (
+      {isVoteProposalFeatureEnabled && voteModalType !== undefined && (
         <VoteModal
           voteModalType={voteModalType}
           handleClose={() => setVoteModalType(undefined)}

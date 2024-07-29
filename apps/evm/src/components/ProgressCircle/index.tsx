@@ -1,21 +1,28 @@
-/** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
-import useProgressColor from 'hooks/useProgressColor';
+import { useTheme } from '@mui/material';
 
-import { useStyles } from './styles';
-
-export interface ProgressCircleProps {
+export interface ProgressCircleProps extends React.HTMLAttributes<SVGElement> {
   value: number;
+  size?: 'sm' | 'md';
+  fillColor?: string;
 }
 
-export const ProgressCircle: React.FC<ProgressCircleProps> = ({ value }) => {
-  const styles = useStyles();
-  const progressColor = useProgressColor(value);
+export const ProgressCircle: React.FC<ProgressCircleProps> = ({
+  value,
+  fillColor,
+  size = 'md',
+  ...otherProps
+}) => {
+  const theme = useTheme();
+
+  const strokeWidthPx = size === 'sm' ? 2 : 4;
+  const sizePx = size === 'sm' ? 16 : 40;
 
   const { radius, circumference, offset } = useMemo(() => {
-    const tmpRadius = 6;
-    const tmpCircumference = 2 * Math.PI * tmpRadius;
+    const radius = Math.min(sizePx, sizePx) / 2 - strokeWidthPx;
+    const tmpRadius = size === 'sm' ? 6 : 18;
+    const tmpCircumference = 2 * Math.PI * radius;
     const tmpOffset = -1 * ((100 - value) / 100) * tmpCircumference;
 
     return {
@@ -23,19 +30,29 @@ export const ProgressCircle: React.FC<ProgressCircleProps> = ({ value }) => {
       circumference: tmpCircumference,
       offset: tmpOffset,
     };
-  }, [value]);
+  }, [value, size, sizePx, strokeWidthPx]);
 
   return (
-    <svg viewBox="0 0 16px 16px" css={styles.container}>
-      <circle fill="transparent" r={radius} cx="8" cy="8" css={styles.circleBackground} />
-
+    <svg width={sizePx} height={sizePx} {...otherProps}>
       <circle
-        css={styles.getCircle({ circumference, offset })}
-        stroke={progressColor}
+        stroke="rgba(255,255,255,0.12)"
+        strokeWidth={strokeWidthPx}
         fill="transparent"
         r={radius}
-        cx="8"
-        cy="8"
+        cx={sizePx / 2}
+        cy={sizePx / 2}
+      />
+
+      <circle
+        className="-rotate-90 origin-[50%_50%]"
+        strokeDasharray={circumference}
+        strokeDashoffset={offset}
+        stroke={fillColor || theme.palette.interactive.success}
+        strokeWidth={strokeWidthPx}
+        fill="transparent"
+        r={radius}
+        cx={sizePx / 2}
+        cy={sizePx / 2}
       />
     </svg>
   );

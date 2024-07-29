@@ -399,7 +399,6 @@
     "previewTabLabel": "Preview"
   },
   "market": {
-    "borrowButtonLabel": "Borrow",
     "borrowInfo": {
       "title": "Borrow info"
     },
@@ -445,7 +444,6 @@
       "totalBorrow": "Total borrow",
       "totalSupply": "Total supply"
     },
-    "supplyButtonLabel": "Supply",
     "supplyInfo": {
       "title": "Supply info"
     }
@@ -1133,6 +1131,11 @@
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "cancelButtonLabel": "Cancel",
     "cancelledDate": "Cancelled: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "commands": {
+      "allPayloadsExecuted": "All payloads executed",
+      "somePayloadsExecuted": "Executed payloads",
+      "title": "Commands"
+    },
     "countdownFormat": {
       "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
       "hoursIncluded": "{{hours}}h : {{minutes}}m : {{seconds}}s",

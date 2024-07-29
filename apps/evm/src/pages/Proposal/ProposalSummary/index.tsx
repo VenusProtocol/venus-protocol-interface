@@ -63,7 +63,10 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
   }) => {
     const styles = useStyles();
     const { t, Trans } = useTranslation();
-    const voteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
+    const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
+    const isMultichainGovernanceFeatureEnabled = useIsFeatureEnabled({
+      name: 'multichainGovernance',
+    });
 
     const {
       state,
@@ -224,30 +227,31 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
                   text={transactionHash}
                   urlType="tx"
                   hash={transactionHash}
-                  css={styles.transactionLink}
                   ellipseBreakpoint="xxl"
                   chainId={config.isOnTestnet ? ChainId.BSC_TESTNET : ChainId.BSC_MAINNET}
                 />
               )}
             </div>
 
-            {voteProposalFeatureEnabled && <div>{updateProposalButton}</div>}
+            {isVoteProposalFeatureEnabled && updateProposalButton}
           </div>
         </div>
 
-        <div css={styles.rightSection}>
-          <Typography css={styles.rightTitle}>{t('voteProposalUi.proposalHistory')}</Typography>
+        {!isMultichainGovernanceFeatureEnabled && (
+          <div css={styles.rightSection}>
+            <Typography css={styles.rightTitle}>{t('voteProposalUi.proposalHistory')}</Typography>
 
-          <Stepper
-            createdDate={createdDate}
-            startDate={startDate}
-            cancelDate={cancelDate}
-            queuedDate={queuedDate}
-            executedDate={executedDate}
-            endDate={endDate}
-            state={state}
-          />
-        </div>
+            <Stepper
+              createdDate={createdDate}
+              startDate={startDate}
+              cancelDate={cancelDate}
+              queuedDate={queuedDate}
+              executedDate={executedDate}
+              endDate={endDate}
+              state={state}
+            />
+          </div>
+        )}
       </Card>
     );
   };

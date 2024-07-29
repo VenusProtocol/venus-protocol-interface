@@ -15,12 +15,7 @@ export const useStyles = () => {
       display: flex;
       flex-direction: column;
       flex: 3;
-      border-right: ${theme.spacing(0.25)} solid ${theme.palette.secondary.light};
       padding: ${theme.spacing(6)};
-
-      ${theme.breakpoints.down('lg')} {
-        border-right: none;
-      }
     `,
     topRow: css`
       display: flex;
@@ -38,8 +33,11 @@ export const useStyles = () => {
       flex-direction: column;
       margin-left: ${theme.spacing(6)};
       padding: ${theme.spacing(6)};
+      border-left: ${theme.spacing(0.25)} solid ${theme.palette.secondary.light};
+
       ${theme.breakpoints.down('lg')} {
         border-top: ${theme.spacing(0.25)} solid ${theme.palette.secondary.light};
+        border-left: none;
         margin-left: 0;
       }
     `,
@@ -62,9 +60,6 @@ export const useStyles = () => {
       ${theme.breakpoints.down('sm')} {
         border-left: 0;
       }
-    `,
-    transactionLink: css`
-      margin-bottom: ${theme.spacing(8)};
     `,
     content: css`
       display: flex;
