@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 2.132.0
+
+### Minor Changes
+
+- ea7b207: hide operations when multichainGovernance feature is enabled
+- ff6eae0: add median user averages for Prime estimations in Ethereum
+- 8f39ec2: Add Commands component under Proposal page
+
+### Patch Changes
+
+- 8126a05: Add support for the ezETH token
+- 7d39f90: Add multichainGovernance feature flag
+
 ## 2.131.1
 
 ### Patch Changes
