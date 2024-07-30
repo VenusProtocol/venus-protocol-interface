@@ -39,7 +39,7 @@ vi.mock('hooks/useVote');
 vi.mock('hooks/useIsFeatureEnabled');
 
 const activeProposal = proposals[1];
-const cancelledProposal = proposals[3];
+const canceledProposal = proposals[3];
 const succeededProposal = proposals[4];
 const queuedProposal = proposals[5];
 
@@ -114,7 +114,7 @@ describe('pages/Proposal', () => {
 
   it('vote buttons are hidden when proposal is not active', async () => {
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
-      data: cancelledProposal,
+      data: canceledProposal,
     }));
 
     const { queryByText } = renderComponent(<Proposal />, {

@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import {
+  Accordion,
   Icon,
   LabeledInlineContent,
   type LabeledInlineContentProps,
-  SecondaryAccordion,
   Tooltip,
   ValueUpdate,
 } from 'components';
@@ -172,7 +172,7 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
   }
 
   return (
-    <SecondaryAccordion
+    <Accordion
       title={
         <div className="flex items-center gap-x-2">
           <p className="text-sm md:text-base">{t('assetInfo.totalApy.label')}</p>
@@ -200,6 +200,6 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
           <LabeledInlineContent {...row} key={row.label} />
         ))}
       </div>
-    </SecondaryAccordion>
+    </Accordion>
   );
 };

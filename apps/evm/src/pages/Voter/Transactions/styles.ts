@@ -65,8 +65,8 @@ export const useStyles = () => {
 
       svg {
         color: ${theme.palette.text.primary};
-        width: ${theme.spacing(2)};
-        height: ${theme.spacing(2)};
+        width: ${theme.spacing(3)};
+        height: ${theme.spacing(3)};
       }
     `,
     for: css`

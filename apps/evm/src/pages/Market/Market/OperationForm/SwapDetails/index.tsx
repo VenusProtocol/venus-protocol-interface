@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { Accordion, LabeledInlineContent } from 'components';
 import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -9,8 +10,6 @@ import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue
 import { useTranslation } from 'libs/translations';
 import type { Swap } from 'types';
 import { cn, formatPercentageToReadableValue } from 'utilities';
-
-import { LabeledInlineContent, SecondaryAccordion } from 'components';
 
 const readableSlippageTolerancePercentage = formatPercentageToReadableValue(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -61,7 +60,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
   );
 
   return (
-    <SecondaryAccordion
+    <Accordion
       title={
         action === 'repay'
           ? t('operationForm.swapDetails.label.repay')
@@ -98,7 +97,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
           </span>
         </LabeledInlineContent>
       </div>
-    </SecondaryAccordion>
+    </Accordion>
   );
 };
 

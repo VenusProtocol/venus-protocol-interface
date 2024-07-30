@@ -60,7 +60,7 @@ const Stepper: React.FC<StepperProps> = ({
 
     const FailIcon = () => (
       <span css={[styles.iconContainer, styles.errorIconContainer]}>
-        <Icon name="closeRounded" css={styles.closeIcon} />
+        <Icon name="close" css={styles.closeIcon} className="text-offWhite" />
       </span>
     );
 

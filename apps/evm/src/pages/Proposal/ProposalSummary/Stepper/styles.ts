@@ -92,14 +92,12 @@ export const useStyles = () => {
       }
     `,
     closeIcon: css`
-      margin-top: 1px;
-      height: ${theme.spacing(2)};
-      width: ${theme.spacing(2)};
+      height: ${theme.spacing(4)};
+      width: ${theme.spacing(4)};
     `,
     markIcon: css`
-      margin-top: 1px;
-      height: ${theme.spacing(2)};
-      width: ${theme.spacing(2)};
+      height: ${theme.spacing(4)};
+      width: ${theme.spacing(4)};
     `,
     iconContainer: css`
       height: ${theme.spacing(6)};

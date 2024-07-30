@@ -134,6 +134,32 @@ export interface Pool {
   userBorrowLimitCents?: BigNumber;
 }
 
+export enum ProposalCommandState {
+  Pending,
+  Bridged,
+  Active,
+  Canceled,
+  Defeated,
+  Succeeded,
+  Queued,
+  Expired,
+  Executed,
+}
+
+export interface ProposalCommand {
+  chainId: ChainId;
+  state: ProposalCommandState;
+  actionSignatures: ProposalAction[];
+  bridgedAt?: Date;
+  canceledAt?: Date;
+  queuedAt?: Date;
+  succeededAt?: Date;
+  failedExecutionAt?: Date;
+  executableAt?: Date;
+  executedAt?: Date;
+  expiredAt?: Date;
+}
+
 export enum ProposalState {
   Pending,
   Active,
