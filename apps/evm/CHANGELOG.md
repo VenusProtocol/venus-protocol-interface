@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.133.0
+
+### Minor Changes
+
+- b39baef: Update icon of Aave token
+
 ## 2.132.0
 
 ### Minor Changes
