@@ -1,26 +1,16 @@
 import { Button, Icon, type IconName } from 'components';
-import { isBefore } from 'date-fns/isBefore';
-import { useNow } from 'hooks/useNow';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useTranslation } from 'libs/translations';
+import { useSwitchChain } from 'libs/wallet';
 import { useMemo } from 'react';
 import { type ProposalCommand, ProposalCommandState } from 'types';
 import { cn } from 'utilities';
-
-const getStatusColor = (state: ProposalCommandState) => {
-  if (state === ProposalCommandState.Executed) {
-    return 'text-green';
-  }
-
-  if (state === ProposalCommandState.Canceled || state === ProposalCommandState.Expired) {
-    return 'text-red';
-  }
-
-  return 'text-offWhite';
-};
+import { useCommand } from '../useCommand';
 
 export type CtaProps = React.HTMLAttributes<HTMLDivElement> &
   Pick<
     ProposalCommand,
+    | 'chainId'
     | 'state'
     | 'failedExecutionAt'
     | 'canceledAt'
@@ -33,6 +23,7 @@ export type CtaProps = React.HTMLAttributes<HTMLDivElement> &
   >;
 
 export const Cta: React.FC<CtaProps> = ({
+  chainId,
   state,
   failedExecutionAt,
   canceledAt,
@@ -43,12 +34,33 @@ export const Cta: React.FC<CtaProps> = ({
   expiredAt,
   ...otherProps
 }) => {
+  const { isOnWrongChain, isExecutable, hasFailedExecution } = useCommand({
+    chainId,
+    state,
+    executableAt,
+    failedExecutionAt,
+    executedAt,
+  });
+  const { switchChain } = useSwitchChain();
+  const chainMetadata = CHAIN_METADATA[chainId];
+
   const { t } = useTranslation();
-  const now = useNow();
 
   // TODO: wire up (see VEN-2701)
   const execute = () => {};
   const retry = () => {};
+
+  const getStatusColor = () => {
+    if (state === ProposalCommandState.Executed) {
+      return 'text-green';
+    }
+
+    if (state === ProposalCommandState.Canceled || state === ProposalCommandState.Expired) {
+      return 'text-red';
+    }
+
+    return 'text-offWhite';
+  };
 
   const getIconName = (): IconName => {
     if (state === ProposalCommandState.Executed) {
@@ -128,17 +140,39 @@ export const Cta: React.FC<CtaProps> = ({
     return tmpNextStepDate;
   }, [state, executableAt, queuedAt]);
 
+  const getButtonLabel = () => {
+    if (isOnWrongChain) {
+      return t('voteProposalUi.command.cta.wrongChain', {
+        chainName: chainMetadata.name,
+      });
+    }
+
+    if (hasFailedExecution) {
+      return t('voteProposalUi.command.cta.retry');
+    }
+
+    return t('voteProposalUi.command.cta.execute');
+  };
+
+  const onButtonClick = () => {
+    if (isOnWrongChain) {
+      return switchChain({ chainId });
+    }
+
+    if (hasFailedExecution) {
+      return retry();
+    }
+
+    return execute();
+  };
+
   return (
     <div {...otherProps}>
-      {state === ProposalCommandState.Queued && executableAt && isBefore(executableAt, now) ? (
-        <Button onClick={failedExecutionAt ? retry : execute}>
-          {failedExecutionAt
-            ? t('voteProposalUi.command.cta.retry')
-            : t('voteProposalUi.command.cta.execute')}
-        </Button>
+      {isExecutable ? (
+        <Button onClick={onButtonClick}>{getButtonLabel()}</Button>
       ) : (
         <>
-          <div className={cn('flex items-center justify-end gap-x-1', getStatusColor(state))}>
+          <div className={cn('flex items-center justify-end gap-x-1', getStatusColor())}>
             <Icon className="text-inherit w-5 h-5" name={getIconName()} />
 
             <span className="text-sm font-semibold">{getStatusText()}</span>

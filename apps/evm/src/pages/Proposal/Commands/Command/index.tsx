@@ -9,6 +9,7 @@ import { useMemo, useState } from 'react';
 import { type ProposalCommand, ProposalCommandState } from 'types';
 import { cn } from 'utilities';
 import { Cta } from './Cta';
+import { useCommand } from './useCommand';
 
 export type CommandProps = React.HTMLAttributes<HTMLDivElement> & ProposalCommand & {};
 
@@ -33,38 +34,46 @@ export const Command: React.FC<CommandProps> = ({
   const toggleAccordion = () => setIsOpen(prevState => !prevState);
   const now = useNow();
 
-  const { description } = useMemo(() => {
-    let tmpDescription = '';
+  const { isOnWrongChain, isExecutable, hasFailedExecution } = useCommand({
+    chainId,
+    state,
+    executableAt,
+    failedExecutionAt,
+    executedAt,
+  });
 
+  const description = useMemo(() => {
     switch (state) {
       case ProposalCommandState.Pending:
-        tmpDescription = t('voteProposalUi.command.description.pending');
-        break;
+        return t('voteProposalUi.command.description.pending');
       case ProposalCommandState.Bridged:
-        tmpDescription = t('voteProposalUi.command.description.bridged');
-        break;
+        return t('voteProposalUi.command.description.bridged');
       case ProposalCommandState.Canceled:
-        tmpDescription = t('voteProposalUi.command.description.canceled');
-        break;
+        return t('voteProposalUi.command.description.canceled');
       case ProposalCommandState.Queued:
         if (!executableAt || isAfter(executableAt, now)) {
-          tmpDescription = t('voteProposalUi.command.description.waitingToBeExecutable');
-        } else if (failedExecutionAt && !executedAt) {
-          tmpDescription = t('voteProposalUi.command.description.executionFailed');
+          return t('voteProposalUi.command.description.waitingToBeExecutable');
+        }
+
+        if (isOnWrongChain) {
+          return t('voteProposalUi.command.description.wrongChain', {
+            chainName: chainMetadata.name,
+          });
+        }
+
+        if (hasFailedExecution) {
+          return t('voteProposalUi.command.description.executionFailed');
         }
         break;
     }
-
-    return {
-      description: tmpDescription,
-    };
-  }, [t, state, executableAt, failedExecutionAt, executedAt, now]);
+  }, [t, state, executableAt, hasFailedExecution, now, chainMetadata, isOnWrongChain]);
 
   return (
     <div {...otherProps}>
       <div className="md:flex md:justify-between">
         <div className="float-right md:float-none md:order-2">
           <Cta
+            chainId={chainId}
             state={state}
             bridgedAt={bridgedAt}
             canceledAt={canceledAt}
@@ -104,8 +113,9 @@ export const Command: React.FC<CommandProps> = ({
           {!!description && (
             <p
               className={cn(
-                'text-sm mt-1 md:pl-8',
-                failedExecutionAt && !executedAt ? 'text-red' : 'text-grey',
+                'text-sm mt-2 md:mt-1 md:pl-8 text-grey',
+                hasFailedExecution && 'text-red',
+                isOnWrongChain && isExecutable && 'text-orange',
               )}
             >
               {description}

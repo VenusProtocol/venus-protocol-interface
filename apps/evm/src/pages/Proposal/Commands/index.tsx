@@ -9,7 +9,7 @@ const fakePastDate = new Date(new Date().getTime() - 60000);
 const fakeFutureAt = new Date(new Date().getTime() + 5000);
 const commands: ProposalCommand[] = [
   {
-    chainId: ChainId.BSC_MAINNET,
+    chainId: ChainId.BSC_TESTNET,
     state: ProposalCommandState.Executed,
     bridgedAt: fakePastDate,
     queuedAt: fakePastDate,
@@ -33,7 +33,7 @@ const commands: ProposalCommand[] = [
     ],
   },
   {
-    chainId: ChainId.OPBNB_MAINNET,
+    chainId: ChainId.OPBNB_TESTNET,
     state: ProposalCommandState.Bridged,
     bridgedAt: fakePastDate,
     queuedAt: fakePastDate,
@@ -55,7 +55,7 @@ const commands: ProposalCommand[] = [
     ],
   },
   {
-    chainId: ChainId.ETHEREUM,
+    chainId: ChainId.SEPOLIA,
     state: ProposalCommandState.Queued,
     bridgedAt: fakePastDate,
     queuedAt: fakePastDate,
@@ -78,7 +78,7 @@ const commands: ProposalCommand[] = [
     ],
   },
   {
-    chainId: ChainId.ETHEREUM,
+    chainId: ChainId.SEPOLIA,
     state: ProposalCommandState.Queued,
     bridgedAt: fakePastDate,
     queuedAt: fakePastDate,
@@ -101,7 +101,7 @@ const commands: ProposalCommand[] = [
     ],
   },
   {
-    chainId: ChainId.ETHEREUM,
+    chainId: ChainId.OPBNB_TESTNET,
     state: ProposalCommandState.Queued,
     bridgedAt: fakePastDate,
     queuedAt: fakePastDate,
@@ -125,7 +125,7 @@ const commands: ProposalCommand[] = [
     ],
   },
   {
-    chainId: ChainId.ARBITRUM_ONE,
+    chainId: ChainId.ARBITRUM_SEPOLIA,
     state: ProposalCommandState.Canceled,
     bridgedAt: fakePastDate,
     queuedAt: fakePastDate,
@@ -149,7 +149,7 @@ const commands: ProposalCommand[] = [
     ],
   },
   {
-    chainId: ChainId.ARBITRUM_ONE,
+    chainId: ChainId.ARBITRUM_SEPOLIA,
     state: ProposalCommandState.Executed,
     bridgedAt: fakePastDate,
     queuedAt: fakePastDate,
