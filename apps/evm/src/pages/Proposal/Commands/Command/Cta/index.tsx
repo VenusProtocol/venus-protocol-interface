@@ -154,7 +154,9 @@ export const Cta: React.FC<CtaProps> = ({
     return t('voteProposalUi.command.cta.execute');
   };
 
-  const onButtonClick = () => {
+  const onButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
     if (isOnWrongChain) {
       return switchChain({ chainId });
     }
@@ -169,7 +171,9 @@ export const Cta: React.FC<CtaProps> = ({
   return (
     <div {...otherProps}>
       {isExecutable ? (
-        <Button onClick={onButtonClick}>{getButtonLabel()}</Button>
+        <Button className="w-full" onClick={onButtonClick}>
+          {getButtonLabel()}
+        </Button>
       ) : (
         <>
           <div className={cn('flex items-center justify-end gap-x-1', getStatusColor())}>

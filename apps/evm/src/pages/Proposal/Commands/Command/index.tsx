@@ -70,34 +70,19 @@ export const Command: React.FC<CommandProps> = ({
 
   return (
     <div {...otherProps}>
-      <div className="md:flex md:justify-between">
-        <div className="float-right md:float-none md:order-2">
-          <Cta
-            chainId={chainId}
-            state={state}
-            bridgedAt={bridgedAt}
-            canceledAt={canceledAt}
-            queuedAt={queuedAt}
-            succeededAt={succeededAt}
-            failedExecutionAt={failedExecutionAt}
-            executableAt={executableAt}
-            executedAt={executedAt}
-            expiredAt={expiredAt}
-          />
-        </div>
-
-        <div
-          className={cn(
-            'text-left cursor-pointer md:flex-1 md:mr-3',
-            !description && 'flex flex-col justify-center',
-          )}
-          onClick={toggleAccordion}
-        >
-          <div className="md:flex md:items-center">
+      <div
+        className={cn(
+          'sm:flex sm:justify-between sm:gap-x-3 cursor-pointer',
+          !isExecutable && 'flex justify-between gap-x-3',
+        )}
+        onClick={toggleAccordion}
+      >
+        <div className={cn('text-left flex-1', !description && 'flex flex-col justify-center')}>
+          <div className="flex items-center gap-x-2">
             <img
               src={chainMetadata.logoSrc}
               alt={chainMetadata.name}
-              className="w-5 max-w-none flex-none mb-3 md:mb-0 md:mr-3"
+              className="w-5 max-w-none flex-none"
             />
 
             <div className="flex items-center">
@@ -113,7 +98,7 @@ export const Command: React.FC<CommandProps> = ({
           {!!description && (
             <p
               className={cn(
-                'text-sm mt-2 md:mt-1 md:pl-8 text-grey',
+                'text-sm mt-3 md:pl-8 md:mt-1 text-grey',
                 hasFailedExecution && 'text-red',
                 isOnWrongChain && isExecutable && 'text-orange',
               )}
@@ -122,28 +107,43 @@ export const Command: React.FC<CommandProps> = ({
             </p>
           )}
         </div>
+
+        <Cta
+          className={cn(isExecutable && 'mt-3')}
+          chainId={chainId}
+          state={state}
+          bridgedAt={bridgedAt}
+          canceledAt={canceledAt}
+          queuedAt={queuedAt}
+          succeededAt={succeededAt}
+          failedExecutionAt={failedExecutionAt}
+          executableAt={executableAt}
+          executedAt={executedAt}
+          expiredAt={expiredAt}
+        />
       </div>
 
-      <AccordionAnimatedContent isOpen={isOpen}>
-        <div className="pt-3 text-sm md:pl-8">
-          <div className="flex items-center">
-            <Icon name="document" className="mr-2 w-5 h-5" />
+      <AccordionAnimatedContent
+        className="mt-3 text-sm md:ml-8 max-w-[700px] md:mt-2"
+        isOpen={isOpen}
+      >
+        <div className="flex items-center">
+          <Icon name="document" className="mr-2 w-5 h-5" />
 
-            <p className="text-offWhite font-semibold">
-              {t('voteProposalUi.command.operations.title')}
-            </p>
-          </div>
+          <p className="text-offWhite font-semibold">
+            {t('voteProposalUi.command.operations.title')}
+          </p>
+        </div>
 
-          <div className="mt-1 break-all text-grey md:pl-7">
-            {actionSignatures.map(action => (
-              <ReadableActionSignature
-                className="text-sm"
-                key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
-                action={action}
-                tokens={tokens}
-              />
-            ))}
-          </div>
+        <div className="mt-1 break-all text-grey md:pl-7">
+          {actionSignatures.map(action => (
+            <ReadableActionSignature
+              className="text-sm"
+              key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
+              action={action}
+              tokens={tokens}
+            />
+          ))}
         </div>
       </AccordionAnimatedContent>
     </div>
