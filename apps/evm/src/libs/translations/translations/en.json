@@ -1130,7 +1130,37 @@
   "voteProposalUi": {
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "cancelButtonLabel": "Cancel",
-    "cancelledDate": "Cancelled: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "canceledDate": "Canceled: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "command": {
+      "cta": {
+        "execute": "Execute",
+        "retry": "Retry"
+      },
+      "dates": {
+        "executableIn": "Executable on {{date, }}",
+        "previousStep": "{{date, }}",
+        "queuedIn": "Queued on {{date, }}"
+      },
+      "description": {
+        "bridged": "Waiting for the bridge to propagate the transaction",
+        "canceled": "Payload execution cancelled by governance guardian",
+        "executionFailed": "Payload execution failed. Please try again.",
+        "pending": "Waiting for the BNB chain payload to be executed",
+        "waitingToBeExecutable": "Waiting for queueing period to end"
+      },
+      "operations": {
+        "title": "Operations"
+      },
+      "status": {
+        "bridged": "Bridged",
+        "canceled": "Canceled",
+        "executed": "Executed",
+        "expired": "Expired",
+        "pending": "Pending",
+        "queued": "Queued",
+        "succeeded": "Succeeded"
+      }
+    },
     "commands": {
       "allPayloadsExecuted": "All payloads executed",
       "somePayloadsExecuted": "Executed payloads",

@@ -18,7 +18,7 @@ export const Progress: React.FC<ProgressProps> = ({
 
   return (
     <div className={cn('flex items-center', className)} {...otherProps}>
-      <p className={cn('text-sm hidden sm:block', isComplete ? 'text-green' : 'text-grey')}>
+      <p className={cn('text-sm', isComplete ? 'text-green' : 'text-grey hidden sm:block')}>
         {isComplete
           ? t('voteProposalUi.commands.allPayloadsExecuted')
           : t('voteProposalUi.commands.somePayloadsExecuted')}

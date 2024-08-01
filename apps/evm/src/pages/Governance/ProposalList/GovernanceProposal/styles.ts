@@ -42,12 +42,12 @@ export const useStyles = () => {
       background-color: ${theme.palette.interactive.error};
     `,
     icon: css`
-      width: ${theme.shape.iconSize.medium}px;
-      height: ${theme.shape.iconSize.medium}px;
+      width: ${theme.spacing(6)};
+      height: ${theme.spacing(6)};
       color: white;
       ${theme.breakpoints.down('sm')} {
-        width: ${theme.shape.iconSize.small}px;
-        height: ${theme.shape.iconSize.small}px;
+        width: ${theme.spacing(4)};
+        height: ${theme.spacing(4)};
       }
     `,
     iconCheck: css`

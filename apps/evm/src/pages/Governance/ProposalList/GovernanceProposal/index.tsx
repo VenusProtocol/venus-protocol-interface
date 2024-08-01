@@ -25,7 +25,7 @@ import TEST_IDS from './testIds';
 
 // Translation keys: do not remove this comment
 // t('voteProposalUi.activeUntilDate')
-// t('voteProposalUi.cancelledDate')
+// t('voteProposalUi.canceledDate')
 // t('voteProposalUi.executedDate')
 // t('voteProposalUi.queuedUntilDate')
 // t('voteProposalUi.defeatedDate')
@@ -68,7 +68,7 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
       },
       [ProposalState.Defeated]: {
         iconWrapperCss: styles.iconCloseWrapper,
-        iconName: 'closeRounded',
+        iconName: 'close',
         label,
       },
       [ProposalState.Succeeded]: {
@@ -78,12 +78,12 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
       },
       [ProposalState.Expired]: {
         iconWrapperCss: styles.iconCloseWrapper,
-        iconName: 'closeRounded',
+        iconName: 'close',
         label,
       },
       [ProposalState.Canceled]: {
         iconWrapperCss: styles.iconCloseWrapper,
-        iconName: 'closeRounded',
+        iconName: 'close',
         label,
       },
     };
@@ -166,7 +166,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       case ProposalState.Active:
         return [endDate, 'voteProposalUi.activeUntilDate'];
       case ProposalState.Canceled:
-        return [cancelDate, 'voteProposalUi.cancelledDate'];
+        return [cancelDate, 'voteProposalUi.canceledDate'];
       case ProposalState.Executed:
         return [executedDate, 'voteProposalUi.executedDate'];
       case ProposalState.Queued:

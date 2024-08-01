@@ -1,56 +1,39 @@
-/** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
-import MuiAccordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-
+import { useState } from 'react';
+import { cn } from 'utilities';
+import { AccordionAnimatedContent } from '../AccordionAnimatedContent';
 import { Icon } from '../Icon';
-import { useStyles } from './styles';
 
-export interface AccordionProps {
-  className?: string;
-  expanded: boolean;
-  onChange: (index: number | undefined) => void;
-  id: number;
-  title: string;
-  rightAdornment?: React.ReactElement;
-  children?: React.ReactNode;
+export interface AccordionProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+  title?: string | React.ReactNode;
+  rightLabel?: string | React.ReactNode;
 }
 
 export const Accordion: React.FC<AccordionProps> = ({
-  className,
-  expanded,
-  onChange,
-  id,
-  title,
-  rightAdornment,
   children,
+  title,
+  rightLabel,
+  ...otherProps
 }) => {
-  const styles = useStyles();
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
-  const handleChange =
-    (actionIdx: number) => (_event: React.SyntheticEvent, newExpandedIdx: boolean) => {
-      onChange(newExpandedIdx ? actionIdx : undefined);
-    };
   return (
-    <MuiAccordion
-      className={className}
-      expanded={expanded}
-      onChange={handleChange(id)}
-      css={styles.accordionRoot}
-    >
-      <AccordionSummary
-        aria-controls={`panel${id}-content`}
-        id={`panel${id}-header`}
-        css={styles.accordionSummary}
+    <div {...otherProps}>
+      <button
+        className="flex items-center justify-between w-full h-6"
+        type="button"
+        onClick={toggle}
       >
-        <div css={styles.accordionLeft}>
-          <Icon name="arrowUp" css={styles.arrow(expanded)} className="w-5 h-5" />
-          <Typography color={expanded ? 'textPrimary' : 'textSecondary'}>{title}</Typography>
+        {!!title && <span className="text-grey">{title}</span>}
+
+        <div className="ml-auto justify-self-end flex items-center gap-x-1">
+          {!!rightLabel && <span>{rightLabel}</span>}
+
+          <Icon name="arrowUp" className={cn('text-grey w-5 h-5', !isOpen && 'rotate-180')} />
         </div>
-        {rightAdornment || <div />}
-      </AccordionSummary>
-      <AccordionDetails css={styles.content}>{children}</AccordionDetails>
-    </MuiAccordion>
+      </button>
+
+      <AccordionAnimatedContent isOpen={isOpen}>{children}</AccordionAnimatedContent>
+    </div>
   );
 };

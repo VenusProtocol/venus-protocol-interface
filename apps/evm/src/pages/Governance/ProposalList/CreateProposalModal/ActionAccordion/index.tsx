@@ -3,10 +3,11 @@ import { ethers } from 'ethers';
 import { FieldArray, useField } from 'formik';
 import { useState } from 'react';
 
-import { Accordion, FormikTextField, Icon, SecondaryButton } from 'components';
+import { FormikTextField, Icon, SecondaryButton } from 'components';
 import { useTranslation } from 'libs/translations';
 
 import { ErrorCode, initialActionData } from '../proposalSchema';
+import { Accordion } from './Accordion';
 import CallDataFields from './CallDataFields';
 import { useStyles } from './styles';
 
