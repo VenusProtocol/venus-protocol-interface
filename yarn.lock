@@ -13073,9 +13073,9 @@ i18next-browser-languagedetector@7.1.0:
     "@babel/runtime" "^7.19.4"
 
 i18next-parser@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/i18next-parser/-/i18next-parser-9.0.0.tgz#7cd8d2cdc27a25e783670ce05ab2798d7e4da634"
-  integrity sha512-ZguWdu91Qthd001ilX8LdkYrlyYJM8pefnmgTXKTQwd8M2RJAlTCd2ww5uEyAUQe2jxzqSxfTh6XTOJbw5qP5A==
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/i18next-parser/-/i18next-parser-9.0.1.tgz#208917d1e6b524dcee81aaa6b71ef7572cbc1832"
+  integrity sha512-/Pr93/yEBdwsMKRsk4Zn63K368ALhzh8BRVrM6JNGOHy86ZKpiNJI6m8l1S/4T4Ofy1J4dlwkD7N98M70GP4aA==
   dependencies:
     "@babel/runtime" "^7.23.2"
     broccoli-plugin "^4.0.7"
