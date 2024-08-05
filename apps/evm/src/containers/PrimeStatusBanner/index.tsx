@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import {
   useClaimPrimeToken,
-  useGetLegacyPool,
+  useGetPools,
   useGetPrimeStatus,
   useGetPrimeToken,
   useGetXvsVaultUserInfo,
@@ -22,7 +22,7 @@ import { displayMutationError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { AssetDistribution, Token } from 'types';
+import type { Token } from 'types';
 import { cn, convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';
@@ -353,25 +353,30 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     },
   );
 
-  const { data: getLegacyPoolData, isLoading: isGetLegacyPoolDataLoading } = useGetLegacyPool({
+  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
 
-  const primeAssets = getLegacyPoolData?.pool.assets.filter(a =>
-    primeStatusData?.primeMarkets.includes(a.vToken.address),
-  );
-  const primeApySimulations = primeAssets?.reduce<AssetDistribution[]>(
-    (acc, a) =>
-      acc.concat(
-        a.supplyDistributions
-          .concat(a.borrowDistributions)
-          .filter(d => d.type === 'primeSimulation'),
+  const highestPrimeSimulationApyBoostPercentage = useMemo(() => {
+    const pools = getPoolsData?.pools || [];
+
+    let highestApyPercentage: BigNumber | undefined;
+
+    pools.forEach(pool =>
+      pool.assets.forEach(asset =>
+        asset.supplyDistributions.concat(asset.borrowDistributions).forEach(distribution => {
+          if (
+            distribution.type === 'primeSimulation' &&
+            (!highestApyPercentage || distribution.apyPercentage.gt(highestApyPercentage))
+          ) {
+            highestApyPercentage = distribution.apyPercentage;
+          }
+        }),
       ),
-    [],
-  );
-  const primeOrderedApys = primeApySimulations
-    ?.reduce<BigNumber[]>((acc, s) => acc.concat(s.apyPercentage), [])
-    .sort((a, b) => b.minus(a).toNumber());
+    );
+
+    return highestApyPercentage;
+  }, [getPoolsData]);
 
   const { data: userStakedXvsTokensData, isLoading: isLoadingXvsVaultUserInfo } =
     useGetXvsVaultUserInfo(
@@ -397,7 +402,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     isGetPrimeTokenLoading ||
     isLoadingPrimeStatus ||
     isLoadingXvsVaultUserInfo ||
-    isGetLegacyPoolDataLoading;
+    isGetPoolsLoading;
 
   // Hide component while loading or if user is Prime already
   if (isAccountPrime || isLoading || !primeStatusData) {
@@ -422,10 +427,6 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
     token: xvs,
   });
 
-  const highestPrimeSimulationApyBoostPercentage = primeOrderedApys
-    ? primeOrderedApys[0]
-    : undefined;
-
   return (
     <PrimeStatusBannerUi
       xvs={xvs!}
@@ -439,7 +440,7 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
       minXvsToStakeForPrimeTokens={minXvsToStakeForPrimeTokens}
       highestPrimeSimulationApyBoostPercentage={highestPrimeSimulationApyBoostPercentage}
       isClaimPrimeTokenLoading={isClaimPrimeTokenLoading}
-      hidePromotionalTitle={!!highestPrimeSimulationApyBoostPercentage}
+      hidePromotionalTitle={!highestPrimeSimulationApyBoostPercentage}
       {...props}
     />
   );
