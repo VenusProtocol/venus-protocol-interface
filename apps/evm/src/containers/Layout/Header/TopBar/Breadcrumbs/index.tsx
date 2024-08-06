@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 import { type Params, matchPath, useLocation } from 'react-router-dom';
 
@@ -101,18 +100,16 @@ export const Breadcrumbs: React.FC = () => {
           hrefFragment = Subdirectory.VOTER.replace(':address', params.address || '');
 
           dom = (
-            <div className="inline-flex items-center">
-              <Typography variant="h3" color="textPrimary">
-                <EllipseAddress address={params.address || ''} ellipseBreakpoint="xxl" />
-              </Typography>
+            <div className="inline-flex items-center gap-x-2">
+              <EllipseAddress address={params.address || ''} ellipseBreakpoint="xxl" />
 
               <button
                 type="button"
-                className="text-blue hover:text-darkBlue active:text-darkBlue ml-3 cursor-pointer transition-colors"
+                className="text-blue hover:text-darkBlue active:text-darkBlue cursor-pointer transition-colors"
               >
                 <Icon
                   name="copy"
-                  className="h-6 w-6 text-inherit"
+                  className="h-4 w-4 text-inherit"
                   onClick={() => params.address && copyToClipboard(params.address)}
                 />
               </button>
