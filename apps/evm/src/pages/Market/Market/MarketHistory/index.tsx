@@ -1,5 +1,7 @@
 import type { Asset } from 'types';
 
+import type { MarketHistoryPeriodType } from 'clients/api';
+import { useState } from 'react';
 import TEST_IDS from '../../testIds';
 import { Card } from './Card';
 import useGetChartData from './useGetChartData';
@@ -13,8 +15,23 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
   asset,
   poolComptrollerContractAddress,
 }) => {
-  const { data: chartData, isLoading: isChartDataLoading } = useGetChartData({
+  const [selectedSupplyPeriod, setSelectedSupplyPeriod] = useState<MarketHistoryPeriodType>('year');
+  const [selectedBorrowPeriod, setSelectedBorrowPeriod] = useState<MarketHistoryPeriodType>('year');
+
+  const {
+    data: { supplyChartData },
+    isLoading: isSupplyChartDataLoading,
+  } = useGetChartData({
     vToken: asset.vToken,
+    period: selectedSupplyPeriod,
+  });
+
+  const {
+    data: { borrowChartData },
+    isLoading: isBorrowChartDataLoading,
+  } = useGetChartData({
+    vToken: asset.vToken,
+    period: selectedBorrowPeriod,
   });
 
   return (
@@ -23,18 +40,22 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
         asset={asset}
         type="supply"
         testId={TEST_IDS.supplyInfo}
-        data={chartData.supplyChartData ?? []}
-        isLoading={isChartDataLoading}
+        data={supplyChartData ?? []}
+        isLoading={isSupplyChartDataLoading}
         poolComptrollerContractAddress={poolComptrollerContractAddress}
+        selectedPeriod={selectedSupplyPeriod}
+        setSelectedPeriod={setSelectedSupplyPeriod}
       />
 
       <Card
         asset={asset}
         type="borrow"
         testId={TEST_IDS.borrowInfo}
-        data={chartData.borrowChartData ?? []}
-        isLoading={isChartDataLoading}
+        data={borrowChartData ?? []}
+        isLoading={isBorrowChartDataLoading}
         poolComptrollerContractAddress={poolComptrollerContractAddress}
+        selectedPeriod={selectedBorrowPeriod}
+        setSelectedPeriod={setSelectedBorrowPeriod}
       />
     </div>
   );
