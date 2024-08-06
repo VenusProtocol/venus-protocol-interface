@@ -298,8 +298,9 @@ export interface Market {
 }
 
 export interface MarketSnapshot {
-  blockNumber: number;
-  blockTimestamp: number;
+  // we are migrating these values to strings, as they are bigints instead of numbers
+  blockNumber: string | number;
+  blockTimestamp: string | number;
   borrowApy: string;
   supplyApy: string;
   totalBorrowCents: string;
