@@ -29,7 +29,7 @@ const useGetChartData = ({ vToken }: { vToken: VToken }) => {
     [...marketSnapshotsData.marketSnapshots]
       // Snapshots are already reversed, due to the negative slice
       .forEach(marketSnapshot => {
-        const timestampMs = marketSnapshot.blockTimestamp * 1000;
+        const timestampMs = Number(marketSnapshot.blockTimestamp) * 1000;
 
         supplyChartData.push({
           apyPercentage: +marketSnapshot.supplyApy,
