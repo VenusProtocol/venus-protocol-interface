@@ -96,7 +96,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         stakedEthPoolComptrollerContractAddress &&
         areAddressesEqual(row.pool.comptrollerAddress, stakedEthPoolComptrollerContractAddress)
       ) {
-        return routes.stakedEthPoolMarket.path.replace(':vTokenAddress', row.vToken.address);
+        return routes.lidoMarket.path.replace(':vTokenAddress', row.vToken.address);
       }
 
       return routes.isolatedPoolMarket.path

@@ -16,25 +16,27 @@ import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { matchPath, useLocation, useParams } from 'react-router';
 import { formatCentsToReadableValue } from 'utilities';
+import { useIsOnLidoMarketPage } from '../useIsOnLidoMarketPage';
 import { UtilizationRate } from './UtilizationRate';
 
 export const MarketInfo = () => {
   const { poolComptrollerAddress: poolComptrollerAddressParam = '', vTokenAddress = '' } =
     useParams();
   const { pathname } = useLocation();
+  const isOnLidoMarketPage = useIsOnLidoMarketPage();
 
-  const { corePoolComptrollerContractAddress, stakedEthPoolComptrollerContractAddress } =
-    useGetChainMetadata();
+  const {
+    corePoolComptrollerContractAddress,
+    stakedEthPoolComptrollerContractAddress,
+    wstEthContractAddress,
+  } = useGetChainMetadata();
 
   const poolComptrollerAddress = useMemo(() => {
     if (matchPath(routes.corePoolMarket.path, pathname)) {
       return corePoolComptrollerContractAddress;
     }
 
-    if (
-      stakedEthPoolComptrollerContractAddress &&
-      matchPath(routes.stakedEthPoolMarket.path, pathname)
-    ) {
+    if (stakedEthPoolComptrollerContractAddress && matchPath(routes.lidoMarket.path, pathname)) {
       return stakedEthPoolComptrollerContractAddress;
     }
 
@@ -49,7 +51,7 @@ export const MarketInfo = () => {
   const { t } = useTranslation();
 
   const { data: getAssetData } = useGetAsset({
-    vTokenAddress,
+    vTokenAddress: isOnLidoMarketPage ? wstEthContractAddress : vTokenAddress,
   });
   const asset = getAssetData?.asset;
 

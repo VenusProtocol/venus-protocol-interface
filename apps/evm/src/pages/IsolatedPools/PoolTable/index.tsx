@@ -141,19 +141,15 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
 const PoolTable = () => {
   const { accountAddress } = useAccountAddress();
   const { data: poolData, isLoading } = useGetIsolatedPools({ accountAddress });
-  const { corePoolComptrollerContractAddress, stakedEthPoolComptrollerContractAddress } =
-    useGetChainMetadata();
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
   // Filter out core pool (on some chains the core pool is one of the isolated pools)
   const pools = useMemo(
     () =>
       (poolData?.pools || []).filter(
-        pool =>
-          !areAddressesEqual(pool.comptrollerAddress, corePoolComptrollerContractAddress) &&
-          (!stakedEthPoolComptrollerContractAddress ||
-            !areAddressesEqual(pool.comptrollerAddress, stakedEthPoolComptrollerContractAddress)),
+        pool => !areAddressesEqual(pool.comptrollerAddress, corePoolComptrollerContractAddress),
       ),
-    [poolData?.pools, corePoolComptrollerContractAddress, stakedEthPoolComptrollerContractAddress],
+    [poolData?.pools, corePoolComptrollerContractAddress],
   );
 
   return <PoolTableUi pools={pools} isFetchingPools={isLoading} />;
