@@ -2,7 +2,7 @@ import { VError } from 'libs/errors';
 import type { MarketSnapshot, VToken } from 'types';
 import { restService } from 'utilities';
 
-export type MarketHistoryType = '1 day' | '1 week' | '1 month' | '6 months' | '1 year';
+export type MarketHistoryPeriodType = 'year' | 'halfyear' | 'month';
 
 export interface GetMarketHistoryResponse {
   asset: string;
@@ -14,6 +14,7 @@ export interface GetMarketHistoryResponse {
 
 export interface GetMarketHistoryInput {
   vToken: VToken;
+  period: MarketHistoryPeriodType;
 }
 
 export type GetMarketHistoryOutput = {
@@ -22,8 +23,9 @@ export type GetMarketHistoryOutput = {
 
 const getMarketHistory = async ({
   vToken,
+  period,
 }: GetMarketHistoryInput): Promise<GetMarketHistoryOutput> => {
-  const endpoint = `/markets/history?asset=${vToken.address}`;
+  const endpoint = `/markets/history?asset=${vToken.address}&period=${period}`;
 
   const response = await restService<GetMarketHistoryResponse>({
     endpoint,
