@@ -1,14 +1,11 @@
-import { store } from 'libs/wallet/store';
+import { useModal } from 'connectkit';
 
 export const useAuthModal = () => {
-  const isAuthModalOpen = store.use.isAuthModalOpen();
-  const setIsAuthModalOpen = store.use.setIsAuthModalOpen();
-  const openAuthModal = () => setIsAuthModalOpen({ isAuthModalOpen: true });
-  const closeAuthModal = () => setIsAuthModalOpen({ isAuthModalOpen: false });
+  const { open, setOpen } = useModal();
 
   return {
-    isAuthModalOpen,
-    openAuthModal,
-    closeAuthModal,
+    isAuthModalOpen: open,
+    openAuthModal: () => setOpen(true),
+    closeAuthModal: () => setOpen(false),
   };
 };

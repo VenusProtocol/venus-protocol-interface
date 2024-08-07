@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@0xsequence/multicall": "^1.2.9",
-    "@binance/w3w-wagmi-connector-v2": "^1.2.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@ethersproject/abstract-signer": "^5.7.0",
@@ -52,6 +51,7 @@
     "buffer": "^6.0.3",
     "clsx": "^2.0.0",
     "compare-versions": "^6.1.0",
+    "connectkit": "^1.8.2",
     "copy-to-clipboard": "^3.3.3",
     "date-fns": "^3.0.6",
     "ethers": "^5.7.2",
