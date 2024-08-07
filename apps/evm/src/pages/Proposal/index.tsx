@@ -3,15 +3,16 @@ import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { commands as fakeCommands } from '__mocks__/models/proposalCommands';
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
 import { Button, NoticeInfo, Redirect, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { type UseVoteParams } from 'hooks/useVote';
-import { useGetToken, useGetTokens } from 'libs/tokens';
+import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet';
-import { ProposalState, type Proposal as ProposalType, type Token } from 'types';
+import { ProposalState, type Proposal as ProposalType } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { Commands } from './Commands';
@@ -23,7 +24,6 @@ import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
 interface ProposalUiProps {
-  tokens: Token[];
   proposal: ProposalType | undefined;
   vote: (params: UseVoteParams) => Promise<unknown>;
   votingEnabled: boolean;
@@ -32,7 +32,6 @@ interface ProposalUiProps {
 }
 
 export const ProposalUi: React.FC<ProposalUiProps> = ({
-  tokens,
   proposal,
   vote,
   votingEnabled,
@@ -58,12 +57,12 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   }
 
   return (
-    <div css={styles.root}>
-      <ProposalSummary css={styles.summary} proposal={proposal} />
+    <div css={styles.root} className="space-y-6 xl:space-y-8">
+      <ProposalSummary proposal={proposal} />
 
       {!isVoteProposalFeatureEnabled && (
         <NoticeInfo
-          className="mb-6 w-full"
+          className="w-full"
           data-testid={TEST_IDS.votingDisabledWarning}
           title={t('vote.multichain.votingOnlyEnabledOnBnb')}
           description={
@@ -78,9 +77,13 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
       )}
 
-      {isMultichainGovernanceFeatureEnabled && <Commands className="mb-6" />}
+      {isMultichainGovernanceFeatureEnabled && (
+        <Commands
+          commands={fakeCommands} // TODO: fetch (see VEN-2701)
+        />
+      )}
 
-      <div css={styles.votes}>
+      <div css={styles.votes} className="space-y-6 lg:space-y-0">
         <VoteSummary
           css={styles.vote}
           label={t('vote.for')}
@@ -118,11 +121,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
       </div>
 
-      <Description
-        description={proposal.description}
-        actions={proposal.proposalActions}
-        tokens={tokens}
-      />
+      <Description description={proposal.description} actions={proposal.proposalActions} />
 
       {isVoteProposalFeatureEnabled && voteModalType !== undefined && (
         <VoteModal
@@ -150,7 +149,6 @@ const Proposal = () => {
   const xvs = useGetToken({
     symbol: 'XVS',
   });
-  const tokens = useGetTokens();
 
   const {
     data: votingWeightData = {
@@ -192,7 +190,6 @@ const Proposal = () => {
 
   return (
     <ProposalUi
-      tokens={tokens}
       proposal={proposal}
       vote={vote}
       votingEnabled={votingEnabled}

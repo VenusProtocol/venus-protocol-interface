@@ -1,182 +1,14 @@
 import { Card, type CardProps } from 'components';
 import { useTranslation } from 'libs/translations';
-import { ChainId, type ProposalCommand, ProposalCommandState } from 'types';
+import type { ProposalCommand } from 'types';
 import { Command } from './Command';
 import { Progress } from './Progress';
 
-// TODO: fetch (see VEN-2701)
-const fakePastDate = new Date(new Date().getTime() - 60000);
-const fakeFutureAt = new Date(new Date().getTime() + 5000);
-const commands: ProposalCommand[] = [
-  {
-    chainId: ChainId.BSC_TESTNET,
-    state: ProposalCommandState.Executed,
-    bridgedAt: fakePastDate,
-    queuedAt: fakePastDate,
-    succeededAt: fakePastDate,
-    executedAt: fakePastDate,
-    actionSignatures: [
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-    ],
-  },
-  {
-    chainId: ChainId.OPBNB_TESTNET,
-    state: ProposalCommandState.Bridged,
-    bridgedAt: fakePastDate,
-    queuedAt: fakePastDate,
-    actionSignatures: [
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-    ],
-  },
-  {
-    chainId: ChainId.SEPOLIA,
-    state: ProposalCommandState.Queued,
-    bridgedAt: fakePastDate,
-    queuedAt: fakePastDate,
-    executableAt: fakeFutureAt,
-    actionSignatures: [
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-    ],
-  },
-  {
-    chainId: ChainId.SEPOLIA,
-    state: ProposalCommandState.Queued,
-    bridgedAt: fakePastDate,
-    queuedAt: fakePastDate,
-    executableAt: fakePastDate,
-    actionSignatures: [
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-    ],
-  },
-  {
-    chainId: ChainId.OPBNB_TESTNET,
-    state: ProposalCommandState.Queued,
-    bridgedAt: fakePastDate,
-    queuedAt: fakePastDate,
-    executableAt: fakePastDate,
-    failedExecutionAt: fakeFutureAt,
-    actionSignatures: [
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-    ],
-  },
-  {
-    chainId: ChainId.ARBITRUM_SEPOLIA,
-    state: ProposalCommandState.Canceled,
-    bridgedAt: fakePastDate,
-    queuedAt: fakePastDate,
-    executableAt: fakePastDate,
-    canceledAt: fakePastDate,
-    actionSignatures: [
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-    ],
-  },
-  {
-    chainId: ChainId.ARBITRUM_SEPOLIA,
-    state: ProposalCommandState.Executed,
-    bridgedAt: fakePastDate,
-    queuedAt: fakePastDate,
-    executableAt: fakePastDate,
-    executedAt: fakePastDate,
-    actionSignatures: [
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-      {
-        actionIndex: 0,
-        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
-        signature: 'test()',
-        value: '',
-        callData: '0x',
-      },
-    ],
-  },
-];
+export interface CommandsProps extends CardProps {
+  commands: ProposalCommand[];
+}
 
-export type CommandsProps = CardProps;
-
-export const Commands: React.FC<CommandsProps> = props => {
+export const Commands: React.FC<CommandsProps> = ({ commands, ...otherProps }) => {
   const { t } = useTranslation();
 
   const successfulPayloadsCount = commands.reduce(
@@ -185,7 +17,7 @@ export const Commands: React.FC<CommandsProps> = props => {
   );
 
   return (
-    <Card {...props}>
+    <Card {...otherProps}>
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg">{t('voteProposalUi.commands.title')}</h3>
 

@@ -3,12 +3,13 @@ import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 import { isAfter } from 'date-fns/isAfter';
 import { useNow } from 'hooks/useNow';
-import { useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useMemo, useState } from 'react';
 import { type ProposalCommand, ProposalCommandState } from 'types';
 import { cn } from 'utilities';
+import TEST_IDS from '../../testIds';
 import { Cta } from './Cta';
+import { StepInfo } from './StepInfo';
 import { useCommand } from './useCommand';
 
 export type CommandProps = React.HTMLAttributes<HTMLDivElement> & ProposalCommand & {};
@@ -29,7 +30,6 @@ export const Command: React.FC<CommandProps> = ({
 }) => {
   const chainMetadata = CHAIN_METADATA[chainId];
   const { t } = useTranslation();
-  const tokens = useGetTokens();
   const [isOpen, setIsOpen] = useState(false);
   const toggleAccordion = () => setIsOpen(prevState => !prevState);
   const now = useNow();
@@ -68,48 +68,107 @@ export const Command: React.FC<CommandProps> = ({
     }
   }, [t, state, executableAt, hasFailedExecution, now, chainMetadata, isOnWrongChain]);
 
+  const accordionContentDom = (
+    <div className="pt-3 text-sm md:ml-8">
+      <div className="flex items-center">
+        <Icon name="document" className="mr-2 w-5 h-5" />
+
+        <p className="text-offWhite font-semibold">
+          {t('voteProposalUi.command.operations.title')}
+        </p>
+      </div>
+
+      <div className="mt-1 break-all text-grey md:pl-7">
+        {actionSignatures.map(action => (
+          <ReadableActionSignature
+            className="text-sm"
+            key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
+            action={action}
+          />
+        ))}
+      </div>
+    </div>
+  );
+
   return (
-    <div {...otherProps}>
-      <div
-        className={cn(
-          'sm:flex sm:justify-between sm:gap-x-3 cursor-pointer',
-          !isExecutable && 'flex justify-between gap-x-3',
-        )}
-        onClick={toggleAccordion}
-      >
-        <div className={cn('text-left flex-1', !description && 'flex flex-col justify-center')}>
-          <div className="flex items-center gap-x-2">
-            <img
-              src={chainMetadata.logoSrc}
-              alt={chainMetadata.name}
-              className="w-5 max-w-none flex-none"
-            />
-
-            <div className="flex items-center">
-              <p className="text-sm font-semibold">{chainMetadata.name}</p>
-
-              <Icon
-                name="arrowUp"
-                className={cn('text-grey w-5 h-5 ml-1', !isOpen && 'rotate-180')}
+    <div data-testid={TEST_IDS.command} {...otherProps}>
+      <div className={cn('flex justify-between sm:flex sm:justify-between')}>
+        <div className={cn('flex-1', !description && 'flex flex-col justify-center')}>
+          <div className="cursor-pointer pr-3 space-y-3 md:space-y-1" onClick={toggleAccordion}>
+            <div className="flex items-center gap-x-2">
+              <img
+                src={chainMetadata.logoSrc}
+                alt={chainMetadata.name}
+                className="w-5 max-w-none flex-none"
               />
+
+              <div className="flex items-center">
+                <p className="text-sm font-semibold">{chainMetadata.name}</p>
+
+                <Icon
+                  name="arrowUp"
+                  className={cn('text-grey w-5 h-5 ml-1', !isOpen && 'rotate-180')}
+                />
+              </div>
             </div>
+
+            {!!description && (
+              <p
+                className={cn(
+                  'text-sm md:pl-8 text-grey',
+                  hasFailedExecution && 'text-red',
+                  isOnWrongChain && isExecutable && 'text-orange',
+                )}
+              >
+                {description}
+              </p>
+            )}
           </div>
 
-          {!!description && (
-            <p
-              className={cn(
-                'text-sm mt-3 md:pl-8 md:mt-1 text-grey',
-                hasFailedExecution && 'text-red',
-                isOnWrongChain && isExecutable && 'text-orange',
-              )}
-            >
-              {description}
-            </p>
-          )}
+          <AccordionAnimatedContent className="hidden lg:block" isOpen={isOpen}>
+            {accordionContentDom}
+          </AccordionAnimatedContent>
         </div>
 
+        {isExecutable ? (
+          <Cta
+            className="hidden lg:block"
+            chainId={chainId}
+            state={state}
+            bridgedAt={bridgedAt}
+            canceledAt={canceledAt}
+            queuedAt={queuedAt}
+            succeededAt={succeededAt}
+            failedExecutionAt={failedExecutionAt}
+            executableAt={executableAt}
+            executedAt={executedAt}
+            expiredAt={expiredAt}
+          />
+        ) : (
+          <StepInfo
+            className="cursor-pointer"
+            onClick={toggleAccordion}
+            chainId={chainId}
+            state={state}
+            bridgedAt={bridgedAt}
+            canceledAt={canceledAt}
+            queuedAt={queuedAt}
+            succeededAt={succeededAt}
+            failedExecutionAt={failedExecutionAt}
+            executableAt={executableAt}
+            executedAt={executedAt}
+            expiredAt={expiredAt}
+          />
+        )}
+      </div>
+
+      <AccordionAnimatedContent className="lg:hidden" isOpen={isOpen}>
+        {accordionContentDom}
+      </AccordionAnimatedContent>
+
+      {isExecutable && (
         <Cta
-          className={cn(isExecutable && 'mt-3')}
+          className="mt-3 w-full lg:hidden"
           chainId={chainId}
           state={state}
           bridgedAt={bridgedAt}
@@ -121,31 +180,7 @@ export const Command: React.FC<CommandProps> = ({
           executedAt={executedAt}
           expiredAt={expiredAt}
         />
-      </div>
-
-      <AccordionAnimatedContent
-        className="mt-3 text-sm md:ml-8 max-w-[700px] md:mt-2"
-        isOpen={isOpen}
-      >
-        <div className="flex items-center">
-          <Icon name="document" className="mr-2 w-5 h-5" />
-
-          <p className="text-offWhite font-semibold">
-            {t('voteProposalUi.command.operations.title')}
-          </p>
-        </div>
-
-        <div className="mt-1 break-all text-grey md:pl-7">
-          {actionSignatures.map(action => (
-            <ReadableActionSignature
-              className="text-sm"
-              key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
-              action={action}
-              tokens={tokens}
-            />
-          ))}
-        </div>
-      </AccordionAnimatedContent>
+      )}
     </div>
   );
 };
