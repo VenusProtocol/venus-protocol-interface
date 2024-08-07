@@ -42,7 +42,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
             value={value}
             data-hasError={hasError}
             className={cn(
-              'hover border-lightGrey bg-background hover:border-grey focus:border-blue -mt-6 min-h-[12rem] w-full rounded-xl border p-4 font-semibold outline-none transition-colors',
+              'hover border-lightGrey bg-background hover:border-grey focus:border-blue -mt-4 min-h-[12rem] w-full rounded-xl border p-4 font-semibold outline-none transition-colors',
               hasError && 'border-red hover:border-red focus:border-red',
             )}
           />
@@ -51,7 +51,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
       {
         title: t('markdownEditor.previewTabLabel'),
         content: (
-          <div className="-mt-6 w-full">
+          <div className="-mt-4 w-full">
             {value ? (
               <MarkdownViewer className="break-words" content={value} />
             ) : (
