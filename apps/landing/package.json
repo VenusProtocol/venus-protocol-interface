@@ -39,7 +39,7 @@
     "autoprefixer": "^9.0.0",
     "husky": "^9.1.1",
     "postcss": "^8.4.8",
-    "postcss-custom-media": "^10.0.8",
+    "postcss-custom-media": "^11.0.0",
     "postcss-import": "^16.1.0",
     "postcss-loader": "^8.1.1",
     "postcss-nested": "^6.2.0",
