@@ -5,7 +5,7 @@ import type Vi from 'vitest';
 import { renderComponent } from 'testUtils/render';
 
 import {
-  useGetLegacyPool,
+  useGetPools,
   useGetPrimeStatus,
   useGetPrimeToken,
   useGetXvsVaultUserInfo,
@@ -32,9 +32,9 @@ describe('PrimeStatusBanner', () => {
   };
 
   beforeEach(() => {
-    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPools as Vi.Mock).mockImplementation(() => ({
       data: {
-        pool: poolData[0],
+        pools: poolData,
       },
     }));
     (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
