@@ -1,20 +1,26 @@
 import { useParams } from 'react-router';
 
 import { useGetAsset } from 'clients/api';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
 import { cn } from 'utilities';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
+import { useIsOnLidoMarketPage } from './useIsOnLidoMarketPage';
 import { useIsOnMarketPage } from './useIsOnMarketPage';
 
 export const Header: React.FC = () => {
   const isOnMarketPage = useIsOnMarketPage();
+  const isOnLidoMarketPage = useIsOnLidoMarketPage();
+  const { wstEthContractAddress } = useGetChainMetadata();
 
   const { vTokenAddress = '' } = useParams();
+
   const { data: getAssetData } = useGetAsset({
-    vTokenAddress,
+    vTokenAddress: isOnLidoMarketPage ? wstEthContractAddress : vTokenAddress,
   });
   const asset = getAssetData?.asset;
+
   const { color: gradientAccentColor } = useImageAccentColor({
     imagePath: asset?.vToken.underlyingToken.asset,
   });

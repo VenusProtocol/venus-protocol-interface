@@ -9,15 +9,9 @@ export const useGetFilteredPools = () => {
   const pools = useMemo(
     () =>
       (getPoolsData?.pools || []).filter(
-        pool =>
-          pool.comptrollerAddress !== chainMetaData.corePoolComptrollerContractAddress &&
-          pool.comptrollerAddress !== chainMetaData.stakedEthPoolComptrollerContractAddress,
+        pool => pool.comptrollerAddress !== chainMetaData.corePoolComptrollerContractAddress,
       ),
-    [
-      getPoolsData?.pools,
-      chainMetaData.corePoolComptrollerContractAddress,
-      chainMetaData.stakedEthPoolComptrollerContractAddress,
-    ],
+    [getPoolsData?.pools, chainMetaData.corePoolComptrollerContractAddress],
   );
 
   return { pools };

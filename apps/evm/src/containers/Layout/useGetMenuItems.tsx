@@ -9,7 +9,7 @@ import type { MenuItem } from './types';
 
 const useGetMenuItems = () => {
   const { accountAddress } = useAccountAddress();
-  const { stakedEthPoolComptrollerContractAddress } = useGetChainMetadata();
+  const { stakedEthPoolComptrollerContractAddress, wstEthContractAddress } = useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
@@ -39,6 +39,16 @@ const useGetMenuItems = () => {
       });
     }
 
+    if (stakedEthPoolComptrollerContractAddress && wstEthContractAddress) {
+      menuItems.push({
+        to: routes.lidoMarket.path,
+        // Translation key: do not remove this comment
+        // t('layout.menuItems.lidoMarket')
+        i18nKey: 'layout.menuItems.lidoMarket',
+        iconName: 'lido',
+      });
+    }
+
     menuItems.push({
       to: routes.corePool.path,
       // Translation key: do not remove this comment
@@ -46,16 +56,6 @@ const useGetMenuItems = () => {
       i18nKey: 'layout.menuItems.corePool',
       iconName: 'venus',
     });
-
-    if (stakedEthPoolComptrollerContractAddress) {
-      menuItems.push({
-        to: routes.stakedEthPool.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.stakedEthPool')
-        i18nKey: 'layout.menuItems.stakedEthPool',
-        iconName: 'eth',
-      });
-    }
 
     if (isolatedPoolsRouteEnabled) {
       menuItems.push({
@@ -142,6 +142,7 @@ const useGetMenuItems = () => {
     xvsRouteEnabled,
     bridgeRouteEnabled,
     isolatedPoolsRouteEnabled,
+    wstEthContractAddress,
     stakedEthPoolComptrollerContractAddress,
   ]);
 };
