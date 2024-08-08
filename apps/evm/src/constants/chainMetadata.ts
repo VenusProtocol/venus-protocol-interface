@@ -73,6 +73,7 @@ export const CHAIN_METADATA: {
     blocksPerDay: 7200,
     corePoolComptrollerContractAddress: '0x7Aa39ab4BcA897F403425C9C6FDbd0f882Be0D70',
     stakedEthPoolComptrollerContractAddress: '0xd79CeB8EF8188E44b7Eb899094e8A3A4d7A1e236',
+    wstEthContractAddress: '0x0a95088403229331FeF1EB26a11F9d6C8E73f23D',
     nativeToken: getToken({ chainId: ChainId.SEPOLIA, symbol: 'ETH' })!,
   },
   [ChainId.ARBITRUM_ONE]: {
