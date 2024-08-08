@@ -1,5 +1,20 @@
 # @venusprotocol/evm
 
+## 2.134.0
+
+### Minor Changes
+
+- 17fb695: Fix spacings on vaults
+- 2600545: Fix breadcrumbs
+- 8ec07a3: refactor market snapshot types into possible strings
+- 0766702: Add components to display commands on Proposal page
+- 5af699b: Add nav item for Lido on Ethereum
+
+### Patch Changes
+
+- 1e199dd: fix alignment on Create proposal modal
+- bc36528: fix title of Prime promotional banner on Account page
+
 ## 2.133.0
 
 ### Minor Changes
