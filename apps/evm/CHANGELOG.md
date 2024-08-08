@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.134.1
+
+### Patch Changes
+
+- bb30951: fix links to markets in Liquid Staked ETH pool
+
 ## 2.134.0
 
 ### Minor Changes
