@@ -159,7 +159,7 @@ export const Card: React.FC<CardProps> = ({
     >
       {isLoading && data.length === 0 && <Spinner />}
 
-      {data.length > 0 && <ApyChart data={data} type={type} />}
+      {data.length > 0 && <ApyChart data={data} type={type} selectedPeriod={selectedPeriod} />}
     </MarketCard>
   );
 };
