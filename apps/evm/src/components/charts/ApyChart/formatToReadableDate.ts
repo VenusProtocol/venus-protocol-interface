@@ -1,8 +1,15 @@
+import type { MarketHistoryPeriodType } from 'clients/api';
 import { format as formatDate } from 'date-fns/format';
 
-const READABLE_DATE_FORMAT = 'MM.dd.yy';
+const DateFormatPerPeriod: Record<MarketHistoryPeriodType, string> = {
+  year: 'MM.dd.yy',
+  halfyear: 'MM.dd.yy h:mm a',
+  month: 'MM.dd.yy h:mm a',
+};
 
-const formatToReadableDate = (timestampMs: number) =>
-  formatDate(new Date(timestampMs), READABLE_DATE_FORMAT);
+const formatToReadableDate = (
+  timestampMs: number,
+  selectedPeriod: MarketHistoryPeriodType = 'year',
+) => formatDate(new Date(timestampMs), DateFormatPerPeriod[selectedPeriod]);
 
 export default formatToReadableDate;
