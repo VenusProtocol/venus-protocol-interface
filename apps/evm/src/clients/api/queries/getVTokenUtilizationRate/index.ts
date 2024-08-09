@@ -30,10 +30,7 @@ export const getVTokenUtilizationRate = async ({
     value: asset.borrowBalanceTokens,
     token: asset.vToken.underlyingToken,
   }).toFixed();
-  const reservesMantissa = convertTokensToMantissa({
-    value: asset.reserveTokens,
-    token: asset.vToken.underlyingToken,
-  }).toFixed();
+  const reservesMantissa = asset.currentReservesMantissa.toFixed();
 
   const utilizationRatePromise = isIsolatedPoolMarket
     ? (interestRateModelContract as JumpRateModelV2).utilizationRate(
