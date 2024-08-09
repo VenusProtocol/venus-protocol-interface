@@ -1,33 +1,26 @@
-/** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
-
 import { useGetVTokens } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
 import type { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
-import type { ChainId, ProposalAction, Token, VToken } from 'types';
-import { generateChainExplorerUrl } from 'utilities';
+import type { ProposalAction } from 'types';
+import { cn, generateChainExplorerUrl } from 'utilities';
 
 import formatSignature from './formatSignature';
 import getContractName from './getContractName';
-import { useStyles } from './styles';
 
-interface ReadableActionSignatureUiProps {
+export interface ReadableActionSignatureProps extends React.HTMLAttributes<HTMLDivElement> {
   action: FormValues['actions'][number] | ProposalAction;
-  vTokens: VToken[];
-  tokens: Token[];
-  chainId: ChainId;
-  className?: string;
 }
 
-export const ReadableActionSignatureUi: React.FC<ReadableActionSignatureUiProps> = ({
-  action,
-  vTokens,
-  tokens,
-  chainId,
+export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = ({
   className,
+  action,
+  ...otherProps
 }) => {
-  const styles = useStyles();
+  const { chainId } = useChainId();
+  const { data: getVTokensData } = useGetVTokens();
+  const tokens = useGetTokens();
+  const vTokens = getVTokensData?.vTokens || [];
 
   const contractName = getContractName({
     target: action.target,
@@ -37,9 +30,8 @@ export const ReadableActionSignatureUi: React.FC<ReadableActionSignatureUiProps>
   });
 
   return (
-    <Typography css={styles.signature} className={className}>
-      <Typography
-        component="a"
+    <div className={cn('[overflow-wrap:anywhere] ', className)} {...otherProps}>
+      <a
         href={generateChainExplorerUrl({
           hash: action.target,
           urlType: 'address',
@@ -47,27 +39,12 @@ export const ReadableActionSignatureUi: React.FC<ReadableActionSignatureUiProps>
         })}
         target="_blank"
         rel="noreferrer"
+        className="text-green hover:text-green/50 transition-colors"
       >
         {contractName}
-      </Typography>
+      </a>
 
-      {formatSignature(action)}
-    </Typography>
-  );
-};
-
-export type ReadableActionSignatureProps = Omit<
-  ReadableActionSignatureUiProps,
-  'vTokens' | 'chainId'
->;
-
-export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = props => {
-  const { chainId } = useChainId();
-  const { data: getVTokensData } = useGetVTokens();
-  const tokens = useGetTokens();
-  const vTokens = getVTokensData?.vTokens || [];
-
-  return (
-    <ReadableActionSignatureUi {...props} chainId={chainId} vTokens={vTokens} tokens={tokens} />
+      <span className="text-grey">{formatSignature(action)}</span>
+    </div>
   );
 };

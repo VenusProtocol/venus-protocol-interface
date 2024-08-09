@@ -33,7 +33,9 @@ export const Accordion: React.FC<AccordionProps> = ({
         </div>
       </button>
 
-      <AccordionAnimatedContent isOpen={isOpen}>{children}</AccordionAnimatedContent>
+      <AccordionAnimatedContent isOpen={isOpen}>
+        <div className="pt-2">{children}</div>
+      </AccordionAnimatedContent>
     </div>
   );
 };

@@ -30,10 +30,10 @@ import { en } from 'libs/translations';
 import { VoteSupport } from 'types';
 
 import { REDIRECT_TEST_CONTENT } from 'components/Redirect/__mocks__';
-import Proposal from '.';
-import PROPOSAL_SUMMARY_TEST_IDS from './ProposalSummary/testIds';
-import VOTE_MODAL_TEST_IDS from './VoteModal/testIds';
-import TEST_IDS from './testIds';
+import Proposal from '..';
+import PROPOSAL_SUMMARY_TEST_IDS from '../ProposalSummary/testIds';
+import VOTE_MODAL_TEST_IDS from '../VoteModal/testIds';
+import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useVote');
 vi.mock('hooks/useIsFeatureEnabled');
@@ -51,7 +51,7 @@ const checkVoteButtonsAreHidden = async (
   waitFor(() => expect(queryByText(en.vote.abstain, { selector: 'button' })).toBeNull());
 };
 
-describe('pages/Proposal', () => {
+describe('Proposal page', () => {
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(
       activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5),
@@ -71,11 +71,6 @@ describe('pages/Proposal', () => {
       data: {
         thresholdMantissa: CREATE_PROPOSAL_THRESHOLD_MANTISSA,
       },
-    }));
-
-    (useVote as Vi.Mock).mockImplementation(() => ({
-      vote: vi.fn(),
-      isLoading: false,
     }));
 
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(

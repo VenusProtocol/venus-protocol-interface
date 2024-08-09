@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { Card, MarkdownViewer } from 'components';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 import { useTranslation } from 'libs/translations';
-import type { DescriptionV1, DescriptionV2, ProposalAction, Token } from 'types';
+import type { DescriptionV1, DescriptionV2, ProposalAction } from 'types';
 
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useStyles } from './styles';
@@ -12,16 +12,10 @@ import { useStyles } from './styles';
 interface DescriptionSummary {
   description: DescriptionV1 | DescriptionV2;
   actions: ProposalAction[];
-  tokens: Token[];
   className?: string;
 }
 
-export const Description: React.FC<DescriptionSummary> = ({
-  className,
-  description,
-  actions,
-  tokens,
-}) => {
+export const Description: React.FC<DescriptionSummary> = ({ className, description, actions }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const isMultichainGovernanceFeatureEnabled = useIsFeatureEnabled({
@@ -69,7 +63,6 @@ export const Description: React.FC<DescriptionSummary> = ({
               <ReadableActionSignature
                 key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
                 action={action}
-                tokens={tokens}
               />
             ))}
           </>

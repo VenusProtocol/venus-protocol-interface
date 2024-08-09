@@ -11,12 +11,8 @@ export const useStyles = () => {
     spinner: css`
       height: 100%;
     `,
-    summary: css`
-      margin-bottom: ${theme.spacing(8)};
-    `,
     votes: css`
       display: flex;
-      margin-bottom: ${theme.spacing(8)};
 
       ${theme.breakpoints.down('xl')} {
         display: block;
@@ -30,7 +26,6 @@ export const useStyles = () => {
 
       ${theme.breakpoints.down('xl')} {
         margin-right: 0;
-        margin-bottom: ${theme.spacing(4)};
 
         :last-of-type {
           margin-bottom: 0;

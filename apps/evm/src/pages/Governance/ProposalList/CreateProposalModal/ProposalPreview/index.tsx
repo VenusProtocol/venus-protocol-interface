@@ -4,7 +4,6 @@ import { useFormikContext } from 'formik';
 
 import { MarkdownViewer } from 'components';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';
-import { useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { ProposalType } from 'types';
 
@@ -14,7 +13,6 @@ import { useStyles } from './styles';
 const ProposalPreview: React.FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const tokens = useGetTokens();
 
   const {
     values: {
@@ -99,7 +97,6 @@ const ProposalPreview: React.FC = () => {
 
         {actions.map(action => (
           <ReadableActionSignature
-            tokens={tokens}
             key={`proposal-preview-readable-action-signature-${action.signature}-${action.target}-${action.callData}`}
             action={action}
           />
