@@ -239,6 +239,8 @@ export const formatToPool = ({
       treasuryTokenBalance => areTokensEqual(treasuryTokenBalance.token, vToken.underlyingToken),
     );
 
+    const currentReservesMantissa = new BigNumber(vTokenMetaData.totalReserves.toString());
+
     const reserveTokens = treasuryTokenBalanceRes?.balanceMantissa
       ? convertMantissaToTokens({
           value: new BigNumber(treasuryTokenBalanceRes?.balanceMantissa),
@@ -359,6 +361,7 @@ export const formatToPool = ({
       reserveFactor,
       collateralFactor,
       liquidityCents,
+      currentReservesMantissa,
       reserveTokens,
       cashTokens,
       borrowCapTokens,
