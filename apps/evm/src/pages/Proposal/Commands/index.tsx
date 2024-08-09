@@ -1,6 +1,6 @@
 import { Card, type CardProps } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { ProposalCommand } from 'types';
+import { type ProposalCommand, ProposalCommandState } from 'types';
 import { Command } from './Command';
 import { Progress } from './Progress';
 
@@ -12,7 +12,7 @@ export const Commands: React.FC<CommandsProps> = ({ commands, ...otherProps }) =
   const { t } = useTranslation();
 
   const successfulPayloadsCount = commands.reduce(
-    (acc, command) => (command.executedAt ? acc + 1 : acc),
+    (acc, command) => (command.state === ProposalCommandState.Executed ? acc + 1 : acc),
     0,
   );
 
