@@ -1,12 +1,15 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useGetMarketHistory } from 'clients/api';
+import { type MarketHistoryPeriodType, useGetMarketHistory } from 'clients/api';
 import type { ApyChartProps } from 'components/charts/ApyChart';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { VToken } from 'types';
 
-const useGetChartData = ({ vToken }: { vToken: VToken }) => {
+const useGetChartData = ({
+  vToken,
+  period,
+}: { vToken: VToken; period: MarketHistoryPeriodType }) => {
   const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
   const {
     isLoading,
@@ -16,6 +19,7 @@ const useGetChartData = ({ vToken }: { vToken: VToken }) => {
   } = useGetMarketHistory(
     {
       vToken,
+      period,
     },
     {
       enabled: isApyChartsFeatureEnabled,

@@ -49,5 +49,5 @@ export default {
   decorators: [withThemeProvider, withCenterStory({ width: 700 })],
 } as Meta<typeof ApyChart>;
 
-export const SupplyAPY = () => <SupplyApyChart data={data} />;
-export const BorrowAPY = () => <BorrowApyChart data={data} />;
+export const SupplyAPY = () => <SupplyApyChart data={data} selectedPeriod="year" />;
+export const BorrowAPY = () => <BorrowApyChart data={data} selectedPeriod="year" />;

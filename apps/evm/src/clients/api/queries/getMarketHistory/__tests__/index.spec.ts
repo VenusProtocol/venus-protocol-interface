@@ -10,8 +10,8 @@ import getMarketHistory from '..';
 vi.mock('utilities/restService');
 
 const marketSnapshot: MarketSnapshot = {
-  blockNumber: 1,
-  blockTimestamp: 1652593258,
+  blockNumber: '1',
+  blockTimestamp: '1652593258',
   borrowApy: '2.0144969858718893',
   supplyApy: '0.000001537885451792',
   totalBorrowCents: '1000000000',
@@ -28,6 +28,7 @@ describe('getMarketHistory', () => {
   it('returns market history on success', async () => {
     const response = await getMarketHistory({
       vToken: vBusd,
+      period: 'year',
     });
 
     expect(response).toEqual({
@@ -38,11 +39,12 @@ describe('getMarketHistory', () => {
   it('calls correct endpoint', async () => {
     await getMarketHistory({
       vToken: vBusd,
+      period: 'year',
     });
 
     expect(restService).toHaveBeenCalledTimes(1);
     expect(restService).toHaveBeenCalledWith({
-      endpoint: `/markets/history?asset=${vBusd.address}`,
+      endpoint: `/markets/history?asset=${vBusd.address}&period=year`,
       method: 'GET',
     });
   });
