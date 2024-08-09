@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.135.0
+
+### Minor Changes
+
+- 0f91f5a: display switch chain CTA on commands
+
 ## 2.134.1
 
 ### Patch Changes
