@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.135.0
+
+### Minor Changes
+
+- 0f91f5a: display switch chain CTA on commands
+
+### Patch Changes
+
+- 5662021: calculate utilization rate with the actual market reserves
+
 ## 2.134.1
 
 ### Patch Changes
