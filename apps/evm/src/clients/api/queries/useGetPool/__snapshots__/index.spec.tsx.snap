@@ -24,6 +24,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowerCount": 10,
         "cashTokens": "10",
         "collateralFactor": 0.5,
+        "currentReservesMantissa": "1000",
         "disabledTokenActions": [],
         "exchangeRateVTokens": "49.589181233",
         "isCollateralOfUser": true,
@@ -112,6 +113,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowerCount": 10,
         "cashTokens": "10",
         "collateralFactor": 0.8,
+        "currentReservesMantissa": "1000",
         "disabledTokenActions": [
           "borrow",
           "supply",
@@ -218,6 +220,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowerCount": 10,
         "cashTokens": "10",
         "collateralFactor": 0.8,
+        "currentReservesMantissa": "1000",
         "disabledTokenActions": [
           "swapAndSupply",
         ],
@@ -323,6 +326,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowerCount": 10,
         "cashTokens": "10",
         "collateralFactor": 0.8,
+        "currentReservesMantissa": "1000",
         "disabledTokenActions": [
           "supply",
         ],

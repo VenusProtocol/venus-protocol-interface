@@ -83,10 +83,7 @@ const getVTokenApySimulations = async ({
     value: asset.borrowBalanceTokens,
     token: asset.vToken.underlyingToken,
   }).toFixed();
-  const reservesMantissa = convertTokensToMantissa({
-    value: asset.reserveTokens,
-    token: asset.vToken.underlyingToken,
-  }).toFixed();
+  const reservesMantissa = asset.currentReservesMantissa.toFixed();
 
   const groupedGetBorrowRatePromises = Promise.all(getBorrowRatePromises);
   const groupedGetSupplyRatePromises = Promise.all(getSupplyRatePromises);
