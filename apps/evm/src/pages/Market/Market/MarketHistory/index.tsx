@@ -15,23 +15,14 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
   asset,
   poolComptrollerContractAddress,
 }) => {
-  const [selectedSupplyPeriod, setSelectedSupplyPeriod] = useState<MarketHistoryPeriodType>('year');
-  const [selectedBorrowPeriod, setSelectedBorrowPeriod] = useState<MarketHistoryPeriodType>('year');
+  const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>('month');
 
   const {
-    data: { supplyChartData },
-    isLoading: isSupplyChartDataLoading,
+    data: { supplyChartData, borrowChartData },
+    isLoading: isChartDataLoading,
   } = useGetChartData({
     vToken: asset.vToken,
-    period: selectedSupplyPeriod,
-  });
-
-  const {
-    data: { borrowChartData },
-    isLoading: isBorrowChartDataLoading,
-  } = useGetChartData({
-    vToken: asset.vToken,
-    period: selectedBorrowPeriod,
+    period: selectedPeriod,
   });
 
   return (
@@ -41,10 +32,10 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
         type="supply"
         testId={TEST_IDS.supplyInfo}
         data={supplyChartData ?? []}
-        isLoading={isSupplyChartDataLoading}
+        isLoading={isChartDataLoading}
         poolComptrollerContractAddress={poolComptrollerContractAddress}
-        selectedPeriod={selectedSupplyPeriod}
-        setSelectedPeriod={setSelectedSupplyPeriod}
+        selectedPeriod={selectedPeriod}
+        setSelectedPeriod={setSelectedPeriod}
       />
 
       <Card
@@ -52,10 +43,10 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
         type="borrow"
         testId={TEST_IDS.borrowInfo}
         data={borrowChartData ?? []}
-        isLoading={isBorrowChartDataLoading}
+        isLoading={isChartDataLoading}
         poolComptrollerContractAddress={poolComptrollerContractAddress}
-        selectedPeriod={selectedBorrowPeriod}
-        setSelectedPeriod={setSelectedBorrowPeriod}
+        selectedPeriod={selectedPeriod}
+        setSelectedPeriod={setSelectedPeriod}
       />
     </div>
   );
