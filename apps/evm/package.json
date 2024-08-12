@@ -150,7 +150,7 @@
     "typescript": "^5.1.6",
     "vite": "^5.3.3",
     "vite-plugin-svgr": "^3.2.0",
-    "vite-tsconfig-paths": "^4.2.0",
+    "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^0.34.4",
     "whatwg-fetch": "^3.6.18"
   },
