@@ -1,5 +1,7 @@
 import type { Asset } from 'types';
 
+import type { MarketHistoryPeriodType } from 'clients/api';
+import { useState } from 'react';
 import TEST_IDS from '../../testIds';
 import { Card } from './Card';
 import useGetChartData from './useGetChartData';
@@ -13,8 +15,14 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
   asset,
   poolComptrollerContractAddress,
 }) => {
-  const { data: chartData, isLoading: isChartDataLoading } = useGetChartData({
+  const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>('month');
+
+  const {
+    data: { supplyChartData, borrowChartData },
+    isLoading: isChartDataLoading,
+  } = useGetChartData({
     vToken: asset.vToken,
+    period: selectedPeriod,
   });
 
   return (
@@ -23,18 +31,22 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
         asset={asset}
         type="supply"
         testId={TEST_IDS.supplyInfo}
-        data={chartData.supplyChartData ?? []}
+        data={supplyChartData ?? []}
         isLoading={isChartDataLoading}
         poolComptrollerContractAddress={poolComptrollerContractAddress}
+        selectedPeriod={selectedPeriod}
+        setSelectedPeriod={setSelectedPeriod}
       />
 
       <Card
         asset={asset}
         type="borrow"
         testId={TEST_IDS.borrowInfo}
-        data={chartData.borrowChartData ?? []}
+        data={borrowChartData ?? []}
         isLoading={isChartDataLoading}
         poolComptrollerContractAddress={poolComptrollerContractAddress}
+        selectedPeriod={selectedPeriod}
+        setSelectedPeriod={setSelectedPeriod}
       />
     </div>
   );

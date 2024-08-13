@@ -14,6 +14,7 @@ import {
 import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 
+import type { MarketHistoryPeriodType } from 'clients/api';
 import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';
 import formatToReadableDate from './formatToReadableDate';
@@ -28,10 +29,11 @@ export interface ApyChartItem {
 export interface ApyChartProps {
   data: ApyChartItem[];
   type: 'supply' | 'borrow';
+  selectedPeriod: MarketHistoryPeriodType;
   className?: string;
 }
 
-export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type }) => {
+export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selectedPeriod }) => {
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
 
@@ -62,7 +64,7 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type }) => 
             dataKey="timestampMs"
             axisLine={false}
             tickLine={false}
-            tickFormatter={formatToReadableDate}
+            tickFormatter={value => formatToReadableDate(value)}
             stroke={sharedStyles.accessoryColor}
             tickMargin={sharedStyles.tickMargin}
             tickCount={data.length}
@@ -88,7 +90,10 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type }) => 
                   items={[
                     {
                       label: t('apyChart.tooltipItemLabels.date'),
-                      value: formatToReadableDate((payload[0].payload as ApyChartItem).timestampMs),
+                      value: formatToReadableDate(
+                        (payload[0].payload as ApyChartItem).timestampMs,
+                        selectedPeriod,
+                      ),
                     },
                     {
                       label:
