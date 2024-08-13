@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 
-import type { GetTokenBalancesOutput } from 'clients/api';
 import {
   BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES,
   BSC_TESTNET_UNLISTED_TOKEN_ADDRESSES,
@@ -22,7 +21,6 @@ import {
 import {
   addUserPropsToPool,
   areAddressesEqual,
-  areTokensEqual,
   calculateDailyTokenRate,
   calculateYearlyPercentageRate,
   convertDollarsToCents,
@@ -60,7 +58,6 @@ export interface FormatToPoolInput {
   >[];
   xvsPriceMantissa: BigNumber;
   primeApyMap: Map<string, PrimeApy>;
-  vTreasuryTokenBalances?: GetTokenBalancesOutput;
   userCollateralizedVTokenAddresses?: string[];
   userVTokenBalances?: Awaited<ReturnType<VenusLens['callStatic']['vTokenBalancesAll']>>;
   userVaiBorrowBalanceMantissa?: BigNumber;
@@ -89,7 +86,6 @@ export const formatToPool = ({
   userVaiBorrowBalanceMantissa,
   primeApyMap,
   mainMarkets,
-  vTreasuryTokenBalances,
 }: FormatToPoolInput) => {
   const assets: Asset[] = [];
 
@@ -235,18 +231,10 @@ export const formatToPool = ({
 
     const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
-    const treasuryTokenBalanceRes = vTreasuryTokenBalances?.tokenBalances.find(
-      treasuryTokenBalance => areTokensEqual(treasuryTokenBalance.token, vToken.underlyingToken),
-    );
-
-    const currentReservesMantissa = new BigNumber(vTokenMetaData.totalReserves.toString());
-
-    const reserveTokens = treasuryTokenBalanceRes?.balanceMantissa
-      ? convertMantissaToTokens({
-          value: new BigNumber(treasuryTokenBalanceRes?.balanceMantissa),
-          token: vToken.underlyingToken,
-        })
-      : new BigNumber(0);
+    const reserveTokens = convertMantissaToTokens({
+      value: new BigNumber(vTokenMetaData.totalReserves.toString()),
+      token: vToken.underlyingToken,
+    });
 
     const exchangeRateMantissa = new BigNumber(vTokenMetaData.exchangeRateCurrent.toString());
 
@@ -361,7 +349,6 @@ export const formatToPool = ({
       reserveFactor,
       collateralFactor,
       liquidityCents,
-      currentReservesMantissa,
       reserveTokens,
       cashTokens,
       borrowCapTokens,

@@ -1,14 +1,13 @@
 import BigNumber from 'bignumber.js';
 
-import type { PrimeApy, Token } from 'types';
+import type { PrimeApy } from 'types';
 import {
   appendPrimeSimulationDistributions,
   convertAprBipsToApy,
   extractSettledPromiseValue,
-  findTokenByAddress,
 } from 'utilities';
 
-import { getLegacyPoolMarkets, getTokenBalances } from 'clients/api';
+import { getLegacyPoolMarkets } from 'clients/api';
 import { formatToPool } from './formatToPool';
 import type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 
@@ -18,13 +17,11 @@ const getLegacyPool = async ({
   chainId,
   blocksPerDay,
   name,
-  provider,
   description,
   xvs,
   vai,
   tokens,
   accountAddress,
-  vTreasuryContractAddress,
   legacyPoolComptrollerContract,
   venusLensContract,
   vaiControllerContract,
@@ -141,32 +138,10 @@ const getLegacyPool = async ({
 
   const vaiRepayAmountMantissa = extractSettledPromiseValue(vaiRepayAmountResult);
 
-  const underlyingTokens = vTokenMetaDataResults.reduce<Token[]>((acc, vTokenMetaData) => {
-    const underlyingToken = findTokenByAddress({
-      address: vTokenMetaData.underlyingAssetAddress,
-      tokens,
-    });
-
-    if (!underlyingToken) {
-      return acc;
-    }
-
-    return [...acc, underlyingToken];
-  }, []);
-
-  // Fetch vToken meta data and user balance
-  const [vTreasuryTokenBalancesResult, userVTokenBalancesResults] = await Promise.allSettled([
-    // Fetch treasury balances
-    getTokenBalances({
-      accountAddress: vTreasuryContractAddress,
-      tokens: underlyingTokens,
-      provider,
-    }),
-    // Fetch user vToken balances
-    accountAddress
-      ? venusLensContract.callStatic.vTokenBalancesAll(vTokenAddresses, accountAddress)
-      : undefined,
-  ]);
+  // Fetch user vToken balances
+  const userVTokenBalancesResults = await (accountAddress
+    ? venusLensContract.callStatic.vTokenBalancesAll(vTokenAddresses, accountAddress)
+    : undefined);
 
   const pool = formatToPool({
     chainId,
@@ -185,8 +160,7 @@ const getLegacyPool = async ({
     xvsSupplySpeedResults,
     xvsPriceMantissa: new BigNumber(xvsPriceMantissaResult.value.toString()),
     userCollateralizedVTokenAddresses: extractSettledPromiseValue(assetsInResult),
-    vTreasuryTokenBalances: extractSettledPromiseValue(vTreasuryTokenBalancesResult),
-    userVTokenBalances: extractSettledPromiseValue(userVTokenBalancesResults),
+    userVTokenBalances: userVTokenBalancesResults,
     userVaiBorrowBalanceMantissa: vaiRepayAmountMantissa
       ? new BigNumber(vaiRepayAmountMantissa.toString())
       : undefined,

@@ -1,5 +1,4 @@
-import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
-import fakeProvider from '__mocks__/models/provider';
+import fakeAccountAddress from '__mocks__/models/address';
 import tokens, { vai, xvs } from '__mocks__/models/tokens';
 
 import { ChainId } from 'types';
@@ -26,8 +25,6 @@ describe('getLegacyPool', () => {
       venusLensContract: fakeVenusLensContract,
       vaiControllerContract: fakeVaiControllerContract,
       resilientOracleContract: fakeResilientOracleContract,
-      vTreasuryContractAddress: altAddress,
-      provider: fakeProvider,
     });
 
     // Check VAI interests were accrued before being fetched

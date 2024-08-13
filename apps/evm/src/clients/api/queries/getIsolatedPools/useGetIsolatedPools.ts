@@ -6,7 +6,6 @@ import getIsolatedPools, {
 } from 'clients/api/queries/getIsolatedPools';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useGetVTreasuryContractAddress } from 'hooks/useGetVTreasuryContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
   useGetPoolLensContract,
@@ -65,7 +64,6 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Partial<Options>) =
   const primeContract = useGetPrimeContract();
   const resilientOracleContract = useGetResilientOracleContract();
   const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
-  const vTreasuryContractAddress = useGetVTreasuryContractAddress();
 
   return useQuery({
     queryKey: [FunctionKey.GET_ISOLATED_POOLS, { ...input, chainId }],
@@ -76,7 +74,6 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Partial<Options>) =
           chainId,
           poolLensContract,
           poolRegistryContractAddress,
-          vTreasuryContractAddress,
           resilientOracleContract,
           xvs,
         },
