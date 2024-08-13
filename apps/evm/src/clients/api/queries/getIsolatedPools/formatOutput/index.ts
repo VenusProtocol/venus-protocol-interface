@@ -34,7 +34,6 @@ export interface FormatToPoolsInput {
   poolParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
   userVTokenBalancesAll?: Awaited<ReturnType<PoolLens['callStatic']['vTokenBalancesAll']>>;
   userTokenBalancesAll?: GetTokenBalancesOutput;
-  vTreasuryTokenBalances?: GetTokenBalancesOutput;
 }
 
 const formatToPools = ({
@@ -50,7 +49,6 @@ const formatToPools = ({
   primeApyMap,
   userVTokenBalancesAll,
   userTokenBalancesAll,
-  vTreasuryTokenBalances,
 }: FormatToPoolsInput) => {
   const pools: Pool[] = poolResults.map(poolResult => {
     const subgraphPool = poolParticipantsCountResult?.pools.find(pool =>
@@ -131,18 +129,10 @@ const formatToPools = ({
       const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
       const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
-      const treasuryTokenBalanceRes = vTreasuryTokenBalances?.tokenBalances.find(
-        treasuryTokenBalance => areTokensEqual(treasuryTokenBalance.token, vToken.underlyingToken),
-      );
-
-      const currentReservesMantissa = new BigNumber(vTokenMetaData.totalReserves.toString());
-
-      const reserveTokens = treasuryTokenBalanceRes?.balanceMantissa
-        ? convertMantissaToTokens({
-            value: new BigNumber(treasuryTokenBalanceRes?.balanceMantissa),
-            token: vToken.underlyingToken,
-          })
-        : new BigNumber(0);
+      const reserveTokens = convertMantissaToTokens({
+        value: new BigNumber(vTokenMetaData?.totalReserves.toString()),
+        token: vToken.underlyingToken,
+      });
 
       const exchangeRateVTokens = new BigNumber(1).div(
         new BigNumber(vTokenMetaData.exchangeRateCurrent.toString()).div(
@@ -244,7 +234,6 @@ const formatToPools = ({
         collateralFactor,
         cashTokens,
         liquidityCents,
-        currentReservesMantissa,
         reserveTokens,
         exchangeRateVTokens,
         supplierCount,

@@ -90,7 +90,6 @@ export interface Asset {
   reserveFactor: number;
   collateralFactor: number;
   liquidityCents: BigNumber;
-  currentReservesMantissa: BigNumber;
   reserveTokens: BigNumber;
   cashTokens: BigNumber;
   exchangeRateVTokens: BigNumber;

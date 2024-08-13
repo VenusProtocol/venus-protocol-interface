@@ -68,15 +68,9 @@ export const MarketInfo = () => {
   const cells: Cell[] = useMemo(() => {
     return [
       {
-        label: t('layout.header.reserves'),
+        label: t('layout.header.supply'),
         value: formatCentsToReadableValue({
-          value: asset?.reserveTokens.multipliedBy(asset.tokenPriceCents),
-        }),
-      },
-      {
-        label: t('layout.header.price'),
-        value: formatCentsToReadableValue({
-          value: asset?.tokenPriceCents,
+          value: asset?.supplyBalanceCents,
         }),
       },
       {
@@ -93,6 +87,12 @@ export const MarketInfo = () => {
           ) : (
             PLACEHOLDER_KEY
           ),
+      },
+      {
+        label: t('layout.header.price'),
+        value: formatCentsToReadableValue({
+          value: asset?.tokenPriceCents,
+        }),
       },
     ];
   }, [asset, t, asset, pool]);

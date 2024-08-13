@@ -365,7 +365,7 @@
       "isolated": "Isolated",
       "liquidity": "Liquidity",
       "price": "Price",
-      "reserves": "Reserves",
+      "supply": "Supply",
       "utilizationRate": "Utilization rate"
     },
     "menu": {

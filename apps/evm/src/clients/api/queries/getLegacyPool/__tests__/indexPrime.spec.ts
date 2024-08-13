@@ -2,8 +2,7 @@ import { BigNumber as BN } from 'ethers';
 import type Vi from 'vitest';
 
 import fakePrimeContractResponses from '__mocks__/contracts/prime';
-import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
-import fakeProvider from '__mocks__/models/provider';
+import fakeAccountAddress from '__mocks__/models/address';
 import tokens, { vai, xvs } from '__mocks__/models/tokens';
 
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -48,8 +47,6 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
       vaiControllerContract: fakeVaiControllerContract,
       resilientOracleContract: fakeResilientOracleContract,
       primeContract: fakePrimeContract,
-      vTreasuryContractAddress: altAddress,
-      provider: fakeProvider,
     });
 
     expect(response).toMatchSnapshot();
@@ -81,8 +78,6 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
       vaiControllerContract: fakeVaiControllerContract,
       resilientOracleContract: fakeResilientOracleContract,
       primeContract: fakePrimeContract,
-      vTreasuryContractAddress: altAddress,
-      provider: fakeProvider,
     });
 
     expect(response).toMatchSnapshot();
@@ -117,8 +112,6 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
       vaiControllerContract: fakeVaiControllerContract,
       resilientOracleContract: fakeResilientOracleContract,
       primeContract: fakePrimeContract,
-      vTreasuryContractAddress: altAddress,
-      provider: fakeProvider,
     });
 
     expect(response).toMatchSnapshot();

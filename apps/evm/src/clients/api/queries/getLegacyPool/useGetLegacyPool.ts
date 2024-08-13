@@ -6,7 +6,6 @@ import getLegacyPool, {
 } from 'clients/api/queries/getLegacyPool';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useGetVTreasuryContractAddress } from 'hooks/useGetVTreasuryContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
   useGetLegacyPoolComptrollerContract,
@@ -17,7 +16,7 @@ import {
 } from 'libs/contracts';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { useChainId, useProvider } from 'libs/wallet';
+import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
@@ -55,7 +54,6 @@ type Options = QueryObserverOptions<
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
-  const { provider } = useProvider();
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
 
@@ -73,7 +71,6 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
   const resilientOracleContract = useGetResilientOracleContract();
   const vaiControllerContract = useGetVaiControllerContract();
   const primeContract = useGetPrimeContract();
-  const vTreasuryContractAddress = useGetVTreasuryContractAddress();
 
   const isQueryEnabled =
     !!legacyPoolComptrollerContract &&
@@ -91,14 +88,12 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
           legacyPoolComptrollerContract,
           venusLensContract,
           resilientOracleContract,
-          vTreasuryContractAddress,
           vai,
           vaiControllerContract,
           blocksPerDay,
         },
         params =>
           getLegacyPool({
-            provider,
             chainId,
             name: t('legacyPool.name'),
             description: t('legacyPool.description'),
