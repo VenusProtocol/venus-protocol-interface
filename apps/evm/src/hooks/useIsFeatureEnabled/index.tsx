@@ -29,7 +29,15 @@ export const featureFlags = {
   xvsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   createProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   voteProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  apyCharts: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  apyCharts: [
+    ChainId.BSC_MAINNET,
+    ChainId.BSC_TESTNET,
+    ChainId.ETHEREUM,
+    ChainId.SEPOLIA,
+    ChainId.OPBNB_MAINNET,
+    ChainId.OPBNB_TESTNET,
+    ChainId.ARBITRUM_ONE,
+  ],
   marketParticipantCounts: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
