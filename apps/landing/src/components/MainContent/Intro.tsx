@@ -34,7 +34,7 @@ function Intro() {
         </p>
 
         <div className={s.cta}>
-          <LinkLaunchApp />
+          <LinkLaunchApp className={s.linkLaunchApp} />
 
           <div className={s.linksWrapper}>
             {links.map(({ text, href }) => (

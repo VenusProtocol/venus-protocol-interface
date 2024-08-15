@@ -2,6 +2,7 @@ import cn from 'classnames';
 import Benefits from '../Benefits/Benefits';
 import Governance from '../Governance';
 import Header from '../Header/Header';
+import Partners from '../Partners';
 import Protection from '../Protection';
 import Safety from '../Safety';
 import VenusPrime from '../VenusPrime';
@@ -21,6 +22,7 @@ const MainContent: React.FC<IMainContentProps> = ({ className }) => (
     <Governance />
     <Safety />
     <Benefits />
+    <Partners />
   </section>
 );
 
