@@ -1,4 +1,8 @@
-import { BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES } from 'constants/address';
+import {
+  BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES,
+  NATIVE_TOKEN_ADDRESS,
+  NULL_ADDRESS,
+} from 'constants/address';
 import type { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
 import { ChainId, type Token, type VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
@@ -68,7 +72,12 @@ const getVTokens = async ({
 
     const underlyingToken = findTokenByAddress({
       tokens,
-      address: metaData.underlyingAssetAddress,
+      address:
+        // If underlying asset address is the null address, this means the VToken has no underlying
+        // token because it is a native token
+        areAddressesEqual(metaData.underlyingAssetAddress, NULL_ADDRESS)
+          ? NATIVE_TOKEN_ADDRESS
+          : metaData.underlyingAssetAddress,
     });
 
     if (!underlyingToken) {
