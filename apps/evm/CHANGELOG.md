@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 2.136.0
+
+### Minor Changes
+
+- 5421ace: fetch specific chart periods from API
+- f1e1a67: detect native token when listing underyling tokens
+- 5bb7c7e: Unify reserve properties
+
 ## 2.135.0
 
 ### Minor Changes
