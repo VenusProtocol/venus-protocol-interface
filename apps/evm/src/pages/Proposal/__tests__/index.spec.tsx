@@ -301,7 +301,7 @@ describe('Proposal page', () => {
       data: { votesMantissa: new BigNumber(0) },
     }));
 
-    const proposerAddress = activeProposal.proposer;
+    const proposerAddress = activeProposal.proposerAddress;
     const { getByTestId } = renderComponent(<Proposal />, {
       accountAddress: proposerAddress,
     });

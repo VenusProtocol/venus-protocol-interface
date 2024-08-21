@@ -1,4 +1,4 @@
-import { type Proposal, Support } from 'clients/subgraph';
+import { type Proposal, Support } from 'clients/subgraph/gql/generated/governanceBsc';
 import { VoteSupport } from 'types';
 
 export interface GetUserVoteSupportInput {
