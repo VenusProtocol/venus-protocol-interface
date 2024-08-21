@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.137.0
+
+### Minor Changes
+
+- fb3ddfd: enable apyCharts for all chains
+
 ## 2.136.0
 
 ### Minor Changes
