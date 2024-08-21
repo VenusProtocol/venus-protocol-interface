@@ -1,6 +1,5 @@
 export { default as dashboard } from './dashboard';
 export { default as fee } from './fee';
-export { default as history } from './history';
 export { default as info } from './info';
 export { default as market } from './market';
 export { default as mask } from './mask';
