@@ -14,6 +14,7 @@ import usdcLogo from 'libs/tokens/img/usdc.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
 import wBtcLogo from 'libs/tokens/img/wbtc.svg';
 import weEthLogo from 'libs/tokens/img/weEth.svg';
+import weEthsLogo from 'libs/tokens/img/weeths.svg';
 import wethLogo from 'libs/tokens/img/weth.svg';
 import wstEthLogo from 'libs/tokens/img/wstEth.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
@@ -131,5 +132,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'ezETH',
     asset: ezEthLogo,
+  },
+  {
+    address: '0x917ceE801a67f933F2e6b33fC0cD1ED2d5909D88',
+    decimals: 18,
+    symbol: 'weETHs',
+    asset: weEthsLogo,
   },
 ];
