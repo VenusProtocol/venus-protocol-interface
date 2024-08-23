@@ -1,18 +1,18 @@
 import type BigNumber from 'bignumber.js';
 import {
-  type GetProposalPreviewsInput as GetGqlProposalPreviewsInput,
-  type Proposal_Filter,
-  formatToProposalPreview,
-  getProposalPreviews as getGqlProposalPreviews,
+  type GetProposalsInput as GetGqlProposalsInput,
+  formatToProposal,
+  getProposals as getGqlProposals,
 } from 'clients/subgraph';
-import { type ChainId, type ProposalPreview, ProposalState } from 'types';
+import type { Proposal_Filter } from 'clients/subgraph/gql/generated/governanceBsc';
+import { type ChainId, type Proposal, ProposalState } from 'types';
 
-export interface GetProposalPreviewsInput {
+export interface GetProposalsInput {
   chainId: ChainId;
   currentBlockNumber: number;
   proposalMinQuorumVotesMantissa: BigNumber;
   blockTimeMs: number;
-  proposalExecutionGracePeriodMs?: number;
+  proposalExecutionGracePeriodMs: number;
   accountAddress?: string;
   proposalState?: ProposalState;
   search?: string;
@@ -20,12 +20,12 @@ export interface GetProposalPreviewsInput {
   limit?: number;
 }
 
-export interface GetProposalPreviewsOutput {
-  proposalPreviews: ProposalPreview[];
+export interface GetProposalsOutput {
+  proposals: Proposal[];
   total: number;
 }
 
-export const getProposalPreviews = async ({
+export const getProposals = async ({
   chainId,
   currentBlockNumber,
   proposalMinQuorumVotesMantissa,
@@ -36,7 +36,7 @@ export const getProposalPreviews = async ({
   proposalState,
   search,
   accountAddress = '',
-}: GetProposalPreviewsInput): Promise<GetProposalPreviewsOutput> => {
+}: GetProposalsInput): Promise<GetProposalsOutput> => {
   // Handle filtering by proposal state
   let where: Proposal_Filter | undefined;
 
@@ -109,29 +109,23 @@ export const getProposalPreviews = async ({
     };
   }
 
-  const getGqlProposals = async () => {
-    const variables: GetGqlProposalPreviewsInput['variables'] = {
-      skip: page * limit,
-      limit,
-      accountAddress: accountAddress?.toLocaleLowerCase(),
-      where,
-    };
-
-    const response = await getGqlProposalPreviews({
-      chainId,
-      variables,
-    });
-
-    return {
-      gqlProposals: response?.proposals || [],
-      total: response?.total.length ?? 0,
-    };
+  const variables: GetGqlProposalsInput['variables'] = {
+    skip: page * limit,
+    limit,
+    accountAddress: accountAddress?.toLocaleLowerCase(),
+    where,
   };
 
-  const { gqlProposals, total } = await getGqlProposals();
+  const response = await getGqlProposals({
+    chainId,
+    variables,
+  });
 
-  const proposalPreviews = (gqlProposals || []).map(gqlProposal =>
-    formatToProposalPreview({
+  const gqlProposals = response?.proposals || [];
+  const total = response?.total.length ?? 0;
+
+  const proposals = (gqlProposals || []).map(gqlProposal =>
+    formatToProposal({
       gqlProposal,
       proposalMinQuorumVotesMantissa,
       proposalExecutionGracePeriodMs,
@@ -141,7 +135,7 @@ export const getProposalPreviews = async ({
   );
 
   return {
-    proposalPreviews,
+    proposals,
     total,
   };
 };

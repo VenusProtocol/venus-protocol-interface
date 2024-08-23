@@ -1,0 +1,73 @@
+query Proposals($limit: Int = 10, $skip: Int = 0, $accountAddress: String, $where: Proposal_filter) {
+  proposals(first: $limit, skip: $skip, where: $where, orderBy: startBlock, orderDirection: desc) {
+    proposalId
+    startBlock
+    endBlock
+    forVotes
+    againstVotes
+    abstainVotes
+    executionEta
+    type
+    description
+    passing
+    targets
+    values
+    signatures
+    calldatas
+
+    proposer {
+      id
+    }
+
+    created {
+      timestamp
+      txHash
+    }
+
+    executed {
+      timestamp
+      txHash
+    }
+
+    canceled {
+      timestamp
+      txHash
+    }
+
+    queued {
+      timestamp
+      txHash
+    }
+
+    votes {
+      id
+      support
+      votes
+      reason
+
+      voter {
+        id
+        totalVotesMantissa
+      }
+    }
+
+    remoteProposals {
+      proposalId
+      layerZeroChainId
+
+      executed {
+        timestamp
+        txHash
+      }
+
+      withdrawn {
+        timestamp
+        txHash
+      }
+    }
+  }
+
+  total: proposals(first: 1000, where: $where) {
+    id
+  }
+}

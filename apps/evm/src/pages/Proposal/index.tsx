@@ -142,7 +142,7 @@ const Proposal = () => {
   const { accountAddress } = useAccountAddress();
   const { proposalId = '' } = useParams<{ proposalId: string }>();
   const { data: proposal, error: getProposalError } = useGetProposal(
-    { proposalId, accountAddress },
+    { proposalId: Number(proposalId), accountAddress },
     { enabled: !!proposalId },
   );
 

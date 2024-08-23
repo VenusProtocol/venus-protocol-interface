@@ -3,10 +3,10 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import useGetBlockNumber from 'clients/api/queries/getBlockNumber/useGetBlockNumber';
 import { useGetProposalMinQuorumVotes } from 'clients/api/queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
 import {
-  type GetProposalPreviewsInput,
-  type GetProposalPreviewsOutput,
-  getProposalPreviews,
-} from 'clients/api/queries/getProposalPreviews';
+  type GetProposalsInput,
+  type GetProposalsOutput,
+  getProposals,
+} from 'clients/api/queries/getProposals';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
@@ -14,25 +14,32 @@ import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetProposalPreviewsInput = Omit<
-  GetProposalPreviewsInput,
-  'chainId' | 'proposalMinQuorumVotesMantissa' | 'currentBlockNumber' | 'blockTimeMs'
+  GetProposalsInput,
+  | 'chainId'
+  | 'proposalMinQuorumVotesMantissa'
+  | 'proposalExecutionGracePeriodMs'
+  | 'currentBlockNumber'
+  | 'blockTimeMs'
 >;
 
 type Options = QueryObserverOptions<
-  GetProposalPreviewsOutput,
+  GetProposalsOutput,
   Error,
-  GetProposalPreviewsOutput,
-  GetProposalPreviewsOutput,
+  GetProposalsOutput,
+  GetProposalsOutput,
   [
-    FunctionKey.GET_PROPOSAL_PREVIEWS,
+    FunctionKey.GET_PROPOSALS,
     Omit<
-      GetProposalPreviewsInput,
-      'currentBlockNumber' | 'proposalMinQuorumVotesMantissa' | 'blockTimeMs'
+      GetProposalsInput,
+      | 'currentBlockNumber'
+      | 'proposalMinQuorumVotesMantissa'
+      | 'blockTimeMs'
+      | 'proposalExecutionGracePeriodMs'
     >,
   ]
 >;
 
-export const useGetProposalPreviews = (
+export const useGetProposals = (
   input: TrimmedGetProposalPreviewsInput = {},
   options?: Partial<Options>,
 ) => {
@@ -55,7 +62,7 @@ export const useGetProposalPreviews = (
 
   return useQuery({
     queryKey: [
-      FunctionKey.GET_PROPOSAL_PREVIEWS,
+      FunctionKey.GET_PROPOSALS,
       {
         ...sanitizedInput,
         // We will check that the current block number exists through the enabled parameter
@@ -67,14 +74,14 @@ export const useGetProposalPreviews = (
         {
           currentBlockNumber,
           proposalMinQuorumVotesMantissa,
+          proposalExecutionGracePeriodMs,
           blockTimeMs,
         },
         params =>
-          getProposalPreviews({
+          getProposals({
             ...sanitizedInput,
             ...params,
             chainId: governanceChain.id,
-            proposalExecutionGracePeriodMs,
           }),
       );
     },
@@ -83,7 +90,7 @@ export const useGetProposalPreviews = (
         limit: sanitizedInput.limit,
         page: sanitizedInput.page,
         total: 0,
-        proposalPreviews: [],
+        proposals: [],
       },
     refetchInterval:
       sanitizedInput.page === 0 ? (blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS) * 5 : undefined,
