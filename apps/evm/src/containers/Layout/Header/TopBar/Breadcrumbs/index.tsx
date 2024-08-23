@@ -119,9 +119,6 @@ export const Breadcrumbs: React.FC = () => {
         case Subdirectory.VAULTS:
           dom = t('breadcrumbs.vaults');
           break;
-        case Subdirectory.HISTORY:
-          dom = t('breadcrumbs.history');
-          break;
         case Subdirectory.XVS:
           dom = t('breadcrumbs.xvs');
           break;

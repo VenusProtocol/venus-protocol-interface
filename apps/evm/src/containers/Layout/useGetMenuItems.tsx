@@ -11,7 +11,6 @@ const useGetMenuItems = () => {
   const { accountAddress } = useAccountAddress();
   const { stakedEthPoolComptrollerContractAddress, wstEthContractAddress } = useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
-  const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
@@ -85,16 +84,6 @@ const useGetMenuItems = () => {
       });
     }
 
-    if (historyRouteEnabled) {
-      menuItems.push({
-        to: routes.history.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.history')
-        i18nKey: 'layout.menuItems.history',
-        iconName: 'history',
-      });
-    }
-
     menuItems.push({
       to: routes.governance.path,
       // Translation key: do not remove this comment
@@ -137,7 +126,6 @@ const useGetMenuItems = () => {
   }, [
     accountAddress,
     swapRouteEnabled,
-    historyRouteEnabled,
     vaiRouteEnabled,
     xvsRouteEnabled,
     bridgeRouteEnabled,

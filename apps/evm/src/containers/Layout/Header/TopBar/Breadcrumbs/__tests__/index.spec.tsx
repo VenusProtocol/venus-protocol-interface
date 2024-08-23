@@ -38,7 +38,6 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     ],
     [routes.governanceProposal.path.replace(':proposalId', '1'), routes.governanceProposal.path],
     [routes.governanceVoter.path.replace(':address', fakeAddress), routes.governanceVoter.path],
-    [routes.history.path, routes.history.path],
     [routes.isolatedPools.path, routes.isolatedPools.path],
     [
       routes.isolatedPool.path.replace(':poolComptrollerAddress', fakeAddress),

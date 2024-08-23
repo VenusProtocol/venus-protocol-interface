@@ -23,7 +23,6 @@ export const featureFlags = {
   sxpDisablingWarning: [ChainId.BSC_MAINNET],
   bethUpdateWarning: [ChainId.BSC_MAINNET],
   convertVrtRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  historyRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   vaiRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   swapRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   xvsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],

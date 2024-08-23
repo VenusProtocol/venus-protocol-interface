@@ -20,7 +20,6 @@ const IsolatedPool = lazy(() => import('pages/Pool/IsolatedPool'));
 const LidoMarket = lazy(() => import('pages/Market/LidoMarket'));
 const ConvertVrt = lazy(() => import('pages/ConvertVrt'));
 const Governance = lazy(() => import('pages/Governance'));
-const History = lazy(() => import('pages/History'));
 const IsolatedPools = lazy(() => import('pages/IsolatedPools'));
 const Proposal = lazy(() => import('pages/Proposal'));
 const Swap = lazy(() => import('pages/Swap'));
@@ -36,7 +35,6 @@ const AppRoutes = () => {
   const { accountAddress } = useAccountAddress();
   const { stakedEthPoolComptrollerContractAddress, wstEthContractAddress } = useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
-  const historyRouteEnabled = useIsFeatureEnabled({ name: 'historyRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
@@ -188,17 +186,6 @@ const AppRoutes = () => {
             />
           )}
         </Route>
-
-        {historyRouteEnabled && (
-          <Route
-            path={Subdirectory.HISTORY}
-            element={
-              <PageSuspense>
-                <History />
-              </PageSuspense>
-            }
-          />
-        )}
 
         {/* TODO: refactor to use nested routes (see VEN-2235) */}
         <Route

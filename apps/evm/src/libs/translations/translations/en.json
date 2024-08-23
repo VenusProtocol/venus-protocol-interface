@@ -147,7 +147,6 @@
     "corePool": "Core pool",
     "dashboard": "Dashboard",
     "governance": "Governance",
-    "history": "History",
     "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
     "lidoMarket": "Lido market",
@@ -296,39 +295,6 @@
       "documentation": "Documentation"
     }
   },
-  "history": {
-    "all": "All",
-    "approval": "Approval",
-    "borrow": "Borrow",
-    "columns": {
-      "amount": "Amount",
-      "block": "Block",
-      "created": "Created",
-      "from": "From",
-      "hash": "Hash",
-      "to": "To",
-      "type": "Type"
-    },
-    "createdAt": "{{ date, distanceToNow }} ago",
-    "deposit": "Deposit",
-    "liquidateBorrow": "Liquidate Borrow",
-    "mint": "Mint",
-    "mintVAI": "Mint VAI",
-    "myTransactions": "My Transactions",
-    "proposalCanceled": "Proposal Canceled",
-    "proposalCreated": "Proposal Created",
-    "proposalExecuted": "Proposal Executed",
-    "proposalQueued": "Proposal Queued",
-    "redeem": "Redeem",
-    "repayBorrow": "Repay Borrow",
-    "repayVAI": "Repay VAI",
-    "reservesAdded": "Reserves Added",
-    "reservesReduced": "Reserves Reduced",
-    "selectLabel": "Type",
-    "transfer": "Transfer",
-    "voteCast": "Vote Cast",
-    "withdraw": "Withdraw"
-  },
   "interactive": {
     "copy": {
       "walletAddress": "Wallet address",
@@ -380,7 +346,6 @@
       "corePool": "Core pool",
       "dashboard": "Dashboard",
       "governance": "Governance",
-      "history": "History",
       "isolatedPools": "Isolated pools",
       "lidoMarket": "Lido market",
       "swap": "Swap",
