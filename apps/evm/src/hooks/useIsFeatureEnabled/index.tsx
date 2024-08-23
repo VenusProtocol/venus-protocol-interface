@@ -46,7 +46,13 @@ export const featureFlags = {
     ChainId.ARBITRUM_ONE,
     ChainId.ARBITRUM_SEPOLIA,
   ],
-  isolatedPools: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.ETHEREUM, ChainId.SEPOLIA],
+  isolatedPools: [
+    ChainId.BSC_MAINNET,
+    ChainId.BSC_TESTNET,
+    ChainId.ETHEREUM,
+    ChainId.SEPOLIA,
+    ChainId.ARBITRUM_SEPOLIA,
+  ],
   bridgeRoute: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
