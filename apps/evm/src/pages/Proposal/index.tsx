@@ -83,7 +83,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
       )}
 
-      <div css={styles.votes} className="space-y-6 lg:space-y-0">
+      <div css={styles.votes} className="space-y-6 xl:space-y-0">
         <VoteSummary
           css={styles.vote}
           label={t('vote.for')}
@@ -141,10 +141,11 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 const Proposal = () => {
   const { accountAddress } = useAccountAddress();
   const { proposalId = '' } = useParams<{ proposalId: string }>();
-  const { data: proposal, error: getProposalError } = useGetProposal(
+  const { data: proposalData, error: getProposalError } = useGetProposal(
     { proposalId: Number(proposalId), accountAddress },
     { enabled: !!proposalId },
   );
+  const proposal = proposalData?.proposal;
 
   const xvs = useGetToken({
     symbol: 'XVS',

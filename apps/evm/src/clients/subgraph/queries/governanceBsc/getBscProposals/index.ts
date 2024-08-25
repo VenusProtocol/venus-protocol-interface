@@ -7,12 +7,12 @@ import {
 import config from 'config';
 import type { ChainId } from 'types';
 
-export interface GetProposalsInput {
+export interface GetBscProposalsInput {
   chainId: ChainId;
   variables: ProposalsQueryVariables;
 }
 
-export const getProposals = ({ chainId, variables }: GetProposalsInput) =>
+export const getBscProposals = ({ chainId, variables }: GetBscProposalsInput) =>
   config.subgraphUrls[chainId]?.governance
     ? request({
         url: config.subgraphUrls[chainId]!.governance!,

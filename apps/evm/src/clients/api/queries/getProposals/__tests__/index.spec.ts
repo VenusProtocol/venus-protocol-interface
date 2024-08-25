@@ -1,6 +1,6 @@
 import fakeAccountAddress from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
-import { getProposals as getGqlProposalPreviews } from 'clients/subgraph';
+import { getBscProposals } from 'clients/subgraph';
 import { ChainId, ProposalState } from 'types';
 import type Vi from 'vitest';
 import { type GetProposalsInput, getProposals } from '..';
@@ -38,7 +38,7 @@ describe('getProposals', () => {
         proposalState,
       });
 
-      expect((getGqlProposalPreviews as Vi.Mock).mock.calls[i][0]).toMatchSnapshot();
+      expect((getBscProposals as Vi.Mock).mock.calls[i][0]).toMatchSnapshot();
     }
   });
 
@@ -48,6 +48,6 @@ describe('getProposals', () => {
       search: 'fake search',
     });
 
-    expect((getGqlProposalPreviews as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((getBscProposals as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
   });
 });

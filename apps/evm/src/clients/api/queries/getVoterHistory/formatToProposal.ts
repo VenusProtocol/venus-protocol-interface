@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import type { ProposalApiResponse } from 'clients/api';
+import type { ProposalApiResponse } from 'clients/api/queries/getVoterHistory/types';
 import {
   type AbstainVoter,
   type AgainstVoter,
@@ -9,10 +9,7 @@ import {
   ProposalType,
   VoteSupport,
 } from 'types';
-
-import areAddressesEqual from './areAddressesEqual';
-import { convertToDate } from './convertToDate';
-import { formatToProposalDescription } from './formatToProposalDescription';
+import { areAddressesEqual, convertToDate, formatToProposalDescription } from 'utilities';
 
 export const formatToProposal = ({
   cancelTimestamp,

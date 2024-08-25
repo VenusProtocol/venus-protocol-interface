@@ -13,13 +13,13 @@ import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetProposalPreviewsInput = Omit<
+type TrimmedGetProposalsInput = Omit<
   GetProposalsInput,
-  | 'chainId'
+  | 'currentBlockNumber'
   | 'proposalMinQuorumVotesMantissa'
   | 'proposalExecutionGracePeriodMs'
-  | 'currentBlockNumber'
   | 'blockTimeMs'
+  | 'chainId'
 >;
 
 type Options = QueryObserverOptions<
@@ -33,14 +33,14 @@ type Options = QueryObserverOptions<
       GetProposalsInput,
       | 'currentBlockNumber'
       | 'proposalMinQuorumVotesMantissa'
-      | 'blockTimeMs'
       | 'proposalExecutionGracePeriodMs'
+      | 'blockTimeMs'
     >,
   ]
 >;
 
 export const useGetProposals = (
-  input: TrimmedGetProposalPreviewsInput = {},
+  input: TrimmedGetProposalsInput = {},
   options?: Partial<Options>,
 ) => {
   const { data: getProposalMinQuorumVotesData } = useGetProposalMinQuorumVotes();
@@ -54,7 +54,7 @@ export const useGetProposals = (
 
   const { blockTimeMs, proposalExecutionGracePeriodMs } = CHAIN_METADATA[governanceChain.id];
 
-  const sanitizedInput: TrimmedGetProposalPreviewsInput = {
+  const sanitizedInput: TrimmedGetProposalsInput = {
     ...input,
     page: input.page ?? 0,
     limit: input.limit ?? 10,
@@ -69,8 +69,8 @@ export const useGetProposals = (
         chainId: governanceChain.id,
       },
     ],
-    queryFn: () => {
-      return callOrThrow(
+    queryFn: () =>
+      callOrThrow(
         {
           currentBlockNumber,
           proposalMinQuorumVotesMantissa,
@@ -83,8 +83,7 @@ export const useGetProposals = (
             ...params,
             chainId: governanceChain.id,
           }),
-      );
-    },
+      ),
     placeholderData: a =>
       a ?? {
         limit: sanitizedInput.limit,

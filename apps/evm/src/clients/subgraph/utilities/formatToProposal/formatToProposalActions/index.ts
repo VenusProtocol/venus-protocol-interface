@@ -1,7 +1,5 @@
 import type { ProposalAction } from 'types';
 
-// TODO: add tests
-
 export const formatToProposalActions = ({
   callDatas,
   signatures,

@@ -9,6 +9,7 @@ import {
 } from 'types';
 import {
   areAddressesEqual,
+  compareBigNumbers,
   convertToDate,
   formatToProposalDescription,
   getProposalState,
@@ -56,57 +57,59 @@ export const formatToProposal = ({
     againstVotesMantissa,
     forVotesMantissa,
     userVoteSupport,
-  } = gqlProposal.votes.reduce<{
-    forVotes: ForVoter[];
-    againstVotes: AgainstVoter[];
-    abstainVotes: AbstainVoter[];
-    totalVotesMantissa: BigNumber;
-    abstainedVotesMantissa: BigNumber;
-    againstVotesMantissa: BigNumber;
-    forVotesMantissa: BigNumber;
-    userVoteSupport?: VoteSupport;
-  }>(
-    (acc, gqlVote) => {
-      const accCopy = { ...acc };
+  } = [...gqlProposal.votes]
+    .sort((a, b) => compareBigNumbers(new BigNumber(a.votes), new BigNumber(b.votes), 'desc'))
+    .reduce<{
+      forVotes: ForVoter[];
+      againstVotes: AgainstVoter[];
+      abstainVotes: AbstainVoter[];
+      totalVotesMantissa: BigNumber;
+      abstainedVotesMantissa: BigNumber;
+      againstVotesMantissa: BigNumber;
+      forVotesMantissa: BigNumber;
+      userVoteSupport?: VoteSupport;
+    }>(
+      (acc, gqlVote) => {
+        const accCopy = { ...acc };
 
-      const vote = {
-        proposalId: gqlProposal.proposalId,
-        address: gqlVote.voter.id,
-        reason: gqlVote.reason ?? undefined,
-        support: getUserVoteSupport({ voteSupport: gqlVote.support }),
-        votesMantissa: new BigNumber(gqlVote.votes),
-      };
+        const vote = {
+          proposalId: gqlProposal.proposalId,
+          address: gqlVote.voter.id,
+          reason: gqlVote.reason ?? undefined,
+          support: getUserVoteSupport({ voteSupport: gqlVote.support }),
+          votesMantissa: new BigNumber(gqlVote.votes),
+        };
 
-      accCopy.totalVotesMantissa = accCopy.totalVotesMantissa.plus(vote.votesMantissa);
+        accCopy.totalVotesMantissa = accCopy.totalVotesMantissa.plus(vote.votesMantissa);
 
-      if (vote.support === VoteSupport.For) {
-        accCopy.forVotes.push(vote as ForVoter);
-        accCopy.forVotesMantissa = accCopy.forVotesMantissa.plus(vote.votesMantissa);
-      } else if (vote.support === VoteSupport.Against) {
-        accCopy.againstVotes.push(vote as AgainstVoter);
-        accCopy.againstVotesMantissa = accCopy.againstVotesMantissa.plus(vote.votesMantissa);
-      } else {
-        accCopy.abstainVotes.push(vote as AbstainVoter);
-        accCopy.abstainedVotesMantissa = accCopy.abstainedVotesMantissa.plus(vote.votesMantissa);
-      }
+        if (vote.support === VoteSupport.For) {
+          accCopy.forVotes.push(vote as ForVoter);
+          accCopy.forVotesMantissa = accCopy.forVotesMantissa.plus(vote.votesMantissa);
+        } else if (vote.support === VoteSupport.Against) {
+          accCopy.againstVotes.push(vote as AgainstVoter);
+          accCopy.againstVotesMantissa = accCopy.againstVotesMantissa.plus(vote.votesMantissa);
+        } else {
+          accCopy.abstainVotes.push(vote as AbstainVoter);
+          accCopy.abstainedVotesMantissa = accCopy.abstainedVotesMantissa.plus(vote.votesMantissa);
+        }
 
-      if (!!accountAddress && areAddressesEqual(accountAddress, vote.address)) {
-        accCopy.userVoteSupport = vote.support;
-      }
+        if (!!accountAddress && areAddressesEqual(accountAddress, vote.address)) {
+          accCopy.userVoteSupport = vote.support;
+        }
 
-      return accCopy;
-    },
-    {
-      forVotes: [],
-      againstVotes: [],
-      abstainVotes: [],
-      totalVotesMantissa: new BigNumber(0),
-      abstainedVotesMantissa: new BigNumber(0),
-      againstVotesMantissa: new BigNumber(0),
-      forVotesMantissa: new BigNumber(0),
-      userVoteSupport: undefined,
-    },
-  );
+        return accCopy;
+      },
+      {
+        forVotes: [],
+        againstVotes: [],
+        abstainVotes: [],
+        totalVotesMantissa: new BigNumber(0),
+        abstainedVotesMantissa: new BigNumber(0),
+        againstVotesMantissa: new BigNumber(0),
+        forVotesMantissa: new BigNumber(0),
+        userVoteSupport: undefined,
+      },
+    );
 
   const result: Proposal = {
     proposalId: gqlProposal.proposalId,

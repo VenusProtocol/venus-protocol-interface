@@ -51,4 +51,3 @@ export * from './calculateDailyTokenRate';
 export * from './getProposalType';
 export * from './getProposalState';
 export * from './getUserVoteSupport';
-export * from './formatToProposal';

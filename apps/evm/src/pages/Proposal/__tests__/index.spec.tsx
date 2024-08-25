@@ -64,7 +64,9 @@ describe('Proposal page', () => {
     }));
 
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
-      data: activeProposal,
+      data: {
+        proposal: activeProposal,
+      },
     }));
 
     (useGetProposalThreshold as Vi.Mock).mockImplementation(() => ({
@@ -109,7 +111,9 @@ describe('Proposal page', () => {
 
   it('vote buttons are hidden when proposal is not active', async () => {
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
-      data: canceledProposal,
+      data: {
+        proposal: canceledProposal,
+      },
     }));
 
     const { queryByText } = renderComponent(<Proposal />, {
@@ -354,7 +358,9 @@ describe('Proposal page', () => {
 
   it('user can queue succeeded proposal', async () => {
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
-      data: succeededProposal,
+      data: {
+        proposal: succeededProposal,
+      },
     }));
 
     const { getByTestId } = renderComponent(<Proposal />, {
@@ -372,7 +378,9 @@ describe('Proposal page', () => {
 
   it('user can execute queued proposal', async () => {
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
-      data: queuedProposal,
+      data: {
+        proposal: queuedProposal,
+      },
     }));
 
     const { getByTestId } = renderComponent(<Proposal />, {

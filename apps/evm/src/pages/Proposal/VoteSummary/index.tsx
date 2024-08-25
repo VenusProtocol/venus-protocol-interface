@@ -56,7 +56,7 @@ const VoteSummary = ({
 
   return (
     <Card css={styles.root} className={className} data-testid={testId}>
-      <div css={styles.topSection}>
+      <div css={styles.topSection} className="space-y-8 sm:space-y-0 xl:space-y-8">
         <div css={styles.labeledProgressBarContainer}>
           <LabeledProgressBar
             greyLeftText={label}

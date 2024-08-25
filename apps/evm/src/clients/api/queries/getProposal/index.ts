@@ -1,33 +1,61 @@
+import type BigNumber from 'bignumber.js';
+import {
+  type GetBscProposalInput as GetBscGqlProposalInput,
+  formatToProposal,
+  getBscProposal as getBscGqlProposal,
+} from 'clients/subgraph';
 import { VError } from 'libs/errors';
-import { formatToProposal, restService } from 'utilities';
+import type { ChainId, Proposal } from 'types';
 
-import type { GetProposalInput, GetProposalOutput, ProposalApiResponse } from './types';
+export interface GetProposalInput {
+  proposalId: number;
+  chainId: ChainId;
+  currentBlockNumber: number;
+  proposalMinQuorumVotesMantissa: BigNumber;
+  blockTimeMs: number;
+  proposalExecutionGracePeriodMs: number;
+  accountAddress?: string;
+}
 
-export * from './types';
+export type GetProposalOutput = {
+  proposal?: Proposal;
+};
 
 export const getProposal = async ({
   proposalId,
-  accountAddress = '',
+  chainId,
+  currentBlockNumber,
+  proposalMinQuorumVotesMantissa,
+  proposalExecutionGracePeriodMs,
+  blockTimeMs,
+  accountAddress,
 }: GetProposalInput): Promise<GetProposalOutput> => {
-  const response = await restService<ProposalApiResponse>({
-    endpoint: `/governance/proposals/${proposalId}`,
-    method: 'GET',
+  const variables: GetBscGqlProposalInput['variables'] = {
+    id: proposalId.toString(),
+  };
+
+  const response = await getBscGqlProposal({
+    chainId,
+    variables,
   });
 
-  const payload = response.data;
+  const gqlProposal = response?.proposal;
 
-  // @todo Add specific api error handling
-  if (payload && 'error' in payload) {
+  if (!gqlProposal) {
     throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
-      data: { message: payload.error },
+      type: 'proposal',
+      code: 'proposalNotFound',
     });
   }
 
-  if (!payload) {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
-  }
+  const proposal = formatToProposal({
+    gqlProposal,
+    proposalMinQuorumVotesMantissa,
+    proposalExecutionGracePeriodMs,
+    currentBlockNumber,
+    blockTimeMs,
+    accountAddress,
+  });
 
-  return formatToProposal({ ...payload, accountAddress });
+  return { proposal };
 };

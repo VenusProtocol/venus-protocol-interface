@@ -1,8 +1,8 @@
 import type BigNumber from 'bignumber.js';
 import {
-  type GetProposalsInput as GetGqlProposalsInput,
+  type GetBscProposalsInput as GetBscGqlProposalsInput,
   formatToProposal,
-  getProposals as getGqlProposals,
+  getBscProposals as getBscGqlProposals,
 } from 'clients/subgraph';
 import type { Proposal_Filter } from 'clients/subgraph/gql/generated/governanceBsc';
 import { type ChainId, type Proposal, ProposalState } from 'types';
@@ -35,7 +35,7 @@ export const getProposals = async ({
   limit = 10,
   proposalState,
   search,
-  accountAddress = '',
+  accountAddress,
 }: GetProposalsInput): Promise<GetProposalsOutput> => {
   // Handle filtering by proposal state
   let where: Proposal_Filter | undefined;
@@ -109,14 +109,13 @@ export const getProposals = async ({
     };
   }
 
-  const variables: GetGqlProposalsInput['variables'] = {
+  const variables: GetBscGqlProposalsInput['variables'] = {
     skip: page * limit,
     limit,
-    accountAddress: accountAddress?.toLocaleLowerCase(),
     where,
   };
 
-  const response = await getGqlProposals({
+  const response = await getBscGqlProposals({
     chainId,
     variables,
   });
@@ -131,6 +130,7 @@ export const getProposals = async ({
       proposalExecutionGracePeriodMs,
       currentBlockNumber,
       blockTimeMs,
+      accountAddress,
     }),
   );
 
