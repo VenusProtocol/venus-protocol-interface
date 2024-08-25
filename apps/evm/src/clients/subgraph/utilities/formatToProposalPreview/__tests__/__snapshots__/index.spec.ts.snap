@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`formatToProposalPreview > returns proposal preview in the correct format 1`] = `
+{
+  "abstainedVotesMantissa": "1.05462e+23",
+  "againstVotesMantissa": "2.05462e+23",
+  "cancelDate": undefined,
+  "description": {
+    "abstainDescription": "I am indifferent to whether Venus Protocol proceeds or not",
+    "againstDescription": "I do not think that Venus Protocol should proceed with this proposal",
+    "description": "
+    This VIP does the following:
+    1. Updates the implementation of all VTokens and Comptroller market facet in Core Pool
+    2. Updates the implementation of VTokens and Comptrollers in IL
+    3. Accepts the ownership of the NativeTokenGateway contract
+    4. Gives call permissions to Timelocks for seizeVenus function
+    5. Sets XVS and vXVS address in unitroller",
+    "forDescription": "I agree that Venus Protocol should proceed with this proposal",
+    "title": "VIP-Gateway Update VToken and comptroller implementation in IL and Core Pool and introduces the NativeTokenGateway contract",
+    "version": "v2",
+  },
+  "endDate": 2024-03-14T07:34:11.000Z,
+  "etaDate": 2024-03-14T07:34:08.000Z,
+  "executedDate": 2024-03-14T07:38:32.000Z,
+  "forVotesMantissa": "6.05462e+23",
+  "proposalId": 387,
+  "proposalType": 0,
+  "queuedDate": 2024-03-14T07:24:08.000Z,
+  "state": 1,
+  "userVoteSupport": 1,
+}
+`;

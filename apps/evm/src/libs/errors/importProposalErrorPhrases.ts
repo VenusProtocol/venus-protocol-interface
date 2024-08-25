@@ -1,7 +1,6 @@
 import { t } from 'libs/translations';
 
 export const importProposalErrorPhrases = {
-  proposalNotFound: t('errors.proposalNotFound'),
   noMetaKey: t('errors.noMetaKey'),
   noSignaturesKey: t('errors.noSignaturesKey'),
   noTypeKey: t('errors.noTypeKey'),

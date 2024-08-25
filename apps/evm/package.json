@@ -17,9 +17,8 @@
     "tsc": "tsc --noEmit",
     "extract-translations": "yarn i18next",
     "generate-subgraph-types:isolated-pools": "yarn graphql-codegen --config src/config/codegen.ts --project isolatedPools",
-    "generate-subgraph-types:governance-bsc": "yarn graphql-codegen --config src/config/codegen.ts --project governanceBsc",
-    "generate-subgraph-types:governance-remote-chains": "yarn graphql-codegen --config src/config/codegen.ts --project governanceRemoteChains",
-    "generate-subgraph-types": "npm-run-all --parallel generate-subgraph-types:isolated-pools generate-subgraph-types:governance-bsc",
+    "generate-subgraph-types:governance": "yarn graphql-codegen --config src/config/codegen.ts --project governance",
+    "generate-subgraph-types": "npm-run-all --parallel generate-subgraph-types:isolated-pools generate-subgraph-types:governance",
     "generate-contracts": "rimraf src/libs/contracts/generated/getters && rimraf src/libs/contracts/generated/infos && src/libs/contracts/scripts/generateContractRecords/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/contracts/generated",
     "generate-pancake-swap-tokens": "src/libs/tokens/scripts/generatePancakeSwapTokenRecords/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/tokens/generated/pancakeSwapTokens/bscMainnet.ts",
     "generate-token-accent-colors": "src/libs/tokens/scripts/generateTokenAccentColors/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/tokens/generated/tokenAccentColors.ts",
@@ -156,7 +155,15 @@
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

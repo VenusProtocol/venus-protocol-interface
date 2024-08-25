@@ -1,4 +1,4 @@
-import { Support } from 'clients/subgraph/gql/generated/governanceBsc';
+import { Support } from 'clients/subgraph';
 import { VoteSupport } from 'types';
 import { type GetUserVoteSupportInput, getUserVoteSupport } from '..';
 

@@ -255,11 +255,12 @@ export { default as useGetXvsVaultLockedDeposits } from './queries/getXvsVaultLo
 
 export { default as useGetVaults } from './queries/useGetVaults';
 
-export * from './queries/getProposals';
-export * from './queries/getProposals/useGetProposals';
+export * from './queries/getProposalPreviews';
+export * from './queries/getProposalPreviews/useGetProposalPreviews';
 
+export { default as getProposal } from './queries/getProposal';
 export * from './queries/getProposal';
-export * from './queries/getProposal/useGetProposal';
+export { default as useGetProposal } from './queries/getProposal/useGetProposal';
 
 export { default as getVoteReceipt } from './queries/getVoteReceipt';
 export * from './queries/getVoteReceipt';

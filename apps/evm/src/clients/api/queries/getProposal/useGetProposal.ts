@@ -1,6 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { getProposal } from 'clients/api/queries/getProposal';
+import getProposal from 'clients/api/queries/getProposal';
 import type { GetProposalInput, GetProposalOutput } from 'clients/api/queries/getProposal/types';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
@@ -17,7 +17,7 @@ type Options = QueryObserverOptions<
   UseGetProposalQueryKey
 >;
 
-export const useGetProposal = (params: GetProposalInput, options?: Partial<Options>) => {
+const useGetProposal = (params: GetProposalInput, options?: Partial<Options>) => {
   const { blockTimeMs } = CHAIN_METADATA[governanceChain.id];
 
   return useQuery({
@@ -27,3 +27,5 @@ export const useGetProposal = (params: GetProposalInput, options?: Partial<Optio
     ...options,
   });
 };
+
+export default useGetProposal;

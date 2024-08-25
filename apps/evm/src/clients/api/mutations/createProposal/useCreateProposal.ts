@@ -22,7 +22,7 @@ const useCreateProposal = (options?: Partial<Options>) => {
       ),
     onConfirmed: async () => {
       queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_PROPOSALS],
+        queryKey: [FunctionKey.GET_PROPOSAL_PREVIEWS],
       });
     },
     options,

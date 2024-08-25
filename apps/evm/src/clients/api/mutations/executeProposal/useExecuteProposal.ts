@@ -23,7 +23,7 @@ const useExecuteProposal = (options?: Partial<Options>) => {
       ),
     onConfirmed: async ({ input }) => {
       queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_PROPOSALS],
+        queryKey: [FunctionKey.GET_PROPOSAL_PREVIEWS],
       });
       queryClient.invalidateQueries({
         queryKey: [

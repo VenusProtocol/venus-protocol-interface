@@ -11,15 +11,5 @@ export const LAYER_ZERO_CHAIN_IDS: Record<ChainId, number> = {
   [ChainId.ARBITRUM_ONE]: 110,
 };
 
-export const CHAIN_IDS_ON_LAYER_ZERO = Object.entries(LAYER_ZERO_CHAIN_IDS).reduce<
-  Record<number, ChainId>
->(
-  (acc, [chainId, layerZeroChainId]) => ({
-    ...acc,
-    [layerZeroChainId]: Number(chainId) as ChainId,
-  }),
-  {},
-);
-
 export const DEFAULT_ADAPTER_PARAMS =
   '0x000100000000000000000000000000000000000000000000000000000000000493E0';

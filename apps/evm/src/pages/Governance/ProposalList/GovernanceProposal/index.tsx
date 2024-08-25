@@ -16,7 +16,7 @@ import { routes } from 'constants/routing';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { type Proposal, ProposalState, ProposalType, type Token, VoteSupport } from 'types';
+import { type ProposalPreview, ProposalState, ProposalType, type Token, VoteSupport } from 'types';
 import { getProposalStateLabel } from 'utilities/getProposalStateLabel';
 
 import greenPulseAnimation from './greenPulseAnimation.gif';
@@ -116,7 +116,7 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
   return null;
 };
 
-interface GovernanceProposalProps extends Proposal {
+interface GovernanceProposalProps extends ProposalPreview {
   className?: string;
   isUserConnected: boolean;
   xvs?: Token;
@@ -128,7 +128,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   description,
   state,
   executedDate,
-  executionEtaDate,
+  etaDate,
   cancelDate,
   endDate,
   userVoteSupport,
@@ -170,13 +170,13 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       case ProposalState.Executed:
         return [executedDate, 'voteProposalUi.executedDate'];
       case ProposalState.Queued:
-        return [executionEtaDate, 'voteProposalUi.queuedUntilDate'];
+        return [etaDate, 'voteProposalUi.queuedUntilDate'];
       case ProposalState.Defeated:
         return [endDate, 'voteProposalUi.defeatedDate'];
       default:
         return [undefined, undefined];
     }
-  }, [state, cancelDate, executedDate, endDate, executionEtaDate]);
+  }, [state, cancelDate, executedDate, endDate, etaDate]);
 
   return (
     <ProposalCard

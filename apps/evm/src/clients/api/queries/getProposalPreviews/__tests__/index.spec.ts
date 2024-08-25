@@ -1,11 +1,11 @@
 import fakeAccountAddress from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
-import { getProposals as getGqlProposalPreviews } from 'clients/subgraph';
+import { getProposalPreviews as getGqlProposalPreviews } from 'clients/subgraph';
 import { ChainId, ProposalState } from 'types';
 import type Vi from 'vitest';
-import { type GetProposalsInput, getProposals } from '..';
+import { type GetProposalPreviewsInput, getProposalPreviews } from '..';
 
-const fakeParams: GetProposalsInput = {
+const fakeParams: GetProposalPreviewsInput = {
   chainId: ChainId.BSC_TESTNET,
   currentBlockNumber: 1,
   proposalMinQuorumVotesMantissa: new BigNumber(10),
@@ -14,13 +14,13 @@ const fakeParams: GetProposalsInput = {
   accountAddress: fakeAccountAddress,
 };
 
-describe('getProposals', () => {
+describe('getProposalPreviews', () => {
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(new Date(1710401645000));
   });
 
-  it('returns proposals in the correct format', async () => {
-    const res = await getProposals(fakeParams);
+  it('returns proposal previews in the correct format', async () => {
+    const res = await getProposalPreviews(fakeParams);
 
     expect(res).toMatchSnapshot();
   });
@@ -33,7 +33,7 @@ describe('getProposals', () => {
     for (let i = 0; i < proposalStates.length; i++) {
       const proposalState = proposalStates[i];
 
-      await getProposals({
+      await getProposalPreviews({
         ...fakeParams,
         proposalState,
       });
@@ -43,7 +43,7 @@ describe('getProposals', () => {
   });
 
   it('sets "where" parameter correctly based on passed "search" parameter', async () => {
-    await getProposals({
+    await getProposalPreviews({
       ...fakeParams,
       search: 'fake search',
     });

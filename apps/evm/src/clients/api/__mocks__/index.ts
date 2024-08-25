@@ -7,13 +7,14 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { markets } from '__mocks__/models/markets';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
+import proposals from '__mocks__/models/proposals';
 import vTokens from '__mocks__/models/vTokens';
 import { vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
 
 import FunctionKey from 'constants/functionKey';
 
-import proposals from '__mocks__/models/proposals';
+import { proposalPreviews } from '__mocks__/models/proposalPreviews';
 import type { Token } from 'types';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
 import type { GetTokenBalancesInput } from '../queries/getTokenBalances';
@@ -325,13 +326,13 @@ export const useGetCurrentVotes = vi.fn(() =>
   }),
 );
 
-export const getProposals = vi.fn(async () => ({
-  proposals,
+export const getProposalPreviews = vi.fn(async () => ({
+  proposalPreviews,
 }));
-export const useGetProposals = vi.fn(() =>
+export const useGetProposalPreviews = vi.fn(() =>
   useQuery({
-    queryKey: [FunctionKey.GET_PROPOSALS],
-    queryFn: getProposals,
+    queryKey: [FunctionKey.GET_PROPOSAL_PREVIEWS],
+    queryFn: getProposalPreviews,
   }),
 );
 

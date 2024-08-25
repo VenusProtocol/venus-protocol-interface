@@ -14,7 +14,7 @@ import areAddressesEqual from './areAddressesEqual';
 import { convertToDate } from './convertToDate';
 import { formatToProposalDescription } from './formatToProposalDescription';
 
-export const formatToProposal = ({
+const formatToProposal = ({
   cancelTimestamp,
   createdTimestamp,
   description,
@@ -98,9 +98,9 @@ export const formatToProposal = ({
       : undefined,
     forVotesMantissa: forVotesValue,
     proposalId,
-    proposerAddress: proposer,
+    proposer,
     queuedDate: queuedTimestamp ? convertToDate({ timestampSeconds: queuedTimestamp }) : undefined,
-    executionEtaDate: eta ? convertToDate({ timestampSeconds: eta }) : undefined,
+    etaDate: eta ? convertToDate({ timestampSeconds: eta }) : undefined,
     startDate: convertToDate({ timestampSeconds: startTimestamp }),
     state,
     createdTxHash: createdTxHash ?? undefined,
@@ -118,3 +118,5 @@ export const formatToProposal = ({
 
   return proposal;
 };
+
+export default formatToProposal;

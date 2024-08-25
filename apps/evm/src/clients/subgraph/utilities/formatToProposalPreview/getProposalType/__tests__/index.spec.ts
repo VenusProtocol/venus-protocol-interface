@@ -1,4 +1,4 @@
-import { Proposal_Type } from 'clients/subgraph/gql/generated/governanceBsc';
+import { Proposal_Type } from 'clients/subgraph';
 import { ProposalType } from 'types';
 import { type GetProposalTypeInput, getProposalType } from '..';
 

@@ -5,7 +5,7 @@ import type { GetProposalInput, GetProposalOutput, ProposalApiResponse } from '.
 
 export * from './types';
 
-export const getProposal = async ({
+const getProposal = async ({
   proposalId,
   accountAddress = '',
 }: GetProposalInput): Promise<GetProposalOutput> => {
@@ -31,3 +31,5 @@ export const getProposal = async ({
 
   return formatToProposal({ ...payload, accountAddress });
 };
+
+export default getProposal;

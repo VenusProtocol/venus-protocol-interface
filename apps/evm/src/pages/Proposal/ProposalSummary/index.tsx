@@ -276,12 +276,12 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   });
 
   const { data: proposerVotesData } = useGetCurrentVotes(
-    { accountAddress: proposal.proposerAddress },
+    { accountAddress: proposal.proposer },
     { enabled: !!accountAddress },
   );
 
   const canCancelProposal =
-    areAddressesEqual(proposal.proposerAddress, accountAddress || '') ||
+    areAddressesEqual(proposal.proposer, accountAddress || '') ||
     (proposalThresholdData?.thresholdMantissa &&
       proposerVotesData?.votesMantissa.isLessThan(proposalThresholdData.thresholdMantissa));
 

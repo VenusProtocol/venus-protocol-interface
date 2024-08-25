@@ -23,7 +23,7 @@ const useCancelProposal = (options?: Partial<Options>) => {
       ),
     onConfirmed: ({ input }) => {
       queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_PROPOSALS],
+        queryKey: [FunctionKey.GET_PROPOSAL_PREVIEWS],
       });
       queryClient.invalidateQueries({
         queryKey: [

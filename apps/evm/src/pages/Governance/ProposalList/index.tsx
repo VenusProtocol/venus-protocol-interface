@@ -5,8 +5,8 @@ import {
   useCreateProposal,
   useGetCurrentVotes,
   useGetLatestProposalIdByProposer,
+  useGetProposalPreviews,
   useGetProposalState,
-  useGetProposals,
 } from 'clients/api';
 import {
   ErrorState,
@@ -127,13 +127,13 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
   const debouncedSearchValue = useDebounceValue(searchValue);
 
   const {
-    data: { proposals, total } = { proposals: [] },
+    data: { proposalPreviews, total } = { proposalPreviews: [] },
     error: proposalsError,
     refetch: refetchProposals,
     isFetching: isGetProposalsFetching,
     isRefetching,
     isPlaceholderData: isGetProposalsPreviousData,
-  } = useGetProposals({
+  } = useGetProposalPreviews({
     limit: PROPOSALS_PER_PAGE,
     accountAddress,
     page: currentPage,
@@ -144,7 +144,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
 
   const isFetchingProposals =
     (isGetProposalsFetching || isRefetching) &&
-    (isGetProposalsPreviousData || proposals.length === 0);
+    (isGetProposalsPreviousData || proposalPreviews.length === 0);
 
   const { mutateAsync: createProposal, isPending: isCreateProposalLoading } = useCreateProposal();
 
@@ -247,7 +247,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
       )}
 
       <div className="space-y-4 md:space-y-6">
-        {proposals.map(proposalPreview => (
+        {proposalPreviews.map(proposalPreview => (
           <GovernanceProposal key={proposalPreview.proposalId} {...proposalPreview} />
         ))}
       </div>

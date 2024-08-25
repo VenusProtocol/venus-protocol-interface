@@ -1,6 +1,6 @@
 import { request } from 'graphql-request';
 
-import { IsolatedPoolParticipantsCountDocument } from 'clients/subgraph/gql/generated/isolatedPools';
+import { IsolatedPoolParticipantsCountDocument } from 'clients/subgraph';
 import config from 'config';
 import type { ChainId } from 'types';
 
