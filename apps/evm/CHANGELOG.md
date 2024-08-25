@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 2.138.0
+
+### Minor Changes
+
+- 1acfd3e: add weETHs token to Sepolia and Ethereum
+- ee8accc: Remove History page
+- 9724408: enable isolated pools and Lido market on Arbitrum Sepolia
+
 ## 2.137.0
 
 ### Minor Changes
