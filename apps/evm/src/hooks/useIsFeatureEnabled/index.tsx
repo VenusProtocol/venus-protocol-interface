@@ -2,7 +2,7 @@ import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 
 export const featureFlags = {
-  integratedSwap: [ChainId.BSC_TESTNET, ChainId.BSC_MAINNET],
+  integratedSwap: [ChainId.BSC_TESTNET],
   prime: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
@@ -24,7 +24,7 @@ export const featureFlags = {
   bethUpdateWarning: [ChainId.BSC_MAINNET],
   convertVrtRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   vaiRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
-  swapRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  swapRoute: [ChainId.BSC_TESTNET],
   xvsRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   createProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   voteProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
