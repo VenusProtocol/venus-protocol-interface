@@ -1,15 +1,7 @@
 .root {
-    padding-top: 50px;
-    @media (min-width: 640px) {
-        padding-top: 60px;
-    }
-    @media (min-width: 840px) {
-        padding-top: 108px;
-    }
     @media (min-width: 1280px) {
         display: flex;
         flex-direction: column;
-        padding-top: 64px;
     }
 }
 

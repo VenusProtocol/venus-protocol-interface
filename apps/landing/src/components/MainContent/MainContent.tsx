@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import Protection from '../Protection';
 import Safety from '../Safety';
 import VenusPrime from '../VenusPrime';
+import Wallets from '../Wallets';
 import Background from './Background';
 import s from './MainContent.module.css';
 
@@ -21,6 +22,7 @@ const MainContent: React.FC<IMainContentProps> = ({ className }) => (
     <Governance />
     <Safety />
     <Benefits />
+    <Wallets />
   </section>
 );
 

@@ -1,5 +1,13 @@
 .root {
     margin-top: 60px;
+
+    @media (min-width: 840px) {
+        margin-top: 80px;
+    }
+
+    @media (min-width: 1280px) {
+        margin-top: 100px;
+    }
 }
 
 .container {
@@ -83,7 +91,6 @@
     padding: 16px;
     cursor: pointer;
     border-radius: 16px;
-    height: 142px;
 
     hr {
         width: 100%;
@@ -109,10 +116,10 @@
     align-items: center;
     justify-content: center;
     padding: 16px;
-    height: 142px;
     cursor: pointer;
     border-radius: 16px;
     border-style: dashed;
+    border-width: 1px;
     border-color: var(--color-card-border);
 
     @media (min-width: 640px) {
