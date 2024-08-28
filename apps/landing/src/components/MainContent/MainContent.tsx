@@ -2,10 +2,10 @@ import cn from 'classnames';
 import Benefits from '../Benefits/Benefits';
 import Governance from '../Governance';
 import Header from '../Header/Header';
-import Partners from '../Partners';
 import Protection from '../Protection';
 import Safety from '../Safety';
 import VenusPrime from '../VenusPrime';
+import Wallets from '../Wallets';
 import Background from './Background';
 import s from './MainContent.module.css';
 
@@ -22,7 +22,7 @@ const MainContent: React.FC<IMainContentProps> = ({ className }) => (
     <Governance />
     <Safety />
     <Benefits />
-    <Partners />
+    <Wallets />
   </section>
 );
 

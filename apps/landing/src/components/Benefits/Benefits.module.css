@@ -1,12 +1,10 @@
 .root {
     margin-top: 60px;
-    margin-bottom: 124px;
-    @media (min-width: 640px) {
-        margin-bottom: 100px;
-    }
+
     @media (min-width: 840px) {
         margin-top: 80px;
     }
+
     @media (min-width: 1280px) {
         margin-top: 100px;
     }

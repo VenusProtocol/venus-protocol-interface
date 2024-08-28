@@ -119,6 +119,7 @@
     cursor: pointer;
     border-radius: 16px;
     border-style: dashed;
+    border-width: 1px;
     border-color: var(--color-card-border);
 
     @media (min-width: 640px) {
