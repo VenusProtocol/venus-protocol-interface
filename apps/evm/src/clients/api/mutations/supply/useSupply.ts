@@ -57,7 +57,7 @@ const useSupply = (
         queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL],
       });
       queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_MAIN_MARKETS],
+        queryKey: [FunctionKey.GET_LEGACY_CORE_POOL_MARKETS],
       });
       queryClient.invalidateQueries({
         queryKey: [FunctionKey.GET_LEGACY_POOL],
