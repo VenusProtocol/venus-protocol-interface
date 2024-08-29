@@ -224,10 +224,6 @@ export { default as getCurrentVotes } from './queries/getCurrentVotes';
 export * from './queries/getCurrentVotes';
 export { default as useGetCurrentVotes } from './queries/getCurrentVotes/useGetCurrentVotes';
 
-export { default as getTransactions } from './queries/getTransactions';
-export * from './queries/getTransactions';
-export { default as useGetTransactions } from './queries/getTransactions/useGetTransactions';
-
 export { default as getXvsVaultPoolCount } from './queries/getXvsVaultPoolCount';
 export * from './queries/getXvsVaultPoolCount';
 export { default as useGetXvsVaultPoolCount } from './queries/getXvsVaultPoolCount/useGetXvsVaultPoolCount';
