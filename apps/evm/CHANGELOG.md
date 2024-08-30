@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.140.0
+
+### Minor Changes
+
+- a9ca9b2: remove unused code
+
 ## 2.139.0
 
 ### Minor Changes
