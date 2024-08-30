@@ -204,14 +204,6 @@ export const useGetVenusVaiVaultDailyRate = vi.fn(() =>
   }),
 );
 
-export const getTransactions = vi.fn();
-export const useGetTransactions = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_TRANSACTIONS],
-    queryFn: getTransactions,
-  }),
-);
-
 export const getXvsVaultPoolCount = vi.fn();
 export const useGetXvsVaultPoolCount = vi.fn(() =>
   useQuery({
