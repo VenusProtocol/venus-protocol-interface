@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.139.0
+
+### Minor Changes
+
+- 210b386: disable swap feature on BSC mainnet
+
 ## 2.138.0
 
 ### Minor Changes
