@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.141.0
+
+### Minor Changes
+
+- 804840c: Integrate ConnectKit
+
 ## 2.140.0
 
 ### Minor Changes
