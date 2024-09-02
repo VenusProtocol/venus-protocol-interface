@@ -25,7 +25,8 @@
     "generate-version-files": "genversion --es6 --semi src/constants/version.ts && src/scripts/generatePublicVersionFile.ts && yarn biome format --vcs-use-ignore-file=false --write public/version.json",
     "generate": "npm-run-all --parallel generate-version-files generate-contracts generate-subgraph-types && yarn generate-pancake-swap-tokens",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build"
+    "storybook:build": "storybook build",
+    "postinstall": "yarn run generate"
   },
   "dependencies": {
     "@0xsequence/multicall": "^1.2.9",
@@ -155,15 +156,7 @@
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   }
 }

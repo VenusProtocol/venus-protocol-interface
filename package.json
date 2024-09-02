@@ -20,7 +20,7 @@
     "extract-translations": "turbo extract-translations",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "postinstall": "husky install && yarn run generate"
+    "postinstall": "husky && yarn run generate"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
