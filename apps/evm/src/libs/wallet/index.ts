@@ -1,4 +1,3 @@
-export * from './wallets';
 export * from './constants';
 export * from './types';
 export * from './chains';
@@ -10,7 +9,5 @@ export * from './hooks/useSigner';
 export * from './hooks/useAccountAddress';
 export * from './hooks/useSwitchChain';
 export * from './hooks/useChainId';
-export * from './hooks/useLogIn';
-export * from './hooks/useLogOut';
 export * from './hooks/useAuthModal';
 export * from './hooks/useAddTokenToWallet';

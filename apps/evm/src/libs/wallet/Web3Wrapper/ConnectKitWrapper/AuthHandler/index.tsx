@@ -11,7 +11,7 @@ import { chains, defaultChain } from 'libs/wallet/chains';
 import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
 import { getChainId } from 'libs/wallet/utilities/getChainId';
-import config from '../config';
+import config from './config';
 
 export const AuthHandler: React.FC = () => {
   const { disconnectAsync } = useDisconnect();
