@@ -14,7 +14,7 @@ describe('PoolStats', () => {
     const { baseElement } = renderComponent(
       <PoolStats
         pools={poolData}
-        stats={['supply', 'borrow', 'liquidity', 'treasury', 'assetCount']}
+        stats={['supply', 'borrow', 'liquidity', 'treasury', 'assetCount', 'dailyXvsDistribution']}
       />,
     );
 

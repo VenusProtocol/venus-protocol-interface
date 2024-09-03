@@ -70,7 +70,7 @@ const Dashboard: React.FC = () => {
       <PoolStats
         pools={pools}
         className="mb-6"
-        stats={['supply', 'borrow', 'liquidity', 'treasury', 'assetCount']}
+        stats={['supply', 'borrow', 'liquidity', 'treasury', 'dailyXvsDistribution', 'assetCount']}
       />
 
       <div className="mb-6 space-y-6 lg:flex lg:items-center lg:justify-between lg:space-x-6 lg:space-y-0">

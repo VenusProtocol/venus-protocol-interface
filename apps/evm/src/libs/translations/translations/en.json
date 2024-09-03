@@ -128,18 +128,6 @@
     "modalTitle": "{{ poolName }} tokens",
     "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all tokens</Button>"
   },
-  "authModal": {
-    "accountDetails": {
-      "logOutButtonLabel": "Log out"
-    },
-    "title": {
-      "connectWallet": "Connect a wallet",
-      "yourAccount": "Your account"
-    },
-    "walletList": {
-      "comingSoon": "Coming soon..."
-    }
-  },
   "breadcrumbs": {
     "account": "Account",
     "bridge": "Bridge",
@@ -297,8 +285,7 @@
   },
   "interactive": {
     "copy": {
-      "walletAddress": "Wallet address",
-      "xvsAddress": "XVS address"
+      "walletAddress": "Wallet address"
     },
     "copyToClipboard": "{{name}} copied to clipboard"
   },
@@ -350,8 +337,7 @@
       "lidoMarket": "Lido market",
       "swap": "Swap",
       "vai": "VAI",
-      "vaults": "Vaults",
-      "xvs": "XVS"
+      "vaults": "Vaults"
     }
   },
   "legacyPool": {
@@ -578,6 +564,7 @@
     "cell": {
       "assetsLabel": "Assets",
       "availableLiquidityLabel": "Available liquidity",
+      "dailyXvsDistributionLabel": "Daily XVS distribution",
       "totalBorrowLabel": "Total borrow",
       "totalSupplyLabel": "Total supply",
       "treasuryLabel": "Treasury"
@@ -1209,23 +1196,9 @@
     "votes": "Votes"
   },
   "wallets": {
-    "binanceWallet": "Binance Wallet",
-    "bitget": "Bitget Wallet",
-    "braveWallet": "Brave Wallet",
-    "coinbaseWallet": "Coinbase Wallet",
     "errors": {
       "noProvider": "Unable to connect. Make sure the wallet you selected is installed in your browser."
-    },
-    "gateWallet": "Gate Wallet",
-    "infinityWallet": "Infinity Wallet",
-    "ledger": "Ledger",
-    "metamask": "MetaMask",
-    "okxWallet": "OKX Wallet",
-    "opera": "Opera Wallet",
-    "rabbyWallet": "Rabby Wallet",
-    "safePal": "SafePal",
-    "trustWallet": "Trust Wallet",
-    "walletConnect": "WalletConnect"
+    }
   },
   "withdrawFromVaiVaultModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
@@ -1267,19 +1240,5 @@
       "submitButton": "Withdraw"
     },
     "withdrawTabTitle": "Withdraw"
-  },
-  "xvs": {
-    "columns": {
-      "asset": "Asset",
-      "borrowXvsApy": "Borrow XVS APY",
-      "supplyXvsApy": "Supply XVS APY",
-      "xvsPerDay": "XVS Per Day"
-    },
-    "dailyDistribution": "Daily Distribution:",
-    "progressBar": "Xvs Distribution progress",
-    "remaining": "Remaining:"
-  },
-  "xvsPage": {
-    "assetWarningsWarning": "Isolated assets are not included on this page"
   }
 }

@@ -31,7 +31,6 @@ const useGetVenusVaiVaultDailyRate = (options?: Partial<Options>) => {
     queryFn: () =>
       callOrThrow({ legacyPoolComptrollerContract, blocksPerDay }, getVenusVaiVaultDailyRate),
     ...options,
-
     enabled:
       !!legacyPoolComptrollerContract && (options?.enabled === undefined || options?.enabled),
   });
