@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.142.0
+
+### Minor Changes
+
+- 7ddc01c: add postinstall script to evm app
+
 ## 2.141.0
 
 ### Minor Changes
