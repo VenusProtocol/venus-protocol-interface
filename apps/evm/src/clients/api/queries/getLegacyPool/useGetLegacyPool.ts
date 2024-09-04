@@ -83,6 +83,10 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
     apiPoolsData !== undefined &&
     (options?.enabled === undefined || options?.enabled);
 
+  console.log({
+    apiPoolsData: apiPoolsData!.pools.find(p => !p.isIsolated),
+  });
+
   return useQuery({
     queryKey: [FunctionKey.GET_LEGACY_POOL, { ...input, chainId }],
     queryFn: () =>

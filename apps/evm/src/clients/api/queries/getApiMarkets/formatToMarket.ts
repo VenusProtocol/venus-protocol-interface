@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { NULL_ADDRESS } from 'constants/address';
+import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 import type { ApiMarketData } from '.';
@@ -26,7 +26,7 @@ const formatToMarket = ({ apiMarket, xvs }: FormatToMarketInput) => {
     borrowRatePerBlock: new BigNumber(apiMarket.borrowRatePerBlock),
     supplyRatePerBlock: new BigNumber(apiMarket.supplyRatePerBlock),
     exchangeRateMantissa: new BigNumber(apiMarket.exchangeRateMantissa),
-    underlyingAddress: apiMarket.underlyingAddress ?? NULL_ADDRESS,
+    underlyingAddress: apiMarket.underlyingAddress ?? NATIVE_TOKEN_ADDRESS,
     underlyingTokenPriceMantissa: new BigNumber(apiMarket.underlyingPriceMantissa),
     supplyCapsMantissa: new BigNumber(apiMarket.supplyCapsMantissa),
     borrowCapsMantissa: new BigNumber(apiMarket.borrowCapsMantissa),

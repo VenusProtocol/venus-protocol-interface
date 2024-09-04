@@ -1,12 +1,12 @@
-import { ChainId, type Market, type Token } from 'types';
-import { areAddressesEqual, restService } from 'utilities';
+import type { ChainId, Market, Token } from 'types';
+import { restService } from 'utilities';
 import type { ApiMarketData } from '../getApiMarkets';
-import formatToMarket from '../getApiMarkets/formatToMarket';
+import formatToPool from './formatToPool';
 
 export interface ApiPoolData {
   address: string;
   name: string;
-  description: string;
+  description: string | null;
   markets: ApiMarketData[];
 }
 
@@ -50,18 +50,10 @@ const getPools = async ({
     throw new Error(payload.error);
   }
 
-  const isBscChain = chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET;
-
   return {
-    pools: (payload?.result || []).map(p => ({
-      address: p.address,
-      name: p.name,
-      description: p.description,
-      isIsolated: isBscChain
-        ? !areAddressesEqual(corePoolComptrollerContractAddress, p.address)
-        : true,
-      markets: p.markets.map(apiMarket => formatToMarket({ apiMarket, xvs })),
-    })),
+    pools: (payload?.result || []).map(apiPoolData =>
+      formatToPool({ apiPoolData, corePoolComptrollerContractAddress, xvs, chainId }),
+    ),
   };
 };
 
