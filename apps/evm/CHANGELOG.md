@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.143.0
+
+### Minor Changes
+
+- 48827a2: fix favicon
+
+### Patch Changes
+
+- 0526bb7: fix link to Lido market on Arbitrum Sepolia
+
 ## 2.142.0
 
 ### Minor Changes
