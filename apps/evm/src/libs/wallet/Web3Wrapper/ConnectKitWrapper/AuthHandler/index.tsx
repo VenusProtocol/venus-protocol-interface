@@ -1,4 +1,4 @@
-import { disconnect, getAccount, watchAccount } from '@wagmi/core';
+import { getAccount, watchAccount } from '@wagmi/core';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
@@ -11,10 +11,10 @@ import { chains, defaultChain } from 'libs/wallet/chains';
 import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
 import { getChainId } from 'libs/wallet/utilities/getChainId';
-import config from './config';
+import config from '../../config';
 
 export const AuthHandler: React.FC = () => {
-  const { disconnectAsync } = useDisconnect();
+  const { disconnect } = useDisconnect();
   const { updateUrlChainId } = useUpdateUrlChainId();
   const { navigate } = useNavigate();
 
@@ -22,10 +22,11 @@ export const AuthHandler: React.FC = () => {
   const initialLocationRef = useRef(location);
   const navigateRef = useRef(navigate);
   const [searchParams] = useSearchParams();
+  const isInitializedRef = useRef(false);
 
   // Initialize wallet connection on mount
   useEffect(() => {
-    const walletChain = getAccount(config).chain;
+    const { chain: walletChain } = getAccount(config);
 
     // Redirect to account page if user is visiting dashboard and if they didn't just reload
     // the dApp
@@ -49,21 +50,32 @@ export const AuthHandler: React.FC = () => {
     const stopWatchingNetwork = watchAccount(config, {
       onChange: async ({ chain: walletChain }) => {
         if (!walletChain) {
-          await disconnect(config);
+          disconnect();
           return;
         }
 
-        // Update URL when wallet connects to a different chain
         const { chainId } = getChainId();
 
-        if (walletChain.id !== chainId) {
+        // Disconnect wallet if it is connected to a different chain than the one set in the URL.
+        // This check is only performed on initial mount, in order to support links without
+        // redirecting users
+        if (walletChain.id !== chainId && !isInitializedRef.current) {
+          disconnect();
+        }
+
+        // Update URL when wallet connects to a different chain
+        if (walletChain.id !== chainId && isInitializedRef.current) {
           updateUrlChainId({ chainId: walletChain.id });
+        }
+
+        if (!isInitializedRef.current) {
+          isInitializedRef.current = true;
         }
       },
     });
 
     return stopWatchingNetwork;
-  }, [updateUrlChainId]);
+  }, [updateUrlChainId, disconnect]);
 
   // Detect change of chain ID triggered from URL
   useEffect(() => {
@@ -72,7 +84,7 @@ export const AuthHandler: React.FC = () => {
         searchParams,
       });
 
-      const walletChain = getAccount(config).chain;
+      const { chain: walletChain } = getAccount(config);
 
       // Update URL again if it was updated with an unsupported chain ID or does not contain any
       // chain ID search param
@@ -86,12 +98,12 @@ export const AuthHandler: React.FC = () => {
 
       // Disconnect wallet if chain ID changed in URL but wallet is connected to a different network
       if (walletChain && walletChain.id !== unsafeSearchParamChainId) {
-        await disconnectAsync();
+        disconnect();
       }
     };
 
     fn();
-  }, [searchParams, updateUrlChainId, disconnectAsync]);
+  }, [searchParams, updateUrlChainId, disconnect]);
 
   return null;
 };
