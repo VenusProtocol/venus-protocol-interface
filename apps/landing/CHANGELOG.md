@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.2.0
+
+### Minor Changes
+
+- 48827a2: fix favicon
+
 ## 1.1.0
 
 ### Minor Changes
