@@ -91,7 +91,7 @@ export const CHAIN_METADATA: {
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
     corePoolComptrollerContractAddress: '0x006D44b6f5927b3eD83bD0c1C36Fb1A3BaCaC208',
     stakedEthPoolComptrollerContractAddress: '0x3D04F926b2a165BBa17FBfccCCB61513634fa5e4',
-    wstEthContractAddress: '0xd7057250b439c0849377bB6C3263eb8f9cf49d98',
+    wstEthContractAddress: '0x253515E19e8b888a4CA5a0a3363B712402ce4046',
     nativeToken: getToken({ chainId: ChainId.ARBITRUM_SEPOLIA, symbol: 'ETH' })!,
   },
 };
