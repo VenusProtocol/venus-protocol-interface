@@ -10,7 +10,7 @@ interface FormatToPoolInput {
   xvs: Token;
 }
 
-const formatToPools = ({
+const formatToPool = ({
   apiPoolData,
   corePoolComptrollerContractAddress,
   xvs,
@@ -26,4 +26,4 @@ const formatToPools = ({
   markets: apiPoolData.markets.map(apiMarket => formatToMarket({ apiMarket, xvs })),
 });
 
-export default formatToPools;
+export default formatToPool;

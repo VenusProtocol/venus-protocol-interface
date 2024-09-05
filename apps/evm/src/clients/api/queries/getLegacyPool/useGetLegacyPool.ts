@@ -83,10 +83,6 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
     apiPoolsData !== undefined &&
     (options?.enabled === undefined || options?.enabled);
 
-  console.log({
-    apiPoolsData: apiPoolsData!.pools.find(p => !p.isIsolated),
-  });
-
   return useQuery({
     queryKey: [FunctionKey.GET_LEGACY_POOL, { ...input, chainId }],
     queryFn: () =>
@@ -99,7 +95,7 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
           vai,
           vaiControllerContract,
           blocksPerDay,
-          legacyPoolData: apiPoolsData!.pools.find(p => !p.isIsolated),
+          legacyPoolData: (apiPoolsData?.pools || []).find(p => !p.isIsolated),
         },
         params =>
           getLegacyPool({

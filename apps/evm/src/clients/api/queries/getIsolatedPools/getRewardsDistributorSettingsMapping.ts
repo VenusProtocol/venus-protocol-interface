@@ -47,7 +47,7 @@ const getRewardsDistributorSettingsMapping = async ({
   const allIsolatedMarkets = pools.reduce<Market[]>((acc, pool) => acc.concat(...pool.markets), []);
 
   return allIsolatedMarkets.reduce<GetRewardsDistributorSettingsMappingOutput>((acc, market) => {
-    const vTokenAddress = market.address.toLowerCase();
+    const vTokenAddress = market.vTokenAddress.toLowerCase();
 
     if (!acc[vTokenAddress]) {
       acc[vTokenAddress] = [];

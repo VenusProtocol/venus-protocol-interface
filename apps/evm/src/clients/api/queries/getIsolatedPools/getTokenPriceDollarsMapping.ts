@@ -32,7 +32,7 @@ const getTokenPriceDollarsMapping = async ({
     (acc, market) => {
       return {
         ...acc,
-        [market.underlyingAddress.toLowerCase()]: market.underlyingTokenPriceMantissa,
+        [market.underlyingTokenAddress.toLowerCase()]: market.underlyingTokenPriceMantissa,
       };
     },
     {},

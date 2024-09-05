@@ -95,9 +95,9 @@ const getIsolatedPools = async ({
           address:
             // If underlying asset address is the null address, this means the VToken has no
             // underlying token because it is a native token
-            areAddressesEqual(market.underlyingAddress, NULL_ADDRESS)
+            areAddressesEqual(market.underlyingTokenAddress, NULL_ADDRESS)
               ? NATIVE_TOKEN_ADDRESS
-              : market.underlyingAddress,
+              : market.underlyingTokenAddress,
           tokens,
         });
 
@@ -105,8 +105,8 @@ const getIsolatedPools = async ({
           return;
         }
 
-        if (!newVTokenAddresses.includes(market.address)) {
-          newVTokenAddresses.push(market.address.toLowerCase());
+        if (!newVTokenAddresses.includes(market.vTokenAddress)) {
+          newVTokenAddresses.push(market.vTokenAddress.toLowerCase());
         }
 
         if (

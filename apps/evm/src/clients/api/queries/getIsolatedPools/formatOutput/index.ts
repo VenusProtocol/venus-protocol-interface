@@ -65,9 +65,9 @@ const formatToPools = ({
       const underlyingTokenAddress =
         // If underlying asset address is the null address, this means the VToken has no underlying
         // token because it is a native token
-        areAddressesEqual(market.underlyingAddress, NULL_ADDRESS)
+        areAddressesEqual(market.underlyingTokenAddress, NULL_ADDRESS)
           ? NATIVE_TOKEN_ADDRESS
-          : market.underlyingAddress;
+          : market.underlyingTokenAddress;
 
       // Retrieve underlying token record
       const underlyingToken = findTokenByAddress({
@@ -87,7 +87,7 @@ const formatToPools = ({
 
       // Shape vToken
       const vToken: VToken = {
-        address: market.address,
+        address: market.vTokenAddress,
         decimals: 8,
         symbol: `v${underlyingToken.symbol}`,
         underlyingToken,

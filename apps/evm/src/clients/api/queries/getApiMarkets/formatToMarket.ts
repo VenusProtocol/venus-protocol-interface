@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import type { Token } from 'types';
+import type { Market, Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 import type { ApiMarketData } from '.';
 
@@ -17,8 +17,8 @@ const formatToMarket = ({ apiMarket, xvs }: FormatToMarketInput) => {
       })
     : new BigNumber(0);
 
-  return {
-    address: apiMarket.address,
+  const market: Market = {
+    vTokenAddress: apiMarket.address,
     borrowerCount: apiMarket.borrowerCount,
     supplierCount: apiMarket.supplierCount,
     supplyApyPercentage: new BigNumber(apiMarket.supplyApy),
@@ -26,7 +26,7 @@ const formatToMarket = ({ apiMarket, xvs }: FormatToMarketInput) => {
     borrowRatePerBlock: new BigNumber(apiMarket.borrowRatePerBlock),
     supplyRatePerBlock: new BigNumber(apiMarket.supplyRatePerBlock),
     exchangeRateMantissa: new BigNumber(apiMarket.exchangeRateMantissa),
-    underlyingAddress: apiMarket.underlyingAddress ?? NATIVE_TOKEN_ADDRESS,
+    underlyingTokenAddress: apiMarket.underlyingAddress ?? NATIVE_TOKEN_ADDRESS,
     underlyingTokenPriceMantissa: new BigNumber(apiMarket.underlyingPriceMantissa),
     supplyCapsMantissa: new BigNumber(apiMarket.supplyCapsMantissa),
     borrowCapsMantissa: new BigNumber(apiMarket.borrowCapsMantissa),
@@ -46,7 +46,7 @@ const formatToMarket = ({ apiMarket, xvs }: FormatToMarketInput) => {
     pausedActionsBitmap: apiMarket.pausedActionsBitmap,
     isListed: apiMarket.isListed,
     rewardsDistributors: apiMarket.rewardsDistributors.map(rd => ({
-      marketAddress: rd.marketAddress,
+      vTokenAddress: rd.marketAddress,
       rewardTokenAddress: rd.rewardTokenAddress,
       lastRewardingSupplyBlockOrTimestamp: new BigNumber(rd.lastRewardingSupplyBlockOrTimestamp),
       lastRewardingBorrowBlockOrTimestamp: new BigNumber(rd.lastRewardingBorrowBlockOrTimestamp),
@@ -56,6 +56,8 @@ const formatToMarket = ({ apiMarket, xvs }: FormatToMarketInput) => {
       rewardsDistributorContractAddress: rd.rewardsDistributorContractAddress || '',
     })),
   };
+
+  return market;
 };
 
 export default formatToMarket;

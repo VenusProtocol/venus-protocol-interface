@@ -59,9 +59,9 @@ export const formatToPool = ({
     const underlyingTokenAddress =
       // If underlying asset address is the null address, this means the VToken has no underlying
       // token because it is a native token
-      areAddressesEqual(legacyPoolMarket.underlyingAddress, NULL_ADDRESS)
+      areAddressesEqual(legacyPoolMarket.underlyingTokenAddress, NULL_ADDRESS)
         ? NATIVE_TOKEN_ADDRESS
-        : legacyPoolMarket.underlyingAddress;
+        : legacyPoolMarket.underlyingTokenAddress;
 
     const underlyingToken = findTokenByAddress({
       tokens,
@@ -74,7 +74,7 @@ export const formatToPool = ({
 
     const vToken: VToken = {
       decimals: 8,
-      address: legacyPoolMarket.address,
+      address: legacyPoolMarket.vTokenAddress,
       symbol: `v${underlyingToken.symbol}`,
       underlyingToken,
     };
@@ -175,6 +175,7 @@ export const formatToPool = ({
       decimals: xvs.decimals,
     });
 
+    // the legacy pool markets only have a single reward: XVS
     const borrowDistributions = formatDistributions({
       xvsSpeedMantissa: legacyPoolMarket.rewardsDistributors[0].borrowSpeed,
       balanceDollars: borrowBalanceDollars,
@@ -185,6 +186,7 @@ export const formatToPool = ({
       blocksPerDay,
     });
 
+    // the legacy pool markets only have a single reward: XVS
     const supplyDistributions = formatDistributions({
       xvsSpeedMantissa: legacyPoolMarket.rewardsDistributors[0].supplySpeed,
       balanceDollars: supplyBalanceDollars,
@@ -196,7 +198,7 @@ export const formatToPool = ({
     });
 
     const isCollateralOfUser = (userCollateralizedVTokenAddresses || []).includes(
-      legacyPoolMarket.address,
+      legacyPoolMarket.vTokenAddress,
     );
     const userSupplyBalanceTokens = userVTokenBalancesResult?.balanceOfUnderlying
       ? convertMantissaToTokens({
@@ -224,7 +226,7 @@ export const formatToPool = ({
     const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
     const market = (mainMarkets || []).find(mainMarket =>
-      areAddressesEqual(mainMarket.address, vToken.address),
+      areAddressesEqual(mainMarket.vTokenAddress, vToken.address),
     );
 
     const disabledTokenActions = getDisabledTokenActions({

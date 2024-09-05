@@ -46,7 +46,7 @@ const formatToMarket = ({ apiMarket, xvs }: FormatToMarketInput) => {
     pausedActionsBitmap: apiMarket.pausedActionsBitmap,
     isListed: apiMarket.isListed,
     rewardsDistributors: apiMarket.rewardsDistributors.map(rd => ({
-      marketAddress: rd.marketAddress,
+      vTokenAddress: rd.marketAddress,
       rewardTokenAddress: rd.rewardTokenAddress,
       lastRewardingSupplyBlockOrTimestamp: new BigNumber(rd.lastRewardingSupplyBlockOrTimestamp),
       lastRewardingBorrowBlockOrTimestamp: new BigNumber(rd.lastRewardingBorrowBlockOrTimestamp),

@@ -8,6 +8,7 @@ import {
   extractSettledPromiseValue,
 } from 'utilities';
 
+import { VError, logError } from 'libs/errors';
 import { formatToPool } from './formatToPool';
 import type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 
@@ -50,15 +51,19 @@ const getLegacyPool = async ({
   ]);
 
   const xvsMarket = legacyPoolData.markets.find(m =>
-    areAddressesEqual(m.underlyingAddress || '', xvs.address),
+    areAddressesEqual(m.underlyingTokenAddress || '', xvs.address),
   );
   if (!xvsMarket) {
-    throw new Error('No XVS market found');
+    logError('No XVS market found');
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+    });
   }
 
   const xvsPriceMantissa = new BigNumber(xvsMarket.underlyingTokenPriceMantissa);
 
-  const vTokenAddresses = legacyPoolData.markets.map(m => m.address);
+  const vTokenAddresses = legacyPoolData.markets.map(m => m.vTokenAddress);
   const primeVTokenAddresses = extractSettledPromiseValue(primeVTokenAddressesResult) || [];
   const primeMinimumXvsToStakeMantissa = extractSettledPromiseValue(primeMinimumXvsToStakeResult);
   const isUserPrime = extractSettledPromiseValue(userPrimeTokenResult)?.exists || false;
