@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
-import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import MAX_UINT256 from 'constants/maxUint256';
+import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import type { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'libs/contracts';
 import type { Asset, ChainId, Market, Pool, PrimeApy, Token, VToken } from 'types';
 import {
@@ -164,25 +163,15 @@ export const formatToPool = ({
 
     const tokenPriceCents = convertDollarsToCents(tokenPriceDollars);
 
-    const unformattedBorrowCapTokens = convertMantissaToTokens({
+    const borrowCapTokens = convertMantissaToTokens({
       value: borrowCapsMantissa,
       token: vToken.underlyingToken,
     });
 
-    const borrowCapTokens = unformattedBorrowCapTokens.isEqualTo(0)
-      ? undefined
-      : unformattedBorrowCapTokens;
-
-    const unformattedSupplyCapTokens = convertMantissaToTokens({
+    const supplyCapTokens = convertMantissaToTokens({
       value: supplyCapsMantissa,
       token: vToken.underlyingToken,
     });
-
-    const supplyCapTokens = unformattedSupplyCapTokens
-      .multipliedBy(COMPOUND_MANTISSA)
-      .isGreaterThanOrEqualTo(MAX_UINT256)
-      ? undefined
-      : unformattedSupplyCapTokens;
 
     const reserveFactor = convertFactorFromSmartContract({
       factor: new BigNumber(vTokenMetaData.reserveFactorMantissa.toString()),

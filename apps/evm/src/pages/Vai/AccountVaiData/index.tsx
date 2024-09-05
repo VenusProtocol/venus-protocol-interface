@@ -95,6 +95,8 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
       reserveTokens: new BigNumber(0),
       cashTokens: new BigNumber(0),
       exchangeRateVTokens: new BigNumber(0),
+      borrowCapTokens: new BigNumber(0),
+      supplyCapTokens: new BigNumber(0),
       supplierCount: 0,
       borrowerCount: 0,
       supplyBalanceTokens: new BigNumber(0),

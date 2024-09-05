@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import MAX_UINT256 from 'constants/maxUint256';
 
 import { busd, usdc, usdt, xvs } from '__mocks__/models/tokens';
 import { vBusd, vUsdc, vUsdt, vXvs } from '__mocks__/models/vTokens';
@@ -27,6 +28,8 @@ export const assetData: Asset[] = [
     userBorrowBalanceCents: new BigNumber('0'),
     isCollateralOfUser: true,
     userPercentOfLimit: 0,
+    borrowCapTokens: MAX_UINT256,
+    supplyCapTokens: MAX_UINT256,
     borrowBalanceCents: new BigNumber(70925716),
     supplyBalanceCents: new BigNumber(278311516),
     supplyBalanceTokens: new BigNumber('19339683254955736'),
@@ -70,6 +73,8 @@ export const assetData: Asset[] = [
     userBorrowBalanceCents: new BigNumber('0'),
     isCollateralOfUser: false,
     userPercentOfLimit: 0,
+    borrowCapTokens: MAX_UINT256,
+    supplyCapTokens: MAX_UINT256,
     borrowBalanceCents: new BigNumber(858721657509436),
     supplyBalanceCents: new BigNumber(1000183891879506),
     supplyBalanceTokens: new BigNumber('47171999131879271527200010830'),
@@ -143,6 +148,8 @@ export const assetData: Asset[] = [
     userBorrowBalanceCents: new BigNumber('4000'),
     isCollateralOfUser: false,
     userPercentOfLimit: 0,
+    borrowCapTokens: MAX_UINT256,
+    supplyCapTokens: MAX_UINT256,
     borrowBalanceCents: new BigNumber(3158444721),
     supplyBalanceCents: new BigNumber(1098041201011568),
     supplyBalanceTokens: new BigNumber('5029972090817266864401527367893625'),
@@ -206,6 +213,8 @@ export const assetData: Asset[] = [
     userBorrowBalanceCents: new BigNumber('5000'),
     isCollateralOfUser: false,
     userPercentOfLimit: 0,
+    borrowCapTokens: MAX_UINT256,
+    supplyCapTokens: MAX_UINT256,
     borrowBalanceCents: new BigNumber(83910350502),
     supplyBalanceCents: new BigNumber(1054707853878),
     supplyBalanceTokens: new BigNumber('51881081291203672464'),

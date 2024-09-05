@@ -15,6 +15,7 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import type { Asset } from 'types';
 
+import MAX_UINT256 from 'constants/maxUint256';
 import SupplyForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -296,7 +297,7 @@ describe('SupplyForm', () => {
   it('updates input value to wallet balance when clicking on max button if supply cap permits it', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
-      supplyCapTokens: undefined,
+      supplyCapTokens: MAX_UINT256,
     };
 
     const { getByText, getByTestId } = renderComponent(

@@ -377,9 +377,7 @@
         "reserveFactorLabel": "Reserve factor",
         "reserveTokensLabel": "Reserves",
         "supplierCountLabel": "# of suppliers",
-        "supplyCapLabel": "Supply cap",
-        "unlimitedBorrowCap": "Uncapped",
-        "unlimitedSupplyCap": "Uncapped"
+        "supplyCapLabel": "Supply cap"
       }
     },
     "periodOption": {

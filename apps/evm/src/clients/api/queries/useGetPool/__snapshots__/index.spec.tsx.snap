@@ -8,6 +8,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowApyPercentage": "-2.3062487835658776",
         "borrowBalanceCents": "70925716",
         "borrowBalanceTokens": "1852935.597521220541385584",
+        "borrowCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
         "borrowDistributions": [
           {
             "apyPercentage": "4.17469243006608279",
@@ -34,6 +35,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "supplyApyPercentage": "0.05225450324405023",
         "supplyBalanceCents": "278311516",
         "supplyBalanceTokens": "19339683254955736",
+        "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
         "supplyDistributions": [
           {
             "apyPercentage": "0.11720675342484096",
@@ -71,6 +73,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowApyPercentage": "-5.361233028654066",
         "borrowBalanceCents": "858721657509436",
         "borrowBalanceTokens": "73128318.509651061457900627",
+        "borrowCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
         "borrowDistributions": [
           {
             "apyPercentage": "1.670327607690572731",
@@ -125,6 +128,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "supplyApyPercentage": "3.887242555711379188",
         "supplyBalanceCents": "1000183891879506",
         "supplyBalanceTokens": "4.717199913187927152720001083e+28",
+        "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
         "supplyDistributions": [
           {
             "apyPercentage": "1.353105649796123742",
@@ -187,6 +191,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowApyPercentage": "-4.9748661428011145",
         "borrowBalanceCents": "3158444721",
         "borrowBalanceTokens": "232511166.920938849475104194",
+        "borrowCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
         "borrowDistributions": [
           {
             "apyPercentage": "0.522209972682294832",
@@ -230,6 +235,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "supplyApyPercentage": "3.593608909332766999",
         "supplyBalanceCents": "1098041201011568",
         "supplyBalanceTokens": "5.029972090817266864401527367893625e+33",
+        "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
         "supplyDistributions": [
           {
             "apyPercentage": "0.421719501189155143",
@@ -282,6 +288,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowApyPercentage": "-4.050271277344538",
         "borrowBalanceCents": "83910350502",
         "borrowBalanceTokens": "142662020.229587308931217432",
+        "borrowCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
         "borrowDistributions": [
           {
             "apyPercentage": "0.852697602175970714",
@@ -335,6 +342,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "supplyApyPercentage": "2.886396363044176106",
         "supplyBalanceCents": "1054707853878",
         "supplyBalanceTokens": "51881081291203672464",
+        "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
         "supplyDistributions": [
           {
             "apyPercentage": "0.678420831753642169",

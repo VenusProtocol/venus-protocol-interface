@@ -15,6 +15,7 @@ import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
+import MAX_UINT256 from 'constants/maxUint256';
 import Supply from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -89,7 +90,7 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   it('updates input value to wallet balance when clicking on MAX button if supply cap permits it', async () => {
     const customFakeAsset: Asset = {
       ...fakeWethAsset,
-      supplyCapTokens: undefined,
+      supplyCapTokens: MAX_UINT256,
     };
 
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
