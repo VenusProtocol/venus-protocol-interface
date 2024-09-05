@@ -1,23 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-import {
-  BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES,
-  BSC_TESTNET_UNLISTED_TOKEN_ADDRESSES,
-  NATIVE_TOKEN_ADDRESS,
-  NULL_ADDRESS,
-} from 'constants/address';
+import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import MAX_UINT256 from 'constants/maxUint256';
 import type { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'libs/contracts';
-import {
-  type Asset,
-  ChainId,
-  type Market,
-  type Pool,
-  type PrimeApy,
-  type Token,
-  type VToken,
-} from 'types';
+import type { Asset, ChainId, Market, Pool, PrimeApy, Token, VToken } from 'types';
 import {
   addUserPropsToPool,
   areAddressesEqual,
@@ -90,25 +77,6 @@ export const formatToPool = ({
   const assets: Asset[] = [];
 
   vTokenMetaDataResults.forEach((vTokenMetaData, index) => {
-    // Temporarily remove unlisted tokens that have not been updated from the contract side yet.
-    // TODO: remove this logic once these tokens have been unlisted from contracts
-    if (
-      chainId === ChainId.BSC_MAINNET &&
-      BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES.some(unlistedTokenAddress =>
-        areAddressesEqual(unlistedTokenAddress, vTokenMetaData.underlyingAssetAddress),
-      )
-    ) {
-      return;
-    }
-    if (
-      chainId === ChainId.BSC_TESTNET &&
-      BSC_TESTNET_UNLISTED_TOKEN_ADDRESSES.some(unlistedTokenAddress =>
-        areAddressesEqual(unlistedTokenAddress, vTokenMetaData.underlyingAssetAddress),
-      )
-    ) {
-      return;
-    }
-
     // Remove unlisted tokens
     if (!vTokenMetaData.isListed) {
       return;
