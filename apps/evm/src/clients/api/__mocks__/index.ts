@@ -220,8 +220,6 @@ export const useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = vi.fn(() =>
   }),
 );
 
-export const useGetLegacyPoolTotalXvsDistributed = vi.fn();
-
 export const useGetIsolatedPools = vi.fn(() => ({
   isLoading: false,
   data: {

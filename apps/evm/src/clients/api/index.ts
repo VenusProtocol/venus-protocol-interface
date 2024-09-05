@@ -195,8 +195,6 @@ export { default as useGetXvsWithdrawableAmount } from './queries/getXvsWithdraw
 
 export { default as useGetAsset } from './queries/useGetAsset';
 
-export { default as useGetLegacyPoolTotalXvsDistributed } from './queries/useGetLegacyPoolTotalXvsDistributed';
-
 export * from './queries/getLegacyPool';
 export { default as useGetLegacyPool } from './queries/getLegacyPool/useGetLegacyPool';
 

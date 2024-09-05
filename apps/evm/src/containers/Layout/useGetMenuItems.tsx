@@ -12,7 +12,6 @@ const useGetMenuItems = () => {
   const { stakedEthPoolComptrollerContractAddress, wstEthContractAddress } = useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
-  const xvsRouteEnabled = useIsFeatureEnabled({ name: 'xvsRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const isolatedPoolsRouteEnabled = useIsFeatureEnabled({ name: 'isolatedPools' });
 
@@ -92,16 +91,6 @@ const useGetMenuItems = () => {
       iconName: 'market',
     });
 
-    if (xvsRouteEnabled) {
-      menuItems.push({
-        to: routes.xvs.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.xvs')
-        i18nKey: 'layout.menuItems.xvs',
-        iconName: 'circledVenus',
-      });
-    }
-
     if (vaiRouteEnabled) {
       menuItems.push({
         to: routes.vai.path,
@@ -127,7 +116,6 @@ const useGetMenuItems = () => {
     accountAddress,
     swapRouteEnabled,
     vaiRouteEnabled,
-    xvsRouteEnabled,
     bridgeRouteEnabled,
     isolatedPoolsRouteEnabled,
     wstEthContractAddress,
