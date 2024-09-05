@@ -1,4 +1,4 @@
-import { lazy, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
@@ -9,26 +9,27 @@ import { useAccountAddress } from 'libs/wallet';
 
 import { Redirect } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { safeLazyLoad } from 'utilities';
 import PageSuspense from './PageSuspense';
 
-const Dashboard = lazy(() => import('pages/Dashboard'));
-const Account = lazy(() => import('pages/Account'));
-const CorePoolMarket = lazy(() => import('pages/Market/CorePoolMarket'));
-const IsolatedPoolMarket = lazy(() => import('pages/Market/IsolatedPoolMarket'));
-const CorePool = lazy(() => import('pages/Pool/CorePool'));
-const IsolatedPool = lazy(() => import('pages/Pool/IsolatedPool'));
-const LidoMarket = lazy(() => import('pages/Market/LidoMarket'));
-const ConvertVrt = lazy(() => import('pages/ConvertVrt'));
-const Governance = lazy(() => import('pages/Governance'));
-const IsolatedPools = lazy(() => import('pages/IsolatedPools'));
-const Proposal = lazy(() => import('pages/Proposal'));
-const Swap = lazy(() => import('pages/Swap'));
-const Vai = lazy(() => import('pages/Vai'));
-const Vaults = lazy(() => import('pages/Vault'));
-const Voter = lazy(() => import('pages/Voter'));
-const VoterLeaderboard = lazy(() => import('pages/VoterLeaderboard'));
-const PrimeCalculator = lazy(() => import('pages/PrimeCalculator'));
-const Bridge = lazy(() => import('pages/Bridge'));
+const Dashboard = safeLazyLoad(() => import('pages/Dashboard'));
+const Account = safeLazyLoad(() => import('pages/Account'));
+const CorePoolMarket = safeLazyLoad(() => import('pages/Market/CorePoolMarket'));
+const IsolatedPoolMarket = safeLazyLoad(() => import('pages/Market/IsolatedPoolMarket'));
+const CorePool = safeLazyLoad(() => import('pages/Pool/CorePool'));
+const IsolatedPool = safeLazyLoad(() => import('pages/Pool/IsolatedPool'));
+const LidoMarket = safeLazyLoad(() => import('pages/Market/LidoMarket'));
+const ConvertVrt = safeLazyLoad(() => import('pages/ConvertVrt'));
+const Governance = safeLazyLoad(() => import('pages/Governance'));
+const IsolatedPools = safeLazyLoad(() => import('pages/IsolatedPools'));
+const Proposal = safeLazyLoad(() => import('pages/Proposal'));
+const Swap = safeLazyLoad(() => import('pages/Swap'));
+const Vai = safeLazyLoad(() => import('pages/Vai'));
+const Vaults = safeLazyLoad(() => import('pages/Vault'));
+const Voter = safeLazyLoad(() => import('pages/Voter'));
+const VoterLeaderboard = safeLazyLoad(() => import('pages/VoterLeaderboard'));
+const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
+const Bridge = safeLazyLoad(() => import('pages/Bridge'));
 
 const AppRoutes = () => {
   const { accountAddress } = useAccountAddress();
