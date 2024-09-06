@@ -4,8 +4,8 @@ import { http, createConfig } from 'wagmi';
 import localConfig from 'config';
 import type { ChainId } from 'types';
 import type { Transport } from 'viem';
-import { chains } from '../../../chains';
-import { WALLET_CONNECT_PROJECT_ID } from '../../../constants';
+import { chains } from '../chains';
+import { WALLET_CONNECT_PROJECT_ID } from '../constants';
 
 const connectKitConfig = getDefaultConfig({
   chains,
