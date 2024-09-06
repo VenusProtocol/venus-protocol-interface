@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - chore/release
 
 concurrency:
   group: ${{ github.ref }}
@@ -14,11 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
+      id-token: write # to enable use of OIDC for npm provenance
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -31,13 +34,15 @@ jobs:
 
       # Bump package versions based on changesets and commit changes to the main branch
       - name: Bump package versions
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
         run: |
-          git config user.name github-actions[bot]
-          git config user.email github-actions[bot]@users.noreply.github.com
+          git config user.name toolsvenus
+          git config user.email tools@venus.io
           git fetch origin
-          git rebase --strategy-option=theirs origin/main
+          git rebase --strategy-option=theirs origin/chore/release
           npx changeset version
           git add -A
           git status
           git commit --verbose -a -m "chore: bump package versions" || exit 0
-          git push --verbose
+          git push
