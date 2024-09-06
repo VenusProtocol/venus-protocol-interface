@@ -7688,10 +7688,10 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@venusprotocol/isolated-pools@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-3.3.0.tgz#b1e90294f9726bae07f2bd9fa17a24ff519f963d"
-  integrity sha512-kljduN4I9FHtTgA3VljdVjWog5gQUYcuENxsc4vkwnGbT+IPXYSYKJwJiUh3Fl6fhLqZp/YOutJS0KLWnS2CHw==
+"@venusprotocol/isolated-pools@^3.5.0-dev.11":
+  version "3.5.0-dev.11"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-3.5.0-dev.11.tgz#847085d4873caf087871bf54c300ef37ec059446"
+  integrity sha512-ZWAr3/vSnr4MM5qbjHULjFvupIEwL4DNPv1yRj8rLjm2h8P6FsotTzxsgEF2iNHgwU+4Oke4ExLAI1nh5VkKXA==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
