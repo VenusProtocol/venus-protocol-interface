@@ -9,23 +9,16 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read # for checkout
-
 jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
-      id-token: write # to enable use of OIDC for npm provenance
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -36,14 +29,15 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      # Bump package versions based on changesets and commit changes to the main branch
       - name: Bump package versions
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          title: "chore: bump package versions"
-          commit: "chore: bump package versions"
-          version: yarn changeset:version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # TODO: add step to deploy to production (see VEN-1737)
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git fetch origin
+          git rebase --strategy-option=theirs origin/main
+          npx changeset version
+          git add -A
+          git status
+          git commit --verbose -a -m "chore: bump package versions" || exit 0
+          git push --verbose
