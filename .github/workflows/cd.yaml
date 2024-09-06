@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -43,4 +44,4 @@ jobs:
           git add -A
           git status
           git commit --verbose -a -m "chore: bump package versions" || exit 0
-          git push --verbose https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:chore/release
+          git push
