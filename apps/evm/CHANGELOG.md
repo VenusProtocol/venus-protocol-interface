@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.144.0
+
+### Minor Changes
+
+- 80343a7: Replace XVS page with XVS daily distribution stat on Dashboard page
+
+### Patch Changes
+
+- 66936b8: reload dApp when lazy load fails
+- 9e71065: fix initial redirection
+
 ## 2.143.0
 
 ### Minor Changes
