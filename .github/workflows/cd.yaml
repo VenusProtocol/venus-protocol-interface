@@ -32,8 +32,6 @@ jobs:
 
       # Bump package versions based on changesets and commit changes to the main branch
       - name: Bump package versions
-        with:
-          token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
         run: |
@@ -45,4 +43,4 @@ jobs:
           git add -A
           git status
           git commit --verbose -a -m "chore: bump package versions" || exit 0
-          git push --verbose
+          git push --verbose https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:chore/release
