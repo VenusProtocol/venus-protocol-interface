@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.146.0
+
+### Minor Changes
+
+- 3b67ef5: remove concept of uncapped borrow and supply caps
+
 ## 2.145.0
 
 ### Minor Changes
