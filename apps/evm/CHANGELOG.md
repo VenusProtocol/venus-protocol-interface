@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.145.0
+
+### Minor Changes
+
+- cb45bed: remove hardcoded unlisted tokens
+
 ## 2.144.0
 
 ### Minor Changes
