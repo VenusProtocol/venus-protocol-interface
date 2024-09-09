@@ -8,7 +8,7 @@ exports[`getLegacyPool > returns core pool in the correct format 1`] = `
         "borrowApyPercentage": "2.020093454326921",
         "borrowBalanceCents": "1531484732509246.5984849465",
         "borrowBalanceTokens": "15314985159958.905615",
-        "borrowCapTokens": undefined,
+        "borrowCapTokens": "0",
         "borrowDistributions": [
           {
             "apyPercentage": "0.000004204786496764",
@@ -35,7 +35,7 @@ exports[`getLegacyPool > returns core pool in the correct format 1`] = `
         "supplyApyPercentage": "0.000002707894064535",
         "supplyBalanceCents": "1.017672878050748282876538601630879295798481873e+21",
         "supplyBalanceTokens": "10176820371890829846.23400212232789390903",
-        "supplyCapTokens": undefined,
+        "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+71",
         "supplyDistributions": [
           {
             "apyPercentage": "8.104628e-12",
@@ -73,7 +73,7 @@ exports[`getLegacyPool > returns core pool in the correct format 1`] = `
         "borrowApyPercentage": "2.0200781032592374",
         "borrowBalanceCents": "3485089196.568960612289",
         "borrowBalanceTokens": "34852739.509411",
-        "borrowCapTokens": undefined,
+        "borrowCapTokens": "0",
         "borrowDistributions": [
           {
             "apyPercentage": "1.8648777370665615",
@@ -100,7 +100,7 @@ exports[`getLegacyPool > returns core pool in the correct format 1`] = `
         "supplyApyPercentage": "0",
         "supplyBalanceCents": "1.0000206494821981215674308946489344879323086222609070040463539e+36",
         "supplyBalanceTokens": "1.00007366338709427143475965125804767703966849508783161e+34",
-        "supplyCapTokens": undefined,
+        "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+71",
         "supplyDistributions": [
           {
             "apyPercentage": "0",
@@ -203,7 +203,7 @@ exports[`getLegacyPool > returns core pool in the correct format 1`] = `
         "borrowApyPercentage": "115.47009997593621",
         "borrowBalanceCents": "9021918820.590883118756440045847812",
         "borrowBalanceTokens": "420107.243695434405914978",
-        "borrowCapTokens": undefined,
+        "borrowCapTokens": "0",
         "borrowDistributions": [
           {
             "apyPercentage": "2.164334566357984",
@@ -230,7 +230,7 @@ exports[`getLegacyPool > returns core pool in the correct format 1`] = `
         "supplyApyPercentage": "87.24219968627402",
         "supplyBalanceCents": "8282841765.51712892855171530689666104",
         "supplyBalanceTokens": "385691.99006037251840106076",
-        "supplyCapTokens": undefined,
+        "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+59",
         "supplyDistributions": [
           {
             "apyPercentage": "2.3597132480044802",
@@ -296,7 +296,7 @@ exports[`getLegacyPool > returns core pool in the correct format 1`] = `
         "supplyApyPercentage": "1.4173055905260634",
         "supplyBalanceCents": "930715490.39593208582245151364324",
         "supplyBalanceTokens": "2637685.21798449584350707",
-        "supplyCapTokens": undefined,
+        "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+59",
         "supplyDistributions": [
           {
             "apyPercentage": "0",
@@ -334,7 +334,7 @@ exports[`getLegacyPool > returns core pool in the correct format 1`] = `
         "borrowApyPercentage": "12.929398759456245",
         "borrowBalanceCents": "2189606786.6192461112257626",
         "borrowBalanceTokens": "13355.332641776432517388",
-        "borrowCapTokens": undefined,
+        "borrowCapTokens": "0",
         "borrowDistributions": [
           {
             "apyPercentage": "1.4813202523229263",
@@ -361,7 +361,7 @@ exports[`getLegacyPool > returns core pool in the correct format 1`] = `
         "supplyApyPercentage": "11.761843113429581",
         "supplyBalanceCents": "2154851126.1507758655837335175",
         "supplyBalanceTokens": "13143.34325191080125394165",
-        "supplyCapTokens": undefined,
+        "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+59",
         "supplyDistributions": [
           {
             "apyPercentage": "1.5053909671967736",

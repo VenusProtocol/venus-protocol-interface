@@ -104,8 +104,8 @@ export interface Asset {
   supplyDistributions: AssetDistribution[];
   borrowDistributions: AssetDistribution[];
   disabledTokenActions: TokenAction[];
-  borrowCapTokens?: BigNumber;
-  supplyCapTokens?: BigNumber;
+  borrowCapTokens: BigNumber;
+  supplyCapTokens: BigNumber;
   // User-specific props
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected

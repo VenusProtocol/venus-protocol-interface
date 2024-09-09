@@ -127,21 +127,17 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
       ...participantCountRows,
       {
         label: t('market.marketInfo.stats.supplyCapLabel'),
-        value: !asset.supplyCapTokens
-          ? t('market.marketInfo.stats.unlimitedSupplyCap')
-          : formatTokensToReadableValue({
-              value: asset.supplyCapTokens,
-              token: asset.vToken.underlyingToken,
-            }),
+        value: formatTokensToReadableValue({
+          value: asset.supplyCapTokens,
+          token: asset.vToken.underlyingToken,
+        }),
       },
       {
         label: t('market.marketInfo.stats.borrowCapLabel'),
-        value: !asset.borrowCapTokens
-          ? t('market.marketInfo.stats.unlimitedBorrowCap')
-          : formatTokensToReadableValue({
-              value: asset.borrowCapTokens,
-              token: asset.vToken.underlyingToken,
-            }),
+        value: formatTokensToReadableValue({
+          value: asset.borrowCapTokens,
+          token: asset.vToken.underlyingToken,
+        }),
       },
       {
         label: t('market.marketInfo.stats.dailySupplyingInterestsLabel'),
