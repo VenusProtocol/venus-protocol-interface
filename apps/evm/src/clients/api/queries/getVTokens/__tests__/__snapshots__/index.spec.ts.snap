@@ -137,28 +137,6 @@ exports[`api/queries/getVTokens > returns the vTokens on success 1`] = `
         "symbol": "ETH",
       },
     },
-    {
-      "address": "0xF206af85BC2761c4F876d27Bd474681CfB335EfA",
-      "decimals": 8,
-      "symbol": "vUST",
-      "underlyingToken": {
-        "address": "0x5A79efD958432E72211ee73D5DDFa9bc8f248b5F",
-        "asset": "/src/libs/tokens/img/ust.svg",
-        "decimals": 18,
-        "symbol": "UST",
-      },
-    },
-    {
-      "address": "0x9C3015191d39cF1930F92EB7e7BCbd020bCA286a",
-      "decimals": 8,
-      "symbol": "vLUNA",
-      "underlyingToken": {
-        "address": "0xf36160EC62E3B191EA375dadfe465E8Fa1F8CabB",
-        "asset": "/src/libs/tokens/img/luna.svg",
-        "decimals": 6,
-        "symbol": "LUNA",
-      },
-    },
   ],
 }
 `;

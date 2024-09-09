@@ -1,15 +1,10 @@
-import {
-  BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES,
-  NATIVE_TOKEN_ADDRESS,
-  NULL_ADDRESS,
-} from 'constants/address';
+import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
 import type { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
-import { ChainId, type Token, type VToken } from 'types';
+import type { Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface GetVTokensInput {
-  chainId: ChainId;
   tokens: Token[];
   poolLensContract: PoolLens;
   poolRegistryContractAddress: string;
@@ -23,7 +18,6 @@ export type GetVTokensOutput = {
 };
 
 const getVTokens = async ({
-  chainId,
   tokens,
   poolLensContract,
   poolRegistryContractAddress,
@@ -54,17 +48,6 @@ const getVTokens = async ({
 
   // Shape meta data into vToken
   const vTokens = vTokenMetaData.reduce<VToken[]>((acc, metaData) => {
-    // Temporarily remove unlisted tokens that have not been updated from the contract side yet.
-    // TODO: remove this logic once these tokens have been unlisted from contracts
-    if (
-      chainId === ChainId.BSC_MAINNET &&
-      BSC_MAINNET_UNLISTED_TOKEN_ADDRESSES.some(unlistedTokenAddress =>
-        areAddressesEqual(unlistedTokenAddress, metaData.underlyingAssetAddress),
-      )
-    ) {
-      return acc;
-    }
-
     // Remove unlisted tokens
     if (!metaData.isListed) {
       return acc;

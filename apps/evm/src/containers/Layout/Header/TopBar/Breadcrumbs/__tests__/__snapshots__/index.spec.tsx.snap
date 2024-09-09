@@ -22,8 +22,6 @@ exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on th
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /governance/voter/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `"Governance/0x3d759121234cd36F8124C21aFe1c6852d2bEd8480x3d...d848"`;
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /history 1`] = `"History"`;
-
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /isolated-pools 1`] = `"Isolated pools"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /isolated-pools/pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `"Isolated pools/Venus"`;
