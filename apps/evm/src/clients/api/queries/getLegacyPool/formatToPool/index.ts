@@ -84,8 +84,8 @@ export const formatToPool = ({
       borrowCapsMantissa,
       supplyCapsMantissa,
       exchangeRateMantissa,
-      supplyRatePerBlock,
-      borrowRatePerBlock,
+      supplyRatePerBlockOrTimestamp,
+      borrowRatePerBlockOrTimestamp,
       totalSupplyMantissa,
       totalBorrowsMantissa,
     } = legacyPoolMarket;
@@ -138,7 +138,7 @@ export const formatToPool = ({
         );
 
     const supplyDailyPercentageRate = calculateDailyTokenRate({
-      rateMantissa: supplyRatePerBlock,
+      rateMantissa: supplyRatePerBlockOrTimestamp,
       blocksPerDay,
     });
 
@@ -147,7 +147,7 @@ export const formatToPool = ({
     });
 
     const borrowDailyPercentageRate = calculateDailyTokenRate({
-      rateMantissa: borrowRatePerBlock,
+      rateMantissa: borrowRatePerBlockOrTimestamp,
       blocksPerDay,
     });
 

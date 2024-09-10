@@ -309,8 +309,8 @@ export interface Market {
   totalXvsDistributedTokens: BigNumber;
   supplyApyPercentage: BigNumber;
   borrowApyPercentage: BigNumber;
-  borrowRatePerBlock: BigNumber;
-  supplyRatePerBlock: BigNumber;
+  borrowRatePerBlockOrTimestamp: BigNumber;
+  supplyRatePerBlockOrTimestamp: BigNumber;
   exchangeRateMantissa: BigNumber;
   underlyingTokenAddress: string;
   underlyingTokenPriceMantissa: BigNumber;

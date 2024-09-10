@@ -142,7 +142,7 @@ const formatToPools = ({
       );
 
       const supplyDailyPercentageRate = calculateDailyTokenRate({
-        rateMantissa: market.supplyRatePerBlock,
+        rateMantissa: market.supplyRatePerBlockOrTimestamp,
         blocksPerDay,
       });
 
@@ -151,7 +151,7 @@ const formatToPools = ({
       });
 
       const borrowDailyPercentageRate = calculateDailyTokenRate({
-        rateMantissa: market.borrowRatePerBlock,
+        rateMantissa: market.borrowRatePerBlockOrTimestamp,
         blocksPerDay,
       });
 
