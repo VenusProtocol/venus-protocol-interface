@@ -29,6 +29,7 @@ import TEST_IDS from './testIds';
 // t('voteProposalUi.executedDate')
 // t('voteProposalUi.queuedUntilDate')
 // t('voteProposalUi.defeatedDate')
+// t('voteProposalUi.expiredDate')
 
 interface StateCard {
   state: ProposalState | undefined;
@@ -47,7 +48,8 @@ const StatusCard: React.FC<StateCard> = ({ state }) => {
       label: string;
     }
   > = useMemo(() => {
-    const label = state ? getProposalStateLabel({ state }) : t('proposalState.active');
+    const label =
+      state !== undefined ? getProposalStateLabel({ state }) : t('proposalState.active');
 
     return {
       [ProposalState.Queued]: {
@@ -130,6 +132,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   executedDate,
   executionEtaDate,
   cancelDate,
+  expiredDate,
   endDate,
   userVoteSupport,
   forVotesMantissa,
@@ -173,10 +176,12 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
         return [executionEtaDate, 'voteProposalUi.queuedUntilDate'];
       case ProposalState.Defeated:
         return [endDate, 'voteProposalUi.defeatedDate'];
+      case ProposalState.Expired:
+        return [expiredDate, 'voteProposalUi.expiredDate'];
       default:
         return [undefined, undefined];
     }
-  }, [state, cancelDate, executedDate, endDate, executionEtaDate]);
+  }, [state, cancelDate, executedDate, endDate, executionEtaDate, expiredDate]);
 
   return (
     <ProposalCard

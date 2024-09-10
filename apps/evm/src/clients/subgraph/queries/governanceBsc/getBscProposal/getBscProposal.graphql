@@ -1,5 +1,5 @@
 query Proposal($id: ID!) {
   proposal(id: $id) {
-    ...ProposalFragment
+    ...BscProposal
   }
 }
