@@ -101,6 +101,9 @@ export const featureFlags = {
     ChainId.OPBNB_TESTNET,
     ChainId.ARBITRUM_SEPOLIA,
     ChainId.ZKSYNC_SEPOLIA,
+    // DEV ONLY - do not release with this flag enabled
+    ChainId.BSC_MAINNET,
+    // END DEV ONLY
   ],
 };
 

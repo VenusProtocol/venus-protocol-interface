@@ -5,27 +5,25 @@ import { isAfter } from 'date-fns/isAfter';
 import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useMemo, useState } from 'react';
-import { type ProposalCommand, ProposalCommandState } from 'types';
+import { type RemoteProposal, RemoteProposalState } from 'types';
 import { cn } from 'utilities';
 import TEST_IDS from '../../testIds';
 import { Cta } from './Cta';
 import { StepInfo } from './StepInfo';
 import { useCommand } from './useCommand';
 
-export type CommandProps = React.HTMLAttributes<HTMLDivElement> & ProposalCommand & {};
+export type CommandProps = React.HTMLAttributes<HTMLDivElement> & RemoteProposal & {};
 
 export const Command: React.FC<CommandProps> = ({
   chainId,
   state,
-  actionSignatures,
-  bridgedAt,
-  canceledAt,
-  queuedAt,
-  succeededAt,
-  failedExecutionAt,
-  executableAt,
-  executedAt,
-  expiredAt,
+  proposalActions,
+  bridgedDate,
+  canceledDate,
+  queuedDate,
+  executionEtaDate,
+  executedDate,
+  expiredDate,
   ...otherProps
 }) => {
   const chainMetadata = CHAIN_METADATA[chainId];
@@ -34,24 +32,22 @@ export const Command: React.FC<CommandProps> = ({
   const toggleAccordion = () => setIsOpen(prevState => !prevState);
   const now = useNow();
 
-  const { isOnWrongChain, isExecutable, hasFailedExecution } = useCommand({
+  const { isOnWrongChain, isExecutable } = useCommand({
     chainId,
     state,
-    executableAt,
-    failedExecutionAt,
-    executedAt,
+    executionEtaDate,
   });
 
   const description = useMemo(() => {
     switch (state) {
-      case ProposalCommandState.Pending:
+      case RemoteProposalState.Pending:
         return t('voteProposalUi.command.description.pending');
-      case ProposalCommandState.Bridged:
+      case RemoteProposalState.Bridged:
         return t('voteProposalUi.command.description.bridged');
-      case ProposalCommandState.Canceled:
+      case RemoteProposalState.Canceled:
         return t('voteProposalUi.command.description.canceled');
-      case ProposalCommandState.Queued:
-        if (!executableAt || isAfter(executableAt, now)) {
+      case RemoteProposalState.Queued:
+        if (!executionEtaDate || isAfter(executionEtaDate, now)) {
           return t('voteProposalUi.command.description.waitingToBeExecutable');
         }
 
@@ -60,13 +56,9 @@ export const Command: React.FC<CommandProps> = ({
             chainName: chainMetadata.name,
           });
         }
-
-        if (hasFailedExecution) {
-          return t('voteProposalUi.command.description.executionFailed');
-        }
         break;
     }
-  }, [t, state, executableAt, hasFailedExecution, now, chainMetadata, isOnWrongChain]);
+  }, [t, state, executionEtaDate, now, chainMetadata, isOnWrongChain]);
 
   const accordionContentDom = (
     <div className="pt-3 text-sm md:ml-8">
@@ -79,7 +71,7 @@ export const Command: React.FC<CommandProps> = ({
       </div>
 
       <div className="mt-1 break-all text-grey md:pl-7">
-        {actionSignatures.map(action => (
+        {proposalActions.map(action => (
           <ReadableActionSignature
             className="text-sm"
             key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
@@ -116,7 +108,6 @@ export const Command: React.FC<CommandProps> = ({
               <p
                 className={cn(
                   'text-sm md:pl-8 text-grey',
-                  hasFailedExecution && 'text-red',
                   isOnWrongChain && isExecutable && 'text-orange',
                 )}
               >
@@ -135,14 +126,12 @@ export const Command: React.FC<CommandProps> = ({
             className="hidden lg:block"
             chainId={chainId}
             state={state}
-            bridgedAt={bridgedAt}
-            canceledAt={canceledAt}
-            queuedAt={queuedAt}
-            succeededAt={succeededAt}
-            failedExecutionAt={failedExecutionAt}
-            executableAt={executableAt}
-            executedAt={executedAt}
-            expiredAt={expiredAt}
+            bridgedDate={bridgedDate}
+            canceledDate={canceledDate}
+            queuedDate={queuedDate}
+            executionEtaDate={executionEtaDate}
+            executedDate={executedDate}
+            expiredDate={expiredDate}
           />
         ) : (
           <StepInfo
@@ -150,14 +139,12 @@ export const Command: React.FC<CommandProps> = ({
             onClick={toggleAccordion}
             chainId={chainId}
             state={state}
-            bridgedAt={bridgedAt}
-            canceledAt={canceledAt}
-            queuedAt={queuedAt}
-            succeededAt={succeededAt}
-            failedExecutionAt={failedExecutionAt}
-            executableAt={executableAt}
-            executedAt={executedAt}
-            expiredAt={expiredAt}
+            bridgedDate={bridgedDate}
+            canceledDate={canceledDate}
+            queuedDate={queuedDate}
+            executionEtaDate={executionEtaDate}
+            executedDate={executedDate}
+            expiredDate={expiredDate}
           />
         )}
       </div>
@@ -171,14 +158,12 @@ export const Command: React.FC<CommandProps> = ({
           className="mt-3 w-full lg:hidden"
           chainId={chainId}
           state={state}
-          bridgedAt={bridgedAt}
-          canceledAt={canceledAt}
-          queuedAt={queuedAt}
-          succeededAt={succeededAt}
-          failedExecutionAt={failedExecutionAt}
-          executableAt={executableAt}
-          executedAt={executedAt}
-          expiredAt={expiredAt}
+          bridgedDate={bridgedDate}
+          canceledDate={canceledDate}
+          queuedDate={queuedDate}
+          executionEtaDate={executionEtaDate}
+          executedDate={executedDate}
+          expiredDate={expiredDate}
         />
       )}
     </div>

@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js';
 import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
-import proposals from '__mocks__/models/proposals';
+import { proposals } from '__mocks__/models/proposals';
 import voters from '__mocks__/models/voters';
 import { renderComponent } from 'testUtils/render';
 

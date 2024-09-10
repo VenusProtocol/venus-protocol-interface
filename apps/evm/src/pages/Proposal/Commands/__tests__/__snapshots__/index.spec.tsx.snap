@@ -2,14 +2,12 @@
 
 exports[`Commands > displays the right information for each command 1`] = `"BNB testnetExecuted01 Feb 2023 00:00 AM"`;
 
-exports[`Commands > displays the right information for each command 2`] = `"opBNB testnetWaiting for the bridge to propagate the transactionBridged01 Feb 2023 00:00 AMQueued on 01 Feb 2023 00:00 AM"`;
+exports[`Commands > displays the right information for each command 2`] = `"opBNB testnetWaiting for the bridge to propagate the transactionBridged01 Feb 2023 00:00 AM"`;
 
-exports[`Commands > displays the right information for each command 3`] = `"SepoliaWaiting for queueing period to endQueued01 Feb 2023 00:00 AMExecutable on 01 Feb 2089 00:00 AM"`;
+exports[`Commands > displays the right information for each command 3`] = `"SepoliaWaiting for queueing period to endQueued01 Feb 2023 00:00 AMExecutable at 01 Feb 2089 00:00 AM"`;
 
 exports[`Commands > displays the right information for each command 4`] = `"SepoliaThis payload needs to be executed on the Sepolia chainSwitch to SepoliaSwitch to Sepolia"`;
 
-exports[`Commands > displays the right information for each command 5`] = `"opBNB testnetThis payload needs to be executed on the opBNB testnet chainSwitch to opBNB testnetSwitch to opBNB testnet"`;
+exports[`Commands > displays the right information for each command 5`] = `"Arbitrum SepoliaPayload execution cancelled by governance guardianCanceled01 Feb 2023 00:00 AM"`;
 
-exports[`Commands > displays the right information for each command 6`] = `"Arbitrum SepoliaPayload execution cancelled by governance guardianCanceled01 Feb 2023 00:00 AM"`;
-
-exports[`Commands > displays the right information for each command 7`] = `"Arbitrum SepoliaExecuted01 Feb 2023 00:00 AM"`;
+exports[`Commands > displays the right information for each command 6`] = `"Arbitrum SepoliaExecuted01 Feb 2023 00:00 AM"`;

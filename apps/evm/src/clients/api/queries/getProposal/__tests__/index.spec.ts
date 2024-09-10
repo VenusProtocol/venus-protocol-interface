@@ -9,8 +9,6 @@ const fakeParams: GetProposalInput = {
   chainId: ChainId.BSC_TESTNET,
   currentBlockNumber: 1,
   proposalMinQuorumVotesMantissa: new BigNumber(10),
-  proposalExecutionGracePeriodMs: 1209600000,
-  blockTimeMs: 3000,
 };
 
 describe('getProposal', () => {
