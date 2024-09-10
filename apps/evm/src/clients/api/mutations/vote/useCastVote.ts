@@ -46,7 +46,7 @@ const useCastVote = (options?: Partial<Options>) => {
       });
 
       // Invalidate query to fetch proposal list
-      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_PROPOSAL_PREVIEWS] });
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_PROPOSALS] });
     },
     options,
   });
