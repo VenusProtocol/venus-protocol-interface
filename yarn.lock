@@ -7683,9 +7683,9 @@
     module-alias "^2.2.2"
 
 "@venusprotocol/isolated-pools@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-3.3.0.tgz#b1e90294f9726bae07f2bd9fa17a24ff519f963d"
-  integrity sha512-kljduN4I9FHtTgA3VljdVjWog5gQUYcuENxsc4vkwnGbT+IPXYSYKJwJiUh3Fl6fhLqZp/YOutJS0KLWnS2CHw==
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-3.5.0.tgz#79789f3aa3d6c319e16790c667452e4347240c8b"
+  integrity sha512-Bl/slbJdEp+2CoUX8uAEtgOfxQqJBRDYFIayBOtfpKWfOkwGZiEcvoOrUZJTwEOmv6Bbgol+RJv57twcS9J33Q==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
@@ -7773,12 +7773,7 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-1.3.0.tgz#73685899195afdf9b19558ca7cb1e500f8879576"
   integrity sha512-OQZmjIb9goOao8hFYvaCw60Ez0E+uB3vWrF/2XqGVJjYXFROMN+x1WrXNusRv+CNKxf6hudJ0T5pjJ7epMXMlg==
 
-"@venusprotocol/solidity-utilities@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.1.tgz#e3f1d736b572a6858e9345d534fc4ab3eb0f4ad4"
-  integrity sha512-kP6G2RrWPhIi+Dhu4WmI7I9nd+SmEuQ/OVKDykwsex7bViceqBGM+SlRQgaIVoGnwX/6MCdeMzX3wPnnWB5Kyw==
-
-"@venusprotocol/solidity-utilities@^2.0.3":
+"@venusprotocol/solidity-utilities@^2.0.0", "@venusprotocol/solidity-utilities@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.3.tgz#d672b744d53999716c07b7dfe2431140add0458e"
   integrity sha512-HlOUQx+DBBQB3CulJjAwYEqriJVX3gjlmWbYl+lqN+yr1sk+U3NWbNnLjixw7pMjW8yM5bZWjt8MD3SqbaPccA==
