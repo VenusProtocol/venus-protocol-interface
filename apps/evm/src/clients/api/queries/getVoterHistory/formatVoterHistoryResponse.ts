@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import type { VoterHistory } from 'types';
-import { formatToProposal } from 'utilities';
+import { formatToProposal } from './formatToProposal';
 
 import type { GetVoterHistoryResponse } from './types';
 

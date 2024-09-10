@@ -19,7 +19,9 @@ describe('Proposal page - Feature enabled: multichainGovernance', () => {
     );
 
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
-      data: activeProposal,
+      data: {
+        proposal: activeProposal,
+      },
     }));
 
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(

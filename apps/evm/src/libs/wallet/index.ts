@@ -1,3 +1,6 @@
+export { usePublicClient } from 'wagmi';
+export type { PublicClient } from 'viem';
+
 export * from './constants';
 export * from './types';
 export * from './chains';
