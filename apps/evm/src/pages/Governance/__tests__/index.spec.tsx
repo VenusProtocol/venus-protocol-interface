@@ -5,7 +5,7 @@ import type Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import { proposalPreviews } from '__mocks__/models/proposalPreviews';
+import proposals from '__mocks__/models/proposals';
 import { vaults } from '__mocks__/models/vaults';
 import { renderComponent } from 'testUtils/render';
 
@@ -223,7 +223,7 @@ describe('Governance', () => {
 
   it('proposals navigate to details', async () => {
     const { getByTestId } = renderComponent(<Governance />);
-    const firstProposalId = proposalPreviews[0].proposalId.toString();
+    const firstProposalId = proposals[0].proposalId.toString();
 
     // Getting all because the cards are rendered twice (once for mobile and once for larger screens)
     const firstProposalAnchor = await waitFor(async () =>
