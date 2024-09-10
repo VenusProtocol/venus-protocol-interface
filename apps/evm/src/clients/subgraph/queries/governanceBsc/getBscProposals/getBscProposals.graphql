@@ -1,0 +1,9 @@
+query Proposals($limit: Int = 10, $skip: Int = 0, $where: Proposal_filter) {
+  proposals(first: $limit, skip: $skip, where: $where, orderBy: startBlock, orderDirection: desc) {
+    ...ProposalFragment
+  }
+
+  total: proposals(where: $where) {
+    id
+  }
+}

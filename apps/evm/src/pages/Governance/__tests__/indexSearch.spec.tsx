@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/dom';
 import type Vi from 'vitest';
 
-import { useGetProposalPreviews } from 'clients/api';
+import { useGetProposals } from 'clients/api';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -30,7 +30,7 @@ describe('Governance - Feature enabled: governanceSearch', () => {
     });
 
     await waitFor(() =>
-      expect(useGetProposalPreviews).toHaveBeenCalledWith({
+      expect(useGetProposals).toHaveBeenCalledWith({
         page: expect.any(Number),
         limit: expect.any(Number),
         accountAddress: undefined,
@@ -51,7 +51,7 @@ describe('Governance - Feature enabled: governanceSearch', () => {
     });
 
     await waitFor(() =>
-      expect(useGetProposalPreviews).toHaveBeenCalledWith({
+      expect(useGetProposals).toHaveBeenCalledWith({
         page: expect.any(Number),
         limit: expect.any(Number),
         accountAddress: undefined,

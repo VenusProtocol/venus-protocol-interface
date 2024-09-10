@@ -1,0 +1,67 @@
+fragment ProposalFragment on Proposal {
+  proposalId
+  startBlock
+  endBlock
+  forVotes
+  againstVotes
+  abstainVotes
+  executionEta
+  type
+  description
+  passing
+  targets
+  values
+  signatures
+  calldatas
+
+  proposer {
+    id
+  }
+
+  created {
+    timestamp
+    txHash
+  }
+
+  executed {
+    timestamp
+    txHash
+  }
+
+  canceled {
+    timestamp
+    txHash
+  }
+
+  queued {
+    timestamp
+    txHash
+  }
+
+  votes {
+    id
+    support
+    votes
+    reason
+
+    voter {
+      id
+      totalVotesMantissa
+    }
+  }
+
+  remoteProposals {
+    proposalId
+    layerZeroChainId
+
+    executed {
+      timestamp
+      txHash
+    }
+
+    withdrawn {
+      timestamp
+      txHash
+    }
+  }
+}
