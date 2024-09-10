@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/chainMetadata';
 import { ProposalState } from 'types';
 import { type GetProposalStateInput, getProposalState } from '..';
 
@@ -63,8 +64,7 @@ describe('getProposalState', () => {
       params: {
         ...fakeParams,
         queued: true,
-        executionEtaTimestampMs: fakeNowMs - 2,
-        proposalExecutionGracePeriodMs: 1,
+        executionEtaTimestampMs: fakeNowMs - PROPOSAL_EXECUTION_GRACE_PERIOD_MS - 10,
       },
       expectedProposalState: ProposalState.Expired,
     },

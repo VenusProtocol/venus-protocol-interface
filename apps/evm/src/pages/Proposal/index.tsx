@@ -3,7 +3,6 @@ import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { commands as fakeCommands } from '__mocks__/models/proposalCommands';
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
 import { Button, NoticeInfo, Redirect, Spinner } from 'components';
 import { routes } from 'constants/routing';
@@ -77,11 +76,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
       )}
 
-      {isMultichainGovernanceFeatureEnabled && (
-        <Commands
-          commands={fakeCommands} // TODO: fetch (see VEN-2701)
-        />
-      )}
+      {isMultichainGovernanceFeatureEnabled && <Commands proposal={proposal} />}
 
       <div css={styles.votes} className="space-y-6 xl:space-y-0">
         <VoteSummary

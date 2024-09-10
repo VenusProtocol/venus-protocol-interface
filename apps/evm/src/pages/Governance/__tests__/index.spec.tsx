@@ -5,7 +5,7 @@ import type Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import proposals from '__mocks__/models/proposals';
+import { proposals } from '__mocks__/models/proposals';
 import { vaults } from '__mocks__/models/vaults';
 import { renderComponent } from 'testUtils/render';
 

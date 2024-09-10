@@ -7,7 +7,7 @@ import optimismLogo from 'libs/wallet/img/chains/optimism.svg';
 import zkSyncLogo from 'libs/wallet/img/chains/zkSync.svg';
 import { ChainId, type ChainMetadata } from 'types';
 
-const PROPOSAL_EXECUTION_GRACE_PERIOD_MS = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
+export const PROPOSAL_EXECUTION_GRACE_PERIOD_MS = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
 
 export const CHAIN_METADATA: {
   [chainId in ChainId]: ChainMetadata;
@@ -20,7 +20,6 @@ export const CHAIN_METADATA: {
     blockTimeMs: 3000,
     blocksPerDay: 28800,
     corePoolComptrollerContractAddress: '0xfD36E2c2a6789Db23113685031d7F16329158384',
-    proposalExecutionGracePeriodMs: PROPOSAL_EXECUTION_GRACE_PERIOD_MS,
     nativeToken: getToken({ chainId: ChainId.BSC_MAINNET, symbol: 'BNB' })!,
     rpcUrl: 'https://bsc-mainnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
     marketsSubgraphUrl:
@@ -36,7 +35,6 @@ export const CHAIN_METADATA: {
     blockTimeMs: 3000,
     blocksPerDay: 28800,
     corePoolComptrollerContractAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
-    proposalExecutionGracePeriodMs: PROPOSAL_EXECUTION_GRACE_PERIOD_MS,
     nativeToken: getToken({ chainId: ChainId.BSC_TESTNET, symbol: 'BNB' })!,
     rpcUrl: 'https://bsc-testnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
     marketsSubgraphUrl:
@@ -56,6 +54,8 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://opbnb-mainnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
     marketsSubgraphUrl:
       'https://open-platform-ap.nodereal.io/7fab7575d1c34150a9ee582167ffac6f/opbnb-mainnet-graph-query/subgraphs/name/venusprotocol/venus-isolated-pools-opbnb',
+    governanceSubgraphUrl:
+      'https://open-platform-ap.nodereal.io/7fab7575d1c34150a9ee582167ffac6f/opbnb-mainnet-graph-query/subgraphs/name/venusprotocol/venus-governance-opbnb',
   },
   [ChainId.OPBNB_TESTNET]: {
     name: 'opBNB testnet',
@@ -82,6 +82,8 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://eth-mainnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
     marketsSubgraphUrl:
       'https://gateway-arbitrum.network.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/Qmazi4kSKzahgR5G6U7FVUoUGLQZQVPohRX6zbuxbC8YX1',
+    governanceSubgraphUrl:
+      'https://api.studio.thegraph.com/query/77761/venus-governance-ethereum/version/latest',
   },
   [ChainId.SEPOLIA]: {
     name: 'Sepolia',
@@ -112,6 +114,7 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://open-platform.nodereal.io/7fab7575d1c34150a9ee582167ffac6f/arbitrum-nitro',
     marketsSubgraphUrl:
       'https://gateway-arbitrum.network.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmQByQzsGpuVqaZcfraxQduUwMX4JpnAnFd1s1JTkSUREj',
+    governanceSubgraphUrl: '', // TODO: add
   },
   [ChainId.ARBITRUM_SEPOLIA]: {
     name: 'Arbitrum Sepolia',
@@ -121,7 +124,10 @@ export const CHAIN_METADATA: {
     corePoolComptrollerContractAddress: '0x006D44b6f5927b3eD83bD0c1C36Fb1A3BaCaC208',
     lstPoolComptrollerContractAddress: '0x3D04F926b2a165BBa17FBfccCCB61513634fa5e4',
     lstPoolVWstEthContractAddress: '0x253515E19e8b888a4CA5a0a3363B712402ce4046',
-    nativeToken: getToken({ chainId: ChainId.ARBITRUM_SEPOLIA, symbol: 'ETH' })!,
+    nativeToken: getToken({
+      chainId: ChainId.ARBITRUM_SEPOLIA,
+      symbol: 'ETH',
+    })!,
     rpcUrl:
       'https://rpcUrl.ankr.com/arbitrum_sepolia/451c00a15d3de617618d7a880cec1da8065b10906c460b1462a8b8769d91e0da',
     marketsSubgraphUrl:
@@ -139,6 +145,7 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://sepolia.era.zksync.dev',
     marketsSubgraphUrl:
       'https://api.studio.thegraph.com/query/64786/venus-il-zksync-sepolia/version/latest',
+    governanceSubgraphUrl: '', // TODO: add
   },
   [ChainId.ZKSYNC_MAINNET]: {
     name: 'zkSync',
@@ -150,6 +157,7 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://open-platform.nodereal.io/7fab7575d1c34150a9ee582167ffac6f/zksync',
     marketsSubgraphUrl:
       'https://gateway.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmZRQNSYcGeq8oextwVUzKm9aoDM7xogJxtdFv5Qu34hCw',
+    governanceSubgraphUrl: '', // TODO: add
   },
   [ChainId.OPTIMISM_MAINNET]: {
     name: 'Optimism',
@@ -161,6 +169,7 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://opt-mainnet.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
     marketsSubgraphUrl:
       'https://gateway.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmZqvM6BRz1nNvK41SbfcafW2sbLZpnDMmubpQ5phkmPD8',
+    governanceSubgraphUrl: '', // TODO: add
   },
   [ChainId.OPTIMISM_SEPOLIA]: {
     name: 'Optimism Sepolia',
@@ -171,6 +180,8 @@ export const CHAIN_METADATA: {
     nativeToken: getToken({ chainId: ChainId.OPTIMISM_SEPOLIA, symbol: 'ETH' })!,
     rpcUrl: 'https://sepolia.optimism.io',
     marketsSubgraphUrl:
+      'https://gateway.testnet.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmNcLHq8xaDMhqqUFGAnafauXp4S3LAU8xAicnBMoYaB9i',
+    governanceSubgraphUrl:
       'https://gateway.testnet.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmNcLHq8xaDMhqqUFGAnafauXp4S3LAU8xAicnBMoYaB9i',
   },
 };

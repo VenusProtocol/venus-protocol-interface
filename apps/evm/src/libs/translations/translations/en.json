@@ -1085,18 +1085,15 @@
     "command": {
       "cta": {
         "execute": "Execute",
-        "retry": "Retry",
         "wrongChain": "Switch to {{chainName}}"
       },
       "dates": {
-        "executableIn": "Executable on {{date, }}",
-        "previousStep": "{{date, }}",
-        "queuedIn": "Queued on {{date, }}"
+        "executableAt": "Executable at {{date, }}",
+        "previousStep": "{{date, }}"
       },
       "description": {
         "bridged": "Waiting for the bridge to propagate the transaction",
         "canceled": "Payload execution cancelled by governance guardian",
-        "executionFailed": "Payload execution failed. Please try again.",
         "pending": "Waiting for the BNB chain payload to be executed",
         "waitingToBeExecutable": "Waiting for queueing period to end",
         "wrongChain": "This payload needs to be executed on the {{chainName}} chain"
@@ -1110,8 +1107,7 @@
         "executed": "Executed",
         "expired": "Expired",
         "pending": "Pending",
-        "queued": "Queued",
-        "succeeded": "Succeeded"
+        "queued": "Queued"
       }
     },
     "commands": {
@@ -1129,6 +1125,7 @@
     "description": "Description",
     "executeButtonLabel": "Execute",
     "executedDate": "Executed: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "expiredDate": "Expired: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "greenPulseAnimation": {
       "altText": "Green pulse animation"
     },
@@ -1152,7 +1149,8 @@
       "dateOnly": "{{date, dd MMM yyyy}}",
       "timeOnly": "{{date, h:mm a}}"
     },
-    "timeUntilExecutable": "Time until executable",
+    "timeUntilExecutable": "Executable at: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilVotable": "Voting starts at: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "voteStatus": {
       "abstained": "Abstained",
       "notVoted": "Not voted",

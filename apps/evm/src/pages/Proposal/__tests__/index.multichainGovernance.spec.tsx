@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import proposals from '__mocks__/models/proposals';
+import { proposals } from '__mocks__/models/proposals';
 import { useGetProposal } from 'clients/api';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
