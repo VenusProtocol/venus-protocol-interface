@@ -1,0 +1,20 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`formatToProposalActions > returns proposal actions in the correct format 1`] = `
+[
+  {
+    "actionIndex": 0,
+    "callData": "fake-call-data-1",
+    "signature": "fakeSignature1()",
+    "target": "0x2Ce1d0ffd7e869d9df33e28552b12DdDed326706",
+    "value": "0",
+  },
+  {
+    "actionIndex": 1,
+    "callData": "fake-call-data-2",
+    "signature": "fakeSignature2()",
+    "target": "0x3Ce1d0ffd7e869d9df33e28552b12DdDed326706",
+    "value": "1000000",
+  },
+]
+`;

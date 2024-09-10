@@ -232,11 +232,9 @@ export enum VoteSupport {
 export type ProposalVoter = {
   proposalId: number;
   address: string;
-  blockNumber: number;
   reason: string | undefined;
   support: VoteSupport;
   votesMantissa: BigNumber;
-  blockTimestamp: Date;
 };
 
 export type ForVoter = Omit<ProposalVoter, 'support'> & {
@@ -251,7 +249,7 @@ export type AbstainVoter = Omit<ProposalVoter, 'support'> & {
   support: VoteSupport.Abstain;
 };
 
-export interface ProposalPreview {
+export interface Proposal {
   proposalId: number;
   description: DescriptionV1 | DescriptionV2;
   againstVotesMantissa: BigNumber;
@@ -260,18 +258,13 @@ export interface ProposalPreview {
   proposalType: ProposalType;
   executedDate: Date | undefined;
   queuedDate: Date | undefined;
-  etaDate: Date | undefined;
+  executionEtaDate: Date | undefined;
   cancelDate: Date | undefined;
   state: ProposalState;
-  userVoteSupport?: VoteSupport;
-  endDate?: Date;
-}
-
-export interface Proposal extends ProposalPreview {
   startDate: Date | undefined;
   createdDate: Date | undefined;
   endBlock: number;
-  proposer: string;
+  proposerAddress: string;
   createdTxHash: string | undefined;
   cancelTxHash: string | undefined;
   executedTxHash: string | undefined;
@@ -282,6 +275,8 @@ export interface Proposal extends ProposalPreview {
   forVotes: ForVoter[];
   againstVotes: AgainstVoter[];
   abstainVotes: AbstainVoter[];
+  userVoteSupport?: VoteSupport;
+  endDate?: Date;
 }
 
 export interface JsonProposal {
@@ -301,12 +296,11 @@ export interface JsonProposal {
 
 export interface VotersDetails {
   result: {
+    proposalId: number;
     address: string;
     votesMantissa: BigNumber;
     reason?: string;
     support: VoteSupport;
-    blockNumber: number;
-    blockTimestamp: Date;
   }[];
 }
 
@@ -394,9 +388,8 @@ export interface LockedDeposit {
 }
 
 export type VoteDetail = {
+  proposalId: number;
   votesMantissa: BigNumber;
-  blockNumber: number;
-  blockTimestamp: Date;
   support: VoteSupport;
 };
 
