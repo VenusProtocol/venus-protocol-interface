@@ -6,7 +6,6 @@ import {
   getProposal,
 } from 'clients/api/queries/getProposal';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
@@ -16,11 +15,7 @@ import { useGetCachedProposal } from './useGetCachedProposal';
 
 type TrimmedGetProposalInput = Omit<
   GetProposalInput,
-  | 'currentBlockNumber'
-  | 'proposalMinQuorumVotesMantissa'
-  | 'proposalExecutionGracePeriodMs'
-  | 'blockTimeMs'
-  | 'chainId'
+  'currentBlockNumber' | 'proposalMinQuorumVotesMantissa' | 'blockTimeMs' | 'chainId'
 >;
 
 type Options = QueryObserverOptions<
@@ -30,30 +25,31 @@ type Options = QueryObserverOptions<
   GetProposalOutput,
   [
     FunctionKey.GET_PROPOSAL,
-    Omit<
-      GetProposalInput,
-      | 'currentBlockNumber'
-      | 'proposalMinQuorumVotesMantissa'
-      | 'proposalExecutionGracePeriodMs'
-      | 'blockTimeMs'
-    >,
+    Omit<GetProposalInput, 'currentBlockNumber' | 'proposalMinQuorumVotesMantissa' | 'blockTimeMs'>,
   ]
 >;
+
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = CHAIN_METADATA[governanceChain.id];
 
 export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial<Options>) => {
   const { data: getProposalMinQuorumVotesData } = useGetProposalMinQuorumVotes();
   const proposalMinQuorumVotesMantissa =
     getProposalMinQuorumVotesData?.proposalMinQuorumVotesMantissa;
 
-  const { data: getBlockNumberData } = useGetBlockNumber({
-    chainId: governanceChain.id,
-  });
+  const { data: getBlockNumberData } = useGetBlockNumber(
+    {
+      chainId: governanceChain.id,
+    },
+    {
+      refetchInterval: BSC_BLOCK_TIME_MS,
+    },
+  );
   const currentBlockNumber = getBlockNumberData?.blockNumber;
 
-  const { blockTimeMs, proposalExecutionGracePeriodMs } = CHAIN_METADATA[governanceChain.id];
-
   // Initialize proposal using cache if available
-  const cachedProposal = useGetCachedProposal({ proposalId: +input.proposalId });
+  const cachedProposal = useGetCachedProposal({
+    proposalId: +input.proposalId,
+  });
 
   return useQuery({
     queryKey: [
@@ -68,8 +64,6 @@ export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial
         {
           currentBlockNumber,
           proposalMinQuorumVotesMantissa,
-          proposalExecutionGracePeriodMs,
-          blockTimeMs,
         },
         params =>
           getProposal({
@@ -78,7 +72,7 @@ export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial
             chainId: governanceChain.id,
           }),
       ),
-    refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
+    refetchInterval: BSC_BLOCK_TIME_MS,
     initialData: {
       proposal: cachedProposal,
     },

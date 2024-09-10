@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
+import type { Proposal } from 'types';
+import { remoteProposals } from './remoteProposals';
 
-const proposals = [
+export const proposals: Proposal[] = [
   {
     abstainedVotesMantissa: new BigNumber('0'),
     againstVotesMantissa: new BigNumber('0'),
@@ -10,12 +12,6 @@ const proposals = [
       title: 'VIP Comptroller Diamond proxy',
       description:
         'This vip implement diamond proxy for the comptroller to divide the comptroller logic into facets. The current implementation of the comptroller is exceeding the max limit of the contract size. To resolve this diamond proxy is implemented.',
-      forDescription:
-        'I agree that Venus Protocol should proceed with the upgrading the Comptroller contract with diamond proxy',
-      againstDescription:
-        'I do not think that Venus Protocol should proceed with the Comptroller contract upgradation',
-      abstainDescription:
-        'I am indifferent to whether Venus Protocol proceeds with the Comptroller upgradation or not',
     },
     endBlock: 33499859,
     endDate: new Date('2023-09-20T07:54:35.000Z'),
@@ -32,8 +28,6 @@ const proposals = [
         proposalId: 98,
         address: '0x2ce1d0ffd7e869d9df33e28552b12ddded326706',
         support: 1,
-        blockNumber: 33335869,
-        blockTimestamp: new Date('1970-01-20T14:45:04.478Z'),
         votesMantissa: new BigNumber('605461000000000000000000'),
         reason: '',
       },
@@ -41,6 +35,7 @@ const proposals = [
     againstVotes: [],
     abstainVotes: [],
     proposalType: 0,
+    remoteProposals,
   },
   {
     abstainedVotesMantissa: new BigNumber('500000000000000000000000'),
@@ -51,12 +46,6 @@ const proposals = [
       title: 'VIP Comptroller Diamond proxy',
       description:
         'This vip implement diamond proxy for the comptroller to divide the comptroller logic into facets. The current implementation of the comptroller is exceeding the max limit of the contract size. To resolve this diamond proxy is implemented.',
-      forDescription:
-        'I agree that Venus Protocol should proceed with the upgrading the Comptroller contract with diamond proxy',
-      againstDescription:
-        'I do not think that Venus Protocol should proceed with the Comptroller contract upgradation',
-      abstainDescription:
-        'I am indifferent to whether Venus Protocol proceeds with the Comptroller upgradation or not',
     },
     endBlock: 33499859,
     endDate: new Date('2023-09-20T07:54:35.000Z'),
@@ -73,8 +62,6 @@ const proposals = [
         proposalId: 97,
         address: '0xc444949e0054a23c44fc45789738bdf64aed2391',
         support: 1,
-        blockNumber: 33335869,
-        blockTimestamp: new Date('1970-01-20T14:45:04.478Z'),
         votesMantissa: new BigNumber('605461000000000000000000'),
         reason: 'yes',
       },
@@ -84,8 +71,6 @@ const proposals = [
         proposalId: 97,
         address: '0x60277add339d936c4ab907376afee4f7ac17d760',
         support: 0,
-        blockNumber: 33335869,
-        blockTimestamp: new Date('1970-01-20T14:45:04.478Z'),
         votesMantissa: new BigNumber('500000000000000000000000'),
         reason: 'no',
       },
@@ -95,13 +80,12 @@ const proposals = [
         proposalId: 97,
         address: '0xb98fa0292e2927018c03ad5110673b7daa1424a7',
         support: 2,
-        blockNumber: 33335869,
-        blockTimestamp: new Date('1970-01-20T14:45:04.478Z'),
         votesMantissa: new BigNumber('500000000000000000000000'),
         reason: 'abstain',
       },
     ],
     proposalType: 0,
+    remoteProposals,
   },
   {
     abstainedVotesMantissa: new BigNumber('0'),
@@ -113,12 +97,6 @@ const proposals = [
       title: 'VIP Comptroller Diamond proxy',
       description:
         'This vip implement diamond proxy for the comptroller to divide the comptroller logic into facets. The current implementation of the comptroller is exceeding the max limit of the contract size. To resolve this diamond proxy is implemented.',
-      forDescription:
-        'I agree that Venus Protocol should proceed with the upgrading the Comptroller contract with diamond proxy',
-      againstDescription:
-        'I do not think that Venus Protocol should proceed with the Comptroller contract upgradation',
-      abstainDescription:
-        'I am indifferent to whether Venus Protocol proceeds with the Comptroller upgradation or not',
     },
     endBlock: 33446667,
     endDate: new Date('2023-09-18T11:34:41.000Z'),
@@ -139,8 +117,6 @@ const proposals = [
         proposalId: 96,
         address: '0x2ce1d0ffd7e869d9df33e28552b12ddded326706',
         support: 1,
-        blockNumber: 33335869,
-        blockTimestamp: new Date('1970-01-20T14:45:04.478Z'),
         votesMantissa: new BigNumber('605461000000000000000000'),
         reason: '',
       },
@@ -148,6 +124,7 @@ const proposals = [
     againstVotes: [],
     abstainVotes: [],
     proposalType: 0,
+    remoteProposals,
   },
   {
     abstainedVotesMantissa: new BigNumber('0'),
@@ -176,8 +153,6 @@ const proposals = [
         proposalId: 95,
         address: '0x2ce1d0ffd7e869d9df33e28552b12ddded326706',
         support: 1,
-        blockNumber: 33335869,
-        blockTimestamp: new Date('1970-01-20T14:45:04.478Z'),
         votesMantissa: new BigNumber('605461000000000000000000'),
         reason: '',
       },
@@ -185,6 +160,7 @@ const proposals = [
     againstVotes: [],
     abstainVotes: [],
     proposalType: 0,
+    remoteProposals,
   },
   {
     abstainedVotesMantissa: new BigNumber('0'),
@@ -213,8 +189,6 @@ const proposals = [
         proposalId: 94,
         address: '0x2ce1d0ffd7e869d9df33e28552b12ddded326706',
         support: 1,
-        blockNumber: 33335869,
-        blockTimestamp: new Date('1970-01-20T14:45:04.478Z'),
         votesMantissa: new BigNumber('605461000000000000000000'),
         reason: '',
       },
@@ -222,6 +196,7 @@ const proposals = [
     againstVotes: [],
     abstainVotes: [],
     proposalType: 0,
+    remoteProposals,
   },
   {
     abstainedVotesMantissa: new BigNumber('0'),
@@ -250,8 +225,6 @@ const proposals = [
         proposalId: 93,
         address: '0x2ce1d0ffd7e869d9df33e28552b12ddded326706',
         support: 1,
-        blockNumber: 33335869,
-        blockTimestamp: new Date('1970-01-20T14:45:04.478Z'),
         votesMantissa: new BigNumber('605461000000000000000000'),
         reason: '',
       },
@@ -259,7 +232,6 @@ const proposals = [
     againstVotes: [],
     abstainVotes: [],
     proposalType: 0,
+    remoteProposals,
   },
 ];
-
-export default proposals;

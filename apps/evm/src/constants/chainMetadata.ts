@@ -6,7 +6,7 @@ import opbnbLogo from 'libs/wallet/img/chains/opbnb.svg';
 import zkSyncLogo from 'libs/wallet/img/chains/zkSync.svg';
 import { ChainId, type ChainMetadata } from 'types';
 
-const PROPOSAL_EXECUTION_GRACE_PERIOD_MS = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
+export const PROPOSAL_EXECUTION_GRACE_PERIOD_MS = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
 
 export const CHAIN_METADATA: {
   [chainId in ChainId]: ChainMetadata;
@@ -19,7 +19,6 @@ export const CHAIN_METADATA: {
     blockTimeMs: 3000,
     blocksPerDay: 28800,
     corePoolComptrollerContractAddress: '0xfD36E2c2a6789Db23113685031d7F16329158384',
-    proposalExecutionGracePeriodMs: PROPOSAL_EXECUTION_GRACE_PERIOD_MS,
     nativeToken: getToken({ chainId: ChainId.BSC_MAINNET, symbol: 'BNB' })!,
   },
   [ChainId.BSC_TESTNET]: {
@@ -30,7 +29,6 @@ export const CHAIN_METADATA: {
     blockTimeMs: 3000,
     blocksPerDay: 28800,
     corePoolComptrollerContractAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
-    proposalExecutionGracePeriodMs: PROPOSAL_EXECUTION_GRACE_PERIOD_MS,
     nativeToken: getToken({ chainId: ChainId.BSC_TESTNET, symbol: 'BNB' })!,
   },
   [ChainId.OPBNB_MAINNET]: {
@@ -95,7 +93,10 @@ export const CHAIN_METADATA: {
     corePoolComptrollerContractAddress: '0x006D44b6f5927b3eD83bD0c1C36Fb1A3BaCaC208',
     lstPoolComptrollerContractAddress: '0x3D04F926b2a165BBa17FBfccCCB61513634fa5e4',
     lstPoolVWstEthContractAddress: '0x253515E19e8b888a4CA5a0a3363B712402ce4046',
-    nativeToken: getToken({ chainId: ChainId.ARBITRUM_SEPOLIA, symbol: 'ETH' })!,
+    nativeToken: getToken({
+      chainId: ChainId.ARBITRUM_SEPOLIA,
+      symbol: 'ETH',
+    })!,
   },
   [ChainId.ZKSYNC_SEPOLIA]: {
     name: 'zkSync Sepolia',

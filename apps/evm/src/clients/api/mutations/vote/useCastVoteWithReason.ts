@@ -48,8 +48,16 @@ const useCastVoteWithReason = (options?: Partial<Options>) => {
         ],
       });
 
-      // Invalidate query to fetch proposal list
+      // Invalidate queries to fetch proposal
       queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_PROPOSALS] });
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_PROPOSAL,
+          {
+            id: input.proposalId,
+          },
+        ],
+      });
     },
     options,
   });
