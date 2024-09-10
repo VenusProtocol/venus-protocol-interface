@@ -1,4 +1,5 @@
-fragment ProposalFragment on Proposal {
+fragment BscProposal on Proposal {
+  id
   proposalId
   startBlock
   endBlock
@@ -19,21 +20,25 @@ fragment ProposalFragment on Proposal {
   }
 
   created {
+    id
     timestamp
     txHash
   }
 
   executed {
+    id
     timestamp
     txHash
   }
 
   canceled {
+    id
     timestamp
     txHash
   }
 
   queued {
+    id
     timestamp
     txHash
   }
@@ -51,17 +56,34 @@ fragment ProposalFragment on Proposal {
   }
 
   remoteProposals {
+    id
     proposalId
-    layerZeroChainId
 
-    executed {
-      timestamp
-      txHash
+    targets
+    values
+    signatures
+    calldatas
+
+    trustedRemote {
+      id
+      layerZeroChainId
     }
 
-    withdrawn {
-      timestamp
-      txHash
+    stateTransactions {
+      stored {
+        id
+        timestamp
+      }
+
+      executed {
+        id
+        timestamp
+      }
+
+      withdrawn {
+        id
+        timestamp
+      }
     }
   }
 }

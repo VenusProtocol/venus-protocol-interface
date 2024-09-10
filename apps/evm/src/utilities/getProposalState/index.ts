@@ -1,4 +1,5 @@
 import type BigNumber from 'bignumber.js';
+import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/chainMetadata';
 import { ProposalState } from 'types';
 
 export interface GetProposalStateInput {
@@ -12,7 +13,6 @@ export interface GetProposalStateInput {
   executed: boolean;
   canceled: boolean;
   executionEtaTimestampMs?: number;
-  proposalExecutionGracePeriodMs?: number;
 }
 
 export const getProposalState = ({
@@ -20,7 +20,6 @@ export const getProposalState = ({
   endBlockNumber,
   currentBlockNumber,
   proposalMinQuorumVotesMantissa,
-  proposalExecutionGracePeriodMs,
   forVotesMantissa,
   passing,
   queued,
@@ -41,20 +40,13 @@ export const getProposalState = ({
   }
 
   const nowMs = new Date().getTime();
-  const expiredEtaTimestampMs =
-    (executionEtaTimestampMs ?? 0) + (proposalExecutionGracePeriodMs ?? 0);
+  const expiredEtaTimestampMs = (executionEtaTimestampMs ?? 0) + PROPOSAL_EXECUTION_GRACE_PERIOD_MS;
 
-  if (queued && !executed && !canceled && expiredEtaTimestampMs < nowMs) {
+  if (queued && !executed && expiredEtaTimestampMs < nowMs) {
     return ProposalState.Expired;
   }
 
-  if (
-    queued &&
-    !executed &&
-    !canceled &&
-    executionEtaTimestampMs &&
-    executionEtaTimestampMs >= nowMs
-  ) {
+  if (queued && !executed) {
     return ProposalState.Queued;
   }
 
