@@ -1,5 +1,5 @@
 import { QueryClient } from '@tanstack/react-query';
-import fakeProposals from '__mocks__/models/proposals';
+import { proposals as fakeProposals } from '__mocks__/models/proposals';
 import FunctionKey from 'constants/functionKey';
 import { renderHook } from 'testUtils/render';
 import { useGetCachedProposal } from '..';

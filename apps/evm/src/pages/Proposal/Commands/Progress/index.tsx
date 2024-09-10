@@ -27,7 +27,7 @@ export const Progress: React.FC<ProgressProps> = ({
       {isComplete ? (
         <Icon name="mark" className="ml-2 text-green w-3 h-3" />
       ) : (
-        <div className="relative ml-3 w-12 h-12 flex items-center justify-center">
+        <div className="relative ml-3 w-10 h-10 flex items-center justify-center">
           <ProgressCircle
             className="absolute inset"
             value={(successfulPayloadsCount * 100) / totalPayloadsCount}

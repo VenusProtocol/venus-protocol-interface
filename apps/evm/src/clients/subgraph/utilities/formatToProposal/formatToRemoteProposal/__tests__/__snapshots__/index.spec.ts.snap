@@ -1,0 +1,129 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`formatToRemoteProposal > returns bridged remote proposal in the correct format 1`] = `
+{
+  "bridgedDate": 2022-06-29T10:43:23.000Z,
+  "canceledDate": undefined,
+  "chainId": 11155111,
+  "executedDate": 2024-07-09T10:19:23.000Z,
+  "executionEtaDate": 2024-07-02T15:56:59.000Z,
+  "expiredDate": undefined,
+  "proposalActions": [],
+  "proposalId": 1,
+  "queuedDate": 2024-06-30T15:56:59.000Z,
+  "remoteProposalId": 4,
+  "state": 0,
+}
+`;
+
+exports[`formatToRemoteProposal > returns canceled remote proposal in the correct format 1`] = `
+{
+  "bridgedDate": 2022-06-29T10:43:23.000Z,
+  "canceledDate": 2024-07-09T10:19:23.000Z,
+  "chainId": 11155111,
+  "executedDate": undefined,
+  "executionEtaDate": 2024-07-02T15:56:59.000Z,
+  "expiredDate": undefined,
+  "proposalActions": [],
+  "proposalId": 1,
+  "queuedDate": 2024-06-30T15:56:59.000Z,
+  "remoteProposalId": 4,
+  "state": 0,
+}
+`;
+
+exports[`formatToRemoteProposal > returns expired remote proposal in the correct format 1`] = `
+{
+  "bridgedDate": undefined,
+  "canceledDate": undefined,
+  "chainId": 11155111,
+  "executedDate": undefined,
+  "executionEtaDate": 2024-07-02T15:56:59.000Z,
+  "expiredDate": 2024-07-16T15:56:59.000Z,
+  "proposalActions": [],
+  "proposalId": 1,
+  "queuedDate": 2024-06-30T15:56:59.000Z,
+  "remoteProposalId": 4,
+  "state": 4,
+}
+`;
+
+exports[`formatToRemoteProposal > returns pending remote proposal in the correct format 1`] = `
+{
+  "bridgedDate": undefined,
+  "canceledDate": undefined,
+  "chainId": 11155111,
+  "executedDate": 2024-07-09T10:19:23.000Z,
+  "executionEtaDate": 2024-07-02T15:56:59.000Z,
+  "expiredDate": undefined,
+  "proposalActions": [],
+  "proposalId": 1,
+  "queuedDate": 2024-06-30T15:56:59.000Z,
+  "remoteProposalId": 4,
+  "state": 0,
+}
+`;
+
+exports[`formatToRemoteProposal > returns remote proposal as canceled when source proposal state is 2 in the correct format 1`] = `
+{
+  "bridgedDate": undefined,
+  "canceledDate": 2024-03-14T12:01:40.000Z,
+  "chainId": 11155111,
+  "executedDate": 2024-07-09T10:19:23.000Z,
+  "executionEtaDate": 2024-07-02T15:56:59.000Z,
+  "expiredDate": undefined,
+  "proposalActions": [],
+  "proposalId": 1,
+  "queuedDate": 2024-06-30T15:56:59.000Z,
+  "remoteProposalId": 4,
+  "state": 0,
+}
+`;
+
+exports[`formatToRemoteProposal > returns remote proposal as canceled when source proposal state is 3 in the correct format 1`] = `
+{
+  "bridgedDate": undefined,
+  "canceledDate": 2024-03-14T12:05:00.000Z,
+  "chainId": 11155111,
+  "executedDate": 2024-07-09T10:19:23.000Z,
+  "executionEtaDate": 2024-07-02T15:56:59.000Z,
+  "expiredDate": undefined,
+  "proposalActions": [],
+  "proposalId": 1,
+  "queuedDate": 2024-06-30T15:56:59.000Z,
+  "remoteProposalId": 4,
+  "state": 0,
+}
+`;
+
+exports[`formatToRemoteProposal > returns remote proposal as canceled when source proposal state is 6 in the correct format 1`] = `
+{
+  "bridgedDate": undefined,
+  "canceledDate": 2024-03-14T12:03:20.000Z,
+  "chainId": 11155111,
+  "executedDate": 2024-07-09T10:19:23.000Z,
+  "executionEtaDate": 2024-07-02T15:56:59.000Z,
+  "expiredDate": undefined,
+  "proposalActions": [],
+  "proposalId": 1,
+  "queuedDate": 2024-06-30T15:56:59.000Z,
+  "remoteProposalId": 4,
+  "state": 0,
+}
+`;
+
+exports[`formatToRemoteProposal > returns withdrawn remote proposal in the correct format 1`] = `
+{
+  "bridgedDate": undefined,
+  "canceledDate": 2022-06-29T10:43:23.000Z,
+  "chainId": 11155111,
+  "executedDate": 2024-07-09T10:19:23.000Z,
+  "executionEtaDate": 2024-07-02T15:56:59.000Z,
+  "expiredDate": undefined,
+  "proposalActions": [],
+  "proposalId": 1,
+  "queuedDate": 2024-06-30T15:56:59.000Z,
+  "remoteProposalId": 4,
+  "state": 0,
+}
+`;

@@ -13,7 +13,7 @@ import voters from '__mocks__/models/voters';
 
 import FunctionKey from 'constants/functionKey';
 
-import proposals from '__mocks__/models/proposals';
+import { proposals } from '__mocks__/models/proposals';
 import type { Token } from 'types';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
 import type { GetTokenBalancesInput } from '../queries/getTokenBalances';

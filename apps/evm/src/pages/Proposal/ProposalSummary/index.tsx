@@ -82,6 +82,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
       executedTxHash,
       endDate,
       proposalType,
+      expiredDate,
     } = proposal;
 
     const handleCancelProposal = async () => {
@@ -165,6 +166,15 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
     }
 
     const countdownData = useMemo(() => {
+      if (state === ProposalState.Pending && startDate) {
+        return {
+          date: startDate,
+          // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
+          // t('voteProposalUi.timeUntilVotable')
+          i18nKey: 'voteProposalUi.timeUntilVotable',
+        };
+      }
+
       if (state === ProposalState.Active && endDate) {
         return {
           date: endDate,
@@ -182,7 +192,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
           i18nKey: 'voteProposalUi.timeUntilExecutable',
         };
       }
-    }, [state, endDate, proposalEta, isExecuteEtaInFuture]);
+    }, [state, endDate, startDate, proposalEta, isExecuteEtaInFuture]);
 
     return (
       <Card css={styles.root} className={className}>
@@ -232,7 +242,9 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
               )}
             </div>
 
-            {isVoteProposalFeatureEnabled && updateProposalButton}
+            {isVoteProposalFeatureEnabled &&
+              !isMultichainGovernanceFeatureEnabled &&
+              updateProposalButton}
           </div>
         </div>
 
@@ -241,6 +253,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
             <Typography css={styles.rightTitle}>{t('voteProposalUi.proposalHistory')}</Typography>
 
             <Stepper
+              expiredDate={expiredDate}
               createdDate={createdDate}
               startDate={startDate}
               cancelDate={cancelDate}

@@ -1,0 +1,5 @@
+query Proposals($where: Proposal_filter) {
+  proposals(where: $where) {
+    ...NonBscProposal
+  }
+}

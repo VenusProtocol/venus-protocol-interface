@@ -1,18 +1,18 @@
 import type BigNumber from 'bignumber.js';
 import {
   type GetBscProposalsInput as GetBscGqlProposalsInput,
+  enrichRemoteProposals,
   formatToProposal,
-  getBscProposals as getBscGqlProposals,
+  getBscProposals,
 } from 'clients/subgraph';
-import type { Proposal_Filter } from 'clients/subgraph/gql/generated/governanceBsc';
+import type { Proposal_Filter, RemoteProposal } from 'clients/subgraph/gql/generated/governanceBsc';
+import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/chainMetadata';
 import { type ChainId, type Proposal, ProposalState } from 'types';
 
 export interface GetProposalsInput {
   chainId: ChainId;
   currentBlockNumber: number;
   proposalMinQuorumVotesMantissa: BigNumber;
-  blockTimeMs: number;
-  proposalExecutionGracePeriodMs: number;
   accountAddress?: string;
   proposalState?: ProposalState;
   search?: string;
@@ -29,8 +29,6 @@ export const getProposals = async ({
   chainId,
   currentBlockNumber,
   proposalMinQuorumVotesMantissa,
-  proposalExecutionGracePeriodMs,
-  blockTimeMs,
   page = 0,
   limit = 10,
   proposalState,
@@ -41,7 +39,7 @@ export const getProposals = async ({
   let where: Proposal_Filter | undefined;
 
   const proposalExpiredTimestampSeconds = Math.floor(
-    (new Date().getTime() - (proposalExecutionGracePeriodMs ?? 0)) / 1000,
+    (new Date().getTime() - PROPOSAL_EXECUTION_GRACE_PERIOD_MS) / 1000,
   );
 
   switch (proposalState) {
@@ -115,7 +113,7 @@ export const getProposals = async ({
     where,
   };
 
-  const response = await getBscGqlProposals({
+  const response = await getBscProposals({
     chainId,
     variables,
   });
@@ -123,13 +121,25 @@ export const getProposals = async ({
   const gqlProposals = response?.proposals || [];
   const total = response?.total.length ?? 0;
 
+  // Fetch remote proposals
+  const rawGqlRemoteProposals: RemoteProposal[] = [];
+
+  gqlProposals.forEach(gqlProposal =>
+    gqlProposal.remoteProposals.forEach(gqlRemoteProposal =>
+      rawGqlRemoteProposals.push(gqlRemoteProposal as RemoteProposal),
+    ),
+  );
+
+  const gqlRemoteProposalsMapping = await enrichRemoteProposals({
+    gqlRemoteProposals: rawGqlRemoteProposals,
+  });
+
   const proposals = (gqlProposals || []).map(gqlProposal =>
     formatToProposal({
       gqlProposal,
+      gqlRemoteProposalsMapping,
       proposalMinQuorumVotesMantissa,
-      proposalExecutionGracePeriodMs,
       currentBlockNumber,
-      blockTimeMs,
       accountAddress,
     }),
   );
