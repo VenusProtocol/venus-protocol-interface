@@ -98,9 +98,9 @@ const formatDistributions = ({
         lastRewardingTimestamp: isChainTimeBased
           ? rewardTokenLastRewardingBorrowBlockOrTimestamp.toNumber()
           : undefined,
-        lastRewardingBlock: !isChainTimeBased
-          ? rewardTokenLastRewardingBorrowBlockOrTimestamp.toNumber()
-          : undefined,
+        lastRewardingBlock: isChainTimeBased
+          ? undefined
+          : rewardTokenLastRewardingBorrowBlockOrTimestamp.toNumber(),
         currentBlockNumber,
       });
 
