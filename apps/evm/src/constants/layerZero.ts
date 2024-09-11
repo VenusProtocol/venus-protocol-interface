@@ -9,6 +9,8 @@ export const LAYER_ZERO_CHAIN_IDS: Record<ChainId, number> = {
   [ChainId.OPBNB_TESTNET]: 10202,
   [ChainId.ARBITRUM_SEPOLIA]: 10231,
   [ChainId.ARBITRUM_ONE]: 110,
+  [ChainId.ZKSYNC_SEPOLIA]: 10248,
+  [ChainId.ZKSYNC_MAINNET]: 165,
 };
 
 export const DEFAULT_ADAPTER_PARAMS =

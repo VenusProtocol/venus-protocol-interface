@@ -91,6 +91,34 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA,
 
+  // zkSync Sepolia
+  VITE_RPC_HTTP_URL_ZKSYNC_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_HTTP_URL_ZKSYNC_SEPOLIA
+      : import.meta.env.VITE_RPC_HTTP_URL_ZKSYNC_SEPOLIA,
+  VITE_SUBGRAPH_MARKETS_URL_ZKSYNC_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_MARKETS_URL_ZKSYNC_SEPOLIA
+      : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_ZKSYNC_SEPOLIA,
+  VITE_SUBGRAPH_GOVERNANCE_URL_ZKSYNC_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_ZKSYNC_SEPOLIA
+      : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_ZKSYNC_SEPOLIA,
+
+  // zkSync mainnet
+  VITE_RPC_HTTP_URL_ZKSYNC_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_HTTP_URL_ZKSYNC_MAINNET
+      : import.meta.env.VITE_RPC_HTTP_URL_ZKSYNC_MAINNET,
+  VITE_SUBGRAPH_MARKETS_URL_ZKSYNC_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_MARKETS_URL_ZKSYNC_MAINNET
+      : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_ZKSYNC_MAINNET,
+  VITE_SUBGRAPH_GOVERNANCE_URL_ZKSYNC_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_ZKSYNC_MAINNET
+      : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_ZKSYNC_MAINNET,
+
   // Third-parties
   VITE_SENTRY_DSN:
     typeof process !== 'undefined' ? process.env.VITE_SENTRY_DSN : import.meta.env.VITE_SENTRY_DSN,

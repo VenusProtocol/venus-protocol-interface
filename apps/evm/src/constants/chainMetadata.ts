@@ -3,6 +3,7 @@ import arbitrumLogo from 'libs/wallet/img/chains/arbitrum.svg';
 import bscLogo from 'libs/wallet/img/chains/bsc.svg';
 import ethLogo from 'libs/wallet/img/chains/eth.svg';
 import opbnbLogo from 'libs/wallet/img/chains/opbnb.svg';
+import zkSyncLogo from 'libs/wallet/img/chains/zkSync.svg';
 import { ChainId, type ChainMetadata } from 'types';
 
 const PROPOSAL_EXECUTION_GRACE_PERIOD_MS = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
@@ -95,5 +96,21 @@ export const CHAIN_METADATA: {
     lstPoolComptrollerContractAddress: '0x3D04F926b2a165BBa17FBfccCCB61513634fa5e4',
     lstPoolVWstEthContractAddress: '0x253515E19e8b888a4CA5a0a3363B712402ce4046',
     nativeToken: getToken({ chainId: ChainId.ARBITRUM_SEPOLIA, symbol: 'ETH' })!,
+  },
+  [ChainId.ZKSYNC_SEPOLIA]: {
+    name: 'zkSync Sepolia',
+    logoSrc: zkSyncLogo,
+    explorerUrl: 'https://sepolia.explorer.zksync.io/',
+    layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
+    corePoolComptrollerContractAddress: '0xC527DE08E43aeFD759F7c0e6aE85433923064669',
+    nativeToken: getToken({ chainId: ChainId.ZKSYNC_SEPOLIA, symbol: 'ETH' })!,
+  },
+  [ChainId.ZKSYNC_MAINNET]: {
+    name: 'zkSync',
+    logoSrc: zkSyncLogo,
+    explorerUrl: 'https://explorer.zksync.io/',
+    layerZeroScanUrl: 'https://layerzeroscan.com/',
+    corePoolComptrollerContractAddress: '0xddE4D098D9995B659724ae6d5E3FB9681Ac941B1',
+    nativeToken: getToken({ chainId: ChainId.ZKSYNC_MAINNET, symbol: 'ETH' })!,
   },
 };

@@ -8,16 +8,18 @@ import {
   opBNB as opBNBMainnet,
   opBNBTestnet,
   sepolia,
+  zksync as zksyncMainnet,
+  zksyncSepoliaTestnet,
 } from 'wagmi/chains';
 
 import localConfig from 'config';
 
 const getSupportedChains = (): [Chain, ...Chain[]] => {
   if (localConfig.isOnTestnet) {
-    return [bscTestnet, opBNBTestnet, sepolia, arbitrumSepolia];
+    return [bscTestnet, opBNBTestnet, sepolia, arbitrumSepolia, zksyncSepoliaTestnet];
   }
 
-  return [bscMainnet, ethereum, opBNBMainnet, arbitrumOne];
+  return [bscMainnet, ethereum, opBNBMainnet, arbitrumOne, zksyncMainnet];
 };
 
 export const governanceChain = localConfig.isOnTestnet ? bscTestnet : bscMainnet;
