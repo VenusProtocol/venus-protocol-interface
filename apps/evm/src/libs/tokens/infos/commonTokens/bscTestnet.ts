@@ -41,8 +41,10 @@ import vaiLogo from 'libs/tokens/img/vai.svg';
 import vrtLogo from 'libs/tokens/img/vrt.svg';
 import wbethLogo from 'libs/tokens/img/wbeth.svg';
 import wbnbLogo from 'libs/tokens/img/wbnb.svg';
+import weEthLogo from 'libs/tokens/img/weEth.svg';
 import winLogo from 'libs/tokens/img/win.svg';
 import wooLogo from 'libs/tokens/img/woo.svg';
+import wstEthLogo from 'libs/tokens/img/wstEth.svg';
 import xrpLogo from 'libs/tokens/img/xrp.svg';
 import xvsLogo from 'libs/tokens/img/xvs.svg';
 import type { Token } from 'types';
@@ -340,5 +342,17 @@ export const tokens: Token[] = [
     decimals: 9,
     symbol: 'BabyDoge',
     asset: babyDogeLogo,
+  },
+  {
+    address: '0x7df9372096c8ca2401f30B3dF931bEFF493f1FdC',
+    decimals: 18,
+    symbol: 'weETH',
+    asset: weEthLogo,
+  },
+  {
+    address: '0x4349016259FCd8eE452f696b2a7beeE31667D129',
+    decimals: 18,
+    symbol: 'wstETH',
+    asset: wstEthLogo,
   },
 ];
