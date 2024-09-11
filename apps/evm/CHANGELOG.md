@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.147.0
+
+### Minor Changes
+
+- e6044bb: add native token gateway to LST pool in Arbitrum Sepolia
+
 ## 2.146.0
 
 ### Minor Changes
