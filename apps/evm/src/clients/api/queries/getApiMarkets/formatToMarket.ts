@@ -1,22 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import type { Market, Token } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import type { Market } from 'types';
 import type { ApiMarketData } from '.';
 
 interface FormatToMarketInput {
   apiMarket: ApiMarketData;
-  xvs: Token;
 }
 
-const formatToMarket = ({ apiMarket, xvs }: FormatToMarketInput) => {
-  const totalXvsDistributedTokens = apiMarket.totalDistributedMantissa
-    ? convertMantissaToTokens({
-        value: new BigNumber(apiMarket.totalDistributedMantissa),
-        token: xvs,
-      })
-    : new BigNumber(0);
-
+const formatToMarket = ({ apiMarket }: FormatToMarketInput) => {
   const market: Market = {
     vTokenAddress: apiMarket.address,
     borrowerCount: apiMarket.borrowerCount,
@@ -36,7 +27,6 @@ const formatToMarket = ({ apiMarket, xvs }: FormatToMarketInput) => {
     totalReservesMantissa: new BigNumber(apiMarket.totalReservesMantissa),
     totalBorrowsMantissa: new BigNumber(apiMarket.totalBorrowsMantissa),
     totalSupplyMantissa: new BigNumber(apiMarket.totalSupplyMantissa),
-    totalXvsDistributedTokens,
     estimatedPrimeBorrowApyBoost: apiMarket.estimatedPrimeBorrowApyBoost
       ? new BigNumber(apiMarket.estimatedPrimeBorrowApyBoost)
       : undefined,

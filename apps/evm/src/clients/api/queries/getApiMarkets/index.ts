@@ -1,4 +1,4 @@
-import type { ChainId, Market, Token } from 'types';
+import type { ChainId, Market } from 'types';
 import { restService } from 'utilities';
 import formatToMarket from './formatToMarket';
 
@@ -59,7 +59,6 @@ export interface GetApiMarketsResponse {
 }
 
 export interface GetApiMarketsInput {
-  xvs: Token;
   chainId: ChainId;
   poolComptrollerAddress?: string;
 }
@@ -70,7 +69,6 @@ export interface GetApiMarketsOutput {
 
 const getApiMarkets = async ({
   chainId,
-  xvs,
   poolComptrollerAddress,
 }: GetApiMarketsInput): Promise<GetApiMarketsOutput> => {
   const response = await restService<GetApiMarketsResponse>({
@@ -90,9 +88,7 @@ const getApiMarkets = async ({
     throw new Error(payload.error);
   }
 
-  const markets: Market[] = (payload?.result || []).map(apiMarket =>
-    formatToMarket({ apiMarket, xvs }),
-  );
+  const markets: Market[] = (payload?.result || []).map(apiMarket => formatToMarket({ apiMarket }));
 
   return { markets };
 };

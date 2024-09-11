@@ -306,7 +306,6 @@ export interface Market {
   vTokenAddress: string;
   borrowerCount: number;
   supplierCount: number;
-  totalXvsDistributedTokens: BigNumber;
   supplyApyPercentage: BigNumber;
   borrowApyPercentage: BigNumber;
   borrowRatePerBlockOrTimestamp: BigNumber;

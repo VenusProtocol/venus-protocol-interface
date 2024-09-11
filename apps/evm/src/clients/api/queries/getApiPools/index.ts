@@ -1,4 +1,4 @@
-import type { ChainId, Market, Token } from 'types';
+import type { ChainId, Market } from 'types';
 import { restService } from 'utilities';
 import type { ApiMarketData } from '../getApiMarkets';
 import formatToPool from './formatToPool';
@@ -16,7 +16,6 @@ export interface GetApiPoolsResponse {
 }
 
 export interface GetApiPoolsInput {
-  xvs: Token;
   chainId: ChainId;
   corePoolComptrollerContractAddress: string;
 }
@@ -34,7 +33,6 @@ export interface GetApiPoolsOutput {
 const getPools = async ({
   chainId,
   corePoolComptrollerContractAddress,
-  xvs,
 }: GetApiPoolsInput): Promise<GetApiPoolsOutput> => {
   const response = await restService<GetApiPoolsResponse>({
     endpoint: '/pools',
@@ -52,7 +50,7 @@ const getPools = async ({
 
   return {
     pools: (payload?.result || []).map(apiPoolData =>
-      formatToPool({ apiPoolData, corePoolComptrollerContractAddress, xvs, chainId }),
+      formatToPool({ apiPoolData, corePoolComptrollerContractAddress, chainId }),
     ),
   };
 };
