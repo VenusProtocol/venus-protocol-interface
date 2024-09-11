@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.149.0
+
+### Minor Changes
+
+- 811e104: unlist LST pool on Arbitrum
+
 ## 2.148.0
 
 ### Minor Changes
