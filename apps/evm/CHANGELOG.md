@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.148.0
+
+### Minor Changes
+
+- ccbdf3e: add support weETH and wstETH tokens on BSC networks
+
 ## 2.147.0
 
 ### Minor Changes
