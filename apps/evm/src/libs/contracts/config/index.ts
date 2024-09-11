@@ -460,10 +460,19 @@ export const contracts: ContractConfig[] = [
       [ChainId.ARBITRUM_SEPOLIA]: {
         [isolatedPoolsArbitrumSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
           isolatedPoolsArbitrumSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsArbitrumSepoliaDeployments.addresses[
+          'Comptroller_Liquid Staked ETH'
+        ].toLowerCase()]:
+          isolatedPoolsArbitrumSepoliaDeployments.addresses
+            .NativeTokenGateway_vWETH_LiquidStakedETH,
       },
       [ChainId.ARBITRUM_ONE]: {
         [isolatedPoolsArbitrumOneDeployments.addresses.Comptroller_Core.toLowerCase()]:
           isolatedPoolsArbitrumOneDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsArbitrumOneDeployments.addresses[
+          'Comptroller_Liquid Staked ETH'
+        ].toLowerCase()]:
+          isolatedPoolsArbitrumOneDeployments.addresses.NativeTokenGateway_vWETH_LiquidStakedETH,
       },
     },
   },
