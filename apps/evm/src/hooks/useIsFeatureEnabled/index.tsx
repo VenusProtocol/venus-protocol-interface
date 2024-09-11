@@ -50,6 +50,7 @@ export const featureFlags = {
     ChainId.BSC_TESTNET,
     ChainId.ETHEREUM,
     ChainId.SEPOLIA,
+    ChainId.ARBITRUM_ONE,
     ChainId.ARBITRUM_SEPOLIA,
   ],
   bridgeRoute: [

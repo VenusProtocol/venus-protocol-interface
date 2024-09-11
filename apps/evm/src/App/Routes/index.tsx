@@ -33,7 +33,8 @@ const Bridge = safeLazyLoad(() => import('pages/Bridge'));
 
 const AppRoutes = () => {
   const { accountAddress } = useAccountAddress();
-  const { stakedEthPoolComptrollerContractAddress, wstEthContractAddress } = useGetChainMetadata();
+  const { lstPoolComptrollerContractAddress, lstPoolVWstEthContractAddress } =
+    useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
@@ -151,7 +152,7 @@ const AppRoutes = () => {
           />
         </Route>
 
-        {!!stakedEthPoolComptrollerContractAddress && !!wstEthContractAddress && (
+        {!!lstPoolComptrollerContractAddress && !!lstPoolVWstEthContractAddress && (
           <Route path={Subdirectory.LIDO_MARKET}>
             <Route
               index
