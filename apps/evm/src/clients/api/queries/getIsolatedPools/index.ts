@@ -7,10 +7,9 @@ import {
 } from 'clients/subgraph';
 import { type IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'libs/contracts';
 import { logError } from 'libs/errors';
-import { type Asset, ChainId, type PrimeApy, type Token } from 'types';
+import type { Asset, PrimeApy, Token } from 'types';
 import {
   appendPrimeSimulationDistributions,
-  areAddressesEqual,
   areTokensEqual,
   convertAprBipsToApy,
   findTokenByAddress,
@@ -36,8 +35,6 @@ const safelyGetIsolatedPoolParticipantsCount = async ({
     logError(error);
   }
 };
-
-const ARBITRUM_ONE_LST_POOL_COMPTROLLER_ADDRESS = '0x52bAB1aF7Ff770551BD05b9FC2329a0Bf5E23F16';
 
 const getIsolatedPools = async ({
   isolatedPoolsData,
@@ -75,15 +72,10 @@ const getIsolatedPools = async ({
     throw new Error(currentBlockNumberResult.reason);
   }
 
-  // Temporary fix to unlist LST pool on Arbitrum One guntil VIP is executed
-  const filteredPoolResults = isolatedPoolsData.pools.filter(
-    poolResult =>
-      chainId !== ChainId.ARBITRUM_ONE ||
-      !areAddressesEqual(poolResult.address, ARBITRUM_ONE_LST_POOL_COMPTROLLER_ADDRESS),
-  );
+  const { pools: isolatedPools } = isolatedPoolsData;
 
   // Extract token records and addresses
-  const [vTokenAddresses, underlyingTokens] = filteredPoolResults.reduce<[string[], Token[]]>(
+  const [vTokenAddresses, underlyingTokens] = isolatedPools.reduce<[string[], Token[]]>(
     (acc, poolResult) => {
       const newVTokenAddresses: string[] = [];
       const newUnderlyingTokens: Token[] = [];
@@ -129,7 +121,7 @@ const getIsolatedPools = async ({
   // Fetch addresses of user collaterals
   const getAssetsInPromises: ReturnType<IsolatedPoolComptroller['getAssetsIn']>[] = [];
 
-  filteredPoolResults.forEach(p => {
+  isolatedPools.forEach(p => {
     const comptrollerContract = getIsolatedPoolComptrollerContract({
       signerOrProvider: provider,
       address: p.address,
@@ -211,7 +203,7 @@ const getIsolatedPools = async ({
 
   // Fetch reward settings
   const rewardsDistributorSettingsMapping = await getRewardsDistributorSettingsMapping({
-    pools: filteredPoolResults,
+    pools: isolatedPools,
   });
 
   // Fetch token prices
@@ -226,7 +218,7 @@ const getIsolatedPools = async ({
     blocksPerDay,
     tokens,
     currentBlockNumber: currentBlockNumberResult.value.blockNumber,
-    pools: filteredPoolResults,
+    pools: isolatedPools,
     poolParticipantsCountResult: poolParticipantsCountResult.value,
     rewardsDistributorSettingsMapping,
     tokenPriceDollarsMapping,
