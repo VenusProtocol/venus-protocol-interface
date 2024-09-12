@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.151.0
+
+### Minor Changes
+
+- 429c37f: Remove Arbitrum One LST pool filter
+
 ## 2.150.0
 
 ### Minor Changes
