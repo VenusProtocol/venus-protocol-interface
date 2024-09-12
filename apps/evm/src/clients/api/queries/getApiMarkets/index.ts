@@ -1,6 +1,5 @@
 import type { ChainId, Market } from 'types';
-import { restService } from 'utilities';
-import formatToMarket from './formatToMarket';
+import { formatToMarket, restService } from 'utilities';
 
 export interface ApiMarketData {
   address: string;

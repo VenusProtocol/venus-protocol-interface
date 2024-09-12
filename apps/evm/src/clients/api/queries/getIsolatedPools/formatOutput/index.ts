@@ -15,7 +15,6 @@ import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import { getDisabledTokenActions } from 'utilities/getDisabledTokenActions';
 
-import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
 import type { GetApiPoolsOutput } from '../../getApiPools';
 import type { GetTokenBalancesOutput } from '../../getTokenBalances';
 import type { GetRewardsDistributorSettingsMappingOutput } from '../getRewardsDistributorSettingsMapping';
@@ -62,12 +61,7 @@ const formatToPools = ({
         return acc;
       }
 
-      const underlyingTokenAddress =
-        // If underlying asset address is the null address, this means the VToken has no underlying
-        // token because it is a native token
-        areAddressesEqual(market.underlyingTokenAddress, NULL_ADDRESS)
-          ? NATIVE_TOKEN_ADDRESS
-          : market.underlyingTokenAddress;
+      const { underlyingTokenAddress } = market;
 
       // Retrieve underlying token record
       const underlyingToken = findTokenByAddress({

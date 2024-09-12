@@ -5,7 +5,6 @@ import {
   type GetIsolatedPoolParticipantsCountInput,
   getIsolatedPoolParticipantsCount,
 } from 'clients/subgraph';
-import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
 import { type IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'libs/contracts';
 import { logError } from 'libs/errors';
 import { type Asset, ChainId, type PrimeApy, type Token } from 'types';
@@ -92,12 +91,7 @@ const getIsolatedPools = async ({
 
       poolResult.markets.forEach(market => {
         const underlyingToken = findTokenByAddress({
-          address:
-            // If underlying asset address is the null address, this means the VToken has no
-            // underlying token because it is a native token
-            areAddressesEqual(market.underlyingTokenAddress, NULL_ADDRESS)
-              ? NATIVE_TOKEN_ADDRESS
-              : market.underlyingTokenAddress,
+          address: market.underlyingTokenAddress,
           tokens,
         });
 

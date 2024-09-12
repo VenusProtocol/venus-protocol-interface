@@ -1,7 +1,6 @@
 import { ChainId } from 'types';
-import { areAddressesEqual } from 'utilities';
+import { areAddressesEqual, formatToMarket } from 'utilities';
 import type { ApiPoolData } from '.';
-import formatToMarket from '../getApiMarkets/formatToMarket';
 
 interface FormatToPoolInput {
   apiPoolData: ApiPoolData;

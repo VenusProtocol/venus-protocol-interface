@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
+import type { ApiMarketData } from 'clients/api';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import type { Market } from 'types';
-import type { ApiMarketData } from '.';
 
 interface FormatToMarketInput {
   apiMarket: ApiMarketData;

@@ -1,4 +1,4 @@
-import formatToMarket from 'clients/api/queries/getApiMarkets/formatToMarket';
+import { formatToMarket } from 'utilities';
 import apiMarketsResponse from '../api/markets.json';
 
 import type { Market } from 'types';
