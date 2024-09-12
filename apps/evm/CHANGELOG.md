@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.150.0
+
+### Minor Changes
+
+- ead7f1f: fetch pools and markets from the API
+- a93317b: add support for LST pool on Arbitrum
+
 ## 2.149.0
 
 ### Minor Changes
