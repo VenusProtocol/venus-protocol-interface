@@ -60,8 +60,8 @@ export const CHAIN_METADATA: {
     blockTimeMs: 12000,
     blocksPerDay: 7200,
     corePoolComptrollerContractAddress: '0x687a01ecF6d3907658f7A7c714749fAC32336D1B',
-    stakedEthPoolComptrollerContractAddress: '0xF522cd0360EF8c2FF48B648d53EA1717Ec0F3Ac3',
-    wstEthContractAddress: '0x4a240F0ee138697726C8a3E43eFE6Ac3593432CB',
+    lstPoolComptrollerContractAddress: '0xF522cd0360EF8c2FF48B648d53EA1717Ec0F3Ac3',
+    lstPoolVWstEthContractAddress: '0x4a240F0ee138697726C8a3E43eFE6Ac3593432CB',
     nativeToken: getToken({ chainId: ChainId.ETHEREUM, symbol: 'ETH' })!,
   },
   [ChainId.SEPOLIA]: {
@@ -72,8 +72,8 @@ export const CHAIN_METADATA: {
     blockTimeMs: 12000,
     blocksPerDay: 7200,
     corePoolComptrollerContractAddress: '0x7Aa39ab4BcA897F403425C9C6FDbd0f882Be0D70',
-    stakedEthPoolComptrollerContractAddress: '0xd79CeB8EF8188E44b7Eb899094e8A3A4d7A1e236',
-    wstEthContractAddress: '0x0a95088403229331FeF1EB26a11F9d6C8E73f23D',
+    lstPoolComptrollerContractAddress: '0xd79CeB8EF8188E44b7Eb899094e8A3A4d7A1e236',
+    lstPoolVWstEthContractAddress: '0x0a95088403229331FeF1EB26a11F9d6C8E73f23D',
     nativeToken: getToken({ chainId: ChainId.SEPOLIA, symbol: 'ETH' })!,
   },
   [ChainId.ARBITRUM_ONE]: {
@@ -82,6 +82,8 @@ export const CHAIN_METADATA: {
     explorerUrl: 'https://arbiscan.io/',
     layerZeroScanUrl: 'https://layerzeroscan.com/',
     corePoolComptrollerContractAddress: '0x317c1A5739F39046E20b08ac9BeEa3f10fD43326',
+    lstPoolComptrollerContractAddress: '0x52bAB1aF7Ff770551BD05b9FC2329a0Bf5E23F16',
+    lstPoolVWstEthContractAddress: '0x9df6B5132135f14719696bBAe3C54BAb272fDb16',
     nativeToken: getToken({ chainId: ChainId.ARBITRUM_ONE, symbol: 'ETH' })!,
   },
   [ChainId.ARBITRUM_SEPOLIA]: {
@@ -90,8 +92,8 @@ export const CHAIN_METADATA: {
     explorerUrl: 'https://sepolia.arbiscan.io/',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
     corePoolComptrollerContractAddress: '0x006D44b6f5927b3eD83bD0c1C36Fb1A3BaCaC208',
-    stakedEthPoolComptrollerContractAddress: '0x3D04F926b2a165BBa17FBfccCCB61513634fa5e4',
-    wstEthContractAddress: '0x253515E19e8b888a4CA5a0a3363B712402ce4046',
+    lstPoolComptrollerContractAddress: '0x3D04F926b2a165BBa17FBfccCCB61513634fa5e4',
+    lstPoolVWstEthContractAddress: '0x253515E19e8b888a4CA5a0a3363B712402ce4046',
     nativeToken: getToken({ chainId: ChainId.ARBITRUM_SEPOLIA, symbol: 'ETH' })!,
   },
 };

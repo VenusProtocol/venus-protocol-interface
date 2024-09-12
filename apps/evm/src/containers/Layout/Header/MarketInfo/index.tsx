@@ -27,8 +27,8 @@ export const MarketInfo = () => {
 
   const {
     corePoolComptrollerContractAddress,
-    stakedEthPoolComptrollerContractAddress,
-    wstEthContractAddress,
+    lstPoolComptrollerContractAddress,
+    lstPoolVWstEthContractAddress,
   } = useGetChainMetadata();
 
   const poolComptrollerAddress = useMemo(() => {
@@ -36,14 +36,14 @@ export const MarketInfo = () => {
       return corePoolComptrollerContractAddress;
     }
 
-    if (stakedEthPoolComptrollerContractAddress && matchPath(routes.lidoMarket.path, pathname)) {
-      return stakedEthPoolComptrollerContractAddress;
+    if (lstPoolComptrollerContractAddress && matchPath(routes.lidoMarket.path, pathname)) {
+      return lstPoolComptrollerContractAddress;
     }
 
     return poolComptrollerAddressParam;
   }, [
     corePoolComptrollerContractAddress,
-    stakedEthPoolComptrollerContractAddress,
+    lstPoolComptrollerContractAddress,
     poolComptrollerAddressParam,
     pathname,
   ]);
@@ -51,7 +51,7 @@ export const MarketInfo = () => {
   const { t } = useTranslation();
 
   const { data: getAssetData } = useGetAsset({
-    vTokenAddress: isOnLidoMarketPage ? wstEthContractAddress : vTokenAddress,
+    vTokenAddress: isOnLidoMarketPage ? lstPoolVWstEthContractAddress : vTokenAddress,
   });
   const asset = getAssetData?.asset;
 

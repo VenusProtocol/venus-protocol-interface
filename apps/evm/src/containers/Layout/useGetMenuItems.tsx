@@ -9,7 +9,8 @@ import type { MenuItem } from './types';
 
 const useGetMenuItems = () => {
   const { accountAddress } = useAccountAddress();
-  const { stakedEthPoolComptrollerContractAddress, wstEthContractAddress } = useGetChainMetadata();
+  const { lstPoolComptrollerContractAddress, lstPoolVWstEthContractAddress } =
+    useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
@@ -37,7 +38,7 @@ const useGetMenuItems = () => {
       });
     }
 
-    if (stakedEthPoolComptrollerContractAddress && wstEthContractAddress) {
+    if (lstPoolComptrollerContractAddress && lstPoolVWstEthContractAddress) {
       menuItems.push({
         to: routes.lidoMarket.path,
         // Translation key: do not remove this comment
@@ -118,8 +119,8 @@ const useGetMenuItems = () => {
     vaiRouteEnabled,
     bridgeRouteEnabled,
     isolatedPoolsRouteEnabled,
-    wstEthContractAddress,
-    stakedEthPoolComptrollerContractAddress,
+    lstPoolVWstEthContractAddress,
+    lstPoolComptrollerContractAddress,
   ]);
 };
 

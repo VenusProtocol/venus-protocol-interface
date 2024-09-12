@@ -3,12 +3,13 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { Market } from '../Market';
 
 const LidoMarket: React.FC = () => {
-  const { stakedEthPoolComptrollerContractAddress, wstEthContractAddress } = useGetChainMetadata();
+  const { lstPoolComptrollerContractAddress, lstPoolVWstEthContractAddress } =
+    useGetChainMetadata();
 
   return (
     <MarketLoader
-      poolComptrollerAddress={stakedEthPoolComptrollerContractAddress}
-      vTokenAddress={wstEthContractAddress}
+      poolComptrollerAddress={lstPoolComptrollerContractAddress}
+      vTokenAddress={lstPoolVWstEthContractAddress}
     >
       {marketProps => <Market {...marketProps} />}
     </MarketLoader>

@@ -12,12 +12,12 @@ import { useIsOnMarketPage } from './useIsOnMarketPage';
 export const Header: React.FC = () => {
   const isOnMarketPage = useIsOnMarketPage();
   const isOnLidoMarketPage = useIsOnLidoMarketPage();
-  const { wstEthContractAddress } = useGetChainMetadata();
+  const { lstPoolVWstEthContractAddress } = useGetChainMetadata();
 
   const { vTokenAddress = '' } = useParams();
 
   const { data: getAssetData } = useGetAsset({
-    vTokenAddress: isOnLidoMarketPage ? wstEthContractAddress : vTokenAddress,
+    vTokenAddress: isOnLidoMarketPage ? lstPoolVWstEthContractAddress : vTokenAddress,
   });
   const asset = getAssetData?.asset;
 

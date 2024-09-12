@@ -39,8 +39,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
   const {
     corePoolComptrollerContractAddress,
-    stakedEthPoolComptrollerContractAddress,
-    wstEthContractAddress,
+    lstPoolComptrollerContractAddress,
+    lstPoolVWstEthContractAddress,
   } = useGetChainMetadata();
   const { toggleCollateral } = useCollateral();
 
@@ -96,10 +96,10 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       }
 
       if (
-        stakedEthPoolComptrollerContractAddress &&
-        wstEthContractAddress &&
-        areAddressesEqual(row.pool.comptrollerAddress, stakedEthPoolComptrollerContractAddress) &&
-        areAddressesEqual(row.vToken.address, wstEthContractAddress)
+        lstPoolComptrollerContractAddress &&
+        lstPoolVWstEthContractAddress &&
+        areAddressesEqual(row.pool.comptrollerAddress, lstPoolComptrollerContractAddress) &&
+        areAddressesEqual(row.vToken.address, lstPoolVWstEthContractAddress)
       ) {
         return routes.lidoMarket.path.replace(':vTokenAddress', row.vToken.address);
       }
@@ -110,9 +110,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     },
     [
       corePoolComptrollerContractAddress,
-      wstEthContractAddress,
-      stakedEthPoolComptrollerContractAddress,
-      stakedEthPoolComptrollerContractAddress,
+      lstPoolVWstEthContractAddress,
+      lstPoolComptrollerContractAddress,
+      lstPoolComptrollerContractAddress,
     ],
   );
 
