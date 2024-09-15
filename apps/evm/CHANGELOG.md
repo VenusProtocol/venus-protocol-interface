@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.151.1
+
+### Patch Changes
+
+- 8af944c: temporarily fetch markets from contracts
+
 ## 2.151.0
 
 ### Minor Changes
