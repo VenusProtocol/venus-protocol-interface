@@ -1,6 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { useGetApiPools } from 'clients/api';
 import getIsolatedPools, {
   type GetIsolatedPoolsInput,
   type GetIsolatedPoolsOutput,
@@ -12,6 +11,7 @@ import {
   useGetPoolLensContract,
   useGetPoolRegistryContractAddress,
   useGetPrimeContract,
+  useGetResilientOracleContract,
 } from 'libs/contracts';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useChainId, useProvider } from 'libs/wallet';
@@ -30,7 +30,6 @@ type TrimmedInput = Omit<
   | 'poolRegistryContractAddress'
   | 'resilientOracleContract'
   | 'tokens'
-  | 'isolatedPoolsData'
 >;
 
 export type UseGetIsolatedPoolsQueryKey = [
@@ -50,8 +49,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
-  const { data: apiPoolsData } = useGetApiPools();
+const useGetIsolatedPools = (input?: TrimmedInput, options?: Partial<Options>) => {
   const { provider } = useProvider();
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
@@ -64,10 +62,8 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
 
   const poolLensContract = useGetPoolLensContract();
   const primeContract = useGetPrimeContract();
+  const resilientOracleContract = useGetResilientOracleContract();
   const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
-
-  const isQueryEnabled =
-    apiPoolsData !== undefined && (options?.enabled === undefined || options?.enabled);
 
   return useQuery({
     queryKey: [FunctionKey.GET_ISOLATED_POOLS, { ...input, chainId }],
@@ -78,11 +74,11 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
           chainId,
           poolLensContract,
           poolRegistryContractAddress,
+          resilientOracleContract,
           xvs,
         },
         params =>
           getIsolatedPools({
-            isolatedPoolsData: { pools: apiPoolsData!.pools.filter(p => p.isIsolated) },
             provider,
             tokens,
             blocksPerDay,
@@ -94,7 +90,6 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
 
     refetchInterval,
     ...options,
-    enabled: isQueryEnabled,
   });
 };
 

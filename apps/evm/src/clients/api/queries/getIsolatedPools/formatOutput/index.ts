@@ -15,7 +15,7 @@ import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import { getDisabledTokenActions } from 'utilities/getDisabledTokenActions';
 
-import type { GetApiPoolsOutput } from '../../getApiPools';
+import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
 import type { GetTokenBalancesOutput } from '../../getTokenBalances';
 import type { GetRewardsDistributorSettingsMappingOutput } from '../getRewardsDistributorSettingsMapping';
 import type { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
@@ -25,7 +25,7 @@ export interface FormatToPoolsInput {
   chainId: ChainId;
   tokens: Token[];
   currentBlockNumber: number;
-  pools: GetApiPoolsOutput['pools'];
+  poolResults: Awaited<ReturnType<PoolLens['getAllPools']>>;
   rewardsDistributorSettingsMapping: GetRewardsDistributorSettingsMappingOutput;
   tokenPriceDollarsMapping: GetTokenPriceDollarsMappingOutput;
   primeApyMap: Map<string, PrimeApy>;
@@ -41,7 +41,7 @@ const formatToPools = ({
   tokens,
   blocksPerDay,
   currentBlockNumber,
-  pools,
+  poolResults,
   rewardsDistributorSettingsMapping,
   tokenPriceDollarsMapping,
   poolParticipantsCountResult,
@@ -50,18 +50,23 @@ const formatToPools = ({
   userVTokenBalancesAll,
   userTokenBalancesAll,
 }: FormatToPoolsInput) => {
-  const formattedPools: Pool[] = pools.map(p => {
+  const pools: Pool[] = poolResults.map(poolResult => {
     const subgraphPool = poolParticipantsCountResult?.pools.find(pool =>
-      areAddressesEqual(pool.id, p.address),
+      areAddressesEqual(pool.id, poolResult.comptroller),
     );
 
-    const assets = p.markets.reduce<Asset[]>((acc, market) => {
+    const assets = poolResult.vTokens.reduce<Asset[]>((acc, vTokenMetaData) => {
       // Remove unlisted tokens
-      if (!market.isListed) {
+      if (!vTokenMetaData.isListed) {
         return acc;
       }
 
-      const { underlyingTokenAddress } = market;
+      const underlyingTokenAddress =
+        // If underlying asset address is the null address, this means the VToken has no underlying
+        // token because it is a native token
+        areAddressesEqual(vTokenMetaData.underlyingAssetAddress, NULL_ADDRESS)
+          ? NATIVE_TOKEN_ADDRESS
+          : vTokenMetaData.underlyingAssetAddress;
 
       // Retrieve underlying token record
       const underlyingToken = findTokenByAddress({
@@ -81,7 +86,7 @@ const formatToPools = ({
 
       // Shape vToken
       const vToken: VToken = {
-        address: market.vTokenAddress,
+        address: vTokenMetaData.vToken,
         decimals: 8,
         symbol: `v${underlyingToken.symbol}`,
         underlyingToken,
@@ -99,25 +104,25 @@ const formatToPools = ({
       const borrowerCount = +(subgraphPoolMarket?.borrowerCount || 0);
 
       const borrowCapTokens = convertMantissaToTokens({
-        value: market.borrowCapsMantissa,
+        value: new BigNumber(vTokenMetaData.borrowCaps.toString()),
         token: vToken.underlyingToken,
       });
 
       const supplyCapTokens = convertMantissaToTokens({
-        value: market.supplyCapsMantissa,
+        value: new BigNumber(vTokenMetaData.supplyCaps.toString()),
         token: vToken.underlyingToken,
       });
 
       const reserveFactor = convertFactorFromSmartContract({
-        factor: market.reserveFactorMantissa,
+        factor: new BigNumber(vTokenMetaData.reserveFactorMantissa.toString()),
       });
 
       const collateralFactor = convertFactorFromSmartContract({
-        factor: market.collateralFactorMantissa,
+        factor: new BigNumber(vTokenMetaData.collateralFactorMantissa.toString()),
       });
 
       const cashTokens = convertMantissaToTokens({
-        value: market.cashMantissa,
+        value: new BigNumber(vTokenMetaData.totalCash.toString()),
         token: vToken.underlyingToken,
       });
 
@@ -125,18 +130,18 @@ const formatToPools = ({
       const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
       const reserveTokens = convertMantissaToTokens({
-        value: market.totalReservesMantissa,
+        value: new BigNumber(vTokenMetaData?.totalReserves.toString()),
         token: vToken.underlyingToken,
       });
 
       const exchangeRateVTokens = new BigNumber(1).div(
-        market.exchangeRateMantissa.div(
+        new BigNumber(vTokenMetaData.exchangeRateCurrent.toString()).div(
           10 ** (COMPOUND_DECIMALS + vToken.underlyingToken.decimals - vToken.decimals),
         ),
       );
 
       const supplyDailyPercentageRate = calculateDailyTokenRate({
-        rateMantissa: market.supplyRatePerBlockOrTimestamp,
+        rateMantissa: new BigNumber(vTokenMetaData.supplyRatePerBlockOrTimestamp.toString()),
         blocksPerDay,
       });
 
@@ -145,7 +150,7 @@ const formatToPools = ({
       });
 
       const borrowDailyPercentageRate = calculateDailyTokenRate({
-        rateMantissa: market.borrowRatePerBlockOrTimestamp,
+        rateMantissa: new BigNumber(vTokenMetaData.borrowRatePerBlockOrTimestamp.toString()),
         blocksPerDay,
       });
 
@@ -154,14 +159,14 @@ const formatToPools = ({
       });
 
       const supplyBalanceVTokens = convertMantissaToTokens({
-        value: market.totalSupplyMantissa,
+        value: new BigNumber(vTokenMetaData.totalSupply.toString()),
         token: vToken,
       });
       const supplyBalanceTokens = supplyBalanceVTokens.div(exchangeRateVTokens);
       const supplyBalanceCents = supplyBalanceTokens.multipliedBy(tokenPriceCents);
 
       const borrowBalanceTokens = convertMantissaToTokens({
-        value: market.totalBorrowsMantissa,
+        value: new BigNumber(vTokenMetaData.totalBorrows.toString()),
         token: vToken.underlyingToken,
       });
 
@@ -216,7 +221,7 @@ const formatToPools = ({
       });
 
       const disabledTokenActions = getDisabledTokenActions({
-        bitmask: market.pausedActionsBitmap,
+        bitmask: vTokenMetaData.pausedActions.toNumber(),
         tokenAddresses: [vToken.address, vToken.underlyingToken.address],
         chainId,
       });
@@ -258,9 +263,9 @@ const formatToPools = ({
     }, []);
 
     const pool: Pool = addUserPropsToPool({
-      name: p.name,
-      description: p.description,
-      comptrollerAddress: p.address,
+      name: poolResult.name,
+      description: poolResult.description,
+      comptrollerAddress: poolResult.comptroller,
       isIsolated: true,
       assets,
     });
@@ -285,7 +290,7 @@ const formatToPools = ({
     };
   });
 
-  return formattedPools;
+  return pools;
 };
 
 export default formatToPools;

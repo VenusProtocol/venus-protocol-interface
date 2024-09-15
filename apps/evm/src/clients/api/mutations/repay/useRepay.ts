@@ -59,7 +59,7 @@ const useRepay = (
       });
 
       queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_LEGACY_CORE_POOL_MARKETS],
+        queryKey: [FunctionKey.GET_MAIN_MARKETS],
       });
       queryClient.invalidateQueries({
         queryKey: [FunctionKey.GET_LEGACY_POOL],

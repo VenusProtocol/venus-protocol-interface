@@ -7,12 +7,13 @@ import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { getIsolatedPoolComptrollerContract, getRewardsDistributorContract } from 'libs/contracts';
 import { ChainId } from 'types';
 
-import { apiPoolsData } from '__mocks__/models/pools';
 import getIsolatedPools from '..';
 import {
   fakeIsolatedPoolComptrollerContract,
   fakeIsolatedPoolParticipantsCount,
   fakePoolLensContract,
+  fakePoolRegistryContractAddress,
+  fakeResilientOracleContract,
   fakeRewardsDistributorContract,
 } from '../__testUtils__/fakeData';
 
@@ -41,8 +42,9 @@ describe('getIsolatedPools', () => {
       blocksPerDay: 28800,
       tokens,
       provider: fakeProvider,
+      poolRegistryContractAddress: fakePoolRegistryContractAddress,
       poolLensContract: fakePoolLensContract,
-      isolatedPoolsData: { pools: apiPoolsData.filter(p => p.isIsolated) },
+      resilientOracleContract: fakeResilientOracleContract,
     });
 
     expect(response).toMatchSnapshot();
@@ -54,8 +56,9 @@ describe('getIsolatedPools', () => {
       xvs,
       tokens,
       provider: fakeProvider,
+      poolRegistryContractAddress: fakePoolRegistryContractAddress,
       poolLensContract: fakePoolLensContract,
-      isolatedPoolsData: { pools: apiPoolsData.filter(p => p.isIsolated) },
+      resilientOracleContract: fakeResilientOracleContract,
     });
 
     expect(response).toMatchSnapshot();
