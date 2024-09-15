@@ -1,19 +1,19 @@
-import type BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 
+import type { ResilientOracle } from 'libs/contracts';
+import type { Token } from 'types';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
+import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';
+import removeDuplicates from 'utilities/removeDuplicates';
 
-import type { Market, Token } from 'types';
-import type { GetApiPoolsOutput } from '../getApiPools';
-import type {
-  GetRewardsDistributorSettingsMappingOutput,
-  RewardsDistributorSettingsResult,
-} from './getRewardsDistributorSettingsMapping';
+import type { GetRewardsDistributorSettingsMappingOutput } from './getRewardsDistributorSettingsMapping';
 
 export interface GetTokenPriceDollarsMappingInput {
   tokens: Token[];
-  pools: GetApiPoolsOutput['pools'];
   rewardsDistributorSettingsMapping: GetRewardsDistributorSettingsMappingOutput;
+  underlyingTokenAddresses: string[];
+  resilientOracleContract: ResilientOracle;
 }
 
 export interface GetTokenPriceDollarsMappingOutput {
@@ -22,66 +22,58 @@ export interface GetTokenPriceDollarsMappingOutput {
 
 const getTokenPriceDollarsMapping = async ({
   tokens,
-  pools,
   rewardsDistributorSettingsMapping,
+  underlyingTokenAddresses,
+  resilientOracleContract,
 }: GetTokenPriceDollarsMappingInput) => {
-  // Get all underlying tokens and their prices
-  const allMarkets = pools.reduce<Market[]>((acc, pool) => acc.concat(pool.markets), []);
+  // Get all reward token addresses
+  const rewardTokenAddresses = Object.values(rewardsDistributorSettingsMapping).reduce<string[]>(
+    (acc, rewardsDistributorSettings) => {
+      const newRewardTokenAddresses = rewardsDistributorSettings.map(({ rewardTokenAddress }) =>
+        rewardTokenAddress.toLowerCase(),
+      );
 
-  const underlyingTokenPrices = allMarkets.reduce<GetTokenPriceDollarsMappingOutput>(
-    (acc, market) => {
+      return acc.concat(newRewardTokenAddresses);
+    },
+    [],
+  );
+
+  // Fetch token prices
+  const tokenAddresses = removeDuplicates(underlyingTokenAddresses.concat(rewardTokenAddresses));
+
+  const tokenPriceMantissaResults = await Promise.allSettled(
+    tokenAddresses.map(tokenAddress => resilientOracleContract.getPrice(tokenAddress)),
+  );
+
+  return tokenPriceMantissaResults.reduce<GetTokenPriceDollarsMappingOutput>(
+    (acc, result, index) => {
+      const priceMantissa = extractSettledPromiseValue(result);
+
+      if (!priceMantissa) {
+        return acc;
+      }
+
+      const token = findTokenByAddress({
+        tokens,
+        address: tokenAddresses[index],
+      });
+
+      if (!token) {
+        return acc;
+      }
+
+      const tokenPriceDollars = convertPriceMantissaToDollars({
+        priceMantissa: new BigNumber(priceMantissa.toString()),
+        decimals: token.decimals,
+      });
+
       return {
         ...acc,
-        [market.underlyingTokenAddress.toLowerCase()]: market.underlyingTokenPriceMantissa,
+        [token.address.toLowerCase()]: tokenPriceDollars,
       };
     },
     {},
   );
-
-  // Get price data for all reward tokens
-  const allRewardsDistributorSettings = Object.values(rewardsDistributorSettingsMapping).reduce<
-    RewardsDistributorSettingsResult[]
-  >((acc, rewardsDistributorSettings) => acc.concat(rewardsDistributorSettings), []);
-  const rewardTokensPriceData =
-    allRewardsDistributorSettings.reduce<GetTokenPriceDollarsMappingOutput>(
-      (acc, rewardsDistributorSetting) => {
-        return {
-          ...acc,
-          [rewardsDistributorSetting.rewardTokenAddress.toLowerCase()]:
-            rewardsDistributorSetting.rewardTokenPriceMantissa,
-        };
-      },
-      {},
-    );
-
-  const allTokensPriceData = Object.keys(rewardTokensPriceData).reduce(
-    (acc, rewardTokenAddress) => ({
-      ...acc,
-      [rewardTokenAddress]: rewardTokensPriceData[rewardTokenAddress],
-    }),
-    underlyingTokenPrices,
-  );
-
-  return Object.keys(allTokensPriceData).reduce((acc, tokenAddress) => {
-    const token = findTokenByAddress({
-      tokens,
-      address: tokenAddress,
-    });
-
-    if (!token) {
-      return acc;
-    }
-
-    const tokenPriceDollars = convertPriceMantissaToDollars({
-      priceMantissa: allTokensPriceData[tokenAddress],
-      decimals: token.decimals,
-    });
-
-    return {
-      ...acc,
-      [token.address.toLowerCase()]: tokenPriceDollars,
-    };
-  }, {});
 };
 
 export default getTokenPriceDollarsMapping;

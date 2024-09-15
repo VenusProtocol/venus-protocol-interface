@@ -3,19 +3,17 @@ import BigNumber from 'bignumber.js';
 import type { PrimeApy } from 'types';
 import {
   appendPrimeSimulationDistributions,
-  areAddressesEqual,
   convertAprBipsToApy,
   extractSettledPromiseValue,
 } from 'utilities';
 
-import { VError, logError } from 'libs/errors';
+import { getLegacyPoolMarkets } from 'clients/api';
 import { formatToPool } from './formatToPool';
 import type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 
 export type { GetLegacyPoolInput, GetLegacyPoolOutput } from './types';
 
 const getLegacyPool = async ({
-  legacyPoolData,
   chainId,
   blocksPerDay,
   name,
@@ -27,9 +25,13 @@ const getLegacyPool = async ({
   legacyPoolComptrollerContract,
   venusLensContract,
   vaiControllerContract,
+  resilientOracleContract,
   primeContract,
 }: GetLegacyPoolInput): Promise<GetLegacyPoolOutput> => {
   const [
+    marketsResult,
+    mainMarkets,
+    xvsPriceMantissaResult,
     primeVTokenAddressesResult,
     primeMinimumXvsToStakeResult,
     userPrimeTokenResult,
@@ -37,6 +39,13 @@ const getLegacyPool = async ({
     _accrueVaiInterestResult,
     vaiRepayAmountResult,
   ] = await Promise.allSettled([
+    // Fetch all markets
+    legacyPoolComptrollerContract.getAllMarkets(),
+    // Fetch main markets to get the supplier and borrower counts
+    // TODO: fetch borrower and supplier counts from subgraph once available
+    getLegacyPoolMarkets({ xvs }),
+    // Fetch XVS price
+    resilientOracleContract.getPrice(xvs.address),
     // Prime related calls
     primeContract?.getAllMarkets(),
     primeContract?.MINIMUM_STAKED_XVS(),
@@ -50,23 +59,46 @@ const getLegacyPool = async ({
     accountAddress ? vaiControllerContract.getVAIRepayAmount(accountAddress) : undefined,
   ]);
 
-  const xvsMarket = legacyPoolData.markets.find(m =>
-    areAddressesEqual(m.underlyingTokenAddress || '', xvs.address),
-  );
-  if (!xvsMarket) {
-    logError('No XVS market found');
-    throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
-    });
+  if (marketsResult.status === 'rejected') {
+    throw new Error(marketsResult.reason);
   }
 
-  const xvsPriceMantissa = new BigNumber(xvsMarket.underlyingTokenPriceMantissa);
+  if (xvsPriceMantissaResult.status === 'rejected') {
+    throw new Error(xvsPriceMantissaResult.reason);
+  }
 
-  const vTokenAddresses = legacyPoolData.markets.map(m => m.vTokenAddress);
+  const vTokenAddresses = marketsResult.value;
   const primeVTokenAddresses = extractSettledPromiseValue(primeVTokenAddressesResult) || [];
   const primeMinimumXvsToStakeMantissa = extractSettledPromiseValue(primeMinimumXvsToStakeResult);
   const isUserPrime = extractSettledPromiseValue(userPrimeTokenResult)?.exists || false;
+
+  // Fetch vToken meta data
+  const vTokenMetaDataPromise = venusLensContract.callStatic.vTokenMetadataAll(vTokenAddresses);
+
+  // Fetch underlying token prices
+  const underlyingTokenPricePromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress => resilientOracleContract.getUnderlyingPrice(vTokenAddress)),
+  );
+
+  // Fetch vToken borrow and supply caps
+  const borrowCapsPromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress => legacyPoolComptrollerContract.borrowCaps(vTokenAddress)),
+  );
+  const supplyCapsPromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress => legacyPoolComptrollerContract.supplyCaps(vTokenAddress)),
+  );
+
+  // Fetch vToken borrow and supply speeds
+  const xvsBorrowSpeedPromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress =>
+      legacyPoolComptrollerContract.venusBorrowSpeeds(vTokenAddress),
+    ),
+  );
+  const xvsSupplySpeedPromises = Promise.allSettled(
+    vTokenAddresses.map(vTokenAddress =>
+      legacyPoolComptrollerContract.venusSupplySpeeds(vTokenAddress),
+    ),
+  );
 
   // Fetch Prime distributions
   const primeAprPromises =
@@ -80,6 +112,12 @@ const getLegacyPool = async ({
         )
       : undefined;
 
+  const underlyingTokenPriceResults = await underlyingTokenPricePromises;
+  const borrowCapsResults = await borrowCapsPromises;
+  const supplyCapsResults = await supplyCapsPromises;
+  const xvsBorrowSpeedResults = await xvsBorrowSpeedPromises;
+  const xvsSupplySpeedResults = await xvsSupplySpeedPromises;
+  const vTokenMetaDataResults = await vTokenMetaDataPromise;
   const primeAprResults = (await primeAprPromises) || [];
 
   const primeApyMap = new Map<string, PrimeApy>();
@@ -114,14 +152,20 @@ const getLegacyPool = async ({
     tokens,
     description,
     comptrollerContractAddress: legacyPoolComptrollerContract.address,
-    legacyPoolMarkets: legacyPoolData.markets,
-    xvsPriceMantissa,
+    vTokenMetaDataResults,
+    underlyingTokenPriceResults,
+    borrowCapsResults,
+    supplyCapsResults,
+    xvsBorrowSpeedResults,
+    xvsSupplySpeedResults,
+    xvsPriceMantissa: new BigNumber(xvsPriceMantissaResult.value.toString()),
     userCollateralizedVTokenAddresses: extractSettledPromiseValue(assetsInResult),
     userVTokenBalances: userVTokenBalancesResults,
     userVaiBorrowBalanceMantissa: vaiRepayAmountMantissa
       ? new BigNumber(vaiRepayAmountMantissa.toString())
       : undefined,
     primeApyMap,
+    mainMarkets: extractSettledPromiseValue(mainMarkets)?.markets,
   });
 
   // Fetch Prime simulations and add them to distributions

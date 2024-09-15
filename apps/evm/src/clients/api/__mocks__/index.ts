@@ -65,7 +65,7 @@ export const getHypotheticalAccountLiquidity = vi.fn();
 export const getLegacyPoolMarkets = vi.fn(async () => ({ markets }));
 export const useGetLegacyPoolMarkets = vi.fn(() =>
   useQuery({
-    queryKey: [FunctionKey.GET_LEGACY_CORE_POOL_MARKETS],
+    queryKey: [FunctionKey.GET_MAIN_MARKETS],
     queryFn: getLegacyPoolMarkets,
   }),
 );

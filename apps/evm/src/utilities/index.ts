@@ -3,7 +3,6 @@ export { default as calculateCollateralValue } from './calculateCollateralValue'
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
 export { default as encodeParameters } from './encodeParameters';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
-export { default as formatToMarket } from './formatToMarket';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
 export { default as formatPercentageToReadableValue } from './formatPercentageToReadableValue';
 export { default as convertTokensToMantissa } from './convertTokensToMantissa';

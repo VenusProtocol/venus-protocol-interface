@@ -291,41 +291,11 @@ export interface VotersDetails {
   }[];
 }
 
-export interface RewardsDistributor {
-  vTokenAddress: string;
-  rewardTokenAddress: string;
-  lastRewardingSupplyBlockOrTimestamp: BigNumber;
-  lastRewardingBorrowBlockOrTimestamp: BigNumber;
-  supplySpeed: BigNumber;
-  borrowSpeed: BigNumber;
-  priceMantissa: BigNumber;
-  rewardsDistributorContractAddress: string;
-}
-
 export interface Market {
-  vTokenAddress: string;
+  address: string;
   borrowerCount: number;
   supplierCount: number;
-  supplyApyPercentage: BigNumber;
-  borrowApyPercentage: BigNumber;
-  borrowRatePerBlockOrTimestamp: BigNumber;
-  supplyRatePerBlockOrTimestamp: BigNumber;
-  exchangeRateMantissa: BigNumber;
-  underlyingTokenAddress: string;
-  underlyingTokenPriceMantissa: BigNumber;
-  supplyCapsMantissa: BigNumber;
-  borrowCapsMantissa: BigNumber;
-  cashMantissa: BigNumber;
-  reserveFactorMantissa: BigNumber;
-  collateralFactorMantissa: BigNumber;
-  totalReservesMantissa: BigNumber;
-  totalBorrowsMantissa: BigNumber;
-  totalSupplyMantissa: BigNumber;
-  estimatedPrimeBorrowApyBoost: BigNumber | undefined;
-  estimatedPrimeSupplyApyBoost: BigNumber | undefined;
-  pausedActionsBitmap: number;
-  isListed: boolean;
-  rewardsDistributors: RewardsDistributor[];
+  totalXvsDistributedTokens: BigNumber;
 }
 
 export interface MarketSnapshot {

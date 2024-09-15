@@ -5,11 +5,13 @@ import {
   type GetIsolatedPoolParticipantsCountInput,
   getIsolatedPoolParticipantsCount,
 } from 'clients/subgraph';
+import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
 import { type IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'libs/contracts';
 import { logError } from 'libs/errors';
 import type { Asset, PrimeApy, Token } from 'types';
 import {
   appendPrimeSimulationDistributions,
+  areAddressesEqual,
   areTokensEqual,
   convertAprBipsToApy,
   findTokenByAddress,
@@ -37,23 +39,27 @@ const safelyGetIsolatedPoolParticipantsCount = async ({
 };
 
 const getIsolatedPools = async ({
-  isolatedPoolsData,
   chainId,
   xvs,
   blocksPerDay,
   accountAddress,
   poolLensContract,
+  poolRegistryContractAddress,
+  resilientOracleContract,
   primeContract,
   provider,
   tokens,
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
   const [
+    poolResults,
     poolParticipantsCountResult,
     currentBlockNumberResult,
     primeVTokenAddressesResult,
     primeMinimumXvsToStakeResult,
     userPrimeTokenResult,
   ] = await Promise.allSettled([
+    // Fetch all pools
+    poolLensContract.getAllPools(poolRegistryContractAddress),
     // Fetch borrower and supplier counts of each isolated token
     safelyGetIsolatedPoolParticipantsCount({ chainId }),
     // Fetch current block number
@@ -64,6 +70,10 @@ const getIsolatedPools = async ({
     accountAddress ? primeContract?.tokens(accountAddress) : undefined,
   ]);
 
+  if (poolResults.status === 'rejected') {
+    throw new Error(poolResults.reason);
+  }
+
   if (poolParticipantsCountResult.status === 'rejected') {
     throw new Error(poolParticipantsCountResult.reason);
   }
@@ -72,18 +82,23 @@ const getIsolatedPools = async ({
     throw new Error(currentBlockNumberResult.reason);
   }
 
-  const { pools: isolatedPools } = isolatedPoolsData;
-
   // Extract token records and addresses
-  const [vTokenAddresses, underlyingTokens] = isolatedPools.reduce<[string[], Token[]]>(
+  const [vTokenAddresses, underlyingTokens, underlyingTokenAddresses] = poolResults.value.reduce<
+    [string[], Token[], string[]]
+  >(
     (acc, poolResult) => {
       const newVTokenAddresses: string[] = [];
       const newUnderlyingTokens: Token[] = [];
       const newUnderlyingTokenAddresses: string[] = [];
 
-      poolResult.markets.forEach(market => {
+      poolResult.vTokens.forEach(vTokenMetaData => {
         const underlyingToken = findTokenByAddress({
-          address: market.underlyingTokenAddress,
+          address:
+            // If underlying asset address is the null address, this means the VToken has no
+            // underlying token because it is a native token
+            areAddressesEqual(vTokenMetaData.underlyingAssetAddress, NULL_ADDRESS)
+              ? NATIVE_TOKEN_ADDRESS
+              : vTokenMetaData.underlyingAssetAddress,
           tokens,
         });
 
@@ -91,8 +106,8 @@ const getIsolatedPools = async ({
           return;
         }
 
-        if (!newVTokenAddresses.includes(market.vTokenAddress)) {
-          newVTokenAddresses.push(market.vTokenAddress.toLowerCase());
+        if (!newVTokenAddresses.includes(vTokenMetaData.vToken)) {
+          newVTokenAddresses.push(vTokenMetaData.vToken.toLowerCase());
         }
 
         if (
@@ -108,9 +123,13 @@ const getIsolatedPools = async ({
         }
       });
 
-      return [acc[0].concat(newVTokenAddresses), acc[1].concat(newUnderlyingTokens)];
+      return [
+        acc[0].concat(newVTokenAddresses),
+        acc[1].concat(newUnderlyingTokens),
+        acc[2].concat(newUnderlyingTokenAddresses),
+      ];
     },
-    [[], []],
+    [[], [], []],
   );
 
   // Extract Prime data
@@ -118,20 +137,26 @@ const getIsolatedPools = async ({
   const primeMinimumXvsToStakeMantissa = extractSettledPromiseValue(primeMinimumXvsToStakeResult);
   const isUserPrime = extractSettledPromiseValue(userPrimeTokenResult)?.exists || false;
 
-  // Fetch addresses of user collaterals
+  // Fetch reward distributors and addresses of user collaterals
+  const getRewardDistributorsPromises: ReturnType<
+    IsolatedPoolComptroller['getRewardDistributors']
+  >[] = [];
   const getAssetsInPromises: ReturnType<IsolatedPoolComptroller['getAssetsIn']>[] = [];
 
-  isolatedPools.forEach(p => {
+  poolResults.value.forEach(poolResult => {
     const comptrollerContract = getIsolatedPoolComptrollerContract({
       signerOrProvider: provider,
-      address: p.address,
+      address: poolResult.comptroller,
     });
+
+    getRewardDistributorsPromises.push(comptrollerContract.getRewardDistributors());
 
     if (accountAddress) {
       getAssetsInPromises.push(comptrollerContract.getAssetsIn(accountAddress));
     }
   });
 
+  const settledGetRewardDistributorsPromises = Promise.allSettled(getRewardDistributorsPromises);
   const settledGetAssetsInPromises = Promise.allSettled(getAssetsInPromises);
   const tokenBalancesPromises = Promise.allSettled([
     accountAddress
@@ -158,6 +183,7 @@ const getIsolatedPools = async ({
         )
       : undefined;
 
+  const getRewardDistributorsResults = await settledGetRewardDistributorsPromises;
   const [userVTokenBalancesAllResult, userTokenBalancesResult] = await tokenBalancesPromises;
   const userAssetsInResults = await settledGetAssetsInPromises;
   const primeAprResults = (await settledPrimeAprPromises) || [];
@@ -203,14 +229,18 @@ const getIsolatedPools = async ({
 
   // Fetch reward settings
   const rewardsDistributorSettingsMapping = await getRewardsDistributorSettingsMapping({
-    pools: isolatedPools,
+    isChainTimeBased: !blocksPerDay,
+    provider,
+    poolResults: poolResults.value,
+    getRewardDistributorsResults,
   });
 
   // Fetch token prices
   const tokenPriceDollarsMapping = await getTokenPriceDollarsMapping({
     tokens,
-    pools: isolatedPoolsData.pools,
+    underlyingTokenAddresses,
     rewardsDistributorSettingsMapping,
+    resilientOracleContract,
   });
 
   const pools = formatOutput({
@@ -218,7 +248,7 @@ const getIsolatedPools = async ({
     blocksPerDay,
     tokens,
     currentBlockNumber: currentBlockNumberResult.value.blockNumber,
-    pools: isolatedPools,
+    poolResults: poolResults.value,
     poolParticipantsCountResult: poolParticipantsCountResult.value,
     rewardsDistributorSettingsMapping,
     tokenPriceDollarsMapping,

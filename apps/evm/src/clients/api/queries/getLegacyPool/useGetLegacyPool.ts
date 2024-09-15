@@ -19,7 +19,6 @@ import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
-import useGetApiPools from '../getApiPools/useGetApiPools';
 
 type TrimmedInput = Omit<
   GetLegacyPoolInput,
@@ -36,7 +35,6 @@ type TrimmedInput = Omit<
   | 'vai'
   | 'xvs'
   | 'tokens'
-  | 'legacyPoolData'
 >;
 
 export type UseGetLegacyPoolQueryKey = [
@@ -56,7 +54,6 @@ type Options = QueryObserverOptions<
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
 const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
-  const { data: apiPoolsData } = useGetApiPools();
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
 
@@ -80,7 +77,6 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
     !!venusLensContract &&
     !!vai &&
     !!vaiControllerContract &&
-    apiPoolsData !== undefined &&
     (options?.enabled === undefined || options?.enabled);
 
   return useQuery({
@@ -95,7 +91,6 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
           vai,
           vaiControllerContract,
           blocksPerDay,
-          legacyPoolData: (apiPoolsData?.pools || []).find(p => !p.isIsolated),
         },
         params =>
           getLegacyPool({

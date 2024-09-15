@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js';
 
+import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
-import type { VenusLens } from 'libs/contracts';
+import type { LegacyPoolComptroller, ResilientOracle, VenusLens } from 'libs/contracts';
 import type { Asset, ChainId, Market, Pool, PrimeApy, Token, VToken } from 'types';
 import {
   addUserPropsToPool,
@@ -25,7 +26,22 @@ export interface FormatToPoolInput {
   tokens: Token[];
   description: string;
   comptrollerContractAddress: string;
-  legacyPoolMarkets: Market[];
+  vTokenMetaDataResults: Awaited<ReturnType<VenusLens['callStatic']['vTokenMetadataAll']>>;
+  underlyingTokenPriceResults: PromiseSettledResult<
+    Awaited<ReturnType<ResilientOracle['getPrice']>>
+  >[];
+  borrowCapsResults: PromiseSettledResult<
+    Awaited<ReturnType<LegacyPoolComptroller['borrowCaps']>>
+  >[];
+  supplyCapsResults: PromiseSettledResult<
+    Awaited<ReturnType<LegacyPoolComptroller['supplyCaps']>>
+  >[];
+  xvsBorrowSpeedResults: PromiseSettledResult<
+    Awaited<ReturnType<LegacyPoolComptroller['venusBorrowSpeeds']>>
+  >[];
+  xvsSupplySpeedResults: PromiseSettledResult<
+    Awaited<ReturnType<LegacyPoolComptroller['venusSupplySpeeds']>>
+  >[];
   xvsPriceMantissa: BigNumber;
   primeApyMap: Map<string, PrimeApy>;
   userCollateralizedVTokenAddresses?: string[];
@@ -44,7 +60,12 @@ export const formatToPool = ({
   tokens,
   description,
   comptrollerContractAddress,
-  legacyPoolMarkets,
+  vTokenMetaDataResults,
+  underlyingTokenPriceResults,
+  borrowCapsResults,
+  supplyCapsResults,
+  xvsBorrowSpeedResults,
+  xvsSupplySpeedResults,
   xvsPriceMantissa,
   userCollateralizedVTokenAddresses,
   userVTokenBalances,
@@ -54,8 +75,18 @@ export const formatToPool = ({
 }: FormatToPoolInput) => {
   const assets: Asset[] = [];
 
-  legacyPoolMarkets.forEach((legacyPoolMarket, index) => {
-    const { underlyingTokenAddress } = legacyPoolMarket;
+  vTokenMetaDataResults.forEach((vTokenMetaData, index) => {
+    // Remove unlisted tokens
+    if (!vTokenMetaData.isListed) {
+      return;
+    }
+
+    const underlyingTokenAddress =
+      // If underlying asset address is the null address, this means the VToken has no underlying
+      // token because it is a native token
+      areAddressesEqual(vTokenMetaData.underlyingAssetAddress, NULL_ADDRESS)
+        ? NATIVE_TOKEN_ADDRESS
+        : vTokenMetaData.underlyingAssetAddress;
 
     const underlyingToken = findTokenByAddress({
       tokens,
@@ -68,21 +99,60 @@ export const formatToPool = ({
 
     const vToken: VToken = {
       decimals: 8,
-      address: legacyPoolMarket.vTokenAddress,
+      address: vTokenMetaData.vToken,
       symbol: `v${underlyingToken.symbol}`,
       underlyingToken,
     };
 
-    const {
-      underlyingTokenPriceMantissa,
-      borrowCapsMantissa,
-      supplyCapsMantissa,
-      exchangeRateMantissa,
-      supplyRatePerBlockOrTimestamp,
-      borrowRatePerBlockOrTimestamp,
-      totalSupplyMantissa,
-      totalBorrowsMantissa,
-    } = legacyPoolMarket;
+    const underlyingTokenPriceResult = underlyingTokenPriceResults[index];
+    const underlyingTokenPriceMantissa =
+      underlyingTokenPriceResult.status === 'fulfilled'
+        ? new BigNumber(underlyingTokenPriceResult.value.toString())
+        : undefined;
+
+    if (!underlyingTokenPriceMantissa) {
+      return;
+    }
+
+    const borrowCapsResult = borrowCapsResults[index];
+    const borrowCapsMantissa =
+      borrowCapsResult.status === 'fulfilled'
+        ? new BigNumber(borrowCapsResult.value.toString())
+        : undefined;
+
+    if (!borrowCapsMantissa) {
+      return;
+    }
+
+    const supplyCapsResult = supplyCapsResults[index];
+    const supplyCapsMantissa =
+      supplyCapsResult.status === 'fulfilled'
+        ? new BigNumber(supplyCapsResult.value.toString())
+        : undefined;
+
+    if (!supplyCapsMantissa) {
+      return;
+    }
+
+    const xvsBorrowSpeedResult = xvsBorrowSpeedResults[index];
+    const xvsBorrowSpeedMantissa =
+      xvsBorrowSpeedResult.status === 'fulfilled'
+        ? new BigNumber(xvsBorrowSpeedResult.value.toString())
+        : undefined;
+
+    if (!xvsBorrowSpeedMantissa) {
+      return;
+    }
+
+    const xvsSupplySpeedResult = xvsSupplySpeedResults[index];
+    const xvsSupplySpeedMantissa =
+      xvsSupplySpeedResult.status === 'fulfilled'
+        ? new BigNumber(xvsSupplySpeedResult.value.toString())
+        : undefined;
+
+    if (!xvsSupplySpeedMantissa) {
+      return;
+    }
 
     const userVTokenBalancesResult = userVTokenBalances?.[index];
 
@@ -104,24 +174,26 @@ export const formatToPool = ({
     });
 
     const reserveFactor = convertFactorFromSmartContract({
-      factor: legacyPoolMarket.reserveFactorMantissa,
+      factor: new BigNumber(vTokenMetaData.reserveFactorMantissa.toString()),
     });
 
     const collateralFactor = convertFactorFromSmartContract({
-      factor: legacyPoolMarket.collateralFactorMantissa,
+      factor: new BigNumber(vTokenMetaData.collateralFactorMantissa.toString()),
     });
 
     const cashTokens = convertMantissaToTokens({
-      value: legacyPoolMarket.cashMantissa,
+      value: new BigNumber(vTokenMetaData.totalCash.toString()),
       token: vToken.underlyingToken,
     });
 
     const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
     const reserveTokens = convertMantissaToTokens({
-      value: legacyPoolMarket.totalReservesMantissa,
+      value: new BigNumber(vTokenMetaData.totalReserves.toString()),
       token: vToken.underlyingToken,
     });
+
+    const exchangeRateMantissa = new BigNumber(vTokenMetaData.exchangeRateCurrent.toString());
 
     const exchangeRateVTokens = exchangeRateMantissa.isEqualTo(0)
       ? new BigNumber(0)
@@ -132,7 +204,7 @@ export const formatToPool = ({
         );
 
     const supplyDailyPercentageRate = calculateDailyTokenRate({
-      rateMantissa: supplyRatePerBlockOrTimestamp,
+      rateMantissa: new BigNumber(vTokenMetaData.supplyRatePerBlock.toString()),
       blocksPerDay,
     });
 
@@ -141,7 +213,7 @@ export const formatToPool = ({
     });
 
     const borrowDailyPercentageRate = calculateDailyTokenRate({
-      rateMantissa: borrowRatePerBlockOrTimestamp,
+      rateMantissa: new BigNumber(vTokenMetaData.borrowRatePerBlock.toString()),
       blocksPerDay,
     });
 
@@ -150,7 +222,7 @@ export const formatToPool = ({
     });
 
     const supplyBalanceVTokens = convertMantissaToTokens({
-      value: totalSupplyMantissa,
+      value: new BigNumber(vTokenMetaData.totalSupply.toString()),
       token: vToken,
     });
     const supplyBalanceTokens = supplyBalanceVTokens.div(exchangeRateVTokens);
@@ -158,7 +230,7 @@ export const formatToPool = ({
     const supplyBalanceCents = convertDollarsToCents(supplyBalanceDollars);
 
     const borrowBalanceTokens = convertMantissaToTokens({
-      value: totalBorrowsMantissa,
+      value: new BigNumber(vTokenMetaData.totalBorrows.toString()),
       token: vToken.underlyingToken,
     });
     const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(tokenPriceDollars);
@@ -169,9 +241,8 @@ export const formatToPool = ({
       decimals: xvs.decimals,
     });
 
-    // the legacy pool markets only have a single reward: XVS
     const borrowDistributions = formatDistributions({
-      xvsSpeedMantissa: legacyPoolMarket.rewardsDistributors[0].borrowSpeed,
+      xvsSpeedMantissa: xvsBorrowSpeedMantissa,
       balanceDollars: borrowBalanceDollars,
       xvsPriceDollars,
       xvs,
@@ -180,9 +251,8 @@ export const formatToPool = ({
       blocksPerDay,
     });
 
-    // the legacy pool markets only have a single reward: XVS
     const supplyDistributions = formatDistributions({
-      xvsSpeedMantissa: legacyPoolMarket.rewardsDistributors[0].supplySpeed,
+      xvsSpeedMantissa: xvsSupplySpeedMantissa,
       balanceDollars: supplyBalanceDollars,
       xvsPriceDollars,
       xvs,
@@ -192,7 +262,7 @@ export const formatToPool = ({
     });
 
     const isCollateralOfUser = (userCollateralizedVTokenAddresses || []).includes(
-      legacyPoolMarket.vTokenAddress,
+      vTokenMetaData.vToken,
     );
     const userSupplyBalanceTokens = userVTokenBalancesResult?.balanceOfUnderlying
       ? convertMantissaToTokens({
@@ -220,11 +290,11 @@ export const formatToPool = ({
     const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
     const market = (mainMarkets || []).find(mainMarket =>
-      areAddressesEqual(mainMarket.vTokenAddress, vToken.address),
+      areAddressesEqual(mainMarket.address, vToken.address),
     );
 
     const disabledTokenActions = getDisabledTokenActions({
-      bitmask: legacyPoolMarket.pausedActionsBitmap,
+      bitmask: vTokenMetaData.pausedActions.toNumber(),
       tokenAddresses: [vToken.address, vToken.underlyingToken.address],
       chainId,
     });
