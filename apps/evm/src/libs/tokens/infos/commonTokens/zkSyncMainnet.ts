@@ -50,7 +50,7 @@ export const tokens: Token[] = [
     asset: usdcLogo,
   },
   {
-    address: '0x8A2E9048F5d658E88D6eD89DdD1F3B5cA0250B9F',
+    address: '0x5a7d6b2f92c77fad6ccabd7ee0624e64907eaf3e',
     decimals: 18,
     symbol: 'ZK',
     asset: zkLogo,
