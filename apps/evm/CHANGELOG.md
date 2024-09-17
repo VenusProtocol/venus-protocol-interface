@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.152.0
+
+### Minor Changes
+
+- 1ca533c: Add support for zkSync networks
+
 ## 2.151.1
 
 ### Patch Changes
