@@ -9,6 +9,8 @@ import { disabledTokenActions as ethereumDisabledTokenActions } from './ethereum
 import { disabledTokenActions as opBnbMainnetDisabledTokenActions } from './opBnbMainnet';
 import { disabledTokenActions as opBnbTestnetDisabledTokenActions } from './opBnbTestnet';
 import { disabledTokenActions as sepoliaDisabledTokenActions } from './sepolia';
+import { disabledTokenActions as zkSyncMainnetDisabledTokenActions } from './zkSyncMainnet';
+import { disabledTokenActions as zkSyncSepoliaDisabledTokenActions } from './zkSyncSepolia';
 
 const disabledTokenActions: DisabledTokenActionMapping = {
   [ChainId.BSC_MAINNET]: bscMainnetDisabledTokenActions,
@@ -19,6 +21,8 @@ const disabledTokenActions: DisabledTokenActionMapping = {
   [ChainId.SEPOLIA]: sepoliaDisabledTokenActions,
   [ChainId.ARBITRUM_SEPOLIA]: arbitrumSepoliaDisabledTokenActions,
   [ChainId.ARBITRUM_ONE]: arbitrumOneDisabledTokenActions,
+  [ChainId.ZKSYNC_SEPOLIA]: zkSyncSepoliaDisabledTokenActions,
+  [ChainId.ZKSYNC_MAINNET]: zkSyncMainnetDisabledTokenActions,
 };
 
 export default disabledTokenActions;

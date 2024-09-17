@@ -9,6 +9,8 @@ import { tokens as ethereumTokens } from './ethereum';
 import { tokens as opBnbMainnetTokens } from './opBnbMainnet';
 import { tokens as opBnbTestnetTokens } from './opBnbTestnet';
 import { tokens as sepoliaTokens } from './sepolia';
+import { tokens as zkSyncMainnetTokens } from './zkSyncMainnet';
+import { tokens as zkSyncSepoliaTokens } from './zkSyncSepolia';
 
 export const tokens: TokenMapping = {
   [ChainId.BSC_MAINNET]: bscMainnetTokens,
@@ -19,4 +21,6 @@ export const tokens: TokenMapping = {
   [ChainId.ETHEREUM]: ethereumTokens,
   [ChainId.ARBITRUM_SEPOLIA]: arbitrumSepoliaTokens,
   [ChainId.ARBITRUM_ONE]: arbitrumOneTokens,
+  [ChainId.ZKSYNC_SEPOLIA]: zkSyncSepoliaTokens,
+  [ChainId.ZKSYNC_MAINNET]: zkSyncMainnetTokens,
 };

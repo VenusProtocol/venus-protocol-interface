@@ -16,6 +16,8 @@ export enum ChainId {
   OPBNB_TESTNET = 5611,
   ARBITRUM_SEPOLIA = 421614,
   ARBITRUM_ONE = 42161,
+  ZKSYNC_SEPOLIA = 300,
+  ZKSYNC_MAINNET = 324,
 }
 
 export type TransactionType = 'chain' | 'layerZero';
