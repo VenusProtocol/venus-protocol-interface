@@ -7,6 +7,8 @@ import {
   mainnet as ethereum,
   opBNB as opBNBMainnet,
   opBNBTestnet,
+  optimism as optimismMainnet,
+  optimismSepolia,
   sepolia,
   zksync as zksyncMainnet,
   zksyncSepoliaTestnet,
@@ -16,10 +18,17 @@ import localConfig from 'config';
 
 const getSupportedChains = (): [Chain, ...Chain[]] => {
   if (localConfig.isOnTestnet) {
-    return [bscTestnet, opBNBTestnet, sepolia, arbitrumSepolia, zksyncSepoliaTestnet];
+    return [
+      bscTestnet,
+      opBNBTestnet,
+      sepolia,
+      arbitrumSepolia,
+      zksyncSepoliaTestnet,
+      optimismSepolia,
+    ];
   }
 
-  return [bscMainnet, ethereum, opBNBMainnet, arbitrumOne, zksyncMainnet];
+  return [bscMainnet, ethereum, opBNBMainnet, arbitrumOne, zksyncMainnet, optimismMainnet];
 };
 
 export const governanceChain = localConfig.isOnTestnet ? bscTestnet : bscMainnet;
