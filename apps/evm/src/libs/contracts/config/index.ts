@@ -334,7 +334,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses.VTreasuryV8,
       [ChainId.ARBITRUM_SEPOLIA]: venusProtocolArbitrumSepoliaDeployments.addresses.VTreasuryV8,
       [ChainId.ARBITRUM_ONE]: venusProtocolArbitrumOneDeployments.addresses.VTreasuryV8,
-      [ChainId.ZKSYNC_SEPOLIA]: venusProtocolZkSyncSepoliaDeployments.addresses.Prime,
+      [ChainId.ZKSYNC_SEPOLIA]: venusProtocolZkSyncSepoliaDeployments.addresses.VTreasuryV8,
       [ChainId.ZKSYNC_MAINNET]: venusProtocolZkSyncMainnetDeployments.addresses.VTreasuryV8,
     },
   },
