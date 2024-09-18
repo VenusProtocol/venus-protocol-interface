@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.152.1
+
+### Patch Changes
+
+- ba0c4ea: fix the address used for the V8Treasury contract on zkSync Sepolia
+
 ## 2.152.0
 
 ### Minor Changes
