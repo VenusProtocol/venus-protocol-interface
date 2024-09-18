@@ -3,6 +3,7 @@ import arbitrumLogo from 'libs/wallet/img/chains/arbitrum.svg';
 import bscLogo from 'libs/wallet/img/chains/bsc.svg';
 import ethLogo from 'libs/wallet/img/chains/eth.svg';
 import opbnbLogo from 'libs/wallet/img/chains/opbnb.svg';
+import optimismLogo from 'libs/wallet/img/chains/optimism.svg';
 import zkSyncLogo from 'libs/wallet/img/chains/zkSync.svg';
 import { ChainId, type ChainMetadata } from 'types';
 
@@ -97,6 +98,14 @@ export const CHAIN_METADATA: {
     lstPoolVWstEthContractAddress: '0x253515E19e8b888a4CA5a0a3363B712402ce4046',
     nativeToken: getToken({ chainId: ChainId.ARBITRUM_SEPOLIA, symbol: 'ETH' })!,
   },
+  [ChainId.ZKSYNC_MAINNET]: {
+    name: 'zkSync',
+    logoSrc: zkSyncLogo,
+    explorerUrl: 'https://explorer.zksync.io/',
+    layerZeroScanUrl: 'https://layerzeroscan.com/',
+    corePoolComptrollerContractAddress: '0xddE4D098D9995B659724ae6d5E3FB9681Ac941B1',
+    nativeToken: getToken({ chainId: ChainId.ZKSYNC_MAINNET, symbol: 'ETH' })!,
+  },
   [ChainId.ZKSYNC_SEPOLIA]: {
     name: 'zkSync Sepolia',
     logoSrc: zkSyncLogo,
@@ -105,12 +114,24 @@ export const CHAIN_METADATA: {
     corePoolComptrollerContractAddress: '0xC527DE08E43aeFD759F7c0e6aE85433923064669',
     nativeToken: getToken({ chainId: ChainId.ZKSYNC_SEPOLIA, symbol: 'ETH' })!,
   },
-  [ChainId.ZKSYNC_MAINNET]: {
-    name: 'zkSync',
-    logoSrc: zkSyncLogo,
-    explorerUrl: 'https://explorer.zksync.io/',
+  [ChainId.OPTIMISM_MAINNET]: {
+    name: 'Optimism',
+    logoSrc: optimismLogo,
+    explorerUrl: 'https://optimistic.etherscan.io/',
     layerZeroScanUrl: 'https://layerzeroscan.com/',
-    corePoolComptrollerContractAddress: '0xddE4D098D9995B659724ae6d5E3FB9681Ac941B1',
-    nativeToken: getToken({ chainId: ChainId.ZKSYNC_MAINNET, symbol: 'ETH' })!,
+    blockTimeMs: 2000,
+    blocksPerDay: 43200,
+    corePoolComptrollerContractAddress: '', // TODO: add
+    nativeToken: getToken({ chainId: ChainId.OPTIMISM_MAINNET, symbol: 'ETH' })!,
+  },
+  [ChainId.OPTIMISM_SEPOLIA]: {
+    name: 'Optimism Sepolia',
+    logoSrc: optimismLogo,
+    explorerUrl: 'https://sepolia-optimism.etherscan.io/',
+    layerZeroScanUrl: 'https://testnet.layerzeroscan.com/',
+    blockTimeMs: 2000,
+    blocksPerDay: 43200,
+    corePoolComptrollerContractAddress: '0x59d10988974223B042767aaBFb6D926863069535',
+    nativeToken: getToken({ chainId: ChainId.OPTIMISM_SEPOLIA, symbol: 'ETH' })!,
   },
 };

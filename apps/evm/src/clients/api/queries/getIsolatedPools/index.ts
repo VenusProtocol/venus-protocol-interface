@@ -70,6 +70,8 @@ const getIsolatedPools = async ({
     accountAddress ? primeContract?.tokens(accountAddress) : undefined,
   ]);
 
+  console.log(poolResults);
+
   if (poolResults.status === 'rejected') {
     throw new Error(poolResults.reason);
   }
