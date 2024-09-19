@@ -138,7 +138,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
       token: busd,
     });
 
-    await waitFor(() => getByText('300.00K BUSD'));
+    await waitFor(() => getByText('300K BUSD'));
   });
 
   it('disables submit button if no amount was entered in input', async () => {

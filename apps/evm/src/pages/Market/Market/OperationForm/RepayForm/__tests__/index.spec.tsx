@@ -61,7 +61,7 @@ describe('RepayForm', () => {
       },
     );
 
-    await waitFor(() => getByText('1.00K XVS'));
+    await waitFor(() => getByText('1K XVS'));
   });
 
   it('disables submit button if amount entered in input is higher than user repay balance', async () => {

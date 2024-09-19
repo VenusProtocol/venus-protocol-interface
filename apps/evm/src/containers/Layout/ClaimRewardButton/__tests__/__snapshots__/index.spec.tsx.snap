@@ -85,4 +85,4 @@ exports[`ClaimRewardButton > it claims reward on submit button click and closes 
 }
 `;
 
-exports[`ClaimRewardButton > renders correct reward breakdown in modal 1`] = `"VenusXVS$400.00K1.00B XVSMetaverseVAI$3.002.00B VAIXVS$1.123.00B XVSVAI vaultXVS$12.003.00B XVSXVS vesting vaultXVS$1.654.00B XVSPrimeVAI$3.002.00B VAIXVS$1.123.00B XVS"`;
+exports[`ClaimRewardButton > renders correct reward breakdown in modal 1`] = `"VenusXVS$400K1B XVSMetaverseVAI$32B VAIXVS$1.123B XVSVAI vaultXVS$123B XVSXVS vesting vaultXVS$1.654B XVSPrimeVAI$32B VAIXVS$1.123B XVS"`;

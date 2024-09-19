@@ -128,7 +128,7 @@ describe('WithdrawForm', () => {
       },
     );
 
-    await waitFor(() => getByText('19.80 XVS'));
+    await waitFor(() => getByText('19.8 XVS'));
   });
 
   it('returns contract transaction when request to withdraw full supply succeeds', async () => {

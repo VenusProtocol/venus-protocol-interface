@@ -244,12 +244,12 @@ describe('PrimeCalculator', () => {
     // Check if estimated values are rendered
 
     // Total daily rewards distributed
-    await waitFor(() => getByText('5.00K USDC'));
+    await waitFor(() => getByText('5K USDC'));
     // User daily rewards
-    await waitFor(() => getByText('125.00 USDC'));
+    await waitFor(() => getByText('125 USDC'));
     // From supplied tokens
-    await waitFor(() => getByText('100.00 USDC'));
+    await waitFor(() => getByText('100 USDC'));
     // From borrowed tokens
-    await waitFor(() => getByText('25.00 USDC'));
+    await waitFor(() => getByText('25 USDC'));
   });
 });

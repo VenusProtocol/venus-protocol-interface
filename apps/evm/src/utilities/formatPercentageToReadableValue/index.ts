@@ -4,9 +4,9 @@ import { ONE_THOUSAND } from 'constants/numbers';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import getSmartDecimalPlaces from 'utilities/getSmartDecimalPlaces';
 
-export const MIN_VALUE = 0.01;
-export const MAX_VALUE = 10 * ONE_THOUSAND;
-export const MAX_DECIMALS = 2;
+const MIN_VALUE = 0.01;
+const MAX_VALUE = 10 * ONE_THOUSAND;
+const MAX_DECIMALS = 2;
 
 const formatPercentageToReadableValue = (value: number | string | BigNumber | undefined) => {
   if (value === undefined) {

@@ -100,7 +100,7 @@ describe('RequestWithdrawal - Feature enabled: Prime', () => {
 
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.noticeWarning).textContent).toMatchInlineSnapshot(
-        '"You will lose your Prime token if you withdraw this amount, as your stake in the XVS vault will go below the minimum required of 29.00 XVS to be eligible for Prime."',
+        '"You will lose your Prime token if you withdraw this amount, as your stake in the XVS vault will go below the minimum required of 29 XVS to be eligible for Prime."',
       ),
     );
 
