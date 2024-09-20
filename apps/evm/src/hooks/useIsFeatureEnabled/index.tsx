@@ -37,6 +37,8 @@ export const featureFlags = {
     ChainId.OPBNB_MAINNET,
     ChainId.OPBNB_TESTNET,
     ChainId.ARBITRUM_ONE,
+    ChainId.ZKSYNC_SEPOLIA,
+    ChainId.ZKSYNC_MAINNET,
   ],
   marketParticipantCounts: [
     ChainId.BSC_MAINNET,
