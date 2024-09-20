@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.153.0
+
+### Minor Changes
+
+- 96a56b6: enable APY charts on zkSync
+
 ## 2.152.1
 
 ### Patch Changes
