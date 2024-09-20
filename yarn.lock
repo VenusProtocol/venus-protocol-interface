@@ -19850,9 +19850,9 @@ vfile@^6.0.0:
     vfile-message "^4.0.0"
 
 viem@^2.1.1, viem@^2.17.0:
-  version "2.21.3"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.21.3.tgz#13e2a54fd63d3ee25f8fa12143a304ae30f7c3e6"
-  integrity sha512-WwOEsoiJ4v1zHf1OeKdtWth+chMyY/yZbHRLidhZEr0yFsOjTXkyfuvFp5ZykjRv9EtzDr2C6K/MU26CjMkSUw==
+  version "2.21.10"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.21.10.tgz#a6c6fb201512320946f1266321df74ac2e6b1d2a"
+  integrity sha512-n+BKNabWI0k2i7PB4UEdxgHHpQmMeDk+2X9093l/yU0NLUjIgiazybfD1BksGwbiIRk/WXr+aoRqKOExxRDxWA==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.4.0"
