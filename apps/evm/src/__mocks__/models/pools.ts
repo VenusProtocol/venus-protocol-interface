@@ -1,8 +1,21 @@
 import BigNumber from 'bignumber.js';
 
+import apiPoolsResponse from '__mocks__/api/pools.json';
 import { assetData } from '__mocks__/models/asset';
 
-import type { Pool } from 'types';
+import formatToPool from 'clients/api/queries/getApiPools/formatToPool';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { ChainId, type Pool } from 'types';
+
+const { corePoolComptrollerContractAddress } = CHAIN_METADATA[ChainId.BSC_TESTNET];
+
+export const apiPoolsData = apiPoolsResponse.result.map(apiPoolData =>
+  formatToPool({
+    apiPoolData,
+    corePoolComptrollerContractAddress,
+    chainId: ChainId.BSC_TESTNET,
+  }),
+);
 
 export const poolData: Pool[] = [
   {

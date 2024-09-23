@@ -9,10 +9,10 @@ import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatur
 import type { Prime } from 'libs/contracts';
 import { ChainId } from 'types';
 
+import { apiPoolsData } from '__mocks__/models/pools';
 import getLegacyPool from '..';
 import {
   fakeLegacyPoolComptrollerContract,
-  fakeResilientOracleContract,
   fakeVaiControllerContract,
   fakeVenusLensContract,
 } from '../__testUtils__/fakeData';
@@ -34,6 +34,7 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
     } as unknown as Prime;
 
     const response = await getLegacyPool({
+      legacyPoolData: apiPoolsData.find(p => !p.isIsolated)!,
       chainId: ChainId.BSC_TESTNET,
       blocksPerDay: 28800,
       name: 'Fake pool name',
@@ -45,7 +46,6 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
       legacyPoolComptrollerContract: fakeLegacyPoolComptrollerContract,
       venusLensContract: fakeVenusLensContract,
       vaiControllerContract: fakeVaiControllerContract,
-      resilientOracleContract: fakeResilientOracleContract,
       primeContract: fakePrimeContract,
     });
 
@@ -65,6 +65,7 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
     } as unknown as Prime;
 
     const response = await getLegacyPool({
+      legacyPoolData: apiPoolsData.find(p => !p.isIsolated)!,
       chainId: ChainId.BSC_TESTNET,
       blocksPerDay: 28800,
       name: 'Fake pool name',
@@ -76,7 +77,6 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
       legacyPoolComptrollerContract: fakeLegacyPoolComptrollerContract,
       venusLensContract: fakeVenusLensContract,
       vaiControllerContract: fakeVaiControllerContract,
-      resilientOracleContract: fakeResilientOracleContract,
       primeContract: fakePrimeContract,
     });
 
@@ -99,6 +99,7 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
     } as unknown as Prime;
 
     const response = await getLegacyPool({
+      legacyPoolData: apiPoolsData.find(p => !p.isIsolated)!,
       chainId: ChainId.BSC_TESTNET,
       blocksPerDay: 28800,
       name: 'Fake pool name',
@@ -110,7 +111,6 @@ describe('getLegacyPool - Feature enabled: Prime', () => {
       legacyPoolComptrollerContract: fakeLegacyPoolComptrollerContract,
       venusLensContract: fakeVenusLensContract,
       vaiControllerContract: fakeVaiControllerContract,
-      resilientOracleContract: fakeResilientOracleContract,
       primeContract: fakePrimeContract,
     });
 
