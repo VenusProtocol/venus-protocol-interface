@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.154.1
+
+### Patch Changes
+
+- 678bdac: Fixed the borrow distribution APY value above the chart
+
 ## 2.154.0
 
 ### Minor Changes
