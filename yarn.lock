@@ -7710,10 +7710,19 @@
     "@walletconnect/modal" "2.6.2"
     cbw-sdk "npm:@coinbase/wallet-sdk@3.9.3"
 
-"@wagmi/core@2.13.5", "@wagmi/core@^2.11.6":
+"@wagmi/core@2.13.5":
   version "2.13.5"
   resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-2.13.5.tgz#20764d88d36c31c4557511309eef7d23fa60c98e"
   integrity sha512-lvX/hApJTSA/H2kOklokjIYiUpnT8CpBH80GeOiKxU0CGK1wNHTu20GRTCy0GF1t7jkNwPSG3m0SmnXmgYMmHw==
+  dependencies:
+    eventemitter3 "5.0.1"
+    mipd "0.0.7"
+    zustand "4.4.1"
+
+"@wagmi/core@^2.11.6":
+  version "2.13.6"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-2.13.6.tgz#532118e60fcb3abde9cabf5318c8986c4ddcacff"
+  integrity sha512-5QkYd9dWntUJMH3EFQqPJRDBwc0+PVPmuMQF09wKXCFvTIdTLFnEI3itPIoMwO4ULtvsrftDzpT71lqpu1EJJQ==
   dependencies:
     eventemitter3 "5.0.1"
     mipd "0.0.7"
