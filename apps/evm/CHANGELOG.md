@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.154.0
+
+### Minor Changes
+
+- 26bf2d3: remove unnecessary dependencies
+
 ## 2.153.0
 
 ### Minor Changes
