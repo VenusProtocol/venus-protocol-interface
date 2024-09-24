@@ -102,7 +102,11 @@ export const Card: React.FC<CardProps> = ({
       },
       {
         label: t('market.stats.distributionApy'),
-        value: formatPercentageToReadableValue(distributionApys.supplyApyRewardsPercentage),
+        value: formatPercentageToReadableValue(
+          type === 'supply'
+            ? distributionApys.supplyApyRewardsPercentage
+            : distributionApys.borrowApyRewardsPercentage,
+        ),
       },
     ];
 
