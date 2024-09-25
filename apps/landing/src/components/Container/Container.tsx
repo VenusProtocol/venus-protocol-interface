@@ -1,9 +1,9 @@
 import cn from 'classnames';
-import type { ReactElement } from 'react';
+import type { ReactNode } from 'react';
 import s from './Container.module.css';
 
 interface IContainerProps {
-  children: ReactElement | ReactElement[];
+  children: ReactNode | ReactNode[];
   className?: string;
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useVenusApi } from '../../api/hooks/useVenusApi';
-import { formatUsd, nFormatter } from '../../api/utils';
+import { nFormatter } from '../../api/utils';
 import Container from '../Container/Container';
 import s from './Market.module.css';
 
@@ -11,13 +11,21 @@ interface IMarketProps {
 const loadingState = 'Loading...';
 
 const Market: React.FC<IMarketProps> = ({ className }) => {
-  const { marketSize, borrowedSum, liquiditySum, topMarkets, isLoading, error, refetch } =
-    useVenusApi();
+  const {
+    totalSupplyUsd,
+    totalBorrowUsd,
+    totalLiquidityUsd,
+    topMarkets,
+    isLoading,
+    errors: { getLegacyPoolMarketsError, getTvlDataError },
+    refetch,
+  } = useVenusApi();
 
-  if (error) {
+  if (getLegacyPoolMarketsError || getTvlDataError) {
     return (
       <Container className={cn(s.root, className)}>
-        <p>{error.message}</p>
+        {getLegacyPoolMarketsError && <p>{getLegacyPoolMarketsError.message}</p>}
+        {getTvlDataError && <p>{getTvlDataError.message}</p>}
         <button className={s.btn} type="button" onClick={() => refetch()}>
           Try again
         </button>
@@ -32,21 +40,21 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
           <li className={s.totalItem}>
             <div>
               <p className={s.totalTitle}>Market size</p>
-              <p className={s.totalSum}>{isLoading ? loadingState : formatUsd(marketSize)}</p>
+              <p className={s.totalSum}>{isLoading ? loadingState : totalSupplyUsd}</p>
             </div>
           </li>
           <span className={s.divider} />
           <li className={s.totalItem}>
             <div>
               <p className={s.totalTitle}>Total Borrowed</p>
-              <p className={s.totalSum}>{isLoading ? loadingState : formatUsd(borrowedSum)}</p>
+              <p className={s.totalSum}>{isLoading ? loadingState : totalBorrowUsd}</p>
             </div>
           </li>
           <span className={s.divider} />
           <li className={s.totalItem}>
             <div>
               <p className={s.totalTitle}>Total Liquidity</p>
-              <p className={s.totalSum}>{isLoading ? loadingState : formatUsd(liquiditySum)}</p>
+              <p className={s.totalSum}>{isLoading ? loadingState : totalLiquidityUsd}</p>
             </div>
           </li>
         </ul>
