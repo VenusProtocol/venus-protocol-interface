@@ -41,6 +41,7 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'WETH',
     asset: wethLogo,
+    tokenWrapped: ethToken,
   },
   {
     address: '0x9AD0542c71c09B764cf58d38918892F3Ae7ecc63',

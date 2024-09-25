@@ -62,8 +62,6 @@ export const featureFlags = {
     ChainId.SEPOLIA,
     ChainId.ARBITRUM_ONE,
     ChainId.ARBITRUM_SEPOLIA,
-    ChainId.OPTIMISM_MAINNET,
-    ChainId.OPTIMISM_SEPOLIA,
   ],
   bridgeRoute: [
     ChainId.BSC_MAINNET,
