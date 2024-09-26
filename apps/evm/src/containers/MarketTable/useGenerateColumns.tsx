@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import {
@@ -64,8 +63,6 @@ import type { ColumnKey, PoolAsset } from './types';
 // t('marketTable.columnSelectOptionLabel.userPercentOfLimit')
 // t('marketTable.columnSelectOptionLabel.liquidity')
 // t('marketTable.columnSelectOptionLabel.price')
-
-const PRICE_THRESHOLD = new BigNumber(0.0000000000000001);
 
 const useGenerateColumns = ({
   columnKeys,
@@ -177,22 +174,6 @@ const useGenerateColumns = ({
                     value: poolAsset.liquidityCents,
                   })}
                 />
-              );
-            }
-
-            if (column === 'price') {
-              const { tokenPriceCents } = poolAsset;
-              const price = tokenPriceCents.isGreaterThan(PRICE_THRESHOLD)
-                ? tokenPriceCents
-                : new BigNumber(0);
-
-              return (
-                <span className={cn(isPaused && 'text-grey')}>
-                  {formatCentsToReadableValue({
-                    value: price,
-                    isTokenPrice: true,
-                  })}
-                </span>
               );
             }
 
@@ -365,10 +346,6 @@ const useGenerateColumns = ({
 
                   if (column === 'liquidity') {
                     return compareBigNumbers(rowA.liquidityCents, rowB.liquidityCents, direction);
-                  }
-
-                  if (column === 'price') {
-                    return compareBigNumbers(rowA.tokenPriceCents, rowB.tokenPriceCents, direction);
                   }
 
                   if (column === 'pool') {

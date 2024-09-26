@@ -11,6 +11,7 @@ import { PoolStats } from 'containers/PoolStats';
 import { Banner } from './Banner';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
+import { useMarketTableColumns } from './useMarketTableColumns';
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
@@ -27,6 +28,7 @@ const Dashboard: React.FC = () => {
     accountAddress,
   });
   const pools = getPoolData?.pools || [];
+  const columns = useMarketTableColumns();
 
   const pausedAssetsExist = useMemo(
     () =>
@@ -110,14 +112,7 @@ const Dashboard: React.FC = () => {
         pools={formattedPools}
         isFetching={isGetPoolsLoading}
         breakpoint="lg"
-        columns={[
-          'asset',
-          'pool',
-          'userWalletBalance',
-          'labeledSupplyApyLtv',
-          'labeledBorrowApy',
-          'liquidity',
-        ]}
+        columns={columns}
         marketType="supply"
         initialOrder={{
           orderBy: 'labeledSupplyApyLtv',
