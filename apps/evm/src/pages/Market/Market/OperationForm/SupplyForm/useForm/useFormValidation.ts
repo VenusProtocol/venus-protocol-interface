@@ -69,6 +69,7 @@ const useFormValidation = ({
           assetSupplyCap: formatTokensToReadableValue({
             value: asset.supplyCapTokens,
             token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
         }),
       };
@@ -113,14 +114,17 @@ const useFormValidation = ({
           userMaxSupplyAmount: formatTokensToReadableValue({
             value: asset.supplyCapTokens.minus(asset.supplyBalanceTokens),
             token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
           assetSupplyCap: formatTokensToReadableValue({
             value: asset.supplyCapTokens,
             token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
           assetSupplyBalance: formatTokensToReadableValue({
             value: asset.supplyBalanceTokens,
             token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
         }),
       };

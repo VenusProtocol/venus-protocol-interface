@@ -3,32 +3,25 @@ import BigNumber from 'bignumber.js';
 import { ONE_BILLION, ONE_MILLION, ONE_THOUSAND, ONE_TRILLION } from 'constants/numbers';
 import getSmartDecimalPlaces from 'utilities/getSmartDecimalPlaces';
 
+const LARGE_VALUE_MAX_DECIMAL_PLACES = 2;
+
 export interface ShortenValueWithSuffix {
   value: BigNumber;
-  minDecimalPlaces?: number;
   maxDecimalPlaces?: number;
   roundingMode?: BigNumber.RoundingMode;
 }
 
 const shortenValueWithSuffix = ({
   value,
-  minDecimalPlaces,
   maxDecimalPlaces,
   roundingMode,
 }: ShortenValueWithSuffix) => {
-  if (value.isEqualTo(0)) {
-    return '0';
-  }
-
   let formattedValue = value;
   let suffix = '';
 
   if (value.isGreaterThanOrEqualTo(ONE_TRILLION)) {
     formattedValue = formattedValue.dividedBy(ONE_TRILLION);
     suffix = 'T';
-  } else if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
-    formattedValue = formattedValue.dividedBy(ONE_BILLION);
-    suffix = 'B';
   } else if (value.isGreaterThanOrEqualTo(ONE_BILLION)) {
     formattedValue = formattedValue.dividedBy(ONE_BILLION);
     suffix = 'B';
@@ -40,10 +33,11 @@ const shortenValueWithSuffix = ({
     suffix = 'K';
   }
 
+  const isLargeValue = value.isGreaterThanOrEqualTo(ONE_THOUSAND);
+
   const decimalPlaces = getSmartDecimalPlaces({
     value: formattedValue,
-    minDecimalPlaces,
-    maxDecimalPlaces,
+    maxDecimalPlaces: isLargeValue ? LARGE_VALUE_MAX_DECIMAL_PLACES : maxDecimalPlaces,
   });
 
   return `${new BigNumber(formattedValue).toFormat(decimalPlaces, roundingMode)}${suffix}`;

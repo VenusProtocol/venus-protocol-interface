@@ -63,7 +63,7 @@ describe('SupplyForm', () => {
       },
     );
 
-    await waitFor(() => getByText('8.90K XVS'));
+    await waitFor(() => getByText('8.9K XVS'));
   });
 
   it('submit is disabled with no amount', async () => {
@@ -129,9 +129,7 @@ describe('SupplyForm', () => {
     // Check warning is displayed
     await waitFor(() =>
       expect(
-        getByText(
-          en.operationForm.error.supplyCapReached.replace('{{assetSupplyCap}}', '100.00 XVS'),
-        ),
+        getByText(en.operationForm.error.supplyCapReached.replace('{{assetSupplyCap}}', '100 XVS')),
       ).toBeInTheDocument(),
     );
 
@@ -174,9 +172,9 @@ describe('SupplyForm', () => {
       expect(
         getByText(
           en.operationForm.error.higherThanSupplyCap
-            .replace('{{userMaxSupplyAmount}}', '90.00 XVS')
-            .replace('{{assetSupplyCap}}', '100.00 XVS')
-            .replace('{{assetSupplyBalance}}', '10.00 XVS'),
+            .replace('{{userMaxSupplyAmount}}', '90 XVS')
+            .replace('{{assetSupplyCap}}', '100 XVS')
+            .replace('{{assetSupplyBalance}}', '10 XVS'),
         ),
       ).toBeInTheDocument(),
     );

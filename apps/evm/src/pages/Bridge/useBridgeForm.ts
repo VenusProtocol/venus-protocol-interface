@@ -127,8 +127,8 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
       const maxSingleTransactionLimitTokens = maxSingleTransactionLimitUsd.dividedBy(xvsPriceUsd);
       const doesNotHaveEnoughXvs = walletBalanceTokens.lt(xvsAmountTokens);
 
-      // checks the if the XVS mint cap in the destination was or is going to be reached if the user tries
-      // to bridge the informed amount of tokens
+      // checks the if the XVS mint cap in the destination was or is going to be reached if the user
+      // tries to bridge the informed amount of tokens
       const isMintCapReached = getXvsBridgeMintStatusData
         ? getXvsBridgeMintStatusData.minterToCapMantissa.lte(
             getXvsBridgeMintStatusData.bridgeAmountMintedMantissa.plus(xvsAmountMantissa),
@@ -177,8 +177,9 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
         });
       }
 
-      // checks if this bridge transaction is going to exceed the global daily limit in USD
-      // and if we are inside the daily limit transaction window (24 hours from the informed dailyLimitResetTimestamp)
+      // checks if this bridge transaction is going to exceed the global daily limit in USD and if
+      // we are inside the daily limit transaction window (24 hours from the informed
+      // dailyLimitResetTimestamp)
       const dailyLimitResetDate = fromUnixTime(dailyLimitResetTimestamp.toNumber());
       dailyLimitResetDate.setDate(dailyLimitResetDate.getDate() + 1);
       const nowDate = new Date();

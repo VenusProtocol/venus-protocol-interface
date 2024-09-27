@@ -164,7 +164,7 @@ describe('Governance', () => {
     });
 
     await waitFor(() =>
-      expect(getByTestId(VOTING_WALLET_TEST_IDS.votingWeightValue)).toHaveTextContent('300.00K'),
+      expect(getByTestId(VOTING_WALLET_TEST_IDS.votingWeightValue)).toHaveTextContent('300K'),
     );
     await waitFor(() =>
       expect(getByTestId(VOTING_WALLET_TEST_IDS.totalLockedValue)).toHaveTextContent('233'),

@@ -71,14 +71,14 @@ describe('utilities/formatCentsToReadableValue', () => {
     };
 
     const result = formatCentsToReadableValue(input);
-    expect(result).toEqual('> $100.00T');
+    expect(result).toEqual('> $100T');
 
     const negativeInput: FormatCentsToReadableValueInput = {
       value: new BigNumber('-1000000000000000000'),
     };
 
     const negativeResult = formatCentsToReadableValue(negativeInput);
-    expect(negativeResult).toEqual('< -$100.00T');
+    expect(negativeResult).toEqual('< -$100T');
   });
 
   it('should format token prices correctly', () => {

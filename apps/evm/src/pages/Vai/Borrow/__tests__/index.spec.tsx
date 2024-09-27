@@ -86,9 +86,9 @@ describe('Borrow', () => {
     fireEvent.change(tokenTextFieldInput, { target: { value: fakeValueTokens } });
 
     // Check available VAI limit displays correctly
-    await waitFor(() => getByText('40.00 VAI'));
+    await waitFor(() => getByText('40 VAI'));
     // Check borrow fee displays correctly
-    await waitFor(() => getByText(`0.71 VAI (${fakeVaiTreasuryPercentage.toString()}%)`));
+    await waitFor(() => getByText(`0.719 VAI (${fakeVaiTreasuryPercentage.toString()}%)`));
   });
 
   it('lets user borrow VAI', async () => {

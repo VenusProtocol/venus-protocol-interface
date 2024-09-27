@@ -55,13 +55,13 @@ describe('formatTokensToReadableValue', () => {
       value: new BigNumber('1000000000000000000'),
       token: busd,
     });
-    expect(result).toEqual('> 100.00T BUSD');
+    expect(result).toEqual('> 100T BUSD');
 
     const negativeResult = formatTokensToReadableValue({
       value: new BigNumber('-1000000000000000000'),
       token: busd,
     });
-    expect(negativeResult).toEqual('< -100.00T BUSD');
+    expect(negativeResult).toEqual('< -100T BUSD');
   });
 
   test('should return a formatted value with token symbol when addSymbol is true', () => {
@@ -89,12 +89,12 @@ describe('formatTokensToReadableValue', () => {
     };
 
     const result = formatTokensToReadableValue(input);
-    expect(result).toEqual('12.56 BUSD');
+    expect(result).toEqual('12.5678 BUSD');
 
     const negativeResult = formatTokensToReadableValue({
       ...input,
       value: new BigNumber(-12.5678),
     });
-    expect(negativeResult).toEqual('-12.56 BUSD');
+    expect(negativeResult).toEqual('-12.5678 BUSD');
   });
 });

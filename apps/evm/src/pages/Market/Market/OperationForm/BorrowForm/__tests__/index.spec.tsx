@@ -54,12 +54,7 @@ describe('BorrowForm', () => {
       },
     );
 
-    const borrowDeltaCents = fakePool.userBorrowLimitCents!.minus(fakePool.userBorrowBalanceCents!);
-    const borrowDeltaTokens = new BigNumber(borrowDeltaCents).dividedBy(fakeAsset.tokenPriceCents);
-
-    await waitFor(() =>
-      getByText(`${borrowDeltaTokens.toFixed(2)} ${customFakeAsset.vToken.underlyingToken.symbol}`),
-    );
+    await waitFor(() => getByText('990 XVS'));
   });
 
   it('renders correct token borrowable amount when asset liquidity is lower than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
@@ -75,13 +70,7 @@ describe('BorrowForm', () => {
       },
     );
 
-    await waitFor(() =>
-      getByText(
-        `${customFakeAsset.liquidityCents.dividedBy(100).toFixed(2)} ${
-          customFakeAsset.vToken.underlyingToken.symbol
-        }`,
-      ),
-    );
+    await waitFor(() => getByText('0.5 XVS'));
   });
 
   it('disables form and displays a warning notice if the borrow cap of this market has been reached', async () => {
@@ -101,9 +90,7 @@ describe('BorrowForm', () => {
     // Check warning is displayed
     await waitFor(() =>
       expect(
-        getByText(
-          en.operationForm.error.borrowCapReached.replace('{{assetBorrowCap}}', '100.00 XVS'),
-        ),
+        getByText(en.operationForm.error.borrowCapReached.replace('{{assetBorrowCap}}', '100 XVS')),
       ).toBeInTheDocument(),
     );
 
@@ -215,9 +202,9 @@ describe('BorrowForm', () => {
       expect(
         getByText(
           en.operationForm.error.higherThanBorrowCap
-            .replace('{{userMaxBorrowAmount}}', '90.00 XVS')
-            .replace('{{assetBorrowCap}}', '100.00 XVS')
-            .replace('{{assetBorrowBalance}}', '10.00 XVS'),
+            .replace('{{userMaxBorrowAmount}}', '90 XVS')
+            .replace('{{assetBorrowCap}}', '100 XVS')
+            .replace('{{assetBorrowBalance}}', '10 XVS'),
         ),
       ).toBeInTheDocument(),
     );

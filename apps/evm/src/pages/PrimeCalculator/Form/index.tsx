@@ -367,6 +367,7 @@ export const Form: React.FC = () => {
                   maximumXvsStaked: formatTokensToReadableValue({
                     value: primeMaximumStakedXvsTokens,
                     token: xvs,
+                    maxDecimalPlaces: selectedAsset.vToken.underlyingToken.decimals,
                   }),
                 })}
                 hasError={!!fieldState.error}

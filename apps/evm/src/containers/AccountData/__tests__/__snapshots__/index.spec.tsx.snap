@@ -4,22 +4,22 @@ exports[`AccountData > renders correct values when using swap: { action: 'borrow
 
 exports[`AccountData > renders correct values when using swap: { action: 'repay' } 1`] = `"Current:$123.33Max:$1.92K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
 
-exports[`AccountData > renders correct values when using swap: { action: 'supply' } 1`] = `"Current:$123.33Max:$1.92K.Supply balance (XVS)90.0090.03Borrow limit$1.92KDaily earnings$0.03"`;
+exports[`AccountData > renders correct values when using swap: { action: 'supply' } 1`] = `"Current:$123.33Max:$1.92K.Supply balance (XVS)9090.03Borrow limit$1.92KDaily earnings$0.03"`;
 
-exports[`AccountData > renders correct values when using swap: { action: 'withdraw' } 1`] = `"Current:$123.33Max:$1.92K.Supply balance (XVS)90.0089.97Borrow limit$1.92KDaily earnings$0.03"`;
+exports[`AccountData > renders correct values when using swap: { action: 'withdraw' } 1`] = `"Current:$123.33Max:$1.92K.Supply balance (XVS)9089.97Borrow limit$1.92KDaily earnings$0.03"`;
 
 exports[`AccountData > renders correct values: { action: 'borrow', amountToken: +0 } 1`] = `"Current:$123.33Max:$1.92K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
 
-exports[`AccountData > renders correct values: { action: 'borrow', amountToken: 100 } 1`] = `"Current:$123.33Max:$1.92K.Borrow balance (XVS)0100.00Borrow limit used6.4%13.03%Daily earnings$0.03$0.05"`;
+exports[`AccountData > renders correct values: { action: 'borrow', amountToken: 100 } 1`] = `"Current:$123.33Max:$1.92K.Borrow balance (XVS)0100Borrow limit used6.4%13.03%Daily earnings$0.03$0.05"`;
 
 exports[`AccountData > renders correct values: { action: 'repay', amountToken: +0 } 1`] = `"Current:$123.33Max:$1.92K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
 
 exports[`AccountData > renders correct values: { action: 'repay', amountToken: 100 } 1`] = `"Current:$123.33Max:$1.92K.Borrow balance (XVS)0Borrow limit used6.4%Daily earnings$0.03"`;
 
-exports[`AccountData > renders correct values: { action: 'supply', amountToken: +0 } 1`] = `"Current:$123.33Max:$1.92K.Supply balance (XVS)90.00Borrow limit$1.92KDaily earnings$0.03"`;
+exports[`AccountData > renders correct values: { action: 'supply', amountToken: +0 } 1`] = `"Current:$123.33Max:$1.92K.Supply balance (XVS)90Borrow limit$1.92KDaily earnings$0.03"`;
 
-exports[`AccountData > renders correct values: { action: 'supply', amountToken: 100000 } 1`] = `"Current:$123.33Max:$65.86K.Supply balance (XVS)90.00100.09KBorrow limit$1.92K$65.86KDaily earnings$0.03$0.62"`;
+exports[`AccountData > renders correct values: { action: 'supply', amountToken: 100000 } 1`] = `"Current:$123.33Max:$65.86K.Supply balance (XVS)90100.09KBorrow limit$1.92K$65.86KDaily earnings$0.03$0.62"`;
 
-exports[`AccountData > renders correct values: { action: 'withdraw', amountToken: +0 } 1`] = `"Current:$123.33Max:$1.92K.Supply balance (XVS)90.00Borrow limit$1.92KDaily earnings$0.03"`;
+exports[`AccountData > renders correct values: { action: 'withdraw', amountToken: +0 } 1`] = `"Current:$123.33Max:$1.92K.Supply balance (XVS)90Borrow limit$1.92KDaily earnings$0.03"`;
 
-exports[`AccountData > renders correct values: { action: 'withdraw', amountToken: 50 } 1`] = `"Current:$123.33Max:$1.89K.Supply balance (XVS)90.0040.00Borrow limit$1.92K$1.89KDaily earnings$0.03"`;
+exports[`AccountData > renders correct values: { action: 'withdraw', amountToken: 50 } 1`] = `"Current:$123.33Max:$1.89K.Supply balance (XVS)9040Borrow limit$1.92K$1.89KDaily earnings$0.03"`;

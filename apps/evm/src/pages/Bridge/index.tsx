@@ -76,11 +76,11 @@ const BridgePage: React.FC = () => {
       value: getBalanceOfData?.balanceMantissa || new BigNumber(0),
       token: xvs,
     });
-    const balanceRedable = formatTokensToReadableValue({
+    const readableBalance = formatTokensToReadableValue({
       value: balanceTokens,
       token: xvs,
     });
-    return [balanceTokens, balanceRedable];
+    return [balanceTokens, readableBalance];
   }, [getBalanceOfData, xvs]);
 
   const {

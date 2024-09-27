@@ -73,14 +73,17 @@ const useFormValidation = ({
           userMaxBorrowAmount: formatTokensToReadableValue({
             value: asset.borrowCapTokens.minus(asset.borrowBalanceTokens),
             token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
           assetBorrowCap: formatTokensToReadableValue({
             value: asset.borrowCapTokens,
             token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
           assetBorrowBalance: formatTokensToReadableValue({
             value: asset.borrowBalanceTokens,
             token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
         }),
       };

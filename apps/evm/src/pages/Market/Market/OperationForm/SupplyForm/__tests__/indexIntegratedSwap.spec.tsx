@@ -145,7 +145,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       token: busd,
     });
 
-    await waitFor(() => getByText('300.00K BUSD'));
+    await waitFor(() => getByText('300K BUSD'));
   });
 
   it('disables submit button if no amount was entered in input', async () => {
@@ -294,9 +294,9 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       expect(
         getByText(
           en.operationForm.error.higherThanSupplyCap
-            .replace('{{userMaxSupplyAmount}}', '8.90K XVS')
-            .replace('{{assetSupplyCap}}', '10.00K XVS')
-            .replace('{{assetSupplyBalance}}', '1.10K XVS'),
+            .replace('{{userMaxSupplyAmount}}', '8.9K XVS')
+            .replace('{{assetSupplyCap}}', '10K XVS')
+            .replace('{{assetSupplyBalance}}', '1.1K XVS'),
         ),
       ).toBeInTheDocument(),
     );

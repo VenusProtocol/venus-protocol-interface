@@ -8,13 +8,14 @@ import shortenValueWithSuffix from '../shortenValueWithSuffix';
 
 const MIN_VALUE = 0.000001;
 const MAX_VALUE = 100 * ONE_TRILLION;
-const MIN_DECIMALS = 2;
+const MAX_DECIMALS = 6;
 
 export interface FormatTokensToReadableValueInput {
   value: BigNumber | undefined;
   token: Token | VToken | undefined;
   addSymbol?: boolean;
   roundingMode?: BigNumber.RoundingMode;
+  maxDecimalPlaces?: number;
 }
 
 export const formatTokensToReadableValue = ({
@@ -22,6 +23,7 @@ export const formatTokensToReadableValue = ({
   token,
   addSymbol = true,
   roundingMode,
+  maxDecimalPlaces = MAX_DECIMALS,
 }: FormatTokensToReadableValueInput) => {
   if (!token || !value) {
     return PLACEHOLDER_KEY;
@@ -35,7 +37,6 @@ export const formatTokensToReadableValue = ({
     readableValue = '0';
   } else if (absoluteValue.isGreaterThan(MAX_VALUE)) {
     const formattedReadableValue = shortenValueWithSuffix({
-      minDecimalPlaces: MIN_DECIMALS,
       value: new BigNumber(MAX_VALUE),
       roundingMode,
     });
@@ -45,8 +46,7 @@ export const formatTokensToReadableValue = ({
   } else {
     const formattedReadableValue = shortenValueWithSuffix({
       value: absoluteValue,
-      minDecimalPlaces: MIN_DECIMALS,
-      maxDecimalPlaces: token.decimals,
+      maxDecimalPlaces,
       roundingMode,
     });
 

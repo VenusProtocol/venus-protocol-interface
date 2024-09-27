@@ -51,15 +51,6 @@ describe('shortenValueWithSuffix', () => {
     expect(result).toEqual('500');
   });
 
-  it('should return formatted value with at least three decimal places when passing minDecimalPlaces as 3', () => {
-    const value = new BigNumber(100);
-    const result = shortenValueWithSuffix({
-      value,
-      minDecimalPlaces: 3,
-    });
-    expect(result).toEqual('100.000');
-  });
-
   it('should return formatted value with maximum three decimal places when passing maxDecimalPlaces as 3', () => {
     const value = new BigNumber('100.0012321');
     const result = shortenValueWithSuffix({
@@ -75,6 +66,6 @@ describe('shortenValueWithSuffix', () => {
       value,
       roundingMode: BigNumber.ROUND_DOWN,
     });
-    expect(result).toEqual('100.0013');
+    expect(result).toEqual('100.0013921');
   });
 });

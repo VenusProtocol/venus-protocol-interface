@@ -388,7 +388,7 @@ describe('Bridge', () => {
     // Check the warning shown to the user
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-        '"You cannot bridge more than 1.00 XVS due to the bridge mint cap"',
+        '"You cannot bridge more than 1 XVS due to the bridge mint cap"',
       ),
     );
 

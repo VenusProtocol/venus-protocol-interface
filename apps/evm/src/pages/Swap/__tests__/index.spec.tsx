@@ -63,8 +63,8 @@ describe('Swap', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    await waitFor(() => expect(getByText('200.00K BNB')));
-    await waitFor(() => expect(getByText('10.00K XVS')));
+    await waitFor(() => expect(getByText('200K BNB')));
+    await waitFor(() => expect(getByText('10K XVS')));
   });
 
   it('updates toToken when changing fromToken for toToken', () => {
@@ -701,7 +701,7 @@ describe('Swap', () => {
     });
 
     // wait for the balance to be updated
-    await waitFor(() => expect(getByText('200.00K BNB')));
+    await waitFor(() => expect(getByText('200K BNB')));
 
     // get and click the MAX from token button
     const fromTokenInput = getByTestId(
