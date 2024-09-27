@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.156.0
+
+### Minor Changes
+
+- 0f21eb2: refactor value formatting
+
 ## 2.155.0
 
 ### Minor Changes
