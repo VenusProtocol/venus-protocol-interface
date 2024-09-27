@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.155.0
+
+### Minor Changes
+
+- 557cbcf: update columns used in markets tables on Dashboard and Pool pages
+
 ## 2.154.1
 
 ### Patch Changes
