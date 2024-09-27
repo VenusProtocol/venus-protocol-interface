@@ -15,6 +15,8 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
     totalSupplyUsd,
     totalBorrowUsd,
     totalLiquidityUsd,
+    marketCount,
+    chainCount,
     topMarkets,
     isLoading,
     errors: { getLegacyPoolMarketsError, getTvlDataError },
@@ -58,6 +60,12 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
             </div>
           </li>
         </ul>
+        <hr className={s.ruler} />
+        <p className={s.ourLiquidities}>
+          Our liquidities are distributed across{' '}
+          <span className={s.numberGreen}>{marketCount}</span> markets on{' '}
+          <span className={s.numberGreen}>{chainCount}</span> networks
+        </p>
       </div>
 
       {isLoading ? (

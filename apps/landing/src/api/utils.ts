@@ -97,10 +97,13 @@ export function formatTvlData(apiData: TvlResponseData) {
   const totalSupplyCents = Number(apiData.suppliedSumCents.split('.', 1));
   const totalBorrowCents = Number(apiData.borrowedSumCents.split('.', 1));
   const totalLiquidityCents = Number(apiData.liquiditySumCents.split('.', 1));
+  const { marketCount, chainCount } = apiData;
 
   return {
     totalSupplyUsd: formatUsd(convertCentsToUsd(totalSupplyCents)),
     totalBorrowUsd: formatUsd(convertCentsToUsd(totalBorrowCents)),
     totalLiquidityUsd: formatUsd(convertCentsToUsd(totalLiquidityCents)),
+    marketCount,
+    chainCount,
   };
 }
