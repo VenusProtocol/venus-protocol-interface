@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
 import type { XVSProxyOFTDest, XVSProxyOFTSrc } from 'libs/contracts';
-import { ChainId } from 'types';
+import type { ChainId } from 'types';
 import { convertPriceMantissaToDollars } from 'utilities';
 
 export interface GetXvsBridgeStatusInput {
@@ -25,8 +25,6 @@ const getXvsBridgeStatus = async ({
   toChainId,
   tokenBridgeContract,
 }: GetXvsBridgeStatusInput): Promise<GetXvsBridgeStatusOutput> => {
-  // temporary fix for tx limits to zkSync
-  const isZkSync = toChainId === ChainId.ZKSYNC_MAINNET || toChainId === ChainId.ZKSYNC_SEPOLIA;
   const layerZeroChainId = LAYER_ZERO_CHAIN_IDS[toChainId];
   const [
     dailyResetTimestamp,
@@ -35,13 +33,9 @@ const getXvsBridgeStatus = async ({
     maxSingleTransactionLimitUsdMantissa,
   ] = await Promise.all([
     tokenBridgeContract.chainIdToLast24HourWindowStart(layerZeroChainId),
-    isZkSync
-      ? new BigNumber('50000000000000000000000')
-      : tokenBridgeContract.chainIdToMaxDailyLimit(layerZeroChainId),
+    tokenBridgeContract.chainIdToMaxDailyLimit(layerZeroChainId),
     tokenBridgeContract.chainIdToLast24HourTransferred(layerZeroChainId),
-    isZkSync
-      ? new BigNumber('10000000000000000000000')
-      : tokenBridgeContract.chainIdToMaxSingleTransactionLimit(layerZeroChainId),
+    tokenBridgeContract.chainIdToMaxSingleTransactionLimit(layerZeroChainId),
   ]);
   const dailyLimitResetTimestamp = new BigNumber(dailyResetTimestamp.toString());
   const maxDailyLimitUsd = convertPriceMantissaToDollars({
