@@ -22,6 +22,10 @@ export interface Config {
     apiKey: string;
     hostUrl: string;
   };
+  zyFi: {
+    apiKey: string;
+    sponsoredPaymasterEndpoint: string;
+  };
 }
 
 const environment: Environment =
@@ -102,6 +106,10 @@ const config: Config = {
   posthog: {
     apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',
     hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
+  },
+  zyFi: {
+    apiKey: ENV_VARIABLES.VITE_ZYFI_API_KEY || '',
+    sponsoredPaymasterEndpoint: ENV_VARIABLES.VITE_ZYFI_SPONSORED_PAYMASTER_ENDPOINT || '',
   },
 };
 
