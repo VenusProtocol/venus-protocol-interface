@@ -1,7 +1,8 @@
+import { ChainId } from '@venusprotocol/chains';
 import { useGetIsolatedPoolVTokenLiquidationThreshold } from 'clients/api';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useChainId } from 'libs/wallet';
-import { type Asset, ChainId } from 'types';
+import type { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
 
 export const useGetLiquidationThresholdPercentage = (

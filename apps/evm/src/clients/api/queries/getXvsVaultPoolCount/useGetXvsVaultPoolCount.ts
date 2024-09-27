@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getXvsVaultPoolCount, {
   type GetXvsVaultPoolCountOutput,
 } from 'clients/api/queries/getXvsVaultPoolCount';
@@ -7,7 +8,6 @@ import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 export type UseGetXvsVaultPoolCountQueryKey = [

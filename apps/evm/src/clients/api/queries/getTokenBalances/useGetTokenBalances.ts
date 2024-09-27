@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import {
   type GetTokenBalancesInput,
   type GetTokenBalancesOutput,
@@ -7,7 +8,6 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useChainId, useProvider } from 'libs/wallet';
-import type { ChainId } from 'types';
 
 export type UseGetTokenBalancesQueryKey = [
   FunctionKey.GET_TOKEN_BALANCES,

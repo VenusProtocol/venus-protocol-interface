@@ -2,9 +2,9 @@ import type Vi from 'vitest';
 
 import { renderHook } from 'testUtils/render';
 
-import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { ChainId } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/chains';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
 
 import { useGetChainMetadata } from '..';
 
@@ -16,6 +16,6 @@ describe('useGetChainMetadata', () => {
 
     const { result } = renderHook(() => useGetChainMetadata());
 
-    expect(result.current).toBe(CHAIN_METADATA[ChainId.BSC_TESTNET]);
+    expect(result.current).toBe(chainMetadata[ChainId.BSC_TESTNET]);
   });
 });

@@ -1,7 +1,7 @@
-import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { chainMetadata } from '@venusprotocol/chains';
 import { useChainId } from 'libs/wallet';
 
 export const useGetChainMetadata = () => {
   const { chainId } = useChainId();
-  return CHAIN_METADATA[chainId];
+  return chainMetadata[chainId];
 };

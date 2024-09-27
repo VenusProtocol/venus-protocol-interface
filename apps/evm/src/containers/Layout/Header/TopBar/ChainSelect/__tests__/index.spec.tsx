@@ -3,8 +3,8 @@ import type Vi from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 
+import { ChainId } from '@venusprotocol/chains';
 import { useSwitchChain } from 'libs/wallet';
-import { ChainId } from 'types';
 
 import { ChainSelect } from '..';
 

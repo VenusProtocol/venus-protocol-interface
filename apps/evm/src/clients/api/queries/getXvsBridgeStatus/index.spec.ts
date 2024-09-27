@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
 
+import { ChainId } from '@venusprotocol/chains';
 import type { XVSProxyOFTDest } from 'libs/contracts';
-import { ChainId } from 'types';
 
 import getXvsBridgeStatus from '.';
 

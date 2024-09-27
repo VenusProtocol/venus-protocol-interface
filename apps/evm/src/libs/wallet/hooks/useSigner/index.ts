@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { type Config, useConnectorClient } from 'wagmi';
 
-import type { ChainId } from 'types';
+import type { ChainId } from '@venusprotocol/chains';
 
 import { useChainId } from '../useChainId';
 import { getSigner } from './getSigner';

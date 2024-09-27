@@ -1,8 +1,8 @@
 import { request } from 'graphql-request';
 
+import type { ChainId } from '@venusprotocol/chains';
 import { IsolatedPoolParticipantsCountDocument } from 'clients/subgraph';
 import config from 'config';
-import type { ChainId } from 'types';
 
 export interface GetIsolatedPoolParticipantsCountInput {
   chainId: ChainId;

@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
 
-import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { ChainId } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/chains';
 import type { LegacyPoolComptroller } from 'libs/contracts';
-import { ChainId } from 'types';
 
 import getVenusVaiVaultDailyRate from '.';
 
@@ -25,7 +25,7 @@ describe('api/queries/getVenusVaiVaultDailyRate', () => {
     expect(venusVaiVaultRateMock).toHaveBeenCalledTimes(1);
     expect(response).toEqual({
       dailyRateMantissa: new BigNumber(fakeOutput.toString()).times(
-        CHAIN_METADATA[ChainId.BSC_TESTNET].blocksPerDay!,
+        chainMetadata[ChainId.BSC_TESTNET].blocksPerDay!,
       ),
     });
   });

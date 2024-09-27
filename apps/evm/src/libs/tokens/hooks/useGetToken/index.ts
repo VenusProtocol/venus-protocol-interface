@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
+import type { ChainId } from '@venusprotocol/chains';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
 
 import { getToken } from '../../utilities/getToken';
 

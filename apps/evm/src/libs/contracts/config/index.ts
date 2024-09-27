@@ -71,7 +71,7 @@ import venusProtocolZkSyncMainnetDeployments from '@venusprotocol/venus-protocol
 import venusProtocolZkSyncSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/zksyncsepolia_addresses.json';
 import type { ContractInterface } from 'ethers';
 
-import { ChainId } from 'types';
+import { ChainId } from '@venusprotocol/chains/types';
 
 import MaximillionAbi from './externalAbis/Maximillion.json';
 import Multicall3Abi from './externalAbis/Multicall3.json';

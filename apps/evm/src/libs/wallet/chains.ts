@@ -1,3 +1,4 @@
+import { ChainId, MainnetChainId, TestnetChainId } from '@venusprotocol/chains';
 import {
   type Chain,
   arbitrum as arbitrumOne,
@@ -14,15 +15,31 @@ import {
 
 import localConfig from 'config';
 
-const getSupportedChains = (): [Chain, ...Chain[]] => {
-  if (localConfig.isOnTestnet) {
-    return [bscTestnet, opBNBTestnet, sepolia, arbitrumSepolia, zksyncSepoliaTestnet];
-  }
+const chainMapping = {
+  [ChainId.BSC_MAINNET]: bscMainnet,
+  [ChainId.BSC_TESTNET]: bscTestnet,
+  [ChainId.ETHEREUM]: ethereum,
+  [ChainId.SEPOLIA]: sepolia,
+  [ChainId.OPBNB_MAINNET]: opBNBMainnet,
+  [ChainId.OPBNB_TESTNET]: opBNBTestnet,
+  [ChainId.ARBITRUM_ONE]: arbitrumOne,
+  [ChainId.ARBITRUM_SEPOLIA]: arbitrumSepolia,
+  [ChainId.ZKSYNC_MAINNET]: zksyncMainnet,
+  [ChainId.ZKSYNC_SEPOLIA]: zksyncSepoliaTestnet,
+} as const satisfies Record<ChainId, Chain>;
 
-  return [bscMainnet, ethereum, opBNBMainnet, arbitrumOne, zksyncMainnet];
+const getSupportedChains = () => {
+  const chainIds = localConfig.isOnTestnet ? TestnetChainId : MainnetChainId;
+
+  const chains: Chain[] = Object.values(chainIds)
+    .filter((value): value is TestnetChainId => !Number.isNaN(+value))
+    .map(chainId => chainMapping[chainId]);
+
+  return chains;
 };
 
-export const governanceChain = localConfig.isOnTestnet ? bscTestnet : bscMainnet;
+export const governanceChain =
+  chainMapping[localConfig.isOnTestnet ? ChainId.BSC_TESTNET : ChainId.BSC_MAINNET];
 
 export const chains = getSupportedChains();
 

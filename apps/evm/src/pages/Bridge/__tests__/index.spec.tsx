@@ -5,6 +5,7 @@ import type Vi from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
+import { ChainId } from '@venusprotocol/chains';
 import {
   bridgeXvs,
   useGetBalanceOf,
@@ -14,7 +15,6 @@ import {
 } from 'clients/api';
 import { en } from 'libs/translations';
 import { useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
-import { ChainId } from 'types';
 
 import { fromUnixTime } from 'date-fns';
 import Bridge from '..';
@@ -129,7 +129,7 @@ describe('Bridge', () => {
 
     await waitFor(() =>
       expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
-        String(ChainId.OPBNB_TESTNET),
+        String(ChainId.SEPOLIA),
       ),
     );
 
@@ -160,7 +160,7 @@ describe('Bridge', () => {
       ),
     );
     expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
-      String(ChainId.OPBNB_TESTNET),
+      String(ChainId.SEPOLIA),
     );
 
     // Click on switch button
@@ -168,13 +168,13 @@ describe('Bridge', () => {
 
     await waitFor(() => expect(switchChainMock).toHaveBeenCalledTimes(1));
     expect(switchChainMock).toHaveBeenCalledWith({
-      chainId: ChainId.OPBNB_TESTNET,
+      chainId: ChainId.SEPOLIA,
       callback: expect.any(Function),
     });
 
     await waitFor(() =>
       expect((getByTestId(TEST_IDS.fromChainIdSelect) as HTMLInputElement).value).toEqual(
-        String(ChainId.OPBNB_TESTNET),
+        String(ChainId.SEPOLIA),
       ),
     );
     expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
@@ -204,7 +204,7 @@ describe('Bridge', () => {
     const fakeBridgeXvsParams = {
       accountAddress: fakeAccountAddress,
       amountMantissa: fakeBalanceMantissa,
-      destinationChainId: ChainId.OPBNB_TESTNET,
+      destinationChainId: ChainId.SEPOLIA,
       nativeCurrencyFeeMantissa: fakeBridgeFeeMantissa,
     };
 

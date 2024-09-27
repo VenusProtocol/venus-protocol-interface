@@ -1,4 +1,4 @@
-import { ChainId } from 'types';
+import { ChainId } from '@venusprotocol/chains';
 
 export const LAYER_ZERO_CHAIN_IDS: Record<ChainId, number> = {
   [ChainId.BSC_MAINNET]: 102,

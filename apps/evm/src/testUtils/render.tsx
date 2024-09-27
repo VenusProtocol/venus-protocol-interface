@@ -7,9 +7,9 @@ import type Vi from 'vitest';
 
 import fakeSigner from '__mocks__/models/signer';
 
+import type { ChainId } from '@venusprotocol/chains';
 import { Web3Wrapper, useAccountAddress, useChainId, useSigner } from 'libs/wallet';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
-import type { ChainId } from 'types';
 
 const createQueryClient = () =>
   new QueryClient({

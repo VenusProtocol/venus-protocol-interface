@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getIsolatedPools, {
   type GetIsolatedPoolsInput,
   type GetIsolatedPoolsOutput,
@@ -15,7 +16,6 @@ import {
 } from 'libs/contracts';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useChainId, useProvider } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedInput = Omit<

@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useRef } from 'react';
 import { Controller } from 'react-hook-form';
 
+import { ChainId } from '@venusprotocol/chains';
 import { useBridgeXvs, useGetBalanceOf, useGetXvsBridgeFeeEstimation } from 'clients/api';
 import {
   ApproveTokenSteps,
@@ -26,7 +27,6 @@ import { displayMutationError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { chains, useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
-import { ChainId } from 'types';
 import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
 
 import type { Chain } from 'viem';

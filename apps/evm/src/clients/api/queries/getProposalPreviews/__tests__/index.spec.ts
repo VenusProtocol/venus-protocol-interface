@@ -1,7 +1,8 @@
+import { ChainId } from '@venusprotocol/chains';
 import fakeAccountAddress from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
 import { getProposalPreviews as getGqlProposalPreviews } from 'clients/subgraph';
-import { ChainId, ProposalState } from 'types';
+import { ProposalState } from 'types';
 import type Vi from 'vitest';
 import { type GetProposalPreviewsInput, getProposalPreviews } from '..';
 

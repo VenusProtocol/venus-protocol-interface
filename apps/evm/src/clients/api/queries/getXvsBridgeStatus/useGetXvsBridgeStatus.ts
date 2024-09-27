@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import { ChainId } from '@venusprotocol/chains';
 import {
   type GetXvsBridgeStatusInput,
   type GetXvsBridgeStatusOutput,
@@ -8,7 +9,6 @@ import {
 import FunctionKey from 'constants/functionKey';
 import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedGetXvsBridgeStatusInput = Omit<GetXvsBridgeStatusInput, 'tokenBridgeContract'>;

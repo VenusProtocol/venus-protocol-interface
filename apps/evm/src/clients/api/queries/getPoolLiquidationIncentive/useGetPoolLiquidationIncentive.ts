@@ -1,5 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-
+import { ChainId } from '@venusprotocol/chains';
 import {
   type GetPoolLiquidationIncentiveInput,
   type GetPoolLiquidationIncentiveOutput,
@@ -12,7 +12,6 @@ import {
   useGetLegacyPoolComptrollerContract,
 } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
 import { areAddressesEqual, callOrThrow } from 'utilities';
 
 interface TrimmedGetPoolLiquidationIncentiveInput

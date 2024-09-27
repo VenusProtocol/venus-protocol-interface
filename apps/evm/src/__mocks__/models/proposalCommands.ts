@@ -1,4 +1,5 @@
-import { ChainId, type ProposalCommand, ProposalCommandState } from 'types';
+import { ChainId } from '@venusprotocol/chains';
+import { type ProposalCommand, ProposalCommandState } from 'types';
 
 const fakePastDate = new Date(2023, 1, 1);
 const fakeFutureDate = new Date(2089, 1, 1);

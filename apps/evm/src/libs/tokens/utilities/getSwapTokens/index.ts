@@ -1,6 +1,6 @@
-import type { ChainId } from 'types';
-import { areAddressesEqual } from 'utilities/areAddressesEqual';
+import type { ChainId } from '@venusprotocol/chains';
 
+import { areAddressesEqual } from 'utilities/areAddressesEqual';
 import { getPancakeSwapTokens } from '../getPancakeSwapTokens';
 import { getTokens } from '../getTokens';
 

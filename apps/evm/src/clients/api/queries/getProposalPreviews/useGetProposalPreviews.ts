@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import { chainMetadata } from '@venusprotocol/chains';
 import useGetBlockNumber from 'clients/api/queries/getBlockNumber/useGetBlockNumber';
 import { useGetProposalMinQuorumVotes } from 'clients/api/queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
 import {
@@ -7,7 +8,6 @@ import {
   type GetProposalPreviewsOutput,
   getProposalPreviews,
 } from 'clients/api/queries/getProposalPreviews';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';
@@ -45,7 +45,7 @@ export const useGetProposalPreviews = (
   });
   const currentBlockNumber = getBlockNumberData?.blockNumber;
 
-  const { blockTimeMs, proposalExecutionGracePeriodMs } = CHAIN_METADATA[governanceChain.id];
+  const { blockTimeMs, proposalExecutionGracePeriodMs } = chainMetadata[governanceChain.id];
 
   const sanitizedInput: TrimmedGetProposalPreviewsInput = {
     ...input,

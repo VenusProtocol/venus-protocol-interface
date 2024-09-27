@@ -1,12 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getVrtConversionRatio, {
   type GetVrtConversionRatioOutput,
 } from 'clients/api/queries/getVrtConversionRatio';
 import FunctionKey from 'constants/functionKey';
 import { useGetVrtConverterContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 export type UseGetVrtConversionRatioQueryKey = [

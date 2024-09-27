@@ -73,7 +73,7 @@ const getLegacyPool = async ({
   const isUserPrime = extractSettledPromiseValue(userPrimeTokenResult)?.exists || false;
 
   // Fetch vToken meta data
-  const vTokenMetaDataPromise = venusLensContract.callStatic.vTokenMetadataAll(vTokenAddresses);
+  const vTokenMetadataPromise = venusLensContract.callStatic.vTokenMetadataAll(vTokenAddresses);
 
   // Fetch underlying token prices
   const underlyingTokenPricePromises = Promise.allSettled(
@@ -117,7 +117,7 @@ const getLegacyPool = async ({
   const supplyCapsResults = await supplyCapsPromises;
   const xvsBorrowSpeedResults = await xvsBorrowSpeedPromises;
   const xvsSupplySpeedResults = await xvsSupplySpeedPromises;
-  const vTokenMetaDataResults = await vTokenMetaDataPromise;
+  const vTokenMetadataResults = await vTokenMetadataPromise;
   const primeAprResults = (await primeAprPromises) || [];
 
   const primeApyMap = new Map<string, PrimeApy>();
@@ -152,7 +152,7 @@ const getLegacyPool = async ({
     tokens,
     description,
     comptrollerContractAddress: legacyPoolComptrollerContract.address,
-    vTokenMetaDataResults,
+    vTokenMetadataResults,
     underlyingTokenPriceResults,
     borrowCapsResults,
     supplyCapsResults,

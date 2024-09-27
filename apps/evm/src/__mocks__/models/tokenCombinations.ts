@@ -1,6 +1,7 @@
 import { Token as PSToken } from '@pancakeswap/sdk';
+import { ChainId } from '@venusprotocol/chains';
 
-import { ChainId, type PSTokenCombination } from 'types';
+import type { PSTokenCombination } from 'types';
 
 import { busd, eth, wbnb, xvs } from './tokens';
 

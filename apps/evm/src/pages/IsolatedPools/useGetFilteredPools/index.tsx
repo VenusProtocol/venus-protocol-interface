@@ -4,14 +4,14 @@ import { useMemo } from 'react';
 
 export const useGetFilteredPools = () => {
   const { data: getPoolsData } = useGetIsolatedPools();
-  const chainMetaData = useGetChainMetadata();
+  const chainMetadata = useGetChainMetadata();
 
   const pools = useMemo(
     () =>
       (getPoolsData?.pools || []).filter(
-        pool => pool.comptrollerAddress !== chainMetaData.corePoolComptrollerContractAddress,
+        pool => pool.comptrollerAddress !== chainMetadata.corePoolComptrollerContractAddress,
       ),
-    [getPoolsData?.pools, chainMetaData.corePoolComptrollerContractAddress],
+    [getPoolsData?.pools, chainMetadata.corePoolComptrollerContractAddress],
   );
 
   return { pools };

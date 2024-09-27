@@ -1,6 +1,6 @@
+import type { ChainId } from '@venusprotocol/chains';
 import addresses from 'libs/contracts/generated/infos/addresses';
 import type { UniqueContractName } from 'libs/contracts/generated/infos/types';
-import type { ChainId } from 'types';
 
 import { getUniqueContractAddress } from '..';
 

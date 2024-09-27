@@ -1,10 +1,10 @@
 import type BigNumber from 'bignumber.js';
 import { type ContractTransaction, ethers } from 'ethers';
 
+import type { ChainId } from '@venusprotocol/chains';
 import { NULL_ADDRESS } from 'constants/address';
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
 import type { XVSProxyOFTDest, XVSProxyOFTSrc } from 'libs/contracts';
-import type { ChainId } from 'types';
 
 export interface BridgeXvsInput {
   tokenBridgeContract: XVSProxyOFTSrc | XVSProxyOFTDest;

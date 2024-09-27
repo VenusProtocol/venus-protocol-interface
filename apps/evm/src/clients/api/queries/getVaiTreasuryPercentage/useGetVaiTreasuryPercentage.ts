@@ -1,10 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import { type GetVaiTreasuryPercentageOutput, getVaiTreasuryPercentage } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetVaiControllerContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 export type UseGetVaiTreasuryPercentageQueryKey = [

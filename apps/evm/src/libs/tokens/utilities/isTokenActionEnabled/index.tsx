@@ -1,4 +1,5 @@
-import type { ChainId, TokenAction } from 'types';
+import type { ChainId } from '@venusprotocol/chains';
+import type { TokenAction } from 'types';
 import areAddressesEqual from 'utilities/areAddressesEqual';
 
 import disabledTokenActions from '../../infos/disabledTokenActions';

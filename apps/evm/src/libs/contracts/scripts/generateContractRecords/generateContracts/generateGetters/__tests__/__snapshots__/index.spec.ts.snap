@@ -11,7 +11,7 @@ import abi from 'libs/contracts/generated/infos/abis/PoolLens.json';
 import { PoolLens } from 'libs/contracts/generated/infos/contractTypes';
 import { getUniqueContractAddress } from 'libs/contracts/utilities/getUniqueContractAddress';
 import { useChainId, useProvider, useSigner } from 'libs/wallet';
-import { ChainId } from 'types';
+import { ChainId } from '@venusprotocol/chains';
 
 interface GetPoolLensContractAddressInput {
   chainId: ChainId;
@@ -87,7 +87,7 @@ import { useMemo } from 'react';
 import abi from 'libs/contracts/generated/infos/abis/IsolatedPoolComptroller.json';
 import { IsolatedPoolComptroller } from 'libs/contracts/generated/infos/contractTypes';
 import { useProvider, useSigner } from 'libs/wallet';
-import { ChainId } from 'types';
+import { ChainId } from '@venusprotocol/chains';
 
 interface GetIsolatedPoolComptrollerContractInput {
   address: string;
@@ -140,7 +140,7 @@ import abi from 'libs/contracts/generated/infos/abis/SwapRouter.json';
 import addresses from 'libs/contracts/generated/infos/addresses';
 import { SwapRouter } from 'libs/contracts/generated/infos/contractTypes';
 import { useChainId, useProvider, useSigner } from 'libs/wallet';
-import { ChainId } from 'types';
+import { ChainId } from '@venusprotocol/chains';
 
 interface GetSwapRouterContractAddressInput {
   comptrollerContractAddress: string;

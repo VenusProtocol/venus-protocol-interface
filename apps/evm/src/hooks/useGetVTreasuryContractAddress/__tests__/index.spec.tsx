@@ -4,8 +4,8 @@ import fakeAddress, { altAddress } from '__mocks__/models/address';
 import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 
+import { ChainId } from '@venusprotocol/chains';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
 import { useGetVTreasuryContractAddress } from '../';
 
 vi.mock('libs/contracts');

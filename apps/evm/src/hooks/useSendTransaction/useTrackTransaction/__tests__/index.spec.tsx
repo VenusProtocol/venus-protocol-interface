@@ -1,10 +1,9 @@
 import type Vi from 'vitest';
 
+import { ChainId } from '@venusprotocol/chains';
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeProvider from '__mocks__/models/provider';
-import { renderHook } from 'testUtils/render';
-
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import {
   checkForComptrollerTransactionError,
@@ -15,9 +14,9 @@ import {
 } from 'libs/errors';
 import { displayNotification, updateNotification } from 'libs/notifications';
 import { en } from 'libs/translations';
-import { useProvider } from 'libs/wallet';
-import { ChainId } from 'types';
+import { renderHook } from 'testUtils/render';
 
+import { useProvider } from 'libs/wallet';
 import { CONFIRMATIONS, TIMEOUT_MS, useTrackTransaction } from '..';
 
 vi.mock('context/ErrorLogger');

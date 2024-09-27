@@ -1,11 +1,11 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getBlockNumber, { type GetBlockNumberOutput } from 'clients/api/queries/getBlockNumber';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useChainId, useProvider } from 'libs/wallet';
-import type { ChainId } from 'types';
 
 export type UseGetBlockNumberQueryKey = [FunctionKey.GET_BLOCK_NUMBER, { chainId: ChainId }];
 

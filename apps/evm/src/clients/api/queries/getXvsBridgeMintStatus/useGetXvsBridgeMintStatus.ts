@@ -1,10 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import { ChainId } from '@venusprotocol/chains';
 import { type GetXvsMintStatusOutput, getXvsBridgeMintStatus } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { getXVSProxyOFTDestContractAddress, getXvsTokenMultichainContract } from 'libs/contracts';
 import { useProvider } from 'libs/wallet';
-import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 interface UseGetXvsBridgeMintStatusInput {

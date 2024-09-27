@@ -21,7 +21,6 @@
     "generate-subgraph-types": "npm-run-all --parallel generate-subgraph-types:isolated-pools generate-subgraph-types:governance",
     "generate-contracts": "rimraf src/libs/contracts/generated/getters && rimraf src/libs/contracts/generated/infos && src/libs/contracts/scripts/generateContractRecords/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/contracts/generated",
     "generate-pancake-swap-tokens": "src/libs/tokens/scripts/generatePancakeSwapTokenRecords/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/tokens/generated/pancakeSwapTokens/bscMainnet.ts",
-    "generate-token-accent-colors": "src/libs/tokens/scripts/generateTokenAccentColors/index.ts && yarn biome format --vcs-use-ignore-file=false --write src/libs/tokens/generated/tokenAccentColors.ts",
     "generate-version-files": "genversion --es6 --semi src/constants/version.ts && src/scripts/generatePublicVersionFile.ts && yarn biome format --vcs-use-ignore-file=false --write public/version.json",
     "generate": "npm-run-all --parallel generate-version-files generate-contracts generate-subgraph-types && yarn generate-pancake-swap-tokens",
     "storybook": "storybook dev -p 6006",
@@ -115,6 +114,7 @@
     "@types/recharts": "^1.8.23",
     "@types/redux-actions": "^2.6.2",
     "@types/styled-components": "^5.1.26",
+    "@venusprotocol/chains": "*",
     "@venusprotocol/governance-contracts": "2.3.0",
     "@venusprotocol/isolated-pools": "3.5.0",
     "@venusprotocol/oracle": "2.5.1",
@@ -157,15 +157,7 @@
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   }
 }

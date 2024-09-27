@@ -1,5 +1,5 @@
+import { chainMetadata } from '@venusprotocol/chains';
 import { AccordionAnimatedContent, Icon } from 'components';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 import { isAfter } from 'date-fns/isAfter';
 import { useNow } from 'hooks/useNow';
@@ -28,7 +28,7 @@ export const Command: React.FC<CommandProps> = ({
   expiredAt,
   ...otherProps
 }) => {
-  const chainMetadata = CHAIN_METADATA[chainId];
+  const { name: chainName, logoSrc: chainLogoSrc } = chainMetadata[chainId];
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const toggleAccordion = () => setIsOpen(prevState => !prevState);
@@ -57,7 +57,7 @@ export const Command: React.FC<CommandProps> = ({
 
         if (isOnWrongChain) {
           return t('voteProposalUi.command.description.wrongChain', {
-            chainName: chainMetadata.name,
+            chainName,
           });
         }
 
@@ -66,7 +66,7 @@ export const Command: React.FC<CommandProps> = ({
         }
         break;
     }
-  }, [t, state, executableAt, hasFailedExecution, now, chainMetadata, isOnWrongChain]);
+  }, [t, state, executableAt, hasFailedExecution, now, chainName, isOnWrongChain]);
 
   const accordionContentDom = (
     <div className="pt-3 text-sm md:ml-8">
@@ -96,14 +96,10 @@ export const Command: React.FC<CommandProps> = ({
         <div className={cn('flex-1', !description && 'flex flex-col justify-center')}>
           <div className="cursor-pointer pr-3 space-y-3 md:space-y-1" onClick={toggleAccordion}>
             <div className="flex items-center gap-x-2">
-              <img
-                src={chainMetadata.logoSrc}
-                alt={chainMetadata.name}
-                className="w-5 max-w-none flex-none"
-              />
+              <img src={chainLogoSrc} alt={chainName} className="w-5 max-w-none flex-none" />
 
               <div className="flex items-center">
-                <p className="text-sm font-semibold">{chainMetadata.name}</p>
+                <p className="text-sm font-semibold">{chainName}</p>
 
                 <Icon
                   name="arrowUp"

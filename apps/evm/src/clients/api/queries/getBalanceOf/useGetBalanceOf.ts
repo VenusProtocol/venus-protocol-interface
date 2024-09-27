@@ -1,9 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import { type GetBalanceOfInput, type GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useChainId, useProvider } from 'libs/wallet';
-import type { ChainId, Token } from 'types';
+import type { Token } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetBalanceOfInput = Omit<GetBalanceOfInput, 'signer' | 'provider'>;

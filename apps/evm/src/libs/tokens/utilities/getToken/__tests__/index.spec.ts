@@ -1,5 +1,5 @@
+import { ChainId } from '@venusprotocol/chains';
 import { tokens } from 'libs/tokens/infos/commonTokens';
-import { ChainId } from 'types';
 
 import { getToken } from '..';
 

@@ -6,6 +6,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import tokens, { xvs } from '__mocks__/models/tokens';
 
+import { ChainId } from '@venusprotocol/chains';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
@@ -13,7 +14,6 @@ import {
   getIsolatedPoolComptrollerContract,
   getRewardsDistributorContract,
 } from 'libs/contracts';
-import { ChainId } from 'types';
 
 import getIsolatedPools from '..';
 import {

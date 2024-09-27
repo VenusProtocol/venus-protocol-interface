@@ -7,12 +7,13 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
+import { ChainId } from '@venusprotocol/chains';
 import { supply, useGetBalanceOf } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
-import { type Asset, ChainId } from 'types';
+import type { Asset } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
 import MAX_UINT256 from 'constants/maxUint256';

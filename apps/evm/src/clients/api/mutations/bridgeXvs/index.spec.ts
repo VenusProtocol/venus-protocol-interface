@@ -3,10 +3,10 @@ import BigNumber from 'bignumber.js';
 import fakeAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 
+import { ChainId } from '@venusprotocol/chains';
 import { NULL_ADDRESS } from 'constants/address';
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
 import type { XVSProxyOFTSrc } from 'libs/contracts';
-import { ChainId } from 'types';
 
 import bridgeXvs from '.';
 

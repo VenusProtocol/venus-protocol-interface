@@ -1,4 +1,4 @@
-import { ChainId } from 'types';
+import { ChainId } from '@venusprotocol/chains';
 
 import type { DisabledTokenActionMapping } from '../../types';
 import { disabledTokenActions as arbitrumOneDisabledTokenActions } from './arbitrumOne';

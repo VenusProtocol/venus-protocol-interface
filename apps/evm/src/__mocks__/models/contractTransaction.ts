@@ -1,6 +1,6 @@
 import { BigNumber as BN, type ContractTransaction } from 'ethers';
 
-import { ChainId } from 'types';
+import { ChainId } from '@venusprotocol/chains';
 
 const contractTransaction: ContractTransaction = {
   hash: 'fake-transaction-hash',

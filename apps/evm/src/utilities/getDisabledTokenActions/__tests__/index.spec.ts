@@ -2,8 +2,9 @@ import type Vi from 'vitest';
 
 import { xvs } from '__mocks__/models/tokens';
 
+import { ChainId } from '@venusprotocol/chains';
 import { getDisabledTokenActions as getLocalDisabledTokenActions } from 'libs/tokens';
-import { ChainId, type TokenAction } from 'types';
+import type { TokenAction } from 'types';
 
 import { getDisabledTokenActions } from '..';
 

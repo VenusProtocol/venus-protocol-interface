@@ -1,5 +1,5 @@
+import { ChainId } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
-import { ChainId } from 'types';
 
 export const PRIME_DOC_URL = 'https://docs-v4.venus.io/whats-new/prime-yield';
 

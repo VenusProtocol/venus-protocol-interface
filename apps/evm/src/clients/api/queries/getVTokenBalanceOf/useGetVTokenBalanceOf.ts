@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getVTokenBalanceOf, {
   type GetVTokenBalanceOfInput,
   type GetVTokenBalanceOfOutput,
@@ -7,7 +8,7 @@ import getVTokenBalanceOf, {
 import FunctionKey from 'constants/functionKey';
 import { useGetVTokenContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { ChainId, VToken } from 'types';
+import type { VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
 interface TrimmedGetVTokenBalanceOfInput extends Omit<GetVTokenBalanceOfInput, 'vTokenContract'> {

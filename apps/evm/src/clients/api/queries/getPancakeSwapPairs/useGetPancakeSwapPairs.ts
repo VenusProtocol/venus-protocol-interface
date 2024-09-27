@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getPancakeSwapPairs, {
   type GetPancakeSwapPairsInput,
   type GetPancakeSwapPairsOutput,
@@ -7,7 +8,6 @@ import getPancakeSwapPairs, {
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useChainId, useProvider } from 'libs/wallet';
-import type { ChainId } from 'types';
 
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import generateTokenCombinationIds from './generateTokenCombinationIds';

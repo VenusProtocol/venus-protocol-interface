@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getAllowance, {
   type GetAllowanceInput,
   type GetAllowanceOutput,
@@ -7,7 +8,7 @@ import getAllowance, {
 import FunctionKey from 'constants/functionKey';
 import { useGetTokenContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { ChainId, Token } from 'types';
+import type { Token } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetAllowanceInput = Omit<GetAllowanceInput, 'tokenContract'> & { token: Token };

@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import {
   type GetTokenUsdPriceInput,
   type GetTokenUsdPriceOutput,
@@ -8,7 +9,7 @@ import {
 import FunctionKey from 'constants/functionKey';
 import { useGetResilientOracleContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { ChainId, Token } from 'types';
+import type { Token } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetTokenUsdPriceInput = Omit<GetTokenUsdPriceInput, 'resilientOracleContract'>;

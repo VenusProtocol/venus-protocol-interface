@@ -4,8 +4,8 @@ import noop from 'noop-ts';
 import { renderComponent } from 'testUtils/render';
 import type Vi from 'vitest';
 
+import { ChainId } from '@venusprotocol/chains';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { ChainId } from 'types';
 
 import BigNumber from 'bignumber.js';
 import { borrow } from 'clients/api';

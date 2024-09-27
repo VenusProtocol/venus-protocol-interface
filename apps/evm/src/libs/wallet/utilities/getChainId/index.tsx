@@ -1,6 +1,6 @@
+import type { ChainId } from '@venusprotocol/chains';
 import { chains, defaultChain } from 'libs/wallet/chains';
 import { getUnsafeChainIdFromSearchParams } from 'libs/wallet/utilities/getUnsafeChainIdFromSearchParams';
-import type { ChainId } from 'types';
 
 export const getChainId = (input?: { searchParams?: URLSearchParams }) => {
   const defaultedSearchParams =

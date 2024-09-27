@@ -32,8 +32,6 @@
     "@types/node": "^20.12.12",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.1",
     "@venusprotocol/stylelint-config": "*",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
@@ -50,16 +48,8 @@
     "vite-tsconfig-paths": "^4.2.0"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   },
   "resolutions": {
     "postcss": "^8.4.8"

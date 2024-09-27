@@ -1,3 +1,4 @@
+import { ChainId } from '@venusprotocol/chains';
 import { type BridgeXvsInput, bridgeXvs, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
@@ -8,7 +9,6 @@ import {
 } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedBridgeXvsInput = Omit<BridgeXvsInput, 'tokenBridgeContract'>;

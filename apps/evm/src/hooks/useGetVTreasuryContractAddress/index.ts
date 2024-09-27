@@ -1,7 +1,7 @@
+import { ChainId } from '@venusprotocol/chains';
 import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
-import { ChainId } from 'types';
 
 export const useGetVTreasuryContractAddress = () => {
   const { chainId } = useChainId();

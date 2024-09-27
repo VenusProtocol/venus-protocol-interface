@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade, {
   type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeInput,
   type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput,
@@ -7,7 +8,6 @@ import getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade, {
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeInput = Omit<

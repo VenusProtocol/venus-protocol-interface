@@ -1,8 +1,8 @@
 import type Vi from 'vitest';
 
+import { ChainId } from '@venusprotocol/chains';
 import { useChainId } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
-import { ChainId } from 'types';
 
 import { type FeatureFlag, featureFlags, useIsFeatureEnabled } from '..';
 

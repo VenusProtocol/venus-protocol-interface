@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import { isAfter } from 'date-fns/isAfter';
 import { useMemo } from 'react';
 
+import { ChainId } from '@venusprotocol/chains';
 import {
   useCancelProposal,
   useExecuteProposal,
@@ -24,7 +25,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { displayMutationError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { ChainId, type Proposal, ProposalState, ProposalType } from 'types';
+import { type Proposal, ProposalState, ProposalType } from 'types';
 import { areAddressesEqual } from 'utilities';
 
 import config from 'config';

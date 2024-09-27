@@ -1,3 +1,4 @@
+import type { ChainId } from '@venusprotocol/chains';
 import type BigNumber from 'bignumber.js';
 import {
   type GetProposalPreviewsInput as GetGqlProposalPreviewsInput,
@@ -5,7 +6,7 @@ import {
   formatToProposalPreview,
   getProposalPreviews as getGqlProposalPreviews,
 } from 'clients/subgraph';
-import { type ChainId, type ProposalPreview, ProposalState } from 'types';
+import { type ProposalPreview, ProposalState } from 'types';
 
 export interface GetProposalPreviewsInput {
   chainId: ChainId;

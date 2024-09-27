@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
+import type { ChainId } from '@venusprotocol/chains';
 import { type Breakpoint, EllipseAddress } from 'components/EllipseAddress';
 import { Icon } from 'components/Icon';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import type { ChainId } from 'types';
 import { type UrlType, cn, generateChainExplorerUrl } from 'utilities';
 
 export interface ChainExplorerLinkProps {

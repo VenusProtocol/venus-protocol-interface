@@ -1,4 +1,5 @@
-import type { ChainId, Token, TokenAction } from 'types';
+import type { ChainId } from '@venusprotocol/chains';
+import type { Token, TokenAction } from 'types';
 
 export type TokenMapping = {
   [chainId in ChainId]: Token[];

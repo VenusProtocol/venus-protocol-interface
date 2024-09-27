@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { chainMetadata } from '@venusprotocol/chains';
 import { commands as fakeCommands } from '__mocks__/models/proposalCommands';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { en } from 'libs/translations';
 import { useSwitchChain } from 'libs/wallet';
 import { renderComponent } from 'testUtils/render';
@@ -48,7 +48,7 @@ describe('Commands', () => {
       screen.getByText(
         en.voteProposalUi.command.description.wrongChain.replace(
           '{{chainName}}',
-          CHAIN_METADATA[executableCommand.chainId].name,
+          chainMetadata[executableCommand.chainId].name,
         ),
       ),
     ).toBeInTheDocument();
@@ -57,7 +57,7 @@ describe('Commands', () => {
     const switchChainButton = screen.getAllByText(
       en.voteProposalUi.command.cta.wrongChain.replace(
         '{{chainName}}',
-        CHAIN_METADATA[executableCommand.chainId].name,
+        chainMetadata[executableCommand.chainId].name,
       ),
     )[0];
 

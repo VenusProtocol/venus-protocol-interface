@@ -1,6 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
+import type { ChainId } from '@venusprotocol/chains';
 import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 import {
   type GetVTokenUtilizationRateOutput,
@@ -9,7 +10,7 @@ import {
 import FunctionKey from 'constants/functionKey';
 import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'libs/contracts';
 import { useChainId, useProvider } from 'libs/wallet';
-import type { Asset, ChainId } from 'types';
+import type { Asset } from 'types';
 import { callOrThrow } from 'utilities';
 
 export type UseGetVTokenUtilizationRateQueryKey = [

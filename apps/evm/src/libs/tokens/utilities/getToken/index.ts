@@ -1,4 +1,4 @@
-import type { ChainId } from 'types';
+import type { ChainId } from '@venusprotocol/chains';
 
 import { tokens } from '../../infos/commonTokens';
 

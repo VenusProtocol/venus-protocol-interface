@@ -1,6 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
+import type { ChainId } from '@venusprotocol/chains';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
@@ -14,7 +15,6 @@ import {
 } from 'libs/contracts';
 import { useGetTokens } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getPendingRewards from '.';

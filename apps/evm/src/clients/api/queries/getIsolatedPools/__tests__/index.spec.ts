@@ -3,9 +3,9 @@ import type Vi from 'vitest';
 import fakeProvider from '__mocks__/models/provider';
 import tokens, { xvs } from '__mocks__/models/tokens';
 
+import { ChainId } from '@venusprotocol/chains';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { getIsolatedPoolComptrollerContract, getRewardsDistributorContract } from 'libs/contracts';
-import { ChainId } from 'types';
 
 import getIsolatedPools from '..';
 import {

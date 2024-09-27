@@ -5,6 +5,7 @@ import { type MutableRefObject, useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { ChainId } from '@venusprotocol/chains';
 import {
   useGetBalanceOf,
   useGetTokenUsdPrice,
@@ -16,7 +17,7 @@ import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { chains, useAccountAddress, useChainId } from 'libs/wallet';
-import { ChainId, type Token } from 'types';
+import type { Token } from 'types';
 import {
   convertDollarsToCents,
   convertMantissaToTokens,

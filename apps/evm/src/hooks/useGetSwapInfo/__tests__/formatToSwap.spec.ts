@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 
 import { busd, xvs } from '__mocks__/models/tokens';
 
-import { ChainId } from 'types';
+import { ChainId } from '@venusprotocol/chains';
 
 import formatToSwap from '../formatToSwap';
 import type { FormatToSwapInput } from '../types';

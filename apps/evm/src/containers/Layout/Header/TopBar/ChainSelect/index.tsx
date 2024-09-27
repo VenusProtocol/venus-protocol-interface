@@ -1,8 +1,8 @@
+import type { ChainId } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/chains';
 import { Select, type SelectOption, type SelectProps } from 'components';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { cn } from 'utilities';
 
 export interface ChainSelectProps extends Omit<SelectProps, 'value' | 'onChange' | 'options'> {
@@ -10,7 +10,7 @@ export interface ChainSelectProps extends Omit<SelectProps, 'value' | 'onChange'
 }
 
 const options: SelectOption<ChainId>[] = chains.map(chain => {
-  const metadata = CHAIN_METADATA[chain.id as ChainId];
+  const metadata = chainMetadata[chain.id as ChainId];
 
   return {
     label: ({ isRenderedInButton }) => (

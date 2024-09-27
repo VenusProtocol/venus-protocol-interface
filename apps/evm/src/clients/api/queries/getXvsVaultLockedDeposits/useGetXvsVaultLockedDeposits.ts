@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getXvsVaultLockedDeposits, {
   type GetXvsVaultLockedDepositsInput,
   type GetXvsVaultLockedDepositsOutput,
@@ -7,7 +8,6 @@ import getXvsVaultLockedDeposits, {
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetXvsVaultLockedDepositsInput = Omit<

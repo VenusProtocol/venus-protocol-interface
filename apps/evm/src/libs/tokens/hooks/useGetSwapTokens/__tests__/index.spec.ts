@@ -3,8 +3,8 @@ import type Vi from 'vitest';
 import tokens from '__mocks__/models/tokens';
 import { renderHook } from 'testUtils/render';
 
+import { ChainId } from '@venusprotocol/chains';
 import { getSwapTokens } from 'libs/tokens/utilities/getSwapTokens';
-import { ChainId } from 'types';
 
 import { useGetSwapTokens } from '..';
 

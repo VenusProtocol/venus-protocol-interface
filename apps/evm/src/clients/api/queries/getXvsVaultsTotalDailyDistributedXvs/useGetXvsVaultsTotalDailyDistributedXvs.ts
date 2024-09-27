@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import {
   type GetXvsVaultsTotalDailyDistributedXvsInput,
   type GetXvsVaultsTotalDailyDistributedXvsOutput,
@@ -9,7 +10,6 @@ import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetXvsVaultContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetXvsVaultsTotalDailyDistributedXvsInput = Omit<

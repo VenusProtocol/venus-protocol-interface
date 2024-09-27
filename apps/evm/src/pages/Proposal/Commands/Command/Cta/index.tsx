@@ -1,5 +1,5 @@
+import { chainMetadata } from '@venusprotocol/chains';
 import { Button } from 'components';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useSwitchChain } from 'libs/wallet';
 import { useMemo } from 'react';
@@ -34,7 +34,7 @@ export const Cta: React.FC<CtaProps> = ({
   ...otherProps
 }) => {
   const { t } = useTranslation();
-  const chainMetadata = CHAIN_METADATA[chainId];
+  const { name: chainName } = chainMetadata[chainId];
 
   const { isOnWrongChain, hasFailedExecution } = useCommand({
     chainId,
@@ -67,7 +67,7 @@ export const Cta: React.FC<CtaProps> = ({
   const buttonLabel = useMemo(() => {
     if (isOnWrongChain) {
       return t('voteProposalUi.command.cta.wrongChain', {
-        chainName: chainMetadata.name,
+        chainName,
       });
     }
 
@@ -76,7 +76,7 @@ export const Cta: React.FC<CtaProps> = ({
     }
 
     return t('voteProposalUi.command.cta.execute');
-  }, [t, isOnWrongChain, hasFailedExecution, chainMetadata.name]);
+  }, [t, isOnWrongChain, hasFailedExecution, chainName]);
 
   return (
     <Button onClick={onClick} {...otherProps}>

@@ -1,5 +1,6 @@
+import type { ChainId } from '@venusprotocol/chains';
 import addresses from 'libs/contracts/generated/infos/addresses';
-import type { ChainId, Token, VToken } from 'types';
+import type { Token, VToken } from 'types';
 import areAddressesEqual from 'utilities/areAddressesEqual';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 

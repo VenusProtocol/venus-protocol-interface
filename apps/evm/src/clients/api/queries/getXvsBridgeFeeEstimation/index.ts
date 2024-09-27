@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { ethers } from 'ethers';
 
+import type { ChainId } from '@venusprotocol/chains';
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
 import type { XVSProxyOFTDest, XVSProxyOFTSrc } from 'libs/contracts';
-import type { ChainId } from 'types';
 
 export interface GetXvsBridgeEstimationInput {
   accountAddress: string;

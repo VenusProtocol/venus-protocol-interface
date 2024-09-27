@@ -6,7 +6,7 @@ import abi from 'libs/contracts/generated/infos/abis/{{contractName}}.json';
 import addresses from 'libs/contracts/generated/infos/addresses';
 import { {{contractName}} } from 'libs/contracts/generated/infos/contractTypes';
 import { useChainId, useProvider, useSigner } from 'libs/wallet';
-import { ChainId } from 'types';
+import { ChainId } from '@venusprotocol/chains';
 
 interface Get{{contractName}}ContractAddressInput {
   comptrollerContractAddress: string;

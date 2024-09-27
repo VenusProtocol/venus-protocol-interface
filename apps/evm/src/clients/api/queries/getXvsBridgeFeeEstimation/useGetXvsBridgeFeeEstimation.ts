@@ -1,6 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import type BigNumber from 'bignumber.js';
 
+import { ChainId } from '@venusprotocol/chains';
 import {
   type GetXvsBridgeEstimationInput,
   type GetXvsBridgeEstimationOutput,
@@ -9,7 +10,7 @@ import {
 import FunctionKey from 'constants/functionKey';
 import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId, type Token } from 'types';
+import type { Token } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedGetXvsBridgeEstimationInput = Omit<GetXvsBridgeEstimationInput, 'tokenBridgeContract'>;

@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getLegacyPool, {
   type GetLegacyPoolInput,
   type GetLegacyPoolOutput,
@@ -17,7 +18,6 @@ import {
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedInput = Omit<

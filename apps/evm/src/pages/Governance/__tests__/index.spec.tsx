@@ -9,6 +9,7 @@ import { proposalPreviews } from '__mocks__/models/proposalPreviews';
 import { vaults } from '__mocks__/models/vaults';
 import { renderComponent } from 'testUtils/render';
 
+import { ChainId } from '@venusprotocol/chains';
 import {
   getCurrentVotes,
   getLatestProposalIdByProposer,
@@ -21,7 +22,6 @@ import { routes } from 'constants/routing';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
-import { ChainId } from 'types';
 
 import Governance from '..';
 import GOVERNANCE_PROPOSAL_TEST_IDS from '../ProposalList/GovernanceProposal/testIds';

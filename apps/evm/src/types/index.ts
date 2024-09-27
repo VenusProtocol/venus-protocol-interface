@@ -1,4 +1,5 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
+import type { ChainId } from '@venusprotocol/chains';
 import type BigNumber from 'bignumber.js';
 
 export type NonNullableFields<T> = Required<{
@@ -7,34 +8,7 @@ export type NonNullableFields<T> = Required<{
 
 export type Environment = 'storybook' | 'ci' | 'testnet' | 'preview' | 'mainnet';
 
-export enum ChainId {
-  BSC_MAINNET = 56,
-  BSC_TESTNET = 97,
-  ETHEREUM = 1,
-  SEPOLIA = 11155111,
-  OPBNB_MAINNET = 204,
-  OPBNB_TESTNET = 5611,
-  ARBITRUM_SEPOLIA = 421614,
-  ARBITRUM_ONE = 42161,
-  ZKSYNC_SEPOLIA = 300,
-  ZKSYNC_MAINNET = 324,
-}
-
 export type TransactionType = 'chain' | 'layerZero';
-
-export interface ChainMetadata {
-  name: string;
-  logoSrc: string;
-  explorerUrl: string;
-  nativeToken: Token;
-  layerZeroScanUrl: string;
-  corePoolComptrollerContractAddress: string;
-  lstPoolVWstEthContractAddress?: string;
-  lstPoolComptrollerContractAddress?: string;
-  proposalExecutionGracePeriodMs?: number;
-  blockTimeMs?: number;
-  blocksPerDay?: number;
-}
 
 export interface Token {
   symbol: string;

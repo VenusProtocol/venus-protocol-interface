@@ -1,5 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import type { ChainId } from '@venusprotocol/chains';
 import getXvsWithdrawableAmount, {
   type GetXvsWithdrawableAmountInput,
   type GetXvsWithdrawableAmountOutput,
@@ -7,7 +8,6 @@ import getXvsWithdrawableAmount, {
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVestingContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetXvsWithdrawableAmountInput = Omit<

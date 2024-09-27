@@ -1,6 +1,7 @@
+import type { ChainId } from '@venusprotocol/chains';
 import type { PoolLens, Prime, ResilientOracle } from 'libs/contracts';
 import type { Provider } from 'libs/wallet';
-import type { ChainId, Pool, Token } from 'types';
+import type { Pool, Token } from 'types';
 
 export interface GetIsolatedPoolsInput {
   chainId: ChainId;

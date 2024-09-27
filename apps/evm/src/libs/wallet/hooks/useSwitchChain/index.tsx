@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { useSwitchChain as useWagmiSwitchChain } from 'wagmi';
 
+import type { ChainId } from '@venusprotocol/chains';
 import { VError, displayMutationError } from 'libs/errors';
 import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
-import type { ChainId } from 'types';
 
 export const useSwitchChain = () => {
   const { switchChainAsync } = useWagmiSwitchChain();

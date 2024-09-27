@@ -91,14 +91,14 @@ const getIsolatedPools = async ({
       const newUnderlyingTokens: Token[] = [];
       const newUnderlyingTokenAddresses: string[] = [];
 
-      poolResult.vTokens.forEach(vTokenMetaData => {
+      poolResult.vTokens.forEach(vTokenMetadata => {
         const underlyingToken = findTokenByAddress({
           address:
             // If underlying asset address is the null address, this means the VToken has no
             // underlying token because it is a native token
-            areAddressesEqual(vTokenMetaData.underlyingAssetAddress, NULL_ADDRESS)
+            areAddressesEqual(vTokenMetadata.underlyingAssetAddress, NULL_ADDRESS)
               ? NATIVE_TOKEN_ADDRESS
-              : vTokenMetaData.underlyingAssetAddress,
+              : vTokenMetadata.underlyingAssetAddress,
           tokens,
         });
 
@@ -106,8 +106,8 @@ const getIsolatedPools = async ({
           return;
         }
 
-        if (!newVTokenAddresses.includes(vTokenMetaData.vToken)) {
-          newVTokenAddresses.push(vTokenMetaData.vToken.toLowerCase());
+        if (!newVTokenAddresses.includes(vTokenMetadata.vToken)) {
+          newVTokenAddresses.push(vTokenMetadata.vToken.toLowerCase());
         }
 
         if (

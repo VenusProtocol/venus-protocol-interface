@@ -1,5 +1,6 @@
+import type { ChainId } from '@venusprotocol/chains';
 import { getDisabledTokenActions as getLocalDisabledTokenActions } from 'libs/tokens';
-import type { ChainId, TokenAction } from 'types';
+import type { TokenAction } from 'types';
 import removeDuplicates from 'utilities/removeDuplicates';
 
 export enum ContractVTokenAction {
@@ -26,7 +27,6 @@ export const getDisabledTokenActions = ({
   tokenAddresses,
 }: GetDisabledTokenActions) => {
   // Transform bitmask from a number to its binary representation
-  // eslint-disable-next-line no-bitwise
   const formattedBitmask = (bitmask >>> 0).toString(2);
 
   // Bits are counted from right to left, so we first reverse the bitmask order then map each bit

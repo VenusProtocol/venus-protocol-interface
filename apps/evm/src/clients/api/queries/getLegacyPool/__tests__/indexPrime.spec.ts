@@ -5,9 +5,9 @@ import fakePrimeContractResponses from '__mocks__/contracts/prime';
 import fakeAccountAddress from '__mocks__/models/address';
 import tokens, { vai, xvs } from '__mocks__/models/tokens';
 
+import { ChainId } from '@venusprotocol/chains';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Prime } from 'libs/contracts';
-import { ChainId } from 'types';
 
 import getLegacyPool from '..';
 import {

@@ -2,9 +2,10 @@ import { Token as PSToken } from '@pancakeswap/sdk';
 import flatMap from 'lodash/flatMap';
 import { useMemo } from 'react';
 
+import { ChainId } from '@venusprotocol/chains';
 import { useGetSwapTokens, useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
-import { ChainId, type PSTokenCombination, type Token } from 'types';
+import type { PSTokenCombination, Token } from 'types';
 
 import wrapToken from './wrapToken';
 

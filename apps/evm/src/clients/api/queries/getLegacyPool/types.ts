@@ -1,3 +1,4 @@
+import type { ChainId } from '@venusprotocol/chains';
 import type {
   LegacyPoolComptroller,
   Prime,
@@ -5,7 +6,7 @@ import type {
   VaiController,
   VenusLens,
 } from 'libs/contracts';
-import type { ChainId, Pool, Token } from 'types';
+import type { Pool, Token } from 'types';
 
 export interface GetLegacyPoolInput {
   chainId: ChainId;

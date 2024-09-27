@@ -1,5 +1,6 @@
+import { ChainId } from '@venusprotocol/chains';
 import { API_ENDPOINT_URLS } from 'constants/endpoints';
-import { ChainId, type Environment } from 'types';
+import type { Environment } from 'types';
 
 import { ENV_VARIABLES } from './envVariables';
 

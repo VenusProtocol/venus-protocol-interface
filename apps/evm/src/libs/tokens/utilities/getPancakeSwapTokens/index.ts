@@ -1,4 +1,4 @@
-import type { ChainId } from 'types';
+import type { ChainId } from '@venusprotocol/chains';
 
 import { pancakeSwapTokens } from '../../infos/pancakeSwapTokens';
 

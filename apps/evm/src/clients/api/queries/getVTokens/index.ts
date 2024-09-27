@@ -30,7 +30,7 @@ const getVTokens = async ({
     legacyPoolComptrollerContract ? legacyPoolComptrollerContract.getAllMarkets() : undefined,
   ]);
 
-  const vTokenMetaData = isolatedPools.reduce<
+  const vTokenMetadata = isolatedPools.reduce<
     {
       vToken: string;
       isListed: boolean;
@@ -40,14 +40,14 @@ const getVTokens = async ({
 
   // Fetch vToken meta data from core pool (this is only relevant to the BSC network)
   if (legacyPoolVTokenAddresses && venusLensContract) {
-    const legacyPoolVTokenMetaData =
+    const legacyPoolVTokenMetadata =
       await venusLensContract.callStatic.vTokenMetadataAll(legacyPoolVTokenAddresses);
 
-    vTokenMetaData.push(...legacyPoolVTokenMetaData);
+    vTokenMetadata.push(...legacyPoolVTokenMetadata);
   }
 
   // Shape meta data into vToken
-  const vTokens = vTokenMetaData.reduce<VToken[]>((acc, metaData) => {
+  const vTokens = vTokenMetadata.reduce<VToken[]>((acc, metaData) => {
     // Remove unlisted tokens
     if (!metaData.isListed) {
       return acc;

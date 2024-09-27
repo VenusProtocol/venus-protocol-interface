@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
 
+import type { ChainId } from '@venusprotocol/chains';
 import type { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import type { PoolLens } from 'libs/contracts';
-import type { Asset, ChainId, Pool, PrimeApy, Token, VToken } from 'types';
+import type { Asset, Pool, PrimeApy, Token, VToken } from 'types';
 import addUserPropsToPool from 'utilities/addUserPropsToPool';
 import areAddressesEqual from 'utilities/areAddressesEqual';
 import areTokensEqual from 'utilities/areTokensEqual';
@@ -55,18 +56,18 @@ const formatToPools = ({
       areAddressesEqual(pool.id, poolResult.comptroller),
     );
 
-    const assets = poolResult.vTokens.reduce<Asset[]>((acc, vTokenMetaData) => {
+    const assets = poolResult.vTokens.reduce<Asset[]>((acc, vTokenMetadata) => {
       // Remove unlisted tokens
-      if (!vTokenMetaData.isListed) {
+      if (!vTokenMetadata.isListed) {
         return acc;
       }
 
       const underlyingTokenAddress =
         // If underlying asset address is the null address, this means the VToken has no underlying
         // token because it is a native token
-        areAddressesEqual(vTokenMetaData.underlyingAssetAddress, NULL_ADDRESS)
+        areAddressesEqual(vTokenMetadata.underlyingAssetAddress, NULL_ADDRESS)
           ? NATIVE_TOKEN_ADDRESS
-          : vTokenMetaData.underlyingAssetAddress;
+          : vTokenMetadata.underlyingAssetAddress;
 
       // Retrieve underlying token record
       const underlyingToken = findTokenByAddress({
@@ -86,7 +87,7 @@ const formatToPools = ({
 
       // Shape vToken
       const vToken: VToken = {
-        address: vTokenMetaData.vToken,
+        address: vTokenMetadata.vToken,
         decimals: 8,
         symbol: `v${underlyingToken.symbol}`,
         underlyingToken,
@@ -104,25 +105,25 @@ const formatToPools = ({
       const borrowerCount = +(subgraphPoolMarket?.borrowerCount || 0);
 
       const borrowCapTokens = convertMantissaToTokens({
-        value: new BigNumber(vTokenMetaData.borrowCaps.toString()),
+        value: new BigNumber(vTokenMetadata.borrowCaps.toString()),
         token: vToken.underlyingToken,
       });
 
       const supplyCapTokens = convertMantissaToTokens({
-        value: new BigNumber(vTokenMetaData.supplyCaps.toString()),
+        value: new BigNumber(vTokenMetadata.supplyCaps.toString()),
         token: vToken.underlyingToken,
       });
 
       const reserveFactor = convertFactorFromSmartContract({
-        factor: new BigNumber(vTokenMetaData.reserveFactorMantissa.toString()),
+        factor: new BigNumber(vTokenMetadata.reserveFactorMantissa.toString()),
       });
 
       const collateralFactor = convertFactorFromSmartContract({
-        factor: new BigNumber(vTokenMetaData.collateralFactorMantissa.toString()),
+        factor: new BigNumber(vTokenMetadata.collateralFactorMantissa.toString()),
       });
 
       const cashTokens = convertMantissaToTokens({
-        value: new BigNumber(vTokenMetaData.totalCash.toString()),
+        value: new BigNumber(vTokenMetadata.totalCash.toString()),
         token: vToken.underlyingToken,
       });
 
@@ -130,18 +131,18 @@ const formatToPools = ({
       const liquidityCents = cashTokens.multipliedBy(tokenPriceCents);
 
       const reserveTokens = convertMantissaToTokens({
-        value: new BigNumber(vTokenMetaData?.totalReserves.toString()),
+        value: new BigNumber(vTokenMetadata?.totalReserves.toString()),
         token: vToken.underlyingToken,
       });
 
       const exchangeRateVTokens = new BigNumber(1).div(
-        new BigNumber(vTokenMetaData.exchangeRateCurrent.toString()).div(
+        new BigNumber(vTokenMetadata.exchangeRateCurrent.toString()).div(
           10 ** (COMPOUND_DECIMALS + vToken.underlyingToken.decimals - vToken.decimals),
         ),
       );
 
       const supplyDailyPercentageRate = calculateDailyTokenRate({
-        rateMantissa: new BigNumber(vTokenMetaData.supplyRatePerBlockOrTimestamp.toString()),
+        rateMantissa: new BigNumber(vTokenMetadata.supplyRatePerBlockOrTimestamp.toString()),
         blocksPerDay,
       });
 
@@ -150,7 +151,7 @@ const formatToPools = ({
       });
 
       const borrowDailyPercentageRate = calculateDailyTokenRate({
-        rateMantissa: new BigNumber(vTokenMetaData.borrowRatePerBlockOrTimestamp.toString()),
+        rateMantissa: new BigNumber(vTokenMetadata.borrowRatePerBlockOrTimestamp.toString()),
         blocksPerDay,
       });
 
@@ -159,14 +160,14 @@ const formatToPools = ({
       });
 
       const supplyBalanceVTokens = convertMantissaToTokens({
-        value: new BigNumber(vTokenMetaData.totalSupply.toString()),
+        value: new BigNumber(vTokenMetadata.totalSupply.toString()),
         token: vToken,
       });
       const supplyBalanceTokens = supplyBalanceVTokens.div(exchangeRateVTokens);
       const supplyBalanceCents = supplyBalanceTokens.multipliedBy(tokenPriceCents);
 
       const borrowBalanceTokens = convertMantissaToTokens({
-        value: new BigNumber(vTokenMetaData.totalBorrows.toString()),
+        value: new BigNumber(vTokenMetadata.totalBorrows.toString()),
         token: vToken.underlyingToken,
       });
 
@@ -221,7 +222,7 @@ const formatToPools = ({
       });
 
       const disabledTokenActions = getDisabledTokenActions({
-        bitmask: vTokenMetaData.pausedActions.toNumber(),
+        bitmask: vTokenMetadata.pausedActions.toNumber(),
         tokenAddresses: [vToken.address, vToken.underlyingToken.address],
         chainId,
       });

@@ -1,7 +1,7 @@
 import fakeAccountAddress from '__mocks__/models/address';
 import tokens, { vai, xvs } from '__mocks__/models/tokens';
 
-import { ChainId } from 'types';
+import { ChainId } from '@venusprotocol/chains';
 import getLegacyPool from '..';
 import {
   fakeLegacyPoolComptrollerContract,

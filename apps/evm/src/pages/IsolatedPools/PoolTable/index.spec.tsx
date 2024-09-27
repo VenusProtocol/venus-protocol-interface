@@ -3,10 +3,10 @@ import type Vi from 'vitest';
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
+import { ChainId } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/chains';
 import { useGetIsolatedPools } from 'clients/api';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { ChainId } from 'types';
 
 import PoolTable from '.';
 
@@ -14,7 +14,7 @@ vi.mock('hooks/useGetChainMetadata');
 
 describe('PoolTable', () => {
   beforeEach(() => {
-    (useGetChainMetadata as Vi.Mock).mockImplementation(() => CHAIN_METADATA[ChainId.BSC_TESTNET]);
+    (useGetChainMetadata as Vi.Mock).mockImplementation(() => chainMetadata[ChainId.BSC_TESTNET]);
   });
 
   it('renders without crashing', () => {
@@ -28,7 +28,7 @@ describe('PoolTable', () => {
           {
             ...poolData[0],
             comptrollerContractAddress:
-              CHAIN_METADATA[ChainId.BSC_TESTNET].corePoolComptrollerContractAddress,
+              chainMetadata[ChainId.BSC_TESTNET].corePoolComptrollerContractAddress,
           },
         ],
       },

@@ -1,9 +1,10 @@
 import type BigNumber from 'bignumber.js';
 
+import type { ChainId } from '@venusprotocol/chains';
 import { NULL_ADDRESS } from 'constants/address';
 import { primeAveragesForNetwork } from 'constants/prime';
 import type { Prime } from 'libs/contracts';
-import type { Asset, ChainId, Token } from 'types';
+import type { Asset, Token } from 'types';
 import {
   areAddressesEqual,
   convertAprBipsToApy,
