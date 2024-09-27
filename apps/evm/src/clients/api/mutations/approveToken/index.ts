@@ -2,6 +2,7 @@ import type { ContractTransaction } from 'ethers';
 
 import MAX_UINT256 from 'constants/maxUint256';
 import type { Bep20, Vai, Vrt, Xvs } from 'libs/contracts';
+import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
 
 export interface ApproveTokenInput {
   tokenContract: Vai | Bep20 | Vrt | Xvs;
@@ -16,6 +17,6 @@ const approveToken = async ({
   spenderAddress,
   allowance = MAX_UINT256.toFixed(),
 }: ApproveTokenInput): Promise<ApproveTokenOutput> =>
-  tokenContract.approve(spenderAddress, allowance);
+  requestGaslessTransaction(tokenContract, 'approve', spenderAddress, allowance);
 
 export default approveToken;
