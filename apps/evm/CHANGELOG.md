@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.156.1
+
+### Patch Changes
+
+- 7dbc230: prevent suppliable and borrowable amounts displayed on forms from going below 0
+
 ## 2.156.0
 
 ### Minor Changes
