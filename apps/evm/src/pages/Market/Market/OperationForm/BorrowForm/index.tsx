@@ -90,12 +90,10 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       .dividedBy(asset.tokenPriceCents);
 
     // Take borrow cap in consideration if asset has one
-    if (asset.borrowCapTokens) {
-      const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.borrowBalanceTokens);
-      maxTokens = marginWithBorrowCapTokens.isLessThanOrEqualTo(0)
-        ? new BigNumber(0)
-        : BigNumber.minimum(maxTokens, marginWithBorrowCapTokens);
-    }
+    const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.borrowBalanceTokens);
+    maxTokens = marginWithBorrowCapTokens.isLessThanOrEqualTo(0)
+      ? new BigNumber(0)
+      : BigNumber.minimum(maxTokens, marginWithBorrowCapTokens);
 
     const safeBorrowLimitCents = pool.userBorrowLimitCents
       .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)

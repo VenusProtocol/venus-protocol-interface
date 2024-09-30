@@ -148,9 +148,9 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
       return undefined;
     }
 
-    const marginWithSupplyCapTokens = asset.supplyCapTokens
-      ? asset.supplyCapTokens.minus(asset.supplyBalanceTokens)
-      : new BigNumber(Number.POSITIVE_INFINITY);
+    const marginWithSupplyCapTokens = asset.supplyCapTokens.isEqualTo(0)
+      ? new BigNumber(0)
+      : asset.supplyCapTokens.minus(asset.supplyBalanceTokens);
 
     return BigNumber.min(marginWithSupplyCapTokens, fromTokenUserWalletBalanceTokens);
   }, [
