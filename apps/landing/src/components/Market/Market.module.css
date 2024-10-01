@@ -234,3 +234,20 @@
         color: var(--color-primary)
     }
 }
+
+.ruler {
+    background-color: var(--color-bg-secondary-transparent);
+    border: 0;
+    height: 1px;
+    margin: 16px 0 16px 0;
+}
+
+.ourLiquidities {
+    text-align: center;
+    font-size: 12px;
+    line-height: 150%;
+}
+
+.numberGreen {
+    color: #00C38E;
+}

@@ -4,7 +4,7 @@ import {
   tokenIconUrls,
   vTokenDecimals,
 } from './constants';
-import type { MarketMapped, MarketResponse } from './types';
+import type { MarketMapped, MarketResponse, TvlResponseData } from './types';
 
 export const scale = (value: string | number, decimals: number) => Number(value) / 10 ** decimals;
 
@@ -92,3 +92,18 @@ export const nFormatter = (num: number, digits = 2) => {
 
   return item ? formatValue(num / item.value) + item.symbol : formatValue(num);
 };
+
+export function formatTvlData(apiData: TvlResponseData) {
+  const totalSupplyCents = Number(apiData.suppliedSumCents.split('.', 1));
+  const totalBorrowCents = Number(apiData.borrowedSumCents.split('.', 1));
+  const totalLiquidityCents = Number(apiData.liquiditySumCents.split('.', 1));
+  const { marketCount, chainCount } = apiData;
+
+  return {
+    totalSupplyUsd: formatUsd(convertCentsToUsd(totalSupplyCents)),
+    totalBorrowUsd: formatUsd(convertCentsToUsd(totalBorrowCents)),
+    totalLiquidityUsd: formatUsd(convertCentsToUsd(totalLiquidityCents)),
+    marketCount,
+    chainCount,
+  };
+}

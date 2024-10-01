@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchMarkets } from '../index';
+import { fetchMarkets, fetchTvl } from '../index';
 import { getMarketsToRender } from '../utils';
 
 export const useVenusApi = () => {
@@ -7,32 +7,32 @@ export const useVenusApi = () => {
     data: getLegacyPoolMarketsData,
     isLoading: isGetLegacyPoolMarketsLoading,
     error: getLegacyPoolMarketsError,
-    refetch,
+    refetch: refetchMarkets,
   } = useQuery({
     queryKey: ['legacyPoolMarkets'],
     queryFn: fetchMarkets,
   });
 
+  const {
+    data: getTvlData,
+    isLoading: isGetTvlDataLoading,
+    error: getTvlDataError,
+    refetch: refetchTvl,
+  } = useQuery({
+    queryKey: ['tvl'],
+    queryFn: fetchTvl,
+  });
+
   const topMarkets = getMarketsToRender(getLegacyPoolMarketsData);
 
-  const legacyPool = (getLegacyPoolMarketsData ?? []).reduce(
-    (acc, data) => ({
-      marketSize: acc.marketSize + data.totalSupplyUsd,
-      borrowedSum: acc.borrowedSum + data.totalBorrowsUsd,
-      liquiditySum: acc.liquiditySum + data.liquidity,
-    }),
-    {
-      marketSize: 0,
-      borrowedSum: 0,
-      liquiditySum: 0,
-    },
-  );
-
   return {
-    ...legacyPool,
+    ...getTvlData,
     topMarkets,
-    isLoading: isGetLegacyPoolMarketsLoading,
-    error: getLegacyPoolMarketsError,
-    refetch,
+    isLoading: isGetLegacyPoolMarketsLoading || isGetTvlDataLoading,
+    errors: { getLegacyPoolMarketsError, getTvlDataError },
+    refetch: () => {
+      refetchMarkets();
+      refetchTvl();
+    },
   };
 };
