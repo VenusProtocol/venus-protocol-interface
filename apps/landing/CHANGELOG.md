@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.3.0
+
+### Minor Changes
+
+- c7ef9c1: Fetch TVL across all chains
+
 ## 1.2.0
 
 ### Minor Changes
