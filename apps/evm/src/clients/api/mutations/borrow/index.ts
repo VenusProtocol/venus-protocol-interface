@@ -1,8 +1,9 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction } from 'ethers';
 
 import type { NativeTokenGateway, VBep20, VBnb } from 'libs/contracts';
 import { VError } from 'libs/errors';
+import type { ContractTransaction } from 'types';
+import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
 
 export interface BorrowInput {
   amountMantissa: BigNumber;
@@ -27,8 +28,12 @@ const borrow = async ({
     });
   }
 
-  if (unwrap) {
-    return nativeTokenGatewayContract!.borrowAndUnwrap(amountMantissa.toFixed());
+  if (unwrap && nativeTokenGatewayContract) {
+    return requestGaslessTransaction(
+      nativeTokenGatewayContract,
+      'borrowAndUnwrap',
+      amountMantissa.toFixed(),
+    ) as Promise<BorrowOutput>;
   }
 
   if (!vTokenContract) {
@@ -39,7 +44,7 @@ const borrow = async ({
   }
 
   // Handle borrow flow
-  return vTokenContract.borrow(amountMantissa.toFixed());
+  return requestGaslessTransaction(vTokenContract, 'borrow', amountMantissa.toFixed());
 };
 
 export default borrow;
