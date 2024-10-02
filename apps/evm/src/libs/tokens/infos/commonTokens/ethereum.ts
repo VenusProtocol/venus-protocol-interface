@@ -6,6 +6,7 @@ import ethLogo from 'libs/tokens/img/eth.svg';
 import ezEthLogo from 'libs/tokens/img/ezEth.png';
 import fraxLogo from 'libs/tokens/img/frax.svg';
 import ptWeethLogo from 'libs/tokens/img/ptWeeth.svg';
+import pufEthLogo from 'libs/tokens/img/pufEth.svg';
 import rsEthLogo from 'libs/tokens/img/rsEth.svg';
 import sFraxLogo from 'libs/tokens/img/sFrax.svg';
 import sfrxEthLogo from 'libs/tokens/img/sfrxEth.svg';
@@ -138,5 +139,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'weETHs',
     asset: weEthsLogo,
+  },
+  {
+    address: '0xD9A442856C234a39a81a089C06451EBAa4306a72',
+    decimals: 18,
+    symbol: 'pufETH',
+    asset: pufEthLogo,
   },
 ];
