@@ -8,7 +8,11 @@ import { logError } from 'libs/errors';
 const MULTICALL_BATCH_SIZE = 100;
 
 // Convert a viem Public Client to an ethers.js Provider
-export const getProvider = ({ client }: { client: Client<Transport, Chain> }) => {
+export const getProvider = ({
+  client,
+}: {
+  client: Client<Transport, Chain>;
+}) => {
   const { chain, transport } = client;
   const network = {
     chainId: chain.id,
@@ -20,10 +24,10 @@ export const getProvider = ({ client }: { client: Client<Transport, Chain> }) =>
     transport.type === 'fallback'
       ? new ethersProviders.FallbackProvider(
           (transport.transports as ReturnType<HttpTransport>[]).map(
-            ({ value }) => new ethersProviders.JsonRpcProvider(value?.url, network),
+            ({ value }) => new ethersProviders.StaticJsonRpcProvider(value?.url, network),
           ),
         )
-      : new ethersProviders.JsonRpcProvider(transport.url, network);
+      : new ethersProviders.StaticJsonRpcProvider(transport.url, network);
 
   // We can't use the getter function for the 0xsequence multicall contract here because that
   // creates a dependency cycle
