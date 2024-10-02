@@ -1,7 +1,5 @@
-import type { ContractTransaction } from 'ethers';
-
 import type { IsolatedPoolComptroller, LegacyPoolComptroller } from 'libs/contracts';
-import type { VToken } from 'types';
+import type { ContractTransaction, VToken } from 'types';
 import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
 
 export type EnterMarketInput = {

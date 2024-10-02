@@ -1,7 +1,6 @@
-import type { ContractTransaction } from 'ethers';
-
 import MAX_UINT256 from 'constants/maxUint256';
 import type { Bep20, Vai, Vrt, Xvs } from 'libs/contracts';
+import type { ContractTransaction } from 'types';
 import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
 
 export interface ApproveTokenInput {
