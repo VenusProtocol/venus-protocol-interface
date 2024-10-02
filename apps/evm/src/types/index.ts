@@ -1,5 +1,7 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
 import type BigNumber from 'bignumber.js';
+import type { ContractReceipt } from 'ethers';
+import type { ZksyncTransactionReceipt } from 'viem/zksync';
 
 export type NonNullableFields<T> = Required<{
   [P in keyof T]: NonNullable<T[P]>;
@@ -449,4 +451,9 @@ export type PSTokenCombination = [PSToken, PSToken];
 export interface PrimeApy {
   borrowApy: BigNumber;
   supplyApy: BigNumber;
+}
+
+export interface ContractTransaction {
+  hash: string;
+  wait: (confirmations?: number) => Promise<ContractReceipt | ZksyncTransactionReceipt>;
 }

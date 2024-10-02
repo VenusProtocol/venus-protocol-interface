@@ -1,7 +1,7 @@
 import { type MutationKey, type MutationObserverOptions, useMutation } from '@tanstack/react-query';
-import type { ContractReceipt, ContractTransaction } from 'ethers';
+import type { ContractReceipt } from 'ethers';
 
-import type { TransactionType } from 'types';
+import type { ContractTransaction, TransactionType } from 'types';
 
 import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
 

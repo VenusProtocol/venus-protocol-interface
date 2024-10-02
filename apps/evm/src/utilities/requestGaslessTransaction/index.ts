@@ -1,8 +1,10 @@
 import config from 'config';
-import type { BaseContract, ContractTransaction } from 'ethers';
-import { VError, logError } from 'libs/errors';
-import { ChainId } from 'types';
-import { Signer, Web3Provider } from 'zksync-ethers';
+import type { BaseContract } from 'ethers';
+import { logError } from 'libs/errors';
+import { ChainId, type ContractTransaction } from 'types';
+import { http, type Address, createPublicClient, createWalletClient, custom } from 'viem';
+import { zksync, zksyncSepoliaTestnet } from 'viem/chains';
+import { eip712WalletActions } from 'viem/zksync';
 
 export interface SponsorableTransaction {
   txData: {
@@ -42,9 +44,10 @@ export async function requestGaslessTransaction<
 ): Promise<ContractTransaction> {
   const chainId = await contract.signer.getChainId();
   if (chainId === ChainId.ZKSYNC_MAINNET || chainId === ChainId.ZKSYNC_SEPOLIA) {
+    const accountAddress = (await contract.signer.getAddress()) as Address;
     const txData = {
       to: contract.address,
-      from: await contract.signer.getAddress(),
+      from: accountAddress,
       data: contract.interface.encodeFunctionData(methodName, args),
     };
 
@@ -68,14 +71,47 @@ export async function requestGaslessTransaction<
         throw new Error(`HTTP error, status: ${response.status}`);
       }
 
-      const provider = new Web3Provider(window.ethereum);
-      const signer = Signer.from(provider.getSigner(), provider);
+      const chain = chainId === ChainId.ZKSYNC_MAINNET ? zksync : zksyncSepoliaTestnet;
+
       const { txData } = (await response.json()) as ZyFiSponsoredTxResponse;
-      const tx = signer.sendTransaction(txData);
-      return tx;
+      const publicClient = createPublicClient({
+        chain,
+        transport: http(config.rpcUrls[chainId]),
+      }).extend(eip712WalletActions());
+
+      const walletClient = createWalletClient({
+        chain,
+        transport: custom(window.ethereum),
+      }).extend(eip712WalletActions());
+
+      const nonce = await publicClient.getTransactionCount({
+        address: accountAddress,
+      });
+      const txPayload = {
+        account: accountAddress,
+        to: txData.to,
+        value: BigInt(txData.value),
+        chain,
+        gas: BigInt(txData.gasLimit),
+        gasPerPubdata: BigInt(txData.customData.gasPerPubdata),
+        maxFeePerGas: BigInt(txData.maxFeePerGas),
+        maxPriorityFeePerGas: BigInt(0),
+        data: txData.data,
+        paymaster: txData.customData.paymasterParams.paymaster,
+        paymasterInput: txData.customData.paymasterParams.paymasterInput,
+        nonce,
+      };
+      const txHash = await walletClient.sendTransaction(txPayload);
+
+      return {
+        hash: txHash,
+        wait: async (confirmations?: number) =>
+          await publicClient.waitForTransactionReceipt({ hash: txHash, confirmations }),
+      };
     } catch (error) {
       logError(error);
-      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+      // return a normal transaction
+      return contract.functions[methodName](...args);
     }
   }
 
