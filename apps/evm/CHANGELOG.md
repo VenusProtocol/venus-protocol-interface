@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.156.2
+
+### Patch Changes
+
+- 771747d: use static RPC provider
+- 3cbdb7d: add support for the pufETH token on Ethereum and Sepolia
+
 ## 2.156.1
 
 ### Patch Changes
