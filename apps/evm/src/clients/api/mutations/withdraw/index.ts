@@ -1,8 +1,9 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction } from 'ethers';
 
 import type { NativeTokenGateway, VBep20, VBnb } from 'libs/contracts';
 import { VError } from 'libs/errors';
+import type { ContractTransaction } from 'types';
+import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
 
 export interface WithdrawInput {
   amountMantissa: BigNumber;
@@ -29,10 +30,18 @@ const withdraw = async ({
     });
   }
 
-  if (unwrap) {
+  if (unwrap && nativeTokenGatewayContract) {
     return withdrawFullSupply
-      ? nativeTokenGatewayContract!.redeemAndUnwrap(amountMantissa.toFixed())
-      : nativeTokenGatewayContract!.redeemUnderlyingAndUnwrap(amountMantissa.toFixed());
+      ? requestGaslessTransaction(
+          nativeTokenGatewayContract,
+          'redeemAndUnwrap',
+          amountMantissa.toFixed(),
+        )
+      : requestGaslessTransaction(
+          nativeTokenGatewayContract,
+          'redeemUnderlyingAndUnwrap',
+          amountMantissa.toFixed(),
+        );
   }
 
   // Handle withdraw flow
@@ -44,8 +53,8 @@ const withdraw = async ({
   }
 
   return withdrawFullSupply
-    ? tokenContract.redeem(amountMantissa.toFixed())
-    : tokenContract.redeemUnderlying(amountMantissa.toFixed());
+    ? requestGaslessTransaction(tokenContract, 'redeem', amountMantissa.toFixed())
+    : requestGaslessTransaction(tokenContract, 'redeemUnderlying', amountMantissa.toFixed());
 };
 
 export default withdraw;
