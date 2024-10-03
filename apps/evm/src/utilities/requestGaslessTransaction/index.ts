@@ -40,7 +40,8 @@ export async function requestGaslessTransaction<
 >(
   contract: TContract,
   methodName: TMethodName,
-  ...args: Parameters<TContract['functions'][TMethodName]>
+  args: Omit<Parameters<TContract['functions'][TMethodName]>, 'overrides'>,
+  overrides: { value: string } | Record<never, never> = {},
 ): Promise<ContractTransaction> {
   const chainId = await contract.signer.getChainId();
   if (chainId === ChainId.ZKSYNC_MAINNET || chainId === ChainId.ZKSYNC_SEPOLIA) {
@@ -49,6 +50,7 @@ export async function requestGaslessTransaction<
       to: contract.address,
       from: accountAddress,
       data: contract.interface.encodeFunctionData(methodName, args),
+      ...overrides,
     };
 
     const payload = {

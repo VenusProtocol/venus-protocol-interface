@@ -32,16 +32,12 @@ const withdraw = async ({
 
   if (unwrap && nativeTokenGatewayContract) {
     return withdrawFullSupply
-      ? requestGaslessTransaction(
-          nativeTokenGatewayContract,
-          'redeemAndUnwrap',
+      ? requestGaslessTransaction(nativeTokenGatewayContract, 'redeemAndUnwrap', [
           amountMantissa.toFixed(),
-        )
-      : requestGaslessTransaction(
-          nativeTokenGatewayContract,
-          'redeemUnderlyingAndUnwrap',
+        ])
+      : requestGaslessTransaction(nativeTokenGatewayContract, 'redeemUnderlyingAndUnwrap', [
           amountMantissa.toFixed(),
-        );
+        ]);
   }
 
   // Handle withdraw flow
@@ -53,8 +49,8 @@ const withdraw = async ({
   }
 
   return withdrawFullSupply
-    ? requestGaslessTransaction(tokenContract, 'redeem', amountMantissa.toFixed())
-    : requestGaslessTransaction(tokenContract, 'redeemUnderlying', amountMantissa.toFixed());
+    ? requestGaslessTransaction(tokenContract, 'redeem', [amountMantissa.toFixed()])
+    : requestGaslessTransaction(tokenContract, 'redeemUnderlying', [amountMantissa.toFixed()]);
 };
 
 export default withdraw;

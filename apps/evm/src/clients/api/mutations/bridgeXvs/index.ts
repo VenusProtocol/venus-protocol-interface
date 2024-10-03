@@ -1,10 +1,11 @@
 import type BigNumber from 'bignumber.js';
-import { type ContractTransaction, ethers } from 'ethers';
+import { ethers } from 'ethers';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
 import type { XVSProxyOFTDest, XVSProxyOFTSrc } from 'libs/contracts';
-import type { ChainId } from 'types';
+import type { ChainId, ContractTransaction } from 'types';
+import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
 
 export interface BridgeXvsInput {
   tokenBridgeContract: XVSProxyOFTSrc | XVSProxyOFTDest;
@@ -24,16 +25,20 @@ const bridgeXvs = async ({
   nativeCurrencyFeeMantissa,
 }: BridgeXvsInput): Promise<BridgeXvsOutput> => {
   const layerZeroDestChain = LAYER_ZERO_CHAIN_IDS[destinationChainId];
-  return tokenBridgeContract.sendFrom(
-    accountAddress,
-    layerZeroDestChain,
-    ethers.utils.hexZeroPad(accountAddress, 32),
-    amountMantissa.toFixed(),
-    {
-      adapterParams: DEFAULT_ADAPTER_PARAMS,
-      refundAddress: accountAddress,
-      zroPaymentAddress: NULL_ADDRESS,
-    },
+  return requestGaslessTransaction(
+    tokenBridgeContract,
+    'sendFrom',
+    [
+      accountAddress,
+      layerZeroDestChain,
+      ethers.utils.hexZeroPad(accountAddress, 32),
+      amountMantissa.toFixed(),
+      {
+        adapterParams: DEFAULT_ADAPTER_PARAMS,
+        refundAddress: accountAddress,
+        zroPaymentAddress: NULL_ADDRESS,
+      },
+    ],
     {
       value: nativeCurrencyFeeMantissa.toFixed(),
     },

@@ -13,6 +13,6 @@ const revokeSpendingLimit = async ({
   tokenContract,
   spenderAddress,
 }: RevokeSpendingLimitInput): Promise<RevokeSpendingLimitOutput> =>
-  requestGaslessTransaction(tokenContract, 'approve', spenderAddress, 0);
+  requestGaslessTransaction(tokenContract, 'approve', [spenderAddress, 0]);
 
 export default revokeSpendingLimit;

@@ -29,11 +29,9 @@ const borrow = async ({
   }
 
   if (unwrap && nativeTokenGatewayContract) {
-    return requestGaslessTransaction(
-      nativeTokenGatewayContract,
-      'borrowAndUnwrap',
+    return requestGaslessTransaction(nativeTokenGatewayContract, 'borrowAndUnwrap', [
       amountMantissa.toFixed(),
-    ) as Promise<BorrowOutput>;
+    ]) as Promise<BorrowOutput>;
   }
 
   if (!vTokenContract) {
@@ -44,7 +42,7 @@ const borrow = async ({
   }
 
   // Handle borrow flow
-  return requestGaslessTransaction(vTokenContract, 'borrow', amountMantissa.toFixed());
+  return requestGaslessTransaction(vTokenContract, 'borrow', [amountMantissa.toFixed()]);
 };
 
 export default borrow;

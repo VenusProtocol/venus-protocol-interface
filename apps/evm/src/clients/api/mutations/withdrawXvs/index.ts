@@ -9,6 +9,6 @@ export interface WithdrawXvsInput {
 export type WithdrawXvsOutput = ContractTransaction;
 
 const withdrawXvs = async ({ xvsVestingContract }: WithdrawXvsInput): Promise<WithdrawXvsOutput> =>
-  requestGaslessTransaction(xvsVestingContract, 'withdraw');
+  requestGaslessTransaction(xvsVestingContract, 'withdraw', []);
 
 export default withdrawXvs;

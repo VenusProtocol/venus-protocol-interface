@@ -12,11 +12,9 @@ const updateDelegate = async ({
   delegateeAddress,
   approvedStatus,
 }: UpdatePoolDelegateStatusInput) =>
-  requestGaslessTransaction(
-    poolComptrollerContract,
-    'updateDelegate',
+  requestGaslessTransaction(poolComptrollerContract, 'updateDelegate', [
     delegateeAddress,
     approvedStatus,
-  );
+  ]);
 
 export default updateDelegate;

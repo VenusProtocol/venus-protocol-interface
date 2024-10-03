@@ -15,6 +15,6 @@ const executeWithdrawalFromXvsVault = async ({
   rewardTokenAddress,
   poolIndex,
 }: ExecuteWithdrawalFromXvsVaultInput): Promise<ExecuteWithdrawalFromXvsVaultOutput> =>
-  requestGaslessTransaction(xvsVaultContract, 'executeWithdrawal', rewardTokenAddress, poolIndex);
+  requestGaslessTransaction(xvsVaultContract, 'executeWithdrawal', [rewardTokenAddress, poolIndex]);
 
 export default executeWithdrawalFromXvsVault;
