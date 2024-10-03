@@ -13,6 +13,6 @@ const exitMarket = async ({
   comptrollerContract,
   vToken,
 }: ExitMarketInput): Promise<ExitMarketOutput> =>
-  requestGaslessTransaction(comptrollerContract, 'exitMarket', vToken.address);
+  requestGaslessTransaction(comptrollerContract, 'exitMarket', [vToken.address]);
 
 export default exitMarket;

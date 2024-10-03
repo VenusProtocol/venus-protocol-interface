@@ -19,12 +19,10 @@ const stakeInXvsVault = async ({
   amountMantissa,
   poolIndex,
 }: StakeInXvsVaultInput): Promise<StakeInXvsVaultOutput> =>
-  requestGaslessTransaction(
-    xvsVaultContract,
-    'deposit',
+  requestGaslessTransaction(xvsVaultContract, 'deposit', [
     rewardToken.address,
     poolIndex,
     amountMantissa.toFixed(),
-  );
+  ]);
 
 export default stakeInXvsVault;

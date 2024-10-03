@@ -1,9 +1,10 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction, Signer } from 'ethers';
+import type { Signer } from 'ethers';
 
 import { type VBnb, getNativeTokenGatewayContract, getVTokenContract } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { VToken } from 'types';
+import type { ContractTransaction, VToken } from 'types';
+import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
 
 interface SharedInput {
   amountMantissa: BigNumber;
@@ -43,9 +44,14 @@ const supply = async (input: SupplyInput): Promise<SupplyOutput> => {
   }
 
   if (input.wrap) {
-    return nativeTokenGatewayContract!.wrapAndSupply(input.accountAddress, {
-      value: input.amountMantissa.toFixed(),
-    });
+    return requestGaslessTransaction(
+      nativeTokenGatewayContract!,
+      'wrapAndSupply',
+      [input.accountAddress],
+      {
+        value: input.amountMantissa.toFixed(),
+      },
+    );
   }
 
   // Handle supplying BNB
@@ -55,14 +61,14 @@ const supply = async (input: SupplyInput): Promise<SupplyOutput> => {
       signerOrProvider: input.signer,
     }) as VBnb;
 
-    return tokenContract.mint({
+    return requestGaslessTransaction(tokenContract, 'mint', [], {
       value: input.amountMantissa.toFixed(),
     });
   }
 
   // Handle supplying tokens other that BNB
   const tokenContract = getVTokenContract({ vToken: input.vToken, signerOrProvider: input.signer });
-  return tokenContract.mint(input.amountMantissa.toFixed());
+  return requestGaslessTransaction(tokenContract, 'mint', [input.amountMantissa.toFixed()]);
 };
 
 export default supply;

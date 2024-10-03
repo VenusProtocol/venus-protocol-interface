@@ -13,6 +13,6 @@ const enterMarket = async ({
   comptrollerContract,
   vToken,
 }: EnterMarketInput): Promise<EnterMarketOutput> =>
-  requestGaslessTransaction(comptrollerContract, 'enterMarkets', [vToken.address]);
+  requestGaslessTransaction(comptrollerContract, 'enterMarkets', [[vToken.address]]);
 
 export default enterMarket;

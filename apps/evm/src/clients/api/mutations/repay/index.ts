@@ -1,5 +1,5 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction, Signer } from 'ethers';
+import type { Signer } from 'ethers';
 
 import MAX_UINT256 from 'constants/maxUint256';
 import {
@@ -9,8 +9,9 @@ import {
   getVTokenContract,
 } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { VToken } from 'types';
+import type { ContractTransaction, VToken } from 'types';
 import { callOrThrow } from 'utilities';
+import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
 
 export interface RepayInput {
   signer: Signer;
@@ -72,8 +73,8 @@ const repay = async ({
     });
   }
 
-  if (wrap) {
-    return nativeTokenGatewayContract!.wrapAndRepay({
+  if (wrap && nativeTokenGatewayContract) {
+    return requestGaslessTransaction(nativeTokenGatewayContract, 'wrapAndRepay', [], {
       value: repayFullLoan ? bufferAmount({ amountMantissa }) : amountMantissa.toFixed(),
     });
   }
@@ -81,9 +82,9 @@ const repay = async ({
   // Handle repaying tokens other than native
   const vTokenContract = getVTokenContract({ vToken, signerOrProvider: signer });
 
-  return vTokenContract.repayBorrow(
+  return requestGaslessTransaction(vTokenContract, 'repayBorrow', [
     repayFullLoan ? MAX_UINT256.toFixed() : amountMantissa.toFixed(),
-  );
+  ]);
 };
 
 export default repay;

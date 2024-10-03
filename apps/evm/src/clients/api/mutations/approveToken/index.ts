@@ -16,6 +16,6 @@ const approveToken = async ({
   spenderAddress,
   allowance = MAX_UINT256.toFixed(),
 }: ApproveTokenInput): Promise<ApproveTokenOutput> =>
-  requestGaslessTransaction(tokenContract, 'approve', spenderAddress, allowance);
+  requestGaslessTransaction(tokenContract, 'approve', [spenderAddress, allowance]);
 
 export default approveToken;

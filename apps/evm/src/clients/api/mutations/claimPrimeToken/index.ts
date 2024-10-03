@@ -11,6 +11,6 @@ export type ClaimPrimeTokenOutput = ContractTransaction;
 const claimPrimeToken = async ({
   primeContract,
 }: ClaimPrimeTokenInput): Promise<ClaimPrimeTokenOutput> =>
-  requestGaslessTransaction(primeContract, 'claim');
+  requestGaslessTransaction(primeContract, 'claim', []);
 
 export default claimPrimeToken;
