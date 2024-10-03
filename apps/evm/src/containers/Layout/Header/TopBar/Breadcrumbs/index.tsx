@@ -1,14 +1,20 @@
-import { useMemo } from 'react';
-import { type Params, matchPath, useLocation } from 'react-router-dom';
+import { useMemo } from "react";
+import {
+  type Params,
+  matchPath,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 
-import { EllipseAddress, Icon } from 'components';
-import { Subdirectory, routes } from 'constants/routing';
-import { Link } from 'containers/Link';
-import useCopyToClipboard from 'hooks/useCopyToClipboard';
-import { useTranslation } from 'libs/translations';
-import { cn } from 'utilities';
-import PoolName from './PoolName';
-import VTokenSymbol from './VTokenSymbol';
+import { EllipseAddress, Icon } from "components";
+import { Subdirectory, routes } from "constants/routing";
+import { Link } from "containers/Link";
+import useCopyToClipboard from "hooks/useCopyToClipboard";
+import { useTranslation } from "libs/translations";
+import { cn } from "utilities";
+import PoolName from "./PoolName";
+import VTokenSymbol from "./VTokenSymbol";
+import useResolveAddressToName from "hooks/useResolveAddressToName";
 
 export interface PathNode {
   dom: React.ReactNode;
@@ -18,13 +24,20 @@ export interface PathNode {
 export const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
+  const { address } = useParams();
+  const copyToClipboard = useCopyToClipboard(
+    t("interactive.copy.walletAddress")
+  );
+  const resolvedName = useResolveAddressToName(address! as `0x${string}`);
 
   const pathNodes = useMemo(() => {
     // Get active route
     let params: Params<string> = {};
-    const activeRouteKey = Object.keys(routes).find(key => {
-      const routeMatch = matchPath(routes[key as keyof typeof routes].path, pathname);
+    const activeRouteKey = Object.keys(routes).find((key) => {
+      const routeMatch = matchPath(
+        routes[key as keyof typeof routes].path,
+        pathname
+      );
 
       if (routeMatch) {
         const { params: routeParams } = routeMatch;
@@ -39,121 +52,145 @@ export const Breadcrumbs: React.FC = () => {
     }
 
     const activeRoute = routes[activeRouteKey as keyof typeof routes];
-    let href = '';
+    let href = "";
 
     // Generate path nodes
-    return activeRoute.subdirectories.reduce<PathNode[]>((acc, subdirectory) => {
-      let dom: React.ReactNode;
-      let hrefFragment: string = subdirectory;
+    return activeRoute.subdirectories.reduce<PathNode[]>(
+      (acc, subdirectory) => {
+        let dom: React.ReactNode;
+        let hrefFragment: string = subdirectory;
 
-      switch (subdirectory) {
-        case Subdirectory.DASHBOARD:
-          dom = t('breadcrumbs.dashboard');
-          break;
-        case Subdirectory.ACCOUNT:
-          dom = t('breadcrumbs.account');
-          break;
-        case Subdirectory.MARKETS:
-          hrefFragment = Subdirectory.MARKETS.replace(
-            ':poolComptrollerAddress',
-            params.poolComptrollerAddress || '',
-          );
+        switch (subdirectory) {
+          case Subdirectory.DASHBOARD:
+            dom = t("breadcrumbs.dashboard");
+            break;
+          case Subdirectory.ACCOUNT:
+            dom = t("breadcrumbs.account");
+            break;
+          case Subdirectory.MARKETS:
+            hrefFragment = Subdirectory.MARKETS.replace(
+              ":poolComptrollerAddress",
+              params.poolComptrollerAddress || ""
+            );
 
-          dom = t('breadcrumbs.markets');
-          break;
-        case Subdirectory.ISOLATED_POOLS:
-          dom = t('breadcrumbs.isolatedPools');
-          break;
-        case Subdirectory.ISOLATED_POOL:
-          hrefFragment = Subdirectory.ISOLATED_POOL.replace(
-            ':poolComptrollerAddress',
-            params.poolComptrollerAddress || '',
-          );
+            dom = t("breadcrumbs.markets");
+            break;
+          case Subdirectory.ISOLATED_POOLS:
+            dom = t("breadcrumbs.isolatedPools");
+            break;
+          case Subdirectory.ISOLATED_POOL:
+            hrefFragment = Subdirectory.ISOLATED_POOL.replace(
+              ":poolComptrollerAddress",
+              params.poolComptrollerAddress || ""
+            );
 
-          dom = <PoolName poolComptrollerAddress={params.poolComptrollerAddress || ''} />;
-          break;
-        case Subdirectory.CORE_POOL:
-          dom = t('breadcrumbs.corePool');
-          break;
-        case Subdirectory.LIDO_MARKET:
-          dom = t('breadcrumbs.lidoMarket');
-          break;
-        case Subdirectory.MARKET: {
-          hrefFragment = Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress || '');
+            dom = (
+              <PoolName
+                poolComptrollerAddress={params.poolComptrollerAddress || ""}
+              />
+            );
+            break;
+          case Subdirectory.CORE_POOL:
+            dom = t("breadcrumbs.corePool");
+            break;
+          case Subdirectory.LIDO_MARKET:
+            dom = t("breadcrumbs.lidoMarket");
+            break;
+          case Subdirectory.MARKET: {
+            hrefFragment = Subdirectory.MARKET.replace(
+              ":vTokenAddress",
+              params.vTokenAddress || ""
+            );
 
-          dom = <VTokenSymbol vTokenAddress={params.vTokenAddress} />;
-          break;
+            dom = <VTokenSymbol vTokenAddress={params.vTokenAddress} />;
+            break;
+          }
+          case Subdirectory.GOVERNANCE:
+            dom = t("breadcrumbs.governance");
+            break;
+          case Subdirectory.PROPOSAL:
+            dom = t("breadcrumbs.proposal", {
+              proposalId:
+                params.proposalId && !Number.isNaN(+params.proposalId)
+                  ? params.proposalId
+                  : "",
+            });
+            break;
+          case Subdirectory.LEADER_BOARD:
+            dom = t("breadcrumbs.leaderboard");
+            break;
+          case Subdirectory.VOTER:
+            hrefFragment = Subdirectory.VOTER.replace(
+              ":address",
+              params.address || ""
+            );
+
+            dom = (
+              <div className="inline-flex items-center gap-x-2">
+                {resolvedName ? (
+                  <span title={resolvedName}>{resolvedName}</span>
+                ) : (
+                  <EllipseAddress
+                    address={params.address || ""}
+                    ellipseBreakpoint="xxl"
+                  />
+                )}
+
+                <button
+                  type="button"
+                  className="text-blue hover:text-darkBlue active:text-darkBlue cursor-pointer transition-colors"
+                >
+                  <Icon
+                    name="copy"
+                    className="h-4 w-4 text-inherit"
+                    onClick={() =>
+                      params.address && copyToClipboard(params.address)
+                    }
+                  />
+                </button>
+              </div>
+            );
+            break;
+          case Subdirectory.VAULTS:
+            dom = t("breadcrumbs.vaults");
+            break;
+          case Subdirectory.XVS:
+            dom = t("breadcrumbs.xvs");
+            break;
+          case Subdirectory.CONVERT_VRT:
+            dom = t("breadcrumbs.convertVrt");
+            break;
+
+          case Subdirectory.SWAP:
+            dom = t("breadcrumbs.swap");
+            break;
+          case Subdirectory.VAI:
+            dom = t("breadcrumbs.vai");
+            break;
+          case Subdirectory.PRIME_CALCULATOR:
+            dom = t("breadcrumbs.primeCalculator");
+            break;
+          case Subdirectory.BRIDGE:
+            dom = t("breadcrumbs.bridge");
+            break;
+          default:
+            break;
         }
-        case Subdirectory.GOVERNANCE:
-          dom = t('breadcrumbs.governance');
-          break;
-        case Subdirectory.PROPOSAL:
-          dom = t('breadcrumbs.proposal', {
-            proposalId:
-              params.proposalId && !Number.isNaN(+params.proposalId) ? params.proposalId : '',
-          });
-          break;
-        case Subdirectory.LEADER_BOARD:
-          dom = t('breadcrumbs.leaderboard');
-          break;
-        case Subdirectory.VOTER:
-          hrefFragment = Subdirectory.VOTER.replace(':address', params.address || '');
 
-          dom = (
-            <div className="inline-flex items-center gap-x-2">
-              <EllipseAddress address={params.address || ''} ellipseBreakpoint="xxl" />
+        href += `${hrefFragment}/`;
 
-              <button
-                type="button"
-                className="text-blue hover:text-darkBlue active:text-darkBlue cursor-pointer transition-colors"
-              >
-                <Icon
-                  name="copy"
-                  className="h-4 w-4 text-inherit"
-                  onClick={() => params.address && copyToClipboard(params.address)}
-                />
-              </button>
-            </div>
-          );
-          break;
-        case Subdirectory.VAULTS:
-          dom = t('breadcrumbs.vaults');
-          break;
-        case Subdirectory.XVS:
-          dom = t('breadcrumbs.xvs');
-          break;
-        case Subdirectory.CONVERT_VRT:
-          dom = t('breadcrumbs.convertVrt');
-          break;
-
-        case Subdirectory.SWAP:
-          dom = t('breadcrumbs.swap');
-          break;
-        case Subdirectory.VAI:
-          dom = t('breadcrumbs.vai');
-          break;
-        case Subdirectory.PRIME_CALCULATOR:
-          dom = t('breadcrumbs.primeCalculator');
-          break;
-        case Subdirectory.BRIDGE:
-          dom = t('breadcrumbs.bridge');
-          break;
-        default:
-          break;
-      }
-
-      href += `${hrefFragment}/`;
-
-      return dom
-        ? [
-            ...acc,
-            {
-              href,
-              dom,
-            },
-          ]
-        : acc;
-    }, []);
+        return dom
+          ? [
+              ...acc,
+              {
+                href,
+                dom,
+              },
+            ]
+          : acc;
+      },
+      []
+    );
   }, [pathname, t, copyToClipboard]);
 
   const pathNodeDom = useMemo(
@@ -179,11 +216,16 @@ export const Breadcrumbs: React.FC = () => {
           )}
         </span>
       )),
-    [pathNodes],
+    [pathNodes]
   );
 
   return (
-    <span className={cn('flex flex-wrap items-center', pathNodes.length === 1 && 'text-xl')}>
+    <span
+      className={cn(
+        "flex flex-wrap items-center",
+        pathNodes.length === 1 && "text-xl"
+      )}
+    >
       {pathNodeDom}
     </span>
   );

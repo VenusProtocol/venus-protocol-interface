@@ -1,14 +1,16 @@
-import primeLogoSrc from 'assets/img/primeLogo.svg';
-import { type ButtonProps, SecondaryButton } from 'components';
-import { useTranslation } from 'libs/translations';
-import { cn, truncateAddress } from 'utilities';
+import primeLogoSrc from "assets/img/primeLogo.svg";
+import { type ButtonProps, SecondaryButton } from "components";
+import { useTranslation } from "libs/translations";
+import { cn, truncateAddress } from "utilities";
 
 export interface PrimeButtonProps extends ButtonProps {
   accountAddress: string;
+  domainName?: string;
 }
 
 export const PrimeButton: React.FC<PrimeButtonProps> = ({
   accountAddress,
+  domainName,
   className,
   ...otherProps
 }) => {
@@ -17,15 +19,19 @@ export const PrimeButton: React.FC<PrimeButtonProps> = ({
   return (
     <SecondaryButton
       className={cn(
-        'border-[#805C4E] hover:border-[#805C4E] active:border-[#805C4E] hover:bg-lightGrey active:bg-lightGrey',
-        className,
+        "border-[#805C4E] hover:border-[#805C4E] active:border-[#805C4E] hover:bg-lightGrey active:bg-lightGrey",
+        className
       )}
       {...otherProps}
     >
       <>
-        <img className="mr-2 w-5" src={primeLogoSrc} alt={t('PrimeButton.primeLogoAlt')} />
+        <img
+          className="mr-2 w-5"
+          src={primeLogoSrc}
+          alt={t("PrimeButton.primeLogoAlt")}
+        />
 
-        {truncateAddress(accountAddress)}
+        {domainName || truncateAddress(accountAddress)}
       </>
     </SecondaryButton>
   );
