@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import type { Proposal } from 'types';
+import { type Proposal, ProposalState } from 'types';
 import { remoteProposals } from './remoteProposals';
 
 export const proposals: Proposal[] = [
@@ -19,7 +19,7 @@ export const proposals: Proposal[] = [
     proposalId: 98,
     proposerAddress: '0x2ce1d0ffd7e869d9df33e28552b12ddded326706',
     startDate: new Date('2023-09-20T07:47:05.000Z'),
-    state: 3,
+    state: ProposalState.Defeated,
     createdTxHash: '0xb8a70919dbf83e5c63af8efbad418b2a81ca9f4937b12f806482581abaf03b65',
     totalVotesMantissa: new BigNumber('605461000000000000000000'),
     proposalActions: [],
@@ -53,7 +53,7 @@ export const proposals: Proposal[] = [
     proposalId: 97,
     proposerAddress: '0x2ce1d0ffd7e869d9df33e28552b12ddded326706',
     startDate: new Date('2023-09-20T07:47:05.000Z'),
-    state: 1,
+    state: ProposalState.Active,
     createdTxHash: '0xb8a70919dbf83e5c63af8efbad418b2a81ca9f4937b12f806482581abaf03b65',
     totalVotesMantissa: new BigNumber('1.605461e+24'),
     proposalActions: [],
@@ -106,7 +106,7 @@ export const proposals: Proposal[] = [
     queuedDate: new Date('2023-09-19T07:49:29.000Z'),
     executionEtaDate: new Date('2023-09-19T07:59:29.000Z'),
     startDate: new Date('2023-09-18T11:27:11.000Z'),
-    state: 2,
+    state: ProposalState.Canceled,
     createdTxHash: '0x67c11aa7e66f92063d8e0fbfa3f528ad3266dafb3d26a976e008da930fde8209',
     cancelTxHash: '0xec844bf514a6803c33ae93c168933d149ed16919a882f222a450b45f7895f86c',
     queuedTxHash: '0x7f288a72f9d53e35720f6eaed2c3ad344cb1e08944a554a26004aa73cd16800c',
@@ -144,7 +144,7 @@ export const proposals: Proposal[] = [
     proposalId: 95,
     proposerAddress: '0x2ce1d0ffd7e869d9df33e28552b12ddded326706',
     startDate: new Date('2023-09-15T10:15:50.000Z'),
-    state: 3,
+    state: ProposalState.Defeated,
     createdTxHash: '0xfe924152536a7f775689c664aca3754c9694b78040c2ae7a0b56f84fed602acb',
     totalVotesMantissa: new BigNumber('605461000000000000000000'),
     proposalActions: [],
@@ -180,7 +180,7 @@ export const proposals: Proposal[] = [
     proposalId: 94,
     proposerAddress: '0x6eace20e1f89d0b24e5b295af1802dfbc730b37d',
     startDate: new Date('2023-09-14T19:27:45.000Z'),
-    state: 4,
+    state: ProposalState.Succeeded,
     createdTxHash: '0x27f1c81bfb014d08d2181af3bd9fa363b93a022e3f3c6798395e74b02f238a5f',
     totalVotesMantissa: new BigNumber('605461000000000000000000'),
     proposalActions: [],
@@ -216,7 +216,7 @@ export const proposals: Proposal[] = [
     proposalId: 93,
     proposerAddress: '0x6eace20e1f89d0b24e5b295af1802dfbc730b37d',
     startDate: new Date('2023-09-14T16:04:05.000Z'),
-    state: 5,
+    state: ProposalState.Queued,
     createdTxHash: '0xd016993b6b81bfbc5e6070edd88106809ebb0b7b58e67d33b526d027c1f5f076',
     totalVotesMantissa: new BigNumber('605461000000000000000000'),
     proposalActions: [],

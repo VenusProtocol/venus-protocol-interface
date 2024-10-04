@@ -11,6 +11,7 @@ vi.mock('../../formatToProposalActions');
 
 const params = {
   layerZeroChainId: 10161,
+  proposalId: 1,
   remoteProposalId: 1,
   gqlRemoteProposal: nonBscProposalsResponse.proposals[0],
   proposalState: ProposalState.Executed,
