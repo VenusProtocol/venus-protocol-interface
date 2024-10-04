@@ -16179,9 +16179,9 @@ popmotion@11.0.3:
     tslib "^2.1.0"
 
 postcss-custom-media@^11.0.0:
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/postcss-custom-media/-/postcss-custom-media-11.0.1.tgz#7f7157a9235d78432b20a722d8f3844a85043eb8"
-  integrity sha512-vfBliYVgEEJUFXCRPQ7jYt1wlD322u+/5GT0tZqMVYFInkpDHfjhU3nk2quTRW4uFc/umOOqLlxvrEOZRvloMw==
+  version "11.0.2"
+  resolved "https://registry.yarnpkg.com/postcss-custom-media/-/postcss-custom-media-11.0.2.tgz#5e490d224e5d9714d1bf587a7df8561ce2db742c"
+  integrity sha512-IDtxB1VgPayRLjNBMjuf827sn1j2m9EGnhIxpx2coVerbWJF+twt590+PKvdDc4K8QNFqFJh+W/SOiHpasVXsg==
   dependencies:
     "@csstools/cascade-layer-name-parser" "^2.0.1"
     "@csstools/css-parser-algorithms" "^3.0.1"
