@@ -2,8 +2,13 @@ import { Card, type CardProps } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 import { type Proposal, ProposalState, RemoteProposalState } from 'types';
-import { Command } from './Command';
+import { cn } from 'utilities';
+import TEST_IDS from '../testIds';
+import { BscCommand } from './BscCommand';
+import { NonBscCommand } from './NonBscCommand';
 import { Progress } from './Progress';
+
+const commandClasses = cn('border-b border-b-lightGrey pb-4 last:pb-0 last:border-b-0');
 
 export interface CommandsProps extends CardProps {
   proposal: Proposal;
@@ -28,7 +33,7 @@ export const Commands: React.FC<CommandsProps> = ({ proposal, ...otherProps }) =
   }, [proposal.remoteProposals, proposal.state]);
 
   return (
-    <Card {...otherProps}>
+    <Card {...otherProps} data-testid={TEST_IDS.commands}>
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg">{t('voteProposalUi.commands.title')}</h3>
 
@@ -39,11 +44,35 @@ export const Commands: React.FC<CommandsProps> = ({ proposal, ...otherProps }) =
       </div>
 
       <div className="space-y-4">
-        {proposal.remoteProposals.map(command => (
-          <Command
-            // TODO: add BSC proposal (see VEN-2701)
-            {...command}
-            className="border-b border-b-lightGrey pb-4 last:pb-0 last:border-b-0"
+        <BscCommand
+          proposalId={proposal.proposalId}
+          state={proposal.state}
+          startDate={proposal.startDate}
+          createdDate={proposal.createdDate}
+          endDate={proposal.endDate}
+          expiredDate={proposal.expiredDate}
+          executedDate={proposal.executedDate}
+          cancelDate={proposal.cancelDate}
+          queuedDate={proposal.queuedDate}
+          executionEtaDate={proposal.executionEtaDate}
+          proposalActions={proposal.proposalActions}
+          proposerAddress={proposal.proposerAddress}
+          className={commandClasses}
+        />
+
+        {proposal.remoteProposals.map(remoteProposal => (
+          <NonBscCommand
+            key={`non-bsc-command-${remoteProposal.chainId}-${remoteProposal.proposalId}`}
+            chainId={remoteProposal.chainId}
+            proposalActions={remoteProposal.proposalActions}
+            state={remoteProposal.state}
+            executionEtaDate={remoteProposal.executionEtaDate}
+            bridgedDate={remoteProposal.bridgedDate}
+            canceledDate={remoteProposal.canceledDate}
+            queuedDate={remoteProposal.queuedDate}
+            executedDate={remoteProposal.executedDate}
+            expiredDate={remoteProposal.expiredDate}
+            className={commandClasses}
           />
         ))}
       </div>
