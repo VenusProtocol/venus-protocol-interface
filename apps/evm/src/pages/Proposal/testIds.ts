@@ -5,5 +5,7 @@ export default {
     against: 'proposal-vote-summary-against',
     abstain: 'proposal-vote-summary-abstain',
   },
+  commands: 'proposal-commands',
   command: 'proposal-command',
+  description: 'proposal-description',
 };

@@ -220,7 +220,8 @@
     "title": "Connect wallet"
   },
   "connectWallet": {
-    "connectButton": "Connect wallet"
+    "connectButton": "Connect wallet",
+    "switchChain": "Switch to {{chainName}}"
   },
   "convertVrt": {
     "connectWalletToWithdrawXvs": "Please connect your wallet to withdraw XVS",
@@ -1083,13 +1084,19 @@
     "cancelButtonLabel": "Cancel",
     "canceledDate": "Canceled: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "command": {
-      "cta": {
+      "actionButton": {
+        "cancel": "Cancel",
         "execute": "Execute",
-        "wrongChain": "Switch to {{chainName}}"
+        "queue": "Queue"
+      },
+      "cta": {
+        "execute": "Execute"
       },
       "dates": {
+        "activeAt": "Pending until {{date, }}",
         "executableAt": "Executable at {{date, }}",
-        "previousStep": "{{date, }}"
+        "previousStep": "{{date, }}",
+        "queueableAt": "Queueable at {{date, }}"
       },
       "description": {
         "bridged": "Waiting for the bridge to propagate the transaction",
@@ -1102,8 +1109,10 @@
         "title": "Operations"
       },
       "status": {
+        "active": "Active",
         "bridged": "Bridged",
         "canceled": "Canceled",
+        "defeated": "Defeated",
         "executed": "Executed",
         "expired": "Expired",
         "pending": "Pending",

@@ -721,28 +721,31 @@ export const useCreateProposal = (options?: MutationObserverOptions) =>
   });
 
 export const cancelProposal = vi.fn(async () => fakeContractTransaction);
-export const useCancelProposal = (options?: MutationObserverOptions) =>
+export const useCancelProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
     mutationKey: [FunctionKey.CANCEL_PROPOSAL],
     mutationFn: cancelProposal,
     ...options,
-  });
+  }),
+);
 
 export const executeProposal = vi.fn(async () => fakeContractTransaction);
-export const useExecuteProposal = (options?: MutationObserverOptions) =>
+export const useExecuteProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
     mutationKey: [FunctionKey.EXECUTE_PROPOSAL],
     mutationFn: executeProposal,
     ...options,
-  });
+  }),
+);
 
 export const queueProposal = vi.fn(async () => fakeContractTransaction);
-export const useQueueProposal = (options?: MutationObserverOptions) =>
+export const useQueueProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
     mutationKey: [FunctionKey.QUEUE_PROPOSAL],
     mutationFn: queueProposal,
     ...options,
-  });
+  }),
+);
 
 export const stakeInXvsVault = vi.fn();
 export const useStakeInXvsVault = (_variables: never, options?: MutationObserverOptions) =>
