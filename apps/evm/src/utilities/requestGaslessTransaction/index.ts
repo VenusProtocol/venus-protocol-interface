@@ -2,7 +2,14 @@ import config from 'config';
 import type { BaseContract } from 'ethers';
 import { logError } from 'libs/errors';
 import { ChainId, type ContractTransaction } from 'types';
-import { http, type Address, createPublicClient, createWalletClient, custom } from 'viem';
+import {
+  http,
+  type Address,
+  type Hash,
+  createPublicClient,
+  createWalletClient,
+  custom,
+} from 'viem';
 import { zksync, zksyncSepoliaTestnet } from 'viem/chains';
 import { eip712WalletActions } from 'viem/zksync';
 
@@ -18,14 +25,14 @@ export interface SponsorableTransaction {
 interface ZyFiSponsoredTxResponse {
   txData: {
     chainId: number;
-    from: `0x${string}`;
-    to: `0x${string}`;
-    data: `0x${string}`;
+    from: Address;
+    to: Address;
+    data: Hash;
     value: number;
     customData: {
       paymasterParams: {
-        paymaster: `0x${string}`;
-        paymasterInput: `0x${string}`;
+        paymaster: Address;
+        paymasterInput: Hash;
       };
       gasPerPubdata: number;
     };
@@ -60,22 +67,8 @@ export async function requestGaslessTransaction<
     };
 
     try {
-      const response = await fetch(config.zyFi.sponsoredPaymasterEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-Key': config.zyFi.apiKey,
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error, status: ${response.status}`);
-      }
-
       const chain = chainId === ChainId.ZKSYNC_MAINNET ? zksync : zksyncSepoliaTestnet;
 
-      const { txData } = (await response.json()) as ZyFiSponsoredTxResponse;
       const publicClient = createPublicClient({
         chain,
         transport: http(config.rpcUrls[chainId]),
@@ -86,9 +79,26 @@ export async function requestGaslessTransaction<
         transport: custom(window.ethereum),
       }).extend(eip712WalletActions());
 
-      const nonce = await publicClient.getTransactionCount({
-        address: accountAddress,
-      });
+      const [response, nonce] = await Promise.all([
+        fetch(config.zyFi.sponsoredPaymasterEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': config.zyFi.apiKey,
+          },
+          body: JSON.stringify(payload),
+        }),
+        publicClient.getTransactionCount({
+          address: accountAddress,
+        }),
+      ]);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error, status: ${response.status}`);
+      }
+
+      const { txData } = (await response.json()) as ZyFiSponsoredTxResponse;
+
       const txPayload = {
         account: accountAddress,
         to: txData.to,
@@ -103,8 +113,8 @@ export async function requestGaslessTransaction<
         paymasterInput: txData.customData.paymasterParams.paymasterInput,
         nonce,
       };
-      const txHash = await walletClient.sendTransaction(txPayload);
 
+      const txHash = await walletClient.sendTransaction(txPayload);
       return {
         hash: txHash,
         wait: async (confirmations?: number) =>
@@ -113,9 +123,10 @@ export async function requestGaslessTransaction<
     } catch (error) {
       logError(error);
       // return a normal transaction
-      return contract.functions[methodName](...args);
+      return contract.functions[methodName](...args, overrides);
     }
   }
 
-  return contract.functions[methodName](...args);
+  return contract.functions[methodName](...args, overrides);
+
 }
