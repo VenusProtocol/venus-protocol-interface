@@ -137,30 +137,13 @@ export interface Pool {
   userBorrowLimitCents?: BigNumber;
 }
 
-export enum ProposalCommandState {
+export enum RemoteProposalState {
   Pending,
   Bridged,
-  Active,
-  Canceled,
-  Defeated,
-  Succeeded,
   Queued,
+  Canceled,
   Expired,
   Executed,
-}
-
-export interface ProposalCommand {
-  chainId: ChainId;
-  state: ProposalCommandState;
-  actionSignatures: ProposalAction[];
-  bridgedAt?: Date;
-  canceledAt?: Date;
-  queuedAt?: Date;
-  succeededAt?: Date;
-  failedExecutionAt?: Date;
-  executableAt?: Date;
-  executedAt?: Date;
-  expiredAt?: Date;
 }
 
 export enum ProposalState {
@@ -239,27 +222,43 @@ export interface Proposal {
   forVotesMantissa: BigNumber;
   abstainedVotesMantissa: BigNumber;
   proposalType: ProposalType;
-  executedDate: Date | undefined;
-  queuedDate: Date | undefined;
-  executionEtaDate: Date | undefined;
-  cancelDate: Date | undefined;
   state: ProposalState;
-  startDate: Date | undefined;
-  createdDate: Date | undefined;
   endBlock: number;
   proposerAddress: string;
-  createdTxHash: string | undefined;
-  cancelTxHash: string | undefined;
-  executedTxHash: string | undefined;
-  queuedTxHash: string | undefined;
   totalVotesMantissa: BigNumber;
-  blockNumber?: number;
   proposalActions: ProposalAction[];
   forVotes: ForVoter[];
   againstVotes: AgainstVoter[];
   abstainVotes: AbstainVoter[];
+  remoteProposals: RemoteProposal[];
+  blockNumber?: number;
   userVoteSupport?: VoteSupport;
   endDate?: Date;
+  executedDate?: Date;
+  queuedDate?: Date;
+  expiredDate?: Date;
+  executionEtaDate?: Date;
+  cancelDate?: Date;
+  startDate?: Date;
+  createdDate?: Date;
+  createdTxHash?: string;
+  cancelTxHash?: string;
+  executedTxHash?: string;
+  queuedTxHash?: string;
+}
+
+export interface RemoteProposal {
+  proposalId: number;
+  chainId: ChainId;
+  state: RemoteProposalState;
+  proposalActions: ProposalAction[];
+  remoteProposalId?: number;
+  bridgedDate?: Date;
+  canceledDate?: Date;
+  queuedDate?: Date;
+  executionEtaDate?: Date;
+  executedDate?: Date;
+  expiredDate?: Date;
 }
 
 export interface JsonProposal {
