@@ -187,7 +187,7 @@ describe('Proposal page', () => {
     await waitFor(() => expect(queryByTestId(TEST_IDS.votingDisabledWarning)).toBeNull());
   });
 
-  it('renders warning about voting being disabled when the feature flag is off', async () => {
+  it('renders warning about voting being disabled when the feature flag is off and proposal is active', async () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
 
     const { getByTestId } = renderComponent(<Proposal />, {

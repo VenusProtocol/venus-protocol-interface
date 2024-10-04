@@ -46,7 +46,7 @@
       "remoteProposals": [
         {
           "id": "0xb1270000b401",
-          "proposalId": null,
+          "proposalId": "4",
           "targets": ["0xf3118a17863996b9f2a073c9a66faaa664355cf8"],
           "values": ["0"],
           "signatures": ["faucet(uint256)"],
@@ -59,7 +59,7 @@
         },
         {
           "id": "0xda270000b401",
-          "proposalId": null,
+          "proposalId": "5",
           "targets": ["0x8ac9b3801d0a8f5055428ae0bf301ca1da976855"],
           "values": ["0"],
           "signatures": ["faucet(uint256)"],
@@ -72,7 +72,7 @@
         },
         {
           "id": "0xf7270000b401",
-          "proposalId": null,
+          "proposalId": "6",
           "targets": ["0x772d68929655ce7234c8c94256526dda66ef641e"],
           "values": ["0"],
           "signatures": ["faucet(uint256)"],

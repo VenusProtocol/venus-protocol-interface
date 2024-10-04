@@ -59,7 +59,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
     <div css={styles.root} className="space-y-6 xl:space-y-8">
       <ProposalSummary proposal={proposal} />
 
-      {!isVoteProposalFeatureEnabled && (
+      {!isVoteProposalFeatureEnabled && proposal.state === ProposalState.Active && (
         <NoticeInfo
           className="w-full"
           data-testid={TEST_IDS.votingDisabledWarning}
