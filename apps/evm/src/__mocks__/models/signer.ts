@@ -1,5 +1,6 @@
 import { BigNumber, type Signer } from 'ethers';
 
+import { ChainId } from 'types';
 import fakeAddress from './address';
 
 export const signerAddress = fakeAddress;
@@ -14,7 +15,7 @@ const getTransactionCount = vi.fn();
 const estimateGas = vi.fn();
 const call = vi.fn();
 const sendTransaction = vi.fn();
-const getChainId = vi.fn();
+const getChainId = vi.fn(async () => ChainId.BSC_TESTNET);
 const getGasPrice = vi.fn();
 const getFeeData = vi.fn();
 const resolveName = vi.fn();

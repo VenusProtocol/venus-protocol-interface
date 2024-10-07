@@ -1,4 +1,5 @@
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 
 import type { IsolatedPoolComptroller } from 'libs/contracts';
 
@@ -10,7 +11,10 @@ describe('updatePoolDelegateStatus', () => {
     const updateDelegateMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
-      updateDelegate: updateDelegateMock,
+      functions: {
+        updateDelegate: updateDelegateMock,
+      },
+      signer: fakeSigner,
     } as unknown as IsolatedPoolComptroller;
 
     const response = await updatePoolDelegateStatus({
@@ -21,6 +25,6 @@ describe('updatePoolDelegateStatus', () => {
 
     expect(response).toBe(fakeContractTransaction);
     expect(updateDelegateMock).toHaveBeenCalledTimes(1);
-    expect(updateDelegateMock).toHaveBeenCalledWith(fakeDelegateAddress, true);
+    expect(updateDelegateMock).toHaveBeenCalledWith(fakeDelegateAddress, true, {});
   });
 });
