@@ -128,5 +128,4 @@ export async function requestGaslessTransaction<
   }
 
   return contract.functions[methodName](...args, overrides);
-
 }

@@ -26,6 +26,7 @@ describe('repay', () => {
 
       const fakeMaximillionContract = {
         repayBehalfExplicit: repayBehalfExplicitMock,
+        signer: fakeSigner,
       } as unknown as Maximillion;
 
       const response = await repay({
@@ -52,6 +53,7 @@ describe('repay', () => {
 
       const fakeVTokenContract = {
         repayBorrow: repayBorrowMock,
+        signer: fakeSigner,
       } as unknown as VBnb;
 
       (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
@@ -92,7 +94,10 @@ describe('repay', () => {
       const wrapAndRepayMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeNativeTokenGatewayContract = {
-        wrapAndRepay: wrapAndRepayMock,
+        functions: {
+          wrapAndRepay: wrapAndRepayMock,
+        },
+        signer: fakeSigner,
       } as unknown as NativeTokenGateway;
 
       const response = await repay({
@@ -114,7 +119,10 @@ describe('repay', () => {
       const wrapAndRepayMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeNativeTokenGatewayContract = {
-        wrapAndRepay: wrapAndRepayMock,
+        functions: {
+          wrapAndRepay: wrapAndRepayMock,
+        },
+        signer: fakeSigner,
       } as unknown as NativeTokenGateway;
 
       const response = await repay({
@@ -144,7 +152,10 @@ describe('repay', () => {
       const repayBorrowMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeVTokenContract = {
-        repayBorrow: repayBorrowMock,
+        functions: {
+          repayBorrow: repayBorrowMock,
+        },
+        signer: fakeSigner,
       } as unknown as VBep20;
 
       (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVTokenContract);
@@ -158,7 +169,7 @@ describe('repay', () => {
 
       expect(response).toBe(fakeContractTransaction);
       expect(repayBorrowMock).toHaveBeenCalledTimes(1);
-      expect(repayBorrowMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+      expect(repayBorrowMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed(), {});
     });
   });
 });
