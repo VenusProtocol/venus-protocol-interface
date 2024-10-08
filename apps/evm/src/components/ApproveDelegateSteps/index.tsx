@@ -1,6 +1,6 @@
 import { useTranslation } from 'libs/translations';
 
-import { ApprovalSteps, type ApprovalStepsProps } from '..';
+import { ApprovalSteps, type ApprovalStepsProps } from '../ApprovalSteps';
 
 export type ApproveDelegateStepsProps = {
   approveDelegateeAction: () => Promise<unknown>;
