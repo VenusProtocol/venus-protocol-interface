@@ -52,3 +52,4 @@ export * from './safeLazyLoad';
 export * from './getProposalType';
 export * from './getProposalState';
 export * from './getUserVoteSupport';
+export * from './getProposalStateLabel';
