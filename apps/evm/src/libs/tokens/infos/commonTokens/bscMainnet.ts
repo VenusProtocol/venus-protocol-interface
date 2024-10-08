@@ -33,6 +33,7 @@ import planetLogo from 'libs/tokens/img/planet.svg';
 import racaLogo from 'libs/tokens/img/raca.png';
 import sdLogo from 'libs/tokens/img/sd.svg';
 import slisBnbLogo from 'libs/tokens/img/slisBNB.png';
+import solvBtcLogo from 'libs/tokens/img/solvBtc.png';
 import stkbnbLogo from 'libs/tokens/img/stkBNB.svg';
 import sxpLogo from 'libs/tokens/img/sxp.svg';
 import theLogo from 'libs/tokens/img/the.svg';
@@ -388,5 +389,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'wstETH',
     asset: wstEthLogo,
+  },
+  {
+    address: '0x4aae823a6a0b376de6a78e74ecc5b079d38cbcf7',
+    decimals: 18,
+    symbol: 'solvBTC',
+    asset: solvBtcLogo,
   },
 ];
