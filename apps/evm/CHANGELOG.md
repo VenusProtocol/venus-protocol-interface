@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.156.3
+
+### Patch Changes
+
+- 56dbc43: decouple nested components
+
 ## 2.156.2
 
 ### Patch Changes
