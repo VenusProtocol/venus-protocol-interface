@@ -14,7 +14,7 @@ export interface ApprovalStepsProps {
   secondStepButtonLabel: string;
 }
 
-interface AprrovalStepsExtraProps {
+interface ApprovalStepsExtraProps {
   approvalAction: () => Promise<unknown>;
   showApprovalSteps: boolean;
   isApprovalActionLoading: boolean;
@@ -25,7 +25,7 @@ interface AprrovalStepsExtraProps {
   secondStepLabel: string;
 }
 
-export const ApprovalSteps: React.FC<ApprovalStepsProps & AprrovalStepsExtraProps> = ({
+export const ApprovalSteps: React.FC<ApprovalStepsProps & ApprovalStepsExtraProps> = ({
   approvalAction,
   showApprovalSteps,
   isApprovalActionLoading,

@@ -7,7 +7,7 @@ import { theme } from 'theme';
 import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
-import { LabeledProgressBar } from '../ProgressBar/LabeledProgressBar';
+import { LabeledProgressBar } from '../LabeledProgressBar';
 import { useStyles } from './styles';
 
 interface ActiveVotingProgressProps {
