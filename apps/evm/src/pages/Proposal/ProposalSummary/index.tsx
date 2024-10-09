@@ -23,7 +23,7 @@ import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { displayMutationError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
+import { governanceChain, useAccountAddress } from 'libs/wallet';
 import { ChainId, type Proposal, ProposalState, ProposalType } from 'types';
 import { areAddressesEqual } from 'utilities';
 
@@ -279,7 +279,7 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   const { mutateAsync: queueProposal, isPending: isQueueProposalLoading } = useQueueProposal();
 
   const handleCancelProposal = () => cancelProposal({ proposalId });
-  const handleExecuteProposal = () => executeProposal({ proposalId });
+  const handleExecuteProposal = () => executeProposal({ proposalId, chainId: governanceChain.id });
   const handleQueueProposal = () => queueProposal({ proposalId });
 
   const { data: proposalThresholdData } = useGetProposalThreshold();
