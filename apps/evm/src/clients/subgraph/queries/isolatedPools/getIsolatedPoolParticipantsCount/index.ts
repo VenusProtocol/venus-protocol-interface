@@ -11,6 +11,6 @@ export interface GetIsolatedPoolParticipantsCountInput {
 export const getIsolatedPoolParticipantsCount = ({
   chainId,
 }: GetIsolatedPoolParticipantsCountInput) =>
-  config.subgraphUrls[chainId]?.markets
-    ? request(config.subgraphUrls[chainId]?.markets!, IsolatedPoolParticipantsCountDocument)
+  config.marketsSubgraphUrls[chainId]
+    ? request(config.marketsSubgraphUrls[chainId], IsolatedPoolParticipantsCountDocument)
     : undefined;

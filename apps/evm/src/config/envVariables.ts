@@ -1,11 +1,9 @@
 // Note: because Vite statically replaces env variables when building, we need
 // to reference each of them by their full name
 export const ENV_VARIABLES = {
-  NODE_ENV: typeof process !== 'undefined' ? process.env.NODE_ENV : undefined,
-  VITE_ENVIRONMENT:
-    typeof process !== 'undefined'
-      ? process.env.VITE_ENVIRONMENT
-      : import.meta.env.VITE_ENVIRONMENT,
+  VITE_ENV: typeof process !== 'undefined' ? process.env.VITE_ENV : import.meta.env.VITE_ENV,
+  VITE_NETWORK:
+    typeof process !== 'undefined' ? process.env.VITE_NETWORK : import.meta.env.VITE_NETWORK,
 
   // BSC mainnet
   VITE_RPC_HTTP_URL_BSC_MAINNET:
@@ -44,12 +42,24 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_OPBNB_MAINNET
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_OPBNB_MAINNET,
+  VITE_SUBGRAPH_GOVERNANCE_URL_OPBNB_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_OPBNB_MAINNET
+      : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_OPBNB_MAINNET,
 
   // opBNB testnet
   VITE_RPC_HTTP_URL_OPBNB_TESTNET:
     typeof process !== 'undefined'
       ? process.env.VITE_RPC_HTTP_URL_OPBNB_TESTNET
       : import.meta.env.VITE_RPC_HTTP_URL_OPBNB_TESTNET,
+  VITE_SUBGRAPH_MARKETS_URL_OPBNB_TESTNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_MARKETS_URL_OPBNB_TESTNET
+      : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_OPBNB_TESTNET,
+  VITE_SUBGRAPH_GOVERNANCE_URL_OPBNB_TESTNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_OPBNB_TESTNET
+      : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_OPBNB_TESTNET,
 
   // Ethereum
   VITE_RPC_HTTP_URL_ETHEREUM:
@@ -60,6 +70,10 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_ETHEREUM
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_ETHEREUM,
+  VITE_SUBGRAPH_GOVERNANCE_URL_ETHEREUM:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_ETHEREUM
+      : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_ETHEREUM,
 
   // Sepolia
   VITE_RPC_HTTP_URL_SEPOLIA:
@@ -70,6 +84,10 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_SEPOLIA
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_SEPOLIA,
+  VITE_SUBGRAPH_GOVERNANCE_URL_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_SEPOLIA
+      : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_SEPOLIA,
 
   // Arbitrum
   VITE_RPC_HTTP_URL_ARBITRUM_ONE:
@@ -80,6 +98,10 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_ONE
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_ONE,
+  VITE_SUBGRAPH_GOVERNANCE_URL_ARBITRUM_ONE:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_ARBITRUM_ONE
+      : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_ARBITRUM_ONE,
 
   // Arbitrum Sepolia
   VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA:
@@ -90,6 +112,10 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA
       : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA,
+  VITE_SUBGRAPH_GOVERNANCE_URL_ARBITRUM_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_ARBITRUM_SEPOLIA
+      : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_ARBITRUM_SEPOLIA,
 
   // zkSync Sepolia
   VITE_RPC_HTTP_URL_ZKSYNC_SEPOLIA:

@@ -5,7 +5,17 @@ export type NonNullableFields<T> = Required<{
   [P in keyof T]: NonNullable<T[P]>;
 }>;
 
-export type Environment = 'storybook' | 'ci' | 'testnet' | 'preview' | 'mainnet';
+export type Environment =
+  | 'storybook'
+  | 'ci'
+  | 'local'
+  | 'preview' // Automatically generated environments when opening PRs and fixed preview environments
+  | 'production';
+
+export type Network =
+  | 'testnet'
+  | 'mainnet-preview' // mainnet too, but will hit the preview API
+  | 'mainnet';
 
 export enum ChainId {
   BSC_MAINNET = 56,
@@ -31,6 +41,9 @@ export interface ChainMetadata {
   nativeToken: Token;
   layerZeroScanUrl: string;
   corePoolComptrollerContractAddress: string;
+  rpcUrl: string;
+  marketsSubgraphUrl?: string;
+  governanceSubgraphUrl?: string;
   lstPoolVWstEthContractAddress?: string;
   lstPoolComptrollerContractAddress?: string;
   proposalExecutionGracePeriodMs?: number;

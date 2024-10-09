@@ -1,22 +1,23 @@
-import { API_ENDPOINT_URLS } from 'constants/endpoints';
-import { ChainId, type Environment } from 'types';
-
+import { apiUrls } from 'constants/api';
+import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { productionHosts } from 'constants/production';
+import { ChainId, type Environment, type Network } from 'types';
+import { extractEnumValues } from 'utilities/extractEnumValues';
 import { ENV_VARIABLES } from './envVariables';
 
 export interface Config {
   environment: Environment;
-  isOnTestnet: boolean;
-  isLocalServer: boolean;
+  network: Network;
   apiUrl: string;
   rpcUrls: {
     [chainId in ChainId]: string;
   };
-  subgraphUrls: Partial<{
-    [chainId in ChainId]: {
-      markets?: string;
-      governance?: string;
-    };
-  }>;
+  marketsSubgraphUrls: {
+    [chainId in ChainId]: string;
+  };
+  governanceSubgraphUrls: {
+    [chainId in ChainId]: string;
+  };
   sentryDsn: string;
   posthog: {
     apiKey: string;
@@ -24,80 +25,66 @@ export interface Config {
   };
 }
 
-const environment: Environment =
-  (ENV_VARIABLES.VITE_ENVIRONMENT as Environment | undefined) || 'mainnet';
+let environment: Environment = 'preview';
 
-const isOnTestnet =
-  environment === 'testnet' || environment === 'storybook' || environment === 'ci';
+if (ENV_VARIABLES.VITE_ENV) {
+  environment = ENV_VARIABLES.VITE_ENV;
+} else if (typeof window !== 'undefined' && productionHosts.includes(window.location.host)) {
+  environment = 'production';
+} else if (import.meta.env.DEV) {
+  environment = 'local';
+}
 
-const isLocalServer = import.meta.env.DEV && environment !== 'ci' && environment !== 'storybook';
+const network: Network = ENV_VARIABLES.VITE_NETWORK || 'mainnet';
 
-const rpcUrls = {
-  [ChainId.BSC_MAINNET]: ENV_VARIABLES.VITE_RPC_HTTP_URL_BSC_MAINNET,
-  [ChainId.BSC_TESTNET]: ENV_VARIABLES.VITE_RPC_HTTP_URL_BSC_TESTNET,
-  [ChainId.OPBNB_MAINNET]: ENV_VARIABLES.VITE_RPC_HTTP_URL_OPBNB_MAINNET,
-  [ChainId.OPBNB_TESTNET]: ENV_VARIABLES.VITE_RPC_HTTP_URL_OPBNB_TESTNET,
-  [ChainId.ETHEREUM]: ENV_VARIABLES.VITE_RPC_HTTP_URL_ETHEREUM,
-  [ChainId.SEPOLIA]: ENV_VARIABLES.VITE_RPC_HTTP_URL_SEPOLIA,
-  [ChainId.ARBITRUM_ONE]: ENV_VARIABLES.VITE_RPC_HTTP_URL_ARBITRUM_ONE,
-  [ChainId.ARBITRUM_SEPOLIA]: ENV_VARIABLES.VITE_RPC_HTTP_URL_ARBITRUM_SEPOLIA,
-  [ChainId.ZKSYNC_MAINNET]: ENV_VARIABLES.VITE_RPC_HTTP_URL_ZKSYNC_MAINNET,
-  [ChainId.ZKSYNC_SEPOLIA]: ENV_VARIABLES.VITE_RPC_HTTP_URL_ZKSYNC_SEPOLIA,
-  [ChainId.OPTIMISM_MAINNET]: ENV_VARIABLES.VITE_RPC_HTTP_URL_OPTIMISM_MAINNET,
-  [ChainId.OPTIMISM_SEPOLIA]: ENV_VARIABLES.VITE_RPC_HTTP_URL_OPTIMISM_SEPOLIA,
-};
+const chainIds = extractEnumValues(ChainId);
 
-const subgraphUrls = {
-  [ChainId.BSC_MAINNET]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_BSC_MAINNET,
-    governance: ENV_VARIABLES.VITE_SUBGRAPH_GOVERNANCE_URL_BSC_MAINNET,
-  },
-  [ChainId.BSC_TESTNET]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_BSC_TESTNET,
-    governance: ENV_VARIABLES.VITE_SUBGRAPH_GOVERNANCE_URL_BSC_TESTNET,
-  },
-  [ChainId.OPBNB_MAINNET]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_OPBNB_MAINNET,
-  },
-  [ChainId.ETHEREUM]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_ETHEREUM,
-  },
-  [ChainId.SEPOLIA]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_SEPOLIA,
-  },
-  [ChainId.ARBITRUM_ONE]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_ONE,
-  },
-  [ChainId.ARBITRUM_SEPOLIA]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_ARBITRUM_SEPOLIA,
-  },
-  [ChainId.ZKSYNC_MAINNET]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_ZKSYNC_MAINNET,
-    governance: ENV_VARIABLES.VITE_SUBGRAPH_GOVERNANCE_URL_ZKSYNC_MAINNET,
-  },
-  [ChainId.ZKSYNC_SEPOLIA]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_ZKSYNC_SEPOLIA,
-    governance: ENV_VARIABLES.VITE_SUBGRAPH_GOVERNANCE_URL_ZKSYNC_SEPOLIA,
-  },
-  [ChainId.OPTIMISM_MAINNET]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_OPTIMISM_MAINNET,
-    governance: ENV_VARIABLES.VITE_SUBGRAPH_GOVERNANCE_URL_OPTIMISM_MAINNET,
-  },
-  [ChainId.OPTIMISM_SEPOLIA]: {
-    markets: ENV_VARIABLES.VITE_SUBGRAPH_MARKETS_URL_OPTIMISM_SEPOLIA,
-    governance: ENV_VARIABLES.VITE_SUBGRAPH_GOVERNANCE_URL_OPTIMISM_SEPOLIA,
-  },
-};
+const { rpcUrls, marketsSubgraphUrls, governanceSubgraphUrls } = chainIds.reduce(
+  (acc, chainId) => {
+    const chainKey = ChainId[chainId];
+    const chainMetadata = CHAIN_METADATA[chainId];
 
-const apiUrl = API_ENDPOINT_URLS[environment];
+    return {
+      rpcUrls: {
+        ...acc.rpcUrls,
+        [chainId]:
+          ENV_VARIABLES[`VITE_RPC_HTTP_URL_${chainKey}` as keyof typeof ENV_VARIABLES] ||
+          chainMetadata.rpcUrl,
+      },
+      marketsSubgraphUrls: {
+        ...acc.marketsSubgraphUrls,
+        [chainId]:
+          ENV_VARIABLES[`VITE_SUBGRAPH_MARKETS_URL_${chainKey}` as keyof typeof ENV_VARIABLES] ||
+          chainMetadata.marketsSubgraphUrl,
+      },
+      governanceSubgraphUrls: {
+        ...acc.governanceSubgraphUrls,
+        [chainId]:
+          ENV_VARIABLES[`VITE_SUBGRAPH_GOVERNANCE_URL_${chainKey}` as keyof typeof ENV_VARIABLES] ||
+          chainMetadata.governanceSubgraphUrl,
+      },
+    };
+  },
+  {
+    rpcUrls: {},
+    marketsSubgraphUrls: {},
+    governanceSubgraphUrls: {},
+  } as {
+    rpcUrls: Record<ChainId, string>;
+    marketsSubgraphUrls: Record<ChainId, string>;
+    governanceSubgraphUrls: Record<ChainId, string>;
+  },
+);
+
+const apiUrl = apiUrls[network];
 
 const config: Config = {
   environment,
-  isOnTestnet,
-  isLocalServer,
+  network,
   apiUrl,
   rpcUrls,
-  subgraphUrls,
+  marketsSubgraphUrls,
+  governanceSubgraphUrls,
   sentryDsn: ENV_VARIABLES.VITE_SENTRY_DSN || '',
   posthog: {
     apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',
