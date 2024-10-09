@@ -178,7 +178,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
     latestProposalStateData?.state !== 1;
 
   return (
-    <div className={cn(className, 'space-y-4 md:space-y-6')}>
+    <div className={cn(className, 'space-y-4 md:space-y-6')} data-testid={TEST_IDS.proposalList}>
       <div className="flex justify-between items-end">
         <h4 className="text-lg">{t('vote.proposals')}</h4>
 

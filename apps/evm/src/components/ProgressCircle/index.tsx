@@ -18,7 +18,7 @@ export const ProgressCircle: React.FC<ProgressCircleProps> = ({
 }) => {
   const theme = useTheme();
 
-  const strokeWidthPx = size === 'sm' ? 3 : 4;
+  const strokeWidthPx = size === 'sm' ? 3 : 6;
   const sizePx = size === 'sm' ? 16 : 50;
 
   const { circumference, offset } = useMemo(() => {
