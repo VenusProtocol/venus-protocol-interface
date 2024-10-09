@@ -32,7 +32,7 @@ export const useIsProposalCancelableByUser = ({
     !proposalVotesMantissa ||
     proposalVotesMantissa.isGreaterThanOrEqualTo(proposalThresholdMantissa);
 
-  const isCancelable = userIsProposer || !proposerHasEnoughVotingPower;
+  const isCancelable = hasCorrectState && (userIsProposer || !proposerHasEnoughVotingPower);
 
   return {
     isCancelable,

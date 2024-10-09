@@ -659,6 +659,7 @@
   },
   "proposalState": {
     "active": "Active",
+    "bridged": "Bridged",
     "canceled": "Canceled",
     "created": "Created",
     "defeated": "Defeated",
@@ -1109,14 +1110,7 @@
         "title": "Operations"
       },
       "status": {
-        "active": "Active",
-        "bridged": "Bridged",
-        "canceled": "Canceled",
-        "defeated": "Defeated",
-        "executed": "Executed",
-        "expired": "Expired",
-        "pending": "Pending",
-        "queued": "Queued"
+        "pending": "Pending"
       }
     },
     "commands": {
@@ -1151,6 +1145,10 @@
     },
     "queueButtonLabel": "Queue",
     "queuedUntilDate": "Queued until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "status": {
+      "executedPayloads": "Executed payloads",
+      "readyForExecution": "Ready for execution"
+    },
     "statusCard": {
       "ariaLabelAbstain": "votes abstain",
       "ariaLabelAgainst": "votes against",

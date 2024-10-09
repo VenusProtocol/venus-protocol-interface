@@ -35,25 +35,25 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({
     let tmpStatus = t('voteProposalUi.command.status.pending');
 
     if (state === RemoteProposalState.Bridged) {
-      tmpStatus = t('voteProposalUi.command.status.bridged');
+      tmpStatus = t('proposalState.bridged');
     }
 
     if (state === RemoteProposalState.Canceled) {
-      tmpStatus = t('voteProposalUi.command.status.canceled');
+      tmpStatus = t('proposalState.canceled');
       tmpType = 'error';
     }
 
     if (state === RemoteProposalState.Queued) {
-      tmpStatus = t('voteProposalUi.command.status.queued');
+      tmpStatus = t('proposalState.queued');
     }
 
     if (state === RemoteProposalState.Executed) {
-      tmpStatus = t('voteProposalUi.command.status.executed');
+      tmpStatus = t('proposalState.executed');
       tmpType = 'success';
     }
 
     if (state === RemoteProposalState.Expired) {
-      tmpStatus = t('voteProposalUi.command.status.expired');
+      tmpStatus = t('proposalState.expired');
       tmpType = 'error';
     }
 

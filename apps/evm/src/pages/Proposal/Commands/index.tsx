@@ -17,7 +17,7 @@ export interface CommandsProps extends CardProps {
 export const Commands: React.FC<CommandsProps> = ({ proposal, ...otherProps }) => {
   const { t } = useTranslation();
 
-  const [totalPayloadsCount, successfulPayloadsCount] = useMemo(() => {
+  const [totalPayloadsCount, executedPayloadsCount] = useMemo(() => {
     const totalCount = 1 + proposal.remoteProposals.length; // BSC proposal + Remote proposals
 
     let count = proposal.remoteProposals.reduce(
@@ -38,7 +38,7 @@ export const Commands: React.FC<CommandsProps> = ({ proposal, ...otherProps }) =
         <h3 className="text-lg">{t('voteProposalUi.commands.title')}</h3>
 
         <Progress
-          successfulPayloadsCount={successfulPayloadsCount}
+          executedPayloadsCount={executedPayloadsCount}
           totalPayloadsCount={totalPayloadsCount}
         />
       </div>

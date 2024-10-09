@@ -10,7 +10,7 @@ exports[`ProposalUi page - Feature enabled: multichainGovernance > renders BSC c
 
 exports[`ProposalUi page - Feature enabled: multichainGovernance > renders BSC command correctly. Proposal state: 4 1`] = `"CommandsExecuted payloads0/1BNB testnetQueueQueue"`;
 
-exports[`ProposalUi page - Feature enabled: multichainGovernance > renders BSC command correctly. Proposal state: 5 1`] = `"CommandsExecuted payloads0/1BNB testnetWaiting for queueing period to endQueuedExecutable at 15 Mar 2024 12:00 PM"`;
+exports[`ProposalUi page - Feature enabled: multichainGovernance > renders BSC command correctly. Proposal state: 5 1`] = `"CommandsExecuted payloads0/1BNB testnetWaiting for queueing period to endQueued20 Sep 2023 09:54 AMExecutable at 15 Mar 2024 12:00 PM"`;
 
 exports[`ProposalUi page - Feature enabled: multichainGovernance > renders BSC command correctly. Proposal state: 5 2`] = `"CommandsExecuted payloads0/1BNB testnetExecuteExecute"`;
 

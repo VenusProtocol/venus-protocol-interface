@@ -317,6 +317,7 @@ export const useGetCurrentVotes = vi.fn(() =>
 
 export const getProposals = vi.fn(async () => ({
   proposals,
+  total: 100,
 }));
 export const useGetProposals = vi.fn(() =>
   useQuery({
