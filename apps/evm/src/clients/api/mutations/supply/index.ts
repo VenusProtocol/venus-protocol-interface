@@ -1,10 +1,15 @@
 import type BigNumber from 'bignumber.js';
 import type { Signer } from 'ethers';
 
-import { type VBnb, getNativeTokenGatewayContract, getVTokenContract } from 'libs/contracts';
+import {
+  type NativeTokenGateway,
+  type VBep20,
+  type VBnb,
+  getNativeTokenGatewayContract,
+  getVTokenContract,
+} from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { ContractTransaction, VToken } from 'types';
-import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
+import type { ContractTxData, VToken } from 'types';
 
 interface SharedInput {
   amountMantissa: BigNumber;
@@ -24,7 +29,9 @@ export interface WrapAndSupplyMutationInput extends SharedInput {
 
 export type SupplyInput = SupplyMutationInput | WrapAndSupplyMutationInput;
 
-export type SupplyOutput = ContractTransaction;
+export type SupplyOutput =
+  | ContractTxData<VBep20 | VBnb, 'mint'>
+  | ContractTxData<NativeTokenGateway, 'wrapAndSupply'>;
 
 const supply = async (input: SupplyInput): Promise<SupplyOutput> => {
   // Handle wrap and supply flow
@@ -44,14 +51,14 @@ const supply = async (input: SupplyInput): Promise<SupplyOutput> => {
   }
 
   if (input.wrap) {
-    return requestGaslessTransaction(
-      nativeTokenGatewayContract!,
-      'wrapAndSupply',
-      [input.accountAddress],
-      {
+    return {
+      contract: nativeTokenGatewayContract!,
+      methodName: 'wrapAndSupply',
+      args: [input.accountAddress],
+      overrides: {
         value: input.amountMantissa.toFixed(),
       },
-    );
+    };
   }
 
   // Handle supplying BNB
@@ -61,14 +68,19 @@ const supply = async (input: SupplyInput): Promise<SupplyOutput> => {
       signerOrProvider: input.signer,
     }) as VBnb;
 
-    return requestGaslessTransaction(tokenContract, 'mint', [], {
-      value: input.amountMantissa.toFixed(),
-    });
+    return {
+      contract: tokenContract,
+      methodName: 'mint',
+      args: [],
+      overrides: {
+        value: input.amountMantissa.toFixed(),
+      },
+    };
   }
 
   // Handle supplying tokens other that BNB
   const tokenContract = getVTokenContract({ vToken: input.vToken, signerOrProvider: input.signer });
-  return requestGaslessTransaction(tokenContract, 'mint', [input.amountMantissa.toFixed()]);
+  return { contract: tokenContract, methodName: 'mint', args: [input.amountMantissa.toFixed()] };
 };
 
 export default supply;

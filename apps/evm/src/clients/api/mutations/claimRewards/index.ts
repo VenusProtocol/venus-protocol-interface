@@ -7,7 +7,6 @@ import rewardsDistributorContractAbi from 'libs/contracts/generated/infos/abis/R
 import vaiVaultContractAbi from 'libs/contracts/generated/infos/abis/VaiVault.json';
 import xvsVaultContractAbi from 'libs/contracts/generated/infos/abis/XvsVault.json';
 
-import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
 import type { ClaimRewardsInput, ClaimRewardsOutput } from './types';
 
 export * from './types';
@@ -106,7 +105,7 @@ const claimRewards = async ({
     return acc;
   }, []);
 
-  return requestGaslessTransaction(multicallContract, 'tryBlockAndAggregate', [true, calls]);
+  return { contract: multicallContract, methodName: 'tryBlockAndAggregate', args: [true, calls] };
 };
 
 export default claimRewards;

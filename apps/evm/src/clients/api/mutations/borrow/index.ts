@@ -2,8 +2,7 @@ import type BigNumber from 'bignumber.js';
 
 import type { NativeTokenGateway, VBep20, VBnb } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { ContractTransaction } from 'types';
-import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
+import type { ContractTxData } from 'types';
 
 export interface BorrowInput {
   amountMantissa: BigNumber;
@@ -12,7 +11,11 @@ export interface BorrowInput {
   nativeTokenGatewayContract?: NativeTokenGateway;
 }
 
-export type BorrowOutput = ContractTransaction;
+type BorrowAndUnwrapTxOuput = ContractTxData<NativeTokenGateway, 'borrowAndUnwrap'>;
+
+type BorrowTxOutput = ContractTxData<VBep20 | VBnb, 'borrow'>;
+
+export type BorrowOutput = BorrowAndUnwrapTxOuput | BorrowTxOutput;
 
 const borrow = async ({
   vTokenContract,
@@ -29,9 +32,11 @@ const borrow = async ({
   }
 
   if (unwrap && nativeTokenGatewayContract) {
-    return requestGaslessTransaction(nativeTokenGatewayContract, 'borrowAndUnwrap', [
-      amountMantissa.toFixed(),
-    ]) as Promise<BorrowOutput>;
+    return {
+      contract: nativeTokenGatewayContract,
+      methodName: 'borrowAndUnwrap',
+      args: [amountMantissa.toFixed()],
+    };
   }
 
   if (!vTokenContract) {
@@ -42,7 +47,11 @@ const borrow = async ({
   }
 
   // Handle borrow flow
-  return requestGaslessTransaction(vTokenContract, 'borrow', [amountMantissa.toFixed()]);
+  return {
+    contract: vTokenContract,
+    methodName: 'borrow',
+    args: [amountMantissa.toFixed()],
+  };
 };
 
 export default borrow;

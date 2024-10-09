@@ -1,19 +1,22 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction } from 'ethers';
 
 import type { VaiVault } from 'libs/contracts';
+import type { ContractTxData } from 'types';
 
 export interface StakeInVaiVaultInput {
   vaiVaultContract: VaiVault;
   amountMantissa: BigNumber;
 }
 
-export type StakeInVaiVaultOutput = ContractTransaction;
+export type StakeInVaiVaultOutput = ContractTxData<VaiVault, 'deposit'>;
 
 const stakeInVaiVault = async ({
   vaiVaultContract,
   amountMantissa,
-}: StakeInVaiVaultInput): Promise<StakeInVaiVaultOutput> =>
-  vaiVaultContract.deposit(amountMantissa.toFixed());
+}: StakeInVaiVaultInput): Promise<StakeInVaiVaultOutput> => ({
+  contract: vaiVaultContract,
+  methodName: 'deposit',
+  args: [amountMantissa.toFixed()],
+});
 
 export default stakeInVaiVault;

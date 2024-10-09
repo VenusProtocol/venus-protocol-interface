@@ -1,19 +1,22 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction } from 'ethers';
 
 import type { VaiController } from 'libs/contracts';
+import type { ContractTxData } from 'types';
 
 export interface RepayVaiInput {
   amountMantissa: BigNumber;
   vaiControllerContract: VaiController;
 }
 
-export type IRepayVaiOutput = ContractTransaction;
+export type IRepayVaiOutput = ContractTxData<VaiController, 'repayVAI'>;
 
 const repayVai = async ({
   vaiControllerContract,
   amountMantissa,
-}: RepayVaiInput): Promise<IRepayVaiOutput> =>
-  vaiControllerContract.repayVAI(amountMantissa.toFixed());
+}: RepayVaiInput): Promise<IRepayVaiOutput> => ({
+  contract: vaiControllerContract,
+  methodName: 'repayVAI',
+  args: [amountMantissa.toFixed()],
+});
 
 export default repayVai;

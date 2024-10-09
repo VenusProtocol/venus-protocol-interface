@@ -1,18 +1,23 @@
 import type { IsolatedPoolComptroller, LegacyPoolComptroller } from 'libs/contracts';
-import type { ContractTransaction, VToken } from 'types';
-import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
+import type { ContractTxData, VToken } from 'types';
 
 export type ExitMarketInput = {
   comptrollerContract: LegacyPoolComptroller | IsolatedPoolComptroller;
   vToken: VToken;
 };
 
-export type ExitMarketOutput = ContractTransaction;
+export type ExitMarketOutput = ContractTxData<
+  LegacyPoolComptroller | IsolatedPoolComptroller,
+  'exitMarket'
+>;
 
 const exitMarket = async ({
   comptrollerContract,
   vToken,
-}: ExitMarketInput): Promise<ExitMarketOutput> =>
-  requestGaslessTransaction(comptrollerContract, 'exitMarket', [vToken.address]);
+}: ExitMarketInput): Promise<ExitMarketOutput> => ({
+  contract: comptrollerContract,
+  methodName: 'exitMarket',
+  args: [vToken.address],
+});
 
 export default exitMarket;

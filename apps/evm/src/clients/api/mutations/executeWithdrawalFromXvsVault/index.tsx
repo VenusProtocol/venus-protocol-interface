@@ -1,6 +1,5 @@
 import type { XvsVault } from 'libs/contracts';
-import type { ContractTransaction } from 'types';
-import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
+import type { ContractTxData } from 'types';
 
 export interface ExecuteWithdrawalFromXvsVaultInput {
   xvsVaultContract: XvsVault;
@@ -8,13 +7,16 @@ export interface ExecuteWithdrawalFromXvsVaultInput {
   poolIndex: number;
 }
 
-export type ExecuteWithdrawalFromXvsVaultOutput = ContractTransaction;
+export type ExecuteWithdrawalFromXvsVaultOutput = ContractTxData<XvsVault, 'executeWithdrawal'>;
 
 const executeWithdrawalFromXvsVault = async ({
   xvsVaultContract,
   rewardTokenAddress,
   poolIndex,
-}: ExecuteWithdrawalFromXvsVaultInput): Promise<ExecuteWithdrawalFromXvsVaultOutput> =>
-  requestGaslessTransaction(xvsVaultContract, 'executeWithdrawal', [rewardTokenAddress, poolIndex]);
+}: ExecuteWithdrawalFromXvsVaultInput): Promise<ExecuteWithdrawalFromXvsVaultOutput> => ({
+  contract: xvsVaultContract,
+  methodName: 'executeWithdrawal',
+  args: [rewardTokenAddress, poolIndex],
+});
 
 export default executeWithdrawalFromXvsVault;
