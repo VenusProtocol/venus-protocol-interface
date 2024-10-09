@@ -15,6 +15,8 @@ exports[`useGetCachedProposal > returns proposal from cache when it exists 1`] =
   },
   "endBlock": 33499859,
   "endDate": 2023-09-20T07:54:35.000Z,
+  "executedDate": 2023-09-21T07:54:35.000Z,
+  "executionEtaDate": 2023-09-21T06:54:35.000Z,
   "forVotes": [
     {
       "address": "0x2ce1d0ffd7e869d9df33e28552b12ddded326706",
@@ -29,6 +31,7 @@ exports[`useGetCachedProposal > returns proposal from cache when it exists 1`] =
   "proposalId": 98,
   "proposalType": 0,
   "proposerAddress": "0x2ce1d0ffd7e869d9df33e28552b12ddded326706",
+  "queuedDate": 2023-09-20T09:54:35.000Z,
   "remoteProposals": [
     {
       "bridgedDate": 2023-02-01T00:00:00.000Z,
@@ -183,7 +186,7 @@ exports[`useGetCachedProposal > returns proposal from cache when it exists 1`] =
     },
   ],
   "startDate": 2023-09-20T07:47:05.000Z,
-  "state": 3,
+  "state": 7,
   "totalVotesMantissa": "6.05461e+23",
 }
 `;

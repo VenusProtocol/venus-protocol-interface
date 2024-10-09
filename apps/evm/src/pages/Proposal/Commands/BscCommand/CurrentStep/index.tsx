@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
 import { type Proposal, ProposalState } from 'types';
+import { getProposalStateLabel } from 'utilities';
 import { Status, type StatusProps } from '../../Status';
 
 export type CurrentStepProps = React.HTMLAttributes<HTMLDivElement> &
@@ -34,38 +35,21 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({
 
   const [type, status] = useMemo<[StatusProps['type'], string]>(() => {
     let tmpType: StatusProps['type'] = 'info';
-    let tmpStatus = t('voteProposalUi.command.status.pending');
 
-    if (state === ProposalState.Canceled) {
-      tmpStatus = t('voteProposalUi.command.status.canceled');
+    const tmpStatus = getProposalStateLabel({ state });
+
+    if (
+      state === ProposalState.Canceled ||
+      state === ProposalState.Defeated ||
+      state === ProposalState.Expired
+    ) {
       tmpType = 'error';
-    }
-
-    if (state === ProposalState.Defeated) {
-      tmpStatus = t('voteProposalUi.command.status.defeated');
-      tmpType = 'error';
-    }
-
-    if (state === ProposalState.Expired) {
-      tmpStatus = t('voteProposalUi.command.status.expired');
-      tmpType = 'error';
-    }
-
-    if (state === ProposalState.Active) {
-      tmpStatus = t('voteProposalUi.command.status.active');
-    }
-
-    if (state === ProposalState.Queued) {
-      tmpStatus = t('voteProposalUi.command.status.queued');
-    }
-
-    if (state === ProposalState.Executed) {
-      tmpStatus = t('voteProposalUi.command.status.executed');
+    } else if (state === ProposalState.Executed) {
       tmpType = 'success';
     }
 
     return [tmpType, tmpStatus];
-  }, [state, t]);
+  }, [state]);
 
   const previousStepDate = useMemo(() => {
     if (state === ProposalState.Pending) {
