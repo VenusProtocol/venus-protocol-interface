@@ -261,7 +261,7 @@ describe('ProposalUi page - Feature enabled: multichainGovernance', () => {
     });
   });
 
-  it('does not allow user to cancel if voting power of the proposer is greater than or equals threshold', async () => {
+  it('does not let user cancel if the BSC proposal if voting power of the proposer is greater than or equals threshold', async () => {
     const cancelMock = vi.fn();
     (useCancelProposal as Vi.Mock).mockImplementation(() => ({
       mutateAsync: cancelMock,
@@ -269,6 +269,27 @@ describe('ProposalUi page - Feature enabled: multichainGovernance', () => {
 
     renderComponent(<ProposalUi />, {
       accountAddress: fakeAccountAddress,
+    });
+
+    expect(
+      screen.queryByText(en.voteProposalUi.command.actionButton.cancel),
+    ).not.toBeInTheDocument();
+  });
+
+  it('does not let user cancel the BSC proposal if it has passed the succeeded state', async () => {
+    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+      data: {
+        proposal: succeededProposal,
+      },
+    }));
+
+    const cancelMock = vi.fn();
+    (useCancelProposal as Vi.Mock).mockImplementation(() => ({
+      mutateAsync: cancelMock,
+    }));
+
+    renderComponent(<ProposalUi />, {
+      accountAddress: activeProposal.proposerAddress,
     });
 
     expect(

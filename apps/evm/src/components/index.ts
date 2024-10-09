@@ -20,6 +20,7 @@ export * from './Notice';
 export * from './Pagination';
 export * from './ProgressBar';
 export * from './ProgressCircle';
+export * from './LabeledProgressCircle';
 export * from './ProposalCard';
 export * from './Card';
 export * from './ProgressBar';

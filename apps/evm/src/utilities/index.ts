@@ -53,3 +53,4 @@ export * from './extractEnumValues';
 export * from './getProposalType';
 export * from './getProposalState';
 export * from './getUserVoteSupport';
+export * from './getProposalStateLabel';

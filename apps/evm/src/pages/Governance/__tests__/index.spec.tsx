@@ -1,4 +1,4 @@
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import type Vi from 'vitest';
@@ -45,6 +45,20 @@ describe('Governance', () => {
 
   it('renders without crashing', async () => {
     renderComponent(<Governance />);
+  });
+
+  it('displays proposals correctly', async () => {
+    renderComponent(<Governance />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    // Wait for list to be displayed
+    const firstProposalId = proposals[0].proposalId.toString();
+    await waitFor(async () =>
+      screen.getByTestId(GOVERNANCE_PROPOSAL_TEST_IDS.governanceProposal(firstProposalId)),
+    );
+
+    expect(screen.getByTestId(TEST_IDS.proposalList).textContent).toMatchSnapshot();
   });
 
   it('opens create proposal modal when clicking text if user has enough voting weight', async () => {
