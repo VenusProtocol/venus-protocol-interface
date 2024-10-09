@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.157.0
+
+### Minor Changes
+
+- 813e108: add support for solvBTC token on BSC mainnet and testnet
+
 ## 2.156.3
 
 ### Patch Changes
