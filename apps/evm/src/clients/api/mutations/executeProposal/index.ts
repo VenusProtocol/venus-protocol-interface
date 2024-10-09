@@ -1,18 +1,17 @@
 import type { ContractTransaction } from 'ethers';
 
-import type { GovernorBravoDelegate } from 'libs/contracts';
+import type { GovernorBravoDelegate, OmnichainGovernanceExecutor } from 'libs/contracts';
 
 export interface ExecuteProposalInput {
-  governorBravoDelegateContract: GovernorBravoDelegate;
+  contract: GovernorBravoDelegate | OmnichainGovernanceExecutor;
   proposalId: number;
 }
 
 export type ExecuteProposalOutput = ContractTransaction;
 
 const executeProposal = async ({
-  governorBravoDelegateContract,
+  contract,
   proposalId,
-}: ExecuteProposalInput): Promise<ExecuteProposalOutput> =>
-  governorBravoDelegateContract.execute(proposalId);
+}: ExecuteProposalInput): Promise<ExecuteProposalOutput> => contract.execute(proposalId);
 
 export default executeProposal;

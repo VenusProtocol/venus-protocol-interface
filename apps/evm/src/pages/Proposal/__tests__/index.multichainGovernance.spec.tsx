@@ -30,8 +30,6 @@ vi.mock('hooks/useNow');
 vi.mock('hooks/useVote');
 vi.mock('hooks/useIsFeatureEnabled');
 
-const fakeNow = new Date('2024-03-15T12:00:00Z');
-
 const proposal = proposals[0];
 const remoteProposal: RemoteProposal = {
   proposalId: 1,
@@ -45,11 +43,15 @@ const activeProposal = proposals[1];
 const succeededProposal = proposals[4];
 const queuedProposal = proposals[5];
 
+const fakeNow = new Date(
+  activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5),
+);
+
 describe('ProposalUi page - Feature enabled: multichainGovernance', () => {
   beforeEach(() => {
-    vi.useFakeTimers().setSystemTime(
-      activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5),
-    );
+    vi.useFakeTimers().setSystemTime(fakeNow);
+
+    (useNow as Vi.Mock).mockImplementation(() => fakeNow);
 
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -60,8 +62,6 @@ describe('ProposalUi page - Feature enabled: multichainGovernance', () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'multichainGovernance',
     );
-
-    (useNow as Vi.Mock).mockImplementation(() => fakeNow);
   });
 
   it('renders without crashing', async () => {
@@ -320,7 +320,7 @@ describe('ProposalUi page - Feature enabled: multichainGovernance', () => {
 
     fireEvent.click(queueButton!);
 
-    await waitFor(() => expect(queueMock).toHaveBeenCalled());
+    await waitFor(() => expect(queueMock).toHaveBeenCalledTimes(1));
   });
 
   it('lets user queue the BSC proposal', async () => {
@@ -346,18 +346,18 @@ describe('ProposalUi page - Feature enabled: multichainGovernance', () => {
 
     fireEvent.click(queueButton!);
 
-    await waitFor(() => expect(queueMock).toHaveBeenCalled());
+    await waitFor(() => expect(queueMock).toHaveBeenCalledTimes(1));
   });
 
   it('lets user execute the BSC proposal', async () => {
-    const customFakeProposal: Proposal = {
+    const customProposal: Proposal = {
       ...queuedProposal,
       executionEtaDate: new Date(fakeNow.getTime() - 1000),
     };
 
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
       data: {
-        proposal: customFakeProposal,
+        proposal: customProposal,
       },
     }));
 
@@ -377,10 +377,53 @@ describe('ProposalUi page - Feature enabled: multichainGovernance', () => {
 
     fireEvent.click(executeButton!);
 
-    await waitFor(() => expect(executeMock).toHaveBeenCalled());
+    await waitFor(() => expect(executeMock).toHaveBeenCalledTimes(1));
+    expect(executeMock).toHaveBeenCalledWith({
+      proposalId: customProposal.proposalId,
+      chainId: ChainId.BSC_TESTNET,
+    });
   });
 
-  it.todo('lets user execute a remote proposal'); // see VEN-2701
+  it('lets user execute a remote proposal', async () => {
+    const executableRemoteProposal: RemoteProposal = {
+      ...queuedProposal.remoteProposals[3],
+      executionEtaDate: new Date(fakeNow.getTime() - 1000),
+    };
+
+    const executedProposal: Proposal = {
+      ...proposal,
+      remoteProposals: [executableRemoteProposal],
+    };
+
+    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+      data: {
+        proposal: executedProposal,
+      },
+    }));
+
+    const executeMock = vi.fn();
+    (useExecuteProposal as Vi.Mock).mockImplementation(() => ({
+      mutateAsync: executeMock,
+    }));
+
+    renderComponent(<ProposalUi />, {
+      accountAddress: fakeAccountAddress,
+      chainId: executableRemoteProposal.chainId,
+    });
+
+    const executeButton = screen
+      .getAllByText(en.voteProposalUi.command.cta.execute)[0]
+      .closest('button');
+    expect(executeButton).toBeInTheDocument();
+
+    fireEvent.click(executeButton!);
+
+    await waitFor(() => expect(executeMock).toHaveBeenCalledTimes(1));
+    expect(executeMock).toHaveBeenCalledWith({
+      chainId: executableRemoteProposal.chainId,
+      proposalId: executableRemoteProposal.remoteProposalId,
+    });
+  });
 
   it('renders description correctly', async () => {
     renderComponent(<ProposalUi />);
