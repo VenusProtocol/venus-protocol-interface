@@ -1,18 +1,21 @@
 import type { Bep20, Vai, Vrt, Xvs } from 'libs/contracts';
-import type { ContractTransaction } from 'types';
-import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
+import type { ContractTxData } from 'types';
 
+type RevokeSpendingLimitContracts = Vai | Bep20 | Vrt | Xvs;
 export interface RevokeSpendingLimitInput {
-  tokenContract: Vai | Bep20 | Vrt | Xvs;
+  tokenContract: RevokeSpendingLimitContracts;
   spenderAddress: string;
 }
 
-export type RevokeSpendingLimitOutput = ContractTransaction;
+export type RevokeSpendingLimitOutput = ContractTxData<RevokeSpendingLimitContracts, 'approve'>;
 
 const revokeSpendingLimit = async ({
   tokenContract,
   spenderAddress,
-}: RevokeSpendingLimitInput): Promise<RevokeSpendingLimitOutput> =>
-  requestGaslessTransaction(tokenContract, 'approve', [spenderAddress, 0]);
+}: RevokeSpendingLimitInput): Promise<RevokeSpendingLimitOutput> => ({
+  contract: tokenContract,
+  methodName: 'approve',
+  args: [spenderAddress, 0],
+});
 
 export default revokeSpendingLimit;

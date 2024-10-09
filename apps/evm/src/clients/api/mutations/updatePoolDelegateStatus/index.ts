@@ -1,5 +1,5 @@
 import type { IsolatedPoolComptroller } from 'libs/contracts';
-import { requestGaslessTransaction } from 'utilities/requestGaslessTransaction';
+import type { ContractTxData } from 'types';
 
 export interface UpdatePoolDelegateStatusInput {
   poolComptrollerContract: IsolatedPoolComptroller;
@@ -7,14 +7,16 @@ export interface UpdatePoolDelegateStatusInput {
   approvedStatus: boolean;
 }
 
+type UpdatePoolDelegateStatusOutput = ContractTxData<IsolatedPoolComptroller, 'updateDelegate'>;
+
 const updateDelegate = async ({
   poolComptrollerContract,
   delegateeAddress,
   approvedStatus,
-}: UpdatePoolDelegateStatusInput) =>
-  requestGaslessTransaction(poolComptrollerContract, 'updateDelegate', [
-    delegateeAddress,
-    approvedStatus,
-  ]);
+}: UpdatePoolDelegateStatusInput): Promise<UpdatePoolDelegateStatusOutput> => ({
+  contract: poolComptrollerContract,
+  methodName: 'updateDelegate',
+  args: [delegateeAddress, approvedStatus],
+});
 
 export default updateDelegate;

@@ -1,8 +1,10 @@
 import { type MutationKey, type MutationObserverOptions, useMutation } from '@tanstack/react-query';
-import type { ContractReceipt } from 'ethers';
+import type { BaseContract, ContractReceipt } from 'ethers';
 
-import type { ContractTransaction, TransactionType } from 'types';
+import type { ContractTransaction, ContractTxData, TransactionType } from 'types';
 
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { sendTransaction } from './sendTransaction';
 import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
 
 export interface UseSendTransactionOptions<TMutateInput extends Record<string, unknown> | void>
@@ -10,8 +12,12 @@ export interface UseSendTransactionOptions<TMutateInput extends Record<string, u
   waitForConfirmation?: boolean;
 }
 
-export interface UseSendTransactionInput<TMutateInput extends Record<string, unknown> | void> {
-  fn: (input: TMutateInput) => Promise<ContractTransaction>;
+export interface UseSendTransactionInput<
+  TMutateInput extends Record<string, unknown> | void,
+  TContract extends BaseContract,
+  TMethodName extends keyof TContract['functions'],
+> {
+  fn: (input: TMutateInput) => Promise<ContractTxData<TContract, TMethodName>>;
   fnKey: MutationKey;
   transactionType?: TransactionType;
   onConfirmed?: (input: {
@@ -26,21 +32,31 @@ export interface UseSendTransactionInput<TMutateInput extends Record<string, unk
   options?: UseSendTransactionOptions<TMutateInput>;
 }
 
-export const useSendTransaction = <TMutateInput extends Record<string, unknown> | void>({
+export const useSendTransaction = <
+  TMutateInput extends Record<string, unknown> | void,
+  TContract extends BaseContract,
+  TMethodName extends string & keyof TContract['functions'],
+>({
   fn,
   fnKey,
   transactionType,
   onConfirmed,
   onReverted,
   options,
-}: UseSendTransactionInput<TMutateInput>) => {
+}: UseSendTransactionInput<TMutateInput, TContract, TMethodName>) => {
+  const isGaslessTransactionsEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
   const trackTransaction = useTrackTransaction({ transactionType });
 
   return useMutation({
     mutationKey: fnKey,
     mutationFn: async input => {
+      // get transaction data
+      const txData = await fn(input);
       // Send transaction
-      const transaction = await fn(input);
+      const transaction = await sendTransaction({
+        txData,
+        requestGasless: isGaslessTransactionsEnabled,
+      });
 
       // Track transaction's progress in the background
       trackTransaction({

@@ -1,6 +1,6 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
 import type BigNumber from 'bignumber.js';
-import type { ContractReceipt } from 'ethers';
+import type { BaseContract, ContractReceipt } from 'ethers';
 import type { ZksyncTransactionReceipt } from 'viem/zksync';
 
 export type NonNullableFields<T> = Required<{
@@ -452,6 +452,16 @@ export interface PrimeApy {
   borrowApy: BigNumber;
   supplyApy: BigNumber;
 }
+
+export type ContractTxData<
+  TContract extends BaseContract,
+  TMethodName extends keyof TContract['functions'],
+> = {
+  contract: TContract;
+  methodName: TMethodName;
+  args: Omit<Parameters<TContract['functions'][TMethodName]>, 'overrides'>;
+  overrides?: { value: string } | Record<never, never>;
+};
 
 export interface ContractTransaction {
   hash: string;
