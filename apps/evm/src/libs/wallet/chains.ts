@@ -15,14 +15,14 @@ import {
 import localConfig from 'config';
 
 const getSupportedChains = (): [Chain, ...Chain[]] => {
-  if (localConfig.isOnTestnet) {
+  if (localConfig.network === 'testnet') {
     return [bscTestnet, opBNBTestnet, sepolia, arbitrumSepolia, zksyncSepoliaTestnet];
   }
 
   return [bscMainnet, ethereum, opBNBMainnet, arbitrumOne, zksyncMainnet];
 };
 
-export const governanceChain = localConfig.isOnTestnet ? bscTestnet : bscMainnet;
+export const governanceChain = localConfig.network === 'testnet' ? bscTestnet : bscMainnet;
 
 export const chains = getSupportedChains();
 

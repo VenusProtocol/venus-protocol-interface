@@ -3,8 +3,8 @@ import * as Sentry from '@sentry/react';
 import config from 'config';
 
 export const logError = (error: string | unknown) => {
-  // Only log errors in live environments
-  if (config.isLocalServer || config.environment !== 'mainnet') {
+  // Only send errors to Sentry in hosted environments
+  if (config.environment !== 'preview' && config.environment !== 'production') {
     console.error(`[Logger]: ${error}`);
     return;
   }

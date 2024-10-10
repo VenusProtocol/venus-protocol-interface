@@ -50,3 +50,4 @@ export * from './formatToProposalDescription';
 export * from './getSwapToTokenAmountReceived';
 export * from './calculateDailyTokenRate';
 export * from './safeLazyLoad';
+export * from './extractEnumValues';

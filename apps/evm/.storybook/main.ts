@@ -22,7 +22,8 @@ const config: StorybookConfig = {
   env: config => ({
     ...config,
     // Always run Storybook in test environment
-    VITE_ENVIRONMENT: 'testnet',
+    VITE_ENV: 'storybook',
+    VITE_NETWORK: 'testnet',
   }),
 };
 export default config;

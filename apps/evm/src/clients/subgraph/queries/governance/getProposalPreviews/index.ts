@@ -10,9 +10,9 @@ export interface GetProposalPreviewsInput {
 }
 
 export const getProposalPreviews = ({ chainId, variables }: GetProposalPreviewsInput) =>
-  config.subgraphUrls[chainId]?.governance
+  config.governanceSubgraphUrls[chainId]
     ? request({
-        url: config.subgraphUrls[chainId]!.governance!,
+        url: config.governanceSubgraphUrls[chainId],
         variables,
         document: ProposalPreviewsDocument,
       })

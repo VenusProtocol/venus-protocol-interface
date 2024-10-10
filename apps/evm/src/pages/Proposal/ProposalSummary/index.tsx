@@ -23,11 +23,10 @@ import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { displayMutationError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
-import { ChainId, type Proposal, ProposalState, ProposalType } from 'types';
+import { governanceChain, useAccountAddress } from 'libs/wallet';
+import { type Proposal, ProposalState, ProposalType } from 'types';
 import { areAddressesEqual } from 'utilities';
 
-import config from 'config';
 import Stepper from './Stepper';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -228,7 +227,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
                   urlType="tx"
                   hash={transactionHash}
                   ellipseBreakpoint="xxl"
-                  chainId={config.isOnTestnet ? ChainId.BSC_TESTNET : ChainId.BSC_MAINNET}
+                  chainId={governanceChain.id}
                 />
               )}
             </div>

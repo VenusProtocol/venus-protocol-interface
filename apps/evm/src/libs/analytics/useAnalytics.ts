@@ -142,8 +142,8 @@ const useAnalytics = () => {
     eventName: TEventName,
     eventProps: AnalyticEventProps<TEventName>,
   ) {
-    // Only send analytic events on mainnet
-    if (config.environment !== 'mainnet') {
+    // Only send analytic events in production
+    if (config.environment !== 'production') {
       return;
     }
 
