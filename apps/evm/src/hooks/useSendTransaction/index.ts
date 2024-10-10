@@ -9,6 +9,7 @@ import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
 
 export interface UseSendTransactionOptions<TMutateInput extends Record<string, unknown> | void>
   extends MutationObserverOptions<unknown, Error, TMutateInput> {
+  disableGaslessTransaction?: boolean;
   waitForConfirmation?: boolean;
 }
 
@@ -36,33 +37,35 @@ export const useSendTransaction = <
   TMutateInput extends Record<string, unknown> | void,
   TContract extends BaseContract,
   TMethodName extends string & keyof TContract['functions'],
->({
-  fn,
-  fnKey,
-  transactionType,
-  onConfirmed,
-  onReverted,
-  options,
-}: UseSendTransactionInput<TMutateInput, TContract, TMethodName>) => {
-  const isGaslessTransactionsEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
+>(
+  input: UseSendTransactionInput<TMutateInput, TContract, TMethodName>,
+) => {
+  const { fn, fnKey, transactionType, onConfirmed, onReverted, options } = input;
+  // a transaction should be gas free when using a chain that supports the feature and when the optional
+  // disableGaslessTransaction flag is not present or set to true
+  const isGaslessTransactionsEnabled =
+    useIsFeatureEnabled({ name: 'gaslessTransactions' }) && !options?.disableGaslessTransaction;
   const trackTransaction = useTrackTransaction({ transactionType });
 
   return useMutation({
     mutationKey: fnKey,
-    mutationFn: async input => {
-      // get transaction data
-      const txData = await fn(input);
-      // Send transaction
+    mutationFn: async mutationInput => {
+      // get transaction data from the passed input
+      const txData = await fn(mutationInput);
+
+      // send the normal or gas-less transaction
       const transaction = await sendTransaction({
         txData,
-        requestGasless: isGaslessTransactionsEnabled,
+        input,
+        isGaslessTransaction: isGaslessTransactionsEnabled,
       });
 
       // Track transaction's progress in the background
       trackTransaction({
         transaction,
-        onConfirmed: onConfirmedInput => onConfirmed?.({ ...onConfirmedInput, input }),
-        onReverted: onRevertedInput => onReverted?.({ ...onRevertedInput, input }),
+        onConfirmed: onConfirmedInput =>
+          onConfirmed?.({ ...onConfirmedInput, input: mutationInput }),
+        onReverted: onRevertedInput => onReverted?.({ ...onRevertedInput, input: mutationInput }),
       });
 
       if (options?.waitForConfirmation) {

@@ -192,4 +192,12 @@ export const ENV_VARIABLES = {
     typeof process !== 'undefined'
       ? process.env.VITE_ZYFI_SPONSORED_PAYMASTER_ENDPOINT
       : import.meta.env.VITE_ZYFI_SPONSORED_PAYMASTER_ENDPOINT,
+  VITE_ZYFI_VAULT_ADDRESS:
+    typeof process !== 'undefined'
+      ? process.env.VITE_ZYFI_VAULT_ADDRESS
+      : import.meta.env.VITE_ZYFI_VAULT_ADDRESS,
+  VITE_ZYFI_WALLET_ADDRESS:
+    typeof process !== 'undefined'
+      ? process.env.VITE_ZYFI_WALLET_ADDRESS
+      : import.meta.env.VITE_ZYFI_WALLET_ADDRESS,
 };

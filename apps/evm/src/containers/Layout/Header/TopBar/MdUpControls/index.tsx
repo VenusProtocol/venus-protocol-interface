@@ -3,6 +3,7 @@ import { ConnectButton } from 'containers/Layout/ConnectButton';
 import { cn } from 'utilities';
 import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 import { ChainSelect } from '../ChainSelect';
+import GaslessStatus from '../GaslessStatus';
 
 export const MdUpControls: React.FC = () => {
   const isOnMarketPage = useIsOnMarketPage();
@@ -13,6 +14,8 @@ export const MdUpControls: React.FC = () => {
         variant={isOnMarketPage ? 'secondary' : 'primary'}
         className="flex-none md:whitespace-nowrap"
       />
+
+      <GaslessStatus variant="header" />
 
       <ChainSelect
         variant={isOnMarketPage ? 'tertiary' : 'primary'}
