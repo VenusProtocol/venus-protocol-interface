@@ -105,7 +105,7 @@ const claimRewards = async ({
     return acc;
   }, []);
 
-  return multicallContract.tryBlockAndAggregate(true, calls);
+  return { contract: multicallContract, methodName: 'tryBlockAndAggregate', args: [true, calls] };
 };
 
 export default claimRewards;

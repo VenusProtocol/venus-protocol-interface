@@ -1,18 +1,22 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction } from 'ethers';
 
 import type { VaiController } from 'libs/contracts';
+import type { ContractTxData } from 'types';
 
 export interface MintVaiInput {
   vaiControllerContract: VaiController;
   amountMantissa: BigNumber;
 }
 
-export type MintVaiOutput = ContractTransaction;
+export type MintVaiOutput = ContractTxData<VaiController, 'mintVAI'>;
 
 const mintVai = async ({
   vaiControllerContract,
   amountMantissa,
-}: MintVaiInput): Promise<MintVaiOutput> => vaiControllerContract.mintVAI(amountMantissa.toFixed());
+}: MintVaiInput): Promise<MintVaiOutput> => ({
+  contract: vaiControllerContract,
+  methodName: 'mintVAI',
+  args: [amountMantissa.toFixed()],
+});
 
 export default mintVai;

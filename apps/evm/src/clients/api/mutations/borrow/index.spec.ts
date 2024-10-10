@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 
 import type { NativeTokenGateway, VBep20 } from 'libs/contracts';
 
@@ -26,7 +27,10 @@ describe('borrow', () => {
       const borrowMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeVTokenContract = {
-        borrow: borrowMock,
+        functions: {
+          borrow: borrowMock,
+        },
+        signer: fakeSigner,
       } as unknown as VBep20;
 
       const response = await borrow({
@@ -36,7 +40,7 @@ describe('borrow', () => {
 
       expect(response).toBe(fakeContractTransaction);
       expect(borrowMock).toHaveBeenCalledTimes(1);
-      expect(borrowMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+      expect(borrowMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed(), {});
     });
   });
 
@@ -58,7 +62,10 @@ describe('borrow', () => {
       const borrowAndUnwrapMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeNativeTokenGatewayContract = {
-        borrowAndUnwrap: borrowAndUnwrapMock,
+        functions: {
+          borrowAndUnwrap: borrowAndUnwrapMock,
+        },
+        signer: fakeSigner,
       } as unknown as NativeTokenGateway;
 
       const response = await borrow({
@@ -69,7 +76,7 @@ describe('borrow', () => {
 
       expect(response).toBe(fakeContractTransaction);
       expect(borrowAndUnwrapMock).toHaveBeenCalledTimes(1);
-      expect(borrowAndUnwrapMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+      expect(borrowAndUnwrapMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed(), {});
     });
   });
 });

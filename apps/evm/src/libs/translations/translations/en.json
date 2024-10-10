@@ -283,6 +283,16 @@
       "documentation": "Documentation"
     }
   },
+  "gaslessTransactions": {
+    "gas": "Gas",
+    "chainLabel": "Free",
+    "errorModal": {
+      "title": "Gas-free transactions are not available at the moment",
+      "description": "You can still send this transaction by paying for the gas yourself",
+      "resendButtonLabel": "Resend with gas",
+      "cancel": "Cancel"
+    }
+  },
   "interactive": {
     "copy": {
       "walletAddress": "Wallet address"
@@ -773,6 +783,7 @@
     "comptrollerRejection": "Comptroller Rejection",
     "exitMarketBalanceOwed": "Exit Market Balance Owed",
     "exitMarketRejection": "Exit Market Rejection",
+    "gaslessTransactionNotAvailable": "Gasless transaction is not available",
     "insufficientBalanceForVai": "Insufficient Balance For Vai",
     "insufficientLiquidity": "Insufficient Liquidity",
     "insufficientShortfall": "Insufficient Shortfall",

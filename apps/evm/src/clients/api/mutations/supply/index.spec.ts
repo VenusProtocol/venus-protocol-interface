@@ -24,7 +24,10 @@ describe('supply', () => {
         const mintMock = vi.fn(() => fakeContractTransaction);
 
         const fakeNativeTokenGatewayContract = {
-          mint: mintMock,
+          functions: {
+            mint: mintMock,
+          },
+          signer: fakeSigner,
         } as unknown as VBep20;
 
         (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeNativeTokenGatewayContract);
@@ -49,7 +52,10 @@ describe('supply', () => {
         const mintMock = vi.fn(() => fakeContractTransaction);
 
         const fakeNativeTokenGatewayContract = {
-          mint: mintMock,
+          functions: {
+            mint: mintMock,
+          },
+          signer: fakeSigner,
         } as unknown as VBnb;
 
         (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeNativeTokenGatewayContract);
@@ -63,7 +69,7 @@ describe('supply', () => {
         expect(response).toBe(fakeContractTransaction);
 
         expect(mintMock).toHaveBeenCalledTimes(1);
-        expect(mintMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+        expect(mintMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed(), {});
       });
     });
   });
@@ -89,7 +95,10 @@ describe('supply', () => {
       const wrapAndSupplyMock = vi.fn(() => fakeContractTransaction);
 
       const fakeNativeTokenGatewayContract = {
-        wrapAndSupply: wrapAndSupplyMock,
+        functions: {
+          wrapAndSupply: wrapAndSupplyMock,
+        },
+        signer: fakeSigner,
       } as unknown as VBnb;
 
       (getNativeTokenGatewayContract as Vi.Mock).mockImplementationOnce(

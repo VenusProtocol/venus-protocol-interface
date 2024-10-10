@@ -2,6 +2,7 @@ import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 import { xvs } from '__mocks__/models/tokens';
 
 import type { Multicall3 } from 'libs/contracts';
@@ -47,7 +48,10 @@ const fakeClaims: Claim[] = [
 describe('claimRewards', () => {
   it('calls multicall correctly', async () => {
     const fakeMulticallContract = {
-      tryBlockAndAggregate: vi.fn(async () => fakeContractTransaction),
+      functions: {
+        tryBlockAndAggregate: vi.fn(async () => fakeContractTransaction),
+      },
+      signer: fakeSigner,
     } as unknown as Multicall3;
 
     const res = await claimRewards({
@@ -60,10 +64,12 @@ describe('claimRewards', () => {
       claims: fakeClaims,
     });
 
-    expect(fakeMulticallContract.tryBlockAndAggregate).toHaveBeenCalledTimes(1);
-    expect((fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][0]).toBe(true);
+    expect(fakeMulticallContract.functions.tryBlockAndAggregate).toHaveBeenCalledTimes(1);
+    expect((fakeMulticallContract.functions.tryBlockAndAggregate as Vi.Mock).mock.calls[0][0]).toBe(
+      true,
+    );
     expect(
-      (fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][1],
+      (fakeMulticallContract.functions.tryBlockAndAggregate as Vi.Mock).mock.calls[0][1],
     ).toMatchSnapshot();
 
     expect(res).toBe(fakeContractTransaction);
@@ -71,7 +77,10 @@ describe('claimRewards', () => {
 
   it('skips claims for which a contract address was not passed', async () => {
     const fakeMulticallContract = {
-      tryBlockAndAggregate: vi.fn(async () => fakeContractTransaction),
+      functions: {
+        tryBlockAndAggregate: vi.fn(async () => fakeContractTransaction),
+      },
+      signer: fakeSigner,
     } as unknown as Multicall3;
 
     const res = await claimRewards({
@@ -81,10 +90,12 @@ describe('claimRewards', () => {
       claims: fakeClaims,
     });
 
-    expect(fakeMulticallContract.tryBlockAndAggregate).toHaveBeenCalledTimes(1);
-    expect((fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][0]).toBe(true);
+    expect(fakeMulticallContract.functions.tryBlockAndAggregate).toHaveBeenCalledTimes(1);
+    expect((fakeMulticallContract.functions.tryBlockAndAggregate as Vi.Mock).mock.calls[0][0]).toBe(
+      true,
+    );
     expect(
-      (fakeMulticallContract.tryBlockAndAggregate as Vi.Mock).mock.calls[0][1],
+      (fakeMulticallContract.functions.tryBlockAndAggregate as Vi.Mock).mock.calls[0][1],
     ).toMatchSnapshot();
 
     expect(res).toBe(fakeContractTransaction);

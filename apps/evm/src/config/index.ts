@@ -1,6 +1,7 @@
 import { API_ENDPOINT_URLS } from 'constants/endpoints';
 import { ChainId, type Environment } from 'types';
 
+import type { Address } from 'viem';
 import { ENV_VARIABLES } from './envVariables';
 
 export interface Config {
@@ -21,6 +22,12 @@ export interface Config {
   posthog: {
     apiKey: string;
     hostUrl: string;
+  };
+  zyFi: {
+    apiKey: string;
+    sponsoredPaymasterEndpoint: string;
+    vaultAddress: Address;
+    walletAddress: Address;
   };
 }
 
@@ -92,6 +99,12 @@ const config: Config = {
   posthog: {
     apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',
     hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
+  },
+  zyFi: {
+    apiKey: ENV_VARIABLES.VITE_ZYFI_API_KEY || '',
+    sponsoredPaymasterEndpoint: ENV_VARIABLES.VITE_ZYFI_SPONSORED_PAYMASTER_ENDPOINT || '',
+    vaultAddress: ENV_VARIABLES.VITE_ZYFI_VAULT_ADDRESS || '',
+    walletAddress: ENV_VARIABLES.VITE_ZYFI_WALLET_ADDRESS || '',
   },
 };
 

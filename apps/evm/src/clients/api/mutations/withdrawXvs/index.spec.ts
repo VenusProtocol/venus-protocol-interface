@@ -1,4 +1,5 @@
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 
 import type { XvsVesting } from 'libs/contracts';
 
@@ -9,7 +10,10 @@ describe('withdrawXvs', () => {
     const withdrawVrtMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
-      withdraw: withdrawVrtMock,
+      functions: {
+        withdraw: withdrawVrtMock,
+      },
+      signer: fakeSigner,
     } as unknown as XvsVesting;
 
     const response = await withdrawXvs({
@@ -18,6 +22,6 @@ describe('withdrawXvs', () => {
 
     expect(response).toBe(fakeContractTransaction);
     expect(withdrawVrtMock).toHaveBeenCalledTimes(1);
-    expect(withdrawVrtMock).toHaveBeenCalledWith();
+    expect(withdrawVrtMock).toHaveBeenCalledWith({});
   });
 });

@@ -102,6 +102,7 @@ export const featureFlags = {
     ChainId.ARBITRUM_SEPOLIA,
     ChainId.ZKSYNC_SEPOLIA,
   ],
+  gaslessTransactions: [ChainId.ZKSYNC_SEPOLIA, ChainId.ZKSYNC_MAINNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

@@ -1,4 +1,5 @@
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 import { vBusd } from '__mocks__/models/vTokens';
 
 import type { LegacyPoolComptroller } from 'libs/contracts';
@@ -10,7 +11,10 @@ describe('enterMarket', () => {
     const enterMarketsMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
-      enterMarkets: enterMarketsMock,
+      functions: {
+        enterMarkets: enterMarketsMock,
+      },
+      signer: fakeSigner,
     } as unknown as LegacyPoolComptroller;
 
     const response = await enterMarket({
@@ -20,6 +24,6 @@ describe('enterMarket', () => {
 
     expect(response).toBe(fakeContractTransaction);
     expect(enterMarketsMock).toHaveBeenCalledTimes(1);
-    expect(enterMarketsMock).toHaveBeenCalledWith([vBusd.address]);
+    expect(enterMarketsMock).toHaveBeenCalledWith([vBusd.address], {});
   });
 });
