@@ -373,6 +373,10 @@ export { default as getPoolDelegateApprovalStatus } from './queries/getPoolDeleg
 export * from './queries/getPoolDelegateApprovalStatus';
 export { default as useGetPoolDelegateApprovalStatus } from './queries/getPoolDelegateApprovalStatus/useGetPoolDelegateApprovalStatus';
 
+export { default as getSponsorshipVaultData } from './queries/getSponsorshipVaultData';
+export * from './queries/getSponsorshipVaultData';
+export { default as useGetSponsorshipVaultData } from './queries/getSponsorshipVaultData/useGetSponsorshipVaultData';
+
 export * from './queries/getProposalMinQuorumVotes';
 export * from './queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
 
