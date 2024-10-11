@@ -19,10 +19,10 @@ const GaslessStatus = ({
       : 'flex flex-row text-green [font-variant:all-small-caps] ml-1 mr-2';
 
   return sponsorshipVaultData?.hasEnoughFunds ? (
-    <span className={containerClassName}>
+    <div className={containerClassName}>
       <img src={gasGreen} alt={t('gaslessTransactions.gas')} className="mr-1" />
-      {t('gaslessTransactions.chainLabel')}
-    </span>
+      <span className="hidden md:block">{t('gaslessTransactions.chainLabel')}</span>
+    </div>
   ) : null;
 };
 

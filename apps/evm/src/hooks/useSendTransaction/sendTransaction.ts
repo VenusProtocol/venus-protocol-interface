@@ -12,7 +12,6 @@ import {
 } from 'viem';
 import { zksync, zksyncSepoliaTestnet } from 'viem/chains';
 import { eip712WalletActions } from 'viem/zksync';
-import type { UseSendTransactionInput } from '.';
 
 export interface SponsorableTransaction {
   txData: {
@@ -42,17 +41,20 @@ interface ZyFiSponsoredTxResponse {
   };
 }
 
+export interface RetryTransaction {
+  callback: () => Promise<void>;
+}
+
 export async function sendTransaction<
-  TMutateInput extends Record<string, unknown> | void,
   TContract extends BaseContract,
   TMethodName extends string & keyof TContract['functions'],
 >({
   txData,
-  input,
+  retryCallback,
   isGaslessTransaction,
 }: {
   txData: ContractTxData<TContract, TMethodName>;
-  input: UseSendTransactionInput<TMutateInput, TContract, TMethodName>;
+  retryCallback: () => void;
   isGaslessTransaction: boolean;
 }): Promise<ContractTransaction> {
   const { contract, methodName, args, overrides } = txData;
@@ -103,7 +105,7 @@ export async function sendTransaction<
         throw new VError({
           type: 'unexpected',
           code: 'gaslessTransactionNotAvailable',
-          payload: input,
+          errorCallback: retryCallback,
         });
       }
 
@@ -135,7 +137,7 @@ export async function sendTransaction<
       throw new VError({
         type: 'unexpected',
         code: 'gaslessTransactionNotAvailable',
-        payload: input,
+        errorCallback: retryCallback,
       });
     }
   }
