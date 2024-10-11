@@ -9,6 +9,7 @@ import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
 import { Web3Wrapper } from 'libs/wallet';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
+import ResendPayingGasModal from 'containers/ResendPayingGasModal';
 import { safeLazyLoad } from 'utilities';
 import Routes from './Routes';
 
@@ -31,6 +32,8 @@ const App = () => (
               <Suspense>
                 <AppVersionChecker />
               </Suspense>
+
+              <ResendPayingGasModal />
 
               <SentryErrorInfo />
             </AnalyticProvider>

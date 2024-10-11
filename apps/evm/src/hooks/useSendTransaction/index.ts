@@ -3,6 +3,7 @@ import type { BaseContract, ContractReceipt } from 'ethers';
 
 import type { ContractTransaction, ContractTxData, TransactionType } from 'types';
 
+import { useResendPayingGasModalStore } from 'containers/ResendPayingGasModal';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { sendTransaction } from './sendTransaction';
 import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
@@ -40,6 +41,7 @@ export const useSendTransaction = <
 >(
   input: UseSendTransactionInput<TMutateInput, TContract, TMethodName>,
 ) => {
+  const { openModal } = useResendPayingGasModalStore();
   const { fn, fnKey, transactionType, onConfirmed, onReverted, options } = input;
   // a transaction should be gas free when using a chain that supports the feature and when the optional
   // disableGaslessTransaction flag is not present or set to true
@@ -56,7 +58,7 @@ export const useSendTransaction = <
       // send the normal or gas-less transaction
       const transaction = await sendTransaction({
         txData,
-        input,
+        retryCallback: () => openModal(input, mutationInput),
         isGaslessTransaction: isGaslessTransactionsEnabled,
       });
 
