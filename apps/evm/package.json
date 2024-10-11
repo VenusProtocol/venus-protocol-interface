@@ -113,7 +113,7 @@
     "@types/recharts": "^1.8.23",
     "@types/redux-actions": "^2.6.2",
     "@types/styled-components": "^5.1.26",
-    "@venusprotocol/governance-contracts": "2.3.0",
+    "@venusprotocol/governance-contracts": "2.4.0",
     "@venusprotocol/isolated-pools": "3.5.0",
     "@venusprotocol/oracle": "2.5.1",
     "@venusprotocol/protocol-reserve": "2.3.0",
