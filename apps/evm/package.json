@@ -116,7 +116,7 @@
     "@venusprotocol/governance-contracts": "2.3.0",
     "@venusprotocol/isolated-pools": "3.5.0",
     "@venusprotocol/oracle": "2.5.1",
-    "@venusprotocol/protocol-reserve": "2.3.0",
+    "@venusprotocol/protocol-reserve": "2.4.0",
     "@venusprotocol/stylelint-config": "*",
     "@venusprotocol/token-bridge": "2.2.0",
     "@venusprotocol/typescript-config": "*",
