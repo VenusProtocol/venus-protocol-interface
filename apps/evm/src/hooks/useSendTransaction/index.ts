@@ -3,8 +3,10 @@ import type { BaseContract, ContractReceipt } from 'ethers';
 
 import type { ContractTransaction, ContractTxData, TransactionType } from 'types';
 
+import { useGetSponsorshipVaultData } from 'clients/api';
 import { useResendPayingGasModalStore } from 'containers/ResendPayingGasModal';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useChainId } from 'libs/wallet';
 import { sendTransaction } from './sendTransaction';
 import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
 
@@ -42,11 +44,17 @@ export const useSendTransaction = <
   input: UseSendTransactionInput<TMutateInput, TContract, TMethodName>,
 ) => {
   const { openModal } = useResendPayingGasModalStore();
+  const { chainId } = useChainId();
+  const { data: getSponsorshipVaultData } = useGetSponsorshipVaultData({ chainId });
   const { fn, fnKey, transactionType, onConfirmed, onReverted, options } = input;
-  // a transaction should be gas free when using a chain that supports the feature and when the optional
-  // disableGaslessTransaction flag is not present or set to true
+  // a transaction should be gas free when:
+  // 1) we're on a chain that supports the feature
+  // 2) there are funds in the sponsorship vault
+  // 3) disableGaslessTransaction flag is not present or set to true
   const isGaslessTransactionsEnabled =
-    useIsFeatureEnabled({ name: 'gaslessTransactions' }) && !options?.disableGaslessTransaction;
+    useIsFeatureEnabled({ name: 'gaslessTransactions' }) &&
+    getSponsorshipVaultData?.hasEnoughFunds === true &&
+    !options?.disableGaslessTransaction;
   const trackTransaction = useTrackTransaction({ transactionType });
 
   return useMutation({
