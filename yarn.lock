@@ -7337,10 +7337,19 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@venusprotocol/governance-contracts@2.3.0", "@venusprotocol/governance-contracts@^2.3.0":
+"@venusprotocol/governance-contracts@2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.3.0.tgz#caa729f28a36df066ff02a799ac7394fae3ef996"
   integrity sha512-xMmjWUe8sMHEFcl1EGHMTD8UCSKtFCW6JsC6P9kELTSRTMrRFVAUWqhdv0wxHl3iHygyP9dpT+wR3/nUrAiA1w==
+  dependencies:
+    "@venusprotocol/solidity-utilities" "2.0.0"
+    hardhat-deploy-ethers "^0.3.0-beta.13"
+    module-alias "^2.2.2"
+
+"@venusprotocol/governance-contracts@^2.3.0", "@venusprotocol/governance-contracts@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.4.0.tgz#196b18cf93c1b4b73331d74ebae7e4a9d85ee983"
+  integrity sha512-lM73qD/7fgCfwavD3+FWPTEd/AiMy9NK9Hqfo5nesE5UUxupFvihnt88M6UwAn1gx/PWvueRWSSA2yhBVEtstQ==
   dependencies:
     "@venusprotocol/solidity-utilities" "2.0.0"
     hardhat-deploy-ethers "^0.3.0-beta.13"
@@ -7361,17 +7370,17 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@venusprotocol/oracle@2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-2.5.1.tgz#76d3c4a666ab20f7b42219367d36111df8e193fe"
-  integrity sha512-sIkgnNwn9UltBTTptowhZ1ZzPmVZFCZciUWXEo9WD6Pq0jFjv0RvW171VxaqEJKNvGit4jKC2DWoxdXxYXDC4g==
+"@venusprotocol/oracle@2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-2.6.0.tgz#5d15949214c9b33856f3e2c3f12fef18efdef068"
+  integrity sha512-8NnCYBHBmSDhbRsyoWFVLtjJh0o4hb03s8OHKce70ZqsdOLb7C7rfhRCD7msv+TaM4dEpZDEqKvQ0uAR6MmL+Q==
   dependencies:
     "@chainlink/contracts" "^0.5.1"
     "@defi-wonderland/smock" "2.3.5"
     "@nomicfoundation/hardhat-network-helpers" "^1.0.8"
     "@openzeppelin/contracts" "^4.6.0"
     "@openzeppelin/contracts-upgradeable" "^4.7.3"
-    "@venusprotocol/governance-contracts" "^2.3.0"
+    "@venusprotocol/governance-contracts" "^2.4.0"
     "@venusprotocol/solidity-utilities" "^2.0.0"
     "@venusprotocol/venus-protocol" "^9.1.0"
     ethers "^5.6.8"
@@ -7401,12 +7410,7 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.0.tgz#74ab8399a49362d53b0c1ff38d3710cc45d29749"
   integrity sha512-P38I6RseUy/pmvOM99DuLV7mst766jxaR46gEi0fv0F8Ibgisw9ZN8ovjXMg0fKJQDlUQ/AbGXBzmxQWFVRNfQ==
 
-"@venusprotocol/solidity-utilities@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.1.tgz#e3f1d736b572a6858e9345d534fc4ab3eb0f4ad4"
-  integrity sha512-kP6G2RrWPhIi+Dhu4WmI7I9nd+SmEuQ/OVKDykwsex7bViceqBGM+SlRQgaIVoGnwX/6MCdeMzX3wPnnWB5Kyw==
-
-"@venusprotocol/solidity-utilities@^2.0.3":
+"@venusprotocol/solidity-utilities@^2.0.0", "@venusprotocol/solidity-utilities@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.3.tgz#d672b744d53999716c07b7dfe2431140add0458e"
   integrity sha512-HlOUQx+DBBQB3CulJjAwYEqriJVX3gjlmWbYl+lqN+yr1sk+U3NWbNnLjixw7pMjW8yM5bZWjt8MD3SqbaPccA==
@@ -12302,7 +12306,7 @@ hardhat-gas-reporter@^1.0.6:
     eth-gas-reporter "^0.2.25"
     sha1 "^1.1.1"
 
-hardhat@2.19.5:
+hardhat@2.19.5, hardhat@^2.8.0:
   version "2.19.5"
   resolved "https://registry.yarnpkg.com/hardhat/-/hardhat-2.19.5.tgz#6017c35ae2844b669e9bcc84c3d05346d4ef031c"
   integrity sha512-vx8R7zWCYVgM56vA6o0Wqx2bIIptkN4TMs9QwDqZVNGRhMzBfzqUeEYbp+69gxWp1neg2V2nYQUaaUv7aom1kw==
@@ -12327,60 +12331,6 @@ hardhat@2.19.5:
     aggregate-error "^3.0.0"
     ansi-escapes "^4.3.0"
     boxen "^5.1.2"
-    chalk "^2.4.2"
-    chokidar "^3.4.0"
-    ci-info "^2.0.0"
-    debug "^4.1.1"
-    enquirer "^2.3.0"
-    env-paths "^2.2.0"
-    ethereum-cryptography "^1.0.3"
-    ethereumjs-abi "^0.6.8"
-    find-up "^2.1.0"
-    fp-ts "1.19.3"
-    fs-extra "^7.0.1"
-    glob "7.2.0"
-    immutable "^4.0.0-rc.12"
-    io-ts "1.10.4"
-    keccak "^3.0.2"
-    lodash "^4.17.11"
-    mnemonist "^0.38.0"
-    mocha "^10.0.0"
-    p-map "^4.0.0"
-    raw-body "^2.4.1"
-    resolve "1.17.0"
-    semver "^6.3.0"
-    solc "0.7.3"
-    source-map-support "^0.5.13"
-    stacktrace-parser "^0.1.10"
-    tsort "0.0.1"
-    undici "^5.14.0"
-    uuid "^8.3.2"
-    ws "^7.4.6"
-
-hardhat@^2.8.0:
-  version "2.19.4"
-  resolved "https://registry.yarnpkg.com/hardhat/-/hardhat-2.19.4.tgz#5112c30295d8be2e18e55d847373c50483ed1902"
-  integrity sha512-fTQJpqSt3Xo9Mn/WrdblNGAfcANM6XC3tAEi6YogB4s02DmTf93A8QsGb8uR0KR8TFcpcS8lgiW4ugAIYpnbrQ==
-  dependencies:
-    "@ethersproject/abi" "^5.1.2"
-    "@metamask/eth-sig-util" "^4.0.0"
-    "@nomicfoundation/ethereumjs-block" "5.0.2"
-    "@nomicfoundation/ethereumjs-blockchain" "7.0.2"
-    "@nomicfoundation/ethereumjs-common" "4.0.2"
-    "@nomicfoundation/ethereumjs-evm" "2.0.2"
-    "@nomicfoundation/ethereumjs-rlp" "5.0.2"
-    "@nomicfoundation/ethereumjs-statemanager" "2.0.2"
-    "@nomicfoundation/ethereumjs-trie" "6.0.2"
-    "@nomicfoundation/ethereumjs-tx" "5.0.2"
-    "@nomicfoundation/ethereumjs-util" "9.0.2"
-    "@nomicfoundation/ethereumjs-vm" "7.0.2"
-    "@nomicfoundation/solidity-analyzer" "^0.1.0"
-    "@sentry/node" "^5.18.1"
-    "@types/bn.js" "^5.1.0"
-    "@types/lru-cache" "^5.1.0"
-    adm-zip "^0.4.16"
-    aggregate-error "^3.0.0"
-    ansi-escapes "^4.3.0"
     chalk "^2.4.2"
     chokidar "^3.4.0"
     ci-info "^2.0.0"
