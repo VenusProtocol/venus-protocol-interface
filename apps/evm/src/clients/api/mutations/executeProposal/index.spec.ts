@@ -6,21 +6,21 @@ import executeProposal from '.';
 
 describe('executeProposal', () => {
   test('returns contract transaction when request succeeds', async () => {
-    const executeProposalMock = vi.fn(async () => fakeContractTransaction);
+    const executeMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
-      execute: executeProposalMock,
+      execute: executeMock,
     } as unknown as GovernorBravoDelegate;
 
     const fakeProposalId = 3816;
 
     const response = await executeProposal({
-      governorBravoDelegateContract: fakeContract,
+      contract: fakeContract,
       proposalId: fakeProposalId,
     });
 
     expect(response).toBe(fakeContractTransaction);
-    expect(executeProposalMock).toHaveBeenCalledTimes(1);
-    expect(executeProposalMock).toHaveBeenCalledWith(fakeProposalId);
+    expect(executeMock).toHaveBeenCalledTimes(1);
+    expect(executeMock).toHaveBeenCalledWith(fakeProposalId);
   });
 });

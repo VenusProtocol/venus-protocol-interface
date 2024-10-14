@@ -63,6 +63,7 @@ export const Commands: React.FC<CommandsProps> = ({ proposal, ...otherProps }) =
         {proposal.remoteProposals.map(remoteProposal => (
           <NonBscCommand
             key={`non-bsc-command-${remoteProposal.chainId}-${remoteProposal.proposalId}`}
+            remoteProposalId={remoteProposal.remoteProposalId}
             chainId={remoteProposal.chainId}
             proposalActions={remoteProposal.proposalActions}
             state={remoteProposal.state}
