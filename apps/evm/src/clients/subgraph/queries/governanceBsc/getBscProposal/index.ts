@@ -13,9 +13,9 @@ export interface GetBscProposalInput {
 }
 
 export const getBscProposal = ({ chainId, variables }: GetBscProposalInput) =>
-  config.subgraphUrls[chainId]?.governance
+  config.governanceSubgraphUrls[chainId]
     ? request({
-        url: config.subgraphUrls[chainId]!.governance!,
+        url: config.governanceSubgraphUrls[chainId],
         variables,
         document: ProposalDocument,
       })

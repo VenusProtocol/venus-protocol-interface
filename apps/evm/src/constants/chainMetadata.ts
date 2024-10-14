@@ -99,6 +99,8 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://eth-sepolia.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
     marketsSubgraphUrl:
       'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-sepolia/version/latest',
+    governanceSubgraphUrl:
+      'https://api.studio.thegraph.com/query/64786/venus-governance-sepolia/version/latest',
   },
   [ChainId.ARBITRUM_ONE]: {
     name: 'Arbitrum One',
@@ -130,6 +132,8 @@ export const CHAIN_METADATA: {
       'https://rpcUrl.ankr.com/arbitrum_sepolia/451c00a15d3de617618d7a880cec1da8065b10906c460b1462a8b8769d91e0da',
     marketsSubgraphUrl:
       'https://api.studio.thegraph.com/query/64786/venus-il-arbitrumsepolia/version/latest',
+    governanceSubgraphUrl:
+      'https://api.studio.thegraph.com/query/64786/venus-governance-arbisepolia/version/latest',
   },
   [ChainId.ZKSYNC_SEPOLIA]: {
     name: 'zkSync Sepolia',
@@ -177,7 +181,6 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://sepolia.optimism.io',
     marketsSubgraphUrl:
       'https://gateway.testnet.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmNcLHq8xaDMhqqUFGAnafauXp4S3LAU8xAicnBMoYaB9i',
-    governanceSubgraphUrl:
-      'https://gateway.testnet.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmNcLHq8xaDMhqqUFGAnafauXp4S3LAU8xAicnBMoYaB9i',
+    governanceSubgraphUrl: '', // TODO: add
   },
 };

@@ -1124,7 +1124,8 @@
       "description": {
         "bridged": "Waiting for the bridge to propagate the transaction",
         "canceled": "Payload execution cancelled by governance guardian",
-        "pending": "Waiting for the BNB chain payload to be executed",
+        "pending": "Waiting for the {{chainName}} payload to be executed",
+        "pendingBsc": "Waiting for voting to start",
         "waitingToBeExecutable": "Waiting for queueing period to end",
         "wrongChain": "This payload needs to be executed on the {{chainName}} chain"
       },

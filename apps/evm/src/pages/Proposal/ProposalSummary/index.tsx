@@ -278,7 +278,7 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   const { mutateAsync: queueProposal, isPending: isQueueProposalLoading } = useQueueProposal();
 
   const handleCancelProposal = () => cancelProposal({ proposalId });
-  const handleExecuteProposal = () => executeProposal({ proposalId });
+  const handleExecuteProposal = () => executeProposal({ proposalId, chainId: governanceChain.id });
   const handleQueueProposal = () => queueProposal({ proposalId });
 
   const { data: proposalThresholdData } = useGetProposalThreshold();

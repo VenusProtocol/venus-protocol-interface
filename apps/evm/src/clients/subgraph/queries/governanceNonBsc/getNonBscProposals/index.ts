@@ -13,9 +13,9 @@ export interface GetNonBscProposalsInput {
 }
 
 export const getNonBscProposals = ({ chainId, variables }: GetNonBscProposalsInput) =>
-  config.subgraphUrls[chainId]?.governance
+  config.governanceSubgraphUrls[chainId]
     ? request({
-        url: config.subgraphUrls[chainId]!.governance!,
+        url: config.governanceSubgraphUrls[chainId],
         variables,
         document: ProposalsDocument,
       })

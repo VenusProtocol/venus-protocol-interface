@@ -1,10 +1,12 @@
+import { useExecuteProposal } from 'clients/api';
 import { Button } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { isAfter } from 'date-fns/isAfter';
 import { useNow } from 'hooks/useNow';
+import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { useChainId } from 'libs/wallet';
+import { governanceChain, useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
 import { type RemoteProposal, RemoteProposalState } from 'types';
 import { Command, type CommandProps } from '../Command';
@@ -12,12 +14,15 @@ import { Description } from '../Description';
 import { useIsProposalExecutable } from '../useIsProposalExecutable';
 import { CurrentStep } from './CurrentStep';
 
+const governanceChainMetadata = CHAIN_METADATA[governanceChain.id];
+
 export type NonBscCommand = Omit<
   CommandProps,
   'contentRightItem' | 'contentBottomItem' | 'description'
 > &
   Pick<
     RemoteProposal,
+    | 'remoteProposalId'
     | 'state'
     | 'executionEtaDate'
     | 'bridgedDate'
@@ -28,6 +33,7 @@ export type NonBscCommand = Omit<
   >;
 
 export const NonBscCommand: React.FC<NonBscCommand> = ({
+  remoteProposalId,
   chainId,
   state,
   executionEtaDate,
@@ -51,13 +57,27 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
     executionEtaDate,
   });
 
-  // TODO: wire up (see VEN-2701)
-  const execute = () => {};
+  const { mutateAsync: executeProposal, isPending: isExecuteProposalLoading } =
+    useExecuteProposal();
+
+  const execute = async () => {
+    if (!remoteProposalId) {
+      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+    }
+
+    try {
+      await executeProposal({ proposalId: remoteProposalId, chainId });
+    } catch (error) {
+      handleError({ error });
+    }
+  };
 
   const description = useMemo(() => {
     switch (state) {
       case RemoteProposalState.Pending:
-        return t('voteProposalUi.command.description.pending');
+        return t('voteProposalUi.command.description.pending', {
+          chainName: governanceChainMetadata.name,
+        });
       case RemoteProposalState.Bridged:
         return t('voteProposalUi.command.description.bridged');
       case RemoteProposalState.Canceled:
@@ -87,9 +107,11 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
         ) : undefined
       }
       contentRightItem={
-        isExecutable && executionEtaDate ? (
+        isExecutable ? (
           <ConnectWallet chainId={chainId} className="hidden lg:block w-auto">
-            <Button onClick={execute}>{t('voteProposalUi.command.cta.execute')}</Button>
+            <Button onClick={execute} disabled={isExecuteProposalLoading}>
+              {t('voteProposalUi.command.cta.execute')}
+            </Button>
           </ConnectWallet>
         ) : (
           <CurrentStep
@@ -106,7 +128,7 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
         )
       }
       contentBottomItem={
-        isExecutable && executionEtaDate ? (
+        isExecutable ? (
           <ConnectWallet chainId={chainId} className="mt-3 w-full lg:hidden">
             <Button onClick={execute}>{t('voteProposalUi.command.cta.execute')}</Button>
           </ConnectWallet>
