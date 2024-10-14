@@ -172,7 +172,6 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   const handleRightMaxButtonClick = useCallback(() => {
     const updatedValues: Partial<FormValues> = {
       fixedRepayPercentage: undefined,
-      amountTokens: '',
     };
 
     if (asset.userBorrowBalanceTokens.isEqualTo(0)) {
