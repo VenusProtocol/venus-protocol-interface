@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useGetVaults } from 'clients/api';
-import { Spinner } from 'components';
+import { Page, Spinner } from 'components';
 import { useAccountAddress } from 'libs/wallet';
 import type { Vault } from 'types';
 
@@ -37,7 +37,11 @@ const VaultPage: React.FC = () => {
     accountAddress,
   });
 
-  return <VaultUi vaults={vaults} isInitialLoading={isGetVaultsLoading} />;
+  return (
+    <Page indexWithSearchEngines={false}>
+      <VaultUi vaults={vaults} isInitialLoading={isGetVaultsLoading} />
+    </Page>
+  );
 };
 
 export default VaultPage;

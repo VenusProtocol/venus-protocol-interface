@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Card } from 'components';
+import { Card, Page } from 'components';
 import { useMemo } from 'react';
 
 import {
@@ -82,18 +82,22 @@ const ConvertVrt = () => {
     return undefined;
   }, [vrtConversionRatioData?.conversionRatio, xvs]);
 
-  if (conversionRatio && vrtConversionEndTimeData?.conversionEndTime) {
-    return (
-      <ConvertVrtUi
-        withdrawXvs={withdrawXvs}
-        withdrawXvsLoading={withdrawXvsLoading}
-        xvsWithdrawableAmount={xvsWithdrawableAmount}
-      />
-    );
-  }
-
-  // TODO: handle error state
-  return <Spinner />;
+  return (
+    <Page indexWithSearchEngines={false}>
+      {
+        // TODO: handle error state
+        conversionRatio && vrtConversionEndTimeData?.conversionEndTime ? (
+          <ConvertVrtUi
+            withdrawXvs={withdrawXvs}
+            withdrawXvsLoading={withdrawXvsLoading}
+            xvsWithdrawableAmount={xvsWithdrawableAmount}
+          />
+        ) : (
+          <Spinner />
+        )
+      }
+    </Page>
+  );
 };
 
 export default ConvertVrt;
