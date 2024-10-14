@@ -21,8 +21,10 @@ describe('mintVai', () => {
       amountMantissa: fakeAmountMantissa,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(mintVaiMock).toHaveBeenCalledTimes(1);
-    expect(mintVaiMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeAmountMantissa.toFixed()],
+      methodName: 'mintVAI',
+    });
   });
 });

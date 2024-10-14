@@ -21,8 +21,10 @@ describe('stakeInVaiVault', () => {
       amountMantissa: fakeAmountMantissa,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(depositMock).toHaveBeenCalledTimes(1);
-    expect(depositMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeAmountMantissa.toFixed()],
+      methodName: 'deposit',
+    });
   });
 });

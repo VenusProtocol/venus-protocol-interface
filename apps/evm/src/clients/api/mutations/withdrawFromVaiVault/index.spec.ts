@@ -21,8 +21,10 @@ describe('withdrawFromVaiVault', () => {
       amountMantissa: fakeAmountMantissa,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(withdrawMock).toHaveBeenCalledTimes(1);
-    expect(withdrawMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeAmountMantissa.toString()],
+      methodName: 'withdraw',
+    });
   });
 });

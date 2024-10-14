@@ -30,14 +30,16 @@ describe('swapTokensAndRepay', () => {
       repayFullLoan: true,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapTokensForFullTokenDebtAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapTokensForFullTokenDebtAndRepayMock).toHaveBeenCalledWith(
-      fakeVToken.address,
-      fakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
-      fakeExactAmountOutSwap.routePath,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        fakeVToken.address,
+        fakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
+        fakeExactAmountOutSwap.routePath,
+        expect.any(Number),
+      ],
+      methodName: 'swapTokensForFullTokenDebtAndRepay',
+    });
   });
 
   it('calls the right contract method when repaying a full loan in native tokens by selling as few non-native tokens as possible', async () => {
@@ -61,13 +63,15 @@ describe('swapTokensAndRepay', () => {
       repayFullLoan: true,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapTokensForFullBNBDebtAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapTokensForFullBNBDebtAndRepayMock).toHaveBeenCalledWith(
-      customFakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
-      customFakeExactAmountOutSwap.routePath,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        customFakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
+        customFakeExactAmountOutSwap.routePath,
+        expect.any(Number),
+      ],
+      methodName: 'swapTokensForFullBNBDebtAndRepay',
+    });
   });
 
   it('calls the right contract method when repaying a full loan in non-native tokens by selling as few native tokens as possible', async () => {
@@ -91,16 +95,14 @@ describe('swapTokensAndRepay', () => {
       repayFullLoan: true,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapBNBForFullTokenDebtAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapBNBForFullTokenDebtAndRepayMock).toHaveBeenCalledWith(
-      fakeVToken.address,
-      customFakeExactAmountOutSwap.routePath,
-      expect.any(Number),
-      {
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeVToken.address, customFakeExactAmountOutSwap.routePath, expect.any(Number)],
+      overrides: {
         value: customFakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
       },
-    );
+      methodName: 'swapBNBForFullTokenDebtAndRepay',
+    });
   });
 
   it('calls the right contract method when selling an exact amount of non-native tokens to repay as many non-native tokens as possible', async () => {
@@ -118,15 +120,17 @@ describe('swapTokensAndRepay', () => {
       repayFullLoan: false,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapExactTokensForTokensAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapExactTokensForTokensAndRepayMock).toHaveBeenCalledWith(
-      fakeVToken.address,
-      fakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
-      fakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
-      fakeExactAmountInSwap.routePath,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        fakeVToken.address,
+        fakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
+        fakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
+        fakeExactAmountInSwap.routePath,
+        expect.any(Number),
+      ],
+      methodName: 'swapExactTokensForTokensAndRepay',
+    });
   });
 
   it('calls the right contract method when selling an exact amount of native tokens to repay as many non-native tokens as possible', async () => {
@@ -150,17 +154,19 @@ describe('swapTokensAndRepay', () => {
       repayFullLoan: false,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapBNBForExactTokensAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapBNBForExactTokensAndRepayMock).toHaveBeenCalledWith(
-      fakeVToken.address,
-      customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
-      customFakeExactAmountInSwap.routePath,
-      expect.any(Number),
-      {
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        fakeVToken.address,
+        customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
+        customFakeExactAmountInSwap.routePath,
+        expect.any(Number),
+      ],
+      overrides: {
         value: customFakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
       },
-    );
+      methodName: 'swapBNBForExactTokensAndRepay',
+    });
   });
 
   it('calls the right contract method when selling an exact amount of non-native tokens to repay as many native tokens as possible', async () => {
@@ -184,14 +190,16 @@ describe('swapTokensAndRepay', () => {
       repayFullLoan: false,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapExactTokensForBNBAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapExactTokensForBNBAndRepayMock).toHaveBeenCalledWith(
-      customFakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
-      customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
-      customFakeExactAmountInSwap.routePath,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        customFakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
+        customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
+        customFakeExactAmountInSwap.routePath,
+        expect.any(Number),
+      ],
+      methodName: 'swapExactTokensForBNBAndRepay',
+    });
   });
 
   it('calls the right contract method when repaying an exact amount of non-native tokens by selling as few non-native tokens as possible', async () => {
@@ -209,15 +217,17 @@ describe('swapTokensAndRepay', () => {
       repayFullLoan: false,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapTokensForExactTokensAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapTokensForExactTokensAndRepayMock).toHaveBeenCalledWith(
-      fakeVToken.address,
-      fakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
-      fakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
-      fakeExactAmountOutSwap.routePath,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        fakeVToken.address,
+        fakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
+        fakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
+        fakeExactAmountOutSwap.routePath,
+        expect.any(Number),
+      ],
+      methodName: 'swapTokensForExactTokensAndRepay',
+    });
   });
 
   it('calls the right contract method when repaying an exact amount of non-native tokens by selling as few native tokens as possible', async () => {
@@ -241,17 +251,19 @@ describe('swapTokensAndRepay', () => {
       repayFullLoan: false,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapBNBForExactTokensAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapBNBForExactTokensAndRepayMock).toHaveBeenCalledWith(
-      fakeVToken.address,
-      customFakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
-      customFakeExactAmountOutSwap.routePath,
-      expect.any(Number),
-      {
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        fakeVToken.address,
+        customFakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
+        customFakeExactAmountOutSwap.routePath,
+        expect.any(Number),
+      ],
+      overrides: {
         value: customFakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
       },
-    );
+      methodName: 'swapBNBForExactTokensAndRepay',
+    });
   });
 
   it('calls the right contract method when repaying an exact amount of native tokens by selling as few non-native tokens as possible', async () => {
@@ -275,13 +287,15 @@ describe('swapTokensAndRepay', () => {
       repayFullLoan: false,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapTokensForExactBNBAndRepayMock).toHaveBeenCalledTimes(1);
-    expect(swapTokensForExactBNBAndRepayMock).toHaveBeenCalledWith(
-      customFakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
-      customFakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
-      customFakeExactAmountOutSwap.routePath,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        customFakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
+        customFakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
+        customFakeExactAmountOutSwap.routePath,
+        expect.any(Number),
+      ],
+      methodName: 'swapTokensForExactBNBAndRepay',
+    });
   });
 });

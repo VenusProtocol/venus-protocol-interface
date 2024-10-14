@@ -37,14 +37,17 @@ describe('repay', () => {
         repayFullLoan: true,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-
       const amountWithBufferMantissa = fakeAmountMantissa.multipliedBy(
         1 + FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE / 100,
       );
 
-      expect(repayBehalfExplicitMock).toHaveBeenCalledWith(fakeSignerAddress, vBnb.address, {
-        value: amountWithBufferMantissa.toFixed(),
+      expect(response).toStrictEqual({
+        contract: fakeMaximillionContract,
+        args: [fakeSignerAddress, vBnb.address],
+        overrides: {
+          value: amountWithBufferMantissa.toFixed(),
+        },
+        methodName: 'repayBehalfExplicit',
       });
     });
 
@@ -65,10 +68,13 @@ describe('repay', () => {
         repayFullLoan: false,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(repayBorrowMock).toHaveBeenCalledTimes(1);
-      expect(repayBorrowMock).toHaveBeenCalledWith({
-        value: fakeAmountMantissa.toFixed(),
+      expect(response).toStrictEqual({
+        contract: fakeVTokenContract,
+        args: [],
+        overrides: {
+          value: fakeAmountMantissa.toFixed(),
+        },
+        methodName: 'repayBorrow',
       });
     });
   });
@@ -108,10 +114,13 @@ describe('repay', () => {
         wrap: true,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(wrapAndRepayMock).toHaveBeenCalledTimes(1);
-      expect(wrapAndRepayMock).toHaveBeenCalledWith({
-        value: fakeAmountMantissa.toFixed(),
+      expect(response).toStrictEqual({
+        contract: fakeNativeTokenGatewayContract,
+        args: [],
+        overrides: {
+          value: fakeAmountMantissa.toFixed(),
+        },
+        methodName: 'wrapAndRepay',
       });
     });
 
@@ -134,15 +143,17 @@ describe('repay', () => {
         wrap: true,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-
       const amountWithBufferMantissa = fakeAmountMantissa.multipliedBy(
         1 + FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE / 100,
       );
 
-      expect(wrapAndRepayMock).toHaveBeenCalledTimes(1);
-      expect(wrapAndRepayMock).toHaveBeenCalledWith({
-        value: amountWithBufferMantissa.toFixed(),
+      expect(response).toStrictEqual({
+        contract: fakeNativeTokenGatewayContract,
+        args: [],
+        overrides: {
+          value: amountWithBufferMantissa.toFixed(),
+        },
+        methodName: 'wrapAndRepay',
       });
     });
   });
@@ -167,9 +178,11 @@ describe('repay', () => {
         repayFullLoan: false,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(repayBorrowMock).toHaveBeenCalledTimes(1);
-      expect(repayBorrowMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed(), {});
+      expect(response).toStrictEqual({
+        contract: fakeVTokenContract,
+        args: [fakeAmountMantissa.toFixed()],
+        methodName: 'repayBorrow',
+      });
     });
   });
 });

@@ -29,13 +29,10 @@ describe('stakeInXvsVault', () => {
       poolIndex: fakePoolIndex,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(depositMock).toHaveBeenCalledTimes(1);
-    expect(depositMock).toHaveBeenCalledWith(
-      busd.address,
-      fakePoolIndex,
-      fakeAmountMantissa.toFixed(),
-      {},
-    );
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [busd.address, fakePoolIndex, fakeAmountMantissa.toFixed()],
+      methodName: 'deposit',
+    });
   });
 });

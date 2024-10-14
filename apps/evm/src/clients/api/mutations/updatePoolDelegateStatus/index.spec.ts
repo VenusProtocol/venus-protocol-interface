@@ -23,8 +23,10 @@ describe('updatePoolDelegateStatus', () => {
       delegateeAddress: fakeDelegateAddress,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(updateDelegateMock).toHaveBeenCalledTimes(1);
-    expect(updateDelegateMock).toHaveBeenCalledWith(fakeDelegateAddress, true, {});
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeDelegateAddress, true],
+      methodName: 'updateDelegate',
+    });
   });
 });

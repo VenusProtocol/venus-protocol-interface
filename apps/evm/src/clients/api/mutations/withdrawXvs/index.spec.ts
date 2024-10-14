@@ -20,8 +20,10 @@ describe('withdrawXvs', () => {
       xvsVestingContract: fakeContract,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(withdrawVrtMock).toHaveBeenCalledTimes(1);
-    expect(withdrawVrtMock).toHaveBeenCalledWith({});
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [],
+      methodName: 'withdraw',
+    });
   });
 });

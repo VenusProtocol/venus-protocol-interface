@@ -18,8 +18,10 @@ describe('castVote', () => {
       voteType: 1,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(castVoteMock).toHaveBeenCalledTimes(1);
-    expect(castVoteMock).toHaveBeenCalledWith(1, 1);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [1, 1],
+      methodName: 'castVote',
+    });
   });
 });

@@ -25,8 +25,10 @@ describe('executeWithdrawalFromXvsVault', () => {
       poolIndex: fakePoolIndex,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(executeWithdrawalMock).toHaveBeenCalledTimes(1);
-    expect(executeWithdrawalMock).toHaveBeenCalledWith(fakeRewardTokenAddress, fakePoolIndex, {});
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeRewardTokenAddress, fakePoolIndex],
+      methodName: 'executeWithdrawal',
+    });
   });
 });

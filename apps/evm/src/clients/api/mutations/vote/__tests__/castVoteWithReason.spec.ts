@@ -19,8 +19,10 @@ describe('castVoteWithReason', () => {
       voteReason: 'yes!',
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(castVoteWithReasonMock).toHaveBeenCalledTimes(1);
-    expect(castVoteWithReasonMock).toHaveBeenCalledWith(1, 1, 'yes!');
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [1, 1, 'yes!'],
+      methodName: 'castVoteWithReason',
+    });
   });
 });

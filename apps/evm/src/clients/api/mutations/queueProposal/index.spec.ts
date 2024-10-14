@@ -19,8 +19,10 @@ describe('queueProposal', () => {
       proposalId: fakeProposalId,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(queueProposalMock).toHaveBeenCalledTimes(1);
-    expect(queueProposalMock).toHaveBeenCalledWith(fakeProposalId);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeProposalId],
+      methodName: 'queue',
+    });
   });
 });

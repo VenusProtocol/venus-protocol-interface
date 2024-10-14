@@ -19,8 +19,10 @@ describe('cancelProposal', () => {
       proposalId: fakeProposalId,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(cancelProposalMock).toHaveBeenCalledTimes(1);
-    expect(cancelProposalMock).toHaveBeenCalledWith(fakeProposalId);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeProposalId],
+      methodName: 'cancel',
+    });
   });
 });
