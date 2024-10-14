@@ -83,7 +83,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     if (isExecutable) {
       const execute = async () => {
         try {
-          await executeProposal({ proposalId });
+          await executeProposal({ proposalId, chainId: governanceChain.id });
         } catch (error) {
           displayMutationError({ error });
         }

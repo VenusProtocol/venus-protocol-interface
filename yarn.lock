@@ -7318,7 +7318,16 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@venusprotocol/governance-contracts@2.3.0", "@venusprotocol/governance-contracts@^2.3.0":
+"@venusprotocol/governance-contracts@2.3.0-dev.3":
+  version "2.3.0-dev.3"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.3.0-dev.3.tgz#6f22d60e6ec78758726cfebbd87e72847d9de5ab"
+  integrity sha512-VxvYTDTFQwYGr19ptDXPf18zYamYG6EIOppYAIgxzmXnget3GupWMzMIIbFarwkKBE+ewEDAr5IyXIFlox0Vhg==
+  dependencies:
+    "@venusprotocol/solidity-utilities" "2.0.0"
+    hardhat-deploy-ethers "^0.3.0-beta.13"
+    module-alias "^2.2.2"
+
+"@venusprotocol/governance-contracts@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.3.0.tgz#caa729f28a36df066ff02a799ac7394fae3ef996"
   integrity sha512-xMmjWUe8sMHEFcl1EGHMTD8UCSKtFCW6JsC6P9kELTSRTMrRFVAUWqhdv0wxHl3iHygyP9dpT+wR3/nUrAiA1w==
@@ -17975,7 +17984,7 @@ string-length@^6.0.0:
   dependencies:
     strip-ansi "^7.1.0"
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.2, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -17991,15 +18000,6 @@ string-width@^2.1.1:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^4.0.0"
-
-string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.2, string-width@^4.2.3:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
-  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
-  dependencies:
-    emoji-regex "^8.0.0"
-    is-fullwidth-code-point "^3.0.0"
-    strip-ansi "^6.0.1"
 
 string-width@^5.0.1, string-width@^5.1.2:
   version "5.1.2"
