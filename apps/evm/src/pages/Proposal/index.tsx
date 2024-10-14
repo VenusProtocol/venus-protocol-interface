@@ -56,7 +56,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   }
 
   return (
-    <div css={styles.root} className="space-y-6 xl:space-y-8">
+    <div css={styles.root} className="space-y-6">
       <ProposalSummary proposal={proposal} />
 
       {!isVoteProposalFeatureEnabled && proposal.state === ProposalState.Active && (
@@ -76,11 +76,8 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
       )}
 
-      {isMultichainGovernanceFeatureEnabled && <Commands proposal={proposal} />}
-
-      <div css={styles.votes} className="space-y-6 xl:space-y-0">
+      <div className="space-y-6 xl:space-y-0 xl:flex xl:space-x-6">
         <VoteSummary
-          css={styles.vote}
           label={t('vote.for')}
           votedValueMantissa={proposal.forVotesMantissa}
           votedTotalMantissa={proposal.totalVotesMantissa}
@@ -92,7 +89,6 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
 
         <VoteSummary
-          css={styles.vote}
           label={t('vote.against')}
           votedValueMantissa={proposal.againstVotesMantissa}
           votedTotalMantissa={proposal.totalVotesMantissa}
@@ -104,7 +100,6 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
 
         <VoteSummary
-          css={styles.vote}
           label={t('vote.abstain')}
           votedValueMantissa={proposal.abstainedVotesMantissa}
           votedTotalMantissa={proposal.totalVotesMantissa}
@@ -117,6 +112,8 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
       </div>
 
       <Description description={proposal.description} actions={proposal.proposalActions} />
+
+      {isMultichainGovernanceFeatureEnabled && <Commands proposal={proposal} />}
 
       {isVoteProposalFeatureEnabled && voteModalType !== undefined && (
         <VoteModal

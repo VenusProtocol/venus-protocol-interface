@@ -2,7 +2,7 @@ import { useCancelProposal, useExecuteProposal, useQueueProposal } from 'clients
 import { Button } from 'components';
 import type { ConnectWalletProps } from 'containers/ConnectWallet';
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
@@ -53,12 +53,17 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
         try {
           await cancelProposal({ proposalId });
         } catch (error) {
-          displayMutationError({ error });
+          handleError({ error });
         }
       };
 
       return (
-        <Button variant="secondary" onClick={cancel} disabled={isCancelProposalLoading}>
+        <Button
+          variant="secondary"
+          className="w-full"
+          onClick={cancel}
+          disabled={isCancelProposalLoading}
+        >
           {t('voteProposalUi.command.actionButton.cancel')}
         </Button>
       );
@@ -69,12 +74,12 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
         try {
           await queueProposal({ proposalId });
         } catch (error) {
-          displayMutationError({ error });
+          handleError({ error });
         }
       };
 
       return (
-        <Button onClick={queue} disabled={isQueueProposalLoading}>
+        <Button onClick={queue} className="w-full" disabled={isQueueProposalLoading}>
           {t('voteProposalUi.command.actionButton.queue')}
         </Button>
       );
@@ -83,14 +88,14 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     if (isExecutable) {
       const execute = async () => {
         try {
-          await executeProposal({ proposalId });
+          await executeProposal({ proposalId, chainId: governanceChain.id });
         } catch (error) {
-          displayMutationError({ error });
+          handleError({ error });
         }
       };
 
       return (
-        <Button onClick={execute} disabled={isExecuteProposalLoading}>
+        <Button onClick={execute} className="w-full" disabled={isExecuteProposalLoading}>
           {t('voteProposalUi.command.actionButton.execute')}
         </Button>
       );

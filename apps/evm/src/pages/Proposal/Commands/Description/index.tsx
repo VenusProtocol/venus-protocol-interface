@@ -6,7 +6,7 @@ export interface DescriptionProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Description: React.FC<DescriptionProps> = ({ type = 'info', ...otherProps }) => (
   <p
-    className={cn('text-sm md:pl-8 text-grey', type === 'warning' && 'text-orange')}
+    className={cn('text-sm md:pl-7 text-grey', type === 'warning' && 'text-orange')}
     {...otherProps}
   />
 );
