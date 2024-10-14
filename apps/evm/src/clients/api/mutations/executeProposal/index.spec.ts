@@ -6,16 +6,16 @@ import executeProposal from '.';
 
 describe('executeProposal', () => {
   test('returns contract transaction when request succeeds', async () => {
-    const executeProposalMock = vi.fn(async () => fakeContractTransaction);
+    const executeMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
-      execute: executeProposalMock,
+      execute: executeMock,
     } as unknown as GovernorBravoDelegate;
 
     const fakeProposalId = 3816;
 
     const response = executeProposal({
-      governorBravoDelegateContract: fakeContract,
+      contract: fakeContract,
       proposalId: fakeProposalId,
     });
 

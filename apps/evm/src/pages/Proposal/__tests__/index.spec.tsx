@@ -27,7 +27,7 @@ import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatur
 import useVote from 'hooks/useVote';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
-import { VoteSupport } from 'types';
+import { ChainId, VoteSupport } from 'types';
 
 import { REDIRECT_TEST_CONTENT } from 'components/Redirect/__mocks__';
 import Proposal from '..';
@@ -219,7 +219,11 @@ describe('Proposal page', () => {
     expect(castButton).toBeEnabled();
     fireEvent.click(castButton);
     await waitFor(() =>
-      expect(vote).toBeCalledWith({ proposalId: 97, voteReason: '', voteType: 1 }),
+      expect(vote).toHaveBeenCalledWith({
+        proposalId: activeProposal.proposalId,
+        voteReason: '',
+        voteType: 1,
+      }),
     );
   });
 
@@ -251,7 +255,11 @@ describe('Proposal page', () => {
     fireEvent.click(castButton);
 
     await waitFor(() =>
-      expect(vote).toBeCalledWith({ proposalId: 97, voteReason: comment, voteType: 0 }),
+      expect(vote).toHaveBeenCalledWith({
+        proposalId: activeProposal.proposalId,
+        voteReason: comment,
+        voteType: 0,
+      }),
     );
   });
 
@@ -278,7 +286,11 @@ describe('Proposal page', () => {
     expect(castButton).toBeEnabled();
     fireEvent.click(castButton);
     await waitFor(() =>
-      expect(vote).toBeCalledWith({ proposalId: 97, voteReason: '', voteType: 2 }),
+      expect(vote).toHaveBeenCalledWith({
+        proposalId: activeProposal.proposalId,
+        voteReason: '',
+        voteType: 2,
+      }),
     );
   });
 
@@ -315,7 +327,7 @@ describe('Proposal page', () => {
 
     fireEvent.click(cancelButton);
     await waitFor(() => expect(cancelButton).toBeEnabled());
-    expect(cancelProposal).toBeCalledWith({ proposalId: 97 });
+    expect(cancelProposal).toHaveBeenCalledWith({ proposalId: activeProposal.proposalId });
   });
 
   it('does not allow user to cancel if voting power of the proposer is greater than or equals threshold', async () => {
@@ -353,7 +365,7 @@ describe('Proposal page', () => {
     fireEvent.click(cancelButton);
 
     await waitFor(() => expect(cancelButton).toBeEnabled());
-    expect(cancelProposal).toBeCalledWith({ proposalId: 97 });
+    expect(cancelProposal).toHaveBeenCalledWith({ proposalId: activeProposal.proposalId });
   });
 
   it('user can queue succeeded proposal', async () => {
@@ -373,7 +385,9 @@ describe('Proposal page', () => {
     fireEvent.click(queueButton);
     await waitFor(() => expect(queueButton).toBeEnabled());
 
-    await waitFor(() => expect(queueProposal).toBeCalledWith({ proposalId: 94 }));
+    await waitFor(() =>
+      expect(queueProposal).toHaveBeenCalledWith({ proposalId: succeededProposal.proposalId }),
+    );
   });
 
   it('user can execute queued proposal', async () => {
@@ -392,6 +406,11 @@ describe('Proposal page', () => {
     fireEvent.click(executeButton);
     await waitFor(() => expect(executeButton).toBeEnabled());
 
-    await waitFor(() => expect(executeProposal).toBeCalledWith({ proposalId: 93 }));
+    await waitFor(() =>
+      expect(executeProposal).toHaveBeenCalledWith({
+        proposalId: queuedProposal.proposalId,
+        chainId: ChainId.BSC_TESTNET,
+      }),
+    );
   });
 });

@@ -70,7 +70,7 @@ export const BscCommand: React.FC<BscCommandProps> = ({
   const description = useMemo(() => {
     switch (state) {
       case ProposalState.Pending:
-        return t('voteProposalUi.command.description.pending');
+        return t('voteProposalUi.command.description.pendingBsc');
       case ProposalState.Canceled:
         return t('voteProposalUi.command.description.canceled');
       case ProposalState.Queued:
