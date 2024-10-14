@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { commands as fakeCommands } from '__mocks__/models/proposalCommands';
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
-import { Button, NoticeInfo, Redirect, Spinner } from 'components';
+import { Button, NoticeInfo, Page, Redirect, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { type UseVoteParams } from 'hooks/useVote';
@@ -189,13 +189,15 @@ const Proposal = () => {
   }
 
   return (
-    <ProposalUi
-      proposal={proposal}
-      vote={vote}
-      votingEnabled={votingEnabled}
-      readableVoteWeight={readableVoteWeight}
-      isVoteLoading={isLoading}
-    />
+    <Page indexWithSearchEngines={false}>
+      <ProposalUi
+        proposal={proposal}
+        vote={vote}
+        votingEnabled={votingEnabled}
+        readableVoteWeight={readableVoteWeight}
+        isVoteLoading={isLoading}
+      />
+    </Page>
   );
 };
 
