@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.158.0
+
+### Minor Changes
+
+- 3bea281: Add support for Optimism networks
+
+### Patch Changes
+
+- 0690e47: fix initial value used when clicking on max button or repay form
+
 ## 2.157.0
 
 ### Minor Changes
