@@ -65,14 +65,12 @@ export const getMarketsToRender = (markets?: MarketMapped[]) => {
   return sortedMarkets.slice(0, 5).sort(sortBySupplyApy);
 };
 
-const addSpaceBeforeUSDSymbol = (string: string) => string.replace(/^(\D+)/, '$\u00a0');
-
 export const formatUsd = (value: number) => {
   const formattedValue = new Intl.NumberFormat('en-EN', {
     style: 'currency',
     currency: 'USD',
   }).format(value);
-  return addSpaceBeforeUSDSymbol(formattedValue);
+  return formattedValue;
 };
 
 export const nFormatter = (num: number, digits = 2) => {
