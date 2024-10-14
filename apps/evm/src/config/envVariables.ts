@@ -119,6 +119,34 @@ export const ENV_VARIABLES = {
       ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_ZKSYNC_MAINNET
       : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_ZKSYNC_MAINNET,
 
+  // Optimism mainnet
+  VITE_RPC_HTTP_URL_OPTIMISM_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_HTTP_URL_OPTIMISM_MAINNET
+      : import.meta.env.VITE_RPC_HTTP_URL_OPTIMISM_MAINNET,
+  VITE_SUBGRAPH_MARKETS_URL_OPTIMISM_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_MARKETS_URL_OPTIMISM_MAINNET
+      : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_OPTIMISM_MAINNET,
+  VITE_SUBGRAPH_GOVERNANCE_URL_OPTIMISM_MAINNET:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_OPTIMISM_MAINNET
+      : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_OPTIMISM_MAINNET,
+
+  // Optimism Sepolia
+  VITE_RPC_HTTP_URL_OPTIMISM_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_RPC_HTTP_URL_OPTIMISM_SEPOLIA
+      : import.meta.env.VITE_RPC_HTTP_URL_OPTIMISM_SEPOLIA,
+  VITE_SUBGRAPH_MARKETS_URL_OPTIMISM_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_MARKETS_URL_OPTIMISM_SEPOLIA
+      : import.meta.env.VITE_SUBGRAPH_MARKETS_URL_OPTIMISM_SEPOLIA,
+  VITE_SUBGRAPH_GOVERNANCE_URL_OPTIMISM_SEPOLIA:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SUBGRAPH_GOVERNANCE_URL_OPTIMISM_SEPOLIA
+      : import.meta.env.VITE_SUBGRAPH_GOVERNANCE_URL_OPTIMISM_SEPOLIA,
+
   // Third-parties
   VITE_SENTRY_DSN:
     typeof process !== 'undefined' ? process.env.VITE_SENTRY_DSN : import.meta.env.VITE_SENTRY_DSN,
