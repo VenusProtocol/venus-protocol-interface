@@ -33,6 +33,7 @@ const useWithdraw = (
 
   return useSendTransaction({
     fnKey: [FunctionKey.WITHDRAW],
+    // @ts-expect-error this should accept both the NativeTokenGateway and VToken contracts
     fn: (input: TrimmedRedeemInput) =>
       callOrThrow({ tokenContract }, params =>
         withdraw({

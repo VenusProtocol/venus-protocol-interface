@@ -24,8 +24,10 @@ describe('approveToken', () => {
       allowance: MAX_UINT256.toFixed(),
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(approveTokenMock).toHaveBeenCalledTimes(1);
-    expect(approveTokenMock).toHaveBeenCalledWith(fakeAddress, MAX_UINT256.toFixed(), {});
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeAddress, MAX_UINT256.toFixed()],
+      methodName: 'approve',
+    });
   });
 });

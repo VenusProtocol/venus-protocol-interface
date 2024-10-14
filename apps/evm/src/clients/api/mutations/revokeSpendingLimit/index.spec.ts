@@ -22,8 +22,10 @@ describe('revokeSpendingLimit', () => {
       spenderAddress: fakeAddress,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(approveTokenMock).toHaveBeenCalledTimes(1);
-    expect(approveTokenMock).toHaveBeenCalledWith(fakeAddress, 0, {});
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeAddress, 0],
+      methodName: 'approve',
+    });
   });
 });

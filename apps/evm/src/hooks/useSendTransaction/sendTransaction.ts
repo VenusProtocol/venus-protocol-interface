@@ -132,9 +132,16 @@ export async function sendTransaction<
         wait: async (confirmations?: number) =>
           await publicClient.waitForTransactionReceipt({ hash: txHash, confirmations }),
       };
-    } catch (error) {
+    } catch (error: any) {
       logError(error);
-      throw error;
+      // if the user is not rejecting, throw a VError
+      if (error.cause?.code !== 4001) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+          errorCallback: retryCallback,
+        });
+      }
     }
   }
 

@@ -26,15 +26,17 @@ describe('swapTokensAndSupplyAndSupply', () => {
       vToken: fakeVToken,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapExactTokensForTokensAndSupplyMock).toHaveBeenCalledTimes(1);
-    expect(swapExactTokensForTokensAndSupplyMock).toHaveBeenCalledWith(
-      fakeVToken.address,
-      fakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
-      fakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
-      fakeExactAmountInSwap.routePath,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        fakeVToken.address,
+        fakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
+        fakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
+        fakeExactAmountInSwap.routePath,
+        expect.any(Number),
+      ],
+      methodName: 'swapExactTokensForTokensAndSupply',
+    });
   });
 
   it('calls the right contract method when selling an exact amount of native tokens to supply as many non-native tokens as possible', async () => {
@@ -57,16 +59,18 @@ describe('swapTokensAndSupplyAndSupply', () => {
       vToken: fakeVToken,
     });
 
-    expect(result).toBe(fakeContractTransaction);
-    expect(swapExactBNBForTokensAndSupplyMock).toHaveBeenCalledTimes(1);
-    expect(swapExactBNBForTokensAndSupplyMock).toHaveBeenCalledWith(
-      fakeVToken.address,
-      customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
-      customFakeExactAmountInSwap.routePath,
-      expect.any(Number),
-      {
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        fakeVToken.address,
+        customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
+        customFakeExactAmountInSwap.routePath,
+        expect.any(Number),
+      ],
+      overrides: {
         value: customFakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
       },
-    );
+      methodName: 'swapExactBNBForTokensAndSupply',
+    });
   });
 });

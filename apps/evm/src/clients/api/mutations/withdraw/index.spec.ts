@@ -40,9 +40,11 @@ describe('withdraw', () => {
         withdrawFullSupply: true,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(redeemMock).toHaveBeenCalledTimes(1);
-      expect(redeemMock).toHaveBeenCalledWith(fakeAmount.toFixed(), {});
+      expect(response).toStrictEqual({
+        contract: fakeVTokenContract,
+        args: [fakeAmount.toString()],
+        methodName: 'redeem',
+      });
     });
 
     it('returns contract transaction when request to withdraw partial supply succeeds', async () => {
@@ -60,9 +62,11 @@ describe('withdraw', () => {
         amountMantissa: fakeAmount,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(redeemUnderlyingMock).toHaveBeenCalledTimes(1);
-      expect(redeemUnderlyingMock).toHaveBeenCalledWith(fakeAmount.toFixed(), {});
+      expect(response).toStrictEqual({
+        contract: fakeVTokenContract,
+        args: [fakeAmount.toString()],
+        methodName: 'redeemUnderlying',
+      });
     });
   });
 
@@ -97,9 +101,11 @@ describe('withdraw', () => {
         unwrap: true,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(redeemAndUnwrapMock).toHaveBeenCalledTimes(1);
-      expect(redeemAndUnwrapMock).toHaveBeenCalledWith(fakeAmount.toFixed(), {});
+      expect(response).toStrictEqual({
+        contract: fakeNativeTokenGatewayContract,
+        args: [fakeAmount.toString()],
+        methodName: 'redeemAndUnwrap',
+      });
     });
 
     it('returns contract transaction when request to withdraw partial supply succeeds', async () => {
@@ -118,9 +124,11 @@ describe('withdraw', () => {
         unwrap: true,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(redeemUnderlyingAndUnwrapMock).toHaveBeenCalledTimes(1);
-      expect(redeemUnderlyingAndUnwrapMock).toHaveBeenCalledWith(fakeAmount.toFixed(), {});
+      expect(response).toStrictEqual({
+        contract: fakeNativeTokenGatewayContract,
+        args: [fakeAmount.toString()],
+        methodName: 'redeemUnderlyingAndUnwrap',
+      });
     });
   });
 });

@@ -38,9 +38,11 @@ describe('borrow', () => {
         amountMantissa: fakeAmountMantissa,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(borrowMock).toHaveBeenCalledTimes(1);
-      expect(borrowMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed(), {});
+      expect(response).toStrictEqual({
+        contract: fakeVTokenContract,
+        args: [fakeAmountMantissa.toFixed()],
+        methodName: 'borrow',
+      });
     });
   });
 
@@ -74,9 +76,11 @@ describe('borrow', () => {
         nativeTokenGatewayContract: fakeNativeTokenGatewayContract,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(borrowAndUnwrapMock).toHaveBeenCalledTimes(1);
-      expect(borrowAndUnwrapMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed(), {});
+      expect(response).toStrictEqual({
+        contract: fakeNativeTokenGatewayContract,
+        args: [fakeAmountMantissa.toFixed()],
+        methodName: 'borrowAndUnwrap',
+      });
     });
   });
 });

@@ -15,7 +15,7 @@ export function useViemPublicClient({
           transport: http(config.rpcUrls[chainId]),
         }),
       ),
-    [chains],
+    [chainId],
   );
 
   return clients.find(c => c.chain.id === chainId);

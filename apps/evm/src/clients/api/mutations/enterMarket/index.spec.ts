@@ -22,8 +22,10 @@ describe('enterMarket', () => {
       vToken: vBusd,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(enterMarketsMock).toHaveBeenCalledTimes(1);
-    expect(enterMarketsMock).toHaveBeenCalledWith([vBusd.address], {});
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [[vBusd.address]],
+      methodName: 'enterMarkets',
+    });
   });
 });

@@ -22,8 +22,10 @@ describe('exitMarket', () => {
       vToken: vBusd,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(exitMarketMock).toHaveBeenCalledTimes(1);
-    expect(exitMarketMock).toHaveBeenCalledWith(vBusd.address, {});
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [vBusd.address],
+      methodName: 'exitMarket',
+    });
   });
 });

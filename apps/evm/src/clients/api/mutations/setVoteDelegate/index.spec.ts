@@ -18,8 +18,10 @@ describe('setVoteDelegate', () => {
       delegateAddress: fakeAddress,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(delegateMock).toHaveBeenCalledTimes(1);
-    expect(delegateMock).toHaveBeenCalledWith(fakeAddress);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeAddress],
+      methodName: 'delegate',
+    });
   });
 });

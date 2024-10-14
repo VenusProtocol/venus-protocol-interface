@@ -24,9 +24,6 @@ const fakeSendFromParams = [
     refundAddress: fakeAddress,
     zroPaymentAddress: NULL_ADDRESS,
   },
-  {
-    value: fakeNativeCurrencyFeeMantissa.toFixed(),
-  },
 ];
 
 describe('bridgeXvs', () => {
@@ -48,8 +45,13 @@ describe('bridgeXvs', () => {
       nativeCurrencyFeeMantissa: fakeNativeCurrencyFeeMantissa,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(sendFromMock).toHaveBeenCalledTimes(1);
-    expect(sendFromMock).toHaveBeenCalledWith(...fakeSendFromParams);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [...fakeSendFromParams],
+      methodName: 'sendFrom',
+      overrides: {
+        value: fakeNativeCurrencyFeeMantissa.toFixed(),
+      },
+    });
   });
 });

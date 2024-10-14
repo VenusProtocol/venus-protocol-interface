@@ -20,7 +20,10 @@ describe('claimPrimeToken', () => {
       primeContract: fakeContract,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(claimPrimeTokenMock).toHaveBeenCalledTimes(1);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [],
+      methodName: 'claim',
+    });
   });
 });

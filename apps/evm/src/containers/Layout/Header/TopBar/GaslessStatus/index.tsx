@@ -27,7 +27,7 @@ const GaslessStatus = ({
     ) : (
       <div className={containerClassName}>
         <img src={gasGreen} alt={t('gaslessTransactions.gas')} className="mr-1" />
-        <span className="hidden md:block">{t('gaslessTransactions.chainLabel')}</span>
+        <span>{t('gaslessTransactions.chainLabel')}</span>
       </div>
     ))
   );

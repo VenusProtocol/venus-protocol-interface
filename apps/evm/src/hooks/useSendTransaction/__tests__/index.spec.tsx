@@ -6,6 +6,7 @@ import { renderHook } from 'testUtils/render';
 
 import FunctionKey from 'constants/functionKey';
 
+import contractTxData from '__mocks__/models/contractTxData';
 import { useSendTransaction } from '..';
 import { CONFIRMATIONS, useTrackTransaction } from '../useTrackTransaction';
 
@@ -19,7 +20,7 @@ describe('useSendTransaction', () => {
     const trackTransactionMock = vi.fn();
     (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
 
-    const fnMock = vi.fn(async () => fakeContractTransaction);
+    const fnMock = vi.fn(async () => contractTxData);
     const fakeOptions = {
       onSuccess: noop,
     };
@@ -56,7 +57,7 @@ describe('useSendTransaction', () => {
     const trackTransactionMock = vi.fn();
     (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
 
-    const fnMock = vi.fn(async () => fakeContractTransaction);
+    const fnMock = vi.fn(async () => contractTxData);
     const fakeOptions = {
       onSuccess: noop,
       waitForConfirmation: true,
