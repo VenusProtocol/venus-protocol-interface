@@ -17,6 +17,7 @@ const options: SelectOption<ChainId>[] = chains.map(chain => {
       return (
         <div className="flex items-center">
           <img src={metadata.logoSrc} alt={metadata.name} className="w-5 max-w-none flex-none" />
+          {isRenderedInButton && <GaslessStatus chainId={chain.id} variant="mobile" />}
 
           {!isRenderedInButton && (
             <span className={cn('flex flex-row ml-2 grow text-ellipsis')}>
