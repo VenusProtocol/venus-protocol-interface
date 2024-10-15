@@ -42,7 +42,7 @@ const getVariantClasses = ({ variant, active }: { variant: Variant; active: bool
       );
     case 'text':
       return cn(
-        'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0 font-normal',
+        'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0',
         active && 'text-mediumBlue',
       );
     // primary

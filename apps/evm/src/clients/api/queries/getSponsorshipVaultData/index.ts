@@ -15,8 +15,10 @@ const getSponsorshipVaultData = async ({
   publicClient,
 }: GetSponsorshipVaultDataInput): Promise<GetSponsorshipVaultDataOutput> => {
   const { vaultAddress, walletAddress } = config.zyFi;
+
   const res = await publicClient.readContract({
     address: vaultAddress,
+    // TODO: add ABI to contracts package config
     abi: parseAbi(['function balances(address addr) view returns (uint256)']),
     functionName: 'balances',
     args: [walletAddress],
@@ -24,6 +26,7 @@ const getSponsorshipVaultData = async ({
 
   const amountLeft = new BigNumber(res.toString());
   const hasEnoughFunds = amountLeft.gt(new BigNumber(10).pow(14));
+
   return {
     amountLeft,
     hasEnoughFunds,

@@ -1,61 +1,65 @@
 import { useGetSponsorshipVaultData } from 'clients/api';
-import { Tooltip } from 'components';
+import { Icon, Tooltip } from 'components';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import { gasGreen, gasSlashedGreen, useChainId } from 'libs/wallet';
+import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
+import { cn } from 'utilities';
 
-const GaslessStatus = ({
+export interface GaslessStatusProps extends React.HTMLAttributes<HTMLDivElement> {
+  chainId?: ChainId;
+  wrapWithTooltip?: boolean;
+  displayLabel?: boolean;
+}
+
+export const GaslessStatus: React.FC<GaslessStatusProps> = ({
   chainId,
-  variant,
-}: { chainId?: ChainId; variant: 'header' | 'chainSelector' | 'mobile' }) => {
+  wrapWithTooltip = false,
+  displayLabel = false,
+  className,
+  ...otherProps
+}) => {
   const { t, Trans } = useTranslation();
   const { chainId: chainIdFromHook } = useChainId();
   const { data: sponsorshipVaultData } = useGetSponsorshipVaultData({
     chainId: chainId ?? chainIdFromHook,
   });
 
-  if (sponsorshipVaultData?.hasEnoughFunds !== true) return null;
-
-  const containerClassName =
-    variant === 'header'
-      ? 'hidden md:flex flex-row text-green [font-variant:all-small-caps] mr-'
-      : 'flex flex-row text-green [font-variant:all-small-caps] ml-1 mr-2';
-
-  if (variant === 'mobile') {
-    return (
-      <div className="block md:hidden">
-        <img src={gasSlashedGreen} alt={t('gaslessTransactions.gas')} className="ml-1" />
-      </div>
-    );
-  }
-  if (variant === 'chainSelector') {
-    return (
-      <div className={containerClassName}>
-        <img src={gasGreen} alt={t('gaslessTransactions.gas')} className="mr-1" />
-        <span>{t('gaslessTransactions.chainLabel')}</span>
-      </div>
-    );
+  if (sponsorshipVaultData?.hasEnoughFunds !== true) {
+    return undefined;
   }
 
-  // @TODO: add link to docs
-  return (
-    <Tooltip
-      title={
-        <Trans
-          i18nKey="gaslessTransactions.tooltip"
-          components={{
-            Link: <Link href={''} />,
-          }}
-        />
-      }
+  const contentDom = (
+    <div
+      className={cn(
+        'text-green [font-variant:all-small-caps] flex items-center gap-x-[2px]',
+        className,
+      )}
+      {...otherProps}
     >
-      <div className={containerClassName}>
-        <img src={gasGreen} alt={t('gaslessTransactions.gas')} className="mr-1" />
-        <span>{t('gaslessTransactions.chainLabel')}</span>
-      </div>
-    </Tooltip>
-  );
-};
+      <Icon name={displayLabel ? 'gas' : 'gasSlashed'} className="text-green" />
 
-export default GaslessStatus;
+      {displayLabel && <span className="font-semibold">{t('gaslessTransactions.chainLabel')}</span>}
+    </div>
+  );
+
+  if (wrapWithTooltip) {
+    // @TODO: add link to docs
+    return (
+      <Tooltip
+        title={
+          <Trans
+            i18nKey="gaslessTransactions.tooltip"
+            components={{
+              Link: <Link href={''} />,
+            }}
+          />
+        }
+      >
+        {contentDom}
+      </Tooltip>
+    );
+  }
+
+  return contentDom;
+};

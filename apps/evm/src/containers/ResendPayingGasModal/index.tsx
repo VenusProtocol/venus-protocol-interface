@@ -1,7 +1,6 @@
-import { Button, Modal, type ModalProps } from 'components';
+import { Button, Icon, Modal, type ModalProps } from 'components';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useTranslation } from 'libs/translations';
-import { gasOrange } from 'libs/wallet/img/icons';
 import { create } from 'zustand';
 
 interface ResendPayingGasModalStore {
@@ -42,28 +41,29 @@ const ResendPayingGasModal: React.FC = () => {
   return (
     <Modal isOpen={isOpen} handleClose={closeModal} hideCloseButton>
       <div className="flex flex-col">
-        <div className="flex flex-col items-center justify-center">
-          <img
-            src={gasOrange}
-            alt={t('gaslessTransactions.errorModal.title')}
-            className="h-16 w-16"
-          />
-          <h4 className="text-center font-semibold text-xl mt-6">
+        <div className="flex flex-col items-center justify-center mb-3">
+          <Icon name="gasSad" className="h-16 w-16 text-orange mb-6" />
+
+          <h4 className="text-center font-semibold text-xl">
             {t('gaslessTransactions.errorModal.title')}
           </h4>
         </div>
+
         <p className="text-center text-grey mb-8">
           {t('gaslessTransactions.errorModal.description')}
         </p>
+
         <Button
           onClick={() => {
             resendTokenAsync(mutationInput);
             closeModal();
           }}
+          className="mb-2"
         >
           {t('gaslessTransactions.errorModal.resendButtonLabel')}
         </Button>
-        <Button onClick={closeModal} variant="text" className="mt-3">
+
+        <Button onClick={closeModal} variant="text">
           {t('gaslessTransactions.errorModal.cancel')}
         </Button>
       </div>
