@@ -59,73 +59,73 @@ export async function sendTransaction<
 }): Promise<ContractTransaction> {
   const { contract, methodName, args, overrides } = txData;
   if (isGaslessTransaction) {
+    const chainId = (await contract.signer.getChainId()) as ChainId;
+    const accountAddress = (await contract.signer.getAddress()) as Address;
+    const txDataPayload = {
+      to: contract.address,
+      from: accountAddress,
+      data: contract.interface.encodeFunctionData(methodName, args),
+      ...overrides,
+    };
+
+    const payload = {
+      chainId,
+      sponsorshipRatio: 100,
+      txData: txDataPayload,
+    };
+
+    const chain = chainId === ChainId.ZKSYNC_MAINNET ? zksync : zksyncSepoliaTestnet;
+
+    const publicClient = createPublicClient({
+      chain,
+      transport: http(config.rpcUrls[chainId]),
+    }).extend(eip712WalletActions());
+
+    const walletClient = createWalletClient({
+      chain,
+      transport: custom(window.ethereum),
+    }).extend(eip712WalletActions());
+
+    const [response, nonce] = await Promise.all([
+      fetch(config.zyFi.sponsoredPaymasterEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': config.zyFi.apiKey,
+        },
+        body: JSON.stringify(payload),
+      }),
+      publicClient.getTransactionCount({
+        address: accountAddress,
+      }),
+    ]);
+
+    if (!response.ok) {
+      throw new VError({
+        type: 'unexpected',
+        code: 'gaslessTransactionNotAvailable',
+        errorCallback: retryCallback,
+      });
+    }
+
+    const { txData } = (await response.json()) as ZyFiSponsoredTxResponse;
+
+    const txPayload = {
+      account: accountAddress,
+      to: txData.to,
+      value: BigInt(txData.value),
+      chain,
+      gas: BigInt(txData.gasLimit),
+      gasPerPubdata: BigInt(txData.customData.gasPerPubdata),
+      maxFeePerGas: BigInt(txData.maxFeePerGas),
+      maxPriorityFeePerGas: BigInt(0),
+      data: txData.data,
+      paymaster: txData.customData.paymasterParams.paymaster,
+      paymasterInput: txData.customData.paymasterParams.paymasterInput,
+      nonce,
+    };
+
     try {
-      const chainId = (await contract.signer.getChainId()) as ChainId;
-      const accountAddress = (await contract.signer.getAddress()) as Address;
-      const txDataPayload = {
-        to: contract.address,
-        from: accountAddress,
-        data: contract.interface.encodeFunctionData(methodName, args),
-        ...overrides,
-      };
-
-      const payload = {
-        chainId,
-        sponsorshipRatio: 100,
-        txData: txDataPayload,
-      };
-
-      const chain = chainId === ChainId.ZKSYNC_MAINNET ? zksync : zksyncSepoliaTestnet;
-
-      const publicClient = createPublicClient({
-        chain,
-        transport: http(config.rpcUrls[chainId]),
-      }).extend(eip712WalletActions());
-
-      const walletClient = createWalletClient({
-        chain,
-        transport: custom(window.ethereum),
-      }).extend(eip712WalletActions());
-
-      const [response, nonce] = await Promise.all([
-        fetch(config.zyFi.sponsoredPaymasterEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-API-Key': config.zyFi.apiKey,
-          },
-          body: JSON.stringify(payload),
-        }),
-        publicClient.getTransactionCount({
-          address: accountAddress,
-        }),
-      ]);
-
-      if (!response.ok) {
-        throw new VError({
-          type: 'unexpected',
-          code: 'gaslessTransactionNotAvailable',
-          errorCallback: retryCallback,
-        });
-      }
-
-      const { txData } = (await response.json()) as ZyFiSponsoredTxResponse;
-
-      const txPayload = {
-        account: accountAddress,
-        to: txData.to,
-        value: BigInt(txData.value),
-        chain,
-        gas: BigInt(txData.gasLimit),
-        gasPerPubdata: BigInt(txData.customData.gasPerPubdata),
-        maxFeePerGas: BigInt(txData.maxFeePerGas),
-        maxPriorityFeePerGas: BigInt(0),
-        data: txData.data,
-        paymaster: txData.customData.paymasterParams.paymaster,
-        paymasterInput: txData.customData.paymasterParams.paymasterInput,
-        nonce,
-      };
-
       const txHash = await walletClient.sendTransaction(txPayload);
       return {
         hash: txHash,
@@ -134,14 +134,10 @@ export async function sendTransaction<
       };
     } catch (error: any) {
       logError(error);
-      // if the user is not rejecting, throw a VError
-      if (error.cause?.code !== 4001) {
-        throw new VError({
-          type: 'unexpected',
-          code: 'somethingWentWrong',
-          errorCallback: retryCallback,
-        });
-      }
+      throw new VError({
+        type: 'unexpected',
+        code: 'somethingWentWrong',
+      });
     }
   }
 
