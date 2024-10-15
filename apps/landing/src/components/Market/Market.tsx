@@ -89,7 +89,7 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
                 </div>
                 <div className={s.marketItemValuesWrapper}>
                   <p className={s.marketItemValue}>
-                    <span className={s.marketItemLabel}>Market size</span> ${' '}
+                    <span className={s.marketItemLabel}>Market size</span> $
                     {nFormatter(i.totalSupplyUsd)}
                   </p>
                   <p className={s.marketItemValue}>
@@ -97,7 +97,7 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
                     {nFormatter(i.depositApy)}%
                   </p>
                   <p className={s.marketItemValue}>
-                    <span className={s.marketItemLabel}>Borrowed</span> ${' '}
+                    <span className={s.marketItemLabel}>Borrowed</span> $
                     {nFormatter(i.totalBorrowsUsd)}
                   </p>
                   <p className={s.marketItemValue}>
