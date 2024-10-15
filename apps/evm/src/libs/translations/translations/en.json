@@ -291,7 +291,8 @@
       "description": "You can still send this transaction by paying for the gas yourself",
       "resendButtonLabel": "Resend with gas",
       "cancel": "Cancel"
-    }
+    },
+    "tooltip": "Transactions on this network are gas-free, with no fees required. More info <Link>here</Link>"
   },
   "interactive": {
     "copy": {
