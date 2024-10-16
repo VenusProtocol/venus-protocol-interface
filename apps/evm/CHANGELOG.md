@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.159.0
+
+### Minor Changes
+
+- 0483850: enable marketParticipantCounts feature on Optimism mainnet
+
 ## 2.158.0
 
 ### Minor Changes
