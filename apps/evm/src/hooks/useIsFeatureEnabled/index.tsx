@@ -55,6 +55,7 @@ export const featureFlags = {
     ChainId.ZKSYNC_SEPOLIA,
     ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
+    ChainId.OPTIMISM_MAINNET,
   ],
   isolatedPools: [
     ChainId.BSC_MAINNET,
