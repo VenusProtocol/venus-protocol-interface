@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BigNumber from 'bignumber.js';
-import { Card } from 'components';
+import { Card, Page } from 'components';
 import { useEffect, useMemo, useState } from 'react';
 
 import { useSwapTokens } from 'clients/api';
@@ -414,24 +414,26 @@ const SwapPage: React.FC = () => {
     });
 
   return (
-    <SwapPageUi
-      formValues={formValues}
-      setFormValues={setFormValues}
-      swap={swapInfo.swap}
-      swapError={swapInfo.error}
-      isSwapLoading={swapInfo.isLoading}
-      tokenBalances={tokenBalances}
-      onSubmit={onSwap}
-      isSubmitting={isSwapTokensLoading}
-      isFromTokenApproved={isFromTokenApproved}
-      approveFromToken={approveFromToken}
-      isApproveFromTokenLoading={isApproveFromTokenLoading}
-      isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
-      fromTokenWalletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
-      revokeFromTokenWalletSpendingLimit={revokeFromTokenWalletSpendingLimit}
-      isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
-      initialFormValues={initialFormValues}
-    />
+    <Page indexWithSearchEngines={false}>
+      <SwapPageUi
+        formValues={formValues}
+        setFormValues={setFormValues}
+        swap={swapInfo.swap}
+        swapError={swapInfo.error}
+        isSwapLoading={swapInfo.isLoading}
+        tokenBalances={tokenBalances}
+        onSubmit={onSwap}
+        isSubmitting={isSwapTokensLoading}
+        isFromTokenApproved={isFromTokenApproved}
+        approveFromToken={approveFromToken}
+        isApproveFromTokenLoading={isApproveFromTokenLoading}
+        isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+        fromTokenWalletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+        revokeFromTokenWalletSpendingLimit={revokeFromTokenWalletSpendingLimit}
+        isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+        initialFormValues={initialFormValues}
+      />
+    </Page>
   );
 };
 

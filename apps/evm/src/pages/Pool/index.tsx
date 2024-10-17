@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
-
 import { useGetPool } from 'clients/api';
-import { Notice, Redirect, Spinner } from 'components';
+import { Notice, Page, Redirect, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -72,7 +71,11 @@ const PoolPage: React.FC<PoolPageProps> = ({ poolComptrollerAddress }) => {
     return <Redirect to={routes.dashboard.path} />;
   }
 
-  return <PoolUi pool={getPoolData?.pool} />;
+  return (
+    <Page indexWithSearchEngines={false}>
+      <PoolUi pool={getPoolData?.pool} />
+    </Page>
+  );
 };
 
 export default PoolPage;
