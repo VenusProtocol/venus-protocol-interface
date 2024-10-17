@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.160.0
+
+### Minor Changes
+
+- 2e90bdd: refactor environment variables and config
+
 ## 2.159.0
 
 ### Minor Changes
