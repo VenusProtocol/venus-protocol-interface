@@ -8,13 +8,19 @@ Official repository for the [Venus protocol](https://venus.io) application.
 
 ## Getting started
 
-Install dependencies with yarn
+### Set environment variables
+
+Create a `.env` file in the root of the project using the `.env.template` file as a template. You
+will need to set environment variables for RPC provider and subgraph URLs, as the ones set by
+default in the codebase are only valid for hosted environments.
+
+### Install dependencies with yarn
 
 ```ssh
 yarn
 ```
 
-Start the development server
+### Start the development server
 
 ```ssh
 yarn start
