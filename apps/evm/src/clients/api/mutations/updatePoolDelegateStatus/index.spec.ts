@@ -17,7 +17,7 @@ describe('updatePoolDelegateStatus', () => {
       signer: fakeSigner,
     } as unknown as IsolatedPoolComptroller;
 
-    const response = await updatePoolDelegateStatus({
+    const response = updatePoolDelegateStatus({
       poolComptrollerContract: fakeContract,
       approvedStatus: true,
       delegateeAddress: fakeDelegateAddress,

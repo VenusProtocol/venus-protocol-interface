@@ -14,11 +14,11 @@ export type SwapTokensAndSupplyOutput = ContractTxData<
   'swapExactTokensForTokensAndSupply' | 'swapExactBNBForTokensAndSupply'
 >;
 
-const swapTokensAndSupply = async ({
+const swapTokensAndSupply = ({
   swapRouterContract,
   swap,
   vToken,
-}: SwapTokensAndSupplyInput): Promise<SwapTokensAndSupplyOutput> => {
+}: SwapTokensAndSupplyInput): SwapTokensAndSupplyOutput => {
   const transactionDeadline = generateTransactionDeadline();
   // Sell fromTokens to supply as many toTokens as possible
   if (swap.direction === 'exactAmountIn' && !swap.fromToken.isNative && !swap.toToken.isNative) {

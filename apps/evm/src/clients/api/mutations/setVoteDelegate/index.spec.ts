@@ -13,7 +13,7 @@ describe('setVoteDelegate', () => {
       delegate: delegateMock,
     } as unknown as XvsVault;
 
-    const response = await setVoteDelegate({
+    const response = setVoteDelegate({
       xvsVaultContract: fakeContract,
       delegateAddress: fakeAddress,
     });

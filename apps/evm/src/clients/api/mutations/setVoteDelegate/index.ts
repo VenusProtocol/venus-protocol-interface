@@ -8,10 +8,10 @@ export interface SetVoteDelegateInput {
 
 type SetVoteDelegateOutput = ContractTxData<XvsVault, 'delegate'>;
 
-const setVoteDelegate = async ({
+const setVoteDelegate = ({
   xvsVaultContract,
   delegateAddress,
-}: SetVoteDelegateInput): Promise<SetVoteDelegateOutput> => ({
+}: SetVoteDelegateInput): SetVoteDelegateOutput => ({
   contract: xvsVaultContract,
   methodName: 'delegate',
   args: [delegateAddress],

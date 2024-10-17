@@ -10,10 +10,10 @@ export interface WithdrawFromVaiVaultInput {
 
 export type WithdrawFromVaiVaultOutput = ContractTxData<VaiVault, 'withdraw'>;
 
-const withdrawFromVaiVault = async ({
+const withdrawFromVaiVault = ({
   vaiVaultContract,
   amountMantissa,
-}: WithdrawFromVaiVaultInput): Promise<WithdrawFromVaiVaultOutput> => ({
+}: WithdrawFromVaiVaultInput): WithdrawFromVaiVaultOutput => ({
   contract: vaiVaultContract,
   methodName: 'withdraw',
   args: [amountMantissa.toFixed()],

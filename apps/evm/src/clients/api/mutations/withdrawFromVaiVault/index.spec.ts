@@ -16,7 +16,7 @@ describe('withdrawFromVaiVault', () => {
       withdraw: withdrawMock,
     } as unknown as VaiVault;
 
-    const response = await withdrawFromVaiVault({
+    const response = withdrawFromVaiVault({
       vaiVaultContract: fakeContract,
       amountMantissa: fakeAmountMantissa,
     });

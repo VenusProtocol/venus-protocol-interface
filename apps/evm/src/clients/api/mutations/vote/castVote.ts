@@ -9,11 +9,11 @@ export interface CastVoteInput {
 
 export type CastVoteOutput = ContractTxData<GovernorBravoDelegate, 'castVote'>;
 
-const castVote = async ({
+const castVote = ({
   governorBravoDelegateContract,
   proposalId,
   voteType,
-}: CastVoteInput): Promise<CastVoteOutput> => ({
+}: CastVoteInput): CastVoteOutput => ({
   contract: governorBravoDelegateContract,
   methodName: 'castVote',
   args: [proposalId, voteType],

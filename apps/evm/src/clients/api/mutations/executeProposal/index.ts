@@ -8,10 +8,10 @@ export interface ExecuteProposalInput {
 
 export type ExecuteProposalOutput = ContractTxData<GovernorBravoDelegate, 'execute'>;
 
-const executeProposal = async ({
+const executeProposal = ({
   governorBravoDelegateContract,
   proposalId,
-}: ExecuteProposalInput): Promise<ExecuteProposalOutput> => ({
+}: ExecuteProposalInput): ExecuteProposalOutput => ({
   contract: governorBravoDelegateContract,
   methodName: 'execute',
   args: [proposalId],

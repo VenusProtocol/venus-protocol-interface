@@ -532,14 +532,14 @@ export const useGetXvsVaultPaused = vi.fn(() =>
   }),
 );
 
-export const getSponsorshipVaultData = vi.fn(async () => ({
-  amountLeft: new BigNumber('100000000000000000'),
-  hasEnoughFunds: true,
+export const getPaymasterInfo = vi.fn(async () => ({
+  balanceMantissa: new BigNumber('100000000000000000'),
+  canSponsorTransactions: true,
 }));
-export const useGetSponsorshipVaultData = vi.fn(() =>
+export const useGetPaymasterInfo = vi.fn(() =>
   useQuery({
-    queryKey: [FunctionKey.GET_SPONSORSHIP_VAULT_DATA],
-    queryFn: getSponsorshipVaultData,
+    queryKey: [FunctionKey.GET_PAYMASTER_INFO],
+    queryFn: getPaymasterInfo,
   }),
 );
 

@@ -784,7 +784,7 @@
     "comptrollerRejection": "Comptroller Rejection",
     "exitMarketBalanceOwed": "Exit Market Balance Owed",
     "exitMarketRejection": "Exit Market Rejection",
-    "gaslessTransactionNotAvailable": "Gasless transaction is not available",
+    "gaslessTransactionNotAvailable": "Gasless transactions are not available",
     "insufficientBalanceForVai": "Insufficient Balance For Vai",
     "insufficientLiquidity": "Insufficient Liquidity",
     "insufficientShortfall": "Insufficient Shortfall",

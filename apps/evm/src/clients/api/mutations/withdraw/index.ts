@@ -16,7 +16,7 @@ export type WithdrawOutput =
   | ContractTxData<VBep20 | VBnb, 'redeem' | 'redeemUnderlying'>
   | ContractTxData<NativeTokenGateway, 'redeemAndUnwrap' | 'redeemUnderlyingAndUnwrap'>;
 
-const withdraw = async ({
+const withdraw = ({
   amountMantissa,
   tokenContract,
   nativeTokenGatewayContract,

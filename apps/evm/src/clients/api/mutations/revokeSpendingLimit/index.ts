@@ -9,10 +9,10 @@ export interface RevokeSpendingLimitInput {
 
 export type RevokeSpendingLimitOutput = ContractTxData<RevokeSpendingLimitContracts, 'approve'>;
 
-const revokeSpendingLimit = async ({
+const revokeSpendingLimit = ({
   tokenContract,
   spenderAddress,
-}: RevokeSpendingLimitInput): Promise<RevokeSpendingLimitOutput> => ({
+}: RevokeSpendingLimitInput): RevokeSpendingLimitOutput => ({
   contract: tokenContract,
   methodName: 'approve',
   args: [spenderAddress, 0],

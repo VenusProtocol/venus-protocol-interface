@@ -52,7 +52,7 @@ describe('claimRewards', () => {
       signer: fakeSigner,
     } as unknown as Multicall3;
 
-    const res = await claimRewards({
+    const res = claimRewards({
       multicallContract: fakeMulticallContract,
       legacyPoolComptrollerContractAddress: 'fake-main-pool-comptroller-address',
       vaiVaultContractAddress: 'fake-vai-vault-address',
@@ -110,7 +110,7 @@ describe('claimRewards', () => {
       signer: fakeSigner,
     } as unknown as Multicall3;
 
-    const res = await claimRewards({
+    const res = claimRewards({
       multicallContract: fakeMulticallContract,
       xvsVaultContractAddress: 'fake-xvs-vault-address',
       accountAddress: fakeAddress,

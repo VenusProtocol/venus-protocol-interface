@@ -1,36 +1,47 @@
 import { type MutationKey, type MutationObserverOptions, useMutation } from '@tanstack/react-query';
 import type { BaseContract, ContractReceipt } from 'ethers';
 
-import type { ContractTransaction, ContractTxData, TransactionType } from 'types';
+import type { ContractTxData, TransactionType } from 'types';
 
-import { useGetSponsorshipVaultData } from 'clients/api';
-import { useResendPayingGasModalStore } from 'containers/ResendPayingGasModal';
+import { useGetPaymasterInfo } from 'clients/api';
+import { store as resendPayingGasModalStore } from 'containers/ResendPayingGasModal/store';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useChainId } from 'libs/wallet';
-import { sendTransaction } from './sendTransaction';
-import { CONFIRMATIONS, useTrackTransaction } from './useTrackTransaction';
+import { VError } from 'libs/errors';
+import { useChainId, useProvider, useSendContractTransaction } from 'libs/wallet';
+import { CONFIRMATIONS, TIMEOUT_MS } from './constants';
+import { useTrackTransaction } from './useTrackTransaction';
+
+export interface LastTransactionData<
+  TMutateInput extends Record<string, unknown> | void,
+  TContract extends BaseContract,
+  TMethodName extends string & keyof TContract['functions'],
+> extends UseSendTransactionInput<TMutateInput, TContract, TMethodName> {
+  mutationInput: TMutateInput;
+}
 
 export interface UseSendTransactionOptions<TMutateInput extends Record<string, unknown> | void>
   extends MutationObserverOptions<unknown, Error, TMutateInput> {
-  disableGaslessTransaction?: boolean;
   waitForConfirmation?: boolean;
+  tryGasless?: boolean;
 }
 
 export interface UseSendTransactionInput<
   TMutateInput extends Record<string, unknown> | void,
   TContract extends BaseContract,
-  TMethodName extends keyof TContract['functions'],
+  TMethodName extends string & keyof TContract['functions'],
 > {
-  fn: (input: TMutateInput) => Promise<ContractTxData<TContract, TMethodName>>;
+  fn: (
+    input: TMutateInput,
+  ) => Promise<ContractTxData<TContract, TMethodName>> | ContractTxData<TContract, TMethodName>;
   fnKey: MutationKey;
   transactionType?: TransactionType;
   onConfirmed?: (input: {
-    transaction: ContractTransaction;
+    transactionHash: string;
     transactionReceipt: ContractReceipt;
     input: TMutateInput;
   }) => Promise<unknown> | unknown;
   onReverted?: (input: {
-    transaction: ContractTransaction;
+    transactionHash: string;
     input: TMutateInput;
   }) => Promise<unknown> | unknown;
   options?: UseSendTransactionOptions<TMutateInput>;
@@ -43,36 +54,49 @@ export const useSendTransaction = <
 >(
   input: UseSendTransactionInput<TMutateInput, TContract, TMethodName>,
 ) => {
-  const { openModal } = useResendPayingGasModalStore();
-  const { chainId } = useChainId();
-  const { data: getSponsorshipVaultData } = useGetSponsorshipVaultData({ chainId });
   const { fn, fnKey, transactionType, onConfirmed, onReverted, options } = input;
+  const tryGasless = options?.tryGasless ?? true;
+
+  const { chainId } = useChainId();
+  const { provider } = useProvider();
+
+  const { mutateAsync: sendContractTransaction } = useSendContractTransaction();
+  const openResendPayingGasModalStoreModal = resendPayingGasModalStore.use.openModal();
+
+  const { data: getPaymasterInfo, refetch: refetchPaymasterInfo } = useGetPaymasterInfo(
+    {
+      chainId,
+    },
+    {
+      enabled: tryGasless,
+    },
+  );
+
+  const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
   // a transaction should be gas free when:
   // 1) we're on a chain that supports the feature
-  // 2) there are funds in the sponsorship vault
-  // 3) disableGaslessTransaction flag is not present or set to true
-  const isGaslessTransactionsEnabled =
-    useIsFeatureEnabled({ name: 'gaslessTransactions' }) &&
-    getSponsorshipVaultData?.hasEnoughFunds === true &&
-    !options?.disableGaslessTransaction;
+  // 2) the tryGasless option is set to true
+  // 3) there are funds in the paymaster wallet
+  const shouldTryGasless =
+    isGaslessTransactionsFeatureEnabled && tryGasless && !!getPaymasterInfo?.canSponsorTransactions;
+
   const trackTransaction = useTrackTransaction({ transactionType });
 
   return useMutation({
     mutationKey: fnKey,
     mutationFn: async mutationInput => {
-      // get transaction data from the passed input
+      // Get transaction data from the passed input
       const txData = await fn(mutationInput);
 
-      // send the normal or gas-less transaction
-      const transaction = await sendTransaction({
+      // Send the normal or gas-less transaction
+      const { hash: transactionHash } = await sendContractTransaction({
         txData,
-        retryCallback: () => openModal(input, mutationInput),
-        isGaslessTransaction: isGaslessTransactionsEnabled,
+        gasless: shouldTryGasless,
       });
 
       // Track transaction's progress in the background
       trackTransaction({
-        transaction,
+        transactionHash,
         onConfirmed: onConfirmedInput =>
           onConfirmed?.({ ...onConfirmedInput, input: mutationInput }),
         onReverted: onRevertedInput => onReverted?.({ ...onRevertedInput, input: mutationInput }),
@@ -80,7 +104,33 @@ export const useSendTransaction = <
 
       if (options?.waitForConfirmation) {
         // Only return when transaction has been confirmed
-        await transaction.wait(CONFIRMATIONS);
+        await provider.waitForTransaction(transactionHash, CONFIRMATIONS, TIMEOUT_MS);
+      }
+    },
+    onError: (error, variables, context) => {
+      if (error instanceof VError && error.code === 'gaslessTransactionNotAvailable') {
+        // Refetch paymaster balance in case it went below threshold
+        refetchPaymasterInfo();
+
+        // Open modal asking user if they want to send the transaction again by paying for the gas
+        // themselves
+        openResendPayingGasModalStoreModal({
+          lastFailedGaslessTransaction: {
+            ...input,
+            mutationInput: variables,
+          },
+        });
+
+        return;
+      }
+
+      // TODO: display toast and remove calls to displayMutationError in codebase (see VEN-2889)
+
+      // Display toast
+      // displayMutationError({ error });
+
+      if (options?.onError) {
+        options.onError(error, variables, context);
       }
     },
     ...options,

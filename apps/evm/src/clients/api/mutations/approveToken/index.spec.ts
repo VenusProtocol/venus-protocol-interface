@@ -18,7 +18,7 @@ describe('approveToken', () => {
       signer: fakeSigner,
     } as unknown as Bep20;
 
-    const response = await approveToken({
+    const response = approveToken({
       tokenContract: fakeContract,
       spenderAddress: fakeAddress,
       allowance: MAX_UINT256.toFixed(),

@@ -8,10 +8,10 @@ export interface QueueProposalInput {
 
 export type QueueProposalOutput = ContractTxData<GovernorBravoDelegate, 'queue'>;
 
-const queueProposal = async ({
+const queueProposal = ({
   governorBravoDelegateContract,
   proposalId,
-}: QueueProposalInput): Promise<QueueProposalOutput> => ({
+}: QueueProposalInput): QueueProposalOutput => ({
   contract: governorBravoDelegateContract,
   methodName: 'queue',
   args: [proposalId],

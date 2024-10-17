@@ -10,10 +10,10 @@ export interface StakeInVaiVaultInput {
 
 export type StakeInVaiVaultOutput = ContractTxData<VaiVault, 'deposit'>;
 
-const stakeInVaiVault = async ({
+const stakeInVaiVault = ({
   vaiVaultContract,
   amountMantissa,
-}: StakeInVaiVaultInput): Promise<StakeInVaiVaultOutput> => ({
+}: StakeInVaiVaultInput): StakeInVaiVaultOutput => ({
   contract: vaiVaultContract,
   methodName: 'deposit',
   args: [amountMantissa.toFixed()],

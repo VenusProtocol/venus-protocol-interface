@@ -13,7 +13,7 @@ describe('withdraw', () => {
   describe('withdraw flow', async () => {
     it('throws an error when vToken contract was not passed', async () => {
       try {
-        await withdraw({
+        withdraw({
           amountMantissa: fakeAmount,
           withdrawFullSupply: true,
         });
@@ -34,7 +34,7 @@ describe('withdraw', () => {
         signer: fakeSigner,
       } as unknown as VBep20;
 
-      const response = await withdraw({
+      const response = withdraw({
         tokenContract: fakeVTokenContract,
         amountMantissa: fakeAmount,
         withdrawFullSupply: true,
@@ -57,7 +57,7 @@ describe('withdraw', () => {
         signer: fakeSigner,
       } as unknown as VBep20;
 
-      const response = await withdraw({
+      const response = withdraw({
         tokenContract: fakeVTokenContract,
         amountMantissa: fakeAmount,
       });
@@ -73,7 +73,7 @@ describe('withdraw', () => {
   describe('withdraw and unwrap flow', async () => {
     it('throws an error when unwrap was passed as true but NativeTokenGateway contract was not passed', async () => {
       try {
-        await withdraw({
+        withdraw({
           amountMantissa: fakeAmount,
           unwrap: true,
         });
@@ -94,7 +94,7 @@ describe('withdraw', () => {
         signer: fakeSigner,
       } as unknown as NativeTokenGateway;
 
-      const response = await withdraw({
+      const response = withdraw({
         nativeTokenGatewayContract: fakeNativeTokenGatewayContract,
         amountMantissa: fakeAmount,
         withdrawFullSupply: true,
@@ -118,7 +118,7 @@ describe('withdraw', () => {
         signer: fakeSigner,
       } as unknown as NativeTokenGateway;
 
-      const response = await withdraw({
+      const response = withdraw({
         nativeTokenGatewayContract: fakeNativeTokenGatewayContract,
         amountMantissa: fakeAmount,
         unwrap: true,

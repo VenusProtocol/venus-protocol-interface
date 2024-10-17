@@ -12,7 +12,7 @@ export type CreateProposalInput = {
 
 export type CreateProposalOutput = ContractTxData<GovernorBravoDelegate, 'propose'>;
 
-const createProposal = async ({
+const createProposal = ({
   governorBravoDelegateContract,
   targets,
   values,
@@ -22,7 +22,7 @@ const createProposal = async ({
   proposalType,
 }: CreateProposalInput & {
   governorBravoDelegateContract: GovernorBravoDelegate;
-}): Promise<CreateProposalOutput> => ({
+}): CreateProposalOutput => ({
   contract: governorBravoDelegateContract,
   methodName: 'propose',
   args: [targets, values, signatures, callDatas, description, proposalType],

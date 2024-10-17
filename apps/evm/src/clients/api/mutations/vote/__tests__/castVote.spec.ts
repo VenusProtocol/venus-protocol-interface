@@ -12,7 +12,7 @@ describe('castVote', () => {
       castVote: castVoteMock,
     } as unknown as GovernorBravoDelegate;
 
-    const response = await castVote({
+    const response = castVote({
       governorBravoDelegateContract: fakeContract,
       proposalId: 1,
       voteType: 1,

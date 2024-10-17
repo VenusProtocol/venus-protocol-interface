@@ -10,10 +10,7 @@ export interface MintVaiInput {
 
 export type MintVaiOutput = ContractTxData<VaiController, 'mintVAI'>;
 
-const mintVai = async ({
-  vaiControllerContract,
-  amountMantissa,
-}: MintVaiInput): Promise<MintVaiOutput> => ({
+const mintVai = ({ vaiControllerContract, amountMantissa }: MintVaiInput): MintVaiOutput => ({
   contract: vaiControllerContract,
   methodName: 'mintVAI',
   args: [amountMantissa.toFixed()],

@@ -16,7 +16,7 @@ describe('stakeInVaiVault', () => {
       deposit: depositMock,
     } as unknown as VaiVault;
 
-    const response = await stakeInVaiVault({
+    const response = stakeInVaiVault({
       vaiVaultContract: fakeContract,
       amountMantissa: fakeAmountMantissa,
     });

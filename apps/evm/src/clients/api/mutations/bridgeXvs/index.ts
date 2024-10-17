@@ -18,13 +18,13 @@ export interface BridgeXvsInput {
 
 export type BridgeXvsOutput = ContractTxData<BridgeContracts, 'sendFrom'>;
 
-const bridgeXvs = async ({
+const bridgeXvs = ({
   tokenBridgeContract,
   accountAddress,
   destinationChainId,
   amountMantissa,
   nativeCurrencyFeeMantissa,
-}: BridgeXvsInput): Promise<BridgeXvsOutput> => {
+}: BridgeXvsInput): BridgeXvsOutput => {
   const layerZeroDestChain = LAYER_ZERO_CHAIN_IDS[destinationChainId];
   return {
     contract: tokenBridgeContract,

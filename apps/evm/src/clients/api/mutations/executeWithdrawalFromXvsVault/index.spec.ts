@@ -19,7 +19,7 @@ describe('executeWithdrawalFromXvsVault', () => {
       signer: fakeSigner,
     } as unknown as XvsVault;
 
-    const response = await executeWithdrawalFromXvsVault({
+    const response = executeWithdrawalFromXvsVault({
       xvsVaultContract: fakeContract,
       rewardTokenAddress: fakeRewardTokenAddress,
       poolIndex: fakePoolIndex,

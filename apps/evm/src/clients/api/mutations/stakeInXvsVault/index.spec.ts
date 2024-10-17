@@ -22,7 +22,7 @@ describe('stakeInXvsVault', () => {
       signer: fakeSigner,
     } as unknown as XvsVault;
 
-    const response = await stakeInXvsVault({
+    const response = stakeInXvsVault({
       xvsVaultContract: fakeContract,
       rewardToken: busd,
       amountMantissa: fakeAmountMantissa,

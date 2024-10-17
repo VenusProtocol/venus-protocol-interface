@@ -17,7 +17,7 @@ describe('enterMarket', () => {
       signer: fakeSigner,
     } as unknown as LegacyPoolComptroller;
 
-    const response = await enterMarket({
+    const response = enterMarket({
       comptrollerContract: fakeContract,
       vToken: vBusd,
     });

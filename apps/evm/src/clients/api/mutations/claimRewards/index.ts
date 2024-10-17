@@ -11,7 +11,7 @@ import type { ClaimRewardsInput, ClaimRewardsOutput } from './types';
 
 export * from './types';
 
-const claimRewards = async ({
+const claimRewards = ({
   multicallContract,
   accountAddress,
   claims,
@@ -19,7 +19,7 @@ const claimRewards = async ({
   vaiVaultContractAddress,
   xvsVaultContractAddress,
   primeContractAddress,
-}: ClaimRewardsInput): Promise<ClaimRewardsOutput> => {
+}: ClaimRewardsInput): ClaimRewardsOutput => {
   // Format claims into calls
   const calls = claims.reduce<Parameters<Multicall3['tryBlockAndAggregate']>[1]>((acc, claim) => {
     // Skip claim if no Prime contract address was passed

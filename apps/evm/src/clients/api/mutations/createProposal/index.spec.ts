@@ -19,7 +19,7 @@ describe('createProposal', () => {
       propose: createProposalMock,
     } as unknown as GovernorBravoDelegate;
 
-    const response = await createProposal({
+    const response = createProposal({
       governorBravoDelegateContract: fakeContract,
       targets: fakeTargets,
       signatures: fakeSignatures,

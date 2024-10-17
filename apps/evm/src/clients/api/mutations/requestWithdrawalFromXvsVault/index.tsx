@@ -12,12 +12,12 @@ export interface RequestWithdrawalFromXvsVaultInput {
 
 export type RequestWithdrawalFromXvsVaultOutput = ContractTxData<XvsVault, 'requestWithdrawal'>;
 
-const requestWithdrawalFromXvsVault = async ({
+const requestWithdrawalFromXvsVault = ({
   xvsVaultContract,
   rewardTokenAddress,
   poolIndex,
   amountMantissa,
-}: RequestWithdrawalFromXvsVaultInput): Promise<RequestWithdrawalFromXvsVaultOutput> => ({
+}: RequestWithdrawalFromXvsVaultInput): RequestWithdrawalFromXvsVaultOutput => ({
   contract: xvsVaultContract,
   methodName: 'requestWithdrawal',
   args: [rewardTokenAddress, poolIndex, amountMantissa.toFixed()],

@@ -8,10 +8,10 @@ export interface CancelProposalInput {
 
 export type CancelProposalOutput = ContractTxData<GovernorBravoDelegate, 'cancel'>;
 
-const cancelProposal = async ({
+const cancelProposal = ({
   governorBravoDelegateContract,
   proposalId,
-}: CancelProposalInput): Promise<CancelProposalOutput> => ({
+}: CancelProposalInput): CancelProposalOutput => ({
   contract: governorBravoDelegateContract,
   methodName: 'cancel',
   args: [proposalId],

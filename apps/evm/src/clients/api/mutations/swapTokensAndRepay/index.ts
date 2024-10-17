@@ -23,12 +23,12 @@ type SwapTokensAndRepayMethods =
 
 export type SwapTokensAndRepayOutput = ContractTxData<SwapRouter, SwapTokensAndRepayMethods>;
 
-const swapTokensAndRepay = async ({
+const swapTokensAndRepay = ({
   swapRouterContract,
   swap,
   vToken,
   repayFullLoan = false,
-}: SwapTokensAndRepayInput): Promise<SwapTokensAndRepayOutput> => {
+}: SwapTokensAndRepayInput): SwapTokensAndRepayOutput => {
   const transactionDeadline = generateTransactionDeadline();
 
   // Repay full loan in tokens using tokens

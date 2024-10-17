@@ -54,3 +54,6 @@ export { default as bridge } from './bridge';
 export { default as lido } from './lido';
 export { default as eth } from './eth';
 export { default as document } from './document';
+export { default as gas } from './gas';
+export { default as gasSlashed } from './gasSlashed';
+export { default as gasSad } from './gasSad';

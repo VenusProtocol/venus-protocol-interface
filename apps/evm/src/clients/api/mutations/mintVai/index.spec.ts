@@ -16,7 +16,7 @@ describe('mintVai', () => {
       mintVAI: mintVaiMock,
     } as unknown as VaiController;
 
-    const response = await mintVai({
+    const response = mintVai({
       vaiControllerContract: fakeContract,
       amountMantissa: fakeAmountMantissa,
     });

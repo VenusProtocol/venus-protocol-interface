@@ -16,7 +16,7 @@ describe('withdrawXvs', () => {
       signer: fakeSigner,
     } as unknown as XvsVesting;
 
-    const response = await withdrawXvs({
+    const response = withdrawXvs({
       xvsVestingContract: fakeContract,
     });
 

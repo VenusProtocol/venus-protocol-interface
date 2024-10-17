@@ -15,11 +15,6 @@ export const displayMutationError = ({ error }: DisplayMutationErrorInput) => {
 
   if (error instanceof VError) {
     message = formatVErrorToReadableString(error);
-
-    if (error.code === 'gaslessTransactionNotAvailable' && error.errorCallback) {
-      error.errorCallback();
-      return;
-    }
   }
 
   displayNotification({

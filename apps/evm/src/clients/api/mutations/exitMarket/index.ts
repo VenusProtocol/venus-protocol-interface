@@ -11,10 +11,7 @@ export type ExitMarketOutput = ContractTxData<
   'exitMarket'
 >;
 
-const exitMarket = async ({
-  comptrollerContract,
-  vToken,
-}: ExitMarketInput): Promise<ExitMarketOutput> => ({
+const exitMarket = ({ comptrollerContract, vToken }: ExitMarketInput): ExitMarketOutput => ({
   contract: comptrollerContract,
   methodName: 'exitMarket',
   args: [vToken.address],

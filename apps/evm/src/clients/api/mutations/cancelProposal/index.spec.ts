@@ -14,7 +14,7 @@ describe('cancelProposal', () => {
 
     const fakeProposalId = 3816;
 
-    const response = await cancelProposal({
+    const response = cancelProposal({
       governorBravoDelegateContract: fakeContract,
       proposalId: fakeProposalId,
     });

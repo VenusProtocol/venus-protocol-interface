@@ -7,9 +7,7 @@ export interface ClaimPrimeTokenInput {
 
 export type ClaimPrimeTokenOutput = ContractTxData<Prime, 'claim'>;
 
-const claimPrimeToken = async ({
-  primeContract,
-}: ClaimPrimeTokenInput): Promise<ClaimPrimeTokenOutput> => ({
+const claimPrimeToken = ({ primeContract }: ClaimPrimeTokenInput): ClaimPrimeTokenOutput => ({
   contract: primeContract,
   methodName: 'claim',
   args: [],

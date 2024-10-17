@@ -12,12 +12,12 @@ export interface StakeInXvsVaultInput {
 
 export type StakeInXvsVaultOutput = ContractTxData<XvsVault, 'deposit'>;
 
-const stakeInXvsVault = async ({
+const stakeInXvsVault = ({
   xvsVaultContract,
   rewardToken,
   amountMantissa,
   poolIndex,
-}: StakeInXvsVaultInput): Promise<StakeInXvsVaultOutput> => ({
+}: StakeInXvsVaultInput): StakeInXvsVaultOutput => ({
   contract: xvsVaultContract,
   methodName: 'deposit',
   args: [rewardToken.address, poolIndex, amountMantissa.toFixed()],

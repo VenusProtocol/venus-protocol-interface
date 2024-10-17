@@ -10,10 +10,7 @@ export interface RepayVaiInput {
 
 export type IRepayVaiOutput = ContractTxData<VaiController, 'repayVAI'>;
 
-const repayVai = async ({
-  vaiControllerContract,
-  amountMantissa,
-}: RepayVaiInput): Promise<IRepayVaiOutput> => ({
+const repayVai = ({ vaiControllerContract, amountMantissa }: RepayVaiInput): IRepayVaiOutput => ({
   contract: vaiControllerContract,
   methodName: 'repayVAI',
   args: [amountMantissa.toFixed()],

@@ -23,7 +23,7 @@ describe('swapTokensAndRepay', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    const result = await swapTokens({
+    const result = swapTokens({
       swapRouterContract: fakeContract,
       swap: fakeExactAmountOutSwap,
       vToken: fakeVToken,
@@ -56,7 +56,7 @@ describe('swapTokensAndRepay', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    const result = await swapTokens({
+    const result = swapTokens({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
       vToken: fakeVToken,
@@ -88,7 +88,7 @@ describe('swapTokensAndRepay', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    const result = await swapTokens({
+    const result = swapTokens({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
       vToken: fakeVToken,
@@ -113,7 +113,7 @@ describe('swapTokensAndRepay', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    const result = await swapTokens({
+    const result = swapTokens({
       swapRouterContract: fakeContract,
       swap: fakeExactAmountInSwap,
       vToken: fakeVToken,
@@ -147,7 +147,7 @@ describe('swapTokensAndRepay', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    const result = await swapTokens({
+    const result = swapTokens({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountInSwap,
       vToken: fakeVToken,
@@ -183,7 +183,7 @@ describe('swapTokensAndRepay', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    const result = await swapTokens({
+    const result = swapTokens({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountInSwap,
       vToken: fakeVToken,
@@ -210,7 +210,7 @@ describe('swapTokensAndRepay', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    const result = await swapTokens({
+    const result = swapTokens({
       swapRouterContract: fakeContract,
       swap: fakeExactAmountOutSwap,
       vToken: fakeVToken,
@@ -244,7 +244,7 @@ describe('swapTokensAndRepay', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    const result = await swapTokens({
+    const result = swapTokens({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
       vToken: fakeVToken,
@@ -280,7 +280,7 @@ describe('swapTokensAndRepay', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    const result = await swapTokens({
+    const result = swapTokens({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
       vToken: fakeVToken,

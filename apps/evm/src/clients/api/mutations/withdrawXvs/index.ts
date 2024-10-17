@@ -7,9 +7,7 @@ export interface WithdrawXvsInput {
 
 export type WithdrawXvsOutput = ContractTxData<XvsVesting, 'withdraw'>;
 
-const withdrawXvs = async ({
-  xvsVestingContract,
-}: WithdrawXvsInput): Promise<WithdrawXvsOutput> => ({
+const withdrawXvs = ({ xvsVestingContract }: WithdrawXvsInput): WithdrawXvsOutput => ({
   contract: xvsVestingContract,
   methodName: 'withdraw',
   args: [],

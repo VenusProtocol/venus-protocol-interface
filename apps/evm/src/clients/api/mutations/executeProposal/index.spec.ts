@@ -14,7 +14,7 @@ describe('executeProposal', () => {
 
     const fakeProposalId = 3816;
 
-    const response = await executeProposal({
+    const response = executeProposal({
       governorBravoDelegateContract: fakeContract,
       proposalId: fakeProposalId,
     });

@@ -9,11 +9,11 @@ export interface UpdatePoolDelegateStatusInput {
 
 type UpdatePoolDelegateStatusOutput = ContractTxData<IsolatedPoolComptroller, 'updateDelegate'>;
 
-const updateDelegate = async ({
+const updateDelegate = ({
   poolComptrollerContract,
   delegateeAddress,
   approvedStatus,
-}: UpdatePoolDelegateStatusInput): Promise<UpdatePoolDelegateStatusOutput> => ({
+}: UpdatePoolDelegateStatusInput): UpdatePoolDelegateStatusOutput => ({
   contract: poolComptrollerContract,
   methodName: 'updateDelegate',
   args: [delegateeAddress, approvedStatus],

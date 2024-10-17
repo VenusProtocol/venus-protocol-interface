@@ -37,7 +37,7 @@ describe('bridgeXvs', () => {
       signer: fakeSigner,
     } as unknown as XVSProxyOFTSrc;
 
-    const response = await bridgeXvs({
+    const response = bridgeXvs({
       tokenBridgeContract: fakeContract,
       accountAddress: fakeAddress,
       destinationChainId: ChainId.BSC_TESTNET,

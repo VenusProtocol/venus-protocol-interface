@@ -4,7 +4,6 @@ import { productionHosts } from 'constants/production';
 import { ChainId, type Environment, type Network } from 'types';
 import { extractEnumValues } from 'utilities/extractEnumValues';
 
-import type { Address } from 'viem';
 import { ENV_VARIABLES } from './envVariables';
 
 export interface Config {
@@ -25,12 +24,7 @@ export interface Config {
     apiKey: string;
     hostUrl: string;
   };
-  zyFi: {
-    apiKey: string;
-    sponsoredPaymasterEndpoint: string;
-    vaultAddress: Address;
-    walletAddress: Address;
-  };
+  zyFiApiKey: string;
 }
 
 let environment: Environment = 'preview';
@@ -98,12 +92,7 @@ const config: Config = {
     apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',
     hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
   },
-  zyFi: {
-    apiKey: ENV_VARIABLES.VITE_ZYFI_API_KEY || '',
-    sponsoredPaymasterEndpoint: ENV_VARIABLES.VITE_ZYFI_SPONSORED_PAYMASTER_ENDPOINT || '',
-    vaultAddress: ENV_VARIABLES.VITE_ZYFI_VAULT_ADDRESS || '',
-    walletAddress: ENV_VARIABLES.VITE_ZYFI_WALLET_ADDRESS || '',
-  },
+  zyFiApiKey: ENV_VARIABLES.VITE_ZYFI_API_KEY || '',
 };
 
 export { ENV_VARIABLES } from './envVariables';

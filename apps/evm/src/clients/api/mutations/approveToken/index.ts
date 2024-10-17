@@ -12,11 +12,11 @@ type ContractsWithApprove = Bep20 | Vai | Vrt | Xvs;
 
 export type ApproveTokenOutput = ContractTxData<ContractsWithApprove, 'approve'>;
 
-const approveToken = async ({
+const approveToken = ({
   tokenContract,
   spenderAddress,
   allowance = MAX_UINT256.toFixed(),
-}: ApproveTokenInput): Promise<ApproveTokenOutput> => ({
+}: ApproveTokenInput): ApproveTokenOutput => ({
   contract: tokenContract,
   methodName: 'approve',
   args: [spenderAddress, allowance],

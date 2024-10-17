@@ -13,7 +13,7 @@ describe('borrow', () => {
   describe('borrow flow', () => {
     it('throws and error if VToken contract was not passed', async () => {
       try {
-        await borrow({
+        borrow({
           amountMantissa: fakeAmountMantissa,
         });
 
@@ -49,7 +49,7 @@ describe('borrow', () => {
   describe('borrow and unwrap flow', () => {
     it('throws and error if unwrap is passed as true but NativeTokenGateway contract was not passed', async () => {
       try {
-        await borrow({
+        borrow({
           unwrap: true,
           amountMantissa: fakeAmountMantissa,
         });
@@ -70,7 +70,7 @@ describe('borrow', () => {
         signer: fakeSigner,
       } as unknown as NativeTokenGateway;
 
-      const response = await borrow({
+      const response = borrow({
         unwrap: true,
         amountMantissa: fakeAmountMantissa,
         nativeTokenGatewayContract: fakeNativeTokenGatewayContract,

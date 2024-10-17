@@ -16,7 +16,7 @@ describe('repayVai', () => {
       repayVAI: repayVAIMock,
     } as unknown as VaiController;
 
-    const response = await repayVai({
+    const response = repayVai({
       vaiControllerContract: fakeContract,
       amountMantissa: fakeAmountMantissa,
     });

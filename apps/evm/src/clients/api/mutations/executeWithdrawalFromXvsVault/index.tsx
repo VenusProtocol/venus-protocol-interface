@@ -9,11 +9,11 @@ export interface ExecuteWithdrawalFromXvsVaultInput {
 
 export type ExecuteWithdrawalFromXvsVaultOutput = ContractTxData<XvsVault, 'executeWithdrawal'>;
 
-const executeWithdrawalFromXvsVault = async ({
+const executeWithdrawalFromXvsVault = ({
   xvsVaultContract,
   rewardTokenAddress,
   poolIndex,
-}: ExecuteWithdrawalFromXvsVaultInput): Promise<ExecuteWithdrawalFromXvsVaultOutput> => ({
+}: ExecuteWithdrawalFromXvsVaultInput): ExecuteWithdrawalFromXvsVaultOutput => ({
   contract: xvsVaultContract,
   methodName: 'executeWithdrawal',
   args: [rewardTokenAddress, poolIndex],

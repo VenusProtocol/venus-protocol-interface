@@ -17,12 +17,12 @@ type BorrowTxOutput = ContractTxData<VBep20 | VBnb, 'borrow'>;
 
 export type BorrowOutput = BorrowAndUnwrapTxOuput | BorrowTxOutput;
 
-const borrow = async ({
+const borrow = ({
   vTokenContract,
   nativeTokenGatewayContract,
   unwrap = false,
   amountMantissa,
-}: BorrowInput): Promise<BorrowOutput> => {
+}: BorrowInput): BorrowOutput => {
   // Handle borrow and unwrap flow
   if (unwrap && !nativeTokenGatewayContract) {
     throw new VError({

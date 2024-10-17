@@ -1,7 +1,7 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
 import type BigNumber from 'bignumber.js';
 import type { BaseContract, ContractReceipt } from 'ethers';
-import type { ZksyncTransactionReceipt } from 'viem/zksync';
+import type { TransactionReceipt } from 'viem';
 
 export type NonNullableFields<T> = Required<{
   [P in keyof T]: NonNullable<T[P]>;
@@ -478,5 +478,5 @@ export type ContractTxData<
 
 export interface ContractTransaction {
   hash: string;
-  wait: (confirmations?: number) => Promise<ContractReceipt | ZksyncTransactionReceipt>;
+  wait: (confirmations?: number) => Promise<ContractReceipt | TransactionReceipt>;
 }

@@ -11,4 +11,4 @@ export * from './hooks/useSwitchChain';
 export * from './hooks/useChainId';
 export * from './hooks/useAuthModal';
 export * from './hooks/useAddTokenToWallet';
-export * from './img/icons';
+export * from './hooks/useSendContractTransaction';

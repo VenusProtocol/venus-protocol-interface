@@ -17,7 +17,7 @@ describe('revokeSpendingLimit', () => {
       signer: fakeSigner,
     } as unknown as Bep20;
 
-    const response = await approveToken({
+    const response = approveToken({
       tokenContract: fakeContract,
       spenderAddress: fakeAddress,
     });

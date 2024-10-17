@@ -11,10 +11,7 @@ export type EnterMarketOutput = ContractTxData<
   'enterMarkets'
 >;
 
-const enterMarket = async ({
-  comptrollerContract,
-  vToken,
-}: EnterMarketInput): Promise<EnterMarketOutput> => ({
+const enterMarket = ({ comptrollerContract, vToken }: EnterMarketInput): EnterMarketOutput => ({
   contract: comptrollerContract,
   methodName: 'enterMarkets',
   args: [[vToken.address]],

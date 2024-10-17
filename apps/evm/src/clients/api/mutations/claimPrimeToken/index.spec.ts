@@ -16,7 +16,7 @@ describe('claimPrimeToken', () => {
       signer: fakeSigner,
     } as unknown as Prime;
 
-    const response = await claimPrimeToken({
+    const response = claimPrimeToken({
       primeContract: fakeContract,
     });
 

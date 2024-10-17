@@ -14,7 +14,7 @@ describe('queueProposal', () => {
 
     const fakeProposalId = 3816;
 
-    const response = await queueProposal({
+    const response = queueProposal({
       governorBravoDelegateContract: fakeContract,
       proposalId: fakeProposalId,
     });

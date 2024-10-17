@@ -9,12 +9,13 @@ import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
 import { Web3Wrapper } from 'libs/wallet';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
-import ResendPayingGasModal from 'containers/ResendPayingGasModal';
 import { safeLazyLoad } from 'utilities';
 import Routes from './Routes';
 
 const NotificationCenter = safeLazyLoad(() => import('libs/notifications/NotificationCenter'));
 const AppVersionChecker = safeLazyLoad(() => import('containers/AppVersionChecker'));
+const GaslessChecker = safeLazyLoad(() => import('containers/GaslessChecker'));
+const ResendPayingGasModal = safeLazyLoad(() => import('containers/ResendPayingGasModal'));
 
 const App = () => (
   <ErrorBoundary>
@@ -33,7 +34,13 @@ const App = () => (
                 <AppVersionChecker />
               </Suspense>
 
-              <ResendPayingGasModal />
+              <Suspense>
+                <GaslessChecker />
+              </Suspense>
+
+              <Suspense>
+                <ResendPayingGasModal />
+              </Suspense>
 
               <SentryErrorInfo />
             </AnalyticProvider>
