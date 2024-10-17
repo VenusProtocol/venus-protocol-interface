@@ -532,6 +532,17 @@ export const useGetXvsVaultPaused = vi.fn(() =>
   }),
 );
 
+export const getPaymasterInfo = vi.fn(async () => ({
+  balanceMantissa: new BigNumber('100000000000000000'),
+  canSponsorTransactions: true,
+}));
+export const useGetPaymasterInfo = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_PAYMASTER_INFO],
+    queryFn: getPaymasterInfo,
+  }),
+);
+
 export const getXvsBridgeFeeEstimation = vi.fn(async () => ({
   estimatedFeeMantissa: new BigNumber('12000000'),
 }));

@@ -16,13 +16,15 @@ describe('stakeInVaiVault', () => {
       deposit: depositMock,
     } as unknown as VaiVault;
 
-    const response = await stakeInVaiVault({
+    const response = stakeInVaiVault({
       vaiVaultContract: fakeContract,
       amountMantissa: fakeAmountMantissa,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(depositMock).toHaveBeenCalledTimes(1);
-    expect(depositMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeAmountMantissa.toFixed()],
+      methodName: 'deposit',
+    });
   });
 });

@@ -1,7 +1,7 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction } from 'ethers';
 
 import type { XvsVault } from 'libs/contracts';
+import type { ContractTxData } from 'types';
 
 export interface RequestWithdrawalFromXvsVaultInput {
   xvsVaultContract: XvsVault;
@@ -10,14 +10,17 @@ export interface RequestWithdrawalFromXvsVaultInput {
   amountMantissa: BigNumber;
 }
 
-export type RequestWithdrawalFromXvsVaultOutput = ContractTransaction;
+export type RequestWithdrawalFromXvsVaultOutput = ContractTxData<XvsVault, 'requestWithdrawal'>;
 
-const requestWithdrawalFromXvsVault = async ({
+const requestWithdrawalFromXvsVault = ({
   xvsVaultContract,
   rewardTokenAddress,
   poolIndex,
   amountMantissa,
-}: RequestWithdrawalFromXvsVaultInput): Promise<RequestWithdrawalFromXvsVaultOutput> =>
-  xvsVaultContract.requestWithdrawal(rewardTokenAddress, poolIndex, amountMantissa.toFixed());
+}: RequestWithdrawalFromXvsVaultInput): RequestWithdrawalFromXvsVaultOutput => ({
+  contract: xvsVaultContract,
+  methodName: 'requestWithdrawal',
+  args: [rewardTokenAddress, poolIndex, amountMantissa.toFixed()],
+});
 
 export default requestWithdrawalFromXvsVault;

@@ -1,7 +1,6 @@
-import type { ContractTransaction } from 'ethers';
-
 import MAX_UINT256 from 'constants/maxUint256';
 import type { Bep20, Vai, Vrt, Xvs } from 'libs/contracts';
+import type { ContractTxData } from 'types';
 
 export interface ApproveTokenInput {
   tokenContract: Vai | Bep20 | Vrt | Xvs;
@@ -9,13 +8,18 @@ export interface ApproveTokenInput {
   allowance?: string;
 }
 
-export type ApproveTokenOutput = ContractTransaction;
+type ContractsWithApprove = Bep20 | Vai | Vrt | Xvs;
 
-const approveToken = async ({
+export type ApproveTokenOutput = ContractTxData<ContractsWithApprove, 'approve'>;
+
+const approveToken = ({
   tokenContract,
   spenderAddress,
   allowance = MAX_UINT256.toFixed(),
-}: ApproveTokenInput): Promise<ApproveTokenOutput> =>
-  tokenContract.approve(spenderAddress, allowance);
+}: ApproveTokenInput): ApproveTokenOutput => ({
+  contract: tokenContract,
+  methodName: 'approve',
+  args: [spenderAddress, allowance],
+});
 
 export default approveToken;

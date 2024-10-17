@@ -1,7 +1,5 @@
-import type { ContractTransaction } from 'ethers';
-
 import type { GovernorBravoDelegate } from 'libs/contracts';
-import type { VoteSupport } from 'types';
+import type { ContractTxData, VoteSupport } from 'types';
 
 export interface CastVoteWithReasonInput {
   governorBravoDelegateContract: GovernorBravoDelegate;
@@ -10,14 +8,17 @@ export interface CastVoteWithReasonInput {
   voteReason: string;
 }
 
-export type CastVoteWithReasonOutput = ContractTransaction;
+export type CastVoteWithReasonOutput = ContractTxData<GovernorBravoDelegate, 'castVoteWithReason'>;
 
-const castVoteWithReason = async ({
+const castVoteWithReason = ({
   governorBravoDelegateContract,
   proposalId,
   voteType,
   voteReason,
-}: CastVoteWithReasonInput): Promise<CastVoteWithReasonOutput> =>
-  governorBravoDelegateContract.castVoteWithReason(proposalId, voteType, voteReason);
+}: CastVoteWithReasonInput): CastVoteWithReasonOutput => ({
+  contract: governorBravoDelegateContract,
+  methodName: 'castVoteWithReason',
+  args: [proposalId, voteType, voteReason],
+});
 
 export default castVoteWithReason;

@@ -23,11 +23,14 @@ describe('supply', () => {
       it('returns contract transaction when request succeeds', async () => {
         const mintMock = vi.fn(() => fakeContractTransaction);
 
-        const fakeNativeTokenGatewayContract = {
-          mint: mintMock,
+        const fakeVBep20Contract = {
+          functions: {
+            mint: mintMock,
+          },
+          signer: fakeSigner,
         } as unknown as VBep20;
 
-        (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeNativeTokenGatewayContract);
+        (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVBep20Contract);
 
         const response = await supply({
           signer: fakeSigner,
@@ -35,11 +38,13 @@ describe('supply', () => {
           amountMantissa: fakeAmountMantissa,
         });
 
-        expect(response).toBe(fakeContractTransaction);
-
-        expect(mintMock).toHaveBeenCalledTimes(1);
-        expect(mintMock).toHaveBeenCalledWith({
-          value: fakeAmountMantissa.toFixed(),
+        expect(response).toStrictEqual({
+          contract: fakeVBep20Contract,
+          args: [],
+          methodName: 'mint',
+          overrides: {
+            value: fakeAmountMantissa.toFixed(),
+          },
         });
       });
     });
@@ -48,11 +53,14 @@ describe('supply', () => {
       it('returns contract transaction when request succeeds', async () => {
         const mintMock = vi.fn(() => fakeContractTransaction);
 
-        const fakeNativeTokenGatewayContract = {
-          mint: mintMock,
+        const fakeVBnbContract = {
+          functions: {
+            mint: mintMock,
+          },
+          signer: fakeSigner,
         } as unknown as VBnb;
 
-        (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeNativeTokenGatewayContract);
+        (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVBnbContract);
 
         const response = await supply({
           signer: fakeSigner,
@@ -60,10 +68,11 @@ describe('supply', () => {
           amountMantissa: fakeAmountMantissa,
         });
 
-        expect(response).toBe(fakeContractTransaction);
-
-        expect(mintMock).toHaveBeenCalledTimes(1);
-        expect(mintMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+        expect(response).toStrictEqual({
+          contract: fakeVBnbContract,
+          args: [fakeAmountMantissa.toFixed()],
+          methodName: 'mint',
+        });
       });
     });
   });
@@ -89,7 +98,10 @@ describe('supply', () => {
       const wrapAndSupplyMock = vi.fn(() => fakeContractTransaction);
 
       const fakeNativeTokenGatewayContract = {
-        wrapAndSupply: wrapAndSupplyMock,
+        functions: {
+          wrapAndSupply: wrapAndSupplyMock,
+        },
+        signer: fakeSigner,
       } as unknown as VBnb;
 
       (getNativeTokenGatewayContract as Vi.Mock).mockImplementationOnce(
@@ -104,11 +116,13 @@ describe('supply', () => {
         poolComptrollerContractAddress: fakePoolComptrollerContractAddress,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-
-      expect(wrapAndSupplyMock).toHaveBeenCalledTimes(1);
-      expect(wrapAndSupplyMock).toHaveBeenCalledWith(fakeAccountAddress, {
-        value: fakeAmountMantissa.toFixed(),
+      expect(response).toStrictEqual({
+        contract: fakeNativeTokenGatewayContract,
+        args: [fakeAccountAddress],
+        overrides: {
+          value: fakeAmountMantissa.toFixed(),
+        },
+        methodName: 'wrapAndSupply',
       });
     });
   });

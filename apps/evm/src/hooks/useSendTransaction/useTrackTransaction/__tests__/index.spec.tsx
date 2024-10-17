@@ -18,7 +18,8 @@ import { en } from 'libs/translations';
 import { useProvider } from 'libs/wallet';
 import { ChainId } from 'types';
 
-import { CONFIRMATIONS, TIMEOUT_MS, useTrackTransaction } from '..';
+import { CONFIRMATIONS, TIMEOUT_MS } from 'hooks/useSendTransaction/constants';
+import { useTrackTransaction } from '..';
 
 vi.mock('context/ErrorLogger');
 vi.mock('libs/notifications');
@@ -49,7 +50,7 @@ describe('useTrackTransaction', () => {
     const trackTransaction = result.current;
 
     await trackTransaction({
-      transaction: fakeContractTransaction,
+      transactionHash: fakeContractTransaction.hash,
     });
 
     // Check loading notification was displayed
@@ -109,7 +110,7 @@ describe('useTrackTransaction', () => {
       const trackTransaction = result.current;
 
       await trackTransaction({
-        transaction: fakeContractTransaction,
+        transactionHash: fakeContractTransaction.hash,
       });
 
       // Check loading notification was displayed
@@ -162,7 +163,7 @@ describe('useTrackTransaction', () => {
     const onRevertedMock = vi.fn();
 
     await trackTransaction({
-      transaction: fakeContractTransaction,
+      transactionHash: fakeContractTransaction.hash,
       onReverted: onRevertedMock,
     });
 
@@ -200,7 +201,7 @@ describe('useTrackTransaction', () => {
 
     // Check callback was executed
     expect(onRevertedMock).toHaveBeenCalledTimes(1);
-    expect(onRevertedMock).toHaveBeenCalledWith({ transaction: fakeContractTransaction });
+    expect(onRevertedMock).toHaveBeenCalledWith({ transactionHash: fakeContractTransaction.hash });
   });
 
   it('handles a transaction that succeeded', async () => {
@@ -210,7 +211,7 @@ describe('useTrackTransaction', () => {
     const onConfirmedMock = vi.fn();
 
     await trackTransaction({
-      transaction: fakeContractTransaction,
+      transactionHash: fakeContractTransaction.hash,
       onConfirmed: onConfirmedMock,
     });
 
@@ -249,7 +250,7 @@ describe('useTrackTransaction', () => {
     // Check callback was executed
     expect(onConfirmedMock).toHaveBeenCalledTimes(1);
     expect(onConfirmedMock).toHaveBeenCalledWith({
-      transaction: fakeContractTransaction,
+      transactionHash: fakeContractTransaction.hash,
       transactionReceipt: fakeContractReceipt,
     });
   });

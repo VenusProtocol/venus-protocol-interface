@@ -1,8 +1,8 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction } from 'ethers';
 
 import type { NativeTokenGateway, VBep20, VBnb } from 'libs/contracts';
 import { VError } from 'libs/errors';
+import type { ContractTxData } from 'types';
 
 export interface BorrowInput {
   amountMantissa: BigNumber;
@@ -11,14 +11,18 @@ export interface BorrowInput {
   nativeTokenGatewayContract?: NativeTokenGateway;
 }
 
-export type BorrowOutput = ContractTransaction;
+type BorrowAndUnwrapTxOuput = ContractTxData<NativeTokenGateway, 'borrowAndUnwrap'>;
 
-const borrow = async ({
+type BorrowTxOutput = ContractTxData<VBep20 | VBnb, 'borrow'>;
+
+export type BorrowOutput = BorrowAndUnwrapTxOuput | BorrowTxOutput;
+
+const borrow = ({
   vTokenContract,
   nativeTokenGatewayContract,
   unwrap = false,
   amountMantissa,
-}: BorrowInput): Promise<BorrowOutput> => {
+}: BorrowInput): BorrowOutput => {
   // Handle borrow and unwrap flow
   if (unwrap && !nativeTokenGatewayContract) {
     throw new VError({
@@ -27,8 +31,12 @@ const borrow = async ({
     });
   }
 
-  if (unwrap) {
-    return nativeTokenGatewayContract!.borrowAndUnwrap(amountMantissa.toFixed());
+  if (unwrap && nativeTokenGatewayContract) {
+    return {
+      contract: nativeTokenGatewayContract,
+      methodName: 'borrowAndUnwrap',
+      args: [amountMantissa.toFixed()],
+    };
   }
 
   if (!vTokenContract) {
@@ -39,7 +47,11 @@ const borrow = async ({
   }
 
   // Handle borrow flow
-  return vTokenContract.borrow(amountMantissa.toFixed());
+  return {
+    contract: vTokenContract,
+    methodName: 'borrow',
+    args: [amountMantissa.toFixed()],
+  };
 };
 
 export default borrow;

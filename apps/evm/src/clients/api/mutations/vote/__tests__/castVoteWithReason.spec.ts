@@ -12,15 +12,17 @@ describe('castVoteWithReason', () => {
       castVoteWithReason: castVoteWithReasonMock,
     } as unknown as GovernorBravoDelegate;
 
-    const response = await castVoteWithReason({
+    const response = castVoteWithReason({
       governorBravoDelegateContract: fakeContract,
       proposalId: 1,
       voteType: 1,
       voteReason: 'yes!',
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(castVoteWithReasonMock).toHaveBeenCalledTimes(1);
-    expect(castVoteWithReasonMock).toHaveBeenCalledWith(1, 1, 'yes!');
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [1, 1, 'yes!'],
+      methodName: 'castVoteWithReason',
+    });
   });
 });

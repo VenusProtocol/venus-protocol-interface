@@ -16,13 +16,15 @@ describe('repayVai', () => {
       repayVAI: repayVAIMock,
     } as unknown as VaiController;
 
-    const response = await repayVai({
+    const response = repayVai({
       vaiControllerContract: fakeContract,
       amountMantissa: fakeAmountMantissa,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(repayVAIMock).toHaveBeenCalledTimes(1);
-    expect(repayVAIMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeAmountMantissa.toFixed()],
+      methodName: 'repayVAI',
+    });
   });
 });

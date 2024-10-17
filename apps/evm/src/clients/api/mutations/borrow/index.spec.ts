@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 
 import type { NativeTokenGateway, VBep20 } from 'libs/contracts';
 
@@ -12,7 +13,7 @@ describe('borrow', () => {
   describe('borrow flow', () => {
     it('throws and error if VToken contract was not passed', async () => {
       try {
-        await borrow({
+        borrow({
           amountMantissa: fakeAmountMantissa,
         });
 
@@ -26,7 +27,10 @@ describe('borrow', () => {
       const borrowMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeVTokenContract = {
-        borrow: borrowMock,
+        functions: {
+          borrow: borrowMock,
+        },
+        signer: fakeSigner,
       } as unknown as VBep20;
 
       const response = await borrow({
@@ -34,16 +38,18 @@ describe('borrow', () => {
         amountMantissa: fakeAmountMantissa,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(borrowMock).toHaveBeenCalledTimes(1);
-      expect(borrowMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+      expect(response).toStrictEqual({
+        contract: fakeVTokenContract,
+        args: [fakeAmountMantissa.toFixed()],
+        methodName: 'borrow',
+      });
     });
   });
 
   describe('borrow and unwrap flow', () => {
     it('throws and error if unwrap is passed as true but NativeTokenGateway contract was not passed', async () => {
       try {
-        await borrow({
+        borrow({
           unwrap: true,
           amountMantissa: fakeAmountMantissa,
         });
@@ -58,18 +64,23 @@ describe('borrow', () => {
       const borrowAndUnwrapMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeNativeTokenGatewayContract = {
-        borrowAndUnwrap: borrowAndUnwrapMock,
+        functions: {
+          borrowAndUnwrap: borrowAndUnwrapMock,
+        },
+        signer: fakeSigner,
       } as unknown as NativeTokenGateway;
 
-      const response = await borrow({
+      const response = borrow({
         unwrap: true,
         amountMantissa: fakeAmountMantissa,
         nativeTokenGatewayContract: fakeNativeTokenGatewayContract,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(borrowAndUnwrapMock).toHaveBeenCalledTimes(1);
-      expect(borrowAndUnwrapMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+      expect(response).toStrictEqual({
+        contract: fakeNativeTokenGatewayContract,
+        args: [fakeAmountMantissa.toFixed()],
+        methodName: 'borrowAndUnwrap',
+      });
     });
   });
 });

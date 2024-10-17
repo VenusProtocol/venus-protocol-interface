@@ -86,6 +86,7 @@ import Multicall3Abi from './externalAbis/Multicall3.json';
 import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
 import VBnbAbi from './externalAbis/VBnb.json';
 import XsequenceMulticallAbi from './externalAbis/XsequenceMulticall.json';
+import ZyFiVaultAbi from './externalAbis/ZyFiVault.json';
 
 export interface UniqueContractConfig {
   name: string;
@@ -390,6 +391,14 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_MAINNET]: tokenBridgeBscMainnetDeployments.addresses.XVSProxyOFTSrc,
       [ChainId.BSC_TESTNET]: tokenBridgeBscTestnetDeployments.addresses.XVSProxyOFTSrc,
+    },
+  },
+  {
+    name: 'ZyFiVault',
+    abi: ZyFiVaultAbi,
+    address: {
+      [ChainId.ZKSYNC_MAINNET]: '0x32faBA244AB815A5cb3E09D55c941464DBe31496',
+      [ChainId.ZKSYNC_SEPOLIA]: '0xbA72A10ce8496DC9C13b9eE8c35fcCD3809d3C81',
     },
   },
   // Generic Contracts

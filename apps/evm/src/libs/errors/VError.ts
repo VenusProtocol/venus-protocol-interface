@@ -31,18 +31,23 @@ export class VError<E extends ErrorCodes> extends Error {
 
   code: VErrorPhraseMap[E];
 
+  errorCallback: (() => void) | undefined;
+
   constructor({
     type,
     code,
     data,
+    errorCallback,
   }: {
     type: E;
     code: VErrorPhraseMap[E];
     data?: VErrorParamMap[E];
+    errorCallback?: () => void;
   }) {
     super(code);
     this.type = type;
     this.code = code;
     this.data = data;
+    this.errorCallback = errorCallback;
   }
 }

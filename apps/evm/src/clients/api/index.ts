@@ -373,6 +373,9 @@ export { default as getPoolDelegateApprovalStatus } from './queries/getPoolDeleg
 export * from './queries/getPoolDelegateApprovalStatus';
 export { default as useGetPoolDelegateApprovalStatus } from './queries/getPoolDelegateApprovalStatus/useGetPoolDelegateApprovalStatus';
 
+export * from './queries/getPaymasterInfo';
+export { default as useGetPaymasterInfo } from './queries/getPaymasterInfo/useGetPaymasterInfo';
+
 export * from './queries/getProposalMinQuorumVotes';
 export * from './queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
 

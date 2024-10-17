@@ -25,6 +25,7 @@ const useSupply = (
 
   return useSendTransaction({
     fnKey: [FunctionKey.SUPPLY],
+    // @ts-expect-error this should accept both the NativeTokenGateway and VToken contracts
     fn: (input: TrimmedSupplyInput) =>
       callOrThrow({ signer }, params =>
         supply(

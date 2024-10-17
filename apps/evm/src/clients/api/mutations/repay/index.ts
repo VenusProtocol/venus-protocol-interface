@@ -1,15 +1,16 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction, Signer } from 'ethers';
+import type { Signer } from 'ethers';
 
 import MAX_UINT256 from 'constants/maxUint256';
 import {
   type Maximillion,
   type NativeTokenGateway,
+  type VBep20,
   type VBnb,
   getVTokenContract,
 } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { VToken } from 'types';
+import type { ContractTxData, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
 export interface RepayInput {
@@ -22,7 +23,10 @@ export interface RepayInput {
   nativeTokenGatewayContract?: NativeTokenGateway;
 }
 
-export type RepayOutput = ContractTransaction;
+export type RepayOutput =
+  | ContractTxData<VBnb | VBep20, 'repayBorrow'>
+  | ContractTxData<NativeTokenGateway, 'wrapAndRepay'>
+  | ContractTxData<Maximillion, 'repayBehalfExplicit'>;
 
 export const FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE = 0.1;
 
@@ -46,9 +50,14 @@ const repay = async ({
       const bufferedAmountMantissa = bufferAmount({ amountMantissa });
       const accountAddress = await signer.getAddress();
 
-      return maximillionContract.repayBehalfExplicit(accountAddress, vToken.address, {
-        value: bufferedAmountMantissa,
-      });
+      return {
+        contract: maximillionContract,
+        methodName: 'repayBehalfExplicit',
+        args: [accountAddress, vToken.address],
+        overrides: {
+          value: bufferedAmountMantissa,
+        },
+      };
     });
   }
 
@@ -59,9 +68,14 @@ const repay = async ({
       signerOrProvider: signer,
     }) as VBnb;
 
-    return vBnbContract.repayBorrow({
-      value: amountMantissa.toFixed(),
-    });
+    return {
+      contract: vBnbContract,
+      methodName: 'repayBorrow',
+      args: [],
+      overrides: {
+        value: amountMantissa.toFixed(),
+      },
+    };
   }
 
   // Handle repaying native loan by first wrapping tokens
@@ -72,18 +86,25 @@ const repay = async ({
     });
   }
 
-  if (wrap) {
-    return nativeTokenGatewayContract!.wrapAndRepay({
-      value: repayFullLoan ? bufferAmount({ amountMantissa }) : amountMantissa.toFixed(),
-    });
+  if (wrap && nativeTokenGatewayContract) {
+    return {
+      contract: nativeTokenGatewayContract,
+      methodName: 'wrapAndRepay',
+      args: [],
+      overrides: {
+        value: repayFullLoan ? bufferAmount({ amountMantissa }) : amountMantissa.toFixed(),
+      },
+    };
   }
 
   // Handle repaying tokens other than native
   const vTokenContract = getVTokenContract({ vToken, signerOrProvider: signer });
 
-  return vTokenContract.repayBorrow(
-    repayFullLoan ? MAX_UINT256.toFixed() : amountMantissa.toFixed(),
-  );
+  return {
+    contract: vTokenContract,
+    methodName: 'repayBorrow',
+    args: [repayFullLoan ? MAX_UINT256.toFixed() : amountMantissa.toFixed()],
+  };
 };
 
 export default repay;

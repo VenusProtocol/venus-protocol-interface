@@ -1,8 +1,8 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction } from 'ethers';
 
 import type { NativeTokenGateway, VBep20, VBnb } from 'libs/contracts';
 import { VError } from 'libs/errors';
+import type { ContractTxData } from 'types';
 
 export interface WithdrawInput {
   amountMantissa: BigNumber;
@@ -12,15 +12,17 @@ export interface WithdrawInput {
   unwrap?: boolean;
 }
 
-export type WithdrawOutput = ContractTransaction;
+export type WithdrawOutput =
+  | ContractTxData<VBep20 | VBnb, 'redeem' | 'redeemUnderlying'>
+  | ContractTxData<NativeTokenGateway, 'redeemAndUnwrap' | 'redeemUnderlyingAndUnwrap'>;
 
-const withdraw = async ({
+const withdraw = ({
   amountMantissa,
   tokenContract,
   nativeTokenGatewayContract,
   withdrawFullSupply = false,
   unwrap = false,
-}: WithdrawInput): Promise<WithdrawOutput> => {
+}: WithdrawInput) => {
   // Handle withdraw and unwrap flow
   if (unwrap && !nativeTokenGatewayContract) {
     throw new VError({
@@ -29,10 +31,18 @@ const withdraw = async ({
     });
   }
 
-  if (unwrap) {
+  if (unwrap && nativeTokenGatewayContract) {
     return withdrawFullSupply
-      ? nativeTokenGatewayContract!.redeemAndUnwrap(amountMantissa.toFixed())
-      : nativeTokenGatewayContract!.redeemUnderlyingAndUnwrap(amountMantissa.toFixed());
+      ? {
+          contract: nativeTokenGatewayContract,
+          methodName: 'redeemAndUnwrap',
+          args: [amountMantissa.toFixed()],
+        }
+      : {
+          contract: nativeTokenGatewayContract,
+          methodName: 'redeemUnderlyingAndUnwrap',
+          args: [amountMantissa.toFixed()],
+        };
   }
 
   // Handle withdraw flow
@@ -44,8 +54,8 @@ const withdraw = async ({
   }
 
   return withdrawFullSupply
-    ? tokenContract.redeem(amountMantissa.toFixed())
-    : tokenContract.redeemUnderlying(amountMantissa.toFixed());
+    ? { contract: tokenContract, methodName: 'redeem', args: [amountMantissa.toFixed()] }
+    : { contract: tokenContract, methodName: 'redeemUnderlying', args: [amountMantissa.toFixed()] };
 };
 
 export default withdraw;

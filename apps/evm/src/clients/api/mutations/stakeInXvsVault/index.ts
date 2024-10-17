@@ -1,8 +1,7 @@
 import type BigNumber from 'bignumber.js';
-import type { ContractTransaction } from 'ethers';
 
 import type { XvsVault } from 'libs/contracts';
-import type { Token } from 'types';
+import type { ContractTxData, Token } from 'types';
 
 export interface StakeInXvsVaultInput {
   xvsVaultContract: XvsVault;
@@ -11,14 +10,17 @@ export interface StakeInXvsVaultInput {
   poolIndex: number;
 }
 
-export type StakeInXvsVaultOutput = ContractTransaction;
+export type StakeInXvsVaultOutput = ContractTxData<XvsVault, 'deposit'>;
 
-const stakeInXvsVault = async ({
+const stakeInXvsVault = ({
   xvsVaultContract,
   rewardToken,
   amountMantissa,
   poolIndex,
-}: StakeInXvsVaultInput): Promise<StakeInXvsVaultOutput> =>
-  xvsVaultContract.deposit(rewardToken.address, poolIndex, amountMantissa.toFixed());
+}: StakeInXvsVaultInput): StakeInXvsVaultOutput => ({
+  contract: xvsVaultContract,
+  methodName: 'deposit',
+  args: [rewardToken.address, poolIndex, amountMantissa.toFixed()],
+});
 
 export default stakeInXvsVault;

@@ -14,13 +14,15 @@ describe('queueProposal', () => {
 
     const fakeProposalId = 3816;
 
-    const response = await queueProposal({
+    const response = queueProposal({
       governorBravoDelegateContract: fakeContract,
       proposalId: fakeProposalId,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(queueProposalMock).toHaveBeenCalledTimes(1);
-    expect(queueProposalMock).toHaveBeenCalledWith(fakeProposalId);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeProposalId],
+      methodName: 'queue',
+    });
   });
 });

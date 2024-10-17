@@ -14,13 +14,15 @@ describe('executeProposal', () => {
 
     const fakeProposalId = 3816;
 
-    const response = await executeProposal({
+    const response = executeProposal({
       governorBravoDelegateContract: fakeContract,
       proposalId: fakeProposalId,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(executeProposalMock).toHaveBeenCalledTimes(1);
-    expect(executeProposalMock).toHaveBeenCalledWith(fakeProposalId);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeProposalId],
+      methodName: 'execute',
+    });
   });
 });

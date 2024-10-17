@@ -1,6 +1,6 @@
 import type BigNumber from 'bignumber.js';
 
-import { type ExitMarketInput, type ExitMarketOutput, exitMarket, queryClient } from 'clients/api';
+import { type ExitMarketInput, exitMarket, queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
@@ -15,12 +15,9 @@ type Options = UseSendTransactionOptions<EnrichedExitMarketInput>;
 const useExitMarket = (options?: Partial<Options>) => {
   const { captureAnalyticEvent } = useAnalytics();
 
-  const wrappedExitMarket: (input: EnrichedExitMarketInput) => Promise<ExitMarketOutput> =
-    exitMarket;
-
   return useSendTransaction({
     fnKey: [FunctionKey.EXIT_MARKET],
-    fn: wrappedExitMarket,
+    fn: exitMarket,
     onConfirmed: ({ input }) => {
       const { poolName, vToken, userSupplyBalanceTokens } = input;
 
