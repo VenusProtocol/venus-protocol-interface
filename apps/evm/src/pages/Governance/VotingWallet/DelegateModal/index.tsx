@@ -13,7 +13,7 @@ import {
 } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 
 import addressValidationSchema from './addressValidationSchema';
@@ -45,7 +45,7 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
     try {
       await setVoteDelegation({ delegateAddress });
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

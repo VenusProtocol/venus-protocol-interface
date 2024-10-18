@@ -22,7 +22,7 @@ import {
   getXVSProxyOFTDestContractAddress,
   getXVSProxyOFTSrcContractAddress,
 } from 'libs/contracts';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { chains, useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
@@ -206,7 +206,7 @@ const BridgePage: React.FC = () => {
         });
         resetField('amountTokens');
       } catch (error) {
-        displayMutationError({ error });
+        handleError({ error });
       }
     }
   };

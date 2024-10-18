@@ -27,7 +27,7 @@ import { Link } from 'containers/Link';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -206,7 +206,7 @@ export const Borrow: React.FC = () => {
         // Reset form on successful submission
         reset();
       } catch (error) {
-        displayMutationError({ error });
+        handleError({ error });
       }
     },
     [mintVai, reset, vai],

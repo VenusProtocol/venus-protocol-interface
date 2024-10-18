@@ -4,7 +4,7 @@ import { LabeledInlineContent } from 'components/LabeledInlineContent';
 import { Spinner } from 'components/Spinner';
 import { Tooltip } from 'components/Tooltip';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 
@@ -34,7 +34,7 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
     try {
       await onRevoke();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

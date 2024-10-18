@@ -2,7 +2,7 @@
 import { Form, Formik } from 'formik';
 
 import { FormikSubmitButton, FormikTextField, Modal, TextField } from 'components';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 
@@ -51,7 +51,7 @@ const VoteModal: React.FC<VoteModalProps> = ({
       await vote(reason);
       handleClose();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

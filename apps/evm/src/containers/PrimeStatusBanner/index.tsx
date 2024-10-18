@@ -18,7 +18,7 @@ import useConvertMantissaToReadableTokenString from 'hooks/useFormatTokensToRead
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNavigate } from 'hooks/useNavigate';
 import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -72,7 +72,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     try {
       await onClaimPrimeToken();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

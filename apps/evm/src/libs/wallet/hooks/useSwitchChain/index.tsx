@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSwitchChain as useWagmiSwitchChain } from 'wagmi';
 
-import { VError, displayMutationError } from 'libs/errors';
+import { VError, handleError } from 'libs/errors';
 import { useUpdateUrlChainId } from 'libs/wallet/hooks/useUpdateUrlChainId';
 import type { ChainId } from 'types';
 
@@ -20,7 +20,7 @@ export const useSwitchChain = () => {
         input.callback?.();
       } catch (error) {
         if (error instanceof VError && error.code === 'couldNotSwitchChain') {
-          displayMutationError({ error });
+          handleError({ error });
         }
       }
     },

@@ -7,7 +7,7 @@ import type { CreateProposalInput } from 'clients/api';
 import { Modal } from 'components';
 import { routes } from 'constants/routing';
 import { useNavigate } from 'hooks/useNavigate';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import formatProposalPayload from 'pages/Governance/ProposalList/CreateProposalModal/formatProposalPayload';
 import { ProposalType } from 'types';
@@ -68,7 +68,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
         setProposalMode('file');
         navigate(routes.governanceProposalPreview.path);
       } catch (error) {
-        displayMutationError({ error });
+        handleError({ error });
       }
     }
   };
@@ -106,7 +106,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
 
       handleClose();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

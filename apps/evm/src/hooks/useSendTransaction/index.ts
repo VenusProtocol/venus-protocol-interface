@@ -124,11 +124,6 @@ export const useSendTransaction = <
         return;
       }
 
-      // TODO: display toast and remove calls to displayMutationError in codebase (see VEN-2889)
-
-      // Display toast
-      // displayMutationError({ error });
-
       if (options?.onError) {
         options.onError(error, variables, context);
       }

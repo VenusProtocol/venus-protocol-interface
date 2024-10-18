@@ -1,6 +1,6 @@
 import type BigNumber from 'bignumber.js';
 
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import type { Asset, Token } from 'types';
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
@@ -59,7 +59,7 @@ const useForm = ({
       }));
       onSubmitSuccess?.();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

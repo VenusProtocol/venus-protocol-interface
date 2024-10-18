@@ -23,7 +23,7 @@ import {
   useGetNativeTokenGatewayContractAddress,
   useGetSwapRouterContractAddress,
 } from 'libs/contracts';
-import { VError, displayMutationError } from 'libs/errors';
+import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
@@ -192,7 +192,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
         comptrollerAddress: pool.comptrollerAddress,
       });
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

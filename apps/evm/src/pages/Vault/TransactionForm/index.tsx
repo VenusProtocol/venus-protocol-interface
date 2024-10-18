@@ -13,7 +13,7 @@ import {
 import { AmountForm } from 'containers/AmountForm';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
@@ -114,7 +114,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
     try {
       await onSubmit(amountMantissa);
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 
