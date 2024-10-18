@@ -1,7 +1,7 @@
 import { type InputHTMLAttributes, useMemo, useState } from 'react';
 
 import { useGetPools } from 'clients/api';
-import { type Tag, TagGroup, TextField, Toggle } from 'components';
+import { Page, type Tag, TagGroup, TextField, Toggle } from 'components';
 import { MarketTable } from 'containers/MarketTable';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -66,7 +66,7 @@ const Dashboard: React.FC = () => {
   );
 
   return (
-    <>
+    <Page>
       <Banner />
 
       <PoolStats
@@ -121,7 +121,7 @@ const Dashboard: React.FC = () => {
         testId={TEST_IDS.marketTable}
         key="dashboard-market-table"
       />
-    </>
+    </Page>
   );
 };
 

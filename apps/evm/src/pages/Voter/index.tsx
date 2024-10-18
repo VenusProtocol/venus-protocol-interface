@@ -6,6 +6,7 @@ import { useGetVoterDetails, useGetVoterHistory, useGetVoters } from 'clients/ap
 import { useUrlPagination } from 'hooks/useUrlPagination';
 import type { VoteDetail, VoterHistory } from 'types';
 
+import { Page } from 'components';
 import History from './History';
 import Holding from './Holding';
 import Transactions from './Transactions';
@@ -81,19 +82,21 @@ const Voter: React.FC = () => {
     isGetVoterHistoryFetching && (isGetVoterHistoryPreviousData || voterHistory.length === 0);
 
   return (
-    <VoterUi
-      balanceMantissa={voterDetails?.balanceMantissa}
-      delegateCount={voterDetails?.delegateCount}
-      voterHistory={voterHistory}
-      votesMantissa={voterDetails?.votesMantissa}
-      delegating={!!voterDetails?.delegating}
-      address={address}
-      latestVotes={latestVotes?.result}
-      setCurrentPage={setCurrentPage}
-      total={total}
-      limit={limit}
-      isHistoryFetching={isFetching}
-    />
+    <Page indexWithSearchEngines={false}>
+      <VoterUi
+        balanceMantissa={voterDetails?.balanceMantissa}
+        delegateCount={voterDetails?.delegateCount}
+        voterHistory={voterHistory}
+        votesMantissa={voterDetails?.votesMantissa}
+        delegating={!!voterDetails?.delegating}
+        address={address}
+        latestVotes={latestVotes?.result}
+        setCurrentPage={setCurrentPage}
+        total={total}
+        limit={limit}
+        isHistoryFetching={isFetching}
+      />
+    </Page>
   );
 };
 
