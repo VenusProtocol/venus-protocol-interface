@@ -1,0 +1,20 @@
+fragment NonBscProposal on Proposal {
+  id
+  proposalId
+  executionEta
+
+  queued {
+    id
+    timestamp
+  }
+  
+  canceled {
+    id
+    timestamp
+  }
+  
+  executed {
+    id
+    timestamp
+  }
+}

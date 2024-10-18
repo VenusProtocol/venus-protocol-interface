@@ -1,0 +1,5 @@
+query Proposal($id: ID!) {
+  proposal(id: $id) {
+    ...BscProposal
+  }
+}

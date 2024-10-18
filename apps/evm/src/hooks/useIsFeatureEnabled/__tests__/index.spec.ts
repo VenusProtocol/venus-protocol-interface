@@ -1,6 +1,3 @@
-import type Vi from 'vitest';
-
-import { useChainId } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import { ChainId } from 'types';
 
@@ -15,14 +12,14 @@ describe('useIsFeatureEnabled', () => {
       Object.values(ChainId)
         .filter((value): value is ChainId => !Number.isNaN(+value))
         .forEach(chainId => {
-          (useChainId as Vi.Mock).mockImplementation(() => ({
-            chainId,
-          }));
-
-          const { result } = renderHook(() =>
-            useIsFeatureEnabled({
-              name: featureName as FeatureFlag,
-            }),
+          const { result } = renderHook(
+            () =>
+              useIsFeatureEnabled({
+                name: featureName as FeatureFlag,
+              }),
+            {
+              chainId,
+            },
           );
 
           const expectedResult = enabledChainIds.includes(chainId);

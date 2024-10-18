@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js';
 import type Vi from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
-import proposals from '__mocks__/models/proposals';
+import { proposals } from '__mocks__/models/proposals';
 import voters from '__mocks__/models/voters';
 import { renderComponent } from 'testUtils/render';
 
@@ -27,7 +27,7 @@ import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatur
 import useVote from 'hooks/useVote';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
-import { VoteSupport } from 'types';
+import { ChainId, VoteSupport } from 'types';
 
 import { REDIRECT_TEST_CONTENT } from 'components/Redirect/__mocks__';
 import Proposal from '..';
@@ -64,7 +64,9 @@ describe('Proposal page', () => {
     }));
 
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
-      data: activeProposal,
+      data: {
+        proposal: activeProposal,
+      },
     }));
 
     (useGetProposalThreshold as Vi.Mock).mockImplementation(() => ({
@@ -109,7 +111,9 @@ describe('Proposal page', () => {
 
   it('vote buttons are hidden when proposal is not active', async () => {
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
-      data: canceledProposal,
+      data: {
+        proposal: canceledProposal,
+      },
     }));
 
     const { queryByText } = renderComponent(<Proposal />, {
@@ -183,7 +187,7 @@ describe('Proposal page', () => {
     await waitFor(() => expect(queryByTestId(TEST_IDS.votingDisabledWarning)).toBeNull());
   });
 
-  it('renders warning about voting being disabled when the feature flag is off', async () => {
+  it('renders warning about voting being disabled when the feature flag is off and proposal is active', async () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
 
     const { getByTestId } = renderComponent(<Proposal />, {
@@ -215,7 +219,11 @@ describe('Proposal page', () => {
     expect(castButton).toBeEnabled();
     fireEvent.click(castButton);
     await waitFor(() =>
-      expect(vote).toBeCalledWith({ proposalId: 97, voteReason: '', voteType: 1 }),
+      expect(vote).toHaveBeenCalledWith({
+        proposalId: activeProposal.proposalId,
+        voteReason: '',
+        voteType: 1,
+      }),
     );
   });
 
@@ -247,7 +255,11 @@ describe('Proposal page', () => {
     fireEvent.click(castButton);
 
     await waitFor(() =>
-      expect(vote).toBeCalledWith({ proposalId: 97, voteReason: comment, voteType: 0 }),
+      expect(vote).toHaveBeenCalledWith({
+        proposalId: activeProposal.proposalId,
+        voteReason: comment,
+        voteType: 0,
+      }),
     );
   });
 
@@ -274,7 +286,11 @@ describe('Proposal page', () => {
     expect(castButton).toBeEnabled();
     fireEvent.click(castButton);
     await waitFor(() =>
-      expect(vote).toBeCalledWith({ proposalId: 97, voteReason: '', voteType: 2 }),
+      expect(vote).toHaveBeenCalledWith({
+        proposalId: activeProposal.proposalId,
+        voteReason: '',
+        voteType: 2,
+      }),
     );
   });
 
@@ -301,7 +317,7 @@ describe('Proposal page', () => {
       data: { votesMantissa: new BigNumber(0) },
     }));
 
-    const proposerAddress = activeProposal.proposer;
+    const proposerAddress = activeProposal.proposerAddress;
     const { getByTestId } = renderComponent(<Proposal />, {
       accountAddress: proposerAddress,
     });
@@ -311,7 +327,7 @@ describe('Proposal page', () => {
 
     fireEvent.click(cancelButton);
     await waitFor(() => expect(cancelButton).toBeEnabled());
-    expect(cancelProposal).toBeCalledWith({ proposalId: 97 });
+    expect(cancelProposal).toHaveBeenCalledWith({ proposalId: activeProposal.proposalId });
   });
 
   it('does not allow user to cancel if voting power of the proposer is greater than or equals threshold', async () => {
@@ -349,12 +365,14 @@ describe('Proposal page', () => {
     fireEvent.click(cancelButton);
 
     await waitFor(() => expect(cancelButton).toBeEnabled());
-    expect(cancelProposal).toBeCalledWith({ proposalId: 97 });
+    expect(cancelProposal).toHaveBeenCalledWith({ proposalId: activeProposal.proposalId });
   });
 
   it('user can queue succeeded proposal', async () => {
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
-      data: succeededProposal,
+      data: {
+        proposal: succeededProposal,
+      },
     }));
 
     const { getByTestId } = renderComponent(<Proposal />, {
@@ -367,12 +385,16 @@ describe('Proposal page', () => {
     fireEvent.click(queueButton);
     await waitFor(() => expect(queueButton).toBeEnabled());
 
-    await waitFor(() => expect(queueProposal).toBeCalledWith({ proposalId: 94 }));
+    await waitFor(() =>
+      expect(queueProposal).toHaveBeenCalledWith({ proposalId: succeededProposal.proposalId }),
+    );
   });
 
   it('user can execute queued proposal', async () => {
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
-      data: queuedProposal,
+      data: {
+        proposal: queuedProposal,
+      },
     }));
 
     const { getByTestId } = renderComponent(<Proposal />, {
@@ -384,6 +406,11 @@ describe('Proposal page', () => {
     fireEvent.click(executeButton);
     await waitFor(() => expect(executeButton).toBeEnabled());
 
-    await waitFor(() => expect(executeProposal).toBeCalledWith({ proposalId: 93 }));
+    await waitFor(() =>
+      expect(executeProposal).toHaveBeenCalledWith({
+        proposalId: queuedProposal.proposalId,
+        chainId: ChainId.BSC_TESTNET,
+      }),
+    );
   });
 });

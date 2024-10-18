@@ -1,35 +1,62 @@
+import type BigNumber from 'bignumber.js';
+import {
+  type GetBscProposalInput as GetBscGqlProposalInput,
+  enrichRemoteProposals,
+  formatToProposal,
+  getBscProposal,
+} from 'clients/subgraph';
 import { VError } from 'libs/errors';
-import { formatToProposal, restService } from 'utilities';
+import type { ChainId, Proposal } from 'types';
 
-import type { GetProposalInput, GetProposalOutput, ProposalApiResponse } from './types';
+export interface GetProposalInput {
+  proposalId: number;
+  chainId: ChainId;
+  currentBlockNumber: number;
+  proposalMinQuorumVotesMantissa: BigNumber;
+  accountAddress?: string;
+}
 
-export * from './types';
+export type GetProposalOutput = {
+  proposal?: Proposal;
+};
 
-const getProposal = async ({
+export const getProposal = async ({
   proposalId,
-  accountAddress = '',
+  chainId,
+  currentBlockNumber,
+  proposalMinQuorumVotesMantissa,
+  accountAddress,
 }: GetProposalInput): Promise<GetProposalOutput> => {
-  const response = await restService<ProposalApiResponse>({
-    endpoint: `/governance/proposals/${proposalId}`,
-    method: 'GET',
+  const variables: GetBscGqlProposalInput['variables'] = {
+    id: proposalId.toString(),
+  };
+
+  const response = await getBscProposal({
+    chainId,
+    variables,
   });
 
-  const payload = response.data;
+  const gqlProposal = response?.proposal;
 
-  // @todo Add specific api error handling
-  if (payload && 'error' in payload) {
+  if (!gqlProposal) {
     throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
-      data: { message: payload.error },
+      type: 'proposal',
+      code: 'proposalNotFound',
     });
   }
 
-  if (!payload) {
-    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
-  }
+  // Fetch remote proposals
+  const gqlRemoteProposalsMapping = await enrichRemoteProposals({
+    gqlRemoteProposals: gqlProposal.remoteProposals,
+  });
 
-  return formatToProposal({ ...payload, accountAddress });
+  const proposal = formatToProposal({
+    gqlProposal,
+    gqlRemoteProposalsMapping,
+    proposalMinQuorumVotesMantissa,
+    currentBlockNumber,
+    accountAddress,
+  });
+
+  return { proposal };
 };
-
-export default getProposal;

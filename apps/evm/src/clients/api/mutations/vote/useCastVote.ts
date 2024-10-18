@@ -28,6 +28,7 @@ const useCastVote = (options?: Partial<Options>) => {
       ),
     onConfirmed: async ({ input }) => {
       const { proposalId, voteType } = input;
+      const accountAddress = await governorBravoDelegateContract?.signer.getAddress();
 
       captureAnalyticEvent('Vote cast', {
         proposalId,
@@ -45,8 +46,27 @@ const useCastVote = (options?: Partial<Options>) => {
         ],
       });
 
-      // Invalidate query to fetch proposal list
-      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_PROPOSAL_PREVIEWS] });
+      // Invalidate queries to fetch user vote
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_VOTE_RECEIPT,
+          {
+            proposalId,
+            accountAddress,
+          },
+        ],
+      });
+
+      // Invalidate queries to fetch proposal
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_PROPOSALS] });
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_PROPOSAL,
+          {
+            id: input.proposalId,
+          },
+        ],
+      });
     },
     options,
   });

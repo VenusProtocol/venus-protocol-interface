@@ -10,6 +10,7 @@ import { useChainId } from 'libs/wallet';
 import { type VoteDetail, VoteSupport } from 'types';
 import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
 
+import { routes } from 'constants/routing';
 import { useStyles } from './styles';
 
 interface TransactionsProps {
@@ -71,11 +72,20 @@ export const Transactions: React.FC<TransactionsProps> = ({
         },
       },
       {
-        key: 'sent',
-        label: t('voterDetail.sent'),
-        selectOptionLabel: t('voterDetail.sent'),
-        renderCell: transaction =>
-          t('voterDetail.readableSent', { date: transaction.blockTimestamp }),
+        key: 'proposalId',
+        label: t('voterDetail.proposalNumber'),
+        selectOptionLabel: t('voterDetail.proposalNumber'),
+        renderCell: transaction => (
+          <Link
+            to={routes.governanceProposal.path.replace(
+              ':proposalId',
+              transaction.proposalId.toString(),
+            )}
+            className="text-offWhite underline hover:text-blue"
+          >
+            {transaction.proposalId}
+          </Link>
+        ),
       },
       {
         key: 'amount',
@@ -103,7 +113,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
         <Table
           columns={columns}
           data={voterTransactions}
-          rowKeyExtractor={row => `voter-transaction-table-row-${row.blockNumber}`}
+          rowKeyExtractor={row => `voter-transaction-table-row-${row.proposalId}`}
           breakpoint="sm"
           css={styles.cardContentGrid}
         />
