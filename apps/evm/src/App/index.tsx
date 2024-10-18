@@ -14,6 +14,8 @@ import Routes from './Routes';
 
 const NotificationCenter = safeLazyLoad(() => import('libs/notifications/NotificationCenter'));
 const AppVersionChecker = safeLazyLoad(() => import('containers/AppVersionChecker'));
+const GaslessChecker = safeLazyLoad(() => import('containers/GaslessChecker'));
+const ResendPayingGasModal = safeLazyLoad(() => import('containers/ResendPayingGasModal'));
 
 const App = () => (
   <ErrorBoundary>
@@ -30,6 +32,14 @@ const App = () => (
 
               <Suspense>
                 <AppVersionChecker />
+              </Suspense>
+
+              <Suspense>
+                <GaslessChecker />
+              </Suspense>
+
+              <Suspense>
+                <ResendPayingGasModal />
               </Suspense>
 
               <SentryErrorInfo />

@@ -1,4 +1,5 @@
 import type { IsolatedPoolComptroller } from 'libs/contracts';
+import type { ContractTxData } from 'types';
 
 export interface UpdatePoolDelegateStatusInput {
   poolComptrollerContract: IsolatedPoolComptroller;
@@ -6,11 +7,16 @@ export interface UpdatePoolDelegateStatusInput {
   approvedStatus: boolean;
 }
 
-const updateDelegate = async ({
+type UpdatePoolDelegateStatusOutput = ContractTxData<IsolatedPoolComptroller, 'updateDelegate'>;
+
+const updateDelegate = ({
   poolComptrollerContract,
   delegateeAddress,
   approvedStatus,
-}: UpdatePoolDelegateStatusInput) =>
-  poolComptrollerContract.updateDelegate(delegateeAddress, approvedStatus);
+}: UpdatePoolDelegateStatusInput): UpdatePoolDelegateStatusOutput => ({
+  contract: poolComptrollerContract,
+  methodName: 'updateDelegate',
+  args: [delegateeAddress, approvedStatus],
+});
 
 export default updateDelegate;

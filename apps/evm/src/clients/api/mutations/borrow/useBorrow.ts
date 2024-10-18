@@ -28,6 +28,7 @@ const useBorrow = (
 
   return useSendTransaction({
     fnKey: [FunctionKey.BORROW, { vToken }],
+    // @ts-expect-error this should accept both the NativeTokenGateway and VToken contracts
     fn: (input: TrimmedBorrowInput) =>
       callOrThrow({ vTokenContract }, params =>
         borrow({

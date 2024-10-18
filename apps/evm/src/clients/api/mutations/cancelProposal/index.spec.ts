@@ -14,13 +14,15 @@ describe('cancelProposal', () => {
 
     const fakeProposalId = 3816;
 
-    const response = await cancelProposal({
+    const response = cancelProposal({
       governorBravoDelegateContract: fakeContract,
       proposalId: fakeProposalId,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(cancelProposalMock).toHaveBeenCalledTimes(1);
-    expect(cancelProposalMock).toHaveBeenCalledWith(fakeProposalId);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeProposalId],
+      methodName: 'cancel',
+    });
   });
 });

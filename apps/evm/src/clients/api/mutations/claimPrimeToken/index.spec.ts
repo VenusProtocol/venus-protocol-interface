@@ -1,4 +1,5 @@
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 
 import type { Prime } from 'libs/contracts';
 
@@ -9,14 +10,20 @@ describe('claimPrimeToken', () => {
     const claimPrimeTokenMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
-      claim: claimPrimeTokenMock,
+      functions: {
+        claim: claimPrimeTokenMock,
+      },
+      signer: fakeSigner,
     } as unknown as Prime;
 
-    const response = await claimPrimeToken({
+    const response = claimPrimeToken({
       primeContract: fakeContract,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(claimPrimeTokenMock).toHaveBeenCalledTimes(1);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [],
+      methodName: 'claim',
+    });
   });
 });

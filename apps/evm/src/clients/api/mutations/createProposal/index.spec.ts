@@ -19,7 +19,7 @@ describe('createProposal', () => {
       propose: createProposalMock,
     } as unknown as GovernorBravoDelegate;
 
-    const response = await createProposal({
+    const response = createProposal({
       governorBravoDelegateContract: fakeContract,
       targets: fakeTargets,
       signatures: fakeSignatures,
@@ -29,15 +29,10 @@ describe('createProposal', () => {
       proposalType,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(createProposalMock).toHaveBeenCalledTimes(1);
-    expect(createProposalMock).toHaveBeenCalledWith(
-      fakeTargets,
-      fakeValues,
-      fakeSignatures,
-      fakeCallDatas,
-      fakeDescription,
-      proposalType,
-    );
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeTargets, fakeValues, fakeSignatures, fakeCallDatas, fakeDescription, proposalType],
+      methodName: 'propose',
+    });
   });
 });

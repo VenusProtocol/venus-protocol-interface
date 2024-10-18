@@ -21,19 +21,22 @@ describe('swapTokens', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    await swapTokens({
+    const result = await swapTokens({
       swapRouterContract: fakeContract,
       swap: fakeExactAmountInSwap,
     });
 
-    expect(swapExactTokensForTokensMock).toHaveBeenCalledTimes(1);
-    expect(swapExactTokensForTokensMock).toHaveBeenCalledWith(
-      fakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
-      fakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
-      fakeExactAmountInSwap.routePath,
-      fakeSignerAddress,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        fakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
+        fakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
+        fakeExactAmountInSwap.routePath,
+        fakeSignerAddress,
+        expect.any(Number),
+      ],
+      methodName: 'swapExactTokensForTokens',
+    });
   });
 
   it('calls the right contract method when selling an exact amount of native tokens for as many non-native tokens as possible', async () => {
@@ -50,21 +53,24 @@ describe('swapTokens', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    await swapTokens({
+    const result = await swapTokens({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountInSwap,
     });
 
-    expect(swapExactBNBForTokensMock).toHaveBeenCalledTimes(1);
-    expect(swapExactBNBForTokensMock).toHaveBeenCalledWith(
-      customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
-      customFakeExactAmountInSwap.routePath,
-      fakeAccountAddress,
-      expect.any(Number),
-      {
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
+        customFakeExactAmountInSwap.routePath,
+        fakeAccountAddress,
+        expect.any(Number),
+      ],
+      overrides: {
         value: customFakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
       },
-    );
+      methodName: 'swapExactBNBForTokens',
+    });
   });
 
   it('calls the right contract method when selling an exact amount of non-native tokens for as many native tokens as possible', async () => {
@@ -81,19 +87,22 @@ describe('swapTokens', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    await swapTokens({
+    const result = await swapTokens({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountInSwap,
     });
 
-    expect(swapExactTokensForBNBMock).toHaveBeenCalledTimes(1);
-    expect(swapExactTokensForBNBMock).toHaveBeenCalledWith(
-      customFakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
-      customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
-      customFakeExactAmountInSwap.routePath,
-      fakeAccountAddress,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        customFakeExactAmountInSwap.fromTokenAmountSoldMantissa.toFixed(),
+        customFakeExactAmountInSwap.minimumToTokenAmountReceivedMantissa.toFixed(),
+        customFakeExactAmountInSwap.routePath,
+        fakeAccountAddress,
+        expect.any(Number),
+      ],
+      methodName: 'swapExactTokensForBNB',
+    });
   });
 
   it('calls the right contract method when buying an exact amount of non-native tokens for as few non-native tokens as possible', async () => {
@@ -104,19 +113,22 @@ describe('swapTokens', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    await swapTokens({
+    const result = await swapTokens({
       swapRouterContract: fakeContract,
       swap: fakeExactAmountOutSwap,
     });
 
-    expect(swapTokensForExactTokensMock).toHaveBeenCalledTimes(1);
-    expect(swapTokensForExactTokensMock).toHaveBeenCalledWith(
-      fakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
-      fakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
-      fakeExactAmountOutSwap.routePath,
-      fakeAccountAddress,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        fakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
+        fakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
+        fakeExactAmountOutSwap.routePath,
+        fakeAccountAddress,
+        expect.any(Number),
+      ],
+      methodName: 'swapTokensForExactTokens',
+    });
   });
 
   it('calls the right contract method when buying an exact amount of non-native tokens for as few native tokens as possible', async () => {
@@ -133,21 +145,24 @@ describe('swapTokens', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    await swapTokens({
+    const result = await swapTokens({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
     });
 
-    expect(swapBNBForExactTokensMock).toHaveBeenCalledTimes(1);
-    expect(swapBNBForExactTokensMock).toHaveBeenCalledWith(
-      customFakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
-      customFakeExactAmountOutSwap.routePath,
-      fakeAccountAddress,
-      expect.any(Number),
-      {
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        customFakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
+        customFakeExactAmountOutSwap.routePath,
+        fakeAccountAddress,
+        expect.any(Number),
+      ],
+      overrides: {
         value: customFakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
       },
-    );
+      methodName: 'swapBNBForExactTokens',
+    });
   });
 
   it('calls the right contract method when buying an exact amount of native tokens for as few non-native tokens as possible', async () => {
@@ -164,18 +179,21 @@ describe('swapTokens', () => {
       signer: fakeSigner,
     } as unknown as SwapRouter;
 
-    await swapTokens({
+    const result = await swapTokens({
       swapRouterContract: fakeContract,
       swap: customFakeExactAmountOutSwap,
     });
 
-    expect(swapTokensForExactBNBMock).toHaveBeenCalledTimes(1);
-    expect(swapTokensForExactBNBMock).toHaveBeenCalledWith(
-      customFakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
-      customFakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
-      customFakeExactAmountOutSwap.routePath,
-      fakeAccountAddress,
-      expect.any(Number),
-    );
+    expect(result).toStrictEqual({
+      contract: fakeContract,
+      args: [
+        customFakeExactAmountOutSwap.toTokenAmountReceivedMantissa.toFixed(),
+        customFakeExactAmountOutSwap.maximumFromTokenAmountSoldMantissa.toFixed(),
+        customFakeExactAmountOutSwap.routePath,
+        fakeAccountAddress,
+        expect.any(Number),
+      ],
+      methodName: 'swapTokensForExactBNB',
+    });
   });
 });

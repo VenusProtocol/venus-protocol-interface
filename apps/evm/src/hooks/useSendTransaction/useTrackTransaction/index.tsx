@@ -1,4 +1,4 @@
-import type { ContractReceipt, ContractTransaction } from 'ethers';
+import type { ContractReceipt } from 'ethers';
 import { useCallback } from 'react';
 
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
@@ -14,21 +14,19 @@ import { useTranslation } from 'libs/translations';
 import { useChainId, useProvider } from 'libs/wallet';
 import type { TransactionType } from 'types';
 import type { UrlType } from 'utilities';
-
-export const CONFIRMATIONS = 2;
-export const TIMEOUT_MS = 180000; // 3 minutes
+import { CONFIRMATIONS, TIMEOUT_MS } from '../constants';
 
 interface UseTrackTransactionInput {
   transactionType?: TransactionType;
 }
 
 interface TrackTransactionInput {
-  transaction: ContractTransaction;
+  transactionHash: string;
   onConfirmed?: (input: {
-    transaction: ContractTransaction;
+    transactionHash: string;
     transactionReceipt: ContractReceipt;
   }) => Promise<unknown> | unknown;
-  onReverted?: (input: { transaction: ContractTransaction }) => Promise<unknown> | unknown;
+  onReverted?: (input: { transactionHash: string }) => Promise<unknown> | unknown;
 }
 
 export const useTrackTransaction = (
@@ -39,16 +37,16 @@ export const useTrackTransaction = (
   const { t } = useTranslation();
 
   const trackTransaction = useCallback(
-    async ({ transaction, onConfirmed, onReverted }: TrackTransactionInput) => {
+    async ({ transactionHash, onConfirmed, onReverted }: TrackTransactionInput) => {
       const urlType: UrlType = transactionType === 'layerZero' ? 'layerZeroTx' : 'tx';
       // Display notification indicating transaction is being processed
       const notificationId = displayNotification({
-        id: transaction.hash,
+        id: transactionHash,
         variant: 'loading',
         autoClose: false,
         title: t('transactionNotification.pending.title'),
         description: (
-          <ChainExplorerLink chainId={chainId} hash={transaction.hash} urlType={urlType} />
+          <ChainExplorerLink chainId={chainId} hash={transactionHash} urlType={urlType} />
         ),
       });
 
@@ -56,7 +54,7 @@ export const useTrackTransaction = (
 
       try {
         transactionReceipt = await provider.waitForTransaction(
-          transaction.hash,
+          transactionHash,
           CONFIRMATIONS,
           TIMEOUT_MS,
         );
@@ -97,7 +95,7 @@ export const useTrackTransaction = (
         });
 
         // Execute callback
-        await onReverted?.({ transaction });
+        await onReverted?.({ transactionHash });
         return;
       }
 
@@ -109,7 +107,7 @@ export const useTrackTransaction = (
       });
 
       // Execute callback
-      await onConfirmed?.({ transaction, transactionReceipt });
+      await onConfirmed?.({ transactionHash, transactionReceipt });
     },
     [chainId, provider, t, transactionType],
   );

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 import { busd } from '__mocks__/models/tokens';
 
 import type { XvsVault } from 'libs/contracts';
@@ -15,22 +16,23 @@ describe('stakeInXvsVault', () => {
     const depositMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
-      deposit: depositMock,
+      functions: {
+        deposit: depositMock,
+      },
+      signer: fakeSigner,
     } as unknown as XvsVault;
 
-    const response = await stakeInXvsVault({
+    const response = stakeInXvsVault({
       xvsVaultContract: fakeContract,
       rewardToken: busd,
       amountMantissa: fakeAmountMantissa,
       poolIndex: fakePoolIndex,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(depositMock).toHaveBeenCalledTimes(1);
-    expect(depositMock).toHaveBeenCalledWith(
-      busd.address,
-      fakePoolIndex,
-      fakeAmountMantissa.toFixed(),
-    );
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [busd.address, fakePoolIndex, fakeAmountMantissa.toFixed()],
+      methodName: 'deposit',
+    });
   });
 });

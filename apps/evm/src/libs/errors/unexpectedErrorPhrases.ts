@@ -15,4 +15,5 @@ export const unexpectedErrorPhrases = {
   ),
   accountError: t('markets.errors.accountError'),
   incorrectSwapInput: t('swap.errors.incorrectSwapInput'),
+  gaslessTransactionNotAvailable: t('transactionErrors.gaslessTransactionNotAvailable'),
 };

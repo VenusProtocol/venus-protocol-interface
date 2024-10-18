@@ -3,6 +3,7 @@ import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { productionHosts } from 'constants/production';
 import { ChainId, type Environment, type Network } from 'types';
 import { extractEnumValues } from 'utilities/extractEnumValues';
+
 import { ENV_VARIABLES } from './envVariables';
 
 export interface Config {
@@ -23,6 +24,7 @@ export interface Config {
     apiKey: string;
     hostUrl: string;
   };
+  zyFiApiKey: string;
 }
 
 let environment: Environment = 'preview';
@@ -90,6 +92,7 @@ const config: Config = {
     apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',
     hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
   },
+  zyFiApiKey: ENV_VARIABLES.VITE_ZYFI_API_KEY || '',
 };
 
 export { ENV_VARIABLES } from './envVariables';

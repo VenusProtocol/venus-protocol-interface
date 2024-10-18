@@ -16,13 +16,15 @@ describe('mintVai', () => {
       mintVAI: mintVaiMock,
     } as unknown as VaiController;
 
-    const response = await mintVai({
+    const response = mintVai({
       vaiControllerContract: fakeContract,
       amountMantissa: fakeAmountMantissa,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(mintVaiMock).toHaveBeenCalledTimes(1);
-    expect(mintVaiMock).toHaveBeenCalledWith(fakeAmountMantissa.toFixed());
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeAmountMantissa.toFixed()],
+      methodName: 'mintVAI',
+    });
   });
 });

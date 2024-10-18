@@ -1,14 +1,16 @@
-import type { ContractTransaction } from 'ethers';
-
 import type { XvsVesting } from 'libs/contracts';
+import type { ContractTxData } from 'types';
 
 export interface WithdrawXvsInput {
   xvsVestingContract: XvsVesting;
 }
 
-export type WithdrawXvsOutput = ContractTransaction;
+export type WithdrawXvsOutput = ContractTxData<XvsVesting, 'withdraw'>;
 
-const withdrawXvs = async ({ xvsVestingContract }: WithdrawXvsInput): Promise<WithdrawXvsOutput> =>
-  xvsVestingContract.withdraw();
+const withdrawXvs = ({ xvsVestingContract }: WithdrawXvsInput): WithdrawXvsOutput => ({
+  contract: xvsVestingContract,
+  methodName: 'withdraw',
+  args: [],
+});
 
 export default withdrawXvs;

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 
 import type { NativeTokenGateway, VBep20 } from 'libs/contracts';
 
@@ -12,7 +13,7 @@ describe('withdraw', () => {
   describe('withdraw flow', async () => {
     it('throws an error when vToken contract was not passed', async () => {
       try {
-        await withdraw({
+        withdraw({
           amountMantissa: fakeAmount,
           withdrawFullSupply: true,
         });
@@ -27,42 +28,52 @@ describe('withdraw', () => {
       const redeemMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeVTokenContract = {
-        redeem: redeemMock,
+        functions: {
+          redeem: redeemMock,
+        },
+        signer: fakeSigner,
       } as unknown as VBep20;
 
-      const response = await withdraw({
+      const response = withdraw({
         tokenContract: fakeVTokenContract,
         amountMantissa: fakeAmount,
         withdrawFullSupply: true,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(redeemMock).toHaveBeenCalledTimes(1);
-      expect(redeemMock).toHaveBeenCalledWith(fakeAmount.toFixed());
+      expect(response).toStrictEqual({
+        contract: fakeVTokenContract,
+        args: [fakeAmount.toString()],
+        methodName: 'redeem',
+      });
     });
 
     it('returns contract transaction when request to withdraw partial supply succeeds', async () => {
       const redeemUnderlyingMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeVTokenContract = {
-        redeemUnderlying: redeemUnderlyingMock,
+        functions: {
+          redeemUnderlying: redeemUnderlyingMock,
+        },
+        signer: fakeSigner,
       } as unknown as VBep20;
 
-      const response = await withdraw({
+      const response = withdraw({
         tokenContract: fakeVTokenContract,
         amountMantissa: fakeAmount,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(redeemUnderlyingMock).toHaveBeenCalledTimes(1);
-      expect(redeemUnderlyingMock).toHaveBeenCalledWith(fakeAmount.toFixed());
+      expect(response).toStrictEqual({
+        contract: fakeVTokenContract,
+        args: [fakeAmount.toString()],
+        methodName: 'redeemUnderlying',
+      });
     });
   });
 
   describe('withdraw and unwrap flow', async () => {
     it('throws an error when unwrap was passed as true but NativeTokenGateway contract was not passed', async () => {
       try {
-        await withdraw({
+        withdraw({
           amountMantissa: fakeAmount,
           unwrap: true,
         });
@@ -77,37 +88,47 @@ describe('withdraw', () => {
       const redeemAndUnwrapMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeNativeTokenGatewayContract = {
-        redeemAndUnwrap: redeemAndUnwrapMock,
+        functions: {
+          redeemAndUnwrap: redeemAndUnwrapMock,
+        },
+        signer: fakeSigner,
       } as unknown as NativeTokenGateway;
 
-      const response = await withdraw({
+      const response = withdraw({
         nativeTokenGatewayContract: fakeNativeTokenGatewayContract,
         amountMantissa: fakeAmount,
         withdrawFullSupply: true,
         unwrap: true,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(redeemAndUnwrapMock).toHaveBeenCalledTimes(1);
-      expect(redeemAndUnwrapMock).toHaveBeenCalledWith(fakeAmount.toFixed());
+      expect(response).toStrictEqual({
+        contract: fakeNativeTokenGatewayContract,
+        args: [fakeAmount.toString()],
+        methodName: 'redeemAndUnwrap',
+      });
     });
 
     it('returns contract transaction when request to withdraw partial supply succeeds', async () => {
       const redeemUnderlyingAndUnwrapMock = vi.fn(async () => fakeContractTransaction);
 
       const fakeNativeTokenGatewayContract = {
-        redeemUnderlyingAndUnwrap: redeemUnderlyingAndUnwrapMock,
+        functions: {
+          redeemUnderlyingAndUnwrap: redeemUnderlyingAndUnwrapMock,
+        },
+        signer: fakeSigner,
       } as unknown as NativeTokenGateway;
 
-      const response = await withdraw({
+      const response = withdraw({
         nativeTokenGatewayContract: fakeNativeTokenGatewayContract,
         amountMantissa: fakeAmount,
         unwrap: true,
       });
 
-      expect(response).toBe(fakeContractTransaction);
-      expect(redeemUnderlyingAndUnwrapMock).toHaveBeenCalledTimes(1);
-      expect(redeemUnderlyingAndUnwrapMock).toHaveBeenCalledWith(fakeAmount.toFixed());
+      expect(response).toStrictEqual({
+        contract: fakeNativeTokenGatewayContract,
+        args: [fakeAmount.toString()],
+        methodName: 'redeemUnderlyingAndUnwrap',
+      });
     });
   });
 });

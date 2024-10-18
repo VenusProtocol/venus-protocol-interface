@@ -1,6 +1,5 @@
-import type { ContractTransaction } from 'ethers';
-
 import type { GovernorBravoDelegate } from 'libs/contracts';
+import type { ContractTxData } from 'types';
 
 export type CreateProposalInput = {
   targets: string[];
@@ -11,9 +10,9 @@ export type CreateProposalInput = {
   proposalType: 0 | 1 | 2;
 };
 
-export type CreateProposalOutput = ContractTransaction;
+export type CreateProposalOutput = ContractTxData<GovernorBravoDelegate, 'propose'>;
 
-const createProposal = async ({
+const createProposal = ({
   governorBravoDelegateContract,
   targets,
   values,
@@ -23,14 +22,10 @@ const createProposal = async ({
   proposalType,
 }: CreateProposalInput & {
   governorBravoDelegateContract: GovernorBravoDelegate;
-}): Promise<CreateProposalOutput> =>
-  governorBravoDelegateContract.propose(
-    targets,
-    values,
-    signatures,
-    callDatas,
-    description,
-    proposalType,
-  );
+}): CreateProposalOutput => ({
+  contract: governorBravoDelegateContract,
+  methodName: 'propose',
+  args: [targets, values, signatures, callDatas, description, proposalType],
+});
 
 export default createProposal;

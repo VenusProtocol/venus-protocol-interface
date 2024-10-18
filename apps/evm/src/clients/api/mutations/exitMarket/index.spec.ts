@@ -1,4 +1,5 @@
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 import { vBusd } from '__mocks__/models/vTokens';
 
 import type { LegacyPoolComptroller } from 'libs/contracts';
@@ -10,16 +11,21 @@ describe('exitMarket', () => {
     const exitMarketMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
-      exitMarket: exitMarketMock,
+      functions: {
+        exitMarket: exitMarketMock,
+      },
+      signer: fakeSigner,
     } as unknown as LegacyPoolComptroller;
 
-    const response = await exitMarket({
+    const response = exitMarket({
       comptrollerContract: fakeContract,
       vToken: vBusd,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(exitMarketMock).toHaveBeenCalledTimes(1);
-    expect(exitMarketMock).toHaveBeenCalledWith(vBusd.address);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [vBusd.address],
+      methodName: 'exitMarket',
+    });
   });
 });

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
+import fakeSigner from '__mocks__/models/signer';
 
 import type { XvsVault } from 'libs/contracts';
 
@@ -15,22 +16,23 @@ describe('requestWithdrawalFromXvsVault', () => {
     const requestWithdrawalMock = vi.fn(async () => fakeContractTransaction);
 
     const fakeContract = {
-      requestWithdrawal: requestWithdrawalMock,
+      functions: {
+        requestWithdrawal: requestWithdrawalMock,
+      },
+      signer: fakeSigner,
     } as unknown as XvsVault;
 
-    const response = await requestWithdrawalFromXvsVault({
+    const response = requestWithdrawalFromXvsVault({
       xvsVaultContract: fakeContract,
       rewardTokenAddress: fakeRewardTokenAddress,
       amountMantissa: fakeAmountMantissa,
       poolIndex: fakePoolIndex,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(requestWithdrawalMock).toHaveBeenCalledTimes(1);
-    expect(requestWithdrawalMock).toHaveBeenCalledWith(
-      fakeRewardTokenAddress,
-      fakePoolIndex,
-      fakeAmountMantissa.toFixed(),
-    );
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeRewardTokenAddress, fakePoolIndex, fakeAmountMantissa.toFixed()],
+      methodName: 'requestWithdrawal',
+    });
   });
 });

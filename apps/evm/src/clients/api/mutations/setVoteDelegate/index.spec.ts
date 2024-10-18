@@ -13,13 +13,15 @@ describe('setVoteDelegate', () => {
       delegate: delegateMock,
     } as unknown as XvsVault;
 
-    const response = await setVoteDelegate({
+    const response = setVoteDelegate({
       xvsVaultContract: fakeContract,
       delegateAddress: fakeAddress,
     });
 
-    expect(response).toBe(fakeContractTransaction);
-    expect(delegateMock).toHaveBeenCalledTimes(1);
-    expect(delegateMock).toHaveBeenCalledWith(fakeAddress);
+    expect(response).toStrictEqual({
+      contract: fakeContract,
+      args: [fakeAddress],
+      methodName: 'delegate',
+    });
   });
 });
