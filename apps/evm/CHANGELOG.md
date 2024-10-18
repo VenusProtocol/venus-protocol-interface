@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.161.0
+
+### Minor Changes
+
+- b3e03d9: integrate with ZyFi gasless txs
+
 ## 2.160.0
 
 ### Minor Changes
