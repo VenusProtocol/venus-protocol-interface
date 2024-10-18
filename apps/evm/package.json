@@ -79,7 +79,7 @@
     "wagmi": "^2.10.9",
     "yup": "^1.2.0",
     "zod": "^3.22.4",
-    "zustand": "^4.4.3"
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.6.4",
