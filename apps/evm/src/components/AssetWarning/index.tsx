@@ -42,7 +42,7 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
   return (
     <div className={className} {...otherProps}>
       <Notice
-        className="rounded-md mb-2"
+        className="mb-2"
         variant="warning"
         description={
           <Trans
@@ -56,7 +56,7 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
             }
             values={translationArgs}
             components={{
-              Button: <TextButton className="p-0 h-auto" onClick={handleShowAssets} />,
+              Button: <TextButton className="p-0 h-auto font-medium" onClick={handleShowAssets} />,
             }}
           />
         }
