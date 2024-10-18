@@ -6,12 +6,14 @@ import { Footer } from './Footer';
 import { Header } from './Header';
 import ScrollToTop from './ScrollToTop';
 import { Sidebar } from './Sidebar';
+import { TestEnvWarning } from './TestEnvWarning';
 import { store } from './store';
 
 export const Layout: React.FC = () => {
   const setScrollToTopVisible = store.use.setScrollToTopVisible();
   const isScrollToTopVisible = store.use.isScrollToTopVisible();
   const viewportHeight = window.innerHeight;
+
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const scrollElem = event.currentTarget;
     const shouldShowScrollToTopVisible =
@@ -25,23 +27,27 @@ export const Layout: React.FC = () => {
   };
 
   return (
-    <div className="flex h-dvh flex-col md:flex-row">
-      <Sidebar />
+    <div className="h-dvh flex flex-col">
+      <TestEnvWarning />
 
-      <div
-        className="flex flex-1 flex-col overflow-y-auto"
-        id={PAGE_CONTAINER_ID}
-        onScroll={handleScroll}
-      >
-        <Header />
+      <div className="flex flex-1 flex-col overflow-hidden md:flex-row">
+        <Sidebar />
 
-        <main className="w-full shrink-0 grow px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
-          <Outlet />
-        </main>
+        <div
+          className="flex flex-1 flex-col overflow-y-auto"
+          id={PAGE_CONTAINER_ID}
+          onScroll={handleScroll}
+        >
+          <Header />
 
-        <ScrollToTop />
+          <main className="w-full shrink-0 grow px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
+            <Outlet />
+          </main>
 
-        <Footer />
+          <ScrollToTop />
+
+          <Footer />
+        </div>
       </div>
     </div>
   );
