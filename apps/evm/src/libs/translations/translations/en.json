@@ -284,13 +284,12 @@
     }
   },
   "gaslessTransactions": {
-    "gas": "Gas",
     "chainLabel": "Free",
     "errorModal": {
-      "title": "Gas-free transactions are not available at the moment",
+      "cancel": "Cancel",
       "description": "You can still send this transaction by paying for the gas yourself",
       "resendButtonLabel": "Resend with gas",
-      "cancel": "Cancel"
+      "title": "Gas-free transactions are not available at the moment"
     },
     "tooltip": "Transactions on this network are gas-free, with no fees required. More info <Link>here</Link>"
   },
@@ -349,7 +348,8 @@
       "swap": "Swap",
       "vai": "VAI",
       "vaults": "Vaults"
-    }
+    },
+    "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>"
   },
   "legacyPool": {
     "description": "Venus’ primary pool is composed of large-cap tokens that meet minimum liquidity requirements.",
