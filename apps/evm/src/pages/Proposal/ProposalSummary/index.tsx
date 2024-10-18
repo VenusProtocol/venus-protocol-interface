@@ -21,7 +21,7 @@ import {
 } from 'components';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress } from 'libs/wallet';
 import { type Proposal, ProposalState, ProposalType } from 'types';
@@ -88,7 +88,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
       try {
         await cancelProposal();
       } catch (error) {
-        displayMutationError({ error });
+        handleError({ error });
       }
     };
 
@@ -96,7 +96,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
       try {
         await queueProposal();
       } catch (error) {
-        displayMutationError({ error });
+        handleError({ error });
       }
     };
 
@@ -104,7 +104,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
       try {
         await executeProposal();
       } catch (error) {
-        displayMutationError({ error });
+        handleError({ error });
       }
     };
 

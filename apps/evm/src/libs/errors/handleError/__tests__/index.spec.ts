@@ -3,15 +3,15 @@ import type Vi from 'vitest';
 import { VError } from 'libs/errors';
 import { displayNotification } from 'libs/notifications';
 
-import { displayMutationError } from '..';
+import { handleError } from '..';
 
 vi.mock('libs/notifications');
 
-describe('displayMutationError', () => {
+describe('handleError', () => {
   it('calls displayNotification with the right argument when passing an Error instance', () => {
     const fakeError = new Error('Fake error');
 
-    displayMutationError({ error: fakeError });
+    handleError({ error: fakeError });
 
     expect(displayNotification).toHaveBeenCalledTimes(1);
     expect(displayNotification).toHaveBeenCalledWith({
@@ -44,7 +44,7 @@ describe('displayMutationError', () => {
   ])(
     'calls displayNotification with the right argument when passing a VError instance. %s',
     fakeError => {
-      displayMutationError({ error: fakeError });
+      handleError({ error: fakeError });
 
       expect(displayNotification).toHaveBeenCalledTimes(1);
       expect((displayNotification as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();

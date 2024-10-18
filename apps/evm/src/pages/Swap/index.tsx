@@ -20,7 +20,7 @@ import {
   useGetLegacyPoolComptrollerContractAddress,
   useGetSwapRouterContractAddress,
 } from 'libs/contracts';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -167,7 +167,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           toTokenAmountTokens: initialFormValues.toTokenAmountTokens,
         }));
       } catch (error) {
-        displayMutationError({ error });
+        handleError({ error });
       }
     }
   };
