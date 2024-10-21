@@ -5,7 +5,7 @@ import type BigNumber from 'bignumber.js';
 import { PrimaryButton } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 
@@ -37,7 +37,7 @@ const Withdraw: React.FC<WithdrawProps> = ({
     try {
       await withdrawXvs();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

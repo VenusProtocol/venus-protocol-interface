@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useEffect } from 'react';
 
 import useIsMounted from 'hooks/useIsMounted';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import type { Swap, SwapError, Token, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
@@ -90,7 +90,7 @@ const useForm = ({
       }));
       onSubmitSuccess?.();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

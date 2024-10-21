@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { type Claim, useClaimRewards } from 'clients/api';
 import { type ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { VError, displayMutationError } from 'libs/errors';
+import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { cn, formatCentsToReadableValue } from 'utilities';
@@ -64,7 +64,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
       await onClaimReward();
       onCloseModal();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

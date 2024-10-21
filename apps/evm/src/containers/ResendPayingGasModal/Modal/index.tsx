@@ -1,7 +1,7 @@
 import { Button, Icon, Modal as ModalComp, type ModalProps as ModalCompProps } from 'components';
 import type { BaseContract } from 'ethers';
 import { useSendTransaction } from 'hooks/useSendTransaction';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { store } from '../store';
 import type { LastFailedGaslessTransaction } from '../types';
@@ -38,7 +38,7 @@ export function Modal<
 
       closeModal();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

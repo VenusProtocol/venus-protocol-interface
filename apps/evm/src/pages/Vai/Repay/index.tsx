@@ -23,7 +23,7 @@ import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToR
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useGetVaiControllerContractAddress } from 'libs/contracts';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -172,7 +172,7 @@ export const Repay: React.FC = () => {
         // Reset form on successful submission
         reset();
       } catch (error) {
-        displayMutationError({ error });
+        handleError({ error });
       }
     },
     [repayVai, reset, vai, userVaiBorrowBalanceMantissa, isRepayingFullLoan],

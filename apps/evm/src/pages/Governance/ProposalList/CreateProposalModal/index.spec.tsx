@@ -6,7 +6,7 @@ import { renderComponent } from 'testUtils/render';
 
 import TEST_VIP from 'assets/proposals/vip-123.json';
 import { routes } from 'constants/routing';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { en } from 'libs/translations';
 
 import CreateProposalModal from '.';
@@ -19,7 +19,7 @@ const fakeForOption = 'fakeForOption';
 const fakeAgainstOption = 'fakeAgainstOption';
 const fakeAbstainOption = 'fakeAbstainOption';
 
-vi.mock('libs/errors/displayMutationError');
+vi.mock('libs/errors/handleError');
 
 const next = async (nextButton: HTMLElement) => {
   await waitFor(() => expect(nextButton).toBeEnabled());
@@ -429,8 +429,8 @@ describe('pages/Proposal/CreateProposalModal', () => {
     fireEvent.change(fileInput, { target: { files: [file] } });
 
     // validation should not work, and we should display an error
-    await waitFor(() => expect(displayMutationError).toHaveBeenCalledTimes(1));
-    expect((displayMutationError as Vi.Mock).mock.calls[0][0]).toMatchInlineSnapshot(`
+    await waitFor(() => expect(handleError).toHaveBeenCalledTimes(1));
+    expect((handleError as Vi.Mock).mock.calls[0][0]).toMatchInlineSnapshot(`
       {
         "error": [Error: validationError],
       }

@@ -1,4 +1,4 @@
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import type { Asset, Token } from 'types';
 
 import type { FormError } from '../../types';
@@ -61,7 +61,7 @@ const useForm = ({
       }));
       onSubmitSuccess?.();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

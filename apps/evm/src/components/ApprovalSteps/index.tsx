@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
 
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 
 import { PrimaryButton } from '../Button';
 import { Icon } from '../Icon';
@@ -43,7 +43,7 @@ export const ApprovalSteps: React.FC<ApprovalStepsProps & ApprovalStepsExtraProp
     try {
       await approvalAction();
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 

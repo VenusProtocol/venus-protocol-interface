@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 
 import { Table, type TableProps } from 'components';
 import useCollateral from 'hooks/useCollateral';
-import { displayMutationError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import type { Pool } from 'types';
 
 import { routes } from 'constants/routing';
@@ -52,7 +52,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         comptrollerAddress: poolAssetToUpdate.pool.comptrollerAddress,
       });
     } catch (error) {
-      displayMutationError({ error });
+      handleError({ error });
     }
   };
 
