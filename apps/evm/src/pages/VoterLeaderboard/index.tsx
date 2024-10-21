@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 
 import { useGetVestingVaults, useGetVoterAccounts } from 'clients/api';
-import { Pagination } from 'components';
+import { Page, Pagination } from 'components';
 import { useUrlPagination } from 'hooks/useUrlPagination';
 import type { VoterAccount } from 'types';
 
@@ -69,14 +69,16 @@ const VoterLeaderboard: React.FC = () => {
     isGetVoterAccountsFetching && (isGetVoterAccountsPreviousData || voterAccounts.length === 0);
 
   return (
-    <VoterLeaderboardUi
-      voterAccounts={voterAccounts}
-      offset={offset}
-      total={total}
-      limit={limit}
-      isFetching={isFetching}
-      setCurrentPage={setCurrentPage}
-    />
+    <Page indexWithSearchEngines={false}>
+      <VoterLeaderboardUi
+        voterAccounts={voterAccounts}
+        offset={offset}
+        total={total}
+        limit={limit}
+        isFetching={isFetching}
+        setCurrentPage={setCurrentPage}
+      />
+    </Page>
   );
 };
 

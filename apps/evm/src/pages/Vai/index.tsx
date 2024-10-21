@@ -1,4 +1,4 @@
-import { Card, Notice, Tabs } from 'components';
+import { Card, Notice, Page, Tabs } from 'components';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
@@ -14,23 +14,25 @@ const Vai: React.FC = () => {
   ];
 
   return (
-    <div className="mx-auto w-full max-w-[544px]">
-      <Notice
-        className="mb-6"
-        description={
-          <Trans
-            i18nKey="vai.headerMessage"
-            components={{
-              Link: <Link href="https://docs-v4.venus.io/guides/borrowing-vai" />,
-            }}
-          />
-        }
-      />
+    <Page indexWithSearchEngines={false}>
+      <div className="mx-auto w-full max-w-[544px]">
+        <Notice
+          className="mb-6"
+          description={
+            <Trans
+              i18nKey="vai.headerMessage"
+              components={{
+                Link: <Link href="https://docs-v4.venus.io/guides/borrowing-vai" />,
+              }}
+            />
+          }
+        />
 
-      <Card>
-        <Tabs tabsContent={tabsContent} />
-      </Card>
-    </div>
+        <Card>
+          <Tabs tabsContent={tabsContent} />
+        </Card>
+      </div>
+    </Page>
   );
 };
 

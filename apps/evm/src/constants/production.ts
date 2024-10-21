@@ -1,1 +1,3 @@
-export const productionHosts = ['app.venus.io', 'app-alt.venus.io'];
+export const MAIN_PRODUCTION_HOST = 'app.venus.io';
+
+export const productionHosts = [MAIN_PRODUCTION_HOST, 'app-alt.venus.io'];
