@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.4.0
+
+### Minor Changes
+
+- 275a1ea: index dashboard page of the dApp with search engines
+
 ## 1.3.0
 
 ### Minor Changes

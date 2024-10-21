@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.163.0
+
+### Minor Changes
+
+- 275a1ea: index dashboard page of the dApp with search engines
+
 ## 2.162.0
 
 ### Minor Changes
