@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.162.0
+
+### Minor Changes
+
+- a8ae482: update transaction error handling
+
+### Patch Changes
+
+- b23f797: design tweaks
+
 ## 2.161.0
 
 ### Minor Changes
