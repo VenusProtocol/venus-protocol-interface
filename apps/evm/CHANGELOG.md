@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.164.1
+
+### Patch Changes
+
+- 8c83289: do not attempt to retry when the gas estimation fails
+
 ## 2.164.0
 
 ### Minor Changes
