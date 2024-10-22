@@ -62,7 +62,9 @@ export const useSendContractTransaction = <
       ]);
 
       const publicClient = getPublicClient(wagmiConfig, { chainId });
-      const walletClient = await getWalletClient(wagmiConfig, { chainId, account: accountAddress });
+      const walletClient = (
+        await getWalletClient(wagmiConfig, { chainId, account: accountAddress })
+      ).extend(eip712WalletActions());
 
       const txDataPayload = {
         to: contract.address,
@@ -117,7 +119,9 @@ export const useSendContractTransaction = <
         paymasterInput: zyFiTxData.customData.paymasterParams.paymasterInput,
       };
 
-      const txHash = await walletClient.extend(eip712WalletActions()).sendTransaction(txPayload);
+      const txRequest = await walletClient.prepareTransactionRequest(txPayload);
+      const signature = await walletClient.signTransaction(txRequest);
+      const txHash = await publicClient.sendRawTransaction({ serializedTransaction: signature });
 
       return {
         hash: txHash,
