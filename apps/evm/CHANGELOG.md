@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.164.0
+
+### Minor Changes
+
+- f57a93b: add workaround to send gasless transactions with mobile wallets
+
 ## 2.163.0
 
 ### Minor Changes
