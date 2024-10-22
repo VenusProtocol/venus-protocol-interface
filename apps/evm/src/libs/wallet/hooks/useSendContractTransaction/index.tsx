@@ -11,6 +11,8 @@ import { VError, logError } from 'libs/errors';
 import { ZYFI_SPONSORED_PAYMASTER_ENDPOINT } from 'libs/wallet/constants';
 import type { ChainId, ContractTxData } from 'types';
 
+const GAS_ESTIMATION_FAILED_ERROR = 'Gas estimation failed';
+
 interface ZyFiSponsoredTxResponse {
   txData: {
     chainId: number;
@@ -94,7 +96,14 @@ export const useSendContractTransaction = <
       ]);
 
       if (!response.ok) {
-        logError(response);
+        const body = await response.json();
+        logError({ response, body });
+
+        // when receiving a gas estimation failed error, there is no need to show
+        // the resend paying gas modal, as it would also fail to estimate the gas cost
+        if (body?.error === GAS_ESTIMATION_FAILED_ERROR) {
+          throw new Error(GAS_ESTIMATION_FAILED_ERROR);
+        }
 
         throw new VError({
           type: 'unexpected',
