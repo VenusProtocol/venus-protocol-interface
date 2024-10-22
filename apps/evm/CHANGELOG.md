@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.165.0
+
+### Minor Changes
+
+- bb5eb3e: display warning on test environments
+
 ## 2.164.1
 
 ### Patch Changes
