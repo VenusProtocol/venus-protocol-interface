@@ -2,6 +2,7 @@ import { useGetPaymasterInfo } from 'clients/api';
 import { Icon, Tooltip } from 'components';
 import { VENUS_DOC_GASLESS_URL } from 'containers/Layout/constants';
 import { Link } from 'containers/Link';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
@@ -26,6 +27,9 @@ export const GaslessStatus: React.FC<GaslessStatusProps> = ({
     chainId: chainId ?? chainIdFromHook,
   });
 
+  const [{ enableGaslessTransactions: isGaslessTransactionsSettingEnabled }] =
+    useUserChainSettings();
+
   if (!sponsorshipVaultData?.canSponsorTransactions) {
     return undefined;
   }
@@ -49,7 +53,14 @@ export const GaslessStatus: React.FC<GaslessStatusProps> = ({
       <Tooltip
         title={
           <Trans
-            i18nKey="gaslessTransactions.tooltip"
+            // Translation key: do not remove this comment
+            // t('gaslessTransactions.tooltip.enabled')
+            // t('gaslessTransactions.tooltip.disabled')
+            i18nKey={
+              isGaslessTransactionsSettingEnabled
+                ? 'gaslessTransactions.tooltip.enabled'
+                : 'gaslessTransactions.tooltip.disabled'
+            }
             components={{
               Link: <Link href={VENUS_DOC_GASLESS_URL} />,
             }}

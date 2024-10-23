@@ -1,15 +1,14 @@
 import { useChainId } from 'libs/wallet';
 import { type State, store } from 'store';
 
-// TODO: add tests
-
-export const useGetUserChainSettings = () => {
+export const useUserChainSettings = () => {
   const { chainId } = useChainId();
 
   const userSettings = store.use.userSettings();
   const userChainSettings = userSettings[chainId];
 
   const setUserSettings = store.use.setUserSettings();
+
   const setUserChainSettings = (input: Parameters<State['setUserSettings']>[0]['settings']) =>
     setUserSettings({
       settings: {

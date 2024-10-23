@@ -1,7 +1,7 @@
 import { Card, Icon, Toggle } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useGetUserChainSettings } from 'hooks/useGetUserChainSettings';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import Section from '../Section';
@@ -12,10 +12,10 @@ export const Settings: React.FC = () => {
   const { name: chainName } = CHAIN_METADATA[chainId];
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
 
-  const [userChainSettings, setUserChainSettings] = useGetUserChainSettings();
+  const [{ enableGaslessTransactions }, setUserChainSettings] = useUserChainSettings();
   const toggleGaslessTransactions = () =>
     setUserChainSettings({
-      enableGaslessTransactions: !userChainSettings.enableGaslessTransactions,
+      enableGaslessTransactions: !enableGaslessTransactions,
     });
 
   if (!isGaslessTransactionsFeatureEnabled) {
@@ -35,7 +35,7 @@ export const Settings: React.FC = () => {
 
             <Toggle
               onChange={toggleGaslessTransactions}
-              value={userChainSettings.enableGaslessTransactions}
+              value={enableGaslessTransactions}
               isLight
             />
           </div>

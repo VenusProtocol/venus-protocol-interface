@@ -4,8 +4,6 @@ import { persist } from 'zustand/middleware';
 import { ChainId } from 'types';
 import { createStoreSelectors, extractEnumValues } from 'utilities';
 
-// TODO: add tests
-
 interface UserChainSettings {
   enableGaslessTransactions: boolean;
 }
@@ -19,7 +17,7 @@ export interface State {
 }
 
 const allChainIds = extractEnumValues(ChainId);
-const initialUserSettings = allChainIds.reduce(
+export const initialUserSettings = allChainIds.reduce(
   (acc, chainId) => ({
     ...acc,
     [chainId]: {

@@ -1,0 +1,124 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`store > setUserSettings > updates user settings correctly 1`] = `
+{
+  "1": {
+    "enableGaslessTransactions": false,
+  },
+  "10": {
+    "enableGaslessTransactions": false,
+  },
+  "11155111": {
+    "enableGaslessTransactions": false,
+  },
+  "11155420": {
+    "enableGaslessTransactions": false,
+  },
+  "204": {
+    "enableGaslessTransactions": false,
+  },
+  "300": {
+    "enableGaslessTransactions": false,
+  },
+  "324": {
+    "enableGaslessTransactions": false,
+  },
+  "42161": {
+    "enableGaslessTransactions": false,
+  },
+  "421614": {
+    "enableGaslessTransactions": false,
+  },
+  "56": {
+    "enableGaslessTransactions": false,
+  },
+  "5611": {
+    "enableGaslessTransactions": false,
+  },
+  "97": {
+    "enableGaslessTransactions": false,
+  },
+}
+`;
+
+exports[`store > setUserSettings > updates user settings correctly when passing chainIds 1`] = `
+{
+  "1": {
+    "enableGaslessTransactions": true,
+  },
+  "10": {
+    "enableGaslessTransactions": true,
+  },
+  "11155111": {
+    "enableGaslessTransactions": true,
+  },
+  "11155420": {
+    "enableGaslessTransactions": true,
+  },
+  "204": {
+    "enableGaslessTransactions": true,
+  },
+  "300": {
+    "enableGaslessTransactions": true,
+  },
+  "324": {
+    "enableGaslessTransactions": true,
+  },
+  "42161": {
+    "enableGaslessTransactions": true,
+  },
+  "421614": {
+    "enableGaslessTransactions": false,
+  },
+  "56": {
+    "enableGaslessTransactions": true,
+  },
+  "5611": {
+    "enableGaslessTransactions": true,
+  },
+  "97": {
+    "enableGaslessTransactions": false,
+  },
+}
+`;
+
+exports[`store > userSettings > sets correct initial user settings 1`] = `
+{
+  "1": {
+    "enableGaslessTransactions": true,
+  },
+  "10": {
+    "enableGaslessTransactions": true,
+  },
+  "11155111": {
+    "enableGaslessTransactions": true,
+  },
+  "11155420": {
+    "enableGaslessTransactions": true,
+  },
+  "204": {
+    "enableGaslessTransactions": true,
+  },
+  "300": {
+    "enableGaslessTransactions": true,
+  },
+  "324": {
+    "enableGaslessTransactions": true,
+  },
+  "42161": {
+    "enableGaslessTransactions": true,
+  },
+  "421614": {
+    "enableGaslessTransactions": true,
+  },
+  "56": {
+    "enableGaslessTransactions": true,
+  },
+  "5611": {
+    "enableGaslessTransactions": true,
+  },
+  "97": {
+    "enableGaslessTransactions": true,
+  },
+}
+`;

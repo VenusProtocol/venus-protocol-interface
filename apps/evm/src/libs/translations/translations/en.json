@@ -297,7 +297,10 @@
       "resendButtonLabel": "Resend with gas",
       "title": "Gas-free transactions are not available at the moment"
     },
-    "tooltip": "Transactions on this network are gas-free, with no fees required. More info <Link>here</Link>"
+    "tooltip": {
+      "disabled": "This network supports gas-free transactions, with no fees required, but this feature is currently disabled in your settings. More info <Link>here</Link>",
+      "enabled": "Transactions on this network are gas-free, with no fees required. More info <Link>here</Link>"
+    }
   },
   "interactive": {
     "copy": {
