@@ -15,7 +15,7 @@ import { useTranslation } from 'libs/translations';
 import type { Pool, Vault } from 'types';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 
-import Section from '../Section';
+import Section from '../../Section';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 import useExtractData from './useExtractData';

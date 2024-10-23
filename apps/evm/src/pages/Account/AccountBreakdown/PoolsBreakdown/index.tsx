@@ -5,7 +5,7 @@ import { type Tag, TagGroup } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 
-import Section from '../Section';
+import Section from '../../Section';
 import Summary from '../Summary';
 import { PoolTagContent } from './PoolTagContent';
 import Tables from './Tables';
