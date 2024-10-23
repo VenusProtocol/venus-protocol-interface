@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
 import { useGetPools, useGetTokenUsdPrice, useGetVaults } from 'clients/api';
@@ -8,7 +7,6 @@ import { useAccountAddress } from 'libs/wallet';
 
 import BigNumber from 'bignumber.js';
 import { useConvertDollarsToCents } from 'hooks/useConvertDollarsToCents';
-import { useStyles } from '../styles';
 import AccountPlaceholder from './AccountPlaceholder';
 import PoolsBreakdown from './PoolsBreakdown';
 import Summary from './Summary';
@@ -49,8 +47,6 @@ const Account: React.FC = () => {
   const isFetching =
     isGetPoolsLoading || isGetVaultsLoading || isGetXvsUsdPriceLoading || isGetVaiUsdPriceLoading;
 
-  const styles = useStyles();
-
   // Filter out vaults user has not staked in
   const filteredVaults = useMemo(
     () => vaults.filter(vault => vault.userStakedMantissa?.isGreaterThan(0)),
@@ -83,9 +79,8 @@ const Account: React.FC = () => {
   }
 
   return (
-    <>
+    <div className="flex-auto space-y-10 lg:space-y-14">
       <Summary
-        css={styles.section}
         pools={filteredPools}
         vaults={filteredVaults}
         xvsPriceCents={xvsPriceCents}
@@ -93,12 +88,10 @@ const Account: React.FC = () => {
         displayTotalVaultStake
       />
 
-      {filteredVaults.length > 0 && (
-        <VaultsBreakdown css={styles.section} vaults={filteredVaults} />
-      )}
+      {filteredVaults.length > 0 && <VaultsBreakdown vaults={filteredVaults} />}
 
-      {filteredPools.length > 0 && <PoolsBreakdown css={styles.section} pools={filteredPools} />}
-    </>
+      {filteredPools.length > 0 && <PoolsBreakdown pools={filteredPools} />}
+    </div>
   );
 };
 

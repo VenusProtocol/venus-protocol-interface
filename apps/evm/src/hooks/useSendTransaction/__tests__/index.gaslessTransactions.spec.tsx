@@ -7,13 +7,19 @@ import { useGetPaymasterInfo } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { store } from 'containers/ResendPayingGasModal/store';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
 import { useSendContractTransaction } from 'libs/wallet';
+import { initialUserSettings } from 'store';
 import { renderHook } from 'testUtils/render';
+import { ChainId } from 'types';
 import { useSendTransaction } from '..';
 import { useTrackTransaction } from '../useTrackTransaction';
 
 vi.mock('../useTrackTransaction');
+vi.mock('hooks/useUserChainSettings', () => ({
+  useUserChainSettings: vi.fn(() => [initialUserSettings[ChainId.BSC_TESTNET], vi.fn()]),
+}));
 vi.mock('containers/ResendPayingGasModal/store', () => ({
   store: {
     use: { openModal: vi.fn() },
@@ -187,6 +193,39 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     const { result } = renderHook(() =>
       useSendTransaction({ ...fakeHookInput, fn: fnMock, options: { tryGasless: false } }),
     );
+    const { mutateAsync } = result.current;
+    await mutateAsync(fakeMutationInput);
+
+    expect(fnMock).toHaveBeenCalledTimes(1);
+    expect(fnMock).toHaveBeenCalledWith(fakeMutationInput);
+
+    expect(sendContractTransactionMock).toHaveBeenCalledWith({
+      txData: contractTxData,
+      gasless: false,
+    });
+
+    expect(trackTransactionMock).toHaveBeenCalledTimes(1);
+    expect(trackTransactionMock).toHaveBeenCalledWith({
+      transactionHash: fakeContractTransaction.hash,
+      onConfirmed: expect.any(Function),
+      onReverted: expect.any(Function),
+    });
+  });
+
+  it('falls back to regular transaction when gasless user setting is disabled', async () => {
+    (useUserChainSettings as Vi.Mock).mockReturnValue([{ gaslessTransactions: false }, vi.fn()]);
+
+    const trackTransactionMock = vi.fn();
+    (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
+
+    const sendContractTransactionMock = vi.fn(() => fakeContractTransaction);
+    (useSendContractTransaction as Vi.Mock).mockReturnValue({
+      mutateAsync: sendContractTransactionMock,
+    });
+
+    const fnMock = vi.fn(async () => contractTxData);
+
+    const { result } = renderHook(() => useSendTransaction({ ...fakeHookInput, fn: fnMock }));
     const { mutateAsync } = result.current;
     await mutateAsync(fakeMutationInput);
 

@@ -1,0 +1,124 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`store > setUserSettings > updates user settings correctly 1`] = `
+{
+  "1": {
+    "gaslessTransactions": false,
+  },
+  "10": {
+    "gaslessTransactions": false,
+  },
+  "11155111": {
+    "gaslessTransactions": false,
+  },
+  "11155420": {
+    "gaslessTransactions": false,
+  },
+  "204": {
+    "gaslessTransactions": false,
+  },
+  "300": {
+    "gaslessTransactions": false,
+  },
+  "324": {
+    "gaslessTransactions": false,
+  },
+  "42161": {
+    "gaslessTransactions": false,
+  },
+  "421614": {
+    "gaslessTransactions": false,
+  },
+  "56": {
+    "gaslessTransactions": false,
+  },
+  "5611": {
+    "gaslessTransactions": false,
+  },
+  "97": {
+    "gaslessTransactions": false,
+  },
+}
+`;
+
+exports[`store > setUserSettings > updates user settings correctly when passing chainIds 1`] = `
+{
+  "1": {
+    "gaslessTransactions": true,
+  },
+  "10": {
+    "gaslessTransactions": true,
+  },
+  "11155111": {
+    "gaslessTransactions": true,
+  },
+  "11155420": {
+    "gaslessTransactions": true,
+  },
+  "204": {
+    "gaslessTransactions": true,
+  },
+  "300": {
+    "gaslessTransactions": true,
+  },
+  "324": {
+    "gaslessTransactions": true,
+  },
+  "42161": {
+    "gaslessTransactions": true,
+  },
+  "421614": {
+    "gaslessTransactions": false,
+  },
+  "56": {
+    "gaslessTransactions": true,
+  },
+  "5611": {
+    "gaslessTransactions": true,
+  },
+  "97": {
+    "gaslessTransactions": false,
+  },
+}
+`;
+
+exports[`store > userSettings > sets correct initial user settings 1`] = `
+{
+  "1": {
+    "gaslessTransactions": true,
+  },
+  "10": {
+    "gaslessTransactions": true,
+  },
+  "11155111": {
+    "gaslessTransactions": true,
+  },
+  "11155420": {
+    "gaslessTransactions": true,
+  },
+  "204": {
+    "gaslessTransactions": true,
+  },
+  "300": {
+    "gaslessTransactions": true,
+  },
+  "324": {
+    "gaslessTransactions": true,
+  },
+  "42161": {
+    "gaslessTransactions": true,
+  },
+  "421614": {
+    "gaslessTransactions": true,
+  },
+  "56": {
+    "gaslessTransactions": true,
+  },
+  "5611": {
+    "gaslessTransactions": true,
+  },
+  "97": {
+    "gaslessTransactions": true,
+  },
+}
+`;

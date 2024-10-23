@@ -6,6 +6,7 @@ import type { ContractTxData, TransactionType } from 'types';
 import { useGetPaymasterInfo } from 'clients/api';
 import { store as resendPayingGasModalStore } from 'containers/ResendPayingGasModal/store';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
 import { useChainId, useProvider, useSendContractTransaction } from 'libs/wallet';
 import { CONFIRMATIONS, TIMEOUT_MS } from './constants';
@@ -63,6 +64,8 @@ export const useSendTransaction = <
   const { mutateAsync: sendContractTransaction } = useSendContractTransaction();
   const openResendPayingGasModalStoreModal = resendPayingGasModalStore.use.openModal();
 
+  const [{ gaslessTransactions: isGaslessTransactionsSettingEnabled }] = useUserChainSettings();
+
   const { data: getPaymasterInfo, refetch: refetchPaymasterInfo } = useGetPaymasterInfo(
     {
       chainId,
@@ -71,14 +74,19 @@ export const useSendTransaction = <
       enabled: tryGasless,
     },
   );
+  const paymasterCanSponsorTransactions = !!getPaymasterInfo?.canSponsorTransactions;
 
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
   // a transaction should be gas free when:
   // 1) we're on a chain that supports the feature
-  // 2) the tryGasless option is set to true
-  // 3) there are funds in the paymaster wallet
+  // 2) the gaslessTransactions user setting is set to true
+  // 3) the tryGasless option is set to true
+  // 4) there are funds in the paymaster wallet
   const shouldTryGasless =
-    isGaslessTransactionsFeatureEnabled && tryGasless && !!getPaymasterInfo?.canSponsorTransactions;
+    isGaslessTransactionsFeatureEnabled &&
+    isGaslessTransactionsSettingEnabled &&
+    tryGasless &&
+    paymasterCanSponsorTransactions;
 
   const trackTransaction = useTrackTransaction({ transactionType });
 
