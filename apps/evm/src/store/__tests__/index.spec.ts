@@ -12,7 +12,7 @@ describe('store', () => {
     it('updates user settings correctly', () => {
       store.getState().setUserSettings({
         settings: {
-          enableGaslessTransactions: false,
+          gaslessTransactions: false,
         },
       });
 
@@ -22,7 +22,7 @@ describe('store', () => {
     it('updates user settings correctly when passing chainIds', () => {
       store.getState().setUserSettings({
         settings: {
-          enableGaslessTransactions: false,
+          gaslessTransactions: false,
         },
         chainIds: [ChainId.BSC_TESTNET, ChainId.ARBITRUM_SEPOLIA],
       });

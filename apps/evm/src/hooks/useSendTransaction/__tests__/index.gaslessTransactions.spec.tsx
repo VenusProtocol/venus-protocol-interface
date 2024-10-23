@@ -213,10 +213,7 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
   });
 
   it('falls back to regular transaction when gasless user setting is disabled', async () => {
-    (useUserChainSettings as Vi.Mock).mockReturnValue([
-      { enableGaslessTransactions: false },
-      vi.fn(),
-    ]);
+    (useUserChainSettings as Vi.Mock).mockReturnValue([{ gaslessTransactions: false }, vi.fn()]);
 
     const trackTransactionMock = vi.fn();
     (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);

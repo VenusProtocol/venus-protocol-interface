@@ -64,8 +64,7 @@ export const useSendTransaction = <
   const { mutateAsync: sendContractTransaction } = useSendContractTransaction();
   const openResendPayingGasModalStoreModal = resendPayingGasModalStore.use.openModal();
 
-  const [{ enableGaslessTransactions: isGaslessTransactionsSettingEnabled }] =
-    useUserChainSettings();
+  const [{ gaslessTransactions: isGaslessTransactionsSettingEnabled }] = useUserChainSettings();
 
   const { data: getPaymasterInfo, refetch: refetchPaymasterInfo } = useGetPaymasterInfo(
     {
@@ -80,7 +79,7 @@ export const useSendTransaction = <
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
   // a transaction should be gas free when:
   // 1) we're on a chain that supports the feature
-  // 2) the enableGaslessTransactions user setting is set to true
+  // 2) the gaslessTransactions user setting is set to true
   // 3) the tryGasless option is set to true
   // 4) there are funds in the paymaster wallet
   const shouldTryGasless =

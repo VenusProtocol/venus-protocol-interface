@@ -43,8 +43,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
   const { t } = useTranslation();
   const { chainId } = useChainId();
   const { switchChain } = useSwitchChain();
-  const [{ enableGaslessTransactions: isGaslessTransactionsSettingEnabled }] =
-    useUserChainSettings();
+  const [{ gaslessTransactions: isGaslessTransactionsSettingEnabled }] = useUserChainSettings();
 
   return (
     <Select

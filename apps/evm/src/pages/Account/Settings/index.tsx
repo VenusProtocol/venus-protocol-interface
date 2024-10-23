@@ -12,10 +12,10 @@ export const Settings: React.FC = () => {
   const { name: chainName } = CHAIN_METADATA[chainId];
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
 
-  const [{ enableGaslessTransactions }, setUserChainSettings] = useUserChainSettings();
+  const [{ gaslessTransactions }, setUserChainSettings] = useUserChainSettings();
   const toggleGaslessTransactions = () =>
     setUserChainSettings({
-      enableGaslessTransactions: !enableGaslessTransactions,
+      gaslessTransactions: !gaslessTransactions,
     });
 
   if (!isGaslessTransactionsFeatureEnabled) {
@@ -33,11 +33,7 @@ export const Settings: React.FC = () => {
           <div className="flex grow items-center justify-between md:justify-normal gap-3">
             <p>{t('account.settings.gaslessTransactions.switchLabel', { chainName })}</p>
 
-            <Toggle
-              onChange={toggleGaslessTransactions}
-              value={enableGaslessTransactions}
-              isLight
-            />
+            <Toggle onChange={toggleGaslessTransactions} value={gaslessTransactions} isLight />
           </div>
         </div>
       </Card>

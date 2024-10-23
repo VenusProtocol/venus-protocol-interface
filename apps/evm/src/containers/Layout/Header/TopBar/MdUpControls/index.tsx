@@ -8,8 +8,7 @@ import { GaslessStatus } from '../GaslessStatus';
 
 export const MdUpControls: React.FC = () => {
   const isOnMarketPage = useIsOnMarketPage();
-  const [{ enableGaslessTransactions: isGaslessTransactionsSettingEnabled }] =
-    useUserChainSettings();
+  const [{ gaslessTransactions: isGaslessTransactionsSettingEnabled }] = useUserChainSettings();
 
   return (
     <div className="hidden md:flex md:h-12 md:items-center md:space-x-4 md:pl-6">

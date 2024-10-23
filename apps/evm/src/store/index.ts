@@ -5,7 +5,7 @@ import { ChainId } from 'types';
 import { createStoreSelectors, extractEnumValues } from 'utilities';
 
 interface UserChainSettings {
-  enableGaslessTransactions: boolean;
+  gaslessTransactions: boolean;
 }
 
 export interface State {
@@ -21,7 +21,7 @@ export const initialUserSettings = allChainIds.reduce(
   (acc, chainId) => ({
     ...acc,
     [chainId]: {
-      enableGaslessTransactions: true,
+      gaslessTransactions: true,
     },
   }),
   {} as Record<ChainId, UserChainSettings>,

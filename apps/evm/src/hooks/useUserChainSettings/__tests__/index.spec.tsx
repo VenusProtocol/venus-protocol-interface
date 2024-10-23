@@ -11,7 +11,7 @@ vi.mock('store', () => ({
     use: {
       setUserSettings: vi.fn(() => vi.fn()),
       userSettings: vi.fn(() => ({
-        enableGaslessTransactions: true,
+        gaslessTransactions: true,
       })),
     },
   },
@@ -27,7 +27,7 @@ describe('useUserChainSettings', () => {
   it('returns correct settings from the store', () => {
     (store.use.userSettings as Vi.Mock).mockReturnValue({
       [ChainId.BSC_TESTNET]: {
-        enableGaslessTransactions: false,
+        gaslessTransactions: false,
       },
     });
 
@@ -38,7 +38,7 @@ describe('useUserChainSettings', () => {
     } = renderHookWithContext(() => useUserChainSettings());
 
     expect(userChainSettings).toEqual({
-      enableGaslessTransactions: false,
+      gaslessTransactions: false,
     });
   });
 
@@ -51,11 +51,11 @@ describe('useUserChainSettings', () => {
       },
     } = renderHookWithContext(() => useUserChainSettings());
 
-    setUserChainSettings({ enableGaslessTransactions: false });
+    setUserChainSettings({ gaslessTransactions: false });
 
     expect(store.use.setUserSettings()).toHaveBeenCalledWith({
       settings: {
-        enableGaslessTransactions: false,
+        gaslessTransactions: false,
       },
       chainIds: [ChainId.BSC_TESTNET],
     });

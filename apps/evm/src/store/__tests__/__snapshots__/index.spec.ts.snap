@@ -3,40 +3,40 @@
 exports[`store > setUserSettings > updates user settings correctly 1`] = `
 {
   "1": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "10": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "11155111": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "11155420": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "204": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "300": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "324": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "42161": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "421614": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "56": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "5611": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "97": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
 }
 `;
@@ -44,40 +44,40 @@ exports[`store > setUserSettings > updates user settings correctly 1`] = `
 exports[`store > setUserSettings > updates user settings correctly when passing chainIds 1`] = `
 {
   "1": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "10": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "11155111": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "11155420": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "204": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "300": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "324": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "42161": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "421614": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
   "56": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "5611": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "97": {
-    "enableGaslessTransactions": false,
+    "gaslessTransactions": false,
   },
 }
 `;
@@ -85,40 +85,40 @@ exports[`store > setUserSettings > updates user settings correctly when passing 
 exports[`store > userSettings > sets correct initial user settings 1`] = `
 {
   "1": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "10": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "11155111": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "11155420": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "204": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "300": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "324": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "42161": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "421614": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "56": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "5611": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
   "97": {
-    "enableGaslessTransactions": true,
+    "gaslessTransactions": true,
   },
 }
 `;
