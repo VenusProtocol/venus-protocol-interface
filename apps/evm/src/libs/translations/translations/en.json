@@ -217,7 +217,8 @@
     }
   },
   "connectButton": {
-    "title": "Connect wallet"
+    "disconnect": "Disconnect",
+    "connect": "Connect wallet"
   },
   "connectWallet": {
     "connectButton": "Connect wallet"
@@ -284,13 +285,12 @@
     }
   },
   "gaslessTransactions": {
-    "gas": "Gas",
     "chainLabel": "Free",
     "errorModal": {
-      "title": "Gas-free transactions are not available at the moment",
+      "cancel": "Cancel",
       "description": "You can still send this transaction by paying for the gas yourself",
       "resendButtonLabel": "Resend with gas",
-      "cancel": "Cancel"
+      "title": "Gas-free transactions are not available at the moment"
     },
     "tooltip": "Transactions on this network are gas-free, with no fees required. More info <Link>here</Link>"
   },

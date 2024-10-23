@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { type Params, matchPath, useLocation } from 'react-router-dom';
 
-import { EllipseAddress, Icon } from 'components';
+import { EllipseAddress } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
+import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { Link } from 'containers/Link';
-import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 import PoolName from './PoolName';
@@ -18,7 +18,6 @@ export interface PathNode {
 export const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
 
   const pathNodes = useMemo(() => {
     // Get active route
@@ -103,16 +102,7 @@ export const Breadcrumbs: React.FC = () => {
             <div className="inline-flex items-center gap-x-2">
               <EllipseAddress address={params.address || ''} ellipseBreakpoint="xxl" />
 
-              <button
-                type="button"
-                className="text-blue hover:text-darkBlue active:text-darkBlue cursor-pointer transition-colors"
-              >
-                <Icon
-                  name="copy"
-                  className="h-4 w-4 text-inherit"
-                  onClick={() => params.address && copyToClipboard(params.address)}
-                />
-              </button>
+              {!!params.address && <CopyAddressButton address={params.address} />}
             </div>
           );
           break;
@@ -154,7 +144,7 @@ export const Breadcrumbs: React.FC = () => {
           ]
         : acc;
     }, []);
-  }, [pathname, t, copyToClipboard]);
+  }, [pathname, t]);
 
   const pathNodeDom = useMemo(
     () =>
