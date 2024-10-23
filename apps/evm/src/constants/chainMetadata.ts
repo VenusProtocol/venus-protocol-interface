@@ -42,7 +42,7 @@ export const CHAIN_METADATA: {
     marketsSubgraphUrl:
       'https://api.studio.thegraph.com/query/77761/venus-isolated-pools-chapel/version/latest',
     governanceSubgraphUrl:
-      'https://api.studio.thegraph.com/query/77761/venus-governance-chapel/version/latest',
+      'https://api.studio.thegraph.com/query/64786/venus-governance-chapel/version/latest',
   },
   [ChainId.OPBNB_MAINNET]: {
     name: 'opBNB',
@@ -96,9 +96,7 @@ export const CHAIN_METADATA: {
     nativeToken: getToken({ chainId: ChainId.SEPOLIA, symbol: 'ETH' })!,
     rpcUrl: 'https://eth-sepolia.nodereal.io/v1/7fab7575d1c34150a9ee582167ffac6f',
     marketsSubgraphUrl:
-      'https://api.studio.thegraph.com/query/77761/venus-isolated-pools-sepolia/version/latest',
-    governanceSubgraphUrl:
-      'https://api.studio.thegraph.com/query/77761/venus-governance-sepolia/version/latest',
+      'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-sepolia/version/latest',
   },
   [ChainId.ARBITRUM_ONE]: {
     name: 'Arbitrum One',
@@ -121,13 +119,14 @@ export const CHAIN_METADATA: {
     corePoolComptrollerContractAddress: '0x006D44b6f5927b3eD83bD0c1C36Fb1A3BaCaC208',
     lstPoolComptrollerContractAddress: '0x3D04F926b2a165BBa17FBfccCCB61513634fa5e4',
     lstPoolVWstEthContractAddress: '0x253515E19e8b888a4CA5a0a3363B712402ce4046',
-    nativeToken: getToken({ chainId: ChainId.ARBITRUM_SEPOLIA, symbol: 'ETH' })!,
+    nativeToken: getToken({
+      chainId: ChainId.ARBITRUM_SEPOLIA,
+      symbol: 'ETH',
+    })!,
     rpcUrl:
       'https://rpcUrl.ankr.com/arbitrum_sepolia/451c00a15d3de617618d7a880cec1da8065b10906c460b1462a8b8769d91e0da',
     marketsSubgraphUrl:
-      'https://api.studio.thegraph.com/query/77761/venus-il-arbitrum-sepolia/v0.0.1',
-    governanceSubgraphUrl:
-      'https://api.studio.thegraph.com/query/77761/venus-governance-arbisepolia/version/latest',
+      'https://api.studio.thegraph.com/query/64786/venus-il-arbitrumsepolia/version/latest',
   },
   [ChainId.ZKSYNC_SEPOLIA]: {
     name: 'zkSync Sepolia',
