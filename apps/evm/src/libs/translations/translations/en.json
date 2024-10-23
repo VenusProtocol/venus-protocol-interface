@@ -46,9 +46,9 @@
   },
   "accountHealth": {
     "accessibilityLabel": "Representation of the current state of your account",
-    "borrowLimitTooltip": "Current borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
+    "borrowLimitTooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
     "borrowLimitUsed": "Borrow limit used:",
-    "currentBorrowBalance": "Current:",
+    "currentBorrowBalance": "Balance:",
     "limit": "Limit:",
     "max": "Max:",
     "safeBorrowLimitTooltip": "Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"

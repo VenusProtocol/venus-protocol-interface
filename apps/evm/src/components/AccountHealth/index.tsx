@@ -16,7 +16,6 @@ export interface AccountHealthProps {
   borrowBalanceCents: number | undefined;
   borrowLimitCents: number | undefined;
   safeBorrowLimitPercentage: number;
-  hypotheticalBorrowBalanceCents?: number;
   variant?: 'borrowBalance' | 'borrowLimitUsed';
   className?: string;
 }
@@ -26,7 +25,6 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
   borrowBalanceCents,
   borrowLimitCents,
   variant = 'borrowBalance',
-  hypotheticalBorrowBalanceCents,
   safeBorrowLimitPercentage,
 }) => {
   const { t, Trans } = useTranslation();
@@ -40,17 +38,6 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
           })
         : undefined,
     [borrowBalanceCents, borrowLimitCents],
-  );
-
-  const hypotheticalBorrowLimitUsedPercentage = useMemo(
-    () =>
-      typeof hypotheticalBorrowBalanceCents === 'number' && typeof borrowLimitCents === 'number'
-        ? calculatePercentage({
-            numerator: hypotheticalBorrowBalanceCents,
-            denominator: borrowLimitCents,
-          })
-        : undefined,
-    [hypotheticalBorrowBalanceCents, borrowLimitCents],
   );
 
   const { readableBorrowLimitUsedPercentage, sanitizedBorrowLimitUsedPercentage } = useMemo(
@@ -143,7 +130,6 @@ export const AccountHealth: React.FC<AccountHealthProps> = ({
         }
         whiteRightText={readableBorrowLimit}
         value={sanitizedBorrowLimitUsedPercentage}
-        secondaryValue={hypotheticalBorrowLimitUsedPercentage}
         mark={safeBorrowLimitPercentage}
         step={1}
         ariaLabel={t('accountHealth.accessibilityLabel')}

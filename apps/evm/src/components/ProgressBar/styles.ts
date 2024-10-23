@@ -3,11 +3,9 @@ import { useTheme } from '@mui/material';
 
 export const useStyles = ({
   over,
-  secondaryOver,
   progressBarColor,
 }: {
   over: boolean;
-  secondaryOver: boolean;
   progressBarColor: string;
 }) => {
   const theme = useTheme();
@@ -57,17 +55,6 @@ export const useStyles = ({
     `,
     tooltipHelper: css`
       visibility: hidden;
-    `,
-    secondaryRail: (value: number | undefined) => css`
-      ${value ? `width: ${value}%;` : 'display: none;'}
-      &.MuiSlider-track {
-        background-color: ${
-          secondaryOver ? theme.palette.interactive.error50 : theme.palette.interactive.success50
-        };
-      }
-      position: absolute;
-      top: 0;
-      z-index: 10;
     `,
   };
 };

@@ -42,14 +42,12 @@ export const AccountData: React.FC<AccountDataProps> = ({
   return (
     <div className={cn('space-y-4', className)}>
       <BorrowBalanceAccountHealth
-        borrowBalanceCents={pool.userBorrowBalanceCents?.toNumber()}
+        borrowBalanceCents={
+          hypotheticalPoolUserBorrowBalanceCents?.toNumber() ??
+          pool.userBorrowBalanceCents?.toNumber()
+        }
         borrowLimitCents={
           hypotheticalPoolUserBorrowLimitCents?.toNumber() ?? pool.userBorrowLimitCents?.toNumber()
-        }
-        hypotheticalBorrowBalanceCents={
-          action === 'borrow' || action === 'repay'
-            ? hypotheticalPoolUserBorrowBalanceCents?.toNumber()
-            : undefined
         }
         safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
       />
