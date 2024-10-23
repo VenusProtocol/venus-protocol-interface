@@ -35,16 +35,26 @@ const useGetBridgeStatus = (
   const { chainId } = useChainId();
   const tokenBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId });
   const tokenBridgeContractDest = useGetXVSProxyOFTDestContract({ chainId });
-  const tokenBridgeContract =
+  const receivingEndBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId: toChainId });
+  const receivingEndBridgeContractDest = useGetXVSProxyOFTDestContract({ chainId: toChainId });
+  const tokenBridgeSendingContract =
     chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
       ? tokenBridgeContractSrc
       : tokenBridgeContractDest;
+
+  const receivingEndBridgeContract =
+    chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
+      ? receivingEndBridgeContractSrc
+      : receivingEndBridgeContractDest;
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_BRIDGE_STATUS, { chainId, toChainId }],
 
     queryFn: () =>
-      callOrThrow({ tokenBridgeContract, toChainId }, params => getXvsBridgeStatus({ ...params })),
+      callOrThrow(
+        { tokenBridgeSendingContract, receivingEndBridgeContract, toChainId, fromChainId: chainId },
+        params => getXvsBridgeStatus({ ...params }),
+      ),
 
     refetchInterval,
     ...options,
