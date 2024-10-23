@@ -223,7 +223,8 @@
     }
   },
   "connectButton": {
-    "title": "Connect wallet"
+    "disconnect": "Disconnect",
+    "connect": "Connect wallet"
   },
   "connectWallet": {
     "connectButton": "Connect wallet"

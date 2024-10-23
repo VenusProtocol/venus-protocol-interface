@@ -7,7 +7,7 @@
     "start": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "lint": "yarn lint:styles && biome check .",
+    "lint": "yarn lint:styles && biome check .  --diagnostic-level=error",
     "lint:styles": "stylelint 'src/**/*.{css,scss,ts,tsx,js,jsx}'",
     "tsc": "tsc --noEmit",
     "clean": "rm -rf .turbo && rm -rf node_modules"
@@ -50,16 +50,8 @@
     "vite-tsconfig-paths": "^4.2.0"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   },
   "resolutions": {
     "postcss": "^8.4.8"
