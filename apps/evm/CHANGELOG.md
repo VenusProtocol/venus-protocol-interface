@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.167.0
+
+### Minor Changes
+
+- fde29cc: use custom account details modal
+
 ## 2.166.0
 
 ### Minor Changes
