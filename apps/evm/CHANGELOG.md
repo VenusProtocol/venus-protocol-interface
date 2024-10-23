@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.166.0
+
+### Minor Changes
+
+- 7fca7f3: add gaslessTransactions user setting
+
+### Patch Changes
+
+- 3bddbff: fix governance subgraph URLs
+
 ## 2.165.0
 
 ### Minor Changes
