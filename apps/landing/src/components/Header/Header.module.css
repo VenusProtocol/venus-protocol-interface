@@ -1,36 +1,19 @@
 /*@import "../../assets/styles/media.css";*/
 
 .root {
-    position: fixed;
     top: 0;
-    right: 0;
-    left: 0;
+    position: sticky;
     z-index: 1;
     background-color: var(--color-bg-transparent);
     transition: background-color 0.5s ease-in-out;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    min-height: 60px;
-
-    @media (min-width: 640px) {
-        min-height: 80px;
-    }
-}
-
-.headerAfterScroll {
-    background-color: var(--color-bg);
-}
-
-.inner {
-    display: flex;
     justify-content: space-between;
     align-items: center;
-    flex: 1;
-    width: 100%;
-    max-width: var(--global-max-width);
     padding: 16px;
+    height: 60px;
+    max-width: var(--global-max-width);
+    width: 100%;
+    margin-bottom: -60px;
 
     @media (min-width: 640px) {
         padding: 16px 24px;
@@ -45,10 +28,21 @@
         margin-left: auto;
         margin-right: auto;
     }
+
+    @media (min-width: 640px) {
+        height: 80px;
+        margin-bottom: -80px;
+    }
 }
+
+.headerAfterScroll {
+    background-color: var(--color-bg);
+}
+
 .logo {
     width: 154px;
 }
+
 .menuMobileBtn {
     padding: 0;
     background-color: transparent;
@@ -96,6 +90,7 @@
 .headerNavLinksWrapper {
     margin-right: 24px;
 }
+
 .headerLink {
     padding-left: 16px;
     padding-right: 16px;
