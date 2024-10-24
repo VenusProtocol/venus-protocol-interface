@@ -7570,10 +7570,10 @@
     loupe "^2.3.6"
     pretty-format "^29.5.0"
 
-"@wagmi/connectors@5.3.2":
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-5.3.2.tgz#97a231c45111a239c90c81117a79c10d66de9522"
-  integrity sha512-EwLYPhifZaRQIxESxBGeP514S6zeTEtdokxf0xv9uOsZG+Kg2i79LKl2O0Hga9JG4wVcm1RhE92i5B1Nt6gwNA==
+"@wagmi/connectors@5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-5.3.3.tgz#ef823eeebeaa72852c0e5176bc5308f5cb8699ec"
+  integrity sha512-RUgwgqX7H+qg1lXBhLqcG0D5xb8USlAv4MVai4r5YpRw6lxpDvELFXxHN4ldZuUARKhH7Q3ZpfvdWyEXY+wn9w==
   dependencies:
     "@coinbase/wallet-sdk" "4.1.0"
     "@metamask/sdk" "0.30.1"
@@ -19778,11 +19778,11 @@ w3c-xmlserializer@^5.0.0:
     xml-name-validator "^5.0.0"
 
 wagmi@^2.10.9:
-  version "2.12.24"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.12.24.tgz#d356ac1ae1c2cfc48438c33f49a1062d9336e3d0"
-  integrity sha512-6Q/SEIgupL9KqIIdKFEJALKeXC3d3EWS+pXdlOqgVmiClVGJWS8IymcZnwqHVql4mxllA92rDZvpGp/40fmCjQ==
+  version "2.12.25"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.12.25.tgz#0e4f23a96e021143f202c250ec0af3a5ea0cca08"
+  integrity sha512-RdQCDbTv1+b7fWCAoLEYX0loymqLnhmNrMZq1gfPEs6cOhEHYOQeZtJWnyaXOD5+3xIFw+xoA0xDNvAHVbtbKw==
   dependencies:
-    "@wagmi/connectors" "5.3.2"
+    "@wagmi/connectors" "5.3.3"
     "@wagmi/core" "2.14.1"
     use-sync-external-store "1.2.0"
 
