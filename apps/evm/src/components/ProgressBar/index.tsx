@@ -26,7 +26,6 @@ export interface ProgressBarProps {
 
 export const ProgressBar = ({
   value,
-  secondaryValue,
   mark,
   step,
   ariaLabel,
@@ -43,7 +42,6 @@ export const ProgressBar = ({
   const marks = mark ? [{ value: mark }] : undefined;
   const styles = useStyles({
     over: mark ? safeValue > mark : false,
-    secondaryOver: mark ? !!(secondaryValue && secondaryValue > mark) : false,
     progressBarColor,
   });
 
@@ -92,20 +90,9 @@ export const ProgressBar = ({
         </Box>
       );
 
-      return (
-        <>
-          {primaryRail}
-
-          {secondaryValue !== undefined && (
-            <Box
-              css={styles.secondaryRail(secondaryValue < max ? secondaryValue : max)}
-              className={props?.className}
-            />
-          )}
-        </>
-      );
+      return <>{primaryRail}</>;
     },
-    [trackTooltip, tooltipPlacement, secondaryValue, max, styles],
+    [trackTooltip, tooltipPlacement, styles],
   );
 
   return (
