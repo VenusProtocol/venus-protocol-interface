@@ -16,13 +16,26 @@ export const projects = {
       },
     },
   },
-  governance: {
+  governanceBsc: {
     schema: 'https://api.studio.thegraph.com/query/77761/venus-governance/version/latest',
-    documents: ['../clients/subgraph/queries/governance/**/*.graphql'],
+    documents: ['../clients/subgraph/queries/governanceBsc/**/*.graphql'],
     extensions: {
       codegen: {
         generates: {
-          '../clients/subgraph/gql/generated/governance.ts': {
+          '../clients/subgraph/gql/generated/governanceBsc.ts': {
+            plugins,
+          },
+        },
+      },
+    },
+  },
+  governanceNonBsc: {
+    schema: 'https://api.studio.thegraph.com/query/77761/venus-governance-ethereum/version/latest',
+    documents: ['../clients/subgraph/queries/governanceNonBsc/**/*.graphql'],
+    extensions: {
+      codegen: {
+        generates: {
+          '../clients/subgraph/gql/generated/governanceNonBsc.ts': {
             plugins,
           },
         },

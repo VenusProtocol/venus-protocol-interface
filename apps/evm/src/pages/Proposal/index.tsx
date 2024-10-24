@@ -3,7 +3,6 @@ import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { commands as fakeCommands } from '__mocks__/models/proposalCommands';
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
 import { Button, NoticeInfo, Page, Redirect, Spinner } from 'components';
 import { routes } from 'constants/routing';
@@ -60,7 +59,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
     <div css={styles.root} className="space-y-6 xl:space-y-8">
       <ProposalSummary proposal={proposal} />
 
-      {!isVoteProposalFeatureEnabled && (
+      {!isVoteProposalFeatureEnabled && proposal.state === ProposalState.Active && (
         <NoticeInfo
           className="w-full"
           data-testid={TEST_IDS.votingDisabledWarning}
@@ -77,13 +76,9 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
       )}
 
-      {isMultichainGovernanceFeatureEnabled && (
-        <Commands
-          commands={fakeCommands} // TODO: fetch (see VEN-2701)
-        />
-      )}
+      {isMultichainGovernanceFeatureEnabled && <Commands proposal={proposal} />}
 
-      <div css={styles.votes} className="space-y-6 lg:space-y-0">
+      <div css={styles.votes} className="space-y-6 xl:space-y-0">
         <VoteSummary
           css={styles.vote}
           label={t('vote.for')}
@@ -141,10 +136,11 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 const Proposal = () => {
   const { accountAddress } = useAccountAddress();
   const { proposalId = '' } = useParams<{ proposalId: string }>();
-  const { data: proposal, error: getProposalError } = useGetProposal(
-    { proposalId, accountAddress },
+  const { data: proposalData, error: getProposalError } = useGetProposal(
+    { proposalId: Number(proposalId), accountAddress },
     { enabled: !!proposalId },
   );
+  const proposal = proposalData?.proposal;
 
   const xvs = useGetToken({
     symbol: 'XVS',

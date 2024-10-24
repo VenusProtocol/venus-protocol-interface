@@ -1,6 +1,15 @@
+import { abi as OmnichainGovernanceExecutorAbi } from '@venusprotocol/governance-contracts/artifacts/contracts/Cross-chain/OmnichainGovernanceExecutor.sol/OmnichainGovernanceExecutor.json';
 import { abi as GovernorBravoDelegateAbi } from '@venusprotocol/governance-contracts/artifacts/contracts/Governance/GovernorBravoDelegate.sol/GovernorBravoDelegate.json';
+import venusGovernanceArbitrumOneDeployments from '@venusprotocol/governance-contracts/deployments/arbitrumone_addresses.json';
+import venusGovernanceArbitrumSepoliaDeployments from '@venusprotocol/governance-contracts/deployments/arbitrumsepolia_addresses.json';
 import venusGovernanceBscMainnetDeployments from '@venusprotocol/governance-contracts/deployments/bscmainnet_addresses.json';
 import venusGovernanceBscTestnetDeployments from '@venusprotocol/governance-contracts/deployments/bsctestnet_addresses.json';
+import venusGovernanceEthereumDeployments from '@venusprotocol/governance-contracts/deployments/ethereum_addresses.json';
+import venusGovernanceOpBnbMainnetDeployments from '@venusprotocol/governance-contracts/deployments/opbnbmainnet_addresses.json';
+import venusGovernanceOpBnbTestnetDeployments from '@venusprotocol/governance-contracts/deployments/opbnbtestnet_addresses.json';
+import venusGovernanceSepoliaDeployments from '@venusprotocol/governance-contracts/deployments/sepolia_addresses.json';
+// import venusGovernanceZkSyncSepoliaDeployments from '@venusprotocol/governance-contracts/deployments/zksyncSepolia_addresses.json';
+// import venusGovernanceZkSyncMainnetDeployments from '@venusprotocol/governance-contracts/deployments/zksyncmainnet_addresses.json';
 import { abi as IsolatedPoolComptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
 import { abi as NativeTokenGatewayAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Gateway/NativeTokenGateway.sol/NativeTokenGateway.json';
 import { abi as JumpRateModelV2Abi } from '@venusprotocol/isolated-pools/artifacts/contracts/JumpRateModelV2.sol/JumpRateModelV2.json';
@@ -249,6 +258,28 @@ export const contracts: ContractConfig[] = [
         venusGovernanceBscTestnetDeployments.addresses.GovernorBravoDelegator_Proxy,
       [ChainId.BSC_MAINNET]:
         venusGovernanceBscMainnetDeployments.addresses.GovernorBravoDelegator_Proxy,
+    },
+  },
+  {
+    name: 'OmnichainGovernanceExecutor',
+    abi: OmnichainGovernanceExecutorAbi,
+    address: {
+      [ChainId.ETHEREUM]: venusGovernanceEthereumDeployments.addresses.OmnichainGovernanceExecutor,
+      [ChainId.SEPOLIA]: venusGovernanceSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
+      [ChainId.OPBNB_MAINNET]:
+        venusGovernanceOpBnbMainnetDeployments.addresses.OmnichainGovernanceExecutor,
+      [ChainId.OPBNB_TESTNET]:
+        venusGovernanceOpBnbTestnetDeployments.addresses.OmnichainGovernanceExecutor,
+      [ChainId.ARBITRUM_SEPOLIA]:
+        venusGovernanceArbitrumSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
+      [ChainId.ARBITRUM_ONE]:
+        venusGovernanceArbitrumOneDeployments.addresses.OmnichainGovernanceExecutor,
+      // TODO: uncomment below code when OmnichainGovernanceExecutor contract has been deployed on
+      // zkSync network
+      // [ChainId.ZKSYNC_SEPOLIA]:
+      // venusGovernanceZkSyncSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
+      // [ChainId.ZKSYNC_MAINNET]:
+      // venusGovernanceZkSyncMainnetDeployments.addresses.OmnichainGovernanceExecutor,
     },
   },
   {

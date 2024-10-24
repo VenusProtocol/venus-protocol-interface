@@ -14,10 +14,10 @@ export interface Config {
     [chainId in ChainId]: string;
   };
   marketsSubgraphUrls: {
-    [chainId in ChainId]: string;
+    [chainId in ChainId]: string | undefined;
   };
   governanceSubgraphUrls: {
-    [chainId in ChainId]: string;
+    [chainId in ChainId]: string | undefined;
   };
   sentryDsn: string;
   posthog: {

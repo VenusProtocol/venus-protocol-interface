@@ -15,6 +15,7 @@ export interface StepperProps {
   cancelDate: Date | undefined;
   queuedDate: Date | undefined;
   executedDate: Date | undefined;
+  expiredDate: Date | undefined;
   endDate: Date | undefined;
   state: ProposalState;
 }
@@ -45,6 +46,7 @@ const Stepper: React.FC<StepperProps> = ({
   cancelDate,
   queuedDate,
   executedDate,
+  expiredDate,
   endDate,
   state,
 }) => {
@@ -113,7 +115,7 @@ const Stepper: React.FC<StepperProps> = ({
           state === ProposalState.Expired
             ? t('proposalState.expired')
             : t('proposalState.executed'),
-        getTimestamp: () => (state === ProposalState.Expired ? undefined : executedDate),
+        getTimestamp: () => (state === ProposalState.Expired ? expiredDate : executedDate),
         completedIcon: state === ProposalState.Expired ? FailIcon : SuccessIcon,
       },
     ];
@@ -125,6 +127,7 @@ const Stepper: React.FC<StepperProps> = ({
     executedDate,
     state,
     endDate,
+    expiredDate,
     t,
     styles.closeIcon,
     styles.errorIconContainer,
