@@ -6,8 +6,10 @@ import type { ChainId } from 'types';
 import { convertPriceMantissaToDollars } from 'utilities';
 
 export interface GetXvsBridgeStatusInput {
+  fromChainId: ChainId;
   toChainId: ChainId;
-  tokenBridgeContract: XVSProxyOFTDest | XVSProxyOFTSrc;
+  tokenBridgeSendingContract: XVSProxyOFTDest | XVSProxyOFTSrc;
+  receivingEndBridgeContract: XVSProxyOFTDest | XVSProxyOFTSrc;
 }
 
 export interface GetXvsBridgeStatusOutput {
@@ -19,24 +21,42 @@ export interface GetXvsBridgeStatusOutput {
 
 // the XVS price might vary during the time it takes to complete a bridge operation,
 // so this is used as a safe margin (90% of the actual limit)
-const BRIDGE_USD_LIMIT_FACTOR = new BigNumber('0.9');
+export const BRIDGE_USD_LIMIT_FACTOR = new BigNumber('0.9');
 
 const getXvsBridgeStatus = async ({
+  fromChainId,
   toChainId,
-  tokenBridgeContract,
+  tokenBridgeSendingContract,
+  receivingEndBridgeContract,
 }: GetXvsBridgeStatusInput): Promise<GetXvsBridgeStatusOutput> => {
-  const layerZeroChainId = LAYER_ZERO_CHAIN_IDS[toChainId];
+  const layerZeroFromChainId = LAYER_ZERO_CHAIN_IDS[fromChainId];
+  const layerZeroToChainId = LAYER_ZERO_CHAIN_IDS[toChainId];
   const [
     dailyResetTimestamp,
-    maxDailyLimitUsdMantissa,
+    maxDailySendLimitUsdMantissa,
+    maxDailyReceiveLimitUsdMantissa,
     totalTransferredLast24HourUsdMantissa,
-    maxSingleTransactionLimitUsdMantissa,
+    maxSingleSendTransactionLimitUsdMantissa,
+    maxSingleReceiveTransactionLimitUsdMantissa,
   ] = await Promise.all([
-    tokenBridgeContract.chainIdToLast24HourWindowStart(layerZeroChainId),
-    tokenBridgeContract.chainIdToMaxDailyLimit(layerZeroChainId),
-    tokenBridgeContract.chainIdToLast24HourTransferred(layerZeroChainId),
-    tokenBridgeContract.chainIdToMaxSingleTransactionLimit(layerZeroChainId),
+    tokenBridgeSendingContract.chainIdToLast24HourWindowStart(layerZeroToChainId),
+    tokenBridgeSendingContract.chainIdToMaxDailyLimit(layerZeroToChainId),
+    receivingEndBridgeContract.chainIdToMaxDailyReceiveLimit(layerZeroFromChainId),
+    tokenBridgeSendingContract.chainIdToLast24HourTransferred(layerZeroToChainId),
+    tokenBridgeSendingContract.chainIdToMaxSingleTransactionLimit(layerZeroToChainId),
+    receivingEndBridgeContract.chainIdToMaxSingleReceiveTransactionLimit(layerZeroFromChainId),
   ]);
+
+  const maxDailyLimitUsdMantissa = BigNumber.min(
+    maxDailySendLimitUsdMantissa.toString(),
+    maxDailyReceiveLimitUsdMantissa.toString(),
+  );
+
+  const maxSingleTransactionLimitUsdMantissa = BigNumber.min(
+    maxSingleSendTransactionLimitUsdMantissa.toString(),
+    maxSingleReceiveTransactionLimitUsdMantissa.toString(),
+  );
+
   const dailyLimitResetTimestamp = new BigNumber(dailyResetTimestamp.toString());
   const maxDailyLimitUsd = convertPriceMantissaToDollars({
     priceMantissa: new BigNumber(maxDailyLimitUsdMantissa.toString()),
