@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.167.1
+
+### Patch Changes
+
+- ec940f7: fix account health progress bar
+
 ## 2.167.0
 
 ### Minor Changes
