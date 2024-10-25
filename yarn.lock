@@ -1830,20 +1830,20 @@
     "@types/conventional-commits-parser" "^5.0.0"
     chalk "^5.3.0"
 
-"@csstools/cascade-layer-name-parser@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@csstools/cascade-layer-name-parser/-/cascade-layer-name-parser-2.0.2.tgz#a71bd7ab4325fbbdd41e55645c2c958896b24fb1"
-  integrity sha512-rRWNJ8n16okpQT+8RWEbPfSl8D9WVoDZGBfHkjYnMYWcC20RiMpu/iGeKqUl1hR+SQIKg6p/QJap5rZJaHtVOg==
+"@csstools/cascade-layer-name-parser@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@csstools/cascade-layer-name-parser/-/cascade-layer-name-parser-2.0.3.tgz#ac4ff6c571f0f77819ecb647c6aba1d28db72645"
+  integrity sha512-KUcKk2oe7666aaeY+yxhy5TB0AN5x2Pi/ZJ23fbO8A0TEcLpA+VhVIw9s+6hTsAQHr8Fqc8p4RClsxxsmuIn1A==
 
 "@csstools/css-parser-algorithms@^2.3.1", "@csstools/css-parser-algorithms@^2.5.0":
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/@csstools/css-parser-algorithms/-/css-parser-algorithms-2.7.1.tgz#6d93a8f7d8aeb7cd9ed0868f946e46f021b6aa70"
   integrity sha512-2SJS42gxmACHgikc1WGesXLIT8d/q2l0UFM7TaEeIzdFCE/FPMtTiizcPGGJtlPo2xuQzY09OhrLTzRxqJqwGw==
 
-"@csstools/css-parser-algorithms@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@csstools/css-parser-algorithms/-/css-parser-algorithms-3.0.2.tgz#be03c710a60b34f95ea62e332c9ca0c2674f6d5f"
-  integrity sha512-6tC/MnlEvs5suR4Ahef4YlBccJDHZuxGsAlxXmybWjZ5jPxlzLSMlRZ9mVHSRvlD+CmtE7+hJ+UQbfXrws/rUQ==
+"@csstools/css-parser-algorithms@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@csstools/css-parser-algorithms/-/css-parser-algorithms-3.0.3.tgz#f0bffb2faa0f054eda350c1abd25306f15465323"
+  integrity sha512-15WQTALDyxAwSgAvLt7BksAssiSrNNhTv4zM7qX9U6R7FtpNskVVakzWQlYODlwPwXhGpKPmB10LM943pxMe7w==
 
 "@csstools/css-tokenizer@^2.2.0", "@csstools/css-tokenizer@^2.2.3":
   version "2.4.1"
@@ -1860,10 +1860,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/media-query-list-parser/-/media-query-list-parser-2.1.13.tgz#f00be93f6bede07c14ddf51a168ad2748e4fe9e5"
   integrity sha512-XaHr+16KRU9Gf8XLi3q8kDlI18d5vzKSKCY510Vrtc9iNR0NJzbY9hhTmwhzYZj/ZwGL4VmB3TA9hJW0Um2qFA==
 
-"@csstools/media-query-list-parser@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@csstools/media-query-list-parser/-/media-query-list-parser-4.0.0.tgz#d32a27f1d95f77c2a62c0f21f12a9e84b944bf5f"
-  integrity sha512-nUfbCGeqCju55Po8ujRNQ8DjuKYth5UcsDj5HsVzSfqnaFdpOwYCUAhRJ2grfwrXhb9+KuRXHQ6JHzaI0Qhu8Q==
+"@csstools/media-query-list-parser@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@csstools/media-query-list-parser/-/media-query-list-parser-4.0.1.tgz#9494f4363b199eef0f39c989d2ad5a42a16608ab"
+  integrity sha512-dMr9PcN2B0TzxBFk6r+08Ln39aCti7SJeXB671JcXB1ZTPHqs4hpheRpL2vPPGRyXiQwW/UexvOej7Nw0Janxg==
 
 "@csstools/selector-specificity@^3.0.0":
   version "3.0.0"
@@ -15983,14 +15983,14 @@ popmotion@11.0.3:
     tslib "^2.1.0"
 
 postcss-custom-media@^11.0.0:
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/postcss-custom-media/-/postcss-custom-media-11.0.3.tgz#3c25c0d10870ea6d6afb17ff8ea636d089544ed4"
-  integrity sha512-h52R7j0/QZP7NgnpsUaqx6wdssplK4U+ZuErvic2StgvXt3v5sPopFH86yjLvqz3jBrj/8Hkvr7Gio1LLRFP0g==
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/postcss-custom-media/-/postcss-custom-media-11.0.4.tgz#4c4e3d33b6d0b13d440f83968f6849502d3bcd6f"
+  integrity sha512-fz6+8rikAQZHsDwy2EEdeE0JlOaYRz1O0WNyrENkC21nEQfp2etnLcP4V1igieGG5mKokfLmH6lLrBR8kMRUfA==
   dependencies:
-    "@csstools/cascade-layer-name-parser" "^2.0.2"
-    "@csstools/css-parser-algorithms" "^3.0.2"
+    "@csstools/cascade-layer-name-parser" "^2.0.3"
+    "@csstools/css-parser-algorithms" "^3.0.3"
     "@csstools/css-tokenizer" "^3.0.2"
-    "@csstools/media-query-list-parser" "^4.0.0"
+    "@csstools/media-query-list-parser" "^4.0.1"
 
 postcss-import@^15.1.0:
   version "15.1.0"
