@@ -1,16 +1,24 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AppStateConsumer, AppStateProvider } from '../context';
 import s from './App.module.css';
+import Banner from './Banner/Banner';
 import Footer from './Footer/Footer';
 import MainContent from './MainContent/MainContent';
 
 function Main() {
   return (
-    <main className={s.root}>
-      <MainContent />
-      <Footer />
-    </main>
+    <AppStateProvider>
+      <main className={s.root}>
+        <AppStateConsumer>
+          {({ isMobileMenuOpen }) => !isMobileMenuOpen && <Banner />}
+        </AppStateConsumer>
+
+        <MainContent />
+        <Footer />
+      </main>
+    </AppStateProvider>
   );
 }
 
