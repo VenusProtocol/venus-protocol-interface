@@ -4,7 +4,7 @@ import { governanceChain, useChainId } from 'libs/wallet';
 import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { type Proposal, ProposalState } from 'types';
-import { Command, type CommandProps } from '../Command';
+import { Command } from '../Command';
 import { Description } from '../Description';
 import { useIsProposalCancelableByUser } from '../useIsProposalCancelableByUser';
 import { useIsProposalExecutable } from '../useIsProposalExecutable';
@@ -13,39 +13,11 @@ import { CurrentStep } from './CurrentStep';
 
 const governanceChainMetadata = CHAIN_METADATA[governanceChain.id];
 
-export type BscCommandProps = Omit<
-  CommandProps,
-  'contentRightItem' | 'contentBottomItem' | 'description' | 'chainId'
-> &
-  Pick<
-    Proposal,
-    | 'proposalId'
-    | 'state'
-    | 'executionEtaDate'
-    | 'proposerAddress'
-    | 'startDate'
-    | 'endDate'
-    | 'createdDate'
-    | 'cancelDate'
-    | 'queuedDate'
-    | 'executedDate'
-    | 'expiredDate'
-  >;
+export interface BscCommandProps extends React.HTMLAttributes<HTMLDivElement> {
+  proposal: Proposal;
+}
 
-export const BscCommand: React.FC<BscCommandProps> = ({
-  proposalId,
-  state,
-  executionEtaDate,
-  proposerAddress,
-  startDate,
-  endDate,
-  createdDate,
-  cancelDate,
-  queuedDate,
-  executedDate,
-  expiredDate,
-  ...otherProps
-}) => {
+export const BscCommand: React.FC<BscCommandProps> = ({ proposal, ...otherProps }) => {
   const { t } = useTranslation();
   const { chainId: currentChainId } = useChainId();
   const { accountAddress } = useAccountAddress();
@@ -53,22 +25,22 @@ export const BscCommand: React.FC<BscCommandProps> = ({
   const isOnWrongChain = currentChainId !== governanceChain.id;
 
   const { isExecutable } = useIsProposalExecutable({
-    isQueued: state === ProposalState.Queued,
-    executionEtaDate,
+    isQueued: proposal.state === ProposalState.Queued,
+    executionEtaDate: proposal.executionEtaDate,
   });
 
   const { isCancelable } = useIsProposalCancelableByUser({
-    state,
-    proposerAddress,
+    state: proposal.state,
+    proposerAddress: proposal.proposerAddress,
     accountAddress,
   });
 
-  const isQueueable = state === ProposalState.Succeeded;
+  const isQueueable = proposal.state === ProposalState.Succeeded;
 
   const isActionable = isCancelable || isQueueable || isExecutable;
 
   const description = useMemo(() => {
-    switch (state) {
+    switch (proposal.state) {
       case ProposalState.Pending:
         return t('voteProposalUi.command.description.pendingBsc');
       case ProposalState.Canceled:
@@ -85,7 +57,7 @@ export const BscCommand: React.FC<BscCommandProps> = ({
         }
         break;
     }
-  }, [t, state, isExecutable, isOnWrongChain]);
+  }, [t, proposal.state, isExecutable, isOnWrongChain]);
 
   return (
     <Command
@@ -97,37 +69,28 @@ export const BscCommand: React.FC<BscCommandProps> = ({
           </Description>
         ) : undefined
       }
+      proposalActions={proposal.proposalActions}
       contentRightItem={
         isActionable ? (
           <ActionButton
-            proposalId={proposalId}
             className="hidden lg:block"
-            state={state}
-            executionEtaDate={executionEtaDate}
-            proposerAddress={proposerAddress}
+            proposalId={proposal.proposalId}
+            state={proposal.state}
+            executionEtaDate={proposal.executionEtaDate}
+            proposerAddress={proposal.proposerAddress}
           />
         ) : (
-          <CurrentStep
-            state={state}
-            startDate={startDate}
-            endDate={endDate}
-            createdDate={createdDate}
-            cancelDate={cancelDate}
-            queuedDate={queuedDate}
-            executedDate={executedDate}
-            executionEtaDate={executionEtaDate}
-            expiredDate={expiredDate}
-          />
+          <CurrentStep proposal={proposal} />
         )
       }
       contentBottomItem={
         isActionable ? (
           <ActionButton
-            proposalId={proposalId}
             className="mt-3 w-full lg:hidden"
-            state={state}
-            executionEtaDate={executionEtaDate}
-            proposerAddress={proposerAddress}
+            proposalId={proposal.proposalId}
+            state={proposal.state}
+            executionEtaDate={proposal.executionEtaDate}
+            proposerAddress={proposal.proposerAddress}
           />
         ) : undefined
       }

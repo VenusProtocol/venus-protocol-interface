@@ -17,6 +17,7 @@ export const formatToRemoteProposal = ({
   bridgedTimestampSeconds,
   failedTimestampSeconds,
   withdrawnTimestampSeconds,
+  withdrawnTxHash,
   callDatas,
   signatures,
   targets,
@@ -35,16 +36,19 @@ export const formatToRemoteProposal = ({
   failedTimestampSeconds?: number;
   bridgedTimestampSeconds?: number;
   withdrawnTimestampSeconds?: number;
+  withdrawnTxHash?: string;
   gqlRemoteProposal?: NonBscProposalFragment;
 }) => {
   const chainId = CHAIN_IDS_ON_LAYER_ZERO[layerZeroChainId];
 
-  let canceledDate = undefined;
+  let canceledDate: Date | undefined;
+  let canceledTxHash: string | undefined;
 
   if (gqlRemoteProposal?.canceled?.timestamp) {
     canceledDate = convertToDate({
       timestampSeconds: Number(gqlRemoteProposal?.canceled?.timestamp),
     });
+    canceledTxHash = gqlRemoteProposal.canceled.txHash;
   } else if (failedTimestampSeconds) {
     canceledDate = convertToDate({
       timestampSeconds: Number(failedTimestampSeconds),
@@ -53,6 +57,7 @@ export const formatToRemoteProposal = ({
     canceledDate = convertToDate({
       timestampSeconds: Number(withdrawnTimestampSeconds),
     });
+    canceledTxHash = withdrawnTxHash;
   } else if (
     proposalState === ProposalState.Canceled ||
     proposalState === ProposalState.Expired ||
@@ -92,6 +97,7 @@ export const formatToRemoteProposal = ({
       values,
     }),
     canceledDate,
+    canceledTxHash,
     bridgedDate: bridgedTimestampSeconds
       ? convertToDate({ timestampSeconds: bridgedTimestampSeconds })
       : undefined,
@@ -100,12 +106,14 @@ export const formatToRemoteProposal = ({
           timestampSeconds: Number(gqlRemoteProposal.queued.timestamp),
         })
       : undefined,
+    queuedTxHash: gqlRemoteProposal?.queued?.txHash,
     executionEtaDate,
     executedDate: gqlRemoteProposal?.executed?.timestamp
       ? convertToDate({
           timestampSeconds: Number(gqlRemoteProposal.executed.timestamp),
         })
       : undefined,
+    executedTxHash: gqlRemoteProposal?.executed?.txHash,
     expiredDate,
     state,
   };

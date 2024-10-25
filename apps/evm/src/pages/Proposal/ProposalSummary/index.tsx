@@ -75,11 +75,8 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
       createdTxHash,
       startDate,
       cancelDate,
-      cancelTxHash,
       queuedDate,
-      queuedTxHash,
       executedDate,
-      executedTxHash,
       endDate,
       proposalType,
       expiredDate,
@@ -110,7 +107,6 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
     };
 
     let updateProposalButton: JSX.Element | undefined;
-    let transactionHash = createdTxHash;
     const isExecuteEtaInFuture = !!proposalEta && isAfter(proposalEta, new Date());
 
     switch (state) {
@@ -126,10 +122,6 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
             {t('voteProposalUi.cancelButtonLabel')}
           </SecondaryButton>
         );
-        transactionHash = createdTxHash;
-        break;
-      case ProposalState.Canceled:
-        transactionHash = cancelTxHash;
         break;
       case ProposalState.Succeeded:
         updateProposalButton = (
@@ -156,11 +148,6 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
             </PrimaryButton>
           );
         }
-
-        transactionHash = queuedTxHash;
-        break;
-      case ProposalState.Executed:
-        transactionHash = executedTxHash;
         break;
       // no default
     }
@@ -231,11 +218,11 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
                 {title}
               </Typography>
 
-              {transactionHash && (
+              {createdTxHash && (
                 <ChainExplorerLink
-                  text={transactionHash}
+                  text={createdTxHash}
                   urlType="tx"
-                  hash={transactionHash}
+                  hash={createdTxHash}
                   ellipseBreakpoint="xxl"
                   chainId={governanceChain.id}
                 />

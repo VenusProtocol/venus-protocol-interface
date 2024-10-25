@@ -185,6 +185,7 @@ export const formatToProposal = ({
         withdrawnTimestampSeconds: stateTransactions?.withdrawn?.timestamp
           ? Number(stateTransactions.withdrawn.timestamp)
           : undefined,
+        withdrawnTxHash: stateTransactions?.withdrawn?.txHash,
         callDatas: calldatas ?? [],
         signatures: signatures ?? [],
         targets: targets ?? [],
