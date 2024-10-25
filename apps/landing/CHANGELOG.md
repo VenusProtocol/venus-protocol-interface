@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.5.0
+
+### Minor Changes
+
+- d0e08b3: fix scrolling issue with banner on landing page
+
 ## 1.4.0
 
 ### Minor Changes
