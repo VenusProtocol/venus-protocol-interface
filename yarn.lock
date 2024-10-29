@@ -4592,17 +4592,59 @@
     proper-lockfile "^4.1.1"
     solidity-ast "^0.4.15"
 
-"@pancakeswap/sdk@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-3.1.0.tgz#abdb2f8fa799d88107a9920a41f84e3b029bf49d"
-  integrity sha512-GL/k6wo6BOtxsrOZalzj2ZF8SLBWiHXuIXsf58uy0/I+NND+UhRUdj048ck1Zj6aJlbn4GS9ve7W46Qzg2NznQ==
+"@pancakeswap/chains@0.4.6", "@pancakeswap/chains@^0.4.6":
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/chains/-/chains-0.4.6.tgz#47b98b147d237e147ff59a265ed3c95d1b8d0537"
+  integrity sha512-2uflmzHY+rno4+wTQL0ae4c4tbA/r5aGxWg9dNI/A4mS2jx/0lVbELwpSYughK2zcb6MbDbXkAZuLaNKhZe/Yg==
+
+"@pancakeswap/sdk@^5.8.9":
+  version "5.8.9"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-5.8.9.tgz#06bc66b4a3c40c087dd367d0a00cfcfd4cb6d4f2"
+  integrity sha512-Aj5N4AYsuA9mIEcpt+vchmNSfSI2r5j7QevX2NWUqk5uZUvTZLGOAcJcxIdKC7q8nUtWDT4cmSzZAszl6rfvSg==
+  dependencies:
+    "@pancakeswap/chains" "^0.4.6"
+    "@pancakeswap/swap-sdk-core" "1.3.0"
+    "@pancakeswap/swap-sdk-evm" "1.0.6"
+    "@pancakeswap/v2-sdk" "1.0.6"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    tiny-invariant "^1.3.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+    viem "^2.21.22"
+
+"@pancakeswap/swap-sdk-core@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/swap-sdk-core/-/swap-sdk-core-1.3.0.tgz#51a4d86278632085ff49318e1f8497159a6c8eea"
+  integrity sha512-nkeDs3GyNfvRGsTbTAO30yl6ccOTr5WQERsKAaxKTe1fbGvpDRFLo3nlR1ZddRCj+RYZSS+B4Sll4A39k7nFDQ==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
-    jsbi "^3.1.4"
-    tiny-invariant "^1.1.0"
+    tiny-invariant "^1.3.0"
     tiny-warning "^1.0.3"
     toformat "^2.0.0"
+
+"@pancakeswap/swap-sdk-evm@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/swap-sdk-evm/-/swap-sdk-evm-1.0.6.tgz#532a23ccaf31abeb46ac67df6af2c00d22fc112f"
+  integrity sha512-q4kTonZ5DOt/0FdMB19faZC4P9v5WidTnS7vlPalMguUXyAj79U1Hh1N37wqa6LcWFz2lTBnOrkaDst72h9MqA==
+  dependencies:
+    "@pancakeswap/chains" "0.4.6"
+    "@pancakeswap/swap-sdk-core" "1.3.0"
+    tiny-invariant "^1.3.0"
+    tiny-warning "^1.0.3"
+    viem "^2.21.22"
+
+"@pancakeswap/v2-sdk@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/v2-sdk/-/v2-sdk-1.0.6.tgz#e9dbaeb853cf01852d42a21d64160db00ce7e16e"
+  integrity sha512-4MmazJLSiN3JgRNtJ9eHB93GnQDmQudm0CDkBfnp3cOjqP1QRIFFdk8mkwoD4PxfrHmozWlzL/0eHT5l553kQw==
+  dependencies:
+    "@pancakeswap/chains" "0.4.6"
+    "@pancakeswap/swap-sdk-core" "1.3.0"
+    "@pancakeswap/swap-sdk-evm" "1.0.6"
+    tiny-invariant "^1.3.0"
+    viem "^2.21.22"
 
 "@parcel/watcher-android-arm64@2.4.1":
   version "2.4.1"
@@ -13692,11 +13734,6 @@ js-yaml@4.1.0, js-yaml@^4.0.0, js-yaml@^4.1.0:
   dependencies:
     argparse "^2.0.1"
 
-jsbi@^3.1.4:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-3.2.5.tgz#b37bb90e0e5c2814c1c2a1bcd8c729888a2e37d6"
-  integrity sha512-aBE4n43IPvjaddScbvWRA2YlTzKEynHzu7MqOyTipdHucf/VxS63ViCjxYRg86M8Rxwbt/GfzHl1kKERkt45fQ==
-
 jscodeshift@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/jscodeshift/-/jscodeshift-0.14.0.tgz#7542e6715d6d2e8bde0b4e883f0ccea358b46881"
@@ -18707,10 +18744,10 @@ tiny-commit-walker@^1.1.2:
     lru-cache "^4.1.1"
     util.promisify "^1.0.0"
 
-tiny-invariant@^1.1.0, tiny-invariant@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.1.tgz#8560808c916ef02ecfd55e66090df23a4b7aa642"
-  integrity sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==
+tiny-invariant@^1.3.0, tiny-invariant@^1.3.1:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.3.tgz#46680b7a873a0d5d10005995eb90a70d74d60127"
+  integrity sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==
 
 tiny-warning@^1.0.2, tiny-warning@^1.0.3:
   version "1.0.3"
@@ -19673,10 +19710,10 @@ victory-vendor@^36.6.8:
     d3-time "^3.0.0"
     d3-timer "^3.0.1"
 
-viem@^2.1.1, viem@^2.17.0:
-  version "2.21.32"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.21.32.tgz#b7f43b2004967036f83500260290cee45189f62a"
-  integrity sha512-2oXt5JNIb683oy7C8wuIJ/SeL3XtHVMEQpy1U2TA6WMnJQ4ScssRvyPwYLcaP6mKlrGXE/cR/V7ncWpvLUVPYQ==
+viem@^2.1.1, viem@^2.17.0, viem@^2.21.22:
+  version "2.21.36"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.21.36.tgz#96f9eafe70cf473e67901e3c5e18c1a308fa483b"
+  integrity sha512-rKQj4EiA/usM2bY1/lYGaiHg17T4By6vbFPiomtod4evi0IH91ZPFI5lDOz1dnUVqQTNOJhKkwQupN3ahuRhHQ==
   dependencies:
     "@adraffy/ens-normalize" "1.11.0"
     "@noble/curves" "1.6.0"
