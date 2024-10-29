@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { type Params, matchPath, useLocation } from 'react-router-dom';
 
-import { EllipseAddress } from 'components';
+import { DomainNameOrEllipseAddress } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { Link } from 'containers/Link';
@@ -100,7 +100,7 @@ export const Breadcrumbs: React.FC = () => {
 
           dom = (
             <div className="inline-flex items-center gap-x-2">
-              <EllipseAddress address={params.address || ''} ellipseBreakpoint="xxl" />
+              <DomainNameOrEllipseAddress address={params.address || ''} ellipseBreakpoint="xxl" />
 
               {!!params.address && <CopyAddressButton address={params.address} />}
             </div>

@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import { Card, type CardProps } from 'components';
+import { Card, type CardProps, DomainNameOrEllipseAddress } from 'components';
 import { useCallback } from 'react';
 
-import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
+import { Button, Icon, LabeledProgressBar, Tooltip } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
@@ -89,7 +89,7 @@ const VoteSummary = ({
                 to={routes.governanceVoter.path.replace(':address', address)}
                 css={[styles.blueText, styles.addressText]}
               >
-                <EllipseAddress address={address} />
+                <DomainNameOrEllipseAddress address={address} />
               </Link>
 
               {reason && (
