@@ -11,7 +11,10 @@ import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
-type TrimmedGetXvsBridgeStatusInput = Omit<GetXvsBridgeStatusInput, 'tokenBridgeContract'>;
+type TrimmedGetXvsBridgeStatusInput = Omit<
+  GetXvsBridgeStatusInput,
+  'tokenBridgeSendingContract' | 'receivingEndBridgeContract' | 'fromChainId'
+>;
 
 export type UseGetXvsBridgeStatusQueryKey = [
   FunctionKey.GET_XVS_BRIDGE_STATUS,
@@ -35,16 +38,26 @@ const useGetBridgeStatus = (
   const { chainId } = useChainId();
   const tokenBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId });
   const tokenBridgeContractDest = useGetXVSProxyOFTDestContract({ chainId });
-  const tokenBridgeContract =
+  const receivingEndBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId: toChainId });
+  const receivingEndBridgeContractDest = useGetXVSProxyOFTDestContract({ chainId: toChainId });
+  const tokenBridgeSendingContract =
     chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
       ? tokenBridgeContractSrc
       : tokenBridgeContractDest;
+
+  const receivingEndBridgeContract =
+    toChainId === ChainId.BSC_MAINNET || toChainId === ChainId.BSC_TESTNET
+      ? receivingEndBridgeContractSrc
+      : receivingEndBridgeContractDest;
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_BRIDGE_STATUS, { chainId, toChainId }],
 
     queryFn: () =>
-      callOrThrow({ tokenBridgeContract, toChainId }, params => getXvsBridgeStatus({ ...params })),
+      callOrThrow(
+        { tokenBridgeSendingContract, receivingEndBridgeContract, toChainId, fromChainId: chainId },
+        params => getXvsBridgeStatus({ ...params }),
+      ),
 
     refetchInterval,
     ...options,
