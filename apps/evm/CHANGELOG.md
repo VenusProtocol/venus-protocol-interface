@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.168.0
+
+### Minor Changes
+
+- c4729bf: consider limits in both ends of the XVS bridge
+
 ## 2.167.2
 
 ### Patch Changes
