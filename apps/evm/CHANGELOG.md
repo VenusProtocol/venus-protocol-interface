@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.167.2
+
+### Patch Changes
+
+- f50d8b1: Update AddTokenToWalletButton component to handle disconnected state
+
 ## 2.167.1
 
 ### Patch Changes
