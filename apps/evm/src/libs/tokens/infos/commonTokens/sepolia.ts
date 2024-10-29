@@ -2,6 +2,7 @@ import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import crvLogo from 'libs/tokens/img/crv.svg';
 import crvUsdLogo from 'libs/tokens/img/crvUsd.svg';
 import daiLogo from 'libs/tokens/img/dai.svg';
+import eigenLogo from 'libs/tokens/img/eigen.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
 import ezEthLogo from 'libs/tokens/img/ezEth.png';
 import fraxLogo from 'libs/tokens/img/frax.svg';
@@ -145,5 +146,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'pufETH',
     asset: pufEthLogo,
+  },
+  {
+    address: '0xf140594470Bff436aE82F2116ab8a438671C6e83',
+    decimals: 18,
+    symbol: 'EIGEN',
+    asset: eigenLogo,
   },
 ];
