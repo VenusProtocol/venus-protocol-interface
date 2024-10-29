@@ -615,6 +615,14 @@ export const useGetIsolatedPoolVTokenLiquidationThreshold = vi.fn(() =>
   }),
 );
 
+export const getAddressDomainName = vi.fn(async () => undefined);
+export const useGetAddressDomainName = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_ADDRESS_DOMAIN_NAME],
+    queryFn: getAddressDomainName,
+  }),
+);
+
 export const getXvsVaultPendingWithdrawalsBalance = vi.fn(async () => ({
   balanceMantissa: 0,
 }));

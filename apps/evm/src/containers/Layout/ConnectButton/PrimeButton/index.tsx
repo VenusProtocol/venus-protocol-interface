@@ -5,10 +5,12 @@ import { cn, truncateAddress } from 'utilities';
 
 export interface PrimeButtonProps extends ButtonProps {
   accountAddress: string;
+  addressDomainName?: string | null;
 }
 
 export const PrimeButton: React.FC<PrimeButtonProps> = ({
   accountAddress,
+  addressDomainName,
   className,
   ...otherProps
 }) => {
@@ -25,7 +27,7 @@ export const PrimeButton: React.FC<PrimeButtonProps> = ({
       <>
         <img className="mr-2 w-5" src={primeLogoSrc} alt={t('PrimeButton.primeLogoAlt')} />
 
-        {truncateAddress(accountAddress)}
+        {addressDomainName ?? truncateAddress(accountAddress)}
       </>
     </SecondaryButton>
   );

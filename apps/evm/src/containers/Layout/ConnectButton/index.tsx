@@ -1,4 +1,4 @@
-import { useGetPrimeToken } from 'clients/api';
+import { useGetAddressDomainName, useGetPrimeToken } from 'clients/api';
 import { Button, type ButtonProps, Modal, SecondaryButton } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
@@ -52,8 +52,22 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
   });
   const isAccountPrime = !!getPrimeTokenData?.exists;
 
-  if (isGetPrimeTokenLoading) {
+  const { data: domainName, isLoading: isGetAddressDomainNameLoading } = useGetAddressDomainName(
+    {
+      accountAddress: accountAddress!,
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
+
+  if (isGetPrimeTokenLoading || isGetAddressDomainNameLoading) {
     return null;
+  }
+
+  let content = accountAddress ? truncateAddress(accountAddress) : t('connectButton.connect');
+  if (domainName) {
+    content = domainName;
   }
 
   return (
@@ -61,6 +75,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
       {accountAddress && isAccountPrime ? (
         <PrimeButton
           accountAddress={accountAddress}
+          addressDomainName={domainName}
           onClick={handleConnectButtonClick}
           className={cn(variant === 'secondary' && connectedAccountButtonClasses, className)}
           {...otherProps}
@@ -78,7 +93,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
           )}
           {...otherProps}
         >
-          {accountAddress ? <>{truncateAddress(accountAddress)}</> : t('connectButton.connect')}
+          {content}
         </Button>
       )}
 
@@ -86,7 +101,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
         <div className="space-y-10">
           {!!accountAddress && (
             <div className="flex items-center space-x-2 break-all">
-              <span className="flex-1">{accountAddress}</span>
+              <span className="flex-1">{domainName ?? accountAddress}</span>
 
               <CopyAddressButton className="shrink-0" address={accountAddress} />
             </div>
