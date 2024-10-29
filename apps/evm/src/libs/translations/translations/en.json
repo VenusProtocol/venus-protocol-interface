@@ -223,8 +223,8 @@
     }
   },
   "connectButton": {
-    "disconnect": "Disconnect",
-    "connect": "Connect wallet"
+    "connect": "Connect wallet",
+    "disconnect": "Disconnect"
   },
   "connectWallet": {
     "connectButton": "Connect wallet"
@@ -305,7 +305,7 @@
   },
   "interactive": {
     "copy": {
-      "walletAddress": "Wallet address"
+      "address": "Address"
     },
     "copyToClipboard": "{{name}} copied to clipboard"
   },

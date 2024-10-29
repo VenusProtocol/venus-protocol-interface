@@ -14,7 +14,7 @@ export const CopyAddressButton: React.FC<CopyAddressButtonProps> = ({
   ...otherProps
 }) => {
   const { t } = useTranslation();
-  const copyToClipboard = useCopyToClipboard(t('interactive.copy.walletAddress'));
+  const copyToClipboard = useCopyToClipboard(t('interactive.copy.address'));
 
   return (
     <button

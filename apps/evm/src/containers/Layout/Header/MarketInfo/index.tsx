@@ -120,12 +120,11 @@ export const MarketInfo = () => {
                 )}
             </div>
 
-            {isUserConnected && (
-              <AddTokenToWalletButton
-                className="shrink-0 bg-background/40 hover:bg-background/40 active:bg-background/40"
-                token={asset.vToken.underlyingToken}
-              />
-            )}
+            <AddTokenToWalletButton
+              className="shrink-0 bg-background/40 hover:bg-background/40 active:bg-background/40"
+              isUserConnected={isUserConnected}
+              token={asset.vToken.underlyingToken}
+            />
           </div>
         ) : (
           <Spinner className="h-full w-auto" />

@@ -141,9 +141,11 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
               {stakedToken.symbol}
             </Typography>
 
-            {!!accountAddress && (
-              <AddTokenToWalletButton className="shrink-0" token={stakedToken} />
-            )}
+            <AddTokenToWalletButton
+              className="shrink-0"
+              isUserConnected={!!accountAddress}
+              token={stakedToken}
+            />
           </div>
         </div>
 
