@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.168.1
+
+### Patch Changes
+
+- 7536162: add support for EIGEN token
+
 ## 2.168.0
 
 ### Minor Changes
