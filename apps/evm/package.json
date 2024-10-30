@@ -54,7 +54,7 @@
     "connectkit": "^1.8.2",
     "copy-to-clipboard": "^3.3.3",
     "date-fns": "^4.1.0",
-    "ethers": "^5.7.2",
+    "ethers": "^6.13.4",
     "formik": "^2.4.3",
     "framer-motion": "^11.0.5",
     "graphql": "16.9.0",
