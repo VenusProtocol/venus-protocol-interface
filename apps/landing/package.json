@@ -42,7 +42,7 @@
     "postcss-custom-media": "^11.0.0",
     "postcss-import": "^16.1.0",
     "postcss-loader": "^8.1.1",
-    "postcss-nested": "^6.2.0",
+    "postcss-nested": "^7.0.0",
     "stylelint": "^15.10.3",
     "typescript": "^5.4.5",
     "vite": "^5.3.3",
