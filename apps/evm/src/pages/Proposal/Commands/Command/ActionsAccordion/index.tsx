@@ -2,13 +2,15 @@ import { useTranslation } from 'react-i18next';
 
 import { AccordionAnimatedContent, type AccordionAnimatedContentProps, Icon } from 'components';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';
-import type { ProposalAction } from 'types';
+import type { ChainId, ProposalAction } from 'types';
 
 export interface ActionsAccordionProps extends AccordionAnimatedContentProps {
+  chainId: ChainId;
   proposalActions: ProposalAction[];
 }
 
 export const ActionsAccordion: React.FC<ActionsAccordionProps> = ({
+  chainId,
   proposalActions,
   ...otherProps
 }) => {
@@ -31,6 +33,7 @@ export const ActionsAccordion: React.FC<ActionsAccordionProps> = ({
               key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
               className="text-sm"
               action={action}
+              chainId={chainId}
             />
           ))}
         </div>

@@ -272,9 +272,12 @@ export interface RemoteProposal {
   remoteProposalId?: number;
   bridgedDate?: Date;
   canceledDate?: Date;
+  canceledTxHash?: string;
   queuedDate?: Date;
+  queuedTxHash?: string;
   executionEtaDate?: Date;
   executedDate?: Date;
+  executedTxHash?: string;
   expiredDate?: Date;
 }
 

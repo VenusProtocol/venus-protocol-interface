@@ -3,22 +3,22 @@ import type { ChainId } from 'types';
 
 export type UrlType = 'address' | 'token' | 'tx' | 'layerZeroTx';
 
-export interface GenerateChainExplorerUrlInput<T extends UrlType = 'address'> {
+export interface generateExplorerUrlInput<T extends UrlType = 'address'> {
   hash: string;
   chainId: ChainId;
   urlType?: T;
 }
 
-const generateLayerZeroScanUrl = ({ hash, chainId }: GenerateChainExplorerUrlInput) => {
+const generateLayerZeroScanUrl = ({ hash, chainId }: generateExplorerUrlInput) => {
   const { layerZeroScanUrl } = CHAIN_METADATA[chainId];
   return `${layerZeroScanUrl}/tx/${hash}`;
 };
 
-export const generateChainExplorerUrl = <T extends UrlType = 'address'>({
+export const generateExplorerUrl = <T extends UrlType = 'address'>({
   hash,
   urlType,
   chainId,
-}: GenerateChainExplorerUrlInput<T>) => {
+}: generateExplorerUrlInput<T>) => {
   const safeUrlType = urlType || 'address';
 
   if (safeUrlType === 'layerZeroTx') {
@@ -29,4 +29,4 @@ export const generateChainExplorerUrl = <T extends UrlType = 'address'>({
   return `${explorerUrl}/${safeUrlType}/${hash}`;
 };
 
-export default generateChainExplorerUrl;
+export default generateExplorerUrl;

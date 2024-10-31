@@ -58,6 +58,7 @@ describe('formatToRemoteProposal', () => {
         canceled: {
           id: '0x544c7a7eaa39193348b5907232f9cee66c8aa6f609200d03792289b40487d164',
           timestamp: '1720520363',
+          txHash: '0x544c7a7eaa39193348b5907232f9cee66c8aa6f609200d03792289b40487d164',
         },
         executed: null,
       },

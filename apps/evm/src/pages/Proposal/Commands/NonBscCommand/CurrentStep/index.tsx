@@ -2,108 +2,142 @@ import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
 import { type RemoteProposal, RemoteProposalState } from 'types';
+import generateExplorerUrl from 'utilities/generateExplorerUrl';
 import { Status, type StatusProps } from '../../Status';
 
-export type CurrentStepProps = React.HTMLAttributes<HTMLDivElement> &
-  Pick<
-    RemoteProposal,
-    | 'chainId'
-    | 'state'
-    | 'canceledDate'
-    | 'bridgedDate'
-    | 'queuedDate'
-    | 'executionEtaDate'
-    | 'executedDate'
-    | 'expiredDate'
-  >;
+export interface CurrentStepProps extends React.HTMLAttributes<HTMLDivElement> {
+  remoteProposal: RemoteProposal;
+  proposalExecutedTxHash?: string;
+}
 
 export const CurrentStep: React.FC<CurrentStepProps> = ({
-  chainId,
-  state,
-  canceledDate,
-  bridgedDate,
-  queuedDate,
-  executionEtaDate,
-  executedDate,
-  expiredDate,
+  proposalExecutedTxHash,
+  remoteProposal,
   ...otherProps
 }) => {
   const { t } = useTranslation();
 
-  const [type, status] = useMemo<[StatusProps['type'], string]>(() => {
+  const [type, status, statusHref] = useMemo<
+    [StatusProps['type'], string, string | undefined]
+  >(() => {
     let tmpType: StatusProps['type'] = 'info';
     let tmpStatus = t('voteProposalUi.command.status.pending');
+    let tmpStatusHref: string | undefined;
 
-    if (state === RemoteProposalState.Bridged) {
+    if (remoteProposal.state === RemoteProposalState.Bridged) {
       tmpStatus = t('proposalState.bridged');
+      tmpStatusHref =
+        proposalExecutedTxHash &&
+        generateExplorerUrl({
+          hash: proposalExecutedTxHash,
+          urlType: 'layerZeroTx',
+          chainId: remoteProposal.chainId,
+        });
     }
 
-    if (state === RemoteProposalState.Canceled) {
+    if (remoteProposal.state === RemoteProposalState.Canceled) {
       tmpStatus = t('proposalState.canceled');
       tmpType = 'error';
+      tmpStatusHref =
+        remoteProposal.canceledTxHash &&
+        generateExplorerUrl({
+          hash: remoteProposal.canceledTxHash,
+          urlType: 'tx',
+          chainId: remoteProposal.chainId,
+        });
     }
 
-    if (state === RemoteProposalState.Queued) {
+    if (remoteProposal.state === RemoteProposalState.Queued) {
       tmpStatus = t('proposalState.queued');
+      tmpStatusHref =
+        remoteProposal.queuedTxHash &&
+        generateExplorerUrl({
+          hash: remoteProposal.queuedTxHash,
+          urlType: 'tx',
+          chainId: remoteProposal.chainId,
+        });
     }
 
-    if (state === RemoteProposalState.Executed) {
+    if (remoteProposal.state === RemoteProposalState.Executed) {
       tmpStatus = t('proposalState.executed');
       tmpType = 'success';
+      tmpStatusHref =
+        remoteProposal.executedTxHash &&
+        generateExplorerUrl({
+          hash: remoteProposal.executedTxHash,
+          urlType: 'tx',
+          chainId: remoteProposal.chainId,
+        });
     }
 
-    if (state === RemoteProposalState.Expired) {
+    if (remoteProposal.state === RemoteProposalState.Expired) {
       tmpStatus = t('proposalState.expired');
       tmpType = 'error';
     }
 
-    return [tmpType, tmpStatus];
-  }, [state, t]);
+    return [tmpType, tmpStatus, tmpStatusHref];
+  }, [
+    proposalExecutedTxHash,
+    remoteProposal.state,
+    remoteProposal.chainId,
+    remoteProposal.canceledTxHash,
+    remoteProposal.queuedTxHash,
+    remoteProposal.executedTxHash,
+    t,
+  ]);
 
   const previousStepDate = useMemo(() => {
-    if (state === RemoteProposalState.Bridged) {
-      return bridgedDate;
+    if (remoteProposal.state === RemoteProposalState.Bridged) {
+      return remoteProposal.bridgedDate;
     }
 
-    if (state === RemoteProposalState.Canceled) {
-      return canceledDate;
+    if (remoteProposal.state === RemoteProposalState.Canceled) {
+      return remoteProposal.canceledDate;
     }
 
-    if (state === RemoteProposalState.Queued) {
-      return queuedDate;
+    if (remoteProposal.state === RemoteProposalState.Queued) {
+      return remoteProposal.queuedDate;
     }
 
-    if (state === RemoteProposalState.Executed) {
-      return executedDate;
+    if (remoteProposal.state === RemoteProposalState.Executed) {
+      return remoteProposal.executedDate;
     }
 
-    if (state === RemoteProposalState.Expired) {
-      return expiredDate;
+    if (remoteProposal.state === RemoteProposalState.Expired) {
+      return remoteProposal.expiredDate;
     }
-  }, [state, bridgedDate, canceledDate, queuedDate, executedDate, expiredDate]);
+  }, [
+    remoteProposal.state,
+    remoteProposal.bridgedDate,
+    remoteProposal.canceledDate,
+    remoteProposal.queuedDate,
+    remoteProposal.executedDate,
+    remoteProposal.expiredDate,
+  ]);
 
   const nextStepDate = useMemo(() => {
     let tmpNextStepDate: Date | undefined;
 
-    if (state === RemoteProposalState.Queued) {
-      tmpNextStepDate = executionEtaDate;
+    if (remoteProposal.state === RemoteProposalState.Queued) {
+      tmpNextStepDate = remoteProposal.executionEtaDate;
     }
 
     return tmpNextStepDate;
-  }, [state, executionEtaDate]);
+  }, [remoteProposal.state, remoteProposal.executionEtaDate]);
 
   return (
     <Status
       {...otherProps}
       type={type}
       status={status}
+      statusHref={statusHref}
       description={
         previousStepDate
           ? t('voteProposalUi.command.dates.previousStep', { date: previousStepDate })
           : undefined
       }
       subDescription={
-        state === RemoteProposalState.Queued
+        remoteProposal.state === RemoteProposalState.Queued
           ? t('voteProposalUi.command.dates.executableAt', {
               date: nextStepDate,
             })

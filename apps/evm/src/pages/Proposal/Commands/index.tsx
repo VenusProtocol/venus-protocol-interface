@@ -44,35 +44,13 @@ export const Commands: React.FC<CommandsProps> = ({ proposal, ...otherProps }) =
       </div>
 
       <div className="space-y-4">
-        <BscCommand
-          proposalId={proposal.proposalId}
-          state={proposal.state}
-          startDate={proposal.startDate}
-          createdDate={proposal.createdDate}
-          endDate={proposal.endDate}
-          expiredDate={proposal.expiredDate}
-          executedDate={proposal.executedDate}
-          cancelDate={proposal.cancelDate}
-          queuedDate={proposal.queuedDate}
-          executionEtaDate={proposal.executionEtaDate}
-          proposalActions={proposal.proposalActions}
-          proposerAddress={proposal.proposerAddress}
-          className={commandClasses}
-        />
+        <BscCommand proposal={proposal} className={commandClasses} />
 
         {proposal.remoteProposals.map(remoteProposal => (
           <NonBscCommand
             key={`non-bsc-command-${remoteProposal.chainId}-${remoteProposal.proposalId}`}
-            remoteProposalId={remoteProposal.remoteProposalId}
-            chainId={remoteProposal.chainId}
-            proposalActions={remoteProposal.proposalActions}
-            state={remoteProposal.state}
-            executionEtaDate={remoteProposal.executionEtaDate}
-            bridgedDate={remoteProposal.bridgedDate}
-            canceledDate={remoteProposal.canceledDate}
-            queuedDate={remoteProposal.queuedDate}
-            executedDate={remoteProposal.executedDate}
-            expiredDate={remoteProposal.expiredDate}
+            proposalExecutedTxHash={proposal.executedTxHash}
+            remoteProposal={remoteProposal}
             className={commandClasses}
           />
         ))}

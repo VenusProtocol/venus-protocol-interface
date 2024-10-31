@@ -8,7 +8,7 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import { type VoteDetail, VoteSupport } from 'types';
-import { convertMantissaToTokens, generateChainExplorerUrl } from 'utilities';
+import { convertMantissaToTokens, generateExplorerUrl } from 'utilities';
 
 import { routes } from 'constants/routing';
 import { useStyles } from './styles';
@@ -127,7 +127,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
         asChild
       >
         <Link
-          href={generateChainExplorerUrl({
+          href={generateExplorerUrl({
             hash: address,
             urlType: 'address',
             chainId,

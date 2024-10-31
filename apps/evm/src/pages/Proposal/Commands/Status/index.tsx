@@ -1,10 +1,12 @@
 import { Icon, type IconName } from 'components';
+import { Link } from 'containers/Link';
 import { useMemo } from 'react';
 import { cn } from 'utilities';
 
 export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
   type: 'info' | 'success' | 'error';
   status: string;
+  statusHref?: string;
   description?: string;
   subDescription?: string;
 }
@@ -12,6 +14,7 @@ export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Status: React.FC<StatusProps> = ({
   type,
   status,
+  statusHref,
   description,
   subDescription,
   ...otherProps
@@ -28,12 +31,23 @@ export const Status: React.FC<StatusProps> = ({
     return ['text-offWhite', 'dots'];
   }, [type]);
 
+  const statusDom = (
+    <div className="flex items-center">
+      <Icon className="text-inherit w-5 h-5" name={iconName} />
+      <span className="text-sm font-semibold">{status}</span>
+    </div>
+  );
+
   return (
     <div {...otherProps}>
-      <div className={cn('flex items-center justify-end gap-x-1', colorClass)}>
-        <Icon className="text-inherit w-5 h-5" name={iconName} />
-
-        <span className="text-sm font-semibold">{status}</span>
+      <div className={cn('flex justify-end gap-x-1', colorClass)}>
+        {statusHref ? (
+          <Link href={statusHref} className={cn('underline', colorClass)}>
+            {statusDom}
+          </Link>
+        ) : (
+          statusDom
+        )}
       </div>
 
       {(description || subDescription) && (
