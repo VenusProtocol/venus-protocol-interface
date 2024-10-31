@@ -1231,6 +1231,17 @@
       "noProvider": "Unable to connect. Make sure the wallet you selected is installed in your browser."
     }
   },
+  "web3DomainNames": {
+    "providers": {
+      "ens": "ENS Name",
+      "spaceId": "Space ID Name"
+    },
+    "providersAlt": "Provider Icon",
+    "tooltip": {
+      "address": "({{address}})",
+      "publicTag": "Public Tag: {{domainName}}"
+    }
+  },
   "withdrawFromVaiVaultModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
     "connectWalletMessage": "Please connect your wallet to withdraw {{tokenSymbol}}",

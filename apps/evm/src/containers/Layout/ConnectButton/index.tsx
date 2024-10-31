@@ -1,5 +1,11 @@
 import { useGetAddressDomainName, useGetPrimeToken } from 'clients/api';
-import { Button, type ButtonProps, Modal, SecondaryButton } from 'components';
+import {
+  Button,
+  type ButtonProps,
+  DomainNameOrEllipseAddress,
+  Modal,
+  SecondaryButton,
+} from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
 import { cn, truncateAddress } from 'utilities';
@@ -65,9 +71,11 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
     return null;
   }
 
-  let content = accountAddress ? truncateAddress(accountAddress) : t('connectButton.connect');
-  if (domainName) {
-    content = domainName;
+  let content: string | React.ReactNode = accountAddress
+    ? truncateAddress(accountAddress)
+    : t('connectButton.connect');
+  if (domainName && accountAddress) {
+    content = <DomainNameOrEllipseAddress address={accountAddress} shouldEllipseAddress={false} />;
   }
 
   return (
@@ -101,7 +109,11 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
         <div className="space-y-10">
           {!!accountAddress && (
             <div className="flex items-center space-x-2 break-all">
-              <span className="flex-1">{domainName ?? accountAddress}</span>
+              <DomainNameOrEllipseAddress
+                className="flex-1"
+                address={accountAddress}
+                shouldEllipseAddress={false}
+              />
 
               <CopyAddressButton className="shrink-0" address={accountAddress} />
             </div>
