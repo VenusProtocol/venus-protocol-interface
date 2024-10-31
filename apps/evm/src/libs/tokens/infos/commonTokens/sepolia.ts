@@ -2,6 +2,7 @@ import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import crvLogo from 'libs/tokens/img/crv.svg';
 import crvUsdLogo from 'libs/tokens/img/crvUsd.svg';
 import daiLogo from 'libs/tokens/img/dai.svg';
+import eBtcLogo from 'libs/tokens/img/eBtc.png';
 import eigenLogo from 'libs/tokens/img/eigen.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
 import ezEthLogo from 'libs/tokens/img/ezEth.png';
@@ -152,5 +153,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'EIGEN',
     asset: eigenLogo,
+  },
+  {
+    address: '0xd48392CCf3fe028023D0783E570DFc71996859d7',
+    decimals: 8,
+    symbol: 'eBTC',
+    asset: eBtcLogo,
   },
 ];
