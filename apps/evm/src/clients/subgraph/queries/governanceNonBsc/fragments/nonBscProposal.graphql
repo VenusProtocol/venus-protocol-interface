@@ -6,15 +6,18 @@ fragment NonBscProposal on Proposal {
   queued {
     id
     timestamp
+    txHash
   }
   
   canceled {
     id
     timestamp
+    txHash
   }
   
   executed {
     id
     timestamp
+    txHash
   }
 }

@@ -42,7 +42,7 @@ export * from './convertMantissaToTokens';
 export * from './generatePseudoRandomRefetchInterval';
 export * from './calculateYearlyEarnings';
 export * from './calculateYearlyPercentageRate';
-export * from './generateChainExplorerUrl';
+export * from './generateExplorerUrl';
 export * from './truncateAddress';
 export * from './convertToDate';
 export * from './formatToProposalDescription';

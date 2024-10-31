@@ -21,6 +21,7 @@ exports[`enrichRemoteProposals > returns remote proposals in the correct format 
     "executed": {
       "id": "0x544c7a7eaa39193348b5907232f9cee66c8aa6f609200d03792289b40487d164",
       "timestamp": "1720520363",
+      "txHash": "0x544c7a7eaa39193348b5907232f9cee66c8aa6f609200d03792289b40487d164",
     },
     "executionEta": "1719935819",
     "id": "4",
@@ -28,6 +29,7 @@ exports[`enrichRemoteProposals > returns remote proposals in the correct format 
     "queued": {
       "id": "0x3f4f7a17f7ed78c0c3620e61391aeab8b0a22b2438c7c8b65396e3d52c617d1f",
       "timestamp": "1719763019",
+      "txHash": "0x3f4f7a17f7ed78c0c3620e61391aeab8b0a22b2438c7c8b65396e3d52c617d1f",
     },
     "signatures": [
       "giveCallPermission(address,string,address)",
@@ -91,6 +93,7 @@ exports[`enrichRemoteProposals > returns remote proposals in the correct format 
     "executed": {
       "id": "0x544c7a7eaa39193348b5907232f9cee66c8aa6f609200d03792289b40487d164",
       "timestamp": "1720520363",
+      "txHash": "0x544c7a7eaa39193348b5907232f9cee66c8aa6f609200d03792289b40487d164",
     },
     "executionEta": "1719935819",
     "id": "5",
@@ -98,6 +101,7 @@ exports[`enrichRemoteProposals > returns remote proposals in the correct format 
     "queued": {
       "id": "0x3f4f7a17f7ed78c0c3620e61391aeab8b0a22b2438c7c8b65396e3d52c617d1f",
       "timestamp": "1719763019",
+      "txHash": "0x3f4f7a17f7ed78c0c3620e61391aeab8b0a22b2438c7c8b65396e3d52c617d1f",
     },
     "signatures": [
       "giveCallPermission(address,string,address)",

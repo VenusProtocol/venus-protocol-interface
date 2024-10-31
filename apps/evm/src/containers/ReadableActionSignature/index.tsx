@@ -1,23 +1,23 @@
 import { useGetVTokens } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
-import { useChainId } from 'libs/wallet';
 import type { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
-import type { ProposalAction } from 'types';
-import { cn, generateChainExplorerUrl } from 'utilities';
+import type { ChainId, ProposalAction } from 'types';
+import { cn, generateExplorerUrl } from 'utilities';
 
 import formatSignature from './formatSignature';
 import getContractName from './getContractName';
 
 export interface ReadableActionSignatureProps extends React.HTMLAttributes<HTMLDivElement> {
   action: FormValues['actions'][number] | ProposalAction;
+  chainId: ChainId;
 }
 
 export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = ({
   className,
   action,
+  chainId,
   ...otherProps
 }) => {
-  const { chainId } = useChainId();
   const { data: getVTokensData } = useGetVTokens();
   const tokens = useGetTokens();
   const vTokens = getVTokensData?.vTokens || [];
@@ -32,7 +32,7 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
   return (
     <div className={cn('[overflow-wrap:anywhere] ', className)} {...otherProps}>
       <a
-        href={generateChainExplorerUrl({
+        href={generateExplorerUrl({
           hash: action.target,
           urlType: 'address',
           chainId,

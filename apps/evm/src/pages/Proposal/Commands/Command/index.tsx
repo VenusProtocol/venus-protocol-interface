@@ -55,6 +55,7 @@ export const Command: React.FC<CommandProps> = ({
           <ActionsAccordion
             className="hidden lg:block"
             isOpen={isOpen}
+            chainId={chainId}
             proposalActions={proposalActions}
           />
         </div>
@@ -62,7 +63,12 @@ export const Command: React.FC<CommandProps> = ({
         {contentRightItem}
       </div>
 
-      <ActionsAccordion className="lg:hidden" isOpen={isOpen} proposalActions={proposalActions} />
+      <ActionsAccordion
+        className="lg:hidden"
+        isOpen={isOpen}
+        chainId={chainId}
+        proposalActions={proposalActions}
+      />
 
       {contentBottomItem}
     </div>

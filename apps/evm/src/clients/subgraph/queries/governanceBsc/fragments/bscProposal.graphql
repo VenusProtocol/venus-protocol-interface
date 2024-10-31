@@ -73,16 +73,19 @@ fragment BscProposal on Proposal {
       stored {
         id
         timestamp
+        txHash
       }
 
       executed {
         id
         timestamp
+        txHash
       }
 
       withdrawn {
         id
         timestamp
+        txHash
       }
     }
   }

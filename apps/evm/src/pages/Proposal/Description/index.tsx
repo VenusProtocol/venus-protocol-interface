@@ -8,6 +8,7 @@ import type { DescriptionV1, DescriptionV2, ProposalAction } from 'types';
 import TEST_IDS from '../testIds';
 
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { governanceChain } from 'libs/wallet';
 import { useStyles } from './styles';
 
 interface DescriptionSummary {
@@ -64,6 +65,7 @@ export const Description: React.FC<DescriptionSummary> = ({ className, descripti
               <ReadableActionSignature
                 key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
                 action={action}
+                chainId={governanceChain.id}
               />
             ))}
           </>
