@@ -96,7 +96,7 @@ const VoteSummary = ({
 
               {reason && (
                 <Tooltip title={reason}>
-                  <Icon name="bubble" />
+                  <Icon name="comment" />
                 </Tooltip>
               )}
             </div>
