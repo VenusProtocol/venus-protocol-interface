@@ -100,7 +100,12 @@ export const Breadcrumbs: React.FC = () => {
 
           dom = (
             <div className="inline-flex items-center gap-x-2">
-              <DomainNameOrEllipseAddress address={params.address || ''} ellipseBreakpoint="xxl" />
+              <DomainNameOrEllipseAddress
+                address={params.address || ''}
+                showProvider={false}
+                showTooltip={false}
+                ellipseBreakpoint="xxl"
+              />
 
               {!!params.address && <CopyAddressButton address={params.address} />}
             </div>
