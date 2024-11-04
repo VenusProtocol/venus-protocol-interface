@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.169.0
+
+### Minor Changes
+
+- bae0fa8: update TWT logo
+
 ## 2.168.2
 
 ### Patch Changes

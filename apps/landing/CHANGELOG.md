@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.6.0
+
+### Minor Changes
+
+- bae0fa8: update TWT logo
+
 ## 1.5.0
 
 ### Minor Changes
