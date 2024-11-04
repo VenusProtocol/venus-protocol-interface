@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.168.2
+
+### Patch Changes
+
+- 4a5c6b2: add support for eBTC on Sepolia and Ethereum
+
 ## 2.168.1
 
 ### Patch Changes
