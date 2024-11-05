@@ -25,7 +25,7 @@ export const CHAIN_METADATA: {
     marketsSubgraphUrl:
       'https://gateway-arbitrum.network.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmVMKvBgAgnqVrLmRUurMiziH3Q55Fa5VoYJXN4TVLZgsw',
     governanceSubgraphUrl:
-      'https://gateway-arbitrum.network.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmaPExPzY5chQhAWZHBcEh2NAyNeFrEv1k9kbQZo1buY1h',
+      'https://gateway-arbitrum.network.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/Qmc6ga5CKWyzbE9wWBSvy97ARCtSWNnm6JpbeEfpz8EKVe',
   },
   [ChainId.BSC_TESTNET]: {
     name: 'BNB testnet',
