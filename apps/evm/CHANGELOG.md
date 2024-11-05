@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.171.0
+
+### Minor Changes
+
+- abf85a1: add USDC native on zkSync
+
 ## 2.170.0
 
 ### Minor Changes
