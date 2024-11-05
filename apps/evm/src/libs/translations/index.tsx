@@ -27,7 +27,7 @@ const init = () => {
             return formatDistanceToNowStrict(value, { locale });
           }
 
-          return formatDate(value, format || 'dd MMM yyyy HH:mm a', { locale });
+          return formatDate(value, format || 'dd MMM yyyy h:mm a', { locale });
         }
         return value;
       },
