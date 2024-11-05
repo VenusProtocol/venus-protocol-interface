@@ -62,7 +62,7 @@ export const useStyles = () => {
         flex-direction: row;
         border-left: none;
         border-top: 1px solid ${theme.palette.secondary.light};
-        padding: ${theme.spacing(6, 0)};
+        padding: ${theme.spacing(6)};
       }
     `,
   };

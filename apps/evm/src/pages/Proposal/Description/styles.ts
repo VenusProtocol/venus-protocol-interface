@@ -25,17 +25,6 @@ export const useStyles = () => {
       background-color: ${theme.palette.background.paper};
       font-family: ${theme.typography.fontFamily};
     `,
-    actionTitle: css`
-      word-break: break-all;
-
-      a {
-        color: ${theme.palette.interactive.success};
-      }
-
-      :hover {
-        color: ${theme.palette.interactive.success50};
-      }
-    `,
     section: css`
       margin-top: ${theme.spacing(6)};
     `,
