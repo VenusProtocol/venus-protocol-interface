@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.171.1
+
+### Patch Changes
+
+- 6021372: fix generic date format
+
 ## 2.171.0
 
 ### Minor Changes
