@@ -83,7 +83,7 @@ export const CHAIN_METADATA: {
     marketsSubgraphUrl:
       'https://gateway-arbitrum.network.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/Qmazi4kSKzahgR5G6U7FVUoUGLQZQVPohRX6zbuxbC8YX1',
     governanceSubgraphUrl:
-      'https://api.studio.thegraph.com/query/77761/venus-governance-ethereum/version/latest',
+      'https://gateway.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmUXMrtcyqXtzgHVQ8VAtsUJMKuDr7gk9WhHUgertioVZY',
   },
   [ChainId.SEPOLIA]: {
     name: 'Sepolia',
@@ -114,7 +114,8 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://open-platform.nodereal.io/7fab7575d1c34150a9ee582167ffac6f/arbitrum-nitro',
     marketsSubgraphUrl:
       'https://gateway-arbitrum.network.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmQByQzsGpuVqaZcfraxQduUwMX4JpnAnFd1s1JTkSUREj',
-    governanceSubgraphUrl: '', // TODO: add
+    governanceSubgraphUrl:
+      'https://gateway.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmfUtsb2bQvFnPhxTNYemvQB3qqKvm27rZRFwm2X6yajyh',
   },
   [ChainId.ARBITRUM_SEPOLIA]: {
     name: 'Arbitrum Sepolia',
