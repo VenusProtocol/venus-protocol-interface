@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.170.0
+
+### Minor Changes
+
+- 22cbed2: change vote comment icon
+
 ## 2.169.0
 
 ### Minor Changes
