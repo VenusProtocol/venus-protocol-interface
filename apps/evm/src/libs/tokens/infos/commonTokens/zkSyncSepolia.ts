@@ -1,6 +1,7 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import ethLogo from 'libs/tokens/img/eth.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
+import usdcNativeLogo from 'libs/tokens/img/usdcNative.svg';
 import usdtLogo from 'libs/tokens/img/usdt.svg';
 import wbtcLogo from 'libs/tokens/img/wbtc.svg';
 import wethLogo from 'libs/tokens/img/weth.svg';
@@ -48,6 +49,12 @@ export const tokens: Token[] = [
     decimals: 6,
     symbol: 'USDC.e',
     asset: usdcLogo,
+  },
+  {
+    address: '0x512F8b4a3c466a30e8c9BAC9c64638dd710968c2',
+    decimals: 6,
+    symbol: 'USDC',
+    asset: usdcNativeLogo,
   },
   {
     address: '0x8A2E9048F5d658E88D6eD89DdD1F3B5cA0250B9F',
