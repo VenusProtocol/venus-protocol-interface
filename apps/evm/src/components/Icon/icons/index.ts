@@ -39,7 +39,7 @@ export { default as arrowShaft } from './arrowShaft';
 export { default as notice } from './notice';
 export { default as dots } from './dots';
 export { default as exclamation } from './exclamation';
-export { default as bubble } from './bubble';
+export { default as comment } from './comment';
 export { default as logoMobile } from './logoMobile';
 export { default as person } from './person';
 export { default as gauge } from './gauge';
