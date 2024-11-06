@@ -20438,7 +20438,12 @@ zod@^3.17.3, zod@^3.22.2, zod@^3.22.4, zod@^3.23.8:
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.23.8.tgz#e37b957b5d52079769fb8097099b592f0ef4067d"
   integrity sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==
 
-zustand@5.0.0, zustand@^5.0.0:
+zustand@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-5.0.0.tgz#71f8aaecf185592a3ba2743d7516607361899da9"
   integrity sha512-LE+VcmbartOPM+auOjCCLQOsQ05zUTp8RkgwRzefUk+2jISdMMFnxvyTjA4YNWr5ZGXYbVsEMZosttuxUBkojQ==
+
+zustand@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-5.0.1.tgz#2bdca5e4be172539558ce3974fe783174a48fdcf"
+  integrity sha512-pRET7Lao2z+n5R/HduXMio35TncTlSW68WsYBq2Lg1ASspsNGjpwLAsij3RpouyV6+kHMwwwzP0bZPD70/Jx/w==
