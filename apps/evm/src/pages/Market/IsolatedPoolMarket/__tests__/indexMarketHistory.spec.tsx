@@ -49,8 +49,10 @@ describe('IsolatedPoolMarket - Feature flag enabled: marketHistory', () => {
       routePath: '/:vTokenAddress/:poolComptrollerAddress',
     });
 
+    await waitFor(() => expect(getByTestId(TEST_IDS.supplyInfo)).toBeInTheDocument());
+
     // Check supply info displays correctly
-    await waitFor(() => expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot());
+    expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot();
     // Check borrow info displays correctly
     expect(getByTestId(TEST_IDS.borrowInfo).textContent).toMatchSnapshot();
     // Check interest rate model displays correctly

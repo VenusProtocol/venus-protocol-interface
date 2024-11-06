@@ -44,10 +44,10 @@ describe('IsolatedPoolMarket - Feature flag enabled: marketParticipantCounts', (
       routePath: '/:vTokenAddress/:poolComptrollerAddress',
     });
 
+    await waitFor(() => expect(getByTestId(TEST_IDS.interestRateModel)).toBeInTheDocument());
+
     // Check interest rate model displays correctly
-    await waitFor(() =>
-      expect(getByTestId(TEST_IDS.interestRateModel).textContent).toMatchSnapshot(),
-    );
+    expect(getByTestId(TEST_IDS.interestRateModel).textContent).toMatchSnapshot();
     // Check supply info displays correctly
     expect(getByTestId(TEST_IDS.supplyInfo).textContent).toMatchSnapshot();
     // Check borrow info displays correctly

@@ -29,6 +29,8 @@ export const Progress: React.FC<ProgressProps> = ({
       ) : (
         <div className="relative ml-3 w-12 h-12 flex items-center justify-center">
           <ProgressCircle
+            strokeWidthPx={4}
+            sizePx={50}
             className="absolute inset"
             value={(successfulPayloadsCount * 100) / totalPayloadsCount}
           />

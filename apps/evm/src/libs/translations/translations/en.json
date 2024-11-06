@@ -371,6 +371,10 @@
     "previewTabLabel": "Preview"
   },
   "market": {
+    "borrowCapThreshold": {
+      "title": "Total borrowed",
+      "tooltip": "Maximum amount available to borrow is {{amountDollars}} ({{amountTokens}})"
+    },
     "borrowInfo": {
       "title": "Borrow info"
     },
@@ -384,7 +388,6 @@
     },
     "marketInfo": {
       "stats": {
-        "borrowCapLabel": "Borrow cap",
         "borrowerCountLabel": "# of borrowers",
         "collateralFactorLabel": "Collateral factor",
         "dailyBorrowingInterestsLabel": "Daily borrowing interests",
@@ -397,8 +400,7 @@
         "priceLabel": "Price",
         "reserveFactorLabel": "Reserve factor",
         "reserveTokensLabel": "Reserves",
-        "supplierCountLabel": "# of suppliers",
-        "supplyCapLabel": "Supply cap"
+        "supplierCountLabel": "# of suppliers"
       }
     },
     "periodOption": {
@@ -410,9 +412,11 @@
       "apy": "APY",
       "distributionApy": "Distribution APY",
       "liquidationPenalty": "Liquidation Penalty",
-      "liquidationThreshold": "Liquidation Threshold",
-      "totalBorrow": "Total borrow",
-      "totalSupply": "Total supply"
+      "liquidationThreshold": "Liquidation Threshold"
+    },
+    "supplyCapThreshold": {
+      "title": "Total supplied",
+      "tooltip": "Maximum amount available to supply is {{amountDollars}} ({{amountTokens}})"
     },
     "supplyInfo": {
       "title": "Supply info"

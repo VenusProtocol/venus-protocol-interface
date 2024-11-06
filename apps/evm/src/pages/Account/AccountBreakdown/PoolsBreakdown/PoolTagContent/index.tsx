@@ -36,7 +36,12 @@ export const PoolTagContent: React.FC<PoolTagContentProps> = ({ pool }) => {
           })}
           className="ml-1 inline-flex"
         >
-          <ProgressCircle value={borrowLimitUsedPercentage} fillColor={progressColor} size="sm" />
+          <ProgressCircle
+            value={borrowLimitUsedPercentage}
+            fillColor={progressColor}
+            strokeWidthPx={3}
+            sizePx={16}
+          />
         </Tooltip>
       )}
     </>
