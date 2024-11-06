@@ -146,7 +146,8 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://sepolia.era.zksync.dev',
     marketsSubgraphUrl:
       'https://api.studio.thegraph.com/query/64786/venus-il-zksync-sepolia/version/latest',
-    governanceSubgraphUrl: '', // TODO: add
+    governanceSubgraphUrl:
+      'https://api.studio.thegraph.com/query/64786/venus-governance-zksyncsepolia/version/latest',
   },
   [ChainId.ZKSYNC_MAINNET]: {
     name: 'zkSync',
@@ -182,6 +183,7 @@ export const CHAIN_METADATA: {
     rpcUrl: 'https://sepolia.optimism.io',
     marketsSubgraphUrl:
       'https://gateway.testnet.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmNcLHq8xaDMhqqUFGAnafauXp4S3LAU8xAicnBMoYaB9i',
-    governanceSubgraphUrl: '', // TODO: add
+    governanceSubgraphUrl:
+      'https://api.studio.thegraph.com/query/64786/venus-governance-opsepolia/version/latest',
   },
 };
