@@ -4,15 +4,12 @@ import { ButtonGroup, Spinner } from 'components';
 import { ApyChart, type ApyChartProps } from 'components/charts/ApyChart';
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
-import {
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-  getCombinedDistributionApys,
-} from 'utilities';
+import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
 
 import { type MarketHistoryPeriodType, useGetPoolLiquidationIncentive } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { MarketCard, type MarketCardProps } from '../../MarketCard';
+import { CapThreshold } from './CapThreshold';
 import { useGetLiquidationThresholdPercentage } from './useGetLiquidationThresholdPercentage';
 
 export interface CardProps {
@@ -89,12 +86,6 @@ export const Card: React.FC<CardProps> = ({
 
     const tmpStats: MarketCardProps['stats'] = [
       {
-        label: type === 'supply' ? t('market.stats.totalSupply') : t('market.stats.totalBorrow'),
-        value: formatCentsToReadableValue({
-          value: type === 'supply' ? asset.supplyBalanceCents : asset.borrowBalanceCents,
-        }),
-      },
-      {
         label: t('market.stats.apy'),
         value: formatPercentageToReadableValue(
           type === 'supply' ? asset.supplyApyPercentage : asset.borrowApyPercentage,
@@ -150,7 +141,16 @@ export const Card: React.FC<CardProps> = ({
       title={type === 'supply' ? t('market.supplyInfo.title') : t('market.borrowInfo.title')}
       stats={stats}
       legends={isApyChartsFeatureEnabled ? legends : undefined}
-      rightLabel={
+      topContent={
+        <CapThreshold
+          type={type}
+          tokenPriceCents={asset.tokenPriceCents}
+          capTokens={type === 'supply' ? asset.supplyCapTokens : asset.borrowCapTokens}
+          balanceTokens={type === 'supply' ? asset.supplyBalanceTokens : asset.borrowBalanceTokens}
+          token={asset.vToken.underlyingToken}
+        />
+      }
+      rightContent={
         isApyChartsFeatureEnabled ? (
           <ButtonGroup
             buttonLabels={periodOptions.map(p => p.label)}

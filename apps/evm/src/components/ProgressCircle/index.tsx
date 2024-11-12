@@ -5,61 +5,62 @@ import { cn } from 'utilities';
 
 export interface ProgressCircleProps extends React.HTMLAttributes<SVGElement> {
   value: number;
-  size?: 'sm' | 'md';
+  strokeWidthPx: number;
+  sizePx: number;
   fillColor?: string;
+  defs?: React.ReactNode;
 }
 
 export const ProgressCircle: React.FC<ProgressCircleProps> = ({
   value,
   fillColor,
-  size = 'md',
+  sizePx,
+  strokeWidthPx,
   className,
+  defs,
   ...otherProps
 }) => {
   const theme = useTheme();
 
-  const strokeWidthPx = size === 'sm' ? 3 : 4;
-  const sizePx = size === 'sm' ? 16 : 50;
-
   const { circumference, offset } = useMemo(() => {
     const radius = sizePx / 2;
-    const tmpRadius = size === 'sm' ? 6 : 18;
     const tmpCircumference = 2 * Math.PI * radius;
     const tmpOffset = tmpCircumference * ((100 - value) / 100);
 
     return {
-      radius: tmpRadius,
       circumference: tmpCircumference,
       offset: tmpOffset,
     };
-  }, [value, size, sizePx]);
+  }, [value, sizePx]);
 
   return (
     <svg
       width={sizePx}
       height={sizePx}
-      viewBox={`-${sizePx * 0.125} -${sizePx * 0.125} ${sizePx * 1.25} ${sizePx * 1.25}`}
       className={cn('rotate-90 scale-x-[-1]', className)}
       {...otherProps}
     >
+      {defs && <defs>{defs}</defs>}
+
       <circle
         stroke="rgba(255,255,255,0.12)"
         strokeWidth={strokeWidthPx}
         fill="transparent"
-        r={sizePx / 2}
-        cx={sizePx / 2}
-        cy={sizePx / 2}
+        r={sizePx / 2 - strokeWidthPx / 2}
+        cx="50%"
+        cy="50%"
       />
 
       <circle
         strokeDasharray={circumference}
         strokeDashoffset={offset}
+        strokeLinecap="round"
         stroke={fillColor || theme.palette.interactive.success}
         strokeWidth={strokeWidthPx}
         fill="transparent"
-        r={sizePx / 2}
-        cx={sizePx / 2}
-        cy={sizePx / 2}
+        r={sizePx / 2 - strokeWidthPx / 2}
+        cx="50%"
+        cy="50%"
       />
     </svg>
   );
