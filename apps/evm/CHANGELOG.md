@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.172.0
+
+### Minor Changes
+
+- a3449ea: show borrow and supply cap thresholds on Market page
+
 ## 2.171.1
 
 ### Patch Changes
