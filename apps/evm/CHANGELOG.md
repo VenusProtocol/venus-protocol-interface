@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.172.1
+
+### Patch Changes
+
+- 751d73c: remove testId props
+
 ## 2.172.0
 
 ### Minor Changes
