@@ -30,7 +30,7 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
       <Card
         asset={asset}
         type="supply"
-        testId={TEST_IDS.supplyInfo}
+        data-testid={TEST_IDS.supplyInfo}
         data={supplyChartData ?? []}
         isLoading={isChartDataLoading}
         poolComptrollerContractAddress={poolComptrollerContractAddress}
@@ -41,7 +41,7 @@ export const MarketHistory: React.FC<MarketHistoryProps> = ({
       <Card
         asset={asset}
         type="borrow"
-        testId={TEST_IDS.borrowInfo}
+        data-testid={TEST_IDS.borrowInfo}
         data={borrowChartData ?? []}
         isLoading={isChartDataLoading}
         poolComptrollerContractAddress={poolComptrollerContractAddress}

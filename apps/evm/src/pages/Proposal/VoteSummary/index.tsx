@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import { Card } from 'components';
+import { Card, type CardProps } from 'components';
 import { useCallback } from 'react';
 
 import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
@@ -14,7 +14,7 @@ import { convertMantissaToTokens } from 'utilities';
 
 import { useStyles } from './styles';
 
-interface VoteSummaryProps {
+interface VoteSummaryProps extends CardProps {
   label: string;
   progressBarColor: string;
   votedValueMantissa?: BigNumber;
@@ -23,7 +23,6 @@ interface VoteSummaryProps {
   className?: string;
   votingEnabled: boolean;
   openVoteModal: () => void;
-  testId?: string;
 }
 
 const VoteSummary = ({
@@ -33,9 +32,8 @@ const VoteSummary = ({
   votedTotalMantissa = new BigNumber(0),
   votedValueMantissa = new BigNumber(0),
   voters = [],
-  className,
   votingEnabled,
-  testId,
+  ...otherProps
 }: VoteSummaryProps) => {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -55,7 +53,7 @@ const VoteSummary = ({
   );
 
   return (
-    <Card css={styles.root} className={className} data-testid={testId}>
+    <Card css={styles.root} {...otherProps}>
       <div css={styles.topSection}>
         <div css={styles.labeledProgressBarContainer}>
           <LabeledProgressBar

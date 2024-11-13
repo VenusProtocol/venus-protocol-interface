@@ -25,7 +25,6 @@ export interface MarketTableProps
   };
   marketType?: 'supply' | 'borrow';
   className?: string;
-  testId?: string;
 }
 
 export const MarketTable: React.FC<MarketTableProps> = ({

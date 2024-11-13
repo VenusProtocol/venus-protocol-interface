@@ -93,7 +93,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           openVoteModal={() => setVoteModalType(1)}
           progressBarColor={styles.successColor}
           votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
-          testId={TEST_IDS.voteSummary.for}
+          data-testid={TEST_IDS.voteSummary.for}
         />
 
         <VoteSummary
@@ -105,7 +105,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           openVoteModal={() => setVoteModalType(0)}
           progressBarColor={styles.againstColor}
           votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
-          testId={TEST_IDS.voteSummary.against}
+          data-testid={TEST_IDS.voteSummary.against}
         />
 
         <VoteSummary
@@ -117,7 +117,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           openVoteModal={() => setVoteModalType(2)}
           progressBarColor={styles.abstainColor}
           votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
-          testId={TEST_IDS.voteSummary.abstain}
+          data-testid={TEST_IDS.voteSummary.abstain}
         />
       </div>
 

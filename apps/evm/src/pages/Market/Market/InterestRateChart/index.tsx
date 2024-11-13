@@ -48,7 +48,7 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
   return (
     <MarketCard
       className={className}
-      testId={TEST_IDS.interestRateModel}
+      data-testid={TEST_IDS.interestRateModel}
       title={t('market.interestRateModel.title')}
       legends={legends}
     >

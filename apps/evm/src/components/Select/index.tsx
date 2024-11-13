@@ -54,13 +54,12 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       onChange,
       onBlur,
       label,
-      name,
       placeLabelToLeft = false,
       size = 'medium',
       variant = 'primary',
       menuTitle,
       menuPosition = 'left',
-      testId,
+      ...otherProps
     }: SelectProps<TValue>,
     ref: React.Ref<HTMLInputElement>,
   ) => {
@@ -126,7 +125,6 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
         <div className={cn(placeLabelToLeft && 'inline-flex items-center', className)}>
           <input
             ref={ref}
-            name={name}
             value={value}
             className="hidden"
             onChange={e => {
@@ -136,7 +134,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
 
               onChange(formattedValue);
             }}
-            data-testid={testId}
+            {...otherProps}
           />
 
           {!!label && (
