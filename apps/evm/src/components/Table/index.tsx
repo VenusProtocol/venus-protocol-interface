@@ -28,10 +28,9 @@ export function Table<R>({
   rowOnClick,
   getRowHref,
   rowKeyExtractor,
-  className,
   breakpoint,
   isFetching,
-  testId,
+  ...otherProps
 }: TableProps<R>) {
   const styles = useStyles();
   const { formatTo } = useFormatTo();
@@ -62,7 +61,7 @@ export function Table<R>({
   }, [data, order]);
 
   return (
-    <Card css={styles.getRoot({ breakpoint })} data-testid={testId} className={className}>
+    <Card css={styles.getRoot({ breakpoint })} {...otherProps}>
       {title && (
         <h4 css={styles.getTitle({ breakpoint })} className="text-lg">
           {title}

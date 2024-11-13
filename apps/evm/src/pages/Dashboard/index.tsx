@@ -118,7 +118,7 @@ const Dashboard: React.FC = () => {
           orderBy: 'labeledSupplyApyLtv',
           orderDirection: 'desc',
         }}
-        testId={TEST_IDS.marketTable}
+        data-testid={TEST_IDS.marketTable}
         key="dashboard-market-table"
       />
     </Page>

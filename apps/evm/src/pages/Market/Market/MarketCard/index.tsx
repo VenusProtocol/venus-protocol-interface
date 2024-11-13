@@ -1,4 +1,4 @@
-import { Card } from 'components';
+import { Card, type CardProps } from 'components';
 import { cn } from 'utilities';
 
 import type { Stat } from '../../types';
@@ -8,7 +8,7 @@ export interface Legend {
   color: 'blue' | 'red' | 'green';
 }
 
-export interface MarketCardProps {
+export interface MarketCardProps extends CardProps {
   title: string;
   topContent?: React.ReactNode;
   rightContent?: React.ReactNode;
@@ -16,7 +16,6 @@ export interface MarketCardProps {
   stats?: Stat[];
   className?: string;
   children?: React.ReactNode;
-  testId?: string;
 }
 
 export const MarketCard: React.FC<MarketCardProps> = ({
@@ -27,9 +26,9 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   legends = [],
   stats = [],
   className,
-  testId,
+  ...otherProps
 }) => (
-  <Card className={cn(className, 'space-y-5 md:space-y-8')} data-testid={testId}>
+  <Card className={cn('space-y-5 md:space-y-8', className)} {...otherProps}>
     <div className="space-y-5 md:space-y-6">
       <div
         className={cn(

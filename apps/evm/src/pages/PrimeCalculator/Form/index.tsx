@@ -339,7 +339,7 @@ export const Form: React.FC = () => {
               variant="quaternary"
               size="large"
               value={selectedAsset.vToken.address}
-              testId={TEST_IDS.tokenSelect}
+              data-testid={TEST_IDS.tokenSelect}
               onChange={newSelectedTokenAddress => {
                 // Mark form as not initialized so it gets reinitialized
                 isFormInitializedRef.current = false;

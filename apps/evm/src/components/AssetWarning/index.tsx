@@ -71,7 +71,7 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
         })}
       >
         <MarketTable
-          testId={TEST_IDS.marketTable}
+          data-testid={TEST_IDS.marketTable}
           rowOnClick={handleHideAssets}
           className="my-0 p-0 sm:p-0"
           pools={[pool]}

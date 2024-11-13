@@ -1,3 +1,4 @@
+import type { CardProps } from 'components/Card';
 import type { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
 
 export interface TableColumn<R> {
@@ -9,7 +10,7 @@ export interface TableColumn<R> {
   align?: 'left' | 'center' | 'right';
 }
 
-export interface TableProps<R> {
+export interface TableProps<R> extends CardProps {
   data: R[];
   rowKeyExtractor: (row: R) => string;
   columns: TableColumn<R>[];
@@ -25,7 +26,6 @@ export interface TableProps<R> {
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
   getRowHref?: (row: R) => string;
   title?: string;
-  testId?: string;
 }
 
 export interface Order<R> {

@@ -12,13 +12,12 @@ import { MarketCard, type MarketCardProps } from '../../MarketCard';
 import { CapThreshold } from './CapThreshold';
 import { useGetLiquidationThresholdPercentage } from './useGetLiquidationThresholdPercentage';
 
-export interface CardProps {
+export interface CardProps extends Omit<MarketCardProps, 'title'> {
   type: ApyChartProps['type'];
   asset: Asset;
   data: ApyChartProps['data'];
   poolComptrollerContractAddress: string;
   isLoading: boolean;
-  testId: string;
   selectedPeriod: MarketHistoryPeriodType;
   setSelectedPeriod: (period: MarketHistoryPeriodType) => void;
 }

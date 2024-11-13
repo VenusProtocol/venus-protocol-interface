@@ -298,7 +298,7 @@ const BridgePage: React.FC = () => {
                   <ChainSelect
                     label={t('bridgePage.fromChainSelect.label')}
                     className="mb-4 w-full min-w-0 grow md:mb-0"
-                    testId={TEST_IDS.fromChainIdSelect}
+                    data-testid={TEST_IDS.fromChainIdSelect}
                     options={fromChainIdOptions}
                     {...field}
                     onChange={newChainId => {
@@ -328,7 +328,7 @@ const BridgePage: React.FC = () => {
                     menuPosition="right"
                     className="w-full min-w-0 grow"
                     label={t('bridgePage.toChainSelect.label')}
-                    testId={TEST_IDS.toChainIdSelect}
+                    data-testid={TEST_IDS.toChainIdSelect}
                     options={toChainIdOptions}
                     {...field}
                     onChange={newChainId => {

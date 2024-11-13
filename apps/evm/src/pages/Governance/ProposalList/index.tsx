@@ -209,7 +209,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
             placeLabelToLeft
             options={selectOptions}
             className="min-w-[230px]"
-            testId={TEST_IDS.proposalStateSelect}
+            data-testid={TEST_IDS.proposalStateSelect}
             value={selectedProposalState}
             onChange={newValue =>
               updateFilters({
