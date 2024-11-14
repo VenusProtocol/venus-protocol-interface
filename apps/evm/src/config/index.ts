@@ -1,6 +1,5 @@
 import { apiUrls } from 'constants/api';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { productionHosts } from 'constants/production';
 import { ChainId, type Environment, type Network } from 'types';
 import { extractEnumValues } from 'utilities/extractEnumValues';
 
@@ -27,16 +26,7 @@ export interface Config {
   zyFiApiKey: string;
 }
 
-let environment: Environment = 'preview';
-
-if (ENV_VARIABLES.VITE_ENV) {
-  environment = ENV_VARIABLES.VITE_ENV;
-} else if (typeof window !== 'undefined' && productionHosts.includes(window.location.host)) {
-  environment = 'production';
-} else if (import.meta.env.DEV) {
-  environment = 'local';
-}
-
+const environment: Environment = ENV_VARIABLES.VITE_ENV || 'preview';
 const network: Network = ENV_VARIABLES.VITE_NETWORK || 'mainnet';
 
 const chainIds = extractEnumValues(ChainId);
