@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.172.2
+
+### Patch Changes
+
+- 5c20a80: use env variable to determine environment
+
 ## 2.172.1
 
 ### Patch Changes
