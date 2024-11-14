@@ -1,4 +1,3 @@
-/// <reference types="vitest" />
 import inject from '@rollup/plugin-inject';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react';
