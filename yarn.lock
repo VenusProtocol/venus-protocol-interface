@@ -7562,10 +7562,10 @@
     loupe "^2.3.6"
     pretty-format "^29.5.0"
 
-"@wagmi/connectors@5.3.9":
-  version "5.3.9"
-  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-5.3.9.tgz#8972e35bd44e2e78aa4cef419283ed9912057a83"
-  integrity sha512-TS1nJRfQbwPpeW28fPWkanuMuUJSoAAS0+zEthStq/PmwIDV4VKvOWycERgbl5pVeNtvdtHAstd7QtfhVADBXQ==
+"@wagmi/connectors@5.3.10":
+  version "5.3.10"
+  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-5.3.10.tgz#e28afaabe0cd0dd993de6460d0c137afcfcaf379"
+  integrity sha512-4nXfnycfDkw8uGuZVf19E8TWd1rtskFUZEg0rLeY/pc3Uu5KhWuzNu+ycLfBHpepkuWKXxL7yr0jqzPiNn+ggg==
   dependencies:
     "@coinbase/wallet-sdk" "4.2.3"
     "@metamask/sdk" "0.30.1"
@@ -7574,10 +7574,10 @@
     "@walletconnect/ethereum-provider" "2.17.0"
     cbw-sdk "npm:@coinbase/wallet-sdk@3.9.3"
 
-"@wagmi/core@2.14.5", "@wagmi/core@^2.11.6":
-  version "2.14.5"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-2.14.5.tgz#2aafcfd1494ab8864b3612950141427d5d46935e"
-  integrity sha512-tkeZYWtBiITQhvKspX4diEEs44rVu+d+dd2DAL5lAeTGS9d/Iu2VAT1G04frnVv49DUPS6zUu6PkCcUpSwS8Xw==
+"@wagmi/core@2.14.6", "@wagmi/core@^2.11.6":
+  version "2.14.6"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-2.14.6.tgz#f08894b01ab896c20989ee6d12bf07376adc613e"
+  integrity sha512-YoDtMt/RofrB3geEXGzV/xJYsMMN3U6x6cyWrScHwLF32NtlfQAtOUvRpJ5Q0FmQteRLiupVAOu+WB2aDLzCiA==
   dependencies:
     eventemitter3 "5.0.1"
     mipd "0.0.7"
@@ -19779,12 +19779,12 @@ w3c-xmlserializer@^5.0.0:
     xml-name-validator "^5.0.0"
 
 wagmi@^2.10.9:
-  version "2.12.31"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.12.31.tgz#4b6c2ade183534006e1e44ce4b09f24a8a7e8b5f"
-  integrity sha512-vUY5fTajLktBPj/JN5XXwu+KrW2x6MQ5dpshJ2col39BToLCMETP6X05YelmEcTKALU4dl06wc+cK5cMPiD+rw==
+  version "2.12.32"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.12.32.tgz#1f641c9626ef5389c2ac68a836c08aceb6607295"
+  integrity sha512-0svmcWEQOTZpt322CYGcX0KGSwW4DZ24vr3hpHTgqFmVZMfKSVuOWQoXXvnFcrkLWitTz0sDCy58yjf1F4TUng==
   dependencies:
-    "@wagmi/connectors" "5.3.9"
-    "@wagmi/core" "2.14.5"
+    "@wagmi/connectors" "5.3.10"
+    "@wagmi/core" "2.14.6"
     use-sync-external-store "1.2.0"
 
 walk-sync@^2.2.0:
