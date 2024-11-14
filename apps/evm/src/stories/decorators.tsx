@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import type { StoryFn } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -16,25 +15,8 @@ export const withThemeProvider = (Story: StoryFn) => (
   </MuiThemeProvider>
 );
 
-export const withCenterStory: (props: {
-  width?: number | string;
-  height?: number | string;
-}) => unknown = props => {
-  const { width, height } = props;
-
-  return (Story: StoryFn) => (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100vh',
-      }}
-    >
-      <Box sx={{ flexShrink: 0, maxWidth: width, width: '100%', height }}>
-        <Story />
-      </Box>
-    </Box>
-  );
-};
+export const withPadding = (Story: StoryFn) => (
+  <div className="p-20">
+    <Story />
+  </div>
+);

@@ -3,8 +3,7 @@ import type { FunctionFragment } from '@ethersproject/abi';
 import { ethers } from 'ethers';
 import { FieldArray } from 'formik';
 
-import { FormikTextField } from 'components';
-
+import { FormikTextField } from 'containers/Form';
 import { ErrorCode } from '../proposalSchema';
 import { useStyles } from './styles';
 

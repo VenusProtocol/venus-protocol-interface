@@ -1,14 +1,11 @@
-import type { ComponentMeta } from '@storybook/react';
-
-import { withCenterStory } from 'stories/decorators';
+import type { Meta } from '@storybook/react';
 
 import { ProgressCircle } from '.';
 
 export default {
   title: 'Components/ProgressCircle',
   component: ProgressCircle,
-  decorators: [withCenterStory({ width: 600 })],
-} as ComponentMeta<typeof ProgressCircle>;
+} as Meta<typeof ProgressCircle>;
 
 export const HealthyProgressCircle = () => (
   <ProgressCircle value={30} strokeWidthPx={3} sizePx={50} />

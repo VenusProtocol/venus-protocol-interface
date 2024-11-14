@@ -4,14 +4,11 @@ import noop from 'noop-ts';
 
 import { xvs } from '__mocks__/models/tokens';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { SpendingLimit } from '.';
 
 export default {
   title: 'Components/SpendingLimit',
   component: SpendingLimit,
-  decorators: [withCenterStory({ width: 500 })],
 } as Meta<typeof SpendingLimit>;
 
 export const Default = () => (

@@ -1,6 +1,7 @@
-import { AssetWarning, Card, Page } from 'components';
+import { Card, Page } from 'components';
 import type { Asset, Pool } from 'types';
 
+import AssetWarning from './AssetWarning';
 import { InterestRateChart } from './InterestRateChart';
 import { MarketHistory } from './MarketHistory';
 import MarketInfo from './MarketInfo';

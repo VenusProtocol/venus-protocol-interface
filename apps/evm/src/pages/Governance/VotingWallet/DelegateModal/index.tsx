@@ -2,20 +2,13 @@
 import { Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 
-import {
-  ButtonWrapper,
-  FormikSubmitButton,
-  FormikTextField,
-  Modal,
-  NoticeInfo,
-  PrimaryButton,
-  TextButton,
-} from 'components';
+import { ButtonWrapper, Modal, NoticeInfo, PrimaryButton, TextButton } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 
+import { FormikSubmitButton, FormikTextField } from 'containers/Form';
 import addressValidationSchema from './addressValidationSchema';
 import { useStyles } from './styles';
 

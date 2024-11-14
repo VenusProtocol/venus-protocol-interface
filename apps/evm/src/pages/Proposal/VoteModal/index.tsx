@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Form, Formik } from 'formik';
 
-import { FormikSubmitButton, FormikTextField, Modal, TextField } from 'components';
+import { Modal, TextField } from 'components';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 
+import { FormikSubmitButton, FormikTextField } from 'containers/Form';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 

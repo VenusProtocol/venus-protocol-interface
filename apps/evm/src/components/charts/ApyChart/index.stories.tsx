@@ -1,8 +1,6 @@
 import type { Meta } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
-
 import { ApyChart, type ApyChartItem, BorrowApyChart, SupplyApyChart } from '.';
 
 const data: ApyChartItem[] = [
@@ -46,7 +44,6 @@ const data: ApyChartItem[] = [
 export default {
   title: 'Components/charts/ApyChart',
   component: ApyChart,
-  decorators: [withThemeProvider, withCenterStory({ width: 700 })],
 } as Meta<typeof ApyChart>;
 
 export const SupplyAPY = () => <SupplyApyChart data={data} selectedPeriod="year" />;

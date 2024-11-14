@@ -4,8 +4,6 @@ import { useCallback, useMemo } from 'react';
 import {
   ApproveTokenSteps,
   type ApproveTokenStepsProps,
-  FormikSubmitButton,
-  FormikTokenTextField,
   LabeledInlineContent,
   NoticeWarning,
   SpendingLimit,
@@ -19,6 +17,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 import { cn, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
+import { FormikSubmitButton, FormikTokenTextField } from 'containers/Form';
 import TEST_IDS from './testIds';
 
 export interface TransactionFormUiProps {

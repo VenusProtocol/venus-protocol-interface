@@ -1,7 +1,5 @@
 import type { Meta } from '@storybook/react';
 
-import { withCenterStory } from 'stories/decorators';
-
 import {
   Button,
   type ButtonProps,
@@ -18,7 +16,6 @@ import {
 export default {
   title: 'Components/Button',
   component: Button,
-  decorators: [withCenterStory({ width: 250 })],
 } as Meta<typeof Button>;
 
 interface PresentationProps {

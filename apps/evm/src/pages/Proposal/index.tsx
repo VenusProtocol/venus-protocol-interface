@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { commands as fakeCommands } from '__mocks__/models/proposalCommands';
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
-import { Button, NoticeInfo, Page, Redirect, Spinner } from 'components';
+import { Button, NoticeInfo, Page, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { type UseVoteParams } from 'hooks/useVote';
@@ -15,6 +15,7 @@ import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet'
 import { ProposalState, type Proposal as ProposalType } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
+import { Redirect } from 'containers/Redirect';
 import { Commands } from './Commands';
 import { Description } from './Description';
 import ProposalSummary from './ProposalSummary';

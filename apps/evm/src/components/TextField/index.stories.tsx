@@ -3,14 +3,12 @@ import type { Meta } from '@storybook/react';
 import { xvs } from '__mocks__/models/tokens';
 
 import { Button } from 'components';
-import { withCenterStory } from 'stories/decorators';
 
 import { TextField } from '.';
 
 export default {
   title: 'Components/TextField',
   component: TextField,
-  decorators: [withCenterStory({ width: 600 })],
 } as Meta<typeof TextField>;
 
 export const Default = () => <TextField placeholder="0.0" type="number" min={0} />;

@@ -1,14 +1,11 @@
 import type { Meta } from '@storybook/react';
 import { State } from 'react-powerplug';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
-
 import { Toggle } from '.';
 
 export default {
   title: 'Components/Toggle',
   component: Toggle,
-  decorators: [withCenterStory({ width: 400 }), withThemeProvider],
 } as Meta<typeof Toggle>;
 
 const initialState: { value: boolean } = {

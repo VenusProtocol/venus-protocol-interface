@@ -1,24 +1,24 @@
 import { useTranslation } from 'libs/translations';
 
-import { ApprovalSteps, type ApprovalStepsProps } from '../ApprovalSteps';
+import { ApprovalSteps, type ApprovalStepsProps } from '../../../../../components/ApprovalSteps';
 
-export type ApproveDelegateStepsProps = {
+export interface ApproveDelegateStepsProps
+  extends Pick<ApprovalStepsProps, 'secondStepButtonLabel' | 'className' | 'children'> {
   approveDelegateeAction: () => Promise<unknown>;
-  isDelegateeApproved: boolean | undefined;
   isDelegateeApprovedLoading: boolean;
   isApproveDelegateeLoading: boolean;
   hideDelegateeApprovalStep?: boolean;
-} & ApprovalStepsProps;
+  isDelegateeApproved?: boolean;
+}
 
 export const ApproveDelegateSteps: React.FC<ApproveDelegateStepsProps> = ({
   approveDelegateeAction,
   isDelegateeApproved,
   isDelegateeApprovedLoading,
   isApproveDelegateeLoading,
-  secondStepButtonLabel,
-  className,
   children,
   hideDelegateeApprovalStep,
+  ...otherProps
 }) => {
   const { t } = useTranslation();
 
@@ -30,7 +30,6 @@ export const ApproveDelegateSteps: React.FC<ApproveDelegateStepsProps> = ({
 
   return (
     <ApprovalSteps
-      className={className}
       showApprovalSteps={showApproveDelegateStep}
       isApprovalActionLoading={isApproveDelegateeLoading}
       approvalAction={approveDelegateeAction}
@@ -38,8 +37,7 @@ export const ApproveDelegateSteps: React.FC<ApproveDelegateStepsProps> = ({
       firstStepTooltip={t('approveDelegateSteps.approveDelegateButton.tooltip')}
       firstStepButtonLabel={t('approveDelegateSteps.approveDelegateButton.text')}
       secondStepLabel={t('approveTokenSteps.step2')}
-      secondStepButtonLabel={secondStepButtonLabel}
-      isApproved={isDelegateeApproved}
+      {...otherProps}
     >
       {children}
     </ApprovalSteps>

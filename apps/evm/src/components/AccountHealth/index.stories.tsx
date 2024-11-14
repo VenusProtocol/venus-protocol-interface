@@ -1,43 +1,18 @@
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { withCenterStory } from 'stories/decorators';
-
-import { AccountHealth, BorrowBalanceAccountHealth, BorrowLimitUsedAccountHealth } from '.';
+import { AccountHealth } from '.';
 
 export default {
-  title: 'Components/ProgressBar/AccountHealth',
+  title: 'Components/AccountHealth',
   component: AccountHealth,
-  decorators: [withCenterStory({ width: 600 })],
+  args: {
+    borrowBalanceCents: 30243,
+    borrowLimitCents: 737300,
+    safeBorrowLimitPercentage: 80,
+    variant: 'borrowBalance',
+  },
 } as Meta<typeof AccountHealth>;
 
-export const BorrowBalanceAccountHealthWithValues = () => (
-  <BorrowBalanceAccountHealth
-    borrowBalanceCents={30243}
-    borrowLimitCents={737300}
-    safeBorrowLimitPercentage={80}
-  />
-);
+type Story = StoryObj<typeof AccountHealth>;
 
-export const BorrowLimitUsedAccountHealthWithValues = () => (
-  <BorrowLimitUsedAccountHealth
-    borrowBalanceCents={30243}
-    borrowLimitCents={737300}
-    safeBorrowLimitPercentage={80}
-  />
-);
-
-export const BorrowBalanceAccountHealthWithZeroValues = () => (
-  <BorrowBalanceAccountHealth
-    borrowBalanceCents={0}
-    borrowLimitCents={0}
-    safeBorrowLimitPercentage={80}
-  />
-);
-
-export const BorrowBalanceAccountHealthWithUndefinedValues = () => (
-  <BorrowBalanceAccountHealth
-    borrowBalanceCents={undefined}
-    borrowLimitCents={undefined}
-    safeBorrowLimitPercentage={80}
-  />
-);
+export const Default: Story = {};

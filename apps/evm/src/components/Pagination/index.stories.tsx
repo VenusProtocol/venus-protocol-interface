@@ -2,7 +2,6 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
 import { Pagination } from '.';
@@ -10,7 +9,6 @@ import { Pagination } from '.';
 export default {
   title: 'Components/Pagination',
   component: Pagination,
-  decorators: [withThemeProvider, withCenterStory({ width: 800 })],
   parameters: {
     backgrounds: {
       default: PALETTE.background.default,

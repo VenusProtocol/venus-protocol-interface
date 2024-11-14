@@ -1145,7 +1145,7 @@
       "title": "Commands"
     },
     "countdownFormat": {
-      "daysIncluded": "{{days}}d {{hours}}h : {{minutes}}m : {{seconds}}s",
+      "daysIncluded": "{{days}}d : {{hours}}h : {{minutes}}m : {{seconds}}s",
       "hoursIncluded": "{{hours}}h : {{minutes}}m : {{seconds}}s",
       "minutesIncluded": "{{minutes}}m : {{seconds}}s",
       "secondsIncluded": "{{seconds}}s"

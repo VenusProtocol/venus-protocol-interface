@@ -3,8 +3,9 @@ import MuiTooltip, { type TooltipProps as MUITooltipProps } from '@mui/material/
 
 import { useStyles } from './styles';
 
-export interface TooltipProps extends MUITooltipProps {
+export interface TooltipProps extends Omit<MUITooltipProps, 'children'> {
   title: string | React.ReactElement;
+  children: React.ReactNode;
 }
 
 export const Tooltip = ({ children, placement = 'top', ...rest }: TooltipProps) => {

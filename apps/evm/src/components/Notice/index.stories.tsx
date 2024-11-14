@@ -1,13 +1,10 @@
 import type { Meta } from '@storybook/react';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
-
 import { Notice } from '.';
 
 export default {
   title: 'Components/Notice',
   component: Notice,
-  decorators: [withThemeProvider, withCenterStory({ width: 500 })],
 } as Meta<typeof Notice>;
 
 export const Default = () => (

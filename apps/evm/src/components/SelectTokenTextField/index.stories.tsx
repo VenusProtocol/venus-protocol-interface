@@ -5,7 +5,6 @@ import { State } from 'react-powerplug';
 
 import { busd, wbnb, xvs } from '__mocks__/models/tokens';
 
-import { withCenterStory } from 'stories/decorators';
 import type { Token, TokenBalance } from 'types';
 
 import { SelectTokenTextField } from '.';
@@ -13,7 +12,6 @@ import { SelectTokenTextField } from '.';
 export default {
   title: 'Components/SelectTokenTextField',
   component: SelectTokenTextField,
-  decorators: [withCenterStory({ width: 600 })],
 } as Meta<typeof SelectTokenTextField>;
 
 const tokenBalances: TokenBalance[] = [

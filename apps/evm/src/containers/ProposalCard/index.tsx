@@ -6,7 +6,7 @@ import { Card } from 'components';
 import { Link } from 'containers/Link';
 import type { VoteSupport } from 'types';
 
-import { Chip } from '../Chip';
+import { Chip } from '../../components/Chip';
 import { useStyles } from './styles';
 
 interface ProposalCardProps {

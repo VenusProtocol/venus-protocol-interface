@@ -1,5 +1,5 @@
 import '../src/assets/styles/index.scss';
-import { withRouter, withThemeProvider } from '../src/stories/decorators';
+import { withPadding, withRouter, withThemeProvider } from '../src/stories/decorators';
 
 import initializeLibraries from '../src/initializeLibraries';
 import { theme } from '../src/theme';
@@ -8,7 +8,6 @@ initializeLibraries();
 
 export const parameters = {
   layout: 'fullscreen',
-  actions: { argTypesRegex: '^on[A-Z].*' },
   backgrounds: {
     default: 'Default',
     values: [
@@ -28,4 +27,5 @@ export const parameters = {
   },
 };
 
-export const decorators = [withRouter, withThemeProvider];
+export const decorators = [withRouter, withThemeProvider, withPadding];
+export const tags = ['autodocs'];

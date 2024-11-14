@@ -1,7 +1,6 @@
-import type { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { State } from 'react-powerplug';
 
-import { withCenterStory } from 'stories/decorators';
 import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
 
 import { TagGroup } from '.';
@@ -9,13 +8,12 @@ import { TagGroup } from '.';
 export default {
   title: 'Components/TagGroup',
   component: TagGroup,
-  decorators: [withCenterStory({ width: 1200 })],
   parameters: {
     backgrounds: {
       default: PALETTE.background.default,
     },
   },
-} as ComponentMeta<typeof TagGroup>;
+} as Meta<typeof TagGroup>;
 
 const initialData: { activeTagIndex: number } = {
   activeTagIndex: 0,

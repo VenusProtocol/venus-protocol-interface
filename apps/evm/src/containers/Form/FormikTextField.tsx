@@ -1,7 +1,7 @@
 import { useField } from 'formik';
 
+import { TextField, type TextFieldProps } from 'components';
 import { useEffect } from 'react';
-import { TextField, type TextFieldProps } from '../TextField';
 
 interface FormikTextFieldProps extends Omit<TextFieldProps, 'name' | 'onChange' | 'value'> {
   name: string;

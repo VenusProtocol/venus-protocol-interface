@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { ApproveDelegateSteps, type ApproveDelegateStepsProps, PrimaryButton } from 'components';
+import { PrimaryButton } from 'components';
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
+import { ApproveDelegateSteps, type ApproveDelegateStepsProps } from '../../ApproveDelegateSteps';
 
 export interface SubmitSectionProps {
   isFormValid: boolean;

@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import BigNumber from 'bignumber.js';
-import { AddTokenToWalletButton, Card } from 'components';
 import { useMemo, useState } from 'react';
 
 import { useGetPrimeStatus } from 'clients/api';
+import { Card } from 'components';
 import { Button, NoticeWarning, TokenIcon } from 'components';
+import { AddTokenToWalletButton } from 'containers/AddTokenToWalletButton';
 import PrimeStatusBanner from 'containers/PrimeStatusBanner';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';

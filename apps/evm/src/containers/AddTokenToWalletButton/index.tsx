@@ -3,8 +3,8 @@ import { useTranslation } from 'libs/translations';
 import { useAddTokenToWallet } from 'libs/wallet';
 import type { Token } from 'types';
 import { cn } from 'utilities';
-import { type ButtonProps, TertiaryButton } from '../Button';
-import { Icon } from '../Icon';
+import { type ButtonProps, TertiaryButton } from '../../components/Button';
+import { Icon } from '../../components/Icon';
 
 export interface AddTokenToWalletButtonProps extends Omit<ButtonProps, 'onClick' | 'variant'> {
   isUserConnected: boolean;

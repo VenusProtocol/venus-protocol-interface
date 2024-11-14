@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 
-import { Button, type ButtonProps } from '../Button';
+import { Button, type ButtonProps } from 'components';
 
 interface FormikSubmitButtonProps extends ButtonProps {
   disabledLabel?: string;

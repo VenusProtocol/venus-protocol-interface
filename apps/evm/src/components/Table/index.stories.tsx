@@ -1,15 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import type { Meta } from '@storybook/react';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
-
 import { Table } from '.';
 import { columns, data, orderableColumns, useTableStyles } from './storiesUtils';
 
 export default {
   title: 'Components/Table',
   component: Table,
-  decorators: [withCenterStory({ width: 800 }), withThemeProvider],
   parameters: {
     backgrounds: {
       default: 'White',

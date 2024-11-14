@@ -1,17 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import type { SerializedStyles } from '@emotion/react';
 import Typography from '@mui/material/Typography';
-import { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
-import {
-  ActiveVotingProgress,
-  Countdown,
-  Icon,
-  type IconName,
-  ProposalCard,
-  ProposalTypeChip,
-} from 'components';
+import { ActiveVotingProgress, Countdown, Icon, type IconName, ProposalTypeChip } from 'components';
 import { routes } from 'constants/routing';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -19,6 +11,7 @@ import { useAccountAddress } from 'libs/wallet';
 import { type ProposalPreview, ProposalState, ProposalType, type Token, VoteSupport } from 'types';
 import { getProposalStateLabel } from 'utilities/getProposalStateLabel';
 
+import { ProposalCard } from 'containers/ProposalCard';
 import greenPulseAnimation from './greenPulseAnimation.gif';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -155,12 +148,6 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
     }
   }, [userVoteSupport, t]);
 
-  const votedTotalMantissa = BigNumber.sum.apply(null, [
-    forVotesMantissa || 0,
-    againstVotesMantissa || 0,
-    abstainedVotesMantissa || 0,
-  ]);
-
   const [statusDate, statusKey] = useMemo(() => {
     switch (state) {
       case ProposalState.Active:
@@ -198,7 +185,6 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
             votedForMantissa={forVotesMantissa}
             votedAgainstMantissa={againstVotesMantissa}
             abstainedMantissa={abstainedVotesMantissa}
-            votedTotalMantissa={votedTotalMantissa}
             xvs={xvs}
           />
         ) : (

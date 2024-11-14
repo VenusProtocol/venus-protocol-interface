@@ -1,13 +1,10 @@
 import type { Meta } from '@storybook/react';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { ProgressBar } from '.';
 
 export default {
   title: 'Components/ProgressBar',
   component: ProgressBar,
-  decorators: [withCenterStory({ width: 600 })],
 } as Meta<typeof ProgressBar>;
 
 export const ValidProgressBar = () => (

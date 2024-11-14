@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { FormikMarkdownEditor, FormikSelectField, FormikTextField } from 'components';
 import { useTranslation } from 'libs/translations';
 import { ProposalType } from 'types';
 
+import { FormikMarkdownEditor, FormikSelectField, FormikTextField } from 'containers/Form';
 import { ErrorCode } from '../proposalSchema';
 import { useStyles } from '../styles';
 

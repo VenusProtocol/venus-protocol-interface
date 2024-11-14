@@ -1,13 +1,10 @@
 import type { Meta } from '@storybook/react';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { type Cell, CellGroup } from '.';
 
 export default {
   title: 'Components/CellGroup',
   component: CellGroup,
-  decorators: [withCenterStory({ width: '100%' })],
   parameters: {
     backgrounds: {
       default: 'Primary',

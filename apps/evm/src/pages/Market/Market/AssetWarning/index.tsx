@@ -3,10 +3,8 @@ import { useState } from 'react';
 import { useTranslation } from 'libs/translations';
 import type { Pool, Token } from 'types';
 
+import { Modal, Notice, TextButton } from 'components';
 import { MarketTable } from 'containers/MarketTable';
-import { TextButton } from '../Button';
-import { Modal } from '../Modal';
-import { Notice } from '../Notice';
 import TEST_IDS from './testIds';
 import type { WarningType } from './types';
 
