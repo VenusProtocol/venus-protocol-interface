@@ -148,7 +148,7 @@ export const CHAIN_METADATA: {
     nativeToken: getToken({ chainId: ChainId.ZKSYNC_MAINNET, symbol: 'ETH' })!,
     rpcUrl: 'https://open-platform.nodereal.io/7fab7575d1c34150a9ee582167ffac6f/zksync',
     marketsSubgraphUrl:
-      'https://gateway.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/QmZRQNSYcGeq8oextwVUzKm9aoDM7xogJxtdFv5Qu34hCw',
+      'https://gateway.thegraph.com/api/43fa98f50f96a8e1b63423e8ead8c6dc/deployments/id/Qma87oPwwDfvsmBySPJQLsFKc8JXBQaJvS12MYGGku2bRG',
   },
   [ChainId.OPTIMISM_MAINNET]: {
     name: 'Optimism',
