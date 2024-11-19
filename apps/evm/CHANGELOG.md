@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.173.0
+
+### Minor Changes
+
+- 934b7d1: update Markets subgraph URL on zkSync
+
+### Patch Changes
+
+- c950ee9: upgrade Vite to 5.4.11 and Vitest to 2.1.5
+
 ## 2.172.2
 
 ### Patch Changes
