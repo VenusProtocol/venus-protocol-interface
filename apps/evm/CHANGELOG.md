@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.173.1
+
+### Patch Changes
+
+- cc1e069: fix RPC url on Arbitrum Sepolia
+
 ## 2.173.0
 
 ### Minor Changes
