@@ -124,7 +124,7 @@ export const CHAIN_METADATA: {
       symbol: 'ETH',
     })!,
     rpcUrl:
-      'https://rpcUrl.ankr.com/arbitrum_sepolia/451c00a15d3de617618d7a880cec1da8065b10906c460b1462a8b8769d91e0da',
+      'https://rpc.ankr.com/arbitrum_sepolia/451c00a15d3de617618d7a880cec1da8065b10906c460b1462a8b8769d91e0da',
     marketsSubgraphUrl:
       'https://api.studio.thegraph.com/query/64786/venus-il-arbitrumsepolia/version/latest',
   },
