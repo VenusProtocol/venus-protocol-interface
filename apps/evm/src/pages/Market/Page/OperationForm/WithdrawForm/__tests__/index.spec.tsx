@@ -11,7 +11,7 @@ import { getVTokenBalanceOf, withdraw } from 'clients/api';
 import { en } from 'libs/translations';
 import type { Asset, Pool } from 'types';
 
-import Withdraw from '../';
+import Withdraw from '..';
 import { fakeAsset, fakePool, fakeVTokenBalanceMantissa } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 

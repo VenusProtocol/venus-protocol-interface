@@ -1,4 +1,4 @@
-import { Card, Page } from 'components';
+import { Card, Page as PaceComp } from 'components';
 import type { Asset, Pool } from 'types';
 
 import AssetWarning from './AssetWarning';
@@ -7,13 +7,13 @@ import { MarketHistory } from './MarketHistory';
 import MarketInfo from './MarketInfo';
 import { OperationForm } from './OperationForm';
 
-export interface MarketProps {
+export interface PageProps {
   asset: Asset;
   pool: Pool;
 }
 
-export const Market: React.FC<MarketProps> = ({ asset, pool }) => (
-  <Page indexWithSearchEngines={false}>
+export const Page: React.FC<PageProps> = ({ asset, pool }) => (
+  <PaceComp indexWithSearchEngines={false}>
     <div className="py-6 md:py-8 xl:py-12">
       <AssetWarning
         token={asset.vToken.underlyingToken}
@@ -37,5 +37,5 @@ export const Market: React.FC<MarketProps> = ({ asset, pool }) => (
         </div>
       </div>
     </div>
-  </Page>
+  </PaceComp>
 );

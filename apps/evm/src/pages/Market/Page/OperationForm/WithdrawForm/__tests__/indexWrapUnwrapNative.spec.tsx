@@ -11,7 +11,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import { useGetVTokenBalanceOf, withdraw } from 'clients/api';
 import { en } from 'libs/translations';
-import Withdraw from '../';
+import Withdraw from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 

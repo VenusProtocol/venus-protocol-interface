@@ -1,6 +1,6 @@
 import MarketLoader from 'containers/MarketLoader';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { Market } from '../Market';
+import { Page } from '../Page';
 
 const LidoMarket: React.FC = () => {
   const { lstPoolComptrollerContractAddress, lstPoolVWstEthContractAddress } =
@@ -11,7 +11,7 @@ const LidoMarket: React.FC = () => {
       poolComptrollerAddress={lstPoolComptrollerContractAddress}
       vTokenAddress={lstPoolVWstEthContractAddress}
     >
-      {marketProps => <Market {...marketProps} />}
+      {marketProps => <Page {...marketProps} />}
     </MarketLoader>
   );
 };
