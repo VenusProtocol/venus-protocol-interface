@@ -7,6 +7,7 @@ import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 import { useTranslation } from 'libs/translations';
 import { ProposalType } from 'types';
 
+import { governanceChain } from 'libs/wallet';
 import type { FormValues } from '../proposalSchema';
 import { useStyles } from './styles';
 
@@ -99,6 +100,7 @@ const ProposalPreview: React.FC = () => {
           <ReadableActionSignature
             key={`proposal-preview-readable-action-signature-${action.signature}-${action.target}-${action.callData}`}
             action={action}
+            chainId={governanceChain.id}
           />
         ))}
       </div>

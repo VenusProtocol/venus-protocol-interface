@@ -5,8 +5,10 @@ import { Card, MarkdownViewer } from 'components';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 import { useTranslation } from 'libs/translations';
 import type { DescriptionV1, DescriptionV2, ProposalAction } from 'types';
+import TEST_IDS from '../testIds';
 
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { governanceChain } from 'libs/wallet';
 import { useStyles } from './styles';
 
 interface DescriptionSummary {
@@ -19,11 +21,11 @@ export const Description: React.FC<DescriptionSummary> = ({ className, descripti
   const styles = useStyles();
   const { t } = useTranslation();
   const isMultichainGovernanceFeatureEnabled = useIsFeatureEnabled({
-    name: 'multichainGovernance',
+    name: 'omnichainGovernance',
   });
 
   return (
-    <Card css={styles.root} className={className}>
+    <Card css={styles.root} className={className} data-testid={TEST_IDS.description}>
       <div css={styles.content}>
         <Typography variant="h4" color="textSecondary">
           {t('voteProposalUi.description')}
@@ -63,6 +65,7 @@ export const Description: React.FC<DescriptionSummary> = ({ className, descripti
               <ReadableActionSignature
                 key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
                 action={action}
+                chainId={governanceChain.id}
               />
             ))}
           </>

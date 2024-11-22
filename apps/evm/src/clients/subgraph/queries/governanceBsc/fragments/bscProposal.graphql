@@ -1,0 +1,92 @@
+fragment BscProposal on Proposal {
+  id
+  proposalId
+  startBlock
+  endBlock
+  forVotes
+  againstVotes
+  abstainVotes
+  executionEta
+  type
+  description
+  passing
+  targets
+  values
+  signatures
+  calldatas
+
+  proposer {
+    id
+  }
+
+  created {
+    id
+    timestamp
+    txHash
+  }
+
+  executed {
+    id
+    timestamp
+    txHash
+  }
+
+  canceled {
+    id
+    timestamp
+    txHash
+  }
+
+  queued {
+    id
+    timestamp
+    txHash
+  }
+
+  votes {
+    id
+    support
+    votes
+    reason
+
+    voter {
+      id
+      totalVotesMantissa
+    }
+  }
+
+  remoteProposals {
+    id
+    proposalId
+
+    targets
+    values
+    signatures
+    calldatas
+
+    trustedRemote {
+      id
+      layerZeroChainId
+    }
+
+    stateTransactions {
+      stored {
+        id
+        timestamp
+        txHash
+      }
+
+      executed {
+        id
+        timestamp
+        txHash
+      }
+
+      withdrawn {
+        id
+        timestamp
+        txHash
+      }
+    }
+  }
+}

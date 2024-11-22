@@ -1,9 +1,16 @@
-import proposalPreviewsResponse from '__mocks__/subgraph/proposalPreviews.json';
+import bscProposalsResponse from '__mocks__/subgraph/bscProposals.json';
+import nonBscProposalsResponse from '__mocks__/subgraph/nonBscProposals.json';
 
-export * from '../gql';
 export * from '../queries/isolatedPools/getIsolatedPoolParticipantsCount';
-export * from '../queries/governance/getProposalPreviews';
-export * from '../utilities/formatToProposalPreview';
+export * from '../queries/governanceBsc/getBscProposals';
+export * from '../utilities/formatToProposal';
+export * from '../utilities/enrichRemoteProposals';
 
-export const getProposalPreviews = vi.fn(async () => proposalPreviewsResponse);
+export const getBscProposals = vi.fn(async () => bscProposalsResponse);
+export const getBscProposal = vi.fn(async () => ({
+  proposal: bscProposalsResponse.proposals[0],
+}));
+
+export const getNonBscProposals = vi.fn(async () => nonBscProposalsResponse);
+
 export const getIsolatedPoolParticipantsCount = vi.fn();

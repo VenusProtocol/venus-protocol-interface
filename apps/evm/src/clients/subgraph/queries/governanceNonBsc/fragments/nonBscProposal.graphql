@@ -1,0 +1,23 @@
+fragment NonBscProposal on Proposal {
+  id
+  proposalId
+  executionEta
+
+  queued {
+    id
+    timestamp
+    txHash
+  }
+  
+  canceled {
+    id
+    timestamp
+    txHash
+  }
+  
+  executed {
+    id
+    timestamp
+    txHash
+  }
+}

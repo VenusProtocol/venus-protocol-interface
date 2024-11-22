@@ -116,14 +116,14 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
         <NoticeInfo
           className="mt-4 w-full md:mt-6"
           data-testid={TEST_IDS.votingDisabledWarning}
-          title={t('vote.multichain.votingOnlyEnabledOnBnb')}
+          title={t('vote.omnichain.votingOnlyEnabledOnBnb')}
           description={
             <Button
               className="h-auto"
               variant="text"
               onClick={() => switchChain({ chainId: governanceChain.id })}
             >
-              {t('vote.multichain.switchToBnb')}
+              {t('vote.omnichain.switchToBnb')}
             </Button>
           }
         />

@@ -57,12 +57,12 @@ export const useStyles = () => {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
       ${theme.breakpoints.down('sm')} {
         flex-direction: row;
         border-left: none;
         border-top: 1px solid ${theme.palette.secondary.light};
-        padding-top: ${theme.spacing(10)};
-        padding-bottom: ${theme.spacing(10)};
+        padding: ${theme.spacing(6)};
       }
     `,
   };

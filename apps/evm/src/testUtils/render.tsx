@@ -26,15 +26,15 @@ interface Options {
   chainId?: ChainId;
   routerInitialEntries?: string[];
   routePath?: string;
+  queryClient?: QueryClient;
 }
 
 interface WrapperProps {
-  queryClient: QueryClient;
   children?: React.ReactNode;
   options?: Partial<Options>;
 }
 
-const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => {
+const Wrapper: React.FC<WrapperProps> = ({ children, options }) => {
   if (options?.accountAddress) {
     const accountAddress = options?.accountAddress;
 
@@ -58,7 +58,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => 
 
   return (
     <MuiThemeProvider>
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={options?.queryClient || createQueryClient()}>
         <Web3Wrapper>
           <MemoryRouter initialEntries={options?.routerInitialEntries || ['/']}>
             <Routes>
@@ -71,31 +71,15 @@ const Wrapper: React.FC<WrapperProps> = ({ children, queryClient, options }) => 
   );
 };
 
-export const renderComponent = (children: ReactElement, options?: Partial<Options>) => {
-  const queryClient = createQueryClient();
-
-  const renderRes = renderComponentTl(children, {
-    wrapper: props => <Wrapper queryClient={queryClient} options={options} {...props} />,
+export const renderComponent = (children: ReactElement, options?: Partial<Options>) =>
+  renderComponentTl(children, {
+    wrapper: props => <Wrapper options={options} {...props} />,
   });
-
-  return {
-    ...renderRes,
-    queryClient,
-  };
-};
 
 export const renderHook = <TProps, TResult>(
   hook: (props: TProps) => TResult,
   options?: Partial<Options>,
-) => {
-  const queryClient = createQueryClient();
-
-  const renderRes = renderHookTl(hook, {
-    wrapper: props => <Wrapper queryClient={queryClient} options={options} {...props} />,
+) =>
+  renderHookTl(hook, {
+    wrapper: props => <Wrapper options={options} {...props} />,
   });
-
-  return {
-    ...renderRes,
-    queryClient,
-  };
-};

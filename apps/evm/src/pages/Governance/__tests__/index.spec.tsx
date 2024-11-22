@@ -1,11 +1,11 @@
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import type Vi from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import { proposalPreviews } from '__mocks__/models/proposalPreviews';
+import { proposals } from '__mocks__/models/proposals';
 import { vaults } from '__mocks__/models/vaults';
 import { renderComponent } from 'testUtils/render';
 
@@ -45,6 +45,20 @@ describe('Governance', () => {
 
   it('renders without crashing', async () => {
     renderComponent(<Governance />);
+  });
+
+  it('displays proposals correctly', async () => {
+    renderComponent(<Governance />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    // Wait for list to be displayed
+    const firstProposalId = proposals[0].proposalId.toString();
+    await waitFor(async () =>
+      screen.getByTestId(GOVERNANCE_PROPOSAL_TEST_IDS.governanceProposal(firstProposalId)),
+    );
+
+    expect(screen.getByTestId(TEST_IDS.proposalList).textContent).toMatchSnapshot();
   });
 
   it('opens create proposal modal when clicking text if user has enough voting weight', async () => {
@@ -223,7 +237,7 @@ describe('Governance', () => {
 
   it('proposals navigate to details', async () => {
     const { getByTestId } = renderComponent(<Governance />);
-    const firstProposalId = proposalPreviews[0].proposalId.toString();
+    const firstProposalId = proposals[0].proposalId.toString();
 
     // Getting all because the cards are rendered twice (once for mobile and once for larger screens)
     const firstProposalAnchor = await waitFor(async () =>

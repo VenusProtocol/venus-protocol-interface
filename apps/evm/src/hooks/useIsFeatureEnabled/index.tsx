@@ -107,11 +107,13 @@ export const featureFlags = {
     ChainId.OPTIMISM_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
   ],
-  multichainGovernance: [
+  omnichainGovernance: [
     ChainId.BSC_TESTNET,
     ChainId.SEPOLIA,
+    ChainId.ETHEREUM,
     ChainId.OPBNB_TESTNET,
     ChainId.ARBITRUM_SEPOLIA,
+    ChainId.ARBITRUM_ONE,
     ChainId.ZKSYNC_SEPOLIA,
     ChainId.OPTIMISM_SEPOLIA,
   ],

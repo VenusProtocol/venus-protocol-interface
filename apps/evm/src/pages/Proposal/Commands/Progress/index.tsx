@@ -1,20 +1,20 @@
-import { Icon, ProgressCircle } from 'components';
+import { Icon, LabeledProgressCircle } from 'components';
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 
 export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
-  successfulPayloadsCount: number;
+  executedPayloadsCount: number;
   totalPayloadsCount: number;
 }
 
 export const Progress: React.FC<ProgressProps> = ({
   className,
-  successfulPayloadsCount,
+  executedPayloadsCount,
   totalPayloadsCount,
   ...otherProps
 }) => {
   const { t } = useTranslation();
-  const isComplete = successfulPayloadsCount === totalPayloadsCount;
+  const isComplete = executedPayloadsCount === totalPayloadsCount;
 
   return (
     <div className={cn('flex items-center', className)} {...otherProps}>
@@ -27,18 +27,7 @@ export const Progress: React.FC<ProgressProps> = ({
       {isComplete ? (
         <Icon name="mark" className="ml-2 text-green w-3 h-3" />
       ) : (
-        <div className="relative ml-3 w-12 h-12 flex items-center justify-center">
-          <ProgressCircle
-            strokeWidthPx={4}
-            sizePx={50}
-            className="absolute inset"
-            value={(successfulPayloadsCount * 100) / totalPayloadsCount}
-          />
-
-          <p className="text-sm text-center">
-            {successfulPayloadsCount}/{totalPayloadsCount}
-          </p>
-        </div>
+        <LabeledProgressCircle value={executedPayloadsCount} total={totalPayloadsCount} />
       )}
     </div>
   );
