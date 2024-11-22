@@ -1,94 +1,31 @@
-import { AccordionAnimatedContent, Icon } from 'components';
+import { useState } from 'react';
+
+import { Icon } from 'components';
 import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { ReadableActionSignature } from 'containers/ReadableActionSignature';
-import { isAfter } from 'date-fns/isAfter';
-import { useNow } from 'hooks/useNow';
-import { useTranslation } from 'libs/translations';
-import { useMemo, useState } from 'react';
-import { type ProposalCommand, ProposalCommandState } from 'types';
+import type { ChainId, ProposalAction } from 'types';
 import { cn } from 'utilities';
 import TEST_IDS from '../../testIds';
-import { Cta } from './Cta';
-import { StepInfo } from './StepInfo';
-import { useCommand } from './useCommand';
+import { ActionsAccordion } from './ActionsAccordion';
 
-export type CommandProps = React.HTMLAttributes<HTMLDivElement> & ProposalCommand & {};
+export interface CommandProps extends React.HTMLAttributes<HTMLDivElement> {
+  chainId: ChainId;
+  proposalActions: ProposalAction[];
+  description?: React.ReactElement;
+  contentRightItem?: React.ReactElement;
+  contentBottomItem?: React.ReactElement;
+}
 
 export const Command: React.FC<CommandProps> = ({
   chainId,
-  state,
-  actionSignatures,
-  bridgedAt,
-  canceledAt,
-  queuedAt,
-  succeededAt,
-  failedExecutionAt,
-  executableAt,
-  executedAt,
-  expiredAt,
+  proposalActions,
+  description,
+  contentRightItem,
+  contentBottomItem,
   ...otherProps
 }) => {
   const chainMetadata = CHAIN_METADATA[chainId];
-  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const toggleAccordion = () => setIsOpen(prevState => !prevState);
-  const now = useNow();
-
-  const { isOnWrongChain, isExecutable, hasFailedExecution } = useCommand({
-    chainId,
-    state,
-    executableAt,
-    failedExecutionAt,
-    executedAt,
-  });
-
-  const description = useMemo(() => {
-    switch (state) {
-      case ProposalCommandState.Pending:
-        return t('voteProposalUi.command.description.pending');
-      case ProposalCommandState.Bridged:
-        return t('voteProposalUi.command.description.bridged');
-      case ProposalCommandState.Canceled:
-        return t('voteProposalUi.command.description.canceled');
-      case ProposalCommandState.Queued:
-        if (!executableAt || isAfter(executableAt, now)) {
-          return t('voteProposalUi.command.description.waitingToBeExecutable');
-        }
-
-        if (isOnWrongChain) {
-          return t('voteProposalUi.command.description.wrongChain', {
-            chainName: chainMetadata.name,
-          });
-        }
-
-        if (hasFailedExecution) {
-          return t('voteProposalUi.command.description.executionFailed');
-        }
-        break;
-    }
-  }, [t, state, executableAt, hasFailedExecution, now, chainMetadata, isOnWrongChain]);
-
-  const accordionContentDom = (
-    <div className="pt-3 text-sm md:ml-8">
-      <div className="flex items-center">
-        <Icon name="document" className="mr-2 w-5 h-5" />
-
-        <p className="text-offWhite font-semibold">
-          {t('voteProposalUi.command.operations.title')}
-        </p>
-      </div>
-
-      <div className="mt-1 break-all text-grey md:pl-7">
-        {actionSignatures.map(action => (
-          <ReadableActionSignature
-            className="text-sm"
-            key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
-            action={action}
-          />
-        ))}
-      </div>
-    </div>
-  );
 
   return (
     <div data-testid={TEST_IDS.command} {...otherProps}>
@@ -112,75 +49,28 @@ export const Command: React.FC<CommandProps> = ({
               </div>
             </div>
 
-            {!!description && (
-              <p
-                className={cn(
-                  'text-sm md:pl-8 text-grey',
-                  hasFailedExecution && 'text-red',
-                  isOnWrongChain && isExecutable && 'text-orange',
-                )}
-              >
-                {description}
-              </p>
-            )}
+            {description}
           </div>
 
-          <AccordionAnimatedContent className="hidden lg:block" isOpen={isOpen}>
-            {accordionContentDom}
-          </AccordionAnimatedContent>
+          <ActionsAccordion
+            className="hidden lg:block"
+            isOpen={isOpen}
+            chainId={chainId}
+            proposalActions={proposalActions}
+          />
         </div>
 
-        {isExecutable ? (
-          <Cta
-            className="hidden lg:block"
-            chainId={chainId}
-            state={state}
-            bridgedAt={bridgedAt}
-            canceledAt={canceledAt}
-            queuedAt={queuedAt}
-            succeededAt={succeededAt}
-            failedExecutionAt={failedExecutionAt}
-            executableAt={executableAt}
-            executedAt={executedAt}
-            expiredAt={expiredAt}
-          />
-        ) : (
-          <StepInfo
-            className="cursor-pointer"
-            onClick={toggleAccordion}
-            chainId={chainId}
-            state={state}
-            bridgedAt={bridgedAt}
-            canceledAt={canceledAt}
-            queuedAt={queuedAt}
-            succeededAt={succeededAt}
-            failedExecutionAt={failedExecutionAt}
-            executableAt={executableAt}
-            executedAt={executedAt}
-            expiredAt={expiredAt}
-          />
-        )}
+        {contentRightItem}
       </div>
 
-      <AccordionAnimatedContent className="lg:hidden" isOpen={isOpen}>
-        {accordionContentDom}
-      </AccordionAnimatedContent>
+      <ActionsAccordion
+        className="lg:hidden"
+        isOpen={isOpen}
+        chainId={chainId}
+        proposalActions={proposalActions}
+      />
 
-      {isExecutable && (
-        <Cta
-          className="mt-3 w-full lg:hidden"
-          chainId={chainId}
-          state={state}
-          bridgedAt={bridgedAt}
-          canceledAt={canceledAt}
-          queuedAt={queuedAt}
-          succeededAt={succeededAt}
-          failedExecutionAt={failedExecutionAt}
-          executableAt={executableAt}
-          executedAt={executedAt}
-          expiredAt={expiredAt}
-        />
-      )}
+      {contentBottomItem}
     </div>
   );
 };

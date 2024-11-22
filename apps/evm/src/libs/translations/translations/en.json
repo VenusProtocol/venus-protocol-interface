@@ -227,7 +227,8 @@
     "disconnect": "Disconnect"
   },
   "connectWallet": {
-    "connectButton": "Connect wallet"
+    "connectButton": "Connect wallet",
+    "switchChain": "Switch to {{chainName}}"
   },
   "convertVrt": {
     "connectWalletToWithdrawXvs": "Please connect your wallet to withdraw XVS",
@@ -273,6 +274,7 @@
     "noSignaturesKey": "There are no call signatures in the file",
     "noTargetsKey": "File does not contain the list of targets",
     "noTypeKey": "File does not indicate the proposal's type",
+    "proposalNotFound": "Proposal not found",
     "somethingWentWrong": "Something went wrong",
     "somethingWentWrongRetrievingTransactions": "Something went wrong retrieving transactions",
     "somethingWentWrongRetrievingVoterAccounts": "Something went wrong retrieving voter accounts",
@@ -683,6 +685,7 @@
   },
   "proposalState": {
     "active": "Active",
+    "bridged": "Bridged",
     "canceled": "Canceled",
     "created": "Created",
     "defeated": "Defeated",
@@ -1065,7 +1068,7 @@
     },
     "for": "For",
     "goToXvsSnapshot": "Go to XVS Snapshot",
-    "multichain": {
+    "omnichain": {
       "switchToBnb": "Switch to BNB chain",
       "votingOnlyEnabledOnBnb": "Voting is only available on the BNB chain"
     },
@@ -1109,21 +1112,25 @@
     "cancelButtonLabel": "Cancel",
     "canceledDate": "Canceled: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "command": {
-      "cta": {
+      "actionButton": {
+        "cancel": "Cancel",
         "execute": "Execute",
-        "retry": "Retry",
-        "wrongChain": "Switch to {{chainName}}"
+        "queue": "Queue"
+      },
+      "cta": {
+        "execute": "Execute"
       },
       "dates": {
-        "executableIn": "Executable on {{date, }}",
+        "activeAt": "Pending until {{date, }}",
+        "executableAt": "Executable at {{date, }}",
         "previousStep": "{{date, }}",
-        "queuedIn": "Queued on {{date, }}"
+        "queueableAt": "Queueable at {{date, }}"
       },
       "description": {
         "bridged": "Waiting for the bridge to propagate the transaction",
         "canceled": "Payload execution cancelled by governance guardian",
-        "executionFailed": "Payload execution failed. Please try again.",
-        "pending": "Waiting for the BNB chain payload to be executed",
+        "pending": "Waiting for the {{chainName}} payload to be executed",
+        "pendingBsc": "Waiting for voting to start",
         "waitingToBeExecutable": "Waiting for queueing period to end",
         "wrongChain": "This payload needs to be executed on the {{chainName}} chain"
       },
@@ -1131,13 +1138,7 @@
         "title": "Operations"
       },
       "status": {
-        "bridged": "Bridged",
-        "canceled": "Canceled",
-        "executed": "Executed",
-        "expired": "Expired",
-        "pending": "Pending",
-        "queued": "Queued",
-        "succeeded": "Succeeded"
+        "pending": "Pending"
       }
     },
     "commands": {
@@ -1155,6 +1156,7 @@
     "description": "Description",
     "executeButtonLabel": "Execute",
     "executedDate": "Executed: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "expiredDate": "Expired: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "greenPulseAnimation": {
       "altText": "Green pulse animation"
     },
@@ -1171,6 +1173,10 @@
     },
     "queueButtonLabel": "Queue",
     "queuedUntilDate": "Queued until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "status": {
+      "executedPayloads": "Executed payloads",
+      "readyForExecution": "Ready for execution"
+    },
     "statusCard": {
       "ariaLabelAbstain": "votes abstain",
       "ariaLabelAgainst": "votes against",
@@ -1178,7 +1184,8 @@
       "dateOnly": "{{date, dd MMM yyyy}}",
       "timeOnly": "{{date, h:mm a}}"
     },
-    "timeUntilExecutable": "Time until executable",
+    "timeUntilExecutable": "Executable at: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilVotable": "Voting starts at: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "voteStatus": {
       "abstained": "Abstained",
       "notVoted": "Not voted",
@@ -1193,8 +1200,7 @@
     "delegated": "Delegated",
     "delegatingTo": "Delegating to",
     "holding": "Holding",
-    "readableSent": "{{date, distanceToNow}} ago",
-    "sent": "Sent",
+    "proposalNumber": "Proposal #",
     "transactions": "Transactions",
     "undelegated": "Undelegated",
     "venusBalance": "Venus balance",

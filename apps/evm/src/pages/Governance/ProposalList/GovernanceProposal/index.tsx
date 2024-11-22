@@ -1,17 +1,23 @@
 /** @jsxImportSource @emotion/react */
-import type { SerializedStyles } from '@emotion/react';
 import Typography from '@mui/material/Typography';
 import { useMemo } from 'react';
 
-import { ActiveVotingProgress, Countdown, Icon, type IconName, ProposalTypeChip } from 'components';
+import { ActiveVotingProgress, Countdown, ProposalTypeChip } from 'components';
 import { routes } from 'constants/routing';
-import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
-import { type ProposalPreview, ProposalState, ProposalType, type Token, VoteSupport } from 'types';
-import { getProposalStateLabel } from 'utilities/getProposalStateLabel';
+import {
+  type Proposal,
+  ProposalState,
+  ProposalType,
+  RemoteProposalState,
+  type Token,
+  VoteSupport,
+} from 'types';
 
 import { ProposalCard } from 'containers/ProposalCard';
+import { useGetToken } from 'libs/tokens';
+import { useAccountAddress } from 'libs/wallet';
+import { Status } from './Status';
 import greenPulseAnimation from './greenPulseAnimation.gif';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -22,94 +28,9 @@ import TEST_IDS from './testIds';
 // t('voteProposalUi.executedDate')
 // t('voteProposalUi.queuedUntilDate')
 // t('voteProposalUi.defeatedDate')
+// t('voteProposalUi.expiredDate')
 
-interface StateCard {
-  state: ProposalState | undefined;
-}
-
-const StatusCard: React.FC<StateCard> = ({ state }) => {
-  const styles = useStyles();
-  const { t } = useTranslation();
-
-  const statusContent: Record<
-    Exclude<ProposalState, ProposalState.Active>,
-    {
-      iconWrapperCss: SerializedStyles;
-      iconName: IconName;
-      iconCss?: SerializedStyles;
-      label: string;
-    }
-  > = useMemo(() => {
-    const label = state ? getProposalStateLabel({ state }) : t('proposalState.active');
-
-    return {
-      [ProposalState.Queued]: {
-        iconWrapperCss: styles.iconDotsWrapper,
-        iconName: 'dots',
-        label,
-      },
-      [ProposalState.Pending]: {
-        iconWrapperCss: styles.iconDotsWrapper,
-        iconName: 'dots',
-        label,
-      },
-      [ProposalState.Executed]: {
-        iconWrapperCss: styles.iconMarkWrapper,
-        iconName: 'mark',
-        iconCss: styles.iconCheck,
-        label,
-      },
-      [ProposalState.Defeated]: {
-        iconWrapperCss: styles.iconCloseWrapper,
-        iconName: 'close',
-        label,
-      },
-      [ProposalState.Succeeded]: {
-        iconWrapperCss: styles.iconInfoWrapper,
-        iconName: 'exclamation',
-        label,
-      },
-      [ProposalState.Expired]: {
-        iconWrapperCss: styles.iconCloseWrapper,
-        iconName: 'close',
-        label,
-      },
-      [ProposalState.Canceled]: {
-        iconWrapperCss: styles.iconCloseWrapper,
-        iconName: 'close',
-        label,
-      },
-    };
-  }, [
-    t,
-    styles.iconCheck,
-    styles.iconCloseWrapper,
-    styles.iconDotsWrapper,
-    styles.iconInfoWrapper,
-    styles.iconMarkWrapper,
-    state,
-  ]);
-
-  if (state !== undefined && state !== ProposalState.Active) {
-    return (
-      <>
-        <div css={[styles.iconWrapper, statusContent[state].iconWrapperCss]}>
-          <Icon
-            css={[styles.icon, statusContent[state].iconCss]}
-            name={statusContent[state].iconName}
-          />
-        </div>
-        <Typography css={styles.statusText} variant="body2">
-          {statusContent[state].label}
-        </Typography>
-      </>
-    );
-  }
-
-  return null;
-};
-
-interface GovernanceProposalProps extends ProposalPreview {
+interface GovernanceProposalProps extends Proposal {
   className?: string;
   isUserConnected: boolean;
   xvs?: Token;
@@ -120,9 +41,11 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   proposalId,
   description,
   state,
+  remoteProposals,
   executedDate,
-  etaDate,
+  executionEtaDate,
   cancelDate,
+  expiredDate,
   endDate,
   userVoteSupport,
   forVotesMantissa,
@@ -157,13 +80,43 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       case ProposalState.Executed:
         return [executedDate, 'voteProposalUi.executedDate'];
       case ProposalState.Queued:
-        return [etaDate, 'voteProposalUi.queuedUntilDate'];
+        return [executionEtaDate, 'voteProposalUi.queuedUntilDate'];
       case ProposalState.Defeated:
         return [endDate, 'voteProposalUi.defeatedDate'];
+      case ProposalState.Expired:
+        return [expiredDate, 'voteProposalUi.expiredDate'];
       default:
         return [undefined, undefined];
     }
-  }, [state, cancelDate, executedDate, endDate, etaDate]);
+  }, [state, cancelDate, executedDate, endDate, executionEtaDate, expiredDate]);
+
+  const contentRightItemDom = useMemo(() => {
+    if (state === ProposalState.Active) {
+      return (
+        <ActiveVotingProgress
+          votedForMantissa={forVotesMantissa}
+          votedAgainstMantissa={againstVotesMantissa}
+          abstainedMantissa={abstainedVotesMantissa}
+          xvs={xvs}
+        />
+      );
+    }
+
+    const totalPayloadsCount = 1 + remoteProposals.length; // BSC proposal + remote proposals
+    const executedPayloadsCount =
+      (state === ProposalState.Executed ? 1 : 0) +
+      remoteProposals.filter(
+        remoteProposal => remoteProposal.state === RemoteProposalState.Executed,
+      ).length;
+
+    return (
+      <Status
+        state={state}
+        totalPayloadsCount={totalPayloadsCount}
+        executedPayloadsCount={executedPayloadsCount}
+      />
+    );
+  }, [state, remoteProposals, forVotesMantissa, againstVotesMantissa, abstainedVotesMantissa, xvs]);
 
   return (
     <ProposalCard
@@ -179,18 +132,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
         ) : undefined
       }
       title={description.title}
-      contentRightItem={
-        state === ProposalState.Active ? (
-          <ActiveVotingProgress
-            votedForMantissa={forVotesMantissa}
-            votedAgainstMantissa={againstVotesMantissa}
-            abstainedMantissa={abstainedVotesMantissa}
-            xvs={xvs}
-          />
-        ) : (
-          <StatusCard state={state} />
-        )
-      }
+      contentRightItem={contentRightItemDom}
       footer={
         statusDate && statusKey ? (
           <div css={styles.timestamp}>

@@ -154,30 +154,13 @@ export interface Pool {
   userBorrowLimitCents?: BigNumber;
 }
 
-export enum ProposalCommandState {
+export enum RemoteProposalState {
   Pending,
   Bridged,
-  Active,
-  Canceled,
-  Defeated,
-  Succeeded,
   Queued,
+  Canceled,
   Expired,
   Executed,
-}
-
-export interface ProposalCommand {
-  chainId: ChainId;
-  state: ProposalCommandState;
-  actionSignatures: ProposalAction[];
-  bridgedAt?: Date;
-  canceledAt?: Date;
-  queuedAt?: Date;
-  succeededAt?: Date;
-  failedExecutionAt?: Date;
-  executableAt?: Date;
-  executedAt?: Date;
-  expiredAt?: Date;
 }
 
 export enum ProposalState {
@@ -232,11 +215,9 @@ export enum VoteSupport {
 export type ProposalVoter = {
   proposalId: number;
   address: string;
-  blockNumber: number;
   reason: string | undefined;
   support: VoteSupport;
   votesMantissa: BigNumber;
-  blockTimestamp: Date;
 };
 
 export type ForVoter = Omit<ProposalVoter, 'support'> & {
@@ -251,37 +232,53 @@ export type AbstainVoter = Omit<ProposalVoter, 'support'> & {
   support: VoteSupport.Abstain;
 };
 
-export interface ProposalPreview {
+export interface Proposal {
   proposalId: number;
   description: DescriptionV1 | DescriptionV2;
   againstVotesMantissa: BigNumber;
   forVotesMantissa: BigNumber;
   abstainedVotesMantissa: BigNumber;
   proposalType: ProposalType;
-  executedDate: Date | undefined;
-  queuedDate: Date | undefined;
-  etaDate: Date | undefined;
-  cancelDate: Date | undefined;
   state: ProposalState;
-  userVoteSupport?: VoteSupport;
-  endDate?: Date;
-}
-
-export interface Proposal extends ProposalPreview {
-  startDate: Date | undefined;
-  createdDate: Date | undefined;
   endBlock: number;
-  proposer: string;
-  createdTxHash: string | undefined;
-  cancelTxHash: string | undefined;
-  executedTxHash: string | undefined;
-  queuedTxHash: string | undefined;
+  proposerAddress: string;
   totalVotesMantissa: BigNumber;
-  blockNumber?: number;
   proposalActions: ProposalAction[];
   forVotes: ForVoter[];
   againstVotes: AgainstVoter[];
   abstainVotes: AbstainVoter[];
+  remoteProposals: RemoteProposal[];
+  blockNumber?: number;
+  userVoteSupport?: VoteSupport;
+  endDate?: Date;
+  executedDate?: Date;
+  queuedDate?: Date;
+  expiredDate?: Date;
+  executionEtaDate?: Date;
+  cancelDate?: Date;
+  startDate?: Date;
+  createdDate?: Date;
+  createdTxHash?: string;
+  cancelTxHash?: string;
+  executedTxHash?: string;
+  queuedTxHash?: string;
+}
+
+export interface RemoteProposal {
+  proposalId: number;
+  chainId: ChainId;
+  state: RemoteProposalState;
+  proposalActions: ProposalAction[];
+  remoteProposalId?: number;
+  bridgedDate?: Date;
+  canceledDate?: Date;
+  canceledTxHash?: string;
+  queuedDate?: Date;
+  queuedTxHash?: string;
+  executionEtaDate?: Date;
+  executedDate?: Date;
+  executedTxHash?: string;
+  expiredDate?: Date;
 }
 
 export interface JsonProposal {
@@ -301,12 +298,11 @@ export interface JsonProposal {
 
 export interface VotersDetails {
   result: {
+    proposalId: number;
     address: string;
     votesMantissa: BigNumber;
     reason?: string;
     support: VoteSupport;
-    blockNumber: number;
-    blockTimestamp: Date;
   }[];
 }
 
@@ -424,9 +420,8 @@ export interface LockedDeposit {
 }
 
 export type VoteDetail = {
+  proposalId: number;
   votesMantissa: BigNumber;
-  blockNumber: number;
-  blockTimestamp: Date;
   support: VoteSupport;
 };
 

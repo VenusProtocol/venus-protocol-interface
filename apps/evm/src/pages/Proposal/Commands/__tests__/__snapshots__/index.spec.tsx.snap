@@ -8,7 +8,7 @@ exports[`Commands > displays the right information for each command 3`] = `"Sepo
 
 exports[`Commands > displays the right information for each command 4`] = `"SepoliaThis payload needs to be executed on the Sepolia chainSwitch to SepoliaSwitch to Sepolia"`;
 
-exports[`Commands > displays the right information for each command 5`] = `"opBNB testnetThis payload needs to be executed on the opBNB testnet chainSwitch to opBNB testnetSwitch to opBNB testnet"`;
+exports[`Commands > displays the right information for each command 5`] = `"Arbitrum SepoliaPayload execution cancelled by governance guardianCanceled01 Feb 2023 00:00 AM"`;
 
 exports[`Commands > displays the right information for each command 6`] = `"Arbitrum SepoliaPayload execution cancelled by governance guardianCanceled01 Feb 2023 12:00 AM"`;
 

@@ -1,30 +1,38 @@
+import BigNumber from 'bignumber.js';
+import { getBscProposal } from 'clients/subgraph';
+import { ChainId } from 'types';
 import type Vi from 'vitest';
+import { type GetProposalInput, getProposal } from '..';
 
-import proposalResponse from '__mocks__/api/proposals.json';
+const fakeParams: GetProposalInput = {
+  proposalId: 1,
+  chainId: ChainId.BSC_TESTNET,
+  currentBlockNumber: 1,
+  proposalMinQuorumVotesMantissa: new BigNumber(10),
+};
 
-import { restService } from 'utilities';
+describe('getProposal', () => {
+  beforeEach(() => {
+    vi.useFakeTimers().setSystemTime(new Date(1710401645000));
+  });
 
-import getProposal from '..';
-
-vi.mock('utilities/restService');
-
-describe('api/queries/getProposal', () => {
-  test('returns proposal', async () => {
-    (restService as Vi.Mock).mockImplementationOnce(async () => ({
-      status: 200,
-      data: proposalResponse.result[0],
+  it('throws an error if proposal was not found', async () => {
+    (getBscProposal as Vi.Mock).mockImplementation(() => ({
+      proposal: undefined,
     }));
 
-    const response = await getProposal({
-      proposalId: 1,
-      accountAddress: undefined,
-    });
+    try {
+      await getProposal(fakeParams);
 
-    expect(restService).toBeCalledWith({
-      endpoint: '/governance/proposals/1',
-      method: 'GET',
-    });
+      throw new Error('getProposal should have thrown an error but did not');
+    } catch (error) {
+      expect(error).toMatchInlineSnapshot('[Error: proposalNotFound]');
+    }
+  });
 
-    expect(response).toMatchSnapshot();
+  it('returns proposal in the correct format', async () => {
+    const res = await getProposal(fakeParams);
+
+    expect(res).toMatchSnapshot();
   });
 });

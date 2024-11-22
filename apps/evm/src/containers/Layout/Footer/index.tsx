@@ -1,7 +1,7 @@
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
-import { generateChainExplorerUrl } from 'utilities';
+import { generateExplorerUrl } from 'utilities';
 
 import { Link } from 'containers/Link';
 import { IconLink } from './IconLink';
@@ -33,7 +33,7 @@ export const Footer: React.FC = () => {
         <IconLink
           href={
             xvs &&
-            generateChainExplorerUrl({
+            generateExplorerUrl({
               hash: xvs.address,
               urlType: 'token',
               chainId,
