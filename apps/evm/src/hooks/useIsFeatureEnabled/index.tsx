@@ -109,13 +109,17 @@ export const featureFlags = {
   ],
   omnichainGovernance: [
     ChainId.BSC_TESTNET,
+    ChainId.BSC_MAINNET,
     ChainId.SEPOLIA,
     ChainId.ETHEREUM,
     ChainId.OPBNB_TESTNET,
+    ChainId.OPBNB_MAINNET,
     ChainId.ARBITRUM_SEPOLIA,
     ChainId.ARBITRUM_ONE,
     ChainId.ZKSYNC_SEPOLIA,
+    ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
+    ChainId.OPTIMISM_MAINNET,
   ],
   gaslessTransactions: [ChainId.ZKSYNC_SEPOLIA, ChainId.ZKSYNC_MAINNET],
 };
