@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.173.2
+
+### Patch Changes
+
+- c6864a5: fix Storybook + clean up components directory
+- c6864a5: upgrade Vite to 5.4.11 and Vitest to 2.1.5
+
 ## 2.173.1
 
 ### Patch Changes
