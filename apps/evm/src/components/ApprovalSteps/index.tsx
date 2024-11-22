@@ -10,22 +10,18 @@ import { useStyles } from './styles';
 
 export interface ApprovalStepsProps {
   children: React.ReactNode;
-  className?: string;
-  secondStepButtonLabel: string;
-}
-
-interface ApprovalStepsExtraProps {
   approvalAction: () => Promise<unknown>;
   showApprovalSteps: boolean;
   isApprovalActionLoading: boolean;
-  isApproved: boolean | undefined;
   firstStepLabel: string;
   firstStepButtonLabel: string;
-  firstStepTooltip?: string;
   secondStepLabel: string;
+  secondStepButtonLabel: string;
+  firstStepTooltip?: string;
+  className?: string;
 }
 
-export const ApprovalSteps: React.FC<ApprovalStepsProps & ApprovalStepsExtraProps> = ({
+export const ApprovalSteps: React.FC<ApprovalStepsProps> = ({
   approvalAction,
   showApprovalSteps,
   isApprovalActionLoading,

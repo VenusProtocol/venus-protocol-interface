@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useGetPool } from 'clients/api';
-import { Notice, Page, Redirect, Spinner } from 'components';
+import { Notice, Page, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -8,6 +8,7 @@ import type { Pool } from 'types';
 
 import { MarketTable } from 'containers/MarketTable';
 import { PoolStats } from 'containers/PoolStats';
+import { Redirect } from 'containers/Redirect';
 import { useStyles } from './styles';
 
 export interface PoolUiProps {

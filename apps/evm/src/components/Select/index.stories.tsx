@@ -1,14 +1,11 @@
 import type { Meta } from '@storybook/react';
 import { State } from 'react-powerplug';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { Select } from '.';
 
 export default {
   title: 'Components/Select',
   component: Select,
-  decorators: [withCenterStory({ width: 200 })],
 } as Meta<typeof Select>;
 
 const options = Array.from(Array(5).keys()).map(i => ({

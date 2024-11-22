@@ -4,14 +4,11 @@ import { State } from 'react-powerplug';
 
 import { xvs } from '__mocks__/models/tokens';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { TokenTextField } from '.';
 
 export default {
   title: 'Components/TokenTextField',
   component: TokenTextField,
-  decorators: [withCenterStory({ width: 600 })],
   parameters: {
     backgrounds: {
       // default: 'background.default',

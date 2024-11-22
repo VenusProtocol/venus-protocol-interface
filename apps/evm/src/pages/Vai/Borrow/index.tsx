@@ -11,15 +11,7 @@ import {
   useGetVaiTreasuryPercentage,
   useMintVai,
 } from 'clients/api';
-import {
-  Delimiter,
-  LabeledInlineContent,
-  NoticeError,
-  NoticeWarning,
-  RhfSubmitButton,
-  RhfTokenTextField,
-  Spinner,
-} from 'components';
+import { Delimiter, LabeledInlineContent, NoticeError, NoticeWarning, Spinner } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -38,6 +30,7 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
+import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { AccountVaiData } from '../AccountVaiData';
 import type { FormValues } from '../types';
 import TEST_IDS from './testIds';

@@ -1,14 +1,11 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { Icon, type IconName, type IconProps } from '.';
 import * as Svgs from './icons';
 
 export default {
   title: 'Components/Icon',
   component: Icon,
-  decorators: [withCenterStory({ width: '50vw' })],
 } as Meta<typeof Icon>;
 
 export const IconDefault = () => {

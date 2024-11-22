@@ -13,8 +13,6 @@ import {
   LabeledInlineContent,
   NoticeError,
   NoticeWarning,
-  RhfSubmitButton,
-  RhfTokenTextField,
   SpendingLimit,
   Spinner,
 } from 'components';
@@ -33,6 +31,7 @@ import {
   generatePseudoRandomRefetchInterval,
 } from 'utilities';
 
+import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { AccountVaiData } from '../AccountVaiData';
 import type { FormValues } from '../types';
 import TEST_IDS from './testIds';

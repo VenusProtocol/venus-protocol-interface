@@ -1,15 +1,8 @@
 import { useGetAsset, useGetPool } from 'clients/api';
-import {
-  AddTokenToWalletButton,
-  type Cell,
-  CellGroup,
-  Icon,
-  Pill,
-  Spinner,
-  TokenIcon,
-} from 'components';
+import { type Cell, CellGroup, Icon, Pill, Spinner, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
+import { AddTokenToWalletButton } from 'containers/AddTokenToWalletButton';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';

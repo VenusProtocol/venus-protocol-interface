@@ -3,15 +3,16 @@ import type { Token } from 'types';
 
 import { ApprovalSteps, type ApprovalStepsProps } from '../ApprovalSteps';
 
-export type ApproveTokenStepsProps = {
+export interface ApproveTokenStepsProps
+  extends Pick<ApprovalStepsProps, 'className' | 'children' | 'secondStepButtonLabel'> {
   token: Token;
   approveToken: () => Promise<unknown>;
-  isTokenApproved: boolean | undefined;
   isWalletSpendingLimitLoading: boolean;
   isApproveTokenLoading: boolean;
+  isTokenApproved?: boolean;
   isUsingSwap?: boolean;
   hideTokenEnablingStep?: boolean;
-} & ApprovalStepsProps;
+}
 
 export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
   token,
@@ -21,9 +22,9 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
   isApproveTokenLoading,
   hideTokenEnablingStep,
   isUsingSwap = false,
-  secondStepButtonLabel,
   className,
   children,
+  ...otherProps
 }) => {
   const { t } = useTranslation();
 
@@ -32,7 +33,6 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
 
   return (
     <ApprovalSteps
-      className={className}
       showApprovalSteps={showApproveTokenStep}
       isApprovalActionLoading={isApproveTokenLoading}
       approvalAction={approveToken}
@@ -42,8 +42,7 @@ export const ApproveTokenSteps: React.FC<ApproveTokenStepsProps> = ({
         tokenSymbol: token.symbol,
       })}
       secondStepLabel={t('approveTokenSteps.step2')}
-      secondStepButtonLabel={secondStepButtonLabel}
-      isApproved={isTokenApproved}
+      {...otherProps}
     >
       {children}
     </ApprovalSteps>

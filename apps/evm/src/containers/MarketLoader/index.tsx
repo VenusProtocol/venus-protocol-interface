@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import { useGetAsset, useGetPool } from 'clients/api';
-import { Redirect, Spinner } from 'components';
+import { Spinner } from 'components';
 import { routes } from 'constants/routing';
+import { Redirect } from 'containers/Redirect';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
 

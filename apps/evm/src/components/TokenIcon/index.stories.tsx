@@ -2,14 +2,11 @@ import type { Meta } from '@storybook/react';
 
 import tokens from '__mocks__/models/tokens';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { TokenIcon } from '.';
 
 export default {
   title: 'Components/TokenIcon',
   component: TokenIcon,
-  decorators: [withCenterStory({ width: '50vw' })],
 } as Meta<typeof TokenIcon>;
 
 export const Default = () => (

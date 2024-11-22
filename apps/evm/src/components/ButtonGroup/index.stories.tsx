@@ -1,13 +1,10 @@
 import type { Meta } from '@storybook/react';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { ButtonGroup } from '.';
 
 export default {
   title: 'Components/ButtonGroup',
   component: ButtonGroup,
-  decorators: [withCenterStory({ width: 650 })],
 } as Meta<typeof ButtonGroup>;
 
 export const Default = () => (

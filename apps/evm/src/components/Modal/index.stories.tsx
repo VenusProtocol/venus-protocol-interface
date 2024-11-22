@@ -1,14 +1,11 @@
 import Typography from '@mui/material/Typography';
 import type { Meta, StoryFn } from '@storybook/react';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
-
 import { Modal, type ModalProps } from '.';
 
 export default {
   title: 'Components/Modal',
   component: Modal,
-  decorators: [withCenterStory({ width: 600 }), withThemeProvider],
 } as Meta<typeof Modal>;
 
 const Template: StoryFn<ModalProps> = (args: ModalProps) => <Modal {...args} />;

@@ -1,20 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
-import { BigNumber } from 'bignumber.js';
+import type { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
-import {
-  ActiveChip,
-  ActiveVotingProgress,
-  BlueChip,
-  ErrorChip,
-  InactiveChip,
-  ProposalCard,
-} from 'components';
+import { ActiveChip, ActiveVotingProgress, BlueChip, ErrorChip, InactiveChip } from 'components';
 import { routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
 import { ProposalState, type Token, VoteSupport } from 'types';
 
+import { ProposalCard } from 'containers/ProposalCard';
 import { useStyles } from './styles';
 
 interface VoterProposalProps {
@@ -64,12 +58,6 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
         return <Typography variant="small2">{t('voteProposalUi.voteStatus.notVoted')}</Typography>;
     }
   }, [userVoteStatus, t]);
-
-  const votedTotalMantissa = BigNumber.sum.apply(null, [
-    forVotesMantissa || 0,
-    againstVotesMantissa || 0,
-    abstainedVotesMantissa || 0,
-  ]);
 
   const [stateChip, stateTimestamp] = useMemo(() => {
     switch (proposalState) {
@@ -203,7 +191,6 @@ const VoterProposal: React.FC<VoterProposalProps> = ({
           votedForMantissa={forVotesMantissa}
           votedAgainstMantissa={againstVotesMantissa}
           abstainedMantissa={abstainedVotesMantissa}
-          votedTotalMantissa={votedTotalMantissa}
         />
       }
     />

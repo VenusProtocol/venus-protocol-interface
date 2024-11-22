@@ -1,7 +1,5 @@
 import type { Meta } from '@storybook/react';
 
-import { withCenterStory, withThemeProvider } from 'stories/decorators';
-
 import { InterestRateChart, type InterestRateItem } from '.';
 
 const data: InterestRateItem[] = [
@@ -510,7 +508,6 @@ const data: InterestRateItem[] = [
 export default {
   title: 'Components/charts/InterestRateChart',
   component: InterestRateChart,
-  decorators: [withThemeProvider, withCenterStory({ width: 700 })],
 } as Meta<typeof InterestRateChart>;
 
 export const Default = () => (

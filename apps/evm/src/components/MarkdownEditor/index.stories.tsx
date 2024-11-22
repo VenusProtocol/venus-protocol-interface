@@ -1,14 +1,11 @@
 import type { Meta } from '@storybook/react';
 import { State } from 'react-powerplug';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { MarkdownEditor } from '.';
 
 export default {
   title: 'Components/Markdown/Editor',
   component: MarkdownEditor,
-  decorators: [withCenterStory({ width: 600 })],
 } as Meta<typeof MarkdownEditor>;
 
 const initialState: { value: string } = {

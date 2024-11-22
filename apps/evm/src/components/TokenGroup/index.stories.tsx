@@ -2,7 +2,6 @@ import type { Meta } from '@storybook/react';
 
 import { bnb, eth, lisUsd, usdc, usdt, xvs } from '__mocks__/models/tokens';
 
-import { withCenterStory } from 'stories/decorators';
 import type { Token } from 'types';
 
 import { TokenGroup } from '.';
@@ -10,7 +9,6 @@ import { TokenGroup } from '.';
 export default {
   title: 'Components/TokenGroup',
   component: TokenGroup,
-  decorators: [withCenterStory({ width: 600 })],
 } as Meta<typeof TokenGroup>;
 
 const tokens: Token[] = [usdt, eth, usdc, xvs, bnb, lisUsd];

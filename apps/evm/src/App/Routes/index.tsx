@@ -7,7 +7,7 @@ import { Layout } from 'containers/Layout';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
-import { Redirect } from 'components';
+import { Redirect } from 'containers/Redirect';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { safeLazyLoad } from 'utilities';
 import PageSuspense from './PageSuspense';

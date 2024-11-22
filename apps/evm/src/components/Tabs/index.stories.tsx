@@ -1,13 +1,10 @@
 import type { Meta } from '@storybook/react';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { Tabs } from '.';
 
 export default {
   title: 'Components/Tabs',
   component: Tabs,
-  decorators: [withCenterStory({ width: 650 })],
 } as Meta<typeof Tabs>;
 
 const tabsContent = [

@@ -29,7 +29,7 @@ import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import { VoteSupport } from 'types';
 
-import { REDIRECT_TEST_CONTENT } from 'components/Redirect/__mocks__';
+import { REDIRECT_TEST_CONTENT } from 'containers/Redirect/__mocks__';
 import Proposal from '..';
 import PROPOSAL_SUMMARY_TEST_IDS from '../ProposalSummary/testIds';
 import VOTE_MODAL_TEST_IDS from '../VoteModal/testIds';
@@ -37,6 +37,7 @@ import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useVote');
 vi.mock('hooks/useIsFeatureEnabled');
+vi.mock('containers/Redirect');
 
 const activeProposal = proposals[1];
 const canceledProposal = proposals[3];

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import type { BigNumber } from 'bignumber.js';
+import { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
@@ -15,7 +15,6 @@ interface ActiveVotingProgressProps {
   votedForMantissa?: BigNumber;
   votedAgainstMantissa?: BigNumber;
   abstainedMantissa?: BigNumber;
-  votedTotalMantissa?: BigNumber;
 }
 
 const getValueString = ({ xvs, valueMantissa }: { valueMantissa?: BigNumber; xvs?: Token }) =>
@@ -32,10 +31,17 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
   votedForMantissa,
   votedAgainstMantissa,
   abstainedMantissa,
-  votedTotalMantissa,
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const votedTotalMantissa = useMemo(
+    () =>
+      new BigNumber(votedForMantissa ?? 0)
+        .plus(votedAgainstMantissa ?? 0)
+        .plus(abstainedMantissa ?? 0),
+    [votedForMantissa, votedAgainstMantissa, abstainedMantissa],
+  );
 
   const defaultProgressbarProps = {
     step: 1,

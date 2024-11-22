@@ -1,13 +1,10 @@
 import type { Meta } from '@storybook/react';
 
-import { withCenterStory } from 'stories/decorators';
-
 import { LabeledProgressBar } from '.';
 
 export default {
   title: 'Components/ProgressBar/LabeledProgressBar',
   component: LabeledProgressBar,
-  decorators: [withCenterStory({ width: 600 })],
 } as Meta<typeof LabeledProgressBar>;
 
 export const BorrowBalanceAccountHealthWithValues = () => (
