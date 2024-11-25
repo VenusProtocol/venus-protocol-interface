@@ -1,4 +1,4 @@
-import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { chainMetadata } from '@venusprotocol/chains';
 import type { ChainId } from 'types';
 
 export type UrlType = 'address' | 'token' | 'tx' | 'layerZeroTx';
@@ -9,8 +9,8 @@ export interface generateExplorerUrlInput<T extends UrlType = 'address'> {
   urlType?: T;
 }
 
-const generateLayerZeroScanUrl = ({ hash, chainId }: generateExplorerUrlInput) => {
-  const { layerZeroScanUrl } = CHAIN_METADATA[chainId];
+const generateLayerZeroScanUrl = ({ hash, chainId }: GenerateChainExplorerUrlInput) => {
+  const { layerZeroScanUrl } = chainMetadata[chainId];
   return `${layerZeroScanUrl}/tx/${hash}`;
 };
 
@@ -25,7 +25,7 @@ export const generateExplorerUrl = <T extends UrlType = 'address'>({
     return generateLayerZeroScanUrl({ hash, chainId });
   }
 
-  const { explorerUrl } = CHAIN_METADATA[chainId];
+  const { explorerUrl } = chainMetadata[chainId];
   return `${explorerUrl}/${safeUrlType}/${hash}`;
 };
 

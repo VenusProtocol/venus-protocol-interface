@@ -1,5 +1,5 @@
+import { chainMetadata } from '@venusprotocol/chains';
 import { apiUrls } from 'constants/api';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { ChainId, type Environment, type Network } from 'types';
 import { extractEnumValues } from 'utilities/extractEnumValues';
 
@@ -34,26 +34,26 @@ const chainIds = extractEnumValues(ChainId);
 const { rpcUrls, marketsSubgraphUrls, governanceSubgraphUrls } = chainIds.reduce(
   (acc, chainId) => {
     const chainKey = ChainId[chainId];
-    const chainMetadata = CHAIN_METADATA[chainId];
+    const chain = chainMetadata[chainId];
 
     return {
       rpcUrls: {
         ...acc.rpcUrls,
         [chainId]:
           ENV_VARIABLES[`VITE_RPC_HTTP_URL_${chainKey}` as keyof typeof ENV_VARIABLES] ||
-          chainMetadata.rpcUrl,
+          chain.rpcUrl,
       },
       marketsSubgraphUrls: {
         ...acc.marketsSubgraphUrls,
         [chainId]:
           ENV_VARIABLES[`VITE_SUBGRAPH_MARKETS_URL_${chainKey}` as keyof typeof ENV_VARIABLES] ||
-          chainMetadata.marketsSubgraphUrl,
+          chain.marketsSubgraphUrl,
       },
       governanceSubgraphUrls: {
         ...acc.governanceSubgraphUrls,
         [chainId]:
           ENV_VARIABLES[`VITE_SUBGRAPH_GOVERNANCE_URL_${chainKey}` as keyof typeof ENV_VARIABLES] ||
-          chainMetadata.governanceSubgraphUrl,
+          chain.governanceSubgraphUrl,
       },
     };
   },

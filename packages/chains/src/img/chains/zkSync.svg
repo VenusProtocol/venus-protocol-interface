@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-coin-zk-full">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="coin-zk-full" clip-path="url(#clip-coin-zk-full)">
+    <g id="Group_228" data-name="Group 228" transform="translate(87 87)">
+      <path id="Path_873" data-name="Path 873" d="M24,0A24,24,0,1,1,0,24,24,24,0,0,1,24,0Z" transform="translate(-87 -87)" fill-rule="evenodd"/>
+    </g>
+    <path id="Path_1636" data-name="Path 1636" d="M0,16.2,10.76,5.442v5.38H21.52l-10.76,8.07v8.07Z" transform="translate(5.17 7.798)" fill="#fff"/>
+    <path id="Path_1637" data-name="Path 1637" d="M43.368,16.2l-10.76,10.76v-5.38H21.848l10.76-8.07V5.442Z" transform="translate(-0.539 7.798)" fill="#fff"/>
+  </g>
+</svg>

@@ -1,15 +1,13 @@
 import { Card, Icon, Toggle } from 'components';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
-import { useChainId } from 'libs/wallet';
 import Section from '../Section';
 
 export const Settings: React.FC = () => {
   const { t } = useTranslation();
-  const { chainId } = useChainId();
-  const { name: chainName } = CHAIN_METADATA[chainId];
+  const chainMetadata = useGetChainMetadata();
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
 
   const [{ gaslessTransactions }, setUserChainSettings] = useUserChainSettings();
@@ -31,7 +29,11 @@ export const Settings: React.FC = () => {
           </div>
 
           <div className="flex grow items-center justify-between md:justify-normal gap-3">
-            <p>{t('account.settings.gaslessTransactions.switchLabel', { chainName })}</p>
+            <p>
+              {t('account.settings.gaslessTransactions.switchLabel', {
+                chainName: chainMetadata.name,
+              })}
+            </p>
 
             <Toggle onChange={toggleGaslessTransactions} value={gaslessTransactions} isLight />
           </div>

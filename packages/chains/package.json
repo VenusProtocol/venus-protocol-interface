@@ -1,0 +1,21 @@
+{
+  "name": "@venusprotocol/chains",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./types": "./src/types.ts"
+  },
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules",
+    "lint": "biome check .",
+    "tsc": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@venusprotocol/typescript-config": "*"
+  }
+}

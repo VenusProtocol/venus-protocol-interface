@@ -20,7 +20,8 @@
         "noNonNullAssertion": "warn",
         "useShorthandArrayType": "error",
         "useEnumInitializers": "off",
-        "useImportType": "warn"
+        "useImportType": "warn",
+        "useLiteralEnumMembers": "warn"
       },
       "suspicious": {
         "noArrayIndexKey": "off",

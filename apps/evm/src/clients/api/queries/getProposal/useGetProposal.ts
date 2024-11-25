@@ -1,11 +1,11 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
+import { chainMetadata } from '@venusprotocol/chains';
 
 import {
   type GetProposalInput,
   type GetProposalOutput,
   getProposal,
 } from 'clients/api/queries/getProposal';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
@@ -29,7 +29,7 @@ type Options = QueryObserverOptions<
   ]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = CHAIN_METADATA[governanceChain.id];
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = chainMetadata[governanceChain.id];
 
 export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial<Options>) => {
   const { data: getProposalMinQuorumVotesData } = useGetProposalMinQuorumVotes();

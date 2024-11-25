@@ -1,5 +1,5 @@
+import { chainMetadata } from '@venusprotocol/chains';
 import { Select, type SelectOption, type SelectProps } from 'components';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
@@ -16,7 +16,7 @@ const getOptions = ({
 }: { isGaslessTransactionsSettingEnabled: boolean }) =>
   chains.map<SelectOption<ChainId>>(chain => ({
     label: ({ isRenderedInButton }) => {
-      const metadata = CHAIN_METADATA[chain.id as ChainId];
+      const metadata = chainMetadata[chain.id as ChainId];
       return (
         <div className="flex items-center">
           <img src={metadata.logoSrc} alt={metadata.name} className="w-5 max-w-none flex-none" />

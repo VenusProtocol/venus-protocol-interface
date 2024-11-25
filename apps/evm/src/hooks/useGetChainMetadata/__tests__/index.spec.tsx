@@ -1,6 +1,6 @@
-import { renderHook } from 'testUtils/render';
+import { chainMetadata } from '@venusprotocol/chains';
 
-import { CHAIN_METADATA } from 'constants/chainMetadata';
+import { renderHook } from 'testUtils/render';
 import { ChainId } from 'types';
 
 import { useGetChainMetadata } from '..';
@@ -9,6 +9,6 @@ describe('useGetChainMetadata', () => {
   it('returns the correct chain metadata', () => {
     const { result } = renderHook(() => useGetChainMetadata());
 
-    expect(result.current).toBe(CHAIN_METADATA[ChainId.BSC_TESTNET]);
+    expect(result.current).toBe(chainMetadata[ChainId.BSC_TESTNET]);
   });
 });
