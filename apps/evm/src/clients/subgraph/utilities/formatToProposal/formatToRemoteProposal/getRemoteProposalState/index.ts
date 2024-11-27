@@ -1,4 +1,4 @@
-import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/chainMetadata';
+import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/governance';
 import { ProposalState, RemoteProposalState } from 'types';
 
 export const getRemoteProposalState = ({

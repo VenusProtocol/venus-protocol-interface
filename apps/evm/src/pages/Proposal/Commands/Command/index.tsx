@@ -23,7 +23,7 @@ export const Command: React.FC<CommandProps> = ({
   contentBottomItem,
   ...otherProps
 }) => {
-  const { chain } = chainMetadata[chainId];
+  const chain = chainMetadata[chainId];
   const [isOpen, setIsOpen] = useState(false);
   const toggleAccordion = () => setIsOpen(prevState => !prevState);
 

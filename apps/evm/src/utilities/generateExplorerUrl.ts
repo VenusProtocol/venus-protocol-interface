@@ -3,7 +3,7 @@ import type { ChainId } from 'types';
 
 export type UrlType = 'address' | 'token' | 'tx' | 'layerZeroTx';
 
-export interface generateExplorerUrlInput<T extends UrlType = 'address'> {
+export interface GenerateChainExplorerUrlInput<T extends UrlType = 'address'> {
   hash: string;
   chainId: ChainId;
   urlType?: T;
@@ -18,7 +18,7 @@ export const generateExplorerUrl = <T extends UrlType = 'address'>({
   hash,
   urlType,
   chainId,
-}: generateExplorerUrlInput<T>) => {
+}: GenerateChainExplorerUrlInput<T>) => {
   const safeUrlType = urlType || 'address';
 
   if (safeUrlType === 'layerZeroTx') {

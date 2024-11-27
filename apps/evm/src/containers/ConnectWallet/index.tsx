@@ -1,11 +1,11 @@
+import { chainMetadata } from '@venusprotocol/chains';
+import { useMemo } from 'react';
+
+import { Button, type Variant } from 'components/Button';
+import { NoticeInfo } from 'components/Notice';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
-
-import { CHAIN_METADATA } from 'constants/chainMetadata';
-import { useMemo } from 'react';
 import type { ChainId } from 'types';
-import { Button, type Variant } from '../../components/Button';
-import { NoticeInfo } from '../../components/Notice';
 import { Container } from './Container';
 
 export interface ConnectWalletProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -33,7 +33,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
     [currentChainId, chainId],
   );
 
-  const chainMetadata = chainId && CHAIN_METADATA[chainId];
+  const chain = chainId && chainMetadata[chainId];
 
   const { openAuthModal } = useAuthModal();
   const { switchChain } = useSwitchChain();
@@ -58,7 +58,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
       <Container {...otherProps}>
         <Button variant={buttonVariant} className="w-full" onClick={handleSwitchChain}>
           {t('connectWallet.switchChain', {
-            chainName: chainMetadata?.name,
+            chainName: chain?.name,
           })}
         </Button>
       </Container>

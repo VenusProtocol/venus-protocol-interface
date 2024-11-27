@@ -1,6 +1,6 @@
+import { chainMetadata } from '@venusprotocol/chains';
 import { useExecuteProposal } from 'clients/api';
 import { Button } from 'components';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { isAfter } from 'date-fns/isAfter';
 import { useNow } from 'hooks/useNow';
@@ -14,7 +14,7 @@ import { Description } from '../Description';
 import { useIsProposalExecutable } from '../useIsProposalExecutable';
 import { CurrentStep } from './CurrentStep';
 
-const governanceChainMetadata = CHAIN_METADATA[governanceChain.id];
+const governanceChainMetadata = chainMetadata[governanceChain.id];
 
 export interface NonBscCommand extends React.HTMLAttributes<HTMLDivElement> {
   remoteProposal: RemoteProposal;
@@ -30,8 +30,7 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
   const now = useNow();
   const { chainId: currentChainId } = useChainId();
 
-  const chainMetadata = CHAIN_METADATA[remoteProposal.chainId];
-
+  const chain = chainMetadata[remoteProposal.chainId];
   const isOnWrongChain = currentChainId !== remoteProposal.chainId;
 
   const { isExecutable } = useIsProposalExecutable({
@@ -74,19 +73,12 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
 
         if (isOnWrongChain) {
           return t('voteProposalUi.command.description.wrongChain', {
-            chainName: chainMetadata.name,
+            chainName: chain.name,
           });
         }
         break;
     }
-  }, [
-    t,
-    remoteProposal.state,
-    remoteProposal.executionEtaDate,
-    now,
-    chainMetadata,
-    isOnWrongChain,
-  ]);
+  }, [t, remoteProposal.state, remoteProposal.executionEtaDate, now, chain, isOnWrongChain]);
 
   return (
     <Command

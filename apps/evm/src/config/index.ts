@@ -1,9 +1,9 @@
-import { chainMetadata } from '@venusprotocol/chains';
-import { apiUrls } from 'constants/api';
-import { ChainId, type Environment, type Network } from 'types';
-import { extractEnumValues } from 'utilities/extractEnumValues';
+import type { ChainId, Environment, Network } from 'types';
 
-import { ENV_VARIABLES } from './envVariables';
+import { apiUrls } from './apiUrls';
+import { envVariables } from './envVariables';
+import { rpcUrls } from './rpcUrls';
+import { getGovernanceSubgraphUrls, getIsolatedPoolsSubgraphUrls } from './subgraphUrls';
 
 export interface Config {
   environment: Environment;
@@ -12,7 +12,7 @@ export interface Config {
   rpcUrls: {
     [chainId in ChainId]: string;
   };
-  marketsSubgraphUrls: {
+  isolatedPoolsSubgraphUrls: {
     [chainId in ChainId]: string | undefined;
   };
   governanceSubgraphUrls: {
@@ -26,64 +26,33 @@ export interface Config {
   zyFiApiKey: string;
 }
 
-const environment: Environment = ENV_VARIABLES.VITE_ENV || 'preview';
-const network: Network = ENV_VARIABLES.VITE_NETWORK || 'mainnet';
-
-const chainIds = extractEnumValues(ChainId);
-
-const { rpcUrls, marketsSubgraphUrls, governanceSubgraphUrls } = chainIds.reduce(
-  (acc, chainId) => {
-    const chainKey = ChainId[chainId];
-    const chain = chainMetadata[chainId];
-
-    return {
-      rpcUrls: {
-        ...acc.rpcUrls,
-        [chainId]:
-          ENV_VARIABLES[`VITE_RPC_HTTP_URL_${chainKey}` as keyof typeof ENV_VARIABLES] ||
-          chain.rpcUrl,
-      },
-      marketsSubgraphUrls: {
-        ...acc.marketsSubgraphUrls,
-        [chainId]:
-          ENV_VARIABLES[`VITE_SUBGRAPH_MARKETS_URL_${chainKey}` as keyof typeof ENV_VARIABLES] ||
-          chain.marketsSubgraphUrl,
-      },
-      governanceSubgraphUrls: {
-        ...acc.governanceSubgraphUrls,
-        [chainId]:
-          ENV_VARIABLES[`VITE_SUBGRAPH_GOVERNANCE_URL_${chainKey}` as keyof typeof ENV_VARIABLES] ||
-          chain.governanceSubgraphUrl,
-      },
-    };
-  },
-  {
-    rpcUrls: {},
-    marketsSubgraphUrls: {},
-    governanceSubgraphUrls: {},
-  } as {
-    rpcUrls: Record<ChainId, string>;
-    marketsSubgraphUrls: Record<ChainId, string>;
-    governanceSubgraphUrls: Record<ChainId, string>;
-  },
-);
+const environment: Environment = envVariables.VITE_ENV || 'preview';
+const network: Network = envVariables.VITE_NETWORK || 'mainnet';
 
 const apiUrl = apiUrls[network];
+
+const keys = {
+  nodeRealApiKey: envVariables.VITE_NODE_REAL_API_KEY,
+  theGraphApiKey: envVariables.VITE_THE_GRAPH_API_KEY,
+};
+
+const governanceSubgraphUrls = getGovernanceSubgraphUrls(keys);
+const isolatedPoolsSubgraphUrls = getIsolatedPoolsSubgraphUrls(keys);
 
 const config: Config = {
   environment,
   network,
   apiUrl,
   rpcUrls,
-  marketsSubgraphUrls,
+  isolatedPoolsSubgraphUrls,
   governanceSubgraphUrls,
-  sentryDsn: ENV_VARIABLES.VITE_SENTRY_DSN || '',
+  sentryDsn: envVariables.VITE_SENTRY_DSN || '',
   posthog: {
-    apiKey: ENV_VARIABLES.VITE_POSTHOG_API_KEY || '',
-    hostUrl: ENV_VARIABLES.VITE_POSTHOG_HOST_URL || '',
+    apiKey: envVariables.VITE_POSTHOG_API_KEY || '',
+    hostUrl: envVariables.VITE_POSTHOG_HOST_URL || '',
   },
-  zyFiApiKey: ENV_VARIABLES.VITE_ZYFI_API_KEY || '',
+  zyFiApiKey: envVariables.VITE_ZYFI_API_KEY || '',
 };
 
-export { ENV_VARIABLES } from './envVariables';
+export { envVariables } from './envVariables';
 export default config;

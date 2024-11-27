@@ -7,7 +7,7 @@ import Section from '../Section';
 
 export const Settings: React.FC = () => {
   const { t } = useTranslation();
-  const chainMetadata = useGetChainMetadata();
+  const { name: chainName } = useGetChainMetadata();
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
 
   const [{ gaslessTransactions }, setUserChainSettings] = useUserChainSettings();
@@ -31,7 +31,7 @@ export const Settings: React.FC = () => {
           <div className="flex grow items-center justify-between md:justify-normal gap-3">
             <p>
               {t('account.settings.gaslessTransactions.switchLabel', {
-                chainName: chainMetadata.name,
+                chainName,
               })}
             </p>
 
