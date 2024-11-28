@@ -7,6 +7,7 @@ import eigenLogo from 'libs/tokens/img/eigen.svg';
 import ethLogo from 'libs/tokens/img/eth.svg';
 import ezEthLogo from 'libs/tokens/img/ezEth.png';
 import fraxLogo from 'libs/tokens/img/frax.svg';
+import lBtcLogo from 'libs/tokens/img/lbtc.svg';
 import ptWeethLogo from 'libs/tokens/img/ptWeeth.svg';
 import pufEthLogo from 'libs/tokens/img/pufEth.svg';
 import rsEthLogo from 'libs/tokens/img/rsEth.svg';
@@ -159,5 +160,11 @@ export const tokens: Token[] = [
     decimals: 8,
     symbol: 'eBTC',
     asset: eBtcLogo,
+  },
+  {
+    address: '0x8236a87084f8B84306f72007F36F2618A5634494',
+    decimals: 8,
+    symbol: 'LBTC',
+    asset: lBtcLogo,
   },
 ];
