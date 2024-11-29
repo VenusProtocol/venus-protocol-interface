@@ -1,4 +1,4 @@
-import { Card, Page as PaceComp } from 'components';
+import { Card, Page as PageComp } from 'components';
 import type { Asset, Pool } from 'types';
 
 import AssetWarning from './AssetWarning';
@@ -13,7 +13,7 @@ export interface PageProps {
 }
 
 export const Page: React.FC<PageProps> = ({ asset, pool }) => (
-  <PaceComp indexWithSearchEngines={false}>
+  <PageComp indexWithSearchEngines={false}>
     <div className="py-6 md:py-8 xl:py-12">
       <AssetWarning
         token={asset.vToken.underlyingToken}
@@ -37,5 +37,5 @@ export const Page: React.FC<PageProps> = ({ asset, pool }) => (
         </div>
       </div>
     </div>
-  </PaceComp>
+  </PageComp>
 );

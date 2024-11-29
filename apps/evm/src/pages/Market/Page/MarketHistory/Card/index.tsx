@@ -81,9 +81,18 @@ export const Card: React.FC<CardProps> = ({
       return [];
     }
 
+    const averageApy =
+      data.length > 0
+        ? data.reduce((acc, item) => acc + item.apyPercentage, 0) / data.length
+        : undefined;
+
     const distributionApys = getCombinedDistributionApys({ asset });
 
     const tmpStats: MarketCardProps['stats'] = [
+      {
+        label: t('market.stats.averageApy'),
+        value: formatPercentageToReadableValue(averageApy),
+      },
       {
         label: t('market.stats.apy'),
         value: formatPercentageToReadableValue(
@@ -116,6 +125,7 @@ export const Card: React.FC<CardProps> = ({
     return tmpStats;
   }, [
     asset,
+    data,
     t,
     type,
     liquidationIncentivePercentage,

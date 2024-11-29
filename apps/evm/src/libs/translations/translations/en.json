@@ -409,7 +409,8 @@
       "thirtyDays": "30D"
     },
     "stats": {
-      "apy": "APY",
+      "apy": "Current APY",
+      "averageApy": "Average APY",
       "distributionApy": "Distribution APY",
       "liquidationPenalty": "Liquidation Penalty",
       "liquidationThreshold": "Liquidation Threshold"
