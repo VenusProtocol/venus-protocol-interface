@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.175.1
+
+### Patch Changes
+
+- fe719a3: use 6 decimal points in returned value of convertFactorFromSmartContract utility function
+
 ## 2.175.0
 
 ### Minor Changes
