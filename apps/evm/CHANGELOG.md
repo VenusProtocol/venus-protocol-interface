@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.175.0
+
+### Minor Changes
+
+- eff6f5e: reinstate fetching markets from the API
+
 ## 2.174.0
 
 ### Minor Changes
