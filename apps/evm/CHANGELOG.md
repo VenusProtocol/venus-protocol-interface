@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.174.0
+
+### Minor Changes
+
+- 6e7ce8b: display average APYs on Market page
+
 ## 2.173.2
 
 ### Patch Changes
