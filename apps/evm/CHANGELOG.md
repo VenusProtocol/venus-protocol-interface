@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.175.3
+
+### Patch Changes
+
+- 79c3018: update BSC governance subgraph URL
+
 ## 2.175.2
 
 ### Patch Changes
