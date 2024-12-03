@@ -5,7 +5,6 @@ import type { VenusLens } from 'libs/contracts';
 import type { Asset, ChainId, Market, Pool, PrimeApy, Token, VToken } from 'types';
 import {
   addUserPropsToPool,
-  areAddressesEqual,
   calculateDailyTokenRate,
   calculateYearlyPercentageRate,
   convertDollarsToCents,
@@ -31,7 +30,6 @@ export interface FormatToPoolInput {
   userCollateralizedVTokenAddresses?: string[];
   userVTokenBalances?: Awaited<ReturnType<VenusLens['callStatic']['vTokenBalancesAll']>>;
   userVaiBorrowBalanceMantissa?: BigNumber;
-  mainMarkets?: Market[];
   blocksPerDay?: number;
 }
 
@@ -50,7 +48,6 @@ export const formatToPool = ({
   userVTokenBalances,
   userVaiBorrowBalanceMantissa,
   primeApyMap,
-  mainMarkets,
 }: FormatToPoolInput) => {
   const assets: Asset[] = [];
 
@@ -219,10 +216,6 @@ export const formatToPool = ({
       : new BigNumber(0);
     const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
-    const market = (mainMarkets || []).find(mainMarket =>
-      areAddressesEqual(mainMarket.vTokenAddress, vToken.address),
-    );
-
     const disabledTokenActions = getDisabledTokenActions({
       bitmask: legacyPoolMarket.pausedActionsBitmap,
       tokenAddresses: [vToken.address, vToken.underlyingToken.address],
@@ -249,8 +242,8 @@ export const formatToPool = ({
       borrowBalanceCents,
       supplyDistributions,
       borrowDistributions,
-      supplierCount: market?.supplierCount || 0,
-      borrowerCount: market?.borrowerCount || 0,
+      supplierCount: legacyPoolMarket?.supplierCount || 0,
+      borrowerCount: legacyPoolMarket?.borrowerCount || 0,
       // User-specific props
       userSupplyBalanceTokens,
       userSupplyBalanceCents,
