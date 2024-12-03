@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.175.2
+
+### Patch Changes
+
+- 108acf5: fix participant counts of legacy pool markets
+
 ## 2.175.1
 
 ### Patch Changes
