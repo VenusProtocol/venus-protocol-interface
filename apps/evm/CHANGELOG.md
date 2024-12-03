@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.176.0
+
+### Minor Changes
+
+- b430c39: add LBTC to Ethereum and Sepolia
+
 ## 2.175.3
 
 ### Patch Changes
