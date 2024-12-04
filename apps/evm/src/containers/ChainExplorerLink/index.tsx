@@ -5,7 +5,7 @@ import { Icon } from 'components/Icon';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import type { ChainId } from 'types';
-import { type UrlType, cn, generateChainExplorerUrl } from 'utilities';
+import { type UrlType, cn, generateExplorerUrl } from 'utilities';
 
 export interface ChainExplorerLinkProps {
   hash: string;
@@ -27,7 +27,7 @@ export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
   const { t } = useTranslation();
 
   const url = useMemo(
-    () => generateChainExplorerUrl({ hash, urlType, chainId }),
+    () => generateExplorerUrl({ hash, urlType, chainId }),
     [hash, urlType, chainId],
   );
 

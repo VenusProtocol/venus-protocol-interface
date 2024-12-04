@@ -3,7 +3,7 @@ import { BigNumber as BN } from 'ethers';
 
 import fakeAddress from '__mocks__/models/address';
 
-import type { XvsTokenMultichain } from 'libs/contracts';
+import type { XvsTokenOmnichain } from 'libs/contracts';
 
 import getXvsBridgeMintStatus from '.';
 
@@ -15,11 +15,11 @@ describe('getXvsBridgeMintStatus', () => {
     const fakeContract = {
       minterToCap: minterToCapMock,
       minterToMintedAmount: minterToMintedAmountMock,
-    } as unknown as XvsTokenMultichain;
+    } as unknown as XvsTokenOmnichain;
 
     const response = await getXvsBridgeMintStatus({
       chainXvsProxyOftDestContractAddress: fakeAddress,
-      xvsTokenMultichainContract: fakeContract,
+      xvsTokenOmnichainContract: fakeContract,
     });
 
     expect(minterToCapMock).toHaveBeenCalledTimes(1);

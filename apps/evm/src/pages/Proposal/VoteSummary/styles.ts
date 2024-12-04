@@ -25,27 +25,21 @@ export const useStyles = () => {
       }
     `,
     labeledProgressBarContainer: css`
-      margin-bottom: ${theme.spacing(8)};
-
       ${theme.breakpoints.down('xl')} {
         flex: 2;
-        margin-right: ${theme.spacing(8)};
-        margin-bottom: 0;
-      }
-
-      ${theme.breakpoints.down('sm')} {
-        margin-right: 0;
-        margin-bottom: ${theme.spacing(8)};
       }
     `,
     button: css`
       width: 100%;
-      margin-bottom: ${theme.spacing(8)};
 
       ${theme.breakpoints.down('xl')} {
         flex: 1;
         margin-top: 0;
-        margin-bottom: 0;
+        margin-left: ${theme.spacing(8)};
+      }
+
+      ${theme.breakpoints.down('sm')} {
+        margin-left: 0;
       }
     `,
     votesHeader: css`

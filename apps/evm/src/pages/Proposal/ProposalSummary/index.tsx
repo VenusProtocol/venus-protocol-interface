@@ -63,8 +63,8 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
     const styles = useStyles();
     const { t, Trans } = useTranslation();
     const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
-    const isMultichainGovernanceFeatureEnabled = useIsFeatureEnabled({
-      name: 'multichainGovernance',
+    const isOmnichainGovernanceFeatureEnabled = useIsFeatureEnabled({
+      name: 'omnichainGovernance',
     });
 
     const {
@@ -82,6 +82,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
       executedTxHash,
       endDate,
       proposalType,
+      expiredDate,
     } = proposal;
 
     const handleCancelProposal = async () => {
@@ -109,7 +110,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
     };
 
     let updateProposalButton: JSX.Element | undefined;
-    let transactionHash = createdTxHash;
+    let mainTransactionHash = createdTxHash;
     const isExecuteEtaInFuture = !!proposalEta && isAfter(proposalEta, new Date());
 
     switch (state) {
@@ -125,10 +126,11 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
             {t('voteProposalUi.cancelButtonLabel')}
           </SecondaryButton>
         );
-        transactionHash = createdTxHash;
         break;
       case ProposalState.Canceled:
-        transactionHash = cancelTxHash;
+        if (!isOmnichainGovernanceFeatureEnabled) {
+          mainTransactionHash = cancelTxHash;
+        }
         break;
       case ProposalState.Succeeded:
         updateProposalButton = (
@@ -155,16 +157,28 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
             </PrimaryButton>
           );
         }
-
-        transactionHash = queuedTxHash;
+        if (!isOmnichainGovernanceFeatureEnabled) {
+          mainTransactionHash = queuedTxHash;
+        }
         break;
       case ProposalState.Executed:
-        transactionHash = executedTxHash;
+        if (!isOmnichainGovernanceFeatureEnabled) {
+          mainTransactionHash = executedTxHash;
+        }
         break;
       // no default
     }
 
     const countdownData = useMemo(() => {
+      if (state === ProposalState.Pending && startDate) {
+        return {
+          date: startDate,
+          // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
+          // t('voteProposalUi.timeUntilVotable')
+          i18nKey: 'voteProposalUi.timeUntilVotable',
+        };
+      }
+
       if (state === ProposalState.Active && endDate) {
         return {
           date: endDate,
@@ -182,7 +196,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
           i18nKey: 'voteProposalUi.timeUntilExecutable',
         };
       }
-    }, [state, endDate, proposalEta, isExecuteEtaInFuture]);
+    }, [state, endDate, startDate, proposalEta, isExecuteEtaInFuture]);
 
     return (
       <Card css={styles.root} className={className}>
@@ -221,26 +235,29 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
                 {title}
               </Typography>
 
-              {transactionHash && (
+              {mainTransactionHash && (
                 <ChainExplorerLink
-                  text={transactionHash}
+                  text={mainTransactionHash}
                   urlType="tx"
-                  hash={transactionHash}
+                  hash={mainTransactionHash}
                   ellipseBreakpoint="xxl"
                   chainId={governanceChain.id}
                 />
               )}
             </div>
 
-            {isVoteProposalFeatureEnabled && updateProposalButton}
+            {isVoteProposalFeatureEnabled &&
+              !isOmnichainGovernanceFeatureEnabled &&
+              updateProposalButton}
           </div>
         </div>
 
-        {!isMultichainGovernanceFeatureEnabled && (
+        {!isOmnichainGovernanceFeatureEnabled && (
           <div css={styles.rightSection}>
             <Typography css={styles.rightTitle}>{t('voteProposalUi.proposalHistory')}</Typography>
 
             <Stepper
+              expiredDate={expiredDate}
               createdDate={createdDate}
               startDate={startDate}
               cancelDate={cancelDate}
@@ -265,7 +282,7 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   const { mutateAsync: queueProposal, isPending: isQueueProposalLoading } = useQueueProposal();
 
   const handleCancelProposal = () => cancelProposal({ proposalId });
-  const handleExecuteProposal = () => executeProposal({ proposalId });
+  const handleExecuteProposal = () => executeProposal({ proposalId, chainId: governanceChain.id });
   const handleQueueProposal = () => queueProposal({ proposalId });
 
   const { data: proposalThresholdData } = useGetProposalThreshold();
@@ -275,12 +292,12 @@ const ProposalSummary: React.FC<ProposalSummaryUiProps> = ({ className, proposal
   });
 
   const { data: proposerVotesData } = useGetCurrentVotes(
-    { accountAddress: proposal.proposer },
+    { accountAddress: proposal.proposerAddress },
     { enabled: !!accountAddress },
   );
 
   const canCancelProposal =
-    areAddressesEqual(proposal.proposer, accountAddress || '') ||
+    areAddressesEqual(proposal.proposerAddress, accountAddress || '') ||
     (proposalThresholdData?.thresholdMantissa &&
       proposerVotesData?.votesMantissa.isLessThan(proposalThresholdData.thresholdMantissa));
 

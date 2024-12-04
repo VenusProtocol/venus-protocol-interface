@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-import type { XvsTokenMultichain } from 'libs/contracts';
+import type { XvsTokenOmnichain } from 'libs/contracts';
 
 export interface GetXvsMintStatusInput {
   chainXvsProxyOftDestContractAddress: string;
-  xvsTokenMultichainContract: XvsTokenMultichain;
+  xvsTokenOmnichainContract: XvsTokenOmnichain;
 }
 
 export interface GetXvsMintStatusOutput {
@@ -14,11 +14,11 @@ export interface GetXvsMintStatusOutput {
 
 const getXvsBridgeMintStatus = async ({
   chainXvsProxyOftDestContractAddress,
-  xvsTokenMultichainContract,
+  xvsTokenOmnichainContract,
 }: GetXvsMintStatusInput): Promise<GetXvsMintStatusOutput> => {
   const [minterToCap, bridgeAmountMinted] = await Promise.all([
-    xvsTokenMultichainContract.minterToCap(chainXvsProxyOftDestContractAddress),
-    xvsTokenMultichainContract.minterToMintedAmount(chainXvsProxyOftDestContractAddress),
+    xvsTokenOmnichainContract.minterToCap(chainXvsProxyOftDestContractAddress),
+    xvsTokenOmnichainContract.minterToMintedAmount(chainXvsProxyOftDestContractAddress),
   ]);
   return {
     minterToCapMantissa: new BigNumber(minterToCap.toString()),

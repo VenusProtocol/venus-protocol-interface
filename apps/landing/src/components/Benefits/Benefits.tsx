@@ -22,7 +22,7 @@ const content = [
   },
   {
     icon: <Dots className={s.icon} />,
-    title: 'Multichain',
+    title: 'Omnichain',
     text: 'Built on EVM-compatible chains for fast, secure, and low cost transactions.',
   },
 ];

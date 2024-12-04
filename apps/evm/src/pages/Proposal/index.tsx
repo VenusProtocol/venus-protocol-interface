@@ -3,7 +3,6 @@ import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { commands as fakeCommands } from '__mocks__/models/proposalCommands';
 import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
 import { Button, NoticeInfo, Page, Spinner } from 'components';
 import { routes } from 'constants/routing';
@@ -41,8 +40,8 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 }) => {
   const { switchChain } = useSwitchChain();
   const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
-  const isMultichainGovernanceFeatureEnabled = useIsFeatureEnabled({
-    name: 'multichainGovernance',
+  const isOmnichainGovernanceFeatureEnabled = useIsFeatureEnabled({
+    name: 'omnichainGovernance',
   });
   const styles = useStyles();
   const { t } = useTranslation();
@@ -58,35 +57,28 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   }
 
   return (
-    <div css={styles.root} className="space-y-6 xl:space-y-8">
+    <div css={styles.root} className="space-y-6">
       <ProposalSummary proposal={proposal} />
 
-      {!isVoteProposalFeatureEnabled && (
+      {!isVoteProposalFeatureEnabled && proposal.state === ProposalState.Active && (
         <NoticeInfo
           className="w-full"
           data-testid={TEST_IDS.votingDisabledWarning}
-          title={t('vote.multichain.votingOnlyEnabledOnBnb')}
+          title={t('vote.omnichain.votingOnlyEnabledOnBnb')}
           description={
             <Button
               className="h-auto"
               variant="text"
               onClick={() => switchChain({ chainId: governanceChain.id })}
             >
-              {t('vote.multichain.switchToBnb')}
+              {t('vote.omnichain.switchToBnb')}
             </Button>
           }
         />
       )}
 
-      {isMultichainGovernanceFeatureEnabled && (
-        <Commands
-          commands={fakeCommands} // TODO: fetch (see VEN-2701)
-        />
-      )}
-
-      <div css={styles.votes} className="space-y-6 lg:space-y-0">
+      <div className="space-y-6 xl:space-y-0 xl:flex xl:space-x-6">
         <VoteSummary
-          css={styles.vote}
           label={t('vote.for')}
           votedValueMantissa={proposal.forVotesMantissa}
           votedTotalMantissa={proposal.totalVotesMantissa}
@@ -98,7 +90,6 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
 
         <VoteSummary
-          css={styles.vote}
           label={t('vote.against')}
           votedValueMantissa={proposal.againstVotesMantissa}
           votedTotalMantissa={proposal.totalVotesMantissa}
@@ -110,7 +101,6 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
 
         <VoteSummary
-          css={styles.vote}
           label={t('vote.abstain')}
           votedValueMantissa={proposal.abstainedVotesMantissa}
           votedTotalMantissa={proposal.totalVotesMantissa}
@@ -123,6 +113,8 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
       </div>
 
       <Description description={proposal.description} actions={proposal.proposalActions} />
+
+      {isOmnichainGovernanceFeatureEnabled && <Commands proposal={proposal} />}
 
       {isVoteProposalFeatureEnabled && voteModalType !== undefined && (
         <VoteModal
@@ -142,10 +134,11 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 const Proposal = () => {
   const { accountAddress } = useAccountAddress();
   const { proposalId = '' } = useParams<{ proposalId: string }>();
-  const { data: proposal, error: getProposalError } = useGetProposal(
-    { proposalId, accountAddress },
+  const { data: proposalData, error: getProposalError } = useGetProposal(
+    { proposalId: Number(proposalId), accountAddress },
     { enabled: !!proposalId },
   );
+  const proposal = proposalData?.proposal;
 
   const xvs = useGetToken({
     symbol: 'XVS',

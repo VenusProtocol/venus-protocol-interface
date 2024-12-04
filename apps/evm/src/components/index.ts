@@ -18,6 +18,7 @@ export * from './Notice';
 export * from './Pagination';
 export * from './ProgressBar';
 export * from './ProgressCircle';
+export * from './LabeledProgressCircle';
 export * from './Card';
 export * from './ProgressBar';
 export * from './AccountHealth';

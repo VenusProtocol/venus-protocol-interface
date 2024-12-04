@@ -11,31 +11,6 @@ export const useStyles = () => {
     spinner: css`
       height: 100%;
     `,
-    votes: css`
-      display: flex;
-
-      ${theme.breakpoints.down('xl')} {
-        display: block;
-      }
-    `,
-    vote: css`
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      margin-right: ${theme.spacing(8)};
-
-      ${theme.breakpoints.down('xl')} {
-        margin-right: 0;
-
-        :last-of-type {
-          margin-bottom: 0;
-        }
-      }
-
-      :last-of-type {
-        margin-right: 0;
-      }
-    `,
     successColor: theme.palette.interactive.success,
     againstColor: theme.palette.interactive.error,
     abstainColor: theme.palette.text.secondary,

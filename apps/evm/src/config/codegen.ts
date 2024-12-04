@@ -6,6 +6,7 @@ export const projects = {
   isolatedPools: {
     schema: 'https://api.studio.thegraph.com/query/77761/venus-isolated-pools/version/latest',
     documents: ['../clients/subgraph/queries/isolatedPools/**/*.graphql'],
+    errorsOnly: true,
     extensions: {
       codegen: {
         generates: {
@@ -16,13 +17,28 @@ export const projects = {
       },
     },
   },
-  governance: {
+  governanceBsc: {
     schema: 'https://api.studio.thegraph.com/query/77761/venus-governance/version/latest',
-    documents: ['../clients/subgraph/queries/governance/**/*.graphql'],
+    documents: ['../clients/subgraph/queries/governanceBsc/**/*.graphql'],
+    errorsOnly: true,
     extensions: {
       codegen: {
         generates: {
-          '../clients/subgraph/gql/generated/governance.ts': {
+          '../clients/subgraph/gql/generated/governanceBsc.ts': {
+            plugins,
+          },
+        },
+      },
+    },
+  },
+  governanceNonBsc: {
+    schema: 'https://api.studio.thegraph.com/query/77761/venus-governance-ethereum/version/latest',
+    documents: ['../clients/subgraph/queries/governanceNonBsc/**/*.graphql'],
+    errorsOnly: true,
+    extensions: {
+      codegen: {
+        generates: {
+          '../clients/subgraph/gql/generated/governanceNonBsc.ts': {
             plugins,
           },
         },
