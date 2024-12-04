@@ -1,5 +1,21 @@
 # @venusprotocol/evm
 
+## 2.177.0
+
+### Minor Changes
+
+- dd2064e: wire up execute button of remote proposals
+- dd2064e: add links to transactions in Commands section of Proposal page
+- dd2064e: fetch Proposal page data from subgraph
+- dd2064e: list omnichain proposals on Proposal page
+- dd2064e: display executed payloads counts on proposal list
+- dd2064e: split governance subgraphs + remove proposal previews
+
+### Patch Changes
+
+- dd2064e: fix small responsive issues with Governance feature
+- dd2064e: fix governance subgraph URLs on Ethereum and Arbitrum One
+
 ## 2.176.0
 
 ### Minor Changes
