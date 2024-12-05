@@ -1,32 +1,52 @@
-import { createWeb3Name } from '@web3-name-sdk/core';
-import config from 'config';
-import { ChainId } from 'types';
+import { create, windowScheduler } from '@yornaath/batshit';
+import type { ChainId } from 'types';
+import { restService } from 'utilities';
+import type { Address } from 'viem';
+
+const getDomainNameFromApi = async ({
+  addresses,
+  chainIds,
+}: { addresses: Address[]; chainIds?: ChainId[] }) => {
+  const response = await restService<GetApiDomainNameResponse>({
+    endpoint: '/web3-domain-name',
+    method: 'GET',
+    params: {
+      addresses: JSON.stringify(addresses),
+      chainIds: JSON.stringify(chainIds),
+    },
+  });
+
+  if (response.data && 'error' in response.data) {
+    throw new Error(response.data.error);
+  }
+
+  return response.data;
+};
+
+const domainNamesBatcher = create({
+  fetcher: async (queries: { accountAddress: Address; chainId: ChainId }[]) =>
+    getDomainNameFromApi({
+      addresses: queries.map(q => q.accountAddress),
+      chainIds: queries.map(q => q.chainId),
+    }),
+  resolver: (data, query) => data?.[query.accountAddress],
+  scheduler: windowScheduler(10),
+});
+
+type ChainIdDomainNameMap = { [Key in ChainId]?: string | null };
+type GetApiDomainNameResponse = Record<Address, ChainIdDomainNameMap>;
 
 export interface GetAddressDomainNameInput {
-  accountAddress: string;
+  accountAddress: Address;
   chainId: ChainId;
 }
 
-export type GetAddressDomainNameOutput = Awaited<ReturnType<typeof web3Name.getDomainName>> | null;
+export type GetAddressDomainNameOutput = ChainIdDomainNameMap;
 
-// the client will query the VerifiedTldHub contract on Ethereum
-// to fetch TLD medatada
-const web3Name = createWeb3Name({
-  rpcUrl: config.rpcUrls[ChainId.ETHEREUM],
-});
+const getAddressDomainName = async ({ accountAddress, chainId }: GetAddressDomainNameInput) => {
+  const response = await domainNamesBatcher.fetch({ accountAddress, chainId });
 
-const getAddressDomainName = async ({
-  accountAddress,
-  chainId,
-}: GetAddressDomainNameInput): Promise<GetAddressDomainNameOutput> => {
-  const rpcUrl = config.rpcUrls[chainId];
-
-  const addressDomainName = await web3Name.getDomainName({
-    address: accountAddress,
-    rpcUrl,
-  });
-
-  return addressDomainName;
+  return response || {};
 };
 
 export default getAddressDomainName;

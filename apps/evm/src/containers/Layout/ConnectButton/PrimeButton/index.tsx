@@ -1,7 +1,7 @@
 import primeLogoSrc from 'assets/img/primeLogo.svg';
-import { type ButtonProps, SecondaryButton } from 'components';
+import { type ButtonProps, SecondaryButton, Username } from 'components';
 import { useTranslation } from 'libs/translations';
-import { cn, truncateAddress } from 'utilities';
+import { cn } from 'utilities';
 
 export interface PrimeButtonProps extends ButtonProps {
   accountAddress: string;
@@ -27,7 +27,7 @@ export const PrimeButton: React.FC<PrimeButtonProps> = ({
       <>
         <img className="mr-2 w-5" src={primeLogoSrc} alt={t('PrimeButton.primeLogoAlt')} />
 
-        {addressDomainName ?? truncateAddress(accountAddress)}
+        <Username address={accountAddress} showTooltip={false} shouldEllipseAddress={false} />
       </>
     </SecondaryButton>
   );
