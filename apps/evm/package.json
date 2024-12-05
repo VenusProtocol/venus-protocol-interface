@@ -9,7 +9,7 @@
     "start": "vite",
     "build": "NODE_OPTIONS=\"--max-old-space-size=16384\" && vite build",
     "serve": "vite preview",
-    "test": "TZ=UTC VITE_NETWORK=testnet vitest run",
+    "test": "TZ=UTC VITE_NETWORK=testnet VITE_ENV=ci vitest run",
     "test:regression": "reg-suit run",
     "clean": "rm -rf .turbo && rm -rf node_modules",
     "lint": "yarn lint:styles && biome check . --diagnostic-level=error",
@@ -157,15 +157,7 @@
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   }
 }

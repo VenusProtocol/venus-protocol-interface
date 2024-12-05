@@ -33,10 +33,10 @@ const App = () => (
       )
     }
 
-    <ErrorBoundary>
-      <HashRouter>
-        <MuiThemeProvider>
-          <QueryClientProvider client={queryClient}>
+    <HashRouter>
+      <MuiThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ErrorBoundary>
             <Web3Wrapper>
               <AnalyticProvider>
                 <Routes />
@@ -60,10 +60,10 @@ const App = () => (
                 <SentryErrorInfo />
               </AnalyticProvider>
             </Web3Wrapper>
-          </QueryClientProvider>
-        </MuiThemeProvider>
-      </HashRouter>
-    </ErrorBoundary>
+          </ErrorBoundary>
+        </QueryClientProvider>
+      </MuiThemeProvider>
+    </HashRouter>
   </>
 );
 
