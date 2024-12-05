@@ -39,6 +39,13 @@ export default defineConfig(({ mode }) => {
             release: {
               name: APP_VERSION,
             },
+            bundleSizeOptimizations: {
+              excludeDebugStatements: true,
+              excludeTracing: true,
+              excludeReplayShadowDom: true,
+              excludeReplayIframe: true,
+              excludeReplayWorker: true,
+            },
           }),
         ],
       },

@@ -1,4 +1,4 @@
-import { formatDistanceStrict } from 'date-fns';
+import { formatDistanceStrict } from 'date-fns/formatDistanceStrict';
 
 const ONE_MONTH_IN_SECONDS = 30 * 24 * 60 * 60;
 
