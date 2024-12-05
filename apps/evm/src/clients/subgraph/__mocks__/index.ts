@@ -1,7 +1,6 @@
 import bscProposalsResponse from '__mocks__/subgraph/bscProposals.json';
 import nonBscProposalsResponse from '__mocks__/subgraph/nonBscProposals.json';
 
-export * from '../queries/isolatedPools/getIsolatedPoolParticipantsCount';
 export * from '../queries/governanceBsc/getBscProposals';
 export * from '../utilities/formatToProposal';
 export * from '../utilities/enrichRemoteProposals';

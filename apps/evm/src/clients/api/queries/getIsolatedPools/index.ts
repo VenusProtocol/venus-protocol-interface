@@ -1,10 +1,6 @@
 import BigNumber from 'bignumber.js';
 
 import { getBlockNumber, getTokenBalances } from 'clients/api';
-import {
-  type GetIsolatedPoolParticipantsCountInput,
-  getIsolatedPoolParticipantsCount,
-} from 'clients/subgraph';
 import { type IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'libs/contracts';
 import { logError } from 'libs/errors';
 import type { Asset, PrimeApy, Token } from 'types';
@@ -23,19 +19,6 @@ import type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
 export type { GetIsolatedPoolsInput, GetIsolatedPoolsOutput } from './types';
 
-// Since the borrower and supplier counts aren't essential information, we make the logic so the
-// dApp can still function if the subgraph is down
-const safelyGetIsolatedPoolParticipantsCount = async ({
-  chainId,
-}: GetIsolatedPoolParticipantsCountInput) => {
-  try {
-    const res = await getIsolatedPoolParticipantsCount({ chainId });
-    return res;
-  } catch (error) {
-    logError(error);
-  }
-};
-
 const getIsolatedPools = async ({
   isolatedPoolsData,
   chainId,
@@ -48,14 +31,11 @@ const getIsolatedPools = async ({
   tokens,
 }: GetIsolatedPoolsInput): Promise<GetIsolatedPoolsOutput> => {
   const [
-    poolParticipantsCountResult,
     currentBlockNumberResult,
     primeVTokenAddressesResult,
     primeMinimumXvsToStakeResult,
     userPrimeTokenResult,
   ] = await Promise.allSettled([
-    // Fetch borrower and supplier counts of each isolated token
-    safelyGetIsolatedPoolParticipantsCount({ chainId }),
     // Fetch current block number
     getBlockNumber({ provider }),
     // Prime related calls
@@ -63,10 +43,6 @@ const getIsolatedPools = async ({
     primeContract?.MINIMUM_STAKED_XVS(),
     accountAddress ? primeContract?.tokens(accountAddress) : undefined,
   ]);
-
-  if (poolParticipantsCountResult.status === 'rejected') {
-    throw new Error(poolParticipantsCountResult.reason);
-  }
 
   if (currentBlockNumberResult.status === 'rejected') {
     throw new Error(currentBlockNumberResult.reason);
@@ -219,7 +195,6 @@ const getIsolatedPools = async ({
     tokens,
     currentBlockNumber: currentBlockNumberResult.value.blockNumber,
     pools: isolatedPools,
-    poolParticipantsCountResult: poolParticipantsCountResult.value,
     rewardsDistributorSettingsMapping,
     tokenPriceDollarsMapping,
     userCollateralizedVTokenAddresses,

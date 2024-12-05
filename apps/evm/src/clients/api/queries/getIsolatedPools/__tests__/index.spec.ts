@@ -3,7 +3,6 @@ import type Vi from 'vitest';
 import fakeProvider from '__mocks__/models/provider';
 import tokens, { xvs } from '__mocks__/models/tokens';
 
-import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { getIsolatedPoolComptrollerContract, getRewardsDistributorContract } from 'libs/contracts';
 import { ChainId } from 'types';
 
@@ -11,7 +10,6 @@ import { apiPoolsData } from '__mocks__/models/pools';
 import getIsolatedPools from '..';
 import {
   fakeIsolatedPoolComptrollerContract,
-  fakeIsolatedPoolParticipantsCount,
   fakePoolLensContract,
   fakeRewardsDistributorContract,
 } from '../__testUtils__/fakeData';
@@ -27,10 +25,6 @@ describe('getIsolatedPools', () => {
 
     (getRewardsDistributorContract as Vi.Mock).mockImplementation(
       () => fakeRewardsDistributorContract,
-    );
-
-    (getIsolatedPoolParticipantsCount as Vi.Mock).mockImplementation(
-      () => fakeIsolatedPoolParticipantsCount,
     );
   });
 

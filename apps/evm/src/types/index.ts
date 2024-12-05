@@ -77,7 +77,7 @@ export type AssetDistribution =
 
 export interface Asset {
   vToken: VToken;
-  tokenPriceCents: BigNumber;
+  tokenPriceCents: BigNumber; // TODO: rename to underlyingTokenPriceCents
   reserveFactor: number;
   collateralFactor: number;
   liquidityCents: BigNumber;
@@ -117,7 +117,7 @@ export interface SwapRouterAddressMapping {
 export interface Pool {
   comptrollerAddress: string;
   name: string;
-  description: string;
+  description: string; // TODO: remove (not in use)
   isIsolated: boolean;
   assets: Asset[];
   // User-specific props
