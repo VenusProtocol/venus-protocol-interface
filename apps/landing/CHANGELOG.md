@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.6.1
+
+### Patch Changes
+
+- ecc4fad: add verification code for WalletConnect
+
 ## 1.6.0
 
 ### Minor Changes
