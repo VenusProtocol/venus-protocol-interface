@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 
-import type { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import type { PoolLens } from 'libs/contracts';
 import type { Asset, ChainId, Pool, PrimeApy, Token, VToken } from 'types';
@@ -31,7 +30,6 @@ export interface FormatToPoolsInput {
   primeApyMap: Map<string, PrimeApy>;
   userCollateralizedVTokenAddresses: string[];
   blocksPerDay?: number;
-  poolParticipantsCountResult?: Awaited<ReturnType<typeof getIsolatedPoolParticipantsCount>>;
   userVTokenBalancesAll?: Awaited<ReturnType<PoolLens['callStatic']['vTokenBalancesAll']>>;
   userTokenBalancesAll?: GetTokenBalancesOutput;
 }
@@ -44,17 +42,12 @@ const formatToPools = ({
   pools,
   rewardsDistributorSettingsMapping,
   tokenPriceDollarsMapping,
-  poolParticipantsCountResult,
   userCollateralizedVTokenAddresses,
   primeApyMap,
   userVTokenBalancesAll,
   userTokenBalancesAll,
 }: FormatToPoolsInput) => {
   const formattedPools: Pool[] = pools.map(p => {
-    const subgraphPool = poolParticipantsCountResult?.pools.find(pool =>
-      areAddressesEqual(pool.id, p.address),
-    );
-
     const assets = p.markets.reduce<Asset[]>((acc, market) => {
       // Remove unlisted tokens
       if (!market.isListed) {
@@ -90,13 +83,6 @@ const formatToPools = ({
       const userVTokenBalances = userVTokenBalancesAll?.find(userBalances =>
         areAddressesEqual(userBalances.vToken, vToken.address),
       );
-
-      // Extract supplierCount and borrowerCount from subgraph result
-      const subgraphPoolMarket = subgraphPool?.markets.find(market =>
-        areAddressesEqual(market.id, vToken.address),
-      );
-      const supplierCount = +(subgraphPoolMarket?.supplierCount || 0);
-      const borrowerCount = +(subgraphPoolMarket?.borrowerCount || 0);
 
       const borrowCapTokens = convertMantissaToTokens({
         value: market.borrowCapsMantissa,
@@ -231,8 +217,8 @@ const formatToPools = ({
         liquidityCents,
         reserveTokens,
         exchangeRateVTokens,
-        supplierCount,
-        borrowerCount,
+        supplierCount: market.supplierCount,
+        borrowerCount: market.borrowerCount,
         borrowApyPercentage,
         supplyApyPercentage,
         supplyBalanceTokens,

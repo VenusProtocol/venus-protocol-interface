@@ -1,4 +1,9 @@
-import { type MutationObserverOptions, useMutation, useQuery } from '@tanstack/react-query';
+import {
+  type MutationObserverOptions,
+  type QueryObserverOptions,
+  useMutation,
+  useQuery,
+} from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 
 import fakeAddress from '__mocks__/models/address';
@@ -138,11 +143,13 @@ export const getTokenBalances = vi.fn(async ({ tokens }: { tokens: Token[] }) =>
   })),
 }));
 
-export const useGetTokenBalances = vi.fn((input: GetTokenBalancesInput) =>
-  useQuery({
-    queryKey: [FunctionKey.GET_TOKEN_BALANCES],
-    queryFn: () => getTokenBalances(input),
-  }),
+export const useGetTokenBalances = vi.fn(
+  (input: GetTokenBalancesInput, options?: Partial<QueryObserverOptions>) =>
+    useQuery({
+      queryKey: [FunctionKey.GET_TOKEN_BALANCES],
+      queryFn: () => getTokenBalances(input),
+      ...options,
+    }),
 );
 
 export const getProposalMinQuorumVotes = vi.fn();

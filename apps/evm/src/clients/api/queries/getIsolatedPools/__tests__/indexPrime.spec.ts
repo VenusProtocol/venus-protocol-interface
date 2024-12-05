@@ -6,7 +6,6 @@ import fakeAccountAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
 import tokens, { xvs } from '__mocks__/models/tokens';
 
-import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
   type Prime,
@@ -19,7 +18,6 @@ import { apiPoolsData } from '__mocks__/models/pools';
 import getIsolatedPools from '..';
 import {
   fakeIsolatedPoolComptrollerContract,
-  fakeIsolatedPoolParticipantsCount,
   fakePoolLensContract,
   fakeRewardsDistributorContract,
 } from '../__testUtils__/fakeData';
@@ -46,10 +44,6 @@ describe('getIsolatedPools - Feature enabled: Prime', () => {
 
     (getRewardsDistributorContract as Vi.Mock).mockImplementation(
       () => fakeRewardsDistributorContract,
-    );
-
-    (getIsolatedPoolParticipantsCount as Vi.Mock).mockImplementation(
-      () => fakeIsolatedPoolParticipantsCount,
     );
   });
 

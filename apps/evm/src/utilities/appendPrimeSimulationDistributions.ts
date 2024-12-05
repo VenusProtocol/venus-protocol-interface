@@ -21,6 +21,8 @@ export interface ResolvePrimeSimulationDistributionsInput {
   chainId: ChainId;
 }
 
+// TODO: move to getPools directory
+
 export const appendPrimeSimulationDistributions = async ({
   primeContract,
   primeVTokenAddresses,

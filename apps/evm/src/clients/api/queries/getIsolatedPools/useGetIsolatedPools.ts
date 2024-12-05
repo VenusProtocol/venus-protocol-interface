@@ -8,11 +8,7 @@ import getIsolatedPools, {
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import {
-  useGetPoolLensContract,
-  useGetPoolRegistryContractAddress,
-  useGetPrimeContract,
-} from 'libs/contracts';
+import { useGetPoolLensContract, useGetPrimeContract } from 'libs/contracts';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useChainId, useProvider } from 'libs/wallet';
 import type { ChainId } from 'types';
@@ -27,7 +23,6 @@ type TrimmedInput = Omit<
   | 'primeContract'
   | 'poolLensContract'
   | 'vTreasuryContractAddress'
-  | 'poolRegistryContractAddress'
   | 'resilientOracleContract'
   | 'tokens'
   | 'isolatedPoolsData'
@@ -64,20 +59,17 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
 
   const poolLensContract = useGetPoolLensContract();
   const primeContract = useGetPrimeContract();
-  const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
 
   const isQueryEnabled =
     apiPoolsData !== undefined && (options?.enabled === undefined || options?.enabled);
 
   return useQuery({
     queryKey: [FunctionKey.GET_ISOLATED_POOLS, { ...input, chainId }],
-
     queryFn: () =>
       callOrThrow(
         {
           chainId,
           poolLensContract,
-          poolRegistryContractAddress,
           xvs,
         },
         params =>
@@ -91,7 +83,6 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
             ...params,
           }),
       ),
-
     refetchInterval,
     ...options,
     enabled: isQueryEnabled,

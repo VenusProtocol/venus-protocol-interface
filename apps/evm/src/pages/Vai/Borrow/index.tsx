@@ -3,8 +3,8 @@ import { useCallback, useMemo } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 
 import {
-  useGetLegacyPool,
   useGetMintableVai,
+  useGetPool,
   useGetPrimeToken,
   useGetTokenUsdPrice,
   useGetVaiRepayApr,
@@ -31,6 +31,7 @@ import {
 } from 'utilities';
 
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { AccountVaiData } from '../AccountVaiData';
 import type { FormValues } from '../types';
 import TEST_IDS from './testIds';
@@ -40,13 +41,15 @@ export const Borrow: React.FC = () => {
   const { t, Trans } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
   const vai = useGetToken({
     symbol: 'VAI',
   })!;
 
-  const { data: getLegacyPoolData } = useGetLegacyPool({
+  const { data: getLegacyPoolData } = useGetPool({
     accountAddress,
+    poolComptrollerAddress: corePoolComptrollerContractAddress,
   });
   const legacyPool = getLegacyPoolData?.pool;
 

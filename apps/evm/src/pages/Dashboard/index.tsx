@@ -24,10 +24,11 @@ const Dashboard: React.FC = () => {
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     setSearchValue(changeEvent.currentTarget.value);
 
-  const { data: getPoolData, isLoading: isGetPoolsLoading } = useGetPools({
+  const { data: getPools, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
-  const pools = getPoolData?.pools || [];
+
+  const pools = getPools?.pools || [];
   const columns = useMarketTableColumns();
 
   const pausedAssetsExist = useMemo(

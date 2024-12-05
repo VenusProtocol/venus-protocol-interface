@@ -202,7 +202,7 @@ export { default as useGetAsset } from './queries/useGetAsset';
 export * from './queries/getLegacyPool';
 export { default as useGetLegacyPool } from './queries/getLegacyPool/useGetLegacyPool';
 
-export { default as useGetPools } from './queries/useGetPools';
+export * from './queries/useGetPools';
 
 export { default as useGetLegacyPoolMarkets } from './queries/useGetLegacyPoolMarkets';
 

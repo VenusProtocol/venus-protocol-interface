@@ -3,7 +3,6 @@ import { BigNumber as BN } from 'ethers';
 import fakePoolLensContractResponses from '__mocks__/contracts/poolLens';
 import { xvs } from '__mocks__/models/tokens';
 
-import type { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import MAX_UINT256 from 'constants/maxUint256';
 import type {
   IsolatedPoolComptroller,
@@ -11,20 +10,6 @@ import type {
   ResilientOracle,
   RewardsDistributor,
 } from 'libs/contracts';
-
-export const fakeIsolatedPoolParticipantsCount: Awaited<
-  ReturnType<typeof getIsolatedPoolParticipantsCount>
-> = {
-  pools: fakePoolLensContractResponses.getAllPools.map(pool => ({
-    __typename: 'Pool',
-    id: pool.comptroller,
-    markets: pool.vTokens.map(({ vToken }) => ({
-      id: vToken,
-      supplierCount: 10,
-      borrowerCount: 20,
-    })),
-  })),
-};
 
 export const fakeGetPriceOutput = BN.from('0x30f7dc8a6370b000');
 

@@ -2,13 +2,14 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import {
-  useGetLegacyPool,
+  useGetPool,
   useGetTokenUsdPrice,
   useGetVaiRepayAmountWithInterests,
   useGetVaiRepayApr,
 } from 'clients/api';
 import { Spinner } from 'components';
 import { AccountData, type AccountDataProps } from 'containers/AccountData';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset } from 'types';
@@ -21,6 +22,7 @@ export interface AccountVaiDataProps {
 
 export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, action }) => {
   const { accountAddress } = useAccountAddress();
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
   const vai = useGetToken({
     symbol: 'VAI',
@@ -34,8 +36,9 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
   });
   const vaiPriceDollars = getVaiUsdPrice?.tokenPriceUsd;
 
-  const { data: getLegacyPoolData } = useGetLegacyPool({
+  const { data: getLegacyPoolData } = useGetPool({
     accountAddress,
+    poolComptrollerAddress: corePoolComptrollerContractAddress,
   });
   const legacyPool = getLegacyPoolData?.pool;
 
