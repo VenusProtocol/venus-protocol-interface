@@ -1,32 +1,63 @@
-import { createWeb3Name } from '@web3-name-sdk/core';
-import config from 'config';
-import { ChainId } from 'types';
+import { create, windowScheduler } from '@yornaath/batshit';
+import type { ChainId } from 'types';
+import { restService } from 'utilities';
+import type { Address } from 'viem';
+
+const getDomainNameFromApi = async ({
+  addresses,
+  chainIds,
+}: { addresses: Address[]; chainIds?: ChainId[] }) => {
+  const response = await restService<GetApiDomainNameResponse>({
+    endpoint: '/web3-domain-name',
+    method: 'GET',
+    params: {
+      addresses: JSON.stringify(addresses),
+      chainIds: chainIds ? JSON.stringify(chainIds) : undefined,
+    },
+  });
+
+  if (response.data && 'error' in response.data) {
+    throw new Error(response.data.error);
+  }
+
+  return response.data;
+};
+
+const domainNamesBatcher = create({
+  fetcher: async (queries: { accountAddress: Address }[]) =>
+    getDomainNameFromApi({
+      addresses: queries.map(q => q.accountAddress),
+    }),
+  resolver: (data, query) => data?.[query.accountAddress],
+  scheduler: windowScheduler(10),
+});
+
+type ChainIdDomainNameMap = { [Key in ChainId]?: string | null };
+type GetApiDomainNameResponse = Record<Address, ChainIdDomainNameMap>;
 
 export interface GetAddressDomainNameInput {
-  accountAddress: string;
+  accountAddress: Address;
   chainId: ChainId;
+  useBatching?: boolean;
 }
 
-export type GetAddressDomainNameOutput = Awaited<ReturnType<typeof web3Name.getDomainName>> | null;
-
-// the client will query the VerifiedTldHub contract on Ethereum
-// to fetch TLD medatada
-const web3Name = createWeb3Name({
-  rpcUrl: config.rpcUrls[ChainId.ETHEREUM],
-});
+export type GetAddressDomainNameOutput = ChainIdDomainNameMap;
 
 const getAddressDomainName = async ({
   accountAddress,
   chainId,
-}: GetAddressDomainNameInput): Promise<GetAddressDomainNameOutput> => {
-  const rpcUrl = config.rpcUrls[chainId];
+  useBatching = true,
+}: GetAddressDomainNameInput) => {
+  const response = !useBatching
+    ? (
+        await getDomainNameFromApi({
+          addresses: [accountAddress],
+          chainIds: [chainId],
+        })
+      )?.[accountAddress]
+    : await domainNamesBatcher.fetch({ accountAddress });
 
-  const addressDomainName = await web3Name.getDomainName({
-    address: accountAddress,
-    rpcUrl,
-  });
-
-  return addressDomainName;
+  return response || {};
 };
 
 export default getAddressDomainName;

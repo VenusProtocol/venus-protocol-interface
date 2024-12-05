@@ -1,14 +1,8 @@
-import { useGetAddressDomainName, useGetPrimeToken } from 'clients/api';
-import {
-  Button,
-  type ButtonProps,
-  DomainNameOrEllipseAddress,
-  Modal,
-  SecondaryButton,
-} from 'components';
+import { useGetPrimeToken } from 'clients/api';
+import { Button, type ButtonProps, Modal, SecondaryButton, Username } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
-import { cn, truncateAddress } from 'utilities';
+import { cn } from 'utilities';
 
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { useState } from 'react';
@@ -58,32 +52,26 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
   });
   const isAccountPrime = !!getPrimeTokenData?.exists;
 
-  const { data: domainName, isLoading: isGetAddressDomainNameLoading } = useGetAddressDomainName(
-    {
-      accountAddress: accountAddress!,
-    },
-    {
-      enabled: !!accountAddress,
-    },
-  );
-
-  if (isGetPrimeTokenLoading || isGetAddressDomainNameLoading) {
+  if (isGetPrimeTokenLoading) {
     return null;
   }
 
-  let content: string | React.ReactNode = accountAddress
-    ? truncateAddress(accountAddress)
-    : t('connectButton.connect');
-  if (domainName && accountAddress) {
-    content = <DomainNameOrEllipseAddress address={accountAddress} shouldEllipseAddress={false} />;
-  }
+  const content = accountAddress ? (
+    <Username
+      showProvider={false}
+      showTooltip={false}
+      address={accountAddress}
+      shouldEllipseAddress
+    />
+  ) : (
+    t('connectButton.connect')
+  );
 
   return (
     <>
       {accountAddress && isAccountPrime ? (
         <PrimeButton
           accountAddress={accountAddress}
-          addressDomainName={domainName}
           onClick={handleConnectButtonClick}
           className={cn(variant === 'secondary' && connectedAccountButtonClasses, className)}
           {...otherProps}
@@ -109,11 +97,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
         <div className="space-y-10">
           {!!accountAddress && (
             <div className="flex items-center space-x-2 break-all">
-              <DomainNameOrEllipseAddress
-                className="flex-1"
-                address={accountAddress}
-                shouldEllipseAddress={false}
-              />
+              <Username className="flex-1" address={accountAddress} shouldEllipseAddress={false} />
 
               <CopyAddressButton className="shrink-0" address={accountAddress} />
             </div>

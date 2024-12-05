@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { type Params, matchPath, useLocation } from 'react-router-dom';
 
-import { DomainNameOrEllipseAddress } from 'components';
+import { Username } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { Link } from 'containers/Link';
@@ -98,16 +98,16 @@ export const Breadcrumbs: React.FC = () => {
         case Subdirectory.VOTER:
           hrefFragment = Subdirectory.VOTER.replace(':address', params.address || '');
 
-          dom = (
+          dom = !!params.address && (
             <div className="inline-flex items-center gap-x-2">
-              <DomainNameOrEllipseAddress
-                address={params.address || ''}
+              <Username
+                address={params.address}
                 showProvider={false}
                 showTooltip={false}
                 ellipseBreakpoint="xxl"
               />
 
-              {!!params.address && <CopyAddressButton address={params.address} />}
+              {<CopyAddressButton address={params.address} />}
             </div>
           );
           break;

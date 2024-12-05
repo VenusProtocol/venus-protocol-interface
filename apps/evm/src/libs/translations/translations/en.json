@@ -1238,8 +1238,7 @@
     },
     "providersAlt": "Provider Icon",
     "tooltip": {
-      "address": "({{address}})",
-      "publicTag": "Public Tag: {{domainName}}"
+      "address": "({{address}})"
     }
   },
   "withdrawFromVaiVaultModal": {
