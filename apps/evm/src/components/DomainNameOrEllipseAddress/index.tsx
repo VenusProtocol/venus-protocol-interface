@@ -5,6 +5,7 @@ import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { cn, truncateAddress } from 'utilities';
+import type { Address } from 'viem';
 
 type DomainNameAddressProps = {
   showProvider?: boolean;
@@ -22,9 +23,11 @@ export const DomainNameOrEllipseAddress: React.FC<DomainNameAddressProps> = ({
 }) => {
   const { t } = useTranslation();
   const { chainId } = useChainId();
-  const { data: domainName } = useGetAddressDomainName({
-    accountAddress: address,
+  const { data: domainNames } = useGetAddressDomainName({
+    accountAddress: address as Address,
   });
+
+  const chainDomainName = domainNames?.[chainId];
   // Ethereum and Sepolia use ENS, other chains use SpaceID
   const providerIcon =
     chainId === ChainId.ETHEREUM || chainId === ChainId.SEPOLIA ? 'ensLogo' : 'spaceIdLogo';
@@ -35,19 +38,19 @@ export const DomainNameOrEllipseAddress: React.FC<DomainNameAddressProps> = ({
 
   return (
     <>
-      {domainName ? (
+      {chainDomainName ? (
         <div className={cn('flex flex-row items-center', className)}>
           {showProvider && (
             <Tooltip title={providerText}>
               <Icon className="mr-1" name={providerIcon} />
             </Tooltip>
           )}
-          <span>{domainName}</span>
+          <span>{chainDomainName}</span>
           {showTooltip && (
             <Tooltip
               title={
-                <div className="flex flex-col">
-                  <span>{t('web3DomainNames.tooltip.publicTag', { domainName })}</span>
+                <div className="flex flex-col w-auto">
+                  <span className="text-center">{chainDomainName}</span>
                   <span className="md:hidden">
                     {t('web3DomainNames.tooltip.address', { address: truncateAddress(address) })}
                   </span>

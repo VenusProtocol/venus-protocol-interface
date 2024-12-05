@@ -7,7 +7,7 @@ import {
   SecondaryButton,
 } from 'components';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress, useAuthModal } from 'libs/wallet';
+import { useAccountAddress, useAuthModal, useChainId } from 'libs/wallet';
 import { cn, truncateAddress } from 'utilities';
 
 import { CopyAddressButton } from 'containers/CopyAddressButton';
@@ -37,6 +37,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
   const { openAuthModal } = useAuthModal();
   const { t } = useTranslation();
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const { chainId } = useChainId();
   const openAccountModal = () => setIsAccountModalOpen(true);
   const closeAccountModal = () => setIsAccountModalOpen(false);
 
@@ -58,14 +59,18 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
   });
   const isAccountPrime = !!getPrimeTokenData?.exists;
 
-  const { data: domainName, isLoading: isGetAddressDomainNameLoading } = useGetAddressDomainName(
-    {
-      accountAddress: accountAddress!,
-    },
-    {
-      enabled: !!accountAddress,
-    },
-  );
+  const { data: accountDomains, isLoading: isGetAddressDomainNameLoading } =
+    useGetAddressDomainName(
+      {
+        accountAddress: accountAddress!,
+        chainId,
+      },
+      {
+        enabled: !!accountAddress,
+      },
+    );
+
+  const chainDomainName = accountDomains?.[chainId];
 
   if (isGetPrimeTokenLoading || isGetAddressDomainNameLoading) {
     return null;
@@ -74,8 +79,15 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
   let content: string | React.ReactNode = accountAddress
     ? truncateAddress(accountAddress)
     : t('connectButton.connect');
-  if (domainName && accountAddress) {
-    content = <DomainNameOrEllipseAddress address={accountAddress} shouldEllipseAddress={false} />;
+  if (chainDomainName && accountAddress) {
+    content = (
+      <DomainNameOrEllipseAddress
+        showProvider={false}
+        showTooltip={false}
+        address={accountAddress}
+        shouldEllipseAddress={false}
+      />
+    );
   }
 
   return (
@@ -83,7 +95,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
       {accountAddress && isAccountPrime ? (
         <PrimeButton
           accountAddress={accountAddress}
-          addressDomainName={domainName}
+          addressDomainName={chainDomainName}
           onClick={handleConnectButtonClick}
           className={cn(variant === 'secondary' && connectedAccountButtonClasses, className)}
           {...otherProps}
