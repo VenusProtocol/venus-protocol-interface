@@ -5,13 +5,8 @@ import getAddressDomainName, {
   type GetAddressDomainNameOutput,
 } from 'clients/api/queries/getAddressDomainName';
 import FunctionKey from 'constants/functionKey';
-import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
-import { callOrThrow } from 'utilities';
 
-type UseGetAddressDomainNameInput = Omit<GetAddressDomainNameInput, 'chainId'> & {
-  chainId?: ChainId;
-};
+type UseGetAddressDomainNameInput = GetAddressDomainNameInput;
 
 export type UseGetAddressDomainNameQueryKey = [
   FunctionKey.GET_ADDRESS_DOMAIN_NAME,
@@ -27,26 +22,20 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetAddressDomainName = (
-  { accountAddress, chainId: passedChainId }: UseGetAddressDomainNameInput,
+  { accountAddress, chainId }: UseGetAddressDomainNameInput,
   options?: Partial<Options>,
 ) => {
-  const { chainId: currentChainId } = useChainId();
-  const chainId = passedChainId ?? currentChainId;
-
   const queryKey: UseGetAddressDomainNameQueryKey = [
     FunctionKey.GET_ADDRESS_DOMAIN_NAME,
     {
-      chainId,
       accountAddress,
+      chainId,
     },
   ];
 
   return useQuery({
     queryKey: queryKey,
-
-    queryFn: () =>
-      callOrThrow({ accountAddress, chainId }, params => getAddressDomainName({ ...params })),
-
+    queryFn: () => getAddressDomainName({ accountAddress, chainId }),
     ...options,
   });
 };
