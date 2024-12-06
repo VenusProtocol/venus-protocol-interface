@@ -1,4 +1,6 @@
 import * as Sentry from '@sentry/react';
+import useGetLatestAppVersion from 'clients/api/queries/getLatestAppVersion/useGetLatestAppVersion';
+import { compareVersions } from 'compare-versions';
 
 import config from 'config';
 import { version as APP_VERSION } from 'constants/version';
@@ -21,6 +23,22 @@ Sentry.init({
   ],
 });
 
-export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => (
-  <Sentry.ErrorBoundary>{children}</Sentry.ErrorBoundary>
-);
+export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
+  const { data } = useGetLatestAppVersion();
+  const latestAppVersion = data?.version;
+
+  return (
+    <Sentry.ErrorBoundary
+      onError={e => {
+        // Prevent sending errors from old releases
+        if (latestAppVersion && compareVersions(latestAppVersion, APP_VERSION)) {
+          return undefined;
+        }
+
+        return e;
+      }}
+    >
+      {children}
+    </Sentry.ErrorBoundary>
+  );
+};
