@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.6.2
+
+### Patch Changes
+
+- 3a22cd6: fix limit when fetching markets from landing page
+
 ## 1.6.1
 
 ### Patch Changes
