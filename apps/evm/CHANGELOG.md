@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.178.0
+
+### Minor Changes
+
+- 7f5455a: create reusable chains package
+
+### Patch Changes
+
+- 1e548b1: Prevent sending errors from old releases
+
 ## 2.177.0
 
 ### Minor Changes
