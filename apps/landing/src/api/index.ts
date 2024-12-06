@@ -4,7 +4,7 @@ import { formatTvlData, mapMarketsData } from './utils';
 
 const apiBaseUrl = 'https://api.venus.io/';
 
-const marketsRequestUrl = `${apiBaseUrl}markets/core-pool?limit=999999`;
+const marketsRequestUrl = `${apiBaseUrl}markets/core-pool?limit=500`;
 const proposalsRequestUrl = `${apiBaseUrl}governance/proposals?limit=1`;
 const tvlRequestUrl = `${apiBaseUrl}markets/tvl`;
 
