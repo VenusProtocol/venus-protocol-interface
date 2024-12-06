@@ -1,7 +1,13 @@
-import { useGetPrimeToken } from 'clients/api';
-import { Button, type ButtonProps, Modal, SecondaryButton } from 'components';
+import { useGetAddressDomainName, useGetPrimeToken } from 'clients/api';
+import {
+  Button,
+  type ButtonProps,
+  DomainNameOrEllipseAddress,
+  Modal,
+  SecondaryButton,
+} from 'components';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress, useAuthModal } from 'libs/wallet';
+import { useAccountAddress, useAuthModal, useChainId } from 'libs/wallet';
 import { cn, truncateAddress } from 'utilities';
 
 import { CopyAddressButton } from 'containers/CopyAddressButton';
@@ -31,6 +37,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
   const { openAuthModal } = useAuthModal();
   const { t } = useTranslation();
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const { chainId } = useChainId();
   const openAccountModal = () => setIsAccountModalOpen(true);
   const closeAccountModal = () => setIsAccountModalOpen(false);
 
@@ -52,8 +59,35 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
   });
   const isAccountPrime = !!getPrimeTokenData?.exists;
 
-  if (isGetPrimeTokenLoading) {
+  const { data: accountDomains, isLoading: isGetAddressDomainNameLoading } =
+    useGetAddressDomainName(
+      {
+        accountAddress: accountAddress!,
+        chainId,
+      },
+      {
+        enabled: !!accountAddress,
+      },
+    );
+
+  const chainDomainName = accountDomains?.[chainId];
+
+  if (isGetPrimeTokenLoading || isGetAddressDomainNameLoading) {
     return null;
+  }
+
+  let content: string | React.ReactNode = accountAddress
+    ? truncateAddress(accountAddress)
+    : t('connectButton.connect');
+  if (chainDomainName && accountAddress) {
+    content = (
+      <DomainNameOrEllipseAddress
+        showProvider={false}
+        showTooltip={false}
+        address={accountAddress}
+        shouldEllipseAddress={false}
+      />
+    );
   }
 
   return (
@@ -61,6 +95,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
       {accountAddress && isAccountPrime ? (
         <PrimeButton
           accountAddress={accountAddress}
+          addressDomainName={chainDomainName}
           onClick={handleConnectButtonClick}
           className={cn(variant === 'secondary' && connectedAccountButtonClasses, className)}
           {...otherProps}
@@ -78,7 +113,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
           )}
           {...otherProps}
         >
-          {accountAddress ? <>{truncateAddress(accountAddress)}</> : t('connectButton.connect')}
+          {content}
         </Button>
       )}
 
@@ -86,7 +121,11 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
         <div className="space-y-10">
           {!!accountAddress && (
             <div className="flex items-center space-x-2 break-all">
-              <span className="flex-1">{accountAddress}</span>
+              <DomainNameOrEllipseAddress
+                className="flex-1"
+                address={accountAddress}
+                shouldEllipseAddress={false}
+              />
 
               <CopyAddressButton className="shrink-0" address={accountAddress} />
             </div>

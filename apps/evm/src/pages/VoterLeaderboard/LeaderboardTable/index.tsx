@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import _cloneDeep from 'lodash/cloneDeep';
 import { useMemo } from 'react';
 
-import { EllipseAddress, Table, type TableColumn } from 'components';
+import { DomainNameOrEllipseAddress, Table, type TableColumn } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
@@ -43,7 +43,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
               to={routes.governanceVoter.path.replace(':address', voter.address)}
               css={styles.address}
             >
-              <EllipseAddress address={voter.address} ellipseBreakpoint="lg" />
+              <DomainNameOrEllipseAddress address={voter.address} />
             </Link>
           </Typography>
         ),
