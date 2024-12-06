@@ -1,7 +1,9 @@
+import { chainMetadata } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
+
 import type { BscProposalFragment } from 'clients/subgraph/gql/generated/governanceBsc';
 import type { NonBscProposalFragment } from 'clients/subgraph/gql/generated/governanceNonBsc';
-import { CHAIN_METADATA, PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/chainMetadata';
+import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/governance';
 import { governanceChain } from 'libs/wallet';
 import {
   type AbstainVoter,
@@ -24,7 +26,7 @@ import {
 import { formatToProposalActions } from './formatToProposalActions';
 import { formatToRemoteProposal } from './formatToRemoteProposal';
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = CHAIN_METADATA[governanceChain.id];
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = chainMetadata[governanceChain.id];
 
 export const formatToProposal = ({
   gqlProposal,

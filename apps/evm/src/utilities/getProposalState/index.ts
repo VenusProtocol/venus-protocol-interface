@@ -1,5 +1,5 @@
 import type BigNumber from 'bignumber.js';
-import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/chainMetadata';
+import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/governance';
 import { ProposalState } from 'types';
 
 export interface GetProposalStateInput {

@@ -59,7 +59,6 @@ export default defineConfig(({ mode }) => {
           '**/*/types.ts',
           'src/setupTests.tsx',
           'src/stories/',
-          'src/config/codegen.ts',
           'src/libs/contracts/generated',
         ],
       },

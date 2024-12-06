@@ -129,7 +129,7 @@ describe('Bridge', () => {
 
     await waitFor(() =>
       expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
-        String(ChainId.OPBNB_TESTNET),
+        String(ChainId.SEPOLIA),
       ),
     );
 
@@ -160,7 +160,7 @@ describe('Bridge', () => {
       ),
     );
     expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
-      String(ChainId.OPBNB_TESTNET),
+      String(ChainId.SEPOLIA),
     );
 
     // Click on switch button
@@ -168,13 +168,13 @@ describe('Bridge', () => {
 
     await waitFor(() => expect(switchChainMock).toHaveBeenCalledTimes(1));
     expect(switchChainMock).toHaveBeenCalledWith({
-      chainId: ChainId.OPBNB_TESTNET,
+      chainId: ChainId.SEPOLIA,
       callback: expect.any(Function),
     });
 
     await waitFor(() =>
       expect((getByTestId(TEST_IDS.fromChainIdSelect) as HTMLInputElement).value).toEqual(
-        String(ChainId.OPBNB_TESTNET),
+        String(ChainId.SEPOLIA),
       ),
     );
     expect((getByTestId(TEST_IDS.toChainIdSelect) as HTMLInputElement).value).toEqual(
@@ -204,7 +204,7 @@ describe('Bridge', () => {
     const fakeBridgeXvsParams = {
       accountAddress: fakeAccountAddress,
       amountMantissa: fakeBalanceMantissa,
-      destinationChainId: ChainId.OPBNB_TESTNET,
+      destinationChainId: ChainId.SEPOLIA,
       nativeCurrencyFeeMantissa: fakeBridgeFeeMantissa,
     };
 
@@ -262,7 +262,7 @@ describe('Bridge', () => {
     // Check the warning shown to the user
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-        '"You cannot bridge more than 0 XVS ($0) on the destination chain in a single transaction"',
+        `"You cannot bridge more than 0 XVS ($0) on the destination chain in a single transaction"`,
       ),
     );
 
@@ -306,7 +306,7 @@ describe('Bridge', () => {
     // Check the warning shown to the user
     await waitFor(() =>
       expect(getByTestId(TEST_IDS.notice).textContent).toMatchInlineSnapshot(
-        '"You cannot bridge more than 0 XVS ($0) on the destination chain due to the 24-hour limit. This limit will be reset on 13 Jan 2024 12:00 PM"',
+        `"You cannot bridge more than 0 XVS ($0) on the destination chain due to the 24-hour limit. This limit will be reset on 13 Jan 2024 12:00 PM"`,
       ),
     );
 

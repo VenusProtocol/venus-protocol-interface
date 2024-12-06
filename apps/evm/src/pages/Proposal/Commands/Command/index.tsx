@@ -1,7 +1,7 @@
+import { chainMetadata } from '@venusprotocol/chains';
 import { useState } from 'react';
 
 import { Icon } from 'components';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import type { ChainId, ProposalAction } from 'types';
 import { cn } from 'utilities';
 import TEST_IDS from '../../testIds';
@@ -23,7 +23,7 @@ export const Command: React.FC<CommandProps> = ({
   contentBottomItem,
   ...otherProps
 }) => {
-  const chainMetadata = CHAIN_METADATA[chainId];
+  const chain = chainMetadata[chainId];
   const [isOpen, setIsOpen] = useState(false);
   const toggleAccordion = () => setIsOpen(prevState => !prevState);
 
@@ -33,14 +33,10 @@ export const Command: React.FC<CommandProps> = ({
         <div className={cn('flex-1', !description && 'flex flex-col justify-center')}>
           <div className="cursor-pointer pr-3 space-y-3 md:space-y-1" onClick={toggleAccordion}>
             <div className="flex items-center gap-x-2">
-              <img
-                src={chainMetadata.logoSrc}
-                alt={chainMetadata.name}
-                className="w-5 max-w-none flex-none"
-              />
+              <img src={chain.logoSrc} alt={chain.name} className="w-5 max-w-none flex-none" />
 
               <div className="flex items-center">
-                <p className="text-sm font-semibold">{chainMetadata.name}</p>
+                <p className="text-sm font-semibold">{chain.name}</p>
 
                 <Icon
                   name="arrowUp"

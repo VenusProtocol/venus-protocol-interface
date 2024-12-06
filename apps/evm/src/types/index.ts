@@ -1,7 +1,11 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
+import type { ChainId } from '@venusprotocol/chains';
 import type BigNumber from 'bignumber.js';
 import type { BaseContract, ContractReceipt } from 'ethers';
 import type { TransactionReceipt } from 'viem';
+
+// TODO: import from package in places where it's used in the codebase
+export { ChainId, type ChainMetadata } from '@venusprotocol/chains/types';
 
 export type NonNullableFields<T> = Required<{
   [P in keyof T]: NonNullable<T[P]>;
@@ -19,39 +23,7 @@ export type Network =
   | 'mainnet-preview' // mainnet too, but will hit the preview API
   | 'mainnet';
 
-export enum ChainId {
-  BSC_MAINNET = 56,
-  BSC_TESTNET = 97,
-  ETHEREUM = 1,
-  SEPOLIA = 11155111,
-  OPBNB_MAINNET = 204,
-  OPBNB_TESTNET = 5611,
-  ARBITRUM_ONE = 42161,
-  ARBITRUM_SEPOLIA = 421614,
-  ZKSYNC_MAINNET = 324,
-  ZKSYNC_SEPOLIA = 300,
-  OPTIMISM_MAINNET = 10,
-  OPTIMISM_SEPOLIA = 11155420,
-}
-
 export type TransactionType = 'chain' | 'layerZero';
-
-export interface ChainMetadata {
-  name: string;
-  logoSrc: string;
-  explorerUrl: string;
-  nativeToken: Token;
-  layerZeroScanUrl: string;
-  corePoolComptrollerContractAddress: string;
-  rpcUrl: string;
-  marketsSubgraphUrl?: string;
-  governanceSubgraphUrl?: string;
-  lstPoolVWstEthContractAddress?: string;
-  lstPoolComptrollerContractAddress?: string;
-  proposalExecutionGracePeriodMs?: number;
-  blockTimeMs?: number;
-  blocksPerDay?: number;
-}
 
 export interface Token {
   symbol: string;

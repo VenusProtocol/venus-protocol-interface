@@ -6,7 +6,7 @@ import {
   getBscProposals,
 } from 'clients/subgraph';
 import type { Proposal_Filter, RemoteProposal } from 'clients/subgraph/gql/generated/governanceBsc';
-import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/chainMetadata';
+import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/governance';
 import { type ChainId, type Proposal, ProposalState } from 'types';
 
 export interface GetProposalsInput {

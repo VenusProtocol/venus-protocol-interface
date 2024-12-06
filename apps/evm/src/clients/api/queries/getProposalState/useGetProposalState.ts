@@ -1,10 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import { chainMetadata } from '@venusprotocol/chains';
 import getProposalState, {
   type GetProposalStateInput,
   type GetProposalStateOutput,
 } from 'clients/api/queries/getProposalState';
-import { CHAIN_METADATA } from 'constants/chainMetadata';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
@@ -22,7 +22,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Partial<Options>) => {
-  const { blockTimeMs } = CHAIN_METADATA[governanceChain.id];
+  const { blockTimeMs } = chainMetadata[governanceChain.id];
   const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
     chainId: governanceChain.id,
   });

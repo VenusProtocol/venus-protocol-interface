@@ -3,12 +3,12 @@ import { http, createConfig } from 'wagmi';
 
 import localConfig from 'config';
 import type { ChainId } from 'types';
-import type { Transport } from 'viem';
+import type { Chain, Transport } from 'viem';
 import { chains } from '../chains';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants';
 
 const connectKitConfig = getDefaultConfig({
-  chains,
+  chains: chains as [Chain, ...Chain[]],
   transports: chains.reduce((acc, chain) => {
     const url = localConfig.rpcUrls[chain.id as ChainId];
 

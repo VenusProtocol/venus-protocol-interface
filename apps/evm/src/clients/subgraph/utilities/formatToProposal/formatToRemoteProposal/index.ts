@@ -1,5 +1,5 @@
 import type { NonBscProposalFragment } from 'clients/subgraph/gql/generated/governanceNonBsc';
-import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/chainMetadata';
+import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/governance';
 import { CHAIN_IDS_ON_LAYER_ZERO } from 'constants/layerZero';
 import { ProposalState, type RemoteProposal, RemoteProposalState } from 'types';
 import { convertToDate } from 'utilities';
