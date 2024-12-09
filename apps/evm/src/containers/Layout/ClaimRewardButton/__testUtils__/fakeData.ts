@@ -1,6 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 
-import { apiPoolsData } from '__mocks__/models/pools';
+import { poolData } from '__mocks__/models/pools';
 import { vai, xvs } from '__mocks__/models/tokens';
 
 import type { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/types';
@@ -8,7 +8,7 @@ import type { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/t
 export const fakePendingRewardGroups: PendingRewardGroup[] = [
   {
     type: 'legacyPool',
-    comptrollerAddress: apiPoolsData[0].address,
+    comptrollerAddress: poolData[0].comptrollerAddress,
     rewardToken: xvs,
     rewardAmountMantissa: new BigNumber('1000000000000000000000000000'),
     rewardAmountCents: new BigNumber('40000000'),
@@ -20,7 +20,7 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
   },
   {
     type: 'isolatedPool',
-    comptrollerAddress: apiPoolsData[1].address,
+    comptrollerAddress: poolData[1].comptrollerAddress,
     pendingRewards: [
       {
         rewardToken: vai,

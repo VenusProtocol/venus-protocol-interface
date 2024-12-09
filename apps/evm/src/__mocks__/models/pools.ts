@@ -1,21 +1,8 @@
-import { chainMetadata } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 
-import apiPoolsResponse from '__mocks__/api/pools.json';
 import { assetData } from '__mocks__/models/asset';
 
-import formatToPool from 'clients/api/queries/getApiPools/formatToPool';
-import { ChainId, type Pool } from 'types';
-
-const { corePoolComptrollerContractAddress } = chainMetadata[ChainId.BSC_TESTNET];
-
-export const apiPoolsData = apiPoolsResponse.result.map(apiPoolData =>
-  formatToPool({
-    apiPoolData,
-    corePoolComptrollerContractAddress,
-    chainId: ChainId.BSC_TESTNET,
-  }),
-);
+import type { Pool } from 'types';
 
 export const poolData: Pool[] = [
   {
