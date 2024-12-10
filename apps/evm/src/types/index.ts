@@ -117,7 +117,6 @@ export interface SwapRouterAddressMapping {
 export interface Pool {
   comptrollerAddress: string;
   name: string;
-  description: string;
   isIsolated: boolean;
   assets: Asset[];
   // User-specific props
