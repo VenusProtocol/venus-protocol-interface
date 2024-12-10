@@ -1,8 +1,8 @@
 import { useGetPrimeToken } from 'clients/api';
-import { Button, type ButtonProps, Modal, SecondaryButton } from 'components';
+import { Button, type ButtonProps, Modal, SecondaryButton, Username } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
-import { cn, truncateAddress } from 'utilities';
+import { cn } from 'utilities';
 
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { useState } from 'react';
@@ -56,6 +56,17 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
     return null;
   }
 
+  const content = accountAddress ? (
+    <Username
+      showProvider={false}
+      showTooltip={false}
+      address={accountAddress}
+      shouldEllipseAddress
+    />
+  ) : (
+    t('connectButton.connect')
+  );
+
   return (
     <>
       {accountAddress && isAccountPrime ? (
@@ -78,7 +89,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
           )}
           {...otherProps}
         >
-          {accountAddress ? <>{truncateAddress(accountAddress)}</> : t('connectButton.connect')}
+          {content}
         </Button>
       )}
 
@@ -86,7 +97,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
         <div className="space-y-10">
           {!!accountAddress && (
             <div className="flex items-center space-x-2 break-all">
-              <span className="flex-1">{accountAddress}</span>
+              <Username className="flex-1" address={accountAddress} shouldEllipseAddress={false} />
 
               <CopyAddressButton className="shrink-0" address={accountAddress} />
             </div>
