@@ -11,7 +11,7 @@ import { renderComponent } from 'testUtils/render';
 import {
   repayVai,
   useGetBalanceOf,
-  useGetLegacyPool,
+  useGetPool,
   useGetTokenUsdPrice,
   useGetVaiRepayAmountWithInterests,
   useGetVaiRepayApr,
@@ -62,7 +62,7 @@ describe('Repay', () => {
       isLoading: false,
     }));
 
-    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPool as Vi.Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: {

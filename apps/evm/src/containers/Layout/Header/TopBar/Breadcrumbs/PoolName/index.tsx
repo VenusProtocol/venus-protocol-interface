@@ -6,11 +6,11 @@ export interface PoolNameProps {
 }
 
 const PoolName: React.FC<PoolNameProps> = ({ poolComptrollerAddress }) => {
-  const { data: getPoolData } = useGetPool({
+  const { data: getPools } = useGetPool({
     poolComptrollerAddress,
   });
 
-  return <>{getPoolData?.pool?.name || PLACEHOLDER_KEY}</>;
+  return <>{getPools?.pool?.name || PLACEHOLDER_KEY}</>;
 };
 
 export default PoolName;

@@ -19,7 +19,7 @@ import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getPendingRewards from '.';
 import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
-import useGetPools from '../useGetPools';
+import { useGetPools } from '../useGetPools';
 import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
 type TrimmedGetPendingRewardsInput = Omit<
