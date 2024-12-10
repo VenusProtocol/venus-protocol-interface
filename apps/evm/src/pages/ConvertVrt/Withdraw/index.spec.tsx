@@ -7,14 +7,14 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
-import { useGetLegacyPool } from 'clients/api';
+import { useGetPool } from 'clients/api';
 import { en } from 'libs/translations';
 
 import Withdraw from '.';
 
 describe('Withdraw', () => {
   beforeEach(() => {
-    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPool as Vi.Mock).mockImplementation(() => ({
       data: {
         pool: {
           ...poolData[0],

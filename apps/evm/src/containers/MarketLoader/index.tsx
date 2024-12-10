@@ -30,11 +30,11 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
   const asset = getAssetData?.asset;
   const isVTokenAddressInvalid = !isGetAssetLoading && !asset;
 
-  const { data: getPoolData } = useGetPool({
+  const { data: getPools } = useGetPool({
     poolComptrollerAddress: poolComptrollerAddress || '',
     accountAddress,
   });
-  const pool = getPoolData?.pool;
+  const pool = getPools?.pool;
 
   // Redirect to dashboard page if params are invalid
   if (isVTokenAddressInvalid || !poolComptrollerAddress) {
