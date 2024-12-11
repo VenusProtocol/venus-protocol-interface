@@ -3,6 +3,8 @@ import { ChainId } from 'types';
 
 import { tokens as arbitrumOneTokens } from './arbitrumOne';
 import { tokens as arbitrumSepoliaTokens } from './arbitrumSepolia';
+import { tokens as baseMainnetTokens } from './baseMainnet';
+import { tokens as baseSepoliaTokens } from './baseSepolia';
 import { tokens as bscMainnetTokens } from './bscMainnet';
 import { tokens as bscTestnetTokens } from './bscTestnet';
 import { tokens as ethereumTokens } from './ethereum';
@@ -27,4 +29,6 @@ export const tokens: TokenMapping = {
   [ChainId.ZKSYNC_SEPOLIA]: zkSyncSepoliaTokens,
   [ChainId.OPTIMISM_MAINNET]: optimismMainnetTokens,
   [ChainId.OPTIMISM_SEPOLIA]: optimismSepoliaTokens,
+  [ChainId.BASE_MAINNET]: baseMainnetTokens,
+  [ChainId.BASE_SEPOLIA]: baseSepoliaTokens,
 };
