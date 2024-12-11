@@ -4,7 +4,6 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
 import { cn } from 'utilities';
 
-import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { useState } from 'react';
 import { useDisconnect } from 'wagmi';
 import { PrimeButton } from './PrimeButton';
@@ -58,6 +57,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
 
   const content = accountAddress ? (
     <Username
+      className="max-w-30 sm:max-w-full"
       showProvider={false}
       showTooltip={false}
       address={accountAddress}
@@ -96,10 +96,8 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
       <Modal isOpen={isAccountModalOpen} handleClose={closeAccountModal}>
         <div className="space-y-10">
           {!!accountAddress && (
-            <div className="flex items-center space-x-2 break-all">
-              <Username className="flex-1" address={accountAddress} shouldEllipseAddress={false} />
-
-              <CopyAddressButton className="shrink-0" address={accountAddress} />
+            <div className="flex truncate items-center justify-between space-x-2 break-all">
+              <Username address={accountAddress} shouldEllipseAddress={false} showCopyAddress />
             </div>
           )}
 

@@ -27,7 +27,12 @@ export const PrimeButton: React.FC<PrimeButtonProps> = ({
       <>
         <img className="mr-2 w-5" src={primeLogoSrc} alt={t('PrimeButton.primeLogoAlt')} />
 
-        <Username address={accountAddress} showTooltip={false} shouldEllipseAddress={false} />
+        <Username
+          address={accountAddress}
+          className="max-w-20 sm:max-w-full"
+          showTooltip={false}
+          showProvider={false}
+        />
       </>
     </SecondaryButton>
   );

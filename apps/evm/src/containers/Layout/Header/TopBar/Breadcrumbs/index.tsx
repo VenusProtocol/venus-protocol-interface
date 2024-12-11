@@ -3,7 +3,6 @@ import { type Params, matchPath, useLocation } from 'react-router-dom';
 
 import { Username } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
-import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
@@ -104,10 +103,9 @@ export const Breadcrumbs: React.FC = () => {
                 address={params.address}
                 showProvider={false}
                 showTooltip={false}
+                showCopyAddress
                 ellipseBreakpoint="xxl"
               />
-
-              {<CopyAddressButton address={params.address} />}
             </div>
           );
           break;

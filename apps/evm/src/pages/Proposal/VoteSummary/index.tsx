@@ -85,12 +85,16 @@ const VoteSummary = ({
         {voters.map(({ address, votesMantissa, reason }) => (
           <li key={address} css={styles.voteFrom}>
             <div css={styles.address}>
-              <Link
-                to={routes.governanceVoter.path.replace(':address', address)}
-                css={[styles.blueText, styles.addressText]}
-              >
-                <Username address={address} />
-              </Link>
+              <Username className="max-w-40 sm:max-w-full" address={address}>
+                {({ innerContent }) => (
+                  <Link
+                    to={routes.governanceVoter.path.replace(':address', address)}
+                    css={[styles.blueText, styles.addressText]}
+                  >
+                    <div className="truncate max-w-40 sm:max-w-fit">{innerContent}</div>
+                  </Link>
+                )}
+              </Username>
 
               {reason && (
                 <Tooltip title={reason}>
