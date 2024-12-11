@@ -307,7 +307,10 @@
   },
   "interactive": {
     "copy": {
-      "address": "Address"
+      "address": {
+        "name": "Address",
+        "tooltip": "Copy Address"
+      }
     },
     "copyToClipboard": "{{name}} copied to clipboard"
   },

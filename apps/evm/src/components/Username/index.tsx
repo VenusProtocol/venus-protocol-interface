@@ -1,21 +1,27 @@
 import { useGetAddressDomainName } from 'clients/api';
 import { Icon, Tooltip } from 'components';
 import EllipseAddress, { type EllipseAddressProps } from 'components/EllipseAddress';
+import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
-import { cn, truncateAddress } from 'utilities';
+import { truncateAddress } from 'utilities';
 import type { Address } from 'viem';
+import UsernameSpan from './UsernameSpan';
 
 type UsernameProps = {
   showProvider?: boolean;
   showTooltip?: boolean;
+  showCopyAddress?: boolean;
   shouldEllipseAddress?: boolean;
+  children?: (props: { innerContent: React.ReactNode }) => React.ReactNode;
 } & EllipseAddressProps;
 
 export const Username: React.FC<UsernameProps> = ({
   address,
+  children,
   className,
+  showCopyAddress = false,
   showProvider = true,
   showTooltip = true,
   shouldEllipseAddress = true,
@@ -42,21 +48,27 @@ export const Username: React.FC<UsernameProps> = ({
       ? t('web3DomainNames.providers.ens')
       : t('web3DomainNames.providers.spaceId');
 
-  let dom = shouldEllipseAddress ? (
+  const addressComponent = shouldEllipseAddress ? (
     <EllipseAddress className={className} address={address} {...ellipseAddressProps} />
   ) : (
-    <span className={className}>{address}</span>
+    <UsernameSpan className={className} username={address} />
   );
 
+  let dom = children ? children({ innerContent: addressComponent }) : addressComponent;
+
   if (!isGetAddressDomainNameLoading && chainDomainName) {
+    const chainDomainNameSpan = <UsernameSpan className={className} username={chainDomainName} />;
+    const domainNameComponent = children
+      ? children({ innerContent: chainDomainNameSpan })
+      : chainDomainNameSpan;
     dom = (
-      <div className={cn('flex flex-row items-center space-x-1', className)}>
+      <div className="flex flex-row items-center text-nowrap space-x-1 mr-1">
         {showProvider && (
           <Tooltip title={providerText}>
             <Icon className="cursor-pointer" name={providerIcon} />
           </Tooltip>
         )}
-        <span>{chainDomainName}</span>
+        {domainNameComponent}
         {showTooltip && (
           <Tooltip
             title={
@@ -72,14 +84,21 @@ export const Username: React.FC<UsernameProps> = ({
             }
             className="inline-flex"
           >
-            <Icon className="cursor-pointer" name="info" />
+            <Icon className="cursor-pointer " name="info" />
           </Tooltip>
         )}
       </div>
     );
   }
 
-  return dom;
+  return (
+    <>
+      {dom}
+      {showCopyAddress && (
+        <CopyAddressButton className="shrink-0" address={address} showTooltip={!!chainDomainName} />
+      )}
+    </>
+  );
 };
 
 export default Username;
