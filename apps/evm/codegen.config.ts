@@ -2,11 +2,12 @@
 
 import { ChainId } from '@venusprotocol/chains/types';
 
+import { envVariables } from './src/config/envVariables';
 import { getGovernanceSubgraphUrls, getIsolatedPoolsSubgraphUrls } from './src/config/subgraphUrls';
 
 const keys = {
-  nodeRealApiKey: process.env.VITE_CODEGEN_UNRESTRICTED_NODE_REAL_API_KEY!,
-  theGraphApiKey: process.env.VITE_CODEGEN_UNRESTRICTED_THE_GRAPH_API_KEY!,
+  nodeRealApiKey: envVariables.VITE_NODE_REAL_API_KEY,
+  theGraphApiKey: envVariables.VITE_THE_GRAPH_API_KEY,
 };
 
 const isolatedPoolsSubgraphUrls = getIsolatedPoolsSubgraphUrls(keys);
