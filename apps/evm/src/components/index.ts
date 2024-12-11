@@ -7,6 +7,7 @@ export * from './Checkbox';
 export * from './Chip';
 export * from './Countdown';
 export * from './Delimiter';
+export * from './Username';
 export * from './EllipseAddress';
 export * from './ApproveTokenSteps';
 export * from './ApprovalSteps';
