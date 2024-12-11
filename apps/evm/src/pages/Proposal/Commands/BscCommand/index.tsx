@@ -1,4 +1,5 @@
 import { chainMetadata } from '@venusprotocol/chains';
+import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useChainId } from 'libs/wallet';
 import { useAccountAddress } from 'libs/wallet';
@@ -7,7 +8,6 @@ import { type Proposal, ProposalState } from 'types';
 import { Command } from '../Command';
 import { Description } from '../Description';
 import { useIsProposalCancelableByUser } from '../useIsProposalCancelableByUser';
-import { useIsProposalExecutable } from '../useIsProposalExecutable';
 import { ActionButton } from './ActionButton';
 import { CurrentStep } from './CurrentStep';
 

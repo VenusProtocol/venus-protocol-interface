@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import { isAfter } from 'date-fns/isAfter';
 import { useMemo } from 'react';
 
 import {
@@ -27,6 +26,7 @@ import { governanceChain, useAccountAddress } from 'libs/wallet';
 import { type Proposal, ProposalState, ProposalType } from 'types';
 import { areAddressesEqual } from 'utilities';
 
+import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import Stepper from './Stepper';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -62,6 +62,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
   }) => {
     const styles = useStyles();
     const { t, Trans } = useTranslation();
+
     const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
     const isOmnichainGovernanceFeatureEnabled = useIsFeatureEnabled({
       name: 'omnichainGovernance',
@@ -111,7 +112,11 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
 
     let updateProposalButton: JSX.Element | undefined;
     let mainTransactionHash = createdTxHash;
-    const isExecuteEtaInFuture = !!proposalEta && isAfter(proposalEta, new Date());
+
+    const isProposalExecutable = useIsProposalExecutable({
+      executionEtaDate: proposalEta,
+      isQueued: state === ProposalState.Queued,
+    });
 
     switch (state) {
       case ProposalState.Active:
@@ -145,7 +150,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
         );
         break;
       case ProposalState.Queued:
-        if (!isExecuteEtaInFuture) {
+        if (isProposalExecutable) {
           updateProposalButton = (
             <PrimaryButton
               onClick={handleExecuteProposal}
@@ -157,6 +162,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
             </PrimaryButton>
           );
         }
+
         if (!isOmnichainGovernanceFeatureEnabled) {
           mainTransactionHash = queuedTxHash;
         }
@@ -188,7 +194,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
         };
       }
 
-      if (state === ProposalState.Queued && isExecuteEtaInFuture) {
+      if (state === ProposalState.Queued && proposalEta && !isProposalExecutable) {
         return {
           date: proposalEta,
           // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
@@ -196,7 +202,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
           i18nKey: 'voteProposalUi.timeUntilExecutable',
         };
       }
-    }, [state, endDate, startDate, proposalEta, isExecuteEtaInFuture]);
+    }, [state, endDate, startDate, proposalEta, isProposalExecutable]);
 
     return (
       <Card css={styles.root} className={className}>

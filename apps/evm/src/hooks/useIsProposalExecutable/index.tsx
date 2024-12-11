@@ -1,6 +1,6 @@
-import { isBefore } from 'date-fns/isBefore';
 import { useNow } from 'hooks/useNow';
 import { useMemo } from 'react';
+import { isProposalExecutable } from 'utilities/isProposalExecutable';
 
 export type UseIsProposalExecutableProps = {
   executionEtaDate?: Date;
@@ -14,7 +14,12 @@ export const useIsProposalExecutable = ({
   const now = useNow();
 
   const isExecutable = useMemo(
-    () => isQueued && !!(executionEtaDate && isBefore(executionEtaDate, now)),
+    () =>
+      isProposalExecutable({
+        executionEtaDate,
+        isQueued,
+        now,
+      }),
     [executionEtaDate, isQueued, now],
   );
 

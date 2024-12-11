@@ -55,3 +55,4 @@ export * from './getProposalType';
 export * from './getProposalState';
 export * from './getUserVoteSupport';
 export * from './getProposalStateLabel';
+export * from './isProposalExecutable';
