@@ -11,8 +11,8 @@ const getDomainNameFromApi = async ({
     endpoint: '/web3-domain-name',
     method: 'GET',
     params: {
-      addresses: JSON.stringify(addresses),
-      chainIds: JSON.stringify(chainIds),
+      addresses: JSON.stringify([...new Set(addresses)]),
+      chainIds: JSON.stringify([...new Set(chainIds)]),
     },
   });
 
