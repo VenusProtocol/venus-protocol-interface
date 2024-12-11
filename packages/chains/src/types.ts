@@ -11,6 +11,8 @@ export enum ChainId {
   ZKSYNC_SEPOLIA = 300,
   OPTIMISM_MAINNET = 10,
   OPTIMISM_SEPOLIA = 11155420,
+  BASE_MAINNET = 8453,
+  BASE_SEPOLIA = 84532,
 }
 
 export enum MainnetChainId {
@@ -20,6 +22,7 @@ export enum MainnetChainId {
   ARBITRUM_ONE = ChainId.ARBITRUM_ONE,
   ZKSYNC_MAINNET = ChainId.ZKSYNC_MAINNET,
   OPTIMISM_MAINNET = ChainId.OPTIMISM_MAINNET,
+  BASE_MAINNET = ChainId.BASE_MAINNET,
 }
 
 export enum TestnetChainId {
@@ -29,6 +32,7 @@ export enum TestnetChainId {
   ARBITRUM_SEPOLIA = ChainId.ARBITRUM_SEPOLIA,
   ZKSYNC_SEPOLIA = ChainId.ZKSYNC_SEPOLIA,
   OPTIMISM_SEPOLIA = ChainId.OPTIMISM_SEPOLIA,
+  BASE_SEPOLIA = ChainId.BASE_SEPOLIA,
 }
 
 export interface ChainMetadata {

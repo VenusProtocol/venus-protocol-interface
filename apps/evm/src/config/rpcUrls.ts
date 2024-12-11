@@ -18,4 +18,6 @@ export const rpcUrls: {
   [ChainId.ZKSYNC_SEPOLIA]: 'https://sepolia.era.zksync.dev',
   [ChainId.OPTIMISM_MAINNET]: `https://opt-mainnet.nodereal.io/v1/${envVariables.VITE_NODE_REAL_API_KEY}`,
   [ChainId.OPTIMISM_SEPOLIA]: 'https://sepolia.optimism.io',
+  [ChainId.BASE_MAINNET]: `https://open-platform.nodereal.io/${envVariables.VITE_NODE_REAL_API_KEY}/base`,
+  [ChainId.BASE_SEPOLIA]: 'https://sepolia.base.org',
 };
