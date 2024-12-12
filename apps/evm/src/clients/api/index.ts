@@ -378,6 +378,10 @@ export { default as getPoolDelegateApprovalStatus } from './queries/getPoolDeleg
 export * from './queries/getPoolDelegateApprovalStatus';
 export { default as useGetPoolDelegateApprovalStatus } from './queries/getPoolDelegateApprovalStatus/useGetPoolDelegateApprovalStatus';
 
+export { default as getAddressDomainName } from './queries/getAddressDomainName';
+export * from './queries/getAddressDomainName';
+export { default as useGetAddressDomainName } from './queries/getAddressDomainName/useGetAddressDomainName';
+
 export * from './queries/getPaymasterInfo';
 export { default as useGetPaymasterInfo } from './queries/getPaymasterInfo/useGetPaymasterInfo';
 
