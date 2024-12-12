@@ -1,28 +1,48 @@
-import { LabeledProgressCircle } from 'components';
+import { Icon, LabeledProgressCircle } from 'components';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
-import { ProposalState } from 'types';
+import { ProposalState, type RemoteProposal, RemoteProposalState } from 'types';
 import { cn, getProposalStateLabel } from 'utilities';
+import { isProposalExecutable } from 'utilities/isProposalExecutable';
 import { Indicator } from './Indicator';
 
 export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
   state: ProposalState;
-  totalPayloadsCount: number;
-  executedPayloadsCount: number;
+  remoteProposals: RemoteProposal[];
 }
 
 export const Status: React.FC<StatusProps> = ({
   state,
-  totalPayloadsCount,
-  executedPayloadsCount,
+  remoteProposals,
   className,
   ...otherProps
 }) => {
   const { t } = useTranslation();
+  const now = useNow();
+
   const isOmnichainGovernanceFeatureEnabled = useIsFeatureEnabled({
     name: 'omnichainGovernance',
   });
+
+  const totalPayloadsCount = 1 + remoteProposals.length; // BSC proposal + remote proposals
+  const executedPayloadsCount =
+    (state === ProposalState.Executed ? 1 : 0) +
+    remoteProposals.filter(remoteProposal => remoteProposal.state === RemoteProposalState.Executed)
+      .length;
+
+  const shouldShowAwaitingExecutionWarning =
+    state === ProposalState.Executed &&
+    remoteProposals.some(
+      remoteProposal =>
+        remoteProposal.state === RemoteProposalState.Queued &&
+        isProposalExecutable({
+          now,
+          isQueued: remoteProposal.state === RemoteProposalState.Queued,
+          executionEtaDate: remoteProposal.executionEtaDate,
+        }),
+    );
 
   const isFullyExecuted = executedPayloadsCount === totalPayloadsCount;
   const shouldShowExecutedPayloadsStatus =
@@ -50,11 +70,19 @@ export const Status: React.FC<StatusProps> = ({
     >
       <div className="shrink-0">
         {shouldShowExecutedPayloadsStatus ? (
-          <LabeledProgressCircle
-            total={totalPayloadsCount}
-            value={executedPayloadsCount}
-            className="mx-auto"
-          />
+          <div className="relative">
+            <LabeledProgressCircle
+              total={totalPayloadsCount}
+              value={executedPayloadsCount}
+              className="mx-auto"
+            />
+
+            {shouldShowAwaitingExecutionWarning && (
+              <div className="bg-orange w-4 h-4 rounded-full flex items-center justify-center absolute top-[-2px] right-[-2px] border-[2px] border-cards">
+                <Icon name="exclamation" className="w-2 h-2 text-offWhite" />
+              </div>
+            )}
+          </div>
         ) : (
           <Indicator state={state} />
         )}

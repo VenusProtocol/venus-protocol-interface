@@ -2,6 +2,7 @@ import { useCancelProposal, useExecuteProposal, useQueueProposal } from 'clients
 import { Button } from 'components';
 import type { ConnectWalletProps } from 'containers/ConnectWallet';
 import { ConnectWallet } from 'containers/ConnectWallet';
+import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress } from 'libs/wallet';
@@ -9,7 +10,6 @@ import { useMemo } from 'react';
 import { ProposalState } from 'types';
 import { cn } from 'utilities';
 import { useIsProposalCancelableByUser } from '../../useIsProposalCancelableByUser';
-import { useIsProposalExecutable } from '../../useIsProposalExecutable';
 
 export interface ActionButtonProps extends Omit<ConnectWalletProps, 'onClick'> {
   proposalId: number;

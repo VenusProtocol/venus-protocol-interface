@@ -2,8 +2,7 @@ import { chainMetadata } from '@venusprotocol/chains';
 import { useExecuteProposal } from 'clients/api';
 import { Button } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { isAfter } from 'date-fns/isAfter';
-import { useNow } from 'hooks/useNow';
+import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useChainId } from 'libs/wallet';
@@ -11,7 +10,6 @@ import { useMemo } from 'react';
 import { type RemoteProposal, RemoteProposalState } from 'types';
 import { Command } from '../Command';
 import { Description } from '../Description';
-import { useIsProposalExecutable } from '../useIsProposalExecutable';
 import { CurrentStep } from './CurrentStep';
 
 const governanceChainMetadata = chainMetadata[governanceChain.id];
@@ -27,7 +25,6 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
   ...otherProps
 }) => {
   const { t } = useTranslation();
-  const now = useNow();
   const { chainId: currentChainId } = useChainId();
 
   const chain = chainMetadata[remoteProposal.chainId];
@@ -67,7 +64,7 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
       case RemoteProposalState.Canceled:
         return t('voteProposalUi.command.description.canceled');
       case RemoteProposalState.Queued:
-        if (!remoteProposal.executionEtaDate || isAfter(remoteProposal.executionEtaDate, now)) {
+        if (!isExecutable) {
           return t('voteProposalUi.command.description.waitingToBeExecutable');
         }
 
@@ -78,7 +75,7 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
         }
         break;
     }
-  }, [t, remoteProposal.state, remoteProposal.executionEtaDate, now, chain, isOnWrongChain]);
+  }, [t, remoteProposal.state, chain, isOnWrongChain, isExecutable]);
 
   return (
     <Command

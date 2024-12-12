@@ -5,14 +5,7 @@ import { useMemo } from 'react';
 import { ActiveVotingProgress, Countdown, ProposalTypeChip } from 'components';
 import { routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
-import {
-  type Proposal,
-  ProposalState,
-  ProposalType,
-  RemoteProposalState,
-  type Token,
-  VoteSupport,
-} from 'types';
+import { type Proposal, ProposalState, ProposalType, type Token, VoteSupport } from 'types';
 
 import { ProposalCard } from 'containers/ProposalCard';
 import { useGetToken } from 'libs/tokens';
@@ -102,20 +95,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       );
     }
 
-    const totalPayloadsCount = 1 + remoteProposals.length; // BSC proposal + remote proposals
-    const executedPayloadsCount =
-      (state === ProposalState.Executed ? 1 : 0) +
-      remoteProposals.filter(
-        remoteProposal => remoteProposal.state === RemoteProposalState.Executed,
-      ).length;
-
-    return (
-      <Status
-        state={state}
-        totalPayloadsCount={totalPayloadsCount}
-        executedPayloadsCount={executedPayloadsCount}
-      />
-    );
+    return <Status state={state} remoteProposals={remoteProposals} />;
   }, [state, remoteProposals, forVotesMantissa, againstVotesMantissa, abstainedVotesMantissa, xvs]);
 
   return (
