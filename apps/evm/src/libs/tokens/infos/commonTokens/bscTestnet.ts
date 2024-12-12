@@ -24,6 +24,7 @@ import ltcLogo from 'libs/tokens/img/ltc.svg';
 import maticLogo from 'libs/tokens/img/matic.svg';
 import nftLogo from 'libs/tokens/img/nft.png';
 import planetLogo from 'libs/tokens/img/planet.svg';
+import ptSolvBtcLogo from 'libs/tokens/img/ptSolvBtc.svg';
 import racaLogo from 'libs/tokens/img/raca.png';
 import sdLogo from 'libs/tokens/img/sd.svg';
 import slisBnbLogo from 'libs/tokens/img/slisBNB.png';
@@ -361,5 +362,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'solvBTC',
     asset: solvBtcLogo,
+  },
+  {
+    address: '0x964Ea3dC70Ee5b35Ea881cf8416B7a5F50E13f56',
+    decimals: 18,
+    symbol: 'PT-SolvBTC.BBN-27MAR2025',
+    asset: ptSolvBtcLogo,
   },
 ];

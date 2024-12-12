@@ -8,10 +8,13 @@ import ethLogo from 'libs/tokens/img/eth.svg';
 import ezEthLogo from 'libs/tokens/img/ezEth.png';
 import fraxLogo from 'libs/tokens/img/frax.svg';
 import lBtcLogo from 'libs/tokens/img/lbtc.svg';
+import ptSUsdELogo from 'libs/tokens/img/ptSUsdE.svg';
+import ptUsdELogo from 'libs/tokens/img/ptUsdE.svg';
 import ptWeethLogo from 'libs/tokens/img/ptWeeth.svg';
 import pufEthLogo from 'libs/tokens/img/pufEth.svg';
 import rsEthLogo from 'libs/tokens/img/rsEth.svg';
 import sFraxLogo from 'libs/tokens/img/sFrax.svg';
+import sUsdELogo from 'libs/tokens/img/sUsdE.svg';
 import sfrxEthLogo from 'libs/tokens/img/sfrxEth.svg';
 import tusdLogo from 'libs/tokens/img/tusd.svg';
 import usdcLogo from 'libs/tokens/img/usdc.svg';
@@ -166,5 +169,23 @@ export const tokens: Token[] = [
     decimals: 8,
     symbol: 'LBTC',
     asset: lBtcLogo,
+  },
+  {
+    address: '0xA3A3e5ecEA56940a4Ae32d0927bfd8821DdA848A',
+    decimals: 18,
+    symbol: 'sUSDe',
+    asset: sUsdELogo,
+  },
+  {
+    address: '0x74671106a04496199994787B6BcB064d08afbCCf',
+    decimals: 18,
+    symbol: 'PT-USDe-MAR25',
+    asset: ptUsdELogo,
+  },
+  {
+    address: '0x3EBa2Aa29eC2498c2124523634324d4ce89c8579',
+    decimals: 18,
+    symbol: 'PT-sUSDE-MAR25',
+    asset: ptSUsdELogo,
   },
 ];
