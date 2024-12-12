@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.179.0
+
+### Minor Changes
+
+- 2b8421b: add indicator on proposals with remote commands awaiting execution
+
+### Patch Changes
+
+- 125e3df: reduce Dashboard layout shifts
+
 ## 2.178.0
 
 ### Minor Changes
