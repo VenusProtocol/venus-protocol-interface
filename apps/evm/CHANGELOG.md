@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.180.1
+
+### Patch Changes
+
+- 5606671: fix how isolated pools are detected
+
 ## 2.180.0
 
 ### Minor Changes
