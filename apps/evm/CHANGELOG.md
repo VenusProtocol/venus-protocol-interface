@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.179.0
+
+### Minor Changes
+
+- 2b8421b: add indicator on proposals with remote commands awaiting execution
+
 ## 2.178.0
 
 ### Minor Changes
