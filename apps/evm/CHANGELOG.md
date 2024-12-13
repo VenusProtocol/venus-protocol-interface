@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.180.0
+
+### Minor Changes
+
+- bdc7665: update useGetPools into a singular fetching hook
+
+### Patch Changes
+
+- 93ac916: reduce layout shift
+
 ## 2.179.0
 
 ### Minor Changes
