@@ -4,7 +4,7 @@ import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
 import { chainMetadata } from '@venusprotocol/chains';
-import { useGetPools } from 'clients/api';
+import { useGetIsolatedPools } from 'clients/api';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { ChainId } from 'types';
 
@@ -22,7 +22,7 @@ describe('PoolTable', () => {
   });
 
   it('filters out the core pool', () => {
-    (useGetPools as Vi.Mock).mockImplementation(() => ({
+    (useGetIsolatedPools as Vi.Mock).mockImplementation(() => ({
       data: {
         pools: [
           {

@@ -2,7 +2,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useGetPools } from 'clients/api';
+import { useGetIsolatedPools } from 'clients/api';
 import { Table, type TableColumn, TokenGroup } from 'components';
 import { routes } from 'constants/routing';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -140,16 +140,14 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
 
 const PoolTable = () => {
   const { accountAddress } = useAccountAddress();
-  const { data: poolData, isLoading } = useGetPools({ accountAddress });
+  const { data: poolData, isLoading } = useGetIsolatedPools({ accountAddress });
   const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
   // Filter out core pool (on some chains the core pool is one of the isolated pools)
   const pools = useMemo(
     () =>
       (poolData?.pools || []).filter(
-        pool =>
-          pool.isIsolated &&
-          !areAddressesEqual(pool.comptrollerAddress, corePoolComptrollerContractAddress),
+        pool => !areAddressesEqual(pool.comptrollerAddress, corePoolComptrollerContractAddress),
       ),
     [poolData?.pools, corePoolComptrollerContractAddress],
   );

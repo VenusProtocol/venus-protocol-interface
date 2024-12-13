@@ -3,6 +3,7 @@ export { default as calculateCollateralValue } from './calculateCollateralValue'
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
 export { default as encodeParameters } from './encodeParameters';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
+export { default as formatToMarket } from './formatToMarket';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
 export { default as formatPercentageToReadableValue } from './formatPercentageToReadableValue';
 export { default as convertTokensToMantissa } from './convertTokensToMantissa';
@@ -30,8 +31,10 @@ export * from './cn';
 export * from './createStoreSelectors';
 export * from './convertAprBipsToApy';
 export { default as extractSettledPromiseValue } from './extractSettledPromiseValue';
+export { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
 export { default as getUniqueTokenBalances } from './getUniqueTokenBalances';
 export { getDisabledTokenActions } from './getDisabledTokenActions';
+export * from './appendPrimeSimulationDistributions';
 export * from './getDisabledTokenActions';
 export * from './isAssetPaused';
 export * from './restService';

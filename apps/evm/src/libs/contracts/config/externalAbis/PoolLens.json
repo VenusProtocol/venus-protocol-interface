@@ -216,7 +216,7 @@
         "type": "tuple"
       }
     ],
-    "name": "getPoolsFromVenusPool",
+    "name": "getPoolDataFromVenusPool",
     "outputs": [
       {
         "components": [
