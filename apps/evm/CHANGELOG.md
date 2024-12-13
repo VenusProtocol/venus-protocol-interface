@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.180.2
+
+### Patch Changes
+
+- 2395877: revert changes to market fetching
+
 ## 2.180.1
 
 ### Patch Changes
