@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, keepPreviousData, useQuery } from '@tanstack/react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { useGetApiPools } from 'clients/api';
 import getIsolatedPools, {
@@ -93,7 +93,6 @@ const useGetIsolatedPools = (input?: TrimmedInput, options?: Options) => {
       ),
 
     refetchInterval,
-    placeholderData: keepPreviousData,
     ...options,
     enabled: isQueryEnabled,
   });

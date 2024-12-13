@@ -8,7 +8,7 @@ import { store } from './store';
 export const Banner: React.FC = () => {
   const { accountAddress } = useAccountAddress();
 
-  const { data: getPrimeTokenData } = useGetPrimeToken({
+  const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
     accountAddress,
   });
   const isAccountPrime = !!getPrimeTokenData?.exists;
@@ -22,7 +22,10 @@ export const Banner: React.FC = () => {
 
   const canShowPrimePromotionalBanner = isPrimeEnabled && storeShouldShowPrimePromotionalBanner;
 
-  if (canShowPrimePromotionalBanner && (!isAccountPrime || !accountAddress)) {
+  if (
+    canShowPrimePromotionalBanner &&
+    ((!isAccountPrime && !isGetPrimeTokenLoading) || !accountAddress)
+  ) {
     return <PrimePromotionalBanner onHide={hidePrimePromotionalBanner} />;
   }
 

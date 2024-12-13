@@ -1,4 +1,4 @@
-import { type QueryObserverOptions, keepPreviousData, useQuery } from '@tanstack/react-query';
+import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import getLegacyPool, {
   type GetLegacyPoolInput,
@@ -109,7 +109,6 @@ const useGetLegacyPool = (input?: TrimmedInput, options?: Partial<Options>) => {
           }),
       ),
     refetchInterval,
-    placeholderData: keepPreviousData,
     ...options,
     enabled: isQueryEnabled,
   });
