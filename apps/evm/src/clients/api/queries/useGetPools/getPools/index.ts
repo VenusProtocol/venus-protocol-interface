@@ -4,16 +4,10 @@ import { getBlockNumber, getTokenBalances } from 'clients/api';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { type IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'libs/contracts';
-import { type Asset, ChainId, type PrimeApy, type Token } from 'types';
-import {
-  areAddressesEqual,
-  convertAprBipsToApy,
-  extractSettledPromiseValue,
-  findTokenByAddress,
-} from 'utilities';
+import type { Asset, PrimeApy, Token } from 'types';
+import { convertAprBipsToApy, extractSettledPromiseValue, findTokenByAddress } from 'utilities';
 import removeDuplicates from 'utilities/removeDuplicates';
 
-import { chainMetadata } from '@venusprotocol/chains';
 import { logError } from 'libs/errors';
 import type { GetPoolsInput, GetPoolsOutput, MarketParticipantsCounts } from '../types';
 import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
@@ -78,16 +72,10 @@ export const getPools = async ({
         const newIsolatedPoolsVTokenAddresses: string[] = [];
         const newUnderlyingTokens: Token[] = [];
         const newUnderlyingTokenAddresses: string[] = [];
-        const { corePoolComptrollerContractAddress } = chainMetadata[chainId];
 
         pool.markets.forEach(market => {
-          const isIsolated =
-            chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
-              ? !areAddressesEqual(corePoolComptrollerContractAddress, pool.address)
-              : true;
-
           // VToken addresses are unique
-          if (isIsolated) {
+          if (pool.isIsolated) {
             newIsolatedPoolsVTokenAddresses.push(market.address.toLowerCase());
           } else {
             newLegacyPoolVTokenAddresses.push(market.address.toLowerCase());

@@ -58,6 +58,7 @@ export interface ApiMarket {
 export interface ApiPool {
   address: string;
   name: string;
+  isIsolated: boolean;
   markets: ApiMarket[];
 }
 
