@@ -1,11 +1,18 @@
 import { waitFor } from '@testing-library/dom';
+import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
+import { useGetVTreasuryContractAddress } from 'hooks/useGetVTreasuryContractAddress';
 import { renderComponent } from 'testUtils/render';
+import type Vi from 'vitest';
 import { PoolStats } from '..';
 
-vi.mock('libs/contracts');
+vi.mock('hooks/useGetVTreasuryContractAddress');
 
 describe('PoolStats', () => {
+  beforeEach(() => {
+    (useGetVTreasuryContractAddress as Vi.Mock).mockReturnValue(fakeAddress);
+  });
+
   it('renders without crashing', async () => {
     renderComponent(<PoolStats pools={[]} stats={[]} />);
   });

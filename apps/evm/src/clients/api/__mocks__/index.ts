@@ -1,10 +1,14 @@
-import { type MutationObserverOptions, useMutation, useQuery } from '@tanstack/react-query';
+import {
+  type MutationObserverOptions,
+  type QueryObserverOptions,
+  useMutation,
+  useQuery,
+} from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import { markets } from '__mocks__/models/markets';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import vTokens from '__mocks__/models/vTokens';
@@ -60,14 +64,6 @@ export const useGetVaiTreasuryPercentage = vi.fn(() =>
 );
 
 export const getHypotheticalAccountLiquidity = vi.fn();
-
-export const getLegacyPoolMarkets = vi.fn(async () => ({ markets }));
-export const useGetLegacyPoolMarkets = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_LEGACY_CORE_POOL_MARKETS],
-    queryFn: getLegacyPoolMarkets,
-  }),
-);
 
 export const getMarketHistory = vi.fn();
 export const useGetMarketHistory = vi.fn(() =>
@@ -138,11 +134,13 @@ export const getTokenBalances = vi.fn(async ({ tokens }: { tokens: Token[] }) =>
   })),
 }));
 
-export const useGetTokenBalances = vi.fn((input: GetTokenBalancesInput) =>
-  useQuery({
-    queryKey: [FunctionKey.GET_TOKEN_BALANCES],
-    queryFn: () => getTokenBalances(input),
-  }),
+export const useGetTokenBalances = vi.fn(
+  (input: GetTokenBalancesInput, options?: Partial<QueryObserverOptions>) =>
+    useQuery({
+      queryKey: [FunctionKey.GET_TOKEN_BALANCES],
+      queryFn: () => getTokenBalances(input),
+      ...options,
+    }),
 );
 
 export const getProposalMinQuorumVotes = vi.fn();
@@ -216,23 +214,6 @@ export const useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_XVS_VAULT_PENDING_WITHDRAWALS_FROM_BEFORE_UPGRADE],
     queryFn: getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
-  }),
-);
-
-export const useGetIsolatedPools = vi.fn(() => ({
-  isLoading: false,
-  data: {
-    pools: poolData.slice(1),
-  },
-}));
-
-export const getLegacyPool = vi.fn(async () => ({
-  pool: poolData[0],
-}));
-export const useGetLegacyPool = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_LEGACY_POOL],
-    queryFn: getLegacyPool,
   }),
 );
 
