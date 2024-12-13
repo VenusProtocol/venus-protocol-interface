@@ -51,10 +51,10 @@ export const MarketInfo = () => {
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
-  const { data: getPools } = useGetPool({
+  const { data: getPoolData } = useGetPool({
     poolComptrollerAddress,
   });
-  const pool = getPools?.pool;
+  const pool = getPoolData?.pool;
 
   const handleGoBack = () => window.history.back();
 

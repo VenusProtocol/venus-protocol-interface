@@ -5,31 +5,33 @@ import { calculateDailyTokenRate } from 'utilities/calculateDailyTokenRate';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from 'utilities/formatRewardDistribution';
 
-import type { ApiRewardDistributor } from 'clients/api/queries/useGetPools/getPools/getApiPools';
-import { convertPriceMantissaToDollars } from 'utilities';
+import type { RewardsDistributorSettingsResult } from '../getRewardsDistributorSettingsMapping';
+import type { GetTokenPriceDollarsMappingOutput } from '../getTokenPriceDollarsMapping';
 import { isDistributingRewards } from './isDistributingRewards';
 
 export type FormatDistributionsInput = {
+  underlyingToken: Token;
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
-  apiRewardsDistributors: ApiRewardDistributor[];
+  tokenPriceDollarsMapping: GetTokenPriceDollarsMappingOutput;
+  rewardsDistributorSettings: RewardsDistributorSettingsResult[];
   currentBlockNumber: number;
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
-  underlyingToken: Token;
-  primeApy?: PrimeApy;
   blocksPerDay?: number;
+  primeApy?: PrimeApy;
 };
 
-export const formatDistributions = ({
+const formatDistributions = ({
   blocksPerDay,
+  underlyingToken,
   underlyingTokenPriceDollars,
   tokens,
-  apiRewardsDistributors,
+  tokenPriceDollarsMapping,
+  rewardsDistributorSettings,
   currentBlockNumber,
   supplyBalanceTokens,
   borrowBalanceTokens,
-  underlyingToken,
   primeApy,
 }: FormatDistributionsInput) => {
   const supplyDistributions: AssetDistribution[] = [];
@@ -38,14 +40,13 @@ export const formatDistributions = ({
   const supplyBalanceDollars = supplyBalanceTokens.multipliedBy(underlyingTokenPriceDollars);
   const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(underlyingTokenPriceDollars);
 
-  apiRewardsDistributors.forEach(
+  rewardsDistributorSettings.forEach(
     ({
       rewardTokenAddress,
-      lastRewardingSupplyBlockOrTimestamp,
-      lastRewardingBorrowBlockOrTimestamp,
-      supplySpeed,
-      borrowSpeed,
-      priceMantissa,
+      rewardTokenLastRewardingSupplyBlockOrTimestamp,
+      rewardTokenLastRewardingBorrowBlockOrTimestamp,
+      rewardTokenSupplySpeeds,
+      rewardTokenBorrowSpeeds,
     }) => {
       const rewardToken = findTokenByAddress({
         tokens,
@@ -56,22 +57,28 @@ export const formatDistributions = ({
         return;
       }
 
+      const rewardTokenPriceDollars = tokenPriceDollarsMapping[rewardToken.address.toLowerCase()];
+
+      if (!rewardTokenPriceDollars) {
+        return;
+      }
+
       const isChainTimeBased = !blocksPerDay;
-      const rewardTokenPriceDollars = convertPriceMantissaToDollars({
-        priceMantissa,
-        decimals: rewardToken.decimals,
-      });
 
       const isDistributingSupplyRewards = isDistributingRewards({
         isTimeBased: isChainTimeBased,
-        lastRewardingTimestamp: isChainTimeBased ? +lastRewardingSupplyBlockOrTimestamp : undefined,
-        lastRewardingBlock: isChainTimeBased ? undefined : +lastRewardingSupplyBlockOrTimestamp,
+        lastRewardingTimestamp: isChainTimeBased
+          ? rewardTokenLastRewardingSupplyBlockOrTimestamp.toNumber()
+          : undefined,
+        lastRewardingBlock: isChainTimeBased
+          ? undefined
+          : rewardTokenLastRewardingBorrowBlockOrTimestamp.toNumber(),
         currentBlockNumber,
       });
 
       if (isDistributingSupplyRewards) {
         const dailyDistributedRewardTokens = calculateDailyTokenRate({
-          rateMantissa: supplySpeed,
+          rateMantissa: rewardTokenSupplySpeeds.toString(),
           decimals: rewardToken.decimals,
           blocksPerDay,
         });
@@ -88,14 +95,18 @@ export const formatDistributions = ({
 
       const isDistributingBorrowRewards = isDistributingRewards({
         isTimeBased: isChainTimeBased,
-        lastRewardingTimestamp: isChainTimeBased ? +lastRewardingBorrowBlockOrTimestamp : undefined,
-        lastRewardingBlock: isChainTimeBased ? undefined : +lastRewardingBorrowBlockOrTimestamp,
+        lastRewardingTimestamp: isChainTimeBased
+          ? rewardTokenLastRewardingBorrowBlockOrTimestamp.toNumber()
+          : undefined,
+        lastRewardingBlock: isChainTimeBased
+          ? undefined
+          : rewardTokenLastRewardingBorrowBlockOrTimestamp.toNumber(),
         currentBlockNumber,
       });
 
       if (isDistributingBorrowRewards) {
         const dailyDistributedRewardTokens = calculateDailyTokenRate({
-          rateMantissa: borrowSpeed,
+          rateMantissa: rewardTokenBorrowSpeeds.toString(),
           decimals: rewardToken.decimals,
           blocksPerDay,
         });
@@ -132,3 +143,5 @@ export const formatDistributions = ({
     borrowDistributions,
   };
 };
+
+export default formatDistributions;

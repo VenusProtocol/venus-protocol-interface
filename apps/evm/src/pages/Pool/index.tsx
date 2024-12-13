@@ -62,19 +62,19 @@ interface PoolPageProps {
 const PoolPage: React.FC<PoolPageProps> = ({ poolComptrollerAddress }) => {
   const { accountAddress } = useAccountAddress();
 
-  const { data: getPools, isLoading: isGetPoolLoading } = useGetPool({
+  const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
     accountAddress,
     poolComptrollerAddress,
   });
 
   // Redirect to Dashboard page if pool Comptroller address is incorrect
-  if (!isGetPoolLoading && !getPools?.pool) {
+  if (!isGetPoolLoading && !getPoolData?.pool) {
     return <Redirect to={routes.dashboard.path} />;
   }
 
   return (
     <Page indexWithSearchEngines={false}>
-      <PoolUi pool={getPools?.pool} />
+      <PoolUi pool={getPoolData?.pool} />
     </Page>
   );
 };

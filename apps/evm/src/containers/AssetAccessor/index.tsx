@@ -21,11 +21,11 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
 }) => {
   const { accountAddress } = useAccountAddress();
 
-  const { data: getPools } = useGetPool({
+  const { data: getPoolData } = useGetPool({
     poolComptrollerAddress,
     accountAddress,
   });
-  const pool = getPools?.pool;
+  const pool = getPoolData?.pool;
   const asset = pool?.assets.find(item => areTokensEqual(item.vToken, vToken));
 
   if (!pool || !asset) {

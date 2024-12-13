@@ -108,4 +108,4 @@ export const lisUsd: Token = {
   asset: lisUsdLogo,
 };
 
-export default [xvs, bnb, usdc, usdt, busd, ust, luna, vai, wbnb, weth, eth, vrt, lisUsd];
+export default [xvs, bnb, usdc, usdt, busd, ust, luna, vai, wbnb, eth, vrt, lisUsd];

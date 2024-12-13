@@ -1,17 +1,15 @@
-import { useGetPools } from 'clients/api';
+import { useGetIsolatedPools } from 'clients/api';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useMemo } from 'react';
 
 export const useGetFilteredPools = () => {
-  const { data: getPoolsData } = useGetPools();
+  const { data: getPoolsData } = useGetIsolatedPools();
   const chainMetaData = useGetChainMetadata();
 
   const pools = useMemo(
     () =>
       (getPoolsData?.pools || []).filter(
-        pool =>
-          pool.isIsolated &&
-          pool.comptrollerAddress !== chainMetaData.corePoolComptrollerContractAddress,
+        pool => pool.comptrollerAddress !== chainMetaData.corePoolComptrollerContractAddress,
       ),
     [getPoolsData?.pools, chainMetaData.corePoolComptrollerContractAddress],
   );
