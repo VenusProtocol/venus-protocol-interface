@@ -13,8 +13,8 @@ import { renderComponent } from 'testUtils/render';
 import {
   getVaiTreasuryPercentage,
   mintVai,
-  useGetLegacyPool,
   useGetMintableVai,
+  useGetPool,
   useGetTokenUsdPrice,
 } from 'clients/api';
 import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
@@ -45,7 +45,7 @@ describe('Borrow', () => {
       data: fakeGetMintableVaiOutput,
     }));
 
-    (useGetLegacyPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPool as Vi.Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: {

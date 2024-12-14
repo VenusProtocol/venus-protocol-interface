@@ -1,7 +1,19 @@
-import type { ChainId, Market } from 'types';
-import { formatToMarket, restService } from 'utilities';
+import { VError } from 'libs/errors';
+import type { ChainId } from 'types';
+import { restService } from 'utilities/restService';
 
-export interface ApiMarketData {
+export interface ApiRewardDistributor {
+  marketAddress: string;
+  rewardTokenAddress: string;
+  lastRewardingSupplyBlockOrTimestamp: string;
+  lastRewardingBorrowBlockOrTimestamp: string;
+  supplySpeed: string;
+  borrowSpeed: string;
+  priceMantissa: string;
+  rewardsDistributorContractAddress: string | null;
+}
+
+export interface ApiMarket {
   address: string;
   symbol: string;
   name: string;
@@ -40,56 +52,56 @@ export interface ApiMarketData {
   pausedActionsBitmap: number;
   isListed: boolean;
   poolComptrollerAddress: string;
-  rewardsDistributors: {
-    marketAddress: string;
-    rewardTokenAddress: string;
-    lastRewardingSupplyBlockOrTimestamp: string;
-    lastRewardingBorrowBlockOrTimestamp: string;
-    supplySpeed: string;
-    borrowSpeed: string;
-    priceMantissa: string;
-    rewardsDistributorContractAddress: string | null;
-  }[];
+  rewardsDistributors: ApiRewardDistributor[];
 }
 
-export interface GetApiMarketsResponse {
-  result: ApiMarketData[];
+export interface ApiPool {
+  address: string;
+  name: string;
+  markets: ApiMarket[];
+}
+
+export interface GetApiPoolsResponse {
+  result: ApiPool[];
   request: { addresses: string[] };
 }
 
-export interface GetApiMarketsInput {
-  chainId: ChainId;
-  poolComptrollerAddress?: string;
-}
-
-export interface GetApiMarketsOutput {
-  markets: Market[];
-}
-
-const getApiMarkets = async ({
+export const getApiPools = async ({
   chainId,
-  poolComptrollerAddress,
-}: GetApiMarketsInput): Promise<GetApiMarketsOutput> => {
-  const response = await restService<GetApiMarketsResponse>({
-    endpoint: '/markets',
+}: {
+  chainId: ChainId;
+}) => {
+  const response = await restService<GetApiPoolsResponse>({
+    endpoint: '/pools',
     method: 'GET',
     params: {
-      limit: 50,
-      isListed: 1,
       chainId,
-      poolComptrollerAddress,
     },
   });
 
   const payload = response.data;
 
-  if (payload && 'error' in payload) {
-    throw new Error(payload.error);
+  if (!payload) {
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+      data: {
+        message: 'Could not fetch pools from API',
+      },
+    });
   }
 
-  const markets: Market[] = (payload?.result || []).map(apiMarket => formatToMarket({ apiMarket }));
+  if (payload && 'error' in payload) {
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+      data: {
+        message: payload.error,
+      },
+    });
+  }
 
-  return { markets };
+  return {
+    pools: payload?.result || [],
+  };
 };
-
-export default getApiMarkets;
