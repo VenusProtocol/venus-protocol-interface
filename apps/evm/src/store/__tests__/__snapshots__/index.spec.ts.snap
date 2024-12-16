@@ -35,6 +35,12 @@ exports[`store > setUserSettings > updates user settings correctly 1`] = `
   "5611": {
     "gaslessTransactions": false,
   },
+  "8453": {
+    "gaslessTransactions": false,
+  },
+  "84532": {
+    "gaslessTransactions": false,
+  },
   "97": {
     "gaslessTransactions": false,
   },
@@ -76,6 +82,12 @@ exports[`store > setUserSettings > updates user settings correctly when passing 
   "5611": {
     "gaslessTransactions": true,
   },
+  "8453": {
+    "gaslessTransactions": true,
+  },
+  "84532": {
+    "gaslessTransactions": true,
+  },
   "97": {
     "gaslessTransactions": false,
   },
@@ -115,6 +127,12 @@ exports[`store > userSettings > sets correct initial user settings 1`] = `
     "gaslessTransactions": true,
   },
   "5611": {
+    "gaslessTransactions": true,
+  },
+  "8453": {
+    "gaslessTransactions": true,
+  },
+  "84532": {
     "gaslessTransactions": true,
   },
   "97": {
