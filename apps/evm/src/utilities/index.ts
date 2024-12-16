@@ -53,3 +53,4 @@ export * from './getProposalState';
 export * from './getUserVoteSupport';
 export * from './getProposalStateLabel';
 export * from './isProposalExecutable';
+export * from './isPoolIsolated';

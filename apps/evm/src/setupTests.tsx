@@ -24,6 +24,9 @@ vi.mock('hooks/useDebounceValue', () => ({
 // Mock zustand library (optimized state manager)
 vi.mock('zustand');
 
+// Mock Venus chains library
+vi.mock('@venusprotocol/chains');
+
 // Mock React Markdown library
 vi.mock('@uiw/react-md-editor', () => ({
   default: ({

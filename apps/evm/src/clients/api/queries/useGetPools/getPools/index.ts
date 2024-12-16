@@ -4,16 +4,15 @@ import { getBlockNumber, getTokenBalances } from 'clients/api';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { type IsolatedPoolComptroller, getIsolatedPoolComptrollerContract } from 'libs/contracts';
-import { type Asset, ChainId, type PrimeApy, type Token } from 'types';
+import type { Asset, PrimeApy, Token } from 'types';
 import {
-  areAddressesEqual,
   convertAprBipsToApy,
   extractSettledPromiseValue,
   findTokenByAddress,
+  isPoolIsolated,
 } from 'utilities';
 import removeDuplicates from 'utilities/removeDuplicates';
 
-import { chainMetadata } from '@venusprotocol/chains';
 import { logError } from 'libs/errors';
 import type { GetPoolsInput, GetPoolsOutput, MarketParticipantsCounts } from '../types';
 import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
@@ -78,13 +77,12 @@ export const getPools = async ({
         const newIsolatedPoolsVTokenAddresses: string[] = [];
         const newUnderlyingTokens: Token[] = [];
         const newUnderlyingTokenAddresses: string[] = [];
-        const { corePoolComptrollerContractAddress } = chainMetadata[chainId];
 
         pool.markets.forEach(market => {
-          const isIsolated =
-            chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
-              ? !areAddressesEqual(corePoolComptrollerContractAddress, pool.address)
-              : true;
+          const isIsolated = isPoolIsolated({
+            chainId,
+            comptrollerAddress: pool.address,
+          });
 
           // VToken addresses are unique
           if (isIsolated) {
@@ -119,6 +117,15 @@ export const getPools = async ({
   // Fetch addresses of user collaterals
   const getAssetsInPromises: ReturnType<IsolatedPoolComptroller['getAssetsIn']>[] = [];
   apiPools.forEach(pool => {
+    const isIsolated = isPoolIsolated({
+      chainId,
+      comptrollerAddress: pool.address,
+    });
+
+    if (!isIsolated) {
+      return;
+    }
+
     const comptrollerContract = getIsolatedPoolComptrollerContract({
       signerOrProvider: provider,
       address: pool.address,
@@ -128,11 +135,12 @@ export const getPools = async ({
       getAssetsInPromises.push(comptrollerContract.getAssetsIn(accountAddress));
     }
   });
-  const settledGetAssetsInPromises = Promise.allSettled(getAssetsInPromises);
 
   if (accountAddress && legacyPoolComptrollerContract) {
     getAssetsInPromises.push(legacyPoolComptrollerContract.getAssetsIn(accountAddress));
   }
+
+  const settledGetAssetsInPromises = Promise.allSettled(getAssetsInPromises);
 
   // Fetch user token balances
   const tokenBalancesPromises = Promise.allSettled([

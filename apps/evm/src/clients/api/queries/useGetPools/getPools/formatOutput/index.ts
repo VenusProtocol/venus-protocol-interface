@@ -4,15 +4,7 @@ import BigNumber from 'bignumber.js';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import type { PoolLens } from 'libs/contracts';
-import {
-  type Asset,
-  ChainId,
-  type Pool,
-  type PrimeApy,
-  type Token,
-  type TokenBalance,
-  type VToken,
-} from 'types';
+import type { Asset, ChainId, Pool, PrimeApy, Token, TokenBalance, VToken } from 'types';
 import {
   areAddressesEqual,
   areTokensEqual,
@@ -22,8 +14,8 @@ import {
   convertPriceMantissaToDollars,
   findTokenByAddress,
   getDisabledTokenActions,
+  isPoolIsolated,
 } from 'utilities';
-
 import type { MarketParticipantsCounts } from '../../types';
 import type { ApiPool } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
@@ -52,12 +44,12 @@ export const formatOutput = ({
   userVaiBorrowBalanceMantissa?: BigNumber;
 }) => {
   const pools: Pool[] = apiPools.map(apiPool => {
-    const { corePoolComptrollerContractAddress, blocksPerDay } = chainMetadata[chainId];
+    const { blocksPerDay } = chainMetadata[chainId];
 
-    const isIsolated =
-      chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
-        ? !areAddressesEqual(corePoolComptrollerContractAddress, apiPool.address)
-        : true;
+    const isIsolated = isPoolIsolated({
+      chainId,
+      comptrollerAddress: apiPool.address,
+    });
 
     let poolUserBorrowBalanceCents = new BigNumber(0);
     let poolUserSupplyBalanceCents = new BigNumber(0);
@@ -254,7 +246,7 @@ export const formatOutput = ({
 
     // Add user VAI loan to user borrow balance (only applies to legacy pool)
     const vai = tokens.find(token => token.symbol === 'VAI');
-    if (isIsolated && vai && userVaiBorrowBalanceMantissa) {
+    if (!isIsolated && vai && userVaiBorrowBalanceMantissa) {
       const userVaiBorrowBalanceCents = convertMantissaToTokens({
         value: userVaiBorrowBalanceMantissa,
         token: vai,

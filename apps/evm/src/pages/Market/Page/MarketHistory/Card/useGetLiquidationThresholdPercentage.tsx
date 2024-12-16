@@ -1,8 +1,7 @@
 import { useGetIsolatedPoolVTokenLiquidationThreshold } from 'clients/api';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useChainId } from 'libs/wallet';
-import { type Asset, ChainId } from 'types';
-import { areAddressesEqual } from 'utilities';
+import type { Asset } from 'types';
+import { isPoolIsolated } from 'utilities';
 
 export const useGetLiquidationThresholdPercentage = (
   {
@@ -12,11 +11,11 @@ export const useGetLiquidationThresholdPercentage = (
   { enabled }: { enabled: boolean },
 ) => {
   const { chainId } = useChainId();
-  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
-  const isLegacyCorePoolVToken =
-    areAddressesEqual(corePoolComptrollerContractAddress, poolComptrollerContractAddress) &&
-    (chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET);
+  const isIsolated = isPoolIsolated({
+    chainId,
+    comptrollerAddress: poolComptrollerContractAddress,
+  });
 
   const { data: getIsolatedPoolVTokenLiquidationThresholdData } =
     useGetIsolatedPoolVTokenLiquidationThreshold(
@@ -25,11 +24,11 @@ export const useGetLiquidationThresholdPercentage = (
         vTokenAddress: asset.vToken.address,
       },
       {
-        enabled: enabled && !isLegacyCorePoolVToken,
+        enabled: enabled && isIsolated,
       },
     );
 
-  return isLegacyCorePoolVToken
-    ? asset.collateralFactor * 100
-    : getIsolatedPoolVTokenLiquidationThresholdData?.liquidationThresholdPercentage;
+  return isIsolated
+    ? getIsolatedPoolVTokenLiquidationThresholdData?.liquidationThresholdPercentage
+    : asset.collateralFactor * 100;
 };
