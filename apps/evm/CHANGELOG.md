@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.181.0
+
+### Minor Changes
+
+- eb7758c: fetch web3 domain names for addresses
+
+### Patch Changes
+
+- 58749af: fix border color of RhfSubmitButton when there is an error
+
 ## 2.180.2
 
 ### Patch Changes
