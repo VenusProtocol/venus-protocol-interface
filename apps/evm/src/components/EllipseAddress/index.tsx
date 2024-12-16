@@ -6,13 +6,13 @@ import type { Breakpoint } from './types';
 
 export * from './types';
 
-interface AddressProps {
+export interface EllipseAddressProps {
   address: string;
   ellipseBreakpoint?: Breakpoint;
   className?: string;
 }
 
-export const EllipseAddress: React.FC<AddressProps> = ({
+export const EllipseAddress: React.FC<EllipseAddressProps> = ({
   className,
   address,
   ellipseBreakpoint,

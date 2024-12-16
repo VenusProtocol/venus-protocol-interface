@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import { Card, type CardProps } from 'components';
+import { Card, type CardProps, Username } from 'components';
 import { useCallback } from 'react';
 
-import { Button, EllipseAddress, Icon, LabeledProgressBar, Tooltip } from 'components';
+import { Button, Icon, LabeledProgressBar, Tooltip } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
@@ -85,12 +85,16 @@ const VoteSummary = ({
         {voters.map(({ address, votesMantissa, reason }) => (
           <li key={address} css={styles.voteFrom}>
             <div css={styles.address}>
-              <Link
-                to={routes.governanceVoter.path.replace(':address', address)}
-                css={[styles.blueText, styles.addressText]}
-              >
-                <EllipseAddress address={address} />
-              </Link>
+              <Username className="max-w-40 sm:max-w-full" address={address}>
+                {({ innerContent }) => (
+                  <Link
+                    to={routes.governanceVoter.path.replace(':address', address)}
+                    css={[styles.blueText, styles.addressText]}
+                  >
+                    <div className="truncate max-w-40 sm:max-w-fit">{innerContent}</div>
+                  </Link>
+                )}
+              </Username>
 
               {reason && (
                 <Tooltip title={reason}>
