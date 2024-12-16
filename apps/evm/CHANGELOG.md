@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.182.0
+
+### Minor Changes
+
+- c5ba62e: add Base network metadata
+
 ## 2.181.0
 
 ### Minor Changes
