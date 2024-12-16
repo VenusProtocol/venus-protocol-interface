@@ -34,7 +34,7 @@ export const RhfSubmitButton: React.FC<RhfSubmitButtonProps> = ({
       type="submit"
       loading={formState.isSubmitting || loading}
       disabled={!formState.isValid || formState.isSubmitting || disabled}
-      className={cn('w-full', isDangerousSubmission && 'bg-red')}
+      className={cn('w-full', isDangerousSubmission && 'bg-red border-red')}
       {...otherButtonProps}
     >
       {formState.isValid ? enabledLabel : disabledLabel}
