@@ -11,6 +11,8 @@ export enum ChainId {
   ZKSYNC_SEPOLIA = 300,
   OPTIMISM_MAINNET = 10,
   OPTIMISM_SEPOLIA = 11155420,
+  BASE_MAINNET = 8453,
+  BASE_SEPOLIA = 84532,
 }
 
 export enum MainnetChainId {
