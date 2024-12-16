@@ -1,4 +1,5 @@
 import arbitrumLogo from './img/chains/arbitrum.svg';
+import baseLogo from './img/chains/base.svg';
 import bscLogo from './img/chains/bsc.svg';
 import ethLogo from './img/chains/eth.svg';
 import opbnbLogo from './img/chains/opbnb.svg';
@@ -142,6 +143,23 @@ export const chainMetadata: {
     explorerUrl: 'https://sepolia-optimism.etherscan.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     corePoolComptrollerContractAddress: '0x59d10988974223B042767aaBFb6D926863069535',
+    nativeToken: ethToken,
+  },
+  [ChainId.BASE_MAINNET]: {
+    name: 'Base',
+    logoSrc: baseLogo,
+    explorerUrl: 'https://basescan.org',
+    layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
+    // add BASE_MAINNET core comptroller address
+    corePoolComptrollerContractAddress: '',
+    nativeToken: ethToken,
+  },
+  [ChainId.BASE_SEPOLIA]: {
+    name: 'Base Sepolia',
+    logoSrc: baseLogo,
+    explorerUrl: 'https://sepolia.basescan.org',
+    layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
+    corePoolComptrollerContractAddress: '0x272795dd6c5355CF25765F36043F34014454Eb5b',
     nativeToken: ethToken,
   },
 };

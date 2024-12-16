@@ -3,6 +3,8 @@ import {
   type Chain,
   arbitrum as arbitrumOne,
   arbitrumSepolia,
+  base,
+  baseSepolia,
   bsc as bscMainnet,
   bscTestnet,
   mainnet as ethereum,
@@ -31,6 +33,8 @@ const chainMapping = {
   [ChainId.ZKSYNC_SEPOLIA]: zksyncSepoliaTestnet,
   [ChainId.OPTIMISM_MAINNET]: optimismMainnet,
   [ChainId.OPTIMISM_SEPOLIA]: optimismSepolia,
+  [ChainId.BASE_MAINNET]: base,
+  [ChainId.BASE_SEPOLIA]: baseSepolia,
 } as const satisfies Record<ChainId, Chain>;
 
 const getSupportedChains = () => {

@@ -3,6 +3,8 @@ import { ChainId } from 'types';
 import type { DisabledTokenActionMapping } from '../../types';
 import { disabledTokenActions as arbitrumOneDisabledTokenActions } from './arbitrumOne';
 import { disabledTokenActions as arbitrumSepoliaDisabledTokenActions } from './arbitrumSepolia';
+import { disabledTokenActions as baseMainnetDisabledTokenActions } from './baseMainnet';
+import { disabledTokenActions as baseSepoliaDisabledTokenActions } from './baseSepolia';
 import { disabledTokenActions as bscMainnetDisabledTokenActions } from './bscMainnet';
 import { disabledTokenActions as bscTestnetDisabledTokenActions } from './bscTestnet';
 import { disabledTokenActions as ethereumDisabledTokenActions } from './ethereum';
@@ -27,6 +29,8 @@ const disabledTokenActions: DisabledTokenActionMapping = {
   [ChainId.ZKSYNC_SEPOLIA]: zkSyncSepoliaDisabledTokenActions,
   [ChainId.OPTIMISM_MAINNET]: optimismMainnetDisabledTokenActions,
   [ChainId.OPTIMISM_SEPOLIA]: optimismSepoliaDisabledTokenActions,
+  [ChainId.BASE_MAINNET]: baseMainnetDisabledTokenActions,
+  [ChainId.BASE_SEPOLIA]: baseSepoliaDisabledTokenActions,
 };
 
 export default disabledTokenActions;

@@ -532,6 +532,8 @@ export const contracts: ContractConfig[] = [
       [ChainId.ZKSYNC_MAINNET]: {},
       [ChainId.OPTIMISM_MAINNET]: {},
       [ChainId.OPTIMISM_SEPOLIA]: {},
+      [ChainId.BASE_MAINNET]: {},
+      [ChainId.BASE_SEPOLIA]: {},
     },
   },
   // NativeTokenGateway contract addresses for each supported pool
@@ -600,6 +602,8 @@ export const contracts: ContractConfig[] = [
         [isolatedPoolsOptimismSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
           isolatedPoolsOptimismSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
       },
+      [ChainId.BASE_MAINNET]: {},
+      [ChainId.BASE_SEPOLIA]: {},
     },
   },
 ];

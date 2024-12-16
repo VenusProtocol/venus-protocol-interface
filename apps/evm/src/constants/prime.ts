@@ -129,4 +129,6 @@ export const primeAveragesForNetwork: Record<
   [ChainId.ZKSYNC_SEPOLIA]: undefined,
   [ChainId.OPTIMISM_MAINNET]: undefined,
   [ChainId.OPTIMISM_SEPOLIA]: undefined,
+  [ChainId.BASE_MAINNET]: undefined,
+  [ChainId.BASE_SEPOLIA]: undefined,
 };
