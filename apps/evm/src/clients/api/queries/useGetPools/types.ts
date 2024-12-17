@@ -1,3 +1,4 @@
+import type BigNumber from 'bignumber.js';
 import type {
   LegacyPoolComptroller,
   PoolLens,
@@ -13,6 +14,10 @@ export interface MarketParticipantsCounts {
   supplierCount: number;
 }
 
+export interface PrimeApy {
+  borrowApy: BigNumber;
+  supplyApy: BigNumber;
+}
 export interface GetPoolsInput {
   chainId: ChainId;
   tokens: Token[];
@@ -27,5 +32,4 @@ export interface GetPoolsInput {
 
 export interface GetPoolsOutput {
   pools: Pool[];
-  primeVTokenAddresses: string[];
 }

@@ -457,11 +457,6 @@ export type SwapError =
 
 export type PSTokenCombination = [PSToken, PSToken];
 
-export interface PrimeApy {
-  borrowApy: BigNumber;
-  supplyApy: BigNumber;
-}
-
 export type ContractTxData<
   TContract extends BaseContract,
   TMethodName extends keyof TContract['functions'],

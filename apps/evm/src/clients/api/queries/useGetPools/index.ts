@@ -19,14 +19,7 @@ import type { GetPoolsInput, GetPoolsOutput } from './types';
 
 type TrimmedInput = Omit<
   GetPoolsInput,
-  | 'chainId'
-  | 'xvs'
-  | 'tokens'
-  | 'provider'
-  | 'primeContract'
-  | 'poolLensContract'
-  | 'blocksPerDay'
-  | 'poolLensContract'
+  'chainId' | 'xvs' | 'tokens' | 'provider' | 'primeContract' | 'poolLensContract' | 'blocksPerDay'
 >;
 
 export type UseGetPoolsQueryKey = [

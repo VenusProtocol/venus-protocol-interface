@@ -59,14 +59,14 @@ const userIsolatedCollateralizedVTokenAddresses = [
   '0xee543d5de2dbb5b07675fc72831a2f1812428393',
 ];
 
-const userCollateralizedVTokenAddresses = [
+const userCollateralVTokenAddresses = [
   ...userLegacyCollateralizedVTokenAddresses,
   ...userIsolatedCollateralizedVTokenAddresses,
 ];
 
 const vTokenBalancesAllMock = async (vTokenAddresses: string[]) =>
   vTokenAddresses.map(vTokenAddress => {
-    const isUserCollateral = userCollateralizedVTokenAddresses.some(
+    const isUserCollateral = userCollateralVTokenAddresses.some(
       a => a.toLowerCase() === vTokenAddress.toLowerCase(),
     );
 

@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import type { PoolLens } from 'libs/contracts';
-import type { Asset, ChainId, Pool, PrimeApy, Token, TokenBalance, VToken } from 'types';
+import type { Asset, ChainId, Pool, Token, TokenBalance, VToken } from 'types';
 import {
   areAddressesEqual,
   areTokensEqual,
@@ -16,7 +16,7 @@ import {
   getDisabledTokenActions,
   isPoolIsolated,
 } from 'utilities';
-import type { MarketParticipantsCounts } from '../../types';
+import type { MarketParticipantsCounts, PrimeApy } from '../../types';
 import type { ApiPool } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
 
@@ -26,19 +26,19 @@ export const formatOutput = ({
   tokens,
   currentBlockNumber,
   isolatedPoolParticipantsCountMap,
-  primeApyMap,
+  userPrimeApyMap,
   userVTokenBalances = [],
   userTokenBalances = [],
-  userCollateralizedVTokenAddresses = [],
+  userCollateralVTokenAddresses = [],
   userVaiBorrowBalanceMantissa,
 }: {
   chainId: ChainId;
   tokens: Token[];
   currentBlockNumber: number;
   apiPools: ApiPool[];
-  primeApyMap: Map<string, PrimeApy>;
-  isolatedPoolParticipantsCountMap: Map<string, MarketParticipantsCounts>;
-  userCollateralizedVTokenAddresses?: string[];
+  isolatedPoolParticipantsCountMap?: Map<string, MarketParticipantsCounts>;
+  userPrimeApyMap?: Map<string, PrimeApy>;
+  userCollateralVTokenAddresses?: string[];
   userVTokenBalances?: Awaited<ReturnType<PoolLens['callStatic']['vTokenBalancesAll']>>;
   userTokenBalances?: TokenBalance[];
   userVaiBorrowBalanceMantissa?: BigNumber;
@@ -139,7 +139,7 @@ export const formatOutput = ({
         blocksPerDay,
         underlyingToken: vToken.underlyingToken,
         underlyingTokenPriceDollars: tokenPriceDollars,
-        primeApy: primeApyMap.get(vToken.address),
+        primeApy: userPrimeApyMap?.get(vToken.address),
         tokens,
         supplyBalanceTokens,
         borrowBalanceTokens,
@@ -187,7 +187,7 @@ export const formatOutput = ({
       const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
       const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
-      const isCollateralOfUser = !!userCollateralizedVTokenAddresses.some(address =>
+      const isCollateralOfUser = !!userCollateralVTokenAddresses.some(address =>
         areAddressesEqual(address, vToken.address),
       );
 
@@ -201,11 +201,11 @@ export const formatOutput = ({
       }
 
       const supplierCount = isIsolated
-        ? isolatedPoolParticipantsCountMap.get(vToken.address.toLowerCase())?.supplierCount ?? 0
+        ? isolatedPoolParticipantsCountMap?.get(vToken.address.toLowerCase())?.supplierCount ?? 0
         : market.supplierCount;
 
       const borrowerCount = isIsolated
-        ? isolatedPoolParticipantsCountMap.get(vToken.address.toLowerCase())?.borrowerCount ?? 0
+        ? isolatedPoolParticipantsCountMap?.get(vToken.address.toLowerCase())?.borrowerCount ?? 0
         : market.borrowerCount;
 
       const asset: Asset = {

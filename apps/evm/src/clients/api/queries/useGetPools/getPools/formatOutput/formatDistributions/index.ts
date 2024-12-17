@@ -1,12 +1,13 @@
 import type BigNumber from 'bignumber.js';
 
-import type { AssetDistribution, PrimeApy, Token } from 'types';
+import type { AssetDistribution, Token } from 'types';
 import { calculateDailyTokenRate } from 'utilities/calculateDailyTokenRate';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from 'utilities/formatRewardDistribution';
 
 import type { ApiRewardDistributor } from 'clients/api/queries/useGetPools/getPools/getApiPools';
 import { convertPriceMantissaToDollars } from 'utilities';
+import type { PrimeApy } from '../../../types';
 import { isDistributingRewards } from './isDistributingRewards';
 
 export type FormatDistributionsInput = {
