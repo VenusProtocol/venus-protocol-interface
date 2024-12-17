@@ -19,7 +19,7 @@ export const AddTokenToWalletButton: React.FC<AddTokenToWalletButtonProps> = ({
 }) => {
   const { addTokenToWallet } = useAddTokenToWallet();
   const { t } = useTranslation();
-  const copyToClipboard = useCopyToClipboard(t('interactive.copy.address'));
+  const copyToClipboard = useCopyToClipboard(t('interactive.copy.address.name'));
 
   return (
     <TertiaryButton
