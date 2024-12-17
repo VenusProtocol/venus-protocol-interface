@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.183.1
+
+### Patch Changes
+
+- 8a4601d: avoid trying to resolve names in unsupported chains
+
 ## 2.183.0
 
 ### Minor Changes
