@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.183.2
+
+### Patch Changes
+
+- c865e68: reinstate useGetPools hook refactor
+
 ## 2.183.1
 
 ### Patch Changes
