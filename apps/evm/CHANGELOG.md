@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.183.0
+
+### Minor Changes
+
+- d028c27: update how borrow cap is displayed on Market page
+
 ## 2.182.0
 
 ### Minor Changes
