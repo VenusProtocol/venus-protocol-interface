@@ -122,6 +122,7 @@ export const featureFlags = {
     ChainId.OPTIMISM_SEPOLIA,
   ],
   gaslessTransactions: [ChainId.ZKSYNC_SEPOLIA, ChainId.ZKSYNC_MAINNET],
+  web3DomainNames: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.ARBITRUM_ONE],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
