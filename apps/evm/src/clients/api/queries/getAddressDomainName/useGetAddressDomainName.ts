@@ -5,6 +5,7 @@ import getAddressDomainName, {
   type GetAddressDomainNameOutput,
 } from 'clients/api/queries/getAddressDomainName';
 import FunctionKey from 'constants/functionKey';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 type UseGetAddressDomainNameInput = GetAddressDomainNameInput;
 
@@ -25,6 +26,7 @@ const useGetAddressDomainName = (
   { accountAddress, chainId }: UseGetAddressDomainNameInput,
   options?: Partial<Options>,
 ) => {
+  const isWeb3DomainNamesFeatureEnabled = useIsFeatureEnabled({ name: 'web3DomainNames' });
   const queryKey: UseGetAddressDomainNameQueryKey = [
     FunctionKey.GET_ADDRESS_DOMAIN_NAME,
     {
@@ -37,6 +39,7 @@ const useGetAddressDomainName = (
     queryKey: queryKey,
     queryFn: () => getAddressDomainName({ accountAddress, chainId }),
     ...options,
+    enabled: isWeb3DomainNamesFeatureEnabled && !!options?.enabled,
   });
 };
 
