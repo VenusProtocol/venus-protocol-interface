@@ -378,7 +378,7 @@
   "market": {
     "borrowCapThreshold": {
       "title": "Total borrowed",
-      "tooltip": "Maximum amount available to borrow is {{amountDollars}} ({{amountTokens}})"
+      "tooltip": "Maximum amount available to borrow is {{amountDollars}} ({{amountTokens}})<br />Borrow cap: {{capTokens}}"
     },
     "borrowInfo": {
       "title": "Borrow info"

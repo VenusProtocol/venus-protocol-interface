@@ -6,6 +6,7 @@ import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
 import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
 
+import BigNumber from 'bignumber.js';
 import { type MarketHistoryPeriodType, useGetPoolLiquidationIncentive } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { MarketCard, type MarketCardProps } from '../../MarketCard';
@@ -154,8 +155,13 @@ export const Card: React.FC<CardProps> = ({
         <CapThreshold
           type={type}
           tokenPriceCents={asset.tokenPriceCents}
-          capTokens={type === 'supply' ? asset.supplyCapTokens : asset.borrowCapTokens}
           balanceTokens={type === 'supply' ? asset.supplyBalanceTokens : asset.borrowBalanceTokens}
+          capTokens={type === 'supply' ? asset.supplyCapTokens : asset.borrowCapTokens}
+          limitTokens={
+            type === 'supply'
+              ? asset.supplyCapTokens
+              : BigNumber.min(asset.supplyBalanceTokens, asset.borrowCapTokens)
+          }
           token={asset.vToken.underlyingToken}
         />
       }
