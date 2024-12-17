@@ -117,7 +117,6 @@ export interface SwapRouterAddressMapping {
 export interface Pool {
   comptrollerAddress: string;
   name: string;
-  description: string;
   isIsolated: boolean;
   assets: Asset[];
   // User-specific props
@@ -457,11 +456,6 @@ export type SwapError =
   | 'UNWRAPPING_UNSUPPORTED';
 
 export type PSTokenCombination = [PSToken, PSToken];
-
-export interface PrimeApy {
-  borrowApy: BigNumber;
-  supplyApy: BigNumber;
-}
 
 export type ContractTxData<
   TContract extends BaseContract,

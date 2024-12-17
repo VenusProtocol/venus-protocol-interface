@@ -6,14 +6,13 @@ import {
   getPoolLiquidationIncentive,
 } from 'clients/api/queries/getPoolLiquidationIncentive';
 import FunctionKey from 'constants/functionKey';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import {
   useGetIsolatedPoolComptrollerContract,
   useGetLegacyPoolComptrollerContract,
 } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
-import { ChainId } from 'types';
-import { areAddressesEqual, callOrThrow } from 'utilities';
+import type { ChainId } from 'types';
+import { callOrThrow, isPoolIsolated } from 'utilities';
 
 interface TrimmedGetPoolLiquidationIncentiveInput
   extends Omit<GetPoolLiquidationIncentiveInput, 'poolComptrollerContract'> {
@@ -40,7 +39,6 @@ export const useGetPoolLiquidationIncentive = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
 
   const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract();
   const isolatedPoolComptrollerContract = useGetIsolatedPoolComptrollerContract({
@@ -48,11 +46,14 @@ export const useGetPoolLiquidationIncentive = (
     passSigner: false,
   });
 
-  const poolComptrollerContract =
-    areAddressesEqual(corePoolComptrollerContractAddress, poolComptrollerContractAddress) &&
-    (chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET)
-      ? legacyPoolComptrollerContract
-      : isolatedPoolComptrollerContract;
+  const isIsolated = isPoolIsolated({
+    chainId,
+    comptrollerAddress: poolComptrollerContractAddress,
+  });
+
+  const poolComptrollerContract = isIsolated
+    ? isolatedPoolComptrollerContract
+    : legacyPoolComptrollerContract;
 
   return useQuery({
     queryKey: [
