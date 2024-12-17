@@ -18,6 +18,7 @@ export interface CapThresholdProps {
   type: 'supply' | 'borrow';
   tokenPriceCents: BigNumber;
   capTokens: BigNumber;
+  limitTokens: BigNumber;
   balanceTokens: BigNumber;
 }
 
@@ -25,26 +26,27 @@ export const CapThreshold: React.FC<CapThresholdProps> = ({
   type,
   tokenPriceCents,
   capTokens,
+  limitTokens,
   balanceTokens,
   token,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
 
   const {
     readableBalanceDollars,
     readableBalanceTokens,
-    readableCapDollars,
     readableCapTokens,
+    readableLimitTokens,
+    readableLimitDollars,
     readableDeltaDollars,
     readableDeltaTokens,
     readableThresholdPercentage,
     thresholdPercentage,
   } = useMemo(() => {
-    const tmpBalanceCents = balanceTokens.multipliedBy(tokenPriceCents);
-    const tmpCapCents = capTokens.multipliedBy(tokenPriceCents);
+    const balanceCents = balanceTokens.multipliedBy(tokenPriceCents);
 
     const tmpReadableBalanceDollars = formatCentsToReadableValue({
-      value: tmpBalanceCents,
+      value: balanceCents,
     });
 
     const tmpReadableBalanceTokens = formatTokensToReadableValue({
@@ -53,55 +55,71 @@ export const CapThreshold: React.FC<CapThresholdProps> = ({
       addSymbol: false,
     });
 
-    const tmpReadableCapDollars = formatCentsToReadableValue({
-      value: tmpCapCents,
-    });
-
     const tmpReadableCapTokens = formatTokensToReadableValue({
       value: capTokens,
       token,
     });
 
-    const tmpReadableDeltaDollars = formatCentsToReadableValue({
-      value: tmpCapCents.minus(tmpBalanceCents),
-    });
-
-    const tmpReadableDeltaTokens = formatTokensToReadableValue({
-      value: capTokens.isEqualTo(0) ? new BigNumber(0) : capTokens.minus(balanceTokens),
+    const tmpReadableLimitTokens = formatTokensToReadableValue({
+      value: limitTokens,
       token,
     });
 
-    const thresholdPercentage = capTokens.isEqualTo(0)
+    const limitCents = limitTokens.multipliedBy(tokenPriceCents);
+    const tmpReadableLimitDollars = formatCentsToReadableValue({ value: limitCents });
+
+    const deltaCents = limitCents.minus(balanceCents);
+    const tmpReadableDeltaDollars = formatCentsToReadableValue({
+      value: deltaCents.isLessThanOrEqualTo(0) ? 0 : deltaCents,
+    });
+
+    const deltaTokens = limitTokens.minus(balanceTokens);
+    const tmpReadableDeltaTokens = formatTokensToReadableValue({
+      value: deltaTokens.isLessThanOrEqualTo(0) ? new BigNumber(0) : deltaTokens,
+      token,
+    });
+
+    const thresholdPercentage = limitTokens.isEqualTo(0)
       ? 100
-      : balanceTokens.multipliedBy(100).div(capTokens).toNumber();
+      : balanceTokens.multipliedBy(100).div(limitTokens).toNumber();
 
     const tmpReadableThresholdPercentage = formatPercentageToReadableValue(thresholdPercentage);
 
     return {
       readableBalanceDollars: tmpReadableBalanceDollars,
       readableBalanceTokens: tmpReadableBalanceTokens,
-      readableCapDollars: tmpReadableCapDollars,
       readableCapTokens: tmpReadableCapTokens,
+      readableLimitTokens: tmpReadableLimitTokens,
+      readableLimitDollars: tmpReadableLimitDollars,
       readableDeltaDollars: tmpReadableDeltaDollars,
       readableDeltaTokens: tmpReadableDeltaTokens,
       readableThresholdPercentage: tmpReadableThresholdPercentage,
       thresholdPercentage,
     };
-  }, [balanceTokens, capTokens, tokenPriceCents, token]);
+  }, [balanceTokens, capTokens, tokenPriceCents, token, limitTokens]);
 
   return (
     <div className="flex items-center space-x-4">
       <Tooltip
         title={
-          type === 'supply'
-            ? t('market.supplyCapThreshold.tooltip', {
+          type === 'supply' ? (
+            t('market.supplyCapThreshold.tooltip', {
+              amountDollars: readableDeltaDollars,
+              amountTokens: readableDeltaTokens,
+            })
+          ) : (
+            <Trans
+              i18nKey="market.borrowCapThreshold.tooltip"
+              values={{
                 amountDollars: readableDeltaDollars,
                 amountTokens: readableDeltaTokens,
-              })
-            : t('market.borrowCapThreshold.tooltip', {
-                amountDollars: readableDeltaDollars,
-                amountTokens: readableDeltaTokens,
-              })
+                capTokens: readableCapTokens,
+              }}
+              components={{
+                br: <br />,
+              }}
+            />
+          )
         }
       >
         <div className="relative flex items-center justify-center w-20 h-20">
@@ -120,8 +138,8 @@ export const CapThreshold: React.FC<CapThresholdProps> = ({
                 y2="6.11727"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color={theme.colors.blue} />
-                <stop offset="1" stop-color="#5CFFA2" />
+                <stop stopColor={theme.colors.blue} />
+                <stop offset="1" stopColor="#5CFFA2" />
               </linearGradient>
             }
           />
@@ -138,11 +156,11 @@ export const CapThreshold: React.FC<CapThresholdProps> = ({
         </p>
 
         <p className="text-sm font-semibold sm:text-lg">
-          {readableBalanceDollars} / {readableCapDollars}
+          {readableBalanceDollars} / {readableLimitDollars}
         </p>
 
         <p className="text-grey text-xs">
-          {readableBalanceTokens} / {readableCapTokens}
+          {readableBalanceTokens} / {readableLimitTokens}
         </p>
       </div>
     </div>
