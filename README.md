@@ -4,15 +4,9 @@
   <img src="https://venus.io/share.png">
 </p>
 
-Official repository for the [Venus protocol](https://venus.io) application.
+Official monorepo for the [Venus protocol](https://venus.io) frontend apps.
 
 ## Getting started
-
-### Set environment variables
-
-Create a `.env` file in the root of the project using the `.env.template` file as a template. You
-will need to set environment variables for RPC provider and subgraph URLs, as the ones set by
-default in the codebase are only valid for hosted environments.
 
 ### Install dependencies with yarn
 
@@ -20,10 +14,16 @@ default in the codebase are only valid for hosted environments.
 yarn
 ```
 
-### Start the development server
+### Start a development server for the dApp
 
 ```ssh
-yarn start
+yarn start --filter=@venusprotocol/evm
+```
+
+### Start a development server for the landing page
+
+```ssh
+yarn start --filter=@venusprotocol/landing
 ```
 
 ## Useful commands
@@ -52,14 +52,8 @@ Format code
 yarn format
 ```
 
-Generate production build
+Generate production builds
 
 ```ssh
 yarn build
-```
-
-Start application with production build
-
-```ssh
-yarn serve
 ```

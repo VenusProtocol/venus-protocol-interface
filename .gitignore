@@ -5,7 +5,6 @@ tmp
 build
 out-tsc
 out
-generated
 
 # Local environment variables
 .env
