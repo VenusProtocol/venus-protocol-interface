@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.184.0
+
+### Minor Changes
+
+- e973a1b: include generated subgraph types
+
 ## 2.183.3
 
 ### Patch Changes

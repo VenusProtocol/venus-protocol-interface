@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.7.0
+
+### Minor Changes
+
+- e973a1b: include generated subgraph types
+
 ## 1.6.2
 
 ### Patch Changes
