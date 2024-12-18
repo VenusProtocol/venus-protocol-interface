@@ -58,6 +58,7 @@ export const featureFlags = {
     ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
     ChainId.OPTIMISM_MAINNET,
+    ChainId.BASE_MAINNET,
     ChainId.BASE_SEPOLIA,
   ],
   isolatedPools: [
@@ -67,8 +68,6 @@ export const featureFlags = {
     ChainId.SEPOLIA,
     ChainId.ARBITRUM_ONE,
     ChainId.ARBITRUM_SEPOLIA,
-    ChainId.BASE_MAINNET,
-    ChainId.BASE_SEPOLIA,
   ],
   bridgeRoute: [
     ChainId.BSC_MAINNET,
@@ -83,7 +82,6 @@ export const featureFlags = {
     ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
-    ChainId.BASE_MAINNET,
     ChainId.BASE_SEPOLIA,
   ],
   wrapUnwrapNativeToken: [
