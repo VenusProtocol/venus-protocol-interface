@@ -149,9 +149,8 @@ export const chainMetadata: {
     name: 'Base',
     logoSrc: baseLogo,
     explorerUrl: 'https://basescan.org',
-    layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    // add BASE_MAINNET core comptroller address
-    corePoolComptrollerContractAddress: '',
+    layerZeroScanUrl: 'https://layerzeroscan.com',
+    corePoolComptrollerContractAddress: '0x0C7973F9598AA62f9e03B94E92C967fD5437426C',
     nativeToken: ethToken,
   },
   [ChainId.BASE_SEPOLIA]: {
