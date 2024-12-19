@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.185.0
+
+### Minor Changes
+
+- 5ed4f13: add Base/Base Sepolia networks
+
 ## 2.184.0
 
 ### Minor Changes
