@@ -43,6 +43,8 @@ export const featureFlags = {
     ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
+    ChainId.BASE_MAINNET,
+    ChainId.BASE_SEPOLIA,
   ],
   marketParticipantCounts: [
     ChainId.BSC_MAINNET,
@@ -56,6 +58,8 @@ export const featureFlags = {
     ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
     ChainId.OPTIMISM_MAINNET,
+    ChainId.BASE_MAINNET,
+    ChainId.BASE_SEPOLIA,
   ],
   isolatedPools: [
     ChainId.BSC_MAINNET,
@@ -78,6 +82,7 @@ export const featureFlags = {
     ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
+    ChainId.BASE_SEPOLIA,
   ],
   wrapUnwrapNativeToken: [
     ChainId.BSC_MAINNET,
@@ -92,6 +97,8 @@ export const featureFlags = {
     ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
+    ChainId.BASE_MAINNET,
+    ChainId.BASE_SEPOLIA,
   ],
   governanceSearch: [
     ChainId.BSC_TESTNET,
@@ -106,6 +113,8 @@ export const featureFlags = {
     ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
+    ChainId.BASE_MAINNET,
+    ChainId.BASE_SEPOLIA,
   ],
   omnichainGovernance: [
     ChainId.BSC_TESTNET,
@@ -120,6 +129,8 @@ export const featureFlags = {
     ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
+    ChainId.BASE_MAINNET,
+    ChainId.BASE_SEPOLIA,
   ],
   gaslessTransactions: [ChainId.ZKSYNC_SEPOLIA, ChainId.ZKSYNC_MAINNET],
   web3DomainNames: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.ARBITRUM_ONE],

@@ -6659,6 +6659,15 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
+"@venusprotocol/governance-contracts@2.7.0", "@venusprotocol/governance-contracts@^2.6.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.7.0.tgz#0caa78b92aeb697fa8599c32dc64607177ac3c55"
+  integrity sha512-R+RmiNd6dYmM9XipkAiDGPXT4N14FPdVcRjtrUh3unJT8CcNh6zY7y3h+ws6ObpRgLpyP1qiLbQTfOpqEE8VWw==
+  dependencies:
+    "@venusprotocol/solidity-utilities" "2.0.0"
+    hardhat-deploy-ethers "^0.3.0-beta.13"
+    module-alias "^2.2.2"
+
 "@venusprotocol/governance-contracts@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.3.0.tgz#caa729f28a36df066ff02a799ac7394fae3ef996"
@@ -6677,19 +6686,10 @@
     hardhat-deploy-ethers "^0.3.0-beta.13"
     module-alias "^2.2.2"
 
-"@venusprotocol/governance-contracts@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.5.0.tgz#abf26966720aa246ea2450f29347161b7ca1ce94"
-  integrity sha512-0JcNFdqxTny0jrFHab1xX+wlSsPZctDhtmxfsxwAhK7ME6b/A+6/KYQWoXYNrldlogrwEQOeXM96x3y6uigsyQ==
-  dependencies:
-    "@venusprotocol/solidity-utilities" "2.0.0"
-    hardhat-deploy-ethers "^0.3.0-beta.13"
-    module-alias "^2.2.2"
-
-"@venusprotocol/isolated-pools@3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-3.6.0.tgz#336c18f1a68750b11e2b99dd96d21c4ed135a00f"
-  integrity sha512-mQxLNfXp1yCNwtFgMcffg/ojpbpMWT14TVYxDzqWBK/YR+LE+7yA+JBRzDtGvIsZTPgy0d7IRO/N06ex/y/bdA==
+"@venusprotocol/isolated-pools@3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-3.7.0.tgz#4198d1a1ef809231c191257de7f3862983c2a84b"
+  integrity sha512-B0fiRmJJIIMHVL/RPyeZg66EJweQdT5Iy7+npauwhg1VwU/nO+8IETWgX2HVVkCRFSjyTO6I7511rMUHqT4Omw==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
@@ -6701,10 +6701,10 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
-"@venusprotocol/oracle@2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-2.6.0.tgz#5d15949214c9b33856f3e2c3f12fef18efdef068"
-  integrity sha512-8NnCYBHBmSDhbRsyoWFVLtjJh0o4hb03s8OHKce70ZqsdOLb7C7rfhRCD7msv+TaM4dEpZDEqKvQ0uAR6MmL+Q==
+"@venusprotocol/oracle@2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-2.7.0.tgz#e307e8b5f7a4a529a701bb011ac62d00db51f220"
+  integrity sha512-rMVkTGrtz1KNKrvgw1NE4dIW3pHQEHX/TcF6KsMzziCIx/6dHZqOsa8RDH4Bg8TeKSieknZ8pKdH+wJHIDTZmw==
   dependencies:
     "@chainlink/contracts" "^0.5.1"
     "@defi-wonderland/smock" "2.3.5"
@@ -6720,7 +6720,7 @@
     module-alias "^2.2.2"
     solidity-docgen "^0.6.0-beta.29"
 
-"@venusprotocol/protocol-reserve@2.4.0", "@venusprotocol/protocol-reserve@^2.4.0":
+"@venusprotocol/protocol-reserve@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/protocol-reserve/-/protocol-reserve-2.4.0.tgz#5052b06c145f0a6a79a660fd58ef3289b3eba15c"
   integrity sha512-jJYviUaArXrj+XEGPyzOI4klH7aUt7iM5UD4u2JEoDybHwhSiAKc9RgOb5Wh80ToW3hx/KBLewIW5L6zWChOoQ==
@@ -6752,6 +6752,22 @@
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
 
+"@venusprotocol/protocol-reserve@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/protocol-reserve/-/protocol-reserve-3.0.0.tgz#9fb756e2aac41889f8e4d326498555781bff101c"
+  integrity sha512-wsz5IFR8cbOO75LqSdpGzS23g+oWFaWpSMFPOpm9meLbuENy/sZ38oXJqpYkevz2x6aRnfR7f0DWtXi+sz72Kg==
+  dependencies:
+    "@nomiclabs/hardhat-ethers" "^2.2.3"
+    "@openzeppelin/contracts" "^4.8.3"
+    "@openzeppelin/contracts-upgradeable" "^4.8.3"
+    "@openzeppelin/hardhat-upgrades" "^1.21.0"
+    "@solidity-parser/parser" "^0.13.2"
+    "@venusprotocol/solidity-utilities" "^2.0.3"
+    "@venusprotocol/venus-protocol" "^9.1.0"
+    ethers "^5.7.0"
+    hardhat-deploy "^0.11.14"
+    module-alias "^2.2.2"
+
 "@venusprotocol/solidity-utilities@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.0.tgz#74ab8399a49362d53b0c1ff38d3710cc45d29749"
@@ -6767,10 +6783,10 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.3.tgz#d672b744d53999716c07b7dfe2431140add0458e"
   integrity sha512-HlOUQx+DBBQB3CulJjAwYEqriJVX3gjlmWbYl+lqN+yr1sk+U3NWbNnLjixw7pMjW8yM5bZWjt8MD3SqbaPccA==
 
-"@venusprotocol/token-bridge@2.3.0", "@venusprotocol/token-bridge@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-2.3.0.tgz#fa7c0a9ef360d70cd0c2a91f35574e03eaf83a70"
-  integrity sha512-t+QCf/DQe/GR2v93Carnwou+KB8DPgNMdp2dYLknW6fFs9KINyrXOHLSLvmQeE3N0IAuFLwi24xby8pnGfnUOA==
+"@venusprotocol/token-bridge@2.4.0", "@venusprotocol/token-bridge@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-2.4.0.tgz#c76f6504c9a688c9c8e3145fa86f60bb7849d5cc"
+  integrity sha512-ujkyIQPt6WIB7+ax1dwIzcejZb/GbY6lsU7AEO7h9Vqgo5pEEcTOtDKRCeLdcMjtfNz8TagRBwAMm1tWNZndFg==
   dependencies:
     "@layerzerolabs/solidity-examples" "^1.0.0"
     "@openzeppelin/contracts" "^4.8.3"
@@ -6793,18 +6809,18 @@
     ethers "^5.7.0"
     module-alias "^2.2.2"
 
-"@venusprotocol/venus-protocol@9.3.0":
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-9.3.0.tgz#236aea4133be699e1cd141425e6642e5ef0f33be"
-  integrity sha512-EQS+VnyD1Nn/8WbGlPpuHOGObKT18K2t2trK3qVDiH4Vb02dBxVcf5OLEzRddLEtkEJLKmkayeM2uJeOxmlpAQ==
+"@venusprotocol/venus-protocol@9.4.0":
+  version "9.4.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-9.4.0.tgz#1fb2e7311fcd216854a2c85311c09d587368513c"
+  integrity sha512-zeY0bYLxd3rev2m9houp9oFG78BYu7zPiH3kd5nHga9YvxSFoN3YjTZ8tzANSZ1xg4z4pluyjHHOvFIvyBXCPA==
   dependencies:
     "@nomicfoundation/hardhat-ethers" "^3.0.0"
     "@openzeppelin/contracts" "4.9.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.0"
-    "@venusprotocol/governance-contracts" "^2.4.0"
-    "@venusprotocol/protocol-reserve" "^2.4.0"
+    "@venusprotocol/governance-contracts" "^2.6.0"
+    "@venusprotocol/protocol-reserve" "^3.0.0"
     "@venusprotocol/solidity-utilities" "^2.0.3"
-    "@venusprotocol/token-bridge" "^2.3.0"
+    "@venusprotocol/token-bridge" "^2.4.0"
     bignumber.js "^9.1.2"
     dotenv "^16.0.1"
     module-alias "^2.2.2"
