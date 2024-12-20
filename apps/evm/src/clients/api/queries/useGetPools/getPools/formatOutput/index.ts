@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import BigNumber from 'bignumber.js';
 
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';

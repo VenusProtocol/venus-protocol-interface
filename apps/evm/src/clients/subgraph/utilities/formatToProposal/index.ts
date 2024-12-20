@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import BigNumber from 'bignumber.js';
 
 import type { BscProposalFragment } from 'clients/subgraph/gql/generated/governanceBsc';

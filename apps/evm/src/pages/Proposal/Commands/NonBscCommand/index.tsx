@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import { useExecuteProposal } from 'clients/api';
 import { Button } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';

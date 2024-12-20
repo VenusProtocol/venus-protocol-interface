@@ -1,11 +1,11 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
-import type { ChainId } from '@venusprotocol/chains';
+import type { ChainId } from '@venusprotocol/registry';
 import type BigNumber from 'bignumber.js';
 import type { BaseContract, ContractReceipt } from 'ethers';
 import type { TransactionReceipt } from 'viem';
 
 // TODO: import from package in places where it's used in the codebase
-export { ChainId, type ChainMetadata } from '@venusprotocol/chains/types';
+export { ChainId, type ChainMetadata } from '@venusprotocol/registry/types';
 
 export type NonNullableFields<T> = Required<{
   [P in keyof T]: NonNullable<T[P]>;

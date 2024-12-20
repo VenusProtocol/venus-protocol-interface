@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import type { ChainId } from 'types';
 
 export type UrlType = 'address' | 'token' | 'tx' | 'layerZeroTx';

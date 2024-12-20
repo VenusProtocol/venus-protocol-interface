@@ -1,4 +1,4 @@
-import { ChainId } from '@venusprotocol/chains/types';
+import { ChainId } from '@venusprotocol/registry/types';
 
 export const getIsolatedPoolsSubgraphUrls = ({
   nodeRealApiKey,

@@ -47,7 +47,6 @@ export interface ChainMetadata {
   blocksPerDay?: number;
 }
 
-// TODO: import from @venusprotocol/tokens package once it's been created
 export interface Token {
   symbol: string;
   decimals: number;

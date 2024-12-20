@@ -1,4 +1,4 @@
-import { ChainId, chainMetadata } from '@venusprotocol/chains';
+import { ChainId, chainMetadata } from '@venusprotocol/registry';
 import areAddressesEqual from 'utilities/areAddressesEqual';
 
 export const isPoolIsolated = ({
