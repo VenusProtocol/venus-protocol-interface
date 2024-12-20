@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.185.1
+
+### Patch Changes
+
+- 228bbec: Correct Base governance subgraph URL
+
 ## 2.185.0
 
 ### Minor Changes
