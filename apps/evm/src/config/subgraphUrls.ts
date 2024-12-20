@@ -62,7 +62,7 @@ export const getGovernanceSubgraphUrls = ({
     [ChainId.OPTIMISM_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmdTVnzZrFhVn3Q158b3E2rNPFPmEEfyQwgN3im2GbCQLy`,
     [ChainId.OPTIMISM_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-governance-opsepolia/version/latest',
-    [ChainId.BASE_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmcDDMGa9oTzCLWMeSWg6mwULWDao5Mypw9raofBaSTNqw`,
+    [ChainId.BASE_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmaeyNEyxYYvkTRDcFNufWRg7Ki8mB5BAXCAZotkhwebLv`,
     [ChainId.BASE_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-governance-base-sepolia/latest',
   };
