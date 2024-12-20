@@ -10,10 +10,12 @@ export const Settings: React.FC = () => {
   const { name: chainName } = useGetChainMetadata();
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
 
-  const [{ gaslessTransactions }, setUserChainSettings] = useUserChainSettings();
+  const [userChainSettings, setUserChainSettings] = useUserChainSettings();
+  const isGaslessTransactionsUserSettingEnabled = !!userChainSettings?.gaslessTransactions;
+
   const toggleGaslessTransactions = () =>
     setUserChainSettings({
-      gaslessTransactions: !gaslessTransactions,
+      gaslessTransactions: !isGaslessTransactionsUserSettingEnabled,
     });
 
   if (!isGaslessTransactionsFeatureEnabled) {
@@ -35,7 +37,11 @@ export const Settings: React.FC = () => {
               })}
             </p>
 
-            <Toggle onChange={toggleGaslessTransactions} value={gaslessTransactions} isLight />
+            <Toggle
+              onChange={toggleGaslessTransactions}
+              value={isGaslessTransactionsUserSettingEnabled}
+              isLight
+            />
           </div>
         </div>
       </Card>

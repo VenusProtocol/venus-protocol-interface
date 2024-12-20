@@ -64,7 +64,7 @@ export const useSendTransaction = <
   const { mutateAsync: sendContractTransaction } = useSendContractTransaction();
   const openResendPayingGasModalStoreModal = resendPayingGasModalStore.use.openModal();
 
-  const [{ gaslessTransactions: isGaslessTransactionsSettingEnabled }] = useUserChainSettings();
+  const [userChainSettings] = useUserChainSettings();
 
   const { data: getPaymasterInfo, refetch: refetchPaymasterInfo } = useGetPaymasterInfo(
     {
@@ -84,7 +84,7 @@ export const useSendTransaction = <
   // 4) there are funds in the paymaster wallet
   const shouldTryGasless =
     isGaslessTransactionsFeatureEnabled &&
-    isGaslessTransactionsSettingEnabled &&
+    !!userChainSettings?.gaslessTransactions &&
     tryGasless &&
     paymasterCanSponsorTransactions;
 
