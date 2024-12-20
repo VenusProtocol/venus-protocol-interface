@@ -1,12 +1,12 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import ethLogo from 'libs/tokens/img/eth.svg';
-import usdcLogo from 'libs/tokens/img/usdc.svg';
-import usdcNativeLogo from 'libs/tokens/img/usdcNative.svg';
-import usdtLogo from 'libs/tokens/img/usdt.svg';
-import wbtcLogo from 'libs/tokens/img/wbtc.svg';
-import wethLogo from 'libs/tokens/img/weth.svg';
-import xvsLogo from 'libs/tokens/img/xvs.svg';
-import zkLogo from 'libs/tokens/img/zk.svg';
+import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
+import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
+import usdcNativeLogo from 'libs/tokens/img/underlyingTokens/usdcNative.svg';
+import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
+import wbtcLogo from 'libs/tokens/img/underlyingTokens/wbtc.svg';
+import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
+import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
+import zkLogo from 'libs/tokens/img/underlyingTokens/zk.svg';
 import type { Token } from 'types';
 
 const ethToken: Token = {
