@@ -8,7 +8,7 @@ import { GaslessStatus } from '../GaslessStatus';
 
 export const MdUpControls: React.FC = () => {
   const isOnMarketPage = useIsOnMarketPage();
-  const [{ gaslessTransactions: isGaslessTransactionsSettingEnabled }] = useUserChainSettings();
+  const [userChainSettings] = useUserChainSettings();
 
   return (
     <div className="hidden md:flex md:h-12 md:items-center md:space-x-4 md:pl-6">
@@ -22,7 +22,7 @@ export const MdUpControls: React.FC = () => {
         displayLabel
         className={cn(
           'cursor-help transition-opacity',
-          !isGaslessTransactionsSettingEnabled && 'opacity-50',
+          !userChainSettings?.gaslessTransactions && 'opacity-50',
         )}
       />
 

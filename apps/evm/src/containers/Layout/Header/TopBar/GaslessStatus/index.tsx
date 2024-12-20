@@ -27,7 +27,7 @@ export const GaslessStatus: React.FC<GaslessStatusProps> = ({
     chainId: chainId ?? chainIdFromHook,
   });
 
-  const [{ gaslessTransactions: isGaslessTransactionsSettingEnabled }] = useUserChainSettings();
+  const [userChainSettings] = useUserChainSettings();
 
   if (!sponsorshipVaultData?.canSponsorTransactions) {
     return undefined;
@@ -56,7 +56,7 @@ export const GaslessStatus: React.FC<GaslessStatusProps> = ({
             // t('gaslessTransactions.tooltip.enabled')
             // t('gaslessTransactions.tooltip.disabled')
             i18nKey={
-              isGaslessTransactionsSettingEnabled
+              userChainSettings?.gaslessTransactions
                 ? 'gaslessTransactions.tooltip.enabled'
                 : 'gaslessTransactions.tooltip.disabled'
             }

@@ -18,7 +18,7 @@ import { useTrackTransaction } from '../useTrackTransaction';
 
 vi.mock('../useTrackTransaction');
 vi.mock('hooks/useUserChainSettings', () => ({
-  useUserChainSettings: vi.fn(() => [initialUserSettings[ChainId.BSC_TESTNET], vi.fn()]),
+  useUserChainSettings: vi.fn(() => [initialUserSettings[ChainId.ZKSYNC_SEPOLIA], vi.fn()]),
 }));
 vi.mock('containers/ResendPayingGasModal/store', () => ({
   store: {

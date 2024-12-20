@@ -49,44 +49,14 @@ exports[`store > setUserSettings > updates user settings correctly 1`] = `
 
 exports[`store > setUserSettings > updates user settings correctly when passing chainIds 1`] = `
 {
-  "1": {
-    "gaslessTransactions": true,
-  },
-  "10": {
-    "gaslessTransactions": true,
-  },
-  "11155111": {
-    "gaslessTransactions": true,
-  },
-  "11155420": {
-    "gaslessTransactions": true,
-  },
-  "204": {
-    "gaslessTransactions": true,
-  },
   "300": {
     "gaslessTransactions": true,
   },
   "324": {
     "gaslessTransactions": true,
   },
-  "42161": {
-    "gaslessTransactions": true,
-  },
   "421614": {
     "gaslessTransactions": false,
-  },
-  "56": {
-    "gaslessTransactions": true,
-  },
-  "5611": {
-    "gaslessTransactions": true,
-  },
-  "8453": {
-    "gaslessTransactions": true,
-  },
-  "84532": {
-    "gaslessTransactions": true,
   },
   "97": {
     "gaslessTransactions": false,
@@ -96,46 +66,10 @@ exports[`store > setUserSettings > updates user settings correctly when passing 
 
 exports[`store > userSettings > sets correct initial user settings 1`] = `
 {
-  "1": {
-    "gaslessTransactions": true,
-  },
-  "10": {
-    "gaslessTransactions": true,
-  },
-  "11155111": {
-    "gaslessTransactions": true,
-  },
-  "11155420": {
-    "gaslessTransactions": true,
-  },
-  "204": {
-    "gaslessTransactions": true,
-  },
   "300": {
     "gaslessTransactions": true,
   },
   "324": {
-    "gaslessTransactions": true,
-  },
-  "42161": {
-    "gaslessTransactions": true,
-  },
-  "421614": {
-    "gaslessTransactions": true,
-  },
-  "56": {
-    "gaslessTransactions": true,
-  },
-  "5611": {
-    "gaslessTransactions": true,
-  },
-  "8453": {
-    "gaslessTransactions": true,
-  },
-  "84532": {
-    "gaslessTransactions": true,
-  },
-  "97": {
     "gaslessTransactions": true,
   },
 }
