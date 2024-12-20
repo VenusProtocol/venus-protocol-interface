@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import { Select, type SelectOption, type SelectProps } from 'components';
 import type { ChainId } from 'types';
 import { bridgeChains } from '../constants';
