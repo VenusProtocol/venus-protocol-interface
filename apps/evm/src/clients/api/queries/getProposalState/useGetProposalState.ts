@@ -1,6 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import getProposalState, {
   type GetProposalStateInput,
   type GetProposalStateOutput,

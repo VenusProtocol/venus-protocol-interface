@@ -1,4 +1,4 @@
-import { ChainId, MainnetChainId, TestnetChainId } from '@venusprotocol/chains';
+import { ChainId, MainnetChainId, TestnetChainId } from '@venusprotocol/registry';
 import {
   type Chain,
   arbitrum as arbitrumOne,

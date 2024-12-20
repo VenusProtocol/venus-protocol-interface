@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import { useState } from 'react';
 
 import { Icon } from 'components';

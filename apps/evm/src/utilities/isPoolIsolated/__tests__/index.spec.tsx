@@ -1,4 +1,4 @@
-import { ChainId } from '@venusprotocol/chains';
+import { ChainId } from '@venusprotocol/registry';
 import type Vi from 'vitest';
 
 import areAddressesEqual from 'utilities/areAddressesEqual';

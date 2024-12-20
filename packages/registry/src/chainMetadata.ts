@@ -9,7 +9,6 @@ import bnbTokenLogo from './img/tokens/bnb.svg';
 import ethTokenLogo from './img/tokens/eth.svg';
 import { ChainId, type ChainMetadata, type Token } from './types';
 
-// TODO: import from @venusprotocol/tokens package once it's been created
 const bnbToken: Token = {
   address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
   decimals: 18,

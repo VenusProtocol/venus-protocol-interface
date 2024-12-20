@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { BigNumber as BN } from 'ethers';
 
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import type { LegacyPoolComptroller } from 'libs/contracts';
 import { ChainId } from 'types';
 

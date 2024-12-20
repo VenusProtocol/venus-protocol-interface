@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/dom';
 import type Vi from 'vitest';
 
-import { ChainId } from '@venusprotocol/chains';
+import { ChainId } from '@venusprotocol/registry';
 import apiPoolsResponse from '__mocks__/api/pools.json';
 import fakeAccountAddress from '__mocks__/models/address';
 import { getIsolatedPoolParticipantsCount } from 'clients/subgraph';

@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import { Select, type SelectOption, type SelectProps } from 'components';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';

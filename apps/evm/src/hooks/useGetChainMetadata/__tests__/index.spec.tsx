@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 
 import { renderHook } from 'testUtils/render';
 import { ChainId } from 'types';

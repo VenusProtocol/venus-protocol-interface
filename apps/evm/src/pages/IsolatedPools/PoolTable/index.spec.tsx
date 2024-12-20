@@ -3,7 +3,7 @@ import type Vi from 'vitest';
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import { useGetPools } from 'clients/api';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { ChainId } from 'types';

@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chainMetadata } from '@venusprotocol/registry';
 import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useChainId } from 'libs/wallet';
