@@ -1,11 +1,11 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import bnbLogo from 'libs/tokens/img/bnb.svg';
-import btcbLogo from 'libs/tokens/img/btcb.svg';
-import ethLogo from 'libs/tokens/img/eth.svg';
-import fdusdLogo from 'libs/tokens/img/fdusd.svg';
-import usdtLogo from 'libs/tokens/img/usdt.svg';
-import wbnbLogo from 'libs/tokens/img/wbnb.svg';
-import xvsLogo from 'libs/tokens/img/xvs.svg';
+import bnbLogo from 'libs/tokens/img/underlyingTokens/bnb.svg';
+import btcbLogo from 'libs/tokens/img/underlyingTokens/btcb.svg';
+import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
+import fdusdLogo from 'libs/tokens/img/underlyingTokens/fdusd.svg';
+import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
+import wbnbLogo from 'libs/tokens/img/underlyingTokens/wbnb.svg';
+import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
 import type { Token } from 'types';
 
 const bnbToken: Token = {
