@@ -15,7 +15,7 @@ import {
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
-import { chains, useAccountAddress, useChainId } from 'libs/wallet';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 import { ChainId, type Token } from 'types';
 import {
   convertDollarsToCents,
@@ -24,6 +24,7 @@ import {
   formatCentsToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
+import { bridgeChains } from './constants';
 
 interface UseBridgeFormInput {
   toChainIdRef: MutableRefObject<ChainId | undefined>;
@@ -242,7 +243,7 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
   const defaultValues = useMemo(
     () => ({
       fromChainId: chainId,
-      toChainId: chains.find(chain => chain.id !== chainId)?.id as ChainId,
+      toChainId: bridgeChains.find(chain => chain.id !== chainId)?.id as ChainId,
       amountTokens: '',
       nativeTokenBalanceMantissa,
     }),

@@ -66,6 +66,12 @@ describe('Bridge', () => {
     (useGetXvsBridgeStatus as Vi.Mock).mockImplementation(() => ({
       data: fakeBridgeStatusData,
     }));
+
+    vi.mock('hooks/useIsFeatureEnabled', () => ({
+      featureFlags: {
+        bridgeRoute: [ChainId.BSC_TESTNET, ChainId.SEPOLIA, ChainId.OPBNB_TESTNET],
+      },
+    }));
   });
 
   it('renders without crashing', () => {
