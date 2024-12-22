@@ -2,10 +2,10 @@ import { forwardRef } from 'react';
 
 import { chainMetadata } from '@venusprotocol/chains';
 import { Select, type SelectOption, type SelectProps } from 'components';
-import { chains } from 'libs/wallet';
 import type { ChainId } from 'types';
+import { bridgeChains } from '../constants';
 
-export const getOptionsFromChainsList = (chainsList: typeof chains) =>
+export const getOptionsFromChainsList = (chainsList: typeof bridgeChains) =>
   chainsList.map(chain => {
     const metadata = chainMetadata[chain.id as ChainId];
     const option: SelectOption<ChainId> = {
@@ -22,7 +22,7 @@ export const getOptionsFromChainsList = (chainsList: typeof chains) =>
     return option;
   });
 
-const defaultOptions = getOptionsFromChainsList(chains);
+const defaultOptions = getOptionsFromChainsList(bridgeChains);
 
 type SelectPropsOptionalOptions = Pick<Partial<SelectProps>, 'options'> &
   Omit<SelectProps, 'options'>;

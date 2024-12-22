@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useMemo, useRef } from 'react';
 import { Controller } from 'react-hook-form';
+import type { Chain } from 'viem';
 
 import { useBridgeXvs, useGetBalanceOf, useGetXvsBridgeFeeEstimation } from 'clients/api';
 import {
@@ -26,12 +27,11 @@ import {
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { chains, useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
+import { useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
-
-import type { Chain } from 'viem';
 import { ChainSelect, getOptionsFromChainsList } from './ChainSelect';
+import { bridgeChains } from './constants';
 import { ReactComponent as LayerZeroLogo } from './layerZeroLogo.svg';
 import TEST_IDS from './testIds';
 import useBridgeForm from './useBridgeForm';
@@ -98,7 +98,7 @@ const BridgePage: React.FC = () => {
     accountAddress,
   });
 
-  const toChainIdRef = useRef(chains.find(c => c.id !== chainId)?.id);
+  const toChainIdRef = useRef(bridgeChains.find(c => c.id !== chainId)?.id);
 
   const {
     control,
@@ -267,10 +267,10 @@ const BridgePage: React.FC = () => {
   // build the list of chains that can be selected
   const [fromChainIdOptions, toChainIdOptions] = useMemo(() => {
     const fromChains = getOptionsFromChainsList(
-      chains.filter(c => c.id !== toChainId) as [Chain, ...Chain[]],
+      bridgeChains.filter(c => c.id !== toChainId) as [Chain, ...Chain[]],
     );
     const otherChains = getOptionsFromChainsList(
-      chains.filter(c => c.id !== fromChainId) as [Chain, ...Chain[]],
+      bridgeChains.filter(c => c.id !== fromChainId) as [Chain, ...Chain[]],
     );
     return [fromChains, otherChains];
   }, [fromChainId, toChainId]);
