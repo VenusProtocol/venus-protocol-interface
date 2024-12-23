@@ -37,6 +37,7 @@ export interface Token {
 export interface VToken extends Omit<Token, 'isNative' | 'asset' | 'tokenWrapped'> {
   decimals: 8; // VBep tokens all have 8 decimals
   underlyingToken: Token;
+  asset?: string;
 }
 
 export type TokenAction = 'swapAndSupply' | 'supply' | 'withdraw' | 'borrow' | 'repay';
