@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.185.2
+
+### Patch Changes
+
+- e9fe7c8: fix how user settings are persisted
+- a0a7cb1: fix how available chains are listed on Bridge page
+
 ## 2.185.1
 
 ### Patch Changes
