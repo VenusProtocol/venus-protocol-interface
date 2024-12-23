@@ -16,7 +16,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -46,7 +46,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -67,7 +67,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-              "asset": "/src/libs/tokens/img/busd.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
               "decimals": 18,
               "symbol": "BUSD",
             },
@@ -84,7 +84,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "250.0000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -111,7 +111,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "250.0000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -132,7 +132,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
-              "asset": "/src/libs/tokens/img/eth.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/eth.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "ETH",
@@ -150,7 +150,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -177,7 +177,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -198,7 +198,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              "asset": "/src/libs/tokens/img/bnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/bnb.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "BNB",
@@ -216,7 +216,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -243,7 +243,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -264,7 +264,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/libs/tokens/img/xvs.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -281,7 +281,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -308,7 +308,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -329,7 +329,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -346,7 +346,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -373,7 +373,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -394,7 +394,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-              "asset": "/src/libs/tokens/img/usdc.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
               "decimals": 6,
               "symbol": "USDC",
             },
@@ -421,7 +421,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -448,7 +448,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -469,7 +469,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -520,7 +520,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -547,7 +547,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -574,7 +574,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -595,7 +595,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -612,7 +612,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -639,7 +639,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -660,7 +660,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-              "asset": "/src/libs/tokens/img/wbnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/wbnb.svg",
               "decimals": 18,
               "symbol": "WBNB",
             },
@@ -711,7 +711,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -762,7 +762,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/libs/tokens/img/lisUSD.png",
+              "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
               "decimals": 18,
               "symbol": "lisUSD",
             },
@@ -779,7 +779,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -806,7 +806,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -827,7 +827,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -878,7 +878,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -912,7 +912,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -942,7 +942,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -963,7 +963,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-              "asset": "/src/libs/tokens/img/busd.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
               "decimals": 18,
               "symbol": "BUSD",
             },
@@ -980,7 +980,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "750.0000384",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1007,7 +1007,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "750.0000384",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1028,7 +1028,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
-              "asset": "/src/libs/tokens/img/eth.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/eth.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "ETH",
@@ -1046,7 +1046,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "4499.9999712",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1073,7 +1073,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "4499.9999712",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1094,7 +1094,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              "asset": "/src/libs/tokens/img/bnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/bnb.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "BNB",
@@ -1112,7 +1112,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1139,7 +1139,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1160,7 +1160,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/libs/tokens/img/xvs.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1177,7 +1177,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1204,7 +1204,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1225,7 +1225,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1242,7 +1242,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1269,7 +1269,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1290,7 +1290,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-              "asset": "/src/libs/tokens/img/usdc.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
               "decimals": 6,
               "symbol": "USDC",
             },
@@ -1317,7 +1317,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1344,7 +1344,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1365,7 +1365,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1416,7 +1416,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1443,7 +1443,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -1470,7 +1470,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -1491,7 +1491,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1508,7 +1508,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -1535,7 +1535,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -1556,7 +1556,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-              "asset": "/src/libs/tokens/img/wbnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/wbnb.svg",
               "decimals": 18,
               "symbol": "WBNB",
             },
@@ -1607,7 +1607,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1658,7 +1658,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/libs/tokens/img/lisUSD.png",
+              "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
               "decimals": 18,
               "symbol": "lisUSD",
             },
@@ -1675,7 +1675,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -1702,7 +1702,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -1723,7 +1723,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1774,7 +1774,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1808,7 +1808,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1838,7 +1838,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1859,7 +1859,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-              "asset": "/src/libs/tokens/img/busd.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
               "decimals": 18,
               "symbol": "BUSD",
             },
@@ -1876,7 +1876,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "250.0000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1903,7 +1903,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "250.0000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1924,7 +1924,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
-              "asset": "/src/libs/tokens/img/eth.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/eth.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "ETH",
@@ -1942,7 +1942,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1969,7 +1969,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1990,7 +1990,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              "asset": "/src/libs/tokens/img/bnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/bnb.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "BNB",
@@ -2008,7 +2008,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2035,7 +2035,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2056,7 +2056,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/libs/tokens/img/xvs.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -2073,7 +2073,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2100,7 +2100,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2121,7 +2121,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2138,7 +2138,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2165,7 +2165,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2186,7 +2186,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-              "asset": "/src/libs/tokens/img/usdc.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
               "decimals": 6,
               "symbol": "USDC",
             },
@@ -2213,7 +2213,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2240,7 +2240,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2261,7 +2261,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2312,7 +2312,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2339,7 +2339,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2366,7 +2366,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2387,7 +2387,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2404,7 +2404,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2431,7 +2431,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2452,7 +2452,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-              "asset": "/src/libs/tokens/img/wbnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/wbnb.svg",
               "decimals": 18,
               "symbol": "WBNB",
             },
@@ -2503,7 +2503,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2554,7 +2554,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/libs/tokens/img/lisUSD.png",
+              "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
               "decimals": 18,
               "symbol": "lisUSD",
             },
@@ -2571,7 +2571,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2598,7 +2598,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2619,7 +2619,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2670,7 +2670,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
