@@ -1,10 +1,10 @@
-import type { SelectOption } from './types';
+import type { DropdownOption } from './types';
 
 export const renderLabel = ({
   label,
   isRenderedInButton = false,
 }: {
-  label: SelectOption['label'];
+  label: DropdownOption['label'];
   isRenderedInButton?: boolean;
 }) => {
   if (typeof label === 'function') {

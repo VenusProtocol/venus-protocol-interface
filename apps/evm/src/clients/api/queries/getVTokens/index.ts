@@ -1,10 +1,12 @@
 import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
 import type { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
-import type { Token, VToken } from 'types';
+import { getVTokenAsset } from 'libs/tokens/infos/vTokens';
+import type { ChainId, Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface GetVTokensInput {
+  chainId: ChainId;
   tokens: Token[];
   poolLensContract: PoolLens;
   poolRegistryContractAddress: string;
@@ -18,6 +20,7 @@ export type GetVTokensOutput = {
 };
 
 const getVTokens = async ({
+  chainId,
   tokens,
   poolLensContract,
   poolRegistryContractAddress,
@@ -72,6 +75,10 @@ const getVTokens = async ({
       decimals: 8,
       symbol: `v${underlyingToken.symbol}`,
       underlyingToken,
+      asset: getVTokenAsset({
+        chainId,
+        vTokenAddress: metaData.vToken,
+      }),
     };
 
     return [...acc, vToken];

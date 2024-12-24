@@ -1,17 +1,17 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import bnbLogo from 'libs/tokens/img/bnb.svg';
-import busdLogo from 'libs/tokens/img/busd.svg';
-import ethLogo from 'libs/tokens/img/eth.svg';
-import lisUsdLogo from 'libs/tokens/img/lisUSD.png';
-import lunaLogo from 'libs/tokens/img/luna.svg';
-import usdcLogo from 'libs/tokens/img/usdc.svg';
-import usdtLogo from 'libs/tokens/img/usdt.svg';
-import ustLogo from 'libs/tokens/img/ust.svg';
-import vaiLogo from 'libs/tokens/img/vai.svg';
-import vrtLogo from 'libs/tokens/img/vrt.svg';
-import wbnbLogo from 'libs/tokens/img/wbnb.svg';
-import wethLogo from 'libs/tokens/img/weth.svg';
-import xvsLogo from 'libs/tokens/img/xvs.svg';
+import bnbLogo from 'libs/tokens/img/underlyingTokens/bnb.svg';
+import busdLogo from 'libs/tokens/img/underlyingTokens/busd.svg';
+import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
+import lisUsdLogo from 'libs/tokens/img/underlyingTokens/lisUSD.png';
+import lunaLogo from 'libs/tokens/img/underlyingTokens/luna.svg';
+import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
+import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
+import ustLogo from 'libs/tokens/img/underlyingTokens/ust.svg';
+import vaiLogo from 'libs/tokens/img/underlyingTokens/vai.svg';
+import vrtLogo from 'libs/tokens/img/underlyingTokens/vrt.svg';
+import wbnbLogo from 'libs/tokens/img/underlyingTokens/wbnb.svg';
+import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
+import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
 import type { Token } from 'types';
 
 export const xvs: Token = {

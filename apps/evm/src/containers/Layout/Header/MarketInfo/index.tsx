@@ -2,7 +2,8 @@ import { useGetAsset, useGetPool } from 'clients/api';
 import { type Cell, CellGroup, Icon, Pill, Spinner, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
-import { AddTokenToWalletButton } from 'containers/AddTokenToWalletButton';
+import { AddTokenToWalletDropdown } from 'containers/AddTokenToWalletDropdown';
+import { GoToTokenContract } from 'containers/GoToTokenContractDropdown';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -113,10 +114,15 @@ export const MarketInfo = () => {
                 )}
             </div>
 
-            <AddTokenToWalletButton
+            <AddTokenToWalletDropdown
               className="shrink-0 bg-background/40 hover:bg-background/40 active:bg-background/40"
               isUserConnected={isUserConnected}
-              token={asset.vToken.underlyingToken}
+              vToken={asset.vToken}
+            />
+
+            <GoToTokenContract
+              className="shrink-0 bg-background/40 hover:bg-background/40 active:bg-background/40"
+              vToken={asset.vToken}
             />
           </div>
         ) : (

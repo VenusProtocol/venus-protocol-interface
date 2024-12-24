@@ -312,7 +312,10 @@
         "tooltip": "Copy Address"
       }
     },
-    "copyToClipboard": "{{name}} copied to clipboard"
+    "copyToClipboard": "{{name}} copied to clipboard",
+    "goTo": {
+      "contract": "{{symbol}} contract"
+    }
   },
   "interestRateChart": {
     "currentUtilizationRateLabelValue": "Current ({{percentage}})",
