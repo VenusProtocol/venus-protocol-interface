@@ -66,7 +66,7 @@ export const Dropdown = forwardRef<HTMLInputElement, DropdownProps>(
   ) => {
     const { t } = useTranslation();
     const [isDropdownOpened, setIsDropdownOpened] = useState(false);
-    const handleToggleMenu = () => setIsDropdownOpened(!isDropdownOpened);
+    const handleToggleDropdown = () => setIsDropdownOpened(!isDropdownOpened);
 
     const isMdOrUp = useBreakpointUp('md');
 
@@ -148,7 +148,7 @@ export const Dropdown = forwardRef<HTMLInputElement, DropdownProps>(
             )}
 
             <Button
-              onClick={handleToggleMenu}
+              onClick={handleToggleDropdown}
               className={cn(
                 'relative w-full',
                 getVariantClasses({ variant, isDropdownOpened }),
@@ -191,7 +191,7 @@ export const Dropdown = forwardRef<HTMLInputElement, DropdownProps>(
         {/* MD and up menu */}
         <Modal
           isOpen={isDropdownOpened && !isMdOrUp}
-          handleClose={handleToggleMenu}
+          handleClose={handleToggleDropdown}
           noHorizontalPadding
           onBlur={onBlur}
           title={menuTitle || t('select.defaultLabel')}

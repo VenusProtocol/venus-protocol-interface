@@ -59,3 +59,4 @@ export { default as gasSlashed } from './gasSlashed';
 export { default as gasSad } from './gasSad';
 export { default as ensLogo } from './ensLogo';
 export { default as spaceIdLogo } from './spaceIdLogo';
+export { default as link } from './link';
