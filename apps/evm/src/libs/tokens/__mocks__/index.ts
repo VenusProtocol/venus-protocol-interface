@@ -5,7 +5,6 @@ export * from 'libs/tokens/infos';
 export const useGetToken = vi.fn(({ symbol }) => tokens.find(token => token.symbol === symbol));
 
 export const useGetTokens = vi.fn(() => tokens);
-export const getTokens = vi.fn(() => tokens);
 
 export const useGetSwapTokens = vi.fn(() => tokens);
 export const getSwapTokens = vi.fn(() => tokens);

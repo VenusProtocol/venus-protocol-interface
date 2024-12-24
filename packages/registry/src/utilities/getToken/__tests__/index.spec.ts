@@ -1,5 +1,5 @@
-import { tokens } from 'libs/tokens/infos/commonTokens';
-import { ChainId } from 'types';
+import { tokens } from '@registry/tokens';
+import { ChainId } from '@registry/types';
 
 import { getToken } from '..';
 

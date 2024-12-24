@@ -7,5 +7,9 @@ export interface TokenIconProps {
 }
 
 export const TokenIcon: React.FC<TokenIconProps> = ({ className, token }) => (
-  <img src={token.asset} alt={token.symbol} className={cn('h-6 w-6', className)} />
+  <img
+    src={token.assetUrl?.href || token.asset}
+    alt={token.symbol}
+    className={cn('h-6 w-6', className)}
+  />
 );

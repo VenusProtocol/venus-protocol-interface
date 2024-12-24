@@ -1,8 +1,8 @@
+import { getTokens } from '@venusprotocol/registry';
 import type { ChainId } from 'types';
 import { areAddressesEqual } from 'utilities/areAddressesEqual';
 
 import { getPancakeSwapTokens } from '../getPancakeSwapTokens';
-import { getTokens } from '../getTokens';
 
 export interface GetSwapTokensInput {
   chainId: ChainId;

@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
 
+import { getTokens } from '@venusprotocol/registry';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
-
-import { getTokens } from '../../utilities/getTokens';
 
 export interface UseGetTokensInput {
   chainId?: ChainId;

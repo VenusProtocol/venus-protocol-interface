@@ -1,14 +1,14 @@
+import { getTokens } from '@venusprotocol/registry';
 import type Vi from 'vitest';
 
 import { busd, vai, vrt, xvs } from '__mocks__/models/tokens';
 
 import { getPancakeSwapTokens } from 'libs/tokens/utilities/getPancakeSwapTokens';
-import { getTokens } from 'libs/tokens/utilities/getTokens';
 import { ChainId } from 'types';
 
 import { getSwapTokens } from '..';
 
-vi.mock('libs/tokens/utilities/getTokens');
+vi.mock('@venusprotocol/registry');
 vi.mock('libs/tokens/utilities/getPancakeSwapTokens');
 
 const fakeTokens = [xvs, vai];

@@ -1,6 +1,5 @@
-import type { ChainId } from 'types';
-
-import { tokens } from '../../infos/commonTokens';
+import { tokens } from '@registry/tokens';
+import type { ChainId } from '@registry/types';
 
 export interface GetTokensInput {
   chainId: ChainId;

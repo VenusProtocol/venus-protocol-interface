@@ -6,6 +6,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
   "exports": {
     ".": "./src/index.ts",
     "./types": "./src/types.ts"
@@ -13,9 +14,11 @@
   "scripts": {
     "clean": "rm -rf .turbo && rm -rf node_modules",
     "lint": "biome check .",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "build": "tsup src/index.ts --format esm --dts"
   },
   "devDependencies": {
-    "@venusprotocol/typescript-config": "*"
+    "@venusprotocol/typescript-config": "*",
+    "tsup": "^8.3.5"
   }
 }

@@ -1,14 +1,14 @@
+import { getTokens } from '@venusprotocol/registry';
 import type Vi from 'vitest';
 
 import tokens from '__mocks__/models/tokens';
 import { renderHook } from 'testUtils/render';
 
-import { getTokens } from 'libs/tokens/utilities/getTokens';
 import { ChainId } from 'types';
 
 import { useGetTokens } from '..';
 
-vi.mock('libs/tokens/utilities/getTokens');
+vi.mock('@venusprotocol/registry');
 
 describe('useGetTokens', () => {
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { ChainId } from '@venusprotocol/registry/types';
+import { ChainId } from '@venusprotocol/registry';
 
 import { envVariables } from './envVariables';
 

@@ -1,23 +1,14 @@
-import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import bnbLogo from 'libs/tokens/img/bnb.svg';
-import btcbLogo from 'libs/tokens/img/btcb.svg';
-import ethLogo from 'libs/tokens/img/eth.svg';
-import fdusdLogo from 'libs/tokens/img/fdusd.svg';
-import usdtLogo from 'libs/tokens/img/usdt.svg';
-import wbnbLogo from 'libs/tokens/img/wbnb.svg';
-import xvsLogo from 'libs/tokens/img/xvs.svg';
-import type { Token } from 'types';
-
-const bnbToken: Token = {
-  address: NATIVE_TOKEN_ADDRESS,
-  decimals: 18,
-  symbol: 'BNB',
-  asset: bnbLogo,
-  isNative: true,
-};
+import btcbLogo from '@registry/img/tokens/btcb.svg';
+import ethLogo from '@registry/img/tokens/eth.svg';
+import fdusdLogo from '@registry/img/tokens/fdusd.svg';
+import usdtLogo from '@registry/img/tokens/usdt.svg';
+import wbnbLogo from '@registry/img/tokens/wbnb.svg';
+import xvsLogo from '@registry/img/tokens/xvs.svg';
+import type { Token } from '@registry/types';
+import { bnb } from './nativeTokens';
 
 export const tokens: Token[] = [
-  bnbToken,
+  bnb,
   {
     address: '0x3E2e61F1c075881F3fB8dd568043d8c221fd5c61',
     decimals: 18,
@@ -53,6 +44,6 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'WBNB',
     asset: wbnbLogo,
-    tokenWrapped: bnbToken,
+    tokenWrapped: bnb,
   },
 ];
