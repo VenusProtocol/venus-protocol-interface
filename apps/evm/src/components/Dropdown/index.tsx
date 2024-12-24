@@ -66,12 +66,14 @@ export const Dropdown = forwardRef<HTMLInputElement, DropdownProps>(
   ) => {
     const { t } = useTranslation();
     const [isDropdownOpened, setIsDropdownOpened] = useState(false);
-    const handleToggleMenu = () => setIsDropdownOpened(!isDropdownOpened);
+    const handleToggleDropdown = () => setIsDropdownOpened(!isDropdownOpened);
 
     const isMdOrUp = useBreakpointUp('md');
 
     const handleChange = (newValue: DropdownOption<TValue>['value']) => {
-      onChange(newValue);
+      if (onChange) {
+        onChange(newValue);
+      }
       setIsDropdownOpened(false);
     };
 
@@ -123,11 +125,13 @@ export const Dropdown = forwardRef<HTMLInputElement, DropdownProps>(
             value={value}
             className="hidden"
             onChange={e => {
-              const formattedValue = (
-                typeof value === 'number' ? +e.currentTarget.value : e.currentTarget.value
-              ) as TValue;
+              if (onChange) {
+                const formattedValue = (
+                  typeof value === 'number' ? +e.currentTarget.value : e.currentTarget.value
+                ) as TValue;
 
-              onChange(formattedValue);
+                onChange(formattedValue);
+              }
             }}
             {...otherProps}
           />
@@ -148,7 +152,7 @@ export const Dropdown = forwardRef<HTMLInputElement, DropdownProps>(
             )}
 
             <Button
-              onClick={handleToggleMenu}
+              onClick={handleToggleDropdown}
               className={cn(
                 'relative w-full',
                 getVariantClasses({ variant, isDropdownOpened }),
@@ -191,7 +195,7 @@ export const Dropdown = forwardRef<HTMLInputElement, DropdownProps>(
         {/* MD and up menu */}
         <Modal
           isOpen={isDropdownOpened && !isMdOrUp}
-          handleClose={handleToggleMenu}
+          handleClose={handleToggleDropdown}
           noHorizontalPadding
           onBlur={onBlur}
           title={menuTitle || t('select.defaultLabel')}

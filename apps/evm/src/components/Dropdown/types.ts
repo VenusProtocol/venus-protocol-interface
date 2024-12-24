@@ -11,9 +11,9 @@ export interface DropdownOption<TValue extends string | number = string | number
 export interface DropdownProps<TValue extends string | number = string | number>
   extends Omit<CardProps, 'onChange' | 'children'> {
   children: ({ isDropdownOpened }: { isDropdownOpened: boolean }) => React.ReactNode;
-  value: TValue;
+  value?: TValue;
   options: DropdownOption<TValue>[];
-  onChange: (newValue: DropdownOption<TValue>['value']) => void;
+  onChange?: (newValue: DropdownOption<TValue>['value']) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   name?: string;
   'data-testid'?: string;
