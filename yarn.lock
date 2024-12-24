@@ -3964,23 +3964,23 @@
     utf-8-validate "^5.0.2"
     uuid "^8.3.2"
 
-"@metamask/sdk-install-modal-web@0.31.1":
-  version "0.31.1"
-  resolved "https://registry.yarnpkg.com/@metamask/sdk-install-modal-web/-/sdk-install-modal-web-0.31.1.tgz#c08ddeb6d8e5a21344477a3f395ebc66952f0bcd"
-  integrity sha512-J83K6jN2V3xkTb+/5eyASatlgqHdpzjkTVU6cC+Z/YA9cE32zX8vE0EQweGmExgv+kJ5zz/BiqSZZbMfuilRfQ==
+"@metamask/sdk-install-modal-web@0.31.2":
+  version "0.31.2"
+  resolved "https://registry.yarnpkg.com/@metamask/sdk-install-modal-web/-/sdk-install-modal-web-0.31.2.tgz#bb8c92a6844a632be8525e7bb5a35924a926d6cd"
+  integrity sha512-KPv36kQjmTwErU8g2neuHHSgkD5+1hp4D6ERfk5Kc2r73aOYNCdG9wDGRUmFmcY2MKkeK1EuDyZfJ4FPU30fxQ==
   dependencies:
     "@paulmillr/qr" "^0.2.1"
 
-"@metamask/sdk@0.31.1":
-  version "0.31.1"
-  resolved "https://registry.yarnpkg.com/@metamask/sdk/-/sdk-0.31.1.tgz#111f2eeba9f40d1bc358b4bd60bdf5b423d78daf"
-  integrity sha512-olU3TYRAxIZP5ZXDmi5Y53zXikkPySNiTuBI4QD+2hWYomVlMV2SjOKHSRR6gPuI+fFEg/Z+ImrxDthQfMODwA==
+"@metamask/sdk@0.31.4":
+  version "0.31.4"
+  resolved "https://registry.yarnpkg.com/@metamask/sdk/-/sdk-0.31.4.tgz#2f9266e994ba838652925dc83e3409adfcae75ae"
+  integrity sha512-HLUN4IZGdyiy5YeebXmXi+ndpmrl6zslCQLdR2QHplIy4JmUL/eDyKNFiK7eBLVKXVVIDYFIb6g1iSEb+i8Kew==
   dependencies:
     "@babel/runtime" "^7.26.0"
     "@metamask/onboarding" "^1.0.1"
     "@metamask/providers" "16.1.0"
     "@metamask/sdk-communication-layer" "0.31.0"
-    "@metamask/sdk-install-modal-web" "0.31.1"
+    "@metamask/sdk-install-modal-web" "0.31.2"
     "@paulmillr/qr" "^0.2.1"
     bowser "^2.9.0"
     cross-fetch "^4.0.0"
@@ -5035,10 +5035,10 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.22.4.tgz#3dd5d53e900df2a40841882c02e56f866c04d202"
   integrity sha512-j8pPKp53/lq9lMXN57S8cFz0MynJk8OWNuUnXct/9KCpKU7DgU3bYMJhwWmcqC0UU29p8Lr0/7KEVcaM6bf47Q==
 
-"@safe-global/safe-apps-provider@0.18.4":
-  version "0.18.4"
-  resolved "https://registry.yarnpkg.com/@safe-global/safe-apps-provider/-/safe-apps-provider-0.18.4.tgz#53df912aa20d933f6b14c5bcb0737a8cd47def57"
-  integrity sha512-SWYeG3gyTO6wGHMSokfHakZ9isByn2mHsM0VohIorYFFEyGGmJ89btnTm+DqDUSoQtvWAatZB7XNy6CaYMvqtg==
+"@safe-global/safe-apps-provider@0.18.5":
+  version "0.18.5"
+  resolved "https://registry.yarnpkg.com/@safe-global/safe-apps-provider/-/safe-apps-provider-0.18.5.tgz#745a932bda3739a8a298ae44ec6c465f6c4773b7"
+  integrity sha512-9v9wjBi3TwLsEJ3C2ujYoexp3pFJ0omDLH/GX91e2QB+uwCKTBYyhxFSrTQ9qzoyQd+bfsk4gjOGW87QcJhf7g==
   dependencies:
     "@safe-global/safe-apps-sdk" "^9.1.0"
     events "^3.3.0"
@@ -6970,22 +6970,22 @@
     loupe "^3.1.2"
     tinyrainbow "^1.2.0"
 
-"@wagmi/connectors@5.5.3":
-  version "5.5.3"
-  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-5.5.3.tgz#0bf4778ce66f0bd646f86b4479ef24054e409ebd"
-  integrity sha512-ADXcNuNtONh4PNzs5tWiYzl77P4UohXC7ozYecGvbn3Fkdk6x4tfsF9Wy3Ag5WcVbbp89MPpJ2+VK2ckBgtLAg==
+"@wagmi/connectors@5.7.3":
+  version "5.7.3"
+  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-5.7.3.tgz#0e6d274d4734cbfeb8ad964b63b1edcfade42c63"
+  integrity sha512-i7Gk5M/Fc9gMvkVHbqw2kGtXvY8POsSY798/9I5npyglVjBddxoVk3xTYmcYTB1VIa4Fi0T2gLTHpQnpLrq1CQ==
   dependencies:
     "@coinbase/wallet-sdk" "4.2.3"
-    "@metamask/sdk" "0.31.1"
-    "@safe-global/safe-apps-provider" "0.18.4"
+    "@metamask/sdk" "0.31.4"
+    "@safe-global/safe-apps-provider" "0.18.5"
     "@safe-global/safe-apps-sdk" "9.1.0"
     "@walletconnect/ethereum-provider" "2.17.0"
     cbw-sdk "npm:@coinbase/wallet-sdk@3.9.3"
 
-"@wagmi/core@2.15.2", "@wagmi/core@^2.11.6":
-  version "2.15.2"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-2.15.2.tgz#5bc934b4bca0d7fac1062c920a5366716f069613"
-  integrity sha512-4Bu1JA3HqtKvmBBsesvJ3HyqyLk69XYP0lwmG8jFqa5osfqn9iD8pvjsq5VHbIus+ZFM/UL6ydp9WWdtPNjH7w==
+"@wagmi/core@2.16.3", "@wagmi/core@^2.11.6":
+  version "2.16.3"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-2.16.3.tgz#abbff0a19e75beaad56ffb90da772641552d49c3"
+  integrity sha512-SVovoWHaQ2AIkmGf+ucNijT6AHXcTMffFcLmcFF6++y21x+ge7Gkh3UoJiU91SDDv8n08eTQ9jbyia3GEgU5jQ==
   dependencies:
     eventemitter3 "5.0.1"
     mipd "0.0.7"
@@ -18454,12 +18454,12 @@ w3c-xmlserializer@^5.0.0:
     xml-name-validator "^5.0.0"
 
 wagmi@^2.10.9:
-  version "2.13.3"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.13.3.tgz#faf4d2d2d91b0f63c12937a71943fea277fe8de1"
-  integrity sha512-EBtrWUtmSpr7YYkPE1aokXiMn8EF+8kaNJAXtQ0UUSKlOLEbrsDtaiO3mEOOpFQtRXd2UUI2teMnIThCOk71kQ==
+  version "2.14.6"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.14.6.tgz#046db4c119f53c276c9f2d4b0034fe2ebc3ff05c"
+  integrity sha512-h8KDjPiXywZcKAbGttGDlZpwabZynR4lZ8eDO63tNgfxiMyhld0M5bMcB/u7XnH2xFgd0gq7PA2RVz96XMjazw==
   dependencies:
-    "@wagmi/connectors" "5.5.3"
-    "@wagmi/core" "2.15.2"
+    "@wagmi/connectors" "5.7.3"
+    "@wagmi/core" "2.16.3"
     use-sync-external-store "1.2.0"
 
 walk-sync@^2.2.0:
