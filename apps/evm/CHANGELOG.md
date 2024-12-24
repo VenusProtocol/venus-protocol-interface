@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.186.0
+
+### Minor Changes
+
+- 0d41199: add sUSDe, PT-USDe-27MAR2025, PT-sUSDE-27MAR2025 and PT-SolvBTC.BBN-27MAR2025
+
 ## 2.185.2
 
 ### Patch Changes
