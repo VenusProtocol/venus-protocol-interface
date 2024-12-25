@@ -30,7 +30,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   const { t } = useTranslation();
 
   const isDangerous = useMemo(
-    () => new BigNumber(fromTokenAmountTokens).isGreaterThanOrEqualTo(safeLimitTokens),
+    () => new BigNumber(fromTokenAmountTokens).isGreaterThan(safeLimitTokens),
     [fromTokenAmountTokens, safeLimitTokens],
   );
 

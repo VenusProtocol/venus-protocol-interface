@@ -14,7 +14,7 @@ const Notice: React.FC<NoticeProps> = ({ amount, safeLimitTokens, limitTokens })
 
   if (
     new BigNumber(amount).isGreaterThan(0) &&
-    new BigNumber(amount).isGreaterThanOrEqualTo(safeLimitTokens) &&
+    new BigNumber(amount).isGreaterThan(safeLimitTokens) &&
     new BigNumber(amount).isLessThanOrEqualTo(limitTokens)
   ) {
     // User is trying to borrow above their safe limit (allowed but puts them at
