@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.187.0
+
+### Minor Changes
+
+- aa9c8b7: update and enable Base mainnet bridge
+
 ## 2.186.0
 
 ### Minor Changes
