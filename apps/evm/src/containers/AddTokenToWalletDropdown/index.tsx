@@ -65,6 +65,7 @@ export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> =
       className={className}
       options={options}
       buttonClassName="flex justify-center items-center bg-background/40 p-1 h-8 w-8 border-none"
+      menuTitle={t('interactive.copy.address.modalTitle')}
     >
       {({ isDropdownOpened }) => (
         <Icon

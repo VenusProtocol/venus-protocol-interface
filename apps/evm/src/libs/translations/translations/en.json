@@ -309,12 +309,14 @@
     "copy": {
       "address": {
         "name": "Address",
+        "modalTitle": "Select token",
         "tooltip": "Copy Address"
       }
     },
     "copyToClipboard": "{{name}} copied to clipboard",
     "goTo": {
-      "contract": "{{symbol}} contract"
+      "contract": "{{symbol}} contract",
+      "modalTitle": "Contracts"
     }
   },
   "interestRateChart": {

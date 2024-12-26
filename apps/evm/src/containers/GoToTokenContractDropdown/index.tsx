@@ -59,6 +59,7 @@ export const GoToTokenContractDropdown: React.FC<GoToTokenContractProps> = ({
       className={className}
       options={options}
       buttonClassName="flex justify-center items-center bg-background/40 p-1 h-8 w-8 border-none"
+      menuTitle={t('interactive.goTo.modalTitle')}
     >
       {({ isDropdownOpened }) => (
         <Icon name="link" className={cn('h-6 w-6 border-none', isDropdownOpened && 'text-blue')} />
