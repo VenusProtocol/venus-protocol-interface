@@ -82,6 +82,7 @@ export const featureFlags = {
     ChainId.ZKSYNC_MAINNET,
     ChainId.OPTIMISM_MAINNET,
     ChainId.OPTIMISM_SEPOLIA,
+    ChainId.BASE_MAINNET,
     ChainId.BASE_SEPOLIA,
   ],
   wrapUnwrapNativeToken: [
