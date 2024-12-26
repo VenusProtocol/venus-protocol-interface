@@ -56,4 +56,11 @@ export interface Token {
   address: string;
   isNative?: boolean;
   tokenWrapped?: Token;
+  // DEV ONLY
+  assetUrl?: URL;
+  // END DEV ONLY
 }
+
+export type TokenMapping = {
+  [chainId in ChainId]: Token[];
+};

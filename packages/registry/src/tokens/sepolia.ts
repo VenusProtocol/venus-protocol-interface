@@ -1,42 +1,33 @@
-import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import crvLogo from 'libs/tokens/img/crv.svg';
-import crvUsdLogo from 'libs/tokens/img/crvUsd.svg';
-import daiLogo from 'libs/tokens/img/dai.svg';
-import eBtcLogo from 'libs/tokens/img/eBtc.png';
-import eigenLogo from 'libs/tokens/img/eigen.svg';
-import ethLogo from 'libs/tokens/img/eth.svg';
-import ezEthLogo from 'libs/tokens/img/ezEth.png';
-import fraxLogo from 'libs/tokens/img/frax.svg';
-import lBtcLogo from 'libs/tokens/img/lbtc.svg';
-import ptSUsdELogo from 'libs/tokens/img/ptSUsdE.svg';
-import ptUsdELogo from 'libs/tokens/img/ptUsdE.svg';
-import ptWeethLogo from 'libs/tokens/img/ptWeeth.svg';
-import pufEthLogo from 'libs/tokens/img/pufEth.svg';
-import rsEthLogo from 'libs/tokens/img/rsEth.svg';
-import sFraxLogo from 'libs/tokens/img/sFrax.svg';
-import sUsdELogo from 'libs/tokens/img/sUsdE.svg';
-import sfrxEthLogo from 'libs/tokens/img/sfrxEth.svg';
-import tusdLogo from 'libs/tokens/img/tusd.svg';
-import usdcLogo from 'libs/tokens/img/usdc.svg';
-import usdtLogo from 'libs/tokens/img/usdt.svg';
-import wbtcLogo from 'libs/tokens/img/wbtc.svg';
-import weEthLogo from 'libs/tokens/img/weEth.svg';
-import weEthsLogo from 'libs/tokens/img/weeths.svg';
-import wethLogo from 'libs/tokens/img/weth.svg';
-import wstEthLogo from 'libs/tokens/img/wstEth.svg';
-import xvsLogo from 'libs/tokens/img/xvs.svg';
-import type { Token } from 'types';
-
-const ethToken: Token = {
-  address: NATIVE_TOKEN_ADDRESS,
-  decimals: 18,
-  symbol: 'ETH',
-  asset: ethLogo,
-  isNative: true,
-};
+import crvLogo from '../img/tokens/crv.svg';
+import crvUsdLogo from '../img/tokens/crvUsd.svg';
+import daiLogo from '../img/tokens/dai.svg';
+import eBtcLogo from '../img/tokens/eBtc.png';
+import eigenLogo from '../img/tokens/eigen.svg';
+import ezEthLogo from '../img/tokens/ezEth.png';
+import fraxLogo from '../img/tokens/frax.svg';
+import lBtcLogo from '../img/tokens/lbtc.svg';
+import ptSUsdELogo from '../img/tokens/ptSUsdE.svg';
+import ptUsdELogo from '../img/tokens/ptUsdE.svg';
+import ptWeethLogo from '../img/tokens/ptWeeth.svg';
+import pufEthLogo from '../img/tokens/pufEth.svg';
+import rsEthLogo from '../img/tokens/rsEth.svg';
+import sFraxLogo from '../img/tokens/sFrax.svg';
+import sUsdELogo from '../img/tokens/sUsdE.svg';
+import sfrxEthLogo from '../img/tokens/sfrxEth.svg';
+import tusdLogo from '../img/tokens/tusd.svg';
+import usdcLogo from '../img/tokens/usdc.svg';
+import usdtLogo from '../img/tokens/usdt.svg';
+import wbtcLogo from '../img/tokens/wbtc.svg';
+import weEthLogo from '../img/tokens/weEth.svg';
+import weEthsLogo from '../img/tokens/weeths.svg';
+import wethLogo from '../img/tokens/weth.svg';
+import wstEthLogo from '../img/tokens/wstEth.svg';
+import xvsLogo from '../img/tokens/xvs.svg';
+import type { Token } from '../types';
+import { eth } from './nativeTokens';
 
 export const tokens: Token[] = [
-  ethToken,
+  eth,
   {
     address: '0x66ebd019E86e0af5f228a0439EBB33f045CBe63E',
     decimals: 18,
@@ -54,7 +45,7 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'WETH',
     asset: wethLogo,
-    tokenWrapped: ethToken,
+    tokenWrapped: eth,
   },
   {
     address: '0x8d412FD0bc5d826615065B931171Eed10F5AF266',

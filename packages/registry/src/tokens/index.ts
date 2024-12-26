@@ -1,6 +1,4 @@
-import type { TokenMapping } from 'libs/tokens/types';
-import { ChainId } from 'types';
-
+import { ChainId, type TokenMapping } from '../types';
 import { tokens as arbitrumOneTokens } from './arbitrumOne';
 import { tokens as arbitrumSepoliaTokens } from './arbitrumSepolia';
 import { tokens as baseMainnetTokens } from './baseMainnet';

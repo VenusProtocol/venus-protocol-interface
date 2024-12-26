@@ -1,11 +1,11 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
-import type { ChainId } from '@venusprotocol/registry';
+import type { ChainId, Token } from '@venusprotocol/registry';
 import type BigNumber from 'bignumber.js';
 import type { BaseContract, ContractReceipt } from 'ethers';
 import type { TransactionReceipt } from 'viem';
 
 // TODO: import from package in places where it's used in the codebase
-export { ChainId, type ChainMetadata } from '@venusprotocol/registry/types';
+export { ChainId, type Token, type ChainMetadata } from '@venusprotocol/registry/types';
 
 export type NonNullableFields<T> = Required<{
   [P in keyof T]: NonNullable<T[P]>;
@@ -24,15 +24,6 @@ export type Network =
   | 'mainnet';
 
 export type TransactionType = 'chain' | 'layerZero';
-
-export interface Token {
-  symbol: string;
-  decimals: number;
-  asset: string;
-  address: string;
-  isNative?: boolean;
-  tokenWrapped?: Token;
-}
 
 export interface VToken extends Omit<Token, 'isNative' | 'asset' | 'tokenWrapped'> {
   decimals: 8; // VBep tokens all have 8 decimals

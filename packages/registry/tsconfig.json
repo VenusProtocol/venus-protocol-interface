@@ -1,3 +1,6 @@
 {
-  "extends": "@venusprotocol/typescript-config/base.json"
+  "extends": "@venusprotocol/typescript-config/base.json",
+  "compilerOptions": {
+    "rootDir": "."
+  }
 }

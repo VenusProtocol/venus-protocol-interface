@@ -1,75 +1,66 @@
-import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import aaveLogo from 'libs/tokens/img/aave.svg';
-import adaLogo from 'libs/tokens/img/ada.svg';
-import alpacaLogo from 'libs/tokens/img/alpaca.png';
-import angleLogo from 'libs/tokens/img/angle.svg';
-import ankrLogo from 'libs/tokens/img/ankr.svg';
-import ankrbnbLogo from 'libs/tokens/img/ankrBNB.svg';
-import babyDogeLogo from 'libs/tokens/img/babyDoge.svg';
-import bchLogo from 'libs/tokens/img/bch.svg';
-import bethLogo from 'libs/tokens/img/beth.svg';
-import bifiLogo from 'libs/tokens/img/bifi.png';
-import bnbLogo from 'libs/tokens/img/bnb.svg';
-import bnbxLogo from 'libs/tokens/img/bnbx.png';
-import bswLogo from 'libs/tokens/img/bsw.svg';
-import btcbLogo from 'libs/tokens/img/btcb.svg';
-import bttLogo from 'libs/tokens/img/btt.svg';
-import busdLogo from 'libs/tokens/img/busd.svg';
-import cakeLogo from 'libs/tokens/img/cake.svg';
-import daiLogo from 'libs/tokens/img/dai.svg';
-import dogeLogo from 'libs/tokens/img/doge.svg';
-import dotLogo from 'libs/tokens/img/dot.svg';
-import ethLogo from 'libs/tokens/img/eth.svg';
-import euraLogo from 'libs/tokens/img/eura.svg';
-import fdusdLogo from 'libs/tokens/img/fdusd.svg';
-import filLogo from 'libs/tokens/img/fil.svg';
-import flokiLogo from 'libs/tokens/img/floki.svg';
-import linkLogo from 'libs/tokens/img/link.svg';
-import lisUsdLogo from 'libs/tokens/img/lisUSD.png';
-import ltcLogo from 'libs/tokens/img/ltc.svg';
-import maticLogo from 'libs/tokens/img/matic.svg';
-import nftLogo from 'libs/tokens/img/nft.png';
-import planetLogo from 'libs/tokens/img/planet.svg';
-import ptSolvBtcLogo from 'libs/tokens/img/ptSolvBtc.svg';
-import racaLogo from 'libs/tokens/img/raca.png';
-import sdLogo from 'libs/tokens/img/sd.svg';
-import slisBnbLogo from 'libs/tokens/img/slisBNB.png';
-import solvBtcLogo from 'libs/tokens/img/solvBtc.png';
-import stkbnbLogo from 'libs/tokens/img/stkBNB.svg';
-import sxpLogo from 'libs/tokens/img/sxp.svg';
-import theLogo from 'libs/tokens/img/the.svg';
-import trxLogo from 'libs/tokens/img/trx.svg';
-import tusdLogo from 'libs/tokens/img/tusd.svg';
-import twtLogo from 'libs/tokens/img/twt.svg';
-import uniLogo from 'libs/tokens/img/uni.svg';
-import usdcLogo from 'libs/tokens/img/usdc.svg';
-import usddLogo from 'libs/tokens/img/usdd.svg';
-import usdtLogo from 'libs/tokens/img/usdt.svg';
-import vaiLogo from 'libs/tokens/img/vai.svg';
-import vrtLogo from 'libs/tokens/img/vrt.svg';
-import wbethLogo from 'libs/tokens/img/wbeth.svg';
-import wbnbLogo from 'libs/tokens/img/wbnb.svg';
-import weEthLogo from 'libs/tokens/img/weEth.svg';
-import winLogo from 'libs/tokens/img/win.svg';
-import wstEthLogo from 'libs/tokens/img/wstEth.svg';
-import xrpLogo from 'libs/tokens/img/xrp.svg';
-import xvsLogo from 'libs/tokens/img/xvs.svg';
-import type { Token } from 'types';
-
-const bnbToken: Token = {
-  address: NATIVE_TOKEN_ADDRESS,
-  decimals: 18,
-  symbol: 'BNB',
-  asset: bnbLogo,
-  isNative: true,
-};
+import aaveLogo from '../img/tokens/aave.svg';
+import adaLogo from '../img/tokens/ada.svg';
+import alpacaLogo from '../img/tokens/alpaca.png';
+import angleLogo from '../img/tokens/angle.svg';
+import ankrLogo from '../img/tokens/ankr.svg';
+import ankrbnbLogo from '../img/tokens/ankrBNB.svg';
+import babyDogeLogo from '../img/tokens/babyDoge.svg';
+import bchLogo from '../img/tokens/bch.svg';
+import bethLogo from '../img/tokens/beth.svg';
+import bifiLogo from '../img/tokens/bifi.png';
+import bnbxLogo from '../img/tokens/bnbx.png';
+import bswLogo from '../img/tokens/bsw.svg';
+import btcbLogo from '../img/tokens/btcb.svg';
+import bttLogo from '../img/tokens/btt.svg';
+import busdLogo from '../img/tokens/busd.svg';
+import cakeLogo from '../img/tokens/cake.svg';
+import daiLogo from '../img/tokens/dai.svg';
+import dogeLogo from '../img/tokens/doge.svg';
+import dotLogo from '../img/tokens/dot.svg';
+import ethLogo from '../img/tokens/eth.svg';
+import euraLogo from '../img/tokens/eura.svg';
+import fdusdLogo from '../img/tokens/fdusd.svg';
+import filLogo from '../img/tokens/fil.svg';
+import flokiLogo from '../img/tokens/floki.svg';
+import linkLogo from '../img/tokens/link.svg';
+import lisUsdLogo from '../img/tokens/lisUSD.png';
+import ltcLogo from '../img/tokens/ltc.svg';
+import maticLogo from '../img/tokens/matic.svg';
+import nftLogo from '../img/tokens/nft.png';
+import planetLogo from '../img/tokens/planet.svg';
+import ptSolvBtcLogo from '../img/tokens/ptSolvBtc.svg';
+import racaLogo from '../img/tokens/raca.png';
+import sdLogo from '../img/tokens/sd.svg';
+import slisBnbLogo from '../img/tokens/slisBNB.png';
+import solvBtcLogo from '../img/tokens/solvBtc.png';
+import stkbnbLogo from '../img/tokens/stkBNB.svg';
+import sxpLogo from '../img/tokens/sxp.svg';
+import theLogo from '../img/tokens/the.svg';
+import trxLogo from '../img/tokens/trx.svg';
+import tusdLogo from '../img/tokens/tusd.svg';
+import twtLogo from '../img/tokens/twt.svg';
+import uniLogo from '../img/tokens/uni.svg';
+import usdcLogo from '../img/tokens/usdc.svg';
+import usddLogo from '../img/tokens/usdd.svg';
+import usdtLogo from '../img/tokens/usdt.svg';
+import vaiLogo from '../img/tokens/vai.svg';
+import vrtLogo from '../img/tokens/vrt.svg';
+import wbethLogo from '../img/tokens/wbeth.svg';
+import wbnbLogo from '../img/tokens/wbnb.svg';
+import weEthLogo from '../img/tokens/weEth.svg';
+import winLogo from '../img/tokens/win.svg';
+import wstEthLogo from '../img/tokens/wstEth.svg';
+import xrpLogo from '../img/tokens/xrp.svg';
+import xvsLogo from '../img/tokens/xvs.svg';
+import type { Token } from '../types';
+import { bnb } from './nativeTokens';
 
 export const tokens: Token[] = [
   {
     address: '0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63',
     decimals: 18,
     symbol: 'XVS',
-    asset: xvsLogo,
+    asset: new URL(xvsLogo, import.meta.url).href,
   },
   {
     address: '0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7',
@@ -83,7 +74,7 @@ export const tokens: Token[] = [
     symbol: 'VRT',
     asset: vrtLogo,
   },
-  bnbToken,
+  bnb,
   {
     address: '0x47BEAd2563dCBf3bF2c9407fEa4dC236fAbA485A',
     decimals: 18,
@@ -317,7 +308,7 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'WBNB',
     asset: wbnbLogo,
-    tokenWrapped: bnbToken,
+    tokenWrapped: bnb,
   },
   {
     address: '0x3BC5AC0dFdC871B365d159f728dd1B9A0B5481E8',

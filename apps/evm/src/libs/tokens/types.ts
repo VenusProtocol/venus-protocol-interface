@@ -1,8 +1,6 @@
-import type { ChainId, Token, TokenAction } from 'types';
+import type { ChainId } from '@venusprotocol/registry';
 
-export type TokenMapping = {
-  [chainId in ChainId]: Token[];
-};
+import type { TokenAction } from 'types';
 
 export type DisabledTokenActionMapping = {
   [chainId in ChainId]: DisabledTokenAction[];

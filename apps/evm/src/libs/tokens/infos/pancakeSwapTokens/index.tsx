@@ -1,11 +1,11 @@
-import { tokens as bscMainnetTokens } from 'libs/tokens/generated/pancakeSwapTokens/bscMainnet';
-import type { TokenMapping } from 'libs/tokens/types';
+import type { TokenMapping } from '@venusprotocol/registry';
 import { ChainId } from 'types';
 
 import { tokens as arbitrumOneTokens } from './arbitrumOne';
 import { tokens as arbitrumSepoliaTokens } from './arbitrumSepolia';
 import { tokens as baseMainnetTokens } from './baseMainnet';
 import { tokens as baseSepoliaTokens } from './baseSepolia';
+import { tokens as bscMainnetTokens } from './bscMainnet';
 import { tokens as bscTestnetTokens } from './bscTestnet';
 import { tokens as ethereumTokens } from './ethereum';
 import { tokens as opBnbMainnetTokens } from './opBnbMainnet';
