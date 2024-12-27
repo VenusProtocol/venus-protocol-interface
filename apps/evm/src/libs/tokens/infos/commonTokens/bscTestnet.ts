@@ -366,7 +366,7 @@ export const tokens: Token[] = [
   {
     address: '0x964Ea3dC70Ee5b35Ea881cf8416B7a5F50E13f56',
     decimals: 18,
-    symbol: 'PT-SolvBTC.BBN-27MAR2025',
+    symbol: 'PT-SolvBTC.BBN-MAR25',
     asset: ptSolvBtcLogo,
   },
 ];
