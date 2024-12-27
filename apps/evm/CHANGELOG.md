@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.188.0
+
+### Minor Changes
+
+- 2ee3272: trim token symbol to PT-SolvBTC.BBN-MAR25
+
 ## 2.187.0
 
 ### Minor Changes
