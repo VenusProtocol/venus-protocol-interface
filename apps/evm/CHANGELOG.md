@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.189.0
+
+### Minor Changes
+
+- 676cc0e: only show high risk warning when borrowing above safe limit
+
 ## 2.188.0
 
 ### Minor Changes
