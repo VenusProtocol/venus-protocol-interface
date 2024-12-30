@@ -67,7 +67,6 @@
     "i18next": "^24.0.5",
     "lodash": "^4.17.21",
     "noop-ts": "^1.0.6",
-    "posthog-js": "^1.57.2",
     "react": "^18.2.0",
     "react-countdown": "^2.3.5",
     "react-dom": "^18.2.0",

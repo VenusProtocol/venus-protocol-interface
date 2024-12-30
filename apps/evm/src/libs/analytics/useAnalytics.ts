@@ -1,9 +1,3 @@
-import { usePostHog } from 'posthog-js/react';
-
-import config from 'config';
-import { logError } from 'libs/errors';
-import { useChainId } from 'libs/wallet';
-
 export type AnalyticEventName =
   | 'Tokens supplied'
   | 'Tokens swapped and supplied'
@@ -135,24 +129,11 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
                                     : undefined;
 
 const useAnalytics = () => {
-  const posthog = usePostHog();
-  const { chainId } = useChainId();
-
   function captureAnalyticEvent<TEventName extends AnalyticEventName>(
-    eventName: TEventName,
-    eventProps: AnalyticEventProps<TEventName>,
+    _eventName: TEventName,
+    _eventProps: AnalyticEventProps<TEventName>,
   ) {
-    // Only send analytic events in production
-    if (config.environment !== 'production') {
-      return;
-    }
-
-    if (!posthog) {
-      logError('Attempted to send analytic event but posthog object was undefined');
-      return;
-    }
-
-    posthog.capture(eventName, { chainId, ...eventProps });
+    // TODO: send event
   }
 
   return {
