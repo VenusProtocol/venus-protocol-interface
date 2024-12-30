@@ -163,7 +163,7 @@ export const Borrow: React.FC = () => {
   }, [vai, vaiPriceDollars, legacyPool]);
 
   const isDangerousTransaction = useMemo(
-    () => new BigNumber(inputAmountTokens).isGreaterThanOrEqualTo(safeLimitTokens),
+    () => new BigNumber(inputAmountTokens).isGreaterThan(safeLimitTokens),
     [inputAmountTokens, safeLimitTokens],
   );
 

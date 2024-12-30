@@ -147,6 +147,42 @@ describe('Borrow', () => {
       expect(tokenTextFieldInput.value).toBe(marginWithSafeLimitTokens.toFixed()),
     );
 
+    // Submit repayment request
+    expect(getByText(en.vai.borrow.submitButton.borrowLabel));
+
+    const submitButton = getByText(en.vai.borrow.submitButton.borrowLabel).closest(
+      'button',
+    ) as HTMLButtonElement;
+    fireEvent.click(submitButton);
+
+    // Check mintVai was called correctly
+    await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
+    expect(mintVai).toHaveBeenCalledWith({
+      amountMantissa: convertTokensToMantissa({
+        value: new BigNumber(marginWithSafeLimitTokens),
+        token: vai,
+      }),
+    });
+  });
+
+  it('displays a warning if user is trying to borrow above safe limit but below hard limit', async () => {
+    (mintVai as Vi.Mock).mockImplementation(async () => fakeContractTransaction);
+
+    const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
+      accountAddress: fakeAccountAddress,
+    });
+    await waitFor(() => getByText(en.vai.borrow.submitButton.enterValidAmountLabel));
+
+    // Update input value
+    const fakeValueTokens = fakeUserBorrowLimitCents
+      .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE / 100)
+      .minus(fakeUserBorrowBalanceCents)
+      .div(fakeVaiPriceCents)
+      .plus(1); // Add 1 token to borrow above safe limit
+
+    const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
+    fireEvent.change(tokenTextFieldInput, { target: { value: fakeValueTokens } });
+
     // Check warning is displayed
     await waitFor(() => getByText(en.vai.borrow.notice.riskOfLiquidation));
 
@@ -162,7 +198,7 @@ describe('Borrow', () => {
     await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
     expect(mintVai).toHaveBeenCalledWith({
       amountMantissa: convertTokensToMantissa({
-        value: new BigNumber(marginWithSafeLimitTokens),
+        value: new BigNumber(fakeValueTokens),
         token: vai,
       }),
     });
