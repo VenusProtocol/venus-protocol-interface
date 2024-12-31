@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 import { HashRouter } from 'react-router-dom';
 
 import { queryClient } from 'clients/api';
-import { AnalyticProvider } from 'libs/analytics';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
 import { Web3Wrapper } from 'libs/wallet';
@@ -38,27 +37,25 @@ const App = () => (
         <QueryClientProvider client={queryClient}>
           <ErrorBoundary>
             <Web3Wrapper>
-              <AnalyticProvider>
-                <Routes />
+              <Routes />
 
-                <Suspense>
-                  <NotificationCenter />
-                </Suspense>
+              <Suspense>
+                <NotificationCenter />
+              </Suspense>
 
-                <Suspense>
-                  <AppVersionChecker />
-                </Suspense>
+              <Suspense>
+                <AppVersionChecker />
+              </Suspense>
 
-                <Suspense>
-                  <GaslessChecker />
-                </Suspense>
+              <Suspense>
+                <GaslessChecker />
+              </Suspense>
 
-                <Suspense>
-                  <ResendPayingGasModal />
-                </Suspense>
+              <Suspense>
+                <ResendPayingGasModal />
+              </Suspense>
 
-                <SentryErrorInfo />
-              </AnalyticProvider>
+              <SentryErrorInfo />
             </Web3Wrapper>
           </ErrorBoundary>
         </QueryClientProvider>
