@@ -1,3 +1,5 @@
+import type { DropdownProps } from 'components/Dropdown';
+
 export interface SelectOption<TValue extends string | number = string | number> {
   value: TValue;
   label:
@@ -9,6 +11,7 @@ export interface SelectOption<TValue extends string | number = string | number> 
 export interface SelectProps<TValue extends string | number = string | number> {
   value: TValue;
   options: SelectOption<TValue>[];
+  optionClassName?: DropdownProps['optionClassName'];
   onChange: (newValue: SelectOption<TValue>['value']) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   name?: string;

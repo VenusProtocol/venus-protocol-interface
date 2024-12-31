@@ -41,9 +41,8 @@ export const XsControls: React.FC = () => {
           <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-7" />
         </Link>
 
-        <div className="flex flex-1 items-center justify-center">
+        <div className="flex flex-1 items-center justify-center gap-4">
           <ChainSelect
-            className="mr-4"
             buttonClassName="h-9"
             variant={isOnMarketPage && !isMobileMenuOpened ? 'tertiary' : 'primary'}
           />

@@ -201,14 +201,15 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
       </div>
 
       {isSearchFeatureEnabled && (
-        <div className="space-y-4 sm:flex sm:gap-x-6 sm:space-y-0 sm:justify-between">
+        <div className="space-y-4 sm:flex sm:gap-x-6 sm:space-y-0 sm:justify-between minw">
           <Select
             label={t('vote.proposalStateFilter.label')}
             size="small"
             variant="tertiary"
             placeLabelToLeft
             options={selectOptions}
-            className="min-w-[230px]"
+            optionClassName="px-3 h-10"
+            buttonClassName="min-w-45"
             data-testid={TEST_IDS.proposalStateSelect}
             value={selectedProposalState}
             onChange={newValue =>

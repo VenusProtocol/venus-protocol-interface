@@ -1,11 +1,15 @@
-import type { CardProps } from 'components/Card';
+import type { FocusEventHandler } from 'react';
 
-export interface DropdownProps extends Omit<CardProps, 'onChange' | 'children'> {
-  children: ({ isDropdownOpened }: { isDropdownOpened: boolean }) => React.ReactNode;
+export interface DropdownProps {
+  children: ({
+    isDropdownOpened,
+    handleToggleDropdown,
+  }: { isDropdownOpened: boolean; handleToggleDropdown: () => void }) => React.ReactNode;
+  onBlur?: FocusEventHandler<HTMLDivElement>;
   optionClassName?: string;
   optionsDom: (props: {
     setIsDropdownOpened: (v: boolean) => void;
-    buttonSizeClasses?: string;
+    optionClassName?: string;
   }) => React.ReactElement;
   name?: string;
   'data-testid'?: string;

@@ -1,31 +1,18 @@
-import { Dropdown } from 'components/Dropdown';
+import { Dropdown, Icon } from 'components';
+import type { ButtonProps } from 'components/Button';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'libs/translations';
 import { useAddTokenToWallet } from 'libs/wallet';
 import { useCallback } from 'react';
 import type { Token, VToken } from 'types';
 import { cn } from 'utilities';
-import type { ButtonProps } from '../../../../../components/Button';
-import { Icon } from '../../../../../components/Icon';
+import { DropdownToggleButton } from '../DropdownToggleButton';
 import { TokenDropdownOption } from '../TokenDropdownOption';
 
 export interface AddTokenToWalletDropdownProps extends Omit<ButtonProps, 'onClick' | 'variant'> {
   isUserConnected: boolean;
   vToken: VToken;
 }
-
-const generateAddOrCopyTokenOption = (
-  token: VToken | Token,
-  label: string,
-  onClick: () => void,
-) => (
-  <span
-    className="flex items-center justify-start py-3 px-4 text-left text-sm font-semibold flex-row gap-2 grow min-w-[180px] cursor-pointer"
-    onClick={onClick}
-  >
-    <TokenDropdownOption token={token} label={label} />
-  </span>
-);
 
 export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> = ({
   className,
@@ -51,12 +38,18 @@ export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> =
 
       return (
         <>
-          {generateAddOrCopyTokenOption(
-            underlyingToken,
-            underlyingToken.symbol,
-            addOrCopyTokenAction(underlyingToken),
-          )}
-          {generateAddOrCopyTokenOption(vToken, vToken.symbol, addOrCopyTokenAction(vToken))}
+          <TokenDropdownOption
+            type="button"
+            onClick={() => addOrCopyTokenAction(underlyingToken)}
+            token={underlyingToken}
+            label={underlyingToken.symbol}
+          />
+          <TokenDropdownOption
+            type="button"
+            onClick={() => addOrCopyTokenAction(vToken)}
+            token={vToken}
+            label={vToken.symbol}
+          />
         </>
       );
     },
@@ -66,16 +59,25 @@ export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> =
   return (
     <Dropdown
       className={className}
-      buttonClassName="flex justify-center items-center bg-background/40 p-1 h-8 w-8 border-none"
       optionsDom={optionsDom}
-      optionClassName="justify-center"
-      menuTitle={t('interactive.copy.address.modalTitle')}
+      optionClassName="justify-center flex justify-center items-center bg-background/40 p-1 h-8 w-8 border-none"
+      menuTitle={
+        isUserConnected
+          ? t('interactive.addToWallet.modalTitle')
+          : t('interactive.copy.address.modalTitle')
+      }
     >
-      {({ isDropdownOpened }) => (
-        <Icon
-          name={isUserConnected ? 'wallet' : 'copy'}
-          className={cn('justify-center h-5 w-5 ml-[2px]', isDropdownOpened && 'text-blue')}
-        />
+      {({ isDropdownOpened, handleToggleDropdown }) => (
+        <DropdownToggleButton handleToggleDropdown={handleToggleDropdown}>
+          <Icon
+            name={isUserConnected ? 'wallet' : 'copy'}
+            className={cn(
+              'justify-center h-5 w-5',
+              isUserConnected && 'ml-[2px]',
+              isDropdownOpened && 'text-blue',
+            )}
+          />
+        </DropdownToggleButton>
       )}
     </Dropdown>
   );

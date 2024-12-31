@@ -1,57 +1,22 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { useBreakpointUp } from 'hooks/responsive';
 import { cn } from 'utilities';
 
 import { useTranslation } from 'libs/translations';
-import { Button } from '../Button';
 import { Modal } from '../Modal';
 import type { DropdownProps } from './types';
 
 export * from './types';
 
-const getVariantClasses = ({
-  variant,
-  isDropdownOpened,
-}: {
-  variant: DropdownProps['variant'];
-  isDropdownOpened: boolean;
-}) => {
-  switch (variant) {
-    case 'secondary':
-      return cn(
-        'border-lightGrey bg-lightGrey hover:border-blue hover:bg-lightGrey active:border-blue active:bg-lightGrey',
-        isDropdownOpened && 'border-blue hover:border-blue',
-      );
-    case 'tertiary':
-      return cn(
-        'border-transparent bg-cards hover:bg-cards hover:border-offWhite active:bg-cards active:border-blue',
-        isDropdownOpened && 'border-blue hover:border-blue',
-      );
-    case 'quaternary':
-      return cn(
-        'border-transparent bg-lightGrey rounded-xl hover:bg-lightGrey hover:border-grey active:bg-lightGrey active:border-blue',
-        isDropdownOpened && 'border-blue bg-lightGrey hover:border-blue',
-      );
-    // primary
-    default:
-      return cn(
-        'border-lightGrey bg-cards hover:border-lightGrey hover:bg-lightGrey active:border-blue active:bg-lightGrey',
-        isDropdownOpened && 'border-blue bg-lightGrey hover:border-blue',
-      );
-  }
-};
-
 export const Dropdown = ({
   className,
   children,
-  buttonClassName,
-  optionClassName,
   optionsDom,
+  optionClassName,
   onBlur,
   label,
   placeLabelToLeft = false,
-  size = 'medium',
   variant = 'primary',
   menuTitle,
   menuPosition = 'left',
@@ -61,18 +26,6 @@ export const Dropdown = ({
   const handleToggleDropdown = () => setIsDropdownOpened(!isDropdownOpened);
 
   const isMdOrUp = useBreakpointUp('md');
-
-  const buttonSizeClasses = useMemo(() => {
-    if (size === 'large') {
-      return cn('px-4 h-14');
-    }
-
-    if (size === 'medium') {
-      return cn('px-4 h-12');
-    }
-
-    return cn('px-3 h-10');
-  }, [size]);
 
   return (
     <>
@@ -92,18 +45,7 @@ export const Dropdown = ({
             />
           )}
 
-          <Button
-            onClick={handleToggleDropdown}
-            className={cn(
-              'relative w-full',
-              getVariantClasses({ variant, isDropdownOpened }),
-              buttonSizeClasses,
-              buttonClassName,
-            )}
-            contentClassName={cn('w-full justify-center text-sm font-semibold', optionClassName)}
-          >
-            {children({ isDropdownOpened })}
-          </Button>
+          {children({ isDropdownOpened, handleToggleDropdown })}
 
           {/* XS to MD backdrop */}
           {isDropdownOpened && (
@@ -126,7 +68,7 @@ export const Dropdown = ({
                   </div>
                 )}
 
-                {optionsDom({ setIsDropdownOpened, buttonSizeClasses })}
+                {optionsDom({ setIsDropdownOpened, optionClassName })}
               </div>
             </div>
           )}
@@ -141,7 +83,7 @@ export const Dropdown = ({
         onBlur={onBlur}
         title={menuTitle || t('select.defaultLabel')}
       >
-        {optionsDom({ setIsDropdownOpened, buttonSizeClasses })}
+        {optionsDom({ setIsDropdownOpened, optionClassName })}
       </Modal>
     </>
   );

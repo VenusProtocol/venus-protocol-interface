@@ -2,6 +2,7 @@ import { forwardRef, useCallback, useMemo } from 'react';
 
 import { Dropdown } from '../Dropdown';
 
+import { Button } from 'components/Button';
 import { cn } from 'utilities';
 import { renderLabel } from '../Dropdown/renderLabel';
 import { Icon } from '../Icon';
@@ -11,7 +12,17 @@ export * from './types';
 
 export const Select = forwardRef<HTMLInputElement, SelectProps>(
   <TValue extends string | number = string | number>(
-    { options, value, onChange, size, ...otherProps }: SelectProps,
+    {
+      className,
+      buttonClassName,
+      options,
+      optionClassName = 'px-4 h-12',
+      value,
+      onChange,
+      size = 'medium',
+      variant,
+      ...otherProps
+    }: SelectProps,
     ref: React.Ref<HTMLInputElement>,
   ) => {
     const selectedOption = useMemo(
@@ -19,11 +30,52 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       [value, options],
     );
 
+    const buttonSizeClasses = useMemo(() => {
+      if (size === 'large') {
+        return cn('px-4 h-14');
+      }
+
+      if (size === 'medium') {
+        return cn('px-4 h-12');
+      }
+
+      return cn('px-3 h-10');
+    }, [size]);
+
+    const getVariantClasses = ({
+      variant,
+      isDropdownOpened,
+    }: {
+      variant: SelectProps['variant'];
+      isDropdownOpened: boolean;
+    }) => {
+      switch (variant) {
+        case 'secondary':
+          return cn(
+            'border-lightGrey bg-lightGrey hover:border-blue hover:bg-lightGrey active:border-blue active:bg-lightGrey',
+            isDropdownOpened && 'border-blue hover:border-blue',
+          );
+        case 'tertiary':
+          return cn(
+            'border-transparent bg-cards hover:bg-cards hover:border-offWhite active:bg-cards active:border-blue',
+            isDropdownOpened && 'border-blue hover:border-blue',
+          );
+        case 'quaternary':
+          return cn(
+            'border-transparent bg-lightGrey rounded-xl hover:bg-lightGrey hover:border-grey active:bg-lightGrey active:border-blue',
+            isDropdownOpened && 'border-blue bg-lightGrey hover:border-blue',
+          );
+        // primary
+        default:
+          return cn(
+            'border-lightGrey bg-cards hover:border-lightGrey hover:bg-lightGrey active:border-blue active:bg-lightGrey',
+            isDropdownOpened && 'border-blue bg-lightGrey hover:border-blue',
+          );
+      }
+    };
+
     const optionsDom = useCallback(
-      ({
-        setIsDropdownOpened,
-        optionClassName,
-      }: { setIsDropdownOpened: (v: boolean) => void; optionClassName?: string }) => {
+      ({ setIsDropdownOpened }: { setIsDropdownOpened: (v: boolean) => void }) => {
         const handleChange = (newValue: typeof value) => {
           onChange(newValue);
           setIsDropdownOpened(false);
@@ -56,13 +108,22 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
           </>
         );
       },
-      [onChange, options, value],
+      [onChange, options, optionClassName, value],
     );
 
     return (
-      <Dropdown optionsDom={optionsDom} size={size} {...otherProps}>
-        {({ isDropdownOpened }) => (
-          <>
+      <Dropdown className={className} optionsDom={optionsDom} size={size} {...otherProps}>
+        {({ isDropdownOpened, handleToggleDropdown }) => (
+          <Button
+            onClick={handleToggleDropdown}
+            className={cn(
+              'relative w-full',
+              getVariantClasses({ variant, isDropdownOpened }),
+              buttonSizeClasses,
+              buttonClassName,
+            )}
+            contentClassName={cn('w-full justify-center text-sm font-semibold')}
+          >
             <input
               ref={ref}
               value={value}
@@ -88,7 +149,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 isDropdownOpened ? 'text-blue' : 'rotate-180',
               )}
             />
-          </>
+          </Button>
         )}
       </Dropdown>
     );

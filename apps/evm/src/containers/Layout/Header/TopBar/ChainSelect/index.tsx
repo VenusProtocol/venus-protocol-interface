@@ -7,7 +7,8 @@ import type { ChainId } from 'types';
 import { cn } from 'utilities';
 import { GaslessStatus } from '../GaslessStatus';
 
-export interface ChainSelectProps extends Omit<SelectProps, 'value' | 'onChange' | 'options'> {
+export interface ChainSelectProps
+  extends Omit<SelectProps, 'value' | 'onChange' | 'options' | 'optionClassName'> {
   buttonClassName?: string;
 }
 
@@ -52,6 +53,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
       options={getOptions({
         isGaslessTransactionsSettingEnabled: !!userChainSettings?.gaslessTransactions,
       })}
+      buttonClassName="px-4 h-12"
       menuPosition="right"
       menuTitle={t('layout.chainSelect.label')}
       {...props}
