@@ -1,5 +1,4 @@
 import { Icon, LabeledProgressCircle } from 'components';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
@@ -22,10 +21,6 @@ export const Status: React.FC<StatusProps> = ({
   const { t } = useTranslation();
   const now = useNow();
 
-  const isOmnichainGovernanceFeatureEnabled = useIsFeatureEnabled({
-    name: 'omnichainGovernance',
-  });
-
   const totalPayloadsCount = 1 + remoteProposals.length; // BSC proposal + remote proposals
   const executedPayloadsCount =
     (state === ProposalState.Executed ? 1 : 0) +
@@ -45,8 +40,7 @@ export const Status: React.FC<StatusProps> = ({
     );
 
   const isFullyExecuted = executedPayloadsCount === totalPayloadsCount;
-  const shouldShowExecutedPayloadsStatus =
-    isOmnichainGovernanceFeatureEnabled && state === ProposalState.Executed && !isFullyExecuted;
+  const shouldShowExecutedPayloadsStatus = state === ProposalState.Executed && !isFullyExecuted;
 
   const label = useMemo(() => {
     if (shouldShowExecutedPayloadsStatus) {
