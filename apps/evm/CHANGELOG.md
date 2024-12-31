@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.189.1
+
+### Patch Changes
+
+- a682b37: remove posthog
+
 ## 2.189.0
 
 ### Minor Changes
