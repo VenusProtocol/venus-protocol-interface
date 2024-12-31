@@ -1,6 +1,5 @@
-import type { VTokenAssets, VTokenLogo } from 'libs/tokens/types';
+import type { VTokenAssets } from 'libs/tokens/types';
 import { ChainId } from 'types';
-import type { Address } from 'viem';
 import { vTokenAssets as arbitrumOneVTokenAssets } from './arbitrumOne';
 import { vTokenAssets as arbitrumSepoliaVTokenAssets } from './arbitrumSepolia';
 import { vTokenAssets as baseMainnetVTokenAssets } from './baseMainnet';
@@ -16,7 +15,7 @@ import { vTokenAssets as sepoliaTokenAssets } from './sepolia';
 import { vTokenAssets as zkSyncMainnetVTokenAssets } from './zkSyncMainnet';
 import { vTokenAssets as zkSyncSepoliaVTokenAssets } from './zkSyncSepolia';
 
-const vTokenAssetsPerChainId: Record<ChainId, VTokenAssets> = {
+export const vTokenAssetsPerChainId: Record<ChainId, VTokenAssets> = {
   [ChainId.BSC_MAINNET]: bscMainnetVTokenAssets,
   [ChainId.BSC_TESTNET]: bscTestnetVTokenAssets,
   [ChainId.OPBNB_MAINNET]: opBnbMainnetVTokenAssets,
@@ -31,13 +30,4 @@ const vTokenAssetsPerChainId: Record<ChainId, VTokenAssets> = {
   [ChainId.OPTIMISM_SEPOLIA]: optimismSepoliaVTokenAssets,
   [ChainId.BASE_MAINNET]: baseMainnetVTokenAssets,
   [ChainId.BASE_SEPOLIA]: baseSepoliaVTokenAssets,
-};
-
-export const getVTokenAsset = ({
-  vTokenAddress,
-  chainId,
-}: { vTokenAddress: string; chainId: ChainId }): VTokenLogo | undefined => {
-  const chainVTokenAssets = vTokenAssetsPerChainId[chainId];
-
-  return chainVTokenAssets[vTokenAddress as Address];
 };

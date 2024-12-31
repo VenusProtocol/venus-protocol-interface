@@ -9,8 +9,8 @@ import type { VTokenAssets } from 'libs/tokens/types';
 
 export const vTokenAssets: VTokenAssets = {
   // Core pool
-  [isolatedPoolsOpBnbTestnetDeployments.addresses.VToken_vBTCB_Core]: vBtcCoreLogo,
-  [isolatedPoolsOpBnbTestnetDeployments.addresses.VToken_vETH_Core]: vEthCoreLogo,
-  [isolatedPoolsOpBnbTestnetDeployments.addresses.VToken_vUSDT_Core]: vUsdtCoreLogo,
-  [isolatedPoolsOpBnbTestnetDeployments.addresses.VToken_vWBNB_Core]: vWBnbCoreLogo,
+  [isolatedPoolsOpBnbTestnetDeployments.addresses.VToken_vBTCB_Core.toLowerCase()]: vBtcCoreLogo,
+  [isolatedPoolsOpBnbTestnetDeployments.addresses.VToken_vETH_Core.toLowerCase()]: vEthCoreLogo,
+  [isolatedPoolsOpBnbTestnetDeployments.addresses.VToken_vUSDT_Core.toLowerCase()]: vUsdtCoreLogo,
+  [isolatedPoolsOpBnbTestnetDeployments.addresses.VToken_vWBNB_Core.toLowerCase()]: vWBnbCoreLogo,
 };

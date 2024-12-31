@@ -76,72 +76,85 @@ import type { VTokenAssets } from 'libs/tokens/types';
 
 export const vTokenAssets: VTokenAssets = {
   // Core pool
-  [venusProtocolBscMainnetDeployments.addresses.vAAVE]: vAaveCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vADA]: vAdaCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vBCH]: vBchCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vBETH]: vBethCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vBNB]: vBnbCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vBTC]: vBtcCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vBUSD]: vBusdCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vCAKE]: vCakeCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vDAI]: vDaiCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vDOGE]: vDogeCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vDOT]: vDotCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vETH]: vEthCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vFDUSD]: vFDUsdCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vFIL]: vFilCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vLINK]: vLinkCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vLTC]: vLtcCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vLUNA]: vLunaCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vMATIC]: vMaticCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vSXP]: vSxpCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vTRX]: vTrxCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vTRXOLD]: vTrxCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vTUSD]: vTusdCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vTUSDOLD]: vTusdCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vUSDC]: vUsdcCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vUSDT]: vUsdtCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vUST]: vUstCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vWBETH]: vWBethCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vXRP]: vXrpCoreLogo,
-  [venusProtocolBscMainnetDeployments.addresses.vXVS]: vXvsCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vAAVE.toLowerCase()]: vAaveCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vADA.toLowerCase()]: vAdaCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vBCH.toLowerCase()]: vBchCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vBETH.toLowerCase()]: vBethCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vBNB.toLowerCase()]: vBnbCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vBTC.toLowerCase()]: vBtcCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vBUSD.toLowerCase()]: vBusdCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vCAKE.toLowerCase()]: vCakeCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vDAI.toLowerCase()]: vDaiCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vDOGE.toLowerCase()]: vDogeCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vDOT.toLowerCase()]: vDotCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vETH.toLowerCase()]: vEthCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vFDUSD.toLowerCase()]: vFDUsdCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vFIL.toLowerCase()]: vFilCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vLINK.toLowerCase()]: vLinkCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vLTC.toLowerCase()]: vLtcCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vLUNA.toLowerCase()]: vLunaCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vMATIC.toLowerCase()]: vMaticCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vSXP.toLowerCase()]: vSxpCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vTRX.toLowerCase()]: vTrxCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vTRXOLD.toLowerCase()]: vTrxCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vTUSD.toLowerCase()]: vTusdCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vTUSDOLD.toLowerCase()]: vTusdCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vUSDC.toLowerCase()]: vUsdcCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vUSDT.toLowerCase()]: vUsdtCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vUST.toLowerCase()]: vUstCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vWBETH.toLowerCase()]: vWBethCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vXRP.toLowerCase()]: vXrpCoreLogo,
+  [venusProtocolBscMainnetDeployments.addresses.vXVS.toLowerCase()]: vXvsCoreLogo,
   // Defi pool
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vALPACA_DeFi]: vAlpacaDefiLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vANKR_DeFi]: vAnkrDefiLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vankrBNB_DeFi]: vAnkrBnbDefiLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vBSW_DeFi]: vBswDefiLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vPLANET_DeFi]: vPlanetDefiLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vTWT_DeFi]: vTwtDefiLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDD_DeFi]: vUsddDefiLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_DeFi]: vUsdtDefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vALPACA_DeFi.toLowerCase()]: vAlpacaDefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vANKR_DeFi.toLowerCase()]: vAnkrDefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vankrBNB_DeFi.toLowerCase()]:
+    vAnkrBnbDefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vBSW_DeFi.toLowerCase()]: vBswDefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vPLANET_DeFi.toLowerCase()]: vPlanetDefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vTWT_DeFi.toLowerCase()]: vTwtDefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDD_DeFi.toLowerCase()]: vUsddDefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_DeFi.toLowerCase()]: vUsdtDefiLogo,
   // Stablecoins
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDD_Stablecoins]: vUsddStablecoinsLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_Stablecoins]: vUsdtStablecoinsLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vagEUR_Stablecoins]: vEuraStablecoinsLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDD_Stablecoins.toLowerCase()]:
+    vUsddStablecoinsLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_Stablecoins.toLowerCase()]:
+    vUsdtStablecoinsLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vagEUR_Stablecoins.toLowerCase()]:
+    vEuraStablecoinsLogo,
   // Meme
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vBabyDoge_Meme]: vBabyDogeMemeLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_Meme]: vUsdtMemeLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vBabyDoge_Meme.toLowerCase()]:
+    vBabyDogeMemeLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_Meme.toLowerCase()]: vUsdtMemeLogo,
   // Gamefi
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vFLOKI_GameFi]: vFlokiGamefiLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vRACA_GameFi]: vRacaGamefiLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDD_GameFi]: vUsddGamefiLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_GameFi]: vUsdtGamefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vFLOKI_GameFi.toLowerCase()]:
+    vFlokiGamefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vRACA_GameFi.toLowerCase()]: vRacaGamefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDD_GameFi.toLowerCase()]: vUsddGamefiLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_GameFi.toLowerCase()]: vUsdtGamefiLogo,
   // Liquid Staked BNB
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vankrBNB_LiquidStakedBNB]: vAnkrBnbLsBnbLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vBNBx_LiquidStakedBNB]: vBnbXLsBnbLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vankrBNB_LiquidStakedBNB.toLowerCase()]:
+    vAnkrBnbLsBnbLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vBNBx_LiquidStakedBNB.toLowerCase()]:
+    vBnbXLsBnbLogo,
   // slisBNB package name is wrong
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vSnBNB_LiquidStakedBNB]: vSlisBnbLsBnbLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vstkBNB_LiquidStakedBNB]: vStkBnbLsBnbLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vSnBNB_LiquidStakedBNB.toLowerCase()]:
+    vSlisBnbLsBnbLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vstkBNB_LiquidStakedBNB.toLowerCase()]:
+    vStkBnbLsBnbLogo,
 
   // Liquid Staked ETH
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vETH_LiquidStakedETH]: vEthLsEthLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vweETH_LiquidStakedETH]: vWEthLsEthLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vwstETH_LiquidStakedETH]: vWstEthLsEthLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vETH_LiquidStakedETH.toLowerCase()]:
+    vEthLsEthLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vweETH_LiquidStakedETH.toLowerCase()]:
+    vWEthLsEthLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vwstETH_LiquidStakedETH.toLowerCase()]:
+    vWstEthLsEthLogo,
 
   // Tron
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vBTT_Tron]: vBttTronLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vTRX_Tron]: vTrxTronLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDD_Tron]: vUsddTronLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_Tron]: vUsdtTronLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vWIN_Tron]: vWinTronLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vBTT_Tron.toLowerCase()]: vBttTronLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vTRX_Tron.toLowerCase()]: vTrxTronLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDD_Tron.toLowerCase()]: vUsddTronLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_Tron.toLowerCase()]: vUsdtTronLogo,
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vWIN_Tron.toLowerCase()]: vWinTronLogo,
 };

@@ -1,20 +1,12 @@
 import type { CardProps } from 'components/Card';
 
-export interface DropdownOption<TValue extends string | number = string | number> {
-  value: TValue;
-  label:
-    | string
-    | React.ReactNode
-    | ((context: { isRenderedInButton: boolean }) => string | React.ReactNode);
-}
-
-export interface DropdownProps<TValue extends string | number = string | number>
-  extends Omit<CardProps, 'onChange' | 'children'> {
+export interface DropdownProps extends Omit<CardProps, 'onChange' | 'children'> {
   children: ({ isDropdownOpened }: { isDropdownOpened: boolean }) => React.ReactNode;
-  value?: TValue;
-  options: DropdownOption<TValue>[];
-  onChange?: (newValue: DropdownOption<TValue>['value']) => void;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  optionClassName?: string;
+  optionsDom: (props: {
+    setIsDropdownOpened: (v: boolean) => void;
+    buttonSizeClasses?: string;
+  }) => React.ReactElement;
   name?: string;
   'data-testid'?: string;
   placeLabelToLeft?: boolean;

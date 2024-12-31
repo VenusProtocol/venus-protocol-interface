@@ -1,5 +1,4 @@
 import type { ChainId, Token, TokenAction } from 'types';
-import type { Address } from 'viem';
 
 export type TokenMapping = {
   [chainId in ChainId]: Token[];
@@ -14,6 +13,4 @@ export interface DisabledTokenAction {
   disabledActions: TokenAction[];
 }
 
-export type VTokenLogo = string;
-
-export type VTokenAssets = Record<Address, VTokenLogo>;
+export type VTokenAssets = Record<string, string>;

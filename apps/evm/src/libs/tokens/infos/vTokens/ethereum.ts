@@ -30,32 +30,41 @@ import type { VTokenAssets } from 'libs/tokens/types';
 
 export const vTokenAssets: VTokenAssets = {
   // Core pool
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vDAI_Core]: vDaiCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vFRAX_Core]: vFraxCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vLBTC_Core]: vLbtcCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vTUSD_Core]: vTusdCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vUSDC_Core]: vUsdcCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vUSDT_Core]: vUsdtCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vWBTC_Core]: vWBtcCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vWETH_Core]: vWEthCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vsFRAX_Core]: vSFraxCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vcrvUSD_Core]: vCrvUsdCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_veBTC]: vEBtcCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vEIGEN]: vEigenCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vDAI_Core.toLowerCase()]: vDaiCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vFRAX_Core.toLowerCase()]: vFraxCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vLBTC_Core.toLowerCase()]: vLbtcCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vTUSD_Core.toLowerCase()]: vTusdCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vUSDC_Core.toLowerCase()]: vUsdcCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vUSDT_Core.toLowerCase()]: vUsdtCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vWBTC_Core.toLowerCase()]: vWBtcCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vWETH_Core.toLowerCase()]: vWEthCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vsFRAX_Core.toLowerCase()]: vSFraxCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vcrvUSD_Core.toLowerCase()]: vCrvUsdCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_veBTC.toLowerCase()]: vEBtcCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vEIGEN.toLowerCase()]: vEigenCoreLogo,
 
   // Liquid Staked ETH
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vWETH_LiquidStakedETH]: vWEthLsEthLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vezETH_LiquidStakedETH]: vEzEthLsEthLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vrsETH_LiquidStakedETH]: vRsEthLsEthLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vweETH_LiquidStakedETH]: vWeEthLsEthLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vweETHs_LiquidStakedETH]: vWeEthSLsEthLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vpufETH_LiquidStakedETH]: vPufEthLsEthLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vwstETH_LiquidStakedETH]: vWstEthLsEthLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vsfrxETH_LiquidStakedETH]: vSfrxEthLsEthLogo,
-  [isolatedPoolsEthereumDeployments.addresses['VToken_vPT-weETH-26DEC2024_LiquidStakedETH']]:
-    vPtWeethDec24LsEthLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vWETH_LiquidStakedETH.toLowerCase()]:
+    vWEthLsEthLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vezETH_LiquidStakedETH.toLowerCase()]:
+    vEzEthLsEthLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vrsETH_LiquidStakedETH.toLowerCase()]:
+    vRsEthLsEthLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vweETH_LiquidStakedETH.toLowerCase()]:
+    vWeEthLsEthLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vweETHs_LiquidStakedETH.toLowerCase()]:
+    vWeEthSLsEthLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vpufETH_LiquidStakedETH.toLowerCase()]:
+    vPufEthLsEthLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vwstETH_LiquidStakedETH.toLowerCase()]:
+    vWstEthLsEthLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vsfrxETH_LiquidStakedETH.toLowerCase()]:
+    vSfrxEthLsEthLogo,
+  [isolatedPoolsEthereumDeployments.addresses[
+    'VToken_vPT-weETH-26DEC2024_LiquidStakedETH'
+  ].toLowerCase()]: vPtWeethDec24LsEthLogo,
 
   // Curve
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vCRV_Curve]: vCrvCurveLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vcrvUSD_Curve]: vCrvUsdCurveLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vCRV_Curve.toLowerCase()]: vCrvCurveLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vcrvUSD_Curve.toLowerCase()]: vCrvUsdCurveLogo,
 };

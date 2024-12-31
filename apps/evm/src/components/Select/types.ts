@@ -1,5 +1,3 @@
-import type { CardProps } from 'components/Card';
-
 export interface SelectOption<TValue extends string | number = string | number> {
   value: TValue;
   label:
@@ -8,8 +6,7 @@ export interface SelectOption<TValue extends string | number = string | number> 
     | ((context: { isRenderedInButton: boolean }) => string | React.ReactNode);
 }
 
-export interface SelectProps<TValue extends string | number = string | number>
-  extends Omit<CardProps, 'onChange'> {
+export interface SelectProps<TValue extends string | number = string | number> {
   value: TValue;
   options: SelectOption<TValue>[];
   onChange: (newValue: SelectOption<TValue>['value']) => void;

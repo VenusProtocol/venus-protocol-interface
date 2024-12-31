@@ -14,14 +14,17 @@ import type { VTokenAssets } from 'libs/tokens/types';
 
 export const vTokenAssets: VTokenAssets = {
   // Core pool
-  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vARB_Core]: vArbCoreLogo,
-  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vWBTC_Core]: vWBtcCoreLogo,
-  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vWETH_Core]: vWEthCoreLogo,
-  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vUSDC_Core]: vUsdcCoreLogo,
-  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vUSDT_Core]: vUsdtCoreLogo,
+  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vARB_Core.toLowerCase()]: vArbCoreLogo,
+  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vWBTC_Core.toLowerCase()]: vWBtcCoreLogo,
+  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vWETH_Core.toLowerCase()]: vWEthCoreLogo,
+  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vUSDC_Core.toLowerCase()]: vUsdcCoreLogo,
+  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vUSDT_Core.toLowerCase()]: vUsdtCoreLogo,
 
   // LS ETH
-  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vWETH_LiquidStakedETH]: vWethLsEthLogo,
-  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vweETH_LiquidStakedETH]: vWeEthLsEthLogo,
-  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vwstETH_LiquidStakedETH]: vWstEthLsEthLogo,
+  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vWETH_LiquidStakedETH.toLowerCase()]:
+    vWethLsEthLogo,
+  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vweETH_LiquidStakedETH.toLowerCase()]:
+    vWeEthLsEthLogo,
+  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vwstETH_LiquidStakedETH.toLowerCase()]:
+    vWstEthLsEthLogo,
 };

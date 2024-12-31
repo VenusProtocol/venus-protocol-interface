@@ -11,10 +11,11 @@ import type { VTokenAssets } from 'libs/tokens/types';
 
 export const vTokenAssets: VTokenAssets = {
   // Core pool
-  [isolatedPoolsZkSyncMainnetDeployments.addresses.VToken_vWBTC_Core]: vWBnbCoreLogo,
-  [isolatedPoolsZkSyncMainnetDeployments.addresses.VToken_vWETH_Core]: vWEthCoreLogo,
-  [isolatedPoolsZkSyncMainnetDeployments.addresses.VToken_vUSDC_Core]: vUsdcCoreLogo,
-  [isolatedPoolsZkSyncMainnetDeployments.addresses['VToken_vUSDC.e_Core']]: vUsdcECoreLogo,
-  [isolatedPoolsZkSyncMainnetDeployments.addresses.VToken_vUSDT_Core]: vUsdtCoreLogo,
-  [isolatedPoolsZkSyncMainnetDeployments.addresses.VToken_vZK_Core]: vZkCoreLogo,
+  [isolatedPoolsZkSyncMainnetDeployments.addresses.VToken_vWBTC_Core.toLowerCase()]: vWBnbCoreLogo,
+  [isolatedPoolsZkSyncMainnetDeployments.addresses.VToken_vWETH_Core.toLowerCase()]: vWEthCoreLogo,
+  [isolatedPoolsZkSyncMainnetDeployments.addresses.VToken_vUSDC_Core.toLowerCase()]: vUsdcCoreLogo,
+  [isolatedPoolsZkSyncMainnetDeployments.addresses['VToken_vUSDC.e_Core'].toLowerCase()]:
+    vUsdcECoreLogo,
+  [isolatedPoolsZkSyncMainnetDeployments.addresses.VToken_vUSDT_Core.toLowerCase()]: vUsdtCoreLogo,
+  [isolatedPoolsZkSyncMainnetDeployments.addresses.VToken_vZK_Core.toLowerCase()]: vZkCoreLogo,
 };

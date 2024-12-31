@@ -2,8 +2,6 @@ import { useGetAsset, useGetPool } from 'clients/api';
 import { type Cell, CellGroup, Icon, Pill, Spinner, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
-import { AddTokenToWalletDropdown } from 'containers/AddTokenToWalletDropdown';
-import { GoToTokenContractDropdown } from 'containers/GoToTokenContractDropdown';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -11,6 +9,8 @@ import { useMemo } from 'react';
 import { matchPath, useLocation, useParams } from 'react-router';
 import { formatCentsToReadableValue } from 'utilities';
 import { useIsOnLidoMarketPage } from '../useIsOnLidoMarketPage';
+import { AddTokenToWalletDropdown } from './AddTokenToWalletDropdown';
+import { GoToTokenContractDropdown } from './GoToTokenContractDropdown';
 import { UtilizationRate } from './UtilizationRate';
 
 export const MarketInfo = () => {

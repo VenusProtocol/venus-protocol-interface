@@ -11,10 +11,11 @@ import type { VTokenAssets } from 'libs/tokens/types';
 
 export const vTokenAssets: VTokenAssets = {
   // Core pool
-  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vWBTC_Core]: vWBnbCoreLogo,
-  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vWETH_Core]: vWEthCoreLogo,
-  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vUSDC_Core]: vUsdcCoreLogo,
-  [isolatedPoolsZkSyncSepoliaDeployments.addresses['VToken_vUSDC.e_Core']]: vUsdcECoreLogo,
-  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vUSDT_Core]: vUsdtCoreLogo,
-  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vZK_Core]: vZkCoreLogo,
+  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vWBTC_Core.toLowerCase()]: vWBnbCoreLogo,
+  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vWETH_Core.toLowerCase()]: vWEthCoreLogo,
+  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vUSDC_Core.toLowerCase()]: vUsdcCoreLogo,
+  [isolatedPoolsZkSyncSepoliaDeployments.addresses['VToken_vUSDC.e_Core'].toLowerCase()]:
+    vUsdcECoreLogo,
+  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vUSDT_Core.toLowerCase()]: vUsdtCoreLogo,
+  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vZK_Core.toLowerCase()]: vZkCoreLogo,
 };

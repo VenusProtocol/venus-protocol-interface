@@ -8,7 +8,7 @@ import type { VTokenAssets } from 'libs/tokens/types';
 
 export const vTokenAssets: VTokenAssets = {
   // Core pool
-  [isolatedPoolsBaseSepoliaDeployments.addresses.VToken_vWETH_Core]: vWethCoreLogo,
-  [isolatedPoolsBaseSepoliaDeployments.addresses.VToken_vUSDC_Core]: vUsdcCoreLogo,
-  [isolatedPoolsBaseSepoliaDeployments.addresses.VToken_vcbBTC_Core]: vCbBtcCoreLogo,
+  [isolatedPoolsBaseSepoliaDeployments.addresses.VToken_vWETH_Core.toLowerCase()]: vWethCoreLogo,
+  [isolatedPoolsBaseSepoliaDeployments.addresses.VToken_vUSDC_Core.toLowerCase()]: vUsdcCoreLogo,
+  [isolatedPoolsBaseSepoliaDeployments.addresses.VToken_vcbBTC_Core.toLowerCase()]: vCbBtcCoreLogo,
 };

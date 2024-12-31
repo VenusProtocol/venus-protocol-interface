@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import type { PoolLens } from 'libs/contracts';
-import { getVTokenAsset } from 'libs/tokens/infos/vTokens';
+import { getVTokenAsset } from 'libs/tokens';
 import type { Asset, ChainId, Pool, Token, TokenBalance, VToken } from 'types';
 import {
   areAddressesEqual,

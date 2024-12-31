@@ -1,6 +1,6 @@
 import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
 import type { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
-import { getVTokenAsset } from 'libs/tokens/infos/vTokens';
+import { getVTokenAsset } from 'libs/tokens';
 import type { ChainId, Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';

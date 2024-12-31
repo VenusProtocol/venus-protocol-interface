@@ -10,9 +10,13 @@ import type { VTokenAssets } from 'libs/tokens/types';
 
 export const vTokenAssets: VTokenAssets = {
   // Core pool
-  [isolatedPoolsOptimismSepoliaDeployments.addresses.VToken_vOP_Core]: vOpCoreLogo,
-  [isolatedPoolsOptimismSepoliaDeployments.addresses.VToken_vWBTC_Core]: vWBnbCoreLogo,
-  [isolatedPoolsOptimismSepoliaDeployments.addresses.VToken_vWETH_Core]: vWEthCoreLogo,
-  [isolatedPoolsOptimismSepoliaDeployments.addresses.VToken_vUSDC_Core]: vUsdcCoreLogo,
-  [isolatedPoolsOptimismSepoliaDeployments.addresses.VToken_vUSDT_Core]: vUsdtCoreLogo,
+  [isolatedPoolsOptimismSepoliaDeployments.addresses.VToken_vOP_Core.toLowerCase()]: vOpCoreLogo,
+  [isolatedPoolsOptimismSepoliaDeployments.addresses.VToken_vWBTC_Core.toLowerCase()]:
+    vWBnbCoreLogo,
+  [isolatedPoolsOptimismSepoliaDeployments.addresses.VToken_vWETH_Core.toLowerCase()]:
+    vWEthCoreLogo,
+  [isolatedPoolsOptimismSepoliaDeployments.addresses.VToken_vUSDC_Core.toLowerCase()]:
+    vUsdcCoreLogo,
+  [isolatedPoolsOptimismSepoliaDeployments.addresses.VToken_vUSDT_Core.toLowerCase()]:
+    vUsdtCoreLogo,
 };
