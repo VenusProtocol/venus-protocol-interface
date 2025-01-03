@@ -42,7 +42,7 @@
     "@hookform/resolvers": "^3.3.2",
     "@lauriys/react-palette": "^1.0.5",
     "@mui/material": "^5.4.2",
-    "@mui/utils": "^5.4.2",
+    "@mui/utils": "^6.3.1",
     "@pancakeswap/sdk": "^3.1.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@sentry/react": "^8.11.0",
