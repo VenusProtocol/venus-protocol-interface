@@ -1,0 +1,22 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_12361_1868)">
+<circle cx="12" cy="12" r="12" fill="#181D27"/>
+<mask id="mask0_12361_1868" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+<circle cx="12" cy="12" r="11.5" fill="#181D27" stroke="white"/>
+</mask>
+<g mask="url(#mask0_12361_1868)">
+<path opacity="0.8" fill-rule="evenodd" clip-rule="evenodd" d="M11.9998 27.0793L0.36002 3.36861L3.38965 1.88134L11.9998 19.4206L20.61 1.88134L23.6397 3.36861L11.9998 27.0793Z" fill="white"/>
+</g>
+<circle opacity="0.8" cx="12" cy="12" r="10.5" fill="#91C2FF"/>
+<circle cx="12" cy="12" r="9" fill="#181D27"/>
+<path d="M15.727 10.2799C15.727 8.28474 14.1096 6.66736 12.1145 6.66736C10.1193 6.66736 8.50195 8.28474 8.50195 10.2799C8.50195 12.275 10.1193 13.8924 12.1145 13.8924" stroke="white"/>
+<rect x="11.033" y="13.8273" width="1.67159" height="1.67159" transform="rotate(-45 11.033 13.8273)" fill="white" stroke="white" stroke-width="0.328412"/>
+<path d="M8.58157 13.9789C8.58157 15.974 10.199 17.5914 12.1941 17.5914C14.1893 17.5914 15.8066 15.974 15.8066 13.9789C15.8066 11.9838 14.1893 10.3664 12.1941 10.3664" stroke="white"/>
+<rect x="13.2756" y="10.4315" width="1.67159" height="1.67159" transform="rotate(135 13.2756 10.4315)" fill="white" stroke="white" stroke-width="0.328412"/>
+</g>
+<defs>
+<clipPath id="clip0_12361_1868">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>

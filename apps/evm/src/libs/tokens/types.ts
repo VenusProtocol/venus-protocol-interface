@@ -12,3 +12,5 @@ export interface DisabledTokenAction {
   address: string;
   disabledActions: TokenAction[];
 }
+
+export type VTokenAssets = Record<string, string>;

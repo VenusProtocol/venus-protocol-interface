@@ -1,9 +1,9 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import cbbtcLogo from 'libs/tokens/img/cbbtc.svg';
-import ethLogo from 'libs/tokens/img/eth.svg';
-import usdcLogo from 'libs/tokens/img/usdc.svg';
-import wethLogo from 'libs/tokens/img/weth.svg';
-import xvsLogo from 'libs/tokens/img/xvs.svg';
+import cbbtcLogo from 'libs/tokens/img/underlyingTokens/cbbtc.svg';
+import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
+import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
+import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
+import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
 import type { Token } from 'types';
 
 const ethToken: Token = {

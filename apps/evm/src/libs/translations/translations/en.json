@@ -306,13 +306,22 @@
     }
   },
   "interactive": {
+    "addToWallet": {
+      "modalTitle": "Add token to wallet",
+      "tooltip": "Add token to wallet"
+    },
     "copy": {
       "address": {
         "name": "Address",
+        "modalTitle": "Copy token address",
         "tooltip": "Copy Address"
       }
     },
-    "copyToClipboard": "{{name}} copied to clipboard"
+    "copyToClipboard": "{{name}} copied to clipboard",
+    "goTo": {
+      "contract": "{{symbol}} contract",
+      "modalTitle": "Go to token contract"
+    }
   },
   "interestRateChart": {
     "currentUtilizationRateLabelValue": "Current ({{percentage}})",

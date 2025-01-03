@@ -335,7 +335,8 @@ export const Form: React.FC = () => {
           <LabeledInlineContent label={t('primeCalculator.tokenSelect.label')}>
             <Select
               options={options}
-              className="w-[150px]"
+              optionClassName="px-4 h-14"
+              buttonClassName="w-[150px]"
               variant="quaternary"
               size="large"
               value={selectedAsset.vToken.address}

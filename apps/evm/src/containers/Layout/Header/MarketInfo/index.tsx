@@ -2,7 +2,6 @@ import { useGetAsset, useGetPool } from 'clients/api';
 import { type Cell, CellGroup, Icon, Pill, Spinner, TokenIcon } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
-import { AddTokenToWalletButton } from 'containers/AddTokenToWalletButton';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -10,6 +9,8 @@ import { useMemo } from 'react';
 import { matchPath, useLocation, useParams } from 'react-router';
 import { formatCentsToReadableValue } from 'utilities';
 import { useIsOnLidoMarketPage } from '../useIsOnLidoMarketPage';
+import { AddTokenToWalletDropdown } from './AddTokenToWalletDropdown';
+import { GoToTokenContractDropdown } from './GoToTokenContractDropdown';
 import { UtilizationRate } from './UtilizationRate';
 
 export const MarketInfo = () => {
@@ -89,7 +90,7 @@ export const MarketInfo = () => {
         }),
       },
     ];
-  }, [asset, t, asset, pool]);
+  }, [asset, t, pool]);
 
   return (
     <div className="pt-4 pb-12 md:pb-10 border-b-lightGrey border-b space-y-8">
@@ -113,11 +114,9 @@ export const MarketInfo = () => {
                 )}
             </div>
 
-            <AddTokenToWalletButton
-              className="shrink-0 bg-background/40 hover:bg-background/40 active:bg-background/40"
-              isUserConnected={isUserConnected}
-              token={asset.vToken.underlyingToken}
-            />
+            <AddTokenToWalletDropdown isUserConnected={isUserConnected} vToken={asset.vToken} />
+
+            <GoToTokenContractDropdown vToken={asset.vToken} />
           </div>
         ) : (
           <Spinner className="h-full w-auto" />

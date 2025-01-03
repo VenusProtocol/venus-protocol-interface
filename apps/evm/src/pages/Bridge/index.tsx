@@ -289,24 +289,25 @@ const BridgePage: React.FC = () => {
       <div className="mx-auto w-full space-y-6 md:max-w-[544px]">
         <Card>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-6 md:flex md:items-end md:justify-between md:space-x-4">
+            <div className="mb-6 md:flex md:items-end md:justify-between md:space-x-4 grow">
               <Controller
                 name="fromChainId"
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
-                  <ChainSelect
-                    label={t('bridgePage.fromChainSelect.label')}
-                    className="mb-4 w-full min-w-0 grow md:mb-0"
-                    data-testid={TEST_IDS.fromChainIdSelect}
-                    options={fromChainIdOptions}
-                    {...field}
-                    onChange={newChainId => {
-                      handleChainFieldChange({
-                        newFromChainId: newChainId as ChainId,
-                      });
-                    }}
-                  />
+                  <div className="mb-4 w-full min-w-0 grow md:mb-0">
+                    <ChainSelect
+                      label={t('bridgePage.fromChainSelect.label')}
+                      data-testid={TEST_IDS.fromChainIdSelect}
+                      options={fromChainIdOptions}
+                      {...field}
+                      onChange={newChainId => {
+                        handleChainFieldChange({
+                          newFromChainId: newChainId as ChainId,
+                        });
+                      }}
+                    />
+                  </div>
                 )}
               />
 
@@ -324,19 +325,20 @@ const BridgePage: React.FC = () => {
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
-                  <ChainSelect
-                    menuPosition="right"
-                    className="w-full min-w-0 grow"
-                    label={t('bridgePage.toChainSelect.label')}
-                    data-testid={TEST_IDS.toChainIdSelect}
-                    options={toChainIdOptions}
-                    {...field}
-                    onChange={newChainId => {
-                      handleChainFieldChange({
-                        newToChainId: newChainId as ChainId,
-                      });
-                    }}
-                  />
+                  <div className="mb-4 w-full min-w-0 grow md:mb-0">
+                    <ChainSelect
+                      menuPosition="right"
+                      label={t('bridgePage.toChainSelect.label')}
+                      data-testid={TEST_IDS.toChainIdSelect}
+                      options={toChainIdOptions}
+                      {...field}
+                      onChange={newChainId => {
+                        handleChainFieldChange({
+                          newToChainId: newChainId as ChainId,
+                        });
+                      }}
+                    />
+                  </div>
                 )}
               />
             </div>

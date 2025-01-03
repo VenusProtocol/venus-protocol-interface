@@ -48,6 +48,7 @@ const useGetVTokens = (options?: Partial<Options>) => {
     queryFn: () =>
       callOrThrow({ poolLensContract, poolRegistryContractAddress }, params =>
         getVTokens({
+          chainId,
           legacyPoolComptrollerContract,
           venusLensContract,
           tokens,

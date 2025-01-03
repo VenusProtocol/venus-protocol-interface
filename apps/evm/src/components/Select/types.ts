@@ -1,4 +1,4 @@
-import type { CardProps } from 'components/Card';
+import type { DropdownProps } from 'components/Dropdown';
 
 export interface SelectOption<TValue extends string | number = string | number> {
   value: TValue;
@@ -8,10 +8,10 @@ export interface SelectOption<TValue extends string | number = string | number> 
     | ((context: { isRenderedInButton: boolean }) => string | React.ReactNode);
 }
 
-export interface SelectProps<TValue extends string | number = string | number>
-  extends Omit<CardProps, 'onChange'> {
+export interface SelectProps<TValue extends string | number = string | number> {
   value: TValue;
   options: SelectOption<TValue>[];
+  optionClassName?: DropdownProps['optionClassName'];
   onChange: (newValue: SelectOption<TValue>['value']) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   name?: string;

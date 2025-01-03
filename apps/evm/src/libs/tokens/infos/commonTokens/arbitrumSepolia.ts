@@ -1,13 +1,13 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import arbLogo from 'libs/tokens/img/arb.svg';
-import ethLogo from 'libs/tokens/img/eth.svg';
-import usdcLogo from 'libs/tokens/img/usdc.svg';
-import usdtLogo from 'libs/tokens/img/usdt.svg';
-import wbtcLogo from 'libs/tokens/img/wbtc.svg';
-import weEthLogo from 'libs/tokens/img/weEth.svg';
-import wethLogo from 'libs/tokens/img/weth.svg';
-import wstEthLogo from 'libs/tokens/img/wstEth.svg';
-import xvsLogo from 'libs/tokens/img/xvs.svg';
+import arbLogo from 'libs/tokens/img/underlyingTokens/arb.svg';
+import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
+import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
+import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
+import wbtcLogo from 'libs/tokens/img/underlyingTokens/wbtc.svg';
+import weEthLogo from 'libs/tokens/img/underlyingTokens/weEth.svg';
+import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
+import wstEthLogo from 'libs/tokens/img/underlyingTokens/wstEth.svg';
+import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
 import type { Token } from 'types';
 
 const ethToken: Token = {

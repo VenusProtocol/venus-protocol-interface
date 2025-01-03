@@ -16,7 +16,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -31,7 +31,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -61,7 +61,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -76,7 +76,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -93,11 +93,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
+            "asset": "/src/libs/tokens/img/vTokens/vBusdCore.svg",
             "decimals": 8,
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-              "asset": "/src/libs/tokens/img/busd.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
               "decimals": 18,
               "symbol": "BUSD",
             },
@@ -114,7 +115,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "250.0000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -141,7 +142,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "250.0000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -158,11 +159,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
+            "asset": "/src/libs/tokens/img/vTokens/vEthCore.svg",
             "decimals": 8,
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
-              "asset": "/src/libs/tokens/img/eth.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/eth.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "ETH",
@@ -180,7 +182,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -207,7 +209,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -224,11 +226,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+            "asset": "/src/libs/tokens/img/vTokens/vBnbCore.svg",
             "decimals": 8,
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              "asset": "/src/libs/tokens/img/bnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/bnb.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "BNB",
@@ -246,7 +249,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -273,7 +276,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -290,11 +293,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+            "asset": "/src/libs/tokens/img/vTokens/vXvsCore.svg",
             "decimals": 8,
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/libs/tokens/img/xvs.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -311,7 +315,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -326,7 +330,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -353,7 +357,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -368,7 +372,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -385,11 +389,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtCore.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -406,7 +411,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -421,7 +426,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -448,7 +453,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -463,7 +468,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -480,11 +485,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdcCore.svg",
             "decimals": 8,
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-              "asset": "/src/libs/tokens/img/usdc.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
               "decimals": 6,
               "symbol": "USDC",
             },
@@ -511,7 +517,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -538,7 +544,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -555,11 +561,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtDefi.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -606,11 +613,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtGamefi.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -637,7 +645,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -652,7 +660,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -679,7 +687,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -694,7 +702,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -711,11 +719,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -732,7 +741,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -759,7 +768,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -776,11 +785,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-              "asset": "/src/libs/tokens/img/wbnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/wbnb.svg",
               "decimals": 18,
               "symbol": "WBNB",
             },
@@ -827,11 +837,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtMeme.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -878,11 +889,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/libs/tokens/img/lisUSD.png",
+              "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
               "decimals": 18,
               "symbol": "lisUSD",
             },
@@ -899,7 +911,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -914,7 +926,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -941,7 +953,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -956,7 +968,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -973,11 +985,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1008,7 +1021,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1039,7 +1052,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1056,11 +1069,12 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtTron.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1094,7 +1108,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1104,7 +1118,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.32051113933926345",
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -1119,7 +1133,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -1149,7 +1163,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1159,7 +1173,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.2904197513866391",
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -1174,7 +1188,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -1191,11 +1205,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
+            "asset": "/src/libs/tokens/img/vTokens/vBusdCore.svg",
             "decimals": 8,
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-              "asset": "/src/libs/tokens/img/busd.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
               "decimals": 18,
               "symbol": "BUSD",
             },
@@ -1212,7 +1227,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "250.0000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1239,7 +1254,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "250.0000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1256,11 +1271,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
+            "asset": "/src/libs/tokens/img/vTokens/vEthCore.svg",
             "decimals": 8,
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
-              "asset": "/src/libs/tokens/img/eth.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/eth.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "ETH",
@@ -1278,7 +1294,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1305,7 +1321,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1322,11 +1338,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+            "asset": "/src/libs/tokens/img/vTokens/vBnbCore.svg",
             "decimals": 8,
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              "asset": "/src/libs/tokens/img/bnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/bnb.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "BNB",
@@ -1344,7 +1361,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1371,7 +1388,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1388,11 +1405,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+            "asset": "/src/libs/tokens/img/vTokens/vXvsCore.svg",
             "decimals": 8,
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/libs/tokens/img/xvs.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -1409,7 +1427,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1419,7 +1437,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.32051113933926345",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1434,7 +1452,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1461,7 +1479,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1471,7 +1489,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.2904197513866391",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1486,7 +1504,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1503,11 +1521,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtCore.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1524,7 +1543,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1534,7 +1553,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.32051113933926345",
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -1549,7 +1568,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -1576,7 +1595,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -1586,7 +1605,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.2904197513866391",
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -1601,7 +1620,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -1618,11 +1637,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdcCore.svg",
             "decimals": 8,
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-              "asset": "/src/libs/tokens/img/usdc.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
               "decimals": 6,
               "symbol": "USDC",
             },
@@ -1649,7 +1669,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1676,7 +1696,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1693,11 +1713,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtDefi.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1744,11 +1765,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtGamefi.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1775,7 +1797,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -1785,7 +1807,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.32051113933926345",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1800,7 +1822,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1827,7 +1849,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -1837,7 +1859,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.2904197513866391",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1852,7 +1874,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -1869,11 +1891,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -1890,7 +1913,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -1917,7 +1940,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -1934,11 +1957,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-              "asset": "/src/libs/tokens/img/wbnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/wbnb.svg",
               "decimals": 18,
               "symbol": "WBNB",
             },
@@ -1985,11 +2009,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtMeme.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2036,11 +2061,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/libs/tokens/img/lisUSD.png",
+              "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
               "decimals": 18,
               "symbol": "lisUSD",
             },
@@ -2057,7 +2083,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2067,7 +2093,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.32051113933926345",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2082,7 +2108,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2109,7 +2135,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2119,7 +2145,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.2904197513866391",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2134,7 +2160,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2151,11 +2177,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2181,7 +2208,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.32051113933926345",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2196,7 +2223,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2222,7 +2249,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.2904197513866391",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2237,7 +2264,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               },
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2254,11 +2281,12 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtTron.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2292,7 +2320,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2302,7 +2330,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -2332,7 +2360,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2342,7 +2370,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-                "asset": "/src/libs/tokens/img/busd.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
                 "decimals": 18,
                 "symbol": "BUSD",
               },
@@ -2359,11 +2387,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
+            "asset": "/src/libs/tokens/img/vTokens/vBusdCore.svg",
             "decimals": 8,
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
-              "asset": "/src/libs/tokens/img/busd.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
               "decimals": 18,
               "symbol": "BUSD",
             },
@@ -2380,7 +2409,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "250.0000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2407,7 +2436,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "250.0000128",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2424,11 +2453,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
+            "asset": "/src/libs/tokens/img/vTokens/vEthCore.svg",
             "decimals": 8,
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
-              "asset": "/src/libs/tokens/img/eth.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/eth.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "ETH",
@@ -2446,7 +2476,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2473,7 +2503,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "1499.9999904",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2490,11 +2520,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+            "asset": "/src/libs/tokens/img/vTokens/vBnbCore.svg",
             "decimals": 8,
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              "asset": "/src/libs/tokens/img/bnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/bnb.svg",
               "decimals": 18,
               "isNative": true,
               "symbol": "BNB",
@@ -2512,7 +2543,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2539,7 +2570,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2556,11 +2587,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+            "asset": "/src/libs/tokens/img/vTokens/vXvsCore.svg",
             "decimals": 8,
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              "asset": "/src/libs/tokens/img/xvs.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
               "decimals": 18,
               "symbol": "XVS",
             },
@@ -2577,7 +2609,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2587,7 +2619,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2614,7 +2646,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2624,7 +2656,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2641,11 +2673,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtCore.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2662,7 +2695,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2672,7 +2705,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -2699,7 +2732,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "499.9999968",
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/xvs.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
                 "decimals": 18,
                 "symbol": "XVS",
               },
@@ -2709,7 +2742,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-                "asset": "/src/libs/tokens/img/usdc.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
                 "decimals": 6,
                 "symbol": "USDC",
               },
@@ -2726,11 +2759,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdcCore.svg",
             "decimals": 8,
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
-              "asset": "/src/libs/tokens/img/usdc.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
               "decimals": 6,
               "symbol": "USDC",
             },
@@ -2757,7 +2791,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2784,7 +2818,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2801,11 +2835,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtDefi.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2852,11 +2887,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtGamefi.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2883,7 +2919,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2893,7 +2929,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2920,7 +2956,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2930,7 +2966,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -2947,11 +2983,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -2968,7 +3005,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -2995,7 +3032,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -3012,11 +3049,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-              "asset": "/src/libs/tokens/img/wbnb.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/wbnb.svg",
               "decimals": 18,
               "symbol": "WBNB",
             },
@@ -3063,11 +3101,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtMeme.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -3114,11 +3153,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10",
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-              "asset": "/src/libs/tokens/img/lisUSD.png",
+              "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
               "decimals": 18,
               "symbol": "lisUSD",
             },
@@ -3135,7 +3175,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -3145,7 +3185,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -3172,7 +3212,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "dailyDistributedTokens": "0",
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/lisUSD.png",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
                 "decimals": 18,
                 "symbol": "lisUSD",
               },
@@ -3182,7 +3222,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -3199,11 +3239,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
@@ -3229,7 +3270,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -3255,7 +3296,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "apyPercentage": "0",
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/usdt.svg",
+                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
                 "decimals": 6,
                 "symbol": "USDT",
               },
@@ -3272,11 +3313,12 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "userWalletBalanceTokens": "10000000000000",
           "vToken": {
             "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
+            "asset": "/src/libs/tokens/img/vTokens/vUsdtTron.svg",
             "decimals": 8,
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-              "asset": "/src/libs/tokens/img/usdt.svg",
+              "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
               "decimals": 6,
               "symbol": "USDT",
             },
