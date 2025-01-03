@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.190.1
+
+### Patch Changes
+
+- 6b41f63: remove governanceSearch feature flag
+
 ## 2.190.0
 
 ### Minor Changes
