@@ -14,6 +14,7 @@ import {
   getLatestProposalIdByProposer,
   getProposalState,
   setVoteDelegate,
+  useGetProposals,
   useGetVestingVaults,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
@@ -21,7 +22,7 @@ import { routes } from 'constants/routing';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
-import { ChainId } from 'types';
+import { ChainId, ProposalState } from 'types';
 
 import Governance from '..';
 import GOVERNANCE_PROPOSAL_TEST_IDS from '../ProposalList/GovernanceProposal/testIds';
@@ -59,6 +60,46 @@ describe('Governance', () => {
     );
 
     expect(screen.getByTestId(TEST_IDS.proposalList).textContent).toMatchSnapshot();
+  });
+
+  it('lets user filter proposals by state', async () => {
+    const { getByTestId } = renderComponent(<Governance />);
+
+    // Change proposal state select value
+    fireEvent.change(getByTestId(TEST_IDS.proposalStateSelect), {
+      target: { value: ProposalState.Executed },
+    });
+
+    await waitFor(() =>
+      expect(useGetProposals).toHaveBeenCalledWith({
+        page: expect.any(Number),
+        limit: expect.any(Number),
+        accountAddress: undefined,
+        search: '',
+        proposalState: ProposalState.Executed,
+      }),
+    );
+  });
+
+  it('lets user search proposals by text', async () => {
+    const { getByPlaceholderText } = renderComponent(<Governance />);
+
+    const fakeSearchInput = 'fake search';
+
+    // Change proposal state select value
+    fireEvent.change(getByPlaceholderText(en.vote.searchInput.placeholder), {
+      target: { value: fakeSearchInput },
+    });
+
+    await waitFor(() =>
+      expect(useGetProposals).toHaveBeenCalledWith({
+        page: expect.any(Number),
+        limit: expect.any(Number),
+        accountAddress: undefined,
+        proposalState: undefined,
+        search: fakeSearchInput,
+      }),
+    );
   });
 
   it('opens create proposal modal when clicking text if user has enough voting weight', async () => {

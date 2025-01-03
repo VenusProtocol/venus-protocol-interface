@@ -56,9 +56,6 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
 }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
-  const isSearchFeatureEnabled = useIsFeatureEnabled({
-    name: 'governanceSearch',
-  });
 
   // Generate select options from proposal states
   const selectOptions = useMemo(() => {
@@ -200,40 +197,38 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
         )}
       </div>
 
-      {isSearchFeatureEnabled && (
-        <div className="space-y-4 sm:flex sm:gap-x-6 sm:space-y-0 sm:justify-between minw">
-          <Select
-            label={t('vote.proposalStateFilter.label')}
-            size="small"
-            variant="tertiary"
-            placeLabelToLeft
-            options={selectOptions}
-            optionClassName="px-3 h-10"
-            buttonClassName="min-w-45"
-            data-testid={TEST_IDS.proposalStateSelect}
-            value={selectedProposalState}
-            onChange={newValue =>
-              updateFilters({
-                proposalState: newValue as Filtering['proposalState'],
-              })
-            }
-          />
+      <div className="space-y-4 sm:flex sm:gap-x-6 sm:space-y-0 sm:justify-between minw">
+        <Select
+          label={t('vote.proposalStateFilter.label')}
+          size="small"
+          variant="tertiary"
+          placeLabelToLeft
+          options={selectOptions}
+          optionClassName="px-3 h-10"
+          buttonClassName="min-w-45"
+          data-testid={TEST_IDS.proposalStateSelect}
+          value={selectedProposalState}
+          onChange={newValue =>
+            updateFilters({
+              proposalState: newValue as Filtering['proposalState'],
+            })
+          }
+        />
 
-          <TextField
-            isSmall
-            value={searchValue}
-            onChange={event =>
-              updateFilters({
-                search: event.currentTarget.value,
-              })
-            }
-            placeholder={t('vote.searchInput.placeholder')}
-            leftIconSrc="magnifier"
-            variant="secondary"
-            className="sm:max-w-[300px] w-full"
-          />
-        </div>
-      )}
+        <TextField
+          isSmall
+          value={searchValue}
+          onChange={event =>
+            updateFilters({
+              search: event.currentTarget.value,
+            })
+          }
+          placeholder={t('vote.searchInput.placeholder')}
+          leftIconSrc="magnifier"
+          variant="secondary"
+          className="sm:max-w-[300px] w-full"
+        />
+      </div>
 
       {isFetchingProposals && <Spinner className="h-auto" />}
 
