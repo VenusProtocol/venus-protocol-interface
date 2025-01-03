@@ -2,47 +2,69 @@ import {
   type Matcher,
   type SelectorMatcherOptions,
   fireEvent,
+  screen,
   waitFor,
   within,
 } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import type Vi from 'vitest';
 
-import fakeAddress from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import { proposals } from '__mocks__/models/proposals';
 import voters from '__mocks__/models/voters';
 import { renderComponent } from 'testUtils/render';
 
 import {
-  cancelProposal,
-  executeProposal,
-  queueProposal,
+  useCancelProposal,
+  useExecuteProposal,
   useGetCurrentVotes,
   useGetProposal,
   useGetProposalThreshold,
   useGetVoteReceipt,
+  useQueueProposal,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote from 'hooks/useVote';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
-import { ChainId, VoteSupport } from 'types';
+import {
+  ChainId,
+  type Proposal,
+  ProposalState,
+  type RemoteProposal,
+  RemoteProposalState,
+  VoteSupport,
+} from 'types';
 
 import { REDIRECT_TEST_CONTENT } from 'containers/Redirect/__mocks__';
-import Proposal from '..';
-import PROPOSAL_SUMMARY_TEST_IDS from '../ProposalSummary/testIds';
+import { useNow } from 'hooks/useNow';
+import ProposalComp from '..';
 import VOTE_MODAL_TEST_IDS from '../VoteModal/testIds';
 import TEST_IDS from '../testIds';
 
+vi.mock('hooks/useNow');
 vi.mock('hooks/useVote');
 vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('containers/Redirect');
+
+const proposal = proposals[0];
+const remoteProposal: RemoteProposal = {
+  proposalId: 1,
+  remoteProposalId: 1,
+  chainId: ChainId.BSC_TESTNET,
+  state: RemoteProposalState.Pending,
+  proposalActions: [],
+};
 
 const activeProposal = proposals[1];
 const canceledProposal = proposals[3];
 const succeededProposal = proposals[4];
 const queuedProposal = proposals[5];
+
+const fakeNow = new Date(
+  activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5),
+);
 
 const checkVoteButtonsAreHidden = async (
   queryByText: (id: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement | null,
@@ -52,11 +74,11 @@ const checkVoteButtonsAreHidden = async (
   waitFor(() => expect(queryByText(en.vote.abstain, { selector: 'button' })).toBeNull());
 };
 
-describe('Proposal page', () => {
+describe('ProposalComp page', () => {
   beforeEach(() => {
-    vi.useFakeTimers().setSystemTime(
-      activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5),
-    );
+    vi.useFakeTimers().setSystemTime(fakeNow);
+
+    (useNow as Vi.Mock).mockImplementation(() => fakeNow);
 
     (useGetVoteReceipt as Vi.Mock).mockImplementation(() => ({
       data: {
@@ -88,7 +110,7 @@ describe('Proposal page', () => {
   });
 
   it('renders without crashing', async () => {
-    renderComponent(<Proposal />);
+    renderComponent(<ProposalComp />);
   });
 
   it('redirects to proposal page on error', async () => {
@@ -99,15 +121,15 @@ describe('Proposal page', () => {
         data: { message: 'Fake error message' },
       }),
     }));
-    const { getByText } = renderComponent(<Proposal />);
+    const { getByText } = renderComponent(<ProposalComp />);
 
     await waitFor(() => expect(getByText(REDIRECT_TEST_CONTENT)));
   });
 
   it('vote buttons are hidden when wallet is not connected', async () => {
-    const { queryByText } = renderComponent(<Proposal />);
+    renderComponent(<ProposalComp />);
 
-    await checkVoteButtonsAreHidden(queryByText);
+    await checkVoteButtonsAreHidden(screen.queryByText);
   });
 
   it('vote buttons are hidden when proposal is not active', async () => {
@@ -117,11 +139,11 @@ describe('Proposal page', () => {
       },
     }));
 
-    const { queryByText } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
-    await checkVoteButtonsAreHidden(queryByText);
+    await checkVoteButtonsAreHidden(screen.queryByText);
   });
 
   it('vote buttons are hidden when vote is cast', async () => {
@@ -131,8 +153,8 @@ describe('Proposal page', () => {
       },
     }));
 
-    const { queryByText } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    const { queryByText } = renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
     await checkVoteButtonsAreHidden(queryByText);
@@ -143,8 +165,8 @@ describe('Proposal page', () => {
       data: { votesMantissa: new BigNumber(0) },
     }));
 
-    const { queryByText } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    const { queryByText } = renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
     await checkVoteButtonsAreHidden(queryByText);
@@ -152,37 +174,37 @@ describe('Proposal page', () => {
 
   it('vote buttons are hidden when vote feature is disabled', async () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
-    const { queryByText } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    const { queryByText } = renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
     await checkVoteButtonsAreHidden(queryByText);
   });
 
   it('vote buttons are displayed and enabled when requirements are met', async () => {
-    const { getByTestId } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
     const voteForButton = await waitFor(async () =>
-      within(getByTestId(TEST_IDS.voteSummary.for)).getByRole('button'),
+      within(screen.getByTestId(TEST_IDS.voteSummary.for)).getByRole('button'),
     );
     expect(voteForButton).toBeEnabled();
 
     const voteAgainstButton = await waitFor(async () =>
-      within(getByTestId(TEST_IDS.voteSummary.against)).getByRole('button'),
+      within(screen.getByTestId(TEST_IDS.voteSummary.against)).getByRole('button'),
     );
     expect(voteAgainstButton).toBeEnabled();
 
     const voteAbstainButton = await waitFor(async () =>
-      within(getByTestId(TEST_IDS.voteSummary.abstain)).getByRole('button'),
+      within(screen.getByTestId(TEST_IDS.voteSummary.abstain)).getByRole('button'),
     );
     expect(voteAbstainButton).toBeEnabled();
   });
 
   it('does not render the voting disabled warning when feature flag is enabled', async () => {
-    const { queryByTestId } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    const { queryByTestId } = renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
     await waitFor(() => expect(queryByTestId(TEST_IDS.votingDisabledWarning)).toBeNull());
@@ -191,11 +213,11 @@ describe('Proposal page', () => {
   it('renders warning about voting being disabled when the feature flag is off and proposal is active', async () => {
     (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
 
-    const { getByTestId } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
-    await waitFor(() => expect(getByTestId(TEST_IDS.votingDisabledWarning)).toBeVisible());
+    await waitFor(() => expect(screen.getByTestId(TEST_IDS.votingDisabledWarning)).toBeVisible());
   });
 
   it('allows user to vote for', async () => {
@@ -204,19 +226,21 @@ describe('Proposal page', () => {
       vote,
       isLoading: false,
     }));
-    const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
     const voteButton = await waitFor(async () =>
-      within(getByTestId(TEST_IDS.voteSummary.for)).getByRole('button'),
+      within(screen.getByTestId(TEST_IDS.voteSummary.for)).getByRole('button'),
     );
     fireEvent.click(voteButton);
 
-    const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
+    const votingPower = await waitFor(async () => screen.getByLabelText(en.vote.votingPower));
     expect(votingPower).toHaveValue('0.1');
 
-    const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
+    const castButton = await waitFor(async () =>
+      screen.getByTestId(VOTE_MODAL_TEST_IDS.submitButton),
+    );
     expect(castButton).toBeEnabled();
     fireEvent.click(castButton);
     await waitFor(() =>
@@ -236,22 +260,24 @@ describe('Proposal page', () => {
     }));
 
     const comment = 'Not a good idea';
-    const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
     const voteButton = await waitFor(async () =>
-      within(getByTestId(TEST_IDS.voteSummary.against)).getByRole('button'),
+      within(screen.getByTestId(TEST_IDS.voteSummary.against)).getByRole('button'),
     );
     fireEvent.click(voteButton);
 
-    const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
+    const votingPower = await waitFor(async () => screen.getByLabelText(en.vote.votingPower));
     expect(votingPower).toHaveValue('0.1');
 
-    const commentInput = await waitFor(async () => getByLabelText(en.vote.comment));
+    const commentInput = await waitFor(async () => screen.getByLabelText(en.vote.comment));
     fireEvent.change(commentInput, { target: { value: comment } });
 
-    const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
+    const castButton = await waitFor(async () =>
+      screen.getByTestId(VOTE_MODAL_TEST_IDS.submitButton),
+    );
     expect(castButton).toBeEnabled();
     fireEvent.click(castButton);
 
@@ -271,19 +297,21 @@ describe('Proposal page', () => {
       isLoading: false,
     }));
 
-    const { getByTestId, getByLabelText } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
     const voteButton = await waitFor(async () =>
-      within(getByTestId(TEST_IDS.voteSummary.abstain)).getByRole('button'),
+      within(screen.getByTestId(TEST_IDS.voteSummary.abstain)).getByRole('button'),
     );
     fireEvent.click(voteButton);
 
-    const votingPower = await waitFor(async () => getByLabelText(en.vote.votingPower));
+    const votingPower = await waitFor(async () => screen.getByLabelText(en.vote.votingPower));
     expect(votingPower).toHaveValue('0.1');
 
-    const castButton = await waitFor(async () => getByTestId(VOTE_MODAL_TEST_IDS.submitButton));
+    const castButton = await waitFor(async () =>
+      screen.getByTestId(VOTE_MODAL_TEST_IDS.submitButton),
+    );
     expect(castButton).toBeEnabled();
     fireEvent.click(castButton);
     await waitFor(() =>
@@ -296,122 +324,394 @@ describe('Proposal page', () => {
   });
 
   it('lists votes cast', async () => {
-    const { getByTestId } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
     const againstVoteSummary = await waitFor(async () =>
-      within(getByTestId(TEST_IDS.voteSummary.against)),
+      within(screen.getByTestId(TEST_IDS.voteSummary.against)),
     );
     againstVoteSummary.getByText(voters.result[0].address);
 
-    const forVoteSummary = await waitFor(async () => within(getByTestId(TEST_IDS.voteSummary.for)));
+    const forVoteSummary = await waitFor(async () =>
+      within(screen.getByTestId(TEST_IDS.voteSummary.for)),
+    );
     forVoteSummary.getByText(voters.result[1].address);
 
     const abstainVoteSummary = await waitFor(async () =>
-      within(getByTestId(TEST_IDS.voteSummary.abstain)),
+      within(screen.getByTestId(TEST_IDS.voteSummary.abstain)),
     );
     abstainVoteSummary.getByText(voters.result[2].address);
   });
-
-  it('proposer can always cancel their own proposal', async () => {
-    (useGetCurrentVotes as Vi.Mock).mockImplementation(() => ({
-      data: { votesMantissa: new BigNumber(0) },
-    }));
-
-    const proposerAddress = activeProposal.proposerAddress;
-    const { getByTestId } = renderComponent(<Proposal />, {
-      accountAddress: proposerAddress,
-    });
-    const cancelButton = await waitFor(async () =>
-      getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
-    );
-
-    fireEvent.click(cancelButton);
-    await waitFor(() => expect(cancelButton).toBeEnabled());
-    expect(cancelProposal).toHaveBeenCalledWith({ proposalId: activeProposal.proposalId });
-  });
-
-  it('does not allow user to cancel if voting power of the proposer is greater than or equals threshold', async () => {
-    (useGetCurrentVotes as Vi.Mock).mockImplementation(() => ({
+  it.each([
+    // Pending
+    {
+      ...proposal,
+      state: ProposalState.Pending,
+      remoteProposals: [],
+    },
+    // Active
+    {
+      ...activeProposal,
+      remoteProposals: [],
+    },
+    // Canceled
+    {
+      ...proposal,
+      state: ProposalState.Canceled,
+      remoteProposals: [],
+    },
+    // Defeated
+    {
+      ...proposal,
+      state: ProposalState.Defeated,
+      remoteProposals: [],
+    },
+    // Succeeded
+    {
+      ...proposal,
+      state: ProposalState.Succeeded,
+      remoteProposals: [],
+    },
+    // Queued (not yet executable)
+    {
+      ...proposal,
+      state: ProposalState.Queued,
+      executionEtaDate: new Date(fakeNow.getTime() + 1000),
+      remoteProposals: [],
+    },
+    // Executable
+    {
+      ...proposal,
+      state: ProposalState.Queued,
+      executionEtaDate: new Date(fakeNow.getTime() - 1000),
+      remoteProposals: [],
+    },
+    // Expired
+    {
+      ...proposal,
+      state: ProposalState.Expired,
+      expiredDate: fakeNow,
+      remoteProposals: [],
+    },
+    // Executed
+    {
+      ...proposal,
+      state: ProposalState.Executed,
+      executedDate: fakeNow,
+      remoteProposals: [],
+    },
+  ])('renders BSC command correctly. ProposalComp state: $state', async proposal => {
+    (useGetProposal as Vi.Mock).mockImplementation(() => ({
       data: {
-        votesMantissa: new BigNumber(CREATE_PROPOSAL_THRESHOLD_MANTISSA),
+        proposal,
       },
     }));
 
-    const { getByTestId } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
 
-    const cancelButton = await waitFor(async () =>
-      getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
-    );
-
-    await waitFor(() => expect(cancelButton).toBeDisabled());
+    expect(screen.getByTestId(TEST_IDS.commands).textContent).toMatchSnapshot();
   });
 
-  it('user can cancel if voting power of the proposer dropped below threshold', async () => {
-    (useGetCurrentVotes as Vi.Mock).mockImplementation(() => ({
+  it.each([
+    // Pending
+    remoteProposal,
+    // Bridged
+    {
+      ...remoteProposal,
+      state: RemoteProposalState.Bridged,
+      bridgedDate: fakeNow,
+    },
+
+    // Queued (not yet executable)
+    {
+      ...remoteProposal,
+      state: RemoteProposalState.Queued,
+      queuedDate: fakeNow,
+      executionEtaDate: new Date(fakeNow.getTime() + 1000),
+    },
+    // Executable
+    {
+      ...remoteProposal,
+      state: RemoteProposalState.Queued,
+      queuedDate: fakeNow,
+      executionEtaDate: new Date(fakeNow.getTime() - 1000),
+    },
+    // Canceled
+    {
+      ...remoteProposal,
+      state: RemoteProposalState.Canceled,
+      canceledDate: fakeNow,
+    },
+    // Expired
+    {
+      ...remoteProposal,
+      state: RemoteProposalState.Expired,
+      expiredDate: fakeNow,
+    },
+    // Executed
+    {
+      ...remoteProposal,
+      state: RemoteProposalState.Executed,
+      executedDate: fakeNow,
+    },
+  ])('renders remote commands correctly. Remote proposal state: $state', async remoteProposal => {
+    const customProposal: Proposal = {
+      ...proposal,
+      state: ProposalState.Executed,
+      executedDate: fakeNow,
+      remoteProposals: [remoteProposal],
+    };
+
+    (useGetProposal as Vi.Mock).mockImplementation(() => ({
       data: {
-        votesMantissa: new BigNumber(0),
+        proposal: customProposal,
       },
     }));
 
-    const { getByTestId } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
     });
-    const cancelButton = await waitFor(async () =>
-      getByTestId(PROPOSAL_SUMMARY_TEST_IDS.cancelButton),
-    );
 
-    fireEvent.click(cancelButton);
-
-    await waitFor(() => expect(cancelButton).toBeEnabled());
-    expect(cancelProposal).toHaveBeenCalledWith({ proposalId: activeProposal.proposalId });
+    expect(screen.getByTestId(TEST_IDS.commands).textContent).toMatchSnapshot();
   });
 
-  it('user can queue succeeded proposal', async () => {
+  it('lets user cancel their own BSC proposal', async () => {
+    const cancelMock = vi.fn();
+    (useCancelProposal as Vi.Mock).mockImplementation(() => ({
+      mutateAsync: cancelMock,
+    }));
+
+    renderComponent(<ProposalComp />, {
+      accountAddress: activeProposal.proposerAddress,
+    });
+
+    const cancelButton = screen
+      .getAllByText(en.voteProposalUi.command.actionButton.cancel)[0]
+      .closest('button');
+    expect(cancelButton).toBeInTheDocument();
+
+    fireEvent.click(cancelButton!);
+
+    await waitFor(() => expect(cancelMock).toHaveBeenCalledTimes(1));
+    expect(cancelMock).toHaveBeenCalledWith({
+      proposalId: activeProposal.proposalId,
+    });
+  });
+
+  it('lets user cancel the BSC proposal if the proposer no longer has enough voting power', async () => {
+    const FAKE_THRESHOLD_MANTISSA = 100;
+
+    (useGetProposalThreshold as Vi.Mock).mockImplementation(() => ({
+      data: {
+        thresholdMantissa: new BigNumber(FAKE_THRESHOLD_MANTISSA),
+      },
+    }));
+
+    (useGetCurrentVotes as Vi.Mock).mockImplementation(() => ({
+      data: {
+        votesMantissa: new BigNumber(FAKE_THRESHOLD_MANTISSA - 1),
+      },
+    }));
+
+    const cancelMock = vi.fn();
+    (useCancelProposal as Vi.Mock).mockImplementation(() => ({
+      mutateAsync: cancelMock,
+    }));
+
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const cancelButton = screen
+      .getAllByText(en.voteProposalUi.command.actionButton.cancel)[0]
+      .closest('button');
+    expect(cancelButton).toBeInTheDocument();
+
+    fireEvent.click(cancelButton!);
+
+    await waitFor(() => expect(cancelMock).toHaveBeenCalledTimes(1));
+    expect(cancelMock).toHaveBeenCalledWith({
+      proposalId: activeProposal.proposalId,
+    });
+  });
+
+  it('does not let user cancel the BSC proposal if voting power of the proposer is greater than or equals threshold', async () => {
+    (useGetCurrentVotes as Vi.Mock).mockImplementation(() => ({
+      data: {
+        votesMantissa: CREATE_PROPOSAL_THRESHOLD_MANTISSA,
+      },
+    }));
+
+    const cancelMock = vi.fn();
+    (useCancelProposal as Vi.Mock).mockImplementation(() => ({
+      mutateAsync: cancelMock,
+    }));
+
+    const { debug, container } = renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    debug(container, 10000000000);
+
+    expect(
+      screen.queryByText(en.voteProposalUi.command.actionButton.cancel),
+    ).not.toBeInTheDocument();
+  });
+
+  it('does not let user cancel the BSC proposal if it has passed the succeeded state', async () => {
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
       data: {
         proposal: succeededProposal,
       },
     }));
 
-    const { getByTestId } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
+    const cancelMock = vi.fn();
+    (useCancelProposal as Vi.Mock).mockImplementation(() => ({
+      mutateAsync: cancelMock,
+    }));
+
+    renderComponent(<ProposalComp />, {
+      accountAddress: activeProposal.proposerAddress,
     });
 
-    const queueButton = await waitFor(async () =>
-      getByTestId(PROPOSAL_SUMMARY_TEST_IDS.queueButton),
-    );
-    fireEvent.click(queueButton);
-    await waitFor(() => expect(queueButton).toBeEnabled());
-
-    await waitFor(() =>
-      expect(queueProposal).toHaveBeenCalledWith({ proposalId: succeededProposal.proposalId }),
-    );
+    expect(
+      screen.queryByText(en.voteProposalUi.command.actionButton.cancel),
+    ).not.toBeInTheDocument();
   });
 
-  it('user can execute queued proposal', async () => {
+  it('lets user queue the BSC proposal', async () => {
     (useGetProposal as Vi.Mock).mockImplementation(() => ({
       data: {
-        proposal: queuedProposal,
+        proposal: succeededProposal,
       },
     }));
 
-    const { getByTestId } = renderComponent(<Proposal />, {
-      accountAddress: fakeAddress,
-    });
-    const executeButton = await waitFor(async () =>
-      getByTestId(PROPOSAL_SUMMARY_TEST_IDS.executeButton),
-    );
-    fireEvent.click(executeButton);
-    await waitFor(() => expect(executeButton).toBeEnabled());
+    const queueMock = vi.fn();
+    (useQueueProposal as Vi.Mock).mockImplementation(() => ({
+      mutateAsync: queueMock,
+    }));
 
-    await waitFor(() =>
-      expect(executeProposal).toHaveBeenCalledWith({
-        proposalId: queuedProposal.proposalId,
-        chainId: ChainId.BSC_TESTNET,
-      }),
-    );
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const queueButton = screen
+      .getAllByText(en.voteProposalUi.command.actionButton.queue)[0]
+      .closest('button');
+    expect(queueButton).toBeInTheDocument();
+
+    fireEvent.click(queueButton!);
+
+    await waitFor(() => expect(queueMock).toHaveBeenCalledTimes(1));
+  });
+
+  it('lets user queue the BSC proposal', async () => {
+    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+      data: {
+        proposal: succeededProposal,
+      },
+    }));
+
+    const queueMock = vi.fn();
+    (useQueueProposal as Vi.Mock).mockImplementation(() => ({
+      mutateAsync: queueMock,
+    }));
+
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const queueButton = screen
+      .getAllByText(en.voteProposalUi.command.actionButton.queue)[0]
+      .closest('button');
+    expect(queueButton).toBeInTheDocument();
+
+    fireEvent.click(queueButton!);
+
+    await waitFor(() => expect(queueMock).toHaveBeenCalledTimes(1));
+  });
+
+  it('lets user execute the BSC proposal', async () => {
+    const customProposal: Proposal = {
+      ...queuedProposal,
+      executionEtaDate: new Date(fakeNow.getTime() - 1000),
+    };
+
+    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+      data: {
+        proposal: customProposal,
+      },
+    }));
+
+    const executeMock = vi.fn();
+    (useExecuteProposal as Vi.Mock).mockImplementation(() => ({
+      mutateAsync: executeMock,
+    }));
+
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const executeButton = screen
+      .getAllByText(en.voteProposalUi.command.actionButton.execute)[0]
+      .closest('button');
+    expect(executeButton).toBeInTheDocument();
+
+    fireEvent.click(executeButton!);
+
+    await waitFor(() => expect(executeMock).toHaveBeenCalledTimes(1));
+    expect(executeMock).toHaveBeenCalledWith({
+      proposalId: customProposal.proposalId,
+      chainId: ChainId.BSC_TESTNET,
+    });
+  });
+
+  it('lets user execute a remote proposal', async () => {
+    const executableRemoteProposal: RemoteProposal = {
+      ...queuedProposal.remoteProposals[3],
+      executionEtaDate: new Date(fakeNow.getTime() - 1000),
+    };
+
+    const executedProposal: Proposal = {
+      ...proposal,
+      remoteProposals: [executableRemoteProposal],
+    };
+
+    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+      data: {
+        proposal: executedProposal,
+      },
+    }));
+
+    const executeMock = vi.fn();
+    (useExecuteProposal as Vi.Mock).mockImplementation(() => ({
+      mutateAsync: executeMock,
+    }));
+
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
+      chainId: executableRemoteProposal.chainId,
+    });
+
+    const executeButton = screen
+      .getAllByText(en.voteProposalUi.command.cta.execute)[0]
+      .closest('button');
+    expect(executeButton).toBeInTheDocument();
+
+    fireEvent.click(executeButton!);
+
+    await waitFor(() => expect(executeMock).toHaveBeenCalledTimes(1));
+    expect(executeMock).toHaveBeenCalledWith({
+      chainId: executableRemoteProposal.chainId,
+      proposalId: executableRemoteProposal.remoteProposalId,
+    });
+  });
+
+  it('renders description correctly', async () => {
+    renderComponent(<ProposalComp />);
+
+    expect(screen.getByTestId(TEST_IDS.description).textContent).toMatchSnapshot();
   });
 });

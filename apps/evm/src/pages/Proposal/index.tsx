@@ -40,9 +40,6 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 }) => {
   const { switchChain } = useSwitchChain();
   const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
-  const isOmnichainGovernanceFeatureEnabled = useIsFeatureEnabled({
-    name: 'omnichainGovernance',
-  });
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -112,9 +109,9 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
         />
       </div>
 
-      <Description description={proposal.description} actions={proposal.proposalActions} />
+      <Description description={proposal.description} />
 
-      {isOmnichainGovernanceFeatureEnabled && <Commands proposal={proposal} />}
+      <Commands proposal={proposal} />
 
       {isVoteProposalFeatureEnabled && voteModalType !== undefined && (
         <VoteModal

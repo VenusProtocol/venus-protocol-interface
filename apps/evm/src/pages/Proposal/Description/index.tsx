@@ -2,27 +2,20 @@
 import Typography from '@mui/material/Typography';
 
 import { Card, MarkdownViewer } from 'components';
-import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 import { useTranslation } from 'libs/translations';
-import type { DescriptionV1, DescriptionV2, ProposalAction } from 'types';
+import type { DescriptionV1, DescriptionV2 } from 'types';
 import TEST_IDS from '../testIds';
 
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { governanceChain } from 'libs/wallet';
 import { useStyles } from './styles';
 
 interface DescriptionSummary {
   description: DescriptionV1 | DescriptionV2;
-  actions: ProposalAction[];
   className?: string;
 }
 
-export const Description: React.FC<DescriptionSummary> = ({ className, description, actions }) => {
+export const Description: React.FC<DescriptionSummary> = ({ className, description }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const isOmnichainGovernanceFeatureEnabled = useIsFeatureEnabled({
-    name: 'omnichainGovernance',
-  });
 
   return (
     <Card css={styles.root} className={className} data-testid={TEST_IDS.description}>
@@ -52,22 +45,6 @@ export const Description: React.FC<DescriptionSummary> = ({ className, descripti
                 {t('vote.abstain')} - {description.abstainDescription}
               </li>
             </ul>
-          </>
-        )}
-
-        {!isOmnichainGovernanceFeatureEnabled && (
-          <>
-            <Typography variant="h4" color="textSecondary" css={styles.section}>
-              {t('voteProposalUi.operation')}
-            </Typography>
-
-            {actions.map(action => (
-              <ReadableActionSignature
-                key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}
-                action={action}
-                chainId={governanceChain.id}
-              />
-            ))}
           </>
         )}
       </div>

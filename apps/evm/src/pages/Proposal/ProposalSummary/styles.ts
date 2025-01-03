@@ -61,12 +61,6 @@ export const useStyles = () => {
         border-left: 0;
       }
     `,
-    content: css`
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      justify-content: space-between;
-    `,
     rightTitle: css`
       margin-bottom: ${theme.spacing(6)};
     `,
