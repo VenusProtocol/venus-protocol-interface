@@ -40,13 +40,13 @@ export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> =
         <>
           <TokenDropdownOption
             type="button"
-            onClick={() => addOrCopyTokenAction(underlyingToken)}
+            onClick={addOrCopyTokenAction(underlyingToken)}
             token={underlyingToken}
             label={underlyingToken.symbol}
           />
           <TokenDropdownOption
             type="button"
-            onClick={() => addOrCopyTokenAction(vToken)}
+            onClick={addOrCopyTokenAction(vToken)}
             token={vToken}
             label={vToken.symbol}
           />
