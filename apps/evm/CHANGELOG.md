@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.189.2
+
+### Patch Changes
+
+- eb3c02a: remove omnichainGovernance feature flag
+
 ## 2.189.1
 
 ### Patch Changes
