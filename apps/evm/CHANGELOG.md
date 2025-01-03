@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.190.0
+
+### Minor Changes
+
+- 548947b: add copy addresses and contract links to market page
+
 ## 2.189.2
 
 ### Patch Changes
