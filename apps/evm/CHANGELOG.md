@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.190.2
+
+### Patch Changes
+
+- 44e7973: properly call addOrCopyTokenAction onClick
+
 ## 2.190.1
 
 ### Patch Changes
