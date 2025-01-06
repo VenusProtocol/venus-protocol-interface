@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.8.0
+
+### Minor Changes
+
+- c7a7c86: remove sentence regarding liquidities
+
 ## 1.7.0
 
 ### Minor Changes
