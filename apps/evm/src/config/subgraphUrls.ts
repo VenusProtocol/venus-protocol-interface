@@ -13,7 +13,7 @@ export const getIsolatedPoolsSubgraphUrls = ({
     [ChainId.BSC_MAINNET]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmdGKgtSDQfMFbX1zE9vXTCJDXQJiVXyYAs7TKdKxazwE1`,
     [ChainId.BSC_TESTNET]:
       'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-chapel/version/latest',
-    [ChainId.OPBNB_MAINNET]: `https://open-platform-ap.nodereal.io/${nodeRealApiKey}/opbnb-mainnet-graph-query/subgraphs/name/venusprotocol/venus-isolated-pools-opbnb`,
+    [ChainId.OPBNB_MAINNET]: `https://open-platform-ap.nodereal.io/${nodeRealApiKey}/opbnb-mainnet-graph-query/subgraphs/name/venusprotocol/venus-isolated-pools-opbnb-1-3-1`,
     [ChainId.OPBNB_TESTNET]: undefined,
     [ChainId.ETHEREUM]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmUjUfSTj4H2qBD69GgC1Q2MjVQjKtuPT8LFMwf8qg32ae`,
     [ChainId.SEPOLIA]:
