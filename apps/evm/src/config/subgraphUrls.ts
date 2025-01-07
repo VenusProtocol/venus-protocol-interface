@@ -10,24 +10,24 @@ export const getIsolatedPoolsSubgraphUrls = ({
   const subgraphUrls: {
     [chainId in ChainId]: string | undefined;
   } = {
-    [ChainId.BSC_MAINNET]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmVMKvBgAgnqVrLmRUurMiziH3Q55Fa5VoYJXN4TVLZgsw`,
+    [ChainId.BSC_MAINNET]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmdGKgtSDQfMFbX1zE9vXTCJDXQJiVXyYAs7TKdKxazwE1`,
     [ChainId.BSC_TESTNET]:
       'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-chapel/version/latest',
-    [ChainId.OPBNB_MAINNET]: `https://open-platform-ap.nodereal.io/${nodeRealApiKey}/opbnb-mainnet-graph-query/subgraphs/name/venusprotocol/venus-isolated-pools-opbnb`,
+    [ChainId.OPBNB_MAINNET]: `https://open-platform-ap.nodereal.io/${nodeRealApiKey}/opbnb-mainnet-graph-query/subgraphs/name/venusprotocol/venus-isolated-pools-opbnb-1-3-1`,
     [ChainId.OPBNB_TESTNET]: undefined,
-    [ChainId.ETHEREUM]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/Qmazi4kSKzahgR5G6U7FVUoUGLQZQVPohRX6zbuxbC8YX1`,
+    [ChainId.ETHEREUM]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmUjUfSTj4H2qBD69GgC1Q2MjVQjKtuPT8LFMwf8qg32ae`,
     [ChainId.SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-sepolia/version/latest',
-    [ChainId.ARBITRUM_ONE]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmQByQzsGpuVqaZcfraxQduUwMX4JpnAnFd1s1JTkSUREj`,
+    [ChainId.ARBITRUM_ONE]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmT9s7XghLns7EbrAQt6k3KmCkSAp3EjjNsVJ9Fmuj6JHY`,
     [ChainId.ARBITRUM_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-il-arbitrumsepolia/version/latest',
-    [ChainId.ZKSYNC_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/Qma87oPwwDfvsmBySPJQLsFKc8JXBQaJvS12MYGGku2bRG`,
+    [ChainId.ZKSYNC_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmTjn8wbXd3hYjP2Ab9ezaHZ6VwTg3uTyWMYCaoxZAAbrf`,
     [ChainId.ZKSYNC_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-il-zksync-sepolia/version/latest',
-    [ChainId.OPTIMISM_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmZqvM6BRz1nNvK41SbfcafW2sbLZpnDMmubpQ5phkmPD8`,
+    [ChainId.OPTIMISM_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmS9qdNLfBone8TJvLBRnzDQhNC8JNdctBcvkUoMJDY7bp`,
     [ChainId.OPTIMISM_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-il-optimism-sepolia/version/latest',
-    [ChainId.BASE_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmUurUxeGyFknvjVtYytvYyhftXKMyXrvamCtMgoTR6ZnQ`,
+    [ChainId.BASE_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmaPerPSwKtU8GHyZSbsKHD2HUeDz2N6u8PpQK1Hanccvw`,
     [ChainId.BASE_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-base-sepolia/latest',
   };
