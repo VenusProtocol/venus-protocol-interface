@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.191.0
+
+### Minor Changes
+
+- cc11b31: update subgraph URLs
+
 ## 2.190.2
 
 ### Patch Changes
