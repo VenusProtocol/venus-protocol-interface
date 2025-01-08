@@ -19,7 +19,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
               "decimals": 18,
               "symbol": "XVS",
             },
-            "type": "rewardDistributor",
+            "type": "venus",
           },
         ],
         "borrowerCount": 10,
@@ -46,7 +46,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
               "decimals": 18,
               "symbol": "XVS",
             },
-            "type": "rewardDistributor",
+            "type": "venus",
           },
         ],
         "tokenPriceCents": "127.86734",
@@ -84,7 +84,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
               "decimals": 18,
               "symbol": "XVS",
             },
-            "type": "rewardDistributor",
+            "type": "venus",
           },
           {
             "apyPercentage": "1.233105649796123742",
@@ -139,7 +139,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
               "decimals": 18,
               "symbol": "XVS",
             },
-            "type": "rewardDistributor",
+            "type": "venus",
           },
           {
             "apyPercentage": "0.953105649796123742",
@@ -202,7 +202,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
               "decimals": 18,
               "symbol": "XVS",
             },
-            "type": "rewardDistributor",
+            "type": "venus",
           },
           {
             "apyPercentage": "1.015310564979612374",
@@ -246,7 +246,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
               "decimals": 18,
               "symbol": "XVS",
             },
-            "type": "rewardDistributor",
+            "type": "venus",
           },
           {
             "apyPercentage": "1.753105649796123742",
@@ -299,7 +299,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
               "decimals": 18,
               "symbol": "XVS",
             },
-            "type": "rewardDistributor",
+            "type": "venus",
           },
           {
             "apyPercentage": "1.753105649796123742",
@@ -353,7 +353,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
               "decimals": 18,
               "symbol": "XVS",
             },
-            "type": "rewardDistributor",
+            "type": "venus",
           },
           {
             "apyPercentage": "1.753105649796123742",
