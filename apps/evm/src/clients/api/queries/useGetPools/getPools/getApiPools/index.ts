@@ -10,7 +10,11 @@ export interface ApiRewardDistributor {
   supplySpeed: string;
   borrowSpeed: string;
   priceMantissa: string;
-  rewardsDistributorContractAddress: string | null;
+  rewardsDistributorContractAddress: string;
+  rewardType: 'venus' | 'merkl';
+  rewardDetails?: {
+    description?: string;
+  };
 }
 
 export interface ApiMarket {

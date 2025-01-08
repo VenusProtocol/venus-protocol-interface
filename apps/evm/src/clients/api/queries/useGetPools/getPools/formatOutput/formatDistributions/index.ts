@@ -41,12 +41,14 @@ export const formatDistributions = ({
 
   apiRewardsDistributors.forEach(
     ({
+      rewardType,
       rewardTokenAddress,
       lastRewardingSupplyBlockOrTimestamp,
       lastRewardingBorrowBlockOrTimestamp,
       supplySpeed,
       borrowSpeed,
       priceMantissa,
+      rewardDetails,
     }) => {
       const rewardToken = findTokenByAddress({
         tokens,
@@ -79,10 +81,12 @@ export const formatDistributions = ({
 
         supplyDistributions.push(
           formatRewardDistribution({
+            rewardType,
             rewardToken,
             rewardTokenPriceDollars,
             dailyDistributedRewardTokens,
             balanceDollars: supplyBalanceDollars,
+            rewardDescription: rewardDetails?.description,
           }),
         );
       }
@@ -103,10 +107,12 @@ export const formatDistributions = ({
 
         borrowDistributions.push(
           formatRewardDistribution({
+            rewardType,
             rewardToken,
             rewardTokenPriceDollars,
             dailyDistributedRewardTokens,
             balanceDollars: borrowBalanceDollars,
+            rewardDescription: rewardDetails?.description,
           }),
         );
       }

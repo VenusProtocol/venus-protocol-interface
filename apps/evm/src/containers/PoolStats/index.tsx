@@ -121,8 +121,7 @@ export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProp
                   .concat(asset.borrowDistributions)
                   .reduce(
                     (assetTotal, distribution) =>
-                      distribution.type === 'rewardDistributor' &&
-                      areTokensEqual(distribution.token, xvs)
+                      distribution.type === 'venus' && areTokensEqual(distribution.token, xvs)
                         ? assetTotal.plus(distribution.dailyDistributedTokens)
                         : assetTotal,
                     new BigNumber(0),
