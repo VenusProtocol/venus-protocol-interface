@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.192.0
+
+### Minor Changes
+
+- 4c9c844: add support for Merkl distributions
+
 ## 2.191.0
 
 ### Minor Changes
