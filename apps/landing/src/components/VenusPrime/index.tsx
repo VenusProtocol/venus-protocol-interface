@@ -10,12 +10,12 @@ const VenusPrime: React.FC = () => (
       <div className={s.logoMobile} />
       <div className={s.textWrapper}>
         <h2>
-          Leverage <span className={s.accent}>Venus Prime</span>
-          <br /> to amplify your returns
+          <span className={s.accent}>Venus Prime</span> rewards loyalty
+          <br /> with superior rewards
         </h2>
         <p>
-          Venus Prime and the Venus Prime Token reward dedicated users of Venus Protocol with real
-          yield for superior rates with their lending and borrowing activities.
+          With Venus Prime, dedicated users obtain boosted rewards when they lend and borrow on
+          Venus while staking in the governance vault.
         </p>
         <Link className={s.link} href="https://docs-v4.venus.io/whats-new/prime-yield">
           Learn more
