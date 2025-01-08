@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.9.0
+
+### Minor Changes
+
+- c711549: new Venus Prime copy
+
 ## 1.8.0
 
 ### Minor Changes
