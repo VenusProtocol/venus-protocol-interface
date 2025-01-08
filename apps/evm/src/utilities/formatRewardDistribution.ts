@@ -4,17 +4,21 @@ import type { AssetDistribution, Token } from 'types';
 import { calculateYearlyPercentageRate } from 'utilities';
 
 export interface FormatDistributionInput {
+  rewardType: 'venus' | 'merkl';
   rewardToken: Token;
   rewardTokenPriceDollars: BigNumber;
   dailyDistributedRewardTokens: BigNumber;
   balanceDollars: BigNumber;
+  rewardDescription?: string;
 }
 
 const formatRewardDistribution = ({
+  rewardType,
   rewardToken,
   rewardTokenPriceDollars,
   dailyDistributedRewardTokens,
   balanceDollars,
+  rewardDescription,
 }: FormatDistributionInput): AssetDistribution => {
   // Convert distribution to dollars
   const dailyDistributedDollars =
@@ -29,10 +33,11 @@ const formatRewardDistribution = ({
   });
 
   return {
-    type: 'rewardDistributor',
+    type: rewardType,
     token: rewardToken,
     apyPercentage,
     dailyDistributedTokens: dailyDistributedRewardTokens,
+    rewardDescription,
   };
 };
 

@@ -48,7 +48,7 @@ export interface TokenBalance {
 }
 
 export interface RewardDistributorDistribution {
-  type: 'rewardDistributor';
+  type: 'venus';
   token: Token;
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
@@ -71,10 +71,19 @@ export interface PrimeSimulationDistribution {
   };
 }
 
+export interface MerklDistribution {
+  type: 'merkl';
+  token: Token;
+  rewardDescription: string | undefined;
+  apyPercentage: BigNumber;
+  dailyDistributedTokens: BigNumber;
+}
+
 export type AssetDistribution =
   | RewardDistributorDistribution
   | PrimeDistribution
-  | PrimeSimulationDistribution;
+  | PrimeSimulationDistribution
+  | MerklDistribution;
 
 export interface Asset {
   vToken: VToken;

@@ -37,7 +37,7 @@ export const assetData: Asset[] = [
     disabledTokenActions: [],
     supplyDistributions: [
       {
-        type: 'rewardDistributor',
+        type: 'venus',
         token: xvs,
         apyPercentage: new BigNumber('0.11720675342484096'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
@@ -45,7 +45,7 @@ export const assetData: Asset[] = [
     ],
     borrowDistributions: [
       {
-        type: 'rewardDistributor',
+        type: 'venus',
         token: xvs,
         apyPercentage: new BigNumber('4.17469243006608279'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
@@ -82,7 +82,7 @@ export const assetData: Asset[] = [
     disabledTokenActions: ['borrow', 'supply'],
     supplyDistributions: [
       {
-        type: 'rewardDistributor',
+        type: 'venus',
         token: xvs,
         apyPercentage: new BigNumber('1.353105649796123742'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
@@ -105,7 +105,7 @@ export const assetData: Asset[] = [
     ],
     borrowDistributions: [
       {
-        type: 'rewardDistributor',
+        type: 'venus',
         token: xvs,
         apyPercentage: new BigNumber('1.670327607690572731'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
@@ -157,7 +157,7 @@ export const assetData: Asset[] = [
     disabledTokenActions: ['swapAndSupply'],
     supplyDistributions: [
       {
-        type: 'rewardDistributor',
+        type: 'venus',
         token: xvs,
         apyPercentage: new BigNumber('0.421719501189155143'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
@@ -175,7 +175,7 @@ export const assetData: Asset[] = [
     ],
     borrowDistributions: [
       {
-        type: 'rewardDistributor',
+        type: 'venus',
         token: xvs,
         apyPercentage: new BigNumber('0.522209972682294832'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
@@ -222,7 +222,7 @@ export const assetData: Asset[] = [
     disabledTokenActions: ['supply'],
     supplyDistributions: [
       {
-        type: 'rewardDistributor',
+        type: 'venus',
         token: xvs,
         apyPercentage: new BigNumber('0.678420831753642169'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
@@ -245,7 +245,7 @@ export const assetData: Asset[] = [
     ],
     borrowDistributions: [
       {
-        type: 'rewardDistributor',
+        type: 'venus',
         token: xvs,
         apyPercentage: new BigNumber('0.852697602175970714'),
         dailyDistributedTokens: new BigNumber('9999999.5'),

@@ -111,7 +111,16 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
         if (distribution.type !== 'prime' && distribution.apyPercentage.isEqualTo(0)) {
           return acc;
         }
-
+        let label = t('assetInfo.distributionApy', { tokenSymbol: distribution.token.symbol });
+        if (distribution.type === 'prime') {
+          label = t('assetInfo.primeApy', { tokenSymbol: distribution.token.symbol });
+        }
+        if (distribution.type === 'merkl') {
+          label = t('assetInfo.externalDistributionApy', {
+            description: distribution.rewardDescription,
+            tokenSymbol: distribution.token.symbol,
+          });
+        }
         const children =
           distribution.type === 'prime' ? (
             <ValueUpdate
@@ -128,15 +137,9 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
           );
 
         const row: LabeledInlineContentProps = {
-          label:
-            distribution.type === 'prime'
-              ? t('assetInfo.primeApy', { tokenSymbol: distribution.token.symbol })
-              : t('assetInfo.distributionApy', { tokenSymbol: distribution.token.symbol }),
+          label,
           iconSrc: distribution.token,
-          tooltip:
-            distribution.type === 'rewardDistributor'
-              ? t('assetInfo.distributionTooltip')
-              : undefined,
+          tooltip: distribution.type === 'venus' ? t('assetInfo.distributionTooltip') : undefined,
           children,
         };
 
