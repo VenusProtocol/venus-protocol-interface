@@ -10,11 +10,13 @@ import { Indicator } from './Indicator';
 export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
   state: ProposalState;
   remoteProposals: RemoteProposal[];
+  executionEtaDate?: Date;
 }
 
 export const Status: React.FC<StatusProps> = ({
   state,
   remoteProposals,
+  executionEtaDate,
   className,
   ...otherProps
 }) => {
@@ -47,12 +49,22 @@ export const Status: React.FC<StatusProps> = ({
       return t('voteProposalUi.status.executedPayloads');
     }
 
-    if (state === ProposalState.Succeeded) {
+    const isExecutable = isProposalExecutable({
+      now,
+      isQueued: state === ProposalState.Queued,
+      executionEtaDate,
+    });
+
+    if (isExecutable) {
       return t('voteProposalUi.status.readyForExecution');
     }
 
+    if (state === ProposalState.Succeeded) {
+      return t('voteProposalUi.status.readyForQueuing');
+    }
+
     return getProposalStateLabel({ state });
-  }, [t, state, shouldShowExecutedPayloadsStatus]);
+  }, [t, state, shouldShowExecutedPayloadsStatus, now, executionEtaDate]);
 
   return (
     <div

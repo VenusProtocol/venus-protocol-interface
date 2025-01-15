@@ -16,6 +16,7 @@ const ProposalInfo: React.FC = () => {
         label={t('vote.createProposalForm.proposalType')}
         css={styles.formBottomMargin}
         className="w-full"
+        variant="secondary"
         options={[
           { value: ProposalType.NORMAL, label: t('vote.proposalType.normal') },
           { value: ProposalType.FAST_TRACK, label: t('vote.proposalType.fastTrack') },
