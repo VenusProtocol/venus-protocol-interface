@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.192.1
+
+### Patch Changes
+
+- 7660e46: update status text displayed when proposal is waiting for queuing
+
 ## 2.192.0
 
 ### Minor Changes
