@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 
 import { ActiveVotingProgress, Countdown, ProposalTypeChip } from 'components';
 import { routes } from 'constants/routing';
+import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { useTranslation } from 'libs/translations';
 import { type Proposal, ProposalState, ProposalType, type Token, VoteSupport } from 'types';
 
@@ -51,6 +52,11 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
   const styles = useStyles();
   const { t, Trans } = useTranslation();
 
+  const isExecutable = useIsProposalExecutable({
+    isQueued: state === ProposalState.Queued,
+    executionEtaDate,
+  });
+
   const voteStatusText = useMemo(() => {
     switch (userVoteSupport) {
       case VoteSupport.For:
@@ -73,7 +79,9 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       case ProposalState.Executed:
         return [executedDate, 'voteProposalUi.executedDate'];
       case ProposalState.Queued:
-        return [executionEtaDate, 'voteProposalUi.queuedUntilDate'];
+        return isExecutable
+          ? [undefined, undefined]
+          : [executionEtaDate, 'voteProposalUi.queuedUntilDate'];
       case ProposalState.Defeated:
         return [endDate, 'voteProposalUi.defeatedDate'];
       case ProposalState.Expired:
@@ -81,7 +89,7 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       default:
         return [undefined, undefined];
     }
-  }, [state, cancelDate, executedDate, endDate, executionEtaDate, expiredDate]);
+  }, [state, cancelDate, executedDate, endDate, executionEtaDate, expiredDate, isExecutable]);
 
   const contentRightItemDom = useMemo(() => {
     if (state === ProposalState.Active) {
@@ -95,8 +103,18 @@ const GovernanceProposalUi: React.FC<GovernanceProposalProps> = ({
       );
     }
 
-    return <Status state={state} remoteProposals={remoteProposals} />;
-  }, [state, remoteProposals, forVotesMantissa, againstVotesMantissa, abstainedVotesMantissa, xvs]);
+    return (
+      <Status state={state} remoteProposals={remoteProposals} executionEtaDate={executionEtaDate} />
+    );
+  }, [
+    state,
+    remoteProposals,
+    forVotesMantissa,
+    againstVotesMantissa,
+    abstainedVotesMantissa,
+    xvs,
+    executionEtaDate,
+  ]);
 
   return (
     <ProposalCard

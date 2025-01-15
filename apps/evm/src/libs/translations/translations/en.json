@@ -307,19 +307,17 @@
   },
   "interactive": {
     "addToWallet": {
-      "modalTitle": "Add token to wallet",
-      "tooltip": "Add token to wallet"
+      "modalTitle": "Add token to wallet"
     },
     "copy": {
       "address": {
-        "name": "Address",
         "modalTitle": "Copy token address",
+        "name": "Address",
         "tooltip": "Copy Address"
       }
     },
     "copyToClipboard": "{{name}} copied to clipboard",
     "goTo": {
-      "contract": "{{symbol}} contract",
       "modalTitle": "Go to token contract"
     }
   },
@@ -374,10 +372,6 @@
       "vaults": "Vaults"
     },
     "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>"
-  },
-  "legacyPool": {
-    "description": "Venus’ primary pool is composed of large-cap tokens that meet minimum liquidity requirements.",
-    "name": "Core Pool"
   },
   "markdownEditor": {
     "markdownTabLabel": "Write",
@@ -699,7 +693,6 @@
     "active": "Active",
     "bridged": "Bridged",
     "canceled": "Canceled",
-    "created": "Created",
     "defeated": "Defeated",
     "executed": "Executed",
     "expired": "Expired",
@@ -1121,7 +1114,6 @@
   },
   "voteProposalUi": {
     "activeUntilDate": "Active until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
-    "cancelButtonLabel": "Cancel",
     "canceledDate": "Canceled: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "command": {
       "actionButton": {
@@ -1166,14 +1158,11 @@
     },
     "defeatedDate": "Defeated: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "description": "Description",
-    "executeButtonLabel": "Execute",
     "executedDate": "Executed: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "expiredDate": "Expired: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "greenPulseAnimation": {
       "altText": "Green pulse animation"
     },
-    "operation": "Operation",
-    "proposalHistory": "Proposal History",
     "proposalState": {
       "activeTimestamp": "Active since: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "canceledTimestamp": "Canceled: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
@@ -1183,18 +1172,16 @@
       "queuedTimestamp": "Queued: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
       "succeededTimestamp": "Succeeded: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
-    "queueButtonLabel": "Queue",
     "queuedUntilDate": "Queued until: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "status": {
       "executedPayloads": "Executed payloads",
-      "readyForExecution": "Ready for execution"
+      "readyForExecution": "Ready for execution",
+      "readyForQueuing": "Ready for queuing"
     },
     "statusCard": {
       "ariaLabelAbstain": "votes abstain",
       "ariaLabelAgainst": "votes against",
-      "ariaLabelFor": "votes for",
-      "dateOnly": "{{date, dd MMM yyyy}}",
-      "timeOnly": "{{date, h:mm a}}"
+      "ariaLabelFor": "votes for"
     },
     "timeUntilExecutable": "Executable at: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "timeUntilVotable": "Voting starts at: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
@@ -1248,7 +1235,6 @@
       "ens": "ENS Name",
       "spaceId": "Space ID Name"
     },
-    "providersAlt": "Provider Icon",
     "tooltip": {
       "address": "({{address}})"
     }

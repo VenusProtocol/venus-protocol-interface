@@ -20,6 +20,7 @@ import {
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useNow } from 'hooks/useNow';
 import { en } from 'libs/translations';
 import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
 import { ChainId, ProposalState } from 'types';
@@ -28,6 +29,10 @@ import Governance from '..';
 import GOVERNANCE_PROPOSAL_TEST_IDS from '../ProposalList/GovernanceProposal/testIds';
 import VOTING_WALLET_TEST_IDS from '../VotingWallet/testIds';
 import TEST_IDS from '../testIds';
+
+vi.mock('hooks/useNow');
+
+const fakeNow = new Date('2023-10-14T16:11:35.000Z');
 
 const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_MANTISSA;
 
@@ -42,6 +47,8 @@ describe('Governance', () => {
     (getCurrentVotes as Vi.Mock).mockImplementation(() => ({
       votesMantissa: fakeUserVotingWeight,
     }));
+
+    (useNow as Vi.Mock).mockImplementation(() => fakeNow);
   });
 
   it('renders without crashing', async () => {
