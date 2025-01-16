@@ -14,7 +14,7 @@ describe('generateAbis', () => {
       contractConfigs: fakeContractConfigs,
     });
 
-    expect(writeFile).toHaveBeenCalledTimes(fakeContractConfigs.length);
+    expect(writeFile).toHaveBeenCalledTimes(fakeContractConfigs.length * 2);
 
     fakeContractConfigs.forEach((_fakeContractConfig, index) =>
       expect((writeFile as Vi.Mock).mock.calls[index]).toMatchSnapshot(),

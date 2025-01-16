@@ -1,9 +1,12 @@
-import BigNumber from 'bignumber.js';
+import type { Address, PublicClient } from 'viem';
 
-import type { Bep20, Vai, Vrt, Xvs } from 'libs/contracts';
+import BigNumber from 'bignumber.js';
+import { Bep20Abi } from 'libs/contracts';
+import type { Token } from 'types';
 
 export interface GetAllowanceInput {
-  tokenContract: Vai | Bep20 | Vrt | Xvs;
+  publicClient: PublicClient;
+  token: Token;
   accountAddress: string;
   spenderAddress: string;
 }
@@ -13,14 +16,20 @@ export type GetAllowanceOutput = {
 };
 
 const getAllowance = async ({
-  tokenContract,
+  publicClient,
+  token,
   accountAddress,
   spenderAddress,
 }: GetAllowanceInput): Promise<GetAllowanceOutput> => {
-  const res = await tokenContract.allowance(accountAddress, spenderAddress);
+  const allowanceMantissa = await publicClient.readContract({
+    abi: Bep20Abi,
+    address: token.address as Address,
+    functionName: 'allowance',
+    args: [accountAddress as Address, spenderAddress as Address],
+  });
 
   return {
-    allowanceMantissa: new BigNumber(res.toString()),
+    allowanceMantissa: new BigNumber(allowanceMantissa.toString()),
   };
 };
 

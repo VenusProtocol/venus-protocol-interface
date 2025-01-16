@@ -13,6 +13,8 @@ import { getUniqueContractAddress } from 'libs/contracts/utilities/getUniqueCont
 import { useChainId, useProvider, useSigner } from 'libs/wallet';
 import { ChainId } from 'types';
 
+export { abi as PoolLensAbi } from 'libs/contracts/generated/infos/abis/PoolLens';
+
 interface GetPoolLensContractAddressInput {
   chainId: ChainId;
 }
@@ -89,6 +91,8 @@ import { IsolatedPoolComptroller } from 'libs/contracts/generated/infos/contract
 import { useProvider, useSigner } from 'libs/wallet';
 import { ChainId } from 'types';
 
+export { abi as IsolatedPoolComptrollerAbi } from 'libs/contracts/generated/infos/abis/IsolatedPoolComptroller';
+
 interface GetIsolatedPoolComptrollerContractInput {
   address: string;
   signerOrProvider: Signer | Provider;
@@ -141,6 +145,8 @@ import addresses from 'libs/contracts/generated/infos/addresses';
 import { SwapRouter } from 'libs/contracts/generated/infos/contractTypes';
 import { useChainId, useProvider, useSigner } from 'libs/wallet';
 import { ChainId } from 'types';
+
+export { abi as SwapRouterAbi } from 'libs/contracts/generated/infos/abis/SwapRouter';
 
 interface GetSwapRouterContractAddressInput {
   comptrollerContractAddress: string;

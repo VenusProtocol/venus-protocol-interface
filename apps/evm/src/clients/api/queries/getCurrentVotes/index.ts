@@ -1,9 +1,11 @@
 import BigNumber from 'bignumber.js';
+import { XvsVaultAbi } from 'libs/contracts';
 
-import type { XvsVault } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetCurrentVotesInput {
-  xvsVaultContract: XvsVault;
+  publicClient: PublicClient;
+  xvsVaultContractAddress: string;
   accountAddress: string;
 }
 
@@ -12,13 +14,19 @@ export type GetCurrentVotesOutput = {
 };
 
 const getCurrentVotes = async ({
-  xvsVaultContract,
+  publicClient,
+  xvsVaultContractAddress,
   accountAddress,
 }: GetCurrentVotesInput): Promise<GetCurrentVotesOutput> => {
-  const resp = await xvsVaultContract.getCurrentVotes(accountAddress);
+  const votesMantissa = await publicClient.readContract({
+    address: xvsVaultContractAddress as Address,
+    abi: XvsVaultAbi,
+    functionName: 'getCurrentVotes',
+    args: [accountAddress as Address],
+  });
 
   return {
-    votesMantissa: new BigNumber(resp.toString()),
+    votesMantissa: new BigNumber(votesMantissa.toString()),
   };
 };
 

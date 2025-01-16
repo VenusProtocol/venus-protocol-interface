@@ -8,6 +8,8 @@ import { {{contractName}} } from 'libs/contracts/generated/infos/contractTypes';
 import { useChainId, useProvider, useSigner } from 'libs/wallet';
 import { ChainId } from 'types';
 
+export { abi as {{contractName}}Abi } from 'libs/contracts/generated/infos/abis/{{contractName}}';
+
 interface Get{{contractName}}ContractAddressInput {
   comptrollerContractAddress: string;
   chainId: ChainId;

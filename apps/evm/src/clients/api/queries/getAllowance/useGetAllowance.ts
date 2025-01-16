@@ -5,12 +5,13 @@ import getAllowance, {
   type GetAllowanceOutput,
 } from 'clients/api/queries/getAllowance';
 import FunctionKey from 'constants/functionKey';
-import { useGetTokenContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import type { ChainId, Token } from 'types';
-import { callOrThrow } from 'utilities';
+import { usePublicClient } from 'wagmi';
 
-type TrimmedGetAllowanceInput = Omit<GetAllowanceInput, 'tokenContract'> & { token: Token };
+type TrimmedGetAllowanceInput = Omit<GetAllowanceInput, 'publicClient'> & {
+  token: Token;
+};
 
 export type UseGetAllowanceQueryKey = [
   FunctionKey.GET_TOKEN_ALLOWANCE,
@@ -33,7 +34,7 @@ const useGetAllowance = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const tokenContract = useGetTokenContract({ token });
+  const publicClient = usePublicClient();
 
   const queryKey: UseGetAllowanceQueryKey = [
     FunctionKey.GET_TOKEN_ALLOWANCE,
@@ -47,16 +48,13 @@ const useGetAllowance = (
 
   return useQuery({
     queryKey: queryKey,
-
     queryFn: () =>
-      callOrThrow({ tokenContract }, params =>
-        getAllowance({
-          spenderAddress,
-          accountAddress,
-          ...params,
-        }),
-      ),
-
+      getAllowance({
+        publicClient,
+        spenderAddress,
+        accountAddress,
+        token,
+      }),
     ...options,
   });
 };

@@ -1,10 +1,8 @@
 import BigNumber from 'bignumber.js';
-import { BigNumber as BN } from 'ethers';
+import type { PublicClient } from 'viem';
 
 import fakeAddress from '__mocks__/models/address';
-import fakeSigner from '__mocks__/models/signer';
-
-import type { Vrt } from 'libs/contracts';
+import { vrt } from '__mocks__/models/tokens';
 
 import getAllowance from '..';
 
@@ -12,23 +10,28 @@ const fakeSpenderAddress = '0x000000000000000000000000000000000sPeNdEr';
 
 describe('api/queries/getAllowance', () => {
   test('returns the allowance on success', async () => {
-    const fakeAllowanceMantissa = BN.from(10000);
+    const fakeAllowanceMantissa = 10000n;
 
-    const vrtAllowanceMock = vi.fn(async () => fakeAllowanceMantissa);
+    const readContractMock = vi.fn(async () => fakeAllowanceMantissa);
 
-    const fakeContract = {
-      allowance: vrtAllowanceMock,
-      signer: fakeSigner,
-    } as unknown as Vrt;
+    const fakePublicClient = {
+      readContract: readContractMock,
+    } as unknown as PublicClient;
 
     const response = await getAllowance({
-      tokenContract: fakeContract,
+      token: vrt,
+      publicClient: fakePublicClient,
       spenderAddress: fakeSpenderAddress,
       accountAddress: fakeAddress,
     });
 
-    expect(vrtAllowanceMock).toHaveBeenCalledTimes(1);
-    expect(vrtAllowanceMock).toHaveBeenCalledWith(fakeAddress, fakeSpenderAddress);
+    expect(readContractMock).toHaveBeenCalledTimes(1);
+    expect(readContractMock).toHaveBeenCalledWith({
+      abi: expect.any(Object),
+      address: vrt.address,
+      functionName: 'allowance',
+      args: [fakeAddress, fakeSpenderAddress],
+    });
     expect(response.allowanceMantissa instanceof BigNumber).toBe(true);
     expect(response).toEqual({
       allowanceMantissa: new BigNumber(fakeAllowanceMantissa.toString()),
