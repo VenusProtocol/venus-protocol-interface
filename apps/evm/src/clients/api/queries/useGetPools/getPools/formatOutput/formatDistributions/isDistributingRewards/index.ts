@@ -11,9 +11,8 @@ export const isDistributingRewards = ({
   lastRewardingBlock?: number;
   currentBlockNumber: bigint;
 }): boolean => {
-  const nowTimestamp = getUnixTime(new Date());
-
   if (isTimeBasedOrMerklReward && typeof lastRewardingTimestamp === 'number') {
+    const nowTimestamp = getUnixTime(new Date());
     return lastRewardingTimestamp === 0 || lastRewardingTimestamp >= nowTimestamp;
   }
 

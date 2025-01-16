@@ -241,7 +241,14 @@ describe('ClaimRewardButton', () => {
     await waitFor(() => expect(claimRewards).toHaveBeenCalledTimes(1));
     expect((claimRewards as Mock).mock.calls[0][0]).toMatchSnapshot();
 
-    await waitFor(() => expect(queryByTestId(TEST_IDS.claimRewardSubmitButton)).toBeNull());
+    await waitFor(() =>
+      expect(queryByTestId(TEST_IDS.claimRewardMobileOverlay)).not.toHaveClass('opacity-100'),
+    );
+    await waitFor(() =>
+      expect(queryByTestId(TEST_IDS.claimRewardMobileOverlay)).not.toHaveClass(
+        'pointer-events-auto',
+      ),
+    );
   });
 
   it('it claims only selected and enabled rewards on submit button click on success', async () => {

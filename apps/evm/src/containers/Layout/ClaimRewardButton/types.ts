@@ -9,12 +9,23 @@ export interface PendingReward {
   rewardAmountCents: BigNumber | undefined;
 }
 
-export interface Group {
+interface RewardsGroup {
   id: string;
   name: string;
-  isChecked: boolean;
   pendingRewards: PendingReward[];
+  warningMessage?: string | React.ReactNode;
+}
+
+export interface InternalRewardsGroup extends RewardsGroup {
+  isChecked: boolean;
   claims: Claim[];
   isDisabled?: boolean;
-  warningMessage?: string;
 }
+
+export interface ExternalRewardsGroup extends RewardsGroup {
+  claimUrl: string;
+  campaignName: string;
+  appName: string;
+}
+
+export type Group = InternalRewardsGroup | ExternalRewardsGroup;

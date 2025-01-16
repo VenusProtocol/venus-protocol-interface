@@ -10,6 +10,7 @@ import type {
   XvsVault,
 } from 'libs/contracts';
 
+import { ChainId } from 'types';
 import getPendingRewards from '..';
 import {
   fakeGetIsolatedPoolPendingRewardsOutput,
@@ -70,6 +71,8 @@ describe('getPendingRewards', () => {
       resilientOracleContract: fakeResilientOracleContract,
       vaiVaultContract: fakeVaiVaultContract,
       xvsVaultContract: fakeXvsVaultContract,
+      chainId: ChainId.BSC_TESTNET,
+      merklCampaigns: {},
     });
 
     expect(res).toMatchSnapshot();
@@ -88,6 +91,8 @@ describe('getPendingRewards', () => {
       vaiVaultContract: fakeVaiVaultContract,
       xvsVaultContract: fakeXvsVaultContract,
       primeContract: fakePrimeContract,
+      chainId: ChainId.BSC_TESTNET,
+      merklCampaigns: {},
     });
 
     expect(res).toMatchSnapshot();

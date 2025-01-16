@@ -150,7 +150,7 @@ export const formatOutput = ({
         supplyBalanceTokens,
         borrowBalanceTokens,
         currentBlockNumber,
-        apiRewardsDistributors: market.rewardsDistributors.filter(rd => rd.isActive),
+        apiRewardsDistributors: market.rewardsDistributors,
         apiPointDistributions: market.pointDistributions,
       });
 
