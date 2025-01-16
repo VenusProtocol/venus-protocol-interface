@@ -5,6 +5,7 @@ import config from 'config';
 import { logError } from 'libs/errors';
 
 interface RestServiceInput {
+  baseUrl?: string;
   endpoint: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
   next?: boolean;
@@ -37,6 +38,7 @@ const createQueryParams = (params: Record<string, unknown>) => {
 };
 
 export async function restService<D>({
+  baseUrl,
   endpoint,
   method,
   params,
@@ -44,7 +46,8 @@ export async function restService<D>({
   next = false,
 }: RestServiceInput): Promise<ApiResponse<D>> {
   const headers = {};
-  let path = `${config.apiUrl}${endpoint}`;
+  const basePath = baseUrl ?? config.apiUrl;
+  let path = `${basePath}${endpoint}`;
 
   _set(headers, 'Accept', 'application/json');
 

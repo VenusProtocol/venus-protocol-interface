@@ -4,10 +4,13 @@ import type { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'libs/contra
 import type { Token } from 'types';
 
 import type {
+  PendingExternalRewardSummary,
+  PendingInternalRewardSummary,
   PendingRewardGroup,
   PrimePendingRewardGroup,
   XvsVestingVaultPendingRewardGroup,
 } from '../types';
+import formatToExternalPendingRewardGroup from './formatToExternalPendingRewardGroup';
 import formatToIsolatedPoolPendingRewardGroup from './formatToIsolatedPoolPendingRewardGroup';
 import formatToLegacyPoolPendingRewardGroup from './formatToLegacyPoolPendingRewardGroup';
 import formatToPrimePendingRewardGroup from './formatToPrimePendingRewardGroup';
@@ -29,6 +32,7 @@ const formatOutput = ({
   isPrimeContractPaused,
   isVaiVaultContractPaused,
   isXvsVestingVaultContractPaused,
+  merklPendingRewards,
 }: {
   tokens: Token[];
   isolatedPoolsPendingRewards: Array<
@@ -48,6 +52,7 @@ const formatOutput = ({
   venusLensPendingRewards?: Awaited<ReturnType<VenusLens['pendingRewards']>>;
   legacyPoolComptrollerContractAddress?: string;
   primePendingRewards?: Awaited<ReturnType<Prime['callStatic']['getPendingRewards']>>;
+  merklPendingRewards: PendingExternalRewardSummary[];
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];
 
@@ -67,21 +72,54 @@ const formatOutput = ({
   }
 
   // Extract pending rewards from isolated pools
-  const isolatedPoolPendingRewardGroups = isolatedPoolsPendingRewards.reduce<PendingRewardGroup[]>(
-    (acc, rewardSummaries, index) => {
-      const isolatedPoolPendingRewardGroup =
-        rewardSummaries &&
-        formatToIsolatedPoolPendingRewardGroup({
-          comptrollerContractAddress: isolatedPoolComptrollerAddresses[index],
-          rewardSummaries,
-          tokenPriceMapping,
-          tokens,
-        });
-
-      return isolatedPoolPendingRewardGroup ? [...acc, isolatedPoolPendingRewardGroup] : acc;
-    },
+  const isolatedPoolsPendingRewardSummaries = isolatedPoolsPendingRewards.reduce<
+    PendingInternalRewardSummary[]
+  >(
+    (acc, rawPendingRewards, index) =>
+      rawPendingRewards
+        ? [
+            ...acc,
+            ...rawPendingRewards.map<PendingInternalRewardSummary>(raw => ({
+              type: 'isolatedPool',
+              poolComptrollerAddress: isolatedPoolComptrollerAddresses[index],
+              distributorAddress: raw.distributorAddress,
+              rewardTokenAddress: raw.rewardTokenAddress,
+              totalRewards: new BigNumber(raw.totalRewards.toString()),
+              pendingRewards: raw.pendingRewards.map(pr => ({
+                vTokenAddress: pr.vTokenAddress,
+                amountMantissa: new BigNumber(pr.amount.toString()),
+              })),
+            })),
+          ]
+        : acc,
     [],
   );
+
+  const pendingRewardsPerIsolatedPool = isolatedPoolsPendingRewardSummaries.reduce<
+    Record<string, PendingInternalRewardSummary[]>
+  >(
+    (acc, rs) => ({
+      ...acc,
+      [rs.poolComptrollerAddress]: acc[rs.poolComptrollerAddress]
+        ? [...acc[rs.poolComptrollerAddress], rs]
+        : [rs],
+    }),
+    {},
+  );
+
+  const isolatedPoolPendingRewardGroups = Object.keys(pendingRewardsPerIsolatedPool).reduce<
+    PendingRewardGroup[]
+  >((acc, poolComptrollerAddress) => {
+    const isolatedPoolPendingRewardGroup = formatToIsolatedPoolPendingRewardGroup({
+      comptrollerContractAddress: poolComptrollerAddress,
+      rewardSummaries: pendingRewardsPerIsolatedPool[poolComptrollerAddress],
+      tokenPriceMapping,
+      tokens,
+    });
+
+    return isolatedPoolPendingRewardGroup ? [...acc, isolatedPoolPendingRewardGroup] : acc;
+  }, []);
+
   pendingRewardGroups.push(...isolatedPoolPendingRewardGroups);
 
   // Extract pending rewards from VAI vault
@@ -156,6 +194,14 @@ const formatOutput = ({
   if (primePendingRewardGroup) {
     pendingRewardGroups.push(primePendingRewardGroup);
   }
+
+  const merklPendingRewardGroups = formatToExternalPendingRewardGroup({
+    externalRewardsSummaries: merklPendingRewards,
+    tokens,
+    tokenPriceMapping,
+  });
+
+  pendingRewardGroups.push(...merklPendingRewardGroups);
 
   return pendingRewardGroups;
 };

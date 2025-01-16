@@ -8,6 +8,7 @@ import removeDuplicates from 'utilities/removeDuplicates';
 
 import { getApiTokenPrice } from 'clients/api';
 import formatOutput from './formatOutput';
+import getMerklUserRewards from './getMerklRewards';
 import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
 const getPendingRewards = async ({
@@ -22,6 +23,8 @@ const getPendingRewards = async ({
   vaiVaultContract,
   xvsVaultContract,
   primeContract,
+  chainId,
+  merklCampaigns,
 }: GetPendingRewardsInput): Promise<GetPendingRewardsOutput> => {
   const xvsTokenAddress = tokens.find(token => token.symbol === 'XVS')?.address;
 
@@ -80,6 +83,16 @@ const getPendingRewards = async ({
     primeContract?.callStatic.getPendingRewards(accountAddress),
   ]);
 
+  // only reach out for Merkl reward details if there campaigns
+  const merklPendingRewards =
+    Object.keys(merklCampaigns).length > 0
+      ? await getMerklUserRewards({
+          merklCampaigns,
+          chainId,
+          accountAddress,
+        })
+      : [];
+
   const [vaiVaultPendingXvsResult, vaiVaultPausedResult, venusLensPendingRewardsResult] =
     await vaiVaultVenusLensPromises;
   const isolatedPoolsPendingRewardsResults = await isolatedPoolsPendingRewardsPromises;
@@ -110,10 +123,15 @@ const getPendingRewards = async ({
     primePendingReward => primePendingReward.rewardToken,
   );
 
+  const merklRewardTokenAddresses = merklPendingRewards
+    ? merklPendingRewards.map(r => r.rewardTokenAddress)
+    : [];
+
   const rewardTokenAddresses = removeDuplicates([
     xvsTokenAddress,
     ...isolatedPoolRewardTokenAddresses,
     ...primeRewardTokenAddresses,
+    ...merklRewardTokenAddresses,
   ]);
   const tokenPriceMantissaMapping = await getApiTokenPrice({
     tokenAddresses: rewardTokenAddresses,
@@ -165,6 +183,7 @@ const getPendingRewards = async ({
     isVaiVaultContractPaused: extractSettledPromiseValue(vaiVaultPausedResult) ?? false,
     isXvsVestingVaultContractPaused: xvsVestingVaultPausedResult,
     isPrimeContractPaused: extractSettledPromiseValue(isPrimeContractPausedResult) ?? false,
+    merklPendingRewards,
   });
 
   return {

@@ -13,19 +13,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "563078969.54779945903835725538",
                 "userSupplyBalanceTokens": "1071811362327614186.97785297335171745333",
@@ -68,19 +57,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "563078969.54779945903835725538",
                 "userSupplyBalanceTokens": "1071811362327614186.97785297335171745333",
@@ -126,7 +104,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             {
               "apyPercentage": "1.5797413696681861",
               "dailyDistributedTokens": "250.0000128",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -163,7 +142,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             {
               "apyPercentage": "1.5819817239252298",
               "dailyDistributedTokens": "250.0000128",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -205,7 +185,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             {
               "apyPercentage": "0.6478221277312901",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -242,7 +223,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             {
               "apyPercentage": "0.7921351276470645",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -280,20 +262,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowBalanceTokens": "416884.364702270734855123",
           "borrowCapTokens": "270000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 68,
           "cashTokens": "2259657.074761148481496107",
           "collateralFactor": 0.6,
@@ -317,20 +286,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "title": "Fake points",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "639.33143",
           "userBorrowBalanceCents": "63.933143",
           "userBorrowBalanceTokens": "0.1",
@@ -362,7 +318,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             {
               "apyPercentage": "16.981964056809385",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -373,6 +330,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             },
             {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "10009.21",
                 "userSupplyBalanceTokens": "5003.94",
@@ -414,7 +372,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -425,6 +384,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             },
             {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "10009.21",
                 "userSupplyBalanceTokens": "5003.94",
@@ -470,7 +430,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             {
               "apyPercentage": "0.000007467880158706",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -481,6 +442,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             },
             {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "2405.43",
                 "userSupplyBalanceTokens": "13068.75",
@@ -522,7 +484,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -533,6 +496,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
             },
             {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "2405.43",
                 "userSupplyBalanceTokens": "13068.75",
@@ -584,21 +548,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowBalanceTokens": "102.672734",
           "borrowCapTokens": "14880000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 1,
           "cashTokens": "2649291.731707",
           "collateralFactor": 0.8,
@@ -629,21 +579,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "9999628300000",
           "userBorrowBalanceTokens": "100000000000",
@@ -737,19 +673,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "0.000002",
                 "userSupplyBalanceTokens": "2206200.00000079982100000036",
@@ -796,19 +721,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "0.000002",
                 "userSupplyBalanceTokens": "2206200.00000079982100000036",
@@ -850,20 +764,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowBalanceTokens": "0.267025220823379366",
           "borrowCapTokens": "56000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 5,
           "cashTokens": "0.000705300034659891",
           "collateralFactor": 0.45,
@@ -879,20 +780,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "supplyBalanceTokens": "0.26773052085803925699",
           "supplyCapTokens": "80000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "52505.2944",
           "userBorrowBalanceCents": "5250.52944",
           "userBorrowBalanceTokens": "0.1",
@@ -984,7 +872,21 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowBalanceTokens": "10300.914588649133175062",
           "borrowCapTokens": "200000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [],
+          "borrowTokenDistributions": [
+            {
+              "apyPercentage": "253.70824691591528",
+              "dailyDistributedTokens": "35.714285714285712",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "borrowerCount": 4,
           "cashTokens": "32569.640339677929523638",
           "collateralFactor": 0.65,
@@ -1000,7 +902,21 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "supplyBalanceTokens": "42870.55476159846231009819",
           "supplyCapTokens": "500000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [],
+          "supplyTokenDistributions": [
+            {
+              "apyPercentage": "35.51944135207958",
+              "dailyDistributedTokens": "35.714285714285712",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "tokenPriceCents": "100",
           "userBorrowBalanceCents": "10",
           "userBorrowBalanceTokens": "0.1",
@@ -1030,19 +946,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "1004.648231",
                 "userSupplyBalanceTokens": "142739.88334414285239883265",
@@ -1089,19 +994,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "1004.648231",
                 "userSupplyBalanceTokens": "142739.88334414285239883265",
@@ -1156,6 +1050,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowTokenDistributions": [
             {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "0",
                 "userSupplyBalanceTokens": "10000",
@@ -1188,6 +1083,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "0",
                 "userSupplyBalanceTokens": "10000",
@@ -1248,19 +1144,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.32051113933926345",
+              "isActive": true,
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
                 "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
@@ -1271,6 +1156,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "563078969.54779945903835725538",
                 "userSupplyBalanceTokens": "1071811362327614186.97785297335171745333",
@@ -1313,19 +1199,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.2904197513866391",
+              "isActive": true,
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
                 "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
@@ -1336,6 +1211,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "563078969.54779945903835725538",
                 "userSupplyBalanceTokens": "1071811362327614186.97785297335171745333",
@@ -1381,7 +1257,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             {
               "apyPercentage": "1.5797413696681861",
               "dailyDistributedTokens": "250.0000128",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1418,7 +1295,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             {
               "apyPercentage": "1.5819817239252298",
               "dailyDistributedTokens": "250.0000128",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1460,7 +1338,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             {
               "apyPercentage": "0.6478221277312901",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1497,7 +1376,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             {
               "apyPercentage": "0.7921351276470645",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1535,20 +1415,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowBalanceTokens": "416884.364702270734855123",
           "borrowCapTokens": "270000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 68,
           "cashTokens": "2259657.074761148481496107",
           "collateralFactor": 0.6,
@@ -1572,20 +1439,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "title": "Fake points",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "639.33143",
           "userBorrowBalanceCents": "63.933143",
           "userBorrowBalanceTokens": "0.1",
@@ -1617,7 +1471,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             {
               "apyPercentage": "16.981964056809385",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1628,6 +1483,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.32051113933926345",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -1638,6 +1494,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "10009.21",
                 "userSupplyBalanceTokens": "5003.94",
@@ -1679,7 +1536,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1690,6 +1548,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.2904197513866391",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -1700,6 +1559,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "10009.21",
                 "userSupplyBalanceTokens": "5003.94",
@@ -1745,7 +1605,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             {
               "apyPercentage": "0.000007467880158706",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1756,6 +1617,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.32051113933926345",
+              "isActive": true,
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
@@ -1766,6 +1628,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "2405.43",
                 "userSupplyBalanceTokens": "13068.75",
@@ -1807,7 +1670,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1818,6 +1682,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.2904197513866391",
+              "isActive": true,
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
@@ -1828,6 +1693,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "2405.43",
                 "userSupplyBalanceTokens": "13068.75",
@@ -1879,21 +1745,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowBalanceTokens": "102.672734",
           "borrowCapTokens": "14880000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 1,
           "cashTokens": "2649291.731707",
           "collateralFactor": 0.8,
@@ -1924,21 +1776,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "9999628300000",
           "userBorrowBalanceTokens": "100000000000",
@@ -2032,19 +1870,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.32051113933926345",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -2055,6 +1882,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "0.000002",
                 "userSupplyBalanceTokens": "2206200.00000079982100000036",
@@ -2101,19 +1929,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.2904197513866391",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -2124,6 +1941,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "0.000002",
                 "userSupplyBalanceTokens": "2206200.00000079982100000036",
@@ -2165,20 +1983,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowBalanceTokens": "0.267025220823379366",
           "borrowCapTokens": "56000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 5,
           "cashTokens": "0.000705300034659891",
           "collateralFactor": 0.45,
@@ -2194,20 +1999,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "supplyBalanceTokens": "0.26773052085803925699",
           "supplyCapTokens": "80000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "52505.2944",
           "userBorrowBalanceCents": "5250.52944",
           "userBorrowBalanceTokens": "0.1",
@@ -2299,7 +2091,21 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowBalanceTokens": "10300.914588649133175062",
           "borrowCapTokens": "200000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [],
+          "borrowTokenDistributions": [
+            {
+              "apyPercentage": "253.70824691591528",
+              "dailyDistributedTokens": "35.714285714285712",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "borrowerCount": 4,
           "cashTokens": "32569.640339677929523638",
           "collateralFactor": 0.65,
@@ -2315,7 +2121,21 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "supplyBalanceTokens": "42870.55476159846231009819",
           "supplyCapTokens": "500000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [],
+          "supplyTokenDistributions": [
+            {
+              "apyPercentage": "35.51944135207958",
+              "dailyDistributedTokens": "35.714285714285712",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "tokenPriceCents": "100",
           "userBorrowBalanceCents": "10",
           "userBorrowBalanceTokens": "0.1",
@@ -2345,19 +2165,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.32051113933926345",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -2368,6 +2177,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "1004.648231",
                 "userSupplyBalanceTokens": "142739.88334414285239883265",
@@ -2414,19 +2224,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
               "apyPercentage": "0.2904197513866391",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -2437,6 +2236,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "1004.648231",
                 "userSupplyBalanceTokens": "142739.88334414285239883265",
@@ -2491,6 +2291,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowTokenDistributions": [
             {
               "apyPercentage": "0.32051113933926345",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -2501,6 +2302,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.20019958435848473",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "0",
                 "userSupplyBalanceTokens": "10000",
@@ -2533,6 +2335,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0.2904197513866391",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -2543,6 +2346,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
             },
             {
               "apyPercentage": "0.23026397657694986",
+              "isActive": true,
               "referenceValues": {
                 "userBorrowBalanceTokens": "0",
                 "userSupplyBalanceTokens": "10000",
@@ -2604,18 +2408,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-            {
-              "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
                 "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
@@ -2654,18 +2447,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-            {
-              "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
                 "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
@@ -2706,7 +2488,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             {
               "apyPercentage": "1.5797413696681861",
               "dailyDistributedTokens": "250.0000128",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2743,7 +2526,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             {
               "apyPercentage": "1.5819817239252298",
               "dailyDistributedTokens": "250.0000128",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2785,7 +2569,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             {
               "apyPercentage": "0.6478221277312901",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2822,7 +2607,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             {
               "apyPercentage": "0.7921351276470645",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2860,20 +2646,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowBalanceTokens": "416884.364702270734855123",
           "borrowCapTokens": "270000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 68,
           "cashTokens": "2259657.074761148481496107",
           "collateralFactor": 0.6,
@@ -2897,20 +2670,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "title": "Fake points",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "639.33143",
           "userBorrowBalanceCents": "63.933143",
           "userBorrowBalanceTokens": "0.1",
@@ -2942,7 +2702,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             {
               "apyPercentage": "16.981964056809385",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2953,6 +2714,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             },
             {
               "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -2989,7 +2751,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -3000,6 +2763,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             },
             {
               "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -3040,7 +2804,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             {
               "apyPercentage": "0.000007467880158706",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -3051,6 +2816,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             },
             {
               "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
@@ -3087,7 +2853,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -3098,6 +2865,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
             },
             {
               "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
@@ -3144,21 +2912,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowBalanceTokens": "102.672734",
           "borrowCapTokens": "14880000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 1,
           "cashTokens": "2649291.731707",
           "collateralFactor": 0.8,
@@ -3189,21 +2943,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "9999628300000",
           "userBorrowBalanceTokens": "100000000000",
@@ -3298,18 +3038,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
-              "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -3352,18 +3081,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
-              "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -3400,20 +3118,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowBalanceTokens": "0.267025220823379366",
           "borrowCapTokens": "56000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 5,
           "cashTokens": "0.000705300034659891",
           "collateralFactor": 0.45,
@@ -3429,20 +3134,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "supplyBalanceTokens": "0.26773052085803925699",
           "supplyCapTokens": "80000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "52505.2944",
           "userBorrowBalanceCents": "5250.52944",
           "userBorrowBalanceTokens": "0.1",
@@ -3534,7 +3226,21 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowBalanceTokens": "10300.914588649133175062",
           "borrowCapTokens": "200000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [],
+          "borrowTokenDistributions": [
+            {
+              "apyPercentage": "253.70824691591528",
+              "dailyDistributedTokens": "35.714285714285712",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "borrowerCount": 4,
           "cashTokens": "32569.640339677929523638",
           "collateralFactor": 0.65,
@@ -3550,7 +3256,21 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "supplyBalanceTokens": "42870.55476159846231009819",
           "supplyCapTokens": "500000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [],
+          "supplyTokenDistributions": [
+            {
+              "apyPercentage": "35.51944135207958",
+              "dailyDistributedTokens": "35.714285714285712",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "tokenPriceCents": "100",
           "userBorrowBalanceCents": "10",
           "userBorrowBalanceTokens": "0.1",
@@ -3581,18 +3301,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
-              "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -3635,18 +3344,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-            {
-              "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -3696,6 +3394,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowTokenDistributions": [
             {
               "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -3723,6 +3422,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0",
+              "isActive": true,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",

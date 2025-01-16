@@ -1,20 +1,17 @@
+import { LayeredValues, TokenIconWithSymbol } from 'components';
 import { useMemo } from 'react';
-
-import { Checkbox, type CheckboxProps, LayeredValues, TokenIconWithSymbol } from 'components';
 import { convertMantissaToTokens, formatCentsToReadableValue } from 'utilities';
+import type { ExternalRewardsGroup, InternalRewardsGroup, PendingReward } from '../types';
 
-import type { Group, PendingReward } from '../types';
-
-export interface RewardGroupProps {
-  group: Group;
-  onCheckChange: (newIsChecked: boolean) => void;
+export interface RewardGroupContentProps {
+  rightTitleComponent: React.ReactNode;
+  group: InternalRewardsGroup | ExternalRewardsGroup;
 }
 
-export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }) => {
-  const handleOnCheckChange: CheckboxProps['onChange'] = event =>
-    onCheckChange(event.currentTarget.checked);
-
-  // Group pending rewards by reward token
+export const RewardGroupContent: React.FC<RewardGroupContentProps> = ({
+  rightTitleComponent,
+  group,
+}: RewardGroupContentProps) => {
   const pendingRewards = useMemo(() => {
     const pendingRewardMapping = new Map<string, PendingReward>([]);
 
@@ -33,22 +30,21 @@ export const RewardGroup: React.FC<RewardGroupProps> = ({ group, onCheckChange }
 
     return Array.from(pendingRewardMapping.values());
   }, [group.pendingRewards]);
-
   return (
-    <div className="border-lightGrey mb-4 border-b pb-4 last:border-none last:pb-0">
-      <div className="mb-4">
+    <div className="border-lightGrey mb-4 last:mb-0">
+      <div className="my-4">
         <div className="flex items-center justify-between">
           <p className="text-lg">{group.name}</p>
 
-          {!group.isDisabled && <Checkbox onChange={handleOnCheckChange} value={group.isChecked} />}
+          {rightTitleComponent}
         </div>
 
-        {group.warningMessage && <p className="text-orange mt-2">{group.warningMessage}</p>}
+        {group.warningMessage}
       </div>
 
       {pendingRewards.map(pendingReward => (
         <div
-          className="mb-4 flex items-center justify-between last:mb-0"
+          className="border-lightGrey mb-4 flex items-center border-b last:border-b-0 justify-between last:mb-0"
           key={`reward-group-${group.name}-${pendingReward.rewardToken.address}`}
         >
           <div className="flex">

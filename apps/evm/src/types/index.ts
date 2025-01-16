@@ -52,18 +52,21 @@ export interface RewardDistributorDistribution {
   token: Token;
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
+  isActive: boolean;
 }
 
 export interface PrimeDistribution {
   type: 'prime';
   token: Token;
   apyPercentage: BigNumber;
+  isActive: boolean;
 }
 
 export interface PrimeSimulationDistribution {
   type: 'primeSimulation';
   token: Token;
   apyPercentage: BigNumber;
+  isActive: boolean;
   referenceValues: {
     userSupplyBalanceTokens: BigNumber;
     userBorrowBalanceTokens: BigNumber;
@@ -76,8 +79,15 @@ export interface MerklDistribution {
   token: Token;
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
-  claimUrl: string;
-  description?: string;
+  isActive: boolean;
+  rewardDetails: {
+    appName: string;
+    claimUrl: string;
+    marketAddress: string;
+    merklCampaignIdentifier: string;
+    description: string;
+    tags: string[];
+  };
 }
 
 export type TokenDistribution =

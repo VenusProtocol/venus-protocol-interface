@@ -245,8 +245,10 @@
         "disabledLabel": "Select groups to collect reward from",
         "enabledLabel": "Claim"
       },
-      "selectAll": "Select all",
-      "title": "Claim reward ({{chainName}})"
+      "externalRewards": "External rewards",
+      "rewards": "Rewards",
+      "title": "Claim reward ({{chainName}})",
+      "claimOn": "Claim on {{appName}}"
     },
     "openModalButton": {
       "label": "Claim {{rewardAmount}}"

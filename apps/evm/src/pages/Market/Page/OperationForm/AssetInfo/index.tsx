@@ -116,7 +116,7 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
         }
         if (distribution.type === 'merkl') {
           label = t('assetInfo.externalDistributionApy', {
-            description: distribution.description,
+            description: distribution.rewardDetails.description,
             tokenSymbol: distribution.token.symbol,
           });
         }
