@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.193.0
+
+### Minor Changes
+
+- b41947c: update contracts library to support viem
+
 ## 2.192.1
 
 ### Patch Changes
