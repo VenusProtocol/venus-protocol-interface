@@ -7,10 +7,6 @@ import type { Chain, Transport } from 'viem';
 import { chains } from '../chains';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants';
 
-const batchSettings = {
-  wait: 50,
-};
-
 const connectKitConfig = getDefaultConfig({
   chains: chains as [Chain, ...Chain[]],
   transports: chains.reduce((acc, chain) => {
@@ -18,9 +14,7 @@ const connectKitConfig = getDefaultConfig({
 
     return {
       ...acc,
-      [chain.id]: http(url, {
-        batch: batchSettings,
-      }),
+      [chain.id]: http(url),
     };
   }, {}) as Record<ChainId, Transport>,
   walletConnectProjectId: WALLET_CONNECT_PROJECT_ID,
@@ -29,7 +23,11 @@ const connectKitConfig = getDefaultConfig({
   appDescription:
     'Venus is a decentralized finance (DeFi) algorithmic money market protocol on EVM networks.',
   appIcon: 'https://venus.io/180x180.png',
-  batch: batchSettings,
+  batch: {
+    multicall: {
+      wait: 50,
+    },
+  },
 });
 
 const config = createConfig(connectKitConfig);
