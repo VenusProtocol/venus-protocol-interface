@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.193.1
+
+### Patch Changes
+
+- b30d5e0: fix multicall batching with viem
+
 ## 2.193.0
 
 ### Minor Changes
