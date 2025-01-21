@@ -23,9 +23,10 @@ export const ProgressCircle: React.FC<ProgressCircleProps> = ({
   const theme = useTheme();
 
   const { circumference, offset } = useMemo(() => {
+    const safeValue = value > 100 ? 100 : value;
     const radius = sizePx / 2 - strokeWidthPx / 2;
     const tmpCircumference = 2 * Math.PI * radius;
-    const tmpOffset = tmpCircumference * ((100 - value) / 100);
+    const tmpOffset = tmpCircumference * ((100 - safeValue) / 100);
 
     return {
       circumference: tmpCircumference,
