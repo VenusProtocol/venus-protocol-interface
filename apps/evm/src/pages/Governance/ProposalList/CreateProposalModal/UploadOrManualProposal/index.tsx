@@ -58,7 +58,7 @@ const UploadOrManualProposal: React.FC<UploadOrManualProposalProps> = ({
             i18nKey="vote.createProposalModal.youCanEitherCreateManuallyOrUpload"
             components={{
               Link: (
-                <Link href="https://github.com/VenusProtocol/venus-protocol-interface/blob/main/src/assets/proposals/vip-123.json" />
+                <Link href="https://github.com/VenusProtocol/venus-protocol-interface/blob/main/apps/evm/src/assets/proposals/vip-123.json" />
               ),
             }}
           />
