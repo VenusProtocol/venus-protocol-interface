@@ -2,6 +2,8 @@ import { VError } from 'libs/errors';
 import type { ChainId } from 'types';
 import { restService } from 'utilities/restService';
 
+export interface ApiPointDistribution {}
+
 export interface ApiRewardDistributor {
   marketAddress: string;
   rewardTokenAddress: string;
@@ -57,6 +59,7 @@ export interface ApiMarket {
   isListed: boolean;
   poolComptrollerAddress: string;
   rewardsDistributors: ApiRewardDistributor[];
+  pointsDistributions: ApiPointDistribution[];
 }
 
 export interface ApiPool {
