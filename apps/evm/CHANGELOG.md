@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.193.2
+
+### Patch Changes
+
+- 8bc70f9: ceil value property of ProgressCircle component
+
 ## 2.193.1
 
 ### Patch Changes
