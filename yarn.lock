@@ -6706,17 +6706,17 @@
     hardhat-deploy-ethers "^0.3.0-beta.13"
     module-alias "^2.2.2"
 
-"@venusprotocol/isolated-pools@3.7.0":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-3.7.0.tgz#4198d1a1ef809231c191257de7f3862983c2a84b"
-  integrity sha512-B0fiRmJJIIMHVL/RPyeZg66EJweQdT5Iy7+npauwhg1VwU/nO+8IETWgX2HVVkCRFSjyTO6I7511rMUHqT4Omw==
+"@venusprotocol/isolated-pools@3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-3.8.0.tgz#0ee722218cce6b0afb8c60c25c61fc6f97724bc4"
+  integrity sha512-NFzgAmOd3UflVtpChsr3mFTIirTU5mnTlzBbxFcPUSFIw41E4/c1SBqG48dvz2D0DbrM1rVyvL0rOORQK+KXwA==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
     "@openzeppelin/contracts-upgradeable" "^4.8.3"
     "@openzeppelin/hardhat-upgrades" "^1.21.0"
     "@solidity-parser/parser" "^0.13.2"
-    "@venusprotocol/solidity-utilities" "^2.0.0"
+    "@venusprotocol/solidity-utilities" "2.0.3"
     ethers "^5.7.0"
     hardhat-deploy "^0.11.14"
     module-alias "^2.2.2"
@@ -6793,12 +6793,7 @@
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.0.tgz#74ab8399a49362d53b0c1ff38d3710cc45d29749"
   integrity sha512-P38I6RseUy/pmvOM99DuLV7mst766jxaR46gEi0fv0F8Ibgisw9ZN8ovjXMg0fKJQDlUQ/AbGXBzmxQWFVRNfQ==
 
-"@venusprotocol/solidity-utilities@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.1.tgz#e3f1d736b572a6858e9345d534fc4ab3eb0f4ad4"
-  integrity sha512-kP6G2RrWPhIi+Dhu4WmI7I9nd+SmEuQ/OVKDykwsex7bViceqBGM+SlRQgaIVoGnwX/6MCdeMzX3wPnnWB5Kyw==
-
-"@venusprotocol/solidity-utilities@^2.0.3":
+"@venusprotocol/solidity-utilities@2.0.3", "@venusprotocol/solidity-utilities@^2.0.0", "@venusprotocol/solidity-utilities@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.3.tgz#d672b744d53999716c07b7dfe2431140add0458e"
   integrity sha512-HlOUQx+DBBQB3CulJjAwYEqriJVX3gjlmWbYl+lqN+yr1sk+U3NWbNnLjixw7pMjW8yM5bZWjt8MD3SqbaPccA==
