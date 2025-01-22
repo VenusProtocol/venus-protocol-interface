@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.194.0
+
+### Minor Changes
+
+- 0a7de36: hide icon when there is no vToken logo
+
 ## 2.193.2
 
 ### Patch Changes
