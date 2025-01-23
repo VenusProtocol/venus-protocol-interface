@@ -5663,17 +5663,10 @@
   dependencies:
     unplugin "^1.3.1"
 
-"@storybook/csf@0.1.12":
+"@storybook/csf@0.1.12", "@storybook/csf@^0.1.11":
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.12.tgz#1dcfa0f398a69b834c563884b5f747db3d5a81df"
   integrity sha512-9/exVhabisyIVL0VxTCxo01Tdm8wefIXKXfltAPTSr8cbLn5JAxGQ6QV3mjdecLGEOucfoVhAKtJfVHxEK1iqw==
-  dependencies:
-    type-fest "^2.19.0"
-
-"@storybook/csf@^0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.11.tgz#ad685a4fe564a47a6b73571c2e7c07b526f4f71b"
-  integrity sha512-dHYFQH3mA+EtnCkHXzicbLgsvzYjcDJ1JWsogbItZogkPHgSJM/Wr71uMkcvw8v9mmCyP4NpXJuu6bPoVsOnzg==
   dependencies:
     type-fest "^2.19.0"
 
@@ -5691,6 +5684,14 @@
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/@storybook/instrumenter/-/instrumenter-8.5.0.tgz#e8c38ab912f2b7119cd92efe3977bc33246fa808"
   integrity sha512-eZ/UY6w4U2vay+wX7QVwKiRoyMzZscuv6v4k4r8BlmHPFWbhiZDO9S2GsG16UkyKnrQrYk432he70n7hn1Xvmg==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+    "@vitest/utils" "^2.1.1"
+
+"@storybook/instrumenter@8.5.1":
+  version "8.5.1"
+  resolved "https://registry.yarnpkg.com/@storybook/instrumenter/-/instrumenter-8.5.1.tgz#cdd9df7f1beaf3c1878f1d86d0228a4969a8b5a8"
+  integrity sha512-wMAhsIzwOh/xXKANAP3IbtXxRWFAZtpRisB0sy8WVTPS3a1L1cA6X+U80Ex/omek6L0FZwKZSKmmfkDeZkYnCQ==
   dependencies:
     "@storybook/global" "^5.0.0"
     "@vitest/utils" "^2.1.1"
@@ -5742,7 +5743,7 @@
     "@storybook/react-dom-shim" "8.5.0"
     "@storybook/theming" "8.5.0"
 
-"@storybook/test@8.5.0", "@storybook/test@^8.4.2":
+"@storybook/test@8.5.0":
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/@storybook/test/-/test-8.5.0.tgz#d7157a87436000142cf6dedee37a74b86ad776f2"
   integrity sha512-M/DdPlI6gwL7NGkK5o7GYjdEBp95AsFEUtW29zQfnVIAngYugzi3nIuM/XkQHunidVdAZCYjw2s2Yhhsx/m9sw==
@@ -5750,6 +5751,20 @@
     "@storybook/csf" "0.1.12"
     "@storybook/global" "^5.0.0"
     "@storybook/instrumenter" "8.5.0"
+    "@testing-library/dom" "10.4.0"
+    "@testing-library/jest-dom" "6.5.0"
+    "@testing-library/user-event" "14.5.2"
+    "@vitest/expect" "2.0.5"
+    "@vitest/spy" "2.0.5"
+
+"@storybook/test@^8.4.2":
+  version "8.5.1"
+  resolved "https://registry.yarnpkg.com/@storybook/test/-/test-8.5.1.tgz#f795df493345347e2d7ad46aa28effedc7f1da8e"
+  integrity sha512-V0sEXqL5kS0YKugCqWgmCpNODdlCCiVlPqm3i+E2+G97DR980BwXf8J6VPscQDRS9ZG39BrM83Aau6Anxrt1Tg==
+  dependencies:
+    "@storybook/csf" "0.1.12"
+    "@storybook/global" "^5.0.0"
+    "@storybook/instrumenter" "8.5.1"
     "@testing-library/dom" "10.4.0"
     "@testing-library/jest-dom" "6.5.0"
     "@testing-library/user-event" "14.5.2"
