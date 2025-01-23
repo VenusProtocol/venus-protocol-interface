@@ -14,7 +14,13 @@ export const Tooltip = ({ children, placement = 'top', ...rest }: TooltipProps) 
   return (
     <>
       <Global styles={styles} />
-      <MuiTooltip arrow placement={placement} enterTouchDelay={0} {...rest}>
+      <MuiTooltip
+        onClick={e => e.preventDefault()}
+        arrow
+        placement={placement}
+        enterTouchDelay={0}
+        {...rest}
+      >
         <span>{children}</span>
       </MuiTooltip>
     </>
