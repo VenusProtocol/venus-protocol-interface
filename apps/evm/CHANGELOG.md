@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.194.1
+
+### Patch Changes
+
+- 1a921ea: add wUSDM token record
+
 ## 2.194.0
 
 ### Minor Changes
