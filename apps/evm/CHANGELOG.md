@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.194.2
+
+### Patch Changes
+
+- a788f5a: handle Framer Motion rename to Motion + fix Storybook package versions
+
 ## 2.194.1
 
 ### Patch Changes
