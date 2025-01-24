@@ -9,8 +9,8 @@ interface AggregatePercentagesInput {
 const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
   distributions.reduce<{
     apyRewardsPercentage: BigNumber;
-    apyPrimePercentage?: BigNumber;
-    apyPrimeSimulationPercentage?: BigNumber;
+    apyPrimePercentage: BigNumber;
+    apyPrimeSimulationPercentage: BigNumber;
   }>(
     (acc, distribution) => {
       if (distribution.type === 'venus' || distribution.type === 'merkl') {
@@ -23,16 +23,14 @@ const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
       if (distribution.type === 'prime') {
         return {
           ...acc,
-          apyPrimePercentage: (acc.apyPrimePercentage || new BigNumber(0)).plus(
-            distribution.apyPercentage,
-          ),
+          apyPrimePercentage: acc.apyPrimePercentage.plus(distribution.apyPercentage),
         };
       }
 
       if (distribution.type === 'primeSimulation') {
         return {
           ...acc,
-          apyPrimeSimulationPercentage: (acc.apyPrimeSimulationPercentage || new BigNumber(0)).plus(
+          apyPrimeSimulationPercentage: acc.apyPrimeSimulationPercentage.plus(
             distribution.apyPercentage,
           ),
         };
@@ -42,6 +40,8 @@ const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
     },
     {
       apyRewardsPercentage: new BigNumber(0),
+      apyPrimePercentage: new BigNumber(0),
+      apyPrimeSimulationPercentage: new BigNumber(0),
     },
   );
 
@@ -53,6 +53,9 @@ const getCombinedDistributionApys = ({ asset }: GetCombinedDistributionApysInput
   const supply = aggregatePercentages({ distributions: asset.supplyDistributions });
   const borrow = aggregatePercentages({ distributions: asset.borrowDistributions });
 
+  const totalSupplyApyBoostPercentage = supply.apyRewardsPercentage.plus(supply.apyPrimePercentage);
+  const totalBorrowApyBoostPercentage = borrow.apyRewardsPercentage.plus(borrow.apyPrimePercentage);
+
   return {
     supplyApyRewardsPercentage: supply.apyRewardsPercentage,
     borrowApyRewardsPercentage: borrow.apyRewardsPercentage,
@@ -60,8 +63,10 @@ const getCombinedDistributionApys = ({ asset }: GetCombinedDistributionApysInput
     borrowApyPrimePercentage: borrow.apyPrimePercentage,
     supplyApyPrimeSimulationPercentage: supply.apyPrimeSimulationPercentage,
     borrowApyPrimeSimulationPercentage: borrow.apyPrimeSimulationPercentage,
-    totalSupplyApyPercentage: supply.apyRewardsPercentage.plus(supply.apyPrimePercentage || 0),
-    totalBorrowApyPercentage: borrow.apyRewardsPercentage.plus(borrow.apyPrimePercentage || 0),
+    totalSupplyApyBoostPercentage,
+    totalBorrowApyBoostPercentage,
+    totalSupplyApyPercentage: asset.supplyApyPercentage.plus(totalSupplyApyBoostPercentage),
+    totalBorrowApyPercentage: asset.borrowApyPercentage.minus(totalBorrowApyBoostPercentage),
   };
 };
 

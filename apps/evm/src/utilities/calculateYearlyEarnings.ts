@@ -22,22 +22,14 @@ export const calculateYearlyEarningsForAsset = ({ asset }: { asset: Asset }) => 
   // Combine supply and borrow APYs with distribution APYs
   const combinedDistributionApys = getCombinedDistributionApys({ asset });
 
-  const totalSupplyApyPercentage = asset.supplyApyPercentage.plus(
-    combinedDistributionApys.totalSupplyApyPercentage,
-  );
-
-  const totalBorrowApyPercentage = asset.borrowApyPercentage.minus(
-    combinedDistributionApys.totalBorrowApyPercentage,
-  );
-
   // Calculate yearly earnings
   const supplyYearlyEarningsCents = calculateYearlyInterests({
     balance: asset.userSupplyBalanceCents,
-    interestPercentage: totalSupplyApyPercentage,
+    interestPercentage: combinedDistributionApys.totalSupplyApyPercentage,
   });
   const borrowYearlyInterestsCents = calculateYearlyInterests({
     balance: asset.userBorrowBalanceCents,
-    interestPercentage: totalBorrowApyPercentage,
+    interestPercentage: combinedDistributionApys.totalBorrowApyPercentage,
   });
 
   return supplyYearlyEarningsCents.minus(borrowYearlyInterestsCents).dp(0);

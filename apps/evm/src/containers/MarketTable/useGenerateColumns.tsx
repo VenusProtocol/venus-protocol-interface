@@ -33,8 +33,8 @@ import type { ColumnKey, PoolAsset } from './types';
 
 // Translation keys: do not remove this comment
 // t('marketTable.columnKeys.asset')
-// t('marketTable.columnKeys.supplyApyLtv')
-// t('marketTable.columnKeys.labeledSupplyApyLtv')
+// t('marketTable.columnKeys.supplyApy')
+// t('marketTable.columnKeys.labeledSupplyApy')
 // t('marketTable.columnKeys.borrowApy')
 // t('marketTable.columnKeys.labeledBorrowApy')
 // t('marketTable.columnKeys.pool')
@@ -49,8 +49,8 @@ import type { ColumnKey, PoolAsset } from './types';
 // t('marketTable.columnKeys.price')
 
 // t('marketTable.columnSelectOptionLabel.asset')
-// t('marketTable.columnSelectOptionLabel.supplyApyLtv')
-// t('marketTable.columnSelectOptionLabel.labeledSupplyApyLtv')
+// t('marketTable.columnSelectOptionLabel.supplyApy')
+// t('marketTable.columnSelectOptionLabel.labeledSupplyApy')
 // t('marketTable.columnSelectOptionLabel.borrowApy')
 // t('marketTable.columnSelectOptionLabel.labeledBorrowApy')
 // t('marketTable.columnSelectOptionLabel.pool')
@@ -96,7 +96,7 @@ const useGenerateColumns = ({
               }}
             />
           );
-        } else if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
+        } else if (column === 'supplyApy' || column === 'labeledSupplyApy') {
           columnLabel = (
             <Trans
               i18nKey={`marketTable.columnKeys.${column}`}
@@ -141,9 +141,9 @@ const useGenerateColumns = ({
             }
 
             if (
-              column === 'supplyApyLtv' ||
+              column === 'supplyApy' ||
               column === 'borrowApy' ||
-              column === 'labeledSupplyApyLtv' ||
+              column === 'labeledSupplyApy' ||
               column === 'labeledBorrowApy'
             ) {
               return (
@@ -311,21 +311,21 @@ const useGenerateColumns = ({
               : (rowA, rowB, direction) => {
                   if (column === 'borrowApy' || column === 'labeledBorrowApy') {
                     const roaABorrowApy = rowA.borrowApyPercentage.minus(
-                      getCombinedDistributionApys({ asset: rowA }).totalBorrowApyPercentage,
+                      getCombinedDistributionApys({ asset: rowA }).totalBorrowApyBoostPercentage,
                     );
                     const roaBBorrowApy = rowB.borrowApyPercentage.minus(
-                      getCombinedDistributionApys({ asset: rowB }).totalBorrowApyPercentage,
+                      getCombinedDistributionApys({ asset: rowB }).totalBorrowApyBoostPercentage,
                     );
 
                     return compareBigNumbers(roaABorrowApy, roaBBorrowApy, direction);
                   }
 
-                  if (column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv') {
+                  if (column === 'supplyApy' || column === 'labeledSupplyApy') {
                     const roaASupplyApy = rowA.supplyApyPercentage.plus(
-                      getCombinedDistributionApys({ asset: rowA }).totalSupplyApyPercentage,
+                      getCombinedDistributionApys({ asset: rowA }).totalSupplyApyBoostPercentage,
                     );
                     const roaBSupplyApy = rowB.supplyApyPercentage.plus(
-                      getCombinedDistributionApys({ asset: rowB }).totalSupplyApyPercentage,
+                      getCombinedDistributionApys({ asset: rowB }).totalSupplyApyBoostPercentage,
                     );
 
                     return compareBigNumbers(roaASupplyApy, roaBSupplyApy, direction);

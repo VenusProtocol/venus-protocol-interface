@@ -24,7 +24,6 @@ export { default as getSmartDecimalPlaces } from './getSmartDecimalPlaces';
 export { default as callOrThrow } from './callOrThrow';
 export { default as convertPriceMantissaToDollars } from './convertPriceMantissaToDollars';
 export { default as convertFactorFromSmartContract } from './convertFactorFromSmartContract';
-export { default as formatRewardDistribution } from './formatRewardDistribution';
 export { default as findTokenByAddress } from './findTokenByAddress';
 export * from './cn';
 export * from './createStoreSelectors';

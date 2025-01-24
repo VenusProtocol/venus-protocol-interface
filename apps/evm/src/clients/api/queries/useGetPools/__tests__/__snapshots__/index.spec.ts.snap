@@ -14,7 +14,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -45,7 +45,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -85,7 +85,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "1.5797413696681861",
               "dailyDistributedTokens": "250.0000128",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -113,7 +113,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "1.5819817239252298",
               "dailyDistributedTokens": "250.0000128",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -154,7 +154,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0.6478221277312901",
               "dailyDistributedTokens": "1499.9999904",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -182,7 +182,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0.7921351276470645",
               "dailyDistributedTokens": "1499.9999904",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -223,7 +223,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -251,7 +251,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -291,7 +291,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "16.981964056809385",
               "dailyDistributedTokens": "499.9999968",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -319,7 +319,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -359,7 +359,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0.000007467880158706",
               "dailyDistributedTokens": "499.9999968",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -387,7 +387,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -436,8 +436,9 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowDistributions": [
             {
               "apyPercentage": "0",
+              "claimUrl": undefined,
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -464,8 +465,9 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "supplyDistributions": [
             {
               "apyPercentage": "0",
+              "claimUrl": undefined,
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -567,7 +569,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -595,7 +597,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -635,7 +637,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -663,7 +665,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -807,7 +809,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -835,7 +837,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -944,7 +946,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -975,7 +977,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1015,7 +1017,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "4.814274201887225",
               "dailyDistributedTokens": "750.0000384",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1043,7 +1045,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "4.8212088357220795",
               "dailyDistributedTokens": "750.0000384",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1084,7 +1086,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "1.9560488349289473",
               "dailyDistributedTokens": "4499.9999712",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1112,7 +1114,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "2.3952270378375884",
               "dailyDistributedTokens": "4499.9999712",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1153,7 +1155,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1181,7 +1183,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1221,7 +1223,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "60.0548989604708",
               "dailyDistributedTokens": "1499.9999904",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1249,7 +1251,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "1499.9999904",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1289,7 +1291,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0.00002240364211925",
               "dailyDistributedTokens": "1499.9999904",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1317,7 +1319,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "1499.9999904",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1366,8 +1368,9 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowDistributions": [
             {
               "apyPercentage": "0",
+              "claimUrl": undefined,
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -1394,8 +1397,9 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "supplyDistributions": [
             {
               "apyPercentage": "0",
+              "claimUrl": undefined,
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -1497,7 +1501,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -1525,7 +1529,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -1565,7 +1569,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -1593,7 +1597,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -1737,7 +1741,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -1765,7 +1769,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -1874,7 +1878,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1905,7 +1909,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1945,7 +1949,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "1.5797413696681861",
               "dailyDistributedTokens": "250.0000128",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1973,7 +1977,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "1.5819817239252298",
               "dailyDistributedTokens": "250.0000128",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2014,7 +2018,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0.6478221277312901",
               "dailyDistributedTokens": "1499.9999904",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2042,7 +2046,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0.7921351276470645",
               "dailyDistributedTokens": "1499.9999904",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2083,7 +2087,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2111,7 +2115,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2151,7 +2155,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "16.981964056809385",
               "dailyDistributedTokens": "499.9999968",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2179,7 +2183,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2219,7 +2223,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0.000007467880158706",
               "dailyDistributedTokens": "499.9999968",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2247,7 +2251,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2296,8 +2300,9 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowDistributions": [
             {
               "apyPercentage": "0",
+              "claimUrl": undefined,
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -2324,8 +2329,9 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "supplyDistributions": [
             {
               "apyPercentage": "0",
+              "claimUrl": undefined,
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
                 "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
@@ -2427,7 +2433,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -2455,7 +2461,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -2495,7 +2501,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -2523,7 +2529,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -2667,7 +2673,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -2695,7 +2701,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "0",
-              "rewardDescription": undefined,
+              "description": undefined,
               "token": {
                 "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
                 "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",

@@ -53,33 +53,33 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
     toTokenAmountTokens,
   });
 
-  const { totalBorrowApyPercentage, totalSupplyApyPercentage } = useMemo(() => {
+  const { totalBorrowApyBoostPercentage, totalSupplyApyBoostPercentage } = useMemo(() => {
     const combinedDistributionApys = getCombinedDistributionApys({
       asset,
     });
 
     let tempTotalDistributionBorrowApyPercentage =
-      combinedDistributionApys.totalBorrowApyPercentage;
+      combinedDistributionApys.totalBorrowApyBoostPercentage;
 
     if (hypotheticalUserPrimeApys.borrowApy) {
       tempTotalDistributionBorrowApyPercentage = tempTotalDistributionBorrowApyPercentage
-        .minus(combinedDistributionApys.borrowApyPrimePercentage || 0)
+        .minus(combinedDistributionApys.borrowApyPrimePercentage)
         .plus(hypotheticalUserPrimeApys.borrowApy);
     }
 
     let tempTotalDistributionSupplyApyPercentage =
-      combinedDistributionApys.totalSupplyApyPercentage;
+      combinedDistributionApys.totalSupplyApyBoostPercentage;
     if (hypotheticalUserPrimeApys.supplyApy) {
       tempTotalDistributionSupplyApyPercentage = tempTotalDistributionSupplyApyPercentage
-        .minus(combinedDistributionApys.supplyApyPrimePercentage || 0)
+        .minus(combinedDistributionApys.supplyApyPrimePercentage)
         .plus(hypotheticalUserPrimeApys.supplyApy);
     }
 
     return {
-      totalBorrowApyPercentage: asset.borrowApyPercentage.minus(
+      totalBorrowApyBoostPercentage: asset.borrowApyPercentage.minus(
         tempTotalDistributionBorrowApyPercentage,
       ),
-      totalSupplyApyPercentage: asset.supplyApyPercentage.plus(
+      totalSupplyApyBoostPercentage: asset.supplyApyPercentage.plus(
         tempTotalDistributionSupplyApyPercentage,
       ),
     };
@@ -117,7 +117,7 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
         }
         if (distribution.type === 'merkl') {
           label = t('assetInfo.externalDistributionApy', {
-            description: distribution.rewardDescription,
+            description: distribution.description,
             tokenSymbol: distribution.token.symbol,
           });
         }
@@ -166,8 +166,8 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
         >
           {formatPercentageToReadableValue(
             action === 'borrow' || action === 'repay'
-              ? totalBorrowApyPercentage
-              : totalSupplyApyPercentage,
+              ? totalBorrowApyBoostPercentage
+              : totalSupplyApyBoostPercentage,
           )}
         </LabeledInlineContent>
       </div>
@@ -194,8 +194,8 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
       }
       rightLabel={formatPercentageToReadableValue(
         action === 'borrow' || action === 'repay'
-          ? totalBorrowApyPercentage
-          : totalSupplyApyPercentage,
+          ? totalBorrowApyBoostPercentage
+          : totalSupplyApyBoostPercentage,
       )}
     >
       <div className="space-y-2">

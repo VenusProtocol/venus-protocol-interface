@@ -3,7 +3,7 @@ import type BigNumber from 'bignumber.js';
 import type { AssetDistribution, Token } from 'types';
 import { calculateDailyTokenRate } from 'utilities/calculateDailyTokenRate';
 import findTokenByAddress from 'utilities/findTokenByAddress';
-import formatRewardDistribution from 'utilities/formatRewardDistribution';
+import formatRewardDistribution from './formatRewardDistribution';
 
 import type { ApiRewardDistributor } from 'clients/api/queries/useGetPools/getPools/getApiPools';
 import { convertPriceMantissaToDollars } from 'utilities';
@@ -86,7 +86,8 @@ export const formatDistributions = ({
             rewardTokenPriceDollars,
             dailyDistributedRewardTokens,
             balanceDollars: supplyBalanceDollars,
-            rewardDescription: rewardDetails?.description,
+            description: rewardDetails?.description,
+            claimUrl: rewardDetails?.claimUrl,
           }),
         );
       }
@@ -112,7 +113,8 @@ export const formatDistributions = ({
             rewardTokenPriceDollars,
             dailyDistributedRewardTokens,
             balanceDollars: borrowBalanceDollars,
-            rewardDescription: rewardDetails?.description,
+            description: rewardDetails?.description,
+            claimUrl: rewardDetails?.claimUrl,
           }),
         );
       }

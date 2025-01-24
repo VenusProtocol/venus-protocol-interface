@@ -15,6 +15,7 @@ export interface ApiRewardDistributor {
   rewardType: 'venus' | 'merkl';
   rewardDetails?: {
     description?: string;
+    claimUrl?: string;
   };
 }
 
