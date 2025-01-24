@@ -3,6 +3,7 @@ import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
 import usdcNativeLogo from 'libs/tokens/img/underlyingTokens/usdcNative.svg';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
+import wUsdmLogo from 'libs/tokens/img/underlyingTokens/wUsdm.png';
 import wbtcLogo from 'libs/tokens/img/underlyingTokens/wbtc.svg';
 import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
 import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
@@ -61,5 +62,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'ZK',
     asset: zkLogo,
+  },
+  {
+    address: '0xA900cbE7739c96D2B153a273953620A701d5442b',
+    decimals: 18,
+    symbol: 'wUSDM',
+    asset: wUsdmLogo,
   },
 ];

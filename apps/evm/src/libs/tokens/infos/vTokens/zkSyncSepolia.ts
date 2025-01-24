@@ -2,6 +2,7 @@ import vUsdcCoreLogo from 'libs/tokens/img/vTokens/vUsdcCore.svg';
 import vUsdcECoreLogo from 'libs/tokens/img/vTokens/vUsdcECore.svg';
 import vUsdtCoreLogo from 'libs/tokens/img/vTokens/vUsdtCore.svg';
 import vWBnbCoreLogo from 'libs/tokens/img/vTokens/vWBtcCore.svg';
+import vWUsdmLogo from 'libs/tokens/img/vTokens/vWUsdm.svg';
 import vWEthCoreLogo from 'libs/tokens/img/vTokens/vWethCore.svg';
 import vZkCoreLogo from 'libs/tokens/img/vTokens/vZkCore.svg';
 
@@ -18,4 +19,5 @@ export const vTokenAssets: VTokenAssets = {
     vUsdcECoreLogo,
   [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vUSDT_Core.toLowerCase()]: vUsdtCoreLogo,
   [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vZK_Core.toLowerCase()]: vZkCoreLogo,
+  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vwUSDM_Core.toLowerCase()]: vWUsdmLogo,
 };
