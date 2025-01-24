@@ -1,4 +1,4 @@
-import { AnimatePresence, type HTMLMotionProps, motion } from 'framer-motion';
+import { AnimatePresence, type HTMLMotionProps, motion } from 'motion/react';
 import { cn } from 'utilities';
 
 export interface AccordionAnimatedContentProps extends HTMLMotionProps<'div'> {
@@ -9,6 +9,7 @@ export const AccordionAnimatedContent: React.FC<AccordionAnimatedContentProps> =
   children,
   className,
   isOpen,
+  ref: _ref, // TODO: remove once we upgrade to React 19. Motion is currently complaining that the ref prop is incompatible
   ...otherProps
 }) => (
   <AnimatePresence initial={isOpen}>
