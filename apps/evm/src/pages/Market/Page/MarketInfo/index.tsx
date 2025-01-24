@@ -109,21 +109,6 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
       : [];
 
     return [
-      {
-        label: t('market.marketInfo.stats.priceLabel'),
-        value: asset.tokenPriceCents
-          ? formatCentsToReadableValue({
-              value: asset.tokenPriceCents,
-              isTokenPrice: true,
-            })
-          : PLACEHOLDER_KEY,
-      },
-      {
-        label: t('market.marketInfo.stats.marketLiquidityLabel'),
-        value: formatCentsToReadableValue({
-          value: asset.liquidityCents,
-        }),
-      },
       ...participantCountRows,
       {
         label: t('market.marketInfo.stats.dailySupplyingInterestsLabel'),
@@ -139,31 +124,8 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
       },
       ...distributionRows,
       {
-        label: t('market.marketInfo.stats.reserveTokensLabel'),
-        value: formatTokensToReadableValue({
-          value: asset.reserveTokens,
-          token: asset.vToken.underlyingToken,
-        }),
-      },
-      {
         label: t('market.marketInfo.stats.reserveFactorLabel'),
         value: formatPercentageToReadableValue(asset.reserveFactor && asset.reserveFactor * 100),
-      },
-      {
-        label: t('market.marketInfo.stats.collateralFactorLabel'),
-        value: formatPercentageToReadableValue(
-          asset.collateralFactor && asset.collateralFactor * 100,
-        ),
-      },
-      {
-        label: t('market.marketInfo.stats.mintedTokensLabel', {
-          vTokenSymbol: asset.vToken.symbol,
-        }),
-        value: formatTokensToReadableValue({
-          value: asset.supplyBalanceTokens.multipliedBy(asset.exchangeRateVTokens),
-          addSymbol: false,
-          token: asset.vToken,
-        }),
       },
       {
         label: t('market.marketInfo.stats.exchangeRateLabel'),
