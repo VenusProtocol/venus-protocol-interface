@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.194.3
+
+### Patch Changes
+
+- beaab17: update Market Details page
+
 ## 2.194.2
 
 ### Patch Changes
