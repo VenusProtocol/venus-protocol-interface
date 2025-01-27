@@ -4056,7 +4056,7 @@
     lodash "^4.17.16"
     uuid "^7.0.3"
 
-"@motionone/animation@^10.12.0":
+"@motionone/animation@^10.12.0", "@motionone/animation@^10.15.1":
   version "10.18.0"
   resolved "https://registry.yarnpkg.com/@motionone/animation/-/animation-10.18.0.tgz#868d00b447191816d5d5cf24b1cafa144017922b"
   integrity sha512-9z2p5GFGCm0gBsZbi8rVMOAJCtw1WqBTIPw3ozk06gDvZInBPIsQcHgYogEJ4yuHJ+akuW8g1SEIOpTOvYs8hw==
@@ -4064,16 +4064,6 @@
     "@motionone/easing" "^10.18.0"
     "@motionone/types" "^10.17.1"
     "@motionone/utils" "^10.18.0"
-    tslib "^2.3.1"
-
-"@motionone/animation@^10.15.1":
-  version "10.15.1"
-  resolved "https://registry.yarnpkg.com/@motionone/animation/-/animation-10.15.1.tgz#4a85596c31cbc5100ae8eb8b34c459fb0ccf6807"
-  integrity sha512-mZcJxLjHor+bhcPuIFErMDNyrdb2vJur8lSfMCsuCB4UyV8ILZLvK+t+pg56erv8ud9xQGK/1OGPt10agPrCyQ==
-  dependencies:
-    "@motionone/easing" "^10.15.1"
-    "@motionone/types" "^10.15.1"
-    "@motionone/utils" "^10.15.1"
     tslib "^2.3.1"
 
 "@motionone/dom@10.12.0":
@@ -4098,14 +4088,6 @@
     "@motionone/types" "^10.15.1"
     "@motionone/utils" "^10.15.1"
     hey-listen "^1.0.8"
-    tslib "^2.3.1"
-
-"@motionone/easing@^10.15.1":
-  version "10.15.1"
-  resolved "https://registry.yarnpkg.com/@motionone/easing/-/easing-10.15.1.tgz#95cf3adaef34da6deebb83940d8143ede3deb693"
-  integrity sha512-6hIHBSV+ZVehf9dcKZLT7p5PEKHGhDwky2k8RKkmOvUoYP3S+dXsKupyZpqx5apjd9f+php4vXk4LuS+ADsrWw==
-  dependencies:
-    "@motionone/utils" "^10.15.1"
     tslib "^2.3.1"
 
 "@motionone/easing@^10.18.0":
@@ -4142,31 +4124,17 @@
     "@motionone/dom" "^10.16.2"
     tslib "^2.3.1"
 
-"@motionone/types@^10.12.0", "@motionone/types@^10.17.1":
+"@motionone/types@^10.12.0", "@motionone/types@^10.15.1", "@motionone/types@^10.17.1":
   version "10.17.1"
   resolved "https://registry.yarnpkg.com/@motionone/types/-/types-10.17.1.tgz#cf487badbbdc9da0c2cb86ffc1e5d11147c6e6fb"
   integrity sha512-KaC4kgiODDz8hswCrS0btrVrzyU2CSQKO7Ps90ibBVSQmjkrt2teqta6/sOG59v7+dPnKMAg13jyqtMKV2yJ7A==
 
-"@motionone/types@^10.15.1":
-  version "10.15.1"
-  resolved "https://registry.yarnpkg.com/@motionone/types/-/types-10.15.1.tgz#89441b54285012795cbba8612cbaa0fa420db3eb"
-  integrity sha512-iIUd/EgUsRZGrvW0jqdst8st7zKTzS9EsKkP+6c6n4MPZoQHwiHuVtTQLD6Kp0bsBLhNzKIBlHXponn/SDT4hA==
-
-"@motionone/utils@^10.12.0", "@motionone/utils@^10.18.0":
+"@motionone/utils@^10.12.0", "@motionone/utils@^10.15.1", "@motionone/utils@^10.18.0":
   version "10.18.0"
   resolved "https://registry.yarnpkg.com/@motionone/utils/-/utils-10.18.0.tgz#a59ff8932ed9009624bca07c56b28ef2bb2f885e"
   integrity sha512-3XVF7sgyTSI2KWvTf6uLlBJ5iAgRgmvp3bpuOiQJvInd4nZ19ET8lX5unn30SlmRH7hXbBbH+Gxd0m0klJ3Xtw==
   dependencies:
     "@motionone/types" "^10.17.1"
-    hey-listen "^1.0.8"
-    tslib "^2.3.1"
-
-"@motionone/utils@^10.15.1":
-  version "10.15.1"
-  resolved "https://registry.yarnpkg.com/@motionone/utils/-/utils-10.15.1.tgz#6b5f51bde75be88b5411e084310299050368a438"
-  integrity sha512-p0YncgU+iklvYr/Dq4NobTRdAPv9PveRDUXabPEeOjBLSO/1FNB2phNTZxOxpi1/GZwYpAoECEa0Wam+nsmhSw==
-  dependencies:
-    "@motionone/types" "^10.15.1"
     hey-listen "^1.0.8"
     tslib "^2.3.1"
 
@@ -10701,10 +10669,10 @@ fraction.js@^4.3.7:
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.3.7.tgz#06ca0085157e42fda7f9e726e79fefc4068840f7"
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
 
-framer-motion@^12.0.3:
-  version "12.0.3"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.0.3.tgz#9710ea9df94163d46a3251c68ae16369f606436b"
-  integrity sha512-5yy1sAqOjBUo+8O+kOa6/rIJ1AQLME8vEpUwwMf9Gv6YktaeeTd4bf0sb89AWwDVX7GwwuLebH94bakGOqWQ/g==
+framer-motion@^12.0.6:
+  version "12.0.6"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.0.6.tgz#4ec8b9225ead4d0d7d4ff00ade6e76a83e6d0c99"
+  integrity sha512-LmrXbXF6Vv5WCNmb+O/zn891VPZrH7XbsZgRLBROw6kFiP+iTK49gxTv2Ur3F0Tbw6+sy9BVtSqnWfMUpH+6nA==
   dependencies:
     motion-dom "^12.0.0"
     motion-utils "^12.0.0"
@@ -13950,11 +13918,11 @@ motion@10.16.2:
     "@motionone/vue" "^10.16.2"
 
 motion@^12.0.3:
-  version "12.0.3"
-  resolved "https://registry.yarnpkg.com/motion/-/motion-12.0.3.tgz#af563d17375c9c03be219050019517b20263b11f"
-  integrity sha512-YGSC4jLQMmfIKafDHeK3E50hKF2YjGlrVuM94dwvT9IlSaIaoGe+K21G16TM9weIxjIEYc5l5mzYhuXXi1UN1A==
+  version "12.0.6"
+  resolved "https://registry.yarnpkg.com/motion/-/motion-12.0.6.tgz#65dfd621350c8ec46e15692d7e32c01b632ca9ff"
+  integrity sha512-AzCEO0+//mPlcGiL9JaVwjddHY1cbbnvz5upHL0toqQwsPCs+hiKJ0XG5jfG0XwDtBbiSXdEqW/UTmGLwkVQ6A==
   dependencies:
-    framer-motion "^12.0.3"
+    framer-motion "^12.0.6"
     tslib "^2.4.0"
 
 mri@^1.2.0:
