@@ -93,7 +93,6 @@ const Dashboard: React.FC = () => {
               value={shouldDisplayPausedAssets}
               label={t('dashboard.pausedAssetsToggle.label')}
               className="lg:ml-auto"
-              isLight
             />
           )}
 
