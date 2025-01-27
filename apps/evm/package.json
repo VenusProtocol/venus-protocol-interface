@@ -105,7 +105,7 @@
     "@storybook/blocks": "8.4.2",
     "@storybook/react": "8.4.2",
     "@storybook/react-vite": "8.4.2",
-    "@storybook/test": "8.4.2",
+    "@storybook/test": "8.5.2",
     "@stylelint/postcss-css-in-js": "0.38.0",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^6.1.2",
