@@ -120,8 +120,8 @@
   "assetInfo": {
     "borrowApy": "Borrow APY",
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
-    "externalDistributionApy": "{{description}} APY ({{tokenSymbol}})",
     "distributionTooltip": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
+    "externalDistributionApy": "{{description}} APY ({{tokenSymbol}})",
     "primeApy": "Prime APY ({{tokenSymbol}})",
     "supplyApy": "Supply APY",
     "totalApy": {
@@ -350,6 +350,10 @@
     "header": {
       "isolated": "Isolated",
       "liquidity": "Liquidity",
+      "maxLtv": {
+        "label": "Max LTV",
+        "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{collateralFactor}} {{tokenSymbol}} worth of currency."
+      },
       "price": "Price",
       "supply": "Supply",
       "utilizationRate": "Utilization rate"
@@ -398,17 +402,12 @@
     "marketInfo": {
       "stats": {
         "borrowerCountLabel": "# of borrowers",
-        "collateralFactorLabel": "Collateral factor",
         "dailyBorrowingInterestsLabel": "Daily borrowing interests",
         "dailyDistribution": "Daily {{tokenSymbol}} distributed",
         "dailySupplyingInterestsLabel": "Daily supplying interests",
         "exchangeRateLabel": "Exchange rate",
         "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
-        "marketLiquidityLabel": "Market liquidity",
-        "mintedTokensLabel": "{{vTokenSymbol}} minted",
-        "priceLabel": "Price",
         "reserveFactorLabel": "Reserve factor",
-        "reserveTokensLabel": "Reserves",
         "supplierCountLabel": "# of suppliers"
       }
     },

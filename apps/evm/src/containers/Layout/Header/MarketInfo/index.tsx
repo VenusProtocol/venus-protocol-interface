@@ -7,7 +7,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { matchPath, useLocation, useParams } from 'react-router';
-import { formatCentsToReadableValue } from 'utilities';
+import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import { useIsOnLidoMarketPage } from '../useIsOnLidoMarketPage';
 import { AddTokenToWalletDropdown } from './AddTokenToWalletDropdown';
 import { GoToTokenContractDropdown } from './GoToTokenContractDropdown';
@@ -60,6 +60,10 @@ export const MarketInfo = () => {
   const handleGoBack = () => window.history.back();
 
   const cells: Cell[] = useMemo(() => {
+    const readableMaxLtvPercentage = asset
+      ? formatPercentageToReadableValue(asset ? asset.collateralFactor * 100 : undefined)
+      : undefined;
+
     return [
       {
         label: t('layout.header.supply'),
@@ -71,6 +75,15 @@ export const MarketInfo = () => {
         label: t('layout.header.liquidity'),
         value: formatCentsToReadableValue({
           value: asset?.liquidityCents,
+        }),
+      },
+      {
+        label: t('layout.header.maxLtv.label'),
+        value: readableMaxLtvPercentage,
+        tooltip: t('layout.header.maxLtv.tooltip', {
+          maxLtv: readableMaxLtvPercentage,
+          collateralFactor: asset?.collateralFactor,
+          tokenSymbol: asset?.vToken.underlyingToken.symbol,
         }),
       },
       {

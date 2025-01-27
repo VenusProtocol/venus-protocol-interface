@@ -6,4 +6,4 @@ exports[`IsolatedPoolMarket > fetches market details and displays them correctly
 
 exports[`IsolatedPoolMarket > fetches market details and displays them correctly 3`] = `"Borrow info< 0.01%Total borrowed$2.36M / > $100T1.85M / > 100T XVSAverage APY-Current APY-2.3%Distribution APY4.17%Liquidation Threshold50%Liquidation Penalty-"`;
 
-exports[`IsolatedPoolMarket > fetches market details and displays them correctly 4`] = `"Market infoPrice$1.278673Market liquidity$80.36MDaily supplying interests$3.98Daily borrowing interests-$44.81Daily XVS distributed19.99MReserves1K XVSReserve factor25%Collateral factor50%vXVS minted> 100TExchange rate1 XVS=49.589181 vXVS"`;
+exports[`IsolatedPoolMarket > fetches market details and displays them correctly 4`] = `"Market infoDaily supplying interests$3.98Daily borrowing interests-$44.81Daily XVS distributed19.99MReserve factor25%Exchange rate1 XVS=49.589181 vXVS"`;
