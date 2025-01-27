@@ -5620,6 +5620,15 @@
     "@storybook/icons" "^1.2.12"
     ts-dedent "^2.0.0"
 
+"@storybook/blocks@8.5.2":
+  version "8.5.2"
+  resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.5.2.tgz#44819311a32f898814f7f3e295b0e820d00f3ea1"
+  integrity sha512-C6Bz/YTG5ZuyAzglqgqozYUWaS39j1PnkVuMNots6S3Fp8ZJ6iZOlQ+rpumiuvnbfD5rkEZG+614RWNyNlFy7g==
+  dependencies:
+    "@storybook/csf" "0.1.12"
+    "@storybook/icons" "^1.2.12"
+    ts-dedent "^2.0.0"
+
 "@storybook/builder-vite@8.4.2":
   version "8.4.2"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-8.4.2.tgz#50b0830d0981198508bc5b80411ea834c91c11f6"
@@ -5658,10 +5667,10 @@
   dependencies:
     unplugin "^1.3.1"
 
-"@storybook/csf@^0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.11.tgz#ad685a4fe564a47a6b73571c2e7c07b526f4f71b"
-  integrity sha512-dHYFQH3mA+EtnCkHXzicbLgsvzYjcDJ1JWsogbItZogkPHgSJM/Wr71uMkcvw8v9mmCyP4NpXJuu6bPoVsOnzg==
+"@storybook/csf@0.1.12", "@storybook/csf@^0.1.11":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.12.tgz#1dcfa0f398a69b834c563884b5f747db3d5a81df"
+  integrity sha512-9/exVhabisyIVL0VxTCxo01Tdm8wefIXKXfltAPTSr8cbLn5JAxGQ6QV3mjdecLGEOucfoVhAKtJfVHxEK1iqw==
   dependencies:
     type-fest "^2.19.0"
 
