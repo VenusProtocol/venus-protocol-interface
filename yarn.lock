@@ -5166,10 +5166,10 @@
     "@sentry-internal/browser-utils" "8.51.0"
     "@sentry/core" "8.51.0"
 
-"@sentry/babel-plugin-component-annotate@2.23.0":
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/@sentry/babel-plugin-component-annotate/-/babel-plugin-component-annotate-2.23.0.tgz#f7312e733d9e3b23ccc55d05d811de709e11e9b1"
-  integrity sha512-+uLqaCKeYmH/W2YUV1XHkFEtpHdx/aFjCQahPVsvXyqg13dfkR6jaygPL4DB5DJtUSmPFCUE3MEk9ZO5JlhJYg==
+"@sentry/babel-plugin-component-annotate@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@sentry/babel-plugin-component-annotate/-/babel-plugin-component-annotate-3.1.0.tgz#92c71ec74ee0950cfe67b9de426dab1e7735e709"
+  integrity sha512-G6DHlFVNPzUW8ox2YUADwJsXDgT0EF8HA68MpIcoO87eYC8aJLbDU4tHGs/ZLk7gvhNBFEJzaKjNKeLUQ9f36A==
 
 "@sentry/browser@8.51.0":
   version "8.51.0"
@@ -5182,13 +5182,13 @@
     "@sentry-internal/replay-canvas" "8.51.0"
     "@sentry/core" "8.51.0"
 
-"@sentry/bundler-plugin-core@2.23.0":
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/@sentry/bundler-plugin-core/-/bundler-plugin-core-2.23.0.tgz#5b3e919766917cda01bd640a2671e7ff2f8a613d"
-  integrity sha512-Qbw+jZFK63w+V193l0eCFKLzGba2Iu93Fx8kCRzZ3uqjky002H8U3pu4mKgcc11J+u8QTjfNZGUyXsxz0jv2mg==
+"@sentry/bundler-plugin-core@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@sentry/bundler-plugin-core/-/bundler-plugin-core-3.1.0.tgz#4a5e1801b40025b005e61f0f184ab7145274a4fb"
+  integrity sha512-4BmgU95tVjsiOvbHwVrtTV2P8M78N9zsWjSBHoRcjmTCp8HY+Q3Ok+/SJb+KaPuRpHe1A6zknl3qdjSUv0BXhA==
   dependencies:
     "@babel/core" "^7.18.5"
-    "@sentry/babel-plugin-component-annotate" "2.23.0"
+    "@sentry/babel-plugin-component-annotate" "3.1.0"
     "@sentry/cli" "2.39.1"
     dotenv "^16.3.1"
     find-up "^5.0.0"
@@ -5332,12 +5332,12 @@
     "@sentry/types" "5.30.0"
     tslib "^1.9.3"
 
-"@sentry/vite-plugin@^2.20.0":
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/@sentry/vite-plugin/-/vite-plugin-2.23.0.tgz#d6cc5ba63174f1413b3420939bd940c44f702d5e"
-  integrity sha512-iLbqxan3DUkFJqbx7DOtJ2fTd6g+TmNS1PIdaDFfpvVG4Lg9AYp4Xege6BBCrGQYl+wUE3poWfNhASfch/s51Q==
+"@sentry/vite-plugin@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@sentry/vite-plugin/-/vite-plugin-3.1.0.tgz#0ba73cc907f3ef14b4781b68d08b576ad4048afe"
+  integrity sha512-N9fhLOFGSrb5pRg0vIcNX3r2SciTyxMfyHz/tdSSqVTeEA7i7RuHdL0k6ZYzsDY8QLrXygOS2JSpSSd2ni3eUw==
   dependencies:
-    "@sentry/bundler-plugin-core" "2.23.0"
+    "@sentry/bundler-plugin-core" "3.1.0"
     unplugin "1.0.1"
 
 "@sinclair/typebox@^0.27.8":
