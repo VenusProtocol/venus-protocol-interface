@@ -74,13 +74,13 @@ export const tokens: Token[] = [
   {
     address: '0x47c031236e19d024b42f8AE6780E44A573170703',
     decimals: 18,
-    symbol: 'gmBTC-USDC',
+    symbol: 'gmBTC/USDC',
     asset: gmBtcUsdcLogo,
   },
   {
     address: '0x70d95587d40A2caf56bd97485aB3Eec10Bee6336',
     decimals: 18,
-    symbol: 'gmWETH-USDC',
+    symbol: 'gmWETH/USDC',
     asset: gmWEthUsdcLogo,
   },
 ];
