@@ -40,7 +40,6 @@ export const Settings: React.FC = () => {
             <Toggle
               onChange={toggleGaslessTransactions}
               value={isGaslessTransactionsUserSettingEnabled}
-              isLight
             />
           </div>
         </div>

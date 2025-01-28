@@ -16,7 +16,7 @@ export const useStyles = () => {
     infoIcon: css`
       margin-right: ${theme.spacing(2)};
     `,
-    getSwitch: ({ isLight }: { isLight: boolean }) => css`
+    getSwitch: ({ isDark }: { isDark: boolean }) => css`
       flex-shrink: 0;
       width: calc(${thumbSize} * 2);
       height: ${thumbSize};
@@ -38,7 +38,7 @@ export const useStyles = () => {
 
           & + .MuiSwitch-track {
             background-color: ${
-              isLight ? theme.palette.secondary.light : theme.palette.background.default
+              isDark ? theme.palette.background.default : theme.palette.secondary.light
             };
           }
         }
@@ -49,7 +49,7 @@ export const useStyles = () => {
       }
 
       .MuiSwitch-thumb {
-        background-color: ${isLight ? theme.palette.text.secondary : theme.palette.secondary.light};
+        background-color: ${isDark ? theme.palette.secondary.light : theme.palette.text.secondary};
         box-shadow: none;
         box-sizing: border-box;
         width: ${thumbSize};
@@ -63,7 +63,7 @@ export const useStyles = () => {
       .MuiSwitch-track,
       .Mui-checked + .MuiSwitch-track {
         background-color: ${
-          isLight ? theme.palette.secondary.light : theme.palette.background.default
+          isDark ? theme.palette.background.default : theme.palette.secondary.light
         };
         opacity: 1;
       }

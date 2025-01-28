@@ -20,13 +20,13 @@ export const Default = () => (
   </State>
 );
 
-export const WithIsLight = () => (
+export const WithIsDark = () => (
   <State initial={initialState}>
     {({ state, setState }) => (
       <Toggle
+        isDark
         onChange={e => setState({ value: e.currentTarget.checked })}
         value={state.value}
-        isLight
       />
     )}
   </State>
@@ -38,7 +38,6 @@ export const WithTooltipAndLabel = () => (
       <Toggle
         onChange={e => setState({ value: e.currentTarget.checked })}
         value={state.value}
-        isLight
         tooltip="Fake tooltip"
         label="Fake label"
       />

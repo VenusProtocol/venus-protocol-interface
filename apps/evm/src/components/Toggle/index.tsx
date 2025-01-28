@@ -11,7 +11,7 @@ export interface ToggleProps {
   value: boolean;
   disabled?: boolean;
   className?: string;
-  isLight?: boolean;
+  isDark?: boolean;
   label?: string;
   tooltip?: string;
 }
@@ -23,7 +23,7 @@ export const Toggle = ({
   onChange,
   value,
   className,
-  isLight = false,
+  isDark = false,
   disabled = false,
   label,
   tooltip,
@@ -41,7 +41,7 @@ export const Toggle = ({
       )}
 
       <Switch
-        css={styles.getSwitch({ isLight })}
+        css={styles.getSwitch({ isDark })}
         focusVisibleClassName=".Mui-focusVisible"
         disableRipple
         onChange={onChange}
