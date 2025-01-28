@@ -1,6 +1,8 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import arbLogo from 'libs/tokens/img/underlyingTokens/arb.svg';
 import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
+import gmBtcUsdcLogo from 'libs/tokens/img/underlyingTokens/gmBtcUsdc.svg';
+import gmWEthUsdcLogo from 'libs/tokens/img/underlyingTokens/gmWEthUsdc.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
 import wbtcLogo from 'libs/tokens/img/underlyingTokens/wbtc.svg';
@@ -68,5 +70,17 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'wstETH',
     asset: wstEthLogo,
+  },
+  {
+    address: '0xbd3AAd064295dcA0f45fab4C6A5adFb0D23a19D2',
+    decimals: 18,
+    symbol: 'gmBTC-USDC',
+    asset: gmBtcUsdcLogo,
+  },
+  {
+    address: '0x0012875a7395a293Adfc9b5cDC2Cfa352C4cDcD3',
+    decimals: 18,
+    symbol: 'gmWETH-USDC',
+    asset: gmWEthUsdcLogo,
   },
 ];
