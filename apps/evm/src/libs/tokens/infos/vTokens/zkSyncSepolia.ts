@@ -1,5 +1,5 @@
+import vUsdcBridgedCoreLogo from 'libs/tokens/img/vTokens/vUsdcBridgedCore.svg';
 import vUsdcCoreLogo from 'libs/tokens/img/vTokens/vUsdcCore.svg';
-import vUsdcECoreLogo from 'libs/tokens/img/vTokens/vUsdcECore.svg';
 import vUsdtCoreLogo from 'libs/tokens/img/vTokens/vUsdtCore.svg';
 import vWBnbCoreLogo from 'libs/tokens/img/vTokens/vWBtcCore.svg';
 import vWUsdmLogo from 'libs/tokens/img/vTokens/vWUsdm.svg';
@@ -14,9 +14,12 @@ export const vTokenAssets: VTokenAssets = {
   // Core pool
   [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vWBTC_Core.toLowerCase()]: vWBnbCoreLogo,
   [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vWETH_Core.toLowerCase()]: vWEthCoreLogo,
-  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vUSDC_Core.toLowerCase()]: vUsdcCoreLogo,
+  // has a special logo to indicate that the token is bridged to zkSync
+  [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vUSDC_Core.toLowerCase()]:
+    vUsdcBridgedCoreLogo,
+  // USDC.e shares the usual vUSDC logo
   [isolatedPoolsZkSyncSepoliaDeployments.addresses['VToken_vUSDC.e_Core'].toLowerCase()]:
-    vUsdcECoreLogo,
+    vUsdcCoreLogo,
   [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vUSDT_Core.toLowerCase()]: vUsdtCoreLogo,
   [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vZK_Core.toLowerCase()]: vZkCoreLogo,
   [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vwUSDM_Core.toLowerCase()]: vWUsdmLogo,
