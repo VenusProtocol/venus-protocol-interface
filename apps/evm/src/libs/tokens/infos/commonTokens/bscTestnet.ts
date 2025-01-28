@@ -298,7 +298,7 @@ export const tokens: Token[] = [
     asset: twtLogo,
   },
   {
-    address: '0xB1cbD28Cb101c87b5F94a14A8EF081EA7F985593',
+    address: '0x952653d23cB9bef19E442D2BF8fBc8843A968052',
     decimals: 18,
     symbol: 'THE',
     asset: theLogo,
