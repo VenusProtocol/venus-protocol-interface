@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.195.0
+
+### Minor Changes
+
+- 16a02a6: add gmBTC-USDC and gmWETH-USDC to Arbitrum
+- 123dff7: correct vUSDC and vUSDC.e vToken logos on zkSync
+
 ## 2.194.4
 
 ### Patch Changes
