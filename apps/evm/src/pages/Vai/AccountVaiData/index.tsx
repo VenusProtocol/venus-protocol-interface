@@ -4,10 +4,11 @@ import { useMemo } from 'react';
 import {
   useGetPool,
   useGetTokenUsdPrice,
-  useGetVaiRepayAmountWithInterests,
+  useGetUserVaiBorrowBalance,
   useGetVaiRepayApr,
 } from 'clients/api';
 import { Spinner } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import { AccountData, type AccountDataProps } from 'containers/AccountData';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetToken } from 'libs/tokens';
@@ -42,16 +43,16 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
   });
   const legacyPool = getLegacyPoolData?.pool;
 
-  const { data: repayAmountWithInterests } = useGetVaiRepayAmountWithInterests(
+  const { data: repayAmountWithInterests } = useGetUserVaiBorrowBalance(
     {
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
       enabled: !!accountAddress,
     },
   );
 
-  const userBorrowBalanceMantissa = repayAmountWithInterests?.vaiRepayAmountWithInterestsMantissa;
+  const userBorrowBalanceMantissa = repayAmountWithInterests?.userVaiBorrowBalanceMantissa;
 
   const vaiAsset = useMemo(() => {
     if (!borrowAprPercentage || !userBorrowBalanceMantissa || !vaiPriceDollars) {
@@ -70,8 +71,8 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
     const asset: Asset = {
       vToken: {
         underlyingToken: vai,
-        address: 'simulated-v-vai',
         // The following properties aren't relevant
+        address: '0xSimulatedVVai',
         decimals: 8,
         symbol: '',
       },

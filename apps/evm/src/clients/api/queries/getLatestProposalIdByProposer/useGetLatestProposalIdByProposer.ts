@@ -9,13 +9,14 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 type Options = QueryObserverOptions<
   GetLatestProposalIdByProposerOutput,
   Error,
   GetLatestProposalIdByProposerOutput,
   GetLatestProposalIdByProposerOutput,
-  [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, string]
+  [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, Address]
 >;
 
 const useGetLatestProposalIdByProposer = (

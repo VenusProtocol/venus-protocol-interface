@@ -4,11 +4,12 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool, TokenAction, VToken } from 'types';
 import { areTokensEqual } from 'utilities';
 
+import type { Address } from 'viem';
 import DisabledActionNotice from './DisabledActionNotice';
 
 export interface AssetAccessorProps {
   vToken: VToken;
-  poolComptrollerAddress: string;
+  poolComptrollerAddress: Address;
   action: TokenAction;
   children: (props: { asset: Asset; pool: Pool }) => React.ReactNode;
 }

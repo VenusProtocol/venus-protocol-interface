@@ -1,4 +1,5 @@
 import type { VoteSupport, VotersDetails } from 'types';
+import type { Address } from 'viem';
 
 export interface GetVotersInput {
   proposalId?: number;
@@ -9,7 +10,7 @@ export interface GetVotersInput {
 }
 
 export interface VoterResult {
-  address: string;
+  address: Address;
   blockNumber: number;
   blockTimestamp: number;
   proposalId: number;

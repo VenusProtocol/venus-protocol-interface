@@ -52,7 +52,7 @@ exports[`api/queries/getVoterAccounts > Gets called with correct default argumen
   },
   {
     "address": "0x54950126D02532F852920A04f46359E617F48f3D",
-    "delegate": "",
+    "delegate": undefined,
     "proposalsVoted": 0,
     "stakedVotesMantissa": "310413900000000000000",
     "voteWeightPercent": "0",
@@ -113,7 +113,7 @@ exports[`api/queries/getVoterAccounts > returns formatted Voter Accounts 1`] = `
   },
   {
     "address": "0x54950126D02532F852920A04f46359E617F48f3D",
-    "delegate": "",
+    "delegate": undefined,
     "proposalsVoted": 0,
     "stakedVotesMantissa": "310413900000000000000",
     "voteWeightPercent": "0",

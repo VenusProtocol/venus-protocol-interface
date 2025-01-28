@@ -42,7 +42,7 @@ describe('api/queries/useGetAsset', () => {
     const CallMarketContext = () => {
       ({ data } = useGetAsset({
         accountAddress: fakeAddress,
-        vTokenAddress: 'fake-v-token-address',
+        vTokenAddress: '0xfakeVTokenAddress',
       }));
       return <div />;
     };

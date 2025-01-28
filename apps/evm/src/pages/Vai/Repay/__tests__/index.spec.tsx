@@ -13,7 +13,7 @@ import {
   useGetBalanceOf,
   useGetPool,
   useGetTokenUsdPrice,
-  useGetVaiRepayAmountWithInterests,
+  useGetUserVaiBorrowBalance,
   useGetVaiRepayApr,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
@@ -41,9 +41,9 @@ const fakeUserBorrowLimitCents = new BigNumber(fakeVaiPriceCents * 20);
 
 describe('Repay', () => {
   beforeEach(() => {
-    (useGetVaiRepayAmountWithInterests as Vi.Mock).mockImplementation(() => ({
+    (useGetUserVaiBorrowBalance as Vi.Mock).mockImplementation(() => ({
       data: {
-        vaiRepayAmountWithInterestsMantissa: fakeUserBorrowBalanceMantissa,
+        userVaiBorrowBalanceMantissa: fakeUserBorrowBalanceMantissa,
       },
       isLoading: false,
     }));

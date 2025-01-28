@@ -14,6 +14,7 @@ import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet'
 import { ProposalState, type Proposal as ProposalType } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { Redirect } from 'containers/Redirect';
 import { Commands } from './Commands';
 import { Description } from './Description';
@@ -145,7 +146,10 @@ const Proposal = () => {
     data: votingWeightData = {
       votesMantissa: new BigNumber(0),
     },
-  } = useGetCurrentVotes({ accountAddress: accountAddress || '' }, { enabled: !!accountAddress });
+  } = useGetCurrentVotes(
+    { accountAddress: accountAddress || NULL_ADDRESS },
+    { enabled: !!accountAddress },
+  );
 
   const readableVoteWeight = useMemo(
     () =>

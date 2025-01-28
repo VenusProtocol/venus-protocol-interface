@@ -3,6 +3,7 @@ import AssetAccessor from 'containers/AssetAccessor';
 import { useTranslation } from 'libs/translations';
 import type { VToken } from 'types';
 
+import type { Address } from 'viem';
 import BorrowForm from './BorrowForm';
 import NativeTokenBalanceWrapper from './NativeTokenBalanceWrapper';
 import RepayForm from './RepayForm';
@@ -11,7 +12,7 @@ import WithdrawForm from './WithdrawForm';
 
 export interface OperationFormProps {
   vToken: VToken;
-  poolComptrollerAddress: string;
+  poolComptrollerAddress: Address;
   initialActiveTabIndex?: number;
   onSubmitSuccess?: ModalProps['handleClose'];
 }

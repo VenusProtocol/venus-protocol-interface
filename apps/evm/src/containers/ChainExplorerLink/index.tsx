@@ -6,6 +6,7 @@ import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import type { ChainId } from 'types';
 import { type UrlType, cn, generateExplorerUrl } from 'utilities';
+import type { Address } from 'viem';
 
 export interface ChainExplorerLinkProps {
   hash: string;
@@ -39,7 +40,7 @@ export const ChainExplorerLink: React.FC<ChainExplorerLinkProps> = ({
     }
 
     if (text && ellipseBreakpoint) {
-      return <EllipseAddress ellipseBreakpoint={ellipseBreakpoint} address={text} />;
+      return <EllipseAddress ellipseBreakpoint={ellipseBreakpoint} address={text as Address} />;
     }
 
     return text;

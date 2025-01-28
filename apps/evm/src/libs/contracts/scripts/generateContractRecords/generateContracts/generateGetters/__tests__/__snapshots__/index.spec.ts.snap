@@ -13,7 +13,7 @@ import { getUniqueContractAddress } from 'libs/contracts/utilities/getUniqueCont
 import { useChainId, useProvider, useSigner } from 'libs/wallet';
 import { ChainId } from 'types';
 
-export { abi as PoolLensAbi } from 'libs/contracts/generated/infos/abis/PoolLens';
+export { abi as poolLensAbi } from 'libs/contracts/generated/infos/abis/PoolLens';
 
 interface GetPoolLensContractAddressInput {
   chainId: ChainId;
@@ -85,16 +85,17 @@ exports[`generateGetters > calls writeFile with the right arguments 2`] = `
     "content": "import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 import { useMemo } from 'react';
+import type { Address } from 'viem';
 
 import abi from 'libs/contracts/generated/infos/abis/IsolatedPoolComptroller.json';
 import { IsolatedPoolComptroller } from 'libs/contracts/generated/infos/contractTypes';
 import { useProvider, useSigner } from 'libs/wallet';
 import { ChainId } from 'types';
 
-export { abi as IsolatedPoolComptrollerAbi } from 'libs/contracts/generated/infos/abis/IsolatedPoolComptroller';
+export { abi as isolatedPoolComptrollerAbi } from 'libs/contracts/generated/infos/abis/IsolatedPoolComptroller';
 
 interface GetIsolatedPoolComptrollerContractInput {
-  address: string;
+  address: Address;
   signerOrProvider: Signer | Provider;
 }
 
@@ -103,7 +104,7 @@ export const getIsolatedPoolComptrollerContract = ({ signerOrProvider, address }
 
 interface UseGetIsolatedPoolComptrollerContractInput {
   passSigner: boolean;
-  address: string;
+  address: Address;
   chainId?: ChainId;
 }
 
@@ -139,6 +140,7 @@ exports[`generateGetters > calls writeFile with the right arguments 3`] = `
     "content": "import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 import { useMemo } from 'react';
+import type { Address } from 'viem';
 
 import abi from 'libs/contracts/generated/infos/abis/SwapRouter.json';
 import addresses from 'libs/contracts/generated/infos/addresses';
@@ -146,10 +148,10 @@ import { SwapRouter } from 'libs/contracts/generated/infos/contractTypes';
 import { useChainId, useProvider, useSigner } from 'libs/wallet';
 import { ChainId } from 'types';
 
-export { abi as SwapRouterAbi } from 'libs/contracts/generated/infos/abis/SwapRouter';
+export { abi as swapRouterAbi } from 'libs/contracts/generated/infos/abis/SwapRouter';
 
 interface GetSwapRouterContractAddressInput {
-  comptrollerContractAddress: string;
+  comptrollerContractAddress: Address;
   chainId: ChainId;
 }
 
@@ -161,11 +163,11 @@ export const getSwapRouterContractAddress = ({
   const sanitizedComptrollerAddress =
     comptrollerContractAddress.toLowerCase() as keyof typeof SwapRouterContractAddresses;
 
-  return SwapRouterContractAddresses?.[sanitizedComptrollerAddress] as string | undefined;
+  return SwapRouterContractAddresses?.[sanitizedComptrollerAddress] as Address | undefined;
 };
 
 interface UseGetSwapRouterContractAddressInput {
-  comptrollerContractAddress: string;
+  comptrollerContractAddress: Address;
   chainId?: ChainId;
 }
 
@@ -189,7 +191,7 @@ export const useGetSwapRouterContractAddress = ({
 interface GetSwapRouterContractInput {
   chainId: ChainId;
   signerOrProvider: Signer | Provider;
-  comptrollerContractAddress: string;
+  comptrollerContractAddress: Address;
 }
 
 export const getSwapRouterContract = ({
@@ -203,7 +205,7 @@ export const getSwapRouterContract = ({
 
 interface UseGetSwapRouterContractInput {
   passSigner: boolean;
-  comptrollerContractAddress: string;
+  comptrollerContractAddress: Address;
   chainId?: ChainId;
 }
 

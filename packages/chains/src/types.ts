@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 export enum ChainId {
   BSC_MAINNET = 56,
   BSC_TESTNET = 97,
@@ -41,9 +43,9 @@ export interface ChainMetadata {
   explorerUrl: string;
   nativeToken: Token;
   layerZeroScanUrl: string;
-  corePoolComptrollerContractAddress: string;
-  lstPoolVWstEthContractAddress?: string;
-  lstPoolComptrollerContractAddress?: string;
+  corePoolComptrollerContractAddress: Address;
+  lstPoolVWstEthContractAddress?: Address;
+  lstPoolComptrollerContractAddress?: Address;
   proposalExecutionGracePeriodMs?: number;
   blockTimeMs?: number;
   blocksPerDay?: number;
@@ -54,7 +56,7 @@ export interface Token {
   symbol: string;
   decimals: number;
   asset: string;
-  address: string;
+  address: Address;
   isNative?: boolean;
   tokenWrapped?: Token;
 }

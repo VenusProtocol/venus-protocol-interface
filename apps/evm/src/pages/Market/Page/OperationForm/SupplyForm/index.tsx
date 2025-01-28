@@ -35,6 +35,7 @@ import {
 } from 'utilities';
 import { SwapDetails } from '../SwapDetails';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { AssetInfo } from '../AssetInfo';
 import Notice from './Notice';
@@ -587,7 +588,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
 
       if (isWrappingNativeToken) {
         return supply({
-          accountAddress: accountAddress || '',
+          accountAddress: accountAddress || NULL_ADDRESS,
           amountMantissa,
           wrap: true,
           poolComptrollerContractAddress: pool.comptrollerAddress,

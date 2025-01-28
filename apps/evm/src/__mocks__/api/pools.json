@@ -61,6 +61,7 @@
             {
               "marketAddress": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -121,6 +122,7 @@
             {
               "marketAddress": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -181,6 +183,7 @@
             {
               "marketAddress": "0x171B468b52d7027F12cEF90cd065d6776a25E24e",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -241,6 +244,7 @@
             {
               "marketAddress": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -301,6 +305,7 @@
             {
               "marketAddress": "0x35566ED3AF9E537Be487C98b1811cDf95ad0C32b",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -361,6 +366,7 @@
             {
               "marketAddress": "0x3619bdDc61189F33365CC572DF3a68FB3b316516",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -421,6 +427,7 @@
             {
               "marketAddress": "0x369Fea97f6fB7510755DCA389088d9E2e2819278",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -481,6 +488,7 @@
             {
               "marketAddress": "0x37C28DE42bA3d22217995D146FC684B2326Ede64",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -541,6 +549,7 @@
             {
               "marketAddress": "0x3A00d9B02781f47d033BAd62edc55fBF8D083Fb0",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -601,6 +610,7 @@
             {
               "marketAddress": "0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -661,6 +671,7 @@
             {
               "marketAddress": "0x6AF3Fdb3282c5bb6926269Db10837fa8Aec67C04",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -721,6 +732,7 @@
             {
               "marketAddress": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -781,6 +793,7 @@
             {
               "marketAddress": "0x714db6c38A17883964B68a07d56cE331501d9eb6",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -841,6 +854,7 @@
             {
               "marketAddress": "0x74469281310195A04840Daf6EdF576F559a3dE80",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -901,6 +915,7 @@
             {
               "marketAddress": "0xAfc13BC065ABeE838540823431055D2ea52eBA52",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -961,6 +976,7 @@
             {
               "marketAddress": "0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1021,6 +1037,7 @@
             {
               "marketAddress": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1081,6 +1098,7 @@
             {
               "marketAddress": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1141,6 +1159,7 @@
             {
               "marketAddress": "0xeDaC03D29ff74b5fDc0CC936F6288312e1459BC6",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1201,6 +1220,7 @@
             {
               "marketAddress": "0xEFAACF73CE2D38ED40991f29E72B12C74bd4cf23",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1261,6 +1281,7 @@
             {
               "marketAddress": "0xF06e662a00796c122AaAE935EC4F0Be3F74f5636",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1321,6 +1342,7 @@
             {
               "marketAddress": "0xF912d3001CAf6DC4ADD366A62Cc9115B4303c9A9",
               "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1393,6 +1415,7 @@
             {
               "marketAddress": "0x4C94e67d239aD585275Fdd3246Ab82c8a2668564",
               "rewardTokenAddress": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1406,6 +1429,7 @@
             {
               "marketAddress": "0x4C94e67d239aD585275Fdd3246Ab82c8a2668564",
               "rewardTokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1419,6 +1443,7 @@
             {
               "marketAddress": "0x4C94e67d239aD585275Fdd3246Ab82c8a2668564",
               "rewardTokenAddress": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1479,6 +1504,7 @@
             {
               "marketAddress": "0x5e68913fbbfb91af30366ab1B21324410b49a308",
               "rewardTokenAddress": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "32329785",
               "lastRewardingBorrowBlockOrTimestamp": "32329785",
@@ -1492,6 +1518,7 @@
             {
               "marketAddress": "0x5e68913fbbfb91af30366ab1B21324410b49a308",
               "rewardTokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1505,6 +1532,7 @@
             {
               "marketAddress": "0x5e68913fbbfb91af30366ab1B21324410b49a308",
               "rewardTokenAddress": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1565,6 +1593,7 @@
             {
               "marketAddress": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
               "rewardTokenAddress": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1578,6 +1607,7 @@
             {
               "marketAddress": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
               "rewardTokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1591,6 +1621,7 @@
             {
               "marketAddress": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
               "rewardTokenAddress": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1651,6 +1682,7 @@
             {
               "marketAddress": "0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E",
               "rewardTokenAddress": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1664,6 +1696,7 @@
             {
               "marketAddress": "0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E",
               "rewardTokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1677,6 +1710,7 @@
             {
               "marketAddress": "0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E",
               "rewardTokenAddress": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1737,6 +1771,7 @@
             {
               "marketAddress": "0xb677e080148368EeeE70fA3865d07E92c6500174",
               "rewardTokenAddress": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1750,6 +1785,7 @@
             {
               "marketAddress": "0xb677e080148368EeeE70fA3865d07E92c6500174",
               "rewardTokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1763,6 +1799,7 @@
             {
               "marketAddress": "0xb677e080148368EeeE70fA3865d07E92c6500174",
               "rewardTokenAddress": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1823,6 +1860,7 @@
             {
               "marketAddress": "0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a",
               "rewardTokenAddress": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1836,6 +1874,7 @@
             {
               "marketAddress": "0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a",
               "rewardTokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1849,6 +1888,7 @@
             {
               "marketAddress": "0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a",
               "rewardTokenAddress": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1909,6 +1949,7 @@
             {
               "marketAddress": "0xe237aA131E7B004aC88CB808Fa56AF3dc4C408f1",
               "rewardTokenAddress": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1922,6 +1963,7 @@
             {
               "marketAddress": "0xe237aA131E7B004aC88CB808Fa56AF3dc4C408f1",
               "rewardTokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "35579056",
               "lastRewardingBorrowBlockOrTimestamp": "35579056",
@@ -1935,6 +1977,7 @@
             {
               "marketAddress": "0xe237aA131E7B004aC88CB808Fa56AF3dc4C408f1",
               "rewardTokenAddress": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -1995,6 +2038,7 @@
             {
               "marketAddress": "0xe507B30C41E9e375BCe05197c1e09fc9ee40c0f6",
               "rewardTokenAddress": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2008,6 +2052,7 @@
             {
               "marketAddress": "0xe507B30C41E9e375BCe05197c1e09fc9ee40c0f6",
               "rewardTokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2021,6 +2066,7 @@
             {
               "marketAddress": "0xe507B30C41E9e375BCe05197c1e09fc9ee40c0f6",
               "rewardTokenAddress": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "32703459",
               "lastRewardingBorrowBlockOrTimestamp": "32703459",
@@ -2093,6 +2139,7 @@
             {
               "marketAddress": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
               "rewardTokenAddress": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2106,6 +2153,7 @@
             {
               "marketAddress": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
               "rewardTokenAddress": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2166,6 +2214,7 @@
             {
               "marketAddress": "0x1958035231E125830bA5d17D168cEa07Bb42184a",
               "rewardTokenAddress": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2179,6 +2228,7 @@
             {
               "marketAddress": "0x1958035231E125830bA5d17D168cEa07Bb42184a",
               "rewardTokenAddress": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "32329785",
               "lastRewardingBorrowBlockOrTimestamp": "32329785",
@@ -2239,6 +2289,7 @@
             {
               "marketAddress": "0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a",
               "rewardTokenAddress": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2252,6 +2303,7 @@
             {
               "marketAddress": "0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a",
               "rewardTokenAddress": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2312,6 +2364,7 @@
             {
               "marketAddress": "0xef470AbC365F88e4582D8027172a392C473A5B53",
               "rewardTokenAddress": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "32329785",
               "lastRewardingBorrowBlockOrTimestamp": "32329785",
@@ -2325,6 +2378,7 @@
             {
               "marketAddress": "0xef470AbC365F88e4582D8027172a392C473A5B53",
               "rewardTokenAddress": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2397,6 +2451,7 @@
             {
               "marketAddress": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
               "rewardTokenAddress": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
+              "rewardType": "venus",
               "chainId": null,
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2410,6 +2465,7 @@
             {
               "marketAddress": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
               "rewardTokenAddress": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2423,6 +2479,7 @@
             {
               "marketAddress": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
               "rewardTokenAddress": "0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2436,6 +2493,7 @@
             {
               "marketAddress": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2496,6 +2554,7 @@
             {
               "marketAddress": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
               "rewardTokenAddress": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
+              "rewardType": "venus",
               "chainId": null,
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2509,6 +2568,7 @@
             {
               "marketAddress": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
               "rewardTokenAddress": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2522,6 +2582,7 @@
             {
               "marketAddress": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
               "rewardTokenAddress": "0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2535,6 +2596,7 @@
             {
               "marketAddress": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2595,6 +2657,7 @@
             {
               "marketAddress": "0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47",
               "rewardTokenAddress": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
+              "rewardType": "venus",
               "chainId": null,
               "lastRewardingSupplyBlockOrTimestamp": "32329785",
               "lastRewardingBorrowBlockOrTimestamp": "32329785",
@@ -2608,6 +2671,7 @@
             {
               "marketAddress": "0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47",
               "rewardTokenAddress": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2621,6 +2685,7 @@
             {
               "marketAddress": "0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47",
               "rewardTokenAddress": "0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2634,6 +2699,7 @@
             {
               "marketAddress": "0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2694,6 +2760,7 @@
             {
               "marketAddress": "0x644A149853E5507AdF3e682218b8AC86cdD62951",
               "rewardTokenAddress": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
+              "rewardType": "venus",
               "chainId": null,
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2707,6 +2774,7 @@
             {
               "marketAddress": "0x644A149853E5507AdF3e682218b8AC86cdD62951",
               "rewardTokenAddress": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2720,6 +2788,7 @@
             {
               "marketAddress": "0x644A149853E5507AdF3e682218b8AC86cdD62951",
               "rewardTokenAddress": "0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "33735078",
               "lastRewardingBorrowBlockOrTimestamp": "33735078",
@@ -2733,6 +2802,7 @@
             {
               "marketAddress": "0x644A149853E5507AdF3e682218b8AC86cdD62951",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2793,6 +2863,7 @@
             {
               "marketAddress": "0x75aa42c832a8911B77219DbeBABBB40040d16987",
               "rewardTokenAddress": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
+              "rewardType": "venus",
               "chainId": null,
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2806,6 +2877,7 @@
             {
               "marketAddress": "0x75aa42c832a8911B77219DbeBABBB40040d16987",
               "rewardTokenAddress": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "32329785",
               "lastRewardingBorrowBlockOrTimestamp": "32329785",
@@ -2819,6 +2891,7 @@
             {
               "marketAddress": "0x75aa42c832a8911B77219DbeBABBB40040d16987",
               "rewardTokenAddress": "0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2832,6 +2905,7 @@
             {
               "marketAddress": "0x75aa42c832a8911B77219DbeBABBB40040d16987",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2892,6 +2966,7 @@
             {
               "marketAddress": "0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD",
               "rewardTokenAddress": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
+              "rewardType": "venus",
               "chainId": null,
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2905,6 +2980,7 @@
             {
               "marketAddress": "0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD",
               "rewardTokenAddress": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2918,6 +2994,7 @@
             {
               "marketAddress": "0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD",
               "rewardTokenAddress": "0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2931,6 +3008,7 @@
             {
               "marketAddress": "0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -2991,6 +3069,7 @@
             {
               "marketAddress": "0xeffE7874C345aE877c1D893cd5160DDD359b24dA",
               "rewardTokenAddress": "0x167F1F9EF531b3576201aa3146b13c57dbEda514",
+              "rewardType": "venus",
               "chainId": null,
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3004,6 +3083,7 @@
             {
               "marketAddress": "0xeffE7874C345aE877c1D893cd5160DDD359b24dA",
               "rewardTokenAddress": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3017,6 +3097,7 @@
             {
               "marketAddress": "0xeffE7874C345aE877c1D893cd5160DDD359b24dA",
               "rewardTokenAddress": "0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3030,6 +3111,7 @@
             {
               "marketAddress": "0xeffE7874C345aE877c1D893cd5160DDD359b24dA",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "35321804",
               "lastRewardingBorrowBlockOrTimestamp": "35321804",
@@ -3102,6 +3184,7 @@
             {
               "marketAddress": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
               "rewardTokenAddress": "0x4FA37fFA9f36Ec0e0e685C06a7bF169bb50409ce",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3115,6 +3198,7 @@
             {
               "marketAddress": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
               "rewardTokenAddress": "0x66ebd019E86e0af5f228a0439EBB33f045CBe63E",
+              "rewardType": "venus",
               "chainId": "11155111",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3128,6 +3212,7 @@
             {
               "marketAddress": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
               "rewardTokenAddress": "0x772d68929655ce7234C8C94256526ddA66Ef641E",
+              "rewardType": "venus",
               "chainId": "11155111",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3141,6 +3226,7 @@
             {
               "marketAddress": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
               "rewardTokenAddress": "0x9b87Ea90FDb55e1A0f17FBEdDcF7EB0ac4d50493",
+              "rewardType": "merkl",
               "chainId": "11155111",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3201,6 +3287,7 @@
             {
               "marketAddress": "0x73d2F6e0708599a4eA70F6A0c55A4C59196a101c",
               "rewardTokenAddress": "0x4FA37fFA9f36Ec0e0e685C06a7bF169bb50409ce",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "42940560",
               "lastRewardingBorrowBlockOrTimestamp": "42940560",
@@ -3273,6 +3360,7 @@
             {
               "marketAddress": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
               "rewardTokenAddress": "0xD1Bc731d188ACc3f52a6226B328a89056B0Ec71a",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3286,6 +3374,7 @@
             {
               "marketAddress": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "33677478",
               "lastRewardingBorrowBlockOrTimestamp": "33677478",
@@ -3346,6 +3435,7 @@
             {
               "marketAddress": "0x3338988d0beb4419Acb8fE624218754053362D06",
               "rewardTokenAddress": "0xD1Bc731d188ACc3f52a6226B328a89056B0Ec71a",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3359,6 +3449,7 @@
             {
               "marketAddress": "0x3338988d0beb4419Acb8fE624218754053362D06",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3419,6 +3510,7 @@
             {
               "marketAddress": "0x4E1D35166776825402d50AfE4286c500027211D1",
               "rewardTokenAddress": "0xD1Bc731d188ACc3f52a6226B328a89056B0Ec71a",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "33965704",
               "lastRewardingBorrowBlockOrTimestamp": "33965704",
@@ -3432,6 +3524,7 @@
             {
               "marketAddress": "0x4E1D35166776825402d50AfE4286c500027211D1",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3492,6 +3585,7 @@
             {
               "marketAddress": "0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4",
               "rewardTokenAddress": "0xD1Bc731d188ACc3f52a6226B328a89056B0Ec71a",
+              "rewardType": "merkl",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3505,6 +3599,7 @@
             {
               "marketAddress": "0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4",
               "rewardTokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3577,6 +3672,7 @@
             {
               "marketAddress": "0x410286c43a525E1DCC7468a9B091C111C8324cd1",
               "rewardTokenAddress": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3590,6 +3686,7 @@
             {
               "marketAddress": "0x410286c43a525E1DCC7468a9B091C111C8324cd1",
               "rewardTokenAddress": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3603,6 +3700,7 @@
             {
               "marketAddress": "0x410286c43a525E1DCC7468a9B091C111C8324cd1",
               "rewardTokenAddress": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "32329785",
               "lastRewardingBorrowBlockOrTimestamp": "32329785",
@@ -3616,6 +3714,7 @@
             {
               "marketAddress": "0x410286c43a525E1DCC7468a9B091C111C8324cd1",
               "rewardTokenAddress": "0xE98344A7c691B200EF47c9b8829110087D832C64",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3676,6 +3775,7 @@
             {
               "marketAddress": "0x47793540757c6E6D84155B33cd8D9535CFdb9334",
               "rewardTokenAddress": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3689,6 +3789,7 @@
             {
               "marketAddress": "0x47793540757c6E6D84155B33cd8D9535CFdb9334",
               "rewardTokenAddress": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3702,6 +3803,7 @@
             {
               "marketAddress": "0x47793540757c6E6D84155B33cd8D9535CFdb9334",
               "rewardTokenAddress": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3715,6 +3817,7 @@
             {
               "marketAddress": "0x47793540757c6E6D84155B33cd8D9535CFdb9334",
               "rewardTokenAddress": "0xE98344A7c691B200EF47c9b8829110087D832C64",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "32329785",
               "lastRewardingBorrowBlockOrTimestamp": "32329785",
@@ -3775,6 +3878,7 @@
             {
               "marketAddress": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
               "rewardTokenAddress": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3788,6 +3892,7 @@
             {
               "marketAddress": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
               "rewardTokenAddress": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3801,6 +3906,7 @@
             {
               "marketAddress": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
               "rewardTokenAddress": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3814,6 +3920,7 @@
             {
               "marketAddress": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
               "rewardTokenAddress": "0xE98344A7c691B200EF47c9b8829110087D832C64",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3874,6 +3981,7 @@
             {
               "marketAddress": "0xD804F74fe21290d213c46610ab171f7c2EeEBDE7",
               "rewardTokenAddress": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "32329785",
               "lastRewardingBorrowBlockOrTimestamp": "32329785",
@@ -3887,6 +3995,7 @@
             {
               "marketAddress": "0xD804F74fe21290d213c46610ab171f7c2EeEBDE7",
               "rewardTokenAddress": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3900,6 +4009,7 @@
             {
               "marketAddress": "0xD804F74fe21290d213c46610ab171f7c2EeEBDE7",
               "rewardTokenAddress": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3913,6 +4023,7 @@
             {
               "marketAddress": "0xD804F74fe21290d213c46610ab171f7c2EeEBDE7",
               "rewardTokenAddress": "0xE98344A7c691B200EF47c9b8829110087D832C64",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3973,6 +4084,7 @@
             {
               "marketAddress": "0xEe543D5de2Dbb5b07675Fc72831A2f1812428393",
               "rewardTokenAddress": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -3986,6 +4098,7 @@
             {
               "marketAddress": "0xEe543D5de2Dbb5b07675Fc72831A2f1812428393",
               "rewardTokenAddress": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "32329785",
               "lastRewardingBorrowBlockOrTimestamp": "32329785",
@@ -3999,6 +4112,7 @@
             {
               "marketAddress": "0xEe543D5de2Dbb5b07675Fc72831A2f1812428393",
               "rewardTokenAddress": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",
@@ -4012,6 +4126,7 @@
             {
               "marketAddress": "0xEe543D5de2Dbb5b07675Fc72831A2f1812428393",
               "rewardTokenAddress": "0xE98344A7c691B200EF47c9b8829110087D832C64",
+              "rewardType": "venus",
               "chainId": "97",
               "lastRewardingSupplyBlockOrTimestamp": "0",
               "lastRewardingBorrowBlockOrTimestamp": "0",

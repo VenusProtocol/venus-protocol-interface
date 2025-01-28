@@ -2,14 +2,16 @@ import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useApproveToken, useGetAllowance, useRevokeSpendingLimit } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import { VError } from 'libs/errors';
 import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
+import type { Address } from 'viem';
 
 export interface UseTokenApprovalInput {
   token: Token;
-  spenderAddress?: string;
-  accountAddress?: string;
+  spenderAddress?: Address;
+  accountAddress?: Address;
 }
 
 export interface UseTokenApprovalOutput {
@@ -31,8 +33,8 @@ const useTokenApproval = ({
 }: UseTokenApprovalInput): UseTokenApprovalOutput => {
   const { data: getTokenAllowanceData, isLoading: isWalletSpendingLimitLoading } = useGetAllowance(
     {
-      accountAddress: accountAddress || '',
-      spenderAddress: spenderAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
+      spenderAddress: spenderAddress || NULL_ADDRESS,
       token,
     },
     {

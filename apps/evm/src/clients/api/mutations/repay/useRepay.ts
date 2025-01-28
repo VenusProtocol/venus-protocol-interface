@@ -6,6 +6,7 @@ import { useGetMaximillionContract, useGetNativeTokenGatewayContract } from 'lib
 import { useAccountAddress, useChainId, useSigner } from 'libs/wallet';
 import type { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
+import type { Address } from 'viem';
 
 type TrimmedRepayInput = Omit<
   RepayInput,
@@ -18,7 +19,7 @@ const useRepay = (
     vToken,
     poolName,
     poolComptrollerAddress,
-  }: { vToken: VToken; poolName: string; poolComptrollerAddress: string },
+  }: { vToken: VToken; poolName: string; poolComptrollerAddress: Address },
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();

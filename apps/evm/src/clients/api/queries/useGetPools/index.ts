@@ -3,14 +3,14 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
-  useGetLegacyPoolComptrollerContract,
-  useGetPoolLensContract,
-  useGetPrimeContract,
-  useGetVaiControllerContract,
-  useGetVenusLensContract,
+  useGetLegacyPoolComptrollerContractAddress,
+  useGetPoolLensContractAddress,
+  useGetPrimeContractAddress,
+  useGetVaiControllerContractAddress,
+  useGetVenusLensContractAddress,
 } from 'libs/contracts';
 import { useGetTokens } from 'libs/tokens';
-import { useChainId, useProvider } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
@@ -19,7 +19,14 @@ import type { GetPoolsInput, GetPoolsOutput } from './types';
 
 type TrimmedInput = Omit<
   GetPoolsInput,
-  'chainId' | 'xvs' | 'tokens' | 'provider' | 'primeContract' | 'poolLensContract' | 'blocksPerDay'
+  | 'chainId'
+  | 'tokens'
+  | 'publicClient'
+  | 'primeContractAddress'
+  | 'poolLensContractAddress'
+  | 'legacyPoolComptrollerContractAddress'
+  | 'venusLensContractAddress'
+  | 'vaiControllerContractAddress'
 >;
 
 export type UseGetPoolsQueryKey = [
@@ -45,28 +52,28 @@ export const useGetPools = (input?: TrimmedInput, options?: Options) => {
   });
 
   const accountAddress = input?.accountAddress;
-  const { provider } = useProvider();
   const { chainId } = useChainId();
   const tokens = useGetTokens();
 
-  const primeContract = useGetPrimeContract();
-  const poolLensContract = useGetPoolLensContract();
-  const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract();
-  const venusLensContract = useGetVenusLensContract();
-  const vaiControllerContract = useGetVaiControllerContract();
+  const { publicClient } = usePublicClient();
+  const primeContractAddress = useGetPrimeContractAddress();
+  const poolLensContractAddress = useGetPoolLensContractAddress();
+  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
+  const venusLensContractAddress = useGetVenusLensContractAddress();
+  const vaiControllerContractAddress = useGetVaiControllerContractAddress();
 
   return useQuery({
     queryKey: [FunctionKey.GET_POOLS, { ...input, chainId, accountAddress }],
     queryFn: () =>
-      callOrThrow({ poolLensContract }, params =>
+      callOrThrow({ poolLensContractAddress }, params =>
         getPools({
+          publicClient,
           chainId,
-          provider,
           tokens,
-          legacyPoolComptrollerContract,
-          venusLensContract,
-          vaiControllerContract,
-          primeContract: isPrimeEnabled ? primeContract : undefined,
+          legacyPoolComptrollerContractAddress,
+          venusLensContractAddress,
+          vaiControllerContractAddress,
+          primeContractAddress: isPrimeEnabled ? primeContractAddress : undefined,
           ...params,
           ...input,
         }),

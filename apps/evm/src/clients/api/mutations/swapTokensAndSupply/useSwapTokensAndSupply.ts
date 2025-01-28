@@ -7,6 +7,7 @@ import { useGetSwapRouterContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
+import type { Address } from 'viem';
 
 type TrimmedSwapTokensAndSupplyInput = Omit<
   SwapTokensAndSupplyInput,
@@ -19,7 +20,7 @@ const useSwapTokensAndSupply = (
     vToken,
     poolComptrollerAddress,
     poolName,
-  }: { vToken: VToken; poolComptrollerAddress: string; poolName: string },
+  }: { vToken: VToken; poolComptrollerAddress: Address; poolName: string },
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();

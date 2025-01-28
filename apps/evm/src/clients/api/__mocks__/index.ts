@@ -19,12 +19,13 @@ import FunctionKey from 'constants/functionKey';
 
 import { proposals } from '__mocks__/models/proposals';
 import type { Token } from 'types';
+import type { Address } from 'viem';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
 import type { GetTokenBalancesInput } from '../queries/getTokenBalances';
 
 // Queries
 export const getIsAddressAuthorized = vi.fn(async accountAddress => fakeAddress !== accountAddress);
-export const useGetIsAddressAuthorized = vi.fn((accountAddress: string) =>
+export const useGetIsAddressAuthorized = vi.fn((accountAddress: Address) =>
   useQuery({
     queryKey: [FunctionKey.GET_IS_ADDRESS_AUTHORIZED],
     queryFn: () => getIsAddressAuthorized(accountAddress),
@@ -39,19 +40,11 @@ export const useGetBlockNumber = vi.fn(() =>
   }),
 );
 
-export const getVaiCalculateRepayAmount = vi.fn();
-export const useGetVaiCalculateRepayAmount = vi.fn(() =>
+export const getUserVaiBorrowBalance = vi.fn();
+export const useGetUserVaiBorrowBalance = vi.fn(() =>
   useQuery({
-    queryKey: [FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT],
-    queryFn: getVaiCalculateRepayAmount,
-  }),
-);
-
-export const getVaiRepayAmountWithInterests = vi.fn();
-export const useGetVaiRepayAmountWithInterests = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS],
-    queryFn: getVaiRepayAmountWithInterests,
+    queryKey: [FunctionKey.GET_USER_VAI_BORROW_BALANCE],
+    queryFn: getUserVaiBorrowBalance,
   }),
 );
 

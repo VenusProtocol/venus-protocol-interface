@@ -9,6 +9,7 @@ import type { Pool } from 'types';
 import { MarketTable } from 'containers/MarketTable';
 import { PoolStats } from 'containers/PoolStats';
 import { Redirect } from 'containers/Redirect';
+import type { Address } from 'viem';
 import { useStyles } from './styles';
 
 export interface PoolUiProps {
@@ -56,7 +57,7 @@ export const PoolUi: React.FC<PoolUiProps> = ({ pool }) => {
 };
 
 interface PoolPageProps {
-  poolComptrollerAddress: string;
+  poolComptrollerAddress: Address;
 }
 
 const PoolPage: React.FC<PoolPageProps> = ({ poolComptrollerAddress }) => {

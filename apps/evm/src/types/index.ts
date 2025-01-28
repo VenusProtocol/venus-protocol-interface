@@ -2,7 +2,7 @@ import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId } from '@venusprotocol/chains';
 import type BigNumber from 'bignumber.js';
 import type { BaseContract, ContractReceipt } from 'ethers';
-import type { TransactionReceipt } from 'viem';
+import type { Address, TransactionReceipt } from 'viem';
 
 // TODO: import from package in places where it's used in the codebase
 export { ChainId, type ChainMetadata } from '@venusprotocol/chains/types';
@@ -29,7 +29,7 @@ export interface Token {
   symbol: string;
   decimals: number;
   asset: string;
-  address: string;
+  address: Address;
   isNative?: boolean;
   tokenWrapped?: Token;
 }
@@ -125,7 +125,7 @@ export interface SwapRouterAddressMapping {
 }
 
 export interface Pool {
-  comptrollerAddress: string;
+  comptrollerAddress: Address;
   name: string;
   isIsolated: boolean;
   assets: Asset[];
@@ -195,7 +195,7 @@ export enum VoteSupport {
 
 export type ProposalVoter = {
   proposalId: number;
-  address: string;
+  address: Address;
   reason: string | undefined;
   support: VoteSupport;
   votesMantissa: BigNumber;
@@ -222,7 +222,7 @@ export interface Proposal {
   proposalType: ProposalType;
   state: ProposalState;
   endBlock: number;
-  proposerAddress: string;
+  proposerAddress: Address;
   totalVotesMantissa: BigNumber;
   proposalActions: ProposalAction[];
   forVotes: ForVoter[];
@@ -280,7 +280,7 @@ export interface JsonProposal {
 export interface VotersDetails {
   result: {
     proposalId: number;
-    address: string;
+    address: Address;
     votesMantissa: BigNumber;
     reason?: string;
     support: VoteSupport;
@@ -387,12 +387,12 @@ export interface Vault {
 }
 
 export interface VoterAccount {
-  address: string;
-  delegate: string;
+  address: Address;
   proposalsVoted: number;
   stakedVotesMantissa: BigNumber;
   voteWeightPercent: string;
   votesMantissa: BigNumber;
+  delegate?: Address;
 }
 
 export interface LockedDeposit {

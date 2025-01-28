@@ -10,6 +10,7 @@ import {
 } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import type { ContractTxData, VToken } from 'types';
+import type { Address } from 'viem';
 
 interface SharedInput {
   amountMantissa: BigNumber;
@@ -23,8 +24,8 @@ export interface SupplyMutationInput extends SharedInput {
 
 export interface WrapAndSupplyMutationInput extends SharedInput {
   wrap: true;
-  accountAddress: string;
-  poolComptrollerContractAddress: string;
+  accountAddress: Address;
+  poolComptrollerContractAddress: Address;
 }
 
 export type SupplyInput = SupplyMutationInput | WrapAndSupplyMutationInput;

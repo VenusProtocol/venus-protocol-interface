@@ -1,12 +1,10 @@
 import BigNumber from 'bignumber.js';
-
-import { getBlockNumber } from 'clients/api';
+import { getUserVaiBorrowBalance } from 'clients/api';
 import type { GetIsolatedPoolParticipantsCountInput } from 'clients/subgraph';
-import type { PoolLens } from 'libs/contracts';
-import type { Asset, TokenBalance } from 'types';
-
+import { primeAbi } from 'libs/contracts';
 import { logError } from 'libs/errors';
-import type { GetPoolsInput, GetPoolsOutput, PrimeApy } from '../types';
+import type { Asset, TokenBalance } from 'types';
+import type { GetPoolsInput, GetPoolsOutput, PrimeApy, VTokenBalance } from '../types';
 import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
 import { formatOutput } from './formatOutput';
 import { getApiPools } from './getApiPools';
@@ -14,7 +12,6 @@ import { getIsolatedPoolParticipantCounts } from './getIsolatedPoolParticipantCo
 import { getUserCollateralAddresses } from './getUserCollateralAddresses';
 import { getUserPrimeApys } from './getUserPrimeApys';
 import { getUserTokenBalances } from './getUserTokenBalances';
-import { getUserVaiBorrowBalance } from './getUserVaiBorrowBalance';
 
 const safeGetIsolatedPoolParticipantCount = async (
   input: GetIsolatedPoolParticipantsCountInput,
@@ -30,20 +27,20 @@ const safeGetIsolatedPoolParticipantCount = async (
 };
 
 export const getPools = async ({
+  publicClient,
   chainId,
   accountAddress,
-  primeContract,
-  poolLensContract,
-  legacyPoolComptrollerContract,
-  vaiControllerContract,
-  venusLensContract,
-  provider,
+  primeContractAddress,
+  poolLensContractAddress,
+  legacyPoolComptrollerContractAddress,
+  vaiControllerContractAddress,
+  venusLensContractAddress,
   tokens,
 }: GetPoolsInput) => {
   const [
     { pools: apiPools },
     isolatedPoolParticipantCounts,
-    { blockNumber: currentBlockNumber },
+    currentBlockNumber,
     unsafePrimeVTokenAddresses,
     primeMinimumXvsToStakeMantissa,
     userPrimeToken,
@@ -51,21 +48,38 @@ export const getPools = async ({
     getApiPools({ chainId }),
     safeGetIsolatedPoolParticipantCount({ chainId }),
     // Fetch current block number
-    getBlockNumber({ provider }),
+    publicClient.getBlockNumber(),
     // Prime related calls
-    primeContract?.getAllMarkets(), // TODO: get from API
-    primeContract?.MINIMUM_STAKED_XVS(), // TODO: get from API
-    accountAddress ? primeContract?.tokens(accountAddress) : undefined,
+    primeContractAddress
+      ? publicClient.readContract({
+          abi: primeAbi,
+          address: primeContractAddress,
+          functionName: 'getAllMarkets',
+        }) // TODO: get from API
+      : undefined,
+    primeContractAddress
+      ? publicClient.readContract({
+          abi: primeAbi,
+          address: primeContractAddress,
+          functionName: 'MINIMUM_STAKED_XVS',
+        }) // TODO: get from API
+      : undefined,
+    accountAddress && primeContractAddress
+      ? publicClient.readContract({
+          abi: primeAbi,
+          address: primeContractAddress,
+          functionName: 'tokens',
+          args: [accountAddress],
+        })
+      : undefined,
   ]);
 
   const primeVTokenAddresses = unsafePrimeVTokenAddresses ?? [];
-  const isUserPrime = userPrimeToken?.exists || false;
+  const isUserPrime = userPrimeToken?.[0] || false;
 
   let userCollateralVTokenAddresses: string[] | undefined;
-  let userVTokenBalances:
-    | Awaited<ReturnType<PoolLens['callStatic']['vTokenBalancesAll']>>
-    | undefined;
   let userTokenBalances: TokenBalance[] | undefined;
+  let userVTokenBalances: VTokenBalance[] | undefined;
   let userVaiBorrowBalanceMantissa: BigNumber | undefined;
   let userPrimeApyMap: Map<string, PrimeApy> | undefined;
 
@@ -74,43 +88,40 @@ export const getPools = async ({
       getUserCollateralAddresses({
         chainId,
         accountAddress,
-        legacyPoolComptrollerContract,
+        legacyPoolComptrollerContractAddress,
         apiPools,
-        provider,
+        publicClient,
       }),
       getUserTokenBalances({
         accountAddress,
         apiPools,
         chainId,
         tokens,
-        provider,
-        poolLensContract,
-        venusLensContract,
+        publicClient,
+        poolLensContractAddress,
+        venusLensContractAddress,
       }),
-      getUserVaiBorrowBalance({
-        accountAddress,
-        vaiControllerContract,
-      }),
-      isUserPrime && primeContract
+      vaiControllerContractAddress
+        ? getUserVaiBorrowBalance({
+            accountAddress,
+            publicClient,
+            vaiControllerContractAddress,
+          })
+        : undefined,
+      isUserPrime && primeContractAddress
         ? getUserPrimeApys({
             accountAddress,
-            primeContract,
+            publicClient,
+            primeContractAddress,
             primeVTokenAddresses,
           })
         : undefined,
     ]);
 
     userCollateralVTokenAddresses = userCollaterals.userCollateralAddresses;
-
-    userVTokenBalances = [
-      ...(userBalances.userIsolatedPoolVTokenBalances || []),
-      ...(userBalances.userLegacyPoolVTokenBalances || []),
-    ];
-
-    userTokenBalances = userBalances.userTokenBalances?.tokenBalances;
-
-    userVaiBorrowBalanceMantissa = userVaiBorrowBalance.userVaiBorrowBalanceMantissa;
-
+    userVTokenBalances = userBalances.userVTokenBalances;
+    userTokenBalances = userBalances.userTokenBalances;
+    userVaiBorrowBalanceMantissa = userVaiBorrowBalance?.userVaiBorrowBalanceMantissa;
     userPrimeApyMap = userPrimeApys?.userPrimeApyMap;
   }
 
@@ -131,14 +142,15 @@ export const getPools = async ({
   // Add Prime simulations
   // TODO: get Prime simulations from API
   const xvs = tokens.find(token => token.symbol === 'XVS');
-  if (primeContract && primeMinimumXvsToStakeMantissa && xvs) {
+  if (primeContractAddress && primeMinimumXvsToStakeMantissa && xvs) {
     await appendPrimeSimulationDistributions({
       assets: pools.reduce<Asset[]>((acc, pool) => acc.concat(pool.assets), []),
-      primeContract,
+      primeContractAddress,
       primeVTokenAddresses,
       primeMinimumXvsToStakeMantissa: new BigNumber(primeMinimumXvsToStakeMantissa.toString()),
       xvs,
       chainId,
+      publicClient,
     });
   }
 

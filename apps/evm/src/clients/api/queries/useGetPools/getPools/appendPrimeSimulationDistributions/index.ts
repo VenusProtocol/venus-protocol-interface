@@ -1,8 +1,7 @@
 import type BigNumber from 'bignumber.js';
-
 import { NULL_ADDRESS } from 'constants/address';
 import { primeAveragesForNetwork } from 'constants/prime';
-import type { Prime } from 'libs/contracts';
+import { primeAbi } from 'libs/contracts';
 import type { Asset, ChainId, Token } from 'types';
 import {
   areAddressesEqual,
@@ -10,19 +9,22 @@ import {
   convertMantissaToTokens,
   convertTokensToMantissa,
 } from 'utilities';
+import type { Address, PublicClient } from 'viem';
 
 export interface ResolvePrimeSimulationDistributionsInput {
-  primeContract: Prime;
-  primeVTokenAddresses: string[];
+  publicClient: PublicClient;
+  primeContractAddress: Address;
+  primeVTokenAddresses: readonly Address[];
   assets: Asset[];
   xvs: Token;
   primeMinimumXvsToStakeMantissa: BigNumber;
-  accountAddress?: string;
+  accountAddress?: Address;
   chainId: ChainId;
 }
 
 export const appendPrimeSimulationDistributions = async ({
-  primeContract,
+  publicClient,
+  primeContractAddress,
   primeVTokenAddresses,
   assets,
   xvs,
@@ -71,13 +73,18 @@ export const appendPrimeSimulationDistributions = async ({
           token: xvs,
         });
 
-        const simulatedPrimeAprs = await primeContract.estimateAPR(
-          primeVTokenAddress,
-          accountAddress || NULL_ADDRESS,
-          averageBorrowBalanceMantissa.toFixed(),
-          averageSupplyBalanceMantissa.toFixed(),
-          averageXvsStakedMantissa.toFixed(),
-        );
+        const simulatedPrimeAprs = await publicClient.readContract({
+          abi: primeAbi,
+          address: primeContractAddress,
+          functionName: 'estimateAPR',
+          args: [
+            primeVTokenAddress,
+            accountAddress || NULL_ADDRESS,
+            BigInt(averageBorrowBalanceMantissa.toFixed()),
+            BigInt(averageSupplyBalanceMantissa.toFixed()),
+            BigInt(averageXvsStakedMantissa.toFixed()),
+          ],
+        });
 
         const referenceValues = {
           userSupplyBalanceTokens: averageSupplyBalanceTokens,
@@ -85,7 +92,7 @@ export const appendPrimeSimulationDistributions = async ({
           userXvsStakedTokens: averageXvsStakedTokens,
         };
 
-        if (!simulatedPrimeAprs.borrowAPR.isZero()) {
+        if (simulatedPrimeAprs.borrowAPR > 0n) {
           const borrowSimulatedPrimeApy = convertAprBipsToApy({
             aprBips: simulatedPrimeAprs.borrowAPR.toString(),
           });
@@ -98,7 +105,7 @@ export const appendPrimeSimulationDistributions = async ({
           });
         }
 
-        if (!simulatedPrimeAprs.supplyAPR.isZero()) {
+        if (simulatedPrimeAprs.supplyAPR > 0n) {
           const supplySimulatedPrimeApy = convertAprBipsToApy({
             aprBips: simulatedPrimeAprs.supplyAPR.toString(),
           });

@@ -10,6 +10,7 @@ import { renderComponent } from 'testUtils/render';
 
 import useTokenApproval from 'hooks/useTokenApproval';
 
+import { NULL_ADDRESS } from 'constants/address';
 import TransactionForm, { type TransactionFormProps } from '.';
 import TEST_IDS from './testIds';
 
@@ -41,7 +42,7 @@ describe('TransactionForm', () => {
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: vai,
-      spenderAddress: '',
+      spenderAddress: NULL_ADDRESS,
       accountAddress: fakeAccountAddress,
     });
 
@@ -99,7 +100,7 @@ describe('TransactionForm', () => {
   it('disables submit button if token has been approved but amount entered is higher than wallet spending limit', async () => {
     const originalTokenApprovalOutput = useTokenApproval({
       token: vai,
-      spenderAddress: '',
+      spenderAddress: NULL_ADDRESS,
       accountAddress: fakeAccountAddress,
     });
 

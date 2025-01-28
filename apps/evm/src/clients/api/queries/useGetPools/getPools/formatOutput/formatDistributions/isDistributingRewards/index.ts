@@ -9,7 +9,7 @@ export const isDistributingRewards = ({
   isTimeBased: boolean;
   lastRewardingTimestamp?: number;
   lastRewardingBlock?: number;
-  currentBlockNumber: number;
+  currentBlockNumber: bigint;
 }): boolean => {
   const nowTimestamp = getUnixTime(new Date());
 

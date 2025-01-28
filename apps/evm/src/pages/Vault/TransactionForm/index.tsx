@@ -18,6 +18,7 @@ import type { Token } from 'types';
 import { cn, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
 import { FormikSubmitButton, FormikTokenTextField } from 'containers/Form';
+import type { Address } from 'viem';
 import TEST_IDS from './testIds';
 
 export interface TransactionFormUiProps {
@@ -229,7 +230,7 @@ export interface TransactionFormProps
     | 'isRevokeWalletSpendingLimitLoading'
   > {
   poolIndex?: number;
-  spenderAddress?: string;
+  spenderAddress?: Address;
 }
 
 const TransactionForm: React.FC<TransactionFormProps> = ({

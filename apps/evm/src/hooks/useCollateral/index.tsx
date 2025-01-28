@@ -15,6 +15,7 @@ import { VError } from 'libs/errors';
 import { useAccountAddress, useSigner } from 'libs/wallet';
 import type { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
+import type { Address } from 'viem';
 
 const useCollateral = () => {
   const { signer } = useSigner();
@@ -37,7 +38,7 @@ const useCollateral = () => {
     poolName,
   }: {
     asset: Asset;
-    comptrollerAddress: string;
+    comptrollerAddress: Address;
     poolName: string;
   }) => {
     if (!signer || !accountAddress) {
@@ -133,7 +134,7 @@ const useCollateral = () => {
     poolName,
   }: {
     asset: Asset;
-    comptrollerAddress: string;
+    comptrollerAddress: Address;
     poolName: string;
   }) => {
     if (!accountAddress) {

@@ -7,11 +7,12 @@ import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetIsolatedPoolComptrollerContract } from 'libs/contracts';
 import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 type TrimmedUpdatePoolDelegateStatusInput = Omit<
   UpdatePoolDelegateStatusInput,
   'poolComptrollerContract' | 'approvedStatus'
-> & { poolComptrollerAddress: string };
+> & { poolComptrollerAddress: Address };
 type Options = UseSendTransactionOptions<{ approvedStatus: boolean }>;
 
 const useUpdatePoolDelegateStatus = (

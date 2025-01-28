@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import type { PublicClient } from 'viem';
 
-import getCurrentVotes from '.';
+import getCurrentVotes from '..';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 

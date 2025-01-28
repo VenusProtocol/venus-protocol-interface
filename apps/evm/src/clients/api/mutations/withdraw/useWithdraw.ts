@@ -7,6 +7,7 @@ import { useGetNativeTokenGatewayContract, useGetVTokenContract } from 'libs/con
 import { useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
+import type { Address } from 'viem';
 
 type TrimmedRedeemInput = Omit<WithdrawInput, 'tokenContract' | 'accountAddress'>;
 type Options = UseSendTransactionOptions<TrimmedRedeemInput>;
@@ -16,7 +17,7 @@ const useWithdraw = (
     vToken,
     poolName,
     poolComptrollerAddress,
-  }: { vToken: VToken; poolName: string; poolComptrollerAddress: string },
+  }: { vToken: VToken; poolName: string; poolComptrollerAddress: Address },
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();

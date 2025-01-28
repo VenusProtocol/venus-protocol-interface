@@ -1,27 +1,23 @@
-import {
-  type IsolatedPoolComptroller,
-  type LegacyPoolComptroller,
-  getIsolatedPoolComptrollerContract,
-} from 'libs/contracts';
-import type { Provider } from 'libs/wallet';
+import { isolatedPoolComptrollerAbi, legacyPoolComptrollerAbi } from 'libs/contracts';
 import type { ChainId } from 'types';
 import { isPoolIsolated } from 'utilities';
+import type { Address, PublicClient } from 'viem';
 import type { ApiPool } from '../getApiPools';
 
 export const getUserCollateralAddresses = async ({
   accountAddress,
   apiPools,
   chainId,
-  provider,
-  legacyPoolComptrollerContract,
+  publicClient,
+  legacyPoolComptrollerContractAddress,
 }: {
-  accountAddress: string;
+  accountAddress: Address;
   apiPools: ApiPool[];
   chainId: ChainId;
-  provider: Provider;
-  legacyPoolComptrollerContract?: LegacyPoolComptroller;
+  publicClient: PublicClient;
+  legacyPoolComptrollerContractAddress?: Address;
 }) => {
-  const getAssetsInPromises: ReturnType<IsolatedPoolComptroller['getAssetsIn']>[] = [];
+  const getAssetsInPromises: Promise<readonly string[]>[] = [];
 
   apiPools.forEach(pool => {
     const isIsolated = isPoolIsolated({
@@ -33,18 +29,27 @@ export const getUserCollateralAddresses = async ({
       return;
     }
 
-    const comptrollerContract = getIsolatedPoolComptrollerContract({
-      signerOrProvider: provider,
-      address: pool.address,
-    });
-
     if (accountAddress) {
-      getAssetsInPromises.push(comptrollerContract.getAssetsIn(accountAddress));
+      getAssetsInPromises.push(
+        publicClient.readContract({
+          abi: isolatedPoolComptrollerAbi,
+          address: pool.address,
+          functionName: 'getAssetsIn',
+          args: [accountAddress],
+        }),
+      );
     }
   });
 
-  if (accountAddress && legacyPoolComptrollerContract) {
-    getAssetsInPromises.push(legacyPoolComptrollerContract.getAssetsIn(accountAddress));
+  if (accountAddress && legacyPoolComptrollerContractAddress) {
+    getAssetsInPromises.push(
+      publicClient.readContract({
+        abi: legacyPoolComptrollerAbi,
+        address: legacyPoolComptrollerContractAddress,
+        functionName: 'getAssetsIn',
+        args: [accountAddress],
+      }),
+    );
   }
 
   const results = await Promise.all(getAssetsInPromises);

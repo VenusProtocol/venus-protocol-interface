@@ -4,6 +4,7 @@ import { getVTokenAsset } from 'libs/tokens';
 import type { ChainId, Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
+import type { Address } from 'viem';
 
 export interface GetVTokensInput {
   chainId: ChainId;
@@ -71,7 +72,7 @@ const getVTokens = async ({
     }
 
     const vToken: VToken = {
-      address: metaData.vToken,
+      address: metaData.vToken as Address,
       decimals: 8,
       symbol: `v${underlyingToken.symbol}`,
       underlyingToken,

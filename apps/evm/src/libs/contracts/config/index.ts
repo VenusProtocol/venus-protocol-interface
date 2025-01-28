@@ -67,23 +67,23 @@ import tokenBridgeOptimismSepoliaDeployments from '@venusprotocol/token-bridge/d
 import tokenBridgeSepoliaDeployments from '@venusprotocol/token-bridge/deployments/sepolia_addresses.json';
 import tokenBridgeZkSyncMainnetDeployments from '@venusprotocol/token-bridge/deployments/zksyncmainnet_addresses.json';
 import tokenBridgeZkSyncSepoliaDeployments from '@venusprotocol/token-bridge/deployments/zksyncsepolia_addresses.json';
-import { abi as LegacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
-import { abi as VTreasuryAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasury.sol/VTreasury.json';
-import { abi as VTreasuryV8Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasuryV8.sol/VTreasuryV8.json';
-import { abi as JumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
-import { abi as VenusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
-import { abi as SwapRouterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Swap/SwapRouter.sol/SwapRouter.json';
-import { abi as Bep20Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/BEP20Interface.sol/BEP20Interface.json';
-import { abi as PrimeAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/Prime/Prime.sol/Prime.json';
-import { abi as VaiAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAI.sol/VAI.json';
-import { abi as VaiControllerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAIController.sol/VAIController.json';
-import { abi as VrtAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRT.sol/VRT.json';
-import { abi as VrtConverterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRTConverter.sol/VRTConverter.json';
-import { abi as XvsAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/XVS/XVS.sol/XVS.json';
-import { abi as XvsVestingAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/XVS/XVSVesting.sol/XVSVesting.json';
-import { abi as VaiVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/VAIVault/VAIVault.sol/VAIVault.json';
-import { abi as XvsStoreAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSStore.sol/XVSStore.json';
-import { abi as XvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSVault.sol/XVSVault.json';
+import { abi as legacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
+import { abi as vTreasuryAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasury.sol/VTreasury.json';
+import { abi as vTreasuryV8Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasuryV8.sol/VTreasuryV8.json';
+import { abi as jumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
+import { abi as venusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
+import { abi as swapRouterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Swap/SwapRouter.sol/SwapRouter.json';
+import { abi as bep20Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/BEP20Interface.sol/BEP20Interface.json';
+import { abi as primeAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/Prime/Prime.sol/Prime.json';
+import { abi as vaiAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAI.sol/VAI.json';
+import { abi as vaiControllerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAIController.sol/VAIController.json';
+import { abi as vrtAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRT.sol/VRT.json';
+import { abi as vrtConverterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VRT/VRTConverter.sol/VRTConverter.json';
+import { abi as xvsAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/XVS/XVS.sol/XVS.json';
+import { abi as xvsVestingAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/XVS/XVSVesting.sol/XVSVesting.json';
+import { abi as vaiVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/VAIVault/VAIVault.sol/VAIVault.json';
+import { abi as xvsStoreAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSStore.sol/XVSStore.json';
+import { abi as xvsVaultAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/XVSVault/XVSVault.sol/XVSVault.json';
 import venusProtocolArbitrumOneDeployments from '@venusprotocol/venus-protocol/deployments/arbitrumone_addresses.json';
 import venusProtocolArbitrumSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/arbitrumsepolia_addresses.json';
 import venusProtocolBaseMainnetDeployments from '@venusprotocol/venus-protocol/deployments/basemainnet_addresses.json';
@@ -141,7 +141,7 @@ export const contracts: ContractConfig[] = [
   // Unique contracts
   {
     name: 'VenusLens',
-    abi: VenusLensAbi,
+    abi: venusLensAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VenusLens,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VenusLens,
@@ -192,7 +192,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'LegacyPoolComptroller',
-    abi: LegacyPoolComptrollerAbi,
+    abi: legacyPoolComptrollerAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Unitroller,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Unitroller,
@@ -200,7 +200,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VaiController',
-    abi: VaiControllerAbi,
+    abi: vaiControllerAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VaiUnitroller,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VaiUnitroller,
@@ -208,7 +208,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VaiVault',
-    abi: VaiVaultAbi,
+    abi: vaiVaultAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VAIVaultProxy,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VAIVaultProxy,
@@ -234,7 +234,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XvsVault',
-    abi: XvsVaultAbi,
+    abi: xvsVaultAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVaultProxy,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVaultProxy,
@@ -254,7 +254,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XvsStore',
-    abi: XvsStoreAbi,
+    abi: xvsStoreAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSStore,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSStore,
@@ -312,7 +312,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XvsVesting',
-    abi: XvsVestingAbi,
+    abi: xvsVestingAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVestingProxy,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVestingProxy,
@@ -320,7 +320,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VrtConverter',
-    abi: VrtConverterAbi,
+    abi: vrtConverterAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VRTConverterProxy,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VRTConverterProxy,
@@ -396,7 +396,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'Prime',
-    abi: PrimeAbi,
+    abi: primeAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Prime,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Prime,
@@ -414,7 +414,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VTreasury',
-    abi: VTreasuryAbi,
+    abi: vTreasuryAbi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VTreasury,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VTreasury,
@@ -422,7 +422,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VTreasuryV8',
-    abi: VTreasuryV8Abi,
+    abi: vTreasuryV8Abi,
     address: {
       [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.VTreasuryV8,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.VTreasuryV8,
@@ -479,7 +479,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'JumpRateModel',
-    abi: JumpRateModelAbi,
+    abi: jumpRateModelAbi,
   },
   {
     name: 'JumpRateModelV2',
@@ -499,19 +499,19 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'Bep20',
-    abi: Bep20Abi,
+    abi: bep20Abi,
   },
   {
     name: 'Xvs',
-    abi: XvsAbi,
+    abi: xvsAbi,
   },
   {
     name: 'Vai',
-    abi: VaiAbi,
+    abi: vaiAbi,
   },
   {
     name: 'Vrt',
-    abi: VrtAbi,
+    abi: vrtAbi,
   },
   {
     name: 'PancakePairV2',
@@ -520,7 +520,7 @@ export const contracts: ContractConfig[] = [
   // SwapRouter contract
   {
     name: 'SwapRouter',
-    abi: SwapRouterAbi,
+    abi: swapRouterAbi,
     address: {
       [ChainId.BSC_TESTNET]: {
         // Core pool

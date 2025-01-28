@@ -8,6 +8,7 @@ import 'whatwg-fetch';
 
 import { xvs } from '__mocks__/models/tokens';
 
+import { NULL_ADDRESS } from 'constants/address';
 import useTokenApproval from 'hooks/useTokenApproval';
 
 vi.mock('hooks/useIsFeatureEnabled');
@@ -59,8 +60,8 @@ const useTokenApprovalOriginalOutput = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
   {
     token: xvs,
-    spenderAddress: '',
-    accountAddress: '',
+    spenderAddress: NULL_ADDRESS,
+    accountAddress: NULL_ADDRESS,
   },
 );
 

@@ -1,8 +1,9 @@
 import type { GovernorBravoDelegate } from 'libs/contracts';
+import type { Address } from 'viem';
 
 export interface GetLatestProposalIdByProposerInput {
   governorBravoDelegateContract: GovernorBravoDelegate;
-  accountAddress: string;
+  accountAddress: Address;
 }
 
 export type GetLatestProposalIdByProposerOutput = {

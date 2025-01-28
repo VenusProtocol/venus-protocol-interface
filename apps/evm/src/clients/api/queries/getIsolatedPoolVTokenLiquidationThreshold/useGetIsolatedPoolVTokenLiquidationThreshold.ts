@@ -10,10 +10,11 @@ import { useGetIsolatedPoolComptrollerContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 interface TrimmedGetIsolatedPoolVTokenLiquidationThresholdInput
   extends Omit<GetIsolatedPoolVTokenLiquidationThresholdInput, 'poolComptrollerContract'> {
-  poolComptrollerContractAddress: string;
+  poolComptrollerContractAddress: Address;
 }
 
 export type UseGetIsolatedPoolVTokenLiquidationThresholdQueryKey = [

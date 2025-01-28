@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
-import { type Params, matchPath, useLocation } from 'react-router-dom';
+import { matchPath, useLocation } from 'react-router-dom';
 
 import { Username } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import { Subdirectory, routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
+import type { Address } from 'viem';
 import PoolName from './PoolName';
 import VTokenSymbol from './VTokenSymbol';
 
@@ -20,7 +22,12 @@ export const Breadcrumbs: React.FC = () => {
 
   const pathNodes = useMemo(() => {
     // Get active route
-    let params: Params<string> = {};
+    let params: {
+      poolComptrollerAddress?: Address;
+      vTokenAddress?: Address;
+      proposalId?: string;
+      address?: Address;
+    } = {};
     const activeRouteKey = Object.keys(routes).find(key => {
       const routeMatch = matchPath(routes[key as keyof typeof routes].path, pathname);
 
@@ -68,7 +75,7 @@ export const Breadcrumbs: React.FC = () => {
             params.poolComptrollerAddress || '',
           );
 
-          dom = <PoolName poolComptrollerAddress={params.poolComptrollerAddress || ''} />;
+          dom = <PoolName poolComptrollerAddress={params.poolComptrollerAddress || NULL_ADDRESS} />;
           break;
         case Subdirectory.CORE_POOL:
           dom = t('breadcrumbs.corePool');

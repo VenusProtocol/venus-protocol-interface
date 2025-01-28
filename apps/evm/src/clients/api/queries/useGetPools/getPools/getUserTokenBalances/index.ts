@@ -1,9 +1,11 @@
+import BigNumber from 'bignumber.js';
 import { getTokenBalances } from 'clients/api';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import type { PoolLens, VenusLens } from 'libs/contracts';
-import type { Provider } from 'libs/wallet';
+import { poolLensAbi, venusLensAbi } from 'libs/contracts';
 import type { ChainId, Token } from 'types';
 import { findTokenByAddress, isPoolIsolated } from 'utilities';
+import type { Address, PublicClient } from 'viem';
+import type { VTokenBalance } from '../../types';
 import type { ApiPool } from '../getApiPools';
 
 export const getUserTokenBalances = async ({
@@ -11,26 +13,26 @@ export const getUserTokenBalances = async ({
   apiPools,
   chainId,
   tokens,
-  provider,
-  poolLensContract,
-  venusLensContract,
+  publicClient,
+  poolLensContractAddress,
+  venusLensContractAddress,
 }: {
-  accountAddress: string;
+  accountAddress: Address;
   apiPools: ApiPool[];
   chainId: ChainId;
   tokens: Token[];
-  provider: Provider;
-  poolLensContract: PoolLens;
-  venusLensContract?: VenusLens;
+  publicClient: PublicClient;
+  poolLensContractAddress: Address;
+  venusLensContractAddress?: Address;
 }) => {
   // Extract token records and addresses
   const [legacyPoolVTokenAddresses, isolatedPoolsVTokenAddresses, underlyingTokens] =
-    apiPools.reduce<[string[], string[], Token[]]>(
+    apiPools.reduce<[Address[], Address[], Token[]]>(
       (acc, pool) => {
-        const newLegacyPoolVTokenAddresses: string[] = [];
-        const newIsolatedPoolsVTokenAddresses: string[] = [];
+        const newLegacyPoolVTokenAddresses: Address[] = [];
+        const newIsolatedPoolsVTokenAddresses: Address[] = [];
         const newUnderlyingTokens: Token[] = [];
-        const newUnderlyingTokenAddresses: string[] = [];
+        const newUnderlyingTokenAddresses: Address[] = [];
 
         pool.markets.forEach(market => {
           const isIsolated = isPoolIsolated({
@@ -40,9 +42,9 @@ export const getUserTokenBalances = async ({
 
           // VToken addresses are unique
           if (isIsolated) {
-            newIsolatedPoolsVTokenAddresses.push(market.address.toLowerCase());
+            newIsolatedPoolsVTokenAddresses.push(market.address.toLowerCase() as Address);
           } else {
-            newLegacyPoolVTokenAddresses.push(market.address.toLowerCase());
+            newLegacyPoolVTokenAddresses.push(market.address.toLowerCase() as Address);
           }
 
           const underlyingToken = findTokenByAddress({
@@ -52,10 +54,10 @@ export const getUserTokenBalances = async ({
 
           if (
             underlyingToken &&
-            !newUnderlyingTokenAddresses.includes(underlyingToken.address.toLowerCase())
+            !newUnderlyingTokenAddresses.includes(underlyingToken.address.toLowerCase() as Address)
           ) {
             newUnderlyingTokens.push(underlyingToken);
-            newUnderlyingTokenAddresses.push(underlyingToken.address.toLowerCase());
+            newUnderlyingTokenAddresses.push(underlyingToken.address.toLowerCase() as Address);
           }
         });
 
@@ -73,17 +75,39 @@ export const getUserTokenBalances = async ({
       getTokenBalances({
         accountAddress,
         tokens: underlyingTokens,
-        provider,
+        publicClient,
       }),
-      poolLensContract.callStatic.vTokenBalancesAll(isolatedPoolsVTokenAddresses, accountAddress),
-      venusLensContract
-        ? venusLensContract.callStatic.vTokenBalancesAll(legacyPoolVTokenAddresses, accountAddress)
+      publicClient.simulateContract({
+        abi: poolLensAbi,
+        address: poolLensContractAddress,
+        functionName: 'vTokenBalancesAll',
+        args: [isolatedPoolsVTokenAddresses, accountAddress],
+      }),
+      venusLensContractAddress
+        ? publicClient.simulateContract({
+            abi: venusLensAbi,
+            address: venusLensContractAddress,
+            functionName: 'vTokenBalancesAll',
+            args: [legacyPoolVTokenAddresses, accountAddress],
+          })
         : undefined,
     ]);
 
+  const userVTokenBalances = [
+    ...userIsolatedPoolVTokenBalances.result,
+    ...(userLegacyPoolVTokenBalances?.result || []),
+  ].map(res => {
+    const vTokenBalance: VTokenBalance = {
+      vTokenAddress: res.vToken,
+      underlyingTokenBorrowBalanceMantissa: new BigNumber(res.borrowBalanceCurrent.toString()),
+      underlyingTokenSupplyBalanceMantissa: new BigNumber(res.balanceOfUnderlying.toString()),
+    };
+
+    return vTokenBalance;
+  });
+
   return {
-    userTokenBalances,
-    userIsolatedPoolVTokenBalances,
-    userLegacyPoolVTokenBalances,
+    userTokenBalances: userTokenBalances?.tokenBalances,
+    userVTokenBalances,
   };
 };

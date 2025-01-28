@@ -6,16 +6,17 @@ import {
   getTokenBalances,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useChainId, useProvider } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
+import type { Address } from 'viem';
 
 export type UseGetTokenBalancesQueryKey = [
   FunctionKey.GET_TOKEN_BALANCES,
   {
-    accountAddress: string;
+    accountAddress: Address;
     chainId: ChainId;
   },
-  ...string[],
+  ...Address[],
 ];
 
 export type Options = QueryObserverOptions<
@@ -27,10 +28,10 @@ export type Options = QueryObserverOptions<
 >;
 
 const useGetTokenBalances = (
-  { accountAddress, tokens }: Omit<GetTokenBalancesInput, 'multicall3' | 'provider'>,
+  { accountAddress, tokens }: Omit<GetTokenBalancesInput, 'publicClient'>,
   options?: Partial<Options>,
 ) => {
-  const { provider } = useProvider();
+  const { publicClient } = usePublicClient();
   const { chainId } = useChainId();
 
   // Sort addresses alphabetically to prevent unnecessary re-renders
@@ -46,7 +47,7 @@ const useGetTokenBalances = (
       ...sortedTokenAddresses,
     ],
 
-    queryFn: () => getTokenBalances({ accountAddress, tokens, provider }),
+    queryFn: () => getTokenBalances({ accountAddress, tokens, publicClient }),
     ...options,
   });
 };

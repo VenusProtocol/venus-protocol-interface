@@ -1,6 +1,7 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 import { useMemo } from 'react';
+import type { Address } from 'viem';
 
 import abi from 'libs/contracts/generated/infos/abis/{{contractName}}.json';
 import addresses from 'libs/contracts/generated/infos/addresses';
@@ -8,10 +9,10 @@ import { {{contractName}} } from 'libs/contracts/generated/infos/contractTypes';
 import { useChainId, useProvider, useSigner } from 'libs/wallet';
 import { ChainId } from 'types';
 
-export { abi as {{contractName}}Abi } from 'libs/contracts/generated/infos/abis/{{contractName}}';
+export { abi as {{decapitalize contractName}}Abi } from 'libs/contracts/generated/infos/abis/{{contractName}}';
 
 interface Get{{contractName}}ContractAddressInput {
-  comptrollerContractAddress: string;
+  comptrollerContractAddress: Address;
   chainId: ChainId;
 }
 
@@ -23,11 +24,11 @@ export const get{{contractName}}ContractAddress = ({
   const sanitizedComptrollerAddress =
     comptrollerContractAddress.toLowerCase() as keyof typeof {{contractName}}ContractAddresses;
 
-  return {{contractName}}ContractAddresses?.[sanitizedComptrollerAddress] as string | undefined;
+  return {{contractName}}ContractAddresses?.[sanitizedComptrollerAddress] as Address | undefined;
 };
 
 interface UseGet{{contractName}}ContractAddressInput {
-  comptrollerContractAddress: string;
+  comptrollerContractAddress: Address;
   chainId?: ChainId;
 }
 
@@ -51,7 +52,7 @@ export const useGet{{contractName}}ContractAddress = ({
 interface Get{{contractName}}ContractInput {
   chainId: ChainId;
   signerOrProvider: Signer | Provider;
-  comptrollerContractAddress: string;
+  comptrollerContractAddress: Address;
 }
 
 export const get{{contractName}}Contract = ({
@@ -65,7 +66,7 @@ export const get{{contractName}}Contract = ({
 
 interface UseGet{{contractName}}ContractInput {
   passSigner: boolean;
-  comptrollerContractAddress: string;
+  comptrollerContractAddress: Address;
   chainId?: ChainId;
 }
 

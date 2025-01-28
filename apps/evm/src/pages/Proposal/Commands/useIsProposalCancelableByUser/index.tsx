@@ -1,11 +1,12 @@
 import { useGetCurrentVotes, useGetProposalThreshold } from 'clients/api';
 import { ProposalState } from 'types';
 import { areAddressesEqual } from 'utilities';
+import type { Address } from 'viem';
 
 export type UseIsProposalCancelableByUserProps = {
   state: ProposalState;
-  proposerAddress: string;
-  accountAddress?: string;
+  proposerAddress: Address;
+  accountAddress?: Address;
 };
 
 export const useIsProposalCancelableByUser = ({

@@ -2,6 +2,7 @@ import { Pair as PSPair } from '@pancakeswap/sdk';
 
 import { getPancakePairV2Contract } from 'libs/contracts';
 
+import type { Address } from 'viem';
 import formatToPairs from './formatToPairs';
 import type { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from './types';
 
@@ -14,7 +15,7 @@ const getPancakeSwapPairs = async ({
   // Generate pair addresses from token combinations
   const pairAddresses: PairAddress[] = tokenCombinations.reduce((acc, [tokenA, tokenB]) => {
     try {
-      const address = PSPair.getAddress(tokenA, tokenB);
+      const address = PSPair.getAddress(tokenA, tokenB) as Address;
 
       const pairAddress: PairAddress = {
         tokenCombination: [tokenA, tokenB],
