@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.197.0
+
+### Minor Changes
+
+- d32b905: update GMX token icons
+- f60615c: update Thena token assets
+
 ## 2.196.0
 
 ### Minor Changes
