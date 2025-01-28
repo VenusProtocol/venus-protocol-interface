@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.196.0
+
+### Minor Changes
+
+- da87a43: refactor query function to fetch pools
+
 ## 2.195.0
 
 ### Minor Changes
