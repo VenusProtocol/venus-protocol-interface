@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
-import type { PoolLens } from 'libs/contracts';
 import { getVTokenAsset } from 'libs/tokens';
 import type { Asset, ChainId, Pool, Token, TokenBalance, VToken } from 'types';
 import {
@@ -17,7 +16,7 @@ import {
   getDisabledTokenActions,
   isPoolIsolated,
 } from 'utilities';
-import type { MarketParticipantsCounts, PrimeApy } from '../../types';
+import type { MarketParticipantsCounts, PrimeApy, VTokenBalance } from '../../types';
 import type { ApiPool } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
 
@@ -35,12 +34,12 @@ export const formatOutput = ({
 }: {
   chainId: ChainId;
   tokens: Token[];
-  currentBlockNumber: number;
+  currentBlockNumber: bigint;
   apiPools: ApiPool[];
   isolatedPoolParticipantsCountMap?: Map<string, MarketParticipantsCounts>;
   userPrimeApyMap?: Map<string, PrimeApy>;
   userCollateralVTokenAddresses?: string[];
-  userVTokenBalances?: Awaited<ReturnType<PoolLens['callStatic']['vTokenBalancesAll']>>;
+  userVTokenBalances?: VTokenBalance[];
   userTokenBalances?: TokenBalance[];
   userVaiBorrowBalanceMantissa?: BigNumber;
 }) => {
@@ -157,19 +156,19 @@ export const formatOutput = ({
 
       // User-specific props
       const userVTokenBalance = userVTokenBalances.find(tokenBalance =>
-        areAddressesEqual(tokenBalance.vToken, vToken.address),
+        areAddressesEqual(tokenBalance.vTokenAddress, vToken.address),
       );
 
       const userBorrowBalanceTokens = userVTokenBalance
         ? convertMantissaToTokens({
-            value: new BigNumber(userVTokenBalance.borrowBalanceCurrent.toString()),
+            value: userVTokenBalance.underlyingTokenBorrowBalanceMantissa,
             token: vToken.underlyingToken,
           })
         : new BigNumber(0);
 
       const userSupplyBalanceTokens = userVTokenBalance
         ? convertMantissaToTokens({
-            value: new BigNumber(userVTokenBalance.balanceOfUnderlying.toString()),
+            value: userVTokenBalance.underlyingTokenSupplyBalanceMantissa,
             token: vToken.underlyingToken,
           })
         : new BigNumber(0);

@@ -4,6 +4,7 @@ import { compile } from 'handlebars';
 import type { ContractConfig } from 'libs/contracts/config';
 import { isUniquePerPoolContractConfig } from 'libs/contracts/utilities/isUniquePerPoolContractConfig';
 import writeFile from 'utilities/writeFile';
+import './handlerBarsHelpers';
 
 const TEMPLATES_DIRECTORY = `${__dirname}/templates`;
 

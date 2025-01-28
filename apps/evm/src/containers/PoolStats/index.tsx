@@ -5,6 +5,7 @@ import {
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
 import { type Cell, CellGroup, type CellGroupProps } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useGetVTreasuryContractAddress } from 'hooks/useGetVTreasuryContractAddress';
 import { useGetToken } from 'libs/tokens';
@@ -50,7 +51,7 @@ export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProp
 
   const { data: getTreasuryTokenBalancesData } = useGetTokenBalances(
     {
-      accountAddress: vTreasuryContractAddress || '',
+      accountAddress: vTreasuryContractAddress || NULL_ADDRESS,
       tokens,
     },
     {

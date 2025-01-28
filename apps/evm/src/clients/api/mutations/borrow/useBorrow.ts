@@ -6,6 +6,7 @@ import { useGetNativeTokenGatewayContract, useGetVTokenContract } from 'libs/con
 import { useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
+import type { Address } from 'viem';
 
 type TrimmedBorrowInput = Omit<BorrowInput, 'vTokenContract' | 'nativeTokenGatewayContract'>;
 type Options = UseSendTransactionOptions<TrimmedBorrowInput>;
@@ -15,7 +16,7 @@ const useBorrow = (
     vToken,
     poolName,
     poolComptrollerAddress,
-  }: { vToken: VToken; poolName: string; poolComptrollerAddress: string },
+  }: { vToken: VToken; poolName: string; poolComptrollerAddress: Address },
   options?: Partial<Options>,
 ) => {
   const vTokenContract = useGetVTokenContract({ vToken, passSigner: true });

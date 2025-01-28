@@ -2,13 +2,14 @@ import type { Asset } from 'types';
 
 import type { MarketHistoryPeriodType } from 'clients/api';
 import { useState } from 'react';
+import type { Address } from 'viem';
 import TEST_IDS from '../../testIds';
 import { Card } from './Card';
 import useGetChartData from './useGetChartData';
 
 interface MarketHistoryProps {
   asset: Asset;
-  poolComptrollerContractAddress: string;
+  poolComptrollerContractAddress: Address;
 }
 
 export const MarketHistory: React.FC<MarketHistoryProps> = ({

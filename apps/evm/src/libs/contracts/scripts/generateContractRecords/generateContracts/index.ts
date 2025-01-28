@@ -1,7 +1,6 @@
 #!/usr/bin/env tsx
 import type { ContractConfig } from 'libs/contracts/config';
 import { getAbsolutePath } from 'libs/contracts/utilities/getAbsolutePath';
-
 import { generateAbis } from './generateAbis';
 import { generateAddressList } from './generateAddressList';
 import { generateGetters } from './generateGetters';

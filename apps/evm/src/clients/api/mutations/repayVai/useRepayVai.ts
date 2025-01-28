@@ -39,10 +39,7 @@ const useRepayVai = (options?: Partial<Options>) => {
         queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL],
       });
       queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_VAI_REPAY_AMOUNT_WITH_INTERESTS],
-      });
-      queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_VAI_CALCULATE_REPAY_AMOUNT],
+        queryKey: [FunctionKey.GET_USER_VAI_BORROW_BALANCE],
       });
 
       if (vai) {

@@ -4,7 +4,7 @@ import { assetData } from '__mocks__/models/asset';
 
 import type { Pool } from 'types';
 
-export const legacyCorePool = {
+export const legacyCorePool: Pool = {
   comptrollerAddress: '0x94d1820b2d1c7c7452a163983dc888cec546b77d',
   assets: assetData,
   name: 'Venus',
@@ -14,7 +14,7 @@ export const legacyCorePool = {
   userBorrowLimitCents: new BigNumber(192673),
 };
 
-export const isolatedPool = {
+export const isolatedPool: Pool = {
   comptrollerAddress: '0x10b57706ad2345e590c2ea4dc02faef0d9f5b08b',
   assets: assetData,
   name: 'Metaverse',

@@ -9,6 +9,7 @@ import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'ut
 import BigNumber from 'bignumber.js';
 import { type MarketHistoryPeriodType, useGetPoolLiquidationIncentive } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import type { Address } from 'viem';
 import { MarketCard, type MarketCardProps } from '../../MarketCard';
 import { CapThreshold } from './CapThreshold';
 import { useGetLiquidationThresholdPercentage } from './useGetLiquidationThresholdPercentage';
@@ -17,7 +18,7 @@ export interface CardProps extends Omit<MarketCardProps, 'title'> {
   type: ApyChartProps['type'];
   asset: Asset;
   data: ApyChartProps['data'];
-  poolComptrollerContractAddress: string;
+  poolComptrollerContractAddress: Address;
   isLoading: boolean;
   selectedPeriod: MarketHistoryPeriodType;
   setSelectedPeriod: (period: MarketHistoryPeriodType) => void;

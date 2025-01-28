@@ -6,12 +6,13 @@ import { useAnalytics } from 'libs/analytics';
 import { useGetSwapRouterContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
+import type { Address } from 'viem';
 
 type TrimmedSwapTokensInput = Omit<SwapTokensInput, 'swapRouterContract'>;
 type Options = UseSendTransactionOptions<TrimmedSwapTokensInput>;
 
 const useSwapTokens = (
-  { poolComptrollerAddress }: { poolComptrollerAddress: string },
+  { poolComptrollerAddress }: { poolComptrollerAddress: Address },
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();

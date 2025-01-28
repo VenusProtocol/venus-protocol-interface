@@ -14,6 +14,7 @@ import { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAccountAddress } from 'libs/wallet';
 import { AssetInfo } from '../AssetInfo';
@@ -294,7 +295,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
     isUseUpdatePoolDelegateStatusLoading,
     updatePoolDelegateStatus,
   } = useDelegateApproval({
-    delegateeAddress: nativeTokenGatewayContractAddress || '',
+    delegateeAddress: nativeTokenGatewayContractAddress || NULL_ADDRESS,
     poolComptrollerAddress: pool.comptrollerAddress,
     enabled: formValues.receiveNativeToken && isWrapUnwrapNativeTokenEnabled,
   });

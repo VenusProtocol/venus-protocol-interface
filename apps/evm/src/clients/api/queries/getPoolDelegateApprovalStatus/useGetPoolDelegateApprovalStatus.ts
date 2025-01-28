@@ -7,11 +7,12 @@ import getPoolDelegateApprovalStatus, {
 import FunctionKey from 'constants/functionKey';
 import { useGetIsolatedPoolComptrollerContract } from 'libs/contracts';
 import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 type TrimmedGetNativeTokenGatewayDelegateApprovalInput = Omit<
   GetNativeTokenGatewayDelegateApprovalInput,
   'poolComptrollerContract'
-> & { poolComptrollerAddress: string };
+> & { poolComptrollerAddress: Address };
 
 export type UseGetPoolDelegateApprovalStatusQueryKey = [
   FunctionKey.GET_POOL_DELEGATE_APPROVAL_STATUS,

@@ -1,12 +1,11 @@
 import BigNumber from 'bignumber.js';
-
-import { getTokenContract } from 'libs/contracts';
-import type { Provider } from 'libs/wallet';
+import { bep20Abi } from 'libs/contracts';
 import type { Token, TokenBalance } from 'types';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetTokenBalancesInput {
-  provider: Provider;
-  accountAddress: string;
+  publicClient: PublicClient;
+  accountAddress: Address;
   tokens: Token[];
 }
 
@@ -15,22 +14,24 @@ export type GetTokenBalancesOutput = {
 };
 
 const getTokenBalances = async ({
-  provider,
+  publicClient,
   accountAddress,
   tokens,
 }: GetTokenBalancesInput): Promise<GetTokenBalancesOutput> => {
   const tokenBalanceResults = await Promise.allSettled(
     tokens.map(token => {
       if (token.isNative) {
-        return provider.getBalance(accountAddress);
+        return publicClient.getBalance({
+          address: accountAddress,
+        });
       }
 
-      const tokenContract = getTokenContract({
-        token,
-        signerOrProvider: provider,
+      return publicClient.readContract({
+        abi: bep20Abi,
+        address: token.address,
+        functionName: 'balanceOf',
+        args: [accountAddress],
       });
-
-      return tokenContract.balanceOf(accountAddress);
     }, []),
   );
 

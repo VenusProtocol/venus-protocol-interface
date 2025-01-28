@@ -4,7 +4,7 @@ import type { SubmitHandler } from 'react-hook-form';
 
 import {
   useGetBalanceOf,
-  useGetVaiRepayAmountWithInterests,
+  useGetUserVaiBorrowBalance,
   useGetVaiRepayApr,
   useRepayVai,
 } from 'clients/api';
@@ -31,6 +31,7 @@ import {
   generatePseudoRandomRefetchInterval,
 } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { AccountVaiData } from '../AccountVaiData';
 import type { FormValues } from '../types';
@@ -96,17 +97,16 @@ export const Repay: React.FC = () => {
   });
 
   const { data: userVaiBorrowBalanceData, isLoading: isGetUserVaiBorrowBalanceLoading } =
-    useGetVaiRepayAmountWithInterests(
+    useGetUserVaiBorrowBalance(
       {
-        accountAddress: accountAddress || '',
+        accountAddress: accountAddress || NULL_ADDRESS,
       },
       {
         enabled: !!accountAddress,
       },
     );
 
-  const userVaiBorrowBalanceMantissa =
-    userVaiBorrowBalanceData?.vaiRepayAmountWithInterestsMantissa;
+  const userVaiBorrowBalanceMantissa = userVaiBorrowBalanceData?.userVaiBorrowBalanceMantissa;
 
   const {
     limitTokens,

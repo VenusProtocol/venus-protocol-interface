@@ -1,5 +1,4 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-import { usePublicClient } from 'wagmi';
 
 import getCurrentVotes, {
   type GetCurrentVotesInput,
@@ -7,7 +6,7 @@ import getCurrentVotes, {
 } from 'clients/api/queries/getCurrentVotes';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContractAddress } from 'libs/contracts';
-import { governanceChain } from 'libs/wallet';
+import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetCurrentVotesInput = Omit<
@@ -29,7 +28,7 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetCurrentVotes = (input: TrimmedGetCurrentVotesInput, options?: Partial<Options>) => {
-  const publicClient = usePublicClient({
+  const { publicClient } = usePublicClient({
     chainId: governanceChain.id,
   });
   const xvsVaultContractAddress = useGetXvsVaultContractAddress();

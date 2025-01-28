@@ -1,16 +1,17 @@
 import type { ProposalState, ProposalType, VoteSupport } from 'types';
+import type { Address } from 'viem';
 
 export interface ProposalActionApiResponse {
   actionIndex: number;
   calldata: string;
   signature: string;
-  target: string;
+  target: Address;
   value: string | null;
 }
 
 type VoterApiResponse = {
   proposalId: number;
-  address: string;
+  address: Address;
   blockNumber: number;
   blockTimestamp: number;
   reason: string | undefined;
@@ -36,7 +37,7 @@ export interface ProposalApiResponse {
   executedTxHash: string | null;
   forVotesMantissa: string;
   governorName: string;
-  proposer: string;
+  proposer: Address;
   queuedBlock: number | null;
   queuedTimestamp: number | null;
   queuedTxHash: string | null;
@@ -56,7 +57,7 @@ export type GetVoterHistoryResponse = {
   result: Array<
     ProposalApiResponse & {
       votes: {
-        address: string;
+        address: Address;
         support: VoteSupport;
         reason: string | null;
         votesMantissa: string;

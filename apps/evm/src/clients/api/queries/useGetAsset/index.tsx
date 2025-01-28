@@ -3,10 +3,11 @@ import { useMemo } from 'react';
 import { useGetPools } from 'clients/api';
 import type { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
+import type { Address } from 'viem';
 
 export interface UseGetAssetInput {
-  vTokenAddress?: string;
-  accountAddress?: string;
+  vTokenAddress?: Address;
+  accountAddress?: Address;
 }
 
 export interface UseGetAssetOutput {

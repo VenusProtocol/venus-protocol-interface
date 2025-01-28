@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import type { Address } from 'viem';
 import type { GetVoterAccountsResponse } from './types';
 
 const formatVoterResponse = ({
@@ -13,8 +14,8 @@ const formatVoterResponse = ({
   offset: +data.page * data.limit,
   total: data.total,
   voterAccounts: data.result.map(d => ({
-    address: d.address,
-    delegate: d.delegate || '',
+    address: d.address as Address,
+    delegate: d.delegate ? (d.delegate as Address) : undefined,
     proposalsVoted: d.proposalsVoted,
     voteWeightPercent: new BigNumber(d.votesMantissa)
       .dividedBy(totalStakedXvs)

@@ -1,9 +1,11 @@
 import { useParams } from 'react-router';
 
 import { useGetAsset } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
 import { cn } from 'utilities';
+import type { Address } from 'viem';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
 import { useIsOnLidoMarketPage } from './useIsOnLidoMarketPage';
@@ -14,7 +16,9 @@ export const Header: React.FC = () => {
   const isOnLidoMarketPage = useIsOnLidoMarketPage();
   const { lstPoolVWstEthContractAddress } = useGetChainMetadata();
 
-  const { vTokenAddress = '' } = useParams();
+  const { vTokenAddress = NULL_ADDRESS } = useParams<{
+    vTokenAddress: Address;
+  }>();
 
   const { data: getAssetData } = useGetAsset({
     vTokenAddress: isOnLidoMarketPage ? lstPoolVWstEthContractAddress : vTokenAddress,

@@ -1,8 +1,9 @@
 import { useGetPool } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import type { Address } from 'viem';
 
 export interface PoolNameProps {
-  poolComptrollerAddress: string;
+  poolComptrollerAddress: Address;
 }
 
 const PoolName: React.FC<PoolNameProps> = ({ poolComptrollerAddress }) => {

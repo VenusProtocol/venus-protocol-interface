@@ -13,10 +13,11 @@ import {
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow, isPoolIsolated } from 'utilities';
+import type { Address } from 'viem';
 
 interface TrimmedGetPoolLiquidationIncentiveInput
   extends Omit<GetPoolLiquidationIncentiveInput, 'poolComptrollerContract'> {
-  poolComptrollerContractAddress: string;
+  poolComptrollerContractAddress: Address;
 }
 
 export type UseGetPoolLiquidationIncentiveQueryKey = [

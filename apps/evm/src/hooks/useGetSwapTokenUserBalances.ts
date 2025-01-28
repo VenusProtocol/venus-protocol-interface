@@ -6,13 +6,15 @@ import type { Options as UseGetTokenBalancesOptions } from 'clients/api/queries/
 import { useGetSwapTokens } from 'libs/tokens';
 import type { TokenBalance } from 'types';
 
+import { NULL_ADDRESS } from 'constants/address';
+import type { Address } from 'viem';
 import { useIsFeatureEnabled } from './useIsFeatureEnabled';
 
 const useGetSwapTokenUserBalances = (
   {
     accountAddress,
   }: {
-    accountAddress?: string;
+    accountAddress?: Address;
   },
   options: Partial<UseGetTokenBalancesOptions> = {},
 ) => {
@@ -33,7 +35,7 @@ const useGetSwapTokenUserBalances = (
 
   const { data } = useGetTokenBalances(
     {
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
       tokens: swapTokens,
     },
     {

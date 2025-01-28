@@ -1,16 +1,17 @@
 import type { Provider } from '@ethersproject/abstract-provider';
 import { Contract, Signer } from 'ethers';
 import { useMemo } from 'react';
+import type { Address } from 'viem';
 
 import abi from 'libs/contracts/generated/infos/abis/{{contractName}}.json';
 import { {{contractName}} } from 'libs/contracts/generated/infos/contractTypes';
 import { useProvider, useSigner } from 'libs/wallet';
 import { ChainId } from 'types';
 
-export { abi as {{contractName}}Abi } from 'libs/contracts/generated/infos/abis/{{contractName}}';
+export { abi as {{decapitalize contractName}}Abi } from 'libs/contracts/generated/infos/abis/{{contractName}}';
 
 interface Get{{contractName}}ContractInput {
-  address: string;
+  address: Address;
   signerOrProvider: Signer | Provider;
 }
 
@@ -19,7 +20,7 @@ export const get{{contractName}}Contract = ({ signerOrProvider, address }: Get{{
 
 interface UseGet{{contractName}}ContractInput {
   passSigner: boolean;
-  address: string;
+  address: Address;
   chainId?: ChainId;
 }
 

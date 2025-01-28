@@ -2,9 +2,10 @@ import primeLogoSrc from 'assets/img/primeLogo.svg';
 import { type ButtonProps, SecondaryButton, Username } from 'components';
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
+import type { Address } from 'viem';
 
 export interface PrimeButtonProps extends ButtonProps {
-  accountAddress: string;
+  accountAddress: Address;
   addressDomainName?: string | null;
 }
 

@@ -27,6 +27,7 @@ import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'libs/wallet';
 import { areTokensEqual, cn, convertMantissaToTokens } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import DelegateModal from './DelegateModal';
 import TEST_IDS from './testIds';
 
@@ -44,14 +45,14 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
   });
 
   const { data: currentVotesData, isLoading: areCurrentVotesLoading } = useGetCurrentVotes(
-    { accountAddress: accountAddress || '' },
+    { accountAddress: accountAddress || NULL_ADDRESS },
     { enabled: !!accountAddress },
   );
   const votingWeightMantissa = currentVotesData?.votesMantissa || new BigNumber(0);
 
   const { data: delegateData, isLoading: isGetVoteDelegateAddressLoading } =
     useGetVoteDelegateAddress(
-      { accountAddress: accountAddress || '' },
+      { accountAddress: accountAddress || NULL_ADDRESS },
       { enabled: !!accountAddress },
     );
   const delegate = delegateData?.delegateAddress;

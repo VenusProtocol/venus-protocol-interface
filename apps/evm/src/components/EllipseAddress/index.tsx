@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { truncateAddress } from 'utilities';
 
+import type { Address } from 'viem';
 import { useStyles } from './styles';
 import type { Breakpoint } from './types';
 
 export * from './types';
 
 export interface EllipseAddressProps {
-  address: string;
+  address: Address;
   ellipseBreakpoint?: Breakpoint;
   className?: string;
 }

@@ -15,6 +15,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { AssetInfo } from '../AssetInfo';
 import SubmitSection from './SubmitSection';
@@ -300,7 +301,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
     isUseUpdatePoolDelegateStatusLoading,
     updatePoolDelegateStatus,
   } = useDelegateApproval({
-    delegateeAddress: nativeTokenGatewayContractAddress || '',
+    delegateeAddress: nativeTokenGatewayContractAddress || NULL_ADDRESS,
     poolComptrollerAddress: pool.comptrollerAddress,
     enabled: formValues.receiveNativeToken && isWrapUnwrapNativeTokenEnabled,
   });

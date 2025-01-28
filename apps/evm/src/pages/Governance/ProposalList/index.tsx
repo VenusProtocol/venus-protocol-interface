@@ -31,6 +31,7 @@ import { ProposalState } from 'types';
 import { cn } from 'utilities';
 import { getProposalStateLabel } from 'utilities/getProposalStateLabel';
 
+import { NULL_ADDRESS } from 'constants/address';
 import TEST_IDS from '../testIds';
 import CreateProposalModal from './CreateProposalModal';
 import GovernanceProposal from './GovernanceProposal';
@@ -146,12 +147,12 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
   const { mutateAsync: createProposal, isPending: isCreateProposalLoading } = useCreateProposal();
 
   const { data: currentVotesData } = useGetCurrentVotes(
-    { accountAddress: accountAddress || '' },
+    { accountAddress: accountAddress || NULL_ADDRESS },
     { enabled: !!accountAddress },
   );
 
   const { data: latestProposalData } = useGetLatestProposalIdByProposer(
-    { accountAddress: accountAddress || '' },
+    { accountAddress: accountAddress || NULL_ADDRESS },
     { enabled: !!accountAddress },
   );
 

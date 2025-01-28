@@ -1,5 +1,6 @@
 import { useGetAsset, useGetPool } from 'clients/api';
 import { type Cell, CellGroup, Icon, Pill, Spinner, TokenIcon } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -8,14 +9,21 @@ import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { matchPath, useLocation, useParams } from 'react-router';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import type { Address } from 'viem';
 import { useIsOnLidoMarketPage } from '../useIsOnLidoMarketPage';
 import { AddTokenToWalletDropdown } from './AddTokenToWalletDropdown';
 import { GoToTokenContractDropdown } from './GoToTokenContractDropdown';
 import { UtilizationRate } from './UtilizationRate';
 
 export const MarketInfo = () => {
-  const { poolComptrollerAddress: poolComptrollerAddressParam = '', vTokenAddress = '' } =
-    useParams();
+  const {
+    poolComptrollerAddress: poolComptrollerAddressParam = NULL_ADDRESS,
+    vTokenAddress = NULL_ADDRESS,
+  } = useParams<{
+    poolComptrollerAddress: Address;
+    vTokenAddress: Address;
+  }>();
+
   const { pathname } = useLocation();
   const isOnLidoMarketPage = useIsOnLidoMarketPage();
 

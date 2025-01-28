@@ -1,14 +1,11 @@
-import { BigNumber as BN } from 'ethers';
+import type {
+  Address,
+  PublicClient,
+  ReadContractParameters,
+  SimulateContractParameters,
+} from 'viem';
 
 import apiPoolsResponse from '__mocks__/api/pools.json';
-import type {
-  IsolatedPoolComptroller,
-  LegacyPoolComptroller,
-  PoolLens,
-  Prime,
-  VaiController,
-  VenusLens,
-} from 'libs/contracts';
 
 const userLegacyCollateralizedVTokenAddresses = [
   '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
@@ -64,73 +61,101 @@ const userCollateralVTokenAddresses = [
   ...userIsolatedCollateralizedVTokenAddresses,
 ];
 
-const vTokenBalancesAllMock = async (vTokenAddresses: string[]) =>
-  vTokenAddresses.map(vTokenAddress => {
-    const isUserCollateral = userCollateralVTokenAddresses.some(
-      a => a.toLowerCase() === vTokenAddress.toLowerCase(),
+export const fakeIsolatedPoolComptrollerContractAddress =
+  '0xfakeIsolatedPoolComptrollerContractAddress';
+export const fakeVenusLensContractAddress = '0xfakeVenusLensContract';
+export const fakePoolLensContractAddress = '0xfakePoolLensContract';
+export const fakeVaiControllerContractAddress = '0xfakeVaiControllerContract';
+export const fakeLegacyPoolComptrollerContractAddress = '0xfakeLegacyPoolComptrollerContract';
+export const fakePrimeContractAddress = '0xfakePrimeContractAddress';
+
+export const fakePublicClient = {
+  getBlockNumber: vi.fn(() => 123456789),
+  readContract: vi.fn((input: ReadContractParameters) => {
+    if (input.functionName === 'getAllMarkets' && input.address === fakePrimeContractAddress) {
+      return [
+        '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
+        '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
+        '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
+        '0x74469281310195A04840Daf6EdF576F559a3dE80',
+        '0x3338988d0beb4419Acb8fE624218754053362D06',
+        '0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c',
+        '0x712774CBFFCBD60e9825871CcEFF2F917442b2c3',
+      ];
+    }
+
+    if (input.functionName === 'MINIMUM_STAKED_XVS' && input.address === fakePrimeContractAddress) {
+      return 1000000000000000000000n;
+    }
+
+    if (input.functionName === 'tokens' && input.address === fakePrimeContractAddress) {
+      const isUserPrime = true;
+      return [isUserPrime, false];
+    }
+
+    if (input.functionName === 'estimateAPR' && input.address === fakePrimeContractAddress) {
+      return {
+        borrowAPR: 20n,
+        supplyAPR: 23n,
+      };
+    }
+
+    if (input.functionName === 'calculateAPR' && input.address === fakePrimeContractAddress) {
+      return {
+        borrowAPR: 32n,
+        supplyAPR: 29n,
+      };
+    }
+
+    if (
+      input.functionName === 'getAssetsIn' &&
+      input.address === fakeLegacyPoolComptrollerContractAddress
+    ) {
+      return userLegacyCollateralizedVTokenAddresses;
+    }
+
+    if (
+      input.functionName === 'getAssetsIn' &&
+      input.address !== fakeLegacyPoolComptrollerContractAddress
+    ) {
+      return userIsolatedCollateralizedVTokenAddresses;
+    }
+
+    throw new Error(
+      'readContract function of the fake public client called with no corresponding mock',
     );
-
-    return {
-      vToken: vTokenAddress,
-      balanceOf: BN.from(isUserCollateral ? '4000000000000000000' : 0),
-      balanceOfUnderlying: BN.from('2000000000000000000'),
-      borrowBalanceCurrent: BN.from(isUserCollateral ? '100000000000000000' : 0),
-      tokenBalance: BN.from('40000000000000000000'),
-      tokenAllowance: BN.from('50000000000000000000'),
-    };
-  });
-
-export const fakeVenusLensContract = {
-  callStatic: {
-    vTokenBalancesAll: vTokenBalancesAllMock,
-  },
-} as unknown as VenusLens;
-
-export const fakePoolLensContract = {
-  callStatic: {
-    vTokenBalancesAll: vTokenBalancesAllMock,
-  },
-} as unknown as PoolLens;
-
-export const fakeVaiControllerContract = {
-  getVAIRepayAmount: async () => BN.from('1000000000000000000'),
-  callStatic: {
-    accrueVAIInterest: vi.fn(),
-  },
-} as unknown as VaiController;
-
-export const fakeIsolatedPoolComptrollerContract = {
-  getAssetsIn: async () => userIsolatedCollateralizedVTokenAddresses,
-} as unknown as IsolatedPoolComptroller;
-
-export const fakeLegacyPoolComptrollerContract = {
-  getAssetsIn: async () => userLegacyCollateralizedVTokenAddresses,
-} as unknown as LegacyPoolComptroller;
-
-export const fakePrimeContract = {
-  tokens: async () => ({
-    exists: true,
-    isIrrevocable: false,
   }),
-  MINIMUM_STAKED_XVS: async () => BN.from('1000000000000000000000'),
-  getAllMarkets: async () => [
-    '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
-    '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
-    '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
-    '0x74469281310195A04840Daf6EdF576F559a3dE80',
-    '0x3338988d0beb4419Acb8fE624218754053362D06',
-    '0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c',
-    '0x712774CBFFCBD60e9825871CcEFF2F917442b2c3',
-  ],
-  estimateAPR: async () => ({
-    borrowAPR: BN.from('20'),
-    supplyAPR: BN.from('23'),
+  simulateContract: vi.fn((input: SimulateContractParameters) => {
+    if (
+      (input.address === fakePoolLensContractAddress ||
+        input.address === fakeVenusLensContractAddress) &&
+      input.functionName === 'vTokenBalancesAll'
+    ) {
+      const vTokenAddresses = input.args![0] as Address[];
+
+      const result = vTokenAddresses.map(vTokenAddress => {
+        const isUserCollateral = userCollateralVTokenAddresses.some(
+          a => a.toLowerCase() === vTokenAddress.toLowerCase(),
+        );
+
+        return {
+          vToken: vTokenAddress,
+          balanceOf: isUserCollateral ? 4000000000000000000n : 0n,
+          balanceOfUnderlying: 2000000000000000000n,
+          borrowBalanceCurrent: isUserCollateral ? 100000000000000000n : 0,
+          tokenBalance: 40000000000000000000n,
+          tokenAllowance: 50000000000000000000n,
+        };
+      });
+
+      return { result };
+    }
+
+    throw new Error(
+      'simulateContract function of the fake public client called with no corresponding mock',
+    );
   }),
-  calculateAPR: async () => ({
-    borrowAPR: BN.from('32'),
-    supplyAPR: BN.from('29'),
-  }),
-} as unknown as Prime;
+} as unknown as PublicClient;
 
 export const fakeIsolatedPoolParticipantsCount = {
   pools: apiPoolsResponse.result.map(pool => ({

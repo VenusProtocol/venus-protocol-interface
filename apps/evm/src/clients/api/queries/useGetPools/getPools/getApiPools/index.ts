@@ -1,16 +1,17 @@
 import { VError } from 'libs/errors';
 import type { ChainId } from 'types';
 import { restService } from 'utilities/restService';
+import type { Address } from 'viem';
 
 export interface ApiRewardDistributor {
-  marketAddress: string;
-  rewardTokenAddress: string;
+  marketAddress: Address;
+  rewardTokenAddress: Address;
   lastRewardingSupplyBlockOrTimestamp: string;
   lastRewardingBorrowBlockOrTimestamp: string;
   supplySpeed: string;
   borrowSpeed: string;
   priceMantissa: string;
-  rewardsDistributorContractAddress: string;
+  rewardsDistributorContractAddress: Address;
   rewardType: 'venus' | 'merkl';
   rewardDetails?: {
     description?: string;
@@ -18,10 +19,10 @@ export interface ApiRewardDistributor {
 }
 
 export interface ApiMarket {
-  address: string;
+  address: Address;
   symbol: string;
   name: string;
-  underlyingAddress: string | null;
+  underlyingAddress: Address | null;
   underlyingName: string;
   underlyingSymbol: string;
   underlyingDecimal: number;
@@ -55,19 +56,19 @@ export interface ApiMarket {
   estimatedPrimeSupplyApyBoost: string | null;
   pausedActionsBitmap: number;
   isListed: boolean;
-  poolComptrollerAddress: string;
+  poolComptrollerAddress: Address;
   rewardsDistributors: ApiRewardDistributor[];
 }
 
 export interface ApiPool {
-  address: string;
+  address: Address;
   name: string;
   markets: ApiMarket[];
 }
 
 export interface GetApiPoolsResponse {
   result: ApiPool[];
-  request: { addresses: string[] };
+  request: { addresses: Address[] };
 }
 
 export const getApiPools = async ({

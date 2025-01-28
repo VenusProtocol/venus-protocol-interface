@@ -1,10 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getTokenBalances > returns token balances in the right format on success 1`] = `
+exports[`getTokenBalances > returns token balances in the right format on success 1`] = `
 {
   "tokenBalances": [
     {
-      "balanceMantissa": "10000",
+      "balanceMantissa": "1000000000000000000",
       "token": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
         "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
@@ -13,7 +13,7 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
       },
     },
     {
-      "balanceMantissa": "10000",
+      "balanceMantissa": "1000000000000000000",
       "token": {
         "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
         "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
@@ -25,11 +25,11 @@ exports[`api/queries/getTokenBalances > returns token balances in the right form
 }
 `;
 
-exports[`api/queries/getTokenBalances > returns token balances, including BNB, in the right format on success 1`] = `
+exports[`getTokenBalances > returns token balances, including native token, in the right format on success 1`] = `
 {
   "tokenBalances": [
     {
-      "balanceMantissa": "10000",
+      "balanceMantissa": "1000000000000000000",
       "token": {
         "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
         "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
@@ -38,7 +38,7 @@ exports[`api/queries/getTokenBalances > returns token balances, including BNB, i
       },
     },
     {
-      "balanceMantissa": "10000",
+      "balanceMantissa": "1000000000000000000",
       "token": {
         "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
         "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",

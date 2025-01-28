@@ -1,19 +1,19 @@
-/** @jsxImportSource @emotion/react */
-
 import { useGetAsset, useGetPool } from 'clients/api';
 import { Spinner } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import { routes } from 'constants/routing';
 import { Redirect } from 'containers/Redirect';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
+import type { Address } from 'viem';
 
 export interface MarketLoaderProps {
   children: (props: {
     asset: Asset;
     pool: Pool;
   }) => React.ReactNode;
-  poolComptrollerAddress?: string;
-  vTokenAddress?: string;
+  poolComptrollerAddress?: Address;
+  vTokenAddress?: Address;
 }
 
 export const MarketLoader: React.FC<MarketLoaderProps> = ({
@@ -31,7 +31,7 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
   const isVTokenAddressInvalid = !isGetAssetLoading && !asset;
 
   const { data: getPools } = useGetPool({
-    poolComptrollerAddress: poolComptrollerAddress || '',
+    poolComptrollerAddress: poolComptrollerAddress || NULL_ADDRESS,
     accountAddress,
   });
   const pool = getPools?.pool;

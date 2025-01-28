@@ -6,7 +6,6 @@ import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { truncateAddress } from 'utilities';
-import type { Address } from 'viem';
 import UsernameSpan from './UsernameSpan';
 
 type UsernameProps = {
@@ -31,7 +30,7 @@ export const Username: React.FC<UsernameProps> = ({
   const { chainId } = useChainId();
   const { data: domainNames, isLoading: isGetAddressDomainNameLoading } = useGetAddressDomainName(
     {
-      accountAddress: address as Address,
+      accountAddress: address,
       chainId,
     },
     {

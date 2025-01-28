@@ -1,13 +1,12 @@
 import type BigNumber from 'bignumber.js';
-import type {
-  LegacyPoolComptroller,
-  PoolLens,
-  Prime,
-  VaiController,
-  VenusLens,
-} from 'libs/contracts';
-import type { Provider } from 'libs/wallet';
 import type { ChainId, Pool, Token } from 'types';
+import type { Address, PublicClient } from 'viem';
+
+export interface VTokenBalance {
+  vTokenAddress: string;
+  underlyingTokenBorrowBalanceMantissa: BigNumber;
+  underlyingTokenSupplyBalanceMantissa: BigNumber;
+}
 
 export interface MarketParticipantsCounts {
   borrowerCount: number;
@@ -19,15 +18,15 @@ export interface PrimeApy {
   supplyApy: BigNumber;
 }
 export interface GetPoolsInput {
+  publicClient: PublicClient;
+  poolLensContractAddress: Address;
+  legacyPoolComptrollerContractAddress?: Address;
+  venusLensContractAddress?: Address;
+  vaiControllerContractAddress?: Address;
+  primeContractAddress?: Address;
   chainId: ChainId;
   tokens: Token[];
-  provider: Provider;
-  poolLensContract: PoolLens;
-  legacyPoolComptrollerContract?: LegacyPoolComptroller;
-  venusLensContract?: VenusLens;
-  vaiControllerContract?: VaiController;
-  accountAddress?: string;
-  primeContract?: Prime;
+  accountAddress?: Address;
 }
 
 export interface GetPoolsOutput {

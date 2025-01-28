@@ -16,6 +16,7 @@
     "tsc": "tsc --noEmit"
   },
   "devDependencies": {
-    "@venusprotocol/typescript-config": "*"
+    "@venusprotocol/typescript-config": "*",
+    "viem": "^2.22.16"
   }
 }

@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
 import { type Claim, useGetPendingRewards, useGetPools } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-
 import type { Group } from './types';
 
 const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) => {
@@ -21,7 +21,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
 
   const { data: getPendingRewardsData } = useGetPendingRewards(
     {
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
       enabled: !!accountAddress,

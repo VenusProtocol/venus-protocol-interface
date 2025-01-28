@@ -125,13 +125,10 @@ export * from './mutations/updatePoolDelegateStatus';
 export { default as useUpdatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus/useUpdatePoolDelegateStatus';
 
 // Queries
-export { default as getVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount';
-export * from './queries/getVaiCalculateRepayAmount';
-export { default as useGetVaiCalculateRepayAmount } from './queries/getVaiCalculateRepayAmount/useGetVaiCalculateRepayAmount';
 
-export { default as getVaiRepayAmountWithInterests } from './queries/getVaiRepayAmountWithInterests';
-export * from './queries/getVaiRepayAmountWithInterests';
-export { default as useGetVaiRepayAmountWithInterests } from './queries/getVaiRepayAmountWithInterests/useGetVaiRepayAmountWithInterests';
+export { getUserVaiBorrowBalance } from './queries/getUserVaiBorrowBalance';
+export * from './queries/getUserVaiBorrowBalance';
+export { default as useGetUserVaiBorrowBalance } from './queries/getUserVaiBorrowBalance/useGetUserVaiBorrowBalance';
 
 export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';

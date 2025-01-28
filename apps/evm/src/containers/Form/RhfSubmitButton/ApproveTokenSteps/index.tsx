@@ -2,10 +2,11 @@ import { ApproveTokenSteps as ApproveTokenStepsUi } from 'components';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
+import type { Address } from 'viem';
 
 export interface ApproveTokenStepsProps {
   token: Token;
-  spenderAddress: string;
+  spenderAddress: Address;
   secondStepButtonLabel: string;
   hideSpendingApprovalStep?: boolean;
   children?: React.ReactNode;

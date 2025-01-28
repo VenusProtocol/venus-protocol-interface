@@ -2,13 +2,14 @@
 import { Modal, type ModalProps, Spinner } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 
+import type { Address } from 'viem';
 import TransactionForm, { type TransactionFormProps } from '../../TransactionForm';
 
 export interface ActionModalProps extends Pick<ModalProps, 'handleClose'>, TransactionFormProps {
   title: ModalProps['title'];
   isInitialLoading: boolean;
   connectWalletMessage: string;
-  spenderAddress?: string;
+  spenderAddress?: Address;
   tokenNeedsToBeApproved?: boolean;
 }
 

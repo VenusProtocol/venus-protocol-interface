@@ -28,6 +28,7 @@ import type { Swap, SwapError, TokenBalance } from 'types';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 import { SwapDetails } from './SwapDetails';
 
+import { NULL_ADDRESS } from 'constants/address';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import { useStyles } from './styles';
@@ -357,7 +358,7 @@ const SwapPage: React.FC = () => {
   const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
 
   const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerContractAddress: legacyPoolComptrollerContractAddress || '',
+    comptrollerContractAddress: legacyPoolComptrollerContractAddress || NULL_ADDRESS,
   });
 
   const tokens = useGetTokens();
@@ -405,7 +406,7 @@ const SwapPage: React.FC = () => {
   });
 
   const { mutateAsync: swapTokens, isPending: isSwapTokensLoading } = useSwapTokens({
-    poolComptrollerAddress: legacyPoolComptrollerContractAddress || '',
+    poolComptrollerAddress: legacyPoolComptrollerContractAddress || NULL_ADDRESS,
   });
 
   const onSwap = async (swap: Swap) =>

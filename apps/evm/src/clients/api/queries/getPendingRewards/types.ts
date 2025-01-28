@@ -9,12 +9,13 @@ import type {
   XvsVault,
 } from 'libs/contracts';
 import type { Token } from 'types';
+import type { Address } from 'viem';
 
 export interface GetPendingRewardsInput {
   tokens: Token[];
   isolatedPoolComptrollerAddresses: string[];
   xvsVestingVaultPoolCount: number;
-  accountAddress: string;
+  accountAddress: Address;
   resilientOracleContract: ResilientOracle;
   poolLensContract: PoolLens;
   xvsVaultContract: XvsVault;

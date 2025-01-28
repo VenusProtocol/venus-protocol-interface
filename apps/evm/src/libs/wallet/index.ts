@@ -1,6 +1,3 @@
-export { usePublicClient } from 'wagmi';
-export type { PublicClient } from 'viem';
-
 export * from './constants';
 export * from './types';
 export * from './chains';
@@ -15,3 +12,4 @@ export * from './hooks/useChainId';
 export * from './hooks/useAuthModal';
 export * from './hooks/useAddTokenToWallet';
 export * from './hooks/useSendContractTransaction';
+export * from './hooks/usePublicClient';

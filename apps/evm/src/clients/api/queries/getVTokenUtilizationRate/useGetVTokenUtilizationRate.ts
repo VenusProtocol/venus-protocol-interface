@@ -11,6 +11,7 @@ import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'libs/contr
 import { useChainId, useProvider } from 'libs/wallet';
 import type { Asset, ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 export type UseGetVTokenUtilizationRateQueryKey = [
   FunctionKey.GET_V_TOKEN_UTILIZATION_RATE,
@@ -51,7 +52,7 @@ export const useGetVTokenUtilizationRate = (
     }
 
     const input = {
-      address: interestRateModelData.contractAddress,
+      address: interestRateModelData.contractAddress as Address,
       signerOrProvider: provider,
     };
 

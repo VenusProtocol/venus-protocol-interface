@@ -14,7 +14,7 @@ export type FormatDistributionsInput = {
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
   apiRewardsDistributors: ApiRewardDistributor[];
-  currentBlockNumber: number;
+  currentBlockNumber: bigint;
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
   underlyingToken: Token;

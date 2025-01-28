@@ -9,11 +9,12 @@ import { governanceChain, useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { ProposalState } from 'types';
 import { cn } from 'utilities';
+import type { Address } from 'viem';
 import { useIsProposalCancelableByUser } from '../../useIsProposalCancelableByUser';
 
 export interface ActionButtonProps extends Omit<ConnectWalletProps, 'onClick'> {
   proposalId: number;
-  proposerAddress: string;
+  proposerAddress: Address;
   state: ProposalState;
   executionEtaDate?: Date;
 }

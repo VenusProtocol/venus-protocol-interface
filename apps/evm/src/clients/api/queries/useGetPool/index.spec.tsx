@@ -42,7 +42,7 @@ describe('api/queries/useGetPool', () => {
     const CallMarketContext = () => {
       ({ data } = useGetPool({
         accountAddress: fakeAddress,
-        poolComptrollerAddress: 'fake-comptroller-address',
+        poolComptrollerAddress: '0xFakeComptrollerAddress',
       }));
       return <div />;
     };

@@ -1,9 +1,10 @@
 import { useGetPoolDelegateApprovalStatus, useUpdatePoolDelegateStatus } from 'clients/api';
 import { useAccountAddress } from 'libs/wallet';
+import type { Address } from 'viem';
 
 export interface UseDelegateApprovalInput {
-  poolComptrollerAddress: string;
-  delegateeAddress: string;
+  poolComptrollerAddress: Address;
+  delegateeAddress: Address;
   enabled: boolean;
 }
 
