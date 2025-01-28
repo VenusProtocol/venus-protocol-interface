@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.194.4
+
+### Patch Changes
+
+- d362af7: make Toggle component light by default
+
 ## 2.194.3
 
 ### Patch Changes
