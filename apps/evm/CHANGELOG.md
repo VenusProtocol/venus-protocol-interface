@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.200.0
+
+### Minor Changes
+
+- f335a9f: add icons of token distributions
+
+### Patch Changes
+
+- 59148cb: fix Mock import from vitest
+
 ## 2.199.0
 
 ### Minor Changes
