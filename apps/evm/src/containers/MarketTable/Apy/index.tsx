@@ -35,11 +35,15 @@ export const Apy: React.FC<ApyProps> = ({ asset, column, className, ...otherProp
   let primeSimulationDistribution: PrimeSimulationDistribution | undefined;
   const distributions = type === 'supply' ? asset.supplyDistributions : asset.borrowDistributions;
 
+  let shouldShowBoostBadge = false;
+
   distributions.forEach(distribution => {
     if (distribution.type === 'prime') {
       primeDistribution = distribution;
     } else if (distribution.type === 'primeSimulation') {
       primeSimulationDistribution = distribution;
+    } else if (!distribution.apyPercentage.isEqualTo(0)) {
+      shouldShowBoostBadge = true;
     }
   });
 
@@ -60,7 +64,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, column, className, ...otherProp
 
   return (
     <div {...otherProps} className={cn('inline-flex gap-1 items-center', className)}>
-      {isApyBoosted && (
+      {shouldShowBoostBadge && (
         <BoostBadge
           assetDistributions={
             type === 'supply' ? asset.supplyDistributions : asset.borrowDistributions
