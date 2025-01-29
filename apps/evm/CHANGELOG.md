@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.198.0
+
+### Minor Changes
+
+- 6afe58a: highlight markets with boosted APYs
+
 ## 2.197.0
 
 ### Minor Changes
