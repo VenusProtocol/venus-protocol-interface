@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { PUBLIC_VERSION_FILE_URL, getLatestAppVersion } from '..';
 
@@ -6,7 +6,7 @@ describe('getLatestAppVersion', () => {
   test('returns the latest app version on success', async () => {
     const fakeVersion = '9.9.9';
 
-    (fetch as Vi.Mock).mockImplementationOnce(() => ({
+    (fetch as Mock).mockImplementationOnce(() => ({
       json: () => ({
         version: fakeVersion,
       }),

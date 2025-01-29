@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { vaults as fakeVaults } from '__mocks__/models/vaults';
 import { renderComponent } from 'testUtils/render';
@@ -10,7 +10,7 @@ import TEST_IDS from './VaultItem/testIds';
 
 describe('pages/Vault', () => {
   beforeEach(() => {
-    (useGetVaults as Vi.Mock).mockImplementation(() => ({
+    (useGetVaults as Mock).mockImplementation(() => ({
       data: fakeVaults,
       isLoading: false,
     }));

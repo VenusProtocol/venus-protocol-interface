@@ -7,7 +7,7 @@ import {
   within,
 } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { proposals } from '__mocks__/models/proposals';
@@ -78,31 +78,31 @@ describe('ProposalComp page', () => {
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(fakeNow);
 
-    (useNow as Vi.Mock).mockImplementation(() => fakeNow);
+    (useNow as Mock).mockImplementation(() => fakeNow);
 
-    (useGetVoteReceipt as Vi.Mock).mockImplementation(() => ({
+    (useGetVoteReceipt as Mock).mockImplementation(() => ({
       data: {
         voteSupport: undefined,
       },
     }));
 
-    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+    (useGetProposal as Mock).mockImplementation(() => ({
       data: {
         proposal: activeProposal,
       },
     }));
 
-    (useGetProposalThreshold as Vi.Mock).mockImplementation(() => ({
+    (useGetProposalThreshold as Mock).mockImplementation(() => ({
       data: {
         thresholdMantissa: CREATE_PROPOSAL_THRESHOLD_MANTISSA,
       },
     }));
 
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'voteProposal',
     );
 
-    (useGetCurrentVotes as Vi.Mock).mockImplementation(() => ({
+    (useGetCurrentVotes as Mock).mockImplementation(() => ({
       data: {
         votesMantissa: new BigNumber('100000000000000000'),
       },
@@ -114,7 +114,7 @@ describe('ProposalComp page', () => {
   });
 
   it('redirects to proposal page on error', async () => {
-    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+    (useGetProposal as Mock).mockImplementation(() => ({
       error: new VError({
         type: 'unexpected',
         code: 'somethingWentWrong',
@@ -133,7 +133,7 @@ describe('ProposalComp page', () => {
   });
 
   it('vote buttons are hidden when proposal is not active', async () => {
-    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+    (useGetProposal as Mock).mockImplementation(() => ({
       data: {
         proposal: canceledProposal,
       },
@@ -147,7 +147,7 @@ describe('ProposalComp page', () => {
   });
 
   it('vote buttons are hidden when vote is cast', async () => {
-    (useGetVoteReceipt as Vi.Mock).mockImplementation(() => ({
+    (useGetVoteReceipt as Mock).mockImplementation(() => ({
       data: {
         voteSupport: VoteSupport.For,
       },
@@ -161,7 +161,7 @@ describe('ProposalComp page', () => {
   });
 
   it('vote buttons are hidden when voting weight is 0', async () => {
-    (useGetCurrentVotes as Vi.Mock).mockImplementation(() => ({
+    (useGetCurrentVotes as Mock).mockImplementation(() => ({
       data: { votesMantissa: new BigNumber(0) },
     }));
 
@@ -173,7 +173,7 @@ describe('ProposalComp page', () => {
   });
 
   it('vote buttons are hidden when vote feature is disabled', async () => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    (useIsFeatureEnabled as Mock).mockImplementation(() => false);
     const { queryByText } = renderComponent(<ProposalComp />, {
       accountAddress: fakeAccountAddress,
     });
@@ -211,7 +211,7 @@ describe('ProposalComp page', () => {
   });
 
   it('renders warning about voting being disabled when the feature flag is off and proposal is active', async () => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    (useIsFeatureEnabled as Mock).mockImplementation(() => false);
 
     renderComponent(<ProposalComp />, {
       accountAddress: fakeAccountAddress,
@@ -222,7 +222,7 @@ describe('ProposalComp page', () => {
 
   it('allows user to vote for', async () => {
     const vote = vi.fn();
-    (useVote as Vi.Mock).mockImplementation(() => ({
+    (useVote as Mock).mockImplementation(() => ({
       vote,
       isLoading: false,
     }));
@@ -254,7 +254,7 @@ describe('ProposalComp page', () => {
 
   it('allows user to vote against with reason', async () => {
     const vote = vi.fn();
-    (useVote as Vi.Mock).mockImplementation(() => ({
+    (useVote as Mock).mockImplementation(() => ({
       vote,
       isLoading: false,
     }));
@@ -292,7 +292,7 @@ describe('ProposalComp page', () => {
 
   it('allows user to vote abstain', async () => {
     const vote = vi.fn();
-    (useVote as Vi.Mock).mockImplementation(() => ({
+    (useVote as Mock).mockImplementation(() => ({
       vote,
       isLoading: false,
     }));
@@ -401,7 +401,7 @@ describe('ProposalComp page', () => {
       remoteProposals: [],
     },
   ])('renders BSC command correctly. ProposalComp state: $state', async proposal => {
-    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+    (useGetProposal as Mock).mockImplementation(() => ({
       data: {
         proposal,
       },
@@ -464,7 +464,7 @@ describe('ProposalComp page', () => {
       remoteProposals: [remoteProposal],
     };
 
-    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+    (useGetProposal as Mock).mockImplementation(() => ({
       data: {
         proposal: customProposal,
       },
@@ -479,7 +479,7 @@ describe('ProposalComp page', () => {
 
   it('lets user cancel their own BSC proposal', async () => {
     const cancelMock = vi.fn();
-    (useCancelProposal as Vi.Mock).mockImplementation(() => ({
+    (useCancelProposal as Mock).mockImplementation(() => ({
       mutateAsync: cancelMock,
     }));
 
@@ -503,20 +503,20 @@ describe('ProposalComp page', () => {
   it('lets user cancel the BSC proposal if the proposer no longer has enough voting power', async () => {
     const FAKE_THRESHOLD_MANTISSA = 100;
 
-    (useGetProposalThreshold as Vi.Mock).mockImplementation(() => ({
+    (useGetProposalThreshold as Mock).mockImplementation(() => ({
       data: {
         thresholdMantissa: new BigNumber(FAKE_THRESHOLD_MANTISSA),
       },
     }));
 
-    (useGetCurrentVotes as Vi.Mock).mockImplementation(() => ({
+    (useGetCurrentVotes as Mock).mockImplementation(() => ({
       data: {
         votesMantissa: new BigNumber(FAKE_THRESHOLD_MANTISSA - 1),
       },
     }));
 
     const cancelMock = vi.fn();
-    (useCancelProposal as Vi.Mock).mockImplementation(() => ({
+    (useCancelProposal as Mock).mockImplementation(() => ({
       mutateAsync: cancelMock,
     }));
 
@@ -538,14 +538,14 @@ describe('ProposalComp page', () => {
   });
 
   it('does not let user cancel the BSC proposal if voting power of the proposer is greater than or equals threshold', async () => {
-    (useGetCurrentVotes as Vi.Mock).mockImplementation(() => ({
+    (useGetCurrentVotes as Mock).mockImplementation(() => ({
       data: {
         votesMantissa: CREATE_PROPOSAL_THRESHOLD_MANTISSA,
       },
     }));
 
     const cancelMock = vi.fn();
-    (useCancelProposal as Vi.Mock).mockImplementation(() => ({
+    (useCancelProposal as Mock).mockImplementation(() => ({
       mutateAsync: cancelMock,
     }));
 
@@ -561,14 +561,14 @@ describe('ProposalComp page', () => {
   });
 
   it('does not let user cancel the BSC proposal if it has passed the succeeded state', async () => {
-    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+    (useGetProposal as Mock).mockImplementation(() => ({
       data: {
         proposal: succeededProposal,
       },
     }));
 
     const cancelMock = vi.fn();
-    (useCancelProposal as Vi.Mock).mockImplementation(() => ({
+    (useCancelProposal as Mock).mockImplementation(() => ({
       mutateAsync: cancelMock,
     }));
 
@@ -582,14 +582,14 @@ describe('ProposalComp page', () => {
   });
 
   it('lets user queue the BSC proposal', async () => {
-    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+    (useGetProposal as Mock).mockImplementation(() => ({
       data: {
         proposal: succeededProposal,
       },
     }));
 
     const queueMock = vi.fn();
-    (useQueueProposal as Vi.Mock).mockImplementation(() => ({
+    (useQueueProposal as Mock).mockImplementation(() => ({
       mutateAsync: queueMock,
     }));
 
@@ -608,14 +608,14 @@ describe('ProposalComp page', () => {
   });
 
   it('lets user queue the BSC proposal', async () => {
-    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+    (useGetProposal as Mock).mockImplementation(() => ({
       data: {
         proposal: succeededProposal,
       },
     }));
 
     const queueMock = vi.fn();
-    (useQueueProposal as Vi.Mock).mockImplementation(() => ({
+    (useQueueProposal as Mock).mockImplementation(() => ({
       mutateAsync: queueMock,
     }));
 
@@ -639,14 +639,14 @@ describe('ProposalComp page', () => {
       executionEtaDate: new Date(fakeNow.getTime() - 1000),
     };
 
-    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+    (useGetProposal as Mock).mockImplementation(() => ({
       data: {
         proposal: customProposal,
       },
     }));
 
     const executeMock = vi.fn();
-    (useExecuteProposal as Vi.Mock).mockImplementation(() => ({
+    (useExecuteProposal as Mock).mockImplementation(() => ({
       mutateAsync: executeMock,
     }));
 
@@ -679,14 +679,14 @@ describe('ProposalComp page', () => {
       remoteProposals: [executableRemoteProposal],
     };
 
-    (useGetProposal as Vi.Mock).mockImplementation(() => ({
+    (useGetProposal as Mock).mockImplementation(() => ({
       data: {
         proposal: executedProposal,
       },
     }));
 
     const executeMock = vi.fn();
-    (useExecuteProposal as Vi.Mock).mockImplementation(() => ({
+    (useExecuteProposal as Mock).mockImplementation(() => ({
       mutateAsync: executeMock,
     }));
 

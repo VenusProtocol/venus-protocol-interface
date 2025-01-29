@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -45,7 +45,7 @@ describe('containers/AssetAccessor', () => {
       ),
     };
 
-    (useGetPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPool as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: customFakePool,
@@ -53,7 +53,7 @@ describe('containers/AssetAccessor', () => {
     }));
 
     const fakeTokenAnnouncementText = 'Fake token announcement';
-    (TokenAnnouncement as Vi.Mock).mockImplementation(() => fakeTokenAnnouncementText);
+    (TokenAnnouncement as Mock).mockImplementation(() => fakeTokenAnnouncementText);
 
     const { getByText, queryByText } = renderComponent(
       <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
@@ -77,14 +77,14 @@ describe('containers/AssetAccessor', () => {
       ),
     };
 
-    (useGetPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPool as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: customFakePool,
       },
     }));
 
-    (TokenAnnouncement as Vi.Mock).mockImplementation(() => null);
+    (TokenAnnouncement as Mock).mockImplementation(() => null);
 
     const { getByText, queryByText } = renderComponent(
       <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,

@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import { useSearchParams } from 'react-router-dom';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { renderHook } from 'testUtils/render';
 
@@ -20,7 +20,7 @@ describe('useUrlPagination', () => {
     const mockSearchParams = new URLSearchParams();
     const mockSetSearchParams = vi.fn();
 
-    (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
+    (useSearchParams as Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
     const { result } = renderHook(() => useUrlPagination());
 
@@ -33,7 +33,7 @@ describe('useUrlPagination', () => {
     mockSearchParams.set(PAGE_PARAM_KEY, '3');
     const mockSetSearchParams = vi.fn();
 
-    (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
+    (useSearchParams as Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
     const { result } = renderHook(() => useUrlPagination());
 
@@ -46,7 +46,7 @@ describe('useUrlPagination', () => {
     });
     const mockSetSearchParams = vi.fn();
 
-    (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
+    (useSearchParams as Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
     const { result } = renderHook(() => useUrlPagination());
 

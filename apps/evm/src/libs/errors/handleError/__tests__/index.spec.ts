@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { VError } from 'libs/errors';
 import { displayNotification } from 'libs/notifications';
@@ -47,7 +47,7 @@ describe('handleError', () => {
       handleError({ error: fakeError });
 
       expect(displayNotification).toHaveBeenCalledTimes(1);
-      expect((displayNotification as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+      expect((displayNotification as Mock).mock.calls[0][0]).toMatchSnapshot();
     },
   );
 });

@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import tokens from '__mocks__/models/tokens';
 import { renderHook } from 'testUtils/render';
@@ -12,7 +12,7 @@ vi.mock('libs/tokens/utilities/getSwapTokens');
 
 describe('useGetSwapTokens', () => {
   beforeEach(() => {
-    (getSwapTokens as Vi.Mock).mockImplementation(() => tokens);
+    (getSwapTokens as Mock).mockImplementation(() => tokens);
   });
 
   it('returns swap tokens', () => {

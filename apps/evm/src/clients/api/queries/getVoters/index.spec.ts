@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import votersResponse from '__mocks__/api/voters.json';
 
@@ -10,7 +10,7 @@ vi.mock('utilities/restService');
 
 describe('api/queries/getVoters', () => {
   test('returns votes', async () => {
-    (restService as Vi.Mock).mockImplementationOnce(async () => ({
+    (restService as Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: votersResponse,
     }));

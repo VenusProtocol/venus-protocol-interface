@@ -2,7 +2,7 @@ import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -142,7 +142,7 @@ describe('RepayForm', () => {
 
     const fakeWalletSpendingLimitTokens = new BigNumber(10);
 
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Mock).mockImplementation(() => ({
       ...originalTokenApprovalOutput,
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
     }));
@@ -185,7 +185,7 @@ describe('RepayForm', () => {
     const fakeWalletSpendingLimitTokens = new BigNumber(10);
     const fakeRevokeWalletSpendingLimit = vi.fn();
 
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Mock).mockImplementation(() => ({
       ...originalTokenApprovalOutput,
       revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
@@ -284,7 +284,7 @@ describe('RepayForm', () => {
     const fakeWalletSpendingLimitTokens = new BigNumber(10);
     const fakeRevokeWalletSpendingLimit = vi.fn();
 
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Mock).mockImplementation(() => ({
       ...originalTokenApprovalOutput,
       revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
@@ -361,7 +361,7 @@ describe('RepayForm', () => {
   it('lets user repay borrowed tokens then calls onClose callback on success', async () => {
     const onCloseMock = vi.fn();
 
-    (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    (repay as Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
@@ -400,7 +400,7 @@ describe('RepayForm', () => {
   });
 
   it('lets user repay full loan', async () => {
-    (repay as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    (repay as Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,

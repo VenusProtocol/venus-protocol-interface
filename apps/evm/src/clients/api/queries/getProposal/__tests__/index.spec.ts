@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { getBscProposal } from 'clients/subgraph';
 import { ChainId } from 'types';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 import { type GetProposalInput, getProposal } from '..';
 
 const fakeParams: GetProposalInput = {
@@ -17,7 +17,7 @@ describe('getProposal', () => {
   });
 
   it('throws an error if proposal was not found', async () => {
-    (getBscProposal as Vi.Mock).mockImplementation(() => ({
+    (getBscProposal as Mock).mockImplementation(() => ({
       proposal: undefined,
     }));
 

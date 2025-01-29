@@ -1,5 +1,5 @@
 import { Contract } from 'ethers';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeContractAddress from '__mocks__/models/address';
 import fakeProvider from '__mocks__/models/provider';
@@ -19,12 +19,12 @@ vi.mock('libs/contracts/utilities/getVTokenContract');
 
 describe('useGetVTokenContract', () => {
   beforeEach(() => {
-    (getVTokenContract as Vi.Mock).mockImplementation(
+    (getVTokenContract as Mock).mockImplementation(
       ({ signerOrProvider }: GetVTokenContractInput) =>
         new Contract(fakeContractAddress, [], signerOrProvider),
     );
 
-    (useProvider as Vi.Mock).mockImplementation(() => ({
+    (useProvider as Mock).mockImplementation(() => ({
       provider: fakeProvider,
     }));
   });
@@ -42,7 +42,7 @@ describe('useGetVTokenContract', () => {
   });
 
   it('returns a contract with the the correct settings passSigner as true and signer exists', () => {
-    (useSigner as Vi.Mock).mockImplementation(() => ({
+    (useSigner as Mock).mockImplementation(() => ({
       signer: fakeSigner,
     }));
 

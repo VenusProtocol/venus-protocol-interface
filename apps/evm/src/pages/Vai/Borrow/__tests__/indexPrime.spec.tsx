@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/dom';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
@@ -12,7 +12,7 @@ import TEST_IDS from '../testIds';
 
 describe('Borrow - Feature enabled: Prime', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'prime',
     );
   });

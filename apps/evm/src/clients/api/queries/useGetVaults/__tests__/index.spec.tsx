@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import compTrollerResponses from '__mocks__/contracts/legacyPoolComptroller';
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
@@ -28,37 +28,37 @@ import useGetVaults, { type UseGetVaultsOutput } from '..';
 
 describe('api/queries/useGetVaults', () => {
   beforeEach(() => {
-    (getXvsVaultPoolCount as Vi.Mock).mockImplementation(() => ({
+    (getXvsVaultPoolCount as Mock).mockImplementation(() => ({
       poolCount: xvsVaultResponses.poolLength,
     }));
-    (getXvsVaultPendingWithdrawalsBalance as Vi.Mock).mockImplementation(() => ({
+    (getXvsVaultPendingWithdrawalsBalance as Mock).mockImplementation(() => ({
       balanceMantissa: new BigNumber('1000000000'),
     }));
-    (getXvsVaultTotalAllocationPoints as Vi.Mock).mockImplementation(() => ({
+    (getXvsVaultTotalAllocationPoints as Mock).mockImplementation(() => ({
       totalAllocationPoints: new BigNumber(xvsVaultResponses.totalAllocPoints.toString()),
     }));
-    (getXvsVaultsTotalDailyDistributedXvs as Vi.Mock).mockImplementation(() => ({
+    (getXvsVaultsTotalDailyDistributedXvs as Mock).mockImplementation(() => ({
       dailyDistributedXvs: new BigNumber('0.000000288'),
     }));
-    (getVenusVaiVaultDailyRate as Vi.Mock).mockImplementation(() => ({
+    (getVenusVaiVaultDailyRate as Mock).mockImplementation(() => ({
       dailyRateMantissa: new BigNumber(compTrollerResponses.venusVAIVaultRate.toString()),
     }));
-    (getBalanceOf as Vi.Mock).mockImplementation(() => ({
+    (getBalanceOf as Mock).mockImplementation(() => ({
       balanceMantissa: new BigNumber('4000000000'),
     }));
-    (getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade as Vi.Mock).mockImplementation(() => ({
+    (getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade as Mock).mockImplementation(() => ({
       userPendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber('100000'),
     }));
 
-    (getVaiVaultUserInfo as Vi.Mock).mockImplementation(() =>
+    (getVaiVaultUserInfo as Mock).mockImplementation(() =>
       formatToVaiVaultUserInfo(vaiVaultResponses.userInfo),
     );
 
-    (getXvsVaultPoolInfo as Vi.Mock).mockImplementation(() =>
+    (getXvsVaultPoolInfo as Mock).mockImplementation(() =>
       formatToPoolInfo(xvsVaultResponses.poolInfo),
     );
 
-    (getXvsVaultUserInfo as Vi.Mock).mockImplementation(() =>
+    (getXvsVaultUserInfo as Mock).mockImplementation(() =>
       formatToXvsVaultUserInfo(xvsVaultResponses.userInfo),
     );
   });

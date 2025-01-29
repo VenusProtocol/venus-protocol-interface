@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -12,14 +12,14 @@ import { Breadcrumbs } from '..';
 
 describe('component/Layout/Header/Breadcrumbs', () => {
   beforeEach(() => {
-    (useGetVTokens as Vi.Mock).mockImplementation(() => ({
+    (useGetVTokens as Mock).mockImplementation(() => ({
       data: {
         vTokens,
       },
       isLoading: false,
     }));
 
-    (useGetPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPool as Mock).mockImplementation(() => ({
       data: {
         pool: poolData[0],
       },

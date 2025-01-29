@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { assetData } from '__mocks__/models/asset';
 import { poolData } from '__mocks__/models/pools';
@@ -14,14 +14,14 @@ import TEST_IDS from '../../testIds';
 
 describe('IsolatedPoolMarket', () => {
   beforeEach(() => {
-    (useGetAsset as Vi.Mock).mockImplementation(() => ({
+    (useGetAsset as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         asset: assetData[0],
       },
     }));
 
-    (getVTokenApySimulations as Vi.Mock).mockImplementation(() => ({
+    (getVTokenApySimulations as Mock).mockImplementation(() => ({
       apySimulations: vTokenApySimulations,
     }));
   });

@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -30,19 +30,17 @@ const fakeError = new Error('Fake error');
 
 describe('useTrackTransaction', () => {
   beforeEach(() => {
-    (displayNotification as Vi.Mock).mockImplementation(({ id }: { id: string | number }) => id);
+    (displayNotification as Mock).mockImplementation(({ id }: { id: string | number }) => id);
 
-    (fakeProvider.waitForTransaction as Vi.Mock).mockImplementation(
-      async () => fakeContractReceipt,
-    );
+    (fakeProvider.waitForTransaction as Mock).mockImplementation(async () => fakeContractReceipt);
 
-    (useProvider as Vi.Mock).mockImplementation(() => ({
+    (useProvider as Mock).mockImplementation(() => ({
       provider: fakeProvider,
     }));
   });
 
   it('handles errors from provider', async () => {
-    (fakeProvider.waitForTransaction as Vi.Mock).mockImplementation(async () => {
+    (fakeProvider.waitForTransaction as Mock).mockImplementation(async () => {
       throw fakeError;
     });
 
@@ -102,7 +100,7 @@ describe('useTrackTransaction', () => {
   ])(
     'checks for errors in transaction receipt on confirmation. Check function: %s',
     async ({ checkFn }) => {
-      (checkFn as Vi.Mock).mockImplementation(() => {
+      (checkFn as Mock).mockImplementation(() => {
         throw fakeError;
       });
 
@@ -152,7 +150,7 @@ describe('useTrackTransaction', () => {
   );
 
   it('handles a transaction that failed', async () => {
-    (fakeProvider.waitForTransaction as Vi.Mock).mockImplementation(async () => ({
+    (fakeProvider.waitForTransaction as Mock).mockImplementation(async () => ({
       ...fakeContractReceipt,
       status: 0, // Failed transaction status
     }));

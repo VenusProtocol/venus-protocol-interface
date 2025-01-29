@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { useChainId } from 'libs/wallet';
 import { store } from 'store';
@@ -19,13 +19,13 @@ vi.mock('store', () => ({
 
 describe('useUserChainSettings', () => {
   beforeEach(() => {
-    (useChainId as Vi.Mock).mockReturnValue({
+    (useChainId as Mock).mockReturnValue({
       chainId: ChainId.BSC_TESTNET,
     });
   });
 
   it('returns correct settings from the store', () => {
-    (store.use.userSettings as Vi.Mock).mockReturnValue({
+    (store.use.userSettings as Mock).mockReturnValue({
       [ChainId.BSC_TESTNET]: {
         gaslessTransactions: false,
       },
@@ -43,7 +43,7 @@ describe('useUserChainSettings', () => {
   });
 
   it('calls setState when updating settings', () => {
-    (store.use.setUserSettings as Vi.Mock).mockReturnValue(vi.fn(() => vi.fn()));
+    (store.use.setUserSettings as Mock).mockReturnValue(vi.fn(() => vi.fn()));
 
     const {
       result: {

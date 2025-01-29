@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import { useSearchParams } from 'react-router-dom';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
@@ -42,13 +42,13 @@ describe('PrimeCalculator', () => {
     const mockSearchParams = new URLSearchParams({
       [QUERY_PARAM_TOKEN_ADDRESS]: primeAssets[0].vToken.address,
     });
-    (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
+    (useSearchParams as Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
-    (useGetPrimeEstimation as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeEstimation as Mock).mockImplementation(() => ({
       data: primeEstimationData,
     }));
 
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         primeMaximumStakedXvsMantissa: new BigNumber('10000000000000000000000'),
         primeMinimumStakedXvsMantissa: new BigNumber('1000000000000000000000'),
@@ -56,7 +56,7 @@ describe('PrimeCalculator', () => {
       isLoading: false,
     }));
 
-    (useGetPools as Vi.Mock).mockImplementation(() => ({
+    (useGetPools as Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
       },
@@ -70,7 +70,7 @@ describe('PrimeCalculator', () => {
 
   it('initializes the search params and form correctly when it contains no token address parameter', async () => {
     const mockSearchParams = new URLSearchParams();
-    (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
+    (useSearchParams as Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
     renderComponent(<PrimeCalculator />);
 
@@ -90,7 +90,7 @@ describe('PrimeCalculator', () => {
     const mockSearchParams = new URLSearchParams({
       [QUERY_PARAM_TOKEN_ADDRESS]: 'invalid-token-address',
     });
-    (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
+    (useSearchParams as Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
     renderComponent(<PrimeCalculator />);
 
@@ -110,7 +110,7 @@ describe('PrimeCalculator', () => {
     const mockSearchParams = new URLSearchParams({
       [QUERY_PARAM_TOKEN_ADDRESS]: primeAssets[1].vToken.address,
     });
-    (useSearchParams as Vi.Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
+    (useSearchParams as Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);
 
     const { getByTestId } = renderComponent(<PrimeCalculator />);
 

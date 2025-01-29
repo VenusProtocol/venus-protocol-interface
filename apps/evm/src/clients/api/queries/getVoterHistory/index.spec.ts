@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import voterHistoryResponse from '__mocks__/api/voterHistory.json';
 import fakeAddress from '__mocks__/models/address';
@@ -11,7 +11,7 @@ vi.mock('utilities/restService');
 
 describe('api/queries/getVoterHistory', () => {
   test('returns formatted voter history', async () => {
-    (restService as Vi.Mock).mockImplementationOnce(async () => ({
+    (restService as Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: voterHistoryResponse,
     }));
@@ -34,7 +34,7 @@ describe('api/queries/getVoterHistory', () => {
   });
 
   test('Gets called with correct default arguments', async () => {
-    (restService as Vi.Mock).mockImplementationOnce(async () => ({
+    (restService as Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: voterHistoryResponse,
     }));

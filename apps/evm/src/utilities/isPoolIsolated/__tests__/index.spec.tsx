@@ -1,5 +1,5 @@
 import { ChainId } from '@venusprotocol/chains';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import areAddressesEqual from 'utilities/areAddressesEqual';
 import { isPoolIsolated } from '..';
@@ -10,7 +10,7 @@ vi.mock('utilities/areAddressesEqual', () => ({
 
 describe('isPoolIsolated', () => {
   it('returns true for chainId not BSC_MAINNET or BSC_TESTNET regardless of address', () => {
-    (areAddressesEqual as Vi.Mock).mockReturnValueOnce(true);
+    (areAddressesEqual as Mock).mockReturnValueOnce(true);
     const result = isPoolIsolated({
       chainId: ChainId.ARBITRUM_ONE,
       comptrollerAddress: '0xAnyAddress',
@@ -19,7 +19,7 @@ describe('isPoolIsolated', () => {
   });
 
   it('returns false for BSC_MAINNET with matching address', () => {
-    (areAddressesEqual as Vi.Mock).mockReturnValueOnce(true);
+    (areAddressesEqual as Mock).mockReturnValueOnce(true);
     const result = isPoolIsolated({
       chainId: ChainId.BSC_MAINNET,
       comptrollerAddress: '0xCoreComptrollerMainnet',
@@ -28,7 +28,7 @@ describe('isPoolIsolated', () => {
   });
 
   it('returns false for BSC_TESTNET with matching address', () => {
-    (areAddressesEqual as Vi.Mock).mockReturnValueOnce(true);
+    (areAddressesEqual as Mock).mockReturnValueOnce(true);
     const result = isPoolIsolated({
       chainId: ChainId.BSC_TESTNET,
       comptrollerAddress: '0xCoreComptrollerMainnet',
@@ -37,7 +37,7 @@ describe('isPoolIsolated', () => {
   });
 
   it('returns true for BSC_MAINNET with non-matching address', () => {
-    (areAddressesEqual as Vi.Mock).mockReturnValueOnce(false);
+    (areAddressesEqual as Mock).mockReturnValueOnce(false);
     const result = isPoolIsolated({
       chainId: ChainId.BSC_MAINNET,
       comptrollerAddress: '0xDifferentAddress',
@@ -46,7 +46,7 @@ describe('isPoolIsolated', () => {
   });
 
   it('returns true for BSC_TESTNET with non-matching address', () => {
-    (areAddressesEqual as Vi.Mock).mockReturnValueOnce(false);
+    (areAddressesEqual as Mock).mockReturnValueOnce(false);
     const result = isPoolIsolated({
       chainId: ChainId.BSC_TESTNET,
       comptrollerAddress: '0xDifferentAddress',

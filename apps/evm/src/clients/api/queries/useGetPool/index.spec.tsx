@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -11,7 +11,7 @@ import useGetPool, { type UseGetPoolOutput } from '.';
 
 describe('api/queries/useGetPool', () => {
   beforeEach(() => {
-    (useGetPools as Vi.Mock).mockImplementation(() => ({
+    (useGetPools as Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
       },

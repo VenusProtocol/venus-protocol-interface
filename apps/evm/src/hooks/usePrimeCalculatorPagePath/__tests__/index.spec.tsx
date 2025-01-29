@@ -1,5 +1,5 @@
 import { matchPath, useLocation } from 'react-router';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { renderHook } from 'testUtils/render';
 
@@ -15,7 +15,7 @@ vi.mock('react-router', () => ({
 
 describe('usePrimeCalculatorPagePath', () => {
   beforeEach(() => {
-    (matchPath as Vi.Mock).mockImplementation((a, b) => a === b);
+    (matchPath as Mock).mockImplementation((a, b) => a === b);
   });
 
   it.each([
@@ -25,7 +25,7 @@ describe('usePrimeCalculatorPagePath', () => {
   ])(
     'should return the right path based on the current location %s',
     ({ pathname, expectedResult }) => {
-      (useLocation as Vi.Mock).mockImplementation(() => ({ pathname }));
+      (useLocation as Mock).mockImplementation(() => ({ pathname }));
 
       const { result } = renderHook(() => usePrimeCalculatorPagePath());
 

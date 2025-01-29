@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { MAX_NOTIFICATIONS, displayNotification, hideNotification, updateNotification } from '..';
 import { notifications as fakeNotifications } from '../../__mocks__/models/notifications';
@@ -53,7 +53,7 @@ describe('utilities', async () => {
     it('removes the last notification from the store when the maximum number of notifications allowed has been reached', () => {
       // Add maximum amount of notifications allowed to store
       const state = store.getState();
-      (store.getState as Vi.Mock).mockImplementation(() => ({
+      (store.getState as Mock).mockImplementation(() => ({
         ...state,
         notifications: new Array(MAX_NOTIFICATIONS).fill(undefined).map((_, id) => ({
           id,

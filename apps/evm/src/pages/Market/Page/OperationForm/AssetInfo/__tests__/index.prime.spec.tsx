@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { exactAmountInSwap } from '__mocks__/models/swaps';
@@ -12,11 +12,11 @@ vi.mock('hooks/useGetHypotheticalUserPrimeApys');
 
 describe('AssetInfo - Feature enabled: Prime', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'prime',
     );
 
-    (useGetHypotheticalUserPrimeApys as Vi.Mock).mockImplementation(() => ({
+    (useGetHypotheticalUserPrimeApys as Mock).mockImplementation(() => ({
       supplyApyPercentage: new BigNumber(13.4),
       borrowApyPercentage: new BigNumber(10.4),
     }));

@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { assetData } from '__mocks__/models/asset';
 import { marketSnapshots } from '__mocks__/models/marketSnapshots';
@@ -21,33 +21,33 @@ import TEST_IDS from '../../testIds';
 
 describe('CorePoolMarket - Feature flag enabled: apyCharts', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'apyCharts',
     );
 
-    (useGetAsset as Vi.Mock).mockImplementation(() => ({
+    (useGetAsset as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         asset: assetData[0],
       },
     }));
 
-    (getMarketHistory as Vi.Mock).mockImplementation(() => ({
+    (getMarketHistory as Mock).mockImplementation(() => ({
       marketSnapshots,
     }));
 
-    (getVTokenApySimulations as Vi.Mock).mockImplementation(() => ({
+    (getVTokenApySimulations as Mock).mockImplementation(() => ({
       apySimulations: vTokenApySimulations,
     }));
 
-    (useGetPoolLiquidationIncentive as Vi.Mock).mockImplementation(() => ({
+    (useGetPoolLiquidationIncentive as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         liquidationIncentivePercentage: 10,
       },
     }));
 
-    (useGetIsolatedPoolVTokenLiquidationThreshold as Vi.Mock).mockImplementation(() => ({
+    (useGetIsolatedPoolVTokenLiquidationThreshold as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         liquidationThresholdPercentage: 80,

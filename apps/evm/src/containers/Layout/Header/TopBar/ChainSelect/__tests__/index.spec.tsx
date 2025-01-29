@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 
@@ -16,7 +16,7 @@ describe('ChainSelect', () => {
   it('calls the right method on chain change', () => {
     const switchChainMock = vi.fn();
 
-    (useSwitchChain as Vi.Mock).mockImplementation(() => ({
+    (useSwitchChain as Mock).mockImplementation(() => ({
       switchChain: switchChainMock,
     }));
 

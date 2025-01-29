@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
@@ -14,7 +14,7 @@ vi.mock('hooks/useGetChainMetadata');
 
 describe('PoolTable', () => {
   beforeEach(() => {
-    (useGetChainMetadata as Vi.Mock).mockImplementation(() => chainMetadata[ChainId.BSC_TESTNET]);
+    (useGetChainMetadata as Mock).mockImplementation(() => chainMetadata[ChainId.BSC_TESTNET]);
   });
 
   it('renders without crashing', () => {
@@ -22,7 +22,7 @@ describe('PoolTable', () => {
   });
 
   it('filters out the core pool', () => {
-    (useGetPools as Vi.Mock).mockImplementation(() => ({
+    (useGetPools as Mock).mockImplementation(() => ({
       data: {
         pools: [
           {

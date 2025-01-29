@@ -1,5 +1,5 @@
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import contractTxData from '__mocks__/models/contractTxData';
@@ -37,11 +37,11 @@ const fakeMutationInput = {};
 
 describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'gaslessTransactions',
     );
 
-    (useGetPaymasterInfo as Vi.Mock).mockReturnValue({
+    (useGetPaymasterInfo as Mock).mockReturnValue({
       data: { canSponsorTransactions: true },
       refetch: vi.fn(),
     });
@@ -49,10 +49,10 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
 
   it('sends gasless transaction when conditions are met', async () => {
     const trackTransactionMock = vi.fn();
-    (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
+    (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
 
     const sendContractTransactionMock = vi.fn(async () => fakeContractTransaction);
-    (useSendContractTransaction as Vi.Mock).mockReturnValue({
+    (useSendContractTransaction as Mock).mockReturnValue({
       mutateAsync: sendContractTransactionMock,
     });
 
@@ -81,13 +81,13 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
 
   it('handles gasless transaction error and opens ResendPayingGasModal', async () => {
     const refetchMock = vi.fn();
-    (useGetPaymasterInfo as Vi.Mock).mockReturnValue({
+    (useGetPaymasterInfo as Mock).mockReturnValue({
       data: { canSponsorTransactions: true },
       refetch: refetchMock,
     });
 
     const trackTransactionMock = vi.fn();
-    (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
+    (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
 
     const errorCode = 'gaslessTransactionNotAvailable';
 
@@ -97,12 +97,12 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
         code: errorCode,
       }),
     );
-    (useSendContractTransaction as Vi.Mock).mockReturnValue({
+    (useSendContractTransaction as Mock).mockReturnValue({
       mutateAsync: sendContractTransactionMock,
     });
 
     const openModalMock = vi.fn();
-    (store.use.openModal as Vi.Mock).mockImplementation(() => openModalMock);
+    (store.use.openModal as Mock).mockImplementation(() => openModalMock);
 
     const fnMock = vi.fn(async () => contractTxData);
 
@@ -144,15 +144,15 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
 
   it('falls back to regular transaction when paymaster can not sponsor them', async () => {
     const trackTransactionMock = vi.fn();
-    (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
+    (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
 
-    (useGetPaymasterInfo as Vi.Mock).mockReturnValue({
+    (useGetPaymasterInfo as Mock).mockReturnValue({
       data: { canSponsorTransactions: false },
       refetch: vi.fn(),
     });
 
     const sendContractTransactionMock = vi.fn(() => fakeContractTransaction);
-    (useSendContractTransaction as Vi.Mock).mockReturnValue({
+    (useSendContractTransaction as Mock).mockReturnValue({
       mutateAsync: sendContractTransactionMock,
     });
 
@@ -181,10 +181,10 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
 
   it('falls back to regular transaction when tryGasless option is false', async () => {
     const trackTransactionMock = vi.fn();
-    (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
+    (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
 
     const sendContractTransactionMock = vi.fn(() => fakeContractTransaction);
-    (useSendContractTransaction as Vi.Mock).mockReturnValue({
+    (useSendContractTransaction as Mock).mockReturnValue({
       mutateAsync: sendContractTransactionMock,
     });
 
@@ -213,13 +213,13 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
   });
 
   it('falls back to regular transaction when gasless user setting is disabled', async () => {
-    (useUserChainSettings as Vi.Mock).mockReturnValue([{ gaslessTransactions: false }, vi.fn()]);
+    (useUserChainSettings as Mock).mockReturnValue([{ gaslessTransactions: false }, vi.fn()]);
 
     const trackTransactionMock = vi.fn();
-    (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
+    (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
 
     const sendContractTransactionMock = vi.fn(() => fakeContractTransaction);
-    (useSendContractTransaction as Vi.Mock).mockReturnValue({
+    (useSendContractTransaction as Mock).mockReturnValue({
       mutateAsync: sendContractTransactionMock,
     });
 

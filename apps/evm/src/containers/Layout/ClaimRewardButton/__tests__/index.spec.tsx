@@ -1,5 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -14,7 +14,7 @@ import { fakePendingRewardGroups } from '../__testUtils__/fakeData';
 
 describe('ClaimRewardButton', () => {
   beforeEach(() => {
-    (getPendingRewards as Vi.Mock).mockImplementation(() => ({
+    (getPendingRewards as Mock).mockImplementation(() => ({
       pendingRewardGroups: fakePendingRewardGroups,
     }));
   });
@@ -30,7 +30,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('renders nothing if user has no pending rewards to claim', () => {
-    (getPendingRewards as Vi.Mock).mockImplementation(() => ({
+    (getPendingRewards as Mock).mockImplementation(() => ({
       pendingRewardGroups: [],
     }));
 
@@ -64,7 +64,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('displays warning message and removes checkbox of vault group when it is disabled', async () => {
-    (getPendingRewards as Vi.Mock).mockImplementation(() => ({
+    (getPendingRewards as Mock).mockImplementation(() => ({
       pendingRewardGroups: fakePendingRewardGroups.map(fakePendingRewardGroup => {
         if (fakePendingRewardGroup.type !== 'vault') {
           return fakePendingRewardGroup;
@@ -92,7 +92,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('displays warning message and removes checkbox of XVS vesting vault group when it is disabled', async () => {
-    (getPendingRewards as Vi.Mock).mockImplementation(() => ({
+    (getPendingRewards as Mock).mockImplementation(() => ({
       pendingRewardGroups: fakePendingRewardGroups.map(fakePendingRewardGroup => {
         if (fakePendingRewardGroup.type !== 'xvsVestingVault') {
           return fakePendingRewardGroup;
@@ -120,7 +120,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('displays warning message and removes checkbox of Prime group when it is disabled', async () => {
-    (getPendingRewards as Vi.Mock).mockImplementation(() => ({
+    (getPendingRewards as Mock).mockImplementation(() => ({
       pendingRewardGroups: fakePendingRewardGroups.map(fakePendingRewardGroup => {
         if (fakePendingRewardGroup.type !== 'prime') {
           return fakePendingRewardGroup;
@@ -224,7 +224,7 @@ describe('ClaimRewardButton', () => {
   });
 
   it('it claims reward on submit button click and closes modal on success', async () => {
-    (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractTransaction);
+    (claimRewards as Mock).mockImplementationOnce(() => fakeContractTransaction);
 
     const { queryByTestId, getByTestId } = renderComponent(<ClaimRewardButton />, {
       accountAddress: fakeAddress,
@@ -239,15 +239,15 @@ describe('ClaimRewardButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardSubmitButton));
 
     await waitFor(() => expect(claimRewards).toHaveBeenCalledTimes(1));
-    expect((claimRewards as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((claimRewards as Mock).mock.calls[0][0]).toMatchSnapshot();
 
     await waitFor(() => expect(queryByTestId(TEST_IDS.claimRewardSubmitButton)).toBeNull());
   });
 
   it('it claims only selected and enabled rewards on submit button click on success', async () => {
-    (claimRewards as Vi.Mock).mockImplementationOnce(() => fakeContractTransaction);
+    (claimRewards as Mock).mockImplementationOnce(() => fakeContractTransaction);
 
-    (getPendingRewards as Vi.Mock).mockImplementation(() => ({
+    (getPendingRewards as Mock).mockImplementation(() => ({
       pendingRewardGroups: fakePendingRewardGroups.map(fakePendingRewardGroup => {
         if (fakePendingRewardGroup.type !== 'xvsVestingVault') {
           return fakePendingRewardGroup;
@@ -280,6 +280,6 @@ describe('ClaimRewardButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardSubmitButton));
 
     await waitFor(() => expect(claimRewards).toHaveBeenCalledTimes(1));
-    expect((claimRewards as Vi.Mock).mock.calls[0][0]).toMatchSnapshot();
+    expect((claimRewards as Mock).mock.calls[0][0]).toMatchSnapshot();
   });
 });

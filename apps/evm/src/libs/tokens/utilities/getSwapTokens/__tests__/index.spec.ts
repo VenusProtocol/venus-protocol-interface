@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { busd, vai, vrt, xvs } from '__mocks__/models/tokens';
 
@@ -16,8 +16,8 @@ const fakePancakeSwapTokens = [vrt, xvs, busd];
 
 describe('getSwapTokens', () => {
   beforeEach(() => {
-    (getTokens as Vi.Mock).mockImplementation(() => fakeTokens);
-    (getPancakeSwapTokens as Vi.Mock).mockImplementation(() => fakePancakeSwapTokens);
+    (getTokens as Mock).mockImplementation(() => fakeTokens);
+    (getPancakeSwapTokens as Mock).mockImplementation(() => fakePancakeSwapTokens);
   });
 
   it('returns a list of tokens that contains all the tokens listed on Pancake Swap and all the tokens listed on Venus with no duplicates', () => {

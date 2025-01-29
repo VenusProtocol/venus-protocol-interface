@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import tokens, { xvs } from '__mocks__/models/tokens';
 import { renderHook } from 'testUtils/render';
@@ -11,7 +11,7 @@ vi.mock('libs/tokens/hooks/useGetTokens');
 
 describe('useGetToken', () => {
   beforeEach(() => {
-    (useGetTokens as Vi.Mock).mockImplementation(() => tokens);
+    (useGetTokens as Mock).mockImplementation(() => tokens);
   });
 
   it('returns token when a corresponding symbol is found', () => {

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
@@ -16,23 +16,23 @@ import { AccountData, type AccountDataProps } from '..';
 
 describe('AccountData - Feature flag enabled: Prime', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'prime',
     );
 
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         xvsVaultPoolId: 1,
       },
     }));
 
-    (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsVaultUserInfo as Mock).mockImplementation(() => ({
       data: {
         stakedAmountMantissa: new BigNumber('1000000000000000'),
       },
     }));
 
-    (useGetHypotheticalPrimeApys as Vi.Mock).mockImplementation(() => ({
+    (useGetHypotheticalPrimeApys as Mock).mockImplementation(() => ({
       data: {
         supplyApyPercentage: new BigNumber(13.4),
         borrowApyPercentage: new BigNumber(10.4),

@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import cwd from 'utilities/cwd';
 
@@ -8,7 +8,7 @@ vi.mock('utilities/cwd');
 
 describe('getAbsolutePath', () => {
   beforeEach(() => {
-    (cwd as Vi.Mock).mockImplementation(() => './fake/cwd');
+    (cwd as Mock).mockImplementation(() => './fake/cwd');
   });
 
   it('returns Contract instance', () => {

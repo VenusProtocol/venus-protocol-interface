@@ -1,5 +1,5 @@
 import { type Matcher, type MatcherOptions, fireEvent, waitFor } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
@@ -430,7 +430,7 @@ describe('pages/Proposal/CreateProposalModal', () => {
 
     // validation should not work, and we should display an error
     await waitFor(() => expect(handleError).toHaveBeenCalledTimes(1));
-    expect((handleError as Vi.Mock).mock.calls[0][0]).toMatchInlineSnapshot(`
+    expect((handleError as Mock).mock.calls[0][0]).toMatchInlineSnapshot(`
       {
         "error": [Error: validationError],
       }

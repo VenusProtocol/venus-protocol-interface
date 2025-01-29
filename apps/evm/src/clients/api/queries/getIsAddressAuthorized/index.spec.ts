@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 
@@ -10,7 +10,7 @@ vi.mock('utilities/restService');
 
 describe('api/queries/getAuthentication', () => {
   it('returns the user is authenticated if using a valid address', async () => {
-    (restService as Vi.Mock).mockImplementationOnce(async () => ({
+    (restService as Mock).mockImplementationOnce(async () => ({
       status: 200,
     }));
 
@@ -22,7 +22,7 @@ describe('api/queries/getAuthentication', () => {
   });
 
   it('returns not authenticated if using an invalid address', async () => {
-    (restService as Vi.Mock).mockImplementationOnce(async () => ({
+    (restService as Mock).mockImplementationOnce(async () => ({
       status: 403,
     }));
 

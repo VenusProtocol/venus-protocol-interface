@@ -1,5 +1,5 @@
 import { matchRoutes } from 'react-router';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { routes } from 'constants/routing';
 import { renderHook } from 'testUtils/render';
@@ -9,7 +9,7 @@ vi.mock('react-router');
 
 describe('useGetCurrentRoutePath', () => {
   it('returns first matching route path', () => {
-    (matchRoutes as Vi.Mock).mockImplementation(() => [
+    (matchRoutes as Mock).mockImplementation(() => [
       {
         route: {
           path: routes.account.path,
@@ -23,7 +23,7 @@ describe('useGetCurrentRoutePath', () => {
   });
 
   it('returns undefined if there is no matching route', () => {
-    (matchRoutes as Vi.Mock).mockImplementation(() => null);
+    (matchRoutes as Mock).mockImplementation(() => null);
 
     const { result } = renderHook(() => useGetCurrentRoutePath());
 

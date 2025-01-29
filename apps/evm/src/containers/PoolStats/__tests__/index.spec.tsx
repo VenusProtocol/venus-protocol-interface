@@ -3,14 +3,14 @@ import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { useGetVTreasuryContractAddress } from 'hooks/useGetVTreasuryContractAddress';
 import { renderComponent } from 'testUtils/render';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 import { PoolStats } from '..';
 
 vi.mock('hooks/useGetVTreasuryContractAddress');
 
 describe('PoolStats', () => {
   beforeEach(() => {
-    (useGetVTreasuryContractAddress as Vi.Mock).mockReturnValue(fakeAddress);
+    (useGetVTreasuryContractAddress as Mock).mockReturnValue(fakeAddress);
   });
 
   it('renders without crashing', async () => {

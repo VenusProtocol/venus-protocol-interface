@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
@@ -14,14 +14,14 @@ import { store } from '../store';
 
 describe('Banner - Feature flag enabled: prime', () => {
   beforeEach(() => {
-    (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeToken as Mock).mockImplementation(() => ({
       data: {
         exists: false,
         isIrrevocable: false,
       },
     }));
 
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'prime',
     );
   });
@@ -56,7 +56,7 @@ describe('Banner - Feature flag enabled: prime', () => {
   });
 
   it('renders nothing when connected user is Prime', () => {
-    (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeToken as Mock).mockImplementation(() => ({
       data: {
         exists: true,
         isIrrevocable: false,

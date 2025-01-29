@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
@@ -28,10 +28,10 @@ const fakeBalanceMantissa = fakeNativeTokenBalanceTokens.multipliedBy(10 ** 18);
 
 describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
     );
-    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+    (useGetBalanceOf as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: fakeBalanceMantissa,
       },

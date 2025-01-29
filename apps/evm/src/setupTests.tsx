@@ -2,7 +2,7 @@
 // this adds jest-dom's custom assertions
 import '@testing-library/jest-dom';
 import initializeLibraries from 'initializeLibraries';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 // Polyfill "window.fetch"
 import 'whatwg-fetch';
 
@@ -66,5 +66,5 @@ const useTokenApprovalOriginalOutput = useTokenApproval(
 );
 
 afterEach(() => {
-  (useTokenApproval as Vi.Mock).mockImplementation(() => useTokenApprovalOriginalOutput);
+  (useTokenApproval as Mock).mockImplementation(() => useTokenApprovalOriginalOutput);
 });

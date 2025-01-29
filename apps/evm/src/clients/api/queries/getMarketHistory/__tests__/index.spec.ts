@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { vBusd } from '__mocks__/models/vTokens';
 
@@ -20,7 +20,7 @@ const marketSnapshot: MarketSnapshot = {
 
 describe('getMarketHistory', () => {
   beforeEach(() => {
-    (restService as Vi.Mock).mockImplementation(async () => ({
+    (restService as Mock).mockImplementation(async () => ({
       data: { result: { data: [marketSnapshot] } },
     }));
   });

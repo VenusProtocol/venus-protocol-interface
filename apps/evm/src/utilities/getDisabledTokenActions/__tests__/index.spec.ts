@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { xvs } from '__mocks__/models/tokens';
 
@@ -21,7 +21,7 @@ describe('getDisabledTokenActions', () => {
   it('returns the list of local disabled actions correctly', () => {
     const localDisabledTokenActions: TokenAction[] = ['swapAndSupply', 'repay'];
 
-    (getLocalDisabledTokenActions as Vi.Mock).mockImplementation(() => localDisabledTokenActions);
+    (getLocalDisabledTokenActions as Mock).mockImplementation(() => localDisabledTokenActions);
 
     const result = getDisabledTokenActions({
       bitmask: 0,
@@ -35,7 +35,7 @@ describe('getDisabledTokenActions', () => {
   it('returns the list of paused actions from bitmask and local disabled actions, merged correctly', () => {
     const localDisabledTokenActions: TokenAction[] = ['swapAndSupply', 'repay'];
 
-    (getLocalDisabledTokenActions as Vi.Mock).mockImplementation(() => localDisabledTokenActions);
+    (getLocalDisabledTokenActions as Mock).mockImplementation(() => localDisabledTokenActions);
 
     const result = getDisabledTokenActions({
       bitmask: 165,

@@ -1,7 +1,7 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -38,17 +38,17 @@ const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_MANTISSA;
 
 describe('Governance', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'voteProposal' || name === 'createProposal',
     );
-    (setVoteDelegate as Vi.Mock).mockImplementation(() => fakeContractTransaction);
-    (getLatestProposalIdByProposer as Vi.Mock).mockImplementation(() => '1');
+    (setVoteDelegate as Mock).mockImplementation(() => fakeContractTransaction);
+    (getLatestProposalIdByProposer as Mock).mockImplementation(() => '1');
 
-    (getCurrentVotes as Vi.Mock).mockImplementation(() => ({
+    (getCurrentVotes as Mock).mockImplementation(() => ({
       votesMantissa: fakeUserVotingWeight,
     }));
 
-    (useNow as Vi.Mock).mockImplementation(() => fakeNow);
+    (useNow as Mock).mockImplementation(() => fakeNow);
   });
 
   it('renders without crashing', async () => {
@@ -110,7 +110,7 @@ describe('Governance', () => {
   });
 
   it('opens create proposal modal when clicking text if user has enough voting weight', async () => {
-    (getProposalState as Vi.Mock).mockImplementation(async () => ({ state: 2 }));
+    (getProposalState as Mock).mockImplementation(async () => ({ state: 2 }));
     const { getByText } = renderComponent(<Governance />, {
       accountAddress: fakeAccountAddress,
       routerInitialEntries: ['/governance/proposal-create', '/governance'],
@@ -132,7 +132,7 @@ describe('Governance', () => {
   });
 
   it('create proposal is disabled if pending proposal', async () => {
-    (getProposalState as Vi.Mock).mockImplementation(async () => ({ state: '0' }));
+    (getProposalState as Mock).mockImplementation(async () => ({ state: '0' }));
     const { getByText } = renderComponent(<Governance />);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
@@ -140,7 +140,7 @@ describe('Governance', () => {
   });
 
   it('create proposal is disabled if active proposal', async () => {
-    (getProposalState as Vi.Mock).mockImplementation(async () => ({ state: '1' }));
+    (getProposalState as Mock).mockImplementation(async () => ({ state: '1' }));
     const { getByText } = renderComponent(<Governance />);
     const createProposalButton = getByText(en.vote.createProposalPlus).closest('button');
 
@@ -180,7 +180,7 @@ describe('Governance', () => {
   });
 
   it('prompts user to connect Wallet', async () => {
-    (getCurrentVotes as Vi.Mock).mockImplementationOnce(() => ({
+    (getCurrentVotes as Mock).mockImplementationOnce(() => ({
       votesMantissa: new BigNumber(0),
     }));
 
@@ -191,10 +191,10 @@ describe('Governance', () => {
   it('prompts user to deposit XVS', async () => {
     const vaultsCopy = _cloneDeep(vaults);
     vaultsCopy[1].userStakedMantissa = new BigNumber(0);
-    (getCurrentVotes as Vi.Mock).mockImplementationOnce(() => ({
+    (getCurrentVotes as Mock).mockImplementationOnce(() => ({
       votesMantissa: new BigNumber(0),
     }));
-    (useGetVestingVaults as Vi.Mock).mockImplementationOnce(() => ({
+    (useGetVestingVaults as Mock).mockImplementationOnce(() => ({
       data: vaultsCopy,
       isLoading: false,
     }));
@@ -216,7 +216,7 @@ describe('Governance', () => {
   });
 
   it('successfully delegates to other address', async () => {
-    (useGetVestingVaults as Vi.Mock).mockImplementation(() => ({
+    (useGetVestingVaults as Mock).mockImplementation(() => ({
       data: vaults,
       isLoading: false,
     }));
@@ -256,7 +256,7 @@ describe('Governance', () => {
   });
 
   it('successfully delegates to me', async () => {
-    (useGetVestingVaults as Vi.Mock).mockImplementation(() => ({
+    (useGetVestingVaults as Mock).mockImplementation(() => ({
       data: vaults,
       isLoading: false,
     }));
@@ -320,7 +320,7 @@ describe('Governance', () => {
   });
 
   it('hides the create proposal option when its feature flag is disabled', async () => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    (useIsFeatureEnabled as Mock).mockImplementation(() => false);
     const { queryAllByTestId } = renderComponent(<Governance />, {
       routerInitialEntries: ['/governance/proposal-create', '/governance'],
       routePath: '/governance/*',
@@ -338,7 +338,7 @@ describe('Governance', () => {
   });
 
   it('renders the voting disabled warning when voting is disabled', async () => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    (useIsFeatureEnabled as Mock).mockImplementation(() => false);
     const { getByTestId } = renderComponent(<Governance />, {
       routerInitialEntries: ['/governance/proposal-create', '/governance'],
       routePath: '/governance/*',
@@ -347,7 +347,7 @@ describe('Governance', () => {
   });
 
   it('does not render the delegate section when voting is disabled', async () => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    (useIsFeatureEnabled as Mock).mockImplementation(() => false);
     const { queryAllByTestId } = renderComponent(<Governance />, {
       routerInitialEntries: ['/governance/proposal-create', '/governance'],
       routePath: '/governance/*',
@@ -358,7 +358,7 @@ describe('Governance', () => {
   it('renders the delegate/redelegate button when voting is enabled', async () => {
     const vaultsCopy = _cloneDeep(vaults);
     vaultsCopy[1].userStakedMantissa = new BigNumber(1000);
-    (useGetVestingVaults as Vi.Mock).mockImplementation(() => ({
+    (useGetVestingVaults as Mock).mockImplementation(() => ({
       data: vaultsCopy,
       isLoading: false,
     }));
@@ -371,7 +371,7 @@ describe('Governance', () => {
   });
 
   it('does not render the delegate/redelegate button when voting is disabled', async () => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    (useIsFeatureEnabled as Mock).mockImplementation(() => false);
     const { queryAllByTestId } = renderComponent(<Governance />, {
       routerInitialEntries: ['/governance/proposal-create', '/governance'],
       routePath: '/governance/*',

@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 
@@ -8,7 +8,7 @@ import { Banner } from '..';
 
 describe('Banner', () => {
   beforeEach(() => {
-    (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeToken as Mock).mockImplementation(() => ({
       data: {
         exists: false,
         isIrrevocable: false,

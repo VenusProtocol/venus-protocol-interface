@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/dom';
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -17,7 +17,7 @@ describe('Account', () => {
   });
 
   it('displays spinner while loading data', async () => {
-    (useGetVaults as Vi.Mock).mockImplementation(() => ({
+    (useGetVaults as Mock).mockImplementation(() => ({
       isLoading: true,
       data: undefined,
     }));
@@ -30,12 +30,12 @@ describe('Account', () => {
   });
 
   it('displays AccountPlaceholder when there are no positions', async () => {
-    (useGetVaults as Vi.Mock).mockImplementation(() => ({
+    (useGetVaults as Mock).mockImplementation(() => ({
       isLoading: false,
       data: vaults.map(({ userStakedMantissa: _, ...vault }) => vault),
     }));
 
-    (useGetPools as Vi.Mock).mockImplementation(() => ({
+    (useGetPools as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pools: poolData.map(pool => ({

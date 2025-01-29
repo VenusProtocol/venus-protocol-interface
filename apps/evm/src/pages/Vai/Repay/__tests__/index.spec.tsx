@@ -1,6 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -41,28 +41,28 @@ const fakeUserBorrowLimitCents = new BigNumber(fakeVaiPriceCents * 20);
 
 describe('Repay', () => {
   beforeEach(() => {
-    (useGetUserVaiBorrowBalance as Vi.Mock).mockImplementation(() => ({
+    (useGetUserVaiBorrowBalance as Mock).mockImplementation(() => ({
       data: {
         userVaiBorrowBalanceMantissa: fakeUserBorrowBalanceMantissa,
       },
       isLoading: false,
     }));
 
-    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+    (useGetBalanceOf as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: MAX_UINT256,
       },
       isLoading: false,
     }));
 
-    (useGetVaiRepayApr as Vi.Mock).mockImplementation(() => ({
+    (useGetVaiRepayApr as Mock).mockImplementation(() => ({
       data: {
         repayAprPercentage: new BigNumber(1.34),
       },
       isLoading: false,
     }));
 
-    (useGetPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPool as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: {
@@ -73,7 +73,7 @@ describe('Repay', () => {
       },
     }));
 
-    (useGetTokenUsdPrice as Vi.Mock).mockImplementation(() => ({
+    (useGetTokenUsdPrice as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         tokenPriceUsd: fakeVaiPriceCents / 100,
@@ -100,7 +100,7 @@ describe('Repay', () => {
   });
 
   it('lets user repay some of their VAI loan', async () => {
-    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    (repayVai as Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<Repay />, {
       accountAddress: fakeAccountAddress,
@@ -137,7 +137,7 @@ describe('Repay', () => {
   });
 
   it('lets user repay their entire VAI loan', async () => {
-    (repayVai as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    (repayVai as Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<Repay />, {
       accountAddress: fakeAccountAddress,
@@ -197,7 +197,7 @@ describe('Repay', () => {
 
   it('does not let user repay more than their VAI wallet balance', async () => {
     const fakeUserVaiWalletBalanceTokens = fakeUserBorrowBalanceTokens.minus(2);
-    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+    (useGetBalanceOf as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: convertTokensToMantissa({
           token: vai,
@@ -237,7 +237,7 @@ describe('Repay', () => {
   it('does not let user repay more than their VAI wallet spending limit', async () => {
     const fakeUserVaiWalletSpendingLimitTokens = fakeUserBorrowBalanceTokens.minus(2);
 
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Mock).mockImplementation(() => ({
       isTokenApproved: true,
       isWalletSpendingLimitLoading: false,
       isApproveTokenLoading: false,

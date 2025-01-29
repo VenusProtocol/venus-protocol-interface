@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAddress, { altAddress } from '__mocks__/models/address';
 import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'libs/contracts';
@@ -11,9 +11,9 @@ vi.mock('libs/contracts');
 
 describe('useGetVTreasuryContractAddress', () => {
   beforeEach(() => {
-    (getVTreasuryContractAddress as Vi.Mock).mockImplementation(() => fakeAddress);
+    (getVTreasuryContractAddress as Mock).mockImplementation(() => fakeAddress);
 
-    (getVTreasuryV8ContractAddress as Vi.Mock).mockImplementation(() => altAddress);
+    (getVTreasuryV8ContractAddress as Mock).mockImplementation(() => altAddress);
   });
 
   it.each([ChainId.BSC_TESTNET, ChainId.BSC_MAINNET])(

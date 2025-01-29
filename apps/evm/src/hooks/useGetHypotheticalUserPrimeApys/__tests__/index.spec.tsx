@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -20,23 +20,23 @@ const fakeAssetWithPrimeDistribution = assetData[1];
 
 describe('useGetHypotheticalUserPrimeApys', () => {
   beforeEach(() => {
-    (useAccountAddress as Vi.Mock).mockImplementation(() => ({
+    (useAccountAddress as Mock).mockImplementation(() => ({
       accountAddress: fakeAccountAddress,
     }));
 
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         xvsVaultPoolId: 1,
       },
     }));
 
-    (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsVaultUserInfo as Mock).mockImplementation(() => ({
       data: {
         stakedAmountMantissa: new BigNumber('1000000000000000'),
       },
     }));
 
-    (useGetHypotheticalPrimeApys as Vi.Mock).mockImplementation(() => ({
+    (useGetHypotheticalPrimeApys as Mock).mockImplementation(() => ({
       data: {
         supplyApyPercentage: new BigNumber(13.4),
         borrowApyPercentage: new BigNumber(10.4),
@@ -45,7 +45,7 @@ describe('useGetHypotheticalUserPrimeApys', () => {
   });
 
   it('returns undefined when user is disconnected', async () => {
-    (useAccountAddress as Vi.Mock).mockImplementation(() => ({
+    (useAccountAddress as Mock).mockImplementation(() => ({
       accountAddress: undefined,
     }));
 
@@ -106,7 +106,7 @@ describe('useGetHypotheticalUserPrimeApys', () => {
         }),
       );
 
-      expect((useGetHypotheticalPrimeApys as Vi.Mock).mock.calls[0]).toMatchSnapshot();
+      expect((useGetHypotheticalPrimeApys as Mock).mock.calls[0]).toMatchSnapshot();
 
       expect(result.current).toMatchSnapshot();
     },
