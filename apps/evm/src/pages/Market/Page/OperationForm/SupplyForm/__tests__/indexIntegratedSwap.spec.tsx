@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/tokenBalances';
@@ -75,17 +75,17 @@ const checkSubmitButtonIsEnabled = async () => {
 
 describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'integratedSwap',
     );
 
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: undefined,
       error: undefined,
       isLoading: false,
     }));
 
-    (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
     }));
   });
@@ -157,7 +157,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('disables submit button if swap is a wrap', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'WRAPPING_UNSUPPORTED',
       isLoading: false,
@@ -197,7 +197,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('disables submit button if no swap is found', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'INSUFFICIENT_LIQUIDITY',
       isLoading: false,
@@ -261,7 +261,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       expectedToTokenAmountReceivedMantissa: fakeMarginWithSupplyCapMantissa.plus(1),
     };
 
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: customFakeSwap,
       error: undefined,
       isLoading: false,
@@ -305,7 +305,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('displays correct swap details', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: fakeSwap,
       error: undefined,
       isLoading: false,
@@ -351,7 +351,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
           : tokenBalance.balanceMantissa,
     }));
 
-    (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as Mock).mockImplementation(() => ({
       data: customFakeTokenBalances,
     }));
 
@@ -432,7 +432,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     };
 
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: customFakeSwap,
       isLoading: false,
     }));
@@ -474,7 +474,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       priceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     };
 
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: customFakeSwap,
       isLoading: false,
     }));
@@ -513,7 +513,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('lets user swap and supply then calls onClose callback on success', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: fakeSwap,
       isLoading: false,
     }));

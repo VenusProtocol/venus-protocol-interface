@@ -1,6 +1,6 @@
 import nonBscProposalsResponse from '__mocks__/subgraph/nonBscProposals.json';
 import { ProposalState, RemoteProposalState } from 'types';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 import { formatToProposalActions } from '../../formatToProposalActions';
 import { getRemoteProposalState } from '../getRemoteProposalState';
 
@@ -27,8 +27,8 @@ describe('formatToRemoteProposal', () => {
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(fakeDate);
 
-    (getRemoteProposalState as Vi.Mock).mockImplementation(() => RemoteProposalState.Pending);
-    (formatToProposalActions as Vi.Mock).mockImplementation(() => []);
+    (getRemoteProposalState as Mock).mockImplementation(() => RemoteProposalState.Pending);
+    (formatToProposalActions as Mock).mockImplementation(() => []);
   });
 
   afterEach(() => {
@@ -95,7 +95,7 @@ describe('formatToRemoteProposal', () => {
   });
 
   it('returns expired remote proposal in the correct format', () => {
-    (getRemoteProposalState as Vi.Mock).mockImplementation(() => RemoteProposalState.Expired);
+    (getRemoteProposalState as Mock).mockImplementation(() => RemoteProposalState.Expired);
 
     const result = formatToRemoteProposal({
       ...params,

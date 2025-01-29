@@ -1,6 +1,6 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -39,15 +39,15 @@ vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useTokenApproval');
 
 export const getLastUseGetSwapInfoCallArgs = () =>
-  (useGetSwapInfo as Vi.Mock).mock.calls[(useGetSwapInfo as Vi.Mock).mock.calls.length - 1];
+  (useGetSwapInfo as Mock).mock.calls[(useGetSwapInfo as Mock).mock.calls.length - 1];
 
 describe('Swap', () => {
   beforeEach(() => {
-    (useGetSwapTokenUserBalances as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapTokenUserBalances as Mock).mockImplementation(() => ({
       data: fakeTokenBalances,
     }));
 
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: undefined,
       error: undefined,
       isLoading: false,
@@ -218,7 +218,7 @@ describe('Swap', () => {
   });
 
   it('disables submit button if fromToken amount entered is higher than user balance', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,
@@ -265,7 +265,7 @@ describe('Swap', () => {
 
     const fakeWalletSpendingLimitTokens = new BigNumber(10);
 
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Mock).mockImplementation(() => ({
       ...originalTokenApprovalOutput,
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
     }));
@@ -321,7 +321,7 @@ describe('Swap', () => {
     const fakeWalletSpendingLimitTokens = new BigNumber(10);
     const fakeRevokeWalletSpendingLimit = vi.fn();
 
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Mock).mockImplementation(() => ({
       ...originalTokenApprovalOutput,
       revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
@@ -353,7 +353,7 @@ describe('Swap', () => {
   });
 
   it('disables submit button if no swap is found', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: undefined,
       error: 'INSUFFICIENT_LIQUIDITY',
       isLoading: false,
@@ -423,7 +423,7 @@ describe('Swap', () => {
   });
 
   it('updates toToken input value correctly when user updates fromToken input value', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,
@@ -465,7 +465,7 @@ describe('Swap', () => {
   });
 
   it('updates fromToken input value correctly when user updates toToken input value', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: fakeExactAmountOutSwap,
       error: undefined,
       isLoading: false,
@@ -507,7 +507,7 @@ describe('Swap', () => {
   });
 
   it('updates swap direction correctly when updating an input value', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,
@@ -555,7 +555,7 @@ describe('Swap', () => {
     expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
 
     // Simulate a swap having been fetched
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap,
       error: undefined,
       isLoading: false,
@@ -579,7 +579,7 @@ describe('Swap', () => {
       priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     };
 
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: customFakeSwap,
       isLoading: false,
     }));
@@ -614,7 +614,7 @@ describe('Swap', () => {
       priceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     };
 
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: customFakeSwap,
       isLoading: false,
     }));
@@ -643,13 +643,13 @@ describe('Swap', () => {
   });
 
   it('lets user swap an already approved token for another token', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,
     }));
 
-    (swapTokens as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    (swapTokens as Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByText, getByTestId } = renderComponent(<SwapPage />, {
       accountAddress: fakeAccountAddress,
@@ -690,7 +690,7 @@ describe('Swap', () => {
   });
 
   it('updates fromToken input value correctly when user clicks on the max toToken button', async () => {
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: fakeExactAmountInSwap,
       error: undefined,
       isLoading: false,

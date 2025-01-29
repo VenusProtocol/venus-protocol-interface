@@ -1,7 +1,7 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -49,7 +49,7 @@ describe('TransactionForm', () => {
     const fakeWalletSpendingLimitTokens = new BigNumber(10);
     const fakeRevokeWalletSpendingLimit = vi.fn();
 
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Mock).mockImplementation(() => ({
       ...originalTokenApprovalOutput,
       revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,
@@ -107,7 +107,7 @@ describe('TransactionForm', () => {
     const fakeWalletSpendingLimitTokens = new BigNumber(10);
     const fakeRevokeWalletSpendingLimit = vi.fn();
 
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Mock).mockImplementation(() => ({
       ...originalTokenApprovalOutput,
       revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress, {
   altAddress as fakePoolComptrollerContractAddress,
@@ -30,7 +30,7 @@ describe('supply', () => {
           signer: fakeSigner,
         } as unknown as VBep20;
 
-        (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVBep20Contract);
+        (getVTokenContract as Mock).mockImplementationOnce(() => fakeVBep20Contract);
 
         const response = await supply({
           signer: fakeSigner,
@@ -60,7 +60,7 @@ describe('supply', () => {
           signer: fakeSigner,
         } as unknown as VBnb;
 
-        (getVTokenContract as Vi.Mock).mockImplementationOnce(() => fakeVBnbContract);
+        (getVTokenContract as Mock).mockImplementationOnce(() => fakeVBnbContract);
 
         const response = await supply({
           signer: fakeSigner,
@@ -104,7 +104,7 @@ describe('supply', () => {
         signer: fakeSigner,
       } as unknown as VBnb;
 
-      (getNativeTokenGatewayContract as Vi.Mock).mockImplementationOnce(
+      (getNativeTokenGatewayContract as Mock).mockImplementationOnce(
         () => fakeNativeTokenGatewayContract,
       );
 

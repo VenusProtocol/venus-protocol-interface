@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import fakeAccountAddress from '__mocks__/models/address';
@@ -23,7 +23,7 @@ const baseProps: WithdrawFromVaiVaultModalProps = {
 
 describe('WithdrawFromVaiVaultModal', () => {
   beforeEach(() => {
-    (getVaiVaultUserInfo as Vi.Mock).mockImplementation(() => fakeVaiVaultUserInfo);
+    (getVaiVaultUserInfo as Mock).mockImplementation(() => fakeVaiVaultUserInfo);
   });
 
   it('renders without crashing', async () => {
@@ -41,7 +41,7 @@ describe('WithdrawFromVaiVaultModal', () => {
   });
 
   it('calls stake function then calls handleClose callback on success', async () => {
-    (withdrawFromVaiVault as Vi.Mock).mockImplementation(() => fakeContractTransaction);
+    (withdrawFromVaiVault as Mock).mockImplementation(() => fakeContractTransaction);
 
     const customProps: WithdrawFromVaiVaultModalProps = {
       ...baseProps,

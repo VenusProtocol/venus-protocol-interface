@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { fakeContractConfigs } from 'libs/contracts/__testUtils__/fakeConfig';
 import type { GetAbsolutePathInput } from 'libs/contracts/utilities/getAbsolutePath';
@@ -25,15 +25,15 @@ describe('generateContracts', () => {
     });
 
     expect(generateAddressList).toHaveBeenCalledTimes(1);
-    expect((generateAddressList as Vi.Mock).mock.calls[0]).toMatchSnapshot();
+    expect((generateAddressList as Mock).mock.calls[0]).toMatchSnapshot();
 
     expect(generateAbis).toHaveBeenCalledTimes(1);
-    expect((generateAbis as Vi.Mock).mock.calls[0]).toMatchSnapshot();
+    expect((generateAbis as Mock).mock.calls[0]).toMatchSnapshot();
 
     expect(generateGetters).toHaveBeenCalledTimes(1);
-    expect((generateGetters as Vi.Mock).mock.calls[0]).toMatchSnapshot();
+    expect((generateGetters as Mock).mock.calls[0]).toMatchSnapshot();
 
     expect(generateTypes).toHaveBeenCalledTimes(1);
-    expect((generateTypes as Vi.Mock).mock.calls[0]).toMatchSnapshot();
+    expect((generateTypes as Mock).mock.calls[0]).toMatchSnapshot();
   });
 });

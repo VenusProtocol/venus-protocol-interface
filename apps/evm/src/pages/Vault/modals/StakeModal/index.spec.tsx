@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
@@ -24,7 +24,7 @@ const baseProps: StakeModalProps = {
 
 describe('pages/Vault/modals/StakeModal', () => {
   beforeEach(() => {
-    (getBalanceOf as Vi.Mock).mockImplementation(() => ({ balanceMantissa: fakeBalanceMantissa }));
+    (getBalanceOf as Mock).mockImplementation(() => ({ balanceMantissa: fakeBalanceMantissa }));
   });
 
   it('renders without crashing', async () => {

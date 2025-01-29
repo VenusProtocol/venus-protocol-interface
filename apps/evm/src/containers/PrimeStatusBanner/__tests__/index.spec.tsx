@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/dom';
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 
@@ -32,21 +32,21 @@ describe('PrimeStatusBanner', () => {
   };
 
   beforeEach(() => {
-    (useGetPools as Vi.Mock).mockImplementation(() => ({
+    (useGetPools as Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
       },
     }));
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: MOCK_DEFAULT_PRIME_STATUS,
     }));
-    (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsVaultUserInfo as Mock).mockImplementation(() => ({
       data: {
         stakedAmountMantissa: new BigNumber('0'),
         pendingWithdrawalsTotalAmountMantissa: new BigNumber('0'),
       },
     }));
-    (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeToken as Mock).mockImplementation(() => ({
       data: {
         exists: false,
       },
@@ -62,7 +62,7 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('renders nothing if user is Prime', () => {
-    (useGetPrimeToken as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeToken as Mock).mockImplementation(() => ({
       data: {
         exists: true,
       },
@@ -83,7 +83,7 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('displays a warning when there are less than 5% of Prime tokens left', async () => {
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         ...MOCK_DEFAULT_PRIME_STATUS,
         claimedPrimeTokenCount: 999,
@@ -98,13 +98,13 @@ describe('PrimeStatusBanner', () => {
 
   it('displays the time remaining to be a Prime user, when a user has staked enough XVS', async () => {
     const text = '10 minutes until you can claim Prime rewards';
-    (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsVaultUserInfo as Mock).mockImplementation(() => ({
       data: {
         stakedAmountMantissa: new BigNumber('1000000'),
         pendingWithdrawalsTotalAmountMantissa: new BigNumber('0'),
       },
     }));
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         ...MOCK_DEFAULT_PRIME_STATUS,
         claimWaitingPeriodSeconds: 600,
@@ -120,13 +120,13 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('allows the user to claim a Prime token if all the criteria match', async () => {
-    (useGetXvsVaultUserInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsVaultUserInfo as Mock).mockImplementation(() => ({
       data: {
         stakedAmountMantissa: new BigNumber('1000000'),
         pendingWithdrawalsTotalAmountMantissa: new BigNumber('0'),
       },
     }));
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         ...MOCK_DEFAULT_PRIME_STATUS,
         userClaimTimeRemainingSeconds: 0,
@@ -141,7 +141,7 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('shows the all Prime tokens claimed warning if all Prime tokens have been claimed', async () => {
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         ...MOCK_DEFAULT_PRIME_STATUS,
         claimedPrimeTokenCount: 1000,
@@ -154,7 +154,7 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('does not show the all Prime tokens claimed warning if there are no tokens to be claimed', async () => {
-    (useGetPrimeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         ...MOCK_DEFAULT_PRIME_STATUS,
         primeTokenLimit: 0,

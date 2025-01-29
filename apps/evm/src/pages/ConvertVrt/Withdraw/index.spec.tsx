@@ -1,6 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -14,7 +14,7 @@ import Withdraw from '.';
 
 describe('Withdraw', () => {
   beforeEach(() => {
-    (useGetPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPool as Mock).mockImplementation(() => ({
       data: {
         pool: {
           ...poolData[0],

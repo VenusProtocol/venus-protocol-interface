@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { fakeContractConfigs } from 'libs/contracts/__testUtils__/fakeConfig';
 import writeFile from 'utilities/writeFile';
@@ -15,6 +15,6 @@ describe('generateAddressList', () => {
     });
 
     expect(writeFile).toHaveBeenCalledTimes(1);
-    expect((writeFile as Vi.Mock).mock.calls[0]).toMatchSnapshot();
+    expect((writeFile as Mock).mock.calls[0]).toMatchSnapshot();
   });
 });

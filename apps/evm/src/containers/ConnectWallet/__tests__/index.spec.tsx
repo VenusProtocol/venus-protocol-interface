@@ -1,5 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { en } from 'libs/translations';
@@ -10,8 +10,8 @@ import { ConnectWallet } from '..';
 
 describe('ConnectWallet', () => {
   beforeEach(() => {
-    (useAuthModal as Vi.Mock).mockReturnValue({ openAuthModal: vi.fn() });
-    (useSwitchChain as Vi.Mock).mockReturnValue({ switchChain: vi.fn() });
+    (useAuthModal as Mock).mockReturnValue({ openAuthModal: vi.fn() });
+    (useSwitchChain as Mock).mockReturnValue({ switchChain: vi.fn() });
   });
 
   it('renders without crashing', () => {
@@ -26,7 +26,7 @@ describe('ConnectWallet', () => {
 
   it('calls openAuthModal when connect button is clicked', async () => {
     const mockOpenAuthModal = vi.fn();
-    (useAuthModal as Vi.Mock).mockReturnValue({ openAuthModal: mockOpenAuthModal });
+    (useAuthModal as Mock).mockReturnValue({ openAuthModal: mockOpenAuthModal });
 
     const { getByText } = renderComponent(<ConnectWallet />);
     const connectButton = getByText(en.connectWallet.connectButton);
@@ -51,7 +51,7 @@ describe('ConnectWallet', () => {
 
   it('calls switchChain when switch chain button is clicked', async () => {
     const mockSwitchChain = vi.fn();
-    (useSwitchChain as Vi.Mock).mockReturnValue({ switchChain: mockSwitchChain });
+    (useSwitchChain as Mock).mockReturnValue({ switchChain: mockSwitchChain });
 
     const { getByText } = renderComponent(<ConnectWallet chainId={ChainId.OPBNB_TESTNET} />, {
       accountAddress: fakeAccountAddress,

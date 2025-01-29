@@ -1,5 +1,5 @@
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -29,23 +29,21 @@ const fakeMutationInput = {};
 
 describe('useSendTransaction', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(() => false);
+    (useIsFeatureEnabled as Mock).mockImplementation(() => false);
 
-    (fakeProvider.waitForTransaction as Vi.Mock).mockImplementation(
-      async () => fakeContractReceipt,
-    );
+    (fakeProvider.waitForTransaction as Mock).mockImplementation(async () => fakeContractReceipt);
 
-    (useProvider as Vi.Mock).mockImplementation(() => ({
+    (useProvider as Mock).mockImplementation(() => ({
       provider: fakeProvider,
     }));
   });
 
   it('sends transaction and tracks it', async () => {
     const trackTransactionMock = vi.fn();
-    (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
+    (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
 
     const sendContractTransactionMock = vi.fn(async () => fakeContractTransaction);
-    (useSendContractTransaction as Vi.Mock).mockReturnValue({
+    (useSendContractTransaction as Mock).mockReturnValue({
       mutateAsync: sendContractTransactionMock,
     });
 
@@ -84,10 +82,10 @@ describe('useSendTransaction', () => {
 
   it('sends transaction, tracks it and waits for its confirmation before returning', async () => {
     const trackTransactionMock = vi.fn();
-    (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
+    (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
 
     const sendContractTransactionMock = vi.fn(async () => fakeContractTransaction);
-    (useSendContractTransaction as Vi.Mock).mockReturnValue({
+    (useSendContractTransaction as Mock).mockReturnValue({
       mutateAsync: sendContractTransactionMock,
     });
 
@@ -134,14 +132,14 @@ describe('useSendTransaction', () => {
 
   it('calls onError callback when transaction fails', async () => {
     const trackTransactionMock = vi.fn();
-    (useTrackTransaction as Vi.Mock).mockImplementation(() => trackTransactionMock);
+    (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
 
     const error = new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
     });
     const sendContractTransactionMock = vi.fn().mockRejectedValue(error);
-    (useSendContractTransaction as Vi.Mock).mockReturnValue({
+    (useSendContractTransaction as Mock).mockReturnValue({
       mutateAsync: sendContractTransactionMock,
     });
 

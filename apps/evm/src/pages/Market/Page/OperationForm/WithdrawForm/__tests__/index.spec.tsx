@@ -2,7 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
@@ -136,7 +136,7 @@ describe('WithdrawForm', () => {
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.isCollateralOfUser = false;
 
-    (getVTokenBalanceOf as Vi.Mock).mockImplementation(() => ({
+    (getVTokenBalanceOf as Mock).mockImplementation(() => ({
       balanceMantissa: fakeVTokenBalanceMantissa,
     }));
 

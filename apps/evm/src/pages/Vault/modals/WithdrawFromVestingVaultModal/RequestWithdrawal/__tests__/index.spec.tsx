@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
@@ -27,13 +27,13 @@ const fakePoolIndex = 6;
 
 describe('RequestWithdrawal', () => {
   beforeEach(() => {
-    (getXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
+    (getXvsVaultLockedDeposits as Mock).mockImplementation(() => ({
       lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
     }));
-    (getXvsVaultUserInfo as Vi.Mock).mockImplementation(() =>
+    (getXvsVaultUserInfo as Mock).mockImplementation(() =>
       formatToUserInfo(xvsVaultResponses.userInfo),
     );
-    (getXvsVaultPoolInfo as Vi.Mock).mockImplementation(() =>
+    (getXvsVaultPoolInfo as Mock).mockImplementation(() =>
       formatToPoolInfo(xvsVaultResponses.poolInfo),
     );
   });

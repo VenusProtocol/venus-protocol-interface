@@ -1,6 +1,6 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
 import { BigNumber as BN } from 'ethers';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeProvider from '__mocks__/models/provider';
 import fakeTokenCombinations from '__mocks__/models/tokenCombinations';
@@ -21,7 +21,7 @@ const fakePancakePairV2Contract = {
 
 describe('api/queries/getPancakeSwapPairs', () => {
   beforeEach(() => {
-    (getPancakePairV2Contract as Vi.Mock).mockImplementation(() => fakePancakePairV2Contract);
+    (getPancakePairV2Contract as Mock).mockImplementation(() => fakePancakePairV2Contract);
   });
 
   it('returns pairs in the right format on success', async () => {

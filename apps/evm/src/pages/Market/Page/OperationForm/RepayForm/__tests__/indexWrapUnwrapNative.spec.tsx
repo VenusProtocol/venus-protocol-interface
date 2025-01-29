@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/dom';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
@@ -37,17 +37,17 @@ const checkSubmitButtonIsEnabled = async () => {
 
 describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
     );
 
-    (useGetSwapInfo as Vi.Mock).mockImplementation(() => ({
+    (useGetSwapInfo as Mock).mockImplementation(() => ({
       swap: undefined,
       error: undefined,
       isLoading: false,
     }));
 
-    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+    (useGetBalanceOf as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: fakeBalanceMantissa,
       },
@@ -116,7 +116,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
     );
 
-    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+    (useGetBalanceOf as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: fakeUserWethWalletBalance.multipliedBy(
           10 ** customFakeWethAsset.vToken.underlyingToken.decimals,
@@ -184,7 +184,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       10 ** customFakeWethAsset.vToken.underlyingToken.tokenWrapped!.decimals,
     );
 
-    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+    (useGetBalanceOf as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: fakeUserWethWalletBalance.multipliedBy(
           10 ** customFakeWethAsset.vToken.underlyingToken.decimals,
@@ -242,7 +242,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     const fakeWalletSpendingLimitTokens = new BigNumber(10);
     const fakeRevokeWalletSpendingLimit = vi.fn();
 
-    (useTokenApproval as Vi.Mock).mockImplementation(() => ({
+    (useTokenApproval as Mock).mockImplementation(() => ({
       ...originalTokenApprovalOutput,
       revokeWalletSpendingLimit: fakeRevokeWalletSpendingLimit,
       walletSpendingLimitTokens: fakeWalletSpendingLimitTokens,

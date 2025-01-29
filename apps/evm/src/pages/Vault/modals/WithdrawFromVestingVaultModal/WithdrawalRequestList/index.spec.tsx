@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
@@ -18,7 +18,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(new Date(1656603774626));
 
-    (useGetXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsVaultLockedDeposits as Mock).mockImplementation(() => ({
       data: {
         lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
       },
@@ -32,7 +32,7 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList
   });
 
   it('fetches withdrawal requests and displays empty state when none was returned', async () => {
-    (useGetXvsVaultLockedDeposits as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsVaultLockedDeposits as Mock).mockImplementation(() => ({
       data: {
         lockedDeposits: [],
       },

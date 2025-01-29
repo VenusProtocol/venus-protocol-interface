@@ -1,5 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
@@ -13,7 +13,7 @@ import TEST_IDS from '../testIds';
 
 describe('Dashboard', () => {
   beforeEach(() => {
-    (useGetPools as Vi.Mock).mockImplementation(() => ({
+    (useGetPools as Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
       },
@@ -58,7 +58,7 @@ describe('Dashboard', () => {
   });
 
   it('hides toggle to display paused assets when there are no paused assets', async () => {
-    (useGetPools as Vi.Mock).mockImplementation(() => ({
+    (useGetPools as Mock).mockImplementation(() => ({
       data: {
         pools: poolData.map(pool => ({
           ...pool,

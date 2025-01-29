@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { fakeContractConfigs } from 'libs/contracts/__testUtils__/fakeConfig';
 import writeFile from 'utilities/writeFile';
@@ -17,7 +17,7 @@ describe('generateGetters', () => {
     expect(writeFile).toHaveBeenCalledTimes(fakeContractConfigs.length + 1);
 
     for (let s = 0; s < fakeContractConfigs.length + 1; s++) {
-      expect((writeFile as Vi.Mock).mock.calls[s]).toMatchSnapshot();
+      expect((writeFile as Mock).mock.calls[s]).toMatchSnapshot();
     }
   });
 });

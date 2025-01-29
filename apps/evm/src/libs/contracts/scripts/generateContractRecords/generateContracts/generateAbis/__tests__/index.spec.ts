@@ -1,4 +1,4 @@
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import { fakeContractConfigs } from 'libs/contracts/__testUtils__/fakeConfig';
 import writeFile from 'utilities/writeFile';
@@ -17,7 +17,7 @@ describe('generateAbis', () => {
     expect(writeFile).toHaveBeenCalledTimes(fakeContractConfigs.length * 2);
 
     fakeContractConfigs.forEach((_fakeContractConfig, index) =>
-      expect((writeFile as Vi.Mock).mock.calls[index]).toMatchSnapshot(),
+      expect((writeFile as Mock).mock.calls[index]).toMatchSnapshot(),
     );
   });
 });

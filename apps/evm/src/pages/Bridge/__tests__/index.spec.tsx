@@ -1,6 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/dom';
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
@@ -38,7 +38,7 @@ const fakeBridgeStatusData = {
 const switchChainMock = vi.fn(
   ({ chainId, callback }: { chainId: ChainId; callback: () => void }) => {
     // simulate that calling swtichChain makes useChainId return an updated chainId
-    (useChainId as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Mock).mockImplementation(() => ({
       chainId,
     }));
     callback();
@@ -49,21 +49,21 @@ describe('Bridge', () => {
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(fakeNowDate);
 
-    (useSwitchChain as Vi.Mock).mockImplementation(() => ({
+    (useSwitchChain as Mock).mockImplementation(() => ({
       switchChain: switchChainMock,
     }));
-    (useGetBalanceOf as Vi.Mock).mockImplementation(() => ({
+    (useGetBalanceOf as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: fakeBalanceMantissa,
       },
       isLoading: false,
     }));
-    (useGetXvsBridgeFeeEstimation as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsBridgeFeeEstimation as Mock).mockImplementation(() => ({
       data: {
         estimationFeeMantissa: fakeBridgeFeeMantissa,
       },
     }));
-    (useGetXvsBridgeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsBridgeStatus as Mock).mockImplementation(() => ({
       data: fakeBridgeStatusData,
     }));
 
@@ -80,7 +80,7 @@ describe('Bridge', () => {
 
   it('prompts user to connect their wallet if they are not connected', async () => {
     const openAuthModalMock = vi.fn();
-    (useAuthModal as Vi.Mock).mockImplementation(() => ({
+    (useAuthModal as Mock).mockImplementation(() => ({
       isAuthModalOpen: false,
       openAuthModal: openAuthModalMock,
     }));
@@ -152,7 +152,7 @@ describe('Bridge', () => {
   });
 
   it('handles chain switch correctly', async () => {
-    (useSwitchChain as Vi.Mock).mockImplementation(() => ({
+    (useSwitchChain as Mock).mockImplementation(() => ({
       switchChain: switchChainMock,
     }));
 
@@ -245,7 +245,7 @@ describe('Bridge', () => {
       ...fakeBridgeStatusData,
       maxSingleTransactionLimitUsd: new BigNumber('0'),
     };
-    (useGetXvsBridgeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsBridgeStatus as Mock).mockImplementation(() => ({
       data: fakeBridgeDataLowSingleTransactionLimit,
     }));
 
@@ -289,7 +289,7 @@ describe('Bridge', () => {
       ...fakeBridgeStatusData,
       totalTransferredLast24HourUsd: fakeMaxDailyLimitUsd,
     };
-    (useGetXvsBridgeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsBridgeStatus as Mock).mockImplementation(() => ({
       data: fakeBridgeDataLowDailyLimit,
     }));
 
@@ -337,7 +337,7 @@ describe('Bridge', () => {
       ...fakeBridgeStatusData,
       totalTransferredLast24HourUsd: fakeMaxDailyLimitUsd,
     };
-    (useGetXvsBridgeStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsBridgeStatus as Mock).mockImplementation(() => ({
       data: fakeBridgeDataLowDailyLimit,
     }));
 
@@ -371,7 +371,7 @@ describe('Bridge', () => {
       minterToCapMantissa: new BigNumber('10000000000000000000'),
       bridgeAmountMintedMantissa: new BigNumber('9000000000000000000'),
     };
-    (useGetXvsBridgeMintStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsBridgeMintStatus as Mock).mockImplementation(() => ({
       data: fakeBridgeMintStatusData,
     }));
 
@@ -412,7 +412,7 @@ describe('Bridge', () => {
   it('it show no warning about minting caps if there is no mint status data', async () => {
     // simulate returning no mint status data if the destination chain is BSC
     const fakeBridgeMintStatusData = undefined;
-    (useGetXvsBridgeMintStatus as Vi.Mock).mockImplementation(() => ({
+    (useGetXvsBridgeMintStatus as Mock).mockImplementation(() => ({
       data: fakeBridgeMintStatusData,
     }));
     const { queryByTestId, getByTestId, getByText } = renderComponent(<Bridge />, {

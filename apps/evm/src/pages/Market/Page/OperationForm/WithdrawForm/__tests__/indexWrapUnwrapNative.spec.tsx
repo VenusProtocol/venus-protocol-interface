@@ -1,5 +1,5 @@
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
@@ -20,7 +20,7 @@ vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
 describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
-    (useIsFeatureEnabled as Vi.Mock).mockImplementation(
+    (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
     );
   });
@@ -111,7 +111,7 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     };
     // simulate the total amount of VTokens the user has and will be redeemed
     const fakeVTokenBalanceMantissa = new BigNumber(1234);
-    (useGetVTokenBalanceOf as Vi.Mock).mockImplementation(() => ({
+    (useGetVTokenBalanceOf as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: fakeVTokenBalanceMantissa,
       },

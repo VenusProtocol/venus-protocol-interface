@@ -3,7 +3,7 @@ import { render as renderComponentTl } from '@testing-library/react';
 import { renderHook as renderHookTl } from '@testing-library/react-hooks';
 import type { ReactElement } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeSigner from '__mocks__/models/signer';
 
@@ -38,11 +38,11 @@ const Wrapper: React.FC<WrapperProps> = ({ children, options }) => {
   if (options?.accountAddress) {
     const accountAddress = options?.accountAddress;
 
-    (useAccountAddress as Vi.Mock).mockImplementation(() => ({
+    (useAccountAddress as Mock).mockImplementation(() => ({
       accountAddress,
     }));
 
-    (useSigner as Vi.Mock).mockImplementation(() => ({
+    (useSigner as Mock).mockImplementation(() => ({
       signer: {
         ...fakeSigner,
         getAddress: async () => accountAddress,
@@ -51,7 +51,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children, options }) => {
   }
 
   if (options?.chainId) {
-    (useChainId as Vi.Mock).mockImplementation(() => ({
+    (useChainId as Mock).mockImplementation(() => ({
       chainId: options?.chainId,
     }));
   }

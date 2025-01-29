@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
@@ -323,7 +323,7 @@ describe('BorrowForm', () => {
   it('lets user borrow tokens then calls onClose callback on success', async () => {
     const onCloseMock = vi.fn();
 
-    (borrow as Vi.Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    (borrow as Mock).mockImplementationOnce(async () => fakeContractTransaction);
 
     const { getByTestId } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,

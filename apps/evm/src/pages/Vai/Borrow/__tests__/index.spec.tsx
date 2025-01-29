@@ -1,6 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import type Vi from 'vitest';
+import type { Mock } from 'vitest';
 
 import vaiContractResponses from '__mocks__/contracts/vai';
 import vaiControllerResponses from '__mocks__/contracts/vaiController';
@@ -40,12 +40,12 @@ const fakeUserBorrowLimitCents = new BigNumber(fakeVaiPriceCents * 20);
 
 describe('Borrow', () => {
   beforeEach(() => {
-    (useGetMintableVai as Vi.Mock).mockImplementation(() => ({
+    (useGetMintableVai as Mock).mockImplementation(() => ({
       isLoading: false,
       data: fakeGetMintableVaiOutput,
     }));
 
-    (useGetPool as Vi.Mock).mockImplementation(() => ({
+    (useGetPool as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: {
@@ -56,7 +56,7 @@ describe('Borrow', () => {
       },
     }));
 
-    (useGetTokenUsdPrice as Vi.Mock).mockImplementation(() => ({
+    (useGetTokenUsdPrice as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         tokenPriceUsd: fakeVaiPriceCents / 100,
@@ -71,7 +71,7 @@ describe('Borrow', () => {
   });
 
   it('displays the correct available VAI limit and borrow fee', async () => {
-    (getVaiTreasuryPercentage as Vi.Mock).mockImplementation(async () => ({
+    (getVaiTreasuryPercentage as Mock).mockImplementation(async () => ({
       percentage: fakeVaiTreasuryPercentage,
     }));
 
@@ -92,7 +92,7 @@ describe('Borrow', () => {
   });
 
   it('lets user borrow VAI', async () => {
-    (mintVai as Vi.Mock).mockImplementation(async () => fakeContractTransaction);
+    (mintVai as Mock).mockImplementation(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
@@ -124,7 +124,7 @@ describe('Borrow', () => {
   });
 
   it('lets user borrow 80% of their borrow limit if there is enough VAI liquidity', async () => {
-    (mintVai as Vi.Mock).mockImplementation(async () => fakeContractTransaction);
+    (mintVai as Mock).mockImplementation(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
@@ -166,7 +166,7 @@ describe('Borrow', () => {
   });
 
   it('displays a warning if user is trying to borrow above safe limit but below hard limit', async () => {
-    (mintVai as Vi.Mock).mockImplementation(async () => fakeContractTransaction);
+    (mintVai as Mock).mockImplementation(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
@@ -205,7 +205,7 @@ describe('Borrow', () => {
   });
 
   it('does not let user borrow more than available liquidity', async () => {
-    (useGetMintableVai as Vi.Mock).mockImplementation(() => ({
+    (useGetMintableVai as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         ...fakeGetMintableVaiOutput,
@@ -235,7 +235,7 @@ describe('Borrow', () => {
   });
 
   it('does not let user borrow more than their borrow limit allows', async () => {
-    (useGetMintableVai as Vi.Mock).mockImplementation(() => ({
+    (useGetMintableVai as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         ...fakeGetMintableVaiOutput,
