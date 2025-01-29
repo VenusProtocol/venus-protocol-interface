@@ -57,7 +57,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, column, className, ...otherProp
         ? combinedDistributionApys.totalSupplyApyPercentage.plus(
             combinedDistributionApys.supplyApyPrimeSimulationPercentage,
           )
-        : combinedDistributionApys.totalBorrowApyPercentage.plus(
+        : combinedDistributionApys.totalBorrowApyPercentage.minus(
             combinedDistributionApys.borrowApyPrimeSimulationPercentage,
           );
   }
