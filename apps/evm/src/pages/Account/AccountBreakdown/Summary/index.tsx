@@ -8,7 +8,7 @@ import {
   type Cell,
   CellGroup,
   Icon,
-  Tooltip,
+  InfoIcon,
 } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { useTranslation } from 'libs/translations';
@@ -124,12 +124,11 @@ export const Summary: React.FC<SummaryProps> = ({
                 {readableSafeBorrowLimit}
               </Typography>
 
-              <Tooltip
-                css={styles.tooltip}
-                title={t('myAccount.safeLimitTooltip', { safeBorrowLimitPercentage })}
-              >
-                <Icon css={styles.infoIcon} name="info" />
-              </Tooltip>
+              <InfoIcon
+                className="flex"
+                iconClassName="cursor-help"
+                tooltip={t('myAccount.safeLimitTooltip', { safeBorrowLimitPercentage })}
+              />
             </div>
           </div>
         )}

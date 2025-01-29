@@ -8,7 +8,7 @@ import { DistributionGroup } from './DistributionGroup';
 import starsIconSrc from './stars.svg';
 import type { Distribution } from './types';
 
-export interface BoostTooltipProps extends Omit<TooltipProps, 'title'> {
+export interface BoostTooltipProps extends Omit<TooltipProps, 'content'> {
   type: 'supply' | 'borrow';
   token: Token;
   baseApyPercentage: BigNumber;
@@ -90,7 +90,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
   return (
     <Tooltip
       className={cn('inline-flex items-center gap-1', className)}
-      title={
+      content={
         <div className="space-y-2">
           <DistributionGroup distributions={tokenDistributions} />
         </div>

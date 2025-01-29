@@ -7,7 +7,7 @@ export interface DistributionGroupProps {
 }
 
 export const DistributionGroup: React.FC<DistributionGroupProps> = ({ title, distributions }) => (
-  <div className="w-70">
+  <div>
     {title && <p className="uppercase mb-2 font-semibold">{title}</p>}
 
     <div className="space-y-2">

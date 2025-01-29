@@ -1,4 +1,4 @@
-import { Icon, Tooltip } from 'components';
+import { Icon, InfoIcon } from 'components';
 
 interface TokenAmountAndApyProps {
   apy: string;
@@ -24,9 +24,7 @@ const TokenAmountAndApy = ({
     <div className="flex flex-col">
       <div className="flex">
         <span className="text-grey mr-2">{apyTitle}</span>
-        <Tooltip className="flex flex-col justify-center" title={apyTooltip}>
-          <Icon name="info" />
-        </Tooltip>
+        <InfoIcon className="flex flex-col justify-center" tooltip={apyTooltip} />
       </div>
       <span>{apy}</span>
     </div>

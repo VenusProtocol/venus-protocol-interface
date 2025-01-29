@@ -33,7 +33,7 @@ export const CopyAddressButton: React.FC<CopyAddressButtonProps> = ({
   );
 
   return showTooltip ? (
-    <Tooltip title={t('interactive.copy.address.tooltip')} className="inline-flex">
+    <Tooltip content={t('interactive.copy.address.tooltip')} className="inline-flex">
       {dom}
     </Tooltip>
   ) : (

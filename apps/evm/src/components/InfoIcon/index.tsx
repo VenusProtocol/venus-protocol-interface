@@ -5,7 +5,7 @@ import { Icon, type IconName } from '../Icon';
 import { Tooltip } from '../Tooltip';
 
 export interface InfoIconProps {
-  tooltip: string;
+  tooltip: string | React.ReactElement;
   iconName?: IconName;
   iconClassName?: string;
   className?: string;
@@ -17,7 +17,7 @@ export const InfoIcon = ({
   iconName = 'info',
   iconClassName,
 }: InfoIconProps) => (
-  <Tooltip className={cn('inline-flex', className)} title={tooltip}>
+  <Tooltip className={cn('inline-flex align-sub', className)} content={tooltip}>
     <Icon className={iconClassName} name={iconName} />
   </Tooltip>
 );

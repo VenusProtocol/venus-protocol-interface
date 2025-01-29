@@ -21,7 +21,6 @@ export const PrimeApy: React.FC<PrimeApyProps> = ({ apyPercentage, className, ..
         'hover:border-lightGrey h-6 rounded-full p-1 font-normal whitespace-nowrap',
         className,
       )}
-      onClick={e => e.stopPropagation()}
       {...otherProps}
     >
       <PrimeIcon className="mr-1" />

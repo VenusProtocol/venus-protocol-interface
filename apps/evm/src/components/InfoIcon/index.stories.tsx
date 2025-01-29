@@ -7,4 +7,4 @@ export default {
   component: InfoIcon,
 } as Meta<typeof InfoIcon>;
 
-export const Default = () => <InfoIcon tooltip="This is a fake tooltip" />;
+export const Default = () => <InfoIcon tooltip={'This is a fake tooltip'} />;

@@ -17,10 +17,10 @@ export interface ProgressBarProps {
   ariaLabel: string;
   min: number;
   max: number;
-  trackTooltip?: TooltipProps['title'];
-  markTooltip?: TooltipProps['title'];
+  trackTooltip?: TooltipProps['content'];
+  markTooltip?: TooltipProps['content'];
   className?: string;
-  tooltipPlacement?: TooltipProps['placement'];
+  tooltipPlacement?: TooltipProps['side'];
   progressBarColor?: string;
 }
 
@@ -59,7 +59,7 @@ export const ProgressBar = ({
         css={[styles.mark, markTooltip ? styles.hasTooltip : undefined]}
       >
         {markTooltip && (
-          <Tooltip placement={tooltipPlacement} title={markTooltip}>
+          <Tooltip side={tooltipPlacement} content={markTooltip}>
             <span css={styles.tooltipHelper}>.</span>
           </Tooltip>
         )}
@@ -81,7 +81,7 @@ export const ProgressBar = ({
           css={[styles.trackWrapper, trackTooltip ? styles.hasTooltip : undefined]}
         >
           {trackTooltip ? (
-            <Tooltip placement={tooltipPlacement} title={trackTooltip}>
+            <Tooltip side={tooltipPlacement} content={trackTooltip}>
               <Box className={props?.className} />
             </Tooltip>
           ) : (

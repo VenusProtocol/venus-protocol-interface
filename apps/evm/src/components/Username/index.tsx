@@ -1,5 +1,5 @@
 import { useGetAddressDomainName } from 'clients/api';
-import { Icon, Tooltip } from 'components';
+import { InfoIcon } from 'components';
 import EllipseAddress, { type EllipseAddressProps } from 'components/EllipseAddress';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { useTranslation } from 'libs/translations';
@@ -63,14 +63,12 @@ export const Username: React.FC<UsernameProps> = ({
     dom = (
       <div className="flex flex-row items-center text-nowrap space-x-1 mr-1">
         {showProvider && (
-          <Tooltip title={providerText}>
-            <Icon className="cursor-pointer" name={providerIcon} />
-          </Tooltip>
+          <InfoIcon iconName={providerIcon} iconClassName="cursor-pointer" tooltip={providerText} />
         )}
         {domainNameComponent}
         {showTooltip && (
-          <Tooltip
-            title={
+          <InfoIcon
+            tooltip={
               <div className="flex flex-col text-center">
                 <span className="text-center">{chainDomainName}</span>
                 <span className="md:hidden">
@@ -82,9 +80,8 @@ export const Username: React.FC<UsernameProps> = ({
               </div>
             }
             className="inline-flex"
-          >
-            <Icon className="cursor-pointer " name="info" />
-          </Tooltip>
+            iconClassName="cursor-pointer"
+          />
         )}
       </div>
     );

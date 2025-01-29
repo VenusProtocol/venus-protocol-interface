@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import Typography from '@mui/material/Typography';
 import { BigNumber } from 'bignumber.js';
-import { Card, type CardProps, Username } from 'components';
+import { Card, type CardProps, InfoIcon, Username } from 'components';
 import { useCallback } from 'react';
 
-import { Button, Icon, LabeledProgressBar, Tooltip } from 'components';
+import { Button, LabeledProgressBar } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
@@ -96,11 +96,7 @@ const VoteSummary = ({
                 )}
               </Username>
 
-              {reason && (
-                <Tooltip title={reason}>
-                  <Icon name="comment" />
-                </Tooltip>
-              )}
+              {reason && <InfoIcon iconName="comment" tooltip={reason} />}
             </div>
 
             <Typography color="text.primary">
