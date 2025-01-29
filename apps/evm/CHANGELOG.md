@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.199.0
+
+### Minor Changes
+
+- 010c4c9: fix APY boost feature for Prime users
+
 ## 2.198.0
 
 ### Minor Changes
