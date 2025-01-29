@@ -9,7 +9,7 @@ export const useMarketTableColumns = () => {
     const columns: MarketTableProps['columns'] = [
       'asset',
       'pool',
-      'labeledSupplyApyLtv',
+      'labeledSupplyApy',
       'labeledBorrowApy',
     ];
 

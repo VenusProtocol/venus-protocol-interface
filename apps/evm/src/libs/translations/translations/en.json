@@ -441,14 +441,20 @@
   },
   "marketTable": {
     "apy": {
-      "primeBoost": {
-        "tooltip": "Total APY after applying Prime boost. <Link>Calculate your Prime rewards</Link>"
+      "boostBadge": {
+        "iconAlt": "Boosted market icon"
       },
-      "primeSimulationBoost": {
-        "primeLogoAlt": "Prime logo",
+      "primeBadge": {
+        "logoAlt": "Prime logo",
         "tooltip": {
-          "primeCalculator": "APY boosted by Prime based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Calculate your Prime rewards</Link>",
-          "primeDoc": "APY boosted by Prime based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}. <Link>Learn more</Link>"
+          "calculatorLink": "Calculate your Prime rewards",
+          "defaultMerklRewardName": "Merkl rewards",
+          "externalRewardDescription": "Rewards from this external program can be claimed through their <AppLink>official app</AppLink>.",
+          "primeDocLink": "Learn more",
+          "primeMarket": "APY boosted by Prime.",
+          "primeSimulation": "APY boosted by Prime based on the median user supply of {{supplyBalance}}, borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}.",
+          "tokenDistributionsTitle": "Token distributions",
+          "xvsDistributionName": "XVS distribution"
         }
       }
     },
@@ -461,11 +467,11 @@
       "borrowBalance": "Total borrow",
       "collateral": "Collateral",
       "labeledBorrowApy": "Borrow APY <InfoIcon />",
-      "labeledSupplyApyLtv": "Supply APY <InfoIcon /> / LTV",
+      "labeledSupplyApy": "Supply APY <InfoIcon />",
       "liquidity": "Liquidity",
       "pool": "Pool",
       "price": "Price",
-      "supplyApyLtv": "APY <InfoIcon /> / LTV",
+      "supplyApy": "APY <InfoIcon />",
       "supplyBalance": "Total supply",
       "userBorrowBalance": "Balance",
       "userPercentOfLimit": "% of limit",
@@ -478,11 +484,11 @@
       "borrowBalance": "Total borrow",
       "collateral": "Collateral",
       "labeledBorrowApy": "Borrow APY",
-      "labeledSupplyApyLtv": "Supply APY / LTV",
+      "labeledSupplyApy": "Supply APY / LTV",
       "liquidity": "Liquidity",
       "pool": "Pool",
       "price": "Price",
-      "supplyApyLtv": "Supply APY / LTV",
+      "supplyApy": "Supply APY / LTV",
       "supplyBalance": "Total supply",
       "userBorrowBalance": "Borrow balance",
       "userPercentOfLimit": "% of limit",

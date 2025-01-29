@@ -1,6 +1,6 @@
 import type BigNumber from 'bignumber.js';
 
-import type { AssetDistribution, Token } from 'types';
+import type { MerklDistribution, RewardDistributorDistribution, Token } from 'types';
 import { calculateYearlyPercentageRate } from 'utilities';
 
 export interface FormatDistributionInput {
@@ -9,7 +9,8 @@ export interface FormatDistributionInput {
   rewardTokenPriceDollars: BigNumber;
   dailyDistributedRewardTokens: BigNumber;
   balanceDollars: BigNumber;
-  rewardDescription?: string;
+  description?: string;
+  claimUrl?: string;
 }
 
 const formatRewardDistribution = ({
@@ -18,8 +19,9 @@ const formatRewardDistribution = ({
   rewardTokenPriceDollars,
   dailyDistributedRewardTokens,
   balanceDollars,
-  rewardDescription,
-}: FormatDistributionInput): AssetDistribution => {
+  description,
+  claimUrl,
+}: FormatDistributionInput) => {
   // Convert distribution to dollars
   const dailyDistributedDollars =
     dailyDistributedRewardTokens.multipliedBy(rewardTokenPriceDollars);
@@ -32,13 +34,30 @@ const formatRewardDistribution = ({
     ),
   });
 
-  return {
+  const baseProps = {
     type: rewardType,
     token: rewardToken,
     apyPercentage,
     dailyDistributedTokens: dailyDistributedRewardTokens,
-    rewardDescription,
+    description,
   };
+
+  if (rewardType === 'merkl') {
+    const distribution: MerklDistribution = {
+      ...baseProps,
+      type: 'merkl',
+      claimUrl: claimUrl!,
+    };
+
+    return distribution;
+  }
+
+  const distribution: RewardDistributorDistribution = {
+    ...baseProps,
+    type: 'venus',
+  };
+
+  return distribution;
 };
 
 export default formatRewardDistribution;

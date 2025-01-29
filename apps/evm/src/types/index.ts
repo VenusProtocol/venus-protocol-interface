@@ -74,9 +74,10 @@ export interface PrimeSimulationDistribution {
 export interface MerklDistribution {
   type: 'merkl';
   token: Token;
-  rewardDescription: string | undefined;
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
+  claimUrl: string;
+  description?: string;
 }
 
 export type AssetDistribution =

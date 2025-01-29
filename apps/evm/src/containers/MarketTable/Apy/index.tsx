@@ -1,14 +1,10 @@
-import { useMemo } from 'react';
-
-import { LayeredValues } from 'components';
+import type BigNumber from 'bignumber.js';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
-import { useGetToken } from 'libs/tokens';
 import type { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
-import { getCombinedDistributionApys } from 'utilities';
-
+import { cn, getCombinedDistributionApys } from 'utilities';
 import type { ColumnKey } from '../types';
-import { ApyWithPrimeBoost } from './ApyWithPrimeBoost';
-import { ApyWithPrimeSimulationBoost } from './ApyWithPrimeSimulationBoost';
+import { BoostBadge } from './BoostBadge';
+import { PrimeBadge } from './PrimeBadge';
 
 export interface ApyProps {
   asset: Asset;
@@ -16,87 +12,71 @@ export interface ApyProps {
   className?: string;
 }
 
-export const Apy: React.FC<ApyProps> = ({ asset, column, className }) => {
-  const type = column === 'supplyApyLtv' || column === 'labeledSupplyApyLtv' ? 'supply' : 'borrow';
+export const Apy: React.FC<ApyProps> = ({ asset, column, className, ...otherProps }) => {
+  const type = column === 'supplyApy' || column === 'labeledSupplyApy' ? 'supply' : 'borrow';
 
-  const xvs = useGetToken({
-    symbol: 'XVS',
-  });
-  const combinedDistributionApys = useMemo(() => getCombinedDistributionApys({ asset }), [asset]);
+  const combinedDistributionApys = getCombinedDistributionApys({ asset });
 
-  const { primeDistribution, primeSimulationDistribution } = useMemo(() => {
-    const result: {
-      primeSimulationDistribution?: PrimeSimulationDistribution;
-      primeDistribution?: PrimeDistribution;
-    } = {};
+  const baseApyPercentage =
+    type === 'supply' ? asset.supplyApyPercentage : asset.borrowApyPercentage;
 
-    const distributions = type === 'borrow' ? asset.borrowDistributions : asset.supplyDistributions;
+  const boostedApyPercentage =
+    type === 'supply'
+      ? combinedDistributionApys.totalSupplyApyPercentage
+      : combinedDistributionApys.totalBorrowApyPercentage;
 
-    distributions.forEach(distribution => {
-      if (distribution.type === 'prime') {
-        result.primeDistribution = distribution;
-      } else if (distribution.type === 'primeSimulation') {
-        result.primeSimulationDistribution = distribution;
-      }
-    });
-
-    return result;
-  }, [asset.borrowDistributions, asset.supplyDistributions, type]);
-
-  const apyPercentage =
-    type === 'borrow'
-      ? asset.borrowApyPercentage.minus(combinedDistributionApys.totalBorrowApyPercentage)
-      : asset.supplyApyPercentage.plus(combinedDistributionApys.totalSupplyApyPercentage);
+  const isApyBoosted = !boostedApyPercentage.isEqualTo(baseApyPercentage);
 
   const readableApy = useFormatPercentageToReadableValue({
-    value: apyPercentage,
+    value: boostedApyPercentage,
   });
 
-  const readableLtv = useFormatPercentageToReadableValue({
-    value: +asset.collateralFactor * 100,
+  let primeDistribution: PrimeDistribution | undefined;
+  let primeSimulationDistribution: PrimeSimulationDistribution | undefined;
+  const distributions = type === 'supply' ? asset.supplyDistributions : asset.borrowDistributions;
+
+  distributions.forEach(distribution => {
+    if (distribution.type === 'prime') {
+      primeDistribution = distribution;
+    } else if (distribution.type === 'primeSimulation') {
+      primeSimulationDistribution = distribution;
+    }
   });
 
-  // Display Prime boost
-  if (primeDistribution?.apyPercentage?.isGreaterThan(0)) {
-    const apyPercentageWithoutPrimeBoost =
-      type === 'borrow'
-        ? apyPercentage.plus(primeDistribution.apyPercentage)
-        : apyPercentage.minus(primeDistribution.apyPercentage);
+  const isPrimeAsset = !!(primeDistribution || primeSimulationDistribution);
 
-    return (
-      <ApyWithPrimeBoost
-        className={className}
-        type={type}
-        tokenAddress={asset.vToken.underlyingToken.address}
-        apyPercentage={apyPercentage}
-        apyPercentageWithoutPrimeBoost={apyPercentageWithoutPrimeBoost}
-        readableLtv={readableLtv}
-      />
-    );
+  let simulatedApyPercentage: BigNumber | undefined;
+
+  if (isPrimeAsset && (!primeDistribution || primeDistribution.apyPercentage.isEqualTo(0))) {
+    simulatedApyPercentage =
+      type === 'supply'
+        ? combinedDistributionApys.totalSupplyApyPercentage.plus(
+            combinedDistributionApys.supplyApyPrimeSimulationPercentage,
+          )
+        : combinedDistributionApys.totalBorrowApyPercentage.plus(
+            combinedDistributionApys.borrowApyPrimeSimulationPercentage,
+          );
   }
 
-  // Display hypothetical Prime boost
-  if (primeSimulationDistribution?.apyPercentage.isGreaterThan(0)) {
-    return (
-      <ApyWithPrimeSimulationBoost
-        className={className}
-        type={type}
-        tokenAddress={asset.vToken.underlyingToken.address}
-        apyPercentage={apyPercentage}
-        readableLtv={readableLtv}
-        primeSimulationDistribution={primeSimulationDistribution}
-        xvs={xvs!}
-      />
-    );
-  }
+  return (
+    <div {...otherProps} className={cn('inline-flex gap-1 items-center', className)}>
+      {isApyBoosted && (
+        <BoostBadge
+          assetDistributions={
+            type === 'supply' ? asset.supplyDistributions : asset.borrowDistributions
+          }
+        />
+      )}
 
-  // No Prime boost or Prime boost simulation to display
+      <div className={cn(isApyBoosted && 'font-semibold text-green')}>{readableApy}</div>
 
-  // Display supply APY
-  if (type === 'supply') {
-    return <LayeredValues className={className} topValue={readableApy} bottomValue={readableLtv} />;
-  }
-
-  // Display borrow APY
-  return <span className={className}>{readableApy}</span>;
+      {isPrimeAsset && (
+        <PrimeBadge
+          token={asset.vToken.underlyingToken}
+          simulationReferenceValues={primeSimulationDistribution?.referenceValues}
+          simulatedApyPercentage={simulatedApyPercentage}
+        />
+      )}
+    </div>
+  );
 };

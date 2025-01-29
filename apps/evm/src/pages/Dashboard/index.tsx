@@ -115,7 +115,7 @@ const Dashboard: React.FC = () => {
         columns={columns}
         marketType="supply"
         initialOrder={{
-          orderBy: 'labeledSupplyApyLtv',
+          orderBy: 'labeledSupplyApy',
           orderDirection: 'desc',
         }}
         data-testid={TEST_IDS.marketTable}

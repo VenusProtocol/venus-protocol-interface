@@ -73,9 +73,9 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
           rowOnClick={handleHideAssets}
           className="my-0 p-0 sm:p-0"
           pools={[pool]}
-          columns={['asset', type === 'borrow' ? 'labeledBorrowApy' : 'supplyApyLtv', 'liquidity']}
+          columns={['asset', type === 'borrow' ? 'labeledBorrowApy' : 'supplyApy', 'liquidity']}
           initialOrder={{
-            orderBy: type === 'borrow' ? 'labeledBorrowApy' : 'supplyApyLtv',
+            orderBy: type === 'borrow' ? 'labeledBorrowApy' : 'supplyApy',
             orderDirection: type === 'borrow' ? 'desc' : 'asc',
           }}
         />
