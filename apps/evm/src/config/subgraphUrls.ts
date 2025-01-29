@@ -29,7 +29,7 @@ export const getIsolatedPoolsSubgraphUrls = ({
       'https://api.studio.thegraph.com/query/64786/venus-il-optimism-sepolia/version/latest',
     [ChainId.BASE_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmaPerPSwKtU8GHyZSbsKHD2HUeDz2N6u8PpQK1Hanccvw`,
     [ChainId.BASE_SEPOLIA]:
-      'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-base-sepolia/latest',
+      'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-base-sepolia/version/latest',
   };
 
   return subgraphUrls;
@@ -64,7 +64,7 @@ export const getGovernanceSubgraphUrls = ({
       'https://api.studio.thegraph.com/query/64786/venus-governance-opsepolia/version/latest',
     [ChainId.BASE_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmaeyNEyxYYvkTRDcFNufWRg7Ki8mB5BAXCAZotkhwebLv`,
     [ChainId.BASE_SEPOLIA]:
-      'https://api.studio.thegraph.com/query/64786/venus-governance-base-sepolia/latest',
+      'https://api.studio.thegraph.com/query/64786/venus-governance-base-sepolia/version/latest',
   };
 
   return subgraphUrls;
