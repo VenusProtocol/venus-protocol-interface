@@ -28,6 +28,7 @@ export const BoostBadge: React.FC<BoostBadgeProps> = ({
       const distribution: Distribution = {
         name: d.description || t('marketTable.apy.primeBadge.tooltip.defaultMerklRewardName'),
         value: formatPercentageToReadableValue(d.apyPercentage),
+        token: d.token,
         description: (
           <Trans
             i18nKey="marketTable.apy.primeBadge.tooltip.externalRewardDescription"
@@ -47,6 +48,7 @@ export const BoostBadge: React.FC<BoostBadgeProps> = ({
       const distribution: Distribution = {
         name: t('marketTable.apy.primeBadge.tooltip.xvsDistributionName'),
         value: formatPercentageToReadableValue(d.apyPercentage),
+        token: d.token,
       };
 
       return [...acc, distribution];
