@@ -2,6 +2,7 @@ import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import cbbtcLogo from 'libs/tokens/img/underlyingTokens/cbbtc.svg';
 import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
+import wSuperOEthBLogo from 'libs/tokens/img/underlyingTokens/wSuperOEthB.svg';
 import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
 import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
 import type { Token } from 'types';
@@ -40,5 +41,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'XVS',
     asset: xvsLogo,
+  },
+  {
+    address: '0x02B1136d9E223333E0083aeAB76bC441f230a033',
+    decimals: 18,
+    symbol: 'wsuperOETHb',
+    asset: wSuperOEthBLogo,
   },
 ];
