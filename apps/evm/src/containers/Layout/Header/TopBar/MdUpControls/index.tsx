@@ -21,7 +21,7 @@ export const MdUpControls: React.FC = () => {
         wrapWithTooltip
         displayLabel
         className={cn(
-          'cursor-help transition-opacity',
+          'transition-opacity',
           !userChainSettings?.gaslessTransactions && 'opacity-50',
         )}
       />

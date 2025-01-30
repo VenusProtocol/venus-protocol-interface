@@ -14,6 +14,7 @@ import { SimulationText } from './SimulationText';
 
 export interface PrimeBadgeProps extends Omit<TooltipProps, 'title' | 'children'> {
   token: Token;
+  type: 'supply' | 'borrow';
   simulationReferenceValues?: PrimeSimulationDistribution['referenceValues'];
   simulatedApyPercentage?: BigNumber;
   className?: string;
@@ -23,6 +24,7 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
   token,
   simulationReferenceValues,
   simulatedApyPercentage,
+  type,
   className,
   ...otherProps
 }) => {
@@ -35,12 +37,16 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
 
   return (
     <Tooltip
-      className={cn('inline-block align-middle', className)}
+      className={cn('inline-flex items-center', className)}
       title={
         <>
           <p>
             {simulationReferenceValues && simulatedApyPercentage ? (
-              <SimulationText token={token} referenceValues={simulationReferenceValues} />
+              <SimulationText
+                token={token}
+                referenceValues={simulationReferenceValues}
+                type={type}
+              />
             ) : (
               t('marketTable.apy.primeBadge.tooltip.primeMarket')
             )}
