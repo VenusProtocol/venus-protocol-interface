@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.201.0
+
+### Minor Changes
+
+- 09a4892: add wsuperOETHb to Base
+
+### Patch Changes
+
+- fb19568: fix Base Sepolia subgraph URLs
+
 ## 2.200.0
 
 ### Minor Changes
