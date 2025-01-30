@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.202.0
+
+### Minor Changes
+
+- c48a1bf: add sUSDS and USDS to Ethereum
+
 ## 2.201.0
 
 ### Minor Changes
