@@ -16,9 +16,11 @@ import pufEthLogo from 'libs/tokens/img/underlyingTokens/pufEth.svg';
 import rsEthLogo from 'libs/tokens/img/underlyingTokens/rsEth.svg';
 import sFraxLogo from 'libs/tokens/img/underlyingTokens/sFrax.svg';
 import sUsdELogo from 'libs/tokens/img/underlyingTokens/sUsdE.svg';
+import sUsdsLogo from 'libs/tokens/img/underlyingTokens/sUsds.svg';
 import sfrxEthLogo from 'libs/tokens/img/underlyingTokens/sfrxEth.svg';
 import tusdLogo from 'libs/tokens/img/underlyingTokens/tusd.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
+import usdsLogo from 'libs/tokens/img/underlyingTokens/usds.svg';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
 import wbtcLogo from 'libs/tokens/img/underlyingTokens/wbtc.svg';
 import weEthLogo from 'libs/tokens/img/underlyingTokens/weEth.svg';
@@ -188,5 +190,17 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'PT-sUSDE-MAR25',
     asset: ptSUsdELogo,
+  },
+  {
+    address: '0xE9E34fd81982438E96Bd945f5810F910e35F0165',
+    decimals: 18,
+    symbol: 'sUSDS',
+    asset: sUsdsLogo,
+  },
+  {
+    address: '0xfB287f9A45E54df6AADad95C6F37b1471e744762',
+    decimals: 18,
+    symbol: 'USDS',
+    asset: usdsLogo,
   },
 ];
