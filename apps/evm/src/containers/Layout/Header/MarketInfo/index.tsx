@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { useGetAsset, useGetPool } from 'clients/api';
 import { type Cell, CellGroup, Icon, Pill, Spinner, TokenIcon } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
@@ -69,7 +70,14 @@ export const MarketInfo = () => {
 
   const cells: Cell[] = useMemo(() => {
     const readableMaxLtvPercentage = asset
-      ? formatPercentageToReadableValue(asset ? asset.collateralFactor * 100 : undefined)
+      ? formatPercentageToReadableValue(
+          asset
+            ? // We use BigNumber to prevent issues with floating-point numbers
+              new BigNumber(asset.collateralFactor)
+                .multipliedBy(100)
+                .toNumber()
+            : undefined,
+        )
       : undefined;
 
     return [
