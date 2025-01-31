@@ -1,18 +1,20 @@
-import type { Provider } from 'libs/wallet';
+import type { PublicClient } from 'viem';
 
 export interface GetBlockNumberInput {
-  provider: Provider;
+  publicClient: PublicClient;
 }
 
 export interface GetBlockNumberOutput {
   blockNumber: number;
 }
 
-const getBlockNumber = async ({ provider }: GetBlockNumberInput): Promise<GetBlockNumberOutput> => {
-  const blockNumber = await provider.getBlockNumber();
+const getBlockNumber = async ({
+  publicClient,
+}: GetBlockNumberInput): Promise<GetBlockNumberOutput> => {
+  const blockNumber = await publicClient.getBlockNumber();
 
   return {
-    blockNumber,
+    blockNumber: +blockNumber.toString(),
   };
 };
 

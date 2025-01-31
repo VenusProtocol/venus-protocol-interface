@@ -7,6 +7,7 @@ import {
   useGetVaiVaultUserInfo,
   useGetVenusVaiVaultDailyRate,
 } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetVaiVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
@@ -32,18 +33,18 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGet
   const { data: totalVaiStakedData, isLoading: isGetTotalVaiStakedMantissaLoading } =
     useGetBalanceOf(
       {
-        accountAddress: vaiVaultContractAddress || '',
+        accountAddress: vaiVaultContractAddress || NULL_ADDRESS,
         token: vai,
       },
       {
-        enabled: !!vaiVaultContractAddress,
+        enabled: !!vaiVaultContractAddress && !!vai,
       },
     );
 
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
     useGetVaiVaultUserInfo(
       {
-        accountAddress: accountAddress || '',
+        accountAddress: accountAddress || NULL_ADDRESS,
       },
       {
         enabled: !!accountAddress,

@@ -1,12 +1,13 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { type GetBalanceOfInput, type GetBalanceOfOutput, getBalanceOf } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
-import { useChainId, useProvider } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetBalanceOfInput = Omit<GetBalanceOfInput, 'signer' | 'provider'>;
+type TrimmedGetBalanceOfInput = Omit<GetBalanceOfInput, 'publicClient'>;
 
 export type UseGetBalanceOfQueryKey = [
   FunctionKey.GET_BALANCE_OF,
@@ -32,7 +33,7 @@ const useGetBalanceOf = (
   { accountAddress, token }: UseGetBalanceOfInput,
   options?: Partial<Options>,
 ) => {
-  const { provider } = useProvider();
+  const { publicClient } = usePublicClient();
   const { chainId } = useChainId();
 
   return useQuery({
@@ -41,19 +42,17 @@ const useGetBalanceOf = (
       {
         chainId,
         accountAddress,
-        tokenAddress: token?.address || '',
+        tokenAddress: token?.address || NULL_ADDRESS,
       },
     ],
-
     queryFn: () =>
       callOrThrow({ token }, params =>
         getBalanceOf({
-          provider,
+          publicClient,
           accountAddress,
           ...params,
         }),
       ),
-
     ...options,
   });
 };

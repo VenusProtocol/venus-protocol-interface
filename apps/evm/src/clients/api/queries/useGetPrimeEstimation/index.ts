@@ -13,9 +13,10 @@ import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetToken } from 'libs/tokens';
 import type { VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
+import type { Address } from 'viem';
 
 interface UseGetPrimeEstimationInput {
-  accountAddress?: string;
+  accountAddress?: Address;
   suppliedAmountMantissa: BigNumber;
   borrowedAmountMantissa: BigNumber;
   stakedAmountXvsMantissa: BigNumber;
@@ -75,7 +76,7 @@ const useGetPrimeEstimation = (
 
   const { data: hypotheticalPrimeApysData } = useGetHypotheticalPrimeApys(
     {
-      vTokenAddress: vToken?.address || '',
+      vTokenAddress: vToken?.address || NULL_ADDRESS,
       userSupplyBalanceMantissa: suppliedAmountMantissa,
       userBorrowBalanceMantissa: borrowedAmountMantissa,
       userXvsStakedMantissa: stakedAmountXvsMantissa,

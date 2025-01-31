@@ -4,18 +4,10 @@ import type { LegacyPoolComptroller } from 'libs/contracts';
 
 const comptrollerResponses: {
   venusVAIVaultRate: Awaited<ReturnType<LegacyPoolComptroller['venusVAIVaultRate']>>;
-  getHypotheticalAccountLiquidity: Awaited<
-    ReturnType<LegacyPoolComptroller['getHypotheticalAccountLiquidity']>
-  >;
   mintedVAIs: Awaited<ReturnType<LegacyPoolComptroller['mintedVAIs']>>;
   getAllMarkets: Awaited<ReturnType<LegacyPoolComptroller['getAllMarkets']>>;
 } = {
   venusVAIVaultRate: BN.from('5000000000'),
-  getHypotheticalAccountLiquidity: [
-    BN.from('100000000'),
-    BN.from('200000000'),
-    BN.from('300000000'),
-  ],
   mintedVAIs: BN.from('60000000000000000'),
   getAllMarkets: [
     '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',

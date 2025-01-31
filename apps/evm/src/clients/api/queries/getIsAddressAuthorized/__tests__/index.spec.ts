@@ -4,11 +4,11 @@ import fakeAddress from '__mocks__/models/address';
 
 import { restService } from 'utilities';
 
-import getIsAddressAuthorized from '.';
+import getIsAddressAuthorized from '..';
 
 vi.mock('utilities/restService');
 
-describe('api/queries/getAuthentication', () => {
+describe('getAuthentication', () => {
   it('returns the user is authenticated if using a valid address', async () => {
     (restService as Mock).mockImplementationOnce(async () => ({
       status: 200,

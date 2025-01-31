@@ -6,14 +6,16 @@ import {
   getIsolatedPoolVTokenLiquidationThreshold,
 } from 'clients/api/queries/getIsolatedPoolVTokenLiquidationThreshold';
 import FunctionKey from 'constants/functionKey';
-import { useGetIsolatedPoolComptrollerContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
 
 interface TrimmedGetIsolatedPoolVTokenLiquidationThresholdInput
-  extends Omit<GetIsolatedPoolVTokenLiquidationThresholdInput, 'poolComptrollerContract'> {
+  extends Omit<
+    GetIsolatedPoolVTokenLiquidationThresholdInput,
+    'poolComptrollerContract' | 'publicClient'
+  > {
   poolComptrollerContractAddress: Address;
 }
 
@@ -40,11 +42,7 @@ export const useGetIsolatedPoolVTokenLiquidationThreshold = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-
-  const poolComptrollerContract = useGetIsolatedPoolComptrollerContract({
-    address: poolComptrollerContractAddress,
-    passSigner: false,
-  });
+  const { publicClient } = usePublicClient();
 
   return useQuery({
     queryKey: [
@@ -53,10 +51,11 @@ export const useGetIsolatedPoolVTokenLiquidationThreshold = (
     ],
 
     queryFn: () =>
-      callOrThrow({ poolComptrollerContract }, params =>
+      callOrThrow({ poolComptrollerContractAddress }, params =>
         getIsolatedPoolVTokenLiquidationThreshold({
-          ...params,
+          publicClient,
           vTokenAddress,
+          ...params,
         }),
       ),
 

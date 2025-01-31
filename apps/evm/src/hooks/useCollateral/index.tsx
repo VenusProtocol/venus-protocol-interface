@@ -1,18 +1,12 @@
-import BigNumber from 'bignumber.js';
-
-import {
-  getHypotheticalAccountLiquidity,
-  getVTokenBalanceOf,
-  useEnterMarket,
-  useExitMarket,
-} from 'clients/api';
+import { getVTokenBalanceOf, useEnterMarket, useExitMarket } from 'clients/api';
 import {
   getIsolatedPoolComptrollerContract,
   getVTokenContract,
+  isolatedPoolComptrollerAbi,
   useGetLegacyPoolComptrollerContract,
 } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import { useAccountAddress, useSigner } from 'libs/wallet';
+import { useAccountAddress, usePublicClient, useSigner } from 'libs/wallet';
 import type { Asset } from 'types';
 import { areAddressesEqual } from 'utilities';
 import type { Address } from 'viem';
@@ -20,6 +14,7 @@ import type { Address } from 'viem';
 const useCollateral = () => {
   const { signer } = useSigner();
   const { accountAddress } = useAccountAddress();
+  const { publicClient } = usePublicClient();
 
   const { mutateAsync: enterMarket } = useEnterMarket({
     waitForConfirmation: true,
@@ -68,14 +63,19 @@ const useCollateral = () => {
           accountAddress,
         });
 
-        const assetHypotheticalLiquidity = await getHypotheticalAccountLiquidity({
-          comptrollerContract,
-          accountAddress,
-          vTokenAddress: asset.vToken.address,
-          vTokenBalanceOfMantissa: new BigNumber(vTokenBalanceOf.balanceMantissa),
+        const assetHypotheticalLiquidity = await publicClient.readContract({
+          abi: isolatedPoolComptrollerAbi,
+          address: comptrollerAddress,
+          functionName: 'getHypotheticalAccountLiquidity',
+          args: [
+            accountAddress,
+            asset.vToken.address,
+            BigInt(vTokenBalanceOf.balanceMantissa.toFixed()),
+            0n, // vToken borrow balance
+          ],
         });
 
-        if (+assetHypotheticalLiquidity['1'] === 0 && +assetHypotheticalLiquidity['2'] > 0) {
+        if (assetHypotheticalLiquidity[1] === 0n && assetHypotheticalLiquidity[2] > 0n) {
           throw new VError({
             type: 'interaction',
             code: 'collateralRequired',

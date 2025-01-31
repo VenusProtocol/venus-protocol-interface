@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
+import type { Address, PublicClient } from 'viem';
 
-import type { Prime } from 'libs/contracts';
+import { primeAbi } from 'libs/contracts';
 import {
   convertAprBipsToApy,
   convertDollarsToCents,
@@ -8,9 +9,10 @@ import {
 } from 'utilities';
 
 export interface GetHypotheticalPrimeApysInput {
-  primeContract: Prime;
-  accountAddress: string;
-  vTokenAddress: string;
+  publicClient: PublicClient;
+  primeContractAddress: Address;
+  accountAddress: Address;
+  vTokenAddress: Address;
   userBorrowBalanceMantissa: BigNumber;
   userSupplyBalanceMantissa: BigNumber;
   userXvsStakedMantissa: BigNumber;
@@ -27,7 +29,8 @@ export interface GetHypotheticalPrimeApysOutput {
 }
 
 const getHypotheticalPrimeApys = async ({
-  primeContract,
+  publicClient,
+  primeContractAddress,
   vTokenAddress,
   accountAddress,
   userBorrowBalanceMantissa,
@@ -39,17 +42,22 @@ const getHypotheticalPrimeApys = async ({
     supplyAPR,
     cappedSupply,
     cappedBorrow,
-    borrowCapUSD: borrowCapPriceMantissa,
-    supplyCapUSD: supplyCapPriceMantissa,
+    borrowCapUSD,
+    supplyCapUSD,
     totalScore,
     userScore,
-  } = await primeContract.estimateAPR(
-    vTokenAddress,
-    accountAddress,
-    userBorrowBalanceMantissa.toFixed(),
-    userSupplyBalanceMantissa.toFixed(),
-    userXvsStakedMantissa.toFixed(),
-  );
+  } = await publicClient.readContract({
+    address: primeContractAddress,
+    abi: primeAbi,
+    functionName: 'estimateAPR',
+    args: [
+      vTokenAddress,
+      accountAddress,
+      BigInt(userBorrowBalanceMantissa.toFixed()),
+      BigInt(userSupplyBalanceMantissa.toFixed()),
+      BigInt(userXvsStakedMantissa.toFixed()),
+    ],
+  });
 
   // Convert APRs to APYs
   const supplyApyPercentage = convertAprBipsToApy({ aprBips: supplyAPR.toString() });
@@ -59,13 +67,13 @@ const getHypotheticalPrimeApys = async ({
   const borrowCapMantissa = new BigNumber(cappedBorrow.toString());
 
   const supplyCapUsd = convertPriceMantissaToDollars({
-    priceMantissa: new BigNumber(supplyCapPriceMantissa.toString()),
+    priceMantissa: new BigNumber(supplyCapUSD.toString()),
     decimals: 18,
   });
 
   const supplyCapCents = convertDollarsToCents(supplyCapUsd);
   const borrowCapUsd = convertPriceMantissaToDollars({
-    priceMantissa: new BigNumber(borrowCapPriceMantissa.toString()),
+    priceMantissa: new BigNumber(borrowCapUSD.toString()),
     decimals: 18,
   });
 

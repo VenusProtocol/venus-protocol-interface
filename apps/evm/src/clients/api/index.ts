@@ -134,9 +134,6 @@ export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPer
 export * from './queries/getVaiTreasuryPercentage';
 export { default as useGetVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
 
-export { default as getHypotheticalAccountLiquidity } from './queries/getHypotheticalAccountLiquidity';
-export * from './queries/getHypotheticalAccountLiquidity';
-
 export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll';
 export * from './queries/getVTokenBalancesAll';
 export { default as useGetVTokenBalancesAll } from './queries/getVTokenBalancesAll/useGetVTokenBalancesAll';

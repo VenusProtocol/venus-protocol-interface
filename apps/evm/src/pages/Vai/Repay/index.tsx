@@ -64,8 +64,8 @@ export const Repay: React.FC = () => {
 
   const { data: userVaiBalanceData } = useGetBalanceOf(
     {
-      accountAddress: accountAddress || '',
-      token: vai!,
+      accountAddress: accountAddress || NULL_ADDRESS,
+      token: vai,
     },
     {
       enabled: !!accountAddress,

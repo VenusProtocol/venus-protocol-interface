@@ -56,8 +56,6 @@ export const useGetVaiTreasuryPercentage = vi.fn(() =>
   }),
 );
 
-export const getHypotheticalAccountLiquidity = vi.fn();
-
 export const getMarketHistory = vi.fn();
 export const useGetMarketHistory = vi.fn(() =>
   useQuery({

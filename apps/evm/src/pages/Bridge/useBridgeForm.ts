@@ -12,6 +12,7 @@ import {
   useGetXvsBridgeMintStatus,
   useGetXvsBridgeStatus,
 } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
@@ -68,7 +69,7 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
 
   const { data: getBalanceOfNativeTokenData } = useGetBalanceOf(
     {
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
       token: nativeToken,
     },
     {
