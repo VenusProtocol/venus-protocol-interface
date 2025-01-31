@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.205.0
+
+### Minor Changes
+
+- 564ac24: add support for BAL token
+- f80ff51: fix issue with floating-point collateral factors
+
 ## 2.204.0
 
 ### Minor Changes
