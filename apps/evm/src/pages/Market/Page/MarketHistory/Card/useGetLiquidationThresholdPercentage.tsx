@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { useGetIsolatedPoolVTokenLiquidationThreshold } from 'clients/api';
 import { useChainId } from 'libs/wallet';
 import type { Asset } from 'types';
@@ -31,5 +32,8 @@ export const useGetLiquidationThresholdPercentage = (
 
   return isIsolated
     ? getIsolatedPoolVTokenLiquidationThresholdData?.liquidationThresholdPercentage
-    : asset.collateralFactor * 100;
+    : // We use BigNumber to prevent issues with floating-point numbers
+      new BigNumber(asset.collateralFactor)
+        .multipliedBy(100)
+        .toNumber();
 };
