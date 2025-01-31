@@ -1,5 +1,6 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 
+import balLogo from 'libs/tokens/img/underlyingTokens/bal.svg';
 import crvLogo from 'libs/tokens/img/underlyingTokens/crv.svg';
 import crvUsdLogo from 'libs/tokens/img/underlyingTokens/crvUsd.svg';
 import daiLogo from 'libs/tokens/img/underlyingTokens/dai.svg';
@@ -202,5 +203,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'USDS',
     asset: usdsLogo,
+  },
+  {
+    address: '0xba100000625a3754423978a60c9317c58a424e3D',
+    decimals: 18,
+    symbol: 'BAL',
+    asset: balLogo,
   },
 ];
