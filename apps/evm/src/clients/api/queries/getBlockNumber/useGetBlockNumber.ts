@@ -4,7 +4,7 @@ import getBlockNumber, { type GetBlockNumberOutput } from 'clients/api/queries/g
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useChainId, useProvider } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 
 export type UseGetBlockNumberQueryKey = [FunctionKey.GET_BLOCK_NUMBER, { chainId: ChainId }];
@@ -24,12 +24,12 @@ type Options = QueryObserverOptions<
 const useGetBlockNumber = (input?: Input, options?: Partial<Options>) => {
   const { chainId: currentChainId } = useChainId();
   const chainId = input?.chainId ?? currentChainId;
-  const { provider } = useProvider({ chainId });
+  const { publicClient } = usePublicClient({ chainId });
   const { blockTimeMs } = useGetChainMetadata();
 
   return useQuery({
     queryKey: [FunctionKey.GET_BLOCK_NUMBER, { chainId }],
-    queryFn: () => getBlockNumber({ provider }),
+    queryFn: () => getBlockNumber({ publicClient }),
     refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
     ...options,
   });

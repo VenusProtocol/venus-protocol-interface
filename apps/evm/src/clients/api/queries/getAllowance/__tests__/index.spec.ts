@@ -8,7 +8,7 @@ import getAllowance from '..';
 
 const fakeSpenderAddress = '0x000000000000000000000000000000000sPeNdEr';
 
-describe('api/queries/getAllowance', () => {
+describe('getAllowance', () => {
   test('returns the allowance on success', async () => {
     const fakeAllowanceMantissa = 10000n;
 
