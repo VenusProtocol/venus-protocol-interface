@@ -7,7 +7,6 @@ import {
   useGetHypotheticalPrimeApys,
   useGetPrimeDistributionForMarket,
 } from 'clients/api';
-import { NULL_ADDRESS } from 'constants/address';
 import type FunctionKey from 'constants/functionKey';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetToken } from 'libs/tokens';
@@ -79,7 +78,7 @@ const useGetPrimeEstimation = (
       userSupplyBalanceMantissa: suppliedAmountMantissa,
       userBorrowBalanceMantissa: borrowedAmountMantissa,
       userXvsStakedMantissa: stakedAmountXvsMantissa,
-      accountAddress: accountAddress || NULL_ADDRESS,
+      accountAddress,
     },
     {
       enabled,

@@ -8,6 +8,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 
+import { NULL_ADDRESS } from 'constants/address';
 import ActionModal, { type ActionModalProps } from '../ActionModal';
 
 export interface StakeModalProps extends Pick<ActionModalProps, 'handleClose'> {
@@ -36,7 +37,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const { data: availableTokensData, isLoading: isGetWalletBalanceMantissaLoading } =
     useGetBalanceOf(
       {
-        accountAddress: accountAddress || '',
+        accountAddress: accountAddress || NULL_ADDRESS,
         token: stakedToken,
       },
       {

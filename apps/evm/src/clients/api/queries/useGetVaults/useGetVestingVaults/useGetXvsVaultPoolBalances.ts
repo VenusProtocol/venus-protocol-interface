@@ -4,7 +4,8 @@ import { type GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContractAddress } from 'libs/contracts';
 import { useGetTokens } from 'libs/tokens';
-import { useChainId, useProvider } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
+import { callOrThrow } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 export interface UseGetXvsVaultPoolBalancesInput {
@@ -16,7 +17,7 @@ export type UseGetXvsVaultPoolBalancesOutput = UseQueryResult<GetBalanceOfOutput
 const useGetXvsVaultPoolBalances = ({
   stakedTokenAddresses,
 }: UseGetXvsVaultPoolBalancesInput): UseGetXvsVaultPoolBalancesOutput => {
-  const { provider } = useProvider();
+  const { publicClient } = usePublicClient();
   const { chainId } = useChainId();
   const tokens = useGetTokens();
 
@@ -31,11 +32,17 @@ const useGetXvsVaultPoolBalances = ({
 
       return {
         queryFn: () =>
-          getBalanceOf({
-            provider,
-            token: stakedToken!,
-            accountAddress: xvsVaultContractAddress || '',
-          }),
+          callOrThrow(
+            {
+              token: stakedToken,
+              accountAddress: xvsVaultContractAddress,
+            },
+            params =>
+              getBalanceOf({
+                publicClient,
+                ...params,
+              }),
+          ),
         queryKey: [
           FunctionKey.GET_BALANCE_OF,
           {

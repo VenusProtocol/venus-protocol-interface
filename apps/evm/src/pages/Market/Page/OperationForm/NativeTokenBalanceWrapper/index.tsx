@@ -4,6 +4,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
 
 import type BigNumber from 'bignumber.js';
+import { NULL_ADDRESS } from 'constants/address';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 export interface NativeTokenBalanceWrapperProps {
@@ -32,7 +33,7 @@ const NativeTokenBalanceWrapper: React.FC<NativeTokenBalanceWrapperProps> = ({
     isLoading: isUserTokenWrappedBalanceMantissaLoading,
   } = useGetBalanceOf(
     {
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
       token: asset.vToken.underlyingToken.tokenWrapped,
     },
     {

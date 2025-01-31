@@ -17,6 +17,7 @@ import {
   TextButton,
   TokenTextField,
 } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import { Link } from 'containers/Link';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -64,11 +65,11 @@ const BridgePage: React.FC = () => {
 
   const { data: getBalanceOfData } = useGetBalanceOf(
     {
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
       token: xvs,
     },
     {
-      enabled: !!accountAddress,
+      enabled: !!accountAddress && !!xvs,
     },
   );
 
