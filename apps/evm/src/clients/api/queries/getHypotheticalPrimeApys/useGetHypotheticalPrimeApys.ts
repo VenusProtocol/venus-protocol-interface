@@ -7,14 +7,15 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useGetPrimeContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useGetPrimeContractAddress } from 'libs/contracts';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 interface UseGetPrimeTokenInput
-  extends Omit<GetHypotheticalPrimeApysInput, 'primeContract' | 'accountAddress'> {
-  accountAddress?: string;
+  extends Omit<GetHypotheticalPrimeApysInput, 'primeContractAddress' | 'accountAddress' | 'publicClient'> {
+  accountAddress?: Address;
 }
 
 export type UseGetHypotheticalPrimeApysQueryKey = [
@@ -34,15 +35,17 @@ type Options = QueryObserverOptions<
 
 const useGetHypotheticalPrimeApys = (input: UseGetPrimeTokenInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();
+  const { publicClient } = usePublicClient();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
-  const primeContract = useGetPrimeContract();
+  const primeContractAddress = useGetPrimeContractAddress();
 
   return useQuery({
     queryKey: [FunctionKey.GET_HYPOTHETICAL_PRIME_APYS, { ...input, chainId }],
 
     queryFn: () =>
-      callOrThrow({ primeContract, accountAddress: input.accountAddress }, params =>
+      callOrThrow({ primeContractAddress, accountAddress: input.accountAddress }, params =>
         getHypotheticalPrimeApys({
+          publicClient,
           ...params,
           ...input,
         }),
