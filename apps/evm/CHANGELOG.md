@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.204.0
+
+### Minor Changes
+
+- 7afbe6c: refactor some query functions to use viem
+
 ## 2.203.0
 
 ### Minor Changes
