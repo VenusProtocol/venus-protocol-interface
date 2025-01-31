@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.203.0
+
+### Minor Changes
+
+- e8530b8: improve APY boost feature
+- e8530b8: update APY boost feature UI
+
 ## 2.202.0
 
 ### Minor Changes
