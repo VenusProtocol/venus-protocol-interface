@@ -188,7 +188,7 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
                 : t('assetInfo.totalApy.supplyApyTooltip')
             }
           >
-            <Icon className="cursor-help" name="info" />
+            <Icon name="info" />
           </Tooltip>
         </div>
       }

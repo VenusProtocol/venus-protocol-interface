@@ -18,6 +18,6 @@ export const InfoIcon = ({
   iconClassName,
 }: InfoIconProps) => (
   <Tooltip className={cn('inline-flex', className)} title={tooltip}>
-    <Icon className={cn('cursor-help', iconClassName)} name={iconName} />
+    <Icon className={iconClassName} name={iconName} />
   </Tooltip>
 );

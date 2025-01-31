@@ -43,7 +43,7 @@ export const LabeledInlineContent = ({
 
       {!!tooltip && (
         <Tooltip className="ml-2 inline-flex items-center" title={tooltip}>
-          <Icon className="cursor-help" name="info" />
+          <Icon name="info" />
         </Tooltip>
       )}
     </div>
