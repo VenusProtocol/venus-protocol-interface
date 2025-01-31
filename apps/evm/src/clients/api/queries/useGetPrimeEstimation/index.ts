@@ -7,12 +7,12 @@ import {
   useGetHypotheticalPrimeApys,
   useGetPrimeDistributionForMarket,
 } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import type FunctionKey from 'constants/functionKey';
 import { DAYS_PER_YEAR } from 'constants/time';
 import { useGetToken } from 'libs/tokens';
 import type { VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
-import { NULL_ADDRESS } from 'constants/address';
 import type { Address } from 'viem';
 
 interface UseGetPrimeEstimationInput {

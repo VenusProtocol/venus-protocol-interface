@@ -6,7 +6,7 @@ import { vXvs } from '__mocks__/models/vTokens';
 
 import getHypotheticalPrimeApys from '..';
 
-describe('api/queries/getHypotheticalPrimeApys', () => {
+describe('getHypotheticalPrimeApys', () => {
   test('returns the simulated Prime APYs on success', async () => {
     const fakePrimeContractAddress = '0x00000000000000000000000000000000PrImE';
     const fakeBorrowAprPercentage = 34n;

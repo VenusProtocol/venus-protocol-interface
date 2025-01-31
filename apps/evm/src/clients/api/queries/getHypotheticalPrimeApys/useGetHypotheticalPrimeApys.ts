@@ -14,7 +14,10 @@ import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
 
 interface UseGetPrimeTokenInput
-  extends Omit<GetHypotheticalPrimeApysInput, 'primeContractAddress' | 'accountAddress' | 'publicClient'> {
+  extends Omit<
+    GetHypotheticalPrimeApysInput,
+    'primeContractAddress' | 'accountAddress' | 'publicClient'
+  > {
   accountAddress?: Address;
 }
 

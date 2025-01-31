@@ -5,7 +5,7 @@ import getCurrentVotes from '..';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 
-describe('api/queries/getCurrentVotes', () => {
+describe('getCurrentVotes', () => {
   test('returns current votes on success', async () => {
     const fakeOutput = 10000n;
     const fakeXvsVaultContractAddress = '0x00000000000000000000000000000000XVsVault';

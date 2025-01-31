@@ -45,13 +45,14 @@ const useGetBalanceOf = (
         tokenAddress: token?.address || NULL_ADDRESS,
       },
     ],
-    queryFn: () => callOrThrow({ token }, params =>
-      getBalanceOf({
-        publicClient,
-        accountAddress,
-        ...params,
-      }),
-    ),
+    queryFn: () =>
+      callOrThrow({ token }, params =>
+        getBalanceOf({
+          publicClient,
+          accountAddress,
+          ...params,
+        }),
+      ),
     ...options,
   });
 };

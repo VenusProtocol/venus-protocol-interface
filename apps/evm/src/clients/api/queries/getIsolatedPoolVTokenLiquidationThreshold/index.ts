@@ -1,10 +1,12 @@
 import BigNumber from 'bignumber.js';
-import type { IsolatedPoolComptroller } from 'libs/contracts';
+import { isolatedPoolComptrollerAbi } from 'libs/contracts';
 import { convertPercentageFromSmartContract } from 'utilities';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetIsolatedPoolVTokenLiquidationThresholdInput {
-  poolComptrollerContract: IsolatedPoolComptroller;
-  vTokenAddress: string;
+  publicClient: PublicClient;
+  poolComptrollerContractAddress: Address;
+  vTokenAddress: Address;
 }
 
 export type GetIsolatedPoolVTokenLiquidationThresholdOutput = {
@@ -12,13 +14,19 @@ export type GetIsolatedPoolVTokenLiquidationThresholdOutput = {
 };
 
 export const getIsolatedPoolVTokenLiquidationThreshold = async ({
-  poolComptrollerContract,
+  publicClient,
+  poolComptrollerContractAddress,
   vTokenAddress,
 }: GetIsolatedPoolVTokenLiquidationThresholdInput): Promise<GetIsolatedPoolVTokenLiquidationThresholdOutput> => {
-  const res = await poolComptrollerContract.markets(vTokenAddress);
+  const [_1, _2, liquidationThresholdMantissa] = await publicClient.readContract({
+    address: poolComptrollerContractAddress,
+    abi: isolatedPoolComptrollerAbi,
+    functionName: 'markets',
+    args: [vTokenAddress],
+  });
 
   const liquidationThresholdPercentage = convertPercentageFromSmartContract(
-    new BigNumber(res.liquidationThresholdMantissa.toString()),
+    new BigNumber(liquidationThresholdMantissa.toString()),
   );
 
   return {
