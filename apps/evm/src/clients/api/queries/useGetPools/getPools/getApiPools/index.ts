@@ -13,6 +13,7 @@ export interface ApiRewardDistributor {
   priceMantissa: string;
   rewardsDistributorContractAddress: Address;
   rewardType: 'venus' | 'merkl';
+  isActive: boolean;
   rewardDetails?: {
     description?: string;
     claimUrl?: string;

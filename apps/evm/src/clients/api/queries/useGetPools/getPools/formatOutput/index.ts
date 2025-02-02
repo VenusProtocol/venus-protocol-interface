@@ -145,7 +145,7 @@ export const formatOutput = ({
         supplyBalanceTokens,
         borrowBalanceTokens,
         currentBlockNumber,
-        apiRewardsDistributors: market.rewardsDistributors,
+        apiRewardsDistributors: market.rewardsDistributors.filter(rd => rd.isActive),
       });
 
       const disabledTokenActions = getDisabledTokenActions({
