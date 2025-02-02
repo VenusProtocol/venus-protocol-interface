@@ -69,6 +69,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -130,6 +131,7 @@
               "borrowSpeed": "8680556000000000",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -191,6 +193,7 @@
               "borrowSpeed": "81250000000000",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -252,6 +255,7 @@
               "borrowSpeed": "52083333000000000",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -313,6 +317,7 @@
               "borrowSpeed": "596440972222220",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -374,6 +379,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -435,6 +441,7 @@
               "borrowSpeed": "868055555555556",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -496,6 +503,7 @@
               "borrowSpeed": "3038194444444440",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -557,6 +565,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -618,6 +627,7 @@
               "borrowSpeed": "8680556000000000",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -679,6 +689,7 @@
               "borrowSpeed": "868055555555555",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -740,6 +751,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -801,6 +813,7 @@
               "borrowSpeed": "434027777777778",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -862,6 +875,7 @@
               "borrowSpeed": "868055555555555",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -923,6 +937,7 @@
               "borrowSpeed": "8680556000000000",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -984,6 +999,7 @@
               "borrowSpeed": "52083333000000000",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -1045,6 +1061,7 @@
               "borrowSpeed": "17361111000000000",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -1106,6 +1123,7 @@
               "borrowSpeed": "17361111000000000",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -1167,6 +1185,7 @@
               "borrowSpeed": "3038194444444440",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -1228,6 +1247,7 @@
               "borrowSpeed": "217013888888889",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -1289,6 +1309,7 @@
               "borrowSpeed": "173611111111111",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -1350,6 +1371,7 @@
               "borrowSpeed": "1590451388888890",
               "priceMantissa": "6393314300000000000",
               "rewardsDistributorContractAddress": null,
+              "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -1423,6 +1445,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "167199100000000000",
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -1437,6 +1460,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "999962830000000000000000000000",
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -1451,6 +1475,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "31120000000000000",
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -1512,6 +1537,7 @@
               "borrowSpeed": "16753472222222222",
               "priceMantissa": "167199100000000000",
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             },
@@ -1526,6 +1552,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "999962830000000000000000000000",
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             },
@@ -1540,6 +1567,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "31120000000000000",
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             }
@@ -1601,6 +1629,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "167199100000000000",
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             },
@@ -1615,6 +1644,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "999962830000000000000000000000",
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             },
@@ -1629,6 +1659,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "31120000000000000",
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
@@ -1690,6 +1721,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "167199100000000000",
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -1704,6 +1736,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "999962830000000000000000000000",
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -1718,6 +1751,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "31120000000000000",
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -1779,6 +1813,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "167199100000000000",
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             },
@@ -1793,6 +1828,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "999962830000000000000000000000",
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -1807,6 +1843,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "31120000000000000",
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             }
@@ -1868,6 +1905,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "167199100000000000",
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -1882,6 +1920,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "999962830000000000000000000000",
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -1896,6 +1935,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "31120000000000000",
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -1957,6 +1997,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "167199100000000000",
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -1971,6 +2012,7 @@
               "borrowSpeed": "1860",
               "priceMantissa": "999962830000000000000000000000",
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -1985,6 +2027,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "31120000000000000",
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -2046,6 +2089,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "167199100000000000",
               "rewardsDistributorContractAddress": "0x2b67Cfaf28a1aBbBf71fb814Ad384d0C5a98e0F9",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             },
@@ -2060,6 +2104,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "999962830000000000000000000000",
               "rewardsDistributorContractAddress": "0x9372F0d88988B2cC0a2bf8700a5B3f04B0b81b8C",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             },
@@ -2074,6 +2119,7 @@
               "borrowSpeed": "289351851851851851",
               "priceMantissa": "31120000000000000",
               "rewardsDistributorContractAddress": "0x4be90041D1e082EfE3613099aA3b987D9045d718",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
@@ -2147,6 +2193,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "121370000000000",
               "rewardsDistributorContractAddress": "0x5651866bcC4650d6fe5178E5ED7a8Be2cf3F70D0",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -2161,6 +2208,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "190100000000000",
               "rewardsDistributorContractAddress": "0x66E213a4b8ba1c8D62cAa4649C7177E29321E262",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -2222,6 +2270,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "121370000000000",
               "rewardsDistributorContractAddress": "0x5651866bcC4650d6fe5178E5ED7a8Be2cf3F70D0",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -2236,6 +2285,7 @@
               "borrowSpeed": "6076388888888888888",
               "priceMantissa": "190100000000000",
               "rewardsDistributorContractAddress": "0x66E213a4b8ba1c8D62cAa4649C7177E29321E262",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -2297,6 +2347,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "121370000000000",
               "rewardsDistributorContractAddress": "0x5651866bcC4650d6fe5178E5ED7a8Be2cf3F70D0",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -2311,6 +2362,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "190100000000000",
               "rewardsDistributorContractAddress": "0x66E213a4b8ba1c8D62cAa4649C7177E29321E262",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -2372,6 +2424,7 @@
               "borrowSpeed": "230305570295138888888",
               "priceMantissa": "121370000000000",
               "rewardsDistributorContractAddress": "0x5651866bcC4650d6fe5178E5ED7a8Be2cf3F70D0",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -2386,6 +2439,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "190100000000000",
               "rewardsDistributorContractAddress": "0x66E213a4b8ba1c8D62cAa4649C7177E29321E262",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -2459,6 +2513,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "337950000000000000000",
               "rewardsDistributorContractAddress": "0x7df11563c6b6b8027aE619FD9644A647dED5893B",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-07-23T10:35:33.000Z"
             },
@@ -2473,6 +2528,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "530475307358601438095",
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -2487,6 +2543,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "920136040000000000",
               "rewardsDistributorContractAddress": "0x37fA1e5613455223F09e179DFAEBba61d7505C97",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -2501,6 +2558,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -2562,6 +2620,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "337950000000000000000",
               "rewardsDistributorContractAddress": "0x7df11563c6b6b8027aE619FD9644A647dED5893B",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-07-23T10:35:33.000Z"
             },
@@ -2576,6 +2635,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "530475307358601438095",
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -2590,6 +2650,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "920136040000000000",
               "rewardsDistributorContractAddress": "0x37fA1e5613455223F09e179DFAEBba61d7505C97",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -2604,6 +2665,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -2665,6 +2727,7 @@
               "borrowSpeed": "26620370370370",
               "priceMantissa": "337950000000000000000",
               "rewardsDistributorContractAddress": "0x7df11563c6b6b8027aE619FD9644A647dED5893B",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-07-23T10:35:33.000Z"
             },
@@ -2679,6 +2742,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "530475307358601438095",
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             },
@@ -2693,6 +2757,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "920136040000000000",
               "rewardsDistributorContractAddress": "0x37fA1e5613455223F09e179DFAEBba61d7505C97",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             },
@@ -2707,6 +2772,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
@@ -2768,6 +2834,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "337950000000000000000",
               "rewardsDistributorContractAddress": "0x7df11563c6b6b8027aE619FD9644A647dED5893B",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-07-23T10:35:33.000Z"
             },
@@ -2782,6 +2849,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "530475307358601438095",
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -2796,6 +2864,7 @@
               "borrowSpeed": "1157407407407407",
               "priceMantissa": "920136040000000000",
               "rewardsDistributorContractAddress": "0x37fA1e5613455223F09e179DFAEBba61d7505C97",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -2810,6 +2879,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
@@ -2871,6 +2941,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "337950000000000000000",
               "rewardsDistributorContractAddress": "0x7df11563c6b6b8027aE619FD9644A647dED5893B",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-07-23T10:35:32.000Z"
             },
@@ -2885,6 +2956,7 @@
               "borrowSpeed": "1504629629629",
               "priceMantissa": "530475307358601438095",
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -2899,6 +2971,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "920136040000000000",
               "rewardsDistributorContractAddress": "0x8Ad2Ad29e4e2C0606644Be51c853A7A4a3078F85",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -2913,6 +2986,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -2974,6 +3048,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "337950000000000000000",
               "rewardsDistributorContractAddress": "0x7df11563c6b6b8027aE619FD9644A647dED5893B",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-07-23T10:35:33.000Z"
             },
@@ -2988,6 +3063,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "530475307358601438095",
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -3002,6 +3078,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "920136040000000000",
               "rewardsDistributorContractAddress": "0x8Ad2Ad29e4e2C0606644Be51c853A7A4a3078F85",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -3016,6 +3093,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -3077,6 +3155,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "337950000000000000000",
               "rewardsDistributorContractAddress": "0x7df11563c6b6b8027aE619FD9644A647dED5893B",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-07-23T10:35:33.000Z"
             },
@@ -3091,6 +3170,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "530475307358601438095",
               "rewardsDistributorContractAddress": "0x72c770A1E73Ad9ccD5249fC5536346f95345Fe2c",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -3105,6 +3185,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "920136040000000000",
               "rewardsDistributorContractAddress": "0x37fA1e5613455223F09e179DFAEBba61d7505C97",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -3119,6 +3200,7 @@
               "borrowSpeed": "930059523809523",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0xc1Ea6292C49D6B6E952baAC6673dE64701bB88cB",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -3192,6 +3274,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "981662175000000000",
               "rewardsDistributorContractAddress": "0x34e14e4A5f5de28f8e58aeD296068ce5c3C25C4c",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T02:03:12.000Z"
             },
@@ -3206,6 +3289,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "6387955200000000000",
               "rewardsDistributorContractAddress": "0x4597B9287fE0DF3c5513D66886706E0719bD270f",
+              "isActive": true,
               "createdAt": "2024-08-15T14:48:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             },
@@ -3220,6 +3304,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "999930820000000000000000000000",
               "rewardsDistributorContractAddress": "0x92e8E3C202093A495e98C10f9fcaa5Abe288F74A",
+              "isActive": true,
               "createdAt": "2024-08-15T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             },
@@ -3234,6 +3319,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "2463080000000000000000",
               "rewardsDistributorContractAddress": "0xec594364d2B7eB3678f351Ac632cC71E718E0F89",
+              "isActive": true,
               "createdAt": "2024-08-15T14:48:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             }
@@ -3295,6 +3381,7 @@
               "borrowSpeed": "12134623477230768",
               "priceMantissa": "981662175000000000",
               "rewardsDistributorContractAddress": "0x34e14e4A5f5de28f8e58aeD296068ce5c3C25C4c",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T02:03:12.000Z"
             }
@@ -3368,6 +3455,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "32000000000000000",
               "rewardsDistributorContractAddress": "0x78d32FC46e5025c29e3BA03Fcf2840323351F26a",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -3382,6 +3470,7 @@
               "borrowSpeed": "1240079365079365",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0x2aBEf3602B688493fe698EF11D27DCa43a0CE4BE",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -3443,6 +3532,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "32000000000000000",
               "rewardsDistributorContractAddress": "0x78d32FC46e5025c29e3BA03Fcf2840323351F26a",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             },
@@ -3457,6 +3547,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0xb0269d68CfdCc30Cb7Cd2E0b52b08Fa7Ffd3079b",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
@@ -3518,6 +3609,7 @@
               "borrowSpeed": "87549603174603174",
               "priceMantissa": "32000000000000000",
               "rewardsDistributorContractAddress": "0x78d32FC46e5025c29e3BA03Fcf2840323351F26a",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -3532,6 +3624,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0xb0269d68CfdCc30Cb7Cd2E0b52b08Fa7Ffd3079b",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -3593,6 +3686,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "32000000000000000",
               "rewardsDistributorContractAddress": "0x78d32FC46e5025c29e3BA03Fcf2840323351F26a",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -3607,6 +3701,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0x2aBEf3602B688493fe698EF11D27DCa43a0CE4BE",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
@@ -3680,6 +3775,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -3694,6 +3790,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "85080000000000",
               "rewardsDistributorContractAddress": "0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -3708,6 +3805,7 @@
               "borrowSpeed": "45461",
               "priceMantissa": "151239800000000000000000000000",
               "rewardsDistributorContractAddress": "0x507401883C2a874D919e78a73dD0cB56f2e7eaD7",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -3722,6 +3820,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "850000000000",
               "rewardsDistributorContractAddress": "0x095902273F06eEAC825c3F52dEF44f67a86B31cD",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
@@ -3783,6 +3882,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             },
@@ -3797,6 +3897,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "85080000000000",
               "rewardsDistributorContractAddress": "0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             },
@@ -3811,6 +3912,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "157826000000000000000000000000",
               "rewardsDistributorContractAddress": "0x507401883C2a874D919e78a73dD0cB56f2e7eaD7",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             },
@@ -3825,6 +3927,7 @@
               "borrowSpeed": "19969071901620370370370",
               "priceMantissa": "850000000000",
               "rewardsDistributorContractAddress": "0x095902273F06eEAC825c3F52dEF44f67a86B31cD",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
@@ -3886,6 +3989,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -3900,6 +4004,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "85080000000000",
               "rewardsDistributorContractAddress": "0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -3914,6 +4019,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "151239800000000000000000000000",
               "rewardsDistributorContractAddress": "0x507401883C2a874D919e78a73dD0cB56f2e7eaD7",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -3928,6 +4034,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "850000000000",
               "rewardsDistributorContractAddress": "0x095902273F06eEAC825c3F52dEF44f67a86B31cD",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
@@ -3989,6 +4096,7 @@
               "borrowSpeed": "14467592592592592",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -4003,6 +4111,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "85080000000000",
               "rewardsDistributorContractAddress": "0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -4017,6 +4126,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "151239800000000000000000000000",
               "rewardsDistributorContractAddress": "0x507401883C2a874D919e78a73dD0cB56f2e7eaD7",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -4031,6 +4141,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "850000000000",
               "rewardsDistributorContractAddress": "0x095902273F06eEAC825c3F52dEF44f67a86B31cD",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
@@ -4092,6 +4203,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "1000000000000000000",
               "rewardsDistributorContractAddress": "0x1c50672f4752cc0Ae532D9b93b936C21121Ff08b",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:04.000Z"
             },
@@ -4106,6 +4218,7 @@
               "borrowSpeed": "24805131365740740740",
               "priceMantissa": "85080000000000",
               "rewardsDistributorContractAddress": "0x9A73Ba89f6a95611B46b68241aBEcAF2cD0bd78A",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:04.000Z"
             },
@@ -4120,6 +4233,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "151239800000000000000000000000",
               "rewardsDistributorContractAddress": "0x507401883C2a874D919e78a73dD0cB56f2e7eaD7",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             },
@@ -4134,6 +4248,7 @@
               "borrowSpeed": "0",
               "priceMantissa": "850000000000",
               "rewardsDistributorContractAddress": "0x095902273F06eEAC825c3F52dEF44f67a86B31cD",
+              "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
