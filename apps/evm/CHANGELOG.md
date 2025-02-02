@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.206.0
+
+### Minor Changes
+
+- 82183e2: filter inactive rewards
+
 ## 2.205.0
 
 ### Minor Changes
