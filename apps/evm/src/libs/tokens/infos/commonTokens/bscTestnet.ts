@@ -28,6 +28,7 @@ import ptSolvBtcLogo from 'libs/tokens/img/underlyingTokens/ptSolvBtc.svg';
 import racaLogo from 'libs/tokens/img/underlyingTokens/raca.png';
 import sdLogo from 'libs/tokens/img/underlyingTokens/sd.svg';
 import slisBnbLogo from 'libs/tokens/img/underlyingTokens/slisBNB.png';
+import solLogo from 'libs/tokens/img/underlyingTokens/sol.svg';
 import solvBtcLogo from 'libs/tokens/img/underlyingTokens/solvBtc.png';
 import stkBNBLogo from 'libs/tokens/img/underlyingTokens/stkBNB.svg';
 import sxpLogo from 'libs/tokens/img/underlyingTokens/sxp.svg';
@@ -368,5 +369,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'PT-SolvBTC.BBN-MAR25',
     asset: ptSolvBtcLogo,
+  },
+  {
+    address: '0xC337Dd0390FdFD0Ee5D2b682E425986EDD7b59da',
+    decimals: 18,
+    symbol: 'SOL',
+    asset: solLogo,
   },
 ];
