@@ -6,6 +6,7 @@ export const getRemoteProposalState = ({
   isRemoteProposalBridged,
   isRemoteProposalQueued,
   isRemoteProposalCanceled,
+  isRemoteProposalFailed,
   isRemoteProposalExecuted,
   remoteProposalExecutionEtaDate,
 }: {
@@ -14,6 +15,7 @@ export const getRemoteProposalState = ({
   isRemoteProposalQueued: boolean;
   isRemoteProposalExecuted: boolean;
   isRemoteProposalCanceled: boolean;
+  isRemoteProposalFailed: boolean;
   remoteProposalExecutionEtaDate?: Date;
 }) => {
   if (
@@ -23,6 +25,10 @@ export const getRemoteProposalState = ({
     proposalState === ProposalState.Expired
   ) {
     return RemoteProposalState.Canceled;
+  }
+
+  if (isRemoteProposalFailed) {
+    return RemoteProposalState.Failed;
   }
 
   if (isRemoteProposalExecuted) {

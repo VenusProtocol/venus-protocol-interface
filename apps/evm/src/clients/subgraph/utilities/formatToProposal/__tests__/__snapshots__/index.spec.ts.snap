@@ -72,6 +72,8 @@ exports[`formatToProposal > returns proposal in the correct format 1`] = `
       "executedTxHash": undefined,
       "executionEtaDate": undefined,
       "expiredDate": undefined,
+      "failedDate": undefined,
+      "failedTxHash": undefined,
       "proposalActions": [
         {
           "actionIndex": 0,
@@ -96,6 +98,8 @@ exports[`formatToProposal > returns proposal in the correct format 1`] = `
       "executedTxHash": undefined,
       "executionEtaDate": undefined,
       "expiredDate": undefined,
+      "failedDate": undefined,
+      "failedTxHash": undefined,
       "proposalActions": [
         {
           "actionIndex": 0,
@@ -120,6 +124,8 @@ exports[`formatToProposal > returns proposal in the correct format 1`] = `
       "executedTxHash": undefined,
       "executionEtaDate": undefined,
       "expiredDate": undefined,
+      "failedDate": undefined,
+      "failedTxHash": undefined,
       "proposalActions": [
         {
           "actionIndex": 0,

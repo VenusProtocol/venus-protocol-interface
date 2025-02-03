@@ -709,6 +709,7 @@
     "defeated": "Defeated",
     "executed": "Executed",
     "expired": "Expired",
+    "failed": "Failed",
     "pending": "Pending",
     "queued": "Queued",
     "succeeded": "Succeeded"
@@ -1146,6 +1147,7 @@
       "description": {
         "bridged": "Waiting for the bridge to propagate the transaction",
         "canceled": "Payload execution cancelled by governance guardian",
+        "failed": "Payload could not be sent to the destination network",
         "pending": "Waiting for the {{chainName}} payload to be executed",
         "pendingBsc": "Waiting for voting to start",
         "waitingToBeExecutable": "Waiting for queueing period to end",

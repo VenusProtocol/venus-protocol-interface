@@ -155,4 +155,27 @@ export const remoteProposals: RemoteProposal[] = [
       },
     ],
   },
+  {
+    proposalId: 8,
+    remoteProposalId: 8,
+    chainId: ChainId.ARBITRUM_SEPOLIA,
+    state: RemoteProposalState.Failed,
+    failedDate: fakePastDate,
+    proposalActions: [
+      {
+        actionIndex: 0,
+        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+        signature: 'test()',
+        value: '',
+        callData: '0x',
+      },
+      {
+        actionIndex: 0,
+        target: '0x2Ce1d0ffD7E869D9DF33e28552b12DdDed326706',
+        signature: 'test()',
+        value: '',
+        callData: '0x',
+      },
+    ],
+  },
 ];

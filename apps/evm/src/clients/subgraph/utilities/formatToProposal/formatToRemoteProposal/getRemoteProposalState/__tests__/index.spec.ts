@@ -18,6 +18,7 @@ describe('getRemoteProposalState', () => {
       isRemoteProposalQueued: true,
       isRemoteProposalExecuted: false,
       isRemoteProposalCanceled: true,
+      isRemoteProposalFailed: false,
     });
     expect(result).toBe(RemoteProposalState.Canceled);
   });
@@ -28,6 +29,7 @@ describe('getRemoteProposalState', () => {
       isRemoteProposalQueued: true,
       isRemoteProposalExecuted: false,
       isRemoteProposalCanceled: true,
+      isRemoteProposalFailed: false,
     };
 
     expect(
@@ -52,6 +54,18 @@ describe('getRemoteProposalState', () => {
     ).toBe(RemoteProposalState.Canceled);
   });
 
+  it('returns Failed when isRemoteProposalFailed is true', () => {
+    const result = getRemoteProposalState({
+      proposalState: ProposalState.Executed,
+      isRemoteProposalBridged: false,
+      isRemoteProposalQueued: false,
+      isRemoteProposalExecuted: false,
+      isRemoteProposalCanceled: false,
+      isRemoteProposalFailed: true,
+    });
+    expect(result).toBe(RemoteProposalState.Failed);
+  });
+
   it('returns Executed when isRemoteProposalExecuted is true', () => {
     const result = getRemoteProposalState({
       proposalState: ProposalState.Executed,
@@ -59,6 +73,7 @@ describe('getRemoteProposalState', () => {
       isRemoteProposalQueued: true,
       isRemoteProposalExecuted: true,
       isRemoteProposalCanceled: false,
+      isRemoteProposalFailed: false,
     });
     expect(result).toBe(RemoteProposalState.Executed);
   });
@@ -70,6 +85,7 @@ describe('getRemoteProposalState', () => {
       isRemoteProposalQueued: false,
       isRemoteProposalExecuted: false,
       isRemoteProposalCanceled: false,
+      isRemoteProposalFailed: false,
     });
     expect(result).toBe(RemoteProposalState.Pending);
   });
@@ -81,6 +97,7 @@ describe('getRemoteProposalState', () => {
       isRemoteProposalQueued: false,
       isRemoteProposalExecuted: false,
       isRemoteProposalCanceled: false,
+      isRemoteProposalFailed: false,
     });
     expect(result).toBe(RemoteProposalState.Bridged);
   });
@@ -92,6 +109,7 @@ describe('getRemoteProposalState', () => {
       isRemoteProposalQueued: true,
       isRemoteProposalExecuted: false,
       isRemoteProposalCanceled: false,
+      isRemoteProposalFailed: false,
       remoteProposalExecutionEtaDate: new Date('2024-03-14T13:00:00Z'),
     });
     expect(result).toBe(RemoteProposalState.Queued);
@@ -104,6 +122,7 @@ describe('getRemoteProposalState', () => {
       isRemoteProposalQueued: true,
       isRemoteProposalExecuted: false,
       isRemoteProposalCanceled: false,
+      isRemoteProposalFailed: false,
     });
     expect(result).toBe(RemoteProposalState.Queued);
   });
@@ -120,6 +139,7 @@ describe('getRemoteProposalState', () => {
       isRemoteProposalQueued: true,
       isRemoteProposalExecuted: false,
       isRemoteProposalCanceled: false,
+      isRemoteProposalFailed: false,
       remoteProposalExecutionEtaDate,
     });
     expect(result).toBe(RemoteProposalState.Expired);

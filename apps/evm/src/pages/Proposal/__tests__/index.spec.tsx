@@ -58,7 +58,7 @@ const remoteProposal: RemoteProposal = {
 };
 
 const activeProposal = proposals[1];
-const canceledProposal = proposals[3];
+const defeatedProposal = proposals[3];
 const succeededProposal = proposals[4];
 const queuedProposal = proposals[5];
 
@@ -135,7 +135,7 @@ describe('ProposalComp page', () => {
   it('vote buttons are hidden when proposal is not active', async () => {
     (useGetProposal as Mock).mockImplementation(() => ({
       data: {
-        proposal: canceledProposal,
+        proposal: defeatedProposal,
       },
     }));
 
@@ -342,6 +342,7 @@ describe('ProposalComp page', () => {
     );
     abstainVoteSummary.getByText(voters.result[2].address);
   });
+
   it.each([
     // Pending
     {
@@ -455,6 +456,12 @@ describe('ProposalComp page', () => {
       ...remoteProposal,
       state: RemoteProposalState.Executed,
       executedDate: fakeNow,
+    },
+    // Failed
+    {
+      ...remoteProposal,
+      state: RemoteProposalState.Failed,
+      failedDate: fakeNow,
     },
   ])('renders remote commands correctly. Remote proposal state: $state', async remoteProposal => {
     const customProposal: Proposal = {
