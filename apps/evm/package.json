@@ -123,7 +123,7 @@
     "@types/styled-components": "^5.1.26",
     "@venusprotocol/governance-contracts": "2.7.0",
     "@venusprotocol/isolated-pools": "3.8.0",
-    "@venusprotocol/oracle": "2.7.0",
+    "@venusprotocol/oracle": "2.8.0",
     "@venusprotocol/protocol-reserve": "2.4.0",
     "@venusprotocol/stylelint-config": "*",
     "@venusprotocol/token-bridge": "2.4.0",
