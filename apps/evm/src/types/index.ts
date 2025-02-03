@@ -143,6 +143,7 @@ export enum RemoteProposalState {
   Canceled,
   Expired,
   Executed,
+  Failed,
 }
 
 export enum ProposalState {
@@ -253,6 +254,8 @@ export interface RemoteProposal {
   proposalActions: ProposalAction[];
   remoteProposalId?: number;
   bridgedDate?: Date;
+  failedDate?: Date;
+  failedTxHash?: string;
   canceledDate?: Date;
   canceledTxHash?: string;
   queuedDate?: Date;

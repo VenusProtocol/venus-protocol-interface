@@ -33,3 +33,5 @@ exports[`ProposalComp page > renders remote commands correctly. Remote proposal 
 exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 4 1`] = `"CommandsExecuted payloads1/2BNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetExpired20 Sep 2023 7:49 AM"`;
 
 exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 5 1`] = `"CommandsAll payloads executedBNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetExecuted20 Sep 2023 7:49 AM"`;
+
+exports[`ProposalComp page > renders remote commands correctly. Remote proposal state: 6 1`] = `"CommandsExecuted payloads1/2BNB testnetExecuted20 Sep 2023 7:49 AMBNB testnetPayload could not be sent to the destination networkFailed20 Sep 2023 7:49 AM"`;

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
+import { governanceChain } from 'libs/wallet';
 import { type RemoteProposal, RemoteProposalState } from 'types';
 import generateExplorerUrl from 'utilities/generateExplorerUrl';
 import { Status, type StatusProps } from '../../Status';
@@ -47,6 +48,18 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({
         });
     }
 
+    if (remoteProposal.state === RemoteProposalState.Failed) {
+      tmpStatus = t('proposalState.failed');
+      tmpType = 'error';
+      tmpStatusHref =
+        remoteProposal.failedTxHash &&
+        generateExplorerUrl({
+          hash: remoteProposal.failedTxHash,
+          urlType: 'tx',
+          chainId: governanceChain.id,
+        });
+    }
+
     if (remoteProposal.state === RemoteProposalState.Queued) {
       tmpStatus = t('proposalState.queued');
       tmpStatusHref =
@@ -83,12 +96,17 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({
     remoteProposal.canceledTxHash,
     remoteProposal.queuedTxHash,
     remoteProposal.executedTxHash,
+    remoteProposal.failedTxHash,
     t,
   ]);
 
   const previousStepDate = useMemo(() => {
     if (remoteProposal.state === RemoteProposalState.Bridged) {
       return remoteProposal.bridgedDate;
+    }
+
+    if (remoteProposal.state === RemoteProposalState.Failed) {
+      return remoteProposal.failedDate;
     }
 
     if (remoteProposal.state === RemoteProposalState.Canceled) {
@@ -109,6 +127,7 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({
   }, [
     remoteProposal.state,
     remoteProposal.bridgedDate,
+    remoteProposal.failedDate,
     remoteProposal.canceledDate,
     remoteProposal.queuedDate,
     remoteProposal.executedDate,

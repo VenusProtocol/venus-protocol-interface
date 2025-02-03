@@ -61,6 +61,8 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
         });
       case RemoteProposalState.Bridged:
         return t('voteProposalUi.command.description.bridged');
+      case RemoteProposalState.Failed:
+        return t('voteProposalUi.command.description.failed');
       case RemoteProposalState.Canceled:
         return t('voteProposalUi.command.description.canceled');
       case RemoteProposalState.Queued:

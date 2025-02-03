@@ -58,7 +58,6 @@ fragment BscProposal on Proposal {
   remoteProposals {
     id
     proposalId
-
     targets
     values
     signatures
@@ -70,6 +69,8 @@ fragment BscProposal on Proposal {
     }
 
     stateTransactions {
+      id
+
       stored {
         id
         timestamp

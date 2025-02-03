@@ -181,6 +181,7 @@ export const formatToProposal = ({
         failedTimestampSeconds: stateTransactions?.stored?.timestamp
           ? Number(stateTransactions.stored.timestamp)
           : undefined,
+        failedTxHash: stateTransactions?.stored?.txHash,
         bridgedTimestampSeconds: stateTransactions?.executed?.timestamp
           ? Number(stateTransactions.executed.timestamp)
           : undefined,

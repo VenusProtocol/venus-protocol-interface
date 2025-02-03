@@ -16,6 +16,7 @@ export const formatToRemoteProposal = ({
   gqlRemoteProposal,
   bridgedTimestampSeconds,
   failedTimestampSeconds,
+  failedTxHash,
   withdrawnTimestampSeconds,
   withdrawnTxHash,
   callDatas,
@@ -34,6 +35,7 @@ export const formatToRemoteProposal = ({
   proposalExpiredDate?: Date;
   proposalEndDate?: Date;
   failedTimestampSeconds?: number;
+  failedTxHash?: string;
   bridgedTimestampSeconds?: number;
   withdrawnTimestampSeconds?: number;
   withdrawnTxHash?: string;
@@ -42,6 +44,7 @@ export const formatToRemoteProposal = ({
   const chainId = CHAIN_IDS_ON_LAYER_ZERO[layerZeroChainId];
 
   let canceledDate: Date | undefined;
+  let failedDate: Date | undefined;
   let canceledTxHash: string | undefined;
 
   if (gqlRemoteProposal?.canceled?.timestamp) {
@@ -50,7 +53,7 @@ export const formatToRemoteProposal = ({
     });
     canceledTxHash = gqlRemoteProposal.canceled.txHash;
   } else if (failedTimestampSeconds) {
-    canceledDate = convertToDate({
+    failedDate = convertToDate({
       timestampSeconds: Number(failedTimestampSeconds),
     });
   } else if (withdrawnTimestampSeconds) {
@@ -74,6 +77,7 @@ export const formatToRemoteProposal = ({
 
   const state = getRemoteProposalState({
     proposalState,
+    isRemoteProposalFailed: !!failedTimestampSeconds,
     isRemoteProposalBridged: !!bridgedTimestampSeconds,
     isRemoteProposalQueued: !!gqlRemoteProposal?.queued?.timestamp,
     isRemoteProposalExecuted: !!gqlRemoteProposal?.executed?.timestamp,
@@ -98,6 +102,8 @@ export const formatToRemoteProposal = ({
     }),
     canceledDate,
     canceledTxHash,
+    failedDate,
+    failedTxHash,
     bridgedDate: bridgedTimestampSeconds
       ? convertToDate({ timestampSeconds: bridgedTimestampSeconds })
       : undefined,
