@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.207.0
+
+### Minor Changes
+
+- 76da055: add support for SOL
+- 2747ace: handle failed remote proposals
+
 ## 2.206.0
 
 ### Minor Changes
