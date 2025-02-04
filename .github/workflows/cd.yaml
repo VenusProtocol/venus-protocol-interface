@@ -11,6 +11,7 @@ concurrency:
 
 env:
   VITE_ENV: "ci"
+  HOSTNAME: "app-ipfs.venus.io"
 
 jobs:
   release:
@@ -27,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "lts/*"
+          node-version: "20.11.1"
           cache: "yarn"
 
       - name: Install dependencies
@@ -47,3 +48,57 @@ jobs:
           git status
           git commit --verbose -a -m "chore: bump package versions" || exit 0
           git push
+      
+      - name: Run tests and collect coverage
+        run: yarn test --coverage
+
+      - name: Build
+        env:
+          VITE_NETWORK: "mainnet"
+          VITE_ENV: "production"
+          VITE_SENTRY_DSN: ${{ secrets.VITE_SENTRY_DSN }}
+          VITE_POSTHOG_API_KEY: ${{ secrets.VITE_POSTHOG_API_KEY }}
+          VITE_POSTHOG_HOST_URL: ${{ secrets.VITE_POSTHOG_HOST_URL }}
+          VITE_ZYFI_API_KEY: ${{ secrets.VITE_ZYFI_API_KEY }}
+          VITE_NODE_REAL_API_KEY: ${{ secrets.VITE_NODE_REAL_API_KEY }}
+          VITE_THE_GRAPH_API_KEY: ${{ secrets.VITE_THE_GRAPH_API_KEY }}
+        run: |
+          # We only build the dApp because the landing page is deployed with Vercel
+          yarn build --filter=@venusprotocol/evm
+
+      - name: Upload to IPFS and pin
+        id: uploadBuildToIpfs
+        uses: VenusProtocol/pinata-action@96e90c7a6eb52b60267a323758d89d25bf5e1d72 
+        with:
+          path: ./apps/evm/build
+          pinName: ${{ env.HOSTNAME }}
+          maxPinsToKeep: 20
+          pinataApiKey: ${{ secrets.PINATA_API_KEY }}
+          pinataApiSecret: ${{ secrets.PINATA_API_SECRET }}
+
+      - name: Update DNS record and purge cache
+        uses: VenusProtocol/cloudflare-dnslink-action@297058f76eaeb59a95bc6352e7535f49a56ff456
+        with:
+          cid: ${{ steps.uploadBuildToIpfs.outputs.cid }}
+          purge: true
+          cloudflareHostname: ${{ env.HOSTNAME }}
+          cloudflareApiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflareZoneId: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+
+      - name: Warm up cache
+        uses: VenusProtocol/globalping-action@f38ac8fef000087c08282a4437b54e398bd6f42a
+        with:
+          target: ${{ env.HOSTNAME }}
+          countryCodes: |
+            SG
+            HK
+            JP
+            DE
+            US
+            BR
+            GB
+            FR
+            SE
+            AU
+            IN
+            IE
