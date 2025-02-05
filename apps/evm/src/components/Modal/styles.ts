@@ -77,7 +77,6 @@ export const useModalStyles = ({
       font-weight: ${theme.typography.h4.fontWeight};
     `,
     closeIcon: css`
-      right: ${theme.spacing(6)};
       top: 50%;
       margin-top: ${-theme.shape.iconSize.xLarge / 2}px;
       position: absolute;
