@@ -5401,10 +5401,10 @@
   dependencies:
     unplugin "^1.3.1"
 
-"@storybook/csf@^0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.11.tgz#ad685a4fe564a47a6b73571c2e7c07b526f4f71b"
-  integrity sha512-dHYFQH3mA+EtnCkHXzicbLgsvzYjcDJ1JWsogbItZogkPHgSJM/Wr71uMkcvw8v9mmCyP4NpXJuu6bPoVsOnzg==
+"@storybook/csf@0.1.12", "@storybook/csf@^0.1.11":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.12.tgz#1dcfa0f398a69b834c563884b5f747db3d5a81df"
+  integrity sha512-9/exVhabisyIVL0VxTCxo01Tdm8wefIXKXfltAPTSr8cbLn5JAxGQ6QV3mjdecLGEOucfoVhAKtJfVHxEK1iqw==
   dependencies:
     type-fest "^2.19.0"
 
@@ -5422,6 +5422,14 @@
   version "8.4.2"
   resolved "https://registry.yarnpkg.com/@storybook/instrumenter/-/instrumenter-8.4.2.tgz#6599abf2b698328659eb0cd5568d553f8d649776"
   integrity sha512-gPYCZ/0O6gRLI3zmenu2N6QtKzxDZFdT2xf4RWcNUSZyp28RZkRCIgKFMt3fTmvE0yMzAjQyRSkBdrONjQ44HA==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+    "@vitest/utils" "^2.1.1"
+
+"@storybook/instrumenter@8.5.3":
+  version "8.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/instrumenter/-/instrumenter-8.5.3.tgz#7bace56ad9a920d1ba4a80707f985828d7895451"
+  integrity sha512-pxaTbGeju8MkwouIiaWX5DMWtpRruxqig8W3nZPOvzoSCCbQY+sLMQoyXxFlpGxLBjcvXivkL7AMVBKps5sFEQ==
   dependencies:
     "@storybook/global" "^5.0.0"
     "@vitest/utils" "^2.1.1"
@@ -5476,6 +5484,20 @@
     "@storybook/csf" "^0.1.11"
     "@storybook/global" "^5.0.0"
     "@storybook/instrumenter" "8.4.2"
+    "@testing-library/dom" "10.4.0"
+    "@testing-library/jest-dom" "6.5.0"
+    "@testing-library/user-event" "14.5.2"
+    "@vitest/expect" "2.0.5"
+    "@vitest/spy" "2.0.5"
+
+"@storybook/test@8.5.3":
+  version "8.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/test/-/test-8.5.3.tgz#96f51046182e026a89e923404733bf8968d5f290"
+  integrity sha512-2smoDbtU6Qh4yk0uD18qGfW6ll7lZBzKlF58Ha1CgWR4o+jpeeTQcfDLH9gG6sNrpojF7AVzMh/aN9BDHD+Chg==
+  dependencies:
+    "@storybook/csf" "0.1.12"
+    "@storybook/global" "^5.0.0"
+    "@storybook/instrumenter" "8.5.3"
     "@testing-library/dom" "10.4.0"
     "@testing-library/jest-dom" "6.5.0"
     "@testing-library/user-event" "14.5.2"
