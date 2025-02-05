@@ -1,11 +1,14 @@
 import type BigNumber from 'bignumber.js';
-
-import type { AssetDistribution, Token } from 'types';
+import { isBefore } from 'date-fns';
+import type { PointDistribution, Token, TokenDistribution } from 'types';
 import { calculateDailyTokenRate } from 'utilities/calculateDailyTokenRate';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from './formatRewardDistribution';
 
-import type { ApiRewardDistributor } from 'clients/api/queries/useGetPools/getPools/getApiPools';
+import type {
+  ApiPointDistribution,
+  ApiRewardDistributor,
+} from 'clients/api/queries/useGetPools/getPools/getApiPools';
 import { convertPriceMantissaToDollars } from 'utilities';
 import type { PrimeApy } from '../../../types';
 import { isDistributingRewards } from './isDistributingRewards';
@@ -14,6 +17,7 @@ export type FormatDistributionsInput = {
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
   apiRewardsDistributors: ApiRewardDistributor[];
+  apiPointDistributions: ApiPointDistribution[];
   currentBlockNumber: bigint;
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
@@ -27,18 +31,20 @@ export const formatDistributions = ({
   underlyingTokenPriceDollars,
   tokens,
   apiRewardsDistributors,
+  apiPointDistributions,
   currentBlockNumber,
   supplyBalanceTokens,
   borrowBalanceTokens,
   underlyingToken,
   primeApy,
 }: FormatDistributionsInput) => {
-  const supplyDistributions: AssetDistribution[] = [];
-  const borrowDistributions: AssetDistribution[] = [];
+  const supplyTokenDistributions: TokenDistribution[] = [];
+  const borrowTokenDistributions: TokenDistribution[] = [];
 
   const supplyBalanceDollars = supplyBalanceTokens.multipliedBy(underlyingTokenPriceDollars);
   const borrowBalanceDollars = borrowBalanceTokens.multipliedBy(underlyingTokenPriceDollars);
 
+  // Add token distributions
   apiRewardsDistributors.forEach(
     ({
       rewardType,
@@ -84,7 +90,7 @@ export const formatDistributions = ({
           blocksPerDay,
         });
 
-        supplyDistributions.push(
+        supplyTokenDistributions.push(
           formatRewardDistribution({
             rewardType,
             rewardToken,
@@ -115,7 +121,7 @@ export const formatDistributions = ({
           blocksPerDay,
         });
 
-        borrowDistributions.push(
+        borrowTokenDistributions.push(
           formatRewardDistribution({
             rewardType,
             rewardToken,
@@ -132,21 +138,52 @@ export const formatDistributions = ({
 
   // Add Prime distributions
   if (primeApy) {
-    supplyDistributions.push({
+    supplyTokenDistributions.push({
       type: 'prime',
       apyPercentage: primeApy.supplyApy,
       token: underlyingToken,
     });
 
-    borrowDistributions.push({
+    borrowTokenDistributions.push({
       type: 'prime',
       apyPercentage: primeApy.borrowApy,
       token: underlyingToken,
     });
   }
 
+  // Add point distributions
+  const borrowPointDistributions: PointDistribution[] = [];
+  const supplyPointDistributions: PointDistribution[] = [];
+
+  apiPointDistributions.forEach(
+    ({ startDate, endDate, action, title, description, incentive, logoUrl, extraInfoUrl }) => {
+      const p: PointDistribution = {
+        title,
+        description,
+        incentive,
+        logoUrl,
+        extraInfoUrl,
+      };
+
+      const now = new Date();
+
+      // Check if point distribution is active
+      if ((startDate && isBefore(now, startDate)) || (endDate && isBefore(endDate, now))) {
+        return;
+      }
+
+      if (action === 'supply') {
+        supplyPointDistributions.push(p);
+      } else if (action === 'borrow') {
+        borrowPointDistributions.push(p);
+      }
+    },
+  );
+
   return {
-    supplyDistributions,
-    borrowDistributions,
+    supplyTokenDistributions,
+    borrowTokenDistributions,
+    borrowPointDistributions,
+    supplyPointDistributions,
   };
 };

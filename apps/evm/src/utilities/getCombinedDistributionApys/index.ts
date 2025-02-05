@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import type { Asset, AssetDistribution } from 'types';
+import type { Asset, TokenDistribution } from 'types';
 
 interface AggregatePercentagesInput {
-  distributions: AssetDistribution[];
+  distributions: TokenDistribution[];
 }
 
 const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
@@ -50,8 +50,8 @@ export interface GetCombinedDistributionApysInput {
 }
 
 const getCombinedDistributionApys = ({ asset }: GetCombinedDistributionApysInput) => {
-  const supply = aggregatePercentages({ distributions: asset.supplyDistributions });
-  const borrow = aggregatePercentages({ distributions: asset.borrowDistributions });
+  const supply = aggregatePercentages({ distributions: asset.supplyTokenDistributions });
+  const borrow = aggregatePercentages({ distributions: asset.borrowTokenDistributions });
 
   const totalSupplyApyBoostPercentage = supply.apyRewardsPercentage.plus(supply.apyPrimePercentage);
   const totalBorrowApyBoostPercentage = borrow.apyRewardsPercentage.plus(borrow.apyPrimePercentage);

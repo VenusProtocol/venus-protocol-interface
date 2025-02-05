@@ -73,6 +73,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -134,6 +144,16 @@
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -197,6 +217,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -258,6 +288,16 @@
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -321,6 +361,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -382,6 +432,16 @@
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -445,6 +505,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -506,6 +576,16 @@
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -569,6 +649,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -630,6 +720,16 @@
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -693,6 +793,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -754,6 +864,16 @@
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -817,6 +937,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -878,6 +1008,16 @@
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -941,6 +1081,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -1002,6 +1152,16 @@
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -1065,6 +1225,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -1126,6 +1296,16 @@
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -1189,6 +1369,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -1250,6 +1440,16 @@
               "isActive": true,
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -1313,6 +1513,16 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -1375,7 +1585,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         }
       ]
     },
@@ -1479,7 +1690,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0x5e68913fbbfb91af30366ab1B21324410b49a308",
@@ -1570,6 +1782,24 @@
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            },
+            {
+              "title": "Fake points 2",
+              "description": "Fake description",
+              "incentive": "10x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -1663,6 +1893,24 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            },
+            {
+              "title": "Fake points 2",
+              "description": "Fake description",
+              "incentive": "10x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -1755,7 +2003,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0xb677e080148368EeeE70fA3865d07E92c6500174",
@@ -1847,7 +2096,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a",
@@ -1939,7 +2189,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0xe237aA131E7B004aC88CB808Fa56AF3dc4C408f1",
@@ -2031,7 +2282,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0xe507B30C41E9e375BCe05197c1e09fc9ee40c0f6",
@@ -2123,6 +2375,24 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            },
+            {
+              "title": "Fake points 2",
+              "description": "Fake description",
+              "incentive": "10x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         }
       ]
@@ -2212,7 +2482,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0x1958035231E125830bA5d17D168cEa07Bb42184a",
@@ -2289,7 +2560,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a",
@@ -2366,7 +2638,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0xef470AbC365F88e4582D8027172a392C473A5B53",
@@ -2443,7 +2716,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         }
       ]
     },
@@ -2562,6 +2836,24 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            },
+            {
+              "title": "Fake points 2",
+              "description": "Fake description",
+              "incentive": "10x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            }
           ]
         },
         {
@@ -2669,7 +2961,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47",
@@ -2776,7 +3069,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0x644A149853E5507AdF3e682218b8AC86cdD62951",
@@ -2883,7 +3177,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0x75aa42c832a8911B77219DbeBABBB40040d16987",
@@ -2990,7 +3285,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD",
@@ -3096,6 +3392,24 @@
               "isActive": true,
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            },
+            {
+              "title": "Fake points 2",
+              "description": "Fake description",
+              "incentive": "10x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -3204,7 +3518,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         }
       ]
     },
@@ -3323,7 +3638,8 @@
               "createdAt": "2024-08-15T14:48:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0x73d2F6e0708599a4eA70F6A0c55A4C59196a101c",
@@ -3385,7 +3701,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T02:03:12.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         }
       ]
     },
@@ -3474,7 +3791,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
@@ -3550,6 +3868,24 @@
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            },
+            {
+              "title": "Fake points 2",
+              "description": "Fake description",
+              "incentive": "10x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -3628,7 +3964,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4",
@@ -3705,7 +4042,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         }
       ]
     },
@@ -3824,7 +4162,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0x47793540757c6E6D84155B33cd8D9535CFdb9334",
@@ -3931,7 +4270,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
@@ -4038,7 +4378,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         },
         {
           "address": "0xD804F74fe21290d213c46610ab171f7c2EeEBDE7",
@@ -4144,6 +4485,24 @@
               "isActive": true,
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
+            }
+          ],
+          "pointDistributions": [
+            {
+              "title": "Fake points",
+              "description": "Fake description",
+              "incentive": "3x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
+            },
+            {
+              "title": "Fake points 2",
+              "description": "Fake description",
+              "incentive": "10x points",
+              "logoUrl": "https://fake-logo-url.com",
+              "extraInfoUrl": "https://app.solv.finance/defi",
+              "action": "supply"
             }
           ]
         },
@@ -4252,7 +4611,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
-          ]
+          ],
+          "pointDistributions": []
         }
       ]
     }

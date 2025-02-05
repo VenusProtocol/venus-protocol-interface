@@ -54,7 +54,7 @@ export const MarketCard: React.FC<MarketCardProps> = ({
             >
               <p className="text-grey mb-1 text-sm">{stat.label}</p>
 
-              <p className="text-sm font-semibold sm:text-lg">{stat.value}</p>
+              <div className="text-sm font-semibold sm:text-lg">{stat.value}</div>
             </div>
           ))}
         </div>

@@ -2,19 +2,16 @@ import type BigNumber from 'bignumber.js';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import type { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
 import { getCombinedDistributionApys } from 'utilities';
-import type { ColumnKey } from '../types';
 import { BoostTooltip } from './BoostTooltip';
 import { PrimeBadge } from './PrimeBadge';
 
 export interface ApyProps {
   asset: Asset;
-  column: ColumnKey;
+  type: 'supply' | 'borrow';
   className?: string;
 }
 
-export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
-  const type = column === 'supplyApy' || column === 'labeledSupplyApy' ? 'supply' : 'borrow';
-
+export const Apy: React.FC<ApyProps> = ({ asset, type }) => {
   const combinedDistributionApys = getCombinedDistributionApys({ asset });
 
   const baseApyPercentage =
@@ -25,7 +22,11 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
       ? combinedDistributionApys.totalSupplyApyPercentage
       : combinedDistributionApys.totalBorrowApyPercentage;
 
-  const isApyBoosted = !boostedApyPercentage.isEqualTo(baseApyPercentage);
+  const pointDistributions =
+    type === 'supply' ? asset.supplyPointDistributions : asset.borrowPointDistributions;
+
+  const isApyBoosted =
+    !boostedApyPercentage.isEqualTo(baseApyPercentage) || pointDistributions.length > 0;
 
   const readableApy = useFormatPercentageToReadableValue({
     value: boostedApyPercentage,
@@ -33,9 +34,10 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
 
   let primeDistribution: PrimeDistribution | undefined;
   let primeSimulationDistribution: PrimeSimulationDistribution | undefined;
-  const distributions = type === 'supply' ? asset.supplyDistributions : asset.borrowDistributions;
+  const tokenDistributions =
+    type === 'supply' ? asset.supplyTokenDistributions : asset.borrowTokenDistributions;
 
-  distributions.forEach(distribution => {
+  tokenDistributions.forEach(distribution => {
     if (distribution.type === 'prime') {
       primeDistribution = distribution;
     } else if (distribution.type === 'primeSimulation') {
@@ -65,7 +67,8 @@ export const Apy: React.FC<ApyProps> = ({ asset, column }) => {
 
       {isApyBoosted ? (
         <BoostTooltip
-          assetDistributions={distributions}
+          tokenDistributions={tokenDistributions}
+          pointDistributions={pointDistributions}
           token={asset.vToken.underlyingToken}
           type={type}
           baseApyPercentage={

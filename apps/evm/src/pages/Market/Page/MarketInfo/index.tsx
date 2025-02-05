@@ -46,8 +46,8 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
     }
 
     const distributionMapping = [
-      ...asset.supplyDistributions,
-      ...asset.borrowDistributions,
+      ...asset.supplyTokenDistributions,
+      ...asset.borrowTokenDistributions,
     ].reduce<{
       [tokenSymbol: string]: {
         rewardToken: Token;

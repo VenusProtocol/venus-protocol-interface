@@ -29,7 +29,7 @@ export const SimulationText: React.FC<SimulationTextProps> = ({ token, type, ref
       addSymbol: true,
     });
 
-    return t('marketTable.apy.primeBadge.tooltip.primeSupplySimulation', {
+    return t('apy.primeBadge.tooltip.primeSupplySimulation', {
       supplyBalance: readableReferenceSupplyBalance,
       xvsStaked: readableReferenceXvsStaked,
     });
@@ -41,7 +41,7 @@ export const SimulationText: React.FC<SimulationTextProps> = ({ token, type, ref
     addSymbol: true,
   });
 
-  return t('marketTable.apy.primeBadge.tooltip.primeBorrowSimulation', {
+  return t('apy.primeBadge.tooltip.primeBorrowSimulation', {
     borrowBalance: readableReferenceBorrowBalance,
     xvsStaked: readableReferenceXvsStaked,
   });

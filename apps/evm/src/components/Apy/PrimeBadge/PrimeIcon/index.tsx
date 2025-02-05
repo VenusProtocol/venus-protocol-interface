@@ -11,7 +11,7 @@ export const PrimeIcon: React.FC<PrimeIconProps> = ({ className, ...otherProps }
     <img
       {...otherProps}
       src={primeLogoSrc}
-      alt={t('marketTable.apy.primeBadge.logoAlt')}
+      alt={t('apy.primeBadge.logoAlt')}
       className={cn('h-4', className)}
     />
   );

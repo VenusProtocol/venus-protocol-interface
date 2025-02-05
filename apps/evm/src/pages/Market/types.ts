@@ -1,4 +1,4 @@
 export interface Stat {
   label: string;
-  value: string | number;
+  value: React.ReactNode | string | number;
 }

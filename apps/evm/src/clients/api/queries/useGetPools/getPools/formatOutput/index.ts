@@ -136,7 +136,12 @@ export const formatOutput = ({
 
       const borrowBalanceCents = borrowBalanceTokens.multipliedBy(tokenPriceCents);
 
-      const { supplyDistributions, borrowDistributions } = formatDistributions({
+      const {
+        supplyTokenDistributions,
+        supplyPointDistributions,
+        borrowTokenDistributions,
+        borrowPointDistributions,
+      } = formatDistributions({
         blocksPerDay,
         underlyingToken: vToken.underlyingToken,
         underlyingTokenPriceDollars: tokenPriceDollars,
@@ -146,6 +151,7 @@ export const formatOutput = ({
         borrowBalanceTokens,
         currentBlockNumber,
         apiRewardsDistributors: market.rewardsDistributors.filter(rd => rd.isActive),
+        apiPointDistributions: market.pointDistributions,
       });
 
       const disabledTokenActions = getDisabledTokenActions({
@@ -229,8 +235,10 @@ export const formatOutput = ({
         borrowBalanceCents,
         borrowCapTokens,
         supplyCapTokens,
-        supplyDistributions,
-        borrowDistributions,
+        supplyTokenDistributions,
+        borrowTokenDistributions,
+        supplyPointDistributions,
+        borrowPointDistributions,
         userSupplyBalanceTokens,
         userSupplyBalanceCents,
         userBorrowBalanceTokens,

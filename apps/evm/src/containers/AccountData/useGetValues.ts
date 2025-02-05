@@ -161,7 +161,7 @@ const useGetValues = ({
       const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(asset.tokenPriceCents);
 
       // Include hypothetical Prime distributions
-      const borrowDistributions = a.borrowDistributions.map(borrowDistribution => {
+      const borrowTokenDistributions = a.borrowTokenDistributions.map(borrowDistribution => {
         if (
           borrowDistribution.type !== 'prime' ||
           !hypotheticalUserPrimeApys.borrowApy ||
@@ -176,7 +176,7 @@ const useGetValues = ({
         };
       });
 
-      const supplyDistributions = a.supplyDistributions.map(supplyDistribution => {
+      const supplyTokenDistributions = a.supplyTokenDistributions.map(supplyDistribution => {
         if (
           supplyDistribution.type !== 'prime' ||
           !hypotheticalUserPrimeApys.supplyApy ||
@@ -193,8 +193,8 @@ const useGetValues = ({
 
       return {
         ...a,
-        borrowDistributions,
-        supplyDistributions,
+        borrowTokenDistributions,
+        supplyTokenDistributions,
         userSupplyBalanceTokens,
         userSupplyBalanceCents,
         userBorrowBalanceTokens,

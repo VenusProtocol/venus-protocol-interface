@@ -27,7 +27,7 @@ import {
   isAssetPaused,
 } from 'utilities';
 
-import { Apy } from './Apy';
+import { Apy } from 'components';
 import { useStyles } from './styles';
 import type { ColumnKey, PoolAsset } from './types';
 
@@ -147,7 +147,13 @@ const useGenerateColumns = ({
               column === 'labeledBorrowApy'
             ) {
               return (
-                <Apy className={cn(isPaused && 'text-grey')} asset={poolAsset} column={column} />
+                <Apy
+                  className={cn(isPaused && 'text-grey')}
+                  asset={poolAsset}
+                  type={
+                    column === 'supplyApy' || column === 'labeledSupplyApy' ? 'supply' : 'borrow'
+                  }
+                />
               );
             }
 

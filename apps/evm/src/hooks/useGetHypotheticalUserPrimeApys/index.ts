@@ -50,8 +50,8 @@ export const useGetHypotheticalUserPrimeApys = ({
   );
   const userXvsStakedMantissa = getXvsVaultUserInfoData?.stakedAmountMantissa;
 
-  const shouldFetchHypotheticalUserPrimeApy = asset.borrowDistributions
-    .concat(asset.supplyDistributions)
+  const shouldFetchHypotheticalUserPrimeApy = asset.borrowTokenDistributions
+    .concat(asset.supplyTokenDistributions)
     .some(distribution => distribution.type === 'prime');
 
   const { userBorrowBalanceMantissa, userSupplyBalanceMantissa } = useMemo(() => {

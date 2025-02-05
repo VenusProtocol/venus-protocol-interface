@@ -102,8 +102,8 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
 
     const distributionRows = (
       action === 'borrow' || action === 'repay'
-        ? asset.borrowDistributions
-        : asset.supplyDistributions
+        ? asset.borrowTokenDistributions
+        : asset.supplyTokenDistributions
     )
       .filter(distribution => distribution.type !== 'primeSimulation')
       .reduce<LabeledInlineContentProps[]>((acc, distribution) => {
