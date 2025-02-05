@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.208.0
+
+### Minor Changes
+
+- 54328a1: update expiral logic for Merkl rewards
+
 ## 2.207.0
 
 ### Minor Changes
