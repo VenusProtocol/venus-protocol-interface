@@ -1,23 +1,23 @@
 import { getUnixTime } from 'date-fns/getUnixTime';
 
 export const isDistributingRewards = ({
-  isTimeBased,
+  isTimeBasedOrMerklReward,
   lastRewardingTimestamp,
   lastRewardingBlock,
   currentBlockNumber,
 }: {
-  isTimeBased: boolean;
+  isTimeBasedOrMerklReward: boolean;
   lastRewardingTimestamp?: number;
   lastRewardingBlock?: number;
   currentBlockNumber: bigint;
 }): boolean => {
   const nowTimestamp = getUnixTime(new Date());
 
-  if (isTimeBased && typeof lastRewardingTimestamp === 'number') {
+  if (isTimeBasedOrMerklReward && typeof lastRewardingTimestamp === 'number') {
     return lastRewardingTimestamp === 0 || lastRewardingTimestamp >= nowTimestamp;
   }
 
-  if (!isTimeBased && typeof lastRewardingBlock === 'number') {
+  if (!isTimeBasedOrMerklReward && typeof lastRewardingBlock === 'number') {
     return lastRewardingBlock === 0 || lastRewardingBlock >= currentBlockNumber;
   }
 

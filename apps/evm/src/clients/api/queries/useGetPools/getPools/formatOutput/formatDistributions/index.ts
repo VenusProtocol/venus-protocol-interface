@@ -65,10 +65,15 @@ export const formatDistributions = ({
         decimals: rewardToken.decimals,
       });
 
+      const isTimeBasedOrMerklReward = isChainTimeBased || rewardType === 'merkl';
       const isDistributingSupplyRewards = isDistributingRewards({
-        isTimeBased: isChainTimeBased,
-        lastRewardingTimestamp: isChainTimeBased ? +lastRewardingSupplyBlockOrTimestamp : undefined,
-        lastRewardingBlock: isChainTimeBased ? undefined : +lastRewardingSupplyBlockOrTimestamp,
+        isTimeBasedOrMerklReward,
+        lastRewardingTimestamp: isTimeBasedOrMerklReward
+          ? +lastRewardingSupplyBlockOrTimestamp
+          : undefined,
+        lastRewardingBlock: isTimeBasedOrMerklReward
+          ? undefined
+          : +lastRewardingSupplyBlockOrTimestamp,
         currentBlockNumber,
       });
 
@@ -93,9 +98,13 @@ export const formatDistributions = ({
       }
 
       const isDistributingBorrowRewards = isDistributingRewards({
-        isTimeBased: isChainTimeBased,
-        lastRewardingTimestamp: isChainTimeBased ? +lastRewardingBorrowBlockOrTimestamp : undefined,
-        lastRewardingBlock: isChainTimeBased ? undefined : +lastRewardingBorrowBlockOrTimestamp,
+        isTimeBasedOrMerklReward,
+        lastRewardingTimestamp: isTimeBasedOrMerklReward
+          ? +lastRewardingBorrowBlockOrTimestamp
+          : undefined,
+        lastRewardingBlock: isTimeBasedOrMerklReward
+          ? undefined
+          : +lastRewardingBorrowBlockOrTimestamp,
         currentBlockNumber,
       });
 
