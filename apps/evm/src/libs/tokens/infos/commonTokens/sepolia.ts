@@ -29,6 +29,10 @@ import weEthsLogo from 'libs/tokens/img/underlyingTokens/weeths.svg';
 import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
 import wstEthLogo from 'libs/tokens/img/underlyingTokens/wstEth.svg';
 import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
+import yvUsdcLogo from 'libs/tokens/img/underlyingTokens/yvusdc.svg';
+import yvUsdsLogo from 'libs/tokens/img/underlyingTokens/yvusds.svg';
+import yvUsdtLogo from 'libs/tokens/img/underlyingTokens/yvusdt.svg';
+import yvWEthLogo from 'libs/tokens/img/underlyingTokens/yvweth.svg';
 import type { Token } from 'types';
 
 const ethToken: Token = {
@@ -209,5 +213,29 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'BAL',
     asset: balLogo,
+  },
+  {
+    address: '0x9fE6052B9534F134171F567dAC9c9B22556c1DDb',
+    decimals: 6,
+    symbol: 'yvUSDC-1',
+    asset: yvUsdcLogo,
+  },
+  {
+    address: '0x5cBA66C5415E56CC0Ace55148ffC63f61327478B',
+    decimals: 6,
+    symbol: 'yvUSDT-1',
+    asset: yvUsdtLogo,
+  },
+  {
+    address: '0xC6A0e98B8D9E9F1160E9cE1f2E0172F41FB06BC2',
+    decimals: 18,
+    symbol: 'yvUSDS-1',
+    asset: yvUsdsLogo,
+  },
+  {
+    address: '0x99AD7ecf9b1C5aC2A11BB00D7D8a7C54fCd41517',
+    decimals: 18,
+    symbol: 'yvWETH-1',
+    asset: yvWEthLogo,
   },
 ];
