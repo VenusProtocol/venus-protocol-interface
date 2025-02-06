@@ -154,6 +154,7 @@
     "storybook": "8.4.2",
     "stylelint": "^15.10.3",
     "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.7",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.1.2",
     "typechain": "^8.3.1",
