@@ -10444,10 +10444,10 @@ fraction.js@^4.3.7:
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.3.7.tgz#06ca0085157e42fda7f9e726e79fefc4068840f7"
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
 
-framer-motion@^12.3.1:
-  version "12.3.1"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.3.1.tgz#041be06a3e1041cf6820a0895b704e8ea588e3df"
-  integrity sha512-Br4a2YhdeEvdzMDX8ToVO+/Jbqm2Loo/8rMjizX1nejjBvRJGMfz+NW1qBo4WCHF26uIdES5MBztUlB4pIyfqQ==
+framer-motion@^12.4.0:
+  version "12.4.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.4.0.tgz#1a42470963e32023622dfcc1b1abb0bd8ef1ce0f"
+  integrity sha512-QX92ThRniev3YTkjXOV/7m9fXBRQ5xDDRWDinuU//Xkjh+q9ppg3Nb0b95xgJYd2AE0rgJ7eoihY+Z+jjSv22w==
   dependencies:
     motion-dom "^12.0.0"
     motion-utils "^12.0.0"
@@ -13688,11 +13688,11 @@ motion@10.16.2:
     "@motionone/vue" "^10.16.2"
 
 motion@^12.0.3:
-  version "12.3.1"
-  resolved "https://registry.yarnpkg.com/motion/-/motion-12.3.1.tgz#3c0ce406abbc1bd1c786421b01a76409a9d95436"
-  integrity sha512-o25hkUR/dvOt7gPHqYnv3/rrDtzz6b8Khqkmed6Tn2u4m0ZU/0UIukWQBN7wSqTACLZVptX013N3yH+LtoNa2A==
+  version "12.4.0"
+  resolved "https://registry.yarnpkg.com/motion/-/motion-12.4.0.tgz#8134fb518705ee53f0dd3bbd70c9f26c96f77b80"
+  integrity sha512-5AlCJ5wrGIbxvPwR3R17/POKQH7JNHbLTwvbbj3adz63AZwuZx80i5b4eax4ED1l6fkYTQZo9sP2zAq3rdkUKQ==
   dependencies:
-    framer-motion "^12.3.1"
+    framer-motion "^12.4.0"
     tslib "^2.4.0"
 
 mri@^1.2.0:
