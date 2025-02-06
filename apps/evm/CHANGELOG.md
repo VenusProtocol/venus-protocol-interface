@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.209.0
+
+### Minor Changes
+
+- e71b2d5: add Yearn tokens on Ethereum
+
 ## 2.208.0
 
 ### Minor Changes
