@@ -17,10 +17,9 @@ export interface ProgressBarProps {
   ariaLabel: string;
   min: number;
   max: number;
-  trackTooltip?: TooltipProps['title'];
-  markTooltip?: TooltipProps['title'];
+  trackTooltip?: TooltipProps['content'];
+  markTooltip?: TooltipProps['content'];
   className?: string;
-  tooltipPlacement?: TooltipProps['placement'];
   progressBarColor?: string;
 }
 
@@ -34,7 +33,6 @@ export const ProgressBar = ({
   trackTooltip,
   markTooltip,
   className,
-  tooltipPlacement = 'top',
   progressBarColor = PALETTE.interactive.success,
 }: ProgressBarProps) => {
   const safeValue = value < max ? value : max;
@@ -59,13 +57,13 @@ export const ProgressBar = ({
         css={[styles.mark, markTooltip ? styles.hasTooltip : undefined]}
       >
         {markTooltip && (
-          <Tooltip placement={tooltipPlacement} title={markTooltip}>
+          <Tooltip content={markTooltip}>
             <span css={styles.tooltipHelper}>.</span>
           </Tooltip>
         )}
       </Box>
     ),
-    [markTooltip, tooltipPlacement, styles.hasTooltip, styles.mark, styles.tooltipHelper],
+    [markTooltip, styles.hasTooltip, styles.mark, styles.tooltipHelper],
   );
 
   const renderTrack = useCallback(
@@ -81,7 +79,7 @@ export const ProgressBar = ({
           css={[styles.trackWrapper, trackTooltip ? styles.hasTooltip : undefined]}
         >
           {trackTooltip ? (
-            <Tooltip placement={tooltipPlacement} title={trackTooltip}>
+            <Tooltip content={trackTooltip}>
               <Box className={props?.className} />
             </Tooltip>
           ) : (
@@ -92,7 +90,7 @@ export const ProgressBar = ({
 
       return <>{primaryRail}</>;
     },
-    [trackTooltip, tooltipPlacement, styles],
+    [trackTooltip, styles],
   );
 
   return (

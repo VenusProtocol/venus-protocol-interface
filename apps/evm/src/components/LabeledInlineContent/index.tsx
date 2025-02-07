@@ -1,9 +1,9 @@
 import type { Token } from 'types';
 import { cn } from 'utilities';
 
+import { InfoIcon } from 'components/InfoIcon';
 import { Icon, type IconName } from '../Icon';
 import { TokenIcon } from '../TokenIcon';
-import { Tooltip } from '../Tooltip';
 
 export interface LabeledInlineContentProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
@@ -41,11 +41,7 @@ export const LabeledInlineContent = ({
         {label}
       </p>
 
-      {!!tooltip && (
-        <Tooltip className="ml-2 inline-flex items-center" title={tooltip}>
-          <Icon name="info" />
-        </Tooltip>
-      )}
+      {!!tooltip && <InfoIcon className="ml-2 inline-flex items-center" tooltip={tooltip} />}
     </div>
 
     <div

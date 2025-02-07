@@ -6,11 +6,13 @@ import type { ReactElement } from 'react';
 
 import config from 'config';
 
+import { cn } from 'utilities';
 import { Icon } from '../Icon';
 import { useModalStyles } from './styles';
 
 export interface ModalProps extends Omit<MUIModalProps, 'title' | 'open'> {
   className?: string;
+  buttonClassName?: string;
   isOpen: boolean;
   handleClose: () => void;
   handleBackAction?: () => void;
@@ -20,6 +22,7 @@ export interface ModalProps extends Omit<MUIModalProps, 'title' | 'open'> {
 
 export const Modal: React.FC<ModalProps> = ({
   className,
+  buttonClassName,
   children,
   handleClose,
   handleBackAction,
@@ -46,12 +49,22 @@ export const Modal: React.FC<ModalProps> = ({
         <div css={s.box} className={className}>
           <div css={s.titleWrapper}>
             {!!handleBackAction && (
-              <Button css={s.backAction} disableRipple onClick={handleBackAction}>
+              <Button
+                css={s.backAction}
+                className={buttonClassName}
+                disableRipple
+                onClick={handleBackAction}
+              >
                 <Icon css={s.backArrow} name="arrowRight" />
               </Button>
             )}
             <div css={s.titleComponent}>{title}</div>
-            <Button css={s.closeIcon} disableRipple onClick={handleClose}>
+            <Button
+              css={s.closeIcon}
+              className={cn('right-6', buttonClassName)}
+              disableRipple
+              onClick={handleClose}
+            >
               <Icon name="close" size={`${s.closeIconSize}`} />
             </Button>
           </div>

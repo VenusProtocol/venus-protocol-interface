@@ -12,7 +12,7 @@ import { PrimeApy } from './PrimeApy';
 import { PrimeIcon } from './PrimeIcon';
 import { SimulationText } from './SimulationText';
 
-export interface PrimeBadgeProps extends Omit<TooltipProps, 'title' | 'children'> {
+export interface PrimeBadgeProps extends Omit<TooltipProps, 'content' | 'children'> {
   token: Token;
   type: 'supply' | 'borrow';
   simulationReferenceValues?: PrimeSimulationDistribution['referenceValues'];
@@ -38,7 +38,7 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
   return (
     <Tooltip
       className={cn('inline-flex items-center', className)}
-      title={
+      content={
         <>
           <p>
             {simulationReferenceValues && simulatedApyPercentage ? (

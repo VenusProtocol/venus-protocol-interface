@@ -13,9 +13,6 @@ export const useStyles = () => {
     label: css`
       margin-right: ${theme.spacing(2)};
     `,
-    infoIcon: css`
-      margin-right: ${theme.spacing(2)};
-    `,
     getSwitch: ({ isDark }: { isDark: boolean }) => css`
       flex-shrink: 0;
       width: calc(${thumbSize} * 2);

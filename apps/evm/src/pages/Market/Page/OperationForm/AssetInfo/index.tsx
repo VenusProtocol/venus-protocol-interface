@@ -1,10 +1,9 @@
 import BigNumber from 'bignumber.js';
 import {
   Accordion,
-  Icon,
+  InfoIcon,
   LabeledInlineContent,
   type LabeledInlineContentProps,
-  Tooltip,
   ValueUpdate,
 } from 'components';
 import { useGetHypotheticalUserPrimeApys } from 'hooks/useGetHypotheticalUserPrimeApys';
@@ -180,16 +179,14 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
         <div className="flex items-center gap-x-2">
           <p className="text-sm md:text-base">{t('assetInfo.totalApy.label')}</p>
 
-          <Tooltip
+          <InfoIcon
             className="inline-flex items-center"
-            title={
+            tooltip={
               action === 'borrow' || action === 'repay'
                 ? t('assetInfo.totalApy.borrowApyTooltip')
                 : t('assetInfo.totalApy.supplyApyTooltip')
             }
-          >
-            <Icon name="info" />
-          </Tooltip>
+          />
         </div>
       }
       rightLabel={formatPercentageToReadableValue(

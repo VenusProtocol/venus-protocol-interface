@@ -39,12 +39,6 @@ export const useStyles = () => {
       justify-content: flex-end;
       align-items: center;
     `,
-    tooltip: css`
-      display: flex;
-    `,
-    infoIcon: css`
-      cursor: help;
-    `,
     inlineLabel: css`
       margin-right: ${theme.spacing(1)};
     `,

@@ -32,7 +32,7 @@ export const Toggle = ({
 
   return (
     <div css={styles.container} className={className}>
-      {!!tooltip && <InfoIcon css={styles.infoIcon} tooltip={tooltip} />}
+      {!!tooltip && <InfoIcon className="mr-2" tooltip={tooltip} />}
 
       {!!label && (
         <Typography color="text.primary" variant="small1" component="span" css={styles.label}>

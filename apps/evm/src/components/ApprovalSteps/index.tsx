@@ -3,9 +3,8 @@ import { Typography } from '@mui/material';
 
 import { handleError } from 'libs/errors';
 
+import { InfoIcon } from 'components/InfoIcon';
 import { PrimaryButton } from '../Button';
-import { Icon } from '../Icon';
-import { Tooltip } from '../Tooltip';
 import { useStyles } from './styles';
 
 export interface ApprovalStepsProps {
@@ -52,11 +51,7 @@ export const ApprovalSteps: React.FC<ApprovalStepsProps> = ({
               {firstStepLabel}
             </Typography>
 
-            {firstStepTooltip && (
-              <Tooltip title={firstStepTooltip} css={styles.approveTokenTooltip}>
-                <Icon name="info" />
-              </Tooltip>
-            )}
+            {firstStepTooltip && <InfoIcon className="flex ml-2" tooltip={firstStepTooltip} />}
           </div>
 
           <PrimaryButton

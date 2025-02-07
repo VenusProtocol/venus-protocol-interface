@@ -31,7 +31,7 @@ export const PoolTagContent: React.FC<PoolTagContentProps> = ({ pool }) => {
 
       {borrowLimitUsedPercentage !== undefined && (
         <Tooltip
-          title={t('account.poolsBreakdown.poolTagTooltip', {
+          content={t('account.poolsBreakdown.poolTagTooltip', {
             borrowLimitUsedPercentage: readableBorrowLimitUsedPercentage,
           })}
           className="ml-1 inline-flex"

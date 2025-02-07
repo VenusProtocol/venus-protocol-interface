@@ -101,7 +101,7 @@ export const CapThreshold: React.FC<CapThresholdProps> = ({
   return (
     <div className="flex items-center space-x-4">
       <Tooltip
-        title={
+        content={
           type === 'supply' ? (
             t('market.supplyCapThreshold.tooltip', {
               amountDollars: readableDeltaDollars,

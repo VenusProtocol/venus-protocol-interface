@@ -50,7 +50,7 @@ export const GaslessStatus: React.FC<GaslessStatusProps> = ({
   if (wrapWithTooltip) {
     return (
       <Tooltip
-        title={
+        content={
           <Trans
             // Translation key: do not remove this comment
             // t('gaslessTransactions.tooltip.enabled')

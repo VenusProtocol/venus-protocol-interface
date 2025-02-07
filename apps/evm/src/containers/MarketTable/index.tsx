@@ -111,7 +111,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       corePoolComptrollerContractAddress,
       lstPoolVWstEthContractAddress,
       lstPoolComptrollerContractAddress,
-      lstPoolComptrollerContractAddress,
     ],
   );
 

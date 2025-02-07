@@ -1,22 +1,60 @@
-import { Global } from '@emotion/react';
-import MuiTooltip, { type TooltipProps as MUITooltipProps } from '@mui/material/Tooltip';
+import {
+  Arrow,
+  Provider,
+  Tooltip as TooltipPrimitive,
+  type TooltipProps as TooltipPrimitiveProps,
+  Trigger,
+} from '@radix-ui/react-tooltip';
+import { Modal } from 'components/Modal';
+import { useBreakpointUp } from 'hooks/responsive';
+import { useState } from 'react';
+import { cn } from 'utilities';
+import { TooltipContent } from './TooltipContent';
 
-import { useStyles } from './styles';
-
-export interface TooltipProps extends Omit<MUITooltipProps, 'children'> {
-  title: string | React.ReactElement;
-  children: React.ReactNode;
+export interface TooltipProps extends TooltipPrimitiveProps {
+  className?: string;
+  content: string | React.ReactElement;
 }
 
-export const Tooltip = ({ children, placement = 'top', ...rest }: TooltipProps) => {
-  const styles = useStyles();
+export const Tooltip = ({ className, content, children, ...props }: TooltipProps) => {
+  const [isTooltipOpened, setIsTooltipOpened] = useState(false);
+  const isMdOrUp = useBreakpointUp('md');
+
+  const handleToggleDropdown = () => setIsTooltipOpened(!isTooltipOpened);
 
   return (
-    <>
-      <Global styles={styles} />
-      <MuiTooltip arrow placement={placement} enterTouchDelay={0} {...rest}>
-        <span>{children}</span>
-      </MuiTooltip>
-    </>
+    <Provider>
+      <TooltipPrimitive delayDuration={200} {...props}>
+        <Trigger asChild>
+          <div
+            className={className}
+            onClick={e => {
+              if (!isMdOrUp) {
+                setIsTooltipOpened(true);
+              }
+              e.preventDefault();
+            }}
+          >
+            {children}
+          </div>
+        </Trigger>
+        <TooltipContent
+          onPointerDownOutside={e => e.preventDefault()}
+          className={cn('block p-3', !isMdOrUp && 'hidden')}
+        >
+          {content}
+          <Arrow className="fill-lightGrey w-[14px] h-[7px]" />
+        </TooltipContent>
+      </TooltipPrimitive>
+
+      <Modal
+        buttonClassName="right-3"
+        onClick={e => e.stopPropagation()}
+        isOpen={isTooltipOpened && !isMdOrUp}
+        handleClose={handleToggleDropdown}
+      >
+        <div className="pt-3">{content}</div>
+      </Modal>
+    </Provider>
   );
 };
