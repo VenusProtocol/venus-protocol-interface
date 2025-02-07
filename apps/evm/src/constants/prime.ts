@@ -131,4 +131,5 @@ export const primeAveragesForNetwork: Record<
   [ChainId.OPTIMISM_SEPOLIA]: undefined,
   [ChainId.BASE_MAINNET]: undefined,
   [ChainId.BASE_SEPOLIA]: undefined,
+  [ChainId.UNICHAIN_SEPOLIA]: undefined,
 };

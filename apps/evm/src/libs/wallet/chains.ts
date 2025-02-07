@@ -13,6 +13,7 @@ import {
   optimism as optimismMainnet,
   optimismSepolia,
   sepolia,
+  unichainSepolia,
   zksync as zksyncMainnet,
   zksyncSepoliaTestnet,
 } from 'wagmi/chains';
@@ -35,6 +36,7 @@ const chainMapping = {
   [ChainId.OPTIMISM_SEPOLIA]: optimismSepolia,
   [ChainId.BASE_MAINNET]: base,
   [ChainId.BASE_SEPOLIA]: baseSepolia,
+  [ChainId.UNICHAIN_SEPOLIA]: unichainSepolia,
 } as const satisfies Record<ChainId, Chain>;
 
 const getSupportedChains = () => {

@@ -13,6 +13,7 @@ import { disabledTokenActions as opBnbTestnetDisabledTokenActions } from './opBn
 import { disabledTokenActions as optimismMainnetDisabledTokenActions } from './optimismMainnet';
 import { disabledTokenActions as optimismSepoliaDisabledTokenActions } from './optimismSepolia';
 import { disabledTokenActions as sepoliaDisabledTokenActions } from './sepolia';
+import { disabledTokenActions as unichainSepoliaDisabledTokenActions } from './unichainSepolia';
 import { disabledTokenActions as zkSyncMainnetDisabledTokenActions } from './zkSyncMainnet';
 import { disabledTokenActions as zkSyncSepoliaDisabledTokenActions } from './zkSyncSepolia';
 
@@ -31,6 +32,7 @@ const disabledTokenActions: DisabledTokenActionMapping = {
   [ChainId.OPTIMISM_SEPOLIA]: optimismSepoliaDisabledTokenActions,
   [ChainId.BASE_MAINNET]: baseMainnetDisabledTokenActions,
   [ChainId.BASE_SEPOLIA]: baseSepoliaDisabledTokenActions,
+  [ChainId.UNICHAIN_SEPOLIA]: unichainSepoliaDisabledTokenActions,
 };
 
 export default disabledTokenActions;

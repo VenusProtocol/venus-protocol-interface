@@ -120,7 +120,7 @@ export const vTokenAssets: VTokenAssets = {
     vUsddStablecoinsLogo,
   [isolatedPoolsBscMainnetDeployments.addresses.VToken_vUSDT_Stablecoins.toLowerCase()]:
     vUsdtStablecoinsLogo,
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vagEUR_Stablecoins.toLowerCase()]:
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vEURA_Stablecoins.toLowerCase()]:
     vEuraStablecoinsLogo,
   // Meme
   [isolatedPoolsBscMainnetDeployments.addresses.VToken_vBabyDoge_Meme.toLowerCase()]:
@@ -137,8 +137,7 @@ export const vTokenAssets: VTokenAssets = {
     vAnkrBnbLsBnbLogo,
   [isolatedPoolsBscMainnetDeployments.addresses.VToken_vBNBx_LiquidStakedBNB.toLowerCase()]:
     vBnbXLsBnbLogo,
-  // slisBNB package name is wrong
-  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vSnBNB_LiquidStakedBNB.toLowerCase()]:
+  [isolatedPoolsBscMainnetDeployments.addresses.VToken_vslisBNB_LiquidStakedBNB.toLowerCase()]:
     vSlisBnbLsBnbLogo,
   [isolatedPoolsBscMainnetDeployments.addresses.VToken_vstkBNB_LiquidStakedBNB.toLowerCase()]:
     vStkBnbLsBnbLogo,

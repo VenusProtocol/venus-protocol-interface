@@ -81,7 +81,7 @@ export const vTokenAssets: VTokenAssets = {
   // [venusProtocolBscTestnetDeployments.addresses.vBCH.toLowerCase()]: vBchCoreLogo,
   // [venusProtocolBscTestnetDeployments.addresses.vBETH.toLowerCase()]: vBethCoreLogo,
   [venusProtocolBscTestnetDeployments.addresses.vBNB.toLowerCase()]: vBnbCoreLogo,
-  [venusProtocolBscTestnetDeployments.addresses.vBTC.toLowerCase()]: vBtcCoreLogo,
+  [venusProtocolBscTestnetDeployments.addresses.vBTCB.toLowerCase()]: vBtcCoreLogo,
   [venusProtocolBscTestnetDeployments.addresses.vBUSD.toLowerCase()]: vBusdCoreLogo,
   // [venusProtocolBscTestnetDeployments.addresses.vCAKE.toLowerCase()]: vCakeCoreLogo,
   // [venusProtocolBscTestnetDeployments.addresses.vDAI.toLowerCase()]: vDaiCoreLogo,
@@ -118,7 +118,7 @@ export const vTokenAssets: VTokenAssets = {
   // Stablecoins
   // [isolatedPoolsBscTestnetDeployments.addresses.VToken_vUSDD_Stablecoins.toLowerCase()]: vUsddStablecoinsLogo,
   // [isolatedPoolsBscTestnetDeployments.addresses.VToken_vUSDT_Stablecoins.toLowerCase()]: vUsdtStablecoinsLogo,
-  [isolatedPoolsBscTestnetDeployments.addresses.VToken_vagEUR_Stablecoins.toLowerCase()]:
+  [isolatedPoolsBscTestnetDeployments.addresses.VToken_vEURA_Stablecoins.toLowerCase()]:
     vEuraStablecoinsLogo,
   // Meme
   [isolatedPoolsBscTestnetDeployments.addresses.VToken_vBabyDoge_Meme.toLowerCase()]:
@@ -135,8 +135,7 @@ export const vTokenAssets: VTokenAssets = {
     vAnkrBnbLsBnbLogo,
   [isolatedPoolsBscTestnetDeployments.addresses.VToken_vBNBx_LiquidStakedBNB.toLowerCase()]:
     vBnbXLsBnbLogo,
-  // slisBNB package name is wrong
-  [isolatedPoolsBscTestnetDeployments.addresses.VToken_vSnBNB_LiquidStakedBNB.toLowerCase()]:
+  [isolatedPoolsBscTestnetDeployments.addresses.VToken_vslisBNB_LiquidStakedBNB.toLowerCase()]:
     vSlisBnbLsBnbLogo,
   [isolatedPoolsBscTestnetDeployments.addresses.VToken_vstkBNB_LiquidStakedBNB.toLowerCase()]:
     vStkBnbLsBnbLogo,

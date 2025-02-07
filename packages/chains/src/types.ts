@@ -15,6 +15,7 @@ export enum ChainId {
   OPTIMISM_SEPOLIA = 11155420,
   BASE_MAINNET = 8453,
   BASE_SEPOLIA = 84532,
+  UNICHAIN_SEPOLIA = 1301,
 }
 
 export enum MainnetChainId {
@@ -35,6 +36,7 @@ export enum TestnetChainId {
   ZKSYNC_SEPOLIA = ChainId.ZKSYNC_SEPOLIA,
   OPTIMISM_SEPOLIA = ChainId.OPTIMISM_SEPOLIA,
   BASE_SEPOLIA = ChainId.BASE_SEPOLIA,
+  UNICHIAN_SEPOLIA = ChainId.UNICHAIN_SEPOLIA,
 }
 
 export interface ChainMetadata {
