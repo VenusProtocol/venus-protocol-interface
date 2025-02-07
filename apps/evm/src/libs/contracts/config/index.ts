@@ -33,6 +33,7 @@ import isolatedPoolsOpBnbTestnetDeployments from '@venusprotocol/isolated-pools/
 import isolatedPoolsOptimismMainnetDeployments from '@venusprotocol/isolated-pools/deployments/opmainnet_addresses.json';
 import isolatedPoolsOptimismSepoliaDeployments from '@venusprotocol/isolated-pools/deployments/opsepolia_addresses.json';
 import isolatedPoolsSepoliaDeployments from '@venusprotocol/isolated-pools/deployments/sepolia_addresses.json';
+import isolatedPoolsUnichainSepoliaDeployments from '@venusprotocol/isolated-pools/deployments/unichainsepolia_addresses.json';
 import isolatedPoolsZkSyncMainnetDeployments from '@venusprotocol/isolated-pools/deployments/zksyncmainnet_addresses.json';
 import isolatedPoolsZkSyncSepoliaDeployments from '@venusprotocol/isolated-pools/deployments/zksyncsepolia_addresses.json';
 import { abi as ResilientOracleAbi } from '@venusprotocol/oracle/artifacts/contracts/ResilientOracle.sol/ResilientOracle.json';
@@ -48,6 +49,7 @@ import venusOracleOpBnbTestnetDeployments from '@venusprotocol/oracle/deployment
 import venusOracleOptimismMainnetDeployments from '@venusprotocol/oracle/deployments/opmainnet_addresses.json';
 import venusOracleOptimismSepoliaDeployments from '@venusprotocol/oracle/deployments/opsepolia_addresses.json';
 import venusOracleSepoliaDeployments from '@venusprotocol/oracle/deployments/sepolia_addresses.json';
+import venusOracleUnichainSepoliaDeployments from '@venusprotocol/oracle/deployments/unichainsepolia_addresses.json';
 import venusOracleZkSyncMainnetDeployments from '@venusprotocol/oracle/deployments/zksyncmainnet_addresses.json';
 import venusOracleZkSyncSepoliaDeployments from '@venusprotocol/oracle/deployments/zksyncsepolia_addresses.json';
 import { abi as XVSProxyOFTDest } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTDest.sol/XVSProxyOFTDest.json';
@@ -65,6 +67,7 @@ import tokenBridgeOpBnbTestnetDeployments from '@venusprotocol/token-bridge/depl
 import tokenBridgeOptimismMainnetDeployments from '@venusprotocol/token-bridge/deployments/opmainnet_addresses.json';
 import tokenBridgeOptimismSepoliaDeployments from '@venusprotocol/token-bridge/deployments/opsepolia_addresses.json';
 import tokenBridgeSepoliaDeployments from '@venusprotocol/token-bridge/deployments/sepolia_addresses.json';
+import tokenBridgeUnichainSepoliaDeployments from '@venusprotocol/token-bridge/deployments/unichainsepolia_addresses.json';
 import tokenBridgeZkSyncMainnetDeployments from '@venusprotocol/token-bridge/deployments/zksyncmainnet_addresses.json';
 import tokenBridgeZkSyncSepoliaDeployments from '@venusprotocol/token-bridge/deployments/zksyncsepolia_addresses.json';
 import { abi as legacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
@@ -96,6 +99,7 @@ import venusProtocolOpBnbTestnetDeployments from '@venusprotocol/venus-protocol/
 import venusProtocolOptimismMainnetDeployments from '@venusprotocol/venus-protocol/deployments/opmainnet_addresses.json';
 import venusProtocolOptimismSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/opsepolia_addresses.json';
 import venusProtocolSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/sepolia_addresses.json';
+import venusProtocolUnichainSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/unichainsepolia_addresses.json';
 import venusProtocolZkSyncMainnetDeployments from '@venusprotocol/venus-protocol/deployments/zksyncmainnet_addresses.json';
 import venusProtocolZkSyncSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/zksyncsepolia_addresses.json';
 import type { ContractInterface } from 'ethers';
@@ -165,6 +169,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_MAINNET]: isolatedPoolsOptimismMainnetDeployments.addresses.PoolLens,
       [ChainId.BASE_MAINNET]: isolatedPoolsBaseMainnetDeployments.addresses.PoolLens,
       [ChainId.BASE_SEPOLIA]: isolatedPoolsBaseSepoliaDeployments.addresses.PoolLens,
+      [ChainId.UNICHAIN_SEPOLIA]: isolatedPoolsUnichainSepoliaDeployments.addresses.PoolLens,
     },
   },
   {
@@ -188,6 +193,8 @@ export const contracts: ContractConfig[] = [
         isolatedPoolsOptimismMainnetDeployments.addresses.PoolRegistry_Proxy,
       [ChainId.BASE_MAINNET]: isolatedPoolsBaseMainnetDeployments.addresses.PoolRegistry_Proxy,
       [ChainId.BASE_SEPOLIA]: isolatedPoolsBaseSepoliaDeployments.addresses.PoolRegistry_Proxy,
+      [ChainId.UNICHAIN_SEPOLIA]:
+        isolatedPoolsUnichainSepoliaDeployments.addresses.PoolRegistry_Proxy,
     },
   },
   {
@@ -230,6 +237,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_MAINNET]: tokenBridgeOptimismMainnetDeployments.addresses.XVS,
       [ChainId.BASE_MAINNET]: tokenBridgeBaseMainnetDeployments.addresses.XVS,
       [ChainId.BASE_SEPOLIA]: tokenBridgeBaseSepoliaDeployments.addresses.XVS,
+      [ChainId.UNICHAIN_SEPOLIA]: tokenBridgeUnichainSepoliaDeployments.addresses.XVS,
     },
   },
   {
@@ -250,6 +258,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses.XVSVaultProxy,
       [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.XVSVaultProxy,
       [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.XVSVaultProxy,
+      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses.XVSVaultProxy,
     },
   },
   {
@@ -270,6 +279,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses.XVSStore,
       [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.XVSStore,
       [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.XVSStore,
+      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses.XVSStore,
     },
   },
   {
@@ -308,6 +318,8 @@ export const contracts: ContractConfig[] = [
         venusGovernanceBaseMainnetDeployments.addresses.OmnichainGovernanceExecutor,
       [ChainId.BASE_SEPOLIA]:
         venusGovernanceBaseSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
+      // [ChainId.UNICHAIN_SEPOLIA]:
+      // venusGovernanceUnichainSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
     },
   },
   {
@@ -352,6 +364,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
       [ChainId.BASE_MAINNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
       [ChainId.BASE_SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
+      [ChainId.UNICHAIN_SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
     },
   },
   {
@@ -372,6 +385,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_SEPOLIA]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.BASE_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.BASE_SEPOLIA]: '0xca11bde05977b3631167028862be2a173976ca11',
+      [ChainId.UNICHAIN_SEPOLIA]: '0xca11bde05977b3631167028862be2a173976ca11',
     },
   },
   {
@@ -392,6 +406,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_MAINNET]: venusOracleOptimismMainnetDeployments.addresses.ResilientOracle,
       [ChainId.BASE_MAINNET]: venusOracleBaseMainnetDeployments.addresses.ResilientOracle,
       [ChainId.BASE_SEPOLIA]: venusOracleBaseSepoliaDeployments.addresses.ResilientOracle,
+      [ChainId.UNICHAIN_SEPOLIA]: venusOracleUnichainSepoliaDeployments.addresses.ResilientOracle,
     },
   },
   {
@@ -410,6 +425,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses.Prime,
       [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.Prime,
       [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.Prime,
+      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses.Prime,
     },
   },
   {
@@ -436,6 +452,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses.VTreasuryV8,
       [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.VTreasuryV8,
       [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.VTreasuryV8,
+      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses.VTreasuryV8,
     },
   },
   {
@@ -454,6 +471,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_MAINNET]: tokenBridgeOptimismMainnetDeployments.addresses.XVSProxyOFTDest,
       [ChainId.BASE_MAINNET]: tokenBridgeBaseMainnetDeployments.addresses.XVSProxyOFTDest,
       [ChainId.BASE_SEPOLIA]: tokenBridgeBaseSepoliaDeployments.addresses.XVSProxyOFTDest,
+      [ChainId.UNICHAIN_SEPOLIA]: tokenBridgeUnichainSepoliaDeployments.addresses.XVSProxyOFTDest,
     },
   },
   {
@@ -570,6 +588,7 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_SEPOLIA]: {},
       [ChainId.BASE_MAINNET]: {},
       [ChainId.BASE_SEPOLIA]: {},
+      [ChainId.UNICHAIN_SEPOLIA]: {},
     },
   },
   // NativeTokenGateway contract addresses for each supported pool
@@ -645,6 +664,10 @@ export const contracts: ContractConfig[] = [
       [ChainId.BASE_SEPOLIA]: {
         [isolatedPoolsBaseSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
           isolatedPoolsBaseSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
+      },
+      [ChainId.UNICHAIN_SEPOLIA]: {
+        [isolatedPoolsUnichainSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
+          isolatedPoolsUnichainSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
       },
     },
   },
