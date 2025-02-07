@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.209.1
+
+### Patch Changes
+
+- d54a89c: remove log command from a test
+
 ## 2.209.0
 
 ### Minor Changes
