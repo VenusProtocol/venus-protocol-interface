@@ -556,11 +556,9 @@ describe('ProposalComp page', () => {
       mutateAsync: cancelMock,
     }));
 
-    const { debug, container } = renderComponent(<ProposalComp />, {
+    renderComponent(<ProposalComp />, {
       accountAddress: fakeAccountAddress,
     });
-
-    debug(container, 10000000000);
 
     expect(
       screen.queryByText(en.voteProposalUi.command.actionButton.cancel),
