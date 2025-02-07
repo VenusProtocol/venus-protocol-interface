@@ -1,7 +1,6 @@
 import {
   Arrow,
   Provider,
-  type TooltipContentProps,
   Tooltip as TooltipPrimitive,
   type TooltipProps as TooltipPrimitiveProps,
   Trigger,
@@ -15,17 +14,9 @@ import { TooltipContent } from './TooltipContent';
 export interface TooltipProps extends TooltipPrimitiveProps {
   className?: string;
   content: string | React.ReactElement;
-  side?: TooltipContentProps['side'];
 }
 
-export const Tooltip = ({
-  className,
-  content,
-  children,
-  delayDuration = 200,
-  side,
-  ...props
-}: TooltipProps) => {
+export const Tooltip = ({ className, content, children, ...props }: TooltipProps) => {
   const [isTooltipOpened, setIsTooltipOpened] = useState(false);
   const isMdOrUp = useBreakpointUp('md');
 
@@ -33,7 +24,7 @@ export const Tooltip = ({
 
   return (
     <Provider>
-      <TooltipPrimitive delayDuration={delayDuration} {...props}>
+      <TooltipPrimitive delayDuration={200} {...props}>
         <Trigger asChild>
           <div
             className={className}
@@ -49,7 +40,6 @@ export const Tooltip = ({
         </Trigger>
         <TooltipContent
           onPointerDownOutside={e => e.preventDefault()}
-          side={side}
           className={cn('block p-3', !isMdOrUp && 'hidden')}
         >
           {content}
