@@ -17,6 +17,6 @@
   },
   "devDependencies": {
     "@venusprotocol/typescript-config": "*",
-    "viem": "^2.22.16"
+    "viem": "^2.22.23"
   }
 }
