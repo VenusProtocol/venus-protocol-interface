@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.210.0
+
+### Minor Changes
+
+- 26345b7: rework toolip component
+- d16fd97: bump wagmi and viem
+
 ## 2.209.1
 
 ### Patch Changes
