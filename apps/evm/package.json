@@ -60,6 +60,8 @@
     "connectkit": "^1.8.2",
     "copy-to-clipboard": "^3.3.3",
     "date-fns": "^4.1.0",
+    "embla-carousel-autoplay": "^8.5.2",
+    "embla-carousel-react": "^8.5.2",
     "ethers": "^5.7.2",
     "formik": "^2.4.3",
     "graphql": "16.10.0",

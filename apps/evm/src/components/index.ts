@@ -47,3 +47,4 @@ export * from './MarkdownViewer';
 export * from './ErrorState';
 export * from './Pill';
 export * from './Page';
+export * from './Carousel';

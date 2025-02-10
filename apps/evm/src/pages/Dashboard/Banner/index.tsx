@@ -1,9 +1,8 @@
 import { useGetPrimeToken } from 'clients/api';
+import { Carousel, CarouselItem } from 'components';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
-
 import { PrimePromotionalBanner } from './PrimePromotionalBanner';
-import { store } from './store';
 
 export const Banner: React.FC = () => {
   const { accountAddress } = useAccountAddress();
@@ -17,14 +16,17 @@ export const Banner: React.FC = () => {
     name: 'prime',
   });
 
-  const storeShouldShowPrimePromotionalBanner = store.use.shouldShowBanner();
-  const hidePrimePromotionalBanner = store.use.hideBanner();
+  const slides: React.ReactNode[] = [];
 
-  const canShowPrimePromotionalBanner = isPrimeEnabled && storeShouldShowPrimePromotionalBanner;
-
-  if (canShowPrimePromotionalBanner && (!isAccountPrime || !accountAddress)) {
-    return <PrimePromotionalBanner onHide={hidePrimePromotionalBanner} />;
+  if (isPrimeEnabled && (!isAccountPrime || !accountAddress)) {
+    slides.push(<PrimePromotionalBanner />);
   }
 
-  return null;
+  return slides.length > 0 ? (
+    <Carousel className="mb-6" autoPlay>
+      {slides.map((slide, i) => (
+        <CarouselItem key={i}>{slide}</CarouselItem>
+      ))}
+    </Carousel>
+  ) : undefined;
 };
