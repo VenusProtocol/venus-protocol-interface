@@ -1,4 +1,3 @@
-import { fireEvent } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -9,8 +8,6 @@ import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatur
 import { en } from 'libs/translations';
 
 import { Banner } from '..';
-import TEST_IDS from '../PrimePromotionalBanner/testIds';
-import { store } from '../store';
 
 describe('Banner - Feature flag enabled: prime', () => {
   beforeEach(() => {
@@ -30,29 +27,18 @@ describe('Banner - Feature flag enabled: prime', () => {
     renderComponent(<Banner />);
   });
 
-  it('renders Prime promotional banner when user is not connected and has not closed it before', () => {
+  it('renders Prime promotional banner when user is not connected', () => {
     const { getByText } = renderComponent(<Banner />);
 
     expect(getByText(en.dashboard.primePromotionalBanner.description));
   });
 
-  it('renders Prime promotional banner when connected user is not Prime and has not closed it before', () => {
+  it('renders Prime promotional banner when connected user is not Prime', () => {
     const { getByText } = renderComponent(<Banner />, {
       accountAddress: fakeAccountAddress,
     });
 
     expect(getByText(en.dashboard.primePromotionalBanner.description));
-  });
-
-  it('renders nothing when user is not Connected and has closed the Prime promotional banner before', () => {
-    // Update store to simulate Prime promotional banner having been closed before
-    store.setState({
-      shouldShowBanner: false,
-    });
-
-    const { baseElement } = renderComponent(<Banner />);
-
-    expect(baseElement.textContent).toEqual('');
   });
 
   it('renders nothing when connected user is Prime', () => {
@@ -66,19 +52,6 @@ describe('Banner - Feature flag enabled: prime', () => {
     const { baseElement } = renderComponent(<Banner />, {
       accountAddress: fakeAccountAddress,
     });
-
-    expect(baseElement.textContent).toEqual('');
-  });
-
-  it('lets user close the Prime promotional banner', () => {
-    const { baseElement, getByTestId, getByRole } = renderComponent(<Banner />, {
-      accountAddress: fakeAccountAddress,
-    });
-
-    expect(getByTestId(TEST_IDS.closeButton));
-
-    // Click on close button
-    fireEvent.click(getByRole('button'));
 
     expect(baseElement.textContent).toEqual('');
   });

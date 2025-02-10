@@ -1,4 +1,4 @@
-import { ButtonWrapper, Card, Icon } from 'components';
+import { ButtonWrapper, Card } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -8,13 +8,8 @@ import { useTranslation } from 'libs/translations';
 import boostsIllustration from './boostsIllustration.png';
 import illustrationSm from './illustrationSm.png';
 import primeTokenIllustration from './primeTokenIllustration.png';
-import TEST_IDS from './testIds';
 
-export interface PrimePromotionalBannerProps {
-  onHide: () => void;
-}
-
-export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ onHide }) => {
+export const PrimePromotionalBanner: React.FC = () => {
   const { t, Trans } = useTranslation();
   const primeCalculatorPagePath = usePrimeCalculatorPagePath();
   const isPrimeCalculatorEnabled = useIsFeatureEnabled({
@@ -22,16 +17,7 @@ export const PrimePromotionalBanner: React.FC<PrimePromotionalBannerProps> = ({ 
   });
 
   return (
-    <Card className="border-lightGrey relative mb-6 overflow-hidden border py-6 sm:p-0 md:p-0">
-      <button
-        onClick={onHide}
-        className="absolute right-4 top-4 z-[1]"
-        type="button"
-        data-testid={TEST_IDS.closeButton}
-      >
-        <Icon name="close" className="text-offWhite hover:text-grey h-6 w-6" />
-      </button>
-
+    <Card className="border-lightGrey relative overflow-hidden border py-6 sm:p-0 md:p-0">
       <div className="sm:flex sm:flex-row">
         <div className="relative mb-6 justify-center sm:order-2 sm:mb-0 sm:basis-4/12 xl:grow">
           {/* Mobile illustration */}
