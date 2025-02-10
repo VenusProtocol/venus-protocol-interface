@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.211.0
+
+### Minor Changes
+
+- 870c792: add Carousel component
+
 ## 2.210.0
 
 ### Minor Changes
