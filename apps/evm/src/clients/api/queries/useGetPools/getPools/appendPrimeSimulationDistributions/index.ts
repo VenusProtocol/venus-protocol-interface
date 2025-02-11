@@ -97,7 +97,7 @@ export const appendPrimeSimulationDistributions = async ({
             aprBips: simulatedPrimeAprs.borrowAPR.toString(),
           });
 
-          asset.borrowDistributions.push({
+          asset.borrowTokenDistributions.push({
             type: 'primeSimulation',
             token: asset.vToken.underlyingToken,
             apyPercentage: borrowSimulatedPrimeApy,
@@ -110,7 +110,7 @@ export const appendPrimeSimulationDistributions = async ({
             aprBips: simulatedPrimeAprs.supplyAPR.toString(),
           });
 
-          asset.supplyDistributions.push({
+          asset.supplyTokenDistributions.push({
             type: 'primeSimulation',
             token: asset.vToken.underlyingToken,
             apyPercentage: supplySimulatedPrimeApy,

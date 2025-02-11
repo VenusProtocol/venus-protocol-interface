@@ -48,17 +48,17 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
                 type={type}
               />
             ) : (
-              t('marketTable.apy.primeBadge.tooltip.primeMarket')
+              t('apy.primeBadge.tooltip.primeMarket')
             )}
           </p>
 
           {isPrimeCalculatorEnabled ? (
             <Link to={primeCalculatorPagePath} onClick={e => e.stopPropagation()}>
-              {t('marketTable.apy.primeBadge.tooltip.calculatorLink')}
+              {t('apy.primeBadge.tooltip.calculatorLink')}
             </Link>
           ) : (
             <Link href={PRIME_DOC_URL} onClick={e => e.stopPropagation()}>
-              {t('marketTable.apy.primeBadge.tooltip.primeDocLink')}
+              {t('apy.primeBadge.tooltip.primeDocLink')}
             </Link>
           )}
         </>

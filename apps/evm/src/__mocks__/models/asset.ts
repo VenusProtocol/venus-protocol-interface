@@ -35,7 +35,7 @@ export const assetData: Asset[] = [
     supplyBalanceTokens: new BigNumber('19339683254955736'),
     borrowBalanceTokens: new BigNumber('1852935.597521220541385584'),
     disabledTokenActions: [],
-    supplyDistributions: [
+    supplyTokenDistributions: [
       {
         type: 'venus',
         token: xvs,
@@ -43,12 +43,30 @@ export const assetData: Asset[] = [
         dailyDistributedTokens: new BigNumber('9999999.5'),
       },
     ],
-    borrowDistributions: [
+    borrowTokenDistributions: [
       {
         type: 'venus',
         token: xvs,
         apyPercentage: new BigNumber('4.17469243006608279'),
         dailyDistributedTokens: new BigNumber('9999999.5'),
+      },
+    ],
+    supplyPointDistributions: [
+      {
+        logoUrl: xvs.asset,
+        title: 'Fake points',
+        incentive: '3x points',
+        description: 'Fake point distribution description',
+        extraInfoUrl: 'https://fake.url',
+      },
+    ],
+    borrowPointDistributions: [
+      {
+        logoUrl: xvs.asset,
+        title: 'Fake points',
+        incentive: '3x points',
+        description: 'Fake point distribution description',
+        extraInfoUrl: 'https://fake.url',
       },
     ],
   },
@@ -80,7 +98,7 @@ export const assetData: Asset[] = [
     supplyBalanceTokens: new BigNumber('47171999131879271527200010830'),
     borrowBalanceTokens: new BigNumber('73128318.509651061457900627'),
     disabledTokenActions: ['borrow', 'supply'],
-    supplyDistributions: [
+    supplyTokenDistributions: [
       {
         type: 'venus',
         token: xvs,
@@ -103,7 +121,7 @@ export const assetData: Asset[] = [
         apyPercentage: new BigNumber('0.753105649796123742'),
       },
     ],
-    borrowDistributions: [
+    borrowTokenDistributions: [
       {
         type: 'venus',
         token: xvs,
@@ -126,6 +144,8 @@ export const assetData: Asset[] = [
         apyPercentage: new BigNumber('0.913105649796123742'),
       },
     ],
+    supplyPointDistributions: [],
+    borrowPointDistributions: [],
   },
   {
     vToken: vUsdt,
@@ -155,7 +175,7 @@ export const assetData: Asset[] = [
     supplyBalanceTokens: new BigNumber('5029972090817266864401527367893625'),
     borrowBalanceTokens: new BigNumber('232511166.920938849475104194'),
     disabledTokenActions: ['swapAndSupply'],
-    supplyDistributions: [
+    supplyTokenDistributions: [
       {
         type: 'venus',
         token: xvs,
@@ -173,7 +193,7 @@ export const assetData: Asset[] = [
         },
       },
     ],
-    borrowDistributions: [
+    borrowTokenDistributions: [
       {
         type: 'venus',
         token: xvs,
@@ -189,6 +209,16 @@ export const assetData: Asset[] = [
           userSupplyBalanceTokens: new BigNumber('1000'),
           userXvsStakedTokens: new BigNumber('1000'),
         },
+      },
+    ],
+    supplyPointDistributions: [],
+    borrowPointDistributions: [
+      {
+        logoUrl: xvs.asset,
+        title: 'Fake points',
+        incentive: '3x points',
+        description: 'Fake point distribution description',
+        extraInfoUrl: 'https://fake.url',
       },
     ],
   },
@@ -220,7 +250,7 @@ export const assetData: Asset[] = [
     supplyBalanceTokens: new BigNumber('51881081291203672464'),
     borrowBalanceTokens: new BigNumber('142662020.229587308931217432'),
     disabledTokenActions: ['supply'],
-    supplyDistributions: [
+    supplyTokenDistributions: [
       {
         type: 'venus',
         token: xvs,
@@ -243,7 +273,7 @@ export const assetData: Asset[] = [
         apyPercentage: new BigNumber(0),
       },
     ],
-    borrowDistributions: [
+    borrowTokenDistributions: [
       {
         type: 'venus',
         token: xvs,
@@ -266,5 +296,15 @@ export const assetData: Asset[] = [
         apyPercentage: new BigNumber('0.913105649796123742'),
       },
     ],
+    supplyPointDistributions: [
+      {
+        logoUrl: xvs.asset,
+        title: 'Fake points',
+        incentive: '3x points',
+        description: 'Fake point distribution description',
+        extraInfoUrl: 'https://fake.url',
+      },
+    ],
+    borrowPointDistributions: [],
   },
 ];

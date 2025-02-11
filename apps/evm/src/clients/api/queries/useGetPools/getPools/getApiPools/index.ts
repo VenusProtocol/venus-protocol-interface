@@ -2,6 +2,9 @@ import { VError } from 'libs/errors';
 import type { ChainId } from 'types';
 import { restService } from 'utilities/restService';
 import type { Address } from 'viem';
+import { type ApiPointDistribution, pointDistributions } from './pointDistributions';
+
+export type { ApiPointDistribution } from './pointDistributions';
 
 export interface ApiRewardDistributor {
   marketAddress: Address;
@@ -60,6 +63,7 @@ export interface ApiMarket {
   isListed: boolean;
   poolComptrollerAddress: Address;
   rewardsDistributors: ApiRewardDistributor[];
+  pointDistributions: ApiPointDistribution[];
 }
 
 export interface ApiPool {
@@ -108,7 +112,22 @@ export const getApiPools = async ({
     });
   }
 
+  // Attach point distributions to pools
+  // TODO: remove once the API returns those
+  const chainPointDistributions = pointDistributions[chainId];
+
+  const pools = (payload?.result || []).map(pool => ({
+    ...pool,
+    markets: pool.markets.map(market => ({
+      ...market,
+      pointDistributions: [
+        ...(market.pointDistributions || []), // Useful for tests only
+        ...(chainPointDistributions[market.address] || []),
+      ],
+    })),
+  }));
+
   return {
-    pools: payload?.result || [],
+    pools,
   };
 };

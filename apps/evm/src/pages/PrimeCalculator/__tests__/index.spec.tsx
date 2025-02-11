@@ -18,7 +18,7 @@ import TEST_IDS from '../testIds';
 const pool = poolData[0];
 
 const primeAssets = pool.assets.reduce<Asset[]>((acc, asset) => {
-  const distributions = asset.borrowDistributions.concat(asset.supplyDistributions);
+  const distributions = asset.borrowTokenDistributions.concat(asset.supplyTokenDistributions);
   const hasPrimeDistribution = distributions.some(
     distribution => distribution.type === 'prime' || distribution.type === 'primeSimulation',
   );

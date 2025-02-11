@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
-import { ButtonGroup, Spinner } from 'components';
+import { Apy, ButtonGroup, Spinner } from 'components';
 import { ApyChart, type ApyChartProps } from 'components/charts/ApyChart';
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
-import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 
 import BigNumber from 'bignumber.js';
 import { type MarketHistoryPeriodType, useGetPoolLiquidationIncentive } from 'clients/api';
@@ -88,8 +88,6 @@ export const Card: React.FC<CardProps> = ({
         ? data.reduce((acc, item) => acc + item.apyPercentage, 0) / data.length
         : undefined;
 
-    const distributionApys = getCombinedDistributionApys({ asset });
-
     const tmpStats: MarketCardProps['stats'] = [
       {
         label: t('market.stats.averageApy'),
@@ -97,17 +95,7 @@ export const Card: React.FC<CardProps> = ({
       },
       {
         label: t('market.stats.apy'),
-        value: formatPercentageToReadableValue(
-          type === 'supply' ? asset.supplyApyPercentage : asset.borrowApyPercentage,
-        ),
-      },
-      {
-        label: t('market.stats.distributionApy'),
-        value: formatPercentageToReadableValue(
-          type === 'supply'
-            ? distributionApys.supplyApyRewardsPercentage
-            : distributionApys.borrowApyRewardsPercentage,
-        ),
+        value: <Apy asset={asset} type={type} />,
       },
     ];
 

@@ -364,14 +364,16 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
 
     pools.forEach(pool =>
       pool.assets.forEach(asset =>
-        asset.supplyDistributions.concat(asset.borrowDistributions).forEach(distribution => {
-          if (
-            distribution.type === 'primeSimulation' &&
-            (!highestApyPercentage || distribution.apyPercentage.gt(highestApyPercentage))
-          ) {
-            highestApyPercentage = distribution.apyPercentage;
-          }
-        }),
+        asset.supplyTokenDistributions
+          .concat(asset.borrowTokenDistributions)
+          .forEach(distribution => {
+            if (
+              distribution.type === 'primeSimulation' &&
+              (!highestApyPercentage || distribution.apyPercentage.gt(highestApyPercentage))
+            ) {
+              highestApyPercentage = distribution.apyPercentage;
+            }
+          }),
       ),
     );
 

@@ -9,7 +9,16 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowBalanceCents": "70925716",
         "borrowBalanceTokens": "1852935.597521220541385584",
         "borrowCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
-        "borrowDistributions": [
+        "borrowPointDistributions": [
+          {
+            "description": "Fake point distribution description",
+            "extraInfoUrl": "https://fake.url",
+            "incentive": "3x points",
+            "logoUrl": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
+            "title": "Fake points",
+          },
+        ],
+        "borrowTokenDistributions": [
           {
             "apyPercentage": "4.17469243006608279",
             "dailyDistributedTokens": "9999999.5",
@@ -36,7 +45,16 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "supplyBalanceCents": "278311516",
         "supplyBalanceTokens": "19339683254955736",
         "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
-        "supplyDistributions": [
+        "supplyPointDistributions": [
+          {
+            "description": "Fake point distribution description",
+            "extraInfoUrl": "https://fake.url",
+            "incentive": "3x points",
+            "logoUrl": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
+            "title": "Fake points",
+          },
+        ],
+        "supplyTokenDistributions": [
           {
             "apyPercentage": "0.11720675342484096",
             "dailyDistributedTokens": "9999999.5",
@@ -74,7 +92,8 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowBalanceCents": "858721657509436",
         "borrowBalanceTokens": "73128318.509651061457900627",
         "borrowCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
-        "borrowDistributions": [
+        "borrowPointDistributions": [],
+        "borrowTokenDistributions": [
           {
             "apyPercentage": "1.670327607690572731",
             "dailyDistributedTokens": "9999999.5",
@@ -129,7 +148,8 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "supplyBalanceCents": "1000183891879506",
         "supplyBalanceTokens": "4.717199913187927152720001083e+28",
         "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
-        "supplyDistributions": [
+        "supplyPointDistributions": [],
+        "supplyTokenDistributions": [
           {
             "apyPercentage": "1.353105649796123742",
             "dailyDistributedTokens": "9999999.5",
@@ -192,7 +212,16 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowBalanceCents": "3158444721",
         "borrowBalanceTokens": "232511166.920938849475104194",
         "borrowCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
-        "borrowDistributions": [
+        "borrowPointDistributions": [
+          {
+            "description": "Fake point distribution description",
+            "extraInfoUrl": "https://fake.url",
+            "incentive": "3x points",
+            "logoUrl": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
+            "title": "Fake points",
+          },
+        ],
+        "borrowTokenDistributions": [
           {
             "apyPercentage": "0.522209972682294832",
             "dailyDistributedTokens": "9999999.5",
@@ -236,7 +265,8 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "supplyBalanceCents": "1098041201011568",
         "supplyBalanceTokens": "5.029972090817266864401527367893625e+33",
         "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
-        "supplyDistributions": [
+        "supplyPointDistributions": [],
+        "supplyTokenDistributions": [
           {
             "apyPercentage": "0.421719501189155143",
             "dailyDistributedTokens": "9999999.5",
@@ -289,7 +319,8 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "borrowBalanceCents": "83910350502",
         "borrowBalanceTokens": "142662020.229587308931217432",
         "borrowCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
-        "borrowDistributions": [
+        "borrowPointDistributions": [],
+        "borrowTokenDistributions": [
           {
             "apyPercentage": "0.852697602175970714",
             "dailyDistributedTokens": "9999999.5",
@@ -343,7 +374,16 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
         "supplyBalanceCents": "1054707853878",
         "supplyBalanceTokens": "51881081291203672464",
         "supplyCapTokens": "1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+77",
-        "supplyDistributions": [
+        "supplyPointDistributions": [
+          {
+            "description": "Fake point distribution description",
+            "extraInfoUrl": "https://fake.url",
+            "incentive": "3x points",
+            "logoUrl": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
+            "title": "Fake points",
+          },
+        ],
+        "supplyTokenDistributions": [
           {
             "apyPercentage": "0.678420831753642169",
             "dailyDistributedTokens": "9999999.5",

@@ -117,7 +117,7 @@ export const Form: React.FC = () => {
 
     (getPoolsData?.pools || []).forEach(pool => {
       pool.assets.forEach(asset => {
-        const distributions = asset.borrowDistributions.concat(asset.supplyDistributions);
+        const distributions = asset.borrowTokenDistributions.concat(asset.supplyTokenDistributions);
         const hasPrimeDistribution = distributions.some(
           distribution => distribution.type === 'prime' || distribution.type === 'primeSimulation',
         );

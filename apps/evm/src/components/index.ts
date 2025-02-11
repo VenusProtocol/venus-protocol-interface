@@ -46,5 +46,6 @@ export * from './MarkdownEditor';
 export * from './MarkdownViewer';
 export * from './ErrorState';
 export * from './Pill';
+export * from './Apy';
 export * from './Page';
 export * from './Carousel';

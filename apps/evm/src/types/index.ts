@@ -80,11 +80,19 @@ export interface MerklDistribution {
   description?: string;
 }
 
-export type AssetDistribution =
+export type TokenDistribution =
   | RewardDistributorDistribution
   | PrimeDistribution
   | PrimeSimulationDistribution
   | MerklDistribution;
+
+export interface PointDistribution {
+  title: string;
+  description?: string;
+  logoUrl?: string;
+  extraInfoUrl?: string;
+  incentive?: string;
+}
 
 export interface Asset {
   vToken: VToken;
@@ -103,8 +111,10 @@ export interface Asset {
   supplyBalanceCents: BigNumber;
   borrowBalanceTokens: BigNumber;
   borrowBalanceCents: BigNumber;
-  supplyDistributions: AssetDistribution[];
-  borrowDistributions: AssetDistribution[];
+  supplyTokenDistributions: TokenDistribution[];
+  borrowTokenDistributions: TokenDistribution[];
+  supplyPointDistributions: PointDistribution[];
+  borrowPointDistributions: PointDistribution[];
   disabledTokenActions: TokenAction[];
   borrowCapTokens: BigNumber;
   supplyCapTokens: BigNumber;

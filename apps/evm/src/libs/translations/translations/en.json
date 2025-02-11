@@ -95,6 +95,41 @@
   "appVersionChecker": {
     "newVersionMessage": "A new version of Venus is available. Reload the page to use it now."
   },
+  "apy": {
+    "boost": {
+      "iconAlt": "Boosted market icon",
+      "tooltip": {
+        "baseBorrowApyLabel": "Borrow APY",
+        "baseSupplyApyLabel": "Supply APY",
+        "defaultMerklRewardName": "Merkl rewards",
+        "externalRewardDescription": "Rewards from this external program can be claimed through their <AppLink>official app</AppLink>. The Venus protocol does not guarantee them and accepts no liability.",
+        "pointDistribution": {
+          "learnMore": "Learn more"
+        },
+        "pointDistributions": {
+          "title": "Point distributions"
+        },
+        "primeDistribution": {
+          "description": "Venus Prime rewards dedicated users with boosted rewards. The Venus protocol does not guarantee these rewards and accepts no liability.",
+          "name": "Prime APY"
+        },
+        "xvsDistribution": {
+          "description": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
+          "name": "XVS distribution"
+        }
+      }
+    },
+    "primeBadge": {
+      "logoAlt": "Prime logo",
+      "tooltip": {
+        "calculatorLink": "Calculate your Prime rewards",
+        "primeBorrowSimulation": "APY boosted by Prime based on the median user borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}.",
+        "primeDocLink": "Learn more",
+        "primeMarket": "APY boosted by Prime.",
+        "primeSupplySimulation": "APY boosted by Prime based on the median user supply of {{supplyBalance}} and vault stake of {{xvsStaked}}."
+      }
+    }
+  },
   "apyChart": {
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
@@ -419,7 +454,6 @@
     "stats": {
       "apy": "Current APY",
       "averageApy": "Average APY",
-      "distributionApy": "Distribution APY",
       "liquidationPenalty": "Liquidation Penalty",
       "liquidationThreshold": "Liquidation Threshold"
     },
@@ -440,31 +474,6 @@
     }
   },
   "marketTable": {
-    "apy": {
-      "boost": {
-        "iconAlt": "Boosted market icon",
-        "tooltip": {
-          "baseBorrowApyLabel": "Borrow APY",
-          "baseSupplyApyLabel": "Supply APY",
-          "defaultMerklRewardName": "Merkl rewards",
-          "externalRewardDescription": "Rewards from this external program can be claimed through their <AppLink>official app</AppLink>. The Venus protocol does not guarantee them and accepts no liability.",
-          "primeDistributionDescription": "Venus Prime rewards dedicated users with boosted rewards. The Venus protocol does not guarantee these rewards and accepts no liability.",
-          "primeDistributionName": "Prime APY",
-          "xvsDistributionDescription": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
-          "xvsDistributionName": "XVS distribution"
-        }
-      },
-      "primeBadge": {
-        "logoAlt": "Prime logo",
-        "tooltip": {
-          "calculatorLink": "Calculate your Prime rewards",
-          "primeBorrowSimulation": "APY boosted by Prime based on the median user borrow of {{borrowBalance}} and vault stake of {{xvsStaked}}.",
-          "primeDocLink": "Learn more",
-          "primeMarket": "APY boosted by Prime.",
-          "primeSupplySimulation": "APY boosted by Prime based on the median user supply of {{supplyBalance}} and vault stake of {{xvsStaked}}."
-        }
-      }
-    },
     "assetColumn": {
       "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled."
     },

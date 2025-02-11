@@ -118,8 +118,8 @@ export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProp
           tempDailyXvsDistributionTokens = assets.reduce(
             (total, asset) =>
               total.plus(
-                asset.supplyDistributions
-                  .concat(asset.borrowDistributions)
+                asset.supplyTokenDistributions
+                  .concat(asset.borrowTokenDistributions)
                   .reduce(
                     (assetTotal, distribution) =>
                       distribution.type === 'venus' && areTokensEqual(distribution.token, xvs)
