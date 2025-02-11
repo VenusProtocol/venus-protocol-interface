@@ -13,7 +13,6 @@ export type NonNullableFields<T> = Required<{
 
 export type Environment =
   | 'storybook'
-  | 'ci'
   | 'local'
   | 'preview' // Automatically generated environments when opening PRs and fixed preview environments
   | 'production';

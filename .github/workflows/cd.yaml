@@ -10,7 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  VITE_ENV: "ci"
+  VITE_ENV: "production"
+  VITE_NETWORK: "mainnet"
   HOSTNAME: "app-ipfs.venus.io"
 
 jobs:
