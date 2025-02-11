@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.212.0
+
+### Minor Changes
+
+- aa0db99: add point distributions
+
 ## 2.211.0
 
 ### Minor Changes
