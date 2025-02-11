@@ -13,6 +13,7 @@ import {
   optimism as optimismMainnet,
   optimismSepolia,
   sepolia,
+  unichain,
   unichainSepolia,
   zksync as zksyncMainnet,
   zksyncSepoliaTestnet,
@@ -36,6 +37,7 @@ const chainMapping = {
   [ChainId.OPTIMISM_SEPOLIA]: optimismSepolia,
   [ChainId.BASE_MAINNET]: base,
   [ChainId.BASE_SEPOLIA]: baseSepolia,
+  [ChainId.UNICHAIN_MAINNET]: unichain,
   [ChainId.UNICHAIN_SEPOLIA]: unichainSepolia,
 } as const satisfies Record<ChainId, Chain>;
 

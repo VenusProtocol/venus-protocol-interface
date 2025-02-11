@@ -14,6 +14,9 @@ exports[`store > setUserSettings > updates user settings correctly 1`] = `
   "11155420": {
     "gaslessTransactions": false,
   },
+  "130": {
+    "gaslessTransactions": false,
+  },
   "1301": {
     "gaslessTransactions": false,
   },

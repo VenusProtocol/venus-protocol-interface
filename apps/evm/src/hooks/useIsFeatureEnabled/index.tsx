@@ -45,6 +45,7 @@ export const featureFlags = {
     ChainId.OPTIMISM_SEPOLIA,
     ChainId.BASE_MAINNET,
     ChainId.BASE_SEPOLIA,
+    ChainId.UNICHAIN_MAINNET,
     ChainId.UNICHAIN_SEPOLIA,
   ],
   marketParticipantCounts: [
@@ -103,6 +104,7 @@ export const featureFlags = {
     ChainId.OPTIMISM_SEPOLIA,
     ChainId.BASE_MAINNET,
     ChainId.BASE_SEPOLIA,
+    ChainId.UNICHAIN_MAINNET,
     ChainId.UNICHAIN_SEPOLIA,
   ],
   gaslessTransactions: [ChainId.ZKSYNC_SEPOLIA, ChainId.ZKSYNC_MAINNET],

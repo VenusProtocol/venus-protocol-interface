@@ -20,6 +20,6 @@ export const rpcUrls: {
   [ChainId.OPTIMISM_SEPOLIA]: 'https://sepolia.optimism.io',
   [ChainId.BASE_MAINNET]: `https://open-platform.nodereal.io/${envVariables.VITE_NODE_REAL_API_KEY}/base`,
   [ChainId.BASE_SEPOLIA]: 'https://sepolia.base.org',
-  [ChainId.UNICHAIN_SEPOLIA]:
-    'https://unichain-sepolia.g.alchemy.com/v2/w0TfA7AvGPsnKRD6hmKYHZGtVn6yYXyi',
+  [ChainId.UNICHAIN_MAINNET]: `https://unichain-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
+  [ChainId.UNICHAIN_SEPOLIA]: `https://unichain-sepolia.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
 };

@@ -30,7 +30,9 @@ export const getIsolatedPoolsSubgraphUrls = ({
     [ChainId.BASE_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmaPerPSwKtU8GHyZSbsKHD2HUeDz2N6u8PpQK1Hanccvw`,
     [ChainId.BASE_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-base-sepolia/version/latest',
-    [ChainId.UNICHAIN_SEPOLIA]: '',
+    [ChainId.UNICHAIN_MAINNET]: undefined,
+    [ChainId.UNICHAIN_SEPOLIA]:
+      'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-unichain-sepolia/version/latest',
   };
 
   return subgraphUrls;
@@ -66,8 +68,8 @@ export const getGovernanceSubgraphUrls = ({
     [ChainId.BASE_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmaeyNEyxYYvkTRDcFNufWRg7Ki8mB5BAXCAZotkhwebLv`,
     [ChainId.BASE_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-governance-base-sepolia/version/latest',
-    [ChainId.UNICHAIN_SEPOLIA]:
-      'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-unichain-sepolia/version/latest',
+    [ChainId.UNICHAIN_MAINNET]: undefined,
+    [ChainId.UNICHAIN_SEPOLIA]: undefined,
   };
 
   return subgraphUrls;
