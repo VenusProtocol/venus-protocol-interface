@@ -1,3 +1,4 @@
+import { APP_MAIN_PRODUCTION_URL } from '../../constants/production';
 import Container from '../Container/Container';
 import Link from '../Link/Link';
 import LinkLaunchApp from '../Link/LinkLaunchApp';
@@ -7,15 +8,11 @@ import IconArrow from './assets/arrow.svg?react';
 const links = [
   {
     text: 'Supply',
-    href: 'https://app.venus.io/dashboard',
+    href: APP_MAIN_PRODUCTION_URL,
   },
   {
     text: 'Borrow',
-    href: 'https://app.venus.io/dashboard',
-  },
-  {
-    text: 'Earn',
-    href: 'https://app.venus.io/xvs',
+    href: APP_MAIN_PRODUCTION_URL,
   },
 ];
 
