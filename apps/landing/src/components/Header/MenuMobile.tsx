@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { APP_MAIN_PRODUCTION_URL, DOC_URL, WHITEPAPERS_URL } from '../../constants/production';
 import Container from '../Container/Container';
 import LinkLaunchApp from '../Link/LinkLaunchApp';
 import NavigationLinks from '../NavigationLinks/NavigationLinks';
@@ -6,15 +7,15 @@ import s from './MenuMobile.module.css';
 
 const content = [
   {
-    href: 'https://github.com/VenusProtocol/venus-protocol-documentation/tree/main/whitepapers',
-    text: 'Whitepaper',
+    href: WHITEPAPERS_URL,
+    text: 'Whitepapers',
   },
   {
-    href: 'https://docs-v4.venus.io/',
+    href: DOC_URL,
     text: 'Docs',
   },
   {
-    href: 'https://app.venus.io/core-pool',
+    href: APP_MAIN_PRODUCTION_URL,
     text: 'Markets',
   },
 ];

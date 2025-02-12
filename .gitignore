@@ -28,7 +28,6 @@ bundleStats.html
 !.vscode/extensions.json
 
 # Misc
-.sass-cache
 connect.lock
 coverage
 libpeerconnection.log

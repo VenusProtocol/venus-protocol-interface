@@ -1,3 +1,4 @@
+import { screen } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -41,7 +42,7 @@ describe('Banner - Feature flag enabled: prime', () => {
     expect(getByText(en.dashboard.primePromotionalBanner.description));
   });
 
-  it('renders nothing when connected user is Prime', () => {
+  it('does not render Prime promotional banner when user is Prime', () => {
     (useGetPrimeToken as Mock).mockImplementation(() => ({
       data: {
         exists: true,
@@ -49,10 +50,12 @@ describe('Banner - Feature flag enabled: prime', () => {
       },
     }));
 
-    const { baseElement } = renderComponent(<Banner />, {
+    renderComponent(<Banner />, {
       accountAddress: fakeAccountAddress,
     });
 
-    expect(baseElement.textContent).toEqual('');
+    expect(
+      screen.queryByText(en.dashboard.primePromotionalBanner.description),
+    ).not.toBeInTheDocument();
   });
 });

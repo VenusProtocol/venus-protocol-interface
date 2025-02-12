@@ -1,31 +1,38 @@
+import { ChainId } from '@venusprotocol/chains';
 import cn from 'classnames';
-import { useState } from 'react';
+import { APP_MAIN_PRODUCTION_URL } from '../../constants/production';
 import s from './Banner.module.css';
-import Close from './assets/close.svg?react';
+import Arrow from './assets/arrow.svg?react';
+import Circles from './assets/circles.svg?react';
+import Squares from './assets/squares.svg?react';
+import UnichainLogo from './assets/unichainLogo.svg?react';
 
 interface IBannerProps {
   className?: string;
 }
 
 const Banner: React.FC<IBannerProps> = ({ className }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-
-  return isOpen ? (
+  return (
     <section className={cn(s.root, className)}>
-      <div className={s.limit}>
-        <div className={s.content}>
-          <span className={s.text}>
-            Announcing another V4 delivery: Venus Prime. Learn more on the{' '}
-            <a href="https://docs-v4.venus.io/whats-new/prime-yield">documentation</a> site and{' '}
-            <a href="https://github.com/VenusProtocol/venus-protocol-documentation/blob/main/whitepapers/Venus-whitepaper-v4.pdf">
-              whitepaper
-            </a>
+      <a
+        href={`${APP_MAIN_PRODUCTION_URL}/#/?chainId=${ChainId.UNICHAIN_MAINNET}`}
+        className={cn(s.banner)}
+      >
+        <Squares className={cn(s.bgImg, s.leftBgImg)} />
+        <Circles className={cn(s.bgImg, s.rightBgImg)} />
+
+        <div className={cn(s.content)}>
+          <UnichainLogo className={cn(s.unichainLogo)} />
+
+          <span>
+            We are live on Unichain! Enjoy ultra-low fees on the new lightning-fast Layer 2 network.
           </span>
-          <Close className={s.close} onClick={() => setIsOpen(false)} />
         </div>
-      </div>
+
+        <Arrow className={s.rightIcon} />
+      </a>
     </section>
-  ) : null;
+  );
 };
 
 export default Banner;

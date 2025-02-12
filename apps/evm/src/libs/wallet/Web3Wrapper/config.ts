@@ -2,6 +2,7 @@ import { getDefaultConfig } from 'connectkit';
 import { http, createConfig } from 'wagmi';
 
 import localConfig from 'config';
+import { MAIN_PRODUCTION_HOST } from 'constants/production';
 import type { ChainId } from 'types';
 import type { Chain, Transport } from 'viem';
 import { chains } from '../chains';
@@ -19,7 +20,7 @@ const connectKitConfig = getDefaultConfig({
   }, {}) as Record<ChainId, Transport>,
   walletConnectProjectId: WALLET_CONNECT_PROJECT_ID,
   appName: 'Venus',
-  appUrl: 'https://app.venus.io',
+  appUrl: `https://${MAIN_PRODUCTION_HOST}`,
   appDescription:
     'Venus is a decentralized finance (DeFi) algorithmic money market protocol on EVM networks.',
   appIcon: 'https://venus.io/180x180.png',
