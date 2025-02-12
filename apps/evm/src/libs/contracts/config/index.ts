@@ -686,8 +686,8 @@ export const contracts: ContractConfig[] = [
           isolatedPoolsBaseSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
       },
       [ChainId.UNICHAIN_MAINNET]: {
-        // update once package is released
-        [isolatedPoolsUnichainMainnetDeployments.addresses.Comptroller_Core.toLowerCase()]: '',
+        [isolatedPoolsUnichainMainnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
+          isolatedPoolsUnichainMainnetDeployments.addresses.NativeTokenGateway_vWETH_Core,
       },
       [ChainId.UNICHAIN_SEPOLIA]: {
         [isolatedPoolsUnichainSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
