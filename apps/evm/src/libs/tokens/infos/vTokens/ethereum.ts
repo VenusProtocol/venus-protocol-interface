@@ -40,8 +40,8 @@ export const vTokenAssets: VTokenAssets = {
   [isolatedPoolsEthereumDeployments.addresses.VToken_vWETH_Core.toLowerCase()]: vWEthCoreLogo,
   [isolatedPoolsEthereumDeployments.addresses.VToken_vsFRAX_Core.toLowerCase()]: vSFraxCoreLogo,
   [isolatedPoolsEthereumDeployments.addresses.VToken_vcrvUSD_Core.toLowerCase()]: vCrvUsdCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_veBTC.toLowerCase()]: vEBtcCoreLogo,
-  [isolatedPoolsEthereumDeployments.addresses.VToken_vEIGEN.toLowerCase()]: vEigenCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_veBTC_Core.toLowerCase()]: vEBtcCoreLogo,
+  [isolatedPoolsEthereumDeployments.addresses.VToken_vEIGEN_Core.toLowerCase()]: vEigenCoreLogo,
 
   // Liquid Staked ETH
   [isolatedPoolsEthereumDeployments.addresses.VToken_vWETH_LiquidStakedETH.toLowerCase()]:

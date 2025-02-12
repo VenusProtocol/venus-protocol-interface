@@ -1,11 +1,14 @@
 import { useGetPrimeToken } from 'clients/api';
 import { Carousel, CarouselItem } from 'components';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useAccountAddress } from 'libs/wallet';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import { ChainId } from 'types';
 import { PrimePromotionalBanner } from './PrimePromotionalBanner';
+import { UnichainPromotionalBanner } from './UnichainPromotionalBanner';
 
 export const Banner: React.FC = () => {
   const { accountAddress } = useAccountAddress();
+  const { chainId } = useChainId();
 
   const { data: getPrimeTokenData } = useGetPrimeToken({
     accountAddress,
@@ -17,6 +20,10 @@ export const Banner: React.FC = () => {
   });
 
   const slides: React.ReactNode[] = [];
+
+  if (chainId !== ChainId.UNICHAIN_MAINNET && chainId !== ChainId.UNICHAIN_SEPOLIA) {
+    slides.push(<UnichainPromotionalBanner />);
+  }
 
   if (isPrimeEnabled && (!isAccountPrime || !accountAddress)) {
     slides.push(<PrimePromotionalBanner />);

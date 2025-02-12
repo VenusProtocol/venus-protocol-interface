@@ -11,7 +11,9 @@ import { vTokenAssets as opBnbMainnetVTokenAssets } from './opBnbMainnet';
 import { vTokenAssets as opBnbTestnetVTokenAssets } from './opBnbTestnet';
 import { vTokenAssets as optimismMainnetVTokenAssets } from './optimismMainnet';
 import { vTokenAssets as optimismSepoliaVTokenAssets } from './optimismSepolia';
-import { vTokenAssets as sepoliaTokenAssets } from './sepolia';
+import { vTokenAssets as sepoliaVTokenAssets } from './sepolia';
+import { vTokenAssets as unichainMainnetVTokenAssets } from './unichainMainnet';
+import { vTokenAssets as unichainSepoliaVTokenAssets } from './unichainSepolia';
 import { vTokenAssets as zkSyncMainnetVTokenAssets } from './zkSyncMainnet';
 import { vTokenAssets as zkSyncSepoliaVTokenAssets } from './zkSyncSepolia';
 
@@ -21,7 +23,7 @@ export const vTokenAssetsPerChainId: Record<ChainId, VTokenAssets> = {
   [ChainId.OPBNB_MAINNET]: opBnbMainnetVTokenAssets,
   [ChainId.OPBNB_TESTNET]: opBnbTestnetVTokenAssets,
   [ChainId.ETHEREUM]: ethereumVTokenAssets,
-  [ChainId.SEPOLIA]: sepoliaTokenAssets,
+  [ChainId.SEPOLIA]: sepoliaVTokenAssets,
   [ChainId.ARBITRUM_ONE]: arbitrumOneVTokenAssets,
   [ChainId.ARBITRUM_SEPOLIA]: arbitrumSepoliaVTokenAssets,
   [ChainId.ZKSYNC_MAINNET]: zkSyncMainnetVTokenAssets,
@@ -30,4 +32,6 @@ export const vTokenAssetsPerChainId: Record<ChainId, VTokenAssets> = {
   [ChainId.OPTIMISM_SEPOLIA]: optimismSepoliaVTokenAssets,
   [ChainId.BASE_MAINNET]: baseMainnetVTokenAssets,
   [ChainId.BASE_SEPOLIA]: baseSepoliaVTokenAssets,
+  [ChainId.UNICHAIN_MAINNET]: unichainMainnetVTokenAssets,
+  [ChainId.UNICHAIN_SEPOLIA]: unichainSepoliaVTokenAssets,
 };

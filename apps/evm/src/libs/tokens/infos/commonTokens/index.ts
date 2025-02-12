@@ -13,6 +13,8 @@ import { tokens as opBnbTestnetTokens } from './opBnbTestnet';
 import { tokens as optimismMainnetTokens } from './optimismMainnet';
 import { tokens as optimismSepoliaTokens } from './optimismSepolia';
 import { tokens as sepoliaTokens } from './sepolia';
+import { tokens as unichainMainnetTokens } from './unichainMainnet';
+import { tokens as unichainSepoliaTokens } from './unichainSepolia';
 import { tokens as zkSyncMainnetTokens } from './zkSyncMainnet';
 import { tokens as zkSyncSepoliaTokens } from './zkSyncSepolia';
 
@@ -31,4 +33,6 @@ export const tokens: TokenMapping = {
   [ChainId.OPTIMISM_SEPOLIA]: optimismSepoliaTokens,
   [ChainId.BASE_MAINNET]: baseMainnetTokens,
   [ChainId.BASE_SEPOLIA]: baseSepoliaTokens,
+  [ChainId.UNICHAIN_MAINNET]: unichainMainnetTokens,
+  [ChainId.UNICHAIN_SEPOLIA]: unichainSepoliaTokens,
 };

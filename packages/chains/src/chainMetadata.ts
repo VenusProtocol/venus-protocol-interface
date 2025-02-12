@@ -4,6 +4,7 @@ import bscLogo from './img/chains/bsc.svg';
 import ethLogo from './img/chains/eth.svg';
 import opbnbLogo from './img/chains/opbnb.svg';
 import optimismLogo from './img/chains/optimism.svg';
+import unichainLogo from './img/chains/unichain.svg';
 import zkSyncLogo from './img/chains/zkSync.svg';
 import bnbTokenLogo from './img/tokens/bnb.svg';
 import ethTokenLogo from './img/tokens/eth.svg';
@@ -159,6 +160,22 @@ export const chainMetadata: {
     explorerUrl: 'https://sepolia.basescan.org',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     corePoolComptrollerContractAddress: '0x272795dd6c5355CF25765F36043F34014454Eb5b',
+    nativeToken: ethToken,
+  },
+  [ChainId.UNICHAIN_MAINNET]: {
+    name: 'Unichain',
+    logoSrc: unichainLogo,
+    explorerUrl: 'https://uniscan.xyz',
+    layerZeroScanUrl: 'https://layerzeroscan.com',
+    corePoolComptrollerContractAddress: '0xe22af1e6b78318e1Fe1053Edbd7209b8Fc62c4Fe',
+    nativeToken: ethToken,
+  },
+  [ChainId.UNICHAIN_SEPOLIA]: {
+    name: 'Unichain Sepolia',
+    logoSrc: unichainLogo,
+    explorerUrl: 'https://sepolia.uniscan.xyz',
+    layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
+    corePoolComptrollerContractAddress: '0xFeD3eAA668a6179c9E5E1A84e3A7d6883F06f7c1',
     nativeToken: ethToken,
   },
 };

@@ -1,4 +1,4 @@
-import '../src/assets/styles/index.scss';
+import '../src/assets/styles/index.css';
 import { withPadding, withRouter, withThemeProvider } from '../src/stories/decorators';
 
 import initializeLibraries from '../src/initializeLibraries';

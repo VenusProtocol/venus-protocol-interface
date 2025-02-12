@@ -15,8 +15,6 @@ declare module '@mui/material/styles' {
     interactive: {
       primary: string;
       success: string;
-      success10: string;
-      success50: string;
       error: string;
       error50: string;
       tan: string;

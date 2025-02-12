@@ -100,4 +100,6 @@ export const pointDistributions: {
   [ChainId.OPTIMISM_SEPOLIA]: {},
   [ChainId.BASE_MAINNET]: {},
   [ChainId.BASE_SEPOLIA]: {},
+  [ChainId.UNICHAIN_MAINNET]: {},
+  [ChainId.UNICHAIN_SEPOLIA]: {},
 };

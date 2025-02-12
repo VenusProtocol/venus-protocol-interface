@@ -2,14 +2,13 @@ import cn from 'classnames';
 import type { ReactNode } from 'react';
 import s from './Link.module.css';
 
-interface ILinkProps {
+interface ILinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   className?: string;
-  href: string;
   children: ReactNode;
   variant?: 'button' | 'buttonTransparent' | 'link';
 }
 
-const Link: React.FC<ILinkProps> = ({ className, href, children, variant = 'button' }) => (
+const Link: React.FC<ILinkProps> = ({ className, children, variant = 'button', ...props }) => (
   <a
     className={cn(
       s.root,
@@ -20,9 +19,7 @@ const Link: React.FC<ILinkProps> = ({ className, href, children, variant = 'butt
       },
       className,
     )}
-    href={href}
-    target="_blank"
-    rel="noreferrer"
+    {...props}
   >
     {children}
   </a>
