@@ -1,4 +1,4 @@
-import vCrvUsdCoreLogo from 'libs/tokens/img/vTokens/vCrvUsdCore.svg';
+import vCrvUsdCoreLogo from 'libs/tokens/img/vTokens/vCrvUsdCore.png';
 import vDaiCoreLogo from 'libs/tokens/img/vTokens/vDaiCore.svg';
 import vEBtcCoreLogo from 'libs/tokens/img/vTokens/vEBtcCore.svg';
 import vEigenCoreLogo from 'libs/tokens/img/vTokens/vEigenCore.svg';
@@ -13,7 +13,7 @@ import vWEthCoreLogo from 'libs/tokens/img/vTokens/vWethCore.svg';
 
 import vEzEthLsEthLogo from 'libs/tokens/img/vTokens/vEzEthLsEth.svg';
 import vPtWeethDec24LsEthLogo from 'libs/tokens/img/vTokens/vPtWeethDec24LsEth.svg';
-import vPufEthLsEthLogo from 'libs/tokens/img/vTokens/vPufEthLsEth.svg';
+import vPufEthLsEthLogo from 'libs/tokens/img/vTokens/vPufEthLsEth.png';
 import vRsEthLsEthLogo from 'libs/tokens/img/vTokens/vRsEthLsEth.svg';
 import vSfrxEthLsEthLogo from 'libs/tokens/img/vTokens/vSfrxEthLsEth.svg';
 import vWeEthLsEthLogo from 'libs/tokens/img/vTokens/vWeEthLsEth.svg';
@@ -21,8 +21,8 @@ import vWeEthSLsEthLogo from 'libs/tokens/img/vTokens/vWeEthSLsEth.svg';
 import vWEthLsEthLogo from 'libs/tokens/img/vTokens/vWethLsEth.svg';
 import vWstEthLsEthLogo from 'libs/tokens/img/vTokens/vWstEthLsEth.svg';
 
-import vCrvCurveLogo from 'libs/tokens/img/vTokens/vCrvCurve.svg';
-import vCrvUsdCurveLogo from 'libs/tokens/img/vTokens/vCrvUsdCurve.svg';
+import vCrvCurveLogo from 'libs/tokens/img/vTokens/vCrvCurve.png';
+import vCrvUsdCurveLogo from 'libs/tokens/img/vTokens/vCrvUsdCurve.png';
 
 import isolatedPoolsSepoliaDeployments from '@venusprotocol/isolated-pools/deployments/sepolia_addresses.json';
 
