@@ -45,7 +45,7 @@ export const getGovernanceSubgraphUrls = ({
   const subgraphUrls: {
     [chainId in ChainId]: string | undefined;
   } = {
-    [ChainId.BSC_MAINNET]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmRCMZJjxi3oKCtbh5CY4gBT2E21Cbz65DAzmnKMNPNGLV`,
+    [ChainId.BSC_MAINNET]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmRNDurj3yDRfmdf89Bv9MZASSr1fTSu9hdp3CgLTRY8rg`,
     [ChainId.BSC_TESTNET]:
       'https://api.studio.thegraph.com/query/64786/venus-governance-chapel/version/latest',
     [ChainId.OPBNB_MAINNET]: `https://open-platform-ap.nodereal.io/${nodeRealApiKey}/opbnb-mainnet-graph-query/subgraphs/name/venusprotocol/venus-governance-opbnb`,
