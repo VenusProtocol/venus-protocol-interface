@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 2.214.0
+
+### Minor Changes
+
+- 68311e8: add Unichain promotional material
+- e0b7075: add Unichain
+
+### Patch Changes
+
+- Updated dependencies [68311e8]
+  - @venusprotocol/chains@0.1.0
+
 ## 2.213.0
 
 ### Minor Changes

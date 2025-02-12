@@ -1,5 +1,16 @@
 # @venusprotocol/landing
 
+## 1.10.0
+
+### Minor Changes
+
+- 68311e8: add Unichain promotional material
+
+### Patch Changes
+
+- Updated dependencies [68311e8]
+  - @venusprotocol/chains@0.1.0
+
 ## 1.9.0
 
 ### Minor Changes
