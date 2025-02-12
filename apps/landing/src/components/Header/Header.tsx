@@ -2,6 +2,7 @@ import cn from 'classnames';
 import { useEffect } from 'react';
 import ScrollLock from 'react-scrolllock';
 
+import { DOC_URL, WHITEPAPERS_URL } from '../../constants/production';
 import { useAppStateContext } from '../../context';
 import LinkLaunchApp from '../Link/LinkLaunchApp';
 import NavigationLinks from '../NavigationLinks/NavigationLinks';
@@ -11,16 +12,12 @@ import Logo from './assets/logo.svg?react';
 
 const content = [
   {
-    href: 'https://github.com/VenusProtocol/venus-protocol-documentation/tree/main/whitepapers',
-    text: 'Whitepaper',
+    href: WHITEPAPERS_URL,
+    text: 'Whitepapers',
   },
   {
-    href: 'https://docs-v4.venus.io/',
+    href: DOC_URL,
     text: 'Docs',
-  },
-  {
-    href: 'https://app.venus.io/core-pool',
-    text: 'Markets',
   },
 ];
 

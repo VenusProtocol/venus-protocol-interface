@@ -15,17 +15,14 @@ export const PALETTE = {
   background: {
     default: theme.colors.background,
     paper: theme.colors.cards,
-    black: '#1F2028',
   },
   secondary: {
     light: theme.colors.lightGrey,
     main: theme.colors.background,
-    dark: 'rgba(18, 22, 32, 1)',
   },
   text: {
     primary: theme.colors.offWhite,
     secondary: theme.colors.grey,
-    disabled: 'rgba(161, 161, 161, 1)',
   },
   button: {
     main: theme.colors.blue,
@@ -35,14 +32,9 @@ export const PALETTE = {
   interactive: {
     primary: theme.colors.blue,
     success: theme.colors.green,
-    success10: 'rgba(24, 223, 139, 0.1)',
-    success50: 'rgba(24, 223, 139, 0.5)',
     error: theme.colors.red,
     error50: 'rgba(233, 61, 68, 0.5)',
-    tan: 'rgba(255, 231, 206, 1)',
-    delimiter: 'rgba(33, 41, 58, 1)',
     warning: theme.colors.orange,
-    hover: 'rgba(32, 39, 56, 1)',
   },
 };
 

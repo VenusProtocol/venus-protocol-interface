@@ -77,8 +77,8 @@ export const Carousel = forwardRef<
               onClick={() => api?.scrollTo(i)}
               key={i}
               className={cn(
-                'w-2 h-2 rounded-full bg-offWhite',
-                i !== activeSlideIndex && 'bg-opacity-30',
+                'w-2 h-2 rounded-full',
+                i === activeSlideIndex ? 'bg-offWhite' : 'bg-offWhite/30',
               )}
             />
           ))}

@@ -1,7 +1,7 @@
 import App from 'App';
 import { createRoot } from 'react-dom/client';
 
-import 'assets/styles/index.scss';
+import 'assets/styles/index.css';
 
 import initializeLibraries from './initializeLibraries';
 

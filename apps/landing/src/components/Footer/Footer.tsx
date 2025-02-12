@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { APP_MAIN_PRODUCTION_URL, DOC_URL } from '../../constants/production';
 import Container from '../Container/Container';
 import Logo from '../Header/assets/logo.svg?react';
 import Link from '../Link/Link';
@@ -9,15 +10,11 @@ import LogoMobile from './assets/logoSmall.svg?react';
 
 const content = [
   {
-    href: 'https://app.venus.io/',
+    href: APP_MAIN_PRODUCTION_URL,
     text: 'App',
   },
   {
-    href: 'https://app.venus.io/core-pool',
-    text: 'Markets',
-  },
-  {
-    href: 'https://docs-v4.venus.io/',
+    href: DOC_URL,
     text: 'Docs',
   },
 ];

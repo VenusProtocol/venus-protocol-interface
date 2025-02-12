@@ -10,6 +10,7 @@ import { Web3Wrapper } from 'libs/wallet';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 import { MAIN_PRODUCTION_HOST } from 'constants/production';
+import { ThemeHandler } from 'containers/ThemeHandler';
 import { safeLazyLoad } from 'utilities';
 import Routes from './Routes';
 
@@ -55,6 +56,7 @@ const App = () => (
                 <ResendPayingGasModal />
               </Suspense>
 
+              <ThemeHandler />
               <SentryErrorInfo />
             </Web3Wrapper>
           </ErrorBoundary>
