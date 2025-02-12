@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.213.0
+
+### Minor Changes
+
+- d4480c4: update BSC governance subgraph URL
+
 ## 2.212.0
 
 ### Minor Changes
