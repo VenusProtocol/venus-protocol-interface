@@ -88,16 +88,19 @@ export const Card: React.FC<CardProps> = ({
         ? data.reduce((acc, item) => acc + item.apyPercentage, 0) / data.length
         : undefined;
 
-    const tmpStats: MarketCardProps['stats'] = [
-      {
+    const tmpStats: MarketCardProps['stats'] = [];
+
+    if (averageApy) {
+      tmpStats.push({
         label: t('market.stats.averageApy'),
         value: formatPercentageToReadableValue(averageApy),
-      },
-      {
-        label: t('market.stats.apy'),
-        value: <Apy asset={asset} type={type} />,
-      },
-    ];
+      });
+    }
+
+    tmpStats.push({
+      label: t('market.stats.apy'),
+      value: <Apy asset={asset} type={type} />,
+    });
 
     if (shouldDisplayLiquidationInfo) {
       tmpStats.push(
@@ -139,7 +142,7 @@ export const Card: React.FC<CardProps> = ({
     <MarketCard
       title={type === 'supply' ? t('market.supplyInfo.title') : t('market.borrowInfo.title')}
       stats={stats}
-      legends={isApyChartsFeatureEnabled ? legends : undefined}
+      legends={isApyChartsFeatureEnabled && data.length > 0 ? legends : undefined}
       topContent={
         <CapThreshold
           type={type}
@@ -155,7 +158,7 @@ export const Card: React.FC<CardProps> = ({
         />
       }
       rightContent={
-        isApyChartsFeatureEnabled ? (
+        isApyChartsFeatureEnabled && data.length > 0 ? (
           <ButtonGroup
             buttonLabels={periodOptions.map(p => p.label)}
             activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
