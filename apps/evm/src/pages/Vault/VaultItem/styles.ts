@@ -73,7 +73,7 @@ export const useStyles = () => {
       display: block;
 
       & + & {
-        border-left: 1px solid ${theme.palette.interactive.delimiter};
+        border-left: 1px solid ${theme.palette.secondary.light};
         margin-left: ${theme.spacing(6)};
         padding-left: ${theme.spacing(6)};
 
