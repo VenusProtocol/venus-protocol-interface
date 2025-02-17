@@ -46,6 +46,8 @@ export const ConnectKitWrapper: React.FC<ConnectKitWrapperProps> = ({ children }
         '--ck-body-color': theme.colors.offWhite,
         '--ck-body-background-tertiary': theme.colors.lightGrey,
         '--ck-body-background': theme.colors.cards,
+        '--ck-qr-dot-color': 'rgba(0, 0, 0, 1)',
+        '--ck-qr-background': theme.colors.offWhite,
       }}
     >
       <AuthHandler />
