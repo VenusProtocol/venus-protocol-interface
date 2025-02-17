@@ -27,12 +27,12 @@ export const getRemoteProposalState = ({
     return RemoteProposalState.Canceled;
   }
 
-  if (isRemoteProposalFailed) {
-    return RemoteProposalState.Failed;
-  }
-
   if (isRemoteProposalExecuted) {
     return RemoteProposalState.Executed;
+  }
+
+  if (isRemoteProposalFailed) {
+    return RemoteProposalState.Failed;
   }
 
   if (!isRemoteProposalBridged && !isRemoteProposalQueued) {
