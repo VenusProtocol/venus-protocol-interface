@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 2.214.1
+
+### Patch Changes
+
+- 067fd4a: fix style of token contract buttons on Market page
+- e43b3c2: fix failed remote proposal state detection
+- ef5bb3e: add points distribution for weETHs market in Core Pool on ETH
+
 ## 2.214.0
 
 ### Minor Changes
