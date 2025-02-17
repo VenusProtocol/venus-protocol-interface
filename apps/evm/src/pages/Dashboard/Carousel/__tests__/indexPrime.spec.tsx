@@ -8,9 +8,9 @@ import { useGetPrimeToken } from 'clients/api';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 
-import { Banner } from '..';
+import { Carousel } from '..';
 
-describe('Banner - Feature flag enabled: prime', () => {
+describe('Carousel - Feature flag enabled: prime', () => {
   beforeEach(() => {
     (useGetPrimeToken as Mock).mockImplementation(() => ({
       data: {
@@ -25,17 +25,17 @@ describe('Banner - Feature flag enabled: prime', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Banner />);
+    renderComponent(<Carousel />);
   });
 
   it('renders Prime promotional banner when user is not connected', () => {
-    const { getByText } = renderComponent(<Banner />);
+    const { getByText } = renderComponent(<Carousel />);
 
     expect(getByText(en.dashboard.primePromotionalBanner.description));
   });
 
   it('renders Prime promotional banner when connected user is not Prime', () => {
-    const { getByText } = renderComponent(<Banner />, {
+    const { getByText } = renderComponent(<Carousel />, {
       accountAddress: fakeAccountAddress,
     });
 
@@ -50,7 +50,7 @@ describe('Banner - Feature flag enabled: prime', () => {
       },
     }));
 
-    renderComponent(<Banner />, {
+    renderComponent(<Carousel />, {
       accountAddress: fakeAccountAddress,
     });
 

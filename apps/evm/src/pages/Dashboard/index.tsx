@@ -8,7 +8,7 @@ import { useAccountAddress } from 'libs/wallet';
 import { isAssetPaused } from 'utilities';
 
 import { PoolStats } from 'containers/PoolStats';
-import { Banner } from './Banner';
+import { Carousel } from './Carousel';
 import TEST_IDS from './testIds';
 import useFormatPools from './useFormatPools';
 import { useMarketTableColumns } from './useMarketTableColumns';
@@ -68,7 +68,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <Page>
-      <Banner />
+      <Carousel />
 
       <PoolStats
         pools={pools}
