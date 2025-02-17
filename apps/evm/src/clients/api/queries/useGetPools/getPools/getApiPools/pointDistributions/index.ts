@@ -73,6 +73,15 @@ export const pointDistributions: {
         action: 'supply',
       },
     ],
+    '0xc42E4bfb996ED35235bda505430cBE404Eb49F77': [
+      {
+        title: 'ether.fi Points',
+        incentive: '2x points',
+        logoUrl: etherfiPointsLogo,
+        extraInfoUrl: 'https://app.ether.fi/defi',
+        action: 'supply',
+      },
+    ],
     '0x25C20e6e110A1cE3FEbaCC8b7E48368c7b2F0C91': [
       {
         title: 'Lux Points',
