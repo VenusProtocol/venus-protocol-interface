@@ -36,7 +36,6 @@ export const GoToTokenContractDropdown: React.FC<GoToTokenContractProps> = ({
     <Dropdown
       className={className}
       optionsDom={optionsDom}
-      optionClassName="overflow-hidden flex bg-background/40 border-none"
       menuTitle={t('interactive.goTo.modalTitle')}
     >
       {({ isDropdownOpened, handleToggleDropdown }) => (

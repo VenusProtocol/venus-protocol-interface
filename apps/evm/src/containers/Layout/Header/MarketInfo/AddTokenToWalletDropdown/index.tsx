@@ -60,7 +60,6 @@ export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> =
     <Dropdown
       className={className}
       optionsDom={optionsDom}
-      optionClassName="justify-center flex justify-center items-center bg-background/40 p-1 h-8 w-8 border-none"
       menuTitle={
         isUserConnected
           ? t('interactive.addToWallet.modalTitle')
