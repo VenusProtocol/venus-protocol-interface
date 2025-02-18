@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.214.3
+
+### Patch Changes
+
+- be854d5: replace heavy SVG token icons with PNGs
+
 ## 2.214.2
 
 ### Patch Changes
