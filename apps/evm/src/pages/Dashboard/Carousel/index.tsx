@@ -1,12 +1,12 @@
 import { useGetPrimeToken } from 'clients/api';
-import { Carousel, CarouselItem } from 'components';
+import { Carousel as CarouselComp, CarouselItem } from 'components';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { PrimePromotionalBanner } from './PrimePromotionalBanner';
 import { UnichainPromotionalBanner } from './UnichainPromotionalBanner';
 
-export const Banner: React.FC = () => {
+export const Carousel: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
 
@@ -30,10 +30,10 @@ export const Banner: React.FC = () => {
   }
 
   return slides.length > 0 ? (
-    <Carousel className="mb-6" autoPlay>
+    <CarouselComp className="mb-6" autoPlay>
       {slides.map((slide, i) => (
         <CarouselItem key={i}>{slide}</CarouselItem>
       ))}
-    </Carousel>
+    </CarouselComp>
   ) : undefined;
 };

@@ -54,7 +54,7 @@ export const PrimePromotionalBanner: React.FC = () => {
             />
           </p>
 
-          <p className="text-grey mb-6 text-sm xl:text-base">
+          <p className="text-grey text-sm xl:text-base">
             {t('dashboard.primePromotionalBanner.description')}
           </p>
         </div>

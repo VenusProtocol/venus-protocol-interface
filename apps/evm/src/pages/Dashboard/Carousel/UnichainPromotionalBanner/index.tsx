@@ -21,7 +21,7 @@ export const UnichainPromotionalBanner: React.FC = () => {
       <div className="relative overflow-hidden flex justify-center items-center py-4 sm:order-2 sm:mb-0 sm:w-42 md:basis-1/3">
         <img
           src={background}
-          className="absolute h-90 max-w-none -top-11 sm:left-0 sm:-top-17"
+          className="absolute h-90 max-w-none -top-11 sm:left-0 sm:-top-20"
           alt={t('dashboard.unichainPromotionalBanner.background.alt')}
         />
 

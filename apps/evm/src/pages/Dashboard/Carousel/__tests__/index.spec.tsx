@@ -7,9 +7,9 @@ import { useGetPrimeToken } from 'clients/api';
 import { en } from 'libs/translations';
 
 import { ChainId } from 'types';
-import { Banner } from '..';
+import { Carousel } from '..';
 
-describe('Banner', () => {
+describe('Carousel', () => {
   beforeEach(() => {
     (useGetPrimeToken as Mock).mockImplementation(() => ({
       data: {
@@ -20,11 +20,11 @@ describe('Banner', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Banner />);
+    renderComponent(<Carousel />);
   });
 
   it('renders Unichain promotional banner when current chain ID is not Unichain', () => {
-    renderComponent(<Banner />, {
+    renderComponent(<Carousel />, {
       chainId: ChainId.BSC_TESTNET,
     });
 
@@ -34,7 +34,7 @@ describe('Banner', () => {
   it.each([ChainId.UNICHAIN_MAINNET, ChainId.UNICHAIN_SEPOLIA])(
     'does not render Unichain promotional banner when current chain ID is %s',
     chainId => {
-      renderComponent(<Banner />, {
+      renderComponent(<Carousel />, {
         chainId,
       });
 
