@@ -1,8 +1,8 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 
 import balLogo from 'libs/tokens/img/underlyingTokens/bal.svg';
-import crvLogo from 'libs/tokens/img/underlyingTokens/crv.svg';
-import crvUsdLogo from 'libs/tokens/img/underlyingTokens/crvUsd.svg';
+import crvLogo from 'libs/tokens/img/underlyingTokens/crv.png';
+import crvUsdLogo from 'libs/tokens/img/underlyingTokens/crvUsd.png';
 import daiLogo from 'libs/tokens/img/underlyingTokens/dai.svg';
 import eBtcLogo from 'libs/tokens/img/underlyingTokens/eBtc.png';
 import eigenLogo from 'libs/tokens/img/underlyingTokens/eigen.svg';
@@ -12,8 +12,8 @@ import fraxLogo from 'libs/tokens/img/underlyingTokens/frax.svg';
 import lBtcLogo from 'libs/tokens/img/underlyingTokens/lbtc.svg';
 import ptSUsdELogo from 'libs/tokens/img/underlyingTokens/ptSUsdE.svg';
 import ptUsdELogo from 'libs/tokens/img/underlyingTokens/ptUsdE.svg';
-import ptWeethLogo from 'libs/tokens/img/underlyingTokens/ptWeeth.svg';
-import pufEthLogo from 'libs/tokens/img/underlyingTokens/pufEth.svg';
+import ptWeethLogo from 'libs/tokens/img/underlyingTokens/ptWeeth.png';
+import pufEthLogo from 'libs/tokens/img/underlyingTokens/pufEth.png';
 import rsEthLogo from 'libs/tokens/img/underlyingTokens/rsEth.svg';
 import sFraxLogo from 'libs/tokens/img/underlyingTokens/sFrax.svg';
 import sUsdELogo from 'libs/tokens/img/underlyingTokens/sUsdE.svg';
