@@ -69,7 +69,8 @@ export const getGovernanceSubgraphUrls = ({
     [ChainId.BASE_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-governance-base-sepolia/version/latest',
     [ChainId.UNICHAIN_MAINNET]: undefined,
-    [ChainId.UNICHAIN_SEPOLIA]: undefined,
+    [ChainId.UNICHAIN_SEPOLIA]:
+      'https://api.studio.thegraph.com/query/64786/venus-governance-unichain-sepolia/version/latest',
   };
 
   return subgraphUrls;
