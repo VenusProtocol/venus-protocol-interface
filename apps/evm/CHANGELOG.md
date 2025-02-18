@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.215.0
+
+### Minor Changes
+
+- 51cfd5b: add background illustration when connected to Unichain network
+
 ## 2.214.4
 
 ### Patch Changes
