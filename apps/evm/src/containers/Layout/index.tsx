@@ -34,13 +34,13 @@ export const Layout: React.FC = () => {
         <Sidebar />
 
         <div
-          className="flex flex-1 flex-col overflow-y-auto"
+          className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto"
           id={PAGE_CONTAINER_ID}
           onScroll={handleScroll}
         >
           <Header />
 
-          <main className="w-full shrink-0 grow px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
+          <main className="relative w-full shrink-0 grow px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
             <Outlet />
           </main>
 

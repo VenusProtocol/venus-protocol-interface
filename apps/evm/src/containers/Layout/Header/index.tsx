@@ -1,18 +1,22 @@
-import { useParams } from 'react-router';
-
 import { useGetAsset } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
+import { useIsOnUnichain } from 'hooks/useIsOnUnichain';
+import { useTranslation } from 'libs/translations';
+import { useParams } from 'react-router';
 import { cn } from 'utilities';
 import type { Address } from 'viem';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
+import unichainBackgroundIllustration from './unichainBackground.svg';
 import { useIsOnLidoMarketPage } from './useIsOnLidoMarketPage';
 import { useIsOnMarketPage } from './useIsOnMarketPage';
 
 export const Header: React.FC = () => {
+  const { t } = useTranslation();
   const isOnMarketPage = useIsOnMarketPage();
+  const isOnUnichain = useIsOnUnichain();
   const isOnLidoMarketPage = useIsOnLidoMarketPage();
   const { lstPoolVWstEthContractAddress } = useGetChainMetadata();
 
@@ -34,7 +38,7 @@ export const Header: React.FC = () => {
       className={cn(
         // The gradient will only be visible when a background color is applied. It is built this
         // way to support gradient background using a solid background color
-        'transition-all duration-500 bg-gradient-to-b from-background/60 to-background',
+        'relative flex-shrink-0 transition-all duration-500 bg-gradient-to-b from-background/60 to-background',
       )}
       style={
         isOnMarketPage && gradientAccentColor
@@ -44,9 +48,19 @@ export const Header: React.FC = () => {
           : undefined
       }
     >
-      <TopBar />
+      {isOnUnichain && !isOnMarketPage && (
+        <img
+          src={unichainBackgroundIllustration}
+          alt={t('layout.header.unichainBackgroundIllustrationAlt')}
+          className="absolute -top-2 left-0 w-130 max-w-none"
+        />
+      )}
 
-      {isOnMarketPage && <MarketInfo />}
+      <div className="relative">
+        <TopBar />
+
+        {isOnMarketPage && <MarketInfo />}
+      </div>
     </header>
   );
 };
