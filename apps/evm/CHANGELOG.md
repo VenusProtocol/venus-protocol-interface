@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.214.2
+
+### Patch Changes
+
+- 7542375: Use SafePal Android friendly QR code colors when connecting wallets
+
 ## 2.214.1
 
 ### Patch Changes
