@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.215.2
+
+### Patch Changes
+
+- 7110cbc: update Unichain subgraph URL to point specific deployment
+
 ## 2.215.1
 
 ### Patch Changes
