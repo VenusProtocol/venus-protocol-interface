@@ -30,7 +30,7 @@ export const getIsolatedPoolsSubgraphUrls = ({
     [ChainId.BASE_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmaPerPSwKtU8GHyZSbsKHD2HUeDz2N6u8PpQK1Hanccvw`,
     [ChainId.BASE_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-base-sepolia/version/latest',
-    [ChainId.UNICHAIN_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/subgraphs/id/7N1UtVizkc1EbqNvHh8xfKbSanBtksnap1JxVdpogrMJ`,
+    [ChainId.UNICHAIN_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmcRbjYABqyZmFNWYJgXxobg864VoYB7afeWx1aNijhWVy`,
     [ChainId.UNICHAIN_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-isolated-pools-unichain-sepolia/version/latest',
   };
