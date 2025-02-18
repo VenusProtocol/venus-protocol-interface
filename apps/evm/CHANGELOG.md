@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.215.1
+
+### Patch Changes
+
+- 07feac9: reduce height of Dashboard carousel
+
 ## 2.215.0
 
 ### Minor Changes
