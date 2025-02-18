@@ -24,7 +24,11 @@ export const Description: React.FC<DescriptionSummary> = ({ className, descripti
           {t('voteProposalUi.description')}
         </Typography>
 
-        <MarkdownViewer css={styles.markdown} content={description.description} />
+        <MarkdownViewer
+          css={styles.markdown}
+          className="break-words"
+          content={description.description}
+        />
 
         {description.version === 'v2' && (
           <>

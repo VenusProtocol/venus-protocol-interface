@@ -1,18 +1,18 @@
-import { ChainId } from '@venusprotocol/chains';
-import { useChainId } from 'libs/wallet';
+import { useIsOnUnichain } from 'hooks/useIsOnUnichain';
+
 import { useEffect } from 'react';
 
 export const ThemeHandler: React.FC = () => {
-  const { chainId } = useChainId();
+  const isOnUnichain = useIsOnUnichain();
 
   // Change theme based on active chain
   useEffect(() => {
     document.body.classList.remove('unichain-theme');
 
-    if (chainId === ChainId.UNICHAIN_MAINNET || chainId === ChainId.UNICHAIN_SEPOLIA) {
+    if (isOnUnichain) {
       document.body.classList.add('unichain-theme');
     }
-  }, [chainId]);
+  }, [isOnUnichain]);
 
   return undefined;
 };
