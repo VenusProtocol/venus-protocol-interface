@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.214.4
+
+### Patch Changes
+
+- eb93f9b: Filter errors thrown from canceled fetch requests
+
 ## 2.214.3
 
 ### Patch Changes
