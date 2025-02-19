@@ -89,6 +89,7 @@ export const featureFlags = {
     ChainId.BASE_MAINNET,
     ChainId.BASE_SEPOLIA,
     ChainId.UNICHAIN_SEPOLIA,
+    ChainId.UNICHAIN_MAINNET,
   ],
   wrapUnwrapNativeToken: [
     ChainId.BSC_MAINNET,
