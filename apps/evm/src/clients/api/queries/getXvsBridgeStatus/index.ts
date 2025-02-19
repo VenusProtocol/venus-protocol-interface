@@ -31,6 +31,7 @@ const getXvsBridgeStatus = async ({
 }: GetXvsBridgeStatusInput): Promise<GetXvsBridgeStatusOutput> => {
   const layerZeroFromChainId = LAYER_ZERO_CHAIN_IDS[fromChainId];
   const layerZeroToChainId = LAYER_ZERO_CHAIN_IDS[toChainId];
+
   const [
     dailyResetTimestamp,
     maxDailySendLimitUsdMantissa,

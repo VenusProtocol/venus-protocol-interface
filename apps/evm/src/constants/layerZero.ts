@@ -15,7 +15,7 @@ export const LAYER_ZERO_CHAIN_IDS: Record<ChainId, number> = {
   [ChainId.OPTIMISM_SEPOLIA]: 10232,
   [ChainId.BASE_MAINNET]: 184,
   [ChainId.BASE_SEPOLIA]: 10245,
-  [ChainId.UNICHAIN_MAINNET]: 302,
+  [ChainId.UNICHAIN_MAINNET]: 320,
   [ChainId.UNICHAIN_SEPOLIA]: 10333,
 };
 
