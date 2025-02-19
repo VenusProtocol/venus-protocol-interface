@@ -52,7 +52,7 @@ export const Header: React.FC = () => {
         <img
           src={unichainBackgroundIllustration}
           alt={t('layout.header.unichainBackgroundIllustrationAlt')}
-          className="absolute -top-2 left-0 w-130 max-w-none"
+          className="absolute top-0 left-0 max-w-none w-92 sm:w-114 md:w-130 md:-top-2"
         />
       )}
 
