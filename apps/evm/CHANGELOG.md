@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.216.0
+
+### Minor Changes
+
+- 07e1300: add URL of Unichain Sepolia subgraph
+
+### Patch Changes
+
+- 108d6e4: scale Unichain background with resolution
+
 ## 2.215.2
 
 ### Patch Changes
