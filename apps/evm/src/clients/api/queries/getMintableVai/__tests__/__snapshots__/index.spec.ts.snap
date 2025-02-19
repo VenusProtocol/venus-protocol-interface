@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getMintableVai > returns the mintable VAI amount on success 1`] = `
+{
+  "accountMintableVaiMantissa": "100000000000000",
+  "vaiLiquidityMantissa": "900000000000000",
+}
+`;

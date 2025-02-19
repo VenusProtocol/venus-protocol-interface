@@ -6,10 +6,15 @@ import getLatestProposalIdByProposer, {
 } from 'clients/api/queries/getLatestProposalIdByProposer';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
-import { governanceChain } from 'libs/wallet';
+import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
+import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
+
+type TrimmedGetLatestProposalIdByProposerInput = Omit<
+  GetLatestProposalIdByProposerInput,
+  'governorBravoDelegateContractAddress' | 'publicClient'
+>;
 
 type Options = QueryObserverOptions<
   GetLatestProposalIdByProposerOutput,
@@ -19,27 +24,29 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, Address]
 >;
 
+const governorBravoDelegateContractAddress = getGovernorBravoDelegateContractAddress({
+  chainId: governanceChain.id,
+});
+
 const useGetLatestProposalIdByProposer = (
-  { accountAddress }: Omit<GetLatestProposalIdByProposerInput, 'governorBravoDelegateContract'>,
+  { accountAddress }: TrimmedGetLatestProposalIdByProposerInput,
   options?: Partial<Options>,
 ) => {
   const { blockTimeMs } = useGetChainMetadata();
-
-  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
+  const { publicClient } = usePublicClient({
     chainId: governanceChain.id,
   });
 
   return useQuery({
     queryKey: [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, accountAddress],
-
     queryFn: () =>
-      callOrThrow({ governorBravoDelegateContract }, params =>
+      callOrThrow({ governorBravoDelegateContractAddress }, params =>
         getLatestProposalIdByProposer({
+          publicClient,
           accountAddress,
           ...params,
         }),
       ),
-
     staleTime: blockTimeMs,
     ...options,
   });
