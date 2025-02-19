@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.217.0
+
+### Minor Changes
+
+- 43921ad: enable bridge on Unichain mainnet
+
 ## 2.216.0
 
 ### Minor Changes
