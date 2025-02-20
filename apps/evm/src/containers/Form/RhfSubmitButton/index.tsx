@@ -50,7 +50,7 @@ export const RhfSubmitButton: React.FC<RhfSubmitButtonProps> = ({
   }
 
   if (requiresConnectedWallet || spendingApproval) {
-    dom = <ConnectWallet buttonVariant="primary">{dom}</ConnectWallet>;
+    dom = <ConnectWallet>{dom}</ConnectWallet>;
   }
 
   return <div className={className}>{dom}</div>;

@@ -241,9 +241,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         <div className="space-y-6">
           <AssetInfo asset={asset} action="borrow" />
 
-          <ConnectWallet buttonVariant="primary">
-            {t('operationForm.connectWalletButtonLabel')}
-          </ConnectWallet>
+          <ConnectWallet>{t('operationForm.connectWalletButtonLabel')}</ConnectWallet>
         </div>
       )}
     </form>

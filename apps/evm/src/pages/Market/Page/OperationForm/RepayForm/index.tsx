@@ -378,9 +378,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         <div className="space-y-6">
           <AssetInfo asset={asset} action="repay" />
 
-          <ConnectWallet buttonVariant="primary">
-            {t('operationForm.connectWalletButtonLabel')}
-          </ConnectWallet>
+          <ConnectWallet>{t('operationForm.connectWalletButtonLabel')}</ConnectWallet>
         </div>
       )}
     </form>
