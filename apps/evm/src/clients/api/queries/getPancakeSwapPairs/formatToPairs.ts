@@ -1,6 +1,4 @@
 import { CurrencyAmount as PSCurrencyAmount, Pair as PSPair } from '@pancakeswap/sdk';
-
-import type { PancakePairV2 } from 'libs/contracts';
 import { areAddressesEqual } from 'utilities';
 
 import type { PairAddress } from './types';
@@ -10,12 +8,10 @@ const formatToPairs = ({
   reservesResults,
 }: {
   pairAddresses: PairAddress[];
-  reservesResults: PromiseSettledResult<Awaited<ReturnType<PancakePairV2['getReserves']>>>[];
+  reservesResults: ([bigint, bigint, number] | undefined)[];
 }): PSPair[] =>
   pairAddresses.reduce((acc, pairAddress, index) => {
-    const pairReservesCallResult = reservesResults[index];
-    const pairReserves =
-      pairReservesCallResult.status === 'rejected' ? undefined : pairReservesCallResult.value;
+    const pairReserves = reservesResults[index];
 
     // Exclude pair if reserves could not be fetched
     if (!pairReserves) {
@@ -32,8 +28,8 @@ const formatToPairs = ({
       : [pairAddress.tokenCombination[1], pairAddress.tokenCombination[0]];
 
     const pair = new PSPair(
-      PSCurrencyAmount.fromRawAmount(token0, pairReserves.reserve0.toString()),
-      PSCurrencyAmount.fromRawAmount(token1, pairReserves.reserve1.toString()),
+      PSCurrencyAmount.fromRawAmount(token0, pairReserves[0].toString()),
+      PSCurrencyAmount.fromRawAmount(token1, pairReserves[1].toString()),
     );
 
     // Exclude pair if it already exists

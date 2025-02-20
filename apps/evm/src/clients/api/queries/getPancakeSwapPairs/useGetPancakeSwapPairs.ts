@@ -6,7 +6,7 @@ import getPancakeSwapPairs, {
 } from 'clients/api/queries/getPancakeSwapPairs';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useChainId, useProvider } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
@@ -27,11 +27,11 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetPancakeSwapPairs = (
-  input: Omit<GetPancakeSwapPairsInput, 'provider' | 'chainId'>,
+  input: Omit<GetPancakeSwapPairsInput, 'publicClient'>,
   options?: Partial<Options>,
 ) => {
-  const { provider } = useProvider();
   const { chainId } = useChainId();
+  const { publicClient } = usePublicClient();
   const { blockTimeMs } = useGetChainMetadata();
 
   // Generate query key based on token combinations
@@ -39,7 +39,7 @@ const useGetPancakeSwapPairs = (
 
   return useQuery({
     queryKey: [FunctionKey.GET_PANCAKE_SWAP_PAIRS, { chainId }, ...tokenCombinationIds],
-    queryFn: () => getPancakeSwapPairs({ ...input, provider }),
+    queryFn: () => getPancakeSwapPairs({ ...input, publicClient }),
 
     // Refresh request on every new block
     refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
