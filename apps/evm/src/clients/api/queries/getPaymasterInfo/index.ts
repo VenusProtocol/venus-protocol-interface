@@ -1,10 +1,12 @@
 import BigNumber from 'bignumber.js';
 import { MIN_PAYMASTER_BALANCE_MANTISSA } from 'constants/gasLess';
-import type { ZyFiVault } from 'libs/contracts';
+import { zyFiVaultAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetPaymasterInfoInput {
-  zyFiVaultContract: ZyFiVault;
-  zyFiWalletAddress: string;
+  publicClient: PublicClient;
+  zyFiVaultContractAddress: Address;
+  zyFiWalletAddress: Address;
 }
 
 export type GetPaymasterInfoOutput = {
@@ -13,12 +15,18 @@ export type GetPaymasterInfoOutput = {
 };
 
 export const getPaymasterInfo = async ({
-  zyFiVaultContract,
+  publicClient,
+  zyFiVaultContractAddress,
   zyFiWalletAddress,
 }: GetPaymasterInfoInput): Promise<GetPaymasterInfoOutput> => {
-  const res = await zyFiVaultContract.balances(zyFiWalletAddress);
+  const balanceResult = await publicClient.readContract({
+    address: zyFiVaultContractAddress,
+    abi: zyFiVaultAbi,
+    functionName: 'balances',
+    args: [zyFiWalletAddress],
+  });
 
-  const balanceMantissa = new BigNumber(res.toString());
+  const balanceMantissa = new BigNumber(balanceResult.toString());
   const canSponsorTransactions = balanceMantissa.gte(MIN_PAYMASTER_BALANCE_MANTISSA);
 
   return {

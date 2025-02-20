@@ -2,7 +2,8 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { zyFiWalletAddresses } from 'constants/gasLess';
-import { useGetZyFiVaultContract } from 'libs/contracts';
+import { getZyFiVaultContractAddress } from 'libs/contracts';
+import { usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import { type GetPaymasterInfoOutput, getPaymasterInfo } from '.';
@@ -25,16 +26,23 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetPaymasterInfo = ({ chainId }: UseGetPaymasterInfoInput, options?: Partial<Options>) => {
-  const zyFiVaultContract = useGetZyFiVaultContract({ chainId });
+  const { publicClient } = usePublicClient({ chainId });
+  const zyFiVaultContractAddress = getZyFiVaultContractAddress({ chainId });
   const zyFiWalletAddress = zyFiWalletAddresses[chainId];
 
   return useQuery({
     queryKey: [FunctionKey.GET_PAYMASTER_INFO, { chainId }],
-    queryFn: () => callOrThrow({ zyFiVaultContract, zyFiWalletAddress }, getPaymasterInfo),
+    queryFn: () =>
+      callOrThrow({ zyFiVaultContractAddress, zyFiWalletAddress }, params =>
+        getPaymasterInfo({
+          publicClient,
+          ...params,
+        }),
+      ),
     ...options,
     enabled:
       (options?.enabled === undefined || options?.enabled) &&
-      !!zyFiVaultContract &&
+      !!zyFiVaultContractAddress &&
       !!zyFiWalletAddress,
   });
 };
