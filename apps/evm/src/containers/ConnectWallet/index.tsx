@@ -2,7 +2,6 @@ import { Button } from 'components/Button';
 import { NoticeInfo } from 'components/Notice';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
-import { Container } from './Container';
 
 export interface ConnectWalletProps extends React.HTMLAttributes<HTMLDivElement> {
   message?: string;
@@ -24,15 +23,15 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
 
   if (!isUserConnected) {
     return (
-      <Container {...otherProps}>
+      <div {...otherProps}>
         {!!message && <NoticeInfo className="mb-8" description={message} />}
 
         <Button className="w-full" onClick={openAuthModal}>
           {t('connectWallet.connectButton')}
         </Button>
-      </Container>
+      </div>
     );
   }
 
-  return <Container {...otherProps}>{children}</Container>;
+  return <div {...otherProps}>{children}</div>;
 };

@@ -6,6 +6,7 @@ export * from 'libs/wallet/hooks/usePublicClient/__mocks__';
 export * from 'libs/wallet/hooks/useProvider/__mocks__';
 export * from 'libs/wallet/hooks/useSigner/__mocks__';
 export * from 'libs/wallet/hooks/useAccountAddress/__mocks__';
+export * from 'libs/wallet/hooks/useAccountChainId/__mocks__';
 export * from 'libs/wallet/hooks/useSwitchChain/__mocks__';
 export * from 'libs/wallet/hooks/useChainId/__mocks__';
 export * from 'libs/wallet/hooks/useAuthModal/__mocks__';

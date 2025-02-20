@@ -7,9 +7,15 @@ import type { Mock } from 'vitest';
 
 import fakeSigner from '__mocks__/models/signer';
 
-import { Web3Wrapper, useAccountAddress, useChainId, useSigner } from 'libs/wallet';
+import {
+  Web3Wrapper,
+  useAccountAddress,
+  useAccountChainId,
+  useChainId,
+  useSigner,
+} from 'libs/wallet';
 import { MuiThemeProvider } from 'theme/MuiThemeProvider';
-import type { ChainId } from 'types';
+import { ChainId } from 'types';
 
 const createQueryClient = () =>
   new QueryClient({
@@ -35,11 +41,17 @@ interface WrapperProps {
 }
 
 const Wrapper: React.FC<WrapperProps> = ({ children, options }) => {
+  const chainId = options?.chainId || ChainId.BSC_TESTNET;
+
   if (options?.accountAddress) {
     const accountAddress = options?.accountAddress;
 
     (useAccountAddress as Mock).mockImplementation(() => ({
       accountAddress,
+    }));
+
+    (useAccountChainId as Mock).mockImplementation(() => ({
+      chainId,
     }));
 
     (useSigner as Mock).mockImplementation(() => ({
@@ -50,11 +62,9 @@ const Wrapper: React.FC<WrapperProps> = ({ children, options }) => {
     }));
   }
 
-  if (options?.chainId) {
-    (useChainId as Mock).mockImplementation(() => ({
-      chainId: options?.chainId,
-    }));
-  }
+  (useChainId as Mock).mockImplementation(() => ({
+    chainId,
+  }));
 
   return (
     <MuiThemeProvider>

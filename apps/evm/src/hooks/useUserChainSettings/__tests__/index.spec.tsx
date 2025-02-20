@@ -1,6 +1,5 @@
 import type { Mock } from 'vitest';
 
-import { useChainId } from 'libs/wallet';
 import { store } from 'store';
 import { renderHook as renderHookWithContext } from 'testUtils/render';
 import { ChainId } from 'types';
@@ -18,12 +17,6 @@ vi.mock('store', () => ({
 }));
 
 describe('useUserChainSettings', () => {
-  beforeEach(() => {
-    (useChainId as Mock).mockReturnValue({
-      chainId: ChainId.BSC_TESTNET,
-    });
-  });
-
   it('returns correct settings from the store', () => {
     (store.use.userSettings as Mock).mockReturnValue({
       [ChainId.BSC_TESTNET]: {

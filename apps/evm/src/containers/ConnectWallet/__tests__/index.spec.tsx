@@ -5,7 +5,6 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { en } from 'libs/translations';
 import { useAuthModal, useSwitchChain } from 'libs/wallet';
 import { renderComponent } from 'testUtils/render';
-import { ChainId } from 'types';
 import { ConnectWallet } from '..';
 
 describe('ConnectWallet', () => {
@@ -38,40 +37,9 @@ describe('ConnectWallet', () => {
     });
   });
 
-  it('displays chain switching button when current chain is different from chainId parameter', async () => {
-    const { getByText } = renderComponent(<ConnectWallet chainId={ChainId.OPBNB_TESTNET} />, {
-      accountAddress: fakeAccountAddress,
-    });
-
-    const switchChainButton = getByText(
-      en.connectWallet.switchChain.replace('{{chainName}}', 'opBNB testnet'),
-    );
-    expect(switchChainButton).toBeInTheDocument();
-  });
-
-  it('calls switchChain when switch chain button is clicked', async () => {
-    const mockSwitchChain = vi.fn();
-    (useSwitchChain as Mock).mockReturnValue({ switchChain: mockSwitchChain });
-
-    const { getByText } = renderComponent(<ConnectWallet chainId={ChainId.OPBNB_TESTNET} />, {
-      accountAddress: fakeAccountAddress,
-    });
-
-    const switchChainButton = getByText(
-      en.connectWallet.switchChain.replace('{{chainName}}', 'opBNB testnet'),
-    );
-
-    fireEvent.click(switchChainButton);
-
-    await waitFor(() => {
-      expect(mockSwitchChain).toHaveBeenCalledTimes(1);
-      expect(mockSwitchChain).toHaveBeenCalledWith({ chainId: ChainId.OPBNB_TESTNET });
-    });
-  });
-
-  it('renders children when user is connected and on the correct chain', () => {
+  it('renders children when user is connected', () => {
     const { getByText } = renderComponent(
-      <ConnectWallet chainId={ChainId.BSC_TESTNET}>
+      <ConnectWallet>
         <div>Child Component</div>
       </ConnectWallet>,
       {

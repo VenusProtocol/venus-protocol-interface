@@ -2,9 +2,8 @@ import { chainMetadata } from '@venusprotocol/chains';
 
 import { Button } from 'components/Button';
 import { useTranslation } from 'libs/translations';
-import { useChainId, useSwitchChain } from 'libs/wallet';
+import { useAccountAddress, useAccountChainId, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
-import { useAccount } from 'wagmi';
 
 // TODO: add tests
 
@@ -13,11 +12,14 @@ export interface SwitchChainProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const SwitchChain: React.FC<SwitchChainProps> = ({ children, chainId, ...otherProps }) => {
+  const { accountAddress } = useAccountAddress();
+  const isUserConnected = !!accountAddress;
+
   const { chainId: currentChainId } = useChainId();
   const targetChainId = chainId || currentChainId;
 
-  const { chainId: walletChainId } = useAccount();
-  const isOnWrongChain = walletChainId !== targetChainId;
+  const { chainId: accountChainId } = useAccountChainId();
+  const isOnWrongChain = accountChainId !== targetChainId;
   const targetChain = chainMetadata[targetChainId];
 
   const { switchChain } = useSwitchChain();
@@ -27,7 +29,7 @@ export const SwitchChain: React.FC<SwitchChainProps> = ({ children, chainId, ...
 
   return (
     <div {...otherProps}>
-      {isOnWrongChain ? (
+      {isUserConnected && isOnWrongChain ? (
         <Button className="w-full" onClick={handleSwitchChain}>
           {t('connectWallet.switchChain', {
             chainName: targetChain.name,

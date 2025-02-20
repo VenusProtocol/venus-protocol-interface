@@ -74,6 +74,7 @@ const checkVoteButtonsAreHidden = async (
   waitFor(() => expect(queryByText(en.vote.abstain, { selector: 'button' })).toBeNull());
 };
 
+// TODO: rename to "Proposal"
 describe('ProposalComp page', () => {
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(fakeNow);
