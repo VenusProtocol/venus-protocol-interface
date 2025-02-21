@@ -254,7 +254,6 @@ export const Repay: React.FC = () => {
           vaiControllerContractAddress && {
             token: vai,
             spenderAddress: vaiControllerContractAddress,
-            hideSpendingApprovalStep: !formState.isValid,
           }
         }
         control={control}

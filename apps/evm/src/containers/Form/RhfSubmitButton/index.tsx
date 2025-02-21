@@ -4,6 +4,8 @@ import { type ButtonProps, PrimaryButton } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { cn } from 'utilities';
 
+import type { ChainId } from '@venusprotocol/chains';
+import { SwitchChain } from 'containers/SwitchChain';
 import { ApproveTokenSteps, type ApproveTokenStepsProps } from './ApproveTokenSteps';
 
 export interface RhfSubmitButtonProps extends ButtonProps {
@@ -11,7 +13,11 @@ export interface RhfSubmitButtonProps extends ButtonProps {
   enabledLabel: string;
   disabledLabel: string;
   isDangerousSubmission?: boolean;
-  requiresConnectedWallet?: boolean;
+  requiresConnectedWallet?:
+    | boolean
+    | {
+        chainId: ChainId;
+      };
   spendingApproval?: Omit<ApproveTokenStepsProps, 'children' | 'secondStepButtonLabel'>;
 }
 
@@ -41,7 +47,7 @@ export const RhfSubmitButton: React.FC<RhfSubmitButtonProps> = ({
     </PrimaryButton>
   );
 
-  if (spendingApproval) {
+  if (formState.isValid && spendingApproval) {
     dom = (
       <ApproveTokenSteps secondStepButtonLabel={enabledLabel} {...spendingApproval}>
         {dom}
@@ -49,8 +55,20 @@ export const RhfSubmitButton: React.FC<RhfSubmitButtonProps> = ({
     );
   }
 
-  if (requiresConnectedWallet || spendingApproval) {
-    dom = <ConnectWallet>{dom}</ConnectWallet>;
+  if (formState.isValid && (requiresConnectedWallet || spendingApproval)) {
+    dom = (
+      <ConnectWallet>
+        <SwitchChain
+          chainId={
+            typeof requiresConnectedWallet !== 'boolean'
+              ? requiresConnectedWallet.chainId
+              : undefined
+          }
+        >
+          {dom}
+        </SwitchChain>
+      </ConnectWallet>
+    );
   }
 
   return <div className={className}>{dom}</div>;
