@@ -29,6 +29,7 @@ const createQueryClient = () =>
 
 interface Options {
   accountAddress?: string;
+  accountChainId?: ChainId;
   chainId?: ChainId;
   routerInitialEntries?: string[];
   routePath?: string;
@@ -51,7 +52,7 @@ const Wrapper: React.FC<WrapperProps> = ({ children, options }) => {
     }));
 
     (useAccountChainId as Mock).mockImplementation(() => ({
-      chainId,
+      chainId: options?.accountChainId || chainId,
     }));
 
     (useSigner as Mock).mockImplementation(() => ({

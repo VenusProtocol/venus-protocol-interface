@@ -106,24 +106,6 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     renderComponent(<Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />);
   });
 
-  it('prompts user to connect their wallet if they are not connected', async () => {
-    const { getByText, getByTestId } = renderComponent(
-      <Repay onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
-    );
-
-    // Check "Connect wallet" button is displayed
-    expect(getByText(en.operationForm.connectWalletButtonLabel)).toBeInTheDocument();
-
-    // Check input is disabled
-    expect(
-      getByTestId(
-        getTokenTextFieldTestId({
-          parentTestId: TEST_IDS.selectTokenTextField,
-        }),
-      ),
-    ).toBeDisabled();
-  });
-
   it('displays correct wallet balance', async () => {
     const { getByText, container } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,

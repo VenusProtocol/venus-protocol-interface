@@ -14,6 +14,8 @@ import { repay } from 'clients/api';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 
+import { chainMetadata } from '@venusprotocol/chains';
+import { ChainId } from 'types';
 import Repay, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -47,7 +49,7 @@ describe('RepayForm', () => {
     );
 
     // Check "Connect wallet" button is displayed
-    expect(getByText(en.operationForm.connectWalletButtonLabel)).toBeInTheDocument();
+    expect(getByText(en.connectWallet.connectButton)).toBeInTheDocument();
 
     // Check input is disabled
     expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
@@ -173,6 +175,34 @@ describe('RepayForm', () => {
 
     // Check submit button is disabled
     await checkSubmitButtonIsDisabled();
+  });
+
+  it('prompts user to switch chain if they are connected to the wrong one', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <Repay onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      {
+        accountAddress: fakeAccountAddress,
+        accountChainId: ChainId.ARBITRUM_ONE,
+        chainId: ChainId.BSC_TESTNET,
+      },
+    );
+
+    const correctAmountTokens = 1;
+
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
+
+    // Check "Switch chain" button is displayed
+    await waitFor(() =>
+      expect(
+        getByText(
+          en.switchChain.switchButton.replace(
+            '{{chainName}}',
+            chainMetadata[ChainId.BSC_TESTNET].name,
+          ),
+        ),
+      ).toBeInTheDocument(),
+    );
   });
 
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {

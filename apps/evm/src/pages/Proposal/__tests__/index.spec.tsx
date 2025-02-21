@@ -702,7 +702,7 @@ describe('ProposalComp page', () => {
     });
 
     const executeButton = screen
-      .getAllByText(en.voteProposalUi.command.cta.execute)[0]
+      .getAllByText(en.voteProposalUi.command.actionButton.execute)[0]
       .closest('button');
     expect(executeButton).toBeInTheDocument();
 

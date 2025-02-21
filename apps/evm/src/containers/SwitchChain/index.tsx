@@ -5,8 +5,6 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
 
-// TODO: add tests
-
 export interface SwitchChainProps extends React.HTMLAttributes<HTMLDivElement> {
   chainId?: ChainId;
 }

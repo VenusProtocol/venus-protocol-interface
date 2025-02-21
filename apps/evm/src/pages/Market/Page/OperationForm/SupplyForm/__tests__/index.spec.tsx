@@ -13,8 +13,9 @@ import { supply } from 'clients/api';
 import useCollateral from 'hooks/useCollateral';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
-import type { Asset } from 'types';
+import { type Asset, ChainId } from 'types';
 
+import { chainMetadata } from '@venusprotocol/chains';
 import MAX_UINT256 from 'constants/maxUint256';
 import SupplyForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
@@ -46,7 +47,7 @@ describe('SupplyForm', () => {
     );
 
     // Check "Connect wallet" button is displayed
-    expect(getByText(en.operationForm.connectWalletButtonLabel)).toBeInTheDocument();
+    expect(getByText(en.connectWallet.connectButton)).toBeInTheDocument();
 
     // Check collateral switch is disabled
     expect(getByRole('checkbox')).toBeDisabled();
@@ -223,6 +224,34 @@ describe('SupplyForm', () => {
 
     // Check submit button is still disabled
     await checkSubmitButtonIsDisabled();
+  });
+
+  it('prompts user to switch chain if they are connected to the wrong one', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      {
+        accountAddress: fakeAccountAddress,
+        accountChainId: ChainId.ARBITRUM_ONE,
+        chainId: ChainId.BSC_TESTNET,
+      },
+    );
+
+    const correctAmountTokens = 1;
+
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
+
+    // Check "Switch chain" button is displayed
+    await waitFor(() =>
+      expect(
+        getByText(
+          en.switchChain.switchButton.replace(
+            '{{chainName}}',
+            chainMetadata[ChainId.BSC_TESTNET].name,
+          ),
+        ),
+      ).toBeInTheDocument(),
+    );
   });
 
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {
