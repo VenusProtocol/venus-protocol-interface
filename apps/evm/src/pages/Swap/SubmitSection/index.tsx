@@ -7,6 +7,7 @@ import { useTranslation } from 'libs/translations';
 import type { Swap, SwapError } from 'types';
 import { cn } from 'utilities';
 
+import { SwitchChain } from 'containers/SwitchChain';
 import type { FormError, FormValues } from '../types';
 import { useStyles } from './styles';
 
@@ -93,35 +94,58 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
     return t('swapPage.submitButton.disabledLabels.processing');
   }, [swap, swapError, isSwappingWithHighPriceImpact, formErrors, fromToken.symbol, t]);
 
-  return (
-    <ApproveTokenSteps
-      token={fromToken}
-      isUsingSwap
-      hideTokenEnablingStep={!isFormValid}
-      isTokenApproved={isFromTokenApproved}
-      approveToken={approveFromToken}
-      isApproveTokenLoading={isApproveFromTokenLoading}
-      isWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
-      secondStepButtonLabel={submitButtonLabel}
-      css={styles.container}
+  const dom = (
+    <PrimaryButton
+      className={cn('w-full', isSwappingWithHighPriceImpact && 'border-red bg-red')}
+      disabled={
+        !isFormValid ||
+        isSubmitting ||
+        isSwapLoading ||
+        isFromTokenWalletSpendingLimitLoading ||
+        isRevokeFromTokenWalletSpendingLimitLoading ||
+        !isFromTokenApproved
+      }
+      onClick={onSubmit}
+      loading={isSubmitting}
     >
-      <PrimaryButton
-        className={cn('w-full', isSwappingWithHighPriceImpact && 'border-red bg-red')}
-        disabled={
-          !isFormValid ||
-          isSubmitting ||
-          isSwapLoading ||
-          isFromTokenWalletSpendingLimitLoading ||
-          isRevokeFromTokenWalletSpendingLimitLoading ||
-          !isFromTokenApproved
-        }
-        onClick={onSubmit}
-        loading={isSubmitting}
-      >
-        {submitButtonLabel}
-      </PrimaryButton>
-    </ApproveTokenSteps>
+      {submitButtonLabel}
+    </PrimaryButton>
   );
+
+  if (isFormValid) {
+    return (
+      <SwitchChain>
+        <ApproveTokenSteps
+          token={fromToken}
+          isUsingSwap
+          isTokenApproved={isFromTokenApproved}
+          approveToken={approveFromToken}
+          isApproveTokenLoading={isApproveFromTokenLoading}
+          isWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+          secondStepButtonLabel={submitButtonLabel}
+          css={styles.container}
+        >
+          <PrimaryButton
+            className={cn('w-full', isSwappingWithHighPriceImpact && 'border-red bg-red')}
+            disabled={
+              !isFormValid ||
+              isSubmitting ||
+              isSwapLoading ||
+              isFromTokenWalletSpendingLimitLoading ||
+              isRevokeFromTokenWalletSpendingLimitLoading ||
+              !isFromTokenApproved
+            }
+            onClick={onSubmit}
+            loading={isSubmitting}
+          >
+            {dom}
+          </PrimaryButton>
+        </ApproveTokenSteps>
+      </SwitchChain>
+    );
+  }
+
+  return dom;
 };
 
 export default SubmitSection;
