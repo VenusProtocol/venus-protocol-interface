@@ -3,14 +3,13 @@ import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { en } from 'libs/translations';
-import { useAuthModal, useSwitchChain } from 'libs/wallet';
+import { useAuthModal } from 'libs/wallet';
 import { renderComponent } from 'testUtils/render';
 import { ConnectWallet } from '..';
 
 describe('ConnectWallet', () => {
   beforeEach(() => {
     (useAuthModal as Mock).mockReturnValue({ openAuthModal: vi.fn() });
-    (useSwitchChain as Mock).mockReturnValue({ switchChain: vi.fn() });
   });
 
   it('renders without crashing', () => {

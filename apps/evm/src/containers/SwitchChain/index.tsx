@@ -31,7 +31,7 @@ export const SwitchChain: React.FC<SwitchChainProps> = ({ children, chainId, ...
     <div {...otherProps}>
       {isUserConnected && isOnWrongChain ? (
         <Button className="w-full" onClick={handleSwitchChain}>
-          {t('connectWallet.switchChain', {
+          {t('switchChain.switchButton', {
             chainName: targetChain.name,
           })}
         </Button>

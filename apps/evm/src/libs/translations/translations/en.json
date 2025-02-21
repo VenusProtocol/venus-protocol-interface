@@ -106,9 +106,6 @@
         "pointDistribution": {
           "learnMore": "Learn more"
         },
-        "pointDistributions": {
-          "title": "Point distributions"
-        },
         "primeDistribution": {
           "description": "Venus Prime rewards dedicated users with boosted rewards. The Venus protocol does not guarantee these rewards and accepts no liability.",
           "name": "Prime APY"
@@ -263,8 +260,7 @@
     "disconnect": "Disconnect"
   },
   "connectWallet": {
-    "connectButton": "Connect wallet",
-    "switchChain": "Switch to {{chainName}}"
+    "connectButton": "Connect wallet"
   },
   "convertVrt": {
     "connectWalletToWithdrawXvs": "Please connect your wallet to withdraw XVS",
@@ -402,6 +398,7 @@
       },
       "price": "Price",
       "supply": "Supply",
+      "unichainBackgroundIllustrationAlt": "Background illustration",
       "utilizationRate": "Utilization rate"
     },
     "menu": {
@@ -534,7 +531,6 @@
   "operationForm": {
     "borrowableAmount": "Borrowable Amount",
     "borrowTabTitle": "Borrow",
-    "connectWalletButtonLabel": "Connect wallet",
     "error": {
       "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "higherThanAvailableLiquidity": "Insufficient asset liquidity",
@@ -809,6 +805,9 @@
       "label": "To"
     },
     "walletBalance": "Wallet balance"
+  },
+  "switchChain": {
+    "switchButton": "Switch to {{chainName}}"
   },
   "table": {
     "cardsSelect": {
@@ -1154,9 +1153,6 @@
         "cancel": "Cancel",
         "execute": "Execute",
         "queue": "Queue"
-      },
-      "cta": {
-        "execute": "Execute"
       },
       "dates": {
         "activeAt": "Pending until {{date, }}",
