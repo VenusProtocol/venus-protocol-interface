@@ -297,90 +297,84 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         ))}
       </div>
 
-      {isUserConnected ? (
-        <>
-          {!isSubmitting && !isSwapLoading && !formError && (
-            <Notice isRepayingFullLoan={isRepayingFullLoan} swap={swap} />
-          )}
+      {!isUserConnected && <AssetInfo asset={asset} action="repay" />}
 
-          <div className="space-y-2">
-            <LabeledInlineContent
-              label={
-                isUsingSwap ? t('operationForm.walletBalance') : t('operationForm.repayableAmount')
-              }
-            >
-              {isUsingSwap
-                ? readableFromTokenUserWalletBalanceTokens
-                : readableRepayableFromTokenAmountTokens}
-            </LabeledInlineContent>
+      <ConnectWallet className="space-y-4">
+        {!isSubmitting && !isSwapLoading && !formError && (
+          <Notice isRepayingFullLoan={isRepayingFullLoan} swap={swap} />
+        )}
 
-            <SpendingLimit
-              token={formValues.fromToken}
-              walletBalanceTokens={fromTokenUserWalletBalanceTokens}
-              walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
-              onRevoke={revokeFromTokenWalletSpendingLimit}
-              isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
-              data-testid={TEST_IDS.spendingLimit}
-            />
-          </div>
+        <div className="space-y-2">
+          <LabeledInlineContent
+            label={
+              isUsingSwap ? t('operationForm.walletBalance') : t('operationForm.repayableAmount')
+            }
+          >
+            {isUsingSwap
+              ? readableFromTokenUserWalletBalanceTokens
+              : readableRepayableFromTokenAmountTokens}
+          </LabeledInlineContent>
 
-          <Delimiter />
-
-          {isUsingSwap && swap && (
-            <>
-              <SwapDetails action="repay" swap={swap} data-testid={TEST_IDS.swapDetails} />
-
-              <Delimiter />
-            </>
-          )}
-
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <AssetInfo
-                asset={asset}
-                action="repay"
-                swap={swap}
-                isUsingSwap={isUsingSwap}
-                amountTokens={new BigNumber(formValues.amountTokens || 0)}
-                renderType="accordion"
-              />
-
-              <Delimiter />
-
-              <AccountData
-                asset={asset}
-                pool={pool}
-                swap={swap}
-                amountTokens={new BigNumber(formValues.amountTokens || 0)}
-                action="repay"
-                isUsingSwap={isUsingSwap}
-              />
-            </div>
-
-            <SubmitSection
-              isFormSubmitting={isSubmitting}
-              isFormValid={isFormValid}
-              swap={swap}
-              isSwapLoading={isSwapLoading}
-              isUsingSwap={isUsingSwap}
-              fromToken={formValues.fromToken}
-              approveFromToken={approveFromToken}
-              isApproveFromTokenLoading={isApproveFromTokenLoading}
-              isFromTokenApproved={isFromTokenApproved}
-              isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
-              isRevokeFromTokenWalletSpendingLimitLoading={
-                isRevokeFromTokenWalletSpendingLimitLoading
-              }
-            />
-          </div>
-        </>
-      ) : (
-        <div className="space-y-6">
-          <AssetInfo asset={asset} action="repay" />
-
-          <ConnectWallet>{t('operationForm.connectWalletButtonLabel')}</ConnectWallet>
+          <SpendingLimit
+            token={formValues.fromToken}
+            walletBalanceTokens={fromTokenUserWalletBalanceTokens}
+            walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+            onRevoke={revokeFromTokenWalletSpendingLimit}
+            isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+            data-testid={TEST_IDS.spendingLimit}
+          />
         </div>
-      )}
+
+        <Delimiter />
+
+        {isUsingSwap && swap && (
+          <>
+            <SwapDetails action="repay" swap={swap} data-testid={TEST_IDS.swapDetails} />
+
+            <Delimiter />
+          </>
+        )}
+
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <AssetInfo
+              asset={asset}
+              action="repay"
+              swap={swap}
+              isUsingSwap={isUsingSwap}
+              amountTokens={new BigNumber(formValues.amountTokens || 0)}
+              renderType="accordion"
+            />
+
+            <Delimiter />
+
+            <AccountData
+              asset={asset}
+              pool={pool}
+              swap={swap}
+              amountTokens={new BigNumber(formValues.amountTokens || 0)}
+              action="repay"
+              isUsingSwap={isUsingSwap}
+            />
+          </div>
+
+          <SubmitSection
+            isFormSubmitting={isSubmitting}
+            isFormValid={isFormValid}
+            swap={swap}
+            isSwapLoading={isSwapLoading}
+            isUsingSwap={isUsingSwap}
+            fromToken={formValues.fromToken}
+            approveFromToken={approveFromToken}
+            isApproveFromTokenLoading={isApproveFromTokenLoading}
+            isFromTokenApproved={isFromTokenApproved}
+            isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+            isRevokeFromTokenWalletSpendingLimitLoading={
+              isRevokeFromTokenWalletSpendingLimitLoading
+            }
+          />
+        </div>
+      </ConnectWallet>
     </form>
   );
 };

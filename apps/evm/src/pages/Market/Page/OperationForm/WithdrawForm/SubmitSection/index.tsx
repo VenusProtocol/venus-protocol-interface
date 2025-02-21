@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { PrimaryButton } from 'components';
+import { SwitchChain } from 'containers/SwitchChain';
 import { useTranslation } from 'libs/translations';
 import { ApproveDelegateSteps, type ApproveDelegateStepsProps } from '../../ApproveDelegateSteps';
 
@@ -31,25 +32,34 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     return t('operationForm.submitButtonLabel.withdraw');
   }, [isFormValid, t]);
 
-  return (
-    <ApproveDelegateSteps
-      approveDelegateeAction={approveDelegateAction}
-      isApproveDelegateeLoading={isApproveDelegateLoading}
-      isDelegateeApproved={isDelegateApproved}
-      isDelegateeApprovedLoading={isDelegateApprovedLoading}
-      secondStepButtonLabel={submitButtonLabel}
-      hideDelegateeApprovalStep={!isFormValid}
+  const dom = (
+    <PrimaryButton
+      type="submit"
+      loading={isFormSubmitting}
+      disabled={!isFormValid || isFormSubmitting}
+      className="w-full"
     >
-      <PrimaryButton
-        type="submit"
-        loading={isFormSubmitting}
-        disabled={!isFormValid || isFormSubmitting}
-        className="w-full"
-      >
-        {submitButtonLabel}
-      </PrimaryButton>
-    </ApproveDelegateSteps>
+      {submitButtonLabel}
+    </PrimaryButton>
   );
+
+  if (isFormValid) {
+    return (
+      <SwitchChain>
+        <ApproveDelegateSteps
+          approveDelegateeAction={approveDelegateAction}
+          isApproveDelegateeLoading={isApproveDelegateLoading}
+          isDelegateeApproved={isDelegateApproved}
+          isDelegateeApprovedLoading={isDelegateApprovedLoading}
+          secondStepButtonLabel={submitButtonLabel}
+        >
+          {dom}
+        </ApproveDelegateSteps>
+      </SwitchChain>
+    );
+  }
+
+  return dom;
 };
 
 export default SubmitSection;

@@ -174,72 +174,66 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         }
       />
 
-      {isUserConnected ? (
-        <>
-          <LabeledInlineContent label={t('operationForm.withdrawableAmount')}>
-            {readableWithdrawableAmountTokens}
-          </LabeledInlineContent>
+      {!isUserConnected && <AssetInfo asset={asset} action="withdraw" />}
 
-          <Delimiter />
+      <ConnectWallet className="space-y-4">
+        <LabeledInlineContent label={t('operationForm.withdrawableAmount')}>
+          {readableWithdrawableAmountTokens}
+        </LabeledInlineContent>
 
-          {canUnwrapToNativeToken && (
-            <>
-              <LabeledInlineContent
-                data-testid={TEST_IDS.receiveNativeToken}
-                label={t('operationForm.receiveNativeToken.label', {
-                  tokenSymbol: nativeToken.symbol,
-                })}
-                tooltip={t('operationForm.receiveNativeToken.tooltip', {
-                  wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
-                  nativeTokenSymbol: nativeToken.symbol,
-                })}
-              >
-                <Toggle
-                  onChange={handleToggleReceiveNativeToken}
-                  value={formValues.receiveNativeToken}
-                />
-              </LabeledInlineContent>
+        <Delimiter />
 
-              <Delimiter />
-            </>
-          )}
-
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <AssetInfo
-                asset={asset}
-                action="withdraw"
-                amountTokens={new BigNumber(formValues.amountTokens || 0)}
-                renderType="accordion"
+        {canUnwrapToNativeToken && (
+          <>
+            <LabeledInlineContent
+              data-testid={TEST_IDS.receiveNativeToken}
+              label={t('operationForm.receiveNativeToken.label', {
+                tokenSymbol: nativeToken.symbol,
+              })}
+              tooltip={t('operationForm.receiveNativeToken.tooltip', {
+                wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
+                nativeTokenSymbol: nativeToken.symbol,
+              })}
+            >
+              <Toggle
+                onChange={handleToggleReceiveNativeToken}
+                value={formValues.receiveNativeToken}
               />
+            </LabeledInlineContent>
 
-              <Delimiter />
+            <Delimiter />
+          </>
+        )}
 
-              <AccountData
-                asset={asset}
-                pool={pool}
-                amountTokens={new BigNumber(formValues.amountTokens || 0)}
-                action="withdraw"
-              />
-            </div>
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <AssetInfo
+              asset={asset}
+              action="withdraw"
+              amountTokens={new BigNumber(formValues.amountTokens || 0)}
+              renderType="accordion"
+            />
 
-            <SubmitSection
-              isFormSubmitting={isSubmitting}
-              isFormValid={isFormValid}
-              isDelegateApproved={isDelegateApproved}
-              isDelegateApprovedLoading={isDelegateApprovedLoading}
-              approveDelegateAction={approveDelegateAction}
-              isApproveDelegateLoading={isApproveDelegateLoading}
+            <Delimiter />
+
+            <AccountData
+              asset={asset}
+              pool={pool}
+              amountTokens={new BigNumber(formValues.amountTokens || 0)}
+              action="withdraw"
             />
           </div>
-        </>
-      ) : (
-        <div className="space-y-6">
-          <AssetInfo asset={asset} action="withdraw" />
 
-          <ConnectWallet>{t('operationForm.connectWalletButtonLabel')}</ConnectWallet>
+          <SubmitSection
+            isFormSubmitting={isSubmitting}
+            isFormValid={isFormValid}
+            isDelegateApproved={isDelegateApproved}
+            isDelegateApprovedLoading={isDelegateApprovedLoading}
+            approveDelegateAction={approveDelegateAction}
+            isApproveDelegateLoading={isApproveDelegateLoading}
+          />
         </div>
-      )}
+      </ConnectWallet>
     </form>
   );
 };

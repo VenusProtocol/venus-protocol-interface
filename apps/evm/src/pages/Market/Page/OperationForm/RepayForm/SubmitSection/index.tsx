@@ -7,6 +7,7 @@ import { useTranslation } from 'libs/translations';
 import type { Swap, Token } from 'types';
 import { cn } from 'utilities';
 
+import { SwitchChain } from 'containers/SwitchChain';
 import SwapSummary from '../../SwapSummary';
 
 export interface SubmitSectionProps {
@@ -53,17 +54,8 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     return t('operationForm.submitButtonLabel.repay');
   }, [isFormValid, t]);
 
-  return (
-    <ApproveTokenSteps
-      token={fromToken}
-      isUsingSwap={isUsingSwap}
-      hideTokenEnablingStep={!isFormValid}
-      isTokenApproved={isFromTokenApproved}
-      approveToken={approveFromToken}
-      isApproveTokenLoading={isApproveFromTokenLoading}
-      isWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
-      secondStepButtonLabel={submitButtonLabel}
-    >
+  const dom = (
+    <>
       <PrimaryButton
         type="submit"
         loading={isFormSubmitting}
@@ -83,8 +75,28 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       {isFormValid && !isSwapLoading && !isFromTokenWalletSpendingLimitLoading && (
         <SwapSummary swap={swap} type="repay" />
       )}
-    </ApproveTokenSteps>
+    </>
   );
+
+  if (isFormValid) {
+    return (
+      <SwitchChain>
+        <ApproveTokenSteps
+          token={fromToken}
+          isUsingSwap={isUsingSwap}
+          isTokenApproved={isFromTokenApproved}
+          approveToken={approveFromToken}
+          isApproveTokenLoading={isApproveFromTokenLoading}
+          isWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+          secondStepButtonLabel={submitButtonLabel}
+        >
+          {dom}
+        </ApproveTokenSteps>
+      </SwitchChain>
+    );
+  }
+
+  return dom;
 };
 
 export default SubmitSection;
