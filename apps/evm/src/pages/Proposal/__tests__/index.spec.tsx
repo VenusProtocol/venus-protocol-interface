@@ -221,6 +221,17 @@ describe('ProposalComp page', () => {
     await waitFor(() => expect(screen.getByTestId(TEST_IDS.votingDisabledWarning)).toBeVisible());
   });
 
+  it('renders warning about voting being disabled when the feature flag is on, proposal is active and user is connected to another chain than the governance one', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(() => true);
+
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
+      accountChainId: ChainId.ARBITRUM_SEPOLIA,
+    });
+
+    await waitFor(() => expect(screen.getByTestId(TEST_IDS.votingDisabledWarning)).toBeVisible());
+  });
+
   it('allows user to vote for', async () => {
     const vote = vi.fn();
     (useVote as Mock).mockImplementation(() => ({

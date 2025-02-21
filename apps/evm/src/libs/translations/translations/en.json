@@ -1107,8 +1107,8 @@
     "for": "For",
     "goToXvsSnapshot": "Go to XVS Snapshot",
     "omnichain": {
-      "switchToBnb": "Switch to BNB chain",
-      "votingOnlyEnabledOnBnb": "Voting is only available on the BNB chain"
+      "switchToBnb": "Switch to BNB Chain",
+      "votingOnlyEnabledOnBnb": "Voting is only available on BNB Chain"
     },
     "pages": {
       "actions": "3 of 3 Actions",

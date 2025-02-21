@@ -10,7 +10,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { type UseVoteParams } from 'hooks/useVote';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet';
+import { governanceChain, useAccountAddress, useAccountChainId, useSwitchChain } from 'libs/wallet';
 import { ProposalState, type Proposal as ProposalType } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
@@ -40,6 +40,14 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
   isVoteLoading,
 }) => {
   const { switchChain } = useSwitchChain();
+
+  const { accountAddress } = useAccountAddress();
+  const isUserConnected = !!accountAddress;
+
+  const { chainId: accountChainId } = useAccountChainId();
+  const isUserConnectedToNonGovernanceChain =
+    isUserConnected && accountChainId !== governanceChain.id;
+
   const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
   const styles = useStyles();
   const { t } = useTranslation();
@@ -58,22 +66,23 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
     <div css={styles.root} className="space-y-6">
       <ProposalSummary proposal={proposal} />
 
-      {!isVoteProposalFeatureEnabled && proposal.state === ProposalState.Active && (
-        <NoticeInfo
-          className="w-full"
-          data-testid={TEST_IDS.votingDisabledWarning}
-          title={t('vote.omnichain.votingOnlyEnabledOnBnb')}
-          description={
-            <Button
-              className="h-auto"
-              variant="text"
-              onClick={() => switchChain({ chainId: governanceChain.id })}
-            >
-              {t('vote.omnichain.switchToBnb')}
-            </Button>
-          }
-        />
-      )}
+      {proposal.state === ProposalState.Active &&
+        (!isVoteProposalFeatureEnabled || isUserConnectedToNonGovernanceChain) && (
+          <NoticeInfo
+            className="w-full"
+            data-testid={TEST_IDS.votingDisabledWarning}
+            title={t('vote.omnichain.votingOnlyEnabledOnBnb')}
+            description={
+              <Button
+                className="h-auto"
+                variant="text"
+                onClick={() => switchChain({ chainId: governanceChain.id })}
+              >
+                {t('vote.omnichain.switchToBnb')}
+              </Button>
+            }
+          />
+        )}
 
       <div className="space-y-6 xl:space-y-0 xl:flex xl:space-x-6">
         <VoteSummary
