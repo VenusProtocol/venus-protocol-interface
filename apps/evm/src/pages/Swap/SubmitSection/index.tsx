@@ -94,7 +94,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
     return t('swapPage.submitButton.disabledLabels.processing');
   }, [swap, swapError, isSwappingWithHighPriceImpact, formErrors, fromToken.symbol, t]);
 
-  const dom = (
+  let dom = (
     <PrimaryButton
       className={cn('w-full', isSwappingWithHighPriceImpact && 'border-red bg-red')}
       disabled={
@@ -113,7 +113,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
   );
 
   if (isFormValid) {
-    return (
+    dom = (
       <SwitchChain>
         <ApproveTokenSteps
           token={fromToken}
@@ -125,21 +125,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
           secondStepButtonLabel={submitButtonLabel}
           css={styles.container}
         >
-          <PrimaryButton
-            className={cn('w-full', isSwappingWithHighPriceImpact && 'border-red bg-red')}
-            disabled={
-              !isFormValid ||
-              isSubmitting ||
-              isSwapLoading ||
-              isFromTokenWalletSpendingLimitLoading ||
-              isRevokeFromTokenWalletSpendingLimitLoading ||
-              !isFromTokenApproved
-            }
-            onClick={onSubmit}
-            loading={isSubmitting}
-          >
-            {dom}
-          </PrimaryButton>
+          {dom}
         </ApproveTokenSteps>
       </SwitchChain>
     );

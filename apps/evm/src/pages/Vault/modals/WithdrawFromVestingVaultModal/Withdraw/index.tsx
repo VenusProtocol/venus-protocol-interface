@@ -12,6 +12,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 
+import { SwitchChain } from 'containers/SwitchChain';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
@@ -63,15 +64,17 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
             {readableWithdrawableTokens}
           </LabeledInlineContent>
 
-          <PrimaryButton
-            type="submit"
-            onClick={handleSubmit}
-            loading={isSubmitting}
-            disabled={withdrawableMantissa.isEqualTo(0)}
-            className="w-full"
-          >
-            {t('withdrawFromVestingVaultModalModal.withdrawTab.submitButton')}
-          </PrimaryButton>
+          <SwitchChain>
+            <PrimaryButton
+              type="submit"
+              onClick={handleSubmit}
+              loading={isSubmitting}
+              disabled={withdrawableMantissa.isEqualTo(0)}
+              className="w-full"
+            >
+              {t('withdrawFromVestingVaultModalModal.withdrawTab.submitButton')}
+            </PrimaryButton>
+          </SwitchChain>
         </>
       )}
     </>

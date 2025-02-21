@@ -32,7 +32,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     return t('operationForm.submitButtonLabel.withdraw');
   }, [isFormValid, t]);
 
-  const dom = (
+  let dom = (
     <PrimaryButton
       type="submit"
       loading={isFormSubmitting}
@@ -44,7 +44,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   );
 
   if (isFormValid) {
-    return (
+    dom = (
       <SwitchChain>
         <ApproveDelegateSteps
           approveDelegateeAction={approveDelegateAction}

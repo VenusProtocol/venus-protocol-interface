@@ -10,7 +10,9 @@ import { renderComponent } from 'testUtils/render';
 
 import useTokenApproval from 'hooks/useTokenApproval';
 
+import { ChainId, chainMetadata } from '@venusprotocol/chains';
 import { NULL_ADDRESS } from 'constants/address';
+import { en } from 'libs/translations';
 import TransactionForm, { type TransactionFormProps } from '.';
 import TEST_IDS from './testIds';
 
@@ -37,6 +39,30 @@ describe('TransactionForm', () => {
 
     expect(getByTestId(TEST_IDS.availableTokens).textContent).toMatchSnapshot();
     expect(getByTestId(TEST_IDS.lockingPeriod).textContent).toMatchSnapshot();
+  });
+
+  it('prompts user to switch chain if they are connected to the wrong one', async () => {
+    const { queryByText, getByTestId } = renderComponent(<TransactionForm {...baseProps} />, {
+      accountAddress: fakeAccountAddress,
+      accountChainId: ChainId.SEPOLIA,
+      chainId: ChainId.BSC_TESTNET,
+    });
+
+    fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
+      target: { value: 1 },
+    });
+
+    // Check switch button is present
+    await waitFor(() =>
+      expect(
+        queryByText(
+          en.switchChain.switchButton.replace(
+            '{{chainName}}',
+            chainMetadata[ChainId.BSC_TESTNET].name,
+          ),
+        ),
+      ).toBeInTheDocument(),
+    );
   });
 
   it('displays the wallet spending limit correctly and lets user revoke it', async () => {

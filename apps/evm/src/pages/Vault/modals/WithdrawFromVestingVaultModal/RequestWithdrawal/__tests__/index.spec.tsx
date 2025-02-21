@@ -54,6 +54,20 @@ describe('RequestWithdrawal', () => {
     await waitFor(() => getByTestId(TEST_IDS.availableTokens));
   });
 
+  it('prompts user to connect their wallet if they are not connected', async () => {
+    const { queryByText } = renderComponent(
+      <RequestWithdrawal
+        stakedToken={fakeStakedToken}
+        poolIndex={fakePoolIndex}
+        handleClose={noop}
+        handleDisplayWithdrawalRequestList={noop}
+      />,
+    );
+
+    // Check connect button is present
+    await waitFor(() => expect(queryByText(en.connectWallet.connectButton)).toBeInTheDocument());
+  });
+
   it('fetches staked tokens and locking period and displays them correctly', async () => {
     const { getByTestId } = renderComponent(
       <RequestWithdrawal

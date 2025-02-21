@@ -58,7 +58,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     return t('operationForm.submitButtonLabel.supply');
   }, [isFormValid, t]);
 
-  const dom = (
+  let dom = (
     <>
       <PrimaryButton
         type="submit"
@@ -83,7 +83,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   );
 
   if (isFormValid) {
-    return (
+    dom = (
       <SwitchChain>
         <ApproveTokenSteps
           token={fromToken}
