@@ -1,6 +1,7 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import cbbtcLogo from 'libs/tokens/img/underlyingTokens/cbbtc.svg';
 import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
+import uniLogo from 'libs/tokens/img/underlyingTokens/uni.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
 import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
@@ -47,5 +48,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'XVS',
     asset: xvsLogo,
+  },
+  {
+    address: '0x873A6C4B1e3D883920541a0C61Dc4dcb772140b3',
+    decimals: 18,
+    symbol: 'UNI',
+    asset: uniLogo,
   },
 ];
