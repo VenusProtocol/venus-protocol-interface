@@ -3,19 +3,28 @@ import { useMemo } from 'react';
 import { type Proposal, ProposalState } from 'types';
 import { cn } from 'utilities';
 
-export type IndicatorProps = React.HTMLAttributes<HTMLDivElement> & Pick<Proposal, 'state'>;
+export interface IndicatorProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    Pick<Proposal, 'state'> {
+  isExecutable: boolean;
+}
 
-export const Indicator: React.FC<IndicatorProps> = ({ state, className, ...otherProps }) => {
+export const Indicator: React.FC<IndicatorProps> = ({
+  state,
+  isExecutable,
+  className,
+  ...otherProps
+}) => {
   const [colorClass, iconName] = useMemo<[string, IconName]>(() => {
     let tmpColorClass = 'bg-grey';
     let tmpIconName: IconName = 'dots';
 
-    if (state === ProposalState.Executed) {
-      tmpColorClass = 'bg-green';
-      tmpIconName = 'mark';
-    } else if (state === ProposalState.Succeeded) {
+    if (isExecutable) {
       tmpColorClass = 'bg-orange';
       tmpIconName = 'exclamation';
+    } else if (state === ProposalState.Executed) {
+      tmpColorClass = 'bg-green';
+      tmpIconName = 'mark';
     } else if (
       state === ProposalState.Defeated ||
       state === ProposalState.Expired ||
@@ -26,7 +35,7 @@ export const Indicator: React.FC<IndicatorProps> = ({ state, className, ...other
     }
 
     return [tmpColorClass, tmpIconName];
-  }, [state]);
+  }, [state, isExecutable]);
 
   return (
     <div

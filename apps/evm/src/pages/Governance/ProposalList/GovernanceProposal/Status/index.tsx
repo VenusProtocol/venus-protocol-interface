@@ -23,6 +23,12 @@ export const Status: React.FC<StatusProps> = ({
   const { t } = useTranslation();
   const now = useNow();
 
+  const isExecutable = isProposalExecutable({
+    now,
+    isQueued: state === ProposalState.Queued,
+    executionEtaDate,
+  });
+
   const totalPayloadsCount = 1 + remoteProposals.length; // BSC proposal + remote proposals
   const executedPayloadsCount =
     (state === ProposalState.Executed ? 1 : 0) +
@@ -49,12 +55,6 @@ export const Status: React.FC<StatusProps> = ({
       return t('voteProposalUi.status.executedPayloads');
     }
 
-    const isExecutable = isProposalExecutable({
-      now,
-      isQueued: state === ProposalState.Queued,
-      executionEtaDate,
-    });
-
     if (isExecutable) {
       return t('voteProposalUi.status.readyForExecution');
     }
@@ -64,7 +64,7 @@ export const Status: React.FC<StatusProps> = ({
     }
 
     return getProposalStateLabel({ state });
-  }, [t, state, shouldShowExecutedPayloadsStatus, now, executionEtaDate]);
+  }, [t, state, shouldShowExecutedPayloadsStatus, isExecutable]);
 
   return (
     <div
@@ -90,7 +90,7 @@ export const Status: React.FC<StatusProps> = ({
             )}
           </div>
         ) : (
-          <Indicator state={state} />
+          <Indicator state={state} isExecutable={isExecutable} />
         )}
       </div>
 
