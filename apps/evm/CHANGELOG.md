@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.219.0
+
+### Minor Changes
+
+- 9e3f6ae: fix issue where ready to be executed proposals would show the wrong icon
+
 ## 2.218.0
 
 ### Minor Changes
