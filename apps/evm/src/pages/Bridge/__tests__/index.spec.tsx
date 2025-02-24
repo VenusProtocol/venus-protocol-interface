@@ -89,10 +89,10 @@ describe('Bridge', () => {
     const { getByText } = renderComponent(<Bridge />);
 
     // Check connect button is present
-    await waitFor(() => getByText(en.bridgePage.connectWalletButton.label));
+    await waitFor(() => getByText(en.connectButton.connect));
 
     // Click on connect button
-    fireEvent.click(getByText(en.bridgePage.connectWalletButton.label).closest('button')!);
+    fireEvent.click(getByText(en.connectButton.connect).closest('button')!);
 
     await waitFor(() => expect(openAuthModalMock).toHaveBeenCalledTimes(1));
   });

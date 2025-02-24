@@ -22,8 +22,6 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
 
   const { t } = useTranslation();
 
-  console.log('isUserConnected', isUserConnected);
-
   return (
     <div {...otherProps}>
       {isUserConnected ? (
