@@ -106,7 +106,7 @@
     "@storybook/addon-links": "8.5.8",
     "@storybook/blocks": "8.4.2",
     "@storybook/react": "8.5.5",
-    "@storybook/react-vite": "8.4.2",
+    "@storybook/react-vite": "8.5.8",
     "@storybook/test": "8.4.2",
     "@stylelint/postcss-css-in-js": "0.38.0",
     "@testing-library/dom": "^8.13.0",
