@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.218.0
+
+### Minor Changes
+
+- 2f6b9d3: add UNI token to Unichain
+
 ## 2.217.0
 
 ### Minor Changes
