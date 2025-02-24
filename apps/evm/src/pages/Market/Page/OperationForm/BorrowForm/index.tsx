@@ -172,75 +172,71 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         {!isUserConnected && <AssetInfo asset={asset} action="borrow" />}
       </div>
 
-      <ConnectWallet
-        className={({ isUserConnected }) => cn('space-y-4', isUserConnected ? 'mt-4' : 'mt-6')}
-      >
-        {!isSubmitting && !formError && (
-          <Notice
-            amount={formValues.amountTokens}
-            safeLimitTokens={safeLimitTokens}
-            limitTokens={limitTokens}
+      <ConnectWallet className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}>
+        <div className="space-y-4">
+          {!isSubmitting && !formError && (
+            <Notice
+              amount={formValues.amountTokens}
+              safeLimitTokens={safeLimitTokens}
+              limitTokens={limitTokens}
+            />
+          )}
+
+          <LabeledInlineContent label={t('operationForm.borrowableAmount')}>
+            {readableLimit}
+          </LabeledInlineContent>
+
+          <Delimiter />
+
+          {canUnwrapToNativeToken && (
+            <>
+              <LabeledInlineContent
+                data-testid={TEST_IDS.receiveNativeToken}
+                label={t('operationForm.receiveNativeToken.label', {
+                  tokenSymbol: nativeToken.symbol,
+                })}
+                tooltip={t('operationForm.receiveNativeToken.tooltip', {
+                  wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
+                  nativeTokenSymbol: nativeToken.symbol,
+                })}
+              >
+                <Toggle
+                  onChange={handleToggleReceiveNativeToken}
+                  value={formValues.receiveNativeToken}
+                />
+              </LabeledInlineContent>
+
+              <Delimiter />
+            </>
+          )}
+
+          <AssetInfo
+            asset={asset}
+            action="borrow"
+            amountTokens={new BigNumber(formValues.amountTokens || 0)}
+            renderType="accordion"
           />
-        )}
 
-        <LabeledInlineContent label={t('operationForm.borrowableAmount')}>
-          {readableLimit}
-        </LabeledInlineContent>
+          <Delimiter />
 
-        <Delimiter />
-
-        {canUnwrapToNativeToken && (
-          <>
-            <LabeledInlineContent
-              data-testid={TEST_IDS.receiveNativeToken}
-              label={t('operationForm.receiveNativeToken.label', {
-                tokenSymbol: nativeToken.symbol,
-              })}
-              tooltip={t('operationForm.receiveNativeToken.tooltip', {
-                wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
-                nativeTokenSymbol: nativeToken.symbol,
-              })}
-            >
-              <Toggle
-                onChange={handleToggleReceiveNativeToken}
-                value={formValues.receiveNativeToken}
-              />
-            </LabeledInlineContent>
-
-            <Delimiter />
-          </>
-        )}
-
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <AssetInfo
-              asset={asset}
-              action="borrow"
-              amountTokens={new BigNumber(formValues.amountTokens || 0)}
-              renderType="accordion"
-            />
-
-            <Delimiter />
-
-            <AccountData
-              asset={asset}
-              pool={pool}
-              amountTokens={new BigNumber(formValues.amountTokens || 0)}
-              action="borrow"
-            />
-          </div>
-
-          <SubmitSection
-            isFormSubmitting={isSubmitting}
-            safeLimitTokens={safeLimitTokens}
-            isFormValid={isFormValid}
-            fromTokenAmountTokens={formValues.amountTokens}
-            isDelegateApproved={isDelegateApproved}
-            isDelegateApprovedLoading={isDelegateApprovedLoading}
-            approveDelegateAction={approveDelegateAction}
-            isApproveDelegateLoading={isApproveDelegateLoading}
+          <AccountData
+            asset={asset}
+            pool={pool}
+            amountTokens={new BigNumber(formValues.amountTokens || 0)}
+            action="borrow"
           />
         </div>
+
+        <SubmitSection
+          isFormSubmitting={isSubmitting}
+          safeLimitTokens={safeLimitTokens}
+          isFormValid={isFormValid}
+          fromTokenAmountTokens={formValues.amountTokens}
+          isDelegateApproved={isDelegateApproved}
+          isDelegateApprovedLoading={isDelegateApprovedLoading}
+          approveDelegateAction={approveDelegateAction}
+          isApproveDelegateLoading={isApproveDelegateLoading}
+        />
       </ConnectWallet>
     </form>
   );

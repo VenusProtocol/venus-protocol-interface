@@ -2,13 +2,14 @@
 import { Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 
-import { ButtonWrapper, Modal, NoticeInfo, PrimaryButton, TextButton } from 'components';
+import { ButtonWrapper, Modal, NoticeInfo, TextButton } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 
-import { FormikSubmitButton, FormikTextField } from 'containers/Form';
+import { FormikTextField } from 'containers/Form';
+import { SubmitSection } from './SubmitSection';
 import addressValidationSchema from './addressValidationSchema';
 import { useStyles } from './styles';
 
@@ -19,7 +20,6 @@ interface DelegateModalProps {
   setVoteDelegation: (input: { delegateAddress: string }) => unknown;
   previouslyDelegated: boolean;
   isVoteDelegationLoading: boolean;
-  openAuthModal: () => void;
 }
 
 const DelegateModal: React.FC<DelegateModalProps> = ({
@@ -29,7 +29,6 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
   setVoteDelegation,
   previouslyDelegated,
   isVoteDelegationLoading,
-  openAuthModal,
 }) => {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -81,19 +80,11 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
                 maxLength={42}
                 disabled={!currentUserAccountAddress}
               />
-              {currentUserAccountAddress ? (
-                <FormikSubmitButton
-                  className="mb-2 mt-10 w-full"
-                  enabledLabel={
-                    previouslyDelegated ? t('vote.redelegate') : t('vote.delegateVotes')
-                  }
-                  loading={isVoteDelegationLoading}
-                />
-              ) : (
-                <PrimaryButton onClick={openAuthModal} className="mb-2 mt-10 w-full">
-                  {t('connectWallet.connectButton')}
-                </PrimaryButton>
-              )}
+
+              <SubmitSection
+                previouslyDelegated={previouslyDelegated}
+                isVoteDelegationLoading={isVoteDelegationLoading}
+              />
             </Form>
           )}
         </Formik>
