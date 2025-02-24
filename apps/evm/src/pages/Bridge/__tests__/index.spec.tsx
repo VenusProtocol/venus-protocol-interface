@@ -16,6 +16,7 @@ import { en } from 'libs/translations';
 import { useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 
+import { chainMetadata } from '@venusprotocol/chains';
 import { fromUnixTime } from 'date-fns';
 import Bridge from '..';
 import TEST_IDS from '../testIds';
@@ -94,6 +95,29 @@ describe('Bridge', () => {
     fireEvent.click(getByText(en.bridgePage.connectWalletButton.label).closest('button')!);
 
     await waitFor(() => expect(openAuthModalMock).toHaveBeenCalledTimes(1));
+  });
+
+  it('prompts user to switch chain if they are connected to the wrong one', async () => {
+    const { getByText, getByTestId } = renderComponent(<Bridge />, {
+      accountAddress: fakeAccountAddress,
+      accountChainId: ChainId.ARBITRUM_ONE,
+      chainId: ChainId.BSC_TESTNET,
+    });
+
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    fireEvent.change(tokenTextInput, { target: { value: 1 } });
+
+    // Check "Switch chain" button is displayed
+    await waitFor(() =>
+      expect(
+        getByText(
+          en.switchChain.switchButton.replace(
+            '{{chainName}}',
+            chainMetadata[ChainId.BSC_TESTNET].name,
+          ),
+        ),
+      ).toBeInTheDocument(),
+    );
   });
 
   it('handles changing from chain ID correctly', async () => {

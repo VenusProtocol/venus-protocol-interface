@@ -26,6 +26,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
+  cn,
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,
@@ -215,165 +216,163 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   ]);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {isIntegratedSwapFeatureEnabled || canWrapNativeToken ? (
-        <SelectTokenTextField
-          data-testid={TEST_IDS.selectTokenTextField}
-          selectedToken={formValues.fromToken}
-          value={formValues.amountTokens}
-          hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
-          disabled={!isUserConnected || isSubmitting}
-          onChange={amountTokens =>
-            setFormValues(currentFormValues => ({
-              ...currentFormValues,
-              amountTokens,
-              // Reset selected fixed percentage
-              fixedRepayPercentage: undefined,
-            }))
-          }
-          onChangeSelectedToken={fromToken =>
-            setFormValues(currentFormValues => ({
-              ...currentFormValues,
-              fromToken,
-            }))
-          }
-          rightMaxButton={{
-            label: t('operationForm.rightMaxButtonLabel'),
-            onClick: handleRightMaxButtonClick,
-          }}
-          tokenBalances={tokenBalances}
-          description={
-            !isSubmitting && !!formError?.message ? (
-              <p className="text-red">{formError.message}</p>
-            ) : undefined
-          }
-        />
-      ) : (
-        <TokenTextField
-          name="amountTokens"
-          token={asset.vToken.underlyingToken}
-          value={formValues.amountTokens}
-          onChange={amountTokens =>
-            setFormValues(currentFormValues => ({
-              ...currentFormValues,
-              amountTokens,
-              // Reset selected fixed percentage
-              fixedRepayPercentage: undefined,
-            }))
-          }
-          disabled={!isUserConnected || isSubmitting}
-          rightMaxButton={{
-            label: t('operationForm.rightMaxButtonLabel'),
-            onClick: handleRightMaxButtonClick,
-          }}
-          data-testid={TEST_IDS.tokenTextField}
-          hasError={
-            isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
-          }
-          description={
-            isUserConnected && !isSubmitting && !!formError?.message ? (
-              <p className="text-red">{formError.message}</p>
-            ) : undefined
-          }
-        />
-      )}
-
-      <div className="flex gap-x-4">
-        {PRESET_PERCENTAGES.map(percentage => (
-          <QuaternaryButton
-            key={`select-button-${percentage}`}
-            className="flex-1"
-            active={percentage === formValues.fixedRepayPercentage}
-            disabled={!isUserConnected || asset.userBorrowBalanceTokens.isEqualTo(0)}
-            onClick={() =>
+    <form onSubmit={handleSubmit}>
+      <div className="space-y-4">
+        {isIntegratedSwapFeatureEnabled || canWrapNativeToken ? (
+          <SelectTokenTextField
+            data-testid={TEST_IDS.selectTokenTextField}
+            selectedToken={formValues.fromToken}
+            value={formValues.amountTokens}
+            hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
+            disabled={!isUserConnected || isSubmitting}
+            onChange={amountTokens =>
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
-                fixedRepayPercentage: percentage,
+                amountTokens,
+                // Reset selected fixed percentage
+                fixedRepayPercentage: undefined,
               }))
             }
-          >
-            {formatPercentageToReadableValue(percentage)}
-          </QuaternaryButton>
-        ))}
-      </div>
-
-      {!isUserConnected && <AssetInfo asset={asset} action="repay" />}
-
-      <ConnectWallet className="space-y-4">
-        {!isSubmitting && !isSwapLoading && !formError && (
-          <Notice isRepayingFullLoan={isRepayingFullLoan} swap={swap} />
+            onChangeSelectedToken={fromToken =>
+              setFormValues(currentFormValues => ({
+                ...currentFormValues,
+                fromToken,
+              }))
+            }
+            rightMaxButton={{
+              label: t('operationForm.rightMaxButtonLabel'),
+              onClick: handleRightMaxButtonClick,
+            }}
+            tokenBalances={tokenBalances}
+            description={
+              !isSubmitting && !!formError?.message ? (
+                <p className="text-red">{formError.message}</p>
+              ) : undefined
+            }
+          />
+        ) : (
+          <TokenTextField
+            name="amountTokens"
+            token={asset.vToken.underlyingToken}
+            value={formValues.amountTokens}
+            onChange={amountTokens =>
+              setFormValues(currentFormValues => ({
+                ...currentFormValues,
+                amountTokens,
+                // Reset selected fixed percentage
+                fixedRepayPercentage: undefined,
+              }))
+            }
+            disabled={!isUserConnected || isSubmitting}
+            rightMaxButton={{
+              label: t('operationForm.rightMaxButtonLabel'),
+              onClick: handleRightMaxButtonClick,
+            }}
+            data-testid={TEST_IDS.tokenTextField}
+            hasError={
+              isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
+            }
+            description={
+              isUserConnected && !isSubmitting && !!formError?.message ? (
+                <p className="text-red">{formError.message}</p>
+              ) : undefined
+            }
+          />
         )}
 
-        <div className="space-y-2">
-          <LabeledInlineContent
-            label={
-              isUsingSwap ? t('operationForm.walletBalance') : t('operationForm.repayableAmount')
-            }
-          >
-            {isUsingSwap
-              ? readableFromTokenUserWalletBalanceTokens
-              : readableRepayableFromTokenAmountTokens}
-          </LabeledInlineContent>
-
-          <SpendingLimit
-            token={formValues.fromToken}
-            walletBalanceTokens={fromTokenUserWalletBalanceTokens}
-            walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
-            onRevoke={revokeFromTokenWalletSpendingLimit}
-            isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
-            data-testid={TEST_IDS.spendingLimit}
-          />
+        <div className="flex gap-x-4">
+          {PRESET_PERCENTAGES.map(percentage => (
+            <QuaternaryButton
+              key={`select-button-${percentage}`}
+              className="flex-1"
+              active={percentage === formValues.fixedRepayPercentage}
+              disabled={!isUserConnected || asset.userBorrowBalanceTokens.isEqualTo(0)}
+              onClick={() =>
+                setFormValues(currentFormValues => ({
+                  ...currentFormValues,
+                  fixedRepayPercentage: percentage,
+                }))
+              }
+            >
+              {formatPercentageToReadableValue(percentage)}
+            </QuaternaryButton>
+          ))}
         </div>
 
-        <Delimiter />
+        {!isUserConnected && <AssetInfo asset={asset} action="repay" />}
+      </div>
 
-        {isUsingSwap && swap && (
-          <>
-            <SwapDetails action="repay" swap={swap} data-testid={TEST_IDS.swapDetails} />
+      <ConnectWallet className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}>
+        <div className="space-y-4">
+          {!isSubmitting && !isSwapLoading && !formError && (
+            <Notice isRepayingFullLoan={isRepayingFullLoan} swap={swap} />
+          )}
 
-            <Delimiter />
-          </>
-        )}
+          <div className="space-y-2">
+            <LabeledInlineContent
+              label={
+                isUsingSwap ? t('operationForm.walletBalance') : t('operationForm.repayableAmount')
+              }
+            >
+              {isUsingSwap
+                ? readableFromTokenUserWalletBalanceTokens
+                : readableRepayableFromTokenAmountTokens}
+            </LabeledInlineContent>
 
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <AssetInfo
-              asset={asset}
-              action="repay"
-              swap={swap}
-              isUsingSwap={isUsingSwap}
-              amountTokens={new BigNumber(formValues.amountTokens || 0)}
-              renderType="accordion"
-            />
-
-            <Delimiter />
-
-            <AccountData
-              asset={asset}
-              pool={pool}
-              swap={swap}
-              amountTokens={new BigNumber(formValues.amountTokens || 0)}
-              action="repay"
-              isUsingSwap={isUsingSwap}
+            <SpendingLimit
+              token={formValues.fromToken}
+              walletBalanceTokens={fromTokenUserWalletBalanceTokens}
+              walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+              onRevoke={revokeFromTokenWalletSpendingLimit}
+              isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+              data-testid={TEST_IDS.spendingLimit}
             />
           </div>
 
-          <SubmitSection
-            isFormSubmitting={isSubmitting}
-            isFormValid={isFormValid}
+          <Delimiter />
+
+          {isUsingSwap && swap && (
+            <>
+              <SwapDetails action="repay" swap={swap} data-testid={TEST_IDS.swapDetails} />
+
+              <Delimiter />
+            </>
+          )}
+
+          <AssetInfo
+            asset={asset}
+            action="repay"
             swap={swap}
-            isSwapLoading={isSwapLoading}
             isUsingSwap={isUsingSwap}
-            fromToken={formValues.fromToken}
-            approveFromToken={approveFromToken}
-            isApproveFromTokenLoading={isApproveFromTokenLoading}
-            isFromTokenApproved={isFromTokenApproved}
-            isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
-            isRevokeFromTokenWalletSpendingLimitLoading={
-              isRevokeFromTokenWalletSpendingLimitLoading
-            }
+            amountTokens={new BigNumber(formValues.amountTokens || 0)}
+            renderType="accordion"
+          />
+
+          <Delimiter />
+
+          <AccountData
+            asset={asset}
+            pool={pool}
+            swap={swap}
+            amountTokens={new BigNumber(formValues.amountTokens || 0)}
+            action="repay"
+            isUsingSwap={isUsingSwap}
           />
         </div>
+
+        <SubmitSection
+          isFormSubmitting={isSubmitting}
+          isFormValid={isFormValid}
+          swap={swap}
+          isSwapLoading={isSwapLoading}
+          isUsingSwap={isUsingSwap}
+          fromToken={formValues.fromToken}
+          approveFromToken={approveFromToken}
+          isApproveFromTokenLoading={isApproveFromTokenLoading}
+          isFromTokenApproved={isFromTokenApproved}
+          isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
+          isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+        />
       </ConnectWallet>
     </form>
   );

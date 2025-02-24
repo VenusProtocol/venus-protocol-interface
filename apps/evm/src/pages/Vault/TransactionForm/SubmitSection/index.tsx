@@ -49,10 +49,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     />
   );
 
-  if (isFormValid) {
-    dom = <SwitchChain>{dom}</SwitchChain>;
-  }
-
   if (isFormValid && tokenNeedsToBeApproved) {
     dom = (
       <ApproveTokenSteps
@@ -66,6 +62,10 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
         {dom}
       </ApproveTokenSteps>
     );
+  }
+
+  if (isFormValid) {
+    dom = <SwitchChain>{dom}</SwitchChain>;
   }
 
   return dom;

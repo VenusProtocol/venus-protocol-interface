@@ -12,7 +12,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
-import { convertTokensToMantissa } from 'utilities';
+import { cn, convertTokensToMantissa } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
@@ -136,41 +136,45 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   }, [safeLimitTokens, setFormValues]);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <TokenTextField
-        data-testid={TEST_IDS.tokenTextField}
-        name="amountTokens"
-        token={asset.vToken.underlyingToken}
-        value={formValues.amountTokens}
-        onChange={amountTokens =>
-          setFormValues(currentFormValues => ({
-            ...currentFormValues,
-            amountTokens,
-          }))
-        }
-        disabled={
-          !isUserConnected ||
-          isSubmitting ||
-          formError?.code === 'BORROW_CAP_ALREADY_REACHED' ||
-          formError?.code === 'NO_COLLATERALS'
-        }
-        rightMaxButton={{
-          label: t('operationForm.limitButtonLabel', {
-            limitPercentage: SAFE_BORROW_LIMIT_PERCENTAGE,
-          }),
-          onClick: handleRightMaxButtonClick,
-        }}
-        hasError={isUserConnected && !!formError && Number(formValues.amountTokens) > 0}
-        description={
-          isUserConnected && !isSubmitting && !!formError?.message ? (
-            <p className="text-red">{formError.message}</p>
-          ) : undefined
-        }
-      />
+    <form onSubmit={handleSubmit}>
+      <div className="space-y-4">
+        <TokenTextField
+          data-testid={TEST_IDS.tokenTextField}
+          name="amountTokens"
+          token={asset.vToken.underlyingToken}
+          value={formValues.amountTokens}
+          onChange={amountTokens =>
+            setFormValues(currentFormValues => ({
+              ...currentFormValues,
+              amountTokens,
+            }))
+          }
+          disabled={
+            !isUserConnected ||
+            isSubmitting ||
+            formError?.code === 'BORROW_CAP_ALREADY_REACHED' ||
+            formError?.code === 'NO_COLLATERALS'
+          }
+          rightMaxButton={{
+            label: t('operationForm.limitButtonLabel', {
+              limitPercentage: SAFE_BORROW_LIMIT_PERCENTAGE,
+            }),
+            onClick: handleRightMaxButtonClick,
+          }}
+          hasError={isUserConnected && !!formError && Number(formValues.amountTokens) > 0}
+          description={
+            isUserConnected && !isSubmitting && !!formError?.message ? (
+              <p className="text-red">{formError.message}</p>
+            ) : undefined
+          }
+        />
 
-      {!isUserConnected && <AssetInfo asset={asset} action="borrow" />}
+        {!isUserConnected && <AssetInfo asset={asset} action="borrow" />}
+      </div>
 
-      <ConnectWallet className="space-y-4">
+      <ConnectWallet
+        className={({ isUserConnected }) => cn('space-y-4', isUserConnected ? 'mt-4' : 'mt-6')}
+      >
         {!isSubmitting && !formError && (
           <Notice
             amount={formValues.amountTokens}

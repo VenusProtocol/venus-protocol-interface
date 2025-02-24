@@ -27,7 +27,8 @@ import TEST_IDS from './testIds';
 interface ProposalUiProps {
   proposal: ProposalType | undefined;
   vote: (params: UseVoteParams) => Promise<unknown>;
-  votingEnabled: boolean;
+  canUserVoteOnProposal: boolean;
+  isUserConnectedToGovernanceChain: boolean;
   readableVoteWeight: string;
   isVoteLoading: boolean;
 }
@@ -35,24 +36,22 @@ interface ProposalUiProps {
 export const ProposalUi: React.FC<ProposalUiProps> = ({
   proposal,
   vote,
-  votingEnabled,
+  canUserVoteOnProposal,
+  isUserConnectedToGovernanceChain,
   readableVoteWeight,
   isVoteLoading,
 }) => {
-  const { switchChain } = useSwitchChain();
-
-  const { accountAddress } = useAccountAddress();
-  const isUserConnected = !!accountAddress;
-
-  const { chainId: accountChainId } = useAccountChainId();
-  const isUserConnectedToNonGovernanceChain =
-    isUserConnected && accountChainId !== governanceChain.id;
-
-  const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const { switchChain } = useSwitchChain();
   const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);
+
+  const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
+
+  const shouldEnableVoteButtons =
+    isVoteProposalFeatureEnabled && canUserVoteOnProposal && isUserConnectedToGovernanceChain;
+  const shouldShowWarning = !isVoteProposalFeatureEnabled || !isUserConnectedToGovernanceChain;
 
   if (!proposal) {
     return (
@@ -66,23 +65,22 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
     <div css={styles.root} className="space-y-6">
       <ProposalSummary proposal={proposal} />
 
-      {proposal.state === ProposalState.Active &&
-        (!isVoteProposalFeatureEnabled || isUserConnectedToNonGovernanceChain) && (
-          <NoticeInfo
-            className="w-full"
-            data-testid={TEST_IDS.votingDisabledWarning}
-            title={t('vote.omnichain.votingOnlyEnabledOnBnb')}
-            description={
-              <Button
-                className="h-auto"
-                variant="text"
-                onClick={() => switchChain({ chainId: governanceChain.id })}
-              >
-                {t('vote.omnichain.switchToBnb')}
-              </Button>
-            }
-          />
-        )}
+      {shouldShowWarning && (
+        <NoticeInfo
+          className="w-full"
+          data-testid={TEST_IDS.votingDisabledWarning}
+          title={t('vote.omnichain.votingOnlyEnabledOnBnb')}
+          description={
+            <Button
+              className="h-auto"
+              variant="text"
+              onClick={() => switchChain({ chainId: governanceChain.id })}
+            >
+              {t('vote.omnichain.switchToBnb')}
+            </Button>
+          }
+        />
+      )}
 
       <div className="space-y-6 xl:space-y-0 xl:flex xl:space-x-6">
         <VoteSummary
@@ -92,7 +90,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.forVotes}
           openVoteModal={() => setVoteModalType(1)}
           progressBarColor={styles.successColor}
-          votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
+          votingEnabled={shouldEnableVoteButtons}
           data-testid={TEST_IDS.voteSummary.for}
         />
 
@@ -103,7 +101,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.againstVotes}
           openVoteModal={() => setVoteModalType(0)}
           progressBarColor={styles.againstColor}
-          votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
+          votingEnabled={shouldEnableVoteButtons}
           data-testid={TEST_IDS.voteSummary.against}
         />
 
@@ -114,7 +112,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.abstainVotes}
           openVoteModal={() => setVoteModalType(2)}
           progressBarColor={styles.abstainColor}
-          votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
+          votingEnabled={shouldEnableVoteButtons}
           data-testid={TEST_IDS.voteSummary.abstain}
         />
       </div>
@@ -140,6 +138,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 
 const Proposal = () => {
   const { accountAddress } = useAccountAddress();
+  const { chainId: accountChainId } = useAccountChainId();
   const { proposalId = '' } = useParams<{ proposalId: string }>();
   const { data: proposalData, error: getProposalError } = useGetProposal(
     { proposalId: Number(proposalId), accountAddress },
@@ -178,7 +177,7 @@ const Proposal = () => {
   );
 
   // voting should be enabled if:
-  const votingEnabled =
+  const canUserVoteOnProposal =
     // user wallet is connected
     !!accountAddress &&
     // proposal is still active
@@ -187,6 +186,8 @@ const Proposal = () => {
     userVoteReceipt?.voteSupport === undefined &&
     // user has some voting weight
     votingWeightData.votesMantissa.isGreaterThan(0);
+
+  const isUserConnectedToGovernanceChain = accountChainId === governanceChain.id;
 
   if (getProposalError) {
     return <Redirect to={routes.governance.path} />;
@@ -197,7 +198,8 @@ const Proposal = () => {
       <ProposalUi
         proposal={proposal}
         vote={vote}
-        votingEnabled={votingEnabled}
+        canUserVoteOnProposal={canUserVoteOnProposal}
+        isUserConnectedToGovernanceChain={isUserConnectedToGovernanceChain}
         readableVoteWeight={readableVoteWeight}
         isVoteLoading={isLoading}
       />
