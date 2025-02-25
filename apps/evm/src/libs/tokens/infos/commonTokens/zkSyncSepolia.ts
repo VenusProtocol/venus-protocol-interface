@@ -6,8 +6,10 @@ import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
 import wUsdmLogo from 'libs/tokens/img/underlyingTokens/wUsdm.png';
 import wbtcLogo from 'libs/tokens/img/underlyingTokens/wbtc.svg';
 import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
+import wstEthLogo from 'libs/tokens/img/underlyingTokens/wstEth.svg';
 import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
 import zkLogo from 'libs/tokens/img/underlyingTokens/zk.svg';
+import zkEthLogo from 'libs/tokens/img/underlyingTokens/zkEth.svg';
 import type { Token } from 'types';
 
 const ethToken: Token = {
@@ -68,5 +70,17 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'wUSDM',
     asset: wUsdmLogo,
+  },
+  {
+    address: '0x8507bb4F4f0915D05432011E384850B65a7FCcD1',
+    decimals: 18,
+    symbol: 'wstETH',
+    asset: wstEthLogo,
+  },
+  {
+    address: '0x13231E8B60BE0900fB3a3E9dc52C2b39FA4794df',
+    decimals: 18,
+    symbol: 'zkETH',
+    asset: zkEthLogo,
   },
 ];
