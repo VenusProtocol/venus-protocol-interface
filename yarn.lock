@@ -5539,21 +5539,20 @@
   dependencies:
     memoizerific "^1.11.3"
 
-"@storybook/blocks@8.4.2":
-  version "8.4.2"
-  resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.4.2.tgz#69f4458e4aeab1265ae6a304052c5239a0cb82da"
-  integrity sha512-yAAvmOWaD8gIrepOxCh/RxQqd/1xZIwd/V+gsvAhW/thawN+SpI+zK63gmcqAPLX84hJ3Dh5pegRk0SoHNuDVA==
-  dependencies:
-    "@storybook/csf" "^0.1.11"
-    "@storybook/icons" "^1.2.12"
-    ts-dedent "^2.0.0"
-
 "@storybook/blocks@8.5.5":
   version "8.5.5"
   resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.5.5.tgz#72e5dcd4c1359bc91ad48c3f5f4c55b66b630943"
   integrity sha512-O/59Dj2E4t3QtJkUyRgO0X4anAC5dx0M0gfsYACEUWFubhog9x5gw3xgPhFtc1UhezKBedM1nguqdPXHus1mTg==
   dependencies:
     "@storybook/csf" "0.1.12"
+    "@storybook/icons" "^1.2.12"
+    ts-dedent "^2.0.0"
+
+"@storybook/blocks@8.6.0":
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.6.0.tgz#c216f74b5ba120525f6b35ffcca99708dc58c83f"
+  integrity sha512-3PNxlB5Ooj8CIhttbDxeV6kW7ui+2GEdTngtqhnsUHVjzeTKpilsk2lviOeUzqlyq5FDK+rhpZ3L3DJ9pDvioA==
+  dependencies:
     "@storybook/icons" "^1.2.12"
     ts-dedent "^2.0.0"
 
