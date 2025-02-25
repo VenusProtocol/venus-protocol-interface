@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.220.0
+
+### Minor Changes
+
+- 778b4e6: refator some query functions to use viem
+
 ## 2.219.0
 
 ### Minor Changes
