@@ -1,0 +1,7 @@
+query BscCorePoolParticipantsCount {
+  markets {
+    id
+    supplierCount
+    borrowerCount
+  }
+}

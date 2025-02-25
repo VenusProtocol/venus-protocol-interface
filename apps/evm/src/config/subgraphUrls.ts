@@ -1,5 +1,22 @@
 import { ChainId } from '@venusprotocol/chains/types';
 
+export const getBscCorePoolSubgraphUrls = ({
+  theGraphApiKey,
+}: {
+  theGraphApiKey: string;
+}) => {
+  const subgraphUrls: {
+    [ChainId.BSC_MAINNET]: string | undefined;
+    [ChainId.BSC_TESTNET]: string | undefined;
+  } = {
+    [ChainId.BSC_MAINNET]: `https://gateway-arbitrum.network.thegraph.com/api/${theGraphApiKey}/deployments/id/QmUun2d96q7zTJS9q8pubMsCNVv2peomdfK6CkEeJyR7YA`,
+    [ChainId.BSC_TESTNET]:
+      'https://api.studio.thegraph.com/query/64786/venus-subgraph-chapel/version/latest',
+  };
+
+  return subgraphUrls;
+};
+
 export const getIsolatedPoolsSubgraphUrls = ({
   nodeRealApiKey,
   theGraphApiKey,

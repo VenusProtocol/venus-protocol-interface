@@ -3,7 +3,11 @@ import type { ChainId, Environment, Network } from 'types';
 import { apiUrls } from './apiUrls';
 import { envVariables } from './envVariables';
 import { rpcUrls } from './rpcUrls';
-import { getGovernanceSubgraphUrls, getIsolatedPoolsSubgraphUrls } from './subgraphUrls';
+import {
+  getBscCorePoolSubgraphUrls,
+  getGovernanceSubgraphUrls,
+  getIsolatedPoolsSubgraphUrls,
+} from './subgraphUrls';
 
 export interface Config {
   environment: Environment;
@@ -11,6 +15,10 @@ export interface Config {
   apiUrl: string;
   rpcUrls: {
     [chainId in ChainId]: string;
+  };
+  bscCorePoolSubgraphUrls: {
+    [ChainId.BSC_MAINNET]: string | undefined;
+    [ChainId.BSC_TESTNET]: string | undefined;
   };
   isolatedPoolsSubgraphUrls: {
     [chainId in ChainId]: string | undefined;
@@ -37,6 +45,7 @@ const keys = {
 };
 
 const governanceSubgraphUrls = getGovernanceSubgraphUrls(keys);
+const bscCorePoolSubgraphUrls = getBscCorePoolSubgraphUrls(keys);
 const isolatedPoolsSubgraphUrls = getIsolatedPoolsSubgraphUrls(keys);
 
 const config: Config = {
@@ -44,6 +53,7 @@ const config: Config = {
   network,
   apiUrl,
   rpcUrls,
+  bscCorePoolSubgraphUrls,
   isolatedPoolsSubgraphUrls,
   governanceSubgraphUrls,
   sentryDsn: envVariables.VITE_SENTRY_DSN || '',
