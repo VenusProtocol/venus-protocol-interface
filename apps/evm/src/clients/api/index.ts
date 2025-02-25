@@ -284,7 +284,6 @@ export { default as getLatestProposalIdByProposer } from './queries/getLatestPro
 export * from './queries/getLatestProposalIdByProposer';
 export { default as useGetLatestProposalIdByProposer } from './queries/getLatestProposalIdByProposer/useGetLatestProposalIdByProposer';
 
-export { default as getMintableVai } from './queries/getMintableVai';
 export * from './queries/getMintableVai';
 export { default as useGetMintableVai } from './queries/getMintableVai/useGetMintableVai';
 

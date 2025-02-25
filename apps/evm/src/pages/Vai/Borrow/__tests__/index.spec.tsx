@@ -2,8 +2,6 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
-import vaiContractResponses from '__mocks__/contracts/vai';
-import vaiControllerResponses from '__mocks__/contracts/vaiController';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { poolData } from '__mocks__/models/pools';
@@ -11,26 +9,23 @@ import { vai } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import {
+  type GetMintableVaiOutput,
   getVaiTreasuryPercentage,
   mintVai,
   useGetMintableVai,
   useGetPool,
   useGetTokenUsdPrice,
 } from 'clients/api';
-import formatToMintableVaiOutput from 'clients/api/queries/getMintableVai/formatToOutput';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { en } from 'libs/translations';
 import { convertTokensToMantissa } from 'utilities';
 
 import { Borrow } from '..';
 
-const fakeFormatToMintableVaiInput = {
-  mintCapResponse: vaiControllerResponses.mintCap,
-  vaiTotalSupplyResponse: vaiContractResponses.totalSupply,
-  accountMintableVaiResponse: vaiControllerResponses.getMintableVAI,
+const fakeGetMintableVaiOutput: GetMintableVaiOutput = {
+  accountMintableVaiMantissa: new BigNumber('40000000000000000000'),
+  vaiLiquidityMantissa: new BigNumber('40000000000000000000'),
 };
-
-const fakeGetMintableVaiOutput = formatToMintableVaiOutput(fakeFormatToMintableVaiInput);
 
 const fakeVaiTreasuryPercentage = 7.19;
 

@@ -30,6 +30,7 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { AccountVaiData } from '../AccountVaiData';
@@ -81,11 +82,10 @@ export const Borrow: React.FC = () => {
 
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {
-      accountAddress: accountAddress || '',
-      vai: vai!,
+      accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
-      enabled: !!accountAddress && !!vai,
+      enabled: !!accountAddress,
     },
   );
   const borrowableAmountMantissa = useMemo(

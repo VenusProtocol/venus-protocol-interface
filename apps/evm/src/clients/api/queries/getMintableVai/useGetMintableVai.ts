@@ -1,62 +1,55 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getMintableVai, {
-  type GetMintableVaiInput,
-  type GetMintableVaiOutput,
-} from 'clients/api/queries/getMintableVai';
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
+import { type GetMintableVaiInput, type GetMintableVaiOutput, getMintableVai } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useGetVaiContract, useGetVaiControllerContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
-import type { ChainId, Token } from 'types';
+import { useGetVaiControllerContractAddress } from 'libs/contracts';
+import { useGetToken } from 'libs/tokens';
+import { useChainId, usePublicClient } from 'libs/wallet';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetMintableVaiInput = Omit<
-  GetMintableVaiInput,
-  'vaiControllerContract' | 'vaiContract'
-> & {
-  vai: Token;
-};
+export interface UseGetMintableVaiInput
+  extends Omit<
+    GetMintableVaiInput,
+    'publicClient' | 'vaiControllerContractAddress' | 'vaiAddress'
+  > {}
 
 export type UseGetMintableVaiQueryKey = [
   FunctionKey.GET_MINTABLE_VAI,
-  TrimmedGetMintableVaiInput & { chainId: ChainId },
+  UseGetMintableVaiInput & {
+    chainId: ChainId;
+  },
 ];
 
 type Options = QueryObserverOptions<
-  GetMintableVaiOutput | undefined,
+  GetMintableVaiOutput,
   Error,
-  GetMintableVaiOutput | undefined,
-  GetMintableVaiOutput | undefined,
+  GetMintableVaiOutput,
+  GetMintableVaiOutput,
   UseGetMintableVaiQueryKey
 >;
 
 const useGetMintableVai = (
-  { vai, ...input }: TrimmedGetMintableVaiInput,
+  { accountAddress }: UseGetMintableVaiInput,
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const vaiControllerContract = useGetVaiControllerContract();
-  const { blockTimeMs } = useGetChainMetadata();
-  const vaiContract = useGetVaiContract({
-    address: vai.address,
-    chainId,
-    passSigner: false,
+  const { publicClient } = usePublicClient();
+  const vaiControllerContractAddress = useGetVaiControllerContractAddress();
+  const vai = useGetToken({
+    symbol: 'VAI',
   });
 
   return useQuery({
-    queryKey: [FunctionKey.GET_MINTABLE_VAI, { ...input, vai, chainId }],
-
+    queryKey: [FunctionKey.GET_MINTABLE_VAI, { accountAddress, chainId }],
     queryFn: () =>
-      callOrThrow({ vaiControllerContract, vaiContract }, params =>
+      callOrThrow({ vaiControllerContractAddress, vaiAddress: vai?.address }, params =>
         getMintableVai({
+          accountAddress,
+          publicClient,
           ...params,
-          ...input,
         }),
       ),
-
-    refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
     ...options,
   });
 };

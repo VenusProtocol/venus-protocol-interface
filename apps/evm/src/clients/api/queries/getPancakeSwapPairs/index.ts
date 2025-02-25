@@ -1,7 +1,5 @@
 import { Pair as PSPair } from '@pancakeswap/sdk';
-
-import { getPancakePairV2Contract } from 'libs/contracts';
-
+import { pancakePairV2Abi } from 'libs/contracts';
 import type { Address } from 'viem';
 import formatToPairs from './formatToPairs';
 import type { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from './types';
@@ -10,7 +8,7 @@ export * from './types';
 
 const getPancakeSwapPairs = async ({
   tokenCombinations,
-  provider,
+  publicClient,
 }: GetPancakeSwapPairsInput): Promise<GetPancakeSwapPairsOutput> => {
   // Generate pair addresses from token combinations
   const pairAddresses: PairAddress[] = tokenCombinations.reduce((acc, [tokenA, tokenB]) => {
@@ -30,17 +28,15 @@ const getPancakeSwapPairs = async ({
     }
   }, [] as PairAddress[]);
 
-  // Fetch each token combination reserves
-  const reservesResults = await Promise.allSettled(
-    pairAddresses.map(pairAddress => {
-      const pancakePairContract = getPancakePairV2Contract({
-        address: pairAddress.address,
-        signerOrProvider: provider,
-      });
-
-      return pancakePairContract.getReserves();
-    }),
-  );
+  // Fetch all reserves in a single multicall
+  const results = await publicClient.multicall({
+    contracts: pairAddresses.map(pairAddress => ({
+      address: pairAddress.address,
+      abi: pancakePairV2Abi,
+      functionName: 'getReserves',
+    })),
+  });
+  const reservesResults = results.map(r => r.result) as (undefined | [bigint, bigint, number])[];
 
   const pairs = formatToPairs({
     pairAddresses,
