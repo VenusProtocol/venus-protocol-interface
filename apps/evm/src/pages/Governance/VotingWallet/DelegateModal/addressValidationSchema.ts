@@ -1,4 +1,4 @@
-import { utils as etherUtils } from 'ethers';
+import { isAddress } from 'viem';
 import * as yup from 'yup';
 
 export type FormValues = yup.InferType<typeof addressValidationSchema>;
@@ -11,7 +11,7 @@ const addressValidationSchema = yup.object({
   address: yup
     .string()
     .required()
-    .test('isAddress', ErrorCode.NOT_VALID, value => etherUtils.isAddress(value as string)),
+    .test('isAddress', ErrorCode.NOT_VALID, value => isAddress(value as string)),
 });
 
 export default addressValidationSchema;

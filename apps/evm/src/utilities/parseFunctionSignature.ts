@@ -1,11 +1,13 @@
-import { ethers } from 'ethers';
+import { type AbiFunction, parseAbiItem } from 'viem';
 
 const parseFunctionSignature = (value: string | undefined) => {
   try {
-    // Throws error if invalid
-    const fragment = ethers.utils.FunctionFragment.from(value || '');
-    ethers.utils.defaultAbiCoder.getDefaultValue(fragment.inputs);
-    return fragment;
+    if (!value) return undefined;
+
+    // Parse the function signature
+    const fragment = parseAbiItem(`function ${value.replace(' ', '')}`);
+
+    return fragment as AbiFunction;
   } catch {
     return undefined;
   }

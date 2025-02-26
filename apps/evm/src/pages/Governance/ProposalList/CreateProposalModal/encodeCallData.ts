@@ -1,4 +1,5 @@
-import { encodeParameters, parseFunctionSignature } from 'utilities';
+import { parseFunctionSignature } from 'utilities';
+import { encodeAbiParameters } from 'viem';
 
 import formatIfArray from './formatIfArray';
 
@@ -12,8 +13,8 @@ const encodeCallData = (signature: string, callData: (string | undefined)[]) => 
     },
     [] as (string | number | string[])[],
   );
-  const callDataTypes = parseFunctionSignature(signature)?.inputs.map(input => input);
-  return encodeParameters(callDataTypes || [], processedCallData);
+  const callDataTypes = parseFunctionSignature(signature)?.inputs;
+  return encodeAbiParameters(callDataTypes || [], processedCallData);
 };
 
 export default encodeCallData;
