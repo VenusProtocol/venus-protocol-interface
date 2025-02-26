@@ -9,6 +9,8 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { cn, formatCentsToReadableValue } from 'utilities';
 
+import { ConnectWallet } from 'containers/ConnectWallet';
+import { SwitchChain } from 'containers/SwitchChain';
 import TEST_IDS from '../testIds';
 import { RewardGroup } from './RewardGroup';
 import type { Group } from './types';
@@ -127,17 +129,21 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
             ))}
           </div>
 
-          <PrimaryButton
-            onClick={handleClaimReward}
-            className="w-full"
-            disabled={isSubmitDisabled}
-            data-testid={TEST_IDS.claimRewardSubmitButton}
-            loading={isClaimingRewards}
-          >
-            {isSubmitDisabled
-              ? t('claimReward.modal.claimButton.disabledLabel')
-              : t('claimReward.modal.claimButton.enabledLabel')}
-          </PrimaryButton>
+          <ConnectWallet>
+            <SwitchChain>
+              <PrimaryButton
+                onClick={handleClaimReward}
+                className="w-full"
+                disabled={isSubmitDisabled}
+                data-testid={TEST_IDS.claimRewardSubmitButton}
+                loading={isClaimingRewards}
+              >
+                {isSubmitDisabled
+                  ? t('claimReward.modal.claimButton.disabledLabel')
+                  : t('claimReward.modal.claimButton.enabledLabel')}
+              </PrimaryButton>
+            </SwitchChain>
+          </ConnectWallet>
         </>
       </Modal>
     </>
