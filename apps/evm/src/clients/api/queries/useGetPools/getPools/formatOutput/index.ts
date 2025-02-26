@@ -25,7 +25,7 @@ export const formatOutput = ({
   chainId,
   tokens,
   currentBlockNumber,
-  isolatedPoolParticipantsCountMap,
+  participantsCountMap,
   userPrimeApyMap,
   userVTokenBalances = [],
   userTokenBalances = [],
@@ -36,7 +36,7 @@ export const formatOutput = ({
   tokens: Token[];
   currentBlockNumber: bigint;
   apiPools: ApiPool[];
-  isolatedPoolParticipantsCountMap?: Map<string, MarketParticipantsCounts>;
+  participantsCountMap?: Map<string, MarketParticipantsCounts>;
   userPrimeApyMap?: Map<string, PrimeApy>;
   userCollateralVTokenAddresses?: string[];
   userVTokenBalances?: VTokenBalance[];
@@ -207,13 +207,11 @@ export const formatOutput = ({
         );
       }
 
-      const supplierCount = isIsolated
-        ? isolatedPoolParticipantsCountMap?.get(vToken.address.toLowerCase())?.supplierCount ?? 0
-        : market.supplierCount;
+      const supplierCount =
+        participantsCountMap?.get(vToken.address.toLowerCase())?.supplierCount ?? 0;
 
-      const borrowerCount = isIsolated
-        ? isolatedPoolParticipantsCountMap?.get(vToken.address.toLowerCase())?.borrowerCount ?? 0
-        : market.borrowerCount;
+      const borrowerCount =
+        participantsCountMap?.get(vToken.address.toLowerCase())?.borrowerCount ?? 0;
 
       const asset: Asset = {
         vToken,
