@@ -5,7 +5,7 @@ const parseFunctionSignature = (value: string | undefined) => {
     if (!value) return undefined;
 
     // Parse the function signature
-    const fragment = parseAbiItem(`function ${value}`);
+    const fragment = parseAbiItem(`function ${value.replace(' ', '')}`);
 
     return fragment as AbiFunction;
   } catch {

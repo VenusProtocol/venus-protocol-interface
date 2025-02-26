@@ -1,6 +1,5 @@
 import { useGetVTokens } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
-import type { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
 import type { ChainId, ProposalAction } from 'types';
 import { cn, generateExplorerUrl } from 'utilities';
 
@@ -8,7 +7,7 @@ import formatSignature from './formatSignature';
 import getContractName from './getContractName';
 
 export interface ReadableActionSignatureProps extends React.HTMLAttributes<HTMLDivElement> {
-  action: FormValues['actions'][number] | ProposalAction;
+  action: ProposalAction;
   chainId: ChainId;
 }
 

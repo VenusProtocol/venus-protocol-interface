@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import type { FunctionFragment } from '@ethersproject/abi';
-import { ethers } from 'ethers';
 import { FieldArray } from 'formik';
 
 import { FormikTextField } from 'containers/Form';
+import { parseFunctionSignature } from 'utilities';
 import { ErrorCode } from '../proposalSchema';
 import { useStyles } from './styles';
 
@@ -12,24 +11,15 @@ interface CallDataFieldsProps {
   actionIndex: number;
 }
 
-const parseSignature = (func: string) => {
-  let funcInputs: FunctionFragment['inputs'] = [];
-  try {
-    const fragment = ethers.utils.FunctionFragment.from(func);
-    funcInputs = fragment.inputs;
-  } catch {}
-  return funcInputs;
-};
-
 const CallDataFields: React.FC<CallDataFieldsProps> = ({ signature, actionIndex }) => {
   const styles = useStyles();
-  const callDataTypes = parseSignature(signature || '');
+  const abiItems = parseFunctionSignature(signature)?.inputs || [];
 
   return (
     <FieldArray
       name="data"
       render={() =>
-        callDataTypes.map((param, idx) => {
+        abiItems.map((param, idx) => {
           const name = `actions.${actionIndex}.callData.${idx}`;
 
           return (

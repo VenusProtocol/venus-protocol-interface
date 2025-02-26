@@ -5,7 +5,7 @@ import { useFormikContext } from 'formik';
 import { MarkdownViewer } from 'components';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 import { useTranslation } from 'libs/translations';
-import { ProposalType } from 'types';
+import { type ProposalAction, ProposalType } from 'types';
 
 import { governanceChain } from 'libs/wallet';
 import type { FormValues } from '../proposalSchema';
@@ -96,10 +96,14 @@ const ProposalPreview: React.FC = () => {
           {t('vote.createProposalForm.actions')}
         </Typography>
 
-        {actions.map(action => (
+        {actions.map((action, actionIndex) => (
           <ReadableActionSignature
             key={`proposal-preview-readable-action-signature-${action.signature}-${action.target}-${action.callData}`}
-            action={action}
+            action={{
+              ...action,
+              callData: action.callData as unknown as ProposalAction['callData'],
+              actionIndex,
+            }}
             chainId={governanceChain.id}
           />
         ))}

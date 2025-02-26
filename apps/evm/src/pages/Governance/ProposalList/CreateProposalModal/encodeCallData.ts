@@ -13,7 +13,7 @@ const encodeCallData = (signature: string, callData: (string | undefined)[]) => 
     },
     [] as (string | number | string[])[],
   );
-  const callDataTypes = parseFunctionSignature(signature)?.inputs.map(input => input);
+  const callDataTypes = parseFunctionSignature(signature)?.inputs;
   return encodeAbiParameters(callDataTypes || [], processedCallData);
 };
 
