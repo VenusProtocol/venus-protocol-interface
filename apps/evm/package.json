@@ -81,7 +81,7 @@
     "react-router-dom": "^6.15.0",
     "react-uid": "^2.3.3",
     "recharts": "2.13.3",
-    "tailwind-merge": "^2.0.0",
+    "tailwind-merge": "^3.0.2",
     "viem": "^2.23.1",
     "wagmi": "^2.14.11",
     "yup": "^1.2.0",
