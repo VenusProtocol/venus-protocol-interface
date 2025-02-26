@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.221.0
+
+### Minor Changes
+
+- 1c4f3a8: refactor logic linked to governance to use viem
+
 ## 2.220.0
 
 ### Minor Changes
