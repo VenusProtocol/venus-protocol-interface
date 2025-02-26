@@ -158,13 +158,15 @@ export const fakePublicClient = {
 } as unknown as PublicClient;
 
 export const fakeIsolatedPoolParticipantsCount = {
-  pools: apiPoolsResponse.result.map(pool => ({
-    __typename: 'Pool',
-    id: pool.address,
-    markets: pool.markets.map(market => ({
-      id: market.address,
-      supplierCount: 10,
-      borrowerCount: 20,
+  // filter the BSC Core pool, it's not an isolated pool
+  pools: apiPoolsResponse.result
+    .map(pool => ({
+      __typename: 'Pool',
+      id: pool.address,
+      markets: pool.markets.map(market => ({
+        id: market.address,
+        supplierCount: 10,
+        borrowerCount: 20,
+      })),
     })),
-  })),
 };
