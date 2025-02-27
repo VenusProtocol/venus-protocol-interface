@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.221.1
+
+### Patch Changes
+
+- 013317e: pause wUSDM on zkSync
+
 ## 2.221.0
 
 ### Minor Changes
