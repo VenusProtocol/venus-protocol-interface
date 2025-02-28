@@ -1,0 +1,114 @@
+{
+  "markets": [
+    {
+      "id": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
+      "borrowerCount": 438,
+      "supplierCount": 933
+    },
+    {
+      "id": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
+      "borrowerCount": 35,
+      "supplierCount": 25
+    },
+    {
+      "id": "0x171B468b52d7027F12cEF90cd065d6776a25E24e",
+      "borrowerCount": 1,
+      "supplierCount": 2
+    },
+    {
+      "id": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+      "borrowerCount": 263,
+      "supplierCount": 923
+    },
+    {
+      "id": "0x35566ED3AF9E537Be487C98b1811cDf95ad0C32b",
+      "borrowerCount": 0,
+      "supplierCount": 0
+    },
+    {
+      "id": "0x3619bdDc61189F33365CC572DF3a68FB3b316516",
+      "borrowerCount": 8,
+      "supplierCount": 6
+    },
+    {
+      "id": "0x369Fea97f6fB7510755DCA389088d9E2e2819278",
+      "borrowerCount": 4,
+      "supplierCount": 4
+    },
+    {
+      "id": "0x37C28DE42bA3d22217995D146FC684B2326Ede64",
+      "borrowerCount": 10,
+      "supplierCount": 6
+    },
+    {
+      "id": "0x3A00d9B02781f47d033BAd62edc55fBF8D083Fb0",
+      "borrowerCount": 1,
+      "supplierCount": 1
+    },
+    {
+      "id": "0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C",
+      "borrowerCount": 35,
+      "supplierCount": 53
+    },
+    {
+      "id": "0x6AF3Fdb3282c5bb6926269Db10837fa8Aec67C04",
+      "borrowerCount": 1,
+      "supplierCount": 3
+    },
+    {
+      "id": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "borrowerCount": 68,
+      "supplierCount": 274
+    },
+    {
+      "id": "0x714db6c38A17883964B68a07d56cE331501d9eb6",
+      "borrowerCount": 8,
+      "supplierCount": 9
+    },
+    {
+      "id": "0x74469281310195A04840Daf6EdF576F559a3dE80",
+      "borrowerCount": 277,
+      "supplierCount": 661
+    },
+    {
+      "id": "0xAfc13BC065ABeE838540823431055D2ea52eBA52",
+      "borrowerCount": 27,
+      "supplierCount": 18
+    },
+    {
+      "id": "0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe",
+      "borrowerCount": 49,
+      "supplierCount": 30
+    },
+    {
+      "id": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+      "borrowerCount": 249,
+      "supplierCount": 670
+    },
+    {
+      "id": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+      "borrowerCount": 229,
+      "supplierCount": 534
+    },
+    {
+      "id": "0xeDaC03D29ff74b5fDc0CC936F6288312e1459BC6",
+      "borrowerCount": 8,
+      "supplierCount": 13
+    },
+    {
+      "id": "0xEFAACF73CE2D38ED40991f29E72B12C74bd4cf23",
+      "borrowerCount": 0,
+      "supplierCount": 0
+    },
+    {
+      "id": "0xF06e662a00796c122AaAE935EC4F0Be3F74f5636",
+      "borrowerCount": 1,
+      "supplierCount": 2
+    },
+    {
+      "id": "0xF912d3001CAf6DC4ADD366A62Cc9115B4303c9A9",
+      "borrowerCount": 12,
+      "supplierCount": 4
+    }
+  ]
+}

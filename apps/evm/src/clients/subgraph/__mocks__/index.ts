@@ -1,6 +1,7 @@
 import bscProposalsResponse from '__mocks__/subgraph/bscProposals.json';
 import nonBscProposalsResponse from '__mocks__/subgraph/nonBscProposals.json';
 
+export * from '../queries/bscCorePool/getBscCorePoolParticipantsCount';
 export * from '../queries/isolatedPools/getIsolatedPoolParticipantsCount';
 export * from '../queries/governanceBsc/getBscProposals';
 export * from '../utilities/formatToProposal';
@@ -12,5 +13,7 @@ export const getBscProposal = vi.fn(async () => ({
 }));
 
 export const getNonBscProposals = vi.fn(async () => nonBscProposalsResponse);
+
+export const getBscCorePoolParticipantsCount = vi.fn();
 
 export const getIsolatedPoolParticipantsCount = vi.fn();

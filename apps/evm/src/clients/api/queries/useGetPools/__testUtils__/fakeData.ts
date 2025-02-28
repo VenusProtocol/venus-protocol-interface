@@ -5,8 +5,6 @@ import type {
   SimulateContractParameters,
 } from 'viem';
 
-import apiPoolsResponse from '__mocks__/api/pools.json';
-
 const userLegacyCollateralizedVTokenAddresses = [
   '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
   '0x162D005F0Fff510E54958Cfc5CF32A3180A84aab',
@@ -156,15 +154,3 @@ export const fakePublicClient = {
     );
   }),
 } as unknown as PublicClient;
-
-export const fakeIsolatedPoolParticipantsCount = {
-  pools: apiPoolsResponse.result.map(pool => ({
-    __typename: 'Pool',
-    id: pool.address,
-    markets: pool.markets.map(market => ({
-      id: market.address,
-      supplierCount: 10,
-      borrowerCount: 20,
-    })),
-  })),
-};
