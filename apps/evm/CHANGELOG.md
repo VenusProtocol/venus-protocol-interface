@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.223.0
+
+### Minor Changes
+
+- 5004227: add new underlying tokens
+
 ## 2.222.0
 
 ### Minor Changes
