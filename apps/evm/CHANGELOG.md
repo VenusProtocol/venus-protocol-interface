@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.224.0
+
+### Minor Changes
+
+- 97954dc: fetch BSC Core pool participant counts from subgraph
+
 ## 2.223.0
 
 ### Minor Changes
