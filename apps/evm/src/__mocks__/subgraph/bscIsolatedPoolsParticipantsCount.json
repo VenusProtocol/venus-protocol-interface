@@ -1,0 +1,219 @@
+{
+  "pools": [
+    {
+      "id": "0x10b57706ad2345e590c2ea4dc02faef0d9f5b08b",
+      "markets": [
+        {
+          "id": "0x170d3b2da05cc2124334240fb34ad1359e34c562",
+          "supplierCount": "5",
+          "borrowerCount": "4"
+        },
+        {
+          "id": "0x3338988d0beb4419acb8fe624218754053362d06",
+          "supplierCount": "7",
+          "borrowerCount": "1"
+        },
+        {
+          "id": "0x4e1d35166776825402d50afe4286c500027211d1",
+          "supplierCount": "1",
+          "borrowerCount": "2"
+        },
+        {
+          "id": "0x899ddf81dfbbf5889a16d075c352f2b959dd24a4",
+          "supplierCount": "5",
+          "borrowerCount": "2"
+        }
+      ]
+    },
+    {
+      "id": "0x11537d023f489e4ef0c7157cc729c7b69cbe0c97",
+      "markets": [
+        {
+          "id": "0x410286c43a525e1dcc7468a9b091c111c8324cd1",
+          "supplierCount": "1",
+          "borrowerCount": "0"
+        },
+        {
+          "id": "0x47793540757c6e6d84155b33cd8d9535cfdb9334",
+          "supplierCount": "2",
+          "borrowerCount": "0"
+        },
+        {
+          "id": "0x712774cbffcbd60e9825871cceff2f917442b2c3",
+          "supplierCount": "1",
+          "borrowerCount": "0"
+        },
+        {
+          "id": "0xd804f74fe21290d213c46610ab171f7c2eeebde7",
+          "supplierCount": "1",
+          "borrowerCount": "0"
+        },
+        {
+          "id": "0xee543d5de2dbb5b07675fc72831a2f1812428393",
+          "supplierCount": "1",
+          "borrowerCount": "0"
+        }
+      ]
+    },
+    {
+      "id": "0x1f4f0989c51f12dacacd4025018176711f3bf289",
+      "markets": [
+        {
+          "id": "0x0bfe4e0b8a2a096a27e5b18b078d25be57c08634",
+          "supplierCount": "10",
+          "borrowerCount": "2"
+        },
+        {
+          "id": "0x1958035231e125830ba5d17d168cea07bb42184a",
+          "supplierCount": "2",
+          "borrowerCount": "2"
+        },
+        {
+          "id": "0xdedf3b2bcf25d0023115fd71a0f8221c91c92b1a",
+          "supplierCount": "2",
+          "borrowerCount": "1"
+        },
+        {
+          "id": "0xef470abc365f88e4582d8027172a392c473a5b53",
+          "supplierCount": "4",
+          "borrowerCount": "2"
+        }
+      ]
+    },
+    {
+      "id": "0x23a73971a6b9f6580c048b9cb188869b2a2aa2ad",
+      "markets": [
+        {
+          "id": "0x4c94e67d239ad585275fdd3246ab82c8a2668564",
+          "supplierCount": "1",
+          "borrowerCount": "1"
+        },
+        {
+          "id": "0x5e68913fbbfb91af30366ab1b21324410b49a308",
+          "supplierCount": "4",
+          "borrowerCount": "6"
+        },
+        {
+          "id": "0x80cc30811e362ac9ab857c3d7875cbccc0b65750",
+          "supplierCount": "11",
+          "borrowerCount": "1"
+        },
+        {
+          "id": "0xa109de0abaeefc521ec29d89ea42e64f37a6882e",
+          "supplierCount": "4",
+          "borrowerCount": "1"
+        },
+        {
+          "id": "0xb677e080148368eeee70fa3865d07e92c6500174",
+          "supplierCount": "3",
+          "borrowerCount": "2"
+        },
+        {
+          "id": "0xb7cac5ef82cb7f9197ee184779bdc52c5490c02a",
+          "supplierCount": "2",
+          "borrowerCount": "2"
+        },
+        {
+          "id": "0xe237aa131e7b004ac88cb808fa56af3dc4c408f1",
+          "supplierCount": "1",
+          "borrowerCount": "0"
+        },
+        {
+          "id": "0xe507b30c41e9e375bce05197c1e09fc9ee40c0f6",
+          "supplierCount": "4",
+          "borrowerCount": "0"
+        }
+      ]
+    },
+    {
+      "id": "0x596b11acaacf03217287939f88d63b51d3771704",
+      "markets": [
+        {
+          "id": "0x2197d02cc9cd1ad51317a0a85a656a0c82383a7c",
+          "supplierCount": "5",
+          "borrowerCount": "2"
+        },
+        {
+          "id": "0x231ded0dfc99634e52ee1a1329586bc970d773b3",
+          "supplierCount": "9",
+          "borrowerCount": "5"
+        },
+        {
+          "id": "0x57a664dd7f1de19545fee9c86c949e3bf43d6d47",
+          "supplierCount": "2",
+          "borrowerCount": "3"
+        },
+        {
+          "id": "0x644a149853e5507adf3e682218b8ac86cdd62951",
+          "supplierCount": "3",
+          "borrowerCount": "2"
+        },
+        {
+          "id": "0x75aa42c832a8911b77219dbebabbb40040d16987",
+          "supplierCount": "3",
+          "borrowerCount": "2"
+        },
+        {
+          "id": "0xd5b20708d8f0fca52cb609938d0594c4e32e5dad",
+          "supplierCount": "2",
+          "borrowerCount": "1"
+        },
+        {
+          "id": "0xeffe7874c345ae877c1d893cd5160ddd359b24da",
+          "supplierCount": "1",
+          "borrowerCount": "0"
+        }
+      ]
+    },
+    {
+      "id": "0x92e8e3c202093a495e98c10f9fcaa5abe288f74a",
+      "markets": [
+        {
+          "id": "0x3af2be7abef0f840b196d99d79f4b803a5db14a1",
+          "supplierCount": "3",
+          "borrowerCount": "1"
+        },
+        {
+          "id": "0x73d2f6e0708599a4ea70f6a0c55a4c59196a101c",
+          "supplierCount": "1",
+          "borrowerCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "0xc7859b809ed5a2e98659ab5427d5b69e706ae26b",
+      "markets": [
+        {
+          "id": "0x16eb5ce6d186b49709dd588518cd545985096ff5",
+          "supplierCount": "1",
+          "borrowerCount": "1"
+        },
+        {
+          "id": "0x46d49adf48172d2e79d813a3f4f27ab61724b01e",
+          "supplierCount": "3",
+          "borrowerCount": "1"
+        },
+        {
+          "id": "0x4bd7efb423f06fa033404fbd0935a2097918084d",
+          "supplierCount": "2",
+          "borrowerCount": "0"
+        }
+      ]
+    },
+    {
+      "id": "0xfe87008bf29decacc09a75faac2d128367d46e7a",
+      "markets": [
+        {
+          "id": "0x138500e8502f32f004f79507143e4faaca03e26d",
+          "supplierCount": "2",
+          "borrowerCount": "1"
+        },
+        {
+          "id": "0xf3bf150a7d3d42e8c712e2461102593dc50266bb",
+          "supplierCount": "2",
+          "borrowerCount": "0"
+        }
+      ]
+    }
+  ]
+}

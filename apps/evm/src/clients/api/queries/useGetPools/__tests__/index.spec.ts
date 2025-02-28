@@ -5,6 +5,7 @@ import type { Mock } from 'vitest';
 import apiPoolsResponse from '__mocks__/api/pools.json';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeBscCorePoolParticipantsCount from '__mocks__/subgraph/bscCorePoolParticipantsCount.json';
+import fakeIsolatedPoolParticipantsCount from '__mocks__/subgraph/bscIsolatedPoolsParticipantsCount.json';
 import BigNumber from 'bignumber.js';
 import { type GetTokenBalancesInput, getTokenBalances, getUserVaiBorrowBalance } from 'clients/api';
 import {
@@ -22,7 +23,6 @@ import { renderHook } from 'testUtils/render';
 import { restService } from 'utilities/restService';
 import { useGetPools } from '..';
 import {
-  fakeIsolatedPoolParticipantsCount,
   fakeLegacyPoolComptrollerContractAddress,
   fakePoolLensContractAddress,
   fakePublicClient,
