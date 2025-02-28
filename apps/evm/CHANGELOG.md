@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.222.0
+
+### Minor Changes
+
+- a8e45c5: update behavior to switch chains
+
 ## 2.221.1
 
 ### Patch Changes
