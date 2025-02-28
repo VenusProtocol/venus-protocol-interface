@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 import _cloneDeep from 'lodash/cloneDeep';
 import type { Mock } from 'vitest';
@@ -147,16 +147,6 @@ describe('Governance', () => {
     expect(createProposalButton).toBeDisabled();
   });
 
-  it('opens delegate modal when clicking text with connect wallet button when unauthenticated', async () => {
-    const { getByText, getAllByText, getByTestId } = renderComponent(<Governance />);
-    const delegateVoteText = getByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting);
-
-    fireEvent.click(delegateVoteText);
-    await waitFor(() => getByText(en.vote.delegateAddress));
-
-    expect(getAllByText(en.connectWallet.connectButton)).toHaveLength(2);
-  });
-
   it('opens delegate modal when clicking text with delegate button when authenticated', async () => {
     const { getByText, getByTestId } = renderComponent(<Governance />, {
       accountAddress: fakeAccountAddress,
@@ -180,6 +170,11 @@ describe('Governance', () => {
   });
 
   it('prompts user to connect Wallet', async () => {
+    const { getByText } = renderComponent(<Governance />);
+    getByText(en.connectWallet.connectButton);
+  });
+
+  it('prompts user to switch chain if they are connected to the wrong one', async () => {
     (getCurrentVotes as Mock).mockImplementationOnce(() => ({
       votesMantissa: new BigNumber(0),
     }));
@@ -240,8 +235,10 @@ describe('Governance', () => {
 
     const addressInput = getByPlaceholderText(en.vote.enterContactAddress);
 
-    fireEvent.change(addressInput, {
-      target: { value: altAddress },
+    await act(async () => {
+      fireEvent.change(addressInput, {
+        target: { value: altAddress },
+      });
     });
 
     const delegateVotesButton = getByText(en.vote.delegateVotes);
@@ -270,14 +267,16 @@ describe('Governance', () => {
 
     await waitFor(() => getByText(en.vote.delegateAddress));
 
-    fireEvent.click(getByText(en.vote.pasteYourAddress));
+    await act(async () => {
+      fireEvent.click(getByText(en.vote.pasteYourAddress));
+    });
 
     const delegateVotesButton = getByText(en.vote.delegateVotes);
     await waitFor(() => expect(delegateVotesButton).toBeEnabled());
     fireEvent.click(delegateVotesButton);
 
     await waitFor(() =>
-      expect(setVoteDelegate).toBeCalledWith({
+      expect(setVoteDelegate).toHaveBeenCalledWith({
         delegateAddress: fakeAccountAddress,
       }),
     );

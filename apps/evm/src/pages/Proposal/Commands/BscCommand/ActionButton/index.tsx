@@ -2,13 +2,13 @@ import { useCancelProposal, useExecuteProposal, useQueueProposal } from 'clients
 import { Button } from 'components';
 import type { ConnectWalletProps } from 'containers/ConnectWallet';
 import { ConnectWallet } from 'containers/ConnectWallet';
+import { SwitchChain } from 'containers/SwitchChain';
 import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { ProposalState } from 'types';
-import { cn } from 'utilities';
 import type { Address } from 'viem';
 import { useIsProposalCancelableByUser } from '../../useIsProposalCancelableByUser';
 
@@ -24,7 +24,6 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   proposalId,
   proposerAddress,
   executionEtaDate,
-  className,
   ...otherProps
 }) => {
   const { t } = useTranslation();
@@ -116,8 +115,8 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   ]);
 
   return (
-    <ConnectWallet chainId={governanceChain.id} className={cn('w-auto', className)} {...otherProps}>
-      {buttonDom}
+    <ConnectWallet {...otherProps}>
+      <SwitchChain chainId={governanceChain.id}>{buttonDom}</SwitchChain>
     </ConnectWallet>
   );
 };

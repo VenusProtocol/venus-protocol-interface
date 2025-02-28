@@ -12,7 +12,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 
-import { useStyles } from './styles';
+import { SwitchChain } from 'containers/SwitchChain';
 import TEST_IDS from './testIds';
 
 export interface WithdrawUiProps {
@@ -33,7 +33,6 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
   withdrawableMantissa,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
   const handleSubmit = async () => {
     await onSubmit();
@@ -46,14 +45,31 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
     token: stakedToken,
   });
 
+  const hasWithdrawableTokens = !!withdrawableMantissa && withdrawableMantissa.isGreaterThan(0);
+
+  let submitDom = (
+    <PrimaryButton
+      type="submit"
+      onClick={handleSubmit}
+      loading={isSubmitting}
+      disabled={!hasWithdrawableTokens}
+      className="w-full"
+    >
+      {t('withdrawFromVestingVaultModalModal.withdrawTab.submitButton')}
+    </PrimaryButton>
+  );
+
+  if (hasWithdrawableTokens) {
+    submitDom = <SwitchChain>{submitDom}</SwitchChain>;
+  }
+
   return (
     <>
       {isInitialLoading || !withdrawableMantissa ? (
         <Spinner />
       ) : (
-        <>
+        <div className="space-y-6">
           <LabeledInlineContent
-            css={styles.content}
             iconSrc={stakedToken}
             data-testid={TEST_IDS.availableTokens}
             label={t('withdrawFromVestingVaultModalModal.withdrawTab.availableTokens', {
@@ -63,16 +79,8 @@ const WithdrawUi: React.FC<WithdrawUiProps> = ({
             {readableWithdrawableTokens}
           </LabeledInlineContent>
 
-          <PrimaryButton
-            type="submit"
-            onClick={handleSubmit}
-            loading={isSubmitting}
-            disabled={withdrawableMantissa.isEqualTo(0)}
-            className="w-full"
-          >
-            {t('withdrawFromVestingVaultModalModal.withdrawTab.submitButton')}
-          </PrimaryButton>
-        </>
+          {submitDom}
+        </div>
       )}
     </>
   );

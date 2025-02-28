@@ -39,10 +39,6 @@ export const useStyles = () => {
             };
           }
         }
-
-        &.Mui-disabled + .MuiSwitch-track {
-          opacity: 0.5;
-        }
       }
 
       .MuiSwitch-thumb {

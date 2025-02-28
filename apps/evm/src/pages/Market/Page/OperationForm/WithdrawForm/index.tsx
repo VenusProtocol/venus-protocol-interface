@@ -13,7 +13,7 @@ import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
-import { convertTokensToMantissa } from 'utilities';
+import { cn, convertTokensToMantissa } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
@@ -147,35 +147,39 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <TokenTextField
-        data-testid={TEST_IDS.valueInput}
-        name="amountTokens"
-        token={asset.vToken.underlyingToken}
-        value={formValues.amountTokens}
-        onChange={amountTokens =>
-          setFormValues(currentFormValues => ({
-            ...currentFormValues,
-            amountTokens,
-          }))
-        }
-        disabled={!isUserConnected || isSubmitting}
-        rightMaxButton={{
-          label: t('operationForm.rightMaxButtonLabel'),
-          onClick: handleRightMaxButtonClick,
-        }}
-        hasError={
-          isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
-        }
-        description={
-          isUserConnected && !isSubmitting && !!formError?.message ? (
-            <p className="text-red">{formError.message}</p>
-          ) : undefined
-        }
-      />
+    <form onSubmit={handleSubmit}>
+      <div className="space-y-4">
+        <TokenTextField
+          data-testid={TEST_IDS.valueInput}
+          name="amountTokens"
+          token={asset.vToken.underlyingToken}
+          value={formValues.amountTokens}
+          onChange={amountTokens =>
+            setFormValues(currentFormValues => ({
+              ...currentFormValues,
+              amountTokens,
+            }))
+          }
+          disabled={!isUserConnected || isSubmitting}
+          rightMaxButton={{
+            label: t('operationForm.rightMaxButtonLabel'),
+            onClick: handleRightMaxButtonClick,
+          }}
+          hasError={
+            isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
+          }
+          description={
+            isUserConnected && !isSubmitting && !!formError?.message ? (
+              <p className="text-red">{formError.message}</p>
+            ) : undefined
+          }
+        />
 
-      {isUserConnected ? (
-        <>
+        {!isUserConnected && <AssetInfo asset={asset} action="withdraw" />}
+      </div>
+
+      <ConnectWallet className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}>
+        <div className="space-y-4">
           <LabeledInlineContent label={t('operationForm.withdrawableAmount')}>
             {readableWithdrawableAmountTokens}
           </LabeledInlineContent>
@@ -204,44 +208,32 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
             </>
           )}
 
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <AssetInfo
-                asset={asset}
-                action="withdraw"
-                amountTokens={new BigNumber(formValues.amountTokens || 0)}
-                renderType="accordion"
-              />
+          <AssetInfo
+            asset={asset}
+            action="withdraw"
+            amountTokens={new BigNumber(formValues.amountTokens || 0)}
+            renderType="accordion"
+          />
 
-              <Delimiter />
+          <Delimiter />
 
-              <AccountData
-                asset={asset}
-                pool={pool}
-                amountTokens={new BigNumber(formValues.amountTokens || 0)}
-                action="withdraw"
-              />
-            </div>
-
-            <SubmitSection
-              isFormSubmitting={isSubmitting}
-              isFormValid={isFormValid}
-              isDelegateApproved={isDelegateApproved}
-              isDelegateApprovedLoading={isDelegateApprovedLoading}
-              approveDelegateAction={approveDelegateAction}
-              isApproveDelegateLoading={isApproveDelegateLoading}
-            />
-          </div>
-        </>
-      ) : (
-        <div className="space-y-6">
-          <AssetInfo asset={asset} action="withdraw" />
-
-          <ConnectWallet buttonVariant="primary">
-            {t('operationForm.connectWalletButtonLabel')}
-          </ConnectWallet>
+          <AccountData
+            asset={asset}
+            pool={pool}
+            amountTokens={new BigNumber(formValues.amountTokens || 0)}
+            action="withdraw"
+          />
         </div>
-      )}
+
+        <SubmitSection
+          isFormSubmitting={isSubmitting}
+          isFormValid={isFormValid}
+          isDelegateApproved={isDelegateApproved}
+          isDelegateApprovedLoading={isDelegateApprovedLoading}
+          approveDelegateAction={approveDelegateAction}
+          isApproveDelegateLoading={isApproveDelegateLoading}
+        />
+      </ConnectWallet>
     </form>
   );
 };

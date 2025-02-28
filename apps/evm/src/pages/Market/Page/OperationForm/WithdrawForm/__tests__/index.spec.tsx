@@ -9,8 +9,9 @@ import { renderComponent } from 'testUtils/render';
 
 import { getVTokenBalanceOf, withdraw } from 'clients/api';
 import { en } from 'libs/translations';
-import type { Asset, Pool } from 'types';
+import { type Asset, ChainId, type Pool } from 'types';
 
+import { chainMetadata } from '@venusprotocol/chains';
 import Withdraw from '..';
 import { fakeAsset, fakePool, fakeVTokenBalanceMantissa } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -22,7 +23,7 @@ describe('WithdrawForm', () => {
     );
 
     // Check "Connect wallet" button is displayed
-    expect(getByText(en.operationForm.connectWalletButtonLabel)).toBeInTheDocument();
+    expect(getByText(en.connectWallet.connectButton)).toBeInTheDocument();
 
     // Check input is disabled
     expect(getByTestId(TEST_IDS.valueInput).closest('input')).toBeDisabled();
@@ -118,6 +119,34 @@ describe('WithdrawForm', () => {
       expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
     );
     expect(submitButton).toBeDisabled();
+  });
+
+  it('prompts user to switch chain if they are connected to the wrong one', async () => {
+    const { getByText, getByTestId } = renderComponent(
+      <Withdraw onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      {
+        accountAddress: fakeAccountAddress,
+        accountChainId: ChainId.ARBITRUM_ONE,
+        chainId: ChainId.BSC_TESTNET,
+      },
+    );
+
+    const correctAmountTokens = 1;
+
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.valueInput));
+    fireEvent.change(tokenTextInput, { target: { value: correctAmountTokens } });
+
+    // Check "Switch chain" button is displayed
+    await waitFor(() =>
+      expect(
+        getByText(
+          en.switchChain.switchButton.replace(
+            '{{chainName}}',
+            chainMetadata[ChainId.BSC_TESTNET].name,
+          ),
+        ),
+      ).toBeInTheDocument(),
+    );
   });
 
   it('displays correct token withdrawable amount', async () => {

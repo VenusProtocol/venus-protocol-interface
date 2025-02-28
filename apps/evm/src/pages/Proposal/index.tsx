@@ -10,7 +10,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useVote, { type UseVoteParams } from 'hooks/useVote';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { governanceChain, useAccountAddress, useSwitchChain } from 'libs/wallet';
+import { governanceChain, useAccountAddress, useAccountChainId, useSwitchChain } from 'libs/wallet';
 import { ProposalState, type Proposal as ProposalType } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
@@ -27,7 +27,8 @@ import TEST_IDS from './testIds';
 interface ProposalUiProps {
   proposal: ProposalType | undefined;
   vote: (params: UseVoteParams) => Promise<unknown>;
-  votingEnabled: boolean;
+  canUserVoteOnProposal: boolean;
+  isUserConnectedToGovernanceChain: boolean;
   readableVoteWeight: string;
   isVoteLoading: boolean;
 }
@@ -35,16 +36,22 @@ interface ProposalUiProps {
 export const ProposalUi: React.FC<ProposalUiProps> = ({
   proposal,
   vote,
-  votingEnabled,
+  canUserVoteOnProposal,
+  isUserConnectedToGovernanceChain,
   readableVoteWeight,
   isVoteLoading,
 }) => {
-  const { switchChain } = useSwitchChain();
-  const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const { switchChain } = useSwitchChain();
   const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);
+
+  const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
+
+  const shouldEnableVoteButtons =
+    isVoteProposalFeatureEnabled && canUserVoteOnProposal && isUserConnectedToGovernanceChain;
+  const shouldShowWarning = !isVoteProposalFeatureEnabled || !isUserConnectedToGovernanceChain;
 
   if (!proposal) {
     return (
@@ -58,7 +65,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
     <div css={styles.root} className="space-y-6">
       <ProposalSummary proposal={proposal} />
 
-      {!isVoteProposalFeatureEnabled && proposal.state === ProposalState.Active && (
+      {shouldShowWarning && (
         <NoticeInfo
           className="w-full"
           data-testid={TEST_IDS.votingDisabledWarning}
@@ -83,7 +90,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.forVotes}
           openVoteModal={() => setVoteModalType(1)}
           progressBarColor={styles.successColor}
-          votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
+          votingEnabled={shouldEnableVoteButtons}
           data-testid={TEST_IDS.voteSummary.for}
         />
 
@@ -94,7 +101,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.againstVotes}
           openVoteModal={() => setVoteModalType(0)}
           progressBarColor={styles.againstColor}
-          votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
+          votingEnabled={shouldEnableVoteButtons}
           data-testid={TEST_IDS.voteSummary.against}
         />
 
@@ -105,7 +112,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           voters={proposal.abstainVotes}
           openVoteModal={() => setVoteModalType(2)}
           progressBarColor={styles.abstainColor}
-          votingEnabled={votingEnabled && isVoteProposalFeatureEnabled}
+          votingEnabled={shouldEnableVoteButtons}
           data-testid={TEST_IDS.voteSummary.abstain}
         />
       </div>
@@ -131,6 +138,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 
 const Proposal = () => {
   const { accountAddress } = useAccountAddress();
+  const { chainId: accountChainId } = useAccountChainId();
   const { proposalId = '' } = useParams<{ proposalId: string }>();
   const { data: proposalData, error: getProposalError } = useGetProposal(
     { proposalId: Number(proposalId), accountAddress },
@@ -169,7 +177,7 @@ const Proposal = () => {
   );
 
   // voting should be enabled if:
-  const votingEnabled =
+  const canUserVoteOnProposal =
     // user wallet is connected
     !!accountAddress &&
     // proposal is still active
@@ -178,6 +186,8 @@ const Proposal = () => {
     userVoteReceipt?.voteSupport === undefined &&
     // user has some voting weight
     votingWeightData.votesMantissa.isGreaterThan(0);
+
+  const isUserConnectedToGovernanceChain = accountChainId === governanceChain.id;
 
   if (getProposalError) {
     return <Redirect to={routes.governance.path} />;
@@ -188,7 +198,8 @@ const Proposal = () => {
       <ProposalUi
         proposal={proposal}
         vote={vote}
-        votingEnabled={votingEnabled}
+        canUserVoteOnProposal={canUserVoteOnProposal}
+        isUserConnectedToGovernanceChain={isUserConnectedToGovernanceChain}
         readableVoteWeight={readableVoteWeight}
         isVoteLoading={isLoading}
       />

@@ -243,7 +243,6 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
             previouslyDelegated={previouslyDelegated}
             setVoteDelegation={setVoteDelegation}
             isVoteDelegationLoading={isVoteDelegationLoading}
-            openAuthModal={openAuthModal}
           />
         </>
       )}

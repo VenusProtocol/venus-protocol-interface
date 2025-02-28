@@ -2,7 +2,6 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useMemo } from 'react';
 
 import {
-  ApproveTokenSteps,
   type ApproveTokenStepsProps,
   LabeledInlineContent,
   NoticeWarning,
@@ -15,10 +14,11 @@ import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
-import { cn, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
+import { convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 
-import { FormikSubmitButton, FormikTokenTextField } from 'containers/Form';
+import { FormikTokenTextField } from 'containers/Form';
 import type { Address } from 'viem';
+import { SubmitSection } from './SubmitSection';
 import TEST_IDS from './testIds';
 
 export interface TransactionFormUiProps {
@@ -101,7 +101,7 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
 
   const shouldDisplayWarning = useCallback(
     (amountTokens: string) =>
-      !!amountTokens && warning?.amountTokens.isLessThanOrEqualTo(amountTokens),
+      amountTokens && warning ? warning.amountTokens.isLessThanOrEqualTo(amountTokens) : false,
     [warning],
   );
 
@@ -174,44 +174,24 @@ export const TransactionFormUi: React.FC<TransactionFormUiProps> = ({
             )}
           </div>
 
-          {tokenNeedsToBeApproved ? (
-            <ApproveTokenSteps
-              token={token}
-              hideTokenEnablingStep={!isValid || !dirty}
-              isTokenApproved={isTokenApproved}
-              approveToken={approveToken}
-              isApproveTokenLoading={isApproveTokenLoading}
-              isWalletSpendingLimitLoading={isWalletSpendingLimitLoading}
-              secondStepButtonLabel={submitButtonLabel}
-            >
-              <FormikSubmitButton
-                loading={isSubmitting}
-                disabled={
-                  !isValid ||
-                  !dirty ||
-                  isSubmitting ||
-                  !isTokenApproved ||
-                  isWalletSpendingLimitLoading ||
-                  isRevokeWalletSpendingLimitLoading
-                }
-                className="w-full"
-                enabledLabel={submitButtonLabel}
-                disabledLabel={submitButtonDisabledLabel}
-              />
-            </ApproveTokenSteps>
-          ) : (
-            <FormikSubmitButton
-              loading={isSubmitting}
-              disabled={!isValid || !dirty || isSubmitting}
-              enabledLabel={
-                warning && shouldDisplayWarning(values.amount)
-                  ? warning.submitButtonLabel
-                  : submitButtonLabel
-              }
-              className={cn('w-full', shouldDisplayWarning(values.amount) && 'border-red bg-red')}
-              disabledLabel={submitButtonDisabledLabel}
-            />
-          )}
+          <SubmitSection
+            token={token}
+            tokenNeedsToBeApproved={tokenNeedsToBeApproved}
+            approveToken={approveToken}
+            isFormValid={isValid && dirty}
+            isSubmitting={isSubmitting}
+            isTokenApproved={tokenNeedsToBeApproved ? !!isTokenApproved : true}
+            isApproveTokenLoading={isApproveTokenLoading}
+            isWalletSpendingLimitLoading={isWalletSpendingLimitLoading}
+            isRevokeWalletSpendingLimitLoading={isRevokeWalletSpendingLimitLoading}
+            submitButtonEnabledLabel={
+              warning && shouldDisplayWarning(values.amount)
+                ? warning.submitButtonLabel
+                : submitButtonLabel
+            }
+            submitButtonDisabledLabel={submitButtonDisabledLabel}
+            isDangerousAction={shouldDisplayWarning(values.amount)}
+          />
         </div>
       )}
     </AmountForm>

@@ -30,6 +30,7 @@ export function Table<R>({
   rowKeyExtractor,
   breakpoint,
   isFetching,
+  header,
   ...otherProps
 }: TableProps<R>) {
   const styles = useStyles();
@@ -67,6 +68,8 @@ export function Table<R>({
           {title}
         </h4>
       )}
+
+      {!!header && <div css={styles.getHeader({ breakpoint })}>{header}</div>}
 
       <MuiTableContainer css={styles.getTableContainer({ breakpoint })}>
         <MuiTable css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>

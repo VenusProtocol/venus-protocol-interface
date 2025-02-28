@@ -13,7 +13,7 @@ import {
   useGetVaiControllerContractAddress,
   useGetVenusLensContractAddress,
 } from 'libs/contracts';
-import { useChainId, usePublicClient } from 'libs/wallet';
+import { usePublicClient } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import { restService } from 'utilities/restService';
 import { useGetPools } from '..';
@@ -87,11 +87,9 @@ describe('useGetPools', () => {
   });
 
   it('returns pools with time based reward rates in the correct format', async () => {
-    (useChainId as Mock).mockImplementation(() => ({
+    const { result } = renderHook(() => useGetPools(), {
       chainId: ChainId.ARBITRUM_SEPOLIA,
-    }));
-
-    const { result } = renderHook(() => useGetPools());
+    });
 
     await waitFor(() => expect(result.current.data).toBeDefined());
     expect(result.current.data).toMatchSnapshot();

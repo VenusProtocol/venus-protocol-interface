@@ -7,6 +7,7 @@ export * from './utilities/getUnsafeChainIdFromSearchParams';
 export * from './hooks/useProvider';
 export * from './hooks/useSigner';
 export * from './hooks/useAccountAddress';
+export * from './hooks/useAccountChainId';
 export * from './hooks/useSwitchChain';
 export * from './hooks/useChainId';
 export * from './hooks/useAuthModal';

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
@@ -46,9 +46,13 @@ const AppRoutes = () => {
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
-  useEffect(() => {
-    document.getElementById(PAGE_CONTAINER_ID)?.scrollTo(0, 0);
-  }, [location]);
+  useLayoutEffect(() => {
+    document.getElementById(PAGE_CONTAINER_ID)?.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant',
+    });
+  }, [location.pathname]);
 
   return (
     <Routes>

@@ -2,6 +2,7 @@
 import { Typography } from '@mui/material';
 import Switch from '@mui/material/Switch';
 import type { SwitchBaseProps } from '@mui/material/internal/SwitchBase';
+import { cn } from 'utilities';
 
 import { InfoIcon } from '../InfoIcon';
 import { useStyles } from './styles';
@@ -42,6 +43,7 @@ export const Toggle = ({
 
       <Switch
         css={styles.getSwitch({ isDark })}
+        className={cn(disabled && 'opacity-50')}
         focusVisibleClassName=".Mui-focusVisible"
         disableRipple
         onChange={onChange}

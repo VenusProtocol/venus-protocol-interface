@@ -9,6 +9,8 @@ import { useNavigate } from 'hooks/useNavigate';
 import { useTranslation } from 'libs/translations';
 
 import { FormikSubmitButton } from 'containers/Form';
+import { SwitchChain } from 'containers/SwitchChain';
+import { governanceChain } from 'libs/wallet';
 import ActionAccordion from '../ActionAccordion';
 import ProposalInfo from '../ProposalInfo';
 import ProposalPreview from '../ProposalPreview';
@@ -171,11 +173,13 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
       )}
 
       {currentStep === 'proposal-preview' && (
-        <FormikSubmitButton
-          enabledLabel={t('vote.createProposalForm.create')}
-          className="w-full"
-          loading={isCreateProposalLoading}
-        />
+        <SwitchChain chainId={governanceChain.id}>
+          <FormikSubmitButton
+            enabledLabel={t('vote.createProposalForm.create')}
+            className="w-full"
+            loading={isCreateProposalLoading}
+          />
+        </SwitchChain>
       )}
     </>
   );

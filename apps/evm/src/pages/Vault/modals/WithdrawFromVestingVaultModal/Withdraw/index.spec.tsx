@@ -11,6 +11,7 @@ import { executeWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'cli
 import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import { en } from 'libs/translations';
 
+import { ChainId, chainMetadata } from '@venusprotocol/chains';
 import Withdraw from '.';
 import TEST_IDS from './testIds';
 
@@ -37,6 +38,38 @@ describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
     );
 
     await waitFor(() => getByText(en.withdrawFromVestingVaultModalModal.withdrawTab.submitButton));
+  });
+
+  it('prompts user to connect their wallet if they are not connected', async () => {
+    const { queryByText } = renderComponent(
+      <Withdraw poolIndex={fakePoolIndex} stakedToken={fakeStakedToken} handleClose={noop} />,
+    );
+
+    // Check connect button is present
+    await waitFor(() => expect(queryByText(en.connectWallet.connectButton)).toBeInTheDocument());
+  });
+
+  it('prompts user to switch chain if they are connected to the wrong one', async () => {
+    const { queryByText } = renderComponent(
+      <Withdraw poolIndex={fakePoolIndex} stakedToken={fakeStakedToken} handleClose={noop} />,
+      {
+        accountAddress: fakeAddress,
+        accountChainId: ChainId.SEPOLIA,
+        chainId: ChainId.BSC_TESTNET,
+      },
+    );
+
+    // Check switch button is present
+    await waitFor(() =>
+      expect(
+        queryByText(
+          en.switchChain.switchButton.replace(
+            '{{chainName}}',
+            chainMetadata[ChainId.BSC_TESTNET].name,
+          ),
+        ),
+      ).toBeInTheDocument(),
+    );
   });
 
   it('fetches available tokens amount and displays it correctly', async () => {

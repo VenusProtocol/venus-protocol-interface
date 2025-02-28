@@ -106,9 +106,6 @@
         "pointDistribution": {
           "learnMore": "Learn more"
         },
-        "pointDistributions": {
-          "title": "Point distributions"
-        },
         "primeDistribution": {
           "description": "Venus Prime rewards dedicated users with boosted rewards. The Venus protocol does not guarantee these rewards and accepts no liability.",
           "name": "Prime APY"
@@ -197,9 +194,6 @@
       "label": "Bridge gas fee",
       "tooltip": "Used to cover the gas cost for sending your transfer on the destination chain"
     },
-    "connectWalletButton": {
-      "label": "Connect wallet"
-    },
     "errors": {
       "dailyTransactionLimitExceeded": {
         "message": "You cannot bridge more than {{readableAmountTokens}} ({{readableAmountUsd}}) on the destination chain due to the 24-hour limit. This limit will be reset on {{ date, dd MMM yyyy h:mm a }}",
@@ -263,8 +257,7 @@
     "disconnect": "Disconnect"
   },
   "connectWallet": {
-    "connectButton": "Connect wallet",
-    "switchChain": "Switch to {{chainName}}"
+    "connectButton": "Connect wallet"
   },
   "convertVrt": {
     "connectWalletToWithdrawXvs": "Please connect your wallet to withdraw XVS",
@@ -402,6 +395,7 @@
       },
       "price": "Price",
       "supply": "Supply",
+      "unichainBackgroundIllustrationAlt": "Background illustration",
       "utilizationRate": "Utilization rate"
     },
     "menu": {
@@ -534,7 +528,6 @@
   "operationForm": {
     "borrowableAmount": "Borrowable Amount",
     "borrowTabTitle": "Borrow",
-    "connectWalletButtonLabel": "Connect wallet",
     "error": {
       "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "higherThanAvailableLiquidity": "Insufficient asset liquidity",
@@ -809,6 +802,13 @@
       "label": "To"
     },
     "walletBalance": "Wallet balance"
+  },
+  "switchChain": {
+    "switchButton": "Switch to {{chainName}}"
+  },
+  "switchChainNotice": {
+    "buttonLabel": "Switch to {{chainName}}",
+    "description": "You will need to switch your wallet to {{chainName}} in order to enable or disable collaterals"
   },
   "table": {
     "cardsSelect": {
@@ -1108,8 +1108,8 @@
     "for": "For",
     "goToXvsSnapshot": "Go to XVS Snapshot",
     "omnichain": {
-      "switchToBnb": "Switch to BNB chain",
-      "votingOnlyEnabledOnBnb": "Voting is only available on the BNB chain"
+      "switchToBnb": "Switch to BNB Chain",
+      "votingOnlyEnabledOnBnb": "Voting is only available on BNB Chain"
     },
     "pages": {
       "actions": "3 of 3 Actions",
@@ -1154,9 +1154,6 @@
         "cancel": "Cancel",
         "execute": "Execute",
         "queue": "Queue"
-      },
-      "cta": {
-        "execute": "Execute"
       },
       "dates": {
         "activeAt": "Pending until {{date, }}",

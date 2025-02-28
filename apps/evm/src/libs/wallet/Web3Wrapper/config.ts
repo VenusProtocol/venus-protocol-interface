@@ -4,7 +4,7 @@ import { http, createConfig } from 'wagmi';
 import localConfig from 'config';
 import { MAIN_PRODUCTION_HOST } from 'constants/production';
 import type { ChainId } from 'types';
-import type { Chain, Transport } from 'viem';
+import type { Chain } from 'viem';
 import { chains } from '../chains';
 import { WALLET_CONNECT_PROJECT_ID } from '../constants';
 
@@ -17,7 +17,7 @@ const connectKitConfig = getDefaultConfig({
       ...acc,
       [chain.id]: http(url),
     };
-  }, {}) as Record<ChainId, Transport>,
+  }, {}),
   walletConnectProjectId: WALLET_CONNECT_PROJECT_ID,
   appName: 'Venus',
   appUrl: `https://${MAIN_PRODUCTION_HOST}`,

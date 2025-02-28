@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { PrimaryButton } from 'components';
+import { SwitchChain } from 'containers/SwitchChain';
 import { useTranslation } from 'libs/translations';
 import { cn } from 'utilities';
 import { ApproveDelegateSteps, type ApproveDelegateStepsProps } from '../../ApproveDelegateSteps';
@@ -42,25 +43,34 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
     return t('operationForm.submitButtonLabel.borrow');
   }, [isFormValid, t]);
 
-  return (
-    <ApproveDelegateSteps
-      approveDelegateeAction={approveDelegateAction}
-      isApproveDelegateeLoading={isApproveDelegateLoading}
-      isDelegateeApproved={isDelegateApproved}
-      isDelegateeApprovedLoading={isDelegateApprovedLoading}
-      secondStepButtonLabel={submitButtonLabel}
-      hideDelegateeApprovalStep={!isFormValid}
+  let dom = (
+    <PrimaryButton
+      type="submit"
+      loading={isFormSubmitting}
+      disabled={!isFormValid || isFormSubmitting}
+      className={cn('w-full', isDangerous && 'border-red bg-red')}
     >
-      <PrimaryButton
-        type="submit"
-        loading={isFormSubmitting}
-        disabled={!isFormValid || isFormSubmitting}
-        className={cn('w-full', isDangerous && 'border-red bg-red')}
-      >
-        {submitButtonLabel}
-      </PrimaryButton>
-    </ApproveDelegateSteps>
+      {submitButtonLabel}
+    </PrimaryButton>
   );
+
+  if (isFormValid) {
+    dom = (
+      <SwitchChain>
+        <ApproveDelegateSteps
+          approveDelegateeAction={approveDelegateAction}
+          isApproveDelegateeLoading={isApproveDelegateLoading}
+          isDelegateeApproved={isDelegateApproved}
+          isDelegateeApprovedLoading={isDelegateApprovedLoading}
+          secondStepButtonLabel={submitButtonLabel}
+        >
+          {dom}
+        </ApproveDelegateSteps>
+      </SwitchChain>
+    );
+  }
+
+  return dom;
 };
 
 export default SubmitSection;

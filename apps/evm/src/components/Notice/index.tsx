@@ -26,43 +26,52 @@ export const Notice = ({
 }: NoticeProps) => (
   <div
     className={cn(
-      'before:bg-background relative flex overflow-hidden rounded-xl border px-4 py-3 transition-colors ease-linear before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:z-[-1] before:transition-colors',
+      'relative bg-background rounded-xl border transition-colors overflow-hidden',
       (variant === 'info' || variant === 'loading') && 'border-lightGrey',
-      variant === 'error' && 'border-red bg-red/5',
-      variant === 'success' && 'border-green bg-green/5',
-      variant === 'warning' && 'border-orange bg-orange/5',
+      variant === 'error' && 'border-red',
+      variant === 'success' && 'border-green',
+      variant === 'warning' && 'border-orange',
       className,
     )}
     {...otherProps}
   >
-    <div className="flex grow overflow-hidden">
-      {variant === 'loading' ? (
-        <Spinner variant="small" className="mr-3 shrink-0 items-start" />
-      ) : (
-        <Icon
-          className={cn(
-            'mr-3 h-5 w-5 shrink-0',
-            variant === 'info' && 'text-blue',
-            variant === 'error' && 'text-red',
-            variant === 'success' && 'text-green',
-            variant === 'warning' && 'text-orange',
-          )}
-          name={iconMapping[variant]}
-        />
+    <div
+      className={cn(
+        'flex px-4 py-3 transition-colors ease-linear',
+        variant === 'error' && 'bg-red/5',
+        variant === 'success' && 'bg-green/5',
+        variant === 'warning' && 'bg-orange/5',
       )}
+    >
+      <div className="flex grow overflow-hidden">
+        {variant === 'loading' ? (
+          <Spinner variant="small" className="mr-3 shrink-0 items-start" />
+        ) : (
+          <Icon
+            className={cn(
+              'mr-3 h-5 w-5 shrink-0',
+              variant === 'info' && 'text-blue',
+              variant === 'error' && 'text-red',
+              variant === 'success' && 'text-green',
+              variant === 'warning' && 'text-orange',
+            )}
+            name={iconMapping[variant]}
+          />
+        )}
 
-      <div className="grow overflow-hidden break-words">
-        {title && <p className="mb-2 text-sm font-semibold">{title}</p>}
+        <div className="grow overflow-hidden break-words">
+          {title && <p className="mb-2 text-sm font-semibold">{title}</p>}
 
-        <p className="text-sm">{description}</p>
+          <p className="text-sm">{description}</p>
+        </div>
       </div>
-    </div>
 
-    {onClose && (
-      <TextButton className="group h-5 p-0" onClick={onClose}>
-        <Icon name="close" className="group-hover:text-offWhite h-5 w-5 transition-colors" />
-      </TextButton>
-    )}
+      {onClose && (
+        <TextButton className="group h-5 p-0" onClick={onClose}>
+          <Icon name="close" className="group-hover:text-offWhite h-5 w-5 transition-colors" />
+        </TextButton>
+      )}
+    </div>
   </div>
 );
 

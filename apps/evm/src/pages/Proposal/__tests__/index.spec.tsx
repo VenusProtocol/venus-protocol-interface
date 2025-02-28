@@ -74,6 +74,7 @@ const checkVoteButtonsAreHidden = async (
   waitFor(() => expect(queryByText(en.vote.abstain, { selector: 'button' })).toBeNull());
 };
 
+// TODO: rename to "Proposal"
 describe('ProposalComp page', () => {
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(fakeNow);
@@ -215,6 +216,17 @@ describe('ProposalComp page', () => {
 
     renderComponent(<ProposalComp />, {
       accountAddress: fakeAccountAddress,
+    });
+
+    await waitFor(() => expect(screen.getByTestId(TEST_IDS.votingDisabledWarning)).toBeVisible());
+  });
+
+  it('renders warning about voting being disabled when the feature flag is on, proposal is active and user is connected to another chain than the governance one', async () => {
+    (useIsFeatureEnabled as Mock).mockImplementation(() => true);
+
+    renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
+      accountChainId: ChainId.ARBITRUM_SEPOLIA,
     });
 
     await waitFor(() => expect(screen.getByTestId(TEST_IDS.votingDisabledWarning)).toBeVisible());
@@ -701,7 +713,7 @@ describe('ProposalComp page', () => {
     });
 
     const executeButton = screen
-      .getAllByText(en.voteProposalUi.command.cta.execute)[0]
+      .getAllByText(en.voteProposalUi.command.actionButton.execute)[0]
       .closest('button');
     expect(executeButton).toBeInTheDocument();
 

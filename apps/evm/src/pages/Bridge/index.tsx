@@ -18,7 +18,9 @@ import {
   TokenTextField,
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { Link } from 'containers/Link';
+import { SwitchChain } from 'containers/SwitchChain';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import useTokenApproval from 'hooks/useTokenApproval';
 import {
@@ -28,9 +30,9 @@ import {
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress, useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
+import { useAccountAddress, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
-import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
+import { cn, convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
 import { ChainSelect, getOptionsFromChainsList } from './ChainSelect';
 import { bridgeChains } from './constants';
 import { ReactComponent as LayerZeroLogo } from './layerZeroLogo.svg';
@@ -44,7 +46,6 @@ const BridgePage: React.FC = () => {
   const { chainId } = useChainId();
   const { nativeToken } = useGetChainMetadata();
   const { switchChain } = useSwitchChain();
-  const { openAuthModal } = useAuthModal();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
@@ -290,148 +291,140 @@ const BridgePage: React.FC = () => {
       <div className="mx-auto w-full space-y-6 md:max-w-[544px]">
         <Card>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-6 md:flex md:items-end md:justify-between md:space-x-4 grow">
-              <Controller
-                name="fromChainId"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <div className="mb-4 w-full min-w-0 grow md:mb-0">
-                    <ChainSelect
-                      label={t('bridgePage.fromChainSelect.label')}
-                      data-testid={TEST_IDS.fromChainIdSelect}
-                      options={fromChainIdOptions}
-                      {...field}
-                      onChange={newChainId => {
-                        handleChainFieldChange({
-                          newFromChainId: newChainId as ChainId,
-                        });
-                      }}
-                    />
-                  </div>
-                )}
-              />
-
-              <TextButton
-                className="mx-auto mb-2 flex h-auto flex-none p-2 md:mb-[3px]"
-                onClick={switchChains}
-                disabled={formState.isSubmitting}
-                data-testid={TEST_IDS.switchChainsButton}
-              >
-                <Icon name="convert" className="text-blue h-6 w-6 rotate-90 md:rotate-0" />
-              </TextButton>
-
-              <Controller
-                name="toChainId"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <div className="mb-4 w-full min-w-0 grow md:mb-0">
-                    <ChainSelect
-                      menuPosition="right"
-                      label={t('bridgePage.toChainSelect.label')}
-                      data-testid={TEST_IDS.toChainIdSelect}
-                      options={toChainIdOptions}
-                      {...field}
-                      onChange={newChainId => {
-                        handleChainFieldChange({
-                          newToChainId: newChainId as ChainId,
-                        });
-                      }}
-                    />
-                  </div>
-                )}
-              />
-            </div>
-
-            <Controller
-              name="amountTokens"
-              control={control}
-              rules={{ required: true }}
-              render={({ field, fieldState }) => (
-                <TokenTextField
-                  data-testid={TEST_IDS.tokenTextField}
-                  token={xvs}
-                  label={t('bridgePage.amountInput.label')}
-                  className="mb-3"
-                  hasError={fieldState.invalid}
-                  rightMaxButton={{
-                    label: t('bridgePage.amountInput.maxButtonLabel'),
-                    onClick: () => {
-                      setValue('amountTokens', walletBalanceTokens.toFixed(), {
-                        shouldValidate: true,
-                        shouldDirty: true,
-                      });
-                    },
-                  }}
-                  {...field}
-                  disabled={field.disabled || isApproveXvsLoading || !accountAddress}
+            <div className="space-y-4">
+              <div className="md:flex md:items-end md:justify-between md:space-x-4 grow">
+                <Controller
+                  name="fromChainId"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <div className="w-full min-w-0 grow md:mb-0">
+                      <ChainSelect
+                        label={t('bridgePage.fromChainSelect.label')}
+                        data-testid={TEST_IDS.fromChainIdSelect}
+                        options={fromChainIdOptions}
+                        {...field}
+                        onChange={newChainId => {
+                          handleChainFieldChange({
+                            newFromChainId: newChainId as ChainId,
+                          });
+                        }}
+                      />
+                    </div>
+                  )}
                 />
-              )}
-            />
 
-            {errorLabel && (
-              <Notice
-                className="mb-3"
-                variant="error"
-                description={errorLabel}
-                data-testid={TEST_IDS.notice}
-              />
-            )}
+                <TextButton
+                  className="mx-auto mb-2 flex h-auto flex-none p-2 md:mb-[3px]"
+                  onClick={switchChains}
+                  disabled={formState.isSubmitting}
+                  data-testid={TEST_IDS.switchChainsButton}
+                >
+                  <Icon name="convert" className="text-blue h-6 w-6 rotate-90 md:rotate-0" />
+                </TextButton>
 
-            <div className="mb-6 space-y-3">
-              <LabeledInlineContent label={t('bridgePage.walletBalance.label')}>
-                {readableWalletBalance}
-              </LabeledInlineContent>
+                <Controller
+                  name="toChainId"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <div className="w-full min-w-0 grow md:mb-0">
+                      <ChainSelect
+                        menuPosition="right"
+                        label={t('bridgePage.toChainSelect.label')}
+                        data-testid={TEST_IDS.toChainIdSelect}
+                        options={toChainIdOptions}
+                        {...field}
+                        onChange={newChainId => {
+                          handleChainFieldChange({
+                            newToChainId: newChainId as ChainId,
+                          });
+                        }}
+                      />
+                    </div>
+                  )}
+                />
+              </div>
 
-              <SpendingLimit
-                token={xvs}
-                walletBalanceTokens={walletBalanceTokens}
-                walletSpendingLimitTokens={xvsWalletSpendingLimitTokens}
-                onRevoke={revokeXvsWalletSpendingLimit}
-                isRevokeLoading={isRevokeXvsWalletSpendingLimitLoading}
+              <Controller
+                name="amountTokens"
+                control={control}
+                rules={{ required: true }}
+                render={({ field, fieldState }) => (
+                  <TokenTextField
+                    data-testid={TEST_IDS.tokenTextField}
+                    token={xvs}
+                    label={t('bridgePage.amountInput.label')}
+                    hasError={fieldState.invalid}
+                    rightMaxButton={{
+                      label: t('bridgePage.amountInput.maxButtonLabel'),
+                      onClick: () => {
+                        setValue('amountTokens', walletBalanceTokens.toFixed(), {
+                          shouldValidate: true,
+                          shouldDirty: true,
+                        });
+                      },
+                    }}
+                    {...field}
+                    disabled={field.disabled || isApproveXvsLoading || !accountAddress}
+                  />
+                )}
               />
             </div>
 
-            <LabeledInlineContent
-              label={t('bridgePage.bridgeGasFee.label')}
-              tooltip={t('bridgePage.bridgeGasFee.tooltip')}
-              className="mb-10"
-            >
-              {readableFee}
-            </LabeledInlineContent>
+            <ConnectWallet className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}>
+              <div className="space-y-4">
+                {errorLabel && (
+                  <Notice variant="error" description={errorLabel} data-testid={TEST_IDS.notice} />
+                )}
 
-            <ApproveTokenSteps
-              className="mt-10"
-              token={xvs}
-              hideTokenEnablingStep={!formState.isDirty || !accountAddress}
-              isTokenApproved={isXvsApproved}
-              approveToken={approveXvs}
-              isApproveTokenLoading={isApproveXvsLoading}
-              isWalletSpendingLimitLoading={isXvsWalletSpendingLimitLoading}
-              secondStepButtonLabel={submitButtonLabel}
-            >
-              {isUserConnected ? (
-                <PrimaryButton
-                  type="submit"
-                  loading={formState.isSubmitting}
-                  disabled={
-                    !formState.isValid ||
-                    formState.isSubmitting ||
-                    isXvsWalletSpendingLimitLoading ||
-                    isRevokeXvsWalletSpendingLimitLoading ||
-                    !isXvsApproved
-                  }
-                  className="w-full"
+                <LabeledInlineContent label={t('bridgePage.walletBalance.label')}>
+                  {readableWalletBalance}
+                </LabeledInlineContent>
+
+                <SpendingLimit
+                  token={xvs}
+                  walletBalanceTokens={walletBalanceTokens}
+                  walletSpendingLimitTokens={xvsWalletSpendingLimitTokens}
+                  onRevoke={revokeXvsWalletSpendingLimit}
+                  isRevokeLoading={isRevokeXvsWalletSpendingLimitLoading}
+                />
+
+                <LabeledInlineContent
+                  label={t('bridgePage.bridgeGasFee.label')}
+                  tooltip={t('bridgePage.bridgeGasFee.tooltip')}
                 >
-                  {submitButtonLabel}
-                </PrimaryButton>
-              ) : (
-                <PrimaryButton className="w-full" onClick={openAuthModal}>
-                  {t('bridgePage.connectWalletButton.label')}
-                </PrimaryButton>
-              )}
-            </ApproveTokenSteps>
+                  {readableFee}
+                </LabeledInlineContent>
+              </div>
+
+              <SwitchChain>
+                <ApproveTokenSteps
+                  token={xvs}
+                  hideTokenEnablingStep={!formState.isDirty || !accountAddress}
+                  isTokenApproved={isXvsApproved}
+                  approveToken={approveXvs}
+                  isApproveTokenLoading={isApproveXvsLoading}
+                  isWalletSpendingLimitLoading={isXvsWalletSpendingLimitLoading}
+                  secondStepButtonLabel={submitButtonLabel}
+                >
+                  <PrimaryButton
+                    type="submit"
+                    loading={formState.isSubmitting}
+                    disabled={
+                      !formState.isValid ||
+                      formState.isSubmitting ||
+                      isXvsWalletSpendingLimitLoading ||
+                      isRevokeXvsWalletSpendingLimitLoading ||
+                      !isXvsApproved
+                    }
+                    className="w-full"
+                  >
+                    {submitButtonLabel}
+                  </PrimaryButton>
+                </ApproveTokenSteps>
+              </SwitchChain>
+            </ConnectWallet>
           </form>
         </Card>
 

@@ -1,9 +1,5 @@
 import { chainMetadata } from '@venusprotocol/chains';
-import { useExecuteProposal } from 'clients/api';
-import { Button } from 'components';
-import { ConnectWallet } from 'containers/ConnectWallet';
 import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
-import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
@@ -11,6 +7,7 @@ import { type RemoteProposal, RemoteProposalState } from 'types';
 import { Command } from '../Command';
 import { Description } from '../Description';
 import { CurrentStep } from './CurrentStep';
+import { ExecuteButton } from './ExecuteButton';
 
 const governanceChainMetadata = chainMetadata[governanceChain.id];
 
@@ -34,24 +31,6 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
     isQueued: remoteProposal.state === RemoteProposalState.Queued,
     executionEtaDate: remoteProposal.executionEtaDate,
   });
-
-  const { mutateAsync: executeProposal, isPending: isExecuteProposalLoading } =
-    useExecuteProposal();
-
-  const execute = async () => {
-    if (!remoteProposal.remoteProposalId) {
-      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
-    }
-
-    try {
-      await executeProposal({
-        proposalId: remoteProposal.remoteProposalId,
-        chainId: remoteProposal.chainId,
-      });
-    } catch (error) {
-      handleError({ error });
-    }
-  };
 
   const description = useMemo(() => {
     switch (remoteProposal.state) {
@@ -91,12 +70,12 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
       }
       proposalActions={remoteProposal.proposalActions}
       contentRightItem={
-        isExecutable ? (
-          <ConnectWallet chainId={remoteProposal.chainId} className="hidden lg:block w-auto">
-            <Button onClick={execute} disabled={isExecuteProposalLoading}>
-              {t('voteProposalUi.command.cta.execute')}
-            </Button>
-          </ConnectWallet>
+        isExecutable && remoteProposal.remoteProposalId ? (
+          <ExecuteButton
+            className="hidden lg:block"
+            remoteProposalChainId={remoteProposal.chainId}
+            remoteProposalId={remoteProposal.remoteProposalId}
+          />
         ) : (
           <CurrentStep
             proposalExecutedTxHash={proposalExecutedTxHash}
@@ -105,12 +84,12 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
         )
       }
       contentBottomItem={
-        isExecutable ? (
-          <ConnectWallet chainId={remoteProposal.chainId} className="mt-3 w-full lg:hidden">
-            <Button onClick={execute} className="w-full">
-              {t('voteProposalUi.command.cta.execute')}
-            </Button>
-          </ConnectWallet>
+        isExecutable && remoteProposal.remoteProposalId ? (
+          <ExecuteButton
+            className="mt-3 w-full lg:hidden"
+            remoteProposalChainId={remoteProposal.chainId}
+            remoteProposalId={remoteProposal.remoteProposalId}
+          />
         ) : undefined
       }
       {...otherProps}

@@ -24,6 +24,14 @@ export const useStyles = () => {
         padding: 0;
       }
     `,
+    getHeader: ({ breakpoint }: { breakpoint?: keyof (typeof BREAKPOINTS)['values'] }) => css`
+      padding: ${theme.spacing(0, 6)};
+      
+      ${breakpoint && theme.breakpoints.down(breakpoint)} {
+        margin-bottom: ${theme.spacing(4)};
+        padding: 0;
+      }
+    `,
     getTableContainer: ({
       breakpoint,
     }: {
