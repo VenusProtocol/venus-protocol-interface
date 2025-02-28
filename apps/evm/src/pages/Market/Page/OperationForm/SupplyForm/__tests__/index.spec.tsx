@@ -227,7 +227,7 @@ describe('SupplyForm', () => {
   });
 
   it('prompts user to switch chain if they are connected to the wrong one', async () => {
-    const { getByText, getByTestId } = renderComponent(
+    const { queryAllByText, getByTestId } = renderComponent(
       <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
@@ -244,13 +244,13 @@ describe('SupplyForm', () => {
     // Check "Switch chain" button is displayed
     await waitFor(() =>
       expect(
-        getByText(
+        queryAllByText(
           en.switchChain.switchButton.replace(
             '{{chainName}}',
             chainMetadata[ChainId.BSC_TESTNET].name,
           ),
-        ),
-      ).toBeInTheDocument(),
+        ).length,
+      ).toBeTruthy(),
     );
   });
 

@@ -26,6 +26,7 @@ export interface TableProps<R> extends CardProps {
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
   getRowHref?: (row: R) => string;
   title?: string;
+  header?: React.ReactNode;
 }
 
 export interface Order<R> {

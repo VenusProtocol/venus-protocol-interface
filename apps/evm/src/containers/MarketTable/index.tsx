@@ -7,6 +7,7 @@ import { handleError } from 'libs/errors';
 import type { Pool } from 'types';
 
 import { routes } from 'constants/routing';
+import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { areAddressesEqual } from 'utilities';
 import { useStyles } from './styles';
@@ -122,6 +123,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       css={styles.cardContentGrid}
       rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
       initialOrder={formattedInitialOrder}
+      header={columnKeys.includes('collateral') && <SwitchChainNotice />}
       {...otherTableProps}
     />
   );

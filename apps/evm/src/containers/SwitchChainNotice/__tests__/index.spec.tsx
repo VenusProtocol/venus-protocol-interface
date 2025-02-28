@@ -7,23 +7,23 @@ import fakeAddress from '__mocks__/models/address';
 import { en } from 'libs/translations';
 import { useSwitchChain } from 'libs/wallet';
 import { renderComponent } from 'testUtils/render';
-import { SwitchChain } from '..';
+import { SwitchChainNotice } from '..';
 
 const fakeContent = 'Fake content';
 
-describe('SwitchChain', () => {
+describe('SwitchChainNotice', () => {
   beforeEach(() => {
     (useSwitchChain as Mock).mockReturnValue({ switchChain: vi.fn() });
   });
 
   it('renders without crashing', () => {
-    renderComponent(<SwitchChain />);
+    renderComponent(<SwitchChainNotice />);
   });
 
-  it('displays children when user is not connected', async () => {
-    renderComponent(<SwitchChain>{fakeContent}</SwitchChain>);
+  it('displays nothing when user is not connected', async () => {
+    const { container } = renderComponent(<SwitchChainNotice>{fakeContent}</SwitchChainNotice>);
 
-    expect(screen.queryByText(fakeContent)).toBeInTheDocument();
+    expect(container).toBeEmptyDOMElement();
   });
 
   describe.each([
@@ -40,14 +40,17 @@ describe('SwitchChain', () => {
       targetChainId: ChainId.BSC_TESTNET,
     },
   ])('$description', async ({ accountChainId, chainId, targetChainId }) => {
-    it('displays children when user is connected to the correct chain', async () => {
-      renderComponent(<SwitchChain chainId={targetChainId}>{fakeContent}</SwitchChain>, {
-        accountAddress: fakeAddress,
-        accountChainId,
-        chainId,
-      });
+    it('displays nothing when user is connected to the correct chain', async () => {
+      const { container } = renderComponent(
+        <SwitchChainNotice chainId={targetChainId}>{fakeContent}</SwitchChainNotice>,
+        {
+          accountAddress: fakeAddress,
+          chainId,
+          accountChainId,
+        },
+      );
 
-      expect(screen.queryByText(fakeContent)).toBeInTheDocument();
+      expect(container).toBeEmptyDOMElement();
     });
   });
 
@@ -65,18 +68,21 @@ describe('SwitchChain', () => {
       targetChainId: ChainId.BSC_TESTNET,
     },
   ])('$description', async ({ accountChainId, chainId, targetChainId }) => {
-    it('displays switch button when user is connected to the wrong chain', async () => {
-      renderComponent(<SwitchChain chainId={targetChainId}>{fakeContent}</SwitchChain>, {
-        accountAddress: fakeAddress,
-        accountChainId,
-        chainId,
-      });
+    it('displays warning when user is connected to the wrong chain', async () => {
+      renderComponent(
+        <SwitchChainNotice chainId={targetChainId}>{fakeContent}</SwitchChainNotice>,
+        {
+          accountAddress: fakeAddress,
+          accountChainId,
+          chainId,
+        },
+      );
 
       expect(screen.queryByText(fakeContent)).not.toBeInTheDocument();
 
       expect(
         screen.queryByText(
-          en.switchChain.switchButton.replace(
+          en.switchChainNotice.description.replace(
             '{{chainName}}',
             chainMetadata[targetChainId || chainId].name,
           ),
@@ -88,15 +94,18 @@ describe('SwitchChain', () => {
       const mockSwitchChain = vi.fn();
       (useSwitchChain as Mock).mockReturnValue({ switchChain: mockSwitchChain });
 
-      renderComponent(<SwitchChain chainId={targetChainId}>{fakeContent}</SwitchChain>, {
-        accountAddress: fakeAddress,
-        chainId,
-        accountChainId,
-      });
+      renderComponent(
+        <SwitchChainNotice chainId={targetChainId}>{fakeContent}</SwitchChainNotice>,
+        {
+          accountAddress: fakeAddress,
+          chainId,
+          accountChainId,
+        },
+      );
 
       fireEvent.click(
         screen.getByText(
-          en.switchChain.switchButton.replace(
+          en.switchChainNotice.buttonLabel.replace(
             '{{chainName}}',
             chainMetadata[targetChainId || chainId].name,
           ),

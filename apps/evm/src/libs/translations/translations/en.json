@@ -806,6 +806,10 @@
   "switchChain": {
     "switchButton": "Switch to {{chainName}}"
   },
+  "switchChainNotice": {
+    "buttonLabel": "Switch to {{chainName}}",
+    "description": "You will need to switch your wallet to {{chainName}} in order to enable or disable collaterals"
+  },
   "table": {
     "cardsSelect": {
       "label": "Sort by"

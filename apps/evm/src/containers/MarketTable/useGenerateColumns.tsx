@@ -14,6 +14,7 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
+import { useAccountChainId, useChainId } from 'libs/wallet';
 import {
   areAddressesEqual,
   cn,
@@ -74,6 +75,9 @@ const useGenerateColumns = ({
   const { corePoolComptrollerContractAddress } = useGetChainMetadata();
   const { t, Trans } = useTranslation();
   const styles = useStyles();
+  const { chainId: accoutChainId } = useAccountChainId();
+  const { chainId } = useChainId();
+  const isAccountOnWrongChain = accoutChainId !== chainId;
 
   const columns: TableColumn<PoolAsset>[] = useMemo(
     () =>
@@ -162,6 +166,7 @@ const useGenerateColumns = ({
                 <Toggle
                   onChange={() => collateralOnChange(poolAsset)}
                   value={poolAsset.isCollateralOfUser}
+                  disabled={isAccountOnWrongChain}
                 />
               ) : (
                 PLACEHOLDER_KEY
@@ -402,7 +407,15 @@ const useGenerateColumns = ({
                 },
         };
       }),
-    [corePoolComptrollerContractAddress, columnKeys, Trans, t, collateralOnChange, styles],
+    [
+      corePoolComptrollerContractAddress,
+      columnKeys,
+      Trans,
+      t,
+      collateralOnChange,
+      styles,
+      isAccountOnWrongChain,
+    ],
   );
 
   return columns;

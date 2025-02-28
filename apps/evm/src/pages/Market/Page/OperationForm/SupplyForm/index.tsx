@@ -25,7 +25,7 @@ import {
 } from 'libs/contracts';
 import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
+import { useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
 import type { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
@@ -38,6 +38,7 @@ import { SwapDetails } from '../SwapDetails';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
+import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { AssetInfo } from '../AssetInfo';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
@@ -186,6 +187,10 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     token: formValues.fromToken,
   });
 
+  const { chainId: accoutChainId } = useAccountChainId();
+  const { chainId } = useChainId();
+  const isAccountOnWrongChain = accoutChainId !== chainId;
+
   const handleToggleCollateral = async () => {
     try {
       await toggleCollateral({
@@ -246,13 +251,17 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
         )}
 
         {(asset.collateralFactor || asset.isCollateralOfUser) && (
-          <LabeledInlineContent label={t('operationForm.supply.collateral')}>
-            <Toggle
-              onChange={handleToggleCollateral}
-              value={asset.isCollateralOfUser}
-              disabled={!isUserConnected}
-            />
-          </LabeledInlineContent>
+          <>
+            <SwitchChainNotice />
+
+            <LabeledInlineContent label={t('operationForm.supply.collateral')}>
+              <Toggle
+                onChange={handleToggleCollateral}
+                value={asset.isCollateralOfUser}
+                disabled={!isUserConnected || isAccountOnWrongChain}
+              />
+            </LabeledInlineContent>
+          </>
         )}
 
         {isIntegratedSwapFeatureEnabled || canWrapNativeToken ? (
