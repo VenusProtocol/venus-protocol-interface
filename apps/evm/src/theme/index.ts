@@ -26,6 +26,7 @@ export const theme = {
     // The next colors are not in the UI kit, but are used throughout the designs
     mediumBlue: 'rgb(var(--color-mediumBlue))',
     darkBlue: 'rgb(var(--color-darkBlue))',
+    greyBlue: 'rgb(var(--color-greyBlue))',
   },
   fontSize: {
     xs: ['0.75rem', '1.5'],
