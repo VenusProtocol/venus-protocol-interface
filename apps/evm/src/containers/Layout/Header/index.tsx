@@ -1,9 +1,10 @@
+import { ChainId } from '@venusprotocol/chains';
 import { useGetAsset } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
-import { useIsOnUnichain } from 'hooks/useIsOnUnichain';
 import { useTranslation } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
 import { useParams } from 'react-router';
 import { cn } from 'utilities';
 import type { Address } from 'viem';
@@ -15,8 +16,9 @@ import { useIsOnMarketPage } from './useIsOnMarketPage';
 
 export const Header: React.FC = () => {
   const { t } = useTranslation();
+  const { chainId } = useChainId();
   const isOnMarketPage = useIsOnMarketPage();
-  const isOnUnichain = useIsOnUnichain();
+  const isOnUnichain = chainId === ChainId.UNICHAIN_MAINNET || chainId === ChainId.UNICHAIN_SEPOLIA;
   const isOnLidoMarketPage = useIsOnLidoMarketPage();
   const { lstPoolVWstEthContractAddress } = useGetChainMetadata();
 
