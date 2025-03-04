@@ -270,6 +270,17 @@
   },
   "dashboard": {
     "allTag": "All",
+    "berachainPromotionalBanner": {
+      "blurredBackground": {
+        "alt": "Blurred background"
+      },
+      "buttonLabel": "Try now",
+      "description": "The Proof of Liquidity Layer 1 is here - borrow and supply your assets instantly.",
+      "illustration": {
+        "alt": "Berachain illustration"
+      },
+      "title": "Venus is live on Berachain"
+    },
     "pausedAssetsToggle": {
       "label": "Paused assets"
     },

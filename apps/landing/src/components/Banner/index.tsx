@@ -34,7 +34,7 @@ const Banner: React.FC<IBannerProps> = ({ className }) => (
         <div className={cn(s.textContainer)}>
           <BeraChainLogo className={cn(s.berachainLogo)} />
 
-          <span>Berachain is Live on Venus – Lock your Bera, unlock the Defi future!</span>
+          <span>Berachain is Live on Venus – Lock your Bera, unlock the Defi future</span>
         </div>
 
         <div className={cn(s.sideColumn)}>
