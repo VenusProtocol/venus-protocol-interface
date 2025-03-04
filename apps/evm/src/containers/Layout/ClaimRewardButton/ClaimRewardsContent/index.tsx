@@ -41,6 +41,7 @@ export const ClaimRewardsContent = ({
   const isSubmitDisabled = !internalRewardsGroups.some(group => group.isChecked);
   const hasInternalRewards = internalRewardsGroups.length > 0;
   const hasExternalRewards = externalRewardsGroups.length > 0;
+
   return (
     <div
       className="flex flex-col md:gap-4 md:rounded-3xl md:mx-4"

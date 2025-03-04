@@ -241,14 +241,7 @@ describe('ClaimRewardButton', () => {
     await waitFor(() => expect(claimRewards).toHaveBeenCalledTimes(1));
     expect((claimRewards as Mock).mock.calls[0][0]).toMatchSnapshot();
 
-    await waitFor(() =>
-      expect(queryByTestId(TEST_IDS.claimRewardMobileOverlay)).not.toHaveClass('opacity-100'),
-    );
-    await waitFor(() =>
-      expect(queryByTestId(TEST_IDS.claimRewardMobileOverlay)).not.toHaveClass(
-        'pointer-events-auto',
-      ),
-    );
+    await waitFor(() => expect(queryByTestId(TEST_IDS.claimRewardSubmitButton)).toBeNull());
   });
 
   it('it claims only selected and enabled rewards on submit button click on success', async () => {
@@ -288,5 +281,34 @@ describe('ClaimRewardButton', () => {
 
     await waitFor(() => expect(claimRewards).toHaveBeenCalledTimes(1));
     expect((claimRewards as Mock).mock.calls[0][0]).toMatchSnapshot();
+  });
+
+  it('renders external rewards if user has pending external rewards to claim', async () => {
+    const { getByTestId, queryByText } = renderComponent(<ClaimRewardButton />, {
+      accountAddress: fakeAddress,
+    });
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
+    // Open modal
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
+
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimExternalRewardBreakdown)));
+
+    const fakeExternalRewards = fakePendingRewardGroups.filter(g => g.type === 'external');
+    await waitFor(() => expect(queryByText(fakeExternalRewards[0].campaignName)));
+    await waitFor(() => expect(queryByText(fakeExternalRewards[1].campaignName)));
+  });
+
+  it('does not render external rewards if there is none of this type', async () => {
+    (getPendingRewards as Mock).mockImplementation(() => ({
+      pendingRewardGroups: fakePendingRewardGroups.filter(g => g.type !== 'external'),
+    }));
+    const { getByTestId, queryByTestId } = renderComponent(<ClaimRewardButton />, {
+      accountAddress: fakeAddress,
+    });
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
+    // Open modal
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
+
+    await waitFor(() => expect(queryByTestId(TEST_IDS.claimExternalRewardBreakdown)).toBeNull());
   });
 });

@@ -1,7 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 
 import { poolData } from '__mocks__/models/pools';
-import { vai, xvs } from '__mocks__/models/tokens';
+import { bnb, usdt, vai, xvs } from '__mocks__/models/tokens';
 
 import type { PendingRewardGroup } from 'clients/api/queries/getPendingRewards/types';
 
@@ -75,6 +75,40 @@ export const fakePendingRewardGroups: PendingRewardGroup[] = [
         rewardToken: xvs,
         rewardAmountMantissa: new BigNumber('3000000000000000000000000000'),
         rewardAmountCents: new BigNumber('112'),
+      },
+    ],
+  },
+  {
+    type: 'external',
+    appName: 'Mock App',
+    campaignName: 'Mock campaign',
+    claimUrl: 'http://mock.app',
+    pendingRewards: [
+      {
+        appName: 'Mock App',
+        campaignName: 'Mock campaign',
+        claimUrl: 'http://mock.app',
+        rewardAmountCents: new BigNumber('700'),
+        rewardAmountMantissa: new BigNumber('1000000000000000000000000000'),
+        rewardsDistributorAddress: '',
+        rewardToken: bnb,
+      },
+    ],
+  },
+  {
+    type: 'external',
+    appName: 'Mock App 2',
+    campaignName: 'Mock campaign 2',
+    claimUrl: 'http://mock2.app',
+    pendingRewards: [
+      {
+        appName: 'Mock App 2',
+        campaignName: 'Mock campaign 2',
+        claimUrl: 'http://mock2.app',
+        rewardAmountCents: new BigNumber('123'),
+        rewardAmountMantissa: new BigNumber('12300000000'),
+        rewardsDistributorAddress: '',
+        rewardToken: usdt,
       },
     ],
   },
