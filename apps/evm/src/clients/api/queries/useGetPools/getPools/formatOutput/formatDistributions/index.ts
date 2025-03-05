@@ -47,8 +47,10 @@ export const formatDistributions = ({
   // Add token distributions
   apiRewardsDistributors.forEach(
     ({
+      marketAddress,
       rewardType,
       rewardTokenAddress,
+      isActive,
       lastRewardingSupplyBlockOrTimestamp,
       lastRewardingBorrowBlockOrTimestamp,
       supplySpeed,
@@ -72,18 +74,19 @@ export const formatDistributions = ({
       });
 
       const isTimeBasedOrMerklReward = isChainTimeBased || rewardType === 'merkl';
-      const isDistributingSupplyRewards = isDistributingRewards({
-        isTimeBasedOrMerklReward,
-        lastRewardingTimestamp: isTimeBasedOrMerklReward
-          ? +lastRewardingSupplyBlockOrTimestamp
-          : undefined,
-        lastRewardingBlock: isTimeBasedOrMerklReward
-          ? undefined
-          : +lastRewardingSupplyBlockOrTimestamp,
-        currentBlockNumber,
-      });
+      const isSupplyReward = Number(supplySpeed) > 0;
 
-      if (isDistributingSupplyRewards) {
+      if (isSupplyReward) {
+        const isDistributingSupplyRewards = isDistributingRewards({
+          isTimeBasedOrMerklReward,
+          lastRewardingTimestamp: isTimeBasedOrMerklReward
+            ? +lastRewardingSupplyBlockOrTimestamp
+            : undefined,
+          lastRewardingBlock: isTimeBasedOrMerklReward
+            ? undefined
+            : +lastRewardingSupplyBlockOrTimestamp,
+          currentBlockNumber,
+        });
         const dailyDistributedRewardTokens = calculateDailyTokenRate({
           rateMantissa: supplySpeed,
           decimals: rewardToken.decimals,
@@ -92,29 +95,31 @@ export const formatDistributions = ({
 
         supplyTokenDistributions.push(
           formatRewardDistribution({
+            isActive: isActive && isDistributingSupplyRewards,
+            marketAddress,
             rewardType,
             rewardToken,
             rewardTokenPriceDollars,
             dailyDistributedRewardTokens,
             balanceDollars: supplyBalanceDollars,
-            description: rewardDetails?.description,
-            claimUrl: rewardDetails?.claimUrl,
+            rewardDetails,
           }),
         );
       }
 
-      const isDistributingBorrowRewards = isDistributingRewards({
-        isTimeBasedOrMerklReward,
-        lastRewardingTimestamp: isTimeBasedOrMerklReward
-          ? +lastRewardingBorrowBlockOrTimestamp
-          : undefined,
-        lastRewardingBlock: isTimeBasedOrMerklReward
-          ? undefined
-          : +lastRewardingBorrowBlockOrTimestamp,
-        currentBlockNumber,
-      });
+      const isBorrowReward = Number(borrowSpeed) > 0;
 
-      if (isDistributingBorrowRewards) {
+      if (isBorrowReward) {
+        const isDistributingBorrowRewards = isDistributingRewards({
+          isTimeBasedOrMerklReward,
+          lastRewardingTimestamp: isTimeBasedOrMerklReward
+            ? +lastRewardingBorrowBlockOrTimestamp
+            : undefined,
+          lastRewardingBlock: isTimeBasedOrMerklReward
+            ? undefined
+            : +lastRewardingBorrowBlockOrTimestamp,
+          currentBlockNumber,
+        });
         const dailyDistributedRewardTokens = calculateDailyTokenRate({
           rateMantissa: borrowSpeed,
           decimals: rewardToken.decimals,
@@ -123,13 +128,14 @@ export const formatDistributions = ({
 
         borrowTokenDistributions.push(
           formatRewardDistribution({
+            isActive: isActive && isDistributingBorrowRewards,
+            marketAddress,
             rewardType,
             rewardToken,
             rewardTokenPriceDollars,
             dailyDistributedRewardTokens,
             balanceDollars: borrowBalanceDollars,
-            description: rewardDetails?.description,
-            claimUrl: rewardDetails?.claimUrl,
+            rewardDetails,
           }),
         );
       }
@@ -142,12 +148,14 @@ export const formatDistributions = ({
       type: 'prime',
       apyPercentage: primeApy.supplyApy,
       token: underlyingToken,
+      isActive: true,
     });
 
     borrowTokenDistributions.push({
       type: 'prime',
       apyPercentage: primeApy.borrowApy,
       token: underlyingToken,
+      isActive: true,
     });
   }
 

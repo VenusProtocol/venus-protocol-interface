@@ -101,6 +101,7 @@ export const appendPrimeSimulationDistributions = async ({
             type: 'primeSimulation',
             token: asset.vToken.underlyingToken,
             apyPercentage: borrowSimulatedPrimeApy,
+            isActive: true,
             referenceValues,
           });
         }
@@ -114,6 +115,7 @@ export const appendPrimeSimulationDistributions = async ({
             type: 'primeSimulation',
             token: asset.vToken.underlyingToken,
             apyPercentage: supplySimulatedPrimeApy,
+            isActive: true,
             referenceValues,
           });
         }

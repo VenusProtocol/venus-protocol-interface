@@ -11,20 +11,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowBalanceTokens": "246628588661.936163058800477859",
           "borrowCapTokens": "1e-18",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 438,
           "cashTokens": "1.00000000080503544824460983238917793784e+21",
           "collateralFactor": 0,
@@ -51,20 +38,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "title": "Fake points",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "100.00062",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -96,7 +70,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "1.5797413696681861",
               "dailyDistributedTokens": "250.0000128",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -133,7 +108,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "1.5819817239252298",
               "dailyDistributedTokens": "250.0000128",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -175,7 +151,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0.6478221277312901",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -212,7 +189,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0.7921351276470645",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -250,20 +228,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowBalanceTokens": "416884.364702270734855123",
           "borrowCapTokens": "270000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 68,
           "cashTokens": "2259657.074761148481496107",
           "collateralFactor": 0.6,
@@ -287,20 +252,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "title": "Fake points",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "639.33143",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -332,7 +284,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "16.981964056809385",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -369,7 +322,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -410,7 +364,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0.000007467880158706",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -447,7 +402,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -494,21 +450,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowBalanceTokens": "102.672734",
           "borrowCapTokens": "14880000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 1,
           "cashTokens": "2649291.731707",
           "collateralFactor": 0.8,
@@ -539,21 +481,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -645,20 +573,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowBalanceTokens": "0.000004",
           "borrowCapTokens": "14880000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 2,
           "cashTokens": "11031000",
           "collateralFactor": 0.8,
@@ -689,20 +604,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -730,20 +632,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowBalanceTokens": "0.267025220823379366",
           "borrowCapTokens": "56000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 5,
           "cashTokens": "0.000705300034659891",
           "collateralFactor": 0.45,
@@ -759,20 +648,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "supplyBalanceTokens": "0.26773052085803925699",
           "supplyCapTokens": "80000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "52505.2944",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -864,7 +740,21 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowBalanceTokens": "10300.914588649133175062",
           "borrowCapTokens": "200000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [],
+          "borrowTokenDistributions": [
+            {
+              "apyPercentage": "253.70824691591528",
+              "dailyDistributedTokens": "35.714285714285712",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "borrowerCount": 4,
           "cashTokens": "32569.640339677929523638",
           "collateralFactor": 0.65,
@@ -880,7 +770,21 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "supplyBalanceTokens": "42870.55476159846231009819",
           "supplyCapTokens": "500000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [],
+          "supplyTokenDistributions": [
+            {
+              "apyPercentage": "35.51944135207958",
+              "dailyDistributedTokens": "35.714285714285712",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "tokenPriceCents": "100",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -908,20 +812,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "borrowBalanceTokens": "1004.648231",
           "borrowCapTokens": "400000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 1,
           "cashTokens": "998174.53518",
           "collateralFactor": 0.8,
@@ -952,20 +843,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -1064,20 +942,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowBalanceTokens": "246628588661.936163058800477859",
           "borrowCapTokens": "1e-18",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 0,
           "cashTokens": "1.00000000080503544824460983238917793784e+21",
           "collateralFactor": 0,
@@ -1104,20 +969,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "title": "Fake points",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "100.00062",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -1149,7 +1001,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "4.814274201887225",
               "dailyDistributedTokens": "750.0000384",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1186,7 +1039,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "4.8212088357220795",
               "dailyDistributedTokens": "750.0000384",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1228,7 +1082,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "1.9560488349289473",
               "dailyDistributedTokens": "4499.9999712",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1265,7 +1120,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "2.3952270378375884",
               "dailyDistributedTokens": "4499.9999712",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1303,20 +1159,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowBalanceTokens": "416884.364702270734855123",
           "borrowCapTokens": "270000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 0,
           "cashTokens": "2259657.074761148481496107",
           "collateralFactor": 0.6,
@@ -1340,20 +1183,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "title": "Fake points",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "639.33143",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -1385,7 +1215,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "60.0548989604708",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1422,7 +1253,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1463,7 +1295,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0.00002240364211925",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1500,7 +1333,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -1547,21 +1381,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowBalanceTokens": "102.672734",
           "borrowCapTokens": "14880000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 1,
           "cashTokens": "2649291.731707",
           "collateralFactor": 0.8,
@@ -1592,21 +1412,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -1698,20 +1504,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowBalanceTokens": "0.000004",
           "borrowCapTokens": "14880000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 2,
           "cashTokens": "11031000",
           "collateralFactor": 0.8,
@@ -1742,20 +1535,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -1783,20 +1563,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowBalanceTokens": "0.267025220823379366",
           "borrowCapTokens": "56000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 5,
           "cashTokens": "0.000705300034659891",
           "collateralFactor": 0.45,
@@ -1812,20 +1579,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "supplyBalanceTokens": "0.26773052085803925699",
           "supplyCapTokens": "80000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "52505.2944",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -1917,7 +1671,21 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowBalanceTokens": "10300.914588649133175062",
           "borrowCapTokens": "200000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [],
+          "borrowTokenDistributions": [
+            {
+              "apyPercentage": "4267.887652021992",
+              "dailyDistributedTokens": "107.142857142857136",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "borrowerCount": 4,
           "cashTokens": "32569.640339677929523638",
           "collateralFactor": 0.65,
@@ -1933,7 +1701,21 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "supplyBalanceTokens": "42870.55476159846231009819",
           "supplyCapTokens": "500000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [],
+          "supplyTokenDistributions": [
+            {
+              "apyPercentage": "148.69983759681423",
+              "dailyDistributedTokens": "107.142857142857136",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "tokenPriceCents": "100",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -1961,20 +1743,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "borrowBalanceTokens": "1004.648231",
           "borrowCapTokens": "400000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 1,
           "cashTokens": "998174.53518",
           "collateralFactor": 0.8,
@@ -2005,20 +1774,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -2117,20 +1873,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowBalanceTokens": "246628588661.936163058800477859",
           "borrowCapTokens": "1e-18",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 438,
           "cashTokens": "1.00000000080503544824460983238917793784e+21",
           "collateralFactor": 0,
@@ -2157,20 +1900,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "title": "Fake points",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "100.00062",
           "userBorrowBalanceCents": "10.000062",
           "userBorrowBalanceTokens": "0.1",
@@ -2202,7 +1932,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "1.5797413696681861",
               "dailyDistributedTokens": "250.0000128",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2239,7 +1970,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "1.5819817239252298",
               "dailyDistributedTokens": "250.0000128",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2281,7 +2013,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0.6478221277312901",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2318,7 +2051,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0.7921351276470645",
               "dailyDistributedTokens": "1499.9999904",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2356,20 +2090,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowBalanceTokens": "416884.364702270734855123",
           "borrowCapTokens": "270000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 68,
           "cashTokens": "2259657.074761148481496107",
           "collateralFactor": 0.6,
@@ -2393,20 +2114,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "title": "Fake points",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-                "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
-                "decimals": 18,
-                "symbol": "XVS",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "639.33143",
           "userBorrowBalanceCents": "63.933143",
           "userBorrowBalanceTokens": "0.1",
@@ -2438,7 +2146,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "16.981964056809385",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2475,7 +2184,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2516,7 +2226,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0.000007467880158706",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2553,7 +2264,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "apyPercentage": "0",
               "dailyDistributedTokens": "499.9999968",
-              "description": undefined,
+              "isActive": true,
+              "rewardDetails": undefined,
               "token": {
                 "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
                 "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -2600,21 +2312,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowBalanceTokens": "102.672734",
           "borrowCapTokens": "14880000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 1,
           "cashTokens": "2649291.731707",
           "collateralFactor": 0.8,
@@ -2645,21 +2343,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "claimUrl": undefined,
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                "asset": "/src/libs/tokens/img/underlyingTokens/usdt.svg",
-                "decimals": 6,
-                "symbol": "USDT",
-              },
-              "type": "merkl",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "9999628300000",
           "userBorrowBalanceTokens": "100000000000",
@@ -2751,20 +2435,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowBalanceTokens": "0.000004",
           "borrowCapTokens": "14880000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 2,
           "cashTokens": "11031000",
           "collateralFactor": 0.8,
@@ -2795,20 +2466,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "0",
           "userBorrowBalanceTokens": "0",
@@ -2836,20 +2494,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowBalanceTokens": "0.267025220823379366",
           "borrowCapTokens": "56000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 5,
           "cashTokens": "0.000705300034659891",
           "collateralFactor": 0.45,
@@ -2865,20 +2510,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "supplyBalanceTokens": "0.26773052085803925699",
           "supplyCapTokens": "80000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "52505.2944",
           "userBorrowBalanceCents": "5250.52944",
           "userBorrowBalanceTokens": "0.1",
@@ -2970,7 +2602,21 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowBalanceTokens": "10300.914588649133175062",
           "borrowCapTokens": "200000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [],
+          "borrowTokenDistributions": [
+            {
+              "apyPercentage": "253.70824691591528",
+              "dailyDistributedTokens": "35.714285714285712",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "borrowerCount": 4,
           "cashTokens": "32569.640339677929523638",
           "collateralFactor": 0.65,
@@ -2986,7 +2632,21 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "supplyBalanceTokens": "42870.55476159846231009819",
           "supplyCapTokens": "500000",
           "supplyPointDistributions": [],
-          "supplyTokenDistributions": [],
+          "supplyTokenDistributions": [
+            {
+              "apyPercentage": "35.51944135207958",
+              "dailyDistributedTokens": "35.714285714285712",
+              "isActive": false,
+              "rewardDetails": undefined,
+              "token": {
+                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
+                "decimals": 18,
+                "symbol": "lisUSD",
+              },
+              "type": "venus",
+            },
+          ],
           "tokenPriceCents": "100",
           "userBorrowBalanceCents": "10",
           "userBorrowBalanceTokens": "0.1",
@@ -3014,20 +2674,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "borrowBalanceTokens": "1004.648231",
           "borrowCapTokens": "400000",
           "borrowPointDistributions": [],
-          "borrowTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "borrowTokenDistributions": [],
           "borrowerCount": 1,
           "cashTokens": "998174.53518",
           "collateralFactor": 0.8,
@@ -3058,20 +2705,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
               "title": "Fake points 2",
             },
           ],
-          "supplyTokenDistributions": [
-            {
-              "apyPercentage": "0",
-              "dailyDistributedTokens": "0",
-              "description": undefined,
-              "token": {
-                "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
-                "asset": "/src/libs/tokens/img/underlyingTokens/lisUSD.png",
-                "decimals": 18,
-                "symbol": "lisUSD",
-              },
-              "type": "venus",
-            },
-          ],
+          "supplyTokenDistributions": [],
           "tokenPriceCents": "99.996283",
           "userBorrowBalanceCents": "9999628300000",
           "userBorrowBalanceTokens": "100000000000",

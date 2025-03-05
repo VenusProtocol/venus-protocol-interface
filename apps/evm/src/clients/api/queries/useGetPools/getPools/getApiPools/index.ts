@@ -6,7 +6,7 @@ import { type ApiPointDistribution, pointDistributions } from './pointDistributi
 
 export type { ApiPointDistribution } from './pointDistributions';
 
-export interface ApiRewardDistributor {
+interface ApiReward {
   marketAddress: Address;
   rewardTokenAddress: Address;
   lastRewardingSupplyBlockOrTimestamp: string;
@@ -15,13 +15,27 @@ export interface ApiRewardDistributor {
   borrowSpeed: string;
   priceMantissa: string;
   rewardsDistributorContractAddress: Address;
-  rewardType: 'venus' | 'merkl';
   isActive: boolean;
-  rewardDetails?: {
-    description?: string;
-    claimUrl?: string;
+}
+
+interface ApiVenusReward extends ApiReward {
+  rewardType: 'venus';
+  rewardDetails: null;
+}
+
+interface ApiMerklReward extends ApiReward {
+  rewardType: 'merkl';
+  rewardDetails: {
+    appName: string;
+    claimUrl: string;
+    merklCampaignId: string;
+    description: string;
+    merklCampaignIdentifier: string;
+    tags: string[];
   };
 }
+
+export type ApiRewardDistributor = ApiVenusReward | ApiMerklReward;
 
 export interface ApiMarket {
   address: Address;

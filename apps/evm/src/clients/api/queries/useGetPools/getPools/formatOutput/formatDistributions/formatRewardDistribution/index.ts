@@ -1,27 +1,42 @@
 import type BigNumber from 'bignumber.js';
 
-import type { MerklDistribution, RewardDistributorDistribution, Token } from 'types';
+import type {
+  MerklDistribution,
+  RewardDistributorDistribution,
+  Token,
+  TokenDistribution,
+} from 'types';
 import { calculateYearlyPercentageRate } from 'utilities';
 
-export interface FormatDistributionInput {
-  rewardType: 'venus' | 'merkl';
+type FormatDistributionInput<TType extends 'venus' | 'merkl'> = {
+  rewardType: TType;
+  isActive: boolean;
+  marketAddress: string;
   rewardToken: Token;
   rewardTokenPriceDollars: BigNumber;
   dailyDistributedRewardTokens: BigNumber;
   balanceDollars: BigNumber;
-  description?: string;
-  claimUrl?: string;
-}
+  rewardDetails: TType extends 'merkl'
+    ? {
+        appName: string;
+        merklCampaignIdentifier: string;
+        description: string;
+        claimUrl: string;
+        tags: string[];
+      }
+    : null;
+};
 
-const formatRewardDistribution = ({
+const formatRewardDistribution = <TType extends 'venus' | 'merkl'>({
+  marketAddress,
+  isActive,
   rewardType,
   rewardToken,
   rewardTokenPriceDollars,
   dailyDistributedRewardTokens,
   balanceDollars,
-  description,
-  claimUrl,
-}: FormatDistributionInput) => {
+  rewardDetails,
+}: FormatDistributionInput<TType>): TokenDistribution => {
   // Convert distribution to dollars
   const dailyDistributedDollars =
     dailyDistributedRewardTokens.multipliedBy(rewardTokenPriceDollars);
@@ -39,14 +54,15 @@ const formatRewardDistribution = ({
     token: rewardToken,
     apyPercentage,
     dailyDistributedTokens: dailyDistributedRewardTokens,
-    description,
+    rewardDetails: rewardType === 'merkl' ? { ...rewardDetails, marketAddress } : undefined,
   };
 
-  if (rewardType === 'merkl') {
+  if (rewardType === 'merkl' && rewardDetails) {
     const distribution: MerklDistribution = {
       ...baseProps,
       type: 'merkl',
-      claimUrl: claimUrl!,
+      isActive,
+      rewardDetails: { ...rewardDetails, marketAddress },
     };
 
     return distribution;
@@ -54,6 +70,7 @@ const formatRewardDistribution = ({
 
   const distribution: RewardDistributorDistribution = {
     ...baseProps,
+    isActive,
     type: 'venus',
   };
 

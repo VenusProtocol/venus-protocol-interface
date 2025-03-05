@@ -20,6 +20,7 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
       {
         "apyPercentage": "4.17469243006608279",
         "dailyDistributedTokens": "9999999.5",
+        "isActive": true,
         "token": {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -56,6 +57,7 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
       {
         "apyPercentage": "0.11720675342484096",
         "dailyDistributedTokens": "9999999.5",
+        "isActive": true,
         "token": {
           "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",

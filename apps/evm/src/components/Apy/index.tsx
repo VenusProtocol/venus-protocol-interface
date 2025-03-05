@@ -35,7 +35,9 @@ export const Apy: React.FC<ApyProps> = ({ asset, type }) => {
   let primeDistribution: PrimeDistribution | undefined;
   let primeSimulationDistribution: PrimeSimulationDistribution | undefined;
   const tokenDistributions =
-    type === 'supply' ? asset.supplyTokenDistributions : asset.borrowTokenDistributions;
+    type === 'supply'
+      ? asset.supplyTokenDistributions.filter(d => d.isActive)
+      : asset.borrowTokenDistributions.filter(d => d.isActive);
 
   tokenDistributions.forEach(distribution => {
     if (distribution.type === 'prime') {
