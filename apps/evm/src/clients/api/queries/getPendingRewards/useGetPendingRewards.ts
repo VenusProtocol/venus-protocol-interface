@@ -106,7 +106,6 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Pa
           {},
         );
 
-        // and then classify them under the pool (if there are any)
         const merklRewards =
           Object.keys(merklRewardsPerAsset).length > 0
             ? {

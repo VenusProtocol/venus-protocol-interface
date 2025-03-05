@@ -1,6 +1,6 @@
 import type BigNumber from 'bignumber.js';
 
-import { VError } from 'libs/errors';
+import { VError, logError } from 'libs/errors';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -9,7 +9,11 @@ import removeDuplicates from 'utilities/removeDuplicates';
 import { getApiTokenPrice } from 'clients/api';
 import formatOutput from './formatOutput';
 import getMerklUserRewards from './getMerklRewards';
-import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
+import type {
+  GetPendingRewardsInput,
+  GetPendingRewardsOutput,
+  PendingExternalRewardSummary,
+} from './types';
 
 const getPendingRewards = async ({
   chainId,
@@ -84,14 +88,23 @@ const getPendingRewards = async ({
   ]);
 
   // only reach out for Merkl reward details if there campaigns
-  const merklPendingRewards =
-    Object.keys(merklCampaigns).length > 0
-      ? await getMerklUserRewards({
-          merklCampaigns,
-          chainId,
-          accountAddress,
-        })
-      : [];
+  const hasMerklCampaigns = Object.keys(merklCampaigns).length > 0;
+  let merklPendingRewards: PendingExternalRewardSummary[] = [];
+  if (hasMerklCampaigns) {
+    const [merklApiResponseSettled] = await Promise.allSettled([
+      getMerklUserRewards({
+        merklCampaigns,
+        chainId,
+        accountAddress,
+      }),
+    ]);
+
+    if (merklApiResponseSettled.status === 'rejected') {
+      logError(merklApiResponseSettled.reason);
+    } else {
+      merklPendingRewards = merklApiResponseSettled.value;
+    }
+  }
 
   const [vaiVaultPendingXvsResult, vaiVaultPausedResult, venusLensPendingRewardsResult] =
     await vaiVaultVenusLensPromises;
