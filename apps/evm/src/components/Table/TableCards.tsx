@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { Spinner } from 'components/Spinner';
+import { Spinner } from '@venusprotocol/ui';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 

@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'BebasNeue';
+  /* TODO: generate all font file formats */
+  src: url('./bebasNeue.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}

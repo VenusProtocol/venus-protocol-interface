@@ -2,7 +2,7 @@ import { forwardRef, useCallback, useMemo } from 'react';
 
 import { Dropdown } from '../Dropdown';
 
-import { Button } from 'components/Button';
+import { Button } from '@venusprotocol/ui';
 import { cn } from 'utilities';
 import { renderLabel } from '../Dropdown/renderLabel';
 import { Icon } from '../Icon';

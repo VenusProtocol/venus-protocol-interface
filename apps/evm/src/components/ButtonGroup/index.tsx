@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { TertiaryButton } from '../Button';
+import { TertiaryButton } from '@venusprotocol/ui';
 import { useStyles } from './styles';
 
 export interface ButtonGroupProps {

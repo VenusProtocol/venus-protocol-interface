@@ -1,14 +1,14 @@
 import type BigNumber from 'bignumber.js';
 
+import { Spinner } from '@venusprotocol/ui';
 import { LabeledInlineContent } from 'components/LabeledInlineContent';
-import { Spinner } from 'components/Spinner';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
 
+import { TextButton } from '@venusprotocol/ui';
 import { InfoIcon } from 'components/InfoIcon';
-import { TextButton } from '../Button';
 
 export interface SpendingLimitProps {
   token: Token;

@@ -1,6 +1,6 @@
 export const theme = {
   fontFamily: {
-    sans: ['ProximaNova', 'Arial', 'sans-serif'],
+    sans: ['var(--font-proxima-nova)', 'Arial', 'sans-serif'],
   },
   screens: {
     sm: '576px',

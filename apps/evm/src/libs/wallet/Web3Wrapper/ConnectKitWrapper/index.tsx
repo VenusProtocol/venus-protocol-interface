@@ -23,7 +23,7 @@ export const ConnectKitWrapper: React.FC<ConnectKitWrapperProps> = ({ children }
       }}
       mode="dark"
       customTheme={{
-        '--ck-font-family': '"Proxima Nova Rg", var(--font-fallback)',
+        '--ck-font-family': '"ProximaNova", var(--font-fallback)',
         '--ck-border-radius': '0.75rem',
         '--ck-overlay-background': 'rgba(0, 0, 0, 0.5)',
         '--ck-primary-button-border-radius': '0.5rem',

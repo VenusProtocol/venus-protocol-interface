@@ -1,5 +1,4 @@
-import { Dropdown, Icon } from 'components';
-import type { ButtonProps } from 'components/Button';
+import { type ButtonProps, Dropdown, Icon } from 'components';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'libs/translations';
 import { useAddTokenToWallet } from 'libs/wallet';

@@ -2,7 +2,7 @@ import { Slot } from '@radix-ui/react-slot';
 
 import { cn } from '../../utilities/cn';
 
-import { Spinner } from '../Spinner';
+import { Spinner } from '@venusprotocol/ui';
 
 export type ButtonVariant =
   | 'primary'
@@ -48,7 +48,7 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
     // primary
     default:
       return cn(
-        'border-blue bg-blue active:border-darkBlue active:bg-darkBlue disabled:border-lightGrey disabled:bg-lightGrey',
+        'border-blue bg-darkBlue active:border-darkBlue active:bg-darkBlue disabled:border-lightGrey disabled:bg-lightGrey hover:border-mediumBlue hover:bg-mediumBlue',
         active ? 'border-mediumBlue bg-mediumBlue' : 'hover:border-mediumBlue hover:bg-mediumBlue',
       );
   }

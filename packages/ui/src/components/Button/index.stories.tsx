@@ -14,7 +14,7 @@ import {
 } from '.';
 
 export default {
-  title: 'Components/Button',
+  title: 'Button',
   component: Button,
 } as Meta<typeof Button>;
 

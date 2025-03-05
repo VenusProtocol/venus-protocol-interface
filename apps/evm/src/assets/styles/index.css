@@ -1,4 +1,5 @@
-@import '@venusprotocol/ui/styles.css';
+@import '@venusprotocol/ui/fonts/proximaNova';
+@import '@venusprotocol/ui/theme';
 
 @tailwind base;
 @tailwind components;
@@ -16,7 +17,7 @@
 }
 
 body {
-  font-family: 'ProximaNova', sans-serif;
+  font-family: var(--font-proxima-nova), sans-serif;
   background-color: theme('colors.background');
   color: theme('colors.offWhite');
 }

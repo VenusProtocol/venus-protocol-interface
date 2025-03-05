@@ -3,8 +3,8 @@ import { Typography } from '@mui/material';
 
 import { handleError } from 'libs/errors';
 
+import { PrimaryButton } from '@venusprotocol/ui';
 import { InfoIcon } from 'components/InfoIcon';
-import { PrimaryButton } from '../Button';
 import { useStyles } from './styles';
 
 export interface ApprovalStepsProps {

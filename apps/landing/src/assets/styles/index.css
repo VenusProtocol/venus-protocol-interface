@@ -1,6 +1,14 @@
-@import "fonts.css";
 @import "variables.css";
 @import "media.css";
+
+@import '@venusprotocol/ui/theme';
+@import '@venusprotocol/ui/fonts/bebasNeue';
+@import '@venusprotocol/ui/fonts/inconsolata';
+@import '@venusprotocol/ui/fonts/proximaNova';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   box-sizing: border-box;
@@ -38,7 +46,7 @@ li {
 
 body {
   margin: 0;
-  font-family: var(--font-default);
+  font-family: var(--font-proxima-nova), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 

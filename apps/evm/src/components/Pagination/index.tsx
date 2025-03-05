@@ -2,7 +2,7 @@
 import Typography from '@mui/material/Typography';
 import type { ReactElement } from 'react';
 
-import { Button } from '../Button';
+import { Button } from '@venusprotocol/ui';
 import { Icon, type IconProps } from '../Icon';
 import { useStyles } from './styles';
 import { usePagination } from './usePagination';

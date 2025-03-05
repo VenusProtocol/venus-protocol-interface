@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 
 import { useFormatTo } from 'hooks/useFormatTo';
 
+import { Spinner } from '@venusprotocol/ui';
 import { Card } from '../Card';
-import { Spinner } from '../Spinner';
 import Head from './Head';
 import TableCards from './TableCards';
 import { useStyles } from './styles';

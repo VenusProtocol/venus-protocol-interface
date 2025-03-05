@@ -1,4 +1,5 @@
 :root {
+    /* TODO: update variables based on the ones in UI package */
     --fontSize: 1rem;
     --color-bg: #181D27;
     --color-bg-transparent: #12162000;
@@ -18,8 +19,7 @@
     --font-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-    --font-default: 'Proxima Nova Rg', var(--font-fallback);
-    --font-bold: 'Proxima Nova Lt', var(--font-fallback);
+    --font-default: var(--font-proxima-nova), var(--font-fallback);
     --font-intro: 'Inconsolata', var(--font-fallback);
 
     --global-max-width: 1280px;
