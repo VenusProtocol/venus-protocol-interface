@@ -1,9 +1,9 @@
-import { Checkbox, PrimaryButton } from 'components';
+import { PrimaryButton, cn } from '@venusprotocol/ui';
+import { Checkbox } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChain } from 'containers/SwitchChain';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'react-i18next';
-import { cn } from 'utilities';
 import TEST_IDS from '../../testIds';
 import { ExternalRewardGroup } from '../ExternalRewardGroup';
 import { InternalRewardGroup } from '../InternalRewardGroup';

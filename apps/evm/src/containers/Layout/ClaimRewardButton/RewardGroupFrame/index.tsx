@@ -1,4 +1,4 @@
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 
 export interface RewardGroupFrameProps {
   className?: string;

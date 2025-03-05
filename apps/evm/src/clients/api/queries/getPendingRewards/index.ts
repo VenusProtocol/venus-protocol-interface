@@ -16,7 +16,6 @@ import type {
 } from './types';
 
 const getPendingRewards = async ({
-  chainId,
   tokens,
   legacyPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
