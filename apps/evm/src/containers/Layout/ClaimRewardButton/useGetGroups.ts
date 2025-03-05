@@ -45,10 +45,10 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
 
           const name =
             pendingRewardGroup.type === 'vault'
-              ? t('layout.claimRewardModal.vaultGroup.name', {
+              ? t('claimReward.modal.vaultGroup.name', {
                   stakedTokenSymbol: pendingRewardGroup.stakedToken.symbol,
                 })
-              : t('layout.claimRewardModal.vestingVaultGroup.name', {
+              : t('claimReward.modal.vestingVaultGroup.name', {
                   stakedTokenSymbol: xvs?.symbol,
                 });
 
@@ -69,7 +69,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
             isChecked: !uncheckedGroupIds.includes(id) && !pendingRewardGroup.isDisabled,
             isDisabled: pendingRewardGroup.isDisabled,
             warningMessage: pendingRewardGroup.isDisabled
-              ? t('layout.claimRewardModal.vaultGroup.disabledContractWarningMessage')
+              ? t('claimReward.modal.vaultGroup.disabledContractWarningMessage')
               : undefined,
             pendingRewards: [
               {
@@ -91,11 +91,11 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
           const group: InternalRewardsGroup = {
             id,
             isChecked: !uncheckedGroupIds.includes(id) && !pendingRewardGroup.isDisabled,
-            name: t('layout.claimRewardModal.primeGroup.name'),
+            name: t('claimReward.modal.primeGroup.name'),
             isDisabled: pendingRewardGroup.isDisabled,
             pendingRewards: pendingRewardGroup.pendingRewards,
             warningMessage: pendingRewardGroup.isDisabled
-              ? t('layout.claimRewardModal.primeGroup.disabledContractWarningMessage')
+              ? t('claimReward.modal.primeGroup.disabledContractWarningMessage')
               : undefined,
             claims: [
               {

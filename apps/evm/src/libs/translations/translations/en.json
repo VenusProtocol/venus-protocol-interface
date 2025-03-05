@@ -245,10 +245,21 @@
         "disabledLabel": "Select groups to collect reward from",
         "enabledLabel": "Claim"
       },
+      "claimOn": "Claim on {{appName}}",
       "externalRewards": "External rewards",
+      "primeGroup": {
+        "disabledContractWarningMessage": "The Prime contract is currently paused. Interests from Prime are still accruing but can't be claimed until the contract is unpaused.",
+        "name": "Prime"
+      },
       "rewards": "Rewards",
       "title": "Claim reward ({{chainName}})",
-      "claimOn": "Claim on {{appName}}"
+      "vaultGroup": {
+        "disabledContractWarningMessage": "This vault is currently paused. Interest rates are still accruing but can't be claimed until the vault is unpaused.",
+        "name": "{{stakedTokenSymbol}} vault"
+      },
+      "vestingVaultGroup": {
+        "name": "{{stakedTokenSymbol}} vesting vault"
+      }
     },
     "openModalButton": {
       "label": "Claim {{rewardAmount}}"
@@ -374,19 +385,6 @@
   "layout": {
     "chainSelect": {
       "label": "Select chain"
-    },
-    "claimRewardModal": {
-      "primeGroup": {
-        "disabledContractWarningMessage": "The Prime contract is currently paused. Interests from Prime are still accruing but can't be claimed until the contract is unpaused.",
-        "name": "Prime"
-      },
-      "vaultGroup": {
-        "disabledContractWarningMessage": "This vault is currently paused. Interest rates are still accruing but can't be claimed until the vault is unpaused.",
-        "name": "{{stakedTokenSymbol}} vault"
-      },
-      "vestingVaultGroup": {
-        "name": "{{stakedTokenSymbol}} vesting vault"
-      }
     },
     "header": {
       "isolated": "Isolated",

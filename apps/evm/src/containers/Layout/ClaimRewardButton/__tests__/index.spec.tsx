@@ -87,7 +87,7 @@ describe('ClaimRewardButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
 
     await waitFor(() =>
-      expect(getByText(en.layout.claimRewardModal.vaultGroup.disabledContractWarningMessage)),
+      expect(getByText(en.claimReward.modal.vaultGroup.disabledContractWarningMessage)),
     );
   });
 
@@ -115,7 +115,7 @@ describe('ClaimRewardButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
 
     await waitFor(() =>
-      expect(getByText(en.layout.claimRewardModal.vaultGroup.disabledContractWarningMessage)),
+      expect(getByText(en.claimReward.modal.vaultGroup.disabledContractWarningMessage)),
     );
   });
 
@@ -143,7 +143,7 @@ describe('ClaimRewardButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
 
     await waitFor(() =>
-      expect(getByText(en.layout.claimRewardModal.primeGroup.disabledContractWarningMessage)),
+      expect(getByText(en.claimReward.modal.primeGroup.disabledContractWarningMessage)),
     );
   });
 
