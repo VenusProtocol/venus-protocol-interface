@@ -1,10 +1,10 @@
-import { logError } from 'libs/errors';
+import { VError } from 'libs/errors';
 import type { ChainId, MerklDistribution } from 'types';
 import { restService } from 'utilities';
 import type { PendingExternalRewardSummary } from '../types';
 import { formatMerklRewardsPayload } from './formatMerklRewardsResponse';
 
-const BASE_MERKL_API_URL = 'https://api.merkl.xyz/v4/';
+export const BASE_MERKL_API_URL = 'https://api.merkl.xyz/v4/';
 
 export interface MerklRewardBreakdown {
   reason: string;
@@ -57,8 +57,13 @@ const getMerklUserRewards = async ({
   const payload = response.data;
 
   if (payload && 'error' in payload) {
-    logError(payload.error);
-    return [];
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+      data: {
+        message: payload.error,
+      },
+    });
   }
 
   return payload ? formatMerklRewardsPayload(payload, merklCampaigns) : [];
