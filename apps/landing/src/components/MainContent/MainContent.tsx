@@ -1,4 +1,6 @@
 import cn from 'classnames';
+import { AppStateConsumer } from '../../context';
+import Banner from '../Banner';
 import Benefits from '../Benefits/Benefits';
 import Governance from '../Governance';
 import Header from '../Header/Header';
@@ -15,6 +17,8 @@ interface IMainContentProps {
 
 const MainContent: React.FC<IMainContentProps> = ({ className }) => (
   <section className={cn(s.root, className)}>
+    <AppStateConsumer>{({ isMobileMenuOpen }) => !isMobileMenuOpen && <Banner />}</AppStateConsumer>
+
     <Header />
     <Background />
     <VenusPrime />

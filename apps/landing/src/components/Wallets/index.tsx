@@ -77,7 +77,7 @@ const Wallets: React.FC = () => (
 
       <div className={s.logos}>
         {wallets.map(({ logoSrc, name }) => (
-          <div className={s.logoContainer}>
+          <div className={s.logoContainer} key={name}>
             <img src={logoSrc} className={s.logo} alt={name} />
           </div>
         ))}
