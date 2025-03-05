@@ -106,6 +106,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Pa
           {},
         );
 
+        // and then map them by market
         const merklRewards =
           Object.keys(merklRewardsPerAsset).length > 0
             ? {
