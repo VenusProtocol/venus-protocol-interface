@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.225.0
+
+### Minor Changes
+
+- 4a4dc88: add Unichain governance subgraph
+
 ## 2.224.1
 
 ### Patch Changes
