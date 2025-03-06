@@ -1,37 +1,66 @@
+import type { Result } from '@ethersproject/abi';
+import BigNumber from 'bignumber.js';
+import { ethers } from 'ethers';
+import type { ParamType } from 'ethers/lib/utils';
+
+import type { FormValues } from 'pages/Governance/ProposalList/CreateProposalModal/proposalSchema';
 import type { ProposalAction } from 'types';
-import { parseFunctionSignature } from 'utilities';
-import { decodeAbiParameters } from 'viem';
 
-type Parameter = string | number | boolean | bigint;
-
-const formatParams = (param: Parameter | Parameter[]): string => {
-  if (Array.isArray(param)) {
-    return param.map(formatParams).join(', ');
+const formatParamType = (paramType: ParamType): string => {
+  if (paramType.type !== 'tuple' && paramType.type !== 'tuple[]') {
+    return paramType.type;
   }
 
-  const readableParam = param.toString();
+  let res = `tuple(${paramType.components.map(formatParamType).join(', ')})`;
 
-  if (typeof param === 'number' || typeof param === 'boolean' || typeof param === 'bigint') {
-    return readableParam;
+  if (paramType.baseType === 'array') {
+    res += '[]';
   }
 
-  return `"${readableParam}"`;
+  return res;
 };
 
-const formatSignature = (action: ProposalAction) => {
+const formatArgToReadableFormat = (argument: Result): string => {
+  if (Array.isArray(argument)) {
+    return `[${argument.map(formatArgToReadableFormat).join(', ')}]`;
+  }
+
+  if (typeof argument === 'string') {
+    return `"${argument}"`;
+  }
+
+  if (argument._isBigNumber) {
+    return new BigNumber(argument._hex).toString();
+  }
+
+  return argument.toString();
+};
+
+const formatSignature = (action: FormValues['actions'][number] | ProposalAction) => {
   if (!action.signature) {
     return `.transferNativeToken(${action.value})`;
   }
-
   try {
-    const abiItem = parseFunctionSignature(action.signature);
+    const fragment = ethers.utils.FunctionFragment.from(action.signature);
+    let args: string[] = [];
 
-    if (!abiItem) {
-      return '';
+    if (Array.isArray(action.callData)) {
+      args = fragment.inputs
+        .map((i, idx) => {
+          const res = action.callData[idx];
+          return i.baseType === 'string' || i.baseType === 'address' ? `"${res}"` : res;
+        })
+        .filter((item): item is string => item !== undefined || item !== null);
+    } else {
+      const unformattedArgs = ethers.utils.defaultAbiCoder.decode(
+        fragment.inputs.map(formatParamType),
+        action.callData,
+      );
+
+      args = unformattedArgs.map(formatArgToReadableFormat);
     }
 
-    const params = decodeAbiParameters(abiItem.inputs, action.callData) as Parameter | Parameter[];
-    return `.${abiItem.name}(${formatParams(params)})`;
+    return `.${fragment.name}(${args.join(', ')})`;
   } catch (err) {
     console.error(err);
   }

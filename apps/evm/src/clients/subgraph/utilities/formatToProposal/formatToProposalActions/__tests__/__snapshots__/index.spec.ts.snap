@@ -4,17 +4,14 @@ exports[`formatToProposalActions > returns proposal actions in the correct forma
 [
   {
     "actionIndex": 0,
-    "callData": "0x3c23ddffD7e86919df33e11552b12DdDed236706",
+    "callData": "fake-call-data-1",
     "signature": "fakeSignature1()",
     "target": "0x2Ce1d0ffd7e869d9df33e28552b12DdDed326706",
     "value": "0",
   },
   {
     "actionIndex": 1,
-    "callData": Uint8Array [
-      1,
-      2,
-    ],
+    "callData": "fake-call-data-2",
     "signature": "fakeSignature2()",
     "target": "0x3Ce1d0ffd7e869d9df33e28552b12DdDed326706",
     "value": "1000000",

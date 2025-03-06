@@ -3,7 +3,6 @@ import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS } from 'constants/governance';
 import { CHAIN_IDS_ON_LAYER_ZERO } from 'constants/layerZero';
 import { ProposalState, type RemoteProposal, RemoteProposalState } from 'types';
 import { convertToDate } from 'utilities';
-import type { ByteArray } from 'viem';
 import { formatToProposalActions } from '../formatToProposalActions';
 import { getRemoteProposalState } from './getRemoteProposalState';
 
@@ -28,7 +27,7 @@ export const formatToRemoteProposal = ({
   proposalState: ProposalState;
   layerZeroChainId: number;
   proposalId: number;
-  callDatas: (`0x${string}` | ByteArray)[];
+  callDatas: string[];
   signatures: string[];
   targets: string[];
   values: string[];

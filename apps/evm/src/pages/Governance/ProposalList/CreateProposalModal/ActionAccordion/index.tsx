@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { ethers } from 'ethers';
 import { FieldArray, useField } from 'formik';
 import { useState } from 'react';
 
@@ -6,7 +7,6 @@ import { Icon, SecondaryButton } from 'components';
 import { useTranslation } from 'libs/translations';
 
 import { FormikTextField } from 'containers/Form';
-import { parseFunctionSignature } from 'utilities';
 import { ErrorCode, initialActionData } from '../proposalSchema';
 import { Accordion } from './Accordion';
 import CallDataFields from './CallDataFields';
@@ -21,22 +21,21 @@ const ActionAccordion: React.FC = () => {
     useField<{ target: string; signature: string; callData: string[] }[]>('actions');
 
   const handleBlurSignature: React.FocusEventHandler<HTMLInputElement> = () => {
-    if (expandedIdx === undefined) {
-      return;
-    }
+    const actionsCopy = [...actions];
 
-    const action = actions[expandedIdx];
-    const signature = parseFunctionSignature(action.signature);
-    const inputsCount = signature?.inputs.length ?? 0;
+    if (expandedIdx !== undefined) {
+      const actionCopy = actionsCopy[expandedIdx];
+      const { signature, callData } = actionCopy;
 
-    // Remove extra inputs
-    if (inputsCount < action.callData.length) {
-      const updatedActions = actions.map((action, index) => ({
-        ...action,
-        callData: index === expandedIdx ? action.callData.slice(0, inputsCount) : action.callData,
-      }));
-
-      setValue(updatedActions);
+      // When we blur the signature, clean up extra fields
+      if (callData) {
+        try {
+          const fragment = ethers.utils.FunctionFragment.from(signature || '');
+          const numberOfInputs = fragment.inputs.length;
+          actionsCopy[expandedIdx].callData = callData.slice(0, numberOfInputs);
+          setValue(actionsCopy);
+        } catch {}
+      }
     }
   };
 

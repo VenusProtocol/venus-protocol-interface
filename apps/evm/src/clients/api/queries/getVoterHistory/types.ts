@@ -1,9 +1,9 @@
 import type { ProposalState, ProposalType, VoteSupport } from 'types';
-import type { Address, ByteArray } from 'viem';
+import type { Address } from 'viem';
 
 export interface ProposalActionApiResponse {
   actionIndex: number;
-  calldata: `0x${string}` | ByteArray;
+  calldata: string;
   signature: string;
   target: Address;
   value: string | null;

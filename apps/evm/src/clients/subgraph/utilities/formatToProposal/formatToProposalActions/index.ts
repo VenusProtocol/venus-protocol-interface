@@ -1,5 +1,4 @@
 import type { ProposalAction } from 'types';
-import type { ByteArray } from 'viem';
 
 export const formatToProposalActions = ({
   callDatas,
@@ -7,7 +6,7 @@ export const formatToProposalActions = ({
   targets,
   values,
 }: {
-  callDatas: (`0x${string}` | ByteArray)[];
+  callDatas: string[];
   signatures: string[];
   targets: string[];
   values: (string | null)[];

@@ -1,7 +1,7 @@
+import { utils as etherUtils } from 'ethers';
 import * as yup from 'yup';
 
-import { parseFunctionSignature } from 'utilities';
-import { encodeAbiParameters, isAddress } from 'viem';
+import { encodeParameters, parseFunctionSignature } from 'utilities';
 
 import formatIfArray from './formatIfArray';
 
@@ -21,7 +21,7 @@ const proposalSchema = yup.object({
           .string()
           .required()
           .test('isAddress', ErrorCode.ACTION_ADDRESS_NOT_VALID, value =>
-            isAddress(value as string),
+            etherUtils.isAddress(value as string),
           ),
         signature: yup
           .string()
@@ -55,8 +55,7 @@ const proposalSchema = yup.object({
                     const dataTypes =
                       // @ts-expect-error The yup type doesn't show this value exists but it does
                       parseFunctionSignature(this.options.from[0].value.signature)?.inputs || [];
-
-                    encodeAbiParameters(
+                    encodeParameters(
                       // @ts-expect-error The yup type doesn't show this value exists but it does
                       [dataTypes[this.options.index]],
                       [formatIfArray(value || '')],
