@@ -49,9 +49,10 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 
   const isVoteProposalFeatureEnabled = useIsFeatureEnabled({ name: 'voteProposal' });
 
+  const shouldShowWarning =
+    canUserVoteOnProposal && (!isVoteProposalFeatureEnabled || !isUserConnectedToGovernanceChain);
   const shouldEnableVoteButtons =
-    isVoteProposalFeatureEnabled && canUserVoteOnProposal && isUserConnectedToGovernanceChain;
-  const shouldShowWarning = !isVoteProposalFeatureEnabled || !isUserConnectedToGovernanceChain;
+    canUserVoteOnProposal && isVoteProposalFeatureEnabled && isUserConnectedToGovernanceChain;
 
   if (!proposal) {
     return (

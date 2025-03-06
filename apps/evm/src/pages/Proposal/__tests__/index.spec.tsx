@@ -66,12 +66,12 @@ const fakeNow = new Date(
   activeProposal.endDate!.setMinutes(activeProposal.endDate!.getMinutes() - 5),
 );
 
-const checkVoteButtonsAreHidden = async (
+const checkVoteButtonsAreHidden = (
   queryByText: (id: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement | null,
 ) => {
-  await waitFor(() => expect(queryByText(en.vote.for, { selector: 'button' })).toBeNull());
-  waitFor(() => expect(queryByText(en.vote.against, { selector: 'button' })).toBeNull());
-  waitFor(() => expect(queryByText(en.vote.abstain, { selector: 'button' })).toBeNull());
+  expect(queryByText(en.vote.for, { selector: 'button' })).not.toBeInTheDocument();
+  expect(queryByText(en.vote.against, { selector: 'button' })).not.toBeInTheDocument();
+  expect(queryByText(en.vote.abstain, { selector: 'button' })).not.toBeInTheDocument();
 };
 
 // TODO: rename to "Proposal"
@@ -130,7 +130,7 @@ describe('ProposalComp page', () => {
   it('vote buttons are hidden when wallet is not connected', async () => {
     renderComponent(<ProposalComp />);
 
-    await checkVoteButtonsAreHidden(screen.queryByText);
+    checkVoteButtonsAreHidden(screen.queryByText);
   });
 
   it('vote buttons are hidden when proposal is not active', async () => {
@@ -144,10 +144,10 @@ describe('ProposalComp page', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    await checkVoteButtonsAreHidden(screen.queryByText);
+    checkVoteButtonsAreHidden(screen.queryByText);
   });
 
-  it('vote buttons are hidden when vote is cast', async () => {
+  it('vote buttons are hidden when user has already voted', async () => {
     (useGetVoteReceipt as Mock).mockImplementation(() => ({
       data: {
         voteSupport: VoteSupport.For,
@@ -158,7 +158,7 @@ describe('ProposalComp page', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    await checkVoteButtonsAreHidden(queryByText);
+    checkVoteButtonsAreHidden(queryByText);
   });
 
   it('vote buttons are hidden when voting weight is 0', async () => {
@@ -170,7 +170,7 @@ describe('ProposalComp page', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    await checkVoteButtonsAreHidden(queryByText);
+    checkVoteButtonsAreHidden(queryByText);
   });
 
   it('vote buttons are hidden when vote feature is disabled', async () => {
@@ -179,7 +179,16 @@ describe('ProposalComp page', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    await checkVoteButtonsAreHidden(queryByText);
+    checkVoteButtonsAreHidden(queryByText);
+  });
+
+  it('vote buttons are hidden when user is connected to another chain than the governance one', async () => {
+    const { queryByText } = renderComponent(<ProposalComp />, {
+      accountAddress: fakeAccountAddress,
+      accountChainId: ChainId.ARBITRUM_SEPOLIA,
+    });
+
+    checkVoteButtonsAreHidden(queryByText);
   });
 
   it('vote buttons are displayed and enabled when requirements are met', async () => {
