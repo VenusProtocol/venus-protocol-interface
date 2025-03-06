@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.224.1
+
+### Patch Changes
+
+- 01c8c1f: only allow showing warning on Proposal page when user can vote
+
 ## 2.224.0
 
 ### Minor Changes
