@@ -49,7 +49,7 @@ export const ClaimRewardsContent = ({
     >
       {hasInternalRewards && (
         <RewardGroupFrame
-          className={cn(hasExternalRewards && 'border-b pb-4 mb-4 md:mb-0')}
+          className={cn(hasExternalRewards && 'border-b pb-6 mb-4 md:mb-0')}
           title={t('claimReward.modal.rewards')}
           claimComponent={
             <Checkbox
@@ -59,7 +59,7 @@ export const ClaimRewardsContent = ({
             />
           }
         >
-          <div data-testid={TEST_IDS.claimRewardBreakdown}>
+          <div data-testid={TEST_IDS.claimRewardBreakdown} className="space-y-4">
             {internalRewardsGroups.map(group => (
               <InternalRewardGroup
                 group={group}
@@ -90,7 +90,7 @@ export const ClaimRewardsContent = ({
       )}
       {hasExternalRewards && (
         <RewardGroupFrame title={t('claimReward.modal.externalRewards')}>
-          <div data-testid={TEST_IDS.claimExternalRewardBreakdown}>
+          <div data-testid={TEST_IDS.claimExternalRewardBreakdown} className="space-y-4">
             {externalRewardsGroups.map(group => (
               <ExternalRewardGroup
                 group={group}

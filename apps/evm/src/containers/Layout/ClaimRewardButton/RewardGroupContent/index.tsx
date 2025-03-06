@@ -31,8 +31,8 @@ export const RewardGroupContent: React.FC<RewardGroupContentProps> = ({
     return Array.from(pendingRewardMapping.values());
   }, [group.pendingRewards]);
   return (
-    <div className="border-lightGrey mb-4 last:mb-0">
-      <div className="my-4">
+    <div>
+      <div className="mb-4">
         <div className="flex items-center justify-between">
           <p className="text-lg">{group.name}</p>
 
@@ -42,28 +42,30 @@ export const RewardGroupContent: React.FC<RewardGroupContentProps> = ({
         {group.warningMessage}
       </div>
 
-      {pendingRewards.map(pendingReward => (
-        <div
-          className="border-lightGrey mb-4 flex items-center border-b last:border-b-0 justify-between last:mb-0"
-          key={`reward-group-${group.name}-${pendingReward.rewardToken.address}`}
-        >
-          <div className="flex">
-            <TokenIconWithSymbol token={pendingReward.rewardToken} />
-          </div>
+      <div className="space-y-3">
+        {pendingRewards.map(pendingReward => (
+          <div
+            className="flex items-start justify-between"
+            key={`reward-group-${group.name}-${pendingReward.rewardToken.address}`}
+          >
+            <div className="flex">
+              <TokenIconWithSymbol token={pendingReward.rewardToken} />
+            </div>
 
-          <LayeredValues
-            className="text-end"
-            topValue={formatCentsToReadableValue({
-              value: pendingReward.rewardAmountCents,
-            })}
-            bottomValue={convertMantissaToTokens({
-              value: pendingReward.rewardAmountMantissa,
-              token: pendingReward.rewardToken,
-              returnInReadableFormat: true,
-            })}
-          />
-        </div>
-      ))}
+            <LayeredValues
+              className="text-end"
+              topValue={formatCentsToReadableValue({
+                value: pendingReward.rewardAmountCents,
+              })}
+              bottomValue={convertMantissaToTokens({
+                value: pendingReward.rewardAmountMantissa,
+                token: pendingReward.rewardToken,
+                returnInReadableFormat: true,
+              })}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
