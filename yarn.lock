@@ -5627,14 +5627,14 @@
   dependencies:
     "@storybook/global" "^5.0.0"
 
-"@storybook/addon-interactions@8.4.2":
-  version "8.4.2"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-interactions/-/addon-interactions-8.4.2.tgz#1808b6961ec5422347bcc2fe10ba15dfc921e620"
-  integrity sha512-+/NTENTApeOcONgFNQ6Olbk0GH3pTDG3w0eh00slCB+2agD1BcVKg8SSlHQV0lQF1cK3vWL/X3jeaxdFLYOjjg==
+"@storybook/addon-interactions@8.6.4":
+  version "8.6.4"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-interactions/-/addon-interactions-8.6.4.tgz#df84163fa1b9061ea983963db28949189a783399"
+  integrity sha512-MZAAZjyvmJXCvM35zEiPpXz7vK+fimovt+WZKAMayAbXy5fT+7El0c9dDyTQ2norNKNj9QU/8hiU/1zARSUELQ==
   dependencies:
     "@storybook/global" "^5.0.0"
-    "@storybook/instrumenter" "8.4.2"
-    "@storybook/test" "8.4.2"
+    "@storybook/instrumenter" "8.6.4"
+    "@storybook/test" "8.6.4"
     polished "^4.2.2"
     ts-dedent "^2.2.0"
 
@@ -5767,6 +5767,14 @@
     "@storybook/global" "^5.0.0"
     "@vitest/utils" "^2.1.1"
 
+"@storybook/instrumenter@8.6.4":
+  version "8.6.4"
+  resolved "https://registry.yarnpkg.com/@storybook/instrumenter/-/instrumenter-8.6.4.tgz#1e72cd26b2cc4b672913f79cbc4d43150a0995f9"
+  integrity sha512-8OtIWLhayTUdqJEeXiPm6l3LTdSkWgQzzV2l2HIe4Adedeot+Rkwu6XHmyRDpnb0+Ish6zmMDqtJBxC2PQsy6Q==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+    "@vitest/utils" "^2.1.1"
+
 "@storybook/manager-api@8.4.2":
   version "8.4.2"
   resolved "https://registry.yarnpkg.com/@storybook/manager-api/-/manager-api-8.4.2.tgz#6bf972accfa6339034b50a7338654ad433aac6d1"
@@ -5849,6 +5857,19 @@
     "@storybook/csf" "^0.1.11"
     "@storybook/global" "^5.0.0"
     "@storybook/instrumenter" "8.4.2"
+    "@testing-library/dom" "10.4.0"
+    "@testing-library/jest-dom" "6.5.0"
+    "@testing-library/user-event" "14.5.2"
+    "@vitest/expect" "2.0.5"
+    "@vitest/spy" "2.0.5"
+
+"@storybook/test@8.6.4":
+  version "8.6.4"
+  resolved "https://registry.yarnpkg.com/@storybook/test/-/test-8.6.4.tgz#d082d5a810d87205261ca21091267f819a4cb7d5"
+  integrity sha512-JPjfbaMMuCBT47pg3/MDD9vYFF5OGPAOWEB9nJWJ9IjYAb2Nd8OYJQIDoYJQNT+aLkTVLtvzGnVNwdxpouAJcQ==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+    "@storybook/instrumenter" "8.6.4"
     "@testing-library/dom" "10.4.0"
     "@testing-library/jest-dom" "6.5.0"
     "@testing-library/user-event" "14.5.2"
