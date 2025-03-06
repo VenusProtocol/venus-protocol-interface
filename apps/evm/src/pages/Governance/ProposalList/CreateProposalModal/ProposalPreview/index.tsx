@@ -5,9 +5,10 @@ import { useFormikContext } from 'formik';
 import { MarkdownViewer } from 'components';
 import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 import { useTranslation } from 'libs/translations';
-import { type ProposalAction, ProposalType } from 'types';
+import { ProposalType } from 'types';
 
 import { governanceChain } from 'libs/wallet';
+import encodeCallData from '../encodeCallData';
 import type { FormValues } from '../proposalSchema';
 import { useStyles } from './styles';
 
@@ -101,7 +102,7 @@ const ProposalPreview: React.FC = () => {
             key={`proposal-preview-readable-action-signature-${action.signature}-${action.target}-${action.callData}`}
             action={{
               ...action,
-              callData: action.callData as unknown as ProposalAction['callData'],
+              callData: encodeCallData(action.signature, action.callData),
               actionIndex,
             }}
             chainId={governanceChain.id}
