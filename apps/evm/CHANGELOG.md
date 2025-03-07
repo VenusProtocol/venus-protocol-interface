@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.226.0
+
+### Minor Changes
+
+- 7399880: add Ethena points to sUSDe
+
 ## 2.225.1
 
 ### Patch Changes
