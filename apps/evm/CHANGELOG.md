@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.225.1
+
+### Patch Changes
+
+- 63481ca: fix issue with actions not getting correctly formatted in proposal preview
+
 ## 2.225.0
 
 ### Minor Changes
