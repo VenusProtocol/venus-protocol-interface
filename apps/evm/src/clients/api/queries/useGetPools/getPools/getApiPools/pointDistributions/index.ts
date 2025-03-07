@@ -1,5 +1,6 @@
 import { ChainId } from 'types';
 
+import ethenaPointsLogo from './ethenaPoints.svg';
 import etherfiPointsLogo from './etherfiPoints.svg';
 import kelpMilesLogo from './kelpMiles.svg';
 import solvPointsLogo from './solvPoints.svg';
@@ -96,6 +97,15 @@ export const pointDistributions: {
         incentive: '2x points',
         logoUrl: kelpMilesLogo,
         extraInfoUrl: 'https://kelpdao.xyz/defi',
+        action: 'supply',
+      },
+    ],
+    '0x0792b9c60C728C1D2Fd6665b3D7A08762a9b28e0': [
+      {
+        title: 'Ethena Points',
+        incentive: '5x points',
+        logoUrl: ethenaPointsLogo,
+        extraInfoUrl: 'https://app.ethena.fi/liquidity',
         action: 'supply',
       },
     ],
