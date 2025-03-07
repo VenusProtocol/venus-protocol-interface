@@ -1,6 +1,7 @@
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 
 import balLogo from 'libs/tokens/img/underlyingTokens/bal.svg';
+import carrotLogo from 'libs/tokens/img/underlyingTokens/carrot.png';
 import crvLogo from 'libs/tokens/img/underlyingTokens/crv.png';
 import crvUsdLogo from 'libs/tokens/img/underlyingTokens/crvUsd.png';
 import daiLogo from 'libs/tokens/img/underlyingTokens/dai.svg';
@@ -237,5 +238,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'yvWETH-1',
     asset: yvWEthLogo,
+  },
+  {
+    address: '0x8A5A5DE9db5770123Ff2145F59e9F20047f0A8EC',
+    decimals: 18,
+    symbol: 'mtwCARROT',
+    asset: carrotLogo,
   },
 ];
