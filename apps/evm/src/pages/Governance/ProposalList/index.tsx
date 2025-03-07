@@ -72,7 +72,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
 
       if (!Number.isNaN(state)) {
         otherOptions.push({
-          label: getProposalStateLabel({ state: state as unknown as ProposalState }),
+          label: getProposalStateLabel({ state }),
           value: state,
         });
       }
