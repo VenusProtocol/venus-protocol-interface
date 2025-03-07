@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.227.0
+
+### Minor Changes
+
+- 6f167ec: add mtwCARROT to Ethereum
+
 ## 2.226.0
 
 ### Minor Changes
