@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 
+import { cn } from '@venusprotocol/ui';
 import { Username } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { Subdirectory, routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import { cn } from 'utilities';
 import type { Address } from 'viem';
 import PoolName from './PoolName';
 import VTokenSymbol from './VTokenSymbol';

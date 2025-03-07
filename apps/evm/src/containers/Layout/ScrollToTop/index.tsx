@@ -1,6 +1,6 @@
+import { cn } from '@venusprotocol/ui';
 import { Button, Icon } from 'components';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
-import { cn } from 'utilities';
 
 import { store } from 'containers/Layout/store';
 

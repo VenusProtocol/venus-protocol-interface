@@ -11,16 +11,16 @@
 
 .socialLink {
     display: inline-flex;
-    background-color: var(--color-icon-bg);
+    background-color: var(--color-icon-background);
     border-radius: 4px;
     transition: background-color .3s;
 
     &:hover {
-        background-color: var(--color-primary);
+        background-color: rgb(var(--color-blue));
     }
 
     &:active {
-        background-color: var(--color-primary-hover);
+        background-color: rgb(var(--color-mediumBlue));
     }
 
     &+& {

@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import Container from '../Container/Container';
 import s from './Benefits.module.css';
 import Octahedron from './assets/1.svg?react';

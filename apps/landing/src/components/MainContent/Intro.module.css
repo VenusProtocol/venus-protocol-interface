@@ -67,7 +67,7 @@
 }
 
 .description {
-    color: var(--color-text);
+    color: rgb(var(--color-offWhite));
     font-size: 1rem;
     line-height: 150%;
     margin-bottom: 40px;
@@ -88,33 +88,6 @@
     @media (min-width: 640px) {
         margin-bottom: 0;
     }
-}
-
-.linksWrapper {
-    display: flex;
-}
-
-.link {
-    letter-spacing: 0.1em;
-    &:hover {
-        color: white;
-
-        .iconArrow {
-            transform: translateX(3px);
-            color: var(--color-primary);
-        }
-    }
-    & + & {
-        margin-left: 24px;
-        padding-left: 24px;
-        border-left: 1px solid var(--color-bg-secondary-transparent);
-    }
-}
-
-.iconArrow {
-    margin-left: 11px;
-    transform: translateX(0);
-    transition: transform .3s;
 }
 
 .cta {

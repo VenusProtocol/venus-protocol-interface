@@ -3,6 +3,7 @@ import { useCallback, useMemo, useRef } from 'react';
 import { Controller } from 'react-hook-form';
 import type { Chain } from 'viem';
 
+import { cn } from '@venusprotocol/ui';
 import { useBridgeXvs, useGetBalanceOf, useGetXvsBridgeFeeEstimation } from 'clients/api';
 import {
   ApproveTokenSteps,
@@ -32,7 +33,7 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
-import { cn, convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
+import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
 import { ChainSelect, getOptionsFromChainsList } from './ChainSelect';
 import { bridgeChains } from './constants';
 import { ReactComponent as LayerZeroLogo } from './layerZeroLogo.svg';

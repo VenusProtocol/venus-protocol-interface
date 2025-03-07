@@ -1,5 +1,5 @@
+import { cn } from '@venusprotocol/ui';
 import { AnimatePresence, type HTMLMotionProps, motion } from 'motion/react';
-import { cn } from 'utilities';
 
 export interface AccordionAnimatedContentProps extends HTMLMotionProps<'div'> {
   isOpen: boolean;

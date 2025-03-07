@@ -1,5 +1,5 @@
+import { cn } from '@venusprotocol/ui';
 import type { Token } from 'types';
-import { cn } from 'utilities';
 
 import { InfoIcon } from 'components/InfoIcon';
 import { Icon, type IconName } from '../Icon';

@@ -1,0 +1,3 @@
+{
+  "extends": "@venusprotocol/typescript-config/base.json"
+}

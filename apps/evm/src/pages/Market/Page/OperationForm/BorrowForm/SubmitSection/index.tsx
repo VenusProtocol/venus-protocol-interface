@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { PrimaryButton } from 'components';
 import { SwitchChain } from 'containers/SwitchChain';
 import { useTranslation } from 'libs/translations';
-import { cn } from 'utilities';
 import { ApproveDelegateSteps, type ApproveDelegateStepsProps } from '../../ApproveDelegateSteps';
 
 export interface SubmitSectionProps {

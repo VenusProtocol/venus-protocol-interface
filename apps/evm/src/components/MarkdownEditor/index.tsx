@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
-import { cn } from 'utilities';
 
 import { MarkdownViewer } from '../MarkdownViewer';
 import { Tabs } from '../Tabs';

@@ -82,7 +82,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-background-secondary);
     text-decoration: none;
     overflow: hidden;
 }
@@ -96,7 +96,7 @@
         width: 100%;
         border: 0;
         height: 1px;
-        background-color: var(--color-icon-bg);
+        background-color: var(--color-icon-background);
         margin: 16px 0;
     }
 
@@ -109,30 +109,6 @@
             opacity: 1;
         }
     }
-}
-
-.otherAuditors {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    cursor: pointer;
-    border-radius: 16px;
-    border-style: dashed;
-    border-width: 1px;
-    border-color: var(--color-card-border);
-
-    @media (min-width: 640px) {
-        grid-column: span 2;
-    }
-
-    @media (min-width: 840px) {
-        grid-column: span 1;
-    }
-}
-
-.otherAuditsLink {
-    text-align: center;
 }
 
 .auditorLogoContainer {
@@ -217,7 +193,7 @@
     text-align: center;
 
     span {
-        color: var(--color-text-secondary);
+        color: rgb(var(--color-grey));
         text-align: center;
         font-size: 0.625rem;
         font-style: normal;
@@ -253,29 +229,12 @@
     
     a {
         text-decoration: none;
-        color: var(--color-primary);
-    }
-}
-
-.linkWrapper {
-    text-align: center;
-
-    a {
-        text-decoration: none;
-        color: var(--color-primary);
-    }
-    
-    @media (min-width: 640px) {
-        text-align: unset;
-    }
-
-    @media (min-width: 1280px) {
-        text-align: center;
+        color: rgb(var(--color-blue));
     }
 }
 
 .auditCompleted {
-    color: var(--color-text-secondary);
+    color: rgb(var(--color-grey));
     text-decoration: none;
     display: flex;
     align-items: flex-end;

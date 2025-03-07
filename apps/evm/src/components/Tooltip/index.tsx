@@ -5,10 +5,10 @@ import {
   type TooltipProps as TooltipPrimitiveProps,
   Trigger,
 } from '@radix-ui/react-tooltip';
+import { cn } from '@venusprotocol/ui';
 import { Modal } from 'components/Modal';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useState } from 'react';
-import { cn } from 'utilities';
 import { TooltipContent } from './TooltipContent';
 
 export interface TooltipProps extends TooltipPrimitiveProps {

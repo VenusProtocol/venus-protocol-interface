@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import s from './SocialLinks.module.css';
 import IconDiscord from './assets/discord.svg?react';
 import IconGithub from './assets/github.svg?react';

@@ -1,8 +1,8 @@
+import { theme } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { ProgressCircle, Tooltip } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
-import { theme } from 'theme';
 import type { Token } from 'types';
 
 import {

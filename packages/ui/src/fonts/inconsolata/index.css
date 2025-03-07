@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'Inconsolata';
+  src: url('./inconsolataSemiBold.eot');
+  src: url('./inconsolataSemiBold.eot?#iefix') format('embedded-opentype'),
+  url('./inconsolataSemiBold.woff2') format('woff2'),
+  url('./inconsolataSemiBold.woff') format('woff'),
+  url('./inconsolataSemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@layer base {
+  :root {
+    --font-inconsolata-nova: 'Inconsolata', sans-serif;
+  }
+}

@@ -1,5 +1,5 @@
+import { cn } from '@venusprotocol/ui';
 import { forwardRef } from 'react';
-import { cn } from 'utilities';
 
 export const CarouselItem = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (

@@ -1,9 +1,9 @@
 import { chainMetadata } from '@venusprotocol/chains';
 import { useState } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { Icon } from 'components';
 import type { ChainId, ProposalAction } from 'types';
-import { cn } from 'utilities';
 import TEST_IDS from '../../testIds';
 import { ActionsAccordion } from './ActionsAccordion';
 

@@ -1,7 +1,7 @@
 .root {
     margin-top: auto;
     width: 100%;
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-background-secondary);
 }
 
 .container {
@@ -17,7 +17,7 @@
         width: 100%;
         border: 0;
         height: 1px;
-        background-color: var(--color-card-border);
+        background-color: rgb(var(--color-lightGrey));
         margin: 0;
     }
 
@@ -132,7 +132,7 @@
         margin-right: 0;
     }
     @media (min-width: 640px) {
-        display: block;
+        display: inline-flex;
     }
     @media (min-width: 840px) {
         margin-left: 24px;
@@ -156,7 +156,7 @@
 }
 
 .btnMobile {
-    display: block;
+    display: inline-flex;
 
     @media (min-width: 416px) {
         margin-right: 0;
@@ -176,7 +176,7 @@
 
     @media (min-width: 640px) {
         display: flex;
-        border-top: 1px solid var(--color-bg-secondary);
+        border-top: 1px solid var(--color-background-secondary);
     }
 
     @media (min-width: 840px) {
@@ -188,7 +188,7 @@
     font-size: 12px;
     line-height: 150%;
     letter-spacing: 0.06em;
-    color: var(--color-text-secondary);
+    color: rgb(var(--color-grey));
 
 }
 

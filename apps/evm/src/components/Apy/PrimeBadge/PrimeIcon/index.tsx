@@ -1,5 +1,5 @@
+import { cn } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
-import { cn } from 'utilities';
 import primeLogoSrc from './primeLogo.svg';
 
 export type PrimeIconProps = Omit<React.HTMLAttributes<HTMLImageElement>, 'alt' | 'src'>;

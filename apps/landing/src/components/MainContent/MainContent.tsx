@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import Benefits from '../Benefits/Benefits';
 import Governance from '../Governance';
 import Header from '../Header/Header';

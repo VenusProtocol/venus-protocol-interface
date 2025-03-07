@@ -1,8 +1,8 @@
+import { cn } from '@venusprotocol/ui';
 import { useGetPrimeToken } from 'clients/api';
 import { Button, type ButtonProps, Modal, SecondaryButton, Username } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
-import { cn } from 'utilities';
 
 import { useState } from 'react';
 import { useDisconnect } from 'wagmi';

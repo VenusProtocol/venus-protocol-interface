@@ -1,3 +1,4 @@
+import { cn } from '@venusprotocol/ui';
 import { useGetAsset } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -5,7 +6,6 @@ import { useImageAccentColor } from 'hooks/useImageAccentColor';
 import { useIsOnUnichain } from 'hooks/useIsOnUnichain';
 import { useTranslation } from 'libs/translations';
 import { useParams } from 'react-router';
-import { cn } from 'utilities';
 import type { Address } from 'viem';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';

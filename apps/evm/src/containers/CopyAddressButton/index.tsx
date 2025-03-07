@@ -1,7 +1,7 @@
+import { cn } from '@venusprotocol/ui';
 import { Icon, Tooltip } from 'components';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'libs/translations';
-import { cn } from 'utilities';
 
 export interface CopyAddressButtonProps
   extends Omit<React.HTMLAttributes<HTMLButtonElement>, 'onClick'> {

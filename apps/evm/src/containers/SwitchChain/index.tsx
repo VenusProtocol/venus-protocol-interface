@@ -1,6 +1,6 @@
 import { chainMetadata } from '@venusprotocol/chains';
 
-import { Button } from 'components/Button';
+import { Button } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';

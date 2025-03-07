@@ -1,5 +1,6 @@
+import { cn } from '@venusprotocol/ui';
 import type { ChainId, Token, VToken } from 'types';
-import { cn, generateExplorerUrl } from 'utilities';
+import { generateExplorerUrl } from 'utilities';
 
 type ConditionalTokenDropdownOptionProps =
   | {

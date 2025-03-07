@@ -1,7 +1,7 @@
+import { cn } from '@venusprotocol/ui';
 import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
 import { forwardRef, useEffect, useState } from 'react';
-import { cn } from 'utilities';
 
 export type CarouselApi = UseEmblaCarouselType[1];
 export type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;

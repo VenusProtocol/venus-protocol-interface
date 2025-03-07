@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import Container from '../Container/Container';
 import Auditor from './Auditor';
 import OtherAuditors from './OtherAuditors';

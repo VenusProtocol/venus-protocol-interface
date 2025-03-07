@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import {
   InfoIcon,
   LayeredValues,
@@ -17,7 +18,6 @@ import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
 import {
   areAddressesEqual,
-  cn,
   compareBigNumbers,
   compareBooleans,
   compareStrings,

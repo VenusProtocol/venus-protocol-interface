@@ -1,5 +1,4 @@
-import { Button } from 'components/Button';
-import { NoticeInfo } from 'components/Notice';
+import { Button, NoticeInfo } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
 

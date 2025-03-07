@@ -1,10 +1,10 @@
 import { NavLink as RRNavLink, type NavLinkProps as RRNavLinkProps } from 'react-router-dom';
 
+import { cn } from '@venusprotocol/ui';
 import { Icon } from 'components';
 import type { MenuItem } from 'containers/Layout/types';
 import { useFormatTo } from 'hooks/useFormatTo';
 import { useTranslation } from 'libs/translations';
-import { cn } from 'utilities';
 
 export type NavLinkProps = MenuItem & Partial<RRNavLinkProps>;
 

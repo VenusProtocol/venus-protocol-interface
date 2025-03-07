@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import type { ReactNode } from 'react';
 import s from './Container.module.css';
 

@@ -1,6 +1,6 @@
+import { cn } from '@venusprotocol/ui';
 import { Button, NoticeError } from 'components';
 import { useTranslation } from 'libs/translations';
-import { cn } from 'utilities';
 
 export interface ErrorStateProps {
   message?: string;

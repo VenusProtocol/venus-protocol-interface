@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
 
-import { SPACING } from 'theme/MuiThemeProvider/muiTheme';
+import { SPACING } from 'containers/MuiThemeProvider/muiTheme';
 
 export const useStyles = () => {
   const theme = useTheme();

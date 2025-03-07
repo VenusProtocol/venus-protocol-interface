@@ -1,5 +1,5 @@
+import { cn } from '@venusprotocol/ui';
 import { Card, type CardProps } from 'components';
-import { cn } from 'utilities';
 
 import type { Stat } from '../../types';
 

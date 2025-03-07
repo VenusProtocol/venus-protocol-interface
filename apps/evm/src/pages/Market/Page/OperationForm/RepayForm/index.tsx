@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { useRepay, useSwapTokensAndRepay } from 'clients/api';
 import {
   Delimiter,
@@ -26,7 +27,6 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
-  cn,
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,

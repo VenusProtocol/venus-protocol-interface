@@ -1,3 +1,6 @@
+@import '@venusprotocol/ui/fonts/proximaNova';
+@import '@venusprotocol/ui/theme';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,105 +16,8 @@
   }
 }
 
-@layer base {
-  :root {
-    /* The next colors are taken from the UI kit in Figma */
-    --color-background: 24 29 39;
-    --color-cards: 30 36 49;
-    --color-grey: 170 179 202;
-    --color-lightGrey: 45 53 73;
-    --color-green: 0 195 142;
-    --color-red: 233 61 102;
-    --color-offWhite: 255 255 255;
-    --color-orange: 245 120 66;
-    --color-yellow: 245 178 66;
-    --color-blue: 58 120 255;
-    /* The next colors are not in the UI kit, but are used throughout the designs */
-    --color-mediumBlue: 38 90 204;
-    --color-darkBlue: 27 67 152;
-  }
-
-  .unichain-theme {
-    /* The next colors are taken from the UI kit in Figma */
-    --color-background: 19 19 19;
-    --color-cards: 27 27 27;
-    --color-grey: 179 185 202;
-    --color-lightGrey: 46 46 46;
-    --color-blue: 245 13 180;
-    /* The next colors are not in the UI kit, but are used throughout the designs */
-    --color-mediumBlue: 198 7 145;
-    --color-darkBlue: 170 6 124;
-  }
-}
-
-@font-face {
-  font-family: 'ProximaNova';
-  src:
-    url('../fonts/proximaNova/proximaNovaRegularIt.woff2') format('woff2'),
-    url('../fonts/proximaNova/proximaNovaRegularIt.woff') format('woff'),
-    url('../fonts/proximaNova/proximaNovaRegularIt.ttf') format('truetype');
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'ProximaNova';
-  src:
-    url('../fonts/proximaNova/proximaNovaRegular.woff2') format('woff2'),
-    url('../fonts/proximaNova/proximaNovaRegular.woff') format('woff'),
-    url('../fonts/proximaNova/proximaNovaRegular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'ProximaNova';
-  src:
-    url('../fonts/proximaNova/proximaNovaSemiboldIt.woff2') format('woff2'),
-    url('../fonts/proximaNova/proximaNovaSemiboldIt.woff') format('woff'),
-    url('../fonts/proximaNova/proximaNovaSemiboldIt.ttf') format('truetype');
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'ProximaNova';
-  src:
-    url('../fonts/proximaNova/proximaNovaSemibold.woff2') format('woff2'),
-    url('../fonts/proximaNova/proximaNovaSemibold.woff') format('woff'),
-    url('../fonts/proximaNova/proximaNovaSemibold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'ProximaNova';
-  src:
-    url('../fonts/proximaNova/proximaNovaBold.woff2') format('woff2'),
-    url('../fonts/proximaNova/proximaNovaBold.woff') format('woff'),
-    url('../fonts/proximaNova/proximaNovaBold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'ProximaNova';
-  src:
-    url('../fonts/proximaNova/proximaNovaBoldIt.woff2') format('woff2'),
-    url('../fonts/proximaNova/proximaNovaBoldIt.woff') format('woff'),
-    url('../fonts/proximaNova/proximaNovaBoldIt.ttf') format('truetype');
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
-
 body {
-  font-family: 'ProximaNova', sans-serif;
+  font-family: var(--font-proxima-nova), sans-serif;
   background-color: theme('colors.background');
   color: theme('colors.offWhite');
 }

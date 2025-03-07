@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useTheme } from '@mui/material';
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 
 export interface ProgressCircleProps extends React.HTMLAttributes<SVGElement> {
   value: number;

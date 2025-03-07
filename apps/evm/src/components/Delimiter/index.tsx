@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 
 interface DelimiterProps {
   className?: string;

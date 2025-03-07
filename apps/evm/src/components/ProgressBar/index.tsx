@@ -4,7 +4,7 @@ import MaterialSlider from '@mui/material/Slider';
 import type { SliderTypeMap } from '@mui/material/Slider/Slider';
 import { useCallback } from 'react';
 
-import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
+import { PALETTE } from 'containers/MuiThemeProvider/muiTheme';
 
 import { Tooltip, type TooltipProps } from '../Tooltip';
 import { useStyles } from './styles';

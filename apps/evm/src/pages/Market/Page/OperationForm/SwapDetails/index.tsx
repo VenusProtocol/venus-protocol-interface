@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { Accordion, LabeledInlineContent } from 'components';
 import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
@@ -9,7 +10,7 @@ import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToR
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useTranslation } from 'libs/translations';
 import type { Swap } from 'types';
-import { cn, formatPercentageToReadableValue } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 
 const readableSlippageTolerancePercentage = formatPercentageToReadableValue(
   SLIPPAGE_TOLERANCE_PERCENTAGE,

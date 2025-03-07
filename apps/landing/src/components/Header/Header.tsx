@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import { useEffect } from 'react';
 import ScrollLock from 'react-scrolllock';
 
@@ -103,7 +103,7 @@ const Header: React.FC<IHeaderProps> = ({ className }) => {
               link: s.headerLink,
             }}
           />
-          <LinkLaunchApp variant="buttonTransparent" className={s.btn} />
+          <LinkLaunchApp variant="secondary" className={s.btn} />
         </div>
       </header>
 

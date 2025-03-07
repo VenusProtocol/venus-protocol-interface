@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean;

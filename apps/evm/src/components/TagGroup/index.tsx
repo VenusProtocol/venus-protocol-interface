@@ -1,8 +1,8 @@
 import type { ReactElement } from 'react';
 
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 
-import { QuinaryButton } from '../Button';
+import { QuinaryButton } from '@venusprotocol/ui';
 
 export interface Tag {
   content: string | number | ReactElement;

@@ -1,10 +1,10 @@
 import { Slot } from '@radix-ui/react-slot';
 
-import { cn } from 'utilities';
+import { cn } from '../../utilities/cn';
 
-import { Spinner } from '../Spinner';
+import { Spinner } from '@venusprotocol/ui';
 
-export type Variant =
+export type ButtonVariant =
   | 'primary'
   | 'secondary'
   | 'tertiary'
@@ -13,7 +13,7 @@ export type Variant =
   | 'senary'
   | 'text';
 
-const getVariantClasses = ({ variant, active }: { variant: Variant; active: boolean }) => {
+const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active: boolean }) => {
   switch (variant) {
     case 'secondary':
       return cn(
@@ -48,7 +48,7 @@ const getVariantClasses = ({ variant, active }: { variant: Variant; active: bool
     // primary
     default:
       return cn(
-        'border-blue bg-blue active:border-darkBlue active:bg-darkBlue disabled:border-lightGrey disabled:bg-lightGrey',
+        'border-blue bg-blue active:border-darkBlue active:bg-darkBlue disabled:border-lightGrey disabled:bg-lightGrey hover:border-mediumBlue hover:bg-mediumBlue',
         active ? 'border-mediumBlue bg-mediumBlue' : 'hover:border-mediumBlue hover:bg-mediumBlue',
       );
   }
@@ -57,7 +57,7 @@ const getVariantClasses = ({ variant, active }: { variant: Variant; active: bool
 export interface ButtonWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
   active?: boolean;
-  variant?: Variant;
+  variant?: ButtonVariant;
   children?: React.ReactNode;
 }
 

@@ -1,8 +1,8 @@
 import { type Control, useFormState } from 'react-hook-form';
 
+import { cn } from '@venusprotocol/ui';
 import { type ButtonProps, PrimaryButton } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
-import { cn } from 'utilities';
 
 import type { ChainId } from '@venusprotocol/chains';
 import { SwitchChain } from 'containers/SwitchChain';

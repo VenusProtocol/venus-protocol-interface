@@ -1,5 +1,5 @@
+import { cn } from '@venusprotocol/ui';
 import { Button } from 'components';
-import { cn } from 'utilities';
 
 interface DropdownToggleButtonProps {
   className?: string;

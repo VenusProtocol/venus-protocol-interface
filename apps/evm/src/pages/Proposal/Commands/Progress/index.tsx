@@ -1,6 +1,6 @@
+import { cn } from '@venusprotocol/ui';
 import { Icon, LabeledProgressCircle } from 'components';
 import { useTranslation } from 'libs/translations';
-import { cn } from 'utilities';
 
 export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   executedPayloadsCount: number;
