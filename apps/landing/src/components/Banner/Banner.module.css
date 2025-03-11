@@ -2,20 +2,20 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  background-color: var(--color-bg);
+  background-color: rgb(var(--color-background));
   padding: 12px 12px 0 12px;
 }
 
 .banner {
   position: relative;
   width: 100%;
-  background-color: var(--color-banner-bg);
+  background-color: #F50DB4;
   border-radius: 8px;
   padding: 8px 16px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  color: var(--color-text);
+  color: rgb(var(--color-offWhite));
   text-decoration: none;
   gap: 24px;
   justify-content: space-between;

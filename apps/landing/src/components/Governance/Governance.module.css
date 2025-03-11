@@ -15,9 +15,9 @@
     justify-content: space-between;
     overflow-y: hidden;
 
-    border: 1px solid var(--color-card-border);
+    border: 1px solid rgb(var(--color-lightGrey));
     border-radius: 24px;
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-background-secondary);
 
     height: 542px;
 
@@ -143,10 +143,10 @@
 }
 
 .numProposals {
-    font-family: 'BebasNeue';
+    font-family: var(--font-bebas-neue);
+    font-weight: 600;
     font-size: 2.5rem;
     text-align: center;
-    font-weight: 400;
     letter-spacing: 3.933px;
 
     @media (min-width: 840px) {
@@ -187,7 +187,7 @@
 }
 
 .proposals {
-    color: var(--color-text-secondary);
+    color: rgb(var(--color-grey));
     text-align: center;
     font-size: 0.875rem;
     line-height: 18px;

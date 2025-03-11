@@ -2,12 +2,13 @@
 import { Typography } from '@mui/material';
 import { type InputHTMLAttributes, useMemo, useState } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { useTranslation } from 'libs/translations';
 import type { Token, TokenBalance } from 'types';
-import { cn, convertMantissaToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
-import { SenaryButton } from '../../Button';
+import { SenaryButton } from '@venusprotocol/ui';
 import { TextField } from '../../TextField';
 import { useStyles as useParentStyles } from '../styles';
 import { getTokenListItemTestId } from '../testIdGetters';

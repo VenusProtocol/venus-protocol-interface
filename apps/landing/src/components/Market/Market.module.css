@@ -13,15 +13,15 @@
     color: white;
     text-decoration: none;
     padding: 12px 32px;
-    background-color: var(--color-primary);
+    background-color: rgb(var(--color-blue));
     border-radius: 8px;
 
     &:hover {
-        background-color: var(--color-primary-hover);
+        background-color: rgb(var(--color-mediumBlue));
     }
 
     &:active {
-        background-color: var(--color-primary-active);
+        background-color: rgb(var(--color-darkBlue));
     }
 
 }
@@ -60,9 +60,8 @@
 }
 
 .totalItem {
-
     &:not(&:first-child) {
-        border-top: 1px solid var(--color-card-border);
+        border-top: 1px solid rgb(var(--color-lightGrey));
         padding-top: 12px;
         margin-top: 16px;
         padding-top: 16px;
@@ -80,7 +79,6 @@
         display: block;
         width: 1px;
         height: 60px;
-        background-color: var(--color-bg-secondary-transparent);
     }
     @media (min-width: 840px) {
         height: 70px;
@@ -88,14 +86,14 @@
 }
 
 .totalTitle {
-    color: var(--color-text-secondary);
+    color: rgb(var(--color-grey));
     font-size: 14px;
     margin-bottom: 8px;
 }
 
 .totalSum {
-    color: var(--color-text);
-    font-family: var(--font-bold);
+    color: rgb(var(--color-offWhite));
+    font-weight: 600;
     font-size: 24px;
 
     @media (min-width: 640px) {
@@ -144,7 +142,7 @@
 .marketLabelDesktopItem {
     width: 20%;
     font-size: 14px;
-    color: var(--color-text-secondary);
+    color: rgb(var(--color-grey));
     &:not(&:first-child) {
         text-align: right;
     }
@@ -195,7 +193,7 @@
     }
 }
 .marketItemLabel {
-    color: var(--color-text-secondary);
+    color: rgb(var(--color-grey));
     font-size: 12px;
 
     @media (min-width: 640px) {
@@ -208,7 +206,7 @@
     flex-grow: 1;
 }
 .marketItemValue {
-    color: var(--color-text);
+    color: rgb(var(--color-offWhite));
     display: flex;
     flex-direction: column;
     width: 25%;
@@ -222,32 +220,4 @@
         padding-left: 12px;
         font-size: 1rem;
     }
-}
-
-.btnWrapper {
-    display: flex;
-    justify-content: center;
-    padding: 28px;
-
-    a {
-        text-decoration: none;
-        color: var(--color-primary)
-    }
-}
-
-.ruler {
-    background-color: var(--color-bg-secondary-transparent);
-    border: 0;
-    height: 1px;
-    margin: 16px 0 16px 0;
-}
-
-.ourLiquidities {
-    text-align: center;
-    font-size: 12px;
-    line-height: 150%;
-}
-
-.numberGreen {
-    color: #00C38E;
 }

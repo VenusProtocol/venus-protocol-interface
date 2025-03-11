@@ -1,10 +1,7 @@
-/*@import "../../assets/styles/media.css";*/
-
 .root {
     top: 0;
     position: sticky;
     z-index: 1;
-    background-color: var(--color-bg-transparent);
     transition: background-color 0.5s ease-in-out;
     display: flex;
     justify-content: space-between;
@@ -36,7 +33,7 @@
 }
 
 .headerAfterScroll {
-    background-color: var(--color-bg);
+    background-color: rgb(var(--color-background));
 }
 
 .logo {
@@ -63,7 +60,7 @@
     width: 100vw;
     left: 0;
     right: 0;
-    background-color: var(--color-bg);
+    background-color: rgb(var(--color-background));
     top: 60px;
     height: calc(100vh - 60px);
     opacity: 0;

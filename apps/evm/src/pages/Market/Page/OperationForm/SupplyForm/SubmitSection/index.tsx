@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { useMemo } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { ApproveTokenSteps, type ApproveTokenStepsProps, PrimaryButton } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
 import type { Swap, Token } from 'types';
-import { cn } from 'utilities';
 
 import { SwitchChain } from 'containers/SwitchChain';
 import SwapSummary from '../../SwapSummary';

@@ -1,7 +1,8 @@
+import { cn } from '@venusprotocol/ui';
 import { useGetVTokens } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
 import type { ChainId, ProposalAction } from 'types';
-import { cn, generateExplorerUrl } from 'utilities';
+import { generateExplorerUrl } from 'utilities';
 
 import formatSignature from './formatSignature';
 import getContractName from './getContractName';

@@ -4,7 +4,7 @@ import { forwardRef, useMemo } from 'react';
 
 import type { Token } from 'types';
 
-import { type ButtonProps, TertiaryButton } from '../Button';
+import { type ButtonProps, TertiaryButton } from '@venusprotocol/ui';
 import { TextField, type TextFieldProps } from '../TextField';
 
 export interface RightMaxButton extends Omit<ButtonProps, 'variant' | 'children' | 'small'> {

@@ -1,5 +1,5 @@
 import { ChainId } from '@venusprotocol/chains';
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import { APP_MAIN_PRODUCTION_URL } from '../../constants/production';
 import s from './Banner.module.css';
 import Arrow from './assets/arrow.svg?react';

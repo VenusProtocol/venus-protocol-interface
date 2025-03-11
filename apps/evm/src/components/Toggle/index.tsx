@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import Switch from '@mui/material/Switch';
 import type { SwitchBaseProps } from '@mui/material/internal/SwitchBase';
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 
 import { InfoIcon } from '../InfoIcon';
 import { useStyles } from './styles';

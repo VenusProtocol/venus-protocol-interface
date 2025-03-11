@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import Container from '../Container/Container';
 import Link from '../Link/Link';
 import s from './VenusPrime.module.css';

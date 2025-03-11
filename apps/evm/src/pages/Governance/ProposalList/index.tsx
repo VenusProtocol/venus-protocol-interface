@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
+import { cn } from '@venusprotocol/ui';
 import {
   useCreateProposal,
   useGetCurrentVotes,
@@ -28,7 +29,6 @@ import type { UseUrlPaginationOutput } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { ProposalState } from 'types';
-import { cn } from 'utilities';
 import { getProposalStateLabel } from 'utilities/getProposalStateLabel';
 
 import { NULL_ADDRESS } from 'constants/address';

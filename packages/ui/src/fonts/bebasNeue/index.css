@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'BebasNeue';
+  src: 
+    url('./bebasNeue.ttf') format('truetype'),
+    url('./bebasNeue.woff2') format('woff2'),
+    url('./bebasNeue.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@layer base {
+  :root {
+    --font-bebas-neue: 'BebasNeue', sans-serif;
+  }
+}

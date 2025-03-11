@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import s from './Safety.module.css';
 import Score90 from './assets/score90.svg?react';
 

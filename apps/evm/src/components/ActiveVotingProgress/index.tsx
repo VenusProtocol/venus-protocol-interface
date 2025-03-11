@@ -2,8 +2,8 @@
 import { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
 
+import { theme } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
-import { theme } from 'theme';
 import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 

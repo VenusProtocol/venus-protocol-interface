@@ -1,9 +1,10 @@
+import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 import { Tooltip, type TooltipProps } from 'components';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import type { PointDistribution, Token, TokenDistribution } from 'types';
-import { cn, formatPercentageToReadableValue } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 import { Distribution, type DistributionProps } from './Distribution';
 import starsIconSrc from './stars.svg';
 

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo, useState } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import {
   useGetCurrentVotes,
   useGetVestingVaults,
@@ -25,7 +26,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'libs/wallet';
-import { areTokensEqual, cn, convertMantissaToTokens } from 'utilities';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
 import DelegateModal from './DelegateModal';

@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { useBorrow } from 'clients/api';
 import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
@@ -12,7 +13,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
-import { cn, convertTokensToMantissa } from 'utilities';
+import { convertTokensToMantissa } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';

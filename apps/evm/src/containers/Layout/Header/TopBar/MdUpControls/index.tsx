@@ -1,7 +1,7 @@
+import { cn } from '@venusprotocol/ui';
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
-import { cn } from 'utilities';
 import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 import { ChainSelect } from '../ChainSelect';
 import { GaslessStatus } from '../GaslessStatus';

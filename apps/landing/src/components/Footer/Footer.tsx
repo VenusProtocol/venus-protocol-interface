@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import { APP_MAIN_PRODUCTION_URL, DOC_URL } from '../../constants/production';
 import Container from '../Container/Container';
 import Logo from '../Header/assets/logo.svg?react';
@@ -36,7 +36,7 @@ const Footer: React.FC<IFooterProps> = ({ className }) => (
               classNames={{ root: s.footerNavLinksWrapper, link: s.footerLink }}
             />
             <Link
-              variant="buttonTransparent"
+              variant="secondary"
               className={s.btn}
               href="https://github.com/VenusProtocol/venus-protocol-documentation/tree/main/whitepapers"
             >
@@ -46,7 +46,7 @@ const Footer: React.FC<IFooterProps> = ({ className }) => (
           <div className={cn(s.navOptions, s.navOptionsMobile)}>
             <SocialLinks className={s.socialLinksWrapperMobile} />
             <Link
-              variant="buttonTransparent"
+              variant="secondary"
               className={s.btnMobile}
               href="https://github.com/VenusProtocol/venus-protocol-documentation/tree/main/whitepapers"
             >

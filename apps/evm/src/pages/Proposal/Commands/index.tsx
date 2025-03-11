@@ -1,8 +1,8 @@
+import { cn } from '@venusprotocol/ui';
 import { Card, type CardProps } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 import { type Proposal, ProposalState, RemoteProposalState } from 'types';
-import { cn } from 'utilities';
 import TEST_IDS from '../testIds';
 import { BscCommand } from './BscCommand';
 import { NonBscCommand } from './NonBscCommand';

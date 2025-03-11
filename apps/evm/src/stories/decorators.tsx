@@ -1,7 +1,7 @@
 import type { StoryFn } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { MuiThemeProvider } from 'theme/MuiThemeProvider';
+import { MuiThemeProvider } from 'containers/MuiThemeProvider';
 
 export const withRouter = (Story: StoryFn) => (
   <BrowserRouter>

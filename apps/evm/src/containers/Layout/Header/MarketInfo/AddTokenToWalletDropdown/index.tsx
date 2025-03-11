@@ -1,11 +1,10 @@
-import { Dropdown, Icon } from 'components';
-import type { ButtonProps } from 'components/Button';
+import { cn } from '@venusprotocol/ui';
+import { type ButtonProps, Dropdown, Icon } from 'components';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'libs/translations';
 import { useAddTokenToWallet } from 'libs/wallet';
 import { useCallback } from 'react';
 import type { Token, VToken } from 'types';
-import { cn } from 'utilities';
 import { DropdownToggleButton } from '../DropdownToggleButton';
 import { TokenDropdownOption } from '../TokenDropdownOption';
 

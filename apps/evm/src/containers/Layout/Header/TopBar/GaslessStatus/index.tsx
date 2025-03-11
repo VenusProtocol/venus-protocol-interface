@@ -1,3 +1,4 @@
+import { cn } from '@venusprotocol/ui';
 import { useGetPaymasterInfo } from 'clients/api';
 import { Icon, Tooltip } from 'components';
 import { VENUS_DOC_GASLESS_URL } from 'containers/Layout/constants';
@@ -6,7 +7,6 @@ import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
-import { cn } from 'utilities';
 
 export interface GaslessStatusProps extends React.HTMLAttributes<HTMLDivElement> {
   chainId?: ChainId;

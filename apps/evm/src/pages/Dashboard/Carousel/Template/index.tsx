@@ -1,5 +1,5 @@
+import { cn } from '@venusprotocol/ui';
 import { Card } from 'components';
-import { cn } from 'utilities';
 
 export interface TemplateProps extends React.HTMLAttributes<HTMLDivElement> {}
 

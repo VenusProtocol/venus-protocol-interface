@@ -1,6 +1,6 @@
 export const theme = {
   fontFamily: {
-    sans: ['ProximaNova', 'Arial', 'sans-serif'],
+    sans: ['var(--font-proxima-nova)', 'Arial', 'sans-serif'],
   },
   screens: {
     sm: '576px',
@@ -26,6 +26,7 @@ export const theme = {
     // The next colors are not in the UI kit, but are used throughout the designs
     mediumBlue: 'rgb(var(--color-mediumBlue))',
     darkBlue: 'rgb(var(--color-darkBlue))',
+    greyBlue: 'rgb(var(--color-greyBlue))',
   },
   fontSize: {
     xs: ['0.75rem', '1.5'],

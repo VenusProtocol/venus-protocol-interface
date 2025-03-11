@@ -1,10 +1,11 @@
 import type BigNumber from 'bignumber.js';
 
+import { cn } from '@venusprotocol/ui';
 import { BorrowBalanceAccountHealth, LabeledInlineContent, ValueUpdate } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool, Swap, TokenAction } from 'types';
-import { cn, formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
+import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 import useGetValues from './useGetValues';
 
 export interface AccountDataProps {

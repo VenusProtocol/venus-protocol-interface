@@ -1,8 +1,8 @@
+import { cn } from '@venusprotocol/ui';
 import { Dropdown, Icon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
-import { cn } from 'utilities';
 import { DropdownToggleButton } from '../DropdownToggleButton';
 import { TokenDropdownOption } from '../TokenDropdownOption';
 

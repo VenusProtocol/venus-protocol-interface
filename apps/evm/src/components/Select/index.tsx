@@ -2,8 +2,8 @@ import { forwardRef, useCallback, useMemo } from 'react';
 
 import { Dropdown } from '../Dropdown';
 
-import { Button } from 'components/Button';
-import { cn } from 'utilities';
+import { Button } from '@venusprotocol/ui';
+import { cn } from '@venusprotocol/ui';
 import { renderLabel } from '../Dropdown/renderLabel';
 import { Icon } from '../Icon';
 import type { SelectProps } from './types';

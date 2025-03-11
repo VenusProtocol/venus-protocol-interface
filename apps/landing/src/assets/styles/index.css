@@ -1,17 +1,21 @@
-@import "fonts.css";
+@import '@venusprotocol/ui/theme';
+@import '@venusprotocol/ui/fonts/bebasNeue';
+@import '@venusprotocol/ui/fonts/inconsolata';
+@import '@venusprotocol/ui/fonts/proximaNova';
+
 @import "variables.css";
-@import "media.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6, p, span {
-  margin: 0;
-}
-
 h2 {
   font-size: 1.5rem;
+  font-weight: 600;
 
   @media (min-width: 1280px) {
     font-size: 2rem;
@@ -19,7 +23,7 @@ h2 {
 }
 
 p {
-  color: var(--color-text-secondary);
+  color: rgb(var(--color-grey));
   font-size: 1rem;
 
   @media (min-width: 1280px) {
@@ -27,23 +31,10 @@ p {
   }
 }
 
-ul {
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  list-style: none;
-}
-
 body {
-  margin: 0;
-  font-family: var(--font-default);
+  font-family: var(--font-proxima-nova), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background-color: var(--color-bg);
-  color: white;
-  font-size: 16px;
-  line-height: 1.5;
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-offWhite));
 }

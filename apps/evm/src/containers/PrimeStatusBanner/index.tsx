@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
 import {
   useClaimPrimeToken,
@@ -23,7 +24,7 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
-import { cn, convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
+import { convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';
 import PrimeTokensLeft from './PrimeTokensLeft';

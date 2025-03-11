@@ -1,8 +1,7 @@
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 
-import { TextButton } from '../Button';
+import { Spinner, TextButton } from '@venusprotocol/ui';
 import { Icon, type IconName } from '../Icon';
-import { Spinner } from '../Spinner';
 import type { NoticeProps, NoticeVariant } from './types';
 
 export * from './types';

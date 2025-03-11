@@ -3,7 +3,7 @@ import type BigNumber from 'bignumber.js';
 import { type ButtonProps, SenaryButton } from 'components';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 import { PrimeIcon } from '../PrimeIcon';
 
 export interface PrimeApyProps extends Omit<ButtonProps, 'onClick'> {

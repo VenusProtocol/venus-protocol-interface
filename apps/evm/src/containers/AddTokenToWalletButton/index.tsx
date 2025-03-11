@@ -1,9 +1,9 @@
+import { cn } from '@venusprotocol/ui';
+import { type ButtonProps, TertiaryButton } from 'components';
 import useCopyToClipboard from 'hooks/useCopyToClipboard';
 import { useTranslation } from 'libs/translations';
 import { useAddTokenToWallet } from 'libs/wallet';
 import type { Token } from 'types';
-import { cn } from 'utilities';
-import { type ButtonProps, TertiaryButton } from '../../components/Button';
 import { Icon } from '../../components/Icon';
 
 export interface AddTokenToWalletButtonProps extends Omit<ButtonProps, 'onClick' | 'variant'> {

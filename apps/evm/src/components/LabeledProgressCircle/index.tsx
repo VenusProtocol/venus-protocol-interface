@@ -1,4 +1,4 @@
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 import { ProgressCircle } from '../ProgressCircle';
 
 export interface LabeledProgressCircleProps extends React.HTMLAttributes<HTMLDivElement> {

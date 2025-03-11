@@ -6,10 +6,13 @@
     padding-top: 21px;
     padding-bottom: 21px;
     position: relative;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
 
     &+& {
-        border-top: 1px solid var(--color-bg-secondary);
+        border-top: 1px solid var(--color-background-secondary);
     }
     
     &:after {

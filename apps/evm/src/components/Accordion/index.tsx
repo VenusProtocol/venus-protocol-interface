@@ -1,5 +1,5 @@
+import { cn } from '@venusprotocol/ui';
 import { useState } from 'react';
-import { cn } from 'utilities';
 import { AccordionAnimatedContent } from '../AccordionAnimatedContent';
 import { Icon } from '../Icon';
 

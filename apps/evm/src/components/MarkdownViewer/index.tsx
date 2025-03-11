@@ -1,7 +1,7 @@
 import Markdown from 'react-markdown';
 
+import { cn } from '@venusprotocol/ui';
 import { Link } from 'containers/Link';
-import { cn } from 'utilities';
 
 export interface MarkdownViewerProps {
   content: string;

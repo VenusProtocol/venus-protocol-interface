@@ -1,10 +1,10 @@
 import { chainMetadata } from '@venusprotocol/chains';
+import { cn } from '@venusprotocol/ui';
 import { Select, type SelectOption, type SelectProps } from 'components';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
 import type { ChainId } from 'types';
-import { cn } from 'utilities';
 import { GaslessStatus } from '../GaslessStatus';
 
 export interface ChainSelectProps

@@ -1,7 +1,7 @@
+import { cn } from '@venusprotocol/ui';
 import { Icon, type IconName } from 'components';
 import { Link } from 'containers/Link';
 import { useMemo } from 'react';
-import { cn } from 'utilities';
 
 export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
   type: 'info' | 'success' | 'error';

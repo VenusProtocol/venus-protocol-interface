@@ -1,6 +1,6 @@
+import { theme } from '@venusprotocol/ui';
 import { ConnectKitProvider } from 'connectkit';
 import { useChainId } from 'libs/wallet';
-import { theme } from 'theme';
 import { AuthHandler } from './AuthHandler';
 
 export interface ConnectKitWrapperProps {
@@ -23,7 +23,7 @@ export const ConnectKitWrapper: React.FC<ConnectKitWrapperProps> = ({ children }
       }}
       mode="dark"
       customTheme={{
-        '--ck-font-family': '"Proxima Nova Rg", var(--font-fallback)',
+        '--ck-font-family': '"ProximaNova", var(--font-fallback)',
         '--ck-border-radius': '0.75rem',
         '--ck-overlay-background': 'rgba(0, 0, 0, 0.5)',
         '--ck-primary-button-border-radius': '0.5rem',

@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { type Breakpoint, EllipseAddress } from 'components/EllipseAddress';
 import { Icon } from 'components/Icon';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import type { ChainId } from 'types';
-import { type UrlType, cn, generateExplorerUrl } from 'utilities';
+import { generateExplorerUrl } from 'utilities';
+import type { UrlType } from 'utilities';
 import type { Address } from 'viem';
 
 export interface ChainExplorerLinkProps {

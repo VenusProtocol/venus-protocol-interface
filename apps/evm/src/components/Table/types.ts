@@ -1,5 +1,5 @@
 import type { CardProps } from 'components/Card';
-import type { BREAKPOINTS } from 'theme/MuiThemeProvider/muiTheme';
+import type { BREAKPOINTS } from 'containers/MuiThemeProvider/muiTheme';
 
 export interface TableColumn<R> {
   key: string;

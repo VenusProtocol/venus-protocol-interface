@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react';
 import { State } from 'react-powerplug';
 
-import { PALETTE } from 'theme/MuiThemeProvider/muiTheme';
+import { PALETTE } from 'containers/MuiThemeProvider/muiTheme';
 
 import { TagGroup } from '.';
 

@@ -1,7 +1,6 @@
 /* https://mui.com/customization/theming/ */
 import { type ThemeOptions, createTheme } from '@mui/material/styles';
-
-import { theme } from '..';
+import { theme } from '@venusprotocol/ui';
 
 const fontFamily = theme.fontFamily.sans.join(',');
 

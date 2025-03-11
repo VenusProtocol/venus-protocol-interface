@@ -1,8 +1,8 @@
 import { Link as RRLink, type LinkProps as RRLinkProps } from 'react-router-dom';
 
+import { cn } from '@venusprotocol/ui';
 import { useFormatTo } from 'hooks/useFormatTo';
 import { forwardRef } from 'react';
-import { cn } from 'utilities';
 
 export type LinkProps = (RRLinkProps | React.AnchorHTMLAttributes<HTMLAnchorElement>) & {
   className?: string;

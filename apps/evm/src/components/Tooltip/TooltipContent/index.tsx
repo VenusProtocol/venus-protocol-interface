@@ -1,6 +1,6 @@
 import { Content, Portal } from '@radix-ui/react-tooltip';
+import { cn } from '@venusprotocol/ui';
 import React from 'react';
-import { cn } from 'utilities';
 
 export const TooltipContent = React.forwardRef<
   React.ElementRef<typeof Content>,

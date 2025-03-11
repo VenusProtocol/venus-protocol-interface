@@ -6,7 +6,7 @@ import type { ReactElement } from 'react';
 
 import config from 'config';
 
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 import { Icon } from '../Icon';
 import { useModalStyles } from './styles';
 

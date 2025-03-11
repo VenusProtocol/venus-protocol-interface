@@ -4,10 +4,10 @@ import { Helmet } from 'react-helmet';
 import { HashRouter } from 'react-router-dom';
 
 import { queryClient } from 'clients/api';
+import { MuiThemeProvider } from 'containers/MuiThemeProvider';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
 import { Web3Wrapper } from 'libs/wallet';
-import { MuiThemeProvider } from 'theme/MuiThemeProvider';
 
 import { MAIN_PRODUCTION_HOST } from 'constants/production';
 import { ThemeHandler } from 'containers/ThemeHandler';

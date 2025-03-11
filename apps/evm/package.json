@@ -51,6 +51,7 @@
     "@sentry/vite-plugin": "^2.20.0",
     "@tanstack/react-query": "^5.48.0",
     "@venusprotocol/chains": "*",
+    "@venusprotocol/ui": "*",
     "@wagmi/core": "^2.16.4",
     "@yornaath/batshit": "^0.10.1",
     "bignumber.js": "^9.1.1",
@@ -167,15 +168,7 @@
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   }
 }

@@ -1,4 +1,4 @@
-import { cn } from 'utilities';
+import { cn } from '@venusprotocol/ui';
 
 export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {}
 

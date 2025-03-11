@@ -33,12 +33,20 @@ function Intro() {
         <div className={s.cta}>
           <LinkLaunchApp className={s.linkLaunchApp} />
 
-          <div className={s.linksWrapper}>
+          <div className="flex items-center">
             {links.map(({ text, href }) => (
-              <Link className={s.link} variant="link" key={text} href={href}>
-                {text}
-                <IconArrow className={s.iconArrow} />
-              </Link>
+              <div className="px-6 border-r border-offWhite/10 first-of-type:pl-0 last-of-type:pr-0 last-of-type:border-r-0">
+                <Link
+                  className="group text-offWhite tracking-widest h-auto hover:text-offWhite"
+                  variant="text"
+                  key={text}
+                  href={href}
+                >
+                  {text}
+
+                  <IconArrow className="ml-3 transition-all duration-300 group-hover:translate-x-1 group-hover:text-blue" />
+                </Link>
+              </div>
             ))}
           </div>
         </div>

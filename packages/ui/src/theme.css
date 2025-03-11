@@ -1,0 +1,45 @@
+@layer base {
+  :root {
+    /* The next colors are taken from the UI kit in Figma */
+    --color-background: 24 29 39;
+    --color-cards: 30 36 49;
+    --color-grey: 170 179 202;
+    --color-lightGrey: 45 53 73;
+    --color-green: 0 195 142;
+    --color-red: 233 61 102;
+    --color-offWhite: 255 255 255;
+    --color-orange: 245 120 66;
+    --color-yellow: 245 178 66;
+    --color-blue: 58 120 255;
+    /* The next colors are not in the UI kit, but are used throughout the designs */
+    --color-mediumBlue: 38 90 204;
+    --color-darkBlue: 27 67 152;
+    --color-greyBlue: 42 52 77;
+  }
+
+  .unichain-theme {
+    /* The next colors are taken from the UI kit in Figma */
+    --color-background: 19 19 19;
+    --color-cards: 27 27 27;
+    --color-grey: 179 185 202;
+    --color-lightGrey: 46 46 46;
+    --color-blue: 245 13 180;
+    /* The next colors are not in the UI kit, but are used throughout the designs */
+    --color-mediumBlue: 198 7 145;
+    --color-darkBlue: 170 6 124;
+    --color-greyBlue: 65 31 69;
+  }
+
+  .berachain-theme {
+    /* The next colors are taken from the UI kit in Figma */
+    --color-background: 19 19 19;
+    --color-cards: 27 27 27;
+    --color-grey: 179, 185, 202;
+    --color-lightGrey: 46 46 46;
+    --color-blue: 249, 177, 5;
+    /* The next colors are not in the UI kit, but are used throughout the designs */
+    --color-mediumBlue: 229, 162, 0;
+    --color-darkBlue: 212, 150, 0;
+    --color-greyBlue: 90, 53, 1;
+  }
+}

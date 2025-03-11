@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import Market from '../Market/Market';
 import s from './Background.module.css';
 import Intro from './Intro';

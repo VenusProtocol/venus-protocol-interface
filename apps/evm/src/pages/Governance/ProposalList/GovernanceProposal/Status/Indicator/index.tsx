@@ -1,7 +1,7 @@
+import { cn } from '@venusprotocol/ui';
 import { Icon, type IconName } from 'components';
 import { useMemo } from 'react';
 import { type Proposal, ProposalState } from 'types';
-import { cn } from 'utilities';
 
 export interface IndicatorProps
   extends React.HTMLAttributes<HTMLDivElement>,

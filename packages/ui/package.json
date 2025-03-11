@@ -1,0 +1,33 @@
+{
+  "name": "@venusprotocol/ui",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./tailwind-config": "./src/tailwind.config.ts",
+    "./theme": "./src/theme.css",
+    "./fonts/proximaNova": "./src/fonts/proximaNova/index.css",
+    "./fonts/bebasNeue": "./src/fonts/bebasNeue/index.css",
+    "./fonts/inconsolata": "./src/fonts/inconsolata/index.css"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules",
+    "lint": "biome check .",
+    "tsc": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@venusprotocol/typescript-config": "*",
+    "tailwindcss": ">=3.3.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.2"
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=3.3.0"
+  }
+}

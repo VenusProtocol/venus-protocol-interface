@@ -1,8 +1,8 @@
+import { cn } from '@venusprotocol/ui';
 import { ApproveTokenSteps } from 'components';
 import { FormikSubmitButton } from 'containers/Form';
 import { SwitchChain } from 'containers/SwitchChain';
 import type { Token } from 'types';
-import { cn } from 'utilities';
 
 export interface SubmitSectionProps {
   token: Token;

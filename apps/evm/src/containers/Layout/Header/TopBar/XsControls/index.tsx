@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import venusLogoSrc from 'assets/img/venusLogo.svg';
 import { Icon } from 'components';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import { cn } from 'utilities';
 
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';

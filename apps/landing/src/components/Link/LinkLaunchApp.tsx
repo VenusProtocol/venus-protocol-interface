@@ -1,12 +1,9 @@
-import Link from './Link';
+import Link, { type ILinkProps } from './Link';
 
-interface ILinkLaunchAppProps {
-  className?: string;
-  variant?: 'button' | 'buttonTransparent' | 'link';
-}
+export type ILinkLaunchAppProps = Omit<ILinkProps, 'href' | 'children'>;
 
-const LinkLaunchApp: React.FC<ILinkLaunchAppProps> = ({ className, variant }) => (
-  <Link variant={variant} className={className} href="https://app.venus.io">
+const LinkLaunchApp: React.FC<ILinkLaunchAppProps> = props => (
+  <Link {...props} href="https://app.venus.io">
     Launch app
   </Link>
 );

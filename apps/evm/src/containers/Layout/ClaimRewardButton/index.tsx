@@ -1,13 +1,14 @@
 import BigNumber from 'bignumber.js';
 import { useMemo, useState } from 'react';
 
+import { cn } from '@venusprotocol/ui';
 import { type Claim, useClaimRewards } from 'clients/api';
 import { type ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { cn, formatCentsToReadableValue } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChain } from 'containers/SwitchChain';

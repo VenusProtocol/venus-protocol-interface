@@ -1,9 +1,10 @@
+import { cn } from '@venusprotocol/ui';
 import { Icon, LabeledProgressCircle } from 'components';
 import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 import { ProposalState, type RemoteProposal, RemoteProposalState } from 'types';
-import { cn, getProposalStateLabel } from 'utilities';
+import { getProposalStateLabel } from 'utilities';
 import { isProposalExecutable } from 'utilities/isProposalExecutable';
 import { Indicator } from './Indicator';
 

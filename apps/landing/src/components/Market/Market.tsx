@@ -1,7 +1,8 @@
-import cn from 'classnames';
+import { cn } from '@venusprotocol/ui';
 import { useVenusApi } from '../../api/hooks/useVenusApi';
 import { nFormatter } from '../../api/utils';
 import Container from '../Container/Container';
+import Link from '../Link/Link';
 import s from './Market.module.css';
 
 interface IMarketProps {
@@ -43,14 +44,14 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
               <p className={s.totalSum}>{isLoading ? loadingState : totalSupplyUsd}</p>
             </div>
           </li>
-          <span className={s.divider} />
+          <span className={cn(s.divider, 'bg-offWhite/10')} />
           <li className={s.totalItem}>
             <div>
               <p className={s.totalTitle}>Total Borrowed</p>
               <p className={s.totalSum}>{isLoading ? loadingState : totalBorrowUsd}</p>
             </div>
           </li>
-          <span className={s.divider} />
+          <span className={cn(s.divider, 'bg-offWhite/10')} />
           <li className={s.totalItem}>
             <div>
               <p className={s.totalTitle}>Total Liquidity</p>
@@ -101,9 +102,9 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
             ))}
           </ul>
 
-          <div className={s.btnWrapper}>
-            <a href="https://app.venus.io">All markets</a>
-          </div>
+          <Link href="https://app.venus.io" variant="text" className="mx-auto h-auto flex py-7">
+            All markets
+          </Link>
         </div>
       )}
     </Container>
