@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.228.0
+
+### Minor Changes
+
+- f335660: add UI package
+
+### Patch Changes
+
+- Updated dependencies [f335660]
+  - @venusprotocol/ui@0.2.0
+
 ## 2.227.0
 
 ### Minor Changes
