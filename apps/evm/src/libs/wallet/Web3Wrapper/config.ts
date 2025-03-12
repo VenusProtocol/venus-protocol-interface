@@ -1,5 +1,5 @@
 import { getDefaultConfig } from 'connectkit';
-import { http, createConfig } from 'wagmi';
+import { http, createConfig, fallback } from 'wagmi';
 
 import localConfig from 'config';
 import { MAIN_PRODUCTION_HOST } from 'constants/production';
@@ -15,7 +15,7 @@ const connectKitConfig = getDefaultConfig({
 
     return {
       ...acc,
-      [chain.id]: http(url),
+      [chain.id]: fallback([http(url), http()]),
     };
   }, {}),
   walletConnectProjectId: WALLET_CONNECT_PROJECT_ID,
