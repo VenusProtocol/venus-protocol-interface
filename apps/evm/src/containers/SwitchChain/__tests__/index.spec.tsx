@@ -30,21 +30,21 @@ describe('SwitchChain', () => {
     {
       description: 'without chainId prop',
       accountChainId: ChainId.BSC_TESTNET,
-      chainId: ChainId.BSC_TESTNET,
+      appChainId: ChainId.BSC_TESTNET,
       targetChainId: undefined,
     },
     {
       description: 'with chainId prop',
       accountChainId: ChainId.BSC_TESTNET,
-      chainId: ChainId.ETHEREUM,
+      appChainId: ChainId.BSC_TESTNET,
       targetChainId: ChainId.BSC_TESTNET,
     },
-  ])('$description', async ({ accountChainId, chainId, targetChainId }) => {
+  ])('$description', async ({ accountChainId, appChainId, targetChainId }) => {
     it('displays children when user is connected to the correct chain', async () => {
       renderComponent(<SwitchChain chainId={targetChainId}>{fakeContent}</SwitchChain>, {
         accountAddress: fakeAddress,
         accountChainId,
-        chainId,
+        chainId: appChainId,
       });
 
       expect(screen.queryByText(fakeContent)).toBeInTheDocument();
@@ -55,21 +55,21 @@ describe('SwitchChain', () => {
     {
       description: 'without chainId prop',
       accountChainId: ChainId.ETHEREUM,
-      chainId: ChainId.BSC_TESTNET,
+      appChainId: ChainId.BSC_TESTNET,
       targetChainId: undefined,
     },
     {
       description: 'with chainId prop',
       accountChainId: ChainId.ETHEREUM,
-      chainId: ChainId.ETHEREUM,
+      appChainId: ChainId.ETHEREUM,
       targetChainId: ChainId.BSC_TESTNET,
     },
-  ])('$description', async ({ accountChainId, chainId, targetChainId }) => {
+  ])('$description', async ({ accountChainId, appChainId, targetChainId }) => {
     it('displays switch button when user is connected to the wrong chain', async () => {
       renderComponent(<SwitchChain chainId={targetChainId}>{fakeContent}</SwitchChain>, {
         accountAddress: fakeAddress,
         accountChainId,
-        chainId,
+        chainId: appChainId,
       });
 
       expect(screen.queryByText(fakeContent)).not.toBeInTheDocument();
@@ -78,7 +78,7 @@ describe('SwitchChain', () => {
         screen.queryByText(
           en.switchChain.switchButton.replace(
             '{{chainName}}',
-            chainMetadata[targetChainId || chainId].name,
+            chainMetadata[targetChainId || appChainId].name,
           ),
         ),
       ).toBeInTheDocument();
@@ -90,7 +90,7 @@ describe('SwitchChain', () => {
 
       renderComponent(<SwitchChain chainId={targetChainId}>{fakeContent}</SwitchChain>, {
         accountAddress: fakeAddress,
-        chainId,
+        chainId: appChainId,
         accountChainId,
       });
 
@@ -98,14 +98,14 @@ describe('SwitchChain', () => {
         screen.getByText(
           en.switchChain.switchButton.replace(
             '{{chainName}}',
-            chainMetadata[targetChainId || chainId].name,
+            chainMetadata[targetChainId || appChainId].name,
           ),
         ),
       );
 
       await waitFor(() => expect(mockSwitchChain).toHaveBeenCalledTimes(1));
       expect(mockSwitchChain).toHaveBeenCalledWith({
-        chainId: targetChainId || chainId,
+        chainId: targetChainId || appChainId,
       });
     });
   });
