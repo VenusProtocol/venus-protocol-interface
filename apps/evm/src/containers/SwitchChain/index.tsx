@@ -17,7 +17,7 @@ export const SwitchChain: React.FC<SwitchChainProps> = ({ children, chainId, ...
   const targetChainId = chainId || currentChainId;
 
   const { chainId: accountChainId } = useAccountChainId();
-  const isOnWrongChain = accountChainId !== targetChainId;
+  const isOnWrongChain = accountChainId !== targetChainId || currentChainId !== targetChainId;
   const targetChain = chainMetadata[targetChainId];
 
   const { switchChain } = useSwitchChain();

@@ -12,6 +12,8 @@ import venusGovernanceOpBnbTestnetDeployments from '@venusprotocol/governance-co
 import venusGovernanceOptimismMainnetDeployments from '@venusprotocol/governance-contracts/deployments/opmainnet_addresses.json';
 import venusGovernanceOptimismSepoliaDeployments from '@venusprotocol/governance-contracts/deployments/opsepolia_addresses.json';
 import venusGovernanceSepoliaDeployments from '@venusprotocol/governance-contracts/deployments/sepolia_addresses.json';
+import venusGovernanceUnichainMainnetDeployments from '@venusprotocol/governance-contracts/deployments/unichainmainnet_addresses.json';
+import venusGovernanceUnichainSepoliaDeployments from '@venusprotocol/governance-contracts/deployments/unichainsepolia_addresses.json';
 import venusGovernanceZkSyncMainnetDeployments from '@venusprotocol/governance-contracts/deployments/zksyncmainnet_addresses.json';
 import venusGovernanceZkSyncSepoliaDeployments from '@venusprotocol/governance-contracts/deployments/zksyncsepolia_addresses.json';
 import { abi as IsolatedPoolComptrollerAbi } from '@venusprotocol/isolated-pools/artifacts/contracts/Comptroller.sol/Comptroller.json';
@@ -328,11 +330,10 @@ export const contracts: ContractConfig[] = [
         venusGovernanceBaseMainnetDeployments.addresses.OmnichainGovernanceExecutor,
       [ChainId.BASE_SEPOLIA]:
         venusGovernanceBaseSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
-      // TODO: update once governance is deployed to Unichain
-      // [ChainId.UNICHAIN_MAINNET]:
-      // venusGovernanceUnichainMainnetDeployments.addresses.OmnichainGovernanceExecutor,
-      // [ChainId.UNICHAIN_SEPOLIA]:
-      // venusGovernanceUnichainSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
+      [ChainId.UNICHAIN_MAINNET]:
+        venusGovernanceUnichainMainnetDeployments.addresses.OmnichainGovernanceExecutor,
+      [ChainId.UNICHAIN_SEPOLIA]:
+        venusGovernanceUnichainSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
     },
   },
   {
