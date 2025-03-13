@@ -1,12 +1,11 @@
 import type BigNumber from 'bignumber.js';
 
 import type { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
-import type { Token } from 'types';
+import type { ChainId, Token } from 'types';
 import type { Address } from 'viem';
-import type { GetApiTokenPriceOutput } from '../getApiTokenPrice';
 
 export interface GetPendingRewardsInput {
-  getApiTokenPrice: (tokenAddresses: string[]) => Promise<GetApiTokenPriceOutput>;
+  chainId: ChainId;
   tokens: Token[];
   isolatedPoolComptrollerAddresses: string[];
   xvsVestingVaultPoolCount: number;

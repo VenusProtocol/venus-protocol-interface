@@ -6,11 +6,12 @@ import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import removeDuplicates from 'utilities/removeDuplicates';
 
+import { getApiTokenPrice } from 'clients/api';
 import formatOutput from './formatOutput';
 import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
 const getPendingRewards = async ({
-  getApiTokenPrice,
+  chainId,
   tokens,
   legacyPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
@@ -114,7 +115,10 @@ const getPendingRewards = async ({
     ...isolatedPoolRewardTokenAddresses,
     ...primeRewardTokenAddresses,
   ]);
-  const tokenPriceMantissaMapping = await getApiTokenPrice(rewardTokenAddresses);
+  const tokenPriceMantissaMapping = await getApiTokenPrice({
+    tokenAddresses: rewardTokenAddresses,
+    chainId,
+  });
 
   const tokenPriceMapping: Record<string, BigNumber> = Object.entries(
     tokenPriceMantissaMapping,

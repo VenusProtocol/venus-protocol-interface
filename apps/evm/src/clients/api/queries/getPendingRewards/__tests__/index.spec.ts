@@ -3,7 +3,7 @@ import tokens from '__mocks__/models/tokens';
 
 import type { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
 
-import BigNumber from 'bignumber.js';
+import { ChainId } from 'types';
 import getPendingRewards from '..';
 import {
   fakeGetIsolatedPoolPendingRewardsOutput,
@@ -18,6 +18,8 @@ import {
 
 const fakeLegacyPoolComptrollerAddress = '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D';
 const fakeIsolatedPoolComptrollerAddress = '0x1291820b2D1c7c7452A163983Dc888CEC546b78k';
+
+vi.mock('clients/api/queries/getApiTokenPrice');
 
 const fakePoolLensContract = {
   getPendingRewards: async () => fakeGetIsolatedPoolPendingRewardsOutput,
@@ -46,19 +48,10 @@ const fakePrimeContract = {
   },
 } as unknown as Prime;
 
-const fakeGetApiTokenPrice = async (tokenAddresses: string[]) =>
-  tokenAddresses.reduce(
-    (acc, tokenAddress) => ({
-      ...acc,
-      [tokenAddress]: new BigNumber('0x30f7dc8a6370b000', 16),
-    }),
-    {},
-  );
-
 describe('getPendingRewards', () => {
   test('returns pool rewards of the user in the correct format on success', async () => {
     const res = await getPendingRewards({
-      getApiTokenPrice: fakeGetApiTokenPrice,
+      chainId: ChainId.BSC_TESTNET,
       legacyPoolComptrollerContractAddress: fakeLegacyPoolComptrollerAddress,
       isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
       tokens,
@@ -75,7 +68,7 @@ describe('getPendingRewards', () => {
 
   test('returns pool rewards of the user, including Prime rewards, in the correct format on success', async () => {
     const res = await getPendingRewards({
-      getApiTokenPrice: fakeGetApiTokenPrice,
+      chainId: ChainId.BSC_TESTNET,
       legacyPoolComptrollerContractAddress: fakeLegacyPoolComptrollerAddress,
       isolatedPoolComptrollerAddresses: [fakeIsolatedPoolComptrollerAddress],
       tokens,
