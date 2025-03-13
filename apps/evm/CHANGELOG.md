@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.229.0
+
+### Minor Changes
+
+- 6084ca2: add fallback mechanism for RPC providers
+
+### Patch Changes
+
+- 4ffdab3: add Omnichain Governor contract record
+
 ## 2.228.0
 
 ### Minor Changes
