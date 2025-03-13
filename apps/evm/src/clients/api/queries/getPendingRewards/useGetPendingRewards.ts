@@ -7,7 +7,6 @@ import {
   useGetLegacyPoolComptrollerContractAddress,
   useGetPoolLensContract,
   useGetPrimeContract,
-  useGetResilientOracleContract,
   useGetVaiVaultContract,
   useGetVenusLensContract,
   useGetXvsVaultContract,
@@ -18,6 +17,7 @@ import type { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getPendingRewards from '.';
+import useGetApiTokenPrice from '../getApiTokenPrice/useGetApiTokenPrice';
 import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
 import { useGetPools } from '../useGetPools';
 import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
@@ -34,6 +34,7 @@ type TrimmedGetPendingRewardsInput = Omit<
   | 'xvsVestingVaultPoolCount'
   | 'xvsTokenAddress'
   | 'tokens'
+  | 'getApiTokenPrice'
 >;
 
 export type UseGetPendingRewardsQueryKey = [
@@ -56,7 +57,7 @@ const refetchInterval = generatePseudoRandomRefetchInterval();
 const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
-  const resilientOracleContract = useGetResilientOracleContract();
+  const getApiTokenPrice = useGetApiTokenPrice();
   const venusLensContract = useGetVenusLensContract();
   const poolLensContract = useGetPoolLensContract();
   const vaiVaultContract = useGetVaiVaultContract();
@@ -99,12 +100,12 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Pa
     queryFn: () =>
       callOrThrow(
         {
-          resilientOracleContract,
           poolLensContract,
           xvsVaultContract,
         },
         params =>
           getPendingRewards({
+            getApiTokenPrice,
             legacyPoolComptrollerContractAddress,
             venusLensContract,
             isolatedPoolComptrollerAddresses: sortedIsolatedPoolComptrollerAddresses,
