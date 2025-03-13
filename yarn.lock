@@ -2022,7 +2022,7 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
-"@ethersproject/abi@^5.1.2", "@ethersproject/abi@^5.4.0", "@ethersproject/abi@^5.6.3", "@ethersproject/abi@^5.7.0":
+"@ethersproject/abi@^5.1.2", "@ethersproject/abi@^5.4.0", "@ethersproject/abi@^5.6.3", "@ethersproject/abi@^5.7.0", "@ethersproject/abi@^5.8.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/abi/-/abi-5.8.0.tgz#e79bb51940ac35fe6f3262d7fe2cdb25ad5f07d9"
   integrity sha512-b9YS/43ObplgyV6SlyQsG53/vkSal0MNA1fskSC4mbnCMi8R+NkcH8K9FPYNESf6jUefBUniE4SOKms0E/KK1Q==
@@ -2175,7 +2175,7 @@
   dependencies:
     "@ethersproject/bignumber" "^5.8.0"
 
-"@ethersproject/contracts@5.7.0", "@ethersproject/contracts@^5.4.1", "@ethersproject/contracts@^5.7.0":
+"@ethersproject/contracts@5.7.0":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/contracts/-/contracts-5.7.0.tgz#c305e775abd07e48aa590e1a877ed5c316f8bd1e"
   integrity sha512-5GJbzEU3X+d33CdfPhcyS+z8MzsTrBGk/sc+G+59+tPa9yFkl6HQ9D6L0QMgNTA9q8dT0XKxxkyp883XsQvbbg==
@@ -2190,6 +2190,22 @@
     "@ethersproject/logger" "^5.7.0"
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/transactions" "^5.7.0"
+
+"@ethersproject/contracts@^5.4.1", "@ethersproject/contracts@^5.7.0":
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/@ethersproject/contracts/-/contracts-5.8.0.tgz#243a38a2e4aa3e757215ea64e276f8a8c9d8ed73"
+  integrity sha512-0eFjGz9GtuAi6MZwhb4uvUM216F38xiuR0yYCjKJpNfSEy4HUM8hvqqBj9Jmm0IUz8l0xKEhWwLIhPgxNY0yvQ==
+  dependencies:
+    "@ethersproject/abi" "^5.8.0"
+    "@ethersproject/abstract-provider" "^5.8.0"
+    "@ethersproject/abstract-signer" "^5.8.0"
+    "@ethersproject/address" "^5.8.0"
+    "@ethersproject/bignumber" "^5.8.0"
+    "@ethersproject/bytes" "^5.8.0"
+    "@ethersproject/constants" "^5.8.0"
+    "@ethersproject/logger" "^5.8.0"
+    "@ethersproject/properties" "^5.8.0"
+    "@ethersproject/transactions" "^5.8.0"
 
 "@ethersproject/hash@5.7.0":
   version "5.7.0"
@@ -2433,7 +2449,7 @@
     "@ethersproject/constants" "^5.8.0"
     "@ethersproject/logger" "^5.8.0"
 
-"@ethersproject/transactions@5.7.0", "@ethersproject/transactions@^5.4.0", "@ethersproject/transactions@^5.7.0":
+"@ethersproject/transactions@5.7.0":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/transactions/-/transactions-5.7.0.tgz#91318fc24063e057885a6af13fdb703e1f993d3b"
   integrity sha512-kmcNicCp1lp8qanMTC3RIikGgoJ80ztTyvtsFvCYpSCfkjhD0jZ2LOrnbcuxuToLIUYYf+4XwD1rP+B/erDIhQ==
@@ -2448,7 +2464,7 @@
     "@ethersproject/rlp" "^5.7.0"
     "@ethersproject/signing-key" "^5.7.0"
 
-"@ethersproject/transactions@^5.8.0":
+"@ethersproject/transactions@^5.4.0", "@ethersproject/transactions@^5.7.0", "@ethersproject/transactions@^5.8.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/transactions/-/transactions-5.8.0.tgz#1e518822403abc99def5a043d1c6f6fe0007e46b"
   integrity sha512-UglxSDjByHG0TuU17bDfCemZ3AnKO2vYrL5/2n2oXvKzvb7Cz+W9gOWXKARjp2URVwcWlQlPOEQyAviKwT4AHg==
