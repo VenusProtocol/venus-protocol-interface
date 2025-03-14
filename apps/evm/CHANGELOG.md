@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.230.0
+
+### Minor Changes
+
+- f186baa: use price endpoint in getPendingRewards
+
 ## 2.229.0
 
 ### Minor Changes
