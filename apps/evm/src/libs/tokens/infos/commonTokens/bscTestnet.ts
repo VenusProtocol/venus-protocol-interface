@@ -5,6 +5,7 @@ import alpacaLogo from 'libs/tokens/img/underlyingTokens/alpaca.png';
 import angleLogo from 'libs/tokens/img/underlyingTokens/angle.svg';
 import ankrLogo from 'libs/tokens/img/underlyingTokens/ankr.svg';
 import ankrBNBLogo from 'libs/tokens/img/underlyingTokens/ankrBNB.svg';
+import asBnbLogo from 'libs/tokens/img/underlyingTokens/asBnb.svg';
 import babyDogeLogo from 'libs/tokens/img/underlyingTokens/babyDoge.svg';
 import bifiLogo from 'libs/tokens/img/underlyingTokens/bifi.png';
 import bnbLogo from 'libs/tokens/img/underlyingTokens/bnb.svg';
@@ -24,6 +25,7 @@ import ltcLogo from 'libs/tokens/img/underlyingTokens/ltc.svg';
 import maticLogo from 'libs/tokens/img/underlyingTokens/matic.svg';
 import nftLogo from 'libs/tokens/img/underlyingTokens/nft.png';
 import planetLogo from 'libs/tokens/img/underlyingTokens/planet.svg';
+import ptClisBNBLogo from 'libs/tokens/img/underlyingTokens/ptClisBNB.svg';
 import ptSolvBtcLogo from 'libs/tokens/img/underlyingTokens/ptSolvBtc.svg';
 import racaLogo from 'libs/tokens/img/underlyingTokens/raca.png';
 import sdLogo from 'libs/tokens/img/underlyingTokens/sd.svg';
@@ -375,5 +377,17 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'SOL',
     asset: solLogo,
+  },
+  {
+    address: '0x14AECeEc177085fd09EA07348B4E1F7Fcc030fA1',
+    decimals: 18,
+    symbol: 'PT-clisBNB-APR25',
+    asset: ptClisBNBLogo,
+  },
+  {
+    address: '0xc625f060ad25f4A6c2d9eBF30C133dB61B7AF072',
+    decimals: 18,
+    symbol: 'asBNB',
+    asset: asBnbLogo,
   },
 ];
