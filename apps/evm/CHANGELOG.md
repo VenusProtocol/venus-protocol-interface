@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.232.0
+
+### Minor Changes
+
+- 4ba7fa5: increase minimum Paymaster balance to enable gasless transactions
+
 ## 2.231.0
 
 ### Minor Changes
