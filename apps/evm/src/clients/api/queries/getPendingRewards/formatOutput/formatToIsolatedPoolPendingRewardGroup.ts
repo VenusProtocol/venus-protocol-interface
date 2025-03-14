@@ -1,9 +1,11 @@
 import type BigNumber from 'bignumber.js';
-
-import type { PoolLens } from 'libs/contracts';
 import type { Token } from 'types';
 
-import type { IsolatedPoolPendingReward, IsolatedPoolPendingRewardGroup } from '../types';
+import type {
+  IsolatedPoolPendingReward,
+  IsolatedPoolPendingRewardGroup,
+  PendingInternalRewardSummary,
+} from '../types';
 import formatRewardSummaryData from './formatRewardSummaryData';
 
 function formatToPoolPendingRewardGroup({
@@ -13,7 +15,7 @@ function formatToPoolPendingRewardGroup({
   tokens,
 }: {
   comptrollerContractAddress: string;
-  rewardSummaries: Awaited<ReturnType<PoolLens['getPendingRewards']>>;
+  rewardSummaries: PendingInternalRewardSummary[];
   tokenPriceMapping: Record<string, BigNumber>;
   tokens: Token[];
 }) {

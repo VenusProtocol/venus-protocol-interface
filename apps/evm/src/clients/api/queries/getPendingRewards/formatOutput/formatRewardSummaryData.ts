@@ -1,9 +1,8 @@
 import BigNumber from 'bignumber.js';
-
-import type { VenusLens } from 'libs/contracts';
 import type { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
+import type { PendingExternalRewardSummary, PendingInternalRewardSummary } from '../types';
 
 type FormatRewardSummaryDataOutput =
   | {
@@ -12,6 +11,7 @@ type FormatRewardSummaryDataOutput =
       rewardAmountCents: BigNumber | undefined;
       vTokenAddressesWithPendingReward: string[];
       rewardsDistributorAddress: string;
+      totalRewards?: BigNumber;
     }
   | undefined;
 
@@ -21,7 +21,9 @@ function formatRewardSummaryData({
   tokenPriceMapping,
 }: {
   tokens: Token[];
-  rewardSummary: Awaited<ReturnType<VenusLens['pendingRewards']>>;
+  rewardSummary:
+    | Omit<PendingInternalRewardSummary, 'poolComptrollerAddress'>
+    | PendingExternalRewardSummary;
   tokenPriceMapping: Record<string, BigNumber>;
 }): FormatRewardSummaryDataOutput {
   const rewardToken = findTokenByAddress({
@@ -39,7 +41,7 @@ function formatRewardSummaryData({
 
   // Go through markets to aggregate rewards
   const rewardAmountMantissa = rewardSummary.pendingRewards.reduce((acc, market) => {
-    const vTokenPendingReward = new BigNumber(market.amount.toString());
+    const vTokenPendingReward = new BigNumber(market.amountMantissa.toString());
     // Filter out vToken if it doesn't have any pending reward to collect
     if (vTokenPendingReward.isEqualTo(0)) {
       return acc;

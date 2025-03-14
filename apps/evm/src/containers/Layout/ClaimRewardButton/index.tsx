@@ -3,18 +3,17 @@ import { useMemo, useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
 import { type Claim, useClaimRewards } from 'clients/api';
-import { type ButtonProps, Checkbox, Modal, PrimaryButton } from 'components';
+import { type ButtonProps, Modal, PrimaryButton } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { VError, handleError } from 'libs/errors';
+import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { formatCentsToReadableValue } from 'utilities';
 
-import { ConnectWallet } from 'containers/ConnectWallet';
-import { SwitchChain } from 'containers/SwitchChain';
+import { useBreakpointUp } from 'hooks/responsive';
 import TEST_IDS from '../testIds';
-import { RewardGroup } from './RewardGroup';
-import type { Group } from './types';
+import { ClaimRewardsContent } from './ClaimRewardsContent';
+import type { ExternalRewardsGroup, InternalRewardsGroup } from './types';
 import useGetGroups from './useGetGroups';
 
 export interface ClaimRewardButtonUiProps extends ClaimRewardButtonProps {
@@ -24,10 +23,11 @@ export interface ClaimRewardButtonUiProps extends ClaimRewardButtonProps {
   onCloseModal: () => void;
   onClaimReward: () => Promise<unknown>;
   onToggleAllGroups: () => void;
-  onToggleGroup: (toggledGroup: Group) => void;
+  onToggleGroup: (toggledGroup: InternalRewardsGroup) => void;
   chainLogoSrc: string;
   chainName: string;
-  groups: Group[];
+  venusRewardsGroups: InternalRewardsGroup[];
+  externalRewardsGroups: ExternalRewardsGroup[];
 }
 
 export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
@@ -38,7 +38,8 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   onClaimReward,
   onToggleAllGroups,
   onToggleGroup,
-  groups,
+  venusRewardsGroups,
+  externalRewardsGroups,
   chainLogoSrc,
   chainName,
   variant,
@@ -46,10 +47,16 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
   ...otherButtonProps
 }) => {
   const { t } = useTranslation();
+  const isMdOrUp = useBreakpointUp('md');
+
+  const allRewardGroups = useMemo(
+    () => [...venusRewardsGroups, ...externalRewardsGroups],
+    [venusRewardsGroups, externalRewardsGroups],
+  );
 
   const totalRewardsCents = useMemo(
     () =>
-      groups?.reduce<BigNumber>(
+      allRewardGroups.reduce<BigNumber>(
         (groupsAcc, g) =>
           groupsAcc.plus(
             g.pendingRewards.reduce<BigNumber>(
@@ -59,23 +66,22 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
           ),
         new BigNumber(0),
       ),
-    [groups],
+    [allRewardGroups],
   );
 
-  const handleClaimReward = async () => {
-    try {
-      await onClaimReward();
-      onCloseModal();
-    } catch (error) {
-      handleError({ error });
-    }
-  };
-
-  const isSubmitDisabled = !groups.some(group => group.isChecked);
-
-  if (!groups.length) {
+  if (!allRewardGroups.length) {
     return null;
   }
+
+  const titleDom = (
+    <div className="flex items-center">
+      <img src={chainLogoSrc} alt={chainName} className="mr-3 w-6" />
+
+      {t('claimReward.modal.title', {
+        chainName,
+      })}
+    </div>
+  );
 
   return (
     <>
@@ -99,53 +105,18 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
       <Modal
         isOpen={isModalOpen}
         handleClose={onCloseModal}
-        title={
-          <div className="flex items-center">
-            <img src={chainLogoSrc} alt={chainName} className="mr-3 w-6" />
-
-            {t('claimReward.modal.title', {
-              chainName,
-            })}
-          </div>
-        }
+        title={titleDom}
+        noHorizontalPadding={!isMdOrUp}
       >
-        <>
-          <div className="border-lightGrey mb-4 flex items-center justify-between border-b pb-4">
-            <p className="text-lg">{t('claimReward.modal.selectAll')}</p>
-
-            <Checkbox
-              onChange={onToggleAllGroups}
-              value={groups.every(group => group.isChecked || group.isDisabled)}
-              data-testid={TEST_IDS.claimRewardSelectAllCheckbox}
-            />
-          </div>
-
-          <div data-testid={TEST_IDS.claimRewardBreakdown}>
-            {groups.map(group => (
-              <RewardGroup
-                group={group}
-                onCheckChange={() => onToggleGroup(group)}
-                key={`claim-reward-modal-reward-group-${group.id}`}
-              />
-            ))}
-          </div>
-
-          <ConnectWallet>
-            <SwitchChain>
-              <PrimaryButton
-                onClick={handleClaimReward}
-                className="w-full"
-                disabled={isSubmitDisabled}
-                data-testid={TEST_IDS.claimRewardSubmitButton}
-                loading={isClaimingRewards}
-              >
-                {isSubmitDisabled
-                  ? t('claimReward.modal.claimButton.disabledLabel')
-                  : t('claimReward.modal.claimButton.enabledLabel')}
-              </PrimaryButton>
-            </SwitchChain>
-          </ConnectWallet>
-        </>
+        <ClaimRewardsContent
+          isClaimingRewards={isClaimingRewards}
+          internalRewardsGroups={venusRewardsGroups}
+          externalRewardsGroups={externalRewardsGroups}
+          onCloseModal={onCloseModal}
+          onClaimReward={onClaimReward}
+          onToggleGroup={onToggleGroup}
+          onToggleAllGroups={onToggleAllGroups}
+        />
       </Modal>
     </>
   );
@@ -162,7 +133,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
   const chainMetadata = useGetChainMetadata();
 
   const [uncheckedGroupIds, setUncheckedGroupIds] = useState<string[]>([]);
-  const groups = useGetGroups({
+  const { internalRewardsGroups, externalRewardsGroups } = useGetGroups({
     uncheckedGroupIds,
   });
 
@@ -174,7 +145,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
     }
 
     // Extract all claims from checked groups
-    const claims = groups.reduce<Claim[]>(
+    const claims = internalRewardsGroups.reduce<Claim[]>(
       (acc, group) => (group.isChecked && !group.isDisabled ? acc.concat(group.claims) : acc),
       [],
     );
@@ -194,7 +165,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
 
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleToggleGroup = (toggledGroup: Group) =>
+  const handleToggleGroup = (toggledGroup: InternalRewardsGroup) =>
     setUncheckedGroupIds(currentUncheckedGroupIds =>
       toggledGroup.isChecked
         ? [...currentUncheckedGroupIds, toggledGroup.id]
@@ -205,12 +176,13 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
 
   const handleToggleAllGroups = () =>
     setUncheckedGroupIds(currentUncheckedGroupIds =>
-      currentUncheckedGroupIds.length > 0 ? [] : groups.map(group => group.id),
+      currentUncheckedGroupIds.length > 0 ? [] : internalRewardsGroups.map(group => group.id),
     );
 
   return (
     <ClaimRewardButtonUi
-      groups={groups}
+      venusRewardsGroups={internalRewardsGroups}
+      externalRewardsGroups={externalRewardsGroups}
       isClaimingRewards={isClaimingRewards}
       isModalOpen={isModalOpen}
       onOpenModal={handleOpenModal}

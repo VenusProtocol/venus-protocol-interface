@@ -13,7 +13,7 @@ import {
 } from 'libs/contracts';
 import { useGetTokens } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
-import type { ChainId } from 'types';
+import type { ChainId, MerklDistribution } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 import getPendingRewards from '.';
@@ -34,6 +34,7 @@ type TrimmedGetPendingRewardsInput = Omit<
   | 'xvsTokenAddress'
   | 'tokens'
   | 'chainId'
+  | 'merklCampaigns'
 >;
 
 export type UseGetPendingRewardsQueryKey = [
@@ -73,14 +74,60 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Pa
     accountAddress: input.accountAddress || undefined,
   });
 
-  const isolatedPoolComptrollerAddresses = useMemo(
-    () =>
-      (getPoolsData?.pools || []).reduce<string[]>(
-        (acc, pool) => (pool.isIsolated ? [...acc, pool.comptrollerAddress] : acc),
-        [],
-      ),
-    [getPoolsData?.pools],
-  );
+  const { isolatedPoolComptrollerAddresses, merklCampaigns } = useMemo(() => {
+    const data = (getPoolsData?.pools || []).reduce<{
+      isolatedPoolComptrollerAddresses: string[];
+      merklCampaigns: GetPendingRewardsInput['merklCampaigns'];
+    }>(
+      (acc, pool) => {
+        const comptrollerAddresses = pool.isIsolated
+          ? [...acc.isolatedPoolComptrollerAddresses, pool.comptrollerAddress]
+          : acc.isolatedPoolComptrollerAddresses;
+
+        // list all Merkl rewards for each market present in the pool
+        const { assets } = pool;
+        const merklRewardsPerAsset = assets.reduce<Record<string, MerklDistribution[]>>(
+          (accMerklDistributionsForAsset, a) => {
+            const assetMerklRewards = [
+              ...a.supplyTokenDistributions.filter(d => d.type === 'merkl'),
+              ...a.borrowTokenDistributions.filter(d => d.type === 'merkl'),
+            ];
+
+            const entries =
+              assetMerklRewards.length > 0
+                ? {
+                    ...accMerklDistributionsForAsset,
+                    [a.vToken.address]: assetMerklRewards,
+                  }
+                : accMerklDistributionsForAsset;
+
+            return entries;
+          },
+          {},
+        );
+
+        // and then map them by market
+        const merklRewards =
+          Object.keys(merklRewardsPerAsset).length > 0
+            ? {
+                ...acc.merklCampaigns,
+                ...merklRewardsPerAsset,
+              }
+            : acc.merklCampaigns;
+
+        return {
+          isolatedPoolComptrollerAddresses: comptrollerAddresses,
+          merklCampaigns: merklRewards,
+        };
+      },
+      {
+        isolatedPoolComptrollerAddresses: [],
+        merklCampaigns: {},
+      },
+    );
+
+    return data;
+  }, [getPoolsData?.pools]);
 
   // Get XVS vesting vault pool count
   const { data: getXvsVaultPoolCountData, isLoading: isGetXvsVaultPoolCountLoading } =
@@ -103,7 +150,6 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Pa
         },
         params =>
           getPendingRewards({
-            chainId,
             legacyPoolComptrollerContractAddress,
             venusLensContract,
             isolatedPoolComptrollerAddresses: sortedIsolatedPoolComptrollerAddresses,
@@ -111,6 +157,8 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Pa
             vaiVaultContract,
             tokens,
             primeContract: isPrimeEnabled ? primeContract : undefined,
+            chainId,
+            merklCampaigns,
             ...input,
             ...params,
           }),

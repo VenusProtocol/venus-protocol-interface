@@ -1,6 +1,6 @@
 import type BigNumber from 'bignumber.js';
 
-import { VError } from 'libs/errors';
+import { VError, logError } from 'libs/errors';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
 import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -8,10 +8,14 @@ import removeDuplicates from 'utilities/removeDuplicates';
 
 import { getApiTokenPrice } from 'clients/api';
 import formatOutput from './formatOutput';
-import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
+import getMerklUserRewards from './getMerklRewards';
+import type {
+  GetPendingRewardsInput,
+  GetPendingRewardsOutput,
+  PendingExternalRewardSummary,
+} from './types';
 
 const getPendingRewards = async ({
-  chainId,
   tokens,
   legacyPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
@@ -22,6 +26,8 @@ const getPendingRewards = async ({
   vaiVaultContract,
   xvsVaultContract,
   primeContract,
+  chainId,
+  merklCampaigns,
 }: GetPendingRewardsInput): Promise<GetPendingRewardsOutput> => {
   const xvsTokenAddress = tokens.find(token => token.symbol === 'XVS')?.address;
 
@@ -80,6 +86,25 @@ const getPendingRewards = async ({
     primeContract?.callStatic.getPendingRewards(accountAddress),
   ]);
 
+  // only reach out for Merkl reward details if there campaigns
+  const hasMerklCampaigns = Object.keys(merklCampaigns).length > 0;
+  let merklPendingRewards: PendingExternalRewardSummary[] = [];
+  if (hasMerklCampaigns) {
+    const [merklApiResponseSettled] = await Promise.allSettled([
+      getMerklUserRewards({
+        merklCampaigns,
+        chainId,
+        accountAddress,
+      }),
+    ]);
+
+    if (merklApiResponseSettled.status === 'rejected') {
+      logError(merklApiResponseSettled.reason);
+    } else {
+      merklPendingRewards = merklApiResponseSettled.value;
+    }
+  }
+
   const [vaiVaultPendingXvsResult, vaiVaultPausedResult, venusLensPendingRewardsResult] =
     await vaiVaultVenusLensPromises;
   const isolatedPoolsPendingRewardsResults = await isolatedPoolsPendingRewardsPromises;
@@ -110,10 +135,15 @@ const getPendingRewards = async ({
     primePendingReward => primePendingReward.rewardToken,
   );
 
+  const merklRewardTokenAddresses = merklPendingRewards
+    ? merklPendingRewards.map(r => r.rewardTokenAddress)
+    : [];
+
   const rewardTokenAddresses = removeDuplicates([
     xvsTokenAddress,
     ...isolatedPoolRewardTokenAddresses,
     ...primeRewardTokenAddresses,
+    ...merklRewardTokenAddresses,
   ]);
   const tokenPriceMantissaMapping = await getApiTokenPrice({
     tokenAddresses: rewardTokenAddresses,
@@ -165,6 +195,7 @@ const getPendingRewards = async ({
     isVaiVaultContractPaused: extractSettledPromiseValue(vaiVaultPausedResult) ?? false,
     isXvsVestingVaultContractPaused: xvsVestingVaultPausedResult,
     isPrimeContractPaused: extractSettledPromiseValue(isPrimeContractPausedResult) ?? false,
+    merklPendingRewards,
   });
 
   return {

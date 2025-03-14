@@ -87,7 +87,7 @@ describe('ClaimRewardButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
 
     await waitFor(() =>
-      expect(getByText(en.layout.claimRewardModal.vaultGroup.disabledContractWarningMessage)),
+      expect(getByText(en.claimReward.modal.vaultGroup.disabledContractWarningMessage)),
     );
   });
 
@@ -115,7 +115,7 @@ describe('ClaimRewardButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
 
     await waitFor(() =>
-      expect(getByText(en.layout.claimRewardModal.vaultGroup.disabledContractWarningMessage)),
+      expect(getByText(en.claimReward.modal.vaultGroup.disabledContractWarningMessage)),
     );
   });
 
@@ -143,7 +143,7 @@ describe('ClaimRewardButton', () => {
     fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
 
     await waitFor(() =>
-      expect(getByText(en.layout.claimRewardModal.primeGroup.disabledContractWarningMessage)),
+      expect(getByText(en.claimReward.modal.primeGroup.disabledContractWarningMessage)),
     );
   });
 
@@ -281,5 +281,34 @@ describe('ClaimRewardButton', () => {
 
     await waitFor(() => expect(claimRewards).toHaveBeenCalledTimes(1));
     expect((claimRewards as Mock).mock.calls[0][0]).toMatchSnapshot();
+  });
+
+  it('renders external rewards if user has pending external rewards to claim', async () => {
+    const { getByTestId, queryByText } = renderComponent(<ClaimRewardButton />, {
+      accountAddress: fakeAddress,
+    });
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
+    // Open modal
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
+
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimExternalRewardBreakdown)));
+
+    const fakeExternalRewards = fakePendingRewardGroups.filter(g => g.type === 'external');
+    await waitFor(() => expect(queryByText(fakeExternalRewards[0].campaignName)));
+    await waitFor(() => expect(queryByText(fakeExternalRewards[1].campaignName)));
+  });
+
+  it('does not render external rewards if there is none of this type', async () => {
+    (getPendingRewards as Mock).mockImplementation(() => ({
+      pendingRewardGroups: fakePendingRewardGroups.filter(g => g.type !== 'external'),
+    }));
+    const { getByTestId, queryByTestId } = renderComponent(<ClaimRewardButton />, {
+      accountAddress: fakeAddress,
+    });
+    await waitFor(() => expect(getByTestId(TEST_IDS.claimRewardOpenModalButton)));
+    // Open modal
+    fireEvent.click(getByTestId(TEST_IDS.claimRewardOpenModalButton));
+
+    await waitFor(() => expect(queryByTestId(TEST_IDS.claimExternalRewardBreakdown)).toBeNull());
   });
 });

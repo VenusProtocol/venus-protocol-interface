@@ -1,4 +1,4 @@
-import type BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 
 import type { VenusLens } from 'libs/contracts';
 import type { Token } from 'types';
@@ -18,7 +18,16 @@ function formatToLegacyPoolPendingRewardGroup({
   venusLensPendingRewards: Awaited<ReturnType<VenusLens['pendingRewards']>>;
 }) {
   const rewardSummaryData = formatRewardSummaryData({
-    rewardSummary: venusLensPendingRewards,
+    rewardSummary: {
+      type: 'legacyPool',
+      distributorAddress: venusLensPendingRewards.distributorAddress,
+      rewardTokenAddress: venusLensPendingRewards.rewardTokenAddress,
+      totalRewards: new BigNumber(venusLensPendingRewards.totalRewards.toString()),
+      pendingRewards: venusLensPendingRewards.pendingRewards.map(({ amount, vTokenAddress }) => ({
+        amountMantissa: new BigNumber(amount.toString()),
+        vTokenAddress,
+      })),
+    },
     tokenPriceMapping,
     tokens,
   });

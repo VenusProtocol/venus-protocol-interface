@@ -49,7 +49,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
 
     if (d.type === 'merkl') {
       const distribution: DistributionProps = {
-        name: d.description || t('apy.boost.tooltip.defaultMerklRewardName'),
+        name: d.rewardDetails.description || t('apy.boost.tooltip.defaultMerklRewardName'),
         value: formatPercentageToReadableValue(d.apyPercentage),
         logoSrc: d.token.asset,
         description: (
@@ -57,7 +57,11 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
             i18nKey="apy.boost.tooltip.externalRewardDescription"
             components={{
               AppLink: (
-                <Link target="_blank" href={d.claimUrl} onClick={e => e.stopPropagation()} />
+                <Link
+                  target="_blank"
+                  href={d.rewardDetails.claimUrl}
+                  onClick={e => e.stopPropagation()}
+                />
               ),
             }}
           />

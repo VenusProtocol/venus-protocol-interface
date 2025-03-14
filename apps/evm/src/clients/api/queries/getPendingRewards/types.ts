@@ -1,11 +1,10 @@
 import type BigNumber from 'bignumber.js';
 
 import type { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
-import type { ChainId, Token } from 'types';
+import type { ChainId, MerklDistribution, Token } from 'types';
 import type { Address } from 'viem';
 
 export interface GetPendingRewardsInput {
-  chainId: ChainId;
   tokens: Token[];
   isolatedPoolComptrollerAddresses: string[];
   xvsVestingVaultPoolCount: number;
@@ -16,7 +15,35 @@ export interface GetPendingRewardsInput {
   venusLensContract?: VenusLens;
   primeContract?: Prime;
   legacyPoolComptrollerContractAddress?: string;
+  chainId: ChainId;
+  merklCampaigns: Record<string, MerklDistribution[]>; // maps Asset -> Merkl campaigns
 }
+
+interface PendingRewardEntry {
+  vTokenAddress: string;
+  amountMantissa: BigNumber;
+}
+
+export type PendingInternalRewardSummary = {
+  type: 'legacyPool' | 'isolatedPool';
+  poolComptrollerAddress: string;
+  distributorAddress: string;
+  rewardTokenAddress: string;
+  totalRewards: BigNumber;
+  pendingRewards: PendingRewardEntry[];
+};
+
+export type PendingExternalRewardSummary = {
+  type: 'external';
+  appName: string;
+  campaignId: string;
+  campaignName: string;
+  claimUrl: string;
+  distributorAddress: string;
+  rewardTokenAddress: string;
+  totalRewards: BigNumber;
+  pendingRewards: PendingRewardEntry[];
+};
 
 export interface GetPendingRewardsOutput {
   pendingRewardGroups: PendingRewardGroup[];
@@ -27,6 +54,16 @@ export interface IsolatedPoolPendingReward {
   rewardAmountMantissa: BigNumber;
   rewardAmountCents: BigNumber | undefined;
   vTokenAddressesWithPendingReward: string[];
+  rewardsDistributorAddress: string;
+}
+
+export interface ExternalPendingReward {
+  campaignName: string;
+  appName: string;
+  claimUrl: string;
+  rewardToken: Token;
+  rewardAmountMantissa: BigNumber;
+  rewardAmountCents: BigNumber | undefined;
   rewardsDistributorAddress: string;
 }
 
@@ -43,6 +80,14 @@ export interface LegacyPoolPendingRewardGroup {
   rewardAmountMantissa: BigNumber;
   rewardAmountCents: BigNumber | undefined;
   vTokenAddressesWithPendingReward: string[];
+}
+
+export interface ExternalPendingRewardGroup {
+  type: 'external';
+  claimUrl: string;
+  campaignName: string;
+  appName: string;
+  pendingRewards: ExternalPendingReward[];
 }
 
 export interface VaultPendingRewardGroup {
@@ -82,4 +127,5 @@ export type PendingRewardGroup =
   | IsolatedPoolPendingRewardGroup
   | VaultPendingRewardGroup
   | XvsVestingVaultPendingRewardGroup
-  | PrimePendingRewardGroup;
+  | PrimePendingRewardGroup
+  | ExternalPendingRewardGroup;

@@ -50,8 +50,12 @@ export interface GetCombinedDistributionApysInput {
 }
 
 const getCombinedDistributionApys = ({ asset }: GetCombinedDistributionApysInput) => {
-  const supply = aggregatePercentages({ distributions: asset.supplyTokenDistributions });
-  const borrow = aggregatePercentages({ distributions: asset.borrowTokenDistributions });
+  const supply = aggregatePercentages({
+    distributions: asset.supplyTokenDistributions.filter(d => d.isActive),
+  });
+  const borrow = aggregatePercentages({
+    distributions: asset.borrowTokenDistributions.filter(d => d.isActive),
+  });
 
   const totalSupplyApyBoostPercentage = supply.apyRewardsPercentage.plus(supply.apyPrimePercentage);
   const totalBorrowApyBoostPercentage = borrow.apyRewardsPercentage.plus(borrow.apyPrimePercentage);

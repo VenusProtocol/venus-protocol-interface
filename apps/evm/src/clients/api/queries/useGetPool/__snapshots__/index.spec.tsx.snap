@@ -22,6 +22,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           {
             "apyPercentage": "4.17469243006608279",
             "dailyDistributedTokens": "9999999.5",
+            "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -58,6 +59,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           {
             "apyPercentage": "0.11720675342484096",
             "dailyDistributedTokens": "9999999.5",
+            "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -97,6 +99,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           {
             "apyPercentage": "1.670327607690572731",
             "dailyDistributedTokens": "9999999.5",
+            "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -107,6 +110,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           },
           {
             "apyPercentage": "1.233105649796123742",
+            "isActive": true,
             "referenceValues": {
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
@@ -122,6 +126,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           },
           {
             "apyPercentage": "0.913105649796123742",
+            "isActive": true,
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
               "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
@@ -153,6 +158,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           {
             "apyPercentage": "1.353105649796123742",
             "dailyDistributedTokens": "9999999.5",
+            "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -163,6 +169,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           },
           {
             "apyPercentage": "0.953105649796123742",
+            "isActive": true,
             "referenceValues": {
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
@@ -178,6 +185,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           },
           {
             "apyPercentage": "0.753105649796123742",
+            "isActive": true,
             "token": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
               "asset": "/src/libs/tokens/img/underlyingTokens/usdc.svg",
@@ -225,6 +233,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           {
             "apyPercentage": "0.522209972682294832",
             "dailyDistributedTokens": "9999999.5",
+            "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -235,6 +244,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           },
           {
             "apyPercentage": "1.015310564979612374",
+            "isActive": true,
             "referenceValues": {
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
@@ -270,6 +280,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           {
             "apyPercentage": "0.421719501189155143",
             "dailyDistributedTokens": "9999999.5",
+            "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -280,6 +291,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           },
           {
             "apyPercentage": "1.753105649796123742",
+            "isActive": true,
             "referenceValues": {
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
@@ -324,6 +336,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           {
             "apyPercentage": "0.852697602175970714",
             "dailyDistributedTokens": "9999999.5",
+            "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -334,6 +347,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           },
           {
             "apyPercentage": "1.753105649796123742",
+            "isActive": true,
             "referenceValues": {
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
@@ -349,6 +363,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           },
           {
             "apyPercentage": "0.913105649796123742",
+            "isActive": true,
             "token": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
               "asset": "/src/libs/tokens/img/underlyingTokens/busd.svg",
@@ -387,6 +402,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           {
             "apyPercentage": "0.678420831753642169",
             "dailyDistributedTokens": "9999999.5",
+            "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
@@ -397,6 +413,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           },
           {
             "apyPercentage": "1.753105649796123742",
+            "isActive": true,
             "referenceValues": {
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
@@ -412,6 +429,7 @@ exports[`api/queries/useGetPool > returns the correct asset 1`] = `
           },
           {
             "apyPercentage": "0",
+            "isActive": true,
             "token": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               "asset": "/src/libs/tokens/img/underlyingTokens/xvs.svg",
