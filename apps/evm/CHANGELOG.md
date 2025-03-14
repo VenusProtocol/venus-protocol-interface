@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.231.0
+
+### Minor Changes
+
+- d584d0d: display and claim user rewards from Merkl
+
 ## 2.230.0
 
 ### Minor Changes
