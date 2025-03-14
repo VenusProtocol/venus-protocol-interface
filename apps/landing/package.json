@@ -48,7 +48,7 @@
     "stylelint": "^15.10.3",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.4.5",
-    "vite": "^5.4.11",
+    "vite": "^6.2.2",
     "vite-plugin-svgr": "^4.3.0",
     "vite-tsconfig-paths": "^5.1.2"
   },
