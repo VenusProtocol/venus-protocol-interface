@@ -7,7 +7,6 @@ import {
   useGetLegacyPoolComptrollerContractAddress,
   useGetPoolLensContract,
   useGetPrimeContract,
-  useGetResilientOracleContract,
   useGetVaiVaultContract,
   useGetVenusLensContract,
   useGetXvsVaultContract,
@@ -34,6 +33,7 @@ type TrimmedGetPendingRewardsInput = Omit<
   | 'xvsVestingVaultPoolCount'
   | 'xvsTokenAddress'
   | 'tokens'
+  | 'chainId'
 >;
 
 export type UseGetPendingRewardsQueryKey = [
@@ -56,7 +56,6 @@ const refetchInterval = generatePseudoRandomRefetchInterval();
 const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
-  const resilientOracleContract = useGetResilientOracleContract();
   const venusLensContract = useGetVenusLensContract();
   const poolLensContract = useGetPoolLensContract();
   const vaiVaultContract = useGetVaiVaultContract();
@@ -99,12 +98,12 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Pa
     queryFn: () =>
       callOrThrow(
         {
-          resilientOracleContract,
           poolLensContract,
           xvsVaultContract,
         },
         params =>
           getPendingRewards({
+            chainId,
             legacyPoolComptrollerContractAddress,
             venusLensContract,
             isolatedPoolComptrollerAddresses: sortedIsolatedPoolComptrollerAddresses,

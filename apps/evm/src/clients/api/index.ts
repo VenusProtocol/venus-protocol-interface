@@ -372,3 +372,5 @@ export * from './queries/getPoolLiquidationIncentive/useGetPoolLiquidationIncent
 
 export * from './queries/getIsolatedPoolVTokenLiquidationThreshold';
 export * from './queries/getIsolatedPoolVTokenLiquidationThreshold/useGetIsolatedPoolVTokenLiquidationThreshold';
+
+export { default as getApiTokenPrice } from './queries/getApiTokenPrice';

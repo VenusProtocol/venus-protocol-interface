@@ -1,22 +1,15 @@
 import type BigNumber from 'bignumber.js';
 
-import type {
-  PoolLens,
-  Prime,
-  ResilientOracle,
-  VaiVault,
-  VenusLens,
-  XvsVault,
-} from 'libs/contracts';
-import type { Token } from 'types';
+import type { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
+import type { ChainId, Token } from 'types';
 import type { Address } from 'viem';
 
 export interface GetPendingRewardsInput {
+  chainId: ChainId;
   tokens: Token[];
   isolatedPoolComptrollerAddresses: string[];
   xvsVestingVaultPoolCount: number;
   accountAddress: Address;
-  resilientOracleContract: ResilientOracle;
   poolLensContract: PoolLens;
   xvsVaultContract: XvsVault;
   vaiVaultContract?: VaiVault;

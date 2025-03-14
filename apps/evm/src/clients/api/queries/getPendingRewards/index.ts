@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 
 import { VError } from 'libs/errors';
 import convertPriceMantissaToDollars from 'utilities/convertPriceMantissaToDollars';
@@ -6,17 +6,18 @@ import extractSettledPromiseValue from 'utilities/extractSettledPromiseValue';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 import removeDuplicates from 'utilities/removeDuplicates';
 
+import { getApiTokenPrice } from 'clients/api';
 import formatOutput from './formatOutput';
 import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
 const getPendingRewards = async ({
+  chainId,
   tokens,
   legacyPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
   xvsVestingVaultPoolCount,
   accountAddress,
   venusLensContract,
-  resilientOracleContract,
   poolLensContract,
   vaiVaultContract,
   xvsVaultContract,
@@ -114,18 +115,18 @@ const getPendingRewards = async ({
     ...isolatedPoolRewardTokenAddresses,
     ...primeRewardTokenAddresses,
   ]);
-  const rewardTokenPricesPromises = Promise.allSettled(
-    rewardTokenAddresses.map(rewardTokenAddress =>
-      resilientOracleContract.getPrice(rewardTokenAddress),
-    ),
-  );
+  const tokenPriceMantissaMapping = await getApiTokenPrice({
+    tokenAddresses: rewardTokenAddresses,
+    chainId,
+  });
 
-  const rewardTokenPricesResults = await rewardTokenPricesPromises;
-
-  const tokenPriceMapping: Record<string, BigNumber> = rewardTokenPricesResults.reduce<{
+  const tokenPriceMapping: Record<string, BigNumber> = Object.entries(
+    tokenPriceMantissaMapping,
+  ).reduce<{
     [address: string]: BigNumber;
-  }>((acc, rewardTokenPricesResult, index) => {
-    const rewardTokenAddress = rewardTokenAddresses[index];
+  }>((acc, tokenPriceMantissaTuple) => {
+    const rewardTokenAddress = tokenPriceMantissaTuple[0];
+    const rewardTokenPriceMantissa = tokenPriceMantissaTuple[1];
     const rewardToken = findTokenByAddress({
       tokens,
       address: rewardTokenAddress,
@@ -135,12 +136,8 @@ const getPendingRewards = async ({
       return acc;
     }
 
-    if (rewardTokenPricesResult.status === 'rejected') {
-      return acc;
-    }
-
     const rewardTokenPriceDollars = convertPriceMantissaToDollars({
-      priceMantissa: new BigNumber(rewardTokenPricesResult.value.toString()),
+      priceMantissa: rewardTokenPriceMantissa,
       decimals: rewardToken.decimals,
     });
 
