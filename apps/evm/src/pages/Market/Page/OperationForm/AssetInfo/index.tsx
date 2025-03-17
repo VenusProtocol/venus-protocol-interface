@@ -105,7 +105,7 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
         ? asset.borrowTokenDistributions
         : asset.supplyTokenDistributions
     )
-      .filter(distribution => distribution.type !== 'primeSimulation')
+      .filter(distribution => distribution.type !== 'primeSimulation' && distribution.isActive)
       .reduce<LabeledInlineContentProps[]>((acc, distribution) => {
         if (distribution.type !== 'prime' && distribution.apyPercentage.isEqualTo(0)) {
           return acc;
