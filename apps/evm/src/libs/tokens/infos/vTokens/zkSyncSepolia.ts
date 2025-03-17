@@ -14,7 +14,7 @@ export const vTokenAssets: VTokenAssets = {
   // Core pool
   [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vWBTC_Core.toLowerCase()]: vWBnbCoreLogo,
   [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vWETH_Core.toLowerCase()]: vWEthCoreLogo,
-  // has a special logo to indicate that the token is bridged to zkSync
+  // has a special logo to indicate that the token is bridged to ZKsync
   [isolatedPoolsZkSyncSepoliaDeployments.addresses.VToken_vUSDC_Core.toLowerCase()]:
     vUsdcBridgedCoreLogo,
   // USDC.e shares the usual vUSDC logo

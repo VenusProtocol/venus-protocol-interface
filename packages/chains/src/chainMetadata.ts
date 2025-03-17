@@ -115,7 +115,7 @@ export const chainMetadata: {
     nativeToken: ethToken,
   },
   [ChainId.ZKSYNC_MAINNET]: {
-    name: 'zkSync',
+    name: 'ZKsync',
     logoSrc: zkSyncLogo,
     explorerUrl: 'https://explorer.zksync.io',
     layerZeroScanUrl: 'https://layerzeroscan.com',
@@ -123,7 +123,7 @@ export const chainMetadata: {
     nativeToken: ethToken,
   },
   [ChainId.ZKSYNC_SEPOLIA]: {
-    name: 'zkSync Sepolia',
+    name: 'ZKsync Sepolia',
     logoSrc: zkSyncLogo,
     explorerUrl: 'https://sepolia.explorer.zksync.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
