@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.232.1
+
+### Patch Changes
+
+- 07b8d8f: filter out inactive reward campaigns
+
 ## 2.232.0
 
 ### Minor Changes
