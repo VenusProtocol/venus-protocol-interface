@@ -4,6 +4,7 @@ import type { Chain, Client, HttpTransport, Transport } from 'viem';
 
 import addresses from 'libs/contracts/generated/infos/addresses';
 import { logError } from 'libs/errors';
+import { RotationProvider } from './rotationProvider';
 
 const MULTICALL_BATCH_SIZE = 100;
 
@@ -22,10 +23,20 @@ export const getProvider = ({
 
   const ethersProvider =
     transport.type === 'fallback'
-      ? new ethersProviders.FallbackProvider(
-          (transport.transports as ReturnType<HttpTransport>[]).map(
-            ({ value }) => new ethersProviders.StaticJsonRpcProvider(value?.url, network),
+      ? new RotationProvider(
+          (transport.transports as ReturnType<HttpTransport>[]).reduce<string[]>(
+            (acc, { value }) => {
+              const url = value?.url;
+
+              if (!url) {
+                return acc;
+              }
+
+              return [...acc, url];
+            },
+            [],
           ),
+          network.chainId,
         )
       : new ethersProviders.StaticJsonRpcProvider(transport.url, network);
 
