@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { ButtonWrapper, Card, Icon, Spinner, Table, type TableColumn } from 'components';
+import { Card, Icon, SecondaryButton, Spinner, Table, type TableColumn } from 'components';
 import { Link } from 'containers/Link';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -121,21 +121,17 @@ export const Transactions: React.FC<TransactionsProps> = ({
         <Spinner css={styles.spinner} />
       )}
 
-      <ButtonWrapper
-        variant="secondary"
+      <SecondaryButton
         className="text-offWhite mt-4 hover:no-underline sm:mx-6 sm:mt-0"
-        asChild
+        component={Link}
+        href={generateExplorerUrl({
+          hash: address,
+          urlType: 'address',
+          chainId,
+        })}
       >
-        <Link
-          href={generateExplorerUrl({
-            hash: address,
-            urlType: 'address',
-            chainId,
-          })}
-        >
-          {t('voterDetail.viewAll')}
-        </Link>
-      </ButtonWrapper>
+        {t('voterDetail.viewAll')}
+      </SecondaryButton>
     </Card>
   );
 };

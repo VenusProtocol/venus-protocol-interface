@@ -3,6 +3,7 @@
   background-size: 100% 862px;
   background-repeat: no-repeat;
   background-position: right top;
+  position: relative;
 
   @media (min-width: 640px) {
     background-image: url('./assets/bg.png');

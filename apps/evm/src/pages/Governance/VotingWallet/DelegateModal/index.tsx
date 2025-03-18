@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 
-import { ButtonWrapper, Modal, NoticeInfo, TextButton } from 'components';
+import { Modal, NoticeInfo, TextButton } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { handleError } from 'libs/errors';
@@ -89,9 +89,13 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
           )}
         </Formik>
 
-        <ButtonWrapper asChild variant="text" className="w-full hover:no-underline">
-          <Link to={routes.governanceLeaderBoard.path}>{t('vote.delegateLeaderboard')}</Link>
-        </ButtonWrapper>
+        <TextButton
+          component={Link}
+          to={routes.governanceLeaderBoard.path}
+          className="w-full hover:no-underline"
+        >
+          {t('vote.delegateLeaderboard')}
+        </TextButton>
       </>
     </Modal>
   );

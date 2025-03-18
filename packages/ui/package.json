@@ -8,7 +8,7 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./tailwind-config": "./src/tailwind.config.ts",
+    "./tailwind-config": "./tailwind.config.ts",
     "./theme": "./src/theme.css",
     "./fonts/proximaNova": "./src/fonts/proximaNova/index.css",
     "./fonts/bebasNeue": "./src/fonts/bebasNeue/index.css",
@@ -25,7 +25,8 @@
     "tailwindcss": ">=3.3.0"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.2"
+    "@venusprotocol/chains": "*",
+    "react-responsive": "^10.0.1"
   },
   "peerDependencies": {
     "tailwindcss": ">=3.3.0"

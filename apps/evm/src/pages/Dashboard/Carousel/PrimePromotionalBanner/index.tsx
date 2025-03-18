@@ -1,4 +1,4 @@
-import { ButtonWrapper } from 'components';
+import { SecondaryButton } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -59,20 +59,16 @@ export const PrimePromotionalBanner: React.FC = () => {
           </p>
         </div>
 
-        <ButtonWrapper variant="secondary" className="w-full sm:w-auto sm:self-start" asChild>
-          {isPrimeCalculatorEnabled ? (
-            <Link
-              to={primeCalculatorPagePath}
-              className="text-offWhite no-underline hover:no-underline"
-            >
-              {t('dashboard.primePromotionalBanner.buttonLabel.primeCalculator')}
-            </Link>
-          ) : (
-            <Link href={PRIME_DOC_URL} className="text-offWhite no-underline hover:no-underline">
-              {t('dashboard.primePromotionalBanner.buttonLabel.primeDoc')}
-            </Link>
-          )}
-        </ButtonWrapper>
+        <SecondaryButton
+          className="w-full text-offWhite no-underline hover:no-underline sm:w-auto sm:self-start"
+          component={Link}
+          to={isPrimeCalculatorEnabled ? primeCalculatorPagePath : undefined}
+          href={isPrimeCalculatorEnabled ? PRIME_DOC_URL : undefined}
+        >
+          {isPrimeCalculatorEnabled
+            ? t('dashboard.primePromotionalBanner.buttonLabel.primeCalculator')
+            : t('dashboard.primePromotionalBanner.buttonLabel.primeDoc')}
+        </SecondaryButton>
       </div>
     </Template>
   );

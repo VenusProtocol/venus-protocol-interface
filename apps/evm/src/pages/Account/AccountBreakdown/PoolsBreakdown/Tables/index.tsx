@@ -5,7 +5,6 @@ import { useMemo, useState } from 'react';
 
 import { ButtonGroup } from 'components';
 import { MarketTable, type MarketTableProps } from 'containers/MarketTable';
-import { useHideMdDownCss, useHideXlDownCss, useShowXlDownCss } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 
@@ -20,10 +19,6 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-
-  const hideXlDownCss = useHideXlDownCss();
-  const showXlDownCss = useShowXlDownCss();
-  const hideMdDownCss = useHideMdDownCss();
 
   const marketTableProps: {
     supply: MarketTableProps;
@@ -69,7 +64,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
   return (
     <div data-testid={TEST_IDS.tables}>
       {/* Desktop view */}
-      <div css={[styles.desktopContainer, hideXlDownCss]}>
+      <div css={styles.desktopContainer} className="hidden xl:grid">
         <MarketTable
           {...marketTableProps.supply}
           title={t('account.marketBreakdown.tables.supplyTableTitle')}
@@ -82,9 +77,9 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       </div>
 
       {/* Tablet/Mobile view */}
-      <Card css={[styles.tabletContainer, showXlDownCss]}>
+      <Card css={styles.tabletContainer} className="xl:hidden">
         <div css={styles.tabletHeader}>
-          <Typography variant="h4" css={[styles.tabletHeaderTitle, hideMdDownCss]}>
+          <Typography variant="h4" css={styles.tabletHeaderTitle} className="hidden md:block">
             {t('account.marketBreakdown.tables.tabletTitle')}
           </Typography>
 

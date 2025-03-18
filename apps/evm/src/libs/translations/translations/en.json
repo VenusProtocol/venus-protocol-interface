@@ -283,6 +283,17 @@
   },
   "dashboard": {
     "allTag": "All",
+    "berachainPromotionalBanner": {
+      "blurredBackground": {
+        "alt": "Blurred background"
+      },
+      "buttonLabel": "Try now",
+      "description": "The Proof of Liquidity Layer 1 is here - borrow and supply your assets instantly.",
+      "illustration": {
+        "alt": "Berachain illustration"
+      },
+      "title": "Venus is live on Berachain"
+    },
     "pausedAssetsToggle": {
       "label": "Paused assets"
     },
@@ -399,6 +410,17 @@
       "utilizationRate": "Utilization rate"
     },
     "menu": {
+      "berachainAd": {
+        "background": {
+          "alt": "Blurred background"
+        },
+        "title": "Venus is live on Berachain"
+      },
+      "berachainAdd": {
+        "logo": {
+          "alt": "Berachain logo"
+        }
+      },
       "navLink": {
         "new": "NEW"
       },
@@ -739,9 +761,6 @@
     "label": "Spending limit",
     "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one.",
     "revokeButtonTooltip": "Revoke spending limit"
-  },
-  "spinner": {
-    "altText": "Spinning animation"
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",

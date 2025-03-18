@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo, useState } from 'react';
 
-import { cn } from '@venusprotocol/ui';
+import { cn, useBreakpointUp } from '@venusprotocol/ui';
 import { type Claim, useClaimRewards } from 'clients/api';
 import { type ButtonProps, Modal, PrimaryButton } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -9,8 +9,6 @@ import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { formatCentsToReadableValue } from 'utilities';
-
-import { useBreakpointUp } from 'hooks/responsive';
 import TEST_IDS from '../testIds';
 import { ClaimRewardsContent } from './ClaimRewardsContent';
 import type { ExternalRewardsGroup, InternalRewardsGroup } from './types';

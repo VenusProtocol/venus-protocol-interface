@@ -13,6 +13,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.2",
     "@tanstack/react-query": "^5.40.0",
     "@venusprotocol/chains": "*",
     "@venusprotocol/ui": "*",
