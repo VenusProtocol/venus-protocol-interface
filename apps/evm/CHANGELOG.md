@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.232.3
+
+### Patch Changes
+
+- 84308b6: update fallback mechanism of the ethers.js provider
+
 ## 2.232.2
 
 ### Patch Changes
