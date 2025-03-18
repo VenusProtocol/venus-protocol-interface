@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 2.232.2
+
+### Patch Changes
+
+- b753dcc: update zkSync name to ZKsync
+- Updated dependencies [b753dcc]
+  - @venusprotocol/chains@0.1.1
+
 ## 2.232.1
 
 ### Patch Changes
