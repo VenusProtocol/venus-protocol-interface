@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.233.0
+
+### Minor Changes
+
+- 75d032d: fix how proposal actions are parsed
+
 ## 2.232.3
 
 ### Patch Changes
