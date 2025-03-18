@@ -1,13 +1,13 @@
 import { parseFunctionSignature } from 'utilities';
 import { encodeAbiParameters } from 'viem';
 
-import formatIfArray from './formatIfArray';
+import { safeJsonParse } from './safeJsonParse';
 
 const encodeCallData = (signature: string, callData: (string | undefined)[]) => {
   const processedCallData = callData.reduce(
     (acc, curr) => {
       if (curr !== undefined) {
-        acc.push(formatIfArray(curr));
+        acc.push(safeJsonParse(curr));
       }
       return acc;
     },
