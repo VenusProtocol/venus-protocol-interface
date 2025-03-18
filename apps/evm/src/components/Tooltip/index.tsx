@@ -5,9 +5,8 @@ import {
   type TooltipProps as TooltipPrimitiveProps,
   Trigger,
 } from '@radix-ui/react-tooltip';
-import { cn } from '@venusprotocol/ui';
+import { cn, useBreakpointUp } from '@venusprotocol/ui';
 import { Modal } from 'components/Modal';
-import { useBreakpointUp } from 'hooks/responsive';
 import { useState } from 'react';
 import { TooltipContent } from './TooltipContent';
 

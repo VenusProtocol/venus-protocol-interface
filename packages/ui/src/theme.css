@@ -17,7 +17,7 @@
     --color-greyBlue: 42 52 77;
   }
 
-  .unichain-theme {
+  .unichain {
     /* The next colors are taken from the UI kit in Figma */
     --color-background: 19 19 19;
     --color-cards: 27 27 27;
@@ -30,7 +30,7 @@
     --color-greyBlue: 65 31 69;
   }
 
-  .berachain-theme {
+  .berachain {
     /* The next colors are taken from the UI kit in Figma */
     --color-background: 19 19 19;
     --color-cards: 27 27 27;

@@ -1,7 +1,8 @@
+import { useBreakpointUp } from '@venusprotocol/ui';
 import { APP_MAIN_PRODUCTION_URL } from '../../constants/production';
 import Container from '../Container/Container';
-import Link from '../Link/Link';
-import LinkLaunchApp from '../Link/LinkLaunchApp';
+import Link from '../Link';
+import { BerachainAd } from './BerachainAd';
 import s from './Intro.module.css';
 import IconArrow from './assets/arrow.svg?react';
 
@@ -17,8 +18,12 @@ const links = [
 ];
 
 function Intro() {
+  const isMdUp = useBreakpointUp('md');
+
   return (
     <div className={s.intro}>
+      {!isMdUp && <BerachainAd />}
+
       <Container className={s.container}>
         <h1 className={s.title}>
           Universal <br />
@@ -31,11 +36,16 @@ function Intro() {
         </p>
 
         <div className={s.cta}>
-          <LinkLaunchApp className={s.linkLaunchApp} />
+          <Link className={s.linkLaunchApp} href={APP_MAIN_PRODUCTION_URL}>
+            Launch app
+          </Link>
 
           <div className="flex items-center">
             {links.map(({ text, href }) => (
-              <div className="px-6 border-r border-offWhite/10 first-of-type:pl-0 last-of-type:pr-0 last-of-type:border-r-0">
+              <div
+                className="px-6 border-r border-offWhite/10 first-of-type:pl-0 last-of-type:pr-0 last-of-type:border-r-0"
+                key={text}
+              >
                 <Link
                   className="group text-offWhite tracking-widest h-auto hover:text-offWhite"
                   variant="text"

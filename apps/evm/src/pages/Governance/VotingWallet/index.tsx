@@ -10,13 +10,13 @@ import {
 } from 'clients/api';
 import {
   Button,
-  ButtonWrapper,
   Card,
   Delimiter,
   Icon,
   InfoIcon,
   NoticeInfo,
   PrimaryButton,
+  SecondaryButton,
   TokenIcon,
 } from 'components';
 import { routes } from 'constants/routing';
@@ -177,12 +177,13 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
         )}
 
         {showDepositXvs && (
-          <ButtonWrapper
+          <Button
             className="text-offWhite mt-6 hover:no-underline sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
-            asChild
+            component={Link}
+            to={routes.vaults.path}
           >
-            <Link to={routes.vaults.path}>{t('vote.depositXvs')}</Link>
-          </ButtonWrapper>
+            {t('vote.depositXvs')}
+          </Button>
         )}
 
         {showDelegateButton && (
@@ -229,16 +230,14 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
             </span>
           </Card>
 
-          <ButtonWrapper
-            variant="secondary"
+          <SecondaryButton
             className="text-offWhite mt-6 w-full hover:no-underline"
-            asChild
+            component={Link}
+            href={XVS_SNAPSHOT_URL}
           >
-            <Link href={XVS_SNAPSHOT_URL}>
-              <Icon className="mr-2 h-6 w-6" name="lightening" />
-              {t('vote.goToXvsSnapshot')}
-            </Link>
-          </ButtonWrapper>
+            <Icon className="mr-2 h-6 w-6" name="lightening" />
+            {t('vote.goToXvsSnapshot')}
+          </SecondaryButton>
 
           <DelegateModal
             onClose={() => setDelegateModelIsOpen(false)}

@@ -1,8 +1,5 @@
-import { Slot } from '@radix-ui/react-slot';
-
+import { Spinner } from '../../components/Spinner';
 import { cn } from '../../utilities/cn';
-
-import { Spinner } from '@venusprotocol/ui';
 
 export type ButtonVariant =
   | 'primary'
@@ -48,78 +45,96 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
     // primary
     default:
       return cn(
-        'border-blue bg-blue active:border-darkBlue active:bg-darkBlue disabled:border-lightGrey disabled:bg-lightGrey hover:border-mediumBlue hover:bg-mediumBlue',
+        'border-blue bg-blue berachain:text-background active:border-darkBlue active:bg-darkBlue disabled:border-lightGrey disabled:bg-lightGrey hover:border-mediumBlue hover:bg-mediumBlue',
         active ? 'border-mediumBlue bg-mediumBlue' : 'hover:border-mediumBlue hover:bg-mediumBlue',
       );
   }
 };
 
-export interface ButtonWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  asChild?: boolean;
+export type ButtonAltComponentType = React.FC | undefined;
+
+export interface BaseProps<T extends ButtonAltComponentType> {
+  loading?: boolean;
+  contentClassName?: string;
+  className?: string;
+  component?: T;
   active?: boolean;
   variant?: ButtonVariant;
   children?: React.ReactNode;
+  disabled?: boolean;
 }
 
-export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
-  asChild,
+export type ButtonProps<T extends ButtonAltComponentType = undefined> = T extends React.FC
+  ? BaseProps<T> & React.ComponentProps<T>
+  : BaseProps<T> & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+export const Button = <T extends ButtonAltComponentType>({
+  loading,
   variant = 'primary',
+  disabled = false,
   active = false,
+  children,
+  contentClassName,
+  component,
   className,
-  type = 'button',
   ...otherProps
-}) => {
-  const Comp = asChild ? Slot : 'button';
+}: ButtonProps<T>) => {
+  const Comp = component ?? 'button';
 
   return (
     <Comp
+      disabled={loading || disabled}
+      type={Comp === 'button' ? 'button' : undefined}
       className={cn(
-        'disabled:text-grey inline-flex h-12 cursor-pointer items-center justify-center rounded-lg border border-transparent px-6 py-2 font-semibold transition-all duration-[250ms] disabled:cursor-default',
+        'relative overflow-hidden disabled:text-grey inline-flex h-12 cursor-pointer items-center justify-center rounded-lg border border-transparent px-6 py-2 font-semibold transition-all duration-[250ms] disabled:cursor-default',
         getVariantClasses({ variant, active }),
         className,
       )}
-      type={type}
       {...otherProps}
-    />
+    >
+      {loading && (
+        <div className="mr-2">
+          <Spinner variant="small" />
+        </div>
+      )}
+
+      <span
+        className={cn(
+          'inline-flex items-center text-inherit',
+          variant !== 'primary' && variant !== 'secondary' && 'text-sm',
+          contentClassName,
+        )}
+      >
+        {children}
+      </span>
+    </Comp>
   );
 };
 
-export interface ButtonProps extends Omit<ButtonWrapperProps, 'asChild'> {
-  loading?: boolean;
-  contentClassName?: string;
-}
-
-export const Button = ({
-  loading,
-  disabled = false,
-  variant = 'primary',
-  children,
-  contentClassName,
-  ...otherProps
-}: ButtonProps) => (
-  <ButtonWrapper disabled={loading || disabled} type="button" variant={variant} {...otherProps}>
-    {loading && (
-      <div className="mr-2">
-        <Spinner variant="small" />
-      </div>
-    )}
-
-    <span
-      className={cn(
-        'inline-flex items-center text-inherit',
-        variant !== 'primary' && variant !== 'secondary' && 'text-sm',
-        contentClassName,
-      )}
-    >
-      {children}
-    </span>
-  </ButtonWrapper>
+export const PrimaryButton = <T extends ButtonAltComponentType>(props: ButtonProps<T>) => (
+  <Button variant="primary" {...props} />
 );
 
-export const PrimaryButton = (props: ButtonProps) => <Button variant="primary" {...props} />;
-export const SecondaryButton = (props: ButtonProps) => <Button variant="secondary" {...props} />;
-export const TertiaryButton = (props: ButtonProps) => <Button variant="tertiary" {...props} />;
-export const QuaternaryButton = (props: ButtonProps) => <Button variant="quaternary" {...props} />;
-export const QuinaryButton = (props: ButtonProps) => <Button variant="quinary" {...props} />;
-export const SenaryButton = (props: ButtonProps) => <Button variant="senary" {...props} />;
-export const TextButton = (props: ButtonProps) => <Button variant="text" {...props} />;
+export const SecondaryButton = <T extends ButtonAltComponentType>(props: ButtonProps<T>) => (
+  <Button variant="secondary" {...props} />
+);
+
+export const TertiaryButton = <T extends ButtonAltComponentType>(props: ButtonProps<T>) => (
+  <Button variant="tertiary" {...props} />
+);
+
+export const QuaternaryButton = <T extends ButtonAltComponentType>(props: ButtonProps<T>) => (
+  <Button variant="quaternary" {...props} />
+);
+
+export const QuinaryButton = <T extends ButtonAltComponentType>(props: ButtonProps<T>) => (
+  <Button variant="quinary" {...props} />
+);
+
+export const SenaryButton = <T extends ButtonAltComponentType>(props: ButtonProps<T>) => (
+  <Button variant="senary" {...props} />
+);
+
+export const TextButton = <T extends ButtonAltComponentType>(props: ButtonProps<T>) => (
+  <Button variant="text" {...props} />
+);

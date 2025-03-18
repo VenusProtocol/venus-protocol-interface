@@ -4,4 +4,6 @@
   align-items: center;
   min-height: 100vh;
   min-width: 320px;
+  overflow-x: hidden;
+  position: relative;
 }

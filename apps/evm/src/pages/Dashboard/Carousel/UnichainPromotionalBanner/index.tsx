@@ -17,7 +17,7 @@ export const UnichainPromotionalBanner: React.FC = () => {
     });
 
   return (
-    <Template className="unichain-theme border-[#84408C] bg-[#321B35] flex-col p-0 sm:flex sm:flex-row sm:p-0 md:justify-between">
+    <Template className="unichain border-[#84408C] bg-[#321B35] flex-col p-0 sm:flex sm:flex-row sm:p-0 md:justify-between">
       <div className="relative overflow-hidden flex justify-center items-center py-4 sm:order-2 sm:mb-0 sm:w-42 md:basis-1/3">
         <img
           src={background}
@@ -41,7 +41,7 @@ export const UnichainPromotionalBanner: React.FC = () => {
           </p>
         </div>
 
-        <Button className="w-full sm:w-auto sm:self-start" onClick={handleButtonClick}>
+        <Button className="w-full min-w-38 sm:w-auto sm:self-start" onClick={handleButtonClick}>
           {t('dashboard.unichainPromotionalBanner.buttonLabel')}
         </Button>
       </div>
