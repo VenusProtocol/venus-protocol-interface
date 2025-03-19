@@ -5,11 +5,12 @@ import getProposalEta, {
   type GetProposalEtaOutput,
 } from 'clients/api/queries/getProposalEta';
 import FunctionKey from 'constants/functionKey';
-import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
+import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
+import { usePublicClient } from 'libs/wallet';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetProposalEtaInput = Omit<GetProposalEtaInput, 'governorBravoDelegateContract'>;
+type TrimmedGetProposalEtaInput = Omit<GetProposalEtaInput, 'publicClient' | 'governorBravoDelegateContractAddress'>;
 
 type Options = QueryObserverOptions<
   GetProposalEtaOutput,
@@ -20,7 +21,10 @@ type Options = QueryObserverOptions<
 >;
 
 const useGetProposalEta = (input: TrimmedGetProposalEtaInput, options?: Partial<Options>) => {
-  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
+  const { publicClient } = usePublicClient({
+    chainId: governanceChain.id,
+  });
+  const governorBravoDelegateContractAddress = getGovernorBravoDelegateContractAddress({
     chainId: governanceChain.id,
   });
 
@@ -28,7 +32,7 @@ const useGetProposalEta = (input: TrimmedGetProposalEtaInput, options?: Partial<
     queryKey: [FunctionKey.GET_PROPOSAL_ETA, input],
 
     queryFn: () =>
-      callOrThrow({ governorBravoDelegateContract }, params =>
+      callOrThrow({ publicClient, governorBravoDelegateContractAddress }, params =>
         getProposalEta({
           ...input,
           ...params,

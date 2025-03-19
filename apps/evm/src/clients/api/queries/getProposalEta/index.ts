@@ -1,7 +1,9 @@
-import type { GovernorBravoDelegate } from 'libs/contracts';
+import { governorBravoDelegateAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetProposalEtaInput {
-  governorBravoDelegateContract: GovernorBravoDelegate;
+  publicClient: PublicClient;
+  governorBravoDelegateContractAddress: Address;
   proposalId: number;
 }
 
@@ -10,13 +12,19 @@ export type GetProposalEtaOutput = {
 };
 
 const getProposalEta = async ({
-  governorBravoDelegateContract,
+  publicClient,
+  governorBravoDelegateContractAddress,
   proposalId,
 }: GetProposalEtaInput): Promise<GetProposalEtaOutput> => {
-  const resp = await governorBravoDelegateContract.proposals(proposalId);
+  const [_id, _proposerAddress, etaSeconds] = await publicClient.readContract({
+    address: governorBravoDelegateContractAddress,
+    abi: governorBravoDelegateAbi,
+    functionName: 'proposals',
+    args: [BigInt(proposalId)],
+  });
 
   // Convert ETA expressed in seconds to milliseconds
-  const eta = new Date(+resp.eta * 1000);
+  const eta = new Date(Number(etaSeconds) * 1000);
 
   return {
     eta,
