@@ -165,7 +165,7 @@
     "vite": "^6.2.2",
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^5.1.2",
-    "vitest": "^2.1.5",
+    "vitest": "^3.0.9",
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
