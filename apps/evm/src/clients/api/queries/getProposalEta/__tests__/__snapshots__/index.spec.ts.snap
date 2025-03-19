@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getProposalEta > returns ETA in correct format on success 1`] = `
+exports[`getProposalEta > returns ETA in correct format on success 1`] = `
 {
   "eta": 2022-07-13T09:48:26.000Z,
 }

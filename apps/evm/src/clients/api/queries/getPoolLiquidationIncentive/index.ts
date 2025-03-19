@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import { legacyPoolComptrollerAbi } from 'libs/contracts';
+import { isolatedPoolComptrollerAbi } from 'libs/contracts';
 import { convertPercentageFromSmartContract } from 'utilities';
 import type { Address, PublicClient } from 'viem';
 
@@ -19,7 +19,7 @@ export const getPoolLiquidationIncentive = async ({
 }: GetPoolLiquidationIncentiveInput): Promise<GetPoolLiquidationIncentiveOutput> => {
   const liquidationIncentiveMantissa = await publicClient.readContract({
     address: poolComptrollerContractAddress,
-    abi: legacyPoolComptrollerAbi,
+    abi: isolatedPoolComptrollerAbi,
     functionName: 'liquidationIncentiveMantissa',
   });
 

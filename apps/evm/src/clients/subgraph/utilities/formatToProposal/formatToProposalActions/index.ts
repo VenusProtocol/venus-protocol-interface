@@ -1,5 +1,5 @@
 import type { ProposalAction } from 'types';
-import type { Address, ByteArray } from 'viem';
+import type { ByteArray, Hex } from 'viem';
 
 export const formatToProposalActions = ({
   callDatas,
@@ -7,7 +7,7 @@ export const formatToProposalActions = ({
   targets,
   values,
 }: {
-  callDatas: (Address | ByteArray)[];
+  callDatas: (Hex | ByteArray)[];
   signatures: string[];
   targets: string[];
   values: (string | null)[];

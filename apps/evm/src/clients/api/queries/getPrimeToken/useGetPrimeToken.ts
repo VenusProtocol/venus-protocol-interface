@@ -40,8 +40,8 @@ const useGetPrimeToken = (input: UseGetPrimeTokenInput, options?: Partial<Option
     queryFn: () =>
       callOrThrow(
         {
-          primeContractAddress: primeContractAddress as Address,
-          accountAddress: input.accountAddress as Address,
+          primeContractAddress: primeContractAddress,
+          accountAddress: input.accountAddress,
           publicClient,
         },
         params => getPrimeToken(params),
