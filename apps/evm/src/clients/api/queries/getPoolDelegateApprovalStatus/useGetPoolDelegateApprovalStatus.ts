@@ -4,6 +4,7 @@ import getPoolDelegateApprovalStatus, {
   type GetNativeTokenGatewayDelegateApprovalInput,
   type GetNativeTokenGatewayDelegateApprovalOutput,
 } from 'clients/api/queries/getPoolDelegateApprovalStatus';
+import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
@@ -41,7 +42,7 @@ const useGetPoolDelegateApprovalStatus = (
     FunctionKey.GET_POOL_DELEGATE_APPROVAL_STATUS,
     {
       delegateeAddress,
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
       poolComptrollerAddress,
     },
   ];

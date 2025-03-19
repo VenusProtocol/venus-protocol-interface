@@ -1,4 +1,4 @@
-import type { PublicClient } from 'viem';
+import type { Address, PublicClient } from 'viem';
 
 import { vUsdt } from '__mocks__/models/vTokens';
 
@@ -19,7 +19,7 @@ describe('getPrimeDistributionForMarket', () => {
 
     const response = await getPrimeDistributionForMarket({
       vTokenAddress: vUsdt.address,
-      primeContractAddress: fakePrimeContractAddress as `0x${string}`,
+      primeContractAddress: fakePrimeContractAddress as Address,
       publicClient: fakePublicClient,
     });
 
