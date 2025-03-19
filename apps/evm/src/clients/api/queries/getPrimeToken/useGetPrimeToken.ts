@@ -3,13 +3,14 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { type GetPrimeTokenOutput, getPrimeToken } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useGetPrimeContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useGetPrimeContractAddress } from 'libs/contracts';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 type UseGetPrimeTokenInput = {
-  accountAddress?: string;
+  accountAddress?: Address;
 };
 
 export type UseGetPrimeStatusQueryKey = [
@@ -30,14 +31,20 @@ type Options = QueryObserverOptions<
 const useGetPrimeToken = (input: UseGetPrimeTokenInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
-  const primeContract = useGetPrimeContract();
+  const primeContractAddress = useGetPrimeContractAddress();
+  const { publicClient } = usePublicClient();
 
   return useQuery({
     queryKey: [FunctionKey.GET_PRIME_TOKEN, { ...input, chainId }],
 
     queryFn: () =>
-      callOrThrow({ primeContract, accountAddress: input.accountAddress }, params =>
-        getPrimeToken(params),
+      callOrThrow(
+        {
+          primeContractAddress: primeContractAddress as Address,
+          accountAddress: input.accountAddress as Address,
+          publicClient,
+        },
+        params => getPrimeToken(params),
       ),
 
     ...options,

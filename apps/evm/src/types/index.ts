@@ -179,7 +179,7 @@ export enum ProposalState {
 
 export interface ProposalAction {
   actionIndex: number;
-  callData: `0x${string}` | ByteArray;
+  callData: Address | ByteArray;
   signature: string;
   target: string;
   value: string;

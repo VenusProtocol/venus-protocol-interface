@@ -3,7 +3,7 @@ import type { Address, ByteArray } from 'viem';
 
 export interface ProposalActionApiResponse {
   actionIndex: number;
-  calldata: `0x${string}` | ByteArray;
+  calldata: Address | ByteArray;
   signature: string;
   target: Address;
   value: string | null;

@@ -7,6 +7,7 @@ import {
   useGetPrimeStatus,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, TokenAction } from 'types';
@@ -30,7 +31,7 @@ export const useGetHypotheticalUserPrimeApys = ({
 
   const { data: getPrimeStatusData } = useGetPrimeStatus(
     {
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
       enabled: !!accountAddress,

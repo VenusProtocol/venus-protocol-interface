@@ -1,4 +1,5 @@
 import { useGetPoolDelegateApprovalStatus, useUpdatePoolDelegateStatus } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import { useAccountAddress } from 'libs/wallet';
 import type { Address } from 'viem';
 
@@ -38,7 +39,7 @@ const useDelegateApproval = ({
       {
         poolComptrollerAddress,
         delegateeAddress,
-        accountAddress: accountAddress || '',
+        accountAddress: accountAddress || NULL_ADDRESS,
       },
       {
         enabled: enabled && !!delegateeAddress && !!accountAddress,

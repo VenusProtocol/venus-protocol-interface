@@ -1,8 +1,11 @@
-import type { Prime } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
+
+import { primeAbi } from 'libs/contracts';
 
 export interface GetPrimeTokenInput {
-  accountAddress: string;
-  primeContract: Prime;
+  accountAddress: Address;
+  primeContractAddress: Address;
+  publicClient: PublicClient;
 }
 
 export type GetPrimeTokenOutput = {
@@ -11,10 +14,16 @@ export type GetPrimeTokenOutput = {
 };
 
 const getPrimeToken = async ({
-  primeContract,
+  publicClient,
+  primeContractAddress,
   accountAddress,
 }: GetPrimeTokenInput): Promise<GetPrimeTokenOutput> => {
-  const { exists, isIrrevocable } = await primeContract.tokens(accountAddress);
+  const [exists, isIrrevocable] = await publicClient.readContract({
+    address: primeContractAddress,
+    abi: primeAbi,
+    functionName: 'tokens',
+    args: [accountAddress],
+  });
 
   return {
     exists,
