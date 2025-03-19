@@ -11,6 +11,9 @@ export const useStyles = () => {
       column-gap: ${theme.spacing(6)};
     `,
     tabletContainer: css`
+      padding-left: 0;
+      padding-right: 0;
+
       ${theme.breakpoints.down('md')} {
         padding: 0;
         background: transparent;
@@ -21,9 +24,12 @@ export const useStyles = () => {
       align-items: center;
       justify-content: space-between;
       margin-bottom: ${theme.spacing(3)};
+      padding-left: ${theme.spacing(6)};
+      padding-right: ${theme.spacing(6)};
 
       ${theme.breakpoints.down('md')} {
         display: block;
+        padding: 0;
         margin-bottom: ${theme.spacing(4)};
       }
     `,
@@ -48,11 +54,6 @@ export const useStyles = () => {
     `,
     tabletMarketTable: css`
       padding: 0;
-      margin: ${theme.spacing(0, -6)};
-
-      ${theme.breakpoints.down('md')} {
-        margin: 0;
-      }
     `,
   };
 };
