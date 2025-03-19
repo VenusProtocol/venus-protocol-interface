@@ -67,7 +67,7 @@ const useGetPrimeEstimation = (
 
   const { data: primeDistributionForMarketData } = useGetPrimeDistributionForMarket(
     {
-      vTokenAddress: vToken?.address || '',
+      vTokenAddress: vToken?.address || NULL_ADDRESS,
     },
     {
       enabled,

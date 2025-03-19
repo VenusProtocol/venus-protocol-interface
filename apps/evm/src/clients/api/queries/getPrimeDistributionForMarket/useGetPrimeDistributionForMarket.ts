@@ -6,13 +6,14 @@ import {
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useGetPrimeContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useGetPrimeContractAddress } from 'libs/contracts';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 interface UseGetPrimeDistributionForMarketInput {
-  vTokenAddress: string;
+  vTokenAddress: Address;
 }
 
 export type UseGetPrimeDistributionForMarketQueryKey = [
@@ -36,13 +37,14 @@ const useGetPrimeDistributionForMarket = (
 ) => {
   const { chainId } = useChainId();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
-  const primeContract = useGetPrimeContract();
+  const primeContractAddress = useGetPrimeContractAddress();
+  const { publicClient } = usePublicClient();
 
   return useQuery({
     queryKey: [FunctionKey.GET_PRIME_DISTRIBUTION_FOR_MARKET, { vTokenAddress, chainId }],
 
     queryFn: () =>
-      callOrThrow({ vTokenAddress, primeContract }, params =>
+      callOrThrow({ vTokenAddress, primeContractAddress, publicClient }, params =>
         getPrimeDistributionForMarket(params),
       ),
 
