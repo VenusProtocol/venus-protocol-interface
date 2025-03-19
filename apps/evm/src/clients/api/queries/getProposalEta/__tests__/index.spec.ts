@@ -1,11 +1,13 @@
 import type { PublicClient } from 'viem';
 
-import fakeGovernorBravoAddress, { altAddress as fakeProposerAddress} from '__mocks__/models/address';
+import fakeGovernorBravoAddress, {
+  altAddress as fakeProposerAddress,
+} from '__mocks__/models/address';
 import getProposalEta from '..';
 
 const fakeProposalId = 123;
 
-describe('api/queries/getProposalEta', () => {
+describe('getProposalEta', () => {
   test('returns ETA in correct format on success', async () => {
     const readContractMock = vi.fn(async () => [
       BigInt(0), // id

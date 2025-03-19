@@ -10,7 +10,10 @@ import { usePublicClient } from 'libs/wallet';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetProposalEtaInput = Omit<GetProposalEtaInput, 'publicClient' | 'governorBravoDelegateContractAddress'>;
+type TrimmedGetProposalEtaInput = Omit<
+  GetProposalEtaInput,
+  'publicClient' | 'governorBravoDelegateContractAddress'
+>;
 
 type Options = QueryObserverOptions<
   GetProposalEtaOutput,

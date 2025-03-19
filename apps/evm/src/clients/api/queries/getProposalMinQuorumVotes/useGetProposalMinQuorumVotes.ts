@@ -1,9 +1,11 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { type GetProposalMinQuorumVotesOutput, getProposalMinQuorumVotes } from 'clients/api';
+import getProposalMinQuorumVotes, {
+  type GetProposalMinQuorumVotesOutput,
+} from 'clients/api/queries/getProposalMinQuorumVotes';
 import FunctionKey from 'constants/functionKey';
-import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
-import { governanceChain } from 'libs/wallet';
+import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
+import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 type Options = QueryObserverOptions<
@@ -15,13 +17,19 @@ type Options = QueryObserverOptions<
 >;
 
 export const useGetProposalMinQuorumVotes = (options?: Partial<Options>) => {
-  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
+  const { publicClient } = usePublicClient({
+    chainId: governanceChain.id,
+  });
+  const governorBravoDelegateContractAddress = getGovernorBravoDelegateContractAddress({
     chainId: governanceChain.id,
   });
 
   return useQuery({
     queryKey: [FunctionKey.GET_PROPOSAL_MIN_QUORUM_VOTES],
-    queryFn: () => callOrThrow({ governorBravoDelegateContract }, getProposalMinQuorumVotes),
+    queryFn: () =>
+      callOrThrow({ publicClient, governorBravoDelegateContractAddress }, params =>
+        getProposalMinQuorumVotes(params),
+      ),
     ...options,
   });
 };

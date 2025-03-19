@@ -40,9 +40,8 @@ const useGetPrimeStatus = (
   return useQuery({
     queryKey: [FunctionKey.GET_PRIME_STATUS, { accountAddress, chainId }],
     queryFn: () =>
-      callOrThrow(
-        { primeContractAddress: primeContractAddress as Address, publicClient },
-        params => getPrimeStatus({ accountAddress, ...params }),
+      callOrThrow({ primeContractAddress: primeContractAddress as Address, publicClient }, params =>
+        getPrimeStatus({ accountAddress, ...params }),
       ),
     ...options,
     enabled: (options?.enabled === undefined || options?.enabled) && isPrimeEnabled,

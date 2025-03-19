@@ -1,20 +1,29 @@
 import BigNumber from 'bignumber.js';
-import type { GovernorBravoDelegate } from 'libs/contracts';
+import { governorBravoDelegateAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetProposalMinQuorumVotesInput {
-  governorBravoDelegateContract: GovernorBravoDelegate;
+  publicClient: PublicClient;
+  governorBravoDelegateContractAddress: Address;
 }
 
 export interface GetProposalMinQuorumVotesOutput {
   proposalMinQuorumVotesMantissa: BigNumber;
 }
 
-export const getProposalMinQuorumVotes = async ({
-  governorBravoDelegateContract,
+const getProposalMinQuorumVotes = async ({
+  publicClient,
+  governorBravoDelegateContractAddress,
 }: GetProposalMinQuorumVotesInput): Promise<GetProposalMinQuorumVotesOutput> => {
-  const res = await governorBravoDelegateContract.quorumVotes();
+  const res = await publicClient.readContract({
+    address: governorBravoDelegateContractAddress,
+    abi: governorBravoDelegateAbi,
+    functionName: 'quorumVotes',
+  });
 
   return {
     proposalMinQuorumVotesMantissa: new BigNumber(res.toString()),
   };
 };
+
+export default getProposalMinQuorumVotes;

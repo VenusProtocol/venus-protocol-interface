@@ -7,7 +7,7 @@ import getPrimeToken from '..';
 describe('getPrimeToken', () => {
   it('returns Prime status of passed account', async () => {
     const fakePrimeContractAddress = '0x0000000000000000000000000000000000000000' as const;
-    
+
     // Mock the publicClient
     const fakePublicClient = {
       readContract: vi.fn(async () => [true, true]), // [exists, isIrrevocable]
@@ -26,7 +26,7 @@ describe('getPrimeToken', () => {
       functionName: 'tokens',
       args: [fakeAccountAddress],
     });
-    
+
     expect(response).toEqual({
       exists: true,
       isIrrevocable: true,
