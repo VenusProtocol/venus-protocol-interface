@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.235.0
+
+### Minor Changes
+
+- ce19a88: fetch points distributions from API
+
 ## 2.234.0
 
 ### Minor Changes
