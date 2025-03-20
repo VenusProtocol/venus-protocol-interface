@@ -6,7 +6,7 @@ import findTokenByAddress from 'utilities/findTokenByAddress';
 import formatRewardDistribution from './formatRewardDistribution';
 
 import type {
-  ApiPointDistribution,
+  ApiPointsDistribution,
   ApiRewardDistributor,
 } from 'clients/api/queries/useGetPools/getPools/getApiPools';
 import { convertPriceMantissaToDollars } from 'utilities';
@@ -17,7 +17,7 @@ export type FormatDistributionsInput = {
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
   apiRewardsDistributors: ApiRewardDistributor[];
-  apiPointDistributions: ApiPointDistribution[];
+  apiPointsDistributions: ApiPointsDistribution[];
   currentBlockNumber: bigint;
   supplyBalanceTokens: BigNumber;
   borrowBalanceTokens: BigNumber;
@@ -31,7 +31,7 @@ export const formatDistributions = ({
   underlyingTokenPriceDollars,
   tokens,
   apiRewardsDistributors,
-  apiPointDistributions,
+  apiPointsDistributions,
   currentBlockNumber,
   supplyBalanceTokens,
   borrowBalanceTokens,
@@ -163,7 +163,7 @@ export const formatDistributions = ({
   const borrowPointDistributions: PointDistribution[] = [];
   const supplyPointDistributions: PointDistribution[] = [];
 
-  apiPointDistributions.forEach(
+  apiPointsDistributions.forEach(
     ({ startDate, endDate, action, title, description, incentive, logoUrl, extraInfoUrl }) => {
       const p: PointDistribution = {
         title,
