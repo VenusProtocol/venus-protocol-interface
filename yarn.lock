@@ -5716,6 +5716,14 @@
     "@storybook/global" "^5.0.0"
     "@vitest/utils" "^2.1.1"
 
+"@storybook/instrumenter@8.6.7":
+  version "8.6.7"
+  resolved "https://registry.yarnpkg.com/@storybook/instrumenter/-/instrumenter-8.6.7.tgz#c0adb9341661acc359b0d6adcb3ffab3160904b1"
+  integrity sha512-FeQiV0g5crCWs0P1wKY4xZzb4PxAYNcrm2+9LLGVqwnC7qzrSCPf0p10MlveVfwsen1m6Wbqfe+wl21c31Hfmg==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+    "@vitest/utils" "^2.1.1"
+
 "@storybook/manager-api@8.6.7":
   version "8.6.7"
   resolved "https://registry.yarnpkg.com/@storybook/manager-api/-/manager-api-8.6.7.tgz#f00e093cfbc650c6e6c9cd5a7d6d7cb56b201438"
@@ -5771,6 +5779,19 @@
     "@storybook/csf" "^0.1.11"
     "@storybook/global" "^5.0.0"
     "@storybook/instrumenter" "8.4.2"
+    "@testing-library/dom" "10.4.0"
+    "@testing-library/jest-dom" "6.5.0"
+    "@testing-library/user-event" "14.5.2"
+    "@vitest/expect" "2.0.5"
+    "@vitest/spy" "2.0.5"
+
+"@storybook/test@8.6.7":
+  version "8.6.7"
+  resolved "https://registry.yarnpkg.com/@storybook/test/-/test-8.6.7.tgz#53a4fc077e24c4d385abc4328896274584f14472"
+  integrity sha512-uF1JbBtdT7tuiXfEtHsUShBHIhm2vc0C39nKVJaTWyK9CybajXaj2Ny3IRa3oY9NKnklwGgN+kZ/Z9YiIOc4MQ==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+    "@storybook/instrumenter" "8.6.7"
     "@testing-library/dom" "10.4.0"
     "@testing-library/jest-dom" "6.5.0"
     "@testing-library/user-event" "14.5.2"
