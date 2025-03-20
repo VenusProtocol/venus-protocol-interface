@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.234.0
+
+### Minor Changes
+
+- b51f383: add asBNB and PT-clisBNB-APR25 records
+
 ## 2.233.0
 
 ### Minor Changes
