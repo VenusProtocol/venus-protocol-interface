@@ -17,6 +17,8 @@ export enum ChainId {
   BASE_SEPOLIA = 84532,
   UNICHAIN_MAINNET = 130,
   UNICHAIN_SEPOLIA = 1301,
+  BERACHAIN_MAINNET = 80094,
+  BERACHAIN_TESTNET = 80095, // TODO: add correct value
 }
 
 export enum MainnetChainId {

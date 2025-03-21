@@ -161,8 +161,8 @@
     background: rgba(24, 29, 42, 0.50);
 
     @media (min-width: 640px) {
-        box-shadow: unset;
-        background: unset;
+        box-shadow: none !important;
+        background: none !important;
         display: flex;
         padding: 24px 0;
     }

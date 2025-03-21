@@ -1,6 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 import Container from '../Container/Container';
-import Link from '../Link/Link';
+import Link from '../Link';
 import s from './VenusPrime.module.css';
 
 const VenusPrime: React.FC = () => (

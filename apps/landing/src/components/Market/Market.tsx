@@ -2,7 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import { useVenusApi } from '../../api/hooks/useVenusApi';
 import { nFormatter } from '../../api/utils';
 import Container from '../Container/Container';
-import Link from '../Link/Link';
+import Link from '../Link';
 import s from './Market.module.css';
 
 interface IMarketProps {

@@ -1,14 +1,13 @@
-import { cn } from '@venusprotocol/ui';
+import { VenusLogo, cn } from '@venusprotocol/ui';
 import { useEffect } from 'react';
 import ScrollLock from 'react-scrolllock';
 
-import { DOC_URL, WHITEPAPERS_URL } from '../../constants/production';
+import { APP_MAIN_PRODUCTION_URL, DOC_URL, WHITEPAPERS_URL } from '../../constants/production';
 import { useAppStateContext } from '../../context';
-import LinkLaunchApp from '../Link/LinkLaunchApp';
+import Link from '../Link';
 import NavigationLinks from '../NavigationLinks/NavigationLinks';
 import s from './Header.module.css';
 import MenuMobile from './MenuMobile';
-import Logo from './assets/logo.svg?react';
 
 const content = [
   {
@@ -57,7 +56,7 @@ const Header: React.FC<IHeaderProps> = ({ className }) => {
         id={HEADER_ID}
         className={cn(s.root, isMobileMenuOpen && s.headerAfterScroll, className)}
       >
-        <Logo key="headerLogo" className={s.logo} />
+        <VenusLogo key="headerLogo" withText className={s.logo} />
 
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -103,7 +102,10 @@ const Header: React.FC<IHeaderProps> = ({ className }) => {
               link: s.headerLink,
             }}
           />
-          <LinkLaunchApp variant="secondary" className={s.btn} />
+
+          <Link variant="secondary" className={s.btn} href={APP_MAIN_PRODUCTION_URL}>
+            Launch app
+          </Link>
         </div>
       </header>
 

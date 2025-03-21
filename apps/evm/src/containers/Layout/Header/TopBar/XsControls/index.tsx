@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { cn } from '@venusprotocol/ui';
-import venusLogoSrc from 'assets/img/venusLogo.svg';
+import { VenusLogo, cn } from '@venusprotocol/ui';
 import { Icon } from 'components';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
@@ -11,6 +10,7 @@ import { useTranslation } from 'libs/translations';
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import useGetMenuItems from 'containers/Layout/useGetMenuItems';
+import { useChainId } from 'libs/wallet';
 import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 import { ChainSelect } from '../ChainSelect';
 import { NavLink } from './NavLink';
@@ -19,6 +19,7 @@ export const XsControls: React.FC = () => {
   const { t } = useTranslation();
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState<boolean>(false);
   const menuItems = useGetMenuItems();
+  const { chainId } = useChainId();
 
   const isOnMarketPage = useIsOnMarketPage();
 
@@ -38,7 +39,7 @@ export const XsControls: React.FC = () => {
           className="mr-5 flex h-full flex-none items-center justify-center pl-4"
           to={routes.dashboard.path}
         >
-          <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-7" />
+          <VenusLogo chainId={chainId} alt={t('layout.menu.venusLogoAlt')} className="h-7" />
         </Link>
 
         <div className="flex flex-1 items-center justify-center gap-4">

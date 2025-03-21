@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { cn } from '@venusprotocol/ui';
-import { useBreakpointUp } from 'hooks/responsive';
+import { cn, useBreakpointUp } from '@venusprotocol/ui';
 
 import { useTranslation } from 'libs/translations';
 import { Modal } from '../Modal';

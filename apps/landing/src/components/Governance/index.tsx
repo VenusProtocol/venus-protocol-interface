@@ -1,6 +1,6 @@
 import { useProposalsCountFromApi } from '../../api/hooks/useProposals';
 import Container from '../Container/Container';
-import Link from '../Link/Link';
+import Link from '../Link';
 import s from './Governance.module.css';
 
 const Governance: React.FC = () => {

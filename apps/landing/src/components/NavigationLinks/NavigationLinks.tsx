@@ -1,5 +1,5 @@
 import { cn } from '@venusprotocol/ui';
-import Link from '../Link/Link';
+import Link from '../Link';
 import s from './NavigationLinks.module.css';
 
 interface INavigationLinksProps {

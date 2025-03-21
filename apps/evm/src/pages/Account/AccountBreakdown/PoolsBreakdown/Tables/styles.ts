@@ -6,7 +6,6 @@ export const useStyles = () => {
 
   return {
     desktopContainer: css`
-      display: grid;
       grid-template-columns: 1fr 1fr;
       column-gap: ${theme.spacing(6)};
     `,

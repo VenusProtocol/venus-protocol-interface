@@ -1,17 +1,13 @@
 .intro {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: baseline;
     position: relative;
-    padding-top: 224px;
+    padding-top: 462px;
 
     @media (min-width: 640px) {
         justify-content: end;
-        padding-top: 335px;
-    }
-
-    @media (min-width: 1280px) {
-        padding-top: 462px;
     }
 }
 
