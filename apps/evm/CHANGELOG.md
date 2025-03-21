@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.236.0
+
+### Minor Changes
+
+- 6f2abc0: refactor some query functions to use viem
+
+### Patch Changes
+
+- b8f6d94: fix alignment issue on pool tables on Account page
+
 ## 2.235.0
 
 ### Minor Changes
