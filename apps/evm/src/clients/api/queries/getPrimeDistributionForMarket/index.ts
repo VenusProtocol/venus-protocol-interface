@@ -1,10 +1,12 @@
 import BigNumber from 'bignumber.js';
+import type { Address, PublicClient } from 'viem';
 
-import type { Prime } from 'libs/contracts';
+import { primeAbi } from 'libs/contracts';
 
 export interface GetPrimeDistributionForMarketInput {
-  vTokenAddress: string;
-  primeContract: Prime;
+  vTokenAddress: Address;
+  primeContractAddress: Address;
+  publicClient: PublicClient;
 }
 
 export interface GetPrimeDistributionForMarketOutput {
@@ -13,9 +15,15 @@ export interface GetPrimeDistributionForMarketOutput {
 
 const getPrimeDistributionForMarket = async ({
   vTokenAddress,
-  primeContract,
+  primeContractAddress,
+  publicClient,
 }: GetPrimeDistributionForMarketInput): Promise<GetPrimeDistributionForMarketOutput> => {
-  const totalDistributedMantissa = await primeContract.incomeDistributionYearly(vTokenAddress);
+  const totalDistributedMantissa = await publicClient.readContract({
+    address: primeContractAddress,
+    abi: primeAbi,
+    functionName: 'incomeDistributionYearly',
+    args: [vTokenAddress],
+  });
 
   return {
     totalDistributedMantissa: new BigNumber(totalDistributedMantissa.toString()),

@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getPrimeStatus > returns the data describing the status of the Prime contract 1`] = `
+{
+  "claimWaitingPeriodSeconds": 600,
+  "claimedPrimeTokenCount": 300,
+  "primeMarkets": [],
+  "primeMaximumStakedXvsMantissa": "10000",
+  "primeMinimumStakedXvsMantissa": "1000",
+  "primeTokenLimit": 1000,
+  "rewardTokenAddress": "0x2000000000000000000000000000000000000000",
+  "userClaimTimeRemainingSeconds": 600,
+  "xvsVault": "0x1000000000000000000000000000000000000000",
+  "xvsVaultPoolId": 1,
+}
+`;

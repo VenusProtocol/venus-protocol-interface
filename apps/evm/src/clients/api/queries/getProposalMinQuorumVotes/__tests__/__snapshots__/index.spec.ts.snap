@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getProposalMinQuorumVotes > returns proposal min quorum votes on success 1`] = `
+{
+  "proposalMinQuorumVotesMantissa": "1000000000000000000",
+}
+`;

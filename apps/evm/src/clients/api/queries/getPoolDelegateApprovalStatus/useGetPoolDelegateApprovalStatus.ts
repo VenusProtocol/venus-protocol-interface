@@ -4,14 +4,15 @@ import getPoolDelegateApprovalStatus, {
   type GetNativeTokenGatewayDelegateApprovalInput,
   type GetNativeTokenGatewayDelegateApprovalOutput,
 } from 'clients/api/queries/getPoolDelegateApprovalStatus';
+import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
-import { useGetIsolatedPoolComptrollerContract } from 'libs/contracts';
+import { usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
 
 type TrimmedGetNativeTokenGatewayDelegateApprovalInput = Omit<
   GetNativeTokenGatewayDelegateApprovalInput,
-  'poolComptrollerContract'
+  'publicClient'
 > & { poolComptrollerAddress: Address };
 
 export type UseGetPoolDelegateApprovalStatusQueryKey = [
@@ -35,16 +36,13 @@ const useGetPoolDelegateApprovalStatus = (
   }: TrimmedGetNativeTokenGatewayDelegateApprovalInput,
   options?: Partial<Options>,
 ) => {
-  const poolComptrollerContract = useGetIsolatedPoolComptrollerContract({
-    address: poolComptrollerAddress,
-    passSigner: false,
-  });
+  const { publicClient } = usePublicClient();
 
   const queryKey: UseGetPoolDelegateApprovalStatusQueryKey = [
     FunctionKey.GET_POOL_DELEGATE_APPROVAL_STATUS,
     {
       delegateeAddress,
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
       poolComptrollerAddress,
     },
   ];
@@ -53,10 +51,12 @@ const useGetPoolDelegateApprovalStatus = (
     queryKey: queryKey,
 
     queryFn: () =>
-      callOrThrow({ poolComptrollerContract, delegateeAddress, accountAddress }, params =>
-        getPoolDelegateApprovalStatus({
-          ...params,
-        }),
+      callOrThrow(
+        { publicClient, delegateeAddress, accountAddress, poolComptrollerAddress },
+        params =>
+          getPoolDelegateApprovalStatus({
+            ...params,
+          }),
       ),
 
     ...options,

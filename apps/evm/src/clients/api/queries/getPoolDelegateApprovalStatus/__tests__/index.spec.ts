@@ -1,29 +1,33 @@
 import fakeAddress from '__mocks__/models/address';
-import fakeSigner from '__mocks__/models/signer';
-
-import type { IsolatedPoolComptroller } from 'libs/contracts';
+import type { PublicClient } from 'viem';
 
 import getPoolDelegateApprovalStatus from '..';
 
-describe('api/queries/getPoolDelegateApprovalStatus', () => {
+describe('getPoolDelegateApprovalStatus', () => {
   test('returns the delegate approval status on success', async () => {
     const fakeDelegateAddress = '0x1112223330000aaaaabbbbbaabbb654321888999';
+    const fakePoolComptrollerAddress = '0x0000000000000000000000000000000000000000';
     const fakeApprovedDelegatesResponse = { isDelegateeApproved: true };
-    const approvedDelegatesMock = vi.fn(() => true);
+    const readContractMock = vi.fn(() => true);
 
-    const fakeContract = {
-      approvedDelegates: approvedDelegatesMock,
-      signer: fakeSigner,
-    } as unknown as IsolatedPoolComptroller;
+    const fakePublicClient = {
+      readContract: readContractMock,
+    } as unknown as PublicClient;
 
     const response = await getPoolDelegateApprovalStatus({
-      poolComptrollerContract: fakeContract,
+      publicClient: fakePublicClient,
+      poolComptrollerAddress: fakePoolComptrollerAddress,
       delegateeAddress: fakeDelegateAddress,
       accountAddress: fakeAddress,
     });
 
-    expect(approvedDelegatesMock).toHaveBeenCalledTimes(1);
-    expect(approvedDelegatesMock).toHaveBeenCalledWith(fakeAddress, fakeDelegateAddress);
+    expect(readContractMock).toHaveBeenCalledTimes(1);
+    expect(readContractMock).toHaveBeenCalledWith({
+      abi: expect.any(Object),
+      address: fakePoolComptrollerAddress,
+      functionName: 'approvedDelegates',
+      args: [fakeAddress, fakeDelegateAddress],
+    });
     expect(response).toEqual(fakeApprovedDelegatesResponse);
   });
 });

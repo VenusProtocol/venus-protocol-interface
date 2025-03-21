@@ -1,29 +1,33 @@
 import BigNumber from 'bignumber.js';
+import type { Address, PublicClient } from 'viem';
 
 import { NULL_ADDRESS } from 'constants/address';
-import type { Prime } from 'libs/contracts';
+import { primeAbi } from 'libs/contracts';
+import { VError, logError } from 'libs/errors';
 
 export interface GetPrimeStatusInput {
-  accountAddress?: string;
-  primeContract: Prime;
+  accountAddress?: Address;
+  primeContractAddress: Address;
+  publicClient: PublicClient;
 }
 
 export interface GetPrimeStatusOutput {
   claimWaitingPeriodSeconds: number;
   claimedPrimeTokenCount: number;
   primeTokenLimit: number;
-  primeMarkets: string[];
+  primeMarkets: Address[];
   primeMaximumStakedXvsMantissa: BigNumber;
   primeMinimumStakedXvsMantissa: BigNumber;
-  xvsVault: string;
+  xvsVault: Address;
   xvsVaultPoolId: number;
-  rewardTokenAddress: string;
+  rewardTokenAddress: Address;
   userClaimTimeRemainingSeconds: number;
 }
 
 const getPrimeStatus = async ({
   accountAddress,
-  primeContract,
+  primeContractAddress,
+  publicClient,
 }: GetPrimeStatusInput): Promise<GetPrimeStatusOutput> => {
   const [
     claimWaitingPeriodSeconds,
@@ -36,30 +40,101 @@ const getPrimeStatus = async ({
     xvsVaultPoolId,
     rewardTokenAddress,
     userClaimTimeRemainingSeconds,
-  ] = await Promise.all([
-    primeContract.STAKING_PERIOD(),
-    primeContract.MAXIMUM_XVS_CAP(),
-    primeContract.MINIMUM_STAKED_XVS(),
-    primeContract.totalRevocable(),
-    primeContract.revocableLimit(),
-    primeContract.getAllMarkets(),
-    primeContract.xvsVault(),
-    primeContract.xvsVaultPoolId(),
-    primeContract.xvsVaultRewardToken(),
-    primeContract.claimTimeRemaining(accountAddress || NULL_ADDRESS),
-  ]);
+  ] = await publicClient.multicall({
+    contracts: [
+      {
+        address: primeContractAddress,
+        abi: primeAbi,
+        functionName: 'STAKING_PERIOD',
+      },
+      {
+        address: primeContractAddress,
+        abi: primeAbi,
+        functionName: 'MAXIMUM_XVS_CAP',
+      },
+      {
+        address: primeContractAddress,
+        abi: primeAbi,
+        functionName: 'MINIMUM_STAKED_XVS',
+      },
+      {
+        address: primeContractAddress,
+        abi: primeAbi,
+        functionName: 'totalRevocable',
+      },
+      {
+        address: primeContractAddress,
+        abi: primeAbi,
+        functionName: 'revocableLimit',
+      },
+      {
+        address: primeContractAddress,
+        abi: primeAbi,
+        functionName: 'getAllMarkets',
+      },
+      {
+        address: primeContractAddress,
+        abi: primeAbi,
+        functionName: 'xvsVault',
+      },
+      {
+        address: primeContractAddress,
+        abi: primeAbi,
+        functionName: 'xvsVaultPoolId',
+      },
+      {
+        address: primeContractAddress,
+        abi: primeAbi,
+        functionName: 'xvsVaultRewardToken',
+      },
+      {
+        address: primeContractAddress,
+        abi: primeAbi,
+        functionName: 'claimTimeRemaining',
+        args: [accountAddress ? accountAddress : NULL_ADDRESS],
+      },
+    ],
+  });
+
+  if (
+    claimWaitingPeriodSeconds.status === 'failure' ||
+    primeMaximumStakedXvsMantissa.status === 'failure' ||
+    primeMinimumStakedXvsMantissa.status === 'failure' ||
+    claimedPrimeTokens.status === 'failure' ||
+    revocableLimit.status === 'failure' ||
+    primeMarkets.status === 'failure' ||
+    xvsVault.status === 'failure' ||
+    xvsVaultPoolId.status === 'failure' ||
+    rewardTokenAddress.status === 'failure' ||
+    userClaimTimeRemainingSeconds.status === 'failure'
+  ) {
+    logError(
+      claimWaitingPeriodSeconds.error ||
+        primeMaximumStakedXvsMantissa.error ||
+        primeMinimumStakedXvsMantissa.error ||
+        claimedPrimeTokens.error ||
+        revocableLimit.error ||
+        primeMarkets.error ||
+        xvsVault.error ||
+        xvsVaultPoolId.error ||
+        rewardTokenAddress.error ||
+        userClaimTimeRemainingSeconds.error,
+    );
+
+    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+  }
 
   return {
-    claimWaitingPeriodSeconds: claimWaitingPeriodSeconds.toNumber(),
-    primeMaximumStakedXvsMantissa: new BigNumber(primeMaximumStakedXvsMantissa.toString()),
-    primeMinimumStakedXvsMantissa: new BigNumber(primeMinimumStakedXvsMantissa.toString()),
-    claimedPrimeTokenCount: claimedPrimeTokens.toNumber(),
-    primeTokenLimit: revocableLimit.toNumber(),
-    primeMarkets,
-    xvsVault,
-    xvsVaultPoolId: xvsVaultPoolId.toNumber(),
-    rewardTokenAddress,
-    userClaimTimeRemainingSeconds: userClaimTimeRemainingSeconds.toNumber(),
+    claimWaitingPeriodSeconds: Number(claimWaitingPeriodSeconds.result),
+    primeMaximumStakedXvsMantissa: new BigNumber(primeMaximumStakedXvsMantissa.result.toString()),
+    primeMinimumStakedXvsMantissa: new BigNumber(primeMinimumStakedXvsMantissa.result.toString()),
+    claimedPrimeTokenCount: Number(claimedPrimeTokens.result),
+    primeTokenLimit: Number(revocableLimit.result),
+    primeMarkets: [...primeMarkets.result],
+    xvsVault: xvsVault.result,
+    xvsVaultPoolId: Number(xvsVaultPoolId.result),
+    rewardTokenAddress: rewardTokenAddress.result,
+    userClaimTimeRemainingSeconds: Number(userClaimTimeRemainingSeconds.result),
   };
 };
 

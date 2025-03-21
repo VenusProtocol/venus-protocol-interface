@@ -15,6 +15,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { StakeModal, WithdrawFromVaiVaultModal, WithdrawFromVestingVaultModal } from '../modals';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
@@ -63,7 +64,7 @@ export const VaultItemUi: React.FC<VaultItemUiProps> = ({
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
   const { data: getPrimeStatusData } = useGetPrimeStatus(
     {
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
       enabled: !!accountAddress,

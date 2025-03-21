@@ -1,9 +1,11 @@
-import type { IsolatedPoolComptroller } from 'libs/contracts';
+import { isolatedPoolComptrollerAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetNativeTokenGatewayDelegateApprovalInput {
-  poolComptrollerContract: IsolatedPoolComptroller;
-  delegateeAddress: string;
-  accountAddress: string;
+  publicClient: PublicClient;
+  poolComptrollerAddress: Address;
+  delegateeAddress: Address;
+  accountAddress: Address;
 }
 
 export interface GetNativeTokenGatewayDelegateApprovalOutput {
@@ -11,14 +13,17 @@ export interface GetNativeTokenGatewayDelegateApprovalOutput {
 }
 
 const getPoolDelegateApprovalStatus = async ({
-  poolComptrollerContract,
+  publicClient,
+  poolComptrollerAddress,
   delegateeAddress,
   accountAddress,
 }: GetNativeTokenGatewayDelegateApprovalInput) => {
-  const isDelegateeApproved = await poolComptrollerContract.approvedDelegates(
-    accountAddress,
-    delegateeAddress,
-  );
+  const isDelegateeApproved = await publicClient.readContract({
+    abi: isolatedPoolComptrollerAbi,
+    address: poolComptrollerAddress,
+    functionName: 'approvedDelegates',
+    args: [accountAddress, delegateeAddress],
+  });
 
   return {
     isDelegateeApproved,
