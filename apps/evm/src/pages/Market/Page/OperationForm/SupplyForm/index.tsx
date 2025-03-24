@@ -187,9 +187,9 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     token: formValues.fromToken,
   });
 
-  const { chainId: accoutChainId } = useAccountChainId();
+  const { chainId: accountChainId } = useAccountChainId();
   const { chainId } = useChainId();
-  const isAccountOnWrongChain = accoutChainId !== chainId;
+  const isAccountOnWrongChain = accountChainId !== chainId;
 
   const handleToggleCollateral = async () => {
     try {

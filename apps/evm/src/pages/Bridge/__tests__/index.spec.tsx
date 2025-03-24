@@ -17,6 +17,7 @@ import { useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import { chainMetadata } from '@venusprotocol/chains';
+import config from 'config';
 import { fromUnixTime } from 'date-fns';
 import Bridge from '..';
 import TEST_IDS from '../testIds';
@@ -264,7 +265,7 @@ describe('Bridge', () => {
     expect(bridgeXvs).toHaveBeenCalledWith(fakeBridgeXvsParams);
   });
 
-  it('it warns the user they are over the single transaction limit amount', async () => {
+  it('warns the user they are over the single transaction limit amount', async () => {
     const fakeBridgeDataLowSingleTransactionLimit = {
       ...fakeBridgeStatusData,
       maxSingleTransactionLimitUsd: new BigNumber('0'),
@@ -307,7 +308,7 @@ describe('Bridge', () => {
     await waitFor(() => expect(submitButton).toBeDisabled());
   });
 
-  it('it warns the user they are over the daily transaction limit', async () => {
+  it('warns the user they are over the daily transaction limit', async () => {
     // totalTransferredLast24HourUsd has reached the maxDailyLimitUsd
     const fakeBridgeDataLowDailyLimit = {
       ...fakeBridgeStatusData,
@@ -390,7 +391,7 @@ describe('Bridge', () => {
     await waitFor(() => expect(submitButton).toBeEnabled());
   });
 
-  it('it warns the user they cannot bridge over the mint cap', async () => {
+  it('warns the user they cannot bridge over the mint cap', async () => {
     const fakeBridgeMintStatusData = {
       minterToCapMantissa: new BigNumber('10000000000000000000'),
       bridgeAmountMintedMantissa: new BigNumber('9000000000000000000'),
@@ -433,7 +434,7 @@ describe('Bridge', () => {
     await waitFor(() => expect(submitButton).toBeDisabled());
   });
 
-  it('it show no warning about minting caps if there is no mint status data', async () => {
+  it('show no warning about minting caps if there is no mint status data', async () => {
     // simulate returning no mint status data if the destination chain is BSC
     const fakeBridgeMintStatusData = undefined;
     (useGetXvsBridgeMintStatus as Mock).mockImplementation(() => ({
@@ -469,5 +470,25 @@ describe('Bridge', () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(submitButton).toBeEnabled());
+  });
+
+  describe('when running in Safe Wallet app', () => {
+    beforeEach(() => {
+      config.isSafeApp = true;
+    });
+
+    afterEach(() => {
+      config.isSafeApp = false;
+    });
+
+    it('disables from chain ID select when running in Safe Wallet app', async () => {
+      const { getByTestId } = renderComponent(<Bridge />, {
+        accountAddress: fakeAccountAddress,
+        chainId: ChainId.BSC_TESTNET,
+      });
+
+      // Verify that the fromChainIdSelect is disabled
+      expect(getByTestId(TEST_IDS.fromChainIdSelect)).toBeDisabled();
+    });
   });
 });

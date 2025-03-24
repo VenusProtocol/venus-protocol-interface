@@ -4,12 +4,15 @@ import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { useGetNativeTokenGatewayContract, useGetVTokenContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 import type { Address } from 'viem';
 
-type TrimmedRedeemInput = Omit<WithdrawInput, 'tokenContract' | 'accountAddress'>;
+type TrimmedRedeemInput = Omit<
+  WithdrawInput,
+  'tokenContract' | 'accountAddress' | 'vToken' | 'publicClient'
+>;
 type Options = UseSendTransactionOptions<TrimmedRedeemInput>;
 
 const useWithdraw = (
@@ -31,6 +34,7 @@ const useWithdraw = (
   });
 
   const { captureAnalyticEvent } = useAnalytics();
+  const { publicClient } = usePublicClient();
 
   return useSendTransaction({
     fnKey: [FunctionKey.WITHDRAW],
@@ -40,6 +44,8 @@ const useWithdraw = (
         withdraw({
           ...params,
           ...input,
+          publicClient,
+          vToken,
           nativeTokenGatewayContract,
         }),
       ),

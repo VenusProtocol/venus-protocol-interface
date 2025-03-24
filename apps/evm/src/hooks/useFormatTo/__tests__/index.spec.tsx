@@ -1,6 +1,6 @@
 import { renderHook } from 'testUtils/render';
 
-import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
+import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import { useFormatTo } from '..';

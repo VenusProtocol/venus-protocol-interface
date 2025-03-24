@@ -313,6 +313,7 @@
     }
   },
   "errors": {
+    "missingSafeWalletApiUrl": "Safe transaction could not be retrieved due to a misconfiguration",
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
     "couldNotSwitchChain": "Could not switch chain, please make sure your wallet is unlocked then reload the page",
     "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
@@ -841,6 +842,7 @@
     "comptrollerRejection": "Comptroller Rejection",
     "exitMarketBalanceOwed": "Exit Market Balance Owed",
     "exitMarketRejection": "Exit Market Rejection",
+    "gasEstimationFailed": "Gas estimation failed",
     "gaslessTransactionNotAvailable": "Gasless transactions are not available",
     "insufficientBalanceForVai": "Insufficient Balance For Vai",
     "insufficientLiquidity": "Insufficient Liquidity",

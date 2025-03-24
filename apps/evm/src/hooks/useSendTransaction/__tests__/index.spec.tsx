@@ -1,9 +1,7 @@
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import fakeProvider from '__mocks__/models/provider';
 import { renderHook } from 'testUtils/render';
 
 import FunctionKey from 'constants/functionKey';
@@ -11,12 +9,24 @@ import FunctionKey from 'constants/functionKey';
 import contractTxData from '__mocks__/models/contractTxData';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
-import { useProvider, useSendContractTransaction } from 'libs/wallet';
+import type { Config as WagmiConfig } from 'wagmi';
 import { useSendTransaction } from '..';
-import { CONFIRMATIONS, TIMEOUT_MS } from '../constants';
+import { sendTransaction } from '../sendTransaction';
 import { useTrackTransaction } from '../useTrackTransaction';
 
 vi.mock('../useTrackTransaction');
+vi.mock('../sendTransaction');
+
+const mockWagmiConfig = {} as WagmiConfig;
+
+vi.mock('wagmi', async () => {
+  const actual = await vi.importActual('wagmi');
+
+  return {
+    ...actual,
+    useConfig: vi.fn(() => mockWagmiConfig),
+  };
+});
 
 const fakeFnKey = [FunctionKey.SUPPLY];
 const fakeHookInput = {
@@ -30,31 +40,31 @@ const fakeMutationInput = {};
 describe('useSendTransaction', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(() => false);
-
-    (fakeProvider.waitForTransaction as Mock).mockImplementation(async () => fakeContractReceipt);
-
-    (useProvider as Mock).mockImplementation(() => ({
-      provider: fakeProvider,
-    }));
   });
 
   it('sends transaction and tracks it', async () => {
-    const trackTransactionMock = vi.fn();
-    (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
-
-    const sendContractTransactionMock = vi.fn(async () => fakeContractTransaction);
-    (useSendContractTransaction as Mock).mockReturnValue({
-      mutateAsync: sendContractTransactionMock,
+    const trackTransactionMockCallback = vi.fn();
+    const trackTransactionMock = vi.fn(async () => {
+      await new Promise(
+        resolve =>
+          setTimeout(() => {
+            trackTransactionMockCallback();
+            resolve(undefined);
+          }, 100), // Add delay
+      );
     });
+    (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
+    (sendTransaction as Mock).mockReturnValue({ transactionHash: fakeContractTransaction.hash });
 
     const fnMock = vi.fn(async () => contractTxData);
+    const onSuccessMock = vi.fn();
 
     const { result } = renderHook(() =>
       useSendTransaction({
         ...fakeHookInput,
         fn: fnMock,
         options: {
-          onSuccess: noop,
+          onSuccess: onSuccessMock,
         },
       }),
     );
@@ -67,9 +77,10 @@ describe('useSendTransaction', () => {
     expect(fnMock).toHaveBeenCalledTimes(1);
     expect(fnMock).toHaveBeenCalledWith(fakeMutationInput);
 
-    expect(sendContractTransactionMock).toHaveBeenCalledWith({
+    expect(sendTransaction).toHaveBeenCalledWith({
       txData: contractTxData,
       gasless: false,
+      wagmiConfig: mockWagmiConfig,
     });
 
     expect(trackTransactionMock).toHaveBeenCalledTimes(1);
@@ -78,25 +89,36 @@ describe('useSendTransaction', () => {
       onConfirmed: expect.any(Function),
       onReverted: expect.any(Function),
     });
+
+    // Check trackTransaction was not awaited before onSuccess was called
+    expect(trackTransactionMockCallback).not.toHaveBeenCalled();
+    expect(onSuccessMock).toHaveBeenCalledTimes(1);
   });
 
   it('sends transaction, tracks it and waits for its confirmation before returning', async () => {
-    const trackTransactionMock = vi.fn();
+    const trackTransactionMockCallback = vi.fn();
+    const trackTransactionMock = vi.fn(async () => {
+      await new Promise(
+        resolve =>
+          setTimeout(() => {
+            trackTransactionMockCallback();
+            resolve(undefined);
+          }, 100), // Add delay
+      );
+    });
     (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
 
-    const sendContractTransactionMock = vi.fn(async () => fakeContractTransaction);
-    (useSendContractTransaction as Mock).mockReturnValue({
-      mutateAsync: sendContractTransactionMock,
-    });
+    (sendTransaction as Mock).mockReturnValue({ transactionHash: fakeContractTransaction.hash });
 
     const fnMock = vi.fn(async () => contractTxData);
+    const onSuccessMock = vi.fn();
 
     const { result } = renderHook(() =>
       useSendTransaction({
         ...fakeHookInput,
         fn: fnMock,
         options: {
-          onSuccess: noop,
+          onSuccess: onSuccessMock,
           waitForConfirmation: true,
         },
       }),
@@ -110,10 +132,15 @@ describe('useSendTransaction', () => {
     expect(fnMock).toHaveBeenCalledTimes(1);
     expect(fnMock).toHaveBeenCalledWith(fakeMutationInput);
 
-    expect(sendContractTransactionMock).toHaveBeenCalledWith({
+    expect(sendTransaction).toHaveBeenCalledWith({
       txData: contractTxData,
       gasless: false,
+      wagmiConfig: mockWagmiConfig,
     });
+
+    // Verify that onSuccess was called after the trackTransaction promise resolved
+    expect(onSuccessMock).toHaveBeenCalledTimes(1);
+    expect(onSuccessMock).toHaveBeenCalledWith(undefined, fakeMutationInput, undefined);
 
     expect(trackTransactionMock).toHaveBeenCalledTimes(1);
     expect(trackTransactionMock).toHaveBeenCalledWith({
@@ -122,12 +149,9 @@ describe('useSendTransaction', () => {
       onReverted: expect.any(Function),
     });
 
-    expect(fakeProvider.waitForTransaction).toHaveBeenCalledTimes(1);
-    expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
-      fakeContractTransaction.hash,
-      CONFIRMATIONS,
-      TIMEOUT_MS,
-    );
+    // Check trackTransaction was awaited before onSuccess was called
+    expect(trackTransactionMockCallback).toHaveBeenCalledTimes(1);
+    expect(onSuccessMock).toHaveBeenCalledTimes(1);
   });
 
   it('calls onError callback when transaction fails', async () => {
@@ -138,10 +162,7 @@ describe('useSendTransaction', () => {
       type: 'unexpected',
       code: 'somethingWentWrong',
     });
-    const sendContractTransactionMock = vi.fn().mockRejectedValue(error);
-    (useSendContractTransaction as Mock).mockReturnValue({
-      mutateAsync: sendContractTransactionMock,
-    });
+    (sendTransaction as Mock).mockRejectedValue(error);
 
     const fnMock = vi.fn(async () => contractTxData);
     const onErrorMock = vi.fn();
@@ -164,9 +185,10 @@ describe('useSendTransaction', () => {
     expect(fnMock).toHaveBeenCalledTimes(1);
     expect(fnMock).toHaveBeenCalledWith(fakeMutationInput);
 
-    expect(sendContractTransactionMock).toHaveBeenCalledWith({
+    expect(sendTransaction).toHaveBeenCalledWith({
       txData: contractTxData,
       gasless: false,
+      wagmiConfig: mockWagmiConfig,
     });
 
     expect(trackTransactionMock).not.toHaveBeenCalled();

@@ -1,0 +1,10 @@
+{
+  "short_name": "Venus Protocol",
+  "name": "Venus Protocol",
+  "description": "Venus is a decentralized finance (DeFi) algorithmic money market protocol on EVM networks",
+  "iconPath": "logo.svg",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#3A78FF",
+  "background_color": "#121620"
+}

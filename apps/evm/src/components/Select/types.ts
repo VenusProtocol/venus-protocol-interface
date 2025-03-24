@@ -24,4 +24,5 @@ export interface SelectProps<TValue extends string | number = string | number> {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
   menuTitle?: string;
   menuPosition?: 'left' | 'right';
+  disabled?: boolean;
 }

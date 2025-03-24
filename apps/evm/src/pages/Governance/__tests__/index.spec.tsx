@@ -22,7 +22,7 @@ import { routes } from 'constants/routing';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNow } from 'hooks/useNow';
 import { en } from 'libs/translations';
-import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
+import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet';
 import { ChainId, ProposalState } from 'types';
 
 import Governance from '..';

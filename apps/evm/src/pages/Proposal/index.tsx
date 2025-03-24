@@ -14,6 +14,7 @@ import { governanceChain, useAccountAddress, useAccountChainId, useSwitchChain }
 import { ProposalState, type Proposal as ProposalType } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
+import config from 'config';
 import { NULL_ADDRESS } from 'constants/address';
 import { Redirect } from 'containers/Redirect';
 import { Commands } from './Commands';
@@ -72,13 +73,15 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
           data-testid={TEST_IDS.votingDisabledWarning}
           title={t('vote.omnichain.votingOnlyEnabledOnBnb')}
           description={
-            <Button
-              className="h-auto"
-              variant="text"
-              onClick={() => switchChain({ chainId: governanceChain.id })}
-            >
-              {t('vote.omnichain.switchToBnb')}
-            </Button>
+            config.isSafeApp ? undefined : (
+              <Button
+                className="h-auto"
+                variant="text"
+                onClick={() => switchChain({ chainId: governanceChain.id })}
+              >
+                {t('vote.omnichain.switchToBnb')}
+              </Button>
+            )
           }
         />
       )}

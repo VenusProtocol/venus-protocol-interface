@@ -5,7 +5,7 @@ import config from 'config';
 export const logError = (error: string | unknown) => {
   // Only send errors to Sentry in production
   if (config.environment !== 'production') {
-    console.error(`[Logger]: ${error}`);
+    console.error(`[Logger]: ${JSON.stringify(error)}`);
     return;
   }
 
