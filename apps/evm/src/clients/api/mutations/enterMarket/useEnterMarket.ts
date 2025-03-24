@@ -29,10 +29,7 @@ const useEnterMarket = (options?: Partial<Options>) => {
       });
 
       queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_LEGACY_POOL],
-      });
-      queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_ISOLATED_POOLS],
+        queryKey: [FunctionKey.GET_POOLS],
       });
     },
     options,

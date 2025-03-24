@@ -108,9 +108,7 @@ const useSwapTokens = (
       });
 
       queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL] });
-      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_LEGACY_CORE_POOL_MARKETS] });
-      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_LEGACY_POOL] });
-      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_ISOLATED_POOLS] });
+      queryClient.invalidateQueries({ queryKey: [FunctionKey.GET_POOLS] });
     },
     options,
   });

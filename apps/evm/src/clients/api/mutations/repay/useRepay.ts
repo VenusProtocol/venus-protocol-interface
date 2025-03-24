@@ -61,13 +61,7 @@ const useRepay = (
       });
 
       queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_LEGACY_CORE_POOL_MARKETS],
-      });
-      queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_LEGACY_POOL],
-      });
-      queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_ISOLATED_POOLS],
+        queryKey: [FunctionKey.GET_POOLS],
       });
 
       queryClient.invalidateQueries({
