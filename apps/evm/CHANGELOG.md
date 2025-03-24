@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.237.0
+
+### Minor Changes
+
+- 1b373e7: remove unused query keys
+
 ## 2.236.0
 
 ### Minor Changes
