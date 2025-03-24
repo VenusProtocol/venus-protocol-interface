@@ -5521,10 +5521,10 @@
     "@storybook/icons" "^1.2.12"
     ts-dedent "^2.0.0"
 
-"@storybook/blocks@8.6.7":
-  version "8.6.7"
-  resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.6.7.tgz#a84c771650cf76e36645c18d283177cd99b86c30"
-  integrity sha512-IFhIKO7R1UPpnoG/5tZH0FgC79oYgXNf+7aGUwq29M/CQWy6p/Pvp0y4P962btY1UZRol+SsU//33nH8o6yNRw==
+"@storybook/blocks@8.6.9":
+  version "8.6.9"
+  resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.6.9.tgz#db311d2c9b4d42eee9fc7ba4559e95365e552294"
+  integrity sha512-+vSRkHLD7ho3Wd1WVA1KrYAnv7BnGHOhHWHAgTR5IdeMdgzQxm6+HHeqGB5sncilA0AjVC6udBIgHbCSuD61dA==
   dependencies:
     "@storybook/icons" "^1.2.12"
     ts-dedent "^2.0.0"
