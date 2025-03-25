@@ -3,12 +3,15 @@ import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { useGetNativeTokenGatewayContract, useGetVTokenContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { VToken } from 'types';
 import { callOrThrow, convertMantissaToTokens } from 'utilities';
 import type { Address } from 'viem';
 
-type TrimmedBorrowInput = Omit<BorrowInput, 'vTokenContract' | 'nativeTokenGatewayContract'>;
+type TrimmedBorrowInput = Omit<
+  BorrowInput,
+  'vTokenContract' | 'nativeTokenGatewayContract' | 'vToken' | 'publicClient'
+>;
 type Options = UseSendTransactionOptions<TrimmedBorrowInput>;
 
 const useBorrow = (
@@ -26,6 +29,7 @@ const useBorrow = (
   });
   const { captureAnalyticEvent } = useAnalytics();
   const { chainId } = useChainId();
+  const { publicClient } = usePublicClient();
 
   return useSendTransaction({
     fnKey: [FunctionKey.BORROW, { vToken }],
@@ -35,7 +39,9 @@ const useBorrow = (
         borrow({
           ...params,
           ...input,
+          vToken,
           nativeTokenGatewayContract,
+          publicClient,
         }),
       ),
     onConfirmed: async ({ input }) => {

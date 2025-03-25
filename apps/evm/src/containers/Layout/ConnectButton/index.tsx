@@ -1,6 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import { useGetPrimeToken } from 'clients/api';
 import { Button, type ButtonProps, Modal, SecondaryButton, Username } from 'components';
+import config from 'config';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
 
@@ -100,10 +101,12 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
               <Username address={accountAddress} shouldEllipseAddress={false} showCopyAddress />
             </div>
           )}
-
-          <SecondaryButton onClick={handleDisconnect} className="w-full">
-            {t('connectButton.disconnect')}
-          </SecondaryButton>
+          {/* When running in Safe Wallet app, user's wallet should be kept connected at all time */}
+          {!config.isSafeApp && (
+            <SecondaryButton onClick={handleDisconnect} className="w-full">
+              {t('connectButton.disconnect')}
+            </SecondaryButton>
+          )}
         </div>
       </Modal>
     </>

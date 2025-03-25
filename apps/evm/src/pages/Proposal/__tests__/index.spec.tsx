@@ -37,6 +37,7 @@ import {
   VoteSupport,
 } from 'types';
 
+import config from 'config';
 import { REDIRECT_TEST_CONTENT } from 'containers/Redirect/__mocks__';
 import { useNow } from 'hooks/useNow';
 import ProposalComp from '..';
@@ -739,5 +740,27 @@ describe('ProposalComp page', () => {
     renderComponent(<ProposalComp />);
 
     expect(screen.getByTestId(TEST_IDS.description).textContent).toMatchSnapshot();
+  });
+
+  describe('when running in Safe Wallet app', () => {
+    beforeEach(() => {
+      config.isSafeApp = true;
+    });
+
+    afterEach(() => {
+      config.isSafeApp = false;
+    });
+
+    it('renders warning about voting being disabled but does not show switch button when running in Safe Wallet app', async () => {
+      (useIsFeatureEnabled as Mock).mockImplementation(() => true);
+
+      renderComponent(<ProposalComp />, {
+        accountAddress: fakeAccountAddress,
+        accountChainId: ChainId.ARBITRUM_SEPOLIA,
+      });
+
+      await waitFor(() => expect(screen.getByTestId(TEST_IDS.votingDisabledWarning)).toBeVisible());
+      expect(screen.queryByText(en.vote.omnichain.switchToBnb)).not.toBeInTheDocument();
+    });
   });
 });

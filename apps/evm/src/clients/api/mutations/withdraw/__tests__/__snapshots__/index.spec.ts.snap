@@ -1,0 +1,188 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`withdraw > withdraw and unwrap flow > returns contract transaction data when request to withdraw full supply succeeds 1`] = `
+{
+  "args": [
+    "10000000000000000",
+  ],
+  "contract": {
+    "functions": {
+      "redeemAndUnwrap": [MockFunction spy],
+    },
+    "signer": {
+      "_checkProvider": [MockFunction spy],
+      "_isSigner": true,
+      "call": [MockFunction spy],
+      "checkTransaction": [MockFunction spy],
+      "connect": [MockFunction spy],
+      "estimateGas": [MockFunction spy],
+      "getAddress": [MockFunction spy],
+      "getBalance": [MockFunction spy],
+      "getChainId": [MockFunction spy],
+      "getFeeData": [MockFunction spy],
+      "getGasPrice": [MockFunction spy],
+      "getTransactionCount": [MockFunction spy],
+      "populateTransaction": [MockFunction spy],
+      "resolveName": [MockFunction spy],
+      "sendTransaction": [MockFunction spy],
+      "signMessage": [MockFunction spy],
+      "signTransaction": [MockFunction spy],
+    },
+  },
+  "methodName": "redeemAndUnwrap",
+}
+`;
+
+exports[`withdraw > withdraw and unwrap flow > returns contract transaction data when request to withdraw partial supply succeeds 1`] = `
+{
+  "args": [
+    "10000000000000000",
+  ],
+  "contract": {
+    "functions": {
+      "redeemUnderlyingAndUnwrap": [MockFunction spy],
+    },
+    "signer": {
+      "_checkProvider": [MockFunction spy],
+      "_isSigner": true,
+      "call": [MockFunction spy],
+      "checkTransaction": [MockFunction spy],
+      "connect": [MockFunction spy],
+      "estimateGas": [MockFunction spy],
+      "getAddress": [MockFunction spy],
+      "getBalance": [MockFunction spy],
+      "getChainId": [MockFunction spy],
+      "getFeeData": [MockFunction spy],
+      "getGasPrice": [MockFunction spy],
+      "getTransactionCount": [MockFunction spy],
+      "populateTransaction": [MockFunction spy],
+      "resolveName": [MockFunction spy],
+      "sendTransaction": [MockFunction spy],
+      "signMessage": [MockFunction spy],
+      "signTransaction": [MockFunction spy],
+    },
+  },
+  "methodName": "redeemUnderlyingAndUnwrap",
+}
+`;
+
+exports[`withdraw > withdraw flow > includes accessList when underlying token is native 1`] = `
+{
+  "args": [
+    "10000000000000000",
+  ],
+  "contract": {
+    "functions": {
+      "redeemUnderlying": [MockFunction spy],
+    },
+    "signer": {
+      "_checkProvider": [MockFunction spy],
+      "_isSigner": true,
+      "call": [MockFunction spy],
+      "checkTransaction": [MockFunction spy],
+      "connect": [MockFunction spy],
+      "estimateGas": [MockFunction spy],
+      "getAddress": [MockFunction spy] {
+        "calls": [
+          [],
+        ],
+        "results": [
+          {
+            "type": "return",
+            "value": Promise {},
+          },
+        ],
+      },
+      "getBalance": [MockFunction spy],
+      "getChainId": [MockFunction spy],
+      "getFeeData": [MockFunction spy],
+      "getGasPrice": [MockFunction spy],
+      "getTransactionCount": [MockFunction spy],
+      "populateTransaction": [MockFunction spy],
+      "resolveName": [MockFunction spy],
+      "sendTransaction": [MockFunction spy],
+      "signMessage": [MockFunction spy],
+      "signTransaction": [MockFunction spy],
+    },
+  },
+  "methodName": "redeemUnderlying",
+  "overrides": {
+    "accessList": [
+      {
+        "address": "0xfakeAddress",
+        "storageKeys": [
+          "0xfakeStorageKey",
+        ],
+      },
+    ],
+  },
+}
+`;
+
+exports[`withdraw > withdraw flow > returns contract transaction data when request to withdraw full supply succeeds 1`] = `
+{
+  "args": [
+    "10000000000000000",
+  ],
+  "contract": {
+    "functions": {
+      "redeem": [MockFunction spy],
+    },
+    "signer": {
+      "_checkProvider": [MockFunction spy],
+      "_isSigner": true,
+      "call": [MockFunction spy],
+      "checkTransaction": [MockFunction spy],
+      "connect": [MockFunction spy],
+      "estimateGas": [MockFunction spy],
+      "getAddress": [MockFunction spy],
+      "getBalance": [MockFunction spy],
+      "getChainId": [MockFunction spy],
+      "getFeeData": [MockFunction spy],
+      "getGasPrice": [MockFunction spy],
+      "getTransactionCount": [MockFunction spy],
+      "populateTransaction": [MockFunction spy],
+      "resolveName": [MockFunction spy],
+      "sendTransaction": [MockFunction spy],
+      "signMessage": [MockFunction spy],
+      "signTransaction": [MockFunction spy],
+    },
+  },
+  "methodName": "redeem",
+  "overrides": undefined,
+}
+`;
+
+exports[`withdraw > withdraw flow > returns contract transaction data when request to withdraw partial supply succeeds 1`] = `
+{
+  "args": [
+    "10000000000000000",
+  ],
+  "contract": {
+    "functions": {
+      "redeemUnderlying": [MockFunction spy],
+    },
+    "signer": {
+      "_checkProvider": [MockFunction spy],
+      "_isSigner": true,
+      "call": [MockFunction spy],
+      "checkTransaction": [MockFunction spy],
+      "connect": [MockFunction spy],
+      "estimateGas": [MockFunction spy],
+      "getAddress": [MockFunction spy],
+      "getBalance": [MockFunction spy],
+      "getChainId": [MockFunction spy],
+      "getFeeData": [MockFunction spy],
+      "getGasPrice": [MockFunction spy],
+      "getTransactionCount": [MockFunction spy],
+      "populateTransaction": [MockFunction spy],
+      "resolveName": [MockFunction spy],
+      "sendTransaction": [MockFunction spy],
+      "signMessage": [MockFunction spy],
+      "signTransaction": [MockFunction spy],
+    },
+  },
+  "methodName": "redeemUnderlying",
+  "overrides": undefined,
+}
+`;

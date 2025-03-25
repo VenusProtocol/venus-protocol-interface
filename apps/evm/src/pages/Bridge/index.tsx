@@ -18,6 +18,7 @@ import {
   TextButton,
   TokenTextField,
 } from 'components';
+import config from 'config';
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { Link } from 'containers/Link';
@@ -301,6 +302,8 @@ const BridgePage: React.FC = () => {
                   render={({ field }) => (
                     <div className="w-full min-w-0 grow md:mb-0">
                       <ChainSelect
+                        // When running in Safe Wallet app, it is responsible for the active chain
+                        disabled={config.isSafeApp}
                         label={t('bridgePage.fromChainSelect.label')}
                         data-testid={TEST_IDS.fromChainIdSelect}
                         options={fromChainIdOptions}
@@ -316,12 +319,15 @@ const BridgePage: React.FC = () => {
                 />
 
                 <TextButton
-                  className="mx-auto mb-2 flex h-auto flex-none p-2 md:mb-[3px]"
+                  className="mx-auto mb-2 flex h-auto flex-none p-2 md:mb-[6px]"
                   onClick={switchChains}
-                  disabled={formState.isSubmitting}
+                  disabled={formState.isSubmitting || config.isSafeApp}
                   data-testid={TEST_IDS.switchChainsButton}
                 >
-                  <Icon name="convert" className="text-blue h-6 w-6 rotate-90 md:rotate-0" />
+                  <Icon
+                    name={config.isSafeApp ? 'arrowRight' : 'convert'}
+                    className="text-blue h-6 w-6 rotate-90 md:rotate-0"
+                  />
                 </TextButton>
 
                 <Controller

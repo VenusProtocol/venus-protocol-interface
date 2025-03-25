@@ -2,9 +2,12 @@ import type BigNumber from 'bignumber.js';
 
 import type { NativeTokenGateway, VBep20, VBnb } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { ContractTxData } from 'types';
+import type { ContractTxData, VToken } from 'types';
+import type { AccessList, Address, PublicClient } from 'viem';
 
 export interface WithdrawInput {
+  vToken: VToken;
+  publicClient: PublicClient;
   amountMantissa: BigNumber;
   tokenContract?: VBep20 | VBnb;
   nativeTokenGatewayContract?: NativeTokenGateway;
@@ -16,7 +19,9 @@ export type WithdrawOutput =
   | ContractTxData<VBep20 | VBnb, 'redeem' | 'redeemUnderlying'>
   | ContractTxData<NativeTokenGateway, 'redeemAndUnwrap' | 'redeemUnderlyingAndUnwrap'>;
 
-const withdraw = ({
+const withdraw = async ({
+  vToken,
+  publicClient,
   amountMantissa,
   tokenContract,
   nativeTokenGatewayContract,
@@ -53,9 +58,32 @@ const withdraw = ({
     });
   }
 
+  // Add access list if underlying token is native. This is a workaround for the "transfer" and
+  // "send" actions being limited to 2300 gas, which is insufficient post-Berlin fork (EIP-2929).
+  // Adding an access list pays the gas ahead, reducing the runtime cost to 100 gas.
+  let accessList: AccessList | undefined;
+
+  if (vToken.underlyingToken.isNative) {
+    const accountAddress = (await tokenContract.signer.getAddress()) as Address;
+    const { accessList: tmpAccessList } = await publicClient.createAccessList({
+      data: '0x',
+      value: 1n,
+      to: accountAddress,
+    });
+
+    accessList = tmpAccessList;
+  }
+
+  const overrides = accessList ? { accessList } : undefined;
+
   return withdrawFullSupply
-    ? { contract: tokenContract, methodName: 'redeem', args: [amountMantissa.toFixed()] }
-    : { contract: tokenContract, methodName: 'redeemUnderlying', args: [amountMantissa.toFixed()] };
+    ? { contract: tokenContract, methodName: 'redeem', args: [amountMantissa.toFixed()], overrides }
+    : {
+        contract: tokenContract,
+        methodName: 'redeemUnderlying',
+        args: [amountMantissa.toFixed()],
+        overrides,
+      };
 };
 
 export default withdraw;

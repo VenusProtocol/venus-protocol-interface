@@ -8,6 +8,6 @@ export const getUnsafeChainIdFromSearchParams = ({
   const chainId = searchParams.get(CHAIN_ID_SEARCH_PARAM);
 
   return {
-    chainId: chainId ? +chainId : undefined,
+    chainId: chainId ? Number(chainId) : undefined,
   };
 };

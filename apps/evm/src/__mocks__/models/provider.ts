@@ -1,3 +1,4 @@
+import { ChainId } from '@venusprotocol/chains';
 import { BigNumber, providers } from 'ethers';
 
 import type { Provider } from 'libs/wallet';
@@ -15,6 +16,9 @@ const provider = {
   getBlockNumber,
   getBalance,
   waitForTransaction,
+  network: {
+    chainId: ChainId.BSC_TESTNET,
+  },
 } as unknown as Provider;
 
 export default provider;

@@ -1,6 +1,7 @@
 import { chainMetadata } from '@venusprotocol/chains';
 import { cn } from '@venusprotocol/ui';
 import { Select, type SelectOption, type SelectProps } from 'components';
+import config from 'config';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { chains, useChainId, useSwitchChain } from 'libs/wallet';
@@ -48,12 +49,13 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
 
   return (
     <Select
+      // When running in Safe Wallet app, it is responsible for the active chain
+      disabled={config.isSafeApp}
       value={chainId}
       onChange={newChainId => switchChain({ chainId: Number(newChainId) })}
       options={getOptions({
         isGaslessTransactionsSettingEnabled: !!userChainSettings?.gaslessTransactions,
       })}
-      buttonClassName="px-4 h-12"
       menuPosition="right"
       menuTitle={t('layout.chainSelect.label')}
       {...props}

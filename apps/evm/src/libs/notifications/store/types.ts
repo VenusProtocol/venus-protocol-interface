@@ -1,8 +1,4 @@
-import type { NoticeProps } from 'components/Notice/types';
-
-export interface Notification extends Omit<NoticeProps, 'id'> {
-  id: string | number;
-}
+import type { Notification } from '../types';
 
 export interface AddNotificationInput extends Omit<Notification, 'onClose' | 'id'> {
   id?: string | number;

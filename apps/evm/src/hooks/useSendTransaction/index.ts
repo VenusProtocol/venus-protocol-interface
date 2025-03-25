@@ -8,8 +8,9 @@ import { store as resendPayingGasModalStore } from 'containers/ResendPayingGasMo
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
-import { useChainId, useProvider, useSendContractTransaction } from 'libs/wallet';
-import { CONFIRMATIONS, TIMEOUT_MS } from './constants';
+import { useChainId } from 'libs/wallet';
+import { useConfig } from 'wagmi';
+import { sendTransaction } from './sendTransaction';
 import { useTrackTransaction } from './useTrackTransaction';
 
 export interface LastTransactionData<
@@ -59,9 +60,8 @@ export const useSendTransaction = <
   const tryGasless = options?.tryGasless ?? true;
 
   const { chainId } = useChainId();
-  const { provider } = useProvider();
+  const wagmiConfig = useConfig();
 
-  const { mutateAsync: sendContractTransaction } = useSendContractTransaction();
   const openResendPayingGasModalStoreModal = resendPayingGasModalStore.use.openModal();
 
   const [userChainSettings] = useUserChainSettings();
@@ -97,13 +97,14 @@ export const useSendTransaction = <
       const txData = await fn(mutationInput);
 
       // Send the normal or gas-less transaction
-      const { hash: transactionHash } = await sendContractTransaction({
+      const { transactionHash } = await sendTransaction({
+        wagmiConfig,
         txData,
         gasless: shouldTryGasless,
       });
 
       // Track transaction's progress in the background
-      trackTransaction({
+      const promise = trackTransaction({
         transactionHash,
         onConfirmed: onConfirmedInput =>
           onConfirmed?.({ ...onConfirmedInput, input: mutationInput }),
@@ -112,7 +113,7 @@ export const useSendTransaction = <
 
       if (options?.waitForConfirmation) {
         // Only return when transaction has been confirmed
-        await provider.waitForTransaction(transactionHash, CONFIRMATIONS, TIMEOUT_MS);
+        await promise;
       }
     },
     onError: (error, variables, context) => {
