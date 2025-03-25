@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.237.0
+
+### Minor Changes
+
+- a6550b1: add support for Safe
+
 ## 2.236.0
 
 ### Minor Changes
