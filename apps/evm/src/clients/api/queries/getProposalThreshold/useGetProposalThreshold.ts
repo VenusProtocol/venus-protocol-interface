@@ -1,11 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getProposalThreshold, {
+import {
   type GetProposalThresholdOutput,
+  getProposalThreshold,
 } from 'clients/api/queries/getProposalThreshold';
 import FunctionKey from 'constants/functionKey';
-import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
-import { governanceChain } from 'libs/wallet';
+import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
+import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 type Options = QueryObserverOptions<
@@ -16,16 +17,20 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PROPOSAL_THRESHOLD]
 >;
 
-const useGetProposalThreshold = (options?: Partial<Options>) => {
-  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
+export const useGetProposalThreshold = (options?: Partial<Options>) => {
+  const { publicClient } = usePublicClient({
+    chainId: governanceChain.id,
+  });
+  const governorBravoDelegateAddress = getGovernorBravoDelegateContractAddress({
     chainId: governanceChain.id,
   });
 
   return useQuery({
     queryKey: [FunctionKey.GET_PROPOSAL_THRESHOLD],
-    queryFn: () => callOrThrow({ governorBravoDelegateContract }, getProposalThreshold),
+    queryFn: () =>
+      callOrThrow({ publicClient, governorBravoDelegateAddress }, params =>
+        getProposalThreshold(params),
+      ),
     ...options,
   });
 };
-
-export default useGetProposalThreshold;

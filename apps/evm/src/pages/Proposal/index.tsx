@@ -3,7 +3,12 @@ import { BigNumber } from 'bignumber.js';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useGetCurrentVotes, useGetProposal, useGetVoteReceipt } from 'clients/api';
+import {
+  useGetCurrentVotes,
+  useGetProposal,
+  useGetProposalThreshold,
+  useGetVoteReceipt,
+} from 'clients/api';
 import { Button, NoticeInfo, Page, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -43,6 +48,8 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
 }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  useGetProposalThreshold();
 
   const { switchChain } = useSwitchChain();
   const [voteModalType, setVoteModalType] = useState<0 | 1 | 2 | undefined>(undefined);

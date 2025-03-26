@@ -11,7 +11,7 @@ export type GetProposalStateOutput = {
   state: number;
 };
 
-const getProposalState = async ({
+export const getProposalState = async ({
   publicClient,
   proposalId,
   governorBravoDelegateAddress,
@@ -25,5 +25,3 @@ const getProposalState = async ({
 
   return { state };
 };
-
-export default getProposalState;

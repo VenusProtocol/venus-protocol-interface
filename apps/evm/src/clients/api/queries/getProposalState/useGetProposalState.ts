@@ -1,9 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { chainMetadata } from '@venusprotocol/chains';
-import getProposalState, {
+import {
   type GetProposalStateInput,
   type GetProposalStateOutput,
+  getProposalState,
 } from 'clients/api/queries/getProposalState';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
@@ -25,7 +26,10 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PROPOSAL_STATE, TrimmedGetProposalStateInput]
 >;
 
-const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Partial<Options>) => {
+export const useGetProposalState = (
+  input: TrimmedGetProposalStateInput,
+  options?: Partial<Options>,
+) => {
   const { blockTimeMs } = chainMetadata[governanceChain.id];
   const { publicClient } = usePublicClient({
     chainId: governanceChain.id,
@@ -49,5 +53,3 @@ const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Part
     ...options,
   });
 };
-
-export default useGetProposalState;

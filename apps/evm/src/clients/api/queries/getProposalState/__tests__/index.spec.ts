@@ -1,7 +1,7 @@
 import fakeAddress from '__mocks__/models/address';
 import type { PublicClient } from 'viem';
 
-import getProposalState from '..';
+import { getProposalState } from '..';
 
 describe('getProposalState', () => {
   test('returns state of proposal', async () => {

@@ -272,13 +272,11 @@ export { default as getVoterAccounts } from './queries/getVoterAccounts';
 export * from './queries/getVoterAccounts';
 export { default as useGetVoterAccounts } from './queries/getVoterAccounts/useGetVoterAccounts';
 
-export { default as getProposalThreshold } from './queries/getProposalThreshold';
 export * from './queries/getProposalThreshold';
-export { default as useGetProposalThreshold } from './queries/getProposalThreshold/useGetProposalThreshold';
+export * from './queries/getProposalThreshold/useGetProposalThreshold';
 
-export { default as getProposalState } from './queries/getProposalState';
 export * from './queries/getProposalState';
-export { default as useGetProposalState } from './queries/getProposalState/useGetProposalState';
+export * from './queries/getProposalState/useGetProposalState';
 
 export { default as getLatestProposalIdByProposer } from './queries/getLatestProposalIdByProposer';
 export * from './queries/getLatestProposalIdByProposer';
