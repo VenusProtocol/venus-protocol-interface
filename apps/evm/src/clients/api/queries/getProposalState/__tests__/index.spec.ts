@@ -13,7 +13,7 @@ describe('getProposalState', () => {
 
     const response = await getProposalState({
       publicClient: fakePublicClient,
-      proposalId: '1',
+      proposalId: 1,
       governorBravoDelegateAddress: fakeAddress,
     });
 

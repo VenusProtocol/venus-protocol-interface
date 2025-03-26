@@ -235,9 +235,8 @@ export * from './queries/getProposals/useGetProposals';
 export * from './queries/getProposal';
 export * from './queries/getProposal/useGetProposal';
 
-export { default as getVoteReceipt } from './queries/getVoteReceipt';
 export * from './queries/getVoteReceipt';
-export { default as useGetVoteReceipt } from './queries/getVoteReceipt/useGetVoteReceipt';
+export * from './queries/getVoteReceipt/useGetVoteReceipt';
 
 export { default as getVoters } from './queries/getVoters';
 export * from './queries/getVoters';

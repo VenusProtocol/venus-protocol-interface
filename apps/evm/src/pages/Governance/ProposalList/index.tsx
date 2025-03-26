@@ -157,7 +157,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
   );
 
   const { data: latestProposalStateData } = useGetProposalState(
-    { proposalId: latestProposalData?.proposalId || '' },
+    { proposalId: Number(latestProposalData?.proposalId) || 0 },
     { enabled: !!latestProposalData?.proposalId && !!+latestProposalData?.proposalId },
   );
 

@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getVoteReceipt > returns undefined when no vote is cast 1`] = `
+{
+  "voteSupport": undefined,
+}
+`;
+
+exports[`getVoteReceipt > returns vote receipt in the right format on success 1`] = `
+{
+  "voteSupport": 1,
+}
+`;

@@ -3,7 +3,7 @@ import type { Address, PublicClient } from 'viem';
 
 export interface GetProposalStateInput {
   publicClient: PublicClient;
-  proposalId: string;
+  proposalId: number;
   governorBravoDelegateAddress: Address;
 }
 
