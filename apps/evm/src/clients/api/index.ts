@@ -130,9 +130,8 @@ export { getUserVaiBorrowBalance } from './queries/getUserVaiBorrowBalance';
 export * from './queries/getUserVaiBorrowBalance';
 export { default as useGetUserVaiBorrowBalance } from './queries/getUserVaiBorrowBalance/useGetUserVaiBorrowBalance';
 
-export { default as getVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage';
-export { default as useGetVaiTreasuryPercentage } from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
+export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
 
 export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll';
 export * from './queries/getVTokenBalancesAll';
