@@ -296,9 +296,8 @@ export { default as getPancakeSwapPairs } from './queries/getPancakeSwapPairs';
 export * from './queries/getPancakeSwapPairs';
 export { default as useGetPancakeSwapPairs } from './queries/getPancakeSwapPairs/useGetPancakeSwapPairs';
 
-export { default as getVaiRepayApr } from './queries/getVaiRepayApr';
 export * from './queries/getVaiRepayApr';
-export { default as useGetVaiRepayApr } from './queries/getVaiRepayApr/useGetVaiRepayApr';
+export * from './queries/getVaiRepayApr/useGetVaiRepayApr';
 
 export { default as getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
 export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
