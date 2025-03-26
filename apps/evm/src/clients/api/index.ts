@@ -256,9 +256,8 @@ export { default as getVoterHistory } from './queries/getVoterHistory';
 export * from './queries/getVoterHistory';
 export { default as useGetVoterHistory } from './queries/getVoterHistory/useGetVoterHistory';
 
-export { default as getVaiVaultUserInfo } from './queries/getVaiVaultUserInfo';
 export * from './queries/getVaiVaultUserInfo';
-export { default as useGetVaiVaultUserInfo } from './queries/getVaiVaultUserInfo/useGetVaiVaultUserInfo';
+export * from './queries/getVaiVaultUserInfo/useGetVaiVaultUserInfo';
 
 export { default as useGetVestingVaults } from './queries/useGetVaults/useGetVestingVaults';
 

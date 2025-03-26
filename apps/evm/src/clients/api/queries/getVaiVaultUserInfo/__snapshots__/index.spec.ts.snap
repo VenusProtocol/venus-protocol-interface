@@ -1,7 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`api/queries/getVaiVaultUserInfo > returns the user info in the correct format 1`] = `
-{
-  "stakedVaiMantissa": "1e+23",
-}
-`;

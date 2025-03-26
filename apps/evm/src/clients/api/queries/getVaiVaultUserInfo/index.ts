@@ -1,14 +1,30 @@
-import formatToUserInfo from './formatToUserInfo';
-import type { GetVaiVaultUserInfoInput, GetVaiVaultUserInfoOutput } from './types';
+import BigNumber from 'bignumber.js';
+import { vaiVaultAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
-export * from './types';
+export interface GetVaiVaultUserInfoInput {
+  publicClient: PublicClient;
+  vaiVaultAddress: Address;
+  accountAddress: Address;
+}
 
-const getVaiVaultUserInfo = async ({
-  vaiVaultContract,
+export interface GetVaiVaultUserInfoOutput {
+  stakedVaiMantissa: BigNumber;
+}
+
+export const getVaiVaultUserInfo = async ({
+  publicClient,
+  vaiVaultAddress,
   accountAddress,
 }: GetVaiVaultUserInfoInput): Promise<GetVaiVaultUserInfoOutput> => {
-  const res = await vaiVaultContract.userInfo(accountAddress);
-  return formatToUserInfo(res);
-};
+  const [stakedVaiMantissa] = await publicClient.readContract({
+    address: vaiVaultAddress,
+    abi: vaiVaultAbi,
+    functionName: 'userInfo',
+    args: [accountAddress],
+  });
 
-export default getVaiVaultUserInfo;
+  return {
+    stakedVaiMantissa: new BigNumber(stakedVaiMantissa.toString()),
+  };
+};

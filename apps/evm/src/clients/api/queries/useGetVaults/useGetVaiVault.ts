@@ -13,13 +13,14 @@ import { useGetVaiVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import type { Vault } from 'types';
 import { convertMantissaToTokens } from 'utilities';
+import type { Address } from 'viem';
 
 export interface UseGetVaiVaultOutput {
   isLoading: boolean;
   data: Vault | undefined;
 }
 
-const useGetVaiVault = ({ accountAddress }: { accountAddress?: string }): UseGetVaiVaultOutput => {
+const useGetVaiVault = ({ accountAddress }: { accountAddress?: Address }): UseGetVaiVaultOutput => {
   const vaiVaultContractAddress = useGetVaiVaultContractAddress();
 
   const xvs = useGetToken({

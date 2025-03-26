@@ -6,6 +6,7 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 
+import { NULL_ADDRESS } from 'constants/address';
 import ActionModal, { type ActionModalProps } from '../ActionModal';
 
 export type WithdrawFromVaiVaultModalProps = Pick<ActionModalProps, 'handleClose'>;
@@ -20,7 +21,7 @@ const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ h
   const { data: vaiVaultUserInfo, isLoading: isGetVaiVaultUserInfoLoading } =
     useGetVaiVaultUserInfo(
       {
-        accountAddress: accountAddress || '',
+        accountAddress: accountAddress || NULL_ADDRESS,
       },
       {
         enabled: !!accountAddress,

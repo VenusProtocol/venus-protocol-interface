@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import type { Vault } from 'types';
 
+import type { Address } from 'viem';
 import useGetVaiVault from './useGetVaiVault';
 import useGetVestingVaults from './useGetVestingVaults';
 
@@ -10,7 +11,7 @@ export interface UseGetVaultsOutput {
   data: Vault[];
 }
 
-const useGetVaults = ({ accountAddress }: { accountAddress?: string }): UseGetVaultsOutput => {
+const useGetVaults = ({ accountAddress }: { accountAddress?: Address }): UseGetVaultsOutput => {
   const { data: vestingVaults, isLoading: isGetVestingVaultsLoading } = useGetVestingVaults({
     accountAddress,
   });
