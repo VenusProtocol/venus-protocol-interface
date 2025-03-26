@@ -7,11 +7,15 @@ import getProposalState, {
 } from 'clients/api/queries/getProposalState';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
-import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
+import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
+import { usePublicClient } from 'libs/wallet';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetProposalStateInput = Omit<GetProposalStateInput, 'governorBravoDelegateContract'>;
+type TrimmedGetProposalStateInput = Omit<
+  GetProposalStateInput,
+  'publicClient' | 'governorBravoDelegateAddress'
+>;
 
 type Options = QueryObserverOptions<
   GetProposalStateOutput,
@@ -23,7 +27,10 @@ type Options = QueryObserverOptions<
 
 const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Partial<Options>) => {
   const { blockTimeMs } = chainMetadata[governanceChain.id];
-  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
+  const { publicClient } = usePublicClient({
+    chainId: governanceChain.id,
+  });
+  const governorBravoDelegateAddress = getGovernorBravoDelegateContractAddress({
     chainId: governanceChain.id,
   });
 
@@ -31,7 +38,7 @@ const useGetProposalState = (input: TrimmedGetProposalStateInput, options?: Part
     queryKey: [FunctionKey.GET_PROPOSAL_STATE, input],
 
     queryFn: () =>
-      callOrThrow({ governorBravoDelegateContract }, params =>
+      callOrThrow({ publicClient, governorBravoDelegateAddress }, params =>
         getProposalState({
           ...input,
           ...params,

@@ -1,8 +1,10 @@
-import type { GovernorBravoDelegate } from 'libs/contracts';
+import { governorBravoDelegateAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetProposalStateInput {
-  governorBravoDelegateContract: GovernorBravoDelegate;
+  publicClient: PublicClient;
   proposalId: string;
+  governorBravoDelegateAddress: Address;
 }
 
 export type GetProposalStateOutput = {
@@ -10,10 +12,16 @@ export type GetProposalStateOutput = {
 };
 
 const getProposalState = async ({
-  governorBravoDelegateContract,
+  publicClient,
   proposalId,
+  governorBravoDelegateAddress,
 }: GetProposalStateInput): Promise<GetProposalStateOutput> => {
-  const state = await governorBravoDelegateContract.state(proposalId);
+  const state = await publicClient.readContract({
+    address: governorBravoDelegateAddress,
+    abi: governorBravoDelegateAbi,
+    functionName: 'state',
+    args: [BigInt(proposalId)],
+  });
 
   return { state };
 };
