@@ -1,7 +1,9 @@
-import type { VaiVault } from 'libs/contracts';
+import { vaiVaultAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetVaiVaultPausedInput {
-  vaiVaultContract: VaiVault;
+  publicClient: PublicClient;
+  vaiVaultAddress: Address;
 }
 
 export type GetVaiVaultPausedOutput = {
@@ -9,9 +11,14 @@ export type GetVaiVaultPausedOutput = {
 };
 
 export const getVaiVaultPaused = async ({
-  vaiVaultContract,
+  publicClient,
+  vaiVaultAddress,
 }: GetVaiVaultPausedInput): Promise<GetVaiVaultPausedOutput> => {
-  const isVaultPaused = await vaiVaultContract.vaultPaused();
+  const isVaultPaused = await publicClient.readContract({
+    address: vaiVaultAddress,
+    abi: vaiVaultAbi,
+    functionName: 'vaultPaused',
+  });
 
   return {
     isVaultPaused,

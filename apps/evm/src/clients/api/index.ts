@@ -328,7 +328,7 @@ export * from './queries/getPrimeDistributionForMarket';
 export { default as useGetPrimeDistributionForMarket } from './queries/getPrimeDistributionForMarket/useGetPrimeDistributionForMarket';
 
 export * from './queries/getVaiVaultPaused';
-export { default as useGetVaiVaultPaused } from './queries/getVaiVaultPaused/useGetVaiVaultPaused';
+export * from './queries/getVaiVaultPaused/useGetVaiVaultPaused';
 
 export * from './queries/getXvsVaultPaused';
 export { default as useGetXvsVaultPaused } from './queries/getXvsVaultPaused/useGetXvsVaultPaused';
