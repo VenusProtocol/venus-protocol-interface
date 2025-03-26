@@ -1,25 +1,35 @@
 import type BigNumber from 'bignumber.js';
-
-import type { ResilientOracle } from 'libs/contracts';
+import { resilientOracleAbi } from 'libs/contracts';
 import type { Token } from 'types';
 import { convertPriceMantissaToDollars } from 'utilities';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetTokenUsdPriceInput {
   token: Token;
-  resilientOracleContract: ResilientOracle;
+  publicClient: PublicClient;
+  resilientOracleAddress: Address;
 }
 
 export interface GetTokenUsdPriceOutput {
   tokenPriceUsd: BigNumber;
 }
 
-const getTokenUsdPrice = async ({
+export const getTokenUsdPrice = async ({
   token,
-  resilientOracleContract,
+  publicClient,
+  resilientOracleAddress,
 }: GetTokenUsdPriceInput): Promise<GetTokenUsdPriceOutput> => {
-  const priceMantissa = (await resilientOracleContract.getPrice(token.address)).toString();
-  const tokenPriceUsd = convertPriceMantissaToDollars({ priceMantissa, decimals: token.decimals });
+  const priceMantissa = await publicClient.readContract({
+    address: resilientOracleAddress,
+    abi: resilientOracleAbi,
+    functionName: 'getPrice',
+    args: [token.address],
+  });
+
+  const tokenPriceUsd = convertPriceMantissaToDollars({
+    priceMantissa: priceMantissa.toString(),
+    decimals: token.decimals,
+  });
+
   return { tokenPriceUsd };
 };
-
-export default getTokenUsdPrice;

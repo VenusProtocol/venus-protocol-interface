@@ -162,9 +162,8 @@ export { default as getTokenBalances } from './queries/getTokenBalances';
 export * from './queries/getTokenBalances';
 export { default as useGetTokenBalances } from './queries/getTokenBalances/useGetTokenBalances';
 
-export { default as getTokenUsdPrice } from './queries/getTokenUsdPrice';
 export * from './queries/getTokenUsdPrice';
-export { default as useGetTokenUsdPrice } from './queries/getTokenUsdPrice/useGetTokenUsdPrice';
+export * from './queries/getTokenUsdPrice/useGetTokenUsdPrice';
 
 export { default as getVrtConversionEndTime } from './queries/getVrtConversionEndTime';
 export * from './queries/getVrtConversionEndTime';
