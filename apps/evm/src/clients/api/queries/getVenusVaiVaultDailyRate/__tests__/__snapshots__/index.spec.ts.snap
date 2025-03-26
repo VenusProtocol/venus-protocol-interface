@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getVenusVaiVaultDailyRate > returns VAI vault daily rate in the right format on success 1`] = `
+{
+  "dailyRateMantissa": "2.88e+22",
+}
+`;
