@@ -4,13 +4,18 @@ import {
   type GetVoteDelegateAddressInput,
   type GetVoteDelegateAddressOutput,
   getVoteDelegateAddress,
-} from 'clients/api';
+} from 'clients/api/queries/getVoteDelegateAddress';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContract } from 'libs/contracts';
+import { getXvsVaultContractAddress } from 'libs/contracts';
+import { usePublicClient } from 'libs/wallet';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetVoteDelegateAddressInput = Omit<GetVoteDelegateAddressInput, 'xvsVaultContract'>;
+type TrimmedGetVoteDelegateAddressInput = Omit<
+  GetVoteDelegateAddressInput,
+  'publicClient' | 'xvsVaultAddress'
+>;
+
 type Options = QueryObserverOptions<
   GetVoteDelegateAddressOutput,
   Error,
@@ -19,22 +24,22 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, TrimmedGetVoteDelegateAddressInput]
 >;
 
-const useGetVoteDelegateAddress = (
+export const useGetVoteDelegateAddress = (
   input: TrimmedGetVoteDelegateAddressInput,
   options?: Partial<Options>,
 ) => {
-  const xvsVaultContract = useGetXvsVaultContract({
+  const { publicClient } = usePublicClient();
+  const xvsVaultAddress = getXvsVaultContractAddress({
     chainId: governanceChain.id,
   });
 
   return useQuery({
     queryKey: [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, input],
-
     queryFn: () =>
-      callOrThrow({ xvsVaultContract }, params => getVoteDelegateAddress({ ...params, ...input })),
-
+      callOrThrow({ publicClient, xvsVaultAddress }, params =>
+        getVoteDelegateAddress({ ...params, ...input }),
+      ),
     ...options,
+    enabled: !!xvsVaultAddress && (options?.enabled === undefined || options?.enabled),
   });
 };
-
-export default useGetVoteDelegateAddress;

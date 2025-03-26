@@ -260,9 +260,8 @@ export * from './queries/getVaiVaultUserInfo/useGetVaiVaultUserInfo';
 
 export { default as useGetVestingVaults } from './queries/useGetVaults/useGetVestingVaults';
 
-export { default as getVoteDelegateAddress } from './queries/getVoteDelegateAddress';
 export * from './queries/getVoteDelegateAddress';
-export { default as useGetVoteDelegateAddress } from './queries/getVoteDelegateAddress/useGetVoteDelegateAddress';
+export * from './queries/getVoteDelegateAddress/useGetVoteDelegateAddress';
 
 export { default as getVoterAccounts } from './queries/getVoterAccounts';
 export * from './queries/getVoterAccounts';

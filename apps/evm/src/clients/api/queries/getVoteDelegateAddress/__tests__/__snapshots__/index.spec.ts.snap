@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getVoteDelegateAddress > returns delegate address in the right format on success 1`] = `
+{
+  "delegateAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+}
+`;
+
+exports[`getVoteDelegateAddress > returns undefined when no delegate is set 1`] = `
+{
+  "delegateAddress": undefined,
+}
+`;
