@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.238.0
+
+### Minor Changes
+
+- 3280683: increase reward fetching interval
+
 ## 2.237.0
 
 ### Minor Changes
