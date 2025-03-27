@@ -4,7 +4,7 @@ import type {
   Notification,
   RemoveNotificationInput,
   UpdateNotificationInput,
-} from '../store/types';
+} from '../types';
 
 export const MAX_NOTIFICATIONS = 5;
 const DISPLAY_TIME_MS = 9000;

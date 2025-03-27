@@ -22,9 +22,10 @@ import { routes } from 'constants/routing';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNow } from 'hooks/useNow';
 import { en } from 'libs/translations';
-import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet/constants';
+import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet';
 import { ChainId, ProposalState } from 'types';
 
+import config from 'config';
 import Governance from '..';
 import GOVERNANCE_PROPOSAL_TEST_IDS from '../ProposalList/GovernanceProposal/testIds';
 import VOTING_WALLET_TEST_IDS from '../VotingWallet/testIds';
@@ -330,27 +331,19 @@ describe('Governance', () => {
   it('does not render the voting disabled warning when voting is enabled', async () => {
     const { queryAllByTestId } = renderComponent(<Governance />, {
       accountAddress: fakeAccountAddress,
-      routerInitialEntries: ['/governance/proposal-create', '/governance'],
-      routePath: '/governance/*',
     });
     expect(queryAllByTestId(VOTING_WALLET_TEST_IDS.votingDisabledWarning)).toHaveLength(0);
   });
 
   it('renders the voting disabled warning when voting is disabled', async () => {
     (useIsFeatureEnabled as Mock).mockImplementation(() => false);
-    const { getByTestId } = renderComponent(<Governance />, {
-      routerInitialEntries: ['/governance/proposal-create', '/governance'],
-      routePath: '/governance/*',
-    });
+    const { getByTestId } = renderComponent(<Governance />);
     expect(getByTestId(VOTING_WALLET_TEST_IDS.votingDisabledWarning)).toBeVisible();
   });
 
   it('does not render the delegate section when voting is disabled', async () => {
     (useIsFeatureEnabled as Mock).mockImplementation(() => false);
-    const { queryAllByTestId } = renderComponent(<Governance />, {
-      routerInitialEntries: ['/governance/proposal-create', '/governance'],
-      routePath: '/governance/*',
-    });
+    const { queryAllByTestId } = renderComponent(<Governance />);
     expect(queryAllByTestId(VOTING_WALLET_TEST_IDS.delegateYourVoting)).toHaveLength(0);
   });
 
@@ -363,8 +356,6 @@ describe('Governance', () => {
     }));
     const { getByTestId } = renderComponent(<Governance />, {
       accountAddress: fakeAccountAddress,
-      routerInitialEntries: ['/governance/proposal-create', '/governance'],
-      routePath: '/governance/*',
     });
     expect(await waitFor(() => getByTestId(VOTING_WALLET_TEST_IDS.delegateButton))).toBeVisible();
   });
@@ -376,5 +367,27 @@ describe('Governance', () => {
       routePath: '/governance/*',
     });
     expect(queryAllByTestId(VOTING_WALLET_TEST_IDS.delegateButton)).toHaveLength(0);
+  });
+
+  describe('when running in Safe Wallet app', () => {
+    beforeEach(() => {
+      config.isSafeApp = true;
+    });
+
+    afterEach(() => {
+      config.isSafeApp = false;
+    });
+
+    it('renders warning about voting being disabled but does not show switch button when running in Safe Wallet app', async () => {
+      (useIsFeatureEnabled as Mock).mockImplementation(() => false);
+
+      const { getByTestId } = renderComponent(<Governance />, {
+        accountAddress: fakeAccountAddress,
+        chainId: ChainId.ARBITRUM_SEPOLIA,
+      });
+
+      expect(getByTestId(VOTING_WALLET_TEST_IDS.votingDisabledWarning)).toBeVisible();
+      expect(screen.queryByText(en.vote.omnichain.switchToBnb)).not.toBeInTheDocument();
+    });
   });
 });

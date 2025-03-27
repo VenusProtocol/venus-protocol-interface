@@ -75,9 +75,9 @@ const useGenerateColumns = ({
   const { corePoolComptrollerContractAddress } = useGetChainMetadata();
   const { t, Trans } = useTranslation();
   const styles = useStyles();
-  const { chainId: accoutChainId } = useAccountChainId();
+  const { chainId: accountChainId } = useAccountChainId();
   const { chainId } = useChainId();
-  const isAccountOnWrongChain = accoutChainId !== chainId;
+  const isAccountOnWrongChain = accountChainId !== chainId;
 
   const columns: TableColumn<PoolAsset>[] = useMemo(
     () =>

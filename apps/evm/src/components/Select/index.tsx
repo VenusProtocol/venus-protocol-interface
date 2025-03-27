@@ -21,6 +21,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       onChange,
       size = 'medium',
       variant,
+      disabled = false,
       ...otherProps
     }: SelectProps,
     ref: React.Ref<HTMLInputElement>,
@@ -122,12 +123,14 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               buttonSizeClasses,
               buttonClassName,
             )}
+            disabled={disabled}
             contentClassName={cn('w-full justify-center text-sm font-semibold')}
           >
             <input
               ref={ref}
               value={value}
               className="hidden"
+              disabled={disabled}
               onChange={e => {
                 const formattedValue = (
                   typeof value === 'number' ? +e.currentTarget.value : e.currentTarget.value
@@ -142,13 +145,15 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 renderLabel({ label: selectedOption.label, isRenderedInButton: true })}
             </span>
 
-            <Icon
-              name="arrowUp"
-              className={cn(
-                'text-offWhite ml-2 w-5 h-5 flex-none',
-                isDropdownOpened ? 'text-blue' : 'rotate-180',
-              )}
-            />
+            {!disabled && (
+              <Icon
+                name="arrowUp"
+                className={cn(
+                  'text-offWhite ml-2 w-5 h-5 flex-none',
+                  isDropdownOpened ? 'text-blue' : 'rotate-180',
+                )}
+              />
+            )}
           </Button>
         )}
       </Dropdown>

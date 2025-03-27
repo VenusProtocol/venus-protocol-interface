@@ -28,6 +28,7 @@ import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'libs/wallet';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
+import config from 'config';
 import { NULL_ADDRESS } from 'constants/address';
 import DelegateModal from './DelegateModal';
 import TEST_IDS from './testIds';
@@ -120,13 +121,15 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
           data-testid={TEST_IDS.votingDisabledWarning}
           title={t('vote.omnichain.votingOnlyEnabledOnBnb')}
           description={
-            <Button
-              className="h-auto"
-              variant="text"
-              onClick={() => switchChain({ chainId: governanceChain.id })}
-            >
-              {t('vote.omnichain.switchToBnb')}
-            </Button>
+            config.isSafeApp ? undefined : (
+              <Button
+                className="h-auto"
+                variant="text"
+                onClick={() => switchChain({ chainId: governanceChain.id })}
+              >
+                {t('vote.omnichain.switchToBnb')}
+              </Button>
+            )
           }
         />
       )}

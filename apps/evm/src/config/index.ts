@@ -12,6 +12,7 @@ import {
 export interface Config {
   environment: Environment;
   network: Network;
+  isSafeApp: boolean;
   apiUrl: string;
   rpcUrls: {
     [chainId in ChainId]: string;
@@ -48,9 +49,12 @@ const governanceSubgraphUrls = getGovernanceSubgraphUrls(keys);
 const bscCorePoolSubgraphUrls = getBscCorePoolSubgraphUrls(keys);
 const isolatedPoolsSubgraphUrls = getIsolatedPoolsSubgraphUrls(keys);
 
+const isSafeApp = window?.location.ancestorOrigins?.[0] === 'https://app.safe.global';
+
 const config: Config = {
   environment,
   network,
+  isSafeApp,
   apiUrl,
   rpcUrls,
   bscCorePoolSubgraphUrls,

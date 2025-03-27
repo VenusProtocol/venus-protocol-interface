@@ -19,6 +19,7 @@ import { useProvider } from 'libs/wallet';
 import { ChainId } from 'types';
 
 import { CONFIRMATIONS, TIMEOUT_MS } from 'hooks/useSendTransaction/constants';
+import type { Hex } from 'viem';
 import { useTrackTransaction } from '..';
 
 vi.mock('context/ErrorLogger');
@@ -48,7 +49,7 @@ describe('useTrackTransaction', () => {
     const trackTransaction = result.current;
 
     await trackTransaction({
-      transactionHash: fakeContractTransaction.hash,
+      transactionHash: fakeContractTransaction.hash as Hex,
     });
 
     // Check loading notification was displayed
@@ -108,7 +109,7 @@ describe('useTrackTransaction', () => {
       const trackTransaction = result.current;
 
       await trackTransaction({
-        transactionHash: fakeContractTransaction.hash,
+        transactionHash: fakeContractTransaction.hash as Hex,
       });
 
       // Check loading notification was displayed
@@ -161,7 +162,7 @@ describe('useTrackTransaction', () => {
     const onRevertedMock = vi.fn();
 
     await trackTransaction({
-      transactionHash: fakeContractTransaction.hash,
+      transactionHash: fakeContractTransaction.hash as Hex,
       onReverted: onRevertedMock,
     });
 
@@ -209,7 +210,7 @@ describe('useTrackTransaction', () => {
     const onConfirmedMock = vi.fn();
 
     await trackTransaction({
-      transactionHash: fakeContractTransaction.hash,
+      transactionHash: fakeContractTransaction.hash as Hex,
       onConfirmed: onConfirmedMock,
     });
 

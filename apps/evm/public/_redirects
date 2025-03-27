@@ -1,4 +1,5 @@
 /assets/* /assets/:splat 200
 /version.json /version.json 200
+/manifest.json /manifest.json 200
 /#/* /#/:splat 200
 /* /#/:splat 301
