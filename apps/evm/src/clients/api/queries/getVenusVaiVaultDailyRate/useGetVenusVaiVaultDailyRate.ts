@@ -1,9 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetVenusVaiVaultDailyRateOutput,
-  getVenusVaiVaultDailyRate,
-} from 'clients/api/queries/getVenusVaiVaultDailyRate';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { getLegacyPoolComptrollerContractAddress } from 'libs/contracts';
@@ -11,6 +7,7 @@ import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import { type GetVenusVaiVaultDailyRateOutput, getVenusVaiVaultDailyRate } from '.';
 
 export type UseGetVenusVaiVaultDailyRateQueryKey = [
   FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE,

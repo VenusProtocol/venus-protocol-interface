@@ -1,11 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getAddressDomainName, {
-  type GetAddressDomainNameInput,
-  type GetAddressDomainNameOutput,
-} from 'clients/api/queries/getAddressDomainName';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import {
+  type GetAddressDomainNameInput,
+  type GetAddressDomainNameOutput,
+  getAddressDomainName,
+} from '.';
 
 type UseGetAddressDomainNameInput = GetAddressDomainNameInput;
 
@@ -22,7 +23,7 @@ type Options = QueryObserverOptions<
   UseGetAddressDomainNameQueryKey
 >;
 
-const useGetAddressDomainName = (
+export const useGetAddressDomainName = (
   { accountAddress, chainId }: UseGetAddressDomainNameInput,
   options?: Partial<Options>,
 ) => {
@@ -42,5 +43,3 @@ const useGetAddressDomainName = (
     enabled: isWeb3DomainNamesFeatureEnabled && !!options?.enabled,
   });
 };
-
-export default useGetAddressDomainName;

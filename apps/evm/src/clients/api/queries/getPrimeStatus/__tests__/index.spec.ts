@@ -3,7 +3,7 @@ import type { Address, PublicClient } from 'viem';
 import fakeAccountAddress from '__mocks__/models/address';
 import { NULL_ADDRESS } from 'constants/address';
 
-import getPrimeStatus from '..';
+import { getPrimeStatus } from '..';
 
 const mockPeriodInSeconds = 600n;
 const mockMinimumStakedXvs = 1000n;

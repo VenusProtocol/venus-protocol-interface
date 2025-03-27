@@ -16,8 +16,8 @@ import { useChainId } from 'libs/wallet';
 import type { ChainId, MerklDistribution } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
-import getPendingRewards from '.';
-import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
+import { getPendingRewards } from '.';
+import { useGetXvsVaultPoolCount } from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
 import { useGetPools } from '../useGetPools';
 import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
@@ -54,7 +54,10 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Partial<Options>) => {
+export const useGetPendingRewards = (
+  input: TrimmedGetPendingRewardsInput,
+  options?: Partial<Options>,
+) => {
   const { chainId } = useChainId();
   const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
   const venusLensContract = useGetVenusLensContract();
@@ -168,5 +171,3 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Pa
     enabled: (!options || options.enabled) && !isGetPoolsLoading && !isGetXvsVaultPoolCountLoading,
   });
 };
-
-export default useGetPendingRewards;

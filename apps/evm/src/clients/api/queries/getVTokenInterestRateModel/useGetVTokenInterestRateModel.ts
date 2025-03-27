@@ -1,7 +1,8 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getVTokenInterestRateModel, {
+import {
   type GetVTokenInterestRateModelOutput,
+  getVTokenInterestRateModel,
 } from 'clients/api/queries/getVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
 import { useGetVTokenContract } from 'libs/contracts';
@@ -22,7 +23,7 @@ type Options = QueryObserverOptions<
   UseGetVTokenInterestRateModelQueryKey
 >;
 
-const useGetVTokenInterestRateModel = (
+export const useGetVTokenInterestRateModel = (
   { vToken }: { vToken: VToken },
   options?: Partial<Options>,
 ) => {
@@ -38,5 +39,3 @@ const useGetVTokenInterestRateModel = (
     ...options,
   });
 };
-
-export default useGetVTokenInterestRateModel;

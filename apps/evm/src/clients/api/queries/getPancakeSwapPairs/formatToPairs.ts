@@ -3,7 +3,7 @@ import { areAddressesEqual } from 'utilities';
 
 import type { PairAddress } from './types';
 
-const formatToPairs = ({
+export const formatToPairs = ({
   pairAddresses,
   reservesResults,
 }: {
@@ -43,5 +43,3 @@ const formatToPairs = ({
 
     return [...acc, pair];
   }, [] as PSPair[]);
-
-export default formatToPairs;

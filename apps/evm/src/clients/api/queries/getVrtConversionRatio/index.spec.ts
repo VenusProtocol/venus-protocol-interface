@@ -3,9 +3,9 @@ import { BigNumber as BN } from 'ethers';
 
 import type { VrtConverter } from 'libs/contracts';
 
-import getVrtConversionRatio from '.';
+import { getVrtConversionRatio } from '.';
 
-describe('api/queries/getVrtConversionRatio', () => {
+describe('getVrtConversionRatio', () => {
   test('returns the conversion ratio on success', async () => {
     const fakeOutput = BN.from('100000000000000000000000');
 

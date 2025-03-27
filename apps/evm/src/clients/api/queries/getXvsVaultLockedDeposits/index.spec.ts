@@ -4,12 +4,12 @@ import { xvs } from '__mocks__/models/tokens';
 
 import type { XvsVault } from 'libs/contracts';
 
-import getXvsVaultLockedDeposits from '.';
+import { getXvsVaultLockedDeposits } from '.';
 
 const xvsTokenAddress = xvs.address;
 const fakePid = 1;
 
-describe('api/queries/getXvsVaultLockedDeposits', () => {
+describe('getXvsVaultLockedDeposits', () => {
   test('returns withdrawal requests on success', async () => {
     const getWithdrawalRequestsMock = vi.fn(async () => xvsVaultResponses.getWithdrawalRequests);
 

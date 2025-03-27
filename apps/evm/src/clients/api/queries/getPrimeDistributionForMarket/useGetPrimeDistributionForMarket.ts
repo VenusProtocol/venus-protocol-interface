@@ -1,9 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetPrimeDistributionForMarketOutput,
-  getPrimeDistributionForMarket,
-} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetPrimeContractAddress } from 'libs/contracts';
@@ -11,6 +7,7 @@ import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
+import { type GetPrimeDistributionForMarketOutput, getPrimeDistributionForMarket } from '.';
 
 interface UseGetPrimeDistributionForMarketInput {
   vTokenAddress: Address;
@@ -31,7 +28,7 @@ type Options = QueryObserverOptions<
   UseGetPrimeDistributionForMarketQueryKey
 >;
 
-const useGetPrimeDistributionForMarket = (
+export const useGetPrimeDistributionForMarket = (
   { vTokenAddress }: UseGetPrimeDistributionForMarketInput,
   options?: Partial<Options>,
 ) => {
@@ -52,5 +49,3 @@ const useGetPrimeDistributionForMarket = (
     enabled: (options?.enabled === undefined || options?.enabled) && isPrimeEnabled,
   });
 };
-
-export default useGetPrimeDistributionForMarket;

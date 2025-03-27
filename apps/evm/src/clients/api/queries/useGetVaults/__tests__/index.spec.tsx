@@ -22,9 +22,9 @@ import {
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 
-import useGetVaults, { type UseGetVaultsOutput } from '..';
+import { type UseGetVaultsOutput, useGetVaults } from '..';
 
-describe('api/queries/useGetVaults', () => {
+describe('useGetVaults', () => {
   beforeEach(() => {
     (getXvsVaultPoolCount as Mock).mockImplementation(() => ({
       poolCount: xvsVaultResponses.poolLength,

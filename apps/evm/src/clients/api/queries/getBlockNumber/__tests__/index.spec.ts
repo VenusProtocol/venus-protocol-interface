@@ -1,5 +1,5 @@
 import type { PublicClient } from 'viem';
-import getBlockNumber from '..';
+import { getBlockNumber } from '..';
 
 describe('getBlockNumber', () => {
   test('returns the latest block number on success', async () => {

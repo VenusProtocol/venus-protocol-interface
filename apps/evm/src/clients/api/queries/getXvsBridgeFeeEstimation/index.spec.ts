@@ -7,7 +7,7 @@ import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZer
 import type { XVSProxyOFTSrc } from 'libs/contracts';
 import { ChainId } from 'types';
 
-import getXvsBridgeFeeEstimation from '.';
+import { getXvsBridgeFeeEstimation } from '.';
 
 const fakeAmountMantissa = new BigNumber('1234000');
 

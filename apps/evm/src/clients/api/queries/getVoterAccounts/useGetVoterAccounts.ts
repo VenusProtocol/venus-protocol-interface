@@ -3,7 +3,7 @@ import { type QueryObserverOptions, keepPreviousData, useQuery } from '@tanstack
 import FunctionKey from 'constants/functionKey';
 import { generatePseudoRandomRefetchInterval } from 'utilities';
 
-import getVoterAccounts, { type GetVoterAccountsInput, type GetVoterAccountsOutput } from '.';
+import { type GetVoterAccountsInput, type GetVoterAccountsOutput, getVoterAccounts } from '.';
 
 type Options = QueryObserverOptions<
   GetVoterAccountsOutput,
@@ -15,7 +15,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetVoterAccounts = (params: GetVoterAccountsInput, options?: Partial<Options>) =>
+export const useGetVoterAccounts = (params: GetVoterAccountsInput, options?: Partial<Options>) =>
   useQuery({
     queryKey: [FunctionKey.GET_VOTER_ACCOUNTS, params],
     queryFn: () => getVoterAccounts(params),
@@ -23,5 +23,3 @@ const useGetVoterAccounts = (params: GetVoterAccountsInput, options?: Partial<Op
     refetchInterval,
     ...options,
   });
-
-export default useGetVoterAccounts;

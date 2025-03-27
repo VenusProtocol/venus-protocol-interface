@@ -3,7 +3,7 @@ import type { GetXvsVaultLockedDepositsInput, GetXvsVaultLockedDepositsOutput } 
 
 export * from './types';
 
-const getXvsVaultLockedDeposits = async ({
+export const getXvsVaultLockedDeposits = async ({
   xvsVaultContract,
   rewardTokenAddress,
   poolIndex,
@@ -18,5 +18,3 @@ const getXvsVaultLockedDeposits = async ({
     lockedDeposits: res.map(formatToLockedDeposit),
   };
 };
-
-export default getXvsVaultLockedDeposits;

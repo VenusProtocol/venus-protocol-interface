@@ -12,7 +12,7 @@ export interface GetNativeTokenGatewayDelegateApprovalOutput {
   isDelegateeApproved: boolean;
 }
 
-const getPoolDelegateApprovalStatus = async ({
+export const getPoolDelegateApprovalStatus = async ({
   publicClient,
   poolComptrollerAddress,
   delegateeAddress,
@@ -29,5 +29,3 @@ const getPoolDelegateApprovalStatus = async ({
     isDelegateeApproved,
   };
 };
-
-export default getPoolDelegateApprovalStatus;

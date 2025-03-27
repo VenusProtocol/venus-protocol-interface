@@ -125,109 +125,87 @@ export * from './mutations/updatePoolDelegateStatus';
 export { default as useUpdatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus/useUpdatePoolDelegateStatus';
 
 // Queries
-
-export { getUserVaiBorrowBalance } from './queries/getUserVaiBorrowBalance';
 export * from './queries/getUserVaiBorrowBalance';
-export { default as useGetUserVaiBorrowBalance } from './queries/getUserVaiBorrowBalance/useGetUserVaiBorrowBalance';
+export * from './queries/getUserVaiBorrowBalance/useGetUserVaiBorrowBalance';
 
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
 
-export { default as getVTokenBalancesAll } from './queries/getVTokenBalancesAll';
 export * from './queries/getVTokenBalancesAll';
-export { default as useGetVTokenBalancesAll } from './queries/getVTokenBalancesAll/useGetVTokenBalancesAll';
+export * from './queries/getVTokenBalancesAll/useGetVTokenBalancesAll';
 
-export { default as getVTokenBalanceOf } from './queries/getVTokenBalanceOf';
-export * from './queries/getVTokenBalanceOf';
-export { default as useGetVTokenBalanceOf } from './queries/getVTokenBalanceOf/useGetVTokenBalanceOf';
+export * from './queries/getVTokenBalance';
+export * from './queries/getVTokenBalance/useGetVTokenBalance';
 
-export { default as getPendingRewards } from './queries/getPendingRewards';
 export * from './queries/getPendingRewards';
-export { default as useGetPendingRewards } from './queries/getPendingRewards/useGetPendingRewards';
+export * from './queries/getPendingRewards/useGetPendingRewards';
 
-export { default as getIsAddressAuthorized } from './queries/getIsAddressAuthorized';
 export * from './queries/getIsAddressAuthorized';
-export { default as useGetIsAddressAuthorized } from './queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
+export * from './queries/getIsAddressAuthorized/useGetIsAddressAuthorized';
 
-export { default as getAllowance } from './queries/getAllowance';
 export * from './queries/getAllowance';
-export { default as useGetAllowance } from './queries/getAllowance/useGetAllowance';
+export * from './queries/getAllowance/useGetAllowance';
 
-export { default as getBalanceOf } from './queries/getBalanceOf';
 export * from './queries/getBalanceOf';
-export { default as useGetBalanceOf } from './queries/getBalanceOf/useGetBalanceOf';
+export * from './queries/getBalanceOf/useGetBalanceOf';
 
-export { default as getTokenBalances } from './queries/getTokenBalances';
 export * from './queries/getTokenBalances';
-export { default as useGetTokenBalances } from './queries/getTokenBalances/useGetTokenBalances';
+export * from './queries/getTokenBalances/useGetTokenBalances';
 
 export * from './queries/getTokenUsdPrice';
 export * from './queries/getTokenUsdPrice/useGetTokenUsdPrice';
 
-export { default as getVrtConversionEndTime } from './queries/getVrtConversionEndTime';
 export * from './queries/getVrtConversionEndTime';
-export { default as useGetVrtConversionEndTime } from './queries/getVrtConversionEndTime/useGetVrtConversionEndTime';
+export * from './queries/getVrtConversionEndTime/useGetVrtConversionEndTime';
 
-export { default as getVrtConversionRatio } from './queries/getVrtConversionRatio';
 export * from './queries/getVrtConversionRatio';
-export { default as useGetVrtConversionRatio } from './queries/getVrtConversionRatio/useGetVrtConversionRatio';
+export * from './queries/getVrtConversionRatio/useGetVrtConversionRatio';
 
 export * from './queries/getVenusVaiVaultDailyRate';
 export * from './queries/getVenusVaiVaultDailyRate/useGetVenusVaiVaultDailyRate';
 
-export { default as getXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount';
 export * from './queries/getXvsWithdrawableAmount';
+export * from './queries/getXvsWithdrawableAmount/useGetXvsWithdrawableAmount';
 
-export { default as useGetXvsWithdrawableAmount } from './queries/getXvsWithdrawableAmount/useGetXvsWithdrawableAmount';
-
-export { default as useGetAsset } from './queries/useGetAsset';
+export * from './queries/useGetAsset';
 
 export * from './queries/useGetPools';
 
-export { default as useGetPool } from './queries/useGetPool';
+export * from './queries/useGetPool';
 
-export { default as getMarketHistory } from './queries/getMarketHistory';
 export * from './queries/getMarketHistory';
-export { default as useGetMarketHistory } from './queries/getMarketHistory/useGetMarketHistory';
+export * from './queries/getMarketHistory/useGetMarketHistory';
 
-export { default as getVTokenInterestRateModel } from './queries/getVTokenInterestRateModel';
 export * from './queries/getVTokenInterestRateModel';
-export { default as useGetVTokenInterestRateModel } from './queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
+export * from './queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 
-export { default as getVTokenApySimulations } from './queries/getVTokenApySimulations';
 export * from './queries/getVTokenApySimulations';
-export { default as useGetVTokenApySimulations } from './queries/getVTokenApySimulations/useGetVTokenApySimulations';
+export * from './queries/getVTokenApySimulations/useGetVTokenApySimulations';
 
-export { default as getCurrentVotes } from './queries/getCurrentVotes';
 export * from './queries/getCurrentVotes';
-export { default as useGetCurrentVotes } from './queries/getCurrentVotes/useGetCurrentVotes';
+export * from './queries/getCurrentVotes/useGetCurrentVotes';
 
-export { default as getXvsVaultPoolCount } from './queries/getXvsVaultPoolCount';
 export * from './queries/getXvsVaultPoolCount';
-export { default as useGetXvsVaultPoolCount } from './queries/getXvsVaultPoolCount/useGetXvsVaultPoolCount';
+export * from './queries/getXvsVaultPoolCount/useGetXvsVaultPoolCount';
 
-export { default as getXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo';
 export * from './queries/getXvsVaultPoolInfo';
-export { default as useGetXvsVaultPoolInfo } from './queries/getXvsVaultPoolInfo/useGetXvsVaultPoolInfo';
+export * from './queries/getXvsVaultPoolInfo/useGetXvsVaultPoolInfo';
 
 export * from './queries/getXvsVaultPendingWithdrawalsBalance';
 
 export * from './queries/getXvsVaultsTotalDailyDistributedXvs';
 export * from './queries/getXvsVaultsTotalDailyDistributedXvs/useGetXvsVaultsTotalDailyDistributedXvs';
 
-export { default as getXvsVaultTotalAllocationPoints } from './queries/getXvsVaultTotalAllocationPoints';
 export * from './queries/getXvsVaultTotalAllocationPoints';
-export { default as useGetXvsVaultTotalAllocationPoints } from './queries/getXvsVaultTotalAllocationPoints/useGetXvsVaultTotalAllocationPoints';
+export * from './queries/getXvsVaultTotalAllocationPoints/useGetXvsVaultTotalAllocationPoints';
 
-export { default as getXvsVaultUserInfo } from './queries/getXvsVaultUserInfo';
 export * from './queries/getXvsVaultUserInfo';
-export { default as useGetXvsVaultUserInfo } from './queries/getXvsVaultUserInfo/useGetXvsVaultUserInfo';
+export * from './queries/getXvsVaultUserInfo/useGetXvsVaultUserInfo';
 
-export { default as getXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits';
 export * from './queries/getXvsVaultLockedDeposits';
-export { default as useGetXvsVaultLockedDeposits } from './queries/getXvsVaultLockedDeposits/useGetXvsVaultLockedDeposits';
+export * from './queries/getXvsVaultLockedDeposits/useGetXvsVaultLockedDeposits';
 
-export { default as useGetVaults } from './queries/useGetVaults';
+export * from './queries/useGetVaults';
 
 export * from './queries/getProposals';
 export * from './queries/getProposals/useGetProposals';
@@ -238,33 +216,28 @@ export * from './queries/getProposal/useGetProposal';
 export * from './queries/getVoteReceipt';
 export * from './queries/getVoteReceipt/useGetVoteReceipt';
 
-export { default as getVoters } from './queries/getVoters';
 export * from './queries/getVoters';
-export { default as useGetVoters } from './queries/getVoters/useGetVoters';
+export * from './queries/getVoters/useGetVoters';
 
-export { default as getVoterDetails } from './queries/getVoterDetails';
 export * from './queries/getVoterDetails';
-export { default as useGetVoterDetails } from './queries/getVoterDetails/useGetVoterDetails';
+export * from './queries/getVoterDetails/useGetVoterDetails';
 
-export { default as getVoteSummary } from './queries/getVoteSummary';
 export * from './queries/getVoteSummary';
-export { default as useGetVoteSummary } from './queries/getVoteSummary/useGetVoteSummary';
+export * from './queries/getVoteSummary/useGetVoteSummary';
 
-export { default as getVoterHistory } from './queries/getVoterHistory';
 export * from './queries/getVoterHistory';
-export { default as useGetVoterHistory } from './queries/getVoterHistory/useGetVoterHistory';
+export * from './queries/getVoterHistory/useGetVoterHistory';
 
 export * from './queries/getVaiVaultUserInfo';
 export * from './queries/getVaiVaultUserInfo/useGetVaiVaultUserInfo';
 
-export { default as useGetVestingVaults } from './queries/useGetVaults/useGetVestingVaults';
+export * from './queries/useGetVaults/useGetVestingVaults';
 
 export * from './queries/getVoteDelegateAddress';
 export * from './queries/getVoteDelegateAddress/useGetVoteDelegateAddress';
 
-export { default as getVoterAccounts } from './queries/getVoterAccounts';
 export * from './queries/getVoterAccounts';
-export { default as useGetVoterAccounts } from './queries/getVoterAccounts/useGetVoterAccounts';
+export * from './queries/getVoterAccounts/useGetVoterAccounts';
 
 export * from './queries/getProposalThreshold';
 export * from './queries/getProposalThreshold/useGetProposalThreshold';
@@ -272,85 +245,70 @@ export * from './queries/getProposalThreshold/useGetProposalThreshold';
 export * from './queries/getProposalState';
 export * from './queries/getProposalState/useGetProposalState';
 
-export { default as getLatestProposalIdByProposer } from './queries/getLatestProposalIdByProposer';
 export * from './queries/getLatestProposalIdByProposer';
-export { default as useGetLatestProposalIdByProposer } from './queries/getLatestProposalIdByProposer/useGetLatestProposalIdByProposer';
+export * from './queries/getLatestProposalIdByProposer/useGetLatestProposalIdByProposer';
 
 export * from './queries/getMintableVai';
-export { default as useGetMintableVai } from './queries/getMintableVai/useGetMintableVai';
+export * from './queries/getMintableVai/useGetMintableVai';
 
-export { default as getBlockNumber } from './queries/getBlockNumber';
 export * from './queries/getBlockNumber';
-export { default as useGetBlockNumber } from './queries/getBlockNumber/useGetBlockNumber';
+export * from './queries/getBlockNumber/useGetBlockNumber';
 
-export { default as getProposalEta } from './queries/getProposalEta';
 export * from './queries/getProposalEta';
-export { default as useGetProposalEta } from './queries/getProposalEta/useGetProposalEta';
+export * from './queries/getProposalEta/useGetProposalEta';
 
-export { default as getPancakeSwapPairs } from './queries/getPancakeSwapPairs';
 export * from './queries/getPancakeSwapPairs';
-export { default as useGetPancakeSwapPairs } from './queries/getPancakeSwapPairs/useGetPancakeSwapPairs';
+export * from './queries/getPancakeSwapPairs/useGetPancakeSwapPairs';
 
 export * from './queries/getVaiRepayApr';
 export * from './queries/getVaiRepayApr/useGetVaiRepayApr';
 
-export { default as getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
 export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
-export { default as useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade } from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade';
+export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade';
 
-export { default as getVTokens } from './queries/getVTokens';
 export * from './queries/getVTokens';
-export { default as useGetVTokens } from './queries/getVTokens/useGetVTokens';
+export * from './queries/getVTokens/useGetVTokens';
 
-export { default as getPrimeToken } from './queries/getPrimeToken';
 export * from './queries/getPrimeToken';
-export { default as useGetPrimeToken } from './queries/getPrimeToken/useGetPrimeToken';
+export * from './queries/getPrimeToken/useGetPrimeToken';
 
-export { default as getHypotheticalPrimeApys } from './queries/getHypotheticalPrimeApys';
 export * from './queries/getHypotheticalPrimeApys';
-export { default as useGetHypotheticalPrimeApys } from './queries/getHypotheticalPrimeApys/useGetHypotheticalPrimeApys';
+export * from './queries/getHypotheticalPrimeApys/useGetHypotheticalPrimeApys';
 
-export { default as getPrimeStatus } from './queries/getPrimeStatus';
 export * from './queries/getPrimeStatus';
-export { default as useGetPrimeStatus } from './queries/getPrimeStatus/useGetPrimeStatus';
+export * from './queries/getPrimeStatus/useGetPrimeStatus';
 
 export * from './queries/getLatestAppVersion';
-export { default as useGetLatestAppVersion } from './queries/getLatestAppVersion/useGetLatestAppVersion';
+export * from './queries/getLatestAppVersion/useGetLatestAppVersion';
 
-export { default as useGetPrimeEstimation } from './queries/useGetPrimeEstimation';
+export * from './queries/useGetPrimeEstimation';
 
-export { default as getPrimeDistributionForMarket } from './queries/getPrimeDistributionForMarket';
 export * from './queries/getPrimeDistributionForMarket';
-export { default as useGetPrimeDistributionForMarket } from './queries/getPrimeDistributionForMarket/useGetPrimeDistributionForMarket';
+export * from './queries/getPrimeDistributionForMarket/useGetPrimeDistributionForMarket';
 
 export * from './queries/getVaiVaultPaused';
 export * from './queries/getVaiVaultPaused/useGetVaiVaultPaused';
 
 export * from './queries/getXvsVaultPaused';
-export { default as useGetXvsVaultPaused } from './queries/getXvsVaultPaused/useGetXvsVaultPaused';
+export * from './queries/getXvsVaultPaused/useGetXvsVaultPaused';
 
-export { default as getXvsBridgeFeeEstimation } from './queries/getXvsBridgeFeeEstimation';
 export * from './queries/getXvsBridgeFeeEstimation';
-export { default as useGetXvsBridgeFeeEstimation } from './queries/getXvsBridgeFeeEstimation/useGetXvsBridgeFeeEstimation';
+export * from './queries/getXvsBridgeFeeEstimation/useGetXvsBridgeFeeEstimation';
 
-export { default as getXvsBridgeStatus } from './queries/getXvsBridgeStatus';
 export * from './queries/getXvsBridgeStatus';
-export { default as useGetXvsBridgeStatus } from './queries/getXvsBridgeStatus/useGetXvsBridgeStatus';
+export * from './queries/getXvsBridgeStatus/useGetXvsBridgeStatus';
 
-export { default as getXvsBridgeMintStatus } from './queries/getXvsBridgeMintStatus';
 export * from './queries/getXvsBridgeMintStatus';
-export { default as useGetXvsBridgeMintStatus } from './queries/getXvsBridgeMintStatus/useGetXvsBridgeMintStatus';
+export * from './queries/getXvsBridgeMintStatus/useGetXvsBridgeMintStatus';
 
-export { default as getPoolDelegateApprovalStatus } from './queries/getPoolDelegateApprovalStatus';
 export * from './queries/getPoolDelegateApprovalStatus';
-export { default as useGetPoolDelegateApprovalStatus } from './queries/getPoolDelegateApprovalStatus/useGetPoolDelegateApprovalStatus';
+export * from './queries/getPoolDelegateApprovalStatus/useGetPoolDelegateApprovalStatus';
 
-export { default as getAddressDomainName } from './queries/getAddressDomainName';
 export * from './queries/getAddressDomainName';
-export { default as useGetAddressDomainName } from './queries/getAddressDomainName/useGetAddressDomainName';
+export * from './queries/getAddressDomainName/useGetAddressDomainName';
 
 export * from './queries/getPaymasterInfo';
-export { default as useGetPaymasterInfo } from './queries/getPaymasterInfo/useGetPaymasterInfo';
+export * from './queries/getPaymasterInfo/useGetPaymasterInfo';
 
 export * from './queries/getProposalMinQuorumVotes';
 export * from './queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
@@ -364,4 +322,4 @@ export * from './queries/getPoolLiquidationIncentive/useGetPoolLiquidationIncent
 export * from './queries/getIsolatedPoolVTokenLiquidationThreshold';
 export * from './queries/getIsolatedPoolVTokenLiquidationThreshold/useGetIsolatedPoolVTokenLiquidationThreshold';
 
-export { default as getApiTokenPrice } from './queries/getApiTokenPrice';
+export * from './queries/getApiTokenPrice';

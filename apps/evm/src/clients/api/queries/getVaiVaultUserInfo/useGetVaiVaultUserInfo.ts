@@ -1,16 +1,16 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetVaiVaultUserInfoInput,
-  type GetVaiVaultUserInfoOutput,
-  getVaiVaultUserInfo,
-} from 'clients/api/queries/getVaiVaultUserInfo';
 import FunctionKey from 'constants/functionKey';
 import { getVaiVaultContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import {
+  type GetVaiVaultUserInfoInput,
+  type GetVaiVaultUserInfoOutput,
+  getVaiVaultUserInfo,
+} from '.';
 
 type TrimmedGetVaiVaultUserInfoInput = Omit<
   GetVaiVaultUserInfoInput,

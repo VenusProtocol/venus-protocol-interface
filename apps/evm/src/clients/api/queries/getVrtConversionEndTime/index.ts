@@ -8,7 +8,7 @@ export type GetVrtConversionEndTimeOutput = {
   conversionEndTime: Date;
 };
 
-const getVrtConverstionEndTime = async ({
+export const getVrtConversionEndTime = async ({
   vrtConverterContract,
 }: GetVrtConversionEndTimeInput): Promise<GetVrtConversionEndTimeOutput> => {
   const resp = await vrtConverterContract.conversionEndTime();
@@ -18,5 +18,3 @@ const getVrtConverstionEndTime = async ({
     conversionEndTime: new Date(resp.mul(1000).toNumber()),
   };
 };
-
-export default getVrtConverstionEndTime;

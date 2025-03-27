@@ -7,7 +7,7 @@ import type {
 
 export * from './types';
 
-const getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = async ({
+export const getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = async ({
   xvsVaultContract,
   rewardTokenAddress,
   poolIndex,
@@ -26,5 +26,3 @@ const getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = async ({
     ),
   };
 };
-
-export default getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade;

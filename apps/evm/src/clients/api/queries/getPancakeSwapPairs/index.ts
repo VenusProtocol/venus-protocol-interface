@@ -1,12 +1,12 @@
 import { Pair as PSPair } from '@pancakeswap/sdk';
 import { pancakePairV2Abi } from 'libs/contracts';
 import type { Address } from 'viem';
-import formatToPairs from './formatToPairs';
+import { formatToPairs } from './formatToPairs';
 import type { GetPancakeSwapPairsInput, GetPancakeSwapPairsOutput, PairAddress } from './types';
 
 export * from './types';
 
-const getPancakeSwapPairs = async ({
+export const getPancakeSwapPairs = async ({
   tokenCombinations,
   publicClient,
 }: GetPancakeSwapPairsInput): Promise<GetPancakeSwapPairsOutput> => {
@@ -45,5 +45,3 @@ const getPancakeSwapPairs = async ({
 
   return { pairs };
 };
-
-export default getPancakeSwapPairs;

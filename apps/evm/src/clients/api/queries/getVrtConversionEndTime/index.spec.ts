@@ -2,9 +2,9 @@ import { BigNumber as BN } from 'ethers';
 
 import type { VrtConverter } from 'libs/contracts';
 
-import getVrtConversionEndTime from '.';
+import { getVrtConversionEndTime } from '.';
 
-describe('api/queries/getVrtConversionEndTime', () => {
+describe('getVrtConversionEndTime', () => {
   test('returns the conversion end time on success', async () => {
     const fakeOutput = BN.from(1678859525000);
     const vrtConversionEndtimeMock = vi.fn(async () => fakeOutput);

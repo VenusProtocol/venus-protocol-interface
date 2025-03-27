@@ -17,7 +17,7 @@ export interface UseGetPoolOutput {
   };
 }
 
-const useGetPool = ({
+export const useGetPool = ({
   poolComptrollerAddress,
   accountAddress,
 }: UseGetPoolInput): UseGetPoolOutput => {
@@ -40,5 +40,3 @@ const useGetPool = ({
     },
   };
 };
-
-export default useGetPool;

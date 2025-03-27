@@ -3,7 +3,7 @@ import type { PublicClient } from 'viem';
 import fakeAccountAddress from '__mocks__/models/address';
 import { bnb, busd, lisUsd } from '__mocks__/models/tokens';
 
-import getTokenBalances from '..';
+import { getTokenBalances } from '..';
 
 const tokens = [busd, lisUsd];
 

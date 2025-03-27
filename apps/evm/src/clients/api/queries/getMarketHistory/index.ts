@@ -21,7 +21,7 @@ export type GetMarketHistoryOutput = {
   marketSnapshots: MarketSnapshot[];
 };
 
-const getMarketHistory = async ({
+export const getMarketHistory = async ({
   vToken,
   period,
 }: GetMarketHistoryInput): Promise<GetMarketHistoryOutput> => {
@@ -49,5 +49,3 @@ const getMarketHistory = async ({
     marketSnapshots,
   };
 };
-
-export default getMarketHistory;

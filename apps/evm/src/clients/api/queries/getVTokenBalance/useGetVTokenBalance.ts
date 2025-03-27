@@ -1,37 +1,38 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getVTokenBalanceOf, {
-  type GetVTokenBalanceOfInput,
-  type GetVTokenBalanceOfOutput,
-} from 'clients/api/queries/getVTokenBalanceOf';
+import {
+  type GetVTokenBalanceInput,
+  type GetVTokenBalanceOutput,
+  getVTokenBalance,
+} from 'clients/api/queries/getVTokenBalance';
 import FunctionKey from 'constants/functionKey';
 import { useGetVTokenContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import type { ChainId, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
-interface TrimmedGetVTokenBalanceOfInput extends Omit<GetVTokenBalanceOfInput, 'vTokenContract'> {
+interface TrimmedGetVTokenBalanceInput extends Omit<GetVTokenBalanceInput, 'vTokenContract'> {
   vToken: VToken;
 }
 
-export type UseGetVTokenBalanceOfQueryKey = [
+export type UseGetVTokenBalanceQueryKey = [
   FunctionKey.GET_V_TOKEN_BALANCE,
-  Omit<TrimmedGetVTokenBalanceOfInput, 'vToken'> & {
+  Omit<TrimmedGetVTokenBalanceInput, 'vToken'> & {
     vTokenAddress: string;
     chainId: ChainId;
   },
 ];
 
 type Options = QueryObserverOptions<
-  GetVTokenBalanceOfOutput,
+  GetVTokenBalanceOutput,
   Error,
-  GetVTokenBalanceOfOutput,
-  GetVTokenBalanceOfOutput,
-  UseGetVTokenBalanceOfQueryKey
+  GetVTokenBalanceOutput,
+  GetVTokenBalanceOutput,
+  UseGetVTokenBalanceQueryKey
 >;
 
-const useGetVTokenBalanceOf = (
-  { accountAddress, vToken }: TrimmedGetVTokenBalanceOfInput,
+export const useGetVTokenBalance = (
+  { accountAddress, vToken }: TrimmedGetVTokenBalanceInput,
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
@@ -45,7 +46,7 @@ const useGetVTokenBalanceOf = (
 
     queryFn: () =>
       callOrThrow({ vTokenContract }, params =>
-        getVTokenBalanceOf({
+        getVTokenBalance({
           ...params,
           accountAddress,
         }),
@@ -54,5 +55,3 @@ const useGetVTokenBalanceOf = (
     ...options,
   });
 };
-
-export default useGetVTokenBalanceOf;

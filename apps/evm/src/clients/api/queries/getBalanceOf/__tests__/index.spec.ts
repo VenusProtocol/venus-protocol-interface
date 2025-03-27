@@ -4,7 +4,7 @@ import { balance as fakeBalanceMantissa } from '__mocks__/models/provider';
 import { bnb, xvs } from '__mocks__/models/tokens';
 
 import type { PublicClient } from 'viem';
-import getBalanceOf from '..';
+import { getBalanceOf } from '..';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 

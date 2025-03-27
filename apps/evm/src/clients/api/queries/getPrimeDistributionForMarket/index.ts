@@ -13,7 +13,7 @@ export interface GetPrimeDistributionForMarketOutput {
   totalDistributedMantissa: BigNumber;
 }
 
-const getPrimeDistributionForMarket = async ({
+export const getPrimeDistributionForMarket = async ({
   vTokenAddress,
   primeContractAddress,
   publicClient,
@@ -29,5 +29,3 @@ const getPrimeDistributionForMarket = async ({
     totalDistributedMantissa: new BigNumber(totalDistributedMantissa.toString()),
   };
 };
-
-export default getPrimeDistributionForMarket;

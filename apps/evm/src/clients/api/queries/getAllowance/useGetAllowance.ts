@@ -1,13 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getAllowance, {
-  type GetAllowanceInput,
-  type GetAllowanceOutput,
-} from 'clients/api/queries/getAllowance';
 import FunctionKey from 'constants/functionKey';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId, Token } from 'types';
 import type { Address } from 'viem';
+import { type GetAllowanceInput, type GetAllowanceOutput, getAllowance } from '.';
 
 type TrimmedGetAllowanceInput = Omit<GetAllowanceInput, 'publicClient'> & {
   token: Token;
@@ -29,7 +26,7 @@ type Options = QueryObserverOptions<
   UseGetAllowanceQueryKey
 >;
 
-const useGetAllowance = (
+export const useGetAllowance = (
   { token, spenderAddress, accountAddress }: TrimmedGetAllowanceInput,
   options?: Partial<Options>,
 ) => {
@@ -58,5 +55,3 @@ const useGetAllowance = (
     ...options,
   });
 };
-
-export default useGetAllowance;

@@ -2,7 +2,7 @@ import type { PublicClient } from 'viem';
 
 import fakeAddress from '__mocks__/models/address';
 
-import getLatestProposalIdByProposer from '..';
+import { getLatestProposalIdByProposer } from '..';
 
 describe('getLatestProposalIdByProposer', () => {
   test('returns latest proposalId on success', async () => {

@@ -28,7 +28,7 @@ export type UseGetXvsVaultPoolsOutput = UseQueryResult<
   | GetXvsVaultPendingWithdrawalsBalanceOutput
 >[];
 
-const useGetXvsVaultPools = ({
+export const useGetXvsVaultPools = ({
   accountAddress,
   poolsCount,
 }: UseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
@@ -117,5 +117,3 @@ const useGetXvsVaultPools = ({
 
   return useQueries({ queries });
 };
-
-export default useGetXvsVaultPools;

@@ -1,13 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetProposalThresholdOutput,
-  getProposalThreshold,
-} from 'clients/api/queries/getProposalThreshold';
 import FunctionKey from 'constants/functionKey';
 import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import { type GetProposalThresholdOutput, getProposalThreshold } from '.';
 
 type Options = QueryObserverOptions<
   GetProposalThresholdOutput,

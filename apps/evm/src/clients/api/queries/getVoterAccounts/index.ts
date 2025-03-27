@@ -20,7 +20,7 @@ export interface GetVoterAccountsOutput {
   total: number;
 }
 
-const getVoterAccounts = async ({
+export const getVoterAccounts = async ({
   totalStakedXvs,
   limit = 16,
   page = 0,
@@ -50,5 +50,3 @@ const getVoterAccounts = async ({
 
   return formatVoterAccountResponse({ data: payload, totalStakedXvs });
 };
-
-export default getVoterAccounts;

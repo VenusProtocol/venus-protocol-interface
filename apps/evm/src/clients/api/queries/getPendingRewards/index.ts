@@ -8,14 +8,14 @@ import removeDuplicates from 'utilities/removeDuplicates';
 
 import { getApiTokenPrice } from 'clients/api';
 import formatOutput from './formatOutput';
-import getMerklUserRewards from './getMerklRewards';
+import { getMerklUserRewards } from './getMerklRewards';
 import type {
   GetPendingRewardsInput,
   GetPendingRewardsOutput,
   PendingExternalRewardSummary,
 } from './types';
 
-const getPendingRewards = async ({
+export const getPendingRewards = async ({
   tokens,
   legacyPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
@@ -202,5 +202,3 @@ const getPendingRewards = async ({
     pendingRewardGroups,
   };
 };
-
-export default getPendingRewards;

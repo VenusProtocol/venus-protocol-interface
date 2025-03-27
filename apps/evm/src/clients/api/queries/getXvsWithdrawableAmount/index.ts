@@ -13,7 +13,7 @@ export interface GetXvsWithdrawableAmountOutput {
   totalWithdrawnAmount: BigNumber;
 }
 
-const getXvsWithdrawableAmount = async ({
+export const getXvsWithdrawableAmount = async ({
   xvsVestingContract,
   accountAddress,
 }: GetXvsWithdrawableAmountInput): Promise<GetXvsWithdrawableAmountOutput | undefined> => {
@@ -25,5 +25,3 @@ const getXvsWithdrawableAmount = async ({
     totalWithdrawnAmount: new BigNumber(resp.totalWithdrawnAmount.toString()),
   };
 };
-
-export default getXvsWithdrawableAmount;

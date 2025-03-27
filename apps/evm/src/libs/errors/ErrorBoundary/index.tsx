@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/react';
-import useGetLatestAppVersion from 'clients/api/queries/getLatestAppVersion/useGetLatestAppVersion';
+import { useGetLatestAppVersion } from 'clients/api';
 import { compareVersions } from 'compare-versions';
 
 import config from 'config';

@@ -11,7 +11,7 @@ export type GetProposalEtaOutput = {
   eta: Date;
 };
 
-const getProposalEta = async ({
+export const getProposalEta = async ({
   publicClient,
   governorBravoDelegateContractAddress,
   proposalId,
@@ -30,5 +30,3 @@ const getProposalEta = async ({
     eta,
   };
 };
-
-export default getProposalEta;

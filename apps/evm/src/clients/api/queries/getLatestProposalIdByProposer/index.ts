@@ -11,7 +11,7 @@ export type GetLatestProposalIdByProposerOutput = {
   proposalId: string;
 };
 
-const getLatestProposalIdByProposer = async ({
+export const getLatestProposalIdByProposer = async ({
   publicClient,
   governorBravoDelegateContractAddress,
   accountAddress,
@@ -27,5 +27,3 @@ const getLatestProposalIdByProposer = async ({
     proposalId: res.toString(),
   };
 };
-
-export default getLatestProposalIdByProposer;

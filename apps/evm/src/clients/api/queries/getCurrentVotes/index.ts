@@ -13,7 +13,7 @@ export type GetCurrentVotesOutput = {
   votesMantissa: BigNumber;
 };
 
-const getCurrentVotes = async ({
+export const getCurrentVotes = async ({
   publicClient,
   xvsVaultContractAddress,
   accountAddress,
@@ -29,5 +29,3 @@ const getCurrentVotes = async ({
     votesMantissa: new BigNumber(votesMantissa.toString()),
   };
 };
-
-export default getCurrentVotes;

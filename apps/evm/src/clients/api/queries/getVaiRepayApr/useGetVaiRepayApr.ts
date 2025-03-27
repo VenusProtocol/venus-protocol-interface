@@ -1,12 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { type GetVaiRepayAprOutput, getVaiRepayApr } from 'clients/api/queries/getVaiRepayApr';
 import FunctionKey from 'constants/functionKey';
 import { getVaiControllerContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import { type GetVaiRepayAprOutput, getVaiRepayApr } from '.';
 
 export type UseGetVaiRepayAprQueryKey = [FunctionKey.GET_VAI_REPAY_APR, { chainId: ChainId }];
 

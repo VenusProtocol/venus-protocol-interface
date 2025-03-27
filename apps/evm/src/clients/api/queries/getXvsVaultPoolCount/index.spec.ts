@@ -4,9 +4,9 @@ import { xvs } from '__mocks__/models/tokens';
 
 import type { XvsVault } from 'libs/contracts';
 
-import getXvsVaultPoolCount from '.';
+import { getXvsVaultPoolCount } from '.';
 
-describe('api/queries/getXvsVaultPoolCount', () => {
+describe('getXvsVaultPoolCount', () => {
   test('returns the XVS vault pool length on success', async () => {
     const fakeOutput = BN.from('10');
 

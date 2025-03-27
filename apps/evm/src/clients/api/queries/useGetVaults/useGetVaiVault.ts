@@ -20,7 +20,9 @@ export interface UseGetVaiVaultOutput {
   data: Vault | undefined;
 }
 
-const useGetVaiVault = ({ accountAddress }: { accountAddress?: Address }): UseGetVaiVaultOutput => {
+export const useGetVaiVault = ({
+  accountAddress,
+}: { accountAddress?: Address }): UseGetVaiVaultOutput => {
   const vaiVaultContractAddress = useGetVaiVaultContractAddress();
 
   const xvs = useGetToken({
@@ -127,5 +129,3 @@ const useGetVaiVault = ({ accountAddress }: { accountAddress?: Address }): UseGe
     isLoading,
   };
 };
-
-export default useGetVaiVault;

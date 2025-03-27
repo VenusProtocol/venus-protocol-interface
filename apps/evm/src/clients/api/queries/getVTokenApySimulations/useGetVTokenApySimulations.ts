@@ -1,10 +1,11 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
-import getVTokenApySimulations, {
+import {
   type GetVTokenApySimulationsOutput,
+  getVTokenApySimulations,
 } from 'clients/api/queries/getVTokenApySimulations';
-import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
+import { useGetVTokenInterestRateModel } from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'libs/contracts';
@@ -26,7 +27,7 @@ type Options = QueryObserverOptions<
   UseGetVTokenApySimulationsQueryKey
 >;
 
-const useGetVTokenApySimulations = (
+export const useGetVTokenApySimulations = (
   {
     asset,
     vToken,
@@ -79,5 +80,3 @@ const useGetVTokenApySimulations = (
       !!asset,
   });
 };
-
-export default useGetVTokenApySimulations;

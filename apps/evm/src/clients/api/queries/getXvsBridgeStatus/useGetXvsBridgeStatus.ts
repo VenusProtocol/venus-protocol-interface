@@ -1,15 +1,11 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetXvsBridgeStatusInput,
-  type GetXvsBridgeStatusOutput,
-  getXvsBridgeStatus,
-} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
+import { type GetXvsBridgeStatusInput, type GetXvsBridgeStatusOutput, getXvsBridgeStatus } from '.';
 
 type TrimmedGetXvsBridgeStatusInput = Omit<
   GetXvsBridgeStatusInput,
@@ -31,7 +27,7 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetBridgeStatus = (
+export const useGetXvsBridgeStatus = (
   { toChainId }: TrimmedGetXvsBridgeStatusInput,
   options?: Partial<Options>,
 ) => {
@@ -64,5 +60,3 @@ const useGetBridgeStatus = (
     enabled: options?.enabled === undefined || options?.enabled,
   });
 };
-
-export default useGetBridgeStatus;

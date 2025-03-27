@@ -7,7 +7,7 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
-import { getVTokenBalanceOf, withdraw } from 'clients/api';
+import { getVTokenBalance, withdraw } from 'clients/api';
 import { en } from 'libs/translations';
 import { type Asset, ChainId, type Pool } from 'types';
 
@@ -165,7 +165,7 @@ describe('WithdrawForm', () => {
     const customFakeAsset = customFakePool.assets[0];
     customFakeAsset.isCollateralOfUser = false;
 
-    (getVTokenBalanceOf as Mock).mockImplementation(() => ({
+    (getVTokenBalance as Mock).mockImplementation(() => ({
       balanceMantissa: fakeVTokenBalanceMantissa,
     }));
 

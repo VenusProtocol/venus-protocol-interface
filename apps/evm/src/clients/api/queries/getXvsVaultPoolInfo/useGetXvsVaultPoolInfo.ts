@@ -1,8 +1,9 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getXvsVaultPoolInfo, {
+import {
   type GetXvsVaultPoolInfoInput,
   type GetXvsVaultPoolInfoOutput,
+  getXvsVaultPoolInfo,
 } from 'clients/api/queries/getXvsVaultPoolInfo';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract } from 'libs/contracts';
@@ -27,7 +28,7 @@ type Options = QueryObserverOptions<
   UseGetXvsVaultPoolInfoQueryKey
 >;
 
-const useGetXvsVaultPoolInfo = (
+export const useGetXvsVaultPoolInfo = (
   input: TrimmedGetXvsVaultPoolInfoInput,
   options?: Partial<Options>,
 ) => {
@@ -41,5 +42,3 @@ const useGetXvsVaultPoolInfo = (
     ...options,
   });
 };
-
-export default useGetXvsVaultPoolInfo;

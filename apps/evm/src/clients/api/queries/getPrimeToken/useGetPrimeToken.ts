@@ -1,6 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { type GetPrimeTokenOutput, getPrimeToken } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetPrimeContractAddress } from 'libs/contracts';
@@ -8,12 +7,13 @@ import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
+import { type GetPrimeTokenOutput, getPrimeToken } from '.';
 
 type UseGetPrimeTokenInput = {
   accountAddress?: Address;
 };
 
-export type UseGetPrimeStatusQueryKey = [
+export type UseGetPrimeTokenQueryKey = [
   FunctionKey.GET_PRIME_TOKEN,
   UseGetPrimeTokenInput & {
     chainId: ChainId;
@@ -25,10 +25,10 @@ type Options = QueryObserverOptions<
   Error,
   GetPrimeTokenOutput,
   GetPrimeTokenOutput,
-  UseGetPrimeStatusQueryKey
+  UseGetPrimeTokenQueryKey
 >;
 
-const useGetPrimeToken = (input: UseGetPrimeTokenInput, options?: Partial<Options>) => {
+export const useGetPrimeToken = (input: UseGetPrimeTokenInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
   const primeContractAddress = useGetPrimeContractAddress();
@@ -55,5 +55,3 @@ const useGetPrimeToken = (input: UseGetPrimeTokenInput, options?: Partial<Option
       isPrimeEnabled,
   });
 };
-
-export default useGetPrimeToken;

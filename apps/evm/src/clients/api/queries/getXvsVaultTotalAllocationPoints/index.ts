@@ -9,7 +9,7 @@ export type GetXvsVaultTotalAllocPointsOutput = {
   totalAllocationPoints: number;
 };
 
-const getXvsVaultTotalAllocationPoints = async ({
+export const getXvsVaultTotalAllocationPoints = async ({
   xvsVaultContract,
   tokenAddress,
 }: GetXvsVaultTotalAllocPointsInput): Promise<GetXvsVaultTotalAllocPointsOutput> => {
@@ -19,5 +19,3 @@ const getXvsVaultTotalAllocationPoints = async ({
     totalAllocationPoints: res.toNumber(),
   };
 };
-
-export default getXvsVaultTotalAllocationPoints;

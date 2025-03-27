@@ -20,7 +20,7 @@ export type GetVTokensOutput = {
   vTokens: VToken[];
 };
 
-const getVTokens = async ({
+export const getVTokens = async ({
   chainId,
   tokens,
   poolLensContract,
@@ -89,5 +89,3 @@ const getVTokens = async ({
     vTokens,
   };
 };
-
-export default getVTokens;

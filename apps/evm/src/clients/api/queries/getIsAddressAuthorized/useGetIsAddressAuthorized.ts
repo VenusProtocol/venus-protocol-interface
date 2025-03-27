@@ -1,9 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getIsAddressAuthorized, {
-  type GetIsAddressAuthorizedOutput,
-} from 'clients/api/queries/getIsAddressAuthorized';
 import FunctionKey from 'constants/functionKey';
+import { type GetIsAddressAuthorizedOutput, getIsAddressAuthorized } from '.';
 
 export type UseGetIsAddressAuthorizedQueryKey = [
   FunctionKey.GET_IS_ADDRESS_AUTHORIZED,
@@ -20,7 +18,7 @@ type Options = QueryObserverOptions<
 
 const ONE_HOUR_MS = 60 * 60 * 1000;
 
-const useGetIsAddressAuthorized = (accountAddress: string, options?: Partial<Options>) =>
+export const useGetIsAddressAuthorized = (accountAddress: string, options?: Partial<Options>) =>
   useQuery({
     queryKey: [FunctionKey.GET_IS_ADDRESS_AUTHORIZED, { accountAddress }],
     queryFn: () => getIsAddressAuthorized({ accountAddress }),
@@ -32,5 +30,3 @@ const useGetIsAddressAuthorized = (accountAddress: string, options?: Partial<Opt
     gcTime: Number.POSITIVE_INFINITY,
     ...options,
   });
-
-export default useGetIsAddressAuthorized;

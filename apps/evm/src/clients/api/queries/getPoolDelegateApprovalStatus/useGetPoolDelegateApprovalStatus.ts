@@ -1,14 +1,15 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getPoolDelegateApprovalStatus, {
-  type GetNativeTokenGatewayDelegateApprovalInput,
-  type GetNativeTokenGatewayDelegateApprovalOutput,
-} from 'clients/api/queries/getPoolDelegateApprovalStatus';
 import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
+import {
+  type GetNativeTokenGatewayDelegateApprovalInput,
+  type GetNativeTokenGatewayDelegateApprovalOutput,
+  getPoolDelegateApprovalStatus,
+} from '.';
 
 type TrimmedGetNativeTokenGatewayDelegateApprovalInput = Omit<
   GetNativeTokenGatewayDelegateApprovalInput,
@@ -28,7 +29,7 @@ type Options = QueryObserverOptions<
   UseGetPoolDelegateApprovalStatusQueryKey
 >;
 
-const useGetPoolDelegateApprovalStatus = (
+export const useGetPoolDelegateApprovalStatus = (
   {
     poolComptrollerAddress,
     delegateeAddress,
@@ -62,5 +63,3 @@ const useGetPoolDelegateApprovalStatus = (
     ...options,
   });
 };
-
-export default useGetPoolDelegateApprovalStatus;

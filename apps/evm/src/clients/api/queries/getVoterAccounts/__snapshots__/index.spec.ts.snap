@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVoterAccounts > Gets called with correct default arguments 1`] = `
+exports[`getVoterAccounts > Gets called with correct default arguments 1`] = `
 [
   {
     "address": "0x2ce1d0ffd7e869d9df33e28552b12ddded326706",
@@ -61,7 +61,7 @@ exports[`api/queries/getVoterAccounts > Gets called with correct default argumen
 ]
 `;
 
-exports[`api/queries/getVoterAccounts > returns formatted Voter Accounts 1`] = `
+exports[`getVoterAccounts > returns formatted Voter Accounts 1`] = `
 [
   {
     "address": "0x2ce1d0ffd7e869d9df33e28552b12ddded326706",

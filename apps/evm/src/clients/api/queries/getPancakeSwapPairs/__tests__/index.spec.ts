@@ -5,7 +5,7 @@ import type { Mock } from 'vitest';
 
 import { getPancakePairV2Contract } from 'libs/contracts';
 
-import getPancakeSwapPairs from '..';
+import { getPancakeSwapPairs } from '..';
 
 vi.mock('libs/contracts');
 
@@ -14,7 +14,7 @@ const multicallFn = ({ contracts }: { contracts: { address: string }[] }) =>
     result: [1000000000n, 2000000000n, 1694182120663n],
   }));
 
-describe('api/queries/getPancakeSwapPairs', () => {
+describe('getPancakeSwapPairs', () => {
   beforeEach(() => {
     (getPancakePairV2Contract as Mock).mockReturnValue({});
   });

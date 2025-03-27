@@ -4,11 +4,11 @@ import votersResponse from '__mocks__/api/voters.json';
 
 import { restService } from 'utilities';
 
-import getVoters from '.';
+import { getVoters } from '.';
 
 vi.mock('utilities/restService');
 
-describe('api/queries/getVoters', () => {
+describe('getVoters', () => {
   test('returns votes', async () => {
     (restService as Mock).mockImplementationOnce(async () => ({
       status: 200,

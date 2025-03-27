@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
+exports[`useGetAsset > returns the correct asset 1`] = `
 {
   "asset": {
     "borrowApyPercentage": "-2.3062487835658776",
@@ -90,7 +90,7 @@ exports[`api/queries/useGetAsset > returns the correct asset 1`] = `
 }
 `;
 
-exports[`api/queries/useGetAsset > returns undefined when no matching asset is found 1`] = `
+exports[`useGetAsset > returns undefined when no matching asset is found 1`] = `
 {
   "asset": undefined,
 }

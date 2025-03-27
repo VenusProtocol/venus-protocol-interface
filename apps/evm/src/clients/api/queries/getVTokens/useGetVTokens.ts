@@ -1,6 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getVTokens, { type GetVTokensOutput } from 'clients/api/queries/getVTokens';
 import FunctionKey from 'constants/functionKey';
 import {
   useGetLegacyPoolComptrollerContract,
@@ -12,6 +11,7 @@ import { useGetTokens } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import { type GetVTokensOutput, getVTokens } from '.';
 
 export type UseGetVTokensQueryKey = [
   FunctionKey.GET_VTOKENS,
@@ -28,7 +28,7 @@ type Options = QueryObserverOptions<
   UseGetVTokensQueryKey
 >;
 
-const useGetVTokens = (options?: Partial<Options>) => {
+export const useGetVTokens = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const tokens = useGetTokens();
 
@@ -59,5 +59,3 @@ const useGetVTokens = (options?: Partial<Options>) => {
     ...options,
   });
 };
-
-export default useGetVTokens;

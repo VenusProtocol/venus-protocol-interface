@@ -2,7 +2,7 @@ import type { Address, PublicClient } from 'viem';
 
 import { vUsdt } from '__mocks__/models/vTokens';
 
-import getPrimeDistributionForMarket from '..';
+import { getPrimeDistributionForMarket } from '..';
 
 vi.mock('libs/contracts');
 

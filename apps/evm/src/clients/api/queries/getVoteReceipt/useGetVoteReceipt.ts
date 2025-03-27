@@ -1,15 +1,11 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetVoteReceiptInput,
-  type GetVoteReceiptOutput,
-  getVoteReceipt,
-} from 'clients/api/queries/getVoteReceipt';
 import FunctionKey from 'constants/functionKey';
 import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import { type GetVoteReceiptInput, type GetVoteReceiptOutput, getVoteReceipt } from '.';
 
 type TrimmedGetVoteReceiptInput = Omit<
   GetVoteReceiptInput,

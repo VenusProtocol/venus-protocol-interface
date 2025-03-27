@@ -1,15 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetVaiVaultPausedOutput,
-  getVaiVaultPaused,
-} from 'clients/api/queries/getVaiVaultPaused';
 import FunctionKey from 'constants/functionKey';
 import { getVaiVaultContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import { type GetVaiVaultPausedOutput, getVaiVaultPaused } from '.';
 
 export type UseGetVaiVaultPausedQueryKey = [FunctionKey.GET_VAI_VAULT_PAUSED, { chainId: ChainId }];
 

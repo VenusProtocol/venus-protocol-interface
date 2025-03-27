@@ -4,7 +4,7 @@ import fakeAddress from '__mocks__/models/address';
 
 import { restService } from 'utilities';
 
-import getIsAddressAuthorized from '..';
+import { getIsAddressAuthorized } from '..';
 
 vi.mock('utilities/restService');
 

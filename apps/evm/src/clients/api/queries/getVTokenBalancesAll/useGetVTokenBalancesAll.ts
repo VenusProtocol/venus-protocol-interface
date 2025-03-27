@@ -1,8 +1,9 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getVTokenBalancesAll, {
+import {
   type GetVTokenBalancesAllInput,
   type GetVTokenBalancesAllOutput,
+  getVTokenBalancesAll,
 } from 'clients/api/queries/getVTokenBalancesAll';
 import FunctionKey from 'constants/functionKey';
 import { useGetPoolLensContract } from 'libs/contracts';
@@ -27,7 +28,7 @@ type Options = QueryObserverOptions<
   UseGetVTokenBalancesAllQueryKey
 >;
 
-const useGetVTokenBalancesAll = (
+export const useGetVTokenBalancesAll = (
   input: TrimmedGetVTokenBalancesAllInput,
   options?: Partial<Options>,
 ) => {
@@ -43,5 +44,3 @@ const useGetVTokenBalancesAll = (
     ...options,
   });
 };
-
-export default useGetVTokenBalancesAll;

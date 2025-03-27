@@ -13,7 +13,7 @@ interface ApiTokenPriceResponse {
   result: Record<Address, string>;
 }
 
-const getApiTokenPrice = async ({
+export const getApiTokenPrice = async ({
   tokenAddresses,
   chainId,
 }: GetApiTokenPriceInput): Promise<GetApiTokenPriceOutput> => {
@@ -36,5 +36,3 @@ const getApiTokenPrice = async ({
     {},
   );
 };
-
-export default getApiTokenPrice;

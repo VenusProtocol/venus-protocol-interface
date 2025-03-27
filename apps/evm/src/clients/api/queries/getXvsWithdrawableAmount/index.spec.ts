@@ -2,11 +2,11 @@ import xvsVestingResponses from '__mocks__/contracts/xvsVesting';
 
 import type { XvsVesting } from 'libs/contracts';
 
-import getXvsWithdrawableAmount from '.';
+import { getXvsWithdrawableAmount } from '.';
 
 const fakeAccountAddress = '0x000000000000000000000000000000000AcCoUnt';
 
-describe('api/queries/getXvsWithdrawableAmount', () => {
+describe('getXvsWithdrawableAmount', () => {
   test('returns the withdrawable amount on success', async () => {
     const xvsWithdrawableAmountMock = vi.fn(async () => xvsVestingResponses.withdrawableAmount);
 

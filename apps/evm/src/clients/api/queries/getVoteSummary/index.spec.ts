@@ -4,11 +4,11 @@ import voteSummaryResponse from '__mocks__/api/voteSummary.json';
 
 import { restService } from 'utilities';
 
-import getVoteSummary from '.';
+import { getVoteSummary } from '.';
 
 vi.mock('utilities/restService');
 
-describe('api/queries/getVoteSummary', () => {
+describe('getVoteSummary', () => {
   test('returns summary of votes', async () => {
     (restService as Mock).mockImplementationOnce(async () => ({
       status: 200,

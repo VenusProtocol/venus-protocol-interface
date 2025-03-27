@@ -1,14 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetTokenBalancesInput,
-  type GetTokenBalancesOutput,
-  getTokenBalances,
-} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import type { Address } from 'viem';
+import { type GetTokenBalancesInput, type GetTokenBalancesOutput, getTokenBalances } from '.';
 
 export type UseGetTokenBalancesQueryKey = [
   FunctionKey.GET_TOKEN_BALANCES,
@@ -27,7 +23,7 @@ export type Options = QueryObserverOptions<
   UseGetTokenBalancesQueryKey
 >;
 
-const useGetTokenBalances = (
+export const useGetTokenBalances = (
   { accountAddress, tokens }: Omit<GetTokenBalancesInput, 'publicClient'>,
   options?: Partial<Options>,
 ) => {
@@ -51,5 +47,3 @@ const useGetTokenBalances = (
     ...options,
   });
 };
-
-export default useGetTokenBalances;

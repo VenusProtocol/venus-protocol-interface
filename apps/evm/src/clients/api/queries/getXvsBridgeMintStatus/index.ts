@@ -12,7 +12,7 @@ export interface GetXvsMintStatusOutput {
   bridgeAmountMintedMantissa: BigNumber;
 }
 
-const getXvsBridgeMintStatus = async ({
+export const getXvsBridgeMintStatus = async ({
   chainXvsProxyOftDestContractAddress,
   xvsTokenOmnichainContract,
 }: GetXvsMintStatusInput): Promise<GetXvsMintStatusOutput> => {
@@ -25,5 +25,3 @@ const getXvsBridgeMintStatus = async ({
     bridgeAmountMintedMantissa: new BigNumber(bridgeAmountMinted.toString()),
   };
 };
-
-export default getXvsBridgeMintStatus;

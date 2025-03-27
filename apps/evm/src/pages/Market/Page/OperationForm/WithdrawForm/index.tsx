@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
-import { useGetVTokenBalanceOf, useWithdraw } from 'clients/api';
+import { useGetVTokenBalance, useWithdraw } from 'clients/api';
 import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { AccountData } from 'containers/AccountData';
 import useDelegateApproval from 'hooks/useDelegateApproval';
@@ -267,7 +267,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
     }
   }, [accountAddress, initialFormValues]);
 
-  const { data: getVTokenBalanceData } = useGetVTokenBalanceOf(
+  const { data: getVTokenBalanceData } = useGetVTokenBalance(
     {
       accountAddress: accountAddress || '',
       vToken: asset.vToken,

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/useGetVaults > fetches and returns vaults correctly 1`] = `
+exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
 [
   {
     "dailyEmissionMantissa": "28800000000",

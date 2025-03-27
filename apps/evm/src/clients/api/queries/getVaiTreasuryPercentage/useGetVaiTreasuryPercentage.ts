@@ -1,15 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetVaiTreasuryPercentageOutput,
-  getVaiTreasuryPercentage,
-} from 'clients/api/queries/getVaiTreasuryPercentage';
 import FunctionKey from 'constants/functionKey';
 import { getVaiControllerContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import { type GetVaiTreasuryPercentageOutput, getVaiTreasuryPercentage } from '.';
 
 export type UseGetVaiTreasuryPercentageQueryKey = [
   FunctionKey.GET_VAI_TREASURY_PERCENTAGE,

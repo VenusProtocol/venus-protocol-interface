@@ -4,13 +4,13 @@ import fakeAddress from '__mocks__/models/address';
 
 import type { XvsVault } from 'libs/contracts';
 
-import getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade from '.';
+import { getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade } from '.';
 
 const fakeTokenAddress = '0x0';
 const fakePid = 0;
 const fakeAmount = new BigNumber(1000);
 
-describe('api/queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade', () => {
+describe('getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade', () => {
   test('returns total amount of pending withdrawals before the contract upgrade on success', async () => {
     const pendingWithdrawalsBeforeUpgradeMock = vi.fn(async () => fakeAmount);
 

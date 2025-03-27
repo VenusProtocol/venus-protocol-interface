@@ -1,12 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getProposalMinQuorumVotes, {
-  type GetProposalMinQuorumVotesOutput,
-} from 'clients/api/queries/getProposalMinQuorumVotes';
 import FunctionKey from 'constants/functionKey';
 import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import { type GetProposalMinQuorumVotesOutput, getProposalMinQuorumVotes } from '.';
 
 type Options = QueryObserverOptions<
   GetProposalMinQuorumVotesOutput,

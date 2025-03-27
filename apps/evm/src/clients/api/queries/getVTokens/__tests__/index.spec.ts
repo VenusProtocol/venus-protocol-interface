@@ -7,7 +7,7 @@ import tokens from '__mocks__/models/tokens';
 import type { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
 
 import { ChainId } from 'types';
-import getVTokens from '..';
+import { getVTokens } from '..';
 
 const fakePoolLensContract = {
   getAllPools: async () => fakePoolLensContractResponses.getAllPools,
@@ -23,7 +23,7 @@ const fakeLegacyPoolComptrollerContract = {
   getAllMarkets: async () => fakeLegacyPoolComptrollerContractResponses.getAllMarkets,
 } as unknown as LegacyPoolComptroller;
 
-describe('api/queries/getVTokens', () => {
+describe('getVTokens', () => {
   it('returns the vTokens on success', async () => {
     const response = await getVTokens({
       chainId: ChainId.BSC_TESTNET,

@@ -1,10 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetHypotheticalPrimeApysInput,
-  type GetHypotheticalPrimeApysOutput,
-  getHypotheticalPrimeApys,
-} from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetPrimeContractAddress } from 'libs/contracts';
@@ -12,6 +7,11 @@ import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
+import {
+  type GetHypotheticalPrimeApysInput,
+  type GetHypotheticalPrimeApysOutput,
+  getHypotheticalPrimeApys,
+} from '.';
 
 interface UseGetPrimeTokenInput
   extends Omit<
@@ -36,7 +36,10 @@ type Options = QueryObserverOptions<
   UseGetHypotheticalPrimeApysQueryKey
 >;
 
-const useGetHypotheticalPrimeApys = (input: UseGetPrimeTokenInput, options?: Partial<Options>) => {
+export const useGetHypotheticalPrimeApys = (
+  input: UseGetPrimeTokenInput,
+  options?: Partial<Options>,
+) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
@@ -62,5 +65,3 @@ const useGetHypotheticalPrimeApys = (input: UseGetPrimeTokenInput, options?: Par
       isPrimeEnabled,
   });
 };
-
-export default useGetHypotheticalPrimeApys;

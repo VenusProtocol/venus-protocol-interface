@@ -1,17 +1,13 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { chainMetadata } from '@venusprotocol/chains';
-import {
-  type GetProposalStateInput,
-  type GetProposalStateOutput,
-  getProposalState,
-} from 'clients/api/queries/getProposalState';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import { type GetProposalStateInput, type GetProposalStateOutput, getProposalState } from '.';
 
 type TrimmedGetProposalStateInput = Omit<
   GetProposalStateInput,

@@ -1,15 +1,15 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetVoteDelegateAddressInput,
-  type GetVoteDelegateAddressOutput,
-  getVoteDelegateAddress,
-} from 'clients/api/queries/getVoteDelegateAddress';
 import FunctionKey from 'constants/functionKey';
 import { getXvsVaultContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import {
+  type GetVoteDelegateAddressInput,
+  type GetVoteDelegateAddressOutput,
+  getVoteDelegateAddress,
+} from '.';
 
 type TrimmedGetVoteDelegateAddressInput = Omit<
   GetVoteDelegateAddressInput,

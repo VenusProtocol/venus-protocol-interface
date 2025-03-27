@@ -25,7 +25,10 @@ type Options = QueryObserverOptions<
   UseGetPaymasterInfoQueryKey
 >;
 
-const useGetPaymasterInfo = ({ chainId }: UseGetPaymasterInfoInput, options?: Partial<Options>) => {
+export const useGetPaymasterInfo = (
+  { chainId }: UseGetPaymasterInfoInput,
+  options?: Partial<Options>,
+) => {
   const { publicClient } = usePublicClient({ chainId });
   const zyFiVaultContractAddress = getZyFiVaultContractAddress({ chainId });
   const zyFiWalletAddress = zyFiWalletAddresses[chainId];
@@ -46,5 +49,3 @@ const useGetPaymasterInfo = ({ chainId }: UseGetPaymasterInfoInput, options?: Pa
       !!zyFiWalletAddress,
   });
 };
-
-export default useGetPaymasterInfo;

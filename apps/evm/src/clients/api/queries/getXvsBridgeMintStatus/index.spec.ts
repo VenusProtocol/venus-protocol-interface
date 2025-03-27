@@ -5,7 +5,7 @@ import fakeAddress from '__mocks__/models/address';
 
 import type { XvsTokenOmnichain } from 'libs/contracts';
 
-import getXvsBridgeMintStatus from '.';
+import { getXvsBridgeMintStatus } from '.';
 
 describe('getXvsBridgeMintStatus', () => {
   test('returns the mint status on success', async () => {
