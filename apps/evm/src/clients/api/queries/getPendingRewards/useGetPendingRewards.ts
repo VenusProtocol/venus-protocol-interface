@@ -14,7 +14,7 @@ import {
 import { useGetTokens } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
 import type { ChainId, MerklDistribution } from 'types';
-import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
+import { callOrThrow } from 'utilities';
 
 import getPendingRewards from '.';
 import useGetXvsVaultPoolCount from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
@@ -52,7 +52,7 @@ type Options = QueryObserverOptions<
   UseGetPendingRewardsQueryKey
 >;
 
-const refetchInterval = generatePseudoRandomRefetchInterval();
+const REFETCH_INTERVAL_MS = 60000; // 1 minute
 
 const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Partial<Options>) => {
   const { chainId } = useChainId();
@@ -163,7 +163,7 @@ const useGetPendingRewards = (input: TrimmedGetPendingRewardsInput, options?: Pa
             ...params,
           }),
       ),
-    refetchInterval,
+    refetchInterval: REFETCH_INTERVAL_MS,
     ...options,
     enabled: (!options || options.enabled) && !isGetPoolsLoading && !isGetXvsVaultPoolCountLoading,
   });
