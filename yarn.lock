@@ -5538,6 +5538,11 @@
     browser-assert "^1.2.1"
     ts-dedent "^2.0.0"
 
+"@storybook/components@8.6.10":
+  version "8.6.10"
+  resolved "https://registry.yarnpkg.com/@storybook/components/-/components-8.6.10.tgz#ceca4278ec4a4636291d9c204c6676792f71968c"
+  integrity sha512-9TE2aZU+1zjGO4R74jc4Dmx+pFb+9hm1vnlWH+WVfYV1nCSCZOMmMoO2J86PHPkR6RmPjcQJXz4ySdBbYiwKiw==
+
 "@storybook/components@8.6.7":
   version "8.6.7"
   resolved "https://registry.yarnpkg.com/@storybook/components/-/components-8.6.7.tgz#c1de74313f6a23034fb7daf978afc26352ace3ee"
@@ -5599,10 +5604,20 @@
     "@storybook/global" "^5.0.0"
     "@vitest/utils" "^2.1.1"
 
+"@storybook/manager-api@8.6.10":
+  version "8.6.10"
+  resolved "https://registry.yarnpkg.com/@storybook/manager-api/-/manager-api-8.6.10.tgz#14576e0ccd66d9b516a81d7795b28599b33424f7"
+  integrity sha512-roJ2aXqbZfSh9IM4q34U2GpU0CDmUjTKGwAnYOS2SG6rGLPenPflIksW8A52cVFdzGa4eH/KzP2FIg5Zi1KLJQ==
+
 "@storybook/manager-api@8.6.7":
   version "8.6.7"
   resolved "https://registry.yarnpkg.com/@storybook/manager-api/-/manager-api-8.6.7.tgz#f00e093cfbc650c6e6c9cd5a7d6d7cb56b201438"
   integrity sha512-BA8RxaLP07WGF660LWo7qB3Jomr/+MPuCZmuKPqXxPhfIovqYjr0hnugxJBjEah0ic31aNX4NucNfDRuV7F5sA==
+
+"@storybook/preview-api@8.6.10":
+  version "8.6.10"
+  resolved "https://registry.yarnpkg.com/@storybook/preview-api/-/preview-api-8.6.10.tgz#865535fd33bcce94d085aa113f301d8d7d3b2bf1"
+  integrity sha512-8ki1GgiUlcSqZD3Oe42Fy0uW3E7XPpMAyzO+NSnHCKKfNlZgi036Rr+FyGcKwG5lJyubWwNesPGQX5UHigYu4w==
 
 "@storybook/preview-api@8.6.7":
   version "8.6.7"
@@ -5633,6 +5648,18 @@
     react-docgen "^7.0.0"
     resolve "^1.22.8"
     tsconfig-paths "^4.2.0"
+
+"@storybook/react@8.6.10":
+  version "8.6.10"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-8.6.10.tgz#eade7f3a0c78922e4563b5f44cdf8424f0d1113f"
+  integrity sha512-QCs5nyXe+G2ZoZ1uspEsnSp7VYLJej5dJ1bSf22rrdHQde641zvC2HZQaba4dqR2YQxRCG9JtCdaQ3UVmnfzzA==
+  dependencies:
+    "@storybook/components" "8.6.10"
+    "@storybook/global" "^5.0.0"
+    "@storybook/manager-api" "8.6.10"
+    "@storybook/preview-api" "8.6.10"
+    "@storybook/react-dom-shim" "8.6.10"
+    "@storybook/theming" "8.6.10"
 
 "@storybook/react@8.6.7":
   version "8.6.7"
