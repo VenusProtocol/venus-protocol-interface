@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.239.0
+
+### Minor Changes
+
+- f998df5: add support for Safe
+
 ## 2.238.0
 
 ### Minor Changes
