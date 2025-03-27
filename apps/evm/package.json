@@ -53,6 +53,7 @@
     "@venusprotocol/chains": "*",
     "@venusprotocol/governance-contracts": "2.10.0",
     "@venusprotocol/ui": "*",
+    "@vercel/analytics": "^1.5.0",
     "@wagmi/core": "^2.16.4",
     "@yornaath/batshit": "^0.10.1",
     "bignumber.js": "^9.1.1",

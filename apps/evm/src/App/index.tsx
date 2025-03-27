@@ -3,12 +3,14 @@ import { Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { HashRouter } from 'react-router-dom';
 
+import { Analytics } from '@vercel/analytics/react';
 import { queryClient } from 'clients/api';
 import { MuiThemeProvider } from 'containers/MuiThemeProvider';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
 import { Web3Wrapper } from 'libs/wallet';
 
+import config from 'config';
 import { MAIN_PRODUCTION_HOST } from 'constants/production';
 import { ThemeHandler } from 'containers/ThemeHandler';
 import { safeLazyLoad } from 'utilities';
@@ -57,7 +59,12 @@ const App = () => (
               </Suspense>
 
               <ThemeHandler />
+
               <SentryErrorInfo />
+
+              <Analytics
+                mode={config.environment === 'production' ? 'production' : 'development'}
+              />
             </Web3Wrapper>
           </ErrorBoundary>
         </QueryClientProvider>
