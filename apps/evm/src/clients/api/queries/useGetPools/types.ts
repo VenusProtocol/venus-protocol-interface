@@ -8,11 +8,6 @@ export interface VTokenBalance {
   underlyingTokenSupplyBalanceMantissa: BigNumber;
 }
 
-export interface MarketParticipantsCounts {
-  borrowerCount: number;
-  supplierCount: number;
-}
-
 export interface PrimeApy {
   borrowApy: BigNumber;
   supplyApy: BigNumber;

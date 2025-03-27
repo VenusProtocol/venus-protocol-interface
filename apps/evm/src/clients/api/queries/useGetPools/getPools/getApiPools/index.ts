@@ -85,6 +85,8 @@ export interface ApiMarket {
   estimatedPrimeSupplyApyBoost: string | null;
   pausedActionsBitmap: number;
   isListed: boolean;
+  supplierCount: number | null;
+  borrowerCount: number | null;
   poolComptrollerAddress: Address;
   rewardsDistributors: ApiRewardDistributor[];
   pointsDistributions: ApiPointsDistribution[];

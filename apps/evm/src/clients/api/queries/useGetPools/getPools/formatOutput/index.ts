@@ -16,7 +16,7 @@ import {
   getDisabledTokenActions,
   isPoolIsolated,
 } from 'utilities';
-import type { MarketParticipantsCounts, PrimeApy, VTokenBalance } from '../../types';
+import type { PrimeApy, VTokenBalance } from '../../types';
 import type { ApiPool } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
 
@@ -25,7 +25,6 @@ export const formatOutput = ({
   chainId,
   tokens,
   currentBlockNumber,
-  participantsCountMap,
   userPrimeApyMap,
   userVTokenBalances = [],
   userTokenBalances = [],
@@ -36,7 +35,6 @@ export const formatOutput = ({
   tokens: Token[];
   currentBlockNumber: bigint;
   apiPools: ApiPool[];
-  participantsCountMap?: Map<string, MarketParticipantsCounts>;
   userPrimeApyMap?: Map<string, PrimeApy>;
   userCollateralVTokenAddresses?: string[];
   userVTokenBalances?: VTokenBalance[];
@@ -207,12 +205,6 @@ export const formatOutput = ({
         );
       }
 
-      const supplierCount =
-        participantsCountMap?.get(vToken.address.toLowerCase())?.supplierCount ?? 0;
-
-      const borrowerCount =
-        participantsCountMap?.get(vToken.address.toLowerCase())?.borrowerCount ?? 0;
-
       const asset: Asset = {
         vToken,
         disabledTokenActions,
@@ -223,8 +215,8 @@ export const formatOutput = ({
         liquidityCents,
         reserveTokens,
         exchangeRateVTokens,
-        supplierCount,
-        borrowerCount,
+        supplierCount: market.supplierCount || 0,
+        borrowerCount: market.borrowerCount || 0,
         borrowApyPercentage: new BigNumber(market.borrowApy),
         supplyApyPercentage: new BigNumber(market.supplyApy),
         supplyBalanceTokens,
