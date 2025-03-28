@@ -15,7 +15,7 @@ export type GetAllowanceOutput = {
   allowanceMantissa: BigNumber;
 };
 
-const getAllowance = async ({
+export const getAllowance = async ({
   publicClient,
   token,
   accountAddress,
@@ -32,5 +32,3 @@ const getAllowance = async ({
     allowanceMantissa: new BigNumber(allowanceMantissa.toString()),
   };
 };
-
-export default getAllowance;

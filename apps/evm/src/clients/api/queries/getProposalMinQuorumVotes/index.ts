@@ -11,7 +11,7 @@ export interface GetProposalMinQuorumVotesOutput {
   proposalMinQuorumVotesMantissa: BigNumber;
 }
 
-const getProposalMinQuorumVotes = async ({
+export const getProposalMinQuorumVotes = async ({
   publicClient,
   governorBravoDelegateContractAddress,
 }: GetProposalMinQuorumVotesInput): Promise<GetProposalMinQuorumVotesOutput> => {
@@ -25,5 +25,3 @@ const getProposalMinQuorumVotes = async ({
     proposalMinQuorumVotesMantissa: new BigNumber(res.toString()),
   };
 };
-
-export default getProposalMinQuorumVotes;

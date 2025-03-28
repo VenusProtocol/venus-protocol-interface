@@ -5,18 +5,18 @@ import fakeAddress from '__mocks__/models/address';
 
 import { restService } from 'utilities';
 
-import getVoterDetail from '.';
+import { getVoterDetails } from '.';
 
 vi.mock('utilities/restService');
 
-describe('api/queries/getVoterDetail', () => {
+describe('getVoterDetail', () => {
   test('returns  formatted voter details', async () => {
     (restService as Mock).mockImplementationOnce(async () => ({
       status: 200,
       data: voterDetailsResponse,
     }));
 
-    const response = await getVoterDetail({ address: fakeAddress });
+    const response = await getVoterDetails({ address: fakeAddress });
 
     expect(restService).toBeCalledWith({
       endpoint: `/governance/voters/${fakeAddress}/summary`,

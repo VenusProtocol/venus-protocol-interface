@@ -6,14 +6,18 @@ import {
   getTokenUsdPrice,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetResilientOracleContract } from 'libs/contracts';
+import { getResilientOracleContractAddress } from 'libs/contracts';
+import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId, Token } from 'types';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetTokenUsdPriceInput = Omit<GetTokenUsdPriceInput, 'resilientOracleContract'>;
+type TrimmedGetTokenUsdPriceInput = Omit<
+  GetTokenUsdPriceInput,
+  'publicClient' | 'resilientOracleAddress'
+>;
 
-export type UseGetTokenBalancesQueryKey = [
+export type UseGetTokenUsdPriceQueryKey = [
   FunctionKey.GET_TOKEN_USD_PRICE,
   {
     tokenAddress: string;
@@ -26,16 +30,20 @@ type Options = QueryObserverOptions<
   Error,
   GetTokenUsdPriceOutput,
   GetTokenUsdPriceOutput,
-  UseGetTokenBalancesQueryKey
+  UseGetTokenUsdPriceQueryKey
 >;
 
-interface UseGetTokenUsdPriceInput extends Omit<TrimmedGetTokenUsdPriceInput, 'token'> {
+export interface UseGetTokenUsdPriceInput extends Omit<TrimmedGetTokenUsdPriceInput, 'token'> {
   token?: Token;
 }
 
-const useGetTokenUsdPrice = ({ token }: UseGetTokenUsdPriceInput, options?: Partial<Options>) => {
+export const useGetTokenUsdPrice = (
+  { token }: UseGetTokenUsdPriceInput,
+  options?: Partial<Options>,
+) => {
   const { chainId } = useChainId();
-  const resilientOracleContract = useGetResilientOracleContract({
+  const { publicClient } = usePublicClient();
+  const resilientOracleAddress = getResilientOracleContractAddress({
     chainId,
   });
 
@@ -49,11 +57,11 @@ const useGetTokenUsdPrice = ({ token }: UseGetTokenUsdPriceInput, options?: Part
     ],
 
     queryFn: () =>
-      callOrThrow({ token, resilientOracleContract }, params => getTokenUsdPrice({ ...params })),
+      callOrThrow({ token, publicClient, resilientOracleAddress }, params =>
+        getTokenUsdPrice({ ...params }),
+      ),
 
     ...options,
     enabled: (options?.enabled === undefined || options?.enabled) && !!token,
   });
 };
-
-export default useGetTokenUsdPrice;

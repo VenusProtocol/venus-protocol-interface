@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVoterDetail > returns  formatted voter details 1`] = `
+exports[`getVoterDetail > returns  formatted voter details 1`] = `
 {
   "balanceMantissa": "0",
   "delegateAddress": "0x315deBE419d9f9aec19807609b396Ef33a9c44C0",

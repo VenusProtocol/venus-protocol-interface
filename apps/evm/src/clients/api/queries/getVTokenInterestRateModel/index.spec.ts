@@ -1,8 +1,8 @@
 import type { VBep20 } from 'libs/contracts';
 
-import getInterestRateModel from '.';
+import { getVTokenInterestRateModel } from '.';
 
-describe('api/queries/getVTokenInterestRateModel', () => {
+describe('getVTokenInterestRateModel', () => {
   test('returns the address of the interest rate model associated to the contract of the V token passed', async () => {
     const fakeContractAddress = '0x0';
     const interestRateModelMock = vi.fn(async () => fakeContractAddress);
@@ -11,7 +11,7 @@ describe('api/queries/getVTokenInterestRateModel', () => {
       interestRateModel: interestRateModelMock,
     } as unknown as VBep20;
 
-    const response = await getInterestRateModel({
+    const response = await getVTokenInterestRateModel({
       vTokenContract: fakeContract,
     });
 

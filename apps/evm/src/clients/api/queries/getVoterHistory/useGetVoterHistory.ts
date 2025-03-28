@@ -1,10 +1,7 @@
 import { type QueryObserverOptions, keepPreviousData, useQuery } from '@tanstack/react-query';
 
-import getVoterHistory, {
-  type GetVoterHistoryInput,
-  type GetVoterHistoryOutput,
-} from 'clients/api/queries/getVoterHistory';
 import FunctionKey from 'constants/functionKey';
+import { type GetVoterHistoryInput, type GetVoterHistoryOutput, getVoterHistory } from '.';
 
 type Options = QueryObserverOptions<
   GetVoterHistoryOutput,
@@ -14,12 +11,10 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_VOTER_HISTORY, GetVoterHistoryInput]
 >;
 
-const useGetVoterHistory = (params: GetVoterHistoryInput, options?: Partial<Options>) =>
+export const useGetVoterHistory = (params: GetVoterHistoryInput, options?: Partial<Options>) =>
   useQuery({
     queryKey: [FunctionKey.GET_VOTER_HISTORY, params],
     queryFn: () => getVoterHistory(params),
     placeholderData: keepPreviousData,
     ...options,
   });
-
-export default useGetVoterHistory;

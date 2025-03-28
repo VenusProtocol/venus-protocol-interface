@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getPancakeSwapPairs > returns pairs in the right format on success 1`] = `
+exports[`getPancakeSwapPairs > returns pairs in the right format on success 1`] = `
 {
   "pairs": [
     Pair {
@@ -361,7 +361,7 @@ exports[`api/queries/getPancakeSwapPairs > returns pairs in the right format on 
 }
 `;
 
-exports[`api/queries/getPancakeSwapPairs > skips token combinations for which a pair address could not be generated 1`] = `
+exports[`getPancakeSwapPairs > skips token combinations for which a pair address could not be generated 1`] = `
 {
   "pairs": [
     Pair {

@@ -14,7 +14,7 @@ export interface UseGetXvsVaultPoolBalancesInput {
 
 export type UseGetXvsVaultPoolBalancesOutput = UseQueryResult<GetBalanceOfOutput>[];
 
-const useGetXvsVaultPoolBalances = ({
+export const useGetXvsVaultPoolBalances = ({
   stakedTokenAddresses,
 }: UseGetXvsVaultPoolBalancesInput): UseGetXvsVaultPoolBalancesOutput => {
   const { publicClient } = usePublicClient();
@@ -58,5 +58,3 @@ const useGetXvsVaultPoolBalances = ({
 
   return useQueries({ queries });
 };
-
-export default useGetXvsVaultPoolBalances;

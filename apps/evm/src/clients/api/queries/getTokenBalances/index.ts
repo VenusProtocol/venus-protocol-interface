@@ -13,7 +13,7 @@ export type GetTokenBalancesOutput = {
   tokenBalances: TokenBalance[];
 };
 
-const getTokenBalances = async ({
+export const getTokenBalances = async ({
   publicClient,
   accountAddress,
   tokens,
@@ -58,5 +58,3 @@ const getTokenBalances = async ({
 
   return { tokenBalances };
 };
-
-export default getTokenBalances;

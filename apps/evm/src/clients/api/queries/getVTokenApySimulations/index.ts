@@ -13,7 +13,7 @@ export * from './types';
 const REFERENCE_AMOUNT_MANTISSA = 1e4;
 const BAD_DEBT_MANTISSA = '0';
 
-const getVTokenApySimulations = async ({
+export const getVTokenApySimulations = async ({
   interestRateModelContract,
   isIsolatedPoolMarket,
   asset,
@@ -118,5 +118,3 @@ const getVTokenApySimulations = async ({
 
   return { apySimulations, currentUtilizationRatePercentage };
 };
-
-export default getVTokenApySimulations;

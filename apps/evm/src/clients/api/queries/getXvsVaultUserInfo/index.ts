@@ -3,7 +3,7 @@ import type { GetXvsVaultUserInfoInput, GetXvsVaultUserInfoOutput } from './type
 
 export * from './types';
 
-const getXvsVaultUserInfo = async ({
+export const getXvsVaultUserInfo = async ({
   xvsVaultContract,
   rewardTokenAddress,
   poolIndex,
@@ -12,5 +12,3 @@ const getXvsVaultUserInfo = async ({
   const res = await xvsVaultContract.getUserInfo(rewardTokenAddress, poolIndex, accountAddress);
   return formatToUserInfo(res);
 };
-
-export default getXvsVaultUserInfo;

@@ -1,23 +1,27 @@
 import BigNumber from 'bignumber.js';
-
-import type { GovernorBravoDelegate } from 'libs/contracts';
+import { governorBravoDelegateAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetProposalThresholdInput {
-  governorBravoDelegateContract: GovernorBravoDelegate;
+  publicClient: PublicClient;
+  governorBravoDelegateAddress: Address;
 }
 
 export type GetProposalThresholdOutput = {
   thresholdMantissa: BigNumber;
 };
 
-const getProposalThreshold = async ({
-  governorBravoDelegateContract,
+export const getProposalThreshold = async ({
+  publicClient,
+  governorBravoDelegateAddress,
 }: GetProposalThresholdInput): Promise<GetProposalThresholdOutput> => {
-  const resp = await governorBravoDelegateContract.proposalThreshold();
+  const threshold = await publicClient.readContract({
+    address: governorBravoDelegateAddress,
+    abi: governorBravoDelegateAbi,
+    functionName: 'proposalThreshold',
+  });
 
   return {
-    thresholdMantissa: new BigNumber(resp.toString()),
+    thresholdMantissa: new BigNumber(threshold.toString()),
   };
 };
-
-export default getProposalThreshold;

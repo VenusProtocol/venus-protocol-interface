@@ -1,13 +1,10 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getCurrentVotes, {
-  type GetCurrentVotesInput,
-  type GetCurrentVotesOutput,
-} from 'clients/api/queries/getCurrentVotes';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContractAddress } from 'libs/contracts';
 import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import { type GetCurrentVotesInput, type GetCurrentVotesOutput, getCurrentVotes } from '.';
 
 type TrimmedGetCurrentVotesInput = Omit<
   GetCurrentVotesInput,
@@ -27,7 +24,10 @@ type Options = QueryObserverOptions<
   UseGetCurrentVotesQueryKey
 >;
 
-const useGetCurrentVotes = (input: TrimmedGetCurrentVotesInput, options?: Partial<Options>) => {
+export const useGetCurrentVotes = (
+  input: TrimmedGetCurrentVotesInput,
+  options?: Partial<Options>,
+) => {
   const { publicClient } = usePublicClient({
     chainId: governanceChain.id,
   });
@@ -42,5 +42,3 @@ const useGetCurrentVotes = (input: TrimmedGetCurrentVotesInput, options?: Partia
     ...options,
   });
 };
-
-export default useGetCurrentVotes;

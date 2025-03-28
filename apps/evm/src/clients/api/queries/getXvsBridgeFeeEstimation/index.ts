@@ -16,7 +16,7 @@ export interface GetXvsBridgeEstimationOutput {
   estimationFeeMantissa: BigNumber;
 }
 
-const getXvsBridgeFeeEstimation = async ({
+export const getXvsBridgeFeeEstimation = async ({
   accountAddress,
   destinationChain,
   amountMantissa,
@@ -35,5 +35,3 @@ const getXvsBridgeFeeEstimation = async ({
     estimationFeeMantissa: new BigNumber(estimationData.nativeFee.toString()),
   };
 };
-
-export default getXvsBridgeFeeEstimation;

@@ -1,15 +1,15 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetPoolLiquidationIncentiveInput,
-  type GetPoolLiquidationIncentiveOutput,
-  getPoolLiquidationIncentive,
-} from 'clients/api/queries/getPoolLiquidationIncentive';
 import FunctionKey from 'constants/functionKey';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
+import {
+  type GetPoolLiquidationIncentiveInput,
+  type GetPoolLiquidationIncentiveOutput,
+  getPoolLiquidationIncentive,
+} from '.';
 
 interface TrimmedGetPoolLiquidationIncentiveInput
   extends Omit<GetPoolLiquidationIncentiveInput, 'publicClient'> {

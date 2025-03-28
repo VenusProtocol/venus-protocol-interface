@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import compTrollerResponses from '__mocks__/contracts/legacyPoolComptroller';
-import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
@@ -20,13 +19,12 @@ import {
   getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
   getXvsVaultsTotalDailyDistributedXvs,
 } from 'clients/api';
-import formatToVaiVaultUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 
-import useGetVaults, { type UseGetVaultsOutput } from '..';
+import { type UseGetVaultsOutput, useGetVaults } from '..';
 
-describe('api/queries/useGetVaults', () => {
+describe('useGetVaults', () => {
   beforeEach(() => {
     (getXvsVaultPoolCount as Mock).mockImplementation(() => ({
       poolCount: xvsVaultResponses.poolLength,
@@ -50,9 +48,9 @@ describe('api/queries/useGetVaults', () => {
       userPendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber('100000'),
     }));
 
-    (getVaiVaultUserInfo as Mock).mockImplementation(() =>
-      formatToVaiVaultUserInfo(vaiVaultResponses.userInfo),
-    );
+    (getVaiVaultUserInfo as Mock).mockImplementation(() => ({
+      stakedVaiMantissa: new BigNumber('100000000000000000000000'),
+    }));
 
     (getXvsVaultPoolInfo as Mock).mockImplementation(() =>
       formatToPoolInfo(xvsVaultResponses.poolInfo),

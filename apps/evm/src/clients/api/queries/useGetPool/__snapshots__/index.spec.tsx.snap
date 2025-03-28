@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/useGetPool > returns the correct asset 1`] = `
+exports[`useGetPool > returns the correct asset 1`] = `
 {
   "pool": {
     "assets": [

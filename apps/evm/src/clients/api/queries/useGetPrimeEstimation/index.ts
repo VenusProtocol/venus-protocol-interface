@@ -49,7 +49,7 @@ type Options = QueryObserverOptions<
   UseGetPrimeEstimationQueryKey
 >;
 
-const useGetPrimeEstimation = (
+export const useGetPrimeEstimation = (
   {
     accountAddress,
     borrowedAmountMantissa,
@@ -171,5 +171,3 @@ const useGetPrimeEstimation = (
     data: estimation,
   };
 };
-
-export default useGetPrimeEstimation;

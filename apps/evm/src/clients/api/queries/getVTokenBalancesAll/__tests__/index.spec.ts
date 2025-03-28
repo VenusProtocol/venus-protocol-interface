@@ -4,9 +4,9 @@ import fakeAddress from '__mocks__/models/address';
 
 import type { PoolLens } from 'libs/contracts';
 
-import getVTokenBalancesAll from '..';
+import { getVTokenBalancesAll } from '..';
 
-describe('api/queries/getVTokenBalancesAll', () => {
+describe('getVTokenBalancesAll', () => {
   it('returns the APY simulations in the correct format on success', async () => {
     const vTokenBalancesAllCallMock = vi.fn(async () => [
       {

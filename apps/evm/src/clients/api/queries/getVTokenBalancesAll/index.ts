@@ -19,7 +19,7 @@ export type GetVTokenBalancesAllOutput = {
   balances: Balance[];
 };
 
-const getVTokenBalancesAll = async ({
+export const getVTokenBalancesAll = async ({
   poolLensContract,
   vTokenAddresses,
   account,
@@ -42,5 +42,3 @@ const getVTokenBalancesAll = async ({
 
   return { balances };
 };
-
-export default getVTokenBalancesAll;

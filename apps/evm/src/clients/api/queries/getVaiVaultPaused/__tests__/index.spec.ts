@@ -1,20 +1,20 @@
-import type { VaiVault } from 'libs/contracts';
+import type { PublicClient } from 'viem';
+
+import fakeAddress from '__mocks__/models/address';
 
 import { getVaiVaultPaused } from '..';
 
 describe('getVaiVaultPaused', () => {
-  test('returns whether the vault is paused, on success', async () => {
-    const vaultPausedMock = vi.fn(async () => true);
+  it('returns VAI vault paused status in the right format on success', async () => {
+    const fakePublicClient = {
+      readContract: async () => true,
+    } as unknown as PublicClient;
 
-    const fakeContract = {
-      vaultPaused: vaultPausedMock,
-    } as unknown as VaiVault;
-
-    const response = await getVaiVaultPaused({
-      vaiVaultContract: fakeContract,
+    const res = await getVaiVaultPaused({
+      publicClient: fakePublicClient,
+      vaiVaultAddress: fakeAddress,
     });
 
-    expect(vaultPausedMock).toHaveBeenCalledTimes(1);
-    expect(response).toMatchSnapshot();
+    expect(res).toMatchSnapshot();
   });
 });

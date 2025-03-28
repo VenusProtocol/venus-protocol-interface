@@ -8,7 +8,7 @@ export type GetVTokenInterestRateModelOutput = {
   contractAddress: string;
 };
 
-const getVTokenInterestRateModel = async ({
+export const getVTokenInterestRateModel = async ({
   vTokenContract,
 }: GetVTokenInterestRateModelInput): Promise<GetVTokenInterestRateModelOutput> => {
   const contractAddress = await vTokenContract.interestRateModel();
@@ -17,5 +17,3 @@ const getVTokenInterestRateModel = async ({
     contractAddress,
   };
 };
-
-export default getVTokenInterestRateModel;

@@ -6,12 +6,12 @@ import { xvs } from '__mocks__/models/tokens';
 
 import type { XvsVault } from 'libs/contracts';
 
-import getXvsVaultUserInfo from '.';
+import { getXvsVaultUserInfo } from '.';
 
 const xvsTokenAddress = xvs.address;
 const fakePid = 1;
 
-describe('api/queries/getXvsVaultUserInfo', () => {
+describe('getXvsVaultUserInfo', () => {
   test('returns user info related to XVS vault in correct format on success', async () => {
     const getUserInfoMock = vi.fn(async () => xvsVaultResponses.userInfo);
 

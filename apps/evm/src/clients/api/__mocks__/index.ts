@@ -88,11 +88,11 @@ export const useGetPendingRewards = vi.fn(() =>
   }),
 );
 
-export const getVTokenBalanceOf = vi.fn();
-export const useGetVTokenBalanceOf = vi.fn(() =>
+export const getVTokenBalance = vi.fn();
+export const useGetVTokenBalance = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_V_TOKEN_BALANCE],
-    queryFn: getVTokenBalanceOf,
+    queryFn: getVTokenBalance,
   }),
 );
 

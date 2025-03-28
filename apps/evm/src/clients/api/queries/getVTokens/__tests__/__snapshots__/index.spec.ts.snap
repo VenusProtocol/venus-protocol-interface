@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVTokens > returns the vTokens on success 1`] = `
+exports[`getVTokens > returns the vTokens on success 1`] = `
 {
   "vTokens": [
     {
@@ -153,7 +153,7 @@ exports[`api/queries/getVTokens > returns the vTokens on success 1`] = `
 }
 `;
 
-exports[`api/queries/getVTokens > still functions without passing venusLensContract or legacyPoolComptrollerContract 1`] = `
+exports[`getVTokens > still functions without passing venusLensContract or legacyPoolComptrollerContract 1`] = `
 {
   "vTokens": [
     {

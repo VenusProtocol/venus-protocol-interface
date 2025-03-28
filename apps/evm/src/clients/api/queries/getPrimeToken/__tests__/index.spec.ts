@@ -2,7 +2,7 @@ import type { PublicClient } from 'viem';
 
 import fakeAccountAddress from '__mocks__/models/address';
 
-import getPrimeToken from '..';
+import { getPrimeToken } from '..';
 
 describe('getPrimeToken', () => {
   it('returns Prime status of passed account', async () => {

@@ -1,11 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { type GetVaiVaultPausedOutput, getVaiVaultPaused } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetVaiVaultContract } from 'libs/contracts';
+import { getVaiVaultContractAddress } from 'libs/contracts';
+import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import { type GetVaiVaultPausedOutput, getVaiVaultPaused } from '.';
 
 export type UseGetVaiVaultPausedQueryKey = [FunctionKey.GET_VAI_VAULT_PAUSED, { chainId: ChainId }];
 
@@ -17,16 +18,18 @@ type Options = QueryObserverOptions<
   UseGetVaiVaultPausedQueryKey
 >;
 
-const useGetVaiVaultPaused = (options?: Partial<Options>) => {
+export const useGetVaiVaultPaused = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
-  const vaiVaultContract = useGetVaiVaultContract();
+  const { publicClient } = usePublicClient();
+  const vaiVaultAddress = getVaiVaultContractAddress({
+    chainId,
+  });
 
   return useQuery({
     queryKey: [FunctionKey.GET_VAI_VAULT_PAUSED, { chainId }],
-    queryFn: () => callOrThrow({ vaiVaultContract }, getVaiVaultPaused),
+    queryFn: () =>
+      callOrThrow({ publicClient, vaiVaultAddress }, params => getVaiVaultPaused({ ...params })),
     ...options,
-    enabled: !!vaiVaultContract && (options?.enabled === undefined || options?.enabled),
+    enabled: !!vaiVaultAddress && (options?.enabled === undefined || options?.enabled),
   });
 };
-
-export default useGetVaiVaultPaused;

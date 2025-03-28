@@ -1,16 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { chainMetadata } from '@venusprotocol/chains';
 
-import useGetBlockNumber from 'clients/api/queries/getBlockNumber/useGetBlockNumber';
+import { useGetBlockNumber } from 'clients/api/queries/getBlockNumber/useGetBlockNumber';
 import { useGetProposalMinQuorumVotes } from 'clients/api/queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
-import {
-  type GetProposalsInput,
-  type GetProposalsOutput,
-  getProposals,
-} from 'clients/api/queries/getProposals';
 import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import { type GetProposalsInput, type GetProposalsOutput, getProposals } from '.';
 
 type TrimmedGetProposalsInput = Omit<
   GetProposalsInput,

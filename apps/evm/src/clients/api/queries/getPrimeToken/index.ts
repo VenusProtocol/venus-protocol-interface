@@ -13,7 +13,7 @@ export type GetPrimeTokenOutput = {
   isIrrevocable: boolean;
 };
 
-const getPrimeToken = async ({
+export const getPrimeToken = async ({
   publicClient,
   primeContractAddress,
   accountAddress,
@@ -30,5 +30,3 @@ const getPrimeToken = async ({
     isIrrevocable,
   };
 };
-
-export default getPrimeToken;

@@ -14,7 +14,7 @@ import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
 type TrimmedGetXvsBridgeEstimationInput = Omit<GetXvsBridgeEstimationInput, 'tokenBridgeContract'>;
 
-export type UseGetTokenBalancesQueryKey = [
+export type UseGetXvsBridgeFeeEstimationKey = [
   FunctionKey.GET_XVS_BRIDGE_FEE_ESTIMATION,
   {
     accountAddress: string;
@@ -29,17 +29,18 @@ type Options = QueryObserverOptions<
   Error,
   GetXvsBridgeEstimationOutput,
   GetXvsBridgeEstimationOutput,
-  UseGetTokenBalancesQueryKey
+  UseGetXvsBridgeFeeEstimationKey
 >;
 
-interface UseGetTokenUsdPriceInput extends Omit<TrimmedGetXvsBridgeEstimationInput, 'token'> {
+interface UseGetXvsBridgeFeeEstimationInput
+  extends Omit<TrimmedGetXvsBridgeEstimationInput, 'token'> {
   token?: Token;
 }
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetXvsBridgeFeeEstimation = (
-  { accountAddress, amountMantissa, destinationChain }: UseGetTokenUsdPriceInput,
+export const useGetXvsBridgeFeeEstimation = (
+  { accountAddress, amountMantissa, destinationChain }: UseGetXvsBridgeFeeEstimationInput,
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
@@ -71,5 +72,3 @@ const useGetXvsBridgeFeeEstimation = (
     ...options,
   });
 };
-
-export default useGetXvsBridgeFeeEstimation;

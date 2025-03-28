@@ -1,7 +1,7 @@
 import fakeAddress from '__mocks__/models/address';
 import type { PublicClient } from 'viem';
 
-import getPoolDelegateApprovalStatus from '..';
+import { getPoolDelegateApprovalStatus } from '..';
 
 describe('getPoolDelegateApprovalStatus', () => {
   test('returns the delegate approval status on success', async () => {

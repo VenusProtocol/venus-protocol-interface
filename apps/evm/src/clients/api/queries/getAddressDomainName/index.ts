@@ -43,10 +43,11 @@ export interface GetAddressDomainNameInput {
 
 export type GetAddressDomainNameOutput = ChainIdDomainNameMap;
 
-const getAddressDomainName = async ({ accountAddress, chainId }: GetAddressDomainNameInput) => {
+export const getAddressDomainName = async ({
+  accountAddress,
+  chainId,
+}: GetAddressDomainNameInput) => {
   const response = await domainNamesBatcher.fetch({ accountAddress, chainId });
 
   return response || {};
 };
-
-export default getAddressDomainName;

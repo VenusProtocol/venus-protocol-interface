@@ -5,11 +5,11 @@ import fakeAddress from '__mocks__/models/address';
 
 import { restService } from 'utilities';
 
-import getVoterHistory from '.';
+import { getVoterHistory } from '.';
 
 vi.mock('utilities/restService');
 
-describe('api/queries/getVoterHistory', () => {
+describe('getVoterHistory', () => {
   test('returns formatted voter history', async () => {
     (restService as Mock).mockImplementationOnce(async () => ({
       status: 200,

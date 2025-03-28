@@ -4,7 +4,7 @@ export type GetIsAddressAuthorizedOutput = {
   authorized: boolean;
 };
 
-const getIsAddressAuthorized = async ({
+export const getIsAddressAuthorized = async ({
   accountAddress,
 }: {
   accountAddress: string;
@@ -26,5 +26,3 @@ const getIsAddressAuthorized = async ({
     authorized: false,
   };
 };
-
-export default getIsAddressAuthorized;

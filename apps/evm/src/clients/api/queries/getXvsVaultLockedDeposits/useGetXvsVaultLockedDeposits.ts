@@ -1,8 +1,9 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getXvsVaultLockedDeposits, {
+import {
   type GetXvsVaultLockedDepositsInput,
   type GetXvsVaultLockedDepositsOutput,
+  getXvsVaultLockedDeposits,
 } from 'clients/api/queries/getXvsVaultLockedDeposits';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract } from 'libs/contracts';
@@ -30,7 +31,7 @@ type Options = QueryObserverOptions<
   UseGetXvsVaultLockedDepositsQueryKey
 >;
 
-const useGetXvsVaultLockedDeposits = (
+export const useGetXvsVaultLockedDeposits = (
   input: TrimmedGetXvsVaultLockedDepositsInput,
   options?: Partial<Options>,
 ) => {
@@ -48,5 +49,3 @@ const useGetXvsVaultLockedDeposits = (
     ...options,
   });
 };
-
-export default useGetXvsVaultLockedDeposits;

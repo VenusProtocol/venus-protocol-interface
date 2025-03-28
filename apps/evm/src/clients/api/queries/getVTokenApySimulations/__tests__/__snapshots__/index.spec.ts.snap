@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVTokenApySimulations > returns the APY simulations in the correct format on success 1`] = `
+exports[`getVTokenApySimulations > returns the APY simulations in the correct format on success 1`] = `
 {
   "apySimulations": [
     {
@@ -508,7 +508,7 @@ exports[`api/queries/getVTokenApySimulations > returns the APY simulations in th
 }
 `;
 
-exports[`api/queries/getVTokenApySimulations > returns the APY simulations of an isolated asset on a chain with block based rates in the correct format on success 1`] = `
+exports[`getVTokenApySimulations > returns the APY simulations of an isolated asset on a chain with block based rates in the correct format on success 1`] = `
 {
   "apySimulations": [
     {
@@ -1016,7 +1016,7 @@ exports[`api/queries/getVTokenApySimulations > returns the APY simulations of an
 }
 `;
 
-exports[`api/queries/getVTokenApySimulations > returns the APY simulations of an isolated asset on a chain with time based rates in the correct format on success 1`] = `
+exports[`getVTokenApySimulations > returns the APY simulations of an isolated asset on a chain with time based rates in the correct format on success 1`] = `
 {
   "apySimulations": [
     {

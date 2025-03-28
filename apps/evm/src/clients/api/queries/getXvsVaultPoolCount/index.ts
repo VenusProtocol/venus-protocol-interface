@@ -9,7 +9,7 @@ export type GetXvsVaultPoolCountOutput = {
   poolCount: number;
 };
 
-const getXvsVaultPoolCount = async ({
+export const getXvsVaultPoolCount = async ({
   xvsTokenAddress,
   xvsVaultContract,
 }: GetXvsVaultPoolCountInput): Promise<GetXvsVaultPoolCountOutput> => {
@@ -19,5 +19,3 @@ const getXvsVaultPoolCount = async ({
     poolCount: xvsVaultPoolLength.toNumber(),
   };
 };
-
-export default getXvsVaultPoolCount;

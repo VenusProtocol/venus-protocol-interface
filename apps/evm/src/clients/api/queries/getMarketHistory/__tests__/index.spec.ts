@@ -5,7 +5,7 @@ import { vBusd } from '__mocks__/models/vTokens';
 import type { MarketSnapshot } from 'types';
 import { restService } from 'utilities';
 
-import getMarketHistory from '..';
+import { getMarketHistory } from '..';
 
 vi.mock('utilities/restService');
 

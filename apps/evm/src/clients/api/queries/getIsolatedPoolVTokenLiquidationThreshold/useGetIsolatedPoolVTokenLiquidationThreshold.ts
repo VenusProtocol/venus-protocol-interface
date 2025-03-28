@@ -1,15 +1,15 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import {
-  type GetIsolatedPoolVTokenLiquidationThresholdInput,
-  type GetIsolatedPoolVTokenLiquidationThresholdOutput,
-  getIsolatedPoolVTokenLiquidationThreshold,
-} from 'clients/api/queries/getIsolatedPoolVTokenLiquidationThreshold';
 import FunctionKey from 'constants/functionKey';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
+import {
+  type GetIsolatedPoolVTokenLiquidationThresholdInput,
+  type GetIsolatedPoolVTokenLiquidationThresholdOutput,
+  getIsolatedPoolVTokenLiquidationThreshold,
+} from '.';
 
 interface TrimmedGetIsolatedPoolVTokenLiquidationThresholdInput
   extends Omit<

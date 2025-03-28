@@ -1,20 +1,26 @@
 import BigNumber from 'bignumber.js';
-
-import type { VaiController } from 'libs/contracts';
+import { vaiControllerAbi } from 'libs/contracts';
 import { convertPercentageFromSmartContract } from 'utilities';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetVaiRepayAprInput {
-  vaiControllerContract: VaiController;
+  publicClient: PublicClient;
+  vaiControllerAddress: Address;
 }
 
 export interface GetVaiRepayAprOutput {
   repayAprPercentage: BigNumber;
 }
 
-const getVaiRepayApr = async ({
-  vaiControllerContract,
+export const getVaiRepayApr = async ({
+  publicClient,
+  vaiControllerAddress,
 }: GetVaiRepayAprInput): Promise<GetVaiRepayAprOutput> => {
-  const vaiRepayRateMantissa = await vaiControllerContract.getVAIRepayRate();
+  const vaiRepayRateMantissa = await publicClient.readContract({
+    address: vaiControllerAddress,
+    abi: vaiControllerAbi,
+    functionName: 'getVAIRepayRate',
+  });
 
   const vaiRepayAprPercentage = new BigNumber(
     convertPercentageFromSmartContract(vaiRepayRateMantissa.toString()),
@@ -24,5 +30,3 @@ const getVaiRepayApr = async ({
     repayAprPercentage: vaiRepayAprPercentage,
   };
 };
-
-export default getVaiRepayApr;

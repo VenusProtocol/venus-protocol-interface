@@ -1,15 +1,16 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getLatestProposalIdByProposer, {
-  type GetLatestProposalIdByProposerInput,
-  type GetLatestProposalIdByProposerOutput,
-} from 'clients/api/queries/getLatestProposalIdByProposer';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
+import {
+  type GetLatestProposalIdByProposerInput,
+  type GetLatestProposalIdByProposerOutput,
+  getLatestProposalIdByProposer,
+} from '.';
 
 type TrimmedGetLatestProposalIdByProposerInput = Omit<
   GetLatestProposalIdByProposerInput,
@@ -28,7 +29,7 @@ const governorBravoDelegateContractAddress = getGovernorBravoDelegateContractAdd
   chainId: governanceChain.id,
 });
 
-const useGetLatestProposalIdByProposer = (
+export const useGetLatestProposalIdByProposer = (
   { accountAddress }: TrimmedGetLatestProposalIdByProposerInput,
   options?: Partial<Options>,
 ) => {
@@ -51,5 +52,3 @@ const useGetLatestProposalIdByProposer = (
     ...options,
   });
 };
-
-export default useGetLatestProposalIdByProposer;

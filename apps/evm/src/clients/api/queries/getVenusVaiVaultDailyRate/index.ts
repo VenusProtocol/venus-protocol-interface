@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
-
-import type { LegacyPoolComptroller } from 'libs/contracts';
+import { legacyPoolComptrollerAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetVenusVaiVaultDailyRateInput {
-  legacyPoolComptrollerContract: LegacyPoolComptroller;
+  publicClient: PublicClient;
+  legacyPoolComptrollerAddress: Address;
   blocksPerDay: number;
 }
 
@@ -11,15 +12,18 @@ export type GetVenusVaiVaultDailyRateOutput = {
   dailyRateMantissa: BigNumber;
 };
 
-const getVenusVaiVaultDailyRate = async ({
+export const getVenusVaiVaultDailyRate = async ({
   blocksPerDay,
-  legacyPoolComptrollerContract,
+  publicClient,
+  legacyPoolComptrollerAddress,
 }: GetVenusVaiVaultDailyRateInput): Promise<GetVenusVaiVaultDailyRateOutput> => {
-  const resp = await legacyPoolComptrollerContract.venusVAIVaultRate();
+  const resp = await publicClient.readContract({
+    address: legacyPoolComptrollerAddress,
+    abi: legacyPoolComptrollerAbi,
+    functionName: 'venusVAIVaultRate',
+  });
 
   return {
     dailyRateMantissa: new BigNumber(resp.toString()).times(blocksPerDay),
   };
 };
-
-export default getVenusVaiVaultDailyRate;

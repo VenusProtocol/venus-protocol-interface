@@ -1,8 +1,9 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade, {
+import {
   type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeInput,
   type GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput,
+  getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
 } from 'clients/api/queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract } from 'libs/contracts';
@@ -30,7 +31,7 @@ type Options = QueryObserverOptions<
   UseGetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeQueryKey
 >;
 
-const useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = (
+export const useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = (
   input: TrimmedGetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeInput,
   options?: Partial<Options>,
 ) => {
@@ -51,5 +52,3 @@ const useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = (
     ...options,
   });
 };
-
-export default useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade;

@@ -6,7 +6,7 @@ import type { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'libs/contra
 import { ChainId } from 'types';
 import { restService } from 'utilities';
 import type { Mock } from 'vitest';
-import getPendingRewards from '..';
+import { getPendingRewards } from '..';
 import {
   fakeGetIsolatedPoolPendingRewardsOutput,
   fakeGetLegacyPoolPendingRewardsOutput,

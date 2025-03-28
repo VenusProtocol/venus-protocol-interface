@@ -3,19 +3,15 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
-import vaiVaultResponses from '__mocks__/contracts/vaiVault';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { renderComponent } from 'testUtils/render';
 
 import { getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
-import formatToUserInfo from 'clients/api/queries/getVaiVaultUserInfo/formatToUserInfo';
 import { en } from 'libs/translations';
 
 import WithdrawFromVaiVaultModal, { type WithdrawFromVaiVaultModalProps } from '.';
 import TEST_IDS from '../../TransactionForm/testIds';
-
-const fakeVaiVaultUserInfo = formatToUserInfo(vaiVaultResponses.userInfo);
 
 const baseProps: WithdrawFromVaiVaultModalProps = {
   handleClose: noop,
@@ -23,7 +19,9 @@ const baseProps: WithdrawFromVaiVaultModalProps = {
 
 describe('WithdrawFromVaiVaultModal', () => {
   beforeEach(() => {
-    (getVaiVaultUserInfo as Mock).mockImplementation(() => fakeVaiVaultUserInfo);
+    (getVaiVaultUserInfo as Mock).mockImplementation(() => ({
+      stakedVaiMantissa: new BigNumber('100000000000000000000000'),
+    }));
   });
 
   it('renders without crashing', async () => {

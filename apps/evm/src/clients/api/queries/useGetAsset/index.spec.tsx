@@ -7,9 +7,9 @@ import { renderComponent } from 'testUtils/render';
 
 import { useGetPools } from 'clients/api';
 
-import useGetAsset, { type UseGetAssetOutput } from '.';
+import { type UseGetAssetOutput, useGetAsset } from '.';
 
-describe('api/queries/useGetAsset', () => {
+describe('useGetAsset', () => {
   beforeEach(() => {
     (useGetPools as Mock).mockImplementation(() => ({
       data: {

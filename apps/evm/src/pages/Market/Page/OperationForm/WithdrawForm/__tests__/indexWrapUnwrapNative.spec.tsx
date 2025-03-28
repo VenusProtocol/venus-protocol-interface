@@ -9,7 +9,7 @@ import { ChainId } from 'types';
 
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { useGetVTokenBalanceOf, withdraw } from 'clients/api';
+import { useGetVTokenBalance, withdraw } from 'clients/api';
 import { en } from 'libs/translations';
 import Withdraw from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
@@ -99,7 +99,7 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     };
     // simulate the total amount of VTokens the user has and will be redeemed
     const fakeVTokenBalanceMantissa = new BigNumber(1234);
-    (useGetVTokenBalanceOf as Mock).mockImplementation(() => ({
+    (useGetVTokenBalance as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: fakeVTokenBalanceMantissa,
       },

@@ -17,7 +17,10 @@ export interface UseGetAssetOutput {
   };
 }
 
-const useGetAsset = ({ vTokenAddress, accountAddress }: UseGetAssetInput): UseGetAssetOutput => {
+export const useGetAsset = ({
+  vTokenAddress,
+  accountAddress,
+}: UseGetAssetInput): UseGetAssetOutput => {
   const { data: getPoolsData, isLoading } = useGetPools({
     accountAddress,
   });
@@ -52,5 +55,3 @@ const useGetAsset = ({ vTokenAddress, accountAddress }: UseGetAssetInput): UseGe
     },
   };
 };
-
-export default useGetAsset;

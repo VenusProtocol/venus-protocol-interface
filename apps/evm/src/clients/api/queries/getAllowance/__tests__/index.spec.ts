@@ -4,7 +4,7 @@ import type { PublicClient } from 'viem';
 import fakeAddress from '__mocks__/models/address';
 import { vrt } from '__mocks__/models/tokens';
 
-import getAllowance from '..';
+import { getAllowance } from '..';
 
 const fakeSpenderAddress = '0x000000000000000000000000000000000sPeNdEr';
 

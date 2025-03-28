@@ -5,7 +5,7 @@ import type { XVSProxyOFTDest, XVSProxyOFTSrc } from 'libs/contracts';
 import { ChainId } from 'types';
 
 import { convertPriceMantissaToDollars } from 'utilities';
-import getXvsBridgeStatus, { BRIDGE_USD_LIMIT_FACTOR } from '.';
+import { BRIDGE_USD_LIMIT_FACTOR, getXvsBridgeStatus } from '.';
 
 vi.mock('libs/contracts');
 

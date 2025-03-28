@@ -18,15 +18,15 @@ import { convertTokensToMantissa, indexBy } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import BigNumber from 'bignumber.js';
-import useGetXvsVaultPoolBalances from './useGetXvsVaultPoolBalances';
-import useGetXvsVaultPools from './useGetXvsVaultPools';
+import { useGetXvsVaultPoolBalances } from './useGetXvsVaultPoolBalances';
+import { useGetXvsVaultPools } from './useGetXvsVaultPools';
 
 export interface UseGetVestingVaultsOutput {
   isLoading: boolean;
   data: Vault[];
 }
 
-const useGetVestingVaults = ({
+export const useGetVestingVaults = ({
   accountAddress,
 }: {
   accountAddress?: string;
@@ -258,5 +258,3 @@ const useGetVestingVaults = ({
     isLoading,
   };
 };
-
-export default useGetVestingVaults;

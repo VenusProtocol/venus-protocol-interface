@@ -1,12 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { type GetMintableVaiInput, type GetMintableVaiOutput, getMintableVai } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { useGetVaiControllerContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import { type GetMintableVaiInput, type GetMintableVaiOutput, getMintableVai } from '.';
 
 export interface UseGetMintableVaiInput
   extends Omit<
@@ -29,7 +29,7 @@ type Options = QueryObserverOptions<
   UseGetMintableVaiQueryKey
 >;
 
-const useGetMintableVai = (
+export const useGetMintableVai = (
   { accountAddress }: UseGetMintableVaiInput,
   options?: Partial<Options>,
 ) => {
@@ -53,5 +53,3 @@ const useGetMintableVai = (
     ...options,
   });
 };
-
-export default useGetMintableVai;

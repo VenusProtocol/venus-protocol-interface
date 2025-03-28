@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVoterHistory > Gets called with correct default arguments 1`] = `
+exports[`getVoterHistory > Gets called with correct default arguments 1`] = `
 {
   "limit": 6,
   "page": 0,
@@ -336,7 +336,7 @@ Simulation of the VIP: [https://github.com/VenusProtocol/vips/pull/70](https://g
 }
 `;
 
-exports[`api/queries/getVoterHistory > returns formatted voter history 1`] = `
+exports[`getVoterHistory > returns formatted voter history 1`] = `
 {
   "limit": 6,
   "page": 0,

@@ -4,7 +4,7 @@ import { assetData } from '__mocks__/models/asset';
 
 import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
 
-import getVTokenApySimulations from '..';
+import { getVTokenApySimulations } from '..';
 
 const fakeInterestRateModelContract = {
   getBorrowRate: async () => BN.from(1),
@@ -14,7 +14,7 @@ const fakeInterestRateModelContract = {
 
 const fakeInterestRateModelV2Contract = fakeInterestRateModelContract as unknown as JumpRateModelV2;
 
-describe('api/queries/getVTokenApySimulations', () => {
+describe('getVTokenApySimulations', () => {
   it('returns the APY simulations in the correct format on success', async () => {
     const response = await getVTokenApySimulations({
       interestRateModelContract: fakeInterestRateModelContract,

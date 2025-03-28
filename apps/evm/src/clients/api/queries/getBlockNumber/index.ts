@@ -8,7 +8,7 @@ export interface GetBlockNumberOutput {
   blockNumber: number;
 }
 
-const getBlockNumber = async ({
+export const getBlockNumber = async ({
   publicClient,
 }: GetBlockNumberInput): Promise<GetBlockNumberOutput> => {
   const blockNumber = await publicClient.getBlockNumber();
@@ -17,5 +17,3 @@ const getBlockNumber = async ({
     blockNumber: +blockNumber.toString(),
   };
 };
-
-export default getBlockNumber;

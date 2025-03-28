@@ -28,7 +28,7 @@ export interface GetHypotheticalPrimeApysOutput {
   userPrimeRewardsShare: BigNumber;
 }
 
-const getHypotheticalPrimeApys = async ({
+export const getHypotheticalPrimeApys = async ({
   publicClient,
   primeContractAddress,
   vTokenAddress,
@@ -93,5 +93,3 @@ const getHypotheticalPrimeApys = async ({
     userPrimeRewardsShare,
   };
 };
-
-export default getHypotheticalPrimeApys;

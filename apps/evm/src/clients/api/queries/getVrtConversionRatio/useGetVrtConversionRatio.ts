@@ -1,7 +1,8 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getVrtConversionRatio, {
+import {
   type GetVrtConversionRatioOutput,
+  getVrtConversionRatio,
 } from 'clients/api/queries/getVrtConversionRatio';
 import FunctionKey from 'constants/functionKey';
 import { useGetVrtConverterContract } from 'libs/contracts';
@@ -22,7 +23,7 @@ type Options = QueryObserverOptions<
   UseGetVrtConversionRatioQueryKey
 >;
 
-const useGetVrtConversionRatio = (options?: Partial<Options>) => {
+export const useGetVrtConversionRatio = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const vrtConverterContract = useGetVrtConverterContract();
 
@@ -32,5 +33,3 @@ const useGetVrtConversionRatio = (options?: Partial<Options>) => {
     ...options,
   });
 };
-
-export default useGetVrtConversionRatio;

@@ -14,7 +14,7 @@ export type GetBalanceOfOutput = {
   balanceMantissa: BigNumber;
 };
 
-const getBalanceOf = async ({
+export const getBalanceOf = async ({
   publicClient,
   accountAddress,
   token,
@@ -38,5 +38,3 @@ const getBalanceOf = async ({
     balanceMantissa,
   };
 };
-
-export default getBalanceOf;

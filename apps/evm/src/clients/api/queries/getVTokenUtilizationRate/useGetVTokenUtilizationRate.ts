@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
-import useGetVTokenInterestRateModel from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
+import { useGetVTokenInterestRateModel } from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 import {
   type GetVTokenUtilizationRateOutput,
   getVTokenUtilizationRate,

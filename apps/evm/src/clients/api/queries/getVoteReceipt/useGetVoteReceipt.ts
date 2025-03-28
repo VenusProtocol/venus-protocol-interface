@@ -1,13 +1,16 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useGetGovernorBravoDelegateContract } from 'libs/contracts';
+import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
+import { usePublicClient } from 'libs/wallet';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import { type GetVoteReceiptInput, type GetVoteReceiptOutput, getVoteReceipt } from '.';
 
-import getVoteReceipt, { type GetVoteReceiptInput, type GetVoteReceiptOutput } from '.';
-
-type TrimmedGetVoteReceiptInput = Omit<GetVoteReceiptInput, 'governorBravoDelegateContract'>;
+type TrimmedGetVoteReceiptInput = Omit<
+  GetVoteReceiptInput,
+  'publicClient' | 'governorBravoDelegateAddress'
+>;
 
 type Options = QueryObserverOptions<
   GetVoteReceiptOutput,
@@ -17,28 +20,26 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_VOTE_RECEIPT, TrimmedGetVoteReceiptInput]
 >;
 
-const useGetVoteReceipt = (input: TrimmedGetVoteReceiptInput, options?: Partial<Options>) => {
+export const useGetVoteReceipt = (
+  input: TrimmedGetVoteReceiptInput,
+  options?: Partial<Options>,
+) => {
   const { accountAddress } = input;
-  const governorBravoDelegateContract = useGetGovernorBravoDelegateContract({
+  const { publicClient } = usePublicClient();
+  const governorBravoDelegateAddress = getGovernorBravoDelegateContractAddress({
     chainId: governanceChain.id,
   });
 
   return useQuery({
     queryKey: [FunctionKey.GET_VOTE_RECEIPT, input],
-
     queryFn: () =>
-      callOrThrow({ governorBravoDelegateContract }, params =>
-        getVoteReceipt({
-          ...input,
-          ...params,
-        }),
+      callOrThrow({ publicClient, governorBravoDelegateAddress }, params =>
+        getVoteReceipt({ ...params, ...input }),
       ),
-
     enabled:
       (options?.enabled === undefined || options?.enabled) &&
       // Check user have connected their wallet
-      accountAddress !== undefined,
+      accountAddress !== undefined &&
+      !!governorBravoDelegateAddress,
   });
 };
-
-export default useGetVoteReceipt;

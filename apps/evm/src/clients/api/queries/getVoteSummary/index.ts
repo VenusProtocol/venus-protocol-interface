@@ -6,7 +6,7 @@ import type { GetVoteSummaryApiResponse, GetVoteSummaryInput, GetVoteSummaryOutp
 
 export * from './types';
 
-const getVoteSummary = async ({
+export const getVoteSummary = async ({
   proposalId,
 }: GetVoteSummaryInput): Promise<GetVoteSummaryOutput> => {
   const response = await restService<GetVoteSummaryApiResponse>({
@@ -31,5 +31,3 @@ const getVoteSummary = async ({
 
   return formatToVoteSummary({ payload });
 };
-
-export default getVoteSummary;

@@ -1,11 +1,12 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { type GetVaiTreasuryPercentageOutput, getVaiTreasuryPercentage } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetVaiControllerContract } from 'libs/contracts';
+import { getVaiControllerContractAddress } from 'libs/contracts';
+import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
+import { type GetVaiTreasuryPercentageOutput, getVaiTreasuryPercentage } from '.';
 
 export type UseGetVaiTreasuryPercentageQueryKey = [
   FunctionKey.GET_VAI_TREASURY_PERCENTAGE,
@@ -20,15 +21,19 @@ type Options = QueryObserverOptions<
   UseGetVaiTreasuryPercentageQueryKey
 >;
 
-const useGetVaiTreasuryPercentage = (options?: Partial<Options>) => {
+export const useGetVaiTreasuryPercentage = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
-  const vaiControllerContract = useGetVaiControllerContract();
+  const { publicClient } = usePublicClient();
+  const vaiControllerAddress = getVaiControllerContractAddress({
+    chainId,
+  });
 
   return useQuery({
     queryKey: [FunctionKey.GET_VAI_TREASURY_PERCENTAGE, { chainId }],
-    queryFn: () => callOrThrow({ vaiControllerContract }, getVaiTreasuryPercentage),
+    queryFn: () =>
+      callOrThrow({ publicClient, vaiControllerAddress }, params =>
+        getVaiTreasuryPercentage({ ...params }),
+      ),
     ...options,
   });
 };
-
-export default useGetVaiTreasuryPercentage;

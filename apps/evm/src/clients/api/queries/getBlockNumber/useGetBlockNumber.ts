@@ -1,11 +1,11 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getBlockNumber, { type GetBlockNumberOutput } from 'clients/api/queries/getBlockNumber';
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
+import { type GetBlockNumberOutput, getBlockNumber } from '.';
 
 export type UseGetBlockNumberQueryKey = [FunctionKey.GET_BLOCK_NUMBER, { chainId: ChainId }];
 
@@ -21,7 +21,7 @@ type Options = QueryObserverOptions<
   UseGetBlockNumberQueryKey
 >;
 
-const useGetBlockNumber = (input?: Input, options?: Partial<Options>) => {
+export const useGetBlockNumber = (input?: Input, options?: Partial<Options>) => {
   const { chainId: currentChainId } = useChainId();
   const chainId = input?.chainId ?? currentChainId;
   const { publicClient } = usePublicClient({ chainId });
@@ -34,5 +34,3 @@ const useGetBlockNumber = (input?: Input, options?: Partial<Options>) => {
     ...options,
   });
 };
-
-export default useGetBlockNumber;

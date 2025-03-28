@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getVTokenBalancesAll > returns the APY simulations in the correct format on success 1`] = `
+exports[`getVTokenBalancesAll > returns the APY simulations in the correct format on success 1`] = `
 {
   "balances": [
     {

@@ -1,8 +1,9 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getVoteSummary, {
+import {
   type GetVoteSummaryInput,
   type GetVoteSummaryOutput,
+  getVoteSummary,
 } from 'clients/api/queries/getVoteSummary';
 import FunctionKey from 'constants/functionKey';
 import { generatePseudoRandomRefetchInterval } from 'utilities';
@@ -17,12 +18,10 @@ type Options = QueryObserverOptions<
 
 const refetchInterval = generatePseudoRandomRefetchInterval();
 
-const useGetVoteSummary = (params: GetVoteSummaryInput, options?: Partial<Options>) =>
+export const useGetVoteSummary = (params: GetVoteSummaryInput, options?: Partial<Options>) =>
   useQuery({
     queryKey: [FunctionKey.GET_VOTE_SUMMARY, params],
     queryFn: () => getVoteSummary(params),
     refetchInterval,
     ...options,
   });
-
-export default useGetVoteSummary;

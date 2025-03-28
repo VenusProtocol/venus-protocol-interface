@@ -16,7 +16,7 @@ export interface GetVoterHistoryOutput {
   total: number;
 }
 
-const getVoterHistory = async ({
+export const getVoterHistory = async ({
   page = 0,
   address,
 }: GetVoterHistoryInput): Promise<GetVoterHistoryOutput> => {
@@ -46,5 +46,3 @@ const getVoterHistory = async ({
 
   return formatVoterHistoryResponse(payload);
 };
-
-export default getVoterHistory;

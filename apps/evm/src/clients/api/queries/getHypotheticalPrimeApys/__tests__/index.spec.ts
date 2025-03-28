@@ -4,7 +4,7 @@ import type { PublicClient } from 'viem';
 import fakeAccountAddress from '__mocks__/models/address';
 import { vXvs } from '__mocks__/models/vTokens';
 
-import getHypotheticalPrimeApys from '..';
+import { getHypotheticalPrimeApys } from '..';
 
 describe('getHypotheticalPrimeApys', () => {
   test('returns the simulated Prime APYs on success', async () => {

@@ -1,13 +1,14 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getPancakeSwapPairs, {
-  type GetPancakeSwapPairsInput,
-  type GetPancakeSwapPairsOutput,
-} from 'clients/api/queries/getPancakeSwapPairs';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
+import {
+  type GetPancakeSwapPairsInput,
+  type GetPancakeSwapPairsOutput,
+  getPancakeSwapPairs,
+} from '.';
 
 import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import generateTokenCombinationIds from './generateTokenCombinationIds';
@@ -26,7 +27,7 @@ type Options = QueryObserverOptions<
   UseGetPancakeSwapPairsQueryKey
 >;
 
-const useGetPancakeSwapPairs = (
+export const useGetPancakeSwapPairs = (
   input: Omit<GetPancakeSwapPairsInput, 'publicClient'>,
   options?: Partial<Options>,
 ) => {
@@ -49,5 +50,3 @@ const useGetPancakeSwapPairs = (
     ...options,
   });
 };
-
-export default useGetPancakeSwapPairs;

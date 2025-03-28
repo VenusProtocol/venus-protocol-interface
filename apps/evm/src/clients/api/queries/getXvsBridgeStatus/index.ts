@@ -23,7 +23,7 @@ export interface GetXvsBridgeStatusOutput {
 // so this is used as a safe margin (90% of the actual limit)
 export const BRIDGE_USD_LIMIT_FACTOR = new BigNumber('0.9');
 
-const getXvsBridgeStatus = async ({
+export const getXvsBridgeStatus = async ({
   fromChainId,
   toChainId,
   tokenBridgeSendingContract,
@@ -79,5 +79,3 @@ const getXvsBridgeStatus = async ({
     maxSingleTransactionLimitUsd,
   };
 };
-
-export default getXvsBridgeStatus;

@@ -24,7 +24,7 @@ export interface GetPrimeStatusOutput {
   userClaimTimeRemainingSeconds: number;
 }
 
-const getPrimeStatus = async ({
+export const getPrimeStatus = async ({
   accountAddress,
   primeContractAddress,
   publicClient,
@@ -137,5 +137,3 @@ const getPrimeStatus = async ({
     userClaimTimeRemainingSeconds: Number(userClaimTimeRemainingSeconds.result),
   };
 };
-
-export default getPrimeStatus;

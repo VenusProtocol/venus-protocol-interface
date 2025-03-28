@@ -1,29 +1,30 @@
 import { NULL_ADDRESS } from 'constants/address';
-import type { XvsVault } from 'libs/contracts';
+import { xvsVaultAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetVoteDelegateAddressInput {
-  xvsVaultContract: XvsVault;
-  accountAddress: string;
+  publicClient: PublicClient;
+  xvsVaultAddress: Address;
+  accountAddress: Address;
 }
 
 export type GetVoteDelegateAddressOutput = {
-  delegateAddress: string | undefined;
+  delegateAddress: Address | undefined;
 };
 
-/**
- *
- * @param address string (valid Ethereum address)
- * @returns Delegated address, if no delegation returns undefined
- */
-const getVoteDelegateAddress = async ({
-  xvsVaultContract,
+export const getVoteDelegateAddress = async ({
+  publicClient,
+  xvsVaultAddress,
   accountAddress,
 }: GetVoteDelegateAddressInput): Promise<GetVoteDelegateAddressOutput> => {
-  const resp = await xvsVaultContract.delegates(accountAddress);
+  const resp = await publicClient.readContract({
+    address: xvsVaultAddress,
+    abi: xvsVaultAbi,
+    functionName: 'delegates',
+    args: [accountAddress],
+  });
 
   return {
     delegateAddress: resp !== NULL_ADDRESS ? resp : undefined,
   };
 };
-
-export default getVoteDelegateAddress;

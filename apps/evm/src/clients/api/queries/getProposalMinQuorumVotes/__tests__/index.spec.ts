@@ -1,7 +1,7 @@
 import fakeGovernorBravoAddress from '__mocks__/models/address';
 import type { PublicClient } from 'viem';
 
-import getProposalMinQuorumVotes from '..';
+import { getProposalMinQuorumVotes } from '..';
 
 describe('getProposalMinQuorumVotes', () => {
   test('returns proposal min quorum votes on success', async () => {

@@ -2,11 +2,11 @@ import { BigNumber as BN } from 'ethers';
 
 import type { XvsVault } from 'libs/contracts';
 
-import getXvsVaultTotalAllocationPoints from '.';
+import { getXvsVaultTotalAllocationPoints } from '.';
 
 const fakeTokenAddress = '0x0';
 
-describe('api/queries/getXvsVaultTotalAllocationPoints', () => {
+describe('getXvsVaultTotalAllocationPoints', () => {
   test('returns the total allocation points on success', async () => {
     const fakeOutput = BN.from('100');
 

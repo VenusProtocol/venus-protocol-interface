@@ -6,7 +6,7 @@ import type { GetVotersApiResponse, GetVotersInput, GetVotersOutput } from './ty
 
 export * from './types';
 
-const getVoters = async ({
+export const getVoters = async ({
   proposalId,
   address,
   support,
@@ -42,5 +42,3 @@ const getVoters = async ({
 
   return formatToVoters({ payload });
 };
-
-export default getVoters;

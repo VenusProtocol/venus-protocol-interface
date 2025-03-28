@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getXvsWithdrawableAmount > returns the withdrawable amount on success 1`] = `
+exports[`getXvsWithdrawableAmount > returns the withdrawable amount on success 1`] = `
 {
   "totalVestedAmount": "1000",
   "totalWithdrawableAmount": "500000",

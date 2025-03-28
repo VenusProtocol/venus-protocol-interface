@@ -1,4 +1,4 @@
-import { getVTokenBalanceOf, useEnterMarket, useExitMarket } from 'clients/api';
+import { getVTokenBalance, useEnterMarket, useExitMarket } from 'clients/api';
 import {
   getIsolatedPoolComptrollerContract,
   getVTokenContract,
@@ -58,7 +58,7 @@ const useCollateral = () => {
       const vTokenContract = getVTokenContract({ vToken: asset.vToken, signerOrProvider: signer });
 
       try {
-        const vTokenBalanceOf = await getVTokenBalanceOf({
+        const vTokenBalanceOf = await getVTokenBalance({
           vTokenContract,
           accountAddress,
         });

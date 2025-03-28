@@ -1,30 +1,34 @@
-import type { GovernorBravoDelegate } from 'libs/contracts';
+import { governorBravoDelegateAbi } from 'libs/contracts';
 import type { VoteSupport } from 'types';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetVoteReceiptInput {
-  governorBravoDelegateContract: GovernorBravoDelegate;
+  publicClient: PublicClient;
+  governorBravoDelegateAddress: Address;
   proposalId: number;
-  accountAddress: string;
+  accountAddress: Address;
 }
 
 export type GetVoteReceiptOutput = {
   voteSupport: VoteSupport | undefined;
 };
 
-const getVoteReceipt = async ({
+export const getVoteReceipt = async ({
   proposalId,
-  governorBravoDelegateContract,
+  publicClient,
+  governorBravoDelegateAddress,
   accountAddress,
 }: GetVoteReceiptInput): Promise<GetVoteReceiptOutput> => {
-  const [hasVotes, support] = await governorBravoDelegateContract.getReceipt(
-    proposalId,
-    accountAddress,
-  );
-  const voteSupport = hasVotes ? support : undefined;
+  const receipt = await publicClient.readContract({
+    address: governorBravoDelegateAddress,
+    abi: governorBravoDelegateAbi,
+    functionName: 'getReceipt',
+    args: [BigInt(proposalId), accountAddress],
+  });
+
+  const voteSupport = receipt.hasVoted ? (receipt.support as VoteSupport) : undefined;
 
   return {
     voteSupport,
   };
 };
-
-export default getVoteReceipt;

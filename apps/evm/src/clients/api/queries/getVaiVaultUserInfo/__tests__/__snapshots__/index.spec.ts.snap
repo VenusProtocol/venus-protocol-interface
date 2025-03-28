@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getVaiVaultUserInfo > returns VAI vault user info in the right format on success 1`] = `
+{
+  "stakedVaiMantissa": "1000000000000000000",
+}
+`;

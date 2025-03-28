@@ -11,7 +11,7 @@ export interface GetVoterDetailsInput {
 
 export type GetVoterDetailsOutput = Voter;
 
-const getVoterDetails = async ({
+export const getVoterDetails = async ({
   address,
 }: GetVoterDetailsInput): Promise<GetVoterDetailsOutput> => {
   const response = await restService<GetVoterDetailsResponse>({
@@ -34,5 +34,3 @@ const getVoterDetails = async ({
 
   return formatVoterDetailsResponse(payload, address);
 };
-
-export default getVoterDetails;

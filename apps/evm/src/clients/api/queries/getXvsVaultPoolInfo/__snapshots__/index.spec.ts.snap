@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`api/queries/getXvsVaultPoolInfo > returns the pool infos on success 1`] = `
+exports[`getXvsVaultPoolInfo > returns the pool infos on success 1`] = `
 {
   "accRewardPerShare": "123871680",
   "allocationPoint": 10,

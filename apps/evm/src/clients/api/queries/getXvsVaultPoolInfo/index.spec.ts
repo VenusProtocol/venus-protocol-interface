@@ -4,12 +4,12 @@ import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 
 import type { XvsVault } from 'libs/contracts';
 
-import getXvsVaultPoolInfo from '.';
+import { getXvsVaultPoolInfo } from '.';
 
 const fakeTokenAddress = '0x0';
 const fakePid = 0;
 
-describe('api/queries/getXvsVaultPoolInfo', () => {
+describe('getXvsVaultPoolInfo', () => {
   test('returns the pool infos on success', async () => {
     const poolInfosMock = vi.fn(async () => xvsVaultResponses.poolInfo);
 

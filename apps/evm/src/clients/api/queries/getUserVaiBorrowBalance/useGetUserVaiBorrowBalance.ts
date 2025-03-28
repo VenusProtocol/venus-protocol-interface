@@ -31,7 +31,7 @@ type Options = QueryObserverOptions<
   UseGetUserVaiBorrowBalanceQueryKey
 >;
 
-const useGetUserVaiBorrowBalance = (
+export const useGetUserVaiBorrowBalance = (
   { accountAddress }: TrimmedGetUserVaiBorrowBalanceInput,
   options?: Partial<Options>,
 ) => {
@@ -58,5 +58,3 @@ const useGetUserVaiBorrowBalance = (
     ...options,
   });
 };
-
-export default useGetUserVaiBorrowBalance;

@@ -38,7 +38,7 @@ export interface GetMerklUserRewardsInput {
 
 export type GetMerklUserRewardsOutput = PendingExternalRewardSummary[];
 
-const getMerklUserRewards = async ({
+export const getMerklUserRewards = async ({
   chainId,
   accountAddress,
   merklCampaigns,
@@ -68,5 +68,3 @@ const getMerklUserRewards = async ({
 
   return payload ? formatMerklRewardsPayload(payload, merklCampaigns) : [];
 };
-
-export default getMerklUserRewards;

@@ -2,24 +2,22 @@ import BigNumber from 'bignumber.js';
 
 import type { VBep20, VBnb } from 'libs/contracts';
 
-export interface GetVTokenBalanceOfInput {
+export interface GetVTokenBalanceInput {
   vTokenContract: VBep20 | VBnb;
   accountAddress: string;
 }
 
-export type GetVTokenBalanceOfOutput = {
+export type GetVTokenBalanceOutput = {
   balanceMantissa: BigNumber;
 };
 
-const getVTokenBalanceOf = async ({
+export const getVTokenBalance = async ({
   vTokenContract,
   accountAddress,
-}: GetVTokenBalanceOfInput): Promise<GetVTokenBalanceOfOutput> => {
+}: GetVTokenBalanceInput): Promise<GetVTokenBalanceOutput> => {
   const res = await vTokenContract.balanceOf(accountAddress);
 
   return {
     balanceMantissa: new BigNumber(res.toString()),
   };
 };
-
-export default getVTokenBalanceOf;

@@ -17,7 +17,7 @@ type Options = QueryObserverOptions<
   UseGetXvsVaultPausedQueryKey
 >;
 
-const useGetXvsVaultPaused = (options?: Partial<Options>) => {
+export const useGetXvsVaultPaused = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const xvsVaultContract = useGetXvsVaultContract();
 

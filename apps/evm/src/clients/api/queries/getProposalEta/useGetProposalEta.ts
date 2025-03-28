@@ -1,14 +1,11 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import getProposalEta, {
-  type GetProposalEtaInput,
-  type GetProposalEtaOutput,
-} from 'clients/api/queries/getProposalEta';
 import FunctionKey from 'constants/functionKey';
 import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import { type GetProposalEtaInput, type GetProposalEtaOutput, getProposalEta } from '.';
 
 type TrimmedGetProposalEtaInput = Omit<
   GetProposalEtaInput,
@@ -23,7 +20,10 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PROPOSAL_ETA, TrimmedGetProposalEtaInput]
 >;
 
-const useGetProposalEta = (input: TrimmedGetProposalEtaInput, options?: Partial<Options>) => {
+export const useGetProposalEta = (
+  input: TrimmedGetProposalEtaInput,
+  options?: Partial<Options>,
+) => {
   const { publicClient } = usePublicClient({
     chainId: governanceChain.id,
   });
@@ -45,5 +45,3 @@ const useGetProposalEta = (input: TrimmedGetProposalEtaInput, options?: Partial<
     ...options,
   });
 };
-
-export default useGetProposalEta;

@@ -5,9 +5,9 @@ import fakeAddress from '__mocks__/models/address';
 
 import type { VBep20 } from 'libs/contracts';
 
-import getVTokenBalance from '.';
+import { getVTokenBalance } from '.';
 
-describe('api/queries/getVTokenBalance', () => {
+describe('getVTokenBalance', () => {
   test('returns the balance on success', async () => {
     const fakeBalanceMantissa = BN.from('1000');
 
