@@ -57,12 +57,10 @@ const useClaimRewards = (options?: Partial<Options>) => {
         if (claim.contract === 'legacyPoolComptroller') {
           captureAnalyticEvent('Pool reward claimed', {
             comptrollerAddress: legacyPoolComptrollerContractAddress || '',
-            vTokenAddressesWithPendingReward: claim.vTokenAddressesWithPendingReward,
           });
         } else if (claim.contract === 'rewardsDistributor') {
           captureAnalyticEvent('Pool reward claimed', {
             comptrollerAddress: claim.comptrollerContractAddress,
-            vTokenAddressesWithPendingReward: claim.vTokenAddressesWithPendingReward,
           });
         } else if (claim.contract === 'vaiVault') {
           captureAnalyticEvent('VAI vault reward claimed', undefined);
