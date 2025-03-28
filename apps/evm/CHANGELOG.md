@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.240.0
+
+### Minor Changes
+
+- e695ba6: enable Vercel analytics
+
 ## 2.239.0
 
 ### Minor Changes

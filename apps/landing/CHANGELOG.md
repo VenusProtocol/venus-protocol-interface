@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.12.0
+
+### Minor Changes
+
+- e695ba6: enable Vercel analytics
+
 ## 1.11.0
 
 ### Minor Changes
