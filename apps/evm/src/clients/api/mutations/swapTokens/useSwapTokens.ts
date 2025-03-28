@@ -58,7 +58,6 @@ const useSwapTokens = (
         priceImpactPercentage: swap.priceImpactPercentage,
         slippageTolerancePercentage: SLIPPAGE_TOLERANCE_PERCENTAGE,
         exchangeRate: swap.exchangeRate.toNumber(),
-        routePath: swap.routePath,
       });
 
       const accountAddress = await swapRouterContract?.signer.getAddress();

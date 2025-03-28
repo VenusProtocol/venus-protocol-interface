@@ -62,7 +62,6 @@ const useSwapTokensAndRepayAndRepay = (
         priceImpactPercentage: input.swap.priceImpactPercentage,
         slippageTolerancePercentage: SLIPPAGE_TOLERANCE_PERCENTAGE,
         exchangeRate: input.swap.exchangeRate.toNumber(),
-        routePath: input.swap.routePath,
         repaidFullLoan: input.repayFullLoan,
       });
 

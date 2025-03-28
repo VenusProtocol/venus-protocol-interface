@@ -10,7 +10,6 @@ import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
 import { Web3Wrapper } from 'libs/wallet';
 
-import config from 'config';
 import { MAIN_PRODUCTION_HOST } from 'constants/production';
 import { ThemeHandler } from 'containers/ThemeHandler';
 import { safeLazyLoad } from 'utilities';
@@ -62,9 +61,7 @@ const App = () => (
 
               <SentryErrorInfo />
 
-              <Analytics
-                mode={config.environment === 'production' ? 'production' : 'development'}
-              />
+              <Analytics mode={isMainProductionHost ? 'production' : 'development'} />
             </Web3Wrapper>
           </ErrorBoundary>
         </QueryClientProvider>
