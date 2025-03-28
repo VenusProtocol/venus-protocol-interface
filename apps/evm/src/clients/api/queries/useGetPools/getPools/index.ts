@@ -6,7 +6,6 @@ import type { GetPoolsInput, GetPoolsOutput, PrimeApy, VTokenBalance } from '../
 import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
 import { formatOutput } from './formatOutput';
 import { getApiPools } from './getApiPools';
-import { getParticipantCounts } from './getParticipantCounts';
 import { getUserCollateralAddresses } from './getUserCollateralAddresses';
 import { getUserPrimeApys } from './getUserPrimeApys';
 import { getUserTokenBalances } from './getUserTokenBalances';
@@ -24,14 +23,12 @@ export const getPools = async ({
 }: GetPoolsInput) => {
   const [
     { pools: apiPools },
-    participantCounts,
     currentBlockNumber,
     unsafePrimeVTokenAddresses,
     primeMinimumXvsToStakeMantissa,
     userPrimeToken,
   ] = await Promise.all([
     getApiPools({ chainId }),
-    getParticipantCounts({ chainId }),
     // Fetch current block number
     publicClient.getBlockNumber(),
     // Prime related calls
@@ -115,7 +112,6 @@ export const getPools = async ({
     tokens,
     currentBlockNumber,
     apiPools,
-    participantsCountMap: participantCounts?.participantsCountMap,
     userPrimeApyMap,
     userCollateralVTokenAddresses,
     userVTokenBalances,
