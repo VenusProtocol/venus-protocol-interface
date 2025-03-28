@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.241.0
+
+### Minor Changes
+
+- 9a385fd: enable analytic events in production hosts
+- bd4a6a8: refactor some query functions to use viem and named exports
+
 ## 2.240.0
 
 ### Minor Changes

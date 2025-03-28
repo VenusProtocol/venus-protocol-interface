@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.13.0
+
+### Minor Changes
+
+- 9a385fd: enable analytic events in production hosts
+
 ## 1.12.0
 
 ### Minor Changes
