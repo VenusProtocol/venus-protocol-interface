@@ -1,3 +1,5 @@
+import { track } from '@vercel/analytics/react';
+
 export type AnalyticEventName =
   | 'Tokens supplied'
   | 'Tokens swapped and supplied'
@@ -31,7 +33,6 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
           priceImpactPercentage: number;
           slippageTolerancePercentage: number;
           exchangeRate: number;
-          routePath: string[];
         }
       : TEventName extends 'Tokens collateralized'
         ? {
@@ -75,7 +76,6 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
                       priceImpactPercentage: number;
                       slippageTolerancePercentage: number;
                       exchangeRate: number;
-                      routePath: string[];
                       repaidFullLoan: boolean;
                     }
                   : TEventName extends 'Tokens swapped'
@@ -87,7 +87,6 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
                         priceImpactPercentage: number;
                         slippageTolerancePercentage: number;
                         exchangeRate: number;
-                        routePath: string[];
                       }
                     : TEventName extends 'Tokens staked in XVS vault'
                       ? {
@@ -117,7 +116,6 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
                               : TEventName extends 'Pool reward claimed'
                                 ? {
                                     comptrollerAddress: string;
-                                    vTokenAddressesWithPendingReward: string[];
                                   }
                                 : TEventName extends 'XVS vesting vault reward claimed'
                                   ? {
@@ -130,10 +128,10 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
 
 const useAnalytics = () => {
   function captureAnalyticEvent<TEventName extends AnalyticEventName>(
-    _eventName: TEventName,
-    _eventProps: AnalyticEventProps<TEventName>,
+    eventName: TEventName,
+    eventProps: AnalyticEventProps<TEventName>,
   ) {
-    // TODO: send event
+    track(eventName, eventProps);
   }
 
   return {

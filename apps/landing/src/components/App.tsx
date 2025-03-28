@@ -25,7 +25,7 @@ function Main() {
 }
 
 const queryClient = new QueryClient();
-const isRunningInProduction = window.location.origin === LANDING_PAGE_PRODUCTION_URL;
+const isMainProductionHost = window.location.origin === LANDING_PAGE_PRODUCTION_URL;
 
 function App() {
   useEffect(() => {
@@ -44,7 +44,7 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-      <Analytics mode={isRunningInProduction ? 'production' : 'development'} />
+      <Analytics mode={isMainProductionHost ? 'production' : 'development'} />
     </QueryClientProvider>
   );
 }
