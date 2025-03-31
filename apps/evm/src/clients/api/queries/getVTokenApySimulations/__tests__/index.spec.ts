@@ -1,4 +1,4 @@
-import type { PublicClient } from 'viem';
+import type { MulticallParameters, PublicClient } from 'viem';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
@@ -8,7 +8,9 @@ import { getVTokenApySimulations } from '..';
 const fakeInterestRateModelContractAddress = fakeAddress;
 
 const readContractMock = vi.fn(async () => 100000000000000000n);
-const multicallMock = vi.fn(async () => Array(100).fill({ result: 1000000000n }));
+const multicallMock = vi.fn(async ({ contracts }: MulticallParameters) =>
+  contracts.map(c => ({ result: c.functionName === 'getSupplyRate' ? 1000000000n : 2000000000n })),
+);
 
 const fakePublicClient = {
   readContract: readContractMock,
