@@ -11,17 +11,12 @@ import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
-export type UseGetVrtConversionEndTimeQueryIndex = [
-  FunctionKey.GET_VRT_CONVERSION_END_TIME,
-  { chainId: ChainId },
-];
-
 type Options = QueryObserverOptions<
   GetVrtConversionEndTimeOutput,
   Error,
   GetVrtConversionEndTimeOutput,
   GetVrtConversionEndTimeOutput,
-  UseGetVrtConversionEndTimeQueryIndex
+  [FunctionKey.GET_VRT_CONVERSION_END_TIME, { chainId: ChainId }]
 >;
 
 export const useGetVrtConversionEndTime = (options?: Partial<Options>) => {

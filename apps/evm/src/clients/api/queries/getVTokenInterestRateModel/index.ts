@@ -1,17 +1,24 @@
-import type { VBep20, VBnb } from 'libs/contracts';
+import { vBep20Abi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetVTokenInterestRateModelInput {
-  vTokenContract: VBep20 | VBnb;
+  publicClient: PublicClient;
+  vTokenAddress: Address;
 }
 
 export type GetVTokenInterestRateModelOutput = {
-  contractAddress: string;
+  contractAddress: Address;
 };
 
 export const getVTokenInterestRateModel = async ({
-  vTokenContract,
+  publicClient,
+  vTokenAddress,
 }: GetVTokenInterestRateModelInput): Promise<GetVTokenInterestRateModelOutput> => {
-  const contractAddress = await vTokenContract.interestRateModel();
+  const contractAddress = await publicClient.readContract({
+    address: vTokenAddress,
+    abi: vBep20Abi,
+    functionName: 'interestRateModel',
+  });
 
   return {
     contractAddress,

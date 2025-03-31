@@ -1,8 +1,9 @@
-import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
 import type { Asset } from 'types';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetVTokenApySimulationsInput {
-  interestRateModelContract: JumpRateModel | JumpRateModelV2;
+  publicClient: PublicClient;
+  interestRateModelContractAddress: Address;
   isIsolatedPoolMarket: boolean;
   asset: Asset;
   blocksPerDay?: number;
