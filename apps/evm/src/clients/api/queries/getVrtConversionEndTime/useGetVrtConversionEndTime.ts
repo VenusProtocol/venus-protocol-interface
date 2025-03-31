@@ -34,8 +34,8 @@ export const useGetVrtConversionEndTime = (options?: Partial<Options>) => {
   return useQuery({
     queryKey: [FunctionKey.GET_VRT_CONVERSION_END_TIME, { chainId }],
     queryFn: () =>
-      callOrThrow({ publicClient, vrtConverterAddress }, params =>
-        getVrtConversionEndTime({ ...params }),
+      callOrThrow({ vrtConverterAddress }, params =>
+        getVrtConversionEndTime({ ...params, publicClient }),
       ),
     ...options,
     enabled: !!vrtConverterAddress && (options?.enabled === undefined || options?.enabled),

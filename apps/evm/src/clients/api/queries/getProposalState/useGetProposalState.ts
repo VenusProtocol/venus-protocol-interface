@@ -38,10 +38,11 @@ export const useGetProposalState = (
     queryKey: [FunctionKey.GET_PROPOSAL_STATE, input],
 
     queryFn: () =>
-      callOrThrow({ publicClient, governorBravoDelegateAddress }, params =>
+      callOrThrow({ governorBravoDelegateAddress }, params =>
         getProposalState({
           ...input,
           ...params,
+          publicClient,
         }),
       ),
 

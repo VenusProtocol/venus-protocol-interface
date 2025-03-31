@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
-
-import type { VrtConverter } from 'libs/contracts';
+import { vrtConverterAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface VrtConversionRatioInput {
-  vrtConverterContract: VrtConverter;
+  publicClient: PublicClient;
+  vrtConverterAddress: Address;
 }
 
 export type GetVrtConversionRatioOutput = {
@@ -11,9 +12,14 @@ export type GetVrtConversionRatioOutput = {
 };
 
 export const getVrtConversionRatio = async ({
-  vrtConverterContract,
+  publicClient,
+  vrtConverterAddress,
 }: VrtConversionRatioInput): Promise<GetVrtConversionRatioOutput> => {
-  const conversionRatio = await vrtConverterContract.conversionRatio();
+  const conversionRatio = await publicClient.readContract({
+    address: vrtConverterAddress,
+    abi: vrtConverterAbi,
+    functionName: 'conversionRatio',
+  });
 
   return { conversionRatio: new BigNumber(conversionRatio.toString()) };
 };

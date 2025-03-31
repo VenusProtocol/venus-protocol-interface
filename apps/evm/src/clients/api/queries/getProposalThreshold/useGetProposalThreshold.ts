@@ -25,8 +25,8 @@ export const useGetProposalThreshold = (options?: Partial<Options>) => {
   return useQuery({
     queryKey: [FunctionKey.GET_PROPOSAL_THRESHOLD],
     queryFn: () =>
-      callOrThrow({ publicClient, governorBravoDelegateAddress }, params =>
-        getProposalThreshold(params),
+      callOrThrow({ governorBravoDelegateAddress }, params =>
+        getProposalThreshold({ ...params, publicClient }),
       ),
     ...options,
   });

@@ -45,8 +45,8 @@ export const useGetVaiVaultUserInfo = (
   return useQuery({
     queryKey: [FunctionKey.GET_VAI_VAULT_USER_INFO, { ...input, chainId }],
     queryFn: () =>
-      callOrThrow({ publicClient, vaiVaultAddress }, params =>
-        getVaiVaultUserInfo({ ...params, ...input }),
+      callOrThrow({ vaiVaultAddress }, params =>
+        getVaiVaultUserInfo({ ...params, ...input, publicClient }),
       ),
     ...options,
     enabled: !!vaiVaultAddress && (options?.enabled === undefined || options?.enabled),

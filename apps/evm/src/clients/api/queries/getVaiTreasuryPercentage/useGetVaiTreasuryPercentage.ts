@@ -31,8 +31,8 @@ export const useGetVaiTreasuryPercentage = (options?: Partial<Options>) => {
   return useQuery({
     queryKey: [FunctionKey.GET_VAI_TREASURY_PERCENTAGE, { chainId }],
     queryFn: () =>
-      callOrThrow({ publicClient, vaiControllerAddress }, params =>
-        getVaiTreasuryPercentage({ ...params }),
+      callOrThrow({ vaiControllerAddress }, params =>
+        getVaiTreasuryPercentage({ ...params, publicClient }),
       ),
     ...options,
   });

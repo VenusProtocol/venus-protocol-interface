@@ -25,8 +25,8 @@ export const useGetProposalMinQuorumVotes = (options?: Partial<Options>) => {
   return useQuery({
     queryKey: [FunctionKey.GET_PROPOSAL_MIN_QUORUM_VOTES],
     queryFn: () =>
-      callOrThrow({ publicClient, governorBravoDelegateContractAddress }, params =>
-        getProposalMinQuorumVotes(params),
+      callOrThrow({ governorBravoDelegateContractAddress }, params =>
+        getProposalMinQuorumVotes({ ...params, publicClient }),
       ),
     ...options,
   });

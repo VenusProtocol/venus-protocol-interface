@@ -41,8 +41,8 @@ export const useGetPrimeDistributionForMarket = (
     queryKey: [FunctionKey.GET_PRIME_DISTRIBUTION_FOR_MARKET, { vTokenAddress, chainId }],
 
     queryFn: () =>
-      callOrThrow({ vTokenAddress, primeContractAddress, publicClient }, params =>
-        getPrimeDistributionForMarket(params),
+      callOrThrow({ vTokenAddress, primeContractAddress }, params =>
+        getPrimeDistributionForMarket({ ...params, publicClient }),
       ),
 
     ...options,

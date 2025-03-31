@@ -35,10 +35,11 @@ export const useGetProposalEta = (
     queryKey: [FunctionKey.GET_PROPOSAL_ETA, input],
 
     queryFn: () =>
-      callOrThrow({ publicClient, governorBravoDelegateContractAddress }, params =>
+      callOrThrow({ governorBravoDelegateContractAddress }, params =>
         getProposalEta({
           ...input,
           ...params,
+          publicClient,
         }),
       ),
 

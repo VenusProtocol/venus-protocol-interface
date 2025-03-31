@@ -57,8 +57,8 @@ export const useGetTokenUsdPrice = (
     ],
 
     queryFn: () =>
-      callOrThrow({ token, publicClient, resilientOracleAddress }, params =>
-        getTokenUsdPrice({ ...params }),
+      callOrThrow({ token, resilientOracleAddress }, params =>
+        getTokenUsdPrice({ publicClient, ...params }),
       ),
 
     ...options,
