@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.242.0
+
+### Minor Changes
+
+- c7b5b25: allow multiple RPC provider URLs for each chain
+
+### Patch Changes
+
+- 93b359f: fix icon used on "against" votes
+
 ## 2.241.0
 
 ### Minor Changes
