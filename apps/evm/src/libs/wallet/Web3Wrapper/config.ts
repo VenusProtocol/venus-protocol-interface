@@ -11,11 +11,15 @@ import { WALLET_CONNECT_PROJECT_ID } from '../constants';
 const connectKitConfig = getDefaultConfig({
   chains: chains as [Chain, ...Chain[]],
   transports: chains.reduce((acc, chain) => {
-    const url = localConfig.rpcUrls[chain.id as ChainId];
+    const urls = localConfig.rpcUrls[chain.id as ChainId];
 
     return {
       ...acc,
-      [chain.id]: fallback([http(url), http()]),
+      [chain.id]: fallback([
+        ...urls.map(url => http(url)),
+        // Add public RPC Node as a last resort solution
+        http(),
+      ]),
     };
   }, {}),
   walletConnectProjectId: WALLET_CONNECT_PROJECT_ID,

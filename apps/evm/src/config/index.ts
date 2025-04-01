@@ -15,7 +15,7 @@ export interface Config {
   isSafeApp: boolean;
   apiUrl: string;
   rpcUrls: {
-    [chainId in ChainId]: string;
+    [chainId in ChainId]: string[];
   };
   bscCorePoolSubgraphUrls: {
     [ChainId.BSC_MAINNET]: string | undefined;
