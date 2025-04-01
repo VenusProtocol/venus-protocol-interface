@@ -43,7 +43,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
               return (
                 <div css={styles.row}>
                   <div css={[styles.icon, styles.against]}>
-                    <Icon name="closeRounded" />
+                    <Icon name="close" />
                   </div>
                   {t('voterDetail.votedAgainst')}
                 </div>
