@@ -3,11 +3,7 @@ import type { ChainId, Environment, Network } from 'types';
 import { apiUrls } from './apiUrls';
 import { envVariables } from './envVariables';
 import { rpcUrls } from './rpcUrls';
-import {
-  getBscCorePoolSubgraphUrls,
-  getGovernanceSubgraphUrls,
-  getIsolatedPoolsSubgraphUrls,
-} from './subgraphUrls';
+import { getGovernanceSubgraphUrls } from './subgraphUrls';
 
 export interface Config {
   environment: Environment;
@@ -16,13 +12,6 @@ export interface Config {
   apiUrl: string;
   rpcUrls: {
     [chainId in ChainId]: string[];
-  };
-  bscCorePoolSubgraphUrls: {
-    [ChainId.BSC_MAINNET]: string | undefined;
-    [ChainId.BSC_TESTNET]: string | undefined;
-  };
-  isolatedPoolsSubgraphUrls: {
-    [chainId in ChainId]: string | undefined;
   };
   governanceSubgraphUrls: {
     [chainId in ChainId]: string | undefined;
@@ -46,8 +35,6 @@ const keys = {
 };
 
 const governanceSubgraphUrls = getGovernanceSubgraphUrls(keys);
-const bscCorePoolSubgraphUrls = getBscCorePoolSubgraphUrls(keys);
-const isolatedPoolsSubgraphUrls = getIsolatedPoolsSubgraphUrls(keys);
 
 const isSafeApp = window?.location.ancestorOrigins?.[0] === 'https://app.safe.global';
 
@@ -57,8 +44,6 @@ const config: Config = {
   isSafeApp,
   apiUrl,
   rpcUrls,
-  bscCorePoolSubgraphUrls,
-  isolatedPoolsSubgraphUrls,
   governanceSubgraphUrls,
   sentryDsn: envVariables.VITE_SENTRY_DSN || '',
   posthog: {
