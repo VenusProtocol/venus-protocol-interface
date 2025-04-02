@@ -6,19 +6,16 @@ import {
   getVTokenBalance,
 } from 'clients/api/queries/getVTokenBalance';
 import FunctionKey from 'constants/functionKey';
-import { useGetVTokenContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
-import type { ChainId, VToken } from 'types';
-import { callOrThrow } from 'utilities';
+import { useChainId, usePublicClient } from 'libs/wallet';
+import type { ChainId } from 'types';
+import type { Address } from 'viem';
 
-interface TrimmedGetVTokenBalanceInput extends Omit<GetVTokenBalanceInput, 'vTokenContract'> {
-  vToken: VToken;
-}
+type TrimmedGetVTokenBalanceInput = Omit<GetVTokenBalanceInput, 'publicClient'>;
 
 export type UseGetVTokenBalanceQueryKey = [
   FunctionKey.GET_V_TOKEN_BALANCE,
   Omit<TrimmedGetVTokenBalanceInput, 'vToken'> & {
-    vTokenAddress: string;
+    vTokenAddress: Address;
     chainId: ChainId;
   },
 ];
@@ -32,26 +29,21 @@ type Options = QueryObserverOptions<
 >;
 
 export const useGetVTokenBalance = (
-  { accountAddress, vToken }: TrimmedGetVTokenBalanceInput,
+  { accountAddress, vTokenAddress }: TrimmedGetVTokenBalanceInput,
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const vTokenContract = useGetVTokenContract({ vToken });
+  const { publicClient } = usePublicClient();
 
   return useQuery({
-    queryKey: [
-      FunctionKey.GET_V_TOKEN_BALANCE,
-      { accountAddress, vTokenAddress: vToken.address, chainId },
-    ],
+    queryKey: [FunctionKey.GET_V_TOKEN_BALANCE, { accountAddress, vTokenAddress, chainId }],
 
     queryFn: () =>
-      callOrThrow({ vTokenContract }, params =>
-        getVTokenBalance({
-          ...params,
-          accountAddress,
-        }),
-      ),
-
+      getVTokenBalance({
+        vTokenAddress,
+        publicClient,
+        accountAddress,
+      }),
     ...options,
   });
 };

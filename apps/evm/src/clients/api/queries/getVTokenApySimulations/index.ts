@@ -1,30 +1,27 @@
 import BigNumber from 'bignumber.js';
 
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
+import { jumpRateModelAbi, jumpRateModelV2Abi } from 'libs/contracts';
 import { convertTokensToMantissa } from 'utilities';
-
 import formatCurrentUtilizationRate from './formatCurrentUtilizationRate';
 import formatToApySnapshots from './formatToApySnapshots';
 import type { GetVTokenApySimulationsInput, GetVTokenApySimulationsOutput } from './types';
 
-export * from './types';
-
-const REFERENCE_AMOUNT_MANTISSA = 1e4;
-const BAD_DEBT_MANTISSA = '0';
+const REFERENCE_AMOUNT_MANTISSA = 10000;
+const BAD_DEBT_MANTISSA = 0n;
 
 export const getVTokenApySimulations = async ({
-  interestRateModelContract,
+  publicClient,
+  interestRateModelContractAddress,
   isIsolatedPoolMarket,
   asset,
   blocksPerDay,
 }: GetVTokenApySimulationsInput): Promise<GetVTokenApySimulationsOutput> => {
   const reserveFactorMantissa = new BigNumber(asset.reserveFactor).multipliedBy(COMPOUND_MANTISSA);
+  const abi = isIsolatedPoolMarket ? jumpRateModelV2Abi : jumpRateModelAbi;
 
-  const getBorrowRatePromises: ReturnType<(typeof interestRateModelContract)['getBorrowRate']>[] =
-    [];
-  const getSupplyRatePromises: ReturnType<(typeof interestRateModelContract)['getSupplyRate']>[] =
-    [];
+  const borrowRateCalls = [];
+  const supplyRateCalls = [];
 
   for (let u = 1; u <= 100; u++) {
     const utilizationRatePercentage = u / 100;
@@ -37,84 +34,101 @@ export const getVTokenApySimulations = async ({
     const reservesAmountMantissa = new BigNumber(0).toFixed();
 
     if (isIsolatedPoolMarket) {
-      getBorrowRatePromises.push(
-        (interestRateModelContract as JumpRateModelV2).getBorrowRate(
+      borrowRateCalls.push({
+        address: interestRateModelContractAddress,
+        abi,
+        functionName: 'getBorrowRate',
+        args: [
           cashAmountMantissa,
           borrowsAmountMantissa,
           reservesAmountMantissa,
           BAD_DEBT_MANTISSA,
-        ),
-      );
+        ],
+      });
 
-      getSupplyRatePromises.push(
-        (interestRateModelContract as JumpRateModelV2).getSupplyRate(
+      supplyRateCalls.push({
+        address: interestRateModelContractAddress,
+        abi,
+        functionName: 'getSupplyRate',
+        args: [
           cashAmountMantissa,
           borrowsAmountMantissa,
           reservesAmountMantissa,
           reserveFactorMantissa.toFixed(),
           BAD_DEBT_MANTISSA,
-        ),
-      );
+        ],
+      });
     } else {
-      getBorrowRatePromises.push(
-        (interestRateModelContract as JumpRateModel).getBorrowRate(
-          cashAmountMantissa,
-          borrowsAmountMantissa,
-          reservesAmountMantissa,
-        ),
-      );
+      borrowRateCalls.push({
+        address: interestRateModelContractAddress,
+        abi,
+        functionName: 'getBorrowRate',
+        args: [cashAmountMantissa, borrowsAmountMantissa, reservesAmountMantissa],
+      });
 
-      getSupplyRatePromises.push(
-        (interestRateModelContract as JumpRateModel).getSupplyRate(
+      supplyRateCalls.push({
+        address: interestRateModelContractAddress,
+        abi,
+        functionName: 'getSupplyRate',
+        args: [
           cashAmountMantissa,
           borrowsAmountMantissa,
           reservesAmountMantissa,
           reserveFactorMantissa.toFixed(),
-        ),
-      );
+        ],
+      });
     }
   }
 
-  const cashMantissa = convertTokensToMantissa({
-    value: asset.cashTokens,
-    token: asset.vToken.underlyingToken,
-  }).toFixed();
-  const borrowBalanceMantissa = convertTokensToMantissa({
-    value: asset.borrowBalanceTokens,
-    token: asset.vToken.underlyingToken,
-  }).toFixed();
-  const reservesMantissa = convertTokensToMantissa({
-    value: asset.reserveTokens,
-    token: asset.vToken.underlyingToken,
-  }).toFixed();
+  const cashMantissa = BigInt(
+    convertTokensToMantissa({
+      value: asset.cashTokens,
+      token: asset.vToken.underlyingToken,
+    }).toFixed(),
+  );
+  const borrowBalanceMantissa = BigInt(
+    convertTokensToMantissa({
+      value: asset.borrowBalanceTokens,
+      token: asset.vToken.underlyingToken,
+    }).toFixed(),
+  );
+  const reservesMantissa = BigInt(
+    convertTokensToMantissa({
+      value: asset.reserveTokens,
+      token: asset.vToken.underlyingToken,
+    }).toFixed(),
+  );
 
-  const groupedGetBorrowRatePromises = Promise.all(getBorrowRatePromises);
-  const groupedGetSupplyRatePromises = Promise.all(getSupplyRatePromises);
-  const utilizationRatePromise = isIsolatedPoolMarket
-    ? (interestRateModelContract as JumpRateModelV2).utilizationRate(
-        cashMantissa,
-        borrowBalanceMantissa,
-        reservesMantissa,
-        BAD_DEBT_MANTISSA,
-      )
-    : (interestRateModelContract as JumpRateModel).utilizationRate(
-        cashMantissa,
-        borrowBalanceMantissa,
-        reservesMantissa,
-      );
-
-  const borrowRates = await groupedGetBorrowRatePromises;
-  const supplyRates = await groupedGetSupplyRatePromises;
-  const utilizationRatePercentage = await utilizationRatePromise;
+  const [borrowRatePercentages, supplyRatePercentages, utilizationRatePercentage] =
+    await Promise.all([
+      publicClient.multicall({
+        contracts: borrowRateCalls,
+      }),
+      publicClient.multicall({
+        contracts: supplyRateCalls,
+      }),
+      publicClient.readContract({
+        address: interestRateModelContractAddress,
+        abi,
+        functionName: 'utilizationRate',
+        args: isIsolatedPoolMarket
+          ? [cashMantissa, borrowBalanceMantissa, reservesMantissa, BAD_DEBT_MANTISSA]
+          : [cashMantissa, borrowBalanceMantissa, reservesMantissa],
+      }),
+    ]);
 
   const apySimulations = formatToApySnapshots({
-    borrowRates,
-    supplyRates,
+    borrowRatePercentages: borrowRatePercentages.map(r => r.result as bigint),
+    supplyRatePercentages: supplyRatePercentages.map(r => r.result as bigint),
     blocksPerDay,
   });
+
   const currentUtilizationRatePercentage = formatCurrentUtilizationRate({
     utilizationRatePercentage,
   });
 
-  return { apySimulations, currentUtilizationRatePercentage };
+  return {
+    apySimulations,
+    currentUtilizationRatePercentage,
+  };
 };

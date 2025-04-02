@@ -1,7 +1,9 @@
-import type { VrtConverter } from 'libs/contracts';
+import { vrtConverterAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetVrtConversionEndTimeInput {
-  vrtConverterContract: VrtConverter;
+  publicClient: PublicClient;
+  vrtConverterAddress: Address;
 }
 
 export type GetVrtConversionEndTimeOutput = {
@@ -9,12 +11,17 @@ export type GetVrtConversionEndTimeOutput = {
 };
 
 export const getVrtConversionEndTime = async ({
-  vrtConverterContract,
+  publicClient,
+  vrtConverterAddress,
 }: GetVrtConversionEndTimeInput): Promise<GetVrtConversionEndTimeOutput> => {
-  const resp = await vrtConverterContract.conversionEndTime();
+  const resp = await publicClient.readContract({
+    address: vrtConverterAddress,
+    abi: vrtConverterAbi,
+    functionName: 'conversionEndTime',
+  });
 
-  // End Date is returned as unix timestamp;
+  // End date is returned as unix timestamp
   return {
-    conversionEndTime: new Date(resp.mul(1000).toNumber()),
+    conversionEndTime: new Date(Number(resp) * 1000),
   };
 };

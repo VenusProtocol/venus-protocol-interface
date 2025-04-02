@@ -1,8 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
 import { calculateDailyTokenRate, calculateYearlyPercentageRate } from 'utilities';
-
 import type { VTokenApySnapshot } from './types';
 
 const calculateApy = ({ rate, blocksPerDay }: { rate: BigNumber; blocksPerDay?: number }) => {
@@ -17,37 +15,39 @@ const calculateApy = ({ rate, blocksPerDay }: { rate: BigNumber; blocksPerDay?: 
 };
 
 export type FormatToApySnapshotsInput = {
-  supplyRates: Awaited<ReturnType<(JumpRateModel | JumpRateModelV2)['getSupplyRate']>>[];
-  borrowRates: Awaited<ReturnType<(JumpRateModel | JumpRateModelV2)['getBorrowRate']>>[];
+  supplyRatePercentages: bigint[];
+  borrowRatePercentages: bigint[];
   blocksPerDay?: number;
 };
 
 const formatToApySnapshots = ({
   blocksPerDay,
-  supplyRates,
-  borrowRates,
+  supplyRatePercentages,
+  borrowRatePercentages,
 }: FormatToApySnapshotsInput) => {
   let utilizationRatePercentage = 0;
 
-  const apySimulations: VTokenApySnapshot[] = supplyRates.map((unformattedSupplyRate, index) => {
-    const supplyApyPercentage = calculateApy({
-      rate: new BigNumber(unformattedSupplyRate.toString()),
-      blocksPerDay,
-    }).toNumber();
+  const apySimulations: VTokenApySnapshot[] = supplyRatePercentages.map(
+    (unformattedSupplyRate, index) => {
+      const supplyApyPercentage = calculateApy({
+        rate: new BigNumber(unformattedSupplyRate.toString()),
+        blocksPerDay,
+      }).toNumber();
 
-    const borrowApyPercentage = calculateApy({
-      rate: new BigNumber(borrowRates[index].toString()),
-      blocksPerDay,
-    }).toNumber();
+      const borrowApyPercentage = calculateApy({
+        rate: new BigNumber(borrowRatePercentages[index].toString()),
+        blocksPerDay,
+      }).toNumber();
 
-    utilizationRatePercentage += 1;
+      utilizationRatePercentage += 1;
 
-    return {
-      utilizationRatePercentage,
-      borrowApyPercentage,
-      supplyApyPercentage,
-    };
-  });
+      return {
+        utilizationRatePercentage,
+        borrowApyPercentage,
+        supplyApyPercentage,
+      };
+    },
+  );
 
   return apySimulations;
 };

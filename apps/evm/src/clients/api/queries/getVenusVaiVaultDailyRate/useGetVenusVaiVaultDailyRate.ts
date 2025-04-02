@@ -33,8 +33,8 @@ export const useGetVenusVaiVaultDailyRate = (options?: Partial<Options>) => {
   return useQuery({
     queryKey: [FunctionKey.GET_VENUS_VAI_VAULT_DAILY_RATE, { chainId }],
     queryFn: () =>
-      callOrThrow({ publicClient, legacyPoolComptrollerAddress, blocksPerDay }, params =>
-        getVenusVaiVaultDailyRate({ ...params }),
+      callOrThrow({ legacyPoolComptrollerAddress, blocksPerDay }, params =>
+        getVenusVaiVaultDailyRate({ ...params, publicClient }),
       ),
     ...options,
     enabled: !!legacyPoolComptrollerAddress && (options?.enabled === undefined || options?.enabled),

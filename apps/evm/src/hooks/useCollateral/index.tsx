@@ -1,7 +1,6 @@
 import { getVTokenBalance, useEnterMarket, useExitMarket } from 'clients/api';
 import {
   getIsolatedPoolComptrollerContract,
-  getVTokenContract,
   isolatedPoolComptrollerAbi,
   useGetLegacyPoolComptrollerContract,
 } from 'libs/contracts';
@@ -55,11 +54,10 @@ const useCollateral = () => {
     }
 
     if (asset.isCollateralOfUser) {
-      const vTokenContract = getVTokenContract({ vToken: asset.vToken, signerOrProvider: signer });
-
       try {
         const vTokenBalanceOf = await getVTokenBalance({
-          vTokenContract,
+          publicClient,
+          vTokenAddress: asset.vToken.address,
           accountAddress,
         });
 

@@ -131,9 +131,6 @@ export * from './queries/getUserVaiBorrowBalance/useGetUserVaiBorrowBalance';
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
 
-export * from './queries/getVTokenBalancesAll';
-export * from './queries/getVTokenBalancesAll/useGetVTokenBalancesAll';
-
 export * from './queries/getVTokenBalance';
 export * from './queries/getVTokenBalance/useGetVTokenBalance';
 

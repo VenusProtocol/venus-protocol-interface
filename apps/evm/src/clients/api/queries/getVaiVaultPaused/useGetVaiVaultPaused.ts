@@ -28,7 +28,7 @@ export const useGetVaiVaultPaused = (options?: Partial<Options>) => {
   return useQuery({
     queryKey: [FunctionKey.GET_VAI_VAULT_PAUSED, { chainId }],
     queryFn: () =>
-      callOrThrow({ publicClient, vaiVaultAddress }, params => getVaiVaultPaused({ ...params })),
+      callOrThrow({ vaiVaultAddress }, params => getVaiVaultPaused({ ...params, publicClient })),
     ...options,
     enabled: !!vaiVaultAddress && (options?.enabled === undefined || options?.enabled),
   });

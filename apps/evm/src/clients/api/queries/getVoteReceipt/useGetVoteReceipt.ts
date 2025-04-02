@@ -33,8 +33,8 @@ export const useGetVoteReceipt = (
   return useQuery({
     queryKey: [FunctionKey.GET_VOTE_RECEIPT, input],
     queryFn: () =>
-      callOrThrow({ publicClient, governorBravoDelegateAddress }, params =>
-        getVoteReceipt({ ...params, ...input }),
+      callOrThrow({ governorBravoDelegateAddress }, params =>
+        getVoteReceipt({ ...params, ...input, publicClient }),
       ),
     enabled:
       (options?.enabled === undefined || options?.enabled) &&

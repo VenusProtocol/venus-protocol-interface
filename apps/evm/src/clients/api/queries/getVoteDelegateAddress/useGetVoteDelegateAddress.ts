@@ -36,8 +36,8 @@ export const useGetVoteDelegateAddress = (
   return useQuery({
     queryKey: [FunctionKey.GET_VOTE_DELEGATE_ADDRESS, input],
     queryFn: () =>
-      callOrThrow({ publicClient, xvsVaultAddress }, params =>
-        getVoteDelegateAddress({ ...params, ...input }),
+      callOrThrow({ xvsVaultAddress }, params =>
+        getVoteDelegateAddress({ ...params, ...input, publicClient }),
       ),
     ...options,
     enabled: !!xvsVaultAddress && (options?.enabled === undefined || options?.enabled),

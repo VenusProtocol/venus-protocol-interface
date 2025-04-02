@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getVrtConversionRatio > returns VRT conversion ratio in the right format on success 1`] = `
+{
+  "conversionRatio": "1000000000000000000",
+}
+`;

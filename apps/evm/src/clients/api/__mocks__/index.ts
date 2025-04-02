@@ -64,14 +64,6 @@ export const useGetMarketHistory = vi.fn(() =>
   }),
 );
 
-export const getVTokenBalancesAll = vi.fn();
-export const useGetVTokenBalancesAll = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL],
-    queryFn: getVTokenBalancesAll,
-  }),
-);
-
 export const getMintableVai = vi.fn();
 export const useGetMintableVai = vi.fn(() =>
   useQuery({

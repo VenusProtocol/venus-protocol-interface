@@ -1,82 +1,61 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
+import { usePublicClient } from 'wagmi';
 
-import {
-  type GetVTokenApySimulationsOutput,
-  getVTokenApySimulations,
-} from 'clients/api/queries/getVTokenApySimulations';
-import { useGetVTokenInterestRateModel } from 'clients/api/queries/getVTokenInterestRateModel/useGetVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { getJumpRateModelContract, getJumpRateModelV2Contract } from 'libs/contracts';
-import { useChainId, useProvider } from 'libs/wallet';
-import type { Asset, ChainId, VToken } from 'types';
+import { useChainId } from 'libs/wallet';
+import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
-import type { Address } from 'viem';
+import { getVTokenApySimulations } from '.';
+import { useGetVTokenInterestRateModel } from '../getVTokenInterestRateModel/useGetVTokenInterestRateModel';
+import type { GetVTokenApySimulationsInput, GetVTokenApySimulationsOutput } from './types';
 
-export type UseGetVTokenApySimulationsQueryKey = [
-  FunctionKey.GET_V_TOKEN_APY_SIMULATIONS,
-  { vTokenAddress: string; chainId: ChainId },
-];
+type TrimmedGetVTokenApySimulationsInput = Omit<
+  GetVTokenApySimulationsInput,
+  'publicClient' | 'interestRateModelContractAddress'
+>;
 
 type Options = QueryObserverOptions<
   GetVTokenApySimulationsOutput,
   Error,
   GetVTokenApySimulationsOutput,
   GetVTokenApySimulationsOutput,
-  UseGetVTokenApySimulationsQueryKey
+  [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { chainId: ChainId; vTokenAddress: string }]
 >;
 
 export const useGetVTokenApySimulations = (
-  {
-    asset,
-    vToken,
-    isIsolatedPoolMarket,
-  }: {
-    asset: Asset | undefined;
-    vToken: VToken;
-    isIsolatedPoolMarket: boolean;
-  },
-  options?: Partial<Options>,
+  input: TrimmedGetVTokenApySimulationsInput,
+  options?: Options,
 ) => {
-  const { provider } = useProvider();
+  const publicClient = usePublicClient();
   const { chainId } = useChainId();
+  const { data: interestRateModelData } = useGetVTokenInterestRateModel({
+    vToken: input.asset.vToken,
+  });
+  const interestRateModelContractAddress = interestRateModelData?.contractAddress;
   const { blocksPerDay } = useGetChainMetadata();
 
-  const { data: interestRateModelData } = useGetVTokenInterestRateModel({ vToken });
-
-  const interestRateModelContract = useMemo(() => {
-    if (!interestRateModelData?.contractAddress) {
-      return undefined;
-    }
-
-    const input = {
-      address: interestRateModelData.contractAddress as Address,
-      signerOrProvider: provider,
-    };
-
-    return isIsolatedPoolMarket
-      ? getJumpRateModelV2Contract(input)
-      : getJumpRateModelContract(input);
-  }, [interestRateModelData?.contractAddress, isIsolatedPoolMarket, provider]);
-
   return useQuery({
-    queryKey: [FunctionKey.GET_V_TOKEN_APY_SIMULATIONS, { vTokenAddress: vToken.address, chainId }],
-
+    queryKey: [
+      FunctionKey.GET_V_TOKEN_APY_SIMULATIONS,
+      {
+        chainId,
+        vTokenAddress: input.asset.vToken.address,
+      },
+    ],
     queryFn: () =>
-      callOrThrow({ interestRateModelContract, asset }, params =>
+      callOrThrow({ interestRateModelContractAddress }, params =>
         getVTokenApySimulations({
+          ...input,
           ...params,
-          isIsolatedPoolMarket,
+          publicClient,
           blocksPerDay,
         }),
       ),
-
     ...options,
-
     enabled:
       (options?.enabled === undefined || options?.enabled) &&
-      !!interestRateModelContract &&
-      !!asset,
+      !!interestRateModelContractAddress &&
+      !!input.asset,
   });
 };

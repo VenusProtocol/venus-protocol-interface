@@ -269,8 +269,8 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
 
   const { data: getVTokenBalanceData } = useGetVTokenBalance(
     {
-      accountAddress: accountAddress || '',
-      vToken: asset.vToken,
+      accountAddress: accountAddress || NULL_ADDRESS,
+      vTokenAddress: asset.vToken.address,
     },
     {
       enabled: !!accountAddress,

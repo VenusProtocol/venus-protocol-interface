@@ -1,10 +1,13 @@
 import BigNumber from 'bignumber.js';
+import type { PublicClient } from 'viem';
+import type { Address } from 'viem';
 
-import type { VBep20, VBnb } from 'libs/contracts';
+import { vBep20Abi } from 'libs/contracts';
 
 export interface GetVTokenBalanceInput {
-  vTokenContract: VBep20 | VBnb;
-  accountAddress: string;
+  publicClient: PublicClient;
+  vTokenAddress: Address;
+  accountAddress: Address;
 }
 
 export type GetVTokenBalanceOutput = {
@@ -12,10 +15,16 @@ export type GetVTokenBalanceOutput = {
 };
 
 export const getVTokenBalance = async ({
-  vTokenContract,
+  publicClient,
+  vTokenAddress,
   accountAddress,
 }: GetVTokenBalanceInput): Promise<GetVTokenBalanceOutput> => {
-  const res = await vTokenContract.balanceOf(accountAddress);
+  const res = await publicClient.readContract({
+    address: vTokenAddress,
+    abi: vBep20Abi,
+    functionName: 'balanceOf',
+    args: [accountAddress],
+  });
 
   return {
     balanceMantissa: new BigNumber(res.toString()),

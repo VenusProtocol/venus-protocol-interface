@@ -1,18 +1,18 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
+import { usePublicClient } from 'wagmi';
 
 import {
   type GetVTokenInterestRateModelOutput,
   getVTokenInterestRateModel,
 } from 'clients/api/queries/getVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
-import { useGetVTokenContract } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import type { ChainId, VToken } from 'types';
-import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 export type UseGetVTokenInterestRateModelQueryKey = [
   FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL,
-  { vTokenAddress: string; chainId: ChainId },
+  { vTokenAddress: Address; chainId: ChainId },
 ];
 
 type Options = QueryObserverOptions<
@@ -28,14 +28,18 @@ export const useGetVTokenInterestRateModel = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const vTokenContract = useGetVTokenContract({ vToken });
+  const publicClient = usePublicClient();
 
   return useQuery({
     queryKey: [
       FunctionKey.GET_V_TOKEN_INTEREST_RATE_MODEL,
       { vTokenAddress: vToken.address, chainId },
     ],
-    queryFn: () => callOrThrow({ vTokenContract }, getVTokenInterestRateModel),
+    queryFn: () =>
+      getVTokenInterestRateModel({
+        publicClient,
+        vTokenAddress: vToken.address,
+      }),
     ...options,
   });
 };

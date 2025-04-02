@@ -25,7 +25,6 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
       currentUtilizationRatePercentage: 0,
     },
   } = useGetVTokenApySimulations({
-    vToken: asset.vToken,
     isIsolatedPoolMarket,
     asset,
   });

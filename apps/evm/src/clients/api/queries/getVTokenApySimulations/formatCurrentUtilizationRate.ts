@@ -1,11 +1,7 @@
 import BigNumber from 'bignumber.js';
 
-import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
-
 export interface FormatCurrentUtilizationRateInput {
-  utilizationRatePercentage: Awaited<
-    ReturnType<(JumpRateModel | JumpRateModelV2)['utilizationRate']>
-  >;
+  utilizationRatePercentage: bigint;
 }
 
 const DIVIDER = 10 ** 16;
