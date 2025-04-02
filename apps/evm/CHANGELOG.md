@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 2.243.0
+
+### Minor Changes
+
+- 7e9986d: replace subgraphs with API for borrowers and suppliers counts
+
+### Patch Changes
+
+- ed4b995: refactor some query functions to use viem
+
 ## 2.242.0
 
 ### Minor Changes
