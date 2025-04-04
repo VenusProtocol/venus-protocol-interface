@@ -1,9 +1,10 @@
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
-const contractTxData: ContractTxData<any, any> = {
-  contract: {},
+const contractTxData: LooseEthersContractTxData = {
+  contract: {} as any,
   methodName: 'fakeMethod',
   args: [],
+  overrides: {},
 };
 
 export default contractTxData;

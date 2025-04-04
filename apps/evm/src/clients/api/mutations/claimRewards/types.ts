@@ -1,5 +1,5 @@
 import type { Multicall3 } from 'libs/contracts';
-import type { ContractTxData, Token } from 'types';
+import type { LooseEthersContractTxData, Token } from 'types';
 
 export interface VaiVaultClaim {
   contract: 'vaiVault';
@@ -45,4 +45,4 @@ export interface ClaimRewardsInput {
   primeContractAddress?: string;
 }
 
-export type ClaimRewardsOutput = ContractTxData<Multicall3, 'tryBlockAndAggregate'>;
+export type ClaimRewardsOutput = LooseEthersContractTxData;

@@ -23,7 +23,6 @@ const useWithdrawFromVaiVault = (options?: Partial<Options>) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.WITHDRAW_FROM_VAI_VAULT],
     fn: (input: TrimmedWithdrawFromVaiVaultInput) =>
       callOrThrow({ vaiVaultContract }, params =>
         withdrawFromVaiVault({

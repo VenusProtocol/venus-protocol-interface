@@ -14,7 +14,6 @@ const useWithdrawXvs = (options?: Partial<Options>) => {
   });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.WITHDRAW_XVS],
     fn: () => callOrThrow({ xvsVestingContract }, withdrawXvs),
     onConfirmed: async () => {
       const accountAddress = await xvsVestingContract?.signer.getAddress();

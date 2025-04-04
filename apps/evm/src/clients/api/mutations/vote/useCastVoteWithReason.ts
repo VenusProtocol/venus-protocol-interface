@@ -21,7 +21,6 @@ const useCastVoteWithReason = (options?: Partial<Options>) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.CAST_VOTE],
     fn: (input: TrimmedCastVoteWithReasonInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         castVoteWithReason({

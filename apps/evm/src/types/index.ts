@@ -1,8 +1,8 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId } from '@venusprotocol/chains';
 import type BigNumber from 'bignumber.js';
-import type { BaseContract, ContractReceipt } from 'ethers';
-import type { Address, ByteArray, Hex, TransactionReceipt } from 'viem';
+import type { BaseContract } from 'ethers';
+import type { Address, ByteArray, Hex } from 'viem';
 
 // TODO: import from package in places where it's used in the codebase
 export { ChainId, type ChainMetadata } from '@venusprotocol/chains/types';
@@ -491,17 +491,11 @@ export type SwapError =
 
 export type PSTokenCombination = [PSToken, PSToken];
 
-export type ContractTxData<
-  TContract extends BaseContract,
-  TMethodName extends keyof TContract['functions'],
-> = {
-  contract: TContract;
-  methodName: TMethodName;
-  args: Omit<Parameters<TContract['functions'][TMethodName]>, 'overrides'>;
+// This is a temporary type while we migrate to viem
+// TODO: remove once we've fully migrated to viem
+export type LooseEthersContractTxData = {
+  contract: BaseContract;
+  methodName: string;
+  args: readonly unknown[];
   overrides?: { value: string } | Record<never, never>;
 };
-
-export interface ContractTransaction {
-  hash: string;
-  wait: (confirmations?: number) => Promise<ContractReceipt | TransactionReceipt>;
-}

@@ -12,7 +12,6 @@ const useClaimPrimeToken = (options?: Partial<Options>) => {
   const primeContract = useGetPrimeContract({ passSigner: true });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.CLAIM_PRIME_TOKEN],
     fn: () => callOrThrow({ primeContract }, claimPrimeToken),
     onConfirmed: async () => {
       const accountAddress = await primeContract?.signer.getAddress();

@@ -18,7 +18,6 @@ const useCastVote = (options?: Partial<Options>) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.CAST_VOTE],
     fn: (input: TrimmedCastVoteInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         castVote({

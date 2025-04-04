@@ -1,7 +1,7 @@
 import type BigNumber from 'bignumber.js';
 
 import type { XvsVault } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface RequestWithdrawalFromXvsVaultInput {
   xvsVaultContract: XvsVault;
@@ -10,7 +10,7 @@ export interface RequestWithdrawalFromXvsVaultInput {
   amountMantissa: BigNumber;
 }
 
-export type RequestWithdrawalFromXvsVaultOutput = ContractTxData<XvsVault, 'requestWithdrawal'>;
+export type RequestWithdrawalFromXvsVaultOutput = LooseEthersContractTxData;
 
 const requestWithdrawalFromXvsVault = ({
   xvsVaultContract,

@@ -1,10 +1,21 @@
 import { getPublicClient, getWalletClient } from '@wagmi/core';
 import config from 'config';
-import type { BaseContract } from 'ethers';
 import { VError, logError } from 'libs/errors';
 import { ZYFI_SPONSORED_PAYMASTER_ENDPOINT } from 'libs/wallet';
-import type { ChainId, ContractTxData } from 'types';
-import type { Address, Hash, Hex } from 'viem';
+import type { ChainId, LooseEthersContractTxData } from 'types';
+import {
+  type Abi,
+  type Account,
+  type Address,
+  type Chain,
+  type ContractFunctionArgs,
+  type ContractFunctionName,
+  type EncodeFunctionDataParameters,
+  type Hash,
+  type Hex,
+  type WriteContractParameters,
+  encodeFunctionData,
+} from 'viem';
 import { eip712WalletActions } from 'viem/zksync';
 import type { Config as WagmiConfig } from 'wagmi';
 
@@ -30,55 +41,88 @@ interface ZyFiSponsoredTxResponse {
 }
 
 export const sendTransaction = async <
-  TContract extends BaseContract,
-  TMethodName extends string & keyof TContract['functions'],
+  const abi extends Abi | readonly unknown[],
+  functionName extends ContractFunctionName<abi, 'payable' | 'nonpayable'>,
+  args extends ContractFunctionArgs<abi, 'payable' | 'nonpayable', functionName>,
+  TAbi extends Abi | readonly unknown[] = abi,
+  TFunctionName extends ContractFunctionName<TAbi, 'payable' | 'nonpayable'> = functionName,
+  TArgs extends ContractFunctionArgs<TAbi, 'payable' | 'nonpayable', TFunctionName> = args,
 >({
   txData,
   gasless,
   wagmiConfig,
+  chainId,
+  accountAddress,
 }: {
-  txData: ContractTxData<TContract, TMethodName>;
+  txData:
+    | WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account>
+    | LooseEthersContractTxData;
   gasless: boolean;
   wagmiConfig: WagmiConfig;
+  chainId: ChainId;
+  accountAddress: Address;
 }) => {
-  const { contract, methodName, args, overrides } = txData;
-
-  const [chainId, accountAddress] = await Promise.all([
-    contract.signer.getChainId() as Promise<ChainId>,
-    contract.signer.getAddress() as Promise<Address>,
-  ]);
-
   const publicClient = getPublicClient(wagmiConfig, { chainId });
 
-  if (!accountAddress || !chainId || !publicClient) {
+  if (!publicClient) {
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
     });
   }
 
-  if (!gasless) {
-    const formattedArgs = args;
-    if (overrides) {
-      formattedArgs.push(overrides);
-    }
-
-    const { hash: transactionHash }: { hash: Hex } = await contract.functions[methodName](
-      ...formattedArgs,
-    );
-
-    return { transactionHash };
-  }
-
   const walletClient = (
     await getWalletClient(wagmiConfig, { chainId, account: accountAddress })
   ).extend(eip712WalletActions());
 
+  // Send normal ethers.js transaction
+  if (!gasless && 'contract' in txData) {
+    const contractFn = txData.contract.functions[txData.methodName];
+    const formattedArgs = txData.overrides ? [...txData.args, txData.overrides] : [...txData.args];
+    const { hash: transactionHash }: { hash: Hex } = await contractFn(...formattedArgs);
+
+    return { transactionHash };
+  }
+
+  // Send normal viem transaction
+  if (!gasless && !('contract' in txData)) {
+    const transactionHash = await walletClient.writeContract(txData);
+    return { transactionHash };
+  }
+
+  // Send gasless transaction
+  let txOverrides: Record<string, any> = {};
+
+  if ('contract' in txData) {
+    txOverrides = txData.overrides || {};
+  } else {
+    const {
+      abi: _abi,
+      address: _address,
+      functionName: _functionName,
+      args: _args,
+      chain: _chain,
+      account: _account,
+      // Extract overrides
+      ...overrides
+    } = txData;
+
+    txOverrides = overrides;
+  }
+
   const txDataPayload = {
-    to: contract.address,
+    ...txOverrides,
+    to: 'contract' in txData ? txData.contract.address : txData.address,
     from: accountAddress,
-    data: contract.interface.encodeFunctionData(methodName, args),
-    ...overrides,
+    data:
+      'contract' in txData
+        ? txData.contract.interface.encodeFunctionData(txData.methodName, txData.args)
+        : encodeFunctionData({
+            abi: txData.abi,
+            functionName: txData.functionName,
+            args: txData.args,
+            address: txData.address,
+          } as EncodeFunctionDataParameters),
   };
 
   const payload = {
@@ -105,8 +149,8 @@ export const sendTransaction = async <
     const body = await response.json();
     logError(body.error);
 
-    // when receiving a gas estimation failed error, there is no need to show
-    // the resend paying gas modal, as it would also fail to estimate the gas cost
+    // When receiving a gas estimation failed error, there is no need to show the resend paying gas
+    // modal, as it would also fail to estimate the gas cost
     if (body?.error === GAS_ESTIMATION_FAILED_ERROR) {
       throw new VError({
         type: 'unexpected',

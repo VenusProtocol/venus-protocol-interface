@@ -3,7 +3,7 @@ import type { Signer } from 'ethers';
 import { lisUsd, vai, vrt, xvs } from '__mocks__/models/tokens';
 
 import {
-  getBep20Contract,
+  getErc20Contract,
   getVaiContract,
   getVrtContract,
   getXvsContract,
@@ -29,12 +29,12 @@ describe('getTokenContract', () => {
     });
   });
 
-  it('should call getBep20Contract with the right arguments for other BEP20 tokens', () => {
+  it('should call getErc20Contract with the right arguments for other BEP20 tokens', () => {
     const signerOrProvider: Signer = {} as Signer;
 
     getTokenContract({ token: lisUsd, signerOrProvider });
 
-    expect(getBep20Contract).toHaveBeenCalledWith({
+    expect(getErc20Contract).toHaveBeenCalledWith({
       address: lisUsd.address,
       signerOrProvider,
     });

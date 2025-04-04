@@ -3,4 +3,3 @@ export interface AnalyticProviderProps {
 }
 
 export * from './useAnalytics';
-export { default as useAnalytics } from './useAnalytics';

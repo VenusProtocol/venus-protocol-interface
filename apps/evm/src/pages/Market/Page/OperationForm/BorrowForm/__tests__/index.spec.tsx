@@ -4,15 +4,14 @@ import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { renderComponent } from 'testUtils/render';
 
-import { borrow } from 'clients/api';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { en } from 'libs/translations';
 import { type Asset, ChainId, type Pool } from 'types';
 
 import { chainMetadata } from '@venusprotocol/chains';
+import { useBorrow } from 'clients/api';
 import BorrowForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -350,9 +349,13 @@ describe('BorrowForm', () => {
   });
 
   it('lets user borrow tokens then calls onClose callback on success', async () => {
-    const onCloseMock = vi.fn();
+    const mockBorrow = vi.fn();
+    (useBorrow as Mock).mockImplementation(() => ({
+      mutateAsync: mockBorrow,
+      isPending: false,
+    }));
 
-    (borrow as Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    const onCloseMock = vi.fn();
 
     const { getByTestId } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
@@ -362,7 +365,7 @@ describe('BorrowForm', () => {
     );
 
     // Enter amount in input
-    const correctAmountTokens = 1;
+    const correctAmountTokens = 1n;
     const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
     fireEvent.change(tokenTextInput, {
       target: { value: correctAmountTokens },
@@ -376,14 +379,16 @@ describe('BorrowForm', () => {
     expect(submitButton).toBeEnabled();
     fireEvent.click(submitButton);
 
-    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
-      new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
-    );
+    const expectedAmountMantissa =
+      correctAmountTokens * 10n ** BigInt(fakeAsset.vToken.underlyingToken.decimals);
 
-    await waitFor(() => expect(borrow).toHaveBeenCalledTimes(1));
-    expect(borrow).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockBorrow).toHaveBeenCalledTimes(1));
+    expect(mockBorrow).toHaveBeenCalledWith({
       amountMantissa: expectedAmountMantissa,
       unwrap: false,
+      poolName: fakePool.name,
+      poolComptrollerAddress: fakePool.comptrollerAddress,
+      vToken: fakeAsset.vToken,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);

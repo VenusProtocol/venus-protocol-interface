@@ -23,6 +23,10 @@ import type { Address } from 'viem';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
 import type { GetTokenBalancesInput } from '../queries/getTokenBalances';
 
+export const queryClient = {
+  invalidateQueries: vi.fn(),
+};
+
 // Queries
 export const getIsAddressAuthorized = vi.fn(async accountAddress => fakeAddress !== accountAddress);
 export const useGetIsAddressAuthorized = vi.fn((accountAddress: Address) =>
@@ -602,18 +606,16 @@ export const getApiTokenPrice = vi.fn(async ({ tokenAddresses }: { tokenAddresse
 );
 
 // Mutations
-export const approveToken = vi.fn();
-export const useApproveToken = (_variables: never, options?: MutationObserverOptions) =>
+export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.APPROVE_TOKEN],
-    mutationFn: approveToken,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const revokeSpendingLimit = vi.fn();
 export const useRevokeSpendingLimit = (_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.REVOKE_SPENDING_LIMIT],
     mutationFn: revokeSpendingLimit,
     ...options,
   });
@@ -621,7 +623,6 @@ export const useRevokeSpendingLimit = (_variables: never, options?: MutationObse
 export const convertVrt = vi.fn();
 export const useConvertVrt = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.CONVERT_VRT],
     mutationFn: convertVrt,
     ...options,
   });
@@ -629,7 +630,6 @@ export const useConvertVrt = (options?: MutationObserverOptions) =>
 export const mintVai = vi.fn();
 export const useMintVai = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.MINT_VAI],
     mutationFn: mintVai,
     ...options,
   });
@@ -637,31 +637,27 @@ export const useMintVai = (options?: MutationObserverOptions) =>
 export const repayVai = vi.fn();
 export const useRepayVai = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.REPAY_VAI],
     mutationFn: repayVai,
     ...options,
   });
 
-export const enterMarket = vi.fn();
-export const useEnterMarket = (options?: MutationObserverOptions) =>
+export const useEnterMarket = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.ENTER_MARKET],
-    mutationFn: enterMarket,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
-export const exitMarket = vi.fn();
-export const useExitMarket = (options?: MutationObserverOptions) =>
+export const useExitMarket = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.EXIT_MARKET],
-    mutationFn: exitMarket,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const repay = vi.fn();
 export const useRepay = (_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.REPAY],
     mutationFn: repay,
     ...options,
   });
@@ -669,7 +665,6 @@ export const useRepay = (_variables: never, options?: MutationObserverOptions) =
 export const supply = vi.fn();
 export const useSupply = (_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.SUPPLY],
     mutationFn: supply,
     ...options,
   });
@@ -677,23 +672,20 @@ export const useSupply = (_variables: never, options?: MutationObserverOptions) 
 export const withdraw = vi.fn();
 export const useWithdraw = (_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.WITHDRAW],
     mutationFn: withdraw,
     ...options,
   });
 
-export const borrow = vi.fn();
-export const useBorrow = (_variables: never, options?: MutationObserverOptions) =>
+export const useBorrow = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.BORROW],
-    mutationFn: borrow,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const withdrawXvs = vi.fn();
 export const useWithdrawXvs = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.WITHDRAW_XVS],
     mutationFn: withdrawXvs,
     ...options,
   });
@@ -701,7 +693,6 @@ export const useWithdrawXvs = (options?: MutationObserverOptions) =>
 export const setVoteDelegate = vi.fn();
 export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.SET_VOTE_DELEGATE],
     mutationFn: setVoteDelegate,
     ...options,
   });
@@ -709,7 +700,6 @@ export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
 export const createProposal = vi.fn();
 export const useCreateProposal = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.CREATE_PROPOSAL],
     mutationFn: createProposal,
     ...options,
   });
@@ -717,7 +707,6 @@ export const useCreateProposal = (options?: MutationObserverOptions) =>
 export const cancelProposal = vi.fn(async () => fakeContractTransaction);
 export const useCancelProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.CANCEL_PROPOSAL],
     mutationFn: cancelProposal,
     ...options,
   }),
@@ -726,7 +715,6 @@ export const useCancelProposal = vi.fn((options?: MutationObserverOptions) =>
 export const executeProposal = vi.fn(async () => fakeContractTransaction);
 export const useExecuteProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.EXECUTE_PROPOSAL],
     mutationFn: executeProposal,
     ...options,
   }),
@@ -735,7 +723,6 @@ export const useExecuteProposal = vi.fn((options?: MutationObserverOptions) =>
 export const queueProposal = vi.fn(async () => fakeContractTransaction);
 export const useQueueProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.QUEUE_PROPOSAL],
     mutationFn: queueProposal,
     ...options,
   }),
@@ -744,7 +731,6 @@ export const useQueueProposal = vi.fn((options?: MutationObserverOptions) =>
 export const stakeInXvsVault = vi.fn();
 export const useStakeInXvsVault = (_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.STAKE_IN_XVS_VAULT],
     mutationFn: stakeInXvsVault,
     ...options,
   });
@@ -752,7 +738,6 @@ export const useStakeInXvsVault = (_variables: never, options?: MutationObserver
 export const stakeInVaiVault = vi.fn();
 export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.STAKE_IN_VAI_VAULT],
     mutationFn: stakeInVaiVault,
     ...options,
   });
@@ -760,7 +745,6 @@ export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
 export const castVote = vi.fn();
 export const useCastVote = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.CAST_VOTE],
     mutationFn: castVote,
     ...options,
   });
@@ -768,7 +752,6 @@ export const useCastVote = (options?: MutationObserverOptions) =>
 export const castVoteWithReason = vi.fn();
 export const useCastVoteWithReason = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.CAST_VOTE_WITH_REASON],
     mutationFn: castVoteWithReason,
     ...options,
   });
@@ -776,7 +759,6 @@ export const useCastVoteWithReason = (options?: MutationObserverOptions) =>
 export const withdrawFromVaiVault = vi.fn();
 export const useWithdrawFromVaiVault = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.WITHDRAW_FROM_VAI_VAULT],
     mutationFn: withdrawFromVaiVault,
     ...options,
   });
@@ -784,7 +766,6 @@ export const useWithdrawFromVaiVault = (options?: MutationObserverOptions) =>
 export const requestWithdrawalFromXvsVault = vi.fn();
 export const useRequestWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT],
     mutationFn: requestWithdrawalFromXvsVault,
     ...options,
   });
@@ -795,7 +776,6 @@ export const useExecuteWithdrawalFromXvsVault = (
   options?: MutationObserverOptions,
 ) =>
   useMutation({
-    mutationKey: [FunctionKey.EXECUTE_WITHDRAWAL_FROM_XVS_VAULT],
     mutationFn: executeWithdrawalFromXvsVault,
     ...options,
   });
@@ -803,7 +783,6 @@ export const useExecuteWithdrawalFromXvsVault = (
 export const swapTokens = vi.fn(async () => fakeContractTransaction);
 export const useSwapTokens = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.SWAP_TOKENS],
     mutationFn: swapTokens,
     ...options,
   });
@@ -811,7 +790,6 @@ export const useSwapTokens = (options?: MutationObserverOptions) =>
 export const swapTokensAndRepay = vi.fn(async () => fakeContractTransaction);
 export const useSwapTokensAndRepay = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.SWAP_TOKENS_AND_REPAY],
     mutationFn: swapTokensAndRepay,
     ...options,
   });
@@ -819,7 +797,6 @@ export const useSwapTokensAndRepay = (options?: MutationObserverOptions) =>
 export const swapTokensAndSupply = vi.fn(async () => fakeContractTransaction);
 export const useSwapTokensAndSupply = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.SWAP_TOKENS_AND_SUPPLY],
     mutationFn: swapTokensAndSupply,
     ...options,
   });
@@ -827,7 +804,6 @@ export const useSwapTokensAndSupply = (options?: MutationObserverOptions) =>
 export const claimRewards = vi.fn();
 export const useClaimRewards = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.CLAIM_REWARDS],
     mutationFn: claimRewards,
     ...options,
   });
@@ -841,7 +817,6 @@ export const useStakeInVault = () => ({
 export const claimPrimeToken = vi.fn();
 export const useClaimPrimeToken = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.CLAIM_PRIME_TOKEN],
     mutationFn: claimPrimeToken,
     ...options,
   });
@@ -849,7 +824,6 @@ export const useClaimPrimeToken = (options?: MutationObserverOptions) =>
 export const bridgeXvs = vi.fn();
 export const useBridgeXvs = (options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.BRIDGE_XVS],
     mutationFn: bridgeXvs,
     ...options,
   });
@@ -857,7 +831,6 @@ export const useBridgeXvs = (options?: MutationObserverOptions) =>
 export const updatePoolDelegateStatus = vi.fn();
 export const useUpdatePoolDelegateStatus = (_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationKey: [FunctionKey.UPDATE_POOL_DELEGATE_STATUS],
     mutationFn: updatePoolDelegateStatus,
     ...options,
   });
