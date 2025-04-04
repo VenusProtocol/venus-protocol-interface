@@ -1,3 +1,4 @@
+import { logError } from 'libs/errors';
 import type { ProposalAction } from 'types';
 import { parseFunctionSignature } from 'utilities';
 import { decodeAbiParameters } from 'viem';
@@ -6,7 +7,7 @@ type Parameter = string | number | boolean | bigint;
 
 const formatParams = (param: Parameter | Parameter[]): string => {
   if (Array.isArray(param)) {
-    return param.map(formatParams).join(', ');
+    return `[${param.map(formatParams).join(', ')}]`;
   }
 
   const readableParam = param.toString();
@@ -30,10 +31,10 @@ const formatSignature = (action: ProposalAction) => {
       return '';
     }
 
-    const params = decodeAbiParameters(abiItem.inputs, action.callData) as Parameter | Parameter[];
-    return `.${abiItem.name}(${formatParams(params)})`;
+    const params = decodeAbiParameters(abiItem.inputs, action.callData) as Parameter[];
+    return `.${abiItem.name}(${params.map(formatParams).join(', ')})`;
   } catch (err) {
-    console.error(err);
+    logError(err);
   }
 
   return '';
