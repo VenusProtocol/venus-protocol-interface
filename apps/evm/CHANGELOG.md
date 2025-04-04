@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.243.1
+
+### Patch Changes
+
+- 93e7b3b: fix how imported proposal action data is parsed
+
 ## 2.243.0
 
 ### Minor Changes
