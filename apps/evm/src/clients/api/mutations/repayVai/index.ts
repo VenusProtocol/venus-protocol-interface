@@ -1,14 +1,14 @@
 import type BigNumber from 'bignumber.js';
 
 import type { VaiController } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface RepayVaiInput {
   amountMantissa: BigNumber;
   vaiControllerContract: VaiController;
 }
 
-export type IRepayVaiOutput = ContractTxData<VaiController, 'repayVAI'>;
+export type IRepayVaiOutput = LooseEthersContractTxData;
 
 const repayVai = ({ vaiControllerContract, amountMantissa }: RepayVaiInput): IRepayVaiOutput => ({
   contract: vaiControllerContract,

@@ -7,8 +7,7 @@ import type { Mock } from 'vitest';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { ChainId } from 'types';
 
-import BigNumber from 'bignumber.js';
-import { borrow } from 'clients/api';
+import { useBorrow } from 'clients/api';
 import { en } from 'libs/translations';
 import Borrow from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
@@ -55,6 +54,12 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   });
 
   it('lets the user borrow and unwrap tokens', async () => {
+    const mockBorrow = vi.fn();
+    (useBorrow as Mock).mockImplementation(() => ({
+      mutateAsync: mockBorrow,
+      isPending: false,
+    }));
+
     const onCloseMock = vi.fn();
     const { getByTestId } = renderComponent(
       <Borrow asset={fakeWethAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
@@ -67,7 +72,7 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     // receive native token is active by default, so no need to click on it
 
     // Enter amount in input
-    const correctAmountTokens = 1;
+    const correctAmountTokens = 1n;
     fireEvent.change(getByTestId(TEST_IDS.tokenTextField), {
       target: { value: correctAmountTokens },
     });
@@ -80,14 +85,16 @@ describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(submitButton).toBeEnabled();
     fireEvent.click(submitButton);
 
-    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
-      new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
-    );
+    const expectedAmountMantissa =
+      correctAmountTokens * 10n ** BigInt(fakeAsset.vToken.underlyingToken.decimals);
 
-    await waitFor(() => expect(borrow).toHaveBeenCalledTimes(1));
-    expect(borrow).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockBorrow).toHaveBeenCalledTimes(1));
+    expect(mockBorrow).toHaveBeenCalledWith({
       amountMantissa: expectedAmountMantissa,
       unwrap: true,
+      poolName: fakePool.name,
+      poolComptrollerAddress: fakePool.comptrollerAddress,
+      vToken: fakeWethAsset.vToken,
     });
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);

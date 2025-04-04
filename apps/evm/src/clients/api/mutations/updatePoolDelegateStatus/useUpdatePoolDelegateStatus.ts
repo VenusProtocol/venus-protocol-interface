@@ -25,7 +25,6 @@ const useUpdatePoolDelegateStatus = (
   });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.UPDATE_POOL_DELEGATE_STATUS, { poolComptrollerAddress, delegateeAddress }],
     fn: (input: { approvedStatus: boolean }) =>
       callOrThrow({ poolComptrollerContract, delegateeAddress }, params =>
         updatePoolDelegateStatus({

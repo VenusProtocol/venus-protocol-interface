@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { bep20Abi } from 'libs/contracts';
+import { erc20Abi } from 'libs/contracts';
 import type { Token, TokenBalance } from 'types';
 import type { Address, PublicClient } from 'viem';
 
@@ -27,7 +27,7 @@ export const getTokenBalances = async ({
       }
 
       return publicClient.readContract({
-        abi: bep20Abi,
+        abi: erc20Abi,
         address: token.address,
         functionName: 'balanceOf',
         args: [accountAddress],

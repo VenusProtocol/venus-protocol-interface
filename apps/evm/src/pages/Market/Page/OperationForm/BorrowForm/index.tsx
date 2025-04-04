@@ -272,11 +272,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
     }
   }, [accountAddress, initialFormValues]);
 
-  const { mutateAsync: borrow, isPending: isBorrowLoading } = useBorrow({
-    poolName: pool.name,
-    poolComptrollerAddress: pool.comptrollerAddress,
-    vToken: asset.vToken,
-  });
+  const { mutateAsync: borrow, isPending: isBorrowLoading } = useBorrow();
 
   const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
@@ -296,12 +292,20 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
   const isSubmitting = isBorrowLoading;
 
   const onSubmit: BorrowFormUiProps['onSubmit'] = async ({ fromToken, fromTokenAmountTokens }) => {
-    const amountMantissa = convertTokensToMantissa({
-      value: new BigNumber(fromTokenAmountTokens.trim()),
-      token: fromToken,
-    });
+    const amountMantissa = BigInt(
+      convertTokensToMantissa({
+        value: new BigNumber(fromTokenAmountTokens.trim()),
+        token: fromToken,
+      }).toFixed(),
+    );
 
-    return borrow({ amountMantissa, unwrap: formValues.receiveNativeToken });
+    return borrow({
+      poolName: pool.name,
+      poolComptrollerAddress: pool.comptrollerAddress,
+      vToken: asset.vToken,
+      amountMantissa,
+      unwrap: formValues.receiveNativeToken,
+    });
   };
 
   return (

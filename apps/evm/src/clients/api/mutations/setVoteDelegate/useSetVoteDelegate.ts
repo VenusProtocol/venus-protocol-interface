@@ -13,7 +13,6 @@ const useSetVoteDelegate = (options?: Partial<Options>) => {
   });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.SET_VOTE_DELEGATE],
     fn: (input: TrimmedSetVoteDelegateInput) =>
       callOrThrow({ xvsVaultContract }, params =>
         setVoteDelegate({

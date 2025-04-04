@@ -1,0 +1,57 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sendTransaction > sends gasless ethers.js transaction when gasless is true 1`] = `
+[
+  undefined,
+  {
+    "body": "{"chainId":97,"sponsorshipRatio":100,"txData":{"to":"0xmockContractAddress","from":"0x3d759121234cd36F8124C21aFe1c6852d2bEd848","data":"0xmockEncodedFunctionData"}}",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-Key": "mockZyFiApiKey",
+    },
+    "method": "POST",
+  },
+]
+`;
+
+exports[`sendTransaction > sends gasless ethers.js transaction with overrides when gasless is true 1`] = `
+[
+  undefined,
+  {
+    "body": "{"chainId":97,"sponsorshipRatio":100,"txData":{"value":"100","to":"0xmockContractAddress","from":"0x3d759121234cd36F8124C21aFe1c6852d2bEd848","data":"0xmockEncodedFunctionData"}}",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-Key": "mockZyFiApiKey",
+    },
+    "method": "POST",
+  },
+]
+`;
+
+exports[`sendTransaction > sends gasless transaction when gasless is true 1`] = `
+[
+  undefined,
+  {
+    "body": "{"chainId":97,"sponsorshipRatio":100,"txData":{"to":"0xmockAddress","from":"0x3d759121234cd36F8124C21aFe1c6852d2bEd848","data":"0x239083f8000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000004617267310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000046172673200000000000000000000000000000000000000000000000000000000"}}",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-Key": "mockZyFiApiKey",
+    },
+    "method": "POST",
+  },
+]
+`;
+
+exports[`sendTransaction > sends gasless transaction with overrides when gasless is true 1`] = `
+[
+  undefined,
+  {
+    "body": "{"chainId":97,"sponsorshipRatio":100,"txData":{"value":"100","to":"0xmockContractAddress","from":"0x3d759121234cd36F8124C21aFe1c6852d2bEd848","data":"0xmockEncodedFunctionData"}}",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-Key": "mockZyFiApiKey",
+    },
+    "method": "POST",
+  },
+]
+`;

@@ -1,5 +1,5 @@
 import type { XvsVault } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface ExecuteWithdrawalFromXvsVaultInput {
   xvsVaultContract: XvsVault;
@@ -7,7 +7,7 @@ export interface ExecuteWithdrawalFromXvsVaultInput {
   poolIndex: number;
 }
 
-export type ExecuteWithdrawalFromXvsVaultOutput = ContractTxData<XvsVault, 'executeWithdrawal'>;
+export type ExecuteWithdrawalFromXvsVaultOutput = LooseEthersContractTxData;
 
 const executeWithdrawalFromXvsVault = ({
   xvsVaultContract,

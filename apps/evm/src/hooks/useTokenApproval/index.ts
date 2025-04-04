@@ -77,14 +77,9 @@ const useTokenApproval = ({
     return walletSpendingLimitTokens.isGreaterThan(0);
   }, [token.isNative, walletSpendingLimitTokens]);
 
-  const { mutateAsync: approveTokenMutation, isPending: isApproveTokenLoading } = useApproveToken(
-    {
-      token,
-    },
-    {
-      waitForConfirmation: true,
-    },
-  );
+  const { mutateAsync: approveTokenMutation, isPending: isApproveTokenLoading } = useApproveToken({
+    waitForConfirmation: true,
+  });
 
   const approveToken = async () => {
     if (!spenderAddress) {
@@ -93,6 +88,7 @@ const useTokenApproval = ({
 
     await approveTokenMutation({
       spenderAddress,
+      tokenAddress: token.address,
     });
   };
 

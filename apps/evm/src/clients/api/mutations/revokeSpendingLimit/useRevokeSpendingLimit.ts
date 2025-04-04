@@ -17,7 +17,6 @@ const useRevokeSpendingLimit = ({ token }: { token: Token }, options?: Partial<O
   });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.REVOKE_SPENDING_LIMIT, { tokenAddress: token.address }],
     fn: (input: TrimmedRevokeSpendingLimitInput) =>
       callOrThrow({ tokenContract }, params =>
         revokeSpendingLimit({

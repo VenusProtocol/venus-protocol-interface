@@ -1,6 +1,6 @@
 import type { SwapRouter } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { ContractTxData, Swap, VToken } from 'types';
+import type { LooseEthersContractTxData, Swap, VToken } from 'types';
 import { generateTransactionDeadline } from 'utilities';
 
 export interface SwapTokensAndRepayInput {
@@ -10,18 +10,7 @@ export interface SwapTokensAndRepayInput {
   repayFullLoan: boolean;
 }
 
-type SwapTokensAndRepayMethods =
-  | 'swapTokensForFullTokenDebtAndRepay'
-  | 'swapTokensForFullBNBDebtAndRepay'
-  | 'swapBNBForFullTokenDebtAndRepay'
-  | 'swapExactTokensForTokensAndRepay'
-  | 'swapBNBForExactTokensAndRepay'
-  | 'swapExactTokensForBNBAndRepay'
-  | 'swapTokensForExactTokensAndRepay'
-  | 'swapBNBForExactTokensAndRepay'
-  | 'swapTokensForExactBNBAndRepay';
-
-export type SwapTokensAndRepayOutput = ContractTxData<SwapRouter, SwapTokensAndRepayMethods>;
+export type SwapTokensAndRepayOutput = LooseEthersContractTxData;
 
 const swapTokensAndRepay = ({
   swapRouterContract,

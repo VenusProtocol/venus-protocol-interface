@@ -1,6 +1,6 @@
 import noop from 'noop-ts';
 
-import type { Bep20 } from 'libs/contracts';
+import type { Erc20 } from 'libs/contracts';
 
 import callOrThrow from '..';
 
@@ -21,7 +21,7 @@ describe('utilities/callOrThrow', () => {
   });
 
   it('calls callback when all parameters are defined', () => {
-    const fakeContract = {} as unknown as Bep20;
+    const fakeContract = {} as unknown as Erc20;
 
     const res = callOrThrow(
       {

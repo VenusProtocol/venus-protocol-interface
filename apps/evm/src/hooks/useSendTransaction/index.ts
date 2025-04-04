@@ -1,25 +1,25 @@
-import { type MutationKey, type MutationObserverOptions, useMutation } from '@tanstack/react-query';
-import type { BaseContract, ContractReceipt } from 'ethers';
+import { type MutationObserverOptions, useMutation } from '@tanstack/react-query';
+import type { ContractReceipt } from 'ethers';
 
-import type { ContractTxData, TransactionType } from 'types';
+import type { LooseEthersContractTxData, TransactionType } from 'types';
 
 import { useGetPaymasterInfo } from 'clients/api';
 import { store as resendPayingGasModalStore } from 'containers/ResendPayingGasModal/store';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
-import { useChainId } from 'libs/wallet';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import type {
+  Abi,
+  Account,
+  Chain,
+  ContractFunctionArgs,
+  ContractFunctionName,
+  WriteContractParameters,
+} from 'viem';
 import { useConfig } from 'wagmi';
 import { sendTransaction } from './sendTransaction';
 import { useTrackTransaction } from './useTrackTransaction';
-
-export interface LastTransactionData<
-  TMutateInput extends Record<string, unknown> | void,
-  TContract extends BaseContract,
-  TMethodName extends string & keyof TContract['functions'],
-> extends UseSendTransactionInput<TMutateInput, TContract, TMethodName> {
-  mutationInput: TMutateInput;
-}
 
 export interface UseSendTransactionOptions<TMutateInput extends Record<string, unknown> | void>
   extends MutationObserverOptions<unknown, Error, TMutateInput> {
@@ -29,13 +29,17 @@ export interface UseSendTransactionOptions<TMutateInput extends Record<string, u
 
 export interface UseSendTransactionInput<
   TMutateInput extends Record<string, unknown> | void,
-  TContract extends BaseContract,
-  TMethodName extends string & keyof TContract['functions'],
+  TAbi extends Abi | readonly unknown[],
+  TFunctionName extends ContractFunctionName<TAbi, 'payable' | 'nonpayable'>,
+  TArgs extends ContractFunctionArgs<TAbi, 'payable' | 'nonpayable', TFunctionName>,
 > {
   fn: (
     input: TMutateInput,
-  ) => Promise<ContractTxData<TContract, TMethodName>> | ContractTxData<TContract, TMethodName>;
-  fnKey: MutationKey;
+  ) =>
+    | WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account>
+    | Promise<WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account>>
+    | LooseEthersContractTxData
+    | Promise<LooseEthersContractTxData>;
   transactionType?: TransactionType;
   onConfirmed?: (input: {
     transactionHash: string;
@@ -49,18 +53,26 @@ export interface UseSendTransactionInput<
   options?: UseSendTransactionOptions<TMutateInput>;
 }
 
+type LastFailedGaslessTransaction<TMutateInput extends Record<string, unknown> | void> =
+  UseSendTransactionInput<TMutateInput, any, any, any> & {
+    mutationInput: TMutateInput;
+  };
+
 export const useSendTransaction = <
   TMutateInput extends Record<string, unknown> | void,
-  TContract extends BaseContract,
-  TMethodName extends string & keyof TContract['functions'],
+  TAbi extends Abi | readonly unknown[],
+  TFunctionName extends ContractFunctionName<TAbi, 'payable' | 'nonpayable'>,
+  TArgs extends ContractFunctionArgs<TAbi, 'payable' | 'nonpayable', TFunctionName>,
 >(
-  input: UseSendTransactionInput<TMutateInput, TContract, TMethodName>,
+  input: UseSendTransactionInput<TMutateInput, TAbi, TFunctionName, TArgs>,
 ) => {
-  const { fn, fnKey, transactionType, onConfirmed, onReverted, options } = input;
+  const { fn, transactionType, onConfirmed, onReverted, options } = input;
   const tryGasless = options?.tryGasless ?? true;
 
-  const { chainId } = useChainId();
   const wagmiConfig = useConfig();
+  const { accountAddress } = useAccountAddress();
+
+  const { chainId } = useChainId();
 
   const openResendPayingGasModalStoreModal = resendPayingGasModalStore.use.openModal();
 
@@ -91,15 +103,23 @@ export const useSendTransaction = <
   const trackTransaction = useTrackTransaction({ transactionType });
 
   return useMutation({
-    mutationKey: fnKey,
     mutationFn: async mutationInput => {
+      if (!accountAddress) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+        });
+      }
+
       // Get transaction data from the passed input
       const txData = await fn(mutationInput);
 
       // Send the normal or gas-less transaction
-      const { transactionHash } = await sendTransaction({
+      const { transactionHash } = await sendTransaction<TAbi, TFunctionName, TArgs>({
         wagmiConfig,
         txData,
+        chainId,
+        accountAddress,
         gasless: shouldTryGasless,
       });
 
@@ -127,7 +147,7 @@ export const useSendTransaction = <
           lastFailedGaslessTransaction: {
             ...input,
             mutationInput: variables,
-          },
+          } as LastFailedGaslessTransaction<TMutateInput>,
         });
 
         return;

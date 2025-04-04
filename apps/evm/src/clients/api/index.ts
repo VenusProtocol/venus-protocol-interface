@@ -1,6 +1,11 @@
 export { default as queryClient } from './queryClient';
 
 // Mutations
+export * from './mutations/useEnterMarket';
+export * from './mutations/useExitMarket';
+export * from './mutations/useApproveToken';
+export * from './mutations/useBorrow';
+
 export { default as mintVai } from './mutations/mintVai';
 export * from './mutations/mintVai';
 export { default as useMintVai } from './mutations/mintVai/useMintVai';
@@ -8,18 +13,6 @@ export { default as useMintVai } from './mutations/mintVai/useMintVai';
 export { default as repayVai } from './mutations/repayVai';
 export * from './mutations/repayVai';
 export { default as useRepayVai } from './mutations/repayVai/useRepayVai';
-
-export { default as enterMarket } from './mutations/enterMarket';
-export * from './mutations/enterMarket';
-export { default as useEnterMarket } from './mutations/enterMarket/useEnterMarket';
-
-export { default as exitMarket } from './mutations/exitMarket';
-export * from './mutations/exitMarket';
-export { default as useExitMarket } from './mutations/exitMarket/useExitMarket';
-
-export { default as approveToken } from './mutations/approveToken';
-export * from './mutations/approveToken';
-export { default as useApproveToken } from './mutations/approveToken/useApproveToken';
 
 export { default as revokeSpendingLimit } from './mutations/revokeSpendingLimit';
 export * from './mutations/revokeSpendingLimit';
@@ -37,10 +30,6 @@ export { default as useWithdraw } from './mutations/withdraw/useWithdraw';
 export { default as repay } from './mutations/repay';
 export * from './mutations/repay';
 export { default as useRepay } from './mutations/repay/useRepay';
-
-export { default as borrow } from './mutations/borrow';
-export * from './mutations/borrow';
-export { default as useBorrow } from './mutations/borrow/useBorrow';
 
 export { default as withdrawXvs } from './mutations/withdrawXvs';
 export * from './mutations/withdrawXvs';

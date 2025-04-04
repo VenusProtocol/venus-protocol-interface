@@ -1,13 +1,13 @@
-import type { Bep20, Vai, Vrt, Xvs } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { Erc20, Vai, Vrt, Xvs } from 'libs/contracts';
+import type { LooseEthersContractTxData } from 'types';
 
-type RevokeSpendingLimitContracts = Vai | Bep20 | Vrt | Xvs;
+type RevokeSpendingLimitContracts = Vai | Erc20 | Vrt | Xvs;
 export interface RevokeSpendingLimitInput {
   tokenContract: RevokeSpendingLimitContracts;
   spenderAddress: string;
 }
 
-export type RevokeSpendingLimitOutput = ContractTxData<RevokeSpendingLimitContracts, 'approve'>;
+export type RevokeSpendingLimitOutput = LooseEthersContractTxData;
 
 const revokeSpendingLimit = ({
   tokenContract,

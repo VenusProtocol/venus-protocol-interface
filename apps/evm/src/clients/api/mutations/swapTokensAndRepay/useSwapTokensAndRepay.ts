@@ -31,7 +31,6 @@ const useSwapTokensAndRepayAndRepay = (
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.SWAP_TOKENS_AND_REPAY],
     fn: (input: TrimmedSwapTokensAndRepayInput) =>
       callOrThrow({ swapRouterContract }, params =>
         swapTokensAndRepay({

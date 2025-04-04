@@ -24,7 +24,6 @@ const useExecuteProposal = (options?: Partial<Options>) => {
   const { signer } = useSigner();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.EXECUTE_PROPOSAL],
     fn: (input: Input) => {
       if (!signer) {
         throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });

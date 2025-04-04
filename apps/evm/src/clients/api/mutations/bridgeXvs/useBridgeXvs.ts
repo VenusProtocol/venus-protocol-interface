@@ -28,7 +28,6 @@ const useBridgeXvs = (options?: Partial<Options>) => {
       : tokenBridgeContractDest;
 
   return useSendTransaction({
-    fnKey: [FunctionKey.BRIDGE_XVS],
     fn: (input: TrimmedBridgeXvsInput) =>
       callOrThrow({ tokenBridgeContract }, params =>
         bridgeXvs({

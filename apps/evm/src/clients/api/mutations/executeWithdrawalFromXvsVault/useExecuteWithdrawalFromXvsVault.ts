@@ -34,7 +34,6 @@ const useExecuteWithdrawalFromXvsVault = (
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.REQUEST_WITHDRAWAL_FROM_XVS_VAULT],
     fn: (input: TrimmedExecuteWithdrawalFromXvsVaultInput) =>
       callOrThrow({ xvsVaultContract }, params =>
         executeWithdrawalFromXvsVault({

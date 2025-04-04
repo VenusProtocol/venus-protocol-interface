@@ -37,8 +37,6 @@ const useRepay = (
   });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.REPAY],
-    // @ts-expect-error this should accept the NativeTokenGateway, Maximiillion and VToken contracts
     fn: (input: TrimmedRepayInput) =>
       callOrThrow({ signer }, params =>
         repay({
