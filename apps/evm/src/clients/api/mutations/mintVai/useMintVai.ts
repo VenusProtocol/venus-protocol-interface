@@ -13,7 +13,6 @@ const useMintVai = (options?: Partial<Options>) => {
   });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.MINT_VAI],
     fn: (input: TrimmedClaimRewardsInput) =>
       callOrThrow(
         {

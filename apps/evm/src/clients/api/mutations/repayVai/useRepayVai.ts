@@ -20,7 +20,6 @@ const useRepayVai = (options?: Partial<Options>) => {
   });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.REPAY_VAI],
     fn: (input: TrimmedRepayVaiInput) =>
       callOrThrow(
         {

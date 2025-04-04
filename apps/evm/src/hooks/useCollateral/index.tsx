@@ -1,13 +1,8 @@
 import { getVTokenBalance, useEnterMarket, useExitMarket } from 'clients/api';
-import {
-  getIsolatedPoolComptrollerContract,
-  isolatedPoolComptrollerAbi,
-  useGetLegacyPoolComptrollerContract,
-} from 'libs/contracts';
+import { isolatedPoolComptrollerAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, usePublicClient, useSigner } from 'libs/wallet';
 import type { Asset } from 'types';
-import { areAddressesEqual } from 'utilities';
 import type { Address } from 'viem';
 
 const useCollateral = () => {
@@ -22,10 +17,6 @@ const useCollateral = () => {
     waitForConfirmation: true,
   });
 
-  const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract({
-    passSigner: true,
-  });
-
   const contractToggleCollateral = async ({
     asset,
     comptrollerAddress,
@@ -36,20 +27,6 @@ const useCollateral = () => {
     poolName: string;
   }) => {
     if (!signer || !accountAddress) {
-      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
-    }
-
-    const comptrollerContract = areAddressesEqual(
-      comptrollerAddress,
-      legacyPoolComptrollerContract?.address || '',
-    )
-      ? legacyPoolComptrollerContract
-      : getIsolatedPoolComptrollerContract({
-          address: comptrollerAddress,
-          signerOrProvider: signer,
-        });
-
-    if (!comptrollerContract) {
       throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
     }
 
@@ -86,8 +63,8 @@ const useCollateral = () => {
         await exitMarket({
           vToken: asset.vToken,
           poolName,
-          comptrollerContract,
-          userSupplyBalanceTokens: asset.supplyBalanceTokens,
+          comptrollerContractAddress: comptrollerAddress,
+          userSupplyBalanceTokens: BigInt(asset.supplyBalanceTokens.toFixed()),
         });
       } catch (error) {
         if (error instanceof VError) {
@@ -107,8 +84,8 @@ const useCollateral = () => {
         await enterMarket({
           vToken: asset.vToken,
           poolName,
-          comptrollerContract,
-          userSupplyBalanceTokens: asset.supplyBalanceTokens,
+          comptrollerContractAddress: comptrollerAddress,
+          userSupplyBalanceTokens: BigInt(asset.supplyBalanceTokens.toFixed()),
         });
       } catch (error) {
         if (error instanceof VError) {

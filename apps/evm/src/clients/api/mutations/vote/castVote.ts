@@ -1,5 +1,5 @@
 import type { GovernorBravoDelegate } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface CastVoteInput {
   governorBravoDelegateContract: GovernorBravoDelegate;
@@ -7,7 +7,7 @@ export interface CastVoteInput {
   voteType: 0 | 1 | 2;
 }
 
-export type CastVoteOutput = ContractTxData<GovernorBravoDelegate, 'castVote'>;
+export type CastVoteOutput = LooseEthersContractTxData;
 
 const castVote = ({
   governorBravoDelegateContract,

@@ -1,5 +1,5 @@
 import type { GovernorBravoDelegate } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export type CreateProposalInput = {
   targets: string[];
@@ -10,7 +10,7 @@ export type CreateProposalInput = {
   proposalType: 0 | 1 | 2;
 };
 
-export type CreateProposalOutput = ContractTxData<GovernorBravoDelegate, 'propose'>;
+export type CreateProposalOutput = LooseEthersContractTxData;
 
 const createProposal = ({
   governorBravoDelegateContract,

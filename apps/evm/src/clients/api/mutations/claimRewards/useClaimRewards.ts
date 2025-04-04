@@ -36,7 +36,6 @@ const useClaimRewards = (options?: Partial<Options>) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.CLAIM_REWARDS],
     fn: (input: TrimmedClaimRewardsInput) =>
       callOrThrow(
         {

@@ -31,7 +31,6 @@ const useSwapTokensAndSupply = (
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.SWAP_TOKENS_AND_SUPPLY],
     fn: (input: TrimmedSwapTokensAndSupplyInput) =>
       callOrThrow({ swapRouterContract }, params =>
         swapTokensAndSupply({

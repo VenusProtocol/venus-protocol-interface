@@ -1,14 +1,12 @@
-import noop from 'noop-ts';
-import type { Mock } from 'vitest';
-
+import { ChainId } from '@venusprotocol/chains';
+import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import { renderHook } from 'testUtils/render';
-
-import FunctionKey from 'constants/functionKey';
-
 import contractTxData from '__mocks__/models/contractTxData';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
+import noop from 'noop-ts';
+import { renderHook } from 'testUtils/render';
+import type { Mock } from 'vitest';
 import type { Config as WagmiConfig } from 'wagmi';
 import { useSendTransaction } from '..';
 import { sendTransaction } from '../sendTransaction';
@@ -28,10 +26,8 @@ vi.mock('wagmi', async () => {
   };
 });
 
-const fakeFnKey = [FunctionKey.SUPPLY];
 const fakeHookInput = {
   fn: vi.fn(async () => contractTxData),
-  fnKey: fakeFnKey,
   onConfirmed: noop,
   onReverted: noop,
 };
@@ -56,17 +52,20 @@ describe('useSendTransaction', () => {
     (useTrackTransaction as Mock).mockImplementation(() => trackTransactionMock);
     (sendTransaction as Mock).mockReturnValue({ transactionHash: fakeContractTransaction.hash });
 
-    const fnMock = vi.fn(async () => contractTxData);
     const onSuccessMock = vi.fn();
 
-    const { result } = renderHook(() =>
-      useSendTransaction({
-        ...fakeHookInput,
-        fn: fnMock,
-        options: {
-          onSuccess: onSuccessMock,
-        },
-      }),
+    const { result } = renderHook(
+      () =>
+        useSendTransaction({
+          ...fakeHookInput,
+          options: {
+            onSuccess: onSuccessMock,
+          },
+        }),
+      {
+        accountAddress: fakeAccountAddress,
+        chainId: ChainId.BSC_TESTNET,
+      },
     );
 
     const { mutateAsync } = result.current;
@@ -74,13 +73,15 @@ describe('useSendTransaction', () => {
     // Send transaction
     await mutateAsync(fakeMutationInput);
 
-    expect(fnMock).toHaveBeenCalledTimes(1);
-    expect(fnMock).toHaveBeenCalledWith(fakeMutationInput);
+    expect(fakeHookInput.fn).toHaveBeenCalledTimes(1);
+    expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
       txData: contractTxData,
       gasless: false,
       wagmiConfig: mockWagmiConfig,
+      chainId: ChainId.BSC_TESTNET,
+      accountAddress: fakeAccountAddress,
     });
 
     expect(trackTransactionMock).toHaveBeenCalledTimes(1);
@@ -110,18 +111,21 @@ describe('useSendTransaction', () => {
 
     (sendTransaction as Mock).mockReturnValue({ transactionHash: fakeContractTransaction.hash });
 
-    const fnMock = vi.fn(async () => contractTxData);
     const onSuccessMock = vi.fn();
 
-    const { result } = renderHook(() =>
-      useSendTransaction({
-        ...fakeHookInput,
-        fn: fnMock,
-        options: {
-          onSuccess: onSuccessMock,
-          waitForConfirmation: true,
-        },
-      }),
+    const { result } = renderHook(
+      () =>
+        useSendTransaction({
+          ...fakeHookInput,
+          options: {
+            onSuccess: onSuccessMock,
+            waitForConfirmation: true,
+          },
+        }),
+      {
+        accountAddress: fakeAccountAddress,
+        chainId: ChainId.BSC_TESTNET,
+      },
     );
 
     const { mutateAsync } = result.current;
@@ -129,13 +133,15 @@ describe('useSendTransaction', () => {
     // Send transaction
     await mutateAsync(fakeMutationInput);
 
-    expect(fnMock).toHaveBeenCalledTimes(1);
-    expect(fnMock).toHaveBeenCalledWith(fakeMutationInput);
+    expect(fakeHookInput.fn).toHaveBeenCalledTimes(1);
+    expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
       txData: contractTxData,
       gasless: false,
       wagmiConfig: mockWagmiConfig,
+      chainId: ChainId.BSC_TESTNET,
+      accountAddress: fakeAccountAddress,
     });
 
     // Verify that onSuccess was called after the trackTransaction promise resolved
@@ -164,17 +170,20 @@ describe('useSendTransaction', () => {
     });
     (sendTransaction as Mock).mockRejectedValue(error);
 
-    const fnMock = vi.fn(async () => contractTxData);
     const onErrorMock = vi.fn();
 
-    const { result } = renderHook(() =>
-      useSendTransaction({
-        ...fakeHookInput,
-        fn: fnMock,
-        options: {
-          onError: onErrorMock,
-        },
-      }),
+    const { result } = renderHook(
+      () =>
+        useSendTransaction({
+          ...fakeHookInput,
+          options: {
+            onError: onErrorMock,
+          },
+        }),
+      {
+        accountAddress: fakeAccountAddress,
+        chainId: ChainId.BSC_TESTNET,
+      },
     );
 
     const { mutateAsync } = result.current;
@@ -182,13 +191,15 @@ describe('useSendTransaction', () => {
     // Send transaction
     await expect(mutateAsync(fakeMutationInput)).rejects.toThrow(error.code);
 
-    expect(fnMock).toHaveBeenCalledTimes(1);
-    expect(fnMock).toHaveBeenCalledWith(fakeMutationInput);
+    expect(fakeHookInput.fn).toHaveBeenCalledTimes(1);
+    expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
       txData: contractTxData,
       gasless: false,
       wagmiConfig: mockWagmiConfig,
+      chainId: ChainId.BSC_TESTNET,
+      accountAddress: fakeAccountAddress,
     });
 
     expect(trackTransactionMock).not.toHaveBeenCalled();

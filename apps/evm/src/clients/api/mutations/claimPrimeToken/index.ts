@@ -1,11 +1,11 @@
 import type { Prime } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface ClaimPrimeTokenInput {
   primeContract: Prime;
 }
 
-export type ClaimPrimeTokenOutput = ContractTxData<Prime, 'claim'>;
+export type ClaimPrimeTokenOutput = LooseEthersContractTxData;
 
 const claimPrimeToken = ({ primeContract }: ClaimPrimeTokenInput): ClaimPrimeTokenOutput => ({
   contract: primeContract,

@@ -1,7 +1,7 @@
 import type BigNumber from 'bignumber.js';
 
 import type { XvsVault } from 'libs/contracts';
-import type { ContractTxData, Token } from 'types';
+import type { LooseEthersContractTxData, Token } from 'types';
 
 export interface StakeInXvsVaultInput {
   xvsVaultContract: XvsVault;
@@ -10,7 +10,7 @@ export interface StakeInXvsVaultInput {
   poolIndex: number;
 }
 
-export type StakeInXvsVaultOutput = ContractTxData<XvsVault, 'deposit'>;
+export type StakeInXvsVaultOutput = LooseEthersContractTxData;
 
 const stakeInXvsVault = ({
   xvsVaultContract,

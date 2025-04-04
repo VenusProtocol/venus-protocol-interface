@@ -23,7 +23,6 @@ const useSwapTokens = (
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.SWAP_TOKENS],
     fn: (input: TrimmedSwapTokensInput) =>
       callOrThrow(
         {

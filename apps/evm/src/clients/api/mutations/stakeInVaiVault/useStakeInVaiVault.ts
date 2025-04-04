@@ -23,7 +23,6 @@ const useStakeInVaiVault = (options?: Partial<Options>) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.SET_VOTE_DELEGATE],
     fn: (input: TrimmedStakeInVaiVaultInput) =>
       callOrThrow(
         {

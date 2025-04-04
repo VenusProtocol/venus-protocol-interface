@@ -2,7 +2,7 @@ import type { Provider } from '@ethersproject/abstract-provider';
 import type { Signer } from 'ethers';
 
 import {
-  getBep20Contract,
+  getErc20Contract,
   getVaiContract,
   getVrtContract,
   getXvsContract,
@@ -32,5 +32,5 @@ export const getTokenContract = ({ token, signerOrProvider }: GetTokenContractIn
     return getVrtContract(input);
   }
 
-  return getBep20Contract(input);
+  return getErc20Contract(input);
 };

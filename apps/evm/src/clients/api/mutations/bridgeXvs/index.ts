@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import { NULL_ADDRESS } from 'constants/address';
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
 import type { XVSProxyOFTDest, XVSProxyOFTSrc } from 'libs/contracts';
-import type { ChainId, ContractTxData } from 'types';
+import type { ChainId, LooseEthersContractTxData } from 'types';
 
 type BridgeContracts = XVSProxyOFTSrc | XVSProxyOFTDest;
 
@@ -16,7 +16,7 @@ export interface BridgeXvsInput {
   nativeCurrencyFeeMantissa: BigNumber;
 }
 
-export type BridgeXvsOutput = ContractTxData<BridgeContracts, 'sendFrom'>;
+export type BridgeXvsOutput = LooseEthersContractTxData;
 
 const bridgeXvs = ({
   tokenBridgeContract,

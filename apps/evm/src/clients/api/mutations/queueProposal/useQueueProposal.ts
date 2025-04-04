@@ -13,7 +13,6 @@ const useQueueProposal = (options?: Partial<Options>) => {
   });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.QUEUE_PROPOSAL],
     fn: (input: TrimmedQueueProposalInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         queueProposal({

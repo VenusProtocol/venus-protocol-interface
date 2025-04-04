@@ -1,5 +1,5 @@
 import type { IsolatedPoolComptroller } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface UpdatePoolDelegateStatusInput {
   poolComptrollerContract: IsolatedPoolComptroller;
@@ -7,7 +7,7 @@ export interface UpdatePoolDelegateStatusInput {
   approvedStatus: boolean;
 }
 
-type UpdatePoolDelegateStatusOutput = ContractTxData<IsolatedPoolComptroller, 'updateDelegate'>;
+type UpdatePoolDelegateStatusOutput = LooseEthersContractTxData;
 
 const updateDelegate = ({
   poolComptrollerContract,

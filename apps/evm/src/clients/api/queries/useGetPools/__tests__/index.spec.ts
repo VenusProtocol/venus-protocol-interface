@@ -26,7 +26,6 @@ import {
 
 vi.mock('utilities/restService');
 vi.mock('libs/contracts');
-vi.mock('libs/wallet');
 
 describe('useGetPools', () => {
   beforeEach(() => {

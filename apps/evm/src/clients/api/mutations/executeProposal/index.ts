@@ -1,15 +1,12 @@
 import type { GovernorBravoDelegate, OmnichainGovernanceExecutor } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface ExecuteProposalInput {
   contract: GovernorBravoDelegate | OmnichainGovernanceExecutor;
   proposalId: number;
 }
 
-export type ExecuteProposalOutput = ContractTxData<
-  GovernorBravoDelegate | OmnichainGovernanceExecutor,
-  'execute'
->;
+export type ExecuteProposalOutput = LooseEthersContractTxData;
 
 const executeProposal = ({
   contract,

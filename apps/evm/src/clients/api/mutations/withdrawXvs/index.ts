@@ -1,11 +1,11 @@
 import type { XvsVesting } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface WithdrawXvsInput {
   xvsVestingContract: XvsVesting;
 }
 
-export type WithdrawXvsOutput = ContractTxData<XvsVesting, 'withdraw'>;
+export type WithdrawXvsOutput = LooseEthersContractTxData;
 
 const withdrawXvs = ({ xvsVestingContract }: WithdrawXvsInput): WithdrawXvsOutput => ({
   contract: xvsVestingContract,

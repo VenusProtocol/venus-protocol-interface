@@ -1,12 +1,12 @@
 import type { GovernorBravoDelegate } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface CancelProposalInput {
   governorBravoDelegateContract: GovernorBravoDelegate;
   proposalId: number;
 }
 
-export type CancelProposalOutput = ContractTxData<GovernorBravoDelegate, 'cancel'>;
+export type CancelProposalOutput = LooseEthersContractTxData;
 
 const cancelProposal = ({
   governorBravoDelegateContract,

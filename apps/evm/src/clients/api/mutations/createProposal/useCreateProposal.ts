@@ -12,7 +12,6 @@ const useCreateProposal = (options?: Partial<Options>) => {
   });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.CREATE_PROPOSAL],
     fn: (input: CreateProposalInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         createProposal({

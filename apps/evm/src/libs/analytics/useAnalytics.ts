@@ -126,7 +126,7 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
                                     ? { proposalId: number; voteType: string }
                                     : undefined;
 
-const useAnalytics = () => {
+export const useAnalytics = () => {
   function captureAnalyticEvent<TEventName extends AnalyticEventName>(
     eventName: TEventName,
     eventProps: AnalyticEventProps<TEventName>,
@@ -138,5 +138,3 @@ const useAnalytics = () => {
     captureAnalyticEvent,
   };
 };
-
-export default useAnalytics;

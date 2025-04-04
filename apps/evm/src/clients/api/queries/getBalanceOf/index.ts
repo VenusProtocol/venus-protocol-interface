@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import type { Address, PublicClient } from 'viem';
 
-import { bep20Abi } from 'libs/contracts';
+import { erc20Abi } from 'libs/contracts';
 import type { Token } from 'types';
 
 export interface GetBalanceOfInput {
@@ -26,7 +26,7 @@ export const getBalanceOf = async ({
     balanceMantissa = new BigNumber(resp.toString());
   } else {
     const resp = await publicClient.readContract({
-      abi: bep20Abi,
+      abi: erc20Abi,
       address: token.address,
       functionName: 'balanceOf',
       args: [accountAddress],

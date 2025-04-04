@@ -2,7 +2,7 @@ import type BigNumber from 'bignumber.js';
 
 import type { NativeTokenGateway, VBep20, VBnb } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { ContractTxData, VToken } from 'types';
+import type { LooseEthersContractTxData, VToken } from 'types';
 import type { AccessList, Address, PublicClient } from 'viem';
 
 export interface WithdrawInput {
@@ -15,9 +15,7 @@ export interface WithdrawInput {
   unwrap?: boolean;
 }
 
-export type WithdrawOutput =
-  | ContractTxData<VBep20 | VBnb, 'redeem' | 'redeemUnderlying'>
-  | ContractTxData<NativeTokenGateway, 'redeemAndUnwrap' | 'redeemUnderlyingAndUnwrap'>;
+export type WithdrawOutput = LooseEthersContractTxData;
 
 const withdraw = async ({
   vToken,
