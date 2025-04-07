@@ -1,14 +1,14 @@
-import type { JumpRateModel, JumpRateModelV2 } from 'libs/contracts';
-import { convertTokensToMantissa } from 'utilities';
+import { jumpRateModelAbi, jumpRateModelV2Abi } from 'libs/contracts';
 
-import BigNumber from 'bignumber.js';
 import type { Asset } from 'types';
+import { type Address, type PublicClient, parseUnits } from 'viem';
 
 const BAD_DEBT_MANTISSA = '0';
-const DIVIDER = 10 ** 16;
+const BIG_INT_DIVIDER = 10n ** 16n;
 
 export interface GetVTokenUtilizationRateInput {
-  interestRateModelContract: JumpRateModel | JumpRateModelV2;
+  publicClient: PublicClient;
+  interestRateModelContractAddress: Address;
   isIsolatedPoolMarket: boolean;
   asset: Asset;
 }
@@ -18,41 +18,38 @@ export type GetVTokenUtilizationRateOutput = {
 };
 
 export const getVTokenUtilizationRate = async ({
-  interestRateModelContract,
+  publicClient,
+  interestRateModelContractAddress,
   isIsolatedPoolMarket,
   asset,
 }: GetVTokenUtilizationRateInput): Promise<GetVTokenUtilizationRateOutput> => {
-  const cashMantissa = convertTokensToMantissa({
-    value: asset.cashTokens,
-    token: asset.vToken.underlyingToken,
-  }).toFixed();
-  const borrowBalanceMantissa = convertTokensToMantissa({
-    value: asset.borrowBalanceTokens,
-    token: asset.vToken.underlyingToken,
-  }).toFixed();
-  const reservesMantissa = convertTokensToMantissa({
-    value: asset.reserveTokens,
-    token: asset.vToken.underlyingToken,
-  }).toFixed();
+  const cashMantissa = parseUnits(
+    asset.cashTokens.toFixed(),
+    asset.vToken.underlyingToken.decimals,
+  );
 
-  const utilizationRatePromise = isIsolatedPoolMarket
-    ? (interestRateModelContract as JumpRateModelV2).utilizationRate(
-        cashMantissa,
-        borrowBalanceMantissa,
-        reservesMantissa,
-        BAD_DEBT_MANTISSA,
-      )
-    : (interestRateModelContract as JumpRateModel).utilizationRate(
-        cashMantissa,
-        borrowBalanceMantissa,
-        reservesMantissa,
-      );
+  const borrowBalanceMantissa = parseUnits(
+    asset.borrowBalanceTokens.toFixed(),
+    asset.vToken.underlyingToken.decimals,
+  );
 
-  const utilizationRateMantissa = await utilizationRatePromise;
+  const reservesMantissa = parseUnits(
+    asset.reserveTokens.toFixed(),
+    asset.vToken.underlyingToken.decimals,
+  );
 
-  const utilizationRatePercentage = new BigNumber(utilizationRateMantissa.toString())
-    .dividedToIntegerBy(DIVIDER)
-    .toNumber();
+  const badDebtMantissa = parseUnits(BAD_DEBT_MANTISSA, asset.vToken.underlyingToken.decimals);
+
+  const utilizationRateMantissa = await publicClient.readContract({
+    address: interestRateModelContractAddress,
+    abi: isIsolatedPoolMarket ? jumpRateModelV2Abi : jumpRateModelAbi,
+    functionName: 'utilizationRate',
+    args: isIsolatedPoolMarket
+      ? [cashMantissa, borrowBalanceMantissa, reservesMantissa, badDebtMantissa]
+      : [cashMantissa, borrowBalanceMantissa, reservesMantissa],
+  });
+
+  const utilizationRatePercentage = Number(utilizationRateMantissa / BIG_INT_DIVIDER);
 
   return { utilizationRatePercentage };
 };
