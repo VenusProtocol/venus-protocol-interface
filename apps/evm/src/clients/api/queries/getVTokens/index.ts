@@ -1,19 +1,20 @@
 import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
-import type { LegacyPoolComptroller, PoolLens, VenusLens } from 'libs/contracts';
+import { legacyPoolComptrollerAbi, poolLensAbi, venusLensAbi } from 'libs/contracts';
 import { getVTokenAsset } from 'libs/tokens';
 import type { ChainId, Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
-import type { Address } from 'viem';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetVTokensInput {
+  publicClient: PublicClient;
   chainId: ChainId;
   tokens: Token[];
-  poolLensContract: PoolLens;
-  poolRegistryContractAddress: string;
+  poolLensContractAddress: Address;
+  poolRegistryContractAddress: Address;
   // The VenusLens and core pool Comptroller contract only exists on the BSC network
-  venusLensContract?: VenusLens;
-  legacyPoolComptrollerContract?: LegacyPoolComptroller;
+  venusLensContractAddress?: Address;
+  legacyPoolComptrollerContractAddress?: Address;
 }
 
 export type GetVTokensOutput = {
@@ -21,17 +22,29 @@ export type GetVTokensOutput = {
 };
 
 export const getVTokens = async ({
+  publicClient,
   chainId,
   tokens,
-  poolLensContract,
+  poolLensContractAddress,
   poolRegistryContractAddress,
-  venusLensContract,
-  legacyPoolComptrollerContract,
+  venusLensContractAddress,
+  legacyPoolComptrollerContractAddress,
 }: GetVTokensInput): Promise<GetVTokensOutput> => {
   // Fetch vToken meta data from isolated pools
   const [isolatedPools, legacyPoolVTokenAddresses] = await Promise.all([
-    poolLensContract.getAllPools(poolRegistryContractAddress),
-    legacyPoolComptrollerContract ? legacyPoolComptrollerContract.getAllMarkets() : undefined,
+    publicClient.readContract({
+      address: poolLensContractAddress,
+      abi: poolLensAbi,
+      functionName: 'getAllPools',
+      args: [poolRegistryContractAddress],
+    }),
+    legacyPoolComptrollerContractAddress
+      ? publicClient.readContract({
+          address: legacyPoolComptrollerContractAddress,
+          abi: legacyPoolComptrollerAbi,
+          functionName: 'getAllMarkets',
+        })
+      : undefined,
   ]);
 
   const vTokenMetaData = isolatedPools.reduce<
@@ -43,9 +56,13 @@ export const getVTokens = async ({
   >((acc, isolatedPool) => acc.concat(isolatedPool.vTokens), []);
 
   // Fetch vToken meta data from core pool (this is only relevant to the BSC network)
-  if (legacyPoolVTokenAddresses && venusLensContract) {
-    const legacyPoolVTokenMetaData =
-      await venusLensContract.callStatic.vTokenMetadataAll(legacyPoolVTokenAddresses);
+  if (legacyPoolVTokenAddresses && venusLensContractAddress) {
+    const { result: legacyPoolVTokenMetaData } = await publicClient.simulateContract({
+      address: venusLensContractAddress,
+      abi: venusLensAbi,
+      functionName: 'vTokenMetadataAll',
+      args: [legacyPoolVTokenAddresses],
+    });
 
     vTokenMetaData.push(...legacyPoolVTokenMetaData);
   }

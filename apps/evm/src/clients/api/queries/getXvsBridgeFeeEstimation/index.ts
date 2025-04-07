@@ -1,15 +1,16 @@
 import BigNumber from 'bignumber.js';
-import { ethers } from 'ethers';
+import { type Address, type PublicClient, pad } from 'viem';
 
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
-import type { XVSProxyOFTDest, XVSProxyOFTSrc } from 'libs/contracts';
+import { xVSProxyOFTSrcAbi } from 'libs/contracts';
 import type { ChainId } from 'types';
 
 export interface GetXvsBridgeEstimationInput {
-  accountAddress: string;
+  accountAddress: Address;
   destinationChain: ChainId;
-  amountMantissa: BigNumber;
-  tokenBridgeContract: XVSProxyOFTSrc | XVSProxyOFTDest;
+  amountMantissa: bigint;
+  publicClient: PublicClient;
+  tokenBridgeContractAddress: Address;
 }
 
 export interface GetXvsBridgeEstimationOutput {
@@ -20,18 +21,30 @@ export const getXvsBridgeFeeEstimation = async ({
   accountAddress,
   destinationChain,
   amountMantissa,
-  tokenBridgeContract,
+  publicClient,
+  tokenBridgeContractAddress,
 }: GetXvsBridgeEstimationInput): Promise<GetXvsBridgeEstimationOutput> => {
   const layerZeroDestinationChain = LAYER_ZERO_CHAIN_IDS[destinationChain];
-  const estimationData = await tokenBridgeContract.estimateSendFee(
-    layerZeroDestinationChain,
-    ethers.utils.hexZeroPad(accountAddress, 32),
-    amountMantissa.toFixed(),
-    false,
-    DEFAULT_ADAPTER_PARAMS,
-  );
+
+  const estimationData = await publicClient.readContract({
+    address: tokenBridgeContractAddress,
+    // We should normally pass either the SRC or the DEST contract ABI based on the direction of the
+    // transfer, but since both use the same definition for the estimateSendFee function it does not
+    // matter
+    abi: xVSProxyOFTSrcAbi,
+    functionName: 'estimateSendFee',
+    args: [
+      layerZeroDestinationChain,
+      pad(accountAddress), // Convert address to bytes32 format
+      amountMantissa,
+      false,
+      DEFAULT_ADAPTER_PARAMS,
+    ],
+  });
+
+  const nativeFee = estimationData[0];
 
   return {
-    estimationFeeMantissa: new BigNumber(estimationData.nativeFee.toString()),
+    estimationFeeMantissa: new BigNumber(nativeFee.toString()),
   };
 };
