@@ -1,9 +1,8 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-import { usePublicClient } from 'wagmi';
+import { useChainId, usePublicClient } from 'libs/wallet';
 
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import { getVTokenApySimulations } from '.';
@@ -27,7 +26,7 @@ export const useGetVTokenApySimulations = (
   input: TrimmedGetVTokenApySimulationsInput,
   options?: Options,
 ) => {
-  const publicClient = usePublicClient();
+  const { publicClient } = usePublicClient();
   const { chainId } = useChainId();
   const { data: interestRateModelData } = useGetVTokenInterestRateModel({
     vToken: input.asset.vToken,

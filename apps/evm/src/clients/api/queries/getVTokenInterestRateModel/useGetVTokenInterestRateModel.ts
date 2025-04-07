@@ -1,12 +1,11 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-import { usePublicClient } from 'wagmi';
 
 import {
   type GetVTokenInterestRateModelOutput,
   getVTokenInterestRateModel,
 } from 'clients/api/queries/getVTokenInterestRateModel';
 import FunctionKey from 'constants/functionKey';
-import { useChainId } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId, VToken } from 'types';
 import type { Address } from 'viem';
 
@@ -28,7 +27,7 @@ export const useGetVTokenInterestRateModel = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const publicClient = usePublicClient();
+  const { publicClient } = usePublicClient();
 
   return useQuery({
     queryKey: [
