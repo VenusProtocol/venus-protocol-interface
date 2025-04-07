@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.244.0
+
+### Minor Changes
+
+- addb300: use usePublicClient hook
+
 ## 2.243.1
 
 ### Patch Changes
