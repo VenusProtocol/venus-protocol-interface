@@ -37,7 +37,7 @@ import { ChainId } from 'types';
 import { convertMantissaToTokens, formatTokensToReadableValue } from 'utilities';
 import { ChainSelect, getOptionsFromChainsList } from './ChainSelect';
 import { bridgeChains } from './constants';
-import { ReactComponent as LayerZeroLogo } from './layerZeroLogo.svg';
+import LayerZeroLogo from './layerZeroLogo.svg?react';
 import TEST_IDS from './testIds';
 import useBridgeForm from './useBridgeForm';
 

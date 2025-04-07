@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { cn } from '@venusprotocol/ui';
-import { ReactComponent as PrimeLogo } from 'assets/img/primeLogo.svg';
+import PrimeLogo from 'assets/img/primeLogo.svg?react';
 import {
   useClaimPrimeToken,
   useGetPools,
