@@ -10,6 +10,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { LockedDeposit, Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { useStyles } from './styles';
 import TEST_IDS from './testIds';
 
@@ -89,7 +90,7 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
     {
       poolIndex,
       rewardTokenAddress: xvs!.address,
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
       placeholderData: {

@@ -1,26 +1,25 @@
 import { waitFor } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
-import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
 import { useGetXvsVaultLockedDeposits } from 'clients/api';
-import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import { en } from 'libs/translations';
 
+import { lockedDeposits } from '__mocks__/models/vaults';
 import WithdrawalRequestList from '.';
 import TEST_IDS from './testIds';
 
 const fakePoolIndex = 6;
 
-describe('pages/Vault/modals/WithdrawFromVestingVaultModal/WithdrawalRequestList', () => {
+describe('WithdrawalRequestList', () => {
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(new Date(1656603774626));
 
     (useGetXvsVaultLockedDeposits as Mock).mockImplementation(() => ({
       data: {
-        lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
+        lockedDeposits,
       },
     }));
   });

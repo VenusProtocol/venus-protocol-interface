@@ -12,6 +12,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { SwitchChain } from 'containers/SwitchChain';
 import TEST_IDS from './testIds';
 
@@ -109,7 +110,7 @@ const Withdraw: React.FC<WithdrawProps> = ({ stakedToken, poolIndex, handleClose
     {
       poolIndex,
       rewardTokenAddress: xvs!.address,
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
       placeholderData: {

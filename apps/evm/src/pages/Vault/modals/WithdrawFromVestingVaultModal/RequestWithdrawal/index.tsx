@@ -19,6 +19,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import TransactionForm, { type TransactionFormProps } from '../../../TransactionForm';
 import { useStyles as useSharedStyles } from '../styles';
 
@@ -127,7 +128,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     {
       poolIndex,
       rewardTokenAddress: xvs!.address,
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
       placeholderData: {

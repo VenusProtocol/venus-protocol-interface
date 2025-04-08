@@ -14,11 +14,11 @@ import {
   getXvsVaultUserInfo,
   requestWithdrawalFromXvsVault,
 } from 'clients/api';
-import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import { en } from 'libs/translations';
 
+import { lockedDeposits } from '__mocks__/models/vaults';
 import RequestWithdrawal from '..';
 import TEST_IDS from '../../../../TransactionForm/testIds';
 
@@ -28,7 +28,7 @@ const fakePoolIndex = 6;
 describe('RequestWithdrawal', () => {
   beforeEach(() => {
     (getXvsVaultLockedDeposits as Mock).mockImplementation(() => ({
-      lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
+      lockedDeposits,
     }));
     (getXvsVaultUserInfo as Mock).mockImplementation(() =>
       formatToUserInfo(xvsVaultResponses.userInfo),
