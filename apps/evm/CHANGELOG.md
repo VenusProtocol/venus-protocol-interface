@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.244.1
+
+### Patch Changes
+
+- b74b3c4: upgrade viteJS and vitest to their latest versions
+
 ## 2.244.0
 
 ### Minor Changes
