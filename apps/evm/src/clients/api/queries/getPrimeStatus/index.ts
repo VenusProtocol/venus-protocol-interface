@@ -3,7 +3,7 @@ import type { Address, PublicClient } from 'viem';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { primeAbi } from 'libs/contracts';
-import { VError, logError } from 'libs/errors';
+import { VError } from 'libs/errors';
 
 export interface GetPrimeStatusInput {
   accountAddress?: Address;
@@ -108,19 +108,6 @@ export const getPrimeStatus = async ({
     rewardTokenAddress.status === 'failure' ||
     userClaimTimeRemainingSeconds.status === 'failure'
   ) {
-    logError(
-      claimWaitingPeriodSeconds.error ||
-        primeMaximumStakedXvsMantissa.error ||
-        primeMinimumStakedXvsMantissa.error ||
-        claimedPrimeTokens.error ||
-        revocableLimit.error ||
-        primeMarkets.error ||
-        xvsVault.error ||
-        xvsVaultPoolId.error ||
-        rewardTokenAddress.error ||
-        userClaimTimeRemainingSeconds.error,
-    );
-
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 

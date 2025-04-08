@@ -1,15 +1,22 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import {
+  getXVSProxyOFTDestContractAddress,
+  getXVSProxyOFTSrcContractAddress,
+} from 'libs/contracts';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 import { type GetXvsBridgeStatusInput, type GetXvsBridgeStatusOutput, getXvsBridgeStatus } from '.';
 
 type TrimmedGetXvsBridgeStatusInput = Omit<
   GetXvsBridgeStatusInput,
-  'tokenBridgeSendingContract' | 'receivingEndBridgeContract' | 'fromChainId'
+  | 'fromChainBridgeContractAddress'
+  | 'toChainBridgeContractAddress'
+  | 'fromChainPublicClient'
+  | 'toChainPublicClient'
+  | 'fromChainId'
 >;
 
 export type UseGetXvsBridgeStatusQueryKey = [
@@ -32,31 +39,46 @@ export const useGetXvsBridgeStatus = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const tokenBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId });
-  const tokenBridgeContractDest = useGetXVSProxyOFTDestContract({ chainId });
-  const receivingEndBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId: toChainId });
-  const receivingEndBridgeContractDest = useGetXVSProxyOFTDestContract({ chainId: toChainId });
-  const tokenBridgeSendingContract =
-    chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
-      ? tokenBridgeContractSrc
-      : tokenBridgeContractDest;
+  const { publicClient: fromChainPublicClient } = usePublicClient();
+  const { publicClient: toChainPublicClient } = usePublicClient({ chainId: toChainId });
 
-  const receivingEndBridgeContract =
+  const fromChainBridgeContractSrcAddress = getXVSProxyOFTSrcContractAddress({ chainId });
+  const fromChainBridgeContractDestAddress = getXVSProxyOFTDestContractAddress({ chainId });
+  const toChainBridgeContractSrcAddress = getXVSProxyOFTSrcContractAddress({
+    chainId: toChainId,
+  });
+  const toChainBridgeContractDestAddress = getXVSProxyOFTDestContractAddress({
+    chainId: toChainId,
+  });
+
+  const fromChainBridgeContractAddress =
+    chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
+      ? fromChainBridgeContractSrcAddress
+      : fromChainBridgeContractDestAddress;
+
+  const toChainBridgeContractAddress =
     toChainId === ChainId.BSC_MAINNET || toChainId === ChainId.BSC_TESTNET
-      ? receivingEndBridgeContractSrc
-      : receivingEndBridgeContractDest;
+      ? toChainBridgeContractSrcAddress
+      : toChainBridgeContractDestAddress;
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_BRIDGE_STATUS, { chainId, toChainId }],
-
     queryFn: () =>
       callOrThrow(
-        { tokenBridgeSendingContract, receivingEndBridgeContract, toChainId, fromChainId: chainId },
-        params => getXvsBridgeStatus({ ...params }),
+        {
+          fromChainBridgeContractAddress,
+          toChainBridgeContractAddress,
+          toChainId,
+          fromChainId: chainId,
+        },
+        params =>
+          getXvsBridgeStatus({
+            ...params,
+            fromChainPublicClient,
+            toChainPublicClient,
+          }),
       ),
-
     refetchInterval,
     ...options,
-    enabled: options?.enabled === undefined || options?.enabled,
   });
 };
