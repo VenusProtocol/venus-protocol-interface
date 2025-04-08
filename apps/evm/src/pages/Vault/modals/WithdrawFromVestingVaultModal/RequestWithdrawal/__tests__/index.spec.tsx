@@ -8,13 +8,13 @@ import fakeAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
+import { xvsVaultPoolInfo } from '__mocks__/models/vaults';
 import {
   getXvsVaultLockedDeposits,
   getXvsVaultPoolInfo,
   getXvsVaultUserInfo,
   requestWithdrawalFromXvsVault,
 } from 'clients/api';
-import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import { en } from 'libs/translations';
 
@@ -33,9 +33,7 @@ describe('RequestWithdrawal', () => {
     (getXvsVaultUserInfo as Mock).mockImplementation(() =>
       formatToUserInfo(xvsVaultResponses.userInfo),
     );
-    (getXvsVaultPoolInfo as Mock).mockImplementation(() =>
-      formatToPoolInfo(xvsVaultResponses.poolInfo),
-    );
+    (getXvsVaultPoolInfo as Mock).mockImplementation(() => xvsVaultPoolInfo);
   });
 
   it('renders without crashing', async () => {

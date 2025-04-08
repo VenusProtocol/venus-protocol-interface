@@ -11,9 +11,9 @@ import {
   getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContract } from 'libs/contracts';
+import { useGetXvsVaultContract, useGetXvsVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
-import { useChainId } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 
 export interface UseGetXvsVaultPoolsInput {
@@ -33,8 +33,10 @@ export const useGetXvsVaultPools = ({
   poolsCount,
 }: UseGetXvsVaultPoolsInput): UseGetXvsVaultPoolsOutput => {
   const { chainId } = useChainId();
+  const { publicClient } = usePublicClient();
 
   const xvsVaultContract = useGetXvsVaultContract();
+  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -52,9 +54,10 @@ export const useGetXvsVaultPools = ({
   for (let poolIndex = 0; poolIndex < poolsCount; poolIndex++) {
     queries.push({
       queryFn: () =>
-        callOrThrow({ xvsVaultContract, xvs }, params =>
+        callOrThrow({ xvsVaultContractAddress, xvs }, params =>
           getXvsVaultPoolInfo({
             ...params,
+            publicClient,
             rewardTokenAddress: params.xvs.address,
             poolIndex,
           }),

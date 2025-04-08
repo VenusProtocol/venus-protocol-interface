@@ -24,7 +24,7 @@ describe('getXvsVaultPaused', () => {
       abi: xvsVaultAbi,
       functionName: 'vaultPaused',
     });
-    
+
     expect(response).toMatchSnapshot();
   });
 });

@@ -164,16 +164,20 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     return xvsVaultUserInfo.stakedAmountMantissa.minus(pendingLockedDepositsSum);
   }, [xvsVaultUserLockedDepositsData, xvsVaultUserInfo]);
 
-  const { data: xvsVaultPoolInfo, isLoading: isGetXvsVaultPoolInfoLoading } =
-    useGetXvsVaultPoolInfo(
-      {
-        poolIndex,
-        rewardTokenAddress: xvs!.address,
-      },
-      {
-        enabled: !!accountAddress,
-      },
-    );
+  const {
+    data: xvsVaultPoolInfo,
+    isLoading: isGetXvsVaultPoolInfoLoading,
+    error,
+  } = useGetXvsVaultPoolInfo(
+    {
+      poolIndex,
+      rewardTokenAddress: xvs!.address,
+    },
+    {
+      enabled: !!accountAddress,
+    },
+  );
+  console.log(error);
 
   const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
     accountAddress,

@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import type { LockedDeposit, Vault } from 'types';
 
+import type { Address } from 'viem';
 import { vai, xvs } from './tokens';
 
 export const vaults: Vault[] = [
@@ -40,3 +41,17 @@ export const lockedDeposits: LockedDeposit[] = [
     unlockedAt: new Date('2022-07-01T18:16:44.000Z'),
   },
 ];
+
+export const xvsVaultPoolInfo: {
+  stakedTokenAddress: Address;
+  allocationPoint: number;
+  lastRewardBlock: number;
+  accRewardPerShare: BigNumber;
+  lockingPeriodMs: number;
+} = {
+  stakedTokenAddress: xvs.address,
+  allocationPoint: 10,
+  lastRewardBlock: 100000,
+  accRewardPerShare: new BigNumber(123871680),
+  lockingPeriodMs: 200000,
+};

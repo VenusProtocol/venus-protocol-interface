@@ -15,12 +15,11 @@ import {
   useGetPrimeStatus,
   useGetPrimeToken,
 } from 'clients/api';
-import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
 import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 
-import { lockedDeposits } from '__mocks__/models/vaults';
+import { lockedDeposits, xvsVaultPoolInfo } from '__mocks__/models/vaults';
 import RequestWithdrawal from '..';
 import TEST_IDS from '../../../../TransactionForm/testIds';
 
@@ -39,9 +38,7 @@ describe('RequestWithdrawal - Feature enabled: Prime', () => {
     (getXvsVaultUserInfo as Mock).mockImplementation(() =>
       formatToUserInfo(xvsVaultResponses.userInfo),
     );
-    (getXvsVaultPoolInfo as Mock).mockImplementation(() =>
-      formatToPoolInfo(xvsVaultResponses.poolInfo),
-    );
+    (getXvsVaultPoolInfo as Mock).mockImplementation(() => xvsVaultPoolInfo);
   });
 
   it('renders without crashing', () => {
