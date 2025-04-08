@@ -38,7 +38,7 @@
     "@ethersproject/providers": "^5.7.2",
     "@ethersproject/web": "^5.7.1",
     "@fastify/deepmerge": "^3.1.0",
-    "@hookform/resolvers": "^3.3.2",
+    "@hookform/resolvers": "^5.0.1",
     "@lauriys/react-palette": "^1.0.5",
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.4.2",
