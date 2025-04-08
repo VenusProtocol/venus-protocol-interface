@@ -168,6 +168,9 @@ export const useGetPendingRewards = (
       ),
     refetchInterval: REFETCH_INTERVAL_MS,
     ...options,
-    enabled: (!options || options.enabled) && !isGetPoolsLoading && !isGetXvsVaultPoolCountLoading,
+    enabled:
+      (options?.enabled === undefined || options.enabled) &&
+      !isGetPoolsLoading &&
+      !isGetXvsVaultPoolCountLoading,
   });
 };

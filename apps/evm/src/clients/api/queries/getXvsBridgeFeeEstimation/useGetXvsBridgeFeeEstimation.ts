@@ -24,7 +24,7 @@ export type UseGetXvsBridgeFeeEstimationKey = [
   FunctionKey.GET_XVS_BRIDGE_FEE_ESTIMATION,
   {
     accountAddress: Address;
-    amountMantissa: bigint;
+    amountMantissa: number;
     chainId: ChainId;
     destinationChain: ChainId;
   },
@@ -65,7 +65,7 @@ export const useGetXvsBridgeFeeEstimation = (
       FunctionKey.GET_XVS_BRIDGE_FEE_ESTIMATION,
       {
         accountAddress,
-        amountMantissa,
+        amountMantissa: Number(amountMantissa),
         chainId,
         destinationChain,
       },
