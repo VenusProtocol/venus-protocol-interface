@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.245.0
+
+### Minor Changes
+
+- 50836c2: allow mutation functions to be written using viem
+
 ## 2.244.1
 
 ### Patch Changes
