@@ -32,7 +32,6 @@ export const useGetXvsVaultPaused = (options?: Partial<Options>) => {
         }),
       ),
     ...options,
-    enabled: !!xvsVaultContractAddress && (options?.enabled === undefined || options?.enabled),
   });
 };
 
