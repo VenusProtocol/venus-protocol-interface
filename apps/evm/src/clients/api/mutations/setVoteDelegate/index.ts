@@ -1,12 +1,12 @@
 import type { XvsVault } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface SetVoteDelegateInput {
   xvsVaultContract: XvsVault;
   delegateAddress: string;
 }
 
-type SetVoteDelegateOutput = ContractTxData<XvsVault, 'delegate'>;
+type SetVoteDelegateOutput = LooseEthersContractTxData;
 
 const setVoteDelegate = ({
   xvsVaultContract,

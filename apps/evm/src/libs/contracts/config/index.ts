@@ -81,7 +81,6 @@ import { abi as vTreasuryV8Abi } from '@venusprotocol/venus-protocol/artifacts/c
 import { abi as jumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
 import { abi as venusLensAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Lens/VenusLens.sol/VenusLens.json';
 import { abi as swapRouterAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Swap/SwapRouter.sol/SwapRouter.json';
-import { abi as bep20Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/BEP20Interface.sol/BEP20Interface.json';
 import { abi as primeAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/Prime/Prime.sol/Prime.json';
 import { abi as vaiAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAI.sol/VAI.json';
 import { abi as vaiControllerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Tokens/VAI/VAIController.sol/VAIController.json';
@@ -109,6 +108,7 @@ import venusProtocolUnichainSepoliaDeployments from '@venusprotocol/venus-protoc
 import venusProtocolZkSyncMainnetDeployments from '@venusprotocol/venus-protocol/deployments/zksyncmainnet_addresses.json';
 import venusProtocolZkSyncSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/zksyncsepolia_addresses.json';
 import type { ContractInterface } from 'ethers';
+import erc20Abi from './externalAbis/Erc20.json';
 
 import { ChainId } from 'types';
 
@@ -536,8 +536,8 @@ export const contracts: ContractConfig[] = [
     abi: VBnbAbi,
   },
   {
-    name: 'Bep20',
-    abi: bep20Abi,
+    name: 'Erc20',
+    abi: erc20Abi,
   },
   {
     name: 'Xvs',

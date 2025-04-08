@@ -1,9 +1,9 @@
-import type BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 import type { Token, VToken } from 'types';
 import { formatTokensToReadableValue } from './formatTokensToReadableValue';
 
 export interface ConvertMantissaToTokensInput<TToken extends Token | VToken | undefined> {
-  value: BigNumber;
+  value: BigNumber | bigint;
   token: TToken | undefined;
   returnInReadableFormat?: boolean;
   addSymbol?: boolean;
@@ -27,7 +27,9 @@ export function convertMantissaToTokens({
     return undefined;
   }
 
-  const valueTokens = value.dividedBy(10 ** token.decimals).decimalPlaces(token.decimals);
+  const valueTokens = new BigNumber(typeof value === 'bigint' ? value.toString() : value.toFixed())
+    .dividedBy(10 ** token.decimals)
+    .decimalPlaces(token.decimals);
 
   if (returnInReadableFormat) {
     return formatTokensToReadableValue({

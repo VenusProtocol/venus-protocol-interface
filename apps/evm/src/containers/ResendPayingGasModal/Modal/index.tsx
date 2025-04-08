@@ -1,30 +1,27 @@
 import { Button, Icon, Modal as ModalComp, type ModalProps as ModalCompProps } from 'components';
-import type { BaseContract } from 'ethers';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { store } from '../store';
 import type { LastFailedGaslessTransaction } from '../types';
 
-export interface ModalProps<
-  TMutateInput extends Record<string, unknown> | void,
-  TContract extends BaseContract,
-  TMethodName extends string & keyof TContract['functions'],
-> extends Omit<ModalCompProps, 'isOpen' | 'children' | 'handleClose'> {
-  lastFailedGaslessTransaction: LastFailedGaslessTransaction<TMutateInput, TContract, TMethodName>;
+export interface ModalProps<TMutateInput extends Record<string, unknown> | void>
+  extends Omit<ModalCompProps, 'isOpen' | 'children' | 'handleClose'> {
+  lastFailedGaslessTransaction: LastFailedGaslessTransaction<TMutateInput>;
 }
 
-export function Modal<
-  TMutateInput extends Record<string, unknown> | void,
-  TContract extends BaseContract,
-  TMethodName extends string & keyof TContract['functions'],
->({
+export function Modal<TMutateInput extends Record<string, unknown> | void>({
   lastFailedGaslessTransaction: { mutationInput, ...sendTransactionHookInput },
   ...otherProps
-}: ModalProps<TMutateInput, TContract, TMethodName>) {
+}: ModalProps<TMutateInput>) {
   const { t } = useTranslation();
   const closeModal = store.use.closeModal();
-  const { mutateAsync: sendTransaction, isPending: isSendingTransaction } = useSendTransaction({
+  const { mutateAsync: sendTransaction, isPending: isSendingTransaction } = useSendTransaction<
+    TMutateInput,
+    any,
+    any,
+    any
+  >({
     ...sendTransactionHookInput,
     options: {
       ...sendTransactionHookInput.options,

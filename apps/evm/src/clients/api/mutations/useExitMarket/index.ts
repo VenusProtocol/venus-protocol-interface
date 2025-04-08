@@ -1,30 +1,37 @@
 import type BigNumber from 'bignumber.js';
-
-import { type ExitMarketInput, exitMarket, queryClient } from 'clients/api';
+import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
+import { isolatedPoolComptrollerAbi } from 'libs/contracts';
+import type { VToken } from 'types';
+import type { Address } from 'viem';
 
-type EnrichedExitMarketInput = ExitMarketInput & {
-  // These properties will be used for analytic purposes only
-  poolName: string;
+type ExitMarketInput = {
+  vToken: VToken;
+  comptrollerContractAddress: Address;
   userSupplyBalanceTokens: BigNumber;
+  poolName: string;
 };
-type Options = UseSendTransactionOptions<EnrichedExitMarketInput>;
+type Options = UseSendTransactionOptions<ExitMarketInput>;
 
-const useExitMarket = (options?: Partial<Options>) => {
+export const useExitMarket = (options?: Partial<Options>) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.EXIT_MARKET],
-    fn: exitMarket,
+    fn: (input: ExitMarketInput) => ({
+      abi: isolatedPoolComptrollerAbi,
+      address: input.comptrollerContractAddress,
+      functionName: 'exitMarket',
+      args: [input.vToken.address],
+    }),
     onConfirmed: ({ input }) => {
       const { poolName, vToken, userSupplyBalanceTokens } = input;
 
       captureAnalyticEvent('Tokens decollateralized', {
         poolName,
         tokenSymbol: vToken.symbol,
-        userSupplyBalanceTokens: userSupplyBalanceTokens.toNumber(),
+        userSupplyBalanceTokens: Number(userSupplyBalanceTokens.toFixed()),
       });
 
       queryClient.invalidateQueries({
@@ -34,5 +41,3 @@ const useExitMarket = (options?: Partial<Options>) => {
     options,
   });
 };
-
-export default useExitMarket;

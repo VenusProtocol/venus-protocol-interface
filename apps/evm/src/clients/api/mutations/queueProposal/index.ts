@@ -1,12 +1,12 @@
 import type { GovernorBravoDelegate } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface QueueProposalInput {
   governorBravoDelegateContract: GovernorBravoDelegate;
   proposalId: number;
 }
 
-export type QueueProposalOutput = ContractTxData<GovernorBravoDelegate, 'queue'>;
+export type QueueProposalOutput = LooseEthersContractTxData;
 
 const queueProposal = ({
   governorBravoDelegateContract,

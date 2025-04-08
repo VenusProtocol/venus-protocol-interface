@@ -1,14 +1,14 @@
 import type BigNumber from 'bignumber.js';
 
 import type { VaiVault } from 'libs/contracts';
-import type { ContractTxData } from 'types';
+import type { LooseEthersContractTxData } from 'types';
 
 export interface WithdrawFromVaiVaultInput {
   vaiVaultContract: VaiVault;
   amountMantissa: BigNumber;
 }
 
-export type WithdrawFromVaiVaultOutput = ContractTxData<VaiVault, 'withdraw'>;
+export type WithdrawFromVaiVaultOutput = LooseEthersContractTxData;
 
 const withdrawFromVaiVault = ({
   vaiVaultContract,

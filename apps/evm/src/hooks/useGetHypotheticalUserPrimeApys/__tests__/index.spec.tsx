@@ -13,8 +13,6 @@ import { renderHook } from 'testUtils/render';
 import type { TokenAction } from 'types';
 import { useGetHypotheticalUserPrimeApys } from '..';
 
-vi.mock('libs/wallet');
-
 const fakeAsset = assetData[0];
 const fakeAssetWithPrimeDistribution = assetData[1];
 

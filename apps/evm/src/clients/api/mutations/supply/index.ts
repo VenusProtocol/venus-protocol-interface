@@ -1,15 +1,9 @@
 import type BigNumber from 'bignumber.js';
 import type { Signer } from 'ethers';
 
-import {
-  type NativeTokenGateway,
-  type VBep20,
-  type VBnb,
-  getNativeTokenGatewayContract,
-  getVTokenContract,
-} from 'libs/contracts';
+import { type VBnb, getNativeTokenGatewayContract, getVTokenContract } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { ContractTxData, VToken } from 'types';
+import type { LooseEthersContractTxData, VToken } from 'types';
 import type { Address } from 'viem';
 
 interface SharedInput {
@@ -30,9 +24,7 @@ export interface WrapAndSupplyMutationInput extends SharedInput {
 
 export type SupplyInput = SupplyMutationInput | WrapAndSupplyMutationInput;
 
-export type SupplyOutput =
-  | ContractTxData<VBep20 | VBnb, 'mint'>
-  | ContractTxData<NativeTokenGateway, 'wrapAndSupply'>;
+export type SupplyOutput = LooseEthersContractTxData;
 
 const supply = async (input: SupplyInput): Promise<SupplyOutput> => {
   // Handle wrap and supply flow

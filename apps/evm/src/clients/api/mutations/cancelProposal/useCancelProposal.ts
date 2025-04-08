@@ -13,7 +13,6 @@ const useCancelProposal = (options?: Partial<Options>) => {
   });
 
   return useSendTransaction({
-    fnKey: [FunctionKey.CANCEL_PROPOSAL],
     fn: (input: TrimmedCancelProposalInput) =>
       callOrThrow({ governorBravoDelegateContract }, params =>
         cancelProposal({

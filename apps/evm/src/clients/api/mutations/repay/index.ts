@@ -5,12 +5,11 @@ import MAX_UINT256 from 'constants/maxUint256';
 import {
   type Maximillion,
   type NativeTokenGateway,
-  type VBep20,
   type VBnb,
   getVTokenContract,
 } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { ContractTxData, VToken } from 'types';
+import type { LooseEthersContractTxData, VToken } from 'types';
 import { callOrThrow } from 'utilities';
 
 export interface RepayInput {
@@ -23,10 +22,7 @@ export interface RepayInput {
   nativeTokenGatewayContract?: NativeTokenGateway;
 }
 
-export type RepayOutput =
-  | ContractTxData<VBnb | VBep20, 'repayBorrow'>
-  | ContractTxData<NativeTokenGateway, 'wrapAndRepay'>
-  | ContractTxData<Maximillion, 'repayBehalfExplicit'>;
+export type RepayOutput = LooseEthersContractTxData;
 
 export const FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE = 0.1;
 

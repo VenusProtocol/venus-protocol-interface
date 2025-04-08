@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useApproveToken > calls useSendTransaction with the correct parameters 1`] = `
+{
+  "abi": Any<Array>,
+  "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+  "args": [
+    "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+    115792089237316195423570985008687907853269984665640564039457584007913129639935n,
+  ],
+  "functionName": "approve",
+}
+`;
+
+exports[`useApproveToken > uses allowance when provided 1`] = `
+{
+  "abi": Any<Array>,
+  "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+  "args": [
+    "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+    1000n,
+  ],
+  "functionName": "approve",
+}
+`;

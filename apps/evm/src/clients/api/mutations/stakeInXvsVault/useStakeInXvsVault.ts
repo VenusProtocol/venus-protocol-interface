@@ -21,7 +21,6 @@ const useStakeInXvsVault = (
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fnKey: [FunctionKey.STAKE_IN_XVS_VAULT],
     fn: (input: TrimmedStakeInXvsVaultInput) =>
       callOrThrow({ xvsVaultContract }, params =>
         stakeInXvsVault({

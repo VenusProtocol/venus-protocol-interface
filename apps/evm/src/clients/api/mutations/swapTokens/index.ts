@@ -1,6 +1,6 @@
 import type { SwapRouter } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import type { ContractTxData, Swap } from 'types';
+import type { LooseEthersContractTxData, Swap } from 'types';
 import { generateTransactionDeadline } from 'utilities';
 
 export interface SwapTokensInput {
@@ -8,15 +8,7 @@ export interface SwapTokensInput {
   swap: Swap;
 }
 
-type SwapMethods =
-  | 'swapExactTokensForTokens'
-  | 'swapExactBNBForTokens'
-  | 'swapExactTokensForBNB'
-  | 'swapTokensForExactTokens'
-  | 'swapBNBForExactTokens'
-  | 'swapTokensForExactBNB';
-
-export type SwapTokensOutput = ContractTxData<SwapRouter, SwapMethods>;
+export type SwapTokensOutput = LooseEthersContractTxData;
 
 const swapTokens = async ({
   swapRouterContract,
