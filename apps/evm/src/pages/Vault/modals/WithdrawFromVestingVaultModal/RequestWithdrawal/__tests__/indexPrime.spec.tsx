@@ -1,9 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
-import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { vai } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
@@ -15,12 +13,10 @@ import {
   useGetPrimeStatus,
   useGetPrimeToken,
 } from 'clients/api';
-import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
-import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
-import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 
+import { lockedDeposits, xvsVaultPoolInfo, xvsVaultUserInfo } from '__mocks__/models/vaults';
 import RequestWithdrawal from '..';
 import TEST_IDS from '../../../../TransactionForm/testIds';
 
@@ -34,14 +30,10 @@ describe('RequestWithdrawal - Feature enabled: Prime', () => {
     );
 
     (getXvsVaultLockedDeposits as Mock).mockImplementation(() => ({
-      lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
+      lockedDeposits,
     }));
-    (getXvsVaultUserInfo as Mock).mockImplementation(() =>
-      formatToUserInfo(xvsVaultResponses.userInfo),
-    );
-    (getXvsVaultPoolInfo as Mock).mockImplementation(() =>
-      formatToPoolInfo(xvsVaultResponses.poolInfo),
-    );
+    (getXvsVaultUserInfo as Mock).mockImplementation(() => xvsVaultUserInfo);
+    (getXvsVaultPoolInfo as Mock).mockImplementation(() => xvsVaultPoolInfo);
   });
 
   it('renders without crashing', () => {
@@ -70,9 +62,9 @@ describe('RequestWithdrawal - Feature enabled: Prime', () => {
       data: {
         // Set minimum stake to the same value as user's current stake, so that entering any amount
         // should display a warning message regarding the loss of Prime token
-        primeMinimumStakedXvsMantissa: new BigNumber(
-          xvsVaultResponses.userInfo.amount.toString(),
-        ).minus(xvsVaultResponses.userInfo.pendingWithdrawals.toString()),
+        primeMinimumStakedXvsMantissa: xvsVaultUserInfo.stakedAmountMantissa.minus(
+          xvsVaultUserInfo.pendingWithdrawalsTotalAmountMantissa,
+        ),
         xvsVaultPoolId: fakePoolIndex,
       },
     }));

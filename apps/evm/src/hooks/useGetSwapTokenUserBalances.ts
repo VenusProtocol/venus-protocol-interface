@@ -40,7 +40,10 @@ const useGetSwapTokenUserBalances = (
     },
     {
       ...options,
-      enabled: isIntegratedSwapEnabled && !!accountAddress && (!options || options.enabled),
+      enabled:
+        isIntegratedSwapEnabled &&
+        !!accountAddress &&
+        (!options?.enabled === undefined || options.enabled),
     },
   );
 

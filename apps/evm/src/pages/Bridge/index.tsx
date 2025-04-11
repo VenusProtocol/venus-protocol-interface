@@ -123,12 +123,12 @@ const BridgePage: React.FC = () => {
 
   const { data: getXvsBridgeFeeEstimationData } = useGetXvsBridgeFeeEstimation(
     {
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
       destinationChain: toChainId,
       amountMantissa,
     },
     {
-      enabled: !!accountAddress && amountMantissa.gt(0),
+      enabled: !!accountAddress && amountMantissa > 0n,
     },
   );
 
@@ -205,7 +205,7 @@ const BridgePage: React.FC = () => {
       try {
         await bridgeXvs({
           accountAddress,
-          amountMantissa,
+          amountMantissa: new BigNumber(amountMantissa.toString()),
           destinationChainId: toChainId,
           nativeCurrencyFeeMantissa: bridgeEstimatedFeeMantissa,
         });

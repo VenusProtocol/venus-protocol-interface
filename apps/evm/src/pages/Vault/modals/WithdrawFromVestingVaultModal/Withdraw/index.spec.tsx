@@ -2,29 +2,28 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
-import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import { executeWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
-import formatToLockedDeposit from 'clients/api/queries/getXvsVaultLockedDeposits/formatToLockedDeposit';
 import { en } from 'libs/translations';
 
 import { ChainId, chainMetadata } from '@venusprotocol/chains';
+import { lockedDeposits } from '__mocks__/models/vaults';
 import Withdraw from '.';
 import TEST_IDS from './testIds';
 
 const fakePoolIndex = 6;
 const fakeStakedToken = vai;
 
-describe('pages/Vault/modals/WithdrawFromVestingVaultModal/Withdraw', () => {
+describe('Withdraw', () => {
   beforeEach(() => {
     vi.useFakeTimers().setSystemTime(new Date(1656603774626));
     (useGetXvsVaultLockedDeposits as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
-        lockedDeposits: xvsVaultResponses.getWithdrawalRequests.map(formatToLockedDeposit),
+        lockedDeposits,
       },
     }));
   });

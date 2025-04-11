@@ -14,6 +14,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { convertMantissaToTokens } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import Convert from './Convert';
 import Withdraw, { type WithdrawProps } from './Withdraw';
 import { useStyles } from './styles';
@@ -65,7 +66,7 @@ const ConvertVrt = () => {
   const {
     data: { totalWithdrawableAmount: xvsWithdrawableAmount } = {},
   } = useGetXvsWithdrawableAmount(
-    { accountAddress: accountAddress || '' },
+    { accountAddress: accountAddress || NULL_ADDRESS },
     { enabled: !!accountAddress },
   );
 

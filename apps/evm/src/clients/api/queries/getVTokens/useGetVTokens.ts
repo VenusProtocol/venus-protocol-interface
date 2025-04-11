@@ -2,13 +2,13 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
 import {
-  useGetLegacyPoolComptrollerContract,
-  useGetPoolLensContract,
+  useGetLegacyPoolComptrollerContractAddress,
+  useGetPoolLensContractAddress,
   useGetPoolRegistryContractAddress,
-  useGetVenusLensContract,
+  useGetVenusLensContractAddress,
 } from 'libs/contracts';
 import { useGetTokens } from 'libs/tokens';
-import { useChainId } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import { type GetVTokensOutput, getVTokens } from '.';
@@ -32,9 +32,10 @@ export const useGetVTokens = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const tokens = useGetTokens();
 
-  const venusLensContract = useGetVenusLensContract();
-  const legacyPoolComptrollerContract = useGetLegacyPoolComptrollerContract();
-  const poolLensContract = useGetPoolLensContract();
+  const { publicClient } = usePublicClient();
+  const venusLensContractAddress = useGetVenusLensContractAddress();
+  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
+  const poolLensContractAddress = useGetPoolLensContractAddress();
   const poolRegistryContractAddress = useGetPoolRegistryContractAddress();
 
   return useQuery({
@@ -46,11 +47,12 @@ export const useGetVTokens = (options?: Partial<Options>) => {
     ],
 
     queryFn: () =>
-      callOrThrow({ poolLensContract, poolRegistryContractAddress }, params =>
+      callOrThrow({ poolLensContractAddress, poolRegistryContractAddress }, params =>
         getVTokens({
+          publicClient,
           chainId,
-          legacyPoolComptrollerContract,
-          venusLensContract,
+          legacyPoolComptrollerContractAddress,
+          venusLensContractAddress,
           tokens,
           ...params,
         }),

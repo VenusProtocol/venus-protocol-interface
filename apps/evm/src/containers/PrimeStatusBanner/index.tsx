@@ -26,6 +26,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Token } from 'types';
 import { convertMantissaToTokens, generatePseudoRandomRefetchInterval } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';
 import PrimeTokensLeft from './PrimeTokensLeft';
 import { formatWaitingPeriod } from './formatWaitingPeriod';
@@ -384,9 +385,9 @@ const PrimeStatusBanner: React.FC<PrimeStatusBannerProps> = props => {
   const { data: userStakedXvsTokensData, isLoading: isLoadingXvsVaultUserInfo } =
     useGetXvsVaultUserInfo(
       {
-        accountAddress: accountAddress || '',
+        accountAddress: accountAddress || NULL_ADDRESS,
+        rewardTokenAddress: primeStatusData?.rewardTokenAddress || NULL_ADDRESS,
         poolIndex: primeStatusData?.xvsVaultPoolId || 0,
-        rewardTokenAddress: primeStatusData?.rewardTokenAddress || '',
       },
       {
         enabled: !!accountAddress && !!primeStatusData,

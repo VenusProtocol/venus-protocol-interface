@@ -18,6 +18,7 @@ import { convertTokensToMantissa, indexBy } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
 import BigNumber from 'bignumber.js';
+import type { Address } from 'viem';
 import { useGetXvsVaultPoolBalances } from './useGetXvsVaultPoolBalances';
 import { useGetXvsVaultPools } from './useGetXvsVaultPools';
 
@@ -26,10 +27,8 @@ export interface UseGetVestingVaultsOutput {
   data: Vault[];
 }
 
-export const useGetVestingVaults = ({
-  accountAddress,
-}: {
-  accountAddress?: string;
+export const useGetVestingVaults = (input?: {
+  accountAddress?: Address;
 }): UseGetVestingVaultsOutput => {
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -71,7 +70,7 @@ export const useGetVestingVaults = ({
 
   // Fetch pools
   const poolQueryResults = useGetXvsVaultPools({
-    accountAddress,
+    accountAddress: input?.accountAddress,
     poolsCount: xvsVaultPoolCountData.poolCount,
   });
   const arePoolQueriesLoading = poolQueryResults.some(queryResult => queryResult.isLoading);

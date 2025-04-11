@@ -42,8 +42,8 @@ export const useGetHypotheticalUserPrimeApys = ({
   const { data: getXvsVaultUserInfoData } = useGetXvsVaultUserInfo(
     {
       poolIndex: xvsVaultPoolIndex || 0,
-      rewardTokenAddress: xvs?.address || '',
-      accountAddress: accountAddress || '',
+      rewardTokenAddress: xvs?.address || NULL_ADDRESS,
+      accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
       enabled: !!accountAddress && !!xvs && typeof xvsVaultPoolIndex === 'number',

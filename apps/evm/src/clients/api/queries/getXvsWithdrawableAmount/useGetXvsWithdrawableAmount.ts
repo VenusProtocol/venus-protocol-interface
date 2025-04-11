@@ -6,14 +6,14 @@ import {
   getXvsWithdrawableAmount,
 } from 'clients/api/queries/getXvsWithdrawableAmount';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVestingContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useGetXvsVestingContractAddress } from 'libs/contracts';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetXvsWithdrawableAmountInput = Omit<
   GetXvsWithdrawableAmountInput,
-  'xvsVestingContract'
+  'publicClient' | 'xvsVestingContractAddress'
 >;
 
 export type UseGetXvsWithdrawableAmountQueryKey = [
@@ -36,16 +36,19 @@ export const useGetXvsWithdrawableAmount = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const xvsVestingContract = useGetXvsVestingContract();
+  const { publicClient } = usePublicClient();
+  const xvsVestingContractAddress = useGetXvsVestingContractAddress();
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT, { ...input, chainId }],
-
     queryFn: () =>
-      callOrThrow({ xvsVestingContract }, params =>
-        getXvsWithdrawableAmount({ ...params, ...input }),
+      callOrThrow({ xvsVestingContractAddress }, params =>
+        getXvsWithdrawableAmount({
+          ...params,
+          ...input,
+          publicClient,
+        }),
       ),
-
     ...options,
   });
 };

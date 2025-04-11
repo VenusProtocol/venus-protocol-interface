@@ -48,7 +48,7 @@ export const VoterLeaderboardUi: React.FC<VoterLeaderboardProps> = ({
 const VoterLeaderboard: React.FC = () => {
   const { currentPage, setCurrentPage } = useUrlPagination();
 
-  const { data: vestingVaults } = useGetVestingVaults({ accountAddress: '' });
+  const { data: vestingVaults } = useGetVestingVaults();
 
   const totalStakedXvs = vestingVaults
     .filter(v => v.stakedToken.symbol === 'XVS')

@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getXvsVaultPoolInfo > returns the pool info successfully 1`] = `
+{
+  "accRewardPerShare": "123456789",
+  "allocationPoint": 5,
+  "lastRewardBlock": 100000,
+  "lockingPeriodMs": 200000,
+  "stakedTokenAddress": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+}
+`;

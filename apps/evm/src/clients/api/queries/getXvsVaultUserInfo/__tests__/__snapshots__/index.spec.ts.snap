@@ -2,8 +2,8 @@
 
 exports[`getXvsVaultUserInfo > returns user info related to XVS vault in correct format on success 1`] = `
 {
-  "pendingWithdrawalsTotalAmountMantissa": "1000000000000000000",
-  "rewardDebtAmountMantissa": "2000000000000000000",
+  "pendingWithdrawalsTotalAmountMantissa": "2000000000000000000",
+  "rewardDebtAmountMantissa": "1000000000000000000",
   "stakedAmountMantissa": "30000000000000000000",
 }
 `;
