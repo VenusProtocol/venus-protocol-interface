@@ -41,7 +41,6 @@ export const useGetXvsVaultLockedDeposits = (
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, { ...input, chainId }],
-
     queryFn: () =>
       callOrThrow({ xvsVaultContractAddress }, params =>
         getXvsVaultLockedDeposits({
@@ -50,8 +49,6 @@ export const useGetXvsVaultLockedDeposits = (
           publicClient,
         }),
       ),
-
-    enabled: !!publicClient && !!xvsVaultContractAddress,
     ...options,
   });
 };
