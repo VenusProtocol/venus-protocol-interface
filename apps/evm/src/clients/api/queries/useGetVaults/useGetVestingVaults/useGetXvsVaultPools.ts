@@ -105,12 +105,13 @@ export const useGetXvsVaultPools = ({
 
     queries.push({
       queryFn: () =>
-        callOrThrow({ xvsVaultContract, xvs }, params =>
+        callOrThrow({ xvsVaultContractAddress, xvs }, params =>
           getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade({
             ...params,
             rewardTokenAddress: params.xvs.address,
             poolIndex,
-            accountAddress: accountAddress || '',
+            accountAddress: accountAddress || NULL_ADDRESS,
+            publicClient,
           }),
         ),
       queryKey: [
