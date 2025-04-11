@@ -1,11 +1,13 @@
 import type BigNumber from 'bignumber.js';
 
-import type { XvsVault } from 'libs/contracts';
+import { xvsVaultAbi } from 'libs/contracts';
 import type { Token } from 'types';
 import { calculateDailyTokenRate } from 'utilities';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetXvsVaultsTotalDailyDistributedXvsInput {
-  xvsVaultContract: XvsVault;
+  publicClient: PublicClient;
+  xvsVaultContractAddress: Address;
   stakedToken: Token;
   blocksPerDay?: number;
 }
@@ -15,13 +17,17 @@ export type GetXvsVaultsTotalDailyDistributedXvsOutput = {
 };
 
 export const getXvsVaultsTotalDailyDistributedXvs = async ({
-  xvsVaultContract,
+  publicClient,
+  xvsVaultContractAddress,
   stakedToken,
   blocksPerDay,
 }: GetXvsVaultsTotalDailyDistributedXvsInput): Promise<GetXvsVaultsTotalDailyDistributedXvsOutput> => {
-  const mantissaPerBlockOrSecond = await xvsVaultContract.rewardTokenAmountsPerBlockOrSecond(
-    stakedToken.address,
-  );
+  const mantissaPerBlockOrSecond = await publicClient.readContract({
+    address: xvsVaultContractAddress,
+    abi: xvsVaultAbi,
+    functionName: 'rewardTokenAmountsPerBlockOrSecond',
+    args: [stakedToken.address],
+  });
 
   const dailyDistributedXvs = calculateDailyTokenRate({
     rateMantissa: mantissaPerBlockOrSecond.toString(),
