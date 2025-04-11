@@ -3,19 +3,17 @@ import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
-import xvsVaultResponses from '__mocks__/contracts/xvsVault';
 import fakeAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { xvsVaultPoolInfo } from '__mocks__/models/vaults';
+import { xvsVaultPoolInfo, xvsVaultUserInfo } from '__mocks__/models/vaults';
 import {
   getXvsVaultLockedDeposits,
   getXvsVaultPoolInfo,
   getXvsVaultUserInfo,
   requestWithdrawalFromXvsVault,
 } from 'clients/api';
-import formatToUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 import { en } from 'libs/translations';
 
 import { lockedDeposits } from '__mocks__/models/vaults';
@@ -30,9 +28,7 @@ describe('RequestWithdrawal', () => {
     (getXvsVaultLockedDeposits as Mock).mockImplementation(() => ({
       lockedDeposits,
     }));
-    (getXvsVaultUserInfo as Mock).mockImplementation(() =>
-      formatToUserInfo(xvsVaultResponses.userInfo),
-    );
+    (getXvsVaultUserInfo as Mock).mockImplementation(() => xvsVaultUserInfo);
     (getXvsVaultPoolInfo as Mock).mockImplementation(() => xvsVaultPoolInfo);
   });
 

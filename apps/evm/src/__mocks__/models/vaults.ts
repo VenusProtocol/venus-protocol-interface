@@ -55,3 +55,13 @@ export const xvsVaultPoolInfo: {
   accRewardPerShare: new BigNumber(123871680),
   lockingPeriodMs: 200000,
 };
+
+export const xvsVaultUserInfo: {
+  stakedAmountMantissa: BigNumber;
+  pendingWithdrawalsTotalAmountMantissa: BigNumber;
+  rewardDebtAmountMantissa: BigNumber;
+} = {
+  stakedAmountMantissa: new BigNumber('30000000000000000000'),
+  pendingWithdrawalsTotalAmountMantissa: new BigNumber('1000000000000000000'),
+  rewardDebtAmountMantissa: new BigNumber('2000000000000000000'),
+};

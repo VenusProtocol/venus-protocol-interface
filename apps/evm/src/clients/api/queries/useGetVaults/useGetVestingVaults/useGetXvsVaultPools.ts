@@ -10,15 +10,17 @@ import {
   getXvsVaultUserInfo,
   getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
 } from 'clients/api';
+import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { useGetXvsVaultContract, useGetXvsVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
 export interface UseGetXvsVaultPoolsInput {
   poolsCount: number;
-  accountAddress?: string;
+  accountAddress?: Address;
 }
 
 export type UseGetXvsVaultPoolsOutput = UseQueryResult<
@@ -85,12 +87,13 @@ export const useGetXvsVaultPools = ({
 
     queries.push({
       queryFn: () =>
-        callOrThrow({ xvsVaultContract, xvs }, params =>
+        callOrThrow({ xvsVaultContractAddress, xvs }, params =>
           getXvsVaultUserInfo({
             ...params,
             rewardTokenAddress: params.xvs.address,
             poolIndex,
-            accountAddress: accountAddress || '',
+            accountAddress: accountAddress || NULL_ADDRESS,
+            publicClient,
           }),
         ),
       queryKey: [

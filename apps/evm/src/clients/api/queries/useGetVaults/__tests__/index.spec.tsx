@@ -19,9 +19,8 @@ import {
   getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
   getXvsVaultsTotalDailyDistributedXvs,
 } from 'clients/api';
-import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 
-import { xvsVaultPoolInfo } from '__mocks__/models/vaults';
+import { xvsVaultPoolInfo, xvsVaultUserInfo } from '__mocks__/models/vaults';
 import { type UseGetVaultsOutput, useGetVaults } from '..';
 
 describe('useGetVaults', () => {
@@ -54,9 +53,7 @@ describe('useGetVaults', () => {
 
     (getXvsVaultPoolInfo as Mock).mockImplementation(() => xvsVaultPoolInfo);
 
-    (getXvsVaultUserInfo as Mock).mockImplementation(() =>
-      formatToXvsVaultUserInfo(xvsVaultResponses.userInfo),
-    );
+    (getXvsVaultUserInfo as Mock).mockImplementation(() => xvsVaultUserInfo);
   });
 
   it('fetches and returns vaults correctly', async () => {

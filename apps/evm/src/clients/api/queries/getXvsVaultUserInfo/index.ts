@@ -1,14 +1,38 @@
-import formatToUserInfo from './formatToUserInfo';
-import type { GetXvsVaultUserInfoInput, GetXvsVaultUserInfoOutput } from './types';
+import BigNumber from 'bignumber.js';
+import { xvsVaultAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
-export * from './types';
+export interface GetXvsVaultUserInfoInput {
+  publicClient: PublicClient;
+  xvsVaultContractAddress: Address;
+  rewardTokenAddress: Address;
+  poolIndex: number;
+  accountAddress: Address;
+}
+
+export interface GetXvsVaultUserInfoOutput {
+  stakedAmountMantissa: BigNumber;
+  pendingWithdrawalsTotalAmountMantissa: BigNumber;
+  rewardDebtAmountMantissa: BigNumber;
+}
 
 export const getXvsVaultUserInfo = async ({
-  xvsVaultContract,
+  publicClient,
+  xvsVaultContractAddress,
   rewardTokenAddress,
   poolIndex,
   accountAddress,
 }: GetXvsVaultUserInfoInput): Promise<GetXvsVaultUserInfoOutput> => {
-  const res = await xvsVaultContract.getUserInfo(rewardTokenAddress, poolIndex, accountAddress);
-  return formatToUserInfo(res);
+  const [amount, rewardDebt, pendingWithdrawals] = await publicClient.readContract({
+    address: xvsVaultContractAddress,
+    abi: xvsVaultAbi,
+    functionName: 'getUserInfo',
+    args: [rewardTokenAddress, BigInt(poolIndex), accountAddress],
+  });
+
+  return {
+    stakedAmountMantissa: new BigNumber(amount.toString()),
+    pendingWithdrawalsTotalAmountMantissa: new BigNumber(pendingWithdrawals.toString()),
+    rewardDebtAmountMantissa: new BigNumber(rewardDebt.toString()),
+  };
 };
