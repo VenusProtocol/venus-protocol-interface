@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.245.1
+
+### Patch Changes
+
+- e8514d6: regenerate subgraph types
+
 ## 2.245.0
 
 ### Minor Changes
