@@ -33,8 +33,10 @@ import maticLogo from 'libs/tokens/img/underlyingTokens/matic.svg';
 import nftLogo from 'libs/tokens/img/underlyingTokens/nft.png';
 import planetLogo from 'libs/tokens/img/underlyingTokens/planet.svg';
 import ptClisBNBLogo from 'libs/tokens/img/underlyingTokens/ptClisBNB.svg';
+import ptSUsdELogo from 'libs/tokens/img/underlyingTokens/ptSUsdE.svg';
 import ptSolvBtcLogo from 'libs/tokens/img/underlyingTokens/ptSolvBtc.svg';
 import racaLogo from 'libs/tokens/img/underlyingTokens/raca.png';
+import sUsdELogo from 'libs/tokens/img/underlyingTokens/sUsdE.svg';
 import sdLogo from 'libs/tokens/img/underlyingTokens/sd.svg';
 import slisBnbLogo from 'libs/tokens/img/underlyingTokens/slisBNB.png';
 import solLogo from 'libs/tokens/img/underlyingTokens/sol.svg';
@@ -48,6 +50,7 @@ import twtLogo from 'libs/tokens/img/underlyingTokens/twt.svg';
 import uniLogo from 'libs/tokens/img/underlyingTokens/uni.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
 import usddLogo from 'libs/tokens/img/underlyingTokens/usdd.svg';
+import usdeLogo from 'libs/tokens/img/underlyingTokens/usde.svg';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
 import vaiLogo from 'libs/tokens/img/underlyingTokens/vai.svg';
 import vrtLogo from 'libs/tokens/img/underlyingTokens/vrt.svg';
@@ -424,5 +427,23 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'asBNB',
     asset: asBnbLogo,
+  },
+  {
+    address: '0xdd809435ba6c9d6903730f923038801781ca66ce',
+    decimals: 18,
+    symbol: 'PT-sUSDE-JUN2025',
+    asset: ptSUsdELogo,
+  },
+  {
+    address: '0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34',
+    decimals: 18,
+    symbol: 'USDe',
+    asset: usdeLogo,
+  },
+  {
+    address: '0x211cc4dd073734da055fbf44a2b4667d5e5fe5d2',
+    decimals: 18,
+    symbol: 'sUSDe',
+    asset: sUsdELogo,
   },
 ];
