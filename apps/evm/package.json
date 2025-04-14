@@ -107,7 +107,7 @@
     "@storybook/addon-interactions": "8.4.2",
     "@storybook/addon-links": "8.6.11",
     "@storybook/blocks": "8.6.7",
-    "@storybook/react": "8.6.11",
+    "@storybook/react": "8.6.12",
     "@storybook/react-vite": "8.6.10",
     "@storybook/test": "8.4.2",
     "@stylelint/postcss-css-in-js": "0.38.0",
