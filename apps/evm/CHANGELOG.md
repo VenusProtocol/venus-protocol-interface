@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.247.0
+
+### Minor Changes
+
+- b7ca953: add support for PT-sUSDE, USDe and sUSDe on BNB Chain
+
 ## 2.246.0
 
 ### Minor Changes
