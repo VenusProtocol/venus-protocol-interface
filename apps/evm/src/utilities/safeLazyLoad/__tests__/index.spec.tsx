@@ -10,10 +10,6 @@ describe('safeLazyLoad', () => {
     writable: true,
   });
 
-  beforeEach(() => {
-    mockReload.mockClear();
-  });
-
   it('successfully loads and renders a component', async () => {
     const TestComponent = () => <div>Test Component</div>;
     const lazyComponent = safeLazyLoad(() => Promise.resolve({ default: TestComponent }));

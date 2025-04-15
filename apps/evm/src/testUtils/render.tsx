@@ -7,7 +7,7 @@ import type { Mock } from 'vitest';
 
 import fakeSigner from '__mocks__/models/signer';
 
-import { MuiThemeProvider } from 'containers/MuiThemeProvider';
+import { MuiThemeProvider } from 'App/MuiThemeProvider';
 import {
   Web3Wrapper,
   useAccountAddress,

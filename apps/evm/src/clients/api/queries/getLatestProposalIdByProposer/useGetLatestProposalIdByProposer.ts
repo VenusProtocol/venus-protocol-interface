@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
+import { chainMetadata } from '@venusprotocol/chains';
 import FunctionKey from 'constants/functionKey';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
@@ -25,6 +25,8 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, Address]
 >;
 
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = chainMetadata[governanceChain.id];
+
 const governorBravoDelegateContractAddress = getGovernorBravoDelegateContractAddress({
   chainId: governanceChain.id,
 });
@@ -33,7 +35,6 @@ export const useGetLatestProposalIdByProposer = (
   { accountAddress }: TrimmedGetLatestProposalIdByProposerInput,
   options?: Partial<Options>,
 ) => {
-  const { blockTimeMs } = useGetChainMetadata();
   const { publicClient } = usePublicClient({
     chainId: governanceChain.id,
   });
@@ -48,7 +49,7 @@ export const useGetLatestProposalIdByProposer = (
           ...params,
         }),
       ),
-    staleTime: blockTimeMs,
+    staleTime: BSC_BLOCK_TIME_MS,
     ...options,
   });
 };

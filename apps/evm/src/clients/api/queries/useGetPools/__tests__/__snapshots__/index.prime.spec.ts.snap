@@ -102,8 +102,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "1.5797413696681861",
-              "dailyDistributedTokens": "250.0000128",
+              "apyPercentage": "3.184369119480035",
+              "dailyDistributedTokens": "500.0000256",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -140,8 +140,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "1.5819817239252298",
-              "dailyDistributedTokens": "250.0000128",
+              "apyPercentage": "3.188920463145939",
+              "dailyDistributedTokens": "500.0000256",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -183,8 +183,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.6478221277312901",
-              "dailyDistributedTokens": "1499.9999904",
+              "apyPercentage": "1.2998294184096482",
+              "dailyDistributedTokens": "2999.9999808",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -221,8 +221,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0.7921351276470645",
-              "dailyDistributedTokens": "1499.9999904",
+              "apyPercentage": "1.5905277090156877",
+              "dailyDistributedTokens": "2999.9999808",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -316,8 +316,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "16.981964056809385",
-              "dailyDistributedTokens": "499.9999968",
+              "apyPercentage": "36.83857957978174",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -371,7 +371,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "499.9999968",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -428,8 +428,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.000007467880158706",
-              "dailyDistributedTokens": "499.9999968",
+              "apyPercentage": "0.00001493576085032",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -483,7 +483,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "499.9999968",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -874,8 +874,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "253.70824691591528",
-              "dailyDistributedTokens": "35.714285714285712",
+              "apyPercentage": "1145.6556504838818",
+              "dailyDistributedTokens": "71.428571428571424",
               "isActive": false,
               "rewardDetails": undefined,
               "token": {
@@ -904,8 +904,8 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "35.51944135207958",
-              "dailyDistributedTokens": "35.714285714285712",
+              "apyPercentage": "83.60875074954537",
+              "dailyDistributedTokens": "71.428571428571424",
               "isActive": false,
               "rewardDetails": undefined,
               "token": {
@@ -1255,8 +1255,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "1.5797413696681861",
-              "dailyDistributedTokens": "250.0000128",
+              "apyPercentage": "3.184369119480035",
+              "dailyDistributedTokens": "500.0000256",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -1293,8 +1293,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "1.5819817239252298",
-              "dailyDistributedTokens": "250.0000128",
+              "apyPercentage": "3.188920463145939",
+              "dailyDistributedTokens": "500.0000256",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -1336,8 +1336,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.6478221277312901",
-              "dailyDistributedTokens": "1499.9999904",
+              "apyPercentage": "1.2998294184096482",
+              "dailyDistributedTokens": "2999.9999808",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -1374,8 +1374,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0.7921351276470645",
-              "dailyDistributedTokens": "1499.9999904",
+              "apyPercentage": "1.5905277090156877",
+              "dailyDistributedTokens": "2999.9999808",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -1469,8 +1469,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "16.981964056809385",
-              "dailyDistributedTokens": "499.9999968",
+              "apyPercentage": "36.83857957978174",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -1535,7 +1535,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "499.9999968",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -1603,8 +1603,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.000007467880158706",
-              "dailyDistributedTokens": "499.9999968",
+              "apyPercentage": "0.00001493576085032",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -1669,7 +1669,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "499.9999968",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -2093,8 +2093,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "253.70824691591528",
-              "dailyDistributedTokens": "35.714285714285712",
+              "apyPercentage": "1145.6556504838818",
+              "dailyDistributedTokens": "71.428571428571424",
               "isActive": false,
               "rewardDetails": undefined,
               "token": {
@@ -2123,8 +2123,8 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "35.51944135207958",
-              "dailyDistributedTokens": "35.714285714285712",
+              "apyPercentage": "83.60875074954537",
+              "dailyDistributedTokens": "71.428571428571424",
               "isActive": false,
               "rewardDetails": undefined,
               "token": {
@@ -2486,8 +2486,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "1.5797413696681861",
-              "dailyDistributedTokens": "250.0000128",
+              "apyPercentage": "3.184369119480035",
+              "dailyDistributedTokens": "500.0000256",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -2524,8 +2524,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "1.5819817239252298",
-              "dailyDistributedTokens": "250.0000128",
+              "apyPercentage": "3.188920463145939",
+              "dailyDistributedTokens": "500.0000256",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -2567,8 +2567,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.6478221277312901",
-              "dailyDistributedTokens": "1499.9999904",
+              "apyPercentage": "1.2998294184096482",
+              "dailyDistributedTokens": "2999.9999808",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -2605,8 +2605,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           ],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "0.7921351276470645",
-              "dailyDistributedTokens": "1499.9999904",
+              "apyPercentage": "1.5905277090156877",
+              "dailyDistributedTokens": "2999.9999808",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -2700,8 +2700,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "16.981964056809385",
-              "dailyDistributedTokens": "499.9999968",
+              "apyPercentage": "36.83857957978174",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -2750,7 +2750,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "499.9999968",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -2802,8 +2802,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "0.000007467880158706",
-              "dailyDistributedTokens": "499.9999968",
+              "apyPercentage": "0.00001493576085032",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -2852,7 +2852,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "supplyTokenDistributions": [
             {
               "apyPercentage": "0",
-              "dailyDistributedTokens": "499.9999968",
+              "dailyDistributedTokens": "999.9999936",
               "isActive": true,
               "rewardDetails": undefined,
               "token": {
@@ -3228,8 +3228,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "borrowPointDistributions": [],
           "borrowTokenDistributions": [
             {
-              "apyPercentage": "253.70824691591528",
-              "dailyDistributedTokens": "35.714285714285712",
+              "apyPercentage": "1145.6556504838818",
+              "dailyDistributedTokens": "71.428571428571424",
               "isActive": false,
               "rewardDetails": undefined,
               "token": {
@@ -3258,8 +3258,8 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "supplyPointDistributions": [],
           "supplyTokenDistributions": [
             {
-              "apyPercentage": "35.51944135207958",
-              "dailyDistributedTokens": "35.714285714285712",
+              "apyPercentage": "83.60875074954537",
+              "dailyDistributedTokens": "71.428571428571424",
               "isActive": false,
               "rewardDetails": undefined,
               "token": {
