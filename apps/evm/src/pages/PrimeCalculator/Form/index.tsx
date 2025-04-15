@@ -35,6 +35,7 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import TEST_IDS from '../testIds';
 import { Field } from './Field';
 import { RewardDetails } from './RewardDetails';
@@ -81,8 +82,8 @@ export const Form: React.FC = () => {
   const { data: getXvsVaultUserInfoData } = useGetXvsVaultUserInfo(
     {
       poolIndex: xvsVaultPoolIndex || 0,
-      rewardTokenAddress: xvs?.address || '',
-      accountAddress: accountAddress || '',
+      rewardTokenAddress: xvs?.address || NULL_ADDRESS,
+      accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
       enabled: !!accountAddress && !!xvs && typeof xvsVaultPoolIndex === 'number',

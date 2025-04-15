@@ -1,8 +1,10 @@
-import type { XvsVault } from 'libs/contracts';
+import { xvsVaultAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetXvsVaultTotalAllocPointsInput {
-  xvsVaultContract: XvsVault;
-  tokenAddress: string;
+  publicClient: PublicClient;
+  xvsVaultContractAddress: Address;
+  tokenAddress: Address;
 }
 
 export type GetXvsVaultTotalAllocPointsOutput = {
@@ -10,12 +12,18 @@ export type GetXvsVaultTotalAllocPointsOutput = {
 };
 
 export const getXvsVaultTotalAllocationPoints = async ({
-  xvsVaultContract,
+  publicClient,
+  xvsVaultContractAddress,
   tokenAddress,
 }: GetXvsVaultTotalAllocPointsInput): Promise<GetXvsVaultTotalAllocPointsOutput> => {
-  const res = await xvsVaultContract.totalAllocPoints(tokenAddress);
+  const res = await publicClient.readContract({
+    address: xvsVaultContractAddress,
+    abi: xvsVaultAbi,
+    functionName: 'totalAllocPoints',
+    args: [tokenAddress],
+  });
 
   return {
-    totalAllocationPoints: res.toNumber(),
+    totalAllocationPoints: Number(res),
   };
 };

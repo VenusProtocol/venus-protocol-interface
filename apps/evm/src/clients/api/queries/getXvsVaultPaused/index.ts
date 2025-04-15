@@ -1,7 +1,9 @@
-import type { XvsVault } from 'libs/contracts';
+import { xvsVaultAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetXvsVaultPausedInput {
-  xvsVaultContract: XvsVault;
+  publicClient: PublicClient;
+  xvsVaultContractAddress: Address;
 }
 
 export type GetXvsVaultPausedOutput = {
@@ -9,9 +11,14 @@ export type GetXvsVaultPausedOutput = {
 };
 
 export const getXvsVaultPaused = async ({
-  xvsVaultContract,
+  publicClient,
+  xvsVaultContractAddress,
 }: GetXvsVaultPausedInput): Promise<GetXvsVaultPausedOutput> => {
-  const isVaultPaused = await xvsVaultContract.vaultPaused();
+  const isVaultPaused = await publicClient.readContract({
+    address: xvsVaultContractAddress,
+    abi: xvsVaultAbi,
+    functionName: 'vaultPaused',
+  });
 
   return {
     isVaultPaused,

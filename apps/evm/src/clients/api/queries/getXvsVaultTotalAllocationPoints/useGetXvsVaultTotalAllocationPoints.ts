@@ -6,14 +6,14 @@ import {
   getXvsVaultTotalAllocationPoints,
 } from 'clients/api/queries/getXvsVaultTotalAllocationPoints';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetXvsVaultTotalAllocPointsInput = Omit<
   GetXvsVaultTotalAllocPointsInput,
-  'xvsVaultContract'
+  'publicClient' | 'xvsVaultContractAddress'
 >;
 
 export type UseGetXvsVaultTotalAllocationPointsQueryKey = [
@@ -36,16 +36,19 @@ export const useGetXvsVaultTotalAllocationPoints = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const xvsVaultContract = useGetXvsVaultContract();
+  const { publicClient } = usePublicClient();
+  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_VAULT_TOTAL_ALLOCATION_POINTS, { ...input, chainId }],
-
     queryFn: () =>
-      callOrThrow({ xvsVaultContract }, params =>
-        getXvsVaultTotalAllocationPoints({ ...params, ...input }),
+      callOrThrow({ xvsVaultContractAddress }, params =>
+        getXvsVaultTotalAllocationPoints({
+          ...params,
+          ...input,
+          publicClient,
+        }),
       ),
-
     ...options,
   });
 };

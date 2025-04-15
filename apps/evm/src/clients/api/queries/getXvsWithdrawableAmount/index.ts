@@ -1,10 +1,11 @@
 import BigNumber from 'bignumber.js';
-
-import type { XvsVesting } from 'libs/contracts';
+import { xvsVestingAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetXvsWithdrawableAmountInput {
-  accountAddress: string;
-  xvsVestingContract: XvsVesting;
+  accountAddress: Address;
+  publicClient: PublicClient;
+  xvsVestingContractAddress: Address;
 }
 
 export interface GetXvsWithdrawableAmountOutput {
@@ -14,14 +15,21 @@ export interface GetXvsWithdrawableAmountOutput {
 }
 
 export const getXvsWithdrawableAmount = async ({
-  xvsVestingContract,
+  publicClient,
+  xvsVestingContractAddress,
   accountAddress,
 }: GetXvsWithdrawableAmountInput): Promise<GetXvsWithdrawableAmountOutput | undefined> => {
-  const resp = await xvsVestingContract.getWithdrawableAmount(accountAddress);
+  const [totalWithdrawableAmount, totalVestedAmount, totalWithdrawnAmount] =
+    await publicClient.readContract({
+      address: xvsVestingContractAddress,
+      abi: xvsVestingAbi,
+      functionName: 'getWithdrawableAmount',
+      args: [accountAddress],
+    });
 
   return {
-    totalWithdrawableAmount: new BigNumber(resp.totalWithdrawableAmount.toString()),
-    totalVestedAmount: new BigNumber(resp.totalVestedAmount.toString()),
-    totalWithdrawnAmount: new BigNumber(resp.totalWithdrawnAmount.toString()),
+    totalWithdrawableAmount: new BigNumber(totalWithdrawableAmount.toString()),
+    totalVestedAmount: new BigNumber(totalVestedAmount.toString()),
+    totalWithdrawnAmount: new BigNumber(totalWithdrawnAmount.toString()),
   };
 };

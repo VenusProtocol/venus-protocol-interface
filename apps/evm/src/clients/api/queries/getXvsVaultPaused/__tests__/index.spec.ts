@@ -1,20 +1,30 @@
-import type { XvsVault } from 'libs/contracts';
+import { xvsVaultAbi } from 'libs/contracts';
+import type { PublicClient } from 'viem';
 
 import { getXvsVaultPaused } from '..';
 
-describe('getVaiVaultPaused', () => {
-  test('returns whether the vault is paused, on success', async () => {
-    const vaultPausedMock = vi.fn(async () => true);
+const fakeXvsVaultContractAddress = '0x1234567890123456789012345678901234567890';
 
-    const fakeContract = {
-      vaultPaused: vaultPausedMock,
-    } as unknown as XvsVault;
+describe('getXvsVaultPaused', () => {
+  test('returns whether the vault is paused, on success', async () => {
+    const readContractMock = vi.fn().mockResolvedValue(true);
+
+    const fakePublicClient = {
+      readContract: readContractMock,
+    } as unknown as PublicClient;
 
     const response = await getXvsVaultPaused({
-      xvsVaultContract: fakeContract,
+      publicClient: fakePublicClient,
+      xvsVaultContractAddress: fakeXvsVaultContractAddress,
     });
 
-    expect(vaultPausedMock).toHaveBeenCalledTimes(1);
+    expect(readContractMock).toHaveBeenCalledTimes(1);
+    expect(readContractMock).toHaveBeenCalledWith({
+      address: fakeXvsVaultContractAddress,
+      abi: xvsVaultAbi,
+      functionName: 'vaultPaused',
+    });
+
     expect(response).toMatchSnapshot();
   });
 });

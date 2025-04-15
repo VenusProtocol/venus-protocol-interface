@@ -1,5 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-import type BigNumber from 'bignumber.js';
+import type { Address } from 'viem';
 
 import {
   type GetXvsBridgeEstimationInput,
@@ -7,18 +7,24 @@ import {
   getXvsBridgeFeeEstimation,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetXVSProxyOFTDestContract, useGetXVSProxyOFTSrcContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import {
+  useGetXVSProxyOFTDestContractAddress,
+  useGetXVSProxyOFTSrcContractAddress,
+} from 'libs/contracts';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import { ChainId, type Token } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 
-type TrimmedGetXvsBridgeEstimationInput = Omit<GetXvsBridgeEstimationInput, 'tokenBridgeContract'>;
+type TrimmedGetXvsBridgeEstimationInput = Omit<
+  GetXvsBridgeEstimationInput,
+  'publicClient' | 'tokenBridgeContractAddress'
+>;
 
 export type UseGetXvsBridgeFeeEstimationKey = [
   FunctionKey.GET_XVS_BRIDGE_FEE_ESTIMATION,
   {
-    accountAddress: string;
-    amountMantissa: BigNumber;
+    accountAddress: Address;
+    amountMantissa: number;
     chainId: ChainId;
     destinationChain: ChainId;
   },
@@ -32,8 +38,7 @@ type Options = QueryObserverOptions<
   UseGetXvsBridgeFeeEstimationKey
 >;
 
-interface UseGetXvsBridgeFeeEstimationInput
-  extends Omit<TrimmedGetXvsBridgeEstimationInput, 'token'> {
+interface UseGetXvsBridgeFeeEstimationInput extends TrimmedGetXvsBridgeEstimationInput {
   token?: Token;
 }
 
@@ -44,19 +49,23 @@ export const useGetXvsBridgeFeeEstimation = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const tokenBridgeContractSrc = useGetXVSProxyOFTSrcContract({ chainId });
-  const tokenBridgeContractDest = useGetXVSProxyOFTDestContract({ chainId });
-  const tokenBridgeContract =
+  const { publicClient } = usePublicClient();
+
+  // Get the contract addresses
+  const srcContractAddress = useGetXVSProxyOFTSrcContractAddress();
+  const destContractAddress = useGetXVSProxyOFTDestContractAddress();
+
+  const tokenBridgeContractAddress =
     chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
-      ? tokenBridgeContractSrc
-      : tokenBridgeContractDest;
+      ? srcContractAddress
+      : destContractAddress;
 
   return useQuery({
     queryKey: [
       FunctionKey.GET_XVS_BRIDGE_FEE_ESTIMATION,
       {
         accountAddress,
-        amountMantissa,
+        amountMantissa: Number(amountMantissa),
         chainId,
         destinationChain,
       },
@@ -64,8 +73,12 @@ export const useGetXvsBridgeFeeEstimation = (
 
     queryFn: () =>
       callOrThrow(
-        { tokenBridgeContract, accountAddress, amountMantissa, destinationChain },
-        params => getXvsBridgeFeeEstimation({ ...params }),
+        { tokenBridgeContractAddress, accountAddress, amountMantissa, destinationChain },
+        params =>
+          getXvsBridgeFeeEstimation({
+            ...params,
+            publicClient,
+          }),
       ),
 
     refetchInterval,

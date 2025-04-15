@@ -6,12 +6,15 @@ import {
   getXvsVaultPoolInfo,
 } from 'clients/api/queries/getXvsVaultPoolInfo';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
-type TrimmedGetXvsVaultPoolInfoInput = Omit<GetXvsVaultPoolInfoInput, 'xvsVaultContract'>;
+type TrimmedGetXvsVaultPoolInfoInput = Omit<
+  GetXvsVaultPoolInfoInput,
+  'xvsVaultContractAddress' | 'publicClient'
+>;
 
 export type UseGetXvsVaultPoolInfoQueryKey = [
   FunctionKey.GET_XVS_VAULT_POOL_INFOS,
@@ -33,12 +36,19 @@ export const useGetXvsVaultPoolInfo = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const xvsVaultContract = useGetXvsVaultContract();
+  const { publicClient } = usePublicClient();
+  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_VAULT_POOL_INFOS, { ...input, chainId }],
     queryFn: () =>
-      callOrThrow({ xvsVaultContract }, params => getXvsVaultPoolInfo({ ...params, ...input })),
+      callOrThrow({ xvsVaultContractAddress }, params =>
+        getXvsVaultPoolInfo({
+          ...params,
+          ...input,
+          publicClient,
+        }),
+      ),
     ...options,
   });
 };

@@ -13,7 +13,6 @@ import {
   useGetXvsBridgeStatus,
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
-import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
@@ -25,6 +24,7 @@ import {
   formatCentsToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
+import { parseUnits } from 'viem';
 import { bridgeChains } from './constants';
 
 interface UseBridgeFormInput {
@@ -261,23 +261,16 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
   // save toChainId in a ref so it can be fed into the form's validation
   toChainIdRef.current = formToChainId;
 
-  const amountMantissa = useDebounceValue(
-    xvs
-      ? convertTokensToMantissa({
-          value: new BigNumber(amountTokens) || new BigNumber(0),
-          token: xvs,
-        })
-      : new BigNumber(0),
-  );
+  const amountMantissa = xvs && amountTokens ? parseUnits(amountTokens, xvs.decimals) : 0n;
 
   const { data: getXvsBridgeFeeEstimationData } = useGetXvsBridgeFeeEstimation(
     {
-      accountAddress: accountAddress || '',
+      accountAddress: accountAddress || NULL_ADDRESS,
       destinationChain: formToChainId,
       amountMantissa,
     },
     {
-      enabled: !!accountAddress && amountMantissa.gt(0),
+      enabled: !!accountAddress && amountMantissa > 0n,
     },
   );
 

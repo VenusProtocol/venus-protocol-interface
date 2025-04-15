@@ -1,28 +1,34 @@
 import BigNumber from 'bignumber.js';
+import { xvsVaultAbi } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
-import type {
-  GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeInput,
-  GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput,
-} from './types';
+export interface GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeInput {
+  publicClient: PublicClient;
+  xvsVaultContractAddress: Address;
+  rewardTokenAddress: Address;
+  poolIndex: number;
+  accountAddress: Address;
+}
 
-export * from './types';
+export interface GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput {
+  userPendingWithdrawalsFromBeforeUpgradeMantissa: BigNumber;
+}
 
 export const getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = async ({
-  xvsVaultContract,
+  publicClient,
+  xvsVaultContractAddress,
   rewardTokenAddress,
   poolIndex,
   accountAddress,
 }: GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeInput): Promise<GetXvsVaultUserPendingWithdrawalsFromBeforeUpgradeOutput> => {
-  const userPendingWithdrawalsFromBeforeUpgradeMantissa =
-    await xvsVaultContract.pendingWithdrawalsBeforeUpgrade(
-      rewardTokenAddress,
-      poolIndex,
-      accountAddress,
-    );
+  const res = await publicClient.readContract({
+    address: xvsVaultContractAddress,
+    abi: xvsVaultAbi,
+    functionName: 'pendingWithdrawalsBeforeUpgrade',
+    args: [rewardTokenAddress, BigInt(poolIndex), accountAddress],
+  });
 
   return {
-    userPendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber(
-      userPendingWithdrawalsFromBeforeUpgradeMantissa.toString(),
-    ),
+    userPendingWithdrawalsFromBeforeUpgradeMantissa: new BigNumber(res.toString()),
   };
 };

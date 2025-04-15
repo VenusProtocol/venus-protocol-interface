@@ -250,7 +250,7 @@ export * from './queries/getVaiRepayApr';
 export * from './queries/getVaiRepayApr/useGetVaiRepayApr';
 
 export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
-export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultPendingWithdrawalsFromBeforeUpgrade';
+export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
 
 export * from './queries/getVTokens';
 export * from './queries/getVTokens/useGetVTokens';

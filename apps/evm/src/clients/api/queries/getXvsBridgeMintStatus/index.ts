@@ -1,10 +1,12 @@
 import BigNumber from 'bignumber.js';
+import type { Address, PublicClient } from 'viem';
 
-import type { XvsTokenOmnichain } from 'libs/contracts';
+import { xvsTokenOmnichainAbi } from 'libs/contracts';
 
 export interface GetXvsMintStatusInput {
-  chainXvsProxyOftDestContractAddress: string;
-  xvsTokenOmnichainContract: XvsTokenOmnichain;
+  chainXvsProxyOftDestContractAddress: Address;
+  xvsTokenOmnichainContractAddress: Address;
+  publicClient: PublicClient;
 }
 
 export interface GetXvsMintStatusOutput {
@@ -14,12 +16,24 @@ export interface GetXvsMintStatusOutput {
 
 export const getXvsBridgeMintStatus = async ({
   chainXvsProxyOftDestContractAddress,
-  xvsTokenOmnichainContract,
+  xvsTokenOmnichainContractAddress,
+  publicClient,
 }: GetXvsMintStatusInput): Promise<GetXvsMintStatusOutput> => {
   const [minterToCap, bridgeAmountMinted] = await Promise.all([
-    xvsTokenOmnichainContract.minterToCap(chainXvsProxyOftDestContractAddress),
-    xvsTokenOmnichainContract.minterToMintedAmount(chainXvsProxyOftDestContractAddress),
+    publicClient.readContract({
+      address: xvsTokenOmnichainContractAddress,
+      abi: xvsTokenOmnichainAbi,
+      functionName: 'minterToCap',
+      args: [chainXvsProxyOftDestContractAddress],
+    }),
+    publicClient.readContract({
+      address: xvsTokenOmnichainContractAddress,
+      abi: xvsTokenOmnichainAbi,
+      functionName: 'minterToMintedAmount',
+      args: [chainXvsProxyOftDestContractAddress],
+    }),
   ]);
+
   return {
     minterToCapMantissa: new BigNumber(minterToCap.toString()),
     bridgeAmountMintedMantissa: new BigNumber(bridgeAmountMinted.toString()),

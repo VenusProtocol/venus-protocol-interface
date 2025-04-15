@@ -19,9 +19,8 @@ import {
   getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade,
   getXvsVaultsTotalDailyDistributedXvs,
 } from 'clients/api';
-import formatToPoolInfo from 'clients/api/queries/getXvsVaultPoolInfo/formatToPoolInfo';
-import formatToXvsVaultUserInfo from 'clients/api/queries/getXvsVaultUserInfo/formatToUserInfo';
 
+import { xvsVaultPoolInfo, xvsVaultUserInfo } from '__mocks__/models/vaults';
 import { type UseGetVaultsOutput, useGetVaults } from '..';
 
 describe('useGetVaults', () => {
@@ -52,13 +51,9 @@ describe('useGetVaults', () => {
       stakedVaiMantissa: new BigNumber('100000000000000000000000'),
     }));
 
-    (getXvsVaultPoolInfo as Mock).mockImplementation(() =>
-      formatToPoolInfo(xvsVaultResponses.poolInfo),
-    );
+    (getXvsVaultPoolInfo as Mock).mockImplementation(() => xvsVaultPoolInfo);
 
-    (getXvsVaultUserInfo as Mock).mockImplementation(() =>
-      formatToXvsVaultUserInfo(xvsVaultResponses.userInfo),
-    );
+    (getXvsVaultUserInfo as Mock).mockImplementation(() => xvsVaultUserInfo);
   });
 
   it('fetches and returns vaults correctly', async () => {

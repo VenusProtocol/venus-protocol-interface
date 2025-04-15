@@ -6,14 +6,14 @@ import {
   getXvsVaultLockedDeposits,
 } from 'clients/api/queries/getXvsVaultLockedDeposits';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 
 type TrimmedGetXvsVaultLockedDepositsInput = Omit<
   GetXvsVaultLockedDepositsInput,
-  'xvsVaultContract'
+  'xvsVaultContractAddress' | 'publicClient'
 >;
 
 export type UseGetXvsVaultLockedDepositsQueryKey = [
@@ -36,16 +36,19 @@ export const useGetXvsVaultLockedDeposits = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const xvsVaultContract = useGetXvsVaultContract();
+  const { publicClient } = usePublicClient();
+  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, { ...input, chainId }],
-
     queryFn: () =>
-      callOrThrow({ xvsVaultContract }, params =>
-        getXvsVaultLockedDeposits({ ...params, ...input }),
+      callOrThrow({ xvsVaultContractAddress }, params =>
+        getXvsVaultLockedDeposits({
+          ...params,
+          ...input,
+          publicClient,
+        }),
       ),
-
     ...options,
   });
 };
