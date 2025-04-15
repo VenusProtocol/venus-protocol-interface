@@ -23,6 +23,7 @@ import useExtractData from './useExtractData';
 export interface SummaryProps {
   pools: Pool[];
   vaults?: Vault[];
+  title?: string;
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
   displayAccountHealth?: boolean;
@@ -33,6 +34,7 @@ export interface SummaryProps {
 export const Summary: React.FC<SummaryProps> = ({
   pools,
   vaults,
+  title,
   displayAccountHealth = false,
   displayTotalVaultStake = false,
   xvsPriceCents = new BigNumber(0),
@@ -89,7 +91,7 @@ export const Summary: React.FC<SummaryProps> = ({
   }
 
   return (
-    <Section className={className} title={t('account.summary.title')}>
+    <Section className={className} title={title}>
       <Card css={styles.container} data-testid={TEST_IDS.container}>
         <CellGroup
           smallValues={displayAccountHealth}
