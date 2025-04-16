@@ -1,3 +1,3 @@
-import type { BREAKPOINTS } from 'containers/MuiThemeProvider/muiTheme';
+import type { BREAKPOINTS } from 'App/MuiThemeProvider/muiTheme';
 
 export type Breakpoint = keyof typeof BREAKPOINTS.values;

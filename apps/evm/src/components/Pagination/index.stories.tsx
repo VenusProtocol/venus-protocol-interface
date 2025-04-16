@@ -2,7 +2,7 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import noop from 'noop-ts';
 
-import { PALETTE } from 'containers/MuiThemeProvider/muiTheme';
+import { PALETTE } from 'App/MuiThemeProvider/muiTheme';
 
 import { Pagination } from '.';
 
