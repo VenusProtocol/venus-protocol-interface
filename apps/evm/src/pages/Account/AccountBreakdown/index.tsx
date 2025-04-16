@@ -7,12 +7,14 @@ import { useAccountAddress } from 'libs/wallet';
 
 import BigNumber from 'bignumber.js';
 import { useConvertDollarsToCents } from 'hooks/useConvertDollarsToCents';
+import { useTranslation } from 'libs/translations';
 import AccountPlaceholder from './AccountPlaceholder';
 import PoolsBreakdown from './PoolsBreakdown';
 import Summary from './Summary';
 import VaultsBreakdown from './VaultsBreakdown';
 
 const Account: React.FC = () => {
+  const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
@@ -79,8 +81,9 @@ const Account: React.FC = () => {
   }
 
   return (
-    <div className="flex-auto space-y-10 lg:space-y-14">
+    <div className="flex-auto space-y-10">
       <Summary
+        title={t('account.summary.title')}
         pools={filteredPools}
         vaults={filteredVaults}
         xvsPriceCents={xvsPriceCents}

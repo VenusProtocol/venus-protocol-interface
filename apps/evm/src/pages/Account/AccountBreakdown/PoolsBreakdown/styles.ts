@@ -18,11 +18,7 @@ export const useStyles = () => {
       }
     `,
     tags: css`
-      margin-bottom: ${theme.spacing(8)};
-
-      ${theme.breakpoints.down('md')} {
-        margin-bottom: ${theme.spacing(6)};
-      }
+      margin-bottom: ${theme.spacing(6)};
     `,
   };
 };
