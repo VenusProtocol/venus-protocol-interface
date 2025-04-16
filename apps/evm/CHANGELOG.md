@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 2.248.0
+
+### Minor Changes
+
+- c3a7872: add support for automatic chain upgrades
+
+### Patch Changes
+
+- c959d04: remove title from Account page section + update margins
+- Updated dependencies [c3a7872]
+  - @venusprotocol/chains@0.2.0
+
 ## 2.247.0
 
 ### Minor Changes
