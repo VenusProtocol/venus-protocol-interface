@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.248.1
+
+### Patch Changes
+
+- 7bd49a8: disable APY charts on opBNB
+
 ## 2.248.0
 
 ### Minor Changes
