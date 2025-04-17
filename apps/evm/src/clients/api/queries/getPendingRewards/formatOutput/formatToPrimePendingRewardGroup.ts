@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-import type { Prime } from 'libs/contracts';
 import type { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens, findTokenByAddress } from 'utilities';
 
+import type { primeAbi } from 'libs/contracts';
+import type { ContractFunctionArgs, SimulateContractReturnType } from 'viem';
 import type { PrimePendingReward, PrimePendingRewardGroup } from '../types';
 
 const formatToPrimePendingRewardGroup = ({
@@ -13,7 +14,11 @@ const formatToPrimePendingRewardGroup = ({
   tokens,
 }: {
   isPrimeContractPaused: boolean;
-  primePendingRewards: Awaited<ReturnType<Prime['callStatic']['getPendingRewards']>>;
+  primePendingRewards: SimulateContractReturnType<
+    typeof primeAbi,
+    'getPendingRewards',
+    ContractFunctionArgs<typeof primeAbi, 'nonpayable' | 'payable', 'getPendingRewards'>
+  >['result'];
   tokenPriceMapping: Record<string, BigNumber>;
   tokens: Token[];
 }) => {

@@ -7,11 +7,12 @@ import type {
   TokenDistribution,
 } from 'types';
 import { calculateYearlyPercentageRate } from 'utilities';
+import type { Address } from 'viem';
 
 type FormatDistributionInput<TType extends 'venus' | 'merkl'> = {
   rewardType: TType;
   isActive: boolean;
-  marketAddress: string;
+  marketAddress: Address;
   rewardToken: Token;
   rewardTokenPriceDollars: BigNumber;
   dailyDistributedRewardTokens: BigNumber;

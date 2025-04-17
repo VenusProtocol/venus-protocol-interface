@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 
-import type { VenusLens } from 'libs/contracts';
 import type { Token } from 'types';
 
+import type { venusLensAbi } from 'libs/contracts';
+import type { Address, ContractFunctionArgs, ReadContractReturnType } from 'viem';
 import type { LegacyPoolPendingRewardGroup } from '../types';
 import formatRewardSummaryData from './formatRewardSummaryData';
 
@@ -12,10 +13,14 @@ function formatToLegacyPoolPendingRewardGroup({
   tokenPriceMapping,
   tokens,
 }: {
-  comptrollerContractAddress: string;
+  comptrollerContractAddress: Address;
   tokenPriceMapping: Record<string, BigNumber>;
   tokens: Token[];
-  venusLensPendingRewards: Awaited<ReturnType<VenusLens['pendingRewards']>>;
+  venusLensPendingRewards: ReadContractReturnType<
+    typeof venusLensAbi,
+    'pendingRewards',
+    ContractFunctionArgs<typeof venusLensAbi, 'pure' | 'view', 'pendingRewards'>
+  >;
 }) {
   const rewardSummaryData = formatRewardSummaryData({
     rewardSummary: {

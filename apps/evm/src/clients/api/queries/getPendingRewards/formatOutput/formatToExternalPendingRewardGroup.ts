@@ -2,6 +2,7 @@ import type BigNumber from 'bignumber.js';
 
 import type { Token } from 'types';
 
+import type { Address } from 'viem';
 import type {
   ExternalPendingReward,
   ExternalPendingRewardGroup,
@@ -14,7 +15,7 @@ function formatToExternalPendingRewardGroup({
   tokenPriceMapping,
   tokens,
 }: {
-  tokenPriceMapping: Record<string, BigNumber>;
+  tokenPriceMapping: Record<Address, BigNumber>;
   tokens: Token[];
   externalRewardsSummaries: PendingExternalRewardSummary[];
 }) {

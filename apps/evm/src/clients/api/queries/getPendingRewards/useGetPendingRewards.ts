@@ -5,17 +5,18 @@ import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import {
   useGetLegacyPoolComptrollerContractAddress,
-  useGetPoolLensContract,
-  useGetPrimeContract,
-  useGetVaiVaultContract,
-  useGetVenusLensContract,
-  useGetXvsVaultContract,
+  useGetPoolLensContractAddress,
+  useGetPrimeContractAddress,
+  useGetVaiVaultContractAddress,
+  useGetVenusLensContractAddress,
+  useGetXvsVaultContractAddress,
 } from 'libs/contracts';
 import { useGetTokens } from 'libs/tokens';
-import { useChainId } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId, MerklDistribution } from 'types';
 import { callOrThrow } from 'utilities';
 
+import type { Address } from 'viem';
 import { getPendingRewards } from '.';
 import { useGetXvsVaultPoolCount } from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
 import { useGetPools } from '../useGetPools';
@@ -23,11 +24,11 @@ import type { GetPendingRewardsInput, GetPendingRewardsOutput } from './types';
 
 type TrimmedGetPendingRewardsInput = Omit<
   GetPendingRewardsInput,
-  | 'venusLensContract'
-  | 'poolLensContract'
-  | 'vaiVaultContract'
-  | 'xvsVaultContract'
-  | 'resilientOracleContract'
+  | 'venusLensContractAddress'
+  | 'poolLensContractAddress'
+  | 'vaiVaultContractAddress'
+  | 'xvsVaultContractAddress'
+  | 'resilientOracleContractAddress'
   | 'legacyPoolComptrollerContractAddress'
   | 'isolatedPoolComptrollerAddresses'
   | 'xvsVestingVaultPoolCount'
@@ -35,6 +36,7 @@ type TrimmedGetPendingRewardsInput = Omit<
   | 'tokens'
   | 'chainId'
   | 'merklCampaigns'
+  | 'publicClient'
 >;
 
 export type UseGetPendingRewardsQueryKey = [
@@ -59,12 +61,13 @@ export const useGetPendingRewards = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
+  const { publicClient } = usePublicClient();
   const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
-  const venusLensContract = useGetVenusLensContract();
-  const poolLensContract = useGetPoolLensContract();
-  const vaiVaultContract = useGetVaiVaultContract();
-  const xvsVaultContract = useGetXvsVaultContract();
-  const primeContract = useGetPrimeContract();
+  const venusLensContractAddress = useGetVenusLensContractAddress();
+  const poolLensContractAddress = useGetPoolLensContractAddress();
+  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
+  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const primeContractAddress = useGetPrimeContractAddress();
 
   const isPrimeEnabled = useIsFeatureEnabled({
     name: 'prime',
@@ -79,7 +82,7 @@ export const useGetPendingRewards = (
 
   const { isolatedPoolComptrollerAddresses, merklCampaigns } = useMemo(() => {
     const data = (getPoolsData?.pools || []).reduce<{
-      isolatedPoolComptrollerAddresses: string[];
+      isolatedPoolComptrollerAddresses: Address[];
       merklCampaigns: GetPendingRewardsInput['merklCampaigns'];
     }>(
       (acc, pool) => {
@@ -89,7 +92,7 @@ export const useGetPendingRewards = (
 
         // list all Merkl rewards for each market present in the pool
         const { assets } = pool;
-        const merklRewardsPerAsset = assets.reduce<Record<string, MerklDistribution[]>>(
+        const merklRewardsPerAsset = assets.reduce<Record<Address, MerklDistribution[]>>(
           (accMerklDistributionsForAsset, a) => {
             const assetMerklRewards = [
               ...a.supplyTokenDistributions.filter(d => d.type === 'merkl'),
@@ -148,18 +151,19 @@ export const useGetPendingRewards = (
     queryFn: () =>
       callOrThrow(
         {
-          poolLensContract,
-          xvsVaultContract,
+          poolLensContractAddress,
+          xvsVaultContractAddress,
         },
         params =>
           getPendingRewards({
+            publicClient,
             legacyPoolComptrollerContractAddress,
-            venusLensContract,
             isolatedPoolComptrollerAddresses: sortedIsolatedPoolComptrollerAddresses,
             xvsVestingVaultPoolCount,
-            vaiVaultContract,
+            venusLensContractAddress,
+            vaiVaultContractAddress,
             tokens,
-            primeContract: isPrimeEnabled ? primeContract : undefined,
+            primeContractAddress: isPrimeEnabled ? primeContractAddress : undefined,
             chainId,
             merklCampaigns,
             ...input,

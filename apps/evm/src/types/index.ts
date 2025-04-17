@@ -83,7 +83,7 @@ export interface MerklDistribution {
   rewardDetails: {
     appName: string;
     claimUrl: string;
-    marketAddress: string;
+    marketAddress: Address;
     merklCampaignIdentifier: string;
     description: string;
     tags: string[];
