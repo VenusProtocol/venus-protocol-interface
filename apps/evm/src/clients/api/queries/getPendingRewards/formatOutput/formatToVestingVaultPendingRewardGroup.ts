@@ -5,6 +5,7 @@ import convertDollarsToCents from 'utilities/convertDollarsToCents';
 import convertMantissaToTokens from 'utilities/convertMantissaToTokens';
 import findTokenByAddress from 'utilities/findTokenByAddress';
 
+import type { Address } from 'viem';
 import type { XvsVestingVaultPendingRewardGroup } from '../types';
 
 const formatToVestingVaultPendingRewardGroup = ({
@@ -20,9 +21,9 @@ const formatToVestingVaultPendingRewardGroup = ({
   isDisabled: boolean;
   userPendingRewardsAmountMantissa: BigNumber;
   userPendingWithdrawalsBeforeUpgradeAmountMantissa: BigNumber;
-  tokenPriceMapping: Record<string, BigNumber>;
+  tokenPriceMapping: Record<Address, BigNumber>;
   tokens: Token[];
-  stakedTokenAddress: string;
+  stakedTokenAddress: Address;
 }) => {
   const userHasPendingWithdrawalsFromBeforeUpgrade =
     userPendingWithdrawalsBeforeUpgradeAmountMantissa.toNumber() > 0;
@@ -49,7 +50,7 @@ const formatToVestingVaultPendingRewardGroup = ({
     return;
   }
 
-  const rewardTokenPriceDollars = tokenPriceMapping[rewardToken.address.toLowerCase()];
+  const rewardTokenPriceDollars = tokenPriceMapping[rewardToken.address.toLowerCase() as Address];
 
   // Return if there is no available reward token price
   if (!rewardTokenPriceDollars) {

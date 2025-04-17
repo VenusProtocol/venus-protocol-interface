@@ -595,16 +595,6 @@ export const getXvsVaultPendingWithdrawalsBalance = vi.fn(async () => ({
   balanceMantissa: 0,
 }));
 
-export const getApiTokenPrice = vi.fn(async ({ tokenAddresses }: { tokenAddresses: string[] }) =>
-  tokenAddresses.reduce(
-    (acc, tokenAddress) => ({
-      ...acc,
-      [tokenAddress]: new BigNumber('0x30f7dc8a6370b000', 16),
-    }),
-    {},
-  ),
-);
-
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

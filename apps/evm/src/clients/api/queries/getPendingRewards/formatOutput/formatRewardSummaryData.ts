@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import type { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
+import type { Address } from 'viem';
 import type { PendingExternalRewardSummary, PendingInternalRewardSummary } from '../types';
 
 type FormatRewardSummaryDataOutput =
@@ -9,8 +10,8 @@ type FormatRewardSummaryDataOutput =
       rewardToken: Token;
       rewardAmountMantissa: BigNumber;
       rewardAmountCents: BigNumber | undefined;
-      vTokenAddressesWithPendingReward: string[];
-      rewardsDistributorAddress: string;
+      vTokenAddressesWithPendingReward: Address[];
+      rewardsDistributorAddress?: Address;
       totalRewards?: BigNumber;
     }
   | undefined;
@@ -36,7 +37,7 @@ function formatRewardSummaryData({
     return;
   }
 
-  const vTokenAddressesWithPendingReward: string[] = [];
+  const vTokenAddressesWithPendingReward: Address[] = [];
   const distributedRewardsMantissa = new BigNumber(rewardSummary.totalRewards.toString());
 
   // Go through markets to aggregate rewards
@@ -80,7 +81,8 @@ function formatRewardSummaryData({
     rewardAmountMantissa,
     rewardAmountCents,
     vTokenAddressesWithPendingReward,
-    rewardsDistributorAddress: rewardSummary.distributorAddress,
+    rewardsDistributorAddress:
+      'distributorAddress' in rewardSummary ? rewardSummary.distributorAddress : undefined,
   };
 }
 

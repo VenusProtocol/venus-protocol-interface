@@ -4,7 +4,7 @@ import _set from 'lodash/set';
 import config from 'config';
 import { logError } from 'libs/errors';
 
-interface RestServiceInput {
+export interface RestServiceInput {
   baseUrl?: string;
   endpoint: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
@@ -13,14 +13,14 @@ interface RestServiceInput {
   params?: Record<string, unknown>;
 }
 
-interface ApiErrorResponse {
+export interface ApiErrorResponse {
   status: number;
   data: {
     error: string;
   };
 }
 
-type ApiResponse<D> =
+export type ApiResponse<D> =
   | {
       status: number;
       data: D | undefined;

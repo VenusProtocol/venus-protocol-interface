@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { NULL_ADDRESS } from 'constants/address';
 import type { MerklDistribution, Token } from 'types';
 import { areAddressesEqual } from 'utilities';
 import type { GetMerklUserRewardsResponse, MerklRewardBreakdown } from '.';
@@ -88,8 +89,7 @@ export const formatMerklRewardsPayload = (
           campaignId: '',
           campaignName: '',
           claimUrl: '',
-          distributorAddress: '',
-          rewardTokenAddress: '',
+          rewardTokenAddress: NULL_ADDRESS,
           totalRewards: new BigNumber(0),
           pendingRewards: [],
         },
