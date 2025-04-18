@@ -23,6 +23,17 @@
 @font-face {
   font-family: 'ProximaNova';
   src:
+    url('./proximaNovaMedium.woff2') format('woff2'),
+    url('./proximaNovaMedium.woff') format('woff'),
+    url('./proximaNovaMedium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ProximaNova';
+  src:
     url('./proximaNovaSemiboldIt.woff2') format('woff2'),
     url('./proximaNovaSemiboldIt.woff') format('woff'),
     url('./proximaNovaSemiboldIt.ttf') format('truetype');

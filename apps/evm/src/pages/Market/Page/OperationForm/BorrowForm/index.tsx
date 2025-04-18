@@ -5,7 +5,6 @@ import { cn } from '@venusprotocol/ui';
 import { useBorrow } from 'clients/api';
 import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
 import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { AccountData } from 'containers/AccountData';
 import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -19,6 +18,7 @@ import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAccountAddress } from 'libs/wallet';
 import { AssetInfo } from '../AssetInfo';
+import { OperationDetails } from '../OperationDetails';
 import Notice from './Notice';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
@@ -120,7 +120,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
-    userBorrowLimitCents: pool.userBorrowLimitCents?.toNumber(),
+    pool,
     limitTokens,
     onSubmitSuccess,
     onSubmit,
@@ -211,20 +211,11 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
             </>
           )}
 
-          <AssetInfo
+          <OperationDetails
+            amountTokens={new BigNumber(formValues.amountTokens || 0)}
             asset={asset}
             action="borrow"
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            renderType="accordion"
-          />
-
-          <Delimiter />
-
-          <AccountData
-            asset={asset}
             pool={pool}
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            action="borrow"
           />
         </div>
 

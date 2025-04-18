@@ -1,13 +1,16 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
+import { HEALTH_FACTOR_LIQUIDATION_THRESHOLD } from 'constants/healthFactor';
 import { useTranslation } from 'libs/translations';
-import type { Asset } from 'types';
+import type { Asset, Pool } from 'types';
+import { calculateHealthFactor } from 'utilities';
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
   asset: Asset;
+  pool: Pool;
   limitTokens: BigNumber;
   formValues: FormValues;
 }
@@ -19,6 +22,7 @@ interface UseFormValidationOutput {
 
 const useFormValidation = ({
   asset,
+  pool,
   limitTokens,
   formValues,
 }: UseFormValidationInput): UseFormValidationOutput => {
@@ -53,7 +57,34 @@ const useFormValidation = ({
         message: t('operationForm.error.higherThanWithdrawableAmount'),
       };
     }
-  }, [limitTokens, formValues.amountTokens, t, asset]);
+
+    const hypotheticalUserBorrowLimitCents =
+      asset.isCollateralOfUser && pool.userBorrowLimitCents && fromTokenAmountTokens
+        ? pool.userBorrowLimitCents.minus(
+            fromTokenAmountTokens
+              .multipliedBy(asset.tokenPriceCents)
+              .multipliedBy(asset.collateralFactor),
+          )
+        : pool.userBorrowLimitCents;
+
+    const hypotheticalHealthFactor =
+      pool.userBorrowBalanceCents && hypotheticalUserBorrowLimitCents
+        ? calculateHealthFactor({
+            borrowBalanceCents: pool.userBorrowBalanceCents.toNumber(),
+            borrowLimitCents: hypotheticalUserBorrowLimitCents.toNumber(),
+          })
+        : undefined;
+
+    if (
+      hypotheticalHealthFactor !== undefined &&
+      hypotheticalHealthFactor <= HEALTH_FACTOR_LIQUIDATION_THRESHOLD
+    ) {
+      return {
+        code: 'TOO_RISKY',
+        message: t('operationForm.error.tooRisky'),
+      };
+    }
+  }, [limitTokens, formValues.amountTokens, t, asset, pool]);
 
   return {
     isFormValid: !formError,

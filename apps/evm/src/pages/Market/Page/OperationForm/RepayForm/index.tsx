@@ -11,7 +11,6 @@ import {
   SpendingLimit,
   TokenTextField,
 } from 'components';
-import { AccountData } from 'containers/AccountData';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
@@ -32,10 +31,10 @@ import {
   formatPercentageToReadableValue,
   getUniqueTokenBalances,
 } from 'utilities';
-import { SwapDetails } from '../SwapDetails';
 
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { AssetInfo } from '../AssetInfo';
+import { OperationDetails } from '../OperationDetails';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import calculatePercentageOfUserBorrowBalance from './calculatePercentageOfUserBorrowBalance';
@@ -150,18 +149,8 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     isFromTokenApproved,
   });
 
-  const repayableAmountTokens = useMemo(
-    () => BigNumber.min(fromTokenUserWalletBalanceTokens || 0, asset.userBorrowBalanceTokens),
-    [fromTokenUserWalletBalanceTokens, asset.userBorrowBalanceTokens],
-  );
-
   const readableFromTokenUserWalletBalanceTokens = useFormatTokensToReadableValue({
     value: fromTokenUserWalletBalanceTokens,
-    token: formValues.fromToken,
-  });
-
-  const readableRepayableFromTokenAmountTokens = useFormatTokensToReadableValue({
-    value: repayableAmountTokens,
     token: formValues.fromToken,
   });
 
@@ -309,14 +298,8 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           )}
 
           <div className="space-y-2">
-            <LabeledInlineContent
-              label={
-                isUsingSwap ? t('operationForm.walletBalance') : t('operationForm.repayableAmount')
-              }
-            >
-              {isUsingSwap
-                ? readableFromTokenUserWalletBalanceTokens
-                : readableRepayableFromTokenAmountTokens}
+            <LabeledInlineContent label={t('operationForm.walletBalance')}>
+              {readableFromTokenUserWalletBalanceTokens}
             </LabeledInlineContent>
 
             <SpendingLimit
@@ -331,32 +314,13 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
 
           <Delimiter />
 
-          {isUsingSwap && swap && (
-            <>
-              <SwapDetails action="repay" swap={swap} data-testid={TEST_IDS.swapDetails} />
-
-              <Delimiter />
-            </>
-          )}
-
-          <AssetInfo
-            asset={asset}
-            action="repay"
-            swap={swap}
+          <OperationDetails
             isUsingSwap={isUsingSwap}
             amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            renderType="accordion"
-          />
-
-          <Delimiter />
-
-          <AccountData
             asset={asset}
+            action="repay"
             pool={pool}
             swap={swap}
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            action="repay"
-            isUsingSwap={isUsingSwap}
           />
         </div>
 

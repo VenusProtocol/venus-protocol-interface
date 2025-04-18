@@ -19,12 +19,16 @@ describe('AccountData', () => {
 
   it.each([
     { action: 'supply', amountToken: 0 },
-    { action: 'supply', amountToken: 100000 },
+    { action: 'supply', amountToken: 10 },
+    { action: 'supply', amountToken: 100 },
     { action: 'withdraw', amountToken: 0 },
-    { action: 'withdraw', amountToken: 50 },
+    { action: 'withdraw', amountToken: 10 },
+    { action: 'withdraw', amountToken: 100 },
     { action: 'borrow', amountToken: 0 },
+    { action: 'borrow', amountToken: 10 },
     { action: 'borrow', amountToken: 100 },
     { action: 'repay', amountToken: 100 },
+    { action: 'repay', amountToken: 10 },
     { action: 'repay', amountToken: 0 },
   ] as { action: AccountDataProps['action']; amountToken: number }[])(
     'renders correct values: %s',

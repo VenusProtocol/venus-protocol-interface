@@ -1,16 +1,17 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import type { Asset } from 'types';
+import type { Asset, Pool } from 'types';
 
+import { HEALTH_FACTOR_LIQUIDATION_THRESHOLD } from 'constants/healthFactor';
 import { useTranslation } from 'libs/translations';
-import { formatTokensToReadableValue } from 'utilities';
+import { calculateHealthFactor, formatTokensToReadableValue } from 'utilities';
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
   asset: Asset;
-  userBorrowLimitCents: number;
+  pool: Pool;
   limitTokens: string;
   formValues: FormValues;
 }
@@ -22,14 +23,14 @@ interface UseFormValidationOutput {
 
 const useFormValidation = ({
   asset,
-  userBorrowLimitCents,
+  pool,
   limitTokens,
   formValues,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
   const formError = useMemo<FormError<FormErrorCode> | undefined>(() => {
-    if (userBorrowLimitCents === 0) {
+    if (!pool?.userBorrowLimitCents || pool.userBorrowLimitCents.isEqualTo(0)) {
       return {
         code: 'NO_COLLATERALS',
         message: t('operationForm.error.noCollateral', {
@@ -107,7 +108,23 @@ const useFormValidation = ({
         message: t('operationForm.error.higherThanBorrowableAmount'),
       };
     }
-  }, [asset, limitTokens, formValues.amountTokens, userBorrowLimitCents, t]);
+
+    const hypotheticalUserBorrowBalanceCents = new BigNumber(pool.userBorrowBalanceCents || 0).plus(
+      fromTokenAmountTokens.multipliedBy(asset.tokenPriceCents),
+    );
+
+    const hypotheticalHealthFactor = calculateHealthFactor({
+      borrowBalanceCents: hypotheticalUserBorrowBalanceCents.toNumber(),
+      borrowLimitCents: pool.userBorrowLimitCents.toNumber(),
+    });
+
+    if (hypotheticalHealthFactor <= HEALTH_FACTOR_LIQUIDATION_THRESHOLD) {
+      return {
+        code: 'TOO_RISKY',
+        message: t('operationForm.error.tooRisky'),
+      };
+    }
+  }, [asset, pool, limitTokens, formValues.amountTokens, t]);
 
   return {
     isFormValid: !formError,

@@ -7,7 +7,7 @@ export default {
   component: LabeledProgressBar,
 } as Meta<typeof LabeledProgressBar>;
 
-export const BorrowBalanceAccountHealthWithValues = () => (
+export const Default = () => (
   <LabeledProgressBar
     greyLeftText="Max:"
     whiteLeftText="$5000"

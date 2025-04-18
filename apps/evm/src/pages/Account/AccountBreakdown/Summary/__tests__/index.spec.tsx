@@ -4,8 +4,7 @@ import { poolData } from '__mocks__/models/pools';
 import { vaults } from '__mocks__/models/vaults';
 import { renderComponent } from 'testUtils/render';
 
-import Summary from '.';
-import TEST_IDS from './testIds';
+import Summary from '..';
 
 describe('pages/Account/Summary', () => {
   it('renders without crashing', () => {
@@ -13,13 +12,13 @@ describe('pages/Account/Summary', () => {
   });
 
   it('displays stats correctly', () => {
-    const { getByTestId } = renderComponent(<Summary pools={poolData} />);
+    const { container } = renderComponent(<Summary pools={poolData} />);
 
-    expect(getByTestId(TEST_IDS.stats).textContent).toMatchSnapshot();
+    expect(container.textContent).toMatchSnapshot();
   });
 
   it('displays total vault stake when passing vaults prop and displayTotalVaultStake prop as true', () => {
-    const { getByTestId } = renderComponent(
+    const { container } = renderComponent(
       <Summary
         pools={poolData}
         vaults={vaults}
@@ -29,12 +28,12 @@ describe('pages/Account/Summary', () => {
       />,
     );
 
-    expect(getByTestId(TEST_IDS.stats).textContent).toMatchSnapshot();
+    expect(container.textContent).toMatchSnapshot();
   });
 
-  it('displays account health when passing displayAccountHealth prop as true', () => {
-    const { getByTestId } = renderComponent(<Summary pools={poolData} displayAccountHealth />);
+  it('displays health factor when passing displayHealthFactor prop as true', () => {
+    const { container } = renderComponent(<Summary pools={poolData} displayHealthFactor />);
 
-    expect(getByTestId(TEST_IDS.accountHealth).textContent).toMatchSnapshot();
+    expect(container.textContent).toMatchSnapshot();
   });
 });

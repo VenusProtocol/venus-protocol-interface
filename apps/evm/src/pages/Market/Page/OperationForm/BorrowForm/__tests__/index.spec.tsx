@@ -245,6 +245,35 @@ describe('BorrowForm', () => {
     await checkSubmitButtonIsDisabled();
   });
 
+  it('disables submit button if amount to borrow requested would liquidate user', async () => {
+    const { getByTestId, getByText } = renderComponent(
+      <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const fakeBorrowDeltaCents = fakePool.userBorrowLimitCents!.minus(
+      fakePool.userBorrowBalanceCents!,
+    );
+
+    const incorrectValueTokens = new BigNumber(fakeBorrowDeltaCents)
+      .dividedBy(fakeAsset.tokenPriceCents)
+      .dp(fakeAsset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN)
+      .toFixed();
+
+    // Enter amount in input
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    fireEvent.change(tokenTextInput, {
+      target: { value: incorrectValueTokens },
+    });
+
+    // Check warning is displayed
+    await waitFor(() => expect(getByText(en.operationForm.error.tooRisky)).toBeInTheDocument());
+
+    await checkSubmitButtonIsDisabled();
+  });
+
   it('prompts user to switch chain if they are connected to the wrong one', async () => {
     const { getByText, getByTestId } = renderComponent(
       <BorrowForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,

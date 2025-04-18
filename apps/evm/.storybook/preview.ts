@@ -1,8 +1,8 @@
 import '../src/assets/styles/index.css';
 import { withPadding, withRouter, withThemeProvider } from '../src/stories/decorators';
 
+import { theme } from '@venusprotocol/ui';
 import initializeLibraries from '../src/initializeLibraries';
-import { theme } from '../src/theme';
 
 initializeLibraries();
 

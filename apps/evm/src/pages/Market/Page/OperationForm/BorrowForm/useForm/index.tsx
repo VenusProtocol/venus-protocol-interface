@@ -1,5 +1,5 @@
 import { handleError } from 'libs/errors';
-import type { Asset, Token } from 'types';
+import type { Asset, Pool, Token } from 'types';
 
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
@@ -9,12 +9,12 @@ export * from './types';
 
 export interface UseFormInput {
   asset: Asset;
+  pool: Pool;
   limitTokens: string;
   onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
   onSubmitSuccess?: () => void;
-  userBorrowLimitCents?: number;
 }
 
 interface UseFormOutput {
@@ -25,7 +25,7 @@ interface UseFormOutput {
 
 const useForm = ({
   asset,
-  userBorrowLimitCents = 0,
+  pool,
   limitTokens,
   onSubmitSuccess,
   formValues,
@@ -34,7 +34,7 @@ const useForm = ({
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
     asset,
-    userBorrowLimitCents,
+    pool,
     limitTokens,
     formValues,
   });

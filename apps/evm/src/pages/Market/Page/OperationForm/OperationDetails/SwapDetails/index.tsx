@@ -11,6 +11,7 @@ import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue
 import { useTranslation } from 'libs/translations';
 import type { Swap } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
+import TEST_IDS from '../testIds';
 
 const readableSlippageTolerancePercentage = formatPercentageToReadableValue(
   SLIPPAGE_TOLERANCE_PERCENTAGE,
@@ -68,6 +69,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
           : t('operationForm.swapDetails.label.supply')
       }
       rightLabel={getAccordionTitle()}
+      data-testid={TEST_IDS.swapDetails}
       {...otherProps}
     >
       <div className="space-y-2">

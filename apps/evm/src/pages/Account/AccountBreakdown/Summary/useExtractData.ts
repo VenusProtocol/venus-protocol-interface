@@ -1,15 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import type { Pool, Vault } from 'types';
 import {
   calculateDailyEarningsCents,
+  calculateHealthFactor,
   calculateYearlyEarningsForAssets,
   calculateYearlyInterests,
   convertMantissaToTokens,
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
 } from 'utilities';
 
 import calculateNetApy from './calculateNetApy';
@@ -74,27 +72,18 @@ const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtr
         yearlyEarningsCents,
       });
 
-    const safeBorrowLimitCentsTmp = borrowLimitCents.multipliedBy(
-      SAFE_BORROW_LIMIT_PERCENTAGE / 100,
-    );
-
-    const readableSafeBorrowLimitTmp = formatCentsToReadableValue({
-      value: safeBorrowLimitCentsTmp,
+    const healthFactor = calculateHealthFactor({
+      borrowBalanceCents: totalBorrowCents.toNumber(),
+      borrowLimitCents: borrowLimitCents.toNumber(),
     });
-
-    const safeBorrowLimitPercentageTmp = formatPercentageToReadableValue(
-      safeBorrowLimitCentsTmp.multipliedBy(100).dividedBy(borrowLimitCents),
-    );
 
     return {
       dailyEarningsCents: dailyEarningsCentsTmp,
       netApyPercentage: netApyPercentageTmp,
-      readableSafeBorrowLimit: readableSafeBorrowLimitTmp,
-      safeBorrowLimitPercentage: safeBorrowLimitPercentageTmp,
       totalVaultStakeCents,
       totalBorrowCents,
       totalSupplyCents,
-      borrowLimitCents,
+      healthFactor,
     };
   }, [pools, vaults, xvsPriceCents, vaiPriceCents]);
 

@@ -55,7 +55,7 @@ describe('RepayForm', () => {
     expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
   });
 
-  it('displays correct repayable amount', async () => {
+  it('displays correct wallet amount', async () => {
     const { getByText } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
@@ -63,7 +63,7 @@ describe('RepayForm', () => {
       },
     );
 
-    await waitFor(() => getByText('1K XVS'));
+    await waitFor(() => getByText('10M XVS'));
   });
 
   it('disables submit button if amount entered in input is higher than user repay balance', async () => {

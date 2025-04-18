@@ -4,7 +4,6 @@ const TEST_IDS = {
   submitButton: 'submit-button',
   noticeError: 'notice-error',
   noticeAssetWarning: 'notice-isolated-asset',
-  swapDetails: 'swap-details',
   spendingLimit: 'spending-limit',
 };
 

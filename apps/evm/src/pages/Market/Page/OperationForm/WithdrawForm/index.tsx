@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { cn } from '@venusprotocol/ui';
 import { useGetVTokenBalance, useWithdraw } from 'clients/api';
 import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
-import { AccountData } from 'containers/AccountData';
 import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -19,6 +18,7 @@ import { convertTokensToMantissa } from 'utilities';
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { AssetInfo } from '../AssetInfo';
+import { OperationDetails } from '../OperationDetails';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
@@ -123,6 +123,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
+    pool,
     limitTokens,
     onSubmitSuccess,
     onSubmit,
@@ -209,20 +210,11 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
             </>
           )}
 
-          <AssetInfo
+          <OperationDetails
+            amountTokens={new BigNumber(formValues.amountTokens || 0)}
             asset={asset}
             action="withdraw"
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            renderType="accordion"
-          />
-
-          <Delimiter />
-
-          <AccountData
-            asset={asset}
             pool={pool}
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            action="withdraw"
           />
         </div>
 

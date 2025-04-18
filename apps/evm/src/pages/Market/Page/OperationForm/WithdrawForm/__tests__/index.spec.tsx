@@ -121,6 +121,48 @@ describe('WithdrawForm', () => {
     expect(submitButton).toBeDisabled();
   });
 
+  it('submit button is disabled when entering a value that would liquidate the user', async () => {
+    const customFakePool: Pool = {
+      ...fakePool,
+      userBorrowBalanceCents: new BigNumber(10000),
+      userBorrowLimitCents: new BigNumber(100000),
+    };
+
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      tokenPriceCents: new BigNumber(1),
+      userSupplyBalanceTokens: new BigNumber(100000),
+      collateralFactor: 1,
+    };
+
+    const { getByTestId, getByText } = renderComponent(
+      <Withdraw onSubmitSuccess={noop} asset={customFakeAsset} pool={customFakePool} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const deltaTokens = customFakePool.userBorrowLimitCents!.minus(
+      customFakePool.userBorrowBalanceCents!,
+    );
+
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.valueInput));
+    await waitFor(() => {
+      fireEvent.change(tokenTextInput, {
+        target: { value: deltaTokens.toNumber() },
+      });
+    });
+
+    // Check warning is displayed
+    await waitFor(() => expect(getByText(en.operationForm.error.tooRisky)).toBeInTheDocument());
+
+    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    await waitFor(() =>
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
+    );
+    expect(submitButton).toBeDisabled();
+  });
+
   it('prompts user to switch chain if they are connected to the wrong one', async () => {
     const { getByText, getByTestId } = renderComponent(
       <Withdraw onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
