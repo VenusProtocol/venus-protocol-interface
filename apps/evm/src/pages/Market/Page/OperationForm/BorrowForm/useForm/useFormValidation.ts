@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import type { Asset } from 'types';
+import type { Asset, Pool } from 'types';
 
+import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import { useTranslation } from 'libs/translations';
 import { formatTokensToReadableValue } from 'utilities';
 import type { FormError } from '../../types';
@@ -10,9 +11,10 @@ import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
   asset: Asset;
-  userBorrowLimitCents: number;
-  limitTokens: string;
+  pool: Pool;
+  limitTokens: BigNumber;
   formValues: FormValues;
+  hypotheticalHealthFactor?: number;
 }
 
 interface UseFormValidationOutput {
@@ -22,14 +24,15 @@ interface UseFormValidationOutput {
 
 const useFormValidation = ({
   asset,
-  userBorrowLimitCents,
+  pool,
   limitTokens,
+  hypotheticalHealthFactor,
   formValues,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
   const formError = useMemo<FormError<FormErrorCode> | undefined>(() => {
-    if (userBorrowLimitCents === 0) {
+    if (!pool?.userBorrowLimitCents || pool.userBorrowLimitCents.isEqualTo(0)) {
       return {
         code: 'NO_COLLATERALS',
         message: t('operationForm.error.noCollateral', {
@@ -103,11 +106,29 @@ const useFormValidation = ({
 
     if (fromTokenAmountTokens.isGreaterThan(limitTokens)) {
       return {
-        code: 'HIGHER_THAN_BORROWABLE_AMOUNT',
-        message: t('operationForm.error.higherThanBorrowableAmount'),
+        code: 'HIGHER_THAN_AVAILABLE_AMOUNT',
+        message: t('operationForm.error.higherThanAvailableAmount'),
       };
     }
-  }, [asset, limitTokens, formValues.amountTokens, userBorrowLimitCents, t]);
+
+    if (
+      hypotheticalHealthFactor !== undefined &&
+      hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
+      !formValues.acknowledgeRisk
+    ) {
+      return {
+        code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',
+      };
+    }
+  }, [
+    asset,
+    pool,
+    limitTokens,
+    hypotheticalHealthFactor,
+    formValues.amountTokens,
+    formValues.acknowledgeRisk,
+    t,
+  ]);
 
   return {
     isFormValid: !formError,

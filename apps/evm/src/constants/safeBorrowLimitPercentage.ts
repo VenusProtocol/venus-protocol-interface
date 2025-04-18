@@ -1,1 +1,0 @@
-export const SAFE_BORROW_LIMIT_PERCENTAGE = 80;

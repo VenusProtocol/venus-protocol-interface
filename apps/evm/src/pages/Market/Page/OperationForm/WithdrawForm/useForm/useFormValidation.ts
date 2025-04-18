@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
+import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
 import type { FormError } from '../../types';
@@ -8,8 +9,9 @@ import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
   asset: Asset;
-  limitTokens: BigNumber;
   formValues: FormValues;
+  limitTokens: BigNumber;
+  hypotheticalHealthFactor?: number;
 }
 
 interface UseFormValidationOutput {
@@ -20,6 +22,7 @@ interface UseFormValidationOutput {
 const useFormValidation = ({
   asset,
   limitTokens,
+  hypotheticalHealthFactor,
   formValues,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
@@ -49,11 +52,28 @@ const useFormValidation = ({
 
     if (fromTokenAmountTokens.isGreaterThan(limitTokens)) {
       return {
-        code: 'HIGHER_THAN_WITHDRAWABLE_AMOUNT',
-        message: t('operationForm.error.higherThanWithdrawableAmount'),
+        code: 'HIGHER_THAN_AVAILABLE_AMOUNT',
+        message: t('operationForm.error.higherThanAvailableAmount'),
       };
     }
-  }, [limitTokens, formValues.amountTokens, t, asset]);
+
+    if (
+      hypotheticalHealthFactor !== undefined &&
+      hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
+      !formValues.acknowledgeRisk
+    ) {
+      return {
+        code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',
+      };
+    }
+  }, [
+    limitTokens,
+    formValues.amountTokens,
+    formValues.acknowledgeRisk,
+    t,
+    asset,
+    hypotheticalHealthFactor,
+  ]);
 
   return {
     isFormValid: !formError,

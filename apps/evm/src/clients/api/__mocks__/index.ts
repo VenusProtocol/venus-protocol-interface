@@ -669,12 +669,12 @@ export const useSupply = (_variables: never, options?: MutationObserverOptions) 
     ...options,
   });
 
-export const withdraw = vi.fn();
-export const useWithdraw = (_variables: never, options?: MutationObserverOptions) =>
+export const useWithdraw = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: withdraw,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useBorrow = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

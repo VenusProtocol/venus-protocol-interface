@@ -51,3 +51,4 @@ export * from './getUserVoteSupport';
 export * from './getProposalStateLabel';
 export * from './isProposalExecutable';
 export * from './isPoolIsolated';
+export * from './calculateHealthFactor';

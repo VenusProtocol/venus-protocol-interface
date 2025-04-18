@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WithdrawForm > renders correct available amount when asset liquidity is the limiting factor 1`] = `"Available0.5 XVS"`;
+
+exports[`WithdrawForm > renders correct available amount when user borrow limit is the limiting factor 1`] = `"Available19.8 XVS"`;
+
+exports[`WithdrawForm > renders correct available amount when user health factor is the limiting factor 1`] = `"Available0.02 XVS"`;
+
+exports[`WithdrawForm > renders correct available amount when user supply balance is the limiting factor 1`] = `"Available1 XVS"`;
+
+exports[`WithdrawForm > updates input value correctly when clicking on max button when asset is a collateral and asset liquidity is the limiting factor 1`] = `"0.5"`;
+
+exports[`WithdrawForm > updates input value correctly when clicking on max button when asset is a collateral and user borrow limit is the limiting factor 1`] = `"19.74"`;
+
+exports[`WithdrawForm > updates input value correctly when clicking on max button when asset is a collateral and user health factor is the limiting factor 1`] = `"0"`;
+
+exports[`WithdrawForm > updates input value correctly when clicking on max button when asset is a collateral and user supply balance is the limiting factor 1`] = `"1"`;

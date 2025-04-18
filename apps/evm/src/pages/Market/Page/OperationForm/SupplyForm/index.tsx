@@ -12,7 +12,6 @@ import {
   Toggle,
   TokenTextField,
 } from 'components';
-import { AccountData } from 'containers/AccountData';
 import { Link } from 'containers/Link';
 import useCollateral from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
@@ -34,12 +33,12 @@ import {
   convertTokensToMantissa,
   getUniqueTokenBalances,
 } from 'utilities';
-import { SwapDetails } from '../SwapDetails';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { AssetInfo } from '../AssetInfo';
+import { OperationDetails } from '../OperationDetails';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import TEST_IDS from './testIds';
@@ -179,11 +178,6 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
   const readableFromTokenUserWalletBalanceTokens = useFormatTokensToReadableValue({
     value: fromTokenUserWalletBalanceTokens,
-    token: formValues.fromToken,
-  });
-
-  const readableSuppliableFromTokenAmountTokens = useFormatTokensToReadableValue({
-    value: suppliableFromTokenAmountTokens,
     token: formValues.fromToken,
   });
 
@@ -340,14 +334,8 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           {!isSubmitting && !isSwapLoading && !formError && <Notice swap={swap} />}
 
           <div className="space-y-2">
-            <LabeledInlineContent
-              label={
-                isUsingSwap ? t('operationForm.walletBalance') : t('operationForm.suppliableAmount')
-              }
-            >
-              {isUsingSwap
-                ? readableFromTokenUserWalletBalanceTokens
-                : readableSuppliableFromTokenAmountTokens}
+            <LabeledInlineContent label={t('operationForm.walletBalance')}>
+              {readableFromTokenUserWalletBalanceTokens}
             </LabeledInlineContent>
 
             <SpendingLimit
@@ -362,32 +350,13 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
           <Delimiter />
 
-          {isUsingSwap && swap && (
-            <>
-              <SwapDetails action="supply" swap={swap} data-testid={TEST_IDS.swapDetails} />
-
-              <Delimiter />
-            </>
-          )}
-
-          <AssetInfo
-            asset={asset}
-            action="supply"
-            swap={swap}
+          <OperationDetails
             isUsingSwap={isUsingSwap}
             amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            renderType="accordion"
-          />
-
-          <Delimiter />
-
-          <AccountData
             asset={asset}
+            action="supply"
             pool={pool}
             swap={swap}
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            action="supply"
-            isUsingSwap={isUsingSwap}
           />
         </div>
 

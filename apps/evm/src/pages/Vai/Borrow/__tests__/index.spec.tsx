@@ -16,10 +16,13 @@ import {
   useGetPool,
   useGetTokenUsdPrice,
 } from 'clients/api';
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { en } from 'libs/translations';
 import { convertTokensToMantissa } from 'utilities';
 
+import {
+  HEALTH_FACTOR_MODERATE_THRESHOLD,
+  HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
+} from 'constants/healthFactor';
 import { Borrow } from '..';
 
 const fakeGetMintableVaiOutput: GetMintableVaiOutput = {
@@ -118,14 +121,14 @@ describe('Borrow', () => {
     });
   });
 
-  it('lets user borrow 80% of their borrow limit if there is enough VAI liquidity', async () => {
+  it('lets user borrow up to their safe borrow limit if there is enough VAI liquidity', async () => {
     (mintVai as Mock).mockImplementation(async () => fakeContractTransaction);
 
     const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
     });
     await waitFor(() => getByText(en.vai.borrow.submitButton.enterValidAmountLabel));
-    // Click on "80% LIMIT" button
+    // Click on max button
     const safeMaxButton = getByText(en.vai.borrow.amountTokensInput.limitButtonLabel).closest(
       'button',
     ) as HTMLButtonElement;
@@ -133,16 +136,17 @@ describe('Borrow', () => {
 
     // Check input value was updated to correct value
     const marginWithSafeLimitTokens = fakeUserBorrowLimitCents
-      .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE / 100)
+      .div(HEALTH_FACTOR_SAFE_MAX_THRESHOLD)
       .minus(fakeUserBorrowBalanceCents)
-      .div(fakeVaiPriceCents);
+      .div(fakeVaiPriceCents)
+      .dp(vai.decimals);
 
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
     await waitFor(() =>
       expect(tokenTextFieldInput.value).toBe(marginWithSafeLimitTokens.toFixed()),
     );
 
-    // Submit repayment request
+    // Submit borrow request
     expect(getByText(en.vai.borrow.submitButton.borrowLabel));
 
     const submitButton = getByText(en.vai.borrow.submitButton.borrowLabel).closest(
@@ -160,43 +164,38 @@ describe('Borrow', () => {
     });
   });
 
-  it('displays a warning if user is trying to borrow above safe limit but below hard limit', async () => {
+  it('prompts user to acknowledge risk if requested borrow lowers health factor to risky threshold', async () => {
     (mintVai as Mock).mockImplementation(async () => fakeContractTransaction);
 
-    const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
+    const { getByText, getByPlaceholderText, getByRole } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
     });
     await waitFor(() => getByText(en.vai.borrow.submitButton.enterValidAmountLabel));
 
     // Update input value
-    const fakeValueTokens = fakeUserBorrowLimitCents
-      .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE / 100)
+    const inputValue = fakeUserBorrowLimitCents
+      .div(HEALTH_FACTOR_MODERATE_THRESHOLD - 0.01)
       .minus(fakeUserBorrowBalanceCents)
-      .div(fakeVaiPriceCents)
-      .plus(1); // Add 1 token to borrow above safe limit
+      .plus(1)
+      // Convert cents to tokens
+      .dividedBy(fakeVaiPriceCents)
+      .toFixed(0, BigNumber.ROUND_CEIL);
 
     const tokenTextFieldInput = getByPlaceholderText('0.00') as HTMLInputElement;
-    fireEvent.change(tokenTextFieldInput, { target: { value: fakeValueTokens } });
+    fireEvent.change(tokenTextFieldInput, { target: { value: inputValue } });
 
-    // Check warning is displayed
-    await waitFor(() => getByText(en.vai.borrow.notice.riskOfLiquidation));
+    // Check submit button is disabled
+    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    await waitFor(() =>
+      expect(submitButton).toHaveTextContent(en.vai.borrow.submitButton.borrowLabel),
+    );
+    expect(submitButton).toBeDisabled();
 
-    // Submit repayment request
-    expect(getByText(en.vai.borrow.submitButton.borrowAtHighRiskLabel));
+    // Toggle acknowledgement
+    const toggle = getByRole('checkbox');
+    fireEvent.click(toggle);
 
-    const submitButton = getByText(en.vai.borrow.submitButton.borrowAtHighRiskLabel).closest(
-      'button',
-    ) as HTMLButtonElement;
-    fireEvent.click(submitButton);
-
-    // Check mintVai was called correctly
-    await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
-    expect(mintVai).toHaveBeenCalledWith({
-      amountMantissa: convertTokensToMantissa({
-        value: new BigNumber(fakeValueTokens),
-        token: vai,
-      }),
-    });
+    await waitFor(() => expect(document.querySelector('button[type="submit"]')).toBeEnabled());
   });
 
   it('does not let user borrow more than available liquidity', async () => {

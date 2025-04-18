@@ -3,8 +3,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
 import { useGetVTokenBalance, useWithdraw } from 'clients/api';
-import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
-import { AccountData } from 'containers/AccountData';
+import {
+  Delimiter,
+  LabeledInlineContent,
+  RiskAcknowledgementToggle,
+  Toggle,
+  TokenTextField,
+} from 'components';
 import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -14,11 +19,16 @@ import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
-import { convertTokensToMantissa } from 'utilities';
+import { calculateHealthFactor, convertTokensToMantissa } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
+import {
+  HEALTH_FACTOR_MODERATE_THRESHOLD,
+  HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
+} from 'constants/healthFactor';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { AssetInfo } from '../AssetInfo';
+import { OperationDetails } from '../OperationDetails';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
@@ -69,79 +79,121 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     }));
   };
 
-  const limitTokens = useMemo(() => {
+  const handleToggleAcknowledgeRisk = (checked: boolean) => {
+    setFormValues(currentFormValues => ({
+      ...currentFormValues,
+      acknowledgeRisk: checked,
+    }));
+  };
+
+  const hypotheticalHealthFactor = useMemo(() => {
+    if (
+      !Number(formValues.amountTokens) ||
+      !asset.isCollateralOfUser ||
+      !pool.userBorrowLimitCents ||
+      !pool.userBorrowBalanceCents ||
+      pool.userBorrowBalanceCents.isEqualTo(0)
+    ) {
+      return undefined;
+    }
+
+    const withdrawCollateralValueCents = new BigNumber(formValues.amountTokens)
+      .multipliedBy(asset.collateralFactor)
+      // Convert tokens to cents
+      .multipliedBy(asset.tokenPriceCents);
+
+    const hypotheticalBorrowLimitCents = pool.userBorrowLimitCents.minus(
+      withdrawCollateralValueCents,
+    );
+
+    return calculateHealthFactor({
+      borrowBalanceCents: pool.userBorrowBalanceCents.toNumber(),
+      borrowLimitCents: hypotheticalBorrowLimitCents.toNumber(),
+    });
+  }, [asset, pool, formValues.amountTokens]);
+
+  const [limitTokens, safeLimitTokens] = useMemo(() => {
     const assetLiquidityTokens = new BigNumber(asset.liquidityCents).dividedBy(
       asset.tokenPriceCents,
     );
     // If asset isn't used as collateral user can withdraw the entire supply balance without
     // affecting their borrow limit, if there's enough liquidity
-    let maxTokensBeforeLiquidation = BigNumber.minimum(
-      asset.userSupplyBalanceTokens,
-      assetLiquidityTokens,
-    );
+    const availableTokens = BigNumber.minimum(asset.userSupplyBalanceTokens, assetLiquidityTokens);
 
     if (
-      !asset ||
       !asset.isCollateralOfUser ||
-      pool?.userBorrowLimitCents === undefined ||
-      pool?.userBorrowBalanceCents === undefined ||
+      !pool.userBorrowLimitCents ||
+      !pool.userBorrowBalanceCents ||
       pool.userBorrowBalanceCents.isEqualTo(0)
     ) {
-      return maxTokensBeforeLiquidation;
+      return [availableTokens, availableTokens];
     }
 
     // Calculate how much token user can withdraw before they risk getting
-    // liquidated (if their borrow balance goes above their borrow limit)
+    // liquidated
 
     // Return 0 if borrow limit has already been reached
     if (pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents)) {
-      return new BigNumber(0);
+      return [new BigNumber(0), new BigNumber(0)];
     }
 
-    const marginWithBorrowLimitCents = pool.userBorrowLimitCents.minus(pool.userBorrowBalanceCents);
+    const marginWithUserBorrowLimitTokens = pool.userBorrowLimitCents
+      .minus(pool.userBorrowBalanceCents)
+      .dividedBy(asset.collateralFactor)
+      .dividedBy(asset.tokenPriceCents)
+      .dp(asset.vToken.underlyingToken.decimals);
 
-    const collateralAmountPerTokenCents = asset.tokenPriceCents.multipliedBy(
-      asset.collateralFactor,
+    let marginWithUserSafeBorrowLimitTokens = pool.userBorrowLimitCents
+      .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_SAFE_MAX_THRESHOLD))
+      .dividedBy(asset.collateralFactor)
+      .dividedBy(asset.tokenPriceCents)
+      .dp(asset.vToken.underlyingToken.decimals);
+
+    if (marginWithUserSafeBorrowLimitTokens.isLessThan(0)) {
+      marginWithUserSafeBorrowLimitTokens = new BigNumber(0);
+    }
+
+    const maxTokens = BigNumber.min(availableTokens, marginWithUserBorrowLimitTokens).dp(
+      asset.vToken.underlyingToken.decimals,
     );
 
-    maxTokensBeforeLiquidation = new BigNumber(marginWithBorrowLimitCents)
-      .dividedBy(collateralAmountPerTokenCents)
-      .dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN);
-
-    maxTokensBeforeLiquidation = BigNumber.minimum(
-      maxTokensBeforeLiquidation,
-      asset.userSupplyBalanceTokens,
-      assetLiquidityTokens,
+    const safeMaxTokens = BigNumber.min(maxTokens, marginWithUserSafeBorrowLimitTokens).dp(
+      asset.vToken.underlyingToken.decimals,
     );
 
-    maxTokensBeforeLiquidation = maxTokensBeforeLiquidation.isLessThanOrEqualTo(0)
-      ? new BigNumber(0)
-      : maxTokensBeforeLiquidation;
-
-    return maxTokensBeforeLiquidation;
+    return [maxTokens, safeMaxTokens];
   }, [asset, pool]);
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     limitTokens,
+    hypotheticalHealthFactor,
     onSubmitSuccess,
     onSubmit,
     formValues,
     setFormValues,
   });
 
-  const handleRightMaxButtonClick = useCallback(() => {
+  const handleSafeMaxButtonClick = useCallback(() => {
     // Update field value to correspond to user's wallet balance
     setFormValues(currentFormValues => ({
       ...currentFormValues,
-      amountTokens: limitTokens.toString(),
+      amountTokens: safeLimitTokens.toFixed(),
     }));
-  }, [limitTokens, setFormValues]);
+  }, [safeLimitTokens, setFormValues]);
 
   const readableWithdrawableAmountTokens = useFormatTokensToReadableValue({
     value: limitTokens,
     token: formValues.fromToken,
   });
+
+  const isRiskyOperation = useMemo(
+    () =>
+      hypotheticalHealthFactor !== undefined &&
+      hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
+      (!formError || formError.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT'),
+    [hypotheticalHealthFactor, formError],
+  );
 
   if (!asset) {
     return <></>;
@@ -163,11 +215,15 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           }
           disabled={!isUserConnected || isSubmitting}
           rightMaxButton={{
-            label: t('operationForm.rightMaxButtonLabel'),
-            onClick: handleRightMaxButtonClick,
+            label: t('operationForm.safeMaxButtonLabel'),
+            onClick: handleSafeMaxButtonClick,
           }}
           hasError={
-            isUserConnected && !isSubmitting && !!formError && Number(formValues.amountTokens) > 0
+            isUserConnected &&
+            !isSubmitting &&
+            Number(formValues.amountTokens) > 0 &&
+            !!formError &&
+            formError.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT'
           }
           description={
             isUserConnected && !isSubmitting && !!formError?.message ? (
@@ -181,7 +237,10 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 
       <ConnectWallet className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}>
         <div className="space-y-4">
-          <LabeledInlineContent label={t('operationForm.withdrawableAmount')}>
+          <LabeledInlineContent
+            label={t('operationForm.availableAmount')}
+            data-testid={TEST_IDS.availableAmount}
+          >
             {readableWithdrawableAmountTokens}
           </LabeledInlineContent>
 
@@ -209,26 +268,25 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
             </>
           )}
 
-          <AssetInfo
+          <OperationDetails
+            amountTokens={new BigNumber(formValues.amountTokens || 0)}
             asset={asset}
             action="withdraw"
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            renderType="accordion"
-          />
-
-          <Delimiter />
-
-          <AccountData
-            asset={asset}
             pool={pool}
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            action="withdraw"
           />
+
+          {isRiskyOperation && (
+            <RiskAcknowledgementToggle
+              value={formValues.acknowledgeRisk}
+              onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
+            />
+          )}
         </div>
 
         <SubmitSection
           isFormSubmitting={isSubmitting}
           isFormValid={isFormValid}
+          formErrorCode={formError?.code}
           isDelegateApproved={isDelegateApproved}
           isDelegateApprovedLoading={isDelegateApprovedLoading}
           approveDelegateAction={approveDelegateAction}
@@ -254,6 +312,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
       amountTokens: '',
       fromToken: asset.vToken.underlyingToken,
       receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
+      acknowledgeRisk: false,
     }),
     [asset],
   );

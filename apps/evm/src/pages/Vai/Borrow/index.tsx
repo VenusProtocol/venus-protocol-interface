@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useMemo } from 'react';
-import type { SubmitHandler } from 'react-hook-form';
+import { useCallback, useEffect, useMemo } from 'react';
+import { Controller, type SubmitHandler } from 'react-hook-form';
 
 import {
   useGetMintableVai,
@@ -11,12 +11,17 @@ import {
   useGetVaiTreasuryPercentage,
   useMintVai,
 } from 'clients/api';
-import { Delimiter, LabeledInlineContent, NoticeError, NoticeWarning, Spinner } from 'components';
+import {
+  Delimiter,
+  LabeledInlineContent,
+  NoticeError,
+  NoticeWarning,
+  RiskAcknowledgementToggle,
+  Spinner,
+} from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { PRIME_DOC_URL } from 'constants/prime';
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { Link } from 'containers/Link';
-import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { handleError } from 'libs/errors';
@@ -24,18 +29,25 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import {
+  calculateHealthFactor,
   convertDollarsToCents,
+  convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
+import {
+  HEALTH_FACTOR_MODERATE_THRESHOLD,
+  HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
+} from 'constants/healthFactor';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
+import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { AccountVaiData } from '../AccountVaiData';
-import type { FormValues } from '../types';
 import TEST_IDS from './testIds';
+import type { FormValues } from './types';
 import { ErrorCode, useForm } from './useForm';
 
 export const Borrow: React.FC = () => {
@@ -57,7 +69,9 @@ export const Borrow: React.FC = () => {
   const { data: getVaiUsdPrice } = useGetTokenUsdPrice({
     token: vai,
   });
-  const vaiPriceDollars = getVaiUsdPrice?.tokenPriceUsd;
+  const vaiPriceCents = getVaiUsdPrice?.tokenPriceUsd
+    ? convertDollarsToCents(getVaiUsdPrice.tokenPriceUsd)
+    : undefined;
 
   const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
     accountAddress,
@@ -88,19 +102,53 @@ export const Borrow: React.FC = () => {
       enabled: !!accountAddress,
     },
   );
-  const borrowableAmountMantissa = useMemo(
-    () =>
-      BigNumber.min(
-        mintableVaiData?.vaiLiquidityMantissa || 0,
-        mintableVaiData?.accountMintableVaiMantissa || 0,
+
+  const [limitTokens, safeLimitTokens] = useMemo(() => {
+    // Return 0 values while asset is loading or if borrow limit has been reached
+    if (
+      !vaiPriceCents ||
+      !legacyPool ||
+      legacyPool.userBorrowBalanceCents === undefined ||
+      !legacyPool.userBorrowLimitCents ||
+      legacyPool.userBorrowBalanceCents.isGreaterThanOrEqualTo(legacyPool.userBorrowLimitCents)
+    ) {
+      return [new BigNumber(0), new BigNumber(0)];
+    }
+
+    let marginWithUserSafeBorrowLimitTokens = legacyPool.userBorrowLimitCents
+      .div(HEALTH_FACTOR_SAFE_MAX_THRESHOLD)
+      .minus(legacyPool.userBorrowBalanceCents)
+      // Convert to tokens
+      .dividedBy(vaiPriceCents);
+
+    if (marginWithUserSafeBorrowLimitTokens.isLessThan(0)) {
+      marginWithUserSafeBorrowLimitTokens = new BigNumber(0);
+    }
+
+    const maxTokens = convertMantissaToTokens({
+      value: BigNumber.min(
+        // Mintable limit
+        mintableVaiData?.accountMintableVaiMantissa || new BigNumber(0),
+        // Liquidities limit
+        mintableVaiData?.vaiLiquidityMantissa || new BigNumber(0),
       ),
-    [mintableVaiData?.vaiLiquidityMantissa, mintableVaiData?.accountMintableVaiMantissa],
-  );
+      token: vai,
+    });
+
+    const safeMaxTokens = BigNumber.min(maxTokens, marginWithUserSafeBorrowLimitTokens).dp(
+      vai.decimals,
+    );
+
+    return [maxTokens, safeMaxTokens];
+  }, [vaiPriceCents, legacyPool, mintableVaiData, mintableVaiData, vai]);
 
   const {
-    form: { control, handleSubmit, watch, formState, setValue, reset },
+    form: { control, handleSubmit, watch, formState, setValue, reset, trigger },
   } = useForm({
     ...mintableVaiData,
+    vaiPriceCents,
+    userBorrowBalanceCents: legacyPool?.userBorrowBalanceCents,
+    userBorrowLimitCents: legacyPool?.userBorrowLimitCents,
   });
 
   const inputAmountTokens = watch('amountTokens');
@@ -127,45 +175,10 @@ export const Borrow: React.FC = () => {
     return `${readableFeeVai} (${readableFeePercentage})`;
   }, [feePercentage, feeTokens, vai]);
 
-  const readableBorrowableAmount = useConvertMantissaToReadableTokenString({
-    value: borrowableAmountMantissa,
+  const readableLimit = useFormatTokensToReadableValue({
+    value: limitTokens,
     token: vai,
   });
-
-  // Calculate maximum and safe maximum amount of tokens user can borrow
-  const safeLimitTokens = useMemo(() => {
-    // Return 0 values while asset is loading or if borrow limit has been
-    // reached
-    if (
-      !vaiPriceDollars ||
-      !legacyPool ||
-      legacyPool.userBorrowBalanceCents === undefined ||
-      !legacyPool.userBorrowLimitCents ||
-      legacyPool.userBorrowBalanceCents.isGreaterThanOrEqualTo(legacyPool.userBorrowLimitCents)
-    ) {
-      return '0';
-    }
-
-    const safeBorrowLimitCents = legacyPool.userBorrowLimitCents
-      .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)
-      .dividedBy(100);
-    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(
-      legacyPool.userBorrowBalanceCents,
-    );
-
-    const vaiPriceCents = convertDollarsToCents(vaiPriceDollars);
-    const safeMaxTokens = legacyPool.userBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
-      ? // Convert dollars to tokens
-        new BigNumber(marginWithSafeBorrowLimitCents).dividedBy(vaiPriceCents)
-      : new BigNumber(0);
-
-    return safeMaxTokens.dp(vai.decimals, BigNumber.ROUND_DOWN).toFixed();
-  }, [vai, vaiPriceDollars, legacyPool]);
-
-  const isDangerousTransaction = useMemo(
-    () => new BigNumber(inputAmountTokens).isGreaterThan(safeLimitTokens),
-    [inputAmountTokens, safeLimitTokens],
-  );
 
   const errorMessage = useMemo(() => {
     const errorCode = formState.errors.amountTokens?.message;
@@ -181,13 +194,39 @@ export const Borrow: React.FC = () => {
     return undefined;
   }, [t, formState.errors.amountTokens]);
 
-  const submitButtonEnabledLabel = useMemo(() => {
-    if (isDangerousTransaction) {
-      return t('vai.borrow.submitButton.borrowAtHighRiskLabel');
+  const hypotheticalHealthFactor = useMemo(() => {
+    if (
+      !Number(inputAmountTokens) ||
+      !vaiPriceCents ||
+      !legacyPool?.userBorrowLimitCents ||
+      !legacyPool?.userBorrowBalanceCents
+    ) {
+      return undefined;
     }
 
-    return t('vai.borrow.submitButton.borrowLabel');
-  }, [t, isDangerousTransaction]);
+    const amountCents = new BigNumber(inputAmountTokens).multipliedBy(vaiPriceCents);
+
+    return calculateHealthFactor({
+      borrowBalanceCents: legacyPool.userBorrowBalanceCents.plus(amountCents).toNumber(),
+      borrowLimitCents: legacyPool.userBorrowLimitCents.toNumber(),
+    });
+  }, [legacyPool, vaiPriceCents, inputAmountTokens]);
+
+  const isRiskyOperation = useMemo(
+    () =>
+      hypotheticalHealthFactor !== undefined &&
+      hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
+      !formState.errors.amountTokens,
+    [hypotheticalHealthFactor, formState.errors.amountTokens],
+  );
+
+  // Trigger revalidation of acknowledgeRisk field when it is rendered or removed. This is a
+  // workaround to make sure React Hook Form initializes the field correctly
+  useEffect(() => {
+    if (isRiskyOperation) {
+      trigger('acknowledgeRisk');
+    }
+  }, [trigger, isRiskyOperation]);
 
   const onSubmit: SubmitHandler<FormValues> = useCallback(
     async ({ amountTokens }) => {
@@ -241,7 +280,7 @@ export const Borrow: React.FC = () => {
           rightMaxButton={{
             label: t('vai.borrow.amountTokensInput.limitButtonLabel'),
             onClick: () =>
-              setValue('amountTokens', safeLimitTokens, {
+              setValue('amountTokens', safeLimitTokens.toFixed(), {
                 shouldValidate: true,
                 shouldTouch: true,
                 shouldDirty: true,
@@ -250,18 +289,14 @@ export const Borrow: React.FC = () => {
         />
 
         {errorMessage && <NoticeError description={errorMessage} />}
-
-        {!errorMessage && isDangerousTransaction && (
-          <NoticeWarning description={t('vai.borrow.notice.riskOfLiquidation')} />
-        )}
       </div>
 
       <div className="space-y-3">
         <LabeledInlineContent
-          label={t('vai.borrow.borrowableAmount.label')}
-          tooltip={t('vai.borrow.borrowableAmount.tooltip')}
+          label={t('vai.borrow.availableAmount.label')}
+          tooltip={t('vai.borrow.availableAmount.tooltip')}
         >
-          {readableBorrowableAmount}
+          {readableLimit}
         </LabeledInlineContent>
 
         <LabeledInlineContent
@@ -291,12 +326,24 @@ export const Borrow: React.FC = () => {
         </>
       )}
 
+      {isRiskyOperation && (
+        <Controller
+          name="acknowledgeRisk"
+          control={control}
+          render={({ field }) => <RiskAcknowledgementToggle {...field} />}
+        />
+      )}
+
       <RhfSubmitButton
         requiresConnectedWallet
         control={control}
-        isDangerousSubmission={isDangerousTransaction}
-        enabledLabel={submitButtonEnabledLabel}
-        disabledLabel={t('vai.borrow.submitButton.enterValidAmountLabel')}
+        enabledLabel={t('vai.borrow.submitButton.borrowLabel')}
+        disabledLabel={
+          // Only show disabled label when error concerns the amount entered
+          formState.errors.acknowledgeRisk
+            ? t('vai.borrow.submitButton.borrowLabel')
+            : t('vai.borrow.submitButton.enterValidAmountLabel')
+        }
       />
     </form>
   );

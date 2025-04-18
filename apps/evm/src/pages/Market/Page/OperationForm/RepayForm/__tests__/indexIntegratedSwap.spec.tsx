@@ -22,9 +22,10 @@ import { en } from 'libs/translations';
 import type { Asset, Swap, TokenBalance } from 'types';
 
 import Repay, { PRESET_PERCENTAGES } from '..';
+import SWAP_DETAILS_TEST_IDS from '../../OperationDetails/testIds';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
-import TEST_IDS from '../testIds';
+import REPAY_FORM_TEST_IDS from '../testIds';
 
 const fakeBusdWalletBalanceMantissa = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(busd.decimals),
@@ -116,7 +117,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
@@ -155,13 +156,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: bnb,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -200,13 +201,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: wbnb,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -237,13 +238,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -268,13 +269,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -315,13 +316,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -358,13 +359,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -400,13 +401,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -438,29 +439,29 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
-    await waitFor(() => getByTestId(TEST_IDS.swapDetails));
+    await waitFor(() => getByTestId(SWAP_DETAILS_TEST_IDS.swapDetails));
 
     // Open swap details accordion
     fireEvent.click(getByText(en.operationForm.swapDetails.label.repay).closest('button')!);
 
-    expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
+    expect(getByTestId(SWAP_DETAILS_TEST_IDS.swapDetails).textContent).toMatchSnapshot();
     expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
   });
 
-  it('updates input value to 0 when pressing on MAX button if wallet balance is 0', async () => {
+  it('updates input value to 0 when clicking on MAX button if wallet balance is 0', async () => {
     const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
       ...tokenBalance,
       balanceMantissa:
@@ -482,14 +483,14 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     // Check input is empty
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
     expect(selectTokenTextField.value).toBe('');
@@ -514,14 +515,14 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     // Check input is empty
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
     expect(selectTokenTextField.value).toBe('');
@@ -536,7 +537,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     await checkSubmitButtonIsEnabled();
   });
 
-  it('updates input value to correct value when pressing on preset percentage buttons', async () => {
+  it('updates input value to correct value when clicking on preset percentage buttons', async () => {
     const exchangeRate = new BigNumber(2);
     const getConvertedFromTokenAmountTokens = (toTokenAmountTokens: BigNumber | string) =>
       new BigNumber(toTokenAmountTokens).dividedBy(exchangeRate);
@@ -594,14 +595,14 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     // Check input is empty
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
     expect(selectTokenTextField.value).toBe('');
@@ -647,13 +648,13 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -693,7 +694,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: REPAY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 

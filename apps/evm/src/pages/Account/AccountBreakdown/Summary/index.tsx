@@ -1,56 +1,44 @@
-/** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
+import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
-
-import {
-  BorrowLimitUsedAccountHealth,
-  Card,
-  type Cell,
-  CellGroup,
-  Icon,
-  InfoIcon,
-} from 'components';
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
+import { Card, type Cell, CellGroup } from 'components';
+import { HealthFactor } from 'components/HealthFactor';
+import { useHealthFactor } from 'hooks/useHealthFactor';
 import { useTranslation } from 'libs/translations';
 import type { Pool, Vault } from 'types';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
-
 import Section from '../../Section';
-import { useStyles } from './styles';
-import TEST_IDS from './testIds';
 import useExtractData from './useExtractData';
 
 export interface SummaryProps {
   pools: Pool[];
+  variant?: 'primary' | 'secondary';
   vaults?: Vault[];
   title?: string;
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
-  displayAccountHealth?: boolean;
+  displayHealthFactor?: boolean;
   displayTotalVaultStake?: boolean;
   className?: string;
 }
 
 export const Summary: React.FC<SummaryProps> = ({
   pools,
+  variant = 'primary',
   vaults,
   title,
-  displayAccountHealth = false,
+  displayHealthFactor = false,
   displayTotalVaultStake = false,
   xvsPriceCents = new BigNumber(0),
   vaiPriceCents = new BigNumber(0),
   className,
 }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
 
   const {
     totalSupplyCents,
     totalBorrowCents,
     totalVaultStakeCents,
-    borrowLimitCents,
-    readableSafeBorrowLimit,
-    safeBorrowLimitPercentage,
+    healthFactor,
     dailyEarningsCents,
     netApyPercentage,
   } = useExtractData({
@@ -60,14 +48,26 @@ export const Summary: React.FC<SummaryProps> = ({
     vaiPriceCents,
   });
 
-  const cells: Cell[] = [
+  const { textClass } = useHealthFactor({ value: healthFactor });
+
+  const cells: Cell[] = displayHealthFactor
+    ? [
+        {
+          label: t('account.summary.cellGroup.healthFactor'),
+          value: <HealthFactor factor={healthFactor} className={cn('h-7 min-w-7', textClass)} />,
+          tooltip: t('account.summary.cellGroup.healthFactorTooltip'),
+          className: 'h-[30px]',
+        },
+      ]
+    : [];
+
+  cells.push(
     {
       label: t('account.summary.cellGroup.netApy'),
       value: formatPercentageToReadableValue(netApyPercentage),
       tooltip: displayTotalVaultStake
         ? t('account.summary.cellGroup.netApyWithVaultStakeTooltip')
         : t('account.summary.cellGroup.netApyTooltip'),
-      color: styles.getNetApyColor({ netApyPercentage: netApyPercentage || 0 }),
     },
     {
       label: t('account.summary.cellGroup.dailyEarnings'),
@@ -81,7 +81,7 @@ export const Summary: React.FC<SummaryProps> = ({
       label: t('account.summary.cellGroup.totalBorrow'),
       value: formatCentsToReadableValue({ value: totalBorrowCents }),
     },
-  ];
+  );
 
   if (displayTotalVaultStake) {
     cells.push({
@@ -92,48 +92,8 @@ export const Summary: React.FC<SummaryProps> = ({
 
   return (
     <Section className={className} title={title}>
-      <Card css={styles.container} data-testid={TEST_IDS.container}>
-        <CellGroup
-          smallValues={displayAccountHealth}
-          cells={cells}
-          css={styles.cellGroup}
-          data-testid={TEST_IDS.stats}
-        />
-
-        {displayAccountHealth && (
-          <div css={styles.accountHealth} data-testid={TEST_IDS.accountHealth}>
-            <BorrowLimitUsedAccountHealth
-              variant="borrowLimitUsed"
-              borrowBalanceCents={totalBorrowCents.toNumber()}
-              borrowLimitCents={borrowLimitCents.toNumber()}
-              safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-              css={styles.accountHealthProgressBar}
-            />
-
-            <div css={styles.accountHealthFooter}>
-              <Icon name="shield" css={styles.shieldIcon} />
-
-              <Typography component="span" variant="small2" css={styles.inlineLabel}>
-                {t('myAccount.safeLimit')}
-              </Typography>
-
-              <Typography
-                component="span"
-                variant="small1"
-                color="text.primary"
-                css={styles.safeLimit}
-              >
-                {readableSafeBorrowLimit}
-              </Typography>
-
-              <InfoIcon
-                className="flex"
-                iconClassName="cursor-help"
-                tooltip={t('myAccount.safeLimitTooltip', { safeBorrowLimitPercentage })}
-              />
-            </div>
-          </div>
-        )}
+      <Card className="bg-transparent p-0 space-y-2 sm:p-0 xl:space-y-0 xl:bg-cards xl:flex">
+        <CellGroup smallValues={variant === 'secondary'} cells={cells} className="p-0" />
       </Card>
     </Section>
   );

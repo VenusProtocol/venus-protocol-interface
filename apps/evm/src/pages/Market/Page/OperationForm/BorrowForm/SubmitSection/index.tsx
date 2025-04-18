@@ -1,28 +1,25 @@
-import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { cn } from '@venusprotocol/ui';
 import { PrimaryButton } from 'components';
 import { SwitchChain } from 'containers/SwitchChain';
 import { useTranslation } from 'libs/translations';
 import { ApproveDelegateSteps, type ApproveDelegateStepsProps } from '../../ApproveDelegateSteps';
+import type { FormErrorCode } from '../useForm';
 
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isFormSubmitting: boolean;
-  safeLimitTokens: string;
-  fromTokenAmountTokens: string;
   approveDelegateAction: ApproveDelegateStepsProps['approveDelegateeAction'];
   isApproveDelegateLoading: ApproveDelegateStepsProps['isApproveDelegateeLoading'];
   isDelegateApproved: ApproveDelegateStepsProps['isDelegateeApproved'];
   isDelegateApprovedLoading: ApproveDelegateStepsProps['isDelegateeApprovedLoading'];
+  formErrorCode?: FormErrorCode;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isFormSubmitting,
-  safeLimitTokens,
-  fromTokenAmountTokens,
+  formErrorCode,
   approveDelegateAction,
   isApproveDelegateLoading,
   isDelegateApproved,
@@ -30,25 +27,20 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const isDangerous = useMemo(
-    () => new BigNumber(fromTokenAmountTokens).isGreaterThan(safeLimitTokens),
-    [fromTokenAmountTokens, safeLimitTokens],
-  );
-
   const submitButtonLabel = useMemo(() => {
-    if (!isFormValid) {
+    if (!isFormValid && formErrorCode !== 'REQUIRES_RISK_ACKNOWLEDGEMENT') {
       return t('operationForm.submitButtonLabel.enterValidAmount');
     }
 
     return t('operationForm.submitButtonLabel.borrow');
-  }, [isFormValid, t]);
+  }, [isFormValid, t, formErrorCode]);
 
   let dom = (
     <PrimaryButton
       type="submit"
       loading={isFormSubmitting}
       disabled={!isFormValid || isFormSubmitting}
-      className={cn('w-full', isDangerous && 'border-red bg-red')}
+      className="w-full"
     >
       {submitButtonLabel}
     </PrimaryButton>

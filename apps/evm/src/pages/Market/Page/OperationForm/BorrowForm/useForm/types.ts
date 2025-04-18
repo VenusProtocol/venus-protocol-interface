@@ -4,6 +4,7 @@ export interface FormValues {
   fromToken: Token;
   amountTokens: string;
   receiveNativeToken: boolean;
+  acknowledgeRisk: boolean;
 }
 
 export type FormErrorCode =
@@ -12,4 +13,6 @@ export type FormErrorCode =
   | 'BORROW_CAP_ALREADY_REACHED'
   | 'HIGHER_THAN_BORROW_CAP'
   | 'HIGHER_THAN_LIQUIDITY'
-  | 'HIGHER_THAN_BORROWABLE_AMOUNT';
+  | 'HIGHER_THAN_AVAILABLE_AMOUNT'
+  | 'TOO_RISKY'
+  | 'REQUIRES_RISK_ACKNOWLEDGEMENT';

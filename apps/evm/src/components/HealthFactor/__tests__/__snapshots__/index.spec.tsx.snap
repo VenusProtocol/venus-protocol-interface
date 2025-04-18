@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`HealthFactor > displays correct UI for factor: 0.8738529 1`] = `"0.87"`;
+
+exports[`HealthFactor > displays correct UI for factor: 1.989765 1`] = `"1.98"`;
+
+exports[`HealthFactor > displays correct UI for factor: 2.912312 1`] = `"2.91"`;
+
+exports[`HealthFactor > displays correct UI for factor: 12.23123 1`] = `"12.23"`;
+
+exports[`HealthFactor > displays correct UI for factor: 101 1`] = `"> 100"`;
+
+exports[`HealthFactor > displays correct UI for factor: Infinity 1`] = `""`;
