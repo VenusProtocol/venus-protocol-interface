@@ -42,7 +42,12 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
         />
       )}
 
-      <Summary pools={[selectedPool]} displayAccountHealth css={styles.summary} />
+      <Summary
+        pools={[selectedPool]}
+        displayHealthFactor={!!selectedPool.userBorrowBalanceCents?.isGreaterThan(0)}
+        variant="secondary"
+        css={styles.summary}
+      />
 
       <Tables pool={selectedPool} />
     </Section>

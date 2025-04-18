@@ -11,6 +11,7 @@ import {
   convertDollarsToCents,
   convertFactorFromSmartContract,
   convertMantissaToTokens,
+  convertPercentageFromSmartContract,
   convertPriceMantissaToDollars,
   findTokenByAddress,
   getDisabledTokenActions,
@@ -52,6 +53,7 @@ export const formatOutput = ({
     let poolUserBorrowBalanceCents = new BigNumber(0);
     let poolUserSupplyBalanceCents = new BigNumber(0);
     let poolUserBorrowLimitCents = new BigNumber(0);
+    let poolUserLiquidationThresholdCents = new BigNumber(0);
 
     const assets = apiPool.markets.reduce<Asset[]>((acc, market) => {
       // Remove unlisted tokens
@@ -100,6 +102,10 @@ export const formatOutput = ({
       const collateralFactor = convertFactorFromSmartContract({
         factor: new BigNumber(market.collateralFactorMantissa),
       });
+
+      const liquidationThresholdPercentage = convertPercentageFromSmartContract(
+        market.liquidationThresholdMantissa,
+      );
 
       const cashTokens = convertMantissaToTokens({
         value: new BigNumber(market.cashMantissa),
@@ -200,8 +206,12 @@ export const formatOutput = ({
       poolUserSupplyBalanceCents = poolUserSupplyBalanceCents.plus(userSupplyBalanceCents);
 
       if (isCollateralOfUser) {
-        poolUserBorrowLimitCents = (poolUserBorrowLimitCents || new BigNumber(0)).plus(
+        poolUserBorrowLimitCents = poolUserBorrowLimitCents.plus(
           userSupplyBalanceCents.times(collateralFactor),
+        );
+
+        poolUserLiquidationThresholdCents = poolUserLiquidationThresholdCents.plus(
+          userSupplyBalanceCents.times(liquidationThresholdPercentage / 100),
         );
       }
 
@@ -211,6 +221,7 @@ export const formatOutput = ({
         tokenPriceCents,
         reserveFactor,
         collateralFactor,
+        liquidationThresholdPercentage,
         cashTokens,
         liquidityCents,
         reserveTokens,
@@ -264,6 +275,7 @@ export const formatOutput = ({
       userBorrowBalanceCents: poolUserBorrowBalanceCents,
       userSupplyBalanceCents: poolUserSupplyBalanceCents,
       userBorrowLimitCents: poolUserBorrowLimitCents,
+      userLiquidationThresholdCents: poolUserLiquidationThresholdCents,
     };
 
     // Calculate userPercentOfLimit for each asset

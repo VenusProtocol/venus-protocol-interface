@@ -1,6 +1,5 @@
 import { type Control, useFormState } from 'react-hook-form';
 
-import { cn } from '@venusprotocol/ui';
 import { type ButtonProps, PrimaryButton } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 
@@ -12,7 +11,6 @@ export interface RhfSubmitButtonProps extends ButtonProps {
   control: Control<any>;
   enabledLabel: string;
   disabledLabel: string;
-  isDangerousSubmission?: boolean;
   requiresConnectedWallet?:
     | boolean
     | {
@@ -25,7 +23,6 @@ export const RhfSubmitButton: React.FC<RhfSubmitButtonProps> = ({
   control,
   enabledLabel,
   disabledLabel,
-  isDangerousSubmission = false,
   requiresConnectedWallet = false,
   spendingApproval,
   className,
@@ -40,7 +37,7 @@ export const RhfSubmitButton: React.FC<RhfSubmitButtonProps> = ({
       type="submit"
       loading={formState.isSubmitting || loading}
       disabled={!formState.isValid || formState.isSubmitting || disabled}
-      className={cn('w-full', isDangerousSubmission && 'bg-red border-red')}
+      className="w-full"
       {...otherButtonProps}
     >
       {formState.isValid ? enabledLabel : disabledLabel}

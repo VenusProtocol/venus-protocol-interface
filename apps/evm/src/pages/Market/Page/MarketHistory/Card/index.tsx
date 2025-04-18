@@ -12,7 +12,6 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Address } from 'viem';
 import { MarketCard, type MarketCardProps } from '../../MarketCard';
 import { CapThreshold } from './CapThreshold';
-import { useGetLiquidationThresholdPercentage } from './useGetLiquidationThresholdPercentage';
 
 export interface CardProps extends Omit<MarketCardProps, 'title'> {
   type: ApyChartProps['type'];
@@ -68,16 +67,6 @@ export const Card: React.FC<CardProps> = ({
   const liquidationIncentivePercentage =
     getPoolLiquidationIncentiveData?.liquidationIncentivePercentage;
 
-  const liquidationThresholdPercentage = useGetLiquidationThresholdPercentage(
-    {
-      asset,
-      poolComptrollerContractAddress,
-    },
-    {
-      enabled: shouldDisplayLiquidationInfo,
-    },
-  );
-
   const stats: MarketCardProps['stats'] = useMemo(() => {
     if (!asset) {
       return [];
@@ -106,7 +95,7 @@ export const Card: React.FC<CardProps> = ({
       tmpStats.push(
         {
           label: t('market.stats.liquidationThreshold'),
-          value: formatPercentageToReadableValue(liquidationThresholdPercentage),
+          value: formatPercentageToReadableValue(asset.liquidationThresholdPercentage),
         },
         {
           label: t('market.stats.liquidationPenalty'),
@@ -116,15 +105,7 @@ export const Card: React.FC<CardProps> = ({
     }
 
     return tmpStats;
-  }, [
-    asset,
-    data,
-    t,
-    type,
-    liquidationIncentivePercentage,
-    liquidationThresholdPercentage,
-    shouldDisplayLiquidationInfo,
-  ]);
+  }, [asset, data, t, type, liquidationIncentivePercentage, shouldDisplayLiquidationInfo]);
 
   const legends: MarketCardProps['legends'] = [
     type === 'supply'

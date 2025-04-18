@@ -573,16 +573,6 @@ export const useGetPoolLiquidationIncentive = vi.fn(() =>
   }),
 );
 
-export const getIsolatedPoolVTokenLiquidationThreshold = vi.fn(async () => ({
-  liquidationThresholdPercentage: 10,
-}));
-export const useGetIsolatedPoolVTokenLiquidationThreshold = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_ISOLATED_POOL_V_TOKEN_LIQUIDATION_THRESHOLD],
-    queryFn: getIsolatedPoolVTokenLiquidationThreshold,
-  }),
-);
-
 export const getAddressDomainName = vi.fn(async () => undefined);
 export const useGetAddressDomainName = vi.fn(() =>
   useQuery({
@@ -659,12 +649,12 @@ export const useSupply = (_variables: never, options?: MutationObserverOptions) 
     ...options,
   });
 
-export const withdraw = vi.fn();
-export const useWithdraw = (_variables: never, options?: MutationObserverOptions) =>
+export const useWithdraw = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: withdraw,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useBorrow = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

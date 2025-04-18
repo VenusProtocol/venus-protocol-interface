@@ -36,6 +36,7 @@ exports[`useGetAsset > returns the correct asset 1`] = `
     "disabledTokenActions": [],
     "exchangeRateVTokens": "49.589181233",
     "isCollateralOfUser": true,
+    "liquidationThresholdPercentage": 50,
     "liquidityCents": "8036465875",
     "reserveFactor": 0.25,
     "reserveTokens": "1000",

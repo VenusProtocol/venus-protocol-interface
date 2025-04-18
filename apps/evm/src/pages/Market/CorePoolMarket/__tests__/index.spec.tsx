@@ -6,12 +6,7 @@ import { vTokenApySimulations } from '__mocks__/models/vTokenApySimulations';
 import { vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
-import {
-  getVTokenApySimulations,
-  useGetAsset,
-  useGetIsolatedPoolVTokenLiquidationThreshold,
-  useGetPoolLiquidationIncentive,
-} from 'clients/api';
+import { getVTokenApySimulations, useGetAsset, useGetPoolLiquidationIncentive } from 'clients/api';
 
 import CorePoolMarket from '..';
 import TEST_IDS from '../../testIds';
@@ -33,13 +28,6 @@ describe('CorePoolMarket', () => {
       isLoading: false,
       data: {
         liquidationIncentivePercentage: 10,
-      },
-    }));
-
-    (useGetIsolatedPoolVTokenLiquidationThreshold as Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        liquidationThresholdPercentage: 80,
       },
     }));
   });

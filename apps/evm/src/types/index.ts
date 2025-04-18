@@ -109,6 +109,7 @@ export interface Asset {
   tokenPriceCents: BigNumber;
   reserveFactor: number;
   collateralFactor: number;
+  liquidationThresholdPercentage: number;
   liquidityCents: BigNumber;
   reserveTokens: BigNumber;
   cashTokens: BigNumber;
@@ -154,6 +155,7 @@ export interface Pool {
   userSupplyBalanceCents?: BigNumber;
   userBorrowBalanceCents?: BigNumber;
   userBorrowLimitCents?: BigNumber;
+  userLiquidationThresholdCents?: BigNumber;
 }
 
 export enum RemoteProposalState {

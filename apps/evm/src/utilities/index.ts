@@ -1,5 +1,4 @@
 export { default as calculateDailyEarningsCents } from './calculateDailyEarningsCents';
-export { default as calculateCollateralValue } from './calculateCollateralValue';
 export { default as convertPercentageFromSmartContract } from './convertPercentageFromSmartContract';
 export { default as shortenValueWithSuffix } from './shortenValueWithSuffix';
 export { default as formatCentsToReadableValue } from './formatCentsToReadableValue';
@@ -51,3 +50,4 @@ export * from './getUserVoteSupport';
 export * from './getProposalStateLabel';
 export * from './isProposalExecutable';
 export * from './isPoolIsolated';
+export * from './calculateHealthFactor';

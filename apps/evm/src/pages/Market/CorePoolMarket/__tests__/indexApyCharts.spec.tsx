@@ -11,7 +11,6 @@ import {
   getMarketHistory,
   getVTokenApySimulations,
   useGetAsset,
-  useGetIsolatedPoolVTokenLiquidationThreshold,
   useGetPoolLiquidationIncentive,
 } from 'clients/api';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -44,13 +43,6 @@ describe('CorePoolMarket - Feature flag enabled: apyCharts', () => {
       isLoading: false,
       data: {
         liquidationIncentivePercentage: 10,
-      },
-    }));
-
-    (useGetIsolatedPoolVTokenLiquidationThreshold as Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        liquidationThresholdPercentage: 80,
       },
     }));
   });

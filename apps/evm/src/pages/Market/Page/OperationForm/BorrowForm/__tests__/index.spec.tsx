@@ -6,12 +6,12 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import { en } from 'libs/translations';
 import { type Asset, ChainId, type Pool } from 'types';
 
 import { chainMetadata } from '@venusprotocol/chains';
 import { useBorrow } from 'clients/api';
+import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import BorrowForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -23,6 +23,49 @@ const checkSubmitButtonIsDisabled = async () => {
   );
   expect(submitButton).toBeDisabled();
 };
+
+const testCases = [
+  [
+    'user borrow limit',
+    {
+      asset: fakeAsset,
+      pool: fakePool,
+    },
+  ],
+  [
+    'asset borrow cap',
+    {
+      asset: {
+        ...fakeAsset,
+        borrowCapTokens: new BigNumber(100),
+        borrowBalanceTokens: new BigNumber(10),
+      },
+      pool: fakePool,
+    },
+  ],
+  [
+    'user health factor',
+    {
+      asset: fakeAsset,
+      pool: {
+        ...fakePool,
+        userLiquidationThresholdCents: new BigNumber(105),
+        userBorrowLimitCents: new BigNumber(100),
+        userBorrowBalanceCents: new BigNumber(99),
+      },
+    },
+  ],
+  [
+    'asset liquidity',
+    {
+      asset: {
+        ...fakeAsset,
+        liquidityCents: new BigNumber(50),
+      },
+      pool: fakePool,
+    },
+  ],
+] as const;
 
 describe('BorrowForm', () => {
   it('renders without crashing', () => {
@@ -41,37 +84,40 @@ describe('BorrowForm', () => {
     expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
   });
 
-  it('renders correct token borrowable amount when asset liquidity is higher than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      liquidityCents: new BigNumber(100000000),
-    };
+  it.each(testCases)(
+    'renders correct available amount when %s is the limiting factor',
+    async (_, { asset, pool }) => {
+      const { getByTestId } = renderComponent(
+        <BorrowForm asset={asset} pool={pool} onSubmitSuccess={noop} />,
+        {
+          accountAddress: fakeAccountAddress,
+        },
+      );
 
-    const { getByText } = renderComponent(
-      <BorrowForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
+      expect(getByTestId(TEST_IDS.availableAmount).textContent).toMatchSnapshot();
+    },
+  );
 
-    await waitFor(() => getByText('990 XVS'));
-  });
+  it.each(testCases)(
+    'updates input value correctly when clicking on max button and %s is the limiting factor',
+    async (_, { asset, pool }) => {
+      const { getByText, getByTestId } = renderComponent(
+        <BorrowForm asset={asset} pool={pool} onSubmitSuccess={noop} />,
+        {
+          accountAddress: fakeAccountAddress,
+        },
+      );
 
-  it('renders correct token borrowable amount when asset liquidity is lower than maximum amount of tokens user can borrow before reaching their borrow limit', async () => {
-    const customFakeAsset = {
-      ...fakeAsset,
-      liquidityCents: new BigNumber(50),
-    };
+      // Check input is empty
+      const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
+      expect(input.value).toBe('');
 
-    const { getByText } = renderComponent(
-      <BorrowForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
+      // Press on max button
+      fireEvent.click(getByText(en.operationForm.safeMaxButtonLabel));
 
-    await waitFor(() => getByText('0.5 XVS'));
-  });
+      await waitFor(() => expect(input.value).toMatchSnapshot());
+    },
+  );
 
   it('disables form and displays a warning notice if the borrow cap of this market has been reached', async () => {
     const customFakeAsset = {
@@ -220,12 +266,10 @@ describe('BorrowForm', () => {
       },
     );
 
-    const fakeBorrowDeltaCents = fakePool.userBorrowLimitCents!.minus(
-      fakePool.userBorrowBalanceCents!,
-    );
-
-    const incorrectValueTokens = new BigNumber(fakeBorrowDeltaCents)
+    const incorrectValueTokens = fakePool
+      .userBorrowLimitCents!.minus(fakePool.userBorrowBalanceCents!)
       .dividedBy(fakeAsset.tokenPriceCents)
+      // Convert cents to tokens
       // Add one token more than the maximum
       .plus(1)
       .dp(fakeAsset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN)
@@ -239,7 +283,36 @@ describe('BorrowForm', () => {
 
     // Check warning is displayed
     await waitFor(() =>
-      expect(getByText(en.operationForm.error.higherThanBorrowableAmount)).toBeInTheDocument(),
+      expect(getByText(en.operationForm.error.higherThanAvailableAmount)).toBeInTheDocument(),
+    );
+
+    await checkSubmitButtonIsDisabled();
+  });
+
+  it('disables submit button if amount to borrow requested would liquidate user', async () => {
+    const { getByTestId, getByText } = renderComponent(
+      <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const incorrectValueTokens = fakePool
+      .userLiquidationThresholdCents!.minus(fakePool.userBorrowBalanceCents!)
+      .plus(1)
+      // Convert cents to tokens
+      .dividedBy(fakeAsset.tokenPriceCents)
+      .toFixed(0, BigNumber.ROUND_CEIL);
+
+    // Enter amount in input
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    fireEvent.change(tokenTextInput, {
+      target: { value: incorrectValueTokens },
+    });
+
+    // Check warning is displayed
+    await waitFor(() =>
+      expect(getByText(en.operationForm.error.higherThanAvailableAmount)).toBeInTheDocument(),
     );
 
     await checkSubmitButtonIsDisabled();
@@ -273,79 +346,47 @@ describe('BorrowForm', () => {
     );
   });
 
-  it('displays warning notice if amount to borrow requested would bring user borrow balance at safe borrow limit', async () => {
-    const { getByText, getByTestId } = renderComponent(
+  it('prompts user to acknowledge risk if requested borrow lowers health factor to risky threshold', async () => {
+    const { getByText, getByTestId, getByRole } = renderComponent(
       <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
     );
 
-    const safeBorrowLimitCents = fakePool
-      .userBorrowLimitCents!.times(SAFE_BORROW_LIMIT_PERCENTAGE)
-      .dividedBy(100);
-    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(
-      fakePool.userBorrowBalanceCents!,
-    );
-    const safeMaxTokens = marginWithSafeBorrowLimitCents.dividedBy(fakeAsset.tokenPriceCents);
-
-    const riskyValueTokens = safeMaxTokens
-      // Add one token to safe borrow limit
+    const marginWithRiskyThresholdTokens = fakePool
+      .userLiquidationThresholdCents!.div(HEALTH_FACTOR_MODERATE_THRESHOLD - 0.01)
+      .minus(fakePool.userBorrowBalanceCents!)
       .plus(1)
-      .dp(fakeAsset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN)
-      .toFixed();
+      // Convert cents to tokens
+      .dividedBy(fakeAsset.tokenPriceCents)
+      .toFixed(0, BigNumber.ROUND_CEIL);
 
     // Enter amount in input
-    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    const tokenTextInput = await waitFor(
+      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+    );
     fireEvent.change(tokenTextInput, {
-      target: { value: riskyValueTokens },
+      target: { value: marginWithRiskyThresholdTokens },
     });
 
-    // Check notice is displayed
-    expect(getByText(en.operationForm.warning.aboveSafeLimit).textContent).toMatchInlineSnapshot(
-      '"You entered a high value. There is a risk of liquidation."',
-    );
+    await waitFor(() => expect(tokenTextInput.value).toBe(marginWithRiskyThresholdTokens));
 
-    // Check submit button is enabled
+    // Check warning is displayed
+    expect(getByText(en.operationForm.riskyOperation.warning));
+
+    // Check submit button is disabled
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     await waitFor(() =>
       expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.borrow),
     );
-    expect(submitButton).toBeEnabled();
-  });
+    expect(submitButton).toBeDisabled();
 
-  it('updates input value correctly when pressing on max button', async () => {
-    const { getByText, getByTestId } = renderComponent(
-      <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
+    // Toggle acknowledgement
+    const toggle = getByRole('checkbox');
+    fireEvent.click(toggle);
 
-    // Check input is empty
-    const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
-    expect(input.value).toBe('');
-
-    // Press on max button
-    fireEvent.click(getByText(`${SAFE_BORROW_LIMIT_PERCENTAGE}% LIMIT`));
-
-    const safeUserBorrowLimitCents = new BigNumber(fakePool.userBorrowLimitCents!)
-      .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)
-      .dividedBy(100);
-    const safeBorrowDeltaCents = safeUserBorrowLimitCents.minus(fakePool.userBorrowBalanceCents!);
-    const safeBorrowDeltaTokens = safeBorrowDeltaCents.dividedBy(fakeAsset.tokenPriceCents);
-    const expectedInputValue = safeBorrowDeltaTokens
-      .dp(fakeAsset.vToken.underlyingToken.decimals)
-      .toFixed();
-
-    await waitFor(() => expect(input.value).toBe(expectedInputValue));
-
-    // Check submit button is enabled
-    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    await waitFor(() =>
-      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.borrow),
-    );
-    expect(submitButton).toBeEnabled();
+    await waitFor(() => expect(document.querySelector('button[type="submit"]')).toBeEnabled());
   });
 
   it('lets user borrow tokens then calls onClose callback on success', async () => {

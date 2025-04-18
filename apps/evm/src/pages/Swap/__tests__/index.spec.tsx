@@ -121,7 +121,7 @@ describe('Swap', () => {
     ).toBe(xvs.symbol);
   });
 
-  it('switches form values when pressing on switch tokens button', () => {
+  it('switches form values when clicking on switch tokens button', () => {
     const { getByTestId } = renderComponent(<SwapPage />, {
       accountAddress: fakeAccountAddress,
     });

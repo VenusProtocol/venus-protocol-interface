@@ -83,7 +83,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "0"
         },
         {
           "address": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
@@ -155,7 +156,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "880000000000000100"
         },
         {
           "address": "0x171B468b52d7027F12cEF90cd065d6776a25E24e",
@@ -227,7 +229,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "605000000000000000"
         },
         {
           "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
@@ -299,7 +302,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "880000000000000100"
         },
         {
           "address": "0x35566ED3AF9E537Be487C98b1811cDf95ad0C32b",
@@ -371,7 +375,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "550000000000000060"
         },
         {
           "address": "0x3619bdDc61189F33365CC572DF3a68FB3b316516",
@@ -443,7 +448,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "660000000000000000"
         },
         {
           "address": "0x369Fea97f6fB7510755DCA389088d9E2e2819278",
@@ -515,7 +521,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "660000000000000000"
         },
         {
           "address": "0x37C28DE42bA3d22217995D146FC684B2326Ede64",
@@ -587,7 +594,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "660000000000000000"
         },
         {
           "address": "0x3A00d9B02781f47d033BAd62edc55fBF8D083Fb0",
@@ -659,7 +667,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "605000000000000000"
         },
         {
           "address": "0x488aB2826a154da01CC4CC16A8C83d4720D3cA2C",
@@ -731,7 +740,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "660000000000000000"
         },
         {
           "address": "0x6AF3Fdb3282c5bb6926269Db10837fa8Aec67C04",
@@ -794,7 +804,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "660000000000000000"
         },
         {
           "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
@@ -866,7 +877,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "660000000000000000"
         },
         {
           "address": "0x714db6c38A17883964B68a07d56cE331501d9eb6",
@@ -938,7 +950,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "605000000000000000"
         },
         {
           "address": "0x74469281310195A04840Daf6EdF576F559a3dE80",
@@ -1010,7 +1023,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "550000000000000060"
         },
         {
           "address": "0xAfc13BC065ABeE838540823431055D2ea52eBA52",
@@ -1082,7 +1096,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "660000000000000000"
         },
         {
           "address": "0xb6e9322C49FD75a367Fcb17B0Fcd62C5070EbCBe",
@@ -1154,7 +1169,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "880000000000000100"
         },
         {
           "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
@@ -1226,7 +1242,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "880000000000000100"
         },
         {
           "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
@@ -1298,7 +1315,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "891000000000000100"
         },
         {
           "address": "0xeDaC03D29ff74b5fDc0CC936F6288312e1459BC6",
@@ -1370,7 +1388,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "660000000000000000"
         },
         {
           "address": "0xEFAACF73CE2D38ED40991f29E72B12C74bd4cf23",
@@ -1442,7 +1461,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "0"
         },
         {
           "address": "0xF06e662a00796c122AaAE935EC4F0Be3F74f5636",
@@ -1514,7 +1534,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "825000000000000100"
         },
         {
           "address": "0xF912d3001CAf6DC4ADD366A62Cc9115B4303c9A9",
@@ -1577,7 +1598,8 @@
               "createdAt": "2024-06-18T14:48:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "880000000000000100"
         }
       ]
     },
@@ -1682,7 +1704,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "550000000000000060"
         },
         {
           "address": "0x5e68913fbbfb91af30366ab1B21324410b49a308",
@@ -1792,7 +1815,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "275000000000000030"
         },
         {
           "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
@@ -1902,7 +1926,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "880000000000000100"
         },
         {
           "address": "0xa109DE0abaeefC521Ec29D89eA42E64F37A6882E",
@@ -1995,7 +2020,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "715000000000000000"
         },
         {
           "address": "0xb677e080148368EeeE70fA3865d07E92c6500174",
@@ -2088,7 +2114,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "275000000000000030"
         },
         {
           "address": "0xb7caC5Ef82cb7f9197ee184779bdc52c5490C02a",
@@ -2181,7 +2208,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "275000000000000030"
         },
         {
           "address": "0xe237aA131E7B004aC88CB808Fa56AF3dc4C408f1",
@@ -2274,7 +2302,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "220000000000000030"
         },
         {
           "address": "0xe507B30C41E9e375BCe05197c1e09fc9ee40c0f6",
@@ -2384,7 +2413,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "0"
         }
       ]
     },
@@ -2474,7 +2504,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "880000000000000100"
         },
         {
           "address": "0x1958035231E125830bA5d17D168cEa07Bb42184a",
@@ -2552,7 +2583,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "275000000000000030"
         },
         {
           "address": "0xdeDf3B2bcF25d0023115fd71a0F8221C91C92B1a",
@@ -2630,7 +2662,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "715000000000000000"
         },
         {
           "address": "0xef470AbC365F88e4582D8027172a392C473A5B53",
@@ -2708,7 +2741,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "275000000000000030"
         }
       ]
     },
@@ -2845,7 +2879,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "880000000000000100"
         },
         {
           "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
@@ -2953,7 +2988,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "495000000000000060"
         },
         {
           "address": "0x57a664Dd7f1dE19545fEE9c86C949e3BF43d6D47",
@@ -3061,7 +3097,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "385000000000000000"
         },
         {
           "address": "0x644A149853E5507AdF3e682218b8AC86cdD62951",
@@ -3169,7 +3206,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:14.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "385000000000000000"
         },
         {
           "address": "0x75aa42c832a8911B77219DbeBABBB40040d16987",
@@ -3277,7 +3315,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "385000000000000000"
         },
         {
           "address": "0xD5b20708d8f0FcA52cb609938D0594C4e32E5DaD",
@@ -3402,7 +3441,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "715000000000000000"
         },
         {
           "address": "0xeffE7874C345aE877c1D893cd5160DDD359b24dA",
@@ -3510,7 +3550,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "957000000000000100"
         }
       ]
     },
@@ -3630,7 +3671,8 @@
               "createdAt": "2024-08-15T14:48:53.000Z",
               "updatedAt": "2024-09-03T22:24:13.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "825000000000000100"
         },
         {
           "address": "0x73d2F6e0708599a4eA70F6A0c55A4C59196a101c",
@@ -3693,7 +3735,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T02:03:12.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "330000000000000000"
         }
       ]
     },
@@ -3783,7 +3826,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "715000000000000000"
         },
         {
           "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
@@ -3878,7 +3922,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-09-03T22:24:15.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "880000000000000100"
         },
         {
           "address": "0x4E1D35166776825402d50AfE4286c500027211D1",
@@ -3956,7 +4001,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "825000000000000100"
         },
         {
           "address": "0x899dDf81DfbbF5889a16D075c352F2b959Dd24A4",
@@ -4034,7 +4080,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-09-03T22:24:16.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "715000000000000000"
         }
       ]
     },
@@ -4154,7 +4201,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "275000000000000030"
         },
         {
           "address": "0x47793540757c6E6D84155B33cd8D9535CFdb9334",
@@ -4262,7 +4310,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "275000000000000030"
         },
         {
           "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
@@ -4370,7 +4419,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "880000000000000100"
         },
         {
           "address": "0xD804F74fe21290d213c46610ab171f7c2EeEBDE7",
@@ -4495,7 +4545,8 @@
               "createdAt": "2024-06-13T15:25:54.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "715000000000000000"
         },
         {
           "address": "0xEe543D5de2Dbb5b07675Fc72831A2f1812428393",
@@ -4603,7 +4654,8 @@
               "createdAt": "2024-06-13T15:25:53.000Z",
               "updatedAt": "2024-08-29T00:03:17.000Z"
             }
-          ]
+          ],
+          "liquidationThresholdMantissa": "275000000000000030"
         }
       ]
     }

@@ -9,6 +9,7 @@ export const fakePool: Pool = {
   ...poolData[0],
   userBorrowBalanceCents: new BigNumber(1000),
   userBorrowLimitCents: new BigNumber(100000),
+  userLiquidationThresholdCents: new BigNumber(110000),
 };
 
 export const fakeAsset = {

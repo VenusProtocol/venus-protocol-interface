@@ -5,6 +5,7 @@ export type NoticeVariant = 'info' | 'loading' | 'error' | 'success' | 'warning'
 export interface NoticeProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   description?: string | ReactElement;
   title?: string | ReactElement;
+  condensed?: boolean;
   variant?: NoticeVariant;
   onClose?: () => void;
 }

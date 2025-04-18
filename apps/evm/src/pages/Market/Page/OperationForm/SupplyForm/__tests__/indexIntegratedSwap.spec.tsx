@@ -22,9 +22,10 @@ import { en } from 'libs/translations';
 import type { Asset, Swap, TokenBalance } from 'types';
 
 import Supply from '..';
+import OPERATION_DETAILS_TEST_IDS from '../../OperationDetails/testIds';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
-import TEST_IDS from '../testIds';
+import SUPPLY_FORM_TEST_IDS from '../testIds';
 
 const fakeBusdWalletBalanceMantissa = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(busd.decimals),
@@ -107,7 +108,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       },
     );
 
-    expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeNull();
+    expect(queryByTestId(SUPPLY_FORM_TEST_IDS.selectTokenTextField)).toBeNull();
   });
 
   it('displays correct wallet balance', async () => {
@@ -120,7 +121,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
@@ -159,13 +160,13 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: bnb,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -191,13 +192,13 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -217,13 +218,13 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -255,13 +256,13 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -299,29 +300,29 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
 
-    await waitFor(() => getByTestId(TEST_IDS.swapDetails));
+    await waitFor(() => getByTestId(OPERATION_DETAILS_TEST_IDS.swapDetails));
 
     // Open swap details accordion
     fireEvent.click(getByText(en.operationForm.swapDetails.label.supply).closest('button')!);
 
-    expect(getByTestId(TEST_IDS.swapDetails).textContent).toMatchSnapshot();
+    expect(getByTestId(OPERATION_DETAILS_TEST_IDS.swapDetails).textContent).toMatchSnapshot();
     expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
   });
 
-  it('updates input value to 0 when pressing on MAX button if wallet balance is 0', async () => {
+  it('updates input value to 0 when clicking on MAX button if wallet balance is 0', async () => {
     const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
       ...tokenBalance,
       balanceMantissa:
@@ -345,14 +346,14 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       () =>
         getByTestId(
           getTokenTextFieldTestId({
-            parentTestId: TEST_IDS.selectTokenTextField,
+            parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
           }),
         ) as HTMLInputElement,
     );
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
@@ -381,14 +382,14 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       () =>
         getByTestId(
           getTokenTextFieldTestId({
-            parentTestId: TEST_IDS.selectTokenTextField,
+            parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
           }),
         ) as HTMLInputElement,
     );
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
@@ -427,13 +428,13 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -469,13 +470,13 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 
     const selectTokenTextField = getByTestId(
       getTokenTextFieldTestId({
-        parentTestId: TEST_IDS.selectTokenTextField,
+        parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       }),
     ) as HTMLInputElement;
 
@@ -510,14 +511,14 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       () =>
         getByTestId(
           getTokenTextFieldTestId({
-            parentTestId: TEST_IDS.selectTokenTextField,
+            parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
           }),
         ) as HTMLInputElement,
     );
 
     selectToken({
       container,
-      selectTokenTextFieldTestId: TEST_IDS.selectTokenTextField,
+      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
       token: busd,
     });
 

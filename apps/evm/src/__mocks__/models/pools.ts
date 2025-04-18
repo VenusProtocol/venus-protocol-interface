@@ -12,6 +12,7 @@ export const legacyCorePool: Pool = {
   userSupplyBalanceCents: new BigNumber(123879865),
   userBorrowBalanceCents: new BigNumber(12333),
   userBorrowLimitCents: new BigNumber(192673),
+  userLiquidationThresholdCents: new BigNumber(192673),
 };
 
 export const isolatedPool: Pool = {
@@ -22,6 +23,7 @@ export const isolatedPool: Pool = {
   userSupplyBalanceCents: new BigNumber(0),
   userBorrowBalanceCents: new BigNumber(0),
   userBorrowLimitCents: new BigNumber(0),
+  userLiquidationThresholdCents: new BigNumber(0),
 };
 
 export const poolData: Pool[] = [legacyCorePool, isolatedPool];

@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BorrowForm > renders correct available amount when asset borrow cap is the limiting factor 1`] = `"Available90 XVS"`;
+
+exports[`BorrowForm > renders correct available amount when asset liquidity is the limiting factor 1`] = `"Available0.5 XVS"`;
+
+exports[`BorrowForm > renders correct available amount when user borrow limit is the limiting factor 1`] = `"Available990 XVS"`;
+
+exports[`BorrowForm > renders correct available amount when user health factor is the limiting factor 1`] = `"Available0.01 XVS"`;
+
+exports[`BorrowForm > updates input value correctly when clicking on max button and asset borrow cap is the limiting factor 1`] = `"90"`;
+
+exports[`BorrowForm > updates input value correctly when clicking on max button and asset liquidity is the limiting factor 1`] = `"0.5"`;
+
+exports[`BorrowForm > updates input value correctly when clicking on max button and user borrow limit is the limiting factor 1`] = `"836.153846153846153846"`;
+
+exports[`BorrowForm > updates input value correctly when clicking on max button and user health factor is the limiting factor 1`] = `"0"`;

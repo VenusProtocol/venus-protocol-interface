@@ -5,21 +5,32 @@ import { useForm as useRhfForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { useGetToken } from 'libs/tokens';
-import { convertMantissaToTokens } from 'utilities';
+import { calculateHealthFactor, convertMantissaToTokens } from 'utilities';
 
-import type { FormValues } from '../../types';
+import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
+import type { FormValues } from '../types';
 
 export enum ErrorCode {
   HIGHER_THAN_LIQUIDITY = 'HIGHER_THAN_LIQUIDITY',
   HIGHER_THAN_MINTABLE_AMOUNT = 'HIGHER_THAN_MINTABLE_AMOUNT',
+  REQUIRES_RISK_ACKNOWLEDGEMENT = 'REQUIRES_RISK_ACKNOWLEDGEMENT',
 }
 
 export interface UseFormProps {
   vaiLiquidityMantissa?: BigNumber;
   accountMintableVaiMantissa?: BigNumber;
+  userBorrowBalanceCents?: BigNumber;
+  userLiquidationThresholdCents?: BigNumber;
+  vaiPriceCents?: BigNumber;
 }
 
-export const useForm = ({ vaiLiquidityMantissa, accountMintableVaiMantissa }: UseFormProps) => {
+export const useForm = ({
+  vaiLiquidityMantissa,
+  accountMintableVaiMantissa,
+  userBorrowBalanceCents,
+  userLiquidationThresholdCents,
+  vaiPriceCents,
+}: UseFormProps) => {
   const vai = useGetToken({
     symbol: 'VAI',
   })!;
@@ -39,29 +50,66 @@ export const useForm = ({ vaiLiquidityMantissa, accountMintableVaiMantissa }: Us
 
   const formSchema = useMemo(
     () =>
-      z.object({
-        amountTokens: z.coerce
-          .string()
-          .min(1)
-          .refine(value => +value > 0)
-          .refine(
-            value =>
-              !vaiLiquidityTokens ||
-              new BigNumber(vaiLiquidityTokens).isGreaterThanOrEqualTo(value),
-            {
-              message: ErrorCode.HIGHER_THAN_LIQUIDITY,
-            },
-          )
-          .refine(
-            value =>
-              !accountMintableVaiTokens ||
-              new BigNumber(accountMintableVaiTokens).isGreaterThanOrEqualTo(value),
-            {
-              message: ErrorCode.HIGHER_THAN_MINTABLE_AMOUNT,
-            },
-          ),
-      }) satisfies z.ZodType<FormValues>,
-    [vaiLiquidityTokens, accountMintableVaiTokens],
+      z
+        .object({
+          amountTokens: z.coerce
+            .string()
+            .min(1)
+            .refine(value => +value > 0)
+            .refine(
+              value =>
+                !vaiLiquidityTokens ||
+                new BigNumber(vaiLiquidityTokens).isGreaterThanOrEqualTo(value),
+              {
+                message: ErrorCode.HIGHER_THAN_LIQUIDITY,
+              },
+            )
+            .refine(
+              value =>
+                !accountMintableVaiTokens ||
+                new BigNumber(accountMintableVaiTokens).isGreaterThanOrEqualTo(value),
+              {
+                message: ErrorCode.HIGHER_THAN_MINTABLE_AMOUNT,
+              },
+            ),
+          acknowledgeRisk: z.boolean(),
+        })
+        .refine(
+          data => {
+            if (
+              !Number(data.amountTokens) ||
+              !vaiPriceCents ||
+              !userBorrowBalanceCents ||
+              !userLiquidationThresholdCents
+            ) {
+              return true;
+            }
+
+            const amountCents = new BigNumber(data.amountTokens).multipliedBy(vaiPriceCents);
+
+            const hypothericalHealthFactor = calculateHealthFactor({
+              borrowBalanceCents: userBorrowBalanceCents.plus(amountCents).toNumber(),
+              liquidationThresholdCents: userLiquidationThresholdCents.toNumber(),
+            });
+
+            // Mark form as invalid if hypothetical health factor is below moderate threshold and
+            // user hasn't acknowledged the risk
+            return (
+              hypothericalHealthFactor >= HEALTH_FACTOR_MODERATE_THRESHOLD || !!data.acknowledgeRisk
+            );
+          },
+          {
+            path: ['acknowledgeRisk'],
+            message: ErrorCode.REQUIRES_RISK_ACKNOWLEDGEMENT,
+          },
+        ) satisfies z.ZodType<FormValues>,
+    [
+      vaiLiquidityTokens,
+      accountMintableVaiTokens,
+      userBorrowBalanceCents,
+      userLiquidationThresholdCents,
+      vaiPriceCents,
+    ],
   );
 
   const form = useRhfForm({
@@ -69,6 +117,7 @@ export const useForm = ({ vaiLiquidityMantissa, accountMintableVaiMantissa }: Us
     resolver: zodResolver(formSchema),
     defaultValues: {
       amountTokens: '',
+      acknowledgeRisk: false,
     },
   });
 
