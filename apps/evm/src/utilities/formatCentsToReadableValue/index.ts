@@ -48,7 +48,7 @@ const formatCentsToReadableValue = ({
     })}`;
   }
 
-  // If the value is less than the MIN_VALUEimum threshold
+  // If the value is less than the minimum threshold
   if (absoluteValueDollars.isLessThan(threshold.MIN_VALUE)) {
     return `< $${threshold.MIN_VALUE.toFormat()}`;
   }

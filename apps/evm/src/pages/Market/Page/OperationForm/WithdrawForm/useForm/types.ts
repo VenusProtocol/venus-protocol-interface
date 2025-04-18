@@ -9,4 +9,5 @@ export interface FormValues {
 export type FormErrorCode =
   | 'EMPTY_TOKEN_AMOUNT'
   | 'HIGHER_THAN_WITHDRAWABLE_AMOUNT'
-  | 'HIGHER_THAN_LIQUIDITY';
+  | 'HIGHER_THAN_LIQUIDITY'
+  | 'TOO_RISKY';

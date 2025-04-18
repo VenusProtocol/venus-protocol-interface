@@ -1,7 +1,7 @@
 import { ProgressCircle, Tooltip } from 'components';
 import type { Pool } from 'types';
 
-import useProgressColor from 'hooks/useProgressColor';
+import { theme } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
 import { calculatePercentage, formatPercentageToReadableValue } from 'utilities';
 
@@ -13,17 +13,23 @@ export const PoolTagContent: React.FC<PoolTagContentProps> = ({ pool }) => {
   const { t } = useTranslation();
 
   const borrowLimitUsedPercentage =
-    pool.userBorrowBalanceCents &&
-    pool.userBorrowLimitCents &&
-    calculatePercentage({
-      numerator: pool.userBorrowBalanceCents.toNumber(),
-      denominator: pool.userBorrowLimitCents.toNumber(),
-    });
-
-  const progressColor = useProgressColor(borrowLimitUsedPercentage ?? 0);
+    pool.userBorrowBalanceCents && pool.userBorrowLimitCents
+      ? calculatePercentage({
+          numerator: pool.userBorrowBalanceCents.toNumber(),
+          denominator: pool.userBorrowLimitCents.toNumber(),
+        })
+      : 0;
 
   const readableBorrowLimitUsedPercentage =
     formatPercentageToReadableValue(borrowLimitUsedPercentage);
+
+  let fillColor = theme.colors.red;
+
+  if (borrowLimitUsedPercentage <= 66) {
+    fillColor = theme.colors.green;
+  } else if (borrowLimitUsedPercentage <= 50) {
+    fillColor = theme.colors.yellow;
+  }
 
   return (
     <>
@@ -38,7 +44,7 @@ export const PoolTagContent: React.FC<PoolTagContentProps> = ({ pool }) => {
         >
           <ProgressCircle
             value={borrowLimitUsedPercentage}
-            fillColor={progressColor}
+            fillColor={fillColor}
             strokeWidthPx={3}
             sizePx={16}
           />

@@ -21,7 +21,7 @@ const cells: Cell[] = [
   {
     label: 'Total borrow',
     value: '$1,000',
-    color: 'green',
+    className: 'text-green',
   },
   {
     label: 'Available Liquidity',

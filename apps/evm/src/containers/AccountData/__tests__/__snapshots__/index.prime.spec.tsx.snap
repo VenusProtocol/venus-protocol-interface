@@ -1,25 +1,25 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'borrow' } 1`] = `"Balance:$123.35Max:$1.92K.Borrow balance (USDC)00.03Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'borrow' } 1`] = `"Health factor15.6215.61HealthyDaily earnings$0.03$0.03"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'repay' } 1`] = `"Balance:$123.33Max:$1.92K.Borrow balance (USDC)0Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'repay' } 1`] = `"Health factor15.62HealthyDaily earnings$0.03"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'supply' } 1`] = `"Balance:$123.33Max:$1.92K.Supply balance (USDC)100100.03Borrow limit$1.92KDaily earnings$0.03$0.06"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'supply' } 1`] = `"Health factor15.6215.62HealthyDaily earnings$0.03$0.06"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'withdraw' } 1`] = `"Balance:$123.33Max:$1.92K.Supply balance (USDC)10099.97Borrow limit$1.92KDaily earnings$0.03$0.06"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'withdraw' } 1`] = `"Health factor15.6215.62HealthyDaily earnings$0.03$0.06Supply balance$99.99$99.96"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'borrow', amountToken: +0 } 1`] = `"Balance:$123.33Max:$1.92K.Borrow balance (USDC)0Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'borrow', amountToken: +0 } 1`] = `"Health factor15.62HealthyDaily earnings$0.03"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'borrow', amountToken: 50 } 1`] = `"Balance:$173.32Max:$1.92K.Borrow balance (USDC)050Borrow limit used6.4%8.99%Daily earnings$0.03$0.05"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'borrow', amountToken: 50 } 1`] = `"Health factor15.6211.11HealthyDaily earnings$0.03$0.05"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'repay', amountToken: +0 } 1`] = `"Balance:$123.33Max:$1.92K.Borrow balance (USDC)0Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'repay', amountToken: +0 } 1`] = `"Health factor15.62HealthyDaily earnings$0.03"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'repay', amountToken: 50 } 1`] = `"Balance:$123.33Max:$1.92K.Borrow balance (USDC)0Borrow limit used6.4%Daily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'repay', amountToken: 50 } 1`] = `"Health factor15.62HealthyDaily earnings$0.03"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'supply', amountToken: +0 } 1`] = `"Balance:$123.33Max:$1.92K.Supply balance (USDC)100Borrow limit$1.92KDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'supply', amountToken: +0 } 1`] = `"Health factor15.62HealthyDaily earnings$0.03"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'supply', amountToken: 50 } 1`] = `"Balance:$123.33Max:$1.92K.Supply balance (USDC)100150Borrow limit$1.92KDaily earnings$0.03$0.09"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'supply', amountToken: 50 } 1`] = `"Health factor15.6215.62HealthyDaily earnings$0.03$0.09"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'withdraw', amountToken: +0 } 1`] = `"Balance:$123.33Max:$1.92K.Supply balance (USDC)100Borrow limit$1.92KDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'withdraw', amountToken: +0 } 1`] = `"Health factor15.62HealthyDaily earnings$0.03Supply balance$99.99"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'withdraw', amountToken: 50 } 1`] = `"Balance:$123.33Max:$1.92K.Supply balance (USDC)10050Borrow limit$1.92KDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'withdraw', amountToken: 50 } 1`] = `"Health factor15.6215.62HealthyDaily earnings$0.03$0.03Supply balance$99.99$49.99"`;

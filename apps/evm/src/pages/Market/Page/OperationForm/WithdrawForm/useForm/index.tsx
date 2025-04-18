@@ -1,7 +1,7 @@
 import type BigNumber from 'bignumber.js';
 
 import { handleError } from 'libs/errors';
-import type { Asset, Token } from 'types';
+import type { Asset, Pool, Token } from 'types';
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
@@ -10,6 +10,7 @@ export * from './types';
 
 export interface UseFormInput {
   asset: Asset;
+  pool: Pool;
   limitTokens: BigNumber;
   onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
   formValues: FormValues;
@@ -26,6 +27,7 @@ interface UseFormOutput {
 
 const useForm = ({
   asset,
+  pool,
   limitTokens,
   onSubmitSuccess,
   formValues,
@@ -34,6 +36,7 @@ const useForm = ({
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
     asset,
+    pool,
     limitTokens,
     formValues,
   });

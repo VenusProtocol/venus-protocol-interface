@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`HealthFactor > displays correct UI for factor: 0.8738529 1`] = `"0.87"`;
+
+exports[`HealthFactor > displays correct UI for factor: 0.8738529 2`] = `"0.87Liquidation"`;
+
+exports[`HealthFactor > displays correct UI for factor: 1.989765 1`] = `"1.98"`;
+
+exports[`HealthFactor > displays correct UI for factor: 1.989765 2`] = `"1.98Risky"`;
+
+exports[`HealthFactor > displays correct UI for factor: 2.912312 1`] = `"2.91"`;
+
+exports[`HealthFactor > displays correct UI for factor: 2.912312 2`] = `"2.91Moderate"`;
+
+exports[`HealthFactor > displays correct UI for factor: 12.23123 1`] = `"12.23"`;
+
+exports[`HealthFactor > displays correct UI for factor: 12.23123 2`] = `"12.23Healthy"`;
+
+exports[`HealthFactor > displays correct UI for factor: 100000000000001 1`] = `"> 100T"`;
+
+exports[`HealthFactor > displays correct UI for factor: 100000000000001 2`] = `"> 100THealthy"`;
+
+exports[`HealthFactor > displays correct UI for factor: Infinity 1`] = `"∞"`;
+
+exports[`HealthFactor > displays correct UI for factor: Infinity 2`] = `"∞Healthy"`;

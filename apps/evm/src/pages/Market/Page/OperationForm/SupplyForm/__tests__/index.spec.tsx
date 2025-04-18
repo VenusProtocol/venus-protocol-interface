@@ -56,7 +56,7 @@ describe('SupplyForm', () => {
     expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
   });
 
-  it('displays correct suppliable amount', async () => {
+  it('displays correct wallet balance amount', async () => {
     const { getByText } = renderComponent(
       <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
       {
@@ -64,7 +64,7 @@ describe('SupplyForm', () => {
       },
     );
 
-    await waitFor(() => getByText('8.9K XVS'));
+    await waitFor(() => getByText('10M XVS'));
   });
 
   it('submit is disabled with no amount', async () => {

@@ -95,10 +95,10 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
     if (getXvsBridgeStatusData) {
       const { totalTransferredLast24HourUsd } = getXvsBridgeStatusData;
       const remainingUsdValue = maxDailyLimitUsd.minus(totalTransferredLast24HourUsd);
-      const remaningTokensAmount = !xvsPriceUsd.isZero()
+      const remainingTokensAmount = !xvsPriceUsd.isZero()
         ? remainingUsdValue.dividedBy(xvsPriceUsd)
         : new BigNumber(0);
-      return [remainingUsdValue, remaningTokensAmount];
+      return [remainingUsdValue, remainingTokensAmount];
     }
 
     return [new BigNumber(0), new BigNumber(0)];

@@ -123,13 +123,14 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
         const children =
           distribution.type === 'prime' ? (
             <ValueUpdate
-              original={distribution.apyPercentage}
+              original={formatPercentageToReadableValue(distribution.apyPercentage)}
               update={
                 action === 'borrow' || action === 'repay'
-                  ? hypotheticalUserPrimeApys.borrowApy
-                  : hypotheticalUserPrimeApys.supplyApy
+                  ? hypotheticalUserPrimeApys.borrowApy &&
+                    formatPercentageToReadableValue(hypotheticalUserPrimeApys.borrowApy)
+                  : hypotheticalUserPrimeApys.supplyApy &&
+                    formatPercentageToReadableValue(hypotheticalUserPrimeApys.supplyApy)
               }
-              format={formatPercentageToReadableValue}
             />
           ) : (
             formatPercentageToReadableValue(distribution.apyPercentage)

@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`formatHealthFactorToReadableValue > format health factor to readable value: 0.8738529 1`] = `"0.87"`;
+
+exports[`formatHealthFactorToReadableValue > format health factor to readable value: 1.989765 1`] = `"1.98"`;
+
+exports[`formatHealthFactorToReadableValue > format health factor to readable value: 2.912312 1`] = `"2.91"`;
+
+exports[`formatHealthFactorToReadableValue > format health factor to readable value: 12.23123 1`] = `"12.23"`;
+
+exports[`formatHealthFactorToReadableValue > format health factor to readable value: 100000000000001 1`] = `"> 100T"`;
+
+exports[`formatHealthFactorToReadableValue > format health factor to readable value: Infinity 1`] = `"∞"`;
