@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.3.0
+
+### Minor Changes
+
+- 3b969c8: fix timestamp of Lorentz upgrade
+
 ## 0.2.0
 
 ### Minor Changes
