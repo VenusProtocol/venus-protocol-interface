@@ -12,8 +12,8 @@ export const rpcUrls: {
     `https://bsc-testnet.nodereal.io/v1/${envVariables.VITE_NODE_REAL_API_KEY}`,
   ],
   [ChainId.OPBNB_MAINNET]: [
-    `https://opbnb-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
     `https://opbnb-mainnet.nodereal.io/v1/${envVariables.VITE_NODE_REAL_API_KEY}`,
+    `https://opbnb-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
   ],
   [ChainId.OPBNB_TESTNET]: [
     `https://opbnb-testnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
