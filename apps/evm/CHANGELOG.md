@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.248.2
+
+### Patch Changes
+
+- 587b896: update RPC providers order for opBNB mainnet
+
 ## 2.248.1
 
 ### Patch Changes
