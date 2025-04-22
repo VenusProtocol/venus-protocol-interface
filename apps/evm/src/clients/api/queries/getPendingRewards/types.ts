@@ -1,34 +1,34 @@
 import type BigNumber from 'bignumber.js';
 
-import type { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
 import type { ChainId, MerklDistribution, Token } from 'types';
-import type { Address } from 'viem';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetPendingRewardsInput {
+  chainId: ChainId;
   tokens: Token[];
-  isolatedPoolComptrollerAddresses: string[];
+  publicClient: PublicClient;
+  isolatedPoolComptrollerAddresses: Address[];
   xvsVestingVaultPoolCount: number;
   accountAddress: Address;
-  poolLensContract: PoolLens;
-  xvsVaultContract: XvsVault;
-  vaiVaultContract?: VaiVault;
-  venusLensContract?: VenusLens;
-  primeContract?: Prime;
-  legacyPoolComptrollerContractAddress?: string;
-  chainId: ChainId;
-  merklCampaigns: Record<string, MerklDistribution[]>; // maps Asset -> Merkl campaigns
+  merklCampaigns: Record<Address, MerklDistribution[]>; // maps asset addresses with Merkl campaigns
+  poolLensContractAddress: Address;
+  xvsVaultContractAddress: Address;
+  vaiVaultContractAddress?: Address;
+  venusLensContractAddress?: Address;
+  primeContractAddress?: Address;
+  legacyPoolComptrollerContractAddress?: Address;
 }
 
 interface PendingRewardEntry {
-  vTokenAddress: string;
+  vTokenAddress: Address;
   amountMantissa: BigNumber;
 }
 
 export type PendingInternalRewardSummary = {
   type: 'legacyPool' | 'isolatedPool';
-  poolComptrollerAddress: string;
-  distributorAddress: string;
-  rewardTokenAddress: string;
+  poolComptrollerAddress: Address;
+  distributorAddress: Address;
+  rewardTokenAddress: Address;
   totalRewards: BigNumber;
   pendingRewards: PendingRewardEntry[];
 };
@@ -39,8 +39,7 @@ export type PendingExternalRewardSummary = {
   campaignId: string;
   campaignName: string;
   claimUrl: string;
-  distributorAddress: string;
-  rewardTokenAddress: string;
+  rewardTokenAddress: Address;
   totalRewards: BigNumber;
   pendingRewards: PendingRewardEntry[];
 };
@@ -53,8 +52,8 @@ export interface IsolatedPoolPendingReward {
   rewardToken: Token;
   rewardAmountMantissa: BigNumber;
   rewardAmountCents: BigNumber | undefined;
-  vTokenAddressesWithPendingReward: string[];
-  rewardsDistributorAddress: string;
+  vTokenAddressesWithPendingReward: Address[];
+  rewardsDistributorAddress: Address;
 }
 
 export interface ExternalPendingReward {
@@ -64,22 +63,21 @@ export interface ExternalPendingReward {
   rewardToken: Token;
   rewardAmountMantissa: BigNumber;
   rewardAmountCents: BigNumber | undefined;
-  rewardsDistributorAddress: string;
 }
 
 export interface IsolatedPoolPendingRewardGroup {
   type: 'isolatedPool';
-  comptrollerAddress: string;
+  comptrollerAddress: Address;
   pendingRewards: IsolatedPoolPendingReward[];
 }
 
 export interface LegacyPoolPendingRewardGroup {
   type: 'legacyPool';
-  comptrollerAddress: string;
+  comptrollerAddress: Address;
   rewardToken: Token;
   rewardAmountMantissa: BigNumber;
   rewardAmountCents: BigNumber | undefined;
-  vTokenAddressesWithPendingReward: string[];
+  vTokenAddressesWithPendingReward: Address[];
 }
 
 export interface ExternalPendingRewardGroup {

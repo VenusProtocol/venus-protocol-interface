@@ -1,6 +1,7 @@
 import type BigNumber from 'bignumber.js';
 import type { Token } from 'types';
 
+import type { Address } from 'viem';
 import type {
   IsolatedPoolPendingReward,
   IsolatedPoolPendingRewardGroup,
@@ -14,9 +15,9 @@ function formatToPoolPendingRewardGroup({
   tokenPriceMapping,
   tokens,
 }: {
-  comptrollerContractAddress: string;
+  comptrollerContractAddress: Address;
   rewardSummaries: PendingInternalRewardSummary[];
-  tokenPriceMapping: Record<string, BigNumber>;
+  tokenPriceMapping: Record<Address, BigNumber>;
   tokens: Token[];
 }) {
   const pendingRewards: IsolatedPoolPendingReward[] = rewardSummaries

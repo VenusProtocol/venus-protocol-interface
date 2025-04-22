@@ -9,7 +9,7 @@ export interface GetApiTokenPriceInput {
 }
 export type GetApiTokenPriceOutput = Record<Address, BigNumber>;
 
-interface ApiTokenPriceResponse {
+export interface ApiTokenPriceResponse {
   result: Record<Address, string>;
 }
 
@@ -31,6 +31,7 @@ export const getApiTokenPrice = async ({
   }
 
   const result = response.data?.result || {};
+
   return Object.entries(result).reduce(
     (acc, tokenPriceTuple) => ({ ...acc, [tokenPriceTuple[0]]: new BigNumber(tokenPriceTuple[1]) }),
     {},

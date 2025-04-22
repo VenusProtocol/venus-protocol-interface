@@ -1,8 +1,14 @@
 import BigNumber from 'bignumber.js';
 
-import type { PoolLens, Prime, VaiVault, VenusLens, XvsVault } from 'libs/contracts';
 import type { Token } from 'types';
 
+import type { poolLensAbi, primeAbi, venusLensAbi, xvsVaultAbi } from 'libs/contracts';
+import type {
+  Address,
+  ContractFunctionArgs,
+  ReadContractReturnType,
+  SimulateContractReturnType,
+} from 'viem';
 import type {
   PendingExternalRewardSummary,
   PendingInternalRewardSummary,
@@ -21,7 +27,7 @@ const formatOutput = ({
   tokens,
   legacyPoolComptrollerContractAddress,
   isolatedPoolComptrollerAddresses,
-  vaiVaultPendingXvs,
+  vaiVaultPendingXvsMantissa,
   isolatedPoolsPendingRewards,
   xvsVestingVaultPoolInfos,
   xvsVestingVaultPendingRewards,
@@ -35,23 +41,41 @@ const formatOutput = ({
   merklPendingRewards,
 }: {
   tokens: Token[];
-  isolatedPoolsPendingRewards: Array<
-    Awaited<ReturnType<PoolLens['getPendingRewards']>> | undefined
-  >;
-  xvsVestingVaultPoolInfos: Array<Awaited<ReturnType<XvsVault['poolInfos']>> | undefined>;
-  xvsVestingVaultPendingRewards: Array<Awaited<ReturnType<XvsVault['pendingReward']>> | undefined>;
-  xvsVestingVaultPendingWithdrawalsBeforeUpgrade: Array<
-    Awaited<ReturnType<XvsVault['pendingWithdrawalsBeforeUpgrade']>> | undefined
-  >;
+  xvsVestingVaultPoolInfos: (
+    | ReadContractReturnType<
+        typeof xvsVaultAbi,
+        'poolInfos',
+        ContractFunctionArgs<typeof xvsVaultAbi, 'pure' | 'view', 'poolInfos'>
+      >
+    | undefined
+  )[];
+  xvsVestingVaultPendingRewards: (bigint | undefined)[];
+  xvsVestingVaultPendingWithdrawalsBeforeUpgrade: (bigint | undefined)[];
   tokenPriceMapping: Record<string, BigNumber>;
-  isolatedPoolComptrollerAddresses: string[];
   isVaiVaultContractPaused: boolean;
   isXvsVestingVaultContractPaused: boolean;
   isPrimeContractPaused: boolean;
-  vaiVaultPendingXvs?: Awaited<ReturnType<VaiVault['pendingXVS']>>;
-  venusLensPendingRewards?: Awaited<ReturnType<VenusLens['pendingRewards']>>;
-  legacyPoolComptrollerContractAddress?: string;
-  primePendingRewards?: Awaited<ReturnType<Prime['callStatic']['getPendingRewards']>>;
+  vaiVaultPendingXvsMantissa?: bigint;
+  venusLensPendingRewards?: ReadContractReturnType<
+    typeof venusLensAbi,
+    'pendingRewards',
+    ContractFunctionArgs<typeof venusLensAbi, 'pure' | 'view', 'pendingRewards'>
+  >;
+  isolatedPoolComptrollerAddresses: Address[];
+  isolatedPoolsPendingRewards: Array<
+    | ReadContractReturnType<
+        typeof poolLensAbi,
+        'getPendingRewards',
+        ContractFunctionArgs<typeof poolLensAbi, 'pure' | 'view', 'getPendingRewards'>
+      >
+    | undefined
+  >;
+  legacyPoolComptrollerContractAddress?: Address;
+  primePendingRewards?: SimulateContractReturnType<
+    typeof primeAbi,
+    'getPendingRewards',
+    ContractFunctionArgs<typeof primeAbi, 'nonpayable' | 'payable', 'getPendingRewards'>
+  >['result'];
   merklPendingRewards: PendingExternalRewardSummary[];
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];
@@ -96,7 +120,7 @@ const formatOutput = ({
   );
 
   const pendingRewardsPerIsolatedPool = isolatedPoolsPendingRewardSummaries.reduce<
-    Record<string, PendingInternalRewardSummary[]>
+    Record<Address, PendingInternalRewardSummary[]>
   >(
     (acc, rs) => ({
       ...acc,
@@ -111,8 +135,8 @@ const formatOutput = ({
     PendingRewardGroup[]
   >((acc, poolComptrollerAddress) => {
     const isolatedPoolPendingRewardGroup = formatToIsolatedPoolPendingRewardGroup({
-      comptrollerContractAddress: poolComptrollerAddress,
-      rewardSummaries: pendingRewardsPerIsolatedPool[poolComptrollerAddress],
+      comptrollerContractAddress: poolComptrollerAddress as Address,
+      rewardSummaries: pendingRewardsPerIsolatedPool[poolComptrollerAddress as Address],
       tokenPriceMapping,
       tokens,
     });
@@ -124,7 +148,7 @@ const formatOutput = ({
 
   // Extract pending rewards from VAI vault
   const vaiVaultPendingRewardAmountMantissa =
-    vaiVaultPendingXvs && new BigNumber(vaiVaultPendingXvs.toString());
+    vaiVaultPendingXvsMantissa && new BigNumber(vaiVaultPendingXvsMantissa.toString());
 
   const vaiVaultPendingRewardGroup =
     vaiVaultPendingRewardAmountMantissa &&
@@ -144,23 +168,14 @@ const formatOutput = ({
   // Extract pending rewards from XVS vesting vaults
   const xvsVestingVaultPendingRewardGroups = xvsVestingVaultPendingRewards
     .map((xvsVestingVaultPendingReward, index) => {
-      if (!xvsVestingVaultPendingReward) {
-        return;
-      }
-
-      const vaultPoolInfo = xvsVestingVaultPoolInfos[index];
-      const userPendingRewardsAmountMantissa =
-        xvsVestingVaultPendingReward && new BigNumber(xvsVestingVaultPendingReward.toString());
+      const stakedTokenAddress = xvsVestingVaultPoolInfos[index]?.[0];
       const unsafeUserPendingWithdrawalsBeforeUpgradeAmountMantissa =
         xvsVestingVaultPendingWithdrawalsBeforeUpgrade[index];
-      const userPendingWithdrawalsBeforeUpgradeAmountMantissa =
-        unsafeUserPendingWithdrawalsBeforeUpgradeAmountMantissa &&
-        new BigNumber(unsafeUserPendingWithdrawalsBeforeUpgradeAmountMantissa.toString());
 
       if (
-        !vaultPoolInfo ||
-        !userPendingRewardsAmountMantissa ||
-        !userPendingWithdrawalsBeforeUpgradeAmountMantissa
+        !stakedTokenAddress ||
+        xvsVestingVaultPendingReward === undefined ||
+        unsafeUserPendingWithdrawalsBeforeUpgradeAmountMantissa === undefined
       ) {
         return;
       }
@@ -168,11 +183,13 @@ const formatOutput = ({
       return formatToVestingVaultPendingRewardGroup({
         poolIndex: index,
         isDisabled: isXvsVestingVaultContractPaused,
-        userPendingRewardsAmountMantissa,
-        userPendingWithdrawalsBeforeUpgradeAmountMantissa,
+        userPendingRewardsAmountMantissa: new BigNumber(xvsVestingVaultPendingReward.toString()),
+        userPendingWithdrawalsBeforeUpgradeAmountMantissa: new BigNumber(
+          unsafeUserPendingWithdrawalsBeforeUpgradeAmountMantissa.toString(),
+        ),
         tokenPriceMapping,
         tokens,
-        stakedTokenAddress: vaultPoolInfo.token,
+        stakedTokenAddress,
       });
     })
     .filter((group): group is XvsVestingVaultPendingRewardGroup => !!group);
