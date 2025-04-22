@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.248.4
+
+### Patch Changes
+
+- 2a5d848: prevent sending transactions with empty access list
+
 ## 2.248.3
 
 ### Patch Changes
