@@ -79,7 +79,7 @@ export const useBorrow = (options?: Partial<Options>) => {
         address: vToken.address,
         functionName: 'borrow',
         args: [amountMantissa],
-        accessList,
+        accessList: accessList?.length ? accessList : undefined,
       } as WriteContractParameters<readonly unknown[], string, readonly unknown[], Chain, Account>;
     },
     onConfirmed: async ({ input }) => {

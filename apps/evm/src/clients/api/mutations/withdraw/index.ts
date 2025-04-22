@@ -72,7 +72,7 @@ const withdraw = async ({
     accessList = tmpAccessList;
   }
 
-  const overrides = accessList ? { accessList } : undefined;
+  const overrides = accessList?.length ? { accessList } : undefined;
 
   return withdrawFullSupply
     ? { contract: tokenContract, methodName: 'redeem', args: [amountMantissa.toFixed()], overrides }
