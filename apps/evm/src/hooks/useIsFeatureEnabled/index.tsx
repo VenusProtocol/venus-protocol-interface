@@ -36,6 +36,7 @@ export const featureFlags = {
     ChainId.BSC_TESTNET,
     ChainId.ETHEREUM,
     ChainId.SEPOLIA,
+    ChainId.OPBNB_MAINNET,
     ChainId.OPBNB_TESTNET,
     ChainId.ARBITRUM_ONE,
     ChainId.ZKSYNC_SEPOLIA,
