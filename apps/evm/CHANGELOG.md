@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.248.3
+
+### Patch Changes
+
+- 7f9c80e: refactor getPendinRewards to use viem
+
 ## 2.248.2
 
 ### Patch Changes
