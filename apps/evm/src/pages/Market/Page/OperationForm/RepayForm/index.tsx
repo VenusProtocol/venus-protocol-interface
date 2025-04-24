@@ -42,6 +42,7 @@ import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
+export const NATIVE_BORROW_BALANCE_BUFFER_PERCENTAGE = 0.0001;
 
 export interface RepayFormUiProps
   extends Pick<
@@ -54,6 +55,7 @@ export interface RepayFormUiProps
   isUserConnected: boolean;
   asset: Asset;
   pool: Pool;
+  buffedUserBorrowBalanceTokens: BigNumber;
   onSubmit: UseFormInput['onSubmit'];
   isSubmitting: boolean;
   nativeWrappedTokenBalances: TokenBalance[];
@@ -77,6 +79,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   isUserConnected,
   asset,
   pool,
+  buffedUserBorrowBalanceTokens,
   onSubmitSuccess,
   onSubmit,
   isSubmitting,
@@ -137,7 +140,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   const { handleSubmit, isFormValid, formError } = useForm({
     toVToken: asset.vToken,
     fromTokenUserWalletBalanceTokens,
-    fromTokenUserBorrowBalanceTokens: asset.userBorrowBalanceTokens,
+    fromTokenUserBorrowBalanceTokens: buffedUserBorrowBalanceTokens,
     fromTokenWalletSpendingLimitTokens,
     isUsingSwap,
     swap,
@@ -164,17 +167,17 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       fixedRepayPercentage: undefined,
     };
 
-    if (asset.userBorrowBalanceTokens.isEqualTo(0)) {
+    if (buffedUserBorrowBalanceTokens.isEqualTo(0)) {
       // If user's borrow balance is 0, set input amount to 0
       updatedValues.amountTokens = '0';
     } else if (isUsingSwap) {
       // If using swap, set input amount to wallet balance
       updatedValues.amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed();
     } else if (
-      fromTokenUserWalletBalanceTokens?.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens) &&
+      fromTokenUserWalletBalanceTokens?.isGreaterThanOrEqualTo(buffedUserBorrowBalanceTokens) &&
       (!fromTokenWalletSpendingLimitTokens ||
         fromTokenWalletSpendingLimitTokens.isEqualTo(0) ||
-        fromTokenWalletSpendingLimitTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens))
+        fromTokenWalletSpendingLimitTokens.isGreaterThanOrEqualTo(buffedUserBorrowBalanceTokens))
     ) {
       // If user can repay full loan or has no spending limit, set fixed repay percentage to 100%
       updatedValues.fixedRepayPercentage = 100;
@@ -197,11 +200,11 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       ...updatedValues,
     }));
   }, [
-    asset.userBorrowBalanceTokens,
     fromTokenUserWalletBalanceTokens,
     setFormValues,
     isUsingSwap,
     fromTokenWalletSpendingLimitTokens,
+    buffedUserBorrowBalanceTokens,
   ]);
 
   return (
@@ -275,7 +278,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               key={`select-button-${percentage}`}
               className="flex-1"
               active={percentage === formValues.fixedRepayPercentage}
-              disabled={!isUserConnected || asset.userBorrowBalanceTokens.isEqualTo(0)}
+              disabled={!isUserConnected || buffedUserBorrowBalanceTokens.isEqualTo(0)}
               onClick={() =>
                 setFormValues(currentFormValues => ({
                   ...currentFormValues,
@@ -494,6 +497,18 @@ const RepayForm: React.FC<RepayFormProps> = ({
     userTokenWrappedBalanceMantissa,
   ]);
 
+  const buffedUserBorrowBalanceTokens = useMemo(() => {
+    let amount = asset.userBorrowBalanceTokens;
+
+    // Apply buffer to borrow balance in native currency, so that we account for newly-accrued
+    // interests when sending a transaction to repay the full loan
+    if (asset.vToken.underlyingToken.isNative) {
+      amount = amount.multipliedBy(1 + NATIVE_BORROW_BALANCE_BUFFER_PERCENTAGE / 100);
+    }
+
+    return amount;
+  }, [asset.userBorrowBalanceTokens, asset.vToken.underlyingToken.isNative]);
+
   const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances({
     accountAddress,
   });
@@ -541,7 +556,7 @@ const RepayForm: React.FC<RepayFormProps> = ({
     toTokenAmountTokens: formValues.fixedRepayPercentage
       ? calculatePercentageOfUserBorrowBalance({
           token: asset.vToken.underlyingToken,
-          userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
+          userBorrowBalanceTokens: buffedUserBorrowBalanceTokens,
           percentage: formValues.fixedRepayPercentage,
         })
       : undefined,
@@ -553,6 +568,7 @@ const RepayForm: React.FC<RepayFormProps> = ({
       isUserConnected={!!accountAddress}
       asset={asset}
       pool={pool}
+      buffedUserBorrowBalanceTokens={buffedUserBorrowBalanceTokens}
       isIntegratedSwapFeatureEnabled={isIntegratedSwapFeatureEnabled}
       canWrapNativeToken={canWrapNativeToken}
       isWrappingNativeToken={isWrappingNativeToken}

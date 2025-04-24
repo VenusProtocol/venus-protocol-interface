@@ -24,12 +24,6 @@ export interface RepayInput {
 
 export type RepayOutput = LooseEthersContractTxData;
 
-export const FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE = 0.1;
-
-// calculate buffer and remove decimals
-const bufferAmount = ({ amountMantissa }: { amountMantissa: BigNumber }) =>
-  amountMantissa.multipliedBy(1 + FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE / 100).toFixed(0);
-
 const repay = async ({
   signer,
   vToken,
@@ -43,7 +37,6 @@ const repay = async ({
   // at the moment BNB is the only native market we have
   if (vToken.underlyingToken.isNative && repayFullLoan) {
     return callOrThrow({ maximillionContract, signer }, async ({ maximillionContract }) => {
-      const bufferedAmountMantissa = bufferAmount({ amountMantissa });
       const accountAddress = await signer.getAddress();
 
       return {
@@ -51,7 +44,7 @@ const repay = async ({
         methodName: 'repayBehalfExplicit',
         args: [accountAddress, vToken.address],
         overrides: {
-          value: bufferedAmountMantissa,
+          value: amountMantissa.toFixed(),
         },
       };
     });
@@ -88,7 +81,7 @@ const repay = async ({
       methodName: 'wrapAndRepay',
       args: [],
       overrides: {
-        value: repayFullLoan ? bufferAmount({ amountMantissa }) : amountMantissa.toFixed(),
+        value: amountMantissa.toFixed(),
       },
     };
   }

@@ -13,7 +13,7 @@ import {
   getVTokenContract,
 } from 'libs/contracts';
 
-import repay, { FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE } from '.';
+import repay from '.';
 
 const fakeAmountMantissa = new BigNumber(10000000000000000);
 
@@ -37,15 +37,11 @@ describe('repay', () => {
         repayFullLoan: true,
       });
 
-      const amountWithBufferMantissa = fakeAmountMantissa.multipliedBy(
-        1 + FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE / 100,
-      );
-
       expect(response).toStrictEqual({
         contract: fakeMaximillionContract,
         args: [fakeSignerAddress, vBnb.address],
         overrides: {
-          value: amountWithBufferMantissa.toFixed(),
+          value: fakeAmountMantissa.toFixed(),
         },
         methodName: 'repayBehalfExplicit',
       });
@@ -143,15 +139,11 @@ describe('repay', () => {
         wrap: true,
       });
 
-      const amountWithBufferMantissa = fakeAmountMantissa.multipliedBy(
-        1 + FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE / 100,
-      );
-
       expect(response).toStrictEqual({
         contract: fakeNativeTokenGatewayContract,
         args: [],
         overrides: {
-          value: amountWithBufferMantissa.toFixed(),
+          value: fakeAmountMantissa.toFixed(),
         },
         methodName: 'wrapAndRepay',
       });

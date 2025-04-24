@@ -7,7 +7,7 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { xvs } from '__mocks__/models/tokens';
-import { vXvs } from '__mocks__/models/vTokens';
+import { vBnb, vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
 import { repay } from 'clients/api';
@@ -15,8 +15,8 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 
 import { chainMetadata } from '@venusprotocol/chains';
-import { ChainId } from 'types';
-import Repay, { PRESET_PERCENTAGES } from '..';
+import { Asset, ChainId } from 'types';
+import Repay, { NATIVE_BORROW_BALANCE_BUFFER_PERCENTAGE, PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
@@ -455,7 +455,50 @@ describe('RepayForm', () => {
 
     await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
     expect(repay).toHaveBeenCalledWith({
-      amountMantissa: fakeAsset.userBorrowBalanceTokens.multipliedBy(1e18), // Convert borrow balance to mantissa
+      amountMantissa: fakeAsset.userBorrowBalanceTokens
+        // Convert borrow balance to mantissa
+        .multipliedBy(1e18),
+      repayFullLoan: true,
+      wrap: false,
+    });
+  });
+
+  it('lets user repay full native currency loan', async () => {
+    (repay as Mock).mockImplementationOnce(async () => fakeContractTransaction);
+
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      vToken: vBnb,
+    };
+
+    const { getByText, getByTestId } = renderComponent(
+      <Repay asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    await waitFor(() => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement);
+
+    // Click on 100% button
+    fireEvent.click(getByText('100%'));
+
+    // Check notice is displayed
+    await waitFor(() =>
+      expect(getByText(en.operationForm.repay.fullRepaymentWarning)).toBeTruthy(),
+    );
+
+    // Click on submit button
+    await waitFor(() => getByText(en.operationForm.submitButtonLabel.repay));
+    fireEvent.click(getByText(en.operationForm.submitButtonLabel.repay));
+
+    await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
+    expect(repay).toHaveBeenCalledWith({
+      amountMantissa: customFakeAsset.userBorrowBalanceTokens
+        // Apply buffer
+        .multipliedBy(1 + NATIVE_BORROW_BALANCE_BUFFER_PERCENTAGE / 100)
+        // Convert borrow balance to mantissa
+        .multipliedBy(1e18),
       repayFullLoan: true,
       wrap: false,
     });
