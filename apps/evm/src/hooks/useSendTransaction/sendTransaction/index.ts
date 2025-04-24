@@ -20,6 +20,7 @@ import { eip712WalletActions } from 'viem/zksync';
 import type { Config as WagmiConfig } from 'wagmi';
 
 const GAS_ESTIMATION_FAILED_ERROR = 'Gas estimation failed';
+export const GAS_LIMIT_BUFFER_PERCENTAGE = 35;
 
 interface ZyFiSponsoredTxResponse {
   txData: {
@@ -75,22 +76,6 @@ export const sendTransaction = async <
     await getWalletClient(wagmiConfig, { chainId, account: accountAddress })
   ).extend(eip712WalletActions());
 
-  // Send normal ethers.js transaction
-  if (!gasless && 'contract' in txData) {
-    const contractFn = txData.contract.functions[txData.methodName];
-    const formattedArgs = txData.overrides ? [...txData.args, txData.overrides] : [...txData.args];
-    const { hash: transactionHash }: { hash: Hex } = await contractFn(...formattedArgs);
-
-    return { transactionHash };
-  }
-
-  // Send normal viem transaction
-  if (!gasless && !('contract' in txData)) {
-    const transactionHash = await walletClient.writeContract(txData);
-    return { transactionHash };
-  }
-
-  // Send gasless transaction
   let txOverrides: Record<string, any> = {};
 
   if ('contract' in txData) {
@@ -112,11 +97,11 @@ export const sendTransaction = async <
 
   const txDataPayload = {
     ...txOverrides,
-    to: 'contract' in txData ? txData.contract.address : txData.address,
+    to: 'contract' in txData ? (txData.contract.address as Address) : txData.address,
     from: accountAddress,
     data:
       'contract' in txData
-        ? txData.contract.interface.encodeFunctionData(txData.methodName, txData.args)
+        ? (txData.contract.interface.encodeFunctionData(txData.methodName, txData.args) as Hex)
         : encodeFunctionData({
             abi: txData.abi,
             functionName: txData.functionName,
@@ -125,6 +110,39 @@ export const sendTransaction = async <
           } as EncodeFunctionDataParameters),
   };
 
+  // Estimate gas limit
+  let gasLimit: undefined | bigint;
+  if (!gasless) {
+    const { from, ...estimationTxData } = txDataPayload;
+    const gas = await publicClient.estimateGas({ ...estimationTxData, account: from });
+    // Add buffer to make sure transaction has enough gas
+    gasLimit = BigInt((Number(gas) * (1 + GAS_LIMIT_BUFFER_PERCENTAGE / 100)).toFixed(0));
+  }
+
+  // Send normal ethers.js transaction
+  if (!gasless && 'contract' in txData) {
+    const contractFn = txData.contract.functions[txData.methodName];
+
+    const { hash: transactionHash }: { hash: Hex } = await contractFn(...txData.args, {
+      ...txData.overrides,
+      gasLimit,
+    });
+
+    return { transactionHash };
+  }
+
+  // Send normal viem transaction
+  if (!gasless && !('contract' in txData)) {
+    const formattedTxData: WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account> = {
+      ...txData,
+      gas: gasLimit,
+    };
+
+    const transactionHash = await walletClient.writeContract(formattedTxData);
+    return { transactionHash };
+  }
+
+  // Send gasless transaction
   const payload = {
     chainId,
     sponsorshipRatio: 100,
