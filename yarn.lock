@@ -5484,14 +5484,6 @@
     "@storybook/icons" "^1.2.12"
     ts-dedent "^2.0.0"
 
-"@storybook/blocks@8.6.7":
-  version "8.6.7"
-  resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.6.7.tgz#a84c771650cf76e36645c18d283177cd99b86c30"
-  integrity sha512-IFhIKO7R1UPpnoG/5tZH0FgC79oYgXNf+7aGUwq29M/CQWy6p/Pvp0y4P962btY1UZRol+SsU//33nH8o6yNRw==
-  dependencies:
-    "@storybook/icons" "^1.2.12"
-    ts-dedent "^2.0.0"
-
 "@storybook/builder-vite@8.6.10":
   version "8.6.10"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-8.6.10.tgz#61168e319e3edd2da1b92859d170d89f51f554c6"
