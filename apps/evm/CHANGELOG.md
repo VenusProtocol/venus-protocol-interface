@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.249.0
+
+### Minor Changes
+
+- fe93136: set gas limit when sending transactions
+
 ## 2.248.4
 
 ### Patch Changes
