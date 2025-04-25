@@ -1,4 +1,5 @@
 import type { ApiPointsDistribution, PointsProgram } from '..';
+import asterPointsLogo from './asterPoints.svg';
 import ethenaPointsLogo from './ethenaPoints.svg';
 import etherfiPointsLogo from './etherfiPoints.svg';
 import kelpMilesLogo from './kelpMiles.svg';
@@ -14,6 +15,8 @@ const getPointDistributionLogo = (pointsProgram: PointsProgram) => {
       return kelpMilesLogo;
     case 'solv':
       return solvPointsLogo;
+    case 'aster':
+      return asterPointsLogo;
   }
 };
 

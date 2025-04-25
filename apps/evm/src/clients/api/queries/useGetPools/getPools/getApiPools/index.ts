@@ -33,7 +33,7 @@ interface ApiMerklReward extends ApiReward {
   };
 }
 
-export type PointsProgram = 'ethena' | 'etherfi' | 'kelp' | 'solv';
+export type PointsProgram = 'ethena' | 'etherfi' | 'kelp' | 'solv' | 'aster';
 
 export interface ApiPointsDistribution {
   action: 'supply' | 'borrow';
