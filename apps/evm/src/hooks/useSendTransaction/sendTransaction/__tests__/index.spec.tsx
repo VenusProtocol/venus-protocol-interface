@@ -29,14 +29,17 @@ const mockWalletClient = {
   })),
 };
 
+const mockPublicClient = {
+  getTransactionCount: vi.fn(async () => 5),
+  estimateGas: vi.fn(async () => 100000n),
+};
+
 vi.mock('@wagmi/core', async () => {
   const actual = await vi.importActual('@wagmi/core');
 
   return {
     ...actual,
-    getPublicClient: vi.fn(() => ({
-      getTransactionCount: vi.fn(async () => 5),
-    })),
+    getPublicClient: vi.fn(() => mockPublicClient),
     getWalletClient: vi.fn(() => mockWalletClient),
   };
 });
@@ -129,7 +132,57 @@ describe('sendTransaction', () => {
       chainId: ChainId.BSC_TESTNET,
       account: fakeAccountAddress,
     });
-    expect(mockWriteContract).toHaveBeenCalledWith(txData);
+
+    expect(mockPublicClient.estimateGas.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {
+          "account": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "data": "0x239083f8000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000004617267310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000046172673200000000000000000000000000000000000000000000000000000000",
+          "to": "0xmockAddress",
+        },
+      ]
+    `);
+
+    expect(mockWriteContract.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {
+          "abi": [
+            {
+              "constant": false,
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "fakeArg1",
+                  "type": "string",
+                },
+                {
+                  "internalType": "string",
+                  "name": "fakeArg2",
+                  "type": "string",
+                },
+              ],
+              "name": "fakeFunction",
+              "outputs": [
+                {
+                  "name": "",
+                  "type": "bool",
+                },
+              ],
+              "payable": false,
+              "stateMutability": "payable",
+              "type": "function",
+            },
+          ],
+          "address": "0xmockAddress",
+          "args": [
+            "arg1",
+            "arg2",
+          ],
+          "functionName": "fakeFunction",
+          "gas": 135000n,
+        },
+      ]
+    `);
     expect(result).toEqual({ transactionHash: 'mockTransactionHash' });
   });
 
@@ -150,7 +203,47 @@ describe('sendTransaction', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    expect(mockWriteContract).toHaveBeenCalledWith(customTxData);
+    expect(mockWriteContract.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {
+          "abi": [
+            {
+              "constant": false,
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "fakeArg1",
+                  "type": "string",
+                },
+                {
+                  "internalType": "string",
+                  "name": "fakeArg2",
+                  "type": "string",
+                },
+              ],
+              "name": "fakeFunction",
+              "outputs": [
+                {
+                  "name": "",
+                  "type": "bool",
+                },
+              ],
+              "payable": false,
+              "stateMutability": "payable",
+              "type": "function",
+            },
+          ],
+          "address": "0xmockAddress",
+          "args": [
+            "arg1",
+            "arg2",
+          ],
+          "functionName": "fakeFunction",
+          "gas": 135000n,
+          "value": 100n,
+        },
+      ]
+    `);
     expect(result).toEqual({ transactionHash: 'mockTransactionHash' });
   });
 
@@ -194,15 +287,33 @@ describe('sendTransaction', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    expect(getPublicClient).toHaveBeenCalledWith(mockWagmiConfig, {
-      chainId: ChainId.BSC_TESTNET,
-    });
-    expect(getWalletClient).toHaveBeenCalledWith(mockWagmiConfig, {
-      chainId: ChainId.BSC_TESTNET,
-      account: fakeAccountAddress,
-    });
+    expect((getPublicClient as Mock).mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {},
+        {
+          "chainId": 97,
+        },
+      ]
+    `);
+    expect((getWalletClient as Mock).mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {},
+        {
+          "account": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+        },
+      ]
+    `);
 
-    expect(mockContract.functions.fakeMethod).toHaveBeenCalledWith('arg1', 'arg2');
+    expect((mockContract.functions.fakeMethod as Mock).mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        "arg1",
+        "arg2",
+        {
+          "gasLimit": 135000n,
+        },
+      ]
+    `);
     expect(result).toEqual({ transactionHash: 'mockTransactionHash' });
   });
 
@@ -220,9 +331,16 @@ describe('sendTransaction', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    expect(mockContract.functions.fakeMethod).toHaveBeenCalledWith('arg1', 'arg2', {
-      value: '100',
-    });
+    expect((mockContract.functions.fakeMethod as Mock).mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        "arg1",
+        "arg2",
+        {
+          "gasLimit": 135000n,
+          "value": "100",
+        },
+      ]
+    `);
     expect(result).toEqual({ transactionHash: 'mockTransactionHash' });
   });
 
