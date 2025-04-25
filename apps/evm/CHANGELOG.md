@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.250.0
+
+### Minor Changes
+
+- dd065a3: add Aster points
+
 ## 2.249.0
 
 ### Minor Changes
