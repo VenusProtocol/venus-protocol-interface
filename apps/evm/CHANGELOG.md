@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.251.0
+
+### Minor Changes
+
+- 948df0f: reinstate APY charts in opBNB mainnet
+
 ## 2.250.0
 
 ### Minor Changes
