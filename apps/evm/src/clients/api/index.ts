@@ -109,9 +109,7 @@ export { default as bridgeXvs } from './mutations/bridgeXvs';
 export * from './mutations/bridgeXvs';
 export { default as useBridgeXvs } from './mutations/bridgeXvs/useBridgeXvs';
 
-export { default as updatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus';
-export * from './mutations/updatePoolDelegateStatus';
-export { default as useUpdatePoolDelegateStatus } from './mutations/updatePoolDelegateStatus/useUpdatePoolDelegateStatus';
+export * from './mutations/useUpdatePoolDelegateStatus';
 
 // Queries
 export * from './queries/getUserVaiBorrowBalance';
