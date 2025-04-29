@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.252.0
+
+### Minor Changes
+
+- ba7f137: show account health factor
+
+### Patch Changes
+
+- Updated dependencies [ba7f137]
+  - @venusprotocol/ui@0.3.0
+
 ## 2.251.0
 
 ### Minor Changes
