@@ -64,7 +64,7 @@ describe('components/TokenTextField', () => {
     expect(input.step).toBe(oneMantissaInXvs.toFixed());
   });
 
-  it('renders max button and updates value to provided value when pressing on it', async () => {
+  it('renders max button and updates value to provided value when clicking on it', async () => {
     const onMaxButtonClickMock = vi.fn();
     const rightMaxButton = {
       label: 'Test max button label',

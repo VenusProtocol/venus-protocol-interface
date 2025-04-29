@@ -1,6 +1,7 @@
 import { handleError } from 'libs/errors';
-import type { Asset, Token } from 'types';
+import type { Asset, Pool, Token } from 'types';
 
+import type BigNumber from 'bignumber.js';
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
@@ -9,12 +10,13 @@ export * from './types';
 
 export interface UseFormInput {
   asset: Asset;
-  limitTokens: string;
+  pool: Pool;
+  limitTokens: BigNumber;
   onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
+  hypotheticalHealthFactor?: number;
   onSubmitSuccess?: () => void;
-  userBorrowLimitCents?: number;
 }
 
 interface UseFormOutput {
@@ -25,8 +27,9 @@ interface UseFormOutput {
 
 const useForm = ({
   asset,
-  userBorrowLimitCents = 0,
+  pool,
   limitTokens,
+  hypotheticalHealthFactor,
   onSubmitSuccess,
   formValues,
   setFormValues,
@@ -34,8 +37,9 @@ const useForm = ({
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
     asset,
-    userBorrowLimitCents,
+    pool,
     limitTokens,
+    hypotheticalHealthFactor,
     formValues,
   });
 
@@ -58,6 +62,7 @@ const useForm = ({
         fromToken: asset.vToken.underlyingToken,
         amountTokens: '',
         receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
+        acknowledgeRisk: false,
       }));
       onSubmitSuccess?.();
     } catch (error) {

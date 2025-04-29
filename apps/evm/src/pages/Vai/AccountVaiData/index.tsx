@@ -96,6 +96,7 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
       disabledTokenActions: [],
       isCollateralOfUser: false,
       collateralFactor: 0,
+      liquidationThresholdPercentage: 0,
       reserveFactor: 0,
       liquidityCents: new BigNumber(0),
       reserveTokens: new BigNumber(0),

@@ -5,7 +5,7 @@ export interface Cell {
   label: string;
   value: string | number | React.ReactNode;
   tooltip?: string;
-  color?: string;
+  className?: string;
 }
 
 export type CellGroupVariant = 'primary' | 'secondary';
@@ -34,7 +34,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
     )}
     {...containerProps}
   >
-    {cells.map(({ label, value, tooltip, color }) => (
+    {cells.map(({ label, value, tooltip, className: cellClassName }) => (
       <div
         className={cn(
           'flex flex-col gap-y-1 whitespace-nowrap justify-center xl: xl:bg-transparent',
@@ -50,18 +50,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
           {!!tooltip && <InfoIcon tooltip={tooltip} className="ml-2" />}
         </div>
 
-        <p
-          className={cn(smallValues ? 'text-lg' : 'text-xl')}
-          style={
-            color
-              ? {
-                  color,
-                }
-              : undefined
-          }
-        >
-          {value}
-        </p>
+        <p className={cn(smallValues ? 'text-lg' : 'text-xl', cellClassName)}>{value}</p>
       </div>
     ))}
   </div>

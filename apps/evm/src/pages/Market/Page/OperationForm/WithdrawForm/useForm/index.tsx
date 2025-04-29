@@ -14,6 +14,7 @@ export interface UseFormInput {
   onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
+  hypotheticalHealthFactor?: number;
   userBorrowLimitCents?: number;
   onSubmitSuccess?: () => void;
 }
@@ -27,6 +28,7 @@ interface UseFormOutput {
 const useForm = ({
   asset,
   limitTokens,
+  hypotheticalHealthFactor,
   onSubmitSuccess,
   formValues,
   setFormValues,
@@ -35,6 +37,7 @@ const useForm = ({
   const { isFormValid, formError } = useFormValidation({
     asset,
     limitTokens,
+    hypotheticalHealthFactor,
     formValues,
   });
 
@@ -56,7 +59,9 @@ const useForm = ({
         fromToken: asset.vToken.underlyingToken,
         amountTokens: '',
         receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
+        acknowledgeRisk: false,
       }));
+
       onSubmitSuccess?.();
     } catch (error) {
       handleError({ error });

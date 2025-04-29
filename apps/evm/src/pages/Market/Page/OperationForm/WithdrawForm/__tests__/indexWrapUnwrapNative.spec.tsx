@@ -7,12 +7,17 @@ import { renderComponent } from 'testUtils/render';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { ChainId } from 'types';
 
-import { fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { useGetVTokenBalance, withdraw } from 'clients/api';
+import { useGetVTokenBalance, useWithdraw } from 'clients/api';
 import { en } from 'libs/translations';
 import Withdraw from '..';
-import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
+import {
+  fakeAsset,
+  fakePool,
+  fakeVTokenBalanceMantissa,
+  fakeWethAsset,
+} from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('libs/tokens');
@@ -56,6 +61,11 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   });
 
   it('lets the user partially withdraw directly to native tokens by unwrapping', async () => {
+    const mockWithdraw = vi.fn();
+    (useWithdraw as Mock).mockImplementation(() => ({
+      mutateAsync: mockWithdraw,
+    }));
+
     const onCloseMock = vi.fn();
     const { getByText, getByTestId } = renderComponent(
       <Withdraw asset={fakeWethAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
@@ -69,20 +79,24 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
     // Enter amount in input
     const correctAmountTokens = 1;
-    fireEvent.change(getByTestId(TEST_IDS.valueInput), {
-      target: { value: correctAmountTokens },
-    });
 
+    act(() => {
+      fireEvent.change(getByTestId(TEST_IDS.valueInput), {
+        target: { value: correctAmountTokens },
+      });
+    });
     // Click on submit button
     await waitFor(() => getByText(en.operationForm.submitButtonLabel.withdraw));
-    fireEvent.click(getByText(en.operationForm.submitButtonLabel.withdraw));
+    act(() => {
+      fireEvent.click(getByText(en.operationForm.submitButtonLabel.withdraw));
+    });
 
     const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
       new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
     );
 
-    await waitFor(() => expect(withdraw).toHaveBeenCalledTimes(1));
-    expect(withdraw).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockWithdraw).toHaveBeenCalledTimes(1));
+    expect(mockWithdraw).toHaveBeenCalledWith({
       amountMantissa: expectedAmountMantissa,
       withdrawFullSupply: false,
       unwrap: true,
@@ -92,13 +106,17 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   });
 
   it('lets the user withdraw all their tokens directly to native tokens by unwrapping', async () => {
+    const mockWithdraw = vi.fn();
+    (useWithdraw as Mock).mockImplementation(() => ({
+      mutateAsync: mockWithdraw,
+    }));
+
     // simulate a pool where the user can withdraw all their supplied tokens
     const fakePoolWithLiquidity = {
       ...fakePool,
       userBorrowBalanceCents: new BigNumber(0),
     };
     // simulate the total amount of VTokens the user has and will be redeemed
-    const fakeVTokenBalanceMantissa = new BigNumber(1234);
     (useGetVTokenBalance as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: fakeVTokenBalanceMantissa,
@@ -116,14 +134,18 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     // receive native token is active by default, so no need to click on it
 
     // click on MAX button
-    fireEvent.click(getByText(en.operationForm.rightMaxButtonLabel));
+    act(() => {
+      fireEvent.click(getByText(en.operationForm.safeMaxButtonLabel));
+    });
 
     // Click on submit button
     await waitFor(() => getByText(en.operationForm.submitButtonLabel.withdraw));
-    fireEvent.click(getByText(en.operationForm.submitButtonLabel.withdraw));
+    act(() => {
+      fireEvent.click(getByText(en.operationForm.submitButtonLabel.withdraw));
+    });
 
-    await waitFor(() => expect(withdraw).toHaveBeenCalledTimes(1));
-    expect(withdraw).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockWithdraw).toHaveBeenCalledTimes(1));
+    expect(mockWithdraw).toHaveBeenCalledWith({
       amountMantissa: fakeVTokenBalanceMantissa,
       withdrawFullSupply: true,
       unwrap: true,

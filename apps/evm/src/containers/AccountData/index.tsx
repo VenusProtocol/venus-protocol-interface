@@ -1,11 +1,11 @@
 import type BigNumber from 'bignumber.js';
 
 import { cn } from '@venusprotocol/ui';
-import { BorrowBalanceAccountHealth, LabeledInlineContent, ValueUpdate } from 'components';
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
+import { HealthFactorPill, LabeledInlineContent, ValueUpdate } from 'components';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool, Swap, TokenAction } from 'types';
-import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
+import { formatCentsToReadableValue } from 'utilities';
 import useGetValues from './useGetValues';
 
 export interface AccountDataProps {
@@ -30,94 +30,89 @@ export const AccountData: React.FC<AccountDataProps> = ({
   const { t } = useTranslation();
 
   const {
-    poolUserBorrowLimitUsedPercentage,
+    poolUserHealthFactor,
     poolUserDailyEarningsCents,
-    hypotheticalUserSupplyBalanceTokens,
-    hypotheticalUserBorrowBalanceTokens,
-    hypotheticalPoolUserBorrowBalanceCents,
-    hypotheticalPoolUserBorrowLimitCents,
-    hypotheticalPoolUserBorrowLimitUsedPercentage,
+    hypotheticalPoolUserHealthFactor,
     hypotheticalPoolUserDailyEarningsCents,
+    hypotheticalPoolUserBorrowBalanceCents,
+    hypotheticalAssetUserSupplyBalanceCents,
+    hypotheticalAssetUserBorrowBalanceCents,
   } = useGetValues({ asset, pool, swap, amountTokens, action, isUsingSwap });
 
+  const shouldShowHealthFactor =
+    pool.userBorrowBalanceCents?.isGreaterThan(0) ||
+    hypotheticalPoolUserBorrowBalanceCents?.isGreaterThan(0);
+
+  const shouldShowSupplyBalance =
+    action === 'withdraw' &&
+    (asset.userSupplyBalanceCents.isGreaterThan(0) ||
+      !!hypotheticalAssetUserSupplyBalanceCents?.isGreaterThan(0));
+
+  const shouldShowRepayBalance =
+    action === 'repay' &&
+    (asset.userBorrowBalanceCents.isGreaterThan(0) ||
+      !!hypotheticalAssetUserBorrowBalanceCents?.isGreaterThan(0));
+
   return (
-    <div className={cn('space-y-4', className)}>
-      <BorrowBalanceAccountHealth
-        borrowBalanceCents={
-          hypotheticalPoolUserBorrowBalanceCents?.toNumber() ??
-          pool.userBorrowBalanceCents?.toNumber()
-        }
-        borrowLimitCents={
-          hypotheticalPoolUserBorrowLimitCents?.toNumber() ?? pool.userBorrowLimitCents?.toNumber()
-        }
-        safeBorrowLimitPercentage={SAFE_BORROW_LIMIT_PERCENTAGE}
-      />
-
-      <div className="space-y-2">
-        {action === 'supply' || action === 'withdraw' ? (
-          <LabeledInlineContent
-            label={t('accountData.supplyBalance', {
-              tokenSymbol: asset.vToken.underlyingToken.symbol,
-            })}
-          >
-            <ValueUpdate
-              original={asset.userSupplyBalanceTokens}
-              update={hypotheticalUserSupplyBalanceTokens}
-              format={(value: BigNumber | undefined) =>
-                formatTokensToReadableValue({
-                  value,
-                  token: asset.vToken.underlyingToken,
-                  addSymbol: false,
-                })
-              }
-            />
-          </LabeledInlineContent>
-        ) : (
-          <LabeledInlineContent
-            label={t('accountData.borrowBalance', {
-              tokenSymbol: asset.vToken.underlyingToken.symbol,
-            })}
-          >
-            <ValueUpdate
-              original={asset.userBorrowBalanceTokens}
-              update={hypotheticalUserBorrowBalanceTokens}
-              positiveDirection="desc"
-              format={(value: BigNumber | undefined) =>
-                formatTokensToReadableValue({
-                  value,
-                  token: asset.vToken.underlyingToken,
-                  addSymbol: false,
-                })
-              }
-            />
-          </LabeledInlineContent>
-        )}
-
-        {action === 'supply' || action === 'withdraw' ? (
-          <LabeledInlineContent label={t('accountData.borrowLimit')}>
-            <ValueUpdate
-              original={pool.userBorrowLimitCents?.toNumber()}
-              update={hypotheticalPoolUserBorrowLimitCents?.toNumber()}
-            />
-          </LabeledInlineContent>
-        ) : (
-          <LabeledInlineContent label={t('accountData.borrowLimitUsed')}>
-            <ValueUpdate
-              original={poolUserBorrowLimitUsedPercentage}
-              update={hypotheticalPoolUserBorrowLimitUsedPercentage}
-              positiveDirection="desc"
-              format={formatPercentageToReadableValue}
-            />
-          </LabeledInlineContent>
-        )}
-
-        <LabeledInlineContent label={t('accountData.dailyEarnings')}>
+    <div className={cn('space-y-2', className)}>
+      {shouldShowHealthFactor && (
+        <LabeledInlineContent
+          label={t('accountData.healthFactor.label')}
+          tooltip={t('accountData.healthFactor.tooltip')}
+        >
           <ValueUpdate
-            original={poolUserDailyEarningsCents}
-            update={hypotheticalPoolUserDailyEarningsCents}
+            original={
+              poolUserHealthFactor !== undefined ? (
+                <HealthFactorPill
+                  factor={poolUserHealthFactor}
+                  showLabel={hypotheticalPoolUserHealthFactor === undefined}
+                />
+              ) : (
+                PLACEHOLDER_KEY
+              )
+            }
+            update={
+              hypotheticalPoolUserHealthFactor !== undefined ? (
+                <HealthFactorPill factor={hypotheticalPoolUserHealthFactor} showLabel />
+              ) : undefined
+            }
           />
         </LabeledInlineContent>
-      </div>
+      )}
+
+      <LabeledInlineContent label={t('accountData.dailyEarnings.label')}>
+        <ValueUpdate
+          original={formatCentsToReadableValue({ value: poolUserDailyEarningsCents })}
+          update={
+            hypotheticalPoolUserDailyEarningsCents &&
+            formatCentsToReadableValue({ value: hypotheticalPoolUserDailyEarningsCents })
+          }
+        />
+      </LabeledInlineContent>
+
+      {shouldShowSupplyBalance && (
+        <LabeledInlineContent label={t('accountData.supplyBalance.label')}>
+          <ValueUpdate
+            original={formatCentsToReadableValue({ value: asset.userSupplyBalanceCents })}
+            update={
+              hypotheticalAssetUserSupplyBalanceCents &&
+              formatCentsToReadableValue({ value: hypotheticalAssetUserSupplyBalanceCents })
+            }
+          />
+        </LabeledInlineContent>
+      )}
+
+      {shouldShowRepayBalance && (
+        <LabeledInlineContent label={t('accountData.borrowBalance.label')}>
+          <ValueUpdate
+            original={formatCentsToReadableValue({ value: asset.userBorrowBalanceCents })}
+            update={
+              hypotheticalAssetUserBorrowBalanceCents &&
+              formatCentsToReadableValue({ value: hypotheticalAssetUserBorrowBalanceCents })
+            }
+          />
+        </LabeledInlineContent>
+      )}
     </div>
   );
 };

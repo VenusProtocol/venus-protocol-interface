@@ -1,15 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
 import type { Pool, Vault } from 'types';
 import {
   calculateDailyEarningsCents,
+  calculateHealthFactor,
   calculateYearlyEarningsForAssets,
   calculateYearlyInterests,
   convertMantissaToTokens,
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
 } from 'utilities';
 
 import calculateNetApy from './calculateNetApy';
@@ -23,16 +21,18 @@ interface UseExtractDataInput {
 
 const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtractDataInput) =>
   useMemo(() => {
-    const { totalBorrowCents, totalSupplyCents, borrowLimitCents } = pools.reduce(
+    const { totalBorrowCents, totalSupplyCents, liquidationThresholdCents } = pools.reduce(
       (acc, pool) => ({
         totalBorrowCents: acc.totalBorrowCents.plus(pool.userBorrowBalanceCents || 0),
         totalSupplyCents: acc.totalSupplyCents.plus(pool.userSupplyBalanceCents || 0),
-        borrowLimitCents: acc.borrowLimitCents.plus(pool.userBorrowLimitCents || 0),
+        liquidationThresholdCents: acc.liquidationThresholdCents.plus(
+          pool.userLiquidationThresholdCents || 0,
+        ),
       }),
       {
         totalSupplyCents: new BigNumber(0),
         totalBorrowCents: new BigNumber(0),
-        borrowLimitCents: new BigNumber(0),
+        liquidationThresholdCents: new BigNumber(0),
       },
     );
 
@@ -74,27 +74,18 @@ const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtr
         yearlyEarningsCents,
       });
 
-    const safeBorrowLimitCentsTmp = borrowLimitCents.multipliedBy(
-      SAFE_BORROW_LIMIT_PERCENTAGE / 100,
-    );
-
-    const readableSafeBorrowLimitTmp = formatCentsToReadableValue({
-      value: safeBorrowLimitCentsTmp,
+    const healthFactor = calculateHealthFactor({
+      borrowBalanceCents: totalBorrowCents.toNumber(),
+      liquidationThresholdCents: liquidationThresholdCents.toNumber(),
     });
-
-    const safeBorrowLimitPercentageTmp = formatPercentageToReadableValue(
-      safeBorrowLimitCentsTmp.multipliedBy(100).dividedBy(borrowLimitCents),
-    );
 
     return {
       dailyEarningsCents: dailyEarningsCentsTmp,
       netApyPercentage: netApyPercentageTmp,
-      readableSafeBorrowLimit: readableSafeBorrowLimitTmp,
-      safeBorrowLimitPercentage: safeBorrowLimitPercentageTmp,
       totalVaultStakeCents,
       totalBorrowCents,
       totalSupplyCents,
-      borrowLimitCents,
+      healthFactor,
     };
   }, [pools, vaults, xvsPriceCents, vaiPriceCents]);
 

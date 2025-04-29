@@ -22,6 +22,8 @@
     "summary": {
       "cellGroup": {
         "dailyEarnings": "Daily Earnings",
+        "healthFactor": "Health factor",
+        "healthFactorTooltip": "Liquidation at < 1.0",
         "netApy": "Net APY",
         "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
         "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
@@ -44,20 +46,19 @@
     }
   },
   "accountData": {
-    "borrowBalance": "Borrow balance ({{tokenSymbol}})",
-    "borrowLimit": "Borrow limit",
-    "borrowLimitUsed": "Borrow limit used",
-    "dailyEarnings": "Daily earnings",
-    "supplyBalance": "Supply balance ({{tokenSymbol}})"
-  },
-  "accountHealth": {
-    "accessibilityLabel": "Representation of the current state of your account",
-    "borrowLimitTooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)",
-    "borrowLimitUsed": "Borrow limit used:",
-    "currentBorrowBalance": "Balance:",
-    "limit": "Limit:",
-    "max": "Max:",
-    "safeBorrowLimitTooltip": "Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
+    "borrowBalance": {
+      "label": "Borrow balance"
+    },
+    "dailyEarnings": {
+      "label": "Daily earnings"
+    },
+    "healthFactor": {
+      "label": "Health factor",
+      "tooltip": "Liquidation at < 1.0"
+    },
+    "supplyBalance": {
+      "label": "Supply balance"
+    }
   },
   "accountPlaceholder": {
     "assetsWillAppearHere": "Supplied and borrowed assets will appear here",
@@ -313,7 +314,6 @@
     }
   },
   "errors": {
-    "missingSafeWalletApiUrl": "Safe transaction could not be retrieved due to a misconfiguration",
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
     "couldNotSwitchChain": "Could not switch chain, please make sure your wallet is unlocked then reload the page",
     "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
@@ -321,6 +321,7 @@
     "missingDescription": "There is no proposal description in the file",
     "missingForDescription": "Proposal needs a 'for' votes description",
     "missingParamForSignature": "There is no corresponding param for the function",
+    "missingSafeWalletApiUrl": "Safe transaction could not be retrieved due to a misconfiguration",
     "missingTargetForSignature": "There is no corresponding target for the function",
     "missingTitle": "Proposal needs to have a title",
     "noMetaKey": "No metadata information is present in the file",
@@ -357,6 +358,14 @@
     "tooltip": {
       "disabled": "This network supports gas-free transactions, with no fees required, but this feature is currently disabled in your settings. More info <Link>here</Link>",
       "enabled": "Transactions on this network are gas-free, with no fees required. More info <Link>here</Link>"
+    }
+  },
+  "healthFactor": {
+    "label": {
+      "healthy": "Healthy",
+      "liquidation": "Liquidation",
+      "moderate": "Moderate",
+      "risky": "Risky"
     }
   },
   "interactive": {
@@ -522,23 +531,18 @@
       "supplyApy": "A positive supply APY means you'll earn interest and a negative one means you'll pay interest"
     }
   },
-  "myAccount": {
-    "safeLimit": "Your safe limit:",
-    "safeLimitTooltip": "{{safeBorrowLimitPercentage}} of your borrow limit. We consider borrowing above this threshold unsafe."
-  },
   "operationForm": {
-    "borrowableAmount": "Borrowable Amount",
+    "availableAmount": "Available",
     "borrowTabTitle": "Borrow",
     "error": {
       "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
+      "higherThanAvailableAmount": "Amount entered higher than available amount",
       "higherThanAvailableLiquidity": "Insufficient asset liquidity",
-      "higherThanBorrowableAmount": "Amount entered higher than borrowable amount",
       "higherThanBorrowCap": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
       "higherThanRepayBalance": "Amount entered higher than repay balance",
       "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
       "higherThanWalletBalance": "Insufficient {{tokenSymbol}} balance",
       "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
-      "higherThanWithdrawableAmount": "Amount entered higher than withdrawable amount",
       "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
       "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "priceImpactTooHigh": "Price impact too high",
@@ -546,7 +550,6 @@
       "unwrappingUnsupported": "Unwrapping unsupported",
       "wrappingUnsupported": "Wrapping unsupported"
     },
-    "limitButtonLabel": "{{limitPercentage}}% LIMIT",
     "receiveNativeToken": {
       "label": "Receive {{tokenSymbol}}",
       "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
@@ -555,9 +558,13 @@
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     },
-    "repayableAmount": "Repayable amount",
     "repayTabTitle": "Repay",
     "rightMaxButtonLabel": "MAX",
+    "riskyOperation": {
+      "toggleLabel": "I acknowledge the risks involved",
+      "warning": "Your health factor will be low after this transaction, increasing the risk of liquidation"
+    },
+    "safeMaxButtonLabel": "SAFE MAX",
     "submitButtonLabel": {
       "borrow": "Borrow",
       "enterValidAmount": "Enter valid amount",
@@ -565,7 +572,6 @@
       "supply": "Supply",
       "withdraw": "Withdraw"
     },
-    "suppliableAmount": "Suppliable amount",
     "supply": {
       "collateral": "Collateral",
       "youCanWrapNative": "You can wrap {{nativeTokenSymbol}} into {{wrappedNativeTokenSymbol}} in <Link>Uniswap</Link>"
@@ -595,10 +601,8 @@
     },
     "walletBalance": "Wallet balance",
     "warning": {
-      "aboveSafeLimit": "You entered a high value. There is a risk of liquidation.",
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     },
-    "withdrawableAmount": "Withdrawable amount",
     "withdrawTabTitle": "Withdraw"
   },
   "pagination": {
@@ -740,9 +744,6 @@
     "label": "Spending limit",
     "labelTooltip": "This is your current spending cap for this asset. To spend more, revoke the cap and set a new one.",
     "revokeButtonTooltip": "Revoke spending limit"
-  },
-  "spinner": {
-    "altText": "Spinning animation"
   },
   "stakeModal": {
     "availableTokensLabel": "Available {{tokenSymbol}}",
@@ -992,10 +993,10 @@
   "vai": {
     "borrow": {
       "amountTokensInput": {
-        "limitButtonLabel": "80% LIMIT"
+        "limitButtonLabel": "SAFE MAX"
       },
-      "borrowableAmount": {
-        "label": "Borrowable amount",
+      "availableAmount": {
+        "label": "Available",
         "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied to the Core pool"
       },
       "borrowApr": {
@@ -1006,13 +1007,11 @@
         "label": "Fee"
       },
       "notice": {
-        "amountHigherThanAccountMintableAmount": "Amount entered higher than borrowable amount",
-        "amountHigherThanLiquidity": "Amount entered higher than available VAI liquidity",
-        "riskOfLiquidation": "You entered a high value. There is a risk of liquidation."
+        "amountHigherThanAccountMintableAmount": "Amount entered higher than available amount",
+        "amountHigherThanLiquidity": "Amount entered higher than available VAI liquidity"
       },
       "primeOnlyWarning": "Only users who hold a Prime token can borrow VAI. Learn more about Prime <Link>here</Link>.",
       "submitButton": {
-        "borrowAtHighRiskLabel": "Borrow at high risk",
         "borrowLabel": "Borrow",
         "enterValidAmountLabel": "Enter a valid amount to borrow"
       },

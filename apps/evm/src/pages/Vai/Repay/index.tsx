@@ -34,8 +34,8 @@ import {
 import { NULL_ADDRESS } from 'constants/address';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { AccountVaiData } from '../AccountVaiData';
-import type { FormValues } from '../types';
 import TEST_IDS from './testIds';
+import type { FormValues } from './types';
 import { ErrorCode, useForm } from './useForm';
 
 const userVaiBalanceRefetchInterval = generatePseudoRandomRefetchInterval();

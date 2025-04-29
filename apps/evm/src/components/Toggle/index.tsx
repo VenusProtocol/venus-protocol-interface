@@ -1,24 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { Typography } from '@mui/material';
-import Switch from '@mui/material/Switch';
-import type { SwitchBaseProps } from '@mui/material/internal/SwitchBase';
+import Switch, { type SwitchProps } from '@mui/material/Switch';
 import { cn } from '@venusprotocol/ui';
 
 import { InfoIcon } from '../InfoIcon';
 import { useStyles } from './styles';
 
-export interface ToggleProps {
-  onChange: SwitchBaseProps['onChange'];
+export interface ToggleProps extends Omit<SwitchProps, 'value'> {
   value: boolean;
-  disabled?: boolean;
-  className?: string;
   isDark?: boolean;
   label?: string;
   tooltip?: string;
 }
 
 export const switchAriaLabel = 'Switch';
-const otherSwitchProps = { inputProps: { 'aria-label': switchAriaLabel } };
 
 export const Toggle = ({
   onChange,
@@ -28,6 +23,7 @@ export const Toggle = ({
   disabled = false,
   label,
   tooltip,
+  ...otherProps
 }: ToggleProps) => {
   const styles = useStyles();
 
@@ -50,7 +46,8 @@ export const Toggle = ({
         onClick={e => e.stopPropagation()}
         checked={value}
         disabled={disabled}
-        {...otherSwitchProps}
+        inputProps={{ 'aria-label': switchAriaLabel }}
+        {...otherProps}
       />
     </div>
   );

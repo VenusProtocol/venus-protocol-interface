@@ -20,6 +20,7 @@ export const Notice = ({
   title,
   description,
   variant = 'info',
+  condensed = false,
   onClose,
   ...otherProps
 }: NoticeProps) => (
@@ -36,7 +37,8 @@ export const Notice = ({
   >
     <div
       className={cn(
-        'flex px-4 py-3 transition-colors ease-linear',
+        'flex transition-colors ease-linear',
+        condensed ? 'px-3 py-2' : 'px-4 py-3',
         variant === 'error' && 'bg-red/5',
         variant === 'success' && 'bg-green/5',
         variant === 'warning' && 'bg-orange/5',
@@ -48,7 +50,8 @@ export const Notice = ({
         ) : (
           <Icon
             className={cn(
-              'mr-3 h-5 w-5 shrink-0',
+              'mr-3 shrink-0',
+              condensed ? 'h-4 w-4' : 'h-5 w-5',
               variant === 'info' && 'text-blue',
               variant === 'error' && 'text-red',
               variant === 'success' && 'text-green',
@@ -61,7 +64,7 @@ export const Notice = ({
         <div className="grow overflow-hidden break-words space-y-2">
           {title && <p className="text-sm font-semibold">{title}</p>}
 
-          {!!description && <p className="text-sm">{description}</p>}
+          {!!description && <p className={condensed ? 'text-xs' : 'text-sm'}>{description}</p>}
         </div>
       </div>
 

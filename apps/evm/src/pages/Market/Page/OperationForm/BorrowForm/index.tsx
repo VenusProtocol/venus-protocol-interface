@@ -3,9 +3,17 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
 import { useBorrow } from 'clients/api';
-import { Delimiter, LabeledInlineContent, Toggle, TokenTextField } from 'components';
-import { SAFE_BORROW_LIMIT_PERCENTAGE } from 'constants/safeBorrowLimitPercentage';
-import { AccountData } from 'containers/AccountData';
+import {
+  Delimiter,
+  LabeledInlineContent,
+  RiskAcknowledgementToggle,
+  Toggle,
+  TokenTextField,
+} from 'components';
+import {
+  HEALTH_FACTOR_MODERATE_THRESHOLD,
+  HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
+} from 'constants/healthFactor';
 import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -13,13 +21,13 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
-import { convertTokensToMantissa } from 'utilities';
+import { calculateHealthFactor, convertTokensToMantissa } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useAccountAddress } from 'libs/wallet';
 import { AssetInfo } from '../AssetInfo';
-import Notice from './Notice';
+import { OperationDetails } from '../OperationDetails';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
@@ -70,57 +78,93 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     }));
   };
 
-  // Calculate maximum and safe maximum amount of tokens user can borrow
+  const handleToggleAcknowledgeRisk = (checked: boolean) => {
+    setFormValues(currentFormValues => ({
+      ...currentFormValues,
+      acknowledgeRisk: checked,
+    }));
+  };
+
+  const hypotheticalHealthFactor = useMemo(() => {
+    if (
+      !Number(formValues.amountTokens) ||
+      !pool.userBorrowBalanceCents ||
+      !pool.userLiquidationThresholdCents
+    ) {
+      return undefined;
+    }
+
+    const amountCents = new BigNumber(formValues.amountTokens).multipliedBy(asset.tokenPriceCents);
+
+    return calculateHealthFactor({
+      borrowBalanceCents: pool.userBorrowBalanceCents.plus(amountCents).toNumber(),
+      liquidationThresholdCents: pool.userLiquidationThresholdCents.toNumber(),
+    });
+  }, [asset, pool, formValues.amountTokens]);
+
+  // Calculate maximum amount of tokens user can borrow
   const [limitTokens, safeLimitTokens] = useMemo(() => {
     // Return 0 values while asset is loading or if borrow limit has been
     // reached
     if (
-      !asset ||
-      !pool ||
-      pool.userBorrowBalanceCents === undefined ||
+      !pool.userBorrowBalanceCents ||
       !pool.userBorrowLimitCents ||
-      pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents)
+      !pool.userLiquidationThresholdCents ||
+      pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents) ||
+      asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
     ) {
-      return ['0', '0'];
+      return [new BigNumber(0), new BigNumber(0)];
     }
 
-    const marginWithBorrowLimitCents = pool.userBorrowLimitCents.minus(pool.userBorrowBalanceCents);
-    const { liquidityCents } = asset;
-
-    let maxTokens = BigNumber.minimum(liquidityCents, marginWithBorrowLimitCents)
-      // Convert dollars to tokens
+    // Liquidities limit
+    const assetLiquidityTokens = asset.liquidityCents
+      // Convert to tokens
       .dividedBy(asset.tokenPriceCents);
 
-    // Take borrow cap in consideration if asset has one
+    // Borrow limit
+    const marginWithUserBorrowLimitTokens = pool.userBorrowLimitCents
+      .minus(pool.userBorrowBalanceCents)
+      // Convert to tokens
+      .dividedBy(asset.tokenPriceCents);
+
+    let marginWithUserSafeBorrowLimitTokens =
+      // We base the safe borrow limit on the liquidation threshold because that's the base used to
+      // calculate the health factor
+      pool.userLiquidationThresholdCents
+        .div(HEALTH_FACTOR_SAFE_MAX_THRESHOLD)
+        .minus(pool.userBorrowBalanceCents)
+        // Convert to tokens
+        .dividedBy(asset.tokenPriceCents);
+
+    if (marginWithUserSafeBorrowLimitTokens.isLessThan(0)) {
+      marginWithUserSafeBorrowLimitTokens = new BigNumber(0);
+    }
+
+    // Borrow cap limit
     const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.borrowBalanceTokens);
-    maxTokens = marginWithBorrowCapTokens.isLessThanOrEqualTo(0)
-      ? new BigNumber(0)
-      : BigNumber.minimum(maxTokens, marginWithBorrowCapTokens);
 
-    const safeBorrowLimitCents = pool.userBorrowLimitCents
-      .multipliedBy(SAFE_BORROW_LIMIT_PERCENTAGE)
-      .dividedBy(100);
-    const marginWithSafeBorrowLimitCents = safeBorrowLimitCents.minus(pool.userBorrowBalanceCents);
+    const maxTokens = BigNumber.min(
+      assetLiquidityTokens,
+      marginWithUserBorrowLimitTokens,
+      marginWithBorrowCapTokens,
+    );
 
-    const safeMaxTokens = pool.userBorrowBalanceCents.isLessThan(safeBorrowLimitCents)
-      ? // Convert dollars to tokens
-        new BigNumber(marginWithSafeBorrowLimitCents).dividedBy(asset.tokenPriceCents)
-      : new BigNumber(0);
+    const safeMaxTokens = BigNumber.min(maxTokens, marginWithUserSafeBorrowLimitTokens).dp(
+      asset.vToken.underlyingToken.decimals,
+    );
 
-    const formatValue = (value: BigNumber) =>
-      value.dp(asset.vToken.underlyingToken.decimals, BigNumber.ROUND_DOWN).toFixed();
-
-    return [formatValue(maxTokens), formatValue(safeMaxTokens)];
+    return [maxTokens, safeMaxTokens];
   }, [asset, pool]);
 
   const readableLimit = useFormatTokensToReadableValue({
-    value: new BigNumber(limitTokens),
+    value: limitTokens,
     token: asset.vToken.underlyingToken,
   });
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
-    userBorrowLimitCents: pool.userBorrowLimitCents?.toNumber(),
+    pool,
+    hypotheticalHealthFactor,
     limitTokens,
     onSubmitSuccess,
     onSubmit,
@@ -128,13 +172,21 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     setFormValues,
   });
 
-  const handleRightMaxButtonClick = useCallback(() => {
+  const handleSafeMaxButtonClick = useCallback(() => {
     // Update field value to correspond to user's wallet balance
     setFormValues(currentFormValues => ({
       ...currentFormValues,
-      amountTokens: safeLimitTokens,
+      amountTokens: safeLimitTokens.toFixed(),
     }));
   }, [safeLimitTokens, setFormValues]);
+
+  const isRiskyOperation = useMemo(
+    () =>
+      hypotheticalHealthFactor !== undefined &&
+      hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
+      (!formError || formError.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT'),
+    [hypotheticalHealthFactor, formError],
+  );
 
   return (
     <form onSubmit={handleSubmit}>
@@ -157,12 +209,16 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
             formError?.code === 'NO_COLLATERALS'
           }
           rightMaxButton={{
-            label: t('operationForm.limitButtonLabel', {
-              limitPercentage: SAFE_BORROW_LIMIT_PERCENTAGE,
-            }),
-            onClick: handleRightMaxButtonClick,
+            label: t('operationForm.safeMaxButtonLabel'),
+            onClick: handleSafeMaxButtonClick,
           }}
-          hasError={isUserConnected && !!formError && Number(formValues.amountTokens) > 0}
+          hasError={
+            isUserConnected &&
+            !isSubmitting &&
+            Number(formValues.amountTokens) > 0 &&
+            !!formError &&
+            formError.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT'
+          }
           description={
             isUserConnected && !isSubmitting && !!formError?.message ? (
               <p className="text-red">{formError.message}</p>
@@ -175,15 +231,10 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
 
       <ConnectWallet className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}>
         <div className="space-y-4">
-          {!isSubmitting && !formError && (
-            <Notice
-              amount={formValues.amountTokens}
-              safeLimitTokens={safeLimitTokens}
-              limitTokens={limitTokens}
-            />
-          )}
-
-          <LabeledInlineContent label={t('operationForm.borrowableAmount')}>
+          <LabeledInlineContent
+            label={t('operationForm.availableAmount')}
+            data-testid={TEST_IDS.availableAmount}
+          >
             {readableLimit}
           </LabeledInlineContent>
 
@@ -211,28 +262,25 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
             </>
           )}
 
-          <AssetInfo
+          <OperationDetails
+            amountTokens={new BigNumber(formValues.amountTokens || 0)}
             asset={asset}
             action="borrow"
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            renderType="accordion"
-          />
-
-          <Delimiter />
-
-          <AccountData
-            asset={asset}
             pool={pool}
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            action="borrow"
           />
+
+          {isRiskyOperation && (
+            <RiskAcknowledgementToggle
+              value={formValues.acknowledgeRisk}
+              onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
+            />
+          )}
         </div>
 
         <SubmitSection
           isFormSubmitting={isSubmitting}
-          safeLimitTokens={safeLimitTokens}
           isFormValid={isFormValid}
-          fromTokenAmountTokens={formValues.amountTokens}
+          formErrorCode={formError?.code}
           isDelegateApproved={isDelegateApproved}
           isDelegateApprovedLoading={isDelegateApprovedLoading}
           approveDelegateAction={approveDelegateAction}
@@ -259,6 +307,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       amountTokens: '',
       fromToken: asset.vToken.underlyingToken,
       receiveNativeToken: !!asset.vToken.underlyingToken.tokenWrapped,
+      acknowledgeRisk: false,
     }),
     [asset],
   );
