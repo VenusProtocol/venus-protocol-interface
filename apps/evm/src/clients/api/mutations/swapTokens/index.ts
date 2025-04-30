@@ -1,7 +1,7 @@
 import type { SwapRouter } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import type { LooseEthersContractTxData, Swap } from 'types';
-import { generateTransactionDeadline } from 'utilities';
+import { generateTransactionDeadline } from 'utilities/generateTransactionDeadline';
 
 export interface SwapTokensInput {
   swapRouterContract: SwapRouter;

@@ -774,12 +774,13 @@ export const useSwapTokensAndRepay = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const swapTokensAndSupply = vi.fn(async () => fakeContractTransaction);
-export const useSwapTokensAndSupply = (options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: swapTokensAndSupply,
-    ...options,
-  });
+export const useSwapTokensAndSupply = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
 
 export const claimRewards = vi.fn();
 export const useClaimRewards = (options?: MutationObserverOptions) =>

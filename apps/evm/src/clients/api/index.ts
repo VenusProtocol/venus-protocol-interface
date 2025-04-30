@@ -91,9 +91,7 @@ export { default as swapTokensAndRepay } from './mutations/swapTokensAndRepay';
 export * from './mutations/swapTokensAndRepay';
 export { default as useSwapTokensAndRepay } from './mutations/swapTokensAndRepay/useSwapTokensAndRepay';
 
-export { default as swapTokensAndSupply } from './mutations/swapTokensAndSupply';
-export * from './mutations/swapTokensAndSupply';
-export { default as useSwapTokensAndSupply } from './mutations/swapTokensAndSupply/useSwapTokensAndSupply';
+export * from './mutations/useSwapTokensAndSupply';
 
 export { default as claimRewards } from './mutations/claimRewards';
 export * from './mutations/claimRewards';
