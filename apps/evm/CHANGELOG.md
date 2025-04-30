@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.253.0
+
+### Minor Changes
+
+- b92e478: add back account health bar
+
 ## 2.252.0
 
 ### Minor Changes
