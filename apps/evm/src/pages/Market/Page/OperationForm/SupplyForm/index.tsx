@@ -541,8 +541,6 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
       vToken: asset.vToken,
     });
 
-  console.log(swapExactTokensForTokensAndSupply);
-
   const isSubmitting = isSupplyLoading || isSwapAndSupplyLoading;
 
   const onSubmit: SupplyFormUiProps['onSubmit'] = useCallback(
@@ -573,8 +571,6 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
       if (!swap) {
         throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
       }
-
-      console.log('CALLED');
 
       return swapExactTokensForTokensAndSupply({
         swap,

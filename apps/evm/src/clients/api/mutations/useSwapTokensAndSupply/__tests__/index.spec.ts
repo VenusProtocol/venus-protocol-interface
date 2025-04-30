@@ -12,7 +12,6 @@ import type { Address } from 'viem';
 import { type Mock, describe, expect, it, vi } from 'vitest';
 import { useSwapTokensAndSupply } from '..';
 
-vi.mock('hooks/useSendTransaction');
 vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 vi.mock('utilities/generateTransactionDeadline');

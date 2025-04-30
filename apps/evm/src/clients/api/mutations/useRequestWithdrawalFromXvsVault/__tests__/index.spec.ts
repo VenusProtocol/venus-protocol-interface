@@ -1,15 +1,16 @@
 import fakeAccountAddress, {
-  altAddress as vaiVaultContractAddress,
+  altAddress as xvsVaultContractAddress,
 } from '__mocks__/models/address';
-import { vai } from '__mocks__/models/tokens';
+import { xvs } from '__mocks__/models/tokens';
 import { queryClient } from 'clients/api';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetVaiVaultContractAddress } from 'libs/contracts';
+import { useGetXvsVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { renderHook } from 'testUtils/render';
+import type { Address } from 'viem';
 import type { Mock } from 'vitest';
-import { useWithdrawFromVaiVault } from '..';
+import { useRequestWithdrawalFromXvsVault } from '..';
 
 vi.mock('libs/analytics');
 vi.mock('libs/contracts');
@@ -17,7 +18,9 @@ vi.mock('libs/tokens');
 vi.mock('libs/wallet');
 
 const fakeInput = {
-  amountMantissa: 1000n,
+  rewardTokenAddress: '0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47' as Address,
+  poolIndex: 4n,
+  amountMantissa: 1000000000000n,
 };
 
 const fakeOptions = {
@@ -25,10 +28,10 @@ const fakeOptions = {
   waitForConfirmation: true,
 };
 
-describe('useWithdrawFromVaiVault', () => {
+describe('useRequestWithdrawalFromXvsVault', () => {
   beforeEach(() => {
-    (useGetVaiVaultContractAddress as Mock).mockImplementation(() => vaiVaultContractAddress);
-    (useGetToken as Mock).mockImplementation(() => vai);
+    (useGetXvsVaultContractAddress as Mock).mockImplementation(() => xvsVaultContractAddress);
+    (useGetToken as Mock).mockImplementation(() => xvs);
   });
 
   it('calls useSendTransaction with the correct parameters', async () => {
@@ -37,7 +40,7 @@ describe('useWithdrawFromVaiVault', () => {
       captureAnalyticEvent: mockCaptureAnalyticEvent,
     }));
 
-    renderHook(() => useWithdrawFromVaiVault(fakeOptions), {
+    renderHook(() => useRequestWithdrawalFromXvsVault(fakeOptions), {
       accountAddress: fakeAccountAddress,
     });
 
@@ -49,36 +52,45 @@ describe('useWithdrawFromVaiVault', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn(fakeInput)).toEqual({
-      abi: expect.any(Array),
-      address: vaiVaultContractAddress,
-      functionName: 'withdraw',
-      args: [fakeInput.amountMantissa],
-    });
+    expect(await fn(fakeInput)).toMatchInlineSnapshot(`
+      {
+        "abi": [],
+        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "args": [
+          "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+          4n,
+          1000000000000n,
+        ],
+        "functionName": "requestWithdrawal",
+      }
+    `);
 
     onConfirmed({ input: fakeInput });
 
     expect(mockCaptureAnalyticEvent).toHaveBeenCalledTimes(1);
     expect(mockCaptureAnalyticEvent.mock.calls[0]).toMatchInlineSnapshot(`
       [
-        "Tokens withdrawn from VAI vault",
+        "Token withdrawal requested from XVS vault",
         {
-          "tokenAmountTokens": 1e-15,
+          "poolIndex": 4,
+          "rewardTokenSymbol": "XVS",
+          "tokenAmountTokens": 0.000001,
         },
       ]
     `);
 
-    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(5);
+    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(2);
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
       [
         [
           {
             "queryKey": [
-              "GET_BALANCE_OF",
+              "GET_XVS_VAULT_USER_INFO",
               {
                 "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
                 "chainId": 97,
-                "tokenAddress": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
+                "poolIndex": 4,
+                "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               },
             ],
           },
@@ -86,41 +98,13 @@ describe('useWithdrawFromVaiVault', () => {
         [
           {
             "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
-                "chainId": 97,
-                "tokenAddress": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_VAI_VAULT_USER_INFO",
+              "GET_XVS_VAULT_WITHDRAWAL_REQUESTS",
               {
                 "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
                 "chainId": 97,
+                "poolIndex": 4,
+                "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_VENUS_VAI_VAULT_DAILY_RATE",
             ],
           },
         ],
@@ -128,10 +112,10 @@ describe('useWithdrawFromVaiVault', () => {
     `);
   });
 
-  it('throws error when VAI Vault contract address is not found', async () => {
-    (useGetVaiVaultContractAddress as Mock).mockImplementation(() => undefined);
+  it('throws error when XVS Vault contract address is not found', async () => {
+    (useGetXvsVaultContractAddress as Mock).mockImplementation(() => undefined);
 
-    renderHook(() => useWithdrawFromVaiVault(fakeOptions));
+    renderHook(() => useRequestWithdrawalFromXvsVault(fakeOptions));
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 

@@ -71,9 +71,7 @@ export { default as useCastVoteWithReason } from './mutations/vote/useCastVoteWi
 
 export * from './mutations/useWithdrawFromVaiVault';
 
-export { default as requestWithdrawalFromXvsVault } from './mutations/requestWithdrawalFromXvsVault';
-export * from './mutations/requestWithdrawalFromXvsVault';
-export { default as useRequestWithdrawalFromXvsVault } from './mutations/requestWithdrawalFromXvsVault/useRequestWithdrawalFromXvsVault';
+export * from './mutations/useRequestWithdrawalFromXvsVault';
 
 export { default as executeWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault';
 export * from './mutations/executeWithdrawalFromXvsVault';

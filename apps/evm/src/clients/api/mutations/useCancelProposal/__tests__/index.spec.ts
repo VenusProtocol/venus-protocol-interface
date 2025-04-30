@@ -6,7 +6,6 @@ import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useCancelProposal } from '..';
 
-vi.mock('hooks/useSendTransaction');
 vi.mock('libs/contracts');
 
 const governorBravoDelegateAddress = '0x123';

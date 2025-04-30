@@ -13,6 +13,7 @@ import useTokenApproval from 'hooks/useTokenApproval';
 
 vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
+vi.mock('hooks/useSendTransaction');
 vi.mock('clients/api');
 vi.mock('clients/subgraph');
 vi.mock('libs/tokens');

@@ -2,7 +2,7 @@ import fakeAddress from '__mocks__/models/address';
 import tokens from '__mocks__/models/tokens';
 import { ChainId } from 'types';
 import { type RestServiceInput, restService } from 'utilities';
-import type { PublicClient } from 'viem';
+import type { Address, PublicClient } from 'viem';
 import type { Mock } from 'vitest';
 import { getPendingRewards } from '..';
 import {
@@ -31,14 +31,14 @@ const fakePrimeContractAddress = '0xPrime' as const;
 
 type ReadContractParams = {
   abi: any;
-  address: `0x${string}`;
+  address: Address;
   functionName: string;
   args?: any[];
 };
 
 type SimulateContractParams = {
   abi: any;
-  address: `0x${string}`;
+  address: Address;
   functionName: string;
   args?: any[];
 };

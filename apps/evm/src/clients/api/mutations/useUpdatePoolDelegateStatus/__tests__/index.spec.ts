@@ -10,8 +10,6 @@ import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useUpdatePoolDelegateStatus } from '..';
 
-vi.mock('hooks/useSendTransaction');
-
 describe('useUpdatePoolDelegateStatus', () => {
   it('calls useSendTransaction with the correct parameters', () => {
     renderHook(() => useUpdatePoolDelegateStatus(), {

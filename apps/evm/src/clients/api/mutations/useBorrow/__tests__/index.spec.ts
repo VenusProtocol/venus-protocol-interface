@@ -13,7 +13,6 @@ import { usePublicClient } from 'libs/wallet';
 import type { Mock } from 'vitest';
 import { useBorrow } from '..';
 
-vi.mock('hooks/useSendTransaction');
 vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 

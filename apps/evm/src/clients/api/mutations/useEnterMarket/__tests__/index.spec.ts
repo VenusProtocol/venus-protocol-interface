@@ -9,7 +9,6 @@ import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useEnterMarket } from '..';
 
-vi.mock('hooks/useSendTransaction');
 vi.mock('libs/analytics');
 
 const fakeInput = {

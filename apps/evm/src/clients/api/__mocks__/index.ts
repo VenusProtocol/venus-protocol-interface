@@ -742,12 +742,12 @@ export const useWithdrawFromVaiVault = vi.fn((options?: MutationObserverOptions)
   }),
 );
 
-export const requestWithdrawalFromXvsVault = vi.fn();
-export const useRequestWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>
+export const useRequestWithdrawalFromXvsVault = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: requestWithdrawalFromXvsVault,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const executeWithdrawalFromXvsVault = vi.fn();
 export const useExecuteWithdrawalFromXvsVault = (
@@ -808,9 +808,10 @@ export const useBridgeXvs = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const updatePoolDelegateStatus = vi.fn();
-export const useUpdatePoolDelegateStatus = (_variables: never, options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: updatePoolDelegateStatus,
-    ...options,
-  });
+export const useUpdatePoolDelegateStatus = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);

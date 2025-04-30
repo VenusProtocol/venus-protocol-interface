@@ -1,10 +1,9 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
-import { vai, xvs } from '__mocks__/models/tokens';
+import { vai } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import { xvsVaultPoolInfo, xvsVaultUserInfo } from '__mocks__/models/vaults';
@@ -12,7 +11,7 @@ import {
   getXvsVaultLockedDeposits,
   getXvsVaultPoolInfo,
   getXvsVaultUserInfo,
-  requestWithdrawalFromXvsVault,
+  useRequestWithdrawalFromXvsVault,
 } from 'clients/api';
 import { en } from 'libs/translations';
 
@@ -114,6 +113,11 @@ describe('RequestWithdrawal', () => {
   });
 
   it('lets user request a withdrawal and calls handleClose callback on success', async () => {
+    const mockRequestWithdrawalFromXvsVault = vi.fn();
+    (useRequestWithdrawalFromXvsVault as Mock).mockImplementation(() => ({
+      mutateAsync: mockRequestWithdrawalFromXvsVault,
+    }));
+
     const handleCloseMock = vi.fn();
 
     const { getByTestId, getByText } = renderComponent(
@@ -150,16 +154,16 @@ describe('RequestWithdrawal', () => {
 
     fireEvent.click(submitButton);
 
-    const fakeMantissaSubmitted = new BigNumber(fakeValueTokens).multipliedBy(
-      new BigNumber(10).pow(18),
-    );
-
-    await waitFor(() => expect(requestWithdrawalFromXvsVault).toHaveBeenCalledTimes(1));
-    expect(requestWithdrawalFromXvsVault).toHaveBeenCalledWith({
-      amountMantissa: fakeMantissaSubmitted,
-      poolIndex: fakePoolIndex,
-      rewardTokenAddress: xvs.address,
-    });
+    await waitFor(() => expect(mockRequestWithdrawalFromXvsVault).toHaveBeenCalledTimes(1));
+    expect(mockRequestWithdrawalFromXvsVault.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {
+          "amountMantissa": 10000000000000000000n,
+          "poolIndex": 6,
+          "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ]
+    `);
 
     await waitFor(() => expect(handleCloseMock).toHaveBeenCalledTimes(1));
   });
