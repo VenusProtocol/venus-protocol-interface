@@ -50,3 +50,4 @@ export * from './Page';
 export * from './Carousel';
 export * from './HealthFactorPill';
 export * from './RiskAcknowledgementToggle';
+export * from './AccountHealthBar';

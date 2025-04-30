@@ -1,12 +1,15 @@
 import type BigNumber from 'bignumber.js';
 
 import { cn } from '@venusprotocol/ui';
-import { HealthFactorPill, LabeledInlineContent, ValueUpdate } from 'components';
+import { AccountHealthBar, HealthFactorPill, LabeledInlineContent, ValueUpdate } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useTranslation } from 'libs/translations';
+import { memo } from 'react';
 import type { Asset, Pool, Swap, TokenAction } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 import useGetValues from './useGetValues';
+
+const MemoizedAccountHealthBar = memo(AccountHealthBar);
 
 export interface AccountDataProps {
   asset: Asset;
@@ -37,11 +40,18 @@ export const AccountData: React.FC<AccountDataProps> = ({
     hypotheticalPoolUserBorrowBalanceCents,
     hypotheticalAssetUserSupplyBalanceCents,
     hypotheticalAssetUserBorrowBalanceCents,
+    hypotheticalPoolUserBorrowLimitCents,
   } = useGetValues({ asset, pool, swap, amountTokens, action, isUsingSwap });
 
-  const shouldShowHealthFactor =
+  const shouldShowHealth =
     pool.userBorrowBalanceCents?.isGreaterThan(0) ||
     hypotheticalPoolUserBorrowBalanceCents?.isGreaterThan(0);
+
+  const hypotheticalUserBorrowBalanceCents =
+    hypotheticalPoolUserBorrowBalanceCents || pool.userBorrowBalanceCents;
+
+  const hypotheticalUserBorrowLimitCents =
+    hypotheticalPoolUserBorrowLimitCents || pool.userBorrowLimitCents;
 
   const shouldShowSupplyBalance =
     action === 'withdraw' &&
@@ -55,29 +65,36 @@ export const AccountData: React.FC<AccountDataProps> = ({
 
   return (
     <div className={cn('space-y-2', className)}>
-      {shouldShowHealthFactor && (
-        <LabeledInlineContent
-          label={t('accountData.healthFactor.label')}
-          tooltip={t('accountData.healthFactor.tooltip')}
-        >
-          <ValueUpdate
-            original={
-              poolUserHealthFactor !== undefined ? (
-                <HealthFactorPill
-                  factor={poolUserHealthFactor}
-                  showLabel={hypotheticalPoolUserHealthFactor === undefined}
-                />
-              ) : (
-                PLACEHOLDER_KEY
-              )
-            }
-            update={
-              hypotheticalPoolUserHealthFactor !== undefined ? (
-                <HealthFactorPill factor={hypotheticalPoolUserHealthFactor} showLabel />
-              ) : undefined
-            }
+      {shouldShowHealth && (
+        <div className="space-y-4">
+          <MemoizedAccountHealthBar
+            borrowBalanceCents={hypotheticalUserBorrowBalanceCents?.toNumber()}
+            borrowLimitCents={hypotheticalUserBorrowLimitCents?.toNumber()}
           />
-        </LabeledInlineContent>
+
+          <LabeledInlineContent
+            label={t('accountData.healthFactor.label')}
+            tooltip={t('accountData.healthFactor.tooltip')}
+          >
+            <ValueUpdate
+              original={
+                poolUserHealthFactor !== undefined ? (
+                  <HealthFactorPill
+                    factor={poolUserHealthFactor}
+                    showLabel={hypotheticalPoolUserHealthFactor === undefined}
+                  />
+                ) : (
+                  PLACEHOLDER_KEY
+                )
+              }
+              update={
+                hypotheticalPoolUserHealthFactor !== undefined ? (
+                  <HealthFactorPill factor={hypotheticalPoolUserHealthFactor} showLabel />
+                ) : undefined
+              }
+            />
+          </LabeledInlineContent>
+        </div>
       )}
 
       <LabeledInlineContent label={t('accountData.dailyEarnings.label')}>

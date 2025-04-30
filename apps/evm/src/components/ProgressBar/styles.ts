@@ -48,11 +48,6 @@ export const useStyles = ({
       height: ${theme.spacing(2)};
       color: ${theme.palette.interactive.error};
     `,
-    hasTooltip: css`
-      /* for tooltips working in disabled state */
-      cursor: help;
-      pointer-events: all;
-    `,
     tooltipHelper: css`
       visibility: hidden;
     `,

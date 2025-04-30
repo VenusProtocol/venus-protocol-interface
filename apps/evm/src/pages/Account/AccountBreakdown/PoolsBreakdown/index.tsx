@@ -31,6 +31,8 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
     [pools],
   );
 
+  const hasBorrowBalance = selectedPool?.userBorrowBalanceCents?.isGreaterThan(0);
+
   return (
     <Section className={className} title={t('account.poolsBreakdown.title')}>
       {pools.length > 0 && (
@@ -44,7 +46,8 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
 
       <Summary
         pools={[selectedPool]}
-        displayHealthFactor={!!selectedPool.userBorrowBalanceCents?.isGreaterThan(0)}
+        displayHealthFactor={hasBorrowBalance}
+        displayAccountHealth={hasBorrowBalance}
         variant="secondary"
         css={styles.summary}
       />

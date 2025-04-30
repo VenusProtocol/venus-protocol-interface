@@ -17,8 +17,7 @@ export interface ProgressBarProps {
   ariaLabel: string;
   min: number;
   max: number;
-  trackTooltip?: TooltipProps['content'];
-  markTooltip?: TooltipProps['content'];
+  tooltip?: TooltipProps['content'];
   className?: string;
   progressBarColor?: string;
 }
@@ -30,8 +29,7 @@ export const ProgressBar = ({
   ariaLabel,
   min,
   max,
-  trackTooltip,
-  markTooltip,
+  tooltip,
   className,
   progressBarColor = PALETTE.interactive.success,
 }: ProgressBarProps) => {
@@ -50,20 +48,11 @@ export const ProgressBar = ({
         style?: React.CSSProperties;
       },
     ) => (
-      <Box
-        component="span"
-        style={props?.style}
-        className={props?.className}
-        css={[styles.mark, markTooltip ? styles.hasTooltip : undefined]}
-      >
-        {markTooltip && (
-          <Tooltip content={markTooltip}>
-            <span css={styles.tooltipHelper}>.</span>
-          </Tooltip>
-        )}
+      <Box component="span" style={props?.style} className={props?.className} css={styles.mark}>
+        <span css={styles.tooltipHelper}>.</span>
       </Box>
     ),
-    [markTooltip, styles.hasTooltip, styles.mark, styles.tooltipHelper],
+    [styles.mark, styles.tooltipHelper],
   );
 
   const renderTrack = useCallback(
@@ -74,26 +63,17 @@ export const ProgressBar = ({
       },
     ) => {
       const primaryRail = (
-        <Box
-          style={props?.style}
-          css={[styles.trackWrapper, trackTooltip ? styles.hasTooltip : undefined]}
-        >
-          {trackTooltip ? (
-            <Tooltip content={trackTooltip}>
-              <Box className={props?.className} />
-            </Tooltip>
-          ) : (
-            <Box className={props?.className} />
-          )}
+        <Box style={props?.style} css={styles.trackWrapper}>
+          <Box className={props?.className} />
         </Box>
       );
 
       return <>{primaryRail}</>;
     },
-    [trackTooltip, styles],
+    [styles],
   );
 
-  return (
+  const dom = (
     <MaterialSlider
       className={className}
       css={styles.slider}
@@ -112,4 +92,10 @@ export const ProgressBar = ({
       disabled
     />
   );
+
+  if (tooltip) {
+    return <Tooltip content={tooltip}>{dom}</Tooltip>;
+  }
+
+  return dom;
 };
