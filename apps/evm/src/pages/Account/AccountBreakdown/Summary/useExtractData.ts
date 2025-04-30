@@ -21,20 +21,23 @@ interface UseExtractDataInput {
 
 const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtractDataInput) =>
   useMemo(() => {
-    const { totalBorrowCents, totalSupplyCents, liquidationThresholdCents } = pools.reduce(
-      (acc, pool) => ({
-        totalBorrowCents: acc.totalBorrowCents.plus(pool.userBorrowBalanceCents || 0),
-        totalSupplyCents: acc.totalSupplyCents.plus(pool.userSupplyBalanceCents || 0),
-        liquidationThresholdCents: acc.liquidationThresholdCents.plus(
-          pool.userLiquidationThresholdCents || 0,
-        ),
-      }),
-      {
-        totalSupplyCents: new BigNumber(0),
-        totalBorrowCents: new BigNumber(0),
-        liquidationThresholdCents: new BigNumber(0),
-      },
-    );
+    const { totalBorrowCents, totalSupplyCents, borrowLimitCents, liquidationThresholdCents } =
+      pools.reduce(
+        (acc, pool) => ({
+          totalBorrowCents: acc.totalBorrowCents.plus(pool.userBorrowBalanceCents || 0),
+          totalSupplyCents: acc.totalSupplyCents.plus(pool.userSupplyBalanceCents || 0),
+          borrowLimitCents: acc.borrowLimitCents.plus(pool.userBorrowLimitCents || 0),
+          liquidationThresholdCents: acc.liquidationThresholdCents.plus(
+            pool.userLiquidationThresholdCents || 0,
+          ),
+        }),
+        {
+          totalSupplyCents: new BigNumber(0),
+          totalBorrowCents: new BigNumber(0),
+          borrowLimitCents: new BigNumber(0),
+          liquidationThresholdCents: new BigNumber(0),
+        },
+      );
 
     const { totalVaultStakeCents, yearlyVaultEarningsCents } = vaults.reduce(
       (accTotalVaultStakeCents, vault) => {
@@ -85,6 +88,7 @@ const useExtractData = ({ pools, vaults, xvsPriceCents, vaiPriceCents }: UseExtr
       totalVaultStakeCents,
       totalBorrowCents,
       totalSupplyCents,
+      borrowLimitCents,
       healthFactor,
     };
   }, [pools, vaults, xvsPriceCents, vaiPriceCents]);

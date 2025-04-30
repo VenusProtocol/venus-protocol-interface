@@ -1,6 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
-import { Card, type Cell, CellGroup } from 'components';
+import { AccountHealthBar, Card, type Cell, CellGroup } from 'components';
 import { HealthFactor } from 'components/HealthFactor';
 import { useHealthFactor } from 'hooks/useHealthFactor';
 import { useTranslation } from 'libs/translations';
@@ -17,6 +17,7 @@ export interface SummaryProps {
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
   displayHealthFactor?: boolean;
+  displayAccountHealth?: boolean;
   displayTotalVaultStake?: boolean;
   className?: string;
 }
@@ -27,6 +28,7 @@ export const Summary: React.FC<SummaryProps> = ({
   vaults,
   title,
   displayHealthFactor = false,
+  displayAccountHealth = false,
   displayTotalVaultStake = false,
   xvsPriceCents = new BigNumber(0),
   vaiPriceCents = new BigNumber(0),
@@ -39,6 +41,7 @@ export const Summary: React.FC<SummaryProps> = ({
     totalBorrowCents,
     totalVaultStakeCents,
     healthFactor,
+    borrowLimitCents,
     dailyEarningsCents,
     netApyPercentage,
   } = useExtractData({
@@ -68,6 +71,8 @@ export const Summary: React.FC<SummaryProps> = ({
       tooltip: displayTotalVaultStake
         ? t('account.summary.cellGroup.netApyWithVaultStakeTooltip')
         : t('account.summary.cellGroup.netApyTooltip'),
+      className:
+        typeof netApyPercentage === 'number' && netApyPercentage < 0 ? 'text-red' : 'text-green',
     },
     {
       label: t('account.summary.cellGroup.dailyEarnings'),
@@ -92,8 +97,16 @@ export const Summary: React.FC<SummaryProps> = ({
 
   return (
     <Section className={className} title={title}>
-      <Card className="bg-transparent p-0 space-y-2 sm:p-0 xl:space-y-0 xl:bg-cards xl:flex">
+      <Card className="bg-transparent p-0 space-y-2 sm:p-0 xl:space-y-0 xl:bg-cards xl:flex xl:justify-between">
         <CellGroup smallValues={variant === 'secondary'} cells={cells} className="p-0" />
+
+        {displayAccountHealth && (
+          <AccountHealthBar
+            className="bg-cards block w-full rounded-xl p-4 sm:p-4 xl:w-auto xl:p-6 xl:flex-1 xl:max-w-100"
+            borrowBalanceCents={totalBorrowCents.toNumber()}
+            borrowLimitCents={borrowLimitCents.toNumber()}
+          />
+        )}
       </Card>
     </Section>
   );

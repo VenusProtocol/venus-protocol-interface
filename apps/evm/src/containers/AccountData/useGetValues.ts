@@ -29,6 +29,7 @@ export interface UseGetValuesOutput {
   hypotheticalPoolUserHealthFactor: number | undefined;
   hypotheticalPoolUserDailyEarningsCents: BigNumber | undefined;
   hypotheticalPoolUserBorrowBalanceCents: BigNumber | undefined;
+  hypotheticalPoolUserBorrowLimitCents: BigNumber | undefined;
   hypotheticalAssetUserSupplyBalanceCents: BigNumber | undefined;
   hypotheticalAssetUserBorrowBalanceCents: BigNumber | undefined;
 }
@@ -80,6 +81,7 @@ const useGetValues = ({
       hypotheticalPoolUserHealthFactor: undefined,
       hypotheticalPoolUserDailyEarningsCents: undefined,
       hypotheticalPoolUserBorrowBalanceCents: undefined,
+      hypotheticalPoolUserBorrowLimitCents: undefined,
       hypotheticalAssetUserSupplyBalanceCents: undefined,
       hypotheticalAssetUserBorrowBalanceCents: undefined,
     };
@@ -96,21 +98,26 @@ const useGetValues = ({
       // Check we have sufficient data
       pool.userBorrowBalanceCents === undefined ||
       pool.userLiquidationThresholdCents === undefined ||
-      pool.userSupplyBalanceCents === undefined
+      pool.userSupplyBalanceCents === undefined ||
+      pool.userBorrowLimitCents === undefined
     ) {
       return returnValues;
     }
 
+    const toTokenAmountCents = convertMantissaToTokens({
+      value: convertTokensToMantissa({
+        value: toTokenAmountTokens,
+        token: asset.vToken.underlyingToken,
+      }),
+      token: asset.vToken.underlyingToken,
+    }).times(asset.tokenPriceCents);
+
     const amountLiquidationThresholdValueCents = asset.isCollateralOfUser
-      ? convertMantissaToTokens({
-          value: convertTokensToMantissa({
-            value: toTokenAmountTokens,
-            token: asset.vToken.underlyingToken,
-          }),
-          token: asset.vToken.underlyingToken,
-        })
-          .times(asset.tokenPriceCents)
-          .times(asset.liquidationThresholdPercentage / 100)
+      ? toTokenAmountCents.times(asset.liquidationThresholdPercentage / 100)
+      : new BigNumber(0);
+
+    const amountCollateralValueCents = asset.isCollateralOfUser
+      ? toTokenAmountCents.times(asset.collateralFactor)
       : new BigNumber(0);
 
     let hypotheticalUserSupplyBalanceTokens: BigNumber | undefined;
@@ -120,12 +127,20 @@ const useGetValues = ({
     if (action === 'supply') {
       hypotheticalUserSupplyBalanceTokens = asset.userSupplyBalanceTokens.plus(toTokenAmountTokens);
 
+      returnValues.hypotheticalPoolUserBorrowLimitCents = amountCollateralValueCents.plus(
+        pool.userBorrowLimitCents,
+      );
+
       hypotheticalPoolUserLiquidationThresholdCents = pool.userLiquidationThresholdCents.plus(
         amountLiquidationThresholdValueCents,
       );
     } else if (action === 'withdraw') {
       hypotheticalUserSupplyBalanceTokens =
         asset.userSupplyBalanceTokens.minus(toTokenAmountTokens);
+
+      returnValues.hypotheticalPoolUserBorrowLimitCents = pool.userBorrowLimitCents.minus(
+        amountCollateralValueCents,
+      );
 
       returnValues.hypotheticalAssetUserSupplyBalanceCents =
         hypotheticalUserSupplyBalanceTokens.multipliedBy(asset.tokenPriceCents);

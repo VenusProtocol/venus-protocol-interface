@@ -31,8 +31,7 @@ export const ValidProgressBarWithTooltip = () => (
     ariaLabel="Storybook slider"
     min={0}
     max={100}
-    trackTooltip="Storybook tooltip text for Track"
-    markTooltip="Storybook tooltip text for Mark"
+    tooltip="Storybook tooltip text"
   />
 );
 
