@@ -1,38 +1,48 @@
-import { type WithdrawFromVaiVaultInput, queryClient, withdrawFromVaiVault } from 'clients/api';
+import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetVaiVaultContract } from 'libs/contracts';
+import { useGetVaiVaultContractAddress, vaiVaultAbi } from 'libs/contracts';
+import { VError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
-import { useChainId } from 'libs/wallet';
-import { callOrThrow, convertMantissaToTokens } from 'utilities';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import { convertMantissaToTokens } from 'utilities';
 
-type TrimmedWithdrawFromVaiVaultInput = Omit<WithdrawFromVaiVaultInput, 'vaiVaultContract'>;
-type Options = UseSendTransactionOptions<TrimmedWithdrawFromVaiVaultInput>;
+type WithdrawFromVaiVaultInput = {
+  amountMantissa: bigint;
+};
 
-const useWithdrawFromVaiVault = (options?: Partial<Options>) => {
-  const vaiVaultContract = useGetVaiVaultContract({
-    passSigner: true,
-  });
+type Options = UseSendTransactionOptions<WithdrawFromVaiVaultInput>;
+
+export const useWithdrawFromVaiVault = (options?: Partial<Options>) => {
+  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
 
   const vai = useGetToken({
     symbol: 'VAI',
   });
 
   const { chainId } = useChainId();
+  const { accountAddress } = useAccountAddress();
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fn: (input: TrimmedWithdrawFromVaiVaultInput) =>
-      callOrThrow({ vaiVaultContract }, params =>
-        withdrawFromVaiVault({
-          ...params,
-          ...input,
-        }),
-      ),
+    fn: ({ amountMantissa }: WithdrawFromVaiVaultInput) => {
+      if (!vaiVaultContractAddress) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+        });
+      }
+
+      return {
+        abi: vaiVaultAbi,
+        address: vaiVaultContractAddress,
+        functionName: 'withdraw',
+        args: [amountMantissa],
+      };
+    },
     onConfirmed: async ({ input }) => {
       const { amountMantissa } = input;
-      const accountAddress = await vaiVaultContract?.signer.getAddress();
 
       if (vai) {
         captureAnalyticEvent('Tokens withdrawn from VAI vault', {
@@ -59,7 +69,7 @@ const useWithdrawFromVaiVault = (options?: Partial<Options>) => {
             FunctionKey.GET_BALANCE_OF,
             {
               chainId,
-              accountAddress: vaiVaultContract?.address,
+              accountAddress: vaiVaultContractAddress,
               tokenAddress: vai.address,
             },
           ],
@@ -91,5 +101,3 @@ const useWithdrawFromVaiVault = (options?: Partial<Options>) => {
     options,
   });
 };
-
-export default useWithdrawFromVaiVault;

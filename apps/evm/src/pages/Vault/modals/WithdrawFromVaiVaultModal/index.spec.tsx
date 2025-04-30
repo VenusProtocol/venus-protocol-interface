@@ -4,10 +4,9 @@ import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { renderComponent } from 'testUtils/render';
 
-import { getVaiVaultUserInfo, withdrawFromVaiVault } from 'clients/api';
+import { getVaiVaultUserInfo, useWithdrawFromVaiVault } from 'clients/api';
 import { en } from 'libs/translations';
 
 import WithdrawFromVaiVaultModal, { type WithdrawFromVaiVaultModalProps } from '.';
@@ -39,7 +38,10 @@ describe('WithdrawFromVaiVaultModal', () => {
   });
 
   it('calls stake function then calls handleClose callback on success', async () => {
-    (withdrawFromVaiVault as Mock).mockImplementation(() => fakeContractTransaction);
+    const mockWithdrawFromVaiVault = vi.fn();
+    (useWithdrawFromVaiVault as Mock).mockImplementation(() => ({
+      mutateAsync: mockWithdrawFromVaiVault,
+    }));
 
     const customProps: WithdrawFromVaiVaultModalProps = {
       ...baseProps,
@@ -70,14 +72,14 @@ describe('WithdrawFromVaiVaultModal', () => {
     ) as HTMLButtonElement;
     fireEvent.click(submitButton);
 
-    const fakeStakedMantissa = new BigNumber(fakeValueTokens).multipliedBy(
-      new BigNumber(10).pow(18),
-    );
-
-    await waitFor(() => expect(withdrawFromVaiVault).toHaveBeenCalledTimes(1));
-    expect(withdrawFromVaiVault).toHaveBeenCalledWith({
-      amountMantissa: fakeStakedMantissa,
-    });
+    await waitFor(() => expect(mockWithdrawFromVaiVault).toHaveBeenCalledTimes(1));
+    expect(mockWithdrawFromVaiVault.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {
+          "amountMantissa": 100000000000000000000n,
+        },
+      ]
+    `);
 
     await waitFor(() => expect(customProps.handleClose).toHaveBeenCalledTimes(1));
   });

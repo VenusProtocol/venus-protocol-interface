@@ -61,7 +61,7 @@ describe('useSwapTokensAndSupply', () => {
       fn({
         swap: mockSwap,
       }),
-    ).rejects.toThrowError('somethingWentWrong');
+    ).rejects.toThrow('somethingWentWrong');
   });
 
   it('should handle token to token swap correctly', async () => {
@@ -270,6 +270,6 @@ describe('useSwapTokensAndSupply', () => {
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(async () => fn({ swap: invalidMockSwap })).rejects.toThrowError('incorrectSwapInput');
+    expect(async () => fn({ swap: invalidMockSwap })).rejects.toThrow('incorrectSwapInput');
   });
 });

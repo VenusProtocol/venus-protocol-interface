@@ -33,7 +33,7 @@ const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ h
   const handleWithdraw = async (amountMantissa: BigNumber) => {
     // Send request to withdraw
     const res = await withdraw({
-      amountMantissa,
+      amountMantissa: BigInt(amountMantissa.toFixed()),
     });
 
     // Close modal
