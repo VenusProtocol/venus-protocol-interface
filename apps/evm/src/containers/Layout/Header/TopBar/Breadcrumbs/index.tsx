@@ -122,10 +122,6 @@ export const Breadcrumbs: React.FC = () => {
         case Subdirectory.XVS:
           dom = t('breadcrumbs.xvs');
           break;
-        case Subdirectory.CONVERT_VRT:
-          dom = t('breadcrumbs.convertVrt');
-          break;
-
         case Subdirectory.SWAP:
           dom = t('breadcrumbs.swap');
           break;

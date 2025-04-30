@@ -26,7 +26,6 @@ export const featureFlags = {
   trxMigrationWarning: [ChainId.BSC_MAINNET],
   sxpDisablingWarning: [ChainId.BSC_MAINNET],
   bethUpdateWarning: [ChainId.BSC_MAINNET],
-  convertVrtRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   vaiRoute: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   swapRoute: [ChainId.BSC_TESTNET],
   createProposal: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],

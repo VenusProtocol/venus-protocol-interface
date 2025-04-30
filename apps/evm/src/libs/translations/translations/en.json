@@ -171,7 +171,6 @@
   "breadcrumbs": {
     "account": "Account",
     "bridge": "Bridge",
-    "convertVrt": "Convert VRT",
     "corePool": "Core pool",
     "dashboard": "Dashboard",
     "governance": "Governance",
@@ -272,15 +271,6 @@
   },
   "connectWallet": {
     "connectButton": "Connect wallet"
-  },
-  "convertVrt": {
-    "connectWalletToWithdrawXvs": "Please connect your wallet to withdraw XVS",
-    "convert": "Convert",
-    "infoConversionCompleted": "Completed @ 16:00 on 3.31.23",
-    "internalErrorXvsToVrtConversionRatioUndefined": "xvsToVrtConversionRatio undefined",
-    "withdraw": "Withdraw",
-    "withdrawableAmount": "Withdrawable amount",
-    "withdrawXvs": "Withdraw XVS"
   },
   "dashboard": {
     "allTag": "All",

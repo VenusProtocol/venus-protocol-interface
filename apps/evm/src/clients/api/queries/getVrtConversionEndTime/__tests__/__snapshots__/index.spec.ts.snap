@@ -1,7 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`getVrtConversionEndTime > returns VRT conversion end time in the right format on success 1`] = `
-{
-  "conversionEndTime": 2001-09-09T01:46:40.000Z,
-}
-`;

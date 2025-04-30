@@ -57,7 +57,6 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     [routes.xvs.path, routes.xvs.path],
     [routes.vai.path, routes.vai.path],
     [routes.vaults.path, routes.vaults.path],
-    [routes.convertVrt.path, routes.convertVrt.path],
     [routes.swap.path, routes.swap.path],
     [routes.accountPrimeCalculator.path, routes.accountPrimeCalculator.path],
     [routes.dashboardPrimeCalculator.path, routes.dashboardPrimeCalculator.path],
