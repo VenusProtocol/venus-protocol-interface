@@ -43,9 +43,7 @@ export { default as createProposal } from './mutations/createProposal';
 export * from './mutations/createProposal';
 export { default as useCreateProposal } from './mutations/createProposal/useCreateProposal';
 
-export { default as cancelProposal } from './mutations/cancelProposal';
-export * from './mutations/cancelProposal';
-export { default as useCancelProposal } from './mutations/cancelProposal/useCancelProposal';
+export * from './mutations/useCancelProposal';
 
 export { default as executeProposal } from './mutations/executeProposal';
 export * from './mutations/executeProposal';

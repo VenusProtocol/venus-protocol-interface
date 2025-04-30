@@ -684,10 +684,9 @@ export const useCreateProposal = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const cancelProposal = vi.fn(async () => fakeContractTransaction);
 export const useCancelProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: cancelProposal,
+    mutationFn: vi.fn(),
     ...options,
   }),
 );
