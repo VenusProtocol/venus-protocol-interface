@@ -137,29 +137,6 @@ export const useGetProposalMinQuorumVotes = () =>
     queryFn: getProposalMinQuorumVotes,
   });
 
-export const getVrtConversionEndTime = vi.fn();
-export const useGetVrtConversionEndTime = () =>
-  useQuery({
-    queryKey: [FunctionKey.GET_VRT_CONVERSION_END_TIME],
-    queryFn: getVrtConversionEndTime,
-  });
-
-export const getVrtConversionRatio = vi.fn();
-export const useGetVrtConversionRatio = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_VRT_CONVERSION_RATIO],
-    queryFn: getVrtConversionRatio,
-  }),
-);
-
-export const getXvsWithdrawableAmount = vi.fn();
-export const useGetXvsWithdrawableAmount = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_XVS_WITHDRAWABLE_AMOUNT],
-    queryFn: getXvsWithdrawableAmount,
-  }),
-);
-
 export const getVTokenInterestRateModel = vi.fn();
 export const useGetVTokenInterestRateModel = vi.fn(() =>
   useQuery({
@@ -597,13 +574,6 @@ export const revokeSpendingLimit = vi.fn();
 export const useRevokeSpendingLimit = (_variables: never, options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: revokeSpendingLimit,
-    ...options,
-  });
-
-export const convertVrt = vi.fn();
-export const useConvertVrt = (options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: convertVrt,
     ...options,
   });
 

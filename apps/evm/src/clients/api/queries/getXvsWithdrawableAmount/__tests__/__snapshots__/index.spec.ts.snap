@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`getXvsWithdrawableAmount > returns the withdrawable amount on success 1`] = `
-{
-  "totalVestedAmount": "2000000000000000000",
-  "totalWithdrawableAmount": "1000000000000000000",
-  "totalWithdrawnAmount": "3000000000000000000",
-}
-`;

@@ -19,7 +19,6 @@ const IsolatedPoolMarket = safeLazyLoad(() => import('pages/Market/IsolatedPoolM
 const CorePool = safeLazyLoad(() => import('pages/Pool/CorePool'));
 const IsolatedPool = safeLazyLoad(() => import('pages/Pool/IsolatedPool'));
 const LidoMarket = safeLazyLoad(() => import('pages/Market/LidoMarket'));
-const ConvertVrt = safeLazyLoad(() => import('pages/ConvertVrt'));
 const Governance = safeLazyLoad(() => import('pages/Governance'));
 const IsolatedPools = safeLazyLoad(() => import('pages/IsolatedPools'));
 const Proposal = safeLazyLoad(() => import('pages/Proposal'));
@@ -36,7 +35,6 @@ const AppRoutes = () => {
   const { lstPoolComptrollerContractAddress, lstPoolVWstEthContractAddress } =
     useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
-  const convertVrtRouteEnabled = useIsFeatureEnabled({ name: 'convertVrtRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const primeCalculatorEnabled = useIsFeatureEnabled({
@@ -225,17 +223,6 @@ const AppRoutes = () => {
             </PageSuspense>
           }
         />
-
-        {convertVrtRouteEnabled && (
-          <Route
-            path={Subdirectory.CONVERT_VRT}
-            element={
-              <PageSuspense>
-                <ConvertVrt />
-              </PageSuspense>
-            }
-          />
-        )}
 
         {swapRouteEnabled && (
           <Route

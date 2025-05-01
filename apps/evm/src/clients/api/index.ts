@@ -31,10 +31,6 @@ export { default as repay } from './mutations/repay';
 export * from './mutations/repay';
 export { default as useRepay } from './mutations/repay/useRepay';
 
-export { default as withdrawXvs } from './mutations/withdrawXvs';
-export * from './mutations/withdrawXvs';
-export { default as useWithdrawXvs } from './mutations/withdrawXvs/useWithdrawXvs';
-
 export { default as setVoteDelegate } from './mutations/setVoteDelegate';
 export * from './mutations/setVoteDelegate';
 export { default as useSetVoteDelegate } from './mutations/setVoteDelegate/useSetVoteDelegate';
@@ -141,17 +137,8 @@ export * from './queries/getTokenBalances/useGetTokenBalances';
 export * from './queries/getTokenUsdPrice';
 export * from './queries/getTokenUsdPrice/useGetTokenUsdPrice';
 
-export * from './queries/getVrtConversionEndTime';
-export * from './queries/getVrtConversionEndTime/useGetVrtConversionEndTime';
-
-export * from './queries/getVrtConversionRatio';
-export * from './queries/getVrtConversionRatio/useGetVrtConversionRatio';
-
 export * from './queries/getVenusVaiVaultDailyRate';
 export * from './queries/getVenusVaiVaultDailyRate/useGetVenusVaiVaultDailyRate';
-
-export * from './queries/getXvsWithdrawableAmount';
-export * from './queries/getXvsWithdrawableAmount/useGetXvsWithdrawableAmount';
 
 export * from './queries/useGetAsset';
 
