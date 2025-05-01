@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.253.2
+
+### Patch Changes
+
+- 11f462e: temporarily disable zkETH market on ZKsync
+
 ## 2.253.1
 
 ### Patch Changes
