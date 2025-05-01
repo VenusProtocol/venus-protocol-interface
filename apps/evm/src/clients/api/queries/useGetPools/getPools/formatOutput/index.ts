@@ -21,6 +21,8 @@ import type { PrimeApy, VTokenBalance } from '../../types';
 import type { ApiPool } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
 
+const vZkEthAddress = '0xCEb7Da150d16aCE58F090754feF2775C23C8b631';
+
 export const formatOutput = ({
   apiPools,
   chainId,
@@ -58,6 +60,11 @@ export const formatOutput = ({
     const assets = apiPool.markets.reduce<Asset[]>((acc, market) => {
       // Remove unlisted tokens
       if (!market.isListed) {
+        return acc;
+      }
+
+      // Temporarily unlist zkETH
+      if (areAddressesEqual(market.address, vZkEthAddress)) {
         return acc;
       }
 
