@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.253.3
+
+### Patch Changes
+
+- d7d7901: temporarily unlist zkETH on ZKsync
+
 ## 2.253.2
 
 ### Patch Changes
