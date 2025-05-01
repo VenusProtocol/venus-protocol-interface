@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.253.4
+
+### Patch Changes
+
+- 496a172: relist zkETH on ZKsync
+
 ## 2.253.3
 
 ### Patch Changes
