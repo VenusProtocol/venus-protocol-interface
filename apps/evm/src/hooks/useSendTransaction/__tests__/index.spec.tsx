@@ -71,9 +71,6 @@ describe('useSendTransaction', () => {
       },
     );
 
-    console.log('useSendTransaction', useSendTransaction);
-    console.log(result.current);
-
     const { mutateAsync } = result.current;
 
     // Send transaction
