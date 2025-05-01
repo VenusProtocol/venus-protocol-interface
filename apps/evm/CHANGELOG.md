@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.253.1
+
+### Patch Changes
+
+- 68d1935: remove Convert VRT page
+
 ## 2.253.0
 
 ### Minor Changes
