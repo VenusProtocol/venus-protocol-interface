@@ -23,16 +23,19 @@ const useDelegateApproval = ({
 }: UseDelegateApprovalInput): UseDelegateApprovalOutput => {
   const { accountAddress } = useAccountAddress();
 
-  const { mutateAsync: updatePoolDelegateStatus, isPending: isUseUpdatePoolDelegateStatusLoading } =
-    useUpdatePoolDelegateStatus(
-      {
-        delegateeAddress,
-        poolComptrollerAddress,
-      },
-      {
-        waitForConfirmation: true,
-      },
-    );
+  const {
+    mutateAsync: updatePoolDelegateStatusMutation,
+    isPending: isUseUpdatePoolDelegateStatusLoading,
+  } = useUpdatePoolDelegateStatus({
+    waitForConfirmation: true,
+  });
+
+  const updatePoolDelegateStatus = (input: { approvedStatus: boolean }) =>
+    updatePoolDelegateStatusMutation({
+      poolComptrollerAddress,
+      delegateeAddress,
+      ...input,
+    });
 
   const { data: isDelegateApprovedData, isLoading: isDelegateApprovedLoading } =
     useGetPoolDelegateApprovalStatus(

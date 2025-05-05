@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useUpdatePoolDelegateStatus > calls useSendTransaction with the correct parameters 1`] = `
+{
+  "abi": Any<Array>,
+  "address": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+  "args": [
+    "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+    true,
+  ],
+  "functionName": "updateDelegate",
+}
+`;

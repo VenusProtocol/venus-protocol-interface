@@ -10,8 +10,6 @@ import { useSendTransaction } from 'hooks/useSendTransaction';
 import type { Mock } from 'vitest';
 import { useApproveToken } from '..';
 
-vi.mock('hooks/useSendTransaction');
-
 const fakeInput = {
   tokenAddress: xvs.address,
   spenderAddress: fakeSpenderAddress,

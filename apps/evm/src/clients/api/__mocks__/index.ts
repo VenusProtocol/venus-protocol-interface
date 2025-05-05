@@ -654,10 +654,9 @@ export const useCreateProposal = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const cancelProposal = vi.fn(async () => fakeContractTransaction);
 export const useCancelProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: cancelProposal,
+    mutationFn: vi.fn(),
     ...options,
   }),
 );
@@ -706,19 +705,19 @@ export const useCastVoteWithReason = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const withdrawFromVaiVault = vi.fn();
-export const useWithdrawFromVaiVault = (options?: MutationObserverOptions) =>
+export const useWithdrawFromVaiVault = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: withdrawFromVaiVault,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
-export const requestWithdrawalFromXvsVault = vi.fn();
-export const useRequestWithdrawalFromXvsVault = (options?: MutationObserverOptions) =>
+export const useRequestWithdrawalFromXvsVault = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: requestWithdrawalFromXvsVault,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const executeWithdrawalFromXvsVault = vi.fn();
 export const useExecuteWithdrawalFromXvsVault = (
@@ -744,12 +743,13 @@ export const useSwapTokensAndRepay = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const swapTokensAndSupply = vi.fn(async () => fakeContractTransaction);
-export const useSwapTokensAndSupply = (options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: swapTokensAndSupply,
-    ...options,
-  });
+export const useSwapTokensAndSupply = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
 
 export const claimRewards = vi.fn();
 export const useClaimRewards = (options?: MutationObserverOptions) =>
@@ -778,9 +778,10 @@ export const useBridgeXvs = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const updatePoolDelegateStatus = vi.fn();
-export const useUpdatePoolDelegateStatus = (_variables: never, options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: updatePoolDelegateStatus,
-    ...options,
-  });
+export const useUpdatePoolDelegateStatus = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);

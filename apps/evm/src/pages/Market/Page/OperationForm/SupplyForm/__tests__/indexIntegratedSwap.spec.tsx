@@ -8,7 +8,7 @@ import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/to
 import { bnb, busd, wbnb, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { swapTokensAndSupply } from 'clients/api';
+import { useSwapTokensAndSupply } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import {
@@ -498,6 +498,12 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       isLoading: false,
     }));
 
+    const mockSwapTokensAndSupply = vi.fn();
+
+    (useSwapTokensAndSupply as Mock).mockImplementation(() => ({
+      mutateAsync: mockSwapTokensAndSupply,
+    }));
+
     const onCloseMock = vi.fn();
 
     const { container, getByText, getByTestId } = renderComponent(
@@ -529,8 +535,8 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     await waitFor(() => getByText(en.operationForm.submitButtonLabel.supply));
     fireEvent.click(getByText(en.operationForm.submitButtonLabel.supply));
 
-    await waitFor(() => expect(swapTokensAndSupply).toHaveBeenCalledTimes(1));
-    expect(swapTokensAndSupply).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockSwapTokensAndSupply).toHaveBeenCalledTimes(1));
+    expect(mockSwapTokensAndSupply).toHaveBeenCalledWith({
       swap: fakeSwap,
     });
 

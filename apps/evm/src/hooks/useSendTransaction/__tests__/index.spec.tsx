@@ -8,9 +8,12 @@ import noop from 'noop-ts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import type { Config as WagmiConfig } from 'wagmi';
-import { useSendTransaction } from '..';
+import type { useSendTransaction as UseSendTransaction } from '..';
 import { sendTransaction } from '../sendTransaction';
 import { useTrackTransaction } from '../useTrackTransaction';
+
+const { useSendTransaction }: { useSendTransaction: typeof UseSendTransaction } =
+  await vi.importActual('hooks/useSendTransaction');
 
 vi.mock('../useTrackTransaction');
 vi.mock('../sendTransaction');

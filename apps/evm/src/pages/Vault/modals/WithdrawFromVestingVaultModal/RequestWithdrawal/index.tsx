@@ -239,7 +239,7 @@ const RequestWithdrawal: React.FC<RequestWithdrawalProps> = ({
     requestWithdrawalFromXvsVault({
       poolIndex,
       rewardTokenAddress: xvs!.address,
-      amountMantissa,
+      amountMantissa: BigInt(amountMantissa.toFixed()),
     });
 
   return (
