@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.255.0
+
+### Minor Changes
+
+- 27d97d8: add support for USD1 on BNB Chain networks
+
 ## 2.254.0
 
 ### Minor Changes
