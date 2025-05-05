@@ -41,6 +41,7 @@ import trxLogo from 'libs/tokens/img/underlyingTokens/trx.svg';
 import tusdLogo from 'libs/tokens/img/underlyingTokens/tusd.svg';
 import twtLogo from 'libs/tokens/img/underlyingTokens/twt.svg';
 import uniLogo from 'libs/tokens/img/underlyingTokens/uni.svg';
+import usd1Logo from 'libs/tokens/img/underlyingTokens/usd1.png';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
 import usddLogo from 'libs/tokens/img/underlyingTokens/usdd.svg';
 import usdeLogo from 'libs/tokens/img/underlyingTokens/usde.svg';
@@ -410,5 +411,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'sUSDe',
     asset: sUsdELogo,
+  },
+  {
+    address: '0x7792af341a10ccc4B1CDd7B317F0460a37346a0A',
+    decimals: 18,
+    symbol: 'USD1',
+    asset: usd1Logo,
   },
 ];
