@@ -5823,9 +5823,9 @@
   integrity sha512-rk8KQuCdhoRkzjRVF3QxLgAfFUyS0k7+GCQjlGEpEGco+qazJ0eMH6aO1DjDjibH7/ik383nnztua3BG+lOnwg==
 
 "@tanstack/react-query@^5.40.0", "@tanstack/react-query@^5.48.0":
-  version "5.75.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.75.1.tgz#8a0b7bac5ef85c3527d7baed81a6f1985e74e096"
-  integrity sha512-tN+gG+eXCHYm+VpmdXUP1rfE9LUrRzgYozTkBZtJV1/WFM3vwWNKQC8G6b2RKcs+2cPg+hdToZHZfjL3bF4yIQ==
+  version "5.75.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.75.2.tgz#6397277c90aa4d4203bf1b53738397bc51c00d7c"
+  integrity sha512-8F8VOsWUfSkCFoi62O9HSZT9jDgg28Ln8Z2dYKfRo/O2A0sgvr0uxTuNoon3PPXoDuHofv5V3elBI1M2Gh1MPg==
   dependencies:
     "@tanstack/query-core" "5.75.0"
 
@@ -18264,21 +18264,7 @@ viem@2.23.2:
     ox "0.6.7"
     ws "8.18.0"
 
-viem@>=2.23.11:
-  version "2.28.3"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.28.3.tgz#102dd52dc748aa24436990ea5c55ed63029a3b23"
-  integrity sha512-kGYmSHNmzXqg7uZlaV6OEL1p68Z45BYTRPsUM0jYLmOn2zWy6DRA+YxntKnt6jBiCPjiWbVrbFm5QS6TWnfAXQ==
-  dependencies:
-    "@noble/curves" "1.8.2"
-    "@noble/hashes" "1.7.2"
-    "@scure/bip32" "1.6.2"
-    "@scure/bip39" "1.5.4"
-    abitype "1.0.8"
-    isows "1.0.6"
-    ox "0.6.9"
-    ws "8.18.1"
-
-viem@^2.1.1, viem@^2.22.23, viem@^2.23.1:
+viem@>=2.23.11, viem@^2.1.1, viem@^2.22.23, viem@^2.23.1:
   version "2.28.3"
   resolved "https://registry.yarnpkg.com/viem/-/viem-2.28.3.tgz#102dd52dc748aa24436990ea5c55ed63029a3b23"
   integrity sha512-kGYmSHNmzXqg7uZlaV6OEL1p68Z45BYTRPsUM0jYLmOn2zWy6DRA+YxntKnt6jBiCPjiWbVrbFm5QS6TWnfAXQ==
