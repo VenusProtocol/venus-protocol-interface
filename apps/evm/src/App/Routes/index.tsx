@@ -40,6 +40,9 @@ const AppRoutes = () => {
   const primeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
+  const isolatedPoolsEnabled = useIsFeatureEnabled({
+    name: 'isolatedPools',
+  });
   const location = useLocation();
 
   // Scroll to the top of the page on route change
@@ -103,36 +106,38 @@ const AppRoutes = () => {
           </Route>
         )}
 
-        <Route path={Subdirectory.ISOLATED_POOLS}>
-          <Route
-            index
-            element={
-              <PageSuspense>
-                <IsolatedPools />
-              </PageSuspense>
-            }
-          />
-
-          <Route path={Subdirectory.ISOLATED_POOL}>
+        {isolatedPoolsEnabled && (
+          <Route path={Subdirectory.ISOLATED_POOLS}>
             <Route
               index
               element={
                 <PageSuspense>
-                  <IsolatedPool />
+                  <IsolatedPools />
                 </PageSuspense>
               }
             />
 
-            <Route
-              path={Subdirectory.MARKET}
-              element={
-                <PageSuspense>
-                  <IsolatedPoolMarket />
-                </PageSuspense>
-              }
-            />
+            <Route path={Subdirectory.ISOLATED_POOL}>
+              <Route
+                index
+                element={
+                  <PageSuspense>
+                    <IsolatedPool />
+                  </PageSuspense>
+                }
+              />
+
+              <Route
+                path={Subdirectory.MARKET}
+                element={
+                  <PageSuspense>
+                    <IsolatedPoolMarket />
+                  </PageSuspense>
+                }
+              />
+            </Route>
           </Route>
-        </Route>
+        )}
 
         <Route path={Subdirectory.CORE_POOL}>
           <Route
