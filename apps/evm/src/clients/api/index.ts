@@ -93,9 +93,7 @@ export { default as claimPrimeToken } from './mutations/claimPrimeToken';
 export * from './mutations/claimPrimeToken';
 export { default as useClaimPrimeToken } from './mutations/claimPrimeToken/useClaimPrimeToken';
 
-export { default as bridgeXvs } from './mutations/bridgeXvs';
-export * from './mutations/bridgeXvs';
-export { default as useBridgeXvs } from './mutations/bridgeXvs/useBridgeXvs';
+export * from './mutations/useBridgeXvs';
 
 export * from './mutations/useUpdatePoolDelegateStatus';
 

@@ -771,12 +771,12 @@ export const useClaimPrimeToken = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const bridgeXvs = vi.fn();
-export const useBridgeXvs = (options?: MutationObserverOptions) =>
+export const useBridgeXvs = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: bridgeXvs,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useUpdatePoolDelegateStatus = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
