@@ -764,12 +764,12 @@ export const useStakeInVault = () => ({
   isLoading: false,
 });
 
-export const claimPrimeToken = vi.fn();
-export const useClaimPrimeToken = (options?: MutationObserverOptions) =>
+export const useClaimPrimeToken = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: claimPrimeToken,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useBridgeXvs = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
