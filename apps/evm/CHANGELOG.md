@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.255.1
+
+### Patch Changes
+
+- f2ef110: only render Isolated Pools page when feature is enabled
+
 ## 2.255.0
 
 ### Minor Changes
