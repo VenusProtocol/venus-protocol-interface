@@ -10,9 +10,7 @@ export { default as mintVai } from './mutations/mintVai';
 export * from './mutations/mintVai';
 export { default as useMintVai } from './mutations/mintVai/useMintVai';
 
-export { default as repayVai } from './mutations/repayVai';
-export * from './mutations/repayVai';
-export { default as useRepayVai } from './mutations/repayVai/useRepayVai';
+export * from './mutations/useRepayVai';
 
 export { default as revokeSpendingLimit } from './mutations/revokeSpendingLimit';
 export * from './mutations/revokeSpendingLimit';

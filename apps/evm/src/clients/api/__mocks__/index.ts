@@ -584,12 +584,12 @@ export const useMintVai = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const repayVai = vi.fn();
-export const useRepayVai = (options?: MutationObserverOptions) =>
+export const useRepayVai = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: repayVai,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useEnterMarket = vi.fn((options?: MutationObserverOptions) =>
   useMutation({

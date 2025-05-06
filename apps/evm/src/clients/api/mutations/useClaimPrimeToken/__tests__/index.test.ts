@@ -36,7 +36,7 @@ describe('useClaimPrimeToken', () => {
       options: undefined,
     });
 
-    const { fn } = (useSendTransaction as jest.Mock).mock.calls[0][0];
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
     expect(await fn()).toMatchInlineSnapshot(
       {
@@ -52,7 +52,7 @@ describe('useClaimPrimeToken', () => {
     `,
     );
 
-    const { onConfirmed } = (useSendTransaction as jest.Mock).mock.calls[0][0];
+    const { onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
     await onConfirmed();
 
     expect((queryClient.invalidateQueries as Mock).mock.calls[0]).toMatchInlineSnapshot(`
