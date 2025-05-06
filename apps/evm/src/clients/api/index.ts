@@ -6,9 +6,7 @@ export * from './mutations/useExitMarket';
 export * from './mutations/useApproveToken';
 export * from './mutations/useBorrow';
 
-export { default as mintVai } from './mutations/mintVai';
-export * from './mutations/mintVai';
-export { default as useMintVai } from './mutations/mintVai/useMintVai';
+export * from './mutations/useMintVai';
 
 export * from './mutations/useRepayVai';
 

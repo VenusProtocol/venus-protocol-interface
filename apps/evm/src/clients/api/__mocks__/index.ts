@@ -577,12 +577,12 @@ export const useRevokeSpendingLimit = (_variables: never, options?: MutationObse
     ...options,
   });
 
-export const mintVai = vi.fn();
-export const useMintVai = (options?: MutationObserverOptions) =>
+export const useMintVai = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: mintVai,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useRepayVai = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
