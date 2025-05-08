@@ -17,6 +17,8 @@ export const LAYER_ZERO_CHAIN_IDS: Record<ChainId, number> = {
   [ChainId.BASE_SEPOLIA]: 10245,
   [ChainId.UNICHAIN_MAINNET]: 320,
   [ChainId.UNICHAIN_SEPOLIA]: 10333,
+  [ChainId.BERACHAIN_MAINNET]: 362,
+  [ChainId.BERACHAIN_BEPOLIA]: 10371,
 };
 
 export const CHAIN_IDS_ON_LAYER_ZERO = Object.entries(LAYER_ZERO_CHAIN_IDS).reduce<

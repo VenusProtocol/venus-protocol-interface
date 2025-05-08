@@ -1,12 +1,9 @@
-import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-
 import balLogo from 'libs/tokens/img/underlyingTokens/bal.svg';
 import crvLogo from 'libs/tokens/img/underlyingTokens/crv.png';
 import crvUsdLogo from 'libs/tokens/img/underlyingTokens/crvUsd.png';
 import daiLogo from 'libs/tokens/img/underlyingTokens/dai.svg';
 import eBtcLogo from 'libs/tokens/img/underlyingTokens/eBtc.png';
 import eigenLogo from 'libs/tokens/img/underlyingTokens/eigen.svg';
-import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
 import ezEthLogo from 'libs/tokens/img/underlyingTokens/ezEth.png';
 import fraxLogo from 'libs/tokens/img/underlyingTokens/frax.svg';
 import lBtcLogo from 'libs/tokens/img/underlyingTokens/lbtc.svg';
@@ -34,17 +31,10 @@ import yvUsdsLogo from 'libs/tokens/img/underlyingTokens/yvusds.svg';
 import yvUsdtLogo from 'libs/tokens/img/underlyingTokens/yvusdt.svg';
 import yvWEthLogo from 'libs/tokens/img/underlyingTokens/yvweth.svg';
 import type { Token } from 'types';
-
-const ethToken: Token = {
-  address: NATIVE_TOKEN_ADDRESS,
-  decimals: 18,
-  symbol: 'ETH',
-  asset: ethLogo,
-  isNative: true,
-};
+import { eth } from '../nativeTokens';
 
 export const tokens: Token[] = [
-  ethToken,
+  eth,
   {
     address: '0x66ebd019E86e0af5f228a0439EBB33f045CBe63E',
     decimals: 18,
@@ -62,7 +52,7 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'WETH',
     asset: wethLogo,
-    tokenWrapped: ethToken,
+    tokenWrapped: eth,
   },
   {
     address: '0x8d412FD0bc5d826615065B931171Eed10F5AF266',

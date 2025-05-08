@@ -1,5 +1,3 @@
-import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-
 import aaveLogo from 'libs/tokens/img/underlyingTokens/aave.svg';
 import adaLogo from 'libs/tokens/img/underlyingTokens/ada.svg';
 import alpacaLogo from 'libs/tokens/img/underlyingTokens/alpaca.png';
@@ -11,7 +9,6 @@ import babyDogeLogo from 'libs/tokens/img/underlyingTokens/babyDoge.svg';
 import bchLogo from 'libs/tokens/img/underlyingTokens/bch.svg';
 import bethLogo from 'libs/tokens/img/underlyingTokens/beth.svg';
 import bifiLogo from 'libs/tokens/img/underlyingTokens/bifi.png';
-import bnbLogo from 'libs/tokens/img/underlyingTokens/bnb.svg';
 import bnbxLogo from 'libs/tokens/img/underlyingTokens/bnbx.png';
 import bswLogo from 'libs/tokens/img/underlyingTokens/bsw.svg';
 import btcbLogo from 'libs/tokens/img/underlyingTokens/btcb.svg';
@@ -63,14 +60,7 @@ import wstEthLogo from 'libs/tokens/img/underlyingTokens/wstEth.svg';
 import xrpLogo from 'libs/tokens/img/underlyingTokens/xrp.svg';
 import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
 import type { Token } from 'types';
-
-const bnbToken: Token = {
-  address: NATIVE_TOKEN_ADDRESS,
-  decimals: 18,
-  symbol: 'BNB',
-  asset: bnbLogo,
-  isNative: true,
-};
+import { bnb } from '../nativeTokens';
 
 export const tokens: Token[] = [
   {
@@ -91,7 +81,7 @@ export const tokens: Token[] = [
     symbol: 'VRT',
     asset: vrtLogo,
   },
-  bnbToken,
+  bnb,
   {
     address: '0x47BEAd2563dCBf3bF2c9407fEa4dC236fAbA485A',
     decimals: 18,
@@ -325,7 +315,7 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'WBNB',
     asset: wbnbLogo,
-    tokenWrapped: bnbToken,
+    tokenWrapped: bnb,
   },
   {
     address: '0x3BC5AC0dFdC871B365d159f728dd1B9A0B5481E8',

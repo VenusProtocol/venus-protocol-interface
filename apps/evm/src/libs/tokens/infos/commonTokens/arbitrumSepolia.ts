@@ -1,6 +1,4 @@
-import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import arbLogo from 'libs/tokens/img/underlyingTokens/arb.svg';
-import ethLogo from 'libs/tokens/img/underlyingTokens/eth.svg';
 import gmBtcUsdcLogo from 'libs/tokens/img/underlyingTokens/gmBtcUsdc.svg';
 import gmWEthUsdcLogo from 'libs/tokens/img/underlyingTokens/gmWEthUsdc.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
@@ -11,17 +9,10 @@ import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
 import wstEthLogo from 'libs/tokens/img/underlyingTokens/wstEth.svg';
 import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
 import type { Token } from 'types';
-
-const ethToken: Token = {
-  address: NATIVE_TOKEN_ADDRESS,
-  decimals: 18,
-  symbol: 'ETH',
-  asset: ethLogo,
-  isNative: true,
-};
+import { eth } from '../nativeTokens';
 
 export const tokens: Token[] = [
-  ethToken,
+  eth,
   {
     address: '0x4371bb358aB5cC192E481543417D2F67b8781731',
     decimals: 18,
@@ -39,7 +30,7 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'WETH',
     asset: wethLogo,
-    tokenWrapped: ethToken,
+    tokenWrapped: eth,
   },
   {
     address: '0x86f096B1D970990091319835faF3Ee011708eAe8',

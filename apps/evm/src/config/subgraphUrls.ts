@@ -33,6 +33,8 @@ export const getGovernanceSubgraphUrls = ({
     [ChainId.UNICHAIN_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmSnLbgST88bbgj9imnw77dPd4HJ1gfhRhG9AMbqEwykUz`,
     [ChainId.UNICHAIN_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-governance-unichain-sepolia/version/latest',
+    [ChainId.BERACHAIN_MAINNET]: '', // TODO: add once deployed
+    [ChainId.BERACHAIN_BEPOLIA]: '', // TODO: add once deployed
   };
 
   return subgraphUrls;
