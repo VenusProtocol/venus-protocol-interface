@@ -31,9 +31,7 @@ export { default as setVoteDelegate } from './mutations/setVoteDelegate';
 export * from './mutations/setVoteDelegate';
 export { default as useSetVoteDelegate } from './mutations/setVoteDelegate/useSetVoteDelegate';
 
-export { default as createProposal } from './mutations/createProposal';
-export * from './mutations/createProposal';
-export { default as useCreateProposal } from './mutations/createProposal/useCreateProposal';
+export * from './mutations/useCreateProposal';
 
 export * from './mutations/useCancelProposal';
 

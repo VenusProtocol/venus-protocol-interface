@@ -647,12 +647,12 @@ export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const createProposal = vi.fn();
-export const useCreateProposal = (options?: MutationObserverOptions) =>
+export const useCreateProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: createProposal,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useCancelProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
