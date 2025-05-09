@@ -16,6 +16,7 @@ export * from './mutations/useSwapTokensAndSupply';
 export * from './mutations/useClaimPrimeToken';
 export * from './mutations/useBridgeXvs';
 export * from './mutations/useUpdatePoolDelegateStatus';
+export * from './mutations/useQueueProposal';
 
 export { default as revokeSpendingLimit } from './mutations/revokeSpendingLimit';
 export * from './mutations/revokeSpendingLimit';
@@ -37,10 +38,6 @@ export { default as useRepay } from './mutations/repay/useRepay';
 export { default as setVoteDelegate } from './mutations/setVoteDelegate';
 export * from './mutations/setVoteDelegate';
 export { default as useSetVoteDelegate } from './mutations/setVoteDelegate/useSetVoteDelegate';
-
-export { default as queueProposal } from './mutations/queueProposal';
-export * from './mutations/queueProposal';
-export { default as useQueueProposal } from './mutations/queueProposal/useQueueProposal';
 
 export { default as stakeInXvsVault } from './mutations/stakeInXvsVault';
 export * from './mutations/stakeInXvsVault';

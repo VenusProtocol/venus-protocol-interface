@@ -64,4 +64,3 @@ export const useExecuteProposal = (options?: Partial<Options>) => {
     options,
   });
 };
-
