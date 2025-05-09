@@ -4,7 +4,7 @@ import type { Token } from 'types';
 import { convertDollarsToCents, convertMantissaToTokens, findTokenByAddress } from 'utilities';
 
 import type { primeAbi } from 'libs/contracts';
-import type { ContractFunctionArgs, SimulateContractReturnType } from 'viem';
+import type { Address, ContractFunctionArgs, SimulateContractReturnType } from 'viem';
 import type { PrimePendingReward, PrimePendingRewardGroup } from '../types';
 
 const formatToPrimePendingRewardGroup = ({
@@ -22,7 +22,7 @@ const formatToPrimePendingRewardGroup = ({
   tokenPriceMapping: Record<string, BigNumber>;
   tokens: Token[];
 }) => {
-  const vTokenAddressesWithPendingReward: string[] = [];
+  const vTokenAddressesWithPendingReward: Address[] = [];
 
   const pendingRewards = primePendingRewards.reduce<PrimePendingReward[]>(
     (acc, primePendingReward) => {

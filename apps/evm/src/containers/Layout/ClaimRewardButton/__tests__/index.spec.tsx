@@ -2,10 +2,9 @@ import { fireEvent, waitFor, within } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { renderComponent } from 'testUtils/render';
 
-import { claimRewards, getPendingRewards } from 'clients/api';
+import { getPendingRewards, useClaimRewards } from 'clients/api';
 import { en } from 'libs/translations';
 
 import ClaimRewardButton from '..';
@@ -224,7 +223,10 @@ describe('ClaimRewardButton', () => {
   });
 
   it('it claims reward on submit button click and closes modal on success', async () => {
-    (claimRewards as Mock).mockImplementationOnce(() => fakeContractTransaction);
+    const mockClaimRewards = vi.fn();
+    (useClaimRewards as Mock).mockReturnValue({
+      mutateAsync: mockClaimRewards,
+    });
 
     const { queryByTestId, getByTestId } = renderComponent(<ClaimRewardButton />, {
       accountAddress: fakeAddress,
@@ -238,14 +240,17 @@ describe('ClaimRewardButton', () => {
     // Trigger claim
     fireEvent.click(getByTestId(TEST_IDS.claimRewardSubmitButton));
 
-    await waitFor(() => expect(claimRewards).toHaveBeenCalledTimes(1));
-    expect((claimRewards as Mock).mock.calls[0][0]).toMatchSnapshot();
+    await waitFor(() => expect(mockClaimRewards).toHaveBeenCalledTimes(1));
+    expect((mockClaimRewards as Mock).mock.calls[0][0]).toMatchSnapshot();
 
     await waitFor(() => expect(queryByTestId(TEST_IDS.claimRewardSubmitButton)).toBeNull());
   });
 
   it('it claims only selected and enabled rewards on submit button click on success', async () => {
-    (claimRewards as Mock).mockImplementationOnce(() => fakeContractTransaction);
+    const mockClaimRewards = vi.fn();
+    (useClaimRewards as Mock).mockReturnValue({
+      mutateAsync: mockClaimRewards,
+    });
 
     (getPendingRewards as Mock).mockImplementation(() => ({
       pendingRewardGroups: fakePendingRewardGroups.map(fakePendingRewardGroup => {
@@ -279,8 +284,8 @@ describe('ClaimRewardButton', () => {
     // Trigger claim
     fireEvent.click(getByTestId(TEST_IDS.claimRewardSubmitButton));
 
-    await waitFor(() => expect(claimRewards).toHaveBeenCalledTimes(1));
-    expect((claimRewards as Mock).mock.calls[0][0]).toMatchSnapshot();
+    await waitFor(() => expect(mockClaimRewards).toHaveBeenCalledTimes(1));
+    expect((mockClaimRewards as Mock).mock.calls[0][0]).toMatchSnapshot();
   });
 
   it('renders external rewards if user has pending external rewards to claim', async () => {
