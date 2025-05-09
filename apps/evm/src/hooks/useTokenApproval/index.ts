@@ -1,7 +1,7 @@
-import type BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { useApproveToken, useGetAllowance, useRevokeSpendingLimit } from 'clients/api';
+import { useApproveToken, useGetAllowance } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { VError } from 'libs/errors';
 import type { Token } from 'types';
@@ -42,21 +42,9 @@ const useTokenApproval = ({
     },
   );
 
-  const { mutateAsync: revokeAsync, isPending: isRevokeWalletSpendingLimitLoading } =
-    useRevokeSpendingLimit(
-      {
-        token,
-      },
-      {
-        waitForConfirmation: true,
-      },
-    );
-
-  const revokeWalletSpendingLimit = async () => {
-    if (spenderAddress) {
-      return revokeAsync({ spenderAddress });
-    }
-  };
+  const { mutateAsync: approveTokenMutation, isPending: isApproveTokenLoading } = useApproveToken({
+    waitForConfirmation: true,
+  });
 
   const walletSpendingLimitTokens = useMemo(
     () =>
@@ -77,10 +65,6 @@ const useTokenApproval = ({
     return walletSpendingLimitTokens.isGreaterThan(0);
   }, [token.isNative, walletSpendingLimitTokens]);
 
-  const { mutateAsync: approveTokenMutation, isPending: isApproveTokenLoading } = useApproveToken({
-    waitForConfirmation: true,
-  });
-
   const approveToken = async () => {
     if (!spenderAddress) {
       throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
@@ -92,13 +76,25 @@ const useTokenApproval = ({
     });
   };
 
+  const revokeWalletSpendingLimit = async () => {
+    if (!spenderAddress) {
+      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+    }
+
+    return approveTokenMutation({
+      spenderAddress,
+      tokenAddress: token.address,
+      allowanceMantissa: new BigNumber(0),
+    });
+  };
+
   return {
     isTokenApproved,
     isWalletSpendingLimitLoading,
     isApproveTokenLoading,
+    isRevokeWalletSpendingLimitLoading: isApproveTokenLoading,
     approveToken,
     revokeWalletSpendingLimit,
-    isRevokeWalletSpendingLimitLoading,
     walletSpendingLimitTokens,
   };
 };

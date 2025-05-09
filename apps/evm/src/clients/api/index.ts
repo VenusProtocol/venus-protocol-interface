@@ -20,10 +20,6 @@ export * from './mutations/useQueueProposal';
 export * from './mutations/useExecuteWithdrawalFromXvsVault';
 export * from './mutations/useSetVoteDelegate';
 
-export { default as revokeSpendingLimit } from './mutations/revokeSpendingLimit';
-export * from './mutations/revokeSpendingLimit';
-export { default as useRevokeSpendingLimit } from './mutations/revokeSpendingLimit/useRevokeSpendingLimit';
-
 export { default as supply } from './mutations/supply';
 export * from './mutations/supply';
 export { default as useSupply } from './mutations/supply/useSupply';

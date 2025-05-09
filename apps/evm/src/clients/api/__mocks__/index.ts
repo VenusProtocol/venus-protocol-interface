@@ -570,13 +570,6 @@ export const useApproveToken = vi.fn((_variables: never, options?: MutationObser
   }),
 );
 
-export const revokeSpendingLimit = vi.fn();
-export const useRevokeSpendingLimit = (_variables: never, options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: revokeSpendingLimit,
-    ...options,
-  });
-
 export const useMintVai = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: vi.fn(),

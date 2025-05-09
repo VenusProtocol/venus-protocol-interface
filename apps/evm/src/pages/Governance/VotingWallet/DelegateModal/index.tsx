@@ -9,6 +9,7 @@ import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 
 import { FormikTextField } from 'containers/Form';
+import type { Address } from 'viem';
 import { SubmitSection } from './SubmitSection';
 import addressValidationSchema from './addressValidationSchema';
 import { useStyles } from './styles';
@@ -17,7 +18,7 @@ interface DelegateModalProps {
   onClose: () => void;
   isOpen: boolean;
   currentUserAccountAddress: string | undefined;
-  setVoteDelegation: (input: { delegateAddress: string }) => unknown;
+  setVoteDelegation: (input: { delegateAddress: Address }) => unknown;
   previouslyDelegated: boolean;
   isVoteDelegationLoading: boolean;
 }
@@ -33,7 +34,7 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const onSubmit = async (delegateAddress: string) => {
+  const onSubmit = async (delegateAddress: Address) => {
     try {
       await setVoteDelegation({ delegateAddress });
     } catch (error) {
@@ -56,7 +57,7 @@ const DelegateModal: React.FC<DelegateModalProps> = ({
           initialValues={{
             address: '',
           }}
-          onSubmit={({ address }) => onSubmit(address)}
+          onSubmit={({ address }) => onSubmit(address as Address)}
           validationSchema={addressValidationSchema}
           isInitialValid={false}
           validateOnMount

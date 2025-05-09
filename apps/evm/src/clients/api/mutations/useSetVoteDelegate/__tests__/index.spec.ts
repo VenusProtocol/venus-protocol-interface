@@ -90,4 +90,4 @@ describe('useSetVoteDelegate', () => {
 
     await expect(async () => fn(fakeInput)).rejects.toThrow('somethingWentWrong');
   });
-}); 
+});
