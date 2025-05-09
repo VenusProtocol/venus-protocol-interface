@@ -675,12 +675,12 @@ export const useStakeInXvsVault = vi.fn((_variables: never, options?: MutationOb
   }),
 );
 
-export const stakeInVaiVault = vi.fn();
-export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
+export const useStakeInVaiVault = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: stakeInVaiVault,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const castVote = vi.fn();
 export const useCastVote = (options?: MutationObserverOptions) =>
@@ -747,11 +747,10 @@ export const useClaimRewards = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const stake = vi.fn();
-export const useStakeInVault = () => ({
-  stake,
+export const useStakeInVault = vi.fn(() => ({
+  stake: vi.fn(),
   isLoading: false,
-});
+}));
 
 export const useClaimPrimeToken = vi.fn((options?: MutationObserverOptions) =>
   useMutation({

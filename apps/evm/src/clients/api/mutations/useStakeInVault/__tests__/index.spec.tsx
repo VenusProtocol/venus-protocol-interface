@@ -1,10 +1,10 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import { vai, xvs } from '__mocks__/models/tokens';
 import BigNumber from 'bignumber.js';
-import { stakeInVaiVault, useStakeInXvsVault } from 'clients/api';
+import { useStakeInVaiVault, useStakeInXvsVault } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
-import useStakeInVault from '.';
+import { useStakeInVault } from '..';
 
 const fakeAmountMantissa = new BigNumber('10000000000000000');
 const fakeStakeButtonLabel = 'Stake';
@@ -19,11 +19,7 @@ describe('useStakeInVault', () => {
     const fakePoolIndex = 6;
 
     const TestComponent: React.FC = () => {
-      const { stake } = useStakeInVault({
-        stakedToken: xvs,
-        rewardToken: xvs,
-        poolIndex: fakePoolIndex,
-      });
+      const { stake } = useStakeInVault();
 
       return (
         <>
@@ -31,6 +27,9 @@ describe('useStakeInVault', () => {
             onClick={() =>
               stake({
                 amountMantissa: fakeAmountMantissa,
+                stakedToken: xvs,
+                rewardToken: xvs,
+                poolIndex: fakePoolIndex,
               })
             }
             type="button"
@@ -56,11 +55,13 @@ describe('useStakeInVault', () => {
   });
 
   it('calls stakeInVaiVault with correct parameters when calling stake without a poolIndex and stakedToken is equal VAI', async () => {
+    const mockStakeInVaiVault = vi.fn();
+    (useStakeInVaiVault as Mock).mockReturnValue({
+      mutateAsync: mockStakeInVaiVault,
+    });
+
     const TestComponent: React.FC = () => {
-      const { stake } = useStakeInVault({
-        stakedToken: vai,
-        rewardToken: xvs,
-      });
+      const { stake } = useStakeInVault();
 
       return (
         <>
@@ -68,6 +69,8 @@ describe('useStakeInVault', () => {
             onClick={() =>
               stake({
                 amountMantissa: fakeAmountMantissa,
+                stakedToken: vai,
+                rewardToken: xvs,
               })
             }
             type="button"
@@ -83,8 +86,8 @@ describe('useStakeInVault', () => {
     // Click on stake button
     fireEvent.click(getByText(fakeStakeButtonLabel));
 
-    await waitFor(() => expect(stakeInVaiVault).toHaveBeenCalledTimes(1));
-    expect(stakeInVaiVault).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockStakeInVaiVault).toHaveBeenCalledTimes(1));
+    expect(mockStakeInVaiVault).toHaveBeenCalledWith({
       amountMantissa: fakeAmountMantissa,
     });
   });

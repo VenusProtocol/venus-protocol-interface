@@ -20,6 +20,8 @@ export * from './mutations/useQueueProposal';
 export * from './mutations/useExecuteWithdrawalFromXvsVault';
 export * from './mutations/useSetVoteDelegate';
 export * from './mutations/useStakeInXvsVault';
+export * from './mutations/useStakeInVaiVault';
+export * from './mutations/useStakeInVault';
 
 export { default as supply } from './mutations/supply';
 export * from './mutations/supply';
@@ -33,10 +35,6 @@ export { default as useWithdraw } from './mutations/withdraw/useWithdraw';
 export { default as repay } from './mutations/repay';
 export * from './mutations/repay';
 export { default as useRepay } from './mutations/repay/useRepay';
-
-export { default as stakeInVaiVault } from './mutations/stakeInVaiVault';
-export * from './mutations/stakeInVaiVault';
-export { default as useStakeInVaiVault } from './mutations/stakeInVaiVault/useStakeInVaiVault';
 
 export { default as castVote } from './mutations/vote/castVote';
 export * from './mutations/vote/castVote';
@@ -57,8 +55,6 @@ export { default as useSwapTokensAndRepay } from './mutations/swapTokensAndRepay
 export { default as claimRewards } from './mutations/claimRewards';
 export * from './mutations/claimRewards';
 export { default as useClaimRewards } from './mutations/claimRewards/useClaimRewards';
-
-export { default as useStakeInVault } from './mutations/useStakeInVault';
 
 // Queries
 export * from './queries/getUserVaiBorrowBalance';

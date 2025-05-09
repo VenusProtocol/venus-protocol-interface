@@ -1,20 +1,24 @@
-import { type StakeInVaiVaultInput, queryClient, stakeInVaiVault } from 'clients/api';
+import type BigNumber from 'bignumber.js';
+import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetVaiVaultContract } from 'libs/contracts';
+import { useGetVaiVaultContractAddress, vaiVaultAbi } from 'libs/contracts';
+import { VError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
-import { useChainId } from 'libs/wallet';
-import { callOrThrow, convertMantissaToTokens } from 'utilities';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import { convertMantissaToTokens } from 'utilities';
 
-type TrimmedStakeInVaiVaultInput = Omit<StakeInVaiVaultInput, 'vaiVaultContract'>;
-type Options = UseSendTransactionOptions<TrimmedStakeInVaiVaultInput>;
+type StakeInVaiVaultInput = {
+  amountMantissa: BigNumber;
+};
 
-const useStakeInVaiVault = (options?: Partial<Options>) => {
+type Options = UseSendTransactionOptions<StakeInVaiVaultInput>;
+
+export const useStakeInVaiVault = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
-  const vaiVaultContract = useGetVaiVaultContract({
-    passSigner: true,
-  });
+  const { accountAddress } = useAccountAddress();
+  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
 
   const vai = useGetToken({
     symbol: 'VAI',
@@ -23,20 +27,22 @@ const useStakeInVaiVault = (options?: Partial<Options>) => {
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fn: (input: TrimmedStakeInVaiVaultInput) =>
-      callOrThrow(
-        {
-          vaiVaultContract,
-        },
-        params =>
-          stakeInVaiVault({
-            ...params,
-            ...input,
-          }),
-      ),
-    onConfirmed: async ({ input }) => {
-      const accountAddress = await vaiVaultContract?.signer.getAddress();
+    fn: ({ amountMantissa }: StakeInVaiVaultInput) => {
+      if (!vaiVaultContractAddress) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+        });
+      }
 
+      return {
+        abi: vaiVaultAbi,
+        address: vaiVaultContractAddress,
+        functionName: 'deposit',
+        args: [BigInt(amountMantissa.toFixed())],
+      };
+    },
+    onConfirmed: async ({ input }) => {
       if (vai) {
         captureAnalyticEvent('Tokens staked in VAI vault', {
           tokenAmountTokens: convertMantissaToTokens({
@@ -74,7 +80,7 @@ const useStakeInVaiVault = (options?: Partial<Options>) => {
             FunctionKey.GET_BALANCE_OF,
             {
               chainId,
-              accountAddress: vaiVaultContract?.address,
+              accountAddress: vaiVaultContractAddress,
               tokenAddress: vai.address,
             },
           ],
@@ -101,5 +107,3 @@ const useStakeInVaiVault = (options?: Partial<Options>) => {
     options,
   });
 };
-
-export default useStakeInVaiVault;
