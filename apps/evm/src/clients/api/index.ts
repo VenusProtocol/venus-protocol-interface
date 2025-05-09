@@ -22,6 +22,7 @@ export * from './mutations/useSetVoteDelegate';
 export * from './mutations/useStakeInXvsVault';
 export * from './mutations/useStakeInVaiVault';
 export * from './mutations/useStakeInVault';
+export * from './mutations/useVote';
 
 export { default as supply } from './mutations/supply';
 export * from './mutations/supply';
@@ -35,14 +36,6 @@ export { default as useWithdraw } from './mutations/withdraw/useWithdraw';
 export { default as repay } from './mutations/repay';
 export * from './mutations/repay';
 export { default as useRepay } from './mutations/repay/useRepay';
-
-export { default as castVote } from './mutations/vote/castVote';
-export * from './mutations/vote/castVote';
-export { default as useCastVote } from './mutations/vote/useCastVote';
-
-export { default as castVoteWithReason } from './mutations/vote/castVoteWithReason';
-export * from './mutations/vote/castVoteWithReason';
-export { default as useCastVoteWithReason } from './mutations/vote/useCastVoteWithReason';
 
 export { default as swapTokens } from './mutations/swapTokens';
 export * from './mutations/swapTokens';

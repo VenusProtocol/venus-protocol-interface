@@ -682,19 +682,12 @@ export const useStakeInVaiVault = vi.fn((options?: MutationObserverOptions) =>
   }),
 );
 
-export const castVote = vi.fn();
-export const useCastVote = (options?: MutationObserverOptions) =>
+export const useVote = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: castVote,
+    mutationFn: vi.fn(),
     ...options,
-  });
-
-export const castVoteWithReason = vi.fn();
-export const useCastVoteWithReason = (options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: castVoteWithReason,
-    ...options,
-  });
+  }),
+);
 
 export const useWithdrawFromVaiVault = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
