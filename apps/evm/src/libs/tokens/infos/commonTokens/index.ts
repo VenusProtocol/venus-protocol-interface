@@ -5,6 +5,8 @@ import { tokens as arbitrumOneTokens } from './arbitrumOne';
 import { tokens as arbitrumSepoliaTokens } from './arbitrumSepolia';
 import { tokens as baseMainnetTokens } from './baseMainnet';
 import { tokens as baseSepoliaTokens } from './baseSepolia';
+import { tokens as berachainBepoliaTokens } from './berachainBepolia';
+import { tokens as berachainMainnetTokens } from './berachainMainnet';
 import { tokens as bscMainnetTokens } from './bscMainnet';
 import { tokens as bscTestnetTokens } from './bscTestnet';
 import { tokens as ethereumTokens } from './ethereum';
@@ -35,4 +37,6 @@ export const tokens: TokenMapping = {
   [ChainId.BASE_SEPOLIA]: baseSepoliaTokens,
   [ChainId.UNICHAIN_MAINNET]: unichainMainnetTokens,
   [ChainId.UNICHAIN_SEPOLIA]: unichainSepoliaTokens,
+  [ChainId.BERACHAIN_MAINNET]: berachainMainnetTokens,
+  [ChainId.BERACHAIN_BEPOLIA]: berachainBepoliaTokens,
 };

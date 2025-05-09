@@ -5,6 +5,8 @@ import {
   arbitrumSepolia,
   base,
   baseSepolia,
+  berachain,
+  berachainBepolia,
   bsc as bscMainnet,
   bscTestnet,
   mainnet as ethereum,
@@ -39,6 +41,8 @@ const chainMapping = {
   [ChainId.BASE_SEPOLIA]: baseSepolia,
   [ChainId.UNICHAIN_MAINNET]: unichain,
   [ChainId.UNICHAIN_SEPOLIA]: unichainSepolia,
+  [ChainId.BERACHAIN_MAINNET]: berachain,
+  [ChainId.BERACHAIN_BEPOLIA]: berachainBepolia,
 } as const satisfies Record<ChainId, Chain>;
 
 const getSupportedChains = () => {

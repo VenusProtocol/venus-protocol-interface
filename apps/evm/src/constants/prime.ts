@@ -133,4 +133,6 @@ export const primeAveragesForNetwork: Record<
   [ChainId.BASE_SEPOLIA]: undefined,
   [ChainId.UNICHAIN_MAINNET]: undefined,
   [ChainId.UNICHAIN_SEPOLIA]: undefined,
+  [ChainId.BERACHAIN_MAINNET]: undefined,
+  [ChainId.BERACHAIN_BEPOLIA]: undefined,
 };
