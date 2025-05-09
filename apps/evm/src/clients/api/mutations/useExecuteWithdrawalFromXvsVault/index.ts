@@ -1,31 +1,28 @@
-import {
-  type ExecuteWithdrawalFromXvsVaultInput,
-  executeWithdrawalFromXvsVault,
-  queryClient,
-} from 'clients/api';
+import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetXvsVaultContract } from 'libs/contracts';
+import { useGetXvsVaultContractAddress, xvsVaultAbi } from 'libs/contracts';
+import { VError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
-import { useChainId } from 'libs/wallet';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Token } from 'types';
-import { callOrThrow } from 'utilities';
+import type { Address } from 'viem';
 
-type TrimmedExecuteWithdrawalFromXvsVaultInput = Omit<
-  ExecuteWithdrawalFromXvsVaultInput,
-  'xvsVaultContract'
->;
-type Options = UseSendTransactionOptions<TrimmedExecuteWithdrawalFromXvsVaultInput>;
+type ExecuteWithdrawalFromXvsVaultInput = {
+  rewardTokenAddress: Address;
+  poolIndex: number;
+};
 
-const useExecuteWithdrawalFromXvsVault = (
+type Options = UseSendTransactionOptions<ExecuteWithdrawalFromXvsVaultInput>;
+
+export const useExecuteWithdrawalFromXvsVault = (
   { stakedToken }: { stakedToken: Token },
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const xvsVaultContract = useGetXvsVaultContract({
-    passSigner: true,
-  });
+  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { accountAddress } = useAccountAddress();
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -34,16 +31,23 @@ const useExecuteWithdrawalFromXvsVault = (
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fn: (input: TrimmedExecuteWithdrawalFromXvsVaultInput) =>
-      callOrThrow({ xvsVaultContract }, params =>
-        executeWithdrawalFromXvsVault({
-          ...params,
-          ...input,
-        }),
-      ),
+    fn: ({ rewardTokenAddress, poolIndex }: ExecuteWithdrawalFromXvsVaultInput) => {
+      if (!xvsVaultContractAddress) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+        });
+      }
+
+      return {
+        abi: xvsVaultAbi,
+        address: xvsVaultContractAddress,
+        functionName: 'executeWithdrawal',
+        args: [rewardTokenAddress, BigInt(poolIndex)],
+      };
+    },
     onConfirmed: async ({ input }) => {
       const { poolIndex } = input;
-      const accountAddress = await xvsVaultContract?.signer.getAddress();
 
       if (xvs) {
         captureAnalyticEvent('Token withdrawals executed from XVS vault', {
@@ -117,7 +121,7 @@ const useExecuteWithdrawalFromXvsVault = (
           FunctionKey.GET_BALANCE_OF,
           {
             chainId,
-            accountAddress: xvsVaultContract?.address,
+            accountAddress: xvsVaultContractAddress,
             tokenAddress: stakedToken.address,
           },
         ],
@@ -126,5 +130,3 @@ const useExecuteWithdrawalFromXvsVault = (
     options,
   });
 };
-
-export default useExecuteWithdrawalFromXvsVault;

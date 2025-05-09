@@ -17,6 +17,7 @@ export * from './mutations/useClaimPrimeToken';
 export * from './mutations/useBridgeXvs';
 export * from './mutations/useUpdatePoolDelegateStatus';
 export * from './mutations/useQueueProposal';
+export * from './mutations/useExecuteWithdrawalFromXvsVault';
 
 export { default as revokeSpendingLimit } from './mutations/revokeSpendingLimit';
 export * from './mutations/revokeSpendingLimit';
@@ -54,10 +55,6 @@ export { default as useCastVote } from './mutations/vote/useCastVote';
 export { default as castVoteWithReason } from './mutations/vote/castVoteWithReason';
 export * from './mutations/vote/castVoteWithReason';
 export { default as useCastVoteWithReason } from './mutations/vote/useCastVoteWithReason';
-
-export { default as executeWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault';
-export * from './mutations/executeWithdrawalFromXvsVault';
-export { default as useExecuteWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault/useExecuteWithdrawalFromXvsVault';
 
 export { default as swapTokens } from './mutations/swapTokens';
 export * from './mutations/swapTokens';
