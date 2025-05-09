@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.4.0
+
+### Minor Changes
+
+- 7ef8def: add metadata for Berachain Mainnet and Bepolia
+
 ## 0.3.0
 
 ### Minor Changes

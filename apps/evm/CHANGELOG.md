@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 2.256.0
+
+### Minor Changes
+
+- 7ef8def: add metadata for Berachain Mainnet and Bepolia
+
+### Patch Changes
+
+- Updated dependencies [7ef8def]
+  - @venusprotocol/chains@0.4.0
+
 ## 2.255.1
 
 ### Patch Changes
