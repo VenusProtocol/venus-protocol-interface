@@ -5,10 +5,17 @@ export * from './mutations/useEnterMarket';
 export * from './mutations/useExitMarket';
 export * from './mutations/useApproveToken';
 export * from './mutations/useBorrow';
-
 export * from './mutations/useMintVai';
-
 export * from './mutations/useRepayVai';
+export * from './mutations/useCreateProposal';
+export * from './mutations/useCancelProposal';
+export * from './mutations/useExecuteProposal';
+export * from './mutations/useWithdrawFromVaiVault';
+export * from './mutations/useRequestWithdrawalFromXvsVault';
+export * from './mutations/useSwapTokensAndSupply';
+export * from './mutations/useClaimPrimeToken';
+export * from './mutations/useBridgeXvs';
+export * from './mutations/useUpdatePoolDelegateStatus';
 
 export { default as revokeSpendingLimit } from './mutations/revokeSpendingLimit';
 export * from './mutations/revokeSpendingLimit';
@@ -31,14 +38,6 @@ export { default as setVoteDelegate } from './mutations/setVoteDelegate';
 export * from './mutations/setVoteDelegate';
 export { default as useSetVoteDelegate } from './mutations/setVoteDelegate/useSetVoteDelegate';
 
-export * from './mutations/useCreateProposal';
-
-export * from './mutations/useCancelProposal';
-
-export { default as executeProposal } from './mutations/executeProposal';
-export * from './mutations/executeProposal';
-export { default as useExecuteProposal } from './mutations/executeProposal/useExecuteProposal';
-
 export { default as queueProposal } from './mutations/queueProposal';
 export * from './mutations/queueProposal';
 export { default as useQueueProposal } from './mutations/queueProposal/useQueueProposal';
@@ -59,10 +58,6 @@ export { default as castVoteWithReason } from './mutations/vote/castVoteWithReas
 export * from './mutations/vote/castVoteWithReason';
 export { default as useCastVoteWithReason } from './mutations/vote/useCastVoteWithReason';
 
-export * from './mutations/useWithdrawFromVaiVault';
-
-export * from './mutations/useRequestWithdrawalFromXvsVault';
-
 export { default as executeWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault';
 export * from './mutations/executeWithdrawalFromXvsVault';
 export { default as useExecuteWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault/useExecuteWithdrawalFromXvsVault';
@@ -75,19 +70,11 @@ export { default as swapTokensAndRepay } from './mutations/swapTokensAndRepay';
 export * from './mutations/swapTokensAndRepay';
 export { default as useSwapTokensAndRepay } from './mutations/swapTokensAndRepay/useSwapTokensAndRepay';
 
-export * from './mutations/useSwapTokensAndSupply';
-
 export { default as claimRewards } from './mutations/claimRewards';
 export * from './mutations/claimRewards';
 export { default as useClaimRewards } from './mutations/claimRewards/useClaimRewards';
 
 export { default as useStakeInVault } from './mutations/useStakeInVault';
-
-export * from './mutations/useClaimPrimeToken';
-
-export * from './mutations/useBridgeXvs';
-
-export * from './mutations/useUpdatePoolDelegateStatus';
 
 // Queries
 export * from './queries/getUserVaiBorrowBalance';

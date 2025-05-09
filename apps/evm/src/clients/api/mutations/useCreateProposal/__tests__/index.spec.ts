@@ -1,6 +1,5 @@
 import fakeGovernorBravoDelegateContractAddress from '__mocks__/models/address';
 import { queryClient } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useGetGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
@@ -44,7 +43,8 @@ describe('useCreateProposal', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
@@ -70,13 +70,22 @@ describe('useCreateProposal', () => {
         ],
         "functionName": "propose",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
-    expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-      queryKey: [FunctionKey.GET_PROPOSALS],
-    });
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
+      [
+        [
+          {
+            "queryKey": [
+              "GET_PROPOSALS",
+            ],
+          },
+        ],
+      ]
+    `);
   });
 
   it('throws when contract address could not be retrieved', async () => {
