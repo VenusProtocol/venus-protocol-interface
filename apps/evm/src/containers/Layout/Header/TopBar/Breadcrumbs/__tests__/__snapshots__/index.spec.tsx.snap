@@ -6,8 +6,6 @@ exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on th
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /account/prime-calculator 1`] = `"Account/Prime calculator"`;
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /convert-vrt 1`] = `"Convert VRT"`;
-
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /core-pool 1`] = `"Core pool"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /core-pool/market/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E 1`] = `"Core pool/XVS"`;
