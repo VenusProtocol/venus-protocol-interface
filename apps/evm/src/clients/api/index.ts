@@ -19,6 +19,7 @@ export * from './mutations/useUpdatePoolDelegateStatus';
 export * from './mutations/useQueueProposal';
 export * from './mutations/useExecuteWithdrawalFromXvsVault';
 export * from './mutations/useSetVoteDelegate';
+export * from './mutations/useStakeInXvsVault';
 
 export { default as supply } from './mutations/supply';
 export * from './mutations/supply';
@@ -32,10 +33,6 @@ export { default as useWithdraw } from './mutations/withdraw/useWithdraw';
 export { default as repay } from './mutations/repay';
 export * from './mutations/repay';
 export { default as useRepay } from './mutations/repay/useRepay';
-
-export { default as stakeInXvsVault } from './mutations/stakeInXvsVault';
-export * from './mutations/stakeInXvsVault';
-export { default as useStakeInXvsVault } from './mutations/stakeInXvsVault/useStakeInXvsVault';
 
 export { default as stakeInVaiVault } from './mutations/stakeInVaiVault';
 export * from './mutations/stakeInVaiVault';

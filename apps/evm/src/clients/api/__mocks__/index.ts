@@ -668,12 +668,12 @@ export const useQueueProposal = vi.fn((options?: MutationObserverOptions) =>
   }),
 );
 
-export const stakeInXvsVault = vi.fn();
-export const useStakeInXvsVault = (_variables: never, options?: MutationObserverOptions) =>
+export const useStakeInXvsVault = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: stakeInXvsVault,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const stakeInVaiVault = vi.fn();
 export const useStakeInVaiVault = (options?: MutationObserverOptions) =>

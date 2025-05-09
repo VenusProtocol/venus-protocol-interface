@@ -13,11 +13,8 @@ import { ChainId } from 'types';
 import type { Mock } from 'vitest';
 import useBridgeXvs from '..';
 
-vi.mock('hooks/useSendTransaction');
 vi.mock('libs/analytics');
 vi.mock('libs/contracts');
-vi.mock('libs/tokens');
-vi.mock('libs/wallet');
 
 const fakeInput = {
   destinationChainId: ChainId.BSC_TESTNET,

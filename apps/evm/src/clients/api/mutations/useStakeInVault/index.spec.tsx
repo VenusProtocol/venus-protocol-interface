@@ -1,23 +1,26 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
-
 import { vai, xvs } from '__mocks__/models/tokens';
+import BigNumber from 'bignumber.js';
+import { stakeInVaiVault, useStakeInXvsVault } from 'clients/api';
 import { renderComponent } from 'testUtils/render';
-
-import { stakeInVaiVault, stakeInXvsVault } from 'clients/api';
-
+import type { Mock } from 'vitest';
 import useStakeInVault from '.';
 
 const fakeAmountMantissa = new BigNumber('10000000000000000');
 const fakeStakeButtonLabel = 'Stake';
 
-describe('api/mutation/useStakeInVault', () => {
+describe('useStakeInVault', () => {
   it('calls stakeInXvsVault with correct parameters when calling stake a poolIndex', async () => {
+    const mockStakeInXvsVault = vi.fn();
+    (useStakeInXvsVault as Mock).mockReturnValue({
+      mutateAsync: mockStakeInXvsVault,
+    });
+
     const fakePoolIndex = 6;
 
     const TestComponent: React.FC = () => {
       const { stake } = useStakeInVault({
-        stakedToken: vai,
+        stakedToken: xvs,
         rewardToken: xvs,
         poolIndex: fakePoolIndex,
       });
@@ -43,11 +46,12 @@ describe('api/mutation/useStakeInVault', () => {
     // Click on stake button
     fireEvent.click(getByText(fakeStakeButtonLabel));
 
-    await waitFor(() => expect(stakeInXvsVault).toHaveBeenCalledTimes(1));
-    expect(stakeInXvsVault).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockStakeInXvsVault).toHaveBeenCalledTimes(1));
+    expect(mockStakeInXvsVault).toHaveBeenCalledWith({
       amountMantissa: fakeAmountMantissa,
       poolIndex: fakePoolIndex,
       rewardToken: xvs,
+      stakedToken: xvs,
     });
   });
 

@@ -1,46 +1,54 @@
-import { type StakeInXvsVaultInput, queryClient, stakeInXvsVault } from 'clients/api';
+import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetXvsVaultContract } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
+import { useGetXvsVaultContractAddress, xvsVaultAbi } from 'libs/contracts';
+import { VError } from 'libs/errors';
+import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Token } from 'types';
-import { callOrThrow, convertMantissaToTokens } from 'utilities';
+import { convertMantissaToTokens } from 'utilities';
 
-type TrimmedStakeInXvsVaultInput = Omit<StakeInXvsVaultInput, 'xvsVaultContract'>;
-type Options = UseSendTransactionOptions<TrimmedStakeInXvsVaultInput>;
+type StakeInXvsVaultInput = {
+  stakedToken: Token;
+  rewardToken: Token;
+  amountMantissa: BigNumber;
+  poolIndex: number;
+};
+type Options = UseSendTransactionOptions<StakeInXvsVaultInput>;
 
-const useStakeInXvsVault = (
-  { stakedToken, rewardToken }: { stakedToken: Token; rewardToken: Token },
-  options?: Partial<Options>,
-) => {
+export const useStakeInXvsVault = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
-  const xvsVaultContract = useGetXvsVaultContract({
-    passSigner: true,
-  });
   const { captureAnalyticEvent } = useAnalytics();
+  const { accountAddress } = useAccountAddress();
+  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
 
   return useSendTransaction({
-    fn: (input: TrimmedStakeInXvsVaultInput) =>
-      callOrThrow({ xvsVaultContract }, params =>
-        stakeInXvsVault({
-          ...params,
-          ...input,
-        }),
-      ),
+    fn: ({ poolIndex, amountMantissa, rewardToken }: StakeInXvsVaultInput) => {
+      if (!xvsVaultContractAddress) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+        });
+      }
+
+      return {
+        abi: xvsVaultAbi,
+        address: xvsVaultContractAddress,
+        functionName: 'deposit',
+        args: [rewardToken.address, BigInt(poolIndex), BigInt(amountMantissa.toFixed())],
+      };
+    },
     onConfirmed: async ({ input }) => {
       const { poolIndex, amountMantissa } = input;
 
       captureAnalyticEvent('Tokens staked in XVS vault', {
         poolIndex,
-        rewardTokenSymbol: rewardToken.symbol,
+        rewardTokenSymbol: input.rewardToken.symbol,
         tokenAmountTokens: convertMantissaToTokens({
-          token: stakedToken,
+          token: input.stakedToken,
           value: amountMantissa,
         }).toNumber(),
       });
-
-      const accountAddress = await xvsVaultContract?.signer.getAddress();
 
       // Invalidate cached user info
       queryClient.invalidateQueries({
@@ -49,7 +57,7 @@ const useStakeInXvsVault = (
           {
             chainId,
             accountAddress,
-            rewardTokenAddress: rewardToken.address,
+            rewardTokenAddress: input.rewardToken.address,
             poolIndex,
           },
         ],
@@ -62,7 +70,7 @@ const useStakeInXvsVault = (
           {
             chainId,
             accountAddress,
-            tokenAddress: stakedToken.address,
+            tokenAddress: input.stakedToken.address,
           },
         ],
       });
@@ -72,7 +80,7 @@ const useStakeInXvsVault = (
           FunctionKey.GET_TOKEN_ALLOWANCE,
           {
             chainId,
-            tokenAddress: stakedToken.address,
+            tokenAddress: input.stakedToken.address,
             accountAddress,
           },
         ],
@@ -94,8 +102,8 @@ const useStakeInXvsVault = (
           FunctionKey.GET_BALANCE_OF,
           {
             chainId,
-            accountAddress: xvsVaultContract?.address,
-            tokenAddress: stakedToken.address,
+            accountAddress: xvsVaultContractAddress,
+            tokenAddress: input.stakedToken.address,
           },
         ],
       });
@@ -105,7 +113,7 @@ const useStakeInXvsVault = (
           FunctionKey.GET_XVS_VAULT_POOL_INFOS,
           {
             chainId,
-            rewardTokenAddress: rewardToken.address,
+            rewardTokenAddress: input.rewardToken.address,
             poolIndex,
           },
         ],

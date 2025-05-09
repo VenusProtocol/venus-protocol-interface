@@ -20,7 +20,6 @@ import {
 } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('libs/tokens');
 vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
 describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {

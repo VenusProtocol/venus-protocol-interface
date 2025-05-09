@@ -21,10 +21,8 @@ const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaul
     symbol: 'VAI',
   });
 
-  const { mutateAsync: stakeInXvsVault, isPending: isStakeInXvsVaultLoading } = useStakeInXvsVault({
-    stakedToken,
-    rewardToken,
-  });
+  const { mutateAsync: stakeInXvsVault, isPending: isStakeInXvsVaultLoading } =
+    useStakeInXvsVault();
 
   const { mutateAsync: stakeInVaiVault, isPending: isStakeInVaiVaultLoading } =
     useStakeInVaiVault();
@@ -36,6 +34,7 @@ const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaul
       return stakeInXvsVault({
         poolIndex,
         rewardToken,
+        stakedToken,
         amountMantissa,
       });
     }

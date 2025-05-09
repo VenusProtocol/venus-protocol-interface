@@ -20,7 +20,6 @@ import Supply from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('libs/tokens');
 vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
 const fakeNativeTokenBalanceTokens = new BigNumber(10);
