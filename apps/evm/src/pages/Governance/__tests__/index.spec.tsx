@@ -4,7 +4,6 @@ import _cloneDeep from 'lodash/cloneDeep';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress, { altAddress } from '__mocks__/models/address';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { proposals } from '__mocks__/models/proposals';
 import { vaults } from '__mocks__/models/vaults';
 import { renderComponent } from 'testUtils/render';
@@ -13,9 +12,9 @@ import {
   getCurrentVotes,
   getLatestProposalIdByProposer,
   getProposalState,
-  setVoteDelegate,
   useGetProposals,
   useGetVestingVaults,
+  useSetVoteDelegate,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
@@ -42,7 +41,6 @@ describe('Governance', () => {
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'voteProposal' || name === 'createProposal',
     );
-    (setVoteDelegate as Mock).mockImplementation(() => fakeContractTransaction);
     (getLatestProposalIdByProposer as Mock).mockImplementation(() => '1');
 
     (getCurrentVotes as Mock).mockImplementation(() => ({
@@ -212,6 +210,11 @@ describe('Governance', () => {
   });
 
   it('successfully delegates to other address', async () => {
+    const mockSetVoteDelegate = vi.fn();
+    (useSetVoteDelegate as Mock).mockImplementation(() => ({
+      mutateAsync: mockSetVoteDelegate,
+    }));
+
     (useGetVestingVaults as Mock).mockImplementation(() => ({
       data: vaults,
       isLoading: false,
@@ -247,13 +250,18 @@ describe('Governance', () => {
     fireEvent.click(delegateVotesButton);
 
     await waitFor(() =>
-      expect(setVoteDelegate).toBeCalledWith({
+      expect(mockSetVoteDelegate).toHaveBeenCalledWith({
         delegateAddress: altAddress,
       }),
     );
   });
 
   it('successfully delegates to me', async () => {
+    const mockSetVoteDelegate = vi.fn();
+    (useSetVoteDelegate as Mock).mockImplementation(() => ({
+      mutateAsync: mockSetVoteDelegate,
+    }));
+
     (useGetVestingVaults as Mock).mockImplementation(() => ({
       data: vaults,
       isLoading: false,
@@ -277,7 +285,7 @@ describe('Governance', () => {
     fireEvent.click(delegateVotesButton);
 
     await waitFor(() =>
-      expect(setVoteDelegate).toHaveBeenCalledWith({
+      expect(mockSetVoteDelegate).toHaveBeenCalledWith({
         delegateAddress: fakeAccountAddress,
       }),
     );

@@ -5,18 +5,24 @@ export * from './mutations/useEnterMarket';
 export * from './mutations/useExitMarket';
 export * from './mutations/useApproveToken';
 export * from './mutations/useBorrow';
-
-export { default as mintVai } from './mutations/mintVai';
-export * from './mutations/mintVai';
-export { default as useMintVai } from './mutations/mintVai/useMintVai';
-
-export { default as repayVai } from './mutations/repayVai';
-export * from './mutations/repayVai';
-export { default as useRepayVai } from './mutations/repayVai/useRepayVai';
-
-export { default as revokeSpendingLimit } from './mutations/revokeSpendingLimit';
-export * from './mutations/revokeSpendingLimit';
-export { default as useRevokeSpendingLimit } from './mutations/revokeSpendingLimit/useRevokeSpendingLimit';
+export * from './mutations/useMintVai';
+export * from './mutations/useRepayVai';
+export * from './mutations/useCreateProposal';
+export * from './mutations/useCancelProposal';
+export * from './mutations/useExecuteProposal';
+export * from './mutations/useWithdrawFromVaiVault';
+export * from './mutations/useRequestWithdrawalFromXvsVault';
+export * from './mutations/useSwapTokensAndSupply';
+export * from './mutations/useClaimPrimeToken';
+export * from './mutations/useBridgeXvs';
+export * from './mutations/useUpdatePoolDelegateStatus';
+export * from './mutations/useQueueProposal';
+export * from './mutations/useExecuteWithdrawalFromXvsVault';
+export * from './mutations/useSetVoteDelegate';
+export * from './mutations/useStakeInXvsVault';
+export * from './mutations/useStakeInVaiVault';
+export * from './mutations/useStakeInVault';
+export * from './mutations/useVote';
 
 export { default as supply } from './mutations/supply';
 export * from './mutations/supply';
@@ -31,48 +37,6 @@ export { default as repay } from './mutations/repay';
 export * from './mutations/repay';
 export { default as useRepay } from './mutations/repay/useRepay';
 
-export { default as setVoteDelegate } from './mutations/setVoteDelegate';
-export * from './mutations/setVoteDelegate';
-export { default as useSetVoteDelegate } from './mutations/setVoteDelegate/useSetVoteDelegate';
-
-export { default as createProposal } from './mutations/createProposal';
-export * from './mutations/createProposal';
-export { default as useCreateProposal } from './mutations/createProposal/useCreateProposal';
-
-export * from './mutations/useCancelProposal';
-
-export { default as executeProposal } from './mutations/executeProposal';
-export * from './mutations/executeProposal';
-export { default as useExecuteProposal } from './mutations/executeProposal/useExecuteProposal';
-
-export { default as queueProposal } from './mutations/queueProposal';
-export * from './mutations/queueProposal';
-export { default as useQueueProposal } from './mutations/queueProposal/useQueueProposal';
-
-export { default as stakeInXvsVault } from './mutations/stakeInXvsVault';
-export * from './mutations/stakeInXvsVault';
-export { default as useStakeInXvsVault } from './mutations/stakeInXvsVault/useStakeInXvsVault';
-
-export { default as stakeInVaiVault } from './mutations/stakeInVaiVault';
-export * from './mutations/stakeInVaiVault';
-export { default as useStakeInVaiVault } from './mutations/stakeInVaiVault/useStakeInVaiVault';
-
-export { default as castVote } from './mutations/vote/castVote';
-export * from './mutations/vote/castVote';
-export { default as useCastVote } from './mutations/vote/useCastVote';
-
-export { default as castVoteWithReason } from './mutations/vote/castVoteWithReason';
-export * from './mutations/vote/castVoteWithReason';
-export { default as useCastVoteWithReason } from './mutations/vote/useCastVoteWithReason';
-
-export * from './mutations/useWithdrawFromVaiVault';
-
-export * from './mutations/useRequestWithdrawalFromXvsVault';
-
-export { default as executeWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault';
-export * from './mutations/executeWithdrawalFromXvsVault';
-export { default as useExecuteWithdrawalFromXvsVault } from './mutations/executeWithdrawalFromXvsVault/useExecuteWithdrawalFromXvsVault';
-
 export { default as swapTokens } from './mutations/swapTokens';
 export * from './mutations/swapTokens';
 export { default as useSwapTokens } from './mutations/swapTokens/useSwapTokens';
@@ -81,23 +45,9 @@ export { default as swapTokensAndRepay } from './mutations/swapTokensAndRepay';
 export * from './mutations/swapTokensAndRepay';
 export { default as useSwapTokensAndRepay } from './mutations/swapTokensAndRepay/useSwapTokensAndRepay';
 
-export * from './mutations/useSwapTokensAndSupply';
-
 export { default as claimRewards } from './mutations/claimRewards';
 export * from './mutations/claimRewards';
 export { default as useClaimRewards } from './mutations/claimRewards/useClaimRewards';
-
-export { default as useStakeInVault } from './mutations/useStakeInVault';
-
-export { default as claimPrimeToken } from './mutations/claimPrimeToken';
-export * from './mutations/claimPrimeToken';
-export { default as useClaimPrimeToken } from './mutations/claimPrimeToken/useClaimPrimeToken';
-
-export { default as bridgeXvs } from './mutations/bridgeXvs';
-export * from './mutations/bridgeXvs';
-export { default as useBridgeXvs } from './mutations/bridgeXvs/useBridgeXvs';
-
-export * from './mutations/useUpdatePoolDelegateStatus';
 
 // Queries
 export * from './queries/getUserVaiBorrowBalance';

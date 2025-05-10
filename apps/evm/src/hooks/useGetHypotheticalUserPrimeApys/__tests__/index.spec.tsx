@@ -8,7 +8,6 @@ import {
   useGetPrimeStatus,
   useGetXvsVaultUserInfo,
 } from 'clients/api';
-import { useAccountAddress } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import type { TokenAction } from 'types';
 import { useGetHypotheticalUserPrimeApys } from '..';
@@ -18,10 +17,6 @@ const fakeAssetWithPrimeDistribution = assetData[1];
 
 describe('useGetHypotheticalUserPrimeApys', () => {
   beforeEach(() => {
-    (useAccountAddress as Mock).mockImplementation(() => ({
-      accountAddress: fakeAccountAddress,
-    }));
-
     (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         xvsVaultPoolId: 1,
@@ -43,10 +38,6 @@ describe('useGetHypotheticalUserPrimeApys', () => {
   });
 
   it('returns undefined when user is disconnected', async () => {
-    (useAccountAddress as Mock).mockImplementation(() => ({
-      accountAddress: undefined,
-    }));
-
     const { result } = renderHook(() =>
       useGetHypotheticalUserPrimeApys({
         asset: fakeAssetWithPrimeDistribution,
@@ -59,24 +50,32 @@ describe('useGetHypotheticalUserPrimeApys', () => {
   });
 
   it('returns undefined when connected user does not hold a Prime token', async () => {
-    const { result } = renderHook(() =>
-      useGetHypotheticalUserPrimeApys({
-        asset: fakeAsset, // The hook detects that a user is not Prime by the fact the asset contains no distribution of the type "prime"
-        action: 'supply',
-        toTokenAmountTokens: new BigNumber(10),
-      }),
+    const { result } = renderHook(
+      () =>
+        useGetHypotheticalUserPrimeApys({
+          asset: fakeAsset, // The hook detects that a user is not Prime by the fact the asset contains no distribution of the type "prime"
+          action: 'supply',
+          toTokenAmountTokens: new BigNumber(10),
+        }),
+      {
+        accountAddress: fakeAccountAddress,
+      },
     );
 
     expect(result.current).toMatchSnapshot();
   });
 
   it('returns undefined when passed toTokenAmountTokens parameter equals 0', async () => {
-    const { result } = renderHook(() =>
-      useGetHypotheticalUserPrimeApys({
-        asset: fakeAssetWithPrimeDistribution,
-        action: 'supply',
-        toTokenAmountTokens: new BigNumber(0),
-      }),
+    const { result } = renderHook(
+      () =>
+        useGetHypotheticalUserPrimeApys({
+          asset: fakeAssetWithPrimeDistribution,
+          action: 'supply',
+          toTokenAmountTokens: new BigNumber(0),
+        }),
+      {
+        accountAddress: fakeAccountAddress,
+      },
     );
 
     expect(result.current).toMatchSnapshot();
@@ -96,12 +95,16 @@ describe('useGetHypotheticalUserPrimeApys', () => {
   ] as { action: TokenAction; amountTokens: number }[])(
     'returns correct values: %s',
     async ({ action, amountTokens }) => {
-      const { result } = renderHook(() =>
-        useGetHypotheticalUserPrimeApys({
-          asset: fakeAssetWithPrimeDistribution,
-          action,
-          toTokenAmountTokens: new BigNumber(amountTokens),
-        }),
+      const { result } = renderHook(
+        () =>
+          useGetHypotheticalUserPrimeApys({
+            asset: fakeAssetWithPrimeDistribution,
+            action,
+            toTokenAmountTokens: new BigNumber(amountTokens),
+          }),
+        {
+          accountAddress: fakeAccountAddress,
+        },
       );
 
       expect((useGetHypotheticalPrimeApys as Mock).mock.calls[0]).toMatchSnapshot();

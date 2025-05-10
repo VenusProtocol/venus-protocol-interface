@@ -45,16 +45,15 @@ const StakeModal: React.FC<StakeModalProps> = ({
       },
     );
 
-  const { stake, isLoading: isStakeLoading } = useStakeInVault({
-    stakedToken,
-    rewardToken,
-    poolIndex,
-  });
+  const { stake, isLoading: isStakeLoading } = useStakeInVault();
 
   const handleStake = async (amountMantissa: BigNumber) => {
     // Send request to stake
     const res = await stake({
       amountMantissa,
+      stakedToken,
+      rewardToken,
+      poolIndex,
     });
 
     // Close modal

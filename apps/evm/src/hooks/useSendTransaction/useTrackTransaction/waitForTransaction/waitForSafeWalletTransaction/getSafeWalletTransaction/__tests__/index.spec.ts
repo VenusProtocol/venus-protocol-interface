@@ -1,7 +1,7 @@
 import { ChainId, chainMetadata } from '@venusprotocol/chains';
 import { VError } from 'libs/errors';
 import type { Hex } from 'viem';
-import { vi } from 'vitest';
+import { type Mock, vi } from 'vitest';
 
 import { getSafeWalletTransaction } from '..';
 
@@ -34,7 +34,7 @@ describe('getSafeWalletTransaction', () => {
       json: vi.fn().mockResolvedValue(fakeSafeWalletTransaction),
     };
 
-    (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
+    (global.fetch as Mock).mockResolvedValue(mockResponse);
 
     const result = await getSafeWalletTransaction({
       chainId: ChainId.BSC_TESTNET,
@@ -61,7 +61,7 @@ describe('getSafeWalletTransaction', () => {
       json: vi.fn().mockResolvedValue(fakeSafeWalletTransaction),
     };
 
-    (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
+    (global.fetch as Mock).mockResolvedValue(mockResponse);
 
     const result = await getSafeWalletTransaction({
       chainId: ChainId.BSC_TESTNET,
@@ -100,7 +100,7 @@ describe('getSafeWalletTransaction', () => {
       statusText: 'Internal Server Error',
     };
 
-    (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
+    (global.fetch as Mock).mockResolvedValue(mockResponse);
 
     await expect(
       getSafeWalletTransaction({
@@ -119,7 +119,7 @@ describe('getSafeWalletTransaction', () => {
 
   it('handles network error', async () => {
     const fakeNetworkError = new Error('Network error');
-    (global.fetch as jest.Mock).mockRejectedValue(fakeNetworkError);
+    (global.fetch as Mock).mockRejectedValue(fakeNetworkError);
 
     await expect(
       getSafeWalletTransaction({
@@ -137,7 +137,7 @@ describe('getSafeWalletTransaction', () => {
       json: vi.fn().mockRejectedValue(new Error('Invalid JSON')),
     };
 
-    (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
+    (global.fetch as Mock).mockResolvedValue(mockResponse);
 
     await expect(
       getSafeWalletTransaction({

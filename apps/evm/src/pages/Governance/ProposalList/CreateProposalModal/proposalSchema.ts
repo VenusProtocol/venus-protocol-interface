@@ -20,9 +20,7 @@ const proposalSchema = yup.object({
         target: yup
           .string()
           .required()
-          .test('isAddress', ErrorCode.ACTION_ADDRESS_NOT_VALID, value =>
-            isAddress(value as string),
-          ),
+          .test('isAddress', ErrorCode.ACTION_ADDRESS_NOT_VALID, value => isAddress(value)),
         signature: yup
           .string()
           .test({

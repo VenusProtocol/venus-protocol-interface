@@ -1,3 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`pages/Vault/modals/StakeModal > fetches and displays the user balance correctly 1`] = `"Available VAI100K VAI"`;

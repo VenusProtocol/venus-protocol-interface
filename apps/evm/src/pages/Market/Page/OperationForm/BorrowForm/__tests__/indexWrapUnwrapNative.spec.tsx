@@ -13,7 +13,6 @@ import Borrow from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('libs/tokens');
 vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 
 describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {

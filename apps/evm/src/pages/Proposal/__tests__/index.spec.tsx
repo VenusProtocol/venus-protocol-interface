@@ -22,10 +22,10 @@ import {
   useGetProposalThreshold,
   useGetVoteReceipt,
   useQueueProposal,
+  useVote,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import useVote from 'hooks/useVote';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import {
@@ -45,7 +45,6 @@ import VOTE_MODAL_TEST_IDS from '../VoteModal/testIds';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useNow');
-vi.mock('hooks/useVote');
 vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('containers/Redirect');
 
@@ -245,8 +244,8 @@ describe('ProposalComp page', () => {
   it('allows user to vote for', async () => {
     const vote = vi.fn();
     (useVote as Mock).mockImplementation(() => ({
-      vote,
-      isLoading: false,
+      mutateAsync: vote,
+      isPending: false,
     }));
     renderComponent(<ProposalComp />, {
       accountAddress: fakeAccountAddress,
@@ -277,8 +276,8 @@ describe('ProposalComp page', () => {
   it('allows user to vote against with reason', async () => {
     const vote = vi.fn();
     (useVote as Mock).mockImplementation(() => ({
-      vote,
-      isLoading: false,
+      mutateAsync: vote,
+      isPending: false,
     }));
 
     const comment = 'Not a good idea';
@@ -315,8 +314,8 @@ describe('ProposalComp page', () => {
   it('allows user to vote abstain', async () => {
     const vote = vi.fn();
     (useVote as Mock).mockImplementation(() => ({
-      vote,
-      isLoading: false,
+      mutateAsync: vote,
+      isPending: false,
     }));
 
     renderComponent(<ProposalComp />, {

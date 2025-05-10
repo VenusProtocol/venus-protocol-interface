@@ -13,8 +13,6 @@ import { useWithdrawFromVaiVault } from '..';
 
 vi.mock('libs/analytics');
 vi.mock('libs/contracts');
-vi.mock('libs/tokens');
-vi.mock('libs/wallet');
 
 const fakeInput = {
   amountMantissa: 1000n,

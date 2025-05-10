@@ -6,7 +6,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
 import {
-  bridgeXvs,
+  useBridgeXvs,
   useGetBalanceOf,
   useGetXvsBridgeFeeEstimation,
   useGetXvsBridgeMintStatus,
@@ -232,6 +232,11 @@ describe('Bridge', () => {
   });
 
   it('lets the user bridge XVS', async () => {
+    const mockBridgeXvs = vi.fn();
+    (useBridgeXvs as Mock).mockImplementation(() => ({
+      mutateAsync: mockBridgeXvs,
+    }));
+
     const fakeBridgeXvsParams = {
       accountAddress: fakeAccountAddress,
       amountMantissa: fakeBalanceMantissa,
@@ -261,8 +266,8 @@ describe('Bridge', () => {
 
     await waitFor(() => expect(submitButton).toBeEnabled());
 
-    await waitFor(() => expect(bridgeXvs).toHaveBeenCalledTimes(1));
-    expect(bridgeXvs).toHaveBeenCalledWith(fakeBridgeXvsParams);
+    await waitFor(() => expect(mockBridgeXvs).toHaveBeenCalledTimes(1));
+    expect(mockBridgeXvs).toHaveBeenCalledWith(fakeBridgeXvsParams);
   });
 
   it('warns the user they are over the single transaction limit amount', async () => {

@@ -53,7 +53,6 @@ const fakeSwap: Swap = {
   direction: 'exactAmountIn',
 };
 
-vi.mock('libs/tokens');
 vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useGetSwapRouterContractAddress');

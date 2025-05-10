@@ -1,15 +1,9 @@
-import { BigNumber as BN } from 'ethers';
-
-import type { XvsVesting } from 'libs/contracts';
-
-const xvsVestingResponses: {
-  withdrawableAmount: Awaited<ReturnType<XvsVesting['getWithdrawableAmount']>>;
-} = {
+const xvsVestingResponses = {
   withdrawableAmount: {
-    totalWithdrawableAmount: BN.from('500000'),
-    totalVestedAmount: BN.from('1000'),
-    totalWithdrawnAmount: BN.from('0'),
-  } as Awaited<ReturnType<XvsVesting['getWithdrawableAmount']>>,
+    totalWithdrawableAmount: 500000n,
+    totalVestedAmount: 1000n,
+    totalWithdrawnAmount: 0n,
+  },
 };
 
 export default xvsVestingResponses;

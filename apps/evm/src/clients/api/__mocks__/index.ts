@@ -570,26 +570,19 @@ export const useApproveToken = vi.fn((_variables: never, options?: MutationObser
   }),
 );
 
-export const revokeSpendingLimit = vi.fn();
-export const useRevokeSpendingLimit = (_variables: never, options?: MutationObserverOptions) =>
+export const useMintVai = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: revokeSpendingLimit,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
-export const mintVai = vi.fn();
-export const useMintVai = (options?: MutationObserverOptions) =>
+export const useRepayVai = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: mintVai,
+    mutationFn: vi.fn(),
     ...options,
-  });
-
-export const repayVai = vi.fn();
-export const useRepayVai = (options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: repayVai,
-    ...options,
-  });
+  }),
+);
 
 export const useEnterMarket = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
@@ -640,19 +633,19 @@ export const useWithdrawXvs = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const setVoteDelegate = vi.fn();
-export const useSetVoteDelegate = (options?: MutationObserverOptions) =>
+export const useSetVoteDelegate = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: setVoteDelegate,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
-export const createProposal = vi.fn();
-export const useCreateProposal = (options?: MutationObserverOptions) =>
+export const useCreateProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: createProposal,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useCancelProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
@@ -661,49 +654,40 @@ export const useCancelProposal = vi.fn((options?: MutationObserverOptions) =>
   }),
 );
 
-export const executeProposal = vi.fn(async () => fakeContractTransaction);
 export const useExecuteProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: executeProposal,
+    mutationFn: vi.fn(),
     ...options,
   }),
 );
 
-export const queueProposal = vi.fn(async () => fakeContractTransaction);
 export const useQueueProposal = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: queueProposal,
+    mutationFn: vi.fn(),
     ...options,
   }),
 );
 
-export const stakeInXvsVault = vi.fn();
-export const useStakeInXvsVault = (_variables: never, options?: MutationObserverOptions) =>
+export const useStakeInXvsVault = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: stakeInXvsVault,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
-export const stakeInVaiVault = vi.fn();
-export const useStakeInVaiVault = (options?: MutationObserverOptions) =>
+export const useStakeInVaiVault = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: stakeInVaiVault,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
-export const castVote = vi.fn();
-export const useCastVote = (options?: MutationObserverOptions) =>
+export const useVote = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: castVote,
+    mutationFn: vi.fn(),
     ...options,
-  });
-
-export const castVoteWithReason = vi.fn();
-export const useCastVoteWithReason = (options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: castVoteWithReason,
-    ...options,
-  });
+  }),
+);
 
 export const useWithdrawFromVaiVault = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
@@ -719,15 +703,13 @@ export const useRequestWithdrawalFromXvsVault = vi.fn((options?: MutationObserve
   }),
 );
 
-export const executeWithdrawalFromXvsVault = vi.fn();
-export const useExecuteWithdrawalFromXvsVault = (
-  _variables: never,
-  options?: MutationObserverOptions,
-) =>
-  useMutation({
-    mutationFn: executeWithdrawalFromXvsVault,
-    ...options,
-  });
+export const useExecuteWithdrawalFromXvsVault = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
 
 export const swapTokens = vi.fn(async () => fakeContractTransaction);
 export const useSwapTokens = (options?: MutationObserverOptions) =>
@@ -758,25 +740,24 @@ export const useClaimRewards = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const stake = vi.fn();
-export const useStakeInVault = () => ({
-  stake,
+export const useStakeInVault = vi.fn(() => ({
+  stake: vi.fn(),
   isLoading: false,
-});
+}));
 
-export const claimPrimeToken = vi.fn();
-export const useClaimPrimeToken = (options?: MutationObserverOptions) =>
+export const useClaimPrimeToken = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: claimPrimeToken,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
-export const bridgeXvs = vi.fn();
-export const useBridgeXvs = (options?: MutationObserverOptions) =>
+export const useBridgeXvs = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: bridgeXvs,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useUpdatePoolDelegateStatus = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>

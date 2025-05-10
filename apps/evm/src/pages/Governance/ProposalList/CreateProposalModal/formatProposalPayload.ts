@@ -1,5 +1,6 @@
 import type { CreateProposalInput } from 'clients/api';
 
+import type { Address } from 'viem';
 import encodeCallData from './encodeCallData';
 import type { FormValues } from './proposalSchema';
 
@@ -36,7 +37,7 @@ const formatProposalPayload = (data: FormValues) => {
   };
 
   data.actions.forEach(action => {
-    payload.targets.push(action.target);
+    payload.targets.push(action.target as Address);
     payload.signatures.push(action.signature);
     payload.values.push(action.value);
 

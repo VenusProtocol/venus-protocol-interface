@@ -9,7 +9,7 @@ import type { Address } from 'viem';
 type ApproveTokenInput = {
   tokenAddress: Address;
   spenderAddress: Address;
-  allowance?: bigint;
+  allowanceMantissa?: BigNumber;
 };
 type Options = UseSendTransactionOptions<ApproveTokenInput>;
 
@@ -22,7 +22,7 @@ export const useApproveToken = (options?: Partial<Options>) => {
       abi: erc20Abi,
       address: input.tokenAddress,
       functionName: 'approve',
-      args: [input.spenderAddress, input.allowance || BigInt(MAX_UINT256.toFixed())],
+      args: [input.spenderAddress, BigInt((input.allowanceMantissa || MAX_UINT256).toFixed())],
     }),
     onConfirmed: async ({ input }) => {
       queryClient.invalidateQueries({

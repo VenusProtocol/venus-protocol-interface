@@ -6,7 +6,7 @@ import fakeAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { executeWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
+import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { en } from 'libs/translations';
 
 import { ChainId, chainMetadata } from '@venusprotocol/chains';
@@ -108,6 +108,11 @@ describe('Withdraw', () => {
   });
 
   it('lets user withdraw their available tokens and calls handleClose callback on success', async () => {
+    const mockExecuteWithdrawalFromXvsVault = vi.fn();
+    (useExecuteWithdrawalFromXvsVault as Mock).mockImplementation(() => ({
+      mutateAsync: mockExecuteWithdrawalFromXvsVault,
+    }));
+
     const handleCloseMock = vi.fn();
 
     const { getByTestId, getByText } = renderComponent(
@@ -131,8 +136,8 @@ describe('Withdraw', () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(submitButton).toBeEnabled());
-    await waitFor(() => expect(executeWithdrawalFromXvsVault).toHaveBeenCalledTimes(1));
-    expect(executeWithdrawalFromXvsVault).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockExecuteWithdrawalFromXvsVault).toHaveBeenCalledTimes(1));
+    expect(mockExecuteWithdrawalFromXvsVault).toHaveBeenCalledWith({
       poolIndex: fakePoolIndex,
       rewardTokenAddress: xvs.address,
     });

@@ -4,15 +4,16 @@ import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
+  type CastVoteInput,
   useGetCurrentVotes,
   useGetProposal,
   useGetProposalThreshold,
   useGetVoteReceipt,
+  useVote,
 } from 'clients/api';
 import { Button, NoticeInfo, Page, Spinner } from 'components';
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import useVote, { type UseVoteParams } from 'hooks/useVote';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useAccountAddress, useAccountChainId, useSwitchChain } from 'libs/wallet';
@@ -32,7 +33,7 @@ import TEST_IDS from './testIds';
 
 interface ProposalUiProps {
   proposal: ProposalType | undefined;
-  vote: (params: UseVoteParams) => Promise<unknown>;
+  vote: (params: CastVoteInput) => Promise<unknown>;
   canUserVoteOnProposal: boolean;
   isUserConnectedToGovernanceChain: boolean;
   readableVoteWeight: string;
@@ -181,7 +182,7 @@ const Proposal = () => {
     [votingWeightData?.votesMantissa, xvs],
   );
 
-  const { vote, isLoading } = useVote();
+  const { mutateAsync: vote, isPending } = useVote();
   const { data: userVoteReceipt } = useGetVoteReceipt(
     { proposalId: Number(proposalId), accountAddress: accountAddress || NULL_ADDRESS },
     { enabled: !!accountAddress },
@@ -212,7 +213,7 @@ const Proposal = () => {
         canUserVoteOnProposal={canUserVoteOnProposal}
         isUserConnectedToGovernanceChain={isUserConnectedToGovernanceChain}
         readableVoteWeight={readableVoteWeight}
-        isVoteLoading={isLoading}
+        isVoteLoading={isPending}
       />
     </Page>
   );
