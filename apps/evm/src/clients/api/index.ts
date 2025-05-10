@@ -5,6 +5,7 @@ export * from './mutations/useEnterMarket';
 export * from './mutations/useExitMarket';
 export * from './mutations/useApproveToken';
 export * from './mutations/useBorrow';
+export * from './mutations/useClaimRewards';
 
 export { default as mintVai } from './mutations/mintVai';
 export * from './mutations/mintVai';
@@ -82,10 +83,6 @@ export * from './mutations/swapTokensAndRepay';
 export { default as useSwapTokensAndRepay } from './mutations/swapTokensAndRepay/useSwapTokensAndRepay';
 
 export * from './mutations/useSwapTokensAndSupply';
-
-export { default as claimRewards } from './mutations/claimRewards';
-export * from './mutations/claimRewards';
-export { default as useClaimRewards } from './mutations/claimRewards/useClaimRewards';
 
 export { default as useStakeInVault } from './mutations/useStakeInVault';
 

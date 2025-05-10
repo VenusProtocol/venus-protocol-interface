@@ -1,56 +1,59 @@
-import { type ClaimRewardsInput, claimRewards, queryClient } from 'clients/api';
+import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import {
+  multicall3Abi,
   useGetLegacyPoolComptrollerContractAddress,
-  useGetMulticall3Contract,
+  useGetMulticall3ContractAddress,
   useGetPrimeContractAddress,
   useGetVaiVaultContractAddress,
   useGetXvsVaultContractAddress,
 } from 'libs/contracts';
-import { useChainId } from 'libs/wallet';
-import { callOrThrow } from 'utilities';
+import { VError } from 'libs/errors';
+import { useAccountAddress, useChainId } from 'libs/wallet';
+import { formatToCalls } from './formatToCalls';
+import type { ClaimRewardsInput } from './types';
 
-type TrimmedClaimRewardsInput = Omit<
-  ClaimRewardsInput,
-  | 'multicallContract'
-  | 'legacyPoolComptrollerContractAddress'
-  | 'vaiVaultContractAddress'
-  | 'xvsVaultContractAddress'
->;
+export * from './types';
 
-type Options = UseSendTransactionOptions<TrimmedClaimRewardsInput>;
+type Options = UseSendTransactionOptions<ClaimRewardsInput>;
 
-const useClaimRewards = (options?: Partial<Options>) => {
+export const useClaimRewards = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
-  const multicallContract = useGetMulticall3Contract({
-    passSigner: true,
-  });
-
+  const { accountAddress } = useAccountAddress();
+  const multicall3ContractAddress = useGetMulticall3ContractAddress();
   const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
   const vaiVaultContractAddress = useGetVaiVaultContractAddress();
   const xvsVaultContractAddress = useGetXvsVaultContractAddress();
   const primeContractAddress = useGetPrimeContractAddress();
-
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({
-    fn: (input: TrimmedClaimRewardsInput) =>
-      callOrThrow(
-        {
-          multicallContract,
-          xvsVaultContractAddress,
-        },
-        params =>
-          claimRewards({
-            primeContractAddress,
-            legacyPoolComptrollerContractAddress,
-            vaiVaultContractAddress,
-            ...params,
-            ...input,
-          }),
-      ),
+    fn: (input: ClaimRewardsInput) => {
+      if (!multicall3ContractAddress || !xvsVaultContractAddress || !accountAddress) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+        });
+      }
+
+      const calls = formatToCalls({
+        claims: input.claims,
+        accountAddress,
+        legacyPoolComptrollerContractAddress,
+        vaiVaultContractAddress,
+        xvsVaultContractAddress,
+        primeContractAddress,
+      });
+
+      return {
+        address: multicall3ContractAddress,
+        abi: multicall3Abi,
+        functionName: 'tryBlockAndAggregate',
+        args: [true, calls],
+      };
+    },
     onConfirmed: ({ input }) => {
       input.claims.forEach(claim => {
         if (claim.contract === 'legacyPoolComptroller') {
@@ -68,18 +71,15 @@ const useClaimRewards = (options?: Partial<Options>) => {
             poolIndex: claim.poolIndex,
             rewardTokenSymbol: claim.rewardToken.symbol,
           });
+        } else if (claim.contract === 'prime') {
+          captureAnalyticEvent('Prime reward claimed', undefined);
         }
       });
 
       queryClient.invalidateQueries({
-        queryKey: [
-          FunctionKey.GET_PENDING_REWARDS,
-          { accountAddress: input.accountAddress, chainId },
-        ],
+        queryKey: [FunctionKey.GET_PENDING_REWARDS, { accountAddress, chainId }],
       });
     },
     options,
   });
 };
-
-export default useClaimRewards;
