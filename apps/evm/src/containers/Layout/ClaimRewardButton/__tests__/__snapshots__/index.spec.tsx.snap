@@ -2,7 +2,6 @@
 
 exports[`ClaimRewardButton > it claims only selected and enabled rewards on submit button click on success 1`] = `
 {
-  "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "claims": [
     {
       "comptrollerContractAddress": "0x10b57706ad2345e590c2ea4dc02faef0d9f5b08b",
@@ -34,7 +33,6 @@ exports[`ClaimRewardButton > it claims only selected and enabled rewards on subm
 
 exports[`ClaimRewardButton > it claims reward on submit button click and closes modal on success 1`] = `
 {
-  "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   "claims": [
     {
       "contract": "legacyPoolComptroller",

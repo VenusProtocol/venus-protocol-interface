@@ -733,12 +733,12 @@ export const useSwapTokensAndSupply = vi.fn(
     }),
 );
 
-export const claimRewards = vi.fn();
-export const useClaimRewards = (options?: MutationObserverOptions) =>
+export const useClaimRewards = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: claimRewards,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useStakeInVault = vi.fn(() => ({
   stake: vi.fn(),

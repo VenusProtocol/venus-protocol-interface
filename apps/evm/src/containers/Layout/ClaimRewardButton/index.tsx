@@ -152,7 +152,6 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
 
     return claimRewards({
       claims,
-      accountAddress,
     });
   };
 

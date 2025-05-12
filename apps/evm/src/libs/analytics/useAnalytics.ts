@@ -16,6 +16,7 @@ export type AnalyticEventName =
   | 'Tokens staked in VAI vault'
   | 'Tokens withdrawn from VAI vault'
   | 'Pool reward claimed'
+  | 'Prime reward claimed'
   | 'VAI vault reward claimed'
   | 'XVS vesting vault reward claimed'
   | 'Vote cast';
