@@ -1,12 +1,11 @@
+import { ChainId } from '@venusprotocol/chains';
 import fakeAccountAddress, { altAddress as fakeSpenderAddress } from '__mocks__/models/address';
 import { xvs } from '__mocks__/models/tokens';
+import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
-
-import { renderHook } from 'testUtils/render';
-
-import { ChainId } from '@venusprotocol/chains';
 import FunctionKey from 'constants/functionKey';
 import { useSendTransaction } from 'hooks/useSendTransaction';
+import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useApproveToken } from '..';
 
@@ -66,7 +65,7 @@ describe('useApproveToken', () => {
 
     const params = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(params.fn({ ...fakeInput, allowance: 1000n })).toMatchSnapshot({
+    expect(params.fn({ ...fakeInput, allowanceMantissa: new BigNumber(1000) })).toMatchSnapshot({
       abi: expect.any(Array),
     });
   });

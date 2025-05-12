@@ -3,18 +3,17 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { poolData } from '__mocks__/models/pools';
 import { vai } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
 import {
-  repayVai,
   useGetBalanceOf,
   useGetPool,
   useGetTokenUsdPrice,
   useGetUserVaiBorrowBalance,
   useGetVaiRepayApr,
+  useRepayVai,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -100,7 +99,10 @@ describe('Repay', () => {
   });
 
   it('lets user repay some of their VAI loan', async () => {
-    (repayVai as Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    const mockRepayVai = vi.fn();
+    (useRepayVai as Mock).mockImplementation(() => ({
+      mutateAsync: mockRepayVai,
+    }));
 
     const { getByText, getByPlaceholderText } = renderComponent(<Repay />, {
       accountAddress: fakeAccountAddress,
@@ -130,14 +132,17 @@ describe('Repay', () => {
     fireEvent.click(submitButton);
 
     // Check repay was called correctly
-    await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
-    expect(repayVai).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockRepayVai).toHaveBeenCalledTimes(1));
+    expect(mockRepayVai).toHaveBeenCalledWith({
       amountMantissa: fakeRepayAmountMantissa,
     });
   });
 
   it('lets user repay their entire VAI loan', async () => {
-    (repayVai as Mock).mockImplementationOnce(async () => fakeContractTransaction);
+    const mockRepayVai = vi.fn();
+    (useRepayVai as Mock).mockImplementation(() => ({
+      mutateAsync: mockRepayVai,
+    }));
 
     const { getByText, getByPlaceholderText } = renderComponent(<Repay />, {
       accountAddress: fakeAccountAddress,
@@ -165,8 +170,8 @@ describe('Repay', () => {
     fireEvent.click(submitButton);
 
     // Check repay was called correctly
-    await waitFor(() => expect(repayVai).toHaveBeenCalledTimes(1));
-    expect(repayVai).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockRepayVai).toHaveBeenCalledTimes(1));
+    expect(mockRepayVai).toHaveBeenCalledWith({
       amountMantissa: MAX_UINT256,
     });
   });

@@ -1,7 +1,7 @@
 import { ChainId, chainMetadata } from '@venusprotocol/chains';
 import { VError } from 'libs/errors';
 import type { Hex } from 'viem';
-import { vi } from 'vitest';
+import { type Mock, vi } from 'vitest';
 
 import { WAIT_INTERVAL_MS, waitForSafeWalletTransaction } from '..';
 import { getSafeWalletTransaction } from '../getSafeWalletTransaction';
@@ -26,7 +26,7 @@ describe('waitForSafeWalletTransaction', () => {
   });
 
   it('returns transaction hash when Safe Wallet transaction is found and confirmed', async () => {
-    (getSafeWalletTransaction as jest.Mock).mockImplementation(async () => ({
+    (getSafeWalletTransaction as Mock).mockImplementation(async () => ({
       safeWalletTransaction: {
         transactionHash: fakeTransactionHash,
         isSuccessful: true,
@@ -46,7 +46,7 @@ describe('waitForSafeWalletTransaction', () => {
   });
 
   it('returns undefined transaction hash when timeout is reached', async () => {
-    (getSafeWalletTransaction as jest.Mock).mockImplementation(async () => ({
+    (getSafeWalletTransaction as Mock).mockImplementation(async () => ({
       safeWalletTransaction: {
         transactionHash: null,
         isSuccessful: null,
@@ -71,7 +71,7 @@ describe('waitForSafeWalletTransaction', () => {
   });
 
   it('handles undefined safeWalletTransaction response', async () => {
-    (getSafeWalletTransaction as jest.Mock).mockImplementation(async () => ({
+    (getSafeWalletTransaction as Mock).mockImplementation(async () => ({
       safeWalletTransaction: undefined,
     }));
 
@@ -95,7 +95,7 @@ describe('waitForSafeWalletTransaction', () => {
       confirmations: [],
     };
 
-    (getSafeWalletTransaction as jest.Mock)
+    (getSafeWalletTransaction as Mock)
       // First call returns no transaction hash
       .mockImplementationOnce(async () => ({
         safeWalletTransaction: fakeSafeTransaction,
@@ -125,7 +125,7 @@ describe('waitForSafeWalletTransaction', () => {
   it('handles missing Safe Wallet API URL error', async () => {
     chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl = undefined;
 
-    (getSafeWalletTransaction as jest.Mock).mockImplementation(async () => {
+    (getSafeWalletTransaction as Mock).mockImplementation(async () => {
       throw new VError({
         type: 'unexpected',
         code: 'missingSafeWalletApiUrl',

@@ -14,8 +14,6 @@ import { useRequestWithdrawalFromXvsVault } from '..';
 
 vi.mock('libs/analytics');
 vi.mock('libs/contracts');
-vi.mock('libs/tokens');
-vi.mock('libs/wallet');
 
 const fakeInput = {
   rewardTokenAddress: '0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47' as Address,

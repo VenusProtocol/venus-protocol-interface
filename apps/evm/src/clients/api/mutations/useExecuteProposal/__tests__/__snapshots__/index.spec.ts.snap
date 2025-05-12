@@ -1,0 +1,67 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useExecuteProposal > 97 > calls useSendTransaction with the correct parameters 1`] = `
+{
+  "abi": Any<Array>,
+  "address": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+  "args": [
+    123n,
+  ],
+  "functionName": "execute",
+}
+`;
+
+exports[`useExecuteProposal > 97 > calls useSendTransaction with the correct parameters 2`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_PROPOSALS",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_PROPOSAL",
+        {
+          "id": 123,
+        },
+      ],
+    },
+  ],
+]
+`;
+
+exports[`useExecuteProposal > 11155420 > calls useSendTransaction with the correct parameters 1`] = `
+{
+  "abi": Any<Array>,
+  "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+  "args": [
+    123n,
+  ],
+  "functionName": "execute",
+}
+`;
+
+exports[`useExecuteProposal > 11155420 > calls useSendTransaction with the correct parameters 2`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_PROPOSALS",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_PROPOSAL",
+        {
+          "id": 123,
+        },
+      ],
+    },
+  ],
+]
+`;

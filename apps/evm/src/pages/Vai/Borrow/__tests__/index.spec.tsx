@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { poolData } from '__mocks__/models/pools';
 import { vai } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
@@ -11,10 +10,10 @@ import { renderComponent } from 'testUtils/render';
 import {
   type GetMintableVaiOutput,
   getVaiTreasuryPercentage,
-  mintVai,
   useGetMintableVai,
   useGetPool,
   useGetTokenUsdPrice,
+  useMintVai,
 } from 'clients/api';
 import { en } from 'libs/translations';
 import { convertTokensToMantissa } from 'utilities';
@@ -92,7 +91,10 @@ describe('Borrow', () => {
   });
 
   it('lets user borrow VAI', async () => {
-    (mintVai as Mock).mockImplementation(async () => fakeContractTransaction);
+    const mockMintVai = vi.fn();
+    (useMintVai as Mock).mockImplementation(() => ({
+      mutateAsync: mockMintVai,
+    }));
 
     const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
@@ -114,8 +116,8 @@ describe('Borrow', () => {
     fireEvent.click(submitButton);
 
     // Check mintVai was called correctly
-    await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
-    expect(mintVai).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockMintVai).toHaveBeenCalledTimes(1));
+    expect(mockMintVai).toHaveBeenCalledWith({
       amountMantissa: convertTokensToMantissa({
         value: new BigNumber(fakeValueTokens),
         token: vai,
@@ -124,7 +126,10 @@ describe('Borrow', () => {
   });
 
   it('lets user borrow up to their safe borrow limit if there is enough VAI liquidity', async () => {
-    (mintVai as Mock).mockImplementation(async () => fakeContractTransaction);
+    const mockMintVai = vi.fn();
+    (useMintVai as Mock).mockImplementation(() => ({
+      mutateAsync: mockMintVai,
+    }));
 
     const { getByText, getByPlaceholderText } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
@@ -157,8 +162,8 @@ describe('Borrow', () => {
     fireEvent.click(submitButton);
 
     // Check mintVai was called correctly
-    await waitFor(() => expect(mintVai).toHaveBeenCalledTimes(1));
-    expect(mintVai).toHaveBeenCalledWith({
+    await waitFor(() => expect(mockMintVai).toHaveBeenCalledTimes(1));
+    expect(mockMintVai).toHaveBeenCalledWith({
       amountMantissa: convertTokensToMantissa({
         value: new BigNumber(marginWithSafeLimitTokens),
         token: vai,
@@ -167,8 +172,6 @@ describe('Borrow', () => {
   });
 
   it('prompts user to acknowledge risk if requested borrow lowers health factor to risky threshold', async () => {
-    (mintVai as Mock).mockImplementation(async () => fakeContractTransaction);
-
     const { getByText, getByPlaceholderText, getByRole } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
     });

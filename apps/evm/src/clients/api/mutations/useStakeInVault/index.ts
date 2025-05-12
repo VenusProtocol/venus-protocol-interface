@@ -6,36 +6,32 @@ import { useGetToken } from 'libs/tokens';
 import type { Token } from 'types';
 import { areTokensEqual } from 'utilities';
 
-export interface UseStakeInVaultInput {
+interface StakeInput {
+  amountMantissa: BigNumber;
   stakedToken: Token;
   rewardToken: Token;
   poolIndex?: number;
 }
 
-interface StakeInput {
-  amountMantissa: BigNumber;
-}
-
-const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaultInput) => {
+export const useStakeInVault = () => {
   const vai = useGetToken({
     symbol: 'VAI',
   });
 
-  const { mutateAsync: stakeInXvsVault, isPending: isStakeInXvsVaultLoading } = useStakeInXvsVault({
-    stakedToken,
-    rewardToken,
-  });
+  const { mutateAsync: stakeInXvsVault, isPending: isStakeInXvsVaultLoading } =
+    useStakeInXvsVault();
 
   const { mutateAsync: stakeInVaiVault, isPending: isStakeInVaiVaultLoading } =
     useStakeInVaiVault();
 
   const isLoading = isStakeInXvsVaultLoading || isStakeInVaiVaultLoading;
 
-  const stake = async ({ amountMantissa }: StakeInput) => {
+  const stake = async ({ poolIndex, rewardToken, stakedToken, amountMantissa }: StakeInput) => {
     if (typeof poolIndex === 'number') {
       return stakeInXvsVault({
         poolIndex,
         rewardToken,
+        stakedToken,
         amountMantissa,
       });
     }
@@ -59,5 +55,3 @@ const useStakeInVault = ({ stakedToken, rewardToken, poolIndex }: UseStakeInVaul
     stake,
   };
 };
-
-export default useStakeInVault;

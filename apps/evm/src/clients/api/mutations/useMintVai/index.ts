@@ -1,0 +1,44 @@
+import type BigNumber from 'bignumber.js';
+import { queryClient } from 'clients/api';
+import FunctionKey from 'constants/functionKey';
+import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
+import { useGetVaiControllerContractAddress, vaiControllerAbi } from 'libs/contracts';
+import { VError } from 'libs/errors';
+
+type MintVaiInput = {
+  amountMantissa: BigNumber;
+};
+
+type Options = UseSendTransactionOptions<MintVaiInput>;
+
+export const useMintVai = (options?: Partial<Options>) => {
+  const vaiControllerContractAddress = useGetVaiControllerContractAddress();
+
+  return useSendTransaction({
+    fn: ({ amountMantissa }: MintVaiInput) => {
+      if (!vaiControllerContractAddress) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+        });
+      }
+
+      return {
+        abi: vaiControllerAbi,
+        address: vaiControllerContractAddress,
+        functionName: 'mintVAI',
+        args: [BigInt(amountMantissa.toFixed())],
+      };
+    },
+    onConfirmed: () => {
+      // Invalidate queries related to fetching the user minted VAI amount
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_USER_VAI_BORROW_BALANCE],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL],
+      });
+    },
+    options,
+  });
+};
