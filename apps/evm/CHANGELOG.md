@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.258.0
+
+### Minor Changes
+
+- 70df008: refactor useClaimRewards to use viem
+
 ## 2.257.0
 
 ### Minor Changes
