@@ -14,7 +14,7 @@ type SwapTokensAndRepayInput = {
   swap: Swap;
   vToken: VToken;
   repayFullLoan: boolean;
-  poolComptrollerAddress: Address;
+  poolComptrollerContractAddress: Address;
   poolName: string;
 };
 
@@ -28,9 +28,14 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
   return useSendTransaction({
     // @ts-ignore mixing payable and non-payable function calls messes up with the typing of
     // useSendTransaction
-    fn: ({ swap, vToken, repayFullLoan, poolComptrollerAddress }: SwapTokensAndRepayInput) => {
+    fn: ({
+      swap,
+      vToken,
+      repayFullLoan,
+      poolComptrollerContractAddress,
+    }: SwapTokensAndRepayInput) => {
       const swapRouterContractAddress = getSwapRouterContractAddress({
-        comptrollerContractAddress: poolComptrollerAddress,
+        comptrollerContractAddress: poolComptrollerContractAddress,
         chainId,
       });
 
@@ -309,7 +314,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
       });
 
       const swapRouterContractAddress = getSwapRouterContractAddress({
-        comptrollerContractAddress: input.poolComptrollerAddress,
+        comptrollerContractAddress: input.poolComptrollerContractAddress,
         chainId,
       });
 

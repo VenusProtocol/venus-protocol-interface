@@ -7,7 +7,7 @@ exports[`RepayForm - Feature flag enabled: integratedSwap > displays correct swa
 exports[`RepayForm - Feature flag enabled: integratedSwap > lets user swap and repay full loan 1`] = `
 [
   {
-    "poolComptrollerAddress": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",
+    "poolComptrollerContractAddress": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",
     "poolName": "Venus",
     "repayFullLoan": true,
     "swap": {
@@ -52,7 +52,7 @@ exports[`RepayForm - Feature flag enabled: integratedSwap > lets user swap and r
 exports[`RepayForm - Feature flag enabled: integratedSwap > lets user swap and repay partial loan then calls onClose callback on success 1`] = `
 [
   {
-    "poolComptrollerAddress": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",
+    "poolComptrollerContractAddress": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",
     "poolName": "Venus",
     "repayFullLoan": false,
     "swap": {

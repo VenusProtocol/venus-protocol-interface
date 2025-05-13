@@ -1,41 +1,28 @@
+import fakeAccountAddress, {
+  altAddress as fakePoolComptrollerContractAddress,
+} from '__mocks__/models/address';
+import { vBnb, vWeth, vXvs } from '__mocks__/models/vTokens';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { getSwapRouterContractAddress } from 'libs/contracts';
+import {
+  getNativeTokenGatewayContractAddress,
+  useGetMaximillionContractAddress,
+} from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
-import { useSwapTokensAndRepay } from '..';
-
-import fakeAccountAddress, {
-  altAddress as fakePoolComptrollerContractAddress,
-} from '__mocks__/models/address';
-import { bnb, xvs } from '__mocks__/models/tokens';
-import { vBnb } from '__mocks__/models/vTokens';
+import { useRepay } from '..';
 
 vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 
 const fakeAmountMantissa = new BigNumber('10000000000000000');
 
-const fakeSwap = {
-  direction: 'exactAmountIn' as const,
-  fromToken: xvs,
-  toToken: bnb,
-  fromTokenAmountSoldMantissa: fakeAmountMantissa,
-  minimumToTokenAmountReceivedMantissa: fakeAmountMantissa,
-  expectedToTokenAmountReceivedMantissa: fakeAmountMantissa,
-  exchangeRate: new BigNumber('1'),
-  priceImpactPercentage: 0,
-  routePath: [xvs.address, bnb.address],
-};
-
 const fakeInput = {
-  swap: fakeSwap,
-  vToken: vBnb,
-  repayFullLoan: false,
-  poolComptrollerContractAddress: fakePoolComptrollerContractAddress as `0x${string}`,
   poolName: 'Fake Pool',
+  vToken: vXvs,
+  amountMantissa: fakeAmountMantissa,
 };
 
 const fakeOptions = {
@@ -45,19 +32,22 @@ const fakeOptions = {
 
 const mockCaptureAnalyticEvent = vi.fn();
 
-describe('useSwapTokensAndRepay', () => {
+describe('useRepay', () => {
   beforeEach(() => {
     (useAnalytics as Mock).mockImplementation(() => ({
       captureAnalyticEvent: mockCaptureAnalyticEvent,
     }));
 
-    (getSwapRouterContractAddress as Mock).mockImplementation(
-      () => 'fakeSwapRouterContractAddress',
+    (useGetMaximillionContractAddress as Mock).mockImplementation(
+      () => 'fakeMaximillionContractAddress',
+    );
+    (getNativeTokenGatewayContractAddress as Mock).mockImplementation(
+      () => 'fakeNativeTokenGatewayContractAddress',
     );
   });
 
-  it('calls useSendTransaction with the correct parameters for swapping tokens and repaying', async () => {
-    renderHook(() => useSwapTokensAndRepay(fakeOptions), {
+  it('calls useSendTransaction with the correct parameters for repaying non-BNB token', async () => {
+    renderHook(() => useRepay(fakeOptions), {
       accountAddress: fakeAccountAddress,
     });
 
@@ -76,43 +66,26 @@ describe('useSwapTokensAndRepay', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
         "args": [
           10000000000000000n,
-          10000000000000000n,
-          [
-            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-          ],
-          1747137403n,
         ],
-        "functionName": "swapExactTokensForBNBAndRepay",
+        "functionName": "repayBorrow",
       }
     `,
     );
 
     onConfirmed({ input: fakeInput });
 
-    expect(mockCaptureAnalyticEvent).toHaveBeenCalledTimes(1);
-    expect(mockCaptureAnalyticEvent.mock.calls[0]).toMatchInlineSnapshot(`
-      [
-        "Tokens swapped and repaid",
-        {
-          "exchangeRate": 1,
-          "fromTokenAmountTokens": 0.01,
-          "fromTokenSymbol": "XVS",
-          "poolName": "Fake Pool",
-          "priceImpactPercentage": 0,
-          "repaidFullLoan": false,
-          "slippageTolerancePercentage": 0.5,
-          "toTokenAmountTokens": 0.01,
-          "toTokenSymbol": "BNB",
-        },
-      ]
-    `);
-
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
       [
+        [
+          {
+            "queryKey": [
+              "GET_POOLS",
+            ],
+          },
+        ],
         [
           {
             "queryKey": [
@@ -128,23 +101,10 @@ describe('useSwapTokensAndRepay', () => {
         [
           {
             "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
               "GET_TOKEN_ALLOWANCE",
               {
                 "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
                 "chainId": 97,
-                "spenderAddress": "fakeSwapRouterContractAddress",
                 "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               },
             ],
@@ -161,39 +121,19 @@ describe('useSwapTokensAndRepay', () => {
             ],
           },
         ],
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
       ]
     `);
   });
 
-  it('calls useSendTransaction with the correct parameters for swapping tokens and repaying full loan', async () => {
-    renderHook(() => useSwapTokensAndRepay(fakeOptions), {
+  it('calls useSendTransaction with the correct parameters for repaying full BNB loan', async () => {
+    renderHook(() => useRepay(fakeOptions), {
       accountAddress: fakeAccountAddress,
     });
 
     const repayFullLoanInput = {
       ...fakeInput,
+      vToken: vBnb,
       repayFullLoan: true,
-      swap: {
-        ...fakeSwap,
-        direction: 'exactAmountOut' as const,
-        toTokenAmountReceivedMantissa: fakeAmountMantissa,
-        maximumFromTokenAmountSoldMantissa: fakeAmountMantissa,
-        expectedFromTokenAmountSoldMantissa: fakeAmountMantissa,
-      },
     };
 
     expect(useSendTransaction).toHaveBeenCalledWith({
@@ -211,42 +151,40 @@ describe('useSwapTokensAndRepay', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "fakeMaximillionContractAddress",
         "args": [
-          10000000000000000n,
-          [
-            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-          ],
-          1747137403n,
+          "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
         ],
-        "functionName": "swapTokensForFullBNBDebtAndRepay",
+        "functionName": "repayBehalfExplicit",
+        "value": 10010000000000000n,
       }
     `,
     );
 
     onConfirmed({ input: fakeInput });
 
-    expect(mockCaptureAnalyticEvent).toHaveBeenCalledTimes(1);
     expect(mockCaptureAnalyticEvent.mock.calls[0]).toMatchInlineSnapshot(`
       [
-        "Tokens swapped and repaid",
+        "Tokens repaid",
         {
-          "exchangeRate": 1,
-          "fromTokenAmountTokens": 0.01,
-          "fromTokenSymbol": "XVS",
           "poolName": "Fake Pool",
-          "priceImpactPercentage": 0,
           "repaidFullLoan": false,
-          "slippageTolerancePercentage": 0.5,
-          "toTokenAmountTokens": 0.01,
-          "toTokenSymbol": "BNB",
+          "tokenAmountTokens": 0.01,
+          "tokenSymbol": "XVS",
         },
       ]
     `);
 
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
       [
+        [
+          {
+            "queryKey": [
+              "GET_POOLS",
+            ],
+          },
+        ],
         [
           {
             "queryKey": [
@@ -262,23 +200,10 @@ describe('useSwapTokensAndRepay', () => {
         [
           {
             "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
               "GET_TOKEN_ALLOWANCE",
               {
                 "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
                 "chainId": 97,
-                "spenderAddress": "fakeSwapRouterContractAddress",
                 "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               },
             ],
@@ -295,38 +220,18 @@ describe('useSwapTokensAndRepay', () => {
             ],
           },
         ],
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
       ]
     `);
   });
 
-  it('calls useSendTransaction with the correct parameters for swapping BNB and repaying tokens', async () => {
-    renderHook(() => useSwapTokensAndRepay(fakeOptions), {
+  it('calls useSendTransaction with the correct parameters for repaying partial BNB loan', async () => {
+    renderHook(() => useRepay(fakeOptions), {
       accountAddress: fakeAccountAddress,
     });
 
-    const swapBnbInput = {
+    const repayPartialInput = {
       ...fakeInput,
-      swap: {
-        ...fakeSwap,
-        fromToken: bnb,
-        toToken: xvs,
-        fromTokenAmountSoldMantissa: fakeAmountMantissa,
-        minimumToTokenAmountReceivedMantissa: fakeAmountMantissa,
-      },
+      vToken: vBnb,
     };
 
     expect(useSendTransaction).toHaveBeenCalledWith({
@@ -337,24 +242,15 @@ describe('useSwapTokensAndRepay', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn(swapBnbInput)).toMatchInlineSnapshot(
+    expect(await fn(repayPartialInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
       },
       `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
-        "args": [
-          "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
-          10000000000000000n,
-          [
-            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-          ],
-          1747137403n,
-        ],
-        "functionName": "swapBNBForExactTokensAndRepay",
+        "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+        "functionName": "repayBorrow",
         "value": 10000000000000000n,
       }
     `,
@@ -362,26 +258,27 @@ describe('useSwapTokensAndRepay', () => {
 
     onConfirmed({ input: fakeInput });
 
-    expect(mockCaptureAnalyticEvent).toHaveBeenCalledTimes(1);
     expect(mockCaptureAnalyticEvent.mock.calls[0]).toMatchInlineSnapshot(`
       [
-        "Tokens swapped and repaid",
+        "Tokens repaid",
         {
-          "exchangeRate": 1,
-          "fromTokenAmountTokens": 0.01,
-          "fromTokenSymbol": "XVS",
           "poolName": "Fake Pool",
-          "priceImpactPercentage": 0,
           "repaidFullLoan": false,
-          "slippageTolerancePercentage": 0.5,
-          "toTokenAmountTokens": 0.01,
-          "toTokenSymbol": "BNB",
+          "tokenAmountTokens": 0.01,
+          "tokenSymbol": "XVS",
         },
       ]
     `);
 
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
       [
+        [
+          {
+            "queryKey": [
+              "GET_POOLS",
+            ],
+          },
+        ],
         [
           {
             "queryKey": [
@@ -397,23 +294,10 @@ describe('useSwapTokensAndRepay', () => {
         [
           {
             "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
               "GET_TOKEN_ALLOWANCE",
               {
                 "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
                 "chainId": 97,
-                "spenderAddress": "fakeSwapRouterContractAddress",
                 "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
               },
             ],
@@ -430,13 +314,60 @@ describe('useSwapTokensAndRepay', () => {
             ],
           },
         ],
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
+      ]
+    `);
+  });
+
+  it('calls useSendTransaction with the correct parameters for wrapping and repaying', async () => {
+    renderHook(() => useRepay(fakeOptions), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const wrapAndRepayInput = {
+      ...fakeInput,
+      vToken: vWeth,
+      wrap: true,
+      poolComptrollerContractAddress: fakePoolComptrollerContractAddress,
+    };
+
+    expect(useSendTransaction).toHaveBeenCalledWith({
+      fn: expect.any(Function),
+      onConfirmed: expect.any(Function),
+      options: fakeOptions,
+    });
+
+    const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(await fn(wrapAndRepayInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
+      {
+        "abi": Any<Array>,
+        "address": "fakeNativeTokenGatewayContractAddress",
+        "functionName": "wrapAndRepay",
+        "value": 10000000000000000n,
+      }
+    `,
+    );
+
+    onConfirmed({ input: fakeInput });
+
+    expect(mockCaptureAnalyticEvent.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        "Tokens repaid",
+        {
+          "poolName": "Fake Pool",
+          "repaidFullLoan": false,
+          "tokenAmountTokens": 0.01,
+          "tokenSymbol": "XVS",
+        },
+      ]
+    `);
+
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
+      [
         [
           {
             "queryKey": [
@@ -444,19 +375,86 @@ describe('useSwapTokensAndRepay', () => {
             ],
           },
         ],
+        [
+          {
+            "queryKey": [
+              "GET_BALANCE_OF",
+              {
+                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+                "chainId": 97,
+                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              },
+            ],
+          },
+        ],
+        [
+          {
+            "queryKey": [
+              "GET_TOKEN_ALLOWANCE",
+              {
+                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+                "chainId": 97,
+                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+              },
+            ],
+          },
+        ],
+        [
+          {
+            "queryKey": [
+              "GET_TOKEN_BALANCES",
+              {
+                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+                "chainId": 97,
+              },
+            ],
+          },
+        ],
       ]
     `);
   });
 
-  it('throws when SwapRouter contract address is not available', async () => {
-    (getSwapRouterContractAddress as Mock).mockImplementation(() => undefined);
-
-    renderHook(() => useSwapTokensAndRepay(fakeOptions), {
-      accountAddress: fakeAccountAddress,
-    });
+  it('throws when account address is not available', async () => {
+    renderHook(() => useRepay(fakeOptions));
 
     const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
     expect(async () => fn(fakeInput)).rejects.toThrow('somethingWentWrong');
+  });
+
+  it('throws when repaying full BNB loan but maximillion contract address is not available', async () => {
+    (useGetMaximillionContractAddress as Mock).mockImplementation(() => undefined);
+
+    renderHook(() => useRepay(fakeOptions), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const repayFullLoanInput = {
+      ...fakeInput,
+      vToken: vBnb,
+      repayFullLoan: true,
+    };
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(async () => fn(repayFullLoanInput)).rejects.toThrow('somethingWentWrong');
+  });
+
+  it('throws when wrapping and repaying but native token gateway contract address is not available', async () => {
+    (getNativeTokenGatewayContractAddress as Mock).mockImplementation(() => undefined);
+
+    renderHook(() => useRepay(fakeOptions), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const wrapAndRepayInput = {
+      ...fakeInput,
+      wrap: true,
+      poolComptrollerContractAddress: fakePoolComptrollerContractAddress,
+    };
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(async () => fn(wrapAndRepayInput)).rejects.toThrow('somethingWentWrong');
   });
 });

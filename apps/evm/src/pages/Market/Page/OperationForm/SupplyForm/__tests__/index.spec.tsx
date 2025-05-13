@@ -418,7 +418,8 @@ describe('SupplyForm', () => {
     );
     fireEvent.click(submitButton);
 
-    await waitFor(() => expect(mockSupply.mock.calls[0]).toMatchInlineSnapshot(`
+    await waitFor(() =>
+      expect(mockSupply.mock.calls[0]).toMatchInlineSnapshot(`
       [
         {
           "amountMantissa": "8.899e+21",
@@ -437,7 +438,8 @@ describe('SupplyForm', () => {
           },
         },
       ]
-    `));
+    `),
+    );
     expect(onSubmitSuccessMock).toHaveBeenCalledTimes(1);
   });
 

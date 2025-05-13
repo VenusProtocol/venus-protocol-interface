@@ -7,14 +7,13 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { eth } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { repay, useGetBalanceOf } from 'clients/api';
+import { useGetBalanceOf, useRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';
-import { convertTokensToMantissa } from 'utilities';
 
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import Repay from '..';
@@ -34,8 +33,14 @@ const checkSubmitButtonIsEnabled = async () => {
   expect(submitButton).toBeEnabled();
 };
 
+const mockRepay = vi.fn();
+
 describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
+    (useRepay as Mock).mockImplementation(() => ({
+      mutateAsync: mockRepay,
+    }));
+
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
     );
@@ -288,10 +293,6 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('lets user wrap and repay, then calls onClose callback on success', async () => {
     const amountTokensToRepay = new BigNumber('1');
-    const amountMantissaToRepay = convertTokensToMantissa({
-      value: amountTokensToRepay,
-      token: eth,
-    });
 
     const onCloseMock = vi.fn();
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
@@ -330,12 +331,8 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(submitButton).toBeEnabled());
-    await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
-    expect(repay).toHaveBeenCalledWith({
-      amountMantissa: amountMantissaToRepay,
-      repayFullLoan: false,
-      wrap: true,
-    });
+    await waitFor(() => expect(mockRepay).toHaveBeenCalledTimes(1));
+    expect(mockRepay.mock.calls[0]).toMatchSnapshot();
 
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
   });

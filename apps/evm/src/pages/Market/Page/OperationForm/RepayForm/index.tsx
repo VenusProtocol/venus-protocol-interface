@@ -458,11 +458,7 @@ const RepayForm: React.FC<RepayFormProps> = ({
     accountAddress,
   });
 
-  const { mutateAsync: onRepay, isPending: isRepayLoading } = useRepay({
-    vToken: asset.vToken,
-    poolName: pool.name,
-    poolComptrollerAddress: pool.comptrollerAddress,
-  });
+  const { mutateAsync: onRepay, isPending: isRepayLoading } = useRepay();
 
   const { mutateAsync: onSwapAndRepay, isPending: isSwapAndRepayLoading } = useSwapTokensAndRepay();
 
@@ -508,6 +504,9 @@ const RepayForm: React.FC<RepayFormProps> = ({
           amountMantissa,
           repayFullLoan,
           wrap: isWrappingNativeToken,
+          vToken: asset.vToken,
+          poolName: pool.name,
+          poolComptrollerContractAddress: pool.comptrollerAddress,
         });
       }
 
@@ -524,7 +523,7 @@ const RepayForm: React.FC<RepayFormProps> = ({
         repayFullLoan,
         swap,
         poolName: pool.name,
-        poolComptrollerAddress: pool.comptrollerAddress,
+        poolComptrollerContractAddress: pool.comptrollerAddress,
         vToken: asset.vToken,
       });
     },

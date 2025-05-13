@@ -598,12 +598,12 @@ export const useExitMarket = vi.fn((options?: MutationObserverOptions) =>
   }),
 );
 
-export const repay = vi.fn();
-export const useRepay = (_variables: never, options?: MutationObserverOptions) =>
+export const useRepay = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: repay,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useSupply = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

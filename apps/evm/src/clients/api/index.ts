@@ -26,14 +26,11 @@ export * from './mutations/useVote';
 export * from './mutations/useClaimRewards';
 export * from './mutations/useSupply';
 export * from './mutations/useSwapTokensAndRepay';
+export * from './mutations/useRepay';
 
 export { default as withdraw } from './mutations/withdraw';
 export * from './mutations/withdraw';
 export { default as useWithdraw } from './mutations/withdraw/useWithdraw';
-
-export { default as repay } from './mutations/repay';
-export * from './mutations/repay';
-export { default as useRepay } from './mutations/repay/useRepay';
 
 export { default as swapTokens } from './mutations/swapTokens';
 export * from './mutations/swapTokens';
