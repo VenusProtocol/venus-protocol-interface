@@ -464,11 +464,7 @@ const RepayForm: React.FC<RepayFormProps> = ({
     poolComptrollerAddress: pool.comptrollerAddress,
   });
 
-  const { mutateAsync: onSwapAndRepay, isPending: isSwapAndRepayLoading } = useSwapTokensAndRepay({
-    poolName: pool.name,
-    poolComptrollerAddress: pool.comptrollerAddress,
-    vToken: asset.vToken,
-  });
+  const { mutateAsync: onSwapAndRepay, isPending: isSwapAndRepayLoading } = useSwapTokensAndRepay();
 
   const isSubmitting = isRepayLoading || isSwapAndRepayLoading;
 
@@ -527,9 +523,20 @@ const RepayForm: React.FC<RepayFormProps> = ({
       return onSwapAndRepay({
         repayFullLoan,
         swap,
+        poolName: pool.name,
+        poolComptrollerAddress: pool.comptrollerAddress,
+        vToken: asset.vToken,
       });
     },
-    [isUsingSwap, onRepay, isWrappingNativeToken, onSwapAndRepay],
+    [
+      isUsingSwap,
+      onRepay,
+      isWrappingNativeToken,
+      onSwapAndRepay,
+      asset.vToken,
+      pool.name,
+      pool.comptrollerAddress,
+    ],
   );
 
   const swapDirection = formValues.fixedRepayPercentage ? 'exactAmountOut' : 'exactAmountIn';
