@@ -605,12 +605,12 @@ export const useRepay = (_variables: never, options?: MutationObserverOptions) =
     ...options,
   });
 
-export const supply = vi.fn();
-export const useSupply = (_variables: never, options?: MutationObserverOptions) =>
+export const useSupply = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: supply,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useWithdraw = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

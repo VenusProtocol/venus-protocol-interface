@@ -24,11 +24,7 @@ export * from './mutations/useStakeInVaiVault';
 export * from './mutations/useStakeInVault';
 export * from './mutations/useVote';
 export * from './mutations/useClaimRewards';
-
-export { default as supply } from './mutations/supply';
-export * from './mutations/supply';
-export { default as useSupply } from './mutations/supply/useSupply';
-export * from './mutations/supply/useSupply';
+export * from './mutations/useSupply';
 
 export { default as withdraw } from './mutations/withdraw';
 export * from './mutations/withdraw';
