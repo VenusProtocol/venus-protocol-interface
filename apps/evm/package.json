@@ -40,7 +40,7 @@
     "@fastify/deepmerge": "^3.1.0",
     "@hookform/resolvers": "^3.3.2",
     "@lauriys/react-palette": "^1.0.5",
-    "@mui/material": "^5.4.2",
+    "@mui/material": "^7.1.0",
     "@mui/utils": "^5.4.2",
     "@pancakeswap/sdk": "^3.1.0",
     "@radix-ui/react-slot": "^1.0.2",
