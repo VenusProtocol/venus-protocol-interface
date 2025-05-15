@@ -1,9 +1,11 @@
 import { ChainId } from '@venusprotocol/chains/types';
 
 export const getGovernanceSubgraphUrls = ({
+  alchemySubgraphQueryKey,
   nodeRealApiKey,
   theGraphApiKey,
 }: {
+  alchemySubgraphQueryKey: string;
   nodeRealApiKey: string;
   theGraphApiKey: string;
 }) => {
@@ -25,11 +27,9 @@ export const getGovernanceSubgraphUrls = ({
     [ChainId.ZKSYNC_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-governance-zksyncsepolia/version/latest',
     [ChainId.OPTIMISM_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmdTVnzZrFhVn3Q158b3E2rNPFPmEEfyQwgN3im2GbCQLy`,
-    [ChainId.OPTIMISM_SEPOLIA]:
-      'https://api.studio.thegraph.com/query/64786/venus-governance-opsepolia/version/latest',
+    [ChainId.OPTIMISM_SEPOLIA]: `https://subgraph.satsuma-prod.com/${alchemySubgraphQueryKey}/venus/venus-governance-opsepolia/version/1.3.0-testnet.1/api`,
     [ChainId.BASE_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmaeyNEyxYYvkTRDcFNufWRg7Ki8mB5BAXCAZotkhwebLv`,
-    [ChainId.BASE_SEPOLIA]:
-      'https://api.studio.thegraph.com/query/64786/venus-governance-base-sepolia/version/latest',
+    [ChainId.BASE_SEPOLIA]: `https://subgraph.satsuma-prod.com/${alchemySubgraphQueryKey}/venus/venus-governance-base-sepolia/version/1.3.0-testnet.1/api`,
     [ChainId.UNICHAIN_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmSnLbgST88bbgj9imnw77dPd4HJ1gfhRhG9AMbqEwykUz`,
     [ChainId.UNICHAIN_SEPOLIA]:
       'https://api.studio.thegraph.com/query/64786/venus-governance-unichain-sepolia/version/latest',
