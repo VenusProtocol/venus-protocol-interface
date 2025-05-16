@@ -24,27 +24,17 @@ export * from './mutations/useStakeInVaiVault';
 export * from './mutations/useStakeInVault';
 export * from './mutations/useVote';
 export * from './mutations/useClaimRewards';
-
-export { default as supply } from './mutations/supply';
-export * from './mutations/supply';
-export { default as useSupply } from './mutations/supply/useSupply';
-export * from './mutations/supply/useSupply';
+export * from './mutations/useSupply';
+export * from './mutations/useSwapTokensAndRepay';
+export * from './mutations/useRepay';
 
 export { default as withdraw } from './mutations/withdraw';
 export * from './mutations/withdraw';
 export { default as useWithdraw } from './mutations/withdraw/useWithdraw';
 
-export { default as repay } from './mutations/repay';
-export * from './mutations/repay';
-export { default as useRepay } from './mutations/repay/useRepay';
-
 export { default as swapTokens } from './mutations/swapTokens';
 export * from './mutations/swapTokens';
 export { default as useSwapTokens } from './mutations/swapTokens/useSwapTokens';
-
-export { default as swapTokensAndRepay } from './mutations/swapTokensAndRepay';
-export * from './mutations/swapTokensAndRepay';
-export { default as useSwapTokensAndRepay } from './mutations/swapTokensAndRepay/useSwapTokensAndRepay';
 
 // Queries
 export * from './queries/getUserVaiBorrowBalance';

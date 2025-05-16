@@ -5,12 +5,11 @@ import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
-import { repay } from 'clients/api';
+import { useRepay } from 'clients/api';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 
@@ -38,7 +37,15 @@ const checkSubmitButtonIsEnabled = async () => {
   expect(submitButton).toBeEnabled();
 };
 
+const mockRepay = vi.fn();
+
 describe('RepayForm', () => {
+  beforeEach(() => {
+    (useRepay as Mock).mockImplementation(() => ({
+      mutateAsync: mockRepay,
+    }));
+  });
+
   it('renders without crashing', () => {
     renderComponent(<Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />);
   });
@@ -391,8 +398,6 @@ describe('RepayForm', () => {
   it('lets user repay borrowed tokens then calls onClose callback on success', async () => {
     const onCloseMock = vi.fn();
 
-    (repay as Mock).mockImplementationOnce(async () => fakeContractTransaction);
-
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
       {
@@ -415,23 +420,13 @@ describe('RepayForm', () => {
     await waitFor(() => getByText(en.operationForm.submitButtonLabel.repay));
     fireEvent.click(getByText(en.operationForm.submitButtonLabel.repay));
 
-    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
-      new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
-    );
-
-    await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
-    expect(repay).toHaveBeenCalledWith({
-      amountMantissa: expectedAmountMantissa,
-      repayFullLoan: false,
-      wrap: false,
-    });
+    await waitFor(() => expect(mockRepay).toHaveBeenCalledTimes(1));
+    expect(mockRepay.mock.calls[0]).toMatchSnapshot();
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
 
   it('lets user repay full loan', async () => {
-    (repay as Mock).mockImplementationOnce(async () => fakeContractTransaction);
-
     const { getByText, getByTestId } = renderComponent(
       <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
@@ -453,11 +448,7 @@ describe('RepayForm', () => {
     await waitFor(() => getByText(en.operationForm.submitButtonLabel.repay));
     fireEvent.click(getByText(en.operationForm.submitButtonLabel.repay));
 
-    await waitFor(() => expect(repay).toHaveBeenCalledTimes(1));
-    expect(repay).toHaveBeenCalledWith({
-      amountMantissa: fakeAsset.userBorrowBalanceTokens.multipliedBy(1e18), // Convert borrow balance to mantissa
-      repayFullLoan: true,
-      wrap: false,
-    });
+    await waitFor(() => expect(mockRepay).toHaveBeenCalledTimes(1));
+    expect(mockRepay.mock.calls[0]).toMatchSnapshot();
   });
 });

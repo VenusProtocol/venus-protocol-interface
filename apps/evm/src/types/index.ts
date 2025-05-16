@@ -467,7 +467,7 @@ interface SwapBase {
   exchangeRate: BigNumber;
   direction: SwapDirection;
   priceImpactPercentage: number;
-  routePath: string[]; // Token addresses
+  routePath: Address[];
 }
 
 export interface ExactAmountInSwap extends SwapBase {

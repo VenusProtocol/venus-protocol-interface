@@ -5,13 +5,14 @@ import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import type { Swap } from 'types';
 import { convertTokensToMantissa } from 'utilities';
 
+import type { Address } from 'viem';
 import type { FormatToSwapInput, FormatToSwapOutput } from './types';
 
 // Format trade to swap info
 const slippagePercent = new PSPercent(`${SLIPPAGE_TOLERANCE_PERCENTAGE * 10}`, 1000);
 
 const formatToSwap = ({ trade, input }: FormatToSwapInput): FormatToSwapOutput => {
-  const routePath = trade.route.path.map(token => token.address);
+  const routePath = trade.route.path.map(token => token.address as Address);
 
   if (input.direction === 'exactAmountIn') {
     const swap: Swap = {
