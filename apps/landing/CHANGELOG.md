@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.14.0
+
+### Minor Changes
+
+- 97dd523: update Twitter to X
+
 ## 1.13.0
 
 ### Minor Changes

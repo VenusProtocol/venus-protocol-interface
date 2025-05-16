@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 2.259.0
+
+### Minor Changes
+
+- ca92cd2: add support for weETH and wstETH on Unichain
+- 97dd523: update Twitter to X
+
 ## 2.258.0
 
 ### Minor Changes
