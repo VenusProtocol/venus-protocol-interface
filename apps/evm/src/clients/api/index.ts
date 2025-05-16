@@ -27,14 +27,8 @@ export * from './mutations/useClaimRewards';
 export * from './mutations/useSupply';
 export * from './mutations/useSwapTokensAndRepay';
 export * from './mutations/useRepay';
-
-export { default as withdraw } from './mutations/withdraw';
-export * from './mutations/withdraw';
-export { default as useWithdraw } from './mutations/withdraw/useWithdraw';
-
-export { default as swapTokens } from './mutations/swapTokens';
-export * from './mutations/swapTokens';
-export { default as useSwapTokens } from './mutations/swapTokens/useSwapTokens';
+export * from './mutations/useSwapTokens';
+export * from './mutations/useWithdraw';
 
 // Queries
 export * from './queries/getUserVaiBorrowBalance';

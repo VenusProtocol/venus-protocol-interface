@@ -400,13 +400,8 @@ describe('WithdrawForm', () => {
       fireEvent.click(submitButton);
     });
 
-    await waitFor(() =>
-      expect(mockWithdraw).toHaveBeenCalledWith({
-        amountMantissa: fakeVTokenBalanceMantissa,
-        withdrawFullSupply: true,
-        unwrap: false,
-      }),
-    );
+    await waitFor(() => expect(mockWithdraw).toHaveBeenCalledTimes(1));
+    expect(mockWithdraw.mock.calls[0]).toMatchSnapshot();
   });
 
   it('lets user withdraw partial supply succeeds', async () => {
@@ -432,16 +427,7 @@ describe('WithdrawForm', () => {
     expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.withdraw);
     fireEvent.click(submitButton);
 
-    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
-      new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
-    );
-
-    await waitFor(() =>
-      expect(mockWithdraw).toHaveBeenCalledWith({
-        amountMantissa: expectedAmountMantissa,
-        withdrawFullSupply: false,
-        unwrap: false,
-      }),
-    );
+    await waitFor(() => expect(mockWithdraw).toHaveBeenCalledTimes(1));
+    expect(mockWithdraw.mock.calls[0]).toMatchSnapshot();
   });
 });

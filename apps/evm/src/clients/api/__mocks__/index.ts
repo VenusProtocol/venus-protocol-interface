@@ -8,7 +8,6 @@ import BigNumber from 'bignumber.js';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import vTokens from '__mocks__/models/vTokens';
@@ -711,12 +710,12 @@ export const useExecuteWithdrawalFromXvsVault = vi.fn(
     }),
 );
 
-export const swapTokens = vi.fn(async () => fakeContractTransaction);
-export const useSwapTokens = (options?: MutationObserverOptions) =>
+export const useSwapTokens = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: swapTokens,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useSwapTokensAndRepay = vi.fn((options?: MutationObserverOptions) =>
   useMutation({

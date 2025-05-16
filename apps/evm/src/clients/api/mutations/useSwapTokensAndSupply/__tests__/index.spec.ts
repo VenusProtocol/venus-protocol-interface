@@ -7,7 +7,6 @@ import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { useGetSwapRouterContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
-import { generateTransactionDeadline } from 'utilities/generateTransactionDeadline';
 import type { Address } from 'viem';
 import { type Mock, describe, expect, it, vi } from 'vitest';
 import { useSwapTokensAndSupply } from '..';
@@ -19,7 +18,6 @@ vi.mock('utilities/generateTransactionDeadline');
 const mockPoolComptrollerAddress = '0x456' as Address;
 const mockPoolName = 'Test Pool';
 const mockSwapRouterAddress = '0xabc' as Address;
-const mockTransactionDeadline = 1000;
 
 const mockSwap = {
   direction: 'exactAmountIn' as const,
@@ -36,7 +34,6 @@ const mockSwap = {
 describe('useSwapTokensAndSupply', () => {
   beforeEach(() => {
     (useGetSwapRouterContractAddress as Mock).mockReturnValue(mockSwapRouterAddress);
-    (generateTransactionDeadline as Mock).mockReturnValue(mockTransactionDeadline);
   });
 
   it('should throw error if swap router address is not available', async () => {
@@ -89,18 +86,28 @@ describe('useSwapTokensAndSupply', () => {
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
     const res = await fn({ swap: mockSwap });
 
-    expect(res).toEqual({
-      abi: expect.any(Object),
-      address: mockSwapRouterAddress,
-      functionName: 'swapExactTokensForTokensAndSupply',
-      args: [
-        vXvs.address,
-        BigInt(mockSwap.fromTokenAmountSoldMantissa.toFixed()),
-        BigInt(mockSwap.minimumToTokenAmountReceivedMantissa.toFixed()),
-        mockSwap.routePath,
-        BigInt(mockTransactionDeadline),
-      ],
-    });
+    expect(res).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Object),
+      },
+      `
+      {
+        "abi": Any<Object>,
+        "address": "0xabc",
+        "args": [
+          "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+          1000n,
+          900n,
+          [
+            "0xdef",
+            "0xghi",
+          ],
+          1747386407n,
+        ],
+        "functionName": "swapExactTokensForTokensAndSupply",
+      }
+    `,
+    );
 
     onConfirmed({ input: { swap: mockSwap } });
 
@@ -222,7 +229,7 @@ describe('useSwapTokensAndSupply', () => {
             "0xdef",
             "0xghi",
           ],
-          1000n,
+          1747386407n,
         ],
         "functionName": "swapExactTokensForTokensAndSupply",
       }

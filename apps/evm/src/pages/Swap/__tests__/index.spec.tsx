@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeTokenBalances, {
   FAKE_BNB_BALANCE_TOKENS,
   FAKE_DEFAULT_BALANCE_TOKENS,
@@ -12,7 +11,7 @@ import { bnb, wbnb, xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
-import { swapTokens } from 'clients/api';
+import { useSwapTokens } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import {
   getTokenMaxButtonTestId,
@@ -38,6 +37,8 @@ vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useTokenApproval');
 
+const mockSwapTokens = vi.fn();
+
 export const getLastUseGetSwapInfoCallArgs = () =>
   (useGetSwapInfo as Mock).mock.calls[(useGetSwapInfo as Mock).mock.calls.length - 1];
 
@@ -51,6 +52,11 @@ describe('Swap', () => {
       swap: undefined,
       error: undefined,
       isLoading: false,
+    }));
+
+    (useSwapTokens as Mock).mockImplementation(() => ({
+      mutateAsync: mockSwapTokens,
+      isPending: false,
     }));
   });
 
@@ -649,8 +655,6 @@ describe('Swap', () => {
       isLoading: false,
     }));
 
-    (swapTokens as Mock).mockImplementationOnce(async () => fakeContractTransaction);
-
     const { getByText, getByTestId } = renderComponent(<SwapPage />, {
       accountAddress: fakeAccountAddress,
     });
@@ -672,10 +676,39 @@ describe('Swap', () => {
     fireEvent.click(submitButton!);
 
     // Check swap was executed
-    await waitFor(() => expect(swapTokens).toHaveBeenCalledTimes(1));
-    expect(swapTokens).toHaveBeenCalledWith({
-      swap: fakeExactAmountInSwap,
-    });
+    await waitFor(() => expect(mockSwapTokens).toHaveBeenCalledTimes(1));
+    expect(mockSwapTokens.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {
+          "poolComptrollerContractAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+          "swap": {
+            "direction": "exactAmountIn",
+            "exchangeRate": "2",
+            "expectedToTokenAmountReceivedMantissa": "4e+23",
+            "fromToken": {
+              "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+              "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cg%20clip-path='url(%23B)'%3e%3cpath%20fill-rule='evenodd'%20d='M12%200a12%2012%200%201%201%200%2024%2012%2012%200%201%201%200-24z'%20fill='%23f0b90b'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M6.595%2012l.009%203.173L9.3%2016.76v1.858l-4.274-2.507v-5.039L6.595%2012zm0-3.173v1.849l-1.57-.929V7.898l1.57-.929%201.578.929-1.578.929zm3.831-.929l1.57-.929%201.578.929-1.578.929-1.57-.929zM7.73%2014.515v-1.858l1.57.929v1.849l-1.57-.92zm2.696%202.91l1.57.929%201.578-.929v1.849l-1.578.929-1.57-.929v-1.849zm5.4-9.527l1.57-.929%201.578.929v1.849l-1.578.929V8.827l-1.57-.929zm1.57%207.275L17.405%2012l1.57-.929v5.038l-4.274%202.507v-1.858l2.695-1.586zm-1.126-.658l-1.57.92v-1.849l1.57-.929v1.858zm0-5.03l.009%201.858-2.704%201.587v3.181l-1.57.92-1.57-.92V12.93l-2.704-1.587V9.485l1.577-.929%202.687%201.594%202.704-1.594%201.578.929h-.007zM7.73%206.313l4.266-2.515%204.274%202.515-1.57.929-2.704-1.594L9.3%207.241l-1.57-.929z'/%3e%3c/g%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3cclipPath%20id='B'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+              "decimals": 18,
+              "isNative": true,
+              "symbol": "BNB",
+            },
+            "fromTokenAmountSoldMantissa": "2e+23",
+            "minimumToTokenAmountReceivedMantissa": "3e+23",
+            "priceImpactPercentage": 0.001,
+            "routePath": [
+              "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+              "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+            ],
+            "toToken": {
+              "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+              "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23f0b90b'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M11.971%202.4l2.372%202.429L8.371%2010.8%206%208.429%2011.971%202.4zm3.6%203.6l2.372%202.429L8.371%2018%206%2015.629%2015.571%206zm-10.8%203.6l2.371%202.429L4.771%2014.4%202.4%2012.029%204.771%209.6zm14.401%200l2.371%202.429-9.571%209.572L9.6%2019.229%2019.172%209.6z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+              "decimals": 18,
+              "symbol": "BUSD",
+            },
+          },
+        },
+      ]
+    `);
 
     // Check form was reset
     await waitFor(() => expect(fromTokenInput.value).toBe(''));
@@ -742,9 +775,38 @@ describe('Swap', () => {
     fireEvent.click(submitButton!);
 
     // Check swap was executed
-    await waitFor(() => expect(swapTokens).toHaveBeenCalledTimes(1));
-    expect(swapTokens).toHaveBeenCalledWith({
-      swap: fakeExactAmountInSwap,
-    });
+    await waitFor(() => expect(mockSwapTokens).toHaveBeenCalledTimes(1));
+    expect(mockSwapTokens.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {
+          "poolComptrollerContractAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+          "swap": {
+            "direction": "exactAmountIn",
+            "exchangeRate": "2",
+            "expectedToTokenAmountReceivedMantissa": "4e+23",
+            "fromToken": {
+              "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+              "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cg%20clip-path='url(%23B)'%3e%3cpath%20fill-rule='evenodd'%20d='M12%200a12%2012%200%201%201%200%2024%2012%2012%200%201%201%200-24z'%20fill='%23f0b90b'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M6.595%2012l.009%203.173L9.3%2016.76v1.858l-4.274-2.507v-5.039L6.595%2012zm0-3.173v1.849l-1.57-.929V7.898l1.57-.929%201.578.929-1.578.929zm3.831-.929l1.57-.929%201.578.929-1.578.929-1.57-.929zM7.73%2014.515v-1.858l1.57.929v1.849l-1.57-.92zm2.696%202.91l1.57.929%201.578-.929v1.849l-1.578.929-1.57-.929v-1.849zm5.4-9.527l1.57-.929%201.578.929v1.849l-1.578.929V8.827l-1.57-.929zm1.57%207.275L17.405%2012l1.57-.929v5.038l-4.274%202.507v-1.858l2.695-1.586zm-1.126-.658l-1.57.92v-1.849l1.57-.929v1.858zm0-5.03l.009%201.858-2.704%201.587v3.181l-1.57.92-1.57-.92V12.93l-2.704-1.587V9.485l1.577-.929%202.687%201.594%202.704-1.594%201.578.929h-.007zM7.73%206.313l4.266-2.515%204.274%202.515-1.57.929-2.704-1.594L9.3%207.241l-1.57-.929z'/%3e%3c/g%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3cclipPath%20id='B'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+              "decimals": 18,
+              "isNative": true,
+              "symbol": "BNB",
+            },
+            "fromTokenAmountSoldMantissa": "2e+23",
+            "minimumToTokenAmountReceivedMantissa": "3e+23",
+            "priceImpactPercentage": 0.001,
+            "routePath": [
+              "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+              "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+            ],
+            "toToken": {
+              "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+              "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23f0b90b'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M11.971%202.4l2.372%202.429L8.371%2010.8%206%208.429%2011.971%202.4zm3.6%203.6l2.372%202.429L8.371%2018%206%2015.629%2015.571%206zm-10.8%203.6l2.371%202.429L4.771%2014.4%202.4%2012.029%204.771%209.6zm14.401%200l2.371%202.429-9.571%209.572L9.6%2019.229%2019.172%209.6z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+              "decimals": 18,
+              "symbol": "BUSD",
+            },
+          },
+        },
+      ]
+    `);
   });
 });

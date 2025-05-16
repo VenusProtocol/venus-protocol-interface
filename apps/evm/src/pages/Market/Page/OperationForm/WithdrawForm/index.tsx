@@ -339,11 +339,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
   );
   const vTokenBalanceMantissa = getVTokenBalanceData?.balanceMantissa;
 
-  const { mutateAsync: withdraw, isPending: isWithdrawLoading } = useWithdraw({
-    poolName: pool.name,
-    poolComptrollerAddress: pool.comptrollerAddress,
-    vToken: asset.vToken,
-  });
+  const { mutateAsync: withdraw, isPending: isWithdrawLoading } = useWithdraw();
 
   const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
     comptrollerContractAddress: pool.comptrollerAddress,
@@ -373,6 +369,9 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
     }
 
     return withdraw({
+      poolName: pool.name,
+      poolComptrollerContractAddress: pool.comptrollerAddress,
+      vToken: asset.vToken,
       withdrawFullSupply,
       unwrap: formValues.receiveNativeToken,
       amountMantissa: withdrawFullSupply

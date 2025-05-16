@@ -20,7 +20,7 @@ import {
   useGetLegacyPoolComptrollerContractAddress,
   useGetSwapRouterContractAddress,
 } from 'libs/contracts';
-import { handleError } from 'libs/errors';
+import { VError, handleError } from 'libs/errors';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -405,14 +405,21 @@ const SwapPage: React.FC = () => {
     accountAddress,
   });
 
-  const { mutateAsync: swapTokens, isPending: isSwapTokensLoading } = useSwapTokens({
-    poolComptrollerAddress: legacyPoolComptrollerContractAddress || NULL_ADDRESS,
-  });
+  const { mutateAsync: swapTokens, isPending: isSwapTokensLoading } = useSwapTokens();
 
-  const onSwap = async (swap: Swap) =>
-    swapTokens({
+  const onSwap = async (swap: Swap) => {
+    if (!legacyPoolComptrollerContractAddress) {
+      throw new VError({
+        type: 'unexpected',
+        code: 'somethingWentWrong',
+      });
+    }
+
+    return swapTokens({
       swap,
+      poolComptrollerContractAddress: legacyPoolComptrollerContractAddress,
     });
+  };
 
   return (
     <Page indexWithSearchEngines={false}>
