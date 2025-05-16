@@ -28,10 +28,7 @@ export * from './mutations/useSupply';
 export * from './mutations/useSwapTokensAndRepay';
 export * from './mutations/useRepay';
 export * from './mutations/useSwapTokens';
-
-export { default as withdraw } from './mutations/withdraw';
-export * from './mutations/withdraw';
-export { default as useWithdraw } from './mutations/withdraw/useWithdraw';
+export * from './mutations/useWithdraw';
 
 // Queries
 export * from './queries/getUserVaiBorrowBalance';
