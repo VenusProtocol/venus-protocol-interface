@@ -2,7 +2,9 @@ import cbbtcLogo from 'libs/tokens/img/underlyingTokens/cbbtc.svg';
 import uniLogo from 'libs/tokens/img/underlyingTokens/uni.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
+import weEthLogo from 'libs/tokens/img/underlyingTokens/weEth.svg';
 import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
+import wstEthLogo from 'libs/tokens/img/underlyingTokens/wstEth.svg';
 import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
 import type { Token } from 'types';
 import { eth } from '../nativeTokens';
@@ -45,5 +47,17 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'UNI',
     asset: uniLogo,
+  },
+  {
+    address: '0x3B3aCc90D848981E69052FD461123EA19dca6cAF',
+    decimals: 18,
+    symbol: 'weETH',
+    asset: weEthLogo,
+  },
+  {
+    address: '0x114B3fD3dA17F8EDBc19a3AEE43aC168Ca5b03b4',
+    decimals: 18,
+    symbol: 'wstETH',
+    asset: wstEthLogo,
   },
 ];
