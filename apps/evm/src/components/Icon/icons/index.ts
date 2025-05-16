@@ -17,7 +17,7 @@ export { default as chevronRight } from './chevronRight';
 export { default as chevronLeft } from './chevronLeft';
 export { default as longArrow } from './longArrow';
 export { default as discord } from './discord';
-export { default as twitter } from './twitter';
+export { default as x } from './x';
 export { default as github } from './github';
 export { default as convert } from './convert';
 export { default as close } from './close';

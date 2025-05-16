@@ -3,7 +3,7 @@ import s from './SocialLinks.module.css';
 import IconDiscord from './assets/discord.svg?react';
 import IconGithub from './assets/github.svg?react';
 import IconTelegram from './assets/telegram.svg?react';
-import IconTwitter from './assets/twitter.svg?react';
+import IconX from './assets/x.svg?react';
 
 interface ISocialLinksProps {
   className?: string;
@@ -19,8 +19,8 @@ const socialLinks = [
     href: 'https://discord.gg/venus-protocol-912811548651708448',
   },
   {
-    icon: <IconTwitter className={s.socialIcon} />,
-    href: 'https://twitter.com/VenusProtocol',
+    icon: <IconX className={s.socialIcon} />,
+    href: 'https://x.com/VenusProtocol',
   },
   {
     icon: <IconGithub className={s.socialIcon} />,
