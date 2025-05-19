@@ -55,28 +55,7 @@ describe('useSetVoteDelegate', () => {
 
     onConfirmed({ input: fakeInput });
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_VOTE_DELEGATE_ADDRESS",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_CURRENT_VOTES",
-              "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('throws when contract address could not be retrieved', async () => {

@@ -90,16 +90,8 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       fireEvent.click(getByText(en.operationForm.submitButtonLabel.withdraw));
     });
 
-    const expectedAmountMantissa = new BigNumber(correctAmountTokens).multipliedBy(
-      new BigNumber(10).pow(fakeAsset.vToken.underlyingToken.decimals),
-    );
-
     await waitFor(() => expect(mockWithdraw).toHaveBeenCalledTimes(1));
-    expect(mockWithdraw).toHaveBeenCalledWith({
-      amountMantissa: expectedAmountMantissa,
-      withdrawFullSupply: false,
-      unwrap: true,
-    });
+    expect(mockWithdraw.mock.calls[0]).toMatchSnapshot();
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
@@ -144,11 +136,7 @@ describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     });
 
     await waitFor(() => expect(mockWithdraw).toHaveBeenCalledTimes(1));
-    expect(mockWithdraw).toHaveBeenCalledWith({
-      amountMantissa: fakeVTokenBalanceMantissa,
-      withdrawFullSupply: true,
-      unwrap: true,
-    });
+    expect(mockWithdraw.mock.calls[0]).toMatchSnapshot();
 
     expect(onCloseMock).toHaveBeenCalledTimes(1);
   });

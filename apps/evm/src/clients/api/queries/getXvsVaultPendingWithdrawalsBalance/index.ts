@@ -1,10 +1,12 @@
 import BigNumber from 'bignumber.js';
+import { xvsVaultAbi } from 'libs/contracts';
 
-import type { XvsVault } from 'libs/contracts';
+import type { Address, PublicClient } from 'viem';
 
 export interface GetXvsVaultPendingWithdrawalsBalanceInput {
-  xvsVaultContract: XvsVault;
-  rewardTokenAddress: string;
+  publicClient: PublicClient;
+  xvsVaultContractAddress: Address;
+  rewardTokenAddress: Address;
   poolIndex: number;
 }
 
@@ -13,11 +15,17 @@ export type GetXvsVaultPendingWithdrawalsBalanceOutput = {
 };
 
 export const getXvsVaultPendingWithdrawalsBalance = async ({
-  xvsVaultContract,
+  publicClient,
+  xvsVaultContractAddress,
   rewardTokenAddress,
   poolIndex,
 }: GetXvsVaultPendingWithdrawalsBalanceInput): Promise<GetXvsVaultPendingWithdrawalsBalanceOutput> => {
-  const resp = await xvsVaultContract.totalPendingWithdrawals(rewardTokenAddress, poolIndex);
+  const resp = await publicClient.readContract({
+    address: xvsVaultContractAddress,
+    abi: xvsVaultAbi,
+    functionName: 'totalPendingWithdrawals',
+    args: [rewardTokenAddress, BigInt(poolIndex)],
+  });
 
   return {
     balanceMantissa: new BigNumber(resp.toString()),

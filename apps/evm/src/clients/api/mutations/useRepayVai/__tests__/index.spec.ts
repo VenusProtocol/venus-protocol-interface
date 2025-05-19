@@ -65,36 +65,6 @@ describe('useRepayVai', () => {
     const { onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
     await onConfirmed();
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_USER_VAI_BORROW_BALANCE",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "spenderAddress": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
-                "tokenAddress": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 });

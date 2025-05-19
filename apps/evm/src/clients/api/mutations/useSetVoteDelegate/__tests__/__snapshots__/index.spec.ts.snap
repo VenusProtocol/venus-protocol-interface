@@ -1,0 +1,24 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useSetVoteDelegate > calls useSendTransaction with the correct parameters 2`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_VOTE_DELEGATE_ADDRESS",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_CURRENT_VOTES",
+        "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+      ],
+    },
+  ],
+]
+`;

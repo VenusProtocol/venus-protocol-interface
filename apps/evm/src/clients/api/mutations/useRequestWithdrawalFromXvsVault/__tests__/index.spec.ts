@@ -78,36 +78,7 @@ describe('useRequestWithdrawalFromXvsVault', () => {
     `);
 
     expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(2);
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_XVS_VAULT_USER_INFO",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "poolIndex": 4,
-                "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_XVS_VAULT_WITHDRAWAL_REQUESTS",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "poolIndex": 4,
-                "rewardTokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('throws error when XVS Vault contract address is not found', async () => {

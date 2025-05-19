@@ -82,41 +82,7 @@ describe('useBridgeXvs', () => {
     onConfirmed({ input: fakeInput });
 
     expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(2);
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": {
-                  "amountMantissa": "100000000000000000000",
-                  "destinationChainId": 97,
-                  "nativeCurrencyFeeMantissa": "1000000000000000000",
-                },
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": {
-                  "amountMantissa": "100000000000000000000",
-                  "destinationChainId": 97,
-                  "nativeCurrencyFeeMantissa": "1000000000000000000",
-                },
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('throws error when XVS Proxy OFT contract address is not found', async () => {

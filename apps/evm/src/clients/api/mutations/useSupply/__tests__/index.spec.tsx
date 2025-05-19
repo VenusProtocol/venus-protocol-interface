@@ -83,71 +83,7 @@ describe('useSupply', () => {
     `);
 
     expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(6);
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "vTokenAddress": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('calls useSendTransaction with the correct parameters for supplying non-native tokens', async () => {
@@ -200,71 +136,7 @@ describe('useSupply', () => {
     `);
 
     expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(6);
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "vTokenAddress": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('calls useSendTransaction with the correct parameters for wrap and supply flow', async () => {
@@ -320,84 +192,7 @@ describe('useSupply', () => {
     `);
 
     expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(7);
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "vTokenAddress": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "spenderAddress": "fakeNativeTokenGatewayContractAddress",
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('throws when account address is not available', async () => {

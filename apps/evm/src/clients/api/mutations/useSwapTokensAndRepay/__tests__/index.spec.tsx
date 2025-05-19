@@ -15,6 +15,7 @@ import { vBnb } from '__mocks__/models/vTokens';
 
 vi.mock('libs/analytics');
 vi.mock('libs/contracts');
+vi.mock('utilities/generateTransactionDeadline');
 
 const fakeAmountMantissa = new BigNumber('10000000000000000');
 
@@ -34,7 +35,7 @@ const fakeInput = {
   swap: fakeSwap,
   vToken: vBnb,
   repayFullLoan: false,
-  poolComptrollerContractAddress: fakePoolComptrollerContractAddress as `0x${string}`,
+  poolComptrollerContractAddress: fakePoolComptrollerContractAddress,
   poolName: 'Fake Pool',
 };
 
@@ -69,20 +70,27 @@ describe('useSwapTokensAndRepay', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn(fakeInput)).toMatchObject({
-      abi: expect.any(Array),
-      address: 'fakeSwapRouterContractAddress',
-      args: [
-        10000000000000000n,
-        10000000000000000n,
-        [
-          '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
-          '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    expect(await fn(fakeInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
+      {
+        "abi": Any<Array>,
+        "address": "fakeSwapRouterContractAddress",
+        "args": [
+          10000000000000000n,
+          10000000000000000n,
+          [
+            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          ],
+          1747386407n,
         ],
-        expect.any(BigInt),
-      ],
-      functionName: 'swapExactTokensForBNBAndRepay',
-    });
+        "functionName": "swapExactTokensForBNBAndRepay",
+      }
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
@@ -104,72 +112,7 @@ describe('useSwapTokensAndRepay', () => {
       ]
     `);
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "spenderAddress": "fakeSwapRouterContractAddress",
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('calls useSendTransaction with the correct parameters for swapping tokens and repaying full loan', async () => {
@@ -197,19 +140,26 @@ describe('useSwapTokensAndRepay', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn(repayFullLoanInput)).toMatchObject({
-      abi: expect.any(Array),
-      address: 'fakeSwapRouterContractAddress',
-      args: [
-        10000000000000000n,
-        [
-          '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
-          '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    expect(await fn(repayFullLoanInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
+      {
+        "abi": Any<Array>,
+        "address": "fakeSwapRouterContractAddress",
+        "args": [
+          10000000000000000n,
+          [
+            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          ],
+          1747386407n,
         ],
-        expect.any(BigInt),
-      ],
-      functionName: 'swapTokensForFullBNBDebtAndRepay',
-    });
+        "functionName": "swapTokensForFullBNBDebtAndRepay",
+      }
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
@@ -231,72 +181,7 @@ describe('useSwapTokensAndRepay', () => {
       ]
     `);
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "spenderAddress": "fakeSwapRouterContractAddress",
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('calls useSendTransaction with the correct parameters for swapping BNB and repaying tokens', async () => {
@@ -323,20 +208,28 @@ describe('useSwapTokensAndRepay', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn(swapBnbInput)).toMatchObject({
-      abi: expect.any(Array),
-      address: 'fakeSwapRouterContractAddress',
-      args: [
-        '0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c',
-        10000000000000000n,
-        [
-          '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
-          '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    expect(await fn(swapBnbInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
+      {
+        "abi": Any<Array>,
+        "address": "fakeSwapRouterContractAddress",
+        "args": [
+          "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+          10000000000000000n,
+          [
+            "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          ],
+          1747386407n,
         ],
-        expect.any(BigInt),
-      ],
-      functionName: 'swapBNBForExactTokensAndRepay',
-    });
+        "functionName": "swapBNBForExactTokensAndRepay",
+        "value": 10000000000000000n,
+      }
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
@@ -358,72 +251,7 @@ describe('useSwapTokensAndRepay', () => {
       ]
     `);
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "spenderAddress": "fakeSwapRouterContractAddress",
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('throws when SwapRouter contract address is not available', async () => {

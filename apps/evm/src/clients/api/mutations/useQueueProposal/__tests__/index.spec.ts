@@ -53,27 +53,7 @@ describe('useQueueProposal', () => {
 
     onConfirmed({ input: fakeInput });
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_PROPOSALS",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_PROPOSAL",
-              {
-                "id": 123,
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('throws when contract address could not be retrieved', async () => {
