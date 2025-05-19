@@ -34,7 +34,6 @@ import {
   getUniqueTokenBalances,
 } from 'utilities';
 
-import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { AssetInfo } from '../AssetInfo';
@@ -529,10 +528,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
     accountAddress,
   });
 
-  const { mutateAsync: supply, isPending: isSupplyLoading } = useSupply({
-    poolName: pool.name,
-    vToken: asset.vToken,
-  });
+  const { mutateAsync: supply, isPending: isSupplyLoading } = useSupply();
 
   const { mutateAsync: swapExactTokensForTokensAndSupply, isPending: isSwapAndSupplyLoading } =
     useSwapTokensAndSupply({
@@ -552,12 +548,13 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
 
       // Handle supply flow
       if (!isUsingSwap && !isWrappingNativeToken) {
-        return supply({ amountMantissa });
+        return supply({ amountMantissa, poolName: pool.name, vToken: asset.vToken });
       }
 
       if (isWrappingNativeToken) {
         return supply({
-          accountAddress: accountAddress || NULL_ADDRESS,
+          poolName: pool.name,
+          vToken: asset.vToken,
           amountMantissa,
           wrap: true,
           poolComptrollerContractAddress: pool.comptrollerAddress,
@@ -577,12 +574,13 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
       });
     },
     [
-      accountAddress,
       isUsingSwap,
       isWrappingNativeToken,
       supply,
       swapExactTokensForTokensAndSupply,
       pool.comptrollerAddress,
+      pool.name,
+      asset.vToken,
     ],
   );
 

@@ -598,19 +598,19 @@ export const useExitMarket = vi.fn((options?: MutationObserverOptions) =>
   }),
 );
 
-export const repay = vi.fn();
-export const useRepay = (_variables: never, options?: MutationObserverOptions) =>
+export const useRepay = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: repay,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
-export const supply = vi.fn();
-export const useSupply = (_variables: never, options?: MutationObserverOptions) =>
+export const useSupply = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: supply,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useWithdraw = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
@@ -718,12 +718,12 @@ export const useSwapTokens = (options?: MutationObserverOptions) =>
     ...options,
   });
 
-export const swapTokensAndRepay = vi.fn(async () => fakeContractTransaction);
-export const useSwapTokensAndRepay = (options?: MutationObserverOptions) =>
+export const useSwapTokensAndRepay = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
-    mutationFn: swapTokensAndRepay,
+    mutationFn: vi.fn(),
     ...options,
-  });
+  }),
+);
 
 export const useSwapTokensAndSupply = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>

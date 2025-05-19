@@ -8,7 +8,7 @@ import fakeTokenBalances, { FAKE_BUSD_BALANCE_TOKENS } from '__mocks__/models/to
 import { bnb, busd, wbnb, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import { swapTokensAndRepay } from 'clients/api';
+import { useSwapTokensAndRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import {
@@ -26,6 +26,10 @@ import SWAP_DETAILS_TEST_IDS from '../../OperationDetails/testIds';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import REPAY_FORM_TEST_IDS from '../testIds';
+
+vi.mock('hooks/useGetSwapTokenUserBalances');
+vi.mock('hooks/useGetSwapInfo');
+vi.mock('hooks/useGetSwapRouterContractAddress');
 
 const fakeBusdWalletBalanceMantissa = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(busd.decimals),
@@ -66,9 +70,7 @@ const fakeFullRepaymentSwap: Swap = {
   direction: 'exactAmountOut',
 };
 
-vi.mock('hooks/useGetSwapTokenUserBalances');
-vi.mock('hooks/useGetSwapInfo');
-vi.mock('hooks/useGetSwapRouterContractAddress');
+const mockSwapTokensAndRepay = vi.fn();
 
 const checkSubmitButtonIsDisabled = async () => {
   const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
@@ -88,6 +90,8 @@ const checkSubmitButtonIsEnabled = async () => {
 
 describe('RepayForm - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
+    (useSwapTokensAndRepay as Mock).mockReturnValue({ mutateAsync: mockSwapTokensAndRepay });
+
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'integratedSwap',
     );
@@ -668,11 +672,8 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     fireEvent.click(getByText(en.operationForm.submitButtonLabel.repay));
 
     // Check swapTokensAndRepay is called with correct arguments
-    await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));
-    expect(swapTokensAndRepay).toHaveBeenCalledWith({
-      swap: fakeSwap,
-      repayFullLoan: false,
-    });
+    await waitFor(() => expect(mockSwapTokensAndRepay).toHaveBeenCalledTimes(1));
+    expect(mockSwapTokensAndRepay.mock.calls[0]).toMatchSnapshot();
 
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
   });
@@ -711,11 +712,8 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     fireEvent.click(getByText(en.operationForm.submitButtonLabel.repay));
 
     // Check swapTokensAndRepay is called with correct arguments
-    await waitFor(() => expect(swapTokensAndRepay).toHaveBeenCalledTimes(1));
-    expect(swapTokensAndRepay).toHaveBeenCalledWith({
-      swap: fakeFullRepaymentSwap,
-      repayFullLoan: true,
-    });
+    await waitFor(() => expect(mockSwapTokensAndRepay).toHaveBeenCalledTimes(1));
+    expect(mockSwapTokensAndRepay.mock.calls[0]).toMatchSnapshot();
 
     await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
   });
