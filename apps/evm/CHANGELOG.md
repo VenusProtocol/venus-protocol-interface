@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.261.0
+
+### Minor Changes
+
+- b576bc5: add support for USDe on Unichain
+
 ## 2.260.0
 
 ### Minor Changes
