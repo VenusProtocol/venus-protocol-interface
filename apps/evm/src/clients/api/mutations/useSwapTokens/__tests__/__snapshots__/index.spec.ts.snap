@@ -1,0 +1,403 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useSwapTokens > calls useSendTransaction with the correct parameters when buying BNBs by selling as few fromTokens as possible 3`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_ALLOWANCE",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "spenderAddress": "fakeSwapRouterContractAddress",
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_BALANCES",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_V_TOKEN_BALANCES_ALL",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_POOLS",
+      ],
+    },
+  ],
+]
+`;
+
+exports[`useSwapTokens > calls useSendTransaction with the correct parameters when buying toTokens by selling as few BNBs as possible 3`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_ALLOWANCE",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "spenderAddress": "fakeSwapRouterContractAddress",
+          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_BALANCES",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_V_TOKEN_BALANCES_ALL",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_POOLS",
+      ],
+    },
+  ],
+]
+`;
+
+exports[`useSwapTokens > calls useSendTransaction with the correct parameters when buying toTokens by selling as few fromTokens as possible 3`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_ALLOWANCE",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "spenderAddress": "fakeSwapRouterContractAddress",
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_BALANCES",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_V_TOKEN_BALANCES_ALL",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_POOLS",
+      ],
+    },
+  ],
+]
+`;
+
+exports[`useSwapTokens > calls useSendTransaction with the correct parameters when selling BNBs for as many toTokens as possible 3`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_ALLOWANCE",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "spenderAddress": "fakeSwapRouterContractAddress",
+          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_BALANCES",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_V_TOKEN_BALANCES_ALL",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_POOLS",
+      ],
+    },
+  ],
+]
+`;
+
+exports[`useSwapTokens > calls useSendTransaction with the correct parameters when selling fromTokens for as many BNBs as possible 3`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_ALLOWANCE",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "spenderAddress": "fakeSwapRouterContractAddress",
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_BALANCES",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_V_TOKEN_BALANCES_ALL",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_POOLS",
+      ],
+    },
+  ],
+]
+`;
+
+exports[`useSwapTokens > calls useSendTransaction with the correct parameters when selling fromTokens for as many toTokens as possible 3`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_BALANCE_OF",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "tokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_ALLOWANCE",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "spenderAddress": "fakeSwapRouterContractAddress",
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_BALANCES",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_V_TOKEN_BALANCES_ALL",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_POOLS",
+      ],
+    },
+  ],
+]
+`;

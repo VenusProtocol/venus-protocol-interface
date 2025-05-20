@@ -4,7 +4,6 @@ import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { vai, xvs } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
@@ -171,7 +170,7 @@ describe('TransactionForm', () => {
   });
 
   it('calls onSubmit callback on submit', async () => {
-    const onSubmitMock = vi.fn(async () => fakeContractTransaction);
+    const onSubmitMock = vi.fn();
     const customProps: TransactionFormProps = { ...baseProps, onSubmit: onSubmitMock };
 
     const { getByText, getByTestId } = renderComponent(<TransactionForm {...customProps} />, {

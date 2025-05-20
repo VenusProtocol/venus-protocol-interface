@@ -63,7 +63,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
             vToken.address,
             BigInt(swap.maximumFromTokenAmountSoldMantissa.toFixed()),
             swap.routePath,
-            BigInt(transactionDeadline),
+            transactionDeadline,
           ],
         } as WriteContractParameters<
           typeof swapRouterAbi,
@@ -88,7 +88,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
           args: [
             BigInt(swap.maximumFromTokenAmountSoldMantissa.toFixed()),
             swap.routePath,
-            BigInt(transactionDeadline),
+            transactionDeadline,
           ],
         } as WriteContractParameters<
           typeof swapRouterAbi,
@@ -110,7 +110,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
           address: swapRouterContractAddress,
           abi: swapRouterAbi,
           functionName: 'swapBNBForFullTokenDebtAndRepay',
-          args: [vToken.address, swap.routePath, BigInt(transactionDeadline)],
+          args: [vToken.address, swap.routePath, transactionDeadline],
           value: BigInt(swap.maximumFromTokenAmountSoldMantissa.toFixed()),
         } as WriteContractParameters<
           typeof swapRouterAbi,
@@ -136,7 +136,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
             BigInt(swap.fromTokenAmountSoldMantissa.toFixed()),
             BigInt(swap.minimumToTokenAmountReceivedMantissa.toFixed()),
             swap.routePath,
-            BigInt(transactionDeadline),
+            transactionDeadline,
           ],
         } as WriteContractParameters<
           typeof swapRouterAbi,
@@ -157,7 +157,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
             vToken.address,
             BigInt(swap.minimumToTokenAmountReceivedMantissa.toFixed()),
             swap.routePath,
-            BigInt(transactionDeadline),
+            transactionDeadline,
           ],
           value: BigInt(swap.fromTokenAmountSoldMantissa.toFixed()),
         };
@@ -173,7 +173,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
             BigInt(swap.fromTokenAmountSoldMantissa.toFixed()),
             BigInt(swap.minimumToTokenAmountReceivedMantissa.toFixed()),
             swap.routePath,
-            BigInt(transactionDeadline),
+            transactionDeadline,
           ],
         } as WriteContractParameters<
           typeof swapRouterAbi,
@@ -199,7 +199,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
             BigInt(swap.toTokenAmountReceivedMantissa.toFixed()),
             BigInt(swap.maximumFromTokenAmountSoldMantissa.toFixed()),
             swap.routePath,
-            BigInt(transactionDeadline),
+            transactionDeadline,
           ],
         } as WriteContractParameters<
           typeof swapRouterAbi,
@@ -224,7 +224,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
             vToken.address,
             BigInt(swap.toTokenAmountReceivedMantissa.toFixed()),
             swap.routePath,
-            BigInt(transactionDeadline),
+            transactionDeadline,
           ],
           value: BigInt(swap.maximumFromTokenAmountSoldMantissa.toFixed()),
         } as WriteContractParameters<
@@ -250,7 +250,7 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
             BigInt(swap.toTokenAmountReceivedMantissa.toFixed()),
             BigInt(swap.maximumFromTokenAmountSoldMantissa.toFixed()),
             swap.routePath,
-            BigInt(transactionDeadline),
+            transactionDeadline,
           ],
         } as WriteContractParameters<
           typeof swapRouterAbi,

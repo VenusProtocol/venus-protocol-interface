@@ -77,49 +77,7 @@ describe('useVote', () => {
       voteType: indexedVotingSupportNames[fakeInput.voteType],
     });
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_VOTERS",
-              {
-                "filter": 1,
-                "id": 123,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_VOTE_RECEIPT",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "proposalId": 123,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_PROPOSALS",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_PROPOSAL",
-              {
-                "id": 123,
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('calls useSendTransaction with the correct parameters when vote reason is not provided', async () => {

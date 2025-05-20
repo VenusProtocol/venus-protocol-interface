@@ -1,0 +1,20 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useMintVai > calls useSendTransaction with correct parameters 2`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_USER_VAI_BORROW_BALANCE",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_V_TOKEN_BALANCES_ALL",
+      ],
+    },
+  ],
+]
+`;

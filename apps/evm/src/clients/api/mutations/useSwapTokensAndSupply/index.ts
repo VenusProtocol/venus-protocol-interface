@@ -74,7 +74,7 @@ export const useSwapTokensAndSupply = (
             BigInt(swap.fromTokenAmountSoldMantissa.toFixed()),
             BigInt(swap.minimumToTokenAmountReceivedMantissa.toFixed()),
             swap.routePath as Address[],
-            BigInt(transactionDeadline),
+            transactionDeadline,
           ],
         } as const;
       }
@@ -89,7 +89,7 @@ export const useSwapTokensAndSupply = (
             vToken.address,
             BigInt(swap.minimumToTokenAmountReceivedMantissa.toFixed()),
             swap.routePath as Address[],
-            BigInt(transactionDeadline),
+            transactionDeadline,
           ],
           value: BigInt(swap.fromTokenAmountSoldMantissa.toFixed()),
         } as const;

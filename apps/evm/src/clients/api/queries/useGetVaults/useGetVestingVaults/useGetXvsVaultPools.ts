@@ -12,7 +12,7 @@ import {
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContract, useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useGetXvsVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
@@ -37,7 +37,6 @@ export const useGetXvsVaultPools = ({
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
 
-  const xvsVaultContract = useGetXvsVaultContract();
   const xvsVaultContractAddress = useGetXvsVaultContractAddress();
 
   const xvs = useGetToken({
@@ -72,9 +71,10 @@ export const useGetXvsVaultPools = ({
 
     queries.push({
       queryFn: () =>
-        callOrThrow({ xvsVaultContract, xvs }, params =>
+        callOrThrow({ xvsVaultContractAddress, xvs }, params =>
           getXvsVaultPendingWithdrawalsBalance({
             ...params,
+            publicClient,
             rewardTokenAddress: params.xvs.address,
             poolIndex,
           }),

@@ -67,63 +67,7 @@ describe('useWithdrawFromVaiVault', () => {
     `);
 
     expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(5);
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
-                "chainId": 97,
-                "tokenAddress": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_VAI_VAULT_USER_INFO",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_VENUS_VAI_VAULT_DAILY_RATE",
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('throws error when VAI Vault contract address is not found', async () => {

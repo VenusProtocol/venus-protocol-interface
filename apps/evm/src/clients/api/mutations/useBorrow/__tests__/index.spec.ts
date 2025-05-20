@@ -1,15 +1,11 @@
 import fakeAccountAddress from '__mocks__/models/address';
-import { vXvs } from '__mocks__/models/vTokens';
+import { vWeth, vXvs } from '__mocks__/models/vTokens';
 import { queryClient } from 'clients/api';
-
-import { renderHook } from 'testUtils/render';
-
-import { ChainId } from '@venusprotocol/chains';
-import FunctionKey from 'constants/functionKey';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { getNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
+import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useBorrow } from '..';
 
@@ -29,21 +25,24 @@ const fakeOptions = {
   waitForConfirmation: true,
 };
 
+const mockCaptureAnalyticEvent = vi.fn();
+
 describe('useBorrow', () => {
   beforeEach(() => {
     (usePublicClient as Mock).mockImplementation(() => ({
       publicClient: {
-        createAccessList: vi.fn(),
+        createAccessList: vi.fn(() => ({
+          accessList: 'fake-access-list',
+        })),
       },
+    }));
+
+    (useAnalytics as Mock).mockImplementation(() => ({
+      captureAnalyticEvent: mockCaptureAnalyticEvent,
     }));
   });
 
   it('calls useSendTransaction with the correct parameters for regular borrow', async () => {
-    const mockCaptureAnalyticEvent = vi.fn();
-    (useAnalytics as Mock).mockImplementation(() => ({
-      captureAnalyticEvent: mockCaptureAnalyticEvent,
-    }));
-
     renderHook(() => useBorrow(fakeOptions), {
       accountAddress: fakeAccountAddress,
     });
@@ -56,48 +55,40 @@ describe('useBorrow', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn(fakeInput)).toEqual({
-      abi: expect.any(Array),
-      address: fakeInput.vToken.address,
-      functionName: 'borrow',
-      args: [fakeInput.amountMantissa],
-    });
+    expect(await fn(fakeInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
+      {
+        "abi": Any<Array>,
+        "accessList": undefined,
+        "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+        "args": [
+          1000n,
+        ],
+        "functionName": "borrow",
+      }
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
-    expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith('Tokens borrowed', {
-      poolName: fakeInput.poolName,
-      tokenSymbol: fakeInput.vToken.underlyingToken.symbol,
-      tokenAmountTokens: expect.any(Number),
-    });
-
-    expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-      queryKey: [
-        FunctionKey.GET_TOKEN_BALANCES,
+    expect(mockCaptureAnalyticEvent.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        "Tokens borrowed",
         {
-          chainId: ChainId.BSC_TESTNET,
-          accountAddress: fakeAccountAddress,
+          "poolName": "Pool 1",
+          "tokenAmountTokens": 1e-15,
+          "tokenSymbol": "XVS",
         },
-      ],
-    });
+      ]
+    `);
 
-    expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-      queryKey: [
-        FunctionKey.GET_BALANCE_OF,
-        {
-          chainId: ChainId.BSC_TESTNET,
-          accountAddress: fakeAccountAddress,
-          vTokenAddress: fakeInput.vToken.underlyingToken.address,
-        },
-      ],
-    });
-
-    expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-      queryKey: [FunctionKey.GET_POOLS],
-    });
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
-  it('handles borrow and unwrap flow when native token gateway contract is available', async () => {
+  it('calls useSendTransaction with the correct parameters for borrow and unwrap', async () => {
     const nativeTokenGatewayAddress = '0x789';
     (getNativeTokenGatewayContractAddress as Mock).mockReturnValue(nativeTokenGatewayAddress);
 
@@ -105,43 +96,54 @@ describe('useBorrow', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+    const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn({ ...fakeInput, unwrap: true })).toEqual({
-      abi: expect.any(Array),
-      address: nativeTokenGatewayAddress,
-      functionName: 'borrowAndUnwrap',
-      args: [fakeInput.amountMantissa],
-    });
-  });
+    const borrowAndUnwrapInput = {
+      ...fakeInput,
+      vToken: vWeth,
+      unwrap: true,
+    };
 
-  it('throws error when trying to unwrap without native token gateway contract', async () => {
-    (getNativeTokenGatewayContractAddress as Mock).mockReturnValue(undefined);
-
-    renderHook(() => useBorrow(fakeOptions), {
-      accountAddress: fakeAccountAddress,
-    });
-
-    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
-
-    expect(fn({ ...fakeInput, unwrap: true })).rejects.toThrow();
-  });
-
-  it('adds access list for native token borrows', async () => {
-    const fakeAccessList = [{ address: '0x123', storageKeys: ['0x456'] }];
-    (usePublicClient as Mock).mockImplementation(() => ({
-      publicClient: {
-        createAccessList: vi.fn().mockResolvedValue({ accessList: fakeAccessList }),
+    expect(await fn(borrowAndUnwrapInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
       },
-    }));
+      `
+      {
+        "abi": Any<Array>,
+        "address": "0x789",
+        "args": [
+          1000n,
+        ],
+        "functionName": "borrowAndUnwrap",
+      }
+    `,
+    );
 
+    onConfirmed({ input: borrowAndUnwrapInput });
+
+    expect(mockCaptureAnalyticEvent.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        "Tokens borrowed",
+        {
+          "poolName": "Pool 1",
+          "tokenAmountTokens": 1e-15,
+          "tokenSymbol": "WETH",
+        },
+      ]
+    `);
+
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
+  });
+
+  it('calls useSendTransaction with the correct parameters for native token borrow', async () => {
     renderHook(() => useBorrow(fakeOptions), {
       accountAddress: fakeAccountAddress,
     });
 
-    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+    const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    const result = await fn({
+    const nativeTokenInput = {
       ...fakeInput,
       vToken: {
         ...vXvs,
@@ -150,8 +152,56 @@ describe('useBorrow', () => {
           isNative: true,
         },
       },
+    };
+
+    expect(await fn(nativeTokenInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
+      {
+        "abi": Any<Array>,
+        "accessList": "fake-access-list",
+        "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+        "args": [
+          1000n,
+        ],
+        "functionName": "borrow",
+      }
+    `,
+    );
+
+    onConfirmed({ input: nativeTokenInput });
+
+    expect(mockCaptureAnalyticEvent.mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        "Tokens borrowed",
+        {
+          "poolName": "Pool 1",
+          "tokenAmountTokens": 1e-15,
+          "tokenSymbol": "XVS",
+        },
+      ]
+    `);
+
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
+  });
+
+  it('throws when native token gateway contract address is not available for unwrap', async () => {
+    (getNativeTokenGatewayContractAddress as Mock).mockReturnValue(undefined);
+
+    renderHook(() => useBorrow(fakeOptions), {
+      accountAddress: fakeAccountAddress,
     });
 
-    expect(result.accessList).toEqual(fakeAccessList);
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    const borrowAndUnwrapInput = {
+      ...fakeInput,
+      vToken: vWeth,
+      unwrap: true,
+    };
+
+    expect(async () => fn(borrowAndUnwrapInput)).rejects.toThrow('somethingWentWrong');
   });
 });

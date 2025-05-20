@@ -48,24 +48,7 @@ describe('useMintVai', () => {
     const { onConfirmed } = (useSendTransaction as jest.Mock).mock.calls[0][0];
     await onConfirmed();
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_USER_VAI_BORROW_BALANCE",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_V_TOKEN_BALANCES_ALL",
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('throws error when VAI contract address is not found', async () => {

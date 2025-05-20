@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useQueueProposal > calls useSendTransaction with the correct parameters 2`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_PROPOSALS",
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_PROPOSAL",
+        {
+          "id": 123,
+        },
+      ],
+    },
+  ],
+]
+`;

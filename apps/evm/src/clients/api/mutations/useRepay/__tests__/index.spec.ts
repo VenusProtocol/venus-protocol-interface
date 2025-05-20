@@ -77,52 +77,7 @@ describe('useRepay', () => {
 
     onConfirmed({ input: fakeInput });
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('calls useSendTransaction with the correct parameters for repaying full BNB loan', async () => {
@@ -176,52 +131,7 @@ describe('useRepay', () => {
       ]
     `);
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('calls useSendTransaction with the correct parameters for repaying partial BNB loan', async () => {
@@ -270,52 +180,7 @@ describe('useRepay', () => {
       ]
     `);
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('calls useSendTransaction with the correct parameters for wrapping and repaying', async () => {
@@ -366,52 +231,7 @@ describe('useRepay', () => {
       ]
     `);
 
-    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "queryKey": [
-              "GET_POOLS",
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_BALANCE_OF",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_ALLOWANCE",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-                "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              },
-            ],
-          },
-        ],
-        [
-          {
-            "queryKey": [
-              "GET_TOKEN_BALANCES",
-              {
-                "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-                "chainId": 97,
-              },
-            ],
-          },
-        ],
-      ]
-    `);
+    expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
   it('throws when account address is not available', async () => {

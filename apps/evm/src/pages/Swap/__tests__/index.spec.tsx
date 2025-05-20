@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import fakeTokenBalances, {
   FAKE_BNB_BALANCE_TOKENS,
   FAKE_DEFAULT_BALANCE_TOKENS,
@@ -12,7 +11,7 @@ import { bnb, wbnb, xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
-import { swapTokens } from 'clients/api';
+import { useSwapTokens } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import {
   getTokenMaxButtonTestId,
@@ -38,6 +37,8 @@ vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useTokenApproval');
 
+const mockSwapTokens = vi.fn();
+
 export const getLastUseGetSwapInfoCallArgs = () =>
   (useGetSwapInfo as Mock).mock.calls[(useGetSwapInfo as Mock).mock.calls.length - 1];
 
@@ -51,6 +52,11 @@ describe('Swap', () => {
       swap: undefined,
       error: undefined,
       isLoading: false,
+    }));
+
+    (useSwapTokens as Mock).mockImplementation(() => ({
+      mutateAsync: mockSwapTokens,
+      isPending: false,
     }));
   });
 
@@ -649,8 +655,6 @@ describe('Swap', () => {
       isLoading: false,
     }));
 
-    (swapTokens as Mock).mockImplementationOnce(async () => fakeContractTransaction);
-
     const { getByText, getByTestId } = renderComponent(<SwapPage />, {
       accountAddress: fakeAccountAddress,
     });
@@ -672,10 +676,8 @@ describe('Swap', () => {
     fireEvent.click(submitButton!);
 
     // Check swap was executed
-    await waitFor(() => expect(swapTokens).toHaveBeenCalledTimes(1));
-    expect(swapTokens).toHaveBeenCalledWith({
-      swap: fakeExactAmountInSwap,
-    });
+    await waitFor(() => expect(mockSwapTokens).toHaveBeenCalledTimes(1));
+    expect(mockSwapTokens.mock.calls[0]).toMatchSnapshot();
 
     // Check form was reset
     await waitFor(() => expect(fromTokenInput.value).toBe(''));
@@ -742,9 +744,7 @@ describe('Swap', () => {
     fireEvent.click(submitButton!);
 
     // Check swap was executed
-    await waitFor(() => expect(swapTokens).toHaveBeenCalledTimes(1));
-    expect(swapTokens).toHaveBeenCalledWith({
-      swap: fakeExactAmountInSwap,
-    });
+    await waitFor(() => expect(mockSwapTokens).toHaveBeenCalledTimes(1));
+    expect(mockSwapTokens.mock.calls[0]).toMatchSnapshot();
   });
 });
