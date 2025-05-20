@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 2.262.0
+
+### Minor Changes
+
+- 2cc00c3: refactor mutation functions to you use viem
+
 ## 2.261.0
 
 ### Minor Changes
