@@ -1,6 +1,7 @@
 import cbbtcLogo from 'libs/tokens/img/underlyingTokens/cbbtc.svg';
 import uniLogo from 'libs/tokens/img/underlyingTokens/uni.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
+import usdeLogo from 'libs/tokens/img/underlyingTokens/usde.svg';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
 import weEthLogo from 'libs/tokens/img/underlyingTokens/weEth.svg';
 import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
@@ -59,5 +60,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'wstETH',
     asset: wstEthLogo,
+  },
+  {
+    address: '0x8bAe3E12870a002A0D4b6Eb0F0CBf91b29d9806F',
+    decimals: 18,
+    symbol: 'USDe',
+    asset: usdeLogo,
   },
 ];
