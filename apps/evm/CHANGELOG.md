@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.0.0
+
+### Major Changes
+
+- 53dcf9a: use Alchemy testnet governance subgraphs
+
 ## 2.262.0
 
 ### Minor Changes
