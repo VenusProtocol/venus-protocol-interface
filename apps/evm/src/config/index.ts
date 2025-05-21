@@ -30,6 +30,7 @@ const network: Network = envVariables.VITE_NETWORK || 'mainnet';
 const apiUrl = apiUrls[network];
 
 const keys = {
+  alchemySubgraphQueryKey: envVariables.VITE_ALCHEMY_SUBGRAPH_QUERY_KEY,
   nodeRealApiKey: envVariables.VITE_NODE_REAL_API_KEY,
   theGraphApiKey: envVariables.VITE_THE_GRAPH_API_KEY,
 };
