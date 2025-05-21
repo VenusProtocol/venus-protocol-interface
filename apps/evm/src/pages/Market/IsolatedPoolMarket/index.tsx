@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import MarketLoader from 'containers/MarketLoader';
 import type { Address } from 'viem';

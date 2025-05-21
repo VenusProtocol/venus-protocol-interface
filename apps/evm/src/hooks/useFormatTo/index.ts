@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import type { To } from 'react-router-dom';
+import type { To } from 'react-router';
 
 import { CHAIN_ID_SEARCH_PARAM, useChainId } from 'libs/wallet';
 

@@ -1,6 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import type { Mock } from 'vitest';
 
 import { poolData } from '__mocks__/models/pools';
@@ -26,8 +26,8 @@ const primeAssets = pool.assets.reduce<Asset[]>((acc, asset) => {
   return hasPrimeDistribution ? [...acc, asset] : acc;
 }, []);
 
-vi.mock('react-router-dom', async () => {
-  const actual = (await vi.importActual('react-router-dom')) as any;
+vi.mock('react-router', async () => {
+  const actual = (await vi.importActual('react-router')) as any;
 
   return {
     ...actual,

@@ -2,7 +2,7 @@ import type { ChainId } from '@venusprotocol/chains';
 import config from 'config';
 import { chains, defaultChain } from 'libs/wallet/chains';
 import { getUnsafeChainIdFromSearchParams } from 'libs/wallet/utilities/getUnsafeChainIdFromSearchParams';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { useAccountChainId } from '../useAccountChainId';
 
 export const useChainId = () => {

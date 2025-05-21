@@ -11,7 +11,7 @@ import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
 import { Web3Wrapper } from 'libs/wallet';
 import { Suspense } from 'react';
 import { Helmet } from 'react-helmet';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router';
 import { safeLazyLoad } from 'utilities';
 import { ChainUpgradeHandler } from './ChainUpgradeHandler';
 import { MuiThemeProvider } from './MuiThemeProvider';

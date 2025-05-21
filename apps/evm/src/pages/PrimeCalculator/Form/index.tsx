@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { z } from 'zod';
 
 import {

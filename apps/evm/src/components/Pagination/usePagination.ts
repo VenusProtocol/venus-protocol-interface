@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import { PAGE_PARAM_KEY } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';

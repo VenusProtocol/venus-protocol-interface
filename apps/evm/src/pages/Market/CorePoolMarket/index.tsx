@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 

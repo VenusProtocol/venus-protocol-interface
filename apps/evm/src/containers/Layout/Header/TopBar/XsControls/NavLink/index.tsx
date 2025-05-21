@@ -1,4 +1,4 @@
-import { NavLink as RRNavLink, type NavLinkProps as RRNavLinkProps } from 'react-router-dom';
+import { NavLink as RRNavLink, type NavLinkProps as RRNavLinkProps } from 'react-router';
 
 import { cn } from '@venusprotocol/ui';
 import { Icon } from 'components';

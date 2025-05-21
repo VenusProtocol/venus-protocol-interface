@@ -1,7 +1,7 @@
 import { getAccount } from '@wagmi/core';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import { routes } from 'constants/routing';
 import { useNavigate } from 'hooks/useNavigate';

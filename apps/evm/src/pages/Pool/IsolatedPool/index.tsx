@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { NULL_ADDRESS } from 'constants/address';
 import type { Address } from 'viem';
