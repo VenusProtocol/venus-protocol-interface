@@ -69,7 +69,8 @@ describe('useSwapTokensAndRepay', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -84,7 +85,8 @@ describe('useSwapTokensAndRepay', () => {
         ],
         "functionName": "swapExactTokensForBNBAndRepay",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
@@ -137,7 +139,8 @@ describe('useSwapTokensAndRepay', () => {
     expect(await fn(repayFullLoanInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -151,7 +154,8 @@ describe('useSwapTokensAndRepay', () => {
         ],
         "functionName": "swapTokensForFullBNBDebtAndRepay",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
@@ -203,7 +207,8 @@ describe('useSwapTokensAndRepay', () => {
     expect(await fn(swapBnbInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -219,7 +224,8 @@ describe('useSwapTokensAndRepay', () => {
         "functionName": "swapBNBForExactTokensAndRepay",
         "value": 10000000000000000n,
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 

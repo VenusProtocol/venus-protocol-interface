@@ -50,7 +50,8 @@ describe('useRequestWithdrawalFromXvsVault', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeXvsVaultContractAddress",
@@ -61,7 +62,8 @@ describe('useRequestWithdrawalFromXvsVault', () => {
         ],
         "functionName": "requestWithdrawal",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 

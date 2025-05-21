@@ -36,7 +36,8 @@ describe('useCreateProposal', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeGovernorBravoDelegateContractAddress",
@@ -62,7 +63,8 @@ describe('useCreateProposal', () => {
         ],
         "functionName": "propose",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 

@@ -46,7 +46,8 @@ describe('useRepayVai', () => {
     expect(await fn({ amountMantissa: mockAmountMantissa })).toMatchInlineSnapshot(
       {
         abi: expect.any(Object),
-      }, `
+      },
+      `
       {
         "abi": Any<Object>,
         "address": "0xfakeVaiControllerContractAddress",
@@ -55,7 +56,8 @@ describe('useRepayVai', () => {
         ],
         "functionName": "repayVAI",
       }
-    `);
+    `,
+    );
 
     const { onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
     await onConfirmed();

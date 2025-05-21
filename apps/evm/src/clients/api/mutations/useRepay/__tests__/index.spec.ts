@@ -93,7 +93,8 @@ describe('useRepay', () => {
     expect(await fn(repayFullLoanInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeMaximillionContractAddress",
@@ -104,7 +105,8 @@ describe('useRepay', () => {
         "functionName": "repayBehalfExplicit",
         "value": 10010000000000000n,
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
@@ -195,14 +197,16 @@ describe('useRepay', () => {
     expect(await fn(wrapAndRepayInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeNativeTokenGatewayContractAddress",
         "functionName": "wrapAndRepay",
         "value": 10000000000000000n,
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 

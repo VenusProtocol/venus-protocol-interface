@@ -47,7 +47,8 @@ describe('useVote', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeGovernorBravoDelegateContractAddress",
@@ -58,7 +59,8 @@ describe('useVote', () => {
         ],
         "functionName": "castVoteWithReason",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
@@ -78,7 +80,8 @@ describe('useVote', () => {
     expect(await fn(fakeInputWithoutReason)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeGovernorBravoDelegateContractAddress",
@@ -88,7 +91,8 @@ describe('useVote', () => {
         ],
         "functionName": "castVote",
       }
-    `);
+    `,
+    );
   });
 
   it('throws when contract address could not be retrieved', async () => {

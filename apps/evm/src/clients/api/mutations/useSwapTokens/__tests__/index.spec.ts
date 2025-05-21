@@ -75,7 +75,8 @@ describe('useSwapTokens', () => {
     expect(await fn(swapTokensInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -91,7 +92,8 @@ describe('useSwapTokens', () => {
         ],
         "functionName": "swapExactTokensForTokens",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: swapTokensInput });
 
@@ -138,7 +140,8 @@ describe('useSwapTokens', () => {
     expect(await fn(swapBnbInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -154,7 +157,8 @@ describe('useSwapTokens', () => {
         "functionName": "swapExactBNBForTokens",
         "value": 10000000000000000n,
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: swapBnbInput });
 
@@ -192,7 +196,8 @@ describe('useSwapTokens', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -208,7 +213,8 @@ describe('useSwapTokens', () => {
         ],
         "functionName": "swapExactTokensForBNB",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
@@ -260,7 +266,8 @@ describe('useSwapTokens', () => {
     expect(await fn(swapExactTokensInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -276,7 +283,8 @@ describe('useSwapTokens', () => {
         ],
         "functionName": "swapTokensForExactTokens",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: swapExactTokensInput });
 
@@ -327,7 +335,8 @@ describe('useSwapTokens', () => {
     expect(await fn(swapBnbForExactTokensInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -343,7 +352,8 @@ describe('useSwapTokens', () => {
         "functionName": "swapBNBForExactTokens",
         "value": 10000000000000000n,
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: swapBnbForExactTokensInput });
 
@@ -392,7 +402,8 @@ describe('useSwapTokens', () => {
     expect(await fn(swapExactBnbInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -408,7 +419,8 @@ describe('useSwapTokens', () => {
         ],
         "functionName": "swapTokensForExactBNB",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: swapExactBnbInput });
 

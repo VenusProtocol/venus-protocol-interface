@@ -56,8 +56,8 @@ import venusOracleUnichainMainnetDeployments from '@venusprotocol/oracle/deploym
 import venusOracleUnichainSepoliaDeployments from '@venusprotocol/oracle/deployments/unichainsepolia_addresses.json';
 import venusOracleZkSyncMainnetDeployments from '@venusprotocol/oracle/deployments/zksyncmainnet_addresses.json';
 import venusOracleZkSyncSepoliaDeployments from '@venusprotocol/oracle/deployments/zksyncsepolia_addresses.json';
-import { abi as XVSProxyOFTDest } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTDest.sol/XVSProxyOFTDest.json';
-import { abi as XVSProxyOFTSrc } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTSrc.sol/XVSProxyOFTSrc.json';
+import { abi as XVSProxyOFTDestAbi } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTDest.sol/XVSProxyOFTDest.json';
+import { abi as XVSProxyOFTSrcAbi } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/XVSProxyOFTSrc.sol/XVSProxyOFTSrc.json';
 import { abi as XvsTokenOmnichainAbi } from '@venusprotocol/token-bridge/artifacts/contracts/Bridge/token/XVS.sol/XVS.json';
 import tokenBridgeArbitrumOneDeployments from '@venusprotocol/token-bridge/deployments/arbitrumone_addresses.json';
 import tokenBridgeArbitrumSepoliaDeployments from '@venusprotocol/token-bridge/deployments/arbitrumsepolia_addresses.json';
@@ -107,7 +107,7 @@ import venusProtocolUnichainMainnetDeployments from '@venusprotocol/venus-protoc
 import venusProtocolUnichainSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/unichainsepolia_addresses.json';
 import venusProtocolZkSyncMainnetDeployments from '@venusprotocol/venus-protocol/deployments/zksyncmainnet_addresses.json';
 import venusProtocolZkSyncSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/zksyncsepolia_addresses.json';
-import type { ContractInterface } from 'ethers';
+import type { Abi } from 'viem';
 import erc20Abi from './externalAbis/Erc20.json';
 
 import { ChainId } from 'types';
@@ -121,7 +121,7 @@ import ZyFiVaultAbi from './externalAbis/ZyFiVault.json';
 
 export interface UniqueContractConfig {
   name: string;
-  abi: ContractInterface;
+  abi: Abi;
   address: Partial<{
     [chainId in ChainId]: Address;
   }>;
@@ -129,12 +129,12 @@ export interface UniqueContractConfig {
 
 export interface GenericContractConfig {
   name: string;
-  abi: ContractInterface;
+  abi: Abi;
 }
 
 export interface UniquePerPoolContractConfig {
   name: string;
-  abi: ContractInterface;
+  abi: Abi;
   address: Partial<{
     [chainId in ChainId]: {
       [comptrollerContractAddress: Address]: Address;
@@ -151,7 +151,7 @@ export const contracts: ContractConfig[] = [
   // Unique contracts
   {
     name: 'VenusLens',
-    abi: venusLensAbi,
+    abi: venusLensAbi as Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VenusLens as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VenusLens as Address,
@@ -159,7 +159,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'PoolLens',
-    abi: PoolLensAbi,
+    abi: PoolLensAbi as Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens as Address,
       [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens as Address,
@@ -186,7 +186,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'PoolRegistry',
-    abi: PoolRegistryAbi,
+    abi: PoolRegistryAbi as Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses
         .PoolRegistry_Proxy as Address,
@@ -222,7 +222,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'LegacyPoolComptroller',
-    abi: legacyPoolComptrollerAbi,
+    abi: legacyPoolComptrollerAbi as Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Unitroller as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Unitroller as Address,
@@ -230,7 +230,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VaiController',
-    abi: vaiControllerAbi,
+    abi: vaiControllerAbi as Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VaiUnitroller as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VaiUnitroller as Address,
@@ -238,7 +238,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VaiVault',
-    abi: vaiVaultAbi,
+    abi: vaiVaultAbi as Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VAIVaultProxy as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VAIVaultProxy as Address,
@@ -246,7 +246,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XvsTokenOmnichain',
-    abi: XvsTokenOmnichainAbi,
+    abi: XvsTokenOmnichainAbi as Abi as Abi,
     address: {
       [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVS as Address,
       [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVS as Address,
@@ -266,7 +266,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XvsVault',
-    abi: xvsVaultAbi,
+    abi: xvsVaultAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVaultProxy as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVaultProxy as Address,
@@ -300,7 +300,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XvsStore',
-    abi: xvsStoreAbi,
+    abi: xvsStoreAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSStore as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSStore as Address,
@@ -327,7 +327,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'GovernorBravoDelegate',
-    abi: GovernorBravoDelegateAbi,
+    abi: GovernorBravoDelegateAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusGovernanceBscTestnetDeployments.addresses
         .GovernorBravoDelegator_Proxy as Address,
@@ -337,7 +337,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'OmnichainGovernanceExecutor',
-    abi: OmnichainGovernanceExecutorAbi,
+    abi: OmnichainGovernanceExecutorAbi as Abi,
     address: {
       [ChainId.ETHEREUM]: venusGovernanceEthereumDeployments.addresses
         .OmnichainGovernanceExecutor as Address,
@@ -371,7 +371,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XvsVesting',
-    abi: xvsVestingAbi,
+    abi: xvsVestingAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses
         .XVSVestingProxy as Address,
@@ -381,7 +381,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VrtConverter',
-    abi: vrtConverterAbi,
+    abi: vrtConverterAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses
         .VRTConverterProxy as Address,
@@ -391,7 +391,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'Maximillion',
-    abi: MaximillionAbi,
+    abi: MaximillionAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0xF3a34e06015e019D6154a0f1089f695B27122f50',
       [ChainId.BSC_MAINNET]: '0x5efA1e46F4Fd738FF721F5AebC895b970F13E8A1',
@@ -399,7 +399,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'Multicall3',
-    abi: Multicall3Abi,
+    abi: Multicall3Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.BSC_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
@@ -421,7 +421,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'ResilientOracle',
-    abi: ResilientOracleAbi,
+    abi: ResilientOracleAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusOracleBscTestnetDeployments.addresses.ResilientOracle as Address,
       [ChainId.BSC_MAINNET]: venusOracleBscMainnetDeployments.addresses.ResilientOracle as Address,
@@ -455,7 +455,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'Prime',
-    abi: primeAbi,
+    abi: primeAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Prime as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Prime as Address,
@@ -480,7 +480,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VTreasury',
-    abi: vTreasuryAbi,
+    abi: vTreasuryAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VTreasury as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VTreasury as Address,
@@ -488,7 +488,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VTreasuryV8',
-    abi: vTreasuryV8Abi,
+    abi: vTreasuryV8Abi as Abi,
     address: {
       [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.VTreasuryV8 as Address,
       [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.VTreasuryV8 as Address,
@@ -517,7 +517,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XVSProxyOFTDest',
-    abi: XVSProxyOFTDest,
+    abi: XVSProxyOFTDestAbi as Abi,
     address: {
       [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVSProxyOFTDest as Address,
       [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVSProxyOFTDest as Address,
@@ -549,7 +549,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XVSProxyOFTSrc',
-    abi: XVSProxyOFTSrc,
+    abi: XVSProxyOFTSrcAbi as Abi,
     address: {
       [ChainId.BSC_MAINNET]: tokenBridgeBscMainnetDeployments.addresses.XVSProxyOFTSrc as Address,
       [ChainId.BSC_TESTNET]: tokenBridgeBscTestnetDeployments.addresses.XVSProxyOFTSrc as Address,
@@ -557,7 +557,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'ZyFiVault',
-    abi: ZyFiVaultAbi,
+    abi: ZyFiVaultAbi as Abi,
     address: {
       [ChainId.ZKSYNC_MAINNET]: '0x32faBA244AB815A5cb3E09D55c941464DBe31496',
       [ChainId.ZKSYNC_SEPOLIA]: '0xbA72A10ce8496DC9C13b9eE8c35fcCD3809d3C81',
@@ -566,52 +566,52 @@ export const contracts: ContractConfig[] = [
   // Generic Contracts
   {
     name: 'IsolatedPoolComptroller',
-    abi: IsolatedPoolComptrollerAbi,
+    abi: IsolatedPoolComptrollerAbi as Abi,
   },
   {
     name: 'JumpRateModel',
-    abi: jumpRateModelAbi,
+    abi: jumpRateModelAbi as Abi,
   },
   {
     name: 'JumpRateModelV2',
-    abi: JumpRateModelV2Abi,
+    abi: JumpRateModelV2Abi as Abi,
   },
   {
     name: 'RewardsDistributor',
-    abi: RewardsDistributorAbi,
+    abi: RewardsDistributorAbi as Abi,
   },
   {
     name: 'VBep20',
-    abi: VBep20Abi,
+    abi: VBep20Abi as Abi,
   },
   {
     name: 'VBnb',
-    abi: VBnbAbi,
+    abi: VBnbAbi as Abi,
   },
   {
     name: 'Erc20',
-    abi: erc20Abi,
+    abi: erc20Abi as Abi,
   },
   {
     name: 'Xvs',
-    abi: xvsAbi,
+    abi: xvsAbi as Abi,
   },
   {
     name: 'Vai',
-    abi: vaiAbi,
+    abi: vaiAbi as Abi,
   },
   {
     name: 'Vrt',
-    abi: vrtAbi,
+    abi: vrtAbi as Abi,
   },
   {
     name: 'PancakePairV2',
-    abi: PancakePairV2Abi,
+    abi: PancakePairV2Abi as Abi,
   },
   // SwapRouter contract
   {
     name: 'SwapRouter',
-    abi: swapRouterAbi,
+    abi: swapRouterAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: {
         // Core pool
@@ -670,7 +670,7 @@ export const contracts: ContractConfig[] = [
   // NativeTokenGateway contract addresses for each supported pool
   {
     name: 'NativeTokenGateway',
-    abi: NativeTokenGatewayAbi,
+    abi: NativeTokenGatewayAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: {
         [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase() as Address]:

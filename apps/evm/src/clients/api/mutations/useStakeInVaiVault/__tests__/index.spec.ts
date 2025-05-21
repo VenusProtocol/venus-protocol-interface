@@ -42,7 +42,8 @@ describe('useStakeInVaiVault', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeVaiVaultContractAddress",
@@ -51,7 +52,8 @@ describe('useStakeInVaiVault', () => {
         ],
         "functionName": "deposit",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 

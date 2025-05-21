@@ -29,9 +29,11 @@ describe('useCancelProposal', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(fn(fakeInput)).toMatchInlineSnapshot({
-      abi: expect.any(Array),
-    }, `
+    expect(fn(fakeInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeGovernorBravoDelegateContractAddress",
@@ -40,7 +42,8 @@ describe('useCancelProposal', () => {
         ],
         "functionName": "cancel",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 

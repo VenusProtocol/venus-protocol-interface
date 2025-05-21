@@ -167,7 +167,8 @@ describe('useWithdraw', () => {
     expect(await fn(withdrawAndUnwrapInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeNativeTokenGatewayContractAddress",
@@ -176,7 +177,8 @@ describe('useWithdraw', () => {
         ],
         "functionName": "redeemUnderlyingAndUnwrap",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: withdrawAndUnwrapInput });
 
@@ -218,7 +220,8 @@ describe('useWithdraw', () => {
     expect(await fn(withdrawFullSupplyAndUnwrapInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeNativeTokenGatewayContractAddress",
@@ -227,7 +230,8 @@ describe('useWithdraw', () => {
         ],
         "functionName": "redeemAndUnwrap",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: withdrawFullSupplyAndUnwrapInput });
 

@@ -27,7 +27,8 @@ describe('useMintVai', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeVaiControllerContractAddress",
@@ -36,7 +37,8 @@ describe('useMintVai', () => {
         ],
         "functionName": "mintVAI",
       }
-    `);
+    `,
+    );
 
     const { onConfirmed } = (useSendTransaction as jest.Mock).mock.calls[0][0];
     await onConfirmed();

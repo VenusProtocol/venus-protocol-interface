@@ -1,7 +1,6 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId } from '@venusprotocol/chains';
 import type BigNumber from 'bignumber.js';
-import type { BaseContract } from 'ethers';
 import type { Address, ByteArray, Hex } from 'viem';
 
 // TODO: import from package in places where it's used in the codebase

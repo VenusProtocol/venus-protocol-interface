@@ -84,7 +84,8 @@ describe('useSwapTokensAndSupply', () => {
     expect(res).toMatchInlineSnapshot(
       {
         abi: expect.any(Object),
-      }, `
+      },
+      `
       {
         "abi": Any<Object>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -100,7 +101,8 @@ describe('useSwapTokensAndSupply', () => {
         ],
         "functionName": "swapExactTokensForTokensAndSupply",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: { swap: mockSwap } });
 
@@ -144,7 +146,8 @@ describe('useSwapTokensAndSupply', () => {
     expect(res).toMatchInlineSnapshot(
       {
         abi: expect.any(Object),
-      }, `
+      },
+      `
       {
         "abi": Any<Object>,
         "address": "0xfakeSwapRouterContractAddress",
@@ -160,7 +163,8 @@ describe('useSwapTokensAndSupply', () => {
         ],
         "functionName": "swapExactTokensForTokensAndSupply",
       }
-    `);
+    `,
+    );
   });
 
   it('should throw error for unsupported swap direction', async () => {

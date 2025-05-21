@@ -159,7 +159,8 @@ describe('useSupply', () => {
     expect(await fn(customFakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeNativeTokenGatewayContractAddress",
@@ -169,7 +170,8 @@ describe('useSupply', () => {
         "functionName": "wrapAndSupply",
         "value": 10000000000000000n,
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: customFakeInput });
 

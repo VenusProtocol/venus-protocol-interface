@@ -35,14 +35,16 @@ describe('useClaimPrimeToken', () => {
     expect(await fn()).toMatchInlineSnapshot(
       {
         abi: expect.any(Object),
-      }, `
+      },
+      `
       {
         "abi": Any<Object>,
         "address": "0xfakePrimeContractAddress",
         "args": [],
         "functionName": "claim",
       }
-    `);
+    `,
+    );
 
     const { onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
     await onConfirmed();

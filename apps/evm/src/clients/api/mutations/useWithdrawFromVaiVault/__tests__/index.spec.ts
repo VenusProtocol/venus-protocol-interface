@@ -44,9 +44,11 @@ describe('useWithdrawFromVaiVault', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn(fakeInput)).toMatchInlineSnapshot({
-      abi: expect.any(Array),
-    }, `
+    expect(await fn(fakeInput)).toMatchInlineSnapshot(
+      {
+        abi: expect.any(Array),
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeVaiVaultContractAddress",
@@ -55,7 +57,8 @@ describe('useWithdrawFromVaiVault', () => {
         ],
         "functionName": "withdraw",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 

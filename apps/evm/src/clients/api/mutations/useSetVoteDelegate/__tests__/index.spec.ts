@@ -34,7 +34,8 @@ describe('useSetVoteDelegate', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeXvsVaultContractAddress",
@@ -43,7 +44,8 @@ describe('useSetVoteDelegate', () => {
         ],
         "functionName": "delegate",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 

@@ -104,7 +104,8 @@ describe('useBorrow', () => {
     expect(await fn(borrowAndUnwrapInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      }, `
+      },
+      `
       {
         "abi": Any<Array>,
         "address": "0xfakeNativeTokenGatewayContractAddress",
@@ -113,7 +114,8 @@ describe('useBorrow', () => {
         ],
         "functionName": "borrowAndUnwrap",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: borrowAndUnwrapInput });
 
