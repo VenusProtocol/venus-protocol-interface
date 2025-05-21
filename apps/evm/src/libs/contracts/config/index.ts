@@ -117,7 +117,6 @@ import MaximillionAbi from './externalAbis/Maximillion.json';
 import Multicall3Abi from './externalAbis/Multicall3.json';
 import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
 import VBnbAbi from './externalAbis/VBnb.json';
-import XsequenceMulticallAbi from './externalAbis/XsequenceMulticall.json';
 import ZyFiVaultAbi from './externalAbis/ZyFiVault.json';
 
 export interface UniqueContractConfig {
@@ -396,28 +395,6 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: '0xF3a34e06015e019D6154a0f1089f695B27122f50',
       [ChainId.BSC_MAINNET]: '0x5efA1e46F4Fd738FF721F5AebC895b970F13E8A1',
-    },
-  },
-  {
-    name: 'XsequenceMulticall',
-    abi: XsequenceMulticallAbi,
-    address: {
-      [ChainId.BSC_MAINNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
-      [ChainId.BSC_TESTNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
-      [ChainId.ETHEREUM]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
-      [ChainId.SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
-      [ChainId.OPBNB_MAINNET]: '0x3E5f527Adf40B65Fcbb4918e6507ecB89AF7Cdf5',
-      [ChainId.OPBNB_TESTNET]: '0x34D4c29902769a0168b9965CbC4147771206328D',
-      [ChainId.ARBITRUM_SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
-      [ChainId.ARBITRUM_ONE]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
-      [ChainId.ZKSYNC_SEPOLIA]: '0x8C635a68D0DB098f90051D1D02ddB35B5B4EA592',
-      [ChainId.ZKSYNC_MAINNET]: '0xFEa0f491061cdb017041D6da43c98b6383097557',
-      [ChainId.OPTIMISM_MAINNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
-      [ChainId.OPTIMISM_SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
-      [ChainId.BASE_MAINNET]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
-      [ChainId.BASE_SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
-      [ChainId.UNICHAIN_MAINNET]: '0xf1c53d72704aa5cc919b77defa3ffbf04a28baf3',
-      [ChainId.UNICHAIN_SEPOLIA]: '0xd130B43062D875a4B7aF3f8fc036Bc6e9D3E1B3E',
     },
   },
   {

@@ -1,9 +1,8 @@
 import type { Mock } from 'vitest';
 
 import { ChainId, chainMetadata } from '@venusprotocol/chains';
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
-import fakeProvider from '__mocks__/models/provider';
-import type { Hex } from 'viem';
+import { transactionReceipt as fakeTransactionReceipt } from '__mocks__/models/transactionReceipt';
+import type { Hex, PublicClient } from 'viem';
 
 import { waitForTransaction } from '..';
 import { waitForSafeWalletTransaction } from '../waitForSafeWalletTransaction';
@@ -12,10 +11,22 @@ vi.mock('../waitForSafeWalletTransaction', () => ({
   waitForSafeWalletTransaction: vi.fn(),
 }));
 
-const fakeTransactionHash: Hex = '0x123';
+const mockWaitForTransactionReceipt = vi.fn(() => fakeTransactionReceipt);
+
+const fakePublicClient = {
+  waitForTransactionReceipt: mockWaitForTransactionReceipt,
+} as unknown as PublicClient;
+
 const fakeSafeTransactionHash: Hex = '0x456';
-const fakeTimeoutMs = 5000;
-const fakeConfirmations = 1;
+
+const fakeInput = {
+  hash: '0x123',
+  confirmations: 1,
+  isSafeWalletTransaction: false,
+  timeoutMs: 5000,
+  chainId: ChainId.BSC_TESTNET,
+  publicClient: fakePublicClient,
+} as const;
 
 const originalSafeWalletApiUrl = chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl;
 
@@ -33,51 +44,59 @@ describe('waitForTransaction', () => {
   });
 
   it('handles regular transaction successfully', async () => {
-    (fakeProvider.waitForTransaction as Mock).mockImplementation(async () => fakeContractReceipt);
+    const result = await waitForTransaction(fakeInput);
 
-    const result = await waitForTransaction({
-      provider: fakeProvider,
-      hash: fakeTransactionHash,
-      confirmations: fakeConfirmations,
-      isSafeWalletTransaction: false,
-      timeoutMs: fakeTimeoutMs,
-    });
+    expect(result).toEqual({ transactionReceipt: fakeTransactionReceipt });
 
-    expect(result).toEqual({ transactionReceipt: fakeContractReceipt });
-    expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
-      fakeTransactionHash,
-      fakeConfirmations,
-      fakeTimeoutMs,
-    );
+    expect(
+      (fakePublicClient.waitForTransactionReceipt as Mock).mock.calls[0],
+    ).toMatchInlineSnapshot(`
+      [
+        {
+          "confirmations": 1,
+          "hash": "0x123",
+          "timeout": 5000,
+        },
+      ]
+    `);
+
     expect(waitForSafeWalletTransaction).not.toHaveBeenCalled();
   });
 
   it('handles Safe Wallet transaction successfully', async () => {
     (waitForSafeWalletTransaction as Mock).mockImplementation(async () => ({
-      transactionHash: fakeTransactionHash,
+      transactionHash: fakeInput.hash,
     }));
 
-    (fakeProvider.waitForTransaction as Mock).mockImplementation(async () => fakeContractReceipt);
-
     const result = await waitForTransaction({
-      provider: fakeProvider,
-      hash: fakeSafeTransactionHash,
-      confirmations: fakeConfirmations,
+      ...fakeInput,
       isSafeWalletTransaction: true,
-      timeoutMs: fakeTimeoutMs,
+      hash: fakeSafeTransactionHash,
     });
 
-    expect(result).toEqual({ transactionReceipt: fakeContractReceipt });
-    expect(waitForSafeWalletTransaction).toHaveBeenCalledWith({
-      chainId: fakeProvider.network.chainId,
-      hash: fakeSafeTransactionHash,
-      timeoutMs: fakeTimeoutMs,
-    });
-    expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
-      fakeTransactionHash,
-      fakeConfirmations,
-      fakeTimeoutMs,
-    );
+    expect(result).toEqual({ transactionReceipt: fakeTransactionReceipt });
+
+    expect((waitForSafeWalletTransaction as Mock).mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {
+          "chainId": 97,
+          "hash": "0x456",
+          "timeoutMs": 5000,
+        },
+      ]
+    `);
+
+    expect(
+      (fakePublicClient.waitForTransactionReceipt as Mock).mock.calls[0],
+    ).toMatchInlineSnapshot(`
+      [
+        {
+          "confirmations": 1,
+          "hash": "0x123",
+          "timeout": 5000,
+        },
+      ]
+    `);
   });
 
   it('handles Safe Wallet transaction with no transaction hash', async () => {
@@ -86,20 +105,24 @@ describe('waitForTransaction', () => {
     }));
 
     const result = await waitForTransaction({
-      provider: fakeProvider,
-      hash: fakeSafeTransactionHash,
-      confirmations: fakeConfirmations,
+      ...fakeInput,
       isSafeWalletTransaction: true,
-      timeoutMs: fakeTimeoutMs,
+      hash: fakeSafeTransactionHash,
     });
 
     expect(result).toEqual({ transactionReceipt: undefined });
-    expect(waitForSafeWalletTransaction).toHaveBeenCalledWith({
-      chainId: fakeProvider.network.chainId,
-      hash: fakeSafeTransactionHash,
-      timeoutMs: fakeTimeoutMs,
-    });
-    expect(fakeProvider.waitForTransaction).not.toHaveBeenCalled();
+
+    expect((waitForSafeWalletTransaction as Mock).mock.calls[0]).toMatchInlineSnapshot(`
+      [
+        {
+          "chainId": 97,
+          "hash": "0x456",
+          "timeoutMs": 5000,
+        },
+      ]
+    `);
+
+    expect(fakePublicClient.waitForTransactionReceipt).not.toHaveBeenCalled();
   });
 
   it('handles Safe Wallet transaction error', async () => {
@@ -108,27 +131,17 @@ describe('waitForTransaction', () => {
 
     await expect(
       waitForTransaction({
-        provider: fakeProvider,
-        hash: fakeSafeTransactionHash,
-        confirmations: fakeConfirmations,
+        ...fakeInput,
         isSafeWalletTransaction: true,
-        timeoutMs: fakeTimeoutMs,
+        hash: fakeSafeTransactionHash,
       }),
     ).rejects.toThrow(fakeError);
   });
 
-  it('handles provider waitForTransaction error', async () => {
-    const fakeError = new Error('Provider error');
-    (fakeProvider.waitForTransaction as Mock).mockRejectedValue(fakeError);
+  it('handles public client waitForTransaction error', async () => {
+    const fakeError = new Error('Public client error');
+    mockWaitForTransactionReceipt.mockRejectedValue(fakeError);
 
-    await expect(
-      waitForTransaction({
-        provider: fakeProvider,
-        hash: fakeTransactionHash,
-        confirmations: fakeConfirmations,
-        isSafeWalletTransaction: false,
-        timeoutMs: fakeTimeoutMs,
-      }),
-    ).rejects.toThrow(fakeError);
+    await expect(waitForTransaction(fakeInput)).rejects.toThrow(fakeError);
   });
 });

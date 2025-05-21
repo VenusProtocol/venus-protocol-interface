@@ -1,10 +1,7 @@
 import type { Mock } from 'vitest';
 
-import fakeContractReceipt from '__mocks__/models/contractReceipt';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import fakeProvider from '__mocks__/models/provider';
-import { renderHook } from 'testUtils/render';
-
+import { transactionReceipt as fakeTransactionReceipt } from '__mocks__/models/transactionReceipt';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import {
   checkForComptrollerTransactionError,
@@ -15,10 +12,11 @@ import {
 } from 'libs/errors';
 import { displayNotification, updateNotification } from 'libs/notifications';
 import { en } from 'libs/translations';
-import { useProvider } from 'libs/wallet';
+import { renderHook } from 'testUtils/render';
 import { ChainId } from 'types';
+import { waitForTransaction } from '../waitForTransaction';
 
-import { CONFIRMATIONS, TIMEOUT_MS } from 'hooks/useSendTransaction/constants';
+import { CONFIRMATIONS } from 'hooks/useSendTransaction/constants';
 import type { Hex } from 'viem';
 import { useTrackTransaction } from '..';
 
@@ -26,24 +24,25 @@ vi.mock('context/ErrorLogger');
 vi.mock('libs/notifications');
 vi.mock('libs/errors');
 vi.mock('errors');
+vi.mock('viem', () => ({
+  default: ({ content: _content, ...otherProps }: any) => <p {...otherProps}>content</p>,
+}));
+
+vi.mock('../waitForTransaction', () => ({
+  waitForTransaction: vi.fn(() => ({
+    transactionReceipt: fakeTransactionReceipt,
+  })),
+}));
 
 const fakeError = new Error('Fake error');
 
 describe('useTrackTransaction', () => {
   beforeEach(() => {
     (displayNotification as Mock).mockImplementation(({ id }: { id: string | number }) => id);
-
-    (fakeProvider.waitForTransaction as Mock).mockImplementation(async () => fakeContractReceipt);
-
-    (useProvider as Mock).mockImplementation(() => ({
-      provider: fakeProvider,
-    }));
   });
 
-  it('handles errors from provider', async () => {
-    (fakeProvider.waitForTransaction as Mock).mockImplementation(async () => {
-      throw fakeError;
-    });
+  it('handles errors from waitForTransaction', async () => {
+    (waitForTransaction as Mock).mockRejectedValue(new Error('Fake error'));
 
     const { result } = renderHook(() => useTrackTransaction());
     const trackTransaction = result.current;
@@ -68,16 +67,19 @@ describe('useTrackTransaction', () => {
       ),
     });
 
-    // Check provider was called
-    expect(fakeProvider.waitForTransaction).toHaveBeenCalledTimes(1);
-    expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
-      fakeContractTransaction.hash,
-      CONFIRMATIONS,
-      TIMEOUT_MS,
-    );
+    // Check transaction was awaited
+    expect(waitForTransaction).toHaveBeenCalledTimes(1);
+    expect(waitForTransaction).toHaveBeenCalledWith({
+      chainId: ChainId.BSC_TESTNET,
+      confirmations: CONFIRMATIONS,
+      hash: fakeContractTransaction.hash,
+      isSafeWalletTransaction: false,
+      publicClient: undefined,
+      timeoutMs: 180000,
+    });
 
     // Check notification was updated
-    expect(updateNotification).toBeCalledTimes(1);
+    expect(updateNotification).toHaveBeenCalledTimes(1);
     expect(updateNotification).toHaveBeenCalledWith({
       id: fakeContractTransaction.hash,
       variant: 'warning',
@@ -128,20 +130,23 @@ describe('useTrackTransaction', () => {
         ),
       });
 
-      // Check provider was called
-      expect(fakeProvider.waitForTransaction).toHaveBeenCalledTimes(1);
-      expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
-        fakeContractTransaction.hash,
-        CONFIRMATIONS,
-        TIMEOUT_MS,
-      );
+      // Check transaction was awaited
+      expect(waitForTransaction).toHaveBeenCalledTimes(1);
+      expect(waitForTransaction).toHaveBeenCalledWith({
+        chainId: ChainId.BSC_TESTNET,
+        confirmations: CONFIRMATIONS,
+        hash: fakeContractTransaction.hash,
+        isSafeWalletTransaction: false,
+        publicClient: undefined,
+        timeoutMs: 180000,
+      });
 
       // Test check functions were called
       expect(checkFn).toHaveBeenCalledTimes(1);
-      expect(checkFn).toHaveBeenCalledWith(fakeContractReceipt);
+      expect(checkFn).toHaveBeenCalledWith(fakeTransactionReceipt);
 
       // Check notification was updated
-      expect(updateNotification).toBeCalledTimes(1);
+      expect(updateNotification).toHaveBeenCalledTimes(1);
       expect(updateNotification).toHaveBeenCalledWith({
         id: fakeContractTransaction.hash,
         variant: 'error',
@@ -151,9 +156,11 @@ describe('useTrackTransaction', () => {
   );
 
   it('handles a transaction that failed', async () => {
-    (fakeProvider.waitForTransaction as Mock).mockImplementation(async () => ({
-      ...fakeContractReceipt,
-      status: 0, // Failed transaction status
+    (waitForTransaction as Mock).mockImplementation(async () => ({
+      transactionReceipt: {
+        ...fakeTransactionReceipt,
+        status: 'reverted',
+      },
     }));
 
     const { result } = renderHook(() => useTrackTransaction());
@@ -182,16 +189,19 @@ describe('useTrackTransaction', () => {
       ),
     });
 
-    // Check provider was called
-    expect(fakeProvider.waitForTransaction).toHaveBeenCalledTimes(1);
-    expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
-      fakeContractTransaction.hash,
-      CONFIRMATIONS,
-      TIMEOUT_MS,
-    );
+    // Check transaction was awaited
+    expect(waitForTransaction).toHaveBeenCalledTimes(1);
+    expect(waitForTransaction).toHaveBeenCalledWith({
+      chainId: ChainId.BSC_TESTNET,
+      confirmations: CONFIRMATIONS,
+      hash: fakeContractTransaction.hash,
+      isSafeWalletTransaction: false,
+      publicClient: undefined,
+      timeoutMs: 180000,
+    });
 
     // Check notification was updated
-    expect(updateNotification).toBeCalledTimes(1);
+    expect(updateNotification).toHaveBeenCalledTimes(1);
     expect(updateNotification).toHaveBeenCalledWith({
       id: fakeContractTransaction.hash,
       variant: 'error',
@@ -230,16 +240,19 @@ describe('useTrackTransaction', () => {
       ),
     });
 
-    // Check provider was called
-    expect(fakeProvider.waitForTransaction).toHaveBeenCalledTimes(1);
-    expect(fakeProvider.waitForTransaction).toHaveBeenCalledWith(
-      fakeContractTransaction.hash,
-      CONFIRMATIONS,
-      TIMEOUT_MS,
-    );
+    // Check transaction was awaited
+    expect(waitForTransaction).toHaveBeenCalledTimes(1);
+    expect(waitForTransaction).toHaveBeenCalledWith({
+      chainId: ChainId.BSC_TESTNET,
+      confirmations: CONFIRMATIONS,
+      hash: fakeContractTransaction.hash,
+      isSafeWalletTransaction: false,
+      publicClient: undefined,
+      timeoutMs: 180000,
+    });
 
     // Check notification was updated
-    expect(updateNotification).toBeCalledTimes(1);
+    expect(updateNotification).toHaveBeenCalledTimes(1);
     expect(updateNotification).toHaveBeenCalledWith({
       id: fakeContractTransaction.hash,
       variant: 'success',
@@ -250,7 +263,7 @@ describe('useTrackTransaction', () => {
     expect(onConfirmedMock).toHaveBeenCalledTimes(1);
     expect(onConfirmedMock).toHaveBeenCalledWith({
       transactionHash: fakeContractTransaction.hash,
-      transactionReceipt: fakeContractReceipt,
+      transactionReceipt: fakeTransactionReceipt,
     });
   });
 });

@@ -3,8 +3,6 @@ export * from './types';
 export * from './chains';
 export * from './Web3Wrapper';
 export * from './utilities/getUnsafeChainIdFromSearchParams';
-export * from './hooks/useProvider';
-export * from './hooks/useSigner';
 export * from './hooks/useAccountAddress';
 export * from './hooks/useAccountChainId';
 export * from './hooks/useSwitchChain';

@@ -1,7 +1,6 @@
 import { type MutationObserverOptions, useMutation } from '@tanstack/react-query';
-import type { ContractReceipt } from 'ethers';
 
-import type { LooseEthersContractTxData, TransactionType } from 'types';
+import type { TransactionType } from 'types';
 
 import { useGetPaymasterInfo } from 'clients/api';
 import { store as resendPayingGasModalStore } from 'containers/ResendPayingGasModal/store';
@@ -15,6 +14,7 @@ import type {
   Chain,
   ContractFunctionArgs,
   ContractFunctionName,
+  TransactionReceipt,
   WriteContractParameters,
 } from 'viem';
 import { useConfig } from 'wagmi';
@@ -37,13 +37,11 @@ export interface UseSendTransactionInput<
     input: TMutateInput,
   ) =>
     | WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account>
-    | Promise<WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account>>
-    | LooseEthersContractTxData
-    | Promise<LooseEthersContractTxData>;
+    | Promise<WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account>>;
   transactionType?: TransactionType;
   onConfirmed?: (input: {
     transactionHash: string;
-    transactionReceipt: ContractReceipt;
+    transactionReceipt: TransactionReceipt;
     input: TMutateInput;
   }) => Promise<unknown> | unknown;
   onReverted?: (input: {

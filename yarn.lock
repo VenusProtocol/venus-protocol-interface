@@ -2,58 +2,6 @@
 # yarn lockfile v1
 
 
-"@0xsequence/abi@1.10.15":
-  version "1.10.15"
-  resolved "https://registry.yarnpkg.com/@0xsequence/abi/-/abi-1.10.15.tgz#7446f9eb96ec68081f1539e3de30e5a5c805e460"
-  integrity sha512-nuh68P8tRDzIMIH7mnGX1Eab0jsYVGhZa7IlNIs8CfTnGoanxLS+MGk5ioZBa6+slzxb9VP8mnQ5QhAWeFySeg==
-
-"@0xsequence/core@1.10.15":
-  version "1.10.15"
-  resolved "https://registry.yarnpkg.com/@0xsequence/core/-/core-1.10.15.tgz#3dfb4c7a3d3f027b04213d94a8f29c84df51c04f"
-  integrity sha512-wrE5soJSqrhhm7pC+NxckLR0lJSOnsHPLKdDqWeTRmyuhtZ4e0DsrcoeoD40I/3Bd77tdZ1GGbq00CryV7JfFw==
-  dependencies:
-    "@0xsequence/abi" "1.10.15"
-
-"@0xsequence/indexer@1.10.15":
-  version "1.10.15"
-  resolved "https://registry.yarnpkg.com/@0xsequence/indexer/-/indexer-1.10.15.tgz#bd632aebe8429d5bc74ceefe30ebd0230dde2cdf"
-  integrity sha512-bc2gAIEplMcmWJMwLuXZZ0wifoxuV/zHyWzEdbQ5+9ruIXArxyoG0Ue9fMEzKWHfsAWyBKBJCCFbr4XJEQ5YjA==
-
-"@0xsequence/multicall@^1.2.9":
-  version "1.10.15"
-  resolved "https://registry.yarnpkg.com/@0xsequence/multicall/-/multicall-1.10.15.tgz#15fdae9ada074ca672dd9de4ec8cb8107969ef1f"
-  integrity sha512-yFTMDZR9tUvm3lefYyuxhohtx6mFzdpmn+qDFk9Bjo5TeEu0SGJLjdd6U2AK3rDIcPPw7rl7VvBXLweNJOMjfw==
-  dependencies:
-    "@0xsequence/abi" "1.10.15"
-    "@0xsequence/network" "1.10.15"
-    "@0xsequence/utils" "1.10.15"
-
-"@0xsequence/network@1.10.15":
-  version "1.10.15"
-  resolved "https://registry.yarnpkg.com/@0xsequence/network/-/network-1.10.15.tgz#40d24dd2f72e4c1b0045da80a0b873baa8bfd48c"
-  integrity sha512-wHp8RGqFrncuoIh0ityO/jUobliargQ7SWlvZCf8Ez0T7uiXDEDokrFSN2F9FIl6i5a5NmcEpXhfhwS/L0pN2w==
-  dependencies:
-    "@0xsequence/core" "1.10.15"
-    "@0xsequence/indexer" "1.10.15"
-    "@0xsequence/relayer" "1.10.15"
-    "@0xsequence/utils" "1.10.15"
-
-"@0xsequence/relayer@1.10.15":
-  version "1.10.15"
-  resolved "https://registry.yarnpkg.com/@0xsequence/relayer/-/relayer-1.10.15.tgz#0d6cb723893f506c1eeb8c10401454880fe72457"
-  integrity sha512-QpNAzRjqCl9xJdXzErQA0kmv2jzEXPfVlPwutbgmrCEIj+rHdw3M+kiG0MWBnOqxoSEA98oJnxXmpBL5mkCA6g==
-  dependencies:
-    "@0xsequence/abi" "1.10.15"
-    "@0xsequence/core" "1.10.15"
-    "@0xsequence/utils" "1.10.15"
-
-"@0xsequence/utils@1.10.15":
-  version "1.10.15"
-  resolved "https://registry.yarnpkg.com/@0xsequence/utils/-/utils-1.10.15.tgz#b98589d2b30d0246d9c9256779e39c4e3a6dcde5"
-  integrity sha512-LIrQS5J+3MOER+i7ajX7fiT6ga3QoDf8wsi5KY/2eFZS39sbCXGzg1ORxjtee++c/S/h4nuRYX1IRuseGYJWPw==
-  dependencies:
-    js-base64 "^3.7.2"
-
 "@adobe/css-tools@^4.4.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@adobe/css-tools/-/css-tools-4.4.0.tgz#728c484f4e10df03d5a3acd0d8adcbbebff8ad63"
@@ -12492,11 +12440,6 @@ jpeg-js@^0.4.2, jpeg-js@^0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.4.4.tgz#a9f1c6f1f9f0fa80cdb3484ed9635054d28936aa"
   integrity sha512-WZzeDOEtTOBK4Mdsar0IqEU5sMr3vSV2RqkAIzUEV2BHnUfKGyswWFPFwK5EeDo93K3FohSHbLAjj0s1Wzd+dg==
-
-js-base64@^3.7.2:
-  version "3.7.7"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.7.tgz#e51b84bf78fbf5702b9541e2cb7bfcb893b43e79"
-  integrity sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==
 
 js-cookie@^2.2.1:
   version "2.2.1"

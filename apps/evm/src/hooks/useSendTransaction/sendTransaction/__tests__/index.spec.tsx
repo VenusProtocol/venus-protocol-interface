@@ -1,7 +1,7 @@
 import { getPublicClient, getWalletClient } from '@wagmi/core';
 import fakeAccountAddress from '__mocks__/models/address';
-import type { BaseContract } from 'ethers';
-import { ChainId, type LooseEthersContractTxData } from 'types';
+import { txData } from '__mocks__/models/transactionData';
+import { ChainId } from 'types';
 import type { Mock } from 'vitest';
 import type { Config as WagmiConfig } from 'wagmi';
 import { sendTransaction } from '..';
@@ -46,46 +46,7 @@ vi.mock('@wagmi/core', async () => {
 
 const GAS_ESTIMATION_FAILED_ERROR = 'Gas estimation failed';
 
-// Mock contract
-const mockContract = {
-  address: '0xmockContractAddress',
-  interface: {
-    encodeFunctionData: vi.fn(() => '0xmockEncodedFunctionData'),
-  },
-  functions: {
-    fakeMethod: vi.fn(async () => ({ hash: 'mockTransactionHash' })),
-  },
-} as unknown as BaseContract;
-
 const mockWagmiConfig = {} as WagmiConfig;
-
-const ethersTxData: LooseEthersContractTxData = {
-  contract: mockContract,
-  methodName: 'fakeMethod',
-  args: ['arg1', 'arg2'],
-};
-
-const abi = [
-  {
-    constant: false,
-    inputs: [
-      { internalType: 'string', name: 'fakeArg1', type: 'string' },
-      { internalType: 'string', name: 'fakeArg2', type: 'string' },
-    ],
-    name: 'fakeFunction',
-    outputs: [{ name: '', type: 'bool' }],
-    payable: false,
-    stateMutability: 'payable',
-    type: 'function',
-  },
-] as const;
-
-const txData = {
-  abi,
-  address: '0xmockAddress',
-  functionName: 'fakeFunction',
-  args: ['arg1', 'arg2'],
-} as const;
 
 describe('sendTransaction', () => {
   // Mocks setup
@@ -188,7 +149,7 @@ describe('sendTransaction', () => {
 
   it('sends regular transaction with overrides when gasless is false', async () => {
     const customTxData = {
-      abi,
+      abi: txData.abi,
       address: '0xmockAddress',
       functionName: 'fakeFunction',
       args: ['arg1', 'arg2'],
@@ -262,104 +223,7 @@ describe('sendTransaction', () => {
 
   it('sends gasless transaction with overrides when gasless is true', async () => {
     const customTxData = {
-      ...ethersTxData,
-      overrides: { value: '100' },
-    };
-
-    const result = await sendTransaction({
-      txData: customTxData,
-      gasless: true,
-      wagmiConfig: mockWagmiConfig,
-      chainId: ChainId.BSC_TESTNET,
-      accountAddress: fakeAccountAddress,
-    });
-
-    expect((global.fetch as Mock).mock.calls[0]).toMatchSnapshot();
-    expect(result).toEqual({ transactionHash: 'mockGaslessHash' });
-  });
-
-  it('sends regular ethers.js transaction when gasless is false', async () => {
-    const result = await sendTransaction({
-      txData: ethersTxData,
-      gasless: false,
-      wagmiConfig: mockWagmiConfig,
-      chainId: ChainId.BSC_TESTNET,
-      accountAddress: fakeAccountAddress,
-    });
-
-    expect((getPublicClient as Mock).mock.calls[0]).toMatchInlineSnapshot(`
-      [
-        {},
-        {
-          "chainId": 97,
-        },
-      ]
-    `);
-    expect((getWalletClient as Mock).mock.calls[0]).toMatchInlineSnapshot(`
-      [
-        {},
-        {
-          "account": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-          "chainId": 97,
-        },
-      ]
-    `);
-
-    expect((mockContract.functions.fakeMethod as Mock).mock.calls[0]).toMatchInlineSnapshot(`
-      [
-        "arg1",
-        "arg2",
-        {
-          "gasLimit": 135000n,
-        },
-      ]
-    `);
-    expect(result).toEqual({ transactionHash: 'mockTransactionHash' });
-  });
-
-  it('sends regular ethers.js transaction with overrides when gasless is false', async () => {
-    const txData = {
-      ...ethersTxData,
-      overrides: { value: '100' },
-    };
-
-    const result = await sendTransaction({
-      txData,
-      gasless: false,
-      wagmiConfig: mockWagmiConfig,
-      chainId: ChainId.BSC_TESTNET,
-      accountAddress: fakeAccountAddress,
-    });
-
-    expect((mockContract.functions.fakeMethod as Mock).mock.calls[0]).toMatchInlineSnapshot(`
-      [
-        "arg1",
-        "arg2",
-        {
-          "gasLimit": 135000n,
-          "value": "100",
-        },
-      ]
-    `);
-    expect(result).toEqual({ transactionHash: 'mockTransactionHash' });
-  });
-
-  it('sends gasless ethers.js transaction when gasless is true', async () => {
-    const result = await sendTransaction({
-      txData: ethersTxData,
-      gasless: true,
-      wagmiConfig: mockWagmiConfig,
-      chainId: ChainId.BSC_TESTNET,
-      accountAddress: fakeAccountAddress,
-    });
-
-    expect((global.fetch as Mock).mock.calls[0]).toMatchSnapshot();
-    expect(result).toEqual({ transactionHash: 'mockGaslessHash' });
-  });
-
-  it('sends gasless ethers.js transaction with overrides when gasless is true', async () => {
-    const customTxData = {
-      ...ethersTxData,
+      ...txData,
       overrides: { value: '100' },
     };
 
@@ -385,7 +249,7 @@ describe('sendTransaction', () => {
 
     await expect(
       sendTransaction({
-        txData: ethersTxData,
+        txData,
         gasless: true,
         wagmiConfig: mockWagmiConfig,
         chainId: ChainId.BSC_TESTNET,
@@ -408,7 +272,7 @@ describe('sendTransaction', () => {
 
     await expect(
       sendTransaction({
-        txData: ethersTxData,
+        txData,
         gasless: true,
         wagmiConfig: mockWagmiConfig,
         chainId: ChainId.BSC_TESTNET,

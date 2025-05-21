@@ -1,19 +1,19 @@
 import type { ChainId } from '@venusprotocol/chains';
-import type { ContractReceipt } from 'ethers';
-import type { Provider } from 'libs/wallet';
-import type { Hex } from 'viem';
+import type { Hex, PublicClient, TransactionReceipt } from 'viem';
 import { waitForSafeWalletTransaction } from './waitForSafeWalletTransaction';
 
 export const WAIT_INTERVAL_MS = 1000;
 
 export const waitForTransaction = async ({
-  provider,
+  chainId,
+  publicClient,
   hash,
   confirmations,
   isSafeWalletTransaction,
   timeoutMs,
 }: {
-  provider: Provider;
+  chainId: ChainId;
+  publicClient: PublicClient;
   hash: Hex;
   isSafeWalletTransaction: boolean;
   confirmations: number;
@@ -23,7 +23,7 @@ export const waitForTransaction = async ({
 
   if (isSafeWalletTransaction) {
     const { transactionHash: tmpHash } = await waitForSafeWalletTransaction({
-      chainId: provider.network.chainId as ChainId,
+      chainId,
       hash,
       timeoutMs,
     });
@@ -33,15 +33,15 @@ export const waitForTransaction = async ({
     transactionHash = hash;
   }
 
-  let transactionReceipt: ContractReceipt | undefined;
+  let transactionReceipt: TransactionReceipt | undefined;
 
   if (transactionHash) {
     // Retrieve transaction from RPC provider
-    transactionReceipt = await provider.waitForTransaction(
-      transactionHash,
+    transactionReceipt = await publicClient.waitForTransactionReceipt({
+      hash: transactionHash,
       confirmations,
-      timeoutMs,
-    );
+      timeout: timeoutMs,
+    });
   }
 
   return { transactionReceipt };

@@ -1,6 +1,13 @@
 import BigNumber from 'bignumber.js';
-import type { ContractReceipt } from 'ethers';
 
+import {
+  erc20Abi,
+  isolatedPoolComptrollerAbi,
+  vaiControllerAbi,
+  vaiVaultAbi,
+  xvsVaultAbi,
+} from 'libs/contracts';
+import { type Abi, type TransactionReceipt, parseEventLogs } from 'viem';
 import { VError, type VErrorPhraseMap } from './VError';
 import {
   ComptrollerErrorReporterError,
@@ -19,8 +26,11 @@ import {
 // These functions are used to detect such cases and throw an error when a
 // Failure event is detected
 
+type EventErrorArg = { _hex: string };
+
 const checkForTransactionError = (
-  receipt: ContractReceipt,
+  receipt: TransactionReceipt,
+  abi: Abi,
   errorEnum:
     | typeof ComptrollerErrorReporterError
     | typeof TokenErrorReporterError
@@ -34,12 +44,18 @@ const checkForTransactionError = (
     | typeof VaiVaultErrorReporterInfo
     | typeof XvsVaultProxyErrorReporterInfo,
 ) => {
-  const failureEvent = receipt.events?.find(event => event.event === 'Failure');
+  const events = parseEventLogs({
+    abi,
+    logs: receipt.logs,
+  });
+
+  const failureEvent = events.find(event => event.eventName === 'Failure');
 
   if (failureEvent) {
-    const errorIndex = failureEvent.args?.error
-      ? new BigNumber(failureEvent.args.error._hex).toNumber()
-      : 0;
+    const errorIndex =
+      'error' in failureEvent.args && '_hex' in (failureEvent.args.error as EventErrorArg)
+        ? new BigNumber((failureEvent.args.error as EventErrorArg)._hex).toNumber()
+        : 0;
 
     throw new VError({
       type: 'transaction',
@@ -53,29 +69,42 @@ const checkForTransactionError = (
   return receipt;
 };
 
-export const checkForComptrollerTransactionError = (receipt: ContractReceipt) =>
+export const checkForComptrollerTransactionError = (receipt: TransactionReceipt) =>
   checkForTransactionError(
     receipt,
+    isolatedPoolComptrollerAbi,
     ComptrollerErrorReporterError,
     ComptrollerErrorReporterFailureInfo,
   );
 
-export const checkForTokenTransactionError = (receipt: ContractReceipt) =>
-  checkForTransactionError(receipt, TokenErrorReporterError, TokenErrorReporterFailureInfo);
-
-export const checkForVaiControllerTransactionError = (receipt: ContractReceipt) =>
+export const checkForTokenTransactionError = (receipt: TransactionReceipt) =>
   checkForTransactionError(
     receipt,
+    erc20Abi,
+    TokenErrorReporterError,
+    TokenErrorReporterFailureInfo,
+  );
+
+export const checkForVaiControllerTransactionError = (receipt: TransactionReceipt) =>
+  checkForTransactionError(
+    receipt,
+    vaiControllerAbi,
     VaiControllerErrorReporterError,
     VaiControllerErrorReporterFailureInfo,
   );
 
-export const checkForVaiVaultTransactionError = (receipt: ContractReceipt) =>
-  checkForTransactionError(receipt, VaiVaultErrorReporterError, VaiVaultErrorReporterInfo);
-
-export const checkForXvsVaultProxyTransactionError = (receipt: ContractReceipt) =>
+export const checkForVaiVaultTransactionError = (receipt: TransactionReceipt) =>
   checkForTransactionError(
     receipt,
+    vaiVaultAbi,
+    VaiVaultErrorReporterError,
+    VaiVaultErrorReporterInfo,
+  );
+
+export const checkForXvsVaultProxyTransactionError = (receipt: TransactionReceipt) =>
+  checkForTransactionError(
+    receipt,
+    xvsVaultAbi,
     XvsVaultProxyErrorReporterError,
     XvsVaultProxyErrorReporterInfo,
   );

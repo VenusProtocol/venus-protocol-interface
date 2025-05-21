@@ -1,12 +1,11 @@
 import { getVTokenBalance, useEnterMarket, useExitMarket } from 'clients/api';
 import { isolatedPoolComptrollerAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import { useAccountAddress, usePublicClient, useSigner } from 'libs/wallet';
+import { useAccountAddress, usePublicClient } from 'libs/wallet';
 import type { Asset } from 'types';
 import type { Address } from 'viem';
 
 const useCollateral = () => {
-  const { signer } = useSigner();
   const { accountAddress } = useAccountAddress();
   const { publicClient } = usePublicClient();
 
@@ -26,7 +25,7 @@ const useCollateral = () => {
     comptrollerAddress: Address;
     poolName: string;
   }) => {
-    if (!signer || !accountAddress) {
+    if (!accountAddress) {
       throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
     }
 

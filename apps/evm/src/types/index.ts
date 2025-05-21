@@ -492,12 +492,3 @@ export type SwapError =
   | 'UNWRAPPING_UNSUPPORTED';
 
 export type PSTokenCombination = [PSToken, PSToken];
-
-// This is a temporary type while we migrate to viem
-// TODO: remove once we've fully migrated to viem
-export type LooseEthersContractTxData = {
-  contract: BaseContract;
-  methodName: string;
-  args: readonly unknown[];
-  overrides?: { value: string } | Record<never, never>;
-};
