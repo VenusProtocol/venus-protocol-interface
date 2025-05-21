@@ -6,7 +6,7 @@ import {
   getXvsVaultPoolInfo,
 } from 'clients/api/queries/getXvsVaultPoolInfo';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -37,7 +37,9 @@ export const useGetXvsVaultPoolInfo = (
 ) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_VAULT_POOL_INFOS, { ...input, chainId }],

@@ -112,6 +112,7 @@ import erc20Abi from './externalAbis/Erc20.json';
 
 import { ChainId } from 'types';
 
+import type { Address } from 'viem';
 import MaximillionAbi from './externalAbis/Maximillion.json';
 import Multicall3Abi from './externalAbis/Multicall3.json';
 import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
@@ -123,7 +124,7 @@ export interface UniqueContractConfig {
   name: string;
   abi: ContractInterface;
   address: Partial<{
-    [chainId in ChainId]: string;
+    [chainId in ChainId]: Address;
   }>;
 }
 
@@ -132,12 +133,12 @@ export interface GenericContractConfig {
   abi: ContractInterface;
 }
 
-export interface SwapRouterContractConfig {
+export interface UniquePerPoolContractConfig {
   name: string;
   abi: ContractInterface;
   address: Partial<{
     [chainId in ChainId]: {
-      [comptrollerContractAddress: string]: string;
+      [comptrollerContractAddress: Address]: Address;
     };
   }>;
 }
@@ -145,7 +146,7 @@ export interface SwapRouterContractConfig {
 export type ContractConfig =
   | UniqueContractConfig
   | GenericContractConfig
-  | SwapRouterContractConfig;
+  | UniquePerPoolContractConfig;
 
 export const contracts: ContractConfig[] = [
   // Unique contracts
@@ -153,203 +154,240 @@ export const contracts: ContractConfig[] = [
     name: 'VenusLens',
     abi: venusLensAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VenusLens,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VenusLens,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VenusLens as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VenusLens as Address,
     },
   },
   {
     name: 'PoolLens',
     abi: PoolLensAbi,
     address: {
-      [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens,
-      [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens,
-      [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolLens,
-      [ChainId.OPBNB_MAINNET]: isolatedPoolsOpBnbMainnetDeployments.addresses.PoolLens,
-      [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses.PoolLens,
-      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens,
-      [ChainId.ARBITRUM_SEPOLIA]: isolatedPoolsArbitrumSepoliaDeployments.addresses.PoolLens,
-      [ChainId.ARBITRUM_ONE]: isolatedPoolsArbitrumOneDeployments.addresses.PoolLens,
-      [ChainId.ZKSYNC_SEPOLIA]: isolatedPoolsZkSyncSepoliaDeployments.addresses.PoolLens,
-      [ChainId.ZKSYNC_MAINNET]: isolatedPoolsZkSyncMainnetDeployments.addresses.PoolLens,
-      [ChainId.OPTIMISM_SEPOLIA]: isolatedPoolsOptimismSepoliaDeployments.addresses.PoolLens,
-      [ChainId.OPTIMISM_MAINNET]: isolatedPoolsOptimismMainnetDeployments.addresses.PoolLens,
-      [ChainId.BASE_MAINNET]: isolatedPoolsBaseMainnetDeployments.addresses.PoolLens,
-      [ChainId.BASE_SEPOLIA]: isolatedPoolsBaseSepoliaDeployments.addresses.PoolLens,
-      [ChainId.UNICHAIN_MAINNET]: isolatedPoolsUnichainMainnetDeployments.addresses.PoolLens,
-      [ChainId.UNICHAIN_SEPOLIA]: isolatedPoolsUnichainSepoliaDeployments.addresses.PoolLens,
+      [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens as Address,
+      [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens as Address,
+      [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolLens as Address,
+      [ChainId.OPBNB_MAINNET]: isolatedPoolsOpBnbMainnetDeployments.addresses.PoolLens as Address,
+      [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses.PoolLens as Address,
+      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolLens as Address,
+      [ChainId.ARBITRUM_SEPOLIA]: isolatedPoolsArbitrumSepoliaDeployments.addresses
+        .PoolLens as Address,
+      [ChainId.ARBITRUM_ONE]: isolatedPoolsArbitrumOneDeployments.addresses.PoolLens as Address,
+      [ChainId.ZKSYNC_SEPOLIA]: isolatedPoolsZkSyncSepoliaDeployments.addresses.PoolLens as Address,
+      [ChainId.ZKSYNC_MAINNET]: isolatedPoolsZkSyncMainnetDeployments.addresses.PoolLens as Address,
+      [ChainId.OPTIMISM_SEPOLIA]: isolatedPoolsOptimismSepoliaDeployments.addresses
+        .PoolLens as Address,
+      [ChainId.OPTIMISM_MAINNET]: isolatedPoolsOptimismMainnetDeployments.addresses
+        .PoolLens as Address,
+      [ChainId.BASE_MAINNET]: isolatedPoolsBaseMainnetDeployments.addresses.PoolLens as Address,
+      [ChainId.BASE_SEPOLIA]: isolatedPoolsBaseSepoliaDeployments.addresses.PoolLens as Address,
+      [ChainId.UNICHAIN_MAINNET]: isolatedPoolsUnichainMainnetDeployments.addresses
+        .PoolLens as Address,
+      [ChainId.UNICHAIN_SEPOLIA]: isolatedPoolsUnichainSepoliaDeployments.addresses
+        .PoolLens as Address,
     },
   },
   {
     name: 'PoolRegistry',
     abi: PoolRegistryAbi,
     address: {
-      [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.OPBNB_MAINNET]: isolatedPoolsOpBnbMainnetDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.ARBITRUM_SEPOLIA]:
-        isolatedPoolsArbitrumSepoliaDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.ARBITRUM_ONE]: isolatedPoolsArbitrumOneDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.ZKSYNC_SEPOLIA]: isolatedPoolsZkSyncSepoliaDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.ZKSYNC_MAINNET]: isolatedPoolsZkSyncMainnetDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.OPTIMISM_SEPOLIA]:
-        isolatedPoolsOptimismSepoliaDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.OPTIMISM_MAINNET]:
-        isolatedPoolsOptimismMainnetDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.BASE_MAINNET]: isolatedPoolsBaseMainnetDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.BASE_SEPOLIA]: isolatedPoolsBaseSepoliaDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.UNICHAIN_MAINNET]:
-        isolatedPoolsUnichainMainnetDeployments.addresses.PoolRegistry_Proxy,
-      [ChainId.UNICHAIN_SEPOLIA]:
-        isolatedPoolsUnichainSepoliaDeployments.addresses.PoolRegistry_Proxy,
+      [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.ETHEREUM]: isolatedPoolsEthereumDeployments.addresses.PoolRegistry_Proxy as Address,
+      [ChainId.OPBNB_MAINNET]: isolatedPoolsOpBnbMainnetDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.OPBNB_TESTNET]: isolatedPoolsOpBnbTestnetDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.SEPOLIA]: isolatedPoolsSepoliaDeployments.addresses.PoolRegistry_Proxy as Address,
+      [ChainId.ARBITRUM_SEPOLIA]: isolatedPoolsArbitrumSepoliaDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.ARBITRUM_ONE]: isolatedPoolsArbitrumOneDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.ZKSYNC_SEPOLIA]: isolatedPoolsZkSyncSepoliaDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.ZKSYNC_MAINNET]: isolatedPoolsZkSyncMainnetDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.OPTIMISM_SEPOLIA]: isolatedPoolsOptimismSepoliaDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.OPTIMISM_MAINNET]: isolatedPoolsOptimismMainnetDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.BASE_MAINNET]: isolatedPoolsBaseMainnetDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.BASE_SEPOLIA]: isolatedPoolsBaseSepoliaDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.UNICHAIN_MAINNET]: isolatedPoolsUnichainMainnetDeployments.addresses
+        .PoolRegistry_Proxy as Address,
+      [ChainId.UNICHAIN_SEPOLIA]: isolatedPoolsUnichainSepoliaDeployments.addresses
+        .PoolRegistry_Proxy as Address,
     },
   },
   {
     name: 'LegacyPoolComptroller',
     abi: legacyPoolComptrollerAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Unitroller,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Unitroller,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Unitroller as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Unitroller as Address,
     },
   },
   {
     name: 'VaiController',
     abi: vaiControllerAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VaiUnitroller,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VaiUnitroller,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VaiUnitroller as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VaiUnitroller as Address,
     },
   },
   {
     name: 'VaiVault',
     abi: vaiVaultAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VAIVaultProxy,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VAIVaultProxy,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VAIVaultProxy as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VAIVaultProxy as Address,
     },
   },
   {
     name: 'XvsTokenOmnichain',
     abi: XvsTokenOmnichainAbi,
     address: {
-      [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVS,
-      [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVS,
-      [ChainId.OPBNB_MAINNET]: tokenBridgeOpBnbMainnetDeployments.addresses.XVS,
-      [ChainId.OPBNB_TESTNET]: tokenBridgeOpBnbTestnetDeployments.addresses.XVS,
-      [ChainId.ARBITRUM_SEPOLIA]: tokenBridgeArbitrumSepoliaDeployments.addresses.XVS,
-      [ChainId.ARBITRUM_ONE]: tokenBridgeArbitrumOneDeployments.addresses.XVS,
-      [ChainId.ZKSYNC_SEPOLIA]: tokenBridgeZkSyncSepoliaDeployments.addresses.XVS,
-      [ChainId.ZKSYNC_MAINNET]: tokenBridgeZkSyncMainnetDeployments.addresses.XVS,
-      [ChainId.OPTIMISM_SEPOLIA]: tokenBridgeOptimismSepoliaDeployments.addresses.XVS,
-      [ChainId.OPTIMISM_MAINNET]: tokenBridgeOptimismMainnetDeployments.addresses.XVS,
-      [ChainId.BASE_MAINNET]: tokenBridgeBaseMainnetDeployments.addresses.XVS,
-      [ChainId.BASE_SEPOLIA]: tokenBridgeBaseSepoliaDeployments.addresses.XVS,
-      [ChainId.UNICHAIN_MAINNET]: tokenBridgeUnichainMainnetDeployments.addresses.XVS,
-      [ChainId.UNICHAIN_SEPOLIA]: tokenBridgeUnichainSepoliaDeployments.addresses.XVS,
+      [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVS as Address,
+      [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVS as Address,
+      [ChainId.OPBNB_MAINNET]: tokenBridgeOpBnbMainnetDeployments.addresses.XVS as Address,
+      [ChainId.OPBNB_TESTNET]: tokenBridgeOpBnbTestnetDeployments.addresses.XVS as Address,
+      [ChainId.ARBITRUM_SEPOLIA]: tokenBridgeArbitrumSepoliaDeployments.addresses.XVS as Address,
+      [ChainId.ARBITRUM_ONE]: tokenBridgeArbitrumOneDeployments.addresses.XVS as Address,
+      [ChainId.ZKSYNC_SEPOLIA]: tokenBridgeZkSyncSepoliaDeployments.addresses.XVS as Address,
+      [ChainId.ZKSYNC_MAINNET]: tokenBridgeZkSyncMainnetDeployments.addresses.XVS as Address,
+      [ChainId.OPTIMISM_SEPOLIA]: tokenBridgeOptimismSepoliaDeployments.addresses.XVS as Address,
+      [ChainId.OPTIMISM_MAINNET]: tokenBridgeOptimismMainnetDeployments.addresses.XVS as Address,
+      [ChainId.BASE_MAINNET]: tokenBridgeBaseMainnetDeployments.addresses.XVS as Address,
+      [ChainId.BASE_SEPOLIA]: tokenBridgeBaseSepoliaDeployments.addresses.XVS as Address,
+      [ChainId.UNICHAIN_MAINNET]: tokenBridgeUnichainMainnetDeployments.addresses.XVS as Address,
+      [ChainId.UNICHAIN_SEPOLIA]: tokenBridgeUnichainSepoliaDeployments.addresses.XVS as Address,
     },
   },
   {
     name: 'XvsVault',
     abi: xvsVaultAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVaultProxy,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVaultProxy,
-      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.XVSVaultProxy,
-      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSVaultProxy,
-      [ChainId.OPBNB_MAINNET]: venusProtocolOpBnbMainnetDeployments.addresses.XVSVaultProxy,
-      [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses.XVSVaultProxy,
-      [ChainId.ARBITRUM_SEPOLIA]: venusProtocolArbitrumSepoliaDeployments.addresses.XVSVaultProxy,
-      [ChainId.ARBITRUM_ONE]: venusProtocolArbitrumOneDeployments.addresses.XVSVaultProxy,
-      [ChainId.ZKSYNC_SEPOLIA]: venusProtocolZkSyncSepoliaDeployments.addresses.XVSVaultProxy,
-      [ChainId.ZKSYNC_MAINNET]: venusProtocolZkSyncMainnetDeployments.addresses.XVSVaultProxy,
-      [ChainId.OPTIMISM_SEPOLIA]: venusProtocolOptimismSepoliaDeployments.addresses.XVSVaultProxy,
-      [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses.XVSVaultProxy,
-      [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.XVSVaultProxy,
-      [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.XVSVaultProxy,
-      [ChainId.UNICHAIN_MAINNET]: venusProtocolUnichainMainnetDeployments.addresses.XVSVaultProxy,
-      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses.XVSVaultProxy,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVaultProxy as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVaultProxy as Address,
+      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.XVSVaultProxy as Address,
+      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSVaultProxy as Address,
+      [ChainId.OPBNB_MAINNET]: venusProtocolOpBnbMainnetDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.ARBITRUM_SEPOLIA]: venusProtocolArbitrumSepoliaDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.ARBITRUM_ONE]: venusProtocolArbitrumOneDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.ZKSYNC_SEPOLIA]: venusProtocolZkSyncSepoliaDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.ZKSYNC_MAINNET]: venusProtocolZkSyncMainnetDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.OPTIMISM_SEPOLIA]: venusProtocolOptimismSepoliaDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.UNICHAIN_MAINNET]: venusProtocolUnichainMainnetDeployments.addresses
+        .XVSVaultProxy as Address,
+      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses
+        .XVSVaultProxy as Address,
     },
   },
   {
     name: 'XvsStore',
     abi: xvsStoreAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSStore,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSStore,
-      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.XVSStore,
-      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSStore,
-      [ChainId.OPBNB_MAINNET]: venusProtocolOpBnbMainnetDeployments.addresses.XVSStore,
-      [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses.XVSStore,
-      [ChainId.ARBITRUM_SEPOLIA]: venusProtocolArbitrumSepoliaDeployments.addresses.XVSStore,
-      [ChainId.ARBITRUM_ONE]: venusProtocolArbitrumOneDeployments.addresses.XVSStore,
-      [ChainId.ZKSYNC_SEPOLIA]: venusProtocolZkSyncSepoliaDeployments.addresses.XVSStore,
-      [ChainId.ZKSYNC_MAINNET]: venusProtocolZkSyncMainnetDeployments.addresses.XVSStore,
-      [ChainId.OPTIMISM_SEPOLIA]: venusProtocolOptimismSepoliaDeployments.addresses.XVSStore,
-      [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses.XVSStore,
-      [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.XVSStore,
-      [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.XVSStore,
-      [ChainId.UNICHAIN_MAINNET]: venusProtocolUnichainMainnetDeployments.addresses.XVSStore,
-      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses.XVSStore,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSStore as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSStore as Address,
+      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.XVSStore as Address,
+      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.XVSStore as Address,
+      [ChainId.OPBNB_MAINNET]: venusProtocolOpBnbMainnetDeployments.addresses.XVSStore as Address,
+      [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses.XVSStore as Address,
+      [ChainId.ARBITRUM_SEPOLIA]: venusProtocolArbitrumSepoliaDeployments.addresses
+        .XVSStore as Address,
+      [ChainId.ARBITRUM_ONE]: venusProtocolArbitrumOneDeployments.addresses.XVSStore as Address,
+      [ChainId.ZKSYNC_SEPOLIA]: venusProtocolZkSyncSepoliaDeployments.addresses.XVSStore as Address,
+      [ChainId.ZKSYNC_MAINNET]: venusProtocolZkSyncMainnetDeployments.addresses.XVSStore as Address,
+      [ChainId.OPTIMISM_SEPOLIA]: venusProtocolOptimismSepoliaDeployments.addresses
+        .XVSStore as Address,
+      [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses
+        .XVSStore as Address,
+      [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.XVSStore as Address,
+      [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.XVSStore as Address,
+      [ChainId.UNICHAIN_MAINNET]: venusProtocolUnichainMainnetDeployments.addresses
+        .XVSStore as Address,
+      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses
+        .XVSStore as Address,
     },
   },
   {
     name: 'GovernorBravoDelegate',
     abi: GovernorBravoDelegateAbi,
     address: {
-      [ChainId.BSC_TESTNET]:
-        venusGovernanceBscTestnetDeployments.addresses.GovernorBravoDelegator_Proxy,
-      [ChainId.BSC_MAINNET]:
-        venusGovernanceBscMainnetDeployments.addresses.GovernorBravoDelegator_Proxy,
+      [ChainId.BSC_TESTNET]: venusGovernanceBscTestnetDeployments.addresses
+        .GovernorBravoDelegator_Proxy as Address,
+      [ChainId.BSC_MAINNET]: venusGovernanceBscMainnetDeployments.addresses
+        .GovernorBravoDelegator_Proxy as Address,
     },
   },
   {
     name: 'OmnichainGovernanceExecutor',
     abi: OmnichainGovernanceExecutorAbi,
     address: {
-      [ChainId.ETHEREUM]: venusGovernanceEthereumDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.SEPOLIA]: venusGovernanceSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.OPBNB_MAINNET]:
-        venusGovernanceOpBnbMainnetDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.OPBNB_TESTNET]:
-        venusGovernanceOpBnbTestnetDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.ARBITRUM_SEPOLIA]:
-        venusGovernanceArbitrumSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.ARBITRUM_ONE]:
-        venusGovernanceArbitrumOneDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.ZKSYNC_SEPOLIA]:
-        venusGovernanceZkSyncSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.ZKSYNC_MAINNET]:
-        venusGovernanceZkSyncMainnetDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.OPTIMISM_MAINNET]:
-        venusGovernanceOptimismMainnetDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.OPTIMISM_SEPOLIA]:
-        venusGovernanceOptimismSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.BASE_MAINNET]:
-        venusGovernanceBaseMainnetDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.BASE_SEPOLIA]:
-        venusGovernanceBaseSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.UNICHAIN_MAINNET]:
-        venusGovernanceUnichainMainnetDeployments.addresses.OmnichainGovernanceExecutor,
-      [ChainId.UNICHAIN_SEPOLIA]:
-        venusGovernanceUnichainSepoliaDeployments.addresses.OmnichainGovernanceExecutor,
+      [ChainId.ETHEREUM]: venusGovernanceEthereumDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.SEPOLIA]: venusGovernanceSepoliaDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.OPBNB_MAINNET]: venusGovernanceOpBnbMainnetDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.OPBNB_TESTNET]: venusGovernanceOpBnbTestnetDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.ARBITRUM_SEPOLIA]: venusGovernanceArbitrumSepoliaDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.ARBITRUM_ONE]: venusGovernanceArbitrumOneDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.ZKSYNC_SEPOLIA]: venusGovernanceZkSyncSepoliaDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.ZKSYNC_MAINNET]: venusGovernanceZkSyncMainnetDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.OPTIMISM_MAINNET]: venusGovernanceOptimismMainnetDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.OPTIMISM_SEPOLIA]: venusGovernanceOptimismSepoliaDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.BASE_MAINNET]: venusGovernanceBaseMainnetDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.BASE_SEPOLIA]: venusGovernanceBaseSepoliaDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.UNICHAIN_MAINNET]: venusGovernanceUnichainMainnetDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
+      [ChainId.UNICHAIN_SEPOLIA]: venusGovernanceUnichainSepoliaDeployments.addresses
+        .OmnichainGovernanceExecutor as Address,
     },
   },
   {
     name: 'XvsVesting',
     abi: xvsVestingAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.XVSVestingProxy,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.XVSVestingProxy,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses
+        .XVSVestingProxy as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses
+        .XVSVestingProxy as Address,
     },
   },
   {
     name: 'VrtConverter',
     abi: vrtConverterAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VRTConverterProxy,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VRTConverterProxy,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses
+        .VRTConverterProxy as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses
+        .VRTConverterProxy as Address,
     },
   },
   {
@@ -408,98 +446,136 @@ export const contracts: ContractConfig[] = [
     name: 'ResilientOracle',
     abi: ResilientOracleAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusOracleBscTestnetDeployments.addresses.ResilientOracle,
-      [ChainId.BSC_MAINNET]: venusOracleBscMainnetDeployments.addresses.ResilientOracle,
-      [ChainId.ETHEREUM]: venusOracleEthereumDeployments.addresses.ResilientOracle,
-      [ChainId.OPBNB_MAINNET]: venusOracleOpBnbMainnetDeployments.addresses.ResilientOracle,
-      [ChainId.OPBNB_TESTNET]: venusOracleOpBnbTestnetDeployments.addresses.ResilientOracle,
-      [ChainId.SEPOLIA]: venusOracleSepoliaDeployments.addresses.ResilientOracle,
-      [ChainId.ARBITRUM_SEPOLIA]: venusOracleArbitrumSepoliaDeployments.addresses.ResilientOracle,
-      [ChainId.ARBITRUM_ONE]: venusOracleArbitrumOneDeployments.addresses.ResilientOracle,
-      [ChainId.ZKSYNC_SEPOLIA]: venusOracleZkSyncSepoliaDeployments.addresses.ResilientOracle,
-      [ChainId.ZKSYNC_MAINNET]: venusOracleZkSyncMainnetDeployments.addresses.ResilientOracle,
-      [ChainId.OPTIMISM_SEPOLIA]: venusOracleOptimismSepoliaDeployments.addresses.ResilientOracle,
-      [ChainId.OPTIMISM_MAINNET]: venusOracleOptimismMainnetDeployments.addresses.ResilientOracle,
-      [ChainId.BASE_MAINNET]: venusOracleBaseMainnetDeployments.addresses.ResilientOracle,
-      [ChainId.BASE_SEPOLIA]: venusOracleBaseSepoliaDeployments.addresses.ResilientOracle,
-      [ChainId.UNICHAIN_MAINNET]: venusOracleUnichainMainnetDeployments.addresses.ResilientOracle,
-      [ChainId.UNICHAIN_SEPOLIA]: venusOracleUnichainSepoliaDeployments.addresses.ResilientOracle,
+      [ChainId.BSC_TESTNET]: venusOracleBscTestnetDeployments.addresses.ResilientOracle as Address,
+      [ChainId.BSC_MAINNET]: venusOracleBscMainnetDeployments.addresses.ResilientOracle as Address,
+      [ChainId.ETHEREUM]: venusOracleEthereumDeployments.addresses.ResilientOracle as Address,
+      [ChainId.OPBNB_MAINNET]: venusOracleOpBnbMainnetDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.OPBNB_TESTNET]: venusOracleOpBnbTestnetDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.SEPOLIA]: venusOracleSepoliaDeployments.addresses.ResilientOracle as Address,
+      [ChainId.ARBITRUM_SEPOLIA]: venusOracleArbitrumSepoliaDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.ARBITRUM_ONE]: venusOracleArbitrumOneDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.ZKSYNC_SEPOLIA]: venusOracleZkSyncSepoliaDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.ZKSYNC_MAINNET]: venusOracleZkSyncMainnetDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.OPTIMISM_SEPOLIA]: venusOracleOptimismSepoliaDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.OPTIMISM_MAINNET]: venusOracleOptimismMainnetDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.BASE_MAINNET]: venusOracleBaseMainnetDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.BASE_SEPOLIA]: venusOracleBaseSepoliaDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.UNICHAIN_MAINNET]: venusOracleUnichainMainnetDeployments.addresses
+        .ResilientOracle as Address,
+      [ChainId.UNICHAIN_SEPOLIA]: venusOracleUnichainSepoliaDeployments.addresses
+        .ResilientOracle as Address,
     },
   },
   {
     name: 'Prime',
     abi: primeAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Prime,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Prime,
-      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.Prime,
-      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.Prime,
-      [ChainId.ARBITRUM_SEPOLIA]: venusProtocolArbitrumSepoliaDeployments.addresses.Prime,
-      [ChainId.ARBITRUM_ONE]: venusProtocolArbitrumOneDeployments.addresses.Prime,
-      [ChainId.ZKSYNC_SEPOLIA]: venusProtocolZkSyncSepoliaDeployments.addresses.Prime,
-      [ChainId.ZKSYNC_MAINNET]: venusProtocolZkSyncMainnetDeployments.addresses.Prime,
-      [ChainId.OPTIMISM_SEPOLIA]: venusProtocolOptimismSepoliaDeployments.addresses.Prime,
-      [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses.Prime,
-      [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.Prime,
-      [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.Prime,
-      [ChainId.UNICHAIN_MAINNET]: venusProtocolUnichainMainnetDeployments.addresses.Prime,
-      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses.Prime,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Prime as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Prime as Address,
+      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.Prime as Address,
+      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.Prime as Address,
+      [ChainId.ARBITRUM_SEPOLIA]: venusProtocolArbitrumSepoliaDeployments.addresses
+        .Prime as Address,
+      [ChainId.ARBITRUM_ONE]: venusProtocolArbitrumOneDeployments.addresses.Prime as Address,
+      [ChainId.ZKSYNC_SEPOLIA]: venusProtocolZkSyncSepoliaDeployments.addresses.Prime as Address,
+      [ChainId.ZKSYNC_MAINNET]: venusProtocolZkSyncMainnetDeployments.addresses.Prime as Address,
+      [ChainId.OPTIMISM_SEPOLIA]: venusProtocolOptimismSepoliaDeployments.addresses
+        .Prime as Address,
+      [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses
+        .Prime as Address,
+      [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.Prime as Address,
+      [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.Prime as Address,
+      [ChainId.UNICHAIN_MAINNET]: venusProtocolUnichainMainnetDeployments.addresses
+        .Prime as Address,
+      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses
+        .Prime as Address,
     },
   },
   {
     name: 'VTreasury',
     abi: vTreasuryAbi,
     address: {
-      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VTreasury,
-      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VTreasury,
+      [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VTreasury as Address,
+      [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VTreasury as Address,
     },
   },
   {
     name: 'VTreasuryV8',
     abi: vTreasuryV8Abi,
     address: {
-      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.VTreasuryV8,
-      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.VTreasuryV8,
-      [ChainId.OPBNB_MAINNET]: venusProtocolOpBnbMainnetDeployments.addresses.VTreasuryV8,
-      [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses.VTreasuryV8,
-      [ChainId.ARBITRUM_SEPOLIA]: venusProtocolArbitrumSepoliaDeployments.addresses.VTreasuryV8,
-      [ChainId.ARBITRUM_ONE]: venusProtocolArbitrumOneDeployments.addresses.VTreasuryV8,
-      [ChainId.ZKSYNC_SEPOLIA]: venusProtocolZkSyncSepoliaDeployments.addresses.VTreasuryV8,
-      [ChainId.ZKSYNC_MAINNET]: venusProtocolZkSyncMainnetDeployments.addresses.VTreasuryV8,
-      [ChainId.OPTIMISM_SEPOLIA]: venusProtocolOptimismSepoliaDeployments.addresses.VTreasuryV8,
-      [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses.VTreasuryV8,
-      [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.VTreasuryV8,
-      [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.VTreasuryV8,
-      [ChainId.UNICHAIN_MAINNET]: venusProtocolUnichainMainnetDeployments.addresses.VTreasuryV8,
-      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses.VTreasuryV8,
+      [ChainId.ETHEREUM]: venusProtocolEthereumDeployments.addresses.VTreasuryV8 as Address,
+      [ChainId.SEPOLIA]: venusProtocolSepoliaDeployments.addresses.VTreasuryV8 as Address,
+      [ChainId.OPBNB_MAINNET]: venusProtocolOpBnbMainnetDeployments.addresses
+        .VTreasuryV8 as Address,
+      [ChainId.OPBNB_TESTNET]: venusProtocolOpBnbTestnetDeployments.addresses
+        .VTreasuryV8 as Address,
+      [ChainId.ARBITRUM_SEPOLIA]: venusProtocolArbitrumSepoliaDeployments.addresses
+        .VTreasuryV8 as Address,
+      [ChainId.ARBITRUM_ONE]: venusProtocolArbitrumOneDeployments.addresses.VTreasuryV8 as Address,
+      [ChainId.ZKSYNC_SEPOLIA]: venusProtocolZkSyncSepoliaDeployments.addresses
+        .VTreasuryV8 as Address,
+      [ChainId.ZKSYNC_MAINNET]: venusProtocolZkSyncMainnetDeployments.addresses
+        .VTreasuryV8 as Address,
+      [ChainId.OPTIMISM_SEPOLIA]: venusProtocolOptimismSepoliaDeployments.addresses
+        .VTreasuryV8 as Address,
+      [ChainId.OPTIMISM_MAINNET]: venusProtocolOptimismMainnetDeployments.addresses
+        .VTreasuryV8 as Address,
+      [ChainId.BASE_MAINNET]: venusProtocolBaseMainnetDeployments.addresses.VTreasuryV8 as Address,
+      [ChainId.BASE_SEPOLIA]: venusProtocolBaseSepoliaDeployments.addresses.VTreasuryV8 as Address,
+      [ChainId.UNICHAIN_MAINNET]: venusProtocolUnichainMainnetDeployments.addresses
+        .VTreasuryV8 as Address,
+      [ChainId.UNICHAIN_SEPOLIA]: venusProtocolUnichainSepoliaDeployments.addresses
+        .VTreasuryV8 as Address,
     },
   },
   {
     name: 'XVSProxyOFTDest',
     abi: XVSProxyOFTDest,
     address: {
-      [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.OPBNB_MAINNET]: tokenBridgeOpBnbMainnetDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.OPBNB_TESTNET]: tokenBridgeOpBnbTestnetDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.ARBITRUM_SEPOLIA]: tokenBridgeArbitrumSepoliaDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.ARBITRUM_ONE]: tokenBridgeArbitrumOneDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.ZKSYNC_SEPOLIA]: tokenBridgeZkSyncSepoliaDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.ZKSYNC_MAINNET]: tokenBridgeZkSyncMainnetDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.OPTIMISM_SEPOLIA]: tokenBridgeOptimismSepoliaDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.OPTIMISM_MAINNET]: tokenBridgeOptimismMainnetDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.BASE_MAINNET]: tokenBridgeBaseMainnetDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.BASE_SEPOLIA]: tokenBridgeBaseSepoliaDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.UNICHAIN_MAINNET]: tokenBridgeUnichainMainnetDeployments.addresses.XVSProxyOFTDest,
-      [ChainId.UNICHAIN_SEPOLIA]: tokenBridgeUnichainSepoliaDeployments.addresses.XVSProxyOFTDest,
+      [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVSProxyOFTDest as Address,
+      [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVSProxyOFTDest as Address,
+      [ChainId.OPBNB_MAINNET]: tokenBridgeOpBnbMainnetDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.OPBNB_TESTNET]: tokenBridgeOpBnbTestnetDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.ARBITRUM_SEPOLIA]: tokenBridgeArbitrumSepoliaDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.ARBITRUM_ONE]: tokenBridgeArbitrumOneDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.ZKSYNC_SEPOLIA]: tokenBridgeZkSyncSepoliaDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.ZKSYNC_MAINNET]: tokenBridgeZkSyncMainnetDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.OPTIMISM_SEPOLIA]: tokenBridgeOptimismSepoliaDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.OPTIMISM_MAINNET]: tokenBridgeOptimismMainnetDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.BASE_MAINNET]: tokenBridgeBaseMainnetDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.BASE_SEPOLIA]: tokenBridgeBaseSepoliaDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.UNICHAIN_MAINNET]: tokenBridgeUnichainMainnetDeployments.addresses
+        .XVSProxyOFTDest as Address,
+      [ChainId.UNICHAIN_SEPOLIA]: tokenBridgeUnichainSepoliaDeployments.addresses
+        .XVSProxyOFTDest as Address,
     },
   },
   {
     name: 'XVSProxyOFTSrc',
     abi: XVSProxyOFTSrc,
     address: {
-      [ChainId.BSC_MAINNET]: tokenBridgeBscMainnetDeployments.addresses.XVSProxyOFTSrc,
-      [ChainId.BSC_TESTNET]: tokenBridgeBscTestnetDeployments.addresses.XVSProxyOFTSrc,
+      [ChainId.BSC_MAINNET]: tokenBridgeBscMainnetDeployments.addresses.XVSProxyOFTSrc as Address,
+      [ChainId.BSC_TESTNET]: tokenBridgeBscTestnetDeployments.addresses.XVSProxyOFTSrc as Address,
     },
   },
   {
@@ -562,39 +638,39 @@ export const contracts: ContractConfig[] = [
     address: {
       [ChainId.BSC_TESTNET]: {
         // Core pool
-        [venusProtocolBscTestnetDeployments.addresses.Unitroller.toLowerCase()]:
-          venusProtocolBscTestnetDeployments.addresses.SwapRouterCorePool,
+        [venusProtocolBscTestnetDeployments.addresses.Unitroller.toLowerCase() as Address]:
+          venusProtocolBscTestnetDeployments.addresses.SwapRouterCorePool as Address,
         // Isolated pools
-        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_StableCoins.toLowerCase()]:
-          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_StableCoins,
-        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_Tron.toLowerCase()]:
-          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_Tron,
-        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_GameFi.toLowerCase()]:
-          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_GameFi,
-        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_DeFi.toLowerCase()]:
-          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_DeFi,
-        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
-          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_LiquidStakedBNB,
-        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_Meme.toLowerCase()]:
-          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_Meme,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_StableCoins.toLowerCase() as Address]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_StableCoins as Address,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_Tron.toLowerCase() as Address]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_Tron as Address,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_GameFi.toLowerCase() as Address]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_GameFi as Address,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_DeFi.toLowerCase() as Address]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_DeFi as Address,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase() as Address]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_LiquidStakedBNB as Address,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_Meme.toLowerCase() as Address]:
+          isolatedPoolsBscTestnetDeployments.addresses.SwapRouter_Meme as Address,
       },
       [ChainId.BSC_MAINNET]: {
         // Core pool
-        [venusProtocolBscMainnetDeployments.addresses.Unitroller.toLowerCase()]:
-          venusProtocolBscMainnetDeployments.addresses.SwapRouterCorePool,
+        [venusProtocolBscMainnetDeployments.addresses.Unitroller.toLowerCase() as Address]:
+          venusProtocolBscMainnetDeployments.addresses.SwapRouterCorePool as Address,
         // Isolated Pools
-        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_Stablecoins.toLowerCase()]:
-          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_Stablecoins,
-        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_Tron.toLowerCase()]:
-          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_Tron,
-        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_GameFi.toLowerCase()]:
-          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_GameFi,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_Stablecoins.toLowerCase() as Address]:
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_Stablecoins as Address,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_Tron.toLowerCase() as Address]:
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_Tron as Address,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_GameFi.toLowerCase() as Address]:
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_GameFi as Address,
         [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_DeFi.toLowerCase()]:
-          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_DeFi,
-        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
-          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_LiquidStakedBNB,
-        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_Meme.toLowerCase()]:
-          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_Meme,
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_DeFi as Address,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase() as Address]:
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_LiquidStakedBNB as Address,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_Meme.toLowerCase() as Address]:
+          isolatedPoolsBscMainnetDeployments.addresses.SwapRouter_Meme as Address,
       },
       [ChainId.OPBNB_MAINNET]: {},
       [ChainId.OPBNB_TESTNET]: {},
@@ -620,81 +696,91 @@ export const contracts: ContractConfig[] = [
     abi: NativeTokenGatewayAbi,
     address: {
       [ChainId.BSC_TESTNET]: {
-        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
-          isolatedPoolsBscTestnetDeployments.addresses.NativeTokenGateway_vWBNB_LiquidStakedBNB,
+        [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase() as Address]:
+          isolatedPoolsBscTestnetDeployments.addresses
+            .NativeTokenGateway_vWBNB_LiquidStakedBNB as Address,
       },
       [ChainId.BSC_MAINNET]: {
-        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase()]:
-          isolatedPoolsBscMainnetDeployments.addresses.NativeTokenGateway_vWBNB_LiquidStakedBNB,
+        [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase() as Address]:
+          isolatedPoolsBscMainnetDeployments.addresses
+            .NativeTokenGateway_vWBNB_LiquidStakedBNB as Address,
       },
       [ChainId.OPBNB_MAINNET]: {
-        [isolatedPoolsOpBnbMainnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsOpBnbMainnetDeployments.addresses.NativeTokenGateway_vWBNB_Core,
+        [isolatedPoolsOpBnbMainnetDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsOpBnbMainnetDeployments.addresses.NativeTokenGateway_vWBNB_Core as Address,
       },
       [ChainId.OPBNB_TESTNET]: {
-        [isolatedPoolsOpBnbTestnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsOpBnbTestnetDeployments.addresses.NativeTokenGateway_vWBNB_Core,
+        [isolatedPoolsOpBnbTestnetDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsOpBnbTestnetDeployments.addresses.NativeTokenGateway_vWBNB_Core as Address,
       },
       [ChainId.ETHEREUM]: {
-        [isolatedPoolsEthereumDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsEthereumDeployments.addresses.NativeTokenGateway_vWETH_Core,
-        [isolatedPoolsEthereumDeployments.addresses['Comptroller_Liquid Staked ETH'].toLowerCase()]:
-          isolatedPoolsEthereumDeployments.addresses.NativeTokenGateway_vWETH_LiquidStakedETH,
+        [isolatedPoolsEthereumDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsEthereumDeployments.addresses.NativeTokenGateway_vWETH_Core as Address,
+        [isolatedPoolsEthereumDeployments.addresses[
+          'Comptroller_Liquid Staked ETH'
+        ].toLowerCase() as Address]: isolatedPoolsEthereumDeployments.addresses
+          .NativeTokenGateway_vWETH_LiquidStakedETH as Address,
       },
       [ChainId.SEPOLIA]: {
-        [isolatedPoolsSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
-        [isolatedPoolsSepoliaDeployments.addresses['Comptroller_Liquid Staked ETH'].toLowerCase()]:
-          isolatedPoolsSepoliaDeployments.addresses.NativeTokenGateway_vWETH_LiquidStakedETH,
+        [isolatedPoolsSepoliaDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core as Address,
+        [isolatedPoolsSepoliaDeployments.addresses[
+          'Comptroller_Liquid Staked ETH'
+        ].toLowerCase() as Address]: isolatedPoolsSepoliaDeployments.addresses
+          .NativeTokenGateway_vWETH_LiquidStakedETH as Address,
       },
       [ChainId.ARBITRUM_SEPOLIA]: {
-        [isolatedPoolsArbitrumSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsArbitrumSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsArbitrumSepoliaDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsArbitrumSepoliaDeployments.addresses
+            .NativeTokenGateway_vWETH_Core as Address,
         [isolatedPoolsArbitrumSepoliaDeployments.addresses[
           'Comptroller_Liquid Staked ETH'
-        ].toLowerCase()]:
-          isolatedPoolsArbitrumSepoliaDeployments.addresses
-            .NativeTokenGateway_vWETH_LiquidStakedETH,
+        ].toLowerCase() as Address]: isolatedPoolsArbitrumSepoliaDeployments.addresses
+          .NativeTokenGateway_vWETH_LiquidStakedETH as Address,
       },
       [ChainId.ARBITRUM_ONE]: {
-        [isolatedPoolsArbitrumOneDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsArbitrumOneDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsArbitrumOneDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsArbitrumOneDeployments.addresses.NativeTokenGateway_vWETH_Core as Address,
         [isolatedPoolsArbitrumOneDeployments.addresses[
           'Comptroller_Liquid Staked ETH'
-        ].toLowerCase()]:
-          isolatedPoolsArbitrumOneDeployments.addresses.NativeTokenGateway_vWETH_LiquidStakedETH,
+        ].toLowerCase() as Address]: isolatedPoolsArbitrumOneDeployments.addresses
+          .NativeTokenGateway_vWETH_LiquidStakedETH as Address,
       },
       [ChainId.ZKSYNC_SEPOLIA]: {
-        [isolatedPoolsZkSyncSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsZkSyncSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsZkSyncSepoliaDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsZkSyncSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core as Address,
       },
       [ChainId.ZKSYNC_MAINNET]: {
-        [isolatedPoolsZkSyncMainnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsZkSyncMainnetDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsZkSyncMainnetDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsZkSyncMainnetDeployments.addresses.NativeTokenGateway_vWETH_Core as Address,
       },
       [ChainId.OPTIMISM_MAINNET]: {
-        [isolatedPoolsOptimismMainnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsOptimismMainnetDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsOptimismMainnetDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsOptimismMainnetDeployments.addresses
+            .NativeTokenGateway_vWETH_Core as Address,
       },
       [ChainId.OPTIMISM_SEPOLIA]: {
-        [isolatedPoolsOptimismSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsOptimismSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsOptimismSepoliaDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsOptimismSepoliaDeployments.addresses
+            .NativeTokenGateway_vWETH_Core as Address,
       },
       [ChainId.BASE_MAINNET]: {
-        [isolatedPoolsBaseMainnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsBaseMainnetDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsBaseMainnetDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsBaseMainnetDeployments.addresses.NativeTokenGateway_vWETH_Core as Address,
       },
       [ChainId.BASE_SEPOLIA]: {
-        [isolatedPoolsBaseSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsBaseSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsBaseSepoliaDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsBaseSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core as Address,
       },
       [ChainId.UNICHAIN_MAINNET]: {
-        [isolatedPoolsUnichainMainnetDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsUnichainMainnetDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsUnichainMainnetDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsUnichainMainnetDeployments.addresses
+            .NativeTokenGateway_vWETH_Core as Address,
       },
       [ChainId.UNICHAIN_SEPOLIA]: {
-        [isolatedPoolsUnichainSepoliaDeployments.addresses.Comptroller_Core.toLowerCase()]:
-          isolatedPoolsUnichainSepoliaDeployments.addresses.NativeTokenGateway_vWETH_Core,
+        [isolatedPoolsUnichainSepoliaDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
+          isolatedPoolsUnichainSepoliaDeployments.addresses
+            .NativeTokenGateway_vWETH_Core as Address,
       },
       [ChainId.BERACHAIN_MAINNET]: {},
       [ChainId.BERACHAIN_BEPOLIA]: {},

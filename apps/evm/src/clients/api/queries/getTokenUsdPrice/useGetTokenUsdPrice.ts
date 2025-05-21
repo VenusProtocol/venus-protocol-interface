@@ -6,7 +6,7 @@ import {
   getTokenUsdPrice,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { getResilientOracleContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId, Token } from 'types';
@@ -43,8 +43,8 @@ export const useGetTokenUsdPrice = (
 ) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-  const resilientOracleAddress = getResilientOracleContractAddress({
-    chainId,
+  const { address: resilientOracleAddress } = useGetContractAddress({
+    name: 'ResilientOracle',
   });
 
   return useQuery({

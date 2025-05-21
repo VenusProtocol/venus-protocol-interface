@@ -14,10 +14,7 @@ describe('generateAbis', () => {
       contractConfigs: fakeContractConfigs,
     });
 
-    expect(writeFile).toHaveBeenCalledTimes(fakeContractConfigs.length * 2);
-
-    fakeContractConfigs.forEach((_fakeContractConfig, index) =>
-      expect((writeFile as Mock).mock.calls[index]).toMatchSnapshot(),
-    );
+    expect(writeFile).toHaveBeenCalledTimes(fakeContractConfigs.length * 2 + 1); // Twice per contract config + once to generate index file
+    expect((writeFile as Mock).mock.calls).toMatchSnapshot();
   });
 });

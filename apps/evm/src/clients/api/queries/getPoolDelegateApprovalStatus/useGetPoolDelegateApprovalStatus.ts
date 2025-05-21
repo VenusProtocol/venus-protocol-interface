@@ -50,7 +50,6 @@ export const useGetPoolDelegateApprovalStatus = (
 
   return useQuery({
     queryKey: queryKey,
-
     queryFn: () =>
       callOrThrow(
         { publicClient, delegateeAddress, accountAddress, poolComptrollerAddress },
@@ -59,7 +58,6 @@ export const useGetPoolDelegateApprovalStatus = (
             ...params,
           }),
       ),
-
     ...options,
   });
 };

@@ -2,11 +2,7 @@ import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import {
-  getNativeTokenGatewayContractAddress,
-  nativeTokenGatewayAbi,
-  vBep20Abi,
-} from 'libs/contracts';
+import { getContractAddress, nativeTokenGatewayAbi, vBep20Abi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId, usePublicClient } from 'libs/wallet';
 import type { VToken } from 'types';
@@ -30,8 +26,9 @@ export const useBorrow = (options?: Partial<Options>) => {
 
   return useSendTransaction({
     fn: async ({ poolComptrollerAddress, unwrap, amountMantissa, vToken }: BorrowInput) => {
-      const nativeTokenGatewayContractAddress = getNativeTokenGatewayContractAddress({
-        comptrollerContractAddress: poolComptrollerAddress,
+      const nativeTokenGatewayContractAddress = getContractAddress({
+        name: 'NativeTokenGateway',
+        poolComptrollerContractAddress: poolComptrollerAddress,
         chainId,
       });
 

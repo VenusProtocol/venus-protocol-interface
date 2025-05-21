@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import { type GetProposalThresholdOutput, getProposalThreshold } from '.';
@@ -18,7 +18,8 @@ export const useGetProposalThreshold = (options?: Partial<Options>) => {
   const { publicClient } = usePublicClient({
     chainId: governanceChain.id,
   });
-  const governorBravoDelegateAddress = getGovernorBravoDelegateContractAddress({
+  const governorBravoDelegateAddress = getContractAddress({
+    name: 'GovernorBravoDelegate',
     chainId: governanceChain.id,
   });
 

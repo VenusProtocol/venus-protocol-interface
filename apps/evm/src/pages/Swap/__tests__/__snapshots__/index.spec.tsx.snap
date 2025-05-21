@@ -13,7 +13,7 @@ exports[`Swap > displays the wallet spending limit correctly and lets user revok
 exports[`Swap > lets user swap an already approved token for another token 1`] = `
 [
   {
-    "poolComptrollerContractAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+    "poolComptrollerContractAddress": "0xfakeLegacyPoolComptrollerContractAddress",
     "swap": {
       "direction": "exactAmountIn",
       "exchangeRate": "2",
@@ -46,7 +46,7 @@ exports[`Swap > lets user swap an already approved token for another token 1`] =
 exports[`Swap > updates fromToken input value correctly when user clicks on the max toToken button 1`] = `
 [
   {
-    "poolComptrollerContractAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+    "poolComptrollerContractAddress": "0xfakeLegacyPoolComptrollerContractAddress",
     "swap": {
       "direction": "exactAmountIn",
       "exchangeRate": "2",

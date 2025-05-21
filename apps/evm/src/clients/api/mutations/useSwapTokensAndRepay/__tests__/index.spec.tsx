@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { getSwapRouterContractAddress } from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useSwapTokensAndRepay } from '..';
@@ -51,10 +51,6 @@ describe('useSwapTokensAndRepay', () => {
     (useAnalytics as Mock).mockImplementation(() => ({
       captureAnalyticEvent: mockCaptureAnalyticEvent,
     }));
-
-    (getSwapRouterContractAddress as Mock).mockImplementation(
-      () => 'fakeSwapRouterContractAddress',
-    );
   });
 
   it('calls useSendTransaction with the correct parameters for swapping tokens and repaying', async () => {
@@ -73,11 +69,10 @@ describe('useSwapTokensAndRepay', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      },
-      `
+      }, `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           10000000000000000n,
           10000000000000000n,
@@ -89,8 +84,7 @@ describe('useSwapTokensAndRepay', () => {
         ],
         "functionName": "swapExactTokensForBNBAndRepay",
       }
-    `,
-    );
+    `);
 
     onConfirmed({ input: fakeInput });
 
@@ -143,11 +137,10 @@ describe('useSwapTokensAndRepay', () => {
     expect(await fn(repayFullLoanInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      },
-      `
+      }, `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           10000000000000000n,
           [
@@ -158,8 +151,7 @@ describe('useSwapTokensAndRepay', () => {
         ],
         "functionName": "swapTokensForFullBNBDebtAndRepay",
       }
-    `,
-    );
+    `);
 
     onConfirmed({ input: fakeInput });
 
@@ -211,11 +203,10 @@ describe('useSwapTokensAndRepay', () => {
     expect(await fn(swapBnbInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      },
-      `
+      }, `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
           10000000000000000n,
@@ -228,8 +219,7 @@ describe('useSwapTokensAndRepay', () => {
         "functionName": "swapBNBForExactTokensAndRepay",
         "value": 10000000000000000n,
       }
-    `,
-    );
+    `);
 
     onConfirmed({ input: fakeInput });
 
@@ -255,7 +245,7 @@ describe('useSwapTokensAndRepay', () => {
   });
 
   it('throws when SwapRouter contract address is not available', async () => {
-    (getSwapRouterContractAddress as Mock).mockImplementation(() => undefined);
+    (getContractAddress as Mock).mockImplementation(() => undefined);
 
     renderHook(() => useSwapTokensAndRepay(fakeOptions), {
       accountAddress: fakeAccountAddress,

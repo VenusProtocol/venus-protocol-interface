@@ -2,7 +2,7 @@ import { providers } from '@0xsequence/multicall';
 import { providers as ethersProviders } from 'ethers';
 import type { Chain, Client, HttpTransport, Transport } from 'viem';
 
-import addresses from 'libs/contracts/generated/infos/addresses';
+import { addresses } from 'libs/contracts/generated/addresses';
 import { logError } from 'libs/errors';
 import { RotationProvider } from './rotationProvider';
 
@@ -43,7 +43,9 @@ export const getProvider = ({
   // We can't use the getter function for the 0xsequence multicall contract here because that
   // creates a dependency cycle
   const xsequenceMulticallAddress =
-    addresses.XsequenceMulticall[network.chainId as keyof typeof addresses.XsequenceMulticall];
+    addresses.uniques.XsequenceMulticall[
+      network.chainId as keyof typeof addresses.uniques.XsequenceMulticall
+    ];
 
   if (!xsequenceMulticallAddress) {
     logError(`0xsequence multicall contract address missing on chain with ID ${network.chainId}`);

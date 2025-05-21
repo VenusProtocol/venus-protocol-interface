@@ -1,4 +1,4 @@
-import addresses from 'libs/contracts/generated/infos/addresses';
+import { addresses } from 'libs/contracts';
 import type { ChainId, Token, VToken } from 'types';
 import areAddressesEqual from 'utilities/areAddressesEqual';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -32,7 +32,7 @@ const getContractName = ({ target, vTokens, tokens, chainId }: GetContractNameIn
   }
 
   // Search within contracts
-  const matchingUniqueContractInfo = Object.entries(addresses).find(
+  const matchingUniqueContractInfo = Object.entries(addresses.uniques).find(
     ([_uniqueContractName, address]) => {
       let contractAddress: string | Record<number, string> = '';
 

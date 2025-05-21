@@ -1,8 +1,8 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useGetPrimeContractAddress } from 'libs/contracts';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -43,7 +43,9 @@ export const useGetHypotheticalPrimeApys = (
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
   const isPrimeEnabled = useIsFeatureEnabled({ name: 'prime' });
-  const primeContractAddress = useGetPrimeContractAddress();
+  const { address: primeContractAddress } = useGetContractAddress({
+    name: 'Prime',
+  });
 
   return useQuery({
     queryKey: [FunctionKey.GET_HYPOTHETICAL_PRIME_APYS, { ...input, chainId }],

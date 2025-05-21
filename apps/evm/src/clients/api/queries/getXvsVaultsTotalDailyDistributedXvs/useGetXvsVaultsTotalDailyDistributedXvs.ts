@@ -7,7 +7,7 @@ import {
 } from 'clients/api/queries/getXvsVaultsTotalDailyDistributedXvs';
 import FunctionKey from 'constants/functionKey';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -39,7 +39,9 @@ export const useGetXvsVaultsTotalDailyDistributedXvs = (
   const { chainId } = useChainId();
   const { blocksPerDay } = useGetChainMetadata();
   const { publicClient } = usePublicClient();
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_VAULT_DAILY_REWARD_TOKENS, { ...input, chainId }],

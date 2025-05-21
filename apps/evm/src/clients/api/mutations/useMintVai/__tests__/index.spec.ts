@@ -1,8 +1,7 @@
-import mockVaiControllerContractAddress from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
-import { useGetVaiControllerContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useMintVai } from '..';
@@ -14,10 +13,6 @@ const fakeInput = {
 vi.mock('libs/contracts');
 
 describe('useMintVai', () => {
-  beforeEach(() => {
-    vi.mocked(useGetVaiControllerContractAddress).mockReturnValue(mockVaiControllerContractAddress);
-  });
-
   it('calls useSendTransaction with correct parameters', async () => {
     renderHook(() => useMintVai());
 
@@ -32,18 +27,16 @@ describe('useMintVai', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      },
-      `
+      }, `
       {
         "abi": Any<Array>,
-        "address": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+        "address": "0xfakeVaiControllerContractAddress",
         "args": [
           10000000000000000n,
         ],
         "functionName": "mintVAI",
       }
-    `,
-    );
+    `);
 
     const { onConfirmed } = (useSendTransaction as jest.Mock).mock.calls[0][0];
     await onConfirmed();
@@ -52,7 +45,7 @@ describe('useMintVai', () => {
   });
 
   it('throws error when VAI contract address is not found', async () => {
-    (useGetVaiControllerContractAddress as Mock).mockImplementation(() => undefined);
+    (useGetContractAddress as Mock).mockImplementation(() => ({ address: undefined }));
 
     renderHook(() => useMintVai());
 

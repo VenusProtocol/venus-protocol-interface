@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import { type GetProposalMinQuorumVotesOutput, getProposalMinQuorumVotes } from '.';
@@ -18,7 +18,8 @@ export const useGetProposalMinQuorumVotes = (options?: Partial<Options>) => {
   const { publicClient } = usePublicClient({
     chainId: governanceChain.id,
   });
-  const governorBravoDelegateContractAddress = getGovernorBravoDelegateContractAddress({
+  const governorBravoDelegateContractAddress = getContractAddress({
+    name: 'GovernorBravoDelegate',
     chainId: governanceChain.id,
   });
 

@@ -1,9 +1,7 @@
-import fakeAccountAddress, {
-  altAddress as mockPrimeContractAddress,
-} from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
-import { useGetPrimeContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useClaimPrimeToken } from '..';
@@ -11,12 +9,8 @@ import { useClaimPrimeToken } from '..';
 vi.mock('libs/contracts');
 
 describe('useClaimPrimeToken', () => {
-  beforeEach(() => {
-    (useGetPrimeContractAddress as Mock).mockReturnValue(mockPrimeContractAddress);
-  });
-
   it('should throw error if Prime contract address is not available', async () => {
-    (useGetPrimeContractAddress as Mock).mockReturnValue(null);
+    (useGetContractAddress as Mock).mockReturnValue({ address: undefined });
 
     renderHook(() => useClaimPrimeToken());
 
@@ -41,16 +35,14 @@ describe('useClaimPrimeToken', () => {
     expect(await fn()).toMatchInlineSnapshot(
       {
         abi: expect.any(Object),
-      },
-      `
+      }, `
       {
         "abi": Any<Object>,
-        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "address": "0xfakePrimeContractAddress",
         "args": [],
         "functionName": "claim",
       }
-    `,
-    );
+    `);
 
     const { onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
     await onConfirmed();

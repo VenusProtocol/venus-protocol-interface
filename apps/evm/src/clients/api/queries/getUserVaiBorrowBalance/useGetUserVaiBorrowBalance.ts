@@ -6,7 +6,7 @@ import {
   getUserVaiBorrowBalance,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetVaiControllerContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -36,7 +36,9 @@ export const useGetUserVaiBorrowBalance = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const vaiControllerContractAddress = useGetVaiControllerContractAddress();
+  const { address: vaiControllerContractAddress } = useGetContractAddress({
+    name: 'VaiController',
+  });
   const { publicClient } = usePublicClient();
 
   return useQuery({

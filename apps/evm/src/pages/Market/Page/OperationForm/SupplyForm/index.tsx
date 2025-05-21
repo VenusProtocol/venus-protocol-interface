@@ -19,10 +19,6 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
-import {
-  useGetNativeTokenGatewayContractAddress,
-  useGetSwapRouterContractAddress,
-} from 'libs/contracts';
 import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
@@ -36,6 +32,7 @@ import {
 
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { AssetInfo } from '../AssetInfo';
 import { OperationDetails } from '../OperationDetails';
 import Notice from './Notice';
@@ -396,8 +393,9 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
   const { accountAddress } = useAccountAddress();
 
-  const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
-    comptrollerContractAddress: pool.comptrollerAddress,
+  const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
+    name: 'NativeTokenGateway',
+    poolComptrollerContractAddress: pool.comptrollerAddress,
   });
 
   const isIntegratedSwapFeatureEnabled = useMemo(
@@ -467,8 +465,9 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
     ],
   );
 
-  const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerContractAddress: pool.comptrollerAddress,
+  const { address: swapRouterContractAddress } = useGetContractAddress({
+    name: 'SwapRouter',
+    poolComptrollerContractAddress: pool.comptrollerAddress,
   });
 
   const spenderAddress = useMemo(() => {

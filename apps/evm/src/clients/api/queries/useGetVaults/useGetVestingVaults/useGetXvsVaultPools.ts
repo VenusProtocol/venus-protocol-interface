@@ -12,7 +12,7 @@ import {
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetToken } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
@@ -37,7 +37,9 @@ export const useGetXvsVaultPools = ({
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
 
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
 
   const xvs = useGetToken({
     symbol: 'XVS',

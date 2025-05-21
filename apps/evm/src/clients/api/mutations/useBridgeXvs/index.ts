@@ -2,12 +2,9 @@ import { queryClient } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import FunctionKey from 'constants/functionKey';
 import { DEFAULT_ADAPTER_PARAMS, LAYER_ZERO_CHAIN_IDS } from 'constants/layerZero';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import {
-  useGetXVSProxyOFTDestContractAddress,
-  useGetXVSProxyOFTSrcContractAddress,
-  xVSProxyOFTSrcAbi,
-} from 'libs/contracts';
+import { xVSProxyOFTSrcAbi } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
@@ -28,8 +25,13 @@ export const useBridgeXvs = (options?: Partial<Options>) => {
   const xvs = useGetToken({
     symbol: 'XVS',
   });
-  const tokenBridgeContractSrcAddress = useGetXVSProxyOFTSrcContractAddress();
-  const tokenBridgeContractDestAddress = useGetXVSProxyOFTDestContractAddress();
+  const { address: tokenBridgeContractSrcAddress } = useGetContractAddress({
+    name: 'XVSProxyOFTSrc',
+  });
+  const { address: tokenBridgeContractDestAddress } = useGetContractAddress({
+    name: 'XVSProxyOFTDest',
+  });
+
   const tokenBridgeContractAddress =
     chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
       ? tokenBridgeContractSrcAddress

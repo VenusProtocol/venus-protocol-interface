@@ -1,7 +1,8 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { useGetXvsVaultContractAddress, xvsVaultAbi } from 'libs/contracts';
+import { xvsVaultAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress } from 'libs/wallet';
 import type { Address } from 'viem';
@@ -12,7 +13,9 @@ type SetVoteDelegateInput = {
 type Options = UseSendTransactionOptions<SetVoteDelegateInput>;
 
 export const useSetVoteDelegate = (options?: Partial<Options>) => {
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
   const { accountAddress } = useAccountAddress();
 
   return useSendTransaction({

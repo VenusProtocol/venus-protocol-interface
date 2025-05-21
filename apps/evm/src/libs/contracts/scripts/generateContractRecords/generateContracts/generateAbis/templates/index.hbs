@@ -1,0 +1,3 @@
+{{#each contractNames}}
+export { abi as {{decapitalize this}}Abi } from 'libs/contracts/generated/abis/{{this}}';
+{{/each}}

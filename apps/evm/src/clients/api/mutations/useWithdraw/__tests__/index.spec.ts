@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { getNativeTokenGatewayContractAddress } from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
@@ -44,10 +44,6 @@ describe('useWithdraw', () => {
     (useAnalytics as Mock).mockImplementation(() => ({
       captureAnalyticEvent: mockCaptureAnalyticEvent,
     }));
-
-    (getNativeTokenGatewayContractAddress as Mock).mockImplementation(
-      () => 'fakeNativeTokenGatewayContractAddress',
-    );
   });
 
   it('calls useSendTransaction with the correct parameters when withdrawing tokens', async () => {
@@ -171,18 +167,16 @@ describe('useWithdraw', () => {
     expect(await fn(withdrawAndUnwrapInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      },
-      `
+      }, `
       {
         "abi": Any<Array>,
-        "address": "fakeNativeTokenGatewayContractAddress",
+        "address": "0xfakeNativeTokenGatewayContractAddress",
         "args": [
           10000000000000000n,
         ],
         "functionName": "redeemUnderlyingAndUnwrap",
       }
-    `,
-    );
+    `);
 
     onConfirmed({ input: withdrawAndUnwrapInput });
 
@@ -224,18 +218,16 @@ describe('useWithdraw', () => {
     expect(await fn(withdrawFullSupplyAndUnwrapInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      },
-      `
+      }, `
       {
         "abi": Any<Array>,
-        "address": "fakeNativeTokenGatewayContractAddress",
+        "address": "0xfakeNativeTokenGatewayContractAddress",
         "args": [
           10000000000000000n,
         ],
         "functionName": "redeemAndUnwrap",
       }
-    `,
-    );
+    `);
 
     onConfirmed({ input: withdrawFullSupplyAndUnwrapInput });
 
@@ -315,7 +307,7 @@ describe('useWithdraw', () => {
   });
 
   it('throws when native token gateway contract address is not available for unwrap', async () => {
-    (getNativeTokenGatewayContractAddress as Mock).mockImplementation(() => undefined);
+    (getContractAddress as Mock).mockImplementation(() => undefined);
 
     renderHook(() => useWithdraw(fakeOptions), {
       accountAddress: fakeAccountAddress,

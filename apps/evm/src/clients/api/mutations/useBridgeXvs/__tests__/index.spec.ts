@@ -1,12 +1,10 @@
-import fakeAccountAddress, {
-  altAddress as xvsProxyOFTContractAddress,
-} from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import { xvs } from '__mocks__/models/tokens';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetXVSProxyOFTSrcContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { renderHook } from 'testUtils/render';
 import { ChainId } from 'types';
@@ -29,9 +27,6 @@ const fakeOptions = {
 
 describe('useBridgeXvs', () => {
   beforeEach(() => {
-    (useGetXVSProxyOFTSrcContractAddress as Mock).mockImplementation(
-      () => xvsProxyOFTContractAddress,
-    );
     (useGetToken as Mock).mockImplementation(() => xvs);
   });
 
@@ -61,7 +56,7 @@ describe('useBridgeXvs', () => {
       `
       {
         "abi": Any<Object>,
-        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "address": "0xfakeXVSProxyOFTSrcContractAddress",
         "args": [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           10102,
@@ -86,7 +81,7 @@ describe('useBridgeXvs', () => {
   });
 
   it('throws error when XVS Proxy OFT contract address is not found', async () => {
-    (useGetXVSProxyOFTSrcContractAddress as Mock).mockImplementation(() => undefined);
+    (useGetContractAddress as Mock).mockImplementation(() => ({ address: undefined }));
 
     renderHook(() => useBridgeXvs(fakeOptions));
 

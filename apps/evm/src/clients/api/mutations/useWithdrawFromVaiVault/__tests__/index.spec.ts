@@ -1,11 +1,9 @@
-import fakeAccountAddress, {
-  altAddress as vaiVaultContractAddress,
-} from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import { vai } from '__mocks__/models/tokens';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetVaiVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
@@ -25,7 +23,6 @@ const fakeOptions = {
 
 describe('useWithdrawFromVaiVault', () => {
   beforeEach(() => {
-    (useGetVaiVaultContractAddress as Mock).mockImplementation(() => vaiVaultContractAddress);
     (useGetToken as Mock).mockImplementation(() => vai);
   });
 
@@ -47,12 +44,18 @@ describe('useWithdrawFromVaiVault', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn(fakeInput)).toEqual({
+    expect(await fn(fakeInput)).toMatchInlineSnapshot({
       abi: expect.any(Array),
-      address: vaiVaultContractAddress,
-      functionName: 'withdraw',
-      args: [fakeInput.amountMantissa],
-    });
+    }, `
+      {
+        "abi": Any<Array>,
+        "address": "0xfakeVaiVaultContractAddress",
+        "args": [
+          1000n,
+        ],
+        "functionName": "withdraw",
+      }
+    `);
 
     onConfirmed({ input: fakeInput });
 
@@ -71,7 +74,7 @@ describe('useWithdrawFromVaiVault', () => {
   });
 
   it('throws error when VAI Vault contract address is not found', async () => {
-    (useGetVaiVaultContractAddress as Mock).mockImplementation(() => undefined);
+    (useGetContractAddress as Mock).mockImplementation(() => ({ address: undefined }));
 
     renderHook(() => useWithdrawFromVaiVault(fakeOptions));
 

@@ -3,19 +3,12 @@ import { useMemo } from 'react';
 
 import FunctionKey from 'constants/functionKey';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import {
-  useGetLegacyPoolComptrollerContractAddress,
-  useGetPoolLensContractAddress,
-  useGetPrimeContractAddress,
-  useGetVaiVaultContractAddress,
-  useGetVenusLensContractAddress,
-  useGetXvsVaultContractAddress,
-} from 'libs/contracts';
 import { useGetTokens } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId, MerklDistribution } from 'types';
 import { callOrThrow } from 'utilities';
 
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import type { Address } from 'viem';
 import { getPendingRewards } from '.';
 import { useGetXvsVaultPoolCount } from '../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
@@ -62,12 +55,24 @@ export const useGetPendingRewards = (
 ) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
-  const venusLensContractAddress = useGetVenusLensContractAddress();
-  const poolLensContractAddress = useGetPoolLensContractAddress();
-  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
-  const primeContractAddress = useGetPrimeContractAddress();
+  const { address: legacyPoolComptrollerContractAddress } = useGetContractAddress({
+    name: 'LegacyPoolComptroller',
+  });
+  const { address: venusLensContractAddress } = useGetContractAddress({
+    name: 'VenusLens',
+  });
+  const { address: poolLensContractAddress } = useGetContractAddress({
+    name: 'PoolLens',
+  });
+  const { address: vaiVaultContractAddress } = useGetContractAddress({
+    name: 'VaiVault',
+  });
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
+  const { address: primeContractAddress } = useGetContractAddress({
+    name: 'Prime',
+  });
 
   const isPrimeEnabled = useIsFeatureEnabled({
     name: 'prime',

@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { getVaiVaultContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
@@ -21,8 +21,8 @@ type Options = QueryObserverOptions<
 export const useGetVaiVaultPaused = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-  const vaiVaultAddress = getVaiVaultContractAddress({
-    chainId,
+  const { address: vaiVaultAddress } = useGetContractAddress({
+    name: 'VaiVault',
   });
 
   return useQuery({

@@ -25,10 +25,7 @@ import { Link } from 'containers/Link';
 import { SwitchChain } from 'containers/SwitchChain';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import useTokenApproval from 'hooks/useTokenApproval';
-import {
-  getXVSProxyOFTDestContractAddress,
-  getXVSProxyOFTSrcContractAddress,
-} from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -60,9 +57,9 @@ const BridgePage: React.FC = () => {
     switch (chainId) {
       case ChainId.BSC_MAINNET:
       case ChainId.BSC_TESTNET:
-        return getXVSProxyOFTSrcContractAddress({ chainId });
+        return getContractAddress({ name: 'XVSProxyOFTSrc', chainId });
       default:
-        return getXVSProxyOFTDestContractAddress({ chainId });
+        return getContractAddress({ name: 'XVSProxyOFTDest', chainId });
     }
   }, [chainId]);
 

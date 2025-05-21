@@ -1,4 +1,4 @@
-import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
 import { ChainId } from 'types';
@@ -8,9 +8,13 @@ export const useGetVTreasuryContractAddress = () => {
 
   return useMemo(
     () =>
-      chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
-        ? getVTreasuryContractAddress({ chainId })
-        : getVTreasuryV8ContractAddress({ chainId }),
+      getContractAddress({
+        name:
+          chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET
+            ? 'VTreasury'
+            : 'VTreasuryV8',
+        chainId,
+      }),
     [chainId],
   );
 };

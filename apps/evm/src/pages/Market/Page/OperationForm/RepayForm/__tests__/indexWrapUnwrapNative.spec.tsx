@@ -20,7 +20,6 @@ import Repay from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');
 
 const fakeBalanceMantissa = new BigNumber('10000000000000000000');

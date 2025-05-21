@@ -1,8 +1,9 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetXvsVaultContractAddress, xvsVaultAbi } from 'libs/contracts';
+import { xvsVaultAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Token } from 'types';
@@ -20,7 +21,9 @@ export const useStakeInXvsVault = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { captureAnalyticEvent } = useAnalytics();
   const { accountAddress } = useAccountAddress();
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
 
   return useSendTransaction({
     fn: ({ poolIndex, amountMantissa, rewardToken }: StakeInXvsVaultInput) => {

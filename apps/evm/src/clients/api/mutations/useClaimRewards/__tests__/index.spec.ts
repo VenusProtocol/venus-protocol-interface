@@ -1,17 +1,9 @@
-import fakeAccountAddress, {
-  altAddress as fakeMulticall3ContractAddress,
-} from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import { xvs } from '__mocks__/models/tokens';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import {
-  useGetLegacyPoolComptrollerContractAddress,
-  useGetMulticall3ContractAddress,
-  useGetPrimeContractAddress,
-  useGetVaiVaultContractAddress,
-  useGetXvsVaultContractAddress,
-} from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import { encodeFunctionData } from 'viem';
 import type { Mock } from 'vitest';
@@ -70,16 +62,6 @@ const fakeOptions = {
 };
 
 describe('useClaimRewards', () => {
-  beforeEach(() => {
-    (useGetMulticall3ContractAddress as Mock).mockReturnValue(fakeMulticall3ContractAddress);
-    (useGetLegacyPoolComptrollerContractAddress as Mock).mockReturnValue(
-      'fakeMainPoolComptrollerAddress',
-    );
-    (useGetVaiVaultContractAddress as Mock).mockReturnValue('fakeVaiVaultAddress');
-    (useGetXvsVaultContractAddress as Mock).mockReturnValue('fakeXvsVaultAddress');
-    (useGetPrimeContractAddress as Mock).mockReturnValue('fakePrimeContractAddress');
-  });
-
   it('calls useSendTransaction with the correct parameters', async () => {
     const mockCaptureAnalyticEvent = vi.fn();
     (useAnalytics as Mock).mockImplementation(() => ({
@@ -105,21 +87,21 @@ describe('useClaimRewards', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "address": "0xfakeMulticall3ContractAddress",
         "args": [
           true,
           [
             {
               "callData": "0x01",
-              "target": "fakeVaiVaultAddress",
+              "target": "0xfakeVaiVaultContractAddress",
             },
             {
               "callData": "0x01",
-              "target": "fakeXvsVaultAddress",
+              "target": "0xfakeXvsVaultContractAddress",
             },
             {
               "callData": "0x01",
-              "target": "fakeMainPoolComptrollerAddress",
+              "target": "0xfakeLegacyPoolComptrollerContractAddress",
             },
             {
               "callData": "0x01",
@@ -127,11 +109,11 @@ describe('useClaimRewards', () => {
             },
             {
               "callData": "0x01",
-              "target": "fakePrimeContractAddress",
+              "target": "0xfakePrimeContractAddress",
             },
             {
               "callData": "0x01",
-              "target": "fakePrimeContractAddress",
+              "target": "0xfakePrimeContractAddress",
             },
           ],
         ],
@@ -141,77 +123,12 @@ describe('useClaimRewards', () => {
     );
 
     expect(encodeFunctionData).toHaveBeenCalledTimes(6);
-    expect((encodeFunctionData as Mock).mock.calls).toMatchInlineSnapshot(`
-      [
-        [
-          {
-            "abi": [],
-            "args": [
-              "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-            ],
-            "functionName": "claim",
-          },
-        ],
-        [
-          {
-            "abi": [],
-            "args": [
-              "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-              "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-              0n,
-            ],
-            "functionName": "claim",
-          },
-        ],
-        [
-          {
-            "abi": [],
-            "args": [
-              "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-              [
-                "0x08e0a5575de71037ae36abfafb516595fe68e5e4",
-                "0xd5c4c2e2facbeb59d0216d0595d63fcdc6f9a1a7",
-                "0x74469281310195a04840daf6edf576f559a3de80",
-              ],
-            ],
-            "functionName": "claimVenus",
-          },
-        ],
-        [
-          {
-            "abi": [],
-            "args": [
-              "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-              [
-                "0x37a0ac901578a7f05379fc43330b3d1e39d0c40c",
-                "0x75a10f0c415dccca275e8cdd8447d291a6b86f06",
-              ],
-            ],
-            "functionName": "claimRewardToken",
-          },
-        ],
-        [
-          {
-            "abi": [],
-            "args": [
-              "0x37a0ac901578a7f05379fc43330b3d1e39d0c40c",
-              "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-            ],
-            "functionName": "claimInterest",
-          },
-        ],
-        [
-          {
-            "abi": [],
-            "args": [
-              "0x75a10f0c415dccca275e8cdd8447d291a6b86f06",
-              "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
-            ],
-            "functionName": "claimInterest",
-          },
-        ],
-      ]
-    `);
+
+    (encodeFunctionData as Mock).mock.calls.forEach(call => {
+      expect(call[0]).toMatchSnapshot({
+        abi: expect.any(Array),
+      });
+    });
 
     onConfirmed({ input: fakeInput });
 
@@ -232,7 +149,7 @@ describe('useClaimRewards', () => {
         [
           "Pool reward claimed",
           {
-            "comptrollerAddress": "fakeMainPoolComptrollerAddress",
+            "comptrollerAddress": "0xfakeLegacyPoolComptrollerContractAddress",
           },
         ],
         [
@@ -265,8 +182,7 @@ describe('useClaimRewards', () => {
   });
 
   it('throws when contract addresses could not be retrieved', async () => {
-    (useGetMulticall3ContractAddress as Mock).mockReturnValue(undefined);
-    (useGetXvsVaultContractAddress as Mock).mockReturnValue(undefined);
+    (useGetContractAddress as Mock).mockReturnValue({ address: undefined });
 
     renderHook(() => useClaimRewards(fakeOptions));
 

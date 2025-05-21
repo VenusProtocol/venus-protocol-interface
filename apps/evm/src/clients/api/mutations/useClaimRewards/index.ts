@@ -1,15 +1,9 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import {
-  multicall3Abi,
-  useGetLegacyPoolComptrollerContractAddress,
-  useGetMulticall3ContractAddress,
-  useGetPrimeContractAddress,
-  useGetVaiVaultContractAddress,
-  useGetXvsVaultContractAddress,
-} from 'libs/contracts';
+import { multicall3Abi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { formatToCalls } from './formatToCalls';
@@ -22,11 +16,23 @@ type Options = UseSendTransactionOptions<ClaimRewardsInput>;
 export const useClaimRewards = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
-  const multicall3ContractAddress = useGetMulticall3ContractAddress();
-  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
-  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
-  const primeContractAddress = useGetPrimeContractAddress();
+  const { address: multicall3ContractAddress } = useGetContractAddress({
+    name: 'Multicall3',
+  });
+  const { address: legacyPoolComptrollerContractAddress } = useGetContractAddress({
+    name: 'LegacyPoolComptroller',
+  });
+
+  const { address: vaiVaultContractAddress } = useGetContractAddress({
+    name: 'VaiVault',
+  });
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
+
+  const { address: primeContractAddress } = useGetContractAddress({
+    name: 'Prime',
+  });
   const { captureAnalyticEvent } = useAnalytics();
 
   return useSendTransaction({

@@ -2,7 +2,6 @@ import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { getNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useSupply } from '..';
@@ -11,6 +10,7 @@ import fakeAccountAddress, {
   altAddress as fakePoolComptrollerContractAddress,
 } from '__mocks__/models/address';
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
+import { getContractAddress } from 'libs/contracts';
 
 vi.mock('libs/analytics');
 vi.mock('libs/contracts');
@@ -35,10 +35,6 @@ describe('useSupply', () => {
     (useAnalytics as Mock).mockImplementation(() => ({
       captureAnalyticEvent: mockCaptureAnalyticEvent,
     }));
-
-    (getNativeTokenGatewayContractAddress as Mock).mockImplementation(
-      () => 'fakeNativeTokenGatewayContractAddress',
-    );
   });
 
   it('calls useSendTransaction with the correct parameters for supplying native currency', async () => {
@@ -163,19 +159,17 @@ describe('useSupply', () => {
     expect(await fn(customFakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      },
-      `
+      }, `
       {
         "abi": Any<Array>,
-        "address": "fakeNativeTokenGatewayContractAddress",
+        "address": "0xfakeNativeTokenGatewayContractAddress",
         "args": [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
         ],
         "functionName": "wrapAndSupply",
         "value": 10000000000000000n,
       }
-    `,
-    );
+    `);
 
     onConfirmed({ input: customFakeInput });
 
@@ -204,7 +198,7 @@ describe('useSupply', () => {
   });
 
   it('throws when wrap is true but NativeTokenGateway contract address is not available', async () => {
-    (getNativeTokenGatewayContractAddress as Mock).mockImplementation(() => undefined);
+    (getContractAddress as Mock).mockImplementation(() => undefined);
 
     renderHook(() => useSupply(fakeOptions), {
       accountAddress: fakeAccountAddress,

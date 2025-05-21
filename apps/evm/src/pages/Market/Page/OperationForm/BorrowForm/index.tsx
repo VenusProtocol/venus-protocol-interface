@@ -18,13 +18,13 @@ import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useGetNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
 import { calculateHealthFactor, convertTokensToMantissa } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useAccountAddress } from 'libs/wallet';
 import { AssetInfo } from '../AssetInfo';
 import { OperationDetails } from '../OperationDetails';
@@ -323,8 +323,9 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
 
   const { mutateAsync: borrow, isPending: isBorrowLoading } = useBorrow();
 
-  const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
-    comptrollerContractAddress: pool.comptrollerAddress,
+  const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
+    name: 'NativeTokenGateway',
+    poolComptrollerContractAddress: pool.comptrollerAddress,
   });
 
   const {

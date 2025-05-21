@@ -4,12 +4,10 @@ import fakeAccountAddress, {
 import { vBnb, vWeth, vXvs } from '__mocks__/models/vTokens';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import {
-  getNativeTokenGatewayContractAddress,
-  useGetMaximillionContractAddress,
-} from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useRepay } from '..';
@@ -37,13 +35,6 @@ describe('useRepay', () => {
     (useAnalytics as Mock).mockImplementation(() => ({
       captureAnalyticEvent: mockCaptureAnalyticEvent,
     }));
-
-    (useGetMaximillionContractAddress as Mock).mockImplementation(
-      () => 'fakeMaximillionContractAddress',
-    );
-    (getNativeTokenGatewayContractAddress as Mock).mockImplementation(
-      () => 'fakeNativeTokenGatewayContractAddress',
-    );
   });
 
   it('calls useSendTransaction with the correct parameters for repaying non-BNB token', async () => {
@@ -102,11 +93,10 @@ describe('useRepay', () => {
     expect(await fn(repayFullLoanInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      },
-      `
+      }, `
       {
         "abi": Any<Array>,
-        "address": "fakeMaximillionContractAddress",
+        "address": "0xfakeMaximillionContractAddress",
         "args": [
           "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
@@ -114,8 +104,7 @@ describe('useRepay', () => {
         "functionName": "repayBehalfExplicit",
         "value": 10010000000000000n,
       }
-    `,
-    );
+    `);
 
     onConfirmed({ input: fakeInput });
 
@@ -206,16 +195,14 @@ describe('useRepay', () => {
     expect(await fn(wrapAndRepayInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      },
-      `
+      }, `
       {
         "abi": Any<Array>,
-        "address": "fakeNativeTokenGatewayContractAddress",
+        "address": "0xfakeNativeTokenGatewayContractAddress",
         "functionName": "wrapAndRepay",
         "value": 10000000000000000n,
       }
-    `,
-    );
+    `);
 
     onConfirmed({ input: fakeInput });
 
@@ -243,7 +230,7 @@ describe('useRepay', () => {
   });
 
   it('throws when repaying full BNB loan but maximillion contract address is not available', async () => {
-    (useGetMaximillionContractAddress as Mock).mockImplementation(() => undefined);
+    (useGetContractAddress as Mock).mockImplementation(() => ({ address: undefined }));
 
     renderHook(() => useRepay(fakeOptions), {
       accountAddress: fakeAccountAddress,
@@ -261,7 +248,7 @@ describe('useRepay', () => {
   });
 
   it('throws when wrapping and repaying but native token gateway contract address is not available', async () => {
-    (getNativeTokenGatewayContractAddress as Mock).mockImplementation(() => undefined);
+    (getContractAddress as Mock).mockImplementation(() => undefined);
 
     renderHook(() => useRepay(fakeOptions), {
       accountAddress: fakeAccountAddress,

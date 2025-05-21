@@ -1,7 +1,8 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { primeAbi, useGetPrimeContractAddress } from 'libs/contracts';
+import { primeAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 
@@ -10,7 +11,9 @@ type Options = UseSendTransactionOptions<void>;
 export const useClaimPrimeToken = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
-  const primeContractAddress = useGetPrimeContractAddress();
+  const { address: primeContractAddress } = useGetContractAddress({
+    name: 'Prime',
+  });
 
   return useSendTransaction({
     fn: () => {

@@ -3,7 +3,7 @@ import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { getSwapRouterContractAddress, swapRouterAbi } from 'libs/contracts';
+import { getContractAddress, swapRouterAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Swap, VToken } from 'types';
@@ -34,8 +34,9 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
       repayFullLoan,
       poolComptrollerContractAddress,
     }: SwapTokensAndRepayInput) => {
-      const swapRouterContractAddress = getSwapRouterContractAddress({
-        comptrollerContractAddress: poolComptrollerContractAddress,
+      const swapRouterContractAddress = getContractAddress({
+        name: 'SwapRouter',
+        poolComptrollerContractAddress: poolComptrollerContractAddress,
         chainId,
       });
 
@@ -313,8 +314,9 @@ export const useSwapTokensAndRepay = (options?: Partial<Options>) => {
         ],
       });
 
-      const swapRouterContractAddress = getSwapRouterContractAddress({
-        comptrollerContractAddress: input.poolComptrollerContractAddress,
+      const swapRouterContractAddress = getContractAddress({
+        name: 'SwapRouter',
+        poolComptrollerContractAddress: input.poolComptrollerContractAddress,
         chainId,
       });
 

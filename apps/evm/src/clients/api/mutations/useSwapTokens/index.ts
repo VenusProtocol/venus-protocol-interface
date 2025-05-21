@@ -3,7 +3,7 @@ import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { getSwapRouterContractAddress, swapRouterAbi } from 'libs/contracts';
+import { getContractAddress, swapRouterAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Swap } from 'types';
@@ -25,9 +25,10 @@ export const useSwapTokens = (options?: Partial<Options>) => {
     // @ts-ignore mixing payable and non-payable function calls messes up with the typing of
     // useSendTransaction
     fn: ({ swap, poolComptrollerContractAddress }: SwapTokensInput) => {
-      const swapRouterContractAddress = getSwapRouterContractAddress({
+      const swapRouterContractAddress = getContractAddress({
         chainId,
-        comptrollerContractAddress: poolComptrollerContractAddress,
+        name: 'SwapRouter',
+        poolComptrollerContractAddress: poolComptrollerContractAddress,
       });
 
       if (!accountAddress || !swapRouterContractAddress) {
@@ -195,9 +196,10 @@ export const useSwapTokens = (options?: Partial<Options>) => {
     onConfirmed: async ({ input }) => {
       const { swap, poolComptrollerContractAddress } = input;
 
-      const swapRouterContractAddress = getSwapRouterContractAddress({
+      const swapRouterContractAddress = getContractAddress({
         chainId,
-        comptrollerContractAddress: poolComptrollerContractAddress,
+        name: 'SwapRouter',
+        poolComptrollerContractAddress: poolComptrollerContractAddress,
       });
 
       captureAnalyticEvent('Tokens swapped', {

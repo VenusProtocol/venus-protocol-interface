@@ -1,12 +1,10 @@
-import fakeAccountAddress, {
-  altAddress as fakeXvsVaultContractAddress,
-} from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useStakeInXvsVault } from '..';
@@ -27,10 +25,6 @@ const fakeOptions = {
 };
 
 describe('useStakeInXvsVault', () => {
-  beforeEach(() => {
-    (useGetXvsVaultContractAddress as Mock).mockReturnValue(fakeXvsVaultContractAddress);
-  });
-
   it('calls useSendTransaction with the correct parameters', async () => {
     const mockCaptureAnalyticEvent = vi.fn();
     (useAnalytics as Mock).mockImplementation(() => ({
@@ -52,11 +46,10 @@ describe('useStakeInXvsVault', () => {
     expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
         abi: expect.any(Array),
-      },
-      `
+      }, `
       {
         "abi": Any<Array>,
-        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "address": "0xfakeXvsVaultContractAddress",
         "args": [
           "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
           0n,
@@ -64,8 +57,7 @@ describe('useStakeInXvsVault', () => {
         ],
         "functionName": "deposit",
       }
-    `,
-    );
+    `);
 
     onConfirmed({ input: fakeInput });
 
@@ -79,7 +71,7 @@ describe('useStakeInXvsVault', () => {
   });
 
   it('throws when contract address could not be retrieved', async () => {
-    (useGetXvsVaultContractAddress as Mock).mockReturnValue(undefined);
+    (useGetContractAddress as Mock).mockReturnValue({ address: undefined });
 
     renderHook(() => useStakeInXvsVault(fakeOptions));
 
