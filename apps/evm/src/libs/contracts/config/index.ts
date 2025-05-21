@@ -151,7 +151,7 @@ export const contracts: ContractConfig[] = [
   // Unique contracts
   {
     name: 'VenusLens',
-    abi: venusLensAbi as Abi as Abi,
+    abi: venusLensAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VenusLens as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VenusLens as Address,
@@ -159,7 +159,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'PoolLens',
-    abi: PoolLensAbi as Abi as Abi,
+    abi: PoolLensAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses.PoolLens as Address,
       [ChainId.BSC_MAINNET]: isolatedPoolsBscMainnetDeployments.addresses.PoolLens as Address,
@@ -186,7 +186,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'PoolRegistry',
-    abi: PoolRegistryAbi as Abi as Abi,
+    abi: PoolRegistryAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: isolatedPoolsBscTestnetDeployments.addresses
         .PoolRegistry_Proxy as Address,
@@ -222,7 +222,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'LegacyPoolComptroller',
-    abi: legacyPoolComptrollerAbi as Abi as Abi,
+    abi: legacyPoolComptrollerAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Unitroller as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Unitroller as Address,
@@ -230,7 +230,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VaiController',
-    abi: vaiControllerAbi as Abi as Abi,
+    abi: vaiControllerAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VaiUnitroller as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VaiUnitroller as Address,
@@ -238,7 +238,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VaiVault',
-    abi: vaiVaultAbi as Abi as Abi,
+    abi: vaiVaultAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.VAIVaultProxy as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.VAIVaultProxy as Address,
@@ -246,7 +246,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'XvsTokenOmnichain',
-    abi: XvsTokenOmnichainAbi as Abi as Abi,
+    abi: XvsTokenOmnichainAbi as Abi,
     address: {
       [ChainId.ETHEREUM]: tokenBridgeEthereumDeployments.addresses.XVS as Address,
       [ChainId.SEPOLIA]: tokenBridgeSepoliaDeployments.addresses.XVS as Address,

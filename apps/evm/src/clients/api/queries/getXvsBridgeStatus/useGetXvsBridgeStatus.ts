@@ -40,15 +40,6 @@ export const useGetXvsBridgeStatus = (
   const { publicClient: fromChainPublicClient } = usePublicClient();
   const { publicClient: toChainPublicClient } = usePublicClient({ chainId: toChainId });
 
-  // const fromChainBridgeContractSrcAddress = getXVSProxyOFTSrcContractAddress({ chainId });
-  // const fromChainBridgeContractDestAddress = getXVSProxyOFTDestContractAddress({ chainId });
-  // const toChainBridgeContractSrcAddress = getXVSProxyOFTSrcContractAddress({
-  //   chainId: toChainId,
-  // });
-  // const toChainBridgeContractDestAddress = getXVSProxyOFTDestContractAddress({
-  //   chainId: toChainId,
-  // });
-
   const { address: fromChainBridgeContractSrcAddress } = useGetContractAddress({
     name: 'XVSProxyOFTSrc',
   });
