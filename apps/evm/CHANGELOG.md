@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.1.1
+
+### Patch Changes
+
+- 4a3baca: fix finding lowercased addresses in getContractAddress
+
 ## 3.1.0
 
 ### Minor Changes
