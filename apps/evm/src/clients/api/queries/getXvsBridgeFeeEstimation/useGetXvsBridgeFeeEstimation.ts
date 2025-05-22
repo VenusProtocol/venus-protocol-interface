@@ -7,10 +7,7 @@ import {
   getXvsBridgeFeeEstimation,
 } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import {
-  useGetXVSProxyOFTDestContractAddress,
-  useGetXVSProxyOFTSrcContractAddress,
-} from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import { ChainId, type Token } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
@@ -52,8 +49,13 @@ export const useGetXvsBridgeFeeEstimation = (
   const { publicClient } = usePublicClient();
 
   // Get the contract addresses
-  const srcContractAddress = useGetXVSProxyOFTSrcContractAddress();
-  const destContractAddress = useGetXVSProxyOFTDestContractAddress();
+  const { address: srcContractAddress } = useGetContractAddress({
+    name: 'XVSProxyOFTSrc',
+  });
+
+  const { address: destContractAddress } = useGetContractAddress({
+    name: 'XVSProxyOFTDest',
+  });
 
   const tokenBridgeContractAddress =
     chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET

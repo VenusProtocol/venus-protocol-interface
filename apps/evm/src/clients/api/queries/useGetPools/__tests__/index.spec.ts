@@ -7,11 +7,9 @@ import fakeAccountAddress from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
 import { type GetTokenBalancesInput, getTokenBalances, getUserVaiBorrowBalance } from 'clients/api';
 import {
-  useGetLegacyPoolComptrollerContractAddress,
-  useGetPoolLensContractAddress,
-  useGetVaiControllerContractAddress,
-  useGetVenusLensContractAddress,
-} from 'libs/contracts';
+  type UseGetContractAddressInput,
+  useGetContractAddress,
+} from 'hooks/useGetContractAddress';
 import { usePublicClient } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import { restService } from 'utilities/restService';
@@ -25,7 +23,6 @@ import {
 } from '../__testUtils__/fakeData';
 
 vi.mock('utilities/restService');
-vi.mock('libs/contracts');
 
 describe('useGetPools', () => {
   beforeEach(() => {
@@ -33,19 +30,34 @@ describe('useGetPools', () => {
       publicClient: fakePublicClient,
     }));
 
-    (useGetPoolLensContractAddress as Mock).mockImplementation(() => fakePoolLensContractAddress);
-    (useGetLegacyPoolComptrollerContractAddress as Mock).mockImplementation(
-      () => fakeLegacyPoolComptrollerContractAddress,
-    );
-    (useGetVenusLensContractAddress as Mock).mockImplementation(() => fakeVenusLensContractAddress);
-    (useGetVaiControllerContractAddress as Mock).mockImplementation(
-      () => fakeVaiControllerContractAddress,
-    );
-
     (restService as Mock).mockImplementation(async () => ({
       status: 200,
       data: apiPoolsResponse,
     }));
+
+    (useGetContractAddress as Mock).mockImplementation(({ name }: UseGetContractAddressInput) => {
+      let address = '0xFakeContractAddress';
+
+      if (name === 'PoolLens') {
+        address = fakePoolLensContractAddress;
+      }
+
+      if (name === 'LegacyPoolComptroller') {
+        address = fakeLegacyPoolComptrollerContractAddress;
+      }
+
+      if (name === 'VenusLens') {
+        address = fakeVenusLensContractAddress;
+      }
+
+      if (name === 'VaiController') {
+        address = fakeVaiControllerContractAddress;
+      }
+
+      return {
+        address,
+      };
+    });
 
     (getTokenBalances as Mock).mockImplementation(
       ({ publicClient: _1, accountAddress: _2, tokens }: GetTokenBalancesInput) => ({

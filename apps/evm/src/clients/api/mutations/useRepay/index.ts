@@ -1,13 +1,13 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import MAX_UINT256 from 'constants/maxUint256';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import {
-  getNativeTokenGatewayContractAddress,
+  getContractAddress,
   maximillionAbi,
   nativeTokenGatewayAbi,
-  useGetMaximillionContractAddress,
   vBep20Abi,
   vBnbAbi,
 } from 'libs/contracts';
@@ -49,7 +49,9 @@ export const useRepay = (options?: Partial<Options>) => {
   const { accountAddress } = useAccountAddress();
   const { captureAnalyticEvent } = useAnalytics();
 
-  const maximillionContractAddress = useGetMaximillionContractAddress();
+  const { address: maximillionContractAddress } = useGetContractAddress({
+    name: 'Maximillion',
+  });
 
   return useSendTransaction({
     // @ts-ignore mixing payable and non-payable function calls messes up with the typing of
@@ -105,9 +107,10 @@ export const useRepay = (options?: Partial<Options>) => {
 
       // Handle repaying native loan by first wrapping tokens
       const nativeTokenGatewayContractAddress = input.wrap
-        ? getNativeTokenGatewayContractAddress({
+        ? getContractAddress({
+            name: 'NativeTokenGateway',
+            poolComptrollerContractAddress: input.poolComptrollerContractAddress,
             chainId,
-            comptrollerContractAddress: input.poolComptrollerContractAddress,
           })
         : undefined;
 

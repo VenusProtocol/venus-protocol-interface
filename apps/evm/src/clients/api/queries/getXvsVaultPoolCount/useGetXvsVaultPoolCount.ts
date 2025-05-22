@@ -5,7 +5,7 @@ import {
   getXvsVaultPoolCount,
 } from 'clients/api/queries/getXvsVaultPoolCount';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetToken } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
@@ -27,7 +27,9 @@ type Options = QueryObserverOptions<
 export const useGetXvsVaultPoolCount = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
 
   const xvs = useGetToken({
     symbol: 'XVS',

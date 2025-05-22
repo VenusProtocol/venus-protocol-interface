@@ -3,7 +3,7 @@ import { vWeth, vXvs } from '__mocks__/models/vTokens';
 import { queryClient } from 'clients/api';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { getNativeTokenGatewayContractAddress } from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
@@ -89,9 +89,6 @@ describe('useBorrow', () => {
   });
 
   it('calls useSendTransaction with the correct parameters for borrow and unwrap', async () => {
-    const nativeTokenGatewayAddress = '0x789';
-    (getNativeTokenGatewayContractAddress as Mock).mockReturnValue(nativeTokenGatewayAddress);
-
     renderHook(() => useBorrow(fakeOptions), {
       accountAddress: fakeAccountAddress,
     });
@@ -111,7 +108,7 @@ describe('useBorrow', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0x789",
+        "address": "0xfakeNativeTokenGatewayContractAddress",
         "args": [
           1000n,
         ],
@@ -188,7 +185,7 @@ describe('useBorrow', () => {
   });
 
   it('throws when native token gateway contract address is not available for unwrap', async () => {
-    (getNativeTokenGatewayContractAddress as Mock).mockReturnValue(undefined);
+    (getContractAddress as Mock).mockReturnValue(undefined);
 
     renderHook(() => useBorrow(fakeOptions), {
       accountAddress: fakeAccountAddress,

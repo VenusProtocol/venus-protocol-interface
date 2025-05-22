@@ -1,11 +1,9 @@
-import fakeAccountAddress, {
-  altAddress as fakeXvsVaultContractAddress,
-} from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import { vai, xvs } from '__mocks__/models/tokens';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
@@ -26,7 +24,6 @@ const fakeOptions = {
 
 describe('useExecuteWithdrawalFromXvsVault', () => {
   beforeEach(() => {
-    (useGetXvsVaultContractAddress as Mock).mockReturnValue(fakeXvsVaultContractAddress);
     (useGetToken as Mock).mockReturnValue(xvs);
   });
 
@@ -55,7 +52,7 @@ describe('useExecuteWithdrawalFromXvsVault', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "address": "0xfakeXvsVaultContractAddress",
         "args": [
           "0x123",
           0n,
@@ -79,7 +76,7 @@ describe('useExecuteWithdrawalFromXvsVault', () => {
   });
 
   it('throws when contract address could not be retrieved', async () => {
-    (useGetXvsVaultContractAddress as Mock).mockReturnValue(undefined);
+    (useGetContractAddress as Mock).mockReturnValue({ address: undefined });
 
     renderHook(() => useExecuteWithdrawalFromXvsVault({ stakedToken: vai }, fakeOptions), {
       accountAddress: fakeAccountAddress,

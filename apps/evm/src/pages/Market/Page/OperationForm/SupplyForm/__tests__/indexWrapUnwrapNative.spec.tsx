@@ -19,8 +19,6 @@ import Supply from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
-vi.mock('hooks/useGetNativeWrappedTokenUserBalances');
-
 const fakeNativeTokenBalanceTokens = new BigNumber(10);
 const fakeBalanceMantissa = fakeNativeTokenBalanceTokens.multipliedBy(10 ** 18);
 

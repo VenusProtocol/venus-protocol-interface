@@ -2,7 +2,6 @@ import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { getSwapRouterContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useSwapTokens } from '..';
@@ -11,6 +10,7 @@ import fakeAccountAddress, {
   altAddress as fakePoolComptrollerContractAddress,
 } from '__mocks__/models/address';
 import { bnb, usdt, xvs } from '__mocks__/models/tokens';
+import { getContractAddress } from 'libs/contracts';
 
 vi.mock('libs/analytics');
 vi.mock('libs/contracts');
@@ -47,10 +47,6 @@ describe('useSwapTokens', () => {
     (useAnalytics as Mock).mockImplementation(() => ({
       captureAnalyticEvent: mockCaptureAnalyticEvent,
     }));
-
-    (getSwapRouterContractAddress as Mock).mockImplementation(
-      () => 'fakeSwapRouterContractAddress',
-    );
   });
 
   it('calls useSendTransaction with the correct parameters when selling fromTokens for as many toTokens as possible', async () => {
@@ -83,7 +79,7 @@ describe('useSwapTokens', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           10000000000000000n,
           10000000000000000n,
@@ -148,7 +144,7 @@ describe('useSwapTokens', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           10000000000000000n,
           [
@@ -204,7 +200,7 @@ describe('useSwapTokens', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           10000000000000000n,
           10000000000000000n,
@@ -274,7 +270,7 @@ describe('useSwapTokens', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           10000000000000000n,
           10000000000000000n,
@@ -343,7 +339,7 @@ describe('useSwapTokens', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           10000000000000000n,
           [
@@ -410,7 +406,7 @@ describe('useSwapTokens', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "fakeSwapRouterContractAddress",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           10000000000000000n,
           10000000000000000n,
@@ -455,7 +451,7 @@ describe('useSwapTokens', () => {
   });
 
   it('throws when swap router contract address is not available', async () => {
-    (getSwapRouterContractAddress as Mock).mockImplementation(() => undefined);
+    (getContractAddress as Mock).mockImplementation(() => undefined);
 
     renderHook(() => useSwapTokens(fakeOptions), {
       accountAddress: fakeAccountAddress,

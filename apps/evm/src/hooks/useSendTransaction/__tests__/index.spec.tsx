@@ -1,7 +1,7 @@
 import { ChainId } from '@venusprotocol/chains';
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import contractTxData from '__mocks__/models/contractTxData';
+import { txData } from '__mocks__/models/transactionData';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
 import noop from 'noop-ts';
@@ -30,7 +30,7 @@ vi.mock('wagmi', async () => {
 });
 
 const fakeHookInput = {
-  fn: vi.fn(async () => contractTxData),
+  fn: vi.fn(async () => txData),
   onConfirmed: noop,
   onReverted: noop,
 };
@@ -80,7 +80,7 @@ describe('useSendTransaction', () => {
     expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
-      txData: contractTxData,
+      txData,
       gasless: false,
       wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,
@@ -140,7 +140,7 @@ describe('useSendTransaction', () => {
     expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
-      txData: contractTxData,
+      txData,
       gasless: false,
       wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,
@@ -198,7 +198,7 @@ describe('useSendTransaction', () => {
     expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
-      txData: contractTxData,
+      txData,
       gasless: false,
       wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,

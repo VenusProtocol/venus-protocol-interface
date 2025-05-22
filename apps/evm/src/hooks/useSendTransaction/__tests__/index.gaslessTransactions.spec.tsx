@@ -1,6 +1,6 @@
 import fakeAccountAddress from '__mocks__/models/address';
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
-import contractTxData from '__mocks__/models/contractTxData';
+import { txData } from '__mocks__/models/transactionData';
 import { useGetPaymasterInfo } from 'clients/api';
 import { store } from 'containers/ResendPayingGasModal/store';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -43,7 +43,7 @@ vi.mock('containers/ResendPayingGasModal/store', () => ({
 }));
 
 const fakeHookInput = {
-  fn: vi.fn(async () => contractTxData),
+  fn: vi.fn(async () => txData),
   onConfirmed: noop,
   onReverted: noop,
 };
@@ -79,7 +79,7 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
-      txData: contractTxData,
+      txData,
       gasless: true,
       wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,
@@ -135,7 +135,7 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
-      txData: contractTxData,
+      txData,
       gasless: true,
       wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,
@@ -180,7 +180,7 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
-      txData: contractTxData,
+      txData,
       gasless: false,
       wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,
@@ -215,7 +215,7 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
-      txData: contractTxData,
+      txData,
       gasless: false,
       wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,
@@ -249,7 +249,7 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     expect(fakeHookInput.fn).toHaveBeenCalledWith(fakeMutationInput);
 
     expect(sendTransaction).toHaveBeenCalledWith({
-      txData: contractTxData,
+      txData,
       gasless: false,
       wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,

@@ -2,8 +2,7 @@ import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import {
-  getGovernorBravoDelegateContractAddress,
-  getOmnichainGovernanceExecutorContractAddress,
+  getContractAddress,
   governorBravoDelegateAbi,
   omnichainGovernanceExecutorAbi,
 } from 'libs/contracts';
@@ -21,14 +20,11 @@ type Options = UseSendTransactionOptions<ExecuteProposalInput>;
 export const useExecuteProposal = (options?: Partial<Options>) => {
   return useSendTransaction({
     fn: ({ proposalId, chainId }: ExecuteProposalInput) => {
-      const address =
-        chainId === governanceChain.id
-          ? getGovernorBravoDelegateContractAddress({
-              chainId,
-            })
-          : getOmnichainGovernanceExecutorContractAddress({
-              chainId,
-            });
+      const address = getContractAddress({
+        name:
+          chainId === governanceChain.id ? 'GovernorBravoDelegate' : 'OmnichainGovernanceExecutor',
+        chainId,
+      });
 
       if (!address) {
         throw new VError({

@@ -1,5 +1,8 @@
-import type { ContractConfig } from 'libs/contracts/config';
-import { isUniquePerPoolContractConfig } from 'libs/contracts/utilities/isUniquePerPoolContractConfig';
+import type {
+  ContractConfig,
+  UniqueContractConfig,
+  UniquePerPoolContractConfig,
+} from 'libs/contracts/config';
 import writeFile from 'utilities/writeFile';
 
 export interface GenerateAddressListInput {
@@ -11,39 +14,67 @@ export const generateAddressList = async ({
   outputFilePath,
   contractConfigs,
 }: GenerateAddressListInput) => {
-  // Open addresses output
-  let addressesOutput = 'export default {';
+  // Sort contract configs
+  const sortedConfig: {
+    uniques: UniqueContractConfig[];
+    uniquesPerPool: UniquePerPoolContractConfig[];
+  } = {
+    uniques: [],
+    uniquesPerPool: [],
+  };
 
-  // Go through config and extract contract addresses
   contractConfigs.forEach(contractConfig => {
     // Ignore generic contracts
     if (!('address' in contractConfig)) {
       return;
     }
 
-    addressesOutput += `${contractConfig.name}: {
-      ${Object.entries(contractConfig.address)
-        .map(([chainId, address]) => {
-          if (isUniquePerPoolContractConfig(contractConfig)) {
-            // Handle contracts that are unique in a given pool
-            return `${chainId}: {${Object.entries(address)
+    const firstContractAddress = Object.entries(contractConfig.address)[0];
+    const firstContractAddressValue = firstContractAddress[1];
+
+    if (typeof firstContractAddressValue === 'string') {
+      sortedConfig.uniques.push(contractConfig as UniqueContractConfig);
+    } else {
+      sortedConfig.uniquesPerPool.push(contractConfig as UniquePerPoolContractConfig);
+    }
+  });
+
+  // Open addresses output
+  let addressesOutput = `export const addresses = {
+    uniques: {`;
+
+  sortedConfig.uniques.forEach(config => {
+    addressesOutput += `${config.name}: {
+      ${Object.entries(config.address)
+        .map(([chainId, address]) => `${chainId}: '${address}',`)
+        .join('')}
+    },`;
+  });
+
+  addressesOutput += `},
+    uniquesPerPool: {
+  `;
+
+  sortedConfig.uniquesPerPool.forEach(config => {
+    addressesOutput += `${config.name}: {
+      ${Object.entries(config.address)
+        .map(
+          ([chainId, address]) =>
+            `${chainId}: {${Object.entries(address)
               .map(
                 ([comptrollerContractAddress, uniquePerPoolContractAddress]) =>
                   `'${comptrollerContractAddress}': '${uniquePerPoolContractAddress}',`,
               )
-              .join('')}},`;
-          }
-
-          // Handle other contracts
-          return `${chainId}: '${address}',`;
-        })
+              .join('')}},`,
+        )
         .join('')}
-    },
-    `;
+    },`;
   });
 
   // Close addresses output
-  addressesOutput += '};';
+  addressesOutput += `
+    },
+  }`;
 
   // Generate addresses file
   writeFile({

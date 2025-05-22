@@ -9,7 +9,7 @@ import {
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
 import { DAYS_PER_YEAR } from 'constants/time';
-import { useGetVaiVaultContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetToken } from 'libs/tokens';
 import type { Vault } from 'types';
 import { convertMantissaToTokens } from 'utilities';
@@ -23,7 +23,9 @@ export interface UseGetVaiVaultOutput {
 export const useGetVaiVault = ({
   accountAddress,
 }: { accountAddress?: Address }): UseGetVaiVaultOutput => {
-  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
+  const { address: vaiVaultContractAddress } = useGetContractAddress({
+    name: 'VaiVault',
+  });
 
   const xvs = useGetToken({
     symbol: 'XVS',

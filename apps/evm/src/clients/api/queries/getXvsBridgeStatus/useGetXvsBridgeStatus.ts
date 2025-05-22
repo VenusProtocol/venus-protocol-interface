@@ -1,10 +1,8 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import {
-  getXVSProxyOFTDestContractAddress,
-  getXVSProxyOFTSrcContractAddress,
-} from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { getContractAddress } from 'libs/contracts';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
@@ -42,12 +40,18 @@ export const useGetXvsBridgeStatus = (
   const { publicClient: fromChainPublicClient } = usePublicClient();
   const { publicClient: toChainPublicClient } = usePublicClient({ chainId: toChainId });
 
-  const fromChainBridgeContractSrcAddress = getXVSProxyOFTSrcContractAddress({ chainId });
-  const fromChainBridgeContractDestAddress = getXVSProxyOFTDestContractAddress({ chainId });
-  const toChainBridgeContractSrcAddress = getXVSProxyOFTSrcContractAddress({
+  const { address: fromChainBridgeContractSrcAddress } = useGetContractAddress({
+    name: 'XVSProxyOFTSrc',
+  });
+  const { address: fromChainBridgeContractDestAddress } = useGetContractAddress({
+    name: 'XVSProxyOFTDest',
+  });
+  const toChainBridgeContractSrcAddress = getContractAddress({
+    name: 'XVSProxyOFTSrc',
     chainId: toChainId,
   });
-  const toChainBridgeContractDestAddress = getXVSProxyOFTDestContractAddress({
+  const toChainBridgeContractDestAddress = getContractAddress({
+    name: 'XVSProxyOFTDest',
     chainId: toChainId,
   });
 

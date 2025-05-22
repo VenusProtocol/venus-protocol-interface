@@ -1,11 +1,9 @@
-import fakeAccountAddress, {
-  altAddress as fakeGovernorBravoDelegateContractAddress,
-} from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import { queryClient } from 'clients/api';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useVote } from '..';
@@ -30,12 +28,6 @@ const fakeOptions = {
 };
 
 describe('useVote', () => {
-  beforeEach(() => {
-    (useGetGovernorBravoDelegateContractAddress as Mock).mockReturnValue(
-      fakeGovernorBravoDelegateContractAddress,
-    );
-  });
-
   it('calls useSendTransaction with the correct parameters when vote reason is provided', async () => {
     const mockCaptureAnalyticEvent = vi.fn();
     (useAnalytics as Mock).mockImplementation(() => ({
@@ -59,7 +51,7 @@ describe('useVote', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "address": "0xfakeGovernorBravoDelegateContractAddress",
         "args": [
           123n,
           1,
@@ -92,7 +84,7 @@ describe('useVote', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "address": "0xfakeGovernorBravoDelegateContractAddress",
         "args": [
           123n,
           1,
@@ -104,7 +96,7 @@ describe('useVote', () => {
   });
 
   it('throws when contract address could not be retrieved', async () => {
-    (useGetGovernorBravoDelegateContractAddress as Mock).mockReturnValue(undefined);
+    (useGetContractAddress as Mock).mockReturnValue({ address: undefined });
 
     renderHook(() => useVote(fakeOptions));
 

@@ -20,7 +20,6 @@ import MAX_UINT256 from 'constants/maxUint256';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useTokenApproval from 'hooks/useTokenApproval';
-import { useGetVaiControllerContractAddress } from 'libs/contracts';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -33,6 +32,7 @@ import {
 
 import { NULL_ADDRESS } from 'constants/address';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { AccountVaiData } from '../AccountVaiData';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
@@ -49,7 +49,9 @@ export const Repay: React.FC = () => {
     symbol: 'VAI',
   })!;
 
-  const vaiControllerContractAddress = useGetVaiControllerContractAddress();
+  const { address: vaiControllerContractAddress } = useGetContractAddress({
+    name: 'VaiController',
+  });
 
   const {
     walletSpendingLimitTokens: userWalletSpendingLimitTokens,

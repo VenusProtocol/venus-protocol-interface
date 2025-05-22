@@ -2,11 +2,7 @@ import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import {
-  getNativeTokenGatewayContractAddress,
-  nativeTokenGatewayAbi,
-  vBep20Abi,
-} from 'libs/contracts';
+import { getContractAddress, nativeTokenGatewayAbi, vBep20Abi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId, usePublicClient } from 'libs/wallet';
 import type { VToken } from 'types';
@@ -46,8 +42,9 @@ export const useWithdraw = (options?: Partial<Options>) => {
         });
       }
 
-      const nativeTokenGatewayContractAddress = getNativeTokenGatewayContractAddress({
-        comptrollerContractAddress: poolComptrollerContractAddress,
+      const nativeTokenGatewayContractAddress = getContractAddress({
+        name: 'NativeTokenGateway',
+        poolComptrollerContractAddress: poolComptrollerContractAddress,
         chainId,
       });
 

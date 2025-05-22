@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useGetVTreasuryContractAddress > calls the right getter function when current chain is BSC 1`] = `"0xfakeVTreasuryContractAddress"`;
+
+exports[`useGetVTreasuryContractAddress > calls the right getter function when current chain is BSC 2`] = `"0xfakeVTreasuryContractAddress"`;

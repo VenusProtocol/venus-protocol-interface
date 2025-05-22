@@ -16,10 +16,6 @@ import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToR
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import useTokenApproval from 'hooks/useTokenApproval';
-import {
-  useGetLegacyPoolComptrollerContractAddress,
-  useGetSwapRouterContractAddress,
-} from 'libs/contracts';
 import { VError, handleError } from 'libs/errors';
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -29,6 +25,7 @@ import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 import { SwapDetails } from './SwapDetails';
 
 import { NULL_ADDRESS } from 'constants/address';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import { useStyles } from './styles';
@@ -355,10 +352,13 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 const SwapPage: React.FC = () => {
   const { accountAddress } = useAccountAddress();
 
-  const legacyPoolComptrollerContractAddress = useGetLegacyPoolComptrollerContractAddress();
+  const { address: legacyPoolComptrollerContractAddress } = useGetContractAddress({
+    name: 'LegacyPoolComptroller',
+  });
 
-  const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerContractAddress: legacyPoolComptrollerContractAddress || NULL_ADDRESS,
+  const { address: swapRouterContractAddress } = useGetContractAddress({
+    name: 'SwapRouter',
+    poolComptrollerContractAddress: legacyPoolComptrollerContractAddress || NULL_ADDRESS,
   });
 
   const tokens = useGetTokens();

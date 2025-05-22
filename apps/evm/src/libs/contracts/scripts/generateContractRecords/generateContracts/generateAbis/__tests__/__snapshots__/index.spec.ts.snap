@@ -2,27 +2,50 @@
 
 exports[`generateAbis > calls writeFile with the right arguments 1`] = `
 [
-  {
-    "content": "[{"inputs":[{"internalType":"address","name":"poolRegistryAddress","type":"address"},{"internalType":"address","name":"asset","type":"address"}],"name":"getPoolsSupportedByAsset","outputs":[{"internalType":"address[]","name":"","type":"address[]"}],"stateMutability":"view","type":"function"}]",
-    "outputPath": "fake/output/director/path/PoolLens.json",
-  },
-]
-`;
-
-exports[`generateAbis > calls writeFile with the right arguments 2`] = `
-[
-  {
-    "content": "export const abi = [{"inputs":[{"internalType":"address","name":"poolRegistryAddress","type":"address"},{"internalType":"address","name":"asset","type":"address"}],"name":"getPoolsSupportedByAsset","outputs":[{"internalType":"address[]","name":"","type":"address[]"}],"stateMutability":"view","type":"function"}] as const;",
-    "outputPath": "fake/output/director/path/PoolLens.ts",
-  },
-]
-`;
-
-exports[`generateAbis > calls writeFile with the right arguments 3`] = `
-[
-  {
-    "content": "[{"inputs":[{"internalType":"address","name":"market","type":"address"},{"internalType":"enum ComptrollerStorage.Action","name":"action","type":"uint8"}],"name":"ActionPaused","type":"error"}]",
-    "outputPath": "fake/output/director/path/IsolatedPoolComptroller.json",
-  },
+  [
+    {
+      "content": "[{"inputs":[{"internalType":"address","name":"poolRegistryAddress","type":"address"},{"internalType":"address","name":"asset","type":"address"}],"name":"getPoolsSupportedByAsset","outputs":[{"internalType":"address[]","name":"","type":"address[]"}],"stateMutability":"view","type":"function"}]",
+      "outputPath": "fake/output/director/path/PoolLens.json",
+    },
+  ],
+  [
+    {
+      "content": "export const abi = [{"inputs":[{"internalType":"address","name":"poolRegistryAddress","type":"address"},{"internalType":"address","name":"asset","type":"address"}],"name":"getPoolsSupportedByAsset","outputs":[{"internalType":"address[]","name":"","type":"address[]"}],"stateMutability":"view","type":"function"}] as const;",
+      "outputPath": "fake/output/director/path/PoolLens.ts",
+    },
+  ],
+  [
+    {
+      "content": "[{"inputs":[{"internalType":"address","name":"market","type":"address"},{"internalType":"enum ComptrollerStorage.Action","name":"action","type":"uint8"}],"name":"ActionPaused","type":"error"}]",
+      "outputPath": "fake/output/director/path/IsolatedPoolComptroller.json",
+    },
+  ],
+  [
+    {
+      "content": "export const abi = [{"inputs":[{"internalType":"address","name":"market","type":"address"},{"internalType":"enum ComptrollerStorage.Action","name":"action","type":"uint8"}],"name":"ActionPaused","type":"error"}] as const;",
+      "outputPath": "fake/output/director/path/IsolatedPoolComptroller.ts",
+    },
+  ],
+  [
+    {
+      "content": "[{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"amountMax","type":"uint256"}],"name":"ExcessiveInputAmount","type":"error"}]",
+      "outputPath": "fake/output/director/path/SwapRouter.json",
+    },
+  ],
+  [
+    {
+      "content": "export const abi = [{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"amountMax","type":"uint256"}],"name":"ExcessiveInputAmount","type":"error"}] as const;",
+      "outputPath": "fake/output/director/path/SwapRouter.ts",
+    },
+  ],
+  [
+    {
+      "content": "export { abi as poolLensAbi } from 'libs/contracts/generated/abis/PoolLens';
+export { abi as isolatedPoolComptrollerAbi } from 'libs/contracts/generated/abis/IsolatedPoolComptroller';
+export { abi as swapRouterAbi } from 'libs/contracts/generated/abis/SwapRouter';
+",
+      "outputPath": "fake/output/director/path/index.ts",
+    },
+  ],
 ]
 `;

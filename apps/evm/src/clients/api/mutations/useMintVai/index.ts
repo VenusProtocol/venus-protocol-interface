@@ -1,8 +1,9 @@
 import type BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { useGetVaiControllerContractAddress, vaiControllerAbi } from 'libs/contracts';
+import { vaiControllerAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 
 type MintVaiInput = {
@@ -12,7 +13,9 @@ type MintVaiInput = {
 type Options = UseSendTransactionOptions<MintVaiInput>;
 
 export const useMintVai = (options?: Partial<Options>) => {
-  const vaiControllerContractAddress = useGetVaiControllerContractAddress();
+  const { address: vaiControllerContractAddress } = useGetContractAddress({
+    name: 'VaiController',
+  });
 
   return useSendTransaction({
     fn: ({ amountMantissa }: MintVaiInput) => {

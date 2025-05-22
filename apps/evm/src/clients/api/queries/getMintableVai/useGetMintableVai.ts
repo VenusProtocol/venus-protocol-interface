@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useGetVaiControllerContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetToken } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
@@ -35,7 +35,9 @@ export const useGetMintableVai = (
 ) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-  const vaiControllerContractAddress = useGetVaiControllerContractAddress();
+  const { address: vaiControllerContractAddress } = useGetContractAddress({
+    name: 'VaiController',
+  });
   const vai = useGetToken({
     symbol: 'VAI',
   });

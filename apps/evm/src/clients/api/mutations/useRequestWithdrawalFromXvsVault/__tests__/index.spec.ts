@@ -1,11 +1,9 @@
-import fakeAccountAddress, {
-  altAddress as xvsVaultContractAddress,
-} from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import { xvs } from '__mocks__/models/tokens';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
 import { useGetToken } from 'libs/tokens';
 import { renderHook } from 'testUtils/render';
 import type { Address } from 'viem';
@@ -28,7 +26,6 @@ const fakeOptions = {
 
 describe('useRequestWithdrawalFromXvsVault', () => {
   beforeEach(() => {
-    (useGetXvsVaultContractAddress as Mock).mockImplementation(() => xvsVaultContractAddress);
     (useGetToken as Mock).mockImplementation(() => xvs);
   });
 
@@ -50,10 +47,14 @@ describe('useRequestWithdrawalFromXvsVault', () => {
 
     const { fn, onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
 
-    expect(await fn(fakeInput)).toMatchInlineSnapshot(`
+    expect(await fn(fakeInput)).toMatchInlineSnapshot(
       {
-        "abi": [],
-        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        abi: expect.any(Array),
+      },
+      `
+      {
+        "abi": Any<Array>,
+        "address": "0xfakeXvsVaultContractAddress",
         "args": [
           "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
           4n,
@@ -61,7 +62,8 @@ describe('useRequestWithdrawalFromXvsVault', () => {
         ],
         "functionName": "requestWithdrawal",
       }
-    `);
+    `,
+    );
 
     onConfirmed({ input: fakeInput });
 
@@ -82,7 +84,7 @@ describe('useRequestWithdrawalFromXvsVault', () => {
   });
 
   it('throws error when XVS Vault contract address is not found', async () => {
-    (useGetXvsVaultContractAddress as Mock).mockImplementation(() => undefined);
+    (useGetContractAddress as Mock).mockImplementation(() => ({ address: undefined }));
 
     renderHook(() => useRequestWithdrawalFromXvsVault(fakeOptions));
 

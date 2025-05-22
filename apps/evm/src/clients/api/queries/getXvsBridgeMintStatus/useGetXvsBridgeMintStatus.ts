@@ -1,10 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import {
-  getXVSProxyOFTDestContractAddress,
-  getXvsTokenOmnichainContractAddress,
-} from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { ChainId } from 'types';
 import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
@@ -35,11 +32,13 @@ export const useGetXvsBridgeMintStatus = (
 ) => {
   const { publicClient } = usePublicClient({ chainId: destinationChainId });
 
-  const xvsTokenOmnichainContractAddress = getXvsTokenOmnichainContractAddress({
+  const xvsTokenOmnichainContractAddress = getContractAddress({
+    name: 'XvsTokenOmnichain',
     chainId: destinationChainId,
   });
 
-  const chainXvsProxyOftDestContractAddress = getXVSProxyOFTDestContractAddress({
+  const chainXvsProxyOftDestContractAddress = getContractAddress({
+    name: 'XVSProxyOFTDest',
     chainId: destinationChainId,
   });
 

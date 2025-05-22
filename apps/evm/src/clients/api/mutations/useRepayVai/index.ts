@@ -1,7 +1,8 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { useGetVaiControllerContractAddress, vaiControllerAbi } from 'libs/contracts';
+import { vaiControllerAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress, useChainId } from 'libs/wallet';
@@ -15,7 +16,9 @@ type Options = UseSendTransactionOptions<RepayVaiInput>;
 export const useRepayVai = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
-  const vaiControllerContractAddress = useGetVaiControllerContractAddress();
+  const { address: vaiControllerContractAddress } = useGetContractAddress({
+    name: 'VaiController',
+  });
   const vai = useGetToken({
     symbol: 'VAI',
   });

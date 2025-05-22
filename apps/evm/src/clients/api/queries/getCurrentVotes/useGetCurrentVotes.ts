@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import { type GetCurrentVotesInput, type GetCurrentVotesOutput, getCurrentVotes } from '.';
@@ -31,7 +31,9 @@ export const useGetCurrentVotes = (
   const { publicClient } = usePublicClient({
     chainId: governanceChain.id,
   });
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
 
   return useQuery({
     queryKey: [FunctionKey.GET_CURRENT_VOTES, input],

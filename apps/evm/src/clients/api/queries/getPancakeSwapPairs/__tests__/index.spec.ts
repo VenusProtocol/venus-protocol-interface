@@ -1,9 +1,6 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
 import fakeTokenCombinations from '__mocks__/models/tokenCombinations';
 import type { PublicClient } from 'viem';
-import type { Mock } from 'vitest';
-
-import { getPancakePairV2Contract } from 'libs/contracts';
 
 import { getPancakeSwapPairs } from '..';
 
@@ -15,10 +12,6 @@ const multicallFn = ({ contracts }: { contracts: { address: string }[] }) =>
   }));
 
 describe('getPancakeSwapPairs', () => {
-  beforeEach(() => {
-    (getPancakePairV2Contract as Mock).mockReturnValue({});
-  });
-
   it('returns pairs in the right format on success', async () => {
     const multicallMock = vi.fn(multicallFn);
 

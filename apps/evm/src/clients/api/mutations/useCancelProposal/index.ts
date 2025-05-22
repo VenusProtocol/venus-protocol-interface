@@ -1,8 +1,8 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { governorBravoDelegateAbi } from 'libs/contracts';
-import { useGetGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { VError } from 'libs/errors';
 
 type CancelProposalInput = {
@@ -12,7 +12,9 @@ type CancelProposalInput = {
 type Options = UseSendTransactionOptions<CancelProposalInput>;
 
 export const useCancelProposal = (options?: Partial<Options>) => {
-  const governorBravoDelegateContractAddress = useGetGovernorBravoDelegateContractAddress();
+  const { address: governorBravoDelegateContractAddress } = useGetContractAddress({
+    name: 'GovernorBravoDelegate',
+  });
 
   return useSendTransaction({
     fn: ({ proposalId }: CancelProposalInput) => {

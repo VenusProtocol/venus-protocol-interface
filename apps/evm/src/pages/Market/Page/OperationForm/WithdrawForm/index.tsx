@@ -14,7 +14,6 @@ import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useGetNativeTokenGatewayContractAddress } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -27,6 +26,7 @@ import {
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
 import { ConnectWallet } from 'containers/ConnectWallet';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { AssetInfo } from '../AssetInfo';
 import { OperationDetails } from '../OperationDetails';
 import SubmitSection from './SubmitSection';
@@ -341,8 +341,9 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
 
   const { mutateAsync: withdraw, isPending: isWithdrawLoading } = useWithdraw();
 
-  const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
-    comptrollerContractAddress: pool.comptrollerAddress,
+  const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
+    name: 'NativeTokenGateway',
+    poolComptrollerContractAddress: pool.comptrollerAddress,
   });
 
   const {

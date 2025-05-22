@@ -2,7 +2,7 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import { chainMetadata } from '@venusprotocol/chains';
 import FunctionKey from 'constants/functionKey';
-import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { governanceChain, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
@@ -27,7 +27,8 @@ type Options = QueryObserverOptions<
 
 const { blockTimeMs: BSC_BLOCK_TIME_MS } = chainMetadata[governanceChain.id];
 
-const governorBravoDelegateContractAddress = getGovernorBravoDelegateContractAddress({
+const governorBravoDelegateContractAddress = getContractAddress({
+  name: 'GovernorBravoDelegate',
   chainId: governanceChain.id,
 });
 

@@ -3,9 +3,9 @@ import { usdc, xvs } from '__mocks__/models/tokens';
 import { vXvs } from '__mocks__/models/vTokens';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetSwapRouterContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Address } from 'viem';
 import { type Mock, describe, expect, it, vi } from 'vitest';
@@ -17,7 +17,6 @@ vi.mock('utilities/generateTransactionDeadline');
 
 const mockPoolComptrollerAddress = '0x456' as Address;
 const mockPoolName = 'Test Pool';
-const mockSwapRouterAddress = '0xabc' as Address;
 
 const mockSwap = {
   direction: 'exactAmountIn' as const,
@@ -32,12 +31,8 @@ const mockSwap = {
 };
 
 describe('useSwapTokensAndSupply', () => {
-  beforeEach(() => {
-    (useGetSwapRouterContractAddress as Mock).mockReturnValue(mockSwapRouterAddress);
-  });
-
   it('should throw error if swap router address is not available', async () => {
-    (useGetSwapRouterContractAddress as Mock).mockReturnValue(null);
+    (useGetContractAddress as Mock).mockReturnValue({ address: undefined });
 
     renderHook(
       () =>
@@ -93,7 +88,7 @@ describe('useSwapTokensAndSupply', () => {
       `
       {
         "abi": Any<Object>,
-        "address": "0xabc",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
           1000n,
@@ -155,7 +150,7 @@ describe('useSwapTokensAndSupply', () => {
       `
       {
         "abi": Any<Object>,
-        "address": "0xabc",
+        "address": "0xfakeSwapRouterContractAddress",
         "args": [
           "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
           1000n,

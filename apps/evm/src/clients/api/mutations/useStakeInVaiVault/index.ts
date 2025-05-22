@@ -1,9 +1,10 @@
 import type BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetVaiVaultContractAddress, vaiVaultAbi } from 'libs/contracts';
+import { vaiVaultAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress, useChainId } from 'libs/wallet';
@@ -18,7 +19,9 @@ type Options = UseSendTransactionOptions<StakeInVaiVaultInput>;
 export const useStakeInVaiVault = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
   const { accountAddress } = useAccountAddress();
-  const vaiVaultContractAddress = useGetVaiVaultContractAddress();
+  const { address: vaiVaultContractAddress } = useGetContractAddress({
+    name: 'VaiVault',
+  });
 
   const vai = useGetToken({
     symbol: 'VAI',

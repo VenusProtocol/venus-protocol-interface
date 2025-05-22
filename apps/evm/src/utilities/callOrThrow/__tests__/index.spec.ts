@@ -1,7 +1,5 @@
 import noop from 'noop-ts';
 
-import type { Erc20 } from 'libs/contracts';
-
 import callOrThrow from '..';
 
 describe('utilities/callOrThrow', () => {
@@ -21,15 +19,14 @@ describe('utilities/callOrThrow', () => {
   });
 
   it('calls callback when all parameters are defined', () => {
-    const fakeContract = {} as unknown as Erc20;
-
+    const fakeValue = 'fakeValue';
     const res = callOrThrow(
       {
-        contract: fakeContract,
+        fakeValue,
       },
-      ({ contract }) => contract,
+      ({ fakeValue }) => fakeValue,
     );
 
-    expect(res).toBe(fakeContract);
+    expect(res).toBe(fakeValue);
   });
 });

@@ -1,9 +1,7 @@
-import fakeAccountAddress, {
-  altAddress as fakeXvsVaultContractAddress,
-} from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useSetVoteDelegate } from '..';
@@ -20,10 +18,6 @@ const fakeOptions = {
 };
 
 describe('useSetVoteDelegate', () => {
-  beforeEach(() => {
-    (useGetXvsVaultContractAddress as Mock).mockReturnValue(fakeXvsVaultContractAddress);
-  });
-
   it('calls useSendTransaction with the correct parameters', async () => {
     renderHook(() => useSetVoteDelegate(fakeOptions), {
       accountAddress: fakeAccountAddress,
@@ -44,7 +38,7 @@ describe('useSetVoteDelegate', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "address": "0xfakeXvsVaultContractAddress",
         "args": [
           "0x123",
         ],
@@ -59,7 +53,7 @@ describe('useSetVoteDelegate', () => {
   });
 
   it('throws when contract address could not be retrieved', async () => {
-    (useGetXvsVaultContractAddress as Mock).mockReturnValue(undefined);
+    (useGetContractAddress as Mock).mockReturnValue({ address: undefined });
 
     renderHook(() => useSetVoteDelegate(fakeOptions), {
       accountAddress: fakeAccountAddress,

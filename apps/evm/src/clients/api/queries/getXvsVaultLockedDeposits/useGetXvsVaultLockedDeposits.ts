@@ -6,7 +6,7 @@ import {
   getXvsVaultLockedDeposits,
 } from 'clients/api/queries/getXvsVaultLockedDeposits';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -37,7 +37,9 @@ export const useGetXvsVaultLockedDeposits = (
 ) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
 
   return useQuery({
     queryKey: [FunctionKey.GET_XVS_VAULT_WITHDRAWAL_REQUESTS, { ...input, chainId }],

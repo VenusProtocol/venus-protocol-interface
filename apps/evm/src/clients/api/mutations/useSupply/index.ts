@@ -3,12 +3,7 @@ import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import {
-  getNativeTokenGatewayContractAddress,
-  nativeTokenGatewayAbi,
-  vBep20Abi,
-  vBnbAbi,
-} from 'libs/contracts';
+import { getContractAddress, nativeTokenGatewayAbi, vBep20Abi, vBnbAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
@@ -52,9 +47,10 @@ export const useSupply = (options?: Partial<Options>) => {
 
       // Handle wrap and supply flow
       const nativeTokenGatewayContractAddress = input.wrap
-        ? getNativeTokenGatewayContractAddress({
+        ? getContractAddress({
+            name: 'NativeTokenGateway',
             chainId,
-            comptrollerContractAddress: input.poolComptrollerContractAddress,
+            poolComptrollerContractAddress: input.poolComptrollerContractAddress,
           })
         : undefined;
 
@@ -161,8 +157,9 @@ export const useSupply = (options?: Partial<Options>) => {
       });
 
       if (input.wrap && input.poolComptrollerContractAddress) {
-        const nativeTokenGatewayContractAddress = getNativeTokenGatewayContractAddress({
-          comptrollerContractAddress: input.poolComptrollerContractAddress,
+        const nativeTokenGatewayContractAddress = getContractAddress({
+          name: 'NativeTokenGateway',
+          poolComptrollerContractAddress: input.poolComptrollerContractAddress,
           chainId,
         });
 

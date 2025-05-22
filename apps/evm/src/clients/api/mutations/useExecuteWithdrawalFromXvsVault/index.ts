@@ -1,8 +1,9 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetXvsVaultContractAddress, xvsVaultAbi } from 'libs/contracts';
+import { xvsVaultAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress, useChainId } from 'libs/wallet';
@@ -21,7 +22,9 @@ export const useExecuteWithdrawalFromXvsVault = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
   const { accountAddress } = useAccountAddress();
 
   const xvs = useGetToken({

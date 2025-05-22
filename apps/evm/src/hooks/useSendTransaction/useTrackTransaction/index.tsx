@@ -1,4 +1,3 @@
-import type { ContractReceipt } from 'ethers';
 import { useCallback } from 'react';
 
 import config from 'config';
@@ -14,10 +13,10 @@ import {
 } from 'libs/errors';
 import { type Notification, displayNotification, updateNotification } from 'libs/notifications';
 import { useTranslation } from 'libs/translations';
-import { useChainId, useProvider } from 'libs/wallet';
+import { useChainId, usePublicClient } from 'libs/wallet';
 import type { TransactionType } from 'types';
 import type { UrlType } from 'utilities';
-import type { Hex } from 'viem';
+import type { Hex, TransactionReceipt } from 'viem';
 import { CONFIRMATIONS, TIMEOUT_MS } from '../constants';
 import { waitForTransaction } from './waitForTransaction';
 
@@ -29,7 +28,7 @@ interface TrackTransactionInput {
   transactionHash: Hex;
   onConfirmed?: (input: {
     transactionHash: Hex;
-    transactionReceipt: ContractReceipt;
+    transactionReceipt: TransactionReceipt;
   }) => Promise<unknown> | unknown;
   onReverted?: (input: { transactionHash: Hex }) => Promise<unknown> | unknown;
 }
@@ -39,8 +38,8 @@ interface TrackTransactionInput {
 export const useTrackTransaction = (
   { transactionType }: UseTrackTransactionInput = { transactionType: 'chain' },
 ) => {
-  const { provider } = useProvider();
   const { chainId } = useChainId();
+  const { publicClient } = usePublicClient();
   const { t } = useTranslation();
 
   const trackTransaction = useCallback(
@@ -63,11 +62,12 @@ export const useTrackTransaction = (
         });
       }
 
-      let transactionReceipt: ContractReceipt | undefined;
+      let transactionReceipt: TransactionReceipt | undefined;
 
       try {
         const { transactionReceipt: receipt } = await waitForTransaction({
-          provider,
+          chainId,
+          publicClient,
           isSafeWalletTransaction: config.isSafeApp,
           hash: transactionHash,
           confirmations: CONFIRMATIONS,
@@ -83,7 +83,7 @@ export const useTrackTransaction = (
         }
       }
 
-      if (typeof transactionReceipt?.status !== 'number' && notificationId !== undefined) {
+      if (!transactionReceipt?.status && notificationId !== undefined) {
         // Update corresponding notification to say transaction receipt could not be fetched
         updateNotification({
           id: notificationId,
@@ -92,11 +92,11 @@ export const useTrackTransaction = (
         });
       }
 
-      if (typeof transactionReceipt?.status !== 'number') {
+      if (!transactionReceipt?.status) {
         return;
       }
 
-      let transactionSucceeded = transactionReceipt.status === 1;
+      let transactionSucceeded = transactionReceipt.status === 'success';
 
       // Check for non-reverting errors
       try {
@@ -129,7 +129,7 @@ export const useTrackTransaction = (
       // Execute callback
       await onReverted?.({ transactionHash });
     },
-    [chainId, provider, t, transactionType],
+    [chainId, t, publicClient, transactionType],
   );
 
   return trackTransaction;

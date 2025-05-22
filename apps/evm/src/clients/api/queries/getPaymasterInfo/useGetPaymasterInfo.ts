@@ -2,7 +2,7 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { zyFiWalletAddresses } from 'constants/gasLess';
-import { getZyFiVaultContractAddress } from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
@@ -30,7 +30,7 @@ export const useGetPaymasterInfo = (
   options?: Partial<Options>,
 ) => {
   const { publicClient } = usePublicClient({ chainId });
-  const zyFiVaultContractAddress = getZyFiVaultContractAddress({ chainId });
+  const zyFiVaultContractAddress = getContractAddress({ chainId, name: 'ZyFiVault' });
   const zyFiWalletAddress = zyFiWalletAddresses[chainId];
 
   return useQuery({

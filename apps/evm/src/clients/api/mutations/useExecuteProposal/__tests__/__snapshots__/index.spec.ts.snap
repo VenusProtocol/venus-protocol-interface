@@ -3,7 +3,7 @@
 exports[`useExecuteProposal > 97 > calls useSendTransaction with the correct parameters 1`] = `
 {
   "abi": Any<Array>,
-  "address": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+  "address": "0xfakeGovernorBravoDelegateContractAddress",
   "args": [
     123n,
   ],
@@ -36,7 +36,7 @@ exports[`useExecuteProposal > 97 > calls useSendTransaction with the correct par
 exports[`useExecuteProposal > 11155420 > calls useSendTransaction with the correct parameters 1`] = `
 {
   "abi": Any<Array>,
-  "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+  "address": "0xfakeOmnichainGovernanceExecutorContractAddress",
   "args": [
     123n,
   ],

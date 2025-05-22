@@ -2,7 +2,7 @@ import { type UseQueryOptions, type UseQueryResult, useQueries } from '@tanstack
 
 import { type GetBalanceOfOutput, getBalanceOf } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { useGetXvsVaultContractAddress } from 'libs/contracts';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetTokens } from 'libs/tokens';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
@@ -21,7 +21,9 @@ export const useGetXvsVaultPoolBalances = ({
   const { chainId } = useChainId();
   const tokens = useGetTokens();
 
-  const xvsVaultContractAddress = useGetXvsVaultContractAddress();
+  const { address: xvsVaultContractAddress } = useGetContractAddress({
+    name: 'XvsVault',
+  });
 
   // Fetch total amount of tokens staked in each pool
   const queries: UseQueryOptions<GetBalanceOfOutput>[] = stakedTokenAddresses.map(

@@ -5,16 +5,8 @@ import type { ReactElement } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import type { Mock } from 'vitest';
 
-import fakeSigner from '__mocks__/models/signer';
-
 import { MuiThemeProvider } from 'App/MuiThemeProvider';
-import {
-  Web3Wrapper,
-  useAccountAddress,
-  useAccountChainId,
-  useChainId,
-  useSigner,
-} from 'libs/wallet';
+import { Web3Wrapper, useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 
 const createQueryClient = () =>
@@ -53,13 +45,6 @@ const Wrapper: React.FC<WrapperProps> = ({ children, options }) => {
 
     (useAccountChainId as Mock).mockImplementation(() => ({
       chainId: options?.accountChainId || chainId,
-    }));
-
-    (useSigner as Mock).mockImplementation(() => ({
-      signer: {
-        ...fakeSigner,
-        getAddress: async () => accountAddress,
-      },
     }));
   }
 

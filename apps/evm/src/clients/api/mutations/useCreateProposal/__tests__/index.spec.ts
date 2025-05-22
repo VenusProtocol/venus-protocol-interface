@@ -1,7 +1,6 @@
-import fakeGovernorBravoDelegateContractAddress from '__mocks__/models/address';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
-import { useGetGovernorBravoDelegateContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useCreateProposal } from '..';
@@ -23,12 +22,6 @@ const fakeOptions = {
 };
 
 describe('useCreateProposal', () => {
-  beforeEach(() => {
-    (useGetGovernorBravoDelegateContractAddress as Mock).mockReturnValue(
-      fakeGovernorBravoDelegateContractAddress,
-    );
-  });
-
   it('calls useSendTransaction with the correct parameters', async () => {
     renderHook(() => useCreateProposal(fakeOptions));
 
@@ -47,7 +40,7 @@ describe('useCreateProposal', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+        "address": "0xfakeGovernorBravoDelegateContractAddress",
         "args": [
           [
             "0x456",
@@ -79,7 +72,7 @@ describe('useCreateProposal', () => {
   });
 
   it('throws when contract address could not be retrieved', async () => {
-    (useGetGovernorBravoDelegateContractAddress as Mock).mockReturnValue(undefined);
+    (useGetContractAddress as Mock).mockReturnValue({ address: undefined });
 
     renderHook(() => useCreateProposal(fakeOptions));
 

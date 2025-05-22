@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { getGovernorBravoDelegateContractAddress } from 'libs/contracts';
+import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { governanceChain } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
@@ -27,7 +27,9 @@ export const useGetProposalEta = (
   const { publicClient } = usePublicClient({
     chainId: governanceChain.id,
   });
-  const governorBravoDelegateContractAddress = getGovernorBravoDelegateContractAddress({
+
+  const governorBravoDelegateContractAddress = getContractAddress({
+    name: 'GovernorBravoDelegate',
     chainId: governanceChain.id,
   });
 

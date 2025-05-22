@@ -1,7 +1,3 @@
-import type { Mock } from 'vitest';
-
-import fakeAddress, { altAddress } from '__mocks__/models/address';
-import { getVTreasuryContractAddress, getVTreasuryV8ContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 
 import { ChainId } from 'types';
@@ -10,18 +6,12 @@ import { useGetVTreasuryContractAddress } from '../';
 vi.mock('libs/contracts');
 
 describe('useGetVTreasuryContractAddress', () => {
-  beforeEach(() => {
-    (getVTreasuryContractAddress as Mock).mockImplementation(() => fakeAddress);
-
-    (getVTreasuryV8ContractAddress as Mock).mockImplementation(() => altAddress);
-  });
-
   it.each([ChainId.BSC_TESTNET, ChainId.BSC_MAINNET])(
     'calls the right getter function when current chain is BSC',
     chainId => {
       const { result } = renderHook(() => useGetVTreasuryContractAddress(), { chainId });
 
-      expect(result.current).toEqual(fakeAddress);
+      expect(result.current).toMatchSnapshot();
     },
   );
 
@@ -30,6 +20,6 @@ describe('useGetVTreasuryContractAddress', () => {
       chainId: ChainId.ETHEREUM,
     });
 
-    expect(result.current).toEqual(altAddress);
+    expect(result.current).toMatchInlineSnapshot(`"0xfakeVTreasuryV8ContractAddress"`);
   });
 });

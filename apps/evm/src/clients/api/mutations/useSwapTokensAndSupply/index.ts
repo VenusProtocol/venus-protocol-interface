@@ -1,9 +1,10 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { swapRouterAbi, useGetSwapRouterContractAddress } from 'libs/contracts';
+import { swapRouterAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { Swap, VToken } from 'types';
@@ -35,8 +36,9 @@ export const useSwapTokensAndSupply = (
   const { accountAddress } = useAccountAddress();
   const { captureAnalyticEvent } = useAnalytics();
 
-  const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerContractAddress: poolComptrollerAddress,
+  const { address: swapRouterContractAddress } = useGetContractAddress({
+    name: 'SwapRouter',
+    poolComptrollerContractAddress: poolComptrollerAddress,
   });
 
   return useSendTransaction<

@@ -68,7 +68,7 @@ exports[`useExecuteWithdrawalFromXvsVault > calls useSendTransaction with the co
       "queryKey": [
         "GET_BALANCE_OF",
         {
-          "accountAddress": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+          "accountAddress": "0xfakeXvsVaultContractAddress",
           "chainId": 97,
           "tokenAddress": "0x5fFbE5302BadED40941A403228E6AD03f93752d9",
         },

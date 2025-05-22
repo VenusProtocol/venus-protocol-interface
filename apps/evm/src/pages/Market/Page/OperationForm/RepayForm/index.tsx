@@ -16,10 +16,6 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
-import {
-  useGetNativeTokenGatewayContractAddress,
-  useGetSwapRouterContractAddress,
-} from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -33,6 +29,7 @@ import {
 } from 'utilities';
 
 import { ConnectWallet } from 'containers/ConnectWallet';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { AssetInfo } from '../AssetInfo';
 import { OperationDetails } from '../OperationDetails';
 import Notice from './Notice';
@@ -359,8 +356,9 @@ const RepayForm: React.FC<RepayFormProps> = ({
   const isIntegratedSwapFeatureEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
   const { accountAddress } = useAccountAddress();
 
-  const nativeTokenGatewayContractAddress = useGetNativeTokenGatewayContractAddress({
-    comptrollerContractAddress: pool.comptrollerAddress,
+  const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
+    name: 'NativeTokenGateway',
+    poolComptrollerContractAddress: pool.comptrollerAddress,
   });
 
   const canWrapNativeToken = useMemo(
@@ -401,8 +399,9 @@ const RepayForm: React.FC<RepayFormProps> = ({
     }
   }, [accountAddress, initialFormValues]);
 
-  const swapRouterContractAddress = useGetSwapRouterContractAddress({
-    comptrollerContractAddress: pool.comptrollerAddress,
+  const { address: swapRouterContractAddress } = useGetContractAddress({
+    name: 'SwapRouter',
+    poolComptrollerContractAddress: pool.comptrollerAddress,
   });
 
   // a user is trying to wrap the chain's native token if

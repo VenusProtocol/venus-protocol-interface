@@ -1,11 +1,9 @@
-import fakeAccountAddress, {
-  altAddress as fakeVaiVaultContractAddress,
-} from '__mocks__/models/address';
+import fakeAccountAddress from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { useGetVaiVaultContractAddress } from 'libs/contracts';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useStakeInVaiVault } from '..';
@@ -23,10 +21,6 @@ const fakeOptions = {
 };
 
 describe('useStakeInVaiVault', () => {
-  beforeEach(() => {
-    (useGetVaiVaultContractAddress as Mock).mockReturnValue(fakeVaiVaultContractAddress);
-  });
-
   it('calls useSendTransaction with the correct parameters', async () => {
     const mockCaptureAnalyticEvent = vi.fn();
     (useAnalytics as Mock).mockImplementation(() => ({
@@ -52,7 +46,7 @@ describe('useStakeInVaiVault', () => {
       `
       {
         "abi": Any<Array>,
-        "address": "0xa258a693A403b7e98fd05EE9e1558C760308cFC7",
+        "address": "0xfakeVaiVaultContractAddress",
         "args": [
           1000000000000000000n,
         ],
@@ -71,7 +65,7 @@ describe('useStakeInVaiVault', () => {
   });
 
   it('throws when contract address could not be retrieved', async () => {
-    (useGetVaiVaultContractAddress as Mock).mockReturnValue(undefined);
+    (useGetContractAddress as Mock).mockReturnValue({ address: undefined });
 
     renderHook(() => useStakeInVaiVault(fakeOptions));
 

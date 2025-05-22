@@ -1,12 +1,10 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
 import indexedVotingSupportNames from 'constants/indexedVotingSupportNames';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import {
-  governorBravoDelegateAbi,
-  useGetGovernorBravoDelegateContractAddress,
-} from 'libs/contracts';
+import { governorBravoDelegateAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress } from 'libs/wallet';
 import type { VoteSupport } from 'types';
@@ -21,7 +19,9 @@ export type CastVoteInput = {
 type Options = UseSendTransactionOptions<CastVoteInput>;
 
 export const useVote = (options?: Partial<Options>) => {
-  const governorBravoDelegateContractAddress = useGetGovernorBravoDelegateContractAddress();
+  const { address: governorBravoDelegateContractAddress } = useGetContractAddress({
+    name: 'GovernorBravoDelegate',
+  });
   const { captureAnalyticEvent } = useAnalytics();
   const { accountAddress } = useAccountAddress();
 
