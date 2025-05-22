@@ -28,9 +28,9 @@ export const getContractAddress = (input: GetContractAddressInput) => {
     const contractAddresses =
       contractAddressesByPool[input.chainId as keyof typeof contractAddressesByPool];
 
-    return contractAddresses[input.chainId as keyof typeof contractAddresses] as
-      | Address
-      | undefined;
+    return contractAddresses[
+      input.poolComptrollerContractAddress.toLowerCase() as keyof typeof contractAddresses
+    ] as Address | undefined;
   }
 
   const contractAddresses = addresses.uniques[input.name as keyof typeof addresses.uniques];
