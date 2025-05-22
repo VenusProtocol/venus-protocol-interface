@@ -1,8 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render as renderComponentTl } from '@testing-library/react';
-import { renderHook as renderHookTl } from '@testing-library/react-hooks';
+import { render as renderComponentTl, renderHook as renderHookTl } from '@testing-library/react';
 import type { ReactElement } from 'react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router';
 import type { Mock } from 'vitest';
 
 import { MuiThemeProvider } from 'App/MuiThemeProvider';

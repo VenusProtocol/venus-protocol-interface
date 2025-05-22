@@ -4,6 +4,6 @@ exports[`CorePoolMarket - Feature flag enabled: marketParticipantCounts > fetche
 
 exports[`CorePoolMarket - Feature flag enabled: marketParticipantCounts > fetches market details and displays them correctly 2`] = `"Supply info0%Total supplied> $100T / > $100T> 100T / > 100T XVSCurrent APY0.16%"`;
 
-exports[`CorePoolMarket - Feature flag enabled: marketParticipantCounts > fetches market details and displays them correctly 3`] = `"Borrow info< 0.01%Total borrowed$2.36M / > $100T1.85M / > 100T XVSCurrent APY-6.48%Liquidation Threshold50%Liquidation Penalty-"`;
+exports[`CorePoolMarket - Feature flag enabled: marketParticipantCounts > fetches market details and displays them correctly 3`] = `"Borrow info< 0.01%Total borrowed$2.36M / > $100T1.85M / > 100T XVSCurrent APY-6.48%Liquidation Threshold50%Liquidation Penalty10%"`;
 
 exports[`CorePoolMarket - Feature flag enabled: marketParticipantCounts > fetches market details and displays them correctly 4`] = `"Market info# of suppliers100# of borrowers10Daily supplying interests$3.98Daily borrowing interests-$44.81Daily XVS distributed19.99MReserve factor25%Exchange rate1 XVS=49.589181 vXVS"`;

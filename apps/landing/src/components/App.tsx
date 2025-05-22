@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/react';
 import { useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router';
 import { LANDING_PAGE_PRODUCTION_URL } from '../constants/production';
 import { AppStateConsumer, AppStateProvider } from '../context';
 import s from './App.module.css';

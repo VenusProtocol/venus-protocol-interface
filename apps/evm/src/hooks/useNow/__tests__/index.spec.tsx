@@ -1,5 +1,6 @@
 import { renderHook } from 'testUtils/render';
 
+import { act } from '@testing-library/react';
 import { useNow } from '..';
 
 const fakeNowMs = 1656603774000;
@@ -14,7 +15,9 @@ describe('useNow', () => {
 
     expect(result.current.getTime()).toBe(fakeNowMs);
 
-    vi.advanceTimersToNextTimer();
+    act(() => {
+      vi.advanceTimersToNextTimer();
+    });
 
     expect(result.current.getTime()).toBe(fakeNowMs + 60000);
   });
@@ -25,7 +28,9 @@ describe('useNow', () => {
 
     expect(result.current.getTime()).toBe(fakeNowMs);
 
-    vi.advanceTimersToNextTimer();
+    act(() => {
+      vi.advanceTimersToNextTimer();
+    });
 
     expect(result.current.getTime()).toBe(fakeNowMs + intervalMs);
   });

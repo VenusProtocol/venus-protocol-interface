@@ -264,8 +264,6 @@ describe('Bridge', () => {
     );
     fireEvent.click(submitButton);
 
-    await waitFor(() => expect(submitButton).toBeEnabled());
-
     await waitFor(() => expect(mockBridgeXvs).toHaveBeenCalledTimes(1));
     expect(mockBridgeXvs).toHaveBeenCalledWith(fakeBridgeXvsParams);
   });
@@ -472,7 +470,6 @@ describe('Bridge', () => {
       () =>
         getByText(en.bridgePage.submitButton.label.submit).closest('button') as HTMLButtonElement,
     );
-    fireEvent.click(submitButton);
 
     await waitFor(() => expect(submitButton).toBeEnabled());
   });

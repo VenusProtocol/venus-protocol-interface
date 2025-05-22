@@ -1,4 +1,3 @@
-import { waitFor } from '@testing-library/dom';
 import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
@@ -16,8 +15,6 @@ import { en } from 'libs/translations';
 import PrimeStatusBanner from '..';
 import TEST_IDS from '../testIds';
 
-vi.useFakeTimers();
-
 describe('PrimeStatusBanner', () => {
   const MOCK_DEFAULT_PRIME_STATUS = {
     claimWaitingPeriodSeconds: 600,
@@ -32,6 +29,8 @@ describe('PrimeStatusBanner', () => {
   };
 
   beforeEach(() => {
+    vi.useFakeTimers();
+
     (useGetPools as Mock).mockImplementation(() => ({
       data: {
         pools: poolData,
@@ -73,16 +72,15 @@ describe('PrimeStatusBanner', () => {
     expect(queryByTestId(TEST_IDS.primeStatusBannerContainer)).toBeNull();
   });
 
-  it('informs the user the requirements to be a Prime user', async () => {
+  it('informs the user the requirements to be a Prime user', () => {
     const { queryByTestId } = renderComponent(<PrimeStatusBanner />);
-    await waitFor(() => queryByTestId(TEST_IDS.stakeXvsButton));
 
     expect(queryByTestId(TEST_IDS.stakeXvsButton)).toBeVisible();
     expect(queryByTestId(TEST_IDS.stakeXvsButton)).toBeEnabled();
     expect(queryByTestId(TEST_IDS.primeStatusBannerContainer)).toBeVisible();
   });
 
-  it('displays a warning when there are less than 5% of Prime tokens left', async () => {
+  it('displays a warning when there are less than 5% of Prime tokens left', () => {
     (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         ...MOCK_DEFAULT_PRIME_STATUS,
@@ -91,12 +89,11 @@ describe('PrimeStatusBanner', () => {
     }));
 
     const { queryByTestId } = renderComponent(<PrimeStatusBanner />);
-    await waitFor(() => queryByTestId(TEST_IDS.primeTokensLeftWarning));
 
     expect(queryByTestId(TEST_IDS.primeTokensLeftWarning)).toBeVisible();
   });
 
-  it('displays the time remaining to be a Prime user, when a user has staked enough XVS', async () => {
+  it('displays the time remaining to be a Prime user, when a user has staked enough XVS', () => {
     const text = '10 minutes until you can claim Prime rewards';
     (useGetXvsVaultUserInfo as Mock).mockImplementation(() => ({
       data: {
@@ -113,13 +110,12 @@ describe('PrimeStatusBanner', () => {
     }));
 
     const { queryByTestId, queryByText } = renderComponent(<PrimeStatusBanner />);
-    await waitFor(() => queryByText(text));
 
     expect(queryByTestId(TEST_IDS.claimPrimeTokenButton)).toBeNull();
     expect(queryByText(text)).toBeVisible();
   });
 
-  it('allows the user to claim a Prime token if all the criteria match', async () => {
+  it('allows the user to claim a Prime token if all the criteria match', () => {
     (useGetXvsVaultUserInfo as Mock).mockImplementation(() => ({
       data: {
         stakedAmountMantissa: new BigNumber('1000000'),
@@ -134,13 +130,12 @@ describe('PrimeStatusBanner', () => {
     }));
 
     const { queryByTestId } = renderComponent(<PrimeStatusBanner />);
-    await waitFor(() => queryByTestId(TEST_IDS.claimPrimeTokenButton));
 
     expect(queryByTestId(TEST_IDS.claimPrimeTokenButton)).toBeVisible();
     expect(queryByTestId(TEST_IDS.claimPrimeTokenButton)).toBeEnabled();
   });
 
-  it('shows the all Prime tokens claimed warning if all Prime tokens have been claimed', async () => {
+  it('shows the all Prime tokens claimed warning if all Prime tokens have been claimed', () => {
     (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         ...MOCK_DEFAULT_PRIME_STATUS,
@@ -149,11 +144,10 @@ describe('PrimeStatusBanner', () => {
     }));
 
     const { queryByText } = renderComponent(<PrimeStatusBanner />);
-    await waitFor(() => queryByText(en.primeStatusBanner.noPrimeTokenWarning.text));
     expect(queryByText(en.primeStatusBanner.noPrimeTokenWarning.text)).toBeVisible();
   });
 
-  it('does not show the all Prime tokens claimed warning if there are no tokens to be claimed', async () => {
+  it('does not show the all Prime tokens claimed warning if there are no tokens to be claimed', () => {
     (useGetPrimeStatus as Mock).mockImplementation(() => ({
       data: {
         ...MOCK_DEFAULT_PRIME_STATUS,
@@ -162,8 +156,6 @@ describe('PrimeStatusBanner', () => {
     }));
 
     const { queryByText } = renderComponent(<PrimeStatusBanner />);
-    await waitFor(() =>
-      expect(queryByText(en.primeStatusBanner.noPrimeTokenWarning.text)).toBeNull(),
-    );
+    expect(queryByText(en.primeStatusBanner.noPrimeTokenWarning.text)).toBeNull();
   });
 });
