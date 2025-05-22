@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.1.0
+
+### Minor Changes
+
+- f8090dd: remove ethers.js
+
 ## 3.0.0
 
 ### Major Changes
