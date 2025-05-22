@@ -40,7 +40,19 @@ export const generateAddressList = async ({
   });
 
   // Open addresses output
-  let addressesOutput = `export const addresses = {
+  let addressesOutput = 'import type { ChainId } from "types";\n';
+  addressesOutput += 'import type { Address } from "viem";\n';
+  addressesOutput += 'type MapChainIdToAddress = Partial<{ [chainId in ChainId]: Address }>;\n';
+  addressesOutput +=
+    'type MapChainIdToPoolAddress = Partial<{ [chainId in ChainId]: Record<Address, Address> }>;\n';
+  addressesOutput += `type Unique = {${sortedConfig.uniques
+    .map(({ name }) => `${name}: MapChainIdToAddress`)
+    .join(', ')}};\n`;
+  addressesOutput += `type UniquePerPool = {${sortedConfig.uniquesPerPool
+    .map(({ name }) => `${name}: MapChainIdToPoolAddress`)
+    .join(', ')}};\n`;
+  addressesOutput += 'type Addresses = { uniques: Unique, uniquesPerPool: UniquePerPool }\n';
+  addressesOutput += `export const addresses: Addresses = {
     uniques: {`;
 
   sortedConfig.uniques.forEach(config => {

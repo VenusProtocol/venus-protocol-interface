@@ -3,7 +3,14 @@
 exports[`generateAddressList > calls writeFile with the right arguments 1`] = `
 [
   {
-    "content": "export const addresses = {
+    "content": "import type { ChainId } from "types";
+import type { Address } from "viem";
+type MapChainIdToAddress = Partial<{ [chainId in ChainId]: Address }>;
+type MapChainIdToPoolAddress = Partial<{ [chainId in ChainId]: Record<Address, Address> }>;
+type Unique = {PoolLens: MapChainIdToAddress};
+type UniquePerPool = {SwapRouter: MapChainIdToPoolAddress};
+type Addresses = { uniques: Unique, uniquesPerPool: UniquePerPool }
+export const addresses: Addresses = {
     uniques: {PoolLens: {
       56: '0x25E215CcE40bD849B7c286912B85212F984Ff1e0',97: '0x6492dF28A9478230205c940A245Ffb114EaEb9d1',
     },},
