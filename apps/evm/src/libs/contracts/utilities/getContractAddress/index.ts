@@ -13,14 +13,14 @@ export type GetUniqueContractAddressInput = {
 export type GetUniquePerPoolContractAddressInput = {
   name: UniquePerPoolContractName;
   chainId: ChainId;
-  poolComptrollerContractAddress: string;
+  poolComptrollerContractAddress: Address;
 };
 
 export type GetContractAddressInput =
   | GetUniqueContractAddressInput
   | GetUniquePerPoolContractAddressInput;
 
-export const getContractAddress = (input: GetContractAddressInput) => {
+export const getContractAddress = (input: GetContractAddressInput): Address | undefined => {
   if ('poolComptrollerContractAddress' in input) {
     const contractAddressesByPool =
       addresses.uniquesPerPool[input.name as keyof typeof addresses.uniquesPerPool];
@@ -30,7 +30,7 @@ export const getContractAddress = (input: GetContractAddressInput) => {
 
     return contractAddresses[
       input.poolComptrollerContractAddress.toLowerCase() as keyof typeof contractAddresses
-    ] as Address | undefined;
+    ];
   }
 
   const contractAddresses = addresses.uniques[input.name as keyof typeof addresses.uniques];

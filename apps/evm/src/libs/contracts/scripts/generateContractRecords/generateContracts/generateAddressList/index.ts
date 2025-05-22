@@ -74,7 +74,7 @@ export const generateAddressList = async ({
   // Close addresses output
   addressesOutput += `
     },
-  }`;
+  } as const`;
 
   // Generate addresses file
   writeFile({
