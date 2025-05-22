@@ -51,6 +51,10 @@ export const getDisabledTokenActions = ({
         translatedDisabledAction = 'borrow';
       } else if (pausedAction === ContractVTokenAction.REPAY) {
         translatedDisabledAction = 'repay';
+      } else if (pausedAction === ContractVTokenAction.ENTER_MARKET) {
+        translatedDisabledAction = 'enterMarket';
+      } else if (pausedAction === ContractVTokenAction.EXIT_MARKET) {
+        translatedDisabledAction = 'exitMarket';
       }
 
       if (!translatedDisabledAction) {

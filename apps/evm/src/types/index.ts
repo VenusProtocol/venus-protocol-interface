@@ -39,7 +39,14 @@ export interface VToken extends Omit<Token, 'isNative' | 'asset' | 'tokenWrapped
   asset?: string;
 }
 
-export type TokenAction = 'swapAndSupply' | 'supply' | 'withdraw' | 'borrow' | 'repay';
+export type TokenAction =
+  | 'swapAndSupply'
+  | 'supply'
+  | 'withdraw'
+  | 'borrow'
+  | 'repay'
+  | 'enterMarket'
+  | 'exitMarket';
 
 export interface TokenBalance {
   token: Token;

@@ -3,7 +3,7 @@
 exports[`getDisabledTokenActions > returns the list of paused actions from bitmask and local disabled actions, merged correctly 1`] = `
 [
   "supply",
-  "borrow",
+  "withdraw",
   "swapAndSupply",
   "repay",
 ]
@@ -12,6 +12,10 @@ exports[`getDisabledTokenActions > returns the list of paused actions from bitma
 exports[`getDisabledTokenActions > returns the list of paused actions from the bitmask correctly 1`] = `
 [
   "supply",
+  "withdraw",
   "borrow",
+  "repay",
+  "enterMarket",
+  "exitMarket",
 ]
 `;
