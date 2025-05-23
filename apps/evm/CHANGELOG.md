@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.3.0
+
+### Minor Changes
+
+- 9f94fa5: allow enter and exit market actions to be disabled
+
 ## 3.2.1
 
 ### Patch Changes
