@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.2.1
+
+### Patch Changes
+
+- 6634d26: upgrade React to v19
+
 ## 3.2.0
 
 ### Minor Changes

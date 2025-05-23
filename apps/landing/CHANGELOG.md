@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.14.1
+
+### Patch Changes
+
+- 6634d26: upgrade React to v19
+
 ## 1.14.0
 
 ### Minor Changes
