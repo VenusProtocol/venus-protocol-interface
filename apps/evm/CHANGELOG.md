@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.2.0
+
+### Minor Changes
+
+- fa1247d: better types for getContractAddress
+
 ## 3.1.1
 
 ### Patch Changes
