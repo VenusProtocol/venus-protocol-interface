@@ -26,6 +26,7 @@ import {
   formatTokensToReadableValue,
   getCombinedDistributionApys,
   isAssetPaused,
+  isCollateralActionDisabled,
 } from 'utilities';
 
 import { Apy } from 'components';
@@ -127,6 +128,10 @@ const useGenerateColumns = ({
             const isPaused = isAssetPaused({
               disabledTokenActions: poolAsset.disabledTokenActions,
             });
+            const isCollateralToggleDisabled = isCollateralActionDisabled({
+              disabledTokenActions: poolAsset.disabledTokenActions,
+              isCollateralOfUser: poolAsset.isCollateralOfUser,
+            });
 
             if (column === 'asset') {
               return (
@@ -166,7 +171,7 @@ const useGenerateColumns = ({
                 <Toggle
                   onChange={() => collateralOnChange(poolAsset)}
                   value={poolAsset.isCollateralOfUser}
-                  disabled={isAccountOnWrongChain}
+                  disabled={isAccountOnWrongChain || isCollateralToggleDisabled}
                 />
               ) : (
                 PLACEHOLDER_KEY

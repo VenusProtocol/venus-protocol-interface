@@ -10,7 +10,7 @@ import { getDisabledTokenActions } from '..';
 describe('getDisabledTokenActions', () => {
   it('returns the list of paused actions from the bitmask correctly', () => {
     const result = getDisabledTokenActions({
-      bitmask: 165,
+      bitmask: 511, // 0b111111111
       chainId: ChainId.BSC_TESTNET,
       tokenAddresses: [],
     });
@@ -38,7 +38,7 @@ describe('getDisabledTokenActions', () => {
     (getLocalDisabledTokenActions as Mock).mockImplementation(() => localDisabledTokenActions);
 
     const result = getDisabledTokenActions({
-      bitmask: 165,
+      bitmask: 3, // 0b000000011 - MINT and REDEEM
       chainId: ChainId.BSC_TESTNET,
       tokenAddresses: [xvs.address],
     });

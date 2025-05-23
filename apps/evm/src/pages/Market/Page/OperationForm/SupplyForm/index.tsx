@@ -28,6 +28,7 @@ import {
   convertMantissaToTokens,
   convertTokensToMantissa,
   getUniqueTokenBalances,
+  isCollateralActionDisabled,
 } from 'utilities';
 
 import { ConnectWallet } from 'containers/ConnectWallet';
@@ -180,6 +181,10 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   const { chainId: accountChainId } = useAccountChainId();
   const { chainId } = useChainId();
   const isAccountOnWrongChain = accountChainId !== chainId;
+  const isCollateralToggleDisabled = isCollateralActionDisabled({
+    disabledTokenActions: asset.disabledTokenActions,
+    isCollateralOfUser: asset.isCollateralOfUser,
+  });
 
   const handleToggleCollateral = async () => {
     try {
@@ -248,7 +253,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
               <Toggle
                 onChange={handleToggleCollateral}
                 value={asset.isCollateralOfUser}
-                disabled={!isUserConnected || isAccountOnWrongChain}
+                disabled={!isUserConnected || isAccountOnWrongChain || isCollateralToggleDisabled}
               />
             </LabeledInlineContent>
           </>
