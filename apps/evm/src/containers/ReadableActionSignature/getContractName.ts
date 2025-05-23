@@ -34,11 +34,7 @@ const getContractName = ({ target, vTokens, tokens, chainId }: GetContractNameIn
   // Search within contracts
   const matchingUniqueContractInfo = Object.entries(addresses.uniques).find(
     ([_uniqueContractName, address]) => {
-      let contractAddress: string | Record<number, string> = '';
-
-      if (Object.prototype.hasOwnProperty.call(address, chainId)) {
-        contractAddress = address[chainId as keyof typeof address];
-      }
+      const contractAddress = address[chainId];
 
       if (!contractAddress) {
         return false;
@@ -48,11 +44,6 @@ const getContractName = ({ target, vTokens, tokens, chainId }: GetContractNameIn
         // Handle unique contracts
         return areAddressesEqual(contractAddress, target);
       }
-
-      // Handle SwapRouter contract
-      return Object.values(contractAddress).some(swapRouterAddress =>
-        areAddressesEqual(swapRouterAddress, target),
-      );
     },
   );
 
