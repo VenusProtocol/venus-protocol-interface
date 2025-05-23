@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { matchPath, useLocation } from 'react-router-dom';
+import { matchPath, useLocation } from 'react-router';
 
 import { cn } from '@venusprotocol/ui';
 import { Username } from 'components';

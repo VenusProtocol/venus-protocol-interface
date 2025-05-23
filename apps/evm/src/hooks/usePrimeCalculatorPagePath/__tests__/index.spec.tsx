@@ -7,11 +7,15 @@ import { routes } from 'constants/routing';
 
 import { usePrimeCalculatorPagePath } from '..';
 
-vi.mock('react-router', () => ({
-  ...vi.importActual('react-router'),
-  useLocation: vi.fn(),
-  matchPath: vi.fn(),
-}));
+vi.mock(import('react-router'), async importOriginal => {
+  const actual = await importOriginal();
+
+  return {
+    ...actual,
+    useLocation: vi.fn(),
+    matchPath: vi.fn(),
+  };
+});
 
 describe('usePrimeCalculatorPagePath', () => {
   beforeEach(() => {

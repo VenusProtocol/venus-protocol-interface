@@ -1,13 +1,13 @@
-import { renderHook } from '@testing-library/react-hooks';
-import { useNavigate as useRRNavigate } from 'react-router-dom';
+import { renderHook } from '@testing-library/react';
+import { useNavigate as useRRNavigate } from 'react-router';
 import type { Mock } from 'vitest';
 
 import { useFormatTo } from 'hooks/useFormatTo';
 
 import { useNavigate } from '..';
 
-vi.mock('react-router-dom', async () => {
-  const actual = (await vi.importActual('react-router-dom')) as any;
+vi.mock('react-router', async () => {
+  const actual = (await vi.importActual('react-router')) as any;
 
   return {
     ...actual,

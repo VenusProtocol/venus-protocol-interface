@@ -25,8 +25,6 @@ import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useTokenApproval');
 
-vi.useFakeTimers();
-
 const fakeVaiPriceCents = 100;
 const fakeUserBorrowBalanceTokens = new BigNumber(5);
 const fakeUserBorrowBalanceMantissa = convertTokensToMantissa({

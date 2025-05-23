@@ -1,4 +1,4 @@
-import { Link as RRLink, type LinkProps as RRLinkProps } from 'react-router-dom';
+import { Link as RRLink, type LinkProps as RRLinkProps } from 'react-router';
 
 import { cn } from '@venusprotocol/ui';
 import { useFormatTo } from 'hooks/useFormatTo';

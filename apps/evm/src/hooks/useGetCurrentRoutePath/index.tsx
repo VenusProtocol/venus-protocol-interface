@@ -9,6 +9,6 @@ export const useGetCurrentRoutePath = () => {
 
   return useMemo(() => {
     const matchingRoutes = matchRoutes(formattedRoutes, location);
-    return matchingRoutes?.[0].route.path;
+    return matchingRoutes?.[0].route.path || undefined;
   }, [location]);
 };

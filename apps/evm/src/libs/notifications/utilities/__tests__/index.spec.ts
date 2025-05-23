@@ -14,11 +14,12 @@ const removeNotificationMock = vi.fn();
 const addNotificationMock = vi.fn(() => fakeNotificationInput.id);
 const updateNotificationMock = vi.fn();
 
-vi.useFakeTimers();
 vi.spyOn(global, 'setTimeout');
 
 describe('utilities', async () => {
   beforeEach(() => {
+    vi.useFakeTimers();
+
     global.clearTimeout = vi.fn();
 
     vi.mock('../../store', () => ({

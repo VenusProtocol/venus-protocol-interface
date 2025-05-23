@@ -55,9 +55,16 @@ vi.mock('@uiw/react-markdown-preview', () => ({
   default: ({ content: _content, ...otherProps }: any) => <p {...otherProps}>content</p>,
 }));
 
+// Mock chart library
+vi.mock('recharts');
+
 initializeLibraries();
 
 global.fetch = vi.fn();
+// @ts-ignore this is work around to fix an issue where certain vitest functions do not work
+// properly when using fake timers (see
+// https://github.com/testing-library/react-hooks-testing-library/issues/631)
+global.jest = vi;
 
 const useTokenApprovalOriginalOutput = useTokenApproval(
   // These aren't used since useTokenApproval is mocked
@@ -69,5 +76,7 @@ const useTokenApprovalOriginalOutput = useTokenApproval(
 );
 
 afterEach(() => {
+  vi.useRealTimers();
+
   (useTokenApproval as Mock).mockImplementation(() => useTokenApprovalOriginalOutput);
 });

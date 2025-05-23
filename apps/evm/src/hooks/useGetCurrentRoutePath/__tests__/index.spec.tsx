@@ -5,7 +5,14 @@ import { routes } from 'constants/routing';
 import { renderHook } from 'testUtils/render';
 import { useGetCurrentRoutePath } from '..';
 
-vi.mock('react-router');
+vi.mock(import('react-router'), async importOriginal => {
+  const actual = await importOriginal();
+
+  return {
+    ...actual,
+    matchRoutes: vi.fn(),
+  };
+});
 
 describe('useGetCurrentRoutePath', () => {
   it('returns first matching route path', () => {
