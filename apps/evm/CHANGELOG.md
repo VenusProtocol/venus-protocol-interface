@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.4.0
+
+### Minor Changes
+
+- b261d21: add support for Google Tag Manager
+
 ## 3.3.0
 
 ### Minor Changes

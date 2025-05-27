@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.15.0
+
+### Minor Changes
+
+- b261d21: add support for Google Tag Manager
+
 ## 1.14.1
 
 ### Patch Changes
