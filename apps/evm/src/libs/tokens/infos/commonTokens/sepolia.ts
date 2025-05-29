@@ -18,6 +18,7 @@ import sUsdsLogo from 'libs/tokens/img/underlyingTokens/sUsds.svg';
 import sfrxEthLogo from 'libs/tokens/img/underlyingTokens/sfrxEth.svg';
 import tusdLogo from 'libs/tokens/img/underlyingTokens/tusd.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
+import usdeLogo from 'libs/tokens/img/underlyingTokens/usde.svg';
 import usdsLogo from 'libs/tokens/img/underlyingTokens/usds.svg';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
 import wbtcLogo from 'libs/tokens/img/underlyingTokens/wbtc.svg';
@@ -227,5 +228,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'yvWETH-1',
     asset: yvWEthLogo,
+  },
+  {
+    address: '0x8bAe3E12870a002A0D4b6Eb0F0CBf91b29d9806F',
+    decimals: 18,
+    symbol: 'USDe',
+    asset: usdeLogo,
   },
 ];
