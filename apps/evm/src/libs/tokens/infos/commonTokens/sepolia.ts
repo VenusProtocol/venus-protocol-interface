@@ -16,6 +16,7 @@ import sFraxLogo from 'libs/tokens/img/underlyingTokens/sFrax.svg';
 import sUsdELogo from 'libs/tokens/img/underlyingTokens/sUsdE.svg';
 import sUsdsLogo from 'libs/tokens/img/underlyingTokens/sUsds.svg';
 import sfrxEthLogo from 'libs/tokens/img/underlyingTokens/sfrxEth.svg';
+import tBtcLogo from 'libs/tokens/img/underlyingTokens/tBtc.svg';
 import tusdLogo from 'libs/tokens/img/underlyingTokens/tusd.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
 import usdsLogo from 'libs/tokens/img/underlyingTokens/usds.svg';
@@ -227,5 +228,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'yvWETH-1',
     asset: yvWEthLogo,
+  },
+  {
+    address: '0x5B377e8d43D7D11978A83D7F055Dce30daf385AF',
+    decimals: 18,
+    symbol: 'tBTC',
+    asset: tBtcLogo,
   },
 ];
