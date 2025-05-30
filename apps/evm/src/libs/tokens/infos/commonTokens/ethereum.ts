@@ -19,6 +19,7 @@ import sUsdsLogo from 'libs/tokens/img/underlyingTokens/sUsds.svg';
 import sfrxEthLogo from 'libs/tokens/img/underlyingTokens/sfrxEth.svg';
 import tusdLogo from 'libs/tokens/img/underlyingTokens/tusd.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
+import usdeLogo from 'libs/tokens/img/underlyingTokens/usde.svg';
 import usdsLogo from 'libs/tokens/img/underlyingTokens/usds.svg';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
 import wBtcLogo from 'libs/tokens/img/underlyingTokens/wbtc.svg';
@@ -234,5 +235,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'mtwCARROT',
     asset: carrotLogo,
+  },
+  {
+    address: '0x4c9EDD5852cd905f086C759E8383e09bff1E68B3',
+    decimals: 18,
+    symbol: 'USDe',
+    asset: usdeLogo,
   },
 ];
