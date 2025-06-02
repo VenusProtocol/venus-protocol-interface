@@ -52,6 +52,7 @@ import weEthLogo from 'libs/tokens/img/underlyingTokens/weEth.svg';
 import winLogo from 'libs/tokens/img/underlyingTokens/win.svg';
 import wooLogo from 'libs/tokens/img/underlyingTokens/woo.svg';
 import wstEthLogo from 'libs/tokens/img/underlyingTokens/wstEth.svg';
+import xSolvBtcLogo from 'libs/tokens/img/underlyingTokens/xSolvBtc.svg';
 import xrpLogo from 'libs/tokens/img/underlyingTokens/xrp.svg';
 import xvsLogo from 'libs/tokens/img/underlyingTokens/xvs.svg';
 import type { Token } from 'types';
@@ -408,5 +409,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'USD1',
     asset: usd1Logo,
+  },
+  {
+    address: '0x3ea87323806586A0282b50377e0FEa76070F532B',
+    decimals: 18,
+    symbol: 'xSolvBTC',
+    asset: xSolvBtcLogo,
   },
 ];
