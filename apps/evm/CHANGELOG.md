@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.5.0
+
+### Minor Changes
+
+- fd34736: add tBTC (Ethereum) and xSolvBTC (BNB)
+
 ## 3.4.0
 
 ### Minor Changes
