@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.6.0
+
+### Minor Changes
+
+- 5627ad5: add support for USDe on Ethereum and Sepolia instead of Unichain mainnet and sepolia
+
 ## 3.5.0
 
 ### Minor Changes
