@@ -19,6 +19,7 @@ import sfrxEthLogo from 'libs/tokens/img/underlyingTokens/sfrxEth.svg';
 import tBtcLogo from 'libs/tokens/img/underlyingTokens/tBtc.svg';
 import tusdLogo from 'libs/tokens/img/underlyingTokens/tusd.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
+import usdeLogo from 'libs/tokens/img/underlyingTokens/usde.svg';
 import usdsLogo from 'libs/tokens/img/underlyingTokens/usds.svg';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
 import wbtcLogo from 'libs/tokens/img/underlyingTokens/wbtc.svg';
@@ -234,5 +235,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'tBTC',
     asset: tBtcLogo,
+  },
+  {
+    address: '0x8bAe3E12870a002A0D4b6Eb0F0CBf91b29d9806F',
+    decimals: 18,
+    symbol: 'USDe',
+    asset: usdeLogo,
   },
 ];
