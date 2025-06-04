@@ -121,7 +121,7 @@
     "@venusprotocol/typescript-config": "*",
     "@venusprotocol/venus-protocol": "9.7.0",
     "@vitejs/plugin-react": "^4.3.3",
-    "@vitest/coverage-v8": "^2.1.5",
+    "@vitest/coverage-v8": "^3.2.1",
     "autoprefixer": "^10.4.16",
     "c8": "^10.0.0",
     "fs": "^0.0.1-security",
