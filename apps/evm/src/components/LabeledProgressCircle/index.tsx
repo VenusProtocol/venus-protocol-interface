@@ -4,12 +4,14 @@ import { ProgressCircle } from '../ProgressCircle';
 export interface LabeledProgressCircleProps extends React.HTMLAttributes<HTMLDivElement> {
   value: number;
   total: number;
+  fillColor?: string;
 }
 
 export const LabeledProgressCircle: React.FC<LabeledProgressCircleProps> = ({
   className,
   value,
   total,
+  fillColor,
   ...otherProps
 }) => (
   <div
@@ -21,6 +23,7 @@ export const LabeledProgressCircle: React.FC<LabeledProgressCircleProps> = ({
       value={(value * 100) / total}
       sizePx={40}
       strokeWidthPx={4}
+      fillColor={fillColor}
     />
 
     <p className="text-sm text-center">
