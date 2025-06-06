@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.7.0
+
+### Minor Changes
+
+- f89d315: display canceled remote commands in proposal list
+
 ## 3.6.0
 
 ### Minor Changes
