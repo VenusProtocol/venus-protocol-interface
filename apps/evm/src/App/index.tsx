@@ -1,10 +1,11 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import {
-  bnbChainMainnetLorentzUpgradeTimestamp,
-  opbnbMainnetUpgradeTimestamp,
+  bnbChainMainnetMaxwellForkTimestamp,
+  bnbChainTestnetMaxwellForkTimestamp,
 } from '@venusprotocol/chains';
 import { Analytics } from '@vercel/analytics/react';
 import { queryClient } from 'clients/api';
+import config from 'config';
 import { MAIN_PRODUCTION_HOST } from 'constants/production';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
@@ -64,8 +65,9 @@ const App = () => (
 
               <ChainUpgradeHandler
                 upgradeTimestamps={[
-                  bnbChainMainnetLorentzUpgradeTimestamp,
-                  opbnbMainnetUpgradeTimestamp,
+                  config.network === 'testnet'
+                    ? bnbChainTestnetMaxwellForkTimestamp
+                    : bnbChainMainnetMaxwellForkTimestamp,
                 ]}
               />
 
