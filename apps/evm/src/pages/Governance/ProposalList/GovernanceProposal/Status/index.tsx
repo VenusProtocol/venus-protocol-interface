@@ -1,5 +1,5 @@
-import { cn } from '@venusprotocol/ui';
-import { Icon, LabeledProgressCircle } from 'components';
+import { cn, theme } from '@venusprotocol/ui';
+import { LabeledProgressCircle } from 'components';
 import { useNow } from 'hooks/useNow';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
@@ -7,6 +7,7 @@ import { ProposalState, type RemoteProposal, RemoteProposalState } from 'types';
 import { getProposalStateLabel } from 'utilities';
 import { isProposalExecutable } from 'utilities/isProposalExecutable';
 import { Indicator } from './Indicator';
+import { Warning } from './Warning';
 
 export interface StatusProps extends React.HTMLAttributes<HTMLDivElement> {
   state: ProposalState;
@@ -36,7 +37,7 @@ export const Status: React.FC<StatusProps> = ({
     remoteProposals.filter(remoteProposal => remoteProposal.state === RemoteProposalState.Executed)
       .length;
 
-  const shouldShowAwaitingExecutionWarning =
+  const hasRemoteCommandsAwaitingExecution =
     state === ProposalState.Executed &&
     remoteProposals.some(
       remoteProposal =>
@@ -47,6 +48,10 @@ export const Status: React.FC<StatusProps> = ({
           executionEtaDate: remoteProposal.executionEtaDate,
         }),
     );
+
+  const hasRemoteCommandsCanceled =
+    state === ProposalState.Executed &&
+    remoteProposals.some(remoteProposal => remoteProposal.state === RemoteProposalState.Canceled);
 
   const isFullyExecuted = executedPayloadsCount === totalPayloadsCount;
   const shouldShowExecutedPayloadsStatus = state === ProposalState.Executed && !isFullyExecuted;
@@ -82,12 +87,11 @@ export const Status: React.FC<StatusProps> = ({
               total={totalPayloadsCount}
               value={executedPayloadsCount}
               className="mx-auto"
+              fillColor={hasRemoteCommandsCanceled ? theme.colors.red : undefined}
             />
 
-            {shouldShowAwaitingExecutionWarning && (
-              <div className="bg-orange w-4 h-4 rounded-full flex items-center justify-center absolute top-[-2px] right-[-2px] border-[2px] border-cards">
-                <Icon name="exclamation" className="w-2 h-2 text-offWhite" />
-              </div>
+            {(hasRemoteCommandsAwaitingExecution || hasRemoteCommandsCanceled) && (
+              <Warning variant={hasRemoteCommandsAwaitingExecution ? 'warning' : 'error'} />
             )}
           </div>
         ) : (
