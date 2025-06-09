@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.16.0
+
+### Minor Changes
+
+- dc831b4: add support for SolvBTC to landing page
+
 ## 1.15.0
 
 ### Minor Changes
