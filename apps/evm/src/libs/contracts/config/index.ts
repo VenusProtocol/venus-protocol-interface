@@ -113,11 +113,12 @@ import erc20Abi from './externalAbis/Erc20.json';
 import { ChainId } from 'types';
 
 import type { Address } from 'viem';
-import MaximillionAbi from './externalAbis/Maximillion.json';
-import Multicall3Abi from './externalAbis/Multicall3.json';
-import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
-import VBnbAbi from './externalAbis/VBnb.json';
-import ZyFiVaultAbi from './externalAbis/ZyFiVault.json';
+import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
+import maximillionAbi from './externalAbis/Maximillion.json';
+import multicall3Abi from './externalAbis/Multicall3.json';
+import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
+import vBnbAbi from './externalAbis/VBnb.json';
+import zyFiVaultAbi from './externalAbis/ZyFiVault.json';
 
 export interface UniqueContractConfig {
   name: string;
@@ -391,7 +392,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'Maximillion',
-    abi: MaximillionAbi as Abi,
+    abi: maximillionAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0xF3a34e06015e019D6154a0f1089f695B27122f50',
       [ChainId.BSC_MAINNET]: '0x5efA1e46F4Fd738FF721F5AebC895b970F13E8A1',
@@ -399,7 +400,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'Multicall3',
-    abi: Multicall3Abi as Abi,
+    abi: multicall3Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.BSC_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
@@ -557,7 +558,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'ZyFiVault',
-    abi: ZyFiVaultAbi as Abi,
+    abi: zyFiVaultAbi as Abi,
     address: {
       [ChainId.ZKSYNC_MAINNET]: '0x32faBA244AB815A5cb3E09D55c941464DBe31496',
       [ChainId.ZKSYNC_SEPOLIA]: '0xbA72A10ce8496DC9C13b9eE8c35fcCD3809d3C81',
@@ -586,7 +587,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VBnb',
-    abi: VBnbAbi as Abi,
+    abi: vBnbAbi as Abi,
   },
   {
     name: 'Erc20',
@@ -606,7 +607,11 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'PancakePairV2',
-    abi: PancakePairV2Abi as Abi,
+    abi: pancakePairV2Abi as Abi,
+  },
+  {
+    name: 'AaveV3Pool',
+    abi: aaveV3PoolAbi as Abi,
   },
   // SwapRouter contract
   {
