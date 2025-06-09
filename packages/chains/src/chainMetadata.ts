@@ -28,12 +28,12 @@ const eth: Token = {
   isNative: true,
 };
 
-export const bnbChainMainnetLorentzUpgradeTimestamp = new Date('April 29, 2025 05:05:00 UTC');
-export const opbnbMainnetUpgradeTimestamp = new Date('April 21, 2025 03:00:00 UTC');
+export const bnbChainTestnetMaxwellForkTimestamp = new Date('2025-05-26 07:05:00 AM UTC');
+export const bnbChainMainnetMaxwellForkTimestamp = new Date('2025-06-30 02:30:00 AM UTC');
 
 const now = new Date();
-const isPassedBnbChainMainnetLorentzUpgrade = now >= bnbChainMainnetLorentzUpgradeTimestamp;
-const isPassedOpbnbMainnetUpgrade = now >= opbnbMainnetUpgradeTimestamp;
+const isPassedBnbChainTestnetMaxwellFork = now >= bnbChainTestnetMaxwellForkTimestamp;
+const isPassedBnbChainMainnetMaxwellFork = now >= bnbChainMainnetMaxwellForkTimestamp;
 
 export const chainMetadata: {
   [chainId in ChainId]: ChainMetadata;
@@ -44,8 +44,8 @@ export const chainMetadata: {
     explorerUrl: 'https://bscscan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-bsc.safe.global',
-    blockTimeMs: isPassedBnbChainMainnetLorentzUpgrade ? 1500 : 3000,
-    blocksPerDay: isPassedBnbChainMainnetLorentzUpgrade ? 57600 : 28800,
+    blockTimeMs: isPassedBnbChainMainnetMaxwellFork ? 750 : 1500,
+    blocksPerDay: isPassedBnbChainMainnetMaxwellFork ? 115200 : 57600,
     corePoolComptrollerContractAddress: '0xfD36E2c2a6789Db23113685031d7F16329158384',
     nativeToken: bnb,
   },
@@ -54,8 +54,8 @@ export const chainMetadata: {
     logoSrc: bscLogo,
     explorerUrl: 'https://testnet.bscscan.com',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    blockTimeMs: 1500,
-    blocksPerDay: 57600,
+    blockTimeMs: isPassedBnbChainTestnetMaxwellFork ? 750 : 1500,
+    blocksPerDay: isPassedBnbChainTestnetMaxwellFork ? 115200 : 57600,
     corePoolComptrollerContractAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
     nativeToken: bnb,
   },
@@ -64,8 +64,8 @@ export const chainMetadata: {
     logoSrc: opbnbLogo,
     explorerUrl: 'https://opbnbscan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com',
-    blockTimeMs: isPassedOpbnbMainnetUpgrade ? 500 : 1000,
-    blocksPerDay: isPassedOpbnbMainnetUpgrade ? 172800 : 86400,
+    blockTimeMs: 500,
+    blocksPerDay: 172800,
     corePoolComptrollerContractAddress: '0xD6e3E2A1d8d95caE355D15b3b9f8E5c2511874dd',
     nativeToken: bnb,
   },
