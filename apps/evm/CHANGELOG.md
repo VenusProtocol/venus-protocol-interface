@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.8.0
+
+### Minor Changes
+
+- 2cd83aa: add support for Maxwell Fork of the BNB Chain
+
+### Patch Changes
+
+- Updated dependencies [2cd83aa]
+  - @venusprotocol/chains@0.5.0
+
 ## 3.7.0
 
 ### Minor Changes
