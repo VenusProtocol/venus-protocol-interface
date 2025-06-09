@@ -30,6 +30,7 @@ export const tokenIconUrls = {
   USDT: getTokenPublicUrl('usdt.svg'),
   Cake: getTokenPublicUrl('cake.svg'),
   BNB: getTokenPublicUrl('bnb.svg'),
+  SolvBTC: getTokenPublicUrl('solvBtc.png'),
 };
 
 export const bscMainnetVCanAddress = '0xeBD0070237a0713E8D94fEf1B728d3d993d290ef';
