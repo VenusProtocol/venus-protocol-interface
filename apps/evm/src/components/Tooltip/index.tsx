@@ -40,7 +40,7 @@ export const Tooltip = ({ className, content, children, ...props }: TooltipProps
         </Trigger>
         <TooltipContent
           onPointerDownOutside={e => e.preventDefault()}
-          className={cn('block p-3', !isMdOrUp && 'hidden')}
+          className={cn('block p-3 z-[9999]', !isMdOrUp && 'hidden')}
         >
           {content}
           <Arrow className="fill-lightGrey w-[14px] h-[7px]" />

@@ -1,3 +1,4 @@
+import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import type { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
@@ -11,7 +12,7 @@ export interface ApyProps {
   className?: string;
 }
 
-export const Apy: React.FC<ApyProps> = ({ asset, type }) => {
+export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
   const combinedDistributionApys = getCombinedDistributionApys({ asset });
 
   const baseApyPercentage =
@@ -64,7 +65,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, type }) => {
   }
 
   return (
-    <div className="inline-flex gap-1 items-center">
+    <div className={cn('inline-flex gap-1 items-center', className)}>
       {isApyBoostedByPrime && <PrimeBadge type={type} token={asset.vToken.underlyingToken} />}
 
       {isApyBoosted ? (

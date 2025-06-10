@@ -61,3 +61,6 @@ export { default as ensLogo } from './ensLogo';
 export { default as spaceIdLogo } from './spaceIdLogo';
 export { default as link } from './link';
 export { default as infinity } from './infinity';
+export { default as shield2 } from './shield2';
+export { default as lightning2 } from './lightning2';
+export { default as graph } from './graph';

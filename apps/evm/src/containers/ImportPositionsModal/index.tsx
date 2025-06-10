@@ -1,7 +1,12 @@
 import { AccordionAnimatedContent, Icon, Modal, NoticeInfo, cn } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
+import { ImportablePositions } from './ImportablePositions';
+import type { PositionProps } from './ImportablePositions/Position';
 import { InfoSection } from './InfoSection';
+import aaveLogoSrc from './aaveLogo.svg';
+
+import { assetData } from '__mocks__/models/asset';
 
 export const ImportPositionsModal: React.FC = () => {
   const { t, Trans } = useTranslation();
@@ -16,14 +21,25 @@ export const ImportPositionsModal: React.FC = () => {
 
   const handleClose = () => setIsOpen(false);
 
+  // TODO: fetch
+  const aavePositions: PositionProps[] = [
+    {
+      userSupplyBalanceTokens: assetData[0].userSupplyBalanceTokens,
+      token: assetData[0].vToken.underlyingToken,
+      currentSupplyApyPercentage: assetData[0].supplyApyPercentage.minus(0.03),
+      asset: assetData[0],
+    },
+  ];
+
   return (
     <Modal isOpen={isOpen} handleClose={handleClose} title={t('importPositionsModal.title')}>
-      <>
-        <div
-          className="px-4 py-5 mb-6 rounded-xl border border-lightGrey"
+      <div className="space-y-4">
+        <button
+          className="px-4 py-5 rounded-xl border border-lightGrey block w-full text-left"
+          type="button"
           onClick={() => setIsAccordionOpen(c => !c)}
         >
-          <div className="flex justify-between items-center">
+          <div className="flex gap-x-2 justify-between items-center">
             <h2 className="text-lg">Why Venus?</h2>
 
             <Icon
@@ -37,7 +53,7 @@ export const ImportPositionsModal: React.FC = () => {
               <InfoSection
                 title={t('importPositionsModal.infoSection.1.title')}
                 description={t('importPositionsModal.infoSection.1.description')}
-                iconName="arrowUp" // TODO: update
+                iconName="graph"
                 iconColorClass="text-blue"
                 iconContainerColorClass="bg-blue/10"
               />
@@ -45,7 +61,7 @@ export const ImportPositionsModal: React.FC = () => {
               <InfoSection
                 title={t('importPositionsModal.infoSection.2.title')}
                 description={t('importPositionsModal.infoSection.2.description')}
-                iconName="lightning" // TODO: update
+                iconName="lightning2"
                 iconColorClass="text-yellow"
                 iconContainerColorClass="bg-yellow/10"
               />
@@ -53,13 +69,13 @@ export const ImportPositionsModal: React.FC = () => {
               <InfoSection
                 title={t('importPositionsModal.infoSection.3.title')}
                 description={t('importPositionsModal.infoSection.3.description')}
-                iconName="shield" // TODO: update
+                iconName="shield2"
                 iconColorClass="text-green"
                 iconContainerColorClass="bg-green/10"
               />
             </div>
           </AccordionAnimatedContent>
-        </div>
+        </button>
 
         <NoticeInfo
           className="text-grey bg-transparent"
@@ -67,12 +83,18 @@ export const ImportPositionsModal: React.FC = () => {
             <Trans
               i18nKey="importPositionsModal.limitNotice"
               components={{
-                Number: <span className="font-bold text-offWhite" />,
+                Number: <span className="text-offWhite" />,
               }}
             />
           }
         />
-      </>
+
+        <ImportablePositions
+          protocolLogoSrc={aaveLogoSrc}
+          protocolLogoAlt={t('importPositionsModal.aaveLogoAlt')}
+          positions={aavePositions}
+        />
+      </div>
     </Modal>
   );
 };
