@@ -46,7 +46,7 @@ export { default as gauge } from './gauge';
 export { default as magnifier } from './magnifier';
 export { default as vaiOutline } from './vaiOutline';
 export { default as fire } from './fire';
-export { default as lightening } from './lightening';
+export { default as lightning } from './lightning';
 export { default as fourDots } from './fourDots';
 export { default as bin } from './bin';
 export { default as telegram } from './telegram';

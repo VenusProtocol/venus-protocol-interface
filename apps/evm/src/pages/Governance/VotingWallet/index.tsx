@@ -235,7 +235,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
             asChild
           >
             <Link href={XVS_SNAPSHOT_URL}>
-              <Icon className="mr-2 h-6 w-6" name="lightening" />
+              <Icon className="mr-2 h-6 w-6" name="lightning" />
               {t('vote.goToXvsSnapshot')}
             </Link>
           </ButtonWrapper>
