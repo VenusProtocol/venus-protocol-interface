@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.9.0
+
+### Minor Changes
+
+- 58d6a06: add support for USD₮0 and WBTC on Unichain network
+
 ## 3.8.0
 
 ### Minor Changes
