@@ -33,8 +33,6 @@ interface TrackTransactionInput {
   onReverted?: (input: { transactionHash: Hex }) => Promise<unknown> | unknown;
 }
 
-// TODO: update tests
-
 export const useTrackTransaction = (
   { transactionType }: UseTrackTransactionInput = { transactionType: 'chain' },
 ) => {

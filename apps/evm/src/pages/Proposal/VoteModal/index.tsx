@@ -18,8 +18,6 @@ interface VoteModalProps {
   isVoteLoading: boolean;
 }
 
-// TODO: add tests
-
 const VoteModal: React.FC<VoteModalProps> = ({
   handleClose,
   vote,

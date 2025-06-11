@@ -59,27 +59,29 @@ export const Position: React.FC<PositionProps> = ({
 
       <Delimiter />
 
-      <div className="flex justify-between items-center gap-x-2 relative">
-        <ApyCell label={t('importPositionsModal.position.currentApy.label')}>
-          {readableCurrentApy}
-        </ApyCell>
+      <div className="space-y-3 lg:space-y-0 lg:flex lg:justify-between lg:items-center lg:gap-x-16">
+        <div className="flex justify-between items-center gap-x-2 relative grow">
+          <ApyCell label={t('importPositionsModal.position.currentApy.label')}>
+            {readableCurrentApy}
+          </ApyCell>
 
-        <div className="h-6 w-6 rounded-full bg-lightGrey absolute inset-0 m-auto flex items-center justify-center">
-          <Icon name="arrowShaft" className="text-offWhite" />
+          <div className="h-6 w-6 rounded-full bg-lightGrey absolute inset-0 m-auto flex items-center justify-center">
+            <Icon name="arrowShaft" className="text-offWhite" />
+          </div>
+
+          <ApyCell label={t('importPositionsModal.position.newApy.label')}>
+            <Apy asset={asset} type="supply" />
+          </ApyCell>
         </div>
 
-        <ApyCell label={t('importPositionsModal.position.newApy.label')}>
-          <Apy asset={asset} type="supply" />
-        </ApyCell>
+        <p className="text-grey text-right text-xs">
+          <Trans
+            i18nKey="importPositionsModal.position.potentialYearlyGains"
+            values={{ potentialYearlyGains: readablePotentialYearlyGains }}
+            components={{ Number: <span className="text-offWhite text-sm lg:block lg:mt-1" /> }}
+          />
+        </p>
       </div>
-
-      <p className="text-grey text-right text-xs">
-        <Trans
-          i18nKey="importPositionsModal.position.potentialYearlyGains"
-          values={{ potentialYearlyGains: readablePotentialYearlyGains }}
-          components={{ Number: <span className="text-offWhite text-sm" /> }}
-        />
-      </p>
     </div>
   );
 };

@@ -382,7 +382,8 @@
       "3": {
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "title": "Ultra secure"
-      }
+      },
+      "title": "Why Venus?"
     },
     "limitNotice": "Only positions valued between <Number>$10</Number> and <Number>$1,000</Number> can currently be imported into Venus.",
     "position": {
