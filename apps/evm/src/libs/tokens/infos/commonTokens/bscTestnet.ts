@@ -43,6 +43,7 @@ import usd1Logo from 'libs/tokens/img/underlyingTokens/usd1.png';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
 import usddLogo from 'libs/tokens/img/underlyingTokens/usdd.svg';
 import usdeLogo from 'libs/tokens/img/underlyingTokens/usde.svg';
+import usdfLogo from 'libs/tokens/img/underlyingTokens/usdf.png';
 import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
 import vaiLogo from 'libs/tokens/img/underlyingTokens/vai.svg';
 import vrtLogo from 'libs/tokens/img/underlyingTokens/vrt.svg';
@@ -415,5 +416,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'xSolvBTC',
     asset: xSolvBtcLogo,
+  },
+  {
+    address: '0xC7a2b79432Fd3e3d5bd2d96A456c734AB93A0484',
+    decimals: 18,
+    symbol: 'USDF',
+    asset: usdfLogo,
   },
 ];
