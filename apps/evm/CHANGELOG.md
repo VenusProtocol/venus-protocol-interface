@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.10.0
+
+### Minor Changes
+
+- bc1926b: add support for USDF on BNB Chain
+
 ## 3.9.0
 
 ### Minor Changes
