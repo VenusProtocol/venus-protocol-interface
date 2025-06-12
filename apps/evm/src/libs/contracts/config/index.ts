@@ -115,6 +115,7 @@ import { ChainId } from 'types';
 import type { Address } from 'viem';
 import AavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvider.json';
 import AaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
+import AaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
 import MaximillionAbi from './externalAbis/Maximillion.json';
 import Multicall3Abi from './externalAbis/Multicall3.json';
 import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
@@ -588,6 +589,18 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPTIMISM_MAINNET]: '0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb',
       [ChainId.BASE_MAINNET]: '0xe20fCBdBfFC4Dd138cE8b2E6FBb6CB49777ad64D',
       [ChainId.ZKSYNC_MAINNET]: '0x2A3948BB219D6B2Fa83D64100006391a96bE6cb7',
+    },
+  },
+  {
+    name: 'AaveV3Pool',
+    abi: AaveV3PoolAbi as Abi,
+    address: {
+      [ChainId.BSC_MAINNET]: '0x6807dc923806fE8Fd134338EABCA509979a7e0cB',
+      [ChainId.ETHEREUM]: '0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2',
+      [ChainId.ARBITRUM_ONE]: '0x794a61358D6845594F94dc1DB02A252b5b4814aD',
+      [ChainId.OPTIMISM_MAINNET]: '0x794a61358D6845594F94dc1DB02A252b5b4814aD',
+      [ChainId.BASE_MAINNET]: '0xA238Dd80C259a72e81d7e4664a9801593F98d1c5',
+      [ChainId.ZKSYNC_MAINNET]: '0x78e30497a3c7527d953c6B1E3541b021A98Ac43c',
     },
   },
   // Generic Contracts

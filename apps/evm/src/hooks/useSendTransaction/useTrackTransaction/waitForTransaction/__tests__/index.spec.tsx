@@ -22,10 +22,11 @@ const fakeSafeTransactionHash: Hex = '0x456';
 const fakeInput = {
   hash: '0x123',
   confirmations: 1,
-  isSafeWalletTransaction: false,
+  isRunningInSafeApp: false,
   timeoutMs: 5000,
   chainId: ChainId.BSC_TESTNET,
   publicClient: fakePublicClient,
+  transactionType: 'chain',
 } as const;
 
 const originalSafeWalletApiUrl = chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl;
@@ -70,7 +71,7 @@ describe('waitForTransaction', () => {
 
     const result = await waitForTransaction({
       ...fakeInput,
-      isSafeWalletTransaction: true,
+      isRunningInSafeApp: true,
       hash: fakeSafeTransactionHash,
     });
 
@@ -106,7 +107,7 @@ describe('waitForTransaction', () => {
 
     const result = await waitForTransaction({
       ...fakeInput,
-      isSafeWalletTransaction: true,
+      isRunningInSafeApp: true,
       hash: fakeSafeTransactionHash,
     });
 
@@ -132,7 +133,7 @@ describe('waitForTransaction', () => {
     await expect(
       waitForTransaction({
         ...fakeInput,
-        isSafeWalletTransaction: true,
+        isRunningInSafeApp: true,
         hash: fakeSafeTransactionHash,
       }),
     ).rejects.toThrow(fakeError);

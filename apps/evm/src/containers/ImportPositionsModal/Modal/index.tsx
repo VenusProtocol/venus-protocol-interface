@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ImportablePositions } from './ImportablePositions';
 import aaveLogoSrc from './aaveLogo.svg';
 
+import { useMeeClient } from 'libs/wallet';
 import { Infos } from './Infos';
 import { Notice } from './Notice';
 import { useGetProfitableImports } from './useGetProfitableImports';
@@ -17,13 +18,17 @@ export const Modal: React.FC = () => {
 
   const { supplyPositions: importableSupplyPositions } = useGetProfitableImports();
 
+  // Check smart account and MEE client were successfully initialized
+  const { data: getMeeClientData } = useMeeClient();
+  const canUserImportPositions = !!getMeeClientData;
+
   const handleClose = () => setHasClosedModalBefore(true);
 
   const hasImportablePositions =
     !!importableSupplyPositions &&
     Object.values(importableSupplyPositions).some(positions => positions.length);
 
-  const isModalOpen = !hasClosedModalBefore && hasImportablePositions;
+  const isModalOpen = !hasClosedModalBefore && canUserImportPositions && hasImportablePositions;
 
   // Do not render modal if there aren't any importable positions
   if (!hasImportablePositions) {

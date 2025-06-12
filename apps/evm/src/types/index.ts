@@ -22,7 +22,7 @@ export type Network =
   | 'mainnet-preview' // mainnet too, but will hit the preview API
   | 'mainnet';
 
-export type TransactionType = 'chain' | 'layerZero';
+export type TransactionType = 'chain' | 'layerZero' | 'biconomy';
 
 export interface Token {
   symbol: string;

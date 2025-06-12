@@ -72,7 +72,7 @@ describe('useTrackTransaction', () => {
       chainId: ChainId.BSC_TESTNET,
       confirmations: CONFIRMATIONS,
       hash: fakeContractTransaction.hash,
-      isSafeWalletTransaction: false,
+      isRunningInSafeApp: false,
       publicClient: undefined,
       timeoutMs: 180000,
     });
@@ -135,7 +135,7 @@ describe('useTrackTransaction', () => {
         chainId: ChainId.BSC_TESTNET,
         confirmations: CONFIRMATIONS,
         hash: fakeContractTransaction.hash,
-        isSafeWalletTransaction: false,
+        isRunningInSafeApp: false,
         publicClient: undefined,
         timeoutMs: 180000,
       });
@@ -194,7 +194,7 @@ describe('useTrackTransaction', () => {
       chainId: ChainId.BSC_TESTNET,
       confirmations: CONFIRMATIONS,
       hash: fakeContractTransaction.hash,
-      isSafeWalletTransaction: false,
+      isRunningInSafeApp: false,
       publicClient: undefined,
       timeoutMs: 180000,
     });
@@ -245,7 +245,7 @@ describe('useTrackTransaction', () => {
       chainId: ChainId.BSC_TESTNET,
       confirmations: CONFIRMATIONS,
       hash: fakeContractTransaction.hash,
-      isSafeWalletTransaction: false,
+      isRunningInSafeApp: false,
       publicClient: undefined,
       timeoutMs: 180000,
     });

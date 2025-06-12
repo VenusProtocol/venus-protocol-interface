@@ -775,3 +775,11 @@ export const useUpdatePoolDelegateStatus = vi.fn(
       ...options,
     }),
 );
+
+export const useImportSupplyPosition = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);

@@ -1,5 +1,8 @@
+import { cn } from '@venusprotocol/ui';
 import type { BigNumber } from 'bignumber.js';
+import { useImportSupplyPosition } from 'clients/api';
 import { Apy, Button, Delimiter, Icon, TokenIcon } from 'components';
+import { SwitchChain } from 'containers/SwitchChain';
 import { useTranslation } from 'libs/translations';
 import type { Asset, ImportableSupplyPosition, Token } from 'types';
 import {
@@ -27,6 +30,11 @@ export const Position: React.FC<PositionProps> = ({
 }) => {
   const { t, Trans } = useTranslation();
 
+  const { mutateAsync: importSupplyPosition, isPending: isImportSupplyPositionLoading } =
+    useImportSupplyPosition({
+      waitForConfirmation: true,
+    });
+
   const readableUserSupplyBalance = formatTokensToReadableValue({
     value: userSupplyBalanceTokens,
     token,
@@ -46,10 +54,13 @@ export const Position: React.FC<PositionProps> = ({
 
   const readableCurrentApy = formatPercentageToReadableValue(currentSupplyApyPercentage);
 
-  const handleImport = () => {
-    // TODO: wire up
-    console.log('Position to import: ', supplyPosition);
-  };
+  const handleImport = () =>
+    importSupplyPosition({
+      position: supplyPosition,
+      vToken: asset.vToken,
+    });
+
+  const importButtonClassName = cn('px-5 h-8 py-0 text-sm');
 
   return (
     <div className="border border-lightGrey rounded-xl px-4 py-3 space-y-3">
@@ -60,14 +71,20 @@ export const Position: React.FC<PositionProps> = ({
           <span className="font-bold">{readableUserSupplyBalance}</span>
         </div>
 
-        <Button className="px-5 h-8 py-0 text-sm" onClick={handleImport}>
-          {t('importPositionsModal.position.importButtonLabel')}
-        </Button>
+        <SwitchChain buttonClassName={importButtonClassName}>
+          <Button
+            className={importButtonClassName}
+            onClick={handleImport}
+            loading={isImportSupplyPositionLoading}
+          >
+            {t('importPositionsModal.position.importButtonLabel')}
+          </Button>
+        </SwitchChain>
       </div>
 
       <Delimiter />
 
-      <div className="space-y-3 lg:space-y-0 lg:flex lg:justify-between lg:items-center lg:gap-x-8">
+      <div className="space-y-3 lg:space-y-0 lg:flex lg:justify-between lg:items-center lg:gap-x-6">
         <div className="flex justify-between items-center gap-x-2 relative grow">
           <ApyCell label={t('importPositionsModal.position.currentApy.label')}>
             {readableCurrentApy}
