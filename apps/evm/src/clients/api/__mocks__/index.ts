@@ -561,6 +561,16 @@ export const getXvsVaultPendingWithdrawalsBalance = vi.fn(async () => ({
   balanceMantissa: 0,
 }));
 
+export const getImportableSupplyPositions = vi.fn(async () => ({
+  importableSupplyPositions: [], // TODO: add fake importable supply positions
+}));
+export const useGetImportableSupplyPositions = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_IMPORTABLE_SUPPLY_POSITIONS],
+    queryFn: getImportableSupplyPositions,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

@@ -111,6 +111,7 @@ export const featureFlags = {
   gaslessTransactions: [ChainId.ZKSYNC_SEPOLIA, ChainId.ZKSYNC_MAINNET],
   web3DomainNames: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.ARBITRUM_ONE],
   importPositions: [
+    ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
     ChainId.SEPOLIA,
     ChainId.OPBNB_TESTNET,

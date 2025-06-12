@@ -2,70 +2,51 @@ import { AccordionAnimatedContent, Icon, Modal as ModalComp, cn } from 'componen
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import { ImportablePositions } from './ImportablePositions';
-import type { PositionProps } from './ImportablePositions/Position';
 import aaveLogoSrc from './aaveLogo.svg';
 
-import { assetData } from '__mocks__/models/asset';
 import { Infos } from './Infos';
 import { Notice } from './Notice';
+import { useGetProfitableImports } from './useGetProfitableImports';
 
 export const Modal: React.FC = () => {
   const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(
-    true, // TODO: only display if opportunities were detected and user has never seen this modal before
-  );
 
+  // TODO: use persisted Zustand store
+  const [hasClosedModalBefore, setHasClosedModalBefore] = useState(false);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
-  const handleClose = () => setIsOpen(false);
+  const { supplyPositions: importableSupplyPositions } = useGetProfitableImports();
 
-  // TODO: fetch
-  const aavePositions: PositionProps[] = [
-    {
-      userSupplyBalanceTokens: assetData[0].userSupplyBalanceTokens,
-      token: assetData[0].vToken.underlyingToken,
-      currentSupplyApyPercentage: assetData[0].supplyApyPercentage.minus(0.03),
-      asset: assetData[0],
-    },
-  ];
+  const handleClose = () => setHasClosedModalBefore(true);
+
+  const hasImportablePositions =
+    !!importableSupplyPositions &&
+    Object.values(importableSupplyPositions).some(positions => positions.length);
+
+  const isModalOpen = !hasClosedModalBefore && hasImportablePositions;
+
+  // Do not render modal if there aren't any importable positions
+  if (!hasImportablePositions) {
+    return undefined;
+  }
 
   const importablePositionsDom = (
     <>
-      <ImportablePositions
-        protocolLogoSrc={aaveLogoSrc}
-        protocolLogoAlt={t('importPositionsModal.aaveLogoAlt')}
-        positions={aavePositions}
-      />
+      {importableSupplyPositions.aave && (
+        <ImportablePositions
+          protocolLogoSrc={aaveLogoSrc}
+          protocolLogoAlt={t('importPositionsModal.aaveLogoAlt')}
+          positions={importableSupplyPositions.aave}
+        />
+      )}
 
-      <ImportablePositions
-        protocolLogoSrc={aaveLogoSrc}
-        protocolLogoAlt={t('importPositionsModal.aaveLogoAlt')}
-        positions={aavePositions}
-      />
-
-      <ImportablePositions
-        protocolLogoSrc={aaveLogoSrc}
-        protocolLogoAlt={t('importPositionsModal.aaveLogoAlt')}
-        positions={aavePositions}
-      />
-
-      <ImportablePositions
-        protocolLogoSrc={aaveLogoSrc}
-        protocolLogoAlt={t('importPositionsModal.aaveLogoAlt')}
-        positions={aavePositions}
-      />
-
-      <ImportablePositions
-        protocolLogoSrc={aaveLogoSrc}
-        protocolLogoAlt={t('importPositionsModal.aaveLogoAlt')}
-        positions={aavePositions}
-      />
+      {/* TODO: add other protocols */}
     </>
   );
 
   return (
     <ModalComp
-      isOpen={isOpen}
+      isOpen={isModalOpen}
       handleClose={handleClose}
       title={t('importPositionsModal.title')}
       className="max-w-[800px]"

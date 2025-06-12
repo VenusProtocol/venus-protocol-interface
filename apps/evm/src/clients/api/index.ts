@@ -212,3 +212,6 @@ export * from './queries/getVTokenUtilizationRate/useGetVTokenUtilizationRate';
 
 export * from './queries/getPoolLiquidationIncentive';
 export * from './queries/getPoolLiquidationIncentive/useGetPoolLiquidationIncentive';
+
+export * from './queries/getImportablePositions';
+export * from './queries/getImportablePositions/useGetImportablePositions';

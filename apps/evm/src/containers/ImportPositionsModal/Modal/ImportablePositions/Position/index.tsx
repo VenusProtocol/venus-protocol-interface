@@ -1,8 +1,9 @@
-import BigNumber from 'bignumber.js';
+import type { BigNumber } from 'bignumber.js';
 import { Apy, Button, Delimiter, Icon, TokenIcon } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { Asset, Token } from 'types';
+import type { Asset, ImportableSupplyPosition, Token } from 'types';
 import {
+  calculateYearlyInterests,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
@@ -12,8 +13,9 @@ import { ApyCell } from './ApyCell';
 export interface PositionProps {
   userSupplyBalanceTokens: BigNumber;
   token: Token;
-  currentSupplyApyPercentage: BigNumber;
+  currentSupplyApyPercentage: number;
   asset: Asset;
+  supplyPosition: ImportableSupplyPosition;
 }
 
 export const Position: React.FC<PositionProps> = ({
@@ -21,6 +23,7 @@ export const Position: React.FC<PositionProps> = ({
   currentSupplyApyPercentage,
   token,
   asset,
+  supplyPosition,
 }) => {
   const { t, Trans } = useTranslation();
 
@@ -30,17 +33,22 @@ export const Position: React.FC<PositionProps> = ({
     addSymbol: true,
   });
 
-  // TODO: calculate based on user supply balance and supply APYs' delta
-  const potentialYearlyGainsCents = new BigNumber(100);
+  const apyDelta = asset.supplyApyPercentage.minus(currentSupplyApyPercentage);
+  const supplyBalanceCents = userSupplyBalanceTokens.multipliedBy(asset.tokenPriceCents);
+  const missedYearlyGainsCents = calculateYearlyInterests({
+    balance: supplyBalanceCents,
+    interestPercentage: apyDelta,
+  });
 
-  const readablePotentialYearlyGains = formatCentsToReadableValue({
-    value: potentialYearlyGainsCents,
+  const readableMissedYearlyGains = formatCentsToReadableValue({
+    value: missedYearlyGainsCents,
   });
 
   const readableCurrentApy = formatPercentageToReadableValue(currentSupplyApyPercentage);
 
   const handleImport = () => {
     // TODO: wire up
+    console.log('Position to import: ', supplyPosition);
   };
 
   return (
@@ -59,7 +67,7 @@ export const Position: React.FC<PositionProps> = ({
 
       <Delimiter />
 
-      <div className="space-y-3 lg:space-y-0 lg:flex lg:justify-between lg:items-center lg:gap-x-16">
+      <div className="space-y-3 lg:space-y-0 lg:flex lg:justify-between lg:items-center lg:gap-x-8">
         <div className="flex justify-between items-center gap-x-2 relative grow">
           <ApyCell label={t('importPositionsModal.position.currentApy.label')}>
             {readableCurrentApy}
@@ -76,9 +84,14 @@ export const Position: React.FC<PositionProps> = ({
 
         <p className="text-grey text-right text-xs">
           <Trans
-            i18nKey="importPositionsModal.position.potentialYearlyGains"
-            values={{ potentialYearlyGains: readablePotentialYearlyGains }}
-            components={{ Number: <span className="text-offWhite text-sm lg:block lg:mt-1" /> }}
+            i18nKey="importPositionsModal.position.missedYearlyGains"
+            values={{ gains: readableMissedYearlyGains }}
+            components={{
+              // We need to wrap missed gains in a span tag to prevent bad escaping when the string
+              // starts with a "<" character
+              Gains: <span>{readableMissedYearlyGains}</span>,
+              Number: <span className="text-offWhite text-sm lg:block lg:mt-1" />,
+            }}
           />
         </p>
       </div>

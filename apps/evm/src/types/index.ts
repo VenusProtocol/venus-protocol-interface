@@ -498,3 +498,20 @@ export type SwapError =
   | 'UNWRAPPING_UNSUPPORTED';
 
 export type PSTokenCombination = [PSToken, PSToken];
+
+export type ImportableProtocol = 'aave';
+
+interface ImportableSupplyPositionBase {
+  protocol: ImportableProtocol;
+  tokenAddress: Address;
+  userSupplyBalanceMantissa: bigint;
+  supplyApyPercentage: number;
+}
+
+export interface ImportableAaveSupplyPosition extends ImportableSupplyPositionBase {
+  protocol: 'aave';
+  aTokenAddress: Address;
+  userATokenBalanceMantissa: bigint;
+}
+
+export type ImportableSupplyPosition = ImportableAaveSupplyPosition;
