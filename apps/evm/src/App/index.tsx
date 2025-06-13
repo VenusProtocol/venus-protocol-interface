@@ -7,6 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { queryClient } from 'clients/api';
 import config from 'config';
 import { MAIN_PRODUCTION_HOST } from 'constants/production';
+import { ImportPositionsModal } from 'containers/ImportPositionsModal';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
 import { Web3Wrapper } from 'libs/wallet';
@@ -59,6 +60,10 @@ const App = () => (
 
               <Suspense>
                 <ResendPayingGasModal />
+              </Suspense>
+
+              <Suspense>
+                <ImportPositionsModal />
               </Suspense>
 
               <ThemeHandler />

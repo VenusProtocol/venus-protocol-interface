@@ -364,6 +364,40 @@
       "risky": "Risky"
     }
   },
+  "importPositionsModal": {
+    "aaveLogoAlt": "Logo of Aave",
+    "gasLess": {
+      "label": "Free",
+      "tooltip": "Transactions to migrate your positions to Venus are sponsored by the Venus Protocol"
+    },
+    "infoSection": {
+      "1": {
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        "title": "Better yields"
+      },
+      "2": {
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        "title": "Fastest growing protocol"
+      },
+      "3": {
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        "title": "Ultra secure"
+      },
+      "title": "Why Venus?"
+    },
+    "limitNotice": "Only positions valued between <Number>$10</Number> and <Number>$1,000</Number> can currently be imported into Venus.",
+    "position": {
+      "currentApy": {
+        "label": "Current APY"
+      },
+      "importButtonLabel": "Import",
+      "newApy": {
+        "label": "Venus APY"
+      },
+      "potentialYearlyGains": "You are missing out on <Number>{{potentialYearlyGains}} / year</Number>"
+    },
+    "title": "Import to Venus and earn more"
+  },
   "interactive": {
     "addToWallet": {
       "modalTitle": "Add token to wallet"

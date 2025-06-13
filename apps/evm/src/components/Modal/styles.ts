@@ -11,28 +11,6 @@ export const useModalStyles = ({
   const theme = useTheme();
 
   return {
-    box: css`
-      position: absolute;
-      top: 50%;
-      left: calc(50% + ${theme.shape.drawerWidthDesktop});
-      transform: translate(calc(-50% - (${theme.shape.drawerWidthDesktop}) / 2), -50%);
-      border: 1px ${theme.palette.secondary.light} solid;
-      ${theme.breakpoints.down('lg')} {
-        left: calc(50% + ${theme.shape.drawerWidthTablet});
-        transform: translate(calc(-50% - (${theme.shape.drawerWidthTablet}) / 2), -50%);
-      }
-      ${theme.breakpoints.down('md')} {
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      width: calc(100% - ${theme.spacing(8)});
-      max-width: ${theme.spacing(136)};
-      border-radius: ${theme.spacing(3)};
-      background-color: ${theme.palette.background.paper};
-      overflow: auto;
-      max-height: calc(100% - ${theme.spacing(8)});
-      outline: none;
-    `,
     titleWrapper: css`
       padding: ${theme.spacing(6, 6, hasTitleComponent ? 6 : 0, 6)};
       border-bottom: ${hasTitleComponent ? `1px solid ${theme.palette.secondary.light}` : 0};

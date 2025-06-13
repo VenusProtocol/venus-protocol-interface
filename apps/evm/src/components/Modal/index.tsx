@@ -46,7 +46,12 @@ export const Modal: React.FC<ModalProps> = ({
       {...otherModalProps}
     >
       <Fade in={isOpen}>
-        <div css={s.box} className={className}>
+        <div
+          className={cn(
+            'overflow-auto outline-none bg-cards rounded-xl absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] border border-lightGrey max-w-136 w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]',
+            className,
+          )}
+        >
           <div css={s.titleWrapper}>
             {!!handleBackAction && (
               <Button

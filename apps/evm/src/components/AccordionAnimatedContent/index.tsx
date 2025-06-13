@@ -9,7 +9,6 @@ export const AccordionAnimatedContent: React.FC<AccordionAnimatedContentProps> =
   children,
   className,
   isOpen,
-  ref: _ref, // TODO: remove once we upgrade to React 19. Motion is currently complaining that the ref prop is incompatible
   ...otherProps
 }) => (
   <AnimatePresence initial={isOpen}>
