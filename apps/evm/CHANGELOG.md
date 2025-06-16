@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.11.0
+
+### Minor Changes
+
+- 7438fc7: add UI for the Import Positions modal
+
 ## 3.10.0
 
 ### Minor Changes
