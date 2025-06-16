@@ -42,7 +42,7 @@ export const useStakeInVault = () => {
       });
     }
 
-    // This cose should never be reached, but just in case we throw a generic
+    // This case should never be reached, but just in case we throw a generic
     // internal error
     throw new VError({
       type: 'unexpected',

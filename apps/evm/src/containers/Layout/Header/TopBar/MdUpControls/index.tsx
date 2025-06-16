@@ -20,10 +20,7 @@ export const MdUpControls: React.FC = () => {
       <GaslessStatus
         wrapWithTooltip
         displayLabel
-        className={cn(
-          'transition-opacity',
-          !userChainSettings?.gaslessTransactions && 'opacity-50',
-        )}
+        className={cn('transition-opacity', !userChainSettings.gaslessTransactions && 'opacity-50')}
       />
 
       <ChainSelect

@@ -22,7 +22,7 @@ export type Network =
   | 'mainnet-preview' // mainnet too, but will hit the preview API
   | 'mainnet';
 
-export type TransactionType = 'chain' | 'layerZero';
+export type TransactionType = 'chain' | 'layerZero' | 'biconomy';
 
 export interface Token {
   symbol: string;
@@ -498,3 +498,21 @@ export type SwapError =
   | 'UNWRAPPING_UNSUPPORTED';
 
 export type PSTokenCombination = [PSToken, PSToken];
+
+export type ImportableProtocol = 'aave';
+
+interface ImportableSupplyPositionBase {
+  protocol: ImportableProtocol;
+  tokenAddress: Address;
+  userSupplyBalanceMantissa: bigint;
+  supplyApyPercentage: number;
+}
+
+export interface ImportableAaveSupplyPosition extends ImportableSupplyPositionBase {
+  protocol: 'aave';
+  aTokenAddress: Address;
+  userATokenBalanceMantissa: bigint;
+  userATokenBalanceWithInterestsMantissa: bigint;
+}
+
+export type ImportableSupplyPosition = ImportableAaveSupplyPosition;

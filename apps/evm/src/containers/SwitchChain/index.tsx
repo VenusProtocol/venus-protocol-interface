@@ -1,4 +1,5 @@
 import { chainMetadata } from '@venusprotocol/chains';
+import { cn } from '@venusprotocol/ui';
 
 import { Button } from 'components';
 import { useTranslation } from 'libs/translations';
@@ -6,10 +7,16 @@ import { useAccountAddress, useAccountChainId, useChainId, useSwitchChain } from
 import type { ChainId } from 'types';
 
 export interface SwitchChainProps extends React.HTMLAttributes<HTMLDivElement> {
+  buttonClassName?: string;
   chainId?: ChainId;
 }
 
-export const SwitchChain: React.FC<SwitchChainProps> = ({ children, chainId, ...otherProps }) => {
+export const SwitchChain: React.FC<SwitchChainProps> = ({
+  children,
+  chainId,
+  buttonClassName,
+  ...otherProps
+}) => {
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
@@ -28,7 +35,7 @@ export const SwitchChain: React.FC<SwitchChainProps> = ({ children, chainId, ...
   return (
     <div {...otherProps}>
       {isUserConnected && isOnWrongChain ? (
-        <Button className="w-full" onClick={handleSwitchChain}>
+        <Button className={cn('w-full', buttonClassName)} onClick={handleSwitchChain}>
           {t('switchChain.switchButton', {
             chainName: targetChain.name,
           })}

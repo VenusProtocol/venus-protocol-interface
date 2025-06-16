@@ -1,3 +1,4 @@
+import type { GetSupertransactionReceiptPayloadWithReceipts } from '@biconomy/abstractjs-canary';
 import { useCallback } from 'react';
 
 import config from 'config';
@@ -13,11 +14,12 @@ import {
 } from 'libs/errors';
 import { type Notification, displayNotification, updateNotification } from 'libs/notifications';
 import { useTranslation } from 'libs/translations';
-import { useChainId, usePublicClient } from 'libs/wallet';
+import { useChainId, useMeeClient, usePublicClient } from 'libs/wallet';
 import type { TransactionType } from 'types';
 import type { UrlType } from 'utilities';
 import type { Hex, TransactionReceipt } from 'viem';
 import { CONFIRMATIONS, TIMEOUT_MS } from '../constants';
+import { getTransactionStatus } from './getTransactionStatus';
 import { waitForTransaction } from './waitForTransaction';
 
 interface UseTrackTransactionInput {
@@ -28,27 +30,35 @@ interface TrackTransactionInput {
   transactionHash: Hex;
   onConfirmed?: (input: {
     transactionHash: Hex;
-    transactionReceipt: TransactionReceipt;
+    transactionReceipt: TransactionReceipt | GetSupertransactionReceiptPayloadWithReceipts;
   }) => Promise<unknown> | unknown;
   onReverted?: (input: { transactionHash: Hex }) => Promise<unknown> | unknown;
 }
 
-export const useTrackTransaction = (
-  { transactionType }: UseTrackTransactionInput = { transactionType: 'chain' },
-) => {
+export const useTrackTransaction = (input?: UseTrackTransactionInput) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
   const { t } = useTranslation();
+  const transactionType = input?.transactionType || 'chain';
+
+  const { data } = useMeeClient({ chainId }, { enabled: transactionType === 'biconomy' });
+  const meeClient = data?.meeClient;
 
   const trackTransaction = useCallback(
     async ({ transactionHash, onConfirmed, onReverted }: TrackTransactionInput) => {
-      const urlType: UrlType = transactionType === 'layerZero' ? 'layerZeroTx' : 'tx';
+      let urlType: UrlType = 'tx';
+      if (transactionType === 'layerZero') {
+        urlType = 'layerZeroTx';
+      } else if (transactionType === 'biconomy') {
+        urlType = 'biconomyTx';
+      }
+
       let notificationId: Notification['id'] | undefined;
 
       // Display notification indicating transaction is being processed. Note that we don't display
-      // notifications when running in the Safe Wallet app because it has its own notification
-      // system for transactions.
-      if (!config.isSafeApp) {
+      // notifications when running in the Safe Wallet app, unless we're sending a transaction via
+      // Biconomy, because it has its own notification system for transactions.
+      if (!config.isSafeApp || transactionType === 'biconomy') {
         notificationId = displayNotification({
           id: transactionHash,
           variant: 'loading',
@@ -60,13 +70,18 @@ export const useTrackTransaction = (
         });
       }
 
-      let transactionReceipt: TransactionReceipt | undefined;
+      let transactionReceipt:
+        | TransactionReceipt
+        | GetSupertransactionReceiptPayloadWithReceipts
+        | undefined;
 
       try {
         const { transactionReceipt: receipt } = await waitForTransaction({
           chainId,
           publicClient,
-          isSafeWalletTransaction: config.isSafeApp,
+          meeClient,
+          transactionType,
+          isRunningInSafeApp: config.isSafeApp,
           hash: transactionHash,
           confirmations: CONFIRMATIONS,
           timeoutMs: TIMEOUT_MS,
@@ -81,7 +96,9 @@ export const useTrackTransaction = (
         }
       }
 
-      if (!transactionReceipt?.status && notificationId !== undefined) {
+      const transactionStatus = getTransactionStatus({ transactionReceipt });
+
+      if (!transactionStatus && notificationId !== undefined) {
         // Update corresponding notification to say transaction receipt could not be fetched
         updateNotification({
           id: notificationId,
@@ -90,19 +107,28 @@ export const useTrackTransaction = (
         });
       }
 
-      if (!transactionReceipt?.status) {
+      if (!transactionStatus || !transactionReceipt) {
         return;
       }
 
-      let transactionSucceeded = transactionReceipt.status === 'success';
+      let transactionSucceeded = transactionStatus === 'success';
+
+      const receipts =
+        'transactionStatus' in transactionReceipt
+          ? // Biconmy transactions can return multiple receipts (since they bundle multiple
+            // transactions together)
+            transactionReceipt.receipts
+          : [transactionReceipt];
 
       // Check for non-reverting errors
       try {
-        checkForComptrollerTransactionError(transactionReceipt);
-        checkForTokenTransactionError(transactionReceipt);
-        checkForVaiControllerTransactionError(transactionReceipt);
-        checkForVaiVaultTransactionError(transactionReceipt);
-        checkForXvsVaultProxyTransactionError(transactionReceipt);
+        receipts.forEach(receipt => {
+          checkForComptrollerTransactionError(receipt);
+          checkForTokenTransactionError(receipt);
+          checkForVaiControllerTransactionError(receipt);
+          checkForVaiVaultTransactionError(receipt);
+          checkForXvsVaultProxyTransactionError(receipt);
+        });
       } catch (_error) {
         transactionSucceeded = false;
       }
@@ -127,7 +153,7 @@ export const useTrackTransaction = (
       // Execute callback
       await onReverted?.({ transactionHash });
     },
-    [chainId, t, publicClient, transactionType],
+    [chainId, t, publicClient, transactionType, meeClient],
   );
 
   return trackTransaction;

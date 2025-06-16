@@ -68,9 +68,11 @@ exports[`store > setUserSettings > updates user settings correctly when passing 
     "gaslessTransactions": true,
   },
   "421614": {
+    "doNotShowImportPositionsModal": true,
     "gaslessTransactions": false,
   },
   "97": {
+    "doNotShowImportPositionsModal": true,
     "gaslessTransactions": false,
   },
 }

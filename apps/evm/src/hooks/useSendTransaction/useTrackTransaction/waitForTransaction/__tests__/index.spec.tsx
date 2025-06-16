@@ -12,20 +12,26 @@ vi.mock('../waitForSafeWalletTransaction', () => ({
 }));
 
 const mockWaitForTransactionReceipt = vi.fn(() => fakeTransactionReceipt);
+const mockWaitForSupertransactionReceipt = vi.fn();
 
 const fakePublicClient = {
   waitForTransactionReceipt: mockWaitForTransactionReceipt,
 } as unknown as PublicClient;
+
+const fakeMeeClient = {
+  waitForSupertransactionReceipt: mockWaitForSupertransactionReceipt,
+} as unknown as any;
 
 const fakeSafeTransactionHash: Hex = '0x456';
 
 const fakeInput = {
   hash: '0x123',
   confirmations: 1,
-  isSafeWalletTransaction: false,
+  isRunningInSafeApp: false,
   timeoutMs: 5000,
   chainId: ChainId.BSC_TESTNET,
   publicClient: fakePublicClient,
+  transactionType: 'chain',
 } as const;
 
 const originalSafeWalletApiUrl = chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl;
@@ -70,7 +76,7 @@ describe('waitForTransaction', () => {
 
     const result = await waitForTransaction({
       ...fakeInput,
-      isSafeWalletTransaction: true,
+      isRunningInSafeApp: true,
       hash: fakeSafeTransactionHash,
     });
 
@@ -106,7 +112,7 @@ describe('waitForTransaction', () => {
 
     const result = await waitForTransaction({
       ...fakeInput,
-      isSafeWalletTransaction: true,
+      isRunningInSafeApp: true,
       hash: fakeSafeTransactionHash,
     });
 
@@ -132,7 +138,7 @@ describe('waitForTransaction', () => {
     await expect(
       waitForTransaction({
         ...fakeInput,
-        isSafeWalletTransaction: true,
+        isRunningInSafeApp: true,
         hash: fakeSafeTransactionHash,
       }),
     ).rejects.toThrow(fakeError);
@@ -143,5 +149,61 @@ describe('waitForTransaction', () => {
     mockWaitForTransactionReceipt.mockRejectedValue(fakeError);
 
     await expect(waitForTransaction(fakeInput)).rejects.toThrow(fakeError);
+  });
+
+  it('handles biconomy transaction successfully', async () => {
+    const fakeBiconomyReceipt = {
+      transactionStatus: 'success',
+      receipts: [fakeTransactionReceipt],
+    };
+    mockWaitForSupertransactionReceipt.mockResolvedValue(fakeBiconomyReceipt);
+
+    const result = await waitForTransaction({
+      ...fakeInput,
+      transactionType: 'biconomy',
+      meeClient: fakeMeeClient,
+    });
+
+    expect(result).toEqual({ transactionReceipt: fakeBiconomyReceipt });
+
+    expect(mockWaitForSupertransactionReceipt).toHaveBeenCalledWith({
+      hash: fakeInput.hash,
+    });
+
+    expect(fakePublicClient.waitForTransactionReceipt).not.toHaveBeenCalled();
+    expect(waitForSafeWalletTransaction).not.toHaveBeenCalled();
+  });
+
+  it('throws error when meeClient is not provided for biconomy transaction', async () => {
+    await expect(
+      waitForTransaction({
+        ...fakeInput,
+        transactionType: 'biconomy',
+      }),
+    ).rejects.toThrow('somethingWentWrong');
+
+    expect(mockWaitForSupertransactionReceipt).not.toHaveBeenCalled();
+    expect(fakePublicClient.waitForTransactionReceipt).not.toHaveBeenCalled();
+    expect(waitForSafeWalletTransaction).not.toHaveBeenCalled();
+  });
+
+  it('handles biconomy transaction error', async () => {
+    const fakeError = new Error('Biconomy error');
+    mockWaitForSupertransactionReceipt.mockRejectedValue(fakeError);
+
+    await expect(
+      waitForTransaction({
+        ...fakeInput,
+        transactionType: 'biconomy',
+        meeClient: fakeMeeClient,
+      }),
+    ).rejects.toThrow(fakeError);
+
+    expect(mockWaitForSupertransactionReceipt).toHaveBeenCalledWith({
+      hash: fakeInput.hash,
+    });
+
+    expect(fakePublicClient.waitForTransactionReceipt).not.toHaveBeenCalled();
+    expect(waitForSafeWalletTransaction).not.toHaveBeenCalled();
   });
 });

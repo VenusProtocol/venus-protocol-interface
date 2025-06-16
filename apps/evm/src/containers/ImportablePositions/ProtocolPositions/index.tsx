@@ -1,14 +1,15 @@
 import { Icon, InfoIcon } from 'components';
+import type { ProfitableSupplyPosition } from 'hooks/useGetProfitableImports';
 import { useTranslation } from 'libs/translations';
-import { Position, type PositionProps } from './Position';
+import { Position } from './Position';
 
-export interface ImportablePositionsProps {
+export interface ProtocolPositionsProps {
   protocolLogoSrc: string;
   protocolLogoAlt: string;
-  positions: PositionProps[];
+  positions: ProfitableSupplyPosition[];
 }
 
-export const ImportablePositions: React.FC<ImportablePositionsProps> = ({
+export const ProtocolPositions: React.FC<ProtocolPositionsProps> = ({
   protocolLogoSrc,
   protocolLogoAlt,
   positions,
@@ -33,7 +34,10 @@ export const ImportablePositions: React.FC<ImportablePositionsProps> = ({
 
       <div className="space-y-3">
         {positions.map(position => (
-          <Position key={`${protocolLogoAlt}-${position.token.symbol}`} {...position} />
+          <Position
+            key={`${protocolLogoAlt}-${position.asset.vToken.underlyingToken.symbol}`}
+            {...position}
+          />
         ))}
       </div>
     </div>
