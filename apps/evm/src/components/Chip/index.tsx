@@ -43,7 +43,7 @@ export const ProposalTypeChip: React.FC<ProposalTypeChipProps> = ({ proposalType
       proposalType === ProposalType.FAST_TRACK
         ? {
             text: t('chip.proposalType.fastTrack'),
-            iconName: 'lightening',
+            iconName: 'lightning',
           }
         : {
             text: t('chip.proposalType.critical'),
