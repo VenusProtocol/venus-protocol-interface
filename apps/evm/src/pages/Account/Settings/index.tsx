@@ -11,7 +11,7 @@ export const Settings: React.FC = () => {
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
 
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
-  const isGaslessTransactionsUserSettingEnabled = !!userChainSettings?.gaslessTransactions;
+  const isGaslessTransactionsUserSettingEnabled = userChainSettings.gaslessTransactions;
 
   const toggleGaslessTransactions = () =>
     setUserChainSettings({

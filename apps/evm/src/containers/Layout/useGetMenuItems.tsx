@@ -1,10 +1,9 @@
-import { useMemo } from 'react';
-
 import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useShouldDisplayImportUi } from 'hooks/useShouldDisplayImportUi';
 import type { MenuItem } from './types';
 
 const useGetMenuItems = () => {
@@ -16,112 +15,116 @@ const useGetMenuItems = () => {
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const isolatedPoolsRouteEnabled = useIsFeatureEnabled({ name: 'isolatedPools' });
 
-  return useMemo(() => {
-    const menuItems: MenuItem[] = [
-      {
-        to: routes.dashboard.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.dashboard')
-        i18nKey: 'layout.menuItems.dashboard',
-        iconName: 'dashboard',
-      },
-    ];
+  const { shouldDisplayImportUi, importablePositionsCount } = useShouldDisplayImportUi();
 
-    // Insert account page if wallet is connected
-    if (accountAddress) {
-      menuItems.push({
-        to: routes.account.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.account')
-        i18nKey: 'layout.menuItems.account',
-        iconName: 'person',
-      });
-    }
-
-    if (lstPoolComptrollerContractAddress && lstPoolVWstEthContractAddress) {
-      menuItems.push({
-        to: routes.lidoMarket.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.lidoMarket')
-        i18nKey: 'layout.menuItems.lidoMarket',
-        iconName: 'lido',
-      });
-    }
-
-    menuItems.push({
-      to: routes.corePool.path,
+  const menuItems: MenuItem[] = [
+    {
+      to: routes.dashboard.path,
       // Translation key: do not remove this comment
-      // t('layout.menuItems.corePool')
-      i18nKey: 'layout.menuItems.corePool',
-      iconName: 'venus',
-    });
+      // t('layout.menuItems.dashboard')
+      i18nKey: 'layout.menuItems.dashboard',
+      iconName: 'dashboard',
+    },
+  ];
 
-    if (isolatedPoolsRouteEnabled) {
-      menuItems.push({
-        to: routes.isolatedPools.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.isolatedPools')
-        i18nKey: 'layout.menuItems.isolatedPools',
-        iconName: 'fourDots',
-      });
-    }
-
+  // Insert account page if wallet is connected
+  if (accountAddress) {
     menuItems.push({
-      to: routes.vaults.path,
+      to: routes.account.path,
       // Translation key: do not remove this comment
-      // t('layout.menuItems.vaults')
-      i18nKey: 'layout.menuItems.vaults',
-      iconName: 'vault',
+      // t('layout.menuItems.account')
+      i18nKey: 'layout.menuItems.account',
+      iconName: 'person',
     });
+  }
 
-    if (swapRouteEnabled) {
-      menuItems.push({
-        to: routes.swap.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.swap')
-        i18nKey: 'layout.menuItems.swap',
-        iconName: 'convert',
-      });
-    }
-
+  if (lstPoolComptrollerContractAddress && lstPoolVWstEthContractAddress) {
     menuItems.push({
-      to: routes.governance.path,
+      to: routes.lidoMarket.path,
       // Translation key: do not remove this comment
-      // t('layout.menuItems.governance')
-      i18nKey: 'layout.menuItems.governance',
-      iconName: 'market',
+      // t('layout.menuItems.lidoMarket')
+      i18nKey: 'layout.menuItems.lidoMarket',
+      iconName: 'lido',
     });
+  }
 
-    if (vaiRouteEnabled) {
-      menuItems.push({
-        to: routes.vai.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.vai')
-        i18nKey: 'layout.menuItems.vai',
-        iconName: 'vaiOutline',
-      });
-    }
+  menuItems.push({
+    to: routes.corePool.path,
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.corePool')
+    i18nKey: 'layout.menuItems.corePool',
+    iconName: 'venus',
+  });
 
-    if (bridgeRouteEnabled) {
-      menuItems.push({
-        to: routes.bridge.path,
-        // Translation key: do not remove this comment
-        // t('layout.menuItems.bridge')
-        i18nKey: 'layout.menuItems.bridge',
-        iconName: 'bridge',
-      });
-    }
+  if (isolatedPoolsRouteEnabled) {
+    menuItems.push({
+      to: routes.isolatedPools.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.isolatedPools')
+      i18nKey: 'layout.menuItems.isolatedPools',
+      iconName: 'fourDots',
+    });
+  }
 
-    return menuItems;
-  }, [
-    accountAddress,
-    swapRouteEnabled,
-    vaiRouteEnabled,
-    bridgeRouteEnabled,
-    isolatedPoolsRouteEnabled,
-    lstPoolVWstEthContractAddress,
-    lstPoolComptrollerContractAddress,
-  ]);
+  menuItems.push({
+    to: routes.vaults.path,
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.vaults')
+    i18nKey: 'layout.menuItems.vaults',
+    iconName: 'vault',
+  });
+
+  if (swapRouteEnabled) {
+    menuItems.push({
+      to: routes.swap.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.swap')
+      i18nKey: 'layout.menuItems.swap',
+      iconName: 'convert',
+    });
+  }
+
+  menuItems.push({
+    to: routes.governance.path,
+    // Translation key: do not remove this comment
+    // t('layout.menuItems.governance')
+    i18nKey: 'layout.menuItems.governance',
+    iconName: 'market',
+  });
+
+  if (vaiRouteEnabled) {
+    menuItems.push({
+      to: routes.vai.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.vai')
+      i18nKey: 'layout.menuItems.vai',
+      iconName: 'vaiOutline',
+    });
+  }
+
+  if (bridgeRouteEnabled) {
+    menuItems.push({
+      to: routes.bridge.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.bridge')
+      i18nKey: 'layout.menuItems.bridge',
+      iconName: 'bridge',
+    });
+  }
+
+  if (shouldDisplayImportUi) {
+    menuItems.push({
+      to: routes.import.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.import')
+      i18nKey: 'layout.menuItems.import',
+      iconName: 'download',
+      badgeNumber: importablePositionsCount,
+      isNew: true,
+    });
+  }
+
+  return menuItems;
 };
 
 export default useGetMenuItems;
