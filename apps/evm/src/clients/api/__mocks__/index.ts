@@ -590,6 +590,14 @@ export const useGetBurnedWBnb = vi.fn(() =>
   }),
 );
 
+export const getImportablePositions = vi.fn(async () => importablePositions);
+export const useGetImportablePositions = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_IMPORTABLE_POSITIONS],
+    queryFn: getImportablePositions,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
