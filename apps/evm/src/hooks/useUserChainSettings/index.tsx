@@ -1,11 +1,19 @@
 import { useChainId } from 'libs/wallet';
-import { type State, store } from 'store';
+import { type State, type UserChainSettings, store } from 'store';
+
+const defaultUserChainSettings: UserChainSettings = {
+  gaslessTransactions: false,
+  doNotShowImportPositionsModal: false,
+};
 
 export const useUserChainSettings = () => {
   const { chainId } = useChainId();
 
   const userSettings = store.use.userSettings();
-  const userChainSettings = userSettings[chainId];
+  const userChainSettings = {
+    ...defaultUserChainSettings,
+    ...userSettings[chainId],
+  };
 
   const setUserSettings = store.use.setUserSettings();
 

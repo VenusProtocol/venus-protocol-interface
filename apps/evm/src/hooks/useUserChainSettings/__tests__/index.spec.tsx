@@ -31,6 +31,7 @@ describe('useUserChainSettings', () => {
     } = renderHookWithContext(() => useUserChainSettings());
 
     expect(userChainSettings).toEqual({
+      doNotShowImportPositionsModal: false,
       gaslessTransactions: false,
     });
   });
@@ -48,6 +49,7 @@ describe('useUserChainSettings', () => {
 
     expect(store.use.setUserSettings()).toHaveBeenCalledWith({
       settings: {
+        doNotShowImportPositionsModal: false,
         gaslessTransactions: false,
       },
       chainIds: [ChainId.BSC_TESTNET],
