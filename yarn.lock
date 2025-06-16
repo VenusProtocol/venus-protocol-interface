@@ -5535,6 +5535,11 @@
   resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-8.6.14.tgz#02fc8aeab701040744d93b6ef46b9e5727123370"
   integrity sha512-0hixr3dOy3f3M+HBofp3jtMQMS+sqzjKNgl7Arfuj3fvjmyXOks/yGjDImySR4imPtEllvPZfhiQNlejheaInw==
 
+"@storybook/react-dom-shim@9.0.10":
+  version "9.0.10"
+  resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-9.0.10.tgz#17d6d39643c443064636120201ad9485891743ac"
+  integrity sha512-BVDi2/VLHbwR7RE1RkjWfH/DjSZ72Nf30Spu/mah/VbEEizBegc2YQY4jtvWSs78qKlA6qg0S/sxGkoOHag3eQ==
+
 "@storybook/react-vite@8.6.14":
   version "8.6.14"
   resolved "https://registry.yarnpkg.com/@storybook/react-vite/-/react-vite-8.6.14.tgz#3961003737ed1d730692a03df73047fe4d179238"
@@ -5561,6 +5566,14 @@
     "@storybook/preview-api" "8.6.14"
     "@storybook/react-dom-shim" "8.6.14"
     "@storybook/theming" "8.6.14"
+
+"@storybook/react@9.0.10":
+  version "9.0.10"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-9.0.10.tgz#3ea497b66f43f921029e75502625373fe0fac38d"
+  integrity sha512-HbIizzQOnojJ2MLIeqfBr+ytmzzLiQ9z4wfVbqtclpj3JDlfm/6dHwY68SJdgb+m0kgQvHXNlk25YKbvogmWAQ==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+    "@storybook/react-dom-shim" "9.0.10"
 
 "@storybook/test@8.6.14":
   version "8.6.14"
