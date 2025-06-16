@@ -372,15 +372,15 @@
     },
     "infoSection": {
       "1": {
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        "description": "The only venue with real yield boosted APY rates.",
         "title": "Better yields"
       },
       "2": {
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        "title": "Fastest growing protocol"
+        "description": "Join DeFi’s most value generating platform with consistent growth.",
+        "title": "Most capital efficient"
       },
       "3": {
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        "description": "Battle-tested contracts and most audited in lending.",
         "title": "Ultra secure"
       },
       "title": "Why Venus?"
@@ -391,10 +391,10 @@
         "label": "Current APY"
       },
       "importButtonLabel": "Import",
+      "missedYearlyGains": "You are missing out on <Number><Gains /> / year</Number>",
       "newApy": {
         "label": "Venus APY"
-      },
-      "potentialYearlyGains": "You are missing out on <Number>{{potentialYearlyGains}} / year</Number>"
+      }
     },
     "title": "Import to Venus and earn more"
   },
@@ -450,6 +450,7 @@
       "corePool": "Core pool",
       "dashboard": "Dashboard",
       "governance": "Governance",
+      "import": "Import",
       "isolatedPools": "Isolated pools",
       "lidoMarket": "Lido market",
       "swap": "Swap",

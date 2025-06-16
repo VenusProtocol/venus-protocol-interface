@@ -1,13 +1,18 @@
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useShouldDisplayImportUi } from 'hooks/useShouldDisplayImportUi';
+import { useAccountAddress } from 'libs/wallet';
 import { Suspense } from 'react';
-import { Modal } from './Modal';
+import { safeLazyLoad } from 'utilities';
+import { store } from './store';
 
-export const ImportPositionsModal: React.FC = () => {
-  const isImportPositionsFeatureEnabled = useIsFeatureEnabled({
-    name: 'importPositions',
-  });
+const Modal = safeLazyLoad(() => import('./Modal'));
 
-  if (!isImportPositionsFeatureEnabled) {
+const ImportPositionsModal: React.FC = () => {
+  const { accountAddress } = useAccountAddress();
+  const doNotShowAgainFor = store.use.doNotShowAgainFor();
+
+  const { shouldDisplayImportUi } = useShouldDisplayImportUi();
+
+  if (!accountAddress || !shouldDisplayImportUi || doNotShowAgainFor.includes(accountAddress)) {
     return undefined;
   }
 
@@ -17,3 +22,5 @@ export const ImportPositionsModal: React.FC = () => {
     </Suspense>
   );
 };
+
+export default ImportPositionsModal;

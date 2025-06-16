@@ -1,9 +1,9 @@
-import { getPublicClient, getWalletClient } from '@wagmi/core';
+import type { GetFusionQuotePayload, MeeClient } from '@biconomy/abstractjs';
 import fakeAccountAddress from '__mocks__/models/address';
 import { txData } from '__mocks__/models/transactionData';
 import { ChainId } from 'types';
+import type { PublicClient, WalletClient } from 'viem';
 import type { Mock } from 'vitest';
-import type { Config as WagmiConfig } from 'wagmi';
 import { sendTransaction } from '..';
 
 vi.mock('config', async () => {
@@ -21,32 +21,46 @@ const mockWriteContract = vi.fn(() => 'mockTransactionHash');
 
 const mockWalletClient = {
   chain: { id: ChainId.BSC_TESTNET },
+  writeContract: mockWriteContract,
   extend: vi.fn(() => ({
     prepareTransactionRequest: vi.fn(async () => 'mockPreparedTxRequest'),
     signTransaction: vi.fn(async () => 'mockSignedTransaction'),
     sendRawTransaction: vi.fn(async () => 'mockGaslessHash'),
-    writeContract: mockWriteContract,
   })),
-};
+} as unknown as WalletClient;
 
 const mockPublicClient = {
   getTransactionCount: vi.fn(async () => 5),
   estimateGas: vi.fn(async () => 100000n),
-};
+} as unknown as PublicClient;
 
-vi.mock('@wagmi/core', async () => {
-  const actual = await vi.importActual('@wagmi/core');
+const mockMeeClient = {
+  executeFusionQuote: vi.fn(async () => ({ hash: 'mockBiconomyHash' })),
+} as unknown as MeeClient;
 
-  return {
-    ...actual,
-    getPublicClient: vi.fn(() => mockPublicClient),
-    getWalletClient: vi.fn(() => mockWalletClient),
-  };
-});
+const mockFusionQuoteInput = {
+  trigger: {
+    chainId: ChainId.BSC_TESTNET,
+    tokenAddress: '0xmockTokenAddress',
+  },
+  quote: {
+    hash: '0xfakeHash',
+    node: '0xfakeNode',
+    commitment: '0xfakeCommitment',
+    paymentInfo: {
+      sender: '0xfakeSenderAddress',
+      token: '0xfakeTokenAddress',
+      nonce: '1',
+      chainId: `${ChainId.BSC_TESTNET}`,
+      tokenAmount: '1',
+      tokenWeiAmount: '1',
+      tokenValue: '1',
+    },
+    userOps: [],
+  },
+} as unknown as GetFusionQuotePayload;
 
 const GAS_ESTIMATION_FAILED_ERROR = 'Gas estimation failed';
-
-const mockWagmiConfig = {} as WagmiConfig;
 
 describe('sendTransaction', () => {
   // Mocks setup
@@ -81,20 +95,13 @@ describe('sendTransaction', () => {
     const result = await sendTransaction({
       txData,
       gasless: false,
-      wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,
       accountAddress: fakeAccountAddress,
+      walletClient: mockWalletClient,
+      publicClient: mockPublicClient,
     });
 
-    expect(getPublicClient).toHaveBeenCalledWith(mockWagmiConfig, {
-      chainId: ChainId.BSC_TESTNET,
-    });
-    expect(getWalletClient).toHaveBeenCalledWith(mockWagmiConfig, {
-      chainId: ChainId.BSC_TESTNET,
-      account: fakeAccountAddress,
-    });
-
-    expect(mockPublicClient.estimateGas.mock.calls[0]).toMatchInlineSnapshot(`
+    expect((mockPublicClient.estimateGas as Mock).mock.calls[0]).toMatchInlineSnapshot(`
       [
         {
           "account": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
@@ -159,9 +166,10 @@ describe('sendTransaction', () => {
     const result = await sendTransaction({
       txData: customTxData,
       gasless: false,
-      wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,
       accountAddress: fakeAccountAddress,
+      walletClient: mockWalletClient,
+      publicClient: mockPublicClient,
     });
 
     expect(mockWriteContract.mock.calls[0]).toMatchInlineSnapshot(`
@@ -212,9 +220,10 @@ describe('sendTransaction', () => {
     const result = await sendTransaction({
       txData,
       gasless: true,
-      wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,
       accountAddress: fakeAccountAddress,
+      walletClient: mockWalletClient,
+      publicClient: mockPublicClient,
     });
 
     expect((global.fetch as Mock).mock.calls[0]).toMatchSnapshot();
@@ -230,9 +239,10 @@ describe('sendTransaction', () => {
     const result = await sendTransaction({
       txData: customTxData,
       gasless: true,
-      wagmiConfig: mockWagmiConfig,
       chainId: ChainId.BSC_TESTNET,
       accountAddress: fakeAccountAddress,
+      walletClient: mockWalletClient,
+      publicClient: mockPublicClient,
     });
 
     expect((global.fetch as Mock).mock.calls[0]).toMatchSnapshot();
@@ -251,9 +261,10 @@ describe('sendTransaction', () => {
       sendTransaction({
         txData,
         gasless: true,
-        wagmiConfig: mockWagmiConfig,
         chainId: ChainId.BSC_TESTNET,
         accountAddress: fakeAccountAddress,
+        walletClient: mockWalletClient,
+        publicClient: mockPublicClient,
       }),
     ).rejects.toThrow(
       expect.objectContaining({
@@ -274,14 +285,43 @@ describe('sendTransaction', () => {
       sendTransaction({
         txData,
         gasless: true,
-        wagmiConfig: mockWagmiConfig,
         chainId: ChainId.BSC_TESTNET,
         accountAddress: fakeAccountAddress,
+        walletClient: mockWalletClient,
+        publicClient: mockPublicClient,
       }),
     ).rejects.toThrow(
       expect.objectContaining({
         code: 'gaslessTransactionNotAvailable',
       }),
     );
+  });
+
+  it('sends biconomy transaction successfully', async () => {
+    const result = await sendTransaction({
+      txData: mockFusionQuoteInput,
+      meeClient: mockMeeClient,
+    });
+
+    expect(mockMeeClient.executeFusionQuote).toHaveBeenCalledWith({
+      fusionQuote: mockFusionQuoteInput,
+    });
+    expect(result).toMatchInlineSnapshot(`
+      {
+        "transactionHash": "mockBiconomyHash",
+      }
+    `);
+  });
+
+  it('handles biconomy transaction execution error', async () => {
+    const error = new Error('Biconomy execution failed');
+    (mockMeeClient.executeFusionQuote as Mock).mockRejectedValueOnce(error);
+
+    await expect(
+      sendTransaction({
+        txData: mockFusionQuoteInput,
+        meeClient: mockMeeClient,
+      }),
+    ).rejects.toThrow('Biconomy execution failed');
   });
 });

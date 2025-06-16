@@ -9,3 +9,4 @@ export * from './hooks/useChainId';
 export * from './hooks/useAuthModal';
 export * from './hooks/useAddTokenToWallet';
 export * from './hooks/usePublicClient';
+export * from './hooks/useMeeClient';
