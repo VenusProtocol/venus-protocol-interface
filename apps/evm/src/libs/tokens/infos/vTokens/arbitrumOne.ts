@@ -1,6 +1,5 @@
 import vArbCoreLogo from 'libs/tokens/img/vTokens/vArbLsEth.svg';
 import vUsdcCoreLogo from 'libs/tokens/img/vTokens/vUsdcCore.svg';
-import vUsdtCoreLogo from 'libs/tokens/img/vTokens/vUsdtCore.svg';
 import vWBtcCoreLogo from 'libs/tokens/img/vTokens/vWBtcCore.svg';
 import vWEthCoreLogo from 'libs/tokens/img/vTokens/vWethCore.svg';
 
@@ -18,7 +17,6 @@ export const vTokenAssets: VTokenAssets = {
   [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vWBTC_Core.toLowerCase()]: vWBtcCoreLogo,
   [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vWETH_Core.toLowerCase()]: vWEthCoreLogo,
   [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vUSDC_Core.toLowerCase()]: vUsdcCoreLogo,
-  [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vUSDT_Core.toLowerCase()]: vUsdtCoreLogo,
 
   // LS ETH
   [isolatedPoolsArbitrumOneDeployments.addresses.VToken_vWETH_LiquidStakedETH.toLowerCase()]:
