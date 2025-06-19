@@ -2,7 +2,7 @@ import arbLogo from 'libs/tokens/img/underlyingTokens/arb.svg';
 import gmBtcUsdcLogo from 'libs/tokens/img/underlyingTokens/gmBtcUsdc.svg';
 import gmWEthUsdcLogo from 'libs/tokens/img/underlyingTokens/gmWEthUsdc.svg';
 import usdcLogo from 'libs/tokens/img/underlyingTokens/usdc.svg';
-import usdtLogo from 'libs/tokens/img/underlyingTokens/usdt.svg';
+import usdt0Logo from 'libs/tokens/img/underlyingTokens/usdt0.svg';
 import wbtcLogo from 'libs/tokens/img/underlyingTokens/wbtc.svg';
 import weEthLogo from 'libs/tokens/img/underlyingTokens/weEth.svg';
 import wethLogo from 'libs/tokens/img/underlyingTokens/weth.svg';
@@ -41,8 +41,8 @@ export const tokens: Token[] = [
   {
     address: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
     decimals: 6,
-    symbol: 'USDT',
-    asset: usdtLogo,
+    symbol: 'USD₮0',
+    asset: usdt0Logo,
   },
   {
     address: '0xc1Eb7689147C81aC840d4FF0D298489fc7986d52',
