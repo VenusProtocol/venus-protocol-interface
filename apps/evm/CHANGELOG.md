@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.12.0
+
+### Minor Changes
+
+- e474ad7: renamed USDT to USD₮0 in Arbitrum
+
 ## 3.11.0
 
 ### Minor Changes
