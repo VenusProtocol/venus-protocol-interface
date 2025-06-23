@@ -8,7 +8,7 @@ import { safeJsonParse } from './safeJsonParse';
 export enum ErrorCode {
   ACTION_ADDRESS_NOT_VALID = 'ACTION_ADDRESS_NOT_VALID', // value must be a valid address
   VALUE_REQUIRED = 'VALUE_REQUIRED', // value required
-  SIGNATURE_NOT_VALID = 'SIGNATURE_NOT_VALID', // must be formated and arguments need to be valid solidity types
+  SIGNATURE_NOT_VALID = 'SIGNATURE_NOT_VALID', // must be formatted and arguments need to be valid solidity types
   CALL_DATA_ARGUMENT_INVALID = 'CALL_DATA_ARGUMENT_INVALID,',
 }
 
