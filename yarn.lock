@@ -2469,9 +2469,9 @@
     tslib "~2.6.0"
 
 "@graphql-codegen/typed-document-node@^5.0.0", "@graphql-codegen/typed-document-node@^5.0.12", "@graphql-codegen/typed-document-node@^5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typed-document-node/-/typed-document-node-5.1.1.tgz#454f2cd717c895d1471807d0731af03f48d9dd51"
-  integrity sha512-Bp/BrMZDKRwzuVeLv+pSljneqONM7gqu57ZaV34Jbncu2hZWMRDMfizTKghoEwwZbRCYYfJO9tA0sYVVIfI1kg==
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typed-document-node/-/typed-document-node-5.1.2.tgz#a1a3da2d9fe1847831ada6e41e09c5bb81dd6b3c"
+  integrity sha512-jaxfViDqFRbNQmfKwUY8hDyjnLTw2Z7DhGutxoOiiAI0gE/LfPe0LYaVFKVmVOOD7M3bWxoWfu4slrkbWbUbEw==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^5.1.0"
     "@graphql-codegen/visitor-plugin-common" "5.8.0"
