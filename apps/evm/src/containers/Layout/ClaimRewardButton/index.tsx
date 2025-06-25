@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
 import { type Claim, useClaimRewards } from 'clients/api';
-import { type ButtonProps, Modal, PrimaryButton } from 'components';
+import { type ButtonProps, Icon, Modal, PrimaryButton } from 'components';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
@@ -83,6 +83,10 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
     </div>
   );
 
+  const readableClaimableRewards = formatCentsToReadableValue({
+    value: totalRewardsCents,
+  });
+
   return (
     <>
       <PrimaryButton
@@ -90,16 +94,17 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
         onClick={onOpenModal}
         className={cn(
           className,
+          'px-4',
           variant === 'secondary' &&
             'border-transparent bg-offWhite text-background hover:border-transparent hover:bg-grey active:bg-grey active:border-transparent',
         )}
         {...otherButtonProps}
       >
-        {t('claimReward.openModalButton.label', {
-          rewardAmount: formatCentsToReadableValue({
-            value: totalRewardsCents,
-          }),
-        })}
+        <div className="flex items-center gap-x-1">
+          <Icon name="star" className="w-5 h-5 text-inherit" />
+
+          <span>{readableClaimableRewards}</span>
+        </div>
       </PrimaryButton>
 
       <Modal

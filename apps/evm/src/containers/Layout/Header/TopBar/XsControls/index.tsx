@@ -8,6 +8,7 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
+import { BurnedWBnbButton } from 'containers/Layout/BurnedWBnbButton';
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import useGetMenuItems from 'containers/Layout/useGetMenuItems';
@@ -43,8 +44,11 @@ export const XsControls: React.FC = () => {
 
         <div className="flex flex-1 items-center justify-center gap-4">
           <ChainSelect
-            buttonClassName="h-9"
             variant={isOnMarketPage && !isMobileMenuOpened ? 'tertiary' : 'primary'}
+            buttonClassName={cn(
+              'h-9',
+              isOnMarketPage && 'bg-background/40 hover:bg-background/40 active:bg-background/40',
+            )}
           />
 
           <ConnectButton
@@ -80,11 +84,10 @@ export const XsControls: React.FC = () => {
           ))}
         </div>
 
-        <div className="px-4">
-          <ClaimRewardButton
-            className="w-full"
-            variant={isOnMarketPage && !isMobileMenuOpened ? 'secondary' : 'primary'}
-          />
+        <div className="px-6 space-y-6">
+          <ClaimRewardButton className="w-full" />
+
+          <BurnedWBnbButton className="w-full" />
         </div>
       </div>
     </div>

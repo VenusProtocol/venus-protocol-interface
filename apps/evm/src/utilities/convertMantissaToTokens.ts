@@ -7,6 +7,7 @@ export interface ConvertMantissaToTokensInput<TToken extends Token | VToken | un
   token: TToken | undefined;
   returnInReadableFormat?: boolean;
   addSymbol?: boolean;
+  maxDecimalPlaces?: number;
 }
 
 export function convertMantissaToTokens(input: ConvertMantissaToTokensInput<undefined>): undefined;
@@ -22,6 +23,7 @@ export function convertMantissaToTokens({
   token,
   returnInReadableFormat = false,
   addSymbol = true,
+  maxDecimalPlaces,
 }: ConvertMantissaToTokensInput<Token | VToken | undefined>): undefined | string | BigNumber {
   if (token === undefined) {
     return undefined;
@@ -36,6 +38,7 @@ export function convertMantissaToTokens({
       value: valueTokens,
       token,
       addSymbol,
+      maxDecimalPlaces,
     });
   }
 
