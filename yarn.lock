@@ -1427,9 +1427,9 @@
   integrity sha512-fTBW9/8r2w3dXWYM4HCB1Rdp8NLibOw2+XELH5m5+AkWiL/KqYX6dc0kKYlaYyKjrQ6ds33MCdMPEwgs2z1rqg==
 
 "@emotion/styled@^11.0.0", "@emotion/styled@^11.11.0":
-  version "11.14.0"
-  resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-11.14.0.tgz#f47ca7219b1a295186d7661583376fcea95f0ff3"
-  integrity sha512-XxfOnXFffatap2IyCeJyNov3kiDQWoR08gPUQxvbL7fxKryGBKUZUkG6Hz48DZwVrJSVh9sJboyV1Ds4OW6SgA==
+  version "11.14.1"
+  resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-11.14.1.tgz#8c34bed2948e83e1980370305614c20955aacd1c"
+  integrity sha512-qEEJt42DuToa3gurlH4Qqc1kVpNq8wO8cJtDzU46TjlzWjDlsVyevtYCRijVq3SrHsROS+gVQ8Fnea108GnKzw==
   dependencies:
     "@babel/runtime" "^7.18.3"
     "@emotion/babel-plugin" "^11.13.5"
@@ -5970,9 +5970,9 @@
   integrity sha512-s2cfwagOQAS8o06TcwKfr9Wx11dNGbH2E9vJz1cqV+a/LOyhWNLUNd6JSRYNzvB4d29UuJX2M0Dj9vE1T8fRXw==
 
 "@types/lodash@^4.14.197", "@types/lodash@^4.14.53":
-  version "4.17.18"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.18.tgz#4710e7db5b3857103764bf7b7b666414e6141baf"
-  integrity sha512-KJ65INaxqxmU6EoCiJmRPZC9H9RVWCRd349tXM2M3O5NA7cY6YL7c0bHAHQ93NOfTObEQ004kd2QVHs/r0+m4g==
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.19.tgz#de18c90b7891f00fed7c1273495a2f851efd99c4"
+  integrity sha512-NYqRyg/hIQrYPT9lbOeYc3kIRabJDn/k4qQHIXUpx88CBDww2fD15Sg5kbXlW86zm2XEW4g0QxkTI3/Kfkc7xQ==
 
 "@types/lru-cache@^5.1.0":
   version "5.1.1"
