@@ -1,3 +1,4 @@
+import { cn } from '@venusprotocol/ui';
 import { type InputHTMLAttributes, useMemo, useState } from 'react';
 
 import { useGetPools } from 'clients/api';
@@ -58,10 +59,19 @@ const Dashboard: React.FC = () => {
           content: t('dashboard.allTag'),
         },
       ].concat(
-        pools.map(pool => ({
-          id: pool.comptrollerAddress,
-          content: pool.name,
-        })),
+        pools.map(pool => {
+          const isPaused = pool.assets.every(asset =>
+            isAssetPaused({
+              disabledTokenActions: asset.disabledTokenActions,
+            }),
+          );
+
+          return {
+            id: pool.comptrollerAddress,
+            content: pool.name,
+            className: cn(isPaused && 'text-grey'),
+          };
+        }),
       ),
     [pools, t],
   );
