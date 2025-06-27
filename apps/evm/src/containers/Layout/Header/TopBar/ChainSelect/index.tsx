@@ -54,7 +54,7 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
       value={chainId}
       onChange={newChainId => switchChain({ chainId: Number(newChainId) })}
       options={getOptions({
-        isGaslessTransactionsSettingEnabled: !!userChainSettings?.gaslessTransactions,
+        isGaslessTransactionsSettingEnabled: userChainSettings.gaslessTransactions,
       })}
       menuPosition="right"
       menuTitle={t('layout.chainSelect.label')}

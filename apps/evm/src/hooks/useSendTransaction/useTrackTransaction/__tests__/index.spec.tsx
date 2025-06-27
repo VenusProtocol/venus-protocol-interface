@@ -72,9 +72,11 @@ describe('useTrackTransaction', () => {
       chainId: ChainId.BSC_TESTNET,
       confirmations: CONFIRMATIONS,
       hash: fakeContractTransaction.hash,
-      isSafeWalletTransaction: false,
+      isRunningInSafeApp: false,
       publicClient: undefined,
       timeoutMs: 180000,
+      meeClient: undefined,
+      transactionType: 'chain',
     });
 
     // Check notification was updated
@@ -135,9 +137,11 @@ describe('useTrackTransaction', () => {
         chainId: ChainId.BSC_TESTNET,
         confirmations: CONFIRMATIONS,
         hash: fakeContractTransaction.hash,
-        isSafeWalletTransaction: false,
+        isRunningInSafeApp: false,
         publicClient: undefined,
         timeoutMs: 180000,
+        meeClient: undefined,
+        transactionType: 'chain',
       });
 
       // Test check functions were called
@@ -194,9 +198,11 @@ describe('useTrackTransaction', () => {
       chainId: ChainId.BSC_TESTNET,
       confirmations: CONFIRMATIONS,
       hash: fakeContractTransaction.hash,
-      isSafeWalletTransaction: false,
+      isRunningInSafeApp: false,
       publicClient: undefined,
       timeoutMs: 180000,
+      meeClient: undefined,
+      transactionType: 'chain',
     });
 
     // Check notification was updated
@@ -245,9 +251,11 @@ describe('useTrackTransaction', () => {
       chainId: ChainId.BSC_TESTNET,
       confirmations: CONFIRMATIONS,
       hash: fakeContractTransaction.hash,
-      isSafeWalletTransaction: false,
+      isRunningInSafeApp: false,
       publicClient: undefined,
       timeoutMs: 180000,
+      meeClient: undefined,
+      transactionType: 'chain',
     });
 
     // Check notification was updated

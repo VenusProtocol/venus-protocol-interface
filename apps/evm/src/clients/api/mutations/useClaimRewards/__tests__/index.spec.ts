@@ -13,7 +13,7 @@ vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 
 vi.mock('viem', () => ({
-  ...vi.importActual('react-router'),
+  ...vi.importActual('viem'),
   encodeFunctionData: vi.fn(() => '0x01'),
 }));
 

@@ -23,6 +23,7 @@ describe('store', () => {
       store.getState().setUserSettings({
         settings: {
           gaslessTransactions: false,
+          doNotShowImportPositionsModal: true,
         },
         chainIds: [ChainId.BSC_TESTNET, ChainId.ARBITRUM_SEPOLIA],
       });
