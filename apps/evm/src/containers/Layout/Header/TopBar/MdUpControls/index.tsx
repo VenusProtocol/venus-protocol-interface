@@ -5,6 +5,7 @@ import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 import { ChainSelect } from '../ChainSelect';
 import { GaslessStatus } from '../GaslessStatus';
+import { SwapButton } from './SwapButton';
 
 export const MdUpControls: React.FC = () => {
   const isOnMarketPage = useIsOnMarketPage();
@@ -12,6 +13,8 @@ export const MdUpControls: React.FC = () => {
 
   return (
     <div className="hidden md:flex md:h-12 md:items-center md:space-x-4 md:pl-6">
+      <SwapButton />
+
       <ClaimRewardButton
         variant={isOnMarketPage ? 'secondary' : 'primary'}
         className="flex-none md:whitespace-nowrap"
