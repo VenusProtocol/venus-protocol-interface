@@ -1,11 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import {
-  bnbChainMainnetMaxwellForkTimestamp,
-  bnbChainTestnetMaxwellForkTimestamp,
-} from '@venusprotocol/chains';
 import { Analytics } from '@vercel/analytics/react';
 import { queryClient } from 'clients/api';
-import config from 'config';
 import { MAIN_PRODUCTION_HOST } from 'constants/production';
 import { ImportPositionsModal } from 'containers/ImportPositionsModal';
 import { ErrorBoundary } from 'libs/errors';
@@ -15,7 +10,6 @@ import { Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { HashRouter } from 'react-router';
 import { safeLazyLoad } from 'utilities';
-import { ChainUpgradeHandler } from './ChainUpgradeHandler';
 import { MuiThemeProvider } from './MuiThemeProvider';
 import Routes from './Routes';
 import { ThemeHandler } from './ThemeHandler';
@@ -67,14 +61,6 @@ const App = () => (
               </Suspense>
 
               <ThemeHandler />
-
-              <ChainUpgradeHandler
-                upgradeTimestamps={[
-                  config.network === 'testnet'
-                    ? bnbChainTestnetMaxwellForkTimestamp
-                    : bnbChainMainnetMaxwellForkTimestamp,
-                ]}
-              />
 
               <SentryErrorInfo />
 

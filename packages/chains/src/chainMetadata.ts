@@ -28,13 +28,6 @@ const eth: Token = {
   isNative: true,
 };
 
-export const bnbChainTestnetMaxwellForkTimestamp = new Date('2025-05-26 07:05:00 AM UTC');
-export const bnbChainMainnetMaxwellForkTimestamp = new Date('2025-06-30 02:30:00 AM UTC');
-
-const now = new Date();
-const isPassedBnbChainTestnetMaxwellFork = now >= bnbChainTestnetMaxwellForkTimestamp;
-const isPassedBnbChainMainnetMaxwellFork = now >= bnbChainMainnetMaxwellForkTimestamp;
-
 export const chainMetadata: {
   [chainId in ChainId]: ChainMetadata;
 } = {
@@ -44,8 +37,8 @@ export const chainMetadata: {
     explorerUrl: 'https://bscscan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-bsc.safe.global',
-    blockTimeMs: isPassedBnbChainMainnetMaxwellFork ? 750 : 1500,
-    blocksPerDay: isPassedBnbChainMainnetMaxwellFork ? 115200 : 57600,
+    blockTimeMs: 750,
+    blocksPerDay: 115200,
     corePoolComptrollerContractAddress: '0xfD36E2c2a6789Db23113685031d7F16329158384',
     nativeToken: bnb,
   },
@@ -54,8 +47,8 @@ export const chainMetadata: {
     logoSrc: bscLogo,
     explorerUrl: 'https://testnet.bscscan.com',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    blockTimeMs: isPassedBnbChainTestnetMaxwellFork ? 750 : 1500,
-    blocksPerDay: isPassedBnbChainTestnetMaxwellFork ? 115200 : 57600,
+    blockTimeMs: 750,
+    blocksPerDay: 115200,
     corePoolComptrollerContractAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
     nativeToken: bnb,
   },
