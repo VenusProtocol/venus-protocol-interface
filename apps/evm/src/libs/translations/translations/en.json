@@ -236,6 +236,9 @@
       "label": "Wallet balance"
     }
   },
+  "burnedBnbButton": {
+    "iconAlt": "Burned BNB icon"
+  },
   "chainExplorerLink": {
     "content": "View on {{domainName}}"
   },
@@ -258,7 +261,7 @@
         "name": "Prime"
       },
       "rewards": "Rewards",
-      "title": "Claim reward ({{chainName}})",
+      "title": "Claim rewards ({{chainName}})",
       "vaultGroup": {
         "disabledContractWarningMessage": "This vault is currently paused. Interest rates are still accruing but can't be claimed until the vault is unpaused.",
         "name": "{{stakedTokenSymbol}} vault"
@@ -266,9 +269,6 @@
       "vestingVaultGroup": {
         "name": "{{stakedTokenSymbol}} vesting vault"
       }
-    },
-    "openModalButton": {
-      "label": "Claim {{rewardAmount}}"
     }
   },
   "connectButton": {

@@ -10,9 +10,9 @@ const getSmartDecimalPlaces = ({
   const fixedValue =
     // Trim zeros
     Number.parseFloat(
-      maxDecimalPlaces
+      typeof maxDecimalPlaces === 'number'
         ? // Trim decimals according to maxDecimalPlaces value
-          value.toFixed(maxDecimalPlaces)
+          value.toFixed(maxDecimalPlaces ?? 0)
         : value.toFixed(),
     ).toString();
 

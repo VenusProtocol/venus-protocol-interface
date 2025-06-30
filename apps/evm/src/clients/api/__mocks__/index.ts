@@ -561,6 +561,16 @@ export const getXvsVaultPendingWithdrawalsBalance = vi.fn(async () => ({
   balanceMantissa: 0,
 }));
 
+export const getBurnedWBnb = vi.fn(async () => ({
+  burnedWBnbMantissa: 10000000000000000000000n,
+}));
+export const useGetBurnedWBnb = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_BURNED_BNB],
+    queryFn: getBurnedWBnb,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

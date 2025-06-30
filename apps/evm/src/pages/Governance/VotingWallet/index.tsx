@@ -20,7 +20,6 @@ import {
   TokenIcon,
 } from 'components';
 import { routes } from 'constants/routing';
-import { XVS_SNAPSHOT_URL } from 'constants/xvsSnapshotUrl';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
@@ -32,6 +31,8 @@ import config from 'config';
 import { NULL_ADDRESS } from 'constants/address';
 import DelegateModal from './DelegateModal';
 import TEST_IDS from './testIds';
+
+const XVS_SNAPSHOT_URL = 'https://snapshot.org/#/venus-xvs.eth';
 
 export interface VotingWalletProps {
   className?: string;
