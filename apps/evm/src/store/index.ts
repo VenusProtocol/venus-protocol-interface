@@ -5,11 +5,13 @@ import { persist } from 'zustand/middleware';
 import { ChainId } from 'types';
 import { createStoreSelectors, extractEnumValues } from 'utilities';
 
-interface UserChainSettings {
+export interface UserChainSettings {
   gaslessTransactions: boolean;
+  showPausedAssets: boolean;
+  showUserAssetsOnly: boolean;
 }
 
-type UserSettings = Partial<Record<ChainId, UserChainSettings>>;
+type UserSettings = Partial<Record<ChainId, Partial<UserChainSettings>>>;
 
 export interface State {
   userSettings: UserSettings;
@@ -36,25 +38,22 @@ const useStore = create<State>()(
     set => ({
       userSettings: initialUserSettings,
       setUserSettings: ({ settings, chainIds = allChainIds }) =>
-        set(state => {
-          const newUserSettings = chainIds.reduce<Partial<UserChainSettings>>(
-            (acc, chainId) => ({
-              ...acc,
-              [chainId]: {
-                ...settings,
-              },
-            }),
-            {},
-          );
-
-          return {
-            ...state,
-            userSettings: {
-              ...state.userSettings,
-              ...newUserSettings,
-            },
-          };
-        }),
+        set(state => ({
+          ...state,
+          userSettings: {
+            ...state.userSettings,
+            ...chainIds.reduce<Partial<UserChainSettings>>(
+              (acc, chainId) => ({
+                ...acc,
+                [chainId]: {
+                  ...state.userSettings[chainId],
+                  ...settings,
+                },
+              }),
+              {},
+            ),
+          },
+        })),
     }),
     {
       name: 'venus-global-store',
