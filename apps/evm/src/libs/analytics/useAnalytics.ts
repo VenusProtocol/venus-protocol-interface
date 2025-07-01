@@ -1,4 +1,6 @@
 import { track } from '@vercel/analytics/react';
+import type { ImportableProtocol } from 'types';
+import type { Address } from 'viem';
 
 export type AnalyticEventName =
   | 'Tokens supplied'
@@ -19,7 +21,12 @@ export type AnalyticEventName =
   | 'Prime reward claimed'
   | 'VAI vault reward claimed'
   | 'XVS vesting vault reward claimed'
-  | 'Vote cast';
+  | 'Vote cast'
+  | 'Import positions modal displayed'
+  | 'Import positions modal closed'
+  | 'Position import initiated'
+  | 'Position import failed'
+  | 'Position imported';
 
 export type AnalyticEventProps<TEventName extends AnalyticEventName> =
   TEventName extends 'Tokens supplied'
@@ -125,7 +132,37 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
                                     }
                                   : TEventName extends 'Vote cast'
                                     ? { proposalId: number; voteType: string }
-                                    : undefined;
+                                    : TEventName extends 'Position import initiated'
+                                      ? {
+                                          fromProtocol: ImportableProtocol;
+                                          fromTokenSymbol: string;
+                                          fromTokenAmountTokens: number;
+                                          fromTokenAmountDollars: number;
+                                          fromTokenApyPercentage: number;
+                                          toVTokenAddress: Address;
+                                          toTokenApyPercentage: number;
+                                        }
+                                      : TEventName extends 'Position import failed'
+                                        ? {
+                                            fromProtocol: ImportableProtocol;
+                                            fromTokenSymbol: string;
+                                            fromTokenAmountTokens: number;
+                                            fromTokenAmountDollars: number;
+                                            fromTokenApyPercentage: number;
+                                            toVTokenAddress: Address;
+                                            toTokenApyPercentage: number;
+                                          }
+                                        : TEventName extends 'Position imported'
+                                          ? {
+                                              fromProtocol: ImportableProtocol;
+                                              fromTokenSymbol: string;
+                                              fromTokenAmountTokens: number;
+                                              fromTokenAmountDollars: number;
+                                              fromTokenApyPercentage: number;
+                                              toVTokenAddress: Address;
+                                              toTokenApyPercentage: number;
+                                            }
+                                          : undefined;
 
 export const useAnalytics = () => {
   function captureAnalyticEvent<TEventName extends AnalyticEventName>(

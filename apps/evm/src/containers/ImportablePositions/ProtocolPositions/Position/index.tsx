@@ -8,6 +8,8 @@ import {
   useGetProfitableImports,
 } from 'hooks/useGetProfitableImports';
 import { useNavigate } from 'hooks/useNavigate';
+import { useAnalytics } from 'libs/analytics';
+import { logError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import {
   calculateYearlyInterests,
@@ -27,15 +29,39 @@ export const Position: React.FC<PropositionProps> = ({
   supplyPosition,
 }) => {
   const { t, Trans } = useTranslation();
-
   const { navigate } = useNavigate();
+  const { captureAnalyticEvent } = useAnalytics();
 
   const { importablePositionsCount } = useGetProfitableImports();
+
+  const combinedDistributionApys = getCombinedDistributionApys({ asset });
+  const supplyApyPercentage = asset.supplyApyPercentage.plus(
+    combinedDistributionApys.totalSupplyApyBoostPercentage,
+  );
+  const apyDelta = supplyApyPercentage.minus(currentSupplyApyPercentage);
+  const supplyBalanceCents = userSupplyBalanceTokens.multipliedBy(asset.tokenPriceCents);
+
+  const analyticProps = {
+    fromProtocol: supplyPosition.protocol,
+    fromTokenSymbol: asset.vToken.underlyingToken.symbol,
+    fromTokenAmountTokens: userSupplyBalanceTokens.toNumber(),
+    fromTokenAmountDollars: supplyBalanceCents.dividedBy(100).toNumber(),
+    fromTokenApyPercentage: supplyPosition.supplyApyPercentage,
+    toVTokenAddress: asset.vToken.address,
+    toTokenApyPercentage: currentSupplyApyPercentage,
+  };
 
   const { mutateAsync: importSupplyPosition, isPending: isImportSupplyPositionLoading } =
     useImportSupplyPosition({
       waitForConfirmation: true,
+      onError: error => {
+        captureAnalyticEvent('Position import failed', analyticProps);
+
+        logError(error);
+      },
       onConfirmed: () => {
+        captureAnalyticEvent('Position imported', analyticProps);
+
         // Redirect to Account page if this was the last importable position
         if (importablePositionsCount === 1) {
           navigate(routes.account.path);
@@ -49,12 +75,6 @@ export const Position: React.FC<PropositionProps> = ({
     addSymbol: true,
   });
 
-  const combinedDistributionApys = getCombinedDistributionApys({ asset });
-  const supplyApyPercentage = asset.supplyApyPercentage.plus(
-    combinedDistributionApys.totalSupplyApyBoostPercentage,
-  );
-  const apyDelta = supplyApyPercentage.minus(currentSupplyApyPercentage);
-  const supplyBalanceCents = userSupplyBalanceTokens.multipliedBy(asset.tokenPriceCents);
   const missedYearlyGainsCents = calculateYearlyInterests({
     balance: supplyBalanceCents,
     interestPercentage: apyDelta,
@@ -66,11 +86,14 @@ export const Position: React.FC<PropositionProps> = ({
 
   const readableCurrentApy = formatPercentageToReadableValue(currentSupplyApyPercentage);
 
-  const handleImport = () =>
+  const handleImport = () => {
     importSupplyPosition({
       position: supplyPosition,
       vToken: asset.vToken,
     });
+
+    captureAnalyticEvent('Position import initiated', analyticProps);
+  };
 
   const importButtonClassName = cn('px-5 h-8 py-0 text-sm');
 

@@ -1,23 +1,27 @@
 import { Modal as ModalComp } from 'components';
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 
 import ImportablePositions from 'containers/ImportablePositions';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
-import { useAccountAddress } from 'libs/wallet';
+import { useEffect } from 'react';
 
 const Modal: React.FC = () => {
   const { t } = useTranslation();
-  const { accountAddress } = useAccountAddress();
+  const { captureAnalyticEvent } = useAnalytics();
   const [_, setUserChainSettings] = useUserChainSettings();
 
-  if (!accountAddress) {
-    return undefined;
-  }
+  useEffect(() => {
+    captureAnalyticEvent('Import positions modal displayed', undefined);
+  }, [captureAnalyticEvent]);
 
-  const handleClose = () =>
+  const handleClose = () => {
     setUserChainSettings({
       doNotShowImportPositionsModal: true,
     });
+
+    captureAnalyticEvent('Import positions modal closed', undefined);
+  };
 
   return (
     <ModalComp

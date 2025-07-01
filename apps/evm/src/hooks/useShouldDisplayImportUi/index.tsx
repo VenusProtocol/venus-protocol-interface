@@ -7,8 +7,6 @@ export const useShouldDisplayImportUi = () => {
   const { data: getMeeClientData } = useMeeClient();
   const isMeeClientInitialized = !!getMeeClientData;
 
-  console.log(getMeeClientData);
-
   const shouldDisplayImportUi = isMeeClientInitialized && importablePositionsCount > 0;
 
   return { shouldDisplayImportUi, importablePositionsCount };
