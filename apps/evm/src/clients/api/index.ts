@@ -219,3 +219,6 @@ export * from './queries/getBurnedWBnb/useGetBurnedWBnb';
 
 export * from './queries/getImportablePositions';
 export * from './queries/getImportablePositions/useGetImportablePositions';
+
+export * from './queries/getBurnedWBnb';
+export * from './queries/getBurnedWBnb/useGetBurnedWBnb';
