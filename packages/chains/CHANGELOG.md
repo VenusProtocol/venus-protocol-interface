@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.5.1
+
+### Patch Changes
+
+- 0a11f7f: remove code related to Maxwell Hardfork
+
 ## 0.5.0
 
 ### Minor Changes

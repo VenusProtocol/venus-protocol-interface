@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 3.13.0
+
+### Minor Changes
+
+- 43502d0: add Alchemy RPC to all mainnet chains
+
+### Patch Changes
+
+- 837cd2b: ugrade Wagmi to latest version
+- Updated dependencies [0a11f7f]
+  - @venusprotocol/chains@0.5.1
+
 ## 3.12.0
 
 ### Minor Changes
