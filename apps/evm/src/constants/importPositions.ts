@@ -1,0 +1,2 @@
+export const MIN_POSITION_SUPPLY_BALANCE_CENTS = 1000n; // 10 dollars
+export const MAX_POSITION_SUPPLY_BALANCE_CENTS = 1000000n; // 10 000 dollars

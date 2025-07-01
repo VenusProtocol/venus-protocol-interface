@@ -4,7 +4,7 @@ import { useGetProfitableImports } from 'hooks/useGetProfitableImports';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import { Infos } from './Infos';
-// import { Notice } from './Notice';
+import { Notice } from './Notice';
 import { ProtocolPositions } from './ProtocolPositions';
 import aaveLogoSrc from './aaveLogo.svg';
 
@@ -53,7 +53,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
         </AccordionAnimatedContent>
       </button>
 
-      {/* <Notice /> */}
+      <Notice />
 
       {importablePositionsDom}
     </div>
@@ -82,7 +82,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
 
   const mdUpDom = (
     <div className="hidden space-y-4 flex-col md:flex">
-      {/* <Notice className="shrink-0" /> */}
+      <Notice className="shrink-0" />
 
       {wrapInCard ? <Card asChild>{mdUpContentDom}</Card> : mdUpContentDom}
     </div>

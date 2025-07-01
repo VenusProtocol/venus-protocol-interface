@@ -112,6 +112,8 @@ const useGetMenuItems = () => {
     });
   }
 
+  console.log(shouldDisplayImportUi);
+
   if (shouldDisplayImportUi) {
     menuItems.push({
       to: routes.import.path,

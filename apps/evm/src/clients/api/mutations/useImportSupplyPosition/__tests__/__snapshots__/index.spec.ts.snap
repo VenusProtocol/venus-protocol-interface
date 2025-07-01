@@ -86,8 +86,8 @@ exports[`useImportSupplyPosition > returns a Fusion quote on success 6`] = `
       ],
       "sponsorship": true,
       "trigger": {
-        "amount": 2000000000000000000000000000n,
-        "approvalAmount": 4004000000000000000000000000n,
+        "amount": 20000000000000000000n,
+        "approvalAmount": 24024000000000000000n,
         "chainId": 97,
         "gasLimit": 500000n,
         "tokenAddress": "0xfakeAXVSAddress",
@@ -149,9 +149,9 @@ exports[`useImportSupplyPosition > returns a Fusion quote on success 8`] = `
           "protocol": "aave",
           "supplyApyPercentage": 99.99,
           "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-          "userATokenBalanceMantissa": 2000000000000000000000000000n,
-          "userATokenBalanceWithInterestsMantissa": 4000000000000000000000000000n,
-          "userSupplyBalanceMantissa": 4000000000000000000000000000n,
+          "userATokenBalanceMantissa": 20000000000000000000n,
+          "userATokenBalanceWithInterestsMantissa": 24000000000000000000n,
+          "userSupplyBalanceMantissa": 40000000000000000000n,
         },
         "vToken": {
           "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
