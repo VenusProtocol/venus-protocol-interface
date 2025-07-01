@@ -6,8 +6,8 @@ export const rpcUrls: {
   [chainId in ChainId]: string[];
 } = {
   [ChainId.BSC_MAINNET]: [
-    `https://bnb-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
     `https://bsc-mainnet.nodereal.io/v1/${envVariables.VITE_NODE_REAL_API_KEY}`,
+    `https://bnb-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
   ],
   [ChainId.BSC_TESTNET]: [
     `https://bsc-testnet.nodereal.io/v1/${envVariables.VITE_NODE_REAL_API_KEY}`,
@@ -21,20 +21,20 @@ export const rpcUrls: {
     `https://opbnb-testnet.nodereal.io/v1/${envVariables.VITE_NODE_REAL_API_KEY}`,
   ],
   [ChainId.ETHEREUM]: [
-    `https://eth-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
     `https://eth-mainnet.nodereal.io/v1/${envVariables.VITE_NODE_REAL_API_KEY}`,
+    `https://eth-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
   ],
   [ChainId.SEPOLIA]: [`https://eth-sepolia.nodereal.io/v1/${envVariables.VITE_NODE_REAL_API_KEY}`],
   [ChainId.ARBITRUM_ONE]: [
-    `https://arb-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
     `https://open-platform.nodereal.io/${envVariables.VITE_NODE_REAL_API_KEY}/arbitrum-nitro`,
+    `https://arb-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
   ],
   [ChainId.ARBITRUM_SEPOLIA]: [
     'https://rpc.ankr.com/arbitrum_sepolia/451c00a15d3de617618d7a880cec1da8065b10906c460b1462a8b8769d91e0da',
   ],
   [ChainId.ZKSYNC_MAINNET]: [
-    `https://zksync-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
     `https://open-platform.nodereal.io/${envVariables.VITE_NODE_REAL_API_KEY}/zksync`,
+    `https://zksync-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
   ],
   [ChainId.ZKSYNC_SEPOLIA]: ['https://sepolia.era.zksync.dev'],
   [ChainId.OPTIMISM_MAINNET]: [
