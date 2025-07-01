@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useGetImportablePositions > returns the importable positions from other networks on success 1`] = `
+{
+  "aave": [
+    [
+      {
+        "aTokenAddress": "0xfakeAXVSAddress",
+        "protocol": "aave",
+        "supplyApyPercentage": 99.99,
+        "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "userATokenBalanceMantissa": 2000000000000000000000000000n,
+        "userATokenBalanceWithInterestsMantissa": 4000000000000000000000000000n,
+        "userSupplyBalanceMantissa": 4000000000000000000000000000n,
+      },
+      {
+        "aTokenAddress": "0xfakeAUSDCAddress",
+        "protocol": "aave",
+        "supplyApyPercentage": 0.01,
+        "tokenAddress": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+        "userATokenBalanceMantissa": 1000000000000000000000000000n,
+        "userATokenBalanceWithInterestsMantissa": 5000000000000000000000000000n,
+        "userSupplyBalanceMantissa": 5000000000000000000000000000n,
+      },
+      {
+        "aTokenAddress": "0xfakeAUSDTAddress",
+        "protocol": "aave",
+        "supplyApyPercentage": 0.15,
+        "tokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "userATokenBalanceMantissa": 200000000000000000000000000n,
+        "userATokenBalanceWithInterestsMantissa": 300000000000000000000000000n,
+        "userSupplyBalanceMantissa": 300000000000000000000000000n,
+      },
+    ],
+  ],
+}
+`;

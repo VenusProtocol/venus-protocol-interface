@@ -14,7 +14,7 @@ import {
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import type { VToken } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { buffer, convertMantissaToTokens } from 'utilities';
 import type { Account, Address, Chain, WriteContractParameters } from 'viem';
 
 type BaseInput = {
@@ -37,12 +37,6 @@ type RepayTokensInput = BaseInput & {
 type RepayInput = WrapAndRepayInput | RepayTokensInput;
 
 type Options = UseSendTransactionOptions<RepayInput>;
-
-export const FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE = 0.1;
-
-// calculate buffer and remove decimals
-const bufferAmount = ({ amountMantissa }: { amountMantissa: BigNumber }) =>
-  BigInt(amountMantissa.multipliedBy(1 + FULL_REPAYMENT_NATIVE_BUFFER_PERCENTAGE / 100).toFixed(0));
 
 export const useRepay = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
@@ -78,14 +72,16 @@ export const useRepay = (options?: Partial<Options>) => {
       }
 
       if (input.vToken.underlyingToken.isNative && input.repayFullLoan) {
-        const bufferedAmountMantissa = bufferAmount({ amountMantissa: input.amountMantissa });
-
         return {
           address: maximillionContractAddress,
           abi: maximillionAbi,
           functionName: 'repayBehalfExplicit',
           args: [accountAddress, input.vToken.address],
-          value: bufferedAmountMantissa,
+          value:
+            // Buffer amount to account for accrued interests while transaction is processing
+            buffer({
+              amountMantissa: BigInt(input.amountMantissa.toFixed()),
+            }),
         } as WriteContractParameters<
           typeof maximillionAbi,
           'repayBehalfExplicit',
@@ -130,7 +126,8 @@ export const useRepay = (options?: Partial<Options>) => {
           address: nativeTokenGatewayContractAddress,
           functionName: 'wrapAndRepay',
           value: input.repayFullLoan
-            ? bufferAmount({ amountMantissa: input.amountMantissa })
+            ? // Buffer amount to account for accrued interests while transaction is processing
+              buffer({ amountMantissa: BigInt(input.amountMantissa.toFixed()) })
             : BigInt(input.amountMantissa.toFixed()),
         } as WriteContractParameters<
           typeof nativeTokenGatewayAbi,

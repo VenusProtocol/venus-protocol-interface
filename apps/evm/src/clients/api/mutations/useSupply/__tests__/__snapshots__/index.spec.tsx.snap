@@ -63,6 +63,19 @@ exports[`useSupply > calls useSendTransaction with the correct parameters for su
       ],
     },
   ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_ALLOWANCE",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "spenderAddress": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+        },
+      ],
+    },
+  ],
 ]
 `;
 
@@ -129,6 +142,19 @@ exports[`useSupply > calls useSendTransaction with the correct parameters for su
       ],
     },
   ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_ALLOWANCE",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "spenderAddress": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        },
+      ],
+    },
+  ],
 ]
 `;
 
@@ -190,6 +216,19 @@ exports[`useSupply > calls useSendTransaction with the correct parameters for wr
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
+          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      "queryKey": [
+        "GET_TOKEN_ALLOWANCE",
+        {
+          "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+          "chainId": 97,
+          "spenderAddress": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
           "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
         },
       ],

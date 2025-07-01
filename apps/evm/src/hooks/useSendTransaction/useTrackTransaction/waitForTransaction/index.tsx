@@ -1,4 +1,7 @@
+import type { MeeClient } from '@biconomy/abstractjs';
 import type { ChainId } from '@venusprotocol/chains';
+import { VError } from 'libs/errors';
+import type { TransactionType } from 'types';
 import type { Hex, PublicClient, TransactionReceipt } from 'viem';
 import { waitForSafeWalletTransaction } from './waitForSafeWalletTransaction';
 
@@ -9,19 +12,35 @@ export const waitForTransaction = async ({
   publicClient,
   hash,
   confirmations,
-  isSafeWalletTransaction,
+  isRunningInSafeApp,
   timeoutMs,
+  transactionType,
+  meeClient,
 }: {
   chainId: ChainId;
   publicClient: PublicClient;
   hash: Hex;
-  isSafeWalletTransaction: boolean;
+  isRunningInSafeApp: boolean;
   confirmations: number;
   timeoutMs: number;
+  transactionType: TransactionType;
+  meeClient?: MeeClient;
 }) => {
   let transactionHash: Hex | undefined = undefined;
 
-  if (isSafeWalletTransaction) {
+  if (transactionType === 'biconomy' && !meeClient) {
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+    });
+  }
+
+  if (transactionType === 'biconomy') {
+    const transactionReceipt = await meeClient!.waitForSupertransactionReceipt({ hash });
+    return { transactionReceipt };
+  }
+
+  if (isRunningInSafeApp) {
     const { transactionHash: tmpHash } = await waitForSafeWalletTransaction({
       chainId,
       hash,

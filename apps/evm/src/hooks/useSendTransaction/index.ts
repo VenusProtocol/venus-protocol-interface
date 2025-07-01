@@ -1,3 +1,7 @@
+import type {
+  GetFusionQuotePayload,
+  GetSupertransactionReceiptPayloadWithReceipts,
+} from '@biconomy/abstractjs';
 import { type MutationObserverOptions, useMutation } from '@tanstack/react-query';
 
 import type { TransactionType } from 'types';
@@ -6,8 +10,8 @@ import { useGetPaymasterInfo } from 'clients/api';
 import { store as resendPayingGasModalStore } from 'containers/ResendPayingGasModal/store';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
-import { VError } from 'libs/errors';
-import { useAccountAddress, useChainId } from 'libs/wallet';
+import { VError, logError } from 'libs/errors';
+import { useAccountAddress, useChainId, useMeeClient, usePublicClient } from 'libs/wallet';
 import type {
   Abi,
   Account,
@@ -17,7 +21,7 @@ import type {
   TransactionReceipt,
   WriteContractParameters,
 } from 'viem';
-import { useConfig } from 'wagmi';
+import { useWalletClient } from 'wagmi';
 import { sendTransaction } from './sendTransaction';
 import { useTrackTransaction } from './useTrackTransaction';
 
@@ -37,11 +41,13 @@ export interface UseSendTransactionInput<
     input: TMutateInput,
   ) =>
     | WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account>
-    | Promise<WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account>>;
+    | Promise<WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account>>
+    | GetFusionQuotePayload
+    | Promise<GetFusionQuotePayload>;
   transactionType?: TransactionType;
   onConfirmed?: (input: {
     transactionHash: string;
-    transactionReceipt: TransactionReceipt;
+    transactionReceipt: TransactionReceipt | GetSupertransactionReceiptPayloadWithReceipts;
     input: TMutateInput;
   }) => Promise<unknown> | unknown;
   onReverted?: (input: {
@@ -64,13 +70,21 @@ export const useSendTransaction = <
 >(
   input: UseSendTransactionInput<TMutateInput, TAbi, TFunctionName, TArgs>,
 ) => {
+  const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
+
   const { fn, transactionType, onConfirmed, onReverted, options } = input;
   const tryGasless = options?.tryGasless ?? true;
 
-  const wagmiConfig = useConfig();
   const { accountAddress } = useAccountAddress();
-
+  const { data: walletClient } = useWalletClient({ account: accountAddress });
+  const { publicClient } = usePublicClient();
   const { chainId } = useChainId();
+
+  const { data, error: getMeeClientError } = useMeeClient(
+    { chainId },
+    { enabled: input.transactionType === 'biconomy' },
+  );
+  const meeClient = data?.meeClient;
 
   const openResendPayingGasModalStoreModal = resendPayingGasModalStore.use.openModal();
 
@@ -81,12 +95,11 @@ export const useSendTransaction = <
       chainId,
     },
     {
-      enabled: tryGasless,
+      enabled: tryGasless && isGaslessTransactionsFeatureEnabled,
     },
   );
   const paymasterCanSponsorTransactions = !!getPaymasterInfo?.canSponsorTransactions;
 
-  const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
   // a transaction should be gas free when:
   // 1) we're on a chain that supports the feature
   // 2) the gaslessTransactions user setting is set to true
@@ -94,7 +107,7 @@ export const useSendTransaction = <
   // 4) there are funds in the paymaster wallet
   const shouldTryGasless =
     isGaslessTransactionsFeatureEnabled &&
-    !!userChainSettings?.gaslessTransactions &&
+    userChainSettings.gaslessTransactions &&
     tryGasless &&
     paymasterCanSponsorTransactions;
 
@@ -102,7 +115,7 @@ export const useSendTransaction = <
 
   return useMutation({
     mutationFn: async mutationInput => {
-      if (!accountAddress) {
+      if (!accountAddress || !walletClient) {
         throw new VError({
           type: 'unexpected',
           code: 'somethingWentWrong',
@@ -112,14 +125,30 @@ export const useSendTransaction = <
       // Get transaction data from the passed input
       const txData = await fn(mutationInput);
 
-      // Send the normal or gas-less transaction
-      const { transactionHash } = await sendTransaction<TAbi, TFunctionName, TArgs>({
-        wagmiConfig,
-        txData,
-        chainId,
-        accountAddress,
-        gasless: shouldTryGasless,
-      });
+      if ('quote' in txData && !meeClient) {
+        logError(`Could not send super transaction, missing MEE client: ${getMeeClientError}`);
+
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+        });
+      }
+
+      const { transactionHash } = await sendTransaction<TAbi, TFunctionName, TArgs>(
+        'quote' in txData
+          ? {
+              txData,
+              meeClient: meeClient!,
+            }
+          : {
+              walletClient,
+              publicClient,
+              txData,
+              chainId,
+              accountAddress,
+              gasless: shouldTryGasless,
+            },
+      );
 
       // Track transaction's progress in the background
       const promise = trackTransaction({
