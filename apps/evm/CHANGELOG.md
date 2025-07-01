@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.15.0
+
+### Minor Changes
+
+- b33203a: use NodeReal RPCs primarily
+
 ## 3.14.0
 
 ### Minor Changes
