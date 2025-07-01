@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.14.0
+
+### Minor Changes
+
+- acc7a59: add burned BNB button
+
 ## 3.13.0
 
 ### Minor Changes
