@@ -1,3 +1,7 @@
+import {
+  MAX_POSITION_SUPPLY_BALANCE_CENTS,
+  MIN_POSITION_SUPPLY_BALANCE_CENTS,
+} from 'constants/importPositions';
 import type { Asset, ImportableSupplyPosition } from 'types';
 import {
   convertMantissaToTokens,
@@ -25,8 +29,24 @@ export const filterProfitableImports = ({
       return acc;
     }
 
-    // Find Venus asset with better supply APY than current protocol
     const sortedAssets = sortedSupplyApyAssetMapping[tokenAddress];
+    const userSupplyBalanceTokens = convertMantissaToTokens({
+      value: position.userSupplyBalanceMantissa,
+      token: sortedAssets[0].vToken.underlyingToken,
+    });
+
+    // Skip position if it's outside boundaries
+    const positionSupplyBalanceCents =
+      sortedAssets[0].tokenPriceCents.multipliedBy(userSupplyBalanceTokens);
+
+    if (
+      positionSupplyBalanceCents.isLessThan(MIN_POSITION_SUPPLY_BALANCE_CENTS.toString()) ||
+      positionSupplyBalanceCents.isGreaterThan(MAX_POSITION_SUPPLY_BALANCE_CENTS.toString())
+    ) {
+      return acc;
+    }
+
+    // Find Venus asset with better supply APY than current protocol
     const profitableAsset = sortedAssets.find(asset => {
       const { supplyApyPercentage } = getBoostedAssetSupplyApy({ asset });
 
@@ -43,11 +63,6 @@ export const filterProfitableImports = ({
     if (!profitableAsset) {
       return acc;
     }
-
-    const userSupplyBalanceTokens = convertMantissaToTokens({
-      value: position.userSupplyBalanceMantissa,
-      token: profitableAsset.vToken.underlyingToken,
-    });
 
     const positionProps: ProfitableSupplyPosition = {
       asset: profitableAsset,

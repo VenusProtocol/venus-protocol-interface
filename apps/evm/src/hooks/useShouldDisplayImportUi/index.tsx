@@ -3,8 +3,11 @@ import { useMeeClient } from 'libs/wallet';
 
 export const useShouldDisplayImportUi = () => {
   const { importablePositionsCount } = useGetProfitableImports();
+
   const { data: getMeeClientData } = useMeeClient();
   const isMeeClientInitialized = !!getMeeClientData;
+
+  console.log(getMeeClientData);
 
   const shouldDisplayImportUi = isMeeClientInitialized && importablePositionsCount > 0;
 
