@@ -78,7 +78,7 @@ describe('useSupply', () => {
       ]
     `);
 
-    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(6);
+    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(7);
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
@@ -131,7 +131,7 @@ describe('useSupply', () => {
       ]
     `);
 
-    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(6);
+    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(7);
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 
@@ -187,7 +187,7 @@ describe('useSupply', () => {
       ]
     `);
 
-    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(7);
+    expect(queryClient.invalidateQueries).toHaveBeenCalledTimes(8);
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
   });
 

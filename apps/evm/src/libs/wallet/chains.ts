@@ -24,7 +24,7 @@ import {
 import localConfig from 'config';
 import { extractEnumValues } from 'utilities/extractEnumValues';
 
-const chainMapping = {
+export const chainMapping = {
   [ChainId.BSC_MAINNET]: bscMainnet,
   [ChainId.BSC_TESTNET]: bscTestnet,
   [ChainId.ETHEREUM]: ethereum,

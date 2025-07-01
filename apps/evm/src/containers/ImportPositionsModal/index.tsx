@@ -1,13 +1,21 @@
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useShouldDisplayImportUi } from 'hooks/useShouldDisplayImportUi';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
+import { useAccountAddress } from 'libs/wallet';
 import { Suspense } from 'react';
-import { Modal } from './Modal';
+import { safeLazyLoad } from 'utilities';
 
-export const ImportPositionsModal: React.FC = () => {
-  const isImportPositionsFeatureEnabled = useIsFeatureEnabled({
-    name: 'importPositions',
-  });
+const Modal = safeLazyLoad(() => import('./Modal'));
 
-  if (!isImportPositionsFeatureEnabled) {
+const ImportPositionsModal: React.FC = () => {
+  const { accountAddress } = useAccountAddress();
+  const [userChainSettings] = useUserChainSettings();
+  const { shouldDisplayImportUi } = useShouldDisplayImportUi();
+
+  if (
+    !accountAddress ||
+    !shouldDisplayImportUi ||
+    userChainSettings.doNotShowImportPositionsModal
+  ) {
     return undefined;
   }
 
@@ -17,3 +25,5 @@ export const ImportPositionsModal: React.FC = () => {
     </Suspense>
   );
 };
+
+export default ImportPositionsModal;

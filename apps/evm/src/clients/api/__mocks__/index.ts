@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js';
 
 import fakeAddress from '__mocks__/models/address';
 import { assetData } from '__mocks__/models/asset';
+import { importablePositions } from '__mocks__/models/importablePositions';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import vTokens from '__mocks__/models/vTokens';
@@ -571,6 +572,14 @@ export const useGetBurnedWBnb = vi.fn(() =>
   }),
 );
 
+export const getImportablePositions = vi.fn(async () => importablePositions);
+export const useGetImportablePositions = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_IMPORTABLE_POSITIONS],
+    queryFn: getImportablePositions,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
@@ -769,6 +778,14 @@ export const useBridgeXvs = vi.fn((options?: MutationObserverOptions) =>
 );
 
 export const useUpdatePoolDelegateStatus = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
+export const useImportSupplyPosition = vi.fn(
   (_variables: never, options?: MutationObserverOptions) =>
     useMutation({
       mutationFn: vi.fn(),

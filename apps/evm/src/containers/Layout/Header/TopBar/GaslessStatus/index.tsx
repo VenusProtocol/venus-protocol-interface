@@ -56,7 +56,7 @@ export const GaslessStatus: React.FC<GaslessStatusProps> = ({
             // t('gaslessTransactions.tooltip.enabled')
             // t('gaslessTransactions.tooltip.disabled')
             i18nKey={
-              userChainSettings?.gaslessTransactions
+              userChainSettings.gaslessTransactions
                 ? 'gaslessTransactions.tooltip.enabled'
                 : 'gaslessTransactions.tooltip.disabled'
             }

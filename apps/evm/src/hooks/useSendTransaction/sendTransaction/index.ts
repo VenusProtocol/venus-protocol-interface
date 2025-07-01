@@ -1,4 +1,4 @@
-import { getPublicClient, getWalletClient } from '@wagmi/core';
+import type { GetFusionQuotePayload, MeeClient } from '@biconomy/abstractjs-canary';
 import config from 'config';
 import { VError, logError } from 'libs/errors';
 import { ZYFI_SPONSORED_PAYMASTER_ENDPOINT } from 'libs/wallet';
@@ -12,11 +12,12 @@ import {
   type ContractFunctionName,
   type EncodeFunctionDataParameters,
   type Hash,
+  type PublicClient,
+  type WalletClient,
   type WriteContractParameters,
   encodeFunctionData,
 } from 'viem';
 import { eip712WalletActions } from 'viem/zksync';
-import type { Config as WagmiConfig } from 'wagmi';
 
 const GAS_ESTIMATION_FAILED_ERROR = 'Gas estimation failed';
 export const GAS_LIMIT_BUFFER_PERCENTAGE = 35;
@@ -40,40 +41,40 @@ interface ZyFiSponsoredTxResponse {
   };
 }
 
-export const sendTransaction = async <
-  const abi extends Abi | readonly unknown[],
-  functionName extends ContractFunctionName<abi, 'payable' | 'nonpayable'>,
-  args extends ContractFunctionArgs<abi, 'payable' | 'nonpayable', functionName>,
-  TAbi extends Abi | readonly unknown[] = abi,
-  TFunctionName extends ContractFunctionName<TAbi, 'payable' | 'nonpayable'> = functionName,
-  TArgs extends ContractFunctionArgs<TAbi, 'payable' | 'nonpayable', TFunctionName> = args,
->({
-  txData,
-  gasless,
-  wagmiConfig,
-  chainId,
-  accountAddress,
-}: {
+export type SendNormalTransactionInput<
+  TAbi extends Abi | readonly unknown[],
+  TFunctionName extends ContractFunctionName<TAbi, 'payable' | 'nonpayable'>,
+  TArgs extends ContractFunctionArgs<TAbi, 'payable' | 'nonpayable', TFunctionName>,
+> = {
   txData: WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account>;
   gasless: boolean;
-  wagmiConfig: WagmiConfig;
+  walletClient: WalletClient;
+  publicClient: PublicClient;
   chainId: ChainId;
   accountAddress: Address;
-}) => {
-  const publicClient = getPublicClient(wagmiConfig, { chainId });
+};
 
-  if (!publicClient) {
-    throw new VError({
-      type: 'unexpected',
-      code: 'somethingWentWrong',
+export type SendBiconomyTransactionInput = {
+  txData: GetFusionQuotePayload;
+  meeClient: MeeClient;
+};
+
+export const sendTransaction = async <
+  TAbi extends Abi | readonly unknown[],
+  TFunctionName extends ContractFunctionName<TAbi, 'payable' | 'nonpayable'>,
+  TArgs extends ContractFunctionArgs<TAbi, 'payable' | 'nonpayable', TFunctionName>,
+>(
+  input: SendNormalTransactionInput<TAbi, TFunctionName, TArgs> | SendBiconomyTransactionInput,
+) => {
+  if ('meeClient' in input) {
+    const { hash: transactionHash } = await input.meeClient!.executeFusionQuote({
+      fusionQuote: input.txData,
     });
+
+    return { transactionHash };
   }
 
-  const walletClient = (
-    await getWalletClient(wagmiConfig, { chainId, account: accountAddress })
-  ).extend(eip712WalletActions());
-
-  let txOverrides: Record<string, any> = {};
+  const { txData, accountAddress, walletClient, publicClient, chainId, gasless } = input;
 
   const {
     abi: _abi,
@@ -82,14 +83,19 @@ export const sendTransaction = async <
     args: _args,
     chain: _chain,
     account: _account,
+    value,
     // Extract overrides
-    ...overrides
+    ...txOverrides
   } = txData;
-
-  txOverrides = overrides;
 
   const txDataPayload = {
     ...txOverrides,
+    ...(value
+      ? {
+          // Stringify value to avoid BigInt serialization issues
+          value: value.toString(),
+        }
+      : {}),
     to: txData.address,
     from: accountAddress,
     data: encodeFunctionData({
@@ -100,21 +106,24 @@ export const sendTransaction = async <
     } as EncodeFunctionDataParameters),
   };
 
-  // Estimate gas limit
-  let gasLimit: undefined | bigint;
   if (!gasless) {
+    // Estimate gas limit
     const { from, ...estimationTxData } = txDataPayload;
     const gas = await publicClient.estimateGas({ ...estimationTxData, account: from });
     // Add buffer to make sure transaction has enough gas
-    gasLimit = BigInt((Number(gas) * (1 + GAS_LIMIT_BUFFER_PERCENTAGE / 100)).toFixed(0));
-  }
+    const gasLimit = BigInt((Number(gas) * (1 + GAS_LIMIT_BUFFER_PERCENTAGE / 100)).toFixed(0));
 
-  // Send normal transaction
-  if (!gasless) {
-    const formattedTxData: WriteContractParameters<TAbi, TFunctionName, TArgs, Chain, Account> = {
+    // Send normal transaction
+    const formattedTxData = {
       ...txData,
       gas: gasLimit,
-    };
+    } as WriteContractParameters<
+      TAbi,
+      TFunctionName,
+      TArgs,
+      Chain | undefined,
+      Account | undefined
+    >;
 
     const transactionHash = await walletClient.writeContract(formattedTxData);
     return { transactionHash };
@@ -162,11 +171,13 @@ export const sendTransaction = async <
 
   const { txData: zyFiTxData } = (await response.json()) as ZyFiSponsoredTxResponse;
 
+  const extendedWalletClient = walletClient.extend(eip712WalletActions());
+
   const txPayload = {
     account: accountAddress,
     to: zyFiTxData.to,
     value: BigInt(zyFiTxData.value),
-    chain: walletClient.chain,
+    chain: extendedWalletClient.chain,
     gas: BigInt(zyFiTxData.gasLimit),
     gasPerPubdata: BigInt(zyFiTxData.customData.gasPerPubdata),
     maxFeePerGas: BigInt(zyFiTxData.maxFeePerGas),
@@ -177,9 +188,10 @@ export const sendTransaction = async <
     paymasterInput: zyFiTxData.customData.paymasterParams.paymasterInput,
   };
 
-  const txRequest = await walletClient.prepareTransactionRequest(txPayload);
-  const signature = await walletClient.signTransaction(txRequest);
-  const transactionHash = await walletClient.sendRawTransaction({
+  const txRequest = await extendedWalletClient.prepareTransactionRequest(txPayload);
+  // @ts-expect-error Typescript is unable to properly infer the type of txRequest, despite being correct
+  const signature = await extendedWalletClient.signTransaction(txRequest);
+  const transactionHash = await extendedWalletClient.sendRawTransaction({
     serializedTransaction: signature,
   });
 
