@@ -23,9 +23,9 @@ describe('ClaimRewardButton', () => {
   });
 
   it('renders nothing if user has not connected any wallet', () => {
-    const { queryByText } = renderComponent(<ClaimRewardButton />);
+    const { queryByTestId } = renderComponent(<ClaimRewardButton />);
 
-    expect(queryByText(en.claimReward.openModalButton.label)).toBeNull();
+    expect(queryByTestId(TEST_IDS.claimRewardOpenModalButton)).toBeNull();
   });
 
   it('renders nothing if user has no pending rewards to claim', () => {
@@ -33,11 +33,11 @@ describe('ClaimRewardButton', () => {
       pendingRewardGroups: [],
     }));
 
-    const { queryByText } = renderComponent(<ClaimRewardButton />, {
+    const { queryByTestId } = renderComponent(<ClaimRewardButton />, {
       accountAddress: fakeAddress,
     });
 
-    expect(queryByText(en.claimReward.openModalButton.label)).toBeNull();
+    expect(queryByTestId(TEST_IDS.claimRewardOpenModalButton)).toBeNull();
   });
 
   it('renders claim button if user has pending rewards to claim', async () => {

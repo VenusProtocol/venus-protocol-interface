@@ -1,4 +1,5 @@
 import { cn } from '@venusprotocol/ui';
+import { BurnedWBnbButton } from 'containers/Layout/BurnedWBnbButton';
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
@@ -15,6 +16,13 @@ export const MdUpControls: React.FC = () => {
       <ClaimRewardButton
         variant={isOnMarketPage ? 'secondary' : 'primary'}
         className="flex-none md:whitespace-nowrap"
+      />
+
+      <BurnedWBnbButton
+        className={cn(
+          isOnMarketPage &&
+            'bg-background/40 border-transparent hover:bg-background/40 hover:border-transparent active:bg-background/40 active:border-transparent',
+        )}
       />
 
       <GaslessStatus
