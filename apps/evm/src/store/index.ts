@@ -1,15 +1,16 @@
 import createDeepMerge from '@fastify/deepmerge';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-
 import { ChainId } from 'types';
 import { createStoreSelectors, extractEnumValues } from 'utilities';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { immer } from 'zustand/middleware/immer';
 
-interface UserChainSettings {
+export interface UserChainSettings {
   gaslessTransactions: boolean;
+  doNotShowImportPositionsModal: boolean;
 }
 
-type UserSettings = Partial<Record<ChainId, UserChainSettings>>;
+type UserSettings = Partial<Record<ChainId, Partial<UserChainSettings>>>;
 
 export interface State {
   userSettings: UserSettings;
@@ -33,29 +34,21 @@ export const initialUserSettings: UserSettings = {
 
 const useStore = create<State>()(
   persist(
-    set => ({
+    immer(set => ({
       userSettings: initialUserSettings,
       setUserSettings: ({ settings, chainIds = allChainIds }) =>
-        set(state => {
-          const newUserSettings = chainIds.reduce<Partial<UserChainSettings>>(
-            (acc, chainId) => ({
-              ...acc,
-              [chainId]: {
-                ...settings,
-              },
-            }),
-            {},
-          );
+        set(state =>
+          chainIds.forEach(chainId =>
+            Object.entries(settings).forEach(([key, value]) => {
+              if (!state.userSettings[chainId]) {
+                state.userSettings[chainId] = {};
+              }
 
-          return {
-            ...state,
-            userSettings: {
-              ...state.userSettings,
-              ...newUserSettings,
-            },
-          };
-        }),
-    }),
+              state.userSettings[chainId][key as keyof UserChainSettings] = value;
+            }),
+          ),
+        ),
+    })),
     {
       name: 'venus-global-store',
       merge: (persisted, current) => deepMerge(current, persisted) as never,

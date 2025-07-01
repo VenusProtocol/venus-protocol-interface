@@ -52,3 +52,5 @@ export * from './isProposalExecutable';
 export * from './isPoolIsolated';
 export * from './calculateHealthFactor';
 export * from './isCollateralActionDisabled';
+export * from './getBoostedAssetSupplyApy';
+export * from './buffer';
