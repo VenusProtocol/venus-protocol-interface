@@ -53,7 +53,6 @@ describe('useUserChainSettings', () => {
 
     expect(store.use.setUserSettings()).toHaveBeenCalledWith({
       settings: {
-        doNotShowImportPositionsModal: false,
         gaslessTransactions: false,
       },
       chainIds: [ChainId.BSC_TESTNET],

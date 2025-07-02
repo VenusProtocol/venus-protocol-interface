@@ -9,7 +9,7 @@ import {
 } from 'hooks/useGetProfitableImports';
 import { useNavigate } from 'hooks/useNavigate';
 import { useAnalytics } from 'libs/analytics';
-import { logError } from 'libs/errors';
+import { handleError, logError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import {
   calculateYearlyInterests,
@@ -55,6 +55,9 @@ export const Position: React.FC<PropositionProps> = ({
     useImportSupplyPosition({
       waitForConfirmation: true,
       onError: error => {
+        // Display error toast
+        handleError({ error });
+
         captureAnalyticEvent('Position import failed', analyticProps);
 
         logError(error);

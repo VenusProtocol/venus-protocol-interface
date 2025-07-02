@@ -772,10 +772,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-1.0.1.tgz#d72197747b8c7f7d63faa4f91de26fa649955a6d"
   integrity sha512-W+a0/JpU28AqH4IKtwUPcEUnUyXMDLALcn5/JLczGGT9fHE2sIby/xP/oQnx3nxkForzgzPy201RAKcB4xPAFQ==
 
-"@biconomy/abstractjs@^1.0.19":
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/@biconomy/abstractjs/-/abstractjs-1.0.19.tgz#04d38dd1f5f8b8869b9b89b481c46d80edb23b60"
-  integrity sha512-aZBR5TdDXzxdDXvbzfXqrpDi9c2Wj7qaXV4zvzBlsD962RAkQrWSIyswWluQZsiJE9HsM1zf7dRNlFdP72ONUg==
+"@biconomy/abstractjs@^1.0.21":
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/@biconomy/abstractjs/-/abstractjs-1.0.21.tgz#b3485e84b1dd22a9b620eb5fe71599fa19916ab2"
+  integrity sha512-7mAKOJ6e6DUCx+oKR8+UokHKEGMO4M74DXO4NVkEc2hsMcHRVAPysQvolv9RXw1IiQMTCI9ZyHNIPPxFdA0Myg==
 
 "@biomejs/biome@1.6.4":
   version "1.6.4"
@@ -1426,7 +1426,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.4.0.tgz#c9299c34d248bc26e82563735f78953d2efca83c"
   integrity sha512-fTBW9/8r2w3dXWYM4HCB1Rdp8NLibOw2+XELH5m5+AkWiL/KqYX6dc0kKYlaYyKjrQ6ds33MCdMPEwgs2z1rqg==
 
-"@emotion/styled@^11.0.0", "@emotion/styled@^11.11.0":
+"@emotion/styled@^11.11.0":
   version "11.14.1"
   resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-11.14.1.tgz#8c34bed2948e83e1980370305614c20955aacd1c"
   integrity sha512-qEEJt42DuToa3gurlH4Qqc1kVpNq8wO8cJtDzU46TjlzWjDlsVyevtYCRijVq3SrHsROS+gVQ8Fnea108GnKzw==
@@ -3614,6 +3614,33 @@
   dependencies:
     "@types/mdx" "^2.0.0"
 
+"@metamask/delegation-abis@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@metamask/delegation-abis/-/delegation-abis-0.11.0.tgz#a87741512f954aad0aa134a3c7a52f093014687b"
+  integrity sha512-tnNGFDLQ5jfgPhHJaT5JwvF759nja1iGAG00REbk1Ufir+TxjxTmF8L9MbJifZmUh4fnyqV4Ik6NAOYVNBPVBg==
+
+"@metamask/delegation-deployments@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@metamask/delegation-deployments/-/delegation-deployments-0.11.0.tgz#fa7a223232d86203f35213c6cca64cdce61a8a2c"
+  integrity sha512-RfeMr1Ct0givG7oOy1unwdb5lGttq9pape4OGz2mk8quG0KDqDi7cw3fzYc7wz9xFDZ2YrFanYRacaLTlqWS8g==
+
+"@metamask/delegation-toolkit@0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@metamask/delegation-toolkit/-/delegation-toolkit-0.11.0.tgz#5aa1c204b64e13f52274e5dfdb33594f399b409b"
+  integrity sha512-KQybftUahuPPjN842ejmVaJWg2rzHpSpvd+b6qtiOBypzJs7cgw1/f8QalHLugS1eyicEYLXwvRxjjufiG4wbg==
+  dependencies:
+    "@metamask/delegation-utils" "^0.11.0"
+    webauthn-p256 "^0.0.5"
+
+"@metamask/delegation-utils@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@metamask/delegation-utils/-/delegation-utils-0.11.0.tgz#616ccc5528ab483937eb1138e982376da3d0ef4a"
+  integrity sha512-eg8icyDtbzwER/G3VvaiVUNiNr9GXxJXQMcFRbhm9tTMqWXpphYXk9edSungRF+QqYmXIytRiR2ChSHp0uNtew==
+  dependencies:
+    "@metamask/delegation-abis" "^0.11.0"
+    "@metamask/delegation-deployments" "^0.11.0"
+    buffer "^6.0.3"
+
 "@metamask/eth-json-rpc-provider@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@metamask/eth-json-rpc-provider/-/eth-json-rpc-provider-1.0.1.tgz#3fd5316c767847f4ca107518b611b15396a5a32c"
@@ -3954,7 +3981,7 @@
   dependencies:
     "@noble/hashes" "1.7.1"
 
-"@noble/curves@1.9.2", "@noble/curves@^1.6.0", "@noble/curves@^1.9.1", "@noble/curves@~1.9.0":
+"@noble/curves@1.9.2", "@noble/curves@^1.4.0", "@noble/curves@^1.6.0", "@noble/curves@^1.9.1", "@noble/curves@~1.9.0":
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-1.9.2.tgz#73388356ce733922396214a933ff7c95afcef911"
   integrity sha512-HxngEd2XUcg9xi20JkwlLCtYwfoFw4JGkuZpT+WlsPD4gB/cxkvTD8fSsoAnphGZhFdZYKeQIPCuFlWPm1uE0g==
@@ -14590,10 +14617,10 @@ react-dom@^19.1.0:
   dependencies:
     scheduler "^0.26.0"
 
-react-error-overlay@6.0.11, react-error-overlay@6.1.0:
-  version "6.0.11"
-  resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
-  integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
+react-error-overlay@6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.1.0.tgz#22b86256beb1c5856f08a9a228adb8121dd985f2"
+  integrity sha512-SN/U6Ytxf1QGkw/9ve5Y+NxBbZM6Ht95tuXNMKs8EJyFa/Vy/+Co3stop3KBHARfn/giv+Lj1uUnTfOJ3moFEQ==
 
 react-fast-compare@^2.0.1:
   version "2.0.4"
@@ -17217,6 +17244,14 @@ web-streams-polyfill@^3.0.3:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/web-streams-polyfill/-/web-streams-polyfill-3.2.1.tgz#71c2718c52b45fd49dbeee88634b3a60ceab42a6"
   integrity sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==
+
+webauthn-p256@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/webauthn-p256/-/webauthn-p256-0.0.5.tgz#0baebd2ba8a414b21cc09c0d40f9dd0be96a06bd"
+  integrity sha512-drMGNWKdaixZNobeORVIqq7k5DsRC9FnG201K2QjeOoQLmtSDaSsVZdkg6n5jUALJKcAG++zBPJXmv6hy0nWFg==
+  dependencies:
+    "@noble/curves" "^1.4.0"
+    "@noble/hashes" "^1.4.0"
 
 "webextension-polyfill@>=0.10.0 <1.0":
   version "0.12.0"
