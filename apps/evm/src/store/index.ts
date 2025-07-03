@@ -1,9 +1,9 @@
 import createDeepMerge from '@fastify/deepmerge';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-
 import { ChainId } from 'types';
 import { createStoreSelectors, extractEnumValues } from 'utilities';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { immer } from 'zustand/middleware/immer';
 
 export interface UserChainSettings {
   gaslessTransactions: boolean;
@@ -35,26 +35,21 @@ export const initialUserSettings: UserSettings = {
 
 const useStore = create<State>()(
   persist(
-    set => ({
+    immer(set => ({
       userSettings: initialUserSettings,
       setUserSettings: ({ settings, chainIds = allChainIds }) =>
-        set(state => ({
-          ...state,
-          userSettings: {
-            ...state.userSettings,
-            ...chainIds.reduce<Partial<UserChainSettings>>(
-              (acc, chainId) => ({
-                ...acc,
-                [chainId]: {
-                  ...state.userSettings[chainId],
-                  ...settings,
-                },
-              }),
-              {},
-            ),
-          },
-        })),
-    }),
+        set(state =>
+          chainIds.forEach(chainId =>
+            Object.entries(settings).forEach(([key, value]) => {
+              if (!state.userSettings[chainId]) {
+                state.userSettings[chainId] = {};
+              }
+
+              state.userSettings[chainId][key as keyof UserChainSettings] = value;
+            }),
+          ),
+        ),
+    })),
     {
       name: 'venus-global-store',
       merge: (persisted, current) => deepMerge(current, persisted) as never,

@@ -20,10 +20,7 @@ export const useUserChainSettings = () => {
 
   const setUserChainSettings = (input: Parameters<State['setUserSettings']>[0]['settings']) =>
     setUserSettings({
-      settings: {
-        ...userChainSettings,
-        ...input,
-      },
+      settings: input,
       chainIds: [chainId],
     });
 
