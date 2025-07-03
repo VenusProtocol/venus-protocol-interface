@@ -1,7 +1,7 @@
 import { useChainId } from 'libs/wallet';
 import { type State, type UserChainSettings, store } from 'store';
 
-const defaultUserChainSettings: UserChainSettings = {
+export const defaultUserChainSettings: UserChainSettings = {
   gaslessTransactions: false,
   showPausedAssets: false,
   showUserAssetsOnly: false,

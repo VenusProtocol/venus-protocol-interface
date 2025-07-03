@@ -15,6 +15,7 @@ vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');
 vi.mock('hooks/useSendTransaction');
 vi.mock('hooks/useGetContractAddress');
+vi.mock('hooks/useUserChainSettings');
 vi.mock('clients/api');
 vi.mock('clients/subgraph');
 vi.mock('libs/tokens');

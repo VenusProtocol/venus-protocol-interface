@@ -3,7 +3,7 @@ import { cn } from '@venusprotocol/ui';
 import { type InputHTMLAttributes, useMemo, useState } from 'react';
 
 import { Card, Delimiter, Table, type TableProps, TextField, Toggle } from 'components';
-import useCollateral from 'hooks/useCollateral';
+import { useCollateral } from 'hooks/useCollateral';
 import { handleError } from 'libs/errors';
 import type { Pool } from 'types';
 
@@ -64,6 +64,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const isBreakpointUp = !!breakpoint && _isBreakpointUp;
 
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
+
   const { showPausedAssets: _showPausedAssets, showUserAssetsOnly: _showUserAssetsOnly } =
     userChainSettings;
 
@@ -236,8 +237,11 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         </div>
       }
       placeholder={
+        controls &&
         !isFetching &&
+        !searchValue &&
         poolAssets.length === 0 &&
+        pausedAssetsExist &&
         !showPausedAssets && (
           <Card
             className={cn(
