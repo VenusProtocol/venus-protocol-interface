@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getImportableAaveSupplyPositions > returns no importable positions if user has borrow positions 1`] = `
+{
+  "importableSupplyPositions": [],
+}
+`;
+
+exports[`getImportableAaveSupplyPositions > returns the importable positions on success 1`] = `
+{
+  "importableSupplyPositions": [
+    {
+      "aTokenAddress": "0xfakeXvsATokenAddress",
+      "protocol": "aave",
+      "supplyApyPercentage": 0.1554275637608793,
+      "tokenAddress": "0xb9e0e753630434d7863528cc73cb7ac638a7c8ff",
+      "userATokenBalanceMantissa": 3000000000000000000000000000n,
+      "userATokenBalanceWithInterestsMantissa": 3016734118784976690626939526n,
+      "userSupplyBalanceMantissa": 3016734118784976690626939526n,
+    },
+  ],
+}
+`;

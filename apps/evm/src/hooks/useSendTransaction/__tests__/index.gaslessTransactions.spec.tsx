@@ -6,12 +6,13 @@ import { store } from 'containers/ResendPayingGasModal/store';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
+import { usePublicClient } from 'libs/wallet';
 import noop from 'noop-ts';
 import { initialUserSettings } from 'store';
 import { renderHook } from 'testUtils/render';
 import { ChainId } from 'types';
+import type { PublicClient, WalletClient } from 'viem';
 import type { Mock } from 'vitest';
-import type { Config as WagmiConfig } from 'wagmi';
 import type { useSendTransaction as UseSendTransaction } from '..';
 import { sendTransaction } from '../sendTransaction';
 import { useTrackTransaction } from '../useTrackTransaction';
@@ -22,14 +23,17 @@ const { useSendTransaction }: { useSendTransaction: typeof UseSendTransaction } 
 vi.mock('../useTrackTransaction');
 vi.mock('../sendTransaction');
 
-const mockWagmiConfig = {} as WagmiConfig;
+const mockWalletClient = {} as unknown as WalletClient;
+const mockPublicClient = {} as unknown as PublicClient;
 
 vi.mock('wagmi', async () => {
   const actual = await vi.importActual('wagmi');
 
   return {
     ...actual,
-    useConfig: vi.fn(() => mockWagmiConfig),
+    useWalletClient: vi.fn(() => ({
+      data: mockWalletClient,
+    })),
   };
 });
 
@@ -54,6 +58,10 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabled) => name === 'gaslessTransactions',
     );
+
+    (usePublicClient as Mock).mockImplementation(() => ({
+      publicClient: mockPublicClient,
+    }));
 
     (useGetPaymasterInfo as Mock).mockReturnValue({
       data: { canSponsorTransactions: true },
@@ -81,7 +89,8 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     expect(sendTransaction).toHaveBeenCalledWith({
       txData,
       gasless: true,
-      wagmiConfig: mockWagmiConfig,
+      publicClient: mockPublicClient,
+      walletClient: mockWalletClient,
       chainId: ChainId.BSC_TESTNET,
       accountAddress: fakeAccountAddress,
     });
@@ -137,7 +146,8 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     expect(sendTransaction).toHaveBeenCalledWith({
       txData,
       gasless: true,
-      wagmiConfig: mockWagmiConfig,
+      publicClient: mockPublicClient,
+      walletClient: mockWalletClient,
       chainId: ChainId.BSC_TESTNET,
       accountAddress: fakeAccountAddress,
     });
@@ -182,7 +192,8 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     expect(sendTransaction).toHaveBeenCalledWith({
       txData,
       gasless: false,
-      wagmiConfig: mockWagmiConfig,
+      publicClient: mockPublicClient,
+      walletClient: mockWalletClient,
       chainId: ChainId.BSC_TESTNET,
       accountAddress: fakeAccountAddress,
     });
@@ -217,7 +228,8 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     expect(sendTransaction).toHaveBeenCalledWith({
       txData,
       gasless: false,
-      wagmiConfig: mockWagmiConfig,
+      publicClient: mockPublicClient,
+      walletClient: mockWalletClient,
       chainId: ChainId.BSC_TESTNET,
       accountAddress: fakeAccountAddress,
     });
@@ -251,7 +263,8 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
     expect(sendTransaction).toHaveBeenCalledWith({
       txData,
       gasless: false,
-      wagmiConfig: mockWagmiConfig,
+      publicClient: mockPublicClient,
+      walletClient: mockWalletClient,
       chainId: ChainId.BSC_TESTNET,
       accountAddress: fakeAccountAddress,
     });

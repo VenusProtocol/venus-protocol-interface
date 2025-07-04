@@ -156,6 +156,18 @@ export const useSupply = (options?: Partial<Options>) => {
         ],
       });
 
+      queryClient.invalidateQueries({
+        queryKey: [
+          FunctionKey.GET_TOKEN_ALLOWANCE,
+          {
+            chainId,
+            tokenAddress: input.vToken.underlyingToken.address,
+            accountAddress,
+            spenderAddress: input.vToken.address,
+          },
+        ],
+      });
+
       if (input.wrap && input.poolComptrollerContractAddress) {
         const nativeTokenGatewayContractAddress = getContractAddress({
           name: 'NativeTokenGateway',

@@ -15,6 +15,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
   className,
   to,
   isNew = false,
+  badgeNumber,
   ...otherProps
 }) => {
   const { t } = useTranslation();
@@ -24,7 +25,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
     <RRNavLink
       className={({ isActive }) =>
         cn(
-          'hover:bg-lightGrey active:bg-lightGrey flex items-center justify-center whitespace-nowrap px-6 py-4 h-14 w-14 rounded-xl p-0 xl:relative xl:h-auto xl:w-full xl:rounded-none xl:px-8 xl:py-4 xl:font-semibold',
+          'hover:bg-lightGrey active:bg-lightGrey flex items-center justify-center whitespace-nowrap px-6 py-4 h-14 w-14 rounded-xl p-0 xl:relative xl:h-auto xl:w-full xl:rounded-none xl:pl-8 xl:pr-4 xl:py-4 xl:font-semibold',
           isActive
             ? 'bg-lightGrey text-offWhite xl:before:bg-blue xl:before:absolute xl:before:bottom-0 xl:before:left-0 xl:before:top-0 xl:before:w-1 xl:before:rounded-br-lg xl:before:rounded-tr-lg'
             : 'text-grey',
@@ -47,6 +48,12 @@ export const NavLink: React.FC<NavLinkProps> = ({
           </div>
         )}
       </div>
+
+      {badgeNumber && (
+        <div className="flex-shrink-0 w-5 h-5 rounded-md bg-lightGrey items-center justify-center hidden xl:flex">
+          <span className="text-xs text-offWhite">{badgeNumber}</span>
+        </div>
+      )}
     </RRNavLink>
   );
 };
