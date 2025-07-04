@@ -13,7 +13,7 @@ import {
   TokenTextField,
 } from 'components';
 import { Link } from 'containers/Link';
-import useCollateral from 'hooks/useCollateral';
+import { useCollateral } from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';

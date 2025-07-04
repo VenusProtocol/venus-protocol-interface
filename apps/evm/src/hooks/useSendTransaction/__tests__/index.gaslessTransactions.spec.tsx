@@ -4,10 +4,10 @@ import { txData } from '__mocks__/models/transactionData';
 import { useGetPaymasterInfo } from 'clients/api';
 import { store } from 'containers/ResendPayingGasModal/store';
 import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useUserChainSettings } from 'hooks/useUserChainSettings';
+import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
 import noop from 'noop-ts';
-import { initialUserSettings } from 'store';
+import type { UserChainSettings } from 'store';
 import { renderHook } from 'testUtils/render';
 import { ChainId } from 'types';
 import type { Mock } from 'vitest';
@@ -33,9 +33,6 @@ vi.mock('wagmi', async () => {
   };
 });
 
-vi.mock('hooks/useUserChainSettings', () => ({
-  useUserChainSettings: vi.fn(() => [initialUserSettings[ChainId.ZKSYNC_SEPOLIA], vi.fn()]),
-}));
 vi.mock('containers/ResendPayingGasModal/store', () => ({
   store: {
     use: { openModal: vi.fn() },
@@ -59,6 +56,13 @@ describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
       data: { canSponsorTransactions: true },
       refetch: vi.fn(),
     });
+
+    const fakeUserChainSettings: UserChainSettings = {
+      ...defaultUserChainSettings,
+      gaslessTransactions: true,
+    };
+
+    (useUserChainSettings as Mock).mockReturnValue([fakeUserChainSettings, vi.fn()]);
   });
 
   it('sends gasless transaction when conditions are met', async () => {

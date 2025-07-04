@@ -1,20 +1,26 @@
 import { useChainId } from 'libs/wallet';
-import { type State, store } from 'store';
+import { type State, type UserChainSettings, store } from 'store';
+
+export const defaultUserChainSettings: UserChainSettings = {
+  gaslessTransactions: false,
+  showPausedAssets: false,
+  showUserAssetsOnly: false,
+};
 
 export const useUserChainSettings = () => {
   const { chainId } = useChainId();
 
   const userSettings = store.use.userSettings();
-  const userChainSettings = userSettings[chainId];
+  const userChainSettings = {
+    ...defaultUserChainSettings,
+    ...userSettings[chainId],
+  };
 
   const setUserSettings = store.use.setUserSettings();
 
   const setUserChainSettings = (input: Parameters<State['setUserSettings']>[0]['settings']) =>
     setUserSettings({
-      settings: {
-        ...userChainSettings,
-        ...input,
-      },
+      settings: input,
       chainIds: [chainId],
     });
 

@@ -31,6 +31,7 @@ export function Table<R>({
   breakpoint,
   isFetching,
   header,
+  placeholder,
   ...otherProps
 }: TableProps<R>) {
   const styles = useStyles();
@@ -71,84 +72,90 @@ export function Table<R>({
 
       {!!header && <div css={styles.getHeader({ breakpoint })}>{header}</div>}
 
-      <MuiTableContainer css={styles.getTableContainer({ breakpoint })}>
-        <MuiTable css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
-          <Head
-            columns={columns}
-            orderBy={order?.orderBy}
-            orderDirection={order?.orderDirection}
-            onRequestOrder={onRequestOrder}
+      {data.length > 0 || !placeholder ? (
+        <>
+          <MuiTableContainer css={styles.getTableContainer({ breakpoint })}>
+            <MuiTable css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
+              <Head
+                columns={columns}
+                orderBy={order?.orderBy}
+                orderDirection={order?.orderDirection}
+                onRequestOrder={onRequestOrder}
+              />
+
+              {isFetching && (
+                <tbody>
+                  <tr>
+                    <td colSpan={columns.length}>
+                      <Spinner css={styles.loader} />
+                    </td>
+                  </tr>
+                </tbody>
+              )}
+
+              <MuiTableBody>
+                {sortedData.map((row, rowIndex) => {
+                  const rowKey = rowKeyExtractor(row);
+
+                  const additionalProps = getRowHref
+                    ? {
+                        component: Link,
+                        to: formatTo({ to: getRowHref(row) }),
+                      }
+                    : {};
+
+                  return (
+                    <MuiTableRow
+                      hover
+                      key={rowKey}
+                      css={[
+                        styles.link,
+                        styles.getTableRow({ clickable: !!getRowHref || !!rowOnClick }),
+                      ]}
+                      onClick={
+                        rowOnClick
+                          ? (e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row)
+                          : undefined
+                      }
+                      {...additionalProps}
+                    >
+                      {columns.map(column => {
+                        const cellContent = column.renderCell(row, rowIndex);
+                        const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
+
+                        return (
+                          <MuiTableCell
+                            css={styles.cellWrapper}
+                            key={`${rowKey}-${column.key}`}
+                            title={cellTitle}
+                            align={column.align}
+                          >
+                            {cellContent}
+                          </MuiTableCell>
+                        );
+                      })}
+                    </MuiTableRow>
+                  );
+                })}
+              </MuiTableBody>
+            </MuiTable>
+          </MuiTableContainer>
+
+          <TableCards
+            data={sortedData}
+            isFetching={isFetching}
+            rowKeyExtractor={rowKeyExtractor}
+            rowOnClick={rowOnClick}
+            getRowHref={getRowHref}
+            columns={cardColumns || columns}
+            breakpoint={breakpoint}
+            order={order}
+            onOrderChange={setOrder}
           />
-
-          {isFetching && (
-            <tbody>
-              <tr>
-                <td colSpan={columns.length}>
-                  <Spinner css={styles.loader} />
-                </td>
-              </tr>
-            </tbody>
-          )}
-
-          <MuiTableBody>
-            {sortedData.map((row, rowIndex) => {
-              const rowKey = rowKeyExtractor(row);
-
-              const additionalProps = getRowHref
-                ? {
-                    component: Link,
-                    to: formatTo({ to: getRowHref(row) }),
-                  }
-                : {};
-
-              return (
-                <MuiTableRow
-                  hover
-                  key={rowKey}
-                  css={[
-                    styles.link,
-                    styles.getTableRow({ clickable: !!getRowHref || !!rowOnClick }),
-                  ]}
-                  onClick={
-                    rowOnClick
-                      ? (e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row)
-                      : undefined
-                  }
-                  {...additionalProps}
-                >
-                  {columns.map(column => {
-                    const cellContent = column.renderCell(row, rowIndex);
-                    const cellTitle = typeof cellContent === 'string' ? cellContent : undefined;
-
-                    return (
-                      <MuiTableCell
-                        css={styles.cellWrapper}
-                        key={`${rowKey}-${column.key}`}
-                        title={cellTitle}
-                        align={column.align}
-                      >
-                        {cellContent}
-                      </MuiTableCell>
-                    );
-                  })}
-                </MuiTableRow>
-              );
-            })}
-          </MuiTableBody>
-        </MuiTable>
-      </MuiTableContainer>
-
-      <TableCards
-        data={sortedData}
-        isFetching={isFetching}
-        rowKeyExtractor={rowKeyExtractor}
-        rowOnClick={rowOnClick}
-        getRowHref={getRowHref}
-        columns={cardColumns || columns}
-        breakpoint={breakpoint}
-        order={order}
-        onOrderChange={setOrder}
-      />
+        </>
+      ) : (
+        placeholder
+      )}
     </Card>
   );
 }

@@ -9,7 +9,7 @@ import { vBnb, vXvs } from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
 import { useSupply } from 'clients/api';
-import useCollateral from 'hooks/useCollateral';
+import { useCollateral } from 'hooks/useCollateral';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';

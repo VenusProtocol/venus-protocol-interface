@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { Typography } from '@mui/material';
 import Switch, { type SwitchProps } from '@mui/material/Switch';
 import { cn } from '@venusprotocol/ui';
 
@@ -31,11 +30,7 @@ export const Toggle = ({
     <div css={styles.container} className={className}>
       {!!tooltip && <InfoIcon className="mr-2" tooltip={tooltip} />}
 
-      {!!label && (
-        <Typography color="text.primary" variant="small1" component="span" css={styles.label}>
-          {label}
-        </Typography>
-      )}
+      {!!label && <span className="mr-2 text-sm">{label}</span>}
 
       <Switch
         css={styles.getSwitch({ isDark })}

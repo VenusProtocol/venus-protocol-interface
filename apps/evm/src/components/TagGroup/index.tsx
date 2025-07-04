@@ -7,6 +7,7 @@ import { QuinaryButton } from '@venusprotocol/ui';
 export interface Tag {
   content: string | number | ReactElement;
   id: number | string;
+  className?: string;
 }
 
 export interface TagGroupProps {
@@ -28,7 +29,7 @@ export const TagGroup = ({ tags, activeTagIndex, onTagClick, className }: TagGro
         active={index === activeTagIndex}
         key={`tag-group-tag-${tag.id}`}
         onClick={() => onTagClick(index)}
-        className="whitespace-nowrap px-5 py-2"
+        className={cn('whitespace-nowrap px-5 py-2', tag.className)}
       >
         {tag.content}
       </QuinaryButton>

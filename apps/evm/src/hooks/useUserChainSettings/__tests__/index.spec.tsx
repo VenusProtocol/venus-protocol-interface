@@ -5,6 +5,8 @@ import { renderHook as renderHookWithContext } from 'testUtils/render';
 import { ChainId } from 'types';
 import { useUserChainSettings } from '..';
 
+vi.unmock('hooks/useUserChainSettings');
+
 vi.mock('store', () => ({
   store: {
     use: {
@@ -20,7 +22,7 @@ describe('useUserChainSettings', () => {
   it('returns correct settings from the store', () => {
     (store.use.userSettings as Mock).mockReturnValue({
       [ChainId.BSC_TESTNET]: {
-        gaslessTransactions: false,
+        gaslessTransactions: true,
       },
     });
 
@@ -31,7 +33,9 @@ describe('useUserChainSettings', () => {
     } = renderHookWithContext(() => useUserChainSettings());
 
     expect(userChainSettings).toEqual({
-      gaslessTransactions: false,
+      gaslessTransactions: true,
+      showPausedAssets: false,
+      showUserAssetsOnly: false,
     });
   });
 

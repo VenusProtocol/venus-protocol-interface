@@ -5,7 +5,7 @@ import { useAccountAddress, usePublicClient } from 'libs/wallet';
 import type { Asset } from 'types';
 import type { Address } from 'viem';
 
-const useCollateral = () => {
+export const useCollateral = () => {
   const { accountAddress } = useAccountAddress();
   const { publicClient } = usePublicClient();
 
@@ -136,5 +136,3 @@ const useCollateral = () => {
     toggleCollateral,
   };
 };
-
-export default useCollateral;
