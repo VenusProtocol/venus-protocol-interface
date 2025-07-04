@@ -3,6 +3,7 @@ import { Carousel as CarouselComp, CarouselItem } from 'components';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
+import { BurnedWBnbBanner } from './BurnedWBnbBanner';
 import { PrimePromotionalBanner } from './PrimePromotionalBanner';
 import { UnichainPromotionalBanner } from './UnichainPromotionalBanner';
 
@@ -20,6 +21,10 @@ export const Carousel: React.FC = () => {
   });
 
   const slides: React.ReactNode[] = [];
+
+  if (chainId === ChainId.BSC_MAINNET) {
+    slides.push(<BurnedWBnbBanner />);
+  }
 
   if (chainId !== ChainId.UNICHAIN_MAINNET && chainId !== ChainId.UNICHAIN_SEPOLIA) {
     slides.push(<UnichainPromotionalBanner />);

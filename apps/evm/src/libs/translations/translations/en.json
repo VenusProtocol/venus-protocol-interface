@@ -236,7 +236,7 @@
       "label": "Wallet balance"
     }
   },
-  "burnedBnbButton": {
+  "burnedWBnbButton": {
     "iconAlt": "Burned BNB icon"
   },
   "chainExplorerLink": {
@@ -280,6 +280,16 @@
   },
   "dashboard": {
     "allTag": "All",
+    "burnedWBnbBanner": {
+      "buttonLabel": {
+        "snapshotPage": "TRANSLATION NEEDED"
+      },
+      "description": "TRANSLATION NEEDED",
+      "illustration": {
+        "alt": "TRANSLATION NEEDED"
+      },
+      "title": "TRANSLATION NEEDED"
+    },
     "pausedAssetsToggle": {
       "label": "Paused assets"
     },
