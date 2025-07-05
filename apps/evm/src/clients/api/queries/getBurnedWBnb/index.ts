@@ -59,10 +59,10 @@ export const getBurnedWBnb = async ({
     throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
   }
 
-  const burnedWBnbMantissa = payload.reduce((acc, burnedBnb) => {
+  const burnedWBnbMantissa = payload.reduce((acc, burnedWBnb) => {
     let totalAmountMantissa = 0n;
 
-    burnedBnb.destinationAmounts.forEach(({ amount }) => {
+    burnedWBnb.destinationAmounts.forEach(({ amount }) => {
       totalAmountMantissa += BigInt(amount);
     });
 

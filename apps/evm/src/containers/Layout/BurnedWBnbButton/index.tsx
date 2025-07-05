@@ -2,14 +2,12 @@ import { ButtonWrapper, cn } from '@venusprotocol/ui';
 import { Link } from 'containers/Link';
 
 import { useGetBurnedWBnb } from 'clients/api';
+import { BURNED_WBNB_SNAPSHOT_URL } from 'constants/burnedWBnb';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { convertMantissaToTokens } from 'utilities';
 import iconSrc from './icon.svg';
-
-const BURNED_BNB_URL =
-  'https://snapshot.box/#/s:venus-xvs.eth/proposal/0xb8f03ad2dd2988a6d2e89a1adbebc52c7a62b284ea493008752c71b7f00b3386';
 
 export interface BurnedWBnbButtonProps {
   className?: string;
@@ -21,7 +19,7 @@ export const BurnedWBnbButton: React.FC<BurnedWBnbButtonProps> = ({ className })
   const wBnbToken = useGetToken({
     symbol: 'WBNB',
   });
-  const isBurnedWBnbButtonFeatureEnabled = useIsFeatureEnabled({ name: 'burnedBnbButton' });
+  const isBurnedWBnbButtonFeatureEnabled = useIsFeatureEnabled({ name: 'burnedWBnbButton' });
   const { data: getBurnedWBnbMantissaData } = useGetBurnedWBnb();
   const burnedWBnbMantissa = getBurnedWBnbMantissaData?.burnedWBnbMantissa;
 
@@ -45,9 +43,9 @@ export const BurnedWBnbButton: React.FC<BurnedWBnbButtonProps> = ({ className })
       )}
       asChild
     >
-      <Link href={BURNED_BNB_URL} target="_blank">
+      <Link href={BURNED_WBNB_SNAPSHOT_URL} target="_blank">
         <div className="flex justify-center gap-x-1">
-          <img src={iconSrc} alt={t('burnedBnbButton.iconAlt')} className="w-7" />
+          <img src={iconSrc} alt={t('burnedWBnbButton.iconAlt')} className="w-7" />
 
           {readableBurnedWBnb}
         </div>
