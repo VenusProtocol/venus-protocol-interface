@@ -92,13 +92,14 @@ const fakePublicClient = {
   },
 } as unknown as PublicClient;
 
-const fakeTokenPriceMapping = tokens.reduce(
-  (acc, token) => ({
-    ...acc,
-    [token.address]: '3528531320000000000',
-  }),
-  {},
-);
+const fakeTokenPriceMapping = tokens.map(token => ({
+  address: token.address,
+  tokenPrices: [
+    {
+      priceMantissa: '3528531320000000000',
+    },
+  ],
+}));
 
 describe('getPendingRewards', () => {
   beforeEach(() => {

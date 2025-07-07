@@ -9,8 +9,31 @@ export interface GetApiTokenPriceInput {
 }
 export type GetApiTokenPriceOutput = Record<Address, BigNumber>;
 
+interface ApiTokenPrice {
+  id: string;
+  chainId: ChainId;
+  createdAt: string;
+  hasErrorFetchingPrice: false;
+  isPriceInvalid: boolean;
+  priceMantissa: string;
+  priceOracleAddress: null | string;
+  priceSource: string;
+  tokenAddress: string;
+  tokenWrappedAddress: null | string;
+  updatedAt: string;
+}
+
 export interface ApiTokenPriceResponse {
-  result: Record<Address, string>;
+  result: {
+    address: string;
+    chainId: ChainId;
+    createdAt: string;
+    decimals: number;
+    name: string;
+    symbol: string;
+    tokenPrices: ApiTokenPrice[];
+    updatedAt: string;
+  }[];
 }
 
 export const getApiTokenPrice = async ({
@@ -24,16 +47,24 @@ export const getApiTokenPrice = async ({
       tokens: JSON.stringify(tokenAddresses),
       chainId,
     },
+    next: true,
   });
 
   if (response.data && 'error' in response.data) {
     throw new Error(response.data.error);
   }
 
-  const result = response.data?.result || {};
+  const result = response.data?.result || [];
 
-  return Object.entries(result).reduce(
-    (acc, tokenPriceTuple) => ({ ...acc, [tokenPriceTuple[0]]: new BigNumber(tokenPriceTuple[1]) }),
-    {},
-  );
+  return result.reduce((acc, tokenPrice) => {
+    const priceRef =
+      tokenPrice.tokenPrices.find(
+        t => t.priceSource === 'Merkl' || t.priceSource === 'Coingecko',
+      ) || tokenPrice.tokenPrices[0];
+
+    return {
+      ...acc,
+      [tokenPrice.address]: new BigNumber(priceRef.priceMantissa),
+    };
+  }, {});
 };
