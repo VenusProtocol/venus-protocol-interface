@@ -27,6 +27,7 @@ export interface TableProps<R> extends CardProps {
   getRowHref?: (row: R) => string;
   title?: string;
   header?: React.ReactNode;
+  placeholder?: React.ReactNode;
 }
 
 export interface Order<R> {

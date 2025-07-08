@@ -1,5 +1,5 @@
 const toggleCollateralMock = vi.fn();
 
-export default () => ({
+export const useCollateral = vi.fn(() => ({
   toggleCollateral: toggleCollateralMock,
-});
+}));

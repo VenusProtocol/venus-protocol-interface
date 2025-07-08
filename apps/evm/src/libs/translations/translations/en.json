@@ -280,9 +280,6 @@
   },
   "dashboard": {
     "allTag": "All",
-    "pausedAssetsToggle": {
-      "label": "Paused assets"
-    },
     "primePromotionalBanner": {
       "buttonLabel": {
         "primeCalculator": "Calculate your Prime rewards",
@@ -293,9 +290,6 @@
         "alt": "Prime promotional banner"
       },
       "title": "Let's grow together with <Prime>Venus Prime</Prime>"
-    },
-    "searchInput": {
-      "placeholder": "Search asset"
     },
     "unichainPromotionalBanner": {
       "background": {
@@ -559,6 +553,20 @@
     "columnTooltips": {
       "borrowApy": "A positive borrow APY means you'll pay interest and a negative one means you'll earn interest",
       "supplyApy": "A positive supply APY means you'll earn interest and a negative one means you'll pay interest"
+    },
+    "pausedAssetsPlaceholder": {
+      "description": "Please enable the \"Paused Assets\" toggle to view them.",
+      "imgAlt": "Pause icon",
+      "title": "All assets in this pool have been paused"
+    },
+    "pausedAssetsToggle": {
+      "label": "Paused assets"
+    },
+    "searchInput": {
+      "placeholder": "Search asset"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "Show my assets only"
     }
   },
   "operationForm": {
