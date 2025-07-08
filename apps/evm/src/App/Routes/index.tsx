@@ -9,7 +9,6 @@ import { useAccountAddress } from 'libs/wallet';
 
 import { Redirect } from 'containers/Redirect';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useShouldDisplayImportUi } from 'hooks/useShouldDisplayImportUi';
 import { safeLazyLoad } from 'utilities';
 import PageSuspense from './PageSuspense';
 
@@ -46,8 +45,6 @@ const AppRoutes = () => {
   const isolatedPoolsEnabled = useIsFeatureEnabled({
     name: 'isolatedPools',
   });
-
-  const { shouldDisplayImportUi } = useShouldDisplayImportUi();
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
@@ -87,27 +84,38 @@ const AppRoutes = () => {
         </Route>
 
         {!!accountAddress && (
-          <Route path={Subdirectory.ACCOUNT}>
-            <Route
-              index
-              element={
-                <PageSuspense>
-                  <Account />
-                </PageSuspense>
-              }
-            />
-
-            {primeCalculatorEnabled && (
+          <>
+            <Route path={Subdirectory.ACCOUNT}>
               <Route
-                path={Subdirectory.PRIME_CALCULATOR}
+                index
                 element={
                   <PageSuspense>
-                    <PrimeCalculator />
+                    <Account />
                   </PageSuspense>
                 }
               />
-            )}
-          </Route>
+
+              {primeCalculatorEnabled && (
+                <Route
+                  path={Subdirectory.PRIME_CALCULATOR}
+                  element={
+                    <PageSuspense>
+                      <PrimeCalculator />
+                    </PageSuspense>
+                  }
+                />
+              )}
+            </Route>
+
+            <Route
+              path={Subdirectory.IMPORT}
+              element={
+                <PageSuspense>
+                  <Import />
+                </PageSuspense>
+              }
+            />
+          </>
         )}
 
         {isolatedPoolsEnabled && (
@@ -261,17 +269,6 @@ const AppRoutes = () => {
             element={
               <PageSuspense>
                 <Bridge />
-              </PageSuspense>
-            }
-          />
-        )}
-
-        {shouldDisplayImportUi && (
-          <Route
-            path={Subdirectory.IMPORT}
-            element={
-              <PageSuspense>
-                <Import />
               </PageSuspense>
             }
           />

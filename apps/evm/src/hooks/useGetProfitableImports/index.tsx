@@ -17,7 +17,7 @@ export const useGetProfitableImports = () => {
     name: 'importPositions',
   });
 
-  const { data: importablePositions } = useGetImportablePositions(
+  const { data: importablePositions, isPending } = useGetImportablePositions(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
     },
@@ -70,6 +70,7 @@ export const useGetProfitableImports = () => {
   );
 
   return {
+    isPending,
     supplyPositions,
     importablePositionsCount,
   };
