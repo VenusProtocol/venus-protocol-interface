@@ -11,7 +11,6 @@ interface ApiReward {
   lastRewardingBorrowBlockOrTimestamp: string;
   supplySpeed: string;
   borrowSpeed: string;
-  priceMantissa: string;
   rewardsDistributorContractAddress: Address;
   isActive: boolean;
 }
@@ -53,7 +52,7 @@ export interface ApiMarket {
   address: Address;
   symbol: string;
   name: string;
-  underlyingAddress: Address | null;
+  underlyingAddress: Address;
   underlyingName: string;
   underlyingSymbol: string;
   underlyingDecimal: number;
@@ -64,7 +63,6 @@ export interface ApiMarket {
   borrowRatePerBlock: string;
   supplyRatePerBlock: string;
   exchangeRateMantissa: string;
-  underlyingPriceMantissa: string;
   totalBorrowsMantissa: string;
   totalSupplyMantissa: string;
   cashMantissa: string;
@@ -97,10 +95,29 @@ export interface ApiPool {
   address: Address;
   name: string;
   markets: ApiMarket[];
+  priceOracleAddress: Address;
+}
+
+export interface ApiTokenPrice {
+  tokenWrappedAddress: Address | null;
+  priceMantissa: string;
+  priceSource: 'oracle' | 'merkl' | 'coingecko';
+  priceOracleAddress: Address | null;
+  isPriceInvalid: boolean;
+  hasErrorFetchingPrice: boolean;
+}
+
+export interface ApiTokenMetadata {
+  address: Address;
+  name: string;
+  symbol: string;
+  decimals: number;
+  tokenPrices: ApiTokenPrice[];
 }
 
 export interface GetApiPoolsResponse {
   result: ApiPool[];
+  tokens: ApiTokenMetadata[];
   request: { addresses: Address[] };
 }
 
@@ -139,6 +156,7 @@ export const getApiPools = async ({
     });
   }
 
+  const tokenMetadata = payload.tokens || [];
   const pools = (payload?.result || []).map(pool => ({
     ...pool,
     markets: pool.markets.map(market => ({
@@ -149,5 +167,6 @@ export const getApiPools = async ({
 
   return {
     pools,
+    tokenMetadata,
   };
 };

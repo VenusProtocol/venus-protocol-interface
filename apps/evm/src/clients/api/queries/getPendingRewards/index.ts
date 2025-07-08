@@ -245,7 +245,11 @@ export const getPendingRewards = async ({
     [address: string]: BigNumber;
   }>((acc, tokenPriceMantissaTuple) => {
     const rewardTokenAddress = tokenPriceMantissaTuple[0];
-    const rewardTokenPriceMantissa = tokenPriceMantissaTuple[1];
+    const availableRewardTokenPrices = tokenPriceMantissaTuple[1];
+    const referenceRewardTokenPrice =
+      availableRewardTokenPrices.find(tokenPrice => tokenPrice.priceSource === 'oracle') ||
+      availableRewardTokenPrices.find(tokenPrice => tokenPrice.priceSource === 'coingecko') ||
+      availableRewardTokenPrices.find(tokenPrice => tokenPrice.priceSource === 'merkl');
     const rewardToken = findTokenByAddress({
       tokens,
       address: rewardTokenAddress,
@@ -255,8 +259,12 @@ export const getPendingRewards = async ({
       return acc;
     }
 
+    if (!referenceRewardTokenPrice) {
+      return acc;
+    }
+
     const rewardTokenPriceDollars = convertPriceMantissaToDollars({
-      priceMantissa: rewardTokenPriceMantissa,
+      priceMantissa: referenceRewardTokenPrice.priceMantissa,
       decimals: rewardToken.decimals,
     });
 
