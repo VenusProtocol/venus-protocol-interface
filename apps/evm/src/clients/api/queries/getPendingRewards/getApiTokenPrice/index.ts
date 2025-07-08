@@ -1,17 +1,27 @@
-import BigNumber from 'bignumber.js';
 import type { ChainId } from 'types';
 import { restService } from 'utilities';
 import type { Address } from 'viem';
+import type { ApiTokenPrice } from '../../useGetPools/getPools/getApiPools';
 
 export interface GetApiTokenPriceInput {
   tokenAddresses: string[];
   chainId: ChainId;
 }
-export type GetApiTokenPriceOutput = Record<Address, BigNumber>;
 
 export interface ApiTokenPriceResponse {
-  result: Record<Address, string>;
+  result: {
+    address: string;
+    chainId: ChainId;
+    createdAt: string;
+    decimals: number;
+    name: string;
+    symbol: string;
+    tokenPrices: ApiTokenPrice[];
+    updatedAt: string;
+  }[];
 }
+
+export type GetApiTokenPriceOutput = Record<Address, ApiTokenPrice[]>;
 
 export const getApiTokenPrice = async ({
   tokenAddresses,
@@ -24,16 +34,19 @@ export const getApiTokenPrice = async ({
       tokens: JSON.stringify(tokenAddresses),
       chainId,
     },
+    next: true,
   });
 
   if (response.data && 'error' in response.data) {
     throw new Error(response.data.error);
   }
 
-  const result = response.data?.result || {};
+  const result = response.data?.result || [];
 
-  return Object.entries(result).reduce(
-    (acc, tokenPriceTuple) => ({ ...acc, [tokenPriceTuple[0]]: new BigNumber(tokenPriceTuple[1]) }),
-    {},
-  );
+  return result.reduce((acc, tokenMetadata) => {
+    return {
+      ...acc,
+      [tokenMetadata.address]: tokenMetadata.tokenPrices,
+    };
+  }, {});
 };
