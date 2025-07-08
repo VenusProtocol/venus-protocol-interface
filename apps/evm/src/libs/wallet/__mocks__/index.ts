@@ -8,3 +8,4 @@ export * from 'libs/wallet/hooks/useSwitchChain/__mocks__';
 export * from 'libs/wallet/hooks/useChainId/__mocks__';
 export * from 'libs/wallet/hooks/useAuthModal/__mocks__';
 export * from 'libs/wallet/hooks/useAddTokenToWallet/__mocks__';
+export * from 'libs/wallet/hooks/useMeeClient/__mocks__';

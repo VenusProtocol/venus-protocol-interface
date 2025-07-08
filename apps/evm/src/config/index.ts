@@ -22,6 +22,7 @@ export interface Config {
     hostUrl: string;
   };
   zyFiApiKey: string;
+  biconomyApiKey: string;
 }
 
 const environment: Environment = envVariables.VITE_ENV || 'preview';
@@ -52,6 +53,7 @@ const config: Config = {
     hostUrl: envVariables.VITE_POSTHOG_HOST_URL || '',
   },
   zyFiApiKey: envVariables.VITE_ZYFI_API_KEY || '',
+  biconomyApiKey: envVariables.VITE_BICONOMY_API_KEY || '',
 };
 
 export { envVariables } from './envVariables';

@@ -30,7 +30,10 @@ const formatPercentageToReadableValue = (value: number | string | BigNumber | un
       maxDecimalPlaces: MAX_DECIMALS,
     });
 
-    readableValue = `${isNegative ? '-' : ''}${absoluteValue.toFormat(decimalPlaces)}`;
+    readableValue = `${isNegative ? '-' : ''}${absoluteValue.toFormat(
+      decimalPlaces,
+      BigNumber.ROUND_HALF_UP,
+    )}`;
   }
 
   return `${readableValue}%`;

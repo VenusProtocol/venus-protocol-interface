@@ -9,11 +9,13 @@ import { useAccountAddress } from 'libs/wallet';
 
 import { Redirect } from 'containers/Redirect';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useShouldDisplayImportUi } from 'hooks/useShouldDisplayImportUi';
 import { safeLazyLoad } from 'utilities';
 import PageSuspense from './PageSuspense';
 
 const Dashboard = safeLazyLoad(() => import('pages/Dashboard'));
 const Account = safeLazyLoad(() => import('pages/Account'));
+const Import = safeLazyLoad(() => import('pages/Import'));
 const CorePoolMarket = safeLazyLoad(() => import('pages/Market/CorePoolMarket'));
 const IsolatedPoolMarket = safeLazyLoad(() => import('pages/Market/IsolatedPoolMarket'));
 const CorePool = safeLazyLoad(() => import('pages/Pool/CorePool'));
@@ -34,6 +36,7 @@ const AppRoutes = () => {
   const { accountAddress } = useAccountAddress();
   const { lstPoolComptrollerContractAddress, lstPoolVWstEthContractAddress } =
     useGetChainMetadata();
+  const location = useLocation();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
@@ -43,7 +46,8 @@ const AppRoutes = () => {
   const isolatedPoolsEnabled = useIsFeatureEnabled({
     name: 'isolatedPools',
   });
-  const location = useLocation();
+
+  const { shouldDisplayImportUi } = useShouldDisplayImportUi();
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
@@ -257,6 +261,17 @@ const AppRoutes = () => {
             element={
               <PageSuspense>
                 <Bridge />
+              </PageSuspense>
+            }
+          />
+        )}
+
+        {shouldDisplayImportUi && (
+          <Route
+            path={Subdirectory.IMPORT}
+            element={
+              <PageSuspense>
+                <Import />
               </PageSuspense>
             }
           />

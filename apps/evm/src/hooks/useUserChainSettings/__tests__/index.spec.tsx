@@ -36,6 +36,7 @@ describe('useUserChainSettings', () => {
       gaslessTransactions: true,
       showPausedAssets: false,
       showUserAssetsOnly: false,
+      doNotShowImportPositionsModal: false,
     });
   });
 

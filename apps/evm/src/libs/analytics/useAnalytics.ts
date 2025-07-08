@@ -1,4 +1,6 @@
 import { track } from '@vercel/analytics/react';
+import type { ImportableProtocol } from 'types';
+import type { Address } from 'viem';
 
 export type AnalyticEventName =
   | 'Tokens supplied'
@@ -19,7 +21,12 @@ export type AnalyticEventName =
   | 'Prime reward claimed'
   | 'VAI vault reward claimed'
   | 'XVS vesting vault reward claimed'
-  | 'Vote cast';
+  | 'Vote cast'
+  | 'Import positions modal displayed'
+  | 'Import positions modal closed'
+  | 'Position import initiated'
+  | 'Position import failed'
+  | 'Position imported';
 
 export type AnalyticEventProps<TEventName extends AnalyticEventName> =
   TEventName extends 'Tokens supplied'
@@ -35,41 +42,46 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
           slippageTolerancePercentage: number;
           exchangeRate: number;
         }
-      : TEventName extends 'Tokens collateralized'
+      : TEventName extends 'Tokens collateralized' | 'Tokens decollateralized'
         ? {
             poolName: string;
             tokenSymbol: string;
             userSupplyBalanceTokens: number;
           }
-        : TEventName extends 'Tokens decollateralized'
+        : TEventName extends 'Tokens withdrawn'
           ? {
               poolName: string;
               tokenSymbol: string;
-              userSupplyBalanceTokens: number;
+              tokenAmountTokens: number;
+              withdrewFullSupply: boolean;
             }
-          : TEventName extends 'Tokens withdrawn'
+          : TEventName extends 'Tokens borrowed'
             ? {
                 poolName: string;
                 tokenSymbol: string;
                 tokenAmountTokens: number;
-                withdrewFullSupply: boolean;
               }
-            : TEventName extends 'Tokens borrowed'
+            : TEventName extends 'Tokens repaid'
               ? {
                   poolName: string;
                   tokenSymbol: string;
                   tokenAmountTokens: number;
+                  repaidFullLoan: boolean;
                 }
-              : TEventName extends 'Tokens repaid'
+              : TEventName extends 'Tokens swapped and repaid'
                 ? {
                     poolName: string;
-                    tokenSymbol: string;
-                    tokenAmountTokens: number;
+                    fromTokenSymbol: string;
+                    fromTokenAmountTokens: number;
+                    toTokenSymbol: string;
+                    toTokenAmountTokens: number;
+                    priceImpactPercentage: number;
+                    slippageTolerancePercentage: number;
+                    exchangeRate: number;
                     repaidFullLoan: boolean;
                   }
-                : TEventName extends 'Tokens swapped and repaid'
+                : TEventName extends 'Tokens swapped'
                   ? {
-                      poolName: string;
                       fromTokenSymbol: string;
                       fromTokenAmountTokens: number;
                       toTokenSymbol: string;
@@ -77,55 +89,48 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
                       priceImpactPercentage: number;
                       slippageTolerancePercentage: number;
                       exchangeRate: number;
-                      repaidFullLoan: boolean;
                     }
-                  : TEventName extends 'Tokens swapped'
+                  : TEventName extends
+                        | 'Tokens staked in XVS vault'
+                        | 'Token withdrawal requested from XVS vault'
                     ? {
-                        fromTokenSymbol: string;
-                        fromTokenAmountTokens: number;
-                        toTokenSymbol: string;
-                        toTokenAmountTokens: number;
-                        priceImpactPercentage: number;
-                        slippageTolerancePercentage: number;
-                        exchangeRate: number;
+                        poolIndex: number;
+                        rewardTokenSymbol: string;
+                        tokenAmountTokens: number;
                       }
-                    : TEventName extends 'Tokens staked in XVS vault'
+                    : TEventName extends
+                          | 'Token withdrawals executed from XVS vault'
+                          | 'XVS vesting vault reward claimed'
                       ? {
                           poolIndex: number;
                           rewardTokenSymbol: string;
-                          tokenAmountTokens: number;
                         }
-                      : TEventName extends 'Token withdrawal requested from XVS vault'
+                      : TEventName extends
+                            | 'Tokens staked in VAI vault'
+                            | 'Tokens withdrawn from VAI vault'
                         ? {
-                            poolIndex: number;
-                            rewardTokenSymbol: string;
                             tokenAmountTokens: number;
                           }
-                        : TEventName extends 'Token withdrawals executed from XVS vault'
+                        : TEventName extends 'Pool reward claimed'
                           ? {
-                              poolIndex: number;
-                              rewardTokenSymbol: string;
+                              comptrollerAddress: string;
                             }
-                          : TEventName extends 'Tokens staked in VAI vault'
-                            ? {
-                                tokenAmountTokens: number;
-                              }
-                            : TEventName extends 'Tokens withdrawn from VAI vault'
+                          : TEventName extends 'Vote cast'
+                            ? { proposalId: number; voteType: string }
+                            : TEventName extends
+                                  | 'Position import initiated'
+                                  | 'Position import failed'
+                                  | 'Position imported'
                               ? {
-                                  tokenAmountTokens: number;
+                                  fromProtocol: ImportableProtocol;
+                                  fromTokenSymbol: string;
+                                  fromTokenAmountTokens: number;
+                                  fromTokenAmountDollars: number;
+                                  fromTokenApyPercentage: number;
+                                  toVTokenAddress: Address;
+                                  toTokenApyPercentage: number;
                                 }
-                              : TEventName extends 'Pool reward claimed'
-                                ? {
-                                    comptrollerAddress: string;
-                                  }
-                                : TEventName extends 'XVS vesting vault reward claimed'
-                                  ? {
-                                      poolIndex: number;
-                                      rewardTokenSymbol: string;
-                                    }
-                                  : TEventName extends 'Vote cast'
-                                    ? { proposalId: number; voteType: string }
-                                    : undefined;
+                              : undefined;
 
 export const useAnalytics = () => {
   function captureAnalyticEvent<TEventName extends AnalyticEventName>(

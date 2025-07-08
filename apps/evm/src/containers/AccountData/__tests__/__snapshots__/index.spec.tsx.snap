@@ -12,7 +12,7 @@ exports[`AccountData > renders correct values: { action: 'borrow', amountToken: 
 
 exports[`AccountData > renders correct values: { action: 'borrow', amountToken: 10 } 1`] = `"Borrow limit used:7.06%Limit:$1.92K.Health factor15.6214.15HealthyDaily earnings$0.03$0.03"`;
 
-exports[`AccountData > renders correct values: { action: 'borrow', amountToken: 100 } 1`] = `"Borrow limit used:13.03%Limit:$1.92K.Health factor15.627.67HealthyDaily earnings$0.03$0.05"`;
+exports[`AccountData > renders correct values: { action: 'borrow', amountToken: 100 } 1`] = `"Borrow limit used:13.04%Limit:$1.92K.Health factor15.627.67HealthyDaily earnings$0.03$0.05"`;
 
 exports[`AccountData > renders correct values: { action: 'repay', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.03"`;
 
@@ -22,9 +22,9 @@ exports[`AccountData > renders correct values: { action: 'repay', amountToken: 1
 
 exports[`AccountData > renders correct values: { action: 'supply', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.03"`;
 
-exports[`AccountData > renders correct values: { action: 'supply', amountToken: 10 } 1`] = `"Borrow limit used:6.37%Limit:$1.93K.Health factor15.6215.67HealthyDaily earnings$0.03$0.03"`;
+exports[`AccountData > renders correct values: { action: 'supply', amountToken: 10 } 1`] = `"Borrow limit used:6.38%Limit:$1.93K.Health factor15.6215.67HealthyDaily earnings$0.03$0.03"`;
 
-exports[`AccountData > renders correct values: { action: 'supply', amountToken: 100 } 1`] = `"Borrow limit used:6.19%Limit:$1.99K.Health factor15.6216.14HealthyDaily earnings$0.03$0.03"`;
+exports[`AccountData > renders correct values: { action: 'supply', amountToken: 100 } 1`] = `"Borrow limit used:6.20%Limit:$1.99K.Health factor15.6216.14HealthyDaily earnings$0.03$0.03"`;
 
 exports[`AccountData > renders correct values: { action: 'withdraw', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.03Supply balance$115.08"`;
 
