@@ -1,5 +1,14 @@
 # @venusprotocol/evm
 
+## 3.16.0
+
+### Minor Changes
+
+- a237d0e: add controls and placeholder to MarketTable
+- d317cc8: add burned BNB button
+- d317cc8: add analytics and boundaries to Import Positions feature
+- d317cc8: wire up Import positions feature
+
 ## 3.15.0
 
 ### Minor Changes
