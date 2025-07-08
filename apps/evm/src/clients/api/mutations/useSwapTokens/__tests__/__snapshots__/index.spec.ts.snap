@@ -21,7 +21,7 @@ exports[`useSwapTokens > calls useSendTransaction with the correct parameters wh
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },
@@ -76,7 +76,7 @@ exports[`useSwapTokens > calls useSendTransaction with the correct parameters wh
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },
@@ -101,7 +101,7 @@ exports[`useSwapTokens > calls useSendTransaction with the correct parameters wh
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
           "spenderAddress": "0xfakeSwapRouterContractAddress",
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },
@@ -210,7 +210,7 @@ exports[`useSwapTokens > calls useSendTransaction with the correct parameters wh
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },
@@ -235,7 +235,7 @@ exports[`useSwapTokens > calls useSendTransaction with the correct parameters wh
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
           "spenderAddress": "0xfakeSwapRouterContractAddress",
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },
@@ -289,7 +289,7 @@ exports[`useSwapTokens > calls useSendTransaction with the correct parameters wh
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },

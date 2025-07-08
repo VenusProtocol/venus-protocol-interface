@@ -13,7 +13,7 @@ import { ChainId, type ChainMetadata, type Token } from './types';
 
 // TODO: import from @venusprotocol/tokens package once it's been created
 const bnb: Token = {
-  address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+  address: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
   decimals: 18,
   symbol: 'BNB',
   asset: bnbTokenLogo,
@@ -21,7 +21,7 @@ const bnb: Token = {
 };
 
 const eth: Token = {
-  address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+  address: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
   decimals: 18,
   symbol: 'ETH',
   asset: ethTokenLogo,
