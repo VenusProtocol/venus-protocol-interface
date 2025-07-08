@@ -34,7 +34,7 @@ exports[`useSupply > calls useSendTransaction with the correct parameters for su
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },
@@ -58,7 +58,7 @@ exports[`useSupply > calls useSendTransaction with the correct parameters for su
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },
@@ -192,7 +192,7 @@ exports[`useSupply > calls useSendTransaction with the correct parameters for wr
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },
@@ -216,7 +216,7 @@ exports[`useSupply > calls useSendTransaction with the correct parameters for wr
         {
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },
@@ -242,7 +242,7 @@ exports[`useSupply > calls useSendTransaction with the correct parameters for wr
           "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "chainId": 97,
           "spenderAddress": "0xfakeNativeTokenGatewayContractAddress",
-          "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+          "tokenAddress": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         },
       ],
     },
