@@ -1,7 +1,8 @@
-import { AccordionAnimatedContent, Icon, cn } from 'components';
+import { AccordionAnimatedContent, Icon, Spinner, cn } from 'components';
 import { Card } from 'components';
 import { useGetProfitableImports } from 'hooks/useGetProfitableImports';
 import { useTranslation } from 'libs/translations';
+import { useMeeClient } from 'libs/wallet';
 import { useState } from 'react';
 import { Infos } from './Infos';
 import { Notice } from './Notice';
@@ -14,23 +15,39 @@ export interface ImportablePositionsProps {
 
 const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = false }) => {
   const { t } = useTranslation();
-  const { supplyPositions: importableSupplyPositions } = useGetProfitableImports();
+  const {
+    supplyPositions: importableSupplyPositions,
+    isPending: isGetProfitableImportsLoading,
+    importablePositionsCount,
+  } = useGetProfitableImports();
+  const { data: getMeeClientData } = useMeeClient();
+
+  const isLoading = !getMeeClientData || isGetProfitableImportsLoading;
+  const shouldShowEmptyState = isLoading || importablePositionsCount === 0;
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
-  const importablePositionsDom = (
-    <>
-      {importableSupplyPositions.aave && (
-        <ProtocolPositions
-          protocolLogoSrc={aaveLogoSrc}
-          protocolLogoAlt={t('importPositionsModal.aaveLogoAlt')}
-          positions={importableSupplyPositions.aave}
-        />
-      )}
+  let importablePositionsDom: React.ReactNode | undefined;
 
-      {/* TODO: add other protocols */}
-    </>
-  );
+  if (isLoading) {
+    importablePositionsDom = <Spinner />;
+  } else if (importablePositionsCount === 0) {
+    importablePositionsDom = <p className="text-center">{t('importPositionsModal.emptyState')}</p>;
+  } else {
+    importablePositionsDom = (
+      <>
+        {importableSupplyPositions.aave && (
+          <ProtocolPositions
+            protocolLogoSrc={aaveLogoSrc}
+            protocolLogoAlt={t('importPositionsModal.aaveLogoAlt')}
+            positions={importableSupplyPositions.aave}
+          />
+        )}
+
+        {/* TODO: add other protocols */}
+      </>
+    );
+  }
 
   let xsDom = (
     <div className="space-y-4 md:hidden">
@@ -64,7 +81,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
   }
 
   const mdUpContentDom = (
-    <div className="flex grow gap-x-4 items-start">
+    <div className="flex grow gap-x-4">
       <div
         className={cn(
           'px-4 py-5 space-y-4 rounded-xl border border-lightGrey w-66 sticky',
@@ -76,7 +93,11 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
         <Infos />
       </div>
 
-      <div className="grow space-y-4">{importablePositionsDom}</div>
+      <div
+        className={cn('grow space-y-4', shouldShowEmptyState && 'flex items-center justify-center')}
+      >
+        {importablePositionsDom}
+      </div>
     </div>
   );
 

@@ -3,7 +3,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
-import { useShouldDisplayImportUi } from 'hooks/useShouldDisplayImportUi';
+import { useGetProfitableImports } from 'hooks/useGetProfitableImports';
 import type { MenuItem } from './types';
 
 const useGetMenuItems = () => {
@@ -14,8 +14,7 @@ const useGetMenuItems = () => {
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const isolatedPoolsRouteEnabled = useIsFeatureEnabled({ name: 'isolatedPools' });
-
-  const { shouldDisplayImportUi, importablePositionsCount } = useShouldDisplayImportUi();
+  const { importablePositionsCount } = useGetProfitableImports();
 
   const menuItems: MenuItem[] = [
     {
@@ -35,6 +34,16 @@ const useGetMenuItems = () => {
       // t('layout.menuItems.account')
       i18nKey: 'layout.menuItems.account',
       iconName: 'person',
+    });
+
+    menuItems.push({
+      to: routes.import.path,
+      // Translation key: do not remove this comment
+      // t('layout.menuItems.port')
+      i18nKey: 'layout.menuItems.port',
+      iconName: 'download',
+      badgeNumber: importablePositionsCount || undefined,
+      isNew: true,
     });
   }
 
@@ -109,18 +118,6 @@ const useGetMenuItems = () => {
       // t('layout.menuItems.bridge')
       i18nKey: 'layout.menuItems.bridge',
       iconName: 'bridge',
-    });
-  }
-
-  if (shouldDisplayImportUi) {
-    menuItems.push({
-      to: routes.import.path,
-      // Translation key: do not remove this comment
-      // t('layout.menuItems.import')
-      i18nKey: 'layout.menuItems.import',
-      iconName: 'download',
-      badgeNumber: importablePositionsCount,
-      isNew: true,
     });
   }
 

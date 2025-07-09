@@ -360,6 +360,7 @@
   },
   "importPositionsModal": {
     "aaveLogoAlt": "Logo of Aave",
+    "emptyState": "No external positions to import",
     "gasLess": {
       "label": "Free",
       "tooltip": "Transactions to migrate your positions to Venus are sponsored by the Venus Protocol"
@@ -444,9 +445,9 @@
       "corePool": "Core pool",
       "dashboard": "Dashboard",
       "governance": "Governance",
-      "import": "Import",
       "isolatedPools": "Isolated pools",
       "lidoMarket": "Lido market",
+      "port": "Port",
       "swap": "Swap",
       "vai": "VAI",
       "vaults": "Vaults"
