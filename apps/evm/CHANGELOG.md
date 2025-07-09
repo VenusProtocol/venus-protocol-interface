@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.19.0
+
+### Minor Changes
+
+- f304cc4: only show import position modal if user has importable positions
+
 ## 3.18.0
 
 ### Minor Changes
