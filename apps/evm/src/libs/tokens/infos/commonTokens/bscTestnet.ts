@@ -1,3 +1,4 @@
+import { NEW_NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import aaveLogo from 'libs/tokens/img/underlyingTokens/aave.svg';
 import adaLogo from 'libs/tokens/img/underlyingTokens/ada.svg';
 import alpacaLogo from 'libs/tokens/img/underlyingTokens/alpaca.png';
@@ -79,6 +80,11 @@ export const tokens: Token[] = [
     asset: vrtLogo,
   },
   bnb,
+  // temporary, to be removed once the new backend is deployed
+  {
+    ...bnb,
+    address: NEW_NATIVE_TOKEN_ADDRESS,
+  },
   {
     address: '0x75107940Cf1121232C0559c747A986DEfbc69DA9',
     decimals: 18,
