@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.17.0
+
+### Minor Changes
+
+- 42b4ff0: use temporary address for the vBNB underlying
+
 ## 3.16.0
 
 ### Minor Changes
