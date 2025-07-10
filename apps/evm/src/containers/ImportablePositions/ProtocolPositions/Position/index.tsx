@@ -48,7 +48,7 @@ export const Position: React.FC<PropositionProps> = ({
     fromTokenAmountDollars: supplyBalanceCents.dividedBy(100).toNumber(),
     fromTokenApyPercentage: supplyPosition.supplyApyPercentage,
     toVTokenAddress: asset.vToken.address,
-    toTokenApyPercentage: currentSupplyApyPercentage,
+    toTokenApyPercentage: supplyApyPercentage.toNumber(),
   };
 
   const { mutateAsync: importSupplyPosition, isPending: isImportSupplyPositionLoading } =
