@@ -93,14 +93,6 @@ const fakePublicClient = {
   },
 } as unknown as PublicClient;
 
-// const fakeTokenPriceMapping = tokens.reduce(
-//   (acc, token) => ({
-//     ...acc,
-//     [token.address]: [],
-//   }),
-//   {},
-// );
-//
 describe('getPendingRewards', () => {
   beforeEach(() => {
     (restService as Mock).mockImplementation(async () => ({

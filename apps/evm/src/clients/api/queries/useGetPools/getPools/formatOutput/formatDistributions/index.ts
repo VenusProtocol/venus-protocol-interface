@@ -8,16 +8,16 @@ import formatRewardDistribution from './formatRewardDistribution';
 import type {
   ApiPointsDistribution,
   ApiRewardDistributor,
-  ApiTokenMetadata,
+  ApiTokenPrice,
 } from 'clients/api/queries/useGetPools/getPools/getApiPools';
-import { areAddressesEqual, convertPriceMantissaToDollars } from 'utilities';
+import { convertPriceMantissaToDollars } from 'utilities';
 import type { PrimeApy } from '../../../types';
 import { isDistributingRewards } from './isDistributingRewards';
 
 export type FormatDistributionsInput = {
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
-  apiTokenMetadata: ApiTokenMetadata[];
+  tokenPricesMapping: Record<string, ApiTokenPrice[]>;
   apiRewardsDistributors: ApiRewardDistributor[];
   apiPointsDistributions: ApiPointsDistribution[];
   currentBlockNumber: bigint;
@@ -32,7 +32,7 @@ export const formatDistributions = ({
   blocksPerDay,
   underlyingTokenPriceDollars,
   tokens,
-  apiTokenMetadata,
+  tokenPricesMapping,
   apiRewardsDistributors,
   apiPointsDistributions,
   currentBlockNumber,
@@ -69,13 +69,13 @@ export const formatDistributions = ({
         return;
       }
 
-      const correspondingRewardTokenPrice = apiTokenMetadata
-        .find(tm => areAddressesEqual(rewardTokenAddress, tm.address))
-        ?.tokenPrices.find(tokenPrice =>
-          rewardType === 'venus'
-            ? tokenPrice.priceSource === 'oracle'
-            : tokenPrice.priceSource === 'merkl',
-        );
+      const correspondingRewardTokenPrice = tokenPricesMapping[
+        rewardTokenAddress.toLowerCase()
+      ].find(tokenPrice =>
+        rewardType === 'venus'
+          ? tokenPrice.priceSource === 'oracle'
+          : tokenPrice.priceSource === 'merkl',
+      );
 
       if (!correspondingRewardTokenPrice) {
         return;
