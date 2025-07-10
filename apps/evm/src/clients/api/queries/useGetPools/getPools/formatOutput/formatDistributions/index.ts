@@ -69,17 +69,23 @@ export const formatDistributions = ({
         return;
       }
 
-      const correspondingRewardTokenPrice = tokenPricesMapping[
-        rewardTokenAddress.toLowerCase()
-      ].find(tokenPrice =>
-        rewardType === 'venus'
-          ? tokenPrice.priceSource === 'oracle'
-          : tokenPrice.priceSource === 'merkl',
-      );
+      const tokenPriceMapping = tokenPricesMapping[rewardTokenAddress.toLowerCase()];
+      tokenPriceMapping.sort((tp01, tp02) => {
+        if (tp01.priceSource === tp02.priceSource) {
+          return 0;
+        }
 
-      if (!correspondingRewardTokenPrice) {
+        if (tp01.priceSource === 'merkl' || tp02.priceSource === 'coingecko') {
+          return -1;
+        }
+
+        return 1;
+      });
+
+      if (tokenPriceMapping.length === 0) {
         return;
       }
+      const correspondingRewardTokenPrice = tokenPriceMapping[0];
 
       const { priceMantissa } = correspondingRewardTokenPrice;
 
