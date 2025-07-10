@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.20.0
+
+### Minor Changes
+
+- 1aa9678: add burned BNB banner
+
 ## 3.19.0
 
 ### Minor Changes
