@@ -236,7 +236,7 @@
       "label": "Wallet balance"
     }
   },
-  "burnedBnbButton": {
+  "burnedWBnbButton": {
     "iconAlt": "Burned BNB icon"
   },
   "chainExplorerLink": {
@@ -280,6 +280,16 @@
   },
   "dashboard": {
     "allTag": "All",
+    "burnedWBnbBanner": {
+      "buttonLabel": {
+        "snapshotPage": "View proposal"
+      },
+      "description": "The Venus Protocol will now burn BNB, dedicating 25% of its BNB Chain revenue, to support both BNB and Venus’s long-term growth.",
+      "illustration": {
+        "alt": "BNB After burn illustration"
+      },
+      "title": "BNB Afterburn proposal passed"
+    },
     "primePromotionalBanner": {
       "buttonLabel": {
         "primeCalculator": "Calculate your Prime rewards",

@@ -120,7 +120,7 @@ export const featureFlags = {
     ChainId.BASE_MAINNET,
     ChainId.BASE_SEPOLIA,
   ],
-  burnedBnbButton: [ChainId.BSC_MAINNET],
+  burnedWBnbButton: [ChainId.BSC_MAINNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
