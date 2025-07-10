@@ -247,6 +247,7 @@ export const getPendingRewards = async ({
     const rewardTokenAddress = tokenPriceMantissaTuple[0];
     const availableRewardTokenPrices = tokenPriceMantissaTuple[1];
     const referenceRewardTokenPrice =
+      availableRewardTokenPrices.find(tokenPrice => tokenPrice.priceSource === 'merkl') ||
       availableRewardTokenPrices.find(tokenPrice => tokenPrice.priceSource === 'oracle') ||
       availableRewardTokenPrices.find(tokenPrice => tokenPrice.priceSource === 'coingecko') ||
       availableRewardTokenPrices.find(tokenPrice => tokenPrice.priceSource === 'merkl');

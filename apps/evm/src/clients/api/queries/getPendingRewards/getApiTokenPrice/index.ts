@@ -46,7 +46,7 @@ export const getApiTokenPrice = async ({
   return result.reduce((acc, tokenMetadata) => {
     return {
       ...acc,
-      [tokenMetadata.address]: tokenMetadata.tokenPrices,
+      [tokenMetadata.address.toLowerCase()]: tokenMetadata.tokenPrices,
     };
   }, {});
 };

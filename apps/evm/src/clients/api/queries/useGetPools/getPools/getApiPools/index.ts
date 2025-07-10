@@ -157,6 +157,16 @@ export const getApiPools = async ({
   }
 
   const tokenMetadata = payload.tokens || [];
+  const tokenPricesMapping: Record<Address, ApiTokenPrice[]> = tokenMetadata.reduce<{
+    [address: string]: ApiTokenPrice[];
+  }>((acc, tokenMetadata) => {
+    const { address: tokenAddress, tokenPrices } = tokenMetadata;
+
+    return {
+      ...acc,
+      [tokenAddress.toLowerCase()]: tokenPrices,
+    };
+  }, {});
   const pools = (payload?.result || []).map(pool => ({
     ...pool,
     markets: pool.markets.map(market => ({
@@ -167,6 +177,6 @@ export const getApiPools = async ({
 
   return {
     pools,
-    tokenMetadata,
+    tokenPricesMapping,
   };
 };

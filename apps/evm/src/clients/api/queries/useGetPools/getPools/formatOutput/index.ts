@@ -18,12 +18,12 @@ import {
   isPoolIsolated,
 } from 'utilities';
 import type { PrimeApy, VTokenBalance } from '../../types';
-import type { ApiPool, ApiTokenMetadata } from '../getApiPools';
+import type { ApiPool, ApiTokenPrice } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
 
 export const formatOutput = ({
   apiPools,
-  apiTokenMetadata,
+  tokenPricesMapping,
   chainId,
   tokens,
   currentBlockNumber,
@@ -37,7 +37,7 @@ export const formatOutput = ({
   tokens: Token[];
   currentBlockNumber: bigint;
   apiPools: ApiPool[];
-  apiTokenMetadata: ApiTokenMetadata[];
+  tokenPricesMapping: Record<string, ApiTokenPrice[]>;
   userPrimeApyMap?: Map<string, PrimeApy>;
   userCollateralVTokenAddresses?: string[];
   userVTokenBalances?: VTokenBalance[];
@@ -64,13 +64,13 @@ export const formatOutput = ({
       }
 
       // Get underlyingPriceMantissa from the tokens metadata
-      const correspondingOraclePrice = apiTokenMetadata
-        .find(tm => areAddressesEqual(market.underlyingAddress, tm.address))
-        ?.tokenPrices.find(
-          p =>
-            p.priceOracleAddress &&
-            areAddressesEqual(apiPool.priceOracleAddress, p.priceOracleAddress),
-        );
+      const correspondingOraclePrice = tokenPricesMapping[
+        market.underlyingAddress.toLowerCase()
+      ].find(
+        p =>
+          p.priceOracleAddress &&
+          areAddressesEqual(apiPool.priceOracleAddress, p.priceOracleAddress),
+      );
 
       if (!correspondingOraclePrice) {
         return acc;
@@ -162,7 +162,7 @@ export const formatOutput = ({
         borrowPointDistributions,
       } = formatDistributions({
         blocksPerDay,
-        apiTokenMetadata,
+        tokenPricesMapping,
         underlyingToken: vToken.underlyingToken,
         underlyingTokenPriceDollars: tokenPriceDollars,
         primeApy: userPrimeApyMap?.get(vToken.address),
