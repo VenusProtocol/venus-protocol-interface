@@ -88,13 +88,8 @@ export async function restService<D>({
 
       try {
         data = await response.json();
-        const warning = response.headers.get('Warning');
-
-        if (warning) {
-          logError(warning);
-        }
-      } catch {
-        // Do nothing
+      } catch (err) {
+        logError(err);
       }
 
       return { status, data };
