@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.21.0
+
+### Minor Changes
+
+- 4e854bd: stop logging warning headers on sentry
+
 ## 3.20.1
 
 ### Patch Changes
