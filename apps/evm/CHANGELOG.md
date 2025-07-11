@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.21.1
+
+### Patch Changes
+
+- 79faaec: update burned BNB banner content
+
 ## 3.21.0
 
 ### Minor Changes
