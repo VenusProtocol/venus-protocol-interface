@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.20.1
+
+### Patch Changes
+
+- d0539ee: fix APY percentage sent in analytics when importing position
+
 ## 3.20.0
 
 ### Minor Changes
