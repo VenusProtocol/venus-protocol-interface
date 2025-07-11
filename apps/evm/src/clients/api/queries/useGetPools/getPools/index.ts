@@ -22,7 +22,7 @@ export const getPools = async ({
   tokens,
 }: GetPoolsInput) => {
   const [
-    { pools: apiPools },
+    { pools: apiPools, tokenPricesMapping },
     currentBlockNumber,
     unsafePrimeVTokenAddresses,
     primeMinimumXvsToStakeMantissa,
@@ -112,6 +112,7 @@ export const getPools = async ({
     tokens,
     currentBlockNumber,
     apiPools,
+    tokenPricesMapping,
     userPrimeApyMap,
     userCollateralVTokenAddresses,
     userVTokenBalances,

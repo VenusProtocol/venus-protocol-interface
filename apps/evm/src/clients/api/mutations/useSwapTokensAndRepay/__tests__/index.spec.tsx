@@ -79,7 +79,7 @@ describe('useSwapTokensAndRepay', () => {
           10000000000000000n,
           [
             "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+            "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
           ],
           1747386407n,
         ],
@@ -148,7 +148,7 @@ describe('useSwapTokensAndRepay', () => {
           10000000000000000n,
           [
             "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+            "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
           ],
           1747386407n,
         ],
@@ -217,7 +217,7 @@ describe('useSwapTokensAndRepay', () => {
           10000000000000000n,
           [
             "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
-            "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+            "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
           ],
           1747386407n,
         ],

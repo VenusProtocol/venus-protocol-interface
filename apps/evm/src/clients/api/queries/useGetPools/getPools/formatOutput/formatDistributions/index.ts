@@ -8,6 +8,7 @@ import formatRewardDistribution from './formatRewardDistribution';
 import type {
   ApiPointsDistribution,
   ApiRewardDistributor,
+  ApiTokenPrice,
 } from 'clients/api/queries/useGetPools/getPools/getApiPools';
 import { convertPriceMantissaToDollars } from 'utilities';
 import type { PrimeApy } from '../../../types';
@@ -16,6 +17,7 @@ import { isDistributingRewards } from './isDistributingRewards';
 export type FormatDistributionsInput = {
   underlyingTokenPriceDollars: BigNumber;
   tokens: Token[];
+  tokenPricesMapping: Record<string, ApiTokenPrice[]>;
   apiRewardsDistributors: ApiRewardDistributor[];
   apiPointsDistributions: ApiPointsDistribution[];
   currentBlockNumber: bigint;
@@ -30,6 +32,7 @@ export const formatDistributions = ({
   blocksPerDay,
   underlyingTokenPriceDollars,
   tokens,
+  tokenPricesMapping,
   apiRewardsDistributors,
   apiPointsDistributions,
   currentBlockNumber,
@@ -55,7 +58,6 @@ export const formatDistributions = ({
       lastRewardingBorrowBlockOrTimestamp,
       supplySpeed,
       borrowSpeed,
-      priceMantissa,
       rewardDetails,
     }) => {
       const rewardToken = findTokenByAddress({
@@ -66,6 +68,26 @@ export const formatDistributions = ({
       if (!rewardToken) {
         return;
       }
+
+      const tokenPriceMapping = tokenPricesMapping[rewardTokenAddress.toLowerCase()];
+      tokenPriceMapping.sort((tp01, tp02) => {
+        if (tp01.priceSource === tp02.priceSource) {
+          return 0;
+        }
+
+        if (tp01.priceSource === 'merkl' || tp02.priceSource === 'coingecko') {
+          return -1;
+        }
+
+        return 1;
+      });
+
+      if (tokenPriceMapping.length === 0) {
+        return;
+      }
+      const correspondingRewardTokenPrice = tokenPriceMapping[0];
+
+      const { priceMantissa } = correspondingRewardTokenPrice;
 
       const isChainTimeBased = !blocksPerDay;
       const rewardTokenPriceDollars = convertPriceMantissaToDollars({

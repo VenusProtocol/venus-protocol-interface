@@ -5,7 +5,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
   "pendingRewardGroups": [
     {
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
-      "rewardAmountCents": "6892647.614135164720846190573864",
+      "rewardAmountCents": "11600404.82953453393617538990972",
       "rewardAmountMantissa": "1.9534041188941932704302e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -23,7 +23,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
       "comptrollerAddress": "0x1291820b2D1c7c7452A163983Dc888CEC546b78k",
       "pendingRewards": [
         {
-          "rewardAmountCents": "3.881384452e-11",
+          "rewardAmountCents": "1.1e-11",
           "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
@@ -42,7 +42,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
     },
     {
       "isDisabled": false,
-      "rewardAmountCents": "352.853132",
+      "rewardAmountCents": "593.85586",
       "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -61,7 +61,7 @@ exports[`getPendingRewards > returns pool rewards of the user in the correct for
     {
       "isDisabled": false,
       "poolIndex": 0,
-      "rewardAmountCents": "227.661261658437155317399552",
+      "rewardAmountCents": "383.15650923811616649322496",
       "rewardAmountMantissa": "645201192824999936",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -86,7 +86,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Merkl r
   "pendingRewardGroups": [
     {
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
-      "rewardAmountCents": "6892647.614135164720846190573864",
+      "rewardAmountCents": "11600404.82953453393617538990972",
       "rewardAmountMantissa": "1.9534041188941932704302e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -104,7 +104,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Merkl r
       "comptrollerAddress": "0x1291820b2D1c7c7452A163983Dc888CEC546b78k",
       "pendingRewards": [
         {
-          "rewardAmountCents": "3.881384452e-11",
+          "rewardAmountCents": "1.1e-11",
           "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
@@ -123,7 +123,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Merkl r
     },
     {
       "isDisabled": false,
-      "rewardAmountCents": "352.853132",
+      "rewardAmountCents": "593.85586",
       "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -142,7 +142,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Merkl r
     {
       "isDisabled": false,
       "poolIndex": 0,
-      "rewardAmountCents": "227.661261658437155317399552",
+      "rewardAmountCents": "383.15650923811616649322496",
       "rewardAmountMantissa": "645201192824999936",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -167,7 +167,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Merkl r
           "appName": "Ignite",
           "campaignName": "Ignite campaign",
           "claimUrl": "https://app.zksyncignite.xyz/",
-          "rewardAmountCents": "27.04905111324309614511872",
+          "rewardAmountCents": "45.5238626337003471753856",
           "rewardAmountMantissa": "76658101233016960",
           "rewardToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -192,7 +192,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
   "pendingRewardGroups": [
     {
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
-      "rewardAmountCents": "6892647.614135164720846190573864",
+      "rewardAmountCents": "11600404.82953453393617538990972",
       "rewardAmountMantissa": "1.9534041188941932704302e+22",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -210,7 +210,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "comptrollerAddress": "0x1291820b2D1c7c7452A163983Dc888CEC546b78k",
       "pendingRewards": [
         {
-          "rewardAmountCents": "3.881384452e-11",
+          "rewardAmountCents": "1.1e-11",
           "rewardAmountMantissa": "110000",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
@@ -229,7 +229,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
     },
     {
       "isDisabled": false,
-      "rewardAmountCents": "352.853132",
+      "rewardAmountCents": "593.85586",
       "rewardAmountMantissa": "1000000000000000000",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -248,7 +248,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
     {
       "isDisabled": false,
       "poolIndex": 0,
-      "rewardAmountCents": "227.661261658437155317399552",
+      "rewardAmountCents": "383.15650923811616649322496",
       "rewardAmountMantissa": "645201192824999936",
       "rewardToken": {
         "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -268,7 +268,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
       "isDisabled": false,
       "pendingRewards": [
         {
-          "rewardAmountCents": "0.000004750684148379056424",
+          "rewardAmountCents": "0.0000013463630382",
           "rewardAmountMantissa": "13463630382",
           "rewardToken": {
             "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
@@ -278,7 +278,7 @@ exports[`getPendingRewards > returns pool rewards of the user, including Prime r
           },
         },
         {
-          "rewardAmountCents": "6089626.453737442648245458173952",
+          "rewardAmountCents": "10248911.02500685531133243293696",
           "rewardAmountMantissa": "1.7258246849676376539136e+22",
           "rewardToken": {
             "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
