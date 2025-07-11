@@ -11,15 +11,15 @@ export const BurnedWBnbBanner: React.FC = () => {
 
   return (
     <Template className="flex-col border-lightGrey py-6 sm:p-0 md:p-0 sm:flex sm:flex-row">
-      <div className="relative h-50 justify-center sm:h-auto sm:order-2 sm:mb-0 sm:basis-5/12 xl:grow">
+      <div className="relative h-44 justify-center sm:h-auto sm:order-2 sm:mb-0 sm:basis-5/12 xl:grow">
         <img
           src={illustrationSrc}
-          className="h-80 max-w-none absolute left-1/2 -translate-x-1/2 -top-18 sm:top-1/2 sm:-translate-y-1/2 sm:h-102"
+          className="h-80 max-w-none absolute left-1/2 -translate-x-1/2 -top-20 sm:top-1/2 sm:-translate-y-1/2 sm:h-102"
           alt={t('dashboard.burnedWBnbBanner.illustration.alt')}
         />
       </div>
 
-      <div className="flex z-0 flex-col grow xxl:max-w-162 sm:order-1 sm:basis-7/12 sm:p-4 md:p-6">
+      <div className="flex z-10 flex-col grow xxl:max-w-162 sm:order-1 sm:basis-7/12 sm:p-4 md:p-6">
         <div className="grow">
           <p className="mb-2 text-lg">{t('dashboard.burnedWBnbBanner.title')}</p>
 
