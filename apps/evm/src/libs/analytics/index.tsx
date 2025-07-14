@@ -1,5 +1,2 @@
-export interface AnalyticProviderProps {
-  children?: React.ReactNode;
-}
-
 export * from './useAnalytics';
+export * from './AnalyticProvider';

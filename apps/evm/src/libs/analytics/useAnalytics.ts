@@ -1,4 +1,8 @@
 import { track } from '@vercel/analytics/react';
+import config from 'config';
+import { logError } from 'libs/errors';
+import { useChainId } from 'libs/wallet';
+import { usePostHog } from 'posthog-js/react';
 import type { ImportableProtocol } from 'types';
 import type { Address } from 'viem';
 
@@ -133,11 +137,28 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
                               : undefined;
 
 export const useAnalytics = () => {
+  const posthog = usePostHog();
+  const { chainId } = useChainId();
+
   function captureAnalyticEvent<TEventName extends AnalyticEventName>(
     eventName: TEventName,
     eventProps: AnalyticEventProps<TEventName>,
   ) {
-    track(eventName, eventProps);
+    // Only send analytic events in production
+    if (config.environment !== 'production') {
+      return;
+    }
+
+    // Send event to Vercel
+    track(eventName, { chainId, ...eventProps });
+
+    if (!posthog) {
+      logError('Attempted to send analytic event but posthog object was undefined');
+      return;
+    }
+
+    // Send event to PostHog
+    posthog.capture(eventName, { chainId, ...eventProps });
   }
 
   return {

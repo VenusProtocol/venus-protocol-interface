@@ -1,7 +1,7 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { Analytics } from '@vercel/analytics/react';
 import { queryClient } from 'clients/api';
 import { MAIN_PRODUCTION_HOST } from 'constants/production';
+import { AnalyticProvider } from 'libs/analytics';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
 import { Web3Wrapper } from 'libs/wallet';
@@ -38,33 +38,33 @@ const App = () => (
         <QueryClientProvider client={queryClient}>
           <ErrorBoundary>
             <Web3Wrapper>
-              <Routes />
+              <AnalyticProvider>
+                <Routes />
 
-              <Suspense>
-                <NotificationCenter />
-              </Suspense>
+                <Suspense>
+                  <NotificationCenter />
+                </Suspense>
 
-              <Suspense>
-                <AppVersionChecker />
-              </Suspense>
+                <Suspense>
+                  <AppVersionChecker />
+                </Suspense>
 
-              <Suspense>
-                <GaslessChecker />
-              </Suspense>
+                <Suspense>
+                  <GaslessChecker />
+                </Suspense>
 
-              <Suspense>
-                <ResendPayingGasModal />
-              </Suspense>
+                <Suspense>
+                  <ResendPayingGasModal />
+                </Suspense>
 
-              <Suspense>
-                <ImportPositionsModal />
-              </Suspense>
+                <Suspense>
+                  <ImportPositionsModal />
+                </Suspense>
 
-              <ThemeHandler />
+                <ThemeHandler />
 
-              <SentryErrorInfo />
-
-              <Analytics mode={isMainProductionHost ? 'production' : 'development'} />
+                <SentryErrorInfo />
+              </AnalyticProvider>
             </Web3Wrapper>
           </ErrorBoundary>
         </QueryClientProvider>
