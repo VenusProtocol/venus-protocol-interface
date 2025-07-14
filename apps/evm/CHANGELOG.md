@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.21.2
+
+### Patch Changes
+
+- 50b4835: track errors related to tracking transactions
+
 ## 3.21.1
 
 ### Patch Changes
