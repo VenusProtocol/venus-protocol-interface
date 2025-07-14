@@ -1320,9 +1320,9 @@
     semver "^7.3.5"
 
 "@dotenvx/dotenvx@^1.26.2":
-  version "1.47.3"
-  resolved "https://registry.yarnpkg.com/@dotenvx/dotenvx/-/dotenvx-1.47.3.tgz#7360d1fabbf7d49736f15f815fb33661ff148ff7"
-  integrity sha512-V0jxoEgyTrP6INJYBXxR6qkaS1qUXmrWTz7FZVx706TgXnMnR7LVRi5Bf9z/o0UmZlkavJD13PLediPi4QvUTQ==
+  version "1.47.5"
+  resolved "https://registry.yarnpkg.com/@dotenvx/dotenvx/-/dotenvx-1.47.5.tgz#056ac36bfe5d1d033384498de070547a8f000ba4"
+  integrity sha512-FtDgJyqOXmkj+BTU0qcE4Iq2HKjrEH6ZhRMc7m8fmOwstf1Ms9/9lbLNzyiNqyQrEnVr38W8PTTWMbDB3IX5og==
   dependencies:
     commander "^11.1.0"
     dotenv "^16.4.5"
