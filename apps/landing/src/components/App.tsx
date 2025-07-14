@@ -1,8 +1,11 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/react';
+import { PostHogProvider } from 'posthog-js/react';
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
+import config from '../config';
 import { LANDING_PAGE_PRODUCTION_URL } from '../constants/production';
+import { version as APP_VERSION } from '../constants/version';
 import { AppStateConsumer, AppStateProvider } from '../context';
 import s from './App.module.css';
 import Banner from './Banner/Banner';
@@ -16,7 +19,6 @@ function Main() {
         <AppStateConsumer>
           {({ isMobileMenuOpen }) => !isMobileMenuOpen && <Banner />}
         </AppStateConsumer>
-
         <MainContent />
         <Footer />
       </main>
@@ -36,15 +38,24 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          {['/', '/discord'].map(path => (
-            <Route path={path} element={<Main />} key={path} />
-          ))}
-        </Routes>
-      </BrowserRouter>
+      <PostHogProvider
+        apiKey={config.posthog.apiKey}
+        options={{
+          api_host: config.posthog.hostUrl,
+          persistence: 'memory',
+          name: APP_VERSION,
+        }}
+      >
+        <BrowserRouter>
+          <Routes>
+            {['/', '/discord'].map(path => (
+              <Route path={path} element={<Main />} key={path} />
+            ))}
+          </Routes>
+        </BrowserRouter>
 
-      <Analytics mode={isMainProductionHost ? 'production' : 'development'} />
+        <Analytics mode={isMainProductionHost ? 'production' : 'development'} />
+      </PostHogProvider>
     </QueryClientProvider>
   );
 }
