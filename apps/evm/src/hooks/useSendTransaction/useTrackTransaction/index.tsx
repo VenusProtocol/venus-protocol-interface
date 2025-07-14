@@ -89,11 +89,11 @@ export const useTrackTransaction = (input?: UseTrackTransactionInput) => {
 
         transactionReceipt = receipt;
       } catch (error) {
-        if (error instanceof VError && error.code === 'missingSafeWalletApiUrl') {
-          logError(
-            "Could not retrieve transaction hash from Safe Wallet's API: missing Safe Wallet API URL",
-          );
-        }
+        logError(
+          error instanceof VError && error.code === 'missingSafeWalletApiUrl'
+            ? "Could not retrieve transaction hash from Safe Wallet's API: missing Safe Wallet API URL"
+            : error,
+        );
       }
 
       const transactionStatus = getTransactionStatus({ transactionReceipt });
