@@ -5,6 +5,7 @@ import type { Pool, Token } from 'types';
 
 import { Modal, Notice, TextButton } from 'components';
 import { MarketTable } from 'containers/MarketTable';
+import { useBreakpointUp } from 'hooks/responsive';
 import TEST_IDS from './testIds';
 import type { WarningType } from './types';
 
@@ -24,6 +25,7 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
 }) => {
   const [showAssets, setShowAssets] = useState(false);
   const { t, Trans } = useTranslation();
+  const isSmOrUp = useBreakpointUp('sm');
 
   const translationArgs = {
     poolName: pool?.name,
@@ -63,7 +65,7 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
       <Modal
         isOpen={showAssets}
         handleClose={handleHideAssets}
-        noHorizontalPadding
+        noHorizontalPadding={isSmOrUp}
         title={t('assetWarning.modalTitle', {
           poolName: pool.name,
         })}
@@ -71,12 +73,16 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
         <MarketTable
           data-testid={TEST_IDS.marketTable}
           rowOnClick={handleHideAssets}
+          controls={false}
+          selectVariant={isSmOrUp ? 'tertiary' : 'quaternary'}
+          breakpoint="sm"
+          cardClassName="p-0"
           className="my-0 p-0 sm:p-0"
           pools={[pool]}
           columns={['asset', type === 'borrow' ? 'labeledBorrowApy' : 'supplyApy', 'liquidity']}
           initialOrder={{
             orderBy: type === 'borrow' ? 'labeledBorrowApy' : 'supplyApy',
-            orderDirection: type === 'borrow' ? 'desc' : 'asc',
+            orderDirection: type === 'supply' ? 'desc' : 'asc',
           }}
         />
       </Modal>
