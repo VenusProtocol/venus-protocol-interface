@@ -18,11 +18,12 @@ import {
   isPoolIsolated,
 } from 'utilities';
 import type { PrimeApy, VTokenBalance } from '../../types';
-import type { ApiPool } from '../getApiPools';
+import type { ApiPool, ApiTokenPrice } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
 
 export const formatOutput = ({
   apiPools,
+  tokenPricesMapping,
   chainId,
   tokens,
   currentBlockNumber,
@@ -36,6 +37,7 @@ export const formatOutput = ({
   tokens: Token[];
   currentBlockNumber: bigint;
   apiPools: ApiPool[];
+  tokenPricesMapping: Record<string, ApiTokenPrice[]>;
   userPrimeApyMap?: Map<string, PrimeApy>;
   userCollateralVTokenAddresses?: string[];
   userVTokenBalances?: VTokenBalance[];
@@ -61,6 +63,19 @@ export const formatOutput = ({
         return acc;
       }
 
+      // Get underlyingPriceMantissa from the tokens metadata
+      const correspondingOraclePrice = tokenPricesMapping[
+        market.underlyingAddress.toLowerCase()
+      ].find(
+        p =>
+          p.priceOracleAddress &&
+          areAddressesEqual(apiPool.priceOracleAddress, p.priceOracleAddress),
+      );
+
+      if (!correspondingOraclePrice) {
+        return acc;
+      }
+
       // Retrieve underlying token record
       const underlyingToken = findTokenByAddress({
         tokens,
@@ -72,7 +87,7 @@ export const formatOutput = ({
       }
 
       const tokenPriceDollars = convertPriceMantissaToDollars({
-        priceMantissa: market.underlyingPriceMantissa,
+        priceMantissa: correspondingOraclePrice.priceMantissa,
         decimals: underlyingToken.decimals,
       });
 
@@ -147,6 +162,7 @@ export const formatOutput = ({
         borrowPointDistributions,
       } = formatDistributions({
         blocksPerDay,
+        tokenPricesMapping,
         underlyingToken: vToken.underlyingToken,
         underlyingTokenPriceDollars: tokenPriceDollars,
         primeApy: userPrimeApyMap?.get(vToken.address),

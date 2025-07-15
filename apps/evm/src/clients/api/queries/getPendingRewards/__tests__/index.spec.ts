@@ -1,3 +1,4 @@
+import apiPricesResponse from '__mocks__/api/prices.json';
 import fakeAddress from '__mocks__/models/address';
 import tokens from '__mocks__/models/tokens';
 import { ChainId } from 'types';
@@ -92,20 +93,10 @@ const fakePublicClient = {
   },
 } as unknown as PublicClient;
 
-const fakeTokenPriceMapping = tokens.reduce(
-  (acc, token) => ({
-    ...acc,
-    [token.address]: '3528531320000000000',
-  }),
-  {},
-);
-
 describe('getPendingRewards', () => {
   beforeEach(() => {
     (restService as Mock).mockImplementation(async () => ({
-      data: {
-        result: fakeTokenPriceMapping,
-      },
+      data: apiPricesResponse,
     }));
   });
 
@@ -150,12 +141,7 @@ describe('getPendingRewards', () => {
 
   it('returns pool rewards of the user, including Merkl rewards, in the correct format on success', async () => {
     (restService as Mock).mockImplementation(async (input: RestServiceInput) => ({
-      data:
-        input.baseUrl === BASE_MERKL_API_URL
-          ? [fakeMerklRewardsResponse]
-          : {
-              result: fakeTokenPriceMapping,
-            },
+      data: input.baseUrl === BASE_MERKL_API_URL ? [fakeMerklRewardsResponse] : apiPricesResponse,
     }));
 
     const res = await getPendingRewards({

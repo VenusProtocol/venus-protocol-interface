@@ -1,0 +1,436 @@
+{
+  "result": [
+    {
+      "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+      "chainId": "97",
+      "name": "USDC",
+      "symbol": "USDC",
+      "decimals": 6,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0x16227D60f7a0e586C66B005219dfc887D13C9531-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "999999990000000000000000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
+      "chainId": "97",
+      "name": "pSTAKE Staked BNB",
+      "symbol": "stkBNB",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0x2999C176eBf66ecda3a646E70CeB5FF4d5fCFb8C",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "666748301022205840738",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T17:07:15.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
+      "chainId": "97",
+      "name": "USDD",
+      "symbol": "USDD",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0x2E2466e22FcbE0732Be385ee2FBb9C59a1098382",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "1000000000000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
+      "chainId": "97",
+      "name": "WIN",
+      "symbol": "WIN",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0x2E6Af3f3F059F43D764060968658c9F3c8f9479D-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0x2E6Af3f3F059F43D764060968658c9F3c8f9479D",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "85080000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0x4FA37fFA9f36Ec0e0e685C06a7bF169bb50409ce",
+      "chainId": "97",
+      "name": "Baby Doge Coin",
+      "symbol": "BabyDoge",
+      "decimals": 9,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0x4FA37fFA9f36Ec0e0e685C06a7bF169bb50409ce-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0x4FA37fFA9f36Ec0e0e685C06a7bF169bb50409ce",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "1132027895000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
+      "chainId": "97",
+      "name": "TRON",
+      "symbol": "TRX",
+      "decimals": 6,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0x7D21841DC10BA1C5797951EFc62fADBBDD06704B-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0x7D21841DC10BA1C5797951EFc62fADBBDD06704B",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "287339380000000000000000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
+      "chainId": "97",
+      "name": "Biswap",
+      "symbol": "BSW",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0x7FCC76fc1F573d8Eb445c236Cc282246bC562bCE",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "167199100000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+      "chainId": "97",
+      "name": "Ethereum Token",
+      "symbol": "ETH",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "2617211600000000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T18:00:17.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+      "chainId": "97",
+      "name": "USDT",
+      "symbol": "USDT",
+      "decimals": 6,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "1000086000000000000000000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": true,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T17:04:15.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0xA808e341e8e723DC6BA0Bb5204Bafc2330d7B8e4",
+      "chainId": "97",
+      "name": "BTCB Token",
+      "symbol": "BTCB",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0xA808e341e8e723DC6BA0Bb5204Bafc2330d7B8e4-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0xA808e341e8e723DC6BA0Bb5204Bafc2330d7B8e4",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "108777138890990000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T17:09:15.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3",
+      "chainId": "97",
+      "name": null,
+      "symbol": null,
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:40.000Z",
+      "updatedAt": "2025-07-08T13:47:40.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0xac7D6B77EBD1DB8C5a9f0896e5eB5d485CB677b3",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "920136040000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:40.000Z",
+          "updatedAt": "2025-07-08T13:47:40.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
+      "chainId": "97",
+      "name": "FLOKI",
+      "symbol": "FLOKI",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0xb22cF15FBc089d470f8e532aeAd2baB76bE87c88",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "81560000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": true,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+      "chainId": "97",
+      "name": "Venus",
+      "symbol": "XVS",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0xB9e0E753630434d7863528cc73CB7AC638a7c8ff-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "5938558600000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T17:55:18.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0xD1Bc731d188ACc3f52a6226B328a89056B0Ec71a",
+      "chainId": "97",
+      "name": null,
+      "symbol": null,
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:40.000Z",
+      "updatedAt": "2025-07-08T13:47:40.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0xD1Bc731d188ACc3f52a6226B328a89056B0Ec71a-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0xD1Bc731d188ACc3f52a6226B328a89056B0Ec71a",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "32000000000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:40.000Z",
+          "updatedAt": "2025-07-08T13:47:40.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
+      "chainId": "97",
+      "name": "RACA",
+      "symbol": "RACA",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0xD60cC803d888A3e743F21D0bdE4bF2cAfdEA1F26",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "190100000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
+      "chainId": "97",
+      "name": "Ankr",
+      "symbol": "ANKR",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0xe4a90EB942CF2DA7238e8F6cC9EF510c49FC8B4B",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "31120000000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+      "chainId": "97",
+      "name": "HAY",
+      "symbol": "HAY",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0xe73774DfCD551BF75650772dC2cC56a2B6323453-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "1000000000000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    },
+    {
+      "address": "0xE98344A7c691B200EF47c9b8829110087D832C64",
+      "chainId": "97",
+      "name": "BTT",
+      "symbol": "BTT",
+      "decimals": 18,
+      "createdAt": "2025-07-08T13:47:41.000Z",
+      "updatedAt": "2025-07-08T13:47:41.000Z",
+      "tokenPrices": [
+        {
+          "id": "97-0xE98344A7c691B200EF47c9b8829110087D832C64-oracle-0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "tokenAddress": "0xE98344A7c691B200EF47c9b8829110087D832C64",
+          "tokenWrappedAddress": null,
+          "chainId": "97",
+          "priceMantissa": "600000000000",
+          "priceSource": "oracle",
+          "priceOracleAddress": "0x3cD69251D04A28d887Ac14cbe2E14c52F3D57823",
+          "isPriceInvalid": false,
+          "hasErrorFetchingPrice": false,
+          "createdAt": "2025-07-08T13:47:41.000Z",
+          "updatedAt": "2025-07-08T13:47:41.000Z"
+        }
+      ]
+    }
+  ]
+}

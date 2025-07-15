@@ -117,7 +117,7 @@ exports[`getVTokens > returns the vTokens on success 1`] = `
       "decimals": 8,
       "symbol": "vBNB",
       "underlyingToken": {
-        "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+        "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
         "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cg%20clip-path='url(%23B)'%3e%3cpath%20fill-rule='evenodd'%20d='M12%200a12%2012%200%201%201%200%2024%2012%2012%200%201%201%200-24z'%20fill='%23f0b90b'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M6.595%2012l.009%203.173L9.3%2016.76v1.858l-4.274-2.507v-5.039L6.595%2012zm0-3.173v1.849l-1.57-.929V7.898l1.57-.929%201.578.929-1.578.929zm3.831-.929l1.57-.929%201.578.929-1.578.929-1.57-.929zM7.73%2014.515v-1.858l1.57.929v1.849l-1.57-.92zm2.696%202.91l1.57.929%201.578-.929v1.849l-1.578.929-1.57-.929v-1.849zm5.4-9.527l1.57-.929%201.578.929v1.849l-1.578.929V8.827l-1.57-.929zm1.57%207.275L17.405%2012l1.57-.929v5.038l-4.274%202.507v-1.858l2.695-1.586zm-1.126-.658l-1.57.92v-1.849l1.57-.929v1.858zm0-5.03l.009%201.858-2.704%201.587v3.181l-1.57.92-1.57-.92V12.93l-2.704-1.587V9.485l1.577-.929%202.687%201.594%202.704-1.594%201.578.929h-.007zM7.73%206.313l4.266-2.515%204.274%202.515-1.57.929-2.704-1.594L9.3%207.241l-1.57-.929z'/%3e%3c/g%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3cclipPath%20id='B'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
         "decimals": 18,
         "isNative": true,
