@@ -2,7 +2,7 @@
 import { Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { Spinner } from '@venusprotocol/ui';
+import { Spinner, cn } from '@venusprotocol/ui';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
@@ -10,24 +10,10 @@ import { Card } from 'components';
 import { Delimiter } from '../Delimiter';
 import { Select, type SelectOption, type SelectProps } from '../Select';
 import { useStyles } from './styles';
-import type { Order, TableProps } from './types';
-
-interface TableCardProps<R>
-  extends Pick<
-    TableProps<R>,
-    | 'data'
-    | 'rowKeyExtractor'
-    | 'rowOnClick'
-    | 'getRowHref'
-    | 'breakpoint'
-    | 'columns'
-    | 'isFetching'
-  > {
-  order: Order<R> | undefined;
-  onOrderChange: (newOrder: Order<R>) => void;
-}
+import type { TableCardProps } from './types';
 
 export function TableCards<R>({
+  cardClassName,
   data,
   isFetching,
   rowKeyExtractor,
@@ -37,6 +23,7 @@ export function TableCards<R>({
   columns,
   order,
   onOrderChange,
+  selectVariant = 'tertiary',
 }: TableCardProps<R>) {
   const { t } = useTranslation();
   const styles = useStyles();
@@ -88,24 +75,24 @@ export function TableCards<R>({
           value={selectedOption?.value || selectOptions[0].value}
           onChange={handleOrderChange}
           css={styles.cardsSelect}
-          variant="tertiary"
+          variant={selectVariant}
         />
       )}
 
       {isFetching && <Spinner css={styles.loader} />}
 
-      <div>
+      <div className="space-y-4">
         {data.map((row, rowIndex) => {
           const rowKey = rowKeyExtractor(row);
           const content = (
             <>
-              <div css={styles.rowTitleMobile}>{titleColumn.renderCell(row, rowIndex)}</div>
+              <div>{titleColumn.renderCell(row, rowIndex)}</div>
 
-              <Delimiter css={styles.delimiterMobile} />
+              <Delimiter className="my-4" />
 
-              <div className="table__table-cards__card-content" css={styles.rowWrapperMobile}>
+              <div className="table__table-cards__card-content grid grid-rows-1 gap-8">
                 {otherColumns.map(column => (
-                  <div key={`${rowKey}-${column.key}`} css={styles.cellMobile}>
+                  <div key={`${rowKey}-${column.key}`} className="flex flex-col">
                     <Typography variant="tiny" css={styles.cellTitleMobile}>
                       {column.label}
                     </Typography>
@@ -122,7 +109,10 @@ export function TableCards<R>({
           return (
             <Card
               key={rowKey}
-              css={styles.tableWrapperMobile({ clickable: !!(rowOnClick || getRowHref) })}
+              className={cn(
+                !!(rowOnClick || getRowHref) && 'cursor-pointer hover:bg-cards',
+                cardClassName,
+              )}
               onClick={rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))}
               asChild
             >

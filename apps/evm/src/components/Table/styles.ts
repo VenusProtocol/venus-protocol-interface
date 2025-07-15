@@ -81,13 +81,6 @@ export const useStyles = () => {
       `
       }
     `,
-    rowTitleMobile: css`
-      padding-left: ${theme.spacing(4)};
-      padding-right: ${theme.spacing(4)};
-    `,
-    delimiterMobile: css`
-      margin: ${theme.spacing(4)};
-    `,
     getTableRow: ({ clickable }: { clickable: boolean }) => css`
       height: ${theme.spacing(14)};
 
@@ -101,16 +94,6 @@ export const useStyles = () => {
         cursor: pointer;
       `
       }
-    `,
-    rowWrapperMobile: css`
-      display: grid;
-      grid-template-rows: 1fr;
-    `,
-    cellMobile: css`
-      display: flex;
-      flex-direction: column;
-      padding-left: ${theme.spacing(4)};
-      padding-right: ${theme.spacing(4)};
     `,
     cellTitleMobile: css`
       color: ${theme.palette.text.secondary};
