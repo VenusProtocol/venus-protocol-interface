@@ -42,6 +42,7 @@ import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
@@ -334,17 +335,19 @@ export const Borrow: React.FC = () => {
         />
       )}
 
-      <RhfSubmitButton
-        requiresConnectedWallet
-        control={control}
-        enabledLabel={t('vai.borrow.submitButton.borrowLabel')}
-        disabledLabel={
-          // Only show disabled label when error concerns the amount entered
-          formState.errors.acknowledgeRisk
-            ? t('vai.borrow.submitButton.borrowLabel')
-            : t('vai.borrow.submitButton.enterValidAmountLabel')
-        }
-      />
+      <ConnectWallet>
+        <RhfSubmitButton
+          requiresConnectedWallet
+          control={control}
+          enabledLabel={t('vai.borrow.submitButton.borrowLabel')}
+          disabledLabel={
+            // Only show disabled label when error concerns the amount entered
+            formState.errors.acknowledgeRisk
+              ? t('vai.borrow.submitButton.borrowLabel')
+              : t('vai.borrow.submitButton.enterValidAmountLabel')
+          }
+        />
+      </ConnectWallet>
     </form>
   );
 };
