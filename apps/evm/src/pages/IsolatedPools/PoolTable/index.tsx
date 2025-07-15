@@ -55,7 +55,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
         label: t('pools.poolTable.columns.assets'),
         selectOptionLabel: t('pools.poolTable.columns.assets'),
         renderCell: ({ pool }) => (
-          <TokenGroup tokens={pool.assets.map(asset => asset.vToken.underlyingToken)} limit={7} />
+          <TokenGroup tokens={pool.assets.map(asset => asset.vToken.underlyingToken)} />
         ),
       },
       {
