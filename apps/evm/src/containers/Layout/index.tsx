@@ -42,9 +42,8 @@ export const Layout: React.FC = () => {
 
           <main className="relative w-full shrink-0 grow px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
             <Outlet />
+            <ScrollToTop />
           </main>
-
-          <ScrollToTop />
 
           <Footer />
         </div>
