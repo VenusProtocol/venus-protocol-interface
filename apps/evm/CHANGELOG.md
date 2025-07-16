@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 3.22.0
+
+### Minor Changes
+
+- 64e78b2: enable PostHog analytics again
+- 4e75fd0: Use the new API token price structure
+
 ## 3.21.2
 
 ### Patch Changes
