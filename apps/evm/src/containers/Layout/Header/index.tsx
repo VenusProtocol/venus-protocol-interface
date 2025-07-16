@@ -1,7 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 import { useGetAsset } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useImageAccentColor } from 'hooks/useImageAccentColor';
 import { useIsOnUnichain } from 'hooks/useIsOnUnichain';
 import { useTranslation } from 'libs/translations';
@@ -10,22 +9,19 @@ import type { Address } from 'viem';
 import { MarketInfo } from './MarketInfo';
 import { TopBar } from './TopBar';
 import unichainBackgroundIllustration from './unichainBackground.svg';
-import { useIsOnLidoMarketPage } from './useIsOnLidoMarketPage';
 import { useIsOnMarketPage } from './useIsOnMarketPage';
 
 export const Header: React.FC = () => {
   const { t } = useTranslation();
   const isOnMarketPage = useIsOnMarketPage();
   const isOnUnichain = useIsOnUnichain();
-  const isOnLidoMarketPage = useIsOnLidoMarketPage();
-  const { lstPoolVWstEthContractAddress } = useGetChainMetadata();
 
   const { vTokenAddress = NULL_ADDRESS } = useParams<{
     vTokenAddress: Address;
   }>();
 
   const { data: getAssetData } = useGetAsset({
-    vTokenAddress: isOnLidoMarketPage ? lstPoolVWstEthContractAddress : vTokenAddress,
+    vTokenAddress,
   });
   const asset = getAssetData?.asset;
 

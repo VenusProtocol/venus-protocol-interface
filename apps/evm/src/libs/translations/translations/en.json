@@ -177,13 +177,11 @@
   "breadcrumbs": {
     "account": "Account",
     "bridge": "Bridge",
-    "corePool": "Core pool",
     "dashboard": "Dashboard",
     "governance": "Governance",
-    "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
-    "lidoMarket": "Lido market",
     "markets": "Markets",
+    "pools": "Pools",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
     "swap": "Swap",
@@ -432,7 +430,6 @@
       "label": "Select chain"
     },
     "header": {
-      "isolated": "Isolated",
       "liquidity": "Liquidity",
       "maxLtv": {
         "label": "Max LTV",
@@ -452,11 +449,9 @@
     "menuItems": {
       "account": "Account",
       "bridge": "Bridge",
-      "corePool": "Core pool",
       "dashboard": "Dashboard",
       "governance": "Governance",
-      "isolatedPools": "Isolated pools",
-      "lidoMarket": "Lido market",
+      "pools": "Pools",
       "port": "Port",
       "swap": "Swap",
       "vai": "VAI",

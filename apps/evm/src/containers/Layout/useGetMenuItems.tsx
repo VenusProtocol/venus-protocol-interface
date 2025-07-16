@@ -2,18 +2,14 @@ import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetProfitableImports } from 'hooks/useGetProfitableImports';
 import type { MenuItem } from './types';
 
 const useGetMenuItems = () => {
   const { accountAddress } = useAccountAddress();
-  const { lstPoolComptrollerContractAddress, lstPoolVWstEthContractAddress } =
-    useGetChainMetadata();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
-  const isolatedPoolsRouteEnabled = useIsFeatureEnabled({ name: 'isolatedPools' });
   const { importablePositionsCount } = useGetProfitableImports();
 
   const menuItems: MenuItem[] = [
@@ -47,33 +43,13 @@ const useGetMenuItems = () => {
     });
   }
 
-  if (lstPoolComptrollerContractAddress && lstPoolVWstEthContractAddress) {
-    menuItems.push({
-      to: routes.lidoMarket.path,
-      // Translation key: do not remove this comment
-      // t('layout.menuItems.lidoMarket')
-      i18nKey: 'layout.menuItems.lidoMarket',
-      iconName: 'lido',
-    });
-  }
-
   menuItems.push({
-    to: routes.corePool.path,
+    to: routes.pools.path,
     // Translation key: do not remove this comment
-    // t('layout.menuItems.corePool')
-    i18nKey: 'layout.menuItems.corePool',
-    iconName: 'venus',
+    // t('layout.menuItems.pools')
+    i18nKey: 'layout.menuItems.pools',
+    iconName: 'fourDots',
   });
-
-  if (isolatedPoolsRouteEnabled) {
-    menuItems.push({
-      to: routes.isolatedPools.path,
-      // Translation key: do not remove this comment
-      // t('layout.menuItems.isolatedPools')
-      i18nKey: 'layout.menuItems.isolatedPools',
-      iconName: 'fourDots',
-    });
-  }
 
   menuItems.push({
     to: routes.vaults.path,

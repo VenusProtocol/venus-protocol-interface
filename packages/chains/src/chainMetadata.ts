@@ -59,7 +59,6 @@ export const chainMetadata: {
     layerZeroScanUrl: 'https://layerzeroscan.com',
     blockTimeMs: 500,
     blocksPerDay: 172800,
-    corePoolComptrollerContractAddress: '0xD6e3E2A1d8d95caE355D15b3b9f8E5c2511874dd',
     nativeToken: bnb,
   },
   [ChainId.OPBNB_TESTNET]: {
@@ -69,7 +68,6 @@ export const chainMetadata: {
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     blockTimeMs: 500,
     blocksPerDay: 172800,
-    corePoolComptrollerContractAddress: '0x2FCABb31E57F010D623D8d68e1E18Aed11d5A388',
     nativeToken: bnb,
   },
   [ChainId.ETHEREUM]: {
@@ -80,9 +78,6 @@ export const chainMetadata: {
     safeWalletApiUrl: 'https://safe-transaction-mainnet.safe.global',
     blockTimeMs: 12000,
     blocksPerDay: 7200,
-    corePoolComptrollerContractAddress: '0x687a01ecF6d3907658f7A7c714749fAC32336D1B',
-    lstPoolComptrollerContractAddress: '0xF522cd0360EF8c2FF48B648d53EA1717Ec0F3Ac3',
-    lstPoolVWstEthContractAddress: '0x4a240F0ee138697726C8a3E43eFE6Ac3593432CB',
     nativeToken: eth,
   },
   [ChainId.SEPOLIA]: {
@@ -93,9 +88,6 @@ export const chainMetadata: {
     safeWalletApiUrl: 'https://safe-transaction-sepolia.safe.global',
     blockTimeMs: 12000,
     blocksPerDay: 7200,
-    corePoolComptrollerContractAddress: '0x7Aa39ab4BcA897F403425C9C6FDbd0f882Be0D70',
-    lstPoolComptrollerContractAddress: '0xd79CeB8EF8188E44b7Eb899094e8A3A4d7A1e236',
-    lstPoolVWstEthContractAddress: '0x0a95088403229331FeF1EB26a11F9d6C8E73f23D',
     nativeToken: eth,
   },
   [ChainId.ARBITRUM_ONE]: {
@@ -104,9 +96,6 @@ export const chainMetadata: {
     explorerUrl: 'https://arbiscan.io',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-arbitrum.safe.global',
-    corePoolComptrollerContractAddress: '0x317c1A5739F39046E20b08ac9BeEa3f10fD43326',
-    lstPoolComptrollerContractAddress: '0x52bAB1aF7Ff770551BD05b9FC2329a0Bf5E23F16',
-    lstPoolVWstEthContractAddress: '0x9df6B5132135f14719696bBAe3C54BAb272fDb16',
     nativeToken: eth,
   },
   [ChainId.ARBITRUM_SEPOLIA]: {
@@ -114,9 +103,6 @@ export const chainMetadata: {
     logoSrc: arbitrumLogo,
     explorerUrl: 'https://sepolia.arbiscan.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    corePoolComptrollerContractAddress: '0x006D44b6f5927b3eD83bD0c1C36Fb1A3BaCaC208',
-    lstPoolComptrollerContractAddress: '0x3D04F926b2a165BBa17FBfccCCB61513634fa5e4',
-    lstPoolVWstEthContractAddress: '0x253515E19e8b888a4CA5a0a3363B712402ce4046',
     nativeToken: eth,
   },
   [ChainId.ZKSYNC_MAINNET]: {
@@ -125,7 +111,6 @@ export const chainMetadata: {
     explorerUrl: 'https://explorer.zksync.io',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-zksync.safe.global',
-    corePoolComptrollerContractAddress: '0xddE4D098D9995B659724ae6d5E3FB9681Ac941B1',
     nativeToken: eth,
   },
   [ChainId.ZKSYNC_SEPOLIA]: {
@@ -133,7 +118,6 @@ export const chainMetadata: {
     logoSrc: zkSyncLogo,
     explorerUrl: 'https://sepolia.explorer.zksync.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    corePoolComptrollerContractAddress: '0xC527DE08E43aeFD759F7c0e6aE85433923064669',
     nativeToken: eth,
   },
   [ChainId.OPTIMISM_MAINNET]: {
@@ -142,7 +126,6 @@ export const chainMetadata: {
     explorerUrl: 'https://optimistic.etherscan.io',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-optimism.safe.global',
-    corePoolComptrollerContractAddress: '0x5593FF68bE84C966821eEf5F0a988C285D5B7CeC',
     nativeToken: eth,
   },
   [ChainId.OPTIMISM_SEPOLIA]: {
@@ -150,7 +133,6 @@ export const chainMetadata: {
     logoSrc: optimismLogo,
     explorerUrl: 'https://sepolia-optimism.etherscan.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    corePoolComptrollerContractAddress: '0x59d10988974223B042767aaBFb6D926863069535',
     nativeToken: eth,
   },
   [ChainId.BASE_MAINNET]: {
@@ -159,7 +141,6 @@ export const chainMetadata: {
     explorerUrl: 'https://basescan.org',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-base.safe.global',
-    corePoolComptrollerContractAddress: '0x0C7973F9598AA62f9e03B94E92C967fD5437426C',
     nativeToken: eth,
   },
   [ChainId.BASE_SEPOLIA]: {
@@ -168,7 +149,6 @@ export const chainMetadata: {
     explorerUrl: 'https://sepolia.basescan.org',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-base-sepolia.safe.global',
-    corePoolComptrollerContractAddress: '0x272795dd6c5355CF25765F36043F34014454Eb5b',
     nativeToken: eth,
   },
   [ChainId.UNICHAIN_MAINNET]: {
@@ -176,7 +156,6 @@ export const chainMetadata: {
     logoSrc: unichainLogo,
     explorerUrl: 'https://uniscan.xyz',
     layerZeroScanUrl: 'https://layerzeroscan.com',
-    corePoolComptrollerContractAddress: '0xe22af1e6b78318e1Fe1053Edbd7209b8Fc62c4Fe',
     nativeToken: eth,
   },
   [ChainId.UNICHAIN_SEPOLIA]: {
@@ -184,7 +163,6 @@ export const chainMetadata: {
     logoSrc: unichainLogo,
     explorerUrl: 'https://sepolia.uniscan.xyz',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    corePoolComptrollerContractAddress: '0xFeD3eAA668a6179c9E5E1A84e3A7d6883F06f7c1',
     nativeToken: eth,
   },
   [ChainId.BERACHAIN_MAINNET]: {
@@ -192,7 +170,6 @@ export const chainMetadata: {
     logoSrc: berachainLogo,
     explorerUrl: 'https://berascan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com',
-    corePoolComptrollerContractAddress: '0x', // TODO: add once deployed
     nativeToken: eth,
   },
   [ChainId.BERACHAIN_BEPOLIA]: {
@@ -200,7 +177,6 @@ export const chainMetadata: {
     logoSrc: berachainLogo,
     explorerUrl: 'https://bepolia.beratrail.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    corePoolComptrollerContractAddress: '0x', // TODO: add once deployed
     nativeToken: eth,
   },
 };

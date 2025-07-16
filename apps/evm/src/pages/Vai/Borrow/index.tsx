@@ -62,7 +62,7 @@ export const Borrow: React.FC = () => {
 
   const { data: getLegacyPoolData } = useGetPool({
     accountAddress,
-    poolComptrollerAddress: corePoolComptrollerContractAddress,
+    poolComptrollerAddress: corePoolComptrollerContractAddress || NULL_ADDRESS,
   });
   const legacyPool = getLegacyPoolData?.pool;
 

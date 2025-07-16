@@ -39,7 +39,7 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
 
   const { data: getLegacyPoolData } = useGetPool({
     accountAddress,
-    poolComptrollerAddress: corePoolComptrollerContractAddress,
+    poolComptrollerAddress: corePoolComptrollerContractAddress || NULL_ADDRESS,
   });
   const legacyPool = getLegacyPoolData?.pool;
 

@@ -66,22 +66,16 @@ export const Breadcrumbs: React.FC = () => {
 
           dom = t('breadcrumbs.markets');
           break;
-        case Subdirectory.ISOLATED_POOLS:
-          dom = t('breadcrumbs.isolatedPools');
+        case Subdirectory.POOLS:
+          dom = t('breadcrumbs.pools');
           break;
-        case Subdirectory.ISOLATED_POOL:
-          hrefFragment = Subdirectory.ISOLATED_POOL.replace(
+        case Subdirectory.POOL:
+          hrefFragment = Subdirectory.POOL.replace(
             ':poolComptrollerAddress',
             params.poolComptrollerAddress || '',
           );
 
           dom = <PoolName poolComptrollerAddress={params.poolComptrollerAddress || NULL_ADDRESS} />;
-          break;
-        case Subdirectory.CORE_POOL:
-          dom = t('breadcrumbs.corePool');
-          break;
-        case Subdirectory.LIDO_MARKET:
-          dom = t('breadcrumbs.lidoMarket');
           break;
         case Subdirectory.MARKET: {
           hrefFragment = Subdirectory.MARKET.replace(':vTokenAddress', params.vTokenAddress || '');
