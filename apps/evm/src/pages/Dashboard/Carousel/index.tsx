@@ -5,7 +5,6 @@ import { useAccountAddress, useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
 import { BurnedWBnbBanner } from './BurnedWBnbBanner';
 import { PrimePromotionalBanner } from './PrimePromotionalBanner';
-import { UnichainPromotionalBanner } from './UnichainPromotionalBanner';
 
 export const Carousel: React.FC = () => {
   const { accountAddress } = useAccountAddress();
@@ -24,10 +23,6 @@ export const Carousel: React.FC = () => {
 
   if (chainId === ChainId.BSC_MAINNET) {
     slides.push(<BurnedWBnbBanner />);
-  }
-
-  if (chainId !== ChainId.UNICHAIN_MAINNET && chainId !== ChainId.UNICHAIN_SEPOLIA) {
-    slides.push(<UnichainPromotionalBanner />);
   }
 
   if (isPrimeEnabled && (!isAccountPrime || !accountAddress)) {
