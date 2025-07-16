@@ -57,6 +57,10 @@ export const useGetProfitableImports = () => {
       importablePositions: importablePositions?.aave || [],
       sortedSupplyApyAssetMapping,
     }),
+    morpho: formatProfitableImports({
+      importablePositions: importablePositions?.morpho || [],
+      sortedSupplyApyAssetMapping,
+    }),
   };
 
   const importablePositionsCount = Object.values(supplyPositions).reduce(

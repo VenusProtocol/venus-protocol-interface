@@ -1,5 +1,6 @@
 import {
   type GetSupertransactionReceiptPayloadWithReceipts,
+  type Instruction,
   greaterThanOrEqualTo,
   runtimeERC20BalanceOf,
 } from '@biconomy/abstractjs';
@@ -8,11 +9,12 @@ import FunctionKey from 'constants/functionKey';
 import MAX_UINT256 from 'constants/maxUint256';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
-import { aaveV3PoolAbi, vBep20Abi } from 'libs/contracts';
+import { aaveV3PoolAbi, erc4626Abi, vBep20Abi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId, useMeeClient } from 'libs/wallet';
 import type { ImportableSupplyPosition, VToken } from 'types';
 import { buffer } from 'utilities';
+import type { Address } from 'viem';
 
 type ImportSupplyPositionInput = {
   position: ImportableSupplyPosition;
@@ -57,10 +59,25 @@ export const useImportSupplyPosition = (options?: Partial<Options>) => {
         });
       }
 
-      if (position.protocol === 'aave') {
-        const nexusAccountAddress = nexusAccount.addressOn(chainId)!;
+      const nexusAccountAddress = nexusAccount.addressOn(chainId)!;
 
-        const instructions = await Promise.all([
+      const externalProtocolInstructions: Promise<Instruction[]>[] = [];
+      let approvalAmount: bigint | undefined;
+      let triggerTokenAddress: Address | undefined;
+      let amount: bigint | undefined;
+
+      if (position.protocol === 'aave') {
+        triggerTokenAddress = position.aTokenAddress;
+        amount = position.userATokenBalanceMantissa;
+
+        // Buffer approval amount to account for accrued interests while transaction is processing.
+        // We will transfer these accrued interests to the SCA in the first instruction of the super
+        // transaction
+        approvalAmount = buffer({
+          amountMantissa: position.userATokenBalanceWithInterestsMantissa,
+        });
+
+        externalProtocolInstructions.push(
           // Transfer any aTokens received as accrued interests to SCA
           nexusAccount.buildComposable({
             type: 'transferFrom',
@@ -93,69 +110,90 @@ export const useImportSupplyPosition = (options?: Partial<Options>) => {
               gasLimit: 100000n,
             },
           }),
-          // Give approval to Venus pool to spend tokens
-          nexusAccount.buildComposable({
-            type: 'approve',
-            data: {
-              tokenAddress: position.tokenAddress,
-              spender: vToken.address,
-              amount: runtimeERC20BalanceOf({
-                targetAddress: nexusAccountAddress,
-                tokenAddress: position.tokenAddress,
-                constraints: [greaterThanOrEqualTo(100n)],
-              }),
-              chainId,
-              gasLimit: 100000n,
-            },
-          }),
-          // Mint tokens from vToken with companion account, on behalf of EOA
+        );
+      } else if (position.protocol === 'morpho') {
+        triggerTokenAddress = position.vaultAddress;
+        amount = position.userVaultTokenBalanceMantissa;
+        approvalAmount = position.userVaultTokenBalanceMantissa;
+
+        externalProtocolInstructions.push(
+          // Withdraw Morpho position and transfer tokens to companion account
           nexusAccount.buildComposable({
             type: 'default',
             data: {
-              to: vToken.address,
-              abi: vBep20Abi,
-              functionName: 'mintBehalf',
+              to: position.vaultAddress,
+              abi: erc4626Abi,
+              functionName: 'redeem',
               args: [
-                accountAddress,
-                runtimeERC20BalanceOf({
-                  targetAddress: nexusAccountAddress,
-                  tokenAddress: position.tokenAddress,
-                  constraints: [greaterThanOrEqualTo(100n)],
-                }),
+                position.userVaultTokenBalanceMantissa, // Withdraw entire supply
+                nexusAccountAddress,
+                nexusAccountAddress,
               ],
               chainId,
               gasLimit: 100000n,
             },
           }),
-        ]);
-
-        // Buffer approval amount to account for accrued interests while transaction is processing.
-        // We will transfer these accrued interests to the SCA in the first instruction of the super
-        // transaction
-        const approvalAmount = buffer({
-          amountMantissa: position.userATokenBalanceWithInterestsMantissa,
-        });
-
-        const fusionQuote = await meeClient.getFusionQuote({
-          trigger: {
-            chainId,
-            tokenAddress: position.aTokenAddress,
-            amount: position.userATokenBalanceMantissa,
-            approvalAmount,
-            gasLimit: 500000n,
-          },
-          instructions,
-          sponsorship: true,
-        });
-
-        return fusionQuote;
+        );
       }
 
-      // This case should never be reached, but just in case we throw a generic internal error
-      throw new VError({
-        type: 'unexpected',
-        code: 'somethingWentWrong',
+      const instructions = await Promise.all([
+        ...externalProtocolInstructions,
+        // Give approval to Venus pool to spend tokens
+        nexusAccount.buildComposable({
+          type: 'approve',
+          data: {
+            tokenAddress: position.tokenAddress,
+            spender: vToken.address,
+            amount: runtimeERC20BalanceOf({
+              targetAddress: nexusAccountAddress,
+              tokenAddress: position.tokenAddress,
+              constraints: [greaterThanOrEqualTo(100n)],
+            }),
+            chainId,
+            gasLimit: 100000n,
+          },
+        }),
+        // Mint tokens from vToken with companion account, on behalf of EOA
+        nexusAccount.buildComposable({
+          type: 'default',
+          data: {
+            to: vToken.address,
+            abi: vBep20Abi,
+            functionName: 'mintBehalf',
+            args: [
+              accountAddress,
+              runtimeERC20BalanceOf({
+                targetAddress: nexusAccountAddress,
+                tokenAddress: position.tokenAddress,
+                constraints: [greaterThanOrEqualTo(100n)],
+              }),
+            ],
+            chainId,
+            gasLimit: 100000n,
+          },
+        }),
+      ]);
+
+      if (!triggerTokenAddress || !approvalAmount || !amount) {
+        throw new VError({
+          type: 'unexpected',
+          code: 'somethingWentWrong',
+        });
+      }
+
+      const fusionQuote = await meeClient.getFusionQuote({
+        trigger: {
+          chainId,
+          tokenAddress: triggerTokenAddress,
+          amount,
+          approvalAmount,
+          gasLimit: 500000n,
+        },
+        instructions,
+        sponsorship: true,
       });
+
+      return fusionQuote;
     },
     onConfirmed: ({ input, transactionHash, transactionReceipt }) => {
       queryClient.invalidateQueries({

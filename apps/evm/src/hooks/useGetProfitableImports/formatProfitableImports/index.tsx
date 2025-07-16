@@ -35,22 +35,28 @@ export const formatProfitableImports = ({
       token: sortedAssets[0].vToken.underlyingToken,
     });
 
-    // Skip position if it's outside boundaries
-    const positionSupplyBalanceCents =
-      sortedAssets[0].tokenPriceCents.multipliedBy(userSupplyBalanceTokens);
+    // DEV ONLY
+    // // Skip position if it's outside boundaries
+    // const positionSupplyBalanceCents =
+    //   sortedAssets[0].tokenPriceCents.multipliedBy(userSupplyBalanceTokens);
 
-    if (
-      positionSupplyBalanceCents.isLessThan(MIN_POSITION_SUPPLY_BALANCE_CENTS.toString()) ||
-      positionSupplyBalanceCents.isGreaterThan(MAX_POSITION_SUPPLY_BALANCE_CENTS.toString())
-    ) {
-      return acc;
-    }
+    // if (
+    //   positionSupplyBalanceCents.isLessThan(MIN_POSITION_SUPPLY_BALANCE_CENTS.toString()) ||
+    //   positionSupplyBalanceCents.isGreaterThan(MAX_POSITION_SUPPLY_BALANCE_CENTS.toString())
+    // ) {
+    //   return acc;
+    // }
+    // END DEV ONLY
 
     // Find Venus asset with better supply APY than current protocol
     const profitableAsset = sortedAssets.find(asset => {
-      const { supplyApyPercentage } = getBoostedAssetSupplyApy({ asset });
+      // const { supplyApyPercentage } = getBoostedAssetSupplyApy({ asset });
 
-      const hasBetterSupplyApy = supplyApyPercentage.isGreaterThan(position.supplyApyPercentage);
+      // const hasBetterSupplyApy = supplyApyPercentage.isGreaterThan(position.supplyApyPercentage);
+
+      // DEV ONLY
+      const hasBetterSupplyApy = true;
+      // END DEV ONLY
 
       const isNotCapped = convertTokensToMantissa({
         value: asset.supplyCapTokens,

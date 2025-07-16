@@ -116,6 +116,7 @@ import aavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvid
 import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
 import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
 import erc20Abi from './externalAbis/Erc20.json';
+import erc4626Abi from './externalAbis/Erc4626.json';
 import maximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
 import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
@@ -646,6 +647,10 @@ export const contracts: ContractConfig[] = [
   {
     name: 'PancakePairV2',
     abi: pancakePairV2Abi as Abi,
+  },
+  {
+    name: 'Erc4626',
+    abi: erc4626Abi as Abi,
   },
   // SwapRouter contract
   {

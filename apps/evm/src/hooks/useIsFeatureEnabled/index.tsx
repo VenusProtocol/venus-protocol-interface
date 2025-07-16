@@ -113,6 +113,16 @@ export const featureFlags = {
     ChainId.BASE_MAINNET,
     ChainId.BASE_SEPOLIA,
   ],
+  importMorphoPositions: [
+    ChainId.ETHEREUM,
+    ChainId.SEPOLIA,
+    ChainId.OPTIMISM_MAINNET,
+    ChainId.OPTIMISM_SEPOLIA,
+    ChainId.BASE_MAINNET,
+    ChainId.BASE_SEPOLIA,
+    ChainId.UNICHAIN_MAINNET,
+    ChainId.UNICHAIN_SEPOLIA,
+  ],
   importAavePositions: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,

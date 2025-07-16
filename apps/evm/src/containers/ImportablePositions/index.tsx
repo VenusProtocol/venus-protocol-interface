@@ -8,6 +8,7 @@ import { Infos } from './Infos';
 import { Notice } from './Notice';
 import { ProtocolPositions } from './ProtocolPositions';
 import aaveLogoSrc from './aaveLogo.svg';
+import morphoLogoSrc from './morphoLogo.svg';
 
 export interface ImportablePositionsProps {
   wrapInCard?: boolean;
@@ -35,7 +36,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
   } else {
     importablePositionsDom = (
       <>
-        {importableSupplyPositions.aave && (
+        {importableSupplyPositions.aave.length > 0 && (
           <ProtocolPositions
             protocolName={t('importPositionsModal.aave.title')}
             protocolLogoSrc={aaveLogoSrc}
@@ -44,7 +45,14 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
           />
         )}
 
-        {/* TODO: add other protocols */}
+        {importableSupplyPositions.morpho.length > 0 && (
+          <ProtocolPositions
+            protocolName={t('importPositionsModal.morpho.title')}
+            protocolLogoSrc={morphoLogoSrc}
+            protocolLogoAlt={t('importPositionsModal.morpho.logoAlt')}
+            positions={importableSupplyPositions.morpho}
+          />
+        )}
       </>
     );
   }

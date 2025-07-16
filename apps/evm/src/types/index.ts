@@ -499,7 +499,7 @@ export type SwapError =
 
 export type PSTokenCombination = [PSToken, PSToken];
 
-export type ImportableProtocol = 'aave';
+export type ImportableProtocol = 'aave' | 'morpho';
 
 interface ImportableSupplyPositionBase {
   protocol: ImportableProtocol;
@@ -515,4 +515,12 @@ export interface ImportableAaveSupplyPosition extends ImportableSupplyPositionBa
   userATokenBalanceWithInterestsMantissa: bigint;
 }
 
-export type ImportableSupplyPosition = ImportableAaveSupplyPosition;
+export interface ImportableMorphoSupplyPosition extends ImportableSupplyPositionBase {
+  protocol: 'morpho';
+  vaultAddress: Address;
+  userVaultTokenBalanceMantissa: bigint;
+}
+
+export type ImportableSupplyPosition =
+  | ImportableAaveSupplyPosition
+  | ImportableMorphoSupplyPosition;

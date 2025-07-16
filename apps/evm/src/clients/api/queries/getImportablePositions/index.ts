@@ -1,10 +1,15 @@
+import type { ChainId } from '@venusprotocol/chains/types';
 import type { Address, PublicClient } from 'viem';
 
 import type { ImportableProtocol, ImportableSupplyPosition } from 'types';
 import { getImportableAaveSupplyPositions } from './getImportableAaveSupplyPositions';
+import { getImportableMorphoSupplyPositions } from './getImportableMorphoSupplyPositions';
+
+// TODO: update tests
 
 export interface GetImportablePositionsInput {
   accountAddress: Address;
+  chainId: ChainId;
   publicClient: PublicClient;
   protocols: ImportableProtocol[];
   aaveUiPoolDataProviderContractAddress?: Address;
@@ -18,11 +23,12 @@ export type GetImportablePositionsOutput = {
 export const getImportablePositions = async ({
   accountAddress,
   publicClient,
+  chainId,
   protocols,
   aaveUiPoolDataProviderContractAddress,
   aavePoolAddressesProviderContractAddress,
 }: GetImportablePositionsInput): Promise<GetImportablePositionsOutput> => {
-  const [importableAaveSupplyPositions] = await Promise.all([
+  const [importableAaveSupplyPositions, importableMorphoSupplyPositions] = await Promise.all([
     aavePoolAddressesProviderContractAddress &&
     aaveUiPoolDataProviderContractAddress &&
     protocols.includes('aave')
@@ -33,9 +39,17 @@ export const getImportablePositions = async ({
           aavePoolAddressesProviderContractAddress,
         })
       : undefined,
+    protocols.includes('morpho')
+      ? getImportableMorphoSupplyPositions({
+          chainId,
+          accountAddress,
+          publicClient,
+        })
+      : undefined,
   ]);
 
   return {
     aave: importableAaveSupplyPositions?.importableSupplyPositions || [],
+    morpho: importableMorphoSupplyPositions?.importableSupplyPositions || [],
   };
 };

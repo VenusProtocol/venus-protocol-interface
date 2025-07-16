@@ -381,6 +381,10 @@
       "title": "Why Venus?"
     },
     "limitNotice": "Only positions valued between <Number>{{min}}</Number> and <Number>{{max}}</Number> can currently be imported into Venus.",
+    "morpho": {
+      "logoAlt": "Logo of Morpho",
+      "title": "Morpho"
+    },
     "position": {
       "currentApy": {
         "label": "Current APY"

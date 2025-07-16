@@ -9,6 +9,8 @@ import type { ImportableProtocol } from 'types';
 import type { Address } from 'viem';
 import { type GetImportablePositionsOutput, getImportablePositions } from '.';
 
+// TODO: update tests
+
 interface UseGetImportablePositionsInput {
   accountAddress: Address;
 }
@@ -50,11 +52,18 @@ export const useGetImportablePositions = (
   const isImportAavePositionsFeatureEnabled = useIsFeatureEnabled({
     name: 'importAavePositions',
   });
+  const isImportMorphoPositionsFeatureEnabled = useIsFeatureEnabled({
+    name: 'importMorphoPositions',
+  });
 
   const protocols: ImportableProtocol[] = [];
 
   if (isImportAavePositionsFeatureEnabled) {
     protocols.push('aave');
+  }
+
+  if (isImportMorphoPositionsFeatureEnabled) {
+    protocols.push('morpho');
   }
 
   return useQuery({
@@ -69,6 +78,7 @@ export const useGetImportablePositions = (
       getImportablePositions({
         accountAddress,
         publicClient,
+        chainId,
         protocols,
         aaveUiPoolDataProviderContractAddress,
         aavePoolAddressesProviderContractAddress,
