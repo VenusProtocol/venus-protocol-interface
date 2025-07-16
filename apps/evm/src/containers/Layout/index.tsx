@@ -2,6 +2,7 @@ import { Outlet } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 
+import { useRef } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
 import ScrollToTop from './ScrollToTop';
@@ -10,6 +11,10 @@ import { TestEnvWarning } from './TestEnvWarning';
 import { store } from './store';
 
 export const Layout: React.FC = () => {
+  const scrollToTopRef = useRef<HTMLButtonElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  const setIsCloseToBottom = store.use.setIsCloseToBottom();
   const setScrollToTopVisible = store.use.setScrollToTopVisible();
   const isScrollToTopVisible = store.use.isScrollToTopVisible();
   const viewportHeight = window.innerHeight;
@@ -18,6 +23,14 @@ export const Layout: React.FC = () => {
     const scrollElem = event.currentTarget;
     const shouldShowScrollToTopVisible =
       scrollElem?.scrollTop && scrollElem.scrollTop > viewportHeight;
+
+    const scrollToTopRect = scrollToTopRef.current?.getBoundingClientRect();
+    const footerRect = footerRef.current?.getBoundingClientRect();
+    const footerTopPos = footerRect ? footerRect.top - footerRect.height : undefined;
+    const isCloseToBottom =
+      scrollToTopRect && footerTopPos ? scrollToTopRect.bottom >= footerTopPos : false;
+
+    setIsCloseToBottom(isCloseToBottom);
 
     if (shouldShowScrollToTopVisible && !isScrollToTopVisible) {
       setScrollToTopVisible(true);
@@ -42,10 +55,10 @@ export const Layout: React.FC = () => {
 
           <main className="relative w-full shrink-0 grow px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
             <Outlet />
-            <ScrollToTop />
+            <ScrollToTop ref={scrollToTopRef} />
           </main>
 
-          <Footer />
+          <Footer ref={footerRef} />
         </div>
       </div>
     </div>
