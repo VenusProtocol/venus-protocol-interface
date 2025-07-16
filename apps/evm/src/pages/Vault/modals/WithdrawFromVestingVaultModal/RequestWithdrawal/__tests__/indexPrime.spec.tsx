@@ -13,7 +13,7 @@ import {
   useGetPrimeStatus,
   useGetPrimeToken,
 } from 'clients/api';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 
 import { lockedDeposits, xvsVaultPoolInfo, xvsVaultUserInfo } from '__mocks__/models/vaults';
@@ -26,7 +26,7 @@ const fakePoolIndex = 6;
 describe('RequestWithdrawal - Feature enabled: Prime', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'prime',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'prime',
     );
 
     (getXvsVaultLockedDeposits as Mock).mockImplementation(() => ({

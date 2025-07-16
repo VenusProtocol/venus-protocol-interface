@@ -1,7 +1,7 @@
 import { Page } from 'components';
 import ImportablePositions from 'containers/ImportablePositions';
 
-const Import: React.FC = () => (
+const Port: React.FC = () => (
   <Page>
     <div className="max-w-[800px] mx-auto">
       <ImportablePositions wrapInCard />
@@ -9,4 +9,4 @@ const Import: React.FC = () => (
   </Page>
 );
 
-export default Import;
+export default Port;

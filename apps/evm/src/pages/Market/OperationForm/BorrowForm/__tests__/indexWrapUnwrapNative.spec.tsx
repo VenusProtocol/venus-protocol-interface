@@ -4,7 +4,7 @@ import noop from 'noop-ts';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { ChainId } from 'types';
 
 import { useBorrow } from 'clients/api';
@@ -16,7 +16,7 @@ import TEST_IDS from '../testIds';
 describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'wrapUnwrapNativeToken',
     );
   });
 

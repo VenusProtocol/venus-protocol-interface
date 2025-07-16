@@ -5,7 +5,7 @@ import apiPoolsResponse from '__mocks__/api/pools.json';
 import fakeAccountAddress from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
 import { type GetTokenBalancesInput, getTokenBalances, getUserVaiBorrowBalance } from 'clients/api';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import {
   type UseGetContractAddressInput,
@@ -30,7 +30,7 @@ vi.mock('utilities/restService');
 describe('useGetPools', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'prime',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'prime',
     );
 
     (usePublicClient as Mock).mockImplementation(() => ({

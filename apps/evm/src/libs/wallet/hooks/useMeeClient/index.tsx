@@ -7,6 +7,7 @@ import { http, useWalletClient } from 'wagmi';
 
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import config from 'config';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
 import { chainMapping } from 'libs/wallet/chains';
 import type { ChainId } from 'types';
@@ -36,10 +37,12 @@ type Options = QueryObserverOptions<
 export const useMeeClient = (input?: { chainId: ChainId }, options?: Partial<Options>) => {
   const { accountAddress } = useAccountAddress();
   const { data: walletClient } = useWalletClient({ account: accountAddress });
-
   const { chainId: currentChainId } = useChainId();
-
   const chainId = input?.chainId || currentChainId;
+
+  const isImportPositionsFeatureEnabled = useIsFeatureEnabled({
+    name: 'importPositions',
+  });
 
   return useQuery({
     queryKey: ['mee-client', { chainId }],
@@ -68,6 +71,9 @@ export const useMeeClient = (input?: { chainId: ChainId }, options?: Partial<Opt
       return { meeClient, nexusAccount };
     },
     ...options,
-    enabled: (options?.enabled === undefined || options?.enabled) && !!walletClient,
+    enabled:
+      (options?.enabled === undefined || options?.enabled) &&
+      !!walletClient &&
+      isImportPositionsFeatureEnabled,
   });
 };

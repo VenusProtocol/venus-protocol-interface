@@ -3,7 +3,7 @@ import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { txData } from '__mocks__/models/transactionData';
 import { useGetPaymasterInfo } from 'clients/api';
 import { store } from 'containers/ResendPayingGasModal/store';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { VError } from 'libs/errors';
 import { usePublicClient } from 'libs/wallet';
@@ -53,7 +53,7 @@ const fakeMutationInput = {};
 describe('useSendTransaction - Feature enabled: gaslessTransactions', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'gaslessTransactions',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'gaslessTransactions',
     );
 
     (usePublicClient as Mock).mockImplementation(() => ({

@@ -10,7 +10,7 @@ import { renderComponent } from 'testUtils/render';
 import { useGetBalanceOf, useRepay } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';
@@ -41,7 +41,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     }));
 
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'wrapUnwrapNativeToken',
     );
 
     (useGetSwapInfo as Mock).mockImplementation(() => ({

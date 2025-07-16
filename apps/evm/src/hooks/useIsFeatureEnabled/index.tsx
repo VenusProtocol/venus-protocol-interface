@@ -102,6 +102,7 @@ export const featureFlags = {
   ],
   gaslessTransactions: [ChainId.ZKSYNC_SEPOLIA, ChainId.ZKSYNC_MAINNET],
   web3DomainNames: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.ARBITRUM_ONE],
+  burnedWBnbButton: [ChainId.BSC_MAINNET],
   importPositions: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
@@ -112,16 +113,31 @@ export const featureFlags = {
     ChainId.BASE_MAINNET,
     ChainId.BASE_SEPOLIA,
   ],
-  burnedWBnbButton: [ChainId.BSC_MAINNET],
+  importAavePositions: [
+    ChainId.BSC_MAINNET,
+    ChainId.BSC_TESTNET,
+    ChainId.ARBITRUM_ONE,
+    ChainId.ARBITRUM_SEPOLIA,
+    ChainId.ETHEREUM,
+    ChainId.SEPOLIA,
+    ChainId.OPTIMISM_MAINNET,
+    ChainId.OPTIMISM_SEPOLIA,
+    ChainId.ZKSYNC_MAINNET,
+    ChainId.ZKSYNC_SEPOLIA,
+    ChainId.BASE_MAINNET,
+    ChainId.BASE_SEPOLIA,
+    ChainId.UNICHAIN_MAINNET,
+    ChainId.UNICHAIN_SEPOLIA,
+  ],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
 
-export interface UseIsFeatureEnabled {
+export interface UseIsFeatureEnabledInput {
   name: FeatureFlag;
 }
 
-export const useIsFeatureEnabled = ({ name }: UseIsFeatureEnabled) => {
+export const useIsFeatureEnabled = ({ name }: UseIsFeatureEnabledInput) => {
   const { chainId } = useChainId();
   return featureFlags[name].includes(chainId);
 };

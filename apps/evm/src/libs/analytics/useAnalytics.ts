@@ -30,6 +30,7 @@ export type AnalyticEventName =
   | 'Import positions modal closed'
   | 'Position import initiated'
   | 'Position import failed'
+  | 'Position import canceled'
   | 'Position imported';
 
 export type AnalyticEventProps<TEventName extends AnalyticEventName> =
@@ -124,6 +125,7 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
                             : TEventName extends
                                   | 'Position import initiated'
                                   | 'Position import failed'
+                                  | 'Position import canceled'
                                   | 'Position imported'
                               ? {
                                   fromProtocol: ImportableProtocol;

@@ -3,7 +3,9 @@ import type { ChainId } from '@venusprotocol/chains';
 
 import FunctionKey from 'constants/functionKey';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useChainId, usePublicClient } from 'libs/wallet';
+import type { ImportableProtocol } from 'types';
 import type { Address } from 'viem';
 import { type GetImportablePositionsOutput, getImportablePositions } from '.';
 
@@ -41,6 +43,20 @@ export const useGetImportablePositions = (
     name: 'AaveUiPoolDataProvider',
   });
 
+  const isImportPositionsFeatureEnabled = useIsFeatureEnabled({
+    name: 'importPositions',
+  });
+
+  const isImportAavePositionsFeatureEnabled = useIsFeatureEnabled({
+    name: 'importAavePositions',
+  });
+
+  const protocols: ImportableProtocol[] = [];
+
+  if (isImportAavePositionsFeatureEnabled) {
+    protocols.push('aave');
+  }
+
   return useQuery({
     queryKey: [
       FunctionKey.GET_IMPORTABLE_POSITIONS,
@@ -53,9 +69,12 @@ export const useGetImportablePositions = (
       getImportablePositions({
         accountAddress,
         publicClient,
+        protocols,
         aaveUiPoolDataProviderContractAddress,
         aavePoolAddressesProviderContractAddress,
       }),
     ...options,
+    enabled:
+      (options?.enabled === undefined || options?.enabled) && isImportPositionsFeatureEnabled,
   });
 };

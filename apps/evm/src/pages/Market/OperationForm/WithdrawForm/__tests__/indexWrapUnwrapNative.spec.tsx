@@ -4,7 +4,7 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { ChainId } from 'types';
 
 import { act, fireEvent, waitFor } from '@testing-library/react';
@@ -23,7 +23,7 @@ import TEST_IDS from '../testIds';
 describe('WithdrawForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'wrapUnwrapNativeToken',
     );
   });
 

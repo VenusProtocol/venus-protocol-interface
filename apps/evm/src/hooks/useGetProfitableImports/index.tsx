@@ -1,6 +1,5 @@
 import { useGetImportablePositions, useGetPools } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 import type { ImportableProtocol } from 'types';
 import { getBoostedAssetSupplyApy } from 'utilities';
@@ -13,16 +12,12 @@ export * from './types';
 export const useGetProfitableImports = () => {
   const { accountAddress } = useAccountAddress();
 
-  const isImportPositionsFeatureEnabled = useIsFeatureEnabled({
-    name: 'importPositions',
-  });
-
-  const { data: importablePositions, isPending } = useGetImportablePositions(
+  const { data: importablePositions, isLoading } = useGetImportablePositions(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
     },
     {
-      enabled: isImportPositionsFeatureEnabled && !!accountAddress,
+      enabled: !!accountAddress,
     },
   );
 
@@ -70,7 +65,7 @@ export const useGetProfitableImports = () => {
   );
 
   return {
-    isPending,
+    isLoading,
     supplyPositions,
     importablePositionsCount,
   };

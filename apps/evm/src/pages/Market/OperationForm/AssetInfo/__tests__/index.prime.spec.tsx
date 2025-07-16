@@ -4,7 +4,7 @@ import type { Mock } from 'vitest';
 import { poolData } from '__mocks__/models/pools';
 import { exactAmountInSwap } from '__mocks__/models/swaps';
 import { useGetHypotheticalUserPrimeApys } from 'hooks/useGetHypotheticalUserPrimeApys';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { renderComponent } from 'testUtils/render';
 import { AssetInfo, type AssetInfoProps } from '..';
 
@@ -13,7 +13,7 @@ vi.mock('hooks/useGetHypotheticalUserPrimeApys');
 describe('AssetInfo - Feature enabled: Prime', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'prime',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'prime',
     );
 
     (useGetHypotheticalUserPrimeApys as Mock).mockImplementation(() => ({

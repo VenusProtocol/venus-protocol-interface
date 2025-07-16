@@ -11,13 +11,13 @@ import {
 } from 'clients/api';
 
 import { exactAmountInSwap } from '__mocks__/models/swaps';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { AccountData, type AccountDataProps } from '..';
 
 describe('AccountData - Feature flag enabled: Prime', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'prime',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'prime',
     );
 
     (useGetPrimeStatus as Mock).mockImplementation(() => ({

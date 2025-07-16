@@ -33,7 +33,7 @@ const useGetMenuItems = () => {
     });
 
     menuItems.push({
-      to: routes.import.path,
+      to: routes.port.path,
       // Translation key: do not remove this comment
       // t('layout.menuItems.port')
       i18nKey: 'layout.menuItems.port',

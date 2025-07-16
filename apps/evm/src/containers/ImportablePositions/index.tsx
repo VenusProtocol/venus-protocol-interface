@@ -17,12 +17,11 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
   const { t } = useTranslation();
   const {
     supplyPositions: importableSupplyPositions,
-    isPending: isGetProfitableImportsLoading,
+    isLoading: isGetProfitableImportsLoading,
     importablePositionsCount,
   } = useGetProfitableImports();
-  const { data: getMeeClientData } = useMeeClient();
-
-  const isLoading = !getMeeClientData || isGetProfitableImportsLoading;
+  const { isLoading: isGetMeeClientLoading } = useMeeClient();
+  const isLoading = isGetMeeClientLoading || isGetProfitableImportsLoading;
   const shouldShowEmptyState = isLoading || importablePositionsCount === 0;
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
@@ -38,8 +37,9 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
       <>
         {importableSupplyPositions.aave && (
           <ProtocolPositions
+            protocolName={t('importPositionsModal.aave.title')}
             protocolLogoSrc={aaveLogoSrc}
-            protocolLogoAlt={t('importPositionsModal.aaveLogoAlt')}
+            protocolLogoAlt={t('importPositionsModal.aave.logoAlt')}
             positions={importableSupplyPositions.aave}
           />
         )}
