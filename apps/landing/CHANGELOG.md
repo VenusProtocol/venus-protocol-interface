@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.17.0
+
+### Minor Changes
+
+- c268fc9: remove Unichain banner
+
 ## 1.16.0
 
 ### Minor Changes

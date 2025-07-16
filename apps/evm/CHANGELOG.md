@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.23.0
+
+### Minor Changes
+
+- c268fc9: remove Unichain banner
+
 ## 3.22.0
 
 ### Minor Changes
