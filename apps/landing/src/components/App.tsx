@@ -6,9 +6,8 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import config from '../config';
 import { LANDING_PAGE_PRODUCTION_URL } from '../constants/production';
 import { version as APP_VERSION } from '../constants/version';
-import { AppStateConsumer, AppStateProvider } from '../context';
+import { AppStateProvider } from '../context';
 import s from './App.module.css';
-import Banner from './Banner/Banner';
 import Footer from './Footer/Footer';
 import MainContent from './MainContent/MainContent';
 
@@ -16,9 +15,6 @@ function Main() {
   return (
     <AppStateProvider>
       <main className={s.root}>
-        <AppStateConsumer>
-          {({ isMobileMenuOpen }) => !isMobileMenuOpen && <Banner />}
-        </AppStateConsumer>
         <MainContent />
         <Footer />
       </main>
