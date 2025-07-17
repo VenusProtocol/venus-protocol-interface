@@ -1324,9 +1324,9 @@
     semver "^7.3.5"
 
 "@dotenvx/dotenvx@^1.26.2":
-  version "1.47.6"
-  resolved "https://registry.yarnpkg.com/@dotenvx/dotenvx/-/dotenvx-1.47.6.tgz#7d73d20c811cc721477a2aaf07042228a7709296"
-  integrity sha512-bvVMFc3Z9/mtYUWP1S1UB4SA3U2mQ1p7Qc9QW6Cm7t1Vm6D+dysmus/Mt26Dc1QrE6OgrKUGC99EQcMvcFZC3Q==
+  version "1.47.7"
+  resolved "https://registry.yarnpkg.com/@dotenvx/dotenvx/-/dotenvx-1.47.7.tgz#981f1852b35e9edd2406e7365f6102a27de03863"
+  integrity sha512-WFuNE77SRFc+nMW2IR6PzDllNYLcfn1QskK9a+Et8D1XvK25QNSRdGk/uti1ekdMZCJrM6dCKw+oJzo0PB+iXA==
   dependencies:
     commander "^11.1.0"
     dotenv "^16.4.5"
@@ -17134,21 +17134,7 @@ viem@2.23.2:
     ox "0.6.7"
     ws "8.18.0"
 
-viem@>=2.29.0, viem@^2.1.1, viem@^2.22.23, viem@^2.23.1:
-  version "2.32.0"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.32.0.tgz#6994fce43c5feed21367c80dd488a755838101da"
-  integrity sha512-pHwKXQSyEWX+8ttOQJdU5dSBfYd6L9JxARY/Sx0MBj3uF/Zaiqt6o1SbzjFjQXkNzWSgtxK7H89ZI1SMIA2iLQ==
-  dependencies:
-    "@noble/curves" "1.9.2"
-    "@noble/hashes" "1.8.0"
-    "@scure/bip32" "1.7.0"
-    "@scure/bip39" "1.6.0"
-    abitype "1.0.8"
-    isows "1.0.7"
-    ox "0.8.1"
-    ws "8.18.2"
-
-viem@^2.27.2:
+viem@>=2.29.0, viem@^2.1.1, viem@^2.22.23, viem@^2.23.1, viem@^2.27.2:
   version "2.32.0"
   resolved "https://registry.yarnpkg.com/viem/-/viem-2.32.0.tgz#6994fce43c5feed21367c80dd488a755838101da"
   integrity sha512-pHwKXQSyEWX+8ttOQJdU5dSBfYd6L9JxARY/Sx0MBj3uF/Zaiqt6o1SbzjFjQXkNzWSgtxK7H89ZI1SMIA2iLQ==
