@@ -51,7 +51,6 @@ export { default as fourDots } from './fourDots';
 export { default as bin } from './bin';
 export { default as telegram } from './telegram';
 export { default as bridge } from './bridge';
-export { default as lido } from './lido';
 export { default as eth } from './eth';
 export { default as document } from './document';
 export { default as gas } from './gas';

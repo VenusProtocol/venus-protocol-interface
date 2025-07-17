@@ -1,5 +1,5 @@
 import { ChainId } from '__mocks__/models/chains';
-import { isolatedPool, legacyCorePool } from '__mocks__/models/pools';
+import { legacyCorePool } from '__mocks__/models/pools';
 import { bnb, eth } from '__mocks__/models/tokens';
 export { ChainId } from '__mocks__/models/chains';
 
@@ -31,9 +31,6 @@ export const chainMetadata = {
     layerZeroScanUrl: 'https://layerzeroscan.com',
     blockTimeMs: 12000,
     blocksPerDay: 7200,
-    corePoolComptrollerContractAddress: isolatedPool.comptrollerAddress,
-    lstPoolComptrollerContractAddress: '0xF522cd0360EF8c2FF48B648d53EA1717Ec0F3Ac3',
-    lstPoolVWstEthContractAddress: '0x4a240F0ee138697726C8a3E43eFE6Ac3593432CB',
     nativeToken: eth,
   },
 };

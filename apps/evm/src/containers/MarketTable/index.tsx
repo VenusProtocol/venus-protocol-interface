@@ -10,11 +10,10 @@ import type { Pool } from 'types';
 import { routes } from 'constants/routing';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useBreakpointUp } from 'hooks/responsive';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { areAddressesEqual, isAssetPaused } from 'utilities';
+import { isAssetPaused } from 'utilities';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
 import type { ColumnKey, PoolAsset } from './types';
@@ -49,11 +48,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const {
-    corePoolComptrollerContractAddress,
-    lstPoolComptrollerContractAddress,
-    lstPoolVWstEthContractAddress,
-  } = useGetChainMetadata();
   const { toggleCollateral } = useCollateral();
   const { accountAddress } = useAccountAddress();
 
@@ -159,24 +153,10 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     );
   }, [columns, initialOrder]);
 
-  const getRowHref = (row: PoolAsset) => {
-    if (areAddressesEqual(row.pool.comptrollerAddress, corePoolComptrollerContractAddress)) {
-      return routes.corePoolMarket.path.replace(':vTokenAddress', row.vToken.address);
-    }
-
-    if (
-      lstPoolComptrollerContractAddress &&
-      lstPoolVWstEthContractAddress &&
-      areAddressesEqual(row.pool.comptrollerAddress, lstPoolComptrollerContractAddress) &&
-      areAddressesEqual(row.vToken.address, lstPoolVWstEthContractAddress)
-    ) {
-      return routes.lidoMarket.path.replace(':vTokenAddress', row.vToken.address);
-    }
-
-    return routes.isolatedPoolMarket.path
+  const getRowHref = (row: PoolAsset) =>
+    routes.market.path
       .replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
       .replace(':vTokenAddress', row.vToken.address);
-  };
 
   return (
     <Table

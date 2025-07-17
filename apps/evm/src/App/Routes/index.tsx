@@ -8,20 +8,16 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
 import { Redirect } from 'containers/Redirect';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { safeLazyLoad } from 'utilities';
 import PageSuspense from './PageSuspense';
 
 const Dashboard = safeLazyLoad(() => import('pages/Dashboard'));
 const Account = safeLazyLoad(() => import('pages/Account'));
 const Import = safeLazyLoad(() => import('pages/Import'));
-const CorePoolMarket = safeLazyLoad(() => import('pages/Market/CorePoolMarket'));
-const IsolatedPoolMarket = safeLazyLoad(() => import('pages/Market/IsolatedPoolMarket'));
-const CorePool = safeLazyLoad(() => import('pages/Pool/CorePool'));
-const IsolatedPool = safeLazyLoad(() => import('pages/Pool/IsolatedPool'));
-const LidoMarket = safeLazyLoad(() => import('pages/Market/LidoMarket'));
+const Pool = safeLazyLoad(() => import('pages/Pool'));
+const Market = safeLazyLoad(() => import('pages/Market'));
 const Governance = safeLazyLoad(() => import('pages/Governance'));
-const IsolatedPools = safeLazyLoad(() => import('pages/IsolatedPools'));
+const Pools = safeLazyLoad(() => import('pages/Pools'));
 const Proposal = safeLazyLoad(() => import('pages/Proposal'));
 const Swap = safeLazyLoad(() => import('pages/Swap'));
 const Vai = safeLazyLoad(() => import('pages/Vai'));
@@ -33,17 +29,12 @@ const Bridge = safeLazyLoad(() => import('pages/Bridge'));
 
 const AppRoutes = () => {
   const { accountAddress } = useAccountAddress();
-  const { lstPoolComptrollerContractAddress, lstPoolVWstEthContractAddress } =
-    useGetChainMetadata();
   const location = useLocation();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const primeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
-  });
-  const isolatedPoolsEnabled = useIsFeatureEnabled({
-    name: 'isolatedPools',
   });
 
   // Scroll to the top of the page on route change
@@ -118,71 +109,36 @@ const AppRoutes = () => {
           </>
         )}
 
-        {isolatedPoolsEnabled && (
-          <Route path={Subdirectory.ISOLATED_POOLS}>
-            <Route
-              index
-              element={
-                <PageSuspense>
-                  <IsolatedPools />
-                </PageSuspense>
-              }
-            />
-
-            <Route path={Subdirectory.ISOLATED_POOL}>
-              <Route
-                index
-                element={
-                  <PageSuspense>
-                    <IsolatedPool />
-                  </PageSuspense>
-                }
-              />
-
-              <Route
-                path={Subdirectory.MARKET}
-                element={
-                  <PageSuspense>
-                    <IsolatedPoolMarket />
-                  </PageSuspense>
-                }
-              />
-            </Route>
-          </Route>
-        )}
-
-        <Route path={Subdirectory.CORE_POOL}>
+        <Route path={Subdirectory.POOLS}>
           <Route
             index
             element={
               <PageSuspense>
-                <CorePool />
+                <Pools />
               </PageSuspense>
             }
           />
 
-          <Route
-            path={Subdirectory.MARKET}
-            element={
-              <PageSuspense>
-                <CorePoolMarket />
-              </PageSuspense>
-            }
-          />
-        </Route>
-
-        {!!lstPoolComptrollerContractAddress && !!lstPoolVWstEthContractAddress && (
-          <Route path={Subdirectory.LIDO_MARKET}>
+          <Route path={Subdirectory.POOL}>
             <Route
               index
               element={
                 <PageSuspense>
-                  <LidoMarket />
+                  <Pool />
+                </PageSuspense>
+              }
+            />
+
+            <Route
+              path={Subdirectory.MARKET}
+              element={
+                <PageSuspense>
+                  <Market />
                 </PageSuspense>
               }
             />
           </Route>
-        )}
+        </Route>
 
         <Route path={Subdirectory.VAULTS}>
           <Route

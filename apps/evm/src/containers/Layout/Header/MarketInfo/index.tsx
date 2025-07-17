@@ -1,60 +1,28 @@
 import BigNumber from 'bignumber.js';
 import { useGetAsset, useGetPool } from 'clients/api';
-import { type Cell, CellGroup, Icon, Pill, Spinner, TokenIcon } from 'components';
+import { type Cell, CellGroup, Icon, Spinner, TokenIcon } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { routes } from 'constants/routing';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
-import { matchPath, useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import type { Address } from 'viem';
-import { useIsOnLidoMarketPage } from '../useIsOnLidoMarketPage';
 import { AddTokenToWalletDropdown } from './AddTokenToWalletDropdown';
 import { GoToTokenContractDropdown } from './GoToTokenContractDropdown';
 import { UtilizationRate } from './UtilizationRate';
 
 export const MarketInfo = () => {
-  const {
-    poolComptrollerAddress: poolComptrollerAddressParam = NULL_ADDRESS,
-    vTokenAddress = NULL_ADDRESS,
-  } = useParams<{
+  const { poolComptrollerAddress = NULL_ADDRESS, vTokenAddress = NULL_ADDRESS } = useParams<{
     poolComptrollerAddress: Address;
     vTokenAddress: Address;
   }>();
 
-  const { pathname } = useLocation();
-  const isOnLidoMarketPage = useIsOnLidoMarketPage();
-
-  const {
-    corePoolComptrollerContractAddress,
-    lstPoolComptrollerContractAddress,
-    lstPoolVWstEthContractAddress,
-  } = useGetChainMetadata();
-
-  const poolComptrollerAddress = useMemo(() => {
-    if (matchPath(routes.corePoolMarket.path, pathname)) {
-      return corePoolComptrollerContractAddress;
-    }
-
-    if (lstPoolComptrollerContractAddress && matchPath(routes.lidoMarket.path, pathname)) {
-      return lstPoolComptrollerContractAddress;
-    }
-
-    return poolComptrollerAddressParam;
-  }, [
-    corePoolComptrollerContractAddress,
-    lstPoolComptrollerContractAddress,
-    poolComptrollerAddressParam,
-    pathname,
-  ]);
-
   const { t } = useTranslation();
 
   const { data: getAssetData } = useGetAsset({
-    vTokenAddress: isOnLidoMarketPage ? lstPoolVWstEthContractAddress : vTokenAddress,
+    vTokenAddress,
   });
   const asset = getAssetData?.asset;
 
@@ -136,11 +104,6 @@ export const MarketInfo = () => {
               <span className="font-bold text-lg">
                 {asset.vToken.underlyingToken.symbol} ({pool?.name})
               </span>
-
-              {pool.isIsolated &&
-                pool.comptrollerAddress !== corePoolComptrollerContractAddress && (
-                  <Pill>{t('layout.header.isolated')}</Pill>
-                )}
             </div>
 
             <AddTokenToWalletDropdown isUserConnected={isUserConnected} vToken={asset.vToken} />

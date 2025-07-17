@@ -9,6 +9,7 @@ export const isPoolIsolated = ({
 
   return (
     (chainId !== ChainId.BSC_MAINNET && chainId !== ChainId.BSC_TESTNET) ||
-    !areAddressesEqual(corePoolComptrollerContractAddress, comptrollerAddress)
+    (!!corePoolComptrollerContractAddress &&
+      !areAddressesEqual(corePoolComptrollerContractAddress, comptrollerAddress))
   );
 };

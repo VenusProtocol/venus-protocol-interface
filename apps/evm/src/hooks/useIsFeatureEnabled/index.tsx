@@ -64,14 +64,6 @@ export const featureFlags = {
     ChainId.UNICHAIN_MAINNET,
     ChainId.UNICHAIN_SEPOLIA,
   ],
-  isolatedPools: [
-    ChainId.BSC_MAINNET,
-    ChainId.BSC_TESTNET,
-    ChainId.ETHEREUM,
-    ChainId.SEPOLIA,
-    ChainId.ARBITRUM_ONE,
-    ChainId.ARBITRUM_SEPOLIA,
-  ],
   bridgeRoute: [
     ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,

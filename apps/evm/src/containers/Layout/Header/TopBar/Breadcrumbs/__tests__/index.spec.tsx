@@ -38,21 +38,13 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     ],
     [routes.governanceProposal.path.replace(':proposalId', '1'), routes.governanceProposal.path],
     [routes.governanceVoter.path.replace(':address', fakeAddress), routes.governanceVoter.path],
-    [routes.isolatedPools.path, routes.isolatedPools.path],
+    [routes.pools.path, routes.pools.path],
+    [routes.pool.path.replace(':poolComptrollerAddress', fakeAddress), routes.pool.path],
     [
-      routes.isolatedPool.path.replace(':poolComptrollerAddress', fakeAddress),
-      routes.isolatedPool.path,
-    ],
-    [
-      routes.isolatedPoolMarket.path
+      routes.market.path
         .replace(':poolComptrollerAddress', fakeAddress)
         .replace(':vTokenAddress', poolData[0].assets[0].vToken.address),
-      routes.isolatedPoolMarket.path,
-    ],
-    [routes.corePool.path, routes.corePool.path],
-    [
-      routes.corePoolMarket.path.replace(':vTokenAddress', poolData[0].assets[0].vToken.address),
-      routes.corePoolMarket.path,
+      routes.market.path,
     ],
     [routes.xvs.path, routes.xvs.path],
     [routes.vai.path, routes.vai.path],

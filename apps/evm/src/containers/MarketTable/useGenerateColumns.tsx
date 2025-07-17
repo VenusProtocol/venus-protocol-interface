@@ -13,11 +13,9 @@ import {
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
 import {
-  areAddressesEqual,
   compareBigNumbers,
   compareBooleans,
   compareStrings,
@@ -73,7 +71,6 @@ const useGenerateColumns = ({
   columnKeys: ColumnKey[];
   collateralOnChange: (poolAsset: PoolAsset) => void;
 }) => {
-  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
   const { t, Trans } = useTranslation();
   const styles = useStyles();
   const { chainId: accountChainId } = useAccountChainId();
@@ -194,23 +191,10 @@ const useGenerateColumns = ({
             }
 
             if (column === 'pool') {
-              const getTo = () => {
-                if (
-                  areAddressesEqual(
-                    corePoolComptrollerContractAddress,
-                    poolAsset.pool.comptrollerAddress,
-                  )
-                ) {
-                  return routes.corePool.path;
-                }
-
-                return routes.isolatedPool.path.replace(
-                  ':poolComptrollerAddress',
-                  poolAsset.pool.comptrollerAddress,
-                );
-              };
-
-              const to = getTo();
+              const to = routes.pool.path.replace(
+                ':poolComptrollerAddress',
+                poolAsset.pool.comptrollerAddress,
+              );
 
               return (
                 <div>
@@ -412,15 +396,7 @@ const useGenerateColumns = ({
                 },
         };
       }),
-    [
-      corePoolComptrollerContractAddress,
-      columnKeys,
-      Trans,
-      t,
-      collateralOnChange,
-      styles,
-      isAccountOnWrongChain,
-    ],
+    [columnKeys, Trans, t, collateralOnChange, styles, isAccountOnWrongChain],
   );
 
   return columns;
