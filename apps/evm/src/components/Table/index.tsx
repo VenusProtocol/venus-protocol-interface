@@ -20,6 +20,7 @@ export * from './types';
 
 export function Table<R>({
   columns,
+  cardClassName,
   cardColumns,
   data,
   title,
@@ -32,6 +33,7 @@ export function Table<R>({
   isFetching,
   header,
   placeholder,
+  selectVariant,
   ...otherProps
 }: TableProps<R>) {
   const styles = useStyles();
@@ -142,6 +144,8 @@ export function Table<R>({
           </MuiTableContainer>
 
           <TableCards
+            cardClassName={cardClassName}
+            selectVariant={selectVariant}
             data={sortedData}
             isFetching={isFetching}
             rowKeyExtractor={rowKeyExtractor}

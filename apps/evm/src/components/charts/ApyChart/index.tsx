@@ -15,6 +15,7 @@ import { useTranslation } from 'libs/translations';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 
 import type { MarketHistoryPeriodType } from 'clients/api';
+import { useBreakpointUp } from 'hooks/responsive';
 import TooltipContent from '../TooltipContent';
 import { useStyles as useSharedStyles } from '../styles';
 import formatToReadableDate from './formatToReadableDate';
@@ -36,10 +37,13 @@ export interface ApyChartProps {
 export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selectedPeriod }) => {
   const sharedStyles = useSharedStyles();
   const localStyles = useLocalStyles();
+  const isSmOrUp = useBreakpointUp('sm');
 
   const chartColor =
     type === 'supply' ? localStyles.supplyChartColor : localStyles.borrowChartColor;
   const { t } = useTranslation();
+
+  const chartInterval = isSmOrUp ? 5 : 4;
 
   // Generate base ID that won't change between renders but will be incremented
   // automatically every time it is used (so multiple charts can be rendered
@@ -68,7 +72,7 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selec
             stroke={sharedStyles.accessoryColor}
             tickMargin={sharedStyles.tickMargin}
             tickCount={data.length}
-            interval={data.length / 5}
+            interval={data.length / chartInterval}
             style={sharedStyles.axis}
           />
           <YAxis

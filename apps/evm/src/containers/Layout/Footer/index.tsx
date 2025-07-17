@@ -4,6 +4,7 @@ import { useChainId } from 'libs/wallet';
 import { generateExplorerUrl } from 'utilities';
 
 import { Link } from 'containers/Link';
+import { forwardRef } from 'react';
 import { IconLink } from './IconLink';
 import {
   VENUS_DISCORD_URL,
@@ -13,7 +14,7 @@ import {
   VENUS_X_URL,
 } from './constants';
 
-export const Footer: React.FC = () => {
+export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
   const { chainId } = useChainId();
   const { t } = useTranslation();
 
@@ -22,12 +23,15 @@ export const Footer: React.FC = () => {
   });
 
   return (
-    <footer className="bg-background p-4 sm:flex sm:h-14 sm:flex-none sm:items-center sm:justify-end sm:space-x-6 md:px-6 xl:px-10">
-      <Link className="text-offWhite mb-4 block text-sm underline sm:mb-0" href={VENUS_DOC_URL}>
+    <footer
+      ref={ref}
+      className="bg-background p-4 flex sm:h-14 sm:flex-none sm:items-center sm:justify-end sm:space-x-6 md:px-6 xl:px-10"
+    >
+      <Link className="text-offWhite block text-sm underline" href={VENUS_DOC_URL}>
         {t('footer.links.documentation')}
       </Link>
 
-      <div className="bg-lightGrey hidden h-full w-[1px] sm:block" />
+      <div className="bg-lightGrey mx-6 h-full w-[1px] block" />
 
       <div className="flex flex-none items-center">
         <IconLink
@@ -48,4 +52,4 @@ export const Footer: React.FC = () => {
       </div>
     </footer>
   );
-};
+});

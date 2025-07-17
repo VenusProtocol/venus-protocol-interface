@@ -17,7 +17,7 @@ const Vai: React.FC = () => {
     <Page indexWithSearchEngines={false}>
       <div className="mx-auto w-full max-w-[544px]">
         <Notice
-          className="mb-6"
+          className="mb-4 sm:mb-6"
           description={
             <Trans
               i18nKey="vai.headerMessage"

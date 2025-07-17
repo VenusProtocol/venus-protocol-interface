@@ -61,8 +61,9 @@ export const XsControls: React.FC = () => {
           onClick={toggleMobileMenu}
           type="button"
           className={cn(
-            'hover:bg-lightGrey active:bg-lightGrey ml-5 flex h-9 w-9 flex-none items-center justify-center rounded-lg p-0',
-            !isOnMarketPage && 'bg-cards',
+            'hover:bg-lightGrey active:bg-lightGrey ml-5 flex h-9 w-9 flex-none items-center justify-center rounded-lg p-0 border-lightGrey',
+            !isOnMarketPage && 'border bg-cards',
+            isOnMarketPage && 'bg-background/40 hover:bg-background/40 active:bg-background/40',
           )}
         >
           <Icon

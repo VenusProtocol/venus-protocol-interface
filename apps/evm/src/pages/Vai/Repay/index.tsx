@@ -31,6 +31,7 @@ import {
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
+import { ConnectWallet } from 'containers/ConnectWallet';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { AccountVaiData } from '../AccountVaiData';
@@ -250,19 +251,21 @@ export const Repay: React.FC = () => {
         </>
       )}
 
-      <RhfSubmitButton
-        requiresConnectedWallet
-        spendingApproval={
-          vaiControllerContractAddress && {
-            token: vai,
-            spenderAddress: vaiControllerContractAddress,
+      <ConnectWallet>
+        <RhfSubmitButton
+          requiresConnectedWallet
+          spendingApproval={
+            vaiControllerContractAddress && {
+              token: vai,
+              spenderAddress: vaiControllerContractAddress,
+            }
           }
-        }
-        control={control}
-        disabled={isVaiWalletSpendingLimitLoading || isRevokeVaiWalletSpendingLimitLoading}
-        enabledLabel={t('vai.repay.submitButton.repayLabel')}
-        disabledLabel={t('vai.repay.submitButton.enterValidAmountLabel')}
-      />
+          control={control}
+          disabled={isVaiWalletSpendingLimitLoading || isRevokeVaiWalletSpendingLimitLoading}
+          enabledLabel={t('vai.repay.submitButton.repayLabel')}
+          disabledLabel={t('vai.repay.submitButton.enterValidAmountLabel')}
+        />
+      </ConnectWallet>
     </form>
   );
 };

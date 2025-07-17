@@ -18,7 +18,10 @@ const TooltipContent: React.FC<TooltipContentProps> = ({ items }) => {
   return (
     <div css={styles.container}>
       {items.map(item => (
-        <div css={styles.item} key={`tooltip-content-item-${item.label}`}>
+        <div
+          className="[&:not(:last-of-type)]:mb-1 [&:not(:last-of-type)]:sm:mb-2 flex items-center mr-auto"
+          key={`tooltip-content-item-${item.label}`}
+        >
           <Typography css={styles.itemLabel} variant="tiny">
             {item.label}
           </Typography>
