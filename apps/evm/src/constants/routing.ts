@@ -41,7 +41,7 @@ const routeSubdirectories = {
   governanceProposalActions: [Subdirectory.GOVERNANCE, Subdirectory.PROPOSAL_ACTIONS],
   governanceProposalPreview: [Subdirectory.GOVERNANCE, Subdirectory.PROPOSAL_PREVIEW],
   governanceLeaderBoard: [Subdirectory.GOVERNANCE, Subdirectory.LEADER_BOARD],
-  governanceVoter: [Subdirectory.GOVERNANCE, Subdirectory.VOTER],
+  governanceVoter: [Subdirectory.GOVERNANCE, Subdirectory.LEADER_BOARD, Subdirectory.VOTER],
   swap: [Subdirectory.SWAP],
   vaults: [Subdirectory.VAULTS],
   vaultsPrimeCalculator: [Subdirectory.VAULTS, Subdirectory.PRIME_CALCULATOR],
