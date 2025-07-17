@@ -23,10 +23,10 @@ export const useStyles = () => {
         padding: 0;
         margin: 0;
         transition-duration: 300ms;
-        color: ${theme.palette.background.default};
+        color: ${theme.palette.secondary.light};
 
         &.Mui-checked {
-          color: ${theme.palette.background.default};
+          color: ${theme.palette.secondary.light};
           transform: translateX(${thumbSize});
 
           .MuiSwitch-thumb {
@@ -34,9 +34,8 @@ export const useStyles = () => {
           }
 
           & + .MuiSwitch-track {
-            background-color: ${
-              isDark ? theme.palette.background.default : theme.palette.secondary.light
-            };
+            background-color: ${theme.palette.secondary.light};
+            opacity: 1;
           }
         }
       }
@@ -50,14 +49,14 @@ export const useStyles = () => {
       }
 
       .MuiSwitch-track {
+        background-color: ${theme.palette.secondary.light};
+        opacity: 1;
         border-radius: ${thumbSize};
       }
 
       .MuiSwitch-track,
       .Mui-checked + .MuiSwitch-track {
-        background-color: ${
-          isDark ? theme.palette.background.default : theme.palette.secondary.light
-        };
+        background-color: ${theme.palette.secondary.light};
         opacity: 1;
       }
     `,
