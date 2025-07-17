@@ -34,6 +34,7 @@ export const PALETTE = {
     error: theme.colors.red,
     error50: 'rgba(233, 61, 68, 0.5)',
     warning: theme.colors.orange,
+    hover: theme.colors.lightGrey,
   },
 };
 
