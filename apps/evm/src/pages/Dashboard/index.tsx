@@ -55,10 +55,11 @@ const Dashboard: React.FC = () => {
 
   return (
     <Page>
-      <div className="space-y-6">
+      <div>
         <Carousel />
 
         <PoolStats
+          className="mt-6"
           pools={pools}
           stats={[
             'supply',
@@ -75,7 +76,7 @@ const Dashboard: React.FC = () => {
             tags={poolTags}
             activeTagIndex={selectedPoolTagIndex}
             onTagClick={setSelectedPoolTagIndex}
-            className="-mx-4 px-4 md:mx-0 md:px-0 lg:mr-6 grow"
+            className="-mx-4 px-4 md:mx-0 md:px-0 mb-6 mt-8 lg:mr-6 grow"
           />
         )}
 
