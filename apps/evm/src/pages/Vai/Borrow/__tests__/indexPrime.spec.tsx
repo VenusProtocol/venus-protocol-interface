@@ -4,7 +4,7 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 
 import { Borrow } from '..';
@@ -13,7 +13,7 @@ import TEST_IDS from '../testIds';
 describe('Borrow - Feature enabled: Prime', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'prime',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'prime',
     );
   });
 

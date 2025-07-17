@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import fakeAccountAddress from '__mocks__/models/address';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useGetProfitableImports } from '..';
@@ -8,7 +8,7 @@ import { useGetProfitableImports } from '..';
 describe('useGetProfitableImports', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'importPositions',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'importPositions',
     );
   });
 

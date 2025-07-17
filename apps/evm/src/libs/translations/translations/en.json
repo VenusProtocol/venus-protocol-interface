@@ -356,7 +356,10 @@
     }
   },
   "importPositionsModal": {
-    "aaveLogoAlt": "Logo of Aave",
+    "aave": {
+      "logoAlt": "Logo of Aave",
+      "title": "Aave"
+    },
     "emptyState": "No external positions to import",
     "gasLess": {
       "label": "Free",

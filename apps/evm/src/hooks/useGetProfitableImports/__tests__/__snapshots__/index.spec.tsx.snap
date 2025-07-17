@@ -3,7 +3,7 @@
 exports[`useGetProfitableImports > returns profitable importable positions 1`] = `
 {
   "importablePositionsCount": 2,
-  "isPending": false,
+  "isLoading": false,
   "supplyPositions": {
     "aave": [
       {

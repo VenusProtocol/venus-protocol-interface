@@ -6,6 +6,7 @@ import { getImportableAaveSupplyPositions } from './getImportableAaveSupplyPosit
 export interface GetImportablePositionsInput {
   accountAddress: Address;
   publicClient: PublicClient;
+  protocols: ImportableProtocol[];
   aaveUiPoolDataProviderContractAddress?: Address;
   aavePoolAddressesProviderContractAddress?: Address;
 }
@@ -17,11 +18,14 @@ export type GetImportablePositionsOutput = {
 export const getImportablePositions = async ({
   accountAddress,
   publicClient,
+  protocols,
   aaveUiPoolDataProviderContractAddress,
   aavePoolAddressesProviderContractAddress,
 }: GetImportablePositionsInput): Promise<GetImportablePositionsOutput> => {
   const [importableAaveSupplyPositions] = await Promise.all([
-    aavePoolAddressesProviderContractAddress && aaveUiPoolDataProviderContractAddress
+    aavePoolAddressesProviderContractAddress &&
+    aaveUiPoolDataProviderContractAddress &&
+    protocols.includes('aave')
       ? getImportableAaveSupplyPositions({
           accountAddress,
           publicClient,

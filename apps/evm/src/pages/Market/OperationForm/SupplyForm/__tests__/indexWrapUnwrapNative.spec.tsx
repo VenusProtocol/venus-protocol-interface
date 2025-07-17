@@ -10,7 +10,7 @@ import { renderComponent } from 'testUtils/render';
 import { useGetBalanceOf, useSupply } from 'clients/api';
 import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testUtils';
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';
 
@@ -27,7 +27,7 @@ const mockSupply = vi.fn();
 describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'wrapUnwrapNativeToken',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'wrapUnwrapNativeToken',
     );
 
     (useGetBalanceOf as Mock).mockImplementation(() => ({

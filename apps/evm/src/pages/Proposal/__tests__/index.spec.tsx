@@ -25,7 +25,7 @@ import {
   useVote,
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
 import {
@@ -100,7 +100,7 @@ describe('ProposalComp page', () => {
     }));
 
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'voteProposal',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'voteProposal',
     );
 
     (useGetCurrentVotes as Mock).mockImplementation(() => ({

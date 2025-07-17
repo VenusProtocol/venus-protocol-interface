@@ -1,7 +1,7 @@
 export enum Subdirectory {
   DASHBOARD = '',
   ACCOUNT = 'account',
-  IMPORT = 'import',
+  PORT = 'port',
   XVS = 'xvs',
   POOLS = 'pools',
   POOL = 'pool/:poolComptrollerAddress',
@@ -27,7 +27,7 @@ const routeSubdirectories = {
   dashboard: [Subdirectory.DASHBOARD],
   dashboardPrimeCalculator: [Subdirectory.DASHBOARD, Subdirectory.PRIME_CALCULATOR],
   account: [Subdirectory.ACCOUNT],
-  import: [Subdirectory.IMPORT],
+  port: [Subdirectory.PORT],
   accountPrimeCalculator: [Subdirectory.ACCOUNT, Subdirectory.PRIME_CALCULATOR],
   xvs: [Subdirectory.XVS],
   pools: [Subdirectory.POOLS],

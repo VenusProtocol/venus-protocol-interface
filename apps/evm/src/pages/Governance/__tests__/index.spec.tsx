@@ -18,7 +18,7 @@ import {
 } from 'clients/api';
 import CREATE_PROPOSAL_THRESHOLD_MANTISSA from 'constants/createProposalThresholdMantissa';
 import { routes } from 'constants/routing';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNow } from 'hooks/useNow';
 import { en } from 'libs/translations';
 import { CHAIN_ID_SEARCH_PARAM } from 'libs/wallet';
@@ -39,7 +39,7 @@ const fakeUserVotingWeight = CREATE_PROPOSAL_THRESHOLD_MANTISSA;
 describe('Governance', () => {
   beforeEach(() => {
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'voteProposal' || name === 'createProposal',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'voteProposal' || name === 'createProposal',
     );
     (getLatestProposalIdByProposer as Mock).mockImplementation(() => '1');
 

@@ -9,7 +9,7 @@ import {
 } from 'hooks/useGetProfitableImports';
 import { useNavigate } from 'hooks/useNavigate';
 import { useAnalytics } from 'libs/analytics';
-import { handleError, logError } from 'libs/errors';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import {
   calculateYearlyInterests,
@@ -41,6 +41,10 @@ export const Position: React.FC<PropositionProps> = ({
   const apyDelta = supplyApyPercentage.minus(currentSupplyApyPercentage);
   const supplyBalanceCents = userSupplyBalanceTokens.multipliedBy(asset.tokenPriceCents);
 
+  const readableSupplyBalanceDollars = formatCentsToReadableValue({
+    value: supplyBalanceCents,
+  });
+
   const analyticProps = {
     fromProtocol: supplyPosition.protocol,
     fromTokenSymbol: asset.vToken.underlyingToken.symbol,
@@ -51,16 +55,17 @@ export const Position: React.FC<PropositionProps> = ({
     toTokenApyPercentage: supplyApyPercentage.toNumber(),
   };
 
-  const { mutateAsync: importSupplyPosition, isPending: isImportSupplyPositionLoading } =
+  const { mutate: importSupplyPosition, isPending: isImportSupplyPositionLoading } =
     useImportSupplyPosition({
       waitForConfirmation: true,
       onError: error => {
-        // Display error toast
+        if (error.message.toLowerCase().startsWith('user rejected')) {
+          captureAnalyticEvent('Position import canceled', analyticProps);
+        } else {
+          captureAnalyticEvent('Position import failed', analyticProps);
+        }
+
         handleError({ error });
-
-        captureAnalyticEvent('Position import failed', analyticProps);
-
-        logError(error);
       },
       onConfirmed: () => {
         captureAnalyticEvent('Position imported', analyticProps);
@@ -106,7 +111,10 @@ export const Position: React.FC<PropositionProps> = ({
         <div className="flex items-center gap-x-2">
           <TokenIcon token={asset.vToken.underlyingToken} />
 
-          <span className="font-bold">{readableUserSupplyBalance}</span>
+          <div className="flex flex-col">
+            <span className="font-bold">{readableUserSupplyBalance}</span>
+            <span className="text-sm text-grey">{readableSupplyBalanceDollars}</span>
+          </div>
         </div>
 
         <SwitchChain buttonClassName={importButtonClassName} className="flex">

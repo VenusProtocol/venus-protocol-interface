@@ -5,7 +5,7 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { renderComponent } from 'testUtils/render';
 
 import { useGetPrimeToken } from 'clients/api';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 
 import { Carousel } from '..';
@@ -20,7 +20,7 @@ describe('Carousel - Feature flag enabled: prime', () => {
     }));
 
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'prime',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'prime',
     );
   });
 

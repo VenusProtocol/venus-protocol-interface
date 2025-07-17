@@ -108,19 +108,19 @@ import venusProtocolUnichainSepoliaDeployments from '@venusprotocol/venus-protoc
 import venusProtocolZkSyncMainnetDeployments from '@venusprotocol/venus-protocol/deployments/zksyncmainnet_addresses.json';
 import venusProtocolZkSyncSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/zksyncsepolia_addresses.json';
 import type { Abi } from 'viem';
-import erc20Abi from './externalAbis/Erc20.json';
 
 import { ChainId } from 'types';
 
 import type { Address } from 'viem';
-import AavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvider.json';
-import AaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
-import AaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
-import MaximillionAbi from './externalAbis/Maximillion.json';
-import Multicall3Abi from './externalAbis/Multicall3.json';
-import PancakePairV2Abi from './externalAbis/PancakePairV2.json';
-import VBnbAbi from './externalAbis/VBnb.json';
-import ZyFiVaultAbi from './externalAbis/ZyFiVault.json';
+import aavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvider.json';
+import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
+import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
+import erc20Abi from './externalAbis/Erc20.json';
+import maximillionAbi from './externalAbis/Maximillion.json';
+import multicall3Abi from './externalAbis/Multicall3.json';
+import pancakePairV2Abi from './externalAbis/PancakePairV2.json';
+import vBnbAbi from './externalAbis/VBnb.json';
+import zyFiVaultAbi from './externalAbis/ZyFiVault.json';
 
 export interface UniqueContractConfig {
   name: string;
@@ -394,7 +394,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'Maximillion',
-    abi: MaximillionAbi as Abi,
+    abi: maximillionAbi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0xF3a34e06015e019D6154a0f1089f695B27122f50',
       [ChainId.BSC_MAINNET]: '0x5efA1e46F4Fd738FF721F5AebC895b970F13E8A1',
@@ -402,7 +402,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'Multicall3',
-    abi: Multicall3Abi as Abi,
+    abi: multicall3Abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: '0xca11bde05977b3631167028862be2a173976ca11',
       [ChainId.BSC_MAINNET]: '0xca11bde05977b3631167028862be2a173976ca11',
@@ -560,7 +560,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'ZyFiVault',
-    abi: ZyFiVaultAbi as Abi,
+    abi: zyFiVaultAbi as Abi,
     address: {
       [ChainId.ZKSYNC_MAINNET]: '0x32faBA244AB815A5cb3E09D55c941464DBe31496',
       [ChainId.ZKSYNC_SEPOLIA]: '0xbA72A10ce8496DC9C13b9eE8c35fcCD3809d3C81',
@@ -568,7 +568,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'AaveUiPoolDataProvider',
-    abi: AaveUiPoolDataProviderAbi as Abi,
+    abi: aaveUiPoolDataProviderAbi as Abi,
     address: {
       [ChainId.BSC_MAINNET]: '0xc0179321f0825c3e0F59Fe7Ca4E40557b97797a3',
       [ChainId.ETHEREUM]: '0x3F78BBD206e4D3c504Eb854232EdA7e47E9Fd8FC',
@@ -580,7 +580,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'AavePoolAddressesProvider',
-    abi: AavePoolAddressesProviderAbi as Abi,
+    abi: aavePoolAddressesProviderAbi as Abi,
     address: {
       [ChainId.BSC_MAINNET]: '0xff75B6da14FfbbfD355Daf7a2731456b3562Ba6D',
       [ChainId.ETHEREUM]: '0x2f39d218133AFaB8F2B819B1066c7E434Ad94E9e',
@@ -592,7 +592,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'AaveV3Pool',
-    abi: AaveV3PoolAbi as Abi,
+    abi: aaveV3PoolAbi as Abi,
     address: {
       [ChainId.BSC_MAINNET]: '0x6807dc923806fE8Fd134338EABCA509979a7e0cB',
       [ChainId.ETHEREUM]: '0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2',
@@ -625,7 +625,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'VBnb',
-    abi: VBnbAbi as Abi,
+    abi: vBnbAbi as Abi,
   },
   {
     name: 'Erc20',
@@ -645,7 +645,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'PancakePairV2',
-    abi: PancakePairV2Abi as Abi,
+    abi: pancakePairV2Abi as Abi,
   },
   // SwapRouter contract
   {

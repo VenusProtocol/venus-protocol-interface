@@ -13,7 +13,7 @@ import PageSuspense from './PageSuspense';
 
 const Dashboard = safeLazyLoad(() => import('pages/Dashboard'));
 const Account = safeLazyLoad(() => import('pages/Account'));
-const Import = safeLazyLoad(() => import('pages/Import'));
+const Port = safeLazyLoad(() => import('pages/Port'));
 const Pool = safeLazyLoad(() => import('pages/Pool'));
 const Market = safeLazyLoad(() => import('pages/Market'));
 const Governance = safeLazyLoad(() => import('pages/Governance'));
@@ -99,10 +99,10 @@ const AppRoutes = () => {
             </Route>
 
             <Route
-              path={Subdirectory.IMPORT}
+              path={Subdirectory.PORT}
               element={
                 <PageSuspense>
-                  <Import />
+                  <Port />
                 </PageSuspense>
               }
             />

@@ -17,7 +17,7 @@ import {
 } from 'constants/swap';
 import useGetSwapInfo, { type UseGetSwapInfoInput } from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
-import { type UseIsFeatureEnabled, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import type { Asset, Swap, TokenBalance } from 'types';
 
@@ -93,7 +93,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     (useSwapTokensAndRepay as Mock).mockReturnValue({ mutateAsync: mockSwapTokensAndRepay });
 
     (useIsFeatureEnabled as Mock).mockImplementation(
-      ({ name }: UseIsFeatureEnabled) => name === 'integratedSwap',
+      ({ name }: UseIsFeatureEnabledInput) => name === 'integratedSwap',
     );
 
     (useGetSwapInfo as Mock).mockImplementation(() => ({
