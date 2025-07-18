@@ -56,6 +56,9 @@ export * from './queries/getBalanceOf/useGetBalanceOf';
 export * from './queries/getTokenBalances';
 export * from './queries/getTokenBalances/useGetTokenBalances';
 
+export * from './queries/getVTokenBalances';
+export * from './queries/getVTokenBalances/useGetVTokenBalances';
+
 export * from './queries/getTokenUsdPrice';
 export * from './queries/getTokenUsdPrice/useGetTokenUsdPrice';
 

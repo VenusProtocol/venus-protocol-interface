@@ -18,10 +18,11 @@ import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
 import { proposals } from '__mocks__/models/proposals';
-import type { Token } from 'types';
+import type { Token, VToken } from 'types';
 import type { Address } from 'viem';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
 import type { GetTokenBalancesInput } from '../queries/getTokenBalances';
+import { GetVTokenBalancesInput } from '../queries/getVTokenBalances';
 
 export const queryClient = {
   invalidateQueries: vi.fn(),
@@ -126,6 +127,22 @@ export const useGetTokenBalances = vi.fn(
     useQuery({
       queryKey: [FunctionKey.GET_TOKEN_BALANCES],
       queryFn: () => getTokenBalances(input),
+      ...options,
+    }),
+);
+
+export const getVTokenBalances = vi.fn(async ({ vTokens }: { vTokens: VToken[] }) => ({
+  vTokenBalances: vTokens.map(vToken => ({
+    vToken,
+    balanceMantissa: new BigNumber('10000000000000000000'),
+  })),
+}));
+
+export const useGetVTokenBalances = vi.fn(
+  (input: GetVTokenBalancesInput, options?: Partial<QueryObserverOptions>) =>
+    useQuery({
+      queryKey: [FunctionKey.GET_VTOKEN_BALANCES],
+      queryFn: () => getVTokenBalances(input),
       ...options,
     }),
 );
