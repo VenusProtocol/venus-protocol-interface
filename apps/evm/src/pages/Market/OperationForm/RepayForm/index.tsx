@@ -266,7 +266,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           />
         )}
 
-        <div className="flex gap-x-4">
+        <div className="flex gap-x-2">
           {PRESET_PERCENTAGES.map(percentage => (
             <QuaternaryButton
               key={`select-button-${percentage}`}
