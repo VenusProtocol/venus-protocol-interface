@@ -54,7 +54,11 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
   }
 };
 
-export interface ButtonWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonWrapperProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   asChild?: boolean;
   active?: boolean;
   variant?: ButtonVariant;

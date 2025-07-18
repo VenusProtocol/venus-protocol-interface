@@ -1,5 +1,6 @@
 import type { BREAKPOINTS } from 'App/MuiThemeProvider/muiTheme';
 import type { CardProps } from 'components/Card';
+import type { SelectProps } from 'components/Select';
 
 export interface TableColumn<R> {
   key: string;
@@ -21,6 +22,7 @@ export interface TableProps<R> extends CardProps {
     orderBy: TableColumn<R>;
     orderDirection: 'asc' | 'desc';
   };
+  cardClassName?: string;
   className?: string;
   isFetching?: boolean;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
@@ -28,6 +30,24 @@ export interface TableProps<R> extends CardProps {
   title?: string;
   header?: React.ReactNode;
   placeholder?: React.ReactNode;
+  selectVariant?: SelectProps['variant'];
+}
+
+export interface TableCardProps<R>
+  extends Pick<
+    TableProps<R>,
+    | 'cardClassName'
+    | 'data'
+    | 'rowKeyExtractor'
+    | 'rowOnClick'
+    | 'getRowHref'
+    | 'breakpoint'
+    | 'columns'
+    | 'isFetching'
+    | 'selectVariant'
+  > {
+  order: Order<R> | undefined;
+  onOrderChange: (newOrder: Order<R>) => void;
 }
 
 export interface Order<R> {

@@ -19,7 +19,11 @@ export const useStyles = () => {
     cardContentGrid: css`
       .table__table-cards__card-content {
         grid-template-columns: 1fr 1fr 1fr;
-        row-gap: ${theme.spacing(5)};
+        row-gap: ${theme.spacing(4)};
+
+        ${theme.breakpoints.up('md')} {
+          row-gap: ${theme.spacing(5)};
+        }
       }
 
       ${theme.breakpoints.down('sm')} {

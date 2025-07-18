@@ -39,7 +39,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
         className={cn(
           'flex flex-col gap-y-1 whitespace-nowrap justify-center xl: xl:bg-transparent',
           variant === 'secondary'
-            ? 'px-4 md:px-6 first-of-type:pl-0 last-of-type:pr-0 border-r border-r-lightGrey last-of-type:border-r-0'
+            ? 'px-4 md:px-6 first-of-type:pl-0 last-of-type:pr-0 border-r border-r-offWhite/10 last-of-type:border-r-0'
             : 'bg-cards rounded-xl p-4 xl:py-0 xl:px-6 xl:rounded-none xl:first-of-type:pl-0 xl:last-of-type:pr-0 xl:border-r xl:last-of-type:border-r-0 xl:border-lightGrey',
         )}
         key={`cell-group-item-${label}`}

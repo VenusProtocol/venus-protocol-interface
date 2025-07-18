@@ -10,6 +10,7 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Pool } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
+import { useBreakpointUp } from 'hooks/responsive';
 import { useStyles } from './styles';
 
 interface PoolRow {
@@ -26,6 +27,7 @@ export interface PoolTableProps {
 export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }) => {
   const { t } = useTranslation();
   const styles = useStyles();
+  const isLgOrUp = useBreakpointUp('lg');
 
   // Format pools into rows
   const data: PoolRow[] = useMemo(
@@ -54,7 +56,10 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
         label: t('pools.poolTable.columns.assets'),
         selectOptionLabel: t('pools.poolTable.columns.assets'),
         renderCell: ({ pool }) => (
-          <TokenGroup tokens={pool.assets.map(asset => asset.vToken.underlyingToken)} limit={7} />
+          <TokenGroup
+            tokens={pool.assets.map(asset => asset.vToken.underlyingToken)}
+            limit={isLgOrUp ? 7 : 10}
+          />
         ),
       },
       {
@@ -115,7 +120,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
         },
       },
     ],
-    [t],
+    [t, isLgOrUp],
   );
 
   return (

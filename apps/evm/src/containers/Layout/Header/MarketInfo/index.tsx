@@ -90,8 +90,8 @@ export const MarketInfo = () => {
   }, [asset, t, pool]);
 
   return (
-    <div className="pt-4 pb-12 md:pb-10 border-b-lightGrey border-b space-y-8">
-      <div className="flex items-center h-8 px-4 md:px-6 xl:px-10 max-w-[1360px] mx-auto">
+    <div className="pb-6 sm:pb-12 md:pb-10 border-b-lightGrey border-b space-y-6 sm:space-y-8">
+      <div className="hidden sm:flex items-center h-8 mt-4 px-4 md:px-6 xl:px-10 max-w-[1360px] mx-auto">
         <button type="button" onClick={handleGoBack} className="h-full pr-3 flex items-center">
           <Icon name="chevronLeft" className="w-6 h-6 text-offWhite" />
         </button>
@@ -113,6 +113,31 @@ export const MarketInfo = () => {
         ) : (
           <Spinner className="h-full w-auto" />
         )}
+      </div>
+
+      <div className="block sm:hidden px-4 md:px-6 xl:px-10 max-w-[1360px] mx-auto">
+        <div className="flex items-center pb-3">
+          {asset && pool && (
+            <div className="flex w-full justify-between">
+              <TokenIcon token={asset.vToken.underlyingToken} className="h-full w-8 shrink-0" />
+              <div className="flex gap-[12px]">
+                <AddTokenToWalletDropdown isUserConnected={isUserConnected} vToken={asset.vToken} />
+                <GoToTokenContractDropdown vToken={asset.vToken} />
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="flex flex-wrap gap-x-2 gap-y-1 items-center">
+          <button type="button" onClick={handleGoBack} className="h-full flex items-center">
+            <Icon name="chevronLeft" className="w-6 h-6 text-offWhite" />
+            {(!asset || !pool) && <Spinner className="h-full w-auto" />}
+          </button>
+          {asset && pool && (
+            <span className="text-nowrap font-semibold text-lg">
+              {asset.vToken.underlyingToken.symbol} ({pool?.name})
+            </span>
+          )}
+        </div>
       </div>
 
       <CellGroup
