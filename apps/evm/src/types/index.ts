@@ -53,6 +53,11 @@ export interface TokenBalance {
   balanceMantissa: BigNumber;
 }
 
+export interface VTokenBalance {
+  vToken: VToken;
+  balanceMantissa: BigNumber;
+}
+
 export interface RewardDistributorDistribution {
   type: 'venus';
   token: Token;
