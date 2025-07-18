@@ -180,6 +180,7 @@ const AppRoutes = () => {
             </PageSuspense>
           }
         />
+
         <Route
           path={routes.governanceVoter.path}
           element={
@@ -188,6 +189,7 @@ const AppRoutes = () => {
             </PageSuspense>
           }
         />
+
         <Route
           path={routes.governanceProposal.path}
           element={

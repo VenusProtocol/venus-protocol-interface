@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
+import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { PAGE_PARAM_KEY } from 'hooks/useUrlPagination';
 import { useTranslation } from 'libs/translations';
 
@@ -14,6 +15,7 @@ const PAGES_TO_SHOW_COUNT = 4;
 
 export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: PaginationProps) {
   const { t } = useTranslation();
+  const scrollElem = document.getElementById(PAGE_CONTAINER_ID);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -71,6 +73,8 @@ export function usePagination({ itemsCount, onChange, itemsPerPageCount = 10 }: 
     });
 
     onChange(pageIndex);
+
+    scrollElem?.scrollTo({ behavior: 'instant', top: 0 });
   };
 
   return {
