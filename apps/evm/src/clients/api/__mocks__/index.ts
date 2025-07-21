@@ -22,7 +22,7 @@ import type { Token, VToken } from 'types';
 import type { Address } from 'viem';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
 import type { GetTokenBalancesInput } from '../queries/getTokenBalances';
-import { GetVTokenBalancesInput } from '../queries/getVTokenBalances';
+import type { GetVTokenBalancesInput } from '../queries/getVTokenBalances';
 
 export const queryClient = {
   invalidateQueries: vi.fn(),
