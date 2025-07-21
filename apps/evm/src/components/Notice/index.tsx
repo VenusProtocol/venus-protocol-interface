@@ -26,7 +26,7 @@ export const Notice = ({
 }: NoticeProps) => (
   <div
     className={cn(
-      'relative bg-background rounded-xl border transition-colors overflow-hidden',
+      'relative bg-background rounded-lg border transition-colors overflow-hidden',
       (variant === 'info' || variant === 'loading') && 'border-lightGrey',
       variant === 'error' && 'border-red',
       variant === 'success' && 'border-green',

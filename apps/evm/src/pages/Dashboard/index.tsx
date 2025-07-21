@@ -55,44 +55,36 @@ const Dashboard: React.FC = () => {
 
   return (
     <Page>
-      <div className="space-y-6">
-        <Carousel />
+      <Carousel />
 
-        <PoolStats
-          pools={pools}
-          stats={[
-            'supply',
-            'borrow',
-            'liquidity',
-            'treasury',
-            'dailyXvsDistribution',
-            'assetCount',
-          ]}
+      <PoolStats
+        className="my-6"
+        pools={pools}
+        stats={['supply', 'borrow', 'liquidity', 'treasury', 'dailyXvsDistribution', 'assetCount']}
+      />
+
+      {pools.length > 0 && (
+        <TagGroup
+          tags={poolTags}
+          activeTagIndex={selectedPoolTagIndex}
+          onTagClick={setSelectedPoolTagIndex}
+          className="-mx-4 px-4 md:mx-0 md:px-0 mb-6 mt-8 lg:mr-6 grow"
         />
+      )}
 
-        {pools.length > 0 && (
-          <TagGroup
-            tags={poolTags}
-            activeTagIndex={selectedPoolTagIndex}
-            onTagClick={setSelectedPoolTagIndex}
-            className="-mx-4 px-4 md:mx-0 md:px-0 lg:mr-6 grow"
-          />
-        )}
-
-        <MarketTable
-          pools={filteredPools}
-          isFetching={isGetPoolsLoading}
-          breakpoint="lg"
-          columns={columns}
-          marketType="supply"
-          initialOrder={{
-            orderBy: 'labeledSupplyApy',
-            orderDirection: 'desc',
-          }}
-          data-testid={TEST_IDS.marketTable}
-          key="dashboard-market-table"
-        />
-      </div>
+      <MarketTable
+        pools={filteredPools}
+        isFetching={isGetPoolsLoading}
+        breakpoint="lg"
+        columns={columns}
+        marketType="supply"
+        initialOrder={{
+          orderBy: 'labeledSupplyApy',
+          orderDirection: 'desc',
+        }}
+        data-testid={TEST_IDS.marketTable}
+        key="dashboard-market-table"
+      />
     </Page>
   );
 };
