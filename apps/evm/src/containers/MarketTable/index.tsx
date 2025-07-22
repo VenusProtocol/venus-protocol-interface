@@ -232,7 +232,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
             <img
               src={pauseIconSrc}
               alt={t('marketTable.pausedAssetsPlaceholder.imgAlt')}
-              className="mb-4"
+              className="mb-4 w-10"
             />
 
             <h4 className="font-semibold mb-1">{t('marketTable.pausedAssetsPlaceholder.title')}</h4>
