@@ -610,8 +610,7 @@
       "withdraw": "Withdraw"
     },
     "supply": {
-      "collateral": "Collateral",
-      "youCanWrapNative": "You can wrap {{nativeTokenSymbol}} into {{wrappedNativeTokenSymbol}} in <Link>Uniswap</Link>"
+      "collateral": "Collateral"
     },
     "supplyTabTitle": "Supply",
     "swapDetails": {
