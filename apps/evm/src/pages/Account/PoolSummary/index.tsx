@@ -1,11 +1,13 @@
-import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
-import { AccountHealthBar, Card, type Cell, CellGroup } from 'components';
-import { HealthFactor } from 'components/HealthFactor';
+import { AccountHealthBar, Card, CellGroup, type CellProps } from 'components';
 import { useHealthFactor } from 'hooks/useHealthFactor';
 import { useTranslation } from 'libs/translations';
 import type { Pool, Vault } from 'types';
-import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import {
+  formatCentsToReadableValue,
+  formatHealthFactorToReadableValue,
+  formatPercentageToReadableValue,
+} from 'utilities';
 import Section from '../Section';
 import useExtractData from './useExtractData';
 
@@ -53,13 +55,13 @@ export const PoolSummary: React.FC<PoolSummaryProps> = ({
 
   const { textClass } = useHealthFactor({ value: healthFactor });
 
-  const cells: Cell[] = displayHealthFactor
+  const cells: CellProps[] = displayHealthFactor
     ? [
         {
           label: t('account.summary.cellGroup.healthFactor'),
-          value: <HealthFactor factor={healthFactor} className={cn('h-7 min-w-7', textClass)} />,
+          value: formatHealthFactorToReadableValue({ value: healthFactor }),
           tooltip: t('account.summary.cellGroup.healthFactorTooltip'),
-          className: 'h-[30px]',
+          className: textClass,
         },
       ]
     : [];
@@ -98,7 +100,7 @@ export const PoolSummary: React.FC<PoolSummaryProps> = ({
   return (
     <Section className={className} title={title}>
       <Card className="bg-transparent p-0 space-y-2 sm:p-0 xl:space-y-0 xl:bg-cards xl:flex xl:justify-between">
-        <CellGroup smallValues={variant === 'secondary'} cells={cells} className="p-0" />
+        <CellGroup small={variant === 'secondary'} cells={cells} className="p-0" />
 
         {displayAccountHealth && (
           <AccountHealthBar

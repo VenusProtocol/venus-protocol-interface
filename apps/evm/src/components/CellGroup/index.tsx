@@ -1,26 +1,22 @@
 import { cn } from '@venusprotocol/ui';
-import { InfoIcon } from '../InfoIcon';
 
-export interface Cell {
-  label: string;
-  value: string | number | React.ReactNode;
-  tooltip?: string;
-  className?: string;
-}
+import { Cell, type CellProps } from '../Cell';
+
+export type { CellProps } from '../Cell';
 
 export type CellGroupVariant = 'primary' | 'secondary';
 
 export interface CellGroupProps {
-  cells: Cell[];
+  cells: CellProps[];
   variant?: CellGroupVariant;
-  smallValues?: boolean;
+  small?: boolean;
   className?: string;
 }
 
 export const CellGroup: React.FC<CellGroupProps> = ({
   cells,
   variant = 'primary',
-  smallValues = false,
+  small = false,
   className,
   ...containerProps
 }) => (
@@ -34,26 +30,18 @@ export const CellGroup: React.FC<CellGroupProps> = ({
     )}
     {...containerProps}
   >
-    {cells.map(({ label, value, tooltip, className: cellClassName }) => (
-      <div
+    {cells.map(cell => (
+      <Cell
+        key={`cell-group-item-${cell.label}`}
+        {...cell}
         className={cn(
-          'flex flex-col gap-y-1 whitespace-nowrap justify-center xl: xl:bg-transparent',
+          'xl:bg-transparent',
           variant === 'secondary'
             ? 'px-4 md:px-6 first-of-type:pl-0 last-of-type:pr-0 border-r border-r-offWhite/10 last-of-type:border-r-0'
             : 'bg-cards rounded-xl p-4 xl:py-0 xl:px-6 xl:rounded-none xl:first-of-type:pl-0 xl:last-of-type:pr-0 xl:border-r xl:last-of-type:border-r-0 xl:border-lightGrey',
+          cell.className,
         )}
-        key={`cell-group-item-${label}`}
-      >
-        <div className="flex items-center">
-          <span className={cn('text-grey', smallValues && 'text-sm')}>{label}</span>
-
-          {!!tooltip && <InfoIcon tooltip={tooltip} className="ml-2" />}
-        </div>
-
-        <p className={cn(smallValues ? 'text-lg' : 'text-xl', cellClassName)}>{value}</p>
-      </div>
+      />
     ))}
   </div>
 );
-
-export default CellGroup;

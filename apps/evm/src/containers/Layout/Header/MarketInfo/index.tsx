@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useGetAsset, useGetPool } from 'clients/api';
-import { type Cell, CellGroup, Icon, Spinner, TokenIcon } from 'components';
+import { CellGroup, type CellProps, Icon, Spinner, TokenIcon } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useTranslation } from 'libs/translations';
@@ -36,7 +36,7 @@ export const MarketInfo = () => {
 
   const handleGoBack = () => window.history.back();
 
-  const cells: Cell[] = useMemo(() => {
+  const cells: CellProps[] = useMemo(() => {
     const readableMaxLtvPercentage = asset
       ? formatPercentageToReadableValue(
           asset
