@@ -75,7 +75,7 @@ const Dashboard: React.FC = () => {
       <MarketTable
         pools={filteredPools}
         isFetching={isGetPoolsLoading}
-        breakpoint="lg"
+        breakpoint="xl"
         columns={columns}
         marketType="supply"
         initialOrder={{

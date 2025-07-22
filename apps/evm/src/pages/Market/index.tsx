@@ -27,8 +27,8 @@ const Page: React.FC = () => {
               className="mb-4 sm:mb-6"
             />
 
-            <div className="space-y-6 lg:flex lg:space-y-0 lg:gap-x-6">
-              <Card className="w-auto self-start shrink-0 overflow-x-auto lg:order-2 lg:sticky lg:w-[400px] lg:top-6 lg:max-h-[calc(100vh-48px)]">
+            <div className="space-y-6 xl:flex xl:space-y-0 xl:gap-x-6">
+              <Card className="w-auto self-start shrink-0 overflow-x-auto xl:order-2 xl:sticky xl:w-[400px] xl:top-6 xl:max-h-[calc(100vh-48px)]">
                 <OperationForm
                   poolComptrollerAddress={pool.comptrollerAddress}
                   vToken={asset.vToken}
@@ -36,7 +36,7 @@ const Page: React.FC = () => {
               </Card>
 
               {/* w-0 is a hotfix to force the charts to adapt their size when resizing the window (see https://github.com/recharts/recharts/issues/172#issuecomment-307858843) */}
-              <div className="space-y-6 lg:grow lg:order-1 lg:w-0">
+              <div className="space-y-6 xl:grow xl:order-1 xl:w-0">
                 <MarketHistory
                   asset={asset}
                   poolComptrollerContractAddress={pool.comptrollerAddress}

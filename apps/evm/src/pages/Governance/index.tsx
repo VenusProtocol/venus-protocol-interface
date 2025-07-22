@@ -8,11 +8,11 @@ export type GovernancePageUiProps = UseUrlPaginationOutput;
 
 export const GovernanceUi: React.FC<GovernancePageUiProps> = ({ currentPage, setCurrentPage }) => (
   <Page indexWithSearchEngines={false}>
-    <div className="space-y-10 lg:space-y-0 sm:grid lg:grid-cols-[2fr,1fr] lg:gap-x-6">
-      <VotingWallet className="lg:order-2" />
+    <div className="space-y-10 xl:space-y-0 sm:grid xl:grid-cols-[2fr,1fr] xl:gap-x-6">
+      <VotingWallet className="xl:order-2" />
 
       <ProposalList
-        className="lg:order-1"
+        className="xl:order-1"
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />

@@ -14,12 +14,6 @@ export const useStyles = () => {
       }
     `,
     cardContentGrid: css`
-      ${theme.breakpoints.down('xxl')} {
-        background-color: initial;
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-
       .table__table-cards__card-content {
         row-gap: ${theme.spacing(5)};
 

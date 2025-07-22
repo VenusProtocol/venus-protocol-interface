@@ -58,7 +58,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
         renderCell: ({ pool }) => (
           <TokenGroup
             tokens={pool.assets.map(asset => asset.vToken.underlyingToken)}
-            limit={isLgOrUp ? 7 : 10}
+            limit={isLgOrUp ? 5 : 10}
           />
         ),
       },
@@ -135,7 +135,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       getRowHref={row =>
         routes.pool.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
       }
-      breakpoint="xxl"
+      breakpoint="xl"
       css={styles.cardContentGrid}
       isFetching={isFetchingPools}
     />

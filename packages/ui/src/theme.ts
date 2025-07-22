@@ -3,9 +3,9 @@ export const theme = {
     sans: ['var(--font-proxima-nova)', 'Arial', 'sans-serif'],
   },
   screens: {
-    sm: '576px',
-    md: '768px',
-    lg: '992px',
+    sm: '375px',
+    md: '640px',
+    lg: '840px',
     xl: '1280px',
     xxl: '1440px',
   },

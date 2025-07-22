@@ -50,7 +50,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
   }
 
   let xsDom = (
-    <div className="space-y-4 md:hidden">
+    <div className="space-y-4 lg:hidden">
       <button
         className="px-4 py-5 rounded-xl border border-lightGrey block w-full text-left"
         type="button"
@@ -80,7 +80,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
     xsDom = <Card asChild>{xsDom}</Card>;
   }
 
-  const mdUpContentDom = (
+  const lgUpContentDom = (
     <div className="flex grow gap-x-4">
       <div
         className={cn(
@@ -101,11 +101,11 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
     </div>
   );
 
-  const mdUpDom = (
-    <div className="hidden space-y-4 flex-col md:flex">
+  const lgUpDom = (
+    <div className="hidden space-y-4 flex-col lg:flex">
       <Notice className="shrink-0" />
 
-      {wrapInCard ? <Card asChild>{mdUpContentDom}</Card> : mdUpContentDom}
+      {wrapInCard ? <Card asChild>{lgUpContentDom}</Card> : lgUpContentDom}
     </div>
   );
 
@@ -115,7 +115,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
       {xsDom}
 
       {/* Tablet/desktop display */}
-      {mdUpDom}
+      {lgUpDom}
     </>
   );
 };

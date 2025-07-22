@@ -113,7 +113,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         orderDirection: 'asc',
       }}
       rowKeyExtractor={row => `voter-leaderboard-table-row-${row.address}`}
-      breakpoint="xl"
+      breakpoint="lg"
       css={styles.cardContentGrid}
     />
   );
