@@ -6,13 +6,11 @@ import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
-  NoticeInfo,
   SelectTokenTextField,
   SpendingLimit,
   Toggle,
   TokenTextField,
 } from 'components';
-import { Link } from 'containers/Link';
 import { useCollateral } from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
@@ -41,11 +39,6 @@ import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
 
-export const PRESET_PERCENTAGES = [25, 50, 75, 100];
-// TODO: rework or remove this URL, as this is likely to be a temporary solution
-const UNISWAP_URL =
-  'https://app.uniswap.org/swap?chain=mainnet&inputCurrency=ETH&outputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
-
 export interface SupplyFormUiProps
   extends Pick<
     SubmitSectionProps,
@@ -66,7 +59,6 @@ export interface SupplyFormUiProps
   isSwapLoading: boolean;
   revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
-  isWrapUnwrapNativeTokenEnabled: boolean;
   isIntegratedSwapFeatureEnabled: boolean;
   canWrapNativeToken: boolean;
   isWrappingNativeToken: boolean;
@@ -96,7 +88,6 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   fromTokenWalletSpendingLimitTokens,
   revokeFromTokenWalletSpendingLimit,
   isRevokeFromTokenWalletSpendingLimitLoading,
-  isWrapUnwrapNativeTokenEnabled,
   isIntegratedSwapFeatureEnabled,
   canWrapNativeToken,
   isWrappingNativeToken,
@@ -104,7 +95,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   swap,
   swapError,
 }) => {
-  const { t, Trans } = useTranslation();
+  const { t } = useTranslation();
   const { toggleCollateral } = useCollateral();
 
   const tokenBalances = useMemo(
@@ -228,23 +219,6 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-4">
-        {!isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped && (
-          <NoticeInfo
-            description={
-              <Trans
-                i18nKey="operationForm.supply.youCanWrapNative"
-                components={{
-                  Link: <Link href={UNISWAP_URL} />,
-                }}
-                values={{
-                  nativeTokenSymbol: asset.vToken.underlyingToken.tokenWrapped.symbol,
-                  wrappedNativeTokenSymbol: asset.vToken.underlyingToken.symbol,
-                }}
-              />
-            }
-          />
-        )}
-
         {(asset.collateralFactor || asset.isCollateralOfUser) && (
           <>
             <SwitchChainNotice />
@@ -600,7 +574,6 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
       isUserConnected={!!accountAddress}
       asset={asset}
       pool={pool}
-      isWrapUnwrapNativeTokenEnabled={isWrapUnwrapNativeTokenEnabled}
       isIntegratedSwapFeatureEnabled={isIntegratedSwapFeatureEnabled}
       canWrapNativeToken={canWrapNativeToken}
       isWrappingNativeToken={isWrappingNativeToken}
