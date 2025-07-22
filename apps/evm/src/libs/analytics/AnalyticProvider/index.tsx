@@ -1,3 +1,4 @@
+import type { CaptureResult } from 'posthog-js';
 import { PostHogProvider, usePostHog } from 'posthog-js/react';
 import { useEffect } from 'react';
 
@@ -33,6 +34,18 @@ export const AnalyticProvider: React.FC<AnalyticProviderProps> = ({ children }) 
     return children;
   }
 
+  const appendHash = (event: CaptureResult | null): CaptureResult | null => {
+    if (event?.properties?.$current_url) {
+      const parsed = new URL(event.properties.$current_url);
+
+      // Append hash to the $pathname property
+      if (parsed.hash) {
+        event.properties.$pathname = parsed.pathname + parsed.hash;
+      }
+    }
+    return event;
+  };
+
   return (
     <PostHogProvider
       apiKey={config.posthog.apiKey}
@@ -40,6 +53,7 @@ export const AnalyticProvider: React.FC<AnalyticProviderProps> = ({ children }) 
         api_host: config.posthog.hostUrl,
         persistence: 'memory',
         name: APP_VERSION,
+        before_send: appendHash,
       }}
     >
       <UserIdentifier />
