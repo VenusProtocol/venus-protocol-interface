@@ -33,6 +33,11 @@
       },
       "title": "Summary"
     },
+    "tabs": {
+      "port": "Port",
+      "positions": "Positions",
+      "transactions": "Transactions"
+    },
     "vaultsBreakdown": {
       "table": {
         "column": {
