@@ -6,10 +6,10 @@ import { useHealthFactor } from 'hooks/useHealthFactor';
 import { useTranslation } from 'libs/translations';
 import type { Pool, Vault } from 'types';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
-import Section from '../../Section';
+import Section from '../Section';
 import useExtractData from './useExtractData';
 
-export interface SummaryProps {
+export interface PoolSummaryProps {
   pools: Pool[];
   variant?: 'primary' | 'secondary';
   vaults?: Vault[];
@@ -22,7 +22,7 @@ export interface SummaryProps {
   className?: string;
 }
 
-export const Summary: React.FC<SummaryProps> = ({
+export const PoolSummary: React.FC<PoolSummaryProps> = ({
   pools,
   variant = 'primary',
   vaults,
@@ -111,5 +111,3 @@ export const Summary: React.FC<SummaryProps> = ({
     </Section>
   );
 };
-
-export default Summary;
