@@ -2,7 +2,6 @@ import type { CaptureResult } from 'posthog-js';
 import { PostHogProvider, usePostHog } from 'posthog-js/react';
 import { useEffect } from 'react';
 
-import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import config from 'config';
 import { version as APP_VERSION } from 'constants/version';
 import { useAccountAddress, useChainId } from 'libs/wallet';
@@ -57,8 +56,6 @@ export const AnalyticProvider: React.FC<AnalyticProviderProps> = ({ children }) 
       }}
     >
       <UserIdentifier />
-
-      <VercelAnalytics mode="production" />
 
       {children}
     </PostHogProvider>

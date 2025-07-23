@@ -1,4 +1,3 @@
-import { track } from '@vercel/analytics/react';
 import config from 'config';
 import { logError } from 'libs/errors';
 import { useChainId } from 'libs/wallet';
@@ -150,9 +149,6 @@ export const useAnalytics = () => {
     if (config.environment !== 'production') {
       return;
     }
-
-    // Send event to Vercel
-    track(eventName, { chainId, ...eventProps });
 
     if (!posthog) {
       logError('Attempted to send analytic event but posthog object was undefined');
