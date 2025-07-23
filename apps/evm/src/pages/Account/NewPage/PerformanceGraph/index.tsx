@@ -1,5 +1,9 @@
 import { Card } from 'components';
 
-export const PerformanceGraph: React.FC = () => {
-  return <Card>Performance graph will go here</Card>;
-};
+export interface PerformanceGraphProps {
+  className?: string;
+}
+
+export const PerformanceGraph: React.FC<PerformanceGraphProps> = ({ className }) => (
+  <Card className={className}>Performance graph will go here</Card>
+);

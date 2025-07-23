@@ -17,14 +17,14 @@ describe('PoolSummary', () => {
     expect(container.textContent).toMatchSnapshot();
   });
 
-  it('displays total vault stake when passing vaults prop and displayTotalVaultStake prop as true', () => {
+  it('displays account health prop and displayAccountHealth prop as true', () => {
     const { container } = renderComponent(
       <PoolSummary
         pools={poolData}
         vaults={vaults}
         xvsPriceCents={new BigNumber(100)}
         vaiPriceCents={new BigNumber(328)}
-        displayTotalVaultStake
+        displayAccountHealth
       />,
     );
 

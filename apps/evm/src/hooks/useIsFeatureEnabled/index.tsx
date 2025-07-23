@@ -130,6 +130,9 @@ export const featureFlags = {
     ChainId.UNICHAIN_SEPOLIA,
   ],
   newAccountPage: [
+    // DEV ONLY
+    ChainId.BSC_MAINNET,
+    // END DEV ONLY
     ChainId.BSC_TESTNET,
     ChainId.ARBITRUM_SEPOLIA,
     ChainId.SEPOLIA,

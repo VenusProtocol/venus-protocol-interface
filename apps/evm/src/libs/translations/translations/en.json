@@ -1,5 +1,6 @@
 {
   "account": {
+    "circularGradient": "Circular gradient",
     "marketBreakdown": {
       "tables": {
         "borrowTableTitle": "Borrowed assets",
@@ -21,22 +22,22 @@
     },
     "summary": {
       "cellGroup": {
-        "dailyEarnings": "Daily Earnings",
+        "dailyEarnings": "Daily earnings",
         "healthFactor": "Health factor",
         "healthFactorTooltip": "Liquidation at < 1.0",
+        "mintedVai": "Minted VAI",
         "netApy": "Net APY",
         "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
         "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault stake received as yearly interests",
-        "totalBorrow": "Total Borrow",
-        "totalSupply": "Total Supply",
-        "totalVaultStake": "Total Vault Stake"
+        "totalBorrow": "Total borrow",
+        "totalSupply": "Total supply",
+        "totalVaultStake": "Total vault stake"
       },
       "title": "Summary"
     },
     "tabs": {
-      "port": "Port",
-      "positions": "Positions",
-      "transactions": "Transactions"
+      "pools": "Pools",
+      "vaults": "Vaults"
     },
     "vaultsBreakdown": {
       "table": {

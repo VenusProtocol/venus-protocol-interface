@@ -19,7 +19,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
       <div className="relative">
         <div className="h-[1px] bg-lightGrey absolute bottom-0 left-0 right-0 -z-[1]" />
 
-        <div className="flex gap-x-4 scrollbar-hidden overflow-y-auto md:overflow-y-visible">
+        <div className="flex gap-x-4 scrollbar-hidden overflow-y-auto md:overflow-y-visible sm:gap-x-6">
           {tabs.map((tab, tabIndex) => (
             <button
               className="-mb-[1px]"
@@ -29,7 +29,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
             >
               <p
                 className={cn(
-                  'mb-2 font-semibold whitespace-nowrap',
+                  'mb-2 font-semibold whitespace-nowrap sm:text-lg',
                   tabIndex === activeTabIndex ? 'text-offWhite' : 'text-grey',
                 )}
               >

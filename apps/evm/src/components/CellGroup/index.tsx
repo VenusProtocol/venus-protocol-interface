@@ -33,6 +33,7 @@ export const CellGroup: React.FC<CellGroupProps> = ({
     {cells.map(cell => (
       <Cell
         key={`cell-group-item-${cell.label}`}
+        small={small}
         {...cell}
         className={cn(
           'xl:bg-transparent',

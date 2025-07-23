@@ -91,7 +91,6 @@ const Account: React.FC = () => {
         vaults={filteredVaults}
         xvsPriceCents={xvsPriceCents}
         vaiPriceCents={vaiPriceCents}
-        displayTotalVaultStake
       />
 
       {filteredVaults.length > 0 && <VaultsBreakdown vaults={filteredVaults} />}

@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Account > displays content correctly 1`] = `"Performance graph will go hereSummaryNet APY0%Daily earnings$0.14Total supply$1.23MTotal borrow$123.33Total vault stake$233Minted VAI$1KPoolsVaultsPool positions will go here"`;

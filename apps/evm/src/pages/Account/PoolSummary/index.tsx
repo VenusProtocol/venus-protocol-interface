@@ -1,15 +1,9 @@
-import BigNumber from 'bignumber.js';
-import { AccountHealthBar, Card, CellGroup, type CellProps } from 'components';
-import { useHealthFactor } from 'hooks/useHealthFactor';
-import { useTranslation } from 'libs/translations';
+import type BigNumber from 'bignumber.js';
+import { AccountHealthBar, Card, CellGroup } from 'components';
 import type { Pool, Vault } from 'types';
-import {
-  formatCentsToReadableValue,
-  formatHealthFactorToReadableValue,
-  formatPercentageToReadableValue,
-} from 'utilities';
+
 import Section from '../Section';
-import useExtractData from './useExtractData';
+import { useExtractData } from '../useExtractData';
 
 export interface PoolSummaryProps {
   pools: Pool[];
@@ -20,7 +14,6 @@ export interface PoolSummaryProps {
   vaiPriceCents?: BigNumber;
   displayHealthFactor?: boolean;
   displayAccountHealth?: boolean;
-  displayTotalVaultStake?: boolean;
   className?: string;
 }
 
@@ -31,71 +24,17 @@ export const PoolSummary: React.FC<PoolSummaryProps> = ({
   title,
   displayHealthFactor = false,
   displayAccountHealth = false,
-  displayTotalVaultStake = false,
-  xvsPriceCents = new BigNumber(0),
-  vaiPriceCents = new BigNumber(0),
+  xvsPriceCents,
+  vaiPriceCents,
   className,
 }) => {
-  const { t } = useTranslation();
-
-  const {
-    totalSupplyCents,
-    totalBorrowCents,
-    totalVaultStakeCents,
-    healthFactor,
-    borrowLimitCents,
-    dailyEarningsCents,
-    netApyPercentage,
-  } = useExtractData({
+  const { totalBorrowCents, borrowLimitCents, cells } = useExtractData({
     pools,
-    vaults: vaults || [],
+    vaults,
     xvsPriceCents,
     vaiPriceCents,
+    includeHealthFactor: displayHealthFactor,
   });
-
-  const { textClass } = useHealthFactor({ value: healthFactor });
-
-  const cells: CellProps[] = displayHealthFactor
-    ? [
-        {
-          label: t('account.summary.cellGroup.healthFactor'),
-          value: formatHealthFactorToReadableValue({ value: healthFactor }),
-          tooltip: t('account.summary.cellGroup.healthFactorTooltip'),
-          className: textClass,
-        },
-      ]
-    : [];
-
-  cells.push(
-    {
-      label: t('account.summary.cellGroup.netApy'),
-      value: formatPercentageToReadableValue(netApyPercentage),
-      tooltip: displayTotalVaultStake
-        ? t('account.summary.cellGroup.netApyWithVaultStakeTooltip')
-        : t('account.summary.cellGroup.netApyTooltip'),
-      className:
-        typeof netApyPercentage === 'number' && netApyPercentage < 0 ? 'text-red' : 'text-green',
-    },
-    {
-      label: t('account.summary.cellGroup.dailyEarnings'),
-      value: formatCentsToReadableValue({ value: dailyEarningsCents }),
-    },
-    {
-      label: t('account.summary.cellGroup.totalSupply'),
-      value: formatCentsToReadableValue({ value: totalSupplyCents }),
-    },
-    {
-      label: t('account.summary.cellGroup.totalBorrow'),
-      value: formatCentsToReadableValue({ value: totalBorrowCents }),
-    },
-  );
-
-  if (displayTotalVaultStake) {
-    cells.push({
-      label: t('account.summary.cellGroup.totalVaultStake'),
-      value: formatCentsToReadableValue({ value: totalVaultStakeCents }),
-    });
-  }
 
   return (
     <Section className={className} title={title}>
