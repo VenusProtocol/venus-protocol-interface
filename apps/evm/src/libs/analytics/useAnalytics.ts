@@ -29,7 +29,7 @@ export type AnalyticEventName =
   | 'Import positions modal displayed'
   | 'Import positions modal closed'
   | 'Position import initiated'
-  | 'Position import failed'
+  | 'Position import status unknown'
   | 'Position import canceled'
   | 'Position imported';
 
@@ -124,7 +124,7 @@ export type AnalyticEventProps<TEventName extends AnalyticEventName> =
                             ? { proposalId: number; voteType: string }
                             : TEventName extends
                                   | 'Position import initiated'
-                                  | 'Position import failed'
+                                  | 'Position import status unknown'
                                   | 'Position import canceled'
                                   | 'Position imported'
                               ? {
