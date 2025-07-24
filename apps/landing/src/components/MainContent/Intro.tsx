@@ -35,7 +35,10 @@ function Intro() {
 
           <div className="flex items-center">
             {links.map(({ text, href }) => (
-              <div className="px-6 border-r border-offWhite/10 first-of-type:pl-0 last-of-type:pr-0 last-of-type:border-r-0">
+              <div
+                className="px-6 border-r border-offWhite/10 first-of-type:pl-0 last-of-type:pr-0 last-of-type:border-r-0"
+                key={text}
+              >
                 <Link
                   className="group text-offWhite tracking-widest h-auto hover:text-offWhite"
                   variant="text"
