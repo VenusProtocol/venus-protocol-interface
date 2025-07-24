@@ -62,7 +62,7 @@ export const Position: React.FC<PropositionProps> = ({
         if (error.message.toLowerCase().startsWith('user rejected')) {
           captureAnalyticEvent('Position import canceled', analyticProps);
         } else {
-          captureAnalyticEvent('Position import failed', analyticProps);
+          captureAnalyticEvent('Position import status unknown', analyticProps);
         }
 
         handleError({ error });
