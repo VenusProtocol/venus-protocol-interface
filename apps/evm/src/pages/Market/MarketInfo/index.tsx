@@ -57,6 +57,7 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ asset }) => {
       // Filter out distributions that do not indicate the amount of tokens distributed to everyone
       // per day and those that equal 0
       if (
+        !distribution.isActive ||
         !('dailyDistributedTokens' in distribution) ||
         distribution.dailyDistributedTokens.isEqualTo(0)
       ) {
