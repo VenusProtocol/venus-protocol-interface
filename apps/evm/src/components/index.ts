@@ -52,3 +52,5 @@ export * from './Carousel';
 export * from './HealthFactorPill';
 export * from './RiskAcknowledgementToggle';
 export * from './AccountHealthBar';
+export * from './AreaChart';
+export * from './ChartTooltipContent';

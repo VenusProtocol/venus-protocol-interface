@@ -7,9 +7,7 @@ const DateFormatPerPeriod: Record<MarketHistoryPeriodType, string> = {
   month: 'MM.dd.yy h:mm a',
 };
 
-const formatToReadableDate = (
+export const formatToReadableDate = (
   timestampMs: number,
   selectedPeriod: MarketHistoryPeriodType = 'year',
 ) => formatDate(new Date(timestampMs), DateFormatPerPeriod[selectedPeriod]);
-
-export default formatToReadableDate;
