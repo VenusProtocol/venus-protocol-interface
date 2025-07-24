@@ -1,5 +1,16 @@
 # @venusprotocol/landing
 
+## 1.18.0
+
+### Minor Changes
+
+- 883675f: remove Google Tag manager and Vercel Analytics
+
+### Patch Changes
+
+- Updated dependencies [c3433cb]
+  - @venusprotocol/chains@0.6.0
+
 ## 1.17.0
 
 ### Minor Changes

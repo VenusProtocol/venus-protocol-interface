@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.6.0
+
+### Minor Changes
+
+- c3433cb: consolidate pool and market pages
+
 ## 0.5.1
 
 ### Patch Changes

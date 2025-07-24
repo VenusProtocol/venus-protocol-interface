@@ -1,5 +1,27 @@
 # @venusprotocol/evm
 
+## 3.24.0
+
+### Minor Changes
+
+- 5a2cc4d: Removed unused code in the supply form
+- 883675f: remove Google Tag manager and Vercel Analytics
+- ad0325e: Series of desktop UI/UX enhancements
+- 7c5c2b4: increase Port limit to $100k + UI improvements
+- ad723ff: governance UI/UX improvements
+- 5a07350: include underlying balance of treasury vTokens to treasury balance
+- c3433cb: consolidate pool and market pages
+- 71d6547: Multiple fixes and improvements for the mobile web UI
+- a293ef9: Capture paths in analytics
+- a93b5d6: Round intervals division in the market charts
+
+### Patch Changes
+
+- 043d3c3: fix bottom padding of top bar
+- 1e4bca3: update icon of market table placeholder
+- Updated dependencies [c3433cb]
+  - @venusprotocol/chains@0.6.0
+
 ## 3.23.0
 
 ### Minor Changes
