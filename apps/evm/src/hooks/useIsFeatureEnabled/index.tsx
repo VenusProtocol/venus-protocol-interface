@@ -133,6 +133,7 @@ export const featureFlags = {
     ChainId.BSC_TESTNET,
     ChainId.ARBITRUM_SEPOLIA,
     ChainId.SEPOLIA,
+    ChainId.OPBNB_TESTNET,
     ChainId.OPTIMISM_SEPOLIA,
     ChainId.ZKSYNC_SEPOLIA,
     ChainId.BASE_SEPOLIA,
