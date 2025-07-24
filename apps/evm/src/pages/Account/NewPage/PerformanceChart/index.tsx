@@ -1,10 +1,13 @@
-import { cn } from '@venusprotocol/ui';
+import { cn, theme } from '@venusprotocol/ui';
 import type { MarketHistoryPeriodType } from 'clients/api';
 import { ButtonGroup, Card, Cell, type CellProps, InfoIcon } from 'components';
+import { AreaChart } from 'components';
+import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import { formatCentsToReadableValue } from 'utilities';
 import { data } from './fakeData';
+import { formatToReadableAxisDate } from './formatToReadableAxisDate';
 import { formatToReadableTitleDate } from './formatToReadableTitleDate';
 
 export interface PerformanceChartProps {
@@ -18,6 +21,7 @@ interface PerformanceChartItem {
 
 export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className }) => {
   const { t } = useTranslation();
+  const isSmOrUp = useBreakpointUp('sm');
 
   const periodOptions: { label: string; value: MarketHistoryPeriodType }[] = [
     {
@@ -34,6 +38,13 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
     },
   ];
 
+  const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>(
+    periodOptions[0].value,
+  );
+
+  const [selectedDataPoint, setSelectedDataPoint] = useState<PerformanceChartItem | undefined>();
+
+  const chartInterval = isSmOrUp ? 5 : 4;
   const netWorthCents = 1000000; // TODO: fetch current user net worth
 
   const cells: CellProps[] = [
@@ -43,21 +54,14 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
     },
     {
       label: t('account.performanceChart.absolutePerformance'),
+      // TODO: calculate based on selected data point
       value: <span className="text-base sm:text-lg">+$100</span>,
     },
   ];
 
-  const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>(
-    periodOptions[0].value,
-  );
-
-  const [selectedDataPoint, setSelectedDataPoint] = useState<PerformanceChartItem | undefined>(
-    data[0],
-  );
-
   return (
     <Card className={className}>
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-4 sm:mb-2">
         <div className="flex flex-col grow sm:flex-row sm:gap-x-2 sm:items-end">
           <div className="sm:mb-2 sm:order-2">
             {selectedDataPoint ? (
@@ -105,6 +109,19 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
           />
         ))}
       </div>
+
+      <AreaChart
+        data={data} // TODO: fetch actual data
+        xAxisDataKey="timestampMs"
+        yAxisDataKey="netWorthCents"
+        onDataPointHover={payload => setSelectedDataPoint(payload)}
+        onMouseLeave={() => setSelectedDataPoint(undefined)}
+        formatXAxisValue={formatToReadableAxisDate}
+        formatYAxisValue={value => formatCentsToReadableValue({ value })}
+        interval={chartInterval}
+        chartColor={theme.colors.blue}
+        className="h-50"
+      />
     </Card>
   );
 };

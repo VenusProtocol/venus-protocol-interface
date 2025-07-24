@@ -1,14 +1,13 @@
-/** @jsxImportSource @emotion/react */
-export interface TooltipItem {
+export interface ChartTooltipContentItem {
   label: string;
   value: string | number;
 }
 
-export interface TooltipContentProps {
-  items: TooltipItem[];
+export interface ChartTooltipContentProps {
+  items: ChartTooltipContentItem[];
 }
 
-const TooltipContent: React.FC<TooltipContentProps> = ({ items }) => (
+export const ChartTooltipContent: React.FC<ChartTooltipContentProps> = ({ items }) => (
   <div className="space-y-1 sm:space-y-2 p-3 bg-background rounded-lg">
     {items.map(item => (
       <div className="flex items-center mr-auto" key={`tooltip-content-item-${item.label}`}>
@@ -19,5 +18,3 @@ const TooltipContent: React.FC<TooltipContentProps> = ({ items }) => (
     ))}
   </div>
 );
-
-export default TooltipContent;
