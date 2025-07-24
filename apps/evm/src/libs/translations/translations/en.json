@@ -10,6 +10,19 @@
         "tabletTitle": "Assets"
       }
     },
+    "performanceChart": {
+      "absolutePerformance": "Absolute performance",
+      "dailyChange": "Daily change",
+      "netWorth": {
+        "label": "Net worth",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "periodOption": {
+        "oneYear": "1Y",
+        "sixMonths": "6M",
+        "thirtyDays": "30D"
+      }
+    },
     "poolsBreakdown": {
       "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}",
       "title": "Pools"

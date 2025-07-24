@@ -51,10 +51,20 @@ export const ApyChart: React.FC<ApyChartProps> = ({ className, data, type, selec
   const baseId = useUID();
   const gradientId = `gradient-${baseId}`;
 
+  console.log(data);
+
   return (
     <div css={sharedStyles.container} className={className}>
       <ResponsiveContainer>
-        <AreaChart margin={sharedStyles.chartMargin} data={data}>
+        <AreaChart
+          margin={sharedStyles.chartMargin}
+          data={data}
+          // onMouseMove={e => {
+          //   if (e.activePayload) {
+          //     console.log('Hovered:', e.activePayload[0].payload);
+          //   }
+          // }}
+        >
           {/* Gradient used as filler */}
           <defs>
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
