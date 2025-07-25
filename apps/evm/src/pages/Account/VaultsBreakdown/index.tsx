@@ -2,7 +2,7 @@
 import { useTranslation } from 'libs/translations';
 import type { Vault } from 'types';
 
-import Section from '../../Section';
+import Section from '../Section';
 import Table from './Table';
 
 export interface VaultsBreakdownProps {

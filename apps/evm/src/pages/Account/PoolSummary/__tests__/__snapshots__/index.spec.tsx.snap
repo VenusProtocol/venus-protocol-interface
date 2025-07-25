@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PoolSummary > displays account health prop and displayAccountHealth prop as true 1`] = `"Net APY0%Daily earnings$0.14Total supply$1.23MTotal borrow$123.33Total vault stake$233Borrow limit used:6.4%Limit:$1.92K."`;
+
+exports[`PoolSummary > displays health factor when passing displayHealthFactor prop as true 1`] = `"Health factor15.62Net APY0%Daily earnings$0.06Total supply$1.23MTotal borrow$123.33"`;
+
+exports[`PoolSummary > displays stats correctly 1`] = `"Net APY0%Daily earnings$0.06Total supply$1.23MTotal borrow$123.33"`;

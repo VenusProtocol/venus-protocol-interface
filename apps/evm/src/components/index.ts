@@ -38,6 +38,7 @@ export * from './ValueUpdate';
 export * from './SelectTokenTextField';
 export * from './InfoIcon';
 export * from './CellGroup';
+export * from './Cell';
 export * from './TokenGroup';
 export * from './TagGroup';
 export * from './SpendingLimit';

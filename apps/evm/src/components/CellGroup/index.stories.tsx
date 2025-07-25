@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 
-import { type Cell, CellGroup } from '.';
+import { CellGroup, type CellProps } from '.';
 
 export default {
   title: 'Components/CellGroup',
@@ -12,7 +12,7 @@ export default {
   },
 } as Meta<typeof CellGroup>;
 
-const cells: Cell[] = [
+const cells: CellProps[] = [
   {
     label: 'Total supply',
     value: '$1,000,000',
@@ -35,4 +35,4 @@ const cells: Cell[] = [
 
 export const Default = () => <CellGroup cells={cells} />;
 
-export const WithSmallValues = () => <CellGroup cells={cells} smallValues />;
+export const Small = () => <CellGroup cells={cells} small />;

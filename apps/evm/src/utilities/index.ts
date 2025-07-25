@@ -54,3 +54,4 @@ export * from './calculateHealthFactor';
 export * from './isCollateralActionDisabled';
 export * from './getBoostedAssetSupplyApy';
 export * from './buffer';
+export * from './formatHealthFactorToReadableValue';

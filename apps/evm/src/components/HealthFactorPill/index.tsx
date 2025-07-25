@@ -1,6 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 import { useHealthFactor } from 'hooks/useHealthFactor';
-import { HealthFactor } from '../HealthFactor';
+import { formatHealthFactorToReadableValue } from 'utilities';
 
 export interface HealthFactorPillProps extends React.HTMLAttributes<HTMLDivElement> {
   factor: number;
@@ -20,7 +20,9 @@ export const HealthFactorPill: React.FC<HealthFactorPillProps> = ({
   return (
     <div {...otherProps} className={cn('inline-flex items-center justify-center', className)}>
       <div className={cn('flex items-center px-2 rounded-full h-[21px]', bgClass)}>
-        <HealthFactor factor={factor} className="text-background text-sm font-semibold" />
+        <p className="text-background text-sm font-semibold">
+          {formatHealthFactorToReadableValue({ value: factor })}
+        </p>
       </div>
 
       {showLabel && (
