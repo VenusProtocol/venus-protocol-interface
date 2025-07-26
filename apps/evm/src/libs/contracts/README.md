@@ -25,7 +25,7 @@ if (governorBravoDelegateContract) {
 }
 ```
 
-After installing dependencies, this package automatically automatically generates a list of contract
+After installing dependencies, this package automatically generates a list of contract
 functions and hooks using its [config](./config/index.ts).
 
 ## Contract types
