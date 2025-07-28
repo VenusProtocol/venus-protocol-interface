@@ -8,7 +8,7 @@ import formatToApySnapshots from './formatToApySnapshots';
 import type { GetVTokenApySimulationsInput, GetVTokenApySimulationsOutput } from './types';
 
 const REFERENCE_AMOUNT_MANTISSA = 10000;
-const BAD_DEBT_MANTISSA = 0n;
+const REFERENCE_BAD_DEBT_MANTISSA = 0n;
 
 export const getVTokenApySimulations = async ({
   publicClient,
@@ -42,7 +42,7 @@ export const getVTokenApySimulations = async ({
           cashAmountMantissa,
           borrowsAmountMantissa,
           reservesAmountMantissa,
-          BAD_DEBT_MANTISSA,
+          REFERENCE_BAD_DEBT_MANTISSA,
         ],
       });
 
@@ -55,7 +55,7 @@ export const getVTokenApySimulations = async ({
           borrowsAmountMantissa,
           reservesAmountMantissa,
           reserveFactorMantissa.toFixed(),
-          BAD_DEBT_MANTISSA,
+          REFERENCE_BAD_DEBT_MANTISSA,
         ],
       });
     } else {
@@ -112,7 +112,7 @@ export const getVTokenApySimulations = async ({
         abi,
         functionName: 'utilizationRate',
         args: isIsolatedPoolMarket
-          ? [cashMantissa, borrowBalanceMantissa, reservesMantissa, BAD_DEBT_MANTISSA]
+          ? [cashMantissa, borrowBalanceMantissa, reservesMantissa, asset.badDebtMantissa]
           : [cashMantissa, borrowBalanceMantissa, reservesMantissa],
       }),
     ]);
