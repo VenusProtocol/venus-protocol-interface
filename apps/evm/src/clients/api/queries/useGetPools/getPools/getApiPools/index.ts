@@ -80,6 +80,7 @@ export interface ApiMarket {
   lastCalculatedXvsAccruedBlockNumber: string | null;
   supplyCapsMantissa: string;
   borrowCapsMantissa: string;
+  badDebtMantissa: string;
   estimatedPrimeBorrowApyBoost: string | null;
   estimatedPrimeSupplyApyBoost: string | null;
   pausedActionsBitmap: number;

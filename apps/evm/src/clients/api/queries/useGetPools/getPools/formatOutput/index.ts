@@ -242,6 +242,7 @@ export const formatOutput = ({
         liquidityCents,
         reserveTokens,
         exchangeRateVTokens,
+        badDebtMantissa: BigInt(market.badDebtMantissa),
         supplierCount: market.supplierCount || 0,
         borrowerCount: market.borrowerCount || 0,
         borrowApyPercentage: new BigNumber(market.borrowApy),
