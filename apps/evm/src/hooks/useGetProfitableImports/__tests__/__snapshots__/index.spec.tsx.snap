@@ -8,6 +8,7 @@ exports[`useGetProfitableImports > returns profitable importable positions 1`] =
     "aave": [
       {
         "asset": {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "-5.361233028654066",
           "borrowBalanceCents": "858721657509436",
           "borrowBalanceTokens": "73128318.509651061457900627",
@@ -148,6 +149,7 @@ exports[`useGetProfitableImports > returns profitable importable positions 1`] =
       },
       {
         "asset": {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "-4.9748661428011145",
           "borrowBalanceCents": "3158444721",
           "borrowBalanceTokens": "232511166.920938849475104194",

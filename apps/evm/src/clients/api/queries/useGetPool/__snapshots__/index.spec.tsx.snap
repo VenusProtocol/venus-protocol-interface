@@ -5,6 +5,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
   "pool": {
     "assets": [
       {
+        "badDebtMantissa": 6789000000000000000n,
         "borrowApyPercentage": "-2.3062487835658776",
         "borrowBalanceCents": "70925716",
         "borrowBalanceTokens": "1852935.597521220541385584",
@@ -91,6 +92,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
         },
       },
       {
+        "badDebtMantissa": 0n,
         "borrowApyPercentage": "-5.361233028654066",
         "borrowBalanceCents": "858721657509436",
         "borrowBalanceTokens": "73128318.509651061457900627",
@@ -218,6 +220,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
         },
       },
       {
+        "badDebtMantissa": 0n,
         "borrowApyPercentage": "-4.9748661428011145",
         "borrowBalanceCents": "3158444721",
         "borrowBalanceTokens": "232511166.920938849475104194",
@@ -330,6 +333,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
         },
       },
       {
+        "badDebtMantissa": 0n,
         "borrowApyPercentage": "-4.050271277344538",
         "borrowBalanceCents": "83910350502",
         "borrowBalanceTokens": "142662020.229587308931217432",

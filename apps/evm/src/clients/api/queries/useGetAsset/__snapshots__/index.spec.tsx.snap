@@ -3,6 +3,7 @@
 exports[`useGetAsset > returns the correct asset 1`] = `
 {
   "asset": {
+    "badDebtMantissa": 6789000000000000000n,
     "borrowApyPercentage": "-2.3062487835658776",
     "borrowBalanceCents": "70925716",
     "borrowBalanceTokens": "1852935.597521220541385584",

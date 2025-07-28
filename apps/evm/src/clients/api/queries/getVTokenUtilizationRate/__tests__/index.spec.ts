@@ -16,7 +16,7 @@ describe('getVTokenUtilizationRate', () => {
   const expectedCashMantissa = parseUnits(asset.cashTokens.toFixed(), decimals);
   const expectedBorrowBalanceMantissa = parseUnits(asset.borrowBalanceTokens.toFixed(), decimals);
   const expectedReservesMantissa = parseUnits(asset.reserveTokens.toFixed(), decimals);
-  const expectedBadDebtMantissa = parseUnits('0', decimals);
+  const expectedBadDebtMantissa = parseUnits('6.789', decimals);
 
   test('returns the utilization rate in the correct format on success for standard pools', async () => {
     const readContractMock = vi.fn().mockResolvedValue(fakeUtilizationRate);

@@ -18,7 +18,7 @@ export const assetData: Asset[] = [
     cashTokens: new BigNumber(10),
     tokenPriceCents: new BigNumber('127.86734'),
     liquidityCents: new BigNumber(8036465875),
-    badDebtMantissa: 0n,
+    badDebtMantissa: 6789000000000000000n,
     supplierCount: 100,
     borrowerCount: 10,
     exchangeRateVTokens: new BigNumber(49.589181233),
