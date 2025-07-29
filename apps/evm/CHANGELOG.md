@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.25.0
+
+### Minor Changes
+
+- b397745: add structure for new Account page
+- d68954c: Filter inactive rewards from market info
+
+### Patch Changes
+
+- b945f34: change name of failed import event
+
 ## 3.24.0
 
 ### Minor Changes

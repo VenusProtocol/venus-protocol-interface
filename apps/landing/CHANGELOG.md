@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.19.0
+
+### Minor Changes
+
+- b397745: add structure for new Account page
+
 ## 1.18.0
 
 ### Minor Changes
