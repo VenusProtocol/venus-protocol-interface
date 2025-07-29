@@ -1,0 +1,571 @@
+[
+  {
+    "inputs": [
+      { "internalType": "address", "name": "defaultValidator", "type": "address" },
+      { "internalType": "bytes", "name": "initData", "type": "bytes" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  { "inputs": [], "name": "CanNotRemoveLastValidator", "type": "error" },
+  { "inputs": [], "name": "DefaultValidatorAlreadyInstalled", "type": "error" },
+  { "inputs": [], "name": "EmergencyUninstallSigError", "type": "error" },
+  { "inputs": [], "name": "EnableModeSigError", "type": "error" },
+  {
+    "inputs": [{ "internalType": "bytes4", "name": "selector", "type": "bytes4" }],
+    "name": "FallbackAlreadyInstalledForSelector",
+    "type": "error"
+  },
+  { "inputs": [], "name": "FallbackCallTypeInvalid", "type": "error" },
+  { "inputs": [], "name": "FallbackHandlerUninstallFailed", "type": "error" },
+  {
+    "inputs": [{ "internalType": "bytes4", "name": "selector", "type": "bytes4" }],
+    "name": "FallbackNotInstalledForSelector",
+    "type": "error"
+  },
+  { "inputs": [], "name": "FallbackSelectorForbidden", "type": "error" },
+  {
+    "inputs": [{ "internalType": "address", "name": "currentHook", "type": "address" }],
+    "name": "HookAlreadyInstalled",
+    "type": "error"
+  },
+  { "inputs": [], "name": "HookPostCheckFailed", "type": "error" },
+  { "inputs": [], "name": "InvalidInput", "type": "error" },
+  {
+    "inputs": [{ "internalType": "address", "name": "module", "type": "address" }],
+    "name": "InvalidModule",
+    "type": "error"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "moduleTypeId", "type": "uint256" }],
+    "name": "InvalidModuleTypeId",
+    "type": "error"
+  },
+  { "inputs": [], "name": "InvalidNonce", "type": "error" },
+  { "inputs": [], "name": "LinkedList_AlreadyInitialized", "type": "error" },
+  {
+    "inputs": [{ "internalType": "address", "name": "entry", "type": "address" }],
+    "name": "LinkedList_EntryAlreadyInList",
+    "type": "error"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "entry", "type": "address" }],
+    "name": "LinkedList_InvalidEntry",
+    "type": "error"
+  },
+  { "inputs": [], "name": "LinkedList_InvalidPage", "type": "error" },
+  { "inputs": [], "name": "MismatchModuleTypeId", "type": "error" },
+  {
+    "inputs": [{ "internalType": "bytes4", "name": "selector", "type": "bytes4" }],
+    "name": "MissingFallbackHandler",
+    "type": "error"
+  },
+  { "inputs": [], "name": "ModuleAddressCanNotBeZero", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "moduleTypeId", "type": "uint256" },
+      { "internalType": "address", "name": "module", "type": "address" }
+    ],
+    "name": "ModuleAlreadyInstalled",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "moduleTypeId", "type": "uint256" },
+      { "internalType": "address", "name": "module", "type": "address" }
+    ],
+    "name": "ModuleNotInstalled",
+    "type": "error"
+  },
+  { "inputs": [], "name": "NoValidatorInstalled", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "currentPreValidationHook", "type": "address" }
+    ],
+    "name": "PrevalidationHookAlreadyInstalled",
+    "type": "error"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "operator", "type": "address" }],
+    "name": "UnauthorizedOperation",
+    "type": "error"
+  },
+  {
+    "inputs": [{ "internalType": "CallType", "name": "callType", "type": "bytes1" }],
+    "name": "UnsupportedCallType",
+    "type": "error"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "module", "type": "address" }],
+    "name": "ValidatorNotInstalled",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "contract IERC7484",
+        "name": "registry",
+        "type": "address"
+      }
+    ],
+    "name": "ERC7484RegistryConfigured",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "uint256", "name": "moduleTypeId", "type": "uint256" },
+      { "indexed": false, "internalType": "address", "name": "module", "type": "address" }
+    ],
+    "name": "ModuleInstalled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "uint256", "name": "moduleTypeId", "type": "uint256" },
+      { "indexed": false, "internalType": "address", "name": "module", "type": "address" }
+    ],
+    "name": "ModuleUninstalled",
+    "type": "event"
+  },
+  { "stateMutability": "payable", "type": "fallback" },
+  {
+    "inputs": [],
+    "name": "eip712Domain",
+    "outputs": [
+      { "internalType": "bytes1", "name": "fields", "type": "bytes1" },
+      { "internalType": "string", "name": "name", "type": "string" },
+      { "internalType": "string", "name": "version", "type": "string" },
+      { "internalType": "uint256", "name": "chainId", "type": "uint256" },
+      { "internalType": "address", "name": "verifyingContract", "type": "address" },
+      { "internalType": "bytes32", "name": "salt", "type": "bytes32" },
+      { "internalType": "uint256[]", "name": "extensions", "type": "uint256[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getActiveHook",
+    "outputs": [{ "internalType": "address", "name": "hook", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "cursor", "type": "address" },
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "name": "getExecutorsPaginated",
+    "outputs": [
+      { "internalType": "address[]", "name": "array", "type": "address[]" },
+      { "internalType": "address", "name": "next", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "bytes4", "name": "selector", "type": "bytes4" }],
+    "name": "getFallbackHandlerBySelector",
+    "outputs": [
+      { "internalType": "CallType", "name": "", "type": "bytes1" },
+      { "internalType": "address", "name": "", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getRegistry",
+    "outputs": [{ "internalType": "contract IERC7484", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "cursor", "type": "address" },
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
+    ],
+    "name": "getValidatorsPaginated",
+    "outputs": [
+      { "internalType": "address[]", "name": "array", "type": "address[]" },
+      { "internalType": "address", "name": "next", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "validators",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "executors",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig",
+        "name": "hook",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "fallbacks",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "uint256", "name": "hookType", "type": "uint256" },
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapPreValidationHookConfig[]",
+        "name": "preValidationHooks",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "contract IERC7484", "name": "registry", "type": "address" },
+          { "internalType": "address[]", "name": "attesters", "type": "address[]" },
+          { "internalType": "uint8", "name": "threshold", "type": "uint8" }
+        ],
+        "internalType": "struct RegistryConfig",
+        "name": "registryConfig",
+        "type": "tuple"
+      }
+    ],
+    "name": "initNexus",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "validators",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "executors",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig",
+        "name": "hook",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "fallbacks",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "uint256", "name": "hookType", "type": "uint256" },
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapPreValidationHookConfig[]",
+        "name": "preValidationHooks",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "initNexusNoRegistry",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "validators",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig",
+        "name": "hook",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          { "internalType": "contract IERC7484", "name": "registry", "type": "address" },
+          { "internalType": "address[]", "name": "attesters", "type": "address[]" },
+          { "internalType": "uint8", "name": "threshold", "type": "uint8" }
+        ],
+        "internalType": "struct RegistryConfig",
+        "name": "registryConfig",
+        "type": "tuple"
+      }
+    ],
+    "name": "initNexusScoped",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "validators",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig",
+        "name": "hook",
+        "type": "tuple"
+      }
+    ],
+    "name": "initNexusScopedNoRegistry",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "bytes", "name": "data", "type": "bytes" }],
+    "name": "initNexusWithDefaultValidator",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes", "name": "defaultValidatorInitData", "type": "bytes" },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "validators",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "executors",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig",
+        "name": "hook",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "fallbacks",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "uint256", "name": "hookType", "type": "uint256" },
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapPreValidationHookConfig[]",
+        "name": "preValidationHooks",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "contract IERC7484", "name": "registry", "type": "address" },
+          { "internalType": "address[]", "name": "attesters", "type": "address[]" },
+          { "internalType": "uint8", "name": "threshold", "type": "uint8" }
+        ],
+        "internalType": "struct RegistryConfig",
+        "name": "registryConfig",
+        "type": "tuple"
+      }
+    ],
+    "name": "initNexusWithDefaultValidatorAndOtherModules",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes", "name": "defaultValidatorInitData", "type": "bytes" },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "validators",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "executors",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig",
+        "name": "hook",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapConfig[]",
+        "name": "fallbacks",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          { "internalType": "uint256", "name": "hookType", "type": "uint256" },
+          { "internalType": "address", "name": "module", "type": "address" },
+          { "internalType": "bytes", "name": "data", "type": "bytes" }
+        ],
+        "internalType": "struct BootstrapPreValidationHookConfig[]",
+        "name": "preValidationHooks",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "initNexusWithDefaultValidatorAndOtherModulesNoRegistry",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "validator", "type": "address" },
+      { "internalType": "bytes", "name": "data", "type": "bytes" },
+      {
+        "components": [
+          { "internalType": "contract IERC7484", "name": "registry", "type": "address" },
+          { "internalType": "address[]", "name": "attesters", "type": "address[]" },
+          { "internalType": "uint8", "name": "threshold", "type": "uint8" }
+        ],
+        "internalType": "struct RegistryConfig",
+        "name": "registryConfig",
+        "type": "tuple"
+      }
+    ],
+    "name": "initNexusWithSingleValidator",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "validator", "type": "address" },
+      { "internalType": "bytes", "name": "data", "type": "bytes" }
+    ],
+    "name": "initNexusWithSingleValidatorNoRegistry",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "moduleTypeId", "type": "uint256" },
+      { "internalType": "address", "name": "module", "type": "address" },
+      { "internalType": "bytes", "name": "initData", "type": "bytes" }
+    ],
+    "name": "installModule",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "moduleTypeId", "type": "uint256" },
+      { "internalType": "address", "name": "module", "type": "address" },
+      { "internalType": "bytes", "name": "additionalContext", "type": "bytes" }
+    ],
+    "name": "isModuleInstalled",
+    "outputs": [{ "internalType": "bool", "name": "installed", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "moduleTypeId", "type": "uint256" },
+      { "internalType": "address", "name": "module", "type": "address" },
+      { "internalType": "bytes", "name": "deInitData", "type": "bytes" }
+    ],
+    "name": "uninstallModule",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  { "stateMutability": "payable", "type": "receive" }
+]
