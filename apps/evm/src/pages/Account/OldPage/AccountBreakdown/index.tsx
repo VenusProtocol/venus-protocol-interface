@@ -8,10 +8,11 @@ import { useAccountAddress } from 'libs/wallet';
 import BigNumber from 'bignumber.js';
 import { useConvertDollarsToCents } from 'hooks/useConvertDollarsToCents';
 import { useTranslation } from 'libs/translations';
-import AccountPlaceholder from './AccountPlaceholder';
-import PoolsBreakdown from './PoolsBreakdown';
-import Summary from './Summary';
-import VaultsBreakdown from './VaultsBreakdown';
+import { Settings } from 'pages/Account/Settings';
+import AccountPlaceholder from '../../AccountPlaceholder';
+import { PoolSummary } from '../../PoolSummary';
+import PoolsBreakdown from '../../PoolsBreakdown';
+import VaultsBreakdown from '../../VaultsBreakdown';
 
 const Account: React.FC = () => {
   const { t } = useTranslation();
@@ -82,13 +83,14 @@ const Account: React.FC = () => {
 
   return (
     <div className="flex-auto space-y-10">
-      <Summary
+      <Settings />
+
+      <PoolSummary
         title={t('account.summary.title')}
         pools={filteredPools}
         vaults={filteredVaults}
         xvsPriceCents={xvsPriceCents}
         vaiPriceCents={vaiPriceCents}
-        displayTotalVaultStake
       />
 
       {filteredVaults.length > 0 && <VaultsBreakdown vaults={filteredVaults} />}

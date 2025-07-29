@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 
-import { HEALTH_FACTOR_MAX_VALUE } from 'components/HealthFactor/formatHealthFactorToReadableValue';
+import { HEALTH_FACTOR_MAX_VALUE } from 'utilities/formatHealthFactorToReadableValue';
 import { HealthFactorPill, type HealthFactorPillProps } from '.';
 
 export default {

@@ -5,8 +5,8 @@ import { type Tag, TagGroup } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 
-import Section from '../../Section';
-import Summary from '../Summary';
+import { PoolSummary } from '../PoolSummary';
+import Section from '../Section';
 import { PoolTagContent } from './PoolTagContent';
 import Tables from './Tables';
 import { useStyles } from './styles';
@@ -44,7 +44,7 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
         />
       )}
 
-      <Summary
+      <PoolSummary
         pools={[selectedPool]}
         displayHealthFactor={hasBorrowBalance}
         displayAccountHealth={hasBorrowBalance}
