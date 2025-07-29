@@ -32,8 +32,10 @@ import {
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useAnalytics } from 'libs/analytics';
 import { AssetInfo } from '../AssetInfo';
 import { OperationDetails } from '../OperationDetails';
+import { calculateAmountDollars } from '../calculateAmountDollars';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import TEST_IDS from './testIds';
@@ -97,6 +99,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const { toggleCollateral } = useCollateral();
+  const { captureAnalyticEvent } = useAnalytics();
 
   const tokenBalances = useMemo(
     () => getUniqueTokenBalances(...integratedSwapTokenBalances, ...nativeWrappedTokenBalances),
@@ -131,28 +134,40 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     tokenBalances,
   ]);
 
-  // Determine the amount of tokens the user can supply, taking the supply cap and their wallet
-  // balance in consideration
-  const suppliableFromTokenAmountTokens = useMemo(() => {
-    if (isUsingSwap || !fromTokenUserWalletBalanceTokens) {
-      return undefined;
+  // Determine the amount of tokens the user can supply, taking the supply cap, their wallet
+  // balance and spending limit in consideration
+  const limitTokens = useMemo(() => {
+    // If user is using swap, we fill the input with the user's wallet balance as we don't have a
+    // way to know in advance exactly how much of the fromToken they can supply to
+    let amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0);
+
+    // If user has set a spending limit for fromToken, then we take it in consideration
+    if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
+      amountTokens = BigNumber.min(amountTokens, fromTokenWalletSpendingLimitTokens);
     }
 
-    const marginWithSupplyCapTokens = asset.supplyCapTokens.isEqualTo(0)
-      ? new BigNumber(0)
-      : asset.supplyCapTokens.minus(asset.supplyBalanceTokens);
+    // Take supply cap in consideration, if user is not swapping
+    if (!isUsingSwap) {
+      const marginWithSupplyCapTokens = asset.supplyCapTokens.isEqualTo(0)
+        ? new BigNumber(0)
+        : asset.supplyCapTokens.minus(asset.supplyBalanceTokens);
 
-    return BigNumber.min(marginWithSupplyCapTokens, fromTokenUserWalletBalanceTokens);
+      amountTokens = BigNumber.min(amountTokens, marginWithSupplyCapTokens);
+    }
+
+    return amountTokens;
   }, [
     isUsingSwap,
     asset.supplyBalanceTokens,
     fromTokenUserWalletBalanceTokens,
+    fromTokenWalletSpendingLimitTokens,
     asset.supplyCapTokens,
   ]);
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     fromTokenUserWalletBalanceTokens,
+    poolName: pool.name,
     fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,
     isUsingSwap,
@@ -177,6 +192,29 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     isCollateralOfUser: asset.isCollateralOfUser,
   });
 
+  const captureAmountSetAnalyticEvent = ({
+    amountTokens,
+    maxSelected,
+  }: { amountTokens: BigNumber | string; maxSelected: boolean }) => {
+    if (Number(amountTokens.toString()) > 0) {
+      captureAnalyticEvent(
+        'supply_amount_set',
+        {
+          poolName: pool.name,
+          assetSymbol: asset.vToken.underlyingToken.symbol,
+          usdAmount: calculateAmountDollars({
+            amountTokens,
+            tokenPriceCents: asset.tokenPriceCents,
+          }),
+          maxSelected,
+        },
+        {
+          debounced: true,
+        },
+      );
+    }
+  };
+
   const handleToggleCollateral = async () => {
     try {
       await toggleCollateral({
@@ -189,32 +227,14 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     }
   };
 
-  const handleRightMaxButtonClick = useCallback(() => {
-    // If user is using swap, we fill the input with the user's wallet balance as we don't have a
-    // way to know in advance exactly how much of the fromToken they can supply to
-    let amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0);
-
-    // If a user is not swapping, we fill the input with the maximum suppliable amount of fromTokens
-    if (!isUsingSwap && suppliableFromTokenAmountTokens) {
-      amountTokens = suppliableFromTokenAmountTokens;
-    }
-
-    // If user has set a spending limit for fromToken, then we take it in consideration
-    if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
-      amountTokens = BigNumber.min(amountTokens, fromTokenWalletSpendingLimitTokens);
-    }
+  const handleRightMaxButtonClick = () => {
+    captureAmountSetAnalyticEvent({ amountTokens: limitTokens, maxSelected: true });
 
     setFormValues(currentFormValues => ({
       ...currentFormValues,
-      amountTokens: amountTokens.toFixed(),
+      amountTokens: limitTokens.toFixed(),
     }));
-  }, [
-    fromTokenUserWalletBalanceTokens,
-    setFormValues,
-    isUsingSwap,
-    fromTokenWalletSpendingLimitTokens,
-    suppliableFromTokenAmountTokens,
-  ]);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -245,12 +265,14 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
               isApproveFromTokenLoading ||
               formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
             }
-            onChange={amountTokens =>
+            onChange={amountTokens => {
+              captureAmountSetAnalyticEvent({ amountTokens, maxSelected: false });
+
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
                 amountTokens,
-              }))
-            }
+              }));
+            }}
             onChangeSelectedToken={fromToken =>
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
@@ -274,12 +296,14 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
             name="amountTokens"
             token={asset.vToken.underlyingToken}
             value={formValues.amountTokens}
-            onChange={amountTokens =>
+            onChange={amountTokens => {
+              captureAmountSetAnalyticEvent({ amountTokens, maxSelected: false });
+
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
                 amountTokens,
-              }))
-            }
+              }));
+            }}
             disabled={
               !isUserConnected ||
               isSubmitting ||

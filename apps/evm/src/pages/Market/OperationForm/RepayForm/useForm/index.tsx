@@ -2,10 +2,12 @@ import BigNumber from 'bignumber.js';
 import { useEffect } from 'react';
 
 import useIsMounted from 'hooks/useIsMounted';
-import { handleError } from 'libs/errors';
-import type { Swap, SwapError, Token, VToken } from 'types';
+import { handleError, isUserRejectedTxError } from 'libs/errors';
+import type { Asset, Swap, SwapError, Token, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
+import { useAnalytics } from 'libs/analytics';
+import { calculateAmountDollars } from '../../calculateAmountDollars';
 import type { FormError } from '../../types';
 import calculatePercentageOfUserBorrowBalance from '../calculatePercentageOfUserBorrowBalance';
 import type { FormErrorCode, FormValues } from './types';
@@ -14,6 +16,8 @@ import useFormValidation from './useFormValidation';
 export * from './types';
 
 export interface UseFormInput {
+  asset: Asset;
+  poolName: string;
   toVToken: VToken;
   onSubmit: (input: {
     toVToken: VToken;
@@ -41,6 +45,8 @@ interface UseFormOutput {
 }
 
 const useForm = ({
+  asset,
+  poolName,
   toVToken,
   fromTokenUserWalletBalanceTokens = new BigNumber(0),
   fromTokenUserBorrowBalanceTokens = new BigNumber(0),
@@ -67,12 +73,26 @@ const useForm = ({
     fromTokenWalletSpendingLimitTokens,
   });
 
+  const { captureAnalyticEvent } = useAnalytics();
+
   const handleSubmit = async (e?: React.SyntheticEvent) => {
     e?.preventDefault();
 
     if (!isFormValid) {
       return;
     }
+
+    const analyticData = {
+      poolName,
+      assetSymbol: asset.vToken.underlyingToken.symbol,
+      usdAmount: calculateAmountDollars({
+        amountTokens: formValues.amountTokens,
+        tokenPriceCents: asset.tokenPriceCents,
+      }),
+      selectedPercentage: formValues.fixedRepayPercentage,
+    };
+
+    captureAnalyticEvent('repay_initiated', analyticData);
 
     try {
       await onSubmit({
@@ -83,13 +103,20 @@ const useForm = ({
         swap,
       });
 
+      captureAnalyticEvent('repay_signed', analyticData);
+
       // Reset form and close modal on success only
       setFormValues(() => ({
         fromToken: toVToken.underlyingToken,
         amountTokens: '',
       }));
+
       onSubmitSuccess?.();
     } catch (error) {
+      if (isUserRejectedTxError({ error })) {
+        captureAnalyticEvent('repay_rejected', analyticData);
+      }
+
       handleError({ error });
     }
   };

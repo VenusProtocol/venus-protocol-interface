@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
 import { useBorrow } from 'clients/api';
@@ -25,9 +25,11 @@ import { calculateHealthFactor, convertTokensToMantissa } from 'utilities';
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useAnalytics } from 'libs/analytics';
 import { useAccountAddress } from 'libs/wallet';
 import { AssetInfo } from '../AssetInfo';
 import { OperationDetails } from '../OperationDetails';
+import { calculateAmountDollars } from '../calculateAmountDollars';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
@@ -65,6 +67,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const { nativeToken } = useGetChainMetadata();
+  const { captureAnalyticEvent } = useAnalytics();
 
   const canUnwrapToNativeToken = useMemo(
     () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
@@ -172,13 +175,41 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     setFormValues,
   });
 
-  const handleSafeMaxButtonClick = useCallback(() => {
+  const captureAmountSetAnalyticEvent = ({
+    amountTokens,
+    maxSelected,
+  }: { amountTokens: BigNumber | string; maxSelected: boolean; selectedPercentage?: number }) => {
+    if (Number(amountTokens.toString()) > 0) {
+      captureAnalyticEvent(
+        'borrow_amount_set',
+        {
+          poolName: pool.name,
+          assetSymbol: asset.vToken.underlyingToken.symbol,
+          usdAmount: calculateAmountDollars({
+            amountTokens,
+            tokenPriceCents: asset.tokenPriceCents,
+          }),
+          maxSelected,
+        },
+        {
+          debounced: true,
+        },
+      );
+    }
+  };
+
+  const handleSafeMaxButtonClick = () => {
+    captureAmountSetAnalyticEvent({
+      amountTokens: safeLimitTokens,
+      maxSelected: true,
+    });
+
     // Update field value to correspond to user's wallet balance
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       amountTokens: safeLimitTokens.toFixed(),
     }));
-  }, [safeLimitTokens, setFormValues]);
+  };
 
   const isRiskyOperation = useMemo(
     () =>
@@ -196,12 +227,17 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           name="amountTokens"
           token={asset.vToken.underlyingToken}
           value={formValues.amountTokens}
-          onChange={amountTokens =>
+          onChange={amountTokens => {
+            captureAmountSetAnalyticEvent({
+              amountTokens,
+              maxSelected: false,
+            });
+
             setFormValues(currentFormValues => ({
               ...currentFormValues,
               amountTokens,
-            }))
-          }
+            }));
+          }}
           disabled={
             !isUserConnected ||
             isSubmitting ||

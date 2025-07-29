@@ -12,7 +12,6 @@ import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useRepay } from '..';
 
-vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 
 const fakeAmountMantissa = new BigNumber('10000000000000000');

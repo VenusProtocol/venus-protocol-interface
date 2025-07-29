@@ -9,7 +9,6 @@ import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useExecuteWithdrawalFromXvsVault } from '..';
 
-vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 
 const fakeInput = {

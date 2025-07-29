@@ -18,6 +18,7 @@ vi.mock('hooks/useGetContractAddress');
 vi.mock('hooks/useUserChainSettings');
 vi.mock('clients/api');
 vi.mock('clients/subgraph');
+vi.mock('libs/analytics');
 vi.mock('libs/tokens');
 vi.mock('libs/wallet');
 vi.mock('components/Redirect');

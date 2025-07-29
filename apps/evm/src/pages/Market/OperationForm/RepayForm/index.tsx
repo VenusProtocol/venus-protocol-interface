@@ -30,8 +30,10 @@ import {
 
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useAnalytics } from 'libs/analytics';
 import { AssetInfo } from '../AssetInfo';
 import { OperationDetails } from '../OperationDetails';
+import { calculateAmountDollars } from '../calculateAmountDollars';
 import Notice from './Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import calculatePercentageOfUserBorrowBalance from './calculatePercentageOfUserBorrowBalance';
@@ -97,6 +99,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   swapError,
 }) => {
   const { t } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
 
   const tokenBalances = useMemo(
     () => getUniqueTokenBalances(...integratedSwapTokenBalances, ...nativeWrappedTokenBalances),
@@ -132,6 +135,8 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   ]);
 
   const { handleSubmit, isFormValid, formError } = useForm({
+    asset,
+    poolName: pool.name,
     toVToken: asset.vToken,
     fromTokenUserWalletBalanceTokens,
     fromTokenUserBorrowBalanceTokens: asset.userBorrowBalanceTokens,
@@ -156,50 +161,91 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     [formValues.fixedRepayPercentage],
   );
 
-  const handleRightMaxButtonClick = useCallback(() => {
+  const limitTokens = useMemo(() => {
+    let amountTokens = BigNumber.min(
+      asset.userBorrowBalanceTokens,
+      fromTokenUserWalletBalanceTokens || 0,
+    );
+
+    // If using swap, set input amount to wallet balance
+    if (isUsingSwap) {
+      amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0);
+    }
+
+    // If user has set a spending limit, consider it
+    if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
+      amountTokens = BigNumber.min(amountTokens || 0, fromTokenWalletSpendingLimitTokens);
+    }
+
+    return amountTokens;
+  }, [
+    asset.userBorrowBalanceTokens,
+    fromTokenUserWalletBalanceTokens,
+    fromTokenWalletSpendingLimitTokens,
+    isUsingSwap,
+  ]);
+
+  const captureAmountSetAnalyticEvent = ({
+    amountTokens,
+    maxSelected,
+    selectedPercentage,
+  }: { amountTokens: BigNumber | string; maxSelected: boolean; selectedPercentage?: number }) => {
+    if (Number(amountTokens.toString()) > 0) {
+      captureAnalyticEvent(
+        'repay_amount_set',
+        {
+          poolName: pool.name,
+          assetSymbol: asset.vToken.underlyingToken.symbol,
+          usdAmount: calculateAmountDollars({
+            amountTokens,
+            tokenPriceCents: asset.tokenPriceCents,
+          }),
+          maxSelected,
+          selectedPercentage,
+        },
+        {
+          debounced: true,
+        },
+      );
+    }
+  };
+
+  const handleRightMaxButtonClick = () => {
     const updatedValues: Partial<FormValues> = {
       fixedRepayPercentage: undefined,
     };
 
-    if (asset.userBorrowBalanceTokens.isEqualTo(0)) {
-      // If user's borrow balance is 0, set input amount to 0
-      updatedValues.amountTokens = '0';
-    } else if (isUsingSwap) {
-      // If using swap, set input amount to wallet balance
-      updatedValues.amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed();
-    } else if (
-      fromTokenUserWalletBalanceTokens?.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens) &&
-      (!fromTokenWalletSpendingLimitTokens ||
-        fromTokenWalletSpendingLimitTokens.isEqualTo(0) ||
-        fromTokenWalletSpendingLimitTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens))
-    ) {
-      // If user can repay full loan or has no spending limit, set fixed repay percentage to 100%
+    const canRepayFullLoan =
+      // If user is using swap, we don't know if they can repay the full loan after conversion
+      !isUsingSwap &&
+      limitTokens.isGreaterThan(0) &&
+      limitTokens.isGreaterThanOrEqualTo(asset.userBorrowBalanceTokens);
+
+    if (canRepayFullLoan) {
+      // If user can repay full loan, set fixed repay percentage to 100%
       updatedValues.fixedRepayPercentage = 100;
     } else {
-      // If user cannot repay full loan, set input amount to wallet balance
-      updatedValues.amountTokens = new BigNumber(fromTokenUserWalletBalanceTokens || 0).toFixed();
+      updatedValues.amountTokens = limitTokens.toFixed();
     }
 
-    if (fromTokenWalletSpendingLimitTokens?.isGreaterThan(0)) {
-      // If user has set a spending limit, consider it
-      updatedValues.amountTokens = BigNumber.min(
-        updatedValues.amountTokens || 0,
-        fromTokenWalletSpendingLimitTokens,
-      ).toFixed();
-    }
+    captureAmountSetAnalyticEvent({
+      amountTokens:
+        canRepayFullLoan && !isUsingSwap
+          ? calculatePercentageOfUserBorrowBalance({
+              userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
+              token: formValues.fromToken,
+              percentage: 100,
+            })
+          : limitTokens,
+      maxSelected: true,
+    });
 
     // Update form values with new values
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       ...updatedValues,
     }));
-  }, [
-    asset.userBorrowBalanceTokens,
-    fromTokenUserWalletBalanceTokens,
-    setFormValues,
-    isUsingSwap,
-    fromTokenWalletSpendingLimitTokens,
-  ]);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -211,14 +257,19 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
             value={formValues.amountTokens}
             hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
             disabled={!isUserConnected || isSubmitting}
-            onChange={amountTokens =>
+            onChange={amountTokens => {
+              captureAmountSetAnalyticEvent({
+                amountTokens,
+                maxSelected: false,
+              });
+
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
                 amountTokens,
                 // Reset selected fixed percentage
                 fixedRepayPercentage: undefined,
-              }))
-            }
+              }));
+            }}
             onChangeSelectedToken={fromToken =>
               setFormValues(currentFormValues => ({
                 ...currentFormValues,
@@ -241,14 +292,19 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
             name="amountTokens"
             token={asset.vToken.underlyingToken}
             value={formValues.amountTokens}
-            onChange={amountTokens =>
-              setFormValues(currentFormValues => ({
+            onChange={amountTokens => {
+              captureAmountSetAnalyticEvent({
+                amountTokens,
+                maxSelected: false,
+              });
+
+              return setFormValues(currentFormValues => ({
                 ...currentFormValues,
                 amountTokens,
                 // Reset selected fixed percentage
                 fixedRepayPercentage: undefined,
-              }))
-            }
+              }));
+            }}
             disabled={!isUserConnected || isSubmitting}
             rightMaxButton={{
               label: t('operationForm.rightMaxButtonLabel'),
@@ -273,12 +329,26 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
               className="flex-1"
               active={percentage === formValues.fixedRepayPercentage}
               disabled={!isUserConnected || asset.userBorrowBalanceTokens.isEqualTo(0)}
-              onClick={() =>
+              onClick={() => {
+                if (!isUsingSwap) {
+                  const amountTokens = calculatePercentageOfUserBorrowBalance({
+                    userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
+                    token: formValues.fromToken,
+                    percentage: percentage,
+                  });
+
+                  captureAmountSetAnalyticEvent({
+                    amountTokens,
+                    maxSelected: false,
+                    selectedPercentage: percentage,
+                  });
+                }
+
                 setFormValues(currentFormValues => ({
                   ...currentFormValues,
                   fixedRepayPercentage: percentage,
-                }))
-              }
+                }));
+              }}
             >
               {formatPercentageToReadableValue(percentage)}
             </QuaternaryButton>

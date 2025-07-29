@@ -1,5 +1,6 @@
 import { displayNotification } from 'libs/notifications';
 import { VError } from '../VError';
+import { isUserRejectedTxError } from '../isUserRejectedTxError';
 import { logError } from '../logError';
 import { unexpectedErrorPhrases } from '../unexpectedErrorPhrases';
 import { formatVErrorToReadableString } from './formatVErrorToReadableString';
@@ -10,7 +11,7 @@ export interface HandleErrorInput {
 
 export const handleError = ({ error }: HandleErrorInput) => {
   // Do nothing if error is due to user rejecting transaction
-  if (error instanceof Error && error.message.toLowerCase().startsWith('user rejected')) {
+  if (isUserRejectedTxError({ error })) {
     return;
   }
 

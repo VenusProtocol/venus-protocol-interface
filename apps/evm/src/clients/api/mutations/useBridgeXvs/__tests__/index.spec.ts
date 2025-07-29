@@ -11,7 +11,6 @@ import { ChainId } from 'types';
 import type { Mock } from 'vitest';
 import useBridgeXvs from '..';
 
-vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 
 const fakeInput = {

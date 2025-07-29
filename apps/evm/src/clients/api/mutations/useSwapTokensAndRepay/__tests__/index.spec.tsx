@@ -13,7 +13,6 @@ import fakeAccountAddress, {
 import { bnb, xvs } from '__mocks__/models/tokens';
 import { vBnb } from '__mocks__/models/vTokens';
 
-vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 vi.mock('utilities/generateTransactionDeadline');
 

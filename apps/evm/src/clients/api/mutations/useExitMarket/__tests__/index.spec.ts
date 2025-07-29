@@ -9,8 +9,6 @@ import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useExitMarket } from '..';
 
-vi.mock('libs/analytics');
-
 const fakeInput = {
   vToken: vXvs,
   comptrollerContractAddress: '0x123',
