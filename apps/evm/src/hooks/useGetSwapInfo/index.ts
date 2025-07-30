@@ -9,11 +9,11 @@ import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { useGetPancakeSwapPairs } from 'clients/api';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useChainId } from 'libs/wallet';
 import type { SwapError } from 'types';
 import { areTokensEqual, convertTokensToMantissa } from 'utilities';
-
 import formatToSwap from './formatToSwap';
 import type { UseGetSwapInfoInput, UseGetSwapInfoOutput } from './types';
 import useGetTokenCombinations from './useGetTokenCombinations';
@@ -34,10 +34,19 @@ const useGetSwapInfo = (input: UseGetSwapInfoInput): UseGetSwapInfoOutput => {
     toToken: input.toToken,
   });
 
-  // Fetch pair data
-  const { data: getPancakeSwapPairsData, isLoading } = useGetPancakeSwapPairs({
-    tokenCombinations,
+  const isIntegratedSwapFeatureEnabled = useIsFeatureEnabled({
+    name: 'integratedSwap',
   });
+
+  // Fetch pair data
+  const { data: getPancakeSwapPairsData, isLoading } = useGetPancakeSwapPairs(
+    {
+      tokenCombinations,
+    },
+    {
+      enabled: isIntegratedSwapFeatureEnabled,
+    },
+  );
 
   // Find the best trade based on pairs
   const swapInfo: Omit<UseGetSwapInfoOutput, 'isLoading'> = useMemo(() => {
