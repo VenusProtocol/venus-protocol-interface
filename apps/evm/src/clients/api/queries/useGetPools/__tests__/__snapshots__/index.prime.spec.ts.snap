@@ -6,6 +6,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.014488270427066776",
           "borrowBalanceCents": "24658811197796.496609571926752457378092",
           "borrowBalanceTokens": "246628588661.936163058800477859",
@@ -97,6 +98,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "12.72621843315593399",
           "borrowBalanceCents": "3932482978.6261074880756703310736",
           "borrowBalanceTokens": "15136.746248595758022748",
@@ -179,6 +181,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "179.96505731769223966",
           "borrowBalanceCents": "68252307665.01095772876331025283189",
           "borrowBalanceTokens": "1032405.72373577234796371",
@@ -261,6 +264,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "16.800248594171254373",
           "borrowBalanceCents": "245760448.791209701256268250594487",
           "borrowBalanceTokens": "416884.364702270734855123",
@@ -314,6 +318,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.014488268288307401",
           "borrowBalanceCents": "743700332.490438933",
           "borrowBalanceTokens": "7437523.951581",
@@ -427,6 +432,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.01448842548712155",
           "borrowBalanceCents": "1562437042165332.551702968704",
           "borrowBalanceTokens": "15624370577897.031296",
@@ -551,6 +557,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.037255751760131518",
           "borrowBalanceCents": "10266.554690862",
           "borrowBalanceTokens": "102.672734",
@@ -622,6 +629,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.992487050504593481",
           "borrowBalanceCents": "1032095.671645362",
           "borrowBalanceTokens": "10321.679234",
@@ -678,6 +686,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.03685757665446184",
           "borrowBalanceCents": "0.000399972",
           "borrowBalanceTokens": "0.000004",
@@ -772,6 +781,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "397.358195317640926827",
           "borrowBalanceCents": "17653.028365638156166954748394",
           "borrowBalanceTokens": "0.267025220823379366",
@@ -828,6 +838,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "0.011616016420902095",
           "borrowBalanceCents": "399.972",
           "borrowBalanceTokens": "4",
@@ -884,6 +895,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "5.116012290184441153",
           "borrowBalanceCents": "1030091.4588649133175062",
           "borrowBalanceTokens": "10300.914588649133175062",
@@ -957,6 +969,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.023012476743554002",
           "borrowBalanceCents": "100457.790562383",
           "borrowBalanceTokens": "1004.648231",
@@ -1062,6 +1075,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.03685757665446184",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
@@ -1159,6 +1173,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.014488270427066776",
           "borrowBalanceCents": "24658811197796.496609571926752457378092",
           "borrowBalanceTokens": "246628588661.936163058800477859",
@@ -1272,6 +1287,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "12.72621843315593399",
           "borrowBalanceCents": "3932482978.6261074880756703310736",
           "borrowBalanceTokens": "15136.746248595758022748",
@@ -1354,6 +1370,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "179.96505731769223966",
           "borrowBalanceCents": "68252307665.01095772876331025283189",
           "borrowBalanceTokens": "1032405.72373577234796371",
@@ -1436,6 +1453,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "16.800248594171254373",
           "borrowBalanceCents": "245760448.791209701256268250594487",
           "borrowBalanceTokens": "416884.364702270734855123",
@@ -1489,6 +1507,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.014488268288307401",
           "borrowBalanceCents": "743700332.490438933",
           "borrowBalanceTokens": "7437523.951581",
@@ -1624,6 +1643,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.01448842548712155",
           "borrowBalanceCents": "1562437042165332.551702968704",
           "borrowBalanceTokens": "15624370577897.031296",
@@ -1770,6 +1790,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.037255751760131518",
           "borrowBalanceCents": "10266.554690862",
           "borrowBalanceTokens": "102.672734",
@@ -1841,6 +1862,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.992487050504593481",
           "borrowBalanceCents": "1032095.671645362",
           "borrowBalanceTokens": "10321.679234",
@@ -1897,6 +1919,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.03685757665446184",
           "borrowBalanceCents": "0.000399972",
           "borrowBalanceTokens": "0.000004",
@@ -2013,6 +2036,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "397.358195317640926827",
           "borrowBalanceCents": "17653.028365638156166954748394",
           "borrowBalanceTokens": "0.267025220823379366",
@@ -2069,6 +2093,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "0.011616016420902095",
           "borrowBalanceCents": "399.972",
           "borrowBalanceTokens": "4",
@@ -2125,6 +2150,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "5.116012290184441153",
           "borrowBalanceCents": "1030091.4588649133175062",
           "borrowBalanceTokens": "10300.914588649133175062",
@@ -2198,6 +2224,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.023012476743554002",
           "borrowBalanceCents": "100457.790562383",
           "borrowBalanceTokens": "1004.648231",
@@ -2325,6 +2352,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.03685757665446184",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",
@@ -2444,6 +2472,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.014488270427066776",
           "borrowBalanceCents": "24658811197796.496609571926752457378092",
           "borrowBalanceTokens": "246628588661.936163058800477859",
@@ -2525,6 +2554,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "12.72621843315593399",
           "borrowBalanceCents": "3932482978.6261074880756703310736",
           "borrowBalanceTokens": "15136.746248595758022748",
@@ -2607,6 +2637,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "179.96505731769223966",
           "borrowBalanceCents": "68252307665.01095772876331025283189",
           "borrowBalanceTokens": "1032405.72373577234796371",
@@ -2689,6 +2720,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "16.800248594171254373",
           "borrowBalanceCents": "245760448.791209701256268250594487",
           "borrowBalanceTokens": "416884.364702270734855123",
@@ -2742,6 +2774,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.014488268288307401",
           "borrowBalanceCents": "743700332.490438933",
           "borrowBalanceTokens": "7437523.951581",
@@ -2845,6 +2878,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.01448842548712155",
           "borrowBalanceCents": "1562437042165332.551702968704",
           "borrowBalanceTokens": "15624370577897.031296",
@@ -2959,6 +2993,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.037255751760131518",
           "borrowBalanceCents": "10266.554690862",
           "borrowBalanceTokens": "102.672734",
@@ -3030,6 +3065,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.992487050504593481",
           "borrowBalanceCents": "1032095.671645362",
           "borrowBalanceTokens": "10321.679234",
@@ -3086,6 +3122,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.03685757665446184",
           "borrowBalanceCents": "0.000399972",
           "borrowBalanceTokens": "0.000004",
@@ -3170,6 +3207,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "397.358195317640926827",
           "borrowBalanceCents": "17653.028365638156166954748394",
           "borrowBalanceTokens": "0.267025220823379366",
@@ -3226,6 +3264,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "0.011616016420902095",
           "borrowBalanceCents": "399.972",
           "borrowBalanceTokens": "4",
@@ -3282,6 +3321,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "5.116012290184441153",
           "borrowBalanceCents": "1030091.4588649133175062",
           "borrowBalanceTokens": "10300.914588649133175062",
@@ -3355,6 +3395,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           },
         },
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "2.023012476743554002",
           "borrowBalanceCents": "100457.790562383",
           "borrowBalanceTokens": "1004.648231",
@@ -3450,6 +3491,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
     {
       "assets": [
         {
+          "badDebtMantissa": 0n,
           "borrowApyPercentage": "3.03685757665446184",
           "borrowBalanceCents": "0",
           "borrowBalanceTokens": "0",

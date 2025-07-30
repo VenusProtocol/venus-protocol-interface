@@ -121,6 +121,7 @@ export interface Asset {
   reserveFactor: number;
   collateralFactor: number;
   liquidationThresholdPercentage: number;
+  badDebtMantissa: bigint;
   liquidityCents: BigNumber;
   reserveTokens: BigNumber;
   cashTokens: BigNumber;
