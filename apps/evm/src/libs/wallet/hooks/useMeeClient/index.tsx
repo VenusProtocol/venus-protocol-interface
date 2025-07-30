@@ -7,6 +7,7 @@ import { http, useWalletClient } from 'wagmi';
 
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import config from 'config';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
 import { chainMapping } from 'libs/wallet/chains';
@@ -44,10 +45,27 @@ export const useMeeClient = (input?: { chainId: ChainId }, options?: Partial<Opt
     name: 'importPositions',
   });
 
+  const { address: nexusContractAddress } = useGetContractAddress({
+    name: 'Nexus',
+  });
+
+  const { address: nexusAccountFactoryContractAddress } = useGetContractAddress({
+    name: 'NexusAccountFactory',
+  });
+
+  const { address: nexusBootstrapContractAddress } = useGetContractAddress({
+    name: 'NexusBoostrap',
+  });
+
   return useQuery({
     queryKey: ['mee-client', { chainId }],
     queryFn: async () => {
-      if (!walletClient) {
+      if (
+        !walletClient ||
+        !nexusContractAddress ||
+        !nexusAccountFactoryContractAddress ||
+        !nexusBootstrapContractAddress
+      ) {
         throw new VError({
           type: 'unexpected',
           code: 'somethingWentWrong',
@@ -61,6 +79,9 @@ export const useMeeClient = (input?: { chainId: ChainId }, options?: Partial<Opt
         chains: [chain],
         transports: [transport],
         signer: walletClient,
+        factoryAddress: nexusAccountFactoryContractAddress,
+        implementationAddress: nexusContractAddress,
+        bootStrapAddress: nexusBootstrapContractAddress,
       });
 
       const meeClient = await createMeeClient({
