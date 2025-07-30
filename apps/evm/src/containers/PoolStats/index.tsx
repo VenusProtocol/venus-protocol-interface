@@ -1,7 +1,5 @@
 import BigNumber from 'bignumber.js';
 import {
-  type GetTokenBalancesOutput,
-  type GetVTokenBalancesOutput,
   useGetTokenBalances,
   useGetVTokenBalances,
   useGetVenusVaiVaultDailyRate,
@@ -10,7 +8,7 @@ import { CellGroup, type CellGroupProps } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useGetVTreasuryContractAddress } from 'hooks/useGetVTreasuryContractAddress';
-import { useGetToken } from 'libs/tokens';
+import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 import {
@@ -18,9 +16,9 @@ import {
   convertMantissaToTokens,
   formatCentsToReadableValue,
   formatTokensToReadableValue,
-  indexBy,
 } from 'utilities';
-import { getAssetTreasuryBalanceCents } from './getAssetTreasuryBalanceCents';
+import type { Address } from 'viem';
+import { getTreasuryBalanceCents } from './getTreasuryBalanceCents';
 
 type PoolStat =
   | 'supply'
@@ -38,9 +36,7 @@ export interface PoolStatsProps extends Omit<CellGroupProps, 'cells'> {
 export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProps }) => {
   const { t } = useTranslation();
 
-  const assets = pools.flatMap(pool => pool.assets);
-  const vTokens = assets.map(asset => asset.vToken);
-  const tokens = vTokens.map(vToken => vToken.underlyingToken);
+  const tokens = useGetTokens();
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -49,6 +45,9 @@ export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProp
   const vai = useGetToken({
     symbol: 'VAI',
   });
+
+  const assets = pools.flatMap(pool => pool.assets);
+  const vTokens = assets.map(asset => asset.vToken);
 
   const vTreasuryContractAddress = useGetVTreasuryContractAddress();
 
@@ -61,6 +60,7 @@ export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProp
       enabled: stats.includes('treasury') && !!vTreasuryContractAddress && tokens.length > 0,
     },
   );
+  const treasuryTokenBalances = getTreasuryTokenBalancesData?.tokenBalances;
 
   const { data: getTreasuryVTokenBalancesData } = useGetVTokenBalances(
     {
@@ -71,33 +71,21 @@ export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProp
       enabled: stats.includes('treasury') && !!vTreasuryContractAddress && vTokens.length > 0,
     },
   );
+  const treasuryVTokenBalances = getTreasuryVTokenBalancesData?.vTokenBalances;
 
   const { data: vaiVaultDailyRateData } = useGetVenusVaiVaultDailyRate();
   const vaiVaultDailyRateMantissa = vaiVaultDailyRateData?.dailyRateMantissa;
-
-  // Index treasury balances by token address
-  const treasuryTokenBalances = indexBy(
-    (item: GetTokenBalancesOutput['tokenBalances'][number]) => item.token.address.toLowerCase(),
-    getTreasuryTokenBalancesData?.tokenBalances || [],
-  );
-
-  const treasuryVTokenBalances = indexBy(
-    (item: GetVTokenBalancesOutput['vTokenBalances'][number]) => item.vToken.address.toLowerCase(),
-    getTreasuryVTokenBalancesData?.vTokenBalances || [],
-  );
 
   const {
     totalSupplyCents,
     totalBorrowCents,
     availableLiquidityCents,
-    treasuryCents,
     dailyXvsDistributionTokens,
   } = assets.reduce<{
     totalSupplyCents: BigNumber | undefined;
     totalBorrowCents: BigNumber | undefined;
     availableLiquidityCents: BigNumber | undefined;
     dailyXvsDistributionTokens: BigNumber | undefined;
-    treasuryCents: BigNumber | undefined;
   }>(
     (acc, asset) => {
       let tempDailyXvsDistributionTokens = new BigNumber(0);
@@ -146,15 +134,6 @@ export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProp
             )
           : acc.availableLiquidityCents,
         dailyXvsDistributionTokens: tempDailyXvsDistributionTokens,
-        treasuryCents: stats.includes('treasury')
-          ? (acc.treasuryCents ?? new BigNumber(0)).plus(
-              getAssetTreasuryBalanceCents({
-                asset,
-                treasuryTokenBalances,
-                treasuryVTokenBalances,
-              }),
-            )
-          : undefined,
       };
     },
     {
@@ -162,7 +141,6 @@ export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProp
       totalBorrowCents: undefined,
       availableLiquidityCents: undefined,
       dailyXvsDistributionTokens: undefined,
-      treasuryCents: undefined,
     },
   );
 
@@ -194,7 +172,37 @@ export const PoolStats: React.FC<PoolStatsProps> = ({ pools, stats, ...otherProp
       };
     }
 
+    const tokenPriceMapping: {
+      [tokenAddress: Address]: BigNumber;
+    } = {};
+
+    const vTokenExchangeRateMapping: {
+      [vTokenAddress: Address]: BigNumber;
+    } = {};
+
+    if (vai) {
+      // Add price of VAI
+      tokenPriceMapping[vai.address.toLowerCase() as Address] = new BigNumber(100);
+    }
+
     if (stat === 'treasury') {
+      assets.forEach(asset => {
+        tokenPriceMapping[asset.vToken.underlyingToken.address.toLowerCase() as Address] =
+          asset.tokenPriceCents;
+        vTokenExchangeRateMapping[asset.vToken.address.toLowerCase() as Address] =
+          asset.exchangeRateVTokens;
+      });
+
+      const treasuryCents =
+        treasuryTokenBalances &&
+        treasuryVTokenBalances &&
+        getTreasuryBalanceCents({
+          treasuryTokenBalances,
+          treasuryVTokenBalances,
+          tokenPriceMapping,
+          vTokenExchangeRateMapping,
+        });
+
       return {
         label: t('poolsStats.cell.treasuryLabel'),
         value: formatCentsToReadableValue({
