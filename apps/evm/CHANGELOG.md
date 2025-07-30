@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 3.27.0
+
+### Minor Changes
+
+- 7641339: Read badDebt from the API
+
+### Patch Changes
+
+- 39f3c41: only fetch PancakeSwap pairs when integrated swap feature is enabled
+
 ## 3.26.0
 
 ### Minor Changes
