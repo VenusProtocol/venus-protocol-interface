@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.26.0
+
+### Minor Changes
+
+- 7400716: update Biconomy config to work with MetaMask smart accounts
+
 ## 3.25.0
 
 ### Minor Changes
