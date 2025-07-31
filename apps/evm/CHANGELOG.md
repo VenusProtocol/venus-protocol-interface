@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.27.2
+
+### Patch Changes
+
+- 7816ebf: use config to detect production environment
+
 ## 3.27.1
 
 ### Patch Changes
