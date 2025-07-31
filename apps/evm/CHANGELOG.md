@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.28.0
+
+### Minor Changes
+
+- 31a61c6: add performance chart to new Account page
+
 ## 3.27.2
 
 ### Patch Changes
