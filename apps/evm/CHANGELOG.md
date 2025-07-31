@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 3.27.1
+
+### Patch Changes
+
+- 878bd98: fix treasury balance
+- cdb7338: only fetch burned BNB when feature is enabled
+
 ## 3.27.0
 
 ### Minor Changes
