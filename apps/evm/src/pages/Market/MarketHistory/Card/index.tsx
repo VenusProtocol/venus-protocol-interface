@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
 import { Apy, ButtonGroup, Spinner } from 'components';
-import { ApyChart, type ApyChartProps } from 'components/charts/ApyChart';
 import { useTranslation } from 'libs/translations';
+import { ApyChart, type ApyChartProps } from 'pages/Market/MarketHistory/Card/ApyChart';
 import type { Asset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
 

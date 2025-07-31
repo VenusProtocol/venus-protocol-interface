@@ -10,7 +10,7 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { convertDollarsToCents } from 'utilities';
-import { PerformanceGraph } from './PerformanceGraph';
+import { PerformanceChart } from './PerformanceChart';
 import { Summary } from './Summary';
 import { type Tab, Tabs } from './Tabs';
 
@@ -96,7 +96,7 @@ export const NewPage: React.FC = () => {
   return (
     <Page indexWithSearchEngines={false}>
       <div className="space-y-4 mb-8 lg:flex lg:space-y-0 lg:gap-x-6">
-        <PerformanceGraph className="lg:basis-8/12" />
+        <PerformanceChart className="lg:basis-8/12" />
 
         <Summary
           className="lg:basis-4/12"
