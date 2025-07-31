@@ -1,6 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from 'clients/api';
-import { MAIN_PRODUCTION_HOST } from 'constants/production';
+import config from 'config';
 import { AnalyticProvider } from 'libs/analytics';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
@@ -19,14 +19,11 @@ const GaslessChecker = safeLazyLoad(() => import('containers/GaslessChecker'));
 const ResendPayingGasModal = safeLazyLoad(() => import('containers/ResendPayingGasModal'));
 const ImportPositionsModal = safeLazyLoad(() => import('containers/ImportPositionsModal'));
 
-const isMainProductionHost =
-  typeof window !== 'undefined' && MAIN_PRODUCTION_HOST === window.location.host;
-
 const App = () => (
   <>
     {
-      // Only index the main production website (https://app.venus.io) with search engines
-      !isMainProductionHost && (
+      // Only index production with search engines
+      config.environment !== 'production' && (
         <Helmet>
           <meta name="robots" content="noindex" />
         </Helmet>
