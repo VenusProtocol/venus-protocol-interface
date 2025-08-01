@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.29.0
+
+### Minor Changes
+
+- 42676aa: update core analytic events
+
 ## 3.28.0
 
 ### Minor Changes
