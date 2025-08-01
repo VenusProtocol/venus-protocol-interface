@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
 import { useGetVTokenBalance, useWithdraw } from 'clients/api';
@@ -27,8 +27,10 @@ import {
 } from 'constants/healthFactor';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useAnalytics } from 'libs/analytics';
 import { AssetInfo } from '../AssetInfo';
 import { OperationDetails } from '../OperationDetails';
+import { calculateAmountDollars } from '../calculateAmountDollars';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
@@ -66,6 +68,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 }) => {
   const { t } = useTranslation();
   const { nativeToken } = useGetChainMetadata();
+  const { captureAnalyticEvent } = useAnalytics();
 
   const canUnwrapToNativeToken = useMemo(
     () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
@@ -168,6 +171,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
+    poolName: pool.name,
     limitTokens,
     hypotheticalHealthFactor,
     onSubmitSuccess,
@@ -176,13 +180,41 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     setFormValues,
   });
 
-  const handleSafeMaxButtonClick = useCallback(() => {
+  const captureAmountSetAnalyticEvent = ({
+    amountTokens,
+    maxSelected,
+  }: { amountTokens: BigNumber | string; maxSelected: boolean; selectedPercentage?: number }) => {
+    if (Number(amountTokens.toString()) > 0) {
+      captureAnalyticEvent(
+        'withdraw_amount_set',
+        {
+          poolName: pool.name,
+          assetSymbol: asset.vToken.underlyingToken.symbol,
+          usdAmount: calculateAmountDollars({
+            amountTokens,
+            tokenPriceCents: asset.tokenPriceCents,
+          }),
+          maxSelected,
+        },
+        {
+          debounced: true,
+        },
+      );
+    }
+  };
+
+  const handleSafeMaxButtonClick = () => {
+    captureAmountSetAnalyticEvent({
+      amountTokens: safeLimitTokens,
+      maxSelected: true,
+    });
+
     // Update field value to correspond to user's wallet balance
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       amountTokens: safeLimitTokens.toFixed(),
     }));
-  }, [safeLimitTokens, setFormValues]);
+  };
 
   const readableWithdrawableAmountTokens = useFormatTokensToReadableValue({
     value: limitTokens,
@@ -198,7 +230,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   );
 
   if (!asset) {
-    return <></>;
+    return undefined;
   }
 
   return (
@@ -209,12 +241,17 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           name="amountTokens"
           token={asset.vToken.underlyingToken}
           value={formValues.amountTokens}
-          onChange={amountTokens =>
+          onChange={amountTokens => {
+            captureAmountSetAnalyticEvent({
+              amountTokens,
+              maxSelected: false,
+            });
+
             setFormValues(currentFormValues => ({
               ...currentFormValues,
               amountTokens,
-            }))
-          }
+            }));
+          }}
           disabled={!isUserConnected || isSubmitting}
           rightMaxButton={{
             label: t('operationForm.safeMaxButtonLabel'),

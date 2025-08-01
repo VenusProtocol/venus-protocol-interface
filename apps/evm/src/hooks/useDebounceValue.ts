@@ -1,19 +1,21 @@
-import { useEffect, useState } from 'react';
-
-export const DEFAULT_DEBOUNCE_DELAY = 300;
+import { useEffect, useMemo, useState } from 'react';
+import { DEFAULT_DEBOUNCE_DELAY, debounce } from 'utilities';
 
 export default function useDebounceValue<T>(value: T, delay = DEFAULT_DEBOUNCE_DELAY) {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
-  useEffect(() => {
-    const handler: NodeJS.Timeout = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+  const debouncedSetter = useMemo(
+    () =>
+      debounce({
+        fn: setDebouncedValue,
+        delay,
+      }),
+    [delay],
+  );
 
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
+  useEffect(() => {
+    debouncedSetter(value);
+  }, [value, debouncedSetter]);
 
   return debouncedValue;
 }

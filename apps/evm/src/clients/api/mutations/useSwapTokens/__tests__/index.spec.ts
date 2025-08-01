@@ -12,7 +12,6 @@ import fakeAccountAddress, {
 import { bnb, usdt, xvs } from '__mocks__/models/tokens';
 import { getContractAddress } from 'libs/contracts';
 
-vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 vi.mock('utilities/generateTransactionDeadline');
 

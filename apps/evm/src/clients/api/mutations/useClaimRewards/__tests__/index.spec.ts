@@ -9,7 +9,6 @@ import { encodeFunctionData } from 'viem';
 import type { Mock } from 'vitest';
 import { useClaimRewards } from '..';
 
-vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 
 vi.mock('viem', () => ({

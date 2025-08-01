@@ -1,8 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-import { handleError } from 'libs/errors';
+import { handleError, isUserRejectedTxError } from 'libs/errors';
 import type { Asset, Swap, SwapError, Token } from 'types';
 
+import { useAnalytics } from 'libs/analytics';
+import { calculateAmountDollars } from '../../calculateAmountDollars';
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
@@ -11,6 +13,7 @@ export * from './types';
 
 export interface UseFormInput {
   asset: Asset;
+  poolName: string;
   onSubmit: (input: {
     fromToken: Token;
     fromTokenAmountTokens: string;
@@ -18,9 +21,9 @@ export interface UseFormInput {
   }) => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
+  isUsingSwap: boolean;
   onSubmitSuccess?: () => void;
   isFromTokenApproved?: boolean;
-  isUsingSwap: boolean;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   fromTokenUserWalletBalanceTokens?: BigNumber;
   swap?: Swap;
@@ -35,6 +38,7 @@ interface UseFormOutput {
 
 const useForm = ({
   asset,
+  poolName,
   fromTokenUserWalletBalanceTokens = new BigNumber(0),
   fromTokenWalletSpendingLimitTokens,
   isFromTokenApproved,
@@ -57,6 +61,8 @@ const useForm = ({
     fromTokenUserWalletBalanceTokens,
   });
 
+  const { captureAnalyticEvent } = useAnalytics();
+
   const handleSubmit = async (e?: React.SyntheticEvent) => {
     e?.preventDefault();
 
@@ -64,12 +70,25 @@ const useForm = ({
       return;
     }
 
+    const analyticData = {
+      poolName,
+      assetSymbol: asset.vToken.underlyingToken.symbol,
+      usdAmount: calculateAmountDollars({
+        amountTokens: formValues.amountTokens,
+        tokenPriceCents: asset.tokenPriceCents,
+      }),
+    };
+
     try {
+      captureAnalyticEvent('supply_initiated', analyticData);
+
       await onSubmit({
         fromTokenAmountTokens: formValues.amountTokens,
         fromToken: formValues.fromToken,
         swap,
       });
+
+      captureAnalyticEvent('supply_signed', analyticData);
 
       // Reset form and close modal after successfully sending transaction
       setFormValues(() => ({
@@ -78,6 +97,10 @@ const useForm = ({
       }));
       onSubmitSuccess?.();
     } catch (error) {
+      if (isUserRejectedTxError({ error })) {
+        captureAnalyticEvent('supply_rejected', analyticData);
+      }
+
       handleError({ error });
     }
   };

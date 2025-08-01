@@ -9,7 +9,7 @@ import {
 } from 'hooks/useGetProfitableImports';
 import { useNavigate } from 'hooks/useNavigate';
 import { useAnalytics } from 'libs/analytics';
-import { handleError } from 'libs/errors';
+import { handleError, isUserRejectedTxError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import {
   calculateYearlyInterests,
@@ -59,7 +59,7 @@ export const Position: React.FC<PropositionProps> = ({
     useImportSupplyPosition({
       waitForConfirmation: true,
       onError: error => {
-        if (error.message.toLowerCase().startsWith('user rejected')) {
+        if (isUserRejectedTxError({ error })) {
           captureAnalyticEvent('Position import canceled', analyticProps);
         } else {
           captureAnalyticEvent('Position import status unknown', analyticProps);

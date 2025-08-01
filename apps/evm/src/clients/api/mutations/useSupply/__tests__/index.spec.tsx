@@ -12,7 +12,6 @@ import fakeAccountAddress, {
 import { vBnb, vXvs } from '__mocks__/models/vTokens';
 import { getContractAddress } from 'libs/contracts';
 
-vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 
 const fakeAmountMantissa = new BigNumber('10000000000000000');

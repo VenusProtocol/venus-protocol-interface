@@ -10,7 +10,6 @@ import type { Address } from 'viem';
 import type { Mock } from 'vitest';
 import { useRequestWithdrawalFromXvsVault } from '..';
 
-vi.mock('libs/analytics');
 vi.mock('libs/contracts');
 
 const fakeInput = {
