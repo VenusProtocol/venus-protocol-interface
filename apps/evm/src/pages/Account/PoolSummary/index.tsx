@@ -1,5 +1,5 @@
 import type BigNumber from 'bignumber.js';
-import { AccountHealthBar, Card, CellGroup } from 'components';
+import { Card, CellGroup, cn } from 'components';
 import type { Pool, Vault } from 'types';
 
 import Section from '../Section';
@@ -28,26 +28,33 @@ export const PoolSummary: React.FC<PoolSummaryProps> = ({
   vaiPriceCents,
   className,
 }) => {
-  const { totalBorrowCents, borrowLimitCents, cells } = useExtractData({
+  const { cells } = useExtractData({
     pools,
     vaults,
     xvsPriceCents,
     vaiPriceCents,
     includeHealthFactor: displayHealthFactor,
+    includeAccountHealth: displayAccountHealth,
   });
 
   return (
     <Section className={className} title={title}>
-      <Card className="bg-transparent p-0 space-y-2 sm:p-0 xl:space-y-0 xl:bg-cards xl:flex xl:justify-between">
-        <CellGroup small={variant === 'secondary'} cells={cells} className="p-0" />
+      <CellGroup
+        small={variant === 'secondary'}
+        cells={cells}
+        className={cn(displayAccountHealth && 'xl:hidden')}
+      />
 
-        {displayAccountHealth && (
-          <AccountHealthBar
-            className="bg-cards block w-full rounded-xl p-4 sm:p-4 xl:w-auto xl:p-6 xl:flex-1 xl:max-w-100"
-            borrowBalanceCents={totalBorrowCents.toNumber()}
-            borrowLimitCents={borrowLimitCents.toNumber()}
-          />
-        )}
+      {/* XL view when displaying account health */}
+      <Card className={cn('hidden justify-between', displayAccountHealth && 'xl:flex')}>
+        <CellGroup
+          small={variant === 'secondary'}
+          cells={cells.slice(0, cells.length - 1)}
+          className="w-full xl:p-0"
+        />
+
+        {/* Account health */}
+        <div className="shrink-0">{cells[cells.length - 1].value}</div>
       </Card>
     </Section>
   );

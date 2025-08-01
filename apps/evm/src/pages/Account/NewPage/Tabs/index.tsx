@@ -35,7 +35,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
   }, [activeTabId, setActiveTabId, tabs]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 lg:space-y-8">
       <div className="relative">
         <div className="h-[1px] bg-lightGrey absolute bottom-0 left-0 right-0 -z-[1]" />
 
