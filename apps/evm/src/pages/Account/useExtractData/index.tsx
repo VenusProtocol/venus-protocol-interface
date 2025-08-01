@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import type { CellProps } from 'components';
+import { AccountHealthBar, type CellProps } from 'components';
 import { useHealthFactor } from 'hooks/useHealthFactor';
 import { useTranslation } from 'libs/translations';
 import type { Pool, Vault } from 'types';
@@ -22,6 +22,7 @@ interface UseExtractDataInput {
   vaiPriceCents?: BigNumber;
   vaults?: Vault[];
   includeHealthFactor?: boolean;
+  includeAccountHealth?: boolean;
 }
 
 export const useExtractData = ({
@@ -30,15 +31,16 @@ export const useExtractData = ({
   xvsPriceCents = new BigNumber(0),
   vaiPriceCents = new BigNumber(0),
   includeHealthFactor = false,
+  includeAccountHealth = false,
 }: UseExtractDataInput) => {
   const { t } = useTranslation();
 
-  const { totalBorrowCents, totalSupplyCents, borrowLimitCents, liquidationThresholdCents } =
+  const { totalBorrowCents, totalSupplyCents, totalBorrowLimitCents, liquidationThresholdCents } =
     pools.reduce(
       (acc, pool) => ({
         totalBorrowCents: acc.totalBorrowCents.plus(pool.userBorrowBalanceCents || 0),
         totalSupplyCents: acc.totalSupplyCents.plus(pool.userSupplyBalanceCents || 0),
-        borrowLimitCents: acc.borrowLimitCents.plus(pool.userBorrowLimitCents || 0),
+        totalBorrowLimitCents: acc.totalBorrowLimitCents.plus(pool.userBorrowLimitCents || 0),
         liquidationThresholdCents: acc.liquidationThresholdCents.plus(
           pool.userLiquidationThresholdCents || 0,
         ),
@@ -46,7 +48,7 @@ export const useExtractData = ({
       {
         totalSupplyCents: new BigNumber(0),
         totalBorrowCents: new BigNumber(0),
-        borrowLimitCents: new BigNumber(0),
+        totalBorrowLimitCents: new BigNumber(0),
         liquidationThresholdCents: new BigNumber(0),
       },
     );
@@ -138,10 +140,18 @@ export const useExtractData = ({
     });
   }
 
+  if (includeAccountHealth) {
+    cells.push({
+      value: (
+        <AccountHealthBar
+          borrowBalanceCents={totalBorrowCents.toNumber()}
+          borrowLimitCents={totalBorrowLimitCents.toNumber()}
+        />
+      ),
+    });
+  }
+
   return {
-    totalVaultStakeCents,
-    totalBorrowCents,
-    borrowLimitCents,
     cells,
   };
 };

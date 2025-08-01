@@ -11,6 +11,7 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { convertDollarsToCents } from 'utilities';
 import { PerformanceChart } from './PerformanceChart';
+import { Pools } from './Pools';
 import { Summary } from './Summary';
 import { type Tab, Tabs } from './Tabs';
 import { Vaults } from './Vaults';
@@ -65,25 +66,11 @@ export const NewPage: React.FC = () => {
     isGetVaiUsdPriceLoading ||
     isGetUserVaiBorrowBalanceLoading;
 
-  // Filter out vaults user has not staked in
-  const filteredVaults = vaults.filter(vault => vault.userStakedMantissa?.isGreaterThan(0));
-
-  // Filter out pools user has not supplied in or borrowed from, unless they have assets enabled as
-  // collateral in that pool
-  const filteredPools = pools.filter(pool =>
-    pool.assets.some(
-      asset =>
-        asset.userSupplyBalanceTokens.isGreaterThan(0) ||
-        asset.userBorrowBalanceTokens.isGreaterThan(0) ||
-        asset.isCollateralOfUser,
-    ),
-  );
-
   const tabs: Tab[] = [
     {
       title: t('account.tabs.pools'),
       id: 'pools',
-      content: <>Pool positions will go here</>,
+      content: <Pools pools={pools} />,
     },
     {
       title: t('account.tabs.vaults'),
@@ -103,8 +90,8 @@ export const NewPage: React.FC = () => {
 
         <Summary
           className="lg:basis-4/12"
-          pools={filteredPools}
-          vaults={filteredVaults}
+          pools={pools}
+          vaults={vaults}
           xvsPriceCents={xvsPriceCents}
           vaiPriceCents={vaiPriceCents}
           userVaiBorrowBalanceMantissa={userVaiBorrowBalanceMantissa}

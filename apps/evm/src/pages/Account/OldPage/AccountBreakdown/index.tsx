@@ -10,8 +10,9 @@ import { useConvertDollarsToCents } from 'hooks/useConvertDollarsToCents';
 import { useTranslation } from 'libs/translations';
 import { Settings } from 'pages/Account/Settings';
 import AccountPlaceholder from '../../AccountPlaceholder';
+import { PoolPositions } from '../../PoolPositions';
 import { PoolSummary } from '../../PoolSummary';
-import PoolsBreakdown from '../../PoolsBreakdown';
+import { Section } from '../../Section';
 import VaultsBreakdown from '../../VaultsBreakdown';
 
 const Account: React.FC = () => {
@@ -95,7 +96,11 @@ const Account: React.FC = () => {
 
       {filteredVaults.length > 0 && <VaultsBreakdown vaults={filteredVaults} />}
 
-      {filteredPools.length > 0 && <PoolsBreakdown pools={filteredPools} />}
+      {filteredPools.length > 0 && (
+        <Section title={t('account.poolsBreakdown.title')}>
+          <PoolPositions pools={filteredPools} />
+        </Section>
+      )}
     </div>
   );
 };
