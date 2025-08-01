@@ -8,4 +8,10 @@ describe('Vaults', () => {
 
     expect(container.textContent).toMatchSnapshot();
   });
+
+  it('displays placeholder when there are no vaults to display', async () => {
+    const { container } = renderComponent(<Vaults vaults={[]} />);
+
+    expect(container.textContent).toMatchSnapshot();
+  });
 });
