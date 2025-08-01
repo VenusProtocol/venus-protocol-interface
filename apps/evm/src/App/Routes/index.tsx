@@ -21,7 +21,7 @@ const Pools = safeLazyLoad(() => import('pages/Pools'));
 const Proposal = safeLazyLoad(() => import('pages/Proposal'));
 const Swap = safeLazyLoad(() => import('pages/Swap'));
 const Vai = safeLazyLoad(() => import('pages/Vai'));
-const Vaults = safeLazyLoad(() => import('pages/Vault'));
+const Vaults = safeLazyLoad(() => import('pages/Vaults'));
 const Voter = safeLazyLoad(() => import('pages/Voter'));
 const VoterLeaderboard = safeLazyLoad(() => import('pages/VoterLeaderboard'));
 const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
