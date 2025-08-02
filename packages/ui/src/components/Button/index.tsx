@@ -61,6 +61,7 @@ export interface ButtonWrapperProps
   > {
   asChild?: boolean;
   active?: boolean;
+  small?: boolean;
   variant?: ButtonVariant;
   children?: React.ReactNode;
 }
@@ -69,6 +70,7 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   asChild,
   variant = 'primary',
   active = false,
+  small = false,
   className,
   type = 'button',
   ...otherProps
@@ -78,7 +80,8 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   return (
     <Comp
       className={cn(
-        'disabled:text-grey inline-flex h-12 cursor-pointer items-center justify-center rounded-lg border border-transparent px-6 py-2 font-semibold transition-all duration-[250ms] disabled:cursor-default',
+        'disabled:text-grey inline-flex cursor-pointer items-center justify-center rounded-lg border border-transparent font-semibold transition-all duration-[250ms] disabled:cursor-default',
+        small ? 'h-8 px-5 py-1 text-sm' : 'h-12 px-6 py-2',
         getVariantClasses({ variant, active }),
         className,
       )}

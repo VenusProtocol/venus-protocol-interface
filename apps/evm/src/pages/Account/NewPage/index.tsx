@@ -13,6 +13,7 @@ import { convertDollarsToCents } from 'utilities';
 import { PerformanceChart } from './PerformanceChart';
 import { Summary } from './Summary';
 import { type Tab, Tabs } from './Tabs';
+import { Vaults } from './Vaults';
 
 export const NewPage: React.FC = () => {
   const { t } = useTranslation();
@@ -81,11 +82,13 @@ export const NewPage: React.FC = () => {
   const tabs: Tab[] = [
     {
       title: t('account.tabs.pools'),
+      id: 'pools',
       content: <>Pool positions will go here</>,
     },
     {
       title: t('account.tabs.vaults'),
-      content: <>Vault positions will go here</>,
+      id: 'vaults',
+      content: <Vaults vaults={vaults} />,
     },
   ];
 
