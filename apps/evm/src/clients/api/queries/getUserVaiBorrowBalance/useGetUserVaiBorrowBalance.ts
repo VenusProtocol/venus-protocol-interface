@@ -58,5 +58,6 @@ export const useGetUserVaiBorrowBalance = (
         }),
       ),
     ...options,
+    enabled: !!vaiControllerContractAddress && (options?.enabled === undefined || options?.enabled),
   });
 };
