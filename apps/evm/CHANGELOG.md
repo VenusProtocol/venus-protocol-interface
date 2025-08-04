@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.30.0
+
+### Minor Changes
+
+- cf170d0: add vaults to new Account page
+
 ## 3.29.0
 
 ### Minor Changes
