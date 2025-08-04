@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Vaults > displays content correctly 1`] = `"You are staking233XVS Stake APR12.92%Daily Emission144XVS Stake APR12.92%Daily Emission144"`;

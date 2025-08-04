@@ -23,6 +23,9 @@
         "thirtyDays": "30D"
       }
     },
+    "placeholder": {
+      "buttonLabel": "Browse"
+    },
     "poolsBreakdown": {
       "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}",
       "title": "Pools"
@@ -51,6 +54,12 @@
     "tabs": {
       "pools": "Pools",
       "vaults": "Vaults"
+    },
+    "vaults": {
+      "placeholder": {
+        "description": "Your vault positions will appear here",
+        "title": "No staking positions yet"
+      }
     },
     "vaultsBreakdown": {
       "table": {
@@ -1098,21 +1107,19 @@
     }
   },
   "vault": {
-    "transactionForm": {
-      "lockingPeriod": {
-        "duration": "{{date, distanceToNow}}",
-        "label": "Locking period"
-      },
-      "rightMaxButtonLabel": "MAX"
-    }
-  },
-  "vaultItem": {
     "blockingPendingWithdrawalsWarning": "You must complete pending withdrawals to interact with this vault.",
     "dailyEmission": "Daily Emission",
     "pausedWarning": "This vault is currently paused. Interest rates are still accruing but claiming, staking, and withdrawing are disabled until the vault is unpaused",
     "stakeButton": "Stake",
     "stakingApr": "{{stakeTokenName}} Stake APR",
     "totalStaked": "Total Staked",
+    "transactionForm": {
+      "lockingPeriod": {
+        "duration": "{{date, distanceToNow}}",
+        "label": "Locking period"
+      },
+      "rightMaxButtonLabel": "MAX"
+    },
     "withdrawButton": "Withdraw",
     "youAreStake": "You are staking"
   },
