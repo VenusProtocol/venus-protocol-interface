@@ -1,0 +1,14 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useGetUserPrimeInfo > returns data in the correct format 1`] = `
+{
+  "claimWaitingPeriodSeconds": 600,
+  "claimedPrimeTokenCount": 0,
+  "isUserPrime": false,
+  "minXvsToStakeForPrimeTokens": "10",
+  "primeTokenLimit": 1000,
+  "userClaimTimeRemainingSeconds": 600,
+  "userHighestPrimeSimulationApyBoostPercentage": "1.753105649796123742",
+  "userStakedXvsTokens": "90",
+}
+`;

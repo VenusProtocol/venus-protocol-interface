@@ -25,6 +25,7 @@ interface Options {
   routerInitialEntries?: string[];
   routePath?: string;
   queryClient?: QueryClient;
+  otherRoutes?: React.ReactNode;
 }
 
 interface WrapperProps {
@@ -58,6 +59,8 @@ const Wrapper: React.FC<WrapperProps> = ({ children, options }) => {
           <MemoryRouter initialEntries={options?.routerInitialEntries || ['/']}>
             <Routes>
               <Route path={options?.routePath || '/'} element={children} />
+
+              {options?.otherRoutes}
             </Routes>
           </MemoryRouter>
         </Web3Wrapper>

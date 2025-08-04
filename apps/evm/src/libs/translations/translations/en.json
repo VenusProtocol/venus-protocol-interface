@@ -36,6 +36,18 @@
       "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}",
       "title": "Pools"
     },
+    "primeBanner": {
+      "button": {
+        "becomePrime": "Claim Prime token",
+        "stakeXvs": "Stake XVS"
+      },
+      "glowAltText": "Glow",
+      "primeLogoAltText": "Prime logo",
+      "text": {
+        "apyBoost": "Boost your earnings by up to <GreenText>{{boost}}</GreenText> with Prime",
+        "becomePrime": "You can now become a Prime user"
+      }
+    },
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "Enable gasless transactions on {{chainName}}"
