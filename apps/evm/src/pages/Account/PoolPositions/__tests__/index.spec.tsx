@@ -1,22 +1,22 @@
 import { poolData } from '__mocks__/models/pools';
 import { renderComponent } from 'testUtils/render';
 
-import PoolsBreakdown, { type PoolsBreakdownProps } from '.';
-import TEST_IDS from './testIds';
+import { PoolPositions, type PoolPositionsProps } from '..';
+import TEST_IDS from '../testIds';
 
-const baseProps: PoolsBreakdownProps = {
+const baseProps: PoolPositionsProps = {
   pools: poolData,
 };
 
-describe('PoolsBreakdown', () => {
+describe('Pools', () => {
   it('renders without crashing', () => {
-    renderComponent(<PoolsBreakdown {...baseProps} />);
+    renderComponent(<PoolPositions {...baseProps} />);
   });
 
   it('displays content correctly', () => {
     const legacyPool = baseProps.pools[0];
     const { getByTestId, getByText } = renderComponent(
-      <PoolsBreakdown {...baseProps} pools={[legacyPool]} />,
+      <PoolPositions {...baseProps} pools={[legacyPool]} />,
     );
 
     expect(getByText(legacyPool.name)).toBeTruthy();

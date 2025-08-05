@@ -2,23 +2,20 @@
 import { useMemo, useState } from 'react';
 
 import { type Tag, TagGroup } from 'components';
-import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 
 import { PoolSummary } from '../PoolSummary';
-import Section from '../Section';
 import { PoolTagContent } from './PoolTagContent';
 import Tables from './Tables';
 import { useStyles } from './styles';
 
-export interface PoolsBreakdownProps {
+export interface PoolPositionsProps {
   pools: Pool[];
   className?: string;
 }
 
-export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className }) => {
+export const PoolPositions: React.FC<PoolPositionsProps> = ({ pools, className }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
   const [selectedPoolIndex, setSelectedPoolIndex] = useState<number>(0);
   const selectedPool = pools[selectedPoolIndex];
 
@@ -34,7 +31,7 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
   const hasBorrowBalance = selectedPool?.userBorrowBalanceCents?.isGreaterThan(0);
 
   return (
-    <Section className={className} title={t('account.poolsBreakdown.title')}>
+    <div className={className}>
       {pools.length > 0 && (
         <TagGroup
           css={styles.tags}
@@ -53,8 +50,6 @@ export const PoolsBreakdown: React.FC<PoolsBreakdownProps> = ({ pools, className
       />
 
       <Tables pool={selectedPool} />
-    </Section>
+    </div>
   );
 };
-
-export default PoolsBreakdown;

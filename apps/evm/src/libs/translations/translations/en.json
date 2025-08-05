@@ -26,6 +26,12 @@
     "placeholder": {
       "buttonLabel": "Browse"
     },
+    "pools": {
+      "placeholder": {
+        "description": "Your pool positions will appear here",
+        "title": "No supply or borrow positions yet"
+      }
+    },
     "poolsBreakdown": {
       "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}",
       "title": "Pools"
