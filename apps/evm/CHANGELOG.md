@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 3.31.0
+
+### Minor Changes
+
+- aa3de8b: remove walletAddress from analytic events
+- 5ad1eb3: add pools to new Account page
+
+### Patch Changes
+
+- 18922e5: only fetch VAI borrow balance if VAI vault exists
+- Updated dependencies [5ad1eb3]
+  - @venusprotocol/ui@0.4.0
+
 ## 3.30.0
 
 ### Minor Changes

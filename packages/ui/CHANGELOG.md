@@ -1,5 +1,11 @@
 # @venusprotocol/ui
 
+## 0.4.0
+
+### Minor Changes
+
+- 5ad1eb3: add pools to new Account page
+
 ## 0.3.0
 
 ### Minor Changes
