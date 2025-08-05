@@ -1,6 +1,6 @@
 import config from 'config';
 import { logError } from 'libs/errors';
-import { useAccountAddress, useChainId } from 'libs/wallet';
+import { useChainId } from 'libs/wallet';
 import { usePostHog } from 'posthog-js/react';
 import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router';
@@ -18,7 +18,6 @@ export const useAnalytics = () => {
   const posthog = usePostHog();
   const { chainId } = useChainId();
   const { connector } = useAccount();
-  const { accountAddress } = useAccountAddress();
   const { pathname } = useLocation();
 
   const captureEvent = useCallback(
@@ -28,9 +27,6 @@ export const useAnalytics = () => {
     ) => {
       const commonProperties = {
         chainId,
-        // We already identify users by their wallet address, but it doesn't seem to show in PostHog
-        // so we also record the wallet address when sending an event
-        walletAddress: accountAddress,
         walletProvider: connector?.name,
         origin: config.isSafeApp ? 'Safe App' : 'Venus App',
         page: pathname,
@@ -56,7 +52,7 @@ export const useAnalytics = () => {
         ...eventProps,
       });
     },
-    [chainId, pathname, accountAddress, connector?.name, posthog],
+    [chainId, pathname, connector?.name, posthog],
   );
 
   const debouncedCaptureEvent = useMemo(
