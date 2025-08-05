@@ -71,14 +71,14 @@ export const useClaimRewards = (options?: Partial<Options>) => {
             comptrollerAddress: claim.comptrollerContractAddress,
           });
         } else if (claim.contract === 'vaiVault') {
-          captureAnalyticEvent('VAI vault reward claimed', undefined);
+          captureAnalyticEvent('VAI vault reward claimed', {});
         } else if (claim.contract === 'xvsVestingVault') {
           captureAnalyticEvent('XVS vesting vault reward claimed', {
             poolIndex: claim.poolIndex,
             rewardTokenSymbol: claim.rewardToken.symbol,
           });
         } else if (claim.contract === 'prime') {
-          captureAnalyticEvent('Prime reward claimed', undefined);
+          captureAnalyticEvent('Prime reward claimed', {});
         }
       });
 

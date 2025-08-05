@@ -12,7 +12,7 @@ const Modal: React.FC = () => {
   const [_, setUserChainSettings] = useUserChainSettings();
 
   useEffect(() => {
-    captureAnalyticEvent('Import positions modal displayed', undefined);
+    captureAnalyticEvent('Import positions modal displayed', {});
   }, [captureAnalyticEvent]);
 
   const handleClose = () => {
@@ -20,7 +20,7 @@ const Modal: React.FC = () => {
       doNotShowImportPositionsModal: true,
     });
 
-    captureAnalyticEvent('Import positions modal closed', undefined);
+    captureAnalyticEvent('Import positions modal closed', {});
   };
 
   return (

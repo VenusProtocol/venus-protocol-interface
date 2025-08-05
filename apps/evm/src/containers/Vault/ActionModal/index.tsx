@@ -11,6 +11,7 @@ export interface ActionModalProps extends Pick<ModalProps, 'handleClose'>, Trans
   connectWalletMessage: string;
   spenderAddress?: Address;
   tokenNeedsToBeApproved?: boolean;
+  analyticVariant?: string;
 }
 
 const ActionModal: React.FC<ActionModalProps> = ({
@@ -21,13 +22,14 @@ const ActionModal: React.FC<ActionModalProps> = ({
   title,
   connectWalletMessage,
   tokenNeedsToBeApproved = false,
+  analyticVariant,
   ...otherTransactionFormProps
 }) => (
   <Modal isOpen title={title} handleClose={handleClose}>
     {isInitialLoading ? (
       <Spinner />
     ) : (
-      <ConnectWallet message={connectWalletMessage}>
+      <ConnectWallet message={connectWalletMessage} analyticVariant={analyticVariant}>
         <TransactionForm
           token={token}
           spenderAddress={spenderAddress}

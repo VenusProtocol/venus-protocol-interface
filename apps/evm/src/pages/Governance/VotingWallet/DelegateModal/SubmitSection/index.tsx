@@ -27,7 +27,7 @@ export const SubmitSection = ({
 
   if (isValid) {
     dom = (
-      <ConnectWallet>
+      <ConnectWallet analyticVariant="vote_delegate_modal">
         <SwitchChain chainId={governanceChain.id}>{dom}</SwitchChain>
       </ConnectWallet>
     );

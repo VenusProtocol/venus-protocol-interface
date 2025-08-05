@@ -1,7 +1,21 @@
-import type { ImportableProtocol } from 'types';
+import type { ChainId, ImportableProtocol } from 'types';
 import type { Address } from 'viem';
 
-type AmountTx = {
+// These props are automatically set with every event, but we allow individual events to override
+// them
+type CommonProps = {
+  chainId?: ChainId;
+  walletAddress?: Address;
+  walletProvider?: string;
+  origin?: string;
+  page?: string;
+};
+
+type AnalyticEvent = CommonProps & {
+  variant?: string;
+};
+
+type AmountTx = AnalyticEvent & {
   poolName: string;
   assetSymbol: string;
   usdAmount: number;
@@ -15,7 +29,7 @@ type RepayAmountSet = AmountSet & {
   selectedPercentage?: number;
 };
 
-type SwapAndSupply = {
+type SwapAndSupply = AnalyticEvent & {
   poolName: string;
   fromTokenSymbol: string;
   fromTokenAmountTokens: number;
@@ -26,39 +40,39 @@ type SwapAndSupply = {
   exchangeRate: number;
 };
 
-type CollateralChange = {
+type CollateralChange = AnalyticEvent & {
   poolName: string;
   tokenSymbol: string;
   userSupplyBalanceTokens: number;
 };
 
-type Supply = {
+type Supply = AnalyticEvent & {
   poolName: string;
   tokenSymbol: string;
   tokenAmountTokens: number;
 };
 
-type Withdraw = {
+type Withdraw = AnalyticEvent & {
   poolName: string;
   tokenSymbol: string;
   tokenAmountTokens: number;
   withdrewFullSupply: boolean;
 };
 
-type Borrow = {
+type Borrow = AnalyticEvent & {
   poolName: string;
   tokenSymbol: string;
   tokenAmountTokens: number;
 };
 
-type Repay = {
+type Repay = AnalyticEvent & {
   poolName: string;
   tokenSymbol: string;
   tokenAmountTokens: number;
   repaidFullLoan: boolean;
 };
 
-type SwapAndRepay = {
+type SwapAndRepay = AnalyticEvent & {
   poolName: string;
   fromTokenSymbol: string;
   fromTokenAmountTokens: number;
@@ -70,7 +84,7 @@ type SwapAndRepay = {
   repaidFullLoan: boolean;
 };
 
-type Swap = {
+type Swap = AnalyticEvent & {
   fromTokenSymbol: string;
   fromTokenAmountTokens: number;
   toTokenSymbol: string;
@@ -80,31 +94,31 @@ type Swap = {
   exchangeRate: number;
 };
 
-type XvsVaultTx = {
+type XvsVaultTx = AnalyticEvent & {
   poolIndex: number;
   rewardTokenSymbol: string;
   tokenAmountTokens: number;
 };
 
-type XvsVaultClaim = {
+type XvsVaultClaim = AnalyticEvent & {
   poolIndex: number;
   rewardTokenSymbol: string;
 };
 
-type VaiVaultTx = {
+type VaiVaultTx = AnalyticEvent & {
   tokenAmountTokens: number;
 };
 
-type RewardClaim = {
+type RewardClaim = AnalyticEvent & {
   comptrollerAddress: string;
 };
 
-type Vote = {
+type Vote = AnalyticEvent & {
   proposalId: number;
   voteType: string;
 };
 
-type PositionImport = {
+type PositionImport = AnalyticEvent & {
   fromProtocol: ImportableProtocol;
   fromTokenSymbol: string;
   fromTokenAmountTokens: number;
@@ -115,6 +129,11 @@ type PositionImport = {
 };
 
 type EventMap = {
+  connect_wallet_initiated: AnalyticEvent;
+  wallet_connected: AnalyticEvent;
+  wallet_disconnected: AnalyticEvent;
+  wallet_switched: AnalyticEvent;
+
   supply_amount_set: AmountSet;
   supply_initiated: AmountTx;
   supply_rejected: AmountTx;
@@ -154,13 +173,13 @@ type EventMap = {
   'Tokens withdrawn from VAI vault': VaiVaultTx;
 
   'Pool reward claimed': RewardClaim;
-  'Prime reward claimed': undefined;
-  'VAI vault reward claimed': undefined;
+  'Prime reward claimed': AnalyticEvent;
+  'VAI vault reward claimed': AnalyticEvent;
 
   'Vote cast': Vote;
 
-  'Import positions modal displayed': undefined;
-  'Import positions modal closed': undefined;
+  'Import positions modal displayed': AnalyticEvent;
+  'Import positions modal closed': AnalyticEvent;
   'Position import initiated': PositionImport;
   'Position import status unknown': PositionImport;
   'Position import canceled': PositionImport;

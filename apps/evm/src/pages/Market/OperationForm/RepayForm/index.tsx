@@ -358,7 +358,10 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         {!isUserConnected && <AssetInfo asset={asset} action="repay" />}
       </div>
 
-      <ConnectWallet className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}>
+      <ConnectWallet
+        className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}
+        analyticVariant="repay_form"
+      >
         <div className="space-y-4">
           {!isSubmitting && !isSwapLoading && !formError && (
             <Notice isRepayingFullLoan={isRepayingFullLoan} swap={swap} />

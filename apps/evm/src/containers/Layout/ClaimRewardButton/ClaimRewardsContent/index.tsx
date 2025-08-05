@@ -70,7 +70,7 @@ export const ClaimRewardsContent = ({
           </div>
 
           <div className="w-full mt-4">
-            <ConnectWallet>
+            <ConnectWallet analyticVariant="claim_rewards_modal">
               <SwitchChain>
                 <PrimaryButton
                   className="w-full"

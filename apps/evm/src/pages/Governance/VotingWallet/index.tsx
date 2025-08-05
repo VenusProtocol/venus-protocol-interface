@@ -42,7 +42,13 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
   const [delegateModelIsOpen, setDelegateModelIsOpen] = useState(false);
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
+
   const { openAuthModal } = useAuthModal();
+  const handleOpenAuthModal = () =>
+    openAuthModal({
+      analyticVariant: 'vote_wallet_section',
+    });
+
   const xvs = useGetToken({
     symbol: 'XVS',
   });
@@ -171,7 +177,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
         {!isUserConnected && (
           <PrimaryButton
             className="text-offWhite mt-6 sm:mt-0 lg:mt-6 lg:w-full"
-            onClick={openAuthModal}
+            onClick={handleOpenAuthModal}
           >
             {t('connectWallet.connectButton')}
           </PrimaryButton>

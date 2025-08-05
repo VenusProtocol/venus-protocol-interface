@@ -84,6 +84,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
       })}
       submitButtonLabel={t('stakeModal.submitButtonLabel')}
       submitButtonDisabledLabel={t('stakeModal.submitButtonDisabledLabel')}
+      analyticVariant="vault_stake_modal"
     />
   );
 };

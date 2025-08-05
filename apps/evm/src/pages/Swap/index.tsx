@@ -221,7 +221,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
 
   return (
     <Card css={styles.container}>
-      <ConnectWallet message={t('swapPage.connectWalletToSwap')}>
+      <ConnectWallet message={t('swapPage.connectWalletToSwap')} analyticVariant="swap">
         <SelectTokenTextField
           label={t('swapPage.fromTokenAmountField.label')}
           selectedToken={formValues.fromToken}

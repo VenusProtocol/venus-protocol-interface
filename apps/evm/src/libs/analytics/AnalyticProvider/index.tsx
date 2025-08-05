@@ -2,7 +2,9 @@ import { PostHogProvider } from 'posthog-js/react';
 
 import config from 'config';
 import { version as APP_VERSION } from 'constants/version';
+import { AuthAnalyticVariantProvider } from '../context';
 import { UserIdentifier } from './UserIdentifier';
+import { WalletAnalyticSender } from './WalletAnalyticSender';
 import { appendHash } from './appendHash';
 
 export interface AnalyticProviderProps {
@@ -10,24 +12,31 @@ export interface AnalyticProviderProps {
 }
 
 export const AnalyticProvider: React.FC<AnalyticProviderProps> = ({ children }) => {
-  // Only enable analytics in production
-  if (config.environment !== 'production') {
-    return children;
-  }
+  const dom =
+    // Only enable analytics in production
+    config.environment !== 'production' ? (
+      children
+    ) : (
+      <PostHogProvider
+        apiKey={config.posthog.apiKey}
+        options={{
+          api_host: config.posthog.hostUrl,
+          persistence: 'memory',
+          name: APP_VERSION,
+          before_send: appendHash,
+        }}
+      >
+        <UserIdentifier />
+
+        {children}
+      </PostHogProvider>
+    );
 
   return (
-    <PostHogProvider
-      apiKey={config.posthog.apiKey}
-      options={{
-        api_host: config.posthog.hostUrl,
-        persistence: 'memory',
-        name: APP_VERSION,
-        before_send: appendHash,
-      }}
-    >
-      <UserIdentifier />
+    <AuthAnalyticVariantProvider>
+      {dom}
 
-      {children}
-    </PostHogProvider>
+      <WalletAnalyticSender />
+    </AuthAnalyticVariantProvider>
   );
 };

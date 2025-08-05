@@ -28,7 +28,9 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
 }) => {
   const { disconnect } = useDisconnect();
   const { accountAddress } = useAccountAddress();
+
   const { openAuthModal } = useAuthModal();
+
   const { t } = useTranslation();
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const openAccountModal = () => setIsAccountModalOpen(true);
@@ -38,7 +40,9 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
     if (accountAddress) {
       openAccountModal();
     } else {
-      openAuthModal();
+      openAuthModal({
+        analyticVariant: 'header_connect_button',
+      });
     }
   };
 

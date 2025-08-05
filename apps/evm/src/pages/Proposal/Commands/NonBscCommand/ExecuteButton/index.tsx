@@ -31,7 +31,7 @@ export const ExecuteButton: React.FC<ExecuteButtonProps> = ({
   };
 
   return (
-    <ConnectWallet {...otherProps}>
+    <ConnectWallet {...otherProps} analyticVariant="vote_non_bsc_command">
       <SwitchChain chainId={remoteProposalChainId}>
         <Button onClick={execute} className="w-full" disabled={isExecuteProposalLoading}>
           {t('voteProposalUi.command.actionButton.execute')}

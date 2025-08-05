@@ -136,7 +136,7 @@ describe('useClaimRewards', () => {
       [
         [
           "VAI vault reward claimed",
-          undefined,
+          {},
         ],
         [
           "XVS vesting vault reward claimed",
@@ -159,7 +159,7 @@ describe('useClaimRewards', () => {
         ],
         [
           "Prime reward claimed",
-          undefined,
+          {},
         ],
       ]
     `);
