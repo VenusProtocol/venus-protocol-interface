@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
 import type { FormError } from '../../types';
@@ -11,7 +10,7 @@ interface UseFormValidationInput {
   asset: Asset;
   formValues: FormValues;
   limitTokens: BigNumber;
-  hypotheticalHealthFactor?: number;
+  moderateRiskMaxTokens: BigNumber;
 }
 
 interface UseFormValidationOutput {
@@ -22,7 +21,7 @@ interface UseFormValidationOutput {
 const useFormValidation = ({
   asset,
   limitTokens,
-  hypotheticalHealthFactor,
+  moderateRiskMaxTokens,
   formValues,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
@@ -57,11 +56,7 @@ const useFormValidation = ({
       };
     }
 
-    if (
-      hypotheticalHealthFactor !== undefined &&
-      hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
-      !formValues.acknowledgeRisk
-    ) {
+    if (fromTokenAmountTokens.isGreaterThan(moderateRiskMaxTokens) && !formValues.acknowledgeRisk) {
       return {
         code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',
       };
@@ -72,7 +67,7 @@ const useFormValidation = ({
     formValues.acknowledgeRisk,
     t,
     asset,
-    hypotheticalHealthFactor,
+    moderateRiskMaxTokens,
   ]);
 
   return {
