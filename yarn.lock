@@ -5168,51 +5168,51 @@
     "@noble/hashes" "~1.8.0"
     "@scure/base" "~1.2.5"
 
-"@sentry-internal/browser-utils@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/browser-utils/-/browser-utils-9.42.1.tgz#821f2238cdfeb3caea0f48f9fed608f6ad02b545"
-  integrity sha512-RWLpPDApHKWo5m4ig6M27b0vx3bLyPPU9Ra6FbwBhIdyb0ihd4wSddtNFA2VgLOePpurN+HU1Thcq+D3776GIA==
+"@sentry-internal/browser-utils@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/browser-utils/-/browser-utils-10.2.0.tgz#cfba85af992467542baaafb91fcee32a797c21b4"
+  integrity sha512-h4t2VGjBGcTb5dX96k1jqkEMFMi31PPZv/fdDgxhO+JvcoFJfwzCxM0xafzJ54usLYOOdNGFE64Mw1wE3JIbkA==
   dependencies:
-    "@sentry/core" "9.42.1"
+    "@sentry/core" "10.2.0"
 
-"@sentry-internal/feedback@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/feedback/-/feedback-9.42.1.tgz#2d3e4876e90f58366c0407b707c04dfe687b3f1b"
-  integrity sha512-ocyN85ndnWRHMtS6kJpYbQiovvXT09UJLIzZfsyj/cIl/kBYaljDVoPHhSWMaMVUWQrP/Ut2Zuse9wnowDvXWg==
+"@sentry-internal/feedback@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/feedback/-/feedback-10.2.0.tgz#f209e36207366573c4db3087927eedf8a01086a3"
+  integrity sha512-rSYbp5ixqAYQLfU9icaF+kiWDHoIhV2VJRJOxz4jQWbtnwPBrExqqsbVQPXoMm2fFuUIPiNCfjadgTS5jD7VEw==
   dependencies:
-    "@sentry/core" "9.42.1"
+    "@sentry/core" "10.2.0"
 
-"@sentry-internal/replay-canvas@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/replay-canvas/-/replay-canvas-9.42.1.tgz#4c2e743ae97ed2aa787cf144ac571a5d0d3001aa"
-  integrity sha512-z2Pm7vl5SaK1k/MhYV/CRkDYT32Y6q/CLlV3toKphAK1gZFmJ8FGjYE6DU2Zju2upb9ulgyoU8bLU5DLLZCsZA==
+"@sentry-internal/replay-canvas@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/replay-canvas/-/replay-canvas-10.2.0.tgz#46c998457ee6a4a0b09f6a8da82f64738d22452f"
+  integrity sha512-FeoA4oi4/5kIgJMFfwu4fop/K4SRPZt5ndFmwuuCBVBMHkHN4+v1Um3ajJDK1IwwE2J2HDQUuUxrC53N7nc/hw==
   dependencies:
-    "@sentry-internal/replay" "9.42.1"
-    "@sentry/core" "9.42.1"
+    "@sentry-internal/replay" "10.2.0"
+    "@sentry/core" "10.2.0"
 
-"@sentry-internal/replay@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/replay/-/replay-9.42.1.tgz#f0266eeeffa67ea749e543fc20f34cec637790ac"
-  integrity sha512-IbKf4L4qxcupM3+FfKYcap4bM4Q6khSIc8X31btmUqPnDT/UuekN5CZmL7Xf42h5L7aMA8Oh8s97powY+hPLQQ==
+"@sentry-internal/replay@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/replay/-/replay-10.2.0.tgz#f81e919c9af0f1528a37c43cb7a7546c5d4cbb2a"
+  integrity sha512-UWy8VVU6pUHCPENsZAfUkrMxMx/d/khs6m5CAfe6LQKlI2mf5vR0uXtFH+tJE9lOpyqwFF/7qapVUb6xnaqT7Q==
   dependencies:
-    "@sentry-internal/browser-utils" "9.42.1"
-    "@sentry/core" "9.42.1"
+    "@sentry-internal/browser-utils" "10.2.0"
+    "@sentry/core" "10.2.0"
 
 "@sentry/babel-plugin-component-annotate@4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@sentry/babel-plugin-component-annotate/-/babel-plugin-component-annotate-4.0.2.tgz#7c8eb80a38b5e6b4c4cea4c391d07581020c91e4"
   integrity sha512-Nr/VamvpQs6w642EI5t+qaCUGnVEro0qqk+S8XO1gc8qSdpc8kkZJFnUk7ozAr+ljYWGfVgWXrxI9lLiriLsRA==
 
-"@sentry/browser@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-9.42.1.tgz#976695bb1053569146118116cc9b70eb5dec592e"
-  integrity sha512-iFlHpuHGK7pexHdmvmJeMlIIUFcGjGW12bwhPyIb8T7Ziu16B8yOjIv0EQgfxMyiyv9MWqG2Un7efXjXSlIzrg==
+"@sentry/browser@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-10.2.0.tgz#11219dd0bf50b9a16e1e07a84fe516d1643f62d7"
+  integrity sha512-p9LzAkmkaVClY3pCjOARjWGNyf89iT/2Z8cxF2GVirbztOlkgfjTDvQUTFWz0jP7RJcOdy+To7y1WQ1Z468zhg==
   dependencies:
-    "@sentry-internal/browser-utils" "9.42.1"
-    "@sentry-internal/feedback" "9.42.1"
-    "@sentry-internal/replay" "9.42.1"
-    "@sentry-internal/replay-canvas" "9.42.1"
-    "@sentry/core" "9.42.1"
+    "@sentry-internal/browser-utils" "10.2.0"
+    "@sentry-internal/feedback" "10.2.0"
+    "@sentry-internal/replay" "10.2.0"
+    "@sentry-internal/replay-canvas" "10.2.0"
+    "@sentry/core" "10.2.0"
 
 "@sentry/bundler-plugin-core@4.0.2":
   version "4.0.2"
@@ -5288,6 +5288,11 @@
     "@sentry/cli-win32-i686" "2.50.0"
     "@sentry/cli-win32-x64" "2.50.0"
 
+"@sentry/core@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-10.2.0.tgz#854f036914c718c664fbd54eef6dfdc9db0f44d1"
+  integrity sha512-2QOuo2B26oReum9CxizK+c96FlV5oI6nsNjKgIYfrT+BTAAR3OlD/pzfJtxo3ydYzfU33Zdtu9XTWvhEAlHeZQ==
+
 "@sentry/core@5.30.0":
   version "5.30.0"
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-5.30.0.tgz#6b203664f69e75106ee8b5a2fe1d717379b331f3"
@@ -5298,11 +5303,6 @@
     "@sentry/types" "5.30.0"
     "@sentry/utils" "5.30.0"
     tslib "^1.9.3"
-
-"@sentry/core@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-9.42.1.tgz#d8f88d3b5ba7aa6f77374504041716496bb8fbb2"
-  integrity sha512-9jWgjgZ8EvIYMTL5HzG8PYRo7+/vv3qwPabPVV2EfGPOjU65GFcT7N+oitg+0rAI/fTMsLaQXC77WmKzhRBSdw==
 
 "@sentry/hub@5.30.0":
   version "5.30.0"
@@ -5337,13 +5337,13 @@
     lru_map "^0.3.3"
     tslib "^1.9.3"
 
-"@sentry/react@^9.1.0":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-9.42.1.tgz#1480ecfe217cb7098b74671f7d33a36e1c683f9b"
-  integrity sha512-dmz0LxC+Y6aCNz0nJC1onhTGajHE/rNwwjHbsDQWHb1F2SZzJ5bpXVcksjxvUtOxCjT4xwsRaw5gt2kYDzSRzQ==
+"@sentry/react@^10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-10.2.0.tgz#c4d1ffcb6a73e48e053987d3e8ed030623a96fa8"
+  integrity sha512-zx4qhmoECluvNgPLiFBG0CgzkE3PQrWSVEvPkA/9emNREL6x31VVz38F4BTZiRqnhRLoMgRLrIUg0A6OjcGmoA==
   dependencies:
-    "@sentry/browser" "9.42.1"
-    "@sentry/core" "9.42.1"
+    "@sentry/browser" "10.2.0"
+    "@sentry/core" "10.2.0"
     hoist-non-react-statics "^3.3.2"
 
 "@sentry/tracing@5.30.0":
