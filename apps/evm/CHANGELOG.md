@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.33.0
+
+### Minor Changes
+
+- e37b327: send analytic events when performing risky action
+
 ## 3.32.0
 
 ### Minor Changes
