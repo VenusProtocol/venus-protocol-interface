@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.32.0
+
+### Minor Changes
+
+- 68f607c: send analytic events related to wallet actions
+
 ## 3.31.0
 
 ### Minor Changes
