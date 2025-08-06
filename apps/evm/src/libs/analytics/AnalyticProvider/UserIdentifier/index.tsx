@@ -15,5 +15,5 @@ export const UserIdentifier: React.FC = () => {
     }
   }, [accountAddress, posthog]);
 
-  return undefined;
+  return null;
 };

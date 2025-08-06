@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 
 import {
@@ -31,7 +31,6 @@ import {
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
-import { ConnectWallet } from 'containers/ConnectWallet';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { AccountVaiData } from '../AccountVaiData';
@@ -155,6 +154,17 @@ export const Repay: React.FC = () => {
     return undefined;
   }, [t, formState.errors.amountTokens, vai]);
 
+  // Reset form when user disconnects their wallet
+  useEffect(() => {
+    if (!accountAddress) {
+      setValue('amountTokens', '', {
+        shouldValidate: true,
+        shouldTouch: true,
+        shouldDirty: true,
+      });
+    }
+  }, [accountAddress, setValue]);
+
   const onSubmit: SubmitHandler<FormValues> = useCallback(
     async ({ amountTokens }) => {
       if (!userVaiBorrowBalanceMantissa) {
@@ -251,21 +261,20 @@ export const Repay: React.FC = () => {
         </>
       )}
 
-      <ConnectWallet>
-        <RhfSubmitButton
-          requiresConnectedWallet
-          spendingApproval={
-            vaiControllerContractAddress && {
-              token: vai,
-              spenderAddress: vaiControllerContractAddress,
-            }
+      <RhfSubmitButton
+        analyticVariant="vai_repay_form"
+        requiresConnectedWallet
+        spendingApproval={
+          vaiControllerContractAddress && {
+            token: vai,
+            spenderAddress: vaiControllerContractAddress,
           }
-          control={control}
-          disabled={isVaiWalletSpendingLimitLoading || isRevokeVaiWalletSpendingLimitLoading}
-          enabledLabel={t('vai.repay.submitButton.repayLabel')}
-          disabledLabel={t('vai.repay.submitButton.enterValidAmountLabel')}
-        />
-      </ConnectWallet>
+        }
+        control={control}
+        disabled={isVaiWalletSpendingLimitLoading || isRevokeVaiWalletSpendingLimitLoading}
+        enabledLabel={t('vai.repay.submitButton.repayLabel')}
+        disabledLabel={t('vai.repay.submitButton.enterValidAmountLabel')}
+      />
     </form>
   );
 };

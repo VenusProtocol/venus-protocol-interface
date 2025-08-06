@@ -59,6 +59,7 @@ const WithdrawFromVaiVaultModal: React.FC<WithdrawFromVaiVaultModalProps> = ({ h
       })}
       submitButtonLabel={t('withdrawFromVaiVaultModal.submitButtonLabel')}
       submitButtonDisabledLabel={t('withdrawFromVaiVaultModal.submitButtonDisabledLabel')}
+      analyticVariant="vault_withdraw_modal"
     />
   );
 };

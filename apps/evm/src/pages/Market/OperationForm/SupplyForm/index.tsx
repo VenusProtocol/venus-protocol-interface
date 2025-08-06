@@ -328,7 +328,10 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
         {!isUserConnected && <AssetInfo asset={asset} action="supply" />}
       </div>
 
-      <ConnectWallet className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}>
+      <ConnectWallet
+        className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}
+        analyticVariant="supply_form"
+      >
         <div className="space-y-4">
           {!isSubmitting && !isSwapLoading && !formError && <Notice swap={swap} />}
 

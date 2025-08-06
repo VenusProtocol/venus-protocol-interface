@@ -274,7 +274,10 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         {!isUserConnected && <AssetInfo asset={asset} action="withdraw" />}
       </div>
 
-      <ConnectWallet className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}>
+      <ConnectWallet
+        className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}
+        analyticVariant="withdraw_form"
+      >
         <div className="space-y-4">
           <LabeledInlineContent
             label={t('operationForm.availableAmount')}

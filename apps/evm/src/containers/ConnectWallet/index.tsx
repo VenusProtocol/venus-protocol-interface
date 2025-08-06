@@ -4,6 +4,7 @@ import { useAccountAddress, useAuthModal } from 'libs/wallet';
 
 export interface ConnectWalletProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'className'> {
+  analyticVariant?: string;
   message?: string;
   className?: string;
   children?: React.ReactNode;
@@ -12,12 +13,18 @@ export interface ConnectWalletProps
 export const ConnectWallet: React.FC<ConnectWalletProps> = ({
   children,
   message,
+  analyticVariant,
   ...otherProps
 }) => {
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
   const { openAuthModal } = useAuthModal();
+
+  const handleClick = () =>
+    openAuthModal({
+      analyticVariant,
+    });
 
   const { t } = useTranslation();
 
@@ -29,7 +36,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
         <>
           {!!message && <NoticeInfo className="mb-8" description={message} />}
 
-          <Button className="w-full" onClick={openAuthModal}>
+          <Button className="w-full" onClick={handleClick}>
             {t('connectWallet.connectButton')}
           </Button>
         </>

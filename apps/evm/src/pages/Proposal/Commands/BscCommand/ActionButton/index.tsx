@@ -115,7 +115,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   ]);
 
   return (
-    <ConnectWallet {...otherProps}>
+    <ConnectWallet {...otherProps} analyticVariant="vote_bsc_command">
       <SwitchChain chainId={governanceChain.id}>{buttonDom}</SwitchChain>
     </ConnectWallet>
   );

@@ -17,6 +17,7 @@ export interface RhfSubmitButtonProps extends ButtonProps {
         chainId: ChainId;
       };
   spendingApproval?: Omit<ApproveTokenStepsProps, 'children' | 'secondStepButtonLabel'>;
+  analyticVariant?: string;
 }
 
 export const RhfSubmitButton: React.FC<RhfSubmitButtonProps> = ({
@@ -28,6 +29,7 @@ export const RhfSubmitButton: React.FC<RhfSubmitButtonProps> = ({
   className,
   disabled,
   loading,
+  analyticVariant,
   ...otherButtonProps
 }) => {
   const formState = useFormState({ control });
@@ -52,9 +54,9 @@ export const RhfSubmitButton: React.FC<RhfSubmitButtonProps> = ({
     );
   }
 
-  if (formState.isValid && (requiresConnectedWallet || spendingApproval)) {
+  if (requiresConnectedWallet || spendingApproval) {
     dom = (
-      <ConnectWallet>
+      <ConnectWallet analyticVariant={analyticVariant}>
         <SwitchChain
           chainId={
             typeof requiresConnectedWallet !== 'boolean'

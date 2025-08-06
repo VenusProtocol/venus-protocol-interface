@@ -376,7 +376,10 @@ const BridgePage: React.FC = () => {
               />
             </div>
 
-            <ConnectWallet className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}>
+            <ConnectWallet
+              className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}
+              analyticVariant="bridge"
+            >
               <div className="space-y-4">
                 {errorLabel && (
                   <Notice variant="error" description={errorLabel} data-testid={TEST_IDS.notice} />

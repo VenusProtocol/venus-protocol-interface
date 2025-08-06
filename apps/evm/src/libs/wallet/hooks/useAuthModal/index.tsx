@@ -1,11 +1,33 @@
 import { useModal } from 'connectkit';
 
+import { useAnalytics } from 'libs/analytics';
+
 export const useAuthModal = () => {
-  const { open, setOpen } = useModal();
+  const { captureAnalyticEvent, authAnalyticVariant, setAuthAnalyticVariant } = useAnalytics();
+
+  const { open, setOpen } = useModal({
+    onDisconnect: () => {
+      if (authAnalyticVariant) {
+        setAuthAnalyticVariant(undefined);
+      }
+    },
+  });
 
   return {
     isAuthModalOpen: open,
-    openAuthModal: () => setOpen(true),
-    closeAuthModal: () => setOpen(false),
+    openAuthModal: ({ analyticVariant: inputAnalyticVariant }: { analyticVariant?: string }) => {
+      setAuthAnalyticVariant(inputAnalyticVariant);
+
+      captureAnalyticEvent('connect_wallet_initiated', {
+        variant: inputAnalyticVariant,
+      });
+
+      setOpen(true);
+    },
+    closeAuthModal: () => {
+      setAuthAnalyticVariant(undefined);
+
+      setOpen(false);
+    },
   };
 };

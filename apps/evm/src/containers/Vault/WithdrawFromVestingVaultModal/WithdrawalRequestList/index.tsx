@@ -102,6 +102,7 @@ const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({ poolIndex
 
   return (
     <ConnectWallet
+      analyticVariant="vesting_vault_withdrawal_requests_modal"
       message={t(
         'withdrawFromVestingVaultModalModal.withdrawalRequestList.approveToken.connectWalletMessage',
       )}
