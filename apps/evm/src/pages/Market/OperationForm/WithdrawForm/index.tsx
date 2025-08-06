@@ -83,6 +83,21 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   };
 
   const handleToggleAcknowledgeRisk = (checked: boolean) => {
+    if (checked) {
+      captureAnalyticEvent('withdraw_risks_acknowledged', {
+        poolName: pool.name,
+        assetSymbol: asset.vToken.underlyingToken.symbol,
+        usdAmount: calculateAmountDollars({
+          amountTokens: formValues.amountTokens,
+          tokenPriceCents: asset.tokenPriceCents,
+        }),
+        maxSelected: false,
+        safeBorrowLimitExceeded: new BigNumber(formValues.amountTokens).isGreaterThan(
+          moderateRiskMaxTokens,
+        ),
+      });
+    }
+
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       acknowledgeRisk: checked,
@@ -115,7 +130,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     });
   }, [asset, pool, formValues.amountTokens]);
 
-  const [limitTokens, safeLimitTokens] = useMemo(() => {
+  const [limitTokens, safeLimitTokens, moderateRiskMaxTokens] = useMemo(() => {
     const assetLiquidityTokens = new BigNumber(asset.liquidityCents).dividedBy(
       asset.tokenPriceCents,
     );
@@ -130,7 +145,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
       !pool.userBorrowBalanceCents ||
       pool.userBorrowBalanceCents.isEqualTo(0)
     ) {
-      return [availableTokens, availableTokens];
+      return [availableTokens, availableTokens, availableTokens];
     }
 
     // Calculate how much token user can withdraw before they risk getting
@@ -138,7 +153,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 
     // Return 0 if borrow limit has already been reached
     if (pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents)) {
-      return [new BigNumber(0), new BigNumber(0)];
+      return [new BigNumber(0), new BigNumber(0), new BigNumber(0)];
     }
 
     const marginWithUserBorrowLimitTokens = pool.userBorrowLimitCents
@@ -158,6 +173,18 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
       marginWithUserSafeBorrowLimitTokens = new BigNumber(0);
     }
 
+    let marginWithUserModerateRiskBorrowLimitTokens =
+      // We base the safe borrow limit on the liquidation threshold because that's the base used to
+      // calculate the health factor
+      pool.userLiquidationThresholdCents
+        .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_MODERATE_THRESHOLD))
+        .dividedBy(asset.collateralFactor)
+        .dividedBy(asset.tokenPriceCents);
+
+    if (marginWithUserModerateRiskBorrowLimitTokens.isLessThan(0)) {
+      marginWithUserModerateRiskBorrowLimitTokens = new BigNumber(0);
+    }
+
     const maxTokens = BigNumber.min(availableTokens, marginWithUserBorrowLimitTokens).dp(
       asset.vToken.underlyingToken.decimals,
     );
@@ -166,19 +193,28 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
       asset.vToken.underlyingToken.decimals,
     );
 
-    return [maxTokens, safeMaxTokens];
+    const moderateRiskMaxTokens = BigNumber.min(
+      maxTokens,
+      marginWithUserModerateRiskBorrowLimitTokens,
+    ).dp(asset.vToken.underlyingToken.decimals);
+
+    return [maxTokens, safeMaxTokens, moderateRiskMaxTokens];
   }, [asset, pool]);
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     poolName: pool.name,
     limitTokens,
-    hypotheticalHealthFactor,
+    moderateRiskMaxTokens,
     onSubmitSuccess,
     onSubmit,
     formValues,
     setFormValues,
   });
+
+  const isRiskyOperation =
+    hypotheticalHealthFactor !== undefined &&
+    hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
 
   const captureAmountSetAnalyticEvent = ({
     amountTokens,
@@ -195,6 +231,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
             tokenPriceCents: asset.tokenPriceCents,
           }),
           maxSelected,
+          safeBorrowLimitExceeded: new BigNumber(amountTokens).isGreaterThan(moderateRiskMaxTokens),
         },
         {
           debounced: true,
@@ -220,14 +257,6 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     value: limitTokens,
     token: formValues.fromToken,
   });
-
-  const isRiskyOperation = useMemo(
-    () =>
-      hypotheticalHealthFactor !== undefined &&
-      hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
-      (!formError || formError.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT'),
-    [hypotheticalHealthFactor, formError],
-  );
 
   if (!asset) {
     return undefined;

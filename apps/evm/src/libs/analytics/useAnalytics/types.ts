@@ -25,6 +25,10 @@ type AmountSet = AmountTx & {
   maxSelected: boolean;
 };
 
+type BorrowWithdrawAmountSet = AmountSet & {
+  safeBorrowLimitExceeded: boolean;
+};
+
 type RepayAmountSet = AmountSet & {
   selectedPercentage?: number;
 };
@@ -139,12 +143,14 @@ type EventMap = {
   supply_rejected: AmountTx;
   supply_signed: AmountTx;
 
-  withdraw_amount_set: AmountSet;
+  withdraw_amount_set: BorrowWithdrawAmountSet;
+  withdraw_risks_acknowledged: BorrowWithdrawAmountSet;
   withdraw_initiated: AmountTx;
   withdraw_rejected: AmountTx;
   withdraw_signed: AmountTx;
 
-  borrow_amount_set: AmountSet;
+  borrow_amount_set: BorrowWithdrawAmountSet;
+  borrow_risks_acknowledged: BorrowWithdrawAmountSet;
   borrow_initiated: AmountTx;
   borrow_rejected: AmountTx;
   borrow_signed: AmountTx;

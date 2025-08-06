@@ -81,32 +81,24 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     }));
   };
 
-  const handleToggleAcknowledgeRisk = (checked: boolean) => {
-    setFormValues(currentFormValues => ({
-      ...currentFormValues,
-      acknowledgeRisk: checked,
-    }));
-  };
+  const hypotheticalHealthFactor =
+    Number(formValues.amountTokens) &&
+    pool.userBorrowBalanceCents &&
+    pool.userLiquidationThresholdCents
+      ? calculateHealthFactor({
+          borrowBalanceCents: pool.userBorrowBalanceCents
+            .plus(new BigNumber(formValues.amountTokens).multipliedBy(asset.tokenPriceCents))
+            .toNumber(),
+          liquidationThresholdCents: pool.userLiquidationThresholdCents.toNumber(),
+        })
+      : undefined;
 
-  const hypotheticalHealthFactor = useMemo(() => {
-    if (
-      !Number(formValues.amountTokens) ||
-      !pool.userBorrowBalanceCents ||
-      !pool.userLiquidationThresholdCents
-    ) {
-      return undefined;
-    }
-
-    const amountCents = new BigNumber(formValues.amountTokens).multipliedBy(asset.tokenPriceCents);
-
-    return calculateHealthFactor({
-      borrowBalanceCents: pool.userBorrowBalanceCents.plus(amountCents).toNumber(),
-      liquidationThresholdCents: pool.userLiquidationThresholdCents.toNumber(),
-    });
-  }, [asset, pool, formValues.amountTokens]);
+  const isRiskyOperation =
+    hypotheticalHealthFactor !== undefined &&
+    hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
 
   // Calculate maximum amount of tokens user can borrow
-  const [limitTokens, safeLimitTokens] = useMemo(() => {
+  const [limitTokens, safeLimitTokens, moderateRiskMaxTokens] = useMemo(() => {
     // Return 0 values while asset is loading or if borrow limit has been
     // reached
     if (
@@ -116,7 +108,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       pool.userBorrowBalanceCents.isGreaterThanOrEqualTo(pool.userBorrowLimitCents) ||
       asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
     ) {
-      return [new BigNumber(0), new BigNumber(0)];
+      return [new BigNumber(0), new BigNumber(0), new BigNumber(0)];
     }
 
     // Liquidities limit
@@ -143,6 +135,16 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       marginWithUserSafeBorrowLimitTokens = new BigNumber(0);
     }
 
+    let marginWithUserModerateRiskBorrowLimitTokens = pool.userLiquidationThresholdCents
+      .div(HEALTH_FACTOR_MODERATE_THRESHOLD)
+      .minus(pool.userBorrowBalanceCents)
+      // Convert to tokens
+      .dividedBy(asset.tokenPriceCents);
+
+    if (marginWithUserModerateRiskBorrowLimitTokens.isLessThan(0)) {
+      marginWithUserModerateRiskBorrowLimitTokens = new BigNumber(0);
+    }
+
     // Borrow cap limit
     const marginWithBorrowCapTokens = asset.borrowCapTokens.minus(asset.borrowBalanceTokens);
 
@@ -156,7 +158,12 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       asset.vToken.underlyingToken.decimals,
     );
 
-    return [maxTokens, safeMaxTokens];
+    const moderateRiskMaxTokens = BigNumber.min(
+      maxTokens,
+      marginWithUserModerateRiskBorrowLimitTokens,
+    ).dp(asset.vToken.underlyingToken.decimals);
+
+    return [maxTokens, safeMaxTokens, moderateRiskMaxTokens];
   }, [asset, pool]);
 
   const readableLimit = useFormatTokensToReadableValue({
@@ -167,13 +174,35 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     pool,
-    hypotheticalHealthFactor,
+    moderateRiskMaxTokens,
     limitTokens,
     onSubmitSuccess,
     onSubmit,
     formValues,
     setFormValues,
   });
+
+  const handleToggleAcknowledgeRisk = (checked: boolean) => {
+    if (checked) {
+      captureAnalyticEvent('borrow_risks_acknowledged', {
+        poolName: pool.name,
+        assetSymbol: asset.vToken.underlyingToken.symbol,
+        usdAmount: calculateAmountDollars({
+          amountTokens: formValues.amountTokens,
+          tokenPriceCents: asset.tokenPriceCents,
+        }),
+        maxSelected: false,
+        safeBorrowLimitExceeded: new BigNumber(formValues.amountTokens).isGreaterThan(
+          moderateRiskMaxTokens,
+        ),
+      });
+    }
+
+    setFormValues(currentFormValues => ({
+      ...currentFormValues,
+      acknowledgeRisk: checked,
+    }));
+  };
 
   const captureAmountSetAnalyticEvent = ({
     amountTokens,
@@ -190,6 +219,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
             tokenPriceCents: asset.tokenPriceCents,
           }),
           maxSelected,
+          safeBorrowLimitExceeded: new BigNumber(amountTokens).isGreaterThan(moderateRiskMaxTokens),
         },
         {
           debounced: true,
@@ -210,14 +240,6 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
       amountTokens: safeLimitTokens.toFixed(),
     }));
   };
-
-  const isRiskyOperation = useMemo(
-    () =>
-      hypotheticalHealthFactor !== undefined &&
-      hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
-      (!formError || formError.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT'),
-    [hypotheticalHealthFactor, formError],
-  );
 
   return (
     <form onSubmit={handleSubmit}>

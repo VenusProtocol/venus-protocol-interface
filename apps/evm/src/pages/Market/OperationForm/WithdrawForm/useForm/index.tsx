@@ -14,10 +14,10 @@ export interface UseFormInput {
   asset: Asset;
   poolName: string;
   limitTokens: BigNumber;
+  moderateRiskMaxTokens: BigNumber;
   onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
-  hypotheticalHealthFactor?: number;
   userBorrowLimitCents?: number;
   onSubmitSuccess?: () => void;
 }
@@ -32,7 +32,7 @@ const useForm = ({
   asset,
   poolName,
   limitTokens,
-  hypotheticalHealthFactor,
+  moderateRiskMaxTokens,
   onSubmitSuccess,
   formValues,
   setFormValues,
@@ -41,7 +41,7 @@ const useForm = ({
   const { isFormValid, formError } = useFormValidation({
     asset,
     limitTokens,
-    hypotheticalHealthFactor,
+    moderateRiskMaxTokens,
     formValues,
   });
 
