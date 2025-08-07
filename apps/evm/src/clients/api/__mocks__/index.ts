@@ -597,6 +597,16 @@ export const useGetImportablePositions = vi.fn(() =>
   }),
 );
 
+export const getAccountNetWorthHistory = vi.fn(async () => ({
+  accountNetWorthHistory: [],
+}));
+export const useGetAccountNetWorthHistory = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_ACCOUNT_NETWORTH_HISTORY],
+    queryFn: getAccountNetWorthHistory,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

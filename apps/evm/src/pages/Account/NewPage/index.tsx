@@ -12,6 +12,7 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { convertDollarsToCents } from 'utilities';
+import { useExtractData } from '../useExtractData';
 import { PerformanceChart } from './PerformanceChart';
 import { Pools } from './Pools';
 import { PrimeBanner } from './PrimeBanner';
@@ -79,6 +80,16 @@ export const NewPage: React.FC = () => {
     },
   } = useGetUserPrimeInfo({ accountAddress });
 
+  const { totalSupplyCents, totalBorrowCents, totalVaultStakeCents, totalVaiBorrowBalanceCents } =
+    useExtractData({
+      pools,
+      vaults,
+      xvsPriceCents,
+      vaiPriceCents,
+      vai,
+      userVaiBorrowBalanceMantissa,
+    });
+
   const canUserBecomePrime =
     // Check there's Prime tokens left to claim
     typeof primeTokenLimit === 'number' &&
@@ -103,6 +114,12 @@ export const NewPage: React.FC = () => {
     },
   ];
 
+  const netWorthCents = totalSupplyCents
+    .plus(totalVaultStakeCents || 0)
+    .minus(totalBorrowCents)
+    .minus(totalVaiBorrowBalanceCents || 0)
+    .toNumber();
+
   const isFetching =
     isGetPoolsLoading ||
     isGetVaultsLoading ||
@@ -126,7 +143,7 @@ export const NewPage: React.FC = () => {
       )}
 
       <div className="space-y-4 mb-8 lg:flex lg:space-y-0 lg:gap-x-6">
-        <PerformanceChart className="lg:basis-8/12" />
+        <PerformanceChart className="lg:basis-8/12" netWorthCents={netWorthCents} />
 
         <Summary
           className="lg:basis-4/12"
