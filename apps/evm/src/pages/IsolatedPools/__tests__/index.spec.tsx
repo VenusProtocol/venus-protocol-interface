@@ -20,10 +20,6 @@ describe('Dashboard', () => {
     }));
   });
 
-  it('renders without crashing', () => {
-    renderComponent(<Dashboard />);
-  });
-
   it('displays markets table correctly', async () => {
     const { getByTestId } = renderComponent(<Dashboard />);
 

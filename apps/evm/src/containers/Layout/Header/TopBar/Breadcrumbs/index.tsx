@@ -6,7 +6,11 @@ import { Username } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { Subdirectory, routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { useFormatTo } from 'hooks/useFormatTo';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
+import { POOL_COMPTROLLER_ADDRESS_PARAM_KEY } from 'pages/IsolatedPools';
+import { areAddressesEqual } from 'utilities';
 import type { Address } from 'viem';
 import PoolName from './PoolName';
 import VTokenSymbol from './VTokenSymbol';
@@ -19,6 +23,8 @@ export interface PathNode {
 export const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
+  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
+  const { formatTo } = useFormatTo();
 
   const pathNodes = useMemo(() => {
     // Get active route
@@ -52,9 +58,6 @@ export const Breadcrumbs: React.FC = () => {
       let hrefFragment: string = subdirectory;
 
       switch (subdirectory) {
-        case Subdirectory.DASHBOARD:
-          dom = t('breadcrumbs.dashboard');
-          break;
         case Subdirectory.ACCOUNT:
           dom = t('breadcrumbs.account');
           break;
@@ -66,14 +69,23 @@ export const Breadcrumbs: React.FC = () => {
 
           dom = t('breadcrumbs.markets');
           break;
-        case Subdirectory.POOLS:
-          dom = t('breadcrumbs.pools');
+        case Subdirectory.ISOLATED_POOLS:
+          dom = t('breadcrumbs.isolatedPools');
           break;
         case Subdirectory.POOL:
-          hrefFragment = Subdirectory.POOL.replace(
-            ':poolComptrollerAddress',
-            params.poolComptrollerAddress || '',
-          );
+          hrefFragment =
+            params.poolComptrollerAddress &&
+            areAddressesEqual(params.poolComptrollerAddress, corePoolComptrollerContractAddress)
+              ? Subdirectory.POOL.replace(
+                  ':poolComptrollerAddress',
+                  params.poolComptrollerAddress || '',
+                )
+              : formatTo({
+                  to: routes.isolatedPools.path,
+                  searchParams: params.poolComptrollerAddress && {
+                    [POOL_COMPTROLLER_ADDRESS_PARAM_KEY]: params.poolComptrollerAddress,
+                  },
+                });
 
           dom = <PoolName poolComptrollerAddress={params.poolComptrollerAddress || NULL_ADDRESS} />;
           break;
@@ -113,9 +125,6 @@ export const Breadcrumbs: React.FC = () => {
         case Subdirectory.VAULTS:
           dom = t('breadcrumbs.vaults');
           break;
-        case Subdirectory.XVS:
-          dom = t('breadcrumbs.xvs');
-          break;
         case Subdirectory.SWAP:
           dom = t('breadcrumbs.swap');
           break;
@@ -132,7 +141,7 @@ export const Breadcrumbs: React.FC = () => {
           break;
       }
 
-      href += `${hrefFragment}/`;
+      href += hrefFragment;
 
       return dom
         ? [
@@ -144,7 +153,7 @@ export const Breadcrumbs: React.FC = () => {
           ]
         : acc;
     }, []);
-  }, [pathname, t]);
+  }, [pathname, t, corePoolComptrollerContractAddress, formatTo]);
 
   const pathNodeDom = useMemo(
     () =>
