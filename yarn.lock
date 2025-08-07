@@ -4521,17 +4521,59 @@
     proper-lockfile "^4.1.1"
     solidity-ast "^0.4.15"
 
-"@pancakeswap/sdk@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-3.1.0.tgz#abdb2f8fa799d88107a9920a41f84e3b029bf49d"
-  integrity sha512-GL/k6wo6BOtxsrOZalzj2ZF8SLBWiHXuIXsf58uy0/I+NND+UhRUdj048ck1Zj6aJlbn4GS9ve7W46Qzg2NznQ==
+"@pancakeswap/chains@0.5.3", "@pancakeswap/chains@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/chains/-/chains-0.5.3.tgz#753328b9c12ca83493cab666e17f317a4a32e95b"
+  integrity sha512-eMfJodloEfvpmBCckRL6wJnTBhHm06Z84zU1PI0l0EDpnVGciPfy/AIN41pl3SvzuTORS/dWeQlS++zpoxFh4w==
+
+"@pancakeswap/sdk@^5.8.15":
+  version "5.8.15"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/sdk/-/sdk-5.8.15.tgz#5512eb1bf0be5c8916d6ec5c711fc91ed4e2eb68"
+  integrity sha512-hG1VJwEd6ETm8jb0fQErrQNTy4w7TcXbFWcviVVFt95cnKrAuR3flLAaMCvze5VP+bWoNAayyIqhMBYifUqjnA==
+  dependencies:
+    "@pancakeswap/chains" "^0.5.3"
+    "@pancakeswap/swap-sdk-core" "1.4.0"
+    "@pancakeswap/swap-sdk-evm" "1.1.4"
+    "@pancakeswap/v2-sdk" "1.1.4"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    tiny-invariant "^1.3.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+    viem "2.31.3"
+
+"@pancakeswap/swap-sdk-core@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/swap-sdk-core/-/swap-sdk-core-1.4.0.tgz#bb9d9fbbc91233c4dc9677a13b994cbeb4e25977"
+  integrity sha512-bc3+fCulz4uzo9cIcxNPaPS2xHqjeO+GFMKrTKnVo4yFKmoU+bAldPLS7IoENrZpmhrin5GKMk89Wc4+wN4ecQ==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
-    jsbi "^3.1.4"
-    tiny-invariant "^1.1.0"
+    tiny-invariant "^1.3.0"
     tiny-warning "^1.0.3"
     toformat "^2.0.0"
+
+"@pancakeswap/swap-sdk-evm@1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/swap-sdk-evm/-/swap-sdk-evm-1.1.4.tgz#af316c4789696489038e8eef656d9ef19078567c"
+  integrity sha512-8a9ZFUmP2euMkqFnV0+xKdNcYPNCokD0nc57XSHm2OA5JDxvU3zHzy91rsORuH7+zNDK0we8BiBJKgr6cF7tyg==
+  dependencies:
+    "@pancakeswap/chains" "0.5.3"
+    "@pancakeswap/swap-sdk-core" "1.4.0"
+    tiny-invariant "^1.3.0"
+    tiny-warning "^1.0.3"
+    viem "2.31.3"
+
+"@pancakeswap/v2-sdk@1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@pancakeswap/v2-sdk/-/v2-sdk-1.1.4.tgz#90a9365d789f26c4bc5da05eacee378d384956db"
+  integrity sha512-7oLfOcTxt0VH8zlC6Fro82CggUxAbkvzjnV5a4z0dvHyNkiVUwxMf3t1MsjqDRhxu8G8Iu+KdjiJFqAKpi2jGA==
+  dependencies:
+    "@pancakeswap/chains" "0.5.3"
+    "@pancakeswap/swap-sdk-core" "1.4.0"
+    "@pancakeswap/swap-sdk-evm" "1.1.4"
+    tiny-invariant "^1.3.0"
+    viem "2.31.3"
 
 "@parcel/watcher-android-arm64@2.4.1":
   version "2.4.1"
@@ -12115,11 +12157,6 @@ js-yaml@^3.13.1, js-yaml@^3.6.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-jsbi@^3.1.4:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-3.2.5.tgz#b37bb90e0e5c2814c1c2a1bcd8c729888a2e37d6"
-  integrity sha512-aBE4n43IPvjaddScbvWRA2YlTzKEynHzu7MqOyTipdHucf/VxS63ViCjxYRg86M8Rxwbt/GfzHl1kKERkt45fQ==
-
 jsbn@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-1.1.0.tgz#b01307cb29b618a1ed26ec79e911f803c4da0040"
@@ -13894,6 +13931,20 @@ ox@0.6.9:
     "@scure/bip32" "^1.5.0"
     "@scure/bip39" "^1.4.0"
     abitype "^1.0.6"
+    eventemitter3 "5.0.1"
+
+ox@0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/ox/-/ox-0.8.1.tgz#c1328e4c890583b9c19d338126aef4b796d53543"
+  integrity sha512-e+z5epnzV+Zuz91YYujecW8cF01mzmrUtWotJ0oEPym/G82uccs7q0WDHTYL3eiONbTUEvcZrptAKLgTBD3u2A==
+  dependencies:
+    "@adraffy/ens-normalize" "^1.11.0"
+    "@noble/ciphers" "^1.3.0"
+    "@noble/curves" "^1.9.1"
+    "@noble/hashes" "^1.8.0"
+    "@scure/bip32" "^1.7.0"
+    "@scure/bip39" "^1.6.0"
+    abitype "^1.0.8"
     eventemitter3 "5.0.1"
 
 ox@0.8.6:
@@ -16492,7 +16543,7 @@ tiny-case@^1.0.3:
   resolved "https://registry.yarnpkg.com/tiny-case/-/tiny-case-1.0.3.tgz#d980d66bc72b5d5a9ca86fb7c9ffdb9c898ddd03"
   integrity sha512-Eet/eeMhkO6TX8mnUteS9zgPbUMQa4I6Kkp5ORiBD5476/m+PIRiumP5tmh5ioJpH7k51Kehawy2UDfsnxxY8Q==
 
-tiny-invariant@^1.1.0, tiny-invariant@^1.3.1, tiny-invariant@^1.3.3:
+tiny-invariant@^1.3.0, tiny-invariant@^1.3.1, tiny-invariant@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.3.tgz#46680b7a873a0d5d10005995eb90a70d74d60127"
   integrity sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==
@@ -17251,6 +17302,20 @@ viem@2.23.2:
     isows "1.0.6"
     ox "0.6.7"
     ws "8.18.0"
+
+viem@2.31.3:
+  version "2.31.3"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.31.3.tgz#4157d7c87db5a23eee5f5e230849d5f30e731825"
+  integrity sha512-q3JGI5QFB4LEiLfg9f2ZwjUygAn2W0wMLtj++7E/L2i8Y7zKAkR4TEEOhwBn7gyYXpuc7f1vfd26PJbkEKuj5w==
+  dependencies:
+    "@noble/curves" "1.9.2"
+    "@noble/hashes" "1.8.0"
+    "@scure/bip32" "1.7.0"
+    "@scure/bip39" "1.6.0"
+    abitype "1.0.8"
+    isows "1.0.7"
+    ox "0.8.1"
+    ws "8.18.2"
 
 viem@>=2.29.0, viem@^2.1.1, viem@^2.22.23, viem@^2.23.1, viem@^2.27.2, viem@^2.31.7:
   version "2.33.2"
