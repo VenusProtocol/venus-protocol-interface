@@ -45,7 +45,6 @@ export const PoolPositions: React.FC<PoolPositionsProps> = ({ pools, className }
         pools={[selectedPool]}
         displayHealthFactor={hasBorrowBalance}
         displayAccountHealth={hasBorrowBalance}
-        variant="secondary"
         css={styles.summary}
       />
 
