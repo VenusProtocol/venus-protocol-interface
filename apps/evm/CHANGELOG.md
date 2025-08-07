@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.34.0
+
+### Minor Changes
+
+- a2629cd: add Prime banner to new Account page
+
 ## 3.33.0
 
 ### Minor Changes
