@@ -14,7 +14,6 @@ import { useExtractData } from '../useExtractData';
 
 export interface PoolSummaryProps {
   pools: Pool[];
-  variant?: 'primary' | 'secondary';
   vaults?: Vault[];
   title?: string;
   xvsPriceCents?: BigNumber;
@@ -26,7 +25,6 @@ export interface PoolSummaryProps {
 
 export const PoolSummary: React.FC<PoolSummaryProps> = ({
   pools,
-  variant = 'primary',
   vaults,
   title,
   displayHealthFactor = false,
@@ -109,26 +107,18 @@ export const PoolSummary: React.FC<PoolSummaryProps> = ({
 
   return (
     <Section className={className} title={title}>
-      <CellGroup
-        small={variant === 'secondary'}
-        cells={cells}
-        className={cn(displayAccountHealth && 'hidden sm:grid xl:hidden')}
-      />
+      <CellGroup cells={cells} className={cn(displayAccountHealth && 'hidden sm:grid xl:hidden')} />
 
       {/* XS view when displaying account health */}
       <div className={cn(displayAccountHealth ? 'sm:hidden' : 'hidden', 'space-y-2')}>
-        <CellGroup small={variant === 'secondary'} cells={cells.slice(0, cells.length - 1)} />
+        <CellGroup cells={cells.slice(0, cells.length - 1)} />
 
         <Cell {...cells[cells.length - 1]} className="bg-cards rounded-xl p-4" />
       </div>
 
       {/* XL view when displaying account health */}
       <Card className={cn('hidden justify-between', displayAccountHealth && 'xl:flex')}>
-        <CellGroup
-          small={variant === 'secondary'}
-          cells={cells.slice(0, cells.length - 1)}
-          className="w-full xl:p-0"
-        />
+        <CellGroup cells={cells.slice(0, cells.length - 1)} className="w-full xl:p-0" />
 
         {/* Account health */}
         <div className="shrink-0">{cells[cells.length - 1].value}</div>

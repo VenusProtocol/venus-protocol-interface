@@ -163,7 +163,7 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
           </div>
 
           {/* SM and up */}
-          <CellGroup className="hidden sm:flex" variant="secondary" small cells={dataListItems} />
+          <CellGroup className="hidden sm:flex" variant="secondary" cells={dataListItems} />
         </div>
 
         {(vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade) && (
