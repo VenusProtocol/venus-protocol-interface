@@ -4,7 +4,7 @@ import { Card, Cell, type CellProps } from 'components';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { Pool, Vault } from 'types';
-import { convertMantissaToTokens, formatCentsToReadableValue } from 'utilities';
+import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import { useExtractData } from '../../useExtractData';
 import circularGradientSrc from './circularGradient.svg';
 
@@ -31,24 +31,57 @@ export const Summary: React.FC<SummaryProps> = ({
     symbol: 'VAI',
   });
 
-  const { cells } = useExtractData({
+  const {
+    dailyEarningsCents,
+    totalSupplyCents,
+    totalBorrowCents,
+    totalVaultStakeCents,
+    totalVaiBorrowBalanceCents,
+    netApyPercentage,
+  } = useExtractData({
     pools,
     vaults,
     xvsPriceCents,
     vaiPriceCents,
+    userVaiBorrowBalanceMantissa,
+    vai,
   });
 
-  if (userVaiBorrowBalanceMantissa && vaiPriceCents && vai) {
-    const userVaiBorrowBalanceTokens = convertMantissaToTokens({
-      value: userVaiBorrowBalanceMantissa,
-      token: vai,
+  const cells: CellProps[] = [
+    {
+      label: t('account.summary.cellGroup.netApy'),
+      value: formatPercentageToReadableValue(netApyPercentage),
+      tooltip: vaults
+        ? t('account.summary.cellGroup.netApyWithVaultStakeTooltip')
+        : t('account.summary.cellGroup.netApyTooltip'),
+      className:
+        typeof netApyPercentage === 'number' && netApyPercentage < 0 ? 'text-red' : 'text-green',
+    },
+    {
+      label: t('account.summary.cellGroup.dailyEarnings'),
+      value: formatCentsToReadableValue({ value: dailyEarningsCents }),
+    },
+    {
+      label: t('account.summary.cellGroup.totalSupply'),
+      value: formatCentsToReadableValue({ value: totalSupplyCents }),
+    },
+    {
+      label: t('account.summary.cellGroup.totalBorrow'),
+      value: formatCentsToReadableValue({ value: totalBorrowCents }),
+    },
+  ];
+
+  if (totalVaultStakeCents) {
+    cells.push({
+      label: t('account.summary.cellGroup.totalVaultStake'),
+      value: formatCentsToReadableValue({ value: totalVaultStakeCents }),
     });
+  }
 
-    const userVaiBorrowBalanceCents = userVaiBorrowBalanceTokens.multipliedBy(vaiPriceCents);
-
+  if (totalVaiBorrowBalanceCents) {
     cells.push({
       label: t('account.summary.cellGroup.mintedVai'),
-      value: formatCentsToReadableValue({ value: userVaiBorrowBalanceCents }),
+      value: formatCentsToReadableValue({ value: totalVaiBorrowBalanceCents }),
     });
   }
 
@@ -68,7 +101,7 @@ export const Summary: React.FC<SummaryProps> = ({
   }
 
   return (
-    <Card className={cn('py-6 relative overflow-hidden', className)}>
+    <Card className={cn('py-6 relative overflow-hidden rounded-2xl', className)}>
       <img
         src={circularGradientSrc}
         alt={t('account.circularGradient')}

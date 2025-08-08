@@ -1,29 +1,31 @@
-import { cn, theme } from '@venusprotocol/ui';
-import type { MarketHistoryPeriodType } from 'clients/api';
+import { Spinner, cn, theme } from '@venusprotocol/ui';
+import {
+  type AccountNetWorthHistoryDataPoint,
+  type AccountNetWorthHistoryPeriod,
+  useGetAccountNetWorthHistory,
+} from 'clients/api';
 import { ButtonGroup, Card, Cell, type CellProps, InfoIcon } from 'components';
 import { AreaChart } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { useState } from 'react';
 import { formatCentsToReadableValue } from 'utilities';
-import { data } from './fakeData';
 import { formatToReadableAxisDate } from './formatToReadableAxisDate';
 import { formatToReadableTitleDate } from './formatToReadableTitleDate';
 
 export interface PerformanceChartProps {
+  netWorthCents: number;
   className?: string;
 }
 
-interface PerformanceChartItem {
-  timestampMs: number;
-  netWorthCents: number;
-}
-
-export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className }) => {
+export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, netWorthCents }) => {
   const { t } = useTranslation();
   const isSmOrUp = useBreakpointUp('sm');
+  const { accountAddress } = useAccountAddress();
 
-  const periodOptions: { label: string; value: MarketHistoryPeriodType }[] = [
+  const periodOptions: { label: string; value: AccountNetWorthHistoryPeriod }[] = [
     {
       label: t('account.performanceChart.periodOption.thirtyDays'),
       value: 'month',
@@ -38,14 +40,30 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
     },
   ];
 
-  const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>(
+  const [selectedPeriod, setSelectedPeriod] = useState<AccountNetWorthHistoryPeriod>(
     periodOptions[0].value,
   );
 
-  const [selectedDataPoint, setSelectedDataPoint] = useState<PerformanceChartItem | undefined>();
+  const { data: getAccountNetWorthHistoryData } = useGetAccountNetWorthHistory({
+    accountAddress: accountAddress || NULL_ADDRESS,
+    period: selectedPeriod,
+  });
+  const accountNetWorthHistory = getAccountNetWorthHistoryData?.accountNetWorthHistory || [];
+  const oldestNetWorthCents =
+    accountNetWorthHistory.length > 0 ? Number(accountNetWorthHistory[0].netWorthCents) : undefined;
+
+  const absolutePerformanceCents =
+    oldestNetWorthCents !== undefined ? netWorthCents - oldestNetWorthCents : undefined;
+
+  const readableAbsolutePerformance = formatCentsToReadableValue({
+    value: absolutePerformanceCents,
+  });
+
+  const [selectedDataPoint, setSelectedDataPoint] = useState<
+    AccountNetWorthHistoryDataPoint | undefined
+  >();
 
   const chartInterval = isSmOrUp ? 5 : 4;
-  const netWorthCents = 1000000; // TODO: fetch current user net worth
 
   const cells: CellProps[] = [
     {
@@ -54,19 +72,25 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
     },
     {
       label: t('account.performanceChart.absolutePerformance'),
-      // TODO: calculate based on selected data point
-      value: <span className="text-base sm:text-lg">+$100</span>,
+      value: (
+        <span className="text-base sm:text-lg">
+          {absolutePerformanceCents !== undefined && absolutePerformanceCents > 0 && '+'}
+          {readableAbsolutePerformance}
+        </span>
+      ),
     },
   ];
 
   return (
-    <Card className={className}>
+    <Card className={cn('rounded-2xl', className)}>
       <div className="flex justify-between mb-4 sm:mb-2">
         <div className="flex flex-col grow sm:flex-row sm:gap-x-2 sm:items-end">
           <div className="sm:mb-2 sm:order-2">
             {selectedDataPoint ? (
               <p className="text-sm">
-                {formatToReadableTitleDate({ timestampMs: selectedDataPoint.timestampMs })}
+                {formatToReadableTitleDate({
+                  timestampMs: Number(selectedDataPoint.blockTimestampMs),
+                })}
               </p>
             ) : (
               <div className="flex gap-x-1 items-center">
@@ -82,7 +106,9 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
 
           <p className="text-xl sm:text-2xl sm:order-1">
             {formatCentsToReadableValue({
-              value: selectedDataPoint?.netWorthCents || netWorthCents,
+              value: selectedDataPoint?.netWorthCents
+                ? Number(selectedDataPoint.netWorthCents)
+                : netWorthCents,
             })}
           </p>
         </div>
@@ -110,18 +136,23 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
         ))}
       </div>
 
-      <AreaChart
-        data={data} // TODO: fetch actual data
-        xAxisDataKey="timestampMs"
-        yAxisDataKey="netWorthCents"
-        onDataPointHover={payload => setSelectedDataPoint(payload)}
-        onMouseLeave={() => setSelectedDataPoint(undefined)}
-        formatXAxisValue={formatToReadableAxisDate}
-        formatYAxisValue={value => formatCentsToReadableValue({ value })}
-        interval={chartInterval}
-        chartColor={theme.colors.blue}
-        className="h-50"
-      />
+      {/* TODO: add loading state */}
+      {accountNetWorthHistory.length > 0 ? (
+        <AreaChart
+          data={accountNetWorthHistory}
+          xAxisDataKey="blockTimestampMs"
+          yAxisDataKey="netWorthCents"
+          onDataPointHover={payload => setSelectedDataPoint(payload)}
+          onMouseLeave={() => setSelectedDataPoint(undefined)}
+          formatXAxisValue={formatToReadableAxisDate}
+          formatYAxisValue={value => formatCentsToReadableValue({ value })}
+          interval={chartInterval}
+          chartColor={theme.colors.blue}
+          className="h-50"
+        />
+      ) : (
+        <Spinner className="h-50" />
+      )}
     </Card>
   );
 };
