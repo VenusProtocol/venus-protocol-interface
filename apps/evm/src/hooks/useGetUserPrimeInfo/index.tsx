@@ -37,7 +37,7 @@ export const useGetUserPrimeInfo = ({ accountAddress }: { accountAddress?: Addre
       accountAddress,
     },
     {
-      enabled: isPrimeFeatureEnabled && !isGetPrimeTokenLoading && !isUserPrime,
+      enabled: isPrimeFeatureEnabled,
       refetchInterval,
     },
   );
