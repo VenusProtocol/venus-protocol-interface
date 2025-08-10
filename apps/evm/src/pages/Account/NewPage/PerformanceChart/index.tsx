@@ -168,7 +168,6 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
           <Cell
             {...cell}
             key={cell.label}
-            small
             className={cn(
               'border-r border-r-lightGrey px-5 first-of-type:pl-0 last-of-type:pr-0 last-of-type:border-r-0',
               cell.className,

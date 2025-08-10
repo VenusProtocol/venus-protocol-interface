@@ -123,7 +123,6 @@ export const Summary: React.FC<SummaryProps> = ({
               {cellRow.map(cell => (
                 <Cell
                   {...cell}
-                  small
                   key={cell.label}
                   className={cn(
                     'flex-1 sm:border-r sm:border-r-offWhite/10 lg:border-r-0',

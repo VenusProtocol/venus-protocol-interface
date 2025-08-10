@@ -47,7 +47,7 @@ export interface ChainMetadata {
   explorerUrl: string;
   nativeToken: Token;
   layerZeroScanUrl: string;
-  corePoolComptrollerContractAddress?: Address;
+  corePoolComptrollerContractAddress: Address;
   safeWalletApiUrl?: string;
   proposalExecutionGracePeriodMs?: number;
   blockTimeMs?: number;
