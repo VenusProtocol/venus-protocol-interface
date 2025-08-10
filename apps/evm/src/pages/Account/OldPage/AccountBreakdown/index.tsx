@@ -7,6 +7,7 @@ import { useAccountAddress } from 'libs/wallet';
 
 import BigNumber from 'bignumber.js';
 import { useConvertDollarsToCents } from 'hooks/useConvertDollarsToCents';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { Settings } from 'pages/Account/Settings';
 import AccountPlaceholder from '../../AccountPlaceholder';
@@ -18,6 +19,7 @@ import VaultsBreakdown from '../../VaultsBreakdown';
 const Account: React.FC = () => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
+  const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
@@ -84,7 +86,11 @@ const Account: React.FC = () => {
 
   return (
     <div className="flex-auto space-y-10">
-      <Settings />
+      {isGaslessTransactionsFeatureEnabled && (
+        <Section title={t('account.settings.title')}>
+          <Settings />
+        </Section>
+      )}
 
       <PoolSummary
         title={t('account.summary.title')}

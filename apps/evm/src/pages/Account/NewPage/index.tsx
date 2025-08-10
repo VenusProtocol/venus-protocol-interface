@@ -12,6 +12,7 @@ import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { convertDollarsToCents } from 'utilities';
+import { Settings } from '../Settings';
 import { PerformanceChart } from './PerformanceChart';
 import { Pools } from './Pools';
 import { PrimeBanner } from './PrimeBanner';
@@ -25,6 +26,7 @@ export const NewPage: React.FC = () => {
   const isPrimeFeatureEnabled = useIsFeatureEnabled({
     name: 'prime',
   });
+  const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
 
   const { accountAddress } = useAccountAddress();
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
@@ -102,6 +104,14 @@ export const NewPage: React.FC = () => {
       content: <Vaults vaults={vaults} />,
     },
   ];
+
+  if (isGaslessTransactionsFeatureEnabled) {
+    tabs.push({
+      title: t('account.tabs.settings'),
+      id: 'settings',
+      content: <Settings />,
+    });
+  }
 
   const isFetching =
     isGetPoolsLoading ||
