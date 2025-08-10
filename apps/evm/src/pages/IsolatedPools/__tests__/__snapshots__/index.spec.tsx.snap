@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Isolated Pools > displays markets table correctly 1`] = `"Paused assetsAssetSupply APY sorted descendingBorrow APY LiquidityUSDT4.02%5.77%-5.50%-6.51%10 USDT$55.34MBUSD3.56%5.32%-5.82%10 BUSD$36.54MXVS0.17%-6.48%10 XVS$80.36MSort bySupply APY / LTVUSDTSupply APY 4.02%5.77%Borrow APY -5.50%-6.51%Liquidity10 USDT$55.34MBUSDSupply APY 3.56%5.32%Borrow APY -5.82%Liquidity10 BUSD$36.54MXVSSupply APY 0.17%Borrow APY -6.48%Liquidity10 XVS$80.36M"`;
+
+exports[`Isolated Pools > displays wallet balance column in table when wallet is connected 1`] = `"Paused assetsShow my assets onlyAssetSupply APY sorted descendingBorrow APY WalletLiquidityUSDT4.02%5.77%-5.50%-6.51%900 USDT$90010 USDT$55.34MBUSD3.56%5.32%-5.82%110 BUSD$11010 BUSD$36.54MXVS0.17%-6.48%100 XVS$127.8610 XVS$80.36MSort bySupply APY / LTVUSDTSupply APY 4.02%5.77%Borrow APY -5.50%-6.51%Wallet900 USDT$900Liquidity10 USDT$55.34MBUSDSupply APY 3.56%5.32%Borrow APY -5.82%Wallet110 BUSD$110Liquidity10 BUSD$36.54MXVSSupply APY 0.17%Borrow APY -6.48%Wallet100 XVS$127.86Liquidity10 XVS$80.36M"`;

@@ -1,6 +1,6 @@
 import type { Pool } from 'types';
 
-import { routes } from 'constants/routing';
+import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
 import { useTranslation } from 'libs/translations';
 import { Placeholder } from '../../Placeholder';
 import { PoolPositions } from '../../PoolPositions';
@@ -11,6 +11,7 @@ export interface PoolsProps {
 
 export const Pools: React.FC<PoolsProps> = ({ pools }) => {
   const { t } = useTranslation();
+  const { homePagePath } = useGetHomePagePath();
 
   // Filter out pools user has not supplied in or borrowed from, unless they have assets enabled as
   // collateral in that pool
@@ -29,7 +30,7 @@ export const Pools: React.FC<PoolsProps> = ({ pools }) => {
         iconName="venus"
         title={t('account.pools.placeholder.title')}
         description={t('account.pools.placeholder.description')}
-        to={routes.pools.path}
+        to={homePagePath}
       />
     );
   }

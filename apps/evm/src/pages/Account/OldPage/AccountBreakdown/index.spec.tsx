@@ -53,17 +53,12 @@ describe('Account', () => {
   });
 
   it('displays page when there are positions', async () => {
-    const { getByText } = renderComponent(<Account />, {
+    const { container } = renderComponent(<Account />, {
       accountAddress: fakeAccountAddress,
     });
 
-    // Check account summary is displayed
-    await waitFor(() =>
-      expect(getByText(en.account.summary.cellGroup.totalVaultStake)).toBeInTheDocument(),
-    );
-    // Check pool position breakdown is displayed
-    expect(getByText(en.account.poolsBreakdown.title)).toBeInTheDocument();
-    // Check vault position breakdown is displayed
-    expect(getByText(en.account.vaultsBreakdown.title)).toBeInTheDocument();
+    await waitFor(() => expect(container.textContent).toBeTruthy());
+
+    expect(container.textContent).toMatchSnapshot();
   });
 });

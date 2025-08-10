@@ -28,7 +28,6 @@ describe('component/Layout/Header/Breadcrumbs', () => {
   });
 
   it.each([
-    [routes.dashboard.path, routes.dashboard.path],
     [routes.account.path, routes.account.path],
     [routes.governance.path, routes.governance.path],
     [routes.governanceLeaderBoard.path, routes.governanceLeaderBoard.path],
@@ -38,7 +37,7 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     ],
     [routes.governanceProposal.path.replace(':proposalId', '1'), routes.governanceProposal.path],
     [routes.governanceVoter.path.replace(':address', fakeAddress), routes.governanceVoter.path],
-    [routes.pools.path, routes.pools.path],
+    [routes.isolatedPools.path, routes.isolatedPools.path],
     [routes.pool.path.replace(':poolComptrollerAddress', fakeAddress), routes.pool.path],
     [
       routes.market.path
@@ -46,13 +45,10 @@ describe('component/Layout/Header/Breadcrumbs', () => {
         .replace(':vTokenAddress', poolData[0].assets[0].vToken.address),
       routes.market.path,
     ],
-    [routes.xvs.path, routes.xvs.path],
     [routes.vai.path, routes.vai.path],
     [routes.vaults.path, routes.vaults.path],
     [routes.swap.path, routes.swap.path],
-    [routes.accountPrimeCalculator.path, routes.accountPrimeCalculator.path],
-    [routes.dashboardPrimeCalculator.path, routes.dashboardPrimeCalculator.path],
-    [routes.vaultsPrimeCalculator.path, routes.vaultsPrimeCalculator.path],
+    [routes.primeCalculator.path, routes.primeCalculator.path],
   ])('outputs the right DOM based on the current path: %s', async (pathname, originalRoute) => {
     const { container } = renderComponent(<Breadcrumbs />, {
       routerInitialEntries: [pathname],

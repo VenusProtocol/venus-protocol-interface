@@ -79,7 +79,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
           }
           primeApyPercentage={primeDistribution?.apyPercentage}
         >
-          <p className="font-semibold text-green">{readableApy}</p>
+          <p className="font-semibold text-green whitespace-nowrap">{readableApy}</p>
         </BoostTooltip>
       ) : (
         <p>{readableApy}</p>

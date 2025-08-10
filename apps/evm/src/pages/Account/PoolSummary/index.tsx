@@ -1,5 +1,5 @@
 import type BigNumber from 'bignumber.js';
-import { Card, CellGroup, cn } from 'components';
+import { Card, Cell, CellGroup, cn } from 'components';
 import type { Pool, Vault } from 'types';
 
 import Section from '../Section';
@@ -37,11 +37,26 @@ export const PoolSummary: React.FC<PoolSummaryProps> = ({
 
   return (
     <Section className={className} title={title}>
-      <CellGroup cells={cells} className={cn(displayAccountHealth && 'xl:hidden')} />
+      {/* XS view when displaying account health */}
+      <div className={cn('space-y-2', displayAccountHealth ? 'sm:hidden' : 'hidden')}>
+        <CellGroup cells={cells.slice(0, cells.length - 1)} variant="tertiary" />
+
+        <Cell {...cells[cells.length - 1]} className="rounded-xl bg-cards p-4" />
+      </div>
+
+      <CellGroup
+        cells={cells}
+        className={cn(displayAccountHealth && 'hidden sm:grid xl:hidden')}
+        variant="tertiary"
+      />
 
       {/* XL view when displaying account health */}
       <Card className={cn('hidden justify-between', displayAccountHealth && 'xl:flex')}>
-        <CellGroup cells={cells.slice(0, cells.length - 1)} className="w-full xl:p-0" />
+        <CellGroup
+          cells={cells.slice(0, cells.length - 1)}
+          className="w-full xl:p-0"
+          variant="tertiary"
+        />
 
         {/* Account health */}
         <div className="shrink-0">{cells[cells.length - 1].value}</div>
