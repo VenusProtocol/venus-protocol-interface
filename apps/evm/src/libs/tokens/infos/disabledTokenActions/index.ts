@@ -5,8 +5,6 @@ import { disabledTokenActions as arbitrumOneDisabledTokenActions } from './arbit
 import { disabledTokenActions as arbitrumSepoliaDisabledTokenActions } from './arbitrumSepolia';
 import { disabledTokenActions as baseMainnetDisabledTokenActions } from './baseMainnet';
 import { disabledTokenActions as baseSepoliaDisabledTokenActions } from './baseSepolia';
-import { disabledTokenActions as berachainBepoliaDisabledTokenActions } from './berachainBepolia';
-import { disabledTokenActions as berachainMainnetDisabledTokenActions } from './berachainMainnet';
 import { disabledTokenActions as bscMainnetDisabledTokenActions } from './bscMainnet';
 import { disabledTokenActions as bscTestnetDisabledTokenActions } from './bscTestnet';
 import { disabledTokenActions as ethereumDisabledTokenActions } from './ethereum';
@@ -37,8 +35,6 @@ const disabledTokenActions: DisabledTokenActionMapping = {
   [ChainId.BASE_SEPOLIA]: baseSepoliaDisabledTokenActions,
   [ChainId.UNICHAIN_MAINNET]: unichainMainnetDisabledTokenActions,
   [ChainId.UNICHAIN_SEPOLIA]: unichainSepoliaDisabledTokenActions,
-  [ChainId.BERACHAIN_MAINNET]: berachainMainnetDisabledTokenActions,
-  [ChainId.BERACHAIN_BEPOLIA]: berachainBepoliaDisabledTokenActions,
 };
 
 export default disabledTokenActions;
