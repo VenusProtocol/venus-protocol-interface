@@ -1,6 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import { useVenusApi } from '../../api/hooks/useVenusApi';
 import { nFormatter } from '../../api/utils';
+import { useDAppUrl } from '../../hooks/useDAppUrl';
 import Container from '../Container/Container';
 import Link from '../Link/Link';
 import s from './Market.module.css';
@@ -21,6 +22,8 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
     errors: { getLegacyPoolMarketsError, getTvlDataError },
     refetch,
   } = useVenusApi();
+
+  const { dAppUrl } = useDAppUrl();
 
   if (getLegacyPoolMarketsError || getTvlDataError) {
     return (
@@ -102,7 +105,7 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
             ))}
           </ul>
 
-          <Link href="https://app.venus.io" variant="text" className="mx-auto h-auto flex py-7">
+          <Link href={dAppUrl} variant="text" className="mx-auto h-auto flex py-7">
             All markets
           </Link>
         </div>

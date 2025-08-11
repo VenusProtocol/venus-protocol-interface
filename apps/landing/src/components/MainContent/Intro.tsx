@@ -1,22 +1,24 @@
-import { APP_MAIN_PRODUCTION_URL } from '../../constants/production';
+import { useDAppUrl } from '../../hooks/useDAppUrl';
 import Container from '../Container/Container';
 import Link from '../Link/Link';
 import LinkLaunchApp from '../Link/LinkLaunchApp';
 import s from './Intro.module.css';
 import IconArrow from './assets/arrow.svg?react';
 
-const links = [
-  {
-    text: 'Supply',
-    href: APP_MAIN_PRODUCTION_URL,
-  },
-  {
-    text: 'Borrow',
-    href: APP_MAIN_PRODUCTION_URL,
-  },
-];
-
 function Intro() {
+  const { dAppUrl } = useDAppUrl();
+
+  const links = [
+    {
+      text: 'Supply',
+      href: dAppUrl,
+    },
+    {
+      text: 'Borrow',
+      href: dAppUrl,
+    },
+  ];
+
   return (
     <div className={s.intro}>
       <Container className={s.container}>
