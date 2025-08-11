@@ -26,7 +26,7 @@ export const Pools: React.FC<PoolsProps> = ({ pools }) => {
   if (filteredPools.length === 0) {
     return (
       <Placeholder
-        iconName="fourDots"
+        iconName="venus"
         title={t('account.pools.placeholder.title')}
         description={t('account.pools.placeholder.description')}
         to={routes.pools.path}
