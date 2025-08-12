@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.20.0
+
+### Minor Changes
+
+- 7ef2067: keep analytic IDs between apps
+
 ## 1.19.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 {
   "name": "@venusprotocol/landing",
   "homepage": "https://venus.io/",
-  "version": "1.19.0",
+  "version": "1.20.0",
   "private": true,
   "scripts": {
     "start": "vite",

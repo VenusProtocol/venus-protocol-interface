@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.36.0
+
+### Minor Changes
+
+- 7ef2067: keep analytic IDs between apps
+
 ## 3.35.0
 
 ### Minor Changes
