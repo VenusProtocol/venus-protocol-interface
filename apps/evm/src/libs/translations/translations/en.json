@@ -41,7 +41,6 @@
         "becomePrime": "Claim Prime token",
         "stakeXvs": "Stake XVS"
       },
-      "glowAltText": "Glow",
       "primeLogoAltText": "Prime logo",
       "text": {
         "apyBoost": "Boost your earnings by up to <GreenText>{{boost}}</GreenText> with Prime",
@@ -71,6 +70,7 @@
     },
     "tabs": {
       "pools": "Pools",
+      "settings": "Settings",
       "vaults": "Vaults"
     },
     "vaults": {
