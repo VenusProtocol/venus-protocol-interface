@@ -17,8 +17,6 @@ export enum ChainId {
   BASE_SEPOLIA = 84532,
   UNICHAIN_MAINNET = 130,
   UNICHAIN_SEPOLIA = 1301,
-  BERACHAIN_MAINNET = 80094,
-  BERACHAIN_BEPOLIA = 80069,
 }
 
 export enum MainnetChainId {
@@ -30,7 +28,6 @@ export enum MainnetChainId {
   OPTIMISM_MAINNET = ChainId.OPTIMISM_MAINNET,
   BASE_MAINNET = ChainId.BASE_MAINNET,
   UNICHAIN_MAINNET = ChainId.UNICHAIN_MAINNET,
-  // TODO: add Berachain once ready
 }
 
 export enum TestnetChainId {
@@ -42,7 +39,6 @@ export enum TestnetChainId {
   OPTIMISM_SEPOLIA = ChainId.OPTIMISM_SEPOLIA,
   BASE_SEPOLIA = ChainId.BASE_SEPOLIA,
   UNICHIAN_SEPOLIA = ChainId.UNICHAIN_SEPOLIA,
-  // TODO: add Berachain Bepolia once ready
 }
 
 export interface ChainMetadata {

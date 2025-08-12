@@ -1,6 +1,5 @@
 import arbitrumLogo from './img/chains/arbitrum.svg';
 import baseLogo from './img/chains/base.svg';
-import berachainLogo from './img/chains/berachain.svg';
 import bscLogo from './img/chains/bsc.svg';
 import ethLogo from './img/chains/eth.svg';
 import opbnbLogo from './img/chains/opbnb.svg';
@@ -162,20 +161,6 @@ export const chainMetadata: {
     name: 'Unichain Sepolia',
     logoSrc: unichainLogo,
     explorerUrl: 'https://sepolia.uniscan.xyz',
-    layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    nativeToken: eth,
-  },
-  [ChainId.BERACHAIN_MAINNET]: {
-    name: 'Berachain',
-    logoSrc: berachainLogo,
-    explorerUrl: 'https://berascan.com',
-    layerZeroScanUrl: 'https://layerzeroscan.com',
-    nativeToken: eth,
-  },
-  [ChainId.BERACHAIN_BEPOLIA]: {
-    name: 'Berachain Bepolia',
-    logoSrc: berachainLogo,
-    explorerUrl: 'https://bepolia.beratrail.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     nativeToken: eth,
   },

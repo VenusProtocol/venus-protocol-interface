@@ -28,9 +28,6 @@ export const getGovernanceSubgraphUrls = ({
     [ChainId.BASE_SEPOLIA]: `https://subgraph.satsuma-prod.com/${alchemySubgraphQueryKey}/venus/venus-governance-base-sepolia/api`,
     [ChainId.UNICHAIN_MAINNET]: `https://gateway.thegraph.com/api/${theGraphApiKey}/deployments/id/QmSnLbgST88bbgj9imnw77dPd4HJ1gfhRhG9AMbqEwykUz`,
     [ChainId.UNICHAIN_SEPOLIA]: `https://subgraph.satsuma-prod.com/${alchemySubgraphQueryKey}/venus/venus-governance-unichain-sepolia/api`,
-    [ChainId.BERACHAIN_MAINNET]: '', // TODO: add once deployed
-    [ChainId.BERACHAIN_BEPOLIA]:
-      'https://api.studio.thegraph.com/query/77761/venus-governance-berachain-bepolia/version/latest',
   };
 
   return subgraphUrls;

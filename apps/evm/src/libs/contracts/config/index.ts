@@ -771,8 +771,6 @@ export const contracts: ContractConfig[] = [
       [ChainId.BASE_SEPOLIA]: {},
       [ChainId.UNICHAIN_MAINNET]: {},
       [ChainId.UNICHAIN_SEPOLIA]: {},
-      [ChainId.BERACHAIN_MAINNET]: {},
-      [ChainId.BERACHAIN_BEPOLIA]: {},
     },
   },
   // NativeTokenGateway contract addresses for each supported pool
@@ -867,8 +865,6 @@ export const contracts: ContractConfig[] = [
           isolatedPoolsUnichainSepoliaDeployments.addresses
             .NativeTokenGateway_vWETH_Core as Address,
       },
-      [ChainId.BERACHAIN_MAINNET]: {},
-      [ChainId.BERACHAIN_BEPOLIA]: {},
     },
   },
 ];

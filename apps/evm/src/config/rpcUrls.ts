@@ -59,10 +59,4 @@ export const rpcUrls: {
   [ChainId.UNICHAIN_SEPOLIA]: [
     `https://unichain-sepolia.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
   ],
-  [ChainId.BERACHAIN_MAINNET]: [
-    `https://berachain-mainnet.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
-  ],
-  [ChainId.BERACHAIN_BEPOLIA]: [
-    `https://berachain-bepolia.g.alchemy.com/v2/${envVariables.VITE_ALCHEMY_API_KEY}`,
-  ],
 };
