@@ -1,5 +1,20 @@
 # @venusprotocol/evm
 
+## 3.35.0
+
+### Minor Changes
+
+- 9414914: update icon used on new Account page placeholder
+- 31682e8: add Settings tab to new Account page
+- 1a9a121: remove Berachain-related code
+
+### Patch Changes
+
+- b7a861d: also load Prime status
+- Updated dependencies [1a9a121]
+  - @venusprotocol/chains@0.7.0
+  - @venusprotocol/ui@0.5.0
+
 ## 3.34.0
 
 ### Minor Changes

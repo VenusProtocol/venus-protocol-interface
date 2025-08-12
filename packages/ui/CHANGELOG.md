@@ -1,5 +1,11 @@
 # @venusprotocol/ui
 
+## 0.5.0
+
+### Minor Changes
+
+- 1a9a121: remove Berachain-related code
+
 ## 0.4.0
 
 ### Minor Changes

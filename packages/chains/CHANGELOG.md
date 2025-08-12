@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.7.0
+
+### Minor Changes
+
+- 1a9a121: remove Berachain-related code
+
 ## 0.6.0
 
 ### Minor Changes
