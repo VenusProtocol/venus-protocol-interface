@@ -1,29 +1,35 @@
-import { cn, theme } from '@venusprotocol/ui';
-import type { MarketHistoryPeriodType } from 'clients/api';
-import { ButtonGroup, Card, Cell, type CellProps, InfoIcon } from 'components';
+import { Spinner, cn, theme } from '@venusprotocol/ui';
+import {
+  type AccountPerformanceHistoryDataPoint,
+  type AccountPerformanceHistoryPeriod,
+  useGetAccountPerformanceHistory,
+} from 'clients/api';
+import { ButtonGroup, Card, Cell, type CellProps, ErrorState, InfoIcon } from 'components';
 import { AreaChart } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import { useBreakpointUp } from 'hooks/responsive';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 import { useState } from 'react';
 import { formatCentsToReadableValue } from 'utilities';
-import { data } from './fakeData';
 import { formatToReadableAxisDate } from './formatToReadableAxisDate';
 import { formatToReadableTitleDate } from './formatToReadableTitleDate';
 
 export interface PerformanceChartProps {
+  netWorthCents: number;
   className?: string;
 }
 
-interface PerformanceChartItem {
-  timestampMs: number;
-  netWorthCents: number;
-}
-
-export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className }) => {
+export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, netWorthCents }) => {
   const { t } = useTranslation();
   const isSmOrUp = useBreakpointUp('sm');
+  const { accountAddress } = useAccountAddress();
+  const isVaiFeatureEnabled = useIsFeatureEnabled({
+    name: 'vaiRoute',
+  });
 
-  const periodOptions: { label: string; value: MarketHistoryPeriodType }[] = [
+  const periodOptions: { label: string; value: AccountPerformanceHistoryPeriod }[] = [
     {
       label: t('account.performanceChart.periodOption.thirtyDays'),
       value: 'month',
@@ -38,35 +44,83 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
     },
   ];
 
-  const [selectedPeriod, setSelectedPeriod] = useState<MarketHistoryPeriodType>(
+  const [selectedPeriod, setSelectedPeriod] = useState<AccountPerformanceHistoryPeriod>(
     periodOptions[0].value,
   );
 
-  const [selectedDataPoint, setSelectedDataPoint] = useState<PerformanceChartItem | undefined>();
+  const {
+    data: getAccountPerformanceHistoryData,
+    refetch: refetchAccountPerformanceHistoryData,
+    error: getAccountPerformanceHistoryError,
+    isLoading: isGetAccountPerformanceHistoryLoading,
+  } = useGetAccountPerformanceHistory({
+    accountAddress: accountAddress || NULL_ADDRESS,
+    period: selectedPeriod,
+  });
+  const accountPerformanceHistory = getAccountPerformanceHistoryData?.performanceHistory || [];
+  const startOfDayNetWorthCents =
+    getAccountPerformanceHistoryData?.startOfDayNetWorthCents !== undefined
+      ? getAccountPerformanceHistoryData?.startOfDayNetWorthCents
+      : undefined;
+  const oldestNetWorthCents =
+    accountPerformanceHistory.length > 0
+      ? Number(accountPerformanceHistory[0].netWorthCents)
+      : undefined;
+
+  const absolutePerformanceCents =
+    oldestNetWorthCents !== undefined ? netWorthCents - oldestNetWorthCents : undefined;
+
+  const dailyChangeCents =
+    startOfDayNetWorthCents !== undefined
+      ? accountPerformanceHistory[accountPerformanceHistory.length - 1].netWorthCents -
+        startOfDayNetWorthCents
+      : undefined;
+
+  const readableAbsolutePerformance = formatCentsToReadableValue({
+    value: absolutePerformanceCents,
+  });
+
+  const readableDailyChange = formatCentsToReadableValue({
+    value: dailyChangeCents,
+  });
+
+  const [selectedDataPoint, setSelectedDataPoint] = useState<
+    AccountPerformanceHistoryDataPoint | undefined
+  >();
 
   const chartInterval = isSmOrUp ? 5 : 4;
-  const netWorthCents = 1000000; // TODO: fetch current user net worth
 
   const cells: CellProps[] = [
     {
-      label: t('account.performanceChart.dailyChange'),
-      value: <span className="text-base sm:text-lg">+$100</span>,
+      label: t('account.performanceChart.todaysChange'),
+      value: (
+        <span className="text-base sm:text-lg">
+          {dailyChangeCents !== undefined && dailyChangeCents > 0 && '+'}
+          {readableDailyChange}
+        </span>
+      ),
     },
     {
       label: t('account.performanceChart.absolutePerformance'),
-      // TODO: calculate based on selected data point
-      value: <span className="text-base sm:text-lg">+$100</span>,
+      value: (
+        <span className="text-base sm:text-lg">
+          {absolutePerformanceCents !== undefined && absolutePerformanceCents > 0 && '+'}
+          {readableAbsolutePerformance}
+        </span>
+      ),
     },
   ];
 
   return (
-    <Card className={className}>
+    <Card className={cn('rounded-2xl', className)}>
       <div className="flex justify-between mb-4 sm:mb-2">
         <div className="flex flex-col grow sm:flex-row sm:gap-x-2 sm:items-end">
           <div className="sm:mb-2 sm:order-2">
             {selectedDataPoint ? (
               <p className="text-sm">
-                {formatToReadableTitleDate({ timestampMs: selectedDataPoint.timestampMs })}
+                {formatToReadableTitleDate({
+                  timestampMs: Number(selectedDataPoint.blockTimestampMs),
+                })}
               </p>
             ) : (
               <div className="flex gap-x-1 items-center">
@@ -74,7 +128,11 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
 
                 <InfoIcon
                   className="inline-flex"
-                  tooltip={t('account.performanceChart.netWorth.tooltip')}
+                  tooltip={
+                    isVaiFeatureEnabled
+                      ? t('account.performanceChart.netWorth.tooltipWithVai')
+                      : t('account.performanceChart.netWorth.tooltip')
+                  }
                 />
               </div>
             )}
@@ -82,7 +140,9 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
 
           <p className="text-xl sm:text-2xl sm:order-1">
             {formatCentsToReadableValue({
-              value: selectedDataPoint?.netWorthCents || netWorthCents,
+              value: selectedDataPoint?.netWorthCents
+                ? Number(selectedDataPoint.netWorthCents)
+                : netWorthCents,
             })}
           </p>
         </div>
@@ -110,18 +170,45 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className })
         ))}
       </div>
 
-      <AreaChart
-        data={data} // TODO: fetch actual data
-        xAxisDataKey="timestampMs"
-        yAxisDataKey="netWorthCents"
-        onDataPointHover={payload => setSelectedDataPoint(payload)}
-        onMouseLeave={() => setSelectedDataPoint(undefined)}
-        formatXAxisValue={formatToReadableAxisDate}
-        formatYAxisValue={value => formatCentsToReadableValue({ value })}
-        interval={chartInterval}
-        chartColor={theme.colors.blue}
-        className="h-50"
-      />
+      <div className="h-50">
+        {accountPerformanceHistory.length > 0 && (
+          <AreaChart
+            data={accountPerformanceHistory}
+            xAxisDataKey="blockTimestampMs"
+            yAxisDataKey="netWorthCents"
+            onDataPointHover={payload => setSelectedDataPoint(payload)}
+            onMouseLeave={() => setSelectedDataPoint(undefined)}
+            formatXAxisValue={formatToReadableAxisDate}
+            formatYAxisValue={value => formatCentsToReadableValue({ value })}
+            interval={chartInterval}
+            chartColor={theme.colors.blue}
+            className="h-full"
+          />
+        )}
+
+        {accountPerformanceHistory.length === 0 &&
+          (isGetAccountPerformanceHistoryLoading || getAccountPerformanceHistoryError) && (
+            <div className="w-full h-full flex flex-col items-center justify-center gap-y-3">
+              {getAccountPerformanceHistoryError ? (
+                <ErrorState
+                  message={t('account.performanceChart.errorState.failedToFetchMessage')}
+                  button={{
+                    label: t('account.performanceChart.errorState.refetchButtonLabel'),
+                    onClick: refetchAccountPerformanceHistoryData,
+                  }}
+                />
+              ) : (
+                <>
+                  <Spinner className="h-auto" />
+
+                  <p className="text-sm text-grey">
+                    {t('account.performanceChart.placeholderText')}
+                  </p>
+                </>
+              )}
+            </div>
+          )}
+      </div>
     </Card>
   );
 };

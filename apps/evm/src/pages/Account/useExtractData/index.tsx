@@ -1,18 +1,12 @@
 import BigNumber from 'bignumber.js';
 
-import { AccountHealthBar, type CellProps } from 'components';
-import { useHealthFactor } from 'hooks/useHealthFactor';
-import { useTranslation } from 'libs/translations';
-import type { Pool, Vault } from 'types';
+import type { Pool, Token, Vault } from 'types';
 import {
   calculateDailyEarningsCents,
   calculateHealthFactor,
   calculateYearlyEarningsForAssets,
   calculateYearlyInterests,
   convertMantissaToTokens,
-  formatCentsToReadableValue,
-  formatHealthFactorToReadableValue,
-  formatPercentageToReadableValue,
 } from 'utilities';
 import calculateNetApy from './calculateNetApy';
 
@@ -21,20 +15,18 @@ interface UseExtractDataInput {
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
   vaults?: Vault[];
-  includeHealthFactor?: boolean;
-  includeAccountHealth?: boolean;
+  vai?: Token;
+  userVaiBorrowBalanceMantissa?: BigNumber;
 }
 
 export const useExtractData = ({
   pools,
   vaults,
+  vai,
+  userVaiBorrowBalanceMantissa,
   xvsPriceCents = new BigNumber(0),
   vaiPriceCents = new BigNumber(0),
-  includeHealthFactor = false,
-  includeAccountHealth = false,
 }: UseExtractDataInput) => {
-  const { t } = useTranslation();
-
   const { totalBorrowCents, totalSupplyCents, totalBorrowLimitCents, liquidationThresholdCents } =
     pools.reduce(
       (acc, pool) => ({
@@ -53,25 +45,33 @@ export const useExtractData = ({
       },
     );
 
-  const { totalVaultStakeCents, yearlyVaultEarningsCents } = (vaults || []).reduce(
-    (accTotalVaultStakeCents, vault) => {
+  let totalVaultStakeCents: BigNumber | undefined;
+  let yearlyVaultEarningsCents: BigNumber | undefined;
+
+  if (vaults) {
+    vaults.forEach(vault => {
       const vaultStakeCents = convertMantissaToTokens({
         value: new BigNumber(vault.userStakedMantissa || 0),
         token: vault.stakedToken,
       }).multipliedBy(vault.stakedToken.symbol === 'XVS' ? xvsPriceCents : vaiPriceCents);
 
-      return {
-        totalVaultStakeCents: accTotalVaultStakeCents.totalVaultStakeCents.plus(vaultStakeCents),
-        yearlyVaultEarningsCents: accTotalVaultStakeCents.yearlyVaultEarningsCents.plus(
-          calculateYearlyInterests({
-            balance: vaultStakeCents,
-            interestPercentage: new BigNumber(vault.stakingAprPercentage),
-          }),
-        ),
-      };
-    },
-    { totalVaultStakeCents: new BigNumber(0), yearlyVaultEarningsCents: new BigNumber(0) },
-  );
+      if (!totalVaultStakeCents) {
+        totalVaultStakeCents = new BigNumber(0);
+      }
+
+      if (!yearlyVaultEarningsCents) {
+        yearlyVaultEarningsCents = new BigNumber(0);
+      }
+
+      totalVaultStakeCents = totalVaultStakeCents.plus(vaultStakeCents);
+      yearlyVaultEarningsCents = yearlyVaultEarningsCents.plus(
+        calculateYearlyInterests({
+          balance: vaultStakeCents,
+          interestPercentage: new BigNumber(vault.stakingAprPercentage),
+        }),
+      );
+    });
+  }
 
   const yearlyAssetEarningsCents = pools.reduce((acc, pool) => {
     const yearlyPoolAssetsEarningsCents = calculateYearlyEarningsForAssets({
@@ -81,13 +81,24 @@ export const useExtractData = ({
     return acc.plus(yearlyPoolAssetsEarningsCents || 0);
   }, new BigNumber(0));
 
-  const yearlyEarningsCents = yearlyAssetEarningsCents.plus(yearlyVaultEarningsCents);
+  let totalVaiBorrowBalanceCents: BigNumber | undefined;
+
+  if (userVaiBorrowBalanceMantissa && vaiPriceCents && vai) {
+    const userVaiBorrowBalanceTokens = convertMantissaToTokens({
+      value: userVaiBorrowBalanceMantissa,
+      token: vai,
+    });
+
+    totalVaiBorrowBalanceCents = userVaiBorrowBalanceTokens.multipliedBy(vaiPriceCents);
+  }
+
+  const yearlyEarningsCents = yearlyAssetEarningsCents.plus(yearlyVaultEarningsCents || 0);
   const dailyEarningsCents = calculateDailyEarningsCents(yearlyEarningsCents).toNumber();
 
   const netApyPercentage =
     yearlyAssetEarningsCents &&
     calculateNetApy({
-      supplyBalanceCents: totalSupplyCents.plus(totalVaultStakeCents),
+      supplyBalanceCents: totalSupplyCents.plus(totalVaultStakeCents || 0),
       yearlyEarningsCents,
     });
 
@@ -96,62 +107,14 @@ export const useExtractData = ({
     liquidationThresholdCents: liquidationThresholdCents.toNumber(),
   });
 
-  const { textClass } = useHealthFactor({ value: healthFactor });
-
-  const cells: CellProps[] = includeHealthFactor
-    ? [
-        {
-          label: t('account.summary.cellGroup.healthFactor'),
-          value: formatHealthFactorToReadableValue({ value: healthFactor }),
-          tooltip: t('account.summary.cellGroup.healthFactorTooltip'),
-          className: textClass,
-        },
-      ]
-    : [];
-
-  cells.push(
-    {
-      label: t('account.summary.cellGroup.netApy'),
-      value: formatPercentageToReadableValue(netApyPercentage),
-      tooltip: vaults
-        ? t('account.summary.cellGroup.netApyWithVaultStakeTooltip')
-        : t('account.summary.cellGroup.netApyTooltip'),
-      className:
-        typeof netApyPercentage === 'number' && netApyPercentage < 0 ? 'text-red' : 'text-green',
-    },
-    {
-      label: t('account.summary.cellGroup.dailyEarnings'),
-      value: formatCentsToReadableValue({ value: dailyEarningsCents }),
-    },
-    {
-      label: t('account.summary.cellGroup.totalSupply'),
-      value: formatCentsToReadableValue({ value: totalSupplyCents }),
-    },
-    {
-      label: t('account.summary.cellGroup.totalBorrow'),
-      value: formatCentsToReadableValue({ value: totalBorrowCents }),
-    },
-  );
-
-  if (vaults) {
-    cells.push({
-      label: t('account.summary.cellGroup.totalVaultStake'),
-      value: formatCentsToReadableValue({ value: totalVaultStakeCents }),
-    });
-  }
-
-  if (includeAccountHealth) {
-    cells.push({
-      value: (
-        <AccountHealthBar
-          borrowBalanceCents={totalBorrowCents.toNumber()}
-          borrowLimitCents={totalBorrowLimitCents.toNumber()}
-        />
-      ),
-    });
-  }
-
   return {
-    cells,
+    totalVaultStakeCents,
+    totalBorrowCents,
+    totalSupplyCents,
+    totalBorrowLimitCents,
+    totalVaiBorrowBalanceCents,
+    dailyEarningsCents,
+    netApyPercentage,
+    healthFactor,
   };
 };

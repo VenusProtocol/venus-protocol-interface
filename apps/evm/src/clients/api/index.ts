@@ -228,3 +228,6 @@ export * from './queries/getBurnedWBnb/useGetBurnedWBnb';
 
 export * from './queries/getImportablePositions';
 export * from './queries/getImportablePositions/useGetImportablePositions';
+
+export * from './queries/getAccountPerformanceHistory';
+export * from './queries/getAccountPerformanceHistory/useGetAccountPerformanceHistory';

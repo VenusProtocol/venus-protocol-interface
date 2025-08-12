@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getAccountPerformanceHistory > returns correct sum for multiple destinationAmounts 1`] = `
+{
+  "performanceHistory": [
+    {
+      "blockNumber": 1,
+      "blockTimestampMs": 1714828100000,
+      "netWorthCents": 10000,
+    },
+    {
+      "blockNumber": 3,
+      "blockTimestampMs": 1714828200000,
+      "netWorthCents": 11000,
+    },
+    {
+      "blockNumber": 5,
+      "blockTimestampMs": 1714828300000,
+      "netWorthCents": 9000,
+    },
+    {
+      "blockNumber": 7,
+      "blockTimestampMs": 1714828400000,
+      "netWorthCents": 8000,
+    },
+    {
+      "blockNumber": 9,
+      "blockTimestampMs": 1714828500000,
+      "netWorthCents": 20000,
+    },
+    {
+      "blockNumber": 10,
+      "blockTimestampMs": 1714828700000,
+      "netWorthCents": 21000,
+    },
+  ],
+  "startOfDayNetWorthCents": 8500,
+}
+`;
