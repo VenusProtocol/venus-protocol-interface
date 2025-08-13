@@ -768,9 +768,9 @@
   integrity sha512-W+a0/JpU28AqH4IKtwUPcEUnUyXMDLALcn5/JLczGGT9fHE2sIby/xP/oQnx3nxkForzgzPy201RAKcB4xPAFQ==
 
 "@biconomy/abstractjs@^1.0.21":
-  version "1.0.22"
-  resolved "https://registry.yarnpkg.com/@biconomy/abstractjs/-/abstractjs-1.0.22.tgz#8bd8af9efa17a63bf8a5ea3650939a7e9be40398"
-  integrity sha512-GcQGWYt/ovtgKtI8NfLnMpjuqL7VjSReQLNN3y/vMzSwcTFuIM7YXNfJq109XfQpNlt06IW6PYXkCE6b3c66pw==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@biconomy/abstractjs/-/abstractjs-1.1.0.tgz#5ab70c8c37a9c497750cdbbfd32b69e8bc26ddc8"
+  integrity sha512-7I7Auhdz7o49c4QJ0M+JGNFaa/pLH01+hybccyvvd9+nbi+LyaObneBmxVL7WoQcRJYtaSPjX88RbxN54wV0FA==
 
 "@biomejs/biome@1.6.4":
   version "1.6.4"
