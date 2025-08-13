@@ -597,6 +597,43 @@ export const useGetImportablePositions = vi.fn(() =>
   }),
 );
 
+export const getAccountPerformanceHistory = vi.fn(async () => ({
+  performanceHistory: [
+    {
+      blockNumber: 1,
+      blockTimestampMs: 1714828100000,
+      netWorthCents: 10000,
+    },
+    {
+      blockNumber: 3,
+      blockTimestampMs: 1714828200000,
+      netWorthCents: 11000,
+    },
+    {
+      blockNumber: 5,
+      blockTimestampMs: 1714828300000,
+      netWorthCents: 9000,
+    },
+    {
+      blockNumber: 7,
+      blockTimestampMs: 1714828400000,
+      netWorthCents: 8000,
+    },
+    {
+      blockNumber: 9,
+      blockTimestampMs: 1714828500000,
+      netWorthCents: 20000,
+    },
+  ],
+  startOfDayNetWorthCents: 8500,
+}));
+export const useGetAccountPerformanceHistory = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_ACCOUNT_PERFORMANCE_HISTORY],
+    queryFn: getAccountPerformanceHistory,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({

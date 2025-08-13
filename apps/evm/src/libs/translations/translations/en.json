@@ -12,16 +12,22 @@
     },
     "performanceChart": {
       "absolutePerformance": "Absolute performance",
-      "dailyChange": "Daily change",
+      "todaysChange": "Today's change",
+      "errorState": {
+        "failedToFetchMessage": "Could not fetch account history",
+        "refetchButtonLabel": "Retry"
+      },
       "netWorth": {
         "label": "Net worth",
-        "tooltip": "Net available assets after accounting for vault stake, borrowings, and minted VAI"
+        "tooltip": "Net available assets after accounting for vault stake and borrowings",
+        "tooltipWithVai": "Net available assets after accounting for vault stake, borrowings, and minted VAI"
       },
       "periodOption": {
         "oneYear": "1Y",
         "sixMonths": "6M",
         "thirtyDays": "30D"
-      }
+      },
+      "placeholderText": "Generating report, this can take up to a minute"
     },
     "placeholder": {
       "buttonLabel": "Browse"
