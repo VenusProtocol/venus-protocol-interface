@@ -83,6 +83,7 @@ const Account: React.FC = () => {
   if (!hasPositions) {
     return <AccountPlaceholder />;
   }
+  console.log('CALLED');
 
   return (
     <div className="flex-auto space-y-10">

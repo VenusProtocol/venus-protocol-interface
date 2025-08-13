@@ -43,7 +43,6 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
     <div className={className} {...otherProps}>
       <Notice
         className="mb-2"
-        variant="warning"
         description={
           <Trans
             // Translation key: do not remove this comment

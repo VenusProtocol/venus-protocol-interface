@@ -10,7 +10,6 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useNavigate } from 'hooks/useNavigate';
-import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
@@ -133,7 +132,6 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
     t,
   ]);
 
-  const primeCalculatorPagePath = usePrimeCalculatorPagePath();
   const isPrimeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
@@ -211,7 +209,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                     i18nKey="primeStatusBanner.description.primeCalculator"
                     components={{
                       WhiteText: <span className="text-offWhite" />,
-                      Link: <Link to={primeCalculatorPagePath} />,
+                      Link: <Link to={routes.primeCalculator.path} />,
                     }}
                     values={{
                       stakeDelta: readableStakeDeltaTokens,

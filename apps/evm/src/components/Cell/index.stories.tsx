@@ -15,7 +15,3 @@ export default {
 export const Default = () => (
   <Cell label="Total supply" value="$1,000,000" tooltip="This is a fake tooltip" />
 );
-
-export const Small = () => (
-  <Cell label="Total supply" value="$1,000,000" tooltip="This is a fake tooltip" small />
-);
