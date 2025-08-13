@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.37.0
+
+### Minor Changes
+
+- f9d4941: fetch and display account performance over time
+
 ## 3.36.0
 
 ### Minor Changes
