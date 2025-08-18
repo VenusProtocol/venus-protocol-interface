@@ -14,6 +14,7 @@ interface UseExtractDataInput {
   pools: Pool[];
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
+  vaiBorrowAprPercentage?: BigNumber;
   vaults?: Vault[];
   vai?: Token;
   userVaiBorrowBalanceMantissa?: BigNumber;
@@ -24,6 +25,7 @@ export const useExtractData = ({
   vaults,
   vai,
   userVaiBorrowBalanceMantissa,
+  vaiBorrowAprPercentage,
   xvsPriceCents = new BigNumber(0),
   vaiPriceCents = new BigNumber(0),
 }: UseExtractDataInput) => {
@@ -82,6 +84,7 @@ export const useExtractData = ({
   }, new BigNumber(0));
 
   let totalVaiBorrowBalanceCents: BigNumber | undefined;
+  let vaiYearlyBorrowInterestsCents: BigNumber | undefined;
 
   if (userVaiBorrowBalanceMantissa && vaiPriceCents && vai) {
     const userVaiBorrowBalanceTokens = convertMantissaToTokens({
@@ -92,7 +95,17 @@ export const useExtractData = ({
     totalVaiBorrowBalanceCents = userVaiBorrowBalanceTokens.multipliedBy(vaiPriceCents);
   }
 
-  const yearlyEarningsCents = yearlyAssetEarningsCents.plus(yearlyVaultEarningsCents || 0);
+  if (totalVaiBorrowBalanceCents && vaiBorrowAprPercentage) {
+    vaiYearlyBorrowInterestsCents = totalVaiBorrowBalanceCents
+      .multipliedBy(vaiBorrowAprPercentage)
+      .div(100);
+  }
+
+  console.log('vaiYearlyInterestsCents', vaiYearlyBorrowInterestsCents?.toFixed());
+
+  const yearlyEarningsCents = yearlyAssetEarningsCents
+    .plus(yearlyVaultEarningsCents || 0)
+    .minus(vaiYearlyBorrowInterestsCents || 0);
   const dailyEarningsCents = calculateDailyEarningsCents(yearlyEarningsCents).toNumber();
 
   const netApyPercentage =

@@ -140,9 +140,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
 
           <p className="text-xl sm:text-2xl sm:order-1">
             {formatCentsToReadableValue({
-              value: selectedDataPoint?.netWorthCents
-                ? Number(selectedDataPoint.netWorthCents)
-                : netWorthCents,
+              value: selectedDataPoint ? Number(selectedDataPoint.netWorthCents) : netWorthCents,
             })}
           </p>
         </div>

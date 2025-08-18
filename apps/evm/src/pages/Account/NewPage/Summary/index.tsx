@@ -13,6 +13,7 @@ export interface SummaryProps {
   vaults?: Vault[];
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
+  vaiBorrowAprPercentage?: BigNumber;
   userVaiBorrowBalanceMantissa?: BigNumber;
   className?: string;
 }
@@ -23,6 +24,7 @@ export const Summary: React.FC<SummaryProps> = ({
   vaults,
   xvsPriceCents,
   vaiPriceCents,
+  vaiBorrowAprPercentage,
   userVaiBorrowBalanceMantissa,
 }) => {
   const { t } = useTranslation();
@@ -43,6 +45,7 @@ export const Summary: React.FC<SummaryProps> = ({
     vaults,
     xvsPriceCents,
     vaiPriceCents,
+    vaiBorrowAprPercentage,
     userVaiBorrowBalanceMantissa,
     vai,
   });
