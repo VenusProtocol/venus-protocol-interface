@@ -72,7 +72,7 @@ export const AreaChart = <T extends Record<string, any>>({
             </linearGradient>
           </defs>
 
-          <CartesianGrid vertical={false} stroke={theme.colors.lightGrey} strokeDasharray="4" />
+          <CartesianGrid vertical={false} stroke={theme.colors.lightGrey} strokeDasharray="2 2" />
 
           <XAxis
             dataKey={xAxisDataKey}

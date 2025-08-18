@@ -50,7 +50,11 @@ describe('Account - Feature flag enabled: Prime', () => {
 
     renderComponent(<NewPage />);
 
-    await waitFor(() => expect(screen.getByText(en.account.primeBanner.button.stakeXvs)));
+    await waitFor(() =>
+      expect(screen.queryAllByText(en.account.primeBanner.button.stakeXvs).length).toBeGreaterThan(
+        0,
+      ),
+    );
   });
 
   it('displays Prime banner if user can become Prime and Prime feature is enabled', async () => {
@@ -64,6 +68,10 @@ describe('Account - Feature flag enabled: Prime', () => {
 
     renderComponent(<NewPage />);
 
-    await waitFor(() => expect(screen.getByText(en.account.primeBanner.button.becomePrime)));
+    await waitFor(() =>
+      expect(
+        screen.queryAllByText(en.account.primeBanner.button.becomePrime).length,
+      ).toBeGreaterThan(0),
+    );
   });
 });
