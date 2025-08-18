@@ -54,3 +54,4 @@ export * from './RiskAcknowledgementToggle';
 export * from './AccountHealthBar';
 export * from './AreaChart';
 export * from './ChartTooltipContent';
+export * from './ChartYAxisTick';

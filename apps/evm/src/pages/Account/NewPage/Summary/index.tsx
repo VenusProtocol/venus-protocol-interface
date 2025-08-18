@@ -105,7 +105,7 @@ export const Summary: React.FC<SummaryProps> = ({
       <img
         src={circularGradientSrc}
         alt={t('account.circularGradient')}
-        className="absolute max-w-none w-120 left-[50%] -translate-x-[50%] -bottom-55 sm:w-187 sm:-bottom-110 sm:-left-20 sm:translate-x-0 lg:w-120 lg:left-[50%] lg:-translate-x-[50%] lg:-bottom-55"
+        className="absolute max-w-none w-120 left-[50%] -translate-x-[50%] -bottom-55 sm:w-187 sm:-bottom-110 lg:w-120 lg:-bottom-55"
       />
 
       <div className="relative">

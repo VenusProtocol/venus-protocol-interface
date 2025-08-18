@@ -1,6 +1,6 @@
 import { cn, theme } from '@venusprotocol/ui';
 import { useGetVTokenApySimulations } from 'clients/api';
-import { ChartTooltipContent, Spinner } from 'components';
+import { ChartTooltipContent, ChartYAxisTick, Spinner } from 'components';
 import { useTranslation } from 'libs/translations';
 import {
   CartesianGrid,
@@ -102,8 +102,10 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                 <YAxis
                   axisLine={false}
                   tickLine={false}
-                  tickFormatter={formatPercentageToReadableValue}
                   tickMargin={10}
+                  tick={({ payload, y }) => (
+                    <ChartYAxisTick value={formatPercentageToReadableValue(payload.value)} y={y} />
+                  )}
                   stroke={theme.colors.grey}
                   className="text-xs"
                   tickCount={10}

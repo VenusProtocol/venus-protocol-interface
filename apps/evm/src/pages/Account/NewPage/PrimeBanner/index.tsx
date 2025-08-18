@@ -60,7 +60,7 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
 
       <Card
         className={cn(
-          'relative flex justify-center items-center py-2',
+          'relative flex justify-center items-center py-2 rounded-lg',
           canUserBecomePrime ? 'h-12' : 'h-auto sm:h-12',
         )}
       >

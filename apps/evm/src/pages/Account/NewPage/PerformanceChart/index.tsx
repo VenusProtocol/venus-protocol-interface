@@ -176,6 +176,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
             data={accountPerformanceHistory}
             xAxisDataKey="blockTimestampMs"
             yAxisDataKey="netWorthCents"
+            yAxisTickCount={5}
             onDataPointHover={payload => setSelectedDataPoint(payload)}
             onMouseLeave={() => setSelectedDataPoint(undefined)}
             formatXAxisValue={formatToReadableAxisDate}
