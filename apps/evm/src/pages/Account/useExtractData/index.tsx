@@ -101,8 +101,6 @@ export const useExtractData = ({
       .div(100);
   }
 
-  console.log('vaiYearlyInterestsCents', vaiYearlyBorrowInterestsCents?.toFixed());
-
   const yearlyEarningsCents = yearlyAssetEarningsCents
     .plus(yearlyVaultEarningsCents || 0)
     .minus(vaiYearlyBorrowInterestsCents || 0);

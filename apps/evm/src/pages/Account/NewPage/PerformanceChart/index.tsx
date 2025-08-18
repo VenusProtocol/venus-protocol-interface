@@ -4,7 +4,7 @@ import {
   type AccountPerformanceHistoryPeriod,
   useGetAccountPerformanceHistory,
 } from 'clients/api';
-import { ButtonGroup, Card, Cell, type CellProps, ErrorState, InfoIcon } from 'components';
+import { ButtonGroup, Card, Cell, type CellProps, ErrorState, Icon, InfoIcon } from 'components';
 import { AreaChart } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useBreakpointUp } from 'hooks/responsive';
@@ -12,7 +12,8 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useState } from 'react';
-import { formatCentsToReadableValue } from 'utilities';
+import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import { DollarValueChange } from './DollarValueChange';
 import { formatToReadableAxisDate } from './formatToReadableAxisDate';
 import { formatToReadableTitleDate } from './formatToReadableTitleDate';
 
@@ -58,10 +59,12 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
     period: selectedPeriod,
   });
   const accountPerformanceHistory = getAccountPerformanceHistoryData?.performanceHistory || [];
+
   const startOfDayNetWorthCents =
     getAccountPerformanceHistoryData?.startOfDayNetWorthCents !== undefined
       ? getAccountPerformanceHistoryData?.startOfDayNetWorthCents
       : undefined;
+
   const oldestNetWorthCents =
     accountPerformanceHistory.length > 0
       ? Number(accountPerformanceHistory[0].netWorthCents)
@@ -71,18 +74,14 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
     oldestNetWorthCents !== undefined ? netWorthCents - oldestNetWorthCents : undefined;
 
   const dailyChangeCents =
-    startOfDayNetWorthCents !== undefined
-      ? accountPerformanceHistory[accountPerformanceHistory.length - 1].netWorthCents -
-        startOfDayNetWorthCents
+    startOfDayNetWorthCents !== undefined ? netWorthCents - startOfDayNetWorthCents : undefined;
+
+  const dailyChangePercentage =
+    dailyChangeCents !== undefined && netWorthCents !== 0
+      ? (dailyChangeCents * 100) / netWorthCents
       : undefined;
 
-  const readableAbsolutePerformance = formatCentsToReadableValue({
-    value: absolutePerformanceCents,
-  });
-
-  const readableDailyChange = formatCentsToReadableValue({
-    value: dailyChangeCents,
-  });
+  const readableDailyChangePercentage = formatPercentageToReadableValue(dailyChangePercentage);
 
   const [selectedDataPoint, setSelectedDataPoint] = useState<
     AccountPerformanceHistoryDataPoint | undefined
@@ -94,20 +93,30 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
     {
       label: t('account.performanceChart.todaysChange'),
       value: (
-        <span className="text-base sm:text-lg">
-          {dailyChangeCents !== undefined && dailyChangeCents > 0 && '+'}
-          {readableDailyChange}
-        </span>
+        <div className="space-x-2 flex items-center">
+          <DollarValueChange value={dailyChangeCents} />
+
+          {dailyChangeCents !== undefined && dailyChangeCents !== 0 && (
+            <div
+              className={cn('flex items-center', dailyChangeCents > 0 ? 'text-green' : 'text-red')}
+            >
+              <Icon
+                name="arrowUpFull2"
+                className={cn(
+                  'w-4 h-4 text-inherit -mb-[2px]',
+                  dailyChangeCents < 0 && 'rotate-180',
+                )}
+              />
+
+              <span>{readableDailyChangePercentage}</span>
+            </div>
+          )}
+        </div>
       ),
     },
     {
       label: t('account.performanceChart.absolutePerformance'),
-      value: (
-        <span className="text-base sm:text-lg">
-          {absolutePerformanceCents !== undefined && absolutePerformanceCents > 0 && '+'}
-          {readableAbsolutePerformance}
-        </span>
-      ),
+      value: <DollarValueChange value={absolutePerformanceCents} />,
     },
   ];
 

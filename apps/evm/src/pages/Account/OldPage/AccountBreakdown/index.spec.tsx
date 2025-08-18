@@ -53,13 +53,15 @@ describe('Account', () => {
   });
 
   it('displays page when there are positions', async () => {
-    const { getByText } = renderComponent(<Account />, {
+    const { queryAllByText, getByText } = renderComponent(<Account />, {
       accountAddress: fakeAccountAddress,
     });
 
     // Check account summary is displayed
     await waitFor(() =>
-      expect(getByText(en.account.summary.cellGroup.totalVaultStake)).toBeInTheDocument(),
+      expect(queryAllByText(en.account.summary.cellGroup.totalVaultStake).length).toBeGreaterThan(
+        0,
+      ),
     );
     // Check pool position breakdown is displayed
     expect(getByText(en.account.poolsBreakdown.title)).toBeInTheDocument();

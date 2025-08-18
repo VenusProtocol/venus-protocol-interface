@@ -54,6 +54,7 @@ export const AreaChart = <T extends Record<string, any>>({
           margin={{
             top: 20,
             left: -14,
+            right: 4,
           }}
           data={data}
           onMouseLeave={onMouseLeave}
