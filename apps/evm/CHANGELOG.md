@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.39.0
+
+### Minor Changes
+
+- 359f278: account page UI fixes
+
+### Patch Changes
+
+- Updated dependencies [359f278]
+  - @venusprotocol/ui@0.6.0
+
 ## 3.38.0
 
 ### Minor Changes

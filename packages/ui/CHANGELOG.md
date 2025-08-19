@@ -1,5 +1,11 @@
 # @venusprotocol/ui
 
+## 0.6.0
+
+### Minor Changes
+
+- 359f278: account page UI fixes
+
 ## 0.5.0
 
 ### Minor Changes
