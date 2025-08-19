@@ -1,5 +1,5 @@
 import { cn, theme } from '@venusprotocol/ui';
-import { ChartTooltipContent, type ChartTooltipContentItem } from 'components';
+import { ChartTooltipContent, type ChartTooltipContentItem, ChartYAxisTick } from 'components';
 import { useUID } from 'react-uid';
 import {
   Area,
@@ -17,8 +17,9 @@ export interface ChartProps<T extends Record<string, any>> {
   xAxisDataKey: DataKey<T>;
   yAxisDataKey: DataKey<T>;
   chartColor: string;
-  formatXAxisValue: (value: any, index: number) => string;
-  formatYAxisValue: (value: any, index: number) => string;
+  formatXAxisValue: (value: any) => string;
+  formatYAxisValue: (value: any) => string;
+  yAxisTickCount?: number;
   onDataPointHover?: (value: T) => void;
   onMouseLeave?: () => void;
   formatTooltipItems?: (value: T) => ChartTooltipContentItem[];
@@ -33,6 +34,7 @@ export const AreaChart = <T extends Record<string, any>>({
   interval,
   xAxisDataKey,
   yAxisDataKey,
+  yAxisTickCount = 6,
   formatXAxisValue,
   formatYAxisValue,
   formatTooltipItems,
@@ -51,8 +53,8 @@ export const AreaChart = <T extends Record<string, any>>({
         <RCAreaChart
           margin={{
             top: 20,
-            right: 10,
-            left: -12,
+            left: -14,
+            right: 4,
           }}
           data={data}
           onMouseLeave={onMouseLeave}
@@ -70,7 +72,7 @@ export const AreaChart = <T extends Record<string, any>>({
             </linearGradient>
           </defs>
 
-          <CartesianGrid vertical={false} stroke={theme.colors.lightGrey} />
+          <CartesianGrid vertical={false} stroke={theme.colors.lightGrey} strokeDasharray="2 2" />
 
           <XAxis
             dataKey={xAxisDataKey}
@@ -88,11 +90,13 @@ export const AreaChart = <T extends Record<string, any>>({
             dataKey={yAxisDataKey}
             axisLine={false}
             tickLine={false}
-            tickFormatter={formatYAxisValue}
             tickMargin={8}
-            tickCount={6}
+            tick={({ payload, y }) => (
+              <ChartYAxisTick value={formatYAxisValue(payload.value)} y={y} />
+            )}
+            tickCount={yAxisTickCount}
             stroke={theme.colors.grey}
-            className="text-xs"
+            className="text-xs text-left"
           />
 
           <Tooltip

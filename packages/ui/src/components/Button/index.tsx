@@ -80,8 +80,8 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   return (
     <Comp
       className={cn(
-        'disabled:text-grey inline-flex cursor-pointer items-center justify-center rounded-lg border border-transparent font-semibold transition-all duration-[250ms] disabled:cursor-default',
-        small ? 'h-8 px-5 py-1 text-sm' : 'h-12 px-6 py-2',
+        'disabled:text-grey inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-all duration-[250ms] disabled:cursor-default',
+        small ? 'h-8 px-5 py-1 text-sm rounded-md' : 'h-12 px-6 py-2 rounded-lg',
         getVariantClasses({ variant, active }),
         className,
       )}

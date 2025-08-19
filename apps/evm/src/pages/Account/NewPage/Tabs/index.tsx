@@ -41,12 +41,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
 
         <div className="flex gap-x-4 scrollbar-hidden overflow-y-auto md:overflow-y-visible sm:gap-x-6">
           {tabs.map(tab => (
-            <button
-              className="-mb-[1px]"
-              onClick={() => setActiveTabId(tab.id)}
-              type="button"
-              key={tab.title}
-            >
+            <button onClick={() => setActiveTabId(tab.id)} type="button" key={tab.title}>
               <p
                 className={cn(
                   'mb-2 font-semibold whitespace-nowrap sm:text-lg',

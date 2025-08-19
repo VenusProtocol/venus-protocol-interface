@@ -29,7 +29,7 @@ describe('PrimeBanner', () => {
       <PrimeBanner boostPercentage={fakeBoostPercentage} canUserBecomePrime={false} />,
     );
 
-    fireEvent.click(screen.getByTestId(testIds.closeButton));
+    fireEvent.click(screen.queryAllByTestId(testIds.closeButton)[1]);
 
     expect(store.getState().doNotShowPrimePromotionalBanner).toBe(true);
     expect(container.textContent).toMatchSnapshot();
@@ -46,7 +46,7 @@ describe('PrimeBanner', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    fireEvent.click(screen.getByText(en.account.primeBanner.button.stakeXvs));
+    fireEvent.click(screen.queryAllByText(en.account.primeBanner.button.stakeXvs)[1]);
 
     expect(screen.getByText(fakeVaultPageTitle)).toBeInTheDocument();
   });
@@ -63,7 +63,7 @@ describe('PrimeBanner', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    fireEvent.click(screen.getByText(en.account.primeBanner.button.becomePrime));
+    fireEvent.click(screen.queryAllByText(en.account.primeBanner.button.becomePrime)[1]);
 
     expect(mockClaimPrimeToken).toHaveBeenCalledTimes(1);
   });

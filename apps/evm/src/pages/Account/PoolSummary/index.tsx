@@ -1,5 +1,5 @@
 import type BigNumber from 'bignumber.js';
-import { AccountHealthBar, Card, CellGroup, type CellProps, cn } from 'components';
+import { AccountHealthBar, Card, Cell, CellGroup, type CellProps, cn } from 'components';
 import type { Pool, Vault } from 'types';
 
 import { useHealthFactor } from 'hooks/useHealthFactor';
@@ -112,8 +112,15 @@ export const PoolSummary: React.FC<PoolSummaryProps> = ({
       <CellGroup
         small={variant === 'secondary'}
         cells={cells}
-        className={cn(displayAccountHealth && 'xl:hidden')}
+        className={cn(displayAccountHealth && 'hidden sm:grid xl:hidden')}
       />
+
+      {/* XS view when displaying account health */}
+      <div className={cn(displayAccountHealth ? 'sm:hidden' : 'hidden', 'space-y-2')}>
+        <CellGroup small={variant === 'secondary'} cells={cells.slice(0, cells.length - 1)} />
+
+        <Cell {...cells[cells.length - 1]} className="bg-cards rounded-xl p-4" />
+      </div>
 
       {/* XL view when displaying account health */}
       <Card className={cn('hidden justify-between', displayAccountHealth && 'xl:flex')}>

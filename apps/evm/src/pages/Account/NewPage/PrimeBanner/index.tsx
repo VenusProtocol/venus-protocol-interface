@@ -6,13 +6,15 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
+import type { MouseEventHandler } from 'react';
 import { formatPercentageToReadableValue } from 'utilities';
 import { store } from './store';
 import { testIds } from './testIds';
 
-export interface PrimeBannerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PrimeBannerProps {
   canUserBecomePrime: boolean;
   boostPercentage: BigNumber;
+  className?: string;
 }
 
 export const PrimeBanner: React.FC<PrimeBannerProps> = ({
@@ -25,6 +27,11 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
 
   const doNotShowPrimePromotionalBanner = store.use.doNotShowPrimePromotionalBanner();
   const hidePrimePromotionalBanner = store.use.hidePrimePromotionalBanner();
+
+  const onHidePrimePromotionalBanner: MouseEventHandler<HTMLButtonElement> = e => {
+    e.preventDefault();
+    hidePrimePromotionalBanner();
+  };
 
   const { mutateAsync: claimPrimeToken, isPending: isClaimPrimeTokenLoading } = useClaimPrimeToken({
     onError: error => handleError({ error }),
@@ -52,15 +59,18 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
     return undefined;
   }
 
-  return (
-    <div className={cn('relative overflow-visible', className)} {...otherProps}>
+  const dom = (
+    <div
+      className={cn('relative block text-inherit hover:no-underline overflow-visible', className)}
+      {...otherProps}
+    >
       {canUserBecomePrime && (
         <div className="absolute inset-0 opacity-80 bg-gradient-to-r from-[#FF8461] via-[rgba(249,196,60,0.4)] to-[#00A7FF] blur-md filter" />
       )}
 
       <Card
         className={cn(
-          'relative flex justify-center items-center py-2',
+          'relative flex justify-center items-center py-2 rounded-lg',
           canUserBecomePrime ? 'h-12' : 'h-auto sm:h-12',
         )}
       >
@@ -106,13 +116,33 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
         {!canUserBecomePrime && (
           <button
             type="button"
-            onClick={hidePrimePromotionalBanner}
+            onClick={onHidePrimePromotionalBanner}
             data-testid={testIds.closeButton}
           >
             <Icon name="close" className="w-5 h-5" />
           </button>
         )}
       </Card>
+    </div>
+  );
+
+  return (
+    <div {...otherProps}>
+      {/* XS view */}
+      <div className="sm:hidden">
+        {canUserBecomePrime ? (
+          <button onClick={() => claimPrimeToken()} type="button" className="w-full">
+            {dom}
+          </button>
+        ) : (
+          <Link className="text-inherit block hover:no-underline" to={routes.vaults.path}>
+            {dom}
+          </Link>
+        )}
+      </div>
+
+      {/* SM and up view */}
+      <div className="hidden sm:block">{dom}</div>
     </div>
   );
 };

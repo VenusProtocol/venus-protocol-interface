@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
-import { useGetUserVaiBorrowBalance } from 'clients/api';
+import { useGetUserVaiBorrowBalance, useGetVaiRepayApr } from 'clients/api';
 import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
@@ -33,6 +33,13 @@ describe('Account - Feature flag enabled: Prime', () => {
       },
       isLoading: false,
     }));
+
+    (useGetVaiRepayApr as Mock).mockImplementation(() => ({
+      data: {
+        repayAprPercentage: new BigNumber(5.34),
+      },
+      isLoading: false,
+    }));
   });
 
   it('displays Prime banner if user is not Prime and Prime feature is enabled', async () => {
@@ -43,7 +50,11 @@ describe('Account - Feature flag enabled: Prime', () => {
 
     renderComponent(<NewPage />);
 
-    await waitFor(() => expect(screen.getByText(en.account.primeBanner.button.stakeXvs)));
+    await waitFor(() =>
+      expect(screen.queryAllByText(en.account.primeBanner.button.stakeXvs).length).toBeGreaterThan(
+        0,
+      ),
+    );
   });
 
   it('displays Prime banner if user can become Prime and Prime feature is enabled', async () => {
@@ -57,6 +68,10 @@ describe('Account - Feature flag enabled: Prime', () => {
 
     renderComponent(<NewPage />);
 
-    await waitFor(() => expect(screen.getByText(en.account.primeBanner.button.becomePrime)));
+    await waitFor(() =>
+      expect(
+        screen.queryAllByText(en.account.primeBanner.button.becomePrime).length,
+      ).toBeGreaterThan(0),
+    );
   });
 });

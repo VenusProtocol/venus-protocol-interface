@@ -21,7 +21,7 @@ export const Placeholder: React.FC<PlaceholderProps> = ({ iconName, title, descr
 
         <h2 className="mb-1 font-semibold">{title}</h2>
 
-        <p className="text-grey">{description}</p>
+        <p className="text-grey text-sm">{description}</p>
 
         {!!to && (
           <ButtonWrapper className="mt-5 text-offWhite hover:no-underline" small asChild>

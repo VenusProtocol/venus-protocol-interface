@@ -156,7 +156,9 @@ export const Vault: React.FC<VaultProps> = ({ vault, variant = 'primary', classN
           {/* Mobile */}
           <div className="space-y-3 sm:hidden">
             {dataListItems.map(item => (
-              <LabeledInlineContent label={item.label}>{item.value}</LabeledInlineContent>
+              <LabeledInlineContent label={item.label} key={item.label}>
+                {item.value}
+              </LabeledInlineContent>
             ))}
           </div>
 

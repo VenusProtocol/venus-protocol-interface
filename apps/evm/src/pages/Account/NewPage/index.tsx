@@ -2,6 +2,7 @@ import {
   useGetPools,
   useGetTokenUsdPrice,
   useGetUserVaiBorrowBalance,
+  useGetVaiRepayApr,
   useGetVaults,
 } from 'clients/api';
 import { Page, Spinner } from 'components';
@@ -57,6 +58,9 @@ export const NewPage: React.FC = () => {
   });
   const vaiPriceCents =
     getVaiUsdPriceData && convertDollarsToCents(getVaiUsdPriceData.tokenPriceUsd);
+
+  const { data: getVaiRepayAprData } = useGetVaiRepayApr();
+  const vaiBorrowAprPercentage = getVaiRepayAprData?.repayAprPercentage;
 
   const { data: getUserVaiBorrowBalanceData, isLoading: isGetUserVaiBorrowBalanceLoading } =
     useGetUserVaiBorrowBalance(
@@ -161,6 +165,7 @@ export const NewPage: React.FC = () => {
           vaults={vaults}
           xvsPriceCents={xvsPriceCents}
           vaiPriceCents={vaiPriceCents}
+          vaiBorrowAprPercentage={vaiBorrowAprPercentage}
           userVaiBorrowBalanceMantissa={userVaiBorrowBalanceMantissa}
         />
       </div>
