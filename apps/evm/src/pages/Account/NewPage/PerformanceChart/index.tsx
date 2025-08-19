@@ -81,7 +81,11 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
       ? (dailyChangeCents * 100) / netWorthCents
       : undefined;
 
-  const readableDailyChangePercentage = formatPercentageToReadableValue(dailyChangePercentage);
+  let readableDailyChangePercentage = formatPercentageToReadableValue(dailyChangePercentage);
+  // Remove "-" sign
+  if (readableDailyChangePercentage[0] === '-') {
+    readableDailyChangePercentage = readableDailyChangePercentage.substring(1);
+  }
 
   const [selectedDataPoint, setSelectedDataPoint] = useState<
     AccountPerformanceHistoryDataPoint | undefined
