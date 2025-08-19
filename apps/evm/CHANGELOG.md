@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.38.0
+
+### Minor Changes
+
+- fea4268: manually track pageview analytic events
+
 ## 3.37.0
 
 ### Minor Changes
