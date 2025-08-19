@@ -1,7 +1,7 @@
 import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import { cn } from '@venusprotocol/ui';
+import { cn, formatTokensToReadableValue } from '@venusprotocol/ui';
 import PrimeLogo from 'assets/img/primeLogo.svg?react';
 import { useClaimPrimeToken } from 'clients/api';
 import { Card, PrimaryButton, ProgressBar } from 'components';
@@ -18,7 +18,7 @@ import type { Token } from 'types';
 
 import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
 import { useAccountAddress } from 'libs/wallet';
-import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 import NoPrimeTokensLeftWarning from './NoPrimeTokensLeftWarning';
 import PrimeTokensLeft from './PrimeTokensLeft';
 import { formatWaitingPeriod } from './formatWaitingPeriod';

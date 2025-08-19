@@ -1,12 +1,10 @@
-import { cn } from '@venusprotocol/ui';
 import Container from '../Container/Container';
 import Link from '../Link/Link';
 import s from './VenusPrime.module.css';
 
 const VenusPrime: React.FC = () => (
-  <Container className={s.root}>
+  <Container>
     <div className={s.card} key="bounty">
-      <div className={cn(s.backgroundImg, s.venusPrimeLogo)} />
       <div className={s.logoMobile} />
       <div className={s.textWrapper}>
         <h2>

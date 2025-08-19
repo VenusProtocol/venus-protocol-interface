@@ -1,6 +1,8 @@
-import { LayeredValues, TokenIconWithSymbol } from 'components';
+import { formatCentsToReadableValue } from '@venusprotocol/ui';
 import { useMemo } from 'react';
-import { convertMantissaToTokens, formatCentsToReadableValue } from 'utilities';
+
+import { LayeredValues, TokenIconWithSymbol } from 'components';
+import { convertMantissaToTokens } from 'utilities';
 import type { ExternalRewardsGroup, InternalRewardsGroup, PendingReward } from '../types';
 
 export interface RewardGroupContentProps {

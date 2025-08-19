@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { formatCentsToReadableValue } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
@@ -8,7 +9,6 @@ import { routes } from 'constants/routing';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Pool } from 'types';
-import { formatCentsToReadableValue } from 'utilities';
 
 import { useBreakpointUp } from 'hooks/responsive';
 import { useStyles } from './styles';

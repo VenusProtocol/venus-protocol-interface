@@ -1,3 +1,4 @@
+import { formatCentsToReadableValue, formatTokensToReadableValue } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { LabeledInlineContent } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -6,11 +7,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 import type { Asset, Token } from 'types';
-import {
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 import { MarketCard } from '../MarketCard';
 import TEST_IDS from '../testIds';
 import type { Stat } from '../types';

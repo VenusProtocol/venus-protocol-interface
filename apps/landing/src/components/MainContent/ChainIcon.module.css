@@ -1,0 +1,31 @@
+.root {
+  display: flex;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.logoContainer {
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.logo {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 14px;
+  padding-right: 10px;
+  white-space: nowrap;
+}

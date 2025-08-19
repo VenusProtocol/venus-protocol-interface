@@ -1,6 +1,6 @@
+import { formatTokensToReadableValue } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import type { Token, VToken } from 'types';
-import { formatTokensToReadableValue } from './formatTokensToReadableValue';
 
 export interface ConvertMantissaToTokensInput<TToken extends Token | VToken | undefined> {
   value: BigNumber | bigint;

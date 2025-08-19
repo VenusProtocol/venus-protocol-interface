@@ -1,15 +1,11 @@
-import { theme } from '@venusprotocol/ui';
+import { formatCentsToReadableValue, formatTokensToReadableValue, theme } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { ProgressCircle, Tooltip } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useMemo } from 'react';
 import type { Token } from 'types';
 
-import {
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 
 const THRESHOLD_GRADIENT_ID = 'cap-threshold-gradient';
 

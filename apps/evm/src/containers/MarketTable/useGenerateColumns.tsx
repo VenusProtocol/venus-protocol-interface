@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import { cn, formatCentsToReadableValue, formatTokensToReadableValue } from '@venusprotocol/ui';
 import { useMemo } from 'react';
 
-import { cn } from '@venusprotocol/ui';
 import {
   InfoIcon,
   LayeredValues,
@@ -19,9 +19,7 @@ import {
   compareBigNumbers,
   compareBooleans,
   compareStrings,
-  formatCentsToReadableValue,
   formatPercentageToReadableValue,
-  formatTokensToReadableValue,
   getCombinedDistributionApys,
   isAssetPaused,
   isCollateralActionDisabled,

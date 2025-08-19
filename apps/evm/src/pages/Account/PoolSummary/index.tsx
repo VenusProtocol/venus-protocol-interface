@@ -1,14 +1,11 @@
+import { formatCentsToReadableValue } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 import { AccountHealthBar, Card, Cell, CellGroup, type CellProps, cn } from 'components';
 import type { Pool, Vault } from 'types';
 
 import { useHealthFactor } from 'hooks/useHealthFactor';
 import { useTranslation } from 'libs/translations';
-import {
-  formatCentsToReadableValue,
-  formatHealthFactorToReadableValue,
-  formatPercentageToReadableValue,
-} from 'utilities';
+import { formatHealthFactorToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import Section from '../Section';
 import { useExtractData } from '../useExtractData';
 

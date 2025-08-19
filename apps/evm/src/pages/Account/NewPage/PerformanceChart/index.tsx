@@ -1,4 +1,4 @@
-import { Spinner, cn, theme } from '@venusprotocol/ui';
+import { Spinner, cn, formatCentsToReadableValue, theme } from '@venusprotocol/ui';
 import {
   type AccountPerformanceHistoryDataPoint,
   type AccountPerformanceHistoryPeriod,
@@ -12,7 +12,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useState } from 'react';
-import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 import { DollarValueChange } from './DollarValueChange';
 import { formatToReadableAxisDate } from './formatToReadableAxisDate';
 import { formatToReadableTitleDate } from './formatToReadableTitleDate';

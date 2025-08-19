@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 
-import getSmartDecimalPlaces from '..';
+import { getSmartDecimalPlaces } from '..';
 
-describe('utilities/getSmartDecimalPlaces', () => {
+describe('getSmartDecimalPlaces', () => {
   it('should work with zero and return 0', () => {
     expect(getSmartDecimalPlaces({ value: new BigNumber('0') })).toBe(0);
   });

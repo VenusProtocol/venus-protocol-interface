@@ -1,7 +1,7 @@
+import { formatTokensToReadableValue } from '@venusprotocol/ui';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { PrimeSimulationDistribution, Token } from 'types';
-import { formatTokensToReadableValue } from 'utilities';
 
 export interface SimulationTextProps {
   token: Token;

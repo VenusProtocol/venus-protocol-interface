@@ -1,12 +1,12 @@
-import { cn } from '@venusprotocol/ui';
+import { cn, formatCentsToReadableValue } from '@venusprotocol/ui';
 import { BigNumber } from 'bignumber.js';
+
 import { NoticeInfo } from 'components';
 import {
   MAX_POSITION_SUPPLY_BALANCE_CENTS,
   MIN_POSITION_SUPPLY_BALANCE_CENTS,
 } from 'constants/importPositions';
 import { useTranslation } from 'libs/translations';
-import { formatCentsToReadableValue } from 'utilities';
 
 export interface NoticeProps {
   className?: string;

@@ -21,12 +21,14 @@
     "axios": "^1.7.2",
     "classnames": "^2.3.1",
     "genversion": "^3.2.0",
+    "motion": "^12.23.12",
     "normalize.css": "^8.0.1",
     "posthog-js": "^1.257.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.6.0",
-    "react-scrolllock": "^5.0.1"
+    "react-scrolllock": "^5.0.1",
+    "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
     "@stylelint/postcss-css-in-js": "0.38.0",

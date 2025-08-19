@@ -1,4 +1,5 @@
-import { cn } from '@venusprotocol/ui';
+import { cn, formatCentsToReadableValue, formatTokensToReadableValue } from '@venusprotocol/ui';
+
 import { useImportSupplyPosition } from 'clients/api';
 import { Apy, Button, Delimiter, Icon, TokenIcon } from 'components';
 import { routes } from 'constants/routing';
@@ -13,9 +14,7 @@ import { handleError, isUserRejectedTxError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import {
   calculateYearlyInterests,
-  formatCentsToReadableValue,
   formatPercentageToReadableValue,
-  formatTokensToReadableValue,
   getCombinedDistributionApys,
 } from 'utilities';
 import { ApyCell } from './ApyCell';

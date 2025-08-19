@@ -1,0 +1,48 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  @media (min-width: 840px) {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-style: dashed;
+    padding-bottom: 16px;
+  }
+
+  @media (min-width: 1280px) {
+    padding-bottom: 24px;
+  }
+}
+
+.root:nth-child(odd) {
+  @media (min-width: 840px) {
+    padding-right: 24px;
+  }
+
+  @media (min-width: 1280px) {
+    padding-right: 40px;
+  }
+}
+
+.root:nth-child(even) {
+  @media (min-width: 840px) {
+    padding-left: 24px;
+  }
+
+  @media (min-width: 1280px) {
+    padding-left: 40px;
+  }
+}
+
+.label {
+  font-size: 14px;
+  color: rgb(var(--color-grey));
+  white-space: nowrap;
+}
+
+.value {
+  font-size: 24px;
+  font-weight: 700;
+  color: rgb(var(--color-offWhite));
+  white-space: nowrap;
+}

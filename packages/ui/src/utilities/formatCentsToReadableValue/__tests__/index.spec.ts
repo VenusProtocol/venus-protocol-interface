@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { PLACEHOLDER_KEY } from '../../../constants';
 
-import formatCentsToReadableValue, { type FormatCentsToReadableValueInput } from '..';
+import { type FormatCentsToReadableValueInput, formatCentsToReadableValue } from '..';
 
-describe('utilities/formatCentsToReadableValue', () => {
+describe('formatCentsToReadableValue', () => {
   it('should return PLACEHOLDER_KEY when value is undefined', () => {
     const input: FormatCentsToReadableValueInput = {
       value: undefined,

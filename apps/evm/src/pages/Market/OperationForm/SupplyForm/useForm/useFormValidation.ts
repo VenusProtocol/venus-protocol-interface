@@ -1,10 +1,10 @@
+import { formatTokensToReadableValue } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Swap, SwapError } from 'types';
-import { formatTokensToReadableValue } from 'utilities';
 import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';

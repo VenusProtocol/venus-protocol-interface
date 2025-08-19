@@ -1,19 +1,14 @@
 /** @jsxImportSource @emotion/react */
+import { formatCentsToReadableValue, theme } from '@venusprotocol/ui';
 import { useMemo } from 'react';
 
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { useTranslation } from 'libs/translations';
-import {
-  calculatePercentage,
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-} from 'utilities';
-
-import { theme } from '@venusprotocol/ui';
 import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_THRESHOLD,
 } from 'constants/healthFactor';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { useTranslation } from 'libs/translations';
+import { calculatePercentage, formatPercentageToReadableValue } from 'utilities';
 import { LabeledProgressBar } from '../LabeledProgressBar';
 
 const safeBorrowLimitPercentage = 100 / HEALTH_FACTOR_SAFE_THRESHOLD;

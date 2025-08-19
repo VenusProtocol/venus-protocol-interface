@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { formatCentsToReadableValue, formatTokensToReadableValue } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
@@ -31,8 +32,6 @@ import {
   convertDollarsToCents,
   convertMantissaToTokens,
   convertTokensToMantissa,
-  formatCentsToReadableValue,
-  formatTokensToReadableValue,
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
