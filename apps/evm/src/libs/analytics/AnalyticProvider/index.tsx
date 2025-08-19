@@ -3,6 +3,7 @@ import { PostHogProvider } from 'posthog-js/react';
 import config from 'config';
 import { version as APP_VERSION } from 'constants/version';
 import { AuthAnalyticVariantProvider } from '../context';
+import { RouteChangeTracker } from './RouteChangeTracker';
 import { UserIdentifier } from './UserIdentifier';
 import { WalletAnalyticSender } from './WalletAnalyticSender';
 import { appendHash } from './appendHash';
@@ -47,6 +48,7 @@ export const AnalyticProvider: React.FC<AnalyticProviderProps> = ({ children }) 
     <AuthAnalyticVariantProvider>
       {dom}
 
+      <RouteChangeTracker />
       <WalletAnalyticSender />
     </AuthAnalyticVariantProvider>
   );
