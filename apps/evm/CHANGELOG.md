@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.41.0
+
+### Minor Changes
+
+- 8cc6be0: remove minus sign from readable daily change percentage on Account page
+
 ## 3.40.0
 
 ### Minor Changes
