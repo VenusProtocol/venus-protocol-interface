@@ -83,6 +83,13 @@ export const useGetPools = (input?: TrimmedInput, options?: Options) => {
           ...input,
         }),
       ),
+    placeholderData: (previousOutput, previousInput) => {
+      // Return previous data if chain ID param hasn't changed and user address was undefined
+      const previousChainId = previousInput?.queryKey[1]?.chainId;
+      return previousChainId === chainId && !previousInput?.queryKey[1].accountAddress
+        ? previousOutput
+        : undefined;
+    },
     refetchInterval,
     ...options,
   });

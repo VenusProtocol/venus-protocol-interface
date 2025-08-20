@@ -1,8 +1,8 @@
 import { useGetAsset, useGetPool } from 'clients/api';
 import { Spinner } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import { routes } from 'constants/routing';
 import { Redirect } from 'containers/Redirect';
+import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool } from 'types';
 import type { Address } from 'viem';
@@ -22,6 +22,7 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
   children,
 }) => {
   const { accountAddress } = useAccountAddress();
+  const { homePagePath } = useGetHomePagePath();
 
   const { data: getAssetData, isLoading: isGetAssetLoading } = useGetAsset({
     vTokenAddress,
@@ -36,9 +37,9 @@ export const MarketLoader: React.FC<MarketLoaderProps> = ({
   });
   const pool = getPools?.pool;
 
-  // Redirect to dashboard page if params are invalid
+  // Redirect to home page if params are invalid
   if (isVTokenAddressInvalid || !poolComptrollerAddress) {
-    return <Redirect to={routes.dashboard.path} />;
+    return <Redirect to={homePagePath} />;
   }
 
   if (!asset || !pool) {

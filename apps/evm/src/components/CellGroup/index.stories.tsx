@@ -34,5 +34,3 @@ const cells: CellProps[] = [
 ];
 
 export const Default = () => <CellGroup cells={cells} />;
-
-export const Small = () => <CellGroup cells={cells} small />;

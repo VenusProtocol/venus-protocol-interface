@@ -2,6 +2,8 @@ import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
+import { useGetPools } from 'clients/api';
+import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
 import { useGetProfitableImports } from 'hooks/useGetProfitableImports';
 import type { MenuItem } from './types';
 
@@ -11,45 +13,51 @@ const useGetMenuItems = () => {
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const { importablePositionsCount } = useGetProfitableImports();
+  const { homePagePath } = useGetHomePagePath();
+  const { data: getPoolsData } = useGetPools();
+  const pools = getPoolsData?.pools || [];
 
   const menuItems: MenuItem[] = [
     {
-      to: routes.dashboard.path,
+      to: homePagePath,
       // Translation key: do not remove this comment
-      // t('layout.menuItems.dashboard')
-      i18nKey: 'layout.menuItems.dashboard',
-      iconName: 'dashboard',
+      // t('layout.menuItems.corePool')
+      i18nKey: 'layout.menuItems.corePool',
+      iconName: 'venus',
     },
   ];
 
-  // Insert account page if wallet is connected
-  if (accountAddress) {
+  if (pools.length > 1) {
     menuItems.push({
-      to: routes.account.path,
+      to: routes.isolatedPools.path,
       // Translation key: do not remove this comment
-      // t('layout.menuItems.account')
-      i18nKey: 'layout.menuItems.account',
-      iconName: 'person',
-    });
-
-    menuItems.push({
-      to: routes.port.path,
-      // Translation key: do not remove this comment
-      // t('layout.menuItems.port')
-      i18nKey: 'layout.menuItems.port',
-      iconName: 'download',
-      badgeNumber: importablePositionsCount || undefined,
-      isNew: true,
+      // t('layout.menuItems.isolatedPools')
+      i18nKey: 'layout.menuItems.isolatedPools',
+      iconName: 'fourDots',
     });
   }
 
-  menuItems.push({
-    to: routes.pools.path,
-    // Translation key: do not remove this comment
-    // t('layout.menuItems.pools')
-    i18nKey: 'layout.menuItems.pools',
-    iconName: 'fourDots',
-  });
+  // Insert account page if wallet is connected
+  if (accountAddress) {
+    menuItems.push(
+      {
+        to: routes.account.path,
+        // Translation key: do not remove this comment
+        // t('layout.menuItems.account')
+        i18nKey: 'layout.menuItems.account',
+        iconName: 'person',
+      },
+      {
+        to: routes.port.path,
+        // Translation key: do not remove this comment
+        // t('layout.menuItems.port')
+        i18nKey: 'layout.menuItems.port',
+        iconName: 'download',
+        badgeNumber: importablePositionsCount || undefined,
+        isNew: true,
+      },
+    );
+  }
 
   menuItems.push({
     to: routes.vaults.path,

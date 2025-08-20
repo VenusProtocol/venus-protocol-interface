@@ -286,7 +286,7 @@ export const formatOutput = ({
 
     const pool: Pool = {
       comptrollerAddress: apiPool.address,
-      name: apiPool.name,
+      name: apiPool.name === 'Core' ? 'Core pool' : apiPool.name,
       isIsolated,
       assets,
       userBorrowBalanceCents: poolUserBorrowBalanceCents,

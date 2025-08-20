@@ -4,7 +4,6 @@ import { cn } from '@venusprotocol/ui';
 import venusLogoSrc from 'assets/img/venusLogo.svg';
 import { Icon } from 'components';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
-import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
@@ -12,6 +11,7 @@ import { BurnedWBnbButton } from 'containers/Layout/BurnedWBnbButton';
 import ClaimRewardButton from 'containers/Layout/ClaimRewardButton';
 import { ConnectButton } from 'containers/Layout/ConnectButton';
 import useGetMenuItems from 'containers/Layout/useGetMenuItems';
+import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
 import { useIsOnMarketPage } from '../../useIsOnMarketPage';
 import { ChainSelect } from '../ChainSelect';
 import { NavLink } from './NavLink';
@@ -20,6 +20,7 @@ export const XsControls: React.FC = () => {
   const { t } = useTranslation();
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState<boolean>(false);
   const menuItems = useGetMenuItems();
+  const { homePagePath } = useGetHomePagePath();
 
   const isOnMarketPage = useIsOnMarketPage();
 
@@ -37,7 +38,7 @@ export const XsControls: React.FC = () => {
       <div className="flex h-14 items-center pr-4 md:h-auto relative">
         <Link
           className="mr-5 flex h-full flex-none items-center justify-center pl-4"
-          to={routes.dashboard.path}
+          to={homePagePath}
         >
           <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-7" />
         </Link>

@@ -3,9 +3,9 @@ import type BigNumber from 'bignumber.js';
 import { cn } from '@venusprotocol/ui';
 import { Tooltip, type TooltipProps } from 'components';
 import { PRIME_DOC_URL } from 'constants/prime';
+import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { usePrimeCalculatorPagePath } from 'hooks/usePrimeCalculatorPagePath';
 import { useTranslation } from 'libs/translations';
 import type { PrimeSimulationDistribution, Token } from 'types';
 import { PrimeApy } from './PrimeApy';
@@ -30,7 +30,6 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const primeCalculatorPagePath = usePrimeCalculatorPagePath({ tokenAddress: token.address });
   const isPrimeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
@@ -53,7 +52,7 @@ export const PrimeBadge: React.FC<PrimeBadgeProps> = ({
           </p>
 
           {isPrimeCalculatorEnabled ? (
-            <Link to={primeCalculatorPagePath} onClick={e => e.stopPropagation()}>
+            <Link to={routes.primeCalculator.path} onClick={e => e.stopPropagation()}>
               {t('apy.primeBadge.tooltip.calculatorLink')}
             </Link>
           ) : (

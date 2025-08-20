@@ -1,20 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import { useGetPool } from 'clients/api';
-import { Notice, Page, Spinner } from 'components';
-import { routes } from 'constants/routing';
-import { useTranslation } from 'libs/translations';
+import { Page, Spinner } from 'components';
 import { useAccountAddress } from 'libs/wallet';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { MarketTable } from 'containers/MarketTable';
 import { PoolStats } from 'containers/PoolStats';
 import { Redirect } from 'containers/Redirect';
+import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
 import { useParams } from 'react-router';
 import type { Address } from 'viem';
 import { useStyles } from './styles';
 
 const PoolPage: React.FC = () => {
   const { accountAddress } = useAccountAddress();
+  const { homePagePath } = useGetHomePagePath();
 
   const { poolComptrollerAddress = NULL_ADDRESS } = useParams<{
     poolComptrollerAddress: Address;
@@ -27,11 +27,10 @@ const PoolPage: React.FC = () => {
   const pool = getPools?.pool;
 
   const styles = useStyles();
-  const { t } = useTranslation();
 
-  // Redirect to Dashboard page if pool Comptroller address is incorrect
+  // Redirect to home page if pool Comptroller address is incorrect
   if (!isGetPoolLoading && !pool) {
-    return <Redirect to={routes.dashboard.path} />;
+    return <Redirect to={homePagePath} />;
   }
 
   return (
@@ -42,12 +41,6 @@ const PoolPage: React.FC = () => {
             pools={[pool]}
             stats={['supply', 'borrow', 'liquidity', 'assetCount']}
             css={styles.header}
-          />
-
-          <Notice
-            css={styles.poolWarning}
-            variant="warning"
-            description={t('pool.poolWarning', { poolName: pool.name })}
           />
 
           <MarketTable

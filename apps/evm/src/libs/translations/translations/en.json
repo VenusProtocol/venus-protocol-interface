@@ -229,17 +229,15 @@
   "breadcrumbs": {
     "account": "Account",
     "bridge": "Bridge",
-    "dashboard": "Dashboard",
     "governance": "Governance",
+    "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
     "markets": "Markets",
-    "pools": "Pools",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
     "swap": "Swap",
     "vai": "VAI",
-    "vaults": "Vaults",
-    "xvs": "XVS"
+    "vaults": "Vaults"
   },
   "bridgePage": {
     "amountInput": {
@@ -327,30 +325,6 @@
   },
   "connectWallet": {
     "connectButton": "Connect wallet"
-  },
-  "dashboard": {
-    "allTag": "All",
-    "burnedWBnbBanner": {
-      "buttonLabel": {
-        "snapshotPage": "View proposal"
-      },
-      "description": "The Venus Protocol will burn 25% of its BNB Chain revenue to support BNB and the protocol's growth.",
-      "illustration": {
-        "alt": "BNB After burn illustration"
-      },
-      "title": "BNB Afterburn proposal passed"
-    },
-    "primePromotionalBanner": {
-      "buttonLabel": {
-        "primeCalculator": "Calculate your Prime rewards",
-        "primeDoc": "Learn more"
-      },
-      "description": "Venus Prime rewards dedicated users for their lending and borrowing activities.",
-      "illustration": {
-        "alt": "Prime promotional banner"
-      },
-      "title": "Let's grow together with <Prime>Venus Prime</Prime>"
-    }
   },
   "errors": {
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
@@ -493,8 +467,9 @@
     "menuItems": {
       "account": "Account",
       "bridge": "Bridge",
-      "dashboard": "Dashboard",
+      "corePool": "Core pool",
       "governance": "Governance",
+      "isolatedPools": "Isolated pools",
       "pools": "Pools",
       "port": "Port",
       "swap": "Swap",
@@ -696,9 +671,6 @@
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
-  },
-  "pool": {
-    "poolWarning": "Supplying tokens to the {{poolName}} pool will increase your borrow limit for this pool only, effectively enabling you to borrow tokens from this pool only."
   },
   "pools": {
     "poolTable": {
