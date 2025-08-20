@@ -28,7 +28,6 @@ export const useStyles = () => {
       padding: ${theme.spacing(0, 6)};
       
       ${breakpoint && theme.breakpoints.down(breakpoint)} {
-        margin-bottom: ${theme.spacing(6)};
         padding: 0;
       }
     `,

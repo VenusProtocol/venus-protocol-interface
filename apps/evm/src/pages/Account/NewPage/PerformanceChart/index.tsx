@@ -106,10 +106,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
             >
               <Icon
                 name="arrowUpFull2"
-                className={cn(
-                  'w-4 h-4 text-inherit -mb-[2px]',
-                  dailyChangeCents < 0 && 'rotate-180',
-                )}
+                className={cn('w-4 h-4 text-inherit', dailyChangeCents < 0 && 'rotate-180')}
               />
 
               <span>{readableDailyChangePercentage}</span>

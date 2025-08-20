@@ -76,6 +76,7 @@ export function TableCards<R>({
           onChange={handleOrderChange}
           css={styles.cardsSelect}
           variant={selectVariant}
+          size="small"
         />
       )}
 

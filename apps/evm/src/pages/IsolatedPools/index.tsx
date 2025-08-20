@@ -73,12 +73,17 @@ export const IsolatedPools: React.FC = () => {
 
     return {
       id: pool.comptrollerAddress,
-      content: pool.name,
-      isPaused,
-      className: cn(
-        'transition-colors',
-        isPaused && selectedPoolTagIndex !== poolIndex && 'text-grey',
+      content: (
+        <span
+          className={cn(
+            'transition-colors',
+            isPaused && selectedPoolTagIndex !== poolIndex && 'text-grey opacity-50',
+          )}
+        >
+          {pool.name}
+        </span>
       ),
+      isPaused,
     };
   });
 
