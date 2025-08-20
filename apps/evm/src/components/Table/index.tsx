@@ -72,7 +72,11 @@ export function Table<R>({
         </h4>
       )}
 
-      {!!header && <div css={styles.getHeader({ breakpoint })}>{header}</div>}
+      {!!header && (
+        <div css={styles.getHeader({ breakpoint })} className="mb-6 sm:mb-0">
+          {header}
+        </div>
+      )}
 
       {data.length > 0 || !placeholder ? (
         <>

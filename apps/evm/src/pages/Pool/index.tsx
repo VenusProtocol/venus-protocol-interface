@@ -45,7 +45,7 @@ const PoolPage: React.FC = () => {
 
           <MarketTable
             pools={[pool]}
-            breakpoint="xl"
+            breakpoint="lg"
             columns={[
               'asset',
               'supplyBalance',
