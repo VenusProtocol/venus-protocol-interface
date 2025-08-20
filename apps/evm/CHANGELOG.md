@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.40.0
+
+### Minor Changes
+
+- 574e424: updated page architecture
+
+### Patch Changes
+
+- Updated dependencies [574e424]
+  - @venusprotocol/chains@0.8.0
+
 ## 3.39.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.8.0
+
+### Minor Changes
+
+- 574e424: updated page architecture
+
 ## 0.7.0
 
 ### Minor Changes
