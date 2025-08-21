@@ -171,11 +171,11 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       header={
         <div className="space-y-6">
           {controls && (
-            <div className={cn('space-y-6', isBreakpointUp && 'space-y-0 -mx-6 mb-2')}>
+            <div className={cn('space-y-6 sm:space-y-0 sm:-mx-6')}>
               <div
                 className={cn(
-                  'space-y-6',
-                  isBreakpointUp && 'space-y-0 py-4 px-6 flex items-center justify-between',
+                  'space-y-6 sm:space-y-0 sm:mb-6 sm:px-6 sm:flex sm:items-center sm:justify-between',
+                  isBreakpointUp && 'sm:mb-0 sm:py-4',
                 )}
               >
                 <div className="flex items-center gap-x-4">
