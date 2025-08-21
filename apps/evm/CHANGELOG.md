@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.41.1
+
+### Patch Changes
+
+- c69ece7: only attempt to fetch VAI repay APR if VAI Controller address exists
+
 ## 3.41.0
 
 ### Minor Changes
