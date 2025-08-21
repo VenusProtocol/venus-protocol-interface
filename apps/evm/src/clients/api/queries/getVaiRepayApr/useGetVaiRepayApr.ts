@@ -29,6 +29,7 @@ export const useGetVaiRepayApr = (options?: Partial<Options>) => {
     queryKey: [FunctionKey.GET_VAI_REPAY_APR, { chainId }],
     queryFn: () =>
       callOrThrow({ vaiControllerAddress }, params => getVaiRepayApr({ ...params, publicClient })),
+    enabled: !!vaiControllerAddress && (options?.enabled === undefined || options?.enabled),
     ...options,
   });
 };
