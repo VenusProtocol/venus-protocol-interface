@@ -37,7 +37,7 @@
     "@metamask/delegation-toolkit": "0.11.0",
     "@mui/material": "^5.4.2",
     "@mui/utils": "^5.4.2",
-    "@pancakeswap/sdk": "^3.1.0",
+    "@pancakeswap/sdk": "^5.8.16",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.1.7",
     "@rhinestone/module-sdk": "0.2.7",
