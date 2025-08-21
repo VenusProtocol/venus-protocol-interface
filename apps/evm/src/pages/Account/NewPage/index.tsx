@@ -9,6 +9,7 @@ import { Page, Spinner } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import type { Tab } from 'hooks/useTabs';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -19,7 +20,7 @@ import { PerformanceChart } from './PerformanceChart';
 import { Pools } from './Pools';
 import { PrimeBanner } from './PrimeBanner';
 import { Summary } from './Summary';
-import { type Tab, Tabs } from './Tabs';
+import { Tabs } from './Tabs';
 import { Vaults } from './Vaults';
 
 export const NewPage: React.FC = () => {

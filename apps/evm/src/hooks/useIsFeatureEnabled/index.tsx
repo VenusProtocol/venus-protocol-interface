@@ -146,6 +146,16 @@ export const featureFlags = {
     ChainId.UNICHAIN_MAINNET,
     ChainId.UNICHAIN_SEPOLIA,
   ],
+  eMode: [
+    ChainId.BSC_TESTNET,
+    ChainId.OPBNB_TESTNET,
+    ChainId.SEPOLIA,
+    ChainId.ARBITRUM_SEPOLIA,
+    ChainId.ZKSYNC_SEPOLIA,
+    ChainId.OPTIMISM_SEPOLIA,
+    ChainId.BASE_SEPOLIA,
+    ChainId.UNICHAIN_SEPOLIA,
+  ],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
