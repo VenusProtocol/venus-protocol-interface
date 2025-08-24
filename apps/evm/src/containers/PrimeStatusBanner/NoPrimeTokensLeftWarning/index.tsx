@@ -1,4 +1,4 @@
-import { InfoIcon } from 'components';
+import { InfoIcon } from 'components/InfoIcon';
 import { useTranslation } from 'libs/translations';
 
 interface PrimeTokensLeftProps {
