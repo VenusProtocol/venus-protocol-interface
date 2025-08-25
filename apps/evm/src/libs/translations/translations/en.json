@@ -12,7 +12,6 @@
     },
     "performanceChart": {
       "absolutePerformance": "Absolute performance",
-      "todaysChange": "Today's change",
       "errorState": {
         "failedToFetchMessage": "Could not fetch account history",
         "refetchButtonLabel": "Retry"
@@ -27,7 +26,8 @@
         "sixMonths": "6M",
         "thirtyDays": "30D"
       },
-      "placeholderText": "Generating report, this can take up to a minute"
+      "placeholderText": "Generating report, this can take up to a minute",
+      "todaysChange": "Today's change"
     },
     "placeholder": {
       "buttonLabel": "Browse"
@@ -326,6 +326,13 @@
   "connectWallet": {
     "connectButton": "Connect wallet"
   },
+  "eModeBanner": {
+    "description": "E-Mode increases your LTV for a selected category of assets. <Link>Learn more</Link>",
+    "exploreButtonLabel": "Explore",
+    "illustrationAltText": "E-mode illustration",
+    "manageEModeButtonLabel": "Manage E-mode",
+    "title": "Boost your borrowing power with E-Mode"
+  },
   "errors": {
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
     "couldNotSwitchChain": "Could not switch chain, please make sure your wallet is unlocked then reload the page",
@@ -470,7 +477,6 @@
       "corePool": "Core pool",
       "governance": "Governance",
       "isolatedPools": "Isolated pools",
-      "pools": "Pools",
       "port": "Port",
       "swap": "Swap",
       "vai": "VAI",

@@ -55,3 +55,4 @@ export * from './AccountHealthBar';
 export * from './AreaChart';
 export * from './ChartTooltipContent';
 export * from './ChartYAxisTick';
+export * from './EModeBanner';
