@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.42.0
+
+### Minor Changes
+
+- 79417af: add E-mode banner
+
 ## 3.41.1
 
 ### Patch Changes
