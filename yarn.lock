@@ -6716,9 +6716,9 @@
     zustand "5.0.0"
 
 "@wagmi/core@^2.16.4":
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-2.19.0.tgz#3c498a0cbe764642b378b2b1efb34797c54bb989"
-  integrity sha512-lI57q6refAtNU6xnk/oyOpbEtEiwQ6g4rR+C9FEx8Gn2hZlfoyyksndrl6hIKlMBK+UkkKso3VwR5DI65j/5XQ==
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-2.20.1.tgz#a7c271fb3902b404c134c488087d24b660606d57"
+  integrity sha512-uuwc+rlqwyxrpDiw17pdL1YXv0Cx3y1R2SoBF/SuxrYZqTGMNDx00sVcvB51p+orXCcEWsDwZsCwUpaPkOHqqw==
   dependencies:
     eventemitter3 "5.0.1"
     mipd "0.0.7"
