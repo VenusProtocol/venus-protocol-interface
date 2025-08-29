@@ -1,3 +1,4 @@
+import { formatCentsToReadableValue, formatTokensToReadableValue } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import {
   useGetTokenBalances,
@@ -11,12 +12,7 @@ import { useGetVTreasuryContractAddress } from 'hooks/useGetVTreasuryContractAdd
 import { useGetToken, useGetTokens } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
-import {
-  areTokensEqual,
-  convertMantissaToTokens,
-  formatCentsToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 import type { Address } from 'viem';
 import { getTreasuryBalanceCents } from './getTreasuryBalanceCents';
 

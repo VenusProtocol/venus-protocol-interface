@@ -1,5 +1,5 @@
+import { shortenValueWithSuffix } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
-import shortenValueWithSuffix from 'utilities/shortenValueWithSuffix';
 
 export const HEALTH_FACTOR_MAX_VALUE = 100;
 export const HEALTH_FACTOR_MAX_DECIMALS = 2;

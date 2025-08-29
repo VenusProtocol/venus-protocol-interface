@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { formatCentsToReadableValue, formatTokensToReadableValue } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { fromUnixTime, isBefore } from 'date-fns';
 import { type MutableRefObject, useCallback, useEffect, useMemo } from 'react';
@@ -17,13 +18,7 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { ChainId, type Token } from 'types';
-import {
-  convertDollarsToCents,
-  convertMantissaToTokens,
-  convertTokensToMantissa,
-  formatCentsToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { convertDollarsToCents, convertMantissaToTokens, convertTokensToMantissa } from 'utilities';
 import { parseUnits } from 'viem';
 import { bridgeChains } from './constants';
 

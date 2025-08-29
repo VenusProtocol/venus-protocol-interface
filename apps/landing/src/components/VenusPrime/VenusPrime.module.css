@@ -1,16 +1,3 @@
-.root {
-    margin-top: 60px;
-    @media (min-width: 840px) {
-        margin-top: 80px;
-    }
-    @media (min-width: 840px) {
-        margin-top: 80px;
-    }
-    @media (min-width: 1280px) {
-        margin-top: 100px;
-    }
-}
-
 .card {
     display: flex;
     flex-direction: column;
@@ -62,14 +49,6 @@
     @media (max-width: 640px) {
         display: flex;
     } 
-}
-
-.backgroundImg {
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    flex: 1;
-    min-height: 100%;
 }
 
 .textWrapper {

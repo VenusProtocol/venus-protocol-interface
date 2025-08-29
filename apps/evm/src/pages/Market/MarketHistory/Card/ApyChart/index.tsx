@@ -1,8 +1,8 @@
-import { theme } from '@venusprotocol/ui';
+import { formatCentsToReadableValue, theme } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 
 import { useTranslation } from 'libs/translations';
-import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 
 import type { MarketHistoryPeriodType } from 'clients/api';
 import { AreaChart } from 'components';

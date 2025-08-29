@@ -1,5 +1,4 @@
-import { cn } from '@venusprotocol/ui';
-import { formatCentsToReadableValue } from 'utilities';
+import { cn, formatCentsToReadableValue } from '@venusprotocol/ui';
 
 export interface DollarValueChangeProps {
   value?: number;

@@ -1,3 +1,4 @@
+import { formatTokensToReadableValue } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
@@ -6,7 +7,7 @@ import { PRIME_APY_DOC_URL } from 'constants/prime';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import type { Token } from 'types';
-import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 
 import TokenAmountAndApy from './TokenAmountAndApy';
 

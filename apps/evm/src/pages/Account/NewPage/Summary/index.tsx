@@ -1,10 +1,10 @@
-import { cn } from '@venusprotocol/ui';
+import { cn, formatCentsToReadableValue } from '@venusprotocol/ui';
 
 import { Card, Cell, type CellProps } from 'components';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { Pool, Vault } from 'types';
-import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 import { useExtractData } from '../../useExtractData';
 import circularGradientSrc from './circularGradient.svg';
 

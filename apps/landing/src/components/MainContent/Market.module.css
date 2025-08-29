@@ -1,0 +1,110 @@
+.root {
+    border-radius: 16px;
+    background: rgba(24, 29, 42, 0.10);
+    box-shadow: 0px 8px 6px 0px rgba(0, 0, 0, 0.05), 0px 1px 1px 0px rgba(255, 255, 255, 0.25) inset, 0px -1px 1px 0px #21293A inset, 2px 3px 3px -3px #5F5A88 inset;
+    backdrop-filter: blur(25px);
+    padding: 24px 16px;
+    flex-grow: 1;
+    overflow: hidden;
+
+    @media (min-width: 640px) {
+        padding: 24px;
+    }
+
+    @media (min-width: 840px) {
+        padding: 40px 24px;
+        max-width: 575px;
+        min-width: 376px;
+    }
+
+    @media (min-width: 1280px) {
+        padding: 48px 64px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 24px;
+    }
+}
+
+.btn {
+    margin-top: 24px;
+    border: none;
+    display: inline-block;
+    transition: background-color .3s, border-color .3s, color .3s;
+    color: white;
+    text-decoration: none;
+    padding: 12px 32px;
+    background-color: rgb(var(--color-blue));
+    border-radius: 8px;
+
+    &:hover {
+        background-color: rgb(var(--color-mediumBlue));
+    }
+
+    &:active {
+        background-color: rgb(var(--color-darkBlue));
+    }
+
+}
+
+.totalList {
+    display: flex;
+    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
+    grid-row-gap: 16px;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-style: dashed;
+
+    @media (min-width: 640px) {
+        flex-direction: row;
+        align-items: center;
+        display: flex;
+    }
+
+    @media (min-width: 840px) {
+        display: grid;
+        border-bottom: 0;
+        grid-column-gap: 0;
+        grid-row-gap: 16px;
+        margin-bottom: 16px;
+        padding-bottom: 0;
+    }
+
+    @media (min-width: 1280px) {
+        grid-row-gap: 24px;
+        margin-bottom: 24px;
+    }
+}
+
+.chainCountLabel { 
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.chainList {
+    display: flex;
+    gap: 8px;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin: 0 -15px;
+    padding: 0 17px;
+
+    @media (min-width: 640px) {
+        margin: 0 -23px;
+        padding: 0 25px;
+    }
+
+    @media (min-width: 1280px) {
+        margin: 0 -63px;
+        padding: 0 65px;
+    }
+}
+
+.chainList::-webkit-scrollbar { 
+    display: none;
+}

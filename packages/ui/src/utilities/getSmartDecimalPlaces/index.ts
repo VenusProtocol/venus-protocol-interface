@@ -1,6 +1,6 @@
 import type BigNumber from 'bignumber.js';
 
-const getSmartDecimalPlaces = ({
+export const getSmartDecimalPlaces = ({
   value,
   maxDecimalPlaces,
 }: {
@@ -26,5 +26,3 @@ const getSmartDecimalPlaces = ({
   const decimals = fixedValue.substring(dotIndex + 1);
   return decimals.length;
 };
-
-export default getSmartDecimalPlaces;

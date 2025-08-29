@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { cn } from '@venusprotocol/ui';
+import { cn, formatTokensToReadableValue } from '@venusprotocol/ui';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import {
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
@@ -8,11 +8,7 @@ import {
 } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
 import type { Swap } from 'types';
-import {
-  convertMantissaToTokens,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { convertMantissaToTokens, formatPercentageToReadableValue } from 'utilities';
 
 import { LabeledInlineContent } from 'components';
 

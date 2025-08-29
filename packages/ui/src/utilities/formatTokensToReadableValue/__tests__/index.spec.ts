@@ -1,10 +1,15 @@
 import BigNumber from 'bignumber.js';
 
-import { busd } from '__mocks__/models/tokens';
+import { type FormatTokensToReadableValueInput, formatTokensToReadableValue } from '..';
+import { PLACEHOLDER_KEY } from '../../../constants';
+import type { Token } from '../../../types';
 
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
-
-import formatTokensToReadableValue, { type FormatTokensToReadableValueInput } from '..';
+const busd: Token = {
+  address: '0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47',
+  decimals: 18,
+  symbol: 'BUSD',
+  asset: '',
+};
 
 describe('formatTokensToReadableValue', () => {
   test('should return placeholder when value is undefined', () => {

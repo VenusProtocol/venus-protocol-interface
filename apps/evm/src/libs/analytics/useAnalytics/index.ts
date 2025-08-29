@@ -1,3 +1,4 @@
+import { debounce } from '@venusprotocol/ui';
 import { usePostHog } from 'posthog-js/react';
 import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router';
@@ -6,7 +7,6 @@ import { useAccount } from 'wagmi';
 import config from 'config';
 import { logError } from 'libs/errors';
 import { useChainId } from 'libs/wallet';
-import { debounce } from 'utilities';
 import { useAuthAnalyticVariantContext } from '../context';
 import type { AnalyticEventName, AnalyticEventProps } from './types';
 

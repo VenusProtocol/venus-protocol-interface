@@ -1,12 +1,11 @@
+import { cn, formatCentsToReadableValue } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
 
-import { cn } from '@venusprotocol/ui';
 import { AccountHealthBar, HealthFactorPill, LabeledInlineContent, ValueUpdate } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { useTranslation } from 'libs/translations';
 import { memo } from 'react';
 import type { Asset, Pool, Swap, TokenAction } from 'types';
-import { formatCentsToReadableValue } from 'utilities';
 import useGetValues from './useGetValues';
 
 const MemoizedAccountHealthBar = memo(AccountHealthBar);

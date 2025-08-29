@@ -1,7 +1,10 @@
+import {
+  type FormatTokensToReadableValueInput,
+  formatTokensToReadableValue,
+} from '@venusprotocol/ui';
 import { useMemo } from 'react';
 
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
-import { type FormatTokensToReadableValueInput, formatTokensToReadableValue } from 'utilities';
 
 export type UseFormatTokensToReadableValueInput = FormatTokensToReadableValueInput;
 

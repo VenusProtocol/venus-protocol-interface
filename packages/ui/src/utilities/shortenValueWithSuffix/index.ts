@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
-import { ONE_BILLION, ONE_MILLION, ONE_THOUSAND, ONE_TRILLION } from 'constants/numbers';
-import getSmartDecimalPlaces from 'utilities/getSmartDecimalPlaces';
+import { ONE_BILLION, ONE_MILLION, ONE_THOUSAND, ONE_TRILLION } from '../../constants';
+import { getSmartDecimalPlaces } from '../getSmartDecimalPlaces';
 
 const LARGE_VALUE_MAX_DECIMAL_PLACES = 2;
 
@@ -11,7 +11,7 @@ export interface ShortenValueWithSuffix {
   roundingMode?: BigNumber.RoundingMode;
 }
 
-const shortenValueWithSuffix = ({
+export const shortenValueWithSuffix = ({
   value,
   maxDecimalPlaces,
   roundingMode,
@@ -42,5 +42,3 @@ const shortenValueWithSuffix = ({
 
   return `${new BigNumber(formattedValue).toFormat(decimalPlaces, roundingMode)}${suffix}`;
 };
-
-export default shortenValueWithSuffix;

@@ -1,3 +1,4 @@
+import { formatTokensToReadableValue } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Controller, type SubmitHandler } from 'react-hook-form';
@@ -34,7 +35,6 @@ import {
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,
-  formatTokensToReadableValue,
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
@@ -43,7 +43,6 @@ import {
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
-import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { AccountVaiData } from '../AccountVaiData';
 import TEST_IDS from './testIds';
@@ -175,7 +174,7 @@ export const Borrow: React.FC = () => {
     return `${readableFeeVai} (${readableFeePercentage})`;
   }, [feePercentage, feeTokens, vai]);
 
-  const readableLimit = useFormatTokensToReadableValue({
+  const readableLimit = formatTokensToReadableValue({
     value: limitTokens,
     token: vai,
   });
