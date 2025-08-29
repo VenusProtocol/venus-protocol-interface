@@ -1,6 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 
-import { InfoIcon } from 'components';
+import { InfoIcon } from 'components/InfoIcon';
 
 export interface CellProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string | number | React.ReactNode;

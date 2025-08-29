@@ -2,12 +2,11 @@ import { cn } from '@venusprotocol/ui';
 import type { Address } from 'viem';
 
 import { Icon } from 'components/Icon';
+import { E_MODE_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 import { EModeButton } from './EModeButton';
 import illustrationSrc from './illustration.svg';
-
-export const E_MODE_DOC_URL = 'https://docs-v4.venus.io/'; // TODO: add URL
 
 export interface EModeBannerProps {
   poolComptrollerContractAddress: Address;

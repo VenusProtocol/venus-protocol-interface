@@ -22,8 +22,8 @@ export const useTabs = <T extends Tab>({ tabs }: { tabs: T[] }) => {
     }));
 
   useEffect(() => {
-    // Add tab param to URL if none has been set
-    if (!activeTabId) {
+    // Set tab param to URL if none has been set or if it's invalid
+    if (!activeTabId || !tabs.find(tab => tab.id === activeTabId)) {
       setActiveTab({ id: tabs[0].id });
     }
   }, [activeTabId, setActiveTab, tabs]);

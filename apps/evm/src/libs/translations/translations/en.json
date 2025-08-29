@@ -678,6 +678,58 @@
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
   },
+  "pool": {
+    "eMode": {
+      "group": {
+        "cannotEnable": {
+          "modal": {
+            "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode group:",
+            "repayButtonLabel": "Repay",
+            "title": "Your positions"
+          },
+          "tooltip": "You can't enable this e-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>"
+        },
+        "enableButtonLabel": "Enable",
+        "enabledButtonLabel": "Enabled",
+        "healthFactor": "Health factor:",
+        "switchButtonLabel": "Switch"
+      },
+      "notice": "Enabling E-Mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected category. <Link>Learn more</Link>",
+      "search": {
+        "placeholder": "Search asset or group"
+      },
+      "table": {
+        "card": {
+          "rows": {
+            "liquidationPenalty": "Liquidation penalty",
+            "liquidationThreshold": "Liquidation threshold",
+            "liquidity": "Liquidity",
+            "maxLtv": "Max LTV"
+          }
+        },
+        "columns": {
+          "asset": "Asset",
+          "liquidationPenalty": "Liquidation penalty",
+          "liquidationThreshold": "Liquidation threshold",
+          "liquidity": "Liquidity",
+          "maxLtv": "Max LTV",
+          "penalty": "Penalty",
+          "threshold": "Threshold"
+        },
+        "mobileSelectLabel": "Sort by:"
+      }
+    },
+    "tabs": {
+      "assets": {
+        "title": "Assets"
+      },
+      "eMode": {
+        "illustrationAltText": "Lightning illustration",
+        "new": "New",
+        "title": "E-mode"
+      }
+    }
+  },
   "pools": {
     "poolTable": {
       "columns": {

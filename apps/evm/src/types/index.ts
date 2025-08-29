@@ -158,16 +158,34 @@ export interface SwapRouterAddressMapping {
   [poolComptrollerAddress: string]: string;
 }
 
+export interface EModeAssetSettings {
+  vToken: VToken;
+  collateralFactor: number;
+  liquidationThresholdPercentage: number;
+  liquidationPenaltyPercentage: number;
+  liquidityCents: number;
+  liquidityTokens: BigNumber;
+}
+
+export interface EModeGroup {
+  id: number;
+  name: string;
+  description: string;
+  assetSettings: EModeAssetSettings[];
+}
+
 export interface Pool {
   comptrollerAddress: Address;
   name: string;
   isIsolated: boolean;
   assets: Asset[];
+  eModeGroups: EModeGroup[];
   // User-specific props
   userSupplyBalanceCents?: BigNumber;
   userBorrowBalanceCents?: BigNumber;
   userBorrowLimitCents?: BigNumber;
   userLiquidationThresholdCents?: BigNumber;
+  userEModeGroup?: EModeGroup;
 }
 
 export enum RemoteProposalState {

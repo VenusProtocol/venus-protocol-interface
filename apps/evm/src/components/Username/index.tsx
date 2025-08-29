@@ -1,6 +1,6 @@
 import { useGetAddressDomainName } from 'clients/api';
-import { InfoIcon } from 'components';
 import EllipseAddress, { type EllipseAddressProps } from 'components/EllipseAddress';
+import { InfoIcon } from 'components/InfoIcon';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
