@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.43.0
+
+### Minor Changes
+
+- 6efa799: filter VSolvBTC from vTokenBalancesAll call
+
 ## 3.42.0
 
 ### Minor Changes
