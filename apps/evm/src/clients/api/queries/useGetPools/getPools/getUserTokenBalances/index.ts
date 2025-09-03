@@ -3,7 +3,7 @@ import { getTokenBalances } from 'clients/api';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { poolLensAbi, venusLensAbi } from 'libs/contracts';
 import type { ChainId, Token } from 'types';
-import { areAddressesEqual, findTokenByAddress, isPoolIsolated } from 'utilities';
+import { findTokenByAddress, isPoolIsolated } from 'utilities';
 import type { Address, PublicClient } from 'viem';
 import type { VTokenBalance } from '../../types';
 import type { ApiPool } from '../getApiPools';
@@ -88,13 +88,7 @@ export const getUserTokenBalances = async ({
             abi: venusLensAbi,
             address: venusLensContractAddress,
             functionName: 'vTokenBalancesAll',
-            // TODO: Temporary fix for VSolvBTC, remove when changes are done in their side
-            args: [
-              legacyPoolVTokenAddresses.filter(
-                a => !areAddressesEqual(a, '0xf841cb62c19fcd4ff5cd0aab5939f3140baac3ea'),
-              ),
-              accountAddress,
-            ],
+            args: [legacyPoolVTokenAddresses, accountAddress],
           })
         : undefined,
     ]);
