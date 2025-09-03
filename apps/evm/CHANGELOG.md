@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.44.0
+
+### Minor Changes
+
+- 666099f: restore VSolvBTC from vTokenBalancesAll call
+
 ## 3.43.0
 
 ### Minor Changes
