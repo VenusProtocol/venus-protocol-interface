@@ -1,10 +1,12 @@
 import { chainMetadata } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 
+import { generateEModeGroup } from '__mocks__/models/eModeGroup';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
+import { featureFlags } from 'hooks/useIsFeatureEnabled';
 import { getVTokenAsset } from 'libs/tokens';
-import type { Asset, ChainId, Pool, Token, TokenBalance, VToken } from 'types';
+import type { Asset, ChainId, EModeGroup, Pool, Token, TokenBalance, VToken } from 'types';
 import {
   areAddressesEqual,
   areTokensEqual,
@@ -284,15 +286,46 @@ export const formatOutput = ({
       poolUserBorrowBalanceCents = poolUserBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
     }
 
+    // TODO: fetch actual E-mode groups from API
+    let eModeGroups: EModeGroup[] = [];
+    let userEModeGroup: EModeGroup | undefined;
+
+    if (featureFlags.eMode.includes(chainId)) {
+      userEModeGroup = generateEModeGroup({
+        id: 0,
+        name: 'Stablecoins',
+        description: 'This block contains the assets of this category',
+        groupAssets: assets.slice(0, 3),
+      });
+
+      eModeGroups = [
+        userEModeGroup,
+        generateEModeGroup({
+          id: 1,
+          name: 'DeFi',
+          description: 'This block contains the assets of this category',
+          groupAssets: assets.slice(2, 4),
+        }),
+        generateEModeGroup({
+          id: 2,
+          name: '#ToTheMoon',
+          description: 'This block contains the assets of this category',
+          groupAssets: assets.slice(5, 8),
+        }),
+      ];
+    }
+
     const pool: Pool = {
       comptrollerAddress: apiPool.address,
       name: apiPool.name === 'Core' ? 'Core pool' : apiPool.name,
       isIsolated,
       assets,
+      eModeGroups,
       userBorrowBalanceCents: poolUserBorrowBalanceCents,
       userSupplyBalanceCents: poolUserSupplyBalanceCents,
       userBorrowLimitCents: poolUserBorrowLimitCents,
       userLiquidationThresholdCents: poolUserLiquidationThresholdCents,
+      userEModeGroup,
     };
 
     // Calculate userPercentOfLimit for each asset
