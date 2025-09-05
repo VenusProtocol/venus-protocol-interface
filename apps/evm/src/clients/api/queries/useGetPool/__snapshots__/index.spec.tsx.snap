@@ -74,6 +74,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
         "tokenPriceCents": "127.86734",
         "userBorrowBalanceCents": "0",
         "userBorrowBalanceTokens": "0",
+        "userCollateralFactor": 0.5,
         "userPercentOfLimit": 0,
         "userSupplyBalanceCents": "11508",
         "userSupplyBalanceTokens": "90",
@@ -202,6 +203,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
         "tokenPriceCents": "99.99364",
         "userBorrowBalanceCents": "0",
         "userBorrowBalanceTokens": "0",
+        "userCollateralFactor": 0.8,
         "userPercentOfLimit": 0,
         "userSupplyBalanceCents": "9999",
         "userSupplyBalanceTokens": "100",
@@ -315,6 +317,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
         "tokenPriceCents": "100.024602",
         "userBorrowBalanceCents": "4000",
         "userBorrowBalanceTokens": "40",
+        "userCollateralFactor": 0.8,
         "userPercentOfLimit": 0,
         "userSupplyBalanceCents": "0",
         "userSupplyBalanceTokens": "0",
@@ -450,6 +453,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
         "tokenPriceCents": "100.000922",
         "userBorrowBalanceCents": "5000",
         "userBorrowBalanceTokens": "50",
+        "userCollateralFactor": 0.8,
         "userPercentOfLimit": 0,
         "userSupplyBalanceCents": "0",
         "userSupplyBalanceTokens": "0",
@@ -473,11 +477,11 @@ exports[`useGetPool > returns the correct asset 1`] = `
       {
         "assetSettings": [
           {
-            "collateralFactor": 0.6,
             "liquidationPenaltyPercentage": 0,
             "liquidationThresholdPercentage": 62,
             "liquidityCents": 8036465875,
             "liquidityTokens": "10",
+            "userCollateralFactor": 0.6,
             "vToken": {
               "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
               "decimals": 8,
@@ -491,11 +495,11 @@ exports[`useGetPool > returns the correct asset 1`] = `
             },
           },
           {
-            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
             "liquidityCents": 1702951959,
             "liquidityTokens": "10",
+            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
               "decimals": 8,
@@ -509,11 +513,11 @@ exports[`useGetPool > returns the correct asset 1`] = `
             },
           },
           {
-            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
             "liquidityCents": 5534102886,
             "liquidityTokens": "10",
+            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
               "decimals": 8,
@@ -534,11 +538,11 @@ exports[`useGetPool > returns the correct asset 1`] = `
       {
         "assetSettings": [
           {
-            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
             "liquidityCents": 5534102886,
             "liquidityTokens": "10",
+            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
               "decimals": 8,
@@ -552,11 +556,11 @@ exports[`useGetPool > returns the correct asset 1`] = `
             },
           },
           {
-            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
             "liquidityCents": 3654492935,
             "liquidityTokens": "10",
+            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
               "decimals": 8,

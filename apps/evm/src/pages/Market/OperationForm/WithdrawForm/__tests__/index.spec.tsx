@@ -240,7 +240,7 @@ describe('WithdrawForm', () => {
       ...fakeAsset,
       tokenPriceCents: new BigNumber(1),
       userSupplyBalanceTokens: new BigNumber(100000),
-      collateralFactor: 1,
+      userCollateralFactor: 1,
     };
 
     const { getByTestId, getByText } = renderComponent(
@@ -314,7 +314,7 @@ describe('WithdrawForm', () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       liquidityCents: new BigNumber(1000000000000),
-      collateralFactor: 1,
+      userCollateralFactor: 1,
       liquidationThresholdPercentage: 110,
       tokenPriceCents: new BigNumber(1),
       supplyBalanceTokens: new BigNumber(1000),
@@ -329,7 +329,7 @@ describe('WithdrawForm', () => {
 
     const inputValue = customFakePool
       .userBorrowLimitCents!.minus(customFakePool.userBorrowBalanceCents!)
-      .dividedBy(customFakeAsset.collateralFactor)
+      .dividedBy(customFakeAsset.userCollateralFactor)
       .dividedBy(customFakeAsset.tokenPriceCents)
       .toFixed(customFakeAsset.vToken.underlyingToken.decimals);
 

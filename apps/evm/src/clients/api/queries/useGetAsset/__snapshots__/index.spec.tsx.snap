@@ -72,6 +72,7 @@ exports[`useGetAsset > returns the correct asset 1`] = `
     "tokenPriceCents": "127.86734",
     "userBorrowBalanceCents": "0",
     "userBorrowBalanceTokens": "0",
+    "userCollateralFactor": 0.5,
     "userPercentOfLimit": 0,
     "userSupplyBalanceCents": "11508",
     "userSupplyBalanceTokens": "90",

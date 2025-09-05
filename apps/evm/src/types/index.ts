@@ -150,6 +150,7 @@ export interface Asset {
   userBorrowBalanceCents: BigNumber;
   userWalletBalanceTokens: BigNumber;
   userWalletBalanceCents: BigNumber;
+  userCollateralFactor: number;
   userPercentOfLimit: number;
   isCollateralOfUser: boolean;
 }
@@ -160,7 +161,7 @@ export interface SwapRouterAddressMapping {
 
 export interface EModeAssetSettings {
   vToken: VToken;
-  collateralFactor: number;
+  userCollateralFactor: number;
   liquidationThresholdPercentage: number;
   liquidationPenaltyPercentage: number;
   liquidityCents: number;

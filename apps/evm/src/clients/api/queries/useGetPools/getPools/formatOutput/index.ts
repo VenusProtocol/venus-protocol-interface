@@ -1,7 +1,6 @@
 import { chainMetadata } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 
-import { generateEModeGroup } from '__mocks__/models/eModeGroup';
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import { featureFlags } from 'hooks/useIsFeatureEnabled';
@@ -22,6 +21,7 @@ import {
 import type { PrimeApy, VTokenBalance } from '../../types';
 import type { ApiPool, ApiTokenPrice } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
+import { generateFakeEModeGroup } from './generateFakeEModeGroup';
 
 export const formatOutput = ({
   apiPools,
@@ -58,6 +58,41 @@ export const formatOutput = ({
     let poolUserSupplyBalanceCents = new BigNumber(0);
     let poolUserBorrowLimitCents = new BigNumber(0);
     let poolUserLiquidationThresholdCents = new BigNumber(0);
+
+    // TODO: fetch actual E-mode groups from API
+    let eModeGroups: EModeGroup[] = [];
+    let userEModeGroup: EModeGroup | undefined;
+
+    if (featureFlags.eMode.includes(chainId)) {
+      userEModeGroup = generateFakeEModeGroup({
+        id: 0,
+        name: 'Stablecoins',
+        description: 'This block contains the assets of this category',
+        tokens,
+        chainId,
+        apiMarkets: apiPool.markets.slice(0, 6),
+      });
+
+      eModeGroups = [
+        userEModeGroup,
+        generateFakeEModeGroup({
+          id: 1,
+          name: 'DeFi',
+          description: 'This block contains the assets of this category',
+          tokens,
+          chainId,
+          apiMarkets: apiPool.markets.slice(2, 8),
+        }),
+        generateFakeEModeGroup({
+          id: 2,
+          name: '#ToTheMoon',
+          description: 'This block contains the assets of this category',
+          tokens,
+          chainId,
+          apiMarkets: apiPool.markets.slice(5, 8),
+        }),
+      ];
+    }
 
     const assets = apiPool.markets.reduce<Asset[]>((acc, market) => {
       // Remove unlisted tokens
@@ -119,6 +154,26 @@ export const formatOutput = ({
       const collateralFactor = convertFactorFromSmartContract({
         factor: new BigNumber(market.collateralFactorMantissa),
       });
+
+      let userCollateralFactor = collateralFactor;
+      let isCollateralOfUser = !!userCollateralVTokenAddresses.some(address =>
+        areAddressesEqual(address, vToken.address),
+      );
+
+      if (userEModeGroup) {
+        const userEModeGroupCollateralFactor = userEModeGroup.assetSettings.find(settings =>
+          areTokensEqual(settings.vToken, vToken),
+        )?.userCollateralFactor;
+
+        userCollateralFactor =
+          userEModeGroupCollateralFactor ??
+          // If user has enabled an E-mode group and that asset is not in it, then it doesn't count as a user collateral
+          0;
+
+        // TODO: check if this logic is needed (ideally contracts would have marked the asset as not
+        // being a user collateral if they have enabled an E-mode group and that asset is not in it)
+        isCollateralOfUser = isCollateralOfUser && userEModeGroupCollateralFactor !== undefined;
+      }
 
       const liquidationThresholdPercentage = convertPercentageFromSmartContract(
         market.liquidationThresholdMantissa,
@@ -216,16 +271,12 @@ export const formatOutput = ({
       const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
       const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
-      const isCollateralOfUser = !!userCollateralVTokenAddresses.some(address =>
-        areAddressesEqual(address, vToken.address),
-      );
-
       poolUserBorrowBalanceCents = poolUserBorrowBalanceCents.plus(userBorrowBalanceCents);
       poolUserSupplyBalanceCents = poolUserSupplyBalanceCents.plus(userSupplyBalanceCents);
 
       if (isCollateralOfUser) {
         poolUserBorrowLimitCents = poolUserBorrowLimitCents.plus(
-          userSupplyBalanceCents.times(collateralFactor),
+          userSupplyBalanceCents.times(userCollateralFactor),
         );
 
         poolUserLiquidationThresholdCents = poolUserLiquidationThresholdCents.plus(
@@ -265,6 +316,7 @@ export const formatOutput = ({
         userBorrowBalanceCents,
         userWalletBalanceTokens,
         userWalletBalanceCents,
+        userCollateralFactor,
         // This will be calculated after all assets have been formatted
         userPercentOfLimit: 0,
         isCollateralOfUser,
@@ -284,35 +336,6 @@ export const formatOutput = ({
         .times(100);
 
       poolUserBorrowBalanceCents = poolUserBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
-    }
-
-    // TODO: fetch actual E-mode groups from API
-    let eModeGroups: EModeGroup[] = [];
-    let userEModeGroup: EModeGroup | undefined;
-
-    if (featureFlags.eMode.includes(chainId)) {
-      userEModeGroup = generateEModeGroup({
-        id: 0,
-        name: 'Stablecoins',
-        description: 'This block contains the assets of this category',
-        groupAssets: assets.slice(0, 3),
-      });
-
-      eModeGroups = [
-        userEModeGroup,
-        generateEModeGroup({
-          id: 1,
-          name: 'DeFi',
-          description: 'This block contains the assets of this category',
-          groupAssets: assets.slice(2, 4),
-        }),
-        generateEModeGroup({
-          id: 2,
-          name: '#ToTheMoon',
-          description: 'This block contains the assets of this category',
-          groupAssets: assets.slice(5, 8),
-        }),
-      ];
     }
 
     const pool: Pool = {

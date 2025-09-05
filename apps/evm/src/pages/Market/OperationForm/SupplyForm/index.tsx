@@ -239,7 +239,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-4">
-        {(asset.collateralFactor || asset.isCollateralOfUser) && (
+        {(asset.userCollateralFactor || asset.isCollateralOfUser) && (
           <>
             <SwitchChainNotice />
 

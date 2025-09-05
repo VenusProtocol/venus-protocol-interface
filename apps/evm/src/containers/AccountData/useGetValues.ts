@@ -117,7 +117,7 @@ const useGetValues = ({
       : new BigNumber(0);
 
     const amountCollateralValueCents = asset.isCollateralOfUser
-      ? toTokenAmountCents.times(asset.collateralFactor)
+      ? toTokenAmountCents.times(asset.userCollateralFactor)
       : new BigNumber(0);
 
     let hypotheticalUserSupplyBalanceTokens: BigNumber | undefined;
