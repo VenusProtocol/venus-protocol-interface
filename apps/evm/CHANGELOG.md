@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.45.0
+
+### Minor Changes
+
+- 656bb1a: add E-mode UI elements
+
 ## 3.44.0
 
 ### Minor Changes
