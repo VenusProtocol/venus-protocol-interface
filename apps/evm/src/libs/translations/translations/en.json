@@ -327,7 +327,7 @@
     "connectButton": "Connect wallet"
   },
   "eModeBanner": {
-    "description": "E-Mode increases your LTV for a selected category of assets. <Link>Learn more</Link>",
+    "description": "E-Mode increases your LTV for a selected group of assets. <Link>Learn more</Link>",
     "exploreButtonLabel": "Explore",
     "illustrationAltText": "E-mode illustration",
     "manageEModeButtonLabel": "Manage E-mode",
@@ -458,7 +458,7 @@
       "liquidity": "Liquidity",
       "maxLtv": {
         "label": "Max LTV",
-        "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{collateralFactor}} {{tokenSymbol}} worth of currency."
+        "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
       },
       "price": "Price",
       "supply": "Supply",
@@ -694,7 +694,7 @@
         "healthFactor": "Health factor:",
         "switchButtonLabel": "Switch"
       },
-      "notice": "Enabling E-Mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected category. <Link>Learn more</Link>",
+      "notice": "Enabling E-Mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected group. <Link>Learn more</Link>",
       "search": {
         "placeholder": "Search asset or group"
       },

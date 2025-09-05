@@ -20,6 +20,7 @@ export const getPools = async ({
   vaiControllerContractAddress,
   venusLensContractAddress,
   tokens,
+  isEModeEnabledFeature,
 }: GetPoolsInput) => {
   const [
     { pools: apiPools, tokenPricesMapping },
@@ -118,6 +119,7 @@ export const getPools = async ({
     userVTokenBalances,
     userTokenBalances,
     userVaiBorrowBalanceMantissa,
+    isEModeEnabledFeature,
   });
 
   // Add Prime simulations

@@ -116,7 +116,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     }
 
     const withdrawCollateralValueCents = new BigNumber(formValues.amountTokens)
-      .multipliedBy(asset.liquidationThresholdPercentage / 100)
+      .multipliedBy(asset.userLiquidationThresholdPercentage / 100)
       // Convert tokens to cents
       .multipliedBy(asset.tokenPriceCents);
 
@@ -158,7 +158,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 
     const marginWithUserBorrowLimitTokens = pool.userBorrowLimitCents
       .minus(pool.userBorrowBalanceCents)
-      .dividedBy(asset.collateralFactor)
+      .dividedBy(asset.userCollateralFactor)
       .dividedBy(asset.tokenPriceCents);
 
     let marginWithUserSafeBorrowLimitTokens =
@@ -166,7 +166,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
       // calculate the health factor
       pool.userLiquidationThresholdCents
         .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_SAFE_MAX_THRESHOLD))
-        .dividedBy(asset.collateralFactor)
+        .dividedBy(asset.userCollateralFactor)
         .dividedBy(asset.tokenPriceCents);
 
     if (marginWithUserSafeBorrowLimitTokens.isLessThan(0)) {
@@ -178,7 +178,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
       // calculate the health factor
       pool.userLiquidationThresholdCents
         .minus(pool.userBorrowBalanceCents.multipliedBy(HEALTH_FACTOR_MODERATE_THRESHOLD))
-        .dividedBy(asset.collateralFactor)
+        .dividedBy(asset.userCollateralFactor)
         .dividedBy(asset.tokenPriceCents);
 
     if (marginWithUserModerateRiskBorrowLimitTokens.isLessThan(0)) {

@@ -299,7 +299,7 @@ describe('SupplyForm', () => {
   it('displays collateral switch and lets user enable asset as collateral if it has a positive collateral factor', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
-      collateralFactor: 10,
+      userCollateralFactor: 10,
       isCollateralOfUser: false,
     };
 

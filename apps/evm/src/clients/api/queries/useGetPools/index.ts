@@ -21,6 +21,7 @@ type TrimmedInput = Omit<
   | 'legacyPoolComptrollerContractAddress'
   | 'venusLensContractAddress'
   | 'vaiControllerContractAddress'
+  | 'isEModeEnabledFeature'
 >;
 
 export type UseGetPoolsQueryKey = [
@@ -43,6 +44,10 @@ const refetchInterval = generatePseudoRandomRefetchInterval();
 export const useGetPools = (input?: TrimmedInput, options?: Options) => {
   const isPrimeEnabled = useIsFeatureEnabled({
     name: 'prime',
+  });
+
+  const isEModeEnabledFeature = useIsFeatureEnabled({
+    name: 'eMode',
   });
 
   const accountAddress = input?.accountAddress;
@@ -79,6 +84,7 @@ export const useGetPools = (input?: TrimmedInput, options?: Options) => {
           venusLensContractAddress,
           vaiControllerContractAddress,
           primeContractAddress: isPrimeEnabled ? primeContractAddress : undefined,
+          isEModeEnabledFeature,
           ...params,
           ...input,
         }),

@@ -10,7 +10,6 @@ import {
   Toggle,
   TokenIconWithSymbol,
 } from 'components';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
@@ -125,10 +124,6 @@ const useGenerateColumns = ({
             const isPaused = isAssetPaused({
               disabledTokenActions: poolAsset.disabledTokenActions,
             });
-            const isCollateralToggleDisabled = isCollateralActionDisabled({
-              disabledTokenActions: poolAsset.disabledTokenActions,
-              isCollateralOfUser: poolAsset.isCollateralOfUser,
-            });
 
             if (column === 'asset') {
               return (
@@ -164,14 +159,24 @@ const useGenerateColumns = ({
             }
 
             if (column === 'collateral') {
-              return poolAsset.collateralFactor || poolAsset.isCollateralOfUser ? (
+              const collateralActionDisabled = isCollateralActionDisabled({
+                disabledTokenActions: poolAsset.disabledTokenActions,
+                isCollateralOfUser: poolAsset.isCollateralOfUser,
+              });
+
+              return (
                 <Toggle
                   onChange={() => collateralOnChange(poolAsset)}
-                  value={poolAsset.isCollateralOfUser}
-                  disabled={isAccountOnWrongChain || isCollateralToggleDisabled}
+                  value={
+                    poolAsset.isCollateralOfUser &&
+                    (!poolAsset.pool.userEModeGroup || poolAsset.userCollateralFactor > 0)
+                  }
+                  disabled={
+                    isAccountOnWrongChain ||
+                    collateralActionDisabled ||
+                    (poolAsset.pool.userEModeGroup && poolAsset.userCollateralFactor === 0)
+                  }
                 />
-              ) : (
-                PLACEHOLDER_KEY
               );
             }
 
@@ -333,8 +338,8 @@ const useGenerateColumns = ({
 
                   // Put rows of tokens that can't be enabled as collateral at the
                   // bottom of the list
-                  if (column === 'collateral' && rowA.collateralFactor === 0) return 1;
-                  if (column === 'collateral' && rowB.collateralFactor === 0) return -1;
+                  if (column === 'collateral' && rowA.userCollateralFactor === 0) return 1;
+                  if (column === 'collateral' && rowB.userCollateralFactor === 0) return -1;
                   // Sort other rows normally
                   if (column === 'collateral') {
                     return compareBooleans(

@@ -31,7 +31,7 @@ const addUserPropsToPool = (input: AddUserPropsToPoolInput): Pool => {
 
       if (assetUserSupplyBalanceCents && asset.isCollateralOfUser) {
         acc.userBorrowLimitCents = (acc.userBorrowLimitCents || new BigNumber(0)).plus(
-          assetUserSupplyBalanceCents.times(asset.collateralFactor),
+          assetUserSupplyBalanceCents.times(asset.userCollateralFactor),
         );
       }
 
