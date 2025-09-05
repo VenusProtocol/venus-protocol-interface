@@ -13,8 +13,8 @@ const generateEModeGroup = ({
   assetSettings: groupAssets.map(a => ({
     vToken: a.vToken,
     userCollateralFactor: a.userCollateralFactor + 0.1,
-    liquidationThresholdPercentage: a.liquidationThresholdPercentage + 12,
-    liquidationPenaltyPercentage: a.liquidationThresholdPercentage - 50,
+    liquidationThresholdPercentage: a.userLiquidationThresholdPercentage + 12,
+    liquidationPenaltyPercentage: a.userLiquidationThresholdPercentage - 50,
     liquidityCents: a.liquidityCents.toNumber(),
     liquidityTokens: a.cashTokens,
   })),

@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 
 import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
-import { featureFlags } from 'hooks/useIsFeatureEnabled';
 import { getVTokenAsset } from 'libs/tokens';
 import type { Asset, ChainId, EModeGroup, Pool, Token, TokenBalance, VToken } from 'types';
 import {
@@ -34,6 +33,7 @@ export const formatOutput = ({
   userTokenBalances = [],
   userCollateralVTokenAddresses = [],
   userVaiBorrowBalanceMantissa,
+  isEModeEnabledFeature,
 }: {
   chainId: ChainId;
   tokens: Token[];
@@ -45,6 +45,7 @@ export const formatOutput = ({
   userVTokenBalances?: VTokenBalance[];
   userTokenBalances?: TokenBalance[];
   userVaiBorrowBalanceMantissa?: BigNumber;
+  isEModeEnabledFeature: boolean;
 }) => {
   const pools: Pool[] = apiPools.map(apiPool => {
     const { blocksPerDay } = chainMetadata[chainId];
@@ -63,7 +64,7 @@ export const formatOutput = ({
     let eModeGroups: EModeGroup[] = [];
     let userEModeGroup: EModeGroup | undefined;
 
-    if (featureFlags.eMode.includes(chainId)) {
+    if (isEModeEnabledFeature) {
       userEModeGroup = generateFakeEModeGroup({
         id: 0,
         name: 'Stablecoins',
@@ -160,24 +161,30 @@ export const formatOutput = ({
         areAddressesEqual(address, vToken.address),
       );
 
+      const liquidationThresholdPercentage = convertPercentageFromSmartContract(
+        market.liquidationThresholdMantissa,
+      );
+
+      let userLiquidationThresholdPercentage = liquidationThresholdPercentage;
+
       if (userEModeGroup) {
-        const userEModeGroupCollateralFactor = userEModeGroup.assetSettings.find(settings =>
+        const eModeAssetSettings = userEModeGroup.assetSettings.find(settings =>
           areTokensEqual(settings.vToken, vToken),
-        )?.userCollateralFactor;
+        );
+        const userEModeGroupCollateralFactor = eModeAssetSettings?.userCollateralFactor;
 
         userCollateralFactor =
           userEModeGroupCollateralFactor ??
           // If user has enabled an E-mode group and that asset is not in it, then it doesn't count as a user collateral
           0;
 
+        userLiquidationThresholdPercentage =
+          eModeAssetSettings?.liquidationThresholdPercentage ?? liquidationThresholdPercentage;
+
         // TODO: check if this logic is needed (ideally contracts would have marked the asset as not
         // being a user collateral if they have enabled an E-mode group and that asset is not in it)
         isCollateralOfUser = isCollateralOfUser && userEModeGroupCollateralFactor !== undefined;
       }
-
-      const liquidationThresholdPercentage = convertPercentageFromSmartContract(
-        market.liquidationThresholdMantissa,
-      );
 
       const cashTokens = convertMantissaToTokens({
         value: new BigNumber(market.cashMantissa),
@@ -317,6 +324,7 @@ export const formatOutput = ({
         userWalletBalanceTokens,
         userWalletBalanceCents,
         userCollateralFactor,
+        userLiquidationThresholdPercentage,
         // This will be calculated after all assets have been formatted
         userPercentOfLimit: 0,
         isCollateralOfUser,

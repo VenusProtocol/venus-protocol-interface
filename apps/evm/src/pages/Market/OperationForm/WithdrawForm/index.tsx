@@ -116,7 +116,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     }
 
     const withdrawCollateralValueCents = new BigNumber(formValues.amountTokens)
-      .multipliedBy(asset.liquidationThresholdPercentage / 100)
+      .multipliedBy(asset.userLiquidationThresholdPercentage / 100)
       // Convert tokens to cents
       .multipliedBy(asset.tokenPriceCents);
 

@@ -315,7 +315,7 @@ describe('WithdrawForm', () => {
       ...fakeAsset,
       liquidityCents: new BigNumber(1000000000000),
       userCollateralFactor: 1,
-      liquidationThresholdPercentage: 110,
+      userLiquidationThresholdPercentage: 110,
       tokenPriceCents: new BigNumber(1),
       supplyBalanceTokens: new BigNumber(1000),
     };

@@ -120,12 +120,12 @@ export interface Asset {
   tokenPriceCents: BigNumber;
   reserveFactor: number;
   collateralFactor: number;
-  liquidationThresholdPercentage: number;
   badDebtMantissa: bigint;
   liquidityCents: BigNumber;
   reserveTokens: BigNumber;
   cashTokens: BigNumber;
   exchangeRateVTokens: BigNumber;
+  liquidationThresholdPercentage: number;
   supplierCount: number;
   borrowerCount: number;
   borrowApyPercentage: BigNumber;
@@ -151,6 +151,7 @@ export interface Asset {
   userWalletBalanceTokens: BigNumber;
   userWalletBalanceCents: BigNumber;
   userCollateralFactor: number;
+  userLiquidationThresholdPercentage: number;
   userPercentOfLimit: number;
   isCollateralOfUser: boolean;
 }
