@@ -33,6 +33,7 @@ interface PaginationProps {
 export const Pagination = ({
   itemsCount,
   onChange,
+  initialPageIndex,
   itemsPerPageCount,
   className,
 }: PaginationProps) => {
@@ -46,7 +47,9 @@ export const Pagination = ({
     maxPageIndexToShow,
   } = usePagination({
     itemsCount,
-    onChange,
+    onChange: newPageIndex => {
+      onChange(newPageIndex + (initialPageIndex || 0));
+    },
     itemsPerPageCount,
   });
 
