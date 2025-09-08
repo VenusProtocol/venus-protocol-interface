@@ -465,11 +465,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
+              "collateralFactor": 0.1,
               "liquidationPenaltyPercentage": -50,
               "liquidationThresholdPercentage": 12,
               "liquidityCents": 1.0000000008050355e+23,
               "liquidityTokens": "1.00000000080503544824460983238917793784e+21",
-              "userCollateralFactor": 0.1,
               "vToken": {
                 "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
                 "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8740)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8740'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8740)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8740)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M11.9833%206.375L13.3728%207.79799L9.87388%2011.2969L8.48438%209.90737L11.9833%206.375Z'%20fill='white'/%3e%3cpath%20d='M14.0926%208.48436L15.4821%209.90735L9.87388%2015.5156L8.48438%2014.1261L14.0926%208.48436Z'%20fill='white'/%3e%3cpath%20d='M7.76451%2010.5938L9.15402%2012.0167L7.76451%2013.4063L6.375%2012.0167L7.76451%2010.5938Z'%20fill='white'/%3e%3cpath%20d='M16.202%2010.5938L17.5915%2012.0167L11.9833%2017.625L10.5938%2016.2355L16.202%2010.5938Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8740'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8740'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -484,11 +484,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
               },
             },
             {
+              "collateralFactor": 0.9,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 0,
               "liquidityTokens": "0",
-              "userCollateralFactor": 0.9,
               "vToken": {
                 "address": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
                 "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8755)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8755'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8755)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8755)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M11.9973%2010.2665V5.33704L8.00195%2012.1231L11.9973%2014.5411V10.2665Z'%20fill='white'%20fill-opacity='0.8'/%3e%3cpath%20d='M12%2014.5411L16.0002%2012.1231L12%205.33704V10.2665V14.5411Z'%20fill='white'/%3e%3cpath%20d='M11.9973%2015.3143L8.00195%2012.9013L11.9973%2018.663V15.3143Z'%20fill='white'/%3e%3cpath%20d='M15.9977%2012.9013L11.9976%2015.3143V18.663L15.9977%2012.9013Z'%20fill='white'%20fill-opacity='0.8'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8755'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8755'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -504,11 +504,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
               },
             },
             {
+              "collateralFactor": 0.9,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 555.6233762724731,
               "liquidityTokens": "5.556233762724731858",
-              "userCollateralFactor": 0.9,
               "vToken": {
                 "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
                 "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8738)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8738'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8738)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8738)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M9.81519%2011.1023L11.9999%208.91767L14.1858%2011.1035L15.4571%209.83225L11.9999%206.375L8.54395%209.83109L9.81519%2011.1023Z'%20fill='white'/%3e%3cpath%20d='M8.9177%2011.9998L7.64648%2010.7286L6.3752%2011.9999L7.64642%2013.2711L8.9177%2011.9998Z'%20fill='white'/%3e%3cpath%20d='M9.8151%2012.8976L11.9999%2015.0823L14.1857%2012.8965L15.4576%2014.1671L15.457%2014.1678L11.9999%2017.6249L8.54377%2014.1689L8.54199%2014.1672L9.8151%2012.8976Z'%20fill='white'/%3e%3cpath%20d='M16.3537%2013.2717L17.625%2012.0004L16.3538%2010.7292L15.0825%2012.0005L16.3537%2013.2717Z'%20fill='white'/%3e%3cpath%20d='M13.2891%2011.9994H13.2896L11.9996%2010.7094L11.0463%2011.6627H11.0462L10.9367%2011.7722L10.7108%2011.9982L10.709%2012L10.7108%2012.0019L11.9996%2013.2907L13.2896%2012.0007L13.2902%2012L13.2891%2011.9994Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8738'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8738'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -531,11 +531,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
+              "collateralFactor": 0.9,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 555.6233762724731,
               "liquidityTokens": "5.556233762724731858",
-              "userCollateralFactor": 0.9,
               "vToken": {
                 "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
                 "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8738)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8738'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8738)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8738)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M9.81519%2011.1023L11.9999%208.91767L14.1858%2011.1035L15.4571%209.83225L11.9999%206.375L8.54395%209.83109L9.81519%2011.1023Z'%20fill='white'/%3e%3cpath%20d='M8.9177%2011.9998L7.64648%2010.7286L6.3752%2011.9999L7.64642%2013.2711L8.9177%2011.9998Z'%20fill='white'/%3e%3cpath%20d='M9.8151%2012.8976L11.9999%2015.0823L14.1857%2012.8965L15.4576%2014.1671L15.457%2014.1678L11.9999%2017.6249L8.54377%2014.1689L8.54199%2014.1672L9.8151%2012.8976Z'%20fill='white'/%3e%3cpath%20d='M16.3537%2013.2717L17.625%2012.0004L16.3538%2010.7292L15.0825%2012.0005L16.3537%2013.2717Z'%20fill='white'/%3e%3cpath%20d='M13.2891%2011.9994H13.2896L11.9996%2010.7094L11.0463%2011.6627H11.0462L10.9367%2011.7722L10.7108%2011.9982L10.709%2012L10.7108%2012.0019L11.9996%2013.2907L13.2896%2012.0007L13.2902%2012L13.2891%2011.9994Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8738'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8738'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -569,11 +569,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
       "userEModeGroup": {
         "assetSettings": [
           {
+            "collateralFactor": 0.1,
             "liquidationPenaltyPercentage": -50,
             "liquidationThresholdPercentage": 12,
             "liquidityCents": 1.0000000008050355e+23,
             "liquidityTokens": "1.00000000080503544824460983238917793784e+21",
-            "userCollateralFactor": 0.1,
             "vToken": {
               "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
               "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8740)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8740'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8740)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8740)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M11.9833%206.375L13.3728%207.79799L9.87388%2011.2969L8.48438%209.90737L11.9833%206.375Z'%20fill='white'/%3e%3cpath%20d='M14.0926%208.48436L15.4821%209.90735L9.87388%2015.5156L8.48438%2014.1261L14.0926%208.48436Z'%20fill='white'/%3e%3cpath%20d='M7.76451%2010.5938L9.15402%2012.0167L7.76451%2013.4063L6.375%2012.0167L7.76451%2010.5938Z'%20fill='white'/%3e%3cpath%20d='M16.202%2010.5938L17.5915%2012.0167L11.9833%2017.625L10.5938%2016.2355L16.202%2010.5938Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8740'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8740'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -588,11 +588,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
           },
           {
+            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 0,
             "liquidityTokens": "0",
-            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
               "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8755)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8755'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8755)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8755)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M11.9973%2010.2665V5.33704L8.00195%2012.1231L11.9973%2014.5411V10.2665Z'%20fill='white'%20fill-opacity='0.8'/%3e%3cpath%20d='M12%2014.5411L16.0002%2012.1231L12%205.33704V10.2665V14.5411Z'%20fill='white'/%3e%3cpath%20d='M11.9973%2015.3143L8.00195%2012.9013L11.9973%2018.663V15.3143Z'%20fill='white'/%3e%3cpath%20d='M15.9977%2012.9013L11.9976%2015.3143V18.663L15.9977%2012.9013Z'%20fill='white'%20fill-opacity='0.8'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8755'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8755'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -608,11 +608,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
           },
           {
+            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 555.6233762724731,
             "liquidityTokens": "5.556233762724731858",
-            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
               "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8738)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8738'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8738)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8738)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M9.81519%2011.1023L11.9999%208.91767L14.1858%2011.1035L15.4571%209.83225L11.9999%206.375L8.54395%209.83109L9.81519%2011.1023Z'%20fill='white'/%3e%3cpath%20d='M8.9177%2011.9998L7.64648%2010.7286L6.3752%2011.9999L7.64642%2013.2711L8.9177%2011.9998Z'%20fill='white'/%3e%3cpath%20d='M9.8151%2012.8976L11.9999%2015.0823L14.1857%2012.8965L15.4576%2014.1671L15.457%2014.1678L11.9999%2017.6249L8.54377%2014.1689L8.54199%2014.1672L9.8151%2012.8976Z'%20fill='white'/%3e%3cpath%20d='M16.3537%2013.2717L17.625%2012.0004L16.3538%2010.7292L15.0825%2012.0005L16.3537%2013.2717Z'%20fill='white'/%3e%3cpath%20d='M13.2891%2011.9994H13.2896L11.9996%2010.7094L11.0463%2011.6627H11.0462L10.9367%2011.7722L10.7108%2011.9982L10.709%2012L10.7108%2012.0019L11.9996%2013.2907L13.2896%2012.0007L13.2902%2012L13.2891%2011.9994Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8738'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8738'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -632,7 +632,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "id": 0,
         "name": "Stablecoins",
       },
-      "userLiquidationThresholdCents": "573596.4600238400651814159118",
+      "userLiquidationThresholdCents": "651838.1551791201303628318236",
       "userSupplyBalanceCents": "399985998653193.160432",
     },
     {
@@ -706,11 +706,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
+              "collateralFactor": 0.9,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 264929173.1707,
               "liquidityTokens": "2649291.731707",
-              "userCollateralFactor": 0.9,
               "vToken": {
                 "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
                 "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12373_163)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12373_163'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12373_163)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0793L0.36002%203.36861L3.38965%201.88134L11.9998%2019.4206L20.61%201.88134L23.6397%203.36861L11.9998%2027.0793Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%235CFFA2'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12373_163'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -732,11 +732,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
+              "collateralFactor": 0.9,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 264929173.1707,
               "liquidityTokens": "2649291.731707",
-              "userCollateralFactor": 0.9,
               "vToken": {
                 "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
                 "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12373_163)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12373_163'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12373_163)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0793L0.36002%203.36861L3.38965%201.88134L11.9998%2019.4206L20.61%201.88134L23.6397%203.36861L11.9998%2027.0793Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%235CFFA2'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12373_163'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -769,11 +769,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
       "userEModeGroup": {
         "assetSettings": [
           {
+            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 264929173.1707,
             "liquidityTokens": "2649291.731707",
-            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
               "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12373_163)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12373_163'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12373_163)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0793L0.36002%203.36861L3.38965%201.88134L11.9998%2019.4206L20.61%201.88134L23.6397%203.36861L11.9998%2027.0793Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%235CFFA2'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12373_163'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -792,7 +792,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "id": 0,
         "name": "Stablecoins",
       },
-      "userLiquidationThresholdCents": "175987680000000.0199986",
+      "userLiquidationThresholdCents": "199986000000000.0399972",
       "userSupplyBalanceCents": "199986000000000",
     },
     {
@@ -851,11 +851,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
+              "collateralFactor": 0.9,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 10116602.3761,
               "liquidityTokens": "101166.023761",
-              "userCollateralFactor": 0.9,
               "vToken": {
                 "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
                 "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12361_2318)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12361_2318'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12361_2318)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0793L0.36002%203.36861L3.38965%201.88134L11.9998%2019.4206L20.61%201.88134L23.6397%203.36861L11.9998%2027.0793Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%23F57842'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12361_2318'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -894,11 +894,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
       "userEModeGroup": {
         "assetSettings": [
           {
+            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 10116602.3761,
             "liquidityTokens": "101166.023761",
-            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
               "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12361_2318)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12361_2318'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12361_2318)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0793L0.36002%203.36861L3.38965%201.88134L11.9998%2019.4206L20.61%201.88134L23.6397%203.36861L11.9998%2027.0793Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%23F57842'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12361_2318'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -917,7 +917,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "id": 0,
         "name": "Stablecoins",
       },
-      "userLiquidationThresholdCents": "175987680000000.0199986",
+      "userLiquidationThresholdCents": "199986000000000.0399972",
       "userSupplyBalanceCents": "199986000000000",
     },
     {
@@ -1039,11 +1039,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
+              "collateralFactor": 0.9,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 1103100000,
               "liquidityTokens": "11031000",
-              "userCollateralFactor": 0.9,
               "vToken": {
                 "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
                 "asset": undefined,
@@ -1058,11 +1058,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
               },
             },
             {
+              "collateralFactor": 0.55,
               "liquidationPenaltyPercentage": -0.4999999999999929,
               "liquidationThresholdPercentage": 61.50000000000001,
               "liquidityCents": 0.0705300034659891,
               "liquidityTokens": "0.000705300034659891",
-              "userCollateralFactor": 0.55,
               "vToken": {
                 "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
                 "asset": undefined,
@@ -1101,11 +1101,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
       "userEModeGroup": {
         "assetSettings": [
           {
+            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 1103100000,
             "liquidityTokens": "11031000",
-            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
               "asset": undefined,
@@ -1120,11 +1120,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
           },
           {
+            "collateralFactor": 0.55,
             "liquidationPenaltyPercentage": -0.4999999999999929,
             "liquidationThresholdPercentage": 61.50000000000001,
             "liquidityCents": 0.0705300034659891,
             "liquidityTokens": "0.000705300034659891",
-            "userCollateralFactor": 0.55,
             "vToken": {
               "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
               "asset": undefined,
@@ -1143,7 +1143,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "id": 0,
         "name": "Stablecoins",
       },
-      "userLiquidationThresholdCents": "65448.8666954100066109966359",
+      "userLiquidationThresholdCents": "81315.2586215700132219932718",
       "userSupplyBalanceCents": "199986000132219.932718",
     },
     {
@@ -1202,11 +1202,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
+              "collateralFactor": 0.85,
               "liquidationPenaltyPercentage": 32.500000000000014,
               "liquidationThresholdPercentage": 94.50000000000001,
               "liquidityCents": 600600,
               "liquidityTokens": "6006",
-              "userCollateralFactor": 0.85,
               "vToken": {
                 "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
                 "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12361_938)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12361_938'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12361_938)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88137L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%23B042FF'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12361_938'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -1245,11 +1245,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
       "userEModeGroup": {
         "assetSettings": [
           {
+            "collateralFactor": 0.85,
             "liquidationPenaltyPercentage": 32.500000000000014,
             "liquidationThresholdPercentage": 94.50000000000001,
             "liquidityCents": 600600,
             "liquidityTokens": "6006",
-            "userCollateralFactor": 0.85,
             "vToken": {
               "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
               "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12361_938)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12361_938'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12361_938)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88137L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%23B042FF'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12361_938'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -1268,7 +1268,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "id": 0,
         "name": "Stablecoins",
       },
-      "userLiquidationThresholdCents": "164988450000000.0399972",
+      "userLiquidationThresholdCents": "188986770000000.0399972",
       "userSupplyBalanceCents": "199986000000000",
     },
     {
@@ -1418,11 +1418,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
+              "collateralFactor": 0.75,
               "liquidationPenaltyPercentage": 21.5,
               "liquidationThresholdPercentage": 83.5,
               "liquidityCents": 3256964.033967793,
               "liquidityTokens": "32569.640339677929523638",
-              "userCollateralFactor": 0.75,
               "vToken": {
                 "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
                 "asset": undefined,
@@ -1437,11 +1437,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
               },
             },
             {
+              "collateralFactor": 0.9,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 99817453.518,
               "liquidityTokens": "998174.53518",
-              "userCollateralFactor": 0.9,
               "vToken": {
                 "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
                 "asset": undefined,
@@ -1480,11 +1480,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
       "userEModeGroup": {
         "assetSettings": [
           {
+            "collateralFactor": 0.75,
             "liquidationPenaltyPercentage": 21.5,
             "liquidationThresholdPercentage": 83.5,
             "liquidityCents": 3256964.033967793,
             "liquidityTokens": "32569.640339677929523638",
-            "userCollateralFactor": 0.75,
             "vToken": {
               "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
               "asset": undefined,
@@ -1499,11 +1499,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
           },
           {
+            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 99817453.518,
             "liquidityTokens": "998174.53518",
-            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
               "asset": undefined,
@@ -1522,7 +1522,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "id": 0,
         "name": "Stablecoins",
       },
-      "userLiquidationThresholdCents": "175987680000143.0199986",
+      "userLiquidationThresholdCents": "199986000000167.0399972",
       "userSupplyBalanceCents": "199986000000200",
     },
     {
@@ -1581,11 +1581,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
+              "collateralFactor": 0.9,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 1000000,
               "liquidityTokens": "10000",
-              "userCollateralFactor": 0.9,
               "vToken": {
                 "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
                 "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12379_477)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12379_477'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12379_477)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0793L0.36002%203.36861L3.38965%201.88134L11.9998%2019.4206L20.61%201.88134L23.6397%203.36861L11.9998%2027.0793Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%23AAB3CA'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12379_477'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -1607,11 +1607,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
+              "collateralFactor": 0.9,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 1000000,
               "liquidityTokens": "10000",
-              "userCollateralFactor": 0.9,
               "vToken": {
                 "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
                 "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12379_477)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12379_477'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12379_477)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0793L0.36002%203.36861L3.38965%201.88134L11.9998%2019.4206L20.61%201.88134L23.6397%203.36861L11.9998%2027.0793Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%23AAB3CA'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12379_477'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
@@ -1644,11 +1644,11 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
       "userEModeGroup": {
         "assetSettings": [
           {
+            "collateralFactor": 0.9,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 1000000,
             "liquidityTokens": "10000",
-            "userCollateralFactor": 0.9,
             "vToken": {
               "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
               "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12379_477)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12379_477'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12379_477)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0793L0.36002%203.36861L3.38965%201.88134L11.9998%2019.4206L20.61%201.88134L23.6397%203.36861L11.9998%2027.0793Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%23AAB3CA'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12379_477'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",

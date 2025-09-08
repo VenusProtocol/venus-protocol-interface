@@ -162,7 +162,7 @@ export interface SwapRouterAddressMapping {
 
 export interface EModeAssetSettings {
   vToken: VToken;
-  userCollateralFactor: number;
+  collateralFactor: number;
   liquidationThresholdPercentage: number;
   liquidationPenaltyPercentage: number;
   liquidityCents: number;

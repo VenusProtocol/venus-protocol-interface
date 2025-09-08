@@ -171,7 +171,7 @@ export const formatOutput = ({
         const eModeAssetSettings = userEModeGroup.assetSettings.find(settings =>
           areTokensEqual(settings.vToken, vToken),
         );
-        const userEModeGroupCollateralFactor = eModeAssetSettings?.userCollateralFactor;
+        const userEModeGroupCollateralFactor = eModeAssetSettings?.collateralFactor;
 
         userCollateralFactor =
           userEModeGroupCollateralFactor ??
@@ -287,7 +287,7 @@ export const formatOutput = ({
         );
 
         poolUserLiquidationThresholdCents = poolUserLiquidationThresholdCents.plus(
-          userSupplyBalanceCents.times(liquidationThresholdPercentage / 100),
+          userSupplyBalanceCents.times(userLiquidationThresholdPercentage / 100),
         );
       }
 

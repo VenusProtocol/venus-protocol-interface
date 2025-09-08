@@ -35,7 +35,7 @@ export const Asset: React.FC<AssetProps> = ({ eModeAssetSettings, className }) =
     },
     {
       label: t('pool.eMode.table.card.rows.maxLtv'),
-      value: formatPercentageToReadableValue(eModeAssetSettings.userCollateralFactor * 100),
+      value: formatPercentageToReadableValue(eModeAssetSettings.collateralFactor * 100),
     },
     {
       label: t('pool.eMode.table.card.rows.liquidationThreshold'),

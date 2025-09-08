@@ -196,6 +196,9 @@
     }
   },
   "asset": {
+    "eModeInfo": {
+      "title": "E-mode info"
+    },
     "marketInfo": {
       "title": "Market info"
     }
@@ -725,6 +728,16 @@
       },
       "eMode": {
         "illustrationAltText": "Lightning illustration",
+        "liquidationPenalty": {
+          "label": "Liquidation penalty"
+        },
+        "liquidationThreshold": {
+          "label": "Liquidation threshold"
+        },
+        "maxLtv": {
+          "label": "Max LTV",
+          "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
+        },
         "new": "New",
         "title": "E-mode"
       }
