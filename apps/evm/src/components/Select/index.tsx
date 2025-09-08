@@ -14,6 +14,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
   <TValue extends string | number = string | number>(
     {
       className,
+      dropdownClassName,
       buttonClassName,
       options,
       optionClassName = 'px-4 h-12',
@@ -82,7 +83,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
           setIsDropdownOpened(false);
         };
         return (
-          <>
+          <div className={dropdownClassName}>
             {options.map(option => (
               <button
                 key={option.value}
@@ -106,10 +107,10 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 />
               </button>
             ))}
-          </>
+          </div>
         );
       },
-      [onChange, options, optionClassName, value],
+      [onChange, options, optionClassName, dropdownClassName, value],
     );
 
     return (
