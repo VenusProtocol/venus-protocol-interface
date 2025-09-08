@@ -113,11 +113,11 @@ const useGetValues = ({
     }).times(asset.tokenPriceCents);
 
     const amountLiquidationThresholdValueCents = asset.isCollateralOfUser
-      ? toTokenAmountCents.times(asset.liquidationThresholdPercentage / 100)
+      ? toTokenAmountCents.times(asset.userLiquidationThresholdPercentage / 100)
       : new BigNumber(0);
 
     const amountCollateralValueCents = asset.isCollateralOfUser
-      ? toTokenAmountCents.times(asset.collateralFactor)
+      ? toTokenAmountCents.times(asset.userCollateralFactor)
       : new BigNumber(0);
 
     let hypotheticalUserSupplyBalanceTokens: BigNumber | undefined;

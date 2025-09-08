@@ -66,7 +66,7 @@ export const MarketInfo = () => {
         value: readableMaxLtvPercentage,
         tooltip: t('layout.header.maxLtv.tooltip', {
           maxLtv: readableMaxLtvPercentage,
-          collateralFactor: asset?.collateralFactor,
+          userCollateralFactor: asset?.userCollateralFactor,
           tokenSymbol: asset?.vToken.underlyingToken.symbol,
         }),
       },

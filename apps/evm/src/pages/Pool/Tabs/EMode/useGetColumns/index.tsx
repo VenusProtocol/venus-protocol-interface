@@ -44,9 +44,10 @@ export const useGetColumns = () => {
       key: 'maxLtv',
       label: t('pool.eMode.table.columns.maxLtv'),
       selectOptionLabel: t('pool.eMode.table.columns.maxLtv'),
-      renderCell: ({ collateralFactor }) => formatPercentageToReadableValue(collateralFactor * 100),
+      renderCell: ({ userCollateralFactor }) =>
+        formatPercentageToReadableValue(userCollateralFactor * 100),
       sortRows: (rowA, rowB, direction) =>
-        compareNumbers(rowA.collateralFactor, rowB.collateralFactor, direction),
+        compareNumbers(rowA.userCollateralFactor, rowB.userCollateralFactor, direction),
     },
     {
       key: 'liquidationThreshold',
