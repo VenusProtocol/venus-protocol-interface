@@ -43,6 +43,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   title,
   controls = true,
   isFetching,
+  header,
   ...otherTableProps
 }) => {
   const styles = useStyles();
@@ -169,52 +170,62 @@ export const MarketTable: React.FC<MarketTableProps> = ({
       rowKeyExtractor={row => `market-table-row-${marketType}-${row.vToken.address}`}
       initialOrder={formattedInitialOrder}
       header={
-        <div className="space-y-6">
-          {controls && (
-            <div className={cn('space-y-6 sm:space-y-0 sm:-mx-6')}>
-              <div
-                className={cn(
-                  'space-y-6 sm:space-y-0 sm:mb-6 sm:px-6 sm:flex sm:items-center sm:justify-between',
-                  isBreakpointUp && 'sm:mb-0 sm:py-4',
+        (header || controls || columnKeys.includes('collateral')) && (
+          <div className={cn('space-y-4')}>
+            {(controls || header) && (
+              <div className={cn('flow-root space-y-4', isBreakpointUp && 'space-y-0')}>
+                {header}
+
+                {controls && (
+                  <div className={cn(isBreakpointUp && '-mx-6')}>
+                    <div
+                      className={cn(
+                        'space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between',
+                        isBreakpointUp && 'sm:mb-0 px-6 py-4',
+                      )}
+                    >
+                      <div className="flex items-center gap-x-4">
+                        {pausedAssetsExist && (
+                          <Toggle
+                            onChange={() =>
+                              setUserChainSettings({ showPausedAssets: !showPausedAssets })
+                            }
+                            value={showPausedAssets}
+                            label={t('marketTable.pausedAssetsToggle.label')}
+                          />
+                        )}
+
+                        {!!accountAddress && userHasAssets && (
+                          <Toggle
+                            onChange={() =>
+                              setUserChainSettings({ showUserAssetsOnly: !showUserAssetsOnly })
+                            }
+                            value={showUserAssetsOnly}
+                            label={t('marketTable.userAssetsOnlyToggle.label')}
+                          />
+                        )}
+                      </div>
+
+                      <TextField
+                        className="lg:w-[300px]"
+                        isSmall
+                        value={searchValue}
+                        onChange={handleSearchInputChange}
+                        placeholder={t('marketTable.searchInput.placeholder')}
+                        leftIconSrc="magnifier"
+                        variant="secondary"
+                      />
+                    </div>
+
+                    {isBreakpointUp && <Delimiter />}
+                  </div>
                 )}
-              >
-                <div className="flex items-center gap-x-4">
-                  {pausedAssetsExist && (
-                    <Toggle
-                      onChange={() => setUserChainSettings({ showPausedAssets: !showPausedAssets })}
-                      value={showPausedAssets}
-                      label={t('marketTable.pausedAssetsToggle.label')}
-                    />
-                  )}
-
-                  {!!accountAddress && userHasAssets && (
-                    <Toggle
-                      onChange={() =>
-                        setUserChainSettings({ showUserAssetsOnly: !showUserAssetsOnly })
-                      }
-                      value={showUserAssetsOnly}
-                      label={t('marketTable.userAssetsOnlyToggle.label')}
-                    />
-                  )}
-                </div>
-
-                <TextField
-                  className="lg:w-[300px]"
-                  isSmall
-                  value={searchValue}
-                  onChange={handleSearchInputChange}
-                  placeholder={t('marketTable.searchInput.placeholder')}
-                  leftIconSrc="magnifier"
-                  variant="secondary"
-                />
               </div>
+            )}
 
-              {isBreakpointUp && <Delimiter />}
-            </div>
-          )}
-
-          {columnKeys.includes('collateral') && <SwitchChainNotice />}
-        </div>
+            {columnKeys.includes('collateral') && <SwitchChainNotice />}
+          </div>
+        )
       }
       placeholder={
         controls &&

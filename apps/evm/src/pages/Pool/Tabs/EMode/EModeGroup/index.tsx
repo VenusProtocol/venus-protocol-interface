@@ -29,6 +29,7 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
       data={eModeGroup.assetSettings}
       rowKeyExtractor={row => row.vToken.address}
       initialOrder={initialOrder}
+      breakpoint="sm"
       header={
         <div className="-mx-6">
           <Header pool={pool} eModeGroup={eModeGroup} className="px-6 py-4" />

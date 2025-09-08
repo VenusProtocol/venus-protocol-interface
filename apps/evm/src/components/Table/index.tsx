@@ -9,7 +9,8 @@ import { Link } from 'react-router';
 
 import { useFormatTo } from 'hooks/useFormatTo';
 
-import { Spinner } from '@venusprotocol/ui';
+import { Spinner, cn } from '@venusprotocol/ui';
+import { useBreakpointUp } from 'hooks/responsive';
 import { Card } from '../Card';
 import Head from './Head';
 import TableCards from './TableCards';
@@ -39,6 +40,10 @@ export function Table<R>({
   const styles = useStyles();
   const { formatTo } = useFormatTo();
 
+  // The fallback breakpoint is just to satisfy TS here, it is not actually used
+  const _isBreakpointUp = useBreakpointUp(breakpoint || 'xxl');
+  const isBreakpointUp = !!breakpoint && _isBreakpointUp;
+
   const [order, setOrder] = useState<Order<R> | undefined>(initialOrder);
 
   const onRequestOrder = (column: TableColumn<R>) => {
@@ -67,13 +72,16 @@ export function Table<R>({
   return (
     <Card css={styles.getRoot({ breakpoint })} {...otherProps}>
       {title && (
-        <h4 css={styles.getTitle({ breakpoint })} className="text-lg">
+        <div css={styles.getTitle({ breakpoint })} className="text-lg h-8">
           {title}
-        </h4>
+        </div>
       )}
 
       {!!header && (
-        <div css={styles.getHeader({ breakpoint })} className="mb-6 sm:mb-0">
+        <div
+          css={styles.getHeader({ breakpoint })}
+          className={cn('mb-4', isBreakpointUp && 'mb-0')}
+        >
           {header}
         </div>
       )}
@@ -81,7 +89,7 @@ export function Table<R>({
       {data.length > 0 || !placeholder ? (
         <>
           <MuiTableContainer css={styles.getTableContainer({ breakpoint })}>
-            <MuiTable css={styles.table({ minWidth: minWidth ?? '0' })} aria-label={title}>
+            <MuiTable css={styles.table({ minWidth: minWidth ?? '0' })}>
               <Head
                 columns={columns}
                 orderBy={order?.orderBy}

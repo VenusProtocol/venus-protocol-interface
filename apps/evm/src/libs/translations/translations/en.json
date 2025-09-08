@@ -3,8 +3,12 @@
     "circularGradient": "Circular gradient",
     "marketBreakdown": {
       "tables": {
-        "borrowTableTitle": "Borrowed assets",
-        "supplyTableTitle": "Supplied assets",
+        "borrowTableTitle": "Borrowed",
+        "eModeHeader": {
+          "illustrationAltText": "E-mode illustration",
+          "title": "E-mode: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+        },
+        "supplyTableTitle": "Supplied",
         "tabletBorrowTabTitle": "Borrowed",
         "tabletSupplyTabTitle": "Supplied",
         "tabletTitle": "Assets"
@@ -687,7 +691,7 @@
             "repayButtonLabel": "Repay",
             "title": "Your positions"
           },
-          "tooltip": "You can't enable this e-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>"
+          "tooltip": "You can't enable this E-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>"
         },
         "enableButtonLabel": "Enable",
         "enabledButtonLabel": "Enabled",
