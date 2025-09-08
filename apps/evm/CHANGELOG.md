@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.46.0
+
+### Minor Changes
+
+- d85540d: add logic to handle E-mode groups
+
 ## 3.45.0
 
 ### Minor Changes
