@@ -231,3 +231,6 @@ export * from './queries/getImportablePositions/useGetImportablePositions';
 
 export * from './queries/getAccountPerformanceHistory';
 export * from './queries/getAccountPerformanceHistory/useGetAccountPerformanceHistory';
+
+export * from './queries/getAccountTransactionHistory';
+export * from './queries/getAccountTransactionHistory/useGetAccountTransactionHistory';
