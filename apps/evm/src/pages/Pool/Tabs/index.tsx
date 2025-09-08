@@ -35,6 +35,7 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
 
   const { activeTab, setActiveTab } = useTabs({
     tabs,
+    navType: 'searchParam',
   });
 
   const activeTabIndex = tabs.findIndex(tab => tab.id === activeTab.id);

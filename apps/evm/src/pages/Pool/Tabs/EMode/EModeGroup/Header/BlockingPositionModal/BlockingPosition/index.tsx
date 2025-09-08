@@ -2,6 +2,7 @@ import { ButtonWrapper, LayeredValues, TokenIcon, TokenIconWithSymbol } from 'co
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useFormatTo } from 'hooks/useFormatTo';
+import { TAB_PARAM_KEY } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
 import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
@@ -24,6 +25,7 @@ export const BlockingPosition: React.FC<BlockingPositionProps> = ({
       pathname: routes.market.path
         .replace(':poolComptrollerAddress', poolComptrollerAddress)
         .replace(':vTokenAddress', asset.vToken.address),
+      search: `${TAB_PARAM_KEY}=repay`,
     },
   });
 

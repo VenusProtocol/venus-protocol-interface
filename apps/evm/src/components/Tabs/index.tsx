@@ -1,34 +1,36 @@
 /** @jsxImportSource @emotion/react */
-import { type ReactElement, useState } from 'react';
-
+import { type Tab, type TabNavType, useTabs } from 'hooks/useTabs';
 import { ButtonGroup } from '../ButtonGroup';
 import { useStyles } from './styles';
 
-export type TabContent = {
-  title: string;
-  content: ReactElement;
-};
-
 export interface TabsProps {
-  tabsContent: TabContent[];
-  initialActiveTabIndex?: number;
+  tabs: Tab[];
   onTabChange?: (newIndex: number) => void;
+  navType?: TabNavType;
+  initialActiveTabId?: string;
   className?: string;
 }
 
 export const Tabs = ({
-  tabsContent,
-  initialActiveTabIndex = 0,
+  tabs,
   onTabChange,
+  initialActiveTabId,
   className,
+  navType = 'state',
 }: TabsProps) => {
   const styles = useStyles();
-  const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
+  const { activeTab, setActiveTab } = useTabs({
+    tabs,
+    navType,
+    initialActiveTabId,
+  });
 
   const handleChange = (index: number) => {
-    setActiveTabIndex(index);
+    const id = tabs[index].id;
+    setActiveTab({ id });
+
     // Only call onTabChange callback if tab clicked isn't currently active
-    if (index !== activeTabIndex && onTabChange) {
+    if (id !== activeTab.id && onTabChange) {
       onTabChange(index);
     }
   };
@@ -36,14 +38,14 @@ export const Tabs = ({
   return (
     <div className={className}>
       <ButtonGroup
-        buttonLabels={tabsContent.map(({ title }) => title)}
+        buttonLabels={tabs.map(({ title }) => title)}
         css={styles.buttonsContainer}
-        activeButtonIndex={activeTabIndex}
+        activeButtonIndex={tabs.findIndex(tab => activeTab.id === tab.id)}
         onButtonClick={handleChange}
         fullWidth
       />
 
-      {tabsContent[activeTabIndex].content}
+      {activeTab.content}
     </div>
   );
 };

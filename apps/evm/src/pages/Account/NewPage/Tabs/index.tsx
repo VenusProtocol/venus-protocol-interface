@@ -8,6 +8,7 @@ export interface TabsProps {
 export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
   const { activeTab, setActiveTab } = useTabs({
     tabs,
+    navType: 'searchParam',
   });
 
   return (

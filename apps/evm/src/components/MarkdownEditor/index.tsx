@@ -29,9 +29,10 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const tabsContent = useMemo(
+  const tabs = useMemo(
     () => [
       {
+        id: 'markdown',
         title: t('markdownEditor.markdownTabLabel'),
         content: (
           <textarea
@@ -49,6 +50,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
         ),
       },
       {
+        id: 'preview',
         title: t('markdownEditor.previewTabLabel'),
         content: (
           <div className="-mt-4 w-full">
@@ -70,7 +72,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
         <p className={cn('mb-1 text-sm font-semibold', hasError && 'text-red')}>{label}</p>
       )}
 
-      <Tabs tabsContent={tabsContent} />
+      <Tabs tabs={tabs} />
     </div>
   );
 };

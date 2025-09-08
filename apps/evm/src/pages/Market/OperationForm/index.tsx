@@ -1,8 +1,9 @@
-import { type ModalProps, type TabContent, Tabs } from 'components';
+import { type ModalProps, Tabs } from 'components';
 import AssetAccessor from 'containers/AssetAccessor';
 import { useTranslation } from 'libs/translations';
 import type { VToken } from 'types';
 
+import type { Tab } from 'hooks/useTabs';
 import type { Address } from 'viem';
 import BorrowForm from './BorrowForm';
 import NativeTokenBalanceWrapper from './NativeTokenBalanceWrapper';
@@ -13,7 +14,7 @@ import WithdrawForm from './WithdrawForm';
 export interface OperationFormProps {
   vToken: VToken;
   poolComptrollerAddress: Address;
-  initialActiveTabIndex?: number;
+  initialActiveTabId?: string;
   onSubmitSuccess?: ModalProps['handleClose'];
 }
 
@@ -21,12 +22,13 @@ export const OperationForm: React.FC<OperationFormProps> = ({
   onSubmitSuccess,
   vToken,
   poolComptrollerAddress,
-  initialActiveTabIndex = 0,
+  initialActiveTabId,
 }) => {
   const { t } = useTranslation();
 
-  const tabsContent: TabContent[] = [
+  const tabs: Tab[] = [
     {
+      id: 'supply',
       title: t('operationForm.supplyTabTitle'),
       content: (
         <AssetAccessor
@@ -50,6 +52,7 @@ export const OperationForm: React.FC<OperationFormProps> = ({
       ),
     },
     {
+      id: 'withdraw',
       title: t('operationForm.withdrawTabTitle'),
       content: (
         <AssetAccessor
@@ -64,6 +67,7 @@ export const OperationForm: React.FC<OperationFormProps> = ({
       ),
     },
     {
+      id: 'borrow',
       title: t('operationForm.borrowTabTitle'),
       content: (
         <AssetAccessor
@@ -78,6 +82,7 @@ export const OperationForm: React.FC<OperationFormProps> = ({
       ),
     },
     {
+      id: 'repay',
       title: t('operationForm.repayTabTitle'),
       content: (
         <AssetAccessor
@@ -102,5 +107,5 @@ export const OperationForm: React.FC<OperationFormProps> = ({
     },
   ];
 
-  return <Tabs tabsContent={tabsContent} initialActiveTabIndex={initialActiveTabIndex} />;
+  return <Tabs tabs={tabs} initialActiveTabId={initialActiveTabId} navType="searchParam" />;
 };
