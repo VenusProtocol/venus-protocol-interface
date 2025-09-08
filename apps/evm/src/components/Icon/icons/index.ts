@@ -66,3 +66,8 @@ export { default as graph } from './graph';
 export { default as star } from './star';
 export { default as download } from './download';
 export { default as arrowUpFull2 } from './arrowUpFull2';
+export { default as transactionFile } from './transactionFile';
+export { default as transactionIn } from './transactionIn';
+export { default as transactionOut } from './transactionOut';
+export { default as transactionCollateral } from './transactionCollateral';
+export { default as transactionLink } from './transactionLink';
