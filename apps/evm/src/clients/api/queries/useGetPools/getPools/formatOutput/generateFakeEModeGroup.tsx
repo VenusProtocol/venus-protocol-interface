@@ -63,7 +63,7 @@ export const generateFakeEModeGroup = ({
 
       const assetSettings: EModeAssetSettings = {
         vToken,
-        userCollateralFactor:
+        collateralFactor:
           i > 3
             ? 0
             : convertFactorFromSmartContract({

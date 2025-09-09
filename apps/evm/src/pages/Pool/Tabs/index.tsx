@@ -1,13 +1,13 @@
 import { cn } from '@venusprotocol/ui';
 import { type InputHTMLAttributes, useState } from 'react';
 
+import lightningIllustrationSrc from 'assets/img/lightning.svg';
 import { Icon, type Tag, TagGroup, TextField } from 'components';
 import { type Tab, useTabs } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 import { Assets } from '../Assets';
 import { EMode } from './EMode';
-import lightningIllustrationSrc from './lightning.svg';
 
 export interface TabsProps {
   pool: Pool;

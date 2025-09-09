@@ -4,6 +4,7 @@ import type { Address } from 'viem';
 
 import MarketLoader from 'containers/MarketLoader';
 import AssetWarning from './AssetWarning';
+import { EModeInfo } from './EModeInfo';
 import { InterestRateChart } from './InterestRateChart';
 import { MarketHistory } from './MarketHistory';
 import MarketInfo from './MarketInfo';
@@ -43,6 +44,8 @@ const Page: React.FC = () => {
                 />
 
                 <InterestRateChart asset={asset} isIsolatedPoolMarket={pool.isIsolated} />
+
+                <EModeInfo eModeGroups={pool.eModeGroups} token={asset.vToken.underlyingToken} />
 
                 <MarketInfo asset={asset} />
               </div>
