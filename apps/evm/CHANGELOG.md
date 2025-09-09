@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.47.0
+
+### Minor Changes
+
+- d4d94c5: add E-mode group info to Market page
+
 ## 3.46.0
 
 ### Minor Changes
