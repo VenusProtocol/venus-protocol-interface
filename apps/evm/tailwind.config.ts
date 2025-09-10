@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import path from 'node:path';
 import tailwindConfig from '@venusprotocol/ui/tailwind-config';
+import tailwindScrollbar from 'tailwind-scrollbar';
 import tailwindCssAnimate from 'tailwindcss-animate';
 
 export default {
@@ -12,5 +13,5 @@ export default {
       path.join(path.dirname(require.resolve('@venusprotocol/ui')), dir),
     ),
   ],
-  plugins: [tailwindCssAnimate],
+  plugins: [tailwindCssAnimate, tailwindScrollbar],
 };
