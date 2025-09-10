@@ -24,9 +24,6 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
   // TODO: wire up
   const enableEModeGroup = () => {};
 
-  // TODO: calculate
-  const hypotheticalPoolUserHealthFactor = 8.4;
-
   const poolUserHealthFactor =
     pool.userLiquidationThresholdCents &&
     pool.userBorrowBalanceCents &&
@@ -37,10 +34,13 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
 
   const isEModeGroupEnabled = pool.userEModeGroup && pool.userEModeGroup.id === eModeGroup.id;
 
-  // TODO: check user may enable group
-  const isUserEligible = true;
   // TODO: pass actual blocking assets
   const blockingAssets = pool.assets.slice(0, 3);
+
+  const isUserEligible = blockingAssets.length === 0;
+
+  // TODO: calculate
+  const hypotheticalPoolUserHealthFactor = 8.4;
 
   let buttonLabel = t('pool.eMode.group.enableButtonLabel');
 
@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
           <h3 className="font-semibold lg:text-lg">{eModeGroup.name}</h3>
 
           <div className="flex items-center gap-x-4">
-            {poolUserHealthFactor && !isEModeGroupEnabled && isUserEligible && (
+            {!!poolUserHealthFactor && !isEModeGroupEnabled && isUserEligible && (
               <HealthFactorUpdate
                 className="hidden sm:flex"
                 healthFactor={poolUserHealthFactor}
@@ -100,7 +100,7 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
           </div>
         </div>
 
-        {poolUserHealthFactor && !isEModeGroupEnabled && isUserEligible && (
+        {!!poolUserHealthFactor && !isEModeGroupEnabled && isUserEligible && (
           <HealthFactorUpdate
             className="sm:hidden"
             healthFactor={poolUserHealthFactor}

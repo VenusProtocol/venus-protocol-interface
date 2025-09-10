@@ -38,6 +38,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
         "collateralFactor": 0.5,
         "disabledTokenActions": [],
         "exchangeRateVTokens": "49.589181233",
+        "isBorrowable": true,
         "isCollateralOfUser": true,
         "liquidationThresholdPercentage": 50,
         "liquidityCents": "8036465875",
@@ -149,6 +150,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
           "supply",
         ],
         "exchangeRateVTokens": "1",
+        "isBorrowable": false,
         "isCollateralOfUser": false,
         "liquidationThresholdPercentage": 80,
         "liquidityCents": "1702951959",
@@ -275,6 +277,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
           "swapAndSupply",
         ],
         "exchangeRateVTokens": "0.981982",
+        "isBorrowable": true,
         "isCollateralOfUser": false,
         "liquidationThresholdPercentage": 80,
         "liquidityCents": "5534102886",
@@ -393,6 +396,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
           "supply",
         ],
         "exchangeRateVTokens": "1.000003",
+        "isBorrowable": true,
         "isCollateralOfUser": false,
         "liquidationThresholdPercentage": 80,
         "liquidityCents": "3654492935",
@@ -482,6 +486,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
         "assetSettings": [
           {
             "collateralFactor": 0.6,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 0,
             "liquidationThresholdPercentage": 62,
             "liquidityCents": 8036465875,
@@ -500,6 +505,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
           },
           {
             "collateralFactor": 0.9,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
             "liquidityCents": 1702951959,
@@ -518,6 +524,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
           },
           {
             "collateralFactor": 0.9,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
             "liquidityCents": 5534102886,
@@ -543,6 +550,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
         "assetSettings": [
           {
             "collateralFactor": 0.9,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
             "liquidityCents": 5534102886,
@@ -561,6 +569,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
           },
           {
             "collateralFactor": 0.9,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
             "liquidityCents": 3654492935,

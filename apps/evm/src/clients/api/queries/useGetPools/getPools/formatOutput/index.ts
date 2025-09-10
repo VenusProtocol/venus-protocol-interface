@@ -325,6 +325,7 @@ export const formatOutput = ({
         userWalletBalanceCents,
         userCollateralFactor,
         userLiquidationThresholdPercentage,
+        isBorrowable: true, // TODO: get from API
         // This will be calculated after all assets have been formatted
         userPercentOfLimit: 0,
         isCollateralOfUser,

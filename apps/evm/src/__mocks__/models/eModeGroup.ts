@@ -17,6 +17,7 @@ const generateEModeGroup = ({
     liquidationPenaltyPercentage: a.userLiquidationThresholdPercentage - 50,
     liquidityCents: a.liquidityCents.toNumber(),
     liquidityTokens: a.cashTokens,
+    isBorrowable: a.isBorrowable,
   })),
 });
 
