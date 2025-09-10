@@ -1,5 +1,5 @@
 import { VError } from 'libs/errors';
-import type { Token } from 'types';
+import type { VToken } from 'types';
 import { restService } from 'utilities';
 import { type Address, isAddress } from 'viem';
 import { formatApiTransaction } from './formatApiTransaction';
@@ -50,20 +50,19 @@ export const getAccountTransactionHistory = async ({
       })),
     ) || [];
 
-  const contractToTokenMap = allAssets.reduce<Record<Address, { token: Token; poolName: string }>>(
-    (acc, a) => {
-      const { poolName, vToken } = a;
+  const contractToTokenMap = allAssets.reduce<
+    Record<Address, { vToken: VToken; poolName: string }>
+  >((acc, a) => {
+    const { poolName, vToken } = a;
 
-      return {
-        ...acc,
-        [vToken.address.toLowerCase()]: {
-          poolName,
-          token: vToken.underlyingToken,
-        },
-      };
-    },
-    {},
-  );
+    return {
+      ...acc,
+      [vToken.address.toLowerCase()]: {
+        poolName,
+        vToken,
+      },
+    };
+  }, {});
 
   const formattedResponse = txsResponse.data.results.map(apiTransaction =>
     formatApiTransaction({

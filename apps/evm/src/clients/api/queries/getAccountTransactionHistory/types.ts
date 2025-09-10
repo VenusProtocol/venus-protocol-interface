@@ -28,6 +28,7 @@ export interface AmountTransaction {
   contractAddress: string;
   chainId: ChainId;
   poolName: string;
+  vTokenSymbol: string;
   amountTokens: BigNumber | undefined;
   amountCents: BigNumber | undefined;
   token: Token;
