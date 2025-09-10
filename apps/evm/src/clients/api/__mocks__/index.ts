@@ -11,6 +11,7 @@ import { assetData } from '__mocks__/models/asset';
 import { importablePositions } from '__mocks__/models/importablePositions';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
+import { transactions } from '__mocks__/models/transactions';
 import vTokens from '__mocks__/models/vTokens';
 import { vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
@@ -18,7 +19,6 @@ import voters from '__mocks__/models/voters';
 import FunctionKey from 'constants/functionKey';
 
 import { proposals } from '__mocks__/models/proposals';
-import { usdt } from '__mocks__/models/tokens';
 import type { Token, VToken } from 'types';
 import type { Address } from 'viem';
 import type { GetBalanceOfInput } from '../queries/getBalanceOf';
@@ -635,104 +635,7 @@ export const useGetAccountPerformanceHistory = vi.fn(() =>
   }),
 );
 
-export const getAccountTransactionHistory = vi.fn(async () => ({
-  transactions: [
-    {
-      accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
-      amountCents: new BigNumber('2406931.018168454893468167206'),
-      amountTokens: new BigNumber('24066181578079398.612862'),
-      blockNumber: '41604850',
-      blockTimestamp: new Date('2024-08-23T04:17:09.000Z'),
-      chainId: 97,
-      contractAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
-      hash: '0xda13a0f45b10dabd21b863b6b602c6d8776edd4c6b10fe65a0881d491f468f35',
-      poolName: 'Metaverse',
-      token: usdt,
-      txType: 'redeem',
-    },
-    {
-      accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
-      amountCents: new BigNumber('2401121.576132434220587935367386'),
-      amountTokens: new BigNumber('24001813290985731.455439'),
-      blockNumber: '41114054',
-      blockTimestamp: new Date('2024-08-06T02:18:03.000Z'),
-      chainId: 97,
-      contractAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
-      hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
-      poolName: 'Metaverse',
-      token: usdt,
-      txType: 'mint',
-    },
-    {
-      accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
-      amountCents: new BigNumber('2401121.576132434220587935367386'),
-      amountTokens: new BigNumber('24001813290985731.455439'),
-      blockNumber: '41114053',
-      blockTimestamp: new Date('2024-08-05T02:18:03.000Z'),
-      chainId: 97,
-      contractAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
-      hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
-      poolName: 'Metaverse',
-      token: usdt,
-      txType: 'borrow',
-    },
-    {
-      accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
-      amountCents: new BigNumber('2401121.576132434220587935367386'),
-      amountTokens: new BigNumber('24001813290985731.455439'),
-      blockNumber: '41114052',
-      blockTimestamp: new Date('2024-08-04T02:18:03.000Z'),
-      chainId: 97,
-      contractAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
-      hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
-      poolName: 'Metaverse',
-      token: usdt,
-      txType: 'repay',
-    },
-    {
-      accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
-      amountCents: new BigNumber('2401121.576132434220587935367386'),
-      amountTokens: new BigNumber('24001813290985731.455439'),
-      blockNumber: '41114051',
-      blockTimestamp: new Date('2024-08-03T02:18:03.000Z'),
-      chainId: 97,
-      contractAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
-      hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
-      poolName: 'Metaverse',
-      token: usdt,
-      txType: 'enter_market',
-    },
-    {
-      accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
-      amountCents: new BigNumber('2401121.576132434220587935367386'),
-      amountTokens: new BigNumber('24001813290985731.455439'),
-      blockNumber: '41114050',
-      blockTimestamp: new Date('2024-08-03T02:18:00.000Z'),
-      chainId: 97,
-      contractAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
-      hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
-      poolName: 'Metaverse',
-      token: usdt,
-      txType: 'exit_market',
-    },
-    {
-      accountAddress: '0x3d759121234cd36F8124C21aFe1c6852d2bEd848',
-      amountCents: new BigNumber('0'),
-      amountTokens: new BigNumber(
-        '115792089237316195423570985008687907853269984665640564039457584007913129639935',
-      ),
-      blockNumber: '41114008',
-      blockTimestamp: new Date('2024-08-02T02:18:00.000Z'),
-      chainId: 97,
-      contractAddress: '0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c',
-      hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
-      poolName: 'Metaverse',
-      token: usdt,
-      txType: 'approve',
-    },
-  ],
-  count: 7,
-}));
+export const getAccountTransactionHistory = vi.fn(async () => transactions);
 export const useGetAccountTransactionHistory = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY],

@@ -14,8 +14,7 @@ export const TransactionDetails: React.FC<TransactionDetailsProps> = ({
   transactionData,
   className,
 }) => {
-  const { amountTokens, amountCents, token, txType, poolName } = transactionData;
-  const vTokenSymbol = `v${token.symbol}`;
+  const { amountTokens, amountCents, token, txType, poolName, vTokenSymbol } = transactionData;
   const { Trans } = useTranslation();
 
   const transactionText = useMemo(() => {

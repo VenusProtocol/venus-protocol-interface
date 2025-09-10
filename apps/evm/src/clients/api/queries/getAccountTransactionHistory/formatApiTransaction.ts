@@ -1,4 +1,4 @@
-import { type Token, TxType } from 'types';
+import { TxType, type VToken } from 'types';
 import {
   convertDollarsToCents,
   convertMantissaToTokens,
@@ -14,7 +14,7 @@ export const formatApiTransaction = ({
   contractToTokenMap: Record<
     Address,
     {
-      token: Token;
+      vToken: VToken;
       poolName: string;
     }
   >;
@@ -32,15 +32,25 @@ export const formatApiTransaction = ({
     underlyingTokenPriceMantissa,
   } = apiTransaction;
 
-  const { poolName, token } = contractToTokenMap[contractAddress];
+  const { poolName, vToken } = contractToTokenMap[contractAddress];
+
+  const isApproval = txType === TxType.Approve;
+
+  const vTokenSymbol = vToken.symbol;
+  const token = isApproval
+    ? {
+        ...vToken,
+        asset: vToken.asset ?? vToken.underlyingToken.asset,
+      }
+    : vToken.underlyingToken;
 
   const canCalculateUsdAmount =
-    txType !== TxType.Approve && txType !== TxType.EnterMarket && txType !== TxType.ExitMarket;
+    !isApproval && txType !== TxType.EnterMarket && txType !== TxType.ExitMarket;
 
   const amountTokens = amountUnderlyingMantissa
     ? convertMantissaToTokens({
         value: BigInt(amountUnderlyingMantissa),
-        token: token,
+        token,
       })
     : undefined;
 
@@ -64,6 +74,7 @@ export const formatApiTransaction = ({
     contractAddress,
     chainId,
     poolName,
+    vTokenSymbol,
     amountTokens,
     amountCents,
     token,
