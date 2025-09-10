@@ -1,9 +1,10 @@
 import { ChainId } from '@venusprotocol/chains';
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
+import { TxType } from 'types';
 import { restService } from 'utilities';
 import { type Mock, vi } from 'vitest';
-import { type ApiAccountHistoricalTransaction, TxType, getAccountTransactionHistory } from '..';
+import { type ApiAccountHistoricalTransaction, getAccountTransactionHistory } from '..';
 
 vi.mock('utilities/restService');
 
@@ -53,9 +54,10 @@ describe('getAccountTransactionHistory', () => {
 
       return {
         data: {
-        count: '2',
-        results: txs,
-      }};
+          count: '2',
+          results: txs,
+        },
+      };
     });
 
     const response = await getAccountTransactionHistory(fakeInput);
