@@ -746,6 +746,10 @@
       },
       "table": {
         "card": {
+          "header": {
+            "borrowable": "Borrowable",
+            "notBorrowable": "Not borrowable"
+          },
           "rows": {
             "liquidationPenalty": "Liquidation penalty",
             "liquidationThreshold": "Liquidation threshold",
@@ -755,9 +759,9 @@
         },
         "columns": {
           "asset": "Asset",
+          "isBorrowable": "Borrowable",
           "liquidationPenalty": "Liquidation penalty",
           "liquidationThreshold": "Liquidation threshold",
-          "liquidity": "Liquidity",
           "maxLtv": "Max LTV",
           "penalty": "Penalty",
           "threshold": "Threshold"

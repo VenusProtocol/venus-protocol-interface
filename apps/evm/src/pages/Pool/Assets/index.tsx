@@ -32,7 +32,7 @@ export const Assets: React.FC<AssetsProps> = ({ pool }) => {
             <EModeBanner
               className="lg:mt-4"
               poolComptrollerContractAddress={pool.comptrollerAddress}
-              enabledEModeGroup={pool.userEModeGroup}
+              enabledEModeGroupName={pool.userEModeGroup?.name}
             />
           )
         }
