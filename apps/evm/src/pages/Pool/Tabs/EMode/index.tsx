@@ -73,9 +73,8 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
     );
 
     const nameMatches = searchMatches(eModeGroup.name);
-    const descriptionMatches = searchMatches(eModeGroup.description);
 
-    if (filteredEModeAssetSettings.length === 0 && !nameMatches && !descriptionMatches) {
+    if (filteredEModeAssetSettings.length === 0 && !nameMatches) {
       // Filter out E-mode group
       return acc;
     }

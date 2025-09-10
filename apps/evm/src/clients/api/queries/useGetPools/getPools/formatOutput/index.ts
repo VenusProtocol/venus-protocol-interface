@@ -68,7 +68,6 @@ export const formatOutput = ({
       userEModeGroup = generateFakeEModeGroup({
         id: 0,
         name: 'Stablecoins',
-        description: 'This block contains the assets of this category',
         tokens,
         chainId,
         apiMarkets: apiPool.markets.slice(0, 6),
@@ -79,7 +78,6 @@ export const formatOutput = ({
         generateFakeEModeGroup({
           id: 1,
           name: 'DeFi',
-          description: 'This block contains the assets of this category',
           tokens,
           chainId,
           apiMarkets: apiPool.markets.slice(2, 8),
@@ -87,7 +85,6 @@ export const formatOutput = ({
         generateFakeEModeGroup({
           id: 2,
           name: '#ToTheMoon',
-          description: 'This block contains the assets of this category',
           tokens,
           chainId,
           apiMarkets: apiPool.markets.slice(5, 8),

@@ -1,13 +1,10 @@
-import { LayeredValues, type TableColumn, TokenIconWithSymbol } from 'components';
+import { cn } from '@venusprotocol/ui';
+
+import { Icon, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings } from 'types';
-import {
-  compareNumbers,
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { compareBooleans, compareNumbers, formatPercentageToReadableValue } from 'utilities';
 
 export const useGetColumns = () => {
   const { t } = useTranslation();
@@ -21,24 +18,6 @@ export const useGetColumns = () => {
       label: t('pool.eMode.table.columns.asset'),
       selectOptionLabel: t('pool.eMode.table.columns.asset'),
       renderCell: ({ vToken }) => <TokenIconWithSymbol token={vToken.underlyingToken} />,
-    },
-    {
-      key: 'liquidity',
-      label: t('pool.eMode.table.columns.liquidity'),
-      selectOptionLabel: t('pool.eMode.table.columns.liquidity'),
-      renderCell: ({ liquidityCents, liquidityTokens, vToken }) => (
-        <LayeredValues
-          topValue={formatTokensToReadableValue({
-            value: liquidityTokens,
-            token: vToken.underlyingToken,
-          })}
-          bottomValue={formatCentsToReadableValue({
-            value: liquidityCents,
-          })}
-        />
-      ),
-      sortRows: (rowA, rowB, direction) =>
-        compareNumbers(rowA.liquidityCents, rowB.liquidityCents, direction),
     },
     {
       key: 'maxLtv',
@@ -77,6 +56,19 @@ export const useGetColumns = () => {
           rowB.liquidationPenaltyPercentage,
           direction,
         ),
+    },
+    {
+      key: 'isBorrowable',
+      label: t('pool.eMode.table.columns.isBorrowable'),
+      selectOptionLabel: t('pool.eMode.table.columns.isBorrowable'),
+      renderCell: ({ isBorrowable }) => (
+        <Icon
+          name={isBorrowable ? 'mark' : 'close'}
+          className={cn('w-5 h-5', isBorrowable ? 'text-green' : 'text-grey')}
+        />
+      ),
+      sortRows: (rowA, rowB, direction) =>
+        compareBooleans(rowA.isBorrowable, rowB.isBorrowable, direction),
     },
   ];
 

@@ -20,19 +20,16 @@ export const generateFakeEModeGroup = ({
   chainId,
   id,
   name,
-  description,
 }: {
   apiMarkets: ApiMarket[];
   tokens: Token[];
   chainId: ChainId;
   id: number;
   name: string;
-  description: string;
 }) => {
   const group: EModeGroup = {
     id,
     name,
-    description,
     assetSettings: apiMarkets.reduce<EModeAssetSettings[]>((acc, market, i) => {
       const underlyingToken = findTokenByAddress({
         tokens,

@@ -174,7 +174,6 @@ export interface EModeAssetSettings {
 export interface EModeGroup {
   id: number;
   name: string;
-  description: string;
   assetSettings: EModeAssetSettings[];
 }
 
