@@ -22,6 +22,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             "enterMarket",
           ],
           "exchangeRateVTokens": "49.19405324154271215086",
+          "isBorrowable": true,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 0,
           "liquidityCents": "9.998358808049033258268439270234862259568416992e+22",
@@ -92,6 +93,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.8,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "37.63966306652044917955",
+          "isBorrowable": true,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "0",
@@ -177,6 +179,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.8,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "5.63429988023545433776",
+          "isBorrowable": true,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "367322.427136472011309675565022",
@@ -248,6 +251,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.6,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "47.36910235297224095005",
+          "isBorrowable": true,
           "isCollateralOfUser": false,
           "liquidationThresholdPercentage": 66,
           "liquidityCents": "1332106415.658306127885385733550383",
@@ -318,6 +322,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.8,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "49.8066352191466231613",
+          "isBorrowable": true,
           "isCollateralOfUser": false,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "1.000003658230657184839939048025550587141377317e+36",
@@ -402,6 +407,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.81,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "47.12928141003911013496",
+          "isBorrowable": true,
           "isCollateralOfUser": false,
           "liquidationThresholdPercentage": 89.10000000000001,
           "liquidityCents": "1.01017679492420109825145006688858448e+23",
@@ -466,6 +472,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.1,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": -50,
               "liquidationThresholdPercentage": 12,
               "liquidityCents": 1.0000000008050355e+23,
@@ -485,6 +492,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
             {
               "collateralFactor": 0.9,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 0,
@@ -505,6 +513,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
             {
               "collateralFactor": 0.9,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 555.6233762724731,
@@ -532,6 +541,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 555.6233762724731,
@@ -570,6 +580,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.1,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": -50,
             "liquidationThresholdPercentage": 12,
             "liquidityCents": 1.0000000008050355e+23,
@@ -589,6 +600,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           },
           {
             "collateralFactor": 0.9,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 0,
@@ -609,6 +621,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           },
           {
             "collateralFactor": 0.9,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 555.6233762724731,
@@ -650,6 +663,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.8,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.99999847176819609601",
+          "isBorrowable": true,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "264910628.128578051",
@@ -707,6 +721,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 264929173.1707,
@@ -733,6 +748,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 264929173.1707,
@@ -770,6 +786,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.9,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 264929173.1707,
@@ -810,6 +827,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.8,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.997398625122774492",
+          "isBorrowable": true,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "10115894.213933673",
@@ -852,6 +870,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 10116602.3761,
@@ -895,6 +914,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.9,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 10116602.3761,
@@ -935,6 +955,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.8,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.999999999999545",
+          "isBorrowable": true,
           "isCollateralOfUser": false,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "1103022783",
@@ -998,6 +1019,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.45,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.856077892298015039",
+          "isBorrowable": true,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 49.50000000000001,
           "liquidityCents": "46.627361564366928016606869",
@@ -1040,6 +1062,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 1103100000,
@@ -1059,6 +1082,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
             {
               "collateralFactor": 0.55,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": -0.4999999999999929,
               "liquidationThresholdPercentage": 61.50000000000001,
               "liquidityCents": 0.0705300034659891,
@@ -1102,6 +1126,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.9,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 1103100000,
@@ -1121,6 +1146,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           },
           {
             "collateralFactor": 0.55,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": -0.4999999999999929,
             "liquidationThresholdPercentage": 61.50000000000001,
             "liquidityCents": 0.0705300034659891,
@@ -1161,6 +1187,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.75,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "1",
+          "isBorrowable": true,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 82.50000000000001,
           "liquidityCents": "600557.958",
@@ -1203,6 +1230,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.85,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 32.500000000000014,
               "liquidationThresholdPercentage": 94.50000000000001,
               "liquidityCents": 600600,
@@ -1246,6 +1274,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.85,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 32.500000000000014,
             "liquidationThresholdPercentage": 94.50000000000001,
             "liquidityCents": 600600,
@@ -1300,6 +1329,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.65,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.9930076443898276885",
+          "isBorrowable": true,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 71.5,
           "liquidityCents": "3256964.0339677929523638",
@@ -1362,6 +1392,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.8,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.99998934225265418908",
+          "isBorrowable": true,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "99810466.29625374",
@@ -1419,6 +1450,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.75,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 21.5,
               "liquidationThresholdPercentage": 83.5,
               "liquidityCents": 3256964.033967793,
@@ -1438,6 +1470,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
             {
               "collateralFactor": 0.9,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 99817453.518,
@@ -1481,6 +1514,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.75,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 21.5,
             "liquidationThresholdPercentage": 83.5,
             "liquidityCents": 3256964.033967793,
@@ -1500,6 +1534,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           },
           {
             "collateralFactor": 0.9,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 99817453.518,
@@ -1540,6 +1575,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "collateralFactor": 0.8,
           "disabledTokenActions": [],
           "exchangeRateVTokens": "1",
+          "isBorrowable": true,
           "isCollateralOfUser": false,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "999930",
@@ -1582,6 +1618,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 1000000,
@@ -1608,6 +1645,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
+              "isBorrowable": true,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 1000000,
@@ -1645,6 +1683,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.9,
+            "isBorrowable": true,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 1000000,

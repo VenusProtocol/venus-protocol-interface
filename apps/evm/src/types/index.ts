@@ -118,6 +118,7 @@ export interface PointDistribution {
 export interface Asset {
   vToken: VToken;
   tokenPriceCents: BigNumber;
+  isBorrowable: boolean;
   reserveFactor: number;
   collateralFactor: number;
   badDebtMantissa: bigint;
@@ -167,6 +168,7 @@ export interface EModeAssetSettings {
   liquidationPenaltyPercentage: number;
   liquidityCents: number;
   liquidityTokens: BigNumber;
+  isBorrowable: boolean;
 }
 
 export interface EModeGroup {

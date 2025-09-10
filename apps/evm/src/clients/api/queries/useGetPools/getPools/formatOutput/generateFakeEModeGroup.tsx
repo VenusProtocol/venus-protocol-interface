@@ -73,6 +73,10 @@ export const generateFakeEModeGroup = ({
         liquidationPenaltyPercentage: liquidationThresholdPercentage - 50,
         liquidityCents: liquidityTokens.multipliedBy(100).toNumber(),
         liquidityTokens,
+        isBorrowable:
+          underlyingToken.symbol !== 'XVS' &&
+          underlyingToken.symbol !== 'BTCB' &&
+          underlyingToken.symbol !== 'BUSD',
       };
 
       return [...acc, assetSettings];
