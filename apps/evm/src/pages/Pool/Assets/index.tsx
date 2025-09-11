@@ -12,13 +12,6 @@ export const Assets: React.FC<AssetsProps> = ({ pool }) => {
     <div className="space-y-6">
       <PoolStats pools={[pool]} stats={['supply', 'borrow', 'liquidity', 'assetCount']} />
 
-      {pool.eModeGroups.length > 0 && (
-        <EModeBanner
-          poolComptrollerContractAddress={pool.comptrollerAddress}
-          enabledEModeGroup={pool.userEModeGroup}
-        />
-      )}
-
       <MarketTable
         pools={[pool]}
         breakpoint="lg"
@@ -34,6 +27,15 @@ export const Assets: React.FC<AssetsProps> = ({ pool }) => {
           orderBy: 'labeledSupplyApy',
           orderDirection: 'desc',
         }}
+        header={
+          pool.eModeGroups.length > 0 && (
+            <EModeBanner
+              className="lg:mt-4"
+              poolComptrollerContractAddress={pool.comptrollerAddress}
+              enabledEModeGroup={pool.userEModeGroup}
+            />
+          )
+        }
       />
     </div>
   );

@@ -11,7 +11,7 @@ export interface TableColumn<R> {
   align?: 'left' | 'center' | 'right';
 }
 
-export interface TableProps<R> extends CardProps {
+export interface TableProps<R> extends Omit<CardProps, 'title'> {
   data: R[];
   rowKeyExtractor: (row: R) => string;
   columns: TableColumn<R>[];
@@ -27,7 +27,7 @@ export interface TableProps<R> extends CardProps {
   isFetching?: boolean;
   rowOnClick?: (e: React.MouseEvent<HTMLDivElement>, row: R) => void;
   getRowHref?: (row: R) => string;
-  title?: string;
+  title?: React.ReactNode | string;
   header?: React.ReactNode;
   placeholder?: React.ReactNode;
   selectVariant?: SelectProps['variant'];
