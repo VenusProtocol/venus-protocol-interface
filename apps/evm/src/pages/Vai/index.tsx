@@ -9,8 +9,8 @@ const Vai: React.FC = () => {
   const { t, Trans } = useTranslation();
 
   const tabsContent = [
-    { title: t('vai.borrow.tabTitle'), content: <Borrow /> },
-    { title: t('vai.repay.tabTitle'), content: <Repay /> },
+    { id: 'borrow', title: t('vai.borrow.tabTitle'), content: <Borrow /> },
+    { id: 'repay', title: t('vai.repay.tabTitle'), content: <Repay /> },
   ];
 
   return (
@@ -29,7 +29,7 @@ const Vai: React.FC = () => {
         />
 
         <Card>
-          <Tabs tabsContent={tabsContent} />
+          <Tabs tabs={tabsContent} />
         </Card>
       </div>
     </Page>

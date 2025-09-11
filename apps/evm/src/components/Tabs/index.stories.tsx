@@ -7,13 +7,9 @@ export default {
   component: Tabs,
 } as Meta<typeof Tabs>;
 
-const tabsContent = [
-  { title: 'Borrow', content: <>first tab content</> },
-  { title: 'Repay', content: <>second tab content</> },
+const tabs = [
+  { id: 'borrow', title: 'Borrow', content: <>first tab content</> },
+  { id: 'repay', title: 'Repay', content: <>second tab content</> },
 ];
 
-export const Default = () => <Tabs tabsContent={tabsContent} />;
-
-export const WithInitialSecondTabActive = () => (
-  <Tabs initialActiveTabIndex={1} tabsContent={tabsContent} />
-);
+export const Default = () => <Tabs tabs={tabs} />;
