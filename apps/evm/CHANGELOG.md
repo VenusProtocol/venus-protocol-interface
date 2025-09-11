@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 3.48.0
+
+### Minor Changes
+
+- 473d589: improve Tabs to handle search param nav
+- 2edd0a4: add E-mode banner to Account page
+
 ## 3.47.0
 
 ### Minor Changes
