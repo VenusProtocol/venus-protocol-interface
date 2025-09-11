@@ -66,14 +66,11 @@ export const generateFakeEModeGroup = ({
             : convertFactorFromSmartContract({
                 factor: new BigNumber(market.collateralFactorMantissa),
               }) + 0.1,
-        liquidationThresholdPercentage: liquidationThresholdPercentage + 12,
-        liquidationPenaltyPercentage: liquidationThresholdPercentage - 50,
+        liquidationThresholdPercentage: i > 3 ? 0 : liquidationThresholdPercentage + 12,
+        liquidationPenaltyPercentage: i > 3 ? 0 : liquidationThresholdPercentage - 50,
         liquidityCents: liquidityTokens.multipliedBy(100).toNumber(),
         liquidityTokens,
-        isBorrowable:
-          underlyingToken.symbol !== 'XVS' &&
-          underlyingToken.symbol !== 'BTCB' &&
-          underlyingToken.symbol !== 'BUSD',
+        isBorrowable: i > 3,
       };
 
       return [...acc, assetSettings];
