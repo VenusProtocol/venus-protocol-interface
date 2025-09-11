@@ -144,8 +144,9 @@ export const Transactions: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4">
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-row gap-3 md:gap-4">
         <Select
+          className="flex-1 md:flex-none"
           size="small"
           variant="tertiary"
           placeLabelToLeft
@@ -157,6 +158,7 @@ export const Transactions: React.FC = () => {
           onChange={newValue => setTxType(newValue.toString())}
         />
         <Select
+          className="flex-1 md:flex-none"
           size="small"
           variant="tertiary"
           placeLabelToLeft
