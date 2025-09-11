@@ -154,6 +154,7 @@ export interface Asset {
   userCollateralFactor: number;
   userLiquidationThresholdPercentage: number;
   userPercentOfLimit: number;
+  isBorrowableByUser: boolean;
   isCollateralOfUser: boolean;
 }
 

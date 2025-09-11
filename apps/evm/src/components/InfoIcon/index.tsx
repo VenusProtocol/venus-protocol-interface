@@ -5,7 +5,7 @@ import { Icon, type IconName } from '../Icon';
 import { Tooltip } from '../Tooltip';
 
 export interface InfoIconProps {
-  tooltip: string | React.ReactElement;
+  tooltip: string | React.ReactNode;
   iconName?: IconName;
   iconClassName?: string;
   className?: string;

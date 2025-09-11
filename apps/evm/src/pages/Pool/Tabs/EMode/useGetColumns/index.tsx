@@ -26,6 +26,7 @@ export const useGetColumns = () => {
       renderCell: ({ collateralFactor }) => formatPercentageToReadableValue(collateralFactor * 100),
       sortRows: (rowA, rowB, direction) =>
         compareNumbers(rowA.collateralFactor, rowB.collateralFactor, direction),
+      align: 'right',
     },
     {
       key: 'liquidationThreshold',
@@ -41,6 +42,7 @@ export const useGetColumns = () => {
           rowB.liquidationThresholdPercentage,
           direction,
         ),
+      align: 'right',
     },
     {
       key: 'liquidationPenalty',
@@ -56,6 +58,7 @@ export const useGetColumns = () => {
           rowB.liquidationPenaltyPercentage,
           direction,
         ),
+      align: 'right',
     },
     {
       key: 'isBorrowable',
@@ -64,11 +67,12 @@ export const useGetColumns = () => {
       renderCell: ({ isBorrowable }) => (
         <Icon
           name={isBorrowable ? 'mark' : 'close'}
-          className={cn('w-5 h-5', isBorrowable ? 'text-green' : 'text-grey')}
+          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-green' : 'text-grey')}
         />
       ),
       sortRows: (rowA, rowB, direction) =>
         compareBooleans(rowA.isBorrowable, rowB.isBorrowable, direction),
+      align: 'right',
     },
   ];
 

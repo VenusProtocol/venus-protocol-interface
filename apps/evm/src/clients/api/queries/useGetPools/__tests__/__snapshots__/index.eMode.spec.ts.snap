@@ -23,6 +23,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           ],
           "exchangeRateVTokens": "49.19405324154271215086",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 0,
           "liquidityCents": "9.998358808049033258268439270234862259568416992e+22",
@@ -94,6 +95,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "37.63966306652044917955",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "0",
@@ -180,6 +182,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "5.63429988023545433776",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "367322.427136472011309675565022",
@@ -252,6 +255,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "47.36910235297224095005",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": false,
           "liquidationThresholdPercentage": 66,
           "liquidityCents": "1332106415.658306127885385733550383",
@@ -323,6 +327,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "49.8066352191466231613",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": false,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "1.000003658230657184839939048025550587141377317e+36",
@@ -408,6 +413,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "47.12928141003911013496",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": false,
           "liquidationThresholdPercentage": 89.10000000000001,
           "liquidityCents": "1.01017679492420109825145006688858448e+23",
@@ -492,7 +498,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
             {
               "collateralFactor": 0.9,
-              "isBorrowable": true,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 0,
@@ -513,7 +519,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
             {
               "collateralFactor": 0.9,
-              "isBorrowable": true,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 555.6233762724731,
@@ -539,23 +545,22 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         {
           "assetSettings": [
             {
-              "collateralFactor": 0.9,
+              "collateralFactor": 0,
               "isBorrowable": true,
-              "liquidationPenaltyPercentage": 38.000000000000014,
-              "liquidationThresholdPercentage": 100.00000000000001,
-              "liquidityCents": 555.6233762724731,
-              "liquidityTokens": "5.556233762724731858",
+              "liquidationPenaltyPercentage": 0,
+              "liquidationThresholdPercentage": 0,
+              "liquidityCents": 225965707.47611484,
+              "liquidityTokens": "2259657.074761148481496107",
               "vToken": {
-                "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
-                "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8738)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8738'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8738)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8738)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M9.81519%2011.1023L11.9999%208.91767L14.1858%2011.1035L15.4571%209.83225L11.9999%206.375L8.54395%209.83109L9.81519%2011.1023Z'%20fill='white'/%3e%3cpath%20d='M8.9177%2011.9998L7.64648%2010.7286L6.3752%2011.9999L7.64642%2013.2711L8.9177%2011.9998Z'%20fill='white'/%3e%3cpath%20d='M9.8151%2012.8976L11.9999%2015.0823L14.1857%2012.8965L15.4576%2014.1671L15.457%2014.1678L11.9999%2017.6249L8.54377%2014.1689L8.54199%2014.1672L9.8151%2012.8976Z'%20fill='white'/%3e%3cpath%20d='M16.3537%2013.2717L17.625%2012.0004L16.3538%2010.7292L15.0825%2012.0005L16.3537%2013.2717Z'%20fill='white'/%3e%3cpath%20d='M13.2891%2011.9994H13.2896L11.9996%2010.7094L11.0463%2011.6627H11.0462L10.9367%2011.7722L10.7108%2011.9982L10.709%2012L10.7108%2012.0019L11.9996%2013.2907L13.2896%2012.0007L13.2902%2012L13.2891%2011.9994Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8738'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8738'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+                "asset": "/src/libs/tokens/img/vTokens/vXvsCore.svg",
                 "decimals": 8,
-                "symbol": "vBNB",
+                "symbol": "vXVS",
                 "underlyingToken": {
-                  "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
-                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cg%20clip-path='url(%23B)'%3e%3cpath%20fill-rule='evenodd'%20d='M12%200a12%2012%200%201%201%200%2024%2012%2012%200%201%201%200-24z'%20fill='%23f0b90b'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M6.595%2012l.009%203.173L9.3%2016.76v1.858l-4.274-2.507v-5.039L6.595%2012zm0-3.173v1.849l-1.57-.929V7.898l1.57-.929%201.578.929-1.578.929zm3.831-.929l1.57-.929%201.578.929-1.578.929-1.57-.929zM7.73%2014.515v-1.858l1.57.929v1.849l-1.57-.92zm2.696%202.91l1.57.929%201.578-.929v1.849l-1.578.929-1.57-.929v-1.849zm5.4-9.527l1.57-.929%201.578.929v1.849l-1.578.929V8.827l-1.57-.929zm1.57%207.275L17.405%2012l1.57-.929v5.038l-4.274%202.507v-1.858l2.695-1.586zm-1.126-.658l-1.57.92v-1.849l1.57-.929v1.858zm0-5.03l.009%201.858-2.704%201.587v3.181l-1.57.92-1.57-.92V12.93l-2.704-1.587V9.485l1.577-.929%202.687%201.594%202.704-1.594%201.578.929h-.007zM7.73%206.313l4.266-2.515%204.274%202.515-1.57.929-2.704-1.594L9.3%207.241l-1.57-.929z'/%3e%3c/g%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3cclipPath%20id='B'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23B)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%231f2028'/%3e%3cpath%20d='M18.957%209.442l-5.27%209.128c-.159.275-.388.504-.664.663s-.588.243-.906.243-.631-.084-.906-.243-.505-.387-.664-.663l-.924-1.599c-.003-.019%200-.023.004-.026.019-.003.023%200%20.026.004a1.52%201.52%200%200%200%201.267.425%201.52%201.52%200%200%200%20.642-.241c.193-.128.354-.299.47-.499l4.412-7.649a1.52%201.52%200%200%200%20.086-1.341%201.52%201.52%200%200%200-1.012-.884c-.017-.009-.019-.014-.019-.019.009-.017.014-.019.019-.019h1.87c.318%200%20.631.084.906.244s.504.388.663.664.243.588.242.907-.084.631-.243.907zm-6.239-2.721h-1.827c-.012.01-.013.014-.013.018.006.014.009.017.013.018.123.048.234.121.326.216s.163.208.207.332.061.257.049.388-.051.259-.117.373l-2.663%204.606a.92.92%200%200%201-.648.441.92.92%200%200%201-.752-.22c-.017-.008-.022-.007-.026-.004-.008.017-.007.022-.004.026l.935%201.623c.105.182.256.333.438.439s.389.161.599.161.417-.055.599-.161.333-.257.438-.439l3.484-6.022c.105-.182.16-.389.16-.599s-.055-.417-.161-.599-.257-.333-.439-.438-.389-.16-.599-.16zm-6.342%200c-.312%200-.617.092-.876.266s-.461.419-.581.708-.151.605-.09.911.211.587.431.807.501.371.807.431.623.03.911-.09.534-.321.708-.581.266-.564.266-.876c0-.207-.04-.412-.12-.604s-.195-.365-.342-.512-.32-.263-.512-.342-.396-.12-.604-.12z'%20fill='url(%23A)'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='A'%20x1='19.016'%20y1='16.814'%20x2='2.55'%20y2='5.633'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433ff'/%3e%3cstop%20offset='.5'%20stop-color='%2320bdff'/%3e%3cstop%20offset='1'%20stop-color='%235cffa2'/%3e%3c/linearGradient%3e%3cclipPath%20id='B'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
                   "decimals": 18,
-                  "isNative": true,
-                  "symbol": "BNB",
+                  "symbol": "XVS",
                 },
               },
             },
@@ -597,7 +602,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           },
           {
             "collateralFactor": 0.9,
-            "isBorrowable": true,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 0,
@@ -618,7 +623,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           },
           {
             "collateralFactor": 0.9,
-            "isBorrowable": true,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 555.6233762724731,
@@ -660,6 +665,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.99999847176819609601",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "264910628.128578051",
@@ -717,7 +723,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
-              "isBorrowable": true,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 264929173.1707,
@@ -740,28 +746,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "name": "Stablecoins",
         },
         {
-          "assetSettings": [
-            {
-              "collateralFactor": 0.9,
-              "isBorrowable": true,
-              "liquidationPenaltyPercentage": 38.000000000000014,
-              "liquidationThresholdPercentage": 100.00000000000001,
-              "liquidityCents": 264929173.1707,
-              "liquidityTokens": "2649291.731707",
-              "vToken": {
-                "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
-                "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12373_163)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12373_163'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12373_163)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0793L0.36002%203.36861L3.38965%201.88134L11.9998%2019.4206L20.61%201.88134L23.6397%203.36861L11.9998%2027.0793Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%235CFFA2'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12373_163'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
-                "decimals": 8,
-                "symbol": "vUSDT",
-                "underlyingToken": {
-                  "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cpath%20d='M24%2012c0%206.628-5.372%2012-12%2012S0%2018.628%200%2012%205.373%200%2012%200s12%205.373%2012%2012z'%20fill='%231ba27a'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M17.629%206.051H6.267v2.743h4.31v4.032h2.743V8.794h4.31V6.051z'/%3e%3cpath%20d='M11.973%2013.256c-3.565%200-6.456-.564-6.456-1.26s2.89-1.26%206.456-1.26%206.455.564%206.455%201.26-2.89%201.26-6.455%201.26zm7.249-1.05c0-.898-3.245-1.625-7.249-1.625s-7.249.727-7.249%201.625c0%20.79%202.517%201.449%205.851%201.595v5.788h2.743v-5.786c3.36-.141%205.903-.803%205.903-1.597z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
-                  "decimals": 6,
-                  "symbol": "USDT",
-                },
-              },
-            },
-          ],
+          "assetSettings": [],
           "id": 1,
           "name": "DeFi",
         },
@@ -779,7 +764,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.9,
-            "isBorrowable": true,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 264929173.1707,
@@ -820,6 +805,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.997398625122774492",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "10115894.213933673",
@@ -862,7 +848,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
-              "isBorrowable": true,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 10116602.3761,
@@ -903,7 +889,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.9,
-            "isBorrowable": true,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 10116602.3761,
@@ -944,6 +930,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.999999999999545",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": false,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "1103022783",
@@ -1008,6 +995,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.856077892298015039",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 49.50000000000001,
           "liquidityCents": "46.627361564366928016606869",
@@ -1050,7 +1038,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
-              "isBorrowable": true,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 1103100000,
@@ -1070,7 +1058,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
             {
               "collateralFactor": 0.55,
-              "isBorrowable": true,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": -0.4999999999999929,
               "liquidationThresholdPercentage": 61.50000000000001,
               "liquidityCents": 0.0705300034659891,
@@ -1111,7 +1099,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.9,
-            "isBorrowable": true,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 1103100000,
@@ -1131,7 +1119,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           },
           {
             "collateralFactor": 0.55,
-            "isBorrowable": true,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": -0.4999999999999929,
             "liquidationThresholdPercentage": 61.50000000000001,
             "liquidityCents": 0.0705300034659891,
@@ -1172,6 +1160,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "1",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 82.50000000000001,
           "liquidityCents": "600557.958",
@@ -1214,7 +1203,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.85,
-              "isBorrowable": true,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": 32.500000000000014,
               "liquidationThresholdPercentage": 94.50000000000001,
               "liquidityCents": 600600,
@@ -1255,7 +1244,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.85,
-            "isBorrowable": true,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": 32.500000000000014,
             "liquidationThresholdPercentage": 94.50000000000001,
             "liquidityCents": 600600,
@@ -1310,6 +1299,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.9930076443898276885",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 71.5,
           "liquidityCents": "3256964.0339677929523638",
@@ -1373,6 +1363,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "0.99998934225265418908",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": true,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "99810466.29625374",
@@ -1430,7 +1421,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.75,
-              "isBorrowable": true,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": 21.5,
               "liquidationThresholdPercentage": 83.5,
               "liquidityCents": 3256964.033967793,
@@ -1450,7 +1441,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
             },
             {
               "collateralFactor": 0.9,
-              "isBorrowable": true,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 99817453.518,
@@ -1491,7 +1482,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.75,
-            "isBorrowable": true,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": 21.5,
             "liquidationThresholdPercentage": 83.5,
             "liquidityCents": 3256964.033967793,
@@ -1511,7 +1502,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           },
           {
             "collateralFactor": 0.9,
-            "isBorrowable": true,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 99817453.518,
@@ -1552,6 +1543,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "disabledTokenActions": [],
           "exchangeRateVTokens": "1",
           "isBorrowable": true,
+          "isBorrowableByUser": false,
           "isCollateralOfUser": false,
           "liquidationThresholdPercentage": 88.00000000000001,
           "liquidityCents": "999930",
@@ -1594,7 +1586,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "assetSettings": [
             {
               "collateralFactor": 0.9,
-              "isBorrowable": true,
+              "isBorrowable": false,
               "liquidationPenaltyPercentage": 38.000000000000014,
               "liquidationThresholdPercentage": 100.00000000000001,
               "liquidityCents": 1000000,
@@ -1617,28 +1609,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
           "name": "Stablecoins",
         },
         {
-          "assetSettings": [
-            {
-              "collateralFactor": 0.9,
-              "isBorrowable": true,
-              "liquidationPenaltyPercentage": 38.000000000000014,
-              "liquidationThresholdPercentage": 100.00000000000001,
-              "liquidityCents": 1000000,
-              "liquidityTokens": "10000",
-              "vToken": {
-                "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
-                "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_12379_477)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_12379_477'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_12379_477)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0793L0.36002%203.36861L3.38965%201.88134L11.9998%2019.4206L20.61%201.88134L23.6397%203.36861L11.9998%2027.0793Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='%23AAB3CA'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_12379_477'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
-                "decimals": 8,
-                "symbol": "vUSDT",
-                "underlyingToken": {
-                  "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
-                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cpath%20d='M24%2012c0%206.628-5.372%2012-12%2012S0%2018.628%200%2012%205.373%200%2012%200s12%205.373%2012%2012z'%20fill='%231ba27a'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M17.629%206.051H6.267v2.743h4.31v4.032h2.743V8.794h4.31V6.051z'/%3e%3cpath%20d='M11.973%2013.256c-3.565%200-6.456-.564-6.456-1.26s2.89-1.26%206.456-1.26%206.455.564%206.455%201.26-2.89%201.26-6.455%201.26zm7.249-1.05c0-.898-3.245-1.625-7.249-1.625s-7.249.727-7.249%201.625c0%20.79%202.517%201.449%205.851%201.595v5.788h2.743v-5.786c3.36-.141%205.903-.803%205.903-1.597z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
-                  "decimals": 6,
-                  "symbol": "USDT",
-                },
-              },
-            },
-          ],
+          "assetSettings": [],
           "id": 1,
           "name": "DeFi",
         },
@@ -1656,7 +1627,7 @@ exports[`useGetPools > fetches and formats E-mode groups associated with each po
         "assetSettings": [
           {
             "collateralFactor": 0.9,
-            "isBorrowable": true,
+            "isBorrowable": false,
             "liquidationPenaltyPercentage": 38.000000000000014,
             "liquidationThresholdPercentage": 100.00000000000001,
             "liquidityCents": 1000000,

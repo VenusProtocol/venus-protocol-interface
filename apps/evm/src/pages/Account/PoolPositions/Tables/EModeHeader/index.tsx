@@ -28,8 +28,6 @@ export const EModeHeader: React.FC<EModeHeaderProps> = ({
     },
   });
 
-  console.log('rendered');
-
   return (
     <Link
       className={cn(

@@ -22,9 +22,6 @@ export interface EModeProps {
 }
 
 export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueChange }) => {
-  const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
-    onSearchValueChange(changeEvent.currentTarget.value);
-
   const { t, Trans } = useTranslation();
   const columns = useGetColumns();
 
@@ -62,6 +59,9 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
       });
     }
   };
+
+  const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
+    onSearchValueChange(changeEvent.currentTarget.value);
 
   // Handle search
   const filteredEModeGroups = pool.eModeGroups.reduce<EModeGroup[]>((acc, eModeGroup) => {
