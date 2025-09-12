@@ -19,6 +19,7 @@ export interface SelectProps<TValue extends string | number = string | number> {
   placeLabelToLeft?: boolean;
   label?: string;
   className?: string;
+  dropdownClassName?: string;
   buttonClassName?: string;
   size?: 'small' | 'medium' | 'large';
   variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';

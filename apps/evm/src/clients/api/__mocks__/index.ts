@@ -11,6 +11,7 @@ import { assetData } from '__mocks__/models/asset';
 import { importablePositions } from '__mocks__/models/importablePositions';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
+import { transactions } from '__mocks__/models/transactions';
 import vTokens from '__mocks__/models/vTokens';
 import { vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
@@ -631,6 +632,14 @@ export const useGetAccountPerformanceHistory = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_ACCOUNT_PERFORMANCE_HISTORY],
     queryFn: getAccountPerformanceHistory,
+  }),
+);
+
+export const getAccountTransactionHistory = vi.fn(async () => transactions);
+export const useGetAccountTransactionHistory = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY],
+    queryFn: getAccountTransactionHistory,
   }),
 );
 

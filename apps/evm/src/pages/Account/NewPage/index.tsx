@@ -21,6 +21,7 @@ import { Pools } from './Pools';
 import { PrimeBanner } from './PrimeBanner';
 import { Summary } from './Summary';
 import { Tabs } from './Tabs';
+import { Transactions } from './Transactions';
 import { Vaults } from './Vaults';
 
 export const NewPage: React.FC = () => {
@@ -30,6 +31,9 @@ export const NewPage: React.FC = () => {
     name: 'prime',
   });
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
+  const isHistoricalTransactionsFeatureEnabled = useIsFeatureEnabled({
+    name: 'transactionHistory',
+  });
 
   const { accountAddress } = useAccountAddress();
   const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
@@ -120,6 +124,14 @@ export const NewPage: React.FC = () => {
       content: <Vaults vaults={vaults} />,
     },
   ];
+
+  if (isHistoricalTransactionsFeatureEnabled) {
+    tabs.push({
+      title: t('account.tabs.transactions'),
+      id: 'transactions',
+      content: <Transactions />,
+    });
+  }
 
   if (isGaslessTransactionsFeatureEnabled) {
     tabs.push({
