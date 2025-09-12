@@ -46,7 +46,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
   });
 
   const isPrimeAsset = !!(primeDistribution || primeSimulationDistribution);
-  const shouldBeGreyedOut = type === 'borrow' && !asset.isBorrowable;
+  const shouldBeGreyedOut = type === 'borrow' && !asset.isBorrowableByUser;
 
   let simulatedApyPercentage: BigNumber | undefined;
   const isApyBoostedByPrime = primeDistribution && !primeDistribution.apyPercentage.isEqualTo(0);
