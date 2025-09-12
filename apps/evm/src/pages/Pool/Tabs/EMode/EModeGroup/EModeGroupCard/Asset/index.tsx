@@ -1,6 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 
-import { LabeledInlineContent, LayeredValues, TokenIconWithSymbol } from 'components';
+import { Icon, LabeledInlineContent, LayeredValues, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings } from 'types';
 import {
@@ -49,7 +49,27 @@ export const Asset: React.FC<AssetProps> = ({ eModeAssetSettings, className }) =
 
   return (
     <div className={cn('space-y-3', className)}>
-      <TokenIconWithSymbol token={eModeAssetSettings.vToken.underlyingToken} />
+      <div className="flex items-center justify-between">
+        <TokenIconWithSymbol token={eModeAssetSettings.vToken.underlyingToken} />
+
+        <div
+          className={cn(
+            'flex items-center gap-x-1',
+            eModeAssetSettings.isBorrowable ? 'text-green' : 'text-grey',
+          )}
+        >
+          <Icon
+            name={eModeAssetSettings.isBorrowable ? 'mark' : 'close'}
+            className="w-5 h-5 text-inherit"
+          />
+
+          <span className="text-sm">
+            {eModeAssetSettings.isBorrowable
+              ? t('pool.eMode.table.card.header.borrowable')
+              : t('pool.eMode.table.card.header.notBorrowable')}
+          </span>
+        </div>
+      </div>
 
       <div className="space-y-2">
         {dataListItems.map(item => (

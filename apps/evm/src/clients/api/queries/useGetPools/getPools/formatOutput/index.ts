@@ -68,7 +68,6 @@ export const formatOutput = ({
       userEModeGroup = generateFakeEModeGroup({
         id: 0,
         name: 'Stablecoins',
-        description: 'This block contains the assets of this category',
         tokens,
         chainId,
         apiMarkets: apiPool.markets.slice(0, 6),
@@ -79,15 +78,13 @@ export const formatOutput = ({
         generateFakeEModeGroup({
           id: 1,
           name: 'DeFi',
-          description: 'This block contains the assets of this category',
           tokens,
           chainId,
-          apiMarkets: apiPool.markets.slice(2, 8),
+          apiMarkets: apiPool.markets.slice(5, 12),
         }),
         generateFakeEModeGroup({
           id: 2,
           name: '#ToTheMoon',
-          description: 'This block contains the assets of this category',
           tokens,
           chainId,
           apiMarkets: apiPool.markets.slice(5, 8),
@@ -156,6 +153,8 @@ export const formatOutput = ({
         factor: new BigNumber(market.collateralFactorMantissa),
       });
 
+      const isBorrowable = true; // TODO: fetch from API
+
       let userCollateralFactor = collateralFactor;
       let isCollateralOfUser = !!userCollateralVTokenAddresses.some(address =>
         areAddressesEqual(address, vToken.address),
@@ -166,6 +165,7 @@ export const formatOutput = ({
       );
 
       let userLiquidationThresholdPercentage = liquidationThresholdPercentage;
+      let isBorrowableByUser = isBorrowable;
 
       if (userEModeGroup) {
         const eModeAssetSettings = userEModeGroup.assetSettings.find(settings =>
@@ -177,6 +177,10 @@ export const formatOutput = ({
           userEModeGroupCollateralFactor ??
           // If user has enabled an E-mode group and that asset is not in it, then it doesn't count as a user collateral
           0;
+
+        // If user has enabled an E-mode group and that asset is not in it, or is not borrowable in
+        // it, then it can't be borrowed by the user
+        isBorrowableByUser = eModeAssetSettings?.isBorrowable || false;
 
         userLiquidationThresholdPercentage =
           eModeAssetSettings?.liquidationThresholdPercentage ?? liquidationThresholdPercentage;
@@ -325,6 +329,8 @@ export const formatOutput = ({
         userWalletBalanceCents,
         userCollateralFactor,
         userLiquidationThresholdPercentage,
+        isBorrowable, // TODO: get from API
+        isBorrowableByUser,
         // This will be calculated after all assets have been formatted
         userPercentOfLimit: 0,
         isCollateralOfUser,

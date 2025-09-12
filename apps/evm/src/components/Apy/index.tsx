@@ -1,8 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import type BigNumber from 'bignumber.js';
-import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import type { Asset, PrimeDistribution, PrimeSimulationDistribution } from 'types';
-import { getCombinedDistributionApys } from 'utilities';
+import { formatPercentageToReadableValue, getCombinedDistributionApys } from 'utilities';
 import { BoostTooltip } from './BoostTooltip';
 import { PrimeBadge } from './PrimeBadge';
 
@@ -29,9 +28,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
   const isApyBoosted =
     !boostedApyPercentage.isEqualTo(baseApyPercentage) || pointDistributions.length > 0;
 
-  const readableApy = useFormatPercentageToReadableValue({
-    value: boostedApyPercentage,
-  });
+  const readableApy = formatPercentageToReadableValue(boostedApyPercentage);
 
   let primeDistribution: PrimeDistribution | undefined;
   let primeSimulationDistribution: PrimeSimulationDistribution | undefined;
@@ -49,6 +46,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
   });
 
   const isPrimeAsset = !!(primeDistribution || primeSimulationDistribution);
+  const shouldBeGreyedOut = type === 'borrow' && !asset.isBorrowableByUser;
 
   let simulatedApyPercentage: BigNumber | undefined;
   const isApyBoostedByPrime = primeDistribution && !primeDistribution.apyPercentage.isEqualTo(0);
@@ -65,7 +63,9 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
   }
 
   return (
-    <div className={cn('inline-flex gap-1 items-center', className)}>
+    <div
+      className={cn('inline-flex gap-1 items-center', shouldBeGreyedOut && 'opacity-50', className)}
+    >
       {isApyBoostedByPrime && <PrimeBadge type={type} token={asset.vToken.underlyingToken} />}
 
       {isApyBoosted ? (
@@ -82,7 +82,7 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
           <p className="font-semibold text-green whitespace-nowrap">{readableApy}</p>
         </BoostTooltip>
       ) : (
-        <p>{readableApy}</p>
+        <p className={cn(shouldBeGreyedOut && 'text-grey')}>{readableApy}</p>
       )}
 
       {isPrimeAsset && !isApyBoostedByPrime && (
