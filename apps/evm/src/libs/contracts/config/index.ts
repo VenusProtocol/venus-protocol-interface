@@ -782,11 +782,15 @@ export const contracts: ContractConfig[] = [
         [isolatedPoolsBscTestnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase() as Address]:
           isolatedPoolsBscTestnetDeployments.addresses
             .NativeTokenGateway_vWBNB_LiquidStakedBNB as Address,
+        [venusProtocolBscTestnetDeployments.addresses.Unitroller_Proxy.toLowerCase() as Address]:
+          '0xF34AAfc540Adc827A84736553BD29DE87a117558', // TODO: get from venus-periphery contract,
       },
       [ChainId.BSC_MAINNET]: {
         [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase() as Address]:
           isolatedPoolsBscMainnetDeployments.addresses
             .NativeTokenGateway_vWBNB_LiquidStakedBNB as Address,
+        [venusProtocolBscMainnetDeployments.addresses.Unitroller_Proxy.toLowerCase() as Address]:
+          '0x5143eb18aA057Cd8BC9734cCfD2651823e71585f', // TODO: get from venus-periphery contract,
       },
       [ChainId.OPBNB_MAINNET]: {
         [isolatedPoolsOpBnbMainnetDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
