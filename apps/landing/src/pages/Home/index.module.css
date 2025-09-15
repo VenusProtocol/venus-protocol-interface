@@ -1,0 +1,6 @@
+.root {
+    width: 100%;
+    max-width: var(--global-max-width);
+    margin: 0 auto;
+}
+
