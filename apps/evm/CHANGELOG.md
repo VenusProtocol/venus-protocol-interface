@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 3.49.0
+
+### Minor Changes
+
+- 21044ab: add Core Pool WBNB market NativeTokenGateway contract record
+
+### Patch Changes
+
+- 3ab9bda: remove newAccountPage feature flag
+
 ## 3.48.0
 
 ### Minor Changes
