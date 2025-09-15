@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getAccountTransactionHistory > returns transactions formatted 1`] = `
+{
+  "count": 2,
+  "transactions": [
+    {
+      "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+      "amountCents": "2406931.018168454893468167206",
+      "amountTokens": "24066181578079398.612862",
+      "blockNumber": "41604851",
+      "blockTimestamp": 2024-08-23T04:17:09.000Z,
+      "chainId": 97,
+      "contractAddress": "0xb7526572ffe56ab9d7489838bf2e18e3323b441a",
+      "hash": "0xda13a0f45b10dabd21b863b6b602c6d8776edd4c6b10fe65a0881d491f468f35",
+      "poolName": "Metaverse",
+      "token": {
+        "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cpath%20d='M24%2012c0%206.628-5.372%2012-12%2012S0%2018.628%200%2012%205.373%200%2012%200s12%205.373%2012%2012z'%20fill='%231ba27a'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M17.629%206.051H6.267v2.743h4.31v4.032h2.743V8.794h4.31V6.051z'/%3e%3cpath%20d='M11.973%2013.256c-3.565%200-6.456-.564-6.456-1.26s2.89-1.26%206.456-1.26%206.455.564%206.455%201.26-2.89%201.26-6.455%201.26zm7.249-1.05c0-.898-3.245-1.625-7.249-1.625s-7.249.727-7.249%201.625c0%20.79%202.517%201.449%205.851%201.595v5.788h2.743v-5.786c3.36-.141%205.903-.803%205.903-1.597z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+        "decimals": 6,
+        "symbol": "USDT",
+      },
+      "txType": "redeem",
+      "vTokenSymbol": "vUSDT",
+    },
+    {
+      "accountAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+      "amountCents": "2401121.576132434220587935367386",
+      "amountTokens": "24001813290985731.455439",
+      "blockNumber": "41114058",
+      "blockTimestamp": 2024-08-06T02:18:03.000Z,
+      "chainId": 97,
+      "contractAddress": "0xb7526572ffe56ab9d7489838bf2e18e3323b441a",
+      "hash": "0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e",
+      "poolName": "Metaverse",
+      "token": {
+        "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cpath%20d='M24%2012c0%206.628-5.372%2012-12%2012S0%2018.628%200%2012%205.373%200%2012%200s12%205.373%2012%2012z'%20fill='%231ba27a'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M17.629%206.051H6.267v2.743h4.31v4.032h2.743V8.794h4.31V6.051z'/%3e%3cpath%20d='M11.973%2013.256c-3.565%200-6.456-.564-6.456-1.26s2.89-1.26%206.456-1.26%206.455.564%206.455%201.26-2.89%201.26-6.455%201.26zm7.249-1.05c0-.898-3.245-1.625-7.249-1.625s-7.249.727-7.249%201.625c0%20.79%202.517%201.449%205.851%201.595v5.788h2.743v-5.786c3.36-.141%205.903-.803%205.903-1.597z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+        "decimals": 6,
+        "symbol": "USDT",
+      },
+      "txType": "mint",
+      "vTokenSymbol": "vUSDT",
+    },
+  ],
+}
+`;

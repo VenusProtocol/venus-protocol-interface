@@ -81,7 +81,46 @@
     "tabs": {
       "pools": "Pools",
       "settings": "Settings",
+      "transactions": "Transactions",
       "vaults": "Vaults"
+    },
+    "transactions": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "txText": {
+        "approve": "Approved spending {{tokenAmount}}",
+        "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
+        "exitMarket": "<Styled>Disabled</Styled> {{vTokenSymbol}} as collateral"
+      },
+      "txType": {
+        "mint": "Supply",
+        "borrow": "Borrow",
+        "redeem": "Withdraw",
+        "repay": "Repayment",
+        "approve": "Approval",
+        "enterMarket": "Enabled collateral",
+        "exitMarket": "Disabled collateral"
+      },
+      "selects": {
+        "txType": {
+          "all": "All transactions",
+          "mint": "Supplies",
+          "borrow": "Borrows",
+          "redeem": "Withdrawals",
+          "repay": "Borrow repayments",
+          "approve": "Approvals",
+          "enterMarket": "Enabled collateral",
+          "exitMarket": "Disabled collateral"
+        },
+        "source": {
+          "all": "All markets"
+        }
+      },
+      "placeholder": {
+        "description": "Your transactions will appear here",
+        "title": "No transactions yet"
+      },
+      "view": "View"
     },
     "vaults": {
       "placeholder": {

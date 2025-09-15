@@ -542,3 +542,13 @@ export interface ImportableAaveSupplyPosition extends ImportableSupplyPositionBa
 }
 
 export type ImportableSupplyPosition = ImportableAaveSupplyPosition;
+
+export enum TxType {
+  Mint = 'mint',
+  Borrow = 'borrow',
+  Redeem = 'redeem',
+  Repay = 'repay',
+  EnterMarket = 'enter_market',
+  ExitMarket = 'exit_market',
+  Approve = 'approve',
+}

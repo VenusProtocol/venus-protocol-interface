@@ -139,6 +139,7 @@ export const featureFlags = {
     ChainId.BASE_SEPOLIA,
     ChainId.UNICHAIN_SEPOLIA,
   ],
+  transactionHistory: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.UNICHAIN_MAINNET],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;
