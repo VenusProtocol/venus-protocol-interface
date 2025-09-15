@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.50.0
+
+### Minor Changes
+
+- cd4da15: Added account transactions tab
+
 ## 3.49.0
 
 ### Minor Changes
