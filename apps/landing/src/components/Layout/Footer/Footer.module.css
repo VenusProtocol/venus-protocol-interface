@@ -10,7 +10,7 @@
     flex-wrap: wrap;
     align-items: center;
     padding-bottom: 10px;
-    max-width: 1280px;
+    max-width: var(--global-max-width);
 
     hr {
         display: none;

@@ -20,6 +20,7 @@
     "@venusprotocol/ui": "*",
     "axios": "^1.7.2",
     "classnames": "^2.3.1",
+    "date-fns": "^4.1.0",
     "genversion": "^3.2.0",
     "normalize.css": "^8.0.1",
     "posthog-js": "^1.257.0",

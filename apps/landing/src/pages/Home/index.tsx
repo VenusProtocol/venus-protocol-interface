@@ -5,10 +5,9 @@ import Protection from './Protection';
 import Safety from './Safety';
 import VenusPrime from './VenusPrime';
 import Wallets from './Wallets';
-import s from './index.module.css';
 
 export const Home: React.FC = () => (
-  <main className={s.root}>
+  <>
     <Background />
     <VenusPrime />
     <Protection />
@@ -16,5 +15,5 @@ export const Home: React.FC = () => (
     <Safety />
     <Benefits />
     <Wallets />
-  </main>
+  </>
 );

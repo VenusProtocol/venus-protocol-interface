@@ -37,7 +37,10 @@ const Footer: React.FC<IFooterProps> = ({ className }) => {
             <div className={s.navOptions}>
               <NavigationLinks
                 content={content}
-                classNames={{ root: s.footerNavLinksWrapper, link: s.footerLink }}
+                classNames={{
+                  root: s.footerNavLinksWrapper,
+                  link: s.footerLink,
+                }}
               />
               <Link
                 variant="secondary"

@@ -4,6 +4,8 @@ import { Layout } from 'components/Layout';
 import { DISCORD_SERVER_URL } from 'constants/production';
 import { AppStateProvider } from 'context';
 import { Home } from 'pages/Home';
+import { PrivacyPolicy } from 'pages/PrivacyPolicy';
+import { TermsOfUse } from 'pages/TermsOfUse';
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 
@@ -27,7 +29,9 @@ function App() {
                   <Route path={path} element={<Home />} key={path} />
                 ))}
 
-                {/* <Route path="/privacy-policy" element={<PrivacyPolicy />} /> */}
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
+                <Route path="/terms-of-use" element={<TermsOfUse />} />
               </Route>
             </Routes>
           </BrowserRouter>
