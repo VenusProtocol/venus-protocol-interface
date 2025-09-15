@@ -1,11 +1,11 @@
 .bg {
-  background-image: url('./assets/bgMobile.png');
+  background-image: url('/assets/bgMobile.png');
   background-size: 100% 862px;
   background-repeat: no-repeat;
   background-position: right top;
 
   @media (min-width: 640px) {
-    background-image: url('./assets/bg.png');
+    background-image: url('/assets/bg.png');
     background-size: 520px 802px;
   }
 
