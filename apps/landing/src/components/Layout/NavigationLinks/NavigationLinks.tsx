@@ -7,6 +7,7 @@ interface INavigationLinksProps {
     href: string;
     text: string;
   }>;
+  showLegalPages?: boolean;
   classNames?: { root?: string; link?: string };
 }
 
