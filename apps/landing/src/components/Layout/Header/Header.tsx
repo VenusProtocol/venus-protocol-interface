@@ -57,7 +57,9 @@ const Header: React.FC<IHeaderProps> = ({ className }) => {
         id={HEADER_ID}
         className={cn(s.root, isMobileMenuOpen && s.headerAfterScroll, className)}
       >
-        <Logo key="headerLogo" className={s.logo} />
+        <a href="/">
+          <Logo key="headerLogo" className={s.logo} />
+        </a>
 
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

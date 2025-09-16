@@ -1,6 +1,6 @@
 import { Legal } from 'components/Legal';
 
-const LAST_UPDATED_AT = 'September 20, 2025';
+const LAST_UPDATED_AT = 'September 19, 2025';
 
 export const TermsOfUse: React.FC = () => (
   <Legal title="Terms of Use" lastUpdatedAt={new Date(LAST_UPDATED_AT)}>

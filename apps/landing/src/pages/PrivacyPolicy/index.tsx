@@ -1,7 +1,7 @@
 import { Legal } from 'components/Legal';
 import { LANDING_PAGE_URL } from 'constants/production';
 
-const LAST_UPDATED_AT = 'September 20, 2025';
+const LAST_UPDATED_AT = 'September 19, 2025';
 
 export const PrivacyPolicy: React.FC = () => (
   <Legal title="Privacy Policy" lastUpdatedAt={new Date(LAST_UPDATED_AT)}>
