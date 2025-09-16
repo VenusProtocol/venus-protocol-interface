@@ -32,10 +32,15 @@ export const useTabs = <T extends Tab>({
     if (navType === 'state') {
       setStateActiveTabId(id);
     } else {
-      setSearchParams(currentSearchParams => ({
-        ...Object.fromEntries(currentSearchParams),
-        [TAB_PARAM_KEY]: id,
-      }));
+      setSearchParams(
+        currentSearchParams => ({
+          ...Object.fromEntries(currentSearchParams),
+          [TAB_PARAM_KEY]: id,
+        }),
+        {
+          replace: true,
+        },
+      );
     }
   };
 
