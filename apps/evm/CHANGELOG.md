@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.50.1
+
+### Patch Changes
+
+- 814e75e: fix tab search param initialisation
+
 ## 3.50.0
 
 ### Minor Changes
