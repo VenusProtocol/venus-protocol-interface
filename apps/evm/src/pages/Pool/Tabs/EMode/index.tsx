@@ -22,9 +22,6 @@ export interface EModeProps {
 }
 
 export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueChange }) => {
-  const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
-    onSearchValueChange(changeEvent.currentTarget.value);
-
   const { t, Trans } = useTranslation();
   const columns = useGetColumns();
 
@@ -63,6 +60,9 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
     }
   };
 
+  const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
+    onSearchValueChange(changeEvent.currentTarget.value);
+
   // Handle search
   const filteredEModeGroups = pool.eModeGroups.reduce<EModeGroup[]>((acc, eModeGroup) => {
     const searchMatches = (value: string) =>
@@ -73,9 +73,8 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
     );
 
     const nameMatches = searchMatches(eModeGroup.name);
-    const descriptionMatches = searchMatches(eModeGroup.description);
 
-    if (filteredEModeAssetSettings.length === 0 && !nameMatches && !descriptionMatches) {
+    if (filteredEModeAssetSettings.length === 0 && !nameMatches) {
       // Filter out E-mode group
       return acc;
     }

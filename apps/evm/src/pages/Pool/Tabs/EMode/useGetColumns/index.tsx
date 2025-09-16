@@ -1,13 +1,10 @@
-import { LayeredValues, type TableColumn, TokenIconWithSymbol } from 'components';
+import { cn } from '@venusprotocol/ui';
+
+import { Icon, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings } from 'types';
-import {
-  compareNumbers,
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { compareBooleans, compareNumbers, formatPercentageToReadableValue } from 'utilities';
 
 export const useGetColumns = () => {
   const { t } = useTranslation();
@@ -23,30 +20,13 @@ export const useGetColumns = () => {
       renderCell: ({ vToken }) => <TokenIconWithSymbol token={vToken.underlyingToken} />,
     },
     {
-      key: 'liquidity',
-      label: t('pool.eMode.table.columns.liquidity'),
-      selectOptionLabel: t('pool.eMode.table.columns.liquidity'),
-      renderCell: ({ liquidityCents, liquidityTokens, vToken }) => (
-        <LayeredValues
-          topValue={formatTokensToReadableValue({
-            value: liquidityTokens,
-            token: vToken.underlyingToken,
-          })}
-          bottomValue={formatCentsToReadableValue({
-            value: liquidityCents,
-          })}
-        />
-      ),
-      sortRows: (rowA, rowB, direction) =>
-        compareNumbers(rowA.liquidityCents, rowB.liquidityCents, direction),
-    },
-    {
       key: 'maxLtv',
       label: t('pool.eMode.table.columns.maxLtv'),
       selectOptionLabel: t('pool.eMode.table.columns.maxLtv'),
       renderCell: ({ collateralFactor }) => formatPercentageToReadableValue(collateralFactor * 100),
       sortRows: (rowA, rowB, direction) =>
         compareNumbers(rowA.collateralFactor, rowB.collateralFactor, direction),
+      align: 'right',
     },
     {
       key: 'liquidationThreshold',
@@ -62,6 +42,7 @@ export const useGetColumns = () => {
           rowB.liquidationThresholdPercentage,
           direction,
         ),
+      align: 'right',
     },
     {
       key: 'liquidationPenalty',
@@ -77,6 +58,21 @@ export const useGetColumns = () => {
           rowB.liquidationPenaltyPercentage,
           direction,
         ),
+      align: 'right',
+    },
+    {
+      key: 'isBorrowable',
+      label: t('pool.eMode.table.columns.isBorrowable'),
+      selectOptionLabel: t('pool.eMode.table.columns.isBorrowable'),
+      renderCell: ({ isBorrowable }) => (
+        <Icon
+          name={isBorrowable ? 'mark' : 'close'}
+          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-green' : 'text-grey')}
+        />
+      ),
+      sortRows: (rowA, rowB, direction) =>
+        compareBooleans(rowA.isBorrowable, rowB.isBorrowable, direction),
+      align: 'right',
     },
   ];
 

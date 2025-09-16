@@ -13,7 +13,7 @@ import { TooltipContent } from './TooltipContent';
 
 export interface TooltipProps extends TooltipPrimitiveProps {
   className?: string;
-  content: string | React.ReactElement;
+  content: string | React.ReactNode;
 }
 
 export const Tooltip = ({ className, content, children, ...props }: TooltipProps) => {

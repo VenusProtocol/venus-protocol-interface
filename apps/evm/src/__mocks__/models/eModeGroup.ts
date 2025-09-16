@@ -5,11 +5,9 @@ const generateEModeGroup = ({
   groupAssets,
   id,
   name,
-  description,
-}: { groupAssets: Asset[]; id: number; name: string; description: string }) => ({
+}: { groupAssets: Asset[]; id: number; name: string }): EModeGroup => ({
   id,
   name,
-  description,
   assetSettings: groupAssets.map(a => ({
     vToken: a.vToken,
     collateralFactor: a.userCollateralFactor + 0.1,
@@ -17,6 +15,7 @@ const generateEModeGroup = ({
     liquidationPenaltyPercentage: a.userLiquidationThresholdPercentage - 50,
     liquidityCents: a.liquidityCents.toNumber(),
     liquidityTokens: a.cashTokens,
+    isBorrowable: a.isBorrowable,
   })),
 });
 
@@ -24,19 +23,16 @@ export const eModeGroups: EModeGroup[] = [
   generateEModeGroup({
     id: 0,
     name: 'Stablecoins',
-    description: 'This block contains the assets of this category',
     groupAssets: assetData.slice(0, 3),
   }),
   generateEModeGroup({
     id: 1,
     name: 'DeFi',
-    description: 'This block contains the assets of this category',
     groupAssets: assetData.slice(2, 4),
   }),
   generateEModeGroup({
     id: 2,
     name: '#ToTheMoon',
-    description: 'This block contains the assets of this category',
     groupAssets: assetData.slice(5, 8),
   }),
 ];

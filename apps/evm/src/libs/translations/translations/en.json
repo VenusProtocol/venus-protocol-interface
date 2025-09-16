@@ -727,16 +727,25 @@
   "pool": {
     "eMode": {
       "group": {
+        "cannotDisable": {
+          "tooltip": {
+            "blockingPositions": "You can't disable this e-mode group because you have borrow positions with assets that can't be borrowed from the pool. <Link>Show my positions</Link>",
+            "notEnoughCollateral": "You can't disable this e-mode group because your total collateral value would not cover your total borrow balance"
+          }
+        },
         "cannotEnable": {
           "modal": {
             "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode group:",
             "repayButtonLabel": "Repay",
             "title": "Your positions"
           },
-          "tooltip": "You can't enable this E-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>"
+          "tooltip": {
+            "blockingPositions": "You can't enable this e-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>",
+            "notEnoughCollateral": "You can't enable this e-mode group because your total collateral value would not cover your total borrow balance"
+          }
         },
+        "disableButtonLabel": "Disable",
         "enableButtonLabel": "Enable",
-        "enabledButtonLabel": "Enabled",
         "healthFactor": "Health factor:",
         "switchButtonLabel": "Switch"
       },
@@ -746,6 +755,10 @@
       },
       "table": {
         "card": {
+          "header": {
+            "borrowable": "Borrowable",
+            "notBorrowable": "Not borrowable"
+          },
           "rows": {
             "liquidationPenalty": "Liquidation penalty",
             "liquidationThreshold": "Liquidation threshold",
@@ -755,9 +768,9 @@
         },
         "columns": {
           "asset": "Asset",
+          "isBorrowable": "Borrowable",
           "liquidationPenalty": "Liquidation penalty",
           "liquidationThreshold": "Liquidation threshold",
-          "liquidity": "Liquidity",
           "maxLtv": "Max LTV",
           "penalty": "Penalty",
           "threshold": "Threshold"

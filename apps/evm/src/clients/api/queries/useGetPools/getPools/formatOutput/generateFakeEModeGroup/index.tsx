@@ -20,19 +20,16 @@ export const generateFakeEModeGroup = ({
   chainId,
   id,
   name,
-  description,
 }: {
   apiMarkets: ApiMarket[];
   tokens: Token[];
   chainId: ChainId;
   id: number;
   name: string;
-  description: string;
 }) => {
   const group: EModeGroup = {
     id,
     name,
-    description,
     assetSettings: apiMarkets.reduce<EModeAssetSettings[]>((acc, market, i) => {
       const underlyingToken = findTokenByAddress({
         tokens,
@@ -69,10 +66,11 @@ export const generateFakeEModeGroup = ({
             : convertFactorFromSmartContract({
                 factor: new BigNumber(market.collateralFactorMantissa),
               }) + 0.1,
-        liquidationThresholdPercentage: liquidationThresholdPercentage + 12,
-        liquidationPenaltyPercentage: liquidationThresholdPercentage - 50,
+        liquidationThresholdPercentage: i > 3 ? 0 : liquidationThresholdPercentage + 12,
+        liquidationPenaltyPercentage: i > 3 ? 0 : liquidationThresholdPercentage - 50,
         liquidityCents: liquidityTokens.multipliedBy(100).toNumber(),
         liquidityTokens,
+        isBorrowable: i > 3,
       };
 
       return [...acc, assetSettings];
