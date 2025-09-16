@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.51.0
+
+### Minor Changes
+
+- e863986: add group logic to E-mode
+
 ## 3.50.1
 
 ### Patch Changes
