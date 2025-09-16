@@ -7,7 +7,6 @@ import { getSafeWalletTransaction } from '..';
 
 const fakeTransactionHash: Hex = '0x123';
 const fakeSafeWalletApiUrl = 'https://fake-safe-wallet-api-url.com';
-const expectedEndpoint = `${fakeSafeWalletApiUrl}/api/v2/multisig-transactions/${fakeTransactionHash}/`;
 const originalSafeWalletApiUrl = chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl;
 
 describe('getSafeWalletTransaction', () => {
@@ -45,7 +44,7 @@ describe('getSafeWalletTransaction', () => {
       safeWalletTransaction: fakeSafeWalletTransaction,
     });
 
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
+    expect((global.fetch as Mock).mock.calls[0]).toMatchSnapshot();
   });
 
   it('returns Safe Wallet transaction with null transaction hash when API call is successful', async () => {
@@ -72,7 +71,7 @@ describe('getSafeWalletTransaction', () => {
       safeWalletTransaction: fakeSafeWalletTransaction,
     });
 
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
+    expect((global.fetch as Mock).mock.calls[0]).toMatchSnapshot();
   });
 
   it('throws error when Safe Wallet API URL is missing', async () => {
@@ -114,7 +113,7 @@ describe('getSafeWalletTransaction', () => {
       }),
     );
 
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
+    expect((global.fetch as Mock).mock.calls[0]).toMatchSnapshot();
   });
 
   it('handles network error', async () => {
@@ -128,7 +127,7 @@ describe('getSafeWalletTransaction', () => {
       }),
     ).rejects.toThrow(fakeNetworkError);
 
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
+    expect((global.fetch as Mock).mock.calls[0]).toMatchSnapshot();
   });
 
   it('handles malformed JSON response', async () => {
@@ -151,6 +150,6 @@ describe('getSafeWalletTransaction', () => {
       }),
     );
 
-    expect(global.fetch).toHaveBeenCalledWith(expectedEndpoint);
+    expect((global.fetch as Mock).mock.calls[0]).toMatchSnapshot();
   });
 });

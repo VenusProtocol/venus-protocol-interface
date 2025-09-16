@@ -23,6 +23,7 @@ export interface Config {
   };
   zyFiApiKey: string;
   biconomyApiKey: string;
+  safeApiKey: string;
 }
 
 const environment: Environment = envVariables.VITE_ENV || 'preview';
@@ -54,6 +55,7 @@ const config: Config = {
   },
   zyFiApiKey: envVariables.VITE_ZYFI_API_KEY || '',
   biconomyApiKey: envVariables.VITE_BICONOMY_API_KEY || '',
+  safeApiKey: envVariables.VITE_SAFE_API_KEY || '',
 };
 
 export { envVariables } from './envVariables';

@@ -6,17 +6,6 @@ import type { PublicClient, WalletClient } from 'viem';
 import type { Mock } from 'vitest';
 import { sendTransaction } from '..';
 
-vi.mock('config', async () => {
-  const actual = await vi.importActual('config');
-
-  return {
-    default: {
-      ...(actual.default as Record<string, unknown>),
-      zyFiApiKey: 'mockZyFiApiKey',
-    },
-  };
-});
-
 const mockWriteContract = vi.fn(() => 'mockTransactionHash');
 
 const mockWalletClient = {
