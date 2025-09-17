@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.53.1
+
+### Patch Changes
+
+- 34bb69c: prioritize price from oracle when calculating distributions
+
 ## 3.53.0
 
 ### Minor Changes
