@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.53.2
+
+### Patch Changes
+
+- 8e70d81: fix padding issue on Market page header
+
 ## 3.53.1
 
 ### Patch Changes
