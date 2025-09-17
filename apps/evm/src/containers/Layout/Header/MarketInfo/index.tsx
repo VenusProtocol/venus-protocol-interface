@@ -142,7 +142,7 @@ export const MarketInfo = () => {
 
       <CellGroup
         variant="secondary"
-        className="px-4 md:px-6 xl:px-10 max-w-[1360px] mx-auto"
+        className="px-4 sm:px-4 md:px-6 xl:px-10 max-w-[1360px] mx-auto"
         cells={cells}
       />
     </div>
