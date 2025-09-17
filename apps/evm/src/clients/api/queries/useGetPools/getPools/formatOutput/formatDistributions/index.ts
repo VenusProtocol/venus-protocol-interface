@@ -75,7 +75,7 @@ export const formatDistributions = ({
           return 0;
         }
 
-        if (tp01.priceSource === 'merkl' || tp02.priceSource === 'coingecko') {
+        if (tp01.priceSource === 'oracle' || tp02.priceSource === 'coingecko') {
           return -1;
         }
 
@@ -85,6 +85,7 @@ export const formatDistributions = ({
       if (tokenPriceMapping.length === 0) {
         return;
       }
+
       const correspondingRewardTokenPrice = tokenPriceMapping[0];
 
       const { priceMantissa } = correspondingRewardTokenPrice;
