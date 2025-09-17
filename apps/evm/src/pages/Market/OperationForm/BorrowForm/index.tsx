@@ -5,6 +5,7 @@ import { cn } from '@venusprotocol/ui';
 import { useBorrow } from 'clients/api';
 import {
   Delimiter,
+  EModeBanner,
   LabeledInlineContent,
   RiskAcknowledgementToggle,
   Toggle,
@@ -43,6 +44,7 @@ export interface BorrowFormUiProps {
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   formValues: FormValues;
   isWrapUnwrapNativeTokenEnabled: boolean;
+  isEModeFeatureEnabled: boolean;
   isDelegateApproved: boolean | undefined;
   isDelegateApprovedLoading: boolean;
   isApproveDelegateLoading: boolean;
@@ -59,11 +61,12 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   isSubmitting,
   setFormValues,
   formValues,
-  isWrapUnwrapNativeTokenEnabled,
   isDelegateApproved,
   isDelegateApprovedLoading,
   isApproveDelegateLoading,
   approveDelegateAction,
+  isWrapUnwrapNativeTokenEnabled,
+  isEModeFeatureEnabled,
 }) => {
   const { t } = useTranslation();
   const { nativeToken } = useGetChainMetadata();
@@ -244,6 +247,13 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-4">
+        {isEModeFeatureEnabled && pool.eModeGroups.length > 0 && !pool.userEModeGroup && (
+          <EModeBanner
+            poolComptrollerContractAddress={pool.comptrollerAddress}
+            variant="secondary"
+          />
+        )}
+
         <TokenTextField
           data-testid={TEST_IDS.tokenTextField}
           name="amountTokens"
@@ -362,6 +372,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
   const { accountAddress } = useAccountAddress();
 
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
+  const isEModeFeatureEnabled = useIsFeatureEnabled({ name: 'eMode' });
 
   const initialFormValues: FormValues = useMemo(
     () => ({
@@ -422,7 +433,6 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
   return (
     <BorrowFormUi
       isUserConnected={!!accountAddress}
-      isWrapUnwrapNativeTokenEnabled={isWrapUnwrapNativeTokenEnabled}
       asset={asset}
       pool={pool}
       formValues={formValues}
@@ -434,6 +444,8 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       isDelegateApprovedLoading={isDelegateApprovedLoading}
       isApproveDelegateLoading={isUseUpdatePoolDelegateStatusLoading}
       approveDelegateAction={() => updatePoolDelegateStatus({ approvedStatus: true })}
+      isWrapUnwrapNativeTokenEnabled={isWrapUnwrapNativeTokenEnabled}
+      isEModeFeatureEnabled={isEModeFeatureEnabled}
     />
   );
 };
