@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getSafeWalletTransaction > handles malformed JSON response 1`] = `
+[
+  "https://fake-safe-wallet-api-url.com/api/v2/multisig-transactions/0x123/",
+  {
+    "headers": {
+      "Authorization": "Bearer fakeSafeApiKey",
+    },
+    "method": "GET",
+  },
+]
+`;
+
+exports[`getSafeWalletTransaction > handles network error 1`] = `
+[
+  "https://fake-safe-wallet-api-url.com/api/v2/multisig-transactions/0x123/",
+  {
+    "headers": {
+      "Authorization": "Bearer fakeSafeApiKey",
+    },
+    "method": "GET",
+  },
+]
+`;
+
+exports[`getSafeWalletTransaction > returns Safe Wallet transaction when API call is successful 1`] = `
+[
+  "https://fake-safe-wallet-api-url.com/api/v2/multisig-transactions/0x123/",
+  {
+    "headers": {
+      "Authorization": "Bearer fakeSafeApiKey",
+    },
+    "method": "GET",
+  },
+]
+`;
+
+exports[`getSafeWalletTransaction > returns Safe Wallet transaction with null transaction hash when API call is successful 1`] = `
+[
+  "https://fake-safe-wallet-api-url.com/api/v2/multisig-transactions/0x123/",
+  {
+    "headers": {
+      "Authorization": "Bearer fakeSafeApiKey",
+    },
+    "method": "GET",
+  },
+]
+`;
+
+exports[`getSafeWalletTransaction > throws error when API response is not OK 1`] = `
+[
+  "https://fake-safe-wallet-api-url.com/api/v2/multisig-transactions/0x123/",
+  {
+    "headers": {
+      "Authorization": "Bearer fakeSafeApiKey",
+    },
+    "method": "GET",
+  },
+]
+`;

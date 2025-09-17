@@ -1,4 +1,5 @@
 import { type ChainId, chainMetadata } from '@venusprotocol/chains';
+import config from 'config';
 import { VError, logError } from 'libs/errors';
 import type { Hex } from 'viem';
 
@@ -28,7 +29,12 @@ export const getSafeWalletTransaction = async ({
   }
 
   // Retrieve transaction from Safe Wallet's API
-  const response = await fetch(`${safeWalletApiUrl}/api/v2/multisig-transactions/${hash}/`);
+  const response = await fetch(`${safeWalletApiUrl}/api/v2/multisig-transactions/${hash}/`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${config.safeApiKey}`,
+    },
+  });
 
   if (!response.ok) {
     logError(`Request to Safe Wallet's API failed: ${response.statusText}`);

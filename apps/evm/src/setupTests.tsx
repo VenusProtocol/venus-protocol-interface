@@ -8,8 +8,36 @@ import 'whatwg-fetch';
 
 import { xvs } from '__mocks__/models/tokens';
 
+import type { Config } from 'config';
 import { NULL_ADDRESS } from 'constants/address';
 import useTokenApproval from 'hooks/useTokenApproval';
+
+// Mock config
+vi.mock('config', async () => {
+  const actual = await vi.importActual('config');
+  const actualConfig = actual.default as Config;
+
+  const fakeConfig: Config = {
+    environment: 'ci',
+    network: 'testnet',
+    apiUrl: 'fakeApiUrl',
+    rpcUrls: actualConfig.rpcUrls,
+    governanceSubgraphUrls: actualConfig.governanceSubgraphUrls,
+    isSafeApp: false,
+    sentryDsn: 'fakeSentryDsn',
+    posthog: {
+      apiKey: 'fakePostHostApiKey',
+      hostUrl: 'fakePostHogHostUrl',
+    },
+    zyFiApiKey: 'fakeZyFiApiKey',
+    biconomyApiKey: 'fakeBiconomyApiKey',
+    safeApiKey: 'fakeSafeApiKey',
+  };
+
+  return {
+    default: fakeConfig,
+  };
+});
 
 vi.mock('hooks/useIsFeatureEnabled');
 vi.mock('hooks/useTokenApproval');

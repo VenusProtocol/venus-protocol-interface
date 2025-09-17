@@ -40,4 +40,8 @@ export const envVariables = {
     typeof process !== 'undefined'
       ? process.env.VITE_BICONOMY_API_KEY
       : import.meta.env.VITE_BICONOMY_API_KEY,
+  VITE_SAFE_API_KEY:
+    typeof process !== 'undefined'
+      ? process.env.VITE_SAFE_API_KEY
+      : import.meta.env.VITE_SAFE_API_KEY,
 };
