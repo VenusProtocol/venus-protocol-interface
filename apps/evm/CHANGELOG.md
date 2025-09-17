@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.53.3
+
+### Patch Changes
+
+- 1e56c20: show 0% Prime APYs for markets user participates in
+
 ## 3.53.2
 
 ### Patch Changes
