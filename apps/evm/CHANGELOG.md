@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.53.0
+
+### Minor Changes
+
+- 90a35a2: feat: add E-mode promotional banner to Borrow form
+
 ## 3.52.0
 
 ### Minor Changes
