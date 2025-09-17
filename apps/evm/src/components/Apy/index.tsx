@@ -25,8 +25,8 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
   const pointDistributions =
     type === 'supply' ? asset.supplyPointDistributions : asset.borrowPointDistributions;
 
-  const isApyBoosted =
-    !boostedApyPercentage.isEqualTo(baseApyPercentage) || pointDistributions.length > 0;
+  const userBalanceTokens =
+    type === 'supply' ? asset.userSupplyBalanceTokens : asset.userBorrowBalanceTokens;
 
   const readableApy = formatPercentageToReadableValue(boostedApyPercentage);
 
@@ -49,7 +49,12 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
   const shouldBeGreyedOut = type === 'borrow' && !asset.isBorrowableByUser;
 
   let simulatedApyPercentage: BigNumber | undefined;
-  const isApyBoostedByPrime = primeDistribution && !primeDistribution.apyPercentage.isEqualTo(0);
+  const isApyBoostedByPrime = !!primeDistribution && userBalanceTokens.isGreaterThan(0);
+
+  const isApyBoosted =
+    isApyBoostedByPrime ||
+    !boostedApyPercentage.isEqualTo(baseApyPercentage) ||
+    pointDistributions.length > 0;
 
   if (isPrimeAsset && !isApyBoostedByPrime) {
     simulatedApyPercentage =
@@ -74,9 +79,8 @@ export const Apy: React.FC<ApyProps> = ({ asset, type, className }) => {
           pointDistributions={pointDistributions}
           token={asset.vToken.underlyingToken}
           type={type}
-          baseApyPercentage={
-            type === 'supply' ? asset.supplyApyPercentage : asset.borrowApyPercentage
-          }
+          baseApyPercentage={baseApyPercentage}
+          userBalanceTokens={userBalanceTokens}
           primeApyPercentage={primeDistribution?.apyPercentage}
         >
           <p className="font-semibold text-green whitespace-nowrap">{readableApy}</p>
