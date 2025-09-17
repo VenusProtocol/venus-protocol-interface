@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.52.0
+
+### Minor Changes
+
+- a2f5f39: use authenticated Safe endpoint
+
 ## 3.51.0
 
 ### Minor Changes
