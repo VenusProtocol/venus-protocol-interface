@@ -1,7 +1,7 @@
 import { Legal } from 'components/Legal';
 import { LANDING_PAGE_URL } from 'constants/production';
 
-const LAST_UPDATED_AT = 'September 19, 2025';
+const LAST_UPDATED_AT = 'September 18, 2025';
 
 export const PrivacyPolicy: React.FC = () => (
   <Legal title="Privacy Policy" lastUpdatedAt={new Date(LAST_UPDATED_AT)}>
@@ -224,6 +224,24 @@ export const PrivacyPolicy: React.FC = () => (
 
     <h2>3. How and Why We Share Your Data</h2>
 
+    <p>
+      Information about our users is an important part of our business and we are not in the
+      business of selling our user’s Personal Data to others. We may transfer Personal Data to our
+      service providers or third parties in connection with Venus’s operation of its business, as
+      certain features on Venus rely on various third-party products and services (collectively
+      “Third Party Services”), such as processing of web hosting, cloud storage, analytics, and
+      improvement of website-related services and features, and performance of maintenance services.
+    </p>
+
+    <p>
+      Third Party Services providers must only process the Personal Data in accordance with our
+      contractual agreements and only as permitted by applicable data protection laws.
+    </p>
+
+    <p>
+      We may also share Personal Data with the following persons or in the following circumstances:
+    </p>
+
     <ul>
       <li>
         <span>Affiliates:</span> Personal Data that we process and collect may be transferred
@@ -378,7 +396,15 @@ export const PrivacyPolicy: React.FC = () => (
     <h3>Submit Privacy Request</h3>
 
     <p>
-      Alternatively, to exercise your rights, you can contact us via email at privacy[at]venus.io.
+      Alternatively, to exercise your rights, you can submit a request using our{' '}
+      <a
+        href="https://submit-irm.trustarc.eu/services/validation/2348950a-f5af-453c-b39b-9438f35181e3/?brandId=1cd7c934-f88e-4bad-80c6-e12951fc259b"
+        target="_blank"
+        rel="noreferrer"
+      >
+        online form
+      </a>{' '}
+      or contact us via email at privacy[at]venus.io.
     </p>
 
     <p>
@@ -396,18 +422,26 @@ export const PrivacyPolicy: React.FC = () => (
 
     <p>
       We do not knowingly solicit data from or market to any persons under 18 years of age. By using
-      the Services, you represent that you are at least 18 years old. If we learn that Personal Data
-      from users who are less than 18 years of age has been collected, we will deactivate the
-      account in question and take reasonable measures to promptly delete all such data from our
-      records. If you become aware that any Personal Data we may have collected is from a user under
-      the age of 18, please contact us using the contact information below.
+      the Services, you represent that you are at least 18 years old. If we become aware that we
+      have collected Personal Data from someone under 18, we will deactivate the account in question
+      and take reasonable measures to promptly delete all such data from our records unless we are
+      legally required to keep it. If you become aware that any Personal Data we may have collected
+      is from a user under the age of 18, please contact us using the contact information below.
     </p>
 
     <h2>9. Contact Information</h2>
 
     <p>
       Our support team is available to direct any questions related to your Personal Data. You can
-      contact us through our online form or contact us via email at privacy[at]venus.io., and we
+      contact us through our{' '}
+      <a
+        href="https://submit-irm.trustarc.eu/services/validation/2348950a-f5af-453c-b39b-9438f35181e3/?brandId=1cd7c934-f88e-4bad-80c6-e12951fc259b"
+        target="_blank"
+        rel="noreferrer"
+      >
+        online form
+      </a>{' '}
+      or contact us via email at <a href="mailto:privacy@venus.io">privacy@venus.io</a>., and we
       will ensure your inquiry reaches the appropriate team to address any concerns regarding the
       collection and processing of your Personal Data.
     </p>

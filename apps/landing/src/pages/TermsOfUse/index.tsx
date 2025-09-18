@@ -1,6 +1,6 @@
 import { Legal } from 'components/Legal';
 
-const LAST_UPDATED_AT = 'September 19, 2025';
+const LAST_UPDATED_AT = 'September 18, 2025';
 
 export const TermsOfUse: React.FC = () => (
   <Legal title="Terms of Use" lastUpdatedAt={new Date(LAST_UPDATED_AT)}>
@@ -328,9 +328,9 @@ export const TermsOfUse: React.FC = () => (
 
     <p>
       While Venus Protocol operates as a decentralized protocol, certain information may be
-      collected through interfaces, analytics, or third-party services. Our Privacy Notice [Internal
-      To BU : Please Insert the hyperlink to the privacy notice], incorporated by reference, governs
-      such data collection and use.
+      collected through interfaces, analytics, or third-party services. Our{' '}
+      <a href="/privacy-policy">Privacy Notice</a>, incorporated by reference, governs such data
+      collection and use.
     </p>
 
     <h3>16.2 Blockchain Transparency</h3>
@@ -482,19 +482,22 @@ export const TermsOfUse: React.FC = () => (
     <h2>25. Survival</h2>
 
     <p>
-      If any provision of these Terms is held to be invalid or unenforceable, such provision will be
-      severed and the remainder of the Terms will remain in full force and effect.
+      The following sections shall survive termination of these Terms: Sections 7-13, 16, 19-20,
+      22-23, and any other provisions that by their nature should survive termination.
     </p>
 
     <h2>26. Entire Agreement</h2>
 
     <p>
-      If any provision of these Terms is held to be invalid or unenforceable, such provision will be
-      severed and the remainder of the Terms will remain in full force and effect.
+      These Terms constitute the entire agreement between you and Venus Protocol regarding your use
+      of the Platform, superseding any prior agreements or understandings.
     </p>
 
     <h2>27. Contact Information</h2>
 
-    <p>If you have any questions about these Terms, please contact us at contact[at]venus.io.</p>
+    <p>
+      If you have any questions about these Terms, please contact us at{' '}
+      <a href="mailto:contact@venus.io">contact@venus.io</a>.
+    </p>
   </Legal>
 );
