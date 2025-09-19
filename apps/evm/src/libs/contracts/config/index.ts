@@ -75,7 +75,7 @@ import tokenBridgeUnichainMainnetDeployments from '@venusprotocol/token-bridge/d
 import tokenBridgeUnichainSepoliaDeployments from '@venusprotocol/token-bridge/deployments/unichainsepolia_addresses.json';
 import tokenBridgeZkSyncMainnetDeployments from '@venusprotocol/token-bridge/deployments/zksyncmainnet_addresses.json';
 import tokenBridgeZkSyncSepoliaDeployments from '@venusprotocol/token-bridge/deployments/zksyncsepolia_addresses.json';
-import { abi as legacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
+// import { abi as legacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as vTreasuryAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasury.sol/VTreasury.json';
 import { abi as vTreasuryV8Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasuryV8.sol/VTreasuryV8.json';
 import { abi as jumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
@@ -116,6 +116,7 @@ import aavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvid
 import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
 import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
 import erc20Abi from './externalAbis/Erc20.json';
+import legacyPoolComptrollerAbi from './externalAbis/LegacyComptroller.json';
 import maximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
 import nexusAbi from './externalAbis/Nexus.json';
@@ -228,7 +229,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'LegacyPoolComptroller',
-    abi: legacyPoolComptrollerAbi as Abi,
+    abi: legacyPoolComptrollerAbi.abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Unitroller as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Unitroller as Address,

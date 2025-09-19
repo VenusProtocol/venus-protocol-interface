@@ -55,8 +55,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceCents": "0",
           "userWalletBalanceTokens": "0",
           "vToken": {
-            "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
-            "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8740)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8740'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8740)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8740)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M11.9833%206.375L13.3728%207.79799L9.87388%2011.2969L8.48438%209.90737L11.9833%206.375Z'%20fill='white'/%3e%3cpath%20d='M14.0926%208.48436L15.4821%209.90735L9.87388%2015.5156L8.48438%2014.1261L14.0926%208.48436Z'%20fill='white'/%3e%3cpath%20d='M7.76451%2010.5938L9.15402%2012.0167L7.76451%2013.4063L6.375%2012.0167L7.76451%2010.5938Z'%20fill='white'/%3e%3cpath%20d='M16.202%2010.5938L17.5915%2012.0167L11.9833%2017.625L10.5938%2016.2355L16.202%2010.5938Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8740'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8740'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+            "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vBUSD",
             "underlyingToken": {
@@ -141,8 +141,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
           "userWalletBalanceCents": "0",
           "userWalletBalanceTokens": "0",
           "vToken": {
-            "address": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
-            "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8755)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8755'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8755)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8755)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M11.9973%2010.2665V5.33704L8.00195%2012.1231L11.9973%2014.5411V10.2665Z'%20fill='white'%20fill-opacity='0.8'/%3e%3cpath%20d='M12%2014.5411L16.0002%2012.1231L12%205.33704V10.2665V14.5411Z'%20fill='white'/%3e%3cpath%20d='M11.9973%2015.3143L8.00195%2012.9013L11.9973%2018.663V15.3143Z'%20fill='white'/%3e%3cpath%20d='M15.9977%2012.9013L11.9976%2015.3143V18.663L15.9977%2012.9013Z'%20fill='white'%20fill-opacity='0.8'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8755'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8755'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+            "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vETH",
             "underlyingToken": {
@@ -473,7 +473,93 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
         },
       ],
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
-      "eModeGroups": [],
+      "eModeGroups": [
+        {
+          "assetSettings": [
+            {
+              "collateralFactor": 0,
+              "isBorrowable": true,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 0,
+              "vToken": {
+                "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+                "asset": undefined,
+                "decimals": 8,
+                "symbol": "vETH",
+                "underlyingToken": {
+                  "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23edeff0'/%3e%3cg%20fill='%23000'%3e%3cpath%20opacity='.6'%20d='M11.997%2015.661l5.764-3.484-5.764-2.675-5.757%202.675%205.757%203.484z'/%3e%3cpath%20opacity='.45'%20d='M11.997%209.502V2.4L6.24%2012.177l5.757%203.484V9.502z'/%3e%3cpath%20opacity='.8'%20d='M11.997%2015.661l5.764-3.484L11.997%202.4v7.102%206.159z'/%3e%3cpath%20opacity='.45'%20d='M11.997%2016.775L6.24%2013.299l5.757%208.302v-4.825z'/%3e%3cpath%20opacity='.8'%20d='M17.76%2013.299l-5.764%203.477V21.6l5.764-8.301z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 18,
+                  "isNative": true,
+                  "symbol": "ETH",
+                },
+              },
+            },
+            {
+              "collateralFactor": 0.7875,
+              "isBorrowable": false,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 82.5,
+              "vToken": {
+                "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+                "asset": undefined,
+                "decimals": 8,
+                "symbol": "vBUSD",
+                "underlyingToken": {
+                  "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23f0b90b'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M11.971%202.4l2.372%202.429L8.371%2010.8%206%208.429%2011.971%202.4zm3.6%203.6l2.372%202.429L8.371%2018%206%2015.629%2015.571%206zm-10.8%203.6l2.371%202.429L4.771%2014.4%202.4%2012.029%204.771%209.6zm14.401%200l2.371%202.429-9.571%209.572L9.6%2019.229%2019.172%209.6z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 18,
+                  "symbol": "BUSD",
+                },
+              },
+            },
+          ],
+          "id": 1,
+          "name": "Stablecoins",
+        },
+        {
+          "assetSettings": [
+            {
+              "collateralFactor": 0,
+              "isBorrowable": true,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 0,
+              "vToken": {
+                "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+                "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8765)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8765'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8765)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36863L3.38965%201.88136L11.9998%2019.4206L20.61%201.88136L23.6397%203.36863L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8765)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8765'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8765'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                "decimals": 8,
+                "symbol": "vUSDT",
+                "underlyingToken": {
+                  "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cpath%20d='M24%2012c0%206.628-5.372%2012-12%2012S0%2018.628%200%2012%205.373%200%2012%200s12%205.373%2012%2012z'%20fill='%231ba27a'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M17.629%206.051H6.267v2.743h4.31v4.032h2.743V8.794h4.31V6.051z'/%3e%3cpath%20d='M11.973%2013.256c-3.565%200-6.456-.564-6.456-1.26s2.89-1.26%206.456-1.26%206.455.564%206.455%201.26-2.89%201.26-6.455%201.26zm7.249-1.05c0-.898-3.245-1.625-7.249-1.625s-7.249.727-7.249%201.625c0%20.79%202.517%201.449%205.851%201.595v5.788h2.743v-5.786c3.36-.141%205.903-.803%205.903-1.597z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 6,
+                  "symbol": "USDT",
+                },
+              },
+            },
+            {
+              "collateralFactor": 0,
+              "isBorrowable": true,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 0,
+              "vToken": {
+                "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+                "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8764)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8764'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8764)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36863L3.38965%201.88136L11.9998%2019.4206L20.61%201.88136L23.6397%203.36863L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8764)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M14.057%2013.1689C14.057%2012.0781%2013.4025%2011.7041%2012.0936%2011.5483C11.1586%2011.4237%2010.9716%2011.1744%2010.9716%2010.738C10.9716%2010.3016%2011.2833%2010.0212%2011.9066%2010.0212C12.4676%2010.0212%2012.7792%2010.2082%2012.935%2010.6757C12.9662%2010.7692%2013.0597%2010.8315%2013.1532%2010.8315H13.6518C13.7765%2010.8315%2013.87%2010.738%2013.87%2010.6134V10.5822C13.7453%209.89654%2013.1843%209.36675%2012.4676%209.30445V8.55648C12.4676%208.43179%2012.3741%208.3383%2012.2183%208.30711H11.7508C11.6261%208.30711%2011.5326%208.4006%2011.5014%208.55648V9.27326C10.5664%209.39794%209.97436%2010.0212%209.97436%2010.8004C9.97436%2011.8288%2010.5976%2012.2339%2011.9066%2012.3898C12.7792%2012.5456%2013.0597%2012.7326%2013.0597%2013.2313C13.0597%2013.7299%2012.6234%2014.0727%2012.0313%2014.0727C11.2209%2014.0727%2010.9404%2013.7299%2010.8469%2013.2624C10.8158%2013.1378%2010.7223%2013.0754%2010.6288%2013.0754H10.099C9.97436%2013.0754%209.88086%2013.1689%209.88086%2013.2936V13.3248C10.0055%2014.1039%2010.5041%2014.6648%2011.5326%2014.8207V15.5687C11.5326%2015.6933%2011.6261%2015.7868%2011.7819%2015.818H12.2494C12.3741%2015.818%2012.4676%2015.7245%2012.4987%2015.5687V14.8207C13.4337%2014.6648%2014.057%2014.0104%2014.057%2013.1689Z'%20fill='white'/%3e%3cpath%20d='M10.4105%2016.4412C7.97965%2015.5686%206.73301%2012.8573%207.63685%2010.4575C8.10433%209.14855%209.13279%208.15128%2010.4105%207.6838C10.5352%207.6215%2010.5975%207.528%2010.5975%207.37213V6.93584C10.5975%206.81115%2010.5352%206.71765%2010.4105%206.68654C10.3794%206.68654%2010.317%206.68654%2010.2859%206.71765C7.32518%207.65261%205.70455%2010.8004%206.63951%2013.761C7.20049%2015.5063%208.54062%2016.8464%2010.2859%2017.4074C10.4105%2017.4697%2010.5352%2017.4074%2010.5663%2017.2827C10.5975%2017.2516%2010.5975%2017.2204%2010.5975%2017.1581V16.7217C10.5975%2016.6282%2010.504%2016.5036%2010.4105%2016.4412ZM13.7141%206.71765C13.5894%206.65535%2013.4647%206.71765%2013.4336%206.84234C13.4024%206.87353%2013.4024%206.90465%2013.4024%206.96703V7.40332C13.4024%207.528%2013.4959%207.65261%2013.5894%207.71499C16.0203%208.58757%2017.2669%2011.299%2016.3631%2013.6987C15.8956%2015.0077%2014.8672%2016.0049%2013.5894%2016.4724C13.4647%2016.5347%2013.4024%2016.6282%2013.4024%2016.7841V17.2204C13.4024%2017.3451%2013.4647%2017.4386%2013.5894%2017.4697C13.6206%2017.4697%2013.6829%2017.4697%2013.7141%2017.4386C16.6748%2016.5036%2018.2954%2013.3559%2017.3604%2010.3952C16.7995%208.61876%2015.4281%207.27863%2013.7141%206.71765Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8764'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8764'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                "decimals": 8,
+                "symbol": "vUSDC",
+                "underlyingToken": {
+                  "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cpath%20d='M12%2024a11.97%2011.97%200%200%200%2012-12A11.97%2011.97%200%200%200%2012%200%2011.97%2011.97%200%200%200%200%2012a11.97%2011.97%200%200%200%2012%2012z'%20fill='%232775ca'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M15.3%2013.9c0-1.75-1.05-2.35-3.15-2.6-1.5-.2-1.8-.6-1.8-1.3s.5-1.15%201.5-1.15c.9%200%201.4.3%201.65%201.05.05.15.2.25.35.25h.8A.34.34%200%200%200%2015%209.8v-.05c-.2-1.1-1.1-1.95-2.25-2.05V6.5c0-.2-.15-.35-.4-.4h-.75c-.2%200-.35.15-.4.4v1.15c-1.5.2-2.45%201.2-2.45%202.45%200%201.65%201%202.3%203.1%202.55%201.4.25%201.85.55%201.85%201.35s-.7%201.35-1.65%201.35c-1.3%200-1.75-.55-1.9-1.3-.05-.2-.2-.3-.35-.3h-.85a.34.34%200%200%200-.35.35v.05c.2%201.25%201%202.15%202.65%202.4v1.2c0%20.2.15.35.4.4h.75c.2%200%20.35-.15.4-.4v-1.2c1.5-.25%202.5-1.3%202.5-2.65zm-5.85%205.25A7.45%207.45%200%200%201%205%209.55c.75-2.1%202.4-3.7%204.45-4.45a.5.5%200%200%200%20.3-.5v-.7c0-.2-.1-.35-.3-.4-.05%200-.15%200-.2.05C4.5%205.05%201.9%2010.1%203.4%2014.85c.9%202.8%203.05%204.95%205.85%205.85.2.1.4%200%20.45-.2.05-.05.05-.1.05-.2v-.7c0-.15-.15-.35-.3-.45zm5.3-15.6c-.2-.1-.4%200-.45.2-.05.05-.05.1-.05.2v.7c0%20.2.15.4.3.5a7.45%207.45%200%200%201%204.45%209.6c-.75%202.1-2.4%203.7-4.45%204.45a.5.5%200%200%200-.3.5v.7c0%20.2.1.35.3.4.05%200%20.15%200%20.2-.05%204.75-1.5%207.35-6.55%205.85-11.3-.9-2.85-3.1-5-5.85-5.9z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 6,
+                  "symbol": "USDC",
+                },
+              },
+            },
+          ],
+          "id": 2,
+          "name": "Spark",
+        },
+      ],
       "isIsolated": false,
       "name": "Core Pool",
       "userBorrowBalanceCents": "0",
@@ -1092,7 +1178,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceCents": "0",
           "userWalletBalanceTokens": "0",
           "vToken": {
-            "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
+            "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
             "asset": undefined,
             "decimals": 8,
             "symbol": "vBUSD",
@@ -1178,7 +1264,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
           "userWalletBalanceCents": "0",
           "userWalletBalanceTokens": "0",
           "vToken": {
-            "address": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
+            "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
             "asset": undefined,
             "decimals": 8,
             "symbol": "vETH",
@@ -1510,7 +1596,93 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
         },
       ],
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
-      "eModeGroups": [],
+      "eModeGroups": [
+        {
+          "assetSettings": [
+            {
+              "collateralFactor": 0,
+              "isBorrowable": true,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 0,
+              "vToken": {
+                "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+                "asset": undefined,
+                "decimals": 8,
+                "symbol": "vETH",
+                "underlyingToken": {
+                  "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23edeff0'/%3e%3cg%20fill='%23000'%3e%3cpath%20opacity='.6'%20d='M11.997%2015.661l5.764-3.484-5.764-2.675-5.757%202.675%205.757%203.484z'/%3e%3cpath%20opacity='.45'%20d='M11.997%209.502V2.4L6.24%2012.177l5.757%203.484V9.502z'/%3e%3cpath%20opacity='.8'%20d='M11.997%2015.661l5.764-3.484L11.997%202.4v7.102%206.159z'/%3e%3cpath%20opacity='.45'%20d='M11.997%2016.775L6.24%2013.299l5.757%208.302v-4.825z'/%3e%3cpath%20opacity='.8'%20d='M17.76%2013.299l-5.764%203.477V21.6l5.764-8.301z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 18,
+                  "isNative": true,
+                  "symbol": "ETH",
+                },
+              },
+            },
+            {
+              "collateralFactor": 0.7875,
+              "isBorrowable": false,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 82.5,
+              "vToken": {
+                "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+                "asset": undefined,
+                "decimals": 8,
+                "symbol": "vBUSD",
+                "underlyingToken": {
+                  "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23f0b90b'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M11.971%202.4l2.372%202.429L8.371%2010.8%206%208.429%2011.971%202.4zm3.6%203.6l2.372%202.429L8.371%2018%206%2015.629%2015.571%206zm-10.8%203.6l2.371%202.429L4.771%2014.4%202.4%2012.029%204.771%209.6zm14.401%200l2.371%202.429-9.571%209.572L9.6%2019.229%2019.172%209.6z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 18,
+                  "symbol": "BUSD",
+                },
+              },
+            },
+          ],
+          "id": 1,
+          "name": "Stablecoins",
+        },
+        {
+          "assetSettings": [
+            {
+              "collateralFactor": 0,
+              "isBorrowable": true,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 0,
+              "vToken": {
+                "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+                "asset": undefined,
+                "decimals": 8,
+                "symbol": "vUSDT",
+                "underlyingToken": {
+                  "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cpath%20d='M24%2012c0%206.628-5.372%2012-12%2012S0%2018.628%200%2012%205.373%200%2012%200s12%205.373%2012%2012z'%20fill='%231ba27a'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M17.629%206.051H6.267v2.743h4.31v4.032h2.743V8.794h4.31V6.051z'/%3e%3cpath%20d='M11.973%2013.256c-3.565%200-6.456-.564-6.456-1.26s2.89-1.26%206.456-1.26%206.455.564%206.455%201.26-2.89%201.26-6.455%201.26zm7.249-1.05c0-.898-3.245-1.625-7.249-1.625s-7.249.727-7.249%201.625c0%20.79%202.517%201.449%205.851%201.595v5.788h2.743v-5.786c3.36-.141%205.903-.803%205.903-1.597z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 6,
+                  "symbol": "USDT",
+                },
+              },
+            },
+            {
+              "collateralFactor": 0,
+              "isBorrowable": true,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 0,
+              "vToken": {
+                "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+                "asset": undefined,
+                "decimals": 8,
+                "symbol": "vUSDC",
+                "underlyingToken": {
+                  "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cpath%20d='M12%2024a11.97%2011.97%200%200%200%2012-12A11.97%2011.97%200%200%200%2012%200%2011.97%2011.97%200%200%200%200%2012a11.97%2011.97%200%200%200%2012%2012z'%20fill='%232775ca'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M15.3%2013.9c0-1.75-1.05-2.35-3.15-2.6-1.5-.2-1.8-.6-1.8-1.3s.5-1.15%201.5-1.15c.9%200%201.4.3%201.65%201.05.05.15.2.25.35.25h.8A.34.34%200%200%200%2015%209.8v-.05c-.2-1.1-1.1-1.95-2.25-2.05V6.5c0-.2-.15-.35-.4-.4h-.75c-.2%200-.35.15-.4.4v1.15c-1.5.2-2.45%201.2-2.45%202.45%200%201.65%201%202.3%203.1%202.55%201.4.25%201.85.55%201.85%201.35s-.7%201.35-1.65%201.35c-1.3%200-1.75-.55-1.9-1.3-.05-.2-.2-.3-.35-.3h-.85a.34.34%200%200%200-.35.35v.05c.2%201.25%201%202.15%202.65%202.4v1.2c0%20.2.15.35.4.4h.75c.2%200%20.35-.15.4-.4v-1.2c1.5-.25%202.5-1.3%202.5-2.65zm-5.85%205.25A7.45%207.45%200%200%201%205%209.55c.75-2.1%202.4-3.7%204.45-4.45a.5.5%200%200%200%20.3-.5v-.7c0-.2-.1-.35-.3-.4-.05%200-.15%200-.2.05C4.5%205.05%201.9%2010.1%203.4%2014.85c.9%202.8%203.05%204.95%205.85%205.85.2.1.4%200%20.45-.2.05-.05.05-.1.05-.2v-.7c0-.15-.15-.35-.3-.45zm5.3-15.6c-.2-.1-.4%200-.45.2-.05.05-.05.1-.05.2v.7c0%20.2.15.4.3.5a7.45%207.45%200%200%201%204.45%209.6c-.75%202.1-2.4%203.7-4.45%204.45a.5.5%200%200%200-.3.5v.7c0%20.2.1.35.3.4.05%200%20.15%200%20.2-.05%204.75-1.5%207.35-6.55%205.85-11.3-.9-2.85-3.1-5-5.85-5.9z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 6,
+                  "symbol": "USDC",
+                },
+              },
+            },
+          ],
+          "id": 2,
+          "name": "Spark",
+        },
+      ],
       "isIsolated": true,
       "name": "Core Pool",
       "userBorrowBalanceCents": "0",
@@ -2129,8 +2301,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceCents": "999.83588",
           "userWalletBalanceTokens": "10",
           "vToken": {
-            "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
-            "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8740)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8740'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8740)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8740)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M11.9833%206.375L13.3728%207.79799L9.87388%2011.2969L8.48438%209.90737L11.9833%206.375Z'%20fill='white'/%3e%3cpath%20d='M14.0926%208.48436L15.4821%209.90735L9.87388%2015.5156L8.48438%2014.1261L14.0926%208.48436Z'%20fill='white'/%3e%3cpath%20d='M7.76451%2010.5938L9.15402%2012.0167L7.76451%2013.4063L6.375%2012.0167L7.76451%2010.5938Z'%20fill='white'/%3e%3cpath%20d='M16.202%2010.5938L17.5915%2012.0167L11.9833%2017.625L10.5938%2016.2355L16.202%2010.5938Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8740'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8740'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+            "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vBUSD",
             "underlyingToken": {
@@ -2215,8 +2387,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
           "userWalletBalanceCents": "2597971.132",
           "userWalletBalanceTokens": "10",
           "vToken": {
-            "address": "0x162D005F0Fff510E54958Cfc5CF32A3180A84aab",
-            "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8755)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8755'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8755)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36864L3.38965%201.88136L11.9998%2019.4206L20.61%201.88137L23.6397%203.36864L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8755)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M11.9973%2010.2665V5.33704L8.00195%2012.1231L11.9973%2014.5411V10.2665Z'%20fill='white'%20fill-opacity='0.8'/%3e%3cpath%20d='M12%2014.5411L16.0002%2012.1231L12%205.33704V10.2665V14.5411Z'%20fill='white'/%3e%3cpath%20d='M11.9973%2015.3143L8.00195%2012.9013L11.9973%2018.663V15.3143Z'%20fill='white'/%3e%3cpath%20d='M15.9977%2012.9013L11.9976%2015.3143V18.663L15.9977%2012.9013Z'%20fill='white'%20fill-opacity='0.8'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8755'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8755'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+            "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+            "asset": undefined,
             "decimals": 8,
             "symbol": "vETH",
             "underlyingToken": {
@@ -2547,7 +2719,93 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
         },
       ],
       "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
-      "eModeGroups": [],
+      "eModeGroups": [
+        {
+          "assetSettings": [
+            {
+              "collateralFactor": 0,
+              "isBorrowable": true,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 0,
+              "vToken": {
+                "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
+                "asset": undefined,
+                "decimals": 8,
+                "symbol": "vETH",
+                "underlyingToken": {
+                  "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23edeff0'/%3e%3cg%20fill='%23000'%3e%3cpath%20opacity='.6'%20d='M11.997%2015.661l5.764-3.484-5.764-2.675-5.757%202.675%205.757%203.484z'/%3e%3cpath%20opacity='.45'%20d='M11.997%209.502V2.4L6.24%2012.177l5.757%203.484V9.502z'/%3e%3cpath%20opacity='.8'%20d='M11.997%2015.661l5.764-3.484L11.997%202.4v7.102%206.159z'/%3e%3cpath%20opacity='.45'%20d='M11.997%2016.775L6.24%2013.299l5.757%208.302v-4.825z'/%3e%3cpath%20opacity='.8'%20d='M17.76%2013.299l-5.764%203.477V21.6l5.764-8.301z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 18,
+                  "isNative": true,
+                  "symbol": "ETH",
+                },
+              },
+            },
+            {
+              "collateralFactor": 0.7875,
+              "isBorrowable": false,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 82.5,
+              "vToken": {
+                "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
+                "asset": undefined,
+                "decimals": 8,
+                "symbol": "vBUSD",
+                "underlyingToken": {
+                  "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23f0b90b'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M11.971%202.4l2.372%202.429L8.371%2010.8%206%208.429%2011.971%202.4zm3.6%203.6l2.372%202.429L8.371%2018%206%2015.629%2015.571%206zm-10.8%203.6l2.371%202.429L4.771%2014.4%202.4%2012.029%204.771%209.6zm14.401%200l2.371%202.429-9.571%209.572L9.6%2019.229%2019.172%209.6z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 18,
+                  "symbol": "BUSD",
+                },
+              },
+            },
+          ],
+          "id": 1,
+          "name": "Stablecoins",
+        },
+        {
+          "assetSettings": [
+            {
+              "collateralFactor": 0,
+              "isBorrowable": true,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 0,
+              "vToken": {
+                "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+                "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8765)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8765'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8765)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36863L3.38965%201.88136L11.9998%2019.4206L20.61%201.88136L23.6397%203.36863L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8765)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M15.807%207.875H8.18896V9.71415H11.0784V12.4174H12.9176V9.71415H15.807V7.875Z'%20fill='white'/%3e%3cpath%20d='M12.0151%2012.7053C9.62485%2012.7053%207.68699%2012.327%207.68699%2011.8603C7.68699%2011.3937%209.62477%2011.0153%2012.0151%2011.0153C14.4054%2011.0153%2016.3431%2011.3937%2016.3431%2011.8603C16.3431%2012.327%2014.4054%2012.7053%2012.0151%2012.7053ZM16.8749%2012.0012C16.8749%2011.3994%2014.6991%2010.9116%2012.0151%2010.9116C9.3312%2010.9116%207.15527%2011.3994%207.15527%2012.0012C7.15527%2012.5311%208.84245%2012.9727%2011.0782%2013.0705V16.9511H12.9171V13.072C15.1701%2012.9772%2016.8749%2012.5339%2016.8749%2012.0012Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8765'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8765'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                "decimals": 8,
+                "symbol": "vUSDT",
+                "underlyingToken": {
+                  "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cpath%20d='M24%2012c0%206.628-5.372%2012-12%2012S0%2018.628%200%2012%205.373%200%2012%200s12%205.373%2012%2012z'%20fill='%231ba27a'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M17.629%206.051H6.267v2.743h4.31v4.032h2.743V8.794h4.31V6.051z'/%3e%3cpath%20d='M11.973%2013.256c-3.565%200-6.456-.564-6.456-1.26s2.89-1.26%206.456-1.26%206.455.564%206.455%201.26-2.89%201.26-6.455%201.26zm7.249-1.05c0-.898-3.245-1.625-7.249-1.625s-7.249.727-7.249%201.625c0%20.79%202.517%201.449%205.851%201.595v5.788h2.743v-5.786c3.36-.141%205.903-.803%205.903-1.597z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 6,
+                  "symbol": "USDT",
+                },
+              },
+            },
+            {
+              "collateralFactor": 0,
+              "isBorrowable": true,
+              "liquidationPenaltyPercentage": 104,
+              "liquidationThresholdPercentage": 0,
+              "vToken": {
+                "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+                "asset": "data:image/svg+xml,%3csvg%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_10784_8764)'%3e%3ccircle%20cx='12'%20cy='12'%20r='12'%20fill='%23181D27'/%3e%3cmask%20id='mask0_10784_8764'%20style='mask-type:alpha'%20maskUnits='userSpaceOnUse'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23181D27'%20stroke='white'/%3e%3c/mask%3e%3cg%20mask='url(%23mask0_10784_8764)'%3e%3cpath%20opacity='0.8'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M11.9998%2027.0794L0.36002%203.36863L3.38965%201.88136L11.9998%2019.4206L20.61%201.88136L23.6397%203.36863L11.9998%2027.0794Z'%20fill='white'/%3e%3c/g%3e%3ccircle%20opacity='0.8'%20cx='12'%20cy='12'%20r='10.5'%20fill='url(%23paint0_linear_10784_8764)'/%3e%3ccircle%20cx='12'%20cy='12'%20r='9'%20fill='%23181D27'/%3e%3cpath%20d='M14.057%2013.1689C14.057%2012.0781%2013.4025%2011.7041%2012.0936%2011.5483C11.1586%2011.4237%2010.9716%2011.1744%2010.9716%2010.738C10.9716%2010.3016%2011.2833%2010.0212%2011.9066%2010.0212C12.4676%2010.0212%2012.7792%2010.2082%2012.935%2010.6757C12.9662%2010.7692%2013.0597%2010.8315%2013.1532%2010.8315H13.6518C13.7765%2010.8315%2013.87%2010.738%2013.87%2010.6134V10.5822C13.7453%209.89654%2013.1843%209.36675%2012.4676%209.30445V8.55648C12.4676%208.43179%2012.3741%208.3383%2012.2183%208.30711H11.7508C11.6261%208.30711%2011.5326%208.4006%2011.5014%208.55648V9.27326C10.5664%209.39794%209.97436%2010.0212%209.97436%2010.8004C9.97436%2011.8288%2010.5976%2012.2339%2011.9066%2012.3898C12.7792%2012.5456%2013.0597%2012.7326%2013.0597%2013.2313C13.0597%2013.7299%2012.6234%2014.0727%2012.0313%2014.0727C11.2209%2014.0727%2010.9404%2013.7299%2010.8469%2013.2624C10.8158%2013.1378%2010.7223%2013.0754%2010.6288%2013.0754H10.099C9.97436%2013.0754%209.88086%2013.1689%209.88086%2013.2936V13.3248C10.0055%2014.1039%2010.5041%2014.6648%2011.5326%2014.8207V15.5687C11.5326%2015.6933%2011.6261%2015.7868%2011.7819%2015.818H12.2494C12.3741%2015.818%2012.4676%2015.7245%2012.4987%2015.5687V14.8207C13.4337%2014.6648%2014.057%2014.0104%2014.057%2013.1689Z'%20fill='white'/%3e%3cpath%20d='M10.4105%2016.4412C7.97965%2015.5686%206.73301%2012.8573%207.63685%2010.4575C8.10433%209.14855%209.13279%208.15128%2010.4105%207.6838C10.5352%207.6215%2010.5975%207.528%2010.5975%207.37213V6.93584C10.5975%206.81115%2010.5352%206.71765%2010.4105%206.68654C10.3794%206.68654%2010.317%206.68654%2010.2859%206.71765C7.32518%207.65261%205.70455%2010.8004%206.63951%2013.761C7.20049%2015.5063%208.54062%2016.8464%2010.2859%2017.4074C10.4105%2017.4697%2010.5352%2017.4074%2010.5663%2017.2827C10.5975%2017.2516%2010.5975%2017.2204%2010.5975%2017.1581V16.7217C10.5975%2016.6282%2010.504%2016.5036%2010.4105%2016.4412ZM13.7141%206.71765C13.5894%206.65535%2013.4647%206.71765%2013.4336%206.84234C13.4024%206.87353%2013.4024%206.90465%2013.4024%206.96703V7.40332C13.4024%207.528%2013.4959%207.65261%2013.5894%207.71499C16.0203%208.58757%2017.2669%2011.299%2016.3631%2013.6987C15.8956%2015.0077%2014.8672%2016.0049%2013.5894%2016.4724C13.4647%2016.5347%2013.4024%2016.6282%2013.4024%2016.7841V17.2204C13.4024%2017.3451%2013.4647%2017.4386%2013.5894%2017.4697C13.6206%2017.4697%2013.6829%2017.4697%2013.7141%2017.4386C16.6748%2016.5036%2018.2954%2013.3559%2017.3604%2010.3952C16.7995%208.61876%2015.4281%207.27863%2013.7141%206.71765Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3clinearGradient%20id='paint0_linear_10784_8764'%20x1='22.2313'%20y1='18.1183'%20x2='-3.53296'%20y2='2.62136'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20stop-color='%235433FF'/%3e%3cstop%20offset='0.5'%20stop-color='%2320BDFF'/%3e%3cstop%20offset='1'%20stop-color='%235CFFA2'/%3e%3c/linearGradient%3e%3cclipPath%20id='clip0_10784_8764'%3e%3crect%20width='24'%20height='24'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                "decimals": 8,
+                "symbol": "vUSDC",
+                "underlyingToken": {
+                  "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+                  "asset": "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20fill='none'%20xmlns:v='https://vecta.io/nano'%3e%3cg%20clip-path='url(%23A)'%3e%3cpath%20d='M12%2024a11.97%2011.97%200%200%200%2012-12A11.97%2011.97%200%200%200%2012%200%2011.97%2011.97%200%200%200%200%2012a11.97%2011.97%200%200%200%2012%2012z'%20fill='%232775ca'/%3e%3cg%20fill='%23fff'%3e%3cpath%20d='M15.3%2013.9c0-1.75-1.05-2.35-3.15-2.6-1.5-.2-1.8-.6-1.8-1.3s.5-1.15%201.5-1.15c.9%200%201.4.3%201.65%201.05.05.15.2.25.35.25h.8A.34.34%200%200%200%2015%209.8v-.05c-.2-1.1-1.1-1.95-2.25-2.05V6.5c0-.2-.15-.35-.4-.4h-.75c-.2%200-.35.15-.4.4v1.15c-1.5.2-2.45%201.2-2.45%202.45%200%201.65%201%202.3%203.1%202.55%201.4.25%201.85.55%201.85%201.35s-.7%201.35-1.65%201.35c-1.3%200-1.75-.55-1.9-1.3-.05-.2-.2-.3-.35-.3h-.85a.34.34%200%200%200-.35.35v.05c.2%201.25%201%202.15%202.65%202.4v1.2c0%20.2.15.35.4.4h.75c.2%200%20.35-.15.4-.4v-1.2c1.5-.25%202.5-1.3%202.5-2.65zm-5.85%205.25A7.45%207.45%200%200%201%205%209.55c.75-2.1%202.4-3.7%204.45-4.45a.5.5%200%200%200%20.3-.5v-.7c0-.2-.1-.35-.3-.4-.05%200-.15%200-.2.05C4.5%205.05%201.9%2010.1%203.4%2014.85c.9%202.8%203.05%204.95%205.85%205.85.2.1.4%200%20.45-.2.05-.05.05-.1.05-.2v-.7c0-.15-.15-.35-.3-.45zm5.3-15.6c-.2-.1-.4%200-.45.2-.05.05-.05.1-.05.2v.7c0%20.2.15.4.3.5a7.45%207.45%200%200%201%204.45%209.6c-.75%202.1-2.4%203.7-4.45%204.45a.5.5%200%200%200-.3.5v.7c0%20.2.1.35.3.4.05%200%20.15%200%20.2-.05%204.75-1.5%207.35-6.55%205.85-11.3-.9-2.85-3.1-5-5.85-5.9z'/%3e%3c/g%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='A'%3e%3cpath%20fill='%23fff'%20d='M0%200h24v24H0z'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e",
+                  "decimals": 6,
+                  "symbol": "USDC",
+                },
+              },
+            },
+          ],
+          "id": 2,
+          "name": "Spark",
+        },
+      ],
       "isIsolated": false,
       "name": "Core Pool",
       "userBorrowBalanceCents": "19999299932759.6580216",

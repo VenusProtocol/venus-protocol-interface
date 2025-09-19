@@ -28,6 +28,8 @@ const userLegacyCollateralizedVTokenAddresses = [
   '0xe507B30C41E9e375BCe05197c1e09fc9ee40c0f6',
   '0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634',
   '0x1958035231E125830bA5d17D168cEa07Bb42184a',
+  '0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD',
+  '0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0',
 ];
 
 const userIsolatedCollateralizedVTokenAddresses = [
@@ -64,7 +66,8 @@ export const fakeIsolatedPoolComptrollerContractAddress =
 export const fakeVenusLensContractAddress = '0xfakeVenusLensContract';
 export const fakePoolLensContractAddress = '0xfakePoolLensContract';
 export const fakeVaiControllerContractAddress = '0xfakeVaiControllerContract';
-export const fakeLegacyPoolComptrollerContractAddress = '0xfakeLegacyPoolComptrollerContract';
+export const fakeLegacyPoolComptrollerContractAddress =
+  '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D';
 export const fakePrimeContractAddress = '0xfakePrimeContractAddress';
 
 export const fakePublicClient = {
@@ -74,7 +77,7 @@ export const fakePublicClient = {
       return [
         '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
         '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
-        '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
+        '0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0',
         '0x74469281310195A04840Daf6EdF576F559a3dE80',
         '0x3338988d0beb4419Acb8fE624218754053362D06',
         '0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c',
@@ -117,6 +120,13 @@ export const fakePublicClient = {
       input.address !== fakeLegacyPoolComptrollerContractAddress
     ) {
       return userIsolatedCollateralizedVTokenAddresses;
+    }
+
+    if (
+      input.functionName === 'userPoolId' &&
+      input.address === fakeLegacyPoolComptrollerContractAddress
+    ) {
+      return 1;
     }
 
     throw new Error(

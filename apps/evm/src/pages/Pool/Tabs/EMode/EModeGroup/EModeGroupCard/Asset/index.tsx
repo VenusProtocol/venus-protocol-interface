@@ -1,4 +1,5 @@
 import { cn } from '@venusprotocol/ui';
+import type BigNumber from 'bignumber.js';
 
 import { Icon, LabeledInlineContent, LayeredValues, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
@@ -10,11 +11,18 @@ import {
 } from 'utilities';
 
 export interface AssetProps {
+  liquidityTokens: BigNumber;
+  liquidityCents: number;
   eModeAssetSettings: EModeAssetSettings;
   className?: string;
 }
 
-export const Asset: React.FC<AssetProps> = ({ eModeAssetSettings, className }) => {
+export const Asset: React.FC<AssetProps> = ({
+  liquidityCents,
+  liquidityTokens,
+  eModeAssetSettings,
+  className,
+}) => {
   const { t } = useTranslation();
 
   const dataListItems = [
@@ -24,11 +32,11 @@ export const Asset: React.FC<AssetProps> = ({ eModeAssetSettings, className }) =
         <LayeredValues
           className="text-right"
           topValue={formatTokensToReadableValue({
-            value: eModeAssetSettings.liquidityTokens,
+            value: liquidityTokens,
             token: eModeAssetSettings.vToken.underlyingToken,
           })}
           bottomValue={formatCentsToReadableValue({
-            value: eModeAssetSettings.liquidityCents,
+            value: liquidityCents,
           })}
         />
       ),

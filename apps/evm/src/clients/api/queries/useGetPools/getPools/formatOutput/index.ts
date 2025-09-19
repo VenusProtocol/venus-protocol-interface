@@ -1,10 +1,9 @@
 import { chainMetadata } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
+import type { Address } from 'viem';
 
-import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
-import { getVTokenAsset } from 'libs/tokens';
-import type { Asset, ChainId, EModeGroup, Pool, Token, TokenBalance, VToken } from 'types';
+import type { Asset, ChainId, EModeGroup, Pool, Token, TokenBalance } from 'types';
 import {
   areAddressesEqual,
   areTokensEqual,
@@ -13,14 +12,14 @@ import {
   convertMantissaToTokens,
   convertPercentageFromSmartContract,
   convertPriceMantissaToDollars,
-  findTokenByAddress,
   getDisabledTokenActions,
   isPoolIsolated,
 } from 'utilities';
 import type { PrimeApy, VTokenBalance } from '../../types';
 import type { ApiPool, ApiTokenPrice } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
-import { generateFakeEModeGroup } from './generateFakeEModeGroup';
+import { formatEModeGroups } from './formatEModeGroups';
+import { formatVToken } from './formatVToken';
 
 export const formatOutput = ({
   apiPools,
@@ -33,19 +32,20 @@ export const formatOutput = ({
   userTokenBalances = [],
   userCollateralVTokenAddresses = [],
   userVaiBorrowBalanceMantissa,
-  isEModeEnabledFeature,
+  userPoolEModeGroupIdMapping,
 }: {
   chainId: ChainId;
   tokens: Token[];
+  tokenPricesMapping: Record<string, ApiTokenPrice[]>;
   currentBlockNumber: bigint;
   apiPools: ApiPool[];
-  tokenPricesMapping: Record<string, ApiTokenPrice[]>;
+  isEModeFeatureEnabled: boolean;
+  userPoolEModeGroupIdMapping: Record<Address, number>;
   userPrimeApyMap?: Map<string, PrimeApy>;
   userCollateralVTokenAddresses?: string[];
   userVTokenBalances?: VTokenBalance[];
   userTokenBalances?: TokenBalance[];
   userVaiBorrowBalanceMantissa?: BigNumber;
-  isEModeEnabledFeature: boolean;
 }) => {
   const pools: Pool[] = apiPools.map(apiPool => {
     const { blocksPerDay } = chainMetadata[chainId];
@@ -60,36 +60,19 @@ export const formatOutput = ({
     let poolUserBorrowLimitCents = new BigNumber(0);
     let poolUserLiquidationThresholdCents = new BigNumber(0);
 
-    // TODO: fetch actual E-mode groups from API
-    let eModeGroups: EModeGroup[] = [];
+    const eModeGroups = formatEModeGroups({
+      apiPool,
+      chainId,
+      tokens,
+    });
     let userEModeGroup: EModeGroup | undefined;
 
-    if (isEModeEnabledFeature) {
-      userEModeGroup = generateFakeEModeGroup({
-        id: 0,
-        name: 'Stablecoins',
-        tokens,
-        chainId,
-        apiMarkets: apiPool.markets.slice(0, 6),
-      });
+    const userEModeGroupId = userPoolEModeGroupIdMapping[apiPool.address.toLowerCase() as Address];
 
-      eModeGroups = [
-        userEModeGroup,
-        generateFakeEModeGroup({
-          id: 1,
-          name: 'DeFi',
-          tokens,
-          chainId,
-          apiMarkets: apiPool.markets.slice(5, 12),
-        }),
-        generateFakeEModeGroup({
-          id: 2,
-          name: '#ToTheMoon',
-          tokens,
-          chainId,
-          apiMarkets: apiPool.markets.slice(5, 8),
-        }),
-      ];
+    if (userEModeGroupId > 0) {
+      // The pool at index 0 represents the pool itself without any E-mode group enabled, hence why
+      // the index of the pool enabled by the user is the one returned by the contract minus 1
+      userEModeGroup = eModeGroups[userEModeGroupId - 1];
     }
 
     const assets = apiPool.markets.reduce<Asset[]>((acc, market) => {
@@ -111,29 +94,17 @@ export const formatOutput = ({
         return acc;
       }
 
-      // Retrieve underlying token record
-      const underlyingToken = findTokenByAddress({
-        tokens,
-        address: market.underlyingAddress || NATIVE_TOKEN_ADDRESS,
-      });
+      // Shape vToken
+      const vToken = formatVToken({ apiMarket: market, chainId, tokens });
 
-      if (!underlyingToken) {
+      if (!vToken) {
         return acc;
       }
 
       const tokenPriceDollars = convertPriceMantissaToDollars({
         priceMantissa: correspondingOraclePrice.priceMantissa,
-        decimals: underlyingToken.decimals,
+        decimals: vToken.underlyingToken.decimals,
       });
-
-      // Shape vToken
-      const vToken: VToken = {
-        address: market.address,
-        asset: getVTokenAsset({ vTokenAddress: market.address, chainId }),
-        decimals: 8,
-        symbol: `v${underlyingToken.symbol}`,
-        underlyingToken,
-      };
 
       const borrowCapTokens = convertMantissaToTokens({
         value: new BigNumber(market.borrowCapsMantissa),
@@ -153,8 +124,6 @@ export const formatOutput = ({
         factor: new BigNumber(market.collateralFactorMantissa),
       });
 
-      const isBorrowable = true; // TODO: fetch from API
-
       let userCollateralFactor = collateralFactor;
       let isCollateralOfUser = !!userCollateralVTokenAddresses.some(address =>
         areAddressesEqual(address, vToken.address),
@@ -165,12 +134,15 @@ export const formatOutput = ({
       );
 
       let userLiquidationThresholdPercentage = liquidationThresholdPercentage;
+
+      const isBorrowable = market.isBorrowable;
       let isBorrowableByUser = isBorrowable;
 
       if (userEModeGroup) {
         const eModeAssetSettings = userEModeGroup.assetSettings.find(settings =>
           areTokensEqual(settings.vToken, vToken),
         );
+
         const userEModeGroupCollateralFactor = eModeAssetSettings?.collateralFactor;
 
         userCollateralFactor =
@@ -329,7 +301,7 @@ export const formatOutput = ({
         userWalletBalanceCents,
         userCollateralFactor,
         userLiquidationThresholdPercentage,
-        isBorrowable, // TODO: get from API
+        isBorrowable,
         isBorrowableByUser,
         // This will be calculated after all assets have been formatted
         userPercentOfLimit: 0,
