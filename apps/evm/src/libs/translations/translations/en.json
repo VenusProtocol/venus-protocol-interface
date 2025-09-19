@@ -615,7 +615,9 @@
       "description": "Please enable the \"Paused Assets\" toggle to view them.",
       "imgAlt": "Pause icon",
       "title": "All assets in this pool have been paused"
-    },
+    }
+  },
+  "marketTableControls": {
     "pausedAssetsToggle": {
       "label": "Paused assets"
     },
@@ -744,7 +746,6 @@
           "rows": {
             "liquidationPenalty": "Liquidation penalty",
             "liquidationThreshold": "Liquidation threshold",
-            "liquidity": "Liquidity",
             "maxLtv": "Max LTV"
           }
         },

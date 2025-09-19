@@ -1,19 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { cn } from '@venusprotocol/ui';
-import { type InputHTMLAttributes, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import type { Address } from 'viem';
 
-import { Card, Delimiter, Table, type TableProps, TextField, Toggle } from 'components';
+import { Card, Delimiter, Table, type TableProps } from 'components';
+import { MarketTableControls } from 'components/MarketTableControls';
 import { routes } from 'constants/routing';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useCollateral } from 'hooks/useCollateral';
-import { useUserChainSettings } from 'hooks/useUserChainSettings';
+import { useMarketTableControls } from 'hooks/useMarketTableControls';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
 import type { Asset, EModeGroup } from 'types';
-import { isAssetPaused } from 'utilities';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
 import type { ColumnKey, PoolAsset } from './types';
@@ -56,75 +55,27 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const { t } = useTranslation();
 
   const { toggleCollateral } = useCollateral();
-  const { accountAddress } = useAccountAddress();
-
-  const [searchValue, setSearchValue] = useState('');
 
   // The fallback breakpoint is just to satisfy TS here, it is not actually used
   const _isBreakpointUp = useBreakpointUp(breakpoint || 'xxl');
   const isBreakpointUp = !!breakpoint && _isBreakpointUp;
 
-  const [userChainSettings, setUserChainSettings] = useUserChainSettings();
-
-  const { showPausedAssets: _showPausedAssets, showUserAssetsOnly: _showUserAssetsOnly } =
-    userChainSettings;
-
-  let userHasAssets = false;
-  let pausedAssetsExist = false;
-
-  assets.forEach(asset => {
-    const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
-
-    if (isUserAsset && !userHasAssets) {
-      userHasAssets = true;
-    }
-
-    const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
-    if (isPaused && !pausedAssetsExist) {
-      pausedAssetsExist = true;
-    }
+  const {
+    assets: formattedAssets,
+    pausedAssetsExist,
+    searchValue,
+    showPausedAssets,
+    ...marketTableControlsProps
+  } = useMarketTableControls({
+    assets,
   });
 
-  const showUserAssetsOnly = _showUserAssetsOnly && userHasAssets;
-  const showPausedAssets = _showPausedAssets && pausedAssetsExist;
-
-  const poolAssets: PoolAsset[] = [];
-
-  assets.forEach(asset => {
-    const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
-
-    if (controls && !isUserAsset && showUserAssetsOnly) {
-      return;
-    }
-
-    const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
-
-    // Handle paused assets
-    if (controls && isPaused && !showPausedAssets) {
-      return;
-    }
-
-    // Handle search
-    if (
-      controls &&
-      !!searchValue &&
-      !asset.vToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase())
-    ) {
-      return;
-    }
-
-    const poolAsset: PoolAsset = {
-      ...asset,
-      poolName,
-      poolComptrollerContractAddress,
-      poolUserEModeGroup,
-    };
-
-    poolAssets.push(poolAsset);
-  });
-
-  const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
-    setSearchValue(changeEvent.currentTarget.value);
+  const poolAssets: PoolAsset[] = formattedAssets.map(asset => ({
+    ...asset,
+    poolName,
+    poolComptrollerContractAddress,
+    poolUserEModeGroup,
+  }));
 
   const handleCollateralChange = async (poolAssetToUpdate: PoolAsset) => {
     try {
@@ -182,44 +133,12 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
                 {controls && (
                   <div className={cn(isBreakpointUp && '-mx-6')}>
-                    <div
-                      className={cn(
-                        'space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between',
-                        isBreakpointUp && 'sm:mb-0 px-6 py-4',
-                      )}
-                    >
-                      <div className="flex items-center gap-x-4">
-                        {pausedAssetsExist && (
-                          <Toggle
-                            onChange={() =>
-                              setUserChainSettings({ showPausedAssets: !showPausedAssets })
-                            }
-                            value={showPausedAssets}
-                            label={t('marketTable.pausedAssetsToggle.label')}
-                          />
-                        )}
-
-                        {!!accountAddress && userHasAssets && (
-                          <Toggle
-                            onChange={() =>
-                              setUserChainSettings({ showUserAssetsOnly: !showUserAssetsOnly })
-                            }
-                            value={showUserAssetsOnly}
-                            label={t('marketTable.userAssetsOnlyToggle.label')}
-                          />
-                        )}
-                      </div>
-
-                      <TextField
-                        className="lg:w-[300px]"
-                        isSmall
-                        value={searchValue}
-                        onChange={handleSearchInputChange}
-                        placeholder={t('marketTable.searchInput.placeholder')}
-                        leftIconSrc="magnifier"
-                        variant="secondary"
-                      />
-                    </div>
+                    <MarketTableControls
+                      className={cn(isBreakpointUp && 'sm:mb-0 px-6 py-4')}
+                      searchValue={searchValue}
+                      showPausedAssets={showPausedAssets}
+                      {...marketTableControlsProps}
+                    />
 
                     {isBreakpointUp && <Delimiter />}
                   </div>

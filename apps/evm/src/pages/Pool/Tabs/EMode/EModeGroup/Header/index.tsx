@@ -1,4 +1,4 @@
-import { cn } from '@venusprotocol/ui';
+import { Spinner, cn } from '@venusprotocol/ui';
 
 import { useSetEModeGroup } from 'clients/api';
 import { Button, Icon, InfoIcon } from 'components';
@@ -23,7 +23,9 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
   const openBlockingPositionModal = () => setIsBlockingPositionModalOpen(true);
   const closeBlockingPositionModal = () => setIsBlockingPositionModalOpen(false);
 
-  const { mutateAsync: mutateEModeGroup, isPending: isSetEModeGroupLoading } = useSetEModeGroup();
+  const { mutateAsync: mutateEModeGroup, isPending: isSetEModeGroupLoading } = useSetEModeGroup({
+    waitForConfirmation: true,
+  });
 
   const setEModeGroup = (input: { eModeGroupId: number; eModeGroupName?: string }) =>
     mutateEModeGroup({
@@ -145,32 +147,35 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
             {isEModeGroupEnabled && <Icon name="mark" className="text-green w-5 h-5" />}
           </div>
 
-          <div className="flex items-center gap-x-4">
-            {shouldDisplayHealthFactor &&
-              !!poolUserHealthFactor &&
-              !isEModeGroupEnabled &&
-              isButtonEnabled && (
-                <HealthFactorUpdate
-                  className="hidden sm:flex"
-                  healthFactor={poolUserHealthFactor}
-                  hypotheticalHealthFactor={hypotheticalUserHealthFactor}
-                />
-              )}
+          {isSetEModeGroupLoading ? (
+            <Spinner variant="small" className="h-8" />
+          ) : (
+            <div className="flex items-center gap-x-4">
+              {shouldDisplayHealthFactor &&
+                !!poolUserHealthFactor &&
+                !isEModeGroupEnabled &&
+                isButtonEnabled && (
+                  <HealthFactorUpdate
+                    className="hidden sm:flex"
+                    healthFactor={poolUserHealthFactor}
+                    hypotheticalHealthFactor={hypotheticalUserHealthFactor}
+                  />
+                )}
 
-            <Button
-              onClick={isEModeGroupEnabled ? disableEModeGroup : enableEModeGroup}
-              small
-              disabled={!isButtonEnabled}
-              loading={isSetEModeGroupLoading}
-              variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
-            >
-              {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}
+              <Button
+                onClick={isEModeGroupEnabled ? disableEModeGroup : enableEModeGroup}
+                small
+                disabled={!isButtonEnabled}
+                variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
+              >
+                {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}
 
-              <span className={cn(!isEModeGroupEnabled && !isButtonEnabled && 'opacity-50')}>
-                {buttonLabel}
-              </span>
-            </Button>
-          </div>
+                <span className={cn(!isEModeGroupEnabled && !isButtonEnabled && 'opacity-50')}>
+                  {buttonLabel}
+                </span>
+              </Button>
+            </div>
+          )}
         </div>
 
         {!!poolUserHealthFactor && !isEModeGroupEnabled && isButtonEnabled && (

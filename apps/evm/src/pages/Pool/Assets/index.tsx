@@ -12,7 +12,7 @@ export const Assets: React.FC<AssetsProps> = ({ pool }) => {
   const TableComp = pool.userEModeGroup ? EModeMarketTables : MarketTable;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-4">
       <PoolStats pools={[pool]} stats={['supply', 'borrow', 'liquidity', 'assetCount']} />
 
       <TableComp

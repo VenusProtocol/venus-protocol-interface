@@ -57,7 +57,9 @@ describe('MarketTable', () => {
       />,
     );
 
-    expect(screen.queryByPlaceholderText(en.marketTable.searchInput.placeholder)).toBeNull();
+    expect(
+      screen.queryByPlaceholderText(en.marketTableControls.searchInput.placeholder),
+    ).toBeNull();
   });
 
   it('filters by search input', () => {
@@ -71,7 +73,7 @@ describe('MarketTable', () => {
       />,
     );
 
-    const searchInput = screen.getByPlaceholderText(en.marketTable.searchInput.placeholder);
+    const searchInput = screen.getByPlaceholderText(en.marketTableControls.searchInput.placeholder);
 
     fireEvent.change(searchInput, { target: { value: 'busd' } });
 
@@ -89,7 +91,7 @@ describe('MarketTable', () => {
       />,
     );
 
-    expect(screen.getByText(en.marketTable.pausedAssetsToggle.label)).toBeInTheDocument();
+    expect(screen.getByText(en.marketTableControls.pausedAssetsToggle.label)).toBeInTheDocument();
 
     // Check empty state is displayed
     expect(screen.getByText(en.marketTable.pausedAssetsPlaceholder.title)).toBeInTheDocument();
@@ -155,7 +157,7 @@ describe('MarketTable', () => {
       },
     );
 
-    expect(screen.getByText(en.marketTable.userAssetsOnlyToggle.label)).toBeInTheDocument();
+    expect(screen.getByText(en.marketTableControls.userAssetsOnlyToggle.label)).toBeInTheDocument();
 
     expect(container.textContent).toMatchSnapshot();
 

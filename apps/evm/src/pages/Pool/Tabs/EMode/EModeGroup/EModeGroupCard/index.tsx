@@ -33,8 +33,6 @@ export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
     const dom = (
       <Asset
         key={settings.vToken.address}
-        liquidityCents={asset.liquidityCents.toNumber()}
-        liquidityTokens={asset.cashTokens}
         eModeAssetSettings={settings}
         className="border-lightGrey [&:not(:last-of-type)]:border-b [&:not(:last-of-type)]:pb-4"
       />

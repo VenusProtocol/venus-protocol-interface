@@ -1,46 +1,19 @@
 import { cn } from '@venusprotocol/ui';
-import type BigNumber from 'bignumber.js';
 
-import { Icon, LabeledInlineContent, LayeredValues, TokenIconWithSymbol } from 'components';
+import { Icon, LabeledInlineContent, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings } from 'types';
-import {
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 
 export interface AssetProps {
-  liquidityTokens: BigNumber;
-  liquidityCents: number;
   eModeAssetSettings: EModeAssetSettings;
   className?: string;
 }
 
-export const Asset: React.FC<AssetProps> = ({
-  liquidityCents,
-  liquidityTokens,
-  eModeAssetSettings,
-  className,
-}) => {
+export const Asset: React.FC<AssetProps> = ({ eModeAssetSettings, className }) => {
   const { t } = useTranslation();
 
   const dataListItems = [
-    {
-      label: t('pool.eMode.table.card.rows.liquidity'),
-      value: (
-        <LayeredValues
-          className="text-right"
-          topValue={formatTokensToReadableValue({
-            value: liquidityTokens,
-            token: eModeAssetSettings.vToken.underlyingToken,
-          })}
-          bottomValue={formatCentsToReadableValue({
-            value: liquidityCents,
-          })}
-        />
-      ),
-    },
     {
       label: t('pool.eMode.table.card.rows.maxLtv'),
       value: formatPercentageToReadableValue(eModeAssetSettings.collateralFactor * 100),
