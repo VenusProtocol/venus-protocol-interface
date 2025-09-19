@@ -33,7 +33,12 @@ describe('MarketTable', () => {
 
   it('renders with pool data', () => {
     const { container } = renderComponent(
-      <MarketTable pools={poolData} columns={columns} marketType="supply" />,
+      <MarketTable
+        pool={poolData[0]}
+        assets={poolData[0].assets}
+        columns={columns}
+        marketType="supply"
+      />,
     );
 
     expect(container.textContent).toMatchSnapshot();
@@ -41,7 +46,13 @@ describe('MarketTable', () => {
 
   it('hides controls when they are disabled', () => {
     renderComponent(
-      <MarketTable pools={poolData} columns={columns} marketType="supply" controls={false} />,
+      <MarketTable
+        pool={poolData[0]}
+        assets={poolData[0].assets}
+        columns={columns}
+        marketType="supply"
+        controls={false}
+      />,
     );
 
     expect(screen.queryByPlaceholderText(en.marketTable.searchInput.placeholder)).toBeNull();
@@ -49,7 +60,12 @@ describe('MarketTable', () => {
 
   it('filters by search input', () => {
     const { container } = renderComponent(
-      <MarketTable pools={poolData} columns={columns} marketType="supply" />,
+      <MarketTable
+        pool={poolData[0]}
+        assets={poolData[0].assets}
+        columns={columns}
+        marketType="supply"
+      />,
     );
 
     const searchInput = screen.getByPlaceholderText(en.marketTable.searchInput.placeholder);
@@ -60,7 +76,14 @@ describe('MarketTable', () => {
   });
 
   it('shows paused assets toggle if controls are enabled and any asset is paused', () => {
-    renderComponent(<MarketTable pools={[fakePausedPool]} columns={columns} marketType="supply" />);
+    renderComponent(
+      <MarketTable
+        pool={fakePausedPool}
+        assets={fakePausedPool.assets}
+        columns={columns}
+        marketType="supply"
+      />,
+    );
 
     expect(screen.getByText(en.marketTable.pausedAssetsToggle.label)).toBeInTheDocument();
 
@@ -76,7 +99,12 @@ describe('MarketTable', () => {
     (useUserChainSettings as Mock).mockReturnValue([fakeUserChainSettings, vi.fn()]);
 
     const { container } = renderComponent(
-      <MarketTable pools={[fakePausedPool]} columns={columns} marketType="supply" />,
+      <MarketTable
+        pool={fakePausedPool}
+        assets={fakePausedPool.assets}
+        columns={columns}
+        marketType="supply"
+      />,
     );
 
     expect(container.textContent).toMatchSnapshot();
@@ -110,7 +138,12 @@ describe('MarketTable', () => {
     };
 
     const { container } = renderComponent(
-      <MarketTable pools={[fakePool]} columns={columns} marketType="supply" />,
+      <MarketTable
+        pool={fakePool}
+        assets={fakePool.assets}
+        columns={columns}
+        marketType="supply"
+      />,
       {
         accountAddress: fakeAccountAddress,
       },

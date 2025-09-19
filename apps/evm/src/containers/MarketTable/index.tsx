@@ -3,16 +3,15 @@ import { cn } from '@venusprotocol/ui';
 import { type InputHTMLAttributes, useMemo, useState } from 'react';
 
 import { Card, Delimiter, Table, type TableProps, TextField, Toggle } from 'components';
-import { useCollateral } from 'hooks/useCollateral';
-import { handleError } from 'libs/errors';
-import type { Pool } from 'types';
-
 import { routes } from 'constants/routing';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useBreakpointUp } from 'hooks/responsive';
+import { useCollateral } from 'hooks/useCollateral';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
+import type { Asset, Pool } from 'types';
 import { isAssetPaused } from 'utilities';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
@@ -23,7 +22,8 @@ export interface MarketTableProps
   extends Partial<
     Omit<TableProps<PoolAsset>, 'columns' | 'rowKeyIndex' | 'initialOrder' | 'getRowHref'>
   > {
-  pools: Pool[];
+  assets: Asset[];
+  pool: Pool;
   columns: ColumnKey[];
   controls?: boolean;
   initialOrder?: {
@@ -35,7 +35,8 @@ export interface MarketTableProps
 }
 
 export const MarketTable: React.FC<MarketTableProps> = ({
-  pools,
+  assets,
+  pool,
   marketType,
   columns: columnKeys,
   initialOrder,
@@ -66,58 +67,54 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   let userHasAssets = false;
   let pausedAssetsExist = false;
 
-  pools.forEach(pool =>
-    pool.assets.forEach(asset => {
-      const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
+  assets.forEach(asset => {
+    const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
 
-      if (isUserAsset && !userHasAssets) {
-        userHasAssets = true;
-      }
+    if (isUserAsset && !userHasAssets) {
+      userHasAssets = true;
+    }
 
-      const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
-      if (isPaused && !pausedAssetsExist) {
-        pausedAssetsExist = true;
-      }
-    }),
-  );
+    const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
+    if (isPaused && !pausedAssetsExist) {
+      pausedAssetsExist = true;
+    }
+  });
 
   const showUserAssetsOnly = _showUserAssetsOnly && userHasAssets;
   const showPausedAssets = _showPausedAssets && pausedAssetsExist;
 
   const poolAssets: PoolAsset[] = [];
 
-  pools.forEach(pool =>
-    pool.assets.forEach(asset => {
-      const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
+  assets.forEach(asset => {
+    const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
 
-      if (controls && !isUserAsset && showUserAssetsOnly) {
-        return;
-      }
+    if (controls && !isUserAsset && showUserAssetsOnly) {
+      return;
+    }
 
-      const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
+    const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
 
-      // Handle paused assets
-      if (controls && isPaused && !showPausedAssets) {
-        return;
-      }
+    // Handle paused assets
+    if (controls && isPaused && !showPausedAssets) {
+      return;
+    }
 
-      // Handle search
-      if (
-        controls &&
-        !!searchValue &&
-        !asset.vToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase())
-      ) {
-        return;
-      }
+    // Handle search
+    if (
+      controls &&
+      !!searchValue &&
+      !asset.vToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase())
+    ) {
+      return;
+    }
 
-      const poolAsset: PoolAsset = {
-        ...asset,
-        pool,
-      };
+    const poolAsset: PoolAsset = {
+      ...asset,
+      pool,
+    };
 
-      poolAssets.push(poolAsset);
-    }),
-  );
+    poolAssets.push(poolAsset);
+  });
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     setSearchValue(changeEvent.currentTarget.value);

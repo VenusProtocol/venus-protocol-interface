@@ -12,7 +12,8 @@ export const Assets: React.FC<AssetsProps> = ({ pool }) => (
     <PoolStats pools={[pool]} stats={['supply', 'borrow', 'liquidity', 'assetCount']} />
 
     <MarketTable
-      pools={[pool]}
+      assets={pool.assets}
+      pool={pool}
       breakpoint="lg"
       columns={[
         'asset',
