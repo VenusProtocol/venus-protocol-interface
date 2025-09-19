@@ -80,7 +80,7 @@ describe('useSetEModeGroup', () => {
         abi: expect.any(Array),
         address: fakeInput.comptrollerContractAddress,
         functionName: 'enterPool',
-        args: [fakeInput.eModeGroupId],
+        args: [BigInt(fakeInput.eModeGroupId)],
       });
 
       onConfirmed({ input: fakeInput });
