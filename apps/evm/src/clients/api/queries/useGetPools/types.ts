@@ -17,7 +17,7 @@ export interface GetPoolsInput {
   poolLensContractAddress: Address;
   chainId: ChainId;
   tokens: Token[];
-  isEModeEnabledFeature: boolean;
+  isEModeFeatureEnabled: boolean;
   accountAddress?: Address;
   legacyPoolComptrollerContractAddress?: Address;
   venusLensContractAddress?: Address;

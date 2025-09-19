@@ -1,5 +1,6 @@
 import { Card, Delimiter, type Order } from 'components';
 import type { EModeAssetSettings, EModeGroup, Pool } from 'types';
+import { areTokensEqual } from 'utilities';
 import { Header } from '../Header';
 import { Asset } from './Asset';
 
@@ -22,6 +23,26 @@ export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
       )
     : eModeGroup.assetSettings;
 
+  const listItemsDom = sortedEModeAssetSettings.reduce<React.ReactNode[]>((acc, settings) => {
+    const asset = pool.assets.find(asset => areTokensEqual(asset.vToken, settings.vToken));
+
+    if (!asset) {
+      return acc;
+    }
+
+    const dom = (
+      <Asset
+        key={settings.vToken.address}
+        liquidityCents={asset.liquidityCents.toNumber()}
+        liquidityTokens={asset.cashTokens}
+        eModeAssetSettings={settings}
+        className="border-lightGrey [&:not(:last-of-type)]:border-b [&:not(:last-of-type)]:pb-4"
+      />
+    );
+
+    return [...acc, dom];
+  }, []);
+
   return (
     <Card className={className}>
       <div className="-mx-4 mb-4">
@@ -30,15 +51,7 @@ export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
         <Delimiter />
       </div>
 
-      <div className="space-y-4">
-        {sortedEModeAssetSettings.map(settings => (
-          <Asset
-            key={settings.vToken.address}
-            eModeAssetSettings={settings}
-            className="border-lightGrey [&:not(:last-of-type)]:border-b [&:not(:last-of-type)]:pb-4"
-          />
-        ))}
-      </div>
+      <div className="space-y-4">{listItemsDom}</div>
     </Card>
   );
 };

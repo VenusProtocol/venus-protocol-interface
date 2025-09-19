@@ -48,6 +48,16 @@ export interface ApiPointsDistribution {
 
 export type ApiRewardDistributor = ApiVenusReward | ApiMerklReward;
 
+export interface ApiMarketEModeSettings {
+  marketAddress: Address;
+  canBeCollateral: boolean;
+  isBorrowable: boolean;
+  collateralFactorMantissa: string;
+  liquidationIncentiveMantissa: string;
+  liquidationThresholdMantissa: string;
+  poolId: number;
+}
+
 export interface ApiMarket {
   address: Address;
   symbol: string;
@@ -85,11 +95,20 @@ export interface ApiMarket {
   estimatedPrimeSupplyApyBoost: string | null;
   pausedActionsBitmap: number;
   isListed: boolean;
+  isBorrowable: boolean;
   supplierCount: number | null;
   borrowerCount: number | null;
   poolComptrollerAddress: Address;
   rewardsDistributors: ApiRewardDistributor[];
   pointsDistributions: ApiPointsDistribution[];
+  eModeSettings: ApiMarketEModeSettings[];
+}
+
+export interface ApiEModeGroup {
+  poolId: number;
+  label: string;
+  comptrollerAddress: Address;
+  eModeSettings: ApiMarketEModeSettings[];
 }
 
 export interface ApiPool {
@@ -97,6 +116,7 @@ export interface ApiPool {
   name: string;
   markets: ApiMarket[];
   priceOracleAddress: Address;
+  eModeGroups: ApiEModeGroup[];
 }
 
 export interface ApiTokenPrice {

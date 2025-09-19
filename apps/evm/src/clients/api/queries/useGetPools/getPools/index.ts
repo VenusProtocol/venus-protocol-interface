@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
+import type { Address } from 'viem';
+
 import { getUserVaiBorrowBalance } from 'clients/api';
-import { primeAbi } from 'libs/contracts';
+import { legacyPoolComptrollerAbi, primeAbi } from 'libs/contracts';
 import type { Asset, TokenBalance } from 'types';
 import type { GetPoolsInput, GetPoolsOutput, PrimeApy, VTokenBalance } from '../types';
 import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
@@ -20,7 +22,7 @@ export const getPools = async ({
   vaiControllerContractAddress,
   venusLensContractAddress,
   tokens,
-  isEModeEnabledFeature,
+  isEModeFeatureEnabled,
 }: GetPoolsInput) => {
   const [
     { pools: apiPools, tokenPricesMapping },
@@ -65,9 +67,16 @@ export const getPools = async ({
   let userVTokenBalances: VTokenBalance[] | undefined;
   let userVaiBorrowBalanceMantissa: BigNumber | undefined;
   let userPrimeApyMap: Map<string, PrimeApy> | undefined;
+  let userLegacyPoolEModeGroupId: number | undefined;
 
   if (accountAddress) {
-    const [userCollaterals, userBalances, userVaiBorrowBalance, userPrimeApys] = await Promise.all([
+    const [
+      userCollaterals,
+      userBalances,
+      userVaiBorrowBalance,
+      userPrimeApys,
+      userLegacyPoolEModeGroupIdResult,
+    ] = await Promise.all([
       getUserCollateralAddresses({
         chainId,
         accountAddress,
@@ -99,6 +108,14 @@ export const getPools = async ({
             primeVTokenAddresses,
           })
         : undefined,
+      isEModeFeatureEnabled && legacyPoolComptrollerContractAddress
+        ? publicClient.readContract({
+            abi: legacyPoolComptrollerAbi,
+            address: legacyPoolComptrollerContractAddress,
+            functionName: 'userPoolId',
+            args: [accountAddress],
+          })
+        : undefined,
     ]);
 
     userCollateralVTokenAddresses = userCollaterals.userCollateralAddresses;
@@ -106,6 +123,17 @@ export const getPools = async ({
     userTokenBalances = userBalances.userTokenBalances;
     userVaiBorrowBalanceMantissa = userVaiBorrowBalance?.userVaiBorrowBalanceMantissa;
     userPrimeApyMap = userPrimeApys?.userPrimeApyMap;
+    userLegacyPoolEModeGroupId = userLegacyPoolEModeGroupIdResult
+      ? Number(userLegacyPoolEModeGroupIdResult)
+      : undefined;
+  }
+
+  const userPoolEModeGroupIdMapping: Record<Address, number> = {};
+
+  // E-mode groups are currently only enabled on the legacy Core Pool
+  if (userLegacyPoolEModeGroupId && legacyPoolComptrollerContractAddress) {
+    userPoolEModeGroupIdMapping[legacyPoolComptrollerContractAddress.toLowerCase() as Address] =
+      userLegacyPoolEModeGroupId;
   }
 
   const pools = formatOutput({
@@ -119,7 +147,8 @@ export const getPools = async ({
     userVTokenBalances,
     userTokenBalances,
     userVaiBorrowBalanceMantissa,
-    isEModeEnabledFeature,
+    isEModeFeatureEnabled,
+    userPoolEModeGroupIdMapping,
   });
 
   // Add Prime simulations

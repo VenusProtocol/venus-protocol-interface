@@ -493,8 +493,6 @@ exports[`useGetPool > returns the correct asset 1`] = `
             "isBorrowable": true,
             "liquidationPenaltyPercentage": 0,
             "liquidationThresholdPercentage": 62,
-            "liquidityCents": 8036465875,
-            "liquidityTokens": "10",
             "vToken": {
               "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
               "decimals": 8,
@@ -512,8 +510,6 @@ exports[`useGetPool > returns the correct asset 1`] = `
             "isBorrowable": false,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
-            "liquidityCents": 1702951959,
-            "liquidityTokens": "10",
             "vToken": {
               "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
               "decimals": 8,
@@ -531,8 +527,6 @@ exports[`useGetPool > returns the correct asset 1`] = `
             "isBorrowable": true,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
-            "liquidityCents": 5534102886,
-            "liquidityTokens": "10",
             "vToken": {
               "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
               "decimals": 8,
@@ -556,8 +550,6 @@ exports[`useGetPool > returns the correct asset 1`] = `
             "isBorrowable": true,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
-            "liquidityCents": 5534102886,
-            "liquidityTokens": "10",
             "vToken": {
               "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
               "decimals": 8,
@@ -575,8 +567,6 @@ exports[`useGetPool > returns the correct asset 1`] = `
             "isBorrowable": true,
             "liquidationPenaltyPercentage": 30,
             "liquidationThresholdPercentage": 92,
-            "liquidityCents": 3654492935,
-            "liquidityTokens": "10",
             "vToken": {
               "address": "0x08e0A5575De71037aE36AbfAfb516595fE68e5e4",
               "decimals": 8,

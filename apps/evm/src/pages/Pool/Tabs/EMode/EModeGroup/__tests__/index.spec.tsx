@@ -1,6 +1,9 @@
 import BigNumber from 'bignumber.js';
+import type { Mock } from 'vitest';
 
+import { fireEvent, waitFor } from '@testing-library/react';
 import { poolData } from '__mocks__/models/pools';
+import { useSetEModeGroup } from 'clients/api';
 import type { Order, TableColumn } from 'components';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -32,7 +35,16 @@ const baseProps: EModeGroupProps = {
   mobileOrder: fakeOrder,
 };
 
+const mockSetEModeGroup = vi.fn();
+
 describe('EModeGroup', () => {
+  beforeEach(() => {
+    (useSetEModeGroup as Mock).mockImplementation(() => ({
+      mutateAsync: mockSetEModeGroup,
+      isPending: false,
+    }));
+  });
+
   it('lets user enable E-mode group when they meet the criteria', async () => {
     const fakeEModeGroup = baseProps.eModeGroup;
 
@@ -53,11 +65,18 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    expect(
-      queryAllByText(en.pool.eMode.group.enableButtonLabel)[0].closest('button'),
-    ).toBeEnabled();
+    const button = queryAllByText(en.pool.eMode.group.enableButtonLabel)[0].closest('button');
 
-    // TODO: check clicking on button calls correct function
+    expect(button).toBeEnabled();
+    fireEvent.click(button as HTMLButtonElement);
+
+    await waitFor(() => expect(mockSetEModeGroup).toHaveBeenCalledTimes(1));
+    expect(mockSetEModeGroup).toHaveBeenCalledWith({
+      comptrollerContractAddress: customFakePool.comptrollerAddress,
+      userEModeGroupName: customFakePool.userEModeGroup?.name,
+      eModeGroupId: fakeEModeGroup.id,
+      eModeGroupName: fakeEModeGroup.name,
+    });
   });
 
   it('lets user disable E-mode group when they meet the criteria', async () => {
@@ -85,11 +104,18 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    expect(
-      queryAllByText(en.pool.eMode.group.disableButtonLabel)[0].closest('button'),
-    ).toBeEnabled();
+    const button = queryAllByText(en.pool.eMode.group.disableButtonLabel)[0].closest('button');
 
-    // TODO: check clicking on button calls correct function
+    expect(button).toBeEnabled();
+    fireEvent.click(button as HTMLButtonElement);
+
+    await waitFor(() => expect(mockSetEModeGroup).toHaveBeenCalledTimes(1));
+    expect(mockSetEModeGroup).toHaveBeenCalledWith({
+      comptrollerContractAddress: customFakePool.comptrollerAddress,
+      userEModeGroupName: customFakePool.userEModeGroup?.name,
+      eModeGroupId: 0,
+      eModeGroupName: undefined,
+    });
   });
 
   it('lets user switch E-mode group when they meet the criteria', async () => {
@@ -118,11 +144,18 @@ describe('EModeGroup', () => {
 
     expect(container.textContent).toMatchSnapshot();
 
-    expect(
-      queryAllByText(en.pool.eMode.group.switchButtonLabel)[0].closest('button'),
-    ).toBeEnabled();
+    const button = queryAllByText(en.pool.eMode.group.switchButtonLabel)[0].closest('button');
 
-    // TODO: check clicking on button calls correct function
+    expect(button).toBeEnabled();
+    fireEvent.click(button as HTMLButtonElement);
+
+    await waitFor(() => expect(mockSetEModeGroup).toHaveBeenCalledTimes(1));
+    expect(mockSetEModeGroup).toHaveBeenCalledWith({
+      comptrollerContractAddress: customFakePool.comptrollerAddress,
+      userEModeGroupName: customFakePool.userEModeGroup?.name,
+      eModeGroupId: fakeEModeGroup.id,
+      eModeGroupName: fakeEModeGroup.name,
+    });
   });
 
   describe.each([
