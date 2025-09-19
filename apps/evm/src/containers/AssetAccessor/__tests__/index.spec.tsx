@@ -10,7 +10,7 @@ import { TokenAnnouncement } from 'containers/TokenAnnouncement';
 import { en } from 'libs/translations';
 import type { Asset, Pool } from 'types';
 
-import AssetAccessor, { type AssetAccessorProps } from '.';
+import AssetAccessor, { type AssetAccessorProps } from '..';
 
 vi.mock('containers/TokenAnnouncement');
 
@@ -93,6 +93,70 @@ describe('containers/AssetAccessor', () => {
     await waitFor(() =>
       expect(getByText(en.assetAccessor.disabledActionNotice.borrow)).toBeInTheDocument(),
     );
+
+    expect(queryByText(fakeChildrenContent)).toBeNull();
+  });
+
+  it('renders default announcement about borrow being disabled if asset is not borrowable', async () => {
+    const customFakePool: Pool = {
+      ...fakePool,
+      assets: fakePool.assets.map(asset =>
+        asset.vToken.address === fakeAsset.vToken.address
+          ? {
+              ...asset,
+              isBorrowable: false,
+            }
+          : asset,
+      ),
+    };
+
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: customFakePool,
+      },
+    }));
+
+    (TokenAnnouncement as Mock).mockImplementation(() => null);
+
+    const { getByText, queryByText } = renderComponent(
+      <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
+    );
+
+    await waitFor(() =>
+      expect(getByText(en.assetAccessor.disabledActionNotice.borrow)).toBeInTheDocument(),
+    );
+
+    expect(queryByText(fakeChildrenContent)).toBeNull();
+  });
+
+  it('renders default announcement about borrow being disabled due to E-mode settings if asset is not borrowable by user', async () => {
+    const customFakePool: Pool = {
+      ...fakePool,
+      assets: fakePool.assets.map(asset =>
+        asset.vToken.address === fakeAsset.vToken.address
+          ? {
+              ...asset,
+              isBorrowableByUser: false,
+            }
+          : asset,
+      ),
+    };
+
+    (useGetPool as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: customFakePool,
+      },
+    }));
+
+    (TokenAnnouncement as Mock).mockImplementation(() => null);
+
+    const { container, queryByText } = renderComponent(
+      <AssetAccessor {...fakeProps}>{() => <TestComponent />}</AssetAccessor>,
+    );
+
+    expect(container.textContent).toMatchSnapshot();
 
     expect(queryByText(fakeChildrenContent)).toBeNull();
   });

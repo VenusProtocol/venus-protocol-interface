@@ -1,4 +1,6 @@
-import type { Asset, Pool } from 'types';
+import type { Address } from 'viem';
+
+import type { Asset, EModeGroup } from 'types';
 
 export type ColumnKey =
   | 'asset'
@@ -17,5 +19,7 @@ export type ColumnKey =
   | 'userWalletBalance';
 
 export interface PoolAsset extends Asset {
-  pool: Pool;
+  poolName: string;
+  poolComptrollerContractAddress: Address;
+  poolUserEModeGroup?: EModeGroup;
 }

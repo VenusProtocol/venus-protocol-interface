@@ -70,9 +70,7 @@ export const formatOutput = ({
     const userEModeGroupId = userPoolEModeGroupIdMapping[apiPool.address.toLowerCase() as Address];
 
     if (userEModeGroupId > 0) {
-      // The pool at index 0 represents the pool itself without any E-mode group enabled, hence why
-      // the index of the pool enabled by the user is the one returned by the contract minus 1
-      userEModeGroup = eModeGroups[userEModeGroupId - 1];
+      userEModeGroup = eModeGroups.find(e => e.id === userEModeGroupId);
     }
 
     const assets = apiPool.markets.reduce<Asset[]>((acc, market) => {

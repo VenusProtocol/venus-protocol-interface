@@ -77,7 +77,10 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
           breakpoint="sm"
           cardClassName="p-0 pb-4 border-b-lightGrey rounded-none [&:not(:last-of-type)]:border-b-[1px] [&>hr]:h-0 [&>hr]:my-2"
           className="my-0 p-0 sm:p-0"
-          pools={[pool]}
+          poolName={pool.name}
+          poolComptrollerContractAddress={pool.comptrollerAddress}
+          poolUserEModeGroup={pool.userEModeGroup}
+          assets={pool.assets}
           columns={['asset', type === 'borrow' ? 'labeledBorrowApy' : 'supplyApy', 'liquidity']}
           initialOrder={{
             orderBy: type === 'borrow' ? 'labeledBorrowApy' : 'supplyApy',

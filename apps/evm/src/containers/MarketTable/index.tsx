@@ -1,19 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { cn } from '@venusprotocol/ui';
-import { type InputHTMLAttributes, useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import type { Address } from 'viem';
 
-import { Card, Delimiter, Table, type TableProps, TextField, Toggle } from 'components';
-import { useCollateral } from 'hooks/useCollateral';
-import { handleError } from 'libs/errors';
-import type { Pool } from 'types';
-
+import { Card, Delimiter, Table, type TableProps } from 'components';
+import { MarketTableControls } from 'components/MarketTableControls';
 import { routes } from 'constants/routing';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useBreakpointUp } from 'hooks/responsive';
-import { useUserChainSettings } from 'hooks/useUserChainSettings';
+import { useCollateral } from 'hooks/useCollateral';
+import { useMarketTableControls } from 'hooks/useMarketTableControls';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
-import { isAssetPaused } from 'utilities';
+import type { Asset, EModeGroup } from 'types';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
 import type { ColumnKey, PoolAsset } from './types';
@@ -23,8 +22,11 @@ export interface MarketTableProps
   extends Partial<
     Omit<TableProps<PoolAsset>, 'columns' | 'rowKeyIndex' | 'initialOrder' | 'getRowHref'>
   > {
-  pools: Pool[];
+  assets: Asset[];
+  poolName: string;
+  poolComptrollerContractAddress: Address;
   columns: ColumnKey[];
+  poolUserEModeGroup?: EModeGroup;
   controls?: boolean;
   initialOrder?: {
     orderBy: ColumnKey;
@@ -35,7 +37,10 @@ export interface MarketTableProps
 }
 
 export const MarketTable: React.FC<MarketTableProps> = ({
-  pools,
+  assets,
+  poolName,
+  poolComptrollerContractAddress,
+  poolUserEModeGroup,
   marketType,
   columns: columnKeys,
   initialOrder,
@@ -50,84 +55,34 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const { t } = useTranslation();
 
   const { toggleCollateral } = useCollateral();
-  const { accountAddress } = useAccountAddress();
-
-  const [searchValue, setSearchValue] = useState('');
 
   // The fallback breakpoint is just to satisfy TS here, it is not actually used
   const _isBreakpointUp = useBreakpointUp(breakpoint || 'xxl');
   const isBreakpointUp = !!breakpoint && _isBreakpointUp;
 
-  const [userChainSettings, setUserChainSettings] = useUserChainSettings();
+  const {
+    assets: formattedAssets,
+    pausedAssetsExist,
+    searchValue,
+    showPausedAssets,
+    ...marketTableControlsProps
+  } = useMarketTableControls({
+    assets,
+  });
 
-  const { showPausedAssets: _showPausedAssets, showUserAssetsOnly: _showUserAssetsOnly } =
-    userChainSettings;
-
-  let userHasAssets = false;
-  let pausedAssetsExist = false;
-
-  pools.forEach(pool =>
-    pool.assets.forEach(asset => {
-      const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
-
-      if (isUserAsset && !userHasAssets) {
-        userHasAssets = true;
-      }
-
-      const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
-      if (isPaused && !pausedAssetsExist) {
-        pausedAssetsExist = true;
-      }
-    }),
-  );
-
-  const showUserAssetsOnly = _showUserAssetsOnly && userHasAssets;
-  const showPausedAssets = _showPausedAssets && pausedAssetsExist;
-
-  const poolAssets: PoolAsset[] = [];
-
-  pools.forEach(pool =>
-    pool.assets.forEach(asset => {
-      const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
-
-      if (controls && !isUserAsset && showUserAssetsOnly) {
-        return;
-      }
-
-      const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
-
-      // Handle paused assets
-      if (controls && isPaused && !showPausedAssets) {
-        return;
-      }
-
-      // Handle search
-      if (
-        controls &&
-        !!searchValue &&
-        !asset.vToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase())
-      ) {
-        return;
-      }
-
-      const poolAsset: PoolAsset = {
-        ...asset,
-        pool,
-      };
-
-      poolAssets.push(poolAsset);
-    }),
-  );
-
-  const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
-    setSearchValue(changeEvent.currentTarget.value);
+  const poolAssets: PoolAsset[] = formattedAssets.map(asset => ({
+    ...asset,
+    poolName,
+    poolComptrollerContractAddress,
+    poolUserEModeGroup,
+  }));
 
   const handleCollateralChange = async (poolAssetToUpdate: PoolAsset) => {
     try {
       await toggleCollateral({
         asset: poolAssetToUpdate,
-        poolName: poolAssetToUpdate.pool.name,
-        comptrollerAddress: poolAssetToUpdate.pool.comptrollerAddress,
+        poolName: poolAssetToUpdate.poolName,
+        comptrollerAddress: poolAssetToUpdate.poolComptrollerContractAddress,
       });
     } catch (error) {
       handleError({ error });
@@ -156,7 +111,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
   const getRowHref = (row: PoolAsset) =>
     routes.market.path
-      .replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
+      .replace(':poolComptrollerAddress', row.poolComptrollerContractAddress)
       .replace(':vTokenAddress', row.vToken.address);
 
   return (
@@ -178,44 +133,12 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
                 {controls && (
                   <div className={cn(isBreakpointUp && '-mx-6')}>
-                    <div
-                      className={cn(
-                        'space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between',
-                        isBreakpointUp && 'sm:mb-0 px-6 py-4',
-                      )}
-                    >
-                      <div className="flex items-center gap-x-4">
-                        {pausedAssetsExist && (
-                          <Toggle
-                            onChange={() =>
-                              setUserChainSettings({ showPausedAssets: !showPausedAssets })
-                            }
-                            value={showPausedAssets}
-                            label={t('marketTable.pausedAssetsToggle.label')}
-                          />
-                        )}
-
-                        {!!accountAddress && userHasAssets && (
-                          <Toggle
-                            onChange={() =>
-                              setUserChainSettings({ showUserAssetsOnly: !showUserAssetsOnly })
-                            }
-                            value={showUserAssetsOnly}
-                            label={t('marketTable.userAssetsOnlyToggle.label')}
-                          />
-                        )}
-                      </div>
-
-                      <TextField
-                        className="lg:w-[300px]"
-                        isSmall
-                        value={searchValue}
-                        onChange={handleSearchInputChange}
-                        placeholder={t('marketTable.searchInput.placeholder')}
-                        leftIconSrc="magnifier"
-                        variant="secondary"
-                      />
-                    </div>
+                    <MarketTableControls
+                      className={cn(isBreakpointUp && 'sm:mb-0 px-6 py-4')}
+                      searchValue={searchValue}
+                      showPausedAssets={showPausedAssets}
+                      {...marketTableControlsProps}
+                    />
 
                     {isBreakpointUp && <Delimiter />}
                   </div>

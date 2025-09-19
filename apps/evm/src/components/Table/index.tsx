@@ -35,6 +35,7 @@ export function Table<R>({
   header,
   placeholder,
   selectVariant,
+  showMobileFilter = true,
   ...otherProps
 }: TableProps<R>) {
   const styles = useStyles();
@@ -157,6 +158,7 @@ export function Table<R>({
 
           <TableCards
             cardClassName={cardClassName}
+            showMobileFilter={showMobileFilter}
             selectVariant={selectVariant}
             data={sortedData}
             isFetching={isFetching}

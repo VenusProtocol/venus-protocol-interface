@@ -30,14 +30,12 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
   } = useMemo(
     () => ({
       supply: {
-        pools: [
-          {
-            ...pool,
-            assets: pool.assets.filter(
-              asset => asset.userSupplyBalanceTokens.isGreaterThan(0) || asset.isCollateralOfUser,
-            ),
-          },
-        ],
+        assets: pool.assets.filter(
+          asset => asset.userSupplyBalanceTokens.isGreaterThan(0) || asset.isCollateralOfUser,
+        ),
+        poolName: pool.name,
+        poolComptrollerContractAddress: pool.comptrollerAddress,
+        poolUserEModeGroup: pool.userEModeGroup,
         marketType: 'supply',
         controls: false,
         breakpoint: 'md',
@@ -48,12 +46,10 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
         },
       },
       borrow: {
-        pools: [
-          {
-            ...pool,
-            assets: pool.assets.filter(asset => asset.userBorrowBalanceTokens.isGreaterThan(0)),
-          },
-        ],
+        assets: pool.assets.filter(asset => asset.userBorrowBalanceTokens.isGreaterThan(0)),
+        poolName: pool.name,
+        poolComptrollerContractAddress: pool.comptrollerAddress,
+        poolUserEModeGroup: pool.userEModeGroup,
         marketType: 'borrow',
         controls: false,
         breakpoint: 'md',

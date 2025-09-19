@@ -169,12 +169,12 @@ const useGenerateColumns = ({
                   onChange={() => collateralOnChange(poolAsset)}
                   value={
                     poolAsset.isCollateralOfUser &&
-                    (!poolAsset.pool.userEModeGroup || poolAsset.userCollateralFactor > 0)
+                    (!poolAsset.poolUserEModeGroup || poolAsset.userCollateralFactor > 0)
                   }
                   disabled={
                     isAccountOnWrongChain ||
                     collateralActionDisabled ||
-                    (poolAsset.pool.userEModeGroup && poolAsset.userCollateralFactor === 0)
+                    (poolAsset.poolUserEModeGroup && poolAsset.userCollateralFactor === 0)
                   }
                 />
               );
@@ -198,7 +198,7 @@ const useGenerateColumns = ({
             if (column === 'pool') {
               const to = routes.pool.path.replace(
                 ':poolComptrollerAddress',
-                poolAsset.pool.comptrollerAddress,
+                poolAsset.poolComptrollerContractAddress,
               );
 
               return (
@@ -210,7 +210,7 @@ const useGenerateColumns = ({
                       isPaused ? 'text-grey' : 'text-offWhite',
                     )}
                   >
-                    {poolAsset.pool.name}
+                    {poolAsset.poolName}
                   </Link>
                 </div>
               );
@@ -354,7 +354,7 @@ const useGenerateColumns = ({
                   }
 
                   if (column === 'pool') {
-                    return compareStrings(rowA.pool.name, rowB.pool.name, direction);
+                    return compareStrings(rowA.poolName, rowB.poolName, direction);
                   }
 
                   if (column === 'userWalletBalance') {
