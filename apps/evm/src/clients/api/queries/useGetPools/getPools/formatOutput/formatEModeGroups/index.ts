@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import type { ChainId, EModeAssetSettings, EModeGroup, Token } from 'types';
 import {
   areAddressesEqual,
@@ -48,7 +49,7 @@ export const formatEModeGroups = ({
         );
 
         const liquidationPenaltyPercentage = convertPercentageFromSmartContract(
-          settings.liquidationIncentiveMantissa,
+          new BigNumber(settings.liquidationIncentiveMantissa).minus(COMPOUND_MANTISSA),
         );
 
         const eModeAssetSettings: EModeAssetSettings = {

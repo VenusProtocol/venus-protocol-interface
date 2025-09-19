@@ -6,33 +6,33 @@ import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
 import {
-  type GetPoolLiquidationIncentiveInput,
-  type GetPoolLiquidationIncentiveOutput,
-  getPoolLiquidationIncentive,
+  type GetPoolLiquidationPenaltyInput,
+  type GetPoolLiquidationPenaltyOutput,
+  getPoolLiquidationPenalty,
 } from '.';
 
-interface TrimmedGetPoolLiquidationIncentiveInput
-  extends Omit<GetPoolLiquidationIncentiveInput, 'publicClient'> {
+interface TrimmedGetPoolLiquidationPenaltyInput
+  extends Omit<GetPoolLiquidationPenaltyInput, 'publicClient'> {
   poolComptrollerContractAddress: Address;
 }
 
-export type UseGetPoolLiquidationIncentiveQueryKey = [
-  FunctionKey.GET_POOL_LIQUIDATION_INCENTIVE,
-  TrimmedGetPoolLiquidationIncentiveInput & {
+export type UseGetPoolLiquidationPenaltyQueryKey = [
+  FunctionKey.GET_POOL_LIQUIDATION_PENALTY,
+  TrimmedGetPoolLiquidationPenaltyInput & {
     chainId: ChainId;
   },
 ];
 
 type Options = QueryObserverOptions<
-  GetPoolLiquidationIncentiveOutput,
+  GetPoolLiquidationPenaltyOutput,
   Error,
-  GetPoolLiquidationIncentiveOutput,
-  GetPoolLiquidationIncentiveOutput,
-  UseGetPoolLiquidationIncentiveQueryKey
+  GetPoolLiquidationPenaltyOutput,
+  GetPoolLiquidationPenaltyOutput,
+  UseGetPoolLiquidationPenaltyQueryKey
 >;
 
-export const useGetPoolLiquidationIncentive = (
-  { poolComptrollerContractAddress }: TrimmedGetPoolLiquidationIncentiveInput,
+export const useGetPoolLiquidationPenalty = (
+  { poolComptrollerContractAddress }: TrimmedGetPoolLiquidationPenaltyInput,
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
@@ -40,12 +40,12 @@ export const useGetPoolLiquidationIncentive = (
 
   return useQuery({
     queryKey: [
-      FunctionKey.GET_POOL_LIQUIDATION_INCENTIVE,
+      FunctionKey.GET_POOL_LIQUIDATION_PENALTY,
       { poolComptrollerContractAddress, chainId },
     ],
     queryFn: () =>
       callOrThrow({ poolComptrollerContractAddress }, params =>
-        getPoolLiquidationIncentive({
+        getPoolLiquidationPenalty({
           publicClient,
           ...params,
         }),

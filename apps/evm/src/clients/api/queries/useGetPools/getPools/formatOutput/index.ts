@@ -125,7 +125,8 @@ export const formatOutput = ({
       });
 
       let userCollateralFactor = collateralFactor;
-      let isCollateralOfUser = !!userCollateralVTokenAddresses.some(address =>
+
+      const isCollateralOfUser = !!userCollateralVTokenAddresses.some(address =>
         areAddressesEqual(address, vToken.address),
       );
 
@@ -145,10 +146,7 @@ export const formatOutput = ({
 
         const userEModeGroupCollateralFactor = eModeAssetSettings?.collateralFactor;
 
-        userCollateralFactor =
-          userEModeGroupCollateralFactor ??
-          // If user has enabled an E-mode group and that asset is not in it, then it doesn't count as a user collateral
-          0;
+        userCollateralFactor = userEModeGroupCollateralFactor ?? collateralFactor;
 
         // If user has enabled an E-mode group and that asset is not in it, or is not borrowable in
         // it, then it can't be borrowed by the user
@@ -156,8 +154,6 @@ export const formatOutput = ({
 
         userLiquidationThresholdPercentage =
           eModeAssetSettings?.liquidationThresholdPercentage ?? liquidationThresholdPercentage;
-
-        isCollateralOfUser = isCollateralOfUser && userEModeGroupCollateralFactor !== undefined;
       }
 
       const cashTokens = convertMantissaToTokens({
