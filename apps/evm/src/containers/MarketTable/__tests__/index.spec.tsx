@@ -34,8 +34,9 @@ describe('MarketTable', () => {
   it('renders with pool data', () => {
     const { container } = renderComponent(
       <MarketTable
-        pool={poolData[0]}
         assets={poolData[0].assets}
+        poolName={poolData[0].name}
+        poolComptrollerContractAddress={poolData[0].comptrollerAddress}
         columns={columns}
         marketType="supply"
       />,
@@ -47,8 +48,9 @@ describe('MarketTable', () => {
   it('hides controls when they are disabled', () => {
     renderComponent(
       <MarketTable
-        pool={poolData[0]}
         assets={poolData[0].assets}
+        poolName={poolData[0].name}
+        poolComptrollerContractAddress={poolData[0].comptrollerAddress}
         columns={columns}
         marketType="supply"
         controls={false}
@@ -61,8 +63,9 @@ describe('MarketTable', () => {
   it('filters by search input', () => {
     const { container } = renderComponent(
       <MarketTable
-        pool={poolData[0]}
         assets={poolData[0].assets}
+        poolName={poolData[0].name}
+        poolComptrollerContractAddress={poolData[0].comptrollerAddress}
         columns={columns}
         marketType="supply"
       />,
@@ -78,8 +81,9 @@ describe('MarketTable', () => {
   it('shows paused assets toggle if controls are enabled and any asset is paused', () => {
     renderComponent(
       <MarketTable
-        pool={fakePausedPool}
         assets={fakePausedPool.assets}
+        poolName={fakePausedPool.name}
+        poolComptrollerContractAddress={fakePausedPool.comptrollerAddress}
         columns={columns}
         marketType="supply"
       />,
@@ -100,8 +104,9 @@ describe('MarketTable', () => {
 
     const { container } = renderComponent(
       <MarketTable
-        pool={fakePausedPool}
         assets={fakePausedPool.assets}
+        poolName={fakePausedPool.name}
+        poolComptrollerContractAddress={fakePausedPool.comptrollerAddress}
         columns={columns}
         marketType="supply"
       />,
@@ -139,8 +144,9 @@ describe('MarketTable', () => {
 
     const { container } = renderComponent(
       <MarketTable
-        pool={fakePool}
         assets={fakePool.assets}
+        poolName={fakePool.name}
+        poolComptrollerContractAddress={fakePool.comptrollerAddress}
         columns={columns}
         marketType="supply"
       />,

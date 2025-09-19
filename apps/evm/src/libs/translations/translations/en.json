@@ -728,6 +728,9 @@
         "healthFactor": "Health factor:",
         "switchButtonLabel": "Switch"
       },
+      "nonEModeTable": {
+        "title": "Assets outside E-mode group"
+      },
       "notice": "Enabling E-Mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected group. <Link>Learn more</Link>",
       "search": {
         "placeholder": "Search asset or group"

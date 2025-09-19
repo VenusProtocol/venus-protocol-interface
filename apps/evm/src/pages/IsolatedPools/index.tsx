@@ -126,8 +126,10 @@ export const IsolatedPools: React.FC = () => {
       />
 
       <MarketTable
-        pool={selectedPool}
         assets={selectedPool.assets}
+        poolName={selectedPool.name}
+        poolComptrollerContractAddress={selectedPool.comptrollerAddress}
+        poolUserEModeGroup={selectedPool.userEModeGroup}
         isFetching={isGetPoolsLoading}
         breakpoint="lg"
         columns={columns}

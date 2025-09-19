@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { cn } from '@venusprotocol/ui';
 import { type InputHTMLAttributes, useMemo, useState } from 'react';
+import type { Address } from 'viem';
 
 import { Card, Delimiter, Table, type TableProps, TextField, Toggle } from 'components';
 import { routes } from 'constants/routing';
@@ -11,7 +12,7 @@ import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Asset, Pool } from 'types';
+import type { Asset, EModeGroup } from 'types';
 import { isAssetPaused } from 'utilities';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
@@ -23,8 +24,10 @@ export interface MarketTableProps
     Omit<TableProps<PoolAsset>, 'columns' | 'rowKeyIndex' | 'initialOrder' | 'getRowHref'>
   > {
   assets: Asset[];
-  pool: Pool;
+  poolName: string;
+  poolComptrollerContractAddress: Address;
   columns: ColumnKey[];
+  poolUserEModeGroup?: EModeGroup;
   controls?: boolean;
   initialOrder?: {
     orderBy: ColumnKey;
@@ -36,7 +39,9 @@ export interface MarketTableProps
 
 export const MarketTable: React.FC<MarketTableProps> = ({
   assets,
-  pool,
+  poolName,
+  poolComptrollerContractAddress,
+  poolUserEModeGroup,
   marketType,
   columns: columnKeys,
   initialOrder,
@@ -110,7 +115,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
     const poolAsset: PoolAsset = {
       ...asset,
-      pool,
+      poolName,
+      poolComptrollerContractAddress,
+      poolUserEModeGroup,
     };
 
     poolAssets.push(poolAsset);
@@ -123,8 +130,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     try {
       await toggleCollateral({
         asset: poolAssetToUpdate,
-        poolName: poolAssetToUpdate.pool.name,
-        comptrollerAddress: poolAssetToUpdate.pool.comptrollerAddress,
+        poolName: poolAssetToUpdate.poolName,
+        comptrollerAddress: poolAssetToUpdate.poolComptrollerContractAddress,
       });
     } catch (error) {
       handleError({ error });
@@ -153,7 +160,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
   const getRowHref = (row: PoolAsset) =>
     routes.market.path
-      .replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
+      .replace(':poolComptrollerAddress', row.poolComptrollerContractAddress)
       .replace(':vTokenAddress', row.vToken.address);
 
   return (
