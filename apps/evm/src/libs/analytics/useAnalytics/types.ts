@@ -132,6 +132,18 @@ type PositionImport = AnalyticEvent & {
   toTokenApyPercentage: number;
 };
 
+type SetEModeGroup = AnalyticEvent & {
+  eModeGroupName: string;
+};
+
+type SwitchEModeGroup = AnalyticEvent & {
+  prevEModeGroupName: string;
+};
+
+type EModeClickRepayPositionsModal = AnalyticEvent & {
+  tokenSymbol: string;
+};
+
 type EventMap = {
   connect_wallet_initiated: AnalyticEvent;
   wallet_connected: AnalyticEvent;
@@ -142,34 +154,34 @@ type EventMap = {
   supply_initiated: AmountTx;
   supply_rejected: AmountTx;
   supply_signed: AmountTx;
+  'Tokens supplied': Supply;
 
   withdraw_amount_set: BorrowWithdrawAmountSet;
   withdraw_risks_acknowledged: BorrowWithdrawAmountSet;
   withdraw_initiated: AmountTx;
   withdraw_rejected: AmountTx;
   withdraw_signed: AmountTx;
+  'Tokens withdrawn': Withdraw;
 
   borrow_amount_set: BorrowWithdrawAmountSet;
   borrow_risks_acknowledged: BorrowWithdrawAmountSet;
   borrow_initiated: AmountTx;
   borrow_rejected: AmountTx;
   borrow_signed: AmountTx;
+  'Tokens borrowed': Borrow;
 
   repay_amount_set: RepayAmountSet;
   repay_initiated: AmountTx;
   repay_rejected: AmountTx;
   repay_signed: AmountTx;
+  'Tokens repaid': Repay;
 
+  'Tokens swapped': Swap;
   'Tokens swapped and supplied': SwapAndSupply;
   'Tokens swapped and repaid': SwapAndRepay;
-  'Tokens swapped': Swap;
+
   'Tokens collateralized': CollateralChange;
   'Tokens decollateralized': CollateralChange;
-
-  'Tokens supplied': Supply;
-  'Tokens withdrawn': Withdraw;
-  'Tokens borrowed': Borrow;
-  'Tokens repaid': Repay;
 
   'Tokens staked in XVS vault': XvsVaultTx;
   'Token withdrawal requested from XVS vault': XvsVaultTx;
@@ -190,6 +202,25 @@ type EventMap = {
   'Position import status unknown': PositionImport;
   'Position import canceled': PositionImport;
   'Position imported': PositionImport;
+
+  e_mode_navigation: AnalyticEvent;
+  e_mode_learn_more_click: AnalyticEvent;
+  e_mode_open_positions_modal: AnalyticEvent;
+  e_mode_click_repay_positions_modal: EModeClickRepayPositionsModal;
+
+  enable_e_mode_initiated: SetEModeGroup;
+  enable_e_mode_rejected: SetEModeGroup;
+  enable_e_mode_signed: SetEModeGroup;
+  'E-mode group enabled': SetEModeGroup;
+
+  disable_e_mode_initiated: SetEModeGroup;
+  disable_e_mode_rejected: SetEModeGroup;
+  disable_e_mode_signed: SetEModeGroup;
+  'E-mode group disabled': SetEModeGroup;
+
+  switch_e_mode_initiated: SwitchEModeGroup;
+  switch_e_mode_rejected: SwitchEModeGroup;
+  switch_e_mode_signed: SwitchEModeGroup;
 };
 
 export type AnalyticEventName = keyof EventMap;

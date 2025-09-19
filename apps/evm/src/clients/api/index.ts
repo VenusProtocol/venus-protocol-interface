@@ -30,6 +30,7 @@ export * from './mutations/useRepay';
 export * from './mutations/useSwapTokens';
 export * from './mutations/useWithdraw';
 export * from './mutations/useImportSupplyPosition';
+export * from './mutations/useSetEModeGroup';
 
 // Queries
 export * from './queries/getUserVaiBorrowBalance';

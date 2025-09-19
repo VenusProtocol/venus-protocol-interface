@@ -855,3 +855,10 @@ export const useImportSupplyPosition = vi.fn(
       ...options,
     }),
 );
+
+export const useSetEModeGroup = vi.fn((_variables: never, options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
+);

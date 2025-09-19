@@ -157,8 +157,6 @@ export const formatOutput = ({
         userLiquidationThresholdPercentage =
           eModeAssetSettings?.liquidationThresholdPercentage ?? liquidationThresholdPercentage;
 
-        // TODO: check if this logic is needed (ideally contracts would have marked the asset as not
-        // being a user collateral if they have enabled an E-mode group and that asset is not in it)
         isCollateralOfUser = isCollateralOfUser && userEModeGroupCollateralFactor !== undefined;
       }
 

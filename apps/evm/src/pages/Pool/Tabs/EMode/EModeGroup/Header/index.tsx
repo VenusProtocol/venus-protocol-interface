@@ -1,5 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 
+import { useSetEModeGroup } from 'clients/api';
 import { Button, Icon, InfoIcon } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
@@ -22,11 +23,20 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
   const openBlockingPositionModal = () => setIsBlockingPositionModalOpen(true);
   const closeBlockingPositionModal = () => setIsBlockingPositionModalOpen(false);
 
-  // TODO: wire up
-  const enableEModeGroup = () => {};
+  const { mutateAsync: mutateEModeGroup, isPending: isSetEModeGroupLoading } = useSetEModeGroup();
 
-  // TODO: wire up
-  const disableEModeGroup = () => {};
+  const setEModeGroup = (input: { eModeGroupId: number; eModeGroupName?: string }) =>
+    mutateEModeGroup({
+      ...input,
+      userEModeGroupName: pool.userEModeGroup?.name,
+      comptrollerContractAddress: pool.comptrollerAddress,
+    });
+
+  const enableEModeGroup = () =>
+    setEModeGroup({ eModeGroupId: eModeGroup.id, eModeGroupName: eModeGroup.name });
+
+  // Setting the enabled E-mode group with ID 0 corresponds to disabling E-mode
+  const disableEModeGroup = () => setEModeGroup({ eModeGroupId: 0 });
 
   const poolUserHealthFactor =
     pool.userLiquidationThresholdCents &&
@@ -151,6 +161,7 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
               onClick={isEModeGroupEnabled ? disableEModeGroup : enableEModeGroup}
               small
               disabled={!isButtonEnabled}
+              loading={isSetEModeGroupLoading}
               variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
             >
               {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}
