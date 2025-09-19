@@ -1,0 +1,45 @@
+.content {
+  color: rgb(var(--color-grey));
+
+  h2, h3 {
+    color: rgb(var(--color-offWhite));
+  }
+
+  h2 {
+    margin-top: 40px;
+  }
+
+  h3 {
+    margin-top: 20px;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  p, li {
+    font-size: 1rem;
+    margin-top: 20px;
+  }
+
+  a {
+    color: rgb(var(--color-offWhite));
+    text-decoration: underline;
+  }
+
+  ul {
+    list-style: outside;
+    margin-left: 16px;
+  }
+
+  li {
+    color: inherit;
+
+    &::marker {
+      color: rgb(var(--color-offWhite));
+    }
+
+    span {
+      color: rgb(var(--color-offWhite));
+      font-weight: 600;
+    }
+  }
+}

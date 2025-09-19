@@ -1,7 +1,7 @@
+import config from 'config';
+import { version as APP_VERSION } from 'constants/version';
+import { useAppStateContext } from 'context';
 import { PostHogProvider, usePostHog } from 'posthog-js/react';
-import config from '../../config';
-import { version as APP_VERSION } from '../../constants/version';
-import { useAppStateContext } from '../../context';
 
 export interface AnalyticProviderProps {
   children?: React.ReactNode;
