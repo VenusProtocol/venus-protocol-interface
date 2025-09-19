@@ -479,7 +479,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "collateralFactor": 0,
               "isBorrowable": true,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
@@ -498,7 +498,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "collateralFactor": 0.7875,
               "isBorrowable": false,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 82.5,
               "vToken": {
                 "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
@@ -522,7 +522,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "collateralFactor": 0,
               "isBorrowable": true,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
@@ -540,7 +540,7 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
             {
               "collateralFactor": 0,
               "isBorrowable": true,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
@@ -1602,7 +1602,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "collateralFactor": 0,
               "isBorrowable": true,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
@@ -1621,7 +1621,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "collateralFactor": 0.7875,
               "isBorrowable": false,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 82.5,
               "vToken": {
                 "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
@@ -1645,7 +1645,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "collateralFactor": 0,
               "isBorrowable": true,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
@@ -1663,7 +1663,7 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
             {
               "collateralFactor": 0,
               "isBorrowable": true,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
@@ -2725,7 +2725,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "collateralFactor": 0,
               "isBorrowable": true,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
@@ -2744,7 +2744,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "collateralFactor": 0.7875,
               "isBorrowable": false,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 82.5,
               "vToken": {
                 "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
@@ -2768,7 +2768,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "collateralFactor": 0,
               "isBorrowable": true,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
@@ -2786,7 +2786,7 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
             {
               "collateralFactor": 0,
               "isBorrowable": true,
-              "liquidationPenaltyPercentage": 104,
+              "liquidationPenaltyPercentage": 4,
               "liquidationThresholdPercentage": 0,
               "vToken": {
                 "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",

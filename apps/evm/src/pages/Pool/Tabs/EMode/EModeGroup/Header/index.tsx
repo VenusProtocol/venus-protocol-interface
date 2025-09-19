@@ -68,10 +68,10 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
         isBorrowable: isEModeGroupEnabled ? asset.isBorrowable : !!assetSettings?.isBorrowable,
         collateralFactor: isEModeGroupEnabled
           ? asset.collateralFactor
-          : assetSettings?.collateralFactor ?? 0,
+          : assetSettings?.collateralFactor ?? asset.collateralFactor,
         liquidationThresholdPercentage: isEModeGroupEnabled
           ? asset.liquidationThresholdPercentage
-          : assetSettings?.liquidationThresholdPercentage ?? 0,
+          : assetSettings?.liquidationThresholdPercentage ?? asset.liquidationThresholdPercentage,
       });
 
     if (isBlocking) {

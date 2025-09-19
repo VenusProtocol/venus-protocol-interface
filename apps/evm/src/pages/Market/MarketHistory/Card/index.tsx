@@ -7,7 +7,7 @@ import type { Asset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
 
 import BigNumber from 'bignumber.js';
-import { type MarketHistoryPeriodType, useGetPoolLiquidationIncentive } from 'clients/api';
+import { type MarketHistoryPeriodType, useGetPoolLiquidationPenalty } from 'clients/api';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Address } from 'viem';
 import { MarketCard, type MarketCardProps } from '../../MarketCard';
@@ -55,7 +55,7 @@ export const Card: React.FC<CardProps> = ({
     [t],
   );
 
-  const { data: getPoolLiquidationIncentiveData } = useGetPoolLiquidationIncentive(
+  const { data: getPoolLiquidationPenaltyData } = useGetPoolLiquidationPenalty(
     {
       poolComptrollerContractAddress,
     },
@@ -64,8 +64,7 @@ export const Card: React.FC<CardProps> = ({
     },
   );
 
-  const liquidationIncentivePercentage =
-    getPoolLiquidationIncentiveData?.liquidationIncentivePercentage;
+  const liquidationPenaltyPercentage = getPoolLiquidationPenaltyData?.liquidationPenaltyPercentage;
 
   const stats: MarketCardProps['stats'] = useMemo(() => {
     if (!asset) {
@@ -99,13 +98,13 @@ export const Card: React.FC<CardProps> = ({
         },
         {
           label: t('market.stats.liquidationPenalty'),
-          value: formatPercentageToReadableValue(liquidationIncentivePercentage),
+          value: formatPercentageToReadableValue(liquidationPenaltyPercentage),
         },
       );
     }
 
     return tmpStats;
-  }, [asset, data, t, type, liquidationIncentivePercentage, shouldDisplayLiquidationInfo]);
+  }, [asset, data, t, type, liquidationPenaltyPercentage, shouldDisplayLiquidationInfo]);
 
   const legends: MarketCardProps['legends'] = [
     type === 'supply'

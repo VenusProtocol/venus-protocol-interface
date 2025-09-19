@@ -4,30 +4,30 @@ import { isolatedPoolComptrollerAbi } from 'libs/contracts';
 import { convertPercentageFromSmartContract } from 'utilities';
 import type { Address, PublicClient } from 'viem';
 
-export interface GetPoolLiquidationIncentiveInput {
+export interface GetPoolLiquidationPenaltyInput {
   publicClient: PublicClient;
   poolComptrollerContractAddress: Address;
 }
 
-export type GetPoolLiquidationIncentiveOutput = {
-  liquidationIncentivePercentage: number;
+export type GetPoolLiquidationPenaltyOutput = {
+  liquidationPenaltyPercentage: number;
 };
 
-export const getPoolLiquidationIncentive = async ({
+export const getPoolLiquidationPenalty = async ({
   publicClient,
   poolComptrollerContractAddress,
-}: GetPoolLiquidationIncentiveInput): Promise<GetPoolLiquidationIncentiveOutput> => {
+}: GetPoolLiquidationPenaltyInput): Promise<GetPoolLiquidationPenaltyOutput> => {
   const liquidationIncentiveMantissa = await publicClient.readContract({
     address: poolComptrollerContractAddress,
     abi: isolatedPoolComptrollerAbi,
     functionName: 'liquidationIncentiveMantissa',
   });
 
-  const liquidationIncentivePercentage = convertPercentageFromSmartContract(
+  const liquidationPenaltyPercentage = convertPercentageFromSmartContract(
     new BigNumber(liquidationIncentiveMantissa.toString()).minus(COMPOUND_MANTISSA),
   );
 
   return {
-    liquidationIncentivePercentage,
+    liquidationPenaltyPercentage,
   };
 };

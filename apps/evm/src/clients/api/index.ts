@@ -215,8 +215,8 @@ export * from './queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes'
 export * from './queries/getVTokenUtilizationRate';
 export * from './queries/getVTokenUtilizationRate/useGetVTokenUtilizationRate';
 
-export * from './queries/getPoolLiquidationIncentive';
-export * from './queries/getPoolLiquidationIncentive/useGetPoolLiquidationIncentive';
+export * from './queries/getPoolLiquidationPenalty';
+export * from './queries/getPoolLiquidationPenalty/useGetPoolLiquidationPenalty';
 
 export * from './queries/getBurnedWBnb';
 export * from './queries/getBurnedWBnb/useGetBurnedWBnb';

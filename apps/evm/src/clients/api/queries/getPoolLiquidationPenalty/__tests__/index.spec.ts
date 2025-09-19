@@ -2,9 +2,9 @@ import type { PublicClient } from 'viem';
 
 import fakeAccountAddress from '__mocks__/models/address';
 
-import { getPoolLiquidationIncentive } from '..';
+import { getPoolLiquidationPenalty } from '..';
 
-describe('getPoolLiquidationIncentive', () => {
+describe('getPoolLiquidationPenalty', () => {
   test('returns the liquidation incentive percentage on success', async () => {
     const fakeLiquidationIncentiveMantissa = BigInt('2000000000000000000');
 
@@ -14,7 +14,7 @@ describe('getPoolLiquidationIncentive', () => {
       readContract: readContractMock,
     } as unknown as PublicClient;
 
-    const response = await getPoolLiquidationIncentive({
+    const response = await getPoolLiquidationPenalty({
       publicClient: fakePublicClient,
       poolComptrollerContractAddress: fakeAccountAddress,
     });
@@ -27,7 +27,7 @@ describe('getPoolLiquidationIncentive', () => {
     });
     expect(response).toMatchInlineSnapshot(`
       {
-        "liquidationIncentivePercentage": 100,
+        "liquidationPenaltyPercentage": 100,
       }
     `);
   });
