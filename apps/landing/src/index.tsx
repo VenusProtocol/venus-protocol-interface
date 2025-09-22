@@ -1,7 +1,8 @@
 import 'normalize.css';
 import { createRoot } from 'react-dom/client';
 import './assets/styles/index.css';
-import App from './components/App';
+
+import App from './App';
 
 // Clear the existing HTML content
 document.body.innerHTML = '<div id="app"></div>';

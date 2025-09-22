@@ -1,5 +1,5 @@
-import { DAPP_URL } from '../../constants/production';
-import { useAppStateContext } from '../../context';
+import { DAPP_URL } from 'constants/production';
+import { useAppStateContext } from 'context';
 
 export const useDAppUrl = () => {
   const { analyticIds } = useAppStateContext();

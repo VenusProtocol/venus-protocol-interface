@@ -1,4 +1,4 @@
-import { useDAppUrl } from '../../hooks/useDAppUrl';
+import { useDAppUrl } from 'hooks/useDAppUrl';
 import Link, { type ILinkProps } from './Link';
 
 export type ILinkLaunchAppProps = Omit<ILinkProps, 'href' | 'children'>;
