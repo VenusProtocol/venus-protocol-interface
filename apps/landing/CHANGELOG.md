@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.21.1
+
+### Patch Changes
+
+- 4dabfce: design fixes on legal pages
+
 ## 1.21.0
 
 ### Minor Changes
