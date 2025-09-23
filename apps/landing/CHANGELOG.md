@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.21.0
+
+### Minor Changes
+
+- 04e1781: add legal pages
+
 ## 1.20.0
 
 ### Minor Changes
