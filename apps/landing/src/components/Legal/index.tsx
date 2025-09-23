@@ -1,3 +1,4 @@
+import { cn } from '@venusprotocol/ui';
 import { formatDate } from 'date-fns';
 
 import Container from 'components/Container/Container';
@@ -31,7 +32,7 @@ export const Legal: React.FC<LegalProps> = ({ children, title, lastUpdatedAt }) 
         </p>
       </div>
 
-      <div className={s.content}>{children}</div>
+      <div className={cn(s.content, 'max-w-[677px]')}>{children}</div>
     </Container>
   );
 };
