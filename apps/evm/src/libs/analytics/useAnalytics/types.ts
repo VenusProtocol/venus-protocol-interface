@@ -136,7 +136,7 @@ type SetEModeGroup = AnalyticEvent & {
   eModeGroupName: string;
 };
 
-type SwitchEModeGroup = AnalyticEvent & {
+type SwitchEModeGroup = SetEModeGroup & {
   prevEModeGroupName: string;
 };
 

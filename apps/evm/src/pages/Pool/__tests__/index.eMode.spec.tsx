@@ -2,6 +2,7 @@ import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 
 import { fireEvent, waitFor } from '@testing-library/react';
+import fakeAccountAddress from '__mocks__/models/address';
 import { eModeGroups } from '__mocks__/models/eModeGroup';
 import { poolData } from '__mocks__/models/pools';
 import { useGetPool } from 'clients/api';
@@ -44,6 +45,7 @@ describe('Pool - Feature flag enabled: E-mode', () => {
   describe('E-mode tab', () => {
     it('renders correctly', async () => {
       const { container } = renderComponent(<PoolPage />, {
+        accountAddress: fakeAccountAddress,
         routerInitialEntries: [
           `${routes.pool.path.replace(
             ':poolComptrollerAddress',
@@ -60,6 +62,7 @@ describe('Pool - Feature flag enabled: E-mode', () => {
 
     it('filters assets correctly when using search', async () => {
       const { container, queryAllByPlaceholderText } = renderComponent(<PoolPage />, {
+        accountAddress: fakeAccountAddress,
         routerInitialEntries: [
           `${routes.pool.path.replace(
             ':poolComptrollerAddress',

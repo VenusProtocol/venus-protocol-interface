@@ -1,0 +1,53 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useSetEModeGroup > calls useSendTransaction with the correct parameters when disabling E-mode group 1`] = `
+[
+  [
+    "disable_e_mode_initiated",
+    {
+      "eModeGroupName": "DeFi",
+    },
+  ],
+  [
+    "E-mode group disabled",
+    {
+      "eModeGroupName": "DeFi",
+    },
+  ],
+]
+`;
+
+exports[`useSetEModeGroup > calls useSendTransaction with the correct parameters when enabling E-mode group 1`] = `
+[
+  [
+    "enable_e_mode_initiated",
+    {
+      "eModeGroupName": "Stablecoins",
+    },
+  ],
+  [
+    "E-mode group enabled",
+    {
+      "eModeGroupName": "Stablecoins",
+    },
+  ],
+]
+`;
+
+exports[`useSetEModeGroup > calls useSendTransaction with the correct parameters when switching E-mode group 1`] = `
+[
+  [
+    "switch_e_mode_initiated",
+    {
+      "eModeGroupName": "Stablecoins",
+      "prevEModeGroupName": "DeFi",
+    },
+  ],
+  [
+    "E-mode group enabled",
+    {
+      "eModeGroupName": "Stablecoins",
+    },
+  ],
+]
+`;

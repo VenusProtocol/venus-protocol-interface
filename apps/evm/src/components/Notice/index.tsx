@@ -20,7 +20,6 @@ export const Notice = ({
   title,
   description,
   variant = 'info',
-  condensed = false,
   onClose,
   ...otherProps
 }: NoticeProps) => (
@@ -37,8 +36,7 @@ export const Notice = ({
   >
     <div
       className={cn(
-        'flex transition-colors ease-linear',
-        condensed ? 'px-3 py-2' : 'px-4 py-3',
+        'flex transition-colors ease-linear px-3 py-2 md:px-4 md:py-3',
         variant === 'info' && 'bg-blue/5',
         variant === 'error' && 'bg-red/5',
         variant === 'success' && 'bg-green/5',
@@ -46,26 +44,27 @@ export const Notice = ({
       )}
     >
       <div className="flex grow overflow-hidden">
-        {variant === 'loading' ? (
-          <Spinner variant="small" className="mr-2 shrink-0 items-start" />
-        ) : (
-          <Icon
-            className={cn(
-              'mr-2 shrink-0',
-              condensed ? 'h-4 w-4' : 'h-5 w-5',
-              variant === 'info' && 'text-blue',
-              variant === 'error' && 'text-red',
-              variant === 'success' && 'text-green',
-              variant === 'warning' && 'text-orange',
-            )}
-            name={iconMapping[variant]}
-          />
-        )}
+        <div className="h-[18px] mr-2 shrink-0 flex items-center md:h-[20px]">
+          {variant === 'loading' ? (
+            <Spinner variant="small" className="items-start" />
+          ) : (
+            <Icon
+              className={cn(
+                'h-4 w-4 md:h-5 md:w-5',
+                variant === 'info' && 'text-blue',
+                variant === 'error' && 'text-red',
+                variant === 'success' && 'text-green',
+                variant === 'warning' && 'text-orange',
+              )}
+              name={iconMapping[variant]}
+            />
+          )}
+        </div>
 
         <div className="grow overflow-hidden break-words space-y-2">
           {title && <p className="text-sm font-semibold">{title}</p>}
 
-          {!!description && <p className={condensed ? 'text-xs' : 'text-sm'}>{description}</p>}
+          {!!description && <p className="text-xs md:text-sm">{description}</p>}
         </div>
       </div>
 

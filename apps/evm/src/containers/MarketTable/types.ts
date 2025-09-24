@@ -1,5 +1,3 @@
-import type { Asset, Pool } from 'types';
-
 export type ColumnKey =
   | 'asset'
   | 'supplyApy'
@@ -15,7 +13,3 @@ export type ColumnKey =
   | 'liquidity'
   | 'userPercentOfLimit'
   | 'userWalletBalance';
-
-export interface PoolAsset extends Asset {
-  pool: Pool;
-}

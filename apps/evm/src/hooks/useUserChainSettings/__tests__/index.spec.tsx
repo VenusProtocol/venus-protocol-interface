@@ -32,12 +32,7 @@ describe('useUserChainSettings', () => {
       },
     } = renderHookWithContext(() => useUserChainSettings());
 
-    expect(userChainSettings).toEqual({
-      gaslessTransactions: true,
-      showPausedAssets: false,
-      showUserAssetsOnly: false,
-      doNotShowImportPositionsModal: false,
-    });
+    expect(userChainSettings).toMatchSnapshot();
   });
 
   it('calls setState when updating settings', () => {

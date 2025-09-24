@@ -3,6 +3,7 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useFormatTo } from 'hooks/useFormatTo';
 import { TAB_PARAM_KEY } from 'hooks/useTabs';
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import type { Asset } from 'types';
 import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
@@ -18,6 +19,12 @@ export const BlockingPosition: React.FC<BlockingPositionProps> = ({
   asset,
 }) => {
   const { t } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
+
+  const handleRepayClick = () =>
+    captureAnalyticEvent('e_mode_click_repay_positions_modal', {
+      tokenSymbol: asset.vToken.underlyingToken.symbol,
+    });
 
   const { formatTo } = useFormatTo();
   const marketTo = formatTo({
@@ -62,7 +69,7 @@ export const BlockingPosition: React.FC<BlockingPositionProps> = ({
 
       <div className="flex items-center">
         <ButtonWrapper small className="ml-auto w-auto text-offWhite hover:no-underline" asChild>
-          <Link to={marketTo} target="_blank">
+          <Link to={marketTo} onClick={handleRepayClick} target="_blank">
             {t('pool.eMode.group.cannotEnable.modal.repayButtonLabel')}
           </Link>
         </ButtonWrapper>

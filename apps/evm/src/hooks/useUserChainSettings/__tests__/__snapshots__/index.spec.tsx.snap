@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useUserChainSettings > returns correct settings from the store 1`] = `
+{
+  "doNotShowImportPositionsModal": false,
+  "gaslessTransactions": true,
+  "showPausedAssets": false,
+  "showUserAssetsOnly": false,
+  "showUserEModeAssetsOnly": false,
+}
+`;

@@ -9,6 +9,7 @@ export interface UserChainSettings {
   gaslessTransactions: boolean;
   showPausedAssets: boolean;
   showUserAssetsOnly: boolean;
+  showUserEModeAssetsOnly: boolean;
   doNotShowImportPositionsModal: boolean;
 }
 

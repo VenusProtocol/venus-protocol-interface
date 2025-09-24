@@ -10,9 +10,11 @@ import {
 } from 'components';
 import { E_MODE_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
-import type { EModeAssetSettings, EModeGroup, Pool } from 'types';
+import type { EModeAssetSettings, Pool } from 'types';
 import { EModeGroup as EModeGroupComp } from './EModeGroup';
+import { formatEModeGroups } from './formatEModeGroups';
 import { useGetColumns } from './useGetColumns';
 
 export interface EModeProps {
@@ -24,6 +26,12 @@ export interface EModeProps {
 export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueChange }) => {
   const { t, Trans } = useTranslation();
   const columns = useGetColumns();
+  const { captureAnalyticEvent } = useAnalytics();
+
+  const handleLearnMoreClick = () =>
+    captureAnalyticEvent('e_mode_learn_more_click', {
+      variant: 'e_mode_tab',
+    });
 
   const initialOrder: Order<EModeAssetSettings> = {
     orderBy: columns[1],
@@ -63,29 +71,10 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
     onSearchValueChange(changeEvent.currentTarget.value);
 
-  // Handle search
-  const filteredEModeGroups = pool.eModeGroups.reduce<EModeGroup[]>((acc, eModeGroup) => {
-    const searchMatches = (value: string) =>
-      value.toLowerCase().includes(searchValue.toLowerCase());
-
-    const filteredEModeAssetSettings = eModeGroup.assetSettings.filter(settings =>
-      searchMatches(settings.vToken.underlyingToken.symbol),
-    );
-
-    const nameMatches = searchMatches(eModeGroup.name);
-
-    if (filteredEModeAssetSettings.length === 0 && !nameMatches) {
-      // Filter out E-mode group
-      return acc;
-    }
-
-    const formattedEModeGroup: EModeGroup = {
-      ...eModeGroup,
-      assetSettings: filteredEModeAssetSettings,
-    };
-
-    return [...acc, formattedEModeGroup];
-  }, []);
+  const formattedEModeGroups = formatEModeGroups({
+    pool,
+    searchValue,
+  });
 
   return (
     <div className="space-y-6">
@@ -94,7 +83,7 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
           <Trans
             i18nKey="pool.eMode.notice"
             components={{
-              Link: <Link href={E_MODE_DOC_URL} />,
+              Link: <Link href={E_MODE_DOC_URL} onClick={handleLearnMoreClick} />,
             }}
           />
         }
@@ -121,10 +110,13 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
           onChange={handleOrderChange}
         />
 
-        {filteredEModeGroups.map(eModeGroup => (
+        {formattedEModeGroups.map(extendedEModeGroup => (
           <EModeGroupComp
-            key={eModeGroup.id}
-            eModeGroup={eModeGroup}
+            key={extendedEModeGroup.id}
+            eModeGroup={extendedEModeGroup}
+            userHasEnoughCollateral={extendedEModeGroup.userHasEnoughCollateral}
+            userBlockingAssets={extendedEModeGroup.userBlockingAssets}
+            hypotheticalUserHealthFactor={extendedEModeGroup.hypotheticalUserHealthFactor}
             pool={pool}
             columns={columns}
             initialOrder={initialOrder}

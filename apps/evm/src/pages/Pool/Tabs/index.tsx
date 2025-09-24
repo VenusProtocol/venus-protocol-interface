@@ -4,6 +4,7 @@ import { type InputHTMLAttributes, useState } from 'react';
 import lightningIllustrationSrc from 'assets/img/lightning.svg';
 import { Icon, type Tag, TagGroup, TextField } from 'components';
 import { type Tab, useTabs } from 'hooks/useTabs';
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import type { Pool } from 'types';
 import { Assets } from '../Assets';
@@ -15,6 +16,7 @@ export interface TabsProps {
 
 export const Tabs: React.FC<TabsProps> = ({ pool }) => {
   const { t } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
@@ -81,11 +83,23 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
         <TagGroup
           tags={tags}
           activeTagIndex={activeTabIndex}
-          onTagClick={tagIndex =>
+          onTagClick={tagIndex => {
+            if (tagIndex === activeTabIndex) {
+              return;
+            }
+
+            const newActiveTabId = tabs[tagIndex].id;
+
+            if (newActiveTabId === 'e-mode') {
+              captureAnalyticEvent('e_mode_navigation', {
+                variant: 'pool_tab',
+              });
+            }
+
             setActiveTab({
-              id: tabs[tagIndex].id,
-            })
-          }
+              id: newActiveTabId,
+            });
+          }}
         />
 
         {activeTab.id === 'e-mode' && (
