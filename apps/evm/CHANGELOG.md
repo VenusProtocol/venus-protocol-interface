@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.54.2
+
+### Patch Changes
+
+- 613dfd2: fix issue with greyed out borrow APYs
+
 ## 3.54.1
 
 ### Patch Changes
