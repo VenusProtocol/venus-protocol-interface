@@ -558,13 +558,13 @@ export const useGetVTokenUtilizationRate = vi.fn(() =>
   }),
 );
 
-export const getPoolLiquidationIncentive = vi.fn(async () => ({
-  liquidationIncentivePercentage: 10,
+export const getPoolLiquidationPenalty = vi.fn(async () => ({
+  liquidationPenaltyPercentage: 10,
 }));
-export const useGetPoolLiquidationIncentive = vi.fn(() =>
+export const useGetPoolLiquidationPenalty = vi.fn(() =>
   useQuery({
-    queryKey: [FunctionKey.GET_POOL_LIQUIDATION_INCENTIVE],
-    queryFn: getPoolLiquidationIncentive,
+    queryKey: [FunctionKey.GET_POOL_LIQUIDATION_PENALTY],
+    queryFn: getPoolLiquidationPenalty,
   }),
 );
 
@@ -854,4 +854,11 @@ export const useImportSupplyPosition = vi.fn(
       mutationFn: vi.fn(),
       ...options,
     }),
+);
+
+export const useSetEModeGroup = vi.fn((_variables: never, options?: MutationObserverOptions) =>
+  useMutation({
+    mutationFn: vi.fn(),
+    ...options,
+  }),
 );

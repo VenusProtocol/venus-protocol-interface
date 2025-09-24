@@ -167,8 +167,6 @@ export interface EModeAssetSettings {
   collateralFactor: number;
   liquidationThresholdPercentage: number;
   liquidationPenaltyPercentage: number;
-  liquidityCents: number;
-  liquidityTokens: BigNumber;
   isBorrowable: boolean;
 }
 

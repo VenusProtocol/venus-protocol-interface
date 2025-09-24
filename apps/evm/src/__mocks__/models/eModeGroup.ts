@@ -13,8 +13,6 @@ const generateEModeGroup = ({
     collateralFactor: a.userCollateralFactor + 0.1,
     liquidationThresholdPercentage: a.userLiquidationThresholdPercentage + 12,
     liquidationPenaltyPercentage: a.userLiquidationThresholdPercentage - 50,
-    liquidityCents: a.liquidityCents.toNumber(),
-    liquidityTokens: a.cashTokens,
     isBorrowable: a.isBorrowable,
   })),
 });

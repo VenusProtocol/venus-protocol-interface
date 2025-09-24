@@ -75,7 +75,7 @@ import tokenBridgeUnichainMainnetDeployments from '@venusprotocol/token-bridge/d
 import tokenBridgeUnichainSepoliaDeployments from '@venusprotocol/token-bridge/deployments/unichainsepolia_addresses.json';
 import tokenBridgeZkSyncMainnetDeployments from '@venusprotocol/token-bridge/deployments/zksyncmainnet_addresses.json';
 import tokenBridgeZkSyncSepoliaDeployments from '@venusprotocol/token-bridge/deployments/zksyncsepolia_addresses.json';
-import { abi as legacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
+// import { abi as legacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as vTreasuryAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasury.sol/VTreasury.json';
 import { abi as vTreasuryV8Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasuryV8.sol/VTreasuryV8.json';
 import { abi as jumpRateModelAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/InterestRateModels/JumpRateModel.sol/JumpRateModel.json';
@@ -116,6 +116,8 @@ import aavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvid
 import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
 import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
 import erc20Abi from './externalAbis/Erc20.json';
+// TODO: get from venus-protocol package
+import legacyPoolComptrollerAbi from './externalAbis/LegacyComptroller.json';
 import maximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
 import nexusAbi from './externalAbis/Nexus.json';
@@ -228,7 +230,7 @@ export const contracts: ContractConfig[] = [
   },
   {
     name: 'LegacyPoolComptroller',
-    abi: legacyPoolComptrollerAbi as Abi,
+    abi: legacyPoolComptrollerAbi.abi as Abi,
     address: {
       [ChainId.BSC_TESTNET]: venusProtocolBscTestnetDeployments.addresses.Unitroller as Address,
       [ChainId.BSC_MAINNET]: venusProtocolBscMainnetDeployments.addresses.Unitroller as Address,
@@ -783,14 +785,14 @@ export const contracts: ContractConfig[] = [
           isolatedPoolsBscTestnetDeployments.addresses
             .NativeTokenGateway_vWBNB_LiquidStakedBNB as Address,
         [venusProtocolBscTestnetDeployments.addresses.Unitroller_Proxy.toLowerCase() as Address]:
-          '0xF34AAfc540Adc827A84736553BD29DE87a117558', // TODO: get from venus-periphery contract,
+          '0xF34AAfc540Adc827A84736553BD29DE87a117558', // TODO: get from venus-periphery package,
       },
       [ChainId.BSC_MAINNET]: {
         [isolatedPoolsBscMainnetDeployments.addresses.Comptroller_LiquidStakedBNB.toLowerCase() as Address]:
           isolatedPoolsBscMainnetDeployments.addresses
             .NativeTokenGateway_vWBNB_LiquidStakedBNB as Address,
         [venusProtocolBscMainnetDeployments.addresses.Unitroller_Proxy.toLowerCase() as Address]:
-          '0x5143eb18aA057Cd8BC9734cCfD2651823e71585f', // TODO: get from venus-periphery contract,
+          '0x5143eb18aA057Cd8BC9734cCfD2651823e71585f', // TODO: get from venus-periphery package,
       },
       [ChainId.OPBNB_MAINNET]: {
         [isolatedPoolsOpBnbMainnetDeployments.addresses.Comptroller_Core.toLowerCase() as Address]:
