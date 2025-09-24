@@ -136,7 +136,7 @@ export const formatOutput = ({
 
       let userLiquidationThresholdPercentage = liquidationThresholdPercentage;
 
-      const isBorrowable = market.isBorrowable;
+      const isBorrowable = market.isBorrowable ?? true;
       let isBorrowableByUser = isBorrowable;
 
       if (userEModeGroup) {
