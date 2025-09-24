@@ -101,7 +101,7 @@ export interface ApiMarket {
   poolComptrollerAddress: Address;
   rewardsDistributors: ApiRewardDistributor[];
   pointsDistributions: ApiPointsDistribution[];
-  eModeSettings: ApiMarketEModeSettings[];
+  eModeSettings?: ApiMarketEModeSettings[];
 }
 
 export interface ApiEModeGroup {
@@ -116,7 +116,7 @@ export interface ApiPool {
   name: string;
   markets: ApiMarket[];
   priceOracleAddress: Address;
-  eModeGroups: ApiEModeGroup[];
+  eModeGroups?: ApiEModeGroup[];
 }
 
 export interface ApiTokenPrice {

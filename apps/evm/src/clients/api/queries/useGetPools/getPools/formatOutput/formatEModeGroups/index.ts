@@ -19,7 +19,7 @@ export const formatEModeGroups = ({
   tokens: Token[];
   chainId: ChainId;
 }) => {
-  const eModeGroups: EModeGroup[] = apiPool.eModeGroups.map(apiEModeGroup => {
+  const eModeGroups: EModeGroup[] = (apiPool.eModeGroups || []).map(apiEModeGroup => {
     const assetSettings = apiEModeGroup.eModeSettings.reduce<EModeAssetSettings[]>(
       (acc, settings) => {
         const apiMarket = apiPool.markets.find(m =>
