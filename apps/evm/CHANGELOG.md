@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.54.1
+
+### Patch Changes
+
+- ead6f6b: fix issue with optional E-mode settings
+
 ## 3.54.0
 
 ### Minor Changes
