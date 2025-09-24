@@ -95,12 +95,12 @@ export interface ApiMarket {
   estimatedPrimeSupplyApyBoost: string | null;
   pausedActionsBitmap: number;
   isListed: boolean;
-  isBorrowable: boolean;
   supplierCount: number | null;
   borrowerCount: number | null;
   poolComptrollerAddress: Address;
   rewardsDistributors: ApiRewardDistributor[];
   pointsDistributions: ApiPointsDistribution[];
+  isBorrowable?: boolean;
   eModeSettings?: ApiMarketEModeSettings[];
 }
 
