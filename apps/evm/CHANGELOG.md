@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.54.0
+
+### Minor Changes
+
+- f241bdd: wire up E-mode feature
+
 ## 3.53.3
 
 ### Patch Changes
