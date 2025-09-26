@@ -26,6 +26,7 @@ import planetLogo from 'libs/tokens/img/underlyingTokens/planet.svg';
 import ptClisBNBLogo from 'libs/tokens/img/underlyingTokens/ptClisBNB.svg';
 import ptSUsdELogo from 'libs/tokens/img/underlyingTokens/ptSUsdE.svg';
 import ptSolvBtcLogo from 'libs/tokens/img/underlyingTokens/ptSolvBtc.svg';
+import ptUsdELogo from 'libs/tokens/img/underlyingTokens/ptUsdE.svg';
 import racaLogo from 'libs/tokens/img/underlyingTokens/raca.png';
 import sUsdELogo from 'libs/tokens/img/underlyingTokens/sUsdE.svg';
 import sdLogo from 'libs/tokens/img/underlyingTokens/sd.svg';
@@ -422,5 +423,11 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'USDF',
     asset: usdfLogo,
+  },
+  {
+    address: '0x0c98334aCF440b9936D9cc1d99dc1A77bf26a93B',
+    decimals: 18,
+    symbol: 'PT-USDe-30OCT2025',
+    asset: ptUsdELogo,
   },
 ];
