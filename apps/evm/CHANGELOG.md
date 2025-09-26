@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.55.0
+
+### Minor Changes
+
+- 07fe8ac: add PT-USDe-30OCT2025 token record
+
 ## 3.54.2
 
 ### Patch Changes
