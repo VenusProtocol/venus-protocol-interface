@@ -54,12 +54,13 @@ export interface ChainMetadata {
   blocksPerDay?: number;
 }
 
-// TODO: import from @venusprotocol/tokens package once it's been created
 export interface Token {
   symbol: string;
   decimals: number;
-  asset: string;
+  asset: string; // TODO: update to iconUrl
   address: Address;
   isNative?: boolean;
   tokenWrapped?: Token;
 }
+
+export type VTokenIconUrlMapping = Record<string, string>;

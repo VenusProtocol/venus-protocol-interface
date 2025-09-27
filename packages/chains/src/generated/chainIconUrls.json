@@ -1,0 +1,11 @@
+{
+  "arbitrumOne": "https://your-vercel-domain.vercel.app/img/arbitrumOne.svg",
+  "base": "https://your-vercel-domain.vercel.app/img/base.svg",
+  "berachain": "https://your-vercel-domain.vercel.app/img/berachain.svg",
+  "bsc": "https://your-vercel-domain.vercel.app/img/bsc.svg",
+  "eth": "https://your-vercel-domain.vercel.app/img/eth.svg",
+  "opBnb": "https://your-vercel-domain.vercel.app/img/opBnb.svg",
+  "optimism": "https://your-vercel-domain.vercel.app/img/optimism.svg",
+  "unichain": "https://your-vercel-domain.vercel.app/img/unichain.svg",
+  "zkSync": "https://your-vercel-domain.vercel.app/img/zkSync.svg"
+}
