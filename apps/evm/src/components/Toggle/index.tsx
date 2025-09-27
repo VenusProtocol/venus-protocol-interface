@@ -30,7 +30,7 @@ export const Toggle = ({
     <div css={styles.container} className={className}>
       {!!tooltip && <InfoIcon className="mr-2" tooltip={tooltip} />}
 
-      {!!label && <span className="mr-2 text-sm">{label}</span>}
+      {!!label && <span className="mr-2 text-sm whitespace-nowrap">{label}</span>}
 
       <Switch
         css={styles.getSwitch({ isDark })}

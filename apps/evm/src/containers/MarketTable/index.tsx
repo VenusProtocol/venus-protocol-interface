@@ -1,29 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import { cn } from '@venusprotocol/ui';
-import { type InputHTMLAttributes, useMemo, useState } from 'react';
+import { type InputHTMLAttributes, useMemo } from 'react';
+import type { Address } from 'viem';
 
 import { Card, Delimiter, Table, type TableProps, TextField, Toggle } from 'components';
-import { useCollateral } from 'hooks/useCollateral';
-import { handleError } from 'libs/errors';
-import type { Pool } from 'types';
-
 import { routes } from 'constants/routing';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useBreakpointUp } from 'hooks/responsive';
-import { useUserChainSettings } from 'hooks/useUserChainSettings';
+import { useCollateral } from 'hooks/useCollateral';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { useAccountAddress } from 'libs/wallet';
-import { isAssetPaused } from 'utilities';
+import type { Asset } from 'types';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
-import type { ColumnKey, PoolAsset } from './types';
-import useGenerateColumns from './useGenerateColumns';
+import type { ColumnKey } from './types';
+import { useColumns } from './useColumns';
+import { useControls } from './useControls';
 
 export interface MarketTableProps
   extends Partial<
-    Omit<TableProps<PoolAsset>, 'columns' | 'rowKeyIndex' | 'initialOrder' | 'getRowHref'>
+    Omit<TableProps<Asset>, 'columns' | 'rowKeyIndex' | 'initialOrder' | 'getRowHref'>
   > {
-  pools: Pool[];
+  assets: Asset[];
+  poolName: string;
+  poolComptrollerContractAddress: Address;
   columns: ColumnKey[];
   controls?: boolean;
   initialOrder?: {
@@ -35,7 +35,9 @@ export interface MarketTableProps
 }
 
 export const MarketTable: React.FC<MarketTableProps> = ({
-  pools,
+  assets,
+  poolName,
+  poolComptrollerContractAddress,
   marketType,
   columns: columnKeys,
   initialOrder,
@@ -50,91 +52,45 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const { t } = useTranslation();
 
   const { toggleCollateral } = useCollateral();
-  const { accountAddress } = useAccountAddress();
-
-  const [searchValue, setSearchValue] = useState('');
 
   // The fallback breakpoint is just to satisfy TS here, it is not actually used
   const _isBreakpointUp = useBreakpointUp(breakpoint || 'xxl');
   const isBreakpointUp = !!breakpoint && _isBreakpointUp;
 
-  const [userChainSettings, setUserChainSettings] = useUserChainSettings();
-
-  const { showPausedAssets: _showPausedAssets, showUserAssetsOnly: _showUserAssetsOnly } =
-    userChainSettings;
-
-  let userHasAssets = false;
-  let pausedAssetsExist = false;
-
-  pools.forEach(pool =>
-    pool.assets.forEach(asset => {
-      const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
-
-      if (isUserAsset && !userHasAssets) {
-        userHasAssets = true;
-      }
-
-      const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
-      if (isPaused && !pausedAssetsExist) {
-        pausedAssetsExist = true;
-      }
-    }),
-  );
-
-  const showUserAssetsOnly = _showUserAssetsOnly && userHasAssets;
-  const showPausedAssets = _showPausedAssets && pausedAssetsExist;
-
-  const poolAssets: PoolAsset[] = [];
-
-  pools.forEach(pool =>
-    pool.assets.forEach(asset => {
-      const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
-
-      if (controls && !isUserAsset && showUserAssetsOnly) {
-        return;
-      }
-
-      const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
-
-      // Handle paused assets
-      if (controls && isPaused && !showPausedAssets) {
-        return;
-      }
-
-      // Handle search
-      if (
-        controls &&
-        !!searchValue &&
-        !asset.vToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase())
-      ) {
-        return;
-      }
-
-      const poolAsset: PoolAsset = {
-        ...asset,
-        pool,
-      };
-
-      poolAssets.push(poolAsset);
-    }),
-  );
+  const {
+    assets: filteredAssets,
+    pausedAssetsExist,
+    userHasAssets,
+    userHasEModeGroup,
+    searchValue,
+    onSearchValueChange,
+    showPausedAssets,
+    showUserAssetsOnly,
+    showUserEModeAssetsOnly,
+    setShowPausedAssets,
+    setShowUserEModeAssetsOnly,
+    setShowUserAssetsOnly,
+  } = useControls({
+    assets,
+    applyUserSettings: controls,
+  });
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
-    setSearchValue(changeEvent.currentTarget.value);
+    onSearchValueChange(changeEvent.currentTarget.value);
 
-  const handleCollateralChange = async (poolAssetToUpdate: PoolAsset) => {
+  const handleCollateralChange = async (asset: Asset) => {
     try {
       await toggleCollateral({
-        asset: poolAssetToUpdate,
-        poolName: poolAssetToUpdate.pool.name,
-        comptrollerAddress: poolAssetToUpdate.pool.comptrollerAddress,
+        asset,
+        poolName,
+        comptrollerAddress: poolComptrollerContractAddress,
       });
     } catch (error) {
       handleError({ error });
     }
   };
 
-  const columns = useGenerateColumns({
+  const columns = useColumns({
     columnKeys,
     collateralOnChange: handleCollateralChange,
   });
@@ -154,16 +110,16 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     );
   }, [columns, initialOrder]);
 
-  const getRowHref = (row: PoolAsset) =>
+  const getRowHref = (row: Asset) =>
     routes.market.path
-      .replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
+      .replace(':poolComptrollerAddress', poolComptrollerContractAddress)
       .replace(':vTokenAddress', row.vToken.address);
 
   return (
     <Table
       getRowHref={getRowHref}
       columns={columns}
-      data={poolAssets}
+      data={filteredAssets}
       css={styles.cardContentGrid}
       className={cn(isBreakpointUp && !title && 'pt-0 sm:pt-0')}
       title={title}
@@ -180,28 +136,32 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                   <div className={cn(isBreakpointUp && '-mx-6')}>
                     <div
                       className={cn(
-                        'space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between',
+                        'space-y-4 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:space-x-4',
                         isBreakpointUp && 'sm:mb-0 px-6 py-4',
                       )}
                     >
-                      <div className="flex items-center gap-x-4">
+                      <div className="flex items-center gap-x-4 flex-wrap gap-y-6">
                         {pausedAssetsExist && (
                           <Toggle
-                            onChange={() =>
-                              setUserChainSettings({ showPausedAssets: !showPausedAssets })
-                            }
+                            onChange={() => setShowPausedAssets(!showPausedAssets)}
                             value={showPausedAssets}
                             label={t('marketTable.pausedAssetsToggle.label')}
                           />
                         )}
 
-                        {!!accountAddress && userHasAssets && (
+                        {userHasAssets && (
                           <Toggle
-                            onChange={() =>
-                              setUserChainSettings({ showUserAssetsOnly: !showUserAssetsOnly })
-                            }
+                            onChange={() => setShowUserAssetsOnly(!showUserAssetsOnly)}
                             value={showUserAssetsOnly}
                             label={t('marketTable.userAssetsOnlyToggle.label')}
+                          />
+                        )}
+
+                        {userHasEModeGroup && (
+                          <Toggle
+                            onChange={() => setShowUserEModeAssetsOnly(!showUserEModeAssetsOnly)}
+                            value={showUserEModeAssetsOnly}
+                            label={t('marketTable.userEModeAssetsOnlyToggle.label')}
                           />
                         )}
                       </div>
@@ -231,8 +191,9 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         controls &&
         !isFetching &&
         !searchValue &&
-        poolAssets.length === 0 &&
+        filteredAssets.length === 0 &&
         pausedAssetsExist &&
+        !showUserEModeAssetsOnly &&
         !showPausedAssets && (
           <Card
             className={cn(

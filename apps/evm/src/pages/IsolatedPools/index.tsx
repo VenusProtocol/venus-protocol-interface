@@ -1,4 +1,4 @@
-import { cn } from '@venusprotocol/ui';
+import { Spinner, cn } from '@venusprotocol/ui';
 import { useSearchParams } from 'react-router';
 
 import { useGetPools } from 'clients/api';
@@ -60,13 +60,14 @@ export const IsolatedPools: React.FC = () => {
     });
 
   const selectedPoolComptrollerAddress = searchParams.get(POOL_COMPTROLLER_ADDRESS_PARAM_KEY);
+
   const selectedPoolTagIndex = selectedPoolComptrollerAddress
     ? pools.findIndex(pool =>
         areAddressesEqual(pool.comptrollerAddress, selectedPoolComptrollerAddress),
       )
     : 0;
 
-  const selectedPool = pools[selectedPoolTagIndex];
+  const selectedPool = pools[selectedPoolTagIndex] || pools[0];
 
   const poolTags = pools.map((pool, poolIndex) => {
     const isPaused = isPoolPaused({ pool });
@@ -103,8 +104,12 @@ export const IsolatedPools: React.FC = () => {
       [POOL_COMPTROLLER_ADDRESS_PARAM_KEY]: pools[tagIndex].comptrollerAddress,
     }));
 
+  if (isGetPoolsLoading) {
+    return <Spinner />;
+  }
+
   // Redirect to Core pool page if there are no isolated pools to display
-  if (!isGetPoolsLoading && pools.length === 0) {
+  if (pools.length === 0) {
     return <Redirect to={homePagePath} />;
   }
 
@@ -120,13 +125,15 @@ export const IsolatedPools: React.FC = () => {
       )}
 
       <PoolStats
-        className="my-6"
         pools={selectedPool ? [selectedPool] : []}
         stats={['supply', 'borrow', 'liquidity', 'assetCount']}
+        className="mb-4"
       />
 
       <MarketTable
-        pools={selectedPool ? [selectedPool] : []}
+        assets={selectedPool.assets}
+        poolName={selectedPool.name}
+        poolComptrollerContractAddress={selectedPool.comptrollerAddress}
         isFetching={isGetPoolsLoading}
         breakpoint="lg"
         columns={columns}

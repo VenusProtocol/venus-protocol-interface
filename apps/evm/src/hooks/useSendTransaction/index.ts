@@ -45,6 +45,10 @@ export interface UseSendTransactionInput<
     | GetFusionQuotePayload
     | Promise<GetFusionQuotePayload>;
   transactionType?: TransactionType;
+  onSigned?: (input: {
+    transactionHash: string;
+    input: TMutateInput;
+  }) => Promise<unknown> | unknown;
   onConfirmed?: (input: {
     transactionHash: string;
     transactionReceipt: TransactionReceipt | GetSupertransactionReceiptPayloadWithReceipts;
@@ -72,7 +76,7 @@ export const useSendTransaction = <
 ) => {
   const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({ name: 'gaslessTransactions' });
 
-  const { fn, transactionType, onConfirmed, onReverted, options } = input;
+  const { fn, transactionType, onConfirmed, onReverted, onSigned, options } = input;
   const tryGasless = options?.tryGasless ?? true;
 
   const { accountAddress } = useAccountAddress();
@@ -149,6 +153,10 @@ export const useSendTransaction = <
               gasless: shouldTryGasless,
             },
       );
+
+      if (onSigned) {
+        onSigned({ transactionHash, input: mutationInput });
+      }
 
       // Track transaction's progress in the background
       const promise = trackTransaction({

@@ -70,9 +70,7 @@ export const formatOutput = ({
     const userEModeGroupId = userPoolEModeGroupIdMapping[apiPool.address.toLowerCase() as Address];
 
     if (userEModeGroupId > 0) {
-      // The pool at index 0 represents the pool itself without any E-mode group enabled, hence why
-      // the index of the pool enabled by the user is the one returned by the contract minus 1
-      userEModeGroup = eModeGroups[userEModeGroupId - 1];
+      userEModeGroup = eModeGroups.find(e => e.id === userEModeGroupId);
     }
 
     const assets = apiPool.markets.reduce<Asset[]>((acc, market) => {
@@ -138,6 +136,7 @@ export const formatOutput = ({
 
       const isBorrowable = market.isBorrowable ?? true;
       let isBorrowableByUser = isBorrowable;
+      let userEModeGroupName: undefined | string;
 
       if (userEModeGroup) {
         const eModeAssetSettings = userEModeGroup.assetSettings.find(settings =>
@@ -145,6 +144,9 @@ export const formatOutput = ({
         );
 
         const userEModeGroupCollateralFactor = eModeAssetSettings?.collateralFactor;
+
+        // Add name of E-mode group enabled by user if asset is part of it
+        userEModeGroupName = eModeAssetSettings ? userEModeGroup.name : undefined;
 
         userCollateralFactor = userEModeGroupCollateralFactor ?? collateralFactor;
 
@@ -297,6 +299,7 @@ export const formatOutput = ({
         userLiquidationThresholdPercentage,
         isBorrowable,
         isBorrowableByUser,
+        userEModeGroupName,
         // This will be calculated after all assets have been formatted
         userPercentOfLimit: 0,
         isCollateralOfUser,

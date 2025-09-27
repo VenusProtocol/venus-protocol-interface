@@ -102,22 +102,23 @@ export const Button = ({
   variant = 'primary',
   children,
   contentClassName,
+  className,
   ...otherProps
 }: ButtonProps) => (
-  <ButtonWrapper disabled={loading || disabled} type="button" variant={variant} {...otherProps}>
+  <ButtonWrapper
+    disabled={loading || disabled}
+    type="button"
+    variant={variant}
+    className={cn(variant !== 'primary' && variant !== 'secondary' && 'text-sm', className)}
+    {...otherProps}
+  >
     {loading && (
       <div className="mr-2">
         <Spinner variant="small" />
       </div>
     )}
 
-    <span
-      className={cn(
-        'inline-flex items-center text-inherit',
-        variant !== 'primary' && variant !== 'secondary' && 'text-sm',
-        contentClassName,
-      )}
-    >
+    <span className={cn('inline-flex items-center text-inherit', contentClassName)}>
       {children}
     </span>
   </ButtonWrapper>

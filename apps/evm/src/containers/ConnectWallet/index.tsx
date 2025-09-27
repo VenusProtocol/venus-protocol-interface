@@ -1,10 +1,12 @@
-import { Button, NoticeInfo } from 'components';
+import { Button, type ButtonProps, NoticeInfo } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
 
 export interface ConnectWalletProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'className'> {
   analyticVariant?: string;
+  buttonVariant?: ButtonProps['variant'];
+  small?: boolean;
   message?: string;
   className?: string;
   children?: React.ReactNode;
@@ -14,6 +16,8 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
   children,
   message,
   analyticVariant,
+  buttonVariant,
+  small = false,
   ...otherProps
 }) => {
   const { accountAddress } = useAccountAddress();
@@ -36,7 +40,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = ({
         <>
           {!!message && <NoticeInfo className="mb-8" description={message} />}
 
-          <Button className="w-full" onClick={handleClick}>
+          <Button className="w-full" onClick={handleClick} variant={buttonVariant} small={small}>
             {t('connectWallet.connectButton')}
           </Button>
         </>

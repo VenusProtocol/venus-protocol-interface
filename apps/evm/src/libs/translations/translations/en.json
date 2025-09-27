@@ -43,8 +43,7 @@
       }
     },
     "poolsBreakdown": {
-      "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}",
-      "title": "Pools"
+      "poolTagTooltip": "Borrow limit used: {{borrowLimitUsedPercentage}}"
     },
     "primeBanner": {
       "button": {
@@ -60,8 +59,7 @@
     "settings": {
       "gaslessTransactions": {
         "switchLabel": "Enable gasless transactions on {{chainName}}"
-      },
-      "title": "Settings"
+      }
     },
     "summary": {
       "cellGroup": {
@@ -85,59 +83,41 @@
       "vaults": "Vaults"
     },
     "transactions": {
+      "placeholder": {
+        "description": "Your transactions will appear here",
+        "title": "No transactions yet"
+      },
+      "selects": {
+        "source": {
+          "all": "All markets"
+        },
+        "txType": {
+          "all": "All transactions"
+        }
+      },
       "today": "Today",
-      "yesterday": "Yesterday",
       "txText": {
         "approve": "Approved spending {{tokenAmount}}",
         "enterMarket": "<Styled>Enabled</Styled> {{vTokenSymbol}} as collateral",
         "exitMarket": "<Styled>Disabled</Styled> {{vTokenSymbol}} as collateral"
       },
       "txType": {
-        "mint": "Supply",
-        "borrow": "Borrow",
-        "redeem": "Withdraw",
-        "repay": "Repayment",
         "approve": "Approval",
+        "borrow": "Borrow",
         "enterMarket": "Enabled collateral",
-        "exitMarket": "Disabled collateral"
+        "exitMarket": "Disabled collateral",
+        "mint": "Supply",
+        "redeem": "Withdraw",
+        "repay": "Repayment"
       },
-      "selects": {
-        "txType": {
-          "all": "All transactions",
-          "mint": "Supplies",
-          "borrow": "Borrows",
-          "redeem": "Withdrawals",
-          "repay": "Borrow repayments",
-          "approve": "Approvals",
-          "enterMarket": "Enabled collateral",
-          "exitMarket": "Disabled collateral"
-        },
-        "source": {
-          "all": "All markets"
-        }
-      },
-      "placeholder": {
-        "description": "Your transactions will appear here",
-        "title": "No transactions yet"
-      },
-      "view": "View"
+      "view": "View",
+      "yesterday": "Yesterday"
     },
     "vaults": {
       "placeholder": {
         "description": "Your vault positions will appear here",
         "title": "No staking positions yet"
       }
-    },
-    "vaultsBreakdown": {
-      "table": {
-        "column": {
-          "apr": "APR",
-          "asset": "Asset",
-          "stake": "Stake"
-        },
-        "title": "Staked"
-      },
-      "title": "Vaults"
     }
   },
   "accountData": {
@@ -160,10 +140,6 @@
     "borrowLimitUsed": "Borrow limit used:",
     "limit": "Limit:",
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
-  },
-  "accountPlaceholder": {
-    "assetsWillAppearHere": "Supplied and borrowed assets will appear here",
-    "letsGetStarted": "Let’s get started"
   },
   "announcements": {
     "bethUpdate": {
@@ -248,10 +224,13 @@
   },
   "assetAccessor": {
     "disabledActionNotice": {
-      "borrow": "Borrowing has been disabled for this token",
-      "repay": "Repaying has been disabled for this token",
-      "supply": "Supplying has been disabled for this token",
-      "withdraw": "Withdrawing has been disabled for this token"
+      "borrow": "Borrowing has been disabled for this market",
+      "repay": "Repaying has been disabled for this market",
+      "supply": "Supplying has been disabled for this market",
+      "withdraw": "Withdrawing has been disabled for this market"
+    },
+    "eModeBlockedActionNotice": {
+      "borrow": "Your E-mode settings do not allow you to borrow from this market. <Link>Manage E-mode</Link>"
     }
   },
   "assetInfo": {
@@ -270,7 +249,7 @@
   "assetWarning": {
     "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool. <Button>Show all tokens</Button>",
     "modalTitle": "{{ poolName }} tokens",
-    "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all tokens</Button>"
+    "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all markets</Button>"
   },
   "breadcrumbs": {
     "account": "Account",
@@ -592,6 +571,7 @@
   },
   "marketTable": {
     "assetColumn": {
+      "eMode": "This market is part of the {{eModeGroupName}} E-mode group",
       "pausedAssetTooltip": "Asset paused by Venus Governance. Borrowing and supplying have been disabled."
     },
     "columnKeys": {
@@ -602,7 +582,6 @@
       "labeledBorrowApy": "Borrow APY <InfoIcon />",
       "labeledSupplyApy": "Supply APY <InfoIcon />",
       "liquidity": "Liquidity",
-      "pool": "Pool",
       "price": "Price",
       "supplyApy": "APY <InfoIcon />",
       "supplyBalance": "Total supply",
@@ -619,7 +598,6 @@
       "labeledBorrowApy": "Borrow APY",
       "labeledSupplyApy": "Supply APY / LTV",
       "liquidity": "Liquidity",
-      "pool": "Pool",
       "price": "Price",
       "supplyApy": "Supply APY / LTV",
       "supplyBalance": "Total supply",
@@ -644,7 +622,10 @@
       "placeholder": "Search asset"
     },
     "userAssetsOnlyToggle": {
-      "label": "Show my assets only"
+      "label": "My assets only"
+    },
+    "userEModeAssetsOnlyToggle": {
+      "label": "E-mode assets only"
     }
   },
   "operationForm": {
@@ -762,7 +743,6 @@
           "rows": {
             "liquidationPenalty": "Liquidation penalty",
             "liquidationThreshold": "Liquidation threshold",
-            "liquidity": "Liquidity",
             "maxLtv": "Max LTV"
           }
         },

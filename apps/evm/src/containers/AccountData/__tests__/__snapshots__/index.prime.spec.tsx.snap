@@ -1,25 +1,25 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'borrow' } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.61HealthyDaily earnings$0.03$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'borrow' } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.61HealthyDaily earnings$0.04$0.04"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'repay' } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'repay' } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.04"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'supply' } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyDaily earnings$0.03$0.06"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'supply' } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyDaily earnings$0.04$0.07"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'withdraw' } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyDaily earnings$0.03$0.06Supply balance$99.99$99.96"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values when using swap: { action: 'withdraw' } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyDaily earnings$0.04$0.07Supply balance$99.99$99.96"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'borrow', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'borrow', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.04"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'borrow', amountToken: 50 } 1`] = `"Borrow limit used:9.00%Limit:$1.92K.Health factor15.6211.11HealthyDaily earnings$0.03$0.05"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'borrow', amountToken: 50 } 1`] = `"Borrow limit used:9.00%Limit:$1.92K.Health factor15.6211.11HealthyDaily earnings$0.04$0.06"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'repay', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'repay', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.04"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'repay', amountToken: 50 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'repay', amountToken: 50 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.04"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'supply', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.03"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'supply', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.04"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'supply', amountToken: 50 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyDaily earnings$0.03$0.09"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'supply', amountToken: 50 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyDaily earnings$0.04$0.1"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'withdraw', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.03Supply balance$99.99"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'withdraw', amountToken: +0 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$0.04Supply balance$99.99"`;
 
-exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'withdraw', amountToken: 50 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyDaily earnings$0.03$0.03Supply balance$99.99$49.99"`;
+exports[`AccountData - Feature flag enabled: Prime > renders correct values: { action: 'withdraw', amountToken: 50 } 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyDaily earnings$0.04$0.05Supply balance$99.99$49.99"`;

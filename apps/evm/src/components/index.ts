@@ -57,3 +57,4 @@ export * from './ChartTooltipContent';
 export * from './ChartYAxisTick';
 export * from './EModeBanner';
 export * from './InfoIcon';
+export * from './EModeIcon';

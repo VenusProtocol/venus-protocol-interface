@@ -250,6 +250,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         {isEModeFeatureEnabled && pool.eModeGroups.length > 0 && !pool.userEModeGroup && (
           <EModeBanner
             poolComptrollerContractAddress={pool.comptrollerAddress}
+            analyticVariant="market_borrow_banner"
             variant="secondary"
           />
         )}

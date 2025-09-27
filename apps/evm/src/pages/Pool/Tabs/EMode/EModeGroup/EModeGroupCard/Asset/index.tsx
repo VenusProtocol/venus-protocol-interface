@@ -1,46 +1,35 @@
 import { cn } from '@venusprotocol/ui';
-import type BigNumber from 'bignumber.js';
+import type { Address } from 'viem';
 
-import { Icon, LabeledInlineContent, LayeredValues, TokenIconWithSymbol } from 'components';
+import { Icon, LabeledInlineContent, TokenIconWithSymbol } from 'components';
+import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
+import { useFormatTo } from 'hooks/useFormatTo';
 import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings } from 'types';
-import {
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-} from 'utilities';
+import { formatPercentageToReadableValue } from 'utilities';
 
 export interface AssetProps {
-  liquidityTokens: BigNumber;
-  liquidityCents: number;
   eModeAssetSettings: EModeAssetSettings;
+  poolComptrollerAddress: Address;
   className?: string;
 }
 
 export const Asset: React.FC<AssetProps> = ({
-  liquidityCents,
-  liquidityTokens,
   eModeAssetSettings,
+  poolComptrollerAddress,
   className,
 }) => {
   const { t } = useTranslation();
+  const { formatTo } = useFormatTo();
+
+  const to = formatTo({
+    to: routes.market.path
+      .replace(':poolComptrollerAddress', poolComptrollerAddress)
+      .replace(':vTokenAddress', eModeAssetSettings.vToken.address),
+  });
 
   const dataListItems = [
-    {
-      label: t('pool.eMode.table.card.rows.liquidity'),
-      value: (
-        <LayeredValues
-          className="text-right"
-          topValue={formatTokensToReadableValue({
-            value: liquidityTokens,
-            token: eModeAssetSettings.vToken.underlyingToken,
-          })}
-          bottomValue={formatCentsToReadableValue({
-            value: liquidityCents,
-          })}
-        />
-      ),
-    },
     {
       label: t('pool.eMode.table.card.rows.maxLtv'),
       value: formatPercentageToReadableValue(eModeAssetSettings.collateralFactor * 100),
@@ -56,7 +45,10 @@ export const Asset: React.FC<AssetProps> = ({
   ];
 
   return (
-    <div className={cn('space-y-3', className)}>
+    <Link
+      className={cn('space-y-3 block no-underline text-inherit hover:no-underline', className)}
+      to={to}
+    >
       <div className="flex items-center justify-between">
         <TokenIconWithSymbol token={eModeAssetSettings.vToken.underlyingToken} />
 
@@ -86,6 +78,6 @@ export const Asset: React.FC<AssetProps> = ({
           </LabeledInlineContent>
         ))}
       </div>
-    </div>
+    </Link>
   );
 };

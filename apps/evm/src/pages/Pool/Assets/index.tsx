@@ -8,11 +8,13 @@ export interface AssetsProps {
 }
 
 export const Assets: React.FC<AssetsProps> = ({ pool }) => (
-  <div className="space-y-6">
+  <div className="space-y-6 sm:space-y-4">
     <PoolStats pools={[pool]} stats={['supply', 'borrow', 'liquidity', 'assetCount']} />
 
     <MarketTable
-      pools={[pool]}
+      assets={pool.assets}
+      poolName={pool.name}
+      poolComptrollerContractAddress={pool.comptrollerAddress}
       breakpoint="lg"
       columns={[
         'asset',
@@ -31,6 +33,7 @@ export const Assets: React.FC<AssetsProps> = ({ pool }) => (
           <EModeBanner
             className="lg:mt-4"
             poolComptrollerContractAddress={pool.comptrollerAddress}
+            analyticVariant="pool_banner"
             enabledEModeGroupName={pool.userEModeGroup?.name}
           />
         )

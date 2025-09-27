@@ -12,7 +12,7 @@ export const RiskAcknowledgementToggle: React.FC<RiskAcknowledgementToggleProps>
 
   return (
     <div className={cn('space-y-3', className)}>
-      <NoticeError description={t('operationForm.riskyOperation.warning')} condensed />
+      <NoticeError description={t('operationForm.riskyOperation.warning')} />
 
       <div className="flex gap-x-3">
         <Toggle {...toggleProps} />

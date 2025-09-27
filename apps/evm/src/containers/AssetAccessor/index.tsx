@@ -1,9 +1,11 @@
 import { useGetPool } from 'clients/api';
-import { Spinner } from 'components';
+import { NoticeWarning, Spinner } from 'components';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, Pool, TokenAction, VToken } from 'types';
 import { areTokensEqual } from 'utilities';
 
+import { EModeButton } from 'components/EModeBanner/EModeButton';
+import { useTranslation } from 'libs/translations';
 import type { Address } from 'viem';
 import DisabledActionNotice from './DisabledActionNotice';
 
@@ -21,6 +23,7 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
   action,
 }) => {
   const { accountAddress } = useAccountAddress();
+  const { Trans } = useTranslation();
 
   const { data: getPools } = useGetPool({
     poolComptrollerAddress,
@@ -33,8 +36,30 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
     return <Spinner />;
   }
 
-  if (asset.disabledTokenActions.includes(action)) {
+  if (asset.disabledTokenActions.includes(action) || (action === 'borrow' && !asset.isBorrowable)) {
     return <DisabledActionNotice token={vToken.underlyingToken} action={action} />;
+  }
+
+  if (action === 'borrow' && !asset.isBorrowableByUser) {
+    return (
+      <NoticeWarning
+        description={
+          <Trans
+            i18nKey="assetAccessor.eModeBlockedActionNotice.borrow"
+            components={{
+              Link: (
+                <EModeButton
+                  variant="text"
+                  className="p-0 h-auto text-blue font-normal"
+                  poolComptrollerContractAddress={poolComptrollerAddress}
+                  analyticVariant="market_borrow_banner"
+                />
+              ),
+            }}
+          />
+        }
+      />
+    );
   }
 
   return children({ asset, pool });

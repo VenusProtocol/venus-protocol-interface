@@ -1,36 +1,61 @@
-import { cn } from '@venusprotocol/ui';
+import { Spinner, cn } from '@venusprotocol/ui';
 
 import { useSetEModeGroup } from 'clients/api';
-import { Button, Icon, InfoIcon } from 'components';
+import { Button, EModeIcon, InfoIcon } from 'components';
+import { ConnectWallet } from 'containers/ConnectWallet';
+import { useAnalytics } from 'libs/analytics';
+import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { Asset, EModeGroup, Pool } from 'types';
-import { areTokensEqual, calculateHealthFactor } from 'utilities';
+import { calculateHealthFactor } from 'utilities';
 import { BlockingPositionModal } from './BlockingPositionModal';
 import { HealthFactorUpdate } from './HealthFactorUpdate';
-import { getHypotheticalAssetValues } from './getHypotheticalAssetValues';
 
 export interface HeaderProps {
   pool: Pool;
   eModeGroup: EModeGroup;
+  userHasEnoughCollateral: boolean;
+  userBlockingAssets: Asset[];
+  hypotheticalUserHealthFactor: number;
   className?: string;
 }
 
-export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) => {
+export const Header: React.FC<HeaderProps> = ({
+  eModeGroup,
+  userHasEnoughCollateral,
+  userBlockingAssets,
+  hypotheticalUserHealthFactor,
+  pool,
+  className,
+}) => {
   const { t, Trans } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
 
   const [isBlockingPositionModalOpen, setIsBlockingPositionModalOpen] = useState(false);
-  const openBlockingPositionModal = () => setIsBlockingPositionModalOpen(true);
+  const openBlockingPositionModal = () => {
+    captureAnalyticEvent('e_mode_open_positions_modal', {});
+
+    setIsBlockingPositionModalOpen(true);
+  };
+
   const closeBlockingPositionModal = () => setIsBlockingPositionModalOpen(false);
 
-  const { mutateAsync: mutateEModeGroup, isPending: isSetEModeGroupLoading } = useSetEModeGroup();
+  const { mutateAsync: mutateSetEModeGroup, isPending: isSetEModeGroupLoading } = useSetEModeGroup({
+    waitForConfirmation: true,
+  });
 
-  const setEModeGroup = (input: { eModeGroupId: number; eModeGroupName?: string }) =>
-    mutateEModeGroup({
-      ...input,
-      userEModeGroupName: pool.userEModeGroup?.name,
-      comptrollerContractAddress: pool.comptrollerAddress,
-    });
+  const setEModeGroup = async (input: { eModeGroupId: number; eModeGroupName?: string }) => {
+    try {
+      await mutateSetEModeGroup({
+        ...input,
+        userEModeGroupName: pool.userEModeGroup?.name,
+        comptrollerContractAddress: pool.comptrollerAddress,
+      });
+    } catch (error) {
+      handleError({ error });
+    }
+  };
 
   const enableEModeGroup = () =>
     setEModeGroup({ eModeGroupId: eModeGroup.id, eModeGroupName: eModeGroup.name });
@@ -48,50 +73,7 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
 
   const isEModeGroupEnabled = pool.userEModeGroup && pool.userEModeGroup.id === eModeGroup.id;
 
-  // These values are used to determine if a user can enable the E-mode group if it's not enabled
-  // already, or disable it if it's enabled
-  const userBlockingAssets: Asset[] = [];
-  let hypotheticalUserLiquidationThresholdCents = 0;
-  let hypotheticalUserBorrowLimitCents = 0;
-  let hypotheticalUserBorrowBalanceCents = 0;
-
-  pool.assets.forEach(asset => {
-    const assetSettings = eModeGroup.assetSettings.find(settings =>
-      areTokensEqual(settings.vToken, asset.vToken),
-    );
-
-    const { isBlocking, liquidationThresholdCents, borrowLimitCents, borrowBalanceCents } =
-      getHypotheticalAssetValues({
-        userSupplyBalanceCents: asset.userSupplyBalanceCents.toNumber(),
-        userBorrowBalanceCents: asset.userBorrowBalanceCents.toNumber(),
-        isCollateralOfUser: asset.isCollateralOfUser,
-        isBorrowable: isEModeGroupEnabled ? asset.isBorrowable : !!assetSettings?.isBorrowable,
-        collateralFactor: isEModeGroupEnabled
-          ? asset.collateralFactor
-          : assetSettings?.collateralFactor ?? asset.collateralFactor,
-        liquidationThresholdPercentage: isEModeGroupEnabled
-          ? asset.liquidationThresholdPercentage
-          : assetSettings?.liquidationThresholdPercentage ?? asset.liquidationThresholdPercentage,
-      });
-
-    if (isBlocking) {
-      userBlockingAssets.push(asset);
-    }
-
-    hypotheticalUserLiquidationThresholdCents += liquidationThresholdCents;
-    hypotheticalUserBorrowLimitCents += borrowLimitCents;
-    hypotheticalUserBorrowBalanceCents += borrowBalanceCents;
-  });
-
-  const userHasBlockingPositions = userBlockingAssets.length > 0;
-  const userHasEnoughCollateral =
-    hypotheticalUserBorrowLimitCents >= hypotheticalUserBorrowBalanceCents;
-  const isButtonEnabled = !userHasBlockingPositions && userHasEnoughCollateral;
-
-  const hypotheticalUserHealthFactor = calculateHealthFactor({
-    liquidationThresholdCents: hypotheticalUserLiquidationThresholdCents,
-    borrowBalanceCents: hypotheticalUserBorrowBalanceCents,
-  });
+  const isButtonEnabled = userBlockingAssets.length === 0 && userHasEnoughCollateral;
 
   const shouldDisplayHealthFactor =
     isButtonEnabled && !!pool.userBorrowBalanceCents?.isGreaterThan(0);
@@ -110,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
     disabledTooltip = isEModeGroupEnabled
       ? t('pool.eMode.group.cannotDisable.tooltip.notEnoughCollateral')
       : t('pool.eMode.group.cannotEnable.tooltip.notEnoughCollateral');
-  } else if (!isButtonEnabled && userHasBlockingPositions) {
+  } else if (!isButtonEnabled && userBlockingAssets.length > 0) {
     disabledTooltip = (
       <Trans
         i18nKey={
@@ -135,6 +117,20 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
     );
   }
 
+  const handleButtonClick = () => {
+    // We can't disable the button when it contains an info icon, because it makes it unclickable on
+    // mobile. So instead we keep it enabled, do nothing on click and style it as if it was disabled
+    if (disabledTooltip) {
+      return;
+    }
+
+    if (isEModeGroupEnabled) {
+      return disableEModeGroup();
+    }
+
+    return enableEModeGroup();
+  };
+
   return (
     <>
       <div className={cn('space-y-3', className)}>
@@ -142,44 +138,58 @@ export const Header: React.FC<HeaderProps> = ({ eModeGroup, pool, className }) =
           <div className="flex items-center gap-x-2">
             <h3 className="font-semibold lg:text-lg">{eModeGroup.name}</h3>
 
-            {isEModeGroupEnabled && <Icon name="mark" className="text-green w-5 h-5" />}
+            {isEModeGroupEnabled && <EModeIcon />}
           </div>
 
-          <div className="flex items-center gap-x-4">
-            {shouldDisplayHealthFactor &&
-              !!poolUserHealthFactor &&
-              !isEModeGroupEnabled &&
-              isButtonEnabled && (
-                <HealthFactorUpdate
-                  className="hidden sm:flex"
-                  healthFactor={poolUserHealthFactor}
-                  hypotheticalHealthFactor={hypotheticalUserHealthFactor}
-                />
-              )}
+          {isSetEModeGroupLoading ? (
+            <Spinner variant="small" className="h-8" />
+          ) : (
+            <div className="flex items-center gap-x-4">
+              {shouldDisplayHealthFactor &&
+                !!poolUserHealthFactor &&
+                !isEModeGroupEnabled &&
+                isButtonEnabled &&
+                hypotheticalUserHealthFactor !== undefined && (
+                  <HealthFactorUpdate
+                    className="hidden sm:flex"
+                    healthFactor={poolUserHealthFactor}
+                    hypotheticalHealthFactor={hypotheticalUserHealthFactor}
+                  />
+                )}
 
-            <Button
-              onClick={isEModeGroupEnabled ? disableEModeGroup : enableEModeGroup}
-              small
-              disabled={!isButtonEnabled}
-              loading={isSetEModeGroupLoading}
-              variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
-            >
-              {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}
+              <ConnectWallet analyticVariant="e_mode_tab" small>
+                <Button
+                  onClick={handleButtonClick}
+                  small
+                  disabled={!isButtonEnabled && !disabledTooltip}
+                  variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
+                  className={cn(
+                    !!disabledTooltip &&
+                      'pl-3 pr-4 bg-lightGrey border-lightGrey hover:bg-lightGrey hover:border-lightGrey active:bg-lightGrey active:border-lightGrey',
+                  )}
+                >
+                  {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}
 
-              <span className={cn(!isEModeGroupEnabled && !isButtonEnabled && 'opacity-50')}>
-                {buttonLabel}
-              </span>
-            </Button>
-          </div>
+                  <span className={cn(!isEModeGroupEnabled && !isButtonEnabled && 'opacity-50')}>
+                    {buttonLabel}
+                  </span>
+                </Button>
+              </ConnectWallet>
+            </div>
+          )}
         </div>
 
-        {!!poolUserHealthFactor && !isEModeGroupEnabled && isButtonEnabled && (
-          <HealthFactorUpdate
-            className="sm:hidden"
-            healthFactor={poolUserHealthFactor}
-            hypotheticalHealthFactor={hypotheticalUserHealthFactor}
-          />
-        )}
+        {shouldDisplayHealthFactor &&
+          !!poolUserHealthFactor &&
+          !isEModeGroupEnabled &&
+          isButtonEnabled &&
+          hypotheticalUserHealthFactor !== undefined && (
+            <HealthFactorUpdate
+              className="sm:hidden"
+              healthFactor={poolUserHealthFactor}
+              hypotheticalHealthFactor={hypotheticalUserHealthFactor}
+            />
+          )}
       </div>
 
       {isBlockingPositionModalOpen && (
