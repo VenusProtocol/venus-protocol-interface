@@ -23,6 +23,7 @@ export function TableCards<R>({
   columns,
   order,
   onOrderChange,
+  showMobileFilter = true,
   selectVariant = 'tertiary',
 }: TableCardProps<R>) {
   const { t } = useTranslation();
@@ -67,7 +68,7 @@ export function TableCards<R>({
 
   return (
     <div css={styles.getCardsContainer({ breakpoint })}>
-      {selectOptions.length > 0 && (
+      {showMobileFilter && selectOptions.length > 0 && (
         <Select
           label={t('table.cardsSelect.label')}
           placeLabelToLeft

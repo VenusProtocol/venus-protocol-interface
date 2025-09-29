@@ -1,14 +1,13 @@
-import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import { fireEvent, waitFor } from '@testing-library/react';
+import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { useSetEModeGroup } from 'clients/api';
 import type { Order, TableColumn } from 'components';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import type { EModeAssetSettings, Pool } from 'types';
-import { areTokensEqual } from 'utilities';
 import { EModeGroup, type EModeGroupProps } from '..';
 
 const fakeColumns: TableColumn<EModeAssetSettings>[] = [
@@ -33,6 +32,9 @@ const baseProps: EModeGroupProps = {
   columns: fakeColumns,
   initialOrder: fakeOrder,
   mobileOrder: fakeOrder,
+  userHasEnoughCollateral: true,
+  hypotheticalUserHealthFactor: 10,
+  userBlockingAssets: [],
 };
 
 const mockSetEModeGroup = vi.fn();
@@ -48,19 +50,11 @@ describe('EModeGroup', () => {
   it('lets user enable E-mode group when they meet the criteria', async () => {
     const fakeEModeGroup = baseProps.eModeGroup;
 
-    const customFakePool: Pool = {
-      ...baseProps.pool,
-      userEModeGroup: undefined,
-      assets: fakePool.assets.map(asset => ({
-        ...asset,
-        userBorrowBalanceCents: new BigNumber(0),
-        userSupplyBalanceCents: new BigNumber(10000),
-        isCollateralOfUser: true,
-      })),
-    };
-
     const { queryAllByText, container } = renderComponent(
-      <EModeGroup {...baseProps} pool={customFakePool} eModeGroup={fakeEModeGroup} />,
+      <EModeGroup {...baseProps} eModeGroup={fakeEModeGroup} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
     );
 
     expect(container.textContent).toMatchSnapshot();
@@ -72,8 +66,8 @@ describe('EModeGroup', () => {
 
     await waitFor(() => expect(mockSetEModeGroup).toHaveBeenCalledTimes(1));
     expect(mockSetEModeGroup).toHaveBeenCalledWith({
-      comptrollerContractAddress: customFakePool.comptrollerAddress,
-      userEModeGroupName: customFakePool.userEModeGroup?.name,
+      comptrollerContractAddress: fakePool.comptrollerAddress,
+      userEModeGroupName: fakePool.userEModeGroup?.name,
       eModeGroupId: fakeEModeGroup.id,
       eModeGroupName: fakeEModeGroup.name,
     });
@@ -85,21 +79,13 @@ describe('EModeGroup', () => {
     const customFakePool: Pool = {
       ...baseProps.pool,
       userEModeGroup: fakeEModeGroup,
-      assets: fakePool.assets.map(asset => ({
-        ...asset,
-        userBorrowBalanceCents: new BigNumber(
-          fakeEModeGroup.assetSettings.find(
-            settings => settings.isBorrowable && areTokensEqual(settings.vToken, asset.vToken),
-          )
-            ? 100
-            : 0,
-        ),
-        userSupplyBalanceCents: new BigNumber(10000),
-      })),
     };
 
     const { queryAllByText, container } = renderComponent(
       <EModeGroup {...baseProps} pool={customFakePool} eModeGroup={fakeEModeGroup} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
     );
 
     expect(container.textContent).toMatchSnapshot();
@@ -124,22 +110,13 @@ describe('EModeGroup', () => {
     const customFakePool: Pool = {
       ...baseProps.pool,
       userEModeGroup: fakePool.eModeGroups[0],
-      assets: fakePool.assets.map(asset => {
-        const assetSettings = fakeEModeGroup.assetSettings.find(settings =>
-          areTokensEqual(settings.vToken, asset.vToken),
-        );
-
-        return {
-          ...asset,
-          userBorrowBalanceCents: new BigNumber(assetSettings?.isBorrowable ? 100 : 0),
-          userSupplyBalanceCents: new BigNumber(assetSettings ? 10000 : 0),
-          isCollateralOfUser: true,
-        };
-      }),
     };
 
     const { queryAllByText, container } = renderComponent(
       <EModeGroup {...baseProps} pool={customFakePool} eModeGroup={fakeEModeGroup} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
     );
 
     expect(container.textContent).toMatchSnapshot();
@@ -171,38 +148,50 @@ describe('EModeGroup', () => {
       const customFakePool: Pool = {
         ...baseProps.pool,
         userEModeGroup,
-        assets: fakePool.assets.map(asset => ({
-          ...asset,
-          userBorrowBalanceCents: new BigNumber(100),
-          userSupplyBalanceCents: new BigNumber(10000),
-        })),
       };
 
       const { queryAllByText } = renderComponent(
-        <EModeGroup {...baseProps} pool={customFakePool} eModeGroup={eModeGroup} />,
+        <EModeGroup
+          {...baseProps}
+          pool={customFakePool}
+          eModeGroup={eModeGroup}
+          userBlockingAssets={customFakePool.assets.slice(0, 1)}
+        />,
+        {
+          accountAddress: fakeAccountAddress,
+        },
       );
 
-      expect(queryAllByText(buttonLabel)[0].closest('button')).toBeDisabled();
+      const button = queryAllByText(buttonLabel)[0].closest('button');
+
+      fireEvent.click(button as HTMLButtonElement);
+
+      expect(mockSetEModeGroup).not.toHaveBeenCalled();
     });
 
     it(`does not let user ${action} E-mode group if their collateral value would not cover their borrow balance`, async () => {
       const customFakePool: Pool = {
         ...baseProps.pool,
         userEModeGroup,
-        assets: fakePool.assets.map(asset => ({
-          ...asset,
-          collateralFactor: 0,
-          userCollateralFactor: 0.9,
-          userBorrowBalanceCents: new BigNumber(100),
-          userSupplyBalanceCents: new BigNumber(10000),
-        })),
       };
 
       const { queryAllByText } = renderComponent(
-        <EModeGroup {...baseProps} pool={customFakePool} eModeGroup={eModeGroup} />,
+        <EModeGroup
+          {...baseProps}
+          pool={customFakePool}
+          eModeGroup={eModeGroup}
+          userHasEnoughCollateral={false}
+        />,
+        {
+          accountAddress: fakeAccountAddress,
+        },
       );
 
-      expect(queryAllByText(buttonLabel)[0].closest('button')).toBeDisabled();
+      const button = queryAllByText(buttonLabel)[0].closest('button');
+
+      fireEvent.click(button as HTMLButtonElement);
+
+      expect(mockSetEModeGroup).not.toHaveBeenCalled();
     });
   });
 
@@ -212,21 +201,25 @@ describe('EModeGroup', () => {
     const customFakePool: Pool = {
       ...baseProps.pool,
       userEModeGroup: fakeEModeGroup,
-      assets: fakePool.assets.map(asset => ({
-        ...asset,
-        isCollateralOfUser: true,
-        userBorrowBalanceCents: new BigNumber(100),
-        userSupplyBalanceCents: new BigNumber(10000),
-      })),
     };
 
     const { queryAllByText } = renderComponent(
-      <EModeGroup {...baseProps} pool={customFakePool} eModeGroup={fakeEModeGroup} />,
+      <EModeGroup
+        {...baseProps}
+        pool={customFakePool}
+        eModeGroup={fakeEModeGroup}
+        userBlockingAssets={customFakePool.assets.slice(0, 1)}
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
     );
 
-    expect(
-      queryAllByText(en.pool.eMode.group.disableButtonLabel)[0].closest('button'),
-    ).toBeDisabled();
+    const button = queryAllByText(en.pool.eMode.group.disableButtonLabel)[0].closest('button');
+
+    fireEvent.click(button as HTMLButtonElement);
+
+    expect(mockSetEModeGroup).not.toHaveBeenCalled();
   });
 
   it('does not let user disable E-mode group if their collateral value would not cover their borrow balance', async () => {
@@ -235,21 +228,24 @@ describe('EModeGroup', () => {
     const customFakePool: Pool = {
       ...baseProps.pool,
       userEModeGroup: fakeEModeGroup,
-      assets: fakePool.assets.map(asset => ({
-        ...asset,
-        collateralFactor: 0,
-        userCollateralFactor: 0.9,
-        userBorrowBalanceCents: new BigNumber(asset.isBorrowable ? 100 : 0),
-        userSupplyBalanceCents: new BigNumber(10000),
-      })),
     };
 
     const { queryAllByText } = renderComponent(
-      <EModeGroup {...baseProps} pool={customFakePool} eModeGroup={fakeEModeGroup} />,
+      <EModeGroup
+        {...baseProps}
+        pool={customFakePool}
+        userHasEnoughCollateral={false}
+        eModeGroup={fakeEModeGroup}
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
     );
 
-    expect(
-      queryAllByText(en.pool.eMode.group.disableButtonLabel)[0].closest('button'),
-    ).toBeDisabled();
+    const button = queryAllByText(en.pool.eMode.group.disableButtonLabel)[0].closest('button');
+
+    fireEvent.click(button as HTMLButtonElement);
+
+    expect(mockSetEModeGroup).not.toHaveBeenCalled();
   });
 });

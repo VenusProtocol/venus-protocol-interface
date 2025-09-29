@@ -1,7 +1,5 @@
 import fakeAccountAddress from '__mocks__/models/address';
 import { vBusd } from '__mocks__/models/vTokens';
-import { queryClient } from 'clients/api';
-import FunctionKey from 'constants/functionKey';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { renderHook } from 'testUtils/render';
@@ -17,6 +15,7 @@ const fakeBaseInput = {
 const fakeOptions = {
   gasless: false,
   waitForConfirmation: true,
+  onError: expect.any(Function),
 };
 
 describe('useSetEModeGroup', () => {
@@ -28,8 +27,6 @@ describe('useSetEModeGroup', () => {
         eModeGroupName: 'Stablecoins',
         userEModeGroupName: undefined,
       },
-      'E-mode group enabled',
-      'Stablecoins',
     ],
     [
       'switching',
@@ -38,8 +35,6 @@ describe('useSetEModeGroup', () => {
         eModeGroupName: 'Stablecoins',
         userEModeGroupName: 'DeFi',
       },
-      'E-mode group enabled',
-      'Stablecoins',
     ],
     [
       'disabling',
@@ -48,12 +43,10 @@ describe('useSetEModeGroup', () => {
         eModeGroupName: undefined,
         userEModeGroupName: 'DeFi',
       },
-      'E-mode group disabled',
-      'DeFi',
     ],
   ])(
     'calls useSendTransaction with the correct parameters when %s E-mode group',
-    async (_action, input, analyticEventName, analyticEventEModeGroupName) => {
+    async (_action, input) => {
       const mockCaptureAnalyticEvent = vi.fn();
       (useAnalytics as Mock).mockImplementation(() => ({
         captureAnalyticEvent: mockCaptureAnalyticEvent,
@@ -66,6 +59,7 @@ describe('useSetEModeGroup', () => {
       expect(useSendTransaction).toHaveBeenCalledWith({
         fn: expect.any(Function),
         onConfirmed: expect.any(Function),
+        onSigned: expect.any(Function),
         options: fakeOptions,
       });
 
@@ -85,13 +79,7 @@ describe('useSetEModeGroup', () => {
 
       onConfirmed({ input: fakeInput });
 
-      expect(mockCaptureAnalyticEvent).toHaveBeenCalledWith(analyticEventName, {
-        eModeGroupName: analyticEventEModeGroupName,
-      });
-
-      expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-        queryKey: [FunctionKey.GET_POOLS],
-      });
+      expect(mockCaptureAnalyticEvent.mock.calls).toMatchSnapshot();
     },
   );
 });

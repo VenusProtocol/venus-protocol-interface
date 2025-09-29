@@ -26,11 +26,11 @@ export const eModeGroups: EModeGroup[] = [
   generateEModeGroup({
     id: 1,
     name: 'DeFi',
-    groupAssets: assetData.slice(2, 4),
+    groupAssets: assetData.slice(2),
   }),
   generateEModeGroup({
     id: 2,
     name: '#ToTheMoon',
-    groupAssets: assetData.slice(5, 8),
+    groupAssets: assetData.slice(1, 2),
   }),
 ];

@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`containers/AssetAccessor > renders default announcement about borrow being disabled due to E-mode settings if asset is not borrowable by user 1`] = `"Your E-mode settings do not allow you to borrow from this market. Manage E-mode"`;

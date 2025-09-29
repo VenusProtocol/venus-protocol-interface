@@ -19,6 +19,6 @@ describe('utilities/calculateYearlyEarnings', () => {
       assets,
     });
 
-    expect(earnings?.toFixed()).toMatchInlineSnapshot('"1127"');
+    expect(earnings?.toFixed()).toMatchInlineSnapshot(`"1529"`);
   });
 });

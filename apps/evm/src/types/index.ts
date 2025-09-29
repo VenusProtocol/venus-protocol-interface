@@ -143,6 +143,7 @@ export interface Asset {
   borrowCapTokens: BigNumber;
   supplyCapTokens: BigNumber;
   // User-specific props
+  userEModeGroupName?: string;
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
   userSupplyBalanceTokens: BigNumber;
