@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.56.0
+
+### Minor Changes
+
+- ce96aef: update E-mode feature
+
 ## 3.55.0
 
 ### Minor Changes
