@@ -3,7 +3,6 @@
 // import vBchCoreLogo from 'libs/tokens/img/vTokens/vBchCore.svg';
 // import vBethCoreLogo from 'libs/tokens/img/vTokens/vBethCore.svg';
 import vBnbCoreLogo from 'libs/tokens/img/vTokens/vBnbCore.svg';
-import vBtcCoreLogo from 'libs/tokens/img/vTokens/vBtcCore.svg';
 import vBusdCoreLogo from 'libs/tokens/img/vTokens/vBusdCore.svg';
 // import vCakeCoreLogo from 'libs/tokens/img/vTokens/vCakeCore.svg';
 // import vDaiCoreLogo from 'libs/tokens/img/vTokens/vDaiCore.svg';
@@ -81,7 +80,6 @@ export const vTokenAssets: VTokenAssets = {
   // [venusProtocolBscTestnetDeployments.addresses.vBCH.toLowerCase()]: vBchCoreLogo,
   // [venusProtocolBscTestnetDeployments.addresses.vBETH.toLowerCase()]: vBethCoreLogo,
   [venusProtocolBscTestnetDeployments.addresses.vBNB.toLowerCase()]: vBnbCoreLogo,
-  [venusProtocolBscTestnetDeployments.addresses.vBTCB.toLowerCase()]: vBtcCoreLogo,
   [venusProtocolBscTestnetDeployments.addresses.vBUSD.toLowerCase()]: vBusdCoreLogo,
   // [venusProtocolBscTestnetDeployments.addresses.vCAKE.toLowerCase()]: vCakeCoreLogo,
   // [venusProtocolBscTestnetDeployments.addresses.vDAI.toLowerCase()]: vDaiCoreLogo,

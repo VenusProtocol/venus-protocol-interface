@@ -130,6 +130,7 @@ export const featureFlags = {
     ChainId.UNICHAIN_SEPOLIA,
   ],
   eMode: [
+    ChainId.BSC_MAINNET,
     ChainId.BSC_TESTNET,
     ChainId.OPBNB_TESTNET,
     ChainId.SEPOLIA,
