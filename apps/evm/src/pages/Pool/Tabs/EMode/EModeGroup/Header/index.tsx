@@ -3,6 +3,7 @@ import { Spinner, cn } from '@venusprotocol/ui';
 import { useSetEModeGroup } from 'clients/api';
 import { Button, EModeIcon, InfoIcon } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
+import { SwitchChain } from 'containers/SwitchChain';
 import { useAnalytics } from 'libs/analytics';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
@@ -158,22 +159,22 @@ export const Header: React.FC<HeaderProps> = ({
                 )}
 
               <ConnectWallet analyticVariant="e_mode_tab" small>
-                <Button
-                  onClick={handleButtonClick}
-                  small
-                  disabled={!isButtonEnabled && !disabledTooltip}
-                  variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
-                  className={cn(
-                    !!disabledTooltip &&
-                      'pl-3 pr-4 bg-lightGrey border-lightGrey hover:bg-lightGrey hover:border-lightGrey active:bg-lightGrey active:border-lightGrey',
-                  )}
-                >
-                  {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}
+                <SwitchChain small>
+                  <Button
+                    onClick={handleButtonClick}
+                    small
+                    disabled={!isButtonEnabled && !disabledTooltip}
+                    variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
+                    className={cn(
+                      !!disabledTooltip &&
+                        'pl-3 pr-4 bg-lightGrey border-lightGrey hover:bg-lightGrey hover:border-lightGrey active:bg-lightGrey active:border-lightGrey',
+                    )}
+                  >
+                    {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}
 
-                  <span className={cn(!isEModeGroupEnabled && !isButtonEnabled && 'opacity-50')}>
-                    {buttonLabel}
-                  </span>
-                </Button>
+                    <span className={cn(!isButtonEnabled && 'opacity-50')}>{buttonLabel}</span>
+                  </Button>
+                </SwitchChain>
               </ConnectWallet>
             </div>
           )}
