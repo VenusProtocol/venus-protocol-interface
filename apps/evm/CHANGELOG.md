@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.57.0
+
+### Minor Changes
+
+- a069c26: enable E-mode feature on BNB Chain
+
 ## 3.56.0
 
 ### Minor Changes
