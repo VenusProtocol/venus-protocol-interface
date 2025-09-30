@@ -172,9 +172,7 @@ export const Header: React.FC<HeaderProps> = ({
                   >
                     {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}
 
-                    <span className={cn(!isEModeGroupEnabled && !isButtonEnabled && 'opacity-50')}>
-                      {buttonLabel}
-                    </span>
+                    <span className={cn(!isButtonEnabled && 'opacity-50')}>{buttonLabel}</span>
                   </Button>
                 </SwitchChain>
               </ConnectWallet>
