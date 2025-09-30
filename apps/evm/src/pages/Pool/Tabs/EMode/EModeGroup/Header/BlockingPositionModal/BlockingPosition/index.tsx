@@ -36,13 +36,13 @@ export const BlockingPosition: React.FC<BlockingPositionProps> = ({
     },
   });
 
-  const readableBorrowBalanceTokens = formatTokensToReadableValue({
-    value: asset.borrowBalanceTokens,
+  const readableUserBorrowBalanceTokens = formatTokensToReadableValue({
+    value: asset.userBorrowBalanceTokens,
     token: asset.vToken.underlyingToken,
   });
 
-  const readableBorrowBalanceDollars = formatCentsToReadableValue({
-    value: asset.borrowBalanceCents,
+  const readableUserBorrowBalanceDollars = formatCentsToReadableValue({
+    value: asset.userBorrowBalanceCents,
   });
 
   return (
@@ -51,8 +51,8 @@ export const BlockingPosition: React.FC<BlockingPositionProps> = ({
         <TokenIcon token={asset.vToken.underlyingToken} />
 
         <LayeredValues
-          topValue={readableBorrowBalanceTokens}
-          bottomValue={readableBorrowBalanceDollars}
+          topValue={readableUserBorrowBalanceTokens}
+          bottomValue={readableUserBorrowBalanceDollars}
         />
       </div>
 
@@ -62,8 +62,8 @@ export const BlockingPosition: React.FC<BlockingPositionProps> = ({
 
       <div className="hidden sm:flex sm:items-center">
         <LayeredValues
-          topValue={readableBorrowBalanceTokens}
-          bottomValue={readableBorrowBalanceDollars}
+          topValue={readableUserBorrowBalanceTokens}
+          bottomValue={readableUserBorrowBalanceDollars}
         />
       </div>
 
