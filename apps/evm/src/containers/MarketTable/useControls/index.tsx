@@ -54,7 +54,12 @@ export const useControls = ({
     }
 
     // Handle E-mode setting
-    if (applyUserSettings && !asset.userEModeGroupName && showUserEModeAssetsOnly) {
+    if (
+      applyUserSettings &&
+      userHasEModeGroup &&
+      !asset.userEModeGroupName &&
+      showUserEModeAssetsOnly
+    ) {
       return;
     }
 
