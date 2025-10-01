@@ -341,7 +341,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
             pool={pool}
           />
 
-          {isRiskyOperation && (
+          {isRiskyOperation && formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT' && (
             <RiskAcknowledgementToggle
               value={formValues.acknowledgeRisk}
               onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
