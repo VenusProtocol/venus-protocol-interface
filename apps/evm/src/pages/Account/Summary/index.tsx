@@ -1,7 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 
 import { Card, Cell, type CellProps } from 'components';
-import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { Pool, Vault } from 'types';
 import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
@@ -14,7 +13,6 @@ export interface SummaryProps {
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
   vaiBorrowAprPercentage?: BigNumber;
-  userVaiBorrowBalanceMantissa?: BigNumber;
   className?: string;
 }
 
@@ -25,13 +23,8 @@ export const Summary: React.FC<SummaryProps> = ({
   xvsPriceCents,
   vaiPriceCents,
   vaiBorrowAprPercentage,
-  userVaiBorrowBalanceMantissa,
 }) => {
   const { t } = useTranslation();
-
-  const vai = useGetToken({
-    symbol: 'VAI',
-  });
 
   const {
     dailyEarningsCents,
@@ -46,8 +39,6 @@ export const Summary: React.FC<SummaryProps> = ({
     xvsPriceCents,
     vaiPriceCents,
     vaiBorrowAprPercentage,
-    userVaiBorrowBalanceMantissa,
-    vai,
   });
 
   const cells: CellProps[] = [

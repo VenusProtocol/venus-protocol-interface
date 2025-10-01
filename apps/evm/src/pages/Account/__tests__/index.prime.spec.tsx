@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { useGetUserVaiBorrowBalance, useGetVaiRepayApr } from 'clients/api';
+import { useGetVaiRepayApr } from 'clients/api';
 import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
@@ -27,13 +27,6 @@ describe('Account - Feature flag enabled: Prime', () => {
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'prime',
     );
-
-    (useGetUserVaiBorrowBalance as Mock).mockImplementation(() => ({
-      data: {
-        userVaiBorrowBalanceMantissa: new BigNumber('1000000000000000000000'),
-      },
-      isLoading: false,
-    }));
 
     (useGetVaiRepayApr as Mock).mockImplementation(() => ({
       data: {

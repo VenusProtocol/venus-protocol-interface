@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import type { Pool, Token, Vault } from 'types';
+import type { Pool, Vault } from 'types';
 import {
   calculateDailyEarningsCents,
   calculateHealthFactor,
@@ -16,36 +16,41 @@ interface UseExtractDataInput {
   vaiPriceCents?: BigNumber;
   vaiBorrowAprPercentage?: BigNumber;
   vaults?: Vault[];
-  vai?: Token;
-  userVaiBorrowBalanceMantissa?: BigNumber;
 }
 
 export const useExtractData = ({
   pools,
   vaults,
-  vai,
-  userVaiBorrowBalanceMantissa,
   vaiBorrowAprPercentage,
   xvsPriceCents = new BigNumber(0),
   vaiPriceCents = new BigNumber(0),
 }: UseExtractDataInput) => {
-  const { totalBorrowCents, totalSupplyCents, totalBorrowLimitCents, liquidationThresholdCents } =
-    pools.reduce(
-      (acc, pool) => ({
-        totalBorrowCents: acc.totalBorrowCents.plus(pool.userBorrowBalanceCents || 0),
-        totalSupplyCents: acc.totalSupplyCents.plus(pool.userSupplyBalanceCents || 0),
-        totalBorrowLimitCents: acc.totalBorrowLimitCents.plus(pool.userBorrowLimitCents || 0),
-        liquidationThresholdCents: acc.liquidationThresholdCents.plus(
-          pool.userLiquidationThresholdCents || 0,
-        ),
-      }),
-      {
-        totalSupplyCents: new BigNumber(0),
-        totalBorrowCents: new BigNumber(0),
-        totalBorrowLimitCents: new BigNumber(0),
-        liquidationThresholdCents: new BigNumber(0),
-      },
-    );
+  const {
+    totalBorrowCents,
+    totalSupplyCents,
+    totalBorrowLimitCents,
+    totalVaiBorrowBalanceCents,
+    liquidationThresholdCents,
+  } = pools.reduce(
+    (acc, pool) => ({
+      totalBorrowCents: acc.totalBorrowCents.plus(pool.userBorrowBalanceCents || 0),
+      totalSupplyCents: acc.totalSupplyCents.plus(pool.userSupplyBalanceCents || 0),
+      totalBorrowLimitCents: acc.totalBorrowLimitCents.plus(pool.userBorrowLimitCents || 0),
+      totalVaiBorrowBalanceCents: acc.totalVaiBorrowBalanceCents.plus(
+        pool.userVaiBorrowBalanceCents || 0,
+      ),
+      liquidationThresholdCents: acc.liquidationThresholdCents.plus(
+        pool.userLiquidationThresholdCents || 0,
+      ),
+    }),
+    {
+      totalSupplyCents: new BigNumber(0),
+      totalBorrowCents: new BigNumber(0),
+      totalBorrowLimitCents: new BigNumber(0),
+      totalVaiBorrowBalanceCents: new BigNumber(0),
+      liquidationThresholdCents: new BigNumber(0),
+    },
+  );
 
   let totalVaultStakeCents: BigNumber | undefined;
   let yearlyVaultEarningsCents: BigNumber | undefined;
@@ -83,19 +88,9 @@ export const useExtractData = ({
     return acc.plus(yearlyPoolAssetsEarningsCents || 0);
   }, new BigNumber(0));
 
-  let totalVaiBorrowBalanceCents: BigNumber | undefined;
   let vaiYearlyBorrowInterestsCents: BigNumber | undefined;
 
-  if (userVaiBorrowBalanceMantissa && vaiPriceCents && vai) {
-    const userVaiBorrowBalanceTokens = convertMantissaToTokens({
-      value: userVaiBorrowBalanceMantissa,
-      token: vai,
-    });
-
-    totalVaiBorrowBalanceCents = userVaiBorrowBalanceTokens.multipliedBy(vaiPriceCents);
-  }
-
-  if (totalVaiBorrowBalanceCents && vaiBorrowAprPercentage) {
+  if (vaiBorrowAprPercentage) {
     vaiYearlyBorrowInterestsCents = totalVaiBorrowBalanceCents
       .multipliedBy(vaiBorrowAprPercentage)
       .div(100);

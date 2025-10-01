@@ -36,10 +36,7 @@ export const useMintVai = (options?: Partial<Options>) => {
     onConfirmed: () => {
       // Invalidate queries related to fetching the user minted VAI amount
       queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_USER_VAI_BORROW_BALANCE],
-      });
-      queryClient.invalidateQueries({
-        queryKey: [FunctionKey.GET_V_TOKEN_BALANCES_ALL],
+        queryKey: [FunctionKey.GET_POOLS],
       });
     },
     options,

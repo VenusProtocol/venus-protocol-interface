@@ -71,8 +71,8 @@ export const fakeLegacyPoolComptrollerContractAddress =
 export const fakePrimeContractAddress = '0xfakePrimeContractAddress';
 
 export const fakePublicClient = {
-  getBlockNumber: vi.fn(() => 123456789),
-  readContract: vi.fn((input: ReadContractParameters) => {
+  getBlockNumber: vi.fn(async () => 123456789),
+  readContract: vi.fn(async (input: ReadContractParameters) => {
     if (input.functionName === 'getAllMarkets' && input.address === fakePrimeContractAddress) {
       return [
         '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7',
@@ -133,7 +133,7 @@ export const fakePublicClient = {
       'readContract function of the fake public client called with no corresponding mock',
     );
   }),
-  simulateContract: vi.fn((input: SimulateContractParameters) => {
+  simulateContract: vi.fn(async (input: SimulateContractParameters) => {
     if (
       (input.address === fakePoolLensContractAddress ||
         input.address === fakeVenusLensContractAddress) &&
@@ -163,4 +163,12 @@ export const fakePublicClient = {
       'simulateContract function of the fake public client called with no corresponding mock',
     );
   }),
+
+  multicall: vi.fn(async () => [
+    undefined,
+    {
+      // User VAI borrow balance
+      result: 1000000000000000000n,
+    },
+  ]),
 } as unknown as PublicClient;

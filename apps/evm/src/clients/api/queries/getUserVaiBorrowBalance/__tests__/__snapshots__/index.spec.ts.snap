@@ -1,7 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`getUserVaiBorrowBalance > returns the VAI fee with interests 1`] = `
-{
-  "userVaiBorrowBalanceMantissa": "10000000000",
-}
-`;

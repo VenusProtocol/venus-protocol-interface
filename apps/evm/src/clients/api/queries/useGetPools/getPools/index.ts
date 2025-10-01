@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
-import { getUserVaiBorrowBalance } from 'clients/api';
 import { legacyPoolComptrollerAbi, primeAbi } from 'libs/contracts';
 import type { Asset, TokenBalance } from 'types';
 import type { GetPoolsInput, GetPoolsOutput, PrimeApy, VTokenBalance } from '../types';
@@ -11,6 +10,7 @@ import { getApiPools } from './getApiPools';
 import { getUserCollateralAddresses } from './getUserCollateralAddresses';
 import { getUserPrimeApys } from './getUserPrimeApys';
 import { getUserTokenBalances } from './getUserTokenBalances';
+import { getUserVaiBorrowBalance } from './getUserVaiBorrowBalance';
 
 export const getPools = async ({
   publicClient,

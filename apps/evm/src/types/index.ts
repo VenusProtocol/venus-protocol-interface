@@ -187,6 +187,8 @@ export interface Pool {
   userSupplyBalanceCents?: BigNumber;
   userBorrowBalanceCents?: BigNumber;
   userBorrowLimitCents?: BigNumber;
+  userVaiBorrowBalanceTokens?: BigNumber;
+  userVaiBorrowBalanceCents?: BigNumber;
   userLiquidationThresholdCents?: BigNumber;
   userEModeGroup?: EModeGroup;
 }

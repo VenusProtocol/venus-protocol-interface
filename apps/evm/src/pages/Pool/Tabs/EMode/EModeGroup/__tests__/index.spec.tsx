@@ -169,6 +169,31 @@ describe('EModeGroup', () => {
       expect(mockSetEModeGroup).not.toHaveBeenCalled();
     });
 
+    // it(`does not let user ${action} E-mode group if they are borrowing VAI`, async () => {
+    //   const customFakePool: Pool = {
+    //     ...baseProps.pool,
+    //     userEModeGroup,
+    //   };
+
+    //   const { queryAllByText } = renderComponent(
+    //     <EModeGroup
+    //       {...baseProps}
+    //       pool={customFakePool}
+    //       eModeGroup={eModeGroup}
+    //       userBlockingAssets={customFakePool.assets.slice(0, 1)}
+    //     />,
+    //     {
+    //       accountAddress: fakeAccountAddress,
+    //     },
+    //   );
+
+    //   const button = queryAllByText(buttonLabel)[0].closest('button');
+
+    //   fireEvent.click(button as HTMLButtonElement);
+
+    //   expect(mockSetEModeGroup).not.toHaveBeenCalled();
+    // });
+
     it(`does not let user ${action} E-mode group if their collateral value would not cover their borrow balance`, async () => {
       const customFakePool: Pool = {
         ...baseProps.pool,

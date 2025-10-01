@@ -11,13 +11,13 @@ import {
   useGetBalanceOf,
   useGetPool,
   useGetTokenUsdPrice,
-  useGetUserVaiBorrowBalance,
   useGetVaiRepayApr,
   useRepayVai,
 } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
+import type { Pool } from 'types';
 import convertTokensToMantissa from 'utilities/convertTokensToMantissa';
 
 import { Repay } from '..';
@@ -27,24 +27,21 @@ vi.mock('hooks/useTokenApproval');
 
 const fakeVaiPriceCents = 100;
 const fakeUserBorrowBalanceTokens = new BigNumber(5);
-const fakeUserBorrowBalanceMantissa = convertTokensToMantissa({
-  token: vai,
-  value: fakeUserBorrowBalanceTokens,
-});
 const fakeUserBorrowBalanceCents = new BigNumber(fakeVaiPriceCents).multipliedBy(
   fakeUserBorrowBalanceTokens,
 );
 const fakeUserBorrowLimitCents = new BigNumber(fakeVaiPriceCents * 20);
 
+const fakePool: Pool = {
+  ...poolData[0],
+  userVaiBorrowBalanceTokens: fakeUserBorrowBalanceTokens,
+  userVaiBorrowBalanceCents: fakeUserBorrowBalanceCents,
+  userBorrowBalanceCents: fakeUserBorrowBalanceCents,
+  userBorrowLimitCents: fakeUserBorrowLimitCents,
+};
+
 describe('Repay', () => {
   beforeEach(() => {
-    (useGetUserVaiBorrowBalance as Mock).mockImplementation(() => ({
-      data: {
-        userVaiBorrowBalanceMantissa: fakeUserBorrowBalanceMantissa,
-      },
-      isLoading: false,
-    }));
-
     (useGetBalanceOf as Mock).mockImplementation(() => ({
       data: {
         balanceMantissa: MAX_UINT256,
@@ -62,11 +59,7 @@ describe('Repay', () => {
     (useGetPool as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
-        pool: {
-          ...poolData[0],
-          userBorrowBalanceCents: fakeUserBorrowBalanceCents,
-          userBorrowLimitCents: fakeUserBorrowLimitCents,
-        },
+        pool: fakePool,
       },
     }));
 

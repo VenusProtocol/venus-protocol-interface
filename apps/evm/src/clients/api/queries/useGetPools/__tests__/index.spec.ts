@@ -5,7 +5,7 @@ import type { Mock } from 'vitest';
 import apiPoolsResponse from '__mocks__/api/pools.json';
 import fakeAccountAddress from '__mocks__/models/address';
 import BigNumber from 'bignumber.js';
-import { type GetTokenBalancesInput, getTokenBalances, getUserVaiBorrowBalance } from 'clients/api';
+import { type GetTokenBalancesInput, getTokenBalances } from 'clients/api';
 import {
   type UseGetContractAddressInput,
   useGetContractAddress,
@@ -67,10 +67,6 @@ describe('useGetPools', () => {
         })),
       }),
     );
-
-    (getUserVaiBorrowBalance as Mock).mockImplementation(() => ({
-      userVaiBorrowBalanceMantissa: new BigNumber('1000000000000000000'),
-    }));
   });
 
   it('returns pools in the correct format', async () => {
