@@ -573,6 +573,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -652,6 +654,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -716,6 +720,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -846,6 +852,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -910,6 +918,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -1068,6 +1078,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -1132,6 +1144,8 @@ exports[`useGetPools > returns pools in the correct format 1`] = `
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
   ],
 }
@@ -1710,6 +1724,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -1789,6 +1805,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -1853,6 +1871,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -1983,6 +2003,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -2047,6 +2069,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -2205,6 +2229,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -2269,6 +2295,8 @@ exports[`useGetPools > returns pools with time based reward rates in the correct
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "0",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
   ],
 }
@@ -2847,6 +2875,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "354187678792374.6625535198651814159118",
       "userSupplyBalanceCents": "399985998653193.160432",
+      "userVaiBorrowBalanceCents": "100",
+      "userVaiBorrowBalanceTokens": "1",
     },
     {
       "assets": [
@@ -2926,6 +2956,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "175987680000000.0199986",
       "userSupplyBalanceCents": "199986000000000",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -2990,6 +3022,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "175987680000000.0199986",
       "userSupplyBalanceCents": "199986000000000",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -3120,6 +3154,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "65448.8666954100066109966359",
       "userSupplyBalanceCents": "199986000132219.932718",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -3184,6 +3220,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "164988450000000.0399972",
       "userSupplyBalanceCents": "199986000000000",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -3342,6 +3380,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "175987680000143.0199986",
       "userSupplyBalanceCents": "199986000000200",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
     {
       "assets": [
@@ -3406,6 +3446,8 @@ exports[`useGetPools > returns pools with user data in the correct format 1`] = 
       "userEModeGroup": undefined,
       "userLiquidationThresholdCents": "0",
       "userSupplyBalanceCents": "199986000000000",
+      "userVaiBorrowBalanceCents": undefined,
+      "userVaiBorrowBalanceTokens": undefined,
     },
   ],
 }

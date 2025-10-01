@@ -12,6 +12,8 @@ export const legacyCorePool: Pool = {
   eModeGroups: eModeGroups,
   userSupplyBalanceCents: new BigNumber(123879865),
   userBorrowBalanceCents: new BigNumber(12333),
+  userVaiBorrowBalanceTokens: new BigNumber(10),
+  userVaiBorrowBalanceCents: new BigNumber(1000),
   userBorrowLimitCents: new BigNumber(192673),
   userLiquidationThresholdCents: new BigNumber(192673),
 };

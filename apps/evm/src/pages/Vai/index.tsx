@@ -29,7 +29,7 @@ const Vai: React.FC = () => {
         />
 
         <Card>
-          <Tabs tabs={tabsContent} />
+          <Tabs tabs={tabsContent} navType="searchParam" />
         </Card>
       </div>
     </Page>

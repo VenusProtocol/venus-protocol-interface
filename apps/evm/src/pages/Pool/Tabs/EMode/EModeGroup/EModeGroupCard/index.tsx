@@ -1,6 +1,6 @@
 import { Card, Delimiter, type Order } from 'components';
-import type { Asset as AssetType, EModeAssetSettings, EModeGroup, Pool } from 'types';
-import { areTokensEqual } from 'utilities';
+import type { EModeAssetSettings, EModeGroup, Pool } from 'types';
+import type { BlockingBorrowPosition } from '../../types';
 import { Header } from '../Header';
 import { Asset } from './Asset';
 
@@ -9,7 +9,7 @@ export interface EModeGroupCardProps {
   eModeGroup: EModeGroup;
   order: Order<EModeAssetSettings>;
   userHasEnoughCollateral: boolean;
-  userBlockingAssets: AssetType[];
+  userBlockingBorrowPositions: BlockingBorrowPosition[];
   hypotheticalUserHealthFactor: number;
   className?: string;
 }
@@ -19,7 +19,7 @@ export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
   pool,
   className,
   userHasEnoughCollateral,
-  userBlockingAssets,
+  userBlockingBorrowPositions,
   hypotheticalUserHealthFactor,
   order,
 }) => {
@@ -30,12 +30,6 @@ export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
     : eModeGroup.assetSettings;
 
   const listItemsDom = sortedEModeAssetSettings.reduce<React.ReactNode[]>((acc, settings) => {
-    const asset = pool.assets.find(asset => areTokensEqual(asset.vToken, settings.vToken));
-
-    if (!asset) {
-      return acc;
-    }
-
     const dom = (
       <Asset
         key={settings.vToken.address}
@@ -55,7 +49,7 @@ export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
           pool={pool}
           eModeGroup={eModeGroup}
           userHasEnoughCollateral={userHasEnoughCollateral}
-          userBlockingAssets={userBlockingAssets}
+          userBlockingBorrowPositions={userBlockingBorrowPositions}
           hypotheticalUserHealthFactor={hypotheticalUserHealthFactor}
           className="px-4 pb-4"
         />

@@ -2,12 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 
-import {
-  useGetBalanceOf,
-  useGetUserVaiBorrowBalance,
-  useGetVaiRepayApr,
-  useRepayVai,
-} from 'clients/api';
+import { useGetBalanceOf, useGetPool, useGetVaiRepayApr, useRepayVai } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -18,7 +13,6 @@ import {
 } from 'components';
 import MAX_UINT256 from 'constants/maxUint256';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
@@ -27,11 +21,13 @@ import { useAccountAddress } from 'libs/wallet';
 import {
   convertMantissaToTokens,
   convertTokensToMantissa,
+  formatPercentageToReadableValue,
   generatePseudoRandomRefetchInterval,
 } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
+import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { AccountVaiData } from '../AccountVaiData';
 import TEST_IDS from './testIds';
@@ -44,6 +40,8 @@ export const Repay: React.FC = () => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
+
+  const chainMetadata = useGetChainMetadata();
 
   const vai = useGetToken({
     symbol: 'VAI',
@@ -94,45 +92,27 @@ export const Repay: React.FC = () => {
 
   const { data: getVaiRepayAprData } = useGetVaiRepayApr();
 
-  const readableBorrowApr = useFormatPercentageToReadableValue({
-    value: getVaiRepayAprData?.repayAprPercentage,
+  const readableBorrowApr = formatPercentageToReadableValue(getVaiRepayAprData?.repayAprPercentage);
+
+  const { data: getPoolData, isLoading: isGetPoolDataLoading } = useGetPool({
+    poolComptrollerAddress: chainMetadata.corePoolComptrollerContractAddress,
+    accountAddress,
   });
 
-  const { data: userVaiBorrowBalanceData, isLoading: isGetUserVaiBorrowBalanceLoading } =
-    useGetUserVaiBorrowBalance(
-      {
-        accountAddress: accountAddress || NULL_ADDRESS,
-      },
-      {
-        enabled: !!accountAddress,
-      },
-    );
-
-  const userVaiBorrowBalanceMantissa = userVaiBorrowBalanceData?.userVaiBorrowBalanceMantissa;
+  const userVaiBorrowBalanceTokens = getPoolData?.pool.userVaiBorrowBalanceTokens;
 
   const {
     limitTokens,
     form: { control, handleSubmit, watch, formState, setValue, reset },
   } = useForm({
     userVaiWalletBalanceMantissa,
-    userVaiBorrowBalanceMantissa,
+    userVaiBorrowBalanceTokens,
     userWalletSpendingLimitTokens,
   });
 
   const inputAmountTokens = watch('amountTokens');
 
-  const isRepayingFullLoan = useMemo(() => {
-    if (!userVaiBorrowBalanceMantissa) {
-      return false;
-    }
-
-    const amountMantissa = convertTokensToMantissa({
-      value: new BigNumber(inputAmountTokens),
-      token: vai,
-    });
-
-    return amountMantissa.isEqualTo(userVaiBorrowBalanceMantissa);
-  }, [inputAmountTokens, userVaiBorrowBalanceMantissa, vai]);
+  const isRepayingFullLoan = !!userVaiBorrowBalanceTokens?.isEqualTo(inputAmountTokens);
 
   const errorMessage = useMemo(() => {
     const errorCode = formState.errors.amountTokens?.message;
@@ -167,7 +147,7 @@ export const Repay: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormValues> = useCallback(
     async ({ amountTokens }) => {
-      if (!userVaiBorrowBalanceMantissa) {
+      if (!userVaiBorrowBalanceTokens) {
         return;
       }
 
@@ -187,10 +167,10 @@ export const Repay: React.FC = () => {
         handleError({ error });
       }
     },
-    [repayVai, reset, vai, userVaiBorrowBalanceMantissa, isRepayingFullLoan],
+    [repayVai, reset, vai, userVaiBorrowBalanceTokens, isRepayingFullLoan],
   );
 
-  const isInitialLoading = isGetUserVaiBorrowBalanceLoading;
+  const isInitialLoading = isGetPoolDataLoading;
 
   if (isInitialLoading) {
     return <Spinner />;

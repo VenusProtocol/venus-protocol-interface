@@ -1,21 +1,18 @@
 import { Modal } from 'components';
 import { useTranslation } from 'libs/translations';
-import type { Asset } from 'types';
-import type { Address } from 'viem';
+import type { BlockingBorrowPosition } from '../../../types';
 import { BlockingPosition } from './BlockingPosition';
 
 export interface BlockingPositionModalProps {
   onClose: () => void;
   eModeGroupName: string;
-  poolComptrollerAddress: Address;
-  blockingAssets: Asset[];
+  blockingBorrowPositions: BlockingBorrowPosition[];
 }
 
 export const BlockingPositionModal: React.FC<BlockingPositionModalProps> = ({
   onClose,
   eModeGroupName,
-  poolComptrollerAddress,
-  blockingAssets,
+  blockingBorrowPositions,
 }) => {
   const { t, Trans } = useTranslation();
 
@@ -34,11 +31,10 @@ export const BlockingPositionModal: React.FC<BlockingPositionModalProps> = ({
           />
         </p>
 
-        {blockingAssets.map(asset => (
+        {blockingBorrowPositions.map(blockingBorrowPosition => (
           <BlockingPosition
-            key={asset.vToken.address}
-            asset={asset}
-            poolComptrollerAddress={poolComptrollerAddress}
+            key={blockingBorrowPosition.token.address}
+            {...blockingBorrowPosition}
           />
         ))}
       </>

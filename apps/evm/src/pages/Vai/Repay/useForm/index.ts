@@ -16,13 +16,13 @@ export enum ErrorCode {
 
 export interface UseFormProps {
   userVaiWalletBalanceMantissa?: BigNumber;
-  userVaiBorrowBalanceMantissa?: BigNumber;
+  userVaiBorrowBalanceTokens?: BigNumber;
   userWalletSpendingLimitTokens?: BigNumber;
 }
 
 export const useForm = ({
   userVaiWalletBalanceMantissa,
-  userVaiBorrowBalanceMantissa,
+  userVaiBorrowBalanceTokens,
   userWalletSpendingLimitTokens,
 }: UseFormProps) => {
   const vai = useGetToken({
@@ -34,13 +34,6 @@ export const useForm = ({
       userVaiWalletBalanceMantissa &&
       convertMantissaToTokens({ value: userVaiWalletBalanceMantissa, token: vai }),
     [userVaiWalletBalanceMantissa, vai],
-  );
-
-  const userVaiBorrowBalanceTokens = useMemo(
-    () =>
-      userVaiBorrowBalanceMantissa &&
-      convertMantissaToTokens({ value: userVaiBorrowBalanceMantissa, token: vai }),
-    [userVaiBorrowBalanceMantissa, vai],
   );
 
   const limitTokens = useMemo(() => {

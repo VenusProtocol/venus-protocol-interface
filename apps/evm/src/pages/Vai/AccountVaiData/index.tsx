@@ -1,12 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import {
-  useGetPool,
-  useGetTokenUsdPrice,
-  useGetUserVaiBorrowBalance,
-  useGetVaiRepayApr,
-} from 'clients/api';
+import { useGetPool, useGetTokenUsdPrice, useGetVaiRepayApr } from 'clients/api';
 import { Spinner } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { AccountData, type AccountDataProps } from 'containers/AccountData';
@@ -14,7 +9,7 @@ import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset } from 'types';
-import { convertDollarsToCents, convertMantissaToTokens } from 'utilities';
+import { convertDollarsToCents } from 'utilities';
 
 export interface AccountVaiDataProps {
   amountTokens: string;
@@ -43,30 +38,17 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
   });
   const legacyPool = getLegacyPoolData?.pool;
 
-  const { data: repayAmountWithInterests } = useGetUserVaiBorrowBalance(
-    {
-      accountAddress: accountAddress || NULL_ADDRESS,
-    },
-    {
-      enabled: !!accountAddress,
-    },
-  );
-
-  const userBorrowBalanceMantissa = repayAmountWithInterests?.userVaiBorrowBalanceMantissa;
-
   const vaiAsset = useMemo(() => {
-    if (!borrowAprPercentage || !userBorrowBalanceMantissa || !vaiPriceDollars) {
+    if (
+      !borrowAprPercentage ||
+      !legacyPool?.userVaiBorrowBalanceTokens ||
+      !legacyPool?.userVaiBorrowBalanceCents ||
+      !vaiPriceDollars
+    ) {
       return undefined;
     }
 
-    const userBorrowBalanceTokens = convertMantissaToTokens({
-      value: userBorrowBalanceMantissa,
-      token: vai,
-    });
-
     const vaiPriceCents = convertDollarsToCents(vaiPriceDollars);
-
-    const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(vaiPriceCents);
 
     const asset: Asset = {
       vToken: {
@@ -80,9 +62,9 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
       // Although this is technically incorrect (we're passing an APR to a property that expects an
       // APY), it is acceptable for the sake of calculating account health data
       borrowApyPercentage: borrowAprPercentage,
+      userBorrowBalanceTokens: legacyPool.userVaiBorrowBalanceTokens,
+      userBorrowBalanceCents: legacyPool?.userVaiBorrowBalanceCents,
       supplyApyPercentage: new BigNumber(0),
-      userBorrowBalanceTokens,
-      userBorrowBalanceCents,
       userSupplyBalanceTokens: new BigNumber(0),
       userSupplyBalanceCents: new BigNumber(0),
       // The following properties aren't relevant, but still need to be added
@@ -118,7 +100,13 @@ export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, ac
     };
 
     return asset;
-  }, [borrowAprPercentage, userBorrowBalanceMantissa, vai, vaiPriceDollars]);
+  }, [
+    borrowAprPercentage,
+    legacyPool?.userVaiBorrowBalanceTokens,
+    legacyPool?.userVaiBorrowBalanceCents,
+    vai,
+    vaiPriceDollars,
+  ]);
 
   const legacyPoolWithVai = useMemo(
     () =>

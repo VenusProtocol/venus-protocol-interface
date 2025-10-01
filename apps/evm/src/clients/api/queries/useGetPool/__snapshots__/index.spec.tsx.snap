@@ -613,6 +613,8 @@ exports[`useGetPool > returns the correct asset 1`] = `
     "userBorrowLimitCents": "192673",
     "userLiquidationThresholdCents": "192673",
     "userSupplyBalanceCents": "123879865",
+    "userVaiBorrowBalanceCents": "1000",
+    "userVaiBorrowBalanceTokens": "10",
   },
 }
 `;

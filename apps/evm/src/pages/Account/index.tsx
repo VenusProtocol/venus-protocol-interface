@@ -1,12 +1,5 @@
-import {
-  useGetPools,
-  useGetTokenUsdPrice,
-  useGetUserVaiBorrowBalance,
-  useGetVaiRepayApr,
-  useGetVaults,
-} from 'clients/api';
+import { useGetPools, useGetTokenUsdPrice, useGetVaiRepayApr, useGetVaults } from 'clients/api';
 import { Page, Spinner } from 'components';
-import { NULL_ADDRESS } from 'constants/address';
 import { Redirect } from 'containers/Redirect';
 import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
 import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
@@ -73,17 +66,6 @@ export const Account: React.FC = () => {
   const { data: getVaiRepayAprData } = useGetVaiRepayApr();
   const vaiBorrowAprPercentage = getVaiRepayAprData?.repayAprPercentage;
 
-  const { data: getUserVaiBorrowBalanceData, isLoading: isGetUserVaiBorrowBalanceLoading } =
-    useGetUserVaiBorrowBalance(
-      {
-        accountAddress: accountAddress || NULL_ADDRESS,
-      },
-      {
-        enabled: !!accountAddress,
-      },
-    );
-  const userVaiBorrowBalanceMantissa = getUserVaiBorrowBalanceData?.userVaiBorrowBalanceMantissa;
-
   const {
     isLoading: isGetUserPrimeInfoLoading,
     data: {
@@ -103,8 +85,6 @@ export const Account: React.FC = () => {
       vaults,
       xvsPriceCents,
       vaiPriceCents,
-      vai,
-      userVaiBorrowBalanceMantissa,
     });
 
   const canUserBecomePrime =
@@ -158,7 +138,6 @@ export const Account: React.FC = () => {
     isGetVaultsLoading ||
     isGetXvsUsdPriceLoading ||
     isGetVaiUsdPriceLoading ||
-    isGetUserVaiBorrowBalanceLoading ||
     isGetUserPrimeInfoLoading;
 
   if (!accountAddress) {
@@ -189,7 +168,6 @@ export const Account: React.FC = () => {
           xvsPriceCents={xvsPriceCents}
           vaiPriceCents={vaiPriceCents}
           vaiBorrowAprPercentage={vaiBorrowAprPercentage}
-          userVaiBorrowBalanceMantissa={userVaiBorrowBalanceMantissa}
         />
       </div>
 

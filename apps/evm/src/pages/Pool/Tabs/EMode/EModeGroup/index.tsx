@@ -1,6 +1,7 @@
 import { Delimiter, type Order, Table, type TableColumn } from 'components';
 import { routes } from 'constants/routing';
-import type { Asset, EModeAssetSettings, EModeGroup as EModeGroupType, Pool } from 'types';
+import type { EModeAssetSettings, EModeGroup as EModeGroupType, Pool } from 'types';
+import type { BlockingBorrowPosition } from '../types';
 import { EModeGroupCard } from './EModeGroupCard';
 import { Header } from './Header';
 
@@ -11,7 +12,7 @@ export interface EModeGroupProps {
   initialOrder: Order<EModeAssetSettings>;
   mobileOrder: Order<EModeAssetSettings>;
   userHasEnoughCollateral: boolean;
-  userBlockingAssets: Asset[];
+  userBlockingBorrowPositions: BlockingBorrowPosition[];
   hypotheticalUserHealthFactor: number;
 }
 
@@ -22,7 +23,7 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
   initialOrder,
   mobileOrder,
   userHasEnoughCollateral,
-  userBlockingAssets,
+  userBlockingBorrowPositions,
   hypotheticalUserHealthFactor,
 }) => {
   const getRowHref = (row: EModeAssetSettings) =>
@@ -36,7 +37,7 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
       <EModeGroupCard
         eModeGroup={eModeGroup}
         userHasEnoughCollateral={userHasEnoughCollateral}
-        userBlockingAssets={userBlockingAssets}
+        userBlockingBorrowPositions={userBlockingBorrowPositions}
         hypotheticalUserHealthFactor={hypotheticalUserHealthFactor}
         pool={pool}
         className="sm:hidden"
@@ -58,7 +59,7 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
               pool={pool}
               eModeGroup={eModeGroup}
               userHasEnoughCollateral={userHasEnoughCollateral}
-              userBlockingAssets={userBlockingAssets}
+              userBlockingBorrowPositions={userBlockingBorrowPositions}
               hypotheticalUserHealthFactor={hypotheticalUserHealthFactor}
               className="px-6 py-4"
             />

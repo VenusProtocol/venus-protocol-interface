@@ -310,13 +310,17 @@ export const formatOutput = ({
 
     // Add user VAI loan to user borrow balance (only applies to legacy pool)
     const vai = tokens.find(token => token.symbol === 'VAI');
+    let userVaiBorrowBalanceTokens: undefined | BigNumber;
+    let userVaiBorrowBalanceCents: undefined | BigNumber;
+
     if (!isIsolated && vai && userVaiBorrowBalanceMantissa) {
-      const userVaiBorrowBalanceCents = convertMantissaToTokens({
+      userVaiBorrowBalanceTokens = convertMantissaToTokens({
         value: userVaiBorrowBalanceMantissa,
         token: vai,
-      })
-        // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
-        .times(100);
+      });
+
+      // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
+      userVaiBorrowBalanceCents = userVaiBorrowBalanceTokens.times(100);
 
       poolUserBorrowBalanceCents = poolUserBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
     }
@@ -330,6 +334,8 @@ export const formatOutput = ({
       userBorrowBalanceCents: poolUserBorrowBalanceCents,
       userSupplyBalanceCents: poolUserSupplyBalanceCents,
       userBorrowLimitCents: poolUserBorrowLimitCents,
+      userVaiBorrowBalanceTokens,
+      userVaiBorrowBalanceCents,
       userLiquidationThresholdCents: poolUserLiquidationThresholdCents,
       userEModeGroup,
     };

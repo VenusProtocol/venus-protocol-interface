@@ -7,8 +7,9 @@ import { useSetEModeGroup } from 'clients/api';
 import type { Order, TableColumn } from 'components';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import type { EModeAssetSettings, Pool } from 'types';
+import type { Asset, EModeAssetSettings, Pool } from 'types';
 import { EModeGroup, type EModeGroupProps } from '..';
+import type { BlockingBorrowPosition } from '../../types';
 
 const fakeColumns: TableColumn<EModeAssetSettings>[] = [
   {
@@ -34,10 +35,18 @@ const baseProps: EModeGroupProps = {
   mobileOrder: fakeOrder,
   userHasEnoughCollateral: true,
   hypotheticalUserHealthFactor: 10,
-  userBlockingAssets: [],
+  userBlockingBorrowPositions: [],
 };
 
 const mockSetEModeGroup = vi.fn();
+
+const generateFakeBlockingBorrowPositions = ({ assets }: { assets: Asset[] }) =>
+  assets.map<BlockingBorrowPosition>(asset => ({
+    token: asset.vToken.underlyingToken,
+    userBorrowBalanceCents: asset.userBorrowBalanceCents.toNumber(),
+    userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
+    to: 'fake-to',
+  }));
 
 describe('EModeGroup', () => {
   beforeEach(() => {
@@ -150,12 +159,16 @@ describe('EModeGroup', () => {
         userEModeGroup,
       };
 
+      const fakeUserBlockingBorrowPositions = generateFakeBlockingBorrowPositions({
+        assets: customFakePool.assets.slice(0, 1),
+      });
+
       const { queryAllByText } = renderComponent(
         <EModeGroup
           {...baseProps}
           pool={customFakePool}
           eModeGroup={eModeGroup}
-          userBlockingAssets={customFakePool.assets.slice(0, 1)}
+          userBlockingBorrowPositions={fakeUserBlockingBorrowPositions}
         />,
         {
           accountAddress: fakeAccountAddress,
@@ -203,12 +216,16 @@ describe('EModeGroup', () => {
       userEModeGroup: fakeEModeGroup,
     };
 
+    const fakeUserBlockingBorrowPositions = generateFakeBlockingBorrowPositions({
+      assets: customFakePool.assets.slice(0, 1),
+    });
+
     const { queryAllByText } = renderComponent(
       <EModeGroup
         {...baseProps}
         pool={customFakePool}
         eModeGroup={fakeEModeGroup}
-        userBlockingAssets={customFakePool.assets.slice(0, 1)}
+        userBlockingBorrowPositions={fakeUserBlockingBorrowPositions}
       />,
       {
         accountAddress: fakeAccountAddress,

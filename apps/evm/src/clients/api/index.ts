@@ -33,9 +33,6 @@ export * from './mutations/useImportSupplyPosition';
 export * from './mutations/useSetEModeGroup';
 
 // Queries
-export * from './queries/getUserVaiBorrowBalance';
-export * from './queries/getUserVaiBorrowBalance/useGetUserVaiBorrowBalance';
-
 export * from './queries/getVaiTreasuryPercentage';
 export * from './queries/getVaiTreasuryPercentage/useGetVaiTreasuryPercentage';
 

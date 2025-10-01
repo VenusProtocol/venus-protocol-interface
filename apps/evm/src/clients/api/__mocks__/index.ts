@@ -46,14 +46,6 @@ export const useGetBlockNumber = vi.fn(() =>
   }),
 );
 
-export const getUserVaiBorrowBalance = vi.fn();
-export const useGetUserVaiBorrowBalance = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_USER_VAI_BORROW_BALANCE],
-    queryFn: getUserVaiBorrowBalance,
-  }),
-);
-
 export const getVaiTreasuryPercentage = vi.fn();
 export const useGetVaiTreasuryPercentage = vi.fn(() =>
   useQuery({

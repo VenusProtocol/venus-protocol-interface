@@ -3,15 +3,6 @@ import { vaiControllerAbi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import type { Address, PublicClient } from 'viem';
 
-export interface GetUserVaiBorrowBalanceInput {
-  accountAddress: Address;
-  vaiControllerContractAddress: Address;
-}
-
-export type GetUserVaiBorrowBalanceOutput = {
-  userVaiBorrowBalanceMantissa: BigNumber;
-};
-
 export const getUserVaiBorrowBalance = async ({
   accountAddress,
   publicClient,

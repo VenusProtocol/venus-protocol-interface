@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
@@ -8,7 +9,11 @@ import { renderComponent } from 'testUtils/render';
 import type { Pool } from 'types';
 import { EMode } from '..';
 
-const fakePool = poolData[0];
+const fakePool: Pool = {
+  ...poolData[0],
+  userVaiBorrowBalanceTokens: new BigNumber(0),
+  userVaiBorrowBalanceCents: new BigNumber(0),
+};
 
 describe('EMode', () => {
   beforeEach(() => {
@@ -29,6 +34,24 @@ describe('EMode', () => {
     const customFakePool: Pool = {
       ...fakePool,
       userEModeGroup: fakePool.eModeGroups[0],
+    };
+
+    const { container } = renderComponent(
+      <EMode pool={customFakePool} searchValue="" onSearchValueChange={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(container.textContent).toMatchSnapshot();
+  });
+
+  it('renders correctly when connected user is borrowing VAI', async () => {
+    const customFakePool: Pool = {
+      ...fakePool,
+      userEModeGroup: fakePool.eModeGroups[0],
+      userVaiBorrowBalanceCents: new BigNumber(10000),
+      userVaiBorrowBalanceTokens: new BigNumber(100),
     };
 
     const { container } = renderComponent(
