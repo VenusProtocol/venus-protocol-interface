@@ -8,8 +8,9 @@ import { useAnalytics } from 'libs/analytics';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
-import type { Asset, EModeGroup, Pool } from 'types';
+import type { EModeGroup, Pool } from 'types';
 import { calculateHealthFactor } from 'utilities';
+import type { BlockingBorrowPosition } from '../../types';
 import { BlockingPositionModal } from './BlockingPositionModal';
 import { HealthFactorUpdate } from './HealthFactorUpdate';
 
@@ -17,7 +18,7 @@ export interface HeaderProps {
   pool: Pool;
   eModeGroup: EModeGroup;
   userHasEnoughCollateral: boolean;
-  userBlockingAssets: Asset[];
+  userBlockingBorrowPositions: BlockingBorrowPosition[];
   hypotheticalUserHealthFactor: number;
   className?: string;
 }
@@ -25,7 +26,7 @@ export interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   eModeGroup,
   userHasEnoughCollateral,
-  userBlockingAssets,
+  userBlockingBorrowPositions,
   hypotheticalUserHealthFactor,
   pool,
   className,
@@ -74,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const isEModeGroupEnabled = pool.userEModeGroup && pool.userEModeGroup.id === eModeGroup.id;
 
-  const isButtonEnabled = userBlockingAssets.length === 0 && userHasEnoughCollateral;
+  const isButtonEnabled = userBlockingBorrowPositions.length === 0 && userHasEnoughCollateral;
 
   const shouldDisplayHealthFactor =
     isButtonEnabled && !!pool.userBorrowBalanceCents?.isGreaterThan(0);
@@ -93,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({
     disabledTooltip = isEModeGroupEnabled
       ? t('pool.eMode.group.cannotDisable.tooltip.notEnoughCollateral')
       : t('pool.eMode.group.cannotEnable.tooltip.notEnoughCollateral');
-  } else if (!isButtonEnabled && userBlockingAssets.length > 0) {
+  } else if (!isButtonEnabled && userBlockingBorrowPositions.length > 0) {
     disabledTooltip = (
       <Trans
         i18nKey={
@@ -196,9 +197,8 @@ export const Header: React.FC<HeaderProps> = ({
       {isBlockingPositionModalOpen && (
         <BlockingPositionModal
           onClose={closeBlockingPositionModal}
-          blockingAssets={userBlockingAssets}
+          blockingBorrowPositions={userBlockingBorrowPositions}
           eModeGroupName={eModeGroup.name}
-          poolComptrollerAddress={pool.comptrollerAddress}
         />
       )}
     </>

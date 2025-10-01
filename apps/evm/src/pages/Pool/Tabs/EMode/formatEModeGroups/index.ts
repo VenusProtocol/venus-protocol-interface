@@ -1,14 +1,24 @@
-import type { Asset, EModeGroup, Pool } from 'types';
+import type { To } from 'react-router';
+
+import { routes } from 'constants/routing';
+import { TAB_PARAM_KEY } from 'hooks/useTabs';
+import type { EModeGroup, Pool, Token } from 'types';
 import { areTokensEqual, calculateHealthFactor } from 'utilities';
 import { getHypotheticalAssetValues } from '../getHypotheticalAssetValues';
+import type { BlockingBorrowPosition } from '../types';
 
 interface ExtendedEModeGroup extends EModeGroup {
-  userBlockingAssets: Asset[];
+  userBlockingBorrowPositions: BlockingBorrowPosition[];
   userHasEnoughCollateral: boolean;
   hypotheticalUserHealthFactor: number;
 }
 
-export const formatEModeGroups = ({ pool, searchValue }: { pool: Pool; searchValue: string }) =>
+export const formatEModeGroups = ({
+  pool,
+  searchValue,
+  vai,
+  formatTo,
+}: { pool: Pool; searchValue: string; formatTo: ({ to }: { to: To }) => To; vai?: Token }) =>
   pool.eModeGroups
     .reduce<ExtendedEModeGroup[]>((acc, eModeGroup) => {
       // Handle search
@@ -28,9 +38,9 @@ export const formatEModeGroups = ({ pool, searchValue }: { pool: Pool; searchVal
 
       const isEModeGroupEnabled = pool.userEModeGroup && pool.userEModeGroup.id === eModeGroup.id;
 
-      // These values are used to determine if a user can enable the E-mode group if it's not enabled
-      // already, or disable it if it's enabled
-      const userBlockingAssets: Asset[] = [];
+      // These values are used to determine if a user can enable the E-mode group if it's not
+      // enabled already, or disable it if it's enabled
+      const userBlockingBorrowPositions: BlockingBorrowPosition[] = [];
       let hypotheticalUserLiquidationThresholdCents = 0;
       let hypotheticalUserBorrowLimitCents = 0;
       let hypotheticalUserBorrowBalanceCents = 0;
@@ -56,13 +66,48 @@ export const formatEModeGroups = ({ pool, searchValue }: { pool: Pool; searchVal
           });
 
         if (isBlocking) {
-          userBlockingAssets.push(asset);
+          const blockingBorrowPosition: BlockingBorrowPosition = {
+            token: asset.vToken.underlyingToken,
+            userBorrowBalanceTokens: asset.userBorrowBalanceTokens,
+            userBorrowBalanceCents: asset.userBorrowBalanceCents.toNumber(),
+            to: formatTo({
+              to: {
+                pathname: routes.market.path
+                  .replace(':poolComptrollerAddress', pool.comptrollerAddress)
+                  .replace(':vTokenAddress', asset.vToken.address),
+                search: `${TAB_PARAM_KEY}=repay`,
+              },
+            }),
+          };
+
+          userBlockingBorrowPositions.push(blockingBorrowPosition);
         }
 
         hypotheticalUserLiquidationThresholdCents += liquidationThresholdCents;
         hypotheticalUserBorrowLimitCents += borrowLimitCents;
         hypotheticalUserBorrowBalanceCents += borrowBalanceCents;
       });
+
+      // Check if user is borrowing VAI
+      if (
+        pool.userVaiBorrowBalanceTokens &&
+        pool.userVaiBorrowBalanceCents?.isGreaterThan(0) &&
+        vai
+      ) {
+        const vaiBlockingBorrowPosition: BlockingBorrowPosition = {
+          token: vai,
+          userBorrowBalanceTokens: pool.userVaiBorrowBalanceTokens,
+          userBorrowBalanceCents: pool.userVaiBorrowBalanceCents.toNumber(),
+          to: formatTo({
+            to: {
+              pathname: routes.vai.path,
+              search: `${TAB_PARAM_KEY}=repay`,
+            },
+          }),
+        };
+
+        userBlockingBorrowPositions.push(vaiBlockingBorrowPosition);
+      }
 
       const userHasEnoughCollateral =
         hypotheticalUserBorrowLimitCents >= hypotheticalUserBorrowBalanceCents;
@@ -76,7 +121,7 @@ export const formatEModeGroups = ({ pool, searchValue }: { pool: Pool; searchVal
         ...eModeGroup,
         assetSettings: filteredEModeAssetSettings,
         userHasEnoughCollateral,
-        userBlockingAssets,
+        userBlockingBorrowPositions,
         hypotheticalUserHealthFactor,
       };
 
@@ -91,8 +136,8 @@ export const formatEModeGroups = ({ pool, searchValue }: { pool: Pool; searchVal
         return Number(isBEnabled) - Number(isAEnabled);
       }
 
-      const aCanBeEnabled = a.userBlockingAssets.length === 0 && a.userHasEnoughCollateral;
-      const bCanBeEnabled = a.userBlockingAssets.length === 0 && a.userHasEnoughCollateral;
+      const aCanBeEnabled = a.userBlockingBorrowPositions.length === 0 && a.userHasEnoughCollateral;
+      const bCanBeEnabled = a.userBlockingBorrowPositions.length === 0 && a.userHasEnoughCollateral;
 
       // Sort alphabetically if both groups can't be enabled
       if (!aCanBeEnabled && !bCanBeEnabled) {

@@ -1,54 +1,39 @@
 import { ButtonWrapper, LayeredValues, TokenIcon, TokenIconWithSymbol } from 'components';
-import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
-import { useFormatTo } from 'hooks/useFormatTo';
-import { TAB_PARAM_KEY } from 'hooks/useTabs';
 import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
-import type { Asset } from 'types';
 import { formatCentsToReadableValue, formatTokensToReadableValue } from 'utilities';
-import type { Address } from 'viem';
+import type { BlockingBorrowPosition } from '../../../../types';
 
-export interface BlockingPositionProps {
-  asset: Asset;
-  poolComptrollerAddress: Address;
-}
+export type BlockingPositionProps = BlockingBorrowPosition;
 
 export const BlockingPosition: React.FC<BlockingPositionProps> = ({
-  poolComptrollerAddress,
-  asset,
+  token,
+  userBorrowBalanceCents,
+  userBorrowBalanceTokens,
+  to,
 }) => {
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
 
   const handleRepayClick = () =>
     captureAnalyticEvent('e_mode_click_repay_positions_modal', {
-      tokenSymbol: asset.vToken.underlyingToken.symbol,
+      tokenSymbol: token.symbol,
     });
 
-  const { formatTo } = useFormatTo();
-  const marketTo = formatTo({
-    to: {
-      pathname: routes.market.path
-        .replace(':poolComptrollerAddress', poolComptrollerAddress)
-        .replace(':vTokenAddress', asset.vToken.address),
-      search: `${TAB_PARAM_KEY}=repay`,
-    },
-  });
-
   const readableUserBorrowBalanceTokens = formatTokensToReadableValue({
-    value: asset.userBorrowBalanceTokens,
-    token: asset.vToken.underlyingToken,
+    value: userBorrowBalanceTokens,
+    token,
   });
 
   const readableUserBorrowBalanceDollars = formatCentsToReadableValue({
-    value: asset.userBorrowBalanceCents,
+    value: userBorrowBalanceCents,
   });
 
   return (
     <div className="grid grid-cols-2 h-14 text-sm sm:grid-cols-3">
       <div className="flex items-center gap-x-2 sm:hidden">
-        <TokenIcon token={asset.vToken.underlyingToken} />
+        <TokenIcon token={token} />
 
         <LayeredValues
           topValue={readableUserBorrowBalanceTokens}
@@ -57,7 +42,7 @@ export const BlockingPosition: React.FC<BlockingPositionProps> = ({
       </div>
 
       <div className="hidden sm:flex sm:items-center">
-        <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+        <TokenIconWithSymbol token={token} />
       </div>
 
       <div className="hidden sm:flex sm:items-center">
@@ -69,7 +54,7 @@ export const BlockingPosition: React.FC<BlockingPositionProps> = ({
 
       <div className="flex items-center">
         <ButtonWrapper small className="ml-auto w-auto text-offWhite hover:no-underline" asChild>
-          <Link to={marketTo} onClick={handleRepayClick} target="_blank">
+          <Link to={to} onClick={handleRepayClick} target="_blank">
             {t('pool.eMode.group.cannotEnable.modal.repayButtonLabel')}
           </Link>
         </ButtonWrapper>

@@ -10,7 +10,9 @@ import {
 } from 'components';
 import { E_MODE_DOC_URL } from 'constants/production';
 import { Link } from 'containers/Link';
+import { useFormatTo } from 'hooks/useFormatTo';
 import { useAnalytics } from 'libs/analytics';
+import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings, Pool } from 'types';
 import { EModeGroup as EModeGroupComp } from './EModeGroup';
@@ -27,6 +29,11 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
   const { t, Trans } = useTranslation();
   const columns = useGetColumns();
   const { captureAnalyticEvent } = useAnalytics();
+
+  const { formatTo } = useFormatTo();
+  const vai = useGetToken({
+    symbol: 'VAI',
+  });
 
   const handleLearnMoreClick = () =>
     captureAnalyticEvent('e_mode_learn_more_click', {
@@ -73,6 +80,8 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
 
   const formattedEModeGroups = formatEModeGroups({
     pool,
+    vai,
+    formatTo,
     searchValue,
   });
 
@@ -115,7 +124,7 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
             key={extendedEModeGroup.id}
             eModeGroup={extendedEModeGroup}
             userHasEnoughCollateral={extendedEModeGroup.userHasEnoughCollateral}
-            userBlockingAssets={extendedEModeGroup.userBlockingAssets}
+            userBlockingBorrowPositions={extendedEModeGroup.userBlockingBorrowPositions}
             hypotheticalUserHealthFactor={extendedEModeGroup.hypotheticalUserHealthFactor}
             pool={pool}
             columns={columns}

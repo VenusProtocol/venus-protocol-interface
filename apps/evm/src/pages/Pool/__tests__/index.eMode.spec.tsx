@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 
@@ -16,6 +17,8 @@ const customFakePool: Pool = {
   ...poolData[0],
   eModeGroups,
   userEModeGroup: eModeGroups[0],
+  userVaiBorrowBalanceTokens: new BigNumber(0),
+  userVaiBorrowBalanceCents: new BigNumber(0),
 };
 
 describe('Pool - Feature flag enabled: E-mode', () => {
