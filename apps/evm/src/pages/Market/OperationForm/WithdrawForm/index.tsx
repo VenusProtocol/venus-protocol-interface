@@ -346,7 +346,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
             pool={pool}
           />
 
-          {isRiskyOperation && (
+          {isRiskyOperation && formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT' && (
             <RiskAcknowledgementToggle
               value={formValues.acknowledgeRisk}
               onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
