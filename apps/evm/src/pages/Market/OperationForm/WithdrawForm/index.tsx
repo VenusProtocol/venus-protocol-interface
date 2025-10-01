@@ -216,6 +216,9 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     hypotheticalHealthFactor !== undefined &&
     hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
 
+  const shouldAskUserRiskAcknowledgement =
+    isRiskyOperation && (!formError || formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT');
+
   const captureAmountSetAnalyticEvent = ({
     amountTokens,
     maxSelected,
@@ -346,7 +349,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
             pool={pool}
           />
 
-          {isRiskyOperation && formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT' && (
+          {shouldAskUserRiskAcknowledgement && (
             <RiskAcknowledgementToggle
               value={formValues.acknowledgeRisk}
               onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}

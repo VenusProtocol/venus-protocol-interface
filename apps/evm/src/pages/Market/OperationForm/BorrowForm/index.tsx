@@ -96,10 +96,6 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         })
       : undefined;
 
-  const isRiskyOperation =
-    hypotheticalHealthFactor !== undefined &&
-    hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
-
   // Calculate maximum amount of tokens user can borrow
   const [limitTokens, safeLimitTokens, moderateRiskMaxTokens] = useMemo(() => {
     // Return 0 values while asset is loading or if borrow limit has been
@@ -244,6 +240,13 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     }));
   };
 
+  const isRiskyOperation =
+    hypotheticalHealthFactor !== undefined &&
+    hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
+
+  const shouldAskUserRiskAcknowledgement =
+    isRiskyOperation && (!formError || formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT');
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-4">
@@ -341,7 +344,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
             pool={pool}
           />
 
-          {isRiskyOperation && formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT' && (
+          {shouldAskUserRiskAcknowledgement && (
             <RiskAcknowledgementToggle
               value={formValues.acknowledgeRisk}
               onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
