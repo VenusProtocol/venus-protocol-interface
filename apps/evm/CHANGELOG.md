@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.58.1
+
+### Patch Changes
+
+- 8c73da5: ask user risk acknowledgement when needed
+
 ## 3.58.0
 
 ### Minor Changes
