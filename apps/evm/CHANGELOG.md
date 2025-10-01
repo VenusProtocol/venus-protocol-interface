@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.58.0
+
+### Minor Changes
+
+- e394f88: account for VAI in E-mode
+
 ## 3.57.1
 
 ### Patch Changes
