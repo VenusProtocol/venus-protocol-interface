@@ -1,5 +1,11 @@
 # @venusprotocol/landing
 
+## 1.21.2
+
+### Patch Changes
+
+- d814727: fix p tags font-size on landing page
+
 ## 1.21.1
 
 ### Patch Changes
