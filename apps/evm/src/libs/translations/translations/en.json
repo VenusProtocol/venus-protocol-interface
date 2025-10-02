@@ -181,6 +181,10 @@
         "baseSupplyApyLabel": "Supply APY",
         "defaultMerklRewardName": "Merkl rewards",
         "externalRewardDescription": "Rewards from this external program can be claimed through their <AppLink>official app</AppLink>. The Venus protocol does not guarantee them and accepts no liability.",
+        "intrinsicApy": {
+          "description": "Intrinsic APY description",
+          "name": "Intrinsic APY"
+        },
         "pointDistribution": {
           "learnMore": "Learn more"
         },
@@ -235,6 +239,7 @@
   },
   "assetInfo": {
     "borrowApy": "Borrow APY",
+    "intrinsicApy": "Intrinsic APY ({{tokenSymbol}})",
     "distributionApy": "Distribution APY ({{tokenSymbol}})",
     "distributionTooltip": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
     "externalDistributionApy": "{{description}} APY ({{tokenSymbol}})",

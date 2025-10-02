@@ -32,7 +32,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
 }) => {
   const { t, Trans } = useTranslation();
 
-  const lisItems: DistributionProps[] = [
+  const listItems: DistributionProps[] = [
     {
       name:
         type === 'supply'
@@ -70,7 +70,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
         ),
       };
 
-      return lisItems.push(distribution);
+      return listItems.push(distribution);
     }
 
     if (d.type === 'venus') {
@@ -81,13 +81,24 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
         logoSrc: d.token.asset,
       };
 
-      return lisItems.push(distribution);
+      return listItems.push(distribution);
+    }
+
+    if (d.type === 'intrinsic') {
+      const distribution: DistributionProps = {
+        name: t('apy.boost.tooltip.intrinsicApy.name'),
+        description: t('apy.boost.tooltip.intrinsicApy.description'),
+        value: formatPercentageToReadableValue(d.apyPercentage),
+        logoSrc: d.token.asset,
+      };
+
+      return listItems.push(distribution);
     }
   }, []);
 
   // Add Prime distribution
   if (primeApyPercentage && userBalanceTokens.isGreaterThan(0)) {
-    lisItems.push({
+    listItems.push({
       name: t('apy.boost.tooltip.primeDistribution.name'),
       description: t('apy.boost.tooltip.primeDistribution.description'),
       value: formatPercentageToReadableValue(primeApyPercentage),
@@ -96,7 +107,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
   }
 
   pointDistributions.forEach(p =>
-    lisItems.push({
+    listItems.push({
       name: p.title,
       value: p.incentive,
       logoSrc: p.logoUrl,
@@ -120,7 +131,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
       className={cn('inline-flex items-center gap-1', className)}
       content={
         <div className="space-y-2 min-w-50">
-          {lisItems.map(t => (
+          {listItems.map(t => (
             <Distribution key={`${t.name}-${t.logoSrc}-${t.description}`} {...t} />
           ))}
         </div>
