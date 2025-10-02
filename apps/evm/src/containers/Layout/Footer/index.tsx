@@ -85,7 +85,7 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
     >
       <div className="flex items-center gap-x-4">
         {refLinks.map(refLink => (
-          <Link className="text-grey text-sm" href={refLink.href}>
+          <Link className="text-grey text-sm" href={refLink.href} key={refLink.href}>
             {refLink.label}
           </Link>
         ))}
@@ -96,6 +96,7 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
           <a
             className="bg-lightGrey hover:bg-blue active:bg-darkBlue ml-4 flex h-6 w-6 items-center justify-center rounded transition-colors first-of-type:ml-0"
             href={socialLink.href}
+            key={socialLink.href}
             target="_blank"
             rel="noreferrer"
           >
