@@ -389,7 +389,9 @@
   },
   "footer": {
     "links": {
-      "documentation": "Documentation"
+      "documentation": "Documentation",
+      "privacyPolicy": "Privacy policy",
+      "termsOfUse": "Terms of use"
     }
   },
   "gaslessTransactions": {
