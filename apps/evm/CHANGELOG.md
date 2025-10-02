@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.59.0
+
+### Minor Changes
+
+- e9849d3: add legal page links to dApp's footer
+
 ## 3.58.1
 
 ### Patch Changes
