@@ -39,7 +39,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
           ? t('apy.boost.tooltip.baseSupplyApyLabel')
           : t('apy.boost.tooltip.baseBorrowApyLabel'),
       value: formatPercentageToReadableValue(baseApyPercentage),
-      logoSrc: token.asset,
+      logoSrc: token.iconSrc,
     },
   ];
 
@@ -53,7 +53,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
       const distribution: DistributionProps = {
         name: d.rewardDetails.description || t('apy.boost.tooltip.defaultMerklRewardName'),
         value: formatPercentageToReadableValue(d.apyPercentage),
-        logoSrc: d.token.asset,
+        logoSrc: d.token.iconSrc,
         description: (
           <Trans
             i18nKey="apy.boost.tooltip.externalRewardDescription"
@@ -78,7 +78,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
         name: t('apy.boost.tooltip.xvsDistribution.name'),
         description: t('apy.boost.tooltip.xvsDistribution.description'),
         value: formatPercentageToReadableValue(d.apyPercentage),
-        logoSrc: d.token.asset,
+        logoSrc: d.token.iconSrc,
       };
 
       return listItems.push(distribution);
@@ -89,7 +89,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
         name: t('apy.boost.tooltip.intrinsicApy.name'),
         description: t('apy.boost.tooltip.intrinsicApy.description'),
         value: formatPercentageToReadableValue(d.apyPercentage),
-        logoSrc: d.token.asset,
+        logoSrc: d.token.iconSrc,
       };
 
       return listItems.push(distribution);
@@ -102,7 +102,7 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
       name: t('apy.boost.tooltip.primeDistribution.name'),
       description: t('apy.boost.tooltip.primeDistribution.description'),
       value: formatPercentageToReadableValue(primeApyPercentage),
-      logoSrc: token.asset,
+      logoSrc: token.iconSrc,
     });
   }
 

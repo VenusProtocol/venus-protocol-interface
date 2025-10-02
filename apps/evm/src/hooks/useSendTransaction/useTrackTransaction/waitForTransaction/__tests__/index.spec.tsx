@@ -1,6 +1,6 @@
 import type { Mock } from 'vitest';
 
-import { ChainId, chainMetadata } from '@venusprotocol/chains';
+import { ChainId, chains } from '@venusprotocol/chains';
 import { transactionReceipt as fakeTransactionReceipt } from '__mocks__/models/transactionReceipt';
 import type { Hex, PublicClient } from 'viem';
 
@@ -34,17 +34,17 @@ const fakeInput = {
   transactionType: 'chain',
 } as const;
 
-const originalSafeWalletApiUrl = chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl;
+const originalSafeWalletApiUrl = chains[ChainId.BSC_TESTNET].safeWalletApiUrl;
 
 describe('waitForTransaction', () => {
   beforeEach(() => {
-    chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl = 'https://fake-safe-wallet-api-url.com';
+    chains[ChainId.BSC_TESTNET].safeWalletApiUrl = 'https://fake-safe-wallet-api-url.com';
 
     vi.useFakeTimers();
   });
 
   afterEach(() => {
-    chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl = originalSafeWalletApiUrl;
+    chains[ChainId.BSC_TESTNET].safeWalletApiUrl = originalSafeWalletApiUrl;
 
     vi.useRealTimers();
   });

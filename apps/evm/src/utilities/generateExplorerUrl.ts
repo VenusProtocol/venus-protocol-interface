@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import { MEE_SCAN_URL } from 'constants/biconomy';
 import type { ChainId } from 'types';
 
@@ -11,7 +11,7 @@ export interface GenerateChainExplorerUrlInput<T extends UrlType = 'address'> {
 }
 
 const generateLayerZeroScanUrl = ({ hash, chainId }: GenerateChainExplorerUrlInput) => {
-  const { layerZeroScanUrl } = chainMetadata[chainId];
+  const { layerZeroScanUrl } = chains[chainId];
   return `${layerZeroScanUrl}/tx/${hash}`;
 };
 
@@ -34,7 +34,7 @@ export const generateExplorerUrl = <T extends UrlType = 'address'>({
     return generateBiconomyScanUrl({ hash });
   }
 
-  const { explorerUrl } = chainMetadata[chainId];
+  const { explorerUrl } = chains[chainId];
   return `${explorerUrl}/${safeUrlType}/${hash}`;
 };
 

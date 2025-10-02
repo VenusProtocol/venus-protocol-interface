@@ -9,7 +9,7 @@ import { renderComponent } from 'testUtils/render';
 import { en } from 'libs/translations';
 import { type Asset, ChainId, type Pool } from 'types';
 
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import { useBorrow } from 'clients/api';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import BorrowForm from '..';
@@ -337,10 +337,7 @@ describe('BorrowForm', () => {
     await waitFor(() =>
       expect(
         getByText(
-          en.switchChain.switchButton.replace(
-            '{{chainName}}',
-            chainMetadata[ChainId.BSC_TESTNET].name,
-          ),
+          en.switchChain.switchButton.replace('{{chainName}}', chains[ChainId.BSC_TESTNET].name),
         ),
       ).toBeInTheDocument(),
     );

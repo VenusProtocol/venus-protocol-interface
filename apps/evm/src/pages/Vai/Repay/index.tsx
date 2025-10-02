@@ -27,7 +27,7 @@ import {
 
 import { NULL_ADDRESS } from 'constants/address';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetChain } from 'hooks/useGetChain';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { AccountVaiData } from '../AccountVaiData';
 import TEST_IDS from './testIds';
@@ -41,7 +41,7 @@ export const Repay: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
-  const chainMetadata = useGetChainMetadata();
+  const chain = useGetChain();
 
   const vai = useGetToken({
     symbol: 'VAI',
@@ -95,7 +95,7 @@ export const Repay: React.FC = () => {
   const readableBorrowApr = formatPercentageToReadableValue(getVaiRepayAprData?.repayAprPercentage);
 
   const { data: getPoolData, isLoading: isGetPoolDataLoading } = useGetPool({
-    poolComptrollerAddress: chainMetadata.corePoolComptrollerContractAddress,
+    poolComptrollerAddress: chain.corePoolComptrollerContractAddress,
     accountAddress,
   });
 

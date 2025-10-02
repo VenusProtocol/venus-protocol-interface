@@ -10,7 +10,7 @@ import { getVTokenBalance, useGetVTokenBalance, useWithdraw } from 'clients/api'
 import { en } from 'libs/translations';
 import { type Asset, ChainId, type Pool } from 'types';
 
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import Withdraw from '..';
 import { fakeAsset, fakePool, fakeVTokenBalanceMantissa } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -293,10 +293,7 @@ describe('WithdrawForm', () => {
     await waitFor(() =>
       expect(
         getByText(
-          en.switchChain.switchButton.replace(
-            '{{chainName}}',
-            chainMetadata[ChainId.BSC_TESTNET].name,
-          ),
+          en.switchChain.switchButton.replace('{{chainName}}', chains[ChainId.BSC_TESTNET].name),
         ),
       ).toBeInTheDocument(),
     );

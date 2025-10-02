@@ -1,10 +1,10 @@
 import { ChainId } from '@venusprotocol/chains';
+import { NULL_ADDRESS } from 'constants/address';
 import { VError } from 'libs/errors';
 import { restService } from 'utilities';
 import type { Address, PublicClient } from 'viem';
 
 const WBNB_BURN_CONVERTER_CONTRACT_ADDRESS = '0x9ef79830e626c8cca7e46dced1f90e51e7cfcebe';
-const NULL_ADDRESS = '0x0000000000000000000000000000000000000001';
 
 interface DestinationAmount {
   address: Address;

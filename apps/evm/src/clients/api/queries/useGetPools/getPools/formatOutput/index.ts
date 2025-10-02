@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
@@ -48,7 +48,7 @@ export const formatOutput = ({
   userVaiBorrowBalanceMantissa?: BigNumber;
 }) => {
   const pools: Pool[] = apiPools.map(apiPool => {
-    const { blocksPerDay } = chainMetadata[chainId];
+    const { blocksPerDay } = chains[chainId];
 
     const isIsolated = isPoolIsolated({
       chainId,

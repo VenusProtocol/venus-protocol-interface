@@ -126,7 +126,7 @@ export const Transactions: React.FC = () => {
     const tokenOptions = allAssets
       .map(a => ({
         symbol: `${a.vToken.underlyingToken.symbol} - ${a.poolName}`,
-        asset: a.vToken.underlyingToken.asset,
+        iconSrc: a.vToken.underlyingToken.iconSrc,
         address: a.vToken.address,
         decimals: a.vToken.decimals,
       }))

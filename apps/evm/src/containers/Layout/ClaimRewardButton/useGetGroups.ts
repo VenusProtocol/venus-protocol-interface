@@ -41,7 +41,7 @@ const useGetGroups = ({ uncheckedGroupIds }: { uncheckedGroupIds: string[] }) =>
           const id =
             pendingRewardGroup.type === 'vault'
               ? `vault-${pendingRewardGroup.stakedToken.address}-${pendingRewardGroup.rewardToken.address}`
-              : `xvs-vesting-vault-${pendingRewardGroup.rewardToken.asset}-${pendingRewardGroup.poolIndex}`;
+              : `xvs-vesting-vault-${pendingRewardGroup.rewardToken.iconSrc}-${pendingRewardGroup.poolIndex}`;
 
           const name =
             pendingRewardGroup.type === 'vault'

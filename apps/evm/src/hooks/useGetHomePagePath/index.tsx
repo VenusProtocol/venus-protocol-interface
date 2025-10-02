@@ -1,8 +1,8 @@
 import { routes } from 'constants/routing';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetChain } from 'hooks/useGetChain';
 
 export const useGetHomePagePath = () => {
-  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
+  const { corePoolComptrollerContractAddress } = useGetChain();
 
   const homePagePath = routes.pool.path.replace(
     ':poolComptrollerAddress',

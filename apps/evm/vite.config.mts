@@ -14,6 +14,12 @@ export default defineConfig(({ mode }) => {
   return {
     base: './',
     plugins: [react(), viteTsConfigPaths(), svgrPlugin()],
+    resolve: {
+      alias: {
+        // Import raw source so dApp is in charge of compiling token and chain icons
+        '@venusprotocol/chains': '/../../packages/chains/src',
+      },
+    },
     optimizeDeps: {
       esbuildOptions: {
         // Node.js global to browser globalThis
