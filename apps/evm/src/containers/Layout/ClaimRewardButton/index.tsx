@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { cn } from '@venusprotocol/ui';
 import { type Claim, useClaimRewards } from 'clients/api';
 import { type ButtonProps, Icon, Modal, PrimaryButton } from 'components';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetChain } from 'hooks/useGetChain';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -135,7 +135,7 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
   const { accountAddress } = useAccountAddress();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const chainMetadata = useGetChainMetadata();
+  const chain = useGetChain();
 
   const [uncheckedGroupIds, setUncheckedGroupIds] = useState<string[]>([]);
   const { internalRewardsGroups, externalRewardsGroups } = useGetGroups({
@@ -194,8 +194,8 @@ export const ClaimRewardButton: React.FC<ClaimRewardButtonProps> = props => {
       onClaimReward={handleClaimReward}
       onToggleGroup={handleToggleGroup}
       onToggleAllGroups={handleToggleAllGroups}
-      chainLogoSrc={chainMetadata.logoSrc}
-      chainName={chainMetadata.name}
+      chainLogoSrc={chain.logoSrc}
+      chainName={chain.name}
       {...props}
     />
   );

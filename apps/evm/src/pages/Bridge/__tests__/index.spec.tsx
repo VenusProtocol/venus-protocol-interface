@@ -16,7 +16,7 @@ import { en } from 'libs/translations';
 import { useAuthModal, useChainId, useSwitchChain } from 'libs/wallet';
 import { ChainId } from 'types';
 
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import config from 'config';
 import { fromUnixTime } from 'date-fns';
 import Bridge from '..';
@@ -112,10 +112,7 @@ describe('Bridge', () => {
     await waitFor(() =>
       expect(
         getByText(
-          en.switchChain.switchButton.replace(
-            '{{chainName}}',
-            chainMetadata[ChainId.BSC_TESTNET].name,
-          ),
+          en.switchChain.switchButton.replace('{{chainName}}', chains[ChainId.BSC_TESTNET].name),
         ),
       ).toBeInTheDocument(),
     );

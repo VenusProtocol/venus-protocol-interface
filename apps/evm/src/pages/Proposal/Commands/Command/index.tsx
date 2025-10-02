@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import { useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
@@ -23,7 +23,7 @@ export const Command: React.FC<CommandProps> = ({
   contentBottomItem,
   ...otherProps
 }) => {
-  const chain = chainMetadata[chainId];
+  const chain = chains[chainId];
   const [isOpen, setIsOpen] = useState(false);
   const toggleAccordion = () => setIsOpen(prevState => !prevState);
 

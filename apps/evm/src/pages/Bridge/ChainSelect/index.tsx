@@ -1,13 +1,13 @@
 import { forwardRef } from 'react';
 
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import { Select, type SelectOption, type SelectProps } from 'components';
 import type { ChainId } from 'types';
 import { bridgeChains } from '../constants';
 
 export const getOptionsFromChainsList = (chainsList: typeof bridgeChains) =>
   chainsList.map(chain => {
-    const metadata = chainMetadata[chain.id as ChainId];
+    const metadata = chains[chain.id as ChainId];
     const option: SelectOption<ChainId> = {
       label: (
         <div className="flex items-center">

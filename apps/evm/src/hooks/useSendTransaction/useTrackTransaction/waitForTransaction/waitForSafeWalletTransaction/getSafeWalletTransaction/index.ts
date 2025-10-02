@@ -1,4 +1,4 @@
-import { type ChainId, chainMetadata } from '@venusprotocol/chains';
+import { type ChainId, chains } from '@venusprotocol/chains';
 import config from 'config';
 import { VError, logError } from 'libs/errors';
 import type { Hex } from 'viem';
@@ -17,10 +17,10 @@ export const getSafeWalletTransaction = async ({
   chainId: ChainId;
   hash: Hex;
 }) => {
-  const safeWalletApiUrl = chainMetadata[chainId].safeWalletApiUrl;
+  const safeWalletApiUrl = chains[chainId].safeWalletApiUrl;
 
   if (!safeWalletApiUrl) {
-    logError(`Missing Safe Wallet API URL on ${chainMetadata[chainId]}`);
+    logError(`Missing Safe Wallet API URL on ${chains[chainId]}`);
 
     throw new VError({
       type: 'unexpected',

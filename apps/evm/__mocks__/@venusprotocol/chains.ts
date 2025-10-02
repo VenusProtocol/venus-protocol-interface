@@ -3,7 +3,7 @@ import { legacyCorePool } from '__mocks__/models/pools';
 import { bnb, eth } from '__mocks__/models/tokens';
 export { ChainId } from '__mocks__/models/chains';
 
-export const chainMetadata = {
+export const chains = {
   [ChainId.BSC_MAINNET]: {
     name: 'BNB Chain',
     logoSrc: 'fake-logo-src-bsc-mainnet',
