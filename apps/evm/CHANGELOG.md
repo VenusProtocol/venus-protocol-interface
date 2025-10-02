@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.59.1
+
+### Patch Changes
+
+- 306cef5: fix footer link keys
+
 ## 3.59.0
 
 ### Minor Changes
