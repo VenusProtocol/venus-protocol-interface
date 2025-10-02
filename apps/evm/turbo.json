@@ -1,0 +1,14 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "generate": {
+      "outputs": [
+        "src/constants/version.ts",
+        "src/libs/tokens/infos/pancakeSwapTokens/bscMainnet.ts",
+        "src/libs/contracts/generated/**/*",
+        "src/clients/subgraph/gql/generated/mainnet.ts",
+        "src/clients/subgraph/gql/generated/testnet.ts"
+      ]
+    }
+  }
+}

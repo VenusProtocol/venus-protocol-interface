@@ -13,7 +13,7 @@ import {
   useGetXvsBridgeStatus,
 } from 'clients/api';
 import { NULL_ADDRESS } from 'constants/address';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetChain } from 'hooks/useGetChain';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useChainId } from 'libs/wallet';
 import { ChainId, type Token } from 'types';
@@ -37,7 +37,7 @@ const useBridgeForm = ({ toChainIdRef, walletBalanceTokens, xvs }: UseBridgeForm
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const { chainId } = useChainId();
-  const { nativeToken } = useGetChainMetadata();
+  const { nativeToken } = useGetChain();
   const { data: getTokenUsdPriceData } = useGetTokenUsdPrice({
     token: xvs,
   });

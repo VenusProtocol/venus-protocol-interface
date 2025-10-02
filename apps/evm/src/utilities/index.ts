@@ -26,7 +26,6 @@ export * from './createStoreSelectors';
 export * from './convertAprBipsToApy';
 export { default as extractSettledPromiseValue } from './extractSettledPromiseValue';
 export { default as getUniqueTokenBalances } from './getUniqueTokenBalances';
-export { getDisabledTokenActions } from './getDisabledTokenActions';
 export * from './generateTransactionDeadline';
 export * from './getDisabledTokenActions';
 export * from './isAssetPaused';

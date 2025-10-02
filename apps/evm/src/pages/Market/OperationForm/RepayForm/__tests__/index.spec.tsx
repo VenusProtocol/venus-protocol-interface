@@ -13,7 +13,7 @@ import { useRepay } from 'clients/api';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
 
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import { ChainId } from 'types';
 import Repay, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
@@ -203,10 +203,7 @@ describe('RepayForm', () => {
     await waitFor(() =>
       expect(
         getByText(
-          en.switchChain.switchButton.replace(
-            '{{chainName}}',
-            chainMetadata[ChainId.BSC_TESTNET].name,
-          ),
+          en.switchChain.switchButton.replace('{{chainName}}', chains[ChainId.BSC_TESTNET].name),
         ),
       ).toBeInTheDocument(),
     );

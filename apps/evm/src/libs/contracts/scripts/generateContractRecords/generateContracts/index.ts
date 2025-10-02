@@ -17,7 +17,7 @@ export interface GenerateContractsInput {
 
 export const generateContracts = async ({ contractConfigs }: GenerateContractsInput) => {
   // Generate address list
-  console.log('Start generating contract address list...');
+  console.log('Generating contract address list...');
   generateAddressList({
     contractConfigs,
     outputFilePath: ADDRESSES_OUTPUT_FILE_PATH,

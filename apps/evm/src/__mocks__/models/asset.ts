@@ -61,7 +61,7 @@ export const assetData: Asset[] = [
     ],
     supplyPointDistributions: [
       {
-        logoUrl: xvs.asset,
+        logoUrl: xvs.iconSrc,
         title: 'Fake points',
         incentive: '3x points',
         description: 'Fake point distribution description',
@@ -70,7 +70,7 @@ export const assetData: Asset[] = [
     ],
     borrowPointDistributions: [
       {
-        logoUrl: xvs.asset,
+        logoUrl: xvs.iconSrc,
         title: 'Fake points',
         incentive: '3x points',
         description: 'Fake point distribution description',
@@ -244,7 +244,7 @@ export const assetData: Asset[] = [
     supplyPointDistributions: [],
     borrowPointDistributions: [
       {
-        logoUrl: xvs.asset,
+        logoUrl: xvs.iconSrc,
         title: 'Fake points',
         incentive: '3x points',
         description: 'Fake point distribution description',
@@ -340,7 +340,7 @@ export const assetData: Asset[] = [
     ],
     supplyPointDistributions: [
       {
-        logoUrl: xvs.asset,
+        logoUrl: xvs.iconSrc,
         title: 'Fake points',
         incentive: '3x points',
         description: 'Fake point distribution description',

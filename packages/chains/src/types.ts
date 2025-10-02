@@ -41,9 +41,9 @@ export enum TestnetChainId {
   UNICHIAN_SEPOLIA = ChainId.UNICHAIN_SEPOLIA,
 }
 
-export interface ChainMetadata {
+export interface Chain {
   name: string;
-  logoSrc: string;
+  iconSrc: string;
   explorerUrl: string;
   nativeToken: Token;
   layerZeroScanUrl: string;
@@ -54,12 +54,19 @@ export interface ChainMetadata {
   blocksPerDay?: number;
 }
 
-// TODO: import from @venusprotocol/tokens package once it's been created
 export interface Token {
   symbol: string;
   decimals: number;
-  asset: string;
+  iconSrc: string;
   address: Address;
   isNative?: boolean;
   tokenWrapped?: Token;
 }
+
+export interface VToken extends Omit<Token, 'isNative' | 'iconSrc' | 'tokenWrapped'> {
+  decimals: 8; // VBep tokens all have 8 decimals
+  underlyingToken: Token;
+  iconSrc?: string;
+}
+
+export type VTokenIconUrlMapping = Record<string, string>;

@@ -40,7 +40,7 @@ export const formatApiTransaction = ({
   const token = isApproval
     ? {
         ...vToken,
-        asset: vToken.asset ?? vToken.underlyingToken.asset,
+        iconSrc: vToken.iconSrc ?? vToken.underlyingToken.iconSrc,
       }
     : vToken.underlyingToken;
 

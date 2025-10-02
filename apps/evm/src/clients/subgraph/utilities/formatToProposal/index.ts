@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 
 import type { BscProposalFragment } from 'clients/subgraph/gql/generated/governanceBsc';
@@ -26,7 +26,7 @@ import {
 import { formatToProposalActions } from './formatToProposalActions';
 import { formatToRemoteProposal } from './formatToRemoteProposal';
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chainMetadata[governanceChain.id];
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChain.id];
 
 export const formatToProposal = ({
   gqlProposal,
