@@ -33,26 +33,26 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
 
   return (
     <>
-      {/* Mobile view */}
+      {/* Mobile/Tablet view */}
       <EModeGroupCard
         eModeGroup={eModeGroup}
         userHasEnoughCollateral={userHasEnoughCollateral}
         userBlockingBorrowPositions={userBlockingBorrowPositions}
         hypotheticalUserHealthFactor={hypotheticalUserHealthFactor}
         pool={pool}
-        className="sm:hidden"
+        className="md:hidden"
         order={mobileOrder}
       />
 
-      {/* Tablet/desktop view */}
+      {/* Desktop view */}
       <Table
-        className="hidden sm:pt-0 sm:block"
+        className="hidden md:pt-0 md:block"
         columns={columns}
         data={eModeGroup.assetSettings}
         rowKeyExtractor={row => row.vToken.address}
         initialOrder={initialOrder}
         getRowHref={getRowHref}
-        breakpoint="sm"
+        breakpoint="md"
         header={
           <div className="-mx-6">
             <Header

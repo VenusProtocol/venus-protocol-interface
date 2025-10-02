@@ -750,6 +750,7 @@
         },
         "columns": {
           "asset": "Asset",
+          "collateral": "Collateral",
           "isBorrowable": "Borrowable",
           "liquidationPenalty": "Liquidation penalty",
           "liquidationThreshold": "Liquidation threshold",

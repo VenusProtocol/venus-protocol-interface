@@ -8,9 +8,8 @@ import { compareBooleans, compareNumbers, formatPercentageToReadableValue } from
 
 export const useGetColumns = () => {
   const { t } = useTranslation();
-  const isSmUp = useBreakpointUp('sm');
   const isLgUp = useBreakpointUp('lg');
-  const shouldShowLongLabels = !isSmUp || isLgUp;
+  const shouldShowLongLabels = isLgUp;
 
   const columns: TableColumn<EModeAssetSettings>[] = [
     {
@@ -18,6 +17,34 @@ export const useGetColumns = () => {
       label: t('pool.eMode.table.columns.asset'),
       selectOptionLabel: t('pool.eMode.table.columns.asset'),
       renderCell: ({ vToken }) => <TokenIconWithSymbol token={vToken.underlyingToken} />,
+    },
+    {
+      key: 'collateral',
+      label: t('pool.eMode.table.columns.collateral'),
+      selectOptionLabel: t('pool.eMode.table.columns.collateral'),
+      renderCell: ({ collateralFactor }) => (
+        <Icon
+          name={collateralFactor > 0 ? 'mark' : 'close'}
+          className={cn('w-5 h-5 ml-auto', collateralFactor > 0 ? 'text-green' : 'text-grey')}
+        />
+      ),
+      sortRows: (rowA, rowB, direction) =>
+        compareBooleans(rowA.isBorrowable, rowB.isBorrowable, direction),
+      align: 'right',
+    },
+    {
+      key: 'isBorrowable',
+      label: t('pool.eMode.table.columns.isBorrowable'),
+      selectOptionLabel: t('pool.eMode.table.columns.isBorrowable'),
+      renderCell: ({ isBorrowable }) => (
+        <Icon
+          name={isBorrowable ? 'mark' : 'close'}
+          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-green' : 'text-grey')}
+        />
+      ),
+      sortRows: (rowA, rowB, direction) =>
+        compareBooleans(rowA.isBorrowable, rowB.isBorrowable, direction),
+      align: 'right',
     },
     {
       key: 'maxLtv',
@@ -58,20 +85,6 @@ export const useGetColumns = () => {
           rowB.liquidationPenaltyPercentage,
           direction,
         ),
-      align: 'right',
-    },
-    {
-      key: 'isBorrowable',
-      label: t('pool.eMode.table.columns.isBorrowable'),
-      selectOptionLabel: t('pool.eMode.table.columns.isBorrowable'),
-      renderCell: ({ isBorrowable }) => (
-        <Icon
-          name={isBorrowable ? 'mark' : 'close'}
-          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-green' : 'text-grey')}
-        />
-      ),
-      sortRows: (rowA, rowB, direction) =>
-        compareBooleans(rowA.isBorrowable, rowB.isBorrowable, direction),
       align: 'right',
     },
   ];

@@ -41,7 +41,7 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
     });
 
   const initialOrder: Order<EModeAssetSettings> = {
-    orderBy: columns[1],
+    orderBy: columns[3],
     orderDirection: 'desc',
   };
 
