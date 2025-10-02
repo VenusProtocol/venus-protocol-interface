@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import { type ButtonProps, cn } from '@venusprotocol/ui';
 
 import { Button } from 'components';
@@ -29,7 +29,7 @@ export const SwitchChain: React.FC<SwitchChainProps> = ({
 
   const { chainId: accountChainId } = useAccountChainId();
   const isOnWrongChain = accountChainId !== targetChainId || currentChainId !== targetChainId;
-  const targetChain = chainMetadata[targetChainId];
+  const targetChain = chains[targetChainId];
 
   const { switchChain } = useSwitchChain();
   const { t } = useTranslation();

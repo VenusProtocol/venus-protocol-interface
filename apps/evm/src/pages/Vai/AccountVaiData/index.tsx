@@ -5,7 +5,7 @@ import { useGetPool, useGetTokenUsdPrice, useGetVaiRepayApr } from 'clients/api'
 import { Spinner } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { AccountData, type AccountDataProps } from 'containers/AccountData';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetChain } from 'hooks/useGetChain';
 import { useGetToken } from 'libs/tokens';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset } from 'types';
@@ -18,7 +18,7 @@ export interface AccountVaiDataProps {
 
 export const AccountVaiData: React.FC<AccountVaiDataProps> = ({ amountTokens, action }) => {
   const { accountAddress } = useAccountAddress();
-  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
+  const { corePoolComptrollerContractAddress } = useGetChain();
 
   const vai = useGetToken({
     symbol: 'VAI',

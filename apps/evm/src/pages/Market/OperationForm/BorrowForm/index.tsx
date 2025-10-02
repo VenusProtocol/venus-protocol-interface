@@ -17,7 +17,7 @@ import {
 } from 'constants/healthFactor';
 import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetChain } from 'hooks/useGetChain';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool } from 'types';
@@ -69,7 +69,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
   isEModeFeatureEnabled,
 }) => {
   const { t } = useTranslation();
-  const { nativeToken } = useGetChainMetadata();
+  const { nativeToken } = useGetChain();
   const { captureAnalyticEvent } = useAnalytics();
 
   const canUnwrapToNativeToken = useMemo(

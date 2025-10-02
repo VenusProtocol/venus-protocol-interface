@@ -7,7 +7,7 @@ import { NULL_ADDRESS } from 'constants/address';
 import { Subdirectory, routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useFormatTo } from 'hooks/useFormatTo';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetChain } from 'hooks/useGetChain';
 import { useTranslation } from 'libs/translations';
 import { POOL_COMPTROLLER_ADDRESS_PARAM_KEY } from 'pages/IsolatedPools';
 import { areAddressesEqual } from 'utilities';
@@ -23,7 +23,7 @@ export interface PathNode {
 export const Breadcrumbs: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
+  const { corePoolComptrollerContractAddress } = useGetChain();
   const { formatTo } = useFormatTo();
 
   const pathNodes = useMemo(() => {

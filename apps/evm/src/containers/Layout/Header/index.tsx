@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
   const asset = getAssetData?.asset;
 
   const { color: gradientAccentColor } = useImageAccentColor({
-    imagePath: asset?.vToken.underlyingToken.asset,
+    imagePath: asset?.vToken.underlyingToken.iconSrc,
   });
 
   return (
