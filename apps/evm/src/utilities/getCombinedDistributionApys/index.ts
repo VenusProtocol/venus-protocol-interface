@@ -13,7 +13,11 @@ const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
     apyPrimeSimulationPercentage: BigNumber;
   }>(
     (acc, distribution) => {
-      if (distribution.type === 'venus' || distribution.type === 'merkl') {
+      if (
+        distribution.type === 'venus' ||
+        distribution.type === 'merkl' ||
+        distribution.type === 'intrinsic'
+      ) {
         return {
           ...acc,
           apyRewardsPercentage: acc.apyRewardsPercentage.plus(distribution.apyPercentage),

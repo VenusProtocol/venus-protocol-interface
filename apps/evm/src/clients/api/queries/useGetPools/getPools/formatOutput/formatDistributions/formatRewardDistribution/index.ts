@@ -1,6 +1,7 @@
 import type BigNumber from 'bignumber.js';
 
 import type {
+  IntrinsicApyDistribution,
   MerklDistribution,
   RewardDistributorDistribution,
   Token,
@@ -9,7 +10,20 @@ import type {
 import { calculateYearlyPercentageRate } from 'utilities';
 import type { Address } from 'viem';
 
-type FormatDistributionInput<TType extends 'venus' | 'merkl'> = {
+interface MerklRewardDetails {
+  appName: string;
+  merklCampaignIdentifier: string;
+  description: string;
+  claimUrl: string;
+  tags: string[];
+}
+
+interface IntrinsicApyRewardDetails {
+  name: string;
+  description: string;
+}
+
+type FormatDistributionInput<TType extends 'venus' | 'merkl' | 'intrinsic'> = {
   rewardType: TType;
   isActive: boolean;
   marketAddress: Address;
@@ -17,18 +31,10 @@ type FormatDistributionInput<TType extends 'venus' | 'merkl'> = {
   rewardTokenPriceDollars: BigNumber;
   dailyDistributedRewardTokens: BigNumber;
   balanceDollars: BigNumber;
-  rewardDetails: TType extends 'merkl'
-    ? {
-        appName: string;
-        merklCampaignIdentifier: string;
-        description: string;
-        claimUrl: string;
-        tags: string[];
-      }
-    : null;
+  rewardDetails: TType extends 'merkl' ? MerklRewardDetails : IntrinsicApyRewardDetails | null;
 };
 
-const formatRewardDistribution = <TType extends 'venus' | 'merkl'>({
+const formatRewardDistribution = <TType extends 'venus' | 'merkl' | 'intrinsic'>({
   marketAddress,
   isActive,
   rewardType,
@@ -63,7 +69,18 @@ const formatRewardDistribution = <TType extends 'venus' | 'merkl'>({
       ...baseProps,
       type: 'merkl',
       isActive,
-      rewardDetails: { ...rewardDetails, marketAddress },
+      rewardDetails: { ...(rewardDetails as MerklRewardDetails), marketAddress },
+    };
+
+    return distribution;
+  }
+
+  if (rewardType === 'intrinsic' && rewardDetails) {
+    const distribution: IntrinsicApyDistribution = {
+      ...baseProps,
+      type: 'intrinsic',
+      isActive,
+      rewardDetails: rewardDetails as IntrinsicApyRewardDetails,
     };
 
     return distribution;

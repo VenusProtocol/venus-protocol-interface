@@ -101,11 +101,24 @@ export interface MerklDistribution {
   };
 }
 
+export interface IntrinsicApyDistribution {
+  type: 'intrinsic';
+  token: Token;
+  apyPercentage: BigNumber;
+  dailyDistributedTokens: BigNumber;
+  isActive: boolean;
+  rewardDetails: {
+    name: string;
+    description: string;
+  };
+}
+
 export type TokenDistribution =
   | RewardDistributorDistribution
   | PrimeDistribution
   | PrimeSimulationDistribution
-  | MerklDistribution;
+  | MerklDistribution
+  | IntrinsicApyDistribution;
 
 export interface PointDistribution {
   title: string;
