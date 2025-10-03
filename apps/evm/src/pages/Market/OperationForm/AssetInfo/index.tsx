@@ -139,13 +139,18 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
             formatPercentageToReadableValue(distribution.apyPercentage)
           );
 
+        let tooltip = undefined;
+        if (distribution.type === 'venus') {
+          tooltip = t('assetInfo.distributionTooltip');
+        }
+        if (distribution.type === 'intrinsic') {
+          tooltip = t('assetInfo.intrinsicApyTooltip');
+        }
+
         const row: LabeledInlineContentProps = {
           label,
           iconSrc: distribution.token,
-          tooltip:
-            distribution.type === 'venus' || distribution.type === 'intrinsic'
-              ? t('assetInfo.distributionTooltip')
-              : undefined,
+          tooltip,
           children,
         };
 
