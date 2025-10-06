@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.60.0
+
+### Minor Changes
+
+- f911647: Added support for intrinsic APYs
+
 ## 3.59.1
 
 ### Patch Changes
