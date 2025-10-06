@@ -54,7 +54,6 @@ const useGetMenuItems = () => {
         i18nKey: 'layout.menuItems.port',
         iconName: 'download',
         badgeNumber: importablePositionsCount || undefined,
-        isNew: true,
       },
     );
   }
