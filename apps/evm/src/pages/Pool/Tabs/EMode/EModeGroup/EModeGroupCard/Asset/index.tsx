@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import type { Address } from 'viem';
 
-import { Icon, LabeledInlineContent, TokenIconWithSymbol } from 'components';
+import { LabeledInlineContent, MarketStatus, TokenIconWithSymbol } from 'components';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useFormatTo } from 'hooks/useFormatTo';
@@ -49,26 +49,16 @@ export const Asset: React.FC<AssetProps> = ({
       className={cn('space-y-3 block no-underline text-inherit hover:no-underline', className)}
       to={to}
     >
-      <div className="flex items-center justify-between">
-        <TokenIconWithSymbol token={eModeAssetSettings.vToken.underlyingToken} />
+      <div className="space-y-3 sm:flex sm:items-center sm:justify-between sm:space-y-0">
+        <TokenIconWithSymbol
+          token={eModeAssetSettings.vToken.underlyingToken}
+          className="shrink-0"
+        />
 
-        <div
-          className={cn(
-            'flex items-center gap-x-1',
-            eModeAssetSettings.isBorrowable ? 'text-green' : 'text-grey',
-          )}
-        >
-          <Icon
-            name={eModeAssetSettings.isBorrowable ? 'mark' : 'close'}
-            className="w-5 h-5 text-inherit"
-          />
-
-          <span className="text-sm">
-            {eModeAssetSettings.isBorrowable
-              ? t('pool.eMode.table.card.header.borrowable')
-              : t('pool.eMode.table.card.header.notBorrowable')}
-          </span>
-        </div>
+        <MarketStatus
+          isBorrowable={eModeAssetSettings.isBorrowable}
+          canBeCollateral={eModeAssetSettings.collateralFactor > 0}
+        />
       </div>
 
       <div className="space-y-2">

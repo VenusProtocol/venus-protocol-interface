@@ -25,6 +25,7 @@ export const EModeInfo: React.FC<EModeInfoProps> = ({ eModeGroups, token }) => {
         eModeGroupName: eModeGroup.name,
         token: assetSettings.vToken.underlyingToken,
         collateralFactor: assetSettings.collateralFactor,
+        isBorrowable: assetSettings.isBorrowable,
         liquidationThresholdPercentage: assetSettings.liquidationThresholdPercentage,
         liquidationPenaltyPercentage: assetSettings.liquidationPenaltyPercentage,
       };
