@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.60.1
+
+### Patch Changes
+
+- 3f24ab1: remove "new" label from Port feature
+
 ## 3.60.0
 
 ### Minor Changes
