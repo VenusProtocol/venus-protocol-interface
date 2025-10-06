@@ -32,6 +32,14 @@ interface ApiMerklReward extends ApiReward {
   };
 }
 
+interface ApiIntrinsicApyReward extends ApiReward {
+  rewardType: 'intrinsic';
+  rewardDetails: {
+    name: string;
+    description: string;
+  };
+}
+
 export type PointsProgram = 'ethena' | 'etherfi' | 'kelp' | 'solv' | 'aster';
 
 export interface ApiPointsDistribution {
@@ -46,7 +54,7 @@ export interface ApiPointsDistribution {
   logoUrl?: string;
 }
 
-export type ApiRewardDistributor = ApiVenusReward | ApiMerklReward;
+export type ApiRewardDistributor = ApiVenusReward | ApiMerklReward | ApiIntrinsicApyReward;
 
 export interface ApiMarketEModeSettings {
   marketAddress: Address;
