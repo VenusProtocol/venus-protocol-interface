@@ -17656,9 +17656,9 @@ viem@2.23.2:
     ws "8.18.0"
 
 viem@>=2.29.0, viem@^2.1.1, viem@^2.22.23, viem@^2.23.1, viem@^2.27.2, viem@^2.31.7:
-  version "2.37.7"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.37.7.tgz#1933b6780cbcf39c6a5eabc45fa3357b33448705"
-  integrity sha512-KmTK/xc6790I0V9iaiJz8C3RdGevpU+fPvg53eOlfEfsfz0wCypXqOlOmCcjzkpmf2XFoEtu9MAxhMqk8YdNNA==
+  version "2.37.13"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.37.13.tgz#81a17a1a5843da9c9ed79765a502989a4ff29802"
+  integrity sha512-05dh56iMmCyjRLcTIiu8bB4zZLnb9uLOVToDwmBLYDarmoOE8d8SLFkQLc2zLU57FlnYCQIO1VbUviGZYwFGgQ==
   dependencies:
     "@noble/curves" "1.9.1"
     "@noble/hashes" "1.8.0"
