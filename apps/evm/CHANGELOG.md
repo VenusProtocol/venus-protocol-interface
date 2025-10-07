@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.61.0
+
+### Minor Changes
+
+- 4b57f88: display collateral status of E-mode markets
+
 ## 3.60.1
 
 ### Patch Changes
