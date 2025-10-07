@@ -746,7 +746,7 @@
         "card": {
           "header": {
             "borrowable": "Borrowable",
-            "notBorrowable": "Not borrowable"
+            "collateral": "Collateral"
           },
           "rows": {
             "liquidationPenalty": "Liquidation penalty",
@@ -756,6 +756,7 @@
         },
         "columns": {
           "asset": "Asset",
+          "collateral": "Collateral",
           "isBorrowable": "Borrowable",
           "liquidationPenalty": "Liquidation penalty",
           "liquidationThreshold": "Liquidation threshold",
