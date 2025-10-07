@@ -1,0 +1,35 @@
+name: Release chains package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    permissions:
+      contents: write # to be able to publish GitHub releases
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Extract version from package.json
+        uses: sergeysova/jq-action@v2
+        id: version
+        with:
+          cmd: 'jq .version package.json -r'
+
+      - name: Get latest tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+
+      - name: Create GitHub tag
+        uses: release-drafter/release-drafter@v6
+        if: ${{ contains(steps.get-latest-tag.outputs.tag, steps.version.outputs.value) == false }}
+        with:
+          version: ${{ steps.version.outputs.value }}
+          publish: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+
+      - name: Publish to NPM
+        if: ${{ contains(steps.get-latest-tag.outputs.tag, steps.version.outputs.value) == false }}
+        run: npm publish

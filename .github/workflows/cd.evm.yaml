@@ -1,4 +1,4 @@
-name: Release
+name: Release evm app
 
 on:
   push:
@@ -106,3 +106,4 @@ jobs:
             AU
             IN
             IE
+            
