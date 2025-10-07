@@ -5316,51 +5316,51 @@
     "@noble/hashes" "~1.8.0"
     "@scure/base" "~1.2.5"
 
-"@sentry-internal/browser-utils@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/browser-utils/-/browser-utils-9.42.1.tgz#821f2238cdfeb3caea0f48f9fed608f6ad02b545"
-  integrity sha512-RWLpPDApHKWo5m4ig6M27b0vx3bLyPPU9Ra6FbwBhIdyb0ihd4wSddtNFA2VgLOePpurN+HU1Thcq+D3776GIA==
+"@sentry-internal/browser-utils@10.18.0":
+  version "10.18.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/browser-utils/-/browser-utils-10.18.0.tgz#c079ae39e2f458338f5d282e13469756db9ce4b9"
+  integrity sha512-6Y5VkNcj5ecIFsKdL8/7hrLt7pCuWR4BRLsKOHAmhdCnXtobf7v6DeBow2Hk5yEYO0AwjP5mqvoBAewbS+h3GA==
   dependencies:
-    "@sentry/core" "9.42.1"
+    "@sentry/core" "10.18.0"
 
-"@sentry-internal/feedback@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/feedback/-/feedback-9.42.1.tgz#2d3e4876e90f58366c0407b707c04dfe687b3f1b"
-  integrity sha512-ocyN85ndnWRHMtS6kJpYbQiovvXT09UJLIzZfsyj/cIl/kBYaljDVoPHhSWMaMVUWQrP/Ut2Zuse9wnowDvXWg==
+"@sentry-internal/feedback@10.18.0":
+  version "10.18.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/feedback/-/feedback-10.18.0.tgz#e841a48abadbec9256e85a90cd40e60e6d037de4"
+  integrity sha512-uuupIivGPCpRStMU1I3sYPgD+pl8PqNV1DSVgVS5LF99h8tqjmRGS1xkCrUaUhVhVmsnxzbnvXb1hsOaCXX7DA==
   dependencies:
-    "@sentry/core" "9.42.1"
+    "@sentry/core" "10.18.0"
 
-"@sentry-internal/replay-canvas@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/replay-canvas/-/replay-canvas-9.42.1.tgz#4c2e743ae97ed2aa787cf144ac571a5d0d3001aa"
-  integrity sha512-z2Pm7vl5SaK1k/MhYV/CRkDYT32Y6q/CLlV3toKphAK1gZFmJ8FGjYE6DU2Zju2upb9ulgyoU8bLU5DLLZCsZA==
+"@sentry-internal/replay-canvas@10.18.0":
+  version "10.18.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/replay-canvas/-/replay-canvas-10.18.0.tgz#f339881cb4e994affe7fc53a6fc79fa146132f11"
+  integrity sha512-asp1biXA+F5HAKl7RvPbf5s087bg1bpxMB9E69xWc1ECUfFMPrFRNS7mAJ5A8DTd1K74E9cFsLl6zO29HpH4+w==
   dependencies:
-    "@sentry-internal/replay" "9.42.1"
-    "@sentry/core" "9.42.1"
+    "@sentry-internal/replay" "10.18.0"
+    "@sentry/core" "10.18.0"
 
-"@sentry-internal/replay@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/replay/-/replay-9.42.1.tgz#f0266eeeffa67ea749e543fc20f34cec637790ac"
-  integrity sha512-IbKf4L4qxcupM3+FfKYcap4bM4Q6khSIc8X31btmUqPnDT/UuekN5CZmL7Xf42h5L7aMA8Oh8s97powY+hPLQQ==
+"@sentry-internal/replay@10.18.0":
+  version "10.18.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/replay/-/replay-10.18.0.tgz#2b4ea7ad2b7be4e934cc123e2f5b6d63ec2c6fc6"
+  integrity sha512-ixr3K19q4oTRgM0xANi+8ThDUbxV5iixUIgvJrT7c1L6yyidovIwO0D82ZY3phUfMkgE+mX3cxX46gXTRTglKQ==
   dependencies:
-    "@sentry-internal/browser-utils" "9.42.1"
-    "@sentry/core" "9.42.1"
+    "@sentry-internal/browser-utils" "10.18.0"
+    "@sentry/core" "10.18.0"
 
 "@sentry/babel-plugin-component-annotate@4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@sentry/babel-plugin-component-annotate/-/babel-plugin-component-annotate-4.2.0.tgz#6c616e6d645f49f15f83b891ef42a795ba4dbb3f"
   integrity sha512-GFpS3REqaHuyX4LCNqlneAQZIKyHb5ePiI1802n0fhtYjk68I1DTQ3PnbzYi50od/vAsTQVCknaS5F6tidNqTQ==
 
-"@sentry/browser@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-9.42.1.tgz#976695bb1053569146118116cc9b70eb5dec592e"
-  integrity sha512-iFlHpuHGK7pexHdmvmJeMlIIUFcGjGW12bwhPyIb8T7Ziu16B8yOjIv0EQgfxMyiyv9MWqG2Un7efXjXSlIzrg==
+"@sentry/browser@10.18.0":
+  version "10.18.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-10.18.0.tgz#fe377274970f39f677e54879db24303a6615b571"
+  integrity sha512-JrPfxjCsuVYUe16U4fo4W2Fn0f9BwRev3G28a4ZIkwKwJo+qSnIk1mT8Eam8nwNCU8MZjB4KNE9w2p0kaoQxvQ==
   dependencies:
-    "@sentry-internal/browser-utils" "9.42.1"
-    "@sentry-internal/feedback" "9.42.1"
-    "@sentry-internal/replay" "9.42.1"
-    "@sentry-internal/replay-canvas" "9.42.1"
-    "@sentry/core" "9.42.1"
+    "@sentry-internal/browser-utils" "10.18.0"
+    "@sentry-internal/feedback" "10.18.0"
+    "@sentry-internal/replay" "10.18.0"
+    "@sentry-internal/replay-canvas" "10.18.0"
+    "@sentry/core" "10.18.0"
 
 "@sentry/bundler-plugin-core@4.2.0":
   version "4.2.0"
@@ -5436,6 +5436,11 @@
     "@sentry/cli-win32-i686" "2.52.0"
     "@sentry/cli-win32-x64" "2.52.0"
 
+"@sentry/core@10.18.0":
+  version "10.18.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-10.18.0.tgz#5d2518029daf8bdebed91229cd3d46b6fde467a6"
+  integrity sha512-zlhAlzc/Qpza8f/CMUb7zg/9FOhWouKAm9zyV9jZlx9lL6WceVbUEwQ3rq8ncGgM+LMwlASCOjsz5a728vAhCw==
+
 "@sentry/core@5.30.0":
   version "5.30.0"
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-5.30.0.tgz#6b203664f69e75106ee8b5a2fe1d717379b331f3"
@@ -5446,11 +5451,6 @@
     "@sentry/types" "5.30.0"
     "@sentry/utils" "5.30.0"
     tslib "^1.9.3"
-
-"@sentry/core@9.42.1":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-9.42.1.tgz#d8f88d3b5ba7aa6f77374504041716496bb8fbb2"
-  integrity sha512-9jWgjgZ8EvIYMTL5HzG8PYRo7+/vv3qwPabPVV2EfGPOjU65GFcT7N+oitg+0rAI/fTMsLaQXC77WmKzhRBSdw==
 
 "@sentry/hub@5.30.0":
   version "5.30.0"
@@ -5485,13 +5485,13 @@
     lru_map "^0.3.3"
     tslib "^1.9.3"
 
-"@sentry/react@^9.1.0":
-  version "9.42.1"
-  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-9.42.1.tgz#1480ecfe217cb7098b74671f7d33a36e1c683f9b"
-  integrity sha512-dmz0LxC+Y6aCNz0nJC1onhTGajHE/rNwwjHbsDQWHb1F2SZzJ5bpXVcksjxvUtOxCjT4xwsRaw5gt2kYDzSRzQ==
+"@sentry/react@^10.18.0":
+  version "10.18.0"
+  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-10.18.0.tgz#81743942472888fea28ee22eae9de2c57ea2596d"
+  integrity sha512-mLVJzF/+VFTNkqVqApU9QLrTAahASLKLaPreJ5LUXhEbCEiBUTQNZIn8Js+tDisHwbdy9k94XC1/OLxld3Calg==
   dependencies:
-    "@sentry/browser" "9.42.1"
-    "@sentry/core" "9.42.1"
+    "@sentry/browser" "10.18.0"
+    "@sentry/core" "10.18.0"
     hoist-non-react-statics "^3.3.2"
 
 "@sentry/tracing@5.30.0":
