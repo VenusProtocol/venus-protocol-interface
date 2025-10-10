@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import { Notice, TextButton } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId, useSwitchChain } from 'libs/wallet';
@@ -21,7 +21,7 @@ export const SwitchChainNotice: React.FC<SwitchChainNoticeProps> = ({
 
   const { chainId: accountChainId } = useAccountChainId();
   const isOnWrongChain = accountChainId !== targetChainId;
-  const targetChain = chainMetadata[targetChainId];
+  const targetChain = chains[targetChainId];
 
   const { switchChain } = useSwitchChain();
   const { t } = useTranslation();

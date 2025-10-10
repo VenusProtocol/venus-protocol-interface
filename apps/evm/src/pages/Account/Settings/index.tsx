@@ -1,11 +1,11 @@
 import { Card, Icon, Toggle } from 'components';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetChain } from 'hooks/useGetChain';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 
 export const Settings: React.FC = () => {
   const { t } = useTranslation();
-  const { name: chainName } = useGetChainMetadata();
+  const { name: chainName } = useGetChain();
 
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
   const isGaslessTransactionsUserSettingEnabled = userChainSettings.gaslessTransactions;

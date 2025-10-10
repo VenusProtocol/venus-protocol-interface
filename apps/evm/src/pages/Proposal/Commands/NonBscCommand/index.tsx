@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useChainId } from 'libs/wallet';
@@ -9,7 +9,7 @@ import { Description } from '../Description';
 import { CurrentStep } from './CurrentStep';
 import { ExecuteButton } from './ExecuteButton';
 
-const governanceChainMetadata = chainMetadata[governanceChain.id];
+const governanceChainMetadata = chains[governanceChain.id];
 
 export interface NonBscCommand extends React.HTMLAttributes<HTMLDivElement> {
   remoteProposal: RemoteProposal;
@@ -24,7 +24,7 @@ export const NonBscCommand: React.FC<NonBscCommand> = ({
   const { t } = useTranslation();
   const { chainId: currentChainId } = useChainId();
 
-  const chain = chainMetadata[remoteProposal.chainId];
+  const chain = chains[remoteProposal.chainId];
   const isOnWrongChain = currentChainId !== remoteProposal.chainId;
 
   const { isExecutable } = useIsProposalExecutable({

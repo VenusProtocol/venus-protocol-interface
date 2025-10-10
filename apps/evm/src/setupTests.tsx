@@ -8,6 +8,7 @@ import 'whatwg-fetch';
 
 import { xvs } from '__mocks__/models/tokens';
 
+import { ChainId } from '@venusprotocol/chains';
 import type { Config } from 'config';
 import { NULL_ADDRESS } from 'constants/address';
 import useTokenApproval from 'hooks/useTokenApproval';
@@ -58,8 +59,16 @@ vi.mock('hooks/useDebounceValue', () => ({
 // Mock zustand library (optimized state manager)
 vi.mock('zustand');
 
-// Mock Venus chains library
-vi.mock('@venusprotocol/chains');
+// Mock getVTokenIconSrc utility function to prevent
+vi.mock('@venusprotocol/chains', async () => {
+  const actual = await vi.importActual('@venusprotocol/chains');
+
+  return {
+    ...actual,
+    getVTokenIconSrc: ({ vTokenAddress, chainId }: { vTokenAddress: string; chainId: ChainId }) =>
+      `fake-icon-${chainId}-${vTokenAddress}`,
+  };
+});
 
 // Mock React Markdown library
 vi.mock('@uiw/react-md-editor', () => ({

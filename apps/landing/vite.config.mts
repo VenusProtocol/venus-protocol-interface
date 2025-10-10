@@ -5,6 +5,12 @@ import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [react(), viteTsConfigPaths(), svgr()],
+  resolve: {
+    alias: {
+      // Import raw source so dApp is in charge of compiling token and chain icons
+      '@venusprotocol/chains': '/../../packages/chains/src',
+    },
+  },
   build: {
     sourcemap: true,
     outDir: 'build',

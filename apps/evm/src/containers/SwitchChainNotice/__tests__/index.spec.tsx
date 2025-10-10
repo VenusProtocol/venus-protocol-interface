@@ -2,7 +2,7 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
 import { ChainId } from '@venusprotocol/chains';
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import fakeAddress from '__mocks__/models/address';
 import { en } from 'libs/translations';
 import { useSwitchChain } from 'libs/wallet';
@@ -84,7 +84,7 @@ describe('SwitchChainNotice', () => {
         screen.queryByText(
           en.switchChainNotice.description.replace(
             '{{chainName}}',
-            chainMetadata[targetChainId || chainId].name,
+            chains[targetChainId || chainId].name,
           ),
         ),
       ).toBeInTheDocument();
@@ -107,7 +107,7 @@ describe('SwitchChainNotice', () => {
         screen.getByText(
           en.switchChainNotice.buttonLabel.replace(
             '{{chainName}}',
-            chainMetadata[targetChainId || chainId].name,
+            chains[targetChainId || chainId].name,
           ),
         ),
       );

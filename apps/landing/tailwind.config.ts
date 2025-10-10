@@ -19,4 +19,7 @@ export default {
       path.join(path.dirname(require.resolve('@venusprotocol/ui')), dir),
     ),
   ],
+  test: {
+    passWithNoTests: true,
+  },
 };
