@@ -1,6 +1,6 @@
 /** @type {import('graphql-config').IGraphQLConfig } */
 
-import { ChainId } from '@venusprotocol/chains/types';
+import { ChainId } from '@venusprotocol/chains';
 
 import { envVariables } from './src/config/envVariables';
 import { getGovernanceSubgraphUrls } from './src/config/subgraphUrls';

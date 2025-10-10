@@ -44,7 +44,7 @@ import {
 } from 'constants/healthFactor';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import { useGetChainMetadata } from 'hooks/useGetChainMetadata';
+import { useGetChain } from 'hooks/useGetChain';
 import { AccountVaiData } from '../AccountVaiData';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
@@ -54,7 +54,7 @@ export const Borrow: React.FC = () => {
   const { t, Trans } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
-  const { corePoolComptrollerContractAddress } = useGetChainMetadata();
+  const { corePoolComptrollerContractAddress } = useGetChain();
 
   const vai = useGetToken({
     symbol: 'VAI',

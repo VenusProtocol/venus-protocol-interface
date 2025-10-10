@@ -1,22 +1,52 @@
 {
   "name": "@venusprotocol/chains",
-  "version": "0.8.0",
-  "private": true,
+  "version": "0.8.3",
   "license": "MIT",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VenusProtocol/venus-protocol-interface/tree/main/packages/chains"
+  },
+  "files": ["build"],
+  "main": "./build/index.mjs",
+  "module": "./build/index.mjs",
+  "types": "./build/index.d.mts",
   "exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/types.ts"
+    ".": {
+      "types": "./build/index.d.mts",
+      "require": "./build/index.mjs",
+      "import": "./build/index.mjs"
+    }
   },
   "scripts": {
+    "start": "yarn run build -- --watch ./src",
+    "test": "vitest run",
+    "build": "tsdown -d ./build",
+    "deploy-images": "src/scripts/deployImages/index.ts",
     "clean": "rm -rf .turbo && rm -rf node_modules",
     "lint": "biome check .",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "generate-token-icon-manifest": "rimraf src/generated/tokenIconSrcs.json && tsx src/scripts/generateManifest/index.ts --dirPath=tokens --outputFileName=tokenIconSrcs.ts",
+    "generate-chain-icon-manifest": "rimraf src/generated/chainIconSrcs.json && tsx src/scripts/generateManifest/index.ts --dirPath=chains --outputFileName=chainIconSrcs.ts",
+    "generate-manifests": "npm-run-all --parallel generate-token-icon-manifest generate-chain-icon-manifest",
+    "generate": "genversion --es6 --semi src/constants/version.ts && yarn run generate-manifests && yarn run build"
   },
   "devDependencies": {
+    "@rollup/plugin-url": "^8.0.2",
+    "@venusprotocol/isolated-pools": "^4.3.0",
     "@venusprotocol/typescript-config": "*",
-    "viem": "^2.22.23"
+    "@venusprotocol/venus-protocol": "^9.7.0",
+    "@vercel/blob": "^2.0.0",
+    "commander": "^14.0.1",
+    "genversion": "^3.2.0",
+    "npm-run-all": "^4.1.5",
+    "react": "^19.2.0",
+    "rimraf": "^6.0.1",
+    "tsdown": "^0.15.6",
+    "tsx": "^4.20.5",
+    "vitest": "^3.2.4"
   }
 }

@@ -3,16 +3,15 @@
   "globalDependencies": [".nvmrc", "tsconfig.json", "vite.config.ts"],
   "tasks": {
     "generate": {
-      "outputs": [
-        "src/constants/version.ts",
-        "src/libs/tokens/infos/pancakeSwapTokens/bscMainnet.ts",
-        "src/libs/contracts/generated/**/*",
-        "src/clients/subgraph/gql/generated/mainnet.ts",
-        "src/clients/subgraph/gql/generated/testnet.ts"
-      ]
+      "cache": false,
+      "dependsOn": ["^generate"]
+    },
+    "postinstall": {
+      "cache": false,
+      "dependsOn": ["^postinstall"]
     },
     "start": {
-      "dependsOn": ["^build", "generate"],
+      "dependsOn": ["^postinstall"],
       "cache": false,
       "persistent": true
     },
@@ -21,7 +20,7 @@
       "outputs": ["coverage/**/*"]
     },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^postinstall"],
       "outputs": ["build/**/*"]
     },
     "lint": {

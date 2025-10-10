@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains as chainMetadata } from '@venusprotocol/chains';
 import { cn } from '@venusprotocol/ui';
 import { Select, type SelectOption, type SelectProps } from 'components';
 import config from 'config';
@@ -21,7 +21,7 @@ const getOptions = ({
       const metadata = chainMetadata[chain.id as ChainId];
       return (
         <div className="flex items-center">
-          <img src={metadata.logoSrc} alt={metadata.name} className="w-5 max-w-none flex-none" />
+          <img src={metadata.iconSrc} alt={metadata.name} className="w-5 max-w-none flex-none" />
 
           {isRenderedInButton ? (
             <GaslessStatus

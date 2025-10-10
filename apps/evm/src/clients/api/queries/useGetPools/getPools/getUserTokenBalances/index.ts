@@ -1,6 +1,6 @@
+import { NATIVE_TOKEN_ADDRESS } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 import { getTokenBalances } from 'clients/api';
-import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
 import { poolLensAbi, venusLensAbi } from 'libs/contracts';
 import type { ChainId, Token } from 'types';
 import { findTokenByAddress, isPoolIsolated } from 'utilities';

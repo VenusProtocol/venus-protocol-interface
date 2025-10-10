@@ -1,9 +1,5 @@
-import {
-  bscMainnetVCanAddress,
-  compoundDecimals,
-  tokenIconUrls,
-  vTokenDecimals,
-} from './constants';
+import { ChainId, getToken } from '@venusprotocol/chains';
+import { bscMainnetVCanAddress, compoundDecimals, vTokenDecimals } from './constants';
 import type { MarketMapped, MarketResponse, TvlResponseData } from './types';
 
 export const scale = (value: string | number, decimals: number) => Number(value) / 10 ** decimals;
@@ -19,7 +15,16 @@ export const mapMarketsData = (markets?: MarketResponse[]): MarketMapped[] => {
       return acc;
     }
 
-    const underlyingIconUrl = tokenIconUrls[i.underlyingSymbol as keyof typeof tokenIconUrls];
+    const token = getToken({
+      symbol: i.underlyingSymbol,
+      chainId: ChainId.BSC_MAINNET,
+    });
+
+    if (!token) {
+      return acc;
+    }
+
+    const underlyingIconUrl = token.iconSrc;
 
     const tokenPriceUsd = convertCentsToUsd(i.tokenPriceCents);
     const totalBorrowsTokens = scale(i.totalBorrowsMantissa, i.underlyingDecimal);

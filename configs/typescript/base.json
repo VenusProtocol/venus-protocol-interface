@@ -15,7 +15,11 @@
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "@venusprotocol/chains": ["./packages/chains/src"],
+      "@venusprotocol/chains/*": ["./packages/chains/src/*"]
+    }
   },
   "ts-node": {
     "experimentalSpecifierResolution": "node"

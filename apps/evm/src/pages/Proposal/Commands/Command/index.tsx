@@ -1,4 +1,4 @@
-import { chainMetadata } from '@venusprotocol/chains';
+import { chains } from '@venusprotocol/chains';
 import { useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
@@ -23,7 +23,7 @@ export const Command: React.FC<CommandProps> = ({
   contentBottomItem,
   ...otherProps
 }) => {
-  const chain = chainMetadata[chainId];
+  const chain = chains[chainId];
   const [isOpen, setIsOpen] = useState(false);
   const toggleAccordion = () => setIsOpen(prevState => !prevState);
 
@@ -33,7 +33,7 @@ export const Command: React.FC<CommandProps> = ({
         <div className={cn('flex-1', !description && 'flex flex-col justify-center')}>
           <div className="cursor-pointer pr-3 space-y-3 md:space-y-1" onClick={toggleAccordion}>
             <div className="flex items-center gap-x-2">
-              <img src={chain.logoSrc} alt={chain.name} className="w-5 max-w-none flex-none" />
+              <img src={chain.iconSrc} alt={chain.name} className="w-5 max-w-none flex-none" />
 
               <div className="flex items-center">
                 <p className="text-sm font-semibold">{chain.name}</p>

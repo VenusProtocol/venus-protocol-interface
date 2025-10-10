@@ -1,4 +1,4 @@
-import { ChainId, chainMetadata } from '@venusprotocol/chains';
+import { ChainId, chains } from '@venusprotocol/chains';
 import { VError } from 'libs/errors';
 import type { Hex } from 'viem';
 import { type Mock, vi } from 'vitest';
@@ -12,16 +12,16 @@ vi.mock('../getSafeWalletTransaction', () => ({
 
 const fakeTransactionHash: Hex = '0x123';
 const fakeTimeoutMs = 5000;
-const originalSafeWalletApiUrl = chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl;
+const originalSafeWalletApiUrl = chains[ChainId.BSC_TESTNET].safeWalletApiUrl;
 
 describe('waitForSafeWalletTransaction', () => {
   beforeEach(() => {
-    chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl = 'https://fake-safe-wallet-api-url.com';
+    chains[ChainId.BSC_TESTNET].safeWalletApiUrl = 'https://fake-safe-wallet-api-url.com';
     vi.useFakeTimers();
   });
 
   afterEach(() => {
-    chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl = originalSafeWalletApiUrl;
+    chains[ChainId.BSC_TESTNET].safeWalletApiUrl = originalSafeWalletApiUrl;
     vi.useRealTimers();
   });
 
@@ -123,7 +123,7 @@ describe('waitForSafeWalletTransaction', () => {
   });
 
   it('handles missing Safe Wallet API URL error', async () => {
-    chainMetadata[ChainId.BSC_TESTNET].safeWalletApiUrl = undefined;
+    chains[ChainId.BSC_TESTNET].safeWalletApiUrl = undefined;
 
     (getSafeWalletTransaction as Mock).mockImplementation(async () => {
       throw new VError({

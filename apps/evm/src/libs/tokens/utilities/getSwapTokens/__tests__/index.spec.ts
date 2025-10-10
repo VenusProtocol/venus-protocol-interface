@@ -1,22 +1,42 @@
 import type { Mock } from 'vitest';
 
-import { busd, vai, vrt, xvs } from '__mocks__/models/tokens';
+import { busd, vrt, xvs } from '__mocks__/models/tokens';
 
 import { getPancakeSwapTokens } from 'libs/tokens/utilities/getPancakeSwapTokens';
-import { getTokens } from 'libs/tokens/utilities/getTokens';
 import { ChainId } from 'types';
 
 import { getSwapTokens } from '..';
 
-vi.mock('libs/tokens/utilities/getTokens');
 vi.mock('libs/tokens/utilities/getPancakeSwapTokens');
 
-const fakeTokens = [xvs, vai];
 const fakePancakeSwapTokens = [vrt, xvs, busd];
+
+vi.mock('@venusprotocol/chains', async () => {
+  const actual = (await vi.importActual('@venusprotocol/chains')) as any;
+
+  return {
+    ...actual,
+    tokens: {
+      97: [
+        {
+          address: '0xB9e0E753630434d7863528cc73CB7AC638a7c8ff',
+          decimals: 18,
+          symbol: 'XVS',
+          asset: 'fake-xvs-asset',
+        },
+        {
+          address: '0x5fFbE5302BadED40941A403228E6AD03f93752d9',
+          decimals: 18,
+          symbol: 'VAI',
+          asset: 'fake-vai-asset',
+        },
+      ],
+    },
+  };
+});
 
 describe('getSwapTokens', () => {
   beforeEach(() => {
-    (getTokens as Mock).mockImplementation(() => fakeTokens);
     (getPancakeSwapTokens as Mock).mockImplementation(() => fakePancakeSwapTokens);
   });
 

@@ -1,6 +1,5 @@
 import { tokens as bscMainnetTokens } from 'libs/tokens/generated/pancakeSwapTokens/bscMainnet';
-import type { TokenMapping } from 'libs/tokens/types';
-import { ChainId } from 'types';
+import { ChainId, type Token } from 'types';
 
 import { tokens as arbitrumOneTokens } from './arbitrumOne';
 import { tokens as arbitrumSepoliaTokens } from './arbitrumSepolia';
@@ -18,7 +17,9 @@ import { tokens as unichainSepoliaTokens } from './unichainSepolia';
 import { tokens as zkSyncMainnetTokens } from './zkSyncMainnet';
 import { tokens as zkSyncSepoliaTokens } from './zkSyncSepolia';
 
-export const pancakeSwapTokens: TokenMapping = {
+export const pancakeSwapTokens: {
+  [chainId in ChainId]: Token[];
+} = {
   [ChainId.BSC_MAINNET]: bscMainnetTokens,
   [ChainId.BSC_TESTNET]: bscTestnetTokens,
   [ChainId.OPBNB_MAINNET]: opBnbMainnetTokens,

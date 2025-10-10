@@ -1,6 +1,6 @@
-import { NATIVE_TOKEN_ADDRESS, NULL_ADDRESS } from 'constants/address';
+import { NATIVE_TOKEN_ADDRESS, getVTokenIconSrc } from '@venusprotocol/chains';
+import { NULL_ADDRESS } from 'constants/address';
 import { legacyPoolComptrollerAbi, poolLensAbi, venusLensAbi } from 'libs/contracts';
-import { getVTokenAsset } from 'libs/tokens';
 import type { ChainId, Token, VToken } from 'types';
 import { areAddressesEqual } from 'utilities';
 import findTokenByAddress from 'utilities/findTokenByAddress';
@@ -93,7 +93,7 @@ export const getVTokens = async ({
       decimals: 8,
       symbol: `v${underlyingToken.symbol}`,
       underlyingToken,
-      asset: getVTokenAsset({
+      iconSrc: getVTokenIconSrc({
         chainId,
         vTokenAddress: metaData.vToken,
       }),
