@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.10.0
+
+### Minor Changes
+
+- b685500: Restore PT-USDe-30OCT2025
+
 ## 0.9.0
 
 ### Minor Changes
