@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.9.0
+
+### Minor Changes
+
+- bd9590d: publish chains package
+
 ## 0.8.0
 
 ### Minor Changes

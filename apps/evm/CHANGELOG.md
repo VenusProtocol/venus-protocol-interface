@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 3.62.0
+
+### Minor Changes
+
+- c82212a: improve error handling
+- bd9590d: publish chains package
+
+### Patch Changes
+
+- Updated dependencies [bd9590d]
+  - @venusprotocol/chains@0.9.0
+
 ## 3.61.0
 
 ### Minor Changes

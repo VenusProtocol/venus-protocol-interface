@@ -1,5 +1,16 @@
 # @venusprotocol/landing
 
+## 1.22.0
+
+### Minor Changes
+
+- bd9590d: publish chains package
+
+### Patch Changes
+
+- Updated dependencies [bd9590d]
+  - @venusprotocol/chains@0.9.0
+
 ## 1.21.2
 
 ### Patch Changes
