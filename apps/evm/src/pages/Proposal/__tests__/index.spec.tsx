@@ -119,7 +119,7 @@ describe('ProposalComp page', () => {
       error: new VError({
         type: 'unexpected',
         code: 'somethingWentWrong',
-        data: { message: 'Fake error message' },
+        data: { exception: 'Fake error message' },
       }),
     }));
     const { getByText } = renderComponent(<ProposalComp />);

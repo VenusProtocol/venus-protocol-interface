@@ -40,7 +40,7 @@ export const getVoterAccounts = async ({
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
-      data: { message: payload.error },
+      data: { exception: payload.error },
     });
   }
 

@@ -74,6 +74,7 @@ export const useCollateral = () => {
           type: 'interaction',
           code: 'collateralDisableError',
           data: {
+            exception: error,
             assetName: asset.vToken.underlyingToken.symbol,
           },
         });
@@ -95,6 +96,7 @@ export const useCollateral = () => {
           type: 'interaction',
           code: 'collateralEnableError',
           data: {
+            exception: error,
             assetName: asset.vToken.underlyingToken.symbol,
           },
         });

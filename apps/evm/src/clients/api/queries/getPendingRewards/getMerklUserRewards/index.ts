@@ -61,7 +61,7 @@ export const getMerklUserRewards = async ({
       type: 'unexpected',
       code: 'somethingWentWrong',
       data: {
-        message: payload.error,
+        exception: payload.error,
       },
     });
   }

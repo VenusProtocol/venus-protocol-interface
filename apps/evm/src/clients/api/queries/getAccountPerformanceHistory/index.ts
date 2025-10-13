@@ -40,7 +40,7 @@ export const getAccountPerformanceHistory = async ({
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
-      data: { message: performanceHistory.data.error },
+      data: { exception: performanceHistory.data.error },
     });
   }
 
@@ -48,7 +48,7 @@ export const getAccountPerformanceHistory = async ({
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
-      data: { message: netWorthToday.data.error },
+      data: { exception: netWorthToday.data.error },
     });
   }
 
