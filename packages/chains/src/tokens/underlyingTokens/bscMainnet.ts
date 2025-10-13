@@ -395,4 +395,10 @@ export const tokens: Token[] = [
     symbol: 'USDF',
     iconSrc: iconSrcs.usdf,
   },
+  {
+    address: '0x607c834cfb7fcbbb341cbe23f77a6e83bcf3f55c',
+    decimals: 18,
+    symbol: 'PT-USDe-30OCT2025',
+    iconSrc: iconSrcs.ptUsdE,
+  },
 ];
