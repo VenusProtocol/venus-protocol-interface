@@ -54,10 +54,16 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
     refetch: refetchAccountPerformanceHistoryData,
     error: getAccountPerformanceHistoryError,
     isLoading: isGetAccountPerformanceHistoryLoading,
-  } = useGetAccountPerformanceHistory({
-    accountAddress: accountAddress || NULL_ADDRESS,
-    period: selectedPeriod,
-  });
+  } = useGetAccountPerformanceHistory(
+    {
+      accountAddress: accountAddress || NULL_ADDRESS,
+      period: selectedPeriod,
+    },
+    {
+      enabled: false, // TODO: remove. Temporary hotfix to prevent spamming API
+    },
+  );
+
   const accountPerformanceHistory = getAccountPerformanceHistoryData?.performanceHistory || [];
 
   const startOfDayNetWorthCents =

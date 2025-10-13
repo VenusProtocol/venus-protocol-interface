@@ -6,7 +6,8 @@ export const useAccountAddress = () => {
   const { address, isConnected } = useAccount();
 
   const { data: accountAuth } = useGetIsAddressAuthorized(address || '', {
-    enabled: address !== undefined,
+    // enabled: address !== undefined,
+    enabled: false, // TODO: remove. Temporary hotfix to prevent spamming API
   });
 
   const isAuthorizedAddress = !accountAuth || accountAuth.authorized;
