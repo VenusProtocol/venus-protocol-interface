@@ -170,7 +170,7 @@ export const getApiPools = async ({
       type: 'unexpected',
       code: 'somethingWentWrong',
       data: {
-        message: 'Could not fetch pools from API',
+        exception: 'Could not fetch pools from API',
       },
     });
   }
@@ -180,7 +180,7 @@ export const getApiPools = async ({
       type: 'unexpected',
       code: 'somethingWentWrong',
       data: {
-        message: payload.error,
+        exception: payload.error,
       },
     });
   }

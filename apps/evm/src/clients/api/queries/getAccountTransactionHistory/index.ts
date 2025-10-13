@@ -34,7 +34,7 @@ export const getAccountTransactionHistory = async ({
     throw new VError({
       type: 'unexpected',
       code: 'somethingWentWrong',
-      data: { message: txsResponse.data.error },
+      data: { exception: txsResponse.data.error },
     });
   }
 

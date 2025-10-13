@@ -8,8 +8,8 @@ export interface VErrorParamMap {
     error: keyof typeof transactionErrorPhrases;
     info: keyof typeof transactionErrorPhrases;
   };
-  unexpected: { message: string } | undefined;
-  interaction: { assetName: string };
+  unexpected: { exception?: unknown } | undefined;
+  interaction: { assetName: string; exception?: unknown };
   proposal: {
     info?: string;
   };
