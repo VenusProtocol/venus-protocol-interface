@@ -16,11 +16,10 @@
     "test": "turbo run test --",
     "tsc": "turbo run tsc",
     "clean": "turbo run clean && rm -rf node_modules",
-    "build": "turbo build",
-    "extract-translations": "turbo extract-translations",
+    "build": "turbo run build",
+    "extract-translations": "turbo run extract-translations",
     "changeset": "changeset",
-    "changeset:version": "changeset version",
-    "postinstall": "husky && yarn run generate"
+    "postinstall": "husky && turbo run generate"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

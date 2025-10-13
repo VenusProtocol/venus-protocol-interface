@@ -1,0 +1,11 @@
+{{#each .}}
+  {{#if import}}
+import {{ name }} from '{{{ import }}}';
+  {{/if}}
+{{/each}}
+
+export const iconSrcs = {
+  {{#each .}}
+    {{ name }}: {{{ src }}},
+  {{/each}}
+};

@@ -1,5 +1,4 @@
-import { NATIVE_TOKEN_ADDRESS } from 'constants/address';
-import { getVTokenAsset } from 'libs/tokens';
+import { NATIVE_TOKEN_ADDRESS, getVTokenIconSrc } from '@venusprotocol/chains';
 import type { ChainId, Token, VToken } from 'types';
 import { findTokenByAddress } from 'utilities';
 import type { ApiMarket } from '../../getApiPools';
@@ -21,7 +20,7 @@ export const formatVToken = ({
 
   const vToken: VToken = {
     address: apiMarket.address,
-    asset: getVTokenAsset({ vTokenAddress: apiMarket.address, chainId }),
+    iconSrc: getVTokenIconSrc({ vTokenAddress: apiMarket.address, chainId }),
     decimals: 8,
     symbol: `v${underlyingToken.symbol}`,
     underlyingToken,

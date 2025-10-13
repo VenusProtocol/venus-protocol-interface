@@ -9,6 +9,10 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  id-token: write # Required for OIDC
+  contents: write # to be able to publish a GitHub release
+
 env:
   VITE_ENV: "ci"
   HOSTNAME: "app-ipfs.venus.io"
@@ -16,8 +20,6 @@ env:
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # to be able to publish a GitHub release
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,32 +30,49 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.11.1"
+          node-version-file: ".nvmrc"
+          registry-url: 'https://registry.npmjs.org'
           cache: "yarn"
 
       - name: Enable Corepack
         run: corepack enable
 
       - name: Install dependencies
-        run: yarn
+        run: |
+          yarn
+
+          # Install required npm version to use trusted publisher
+          # (https://docs.npmjs.com/trusted-publishers)
+          npm install -g npm@11.5.1 
+
+      - name: Run tests and collect coverage
+        run: yarn test --coverage
 
       # Bump package versions based on changesets and commit changes to the main branch
-      - name: Bump package versions
+      - name: Publish
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_TOKEN }}
+          IMG_CDN_URL: ${{ vars.IMG_CDN_URL }}
         run: |
           git config user.name toolsvenus
           git config user.email tools@venus.io
           git fetch origin
           git rebase --strategy-option=theirs origin/main
+
           npx changeset version
+
+          if git diff -- "packages/chains/package.json" | grep -qE '^\+ *"version":'; then
+            yarn workspace @venusprotocol/chains deploy-images
+            yarn workspace @venusprotocol/chains build
+          fi
+
+          npx changeset publish
+
           git add -A
           git status
           git commit --verbose -a -m "chore: bump package versions" || exit 0
           git push
-      
-      - name: Run tests and collect coverage
-        run: yarn test --coverage
 
       - name: Build
         env:
@@ -67,7 +86,7 @@ jobs:
           VITE_NODE_REAL_API_KEY: ${{ secrets.VITE_NODE_REAL_API_KEY }}
           VITE_THE_GRAPH_API_KEY: ${{ secrets.VITE_THE_GRAPH_API_KEY }}
         run: |
-          # We only build the dApp because the landing page is deployed with Vercel
+          # We only build the dApp because it's the only app deployed to IPFS
           yarn build --filter=@venusprotocol/evm
 
       - name: Upload to IPFS and pin
@@ -106,3 +125,4 @@ jobs:
             AU
             IN
             IE
+            

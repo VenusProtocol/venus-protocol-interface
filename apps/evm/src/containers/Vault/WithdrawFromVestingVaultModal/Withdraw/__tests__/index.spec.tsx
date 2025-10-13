@@ -9,7 +9,7 @@ import { renderComponent } from 'testUtils/render';
 import { useExecuteWithdrawalFromXvsVault, useGetXvsVaultLockedDeposits } from 'clients/api';
 import { en } from 'libs/translations';
 
-import { ChainId, chainMetadata } from '@venusprotocol/chains';
+import { ChainId, chains } from '@venusprotocol/chains';
 import { lockedDeposits } from '__mocks__/models/vaults';
 import Withdraw from '..';
 import TEST_IDS from '../testIds';
@@ -62,10 +62,7 @@ describe('Withdraw', () => {
     await waitFor(() =>
       expect(
         queryByText(
-          en.switchChain.switchButton.replace(
-            '{{chainName}}',
-            chainMetadata[ChainId.BSC_TESTNET].name,
-          ),
+          en.switchChain.switchButton.replace('{{chainName}}', chains[ChainId.BSC_TESTNET].name),
         ),
       ).toBeInTheDocument(),
     );

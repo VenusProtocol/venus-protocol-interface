@@ -19,13 +19,13 @@
     "generate-subgraph-types:governance-bsc": "PROJECT=governanceBsc yarn generate-project-subgraph:project",
     "generate-subgraph-types:governance-non-bsc": "PROJECT=governanceNonBsc yarn generate-project-subgraph:project",
     "generate-subgraph-types": "yarn generate-subgraph-types:governance-bsc && yarn generate-subgraph-types:governance-non-bsc",
-    "generate-contracts": "rimraf src/libs/contracts/generated && src/libs/contracts/scripts/generateContractRecords/index.ts",
-    "generate-pancake-swap-tokens": "src/libs/tokens/scripts/generatePancakeSwapTokenRecords/index.ts",
-    "generate-version-files": "genversion --es6 --semi src/constants/version.ts && src/scripts/generatePublicVersionFile.ts && yarn biome format --vcs-use-ignore-file=false --write public/version.json",
+    "generate-contracts": "rimraf src/libs/contracts/generated && tsx src/libs/contracts/scripts/generateContractRecords/index.ts",
+    "generate-pancake-swap-tokens": "tsx src/libs/tokens/scripts/generatePancakeSwapTokenRecords/index.ts",
+    "generate-version-files": "genversion --es6 --semi src/constants/version.ts && tsx src/scripts/generatePublicVersionFile.ts && yarn biome format --vcs-use-ignore-file=false --write public/version.json",
     "generate": "npm-run-all --parallel generate-version-files generate-contracts generate-pancake-swap-tokens",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "postinstall": "yarn run generate"
+    "postinstall": "turbo run generate"
   },
   "dependencies": {
     "@biconomy/abstractjs": "^1.0.21",
@@ -45,7 +45,6 @@
     "@sentry/vite-plugin": "^4.0.1",
     "@tanstack/react-query": "^5.48.0",
     "@venusprotocol/chains": "*",
-    "@venusprotocol/governance-contracts": "2.10.0",
     "@venusprotocol/ui": "*",
     "@wagmi/core": "^2.16.4",
     "@yornaath/batshit": "^0.10.1",
@@ -146,9 +145,9 @@
     "rollup-plugin-visualizer": "^6.0.1",
     "storybook": "^8.6.14",
     "stylelint": "^15.10.3",
+    "tailwind-scrollbar": "3.1.0",
     "tailwindcss": "^3.3.3",
     "tailwindcss-animate": "^1.0.7",
-    "tailwind-scrollbar": "3.1.0",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.1.2",
     "typescript": "^5.1.6",
@@ -159,15 +158,7 @@
     "whatwg-fetch": "^3.6.18"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   }
 }

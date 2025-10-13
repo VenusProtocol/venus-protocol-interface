@@ -1,32 +1,54 @@
-import type { Mock } from 'vitest';
-
-import tokens from '__mocks__/models/tokens';
 import { renderHook } from 'testUtils/render';
 
-import { getTokens } from 'libs/tokens/utilities/getTokens';
 import { ChainId } from 'types';
 
 import { useGetTokens } from '..';
 
-vi.mock('libs/tokens/utilities/getTokens');
+vi.mock('@venusprotocol/chains', async () => {
+  const actual = (await vi.importActual('@venusprotocol/chains')) as any;
+
+  return {
+    ...actual,
+    tokens: {
+      97: [
+        {
+          address: 'fake-bsc-testnet-address-0',
+          decimals: 18,
+          symbol: 'FakeSymbol0',
+          asset: 'fake-asset-0',
+        },
+      ],
+      11155111: [
+        {
+          address: 'fake-sepolia-address-1',
+          decimals: 18,
+          symbol: 'FakeSymbol1',
+          asset: 'fake-asset-1',
+        },
+      ],
+    },
+  };
+});
 
 describe('useGetTokens', () => {
-  beforeEach(() => {
-    (getTokens as Mock).mockImplementation(() => tokens);
-  });
-
   it('returns tokens of the current chain', () => {
     const { result } = renderHook(() => useGetTokens(), {
       chainId: ChainId.BSC_TESTNET,
     });
 
-    expect(result.current).toBe(tokens);
-    expect(getTokens).toHaveBeenCalledWith({
-      chainId: ChainId.BSC_TESTNET,
-    });
+    expect(result.current).toMatchInlineSnapshot(`
+      [
+        {
+          "address": "fake-bsc-testnet-address-0",
+          "asset": "fake-asset-0",
+          "decimals": 18,
+          "symbol": "FakeSymbol0",
+        },
+      ]
+    `);
   });
 
-  it('passes chainId parameter to getTokens when passed through input', () => {
+  it('returns tokens of chain ID passed through input', () => {
     const { result } = renderHook(
       () =>
         useGetTokens({
@@ -37,9 +59,15 @@ describe('useGetTokens', () => {
       },
     );
 
-    expect(result.current).toBe(tokens);
-    expect(getTokens).toHaveBeenCalledWith({
-      chainId: ChainId.SEPOLIA,
-    });
+    expect(result.current).toMatchInlineSnapshot(`
+      [
+        {
+          "address": "fake-sepolia-address-1",
+          "asset": "fake-asset-1",
+          "decimals": 18,
+          "symbol": "FakeSymbol1",
+        },
+      ]
+    `);
   });
 });

@@ -1,5 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
-import { ChainId, chainMetadata } from '@venusprotocol/chains';
+import { ChainId, chains } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
@@ -55,10 +55,7 @@ describe('TransactionForm', () => {
     await waitFor(() =>
       expect(
         queryByText(
-          en.switchChain.switchButton.replace(
-            '{{chainName}}',
-            chainMetadata[ChainId.BSC_TESTNET].name,
-          ),
+          en.switchChain.switchButton.replace('{{chainName}}', chains[ChainId.BSC_TESTNET].name),
         ),
       ).toBeInTheDocument(),
     );
