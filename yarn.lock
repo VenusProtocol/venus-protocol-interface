@@ -1338,20 +1338,6 @@
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-3.0.1.tgz#d84597fbc0f897240c12fc0a31e492b036c70e40"
   integrity sha512-NPljRHkq4a14YzZ3YD406uaxh7s0g6eAq3L9aLOWywoqe8PkYamAvtsh7KNX6c++ihDrJ0RiU+/z7rGnhlZ5ww==
 
-"@defi-wonderland/smock@2.3.5":
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/@defi-wonderland/smock/-/smock-2.3.5.tgz#2f4daa10b4f4c69627200128778f61c51f4b32cc"
-  integrity sha512-klANj1hUpc3cd2ShXdVH/bEGwxJd+LxOngkF5gLcIbg6b37RCgMPMmR/94/hgL62F8bfWtuNKsQD7K+c6M5fWQ==
-  dependencies:
-    "@nomicfoundation/ethereumjs-evm" "^1.0.0-rc.3"
-    "@nomicfoundation/ethereumjs-util" "^8.0.0-rc.3"
-    "@nomicfoundation/ethereumjs-vm" "^6.0.0-rc.3"
-    diff "^5.0.0"
-    lodash.isequal "^4.5.0"
-    lodash.isequalwith "^4.4.0"
-    rxjs "^7.2.0"
-    semver "^7.3.5"
-
 "@defi-wonderland/smock@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@defi-wonderland/smock/-/smock-2.4.0.tgz#a207ff0e6f2c9e7c723c12981d1b5d5bf05b5b54"
@@ -4252,18 +4238,6 @@
     "@nomicfoundation/edr-linux-x64-musl" "0.7.0"
     "@nomicfoundation/edr-win32-x64-msvc" "0.7.0"
 
-"@nomicfoundation/ethereumjs-block@4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-block/-/ethereumjs-block-4.2.2.tgz#f317078c810a54381c682d0c12e1e81acfc11599"
-  integrity sha512-atjpt4gc6ZGZUPHBAQaUJsm1l/VCo7FmyQ780tMGO8QStjLdhz09dXynmhwVTy5YbRr0FOh/uX3QaEM0yIB2Zg==
-  dependencies:
-    "@nomicfoundation/ethereumjs-common" "3.1.2"
-    "@nomicfoundation/ethereumjs-rlp" "4.0.3"
-    "@nomicfoundation/ethereumjs-trie" "5.0.5"
-    "@nomicfoundation/ethereumjs-tx" "4.1.2"
-    "@nomicfoundation/ethereumjs-util" "8.0.6"
-    ethereum-cryptography "0.1.3"
-
 "@nomicfoundation/ethereumjs-block@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-block/-/ethereumjs-block-5.0.2.tgz#13a7968f5964f1697da941281b7f7943b0465d04"
@@ -4276,24 +4250,6 @@
     "@nomicfoundation/ethereumjs-util" "9.0.2"
     ethereum-cryptography "0.1.3"
     ethers "^5.7.1"
-
-"@nomicfoundation/ethereumjs-blockchain@6.2.2":
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-blockchain/-/ethereumjs-blockchain-6.2.2.tgz#9f79dd2b3dc73f5d5a220f7d8a734330c4c26320"
-  integrity sha512-6AIB2MoTEPZJLl6IRKcbd8mUmaBAQ/NMe3O7OsAOIiDjMNPPH5KaUQiLfbVlegT4wKIg/GOsFH7XlH2KDVoJNg==
-  dependencies:
-    "@nomicfoundation/ethereumjs-block" "4.2.2"
-    "@nomicfoundation/ethereumjs-common" "3.1.2"
-    "@nomicfoundation/ethereumjs-ethash" "2.0.5"
-    "@nomicfoundation/ethereumjs-rlp" "4.0.3"
-    "@nomicfoundation/ethereumjs-trie" "5.0.5"
-    "@nomicfoundation/ethereumjs-util" "8.0.6"
-    abstract-level "^1.0.3"
-    debug "^4.3.3"
-    ethereum-cryptography "0.1.3"
-    level "^8.0.0"
-    lru-cache "^5.1.1"
-    memory-level "^1.0.0"
 
 "@nomicfoundation/ethereumjs-blockchain@7.0.2":
   version "7.0.2"
@@ -4314,14 +4270,6 @@
     lru-cache "^5.1.1"
     memory-level "^1.0.0"
 
-"@nomicfoundation/ethereumjs-common@3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-common/-/ethereumjs-common-3.1.2.tgz#041086da66ed40f2bf2a2116a1f2f0fcf33fb80d"
-  integrity sha512-JAEBpIua62dyObHM9KI2b4wHZcRQYYge9gxiygTWa3lNCr2zo+K0TbypDpgiNij5MCGNWP1eboNfNfx1a3vkvA==
-  dependencies:
-    "@nomicfoundation/ethereumjs-util" "8.0.6"
-    crc-32 "^1.2.0"
-
 "@nomicfoundation/ethereumjs-common@4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-common/-/ethereumjs-common-4.0.2.tgz#a15d1651ca36757588fdaf2a7d381a150662a3c3"
@@ -4337,18 +4285,6 @@
   dependencies:
     "@nomicfoundation/ethereumjs-util" "9.0.4"
 
-"@nomicfoundation/ethereumjs-ethash@2.0.5":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-ethash/-/ethereumjs-ethash-2.0.5.tgz#0c605812f6f4589a9f6d597db537bbf3b86469db"
-  integrity sha512-xlLdcICGgAYyYmnI3r1t0R5fKGBJNDQSOQxXNjVO99JmxJIdXR5MgPo5CSJO1RpyzKOgzi3uIFn8agv564dZEQ==
-  dependencies:
-    "@nomicfoundation/ethereumjs-block" "4.2.2"
-    "@nomicfoundation/ethereumjs-rlp" "4.0.3"
-    "@nomicfoundation/ethereumjs-util" "8.0.6"
-    abstract-level "^1.0.3"
-    bigint-crypto-utils "^3.0.23"
-    ethereum-cryptography "0.1.3"
-
 "@nomicfoundation/ethereumjs-ethash@3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-ethash/-/ethereumjs-ethash-3.0.2.tgz#da77147f806401ee996bfddfa6487500118addca"
@@ -4360,20 +4296,6 @@
     abstract-level "^1.0.3"
     bigint-crypto-utils "^3.0.23"
     ethereum-cryptography "0.1.3"
-
-"@nomicfoundation/ethereumjs-evm@1.3.2", "@nomicfoundation/ethereumjs-evm@^1.0.0-rc.3":
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-evm/-/ethereumjs-evm-1.3.2.tgz#f9d6bafd5c23d07ab75b8649d589af1a43b60bfc"
-  integrity sha512-I00d4MwXuobyoqdPe/12dxUQxTYzX8OckSaWsMcWAfQhgVDvBx6ffPyP/w1aL0NW7MjyerySPcSVfDJAMHjilw==
-  dependencies:
-    "@nomicfoundation/ethereumjs-common" "3.1.2"
-    "@nomicfoundation/ethereumjs-util" "8.0.6"
-    "@types/async-eventemitter" "^0.2.1"
-    async-eventemitter "^0.2.4"
-    debug "^4.3.3"
-    ethereum-cryptography "0.1.3"
-    mcl-wasm "^0.7.1"
-    rustbn.js "~0.2.0"
 
 "@nomicfoundation/ethereumjs-evm@2.0.2":
   version "2.0.2"
@@ -4389,11 +4311,6 @@
     mcl-wasm "^0.7.1"
     rustbn.js "~0.2.0"
 
-"@nomicfoundation/ethereumjs-rlp@4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-rlp/-/ethereumjs-rlp-4.0.3.tgz#8d9147fbd0d49e8f4c5ce729d226694a8fe03eb8"
-  integrity sha512-DZMzB/lqPK78T6MluyXqtlRmOMcsZbTTbbEyAjo0ncaff2mqu/k8a79PBcyvpgAhWD/R59Fjq/x3ro5Lof0AtA==
-
 "@nomicfoundation/ethereumjs-rlp@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-rlp/-/ethereumjs-rlp-5.0.2.tgz#4fee8dc58a53ac6ae87fb1fca7c15dc06c6b5dea"
@@ -4403,19 +4320,6 @@
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-rlp/-/ethereumjs-rlp-5.0.4.tgz#66c95256fc3c909f6fb18f6a586475fc9762fa30"
   integrity sha512-8H1S3s8F6QueOc/X92SdrA4RDenpiAEqMg5vJH99kcQaCy/a3Q6fgseo75mgWlbanGJXSlAPtnCeG9jvfTYXlw==
-
-"@nomicfoundation/ethereumjs-statemanager@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-statemanager/-/ethereumjs-statemanager-1.0.5.tgz#951cc9ff2c421d40233d2e9d0fe033db2391ee44"
-  integrity sha512-CAhzpzTR5toh/qOJIZUUOnWekUXuRqkkzaGAQrVcF457VhtCmr+ddZjjK50KNZ524c1XP8cISguEVNqJ6ij1sA==
-  dependencies:
-    "@nomicfoundation/ethereumjs-common" "3.1.2"
-    "@nomicfoundation/ethereumjs-rlp" "4.0.3"
-    "@nomicfoundation/ethereumjs-trie" "5.0.5"
-    "@nomicfoundation/ethereumjs-util" "8.0.6"
-    debug "^4.3.3"
-    ethereum-cryptography "0.1.3"
-    functional-red-black-tree "^1.0.1"
 
 "@nomicfoundation/ethereumjs-statemanager@2.0.2":
   version "2.0.2"
@@ -4429,16 +4333,6 @@
     ethers "^5.7.1"
     js-sdsl "^4.1.4"
 
-"@nomicfoundation/ethereumjs-trie@5.0.5":
-  version "5.0.5"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-trie/-/ethereumjs-trie-5.0.5.tgz#bf31c9306dcbba2007fad668e96109ddb147040c"
-  integrity sha512-+8sNZrXkzvA1NH5F4kz5RSYl1I6iaRz7mAZRsyxOm0IVY4UaP43Ofvfp/TwOalFunurQrYB5pRO40+8FBcxFMA==
-  dependencies:
-    "@nomicfoundation/ethereumjs-rlp" "4.0.3"
-    "@nomicfoundation/ethereumjs-util" "8.0.6"
-    ethereum-cryptography "0.1.3"
-    readable-stream "^3.6.0"
-
 "@nomicfoundation/ethereumjs-trie@6.0.2":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-trie/-/ethereumjs-trie-6.0.2.tgz#9a6dbd28482dca1bc162d12b3733acab8cd12835"
@@ -4449,16 +4343,6 @@
     "@types/readable-stream" "^2.3.13"
     ethereum-cryptography "0.1.3"
     readable-stream "^3.6.0"
-
-"@nomicfoundation/ethereumjs-tx@4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-tx/-/ethereumjs-tx-4.1.2.tgz#8659fad7f9094b7eb82aa6cc3c8097cb1c42ff31"
-  integrity sha512-emJBJZpmTdUa09cqxQqHaysbBI9Od353ZazeH7WgPb35miMgNY6mb7/3vBA98N5lUW/rgkiItjX0KZfIzihSoQ==
-  dependencies:
-    "@nomicfoundation/ethereumjs-common" "3.1.2"
-    "@nomicfoundation/ethereumjs-rlp" "4.0.3"
-    "@nomicfoundation/ethereumjs-util" "8.0.6"
-    ethereum-cryptography "0.1.3"
 
 "@nomicfoundation/ethereumjs-tx@5.0.2":
   version "5.0.2"
@@ -4480,14 +4364,6 @@
     "@nomicfoundation/ethereumjs-common" "4.0.4"
     "@nomicfoundation/ethereumjs-rlp" "5.0.4"
     "@nomicfoundation/ethereumjs-util" "9.0.4"
-    ethereum-cryptography "0.1.3"
-
-"@nomicfoundation/ethereumjs-util@8.0.6", "@nomicfoundation/ethereumjs-util@^8.0.0-rc.3":
-  version "8.0.6"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-util/-/ethereumjs-util-8.0.6.tgz#dbce5d258b017b37aa58b3a7c330ad59d10ccf0b"
-  integrity sha512-jOQfF44laa7xRfbfLXojdlcpkvxeHrE2Xu7tSeITsWFgoII163MzjOwFEzSNozHYieFysyoEMhCdP+NY5ikstw==
-  dependencies:
-    "@nomicfoundation/ethereumjs-rlp" "4.0.3"
     ethereum-cryptography "0.1.3"
 
 "@nomicfoundation/ethereumjs-util@9.0.2":
@@ -4523,28 +4399,6 @@
     "@nomicfoundation/ethereumjs-util" "9.0.2"
     debug "^4.3.3"
     ethereum-cryptography "0.1.3"
-    mcl-wasm "^0.7.1"
-    rustbn.js "~0.2.0"
-
-"@nomicfoundation/ethereumjs-vm@^6.0.0-rc.3":
-  version "6.4.2"
-  resolved "https://registry.yarnpkg.com/@nomicfoundation/ethereumjs-vm/-/ethereumjs-vm-6.4.2.tgz#af1cf62e6c0054bc2b7febc8556d032433d1b18c"
-  integrity sha512-PRTyxZMP6kx+OdAzBhuH1LD2Yw+hrSpaytftvaK//thDy2OI07S0nrTdbrdk7b8ZVPAc9H9oTwFBl3/wJ3w15g==
-  dependencies:
-    "@nomicfoundation/ethereumjs-block" "4.2.2"
-    "@nomicfoundation/ethereumjs-blockchain" "6.2.2"
-    "@nomicfoundation/ethereumjs-common" "3.1.2"
-    "@nomicfoundation/ethereumjs-evm" "1.3.2"
-    "@nomicfoundation/ethereumjs-rlp" "4.0.3"
-    "@nomicfoundation/ethereumjs-statemanager" "1.0.5"
-    "@nomicfoundation/ethereumjs-trie" "5.0.5"
-    "@nomicfoundation/ethereumjs-tx" "4.1.2"
-    "@nomicfoundation/ethereumjs-util" "8.0.6"
-    "@types/async-eventemitter" "^0.2.1"
-    async-eventemitter "^0.2.4"
-    debug "^4.3.3"
-    ethereum-cryptography "0.1.3"
-    functional-red-black-tree "^1.0.1"
     mcl-wasm "^0.7.1"
     rustbn.js "~0.2.0"
 
@@ -6135,11 +5989,6 @@
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-5.0.1.tgz#3286741fb8f1e1580ac28784add4c7a1d49bdfbc"
   integrity sha512-XTIieEY+gvJ39ChLcB4If5zHtPxt3Syj5rgZR+e1ctpmK8NjPf0zFqsz4JpLJT0xla9GFDKjy8Cpu331nrmE1Q==
 
-"@types/async-eventemitter@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@types/async-eventemitter/-/async-eventemitter-0.2.1.tgz#f8e6280e87e8c60b2b938624b0a3530fb3e24712"
-  integrity sha512-M2P4Ng26QbAeITiH7w1d7OxtldgfAe0wobpyJzVK/XOb0cUGKU2R4pfAhqcJBXAe2ife5ZOhSv4wk7p+ffURtg==
-
 "@types/babel__core@^7.18.0", "@types/babel__core@^7.20.5":
   version "7.20.5"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.20.5.tgz#3df15f27ba85319caa07ba08d0721889bb39c017"
@@ -6656,37 +6505,10 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@venusprotocol/governance-contracts@2.13.0", "@venusprotocol/governance-contracts@^2.13.0":
+"@venusprotocol/governance-contracts@2.13.0", "@venusprotocol/governance-contracts@^2.13.0", "@venusprotocol/governance-contracts@^2.9.0":
   version "2.13.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.13.0.tgz#3a275c898d4213113e61c353bb0207dbb44e9e68"
   integrity sha512-/GBGcRrxrO7jNNKAoehc8icPzxVLnHVGsNW8niwLHghSYBVI5A6tzt0zQQJI0ZXrCUmGW4CjiIl3JPTWij30mw==
-  dependencies:
-    "@venusprotocol/solidity-utilities" "2.0.0"
-    hardhat-deploy-ethers "^0.3.0-beta.13"
-    module-alias "^2.2.2"
-
-"@venusprotocol/governance-contracts@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.3.0.tgz#caa729f28a36df066ff02a799ac7394fae3ef996"
-  integrity sha512-xMmjWUe8sMHEFcl1EGHMTD8UCSKtFCW6JsC6P9kELTSRTMrRFVAUWqhdv0wxHl3iHygyP9dpT+wR3/nUrAiA1w==
-  dependencies:
-    "@venusprotocol/solidity-utilities" "2.0.0"
-    hardhat-deploy-ethers "^0.3.0-beta.13"
-    module-alias "^2.2.2"
-
-"@venusprotocol/governance-contracts@^2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.8.0.tgz#ca259759fb2b83f629f9927d823c33fbea8dc7a8"
-  integrity sha512-mtWjEaTFxXYVOVS6CYzq2KeLb0aZe0rhU5nWeQXhY6VZgwSTH47rH7n63/R5lsGdhUNbTROXcAokq/WotvrprA==
-  dependencies:
-    "@venusprotocol/solidity-utilities" "2.0.0"
-    hardhat-deploy-ethers "^0.3.0-beta.13"
-    module-alias "^2.2.2"
-
-"@venusprotocol/governance-contracts@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/governance-contracts/-/governance-contracts-2.9.0.tgz#e534fe65bc6d70500c78c210c21b6cadd5739b02"
-  integrity sha512-rnNVFULAtHAVrORtvcB5LygC1rHxdIEnCeZp8IzRPVRBENPkQIvR+NUZCsWOT4c17qwIALZgY5qaV4jgaVaQUA==
   dependencies:
     "@venusprotocol/solidity-utilities" "2.0.0"
     hardhat-deploy-ethers "^0.3.0-beta.13"
@@ -6696,21 +6518,6 @@
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-4.3.0.tgz#9a3d55077cf602ae882ca3416ce0c1af85001aae"
   integrity sha512-ZGLFQSMVnCLxDFLoh6JLu2ruBqkHp64VRSdII8qhxu1dbjOj5UOkfu1mGk3jMSL3rCX7tyCBYJ+aH3eb9tFWww==
-  dependencies:
-    "@nomiclabs/hardhat-ethers" "^2.2.3"
-    "@openzeppelin/contracts" "^4.8.3"
-    "@openzeppelin/contracts-upgradeable" "^4.8.3"
-    "@openzeppelin/hardhat-upgrades" "^1.21.0"
-    "@solidity-parser/parser" "^0.13.2"
-    "@venusprotocol/solidity-utilities" "2.0.3"
-    ethers "^5.7.0"
-    hardhat-deploy "^0.11.14"
-    module-alias "^2.2.2"
-
-"@venusprotocol/isolated-pools@^3.4.0":
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/isolated-pools/-/isolated-pools-3.9.0.tgz#7bf22caed330e70d0c4a178961cab72a2141e3e0"
-  integrity sha512-fhF+3HU+5moLlc6BxcMzHt88rh7nedPpvfAdDu0ftVmW9k50klwVyqTNeJDz57wQ79WEXwM2FcyEkWkzJydCbg==
   dependencies:
     "@nomiclabs/hardhat-ethers" "^2.2.3"
     "@openzeppelin/contracts" "^4.8.3"
@@ -6742,26 +6549,7 @@
     patch-package "^8.0.0"
     solidity-docgen "^0.6.0-beta.29"
 
-"@venusprotocol/oracle@^2.7.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/oracle/-/oracle-2.9.0.tgz#d045930c560db4b234d866be78907afa4aa1c8b2"
-  integrity sha512-XKesUrZ3BD6jPZpnM5NHGuFRcIhCnaL3hMa3HGYOSwwx7yS2+C9b0duSIEFVSEvfEhi63smzLBqjMnfdCefEaA==
-  dependencies:
-    "@chainlink/contracts" "^0.5.1"
-    "@defi-wonderland/smock" "2.3.5"
-    "@nomicfoundation/hardhat-network-helpers" "^1.0.8"
-    "@openzeppelin/contracts" "^4.6.0"
-    "@openzeppelin/contracts-upgradeable" "^4.7.3"
-    "@venusprotocol/governance-contracts" "^2.8.0"
-    "@venusprotocol/solidity-utilities" "^2.0.0"
-    "@venusprotocol/venus-protocol" "^9.1.0"
-    ethers "^5.6.8"
-    hardhat "2.19.5"
-    hardhat-deploy "^0.12.4"
-    module-alias "^2.2.2"
-    solidity-docgen "^0.6.0-beta.29"
-
-"@venusprotocol/protocol-reserve@3.4.0", "@venusprotocol/protocol-reserve@^3.4.0":
+"@venusprotocol/protocol-reserve@3.4.0", "@venusprotocol/protocol-reserve@^3.2.0", "@venusprotocol/protocol-reserve@^3.4.0":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/protocol-reserve/-/protocol-reserve-3.4.0.tgz#ddc4cf3400945e8cf7c5bf3ed916f3c533f5069a"
   integrity sha512-U38GFRvuuT2gO5yLnDLwb927RqUoLhgI50ksoaMnD2+09OLmHdsaU+Tw3Anoq+Va5JF2Tb9X0rsSdRC9s8IiBA==
@@ -6780,57 +6568,22 @@
     hardhat-deploy "^0.14.0"
     module-alias "^2.2.2"
 
-"@venusprotocol/protocol-reserve@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/protocol-reserve/-/protocol-reserve-2.3.0.tgz#942ae60372ea35b7ac6be9e746d2bd00980d5454"
-  integrity sha512-joujf1TcD9RRpIBl2KnZj12pRO0Qz5RQ3M9s5xifu1HP0WquaUmv1PRpTHqt2PEduZ4iXXvhrVFqXi5Kv9QCwQ==
-  dependencies:
-    "@nomiclabs/hardhat-ethers" "^2.2.3"
-    "@openzeppelin/contracts" "^4.8.3"
-    "@openzeppelin/contracts-upgradeable" "^4.8.3"
-    "@openzeppelin/hardhat-upgrades" "^1.21.0"
-    "@solidity-parser/parser" "^0.13.2"
-    "@venusprotocol/solidity-utilities" "^2.0.3"
-    "@venusprotocol/venus-protocol" "^9.1.0"
-    ethers "^5.7.0"
-    hardhat-deploy "^0.11.14"
-    module-alias "^2.2.2"
-
-"@venusprotocol/protocol-reserve@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/protocol-reserve/-/protocol-reserve-3.2.0.tgz#6e23f946437339b6535232c7e95bb6faf4389ed6"
-  integrity sha512-PLqTe6n+AnmVIx1pfE7VknBf9XZOuqilFIlwe3ZDU00P7FBuY+Nxg0fJQJOalYzjHUImJnLKluwCccVAquMYgQ==
-  dependencies:
-    "@nomiclabs/hardhat-ethers" "^2.2.3"
-    "@openzeppelin/contracts" "^4.8.3"
-    "@openzeppelin/contracts-upgradeable" "^4.8.3"
-    "@openzeppelin/hardhat-upgrades" "^1.21.0"
-    "@solidity-parser/parser" "^0.13.2"
-    "@venusprotocol/governance-contracts" "^2.9.0"
-    "@venusprotocol/isolated-pools" "^3.4.0"
-    "@venusprotocol/oracle" "^2.7.0"
-    "@venusprotocol/solidity-utilities" "^2.0.3"
-    "@venusprotocol/venus-protocol" "^9.1.0"
-    ethers "^5.7.0"
-    hardhat-deploy "^0.14.0"
-    module-alias "^2.2.2"
-
 "@venusprotocol/solidity-utilities@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.0.tgz#74ab8399a49362d53b0c1ff38d3710cc45d29749"
   integrity sha512-P38I6RseUy/pmvOM99DuLV7mst766jxaR46gEi0fv0F8Ibgisw9ZN8ovjXMg0fKJQDlUQ/AbGXBzmxQWFVRNfQ==
 
-"@venusprotocol/solidity-utilities@2.0.3", "@venusprotocol/solidity-utilities@^2.0.0", "@venusprotocol/solidity-utilities@^2.0.3":
+"@venusprotocol/solidity-utilities@2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.0.3.tgz#d672b744d53999716c07b7dfe2431140add0458e"
   integrity sha512-HlOUQx+DBBQB3CulJjAwYEqriJVX3gjlmWbYl+lqN+yr1sk+U3NWbNnLjixw7pMjW8yM5bZWjt8MD3SqbaPccA==
 
-"@venusprotocol/solidity-utilities@^2.1.0":
+"@venusprotocol/solidity-utilities@^2.0.0", "@venusprotocol/solidity-utilities@^2.0.3", "@venusprotocol/solidity-utilities@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/solidity-utilities/-/solidity-utilities-2.1.0.tgz#6a5b53f9eb7274f2f3e4ab1a298f16d9715e3d6c"
   integrity sha512-+6jLJ8efV0KYiwGXTY9V14Hs7IVb9LTozydTwrbjkgweeUF/FcKNRVem/DZMsOfGQsKFhdu53OEjADcKvkVOng==
 
-"@venusprotocol/token-bridge@2.7.0", "@venusprotocol/token-bridge@^2.7.0":
+"@venusprotocol/token-bridge@2.7.0", "@venusprotocol/token-bridge@^2.6.0", "@venusprotocol/token-bridge@^2.7.0":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-2.7.0.tgz#1c5a972584ec518309ec056fa5b68c80c56b848e"
   integrity sha512-KlyPeVzMhUJi2ujHVy9bjCWCPY+NczpW0F/yt2vmGPUmbHNWCOdGroQvsILl6y5L1+v3AivXaf0PuuebCKUnrg==
@@ -6843,33 +6596,7 @@
     ethers "^5.7.0"
     module-alias "^2.2.2"
 
-"@venusprotocol/token-bridge@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-2.2.0.tgz#280bb962c4fcd2254bc44c95b46b0f20459105fe"
-  integrity sha512-locgdCdFWVxzWcJjrhQ1RIuYMyFaZHzFKcPE2QdLjbvTzfcOX/IFfyjYbDbSJgGbZknKSyCifHQKHkDpTQ4j3w==
-  dependencies:
-    "@layerzerolabs/solidity-examples" "^1.0.0"
-    "@openzeppelin/contracts" "^4.8.3"
-    "@openzeppelin/contracts-upgradeable" "^4.8.3"
-    "@openzeppelin/hardhat-upgrades" "^1.21.0"
-    "@solidity-parser/parser" "^0.13.2"
-    ethers "^5.7.0"
-    module-alias "^2.2.2"
-
-"@venusprotocol/token-bridge@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/token-bridge/-/token-bridge-2.6.0.tgz#a14b6efe07709b3d6a72502a2883fff78bd2e69c"
-  integrity sha512-GttdzHtNaxgCCNBD2JO/w0bPkjLXLvjyfyJ/sT93yq0kxsuHChgaSLeztURyPL6n3tdkgnYP9LNXUoAqs8NgcA==
-  dependencies:
-    "@layerzerolabs/solidity-examples" "^1.0.0"
-    "@openzeppelin/contracts" "^4.8.3"
-    "@openzeppelin/contracts-upgradeable" "^4.8.3"
-    "@openzeppelin/hardhat-upgrades" "^1.21.0"
-    "@solidity-parser/parser" "^0.13.2"
-    ethers "^5.7.0"
-    module-alias "^2.2.2"
-
-"@venusprotocol/venus-protocol@10.0.0":
+"@venusprotocol/venus-protocol@10.0.0", "@venusprotocol/venus-protocol@^10.0.0":
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-10.0.0.tgz#e8be114e6243a08758f462734fddfe8d4ea5315d"
   integrity sha512-ZydoqT6Et13TBfAnvA1ETF+0f5BSfbo0kxdv/b2jpy6FHJVsyem+Op7zqAqtmykucoVYxBkv/hlVJXQbHhxo9g==
@@ -6885,22 +6612,6 @@
     dotenv "^16.0.1"
     module-alias "^2.2.2"
     patch-package "^8.0.0"
-
-"@venusprotocol/venus-protocol@^9.1.0":
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/@venusprotocol/venus-protocol/-/venus-protocol-9.2.0.tgz#2bc36655f57345da5653343ca5ebf247446d958b"
-  integrity sha512-eHRH1sjru2/WVEcBKQtwlY0g1wYxzQV3bFW8QyjrD9dg/eLCR2rn1cBZug3DM+mXJy6vjW71d6qb1NvIC+1wxw==
-  dependencies:
-    "@nomicfoundation/hardhat-ethers" "^3.0.0"
-    "@openzeppelin/contracts" "4.9.3"
-    "@openzeppelin/contracts-upgradeable" "^4.8.0"
-    "@venusprotocol/governance-contracts" "^2.3.0"
-    "@venusprotocol/protocol-reserve" "^2.3.0"
-    "@venusprotocol/solidity-utilities" "^2.0.3"
-    "@venusprotocol/token-bridge" "^2.2.0"
-    bignumber.js "^9.1.2"
-    dotenv "^16.0.1"
-    module-alias "^2.2.2"
 
 "@venusprotocol/venus-protocol@^9.7.0":
   version "9.7.0"
@@ -7903,13 +7614,6 @@ astral-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-2.0.0.tgz#483143c567aeed4785759c0865786dc77d7d2e31"
   integrity sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==
 
-async-eventemitter@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/async-eventemitter/-/async-eventemitter-0.2.4.tgz#f5e7c8ca7d3e46aab9ec40a292baf686a0bafaca"
-  integrity sha512-pd20BwL7Yt1zwDFy+8MX8F1+WCT8aQeKj0kQnTrH9WaeRETlRamVhD0JtRPmrV4GfOJ2F9CvdQkZeZhnh2TuHw==
-  dependencies:
-    async "^2.4.0"
-
 async-function@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/async-function/-/async-function-1.0.0.tgz#509c9fca60eaf85034c6829838188e4e4c8ffb2b"
@@ -7928,13 +7632,6 @@ async-retry@^1.3.3:
   integrity sha512-wfr/jstw9xNi/0teMHrRW7dsz3Lt5ARhYNZ2ewpadnhaIp5mbALhOAP+EAdsC7t4Z6wqsDVv9+W6gm1Dk9mEyw==
   dependencies:
     retry "0.13.1"
-
-async@^2.4.0:
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.6.4.tgz#706b7ff6084664cd7eae713f6f965433b5504221"
-  integrity sha512-mzo5dfJYwAn29PeiJ0zvwTo04zj8HDJj0Mn8TD7sno7q12prdbnasKJHhkm2c1LgrhlJ0teaea8860oxi51mGA==
-  dependencies:
-    lodash "^4.17.14"
 
 async@^3.2.3:
   version "3.2.4"
@@ -11737,61 +11434,6 @@ hardhat-gas-reporter@^1.0.6:
     array-uniq "1.0.3"
     eth-gas-reporter "^0.2.25"
     sha1 "^1.1.1"
-
-hardhat@2.19.5:
-  version "2.19.5"
-  resolved "https://registry.yarnpkg.com/hardhat/-/hardhat-2.19.5.tgz#6017c35ae2844b669e9bcc84c3d05346d4ef031c"
-  integrity sha512-vx8R7zWCYVgM56vA6o0Wqx2bIIptkN4TMs9QwDqZVNGRhMzBfzqUeEYbp+69gxWp1neg2V2nYQUaaUv7aom1kw==
-  dependencies:
-    "@ethersproject/abi" "^5.1.2"
-    "@metamask/eth-sig-util" "^4.0.0"
-    "@nomicfoundation/ethereumjs-block" "5.0.2"
-    "@nomicfoundation/ethereumjs-blockchain" "7.0.2"
-    "@nomicfoundation/ethereumjs-common" "4.0.2"
-    "@nomicfoundation/ethereumjs-evm" "2.0.2"
-    "@nomicfoundation/ethereumjs-rlp" "5.0.2"
-    "@nomicfoundation/ethereumjs-statemanager" "2.0.2"
-    "@nomicfoundation/ethereumjs-trie" "6.0.2"
-    "@nomicfoundation/ethereumjs-tx" "5.0.2"
-    "@nomicfoundation/ethereumjs-util" "9.0.2"
-    "@nomicfoundation/ethereumjs-vm" "7.0.2"
-    "@nomicfoundation/solidity-analyzer" "^0.1.0"
-    "@sentry/node" "^5.18.1"
-    "@types/bn.js" "^5.1.0"
-    "@types/lru-cache" "^5.1.0"
-    adm-zip "^0.4.16"
-    aggregate-error "^3.0.0"
-    ansi-escapes "^4.3.0"
-    boxen "^5.1.2"
-    chalk "^2.4.2"
-    chokidar "^3.4.0"
-    ci-info "^2.0.0"
-    debug "^4.1.1"
-    enquirer "^2.3.0"
-    env-paths "^2.2.0"
-    ethereum-cryptography "^1.0.3"
-    ethereumjs-abi "^0.6.8"
-    find-up "^2.1.0"
-    fp-ts "1.19.3"
-    fs-extra "^7.0.1"
-    glob "7.2.0"
-    immutable "^4.0.0-rc.12"
-    io-ts "1.10.4"
-    keccak "^3.0.2"
-    lodash "^4.17.11"
-    mnemonist "^0.38.0"
-    mocha "^10.0.0"
-    p-map "^4.0.0"
-    raw-body "^2.4.1"
-    resolve "1.17.0"
-    semver "^6.3.0"
-    solc "0.7.3"
-    source-map-support "^0.5.13"
-    stacktrace-parser "^0.1.10"
-    tsort "0.0.1"
-    undici "^5.14.0"
-    uuid "^8.3.2"
-    ws "^7.4.6"
 
 hardhat@2.22.18:
   version "2.22.18"
