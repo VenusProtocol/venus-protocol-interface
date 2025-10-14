@@ -31,8 +31,9 @@
     "tsc": "tsc --noEmit",
     "generate-token-icon-manifest": "rimraf src/generated/tokenIconSrcs.json && tsx src/scripts/generateManifest/index.ts --dirPath=tokens --outputFileName=tokenIconSrcs.ts",
     "generate-chain-icon-manifest": "rimraf src/generated/chainIconSrcs.json && tsx src/scripts/generateManifest/index.ts --dirPath=chains --outputFileName=chainIconSrcs.ts",
+    "generate-v-tokens": "rimraf src/generated/vTokens.ts && tsx src/scripts/generateVTokens/index.ts",
     "generate-manifests": "npm-run-all --parallel generate-token-icon-manifest generate-chain-icon-manifest",
-    "generate": "genversion --es6 --semi src/constants/version.ts && yarn run generate-manifests && yarn run build"
+    "generate": "genversion --es6 --semi src/constants/version.ts && yarn run generate-manifests && yarn run generate-v-tokens && yarn run build"
   },
   "devDependencies": {
     "@rollup/plugin-url": "^8.0.2",
@@ -47,6 +48,7 @@
     "rimraf": "^6.0.1",
     "tsdown": "^0.15.6",
     "tsx": "^4.20.5",
+    "viem": "^2.23.1",
     "vitest": "^3.2.4"
   }
 }

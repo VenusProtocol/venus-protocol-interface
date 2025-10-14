@@ -1,6 +1,6 @@
-import { iconSrcs } from '../generated/chainIconSrcs';
-import { bnb, eth } from '../tokens/nativeTokens';
-import { type Chain, ChainId } from '../types';
+import { iconSrcs } from '../../generated/chainIconSrcs';
+import { bnb, eth } from '../../tokens/nativeTokens';
+import { type Chain, ChainId } from '../../types';
 
 export const chains: {
   [chainId in ChainId]: Chain;

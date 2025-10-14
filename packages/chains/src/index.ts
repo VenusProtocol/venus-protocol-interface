@@ -2,7 +2,8 @@ export * from './types';
 export * from './constants';
 
 // Chains
-export * from './chains';
+export * from './chains/viemChainMapping';
+export * from './chains/chainMetadata';
 
 // Tokens
 export * from './tokens/underlyingTokens';
