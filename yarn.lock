@@ -7752,7 +7752,7 @@ ansi-styles@^6.1.0, ansi-styles@^6.2.1:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.2.1.tgz#0e62320cf99c21afff3b3012192546aacbfb05c5"
   integrity sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==
 
-ansis@=4.2.0, ansis@^4.1.0:
+ansis@=4.2.0, ansis@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/ansis/-/ansis-4.2.0.tgz#2e6e61c46b11726ac67f78785385618b9e658780"
   integrity sha512-HqZ5rWlFjGiV0tDm3UxxgNRqsOTniqoKZu0pIAfh7TZQMGuZK+hH0drySty0si0QXj1ieop4+SkSfPZBPPkHig==
@@ -8767,14 +8767,7 @@ chokidar@^3.4.0, chokidar@^3.5.2, chokidar@^3.5.3, chokidar@^3.6.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-chokidar@^4.0.0:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-4.0.1.tgz#4a6dff66798fb0f72a94f616abbd7e1a19f31d41"
-  integrity sha512-n8enUVCED/KVRQlab1hr3MVpcVMvxtZjmEa956u+4YijlmQED223XMSYj2tLuKvr4jcCTzNNMpQDUer72MMmzA==
-  dependencies:
-    readdirp "^4.0.1"
-
-chokidar@^4.0.3:
+chokidar@^4.0.0, chokidar@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-4.0.3.tgz#7be37a4c03c9aee1ecfe862a4a23b2c70c205d30"
   integrity sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==
@@ -9520,10 +9513,10 @@ debounce@^1.2.0, debounce@^1.2.1:
   resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.1.tgz#38881d8f4166a5c5848020c11827b834bcb3e0a5"
   integrity sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==
 
-debug@4, debug@^4.0.0, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3, debug@^4.3.4, debug@^4.3.7, debug@^4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.4.1.tgz#e5a8bc6cbc4c6cd3e64308b0693a3d4fa550189b"
-  integrity sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==
+debug@4, debug@^4.0.0, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3, debug@^4.3.4, debug@^4.3.7, debug@^4.4.1, debug@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.4.3.tgz#c6ae432d9bd9662582fce08709b038c58e9e3d6a"
+  integrity sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==
   dependencies:
     ms "^2.1.3"
 
@@ -9540,13 +9533,6 @@ debug@^2.2.0:
   integrity sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
   dependencies:
     ms "2.0.0"
-
-debug@^4.4.3:
-  version "4.4.3"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.4.3.tgz#c6ae432d9bd9662582fce08709b038c58e9e3d6a"
-  integrity sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==
-  dependencies:
-    ms "^2.1.3"
 
 debug@~4.3.1, debug@~4.3.2:
   version "4.3.7"
@@ -16503,7 +16489,7 @@ rlp@^2.2.3, rlp@^2.2.4:
   dependencies:
     bn.js "^5.2.0"
 
-rolldown-plugin-dts@^0.16.8:
+rolldown-plugin-dts@^0.16.11:
   version "0.16.11"
   resolved "https://registry.yarnpkg.com/rolldown-plugin-dts/-/rolldown-plugin-dts-0.16.11.tgz#ebbbb1c19164a1ce92ef94df43612aebe4a0d565"
   integrity sha512-9IQDaPvPqTx3RjG2eQCK5GYZITo203BxKunGI80AGYicu1ySFTUyugicAaTZWRzFWh9DSnzkgNeMNbDWBbSs0w==
@@ -16737,12 +16723,7 @@ semver@^6.0.0, semver@^6.3.0, semver@^6.3.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.3.4, semver@^7.3.5, semver@^7.3.8, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0, semver@^7.6.2:
-  version "7.6.3"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.3.tgz#980f7b5550bc175fb4dc09403085627f9eb33143"
-  integrity sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
-
-semver@^7.7.2:
+semver@^7.3.4, semver@^7.3.5, semver@^7.3.8, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0, semver@^7.6.2, semver@^7.7.3:
   version "7.7.3"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.3.tgz#4b5f4143d007633a8dc671cd0a6ef9147b8bb946"
   integrity sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==
@@ -17910,15 +17891,7 @@ tinyexec@^1.0.0, tinyexec@^1.0.1:
   resolved "https://registry.yarnpkg.com/tinyexec/-/tinyexec-1.0.1.tgz#70c31ab7abbb4aea0a24f55d120e5990bfa1e0b1"
   integrity sha512-5uC6DDlmeqiOwCPmK9jMSdOuZTh8bU39Ys6yidB+UTt5hfZUPGAypSgFRiEp+jbi9qH40BLDvy85jIU88wKSqw==
 
-tinyglobby@^0.2.13, tinyglobby@^0.2.14:
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/tinyglobby/-/tinyglobby-0.2.14.tgz#5280b0cf3f972b050e74ae88406c0a6a58f4079d"
-  integrity sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ==
-  dependencies:
-    fdir "^6.4.4"
-    picomatch "^4.0.2"
-
-tinyglobby@^0.2.15, tinyglobby@^0.2.6:
+tinyglobby@^0.2.13, tinyglobby@^0.2.14, tinyglobby@^0.2.15, tinyglobby@^0.2.6:
   version "0.2.15"
   resolved "https://registry.yarnpkg.com/tinyglobby/-/tinyglobby-0.2.15.tgz#e228dd1e638cea993d2fdb4fcd2d4602a79951c2"
   integrity sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==
@@ -18114,11 +18087,11 @@ tsconfig-paths@^4.2.0:
     strip-bom "^3.0.0"
 
 tsdown@^0.15.6:
-  version "0.15.6"
-  resolved "https://registry.yarnpkg.com/tsdown/-/tsdown-0.15.6.tgz#10218cbebf53307f7cb1db4da2c6eed95827d7b4"
-  integrity sha512-W6++O3JeV9gm3JY6P/vLiC7zzTcJbZhQxXb+p3AvRMpDOPBIg82yXULyZCcwjsihY/bFG+Qw37HkezZbP7fzUg==
+  version "0.15.7"
+  resolved "https://registry.yarnpkg.com/tsdown/-/tsdown-0.15.7.tgz#d8d07a0ee09ab37f9ae0a84d4cd174340ef15213"
+  integrity sha512-uFaVgWAogjOMqjY+CQwrUt3C6wzy6ynt82CIoXymnbS17ipUZ8WDXUceJjkislUahF/BZc5+W44Ue3p2oWtqUg==
   dependencies:
-    ansis "^4.1.0"
+    ansis "^4.2.0"
     cac "^6.7.14"
     chokidar "^4.0.3"
     debug "^4.4.3"
@@ -18126,8 +18099,8 @@ tsdown@^0.15.6:
     empathic "^2.0.0"
     hookable "^5.5.3"
     rolldown latest
-    rolldown-plugin-dts "^0.16.8"
-    semver "^7.7.2"
+    rolldown-plugin-dts "^0.16.11"
+    semver "^7.7.3"
     tinyexec "^1.0.1"
     tinyglobby "^0.2.15"
     tree-kill "^1.2.2"
