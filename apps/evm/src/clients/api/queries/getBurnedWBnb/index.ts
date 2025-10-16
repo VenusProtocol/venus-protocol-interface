@@ -1,5 +1,5 @@
 import { ChainId } from '@venusprotocol/chains';
-import { NULL_ADDRESS } from 'constants/address';
+import { WBNB_BURN_CONVERTER_DESTINATION_ADDRESS } from 'constants/address';
 import { VError } from 'libs/errors';
 import { restService } from 'utilities';
 import type { Address, PublicClient } from 'viem';
@@ -40,7 +40,7 @@ export const getBurnedWBnb = async ({
     method: 'GET',
     params: {
       converterAddress: WBNB_BURN_CONVERTER_CONTRACT_ADDRESS,
-      destinationAddress: NULL_ADDRESS,
+      destinationAddress: WBNB_BURN_CONVERTER_DESTINATION_ADDRESS,
       chainId: ChainId.BSC_MAINNET, // WBNBs are only burned on BSC
     },
   });
