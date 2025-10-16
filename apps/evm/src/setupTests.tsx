@@ -8,7 +8,7 @@ import 'whatwg-fetch';
 
 import { xvs } from '__mocks__/models/tokens';
 
-import { ChainId } from '@venusprotocol/chains';
+import type { ChainId } from '@venusprotocol/chains';
 import type { Config } from 'config';
 import { NULL_ADDRESS } from 'constants/address';
 import useTokenApproval from 'hooks/useTokenApproval';
