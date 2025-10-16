@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.63.0
+
+### Minor Changes
+
+- f7484bd: Fixed WBNB burn converter destination address
+
 ## 3.62.0
 
 ### Minor Changes
