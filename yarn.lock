@@ -11519,9 +11519,9 @@ graphql-request@^6.0.0:
     cross-fetch "^3.1.5"
 
 graphql-request@^7.0.1:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-7.2.0.tgz#af4aa25f27a087dd4fc93a4ff54a0f59c4487269"
-  integrity sha512-0GR7eQHBFYz372u9lxS16cOtEekFlZYB2qOyq8wDvzRmdRSJ0mgUVX1tzNcIzk3G+4NY+mGtSz411wZdeDF/+A==
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-7.3.0.tgz#ca7f0e206d9b47087f954118b8b849e56fff46ef"
+  integrity sha512-cxmQfa/ZknSNtuJpgPpr4CQTwPjSP57EYzOyNoyhPakXqr1yvTtOXNFbxQYaz4DMQ801i2DjnwUkifGLjtXhSQ==
   dependencies:
     "@graphql-typed-document-node/core" "^3.2.0"
 
