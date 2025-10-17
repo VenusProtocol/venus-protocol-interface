@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useGetChain } from 'hooks/useGetChain';
+import { useChain } from 'hooks/useChain';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import {
@@ -33,7 +33,7 @@ export const useGetPancakeSwapPairs = (
 ) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-  const { blockTimeMs } = useGetChain();
+  const { blockTimeMs } = useChain();
 
   // Generate query key based on token combinations
   const tokenCombinationIds = generateTokenCombinationIds(input.tokenCombinations);

@@ -6,7 +6,7 @@ import {
   getXvsVaultsTotalDailyDistributedXvs,
 } from 'clients/api/queries/getXvsVaultsTotalDailyDistributedXvs';
 import FunctionKey from 'constants/functionKey';
-import { useGetChain } from 'hooks/useGetChain';
+import { useChain } from 'hooks/useChain';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
@@ -37,7 +37,7 @@ export const useGetXvsVaultsTotalDailyDistributedXvs = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const { blocksPerDay } = useGetChain();
+  const { blocksPerDay } = useChain();
   const { publicClient } = usePublicClient();
   const { address: xvsVaultContractAddress } = useGetContractAddress({
     name: 'XvsVault',

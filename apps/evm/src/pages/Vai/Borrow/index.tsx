@@ -43,8 +43,8 @@ import {
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
+import { useChain } from 'hooks/useChain';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import { useGetChain } from 'hooks/useGetChain';
 import { AccountVaiData } from '../AccountVaiData';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
@@ -54,7 +54,7 @@ export const Borrow: React.FC = () => {
   const { t, Trans } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
-  const { corePoolComptrollerContractAddress } = useGetChain();
+  const { corePoolComptrollerContractAddress } = useChain();
 
   const vai = useGetToken({
     symbol: 'VAI',

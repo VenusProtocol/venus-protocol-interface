@@ -23,7 +23,7 @@ import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { Link } from 'containers/Link';
 import { SwitchChain } from 'containers/SwitchChain';
-import { useGetChain } from 'hooks/useGetChain';
+import { useChain } from 'hooks/useChain';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { getContractAddress } from 'libs/contracts';
 import { handleError } from 'libs/errors';
@@ -43,7 +43,7 @@ const BRIDGE_DOC_URL = 'https://docs-v4.venus.io/guides/xvs-bridge';
 const BridgePage: React.FC = () => {
   const { t } = useTranslation();
   const { chainId } = useChainId();
-  const { nativeToken } = useGetChain();
+  const { nativeToken } = useChain();
   const { switchChain } = useSwitchChain();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;

@@ -1,7 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useGetChain } from 'hooks/useGetChain';
+import { useChain } from 'hooks/useChain';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { usePublicClient } from 'libs/wallet';
 import { useChainId } from 'libs/wallet';
@@ -24,7 +24,7 @@ type Options = QueryObserverOptions<
 
 export const useGetVenusVaiVaultDailyRate = (options?: Partial<Options>) => {
   const { chainId } = useChainId();
-  const { blocksPerDay } = useGetChain();
+  const { blocksPerDay } = useChain();
   const { publicClient } = usePublicClient();
   const { address: legacyPoolComptrollerAddress } = useGetContractAddress({
     name: 'LegacyPoolComptroller',

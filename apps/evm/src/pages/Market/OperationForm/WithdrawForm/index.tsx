@@ -10,9 +10,9 @@ import {
   Toggle,
   TokenTextField,
 } from 'components';
+import { useChain } from 'hooks/useChain';
 import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import { useGetChain } from 'hooks/useGetChain';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
@@ -67,7 +67,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   approveDelegateAction,
 }) => {
   const { t } = useTranslation();
-  const { nativeToken } = useGetChain();
+  const { nativeToken } = useChain();
   const { captureAnalyticEvent } = useAnalytics();
 
   const canUnwrapToNativeToken = useMemo(

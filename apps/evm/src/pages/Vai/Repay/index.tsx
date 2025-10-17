@@ -27,7 +27,7 @@ import {
 
 import { NULL_ADDRESS } from 'constants/address';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
-import { useGetChain } from 'hooks/useGetChain';
+import { useChain } from 'hooks/useChain';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { AccountVaiData } from '../AccountVaiData';
 import TEST_IDS from './testIds';
@@ -41,7 +41,7 @@ export const Repay: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
 
-  const chain = useGetChain();
+  const chain = useChain();
 
   const vai = useGetToken({
     symbol: 'VAI',

@@ -3,11 +3,11 @@ import { chains } from '@venusprotocol/chains';
 import { renderHook } from 'testUtils/render';
 import { ChainId } from 'types';
 
-import { useGetChain } from '..';
+import { useChain } from '..';
 
-describe('useGetChain', () => {
+describe('useChain', () => {
   it('returns the correct chain metadata', () => {
-    const { result } = renderHook(() => useGetChain());
+    const { result } = renderHook(() => useChain());
 
     expect(result.current).toBe(chains[ChainId.BSC_TESTNET]);
   });
