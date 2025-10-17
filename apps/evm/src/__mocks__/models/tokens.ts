@@ -1,4 +1,3 @@
-import { NATIVE_TOKEN_ADDRESS } from '@venusprotocol/chains';
 import type { Token } from 'types';
 
 export const xvs: Token = {
@@ -23,7 +22,7 @@ export const vrt: Token = {
 };
 
 export const bnb: Token = {
-  address: NATIVE_TOKEN_ADDRESS,
+  address: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
   isNative: true,
   decimals: 18,
   symbol: 'BNB',

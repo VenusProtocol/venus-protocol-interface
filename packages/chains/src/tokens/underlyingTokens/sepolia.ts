@@ -1,8 +1,8 @@
-import { iconSrcs } from '../../generated/tokenIconSrcs';
+import { iconSrcs } from '../../generated/manifests/tokenIcons';
 import type { Token } from '../../types';
 import { eth } from '../nativeTokens';
 
-export const tokens: Token[] = [
+export const sepolia: Token[] = [
   eth,
   {
     address: '0x66ebd019E86e0af5f228a0439EBB33f045CBe63E',

@@ -1,8 +1,8 @@
-import { iconSrcs } from '../../generated/tokenIconSrcs';
+import { iconSrcs } from '../../generated/manifests/tokenIcons';
 import type { Token } from '../../types';
 import { bnb } from '../nativeTokens';
 
-export const tokens: Token[] = [
+export const opBnbTestnet: Token[] = [
   bnb,
   {
     address: '0xc2931B1fEa69b6D6dA65a50363A8D75d285e4da9',

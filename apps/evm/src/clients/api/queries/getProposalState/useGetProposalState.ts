@@ -1,6 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { chains } from '@venusprotocol/chains';
+import { type ChainId, chains } from '@venusprotocol/chains';
 import FunctionKey from 'constants/functionKey';
 import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
@@ -21,7 +21,7 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PROPOSAL_STATE, TrimmedGetProposalStateInput]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChain.id];
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChain.id as ChainId];
 const governorBravoDelegateAddress = getContractAddress({
   name: 'GovernorBravoDelegate',
   chainId: governanceChain.id,

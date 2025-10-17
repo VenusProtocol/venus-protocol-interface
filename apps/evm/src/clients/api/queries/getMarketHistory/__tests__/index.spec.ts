@@ -1,6 +1,6 @@
 import type { Mock } from 'vitest';
 
-import { vBusd } from '__mocks__/models/vTokens';
+import { vBusd_Core_Pool } from '__mocks__/models/vTokens';
 
 import type { MarketSnapshot } from 'types';
 import { restService } from 'utilities';
@@ -27,7 +27,7 @@ describe('getMarketHistory', () => {
 
   it('returns market history on success', async () => {
     const response = await getMarketHistory({
-      vToken: vBusd,
+      vToken: vBusd_Core_Pool,
       period: 'year',
     });
 
@@ -38,13 +38,13 @@ describe('getMarketHistory', () => {
 
   it('calls correct endpoint', async () => {
     await getMarketHistory({
-      vToken: vBusd,
+      vToken: vBusd_Core_Pool,
       period: 'year',
     });
 
     expect(restService).toHaveBeenCalledTimes(1);
     expect(restService).toHaveBeenCalledWith({
-      endpoint: `/markets/history?asset=${vBusd.address}&period=year`,
+      endpoint: `/markets/history?asset=${vBusd_Core_Pool.address}&period=year`,
       method: 'GET',
     });
   });

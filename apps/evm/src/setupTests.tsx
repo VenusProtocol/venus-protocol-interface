@@ -6,12 +6,12 @@ import type { Mock } from 'vitest';
 // Polyfill "window.fetch"
 import 'whatwg-fetch';
 
-import { xvs } from '__mocks__/models/tokens';
-
-import type { ChainId } from '@venusprotocol/chains';
+import tokens, { xvs } from '__mocks__/models/tokens';
+import vTokens from '__mocks__/models/vTokens';
 import type { Config } from 'config';
 import { NULL_ADDRESS } from 'constants/address';
 import useTokenApproval from 'hooks/useTokenApproval';
+import { extractEnumValues } from 'utilities/extractEnumValues';
 
 // Mock config
 vi.mock('config', async () => {
@@ -56,19 +56,31 @@ vi.mock('hooks/useDebounceValue', () => ({
   default: (value: unknown) => value,
 }));
 
-// Mock zustand library (optimized state manager)
-vi.mock('zustand');
-
-// Mock getVTokenIconSrc utility function to prevent
 vi.mock('@venusprotocol/chains', async () => {
-  const actual = await vi.importActual('@venusprotocol/chains');
+  const actual = (await vi.importActual('@venusprotocol/chains')) as any;
+  const chainIds = extractEnumValues(actual.ChainId);
 
   return {
     ...actual,
-    getVTokenIconSrc: ({ vTokenAddress, chainId }: { vTokenAddress: string; chainId: ChainId }) =>
-      `fake-icon-${chainId}-${vTokenAddress}`,
+    tokens: chainIds.reduce(
+      (acc, chainId) => ({
+        ...acc,
+        [chainId]: tokens,
+      }),
+      {},
+    ),
+    vTokens: chainIds.reduce(
+      (acc, chainId) => ({
+        ...acc,
+        [chainId]: vTokens,
+      }),
+      {},
+    ),
   };
 });
+
+// Mock zustand library (optimized state manager)
+vi.mock('zustand');
 
 // Mock React Markdown library
 vi.mock('@uiw/react-md-editor', () => ({

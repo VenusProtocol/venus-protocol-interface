@@ -2,13 +2,14 @@ export * from './types';
 export * from './constants';
 
 // Chains
-export * from './chains';
+export * from './chains/viemChains';
+export * from './chains/chainMetadata';
 
 // Tokens
 export * from './tokens/underlyingTokens';
-export * from './tokens/vTokenIconSrcs';
 export * from './tokens/nativeTokens';
+export * from './generated/vTokens';
 
 // Utilities
 export * from './utilities/getToken';
-export * from './utilities/getVTokenIconSrc';
+export * from './utilities/getRpcUrls';

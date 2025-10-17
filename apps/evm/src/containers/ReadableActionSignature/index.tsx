@@ -1,9 +1,9 @@
 import { cn } from '@venusprotocol/ui';
-import { useGetVTokens } from 'clients/api';
 import { useGetTokens } from 'libs/tokens';
 import type { ChainId, ProposalAction } from 'types';
 import { generateExplorerUrl } from 'utilities';
 
+import { useGetVTokens } from 'libs/tokens/hooks/useGetVTokens';
 import formatSignature from './formatSignature';
 import getContractName from './getContractName';
 
@@ -18,9 +18,8 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
   chainId,
   ...otherProps
 }) => {
-  const { data: getVTokensData } = useGetVTokens();
   const tokens = useGetTokens();
-  const vTokens = getVTokensData?.vTokens || [];
+  const vTokens = useGetVTokens();
 
   const contractName = getContractName({
     target: action.target,

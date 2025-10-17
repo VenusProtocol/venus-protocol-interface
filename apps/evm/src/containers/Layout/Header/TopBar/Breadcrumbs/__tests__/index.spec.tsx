@@ -2,23 +2,15 @@ import type { Mock } from 'vitest';
 
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
-import vTokens from '__mocks__/models/vTokens';
 import { renderComponent } from 'testUtils/render';
 
-import { useGetPool, useGetVTokens } from 'clients/api';
+import { useGetPool } from 'clients/api';
 import { routes } from 'constants/routing';
 
 import { Breadcrumbs } from '..';
 
 describe('component/Layout/Header/Breadcrumbs', () => {
   beforeEach(() => {
-    (useGetVTokens as Mock).mockImplementation(() => ({
-      data: {
-        vTokens,
-      },
-      isLoading: false,
-    }));
-
     (useGetPool as Mock).mockImplementation(() => ({
       data: {
         pool: poolData[0],

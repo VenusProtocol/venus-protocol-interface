@@ -13,7 +13,7 @@ export const useAddTokenToWallet = () => {
         address: token.address,
         symbol: token.symbol,
         decimals: token.decimals,
-        image: `${window.location.origin}${token.iconSrc}`,
+        image: 'iconSrc' in token ? `${window.location.origin}${token.iconSrc}` : undefined,
       },
     });
 

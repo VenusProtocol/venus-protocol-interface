@@ -83,7 +83,9 @@ jobs:
           VITE_POSTHOG_HOST_URL: ${{ secrets.VITE_POSTHOG_HOST_URL }}
           VITE_ZYFI_API_KEY: ${{ secrets.VITE_ZYFI_API_KEY }}
           VITE_ALCHEMY_API_KEY: ${{ secrets.VITE_ALCHEMY_API_KEY }}
+          CLI_ALCHEMY_API_KEY: ${{ secrets.CLI_ALCHEMY_API_KEY }}
           VITE_NODE_REAL_API_KEY: ${{ secrets.VITE_NODE_REAL_API_KEY }}
+          CLI_NODE_REAL_API_KEY: ${{ secrets.CLI_NODE_REAL_API_KEY }}
           VITE_THE_GRAPH_API_KEY: ${{ secrets.VITE_THE_GRAPH_API_KEY }}
         run: |
           # We only build the dApp because it's the only app deployed to IPFS
