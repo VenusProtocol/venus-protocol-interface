@@ -1,4 +1,4 @@
-import { chains } from '@venusprotocol/chains';
+import { type ChainId, chains } from '@venusprotocol/chains';
 import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { useTranslation } from 'libs/translations';
 import { governanceChain, useChainId } from 'libs/wallet';
@@ -11,7 +11,7 @@ import { useIsProposalCancelableByUser } from '../useIsProposalCancelableByUser'
 import { ActionButton } from './ActionButton';
 import { CurrentStep } from './CurrentStep';
 
-const governanceChainMetadata = chains[governanceChain.id];
+const governanceChainMetadata = chains[governanceChain.id as ChainId];
 
 export interface BscCommandProps extends React.HTMLAttributes<HTMLDivElement> {
   proposal: Proposal;

@@ -1,4 +1,4 @@
-import { chains } from '@venusprotocol/chains';
+import { chains, vTokens } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
@@ -12,6 +12,7 @@ import {
   convertMantissaToTokens,
   convertPercentageFromSmartContract,
   convertPriceMantissaToDollars,
+  findTokenByAddress,
   getDisabledTokenActions,
   isPoolIsolated,
 } from 'utilities';
@@ -19,7 +20,6 @@ import type { PrimeApy, VTokenBalance } from '../../types';
 import type { ApiPool, ApiTokenPrice } from '../getApiPools';
 import { formatDistributions } from './formatDistributions';
 import { formatEModeGroups } from './formatEModeGroups';
-import { formatVToken } from './formatVToken';
 
 export const formatOutput = ({
   apiPools,
@@ -62,8 +62,7 @@ export const formatOutput = ({
 
     const eModeGroups = formatEModeGroups({
       apiPool,
-      chainId,
-      tokens,
+      vTokens: vTokens[chainId],
     });
     let userEModeGroup: EModeGroup | undefined;
 
@@ -92,8 +91,10 @@ export const formatOutput = ({
         return acc;
       }
 
-      // Shape vToken
-      const vToken = formatVToken({ apiMarket: market, chainId, tokens });
+      const vToken = findTokenByAddress({
+        tokens: vTokens[chainId],
+        address: market.address,
+      });
 
       if (!vToken) {
         return acc;

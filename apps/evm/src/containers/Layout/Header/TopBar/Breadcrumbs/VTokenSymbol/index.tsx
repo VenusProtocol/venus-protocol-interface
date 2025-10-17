@@ -1,7 +1,5 @@
-import { useMemo } from 'react';
-
-import { useGetVTokens } from 'clients/api';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
+import { useGetVTokens } from 'libs/tokens/hooks/useGetVTokens';
 import { findTokenByAddress } from 'utilities';
 
 export interface VTokenSymbolProps {
@@ -9,18 +7,13 @@ export interface VTokenSymbolProps {
 }
 
 const VTokenSymbol: React.FC<VTokenSymbolProps> = ({ vTokenAddress }) => {
-  const { data: getVTokensData } = useGetVTokens();
-
-  const vToken = useMemo(
-    () =>
-      vTokenAddress
-        ? findTokenByAddress({
-            tokens: getVTokensData?.vTokens || [],
-            address: vTokenAddress,
-          })
-        : undefined,
-    [vTokenAddress, getVTokensData],
-  );
+  const vTokens = useGetVTokens();
+  const vToken = vTokenAddress
+    ? findTokenByAddress({
+        tokens: vTokens,
+        address: vTokenAddress,
+      })
+    : undefined;
 
   return (
     <div className="inline-flex items-center">

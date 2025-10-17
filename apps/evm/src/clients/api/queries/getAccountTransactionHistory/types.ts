@@ -1,4 +1,4 @@
-import type { ChainId } from '@venusprotocol/chains';
+import type { ChainId, VToken } from '@venusprotocol/chains';
 import type { Token, TxType } from 'types';
 import type { Address } from 'viem';
 import type { GetPoolsOutput } from '../useGetPools/types';
@@ -31,7 +31,7 @@ export interface AmountTransaction {
   vTokenSymbol: string;
   amountTokens: BigNumber | undefined;
   amountCents: BigNumber | undefined;
-  token: Token;
+  token: Token | VToken;
 }
 
 export interface AccountTransactionHistoryApiResponse {

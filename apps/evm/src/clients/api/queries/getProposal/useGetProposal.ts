@@ -1,5 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-import { chains } from '@venusprotocol/chains';
+import { type ChainId, chains } from '@venusprotocol/chains';
 
 import FunctionKey from 'constants/functionKey';
 import { governanceChain } from 'libs/wallet';
@@ -25,7 +25,7 @@ type Options = QueryObserverOptions<
   ]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChain.id];
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChain.id as ChainId];
 
 export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial<Options>) => {
   const { data: getProposalMinQuorumVotesData } = useGetProposalMinQuorumVotes();

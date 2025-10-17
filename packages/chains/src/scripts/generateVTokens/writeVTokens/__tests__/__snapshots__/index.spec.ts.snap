@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`writeVTokens > fetches data for each vToken and writes the generated file 1`] = `
+"import { tokens } from '../../tokens/underlyingTokens';
+import type { VToken } from '../../types';
+
+export const bscMainnet: VToken[] = [
+  {
+    address: '0x1234',
+    decimals: 8,
+    symbol: 'vWBTC',
+    underlyingToken: tokens[56][0],
+  },
+];
+"
+`;
