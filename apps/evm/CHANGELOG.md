@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.63.1
+
+### Patch Changes
+
+- a3b9176: fix liquidation penalty not showing on Market page of BSC Core Pool markets
+
 ## 3.63.0
 
 ### Minor Changes
