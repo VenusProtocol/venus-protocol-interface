@@ -6,7 +6,7 @@ import { Page, TagGroup } from 'components';
 import { MarketTable, type MarketTableProps } from 'containers/MarketTable';
 import { PoolStats } from 'containers/PoolStats';
 import { Redirect } from 'containers/Redirect';
-import { useGetChain } from 'hooks/useGetChain';
+import { useChain } from 'hooks/useChain';
 import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
@@ -27,7 +27,7 @@ export const IsolatedPools: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { corePoolComptrollerContractAddress } = useGetChain();
+  const { corePoolComptrollerContractAddress } = useChain();
   const { homePagePath } = useGetHomePagePath();
 
   const columns: MarketTableProps['columns'] = [

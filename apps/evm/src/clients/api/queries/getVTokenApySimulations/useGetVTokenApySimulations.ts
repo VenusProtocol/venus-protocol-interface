@@ -2,7 +2,7 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { useChainId, usePublicClient } from 'libs/wallet';
 
 import FunctionKey from 'constants/functionKey';
-import { useGetChain } from 'hooks/useGetChain';
+import { useChain } from 'hooks/useChain';
 import type { ChainId } from 'types';
 import { callOrThrow } from 'utilities';
 import { getVTokenApySimulations } from '.';
@@ -32,7 +32,7 @@ export const useGetVTokenApySimulations = (
     vToken: input.asset.vToken,
   });
   const interestRateModelContractAddress = interestRateModelData?.contractAddress;
-  const { blocksPerDay } = useGetChain();
+  const { blocksPerDay } = useChain();
 
   return useQuery({
     queryKey: [
