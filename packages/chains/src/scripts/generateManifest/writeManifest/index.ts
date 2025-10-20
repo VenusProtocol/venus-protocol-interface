@@ -1,10 +1,11 @@
 #!/usr/bin/env tsx
-import fs, { readFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import * as path from 'node:path';
 import { compile } from 'handlebars';
 
 import { IMAGES_DIR_NAME, IMAGES_DIR_PATH } from '../../../constants';
 import { getImgCdnPath } from '../../../utilities/getImgCdnPath';
+import { writeFile } from '../../../utilities/writeFile';
 
 interface TokenIcon {
   name: string;
@@ -25,7 +26,7 @@ export const writeManifest = ({
   dirPath: string;
 }) => {
   const inputDirPath = path.join(IMAGES_DIR_PATH, dirPath);
-  const files = fs.readdirSync(inputDirPath);
+  const files = readdirSync(inputDirPath);
   const tokenIcons: TokenIcon[] = [];
 
   files.forEach(file => {
@@ -38,7 +39,7 @@ export const writeManifest = ({
         // Return CDN link to image if we're building the package for production, otherwise return
         // its local file import so apps can bundle it inside their build themselves
         imgCdnUrl ? `'${path.join(imgCdnUrl, getImgCdnPath({ filePath: destFilePath }))}'` : name,
-      import: imgCdnUrl ? undefined : path.join('..', IMAGES_DIR_NAME, destFilePath),
+      import: imgCdnUrl ? undefined : path.join('../..', IMAGES_DIR_NAME, destFilePath),
     };
 
     tokenIcons.push(tokenIcon);
@@ -46,14 +47,10 @@ export const writeManifest = ({
 
   const content = tokenIconUrlsTemplate(tokenIcons);
 
-  const outputPath = `src/generated/${outputFileName}`;
+  const outputPath = `src/generated/manifests/${outputFileName}`;
 
-  // Create directory if it doesn't exist
-  const directoryPathElements = outputPath.split('/');
-  directoryPathElements.pop();
-  const directoryPath = directoryPathElements.join('/');
-  mkdirSync(directoryPath, { recursive: true });
-
-  // Write file
-  fs.writeFileSync(outputPath, content);
+  writeFile({
+    content,
+    outputPath,
+  });
 };

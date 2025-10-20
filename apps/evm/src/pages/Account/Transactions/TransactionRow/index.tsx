@@ -77,7 +77,7 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ transactionData,
         <Delimiter className="my-3 md:hidden" />
 
         <div className="flex w-full items-center">
-          <TokenIcon className="mr-2 self-start" token={token} />
+          {'iconSrc' in token && <TokenIcon className="mr-2 self-start" token={token} />}
           <TransactionDetails className="flex-1" transactionData={transactionData} />
           <div className="hidden md:flex items-center text-grey md:group-hover:text-offWhite space-x-1 mt-1">
             <span className="hidden lg:block text-sm underline">

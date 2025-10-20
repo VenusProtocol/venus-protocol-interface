@@ -1,7 +1,7 @@
 import { chains } from '@venusprotocol/chains';
 import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { useTranslation } from 'libs/translations';
-import { governanceChain, useChainId } from 'libs/wallet';
+import { governanceChainId, useChainId } from 'libs/wallet';
 import { useMemo } from 'react';
 import { type RemoteProposal, RemoteProposalState } from 'types';
 import { Command } from '../Command';
@@ -9,7 +9,7 @@ import { Description } from '../Description';
 import { CurrentStep } from './CurrentStep';
 import { ExecuteButton } from './ExecuteButton';
 
-const governanceChainMetadata = chains[governanceChain.id];
+const governanceChainMetadata = chains[governanceChainId];
 
 export interface NonBscCommand extends React.HTMLAttributes<HTMLDivElement> {
   remoteProposal: RemoteProposal;

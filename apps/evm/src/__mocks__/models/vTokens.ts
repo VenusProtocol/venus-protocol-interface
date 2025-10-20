@@ -1,6 +1,6 @@
 import type { VToken } from 'types';
 
-import { bnb, busd, luna, usdc, usdt, ust, weth, xvs } from './tokens';
+import { bnb, busd, eth, lisUsd, luna, usdc, usdt, ust, wbnb, weth, xvs } from './tokens';
 
 export const vXvs: VToken = {
   address: '0x6d6F697e34145Bb95c54E77482d97cc261Dc237E',
@@ -23,15 +23,64 @@ export const vUsdc: VToken = {
   underlyingToken: usdc,
 };
 
-export const vUsdt: VToken = {
+export const vUsdtCorePool: VToken = {
   address: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
   decimals: 8,
   symbol: 'vUSDT',
   underlyingToken: usdt,
 };
 
-export const vBusd: VToken = {
+export const vUsdtDeFi: VToken = {
+  address: '0x80CC30811e362aC9aB857C3d7875CbcCc0b65750',
+  decimals: 8,
+  symbol: 'vUSDT_DeFi',
+  underlyingToken: usdt,
+};
+
+export const vUsdtGameFi: VToken = {
+  address: '0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634',
+  decimals: 8,
+  symbol: 'vUSDT_GameFi',
+  underlyingToken: usdt,
+};
+
+export const vUsdtLiquidStakedBnb: VToken = {
+  address: '0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c',
+  decimals: 8,
+  symbol: 'vUSDT_Liquid_Staked_BNB',
+  underlyingToken: usdt,
+};
+
+export const vUsdtMeme: VToken = {
+  address: '0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1',
+  decimals: 8,
+  symbol: 'vUSDT_Meme',
+  underlyingToken: usdt,
+};
+
+export const vUsdtStablecoins: VToken = {
+  address: '0x3338988d0beb4419Acb8fE624218754053362D06',
+  decimals: 8,
+  symbol: 'vUSDT_Stablecoins',
+  underlyingToken: usdt,
+};
+
+export const vUsdtTron: VToken = {
+  address: '0x712774CBFFCBD60e9825871CcEFF2F917442b2c3',
+  decimals: 8,
+  symbol: 'vUSDT_Tron',
+  underlyingToken: usdt,
+};
+
+export const vBusdCorePool: VToken = {
   address: '0x08e0A5575De71037aE36AbfAfb516595fE68e5e4',
+  decimals: 8,
+  symbol: 'vBUSD',
+  underlyingToken: busd,
+};
+
+export const vBusdStablecoins: VToken = {
+  address: '0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0',
   decimals: 8,
   symbol: 'vBUSD',
   underlyingToken: busd,
@@ -58,4 +107,43 @@ export const vWeth: VToken = {
   underlyingToken: weth,
 };
 
-export default [vXvs, vBnb, vUsdc, vUsdt, vBusd, vUst, vLuna];
+export const vEth: VToken = {
+  address: '0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD',
+  decimals: 8,
+  symbol: 'vETH',
+  underlyingToken: eth,
+};
+
+export const vLisUSD: VToken = {
+  address: '0x170d3b2da05cc2124334240fB34ad1359e34C562',
+  decimals: 8,
+  symbol: 'vlisUSD',
+  underlyingToken: lisUsd,
+};
+
+export const vWbnb: VToken = {
+  address: '0x231dED0Dfc99634e52EE1a1329586bc970d773b3',
+  decimals: 8,
+  symbol: 'vWBNB',
+  underlyingToken: wbnb,
+};
+
+export default [
+  vXvs,
+  vBnb,
+  vUsdc,
+  vUsdtCorePool,
+  vUsdtDeFi,
+  vUsdtGameFi,
+  vUsdtLiquidStakedBnb,
+  vUsdtMeme,
+  vUsdtStablecoins,
+  vUsdtTron,
+  vBusdCorePool,
+  vBusdStablecoins,
+  vUst,
+  vLuna,
+  vEth,
+  vLisUSD,
+  vWbnb,
+];

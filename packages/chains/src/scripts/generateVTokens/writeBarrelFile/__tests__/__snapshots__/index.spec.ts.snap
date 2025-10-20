@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`writeBarrelFile > writes the barrel file with the provided token files 1`] = `
+"import { bscMainnet } from './bscMainnet';
+import { ethereum } from './ethereum';
+import { ChainId, type VToken } from '../../types';
+
+export const vTokens: {
+  [chainId in ChainId]: VToken[];
+} = {
+  [56]: bscMainnet,
+  [1]: ethereum,
+};
+"
+`;

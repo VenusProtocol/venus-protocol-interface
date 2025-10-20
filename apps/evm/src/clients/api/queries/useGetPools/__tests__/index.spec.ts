@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/dom';
-import { ChainId } from '@venusprotocol/chains';
 import type { Mock } from 'vitest';
 
 import apiPoolsResponse from '__mocks__/api/pools.json';
@@ -12,6 +11,7 @@ import {
 } from 'hooks/useGetContractAddress';
 import { usePublicClient } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
+import { ChainId } from 'types';
 import { restService } from 'utilities/restService';
 import { useGetPools } from '..';
 import {

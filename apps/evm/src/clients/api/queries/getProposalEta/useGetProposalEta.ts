@@ -3,7 +3,7 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import FunctionKey from 'constants/functionKey';
 import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import { type GetProposalEtaInput, type GetProposalEtaOutput, getProposalEta } from '.';
 
@@ -25,12 +25,12 @@ export const useGetProposalEta = (
   options?: Partial<Options>,
 ) => {
   const { publicClient } = usePublicClient({
-    chainId: governanceChain.id,
+    chainId: governanceChainId,
   });
 
   const governorBravoDelegateContractAddress = getContractAddress({
     name: 'GovernorBravoDelegate',
-    chainId: governanceChain.id,
+    chainId: governanceChainId,
   });
 
   return useQuery({

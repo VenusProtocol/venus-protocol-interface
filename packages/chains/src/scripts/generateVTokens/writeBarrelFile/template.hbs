@@ -1,0 +1,12 @@
+{{#each .}}
+import { {{{ tokenFileName }}} } from './{{{ tokenFileName }}}';
+{{/each}}
+import { ChainId, type VToken } from '../../types';
+
+export const vTokens: {
+  [chainId in ChainId]: VToken[];
+} = {
+  {{#each .}}
+  [{{ chainId }}]: {{{ tokenFileName }}},
+  {{/each}}
+};

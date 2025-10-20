@@ -4,7 +4,7 @@ import { chains } from '@venusprotocol/chains';
 import { useGetBlockNumber } from 'clients/api/queries/getBlockNumber/useGetBlockNumber';
 import { useGetProposalMinQuorumVotes } from 'clients/api/queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
 import FunctionKey from 'constants/functionKey';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import { type GetProposalsInput, type GetProposalsOutput, getProposals } from '.';
 
@@ -27,7 +27,7 @@ type Options = QueryObserverOptions<
   ]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChain.id];
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChainId];
 
 export const useGetProposals = (
   input: TrimmedGetProposalsInput = {},
@@ -39,7 +39,7 @@ export const useGetProposals = (
 
   const { data: getBlockNumberData } = useGetBlockNumber(
     {
-      chainId: governanceChain.id,
+      chainId: governanceChainId,
     },
     {
       refetchInterval: BSC_BLOCK_TIME_MS,
@@ -59,7 +59,7 @@ export const useGetProposals = (
       {
         ...sanitizedInput,
         // We will check that the current block number exists through the enabled parameter
-        chainId: governanceChain.id,
+        chainId: governanceChainId,
       },
     ],
     queryFn: () =>
@@ -72,7 +72,7 @@ export const useGetProposals = (
           getProposals({
             ...sanitizedInput,
             ...params,
-            chainId: governanceChain.id,
+            chainId: governanceChainId,
           }),
       ),
     placeholderData: a =>

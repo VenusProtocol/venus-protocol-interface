@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import { type Proposal, ProposalState } from 'types';
 import { generateExplorerUrl, getProposalStateLabel } from 'utilities';
 import { Status, type StatusProps } from '../../Status';
@@ -24,7 +24,7 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({ proposal, ...otherProp
       tmpStatusHref = generateExplorerUrl({
         hash: proposal.cancelTxHash,
         urlType: 'tx',
-        chainId: governanceChain.id,
+        chainId: governanceChainId,
       });
     }
 
@@ -32,7 +32,7 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({ proposal, ...otherProp
       tmpStatusHref = generateExplorerUrl({
         hash: proposal.queuedTxHash,
         urlType: 'tx',
-        chainId: governanceChain.id,
+        chainId: governanceChainId,
       });
     }
 
@@ -40,7 +40,7 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({ proposal, ...otherProp
       tmpStatusHref = generateExplorerUrl({
         hash: proposal.executedTxHash,
         urlType: 'tx',
-        chainId: governanceChain.id,
+        chainId: governanceChainId,
       });
     }
 

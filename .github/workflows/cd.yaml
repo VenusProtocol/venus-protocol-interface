@@ -16,6 +16,8 @@ permissions:
 env:
   VITE_ENV: "ci"
   HOSTNAME: "app-ipfs.venus.io"
+  CLI_NODE_REAL_API_KEY: ${{ secrets.CLI_NODE_REAL_API_KEY }}
+  CLI_ALCHEMY_API_KEY: ${{ secrets.CLI_ALCHEMY_API_KEY }}
 
 jobs:
   release:

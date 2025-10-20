@@ -2,7 +2,7 @@ import { ChainId } from '@venusprotocol/chains';
 import { queryClient } from 'clients/api';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { getContractAddress } from 'libs/contracts';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
 import { useExecuteProposal } from '..';
@@ -15,7 +15,7 @@ const fakeOptions = {
 };
 
 describe('useExecuteProposal', () => {
-  describe.each([governanceChain.id, ChainId.OPTIMISM_SEPOLIA])('%s', chainId => {
+  describe.each([governanceChainId, ChainId.OPTIMISM_SEPOLIA])('%s', chainId => {
     const fakeInput = {
       chainId,
       proposalId: 123,

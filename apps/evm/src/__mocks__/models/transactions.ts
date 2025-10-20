@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { usdt } from './tokens';
-import { vUsdt } from './vTokens';
+import { vUsdtCorePool } from './vTokens';
 
 export const transactions = {
   transactions: [
@@ -14,7 +14,7 @@ export const transactions = {
       contractAddress: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
       hash: '0xda13a0f45b10dabd21b863b6b602c6d8776edd4c6b10fe65a0881d491f468f35',
       poolName: 'Metaverse',
-      vTokenSymbol: vUsdt.symbol,
+      vTokenSymbol: vUsdtCorePool.symbol,
       token: usdt,
       txType: 'redeem',
     },
@@ -28,7 +28,7 @@ export const transactions = {
       contractAddress: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
       hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
       poolName: 'Metaverse',
-      vTokenSymbol: vUsdt.symbol,
+      vTokenSymbol: vUsdtCorePool.symbol,
       token: usdt,
       txType: 'mint',
     },
@@ -42,7 +42,7 @@ export const transactions = {
       contractAddress: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
       hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
       poolName: 'Metaverse',
-      vTokenSymbol: vUsdt.symbol,
+      vTokenSymbol: vUsdtCorePool.symbol,
       token: usdt,
       txType: 'borrow',
     },
@@ -56,7 +56,7 @@ export const transactions = {
       contractAddress: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
       hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
       poolName: 'Metaverse',
-      vTokenSymbol: vUsdt.symbol,
+      vTokenSymbol: vUsdtCorePool.symbol,
       token: usdt,
       txType: 'repay',
     },
@@ -70,7 +70,7 @@ export const transactions = {
       contractAddress: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
       hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
       poolName: 'Metaverse',
-      vTokenSymbol: vUsdt.symbol,
+      vTokenSymbol: vUsdtCorePool.symbol,
       token: usdt,
       txType: 'enter_market',
     },
@@ -84,7 +84,7 @@ export const transactions = {
       contractAddress: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
       hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
       poolName: 'Metaverse',
-      vTokenSymbol: vUsdt.symbol,
+      vTokenSymbol: vUsdtCorePool.symbol,
       token: usdt,
       txType: 'exit_market',
     },
@@ -100,8 +100,8 @@ export const transactions = {
       contractAddress: '0xb7526572FFE56AB9D7489838Bf2E18e3323b441A',
       hash: '0xb0435b135762a7ca2ad7dccb9aa6c7f50237c6139b16a76348d6c64dfece110e',
       poolName: 'Metaverse',
-      vTokenSymbol: vUsdt.symbol,
-      token: vUsdt,
+      vTokenSymbol: vUsdtCorePool.symbol,
+      token: vUsdtCorePool,
       txType: 'approve',
     },
   ],

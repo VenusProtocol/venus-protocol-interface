@@ -12,7 +12,6 @@ import { importablePositions } from '__mocks__/models/importablePositions';
 import { poolData } from '__mocks__/models/pools';
 import { primeEstimationData } from '__mocks__/models/primeEstimation';
 import { transactions } from '__mocks__/models/transactions';
-import vTokens from '__mocks__/models/vTokens';
 import { vaults } from '__mocks__/models/vaults';
 import voters from '__mocks__/models/voters';
 
@@ -394,16 +393,6 @@ export const useGetVaiRepayApr = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_VAI_REPAY_APR],
     queryFn: getVaiRepayApr,
-  }),
-);
-
-export const getVTokens = vi.fn(async () => ({
-  vTokens,
-}));
-export const useGetVTokens = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_VTOKENS],
-    queryFn: getVTokens,
   }),
 );
 

@@ -1,8 +1,8 @@
-import { iconSrcs } from '../../generated/tokenIconSrcs';
+import { iconSrcs } from '../../generated/manifests/tokenIcons';
 import type { Token } from '../../types';
 import { bnb } from '../nativeTokens';
 
-export const tokens: Token[] = [
+export const bscMainnet: Token[] = [
   {
     address: '0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63',
     decimals: 18,
@@ -400,5 +400,17 @@ export const tokens: Token[] = [
     decimals: 18,
     symbol: 'PT-USDe-30OCT2025',
     iconSrc: iconSrcs.ptUsdE,
+  },
+  {
+    address: '0x156ab3346823B651294766e23e6Cf87254d68962',
+    decimals: 6,
+    symbol: 'LUNA',
+    iconSrc: iconSrcs.luna,
+  },
+  {
+    address: '0x3d4350cD54aeF9f9b2C29435e0fa809957B3F30a',
+    decimals: 6,
+    symbol: 'UST',
+    iconSrc: iconSrcs.ust,
   },
 ];

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useTranslation } from 'libs/translations';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import { type RemoteProposal, RemoteProposalState } from 'types';
 import generateExplorerUrl from 'utilities/generateExplorerUrl';
 import { Status, type StatusProps } from '../../Status';
@@ -56,7 +56,7 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({
         generateExplorerUrl({
           hash: remoteProposal.failedTxHash,
           urlType: 'tx',
-          chainId: governanceChain.id,
+          chainId: governanceChainId,
         });
     }
 

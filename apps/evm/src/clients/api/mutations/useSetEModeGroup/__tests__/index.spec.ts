@@ -1,5 +1,5 @@
 import fakeAccountAddress from '__mocks__/models/address';
-import { vBusd } from '__mocks__/models/vTokens';
+import { vBusdCorePool } from '__mocks__/models/vTokens';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { renderHook } from 'testUtils/render';
@@ -8,7 +8,7 @@ import type { Mock } from 'vitest';
 import { type SetEModeGroupInput, useSetEModeGroup } from '..';
 
 const fakeBaseInput = {
-  vToken: vBusd,
+  vToken: vBusdCorePool,
   comptrollerContractAddress: '0xfakeComptrollerContractAddress' as Address,
 };
 

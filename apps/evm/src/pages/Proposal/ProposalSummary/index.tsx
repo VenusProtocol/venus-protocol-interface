@@ -6,7 +6,7 @@ import { useGetProposalEta } from 'clients/api';
 import { Card, Chip, Countdown, ProposalTypeChip } from 'components';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import { useTranslation } from 'libs/translations';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import { type Proposal, ProposalState, ProposalType } from 'types';
 
 import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
@@ -112,7 +112,7 @@ export const ProposalSummaryUi: React.FC<ProposalSummaryUiProps & ProposalSummar
                 urlType="tx"
                 hash={createdTxHash}
                 ellipseBreakpoint="xxl"
-                chainId={governanceChain.id}
+                chainId={governanceChainId}
               />
             )}
           </div>

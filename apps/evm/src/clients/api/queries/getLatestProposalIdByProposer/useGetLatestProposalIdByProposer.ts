@@ -3,7 +3,7 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { chains } from '@venusprotocol/chains';
 import FunctionKey from 'constants/functionKey';
 import { getContractAddress } from 'libs/contracts';
-import { governanceChain, usePublicClient } from 'libs/wallet';
+import { governanceChainId, usePublicClient } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import type { Address } from 'viem';
 import {
@@ -25,11 +25,11 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, Address]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChain.id];
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChainId];
 
 const governorBravoDelegateContractAddress = getContractAddress({
   name: 'GovernorBravoDelegate',
-  chainId: governanceChain.id,
+  chainId: governanceChainId,
 });
 
 export const useGetLatestProposalIdByProposer = (
@@ -37,7 +37,7 @@ export const useGetLatestProposalIdByProposer = (
   options?: Partial<Options>,
 ) => {
   const { publicClient } = usePublicClient({
-    chainId: governanceChain.id,
+    chainId: governanceChainId,
   });
 
   return useQuery({

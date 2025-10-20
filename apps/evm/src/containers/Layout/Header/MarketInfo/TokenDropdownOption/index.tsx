@@ -35,7 +35,7 @@ export const TokenDropdownOption = ({
   );
   const contentsDom = (
     <>
-      {token.iconSrc ? (
+      {'iconSrc' in token ? (
         <img className="w-5 max-w-none flex-none" src={token.iconSrc} alt={token.symbol} />
       ) : undefined}
       {label}
