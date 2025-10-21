@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.63.2
+
+### Patch Changes
+
+- 0c39a61: get liquidation penalty from API
+
 ## 3.63.1
 
 ### Patch Changes
