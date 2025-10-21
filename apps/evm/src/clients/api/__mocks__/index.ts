@@ -550,16 +550,6 @@ export const useGetVTokenUtilizationRate = vi.fn(() =>
   }),
 );
 
-export const getPoolLiquidationPenalty = vi.fn(async () => ({
-  liquidationPenaltyPercentage: 10,
-}));
-export const useGetPoolLiquidationPenalty = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_POOL_LIQUIDATION_PENALTY],
-    queryFn: getPoolLiquidationPenalty,
-  }),
-);
-
 export const getAddressDomainName = vi.fn(async () => undefined);
 export const useGetAddressDomainName = vi.fn(() =>
   useQuery({

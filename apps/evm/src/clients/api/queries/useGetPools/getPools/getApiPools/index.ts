@@ -88,6 +88,7 @@ export interface ApiMarket {
   reserveFactorMantissa: string;
   collateralFactorMantissa: string;
   liquidationThresholdMantissa: string;
+  liquidationIncentiveMantissa: string;
   borrowApy: string;
   supplyApy: string;
   borrowXvsApr: string | null;

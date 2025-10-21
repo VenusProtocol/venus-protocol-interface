@@ -124,6 +124,7 @@ export interface Asset {
   cashTokens: BigNumber;
   exchangeRateVTokens: BigNumber;
   liquidationThresholdPercentage: number;
+  liquidationPenaltyPercentage: number;
   supplierCount: number;
   borrowerCount: number;
   borrowApyPercentage: BigNumber;

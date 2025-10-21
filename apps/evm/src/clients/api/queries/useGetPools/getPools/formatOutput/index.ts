@@ -2,7 +2,7 @@ import { chains } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
-import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
+import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
 import type { Asset, ChainId, EModeGroup, Pool, Token, TokenBalance } from 'types';
 import {
   areAddressesEqual,
@@ -130,6 +130,10 @@ export const formatOutput = ({
 
       const liquidationThresholdPercentage = convertPercentageFromSmartContract(
         market.liquidationThresholdMantissa,
+      );
+
+      const liquidationPenaltyPercentage = convertPercentageFromSmartContract(
+        new BigNumber(market.liquidationIncentiveMantissa).minus(COMPOUND_MANTISSA),
       );
 
       let userLiquidationThresholdPercentage = liquidationThresholdPercentage;
@@ -270,6 +274,7 @@ export const formatOutput = ({
         reserveFactor,
         collateralFactor,
         liquidationThresholdPercentage,
+        liquidationPenaltyPercentage,
         cashTokens,
         liquidityCents,
         reserveTokens,
