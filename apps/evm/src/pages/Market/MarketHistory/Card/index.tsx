@@ -1,17 +1,14 @@
+import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
+import type { Address } from 'viem';
 
+import type { MarketHistoryPeriodType } from 'clients/api';
 import { Apy, ButtonGroup, Spinner } from 'components';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
 import { ApyChart, type ApyChartProps } from 'pages/Market/MarketHistory/Card/ApyChart';
-import { type Asset, ChainId } from 'types';
-import { areAddressesEqual, formatPercentageToReadableValue } from 'utilities';
-
-import BigNumber from 'bignumber.js';
-import { type MarketHistoryPeriodType, useGetPoolLiquidationPenalty } from 'clients/api';
-import { useChain } from 'hooks/useChain';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import { useChainId } from 'libs/wallet';
-import type { Address } from 'viem';
+import type { Asset } from 'types';
+import { formatPercentageToReadableValue } from 'utilities';
 import { MarketCard, type MarketCardProps } from '../../MarketCard';
 import { CapThreshold } from './CapThreshold';
 
@@ -37,14 +34,8 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   const { t } = useTranslation();
   const isApyChartsFeatureEnabled = useIsFeatureEnabled({ name: 'apyCharts' });
-  const chain = useChain();
-  const { chainId } = useChainId();
 
   const shouldDisplayLiquidationInfo = type === 'borrow';
-
-  const isLegacyBscPool =
-    (chainId === ChainId.BSC_MAINNET || chainId === ChainId.BSC_TESTNET) &&
-    areAddressesEqual(chain.corePoolComptrollerContractAddress, poolComptrollerContractAddress);
 
   const periodOptions: { label: string; value: MarketHistoryPeriodType }[] = useMemo(
     () => [
@@ -63,19 +54,6 @@ export const Card: React.FC<CardProps> = ({
     ],
     [t],
   );
-
-  const { data: getPoolLiquidationPenaltyData } = useGetPoolLiquidationPenalty(
-    {
-      poolComptrollerContractAddress,
-    },
-    {
-      enabled: shouldDisplayLiquidationInfo && !isLegacyBscPool,
-    },
-  );
-
-  const liquidationPenaltyPercentage = isLegacyBscPool
-    ? asset.collateralFactor * 100
-    : getPoolLiquidationPenaltyData?.liquidationPenaltyPercentage;
 
   const stats: MarketCardProps['stats'] = useMemo(() => {
     if (!asset) {
@@ -109,13 +87,13 @@ export const Card: React.FC<CardProps> = ({
         },
         {
           label: t('market.stats.liquidationPenalty'),
-          value: formatPercentageToReadableValue(liquidationPenaltyPercentage),
+          value: formatPercentageToReadableValue(asset.liquidationPenaltyPercentage),
         },
       );
     }
 
     return tmpStats;
-  }, [asset, data, t, type, liquidationPenaltyPercentage, shouldDisplayLiquidationInfo]);
+  }, [asset, data, t, type, shouldDisplayLiquidationInfo]);
 
   const legends: MarketCardProps['legends'] = [
     type === 'supply'

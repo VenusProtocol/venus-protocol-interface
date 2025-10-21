@@ -39,6 +39,7 @@ exports[`useGetAsset > returns the correct asset 1`] = `
     "isBorrowable": true,
     "isBorrowableByUser": true,
     "isCollateralOfUser": true,
+    "liquidationPenaltyPercentage": 4,
     "liquidationThresholdPercentage": 50,
     "liquidityCents": "8036465875",
     "reserveFactor": 0.25,
