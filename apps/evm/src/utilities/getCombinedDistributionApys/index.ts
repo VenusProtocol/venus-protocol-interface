@@ -16,7 +16,8 @@ const aggregatePercentages = ({ distributions }: AggregatePercentagesInput) =>
       if (
         distribution.type === 'venus' ||
         distribution.type === 'merkl' ||
-        distribution.type === 'intrinsic'
+        distribution.type === 'intrinsic' ||
+        distribution.type === 'off-chain'
       ) {
         return {
           ...acc,

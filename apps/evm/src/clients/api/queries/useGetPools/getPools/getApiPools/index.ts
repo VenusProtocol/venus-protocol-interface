@@ -40,6 +40,10 @@ interface ApiIntrinsicApyReward extends ApiReward {
   };
 }
 
+type ApiOffChainApyReward = Omit<ApiIntrinsicApyReward, 'type'> & {
+  rewardType: 'intrinsic';
+};
+
 export type PointsProgram = 'ethena' | 'etherfi' | 'kelp' | 'solv' | 'aster';
 
 export interface ApiPointsDistribution {
@@ -54,7 +58,11 @@ export interface ApiPointsDistribution {
   logoUrl?: string;
 }
 
-export type ApiRewardDistributor = ApiVenusReward | ApiMerklReward | ApiIntrinsicApyReward;
+export type ApiRewardDistributor =
+  | ApiVenusReward
+  | ApiMerklReward
+  | ApiIntrinsicApyReward
+  | ApiOffChainApyReward;
 
 export interface ApiMarketEModeSettings {
   marketAddress: Address;

@@ -1,5 +1,6 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId, Token, VToken } from '@venusprotocol/chains';
+import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
 import type { Address, ByteArray, Hex } from 'viem';
 
@@ -97,12 +98,17 @@ export interface IntrinsicApyDistribution {
   };
 }
 
+export type OffChainApyDistribution = Omit<IntrinsicApyDistribution, 'type' | 'rewardDetails'> & {
+  type: 'off-chain';
+};
+
 export type TokenDistribution =
   | RewardDistributorDistribution
   | PrimeDistribution
   | PrimeSimulationDistribution
   | MerklDistribution
-  | IntrinsicApyDistribution;
+  | IntrinsicApyDistribution
+  | OffChainApyDistribution;
 
 export interface PointDistribution {
   title: string;

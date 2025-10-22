@@ -123,6 +123,9 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
         if (distribution.type === 'intrinsic') {
           label = t('assetInfo.intrinsicApy', { tokenSymbol: distribution.token.symbol });
         }
+        if (distribution.type === 'off-chain') {
+          label = t('assetInfo.offChainApy', { tokenSymbol: distribution.token.symbol });
+        }
         const children =
           distribution.type === 'prime' ? (
             <ValueUpdate
@@ -145,6 +148,9 @@ export const AssetInfo: React.FC<AssetInfoProps> = ({
         }
         if (distribution.type === 'intrinsic') {
           tooltip = t('assetInfo.intrinsicApyTooltip');
+        }
+        if (distribution.type === 'off-chain') {
+          tooltip = t('assetInfo.offChainApyTooltip');
         }
 
         const row: LabeledInlineContentProps = {

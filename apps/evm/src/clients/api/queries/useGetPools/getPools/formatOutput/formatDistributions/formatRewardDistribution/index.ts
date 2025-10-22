@@ -3,6 +3,7 @@ import type BigNumber from 'bignumber.js';
 import type {
   IntrinsicApyDistribution,
   MerklDistribution,
+  OffChainApyDistribution,
   RewardDistributorDistribution,
   Token,
   TokenDistribution,
@@ -23,7 +24,9 @@ interface IntrinsicApyRewardDetails {
   description: string;
 }
 
-type FormatDistributionInput<TType extends 'venus' | 'merkl' | 'intrinsic'> = {
+type ApiRewardType = 'venus' | 'merkl' | 'intrinsic' | 'off-chain';
+
+type FormatDistributionInput<TType extends ApiRewardType> = {
   rewardType: TType;
   isActive: boolean;
   marketAddress: Address;
@@ -34,7 +37,7 @@ type FormatDistributionInput<TType extends 'venus' | 'merkl' | 'intrinsic'> = {
   rewardDetails: TType extends 'merkl' ? MerklRewardDetails : IntrinsicApyRewardDetails | null;
 };
 
-const formatRewardDistribution = <TType extends 'venus' | 'merkl' | 'intrinsic'>({
+const formatRewardDistribution = <TType extends ApiRewardType>({
   marketAddress,
   isActive,
   rewardType,
@@ -81,6 +84,16 @@ const formatRewardDistribution = <TType extends 'venus' | 'merkl' | 'intrinsic'>
       type: 'intrinsic',
       isActive,
       rewardDetails: rewardDetails as IntrinsicApyRewardDetails,
+    };
+
+    return distribution;
+  }
+
+  if (rewardType === 'off-chain') {
+    const distribution: OffChainApyDistribution = {
+      ...baseProps,
+      type: 'off-chain',
+      isActive,
     };
 
     return distribution;
