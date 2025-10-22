@@ -1,15 +1,18 @@
+import { cn } from '@venusprotocol/ui';
+import type { Address } from 'viem';
+
 import { type ModalProps, Tabs } from 'components';
 import AssetAccessor from 'containers/AssetAccessor';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { VToken } from 'types';
-
-import type { Tab } from 'hooks/useTabs';
-import type { Address } from 'viem';
 import BorrowForm from './BorrowForm';
 import NativeTokenBalanceWrapper from './NativeTokenBalanceWrapper';
 import RepayForm from './RepayForm';
 import SupplyForm from './SupplyForm';
 import WithdrawForm from './WithdrawForm';
+import rocketIconSrc from './rocket.svg';
 
 export interface OperationFormProps {
   vToken: VToken;
@@ -25,6 +28,10 @@ export const OperationForm: React.FC<OperationFormProps> = ({
   initialActiveTabId,
 }) => {
   const { t } = useTranslation();
+
+  const isLeveragedPositionsFeatureEnabled = useIsFeatureEnabled({
+    name: 'leveragedPositions',
+  });
 
   const tabs: Tab[] = [
     {
@@ -81,31 +88,50 @@ export const OperationForm: React.FC<OperationFormProps> = ({
         </AssetAccessor>
       ),
     },
-    {
-      id: 'repay',
-      title: t('operationForm.repayTabTitle'),
-      content: (
-        <AssetAccessor
-          vToken={vToken}
-          poolComptrollerAddress={poolComptrollerAddress}
-          action="repay"
-        >
-          {({ asset, pool }) => (
-            <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-              {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
-                <RepayForm
-                  asset={asset}
-                  pool={pool}
-                  userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
-                  onSubmitSuccess={onSubmitSuccess}
-                />
-              )}
-            </NativeTokenBalanceWrapper>
-          )}
-        </AssetAccessor>
-      ),
-    },
   ];
 
-  return <Tabs tabs={tabs} initialActiveTabId={initialActiveTabId} navType="searchParam" />;
+  if (isLeveragedPositionsFeatureEnabled) {
+    tabs.push({
+      id: 'boost',
+      title: (
+        <div className="flex items-center gap-x-1">
+          <img src={rocketIconSrc} className="size-4" alt={t('operationForm.boostTabAltText')} />
+
+          <span className="text-[#65EEE0]">{t('operationForm.boostTabTitle')}</span>
+        </div>
+      ),
+      content: <>Coming soon</>,
+    });
+  }
+
+  tabs.push({
+    id: 'repay',
+    title: t('operationForm.repayTabTitle'),
+    content: (
+      <AssetAccessor vToken={vToken} poolComptrollerAddress={poolComptrollerAddress} action="repay">
+        {({ asset, pool }) => (
+          <NativeTokenBalanceWrapper asset={asset} pool={pool}>
+            {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
+              <RepayForm
+                asset={asset}
+                pool={pool}
+                userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
+                onSubmitSuccess={onSubmitSuccess}
+              />
+            )}
+          </NativeTokenBalanceWrapper>
+        )}
+      </AssetAccessor>
+    ),
+  });
+
+  return (
+    <Tabs
+      tabs={tabs}
+      initialActiveTabId={initialActiveTabId}
+      navType="searchParam"
+      variant={isLeveragedPositionsFeatureEnabled ? 'secondary' : 'primary'}
+      headerClassName={cn(isLeveragedPositionsFeatureEnabled && 'sm:gap-x-8 lg:gap-x-6')}
+    />
+  );
 };

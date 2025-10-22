@@ -8,7 +8,6 @@ export const useStyles = () => {
     buttonsContainer: css`
       display: flex;
       align-items: center;
-      margin-bottom: ${theme.spacing(6)};
       width: 100%;
 
       > button {
