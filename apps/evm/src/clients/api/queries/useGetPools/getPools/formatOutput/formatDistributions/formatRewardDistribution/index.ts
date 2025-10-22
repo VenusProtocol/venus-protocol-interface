@@ -1,9 +1,8 @@
 import type BigNumber from 'bignumber.js';
 
 import type {
-  IntrinsicApyDistribution,
+  GenericDistribution,
   MerklDistribution,
-  OffChainApyDistribution,
   RewardDistributorDistribution,
   Token,
   TokenDistribution,
@@ -19,7 +18,7 @@ interface MerklRewardDetails {
   tags: string[];
 }
 
-interface IntrinsicApyRewardDetails {
+interface GenericDistributionRewardDetails {
   name: string;
   description: string;
 }
@@ -34,7 +33,9 @@ type FormatDistributionInput<TType extends ApiRewardType> = {
   rewardTokenPriceDollars: BigNumber;
   dailyDistributedRewardTokens: BigNumber;
   balanceDollars: BigNumber;
-  rewardDetails: TType extends 'merkl' ? MerklRewardDetails : IntrinsicApyRewardDetails | null;
+  rewardDetails: TType extends 'merkl'
+    ? MerklRewardDetails
+    : GenericDistributionRewardDetails | null;
 };
 
 const formatRewardDistribution = <TType extends ApiRewardType>({
@@ -78,22 +79,12 @@ const formatRewardDistribution = <TType extends ApiRewardType>({
     return distribution;
   }
 
-  if (rewardType === 'intrinsic' && rewardDetails) {
-    const distribution: IntrinsicApyDistribution = {
+  if ((rewardType === 'intrinsic' || rewardType === 'off-chain') && rewardDetails) {
+    const distribution: GenericDistribution = {
       ...baseProps,
-      type: 'intrinsic',
+      type: rewardType,
       isActive,
-      rewardDetails: rewardDetails as IntrinsicApyRewardDetails,
-    };
-
-    return distribution;
-  }
-
-  if (rewardType === 'off-chain') {
-    const distribution: OffChainApyDistribution = {
-      ...baseProps,
-      type: 'off-chain',
-      isActive,
+      rewardDetails: rewardDetails as GenericDistributionRewardDetails,
     };
 
     return distribution;

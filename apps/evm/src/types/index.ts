@@ -86,8 +86,8 @@ export interface MerklDistribution {
   };
 }
 
-export interface IntrinsicApyDistribution {
-  type: 'intrinsic';
+export interface GenericDistribution {
+  type: 'intrinsic' | 'off-chain';
   token: Token;
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
@@ -98,17 +98,12 @@ export interface IntrinsicApyDistribution {
   };
 }
 
-export type OffChainApyDistribution = Omit<IntrinsicApyDistribution, 'type' | 'rewardDetails'> & {
-  type: 'off-chain';
-};
-
 export type TokenDistribution =
   | RewardDistributorDistribution
   | PrimeDistribution
   | PrimeSimulationDistribution
   | MerklDistribution
-  | IntrinsicApyDistribution
-  | OffChainApyDistribution;
+  | GenericDistribution;
 
 export interface PointDistribution {
   title: string;
