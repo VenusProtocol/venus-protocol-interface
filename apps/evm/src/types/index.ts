@@ -1,5 +1,6 @@
 import type { Token as PSToken } from '@pancakeswap/sdk';
 import type { ChainId, Token, VToken } from '@venusprotocol/chains';
+import type { Omit } from '@wagmi/core/internal';
 import type BigNumber from 'bignumber.js';
 import type { Address, ByteArray, Hex } from 'viem';
 
@@ -85,8 +86,8 @@ export interface MerklDistribution {
   };
 }
 
-export interface IntrinsicApyDistribution {
-  type: 'intrinsic';
+export interface GenericDistribution {
+  type: 'intrinsic' | 'off-chain';
   token: Token;
   apyPercentage: BigNumber;
   dailyDistributedTokens: BigNumber;
@@ -102,7 +103,7 @@ export type TokenDistribution =
   | PrimeDistribution
   | PrimeSimulationDistribution
   | MerklDistribution
-  | IntrinsicApyDistribution;
+  | GenericDistribution;
 
 export interface PointDistribution {
   title: string;

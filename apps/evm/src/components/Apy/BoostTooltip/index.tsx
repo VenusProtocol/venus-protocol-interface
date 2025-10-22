@@ -36,10 +36,14 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
     {
       name:
         type === 'supply'
-          ? t('apy.boost.tooltip.baseSupplyApyLabel')
-          : t('apy.boost.tooltip.baseBorrowApyLabel'),
+          ? t('apy.boost.tooltip.supplyApy.name')
+          : t('apy.boost.tooltip.borrowApy.name'),
       value: formatPercentageToReadableValue(baseApyPercentage),
       logoSrc: token.iconSrc,
+      description:
+        type === 'supply'
+          ? t('apy.boost.tooltip.supplyApy.description')
+          : t('apy.boost.tooltip.borrowApy.description'),
     },
   ];
 
@@ -88,6 +92,17 @@ export const BoostTooltip: React.FC<BoostTooltipProps> = ({
       const distribution: DistributionProps = {
         name: t('apy.boost.tooltip.intrinsicApy.name'),
         description: t('apy.boost.tooltip.intrinsicApy.description'),
+        value: formatPercentageToReadableValue(d.apyPercentage),
+        logoSrc: d.token.iconSrc,
+      };
+
+      return listItems.push(distribution);
+    }
+
+    if (d.type === 'off-chain') {
+      const distribution: DistributionProps = {
+        name: t('apy.boost.tooltip.offChainApy.name'),
+        description: t('apy.boost.tooltip.offChainApy.description'),
         value: formatPercentageToReadableValue(d.apyPercentage),
         logoSrc: d.token.iconSrc,
       };

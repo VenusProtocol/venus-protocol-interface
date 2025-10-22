@@ -1,7 +1,7 @@
 import type BigNumber from 'bignumber.js';
 
 import type {
-  IntrinsicApyDistribution,
+  GenericDistribution,
   MerklDistribution,
   RewardDistributorDistribution,
   Token,
@@ -18,12 +18,14 @@ interface MerklRewardDetails {
   tags: string[];
 }
 
-interface IntrinsicApyRewardDetails {
+interface GenericDistributionRewardDetails {
   name: string;
   description: string;
 }
 
-type FormatDistributionInput<TType extends 'venus' | 'merkl' | 'intrinsic'> = {
+type ApiRewardType = 'venus' | 'merkl' | 'intrinsic' | 'off-chain';
+
+type FormatDistributionInput<TType extends ApiRewardType> = {
   rewardType: TType;
   isActive: boolean;
   marketAddress: Address;
@@ -31,10 +33,12 @@ type FormatDistributionInput<TType extends 'venus' | 'merkl' | 'intrinsic'> = {
   rewardTokenPriceDollars: BigNumber;
   dailyDistributedRewardTokens: BigNumber;
   balanceDollars: BigNumber;
-  rewardDetails: TType extends 'merkl' ? MerklRewardDetails : IntrinsicApyRewardDetails | null;
+  rewardDetails: TType extends 'merkl'
+    ? MerklRewardDetails
+    : GenericDistributionRewardDetails | null;
 };
 
-const formatRewardDistribution = <TType extends 'venus' | 'merkl' | 'intrinsic'>({
+const formatRewardDistribution = <TType extends ApiRewardType>({
   marketAddress,
   isActive,
   rewardType,
@@ -75,12 +79,12 @@ const formatRewardDistribution = <TType extends 'venus' | 'merkl' | 'intrinsic'>
     return distribution;
   }
 
-  if (rewardType === 'intrinsic' && rewardDetails) {
-    const distribution: IntrinsicApyDistribution = {
+  if ((rewardType === 'intrinsic' || rewardType === 'off-chain') && rewardDetails) {
+    const distribution: GenericDistribution = {
       ...baseProps,
-      type: 'intrinsic',
+      type: rewardType,
       isActive,
-      rewardDetails: rewardDetails as IntrinsicApyRewardDetails,
+      rewardDetails: rewardDetails as GenericDistributionRewardDetails,
     };
 
     return distribution;
