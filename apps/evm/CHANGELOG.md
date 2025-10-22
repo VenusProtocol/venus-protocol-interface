@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 3.64.0
+
+### Minor Changes
+
+- 6f7caac: Support off-chain APYs
+- 9ddded0: add Slider component
+
 ## 3.63.2
 
 ### Patch Changes
