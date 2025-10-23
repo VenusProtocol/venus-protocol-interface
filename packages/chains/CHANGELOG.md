@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.11.0
+
+### Minor Changes
+
+- dc04c9f: list vTokens in chains package
+
 ## 0.10.0
 
 ### Minor Changes

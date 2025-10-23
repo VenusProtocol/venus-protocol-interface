@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.65.0
+
+### Minor Changes
+
+- dc04c9f: list vTokens in chains package
+
+### Patch Changes
+
+- Updated dependencies [dc04c9f]
+  - @venusprotocol/chains@0.11.0
+
 ## 3.64.0
 
 ### Minor Changes
