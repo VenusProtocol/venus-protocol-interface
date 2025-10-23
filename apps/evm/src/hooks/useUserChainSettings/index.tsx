@@ -1,3 +1,4 @@
+import { DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { useChainId } from 'libs/wallet';
 import { type State, type UserChainSettings, store } from 'store';
 
@@ -7,6 +8,7 @@ export const defaultUserChainSettings: UserChainSettings = {
   showUserAssetsOnly: false,
   showUserEModeAssetsOnly: false,
   doNotShowImportPositionsModal: false,
+  slippageTolerancePercentage: String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE),
 };
 
 export const useUserChainSettings = () => {

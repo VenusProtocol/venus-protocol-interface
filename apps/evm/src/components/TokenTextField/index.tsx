@@ -5,6 +5,7 @@ import { forwardRef, useMemo } from 'react';
 import type { Token } from 'types';
 
 import { type ButtonProps, TertiaryButton } from '@venusprotocol/ui';
+import { getDecimals } from 'utilities';
 import { TextField, type TextFieldProps } from '../TextField';
 
 export interface RightMaxButton extends Omit<ButtonProps, 'variant' | 'children' | 'small'> {
@@ -41,7 +42,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
 
     const handleChange: TextFieldProps['onChange'] = ({ currentTarget: { value } }) => {
       // Forbid values with more decimals than the token provided supports
-      const valueDecimals = value.includes('.') ? value.split('.')[1].length : 0;
+      const valueDecimals = getDecimals({ value });
 
       if (valueDecimals <= token.decimals) {
         onChange(value);

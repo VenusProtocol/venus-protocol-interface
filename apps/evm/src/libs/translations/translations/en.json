@@ -695,20 +695,12 @@
     "supplyTabTitle": "Supply",
     "swapDetails": {
       "label": {
-        "exchangeRate": "Exchange rate",
-        "priceImpact": "Price impact",
         "repay": "You will repay",
-        "slippageTolerance": "Slippage tolerance",
         "supply": "You will supply"
-      },
-      "tooltip": {
-        "priceImpact": "Difference between the market price and estimated price due to trade size."
       },
       "value": {
         "estimatedAmount": "≈ {{ value }}",
-        "exactAmount": "{{ value }}",
-        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
-        "priceImpact": "{{ priceImpact }}"
+        "exactAmount": "{{ value }}"
       }
     },
     "swapSummary": {
@@ -964,6 +956,23 @@
     },
     "warning": {
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
+    }
+  },
+  "swapDetails": {
+    "exchangeRate": {
+      "label": "Exchange rate",
+      "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
+    },
+    "priceImpact": {
+      "label": "Price impact",
+      "tooltip": "Difference between the market price and estimated price due to trade size."
+    },
+    "slippageToleranceModal": {
+      "description": "Setting a high slippage tolerance can help transactions succeed, but you may not get such a good price. Use with caution.",
+      "title": "Slippage tolerance"
+    },
+    "slippageTolerance": {
+      "label": "Slippage tolerance"
     }
   },
   "swapPage": {

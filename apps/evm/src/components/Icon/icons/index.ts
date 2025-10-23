@@ -72,3 +72,4 @@ export { default as transactionOut } from './transactionOut';
 export { default as transactionCollateral } from './transactionCollateral';
 export { default as transactionLink } from './transactionLink';
 export { default as eMode } from './eMode';
+export { default as gear } from './gear';

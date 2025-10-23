@@ -1,7 +1,6 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
-import { useChain } from 'hooks/useChain';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
 import {
@@ -10,8 +9,9 @@ import {
   getPancakeSwapPairs,
 } from '.';
 
-import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import generateTokenCombinationIds from './generateTokenCombinationIds';
+
+const REFETCH_INTERVAL_MS = 3000;
 
 export type UseGetPancakeSwapPairsQueryKey = [
   FunctionKey.GET_PANCAKE_SWAP_PAIRS,
@@ -33,7 +33,6 @@ export const useGetPancakeSwapPairs = (
 ) => {
   const { chainId } = useChainId();
   const { publicClient } = usePublicClient();
-  const { blockTimeMs } = useChain();
 
   // Generate query key based on token combinations
   const tokenCombinationIds = generateTokenCombinationIds(input.tokenCombinations);
@@ -41,10 +40,8 @@ export const useGetPancakeSwapPairs = (
   return useQuery({
     queryKey: [FunctionKey.GET_PANCAKE_SWAP_PAIRS, { chainId }, ...tokenCombinationIds],
     queryFn: () => getPancakeSwapPairs({ ...input, publicClient }),
-
     // Refresh request on every new block
-    refetchInterval: blockTimeMs || DEFAULT_REFETCH_INTERVAL_MS,
-
+    refetchInterval: REFETCH_INTERVAL_MS,
     staleTime: 0,
     gcTime: 0,
     ...options,

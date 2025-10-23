@@ -11,6 +11,7 @@ export interface UserChainSettings {
   showUserAssetsOnly: boolean;
   showUserEModeAssetsOnly: boolean;
   doNotShowImportPositionsModal: boolean;
+  slippageTolerancePercentage?: string;
 }
 
 type UserSettings = Partial<Record<ChainId, Partial<UserChainSettings>>>;
@@ -41,15 +42,16 @@ const useStore = create<State>()(
       userSettings: initialUserSettings,
       setUserSettings: ({ settings, chainIds = allChainIds }) =>
         set(state =>
-          chainIds.forEach(chainId =>
-            Object.entries(settings).forEach(([key, value]) => {
-              if (!state.userSettings[chainId]) {
-                state.userSettings[chainId] = {};
-              }
+          chainIds.forEach(chainId => {
+            if (!state.userSettings[chainId]) {
+              state.userSettings[chainId] = {};
+            }
 
-              state.userSettings[chainId][key as keyof UserChainSettings] = value;
-            }),
-          ),
+            state.userSettings[chainId] = {
+              ...state.userSettings[chainId],
+              ...settings,
+            };
+          }),
         ),
     })),
     {
