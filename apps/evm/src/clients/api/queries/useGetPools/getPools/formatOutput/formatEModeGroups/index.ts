@@ -1,23 +1,21 @@
 import BigNumber from 'bignumber.js';
 
 import { COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import type { ChainId, EModeAssetSettings, EModeGroup, Token } from 'types';
+import type { EModeAssetSettings, EModeGroup, VToken } from 'types';
 import {
   areAddressesEqual,
   convertFactorFromSmartContract,
   convertPercentageFromSmartContract,
+  findTokenByAddress,
 } from 'utilities';
 import type { ApiPool } from '../../getApiPools';
-import { formatVToken } from '../formatVToken';
 
 export const formatEModeGroups = ({
   apiPool,
-  tokens,
-  chainId,
+  vTokens,
 }: {
   apiPool: ApiPool;
-  tokens: Token[];
-  chainId: ChainId;
+  vTokens: VToken[];
 }) => {
   const eModeGroups: EModeGroup[] = (apiPool.eModeGroups || []).map(apiEModeGroup => {
     const assetSettings = apiEModeGroup.eModeSettings.reduce<EModeAssetSettings[]>(
@@ -30,10 +28,9 @@ export const formatEModeGroups = ({
           return acc;
         }
 
-        const vToken = formatVToken({
-          apiMarket,
-          tokens,
-          chainId,
+        const vToken = findTokenByAddress({
+          tokens: vTokens,
+          address: apiMarket.address,
         });
 
         if (!vToken) {

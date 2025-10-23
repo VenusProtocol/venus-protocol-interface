@@ -1,5 +1,5 @@
 import { NATIVE_TOKEN_ADDRESS } from '../../constants';
-import { iconSrcs } from '../../generated/tokenIconSrcs';
+import { iconSrcs } from '../../generated/manifests/tokenIcons';
 import type { Token } from '../../types';
 
 export const eth: Token = {

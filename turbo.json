@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [".nvmrc", "tsconfig.json", "vite.config.ts"],
+  "globalEnv": ["CLI_ALCHEMY_API_KEY", "CLI_NODE_REAL_API_KEY"],
   "tasks": {
     "generate": {
       "cache": false,
@@ -11,7 +12,6 @@
       "dependsOn": ["^postinstall"]
     },
     "start": {
-      "dependsOn": ["^postinstall"],
       "cache": false,
       "persistent": true
     },

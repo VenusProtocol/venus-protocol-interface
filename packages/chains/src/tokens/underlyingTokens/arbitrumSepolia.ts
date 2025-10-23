@@ -1,8 +1,8 @@
-import { iconSrcs } from '../../generated/tokenIconSrcs';
+import { iconSrcs } from '../../generated/manifests/tokenIcons';
 import type { Token } from '../../types';
 import { eth } from '../nativeTokens';
 
-export const tokens: Token[] = [
+export const arbitrumSepolia: Token[] = [
   eth,
   {
     address: '0x4371bb358aB5cC192E481543417D2F67b8781731',

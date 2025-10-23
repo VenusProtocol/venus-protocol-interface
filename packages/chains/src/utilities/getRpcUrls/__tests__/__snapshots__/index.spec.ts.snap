@@ -1,0 +1,64 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getRpcUrls > returns RPC URLs for all chains 1`] = `
+{
+  "1": [
+    "https://eth-mainnet.nodereal.io/v1/fake-node-real-api-key",
+    "https://eth-mainnet.g.alchemy.com/v2/fake-alchemy-api-key",
+  ],
+  "10": [
+    "https://opt-mainnet.g.alchemy.com/v2/fake-alchemy-api-key",
+    "https://opt-mainnet.nodereal.io/v1/fake-node-real-api-key",
+  ],
+  "11155111": [
+    "https://eth-sepolia.nodereal.io/v1/fake-node-real-api-key",
+  ],
+  "11155420": [
+    "https://opt-sepolia.g.alchemy.com/v2/fake-alchemy-api-key",
+    "https://sepolia.optimism.io",
+  ],
+  "130": [
+    "https://unichain-mainnet.g.alchemy.com/v2/fake-alchemy-api-key",
+  ],
+  "1301": [
+    "https://unichain-sepolia.g.alchemy.com/v2/fake-alchemy-api-key",
+  ],
+  "204": [
+    "https://opbnb-mainnet.nodereal.io/v1/fake-node-real-api-key",
+    "https://opbnb-mainnet.g.alchemy.com/v2/fake-alchemy-api-key",
+  ],
+  "300": [
+    "https://sepolia.era.zksync.dev",
+  ],
+  "324": [
+    "https://open-platform.nodereal.io/fake-node-real-api-key/zksync",
+    "https://zksync-mainnet.g.alchemy.com/v2/fake-alchemy-api-key",
+  ],
+  "42161": [
+    "https://open-platform.nodereal.io/fake-node-real-api-key/arbitrum-nitro",
+    "https://arb-mainnet.g.alchemy.com/v2/fake-alchemy-api-key",
+  ],
+  "421614": [
+    "https://rpc.ankr.com/arbitrum_sepolia/451c00a15d3de617618d7a880cec1da8065b10906c460b1462a8b8769d91e0da",
+  ],
+  "56": [
+    "https://bsc-mainnet.nodereal.io/v1/fake-node-real-api-key",
+    "https://bnb-mainnet.g.alchemy.com/v2/fake-alchemy-api-key",
+  ],
+  "5611": [
+    "https://opbnb-testnet.g.alchemy.com/v2/fake-alchemy-api-key",
+    "https://opbnb-testnet.nodereal.io/v1/fake-node-real-api-key",
+  ],
+  "8453": [
+    "https://base-mainnet.g.alchemy.com/v2/fake-alchemy-api-key",
+    "https://open-platform.nodereal.io/fake-node-real-api-key/base",
+  ],
+  "84532": [
+    "https://base-sepolia.g.alchemy.com/v2/fake-alchemy-api-key",
+    "https://sepolia.base.org",
+  ],
+  "97": [
+    "https://bsc-testnet.nodereal.io/v1/fake-node-real-api-key",
+  ],
+}
+`;

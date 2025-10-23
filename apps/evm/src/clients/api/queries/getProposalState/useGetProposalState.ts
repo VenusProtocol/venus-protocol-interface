@@ -4,7 +4,7 @@ import { chains } from '@venusprotocol/chains';
 import FunctionKey from 'constants/functionKey';
 import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import { type GetProposalStateInput, type GetProposalStateOutput, getProposalState } from '.';
 
@@ -21,10 +21,10 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PROPOSAL_STATE, TrimmedGetProposalStateInput]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChain.id];
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChainId];
 const governorBravoDelegateAddress = getContractAddress({
   name: 'GovernorBravoDelegate',
-  chainId: governanceChain.id,
+  chainId: governanceChainId,
 });
 
 export const useGetProposalState = (
@@ -32,7 +32,7 @@ export const useGetProposalState = (
   options?: Partial<Options>,
 ) => {
   const { publicClient } = usePublicClient({
-    chainId: governanceChain.id,
+    chainId: governanceChainId,
   });
 
   return useQuery({

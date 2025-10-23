@@ -3,7 +3,7 @@ import { FormikSubmitButton } from 'containers/Form';
 import { SwitchChain } from 'containers/SwitchChain';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'libs/translations';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 
 export interface SubmitSectionProps {
   previouslyDelegated: boolean;
@@ -28,7 +28,7 @@ export const SubmitSection = ({
   if (isValid) {
     dom = (
       <ConnectWallet analyticVariant="vote_delegate_modal">
-        <SwitchChain chainId={governanceChain.id}>{dom}</SwitchChain>
+        <SwitchChain chainId={governanceChainId}>{dom}</SwitchChain>
       </ConnectWallet>
     );
   }

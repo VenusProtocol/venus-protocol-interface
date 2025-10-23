@@ -3,7 +3,7 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import FunctionKey from 'constants/functionKey';
 import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import { type GetVoteReceiptInput, type GetVoteReceiptOutput, getVoteReceipt } from '.';
 
@@ -28,7 +28,7 @@ export const useGetVoteReceipt = (
   const { publicClient } = usePublicClient();
   const governorBravoDelegateAddress = getContractAddress({
     name: 'GovernorBravoDelegate',
-    chainId: governanceChain.id,
+    chainId: governanceChainId,
   });
 
   return useQuery({

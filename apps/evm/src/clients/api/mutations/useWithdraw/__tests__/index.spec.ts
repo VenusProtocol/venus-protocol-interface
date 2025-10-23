@@ -1,7 +1,7 @@
 import fakeAccountAddress, {
   altAddress as fakePoolComptrollerContractAddress,
 } from '__mocks__/models/address';
-import { vBnb, vUsdt, vWeth } from '__mocks__/models/vTokens';
+import { vBnb, vUsdtCorePool, vWeth } from '__mocks__/models/vTokens';
 import BigNumber from 'bignumber.js';
 import { queryClient } from 'clients/api';
 import { useSendTransaction } from 'hooks/useSendTransaction';
@@ -17,7 +17,7 @@ vi.mock('libs/contracts');
 const fakeAmountMantissa = new BigNumber('10000000000000000');
 
 const fakeInput = {
-  vToken: vUsdt,
+  vToken: vUsdtCorePool,
   amountMantissa: fakeAmountMantissa,
   poolComptrollerContractAddress: fakePoolComptrollerContractAddress,
   poolName: 'Fake Pool',

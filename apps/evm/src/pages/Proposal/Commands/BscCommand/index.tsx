@@ -1,7 +1,7 @@
 import { chains } from '@venusprotocol/chains';
 import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { useTranslation } from 'libs/translations';
-import { governanceChain, useChainId } from 'libs/wallet';
+import { governanceChainId, useChainId } from 'libs/wallet';
 import { useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { type Proposal, ProposalState } from 'types';
@@ -11,7 +11,7 @@ import { useIsProposalCancelableByUser } from '../useIsProposalCancelableByUser'
 import { ActionButton } from './ActionButton';
 import { CurrentStep } from './CurrentStep';
 
-const governanceChainMetadata = chains[governanceChain.id];
+const governanceChainMetadata = chains[governanceChainId];
 
 export interface BscCommandProps extends React.HTMLAttributes<HTMLDivElement> {
   proposal: Proposal;
@@ -22,7 +22,7 @@ export const BscCommand: React.FC<BscCommandProps> = ({ proposal, ...otherProps 
   const { chainId: currentChainId } = useChainId();
   const { accountAddress } = useAccountAddress();
 
-  const isOnWrongChain = currentChainId !== governanceChain.id;
+  const isOnWrongChain = currentChainId !== governanceChainId;
 
   const { isExecutable } = useIsProposalExecutable({
     isQueued: proposal.state === ProposalState.Queued,
@@ -61,7 +61,7 @@ export const BscCommand: React.FC<BscCommandProps> = ({ proposal, ...otherProps 
 
   return (
     <Command
-      chainId={governanceChain.id}
+      chainId={governanceChainId}
       description={
         description ? (
           <Description type={isExecutable && isOnWrongChain ? 'warning' : 'info'}>

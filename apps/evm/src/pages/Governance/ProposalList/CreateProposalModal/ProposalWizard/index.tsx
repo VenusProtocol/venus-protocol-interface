@@ -10,7 +10,7 @@ import { useTranslation } from 'libs/translations';
 
 import { FormikSubmitButton } from 'containers/Form';
 import { SwitchChain } from 'containers/SwitchChain';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import ActionAccordion from '../ActionAccordion';
 import ProposalInfo from '../ProposalInfo';
 import ProposalPreview from '../ProposalPreview';
@@ -173,7 +173,7 @@ const ProposalWizard: React.FC<ProposalWizardProps> = ({
       )}
 
       {currentStep === 'proposal-preview' && (
-        <SwitchChain chainId={governanceChain.id}>
+        <SwitchChain chainId={governanceChainId}>
           <FormikSubmitButton
             enabledLabel={t('vote.createProposalForm.create')}
             className="w-full"

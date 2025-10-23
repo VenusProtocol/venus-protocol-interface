@@ -24,7 +24,7 @@ import { Link } from 'containers/Link';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { governanceChain, useAccountAddress, useAuthModal, useSwitchChain } from 'libs/wallet';
+import { governanceChainId, useAccountAddress, useAuthModal, useSwitchChain } from 'libs/wallet';
 import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import config from 'config';
@@ -132,7 +132,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
               <Button
                 className="h-auto"
                 variant="text"
-                onClick={() => switchChain({ chainId: governanceChain.id })}
+                onClick={() => switchChain({ chainId: governanceChainId })}
               >
                 {t('vote.omnichain.switchToBnb')}
               </Button>

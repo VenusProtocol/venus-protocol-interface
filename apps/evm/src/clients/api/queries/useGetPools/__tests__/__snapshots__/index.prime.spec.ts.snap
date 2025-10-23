@@ -93,7 +93,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
@@ -181,7 +180,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
@@ -270,7 +268,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
@@ -331,7 +328,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -451,7 +447,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -571,7 +566,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -594,7 +588,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "vToken": {
                 "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
                 "symbol": "vETH",
                 "underlyingToken": {
                   "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
@@ -613,7 +606,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "vToken": {
                 "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
                 "symbol": "vBUSD",
                 "underlyingToken": {
                   "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
@@ -637,7 +629,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
                 "symbol": "vUSDT",
                 "underlyingToken": {
                   "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -655,7 +646,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "vToken": {
                 "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
                 "symbol": "vUSDC",
                 "underlyingToken": {
                   "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -739,8 +729,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_DeFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -806,8 +795,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_GameFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -922,8 +910,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Liquid_Staked_BNB",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -974,7 +961,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
@@ -1041,8 +1027,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Meme",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -1136,7 +1121,6 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
@@ -1237,8 +1221,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x3338988d0beb4419Acb8fE624218754053362D06",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Stablecoins",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -1338,8 +1321,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
           "vToken": {
             "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Tron",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -1480,7 +1462,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
@@ -1568,7 +1549,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
@@ -1657,7 +1637,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
@@ -1718,7 +1697,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -1860,7 +1838,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -2002,7 +1979,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -2025,7 +2001,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "vToken": {
                 "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
                 "symbol": "vETH",
                 "underlyingToken": {
                   "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
@@ -2044,7 +2019,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "vToken": {
                 "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
                 "symbol": "vBUSD",
                 "underlyingToken": {
                   "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
@@ -2068,7 +2042,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
                 "symbol": "vUSDT",
                 "underlyingToken": {
                   "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -2086,7 +2059,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "vToken": {
                 "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
                 "symbol": "vUSDC",
                 "underlyingToken": {
                   "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -2170,8 +2142,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_DeFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -2237,8 +2208,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_GameFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -2375,8 +2345,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Liquid_Staked_BNB",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -2427,7 +2396,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
@@ -2494,8 +2462,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Meme",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -2589,7 +2556,6 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
@@ -2712,8 +2678,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x3338988d0beb4419Acb8fE624218754053362D06",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Stablecoins",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -2835,8 +2800,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
           "vToken": {
             "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Tron",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -2945,7 +2909,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
             "symbol": "vBUSD",
             "underlyingToken": {
               "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
@@ -3033,7 +2996,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
             "symbol": "vETH",
             "underlyingToken": {
               "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
@@ -3122,7 +3084,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
             "symbol": "vBNB",
             "underlyingToken": {
               "address": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
@@ -3183,7 +3144,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
             "symbol": "vXVS",
             "underlyingToken": {
               "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
@@ -3293,7 +3253,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
             "symbol": "vUSDT",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -3403,7 +3362,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
             "symbol": "vUSDC",
             "underlyingToken": {
               "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -3426,7 +3384,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "vToken": {
                 "address": "0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0x86f8DfB7CA84455174EE9C3edd94867b51Da46BD",
                 "symbol": "vETH",
                 "underlyingToken": {
                   "address": "0x98f7A83361F7Ac8765CcEBAB1425da6b341958a7",
@@ -3445,7 +3402,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "vToken": {
                 "address": "0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0x8c8A1a0b6e1cb8058037F7bF24de6b79Aca5B7B0",
                 "symbol": "vBUSD",
                 "underlyingToken": {
                   "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
@@ -3469,7 +3425,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "vToken": {
                 "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
                 "symbol": "vUSDT",
                 "underlyingToken": {
                   "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
@@ -3487,7 +3442,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
               "vToken": {
                 "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
                 "decimals": 8,
-                "iconSrc": "fake-icon-97-0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
                 "symbol": "vUSDC",
                 "underlyingToken": {
                   "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
@@ -3571,8 +3525,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x80CC30811e362aC9aB857C3d7875CbcCc0b65750",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_DeFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -3638,8 +3591,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x0bFE4e0B8A2a096A27e5B18b078d25be57C08634",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_GameFi",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -3744,8 +3696,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x2197d02cC9cd1ad51317A0a85A656a0c82383A7c",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Liquid_Staked_BNB",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -3796,7 +3747,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x231dED0Dfc99634e52EE1a1329586bc970d773b3",
             "symbol": "vWBNB",
             "underlyingToken": {
               "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
@@ -3863,8 +3813,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x3AF2bE7AbEF0f840b196D99d79F4B803a5dB14a1",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Meme",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -3958,7 +3907,6 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x170d3b2da05cc2124334240fB34ad1359e34C562",
             "symbol": "vlisUSD",
             "underlyingToken": {
               "address": "0xe73774DfCD551BF75650772dC2cC56a2B6323453",
@@ -4049,8 +3997,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x3338988d0beb4419Acb8fE624218754053362D06",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x3338988d0beb4419Acb8fE624218754053362D06",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Stablecoins",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,
@@ -4140,8 +4087,7 @@ exports[`useGetPools > filters out Prime simulations that are 0 1`] = `
           "vToken": {
             "address": "0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
             "decimals": 8,
-            "iconSrc": "fake-icon-97-0x712774CBFFCBD60e9825871CcEFF2F917442b2c3",
-            "symbol": "vUSDT",
+            "symbol": "vUSDT_Tron",
             "underlyingToken": {
               "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
               "decimals": 6,

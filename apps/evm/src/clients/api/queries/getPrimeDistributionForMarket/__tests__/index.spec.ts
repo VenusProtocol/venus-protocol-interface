@@ -1,6 +1,6 @@
 import type { Address, PublicClient } from 'viem';
 
-import { vUsdt } from '__mocks__/models/vTokens';
+import { vUsdtCorePool } from '__mocks__/models/vTokens';
 
 import { getPrimeDistributionForMarket } from '..';
 
@@ -18,7 +18,7 @@ describe('getPrimeDistributionForMarket', () => {
     } as unknown as PublicClient;
 
     const response = await getPrimeDistributionForMarket({
-      vTokenAddress: vUsdt.address,
+      vTokenAddress: vUsdtCorePool.address,
       primeContractAddress: fakePrimeContractAddress as Address,
       publicClient: fakePublicClient,
     });
@@ -28,7 +28,7 @@ describe('getPrimeDistributionForMarket', () => {
       address: fakePrimeContractAddress,
       abi: expect.any(Object),
       functionName: 'incomeDistributionYearly',
-      args: [vUsdt.address],
+      args: [vUsdtCorePool.address],
     });
     expect(response).toMatchSnapshot();
   });

@@ -7,7 +7,7 @@ import {
   omnichainGovernanceExecutorAbi,
 } from 'libs/contracts';
 import { VError } from 'libs/errors';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import type { ChainId } from 'types';
 
 type ExecuteProposalInput = {
@@ -22,7 +22,7 @@ export const useExecuteProposal = (options?: Partial<Options>) => {
     fn: ({ proposalId, chainId }: ExecuteProposalInput) => {
       const address = getContractAddress({
         name:
-          chainId === governanceChain.id ? 'GovernorBravoDelegate' : 'OmnichainGovernanceExecutor',
+          chainId === governanceChainId ? 'GovernorBravoDelegate' : 'OmnichainGovernanceExecutor',
         chainId,
       });
 
@@ -36,9 +36,7 @@ export const useExecuteProposal = (options?: Partial<Options>) => {
       return {
         address,
         abi:
-          chainId === governanceChain.id
-            ? governorBravoDelegateAbi
-            : omnichainGovernanceExecutorAbi,
+          chainId === governanceChainId ? governorBravoDelegateAbi : omnichainGovernanceExecutorAbi,
         functionName: 'execute',
         args: [BigInt(proposalId)],
       };

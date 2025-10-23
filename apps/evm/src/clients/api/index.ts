@@ -162,9 +162,6 @@ export * from './queries/getVaiRepayApr/useGetVaiRepayApr';
 export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
 export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
 
-export * from './queries/getVTokens';
-export * from './queries/getVTokens/useGetVTokens';
-
 export * from './queries/getPrimeToken';
 export * from './queries/getPrimeToken/useGetPrimeToken';
 

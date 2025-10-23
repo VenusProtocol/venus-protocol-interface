@@ -1,0 +1,40 @@
+import {
+  type Chain,
+  arbitrum as arbitrumOne,
+  arbitrumSepolia,
+  base,
+  baseSepolia,
+  bsc as bscMainnet,
+  bscTestnet,
+  mainnet as ethereum,
+  opBNB as opBNBMainnet,
+  opBNBTestnet,
+  optimism as optimismMainnet,
+  optimismSepolia,
+  sepolia,
+  unichain,
+  unichainSepolia,
+  zksync as zksyncMainnet,
+  zksyncSepoliaTestnet,
+} from 'wagmi/chains';
+
+import { ChainId } from '../../types';
+
+export const viemChains: Record<ChainId, Chain> = {
+  [ChainId.BSC_MAINNET]: bscMainnet,
+  [ChainId.BSC_TESTNET]: bscTestnet,
+  [ChainId.ETHEREUM]: ethereum,
+  [ChainId.SEPOLIA]: sepolia,
+  [ChainId.OPBNB_MAINNET]: opBNBMainnet,
+  [ChainId.OPBNB_TESTNET]: opBNBTestnet,
+  [ChainId.ARBITRUM_ONE]: arbitrumOne,
+  [ChainId.ARBITRUM_SEPOLIA]: arbitrumSepolia,
+  [ChainId.ZKSYNC_MAINNET]: zksyncMainnet,
+  [ChainId.ZKSYNC_SEPOLIA]: zksyncSepoliaTestnet,
+  [ChainId.OPTIMISM_MAINNET]: optimismMainnet,
+  [ChainId.OPTIMISM_SEPOLIA]: optimismSepolia,
+  [ChainId.BASE_MAINNET]: base,
+  [ChainId.BASE_SEPOLIA]: baseSepolia,
+  [ChainId.UNICHAIN_MAINNET]: unichain,
+  [ChainId.UNICHAIN_SEPOLIA]: unichainSepolia,
+};

@@ -37,12 +37,7 @@ export const formatApiTransaction = ({
   const isApproval = txType === TxType.Approve;
 
   const vTokenSymbol = vToken.symbol;
-  const token = isApproval
-    ? {
-        ...vToken,
-        iconSrc: vToken.iconSrc ?? vToken.underlyingToken.iconSrc,
-      }
-    : vToken.underlyingToken;
+  const token = isApproval ? vToken : vToken.underlyingToken;
 
   const canCalculateUsdAmount =
     !isApproval && txType !== TxType.EnterMarket && txType !== TxType.ExitMarket;

@@ -2,7 +2,7 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 import { chains } from '@venusprotocol/chains';
 
 import FunctionKey from 'constants/functionKey';
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import { callOrThrow } from 'utilities';
 import { type GetProposalInput, type GetProposalOutput, getProposal } from '.';
 import { useGetBlockNumber } from '../getBlockNumber/useGetBlockNumber';
@@ -25,7 +25,7 @@ type Options = QueryObserverOptions<
   ]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChain.id];
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChainId];
 
 export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial<Options>) => {
   const { data: getProposalMinQuorumVotesData } = useGetProposalMinQuorumVotes();
@@ -34,7 +34,7 @@ export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial
 
   const { data: getBlockNumberData } = useGetBlockNumber(
     {
-      chainId: governanceChain.id,
+      chainId: governanceChainId,
     },
     {
       refetchInterval: BSC_BLOCK_TIME_MS,
@@ -52,7 +52,7 @@ export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial
       FunctionKey.GET_PROPOSAL,
       {
         ...input,
-        chainId: governanceChain.id,
+        chainId: governanceChainId,
       },
     ],
     queryFn: () =>
@@ -65,7 +65,7 @@ export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial
           getProposal({
             ...input,
             ...params,
-            chainId: governanceChain.id,
+            chainId: governanceChainId,
           }),
       ),
     refetchInterval: BSC_BLOCK_TIME_MS,

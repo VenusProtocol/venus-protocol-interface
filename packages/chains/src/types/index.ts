@@ -66,7 +66,4 @@ export interface Token {
 export interface VToken extends Omit<Token, 'isNative' | 'iconSrc' | 'tokenWrapped'> {
   decimals: 8; // VBep tokens all have 8 decimals
   underlyingToken: Token;
-  iconSrc?: string;
 }
-
-export type VTokenIconUrlMapping = Record<string, string>;

@@ -16,7 +16,12 @@ import { routes } from 'constants/routing';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
-import { governanceChain, useAccountAddress, useAccountChainId, useSwitchChain } from 'libs/wallet';
+import {
+  governanceChainId,
+  useAccountAddress,
+  useAccountChainId,
+  useSwitchChain,
+} from 'libs/wallet';
 import { ProposalState, type Proposal as ProposalType } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
@@ -85,7 +90,7 @@ export const ProposalUi: React.FC<ProposalUiProps> = ({
               <Button
                 className="h-auto"
                 variant="text"
-                onClick={() => switchChain({ chainId: governanceChain.id })}
+                onClick={() => switchChain({ chainId: governanceChainId })}
               >
                 {t('vote.omnichain.switchToBnb')}
               </Button>
@@ -199,7 +204,7 @@ const Proposal = () => {
     // user has some voting weight
     votingWeightData.votesMantissa.isGreaterThan(0);
 
-  const isUserConnectedToGovernanceChain = accountChainId === governanceChain.id;
+  const isUserConnectedToGovernanceChain = accountChainId === governanceChainId;
 
   if (getProposalError) {
     return <Redirect to={routes.governance.path} />;

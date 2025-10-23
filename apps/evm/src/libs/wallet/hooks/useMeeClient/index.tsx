@@ -3,6 +3,7 @@ import {
   createMeeClient,
   toMultichainNexusAccount,
 } from '@biconomy/abstractjs';
+import { viemChains } from '@venusprotocol/chains';
 import { http, useWalletClient } from 'wagmi';
 
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
@@ -10,7 +11,6 @@ import config from 'config';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
-import { chainMapping } from 'libs/wallet/chains';
 import type { ChainId } from 'types';
 import { useAccountAddress } from '../useAccountAddress';
 import { useChainId } from '../useChainId';
@@ -73,7 +73,7 @@ export const useMeeClient = (input?: { chainId: ChainId }, options?: Partial<Opt
       }
 
       const transport = http(config.rpcUrls[chainId][0]);
-      const chain = chainMapping[chainId];
+      const chain = viemChains[chainId];
 
       const nexusAccount = await toMultichainNexusAccount({
         chains: [chain],

@@ -1,8 +1,8 @@
-import { iconSrcs } from '../../generated/tokenIconSrcs';
+import { iconSrcs } from '../../generated/manifests/tokenIcons';
 import type { Token } from '../../types';
 import { eth } from '../nativeTokens';
 
-export const tokens: Token[] = [
+export const zkSyncSepolia: Token[] = [
   eth,
   {
     address: '0x3AeCac43A2ebe5D8184e650403bf9F656F9D1cfA',

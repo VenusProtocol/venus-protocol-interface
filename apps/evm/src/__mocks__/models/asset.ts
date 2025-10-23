@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import MAX_UINT256 from 'constants/maxUint256';
 
 import { busd, usdc, usdt, xvs } from '__mocks__/models/tokens';
-import { vBusd, vUsdc, vUsdt, vXvs } from '__mocks__/models/vTokens';
+import { vBusdCorePool, vUsdc, vUsdtCorePool, vXvs } from '__mocks__/models/vTokens';
 
 import type { Asset } from 'types';
 
@@ -170,7 +170,7 @@ export const assetData: Asset[] = [
     borrowPointDistributions: [],
   },
   {
-    vToken: vUsdt,
+    vToken: vUsdtCorePool,
     supplyApyPercentage: new BigNumber('3.593608909332766999'),
     borrowApyPercentage: new BigNumber('-4.9748661428011145'),
     collateralFactor: 0.8,
@@ -256,7 +256,7 @@ export const assetData: Asset[] = [
     ],
   },
   {
-    vToken: vBusd,
+    vToken: vBusdCorePool,
     supplyApyPercentage: new BigNumber('2.886396363044176106'),
     borrowApyPercentage: new BigNumber('-4.050271277344538'),
     collateralFactor: 0.8,

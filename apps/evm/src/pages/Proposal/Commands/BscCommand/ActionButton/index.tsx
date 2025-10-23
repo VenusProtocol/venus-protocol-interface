@@ -6,7 +6,7 @@ import { SwitchChain } from 'containers/SwitchChain';
 import { useIsProposalExecutable } from 'hooks/useIsProposalExecutable';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import { governanceChain, useAccountAddress } from 'libs/wallet';
+import { governanceChainId, useAccountAddress } from 'libs/wallet';
 import { useMemo } from 'react';
 import { ProposalState } from 'types';
 import type { Address } from 'viem';
@@ -88,7 +88,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     if (isExecutable) {
       const execute = async () => {
         try {
-          await executeProposal({ proposalId, chainId: governanceChain.id });
+          await executeProposal({ proposalId, chainId: governanceChainId });
         } catch (error) {
           handleError({ error });
         }
@@ -116,7 +116,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 
   return (
     <ConnectWallet {...otherProps} analyticVariant="vote_bsc_command">
-      <SwitchChain chainId={governanceChain.id}>{buttonDom}</SwitchChain>
+      <SwitchChain chainId={governanceChainId}>{buttonDom}</SwitchChain>
     </ConnectWallet>
   );
 };

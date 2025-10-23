@@ -7,7 +7,7 @@ import { ReadableActionSignature } from 'containers/ReadableActionSignature';
 import { useTranslation } from 'libs/translations';
 import { ProposalType } from 'types';
 
-import { governanceChain } from 'libs/wallet';
+import { governanceChainId } from 'libs/wallet';
 import encodeCallData from '../encodeCallData';
 import type { FormValues } from '../proposalSchema';
 import { useStyles } from './styles';
@@ -105,7 +105,7 @@ const ProposalPreview: React.FC = () => {
               callData: encodeCallData(action.signature, action.callData),
               actionIndex,
             }}
-            chainId={governanceChain.id}
+            chainId={governanceChainId}
           />
         ))}
       </div>
