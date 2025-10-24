@@ -101,7 +101,7 @@ export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueCh
       <div className="space-y-4">
         <TextField
           className="sm:hidden"
-          isSmall
+          size="xs"
           value={searchValue}
           onChange={handleSearchInputChange}
           placeholder={t('pool.eMode.search.placeholder')}

@@ -1,6 +1,6 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import { DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
 import { getContractAddress, swapRouterAbi } from 'libs/contracts';
@@ -220,7 +220,7 @@ export const useSwapTokens = (options?: Partial<Options>) => {
               : swap.toTokenAmountReceivedMantissa,
         }).toNumber(),
         priceImpactPercentage: swap.priceImpactPercentage,
-        slippageTolerancePercentage: SLIPPAGE_TOLERANCE_PERCENTAGE,
+        slippageTolerancePercentage: DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
         exchangeRate: swap.exchangeRate.toNumber(),
       });
 

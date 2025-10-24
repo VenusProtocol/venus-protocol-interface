@@ -1,6 +1,6 @@
 import { queryClient } from 'clients/api';
 import FunctionKey from 'constants/functionKey';
-import { SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
+import { DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
@@ -122,7 +122,7 @@ export const useSwapTokensAndSupply = (
               : input.swap.toTokenAmountReceivedMantissa,
         }).toNumber(),
         priceImpactPercentage: input.swap.priceImpactPercentage,
-        slippageTolerancePercentage: SLIPPAGE_TOLERANCE_PERCENTAGE,
+        slippageTolerancePercentage: DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
         exchangeRate: input.swap.exchangeRate.toNumber(),
       });
 

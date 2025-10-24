@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import { cn } from '@venusprotocol/ui';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import {
+  DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
-  SLIPPAGE_TOLERANCE_PERCENTAGE,
 } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
 import type { Swap } from 'types';
@@ -17,7 +17,7 @@ import {
 import { LabeledInlineContent } from 'components';
 
 const readableSlippageTolerancePercentage = formatPercentageToReadableValue(
-  SLIPPAGE_TOLERANCE_PERCENTAGE,
+  DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
 );
 
 export interface SwapDetailsProps extends React.HTMLAttributes<HTMLDivElement> {

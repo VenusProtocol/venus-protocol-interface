@@ -1,21 +1,10 @@
-import { useMemo } from 'react';
+import { Accordion } from 'components';
 
-import { cn } from '@venusprotocol/ui';
-import { Accordion, LabeledInlineContent } from 'components';
-import {
-  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
-  SLIPPAGE_TOLERANCE_PERCENTAGE,
-} from 'constants/swap';
+import { SwapDetails as SwapDetailsComp } from 'containers/SwapDetails';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
-import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useTranslation } from 'libs/translations';
 import type { Swap } from 'types';
-import { formatPercentageToReadableValue } from 'utilities';
 import TEST_IDS from '../testIds';
-
-const readableSlippageTolerancePercentage = formatPercentageToReadableValue(
-  SLIPPAGE_TOLERANCE_PERCENTAGE,
-);
 
 export interface SwapDetailsProps extends React.HTMLAttributes<HTMLDivElement> {
   action: 'repay' | 'supply';
@@ -34,12 +23,6 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
     token: swap.toToken,
   });
 
-  const readableExchangeRate = useFormatTokensToReadableValue({
-    value: swap.exchangeRate,
-    token: swap.toToken,
-    addSymbol: false,
-  });
-
   const getAccordionTitle = () => {
     if (action === 'repay') {
       return swap.direction === 'exactAmountIn'
@@ -56,11 +39,6 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
     });
   };
 
-  const readablePriceImpact = useMemo(
-    () => swap && formatPercentageToReadableValue(swap.priceImpactPercentage),
-    [swap],
-  );
-
   return (
     <Accordion
       title={
@@ -72,34 +50,12 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
       data-testid={TEST_IDS.swapDetails}
       {...otherProps}
     >
-      <div className="space-y-2">
-        <LabeledInlineContent label={t('operationForm.swapDetails.label.exchangeRate')}>
-          {t('operationForm.swapDetails.value.exchangeRate', {
-            fromTokenSymbol: swap.fromToken.symbol,
-            toTokenSymbol: swap.toToken.symbol,
-            rate: readableExchangeRate,
-          })}
-        </LabeledInlineContent>
-
-        <LabeledInlineContent label={t('operationForm.swapDetails.label.slippageTolerance')}>
-          {readableSlippageTolerancePercentage}
-        </LabeledInlineContent>
-
-        <LabeledInlineContent
-          label={t('operationForm.swapDetails.label.priceImpact')}
-          tooltip={t('operationForm.swapDetails.tooltip.priceImpact')}
-        >
-          <span
-            className={cn(
-              swap.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE && 'text-red',
-            )}
-          >
-            {t('operationForm.swapDetails.value.priceImpact', {
-              priceImpact: readablePriceImpact,
-            })}
-          </span>
-        </LabeledInlineContent>
-      </div>
+      <SwapDetailsComp
+        exchangeRate={swap.exchangeRate}
+        fromToken={swap.fromToken}
+        toToken={swap.toToken}
+        priceImpactPercentage={swap.priceImpactPercentage}
+      />
     </Accordion>
   );
 };
