@@ -12,10 +12,11 @@ import { SenaryButton } from '@venusprotocol/ui';
 import { TextField } from '../../TextField';
 import { useStyles as useParentStyles } from '../styles';
 import { getTokenListItemTestId } from '../testIdGetters';
+import type { OptionalTokenBalance } from '../types';
 import { useStyles } from './styles';
 
 export interface TokenListProps {
-  tokenBalances: TokenBalance[];
+  tokenBalances: OptionalTokenBalance[];
   onTokenClick: (token: Token) => void;
   'data-testid'?: string;
 }
@@ -47,8 +48,8 @@ export const TokenList: React.FC<TokenListProps> = ({
   const sortedTokenBalances = useMemo(
     () =>
       [...tokenBalances].sort((a, b) => {
-        const aIsNonNegative = a.balanceMantissa.isGreaterThan(0);
-        const bIsNonNegative = b.balanceMantissa.isGreaterThan(0);
+        const aIsNonNegative = !!a.balanceMantissa?.isGreaterThan(0);
+        const bIsNonNegative = !!b.balanceMantissa?.isGreaterThan(0);
 
         // Both are non-negative or both are negative
         if (aIsNonNegative === bIsNonNegative) {
@@ -127,15 +128,17 @@ export const TokenList: React.FC<TokenListProps> = ({
           >
             <TokenIconWithSymbol css={parentStyles.token} token={tokenBalance.token} />
 
-            <Typography variant="small2">
-              {convertMantissaToTokens({
-                value: tokenBalance.balanceMantissa,
-                token: tokenBalance.token,
-                returnInReadableFormat: true,
+            {tokenBalance.balanceMantissa && (
+              <Typography variant="small2">
+                {convertMantissaToTokens({
+                  value: tokenBalance.balanceMantissa,
+                  token: tokenBalance.token,
+                  returnInReadableFormat: true,
 
-                addSymbol: false,
-              })}
-            </Typography>
+                  addSymbol: false,
+                })}
+              </Typography>
+            )}
           </div>
         ))}
       </div>

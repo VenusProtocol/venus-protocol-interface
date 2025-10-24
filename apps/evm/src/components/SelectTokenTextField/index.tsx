@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { useState } from 'react';
 
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
-import type { Token, TokenBalance } from 'types';
+import type { Token } from 'types';
 
 import { TertiaryButton } from '@venusprotocol/ui';
 import { Icon } from '../Icon';
@@ -15,10 +15,11 @@ import {
   getTokenSelectButtonTestId,
   getTokenTextFieldTestId,
 } from './testIdGetters';
+import type { OptionalTokenBalance } from './types';
 
 export interface SelectTokenTextFieldProps extends Omit<TokenTextFieldProps, 'max' | 'token'> {
   selectedToken: Token;
-  tokenBalances: TokenBalance[];
+  tokenBalances: OptionalTokenBalance[];
   onChangeSelectedToken: (token: Token) => void;
   'data-testid'?: string;
 }
