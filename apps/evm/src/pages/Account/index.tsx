@@ -1,5 +1,7 @@
+import { cn } from '@venusprotocol/ui';
+
 import { useGetPools, useGetTokenUsdPrice, useGetVaiRepayApr, useGetVaults } from 'clients/api';
-import { Page, Spinner } from 'components';
+import { Page, Spinner, Tabs } from 'components';
 import { Redirect } from 'containers/Redirect';
 import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
 import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
@@ -14,7 +16,6 @@ import { Pools } from './Pools';
 import { PrimeBanner } from './PrimeBanner';
 import { Settings } from './Settings';
 import { Summary } from './Summary';
-import { Tabs } from './Tabs';
 import { Transactions } from './Transactions';
 import { Vaults } from './Vaults';
 import { useExtractData } from './useExtractData';
@@ -171,7 +172,13 @@ export const Account: React.FC = () => {
         />
       </div>
 
-      <Tabs tabs={tabs} />
+      <Tabs
+        tabs={tabs}
+        className="lg:space-y-8"
+        headerClassName={cn('text-md sm:text-lg')}
+        navType="searchParam"
+        variant="secondary"
+      />
     </Page>
   );
 };

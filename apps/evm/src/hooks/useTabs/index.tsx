@@ -11,7 +11,7 @@ export interface UseTabsInput<T extends Tab> {
 
 export interface Tab extends Record<string, any> {
   id: string;
-  title: string;
+  title: React.ReactNode;
   content: React.ReactNode;
 }
 

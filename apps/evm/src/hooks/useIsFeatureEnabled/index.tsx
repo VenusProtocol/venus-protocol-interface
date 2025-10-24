@@ -141,6 +141,16 @@ export const featureFlags = {
     ChainId.UNICHAIN_SEPOLIA,
   ],
   transactionHistory: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.UNICHAIN_MAINNET],
+  leveragedPositions: [
+    ChainId.BSC_TESTNET,
+    ChainId.OPBNB_TESTNET,
+    ChainId.SEPOLIA,
+    ChainId.ARBITRUM_SEPOLIA,
+    ChainId.ZKSYNC_SEPOLIA,
+    ChainId.OPTIMISM_SEPOLIA,
+    ChainId.BASE_SEPOLIA,
+    ChainId.UNICHAIN_SEPOLIA,
+  ],
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

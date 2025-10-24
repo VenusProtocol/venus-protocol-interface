@@ -3,7 +3,7 @@ import { TertiaryButton } from '@venusprotocol/ui';
 import { useStyles } from './styles';
 
 export interface ButtonGroupProps {
-  buttonLabels: string[];
+  buttonLabels: React.ReactNode[];
   activeButtonIndex: number;
   onButtonClick: (newIndex: number) => void;
   fullWidth?: boolean;

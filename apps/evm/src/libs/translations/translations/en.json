@@ -650,6 +650,8 @@
   },
   "operationForm": {
     "availableAmount": "Available",
+    "boostTabAltText": "Rocket icon",
+    "boostTabTitle": "Boost",
     "borrowTabTitle": "Borrow",
     "error": {
       "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
