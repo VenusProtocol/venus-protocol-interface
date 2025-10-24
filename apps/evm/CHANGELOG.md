@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.66.0
+
+### Minor Changes
+
+- 2257387: add Boost tab to Market page
+
 ## 3.65.0
 
 ### Minor Changes
