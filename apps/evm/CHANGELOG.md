@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.67.0
+
+### Minor Changes
+
+- e60e886: Add missing TX types
+
 ## 3.66.0
 
 ### Minor Changes
