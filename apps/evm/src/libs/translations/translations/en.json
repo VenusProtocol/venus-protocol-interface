@@ -92,7 +92,14 @@
           "all": "All markets"
         },
         "txType": {
-          "all": "All transactions"
+          "all": "All transactions",
+          "mint": "Supply",
+          "borrow": "Borrow",
+          "redeem": "Withdraw",
+          "repay": "Repayment",
+          "approve": "Approval",
+          "enterMarket": "Enabled collateral",
+          "exitMarket": "Disabled collateral"
         }
       },
       "today": "Today",
