@@ -15,6 +15,15 @@ const PAGE_PARAM_KEY = 'page';
 const TX_TYPE_PARAM_KEY = 'txType';
 const CONTRACT_ADDRESS_PARAM_KEY = 'contractAddress';
 
+// DO NOT REMOVE COMMENT: needed by i18next to extract translation key
+// t('account.transactions.selects.txType.mint')
+// t('account.transactions.selects.txType.repay')
+// t('account.transactions.selects.txType.borrow')
+// t('account.transactions.selects.txType.redeem')
+// t('account.transactions.selects.txType.approve')
+// t('account.transactions.selects.txType.exitMarket')
+// t('account.transactions.selects.txType.enterMarket')
+
 const getTxTypeOptionTranslationKey = (txType: TxType) => {
   switch (txType) {
     case TxType.Mint:
