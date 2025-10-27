@@ -24,7 +24,6 @@ export interface UseGetValuesInput {
 }
 
 export interface UseGetValuesOutput {
-  poolUserHealthFactor: number | undefined;
   poolUserDailyEarningsCents: BigNumber | undefined;
   hypotheticalPoolUserHealthFactor: number | undefined;
   hypotheticalPoolUserDailyEarningsCents: BigNumber | undefined;
@@ -67,17 +66,8 @@ const useGetValues = ({
     const poolUserDailyEarningsCents =
       poolUserYearlyEarningsCents && calculateDailyEarningsCents(poolUserYearlyEarningsCents);
 
-    const poolUserHealthFactor =
-      pool.userLiquidationThresholdCents &&
-      pool.userBorrowBalanceCents &&
-      calculateHealthFactor({
-        liquidationThresholdCents: pool.userLiquidationThresholdCents.toNumber(),
-        borrowBalanceCents: pool.userBorrowBalanceCents.toNumber(),
-      });
-
     const returnValues: UseGetValuesOutput = {
       poolUserDailyEarningsCents,
-      poolUserHealthFactor,
       hypotheticalPoolUserHealthFactor: undefined,
       hypotheticalPoolUserDailyEarningsCents: undefined,
       hypotheticalPoolUserBorrowBalanceCents: undefined,

@@ -65,6 +65,7 @@ export const formatEModeGroups = ({
     const eModeGroup: EModeGroup = {
       name: apiEModeGroup.label,
       id: apiEModeGroup.poolId,
+      isIsolated: !apiEModeGroup.allowCorePoolFallback,
       assetSettings,
     };
 

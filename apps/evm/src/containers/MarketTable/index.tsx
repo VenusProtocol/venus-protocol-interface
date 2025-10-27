@@ -10,7 +10,7 @@ import { useBreakpointUp } from 'hooks/responsive';
 import { useCollateral } from 'hooks/useCollateral';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import type { Asset } from 'types';
+import type { Asset, EModeGroup } from 'types';
 import pauseIconSrc from './pause.svg';
 import { useStyles } from './styles';
 import type { ColumnKey } from './types';
@@ -25,6 +25,7 @@ export interface MarketTableProps
   poolName: string;
   poolComptrollerContractAddress: Address;
   columns: ColumnKey[];
+  userEModeGroup?: EModeGroup;
   controls?: boolean;
   initialOrder?: {
     orderBy: ColumnKey;
@@ -40,6 +41,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   poolComptrollerContractAddress,
   marketType,
   columns: columnKeys,
+  userEModeGroup,
   initialOrder,
   breakpoint,
   title,
@@ -61,7 +63,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     assets: filteredAssets,
     pausedAssetsExist,
     userHasAssets,
-    userHasEModeGroup,
     searchValue,
     onSearchValueChange,
     showPausedAssets,
@@ -73,6 +74,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   } = useControls({
     assets,
     applyUserSettings: controls,
+    userEModeGroup,
   });
 
   const handleSearchInputChange: InputHTMLAttributes<HTMLInputElement>['onChange'] = changeEvent =>
@@ -93,6 +95,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const columns = useColumns({
     columnKeys,
     collateralOnChange: handleCollateralChange,
+    userEModeGroup,
   });
 
   const formattedInitialOrder = useMemo(() => {
@@ -157,7 +160,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                           />
                         )}
 
-                        {userHasEModeGroup && (
+                        {userEModeGroup && (
                           <Toggle
                             onChange={() => setShowUserEModeAssetsOnly(!showUserEModeAssetsOnly)}
                             value={showUserEModeAssetsOnly}

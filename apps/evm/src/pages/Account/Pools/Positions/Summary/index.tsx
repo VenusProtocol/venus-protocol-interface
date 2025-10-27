@@ -35,28 +35,20 @@ export const Summary: React.FC<SummaryProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const {
-    healthFactor,
-    netApyPercentage,
-    dailyEarningsCents,
-    totalSupplyCents,
-    totalBorrowCents,
-    totalBorrowLimitCents,
-    totalVaultStakeCents,
-  } = useExtractData({
+  const { netApyPercentage, dailyEarningsCents, totalVaultStakeCents } = useExtractData({
     pools: [pool],
     vaults,
     xvsPriceCents,
     vaiPriceCents,
   });
 
-  const { textClass } = useHealthFactor({ value: healthFactor });
+  const { textClass } = useHealthFactor({ value: pool.userHealthFactor || 0 });
 
   const cells: CellProps[] = displayHealthFactor
     ? [
         {
           label: t('account.summary.cellGroup.healthFactor'),
-          value: formatHealthFactorToReadableValue({ value: healthFactor }),
+          value: formatHealthFactorToReadableValue({ value: pool.userHealthFactor || 0 }),
           tooltip: t('account.summary.cellGroup.healthFactorTooltip'),
           className: textClass,
         },
@@ -79,11 +71,11 @@ export const Summary: React.FC<SummaryProps> = ({
     },
     {
       label: t('account.summary.cellGroup.totalSupply'),
-      value: formatCentsToReadableValue({ value: totalSupplyCents }),
+      value: formatCentsToReadableValue({ value: pool.userSupplyBalanceCents }),
     },
     {
       label: t('account.summary.cellGroup.totalBorrow'),
-      value: formatCentsToReadableValue({ value: totalBorrowCents }),
+      value: formatCentsToReadableValue({ value: pool.userBorrowBalanceCents }),
     },
   );
 
@@ -98,8 +90,8 @@ export const Summary: React.FC<SummaryProps> = ({
     cells.push({
       value: (
         <AccountHealthBar
-          borrowBalanceCents={totalBorrowCents.toNumber()}
-          borrowLimitCents={totalBorrowLimitCents.toNumber()}
+          borrowBalanceCents={pool.userBorrowBalanceCents?.toNumber() ?? 0}
+          borrowLimitCents={pool.userBorrowLimitCents?.toNumber() ?? 0}
         />
       ),
     });

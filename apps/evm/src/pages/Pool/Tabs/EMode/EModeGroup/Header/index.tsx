@@ -1,7 +1,7 @@
 import { Spinner, cn } from '@venusprotocol/ui';
 
 import { useSetEModeGroup } from 'clients/api';
-import { Button, EModeIcon, InfoIcon } from 'components';
+import { Button, EModeIcon, InfoIcon, IsolatedEModeGroupTooltip } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChain } from 'containers/SwitchChain';
 import { useAnalytics } from 'libs/analytics';
@@ -9,7 +9,6 @@ import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { EModeGroup, Pool } from 'types';
-import { calculateHealthFactor } from 'utilities';
 import type { BlockingBorrowPosition } from '../../types';
 import { BlockingPositionModal } from './BlockingPositionModal';
 import { HealthFactorUpdate } from './HealthFactorUpdate';
@@ -64,14 +63,6 @@ export const Header: React.FC<HeaderProps> = ({
 
   // Setting the enabled E-mode group with ID 0 corresponds to disabling E-mode
   const disableEModeGroup = () => setEModeGroup({ eModeGroupId: 0 });
-
-  const poolUserHealthFactor =
-    pool.userLiquidationThresholdCents &&
-    pool.userBorrowBalanceCents &&
-    calculateHealthFactor({
-      liquidationThresholdCents: pool.userLiquidationThresholdCents.toNumber(),
-      borrowBalanceCents: pool.userBorrowBalanceCents.toNumber(),
-    });
 
   const isEModeGroupEnabled = pool.userEModeGroup && pool.userEModeGroup.id === eModeGroup.id;
 
@@ -136,9 +127,13 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <div className={cn('space-y-3', className)}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-x-2">
+        <div className="flex items-center justify-between gap-x-2">
+          <div className="flex items-center flex-wrap gap-x-2">
             <h3 className="font-semibold lg:text-lg">{eModeGroup.name}</h3>
+
+            {eModeGroup.isIsolated && (
+              <IsolatedEModeGroupTooltip eModeGroupName={eModeGroup.name} />
+            )}
 
             {isEModeGroupEnabled && <EModeIcon />}
           </div>
@@ -148,19 +143,19 @@ export const Header: React.FC<HeaderProps> = ({
           ) : (
             <div className="flex items-center gap-x-4">
               {shouldDisplayHealthFactor &&
-                !!poolUserHealthFactor &&
+                !!pool.userHealthFactor &&
                 !isEModeGroupEnabled &&
                 isButtonEnabled &&
                 hypotheticalUserHealthFactor !== undefined && (
                   <HealthFactorUpdate
                     className="hidden sm:flex"
-                    healthFactor={poolUserHealthFactor}
+                    healthFactor={pool.userHealthFactor}
                     hypotheticalHealthFactor={hypotheticalUserHealthFactor}
                   />
                 )}
 
               <ConnectWallet analyticVariant="e_mode_tab" small>
-                <SwitchChain small>
+                <SwitchChain small className="whitespace-nowrap">
                   <Button
                     onClick={handleButtonClick}
                     small
@@ -182,13 +177,13 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {shouldDisplayHealthFactor &&
-          !!poolUserHealthFactor &&
+          !!pool.userHealthFactor &&
           !isEModeGroupEnabled &&
           isButtonEnabled &&
           hypotheticalUserHealthFactor !== undefined && (
             <HealthFactorUpdate
               className="sm:hidden"
-              healthFactor={poolUserHealthFactor}
+              healthFactor={pool.userHealthFactor}
               hypotheticalHealthFactor={hypotheticalUserHealthFactor}
             />
           )}

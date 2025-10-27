@@ -15,6 +15,7 @@ export const Assets: React.FC<AssetsProps> = ({ pool }) => (
       assets={pool.assets}
       poolName={pool.name}
       poolComptrollerContractAddress={pool.comptrollerAddress}
+      userEModeGroup={pool.userEModeGroup}
       breakpoint="lg"
       columns={[
         'asset',
@@ -34,7 +35,7 @@ export const Assets: React.FC<AssetsProps> = ({ pool }) => (
             className="lg:mt-4"
             poolComptrollerContractAddress={pool.comptrollerAddress}
             analyticVariant="pool_banner"
-            enabledEModeGroupName={pool.userEModeGroup?.name}
+            enabledEModeGroup={pool.userEModeGroup}
           />
         )
       }

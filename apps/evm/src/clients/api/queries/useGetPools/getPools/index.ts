@@ -147,7 +147,6 @@ export const getPools = async ({
     userVTokenBalances,
     userTokenBalances,
     userVaiBorrowBalanceMantissa,
-    isEModeFeatureEnabled,
     userPoolEModeGroupIdMapping,
   });
 

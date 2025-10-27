@@ -5,7 +5,6 @@ import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserCha
 import { en } from 'libs/translations';
 import type { UserChainSettings } from 'store';
 import { renderComponent } from 'testUtils/render';
-import type { Asset } from 'types';
 import type { Mock } from 'vitest';
 import { MarketTable } from '../index';
 import type { ColumnKey } from '../types';
@@ -33,16 +32,12 @@ describe('MarketTable - Feature flag enabled: E-mode', () => {
   });
 
   it('renders correctly when user has an E-mode group enabled', () => {
-    const fakeAssets: Asset[] = poolData[0].assets.map(asset => ({
-      ...asset,
-      userEModeGroupName: poolData[0].eModeGroups[0].name,
-    }));
-
     const { container } = renderComponent(
       <MarketTable
-        assets={fakeAssets}
+        assets={poolData[0].assets}
         poolName={poolData[0].name}
         poolComptrollerContractAddress={poolData[0].comptrollerAddress}
+        userEModeGroup={poolData[0].eModeGroups[0]}
         columns={columns}
         marketType="supply"
       />,
@@ -67,16 +62,12 @@ describe('MarketTable - Feature flag enabled: E-mode', () => {
       mockSetUserChainSettings,
     ]);
 
-    const fakeAssets: Asset[] = poolData[0].assets.map(asset => ({
-      ...asset,
-      userEModeGroupName: poolData[0].eModeGroups[0].name,
-    }));
-
     const { container } = renderComponent(
       <MarketTable
-        assets={fakeAssets}
+        assets={poolData[0].assets}
         poolName={poolData[0].name}
         poolComptrollerContractAddress={poolData[0].comptrollerAddress}
+        userEModeGroup={poolData[0].eModeGroups[0]}
         columns={columns}
         marketType="supply"
       />,

@@ -14,6 +14,7 @@ import {
 import { usePublicClient } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
 import { restService } from 'utilities/restService';
+import type { ReadContractParameters } from 'viem';
 import { useGetPools } from '..';
 import {
   fakeLegacyPoolComptrollerContractAddress,
@@ -75,6 +76,43 @@ describe('useGetPools', () => {
   });
 
   it('fetches and formats E-mode groups associated with each pool', async () => {
+    const { result } = renderHook(() => useGetPools());
+
+    await waitFor(() => expect(result.current.data).toBeDefined());
+    expect(result.current.data).toMatchSnapshot();
+  });
+
+  it('returns pools with user data and E-mode group enabled in the correct format', async () => {
+    const { result } = renderHook(() =>
+      useGetPools({
+        accountAddress: fakeAccountAddress,
+      }),
+    );
+
+    await waitFor(() => expect(result.current.data).toBeDefined());
+    expect(result.current.data).toMatchSnapshot();
+  });
+
+  it('returns pools with user data and isolated E-mode group enabled in the correct format', async () => {
+    const customFakePublicClient = {
+      ...fakePublicClient,
+      readContract: vi.fn(async (input: ReadContractParameters) => {
+        if (
+          input.functionName === 'userPoolId' &&
+          input.address === fakeLegacyPoolComptrollerContractAddress
+        ) {
+          // The E-mode group with poolId 2 is isolated
+          return 2;
+        }
+
+        return fakePublicClient.readContract(input);
+      }),
+    };
+
+    (usePublicClient as Mock).mockImplementation(() => ({
+      publicClient: customFakePublicClient,
+    }));
+
     const { result } = renderHook(() =>
       useGetPools({
         accountAddress: fakeAccountAddress,

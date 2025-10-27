@@ -85,6 +85,7 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
           poolName={pool.name}
           poolComptrollerContractAddress={pool.comptrollerAddress}
           assets={pool.assets}
+          userEModeGroup={pool.userEModeGroup}
           columns={['asset', type === 'borrow' ? 'labeledBorrowApy' : 'supplyApy', 'liquidity']}
           initialOrder={{
             orderBy: type === 'borrow' ? 'labeledBorrowApy' : 'supplyApy',
