@@ -1,5 +1,15 @@
 # @venusprotocol/evm
 
+## 3.68.0
+
+### Minor Changes
+
+- 95b0f57: add SwapDetails component
+
+### Patch Changes
+
+- 74fea72: make token balances optional in SelectTokenTextField component
+
 ## 3.67.0
 
 ### Minor Changes
