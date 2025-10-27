@@ -217,7 +217,7 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
         />
 
         <TextField
-          isSmall
+          size="xs"
           value={searchValue}
           onChange={event =>
             updateFilters({

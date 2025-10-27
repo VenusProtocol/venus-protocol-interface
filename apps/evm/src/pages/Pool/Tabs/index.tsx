@@ -105,7 +105,7 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
         {activeTab.id === 'e-mode' && (
           <TextField
             className="hidden w-60 sm:block"
-            isSmall
+            size="xs"
             value={searchValue}
             onChange={handleSearchInputChange}
             placeholder={t('pool.eMode.search.placeholder')}

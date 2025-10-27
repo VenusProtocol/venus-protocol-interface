@@ -168,7 +168,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
 
                       <TextField
                         className="lg:w-[300px]"
-                        isSmall
+                        size="xs"
                         value={searchValue}
                         onChange={handleSearchInputChange}
                         placeholder={t('marketTable.searchInput.placeholder')}

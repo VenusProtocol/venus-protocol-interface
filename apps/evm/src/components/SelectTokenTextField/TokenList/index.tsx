@@ -90,7 +90,7 @@ export const TokenList: React.FC<TokenListProps> = ({
           <>
             <TextField
               css={styles.searchField}
-              isSmall
+              size="xs"
               autoFocus
               value={searchValue}
               onChange={handleSearchInputChange}
