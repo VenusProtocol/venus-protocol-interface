@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.69.0
+
+### Minor Changes
+
+- 1fe431e: Added helper comments for extract-translations
+
 ## 3.68.0
 
 ### Minor Changes
