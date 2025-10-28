@@ -93,13 +93,13 @@
         },
         "txType": {
           "all": "All transactions",
-          "mint": "Supply",
-          "borrow": "Borrow",
-          "redeem": "Withdraw",
-          "repay": "Repayment",
           "approve": "Approval",
+          "borrow": "Borrow",
           "enterMarket": "Enabled collateral",
-          "exitMarket": "Disabled collateral"
+          "exitMarket": "Disabled collateral",
+          "mint": "Supply",
+          "redeem": "Withdraw",
+          "repay": "Repayment"
         }
       },
       "today": "Today",
@@ -976,12 +976,12 @@
       "label": "Price impact",
       "tooltip": "Difference between the market price and estimated price due to trade size."
     },
+    "slippageTolerance": {
+      "label": "Slippage tolerance"
+    },
     "slippageToleranceModal": {
       "description": "Setting a high slippage tolerance can help transactions succeed, but you may not get such a good price. Use with caution.",
       "title": "Slippage tolerance"
-    },
-    "slippageTolerance": {
-      "label": "Slippage tolerance"
     }
   },
   "swapPage": {
