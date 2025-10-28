@@ -136,9 +136,9 @@ export const formatOutput = ({
         new BigNumber(market.liquidationIncentiveMantissa).minus(COMPOUND_MANTISSA),
       );
 
-      const userEModeAssetSettings = userEModeGroup?.assetSettings.find(settings =>
-        areTokensEqual(settings.vToken, vToken),
-      );
+      const userEModeAssetSettings = userEModeGroup?.isActive
+        ? userEModeGroup.assetSettings.find(settings => areTokensEqual(settings.vToken, vToken))
+        : undefined;
 
       const isBorrowable = market.isBorrowable ?? true;
 
@@ -147,13 +147,14 @@ export const formatOutput = ({
         : isBorrowable;
 
       // If the user has enabled a non-isolated E-mode group and that asset is not in it, then it
-      // contributes towards that user's borrow limit using the pool settings
+      // contributes towards that user's borrow limit using the pool settings. If the E-mode group
+      // enabled by the user is inactive, we also fallback to using the pool settings
       let userFallbackLiquidationThresholdPercentage = liquidationThresholdPercentage;
       let userFallbackCollateralFactor = collateralFactor;
 
       // If the user has enabled an isolated E-mode group and that asset is not in it, then it does
       // not contribute towards that user's borrow limit
-      if (userEModeGroup?.isIsolated) {
+      if (userEModeGroup?.isActive && userEModeGroup.isIsolated) {
         userFallbackLiquidationThresholdPercentage = 0;
         userFallbackCollateralFactor = 0;
       }

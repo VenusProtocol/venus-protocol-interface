@@ -103,6 +103,45 @@
               "updatedAt": "2025-09-19T06:07:26.000Z"
             }
           ]
+        },
+        {
+          "id": "3-97-0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+          "comptrollerAddress": "0x94d1820b2D1c7c7452A163983Dc888CEC546b77D",
+          "chainId": "97",
+          "label": "BNB",
+          "poolId": 3,
+          "isActive": false,
+          "allowCorePoolFallback": true,
+          "createdAt": "2025-09-17T19:26:30.000Z",
+          "updatedAt": "2025-09-19T06:07:26.000Z",
+          "eModeSettings": [
+            {
+              "id": "3-97-0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+              "chainId": "97",
+              "marketAddress": "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
+              "poolId": 3,
+              "collateralFactorMantissa": "840000000000000000",
+              "liquidationThresholdMantissa": "880000000000000000",
+              "liquidationIncentiveMantissa": "1040000000000000000",
+              "canBeCollateral": true,
+              "isBorrowable": false,
+              "createdAt": "2025-09-17T19:30:32.000Z",
+              "updatedAt": "2025-09-19T06:07:26.000Z"
+            },
+            {
+              "id": "3-97-0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+              "chainId": "97",
+              "marketAddress": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+              "poolId": 3,
+              "collateralFactorMantissa": "0",
+              "liquidationThresholdMantissa": "0",
+              "liquidationIncentiveMantissa": "1040000000000000000",
+              "canBeCollateral": false,
+              "isBorrowable": true,
+              "createdAt": "2025-09-17T19:30:32.000Z",
+              "updatedAt": "2025-09-19T06:07:26.000Z"
+            }
+          ]
         }
       ],
       "markets": [

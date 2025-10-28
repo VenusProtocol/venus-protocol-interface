@@ -747,6 +747,7 @@
           }
         },
         "disableButtonLabel": "Disable",
+        "disabledNotice": "This E-Mode group is no longer supported. Your account now falls back to Core Pool parameters. Please switch to another available E-mode group or disable it.",
         "enableButtonLabel": "Enable",
         "healthFactor": "Health factor:",
         "switchButtonLabel": "Switch"

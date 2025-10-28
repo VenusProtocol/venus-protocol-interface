@@ -5,12 +5,14 @@ import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings } from 'types';
 import { compareBooleans, compareNumbers, formatPercentageToReadableValue } from 'utilities';
 
-export const useGetColumns = () => {
+export const ASSET_COLUMN_KEY = 'asset';
+
+export const useColumns = () => {
   const { t } = useTranslation();
 
   const columns: TableColumn<EModeAssetSettings>[] = [
     {
-      key: 'asset',
+      key: ASSET_COLUMN_KEY,
       label: t('pool.eMode.table.columns.asset'),
       selectOptionLabel: t('pool.eMode.table.columns.asset'),
       renderCell: ({ vToken }) => <TokenIconWithSymbol token={vToken.underlyingToken} />,

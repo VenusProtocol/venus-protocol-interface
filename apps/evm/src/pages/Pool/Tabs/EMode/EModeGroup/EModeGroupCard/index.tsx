@@ -34,6 +34,7 @@ export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
       <Asset
         key={settings.vToken.address}
         eModeAssetSettings={settings}
+        isEModeGroupActive={eModeGroup.isActive}
         className="border-lightGrey [&:not(:last-of-type)]:border-b [&:not(:last-of-type)]:pb-4"
         poolComptrollerAddress={pool.comptrollerAddress}
       />

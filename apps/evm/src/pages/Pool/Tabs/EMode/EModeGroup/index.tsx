@@ -2,6 +2,7 @@ import { Delimiter, type Order, Table, type TableColumn } from 'components';
 import { routes } from 'constants/routing';
 import type { EModeAssetSettings, EModeGroup as EModeGroupType, Pool } from 'types';
 import type { BlockingBorrowPosition } from '../types';
+import { ASSET_COLUMN_KEY } from '../useColumns';
 import { EModeGroupCard } from './EModeGroupCard';
 import { Header } from './Header';
 
@@ -26,6 +27,20 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
   userBlockingBorrowPositions,
   hypotheticalUserHealthFactor,
 }) => {
+  const formattedColumns = columns.map(column => {
+    if (column.key === ASSET_COLUMN_KEY || eModeGroup.isActive) {
+      return column;
+    }
+
+    // Grey out non-asset cells if E-mode group is inactive
+    return {
+      ...column,
+      renderCell: (...params: Parameters<TableColumn<EModeAssetSettings>['renderCell']>) => (
+        <span className="text-grey opacity-50">{column.renderCell(...params)}</span>
+      ),
+    };
+  });
+
   const getRowHref = (row: EModeAssetSettings) =>
     routes.market.path
       .replace(':poolComptrollerAddress', pool.comptrollerAddress)
@@ -47,7 +62,7 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
       {/* Desktop view */}
       <Table
         className="hidden md:pt-0 md:block"
-        columns={columns}
+        columns={formattedColumns}
         data={eModeGroup.assetSettings}
         rowKeyExtractor={row => row.vToken.address}
         initialOrder={initialOrder}

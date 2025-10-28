@@ -126,6 +126,7 @@ export interface ApiEModeGroup {
   label: string;
   comptrollerAddress: Address;
   allowCorePoolFallback: boolean;
+  isActive: boolean;
   eModeSettings: ApiMarketEModeSettings[];
 }
 

@@ -17,7 +17,7 @@ import { useTranslation } from 'libs/translations';
 import type { EModeAssetSettings, Pool } from 'types';
 import { EModeGroup as EModeGroupComp } from './EModeGroup';
 import { formatEModeGroups } from './formatEModeGroups';
-import { useGetColumns } from './useGetColumns';
+import { useColumns } from './useColumns';
 
 export interface EModeProps {
   pool: Pool;
@@ -27,7 +27,7 @@ export interface EModeProps {
 
 export const EMode: React.FC<EModeProps> = ({ pool, searchValue, onSearchValueChange }) => {
   const { t, Trans } = useTranslation();
-  const columns = useGetColumns();
+  const columns = useColumns();
   const { captureAnalyticEvent } = useAnalytics();
 
   const { formatTo } = useFormatTo();

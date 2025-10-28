@@ -122,4 +122,34 @@ describe('useGetPools', () => {
     await waitFor(() => expect(result.current.data).toBeDefined());
     expect(result.current.data).toMatchSnapshot();
   });
+
+  it('uses pool settings if user has an inactive E-mode group enabled', async () => {
+    const customFakePublicClient = {
+      ...fakePublicClient,
+      readContract: vi.fn(async (input: ReadContractParameters) => {
+        if (
+          input.functionName === 'userPoolId' &&
+          input.address === fakeLegacyPoolComptrollerContractAddress
+        ) {
+          // The E-mode group with poolId 3 is inactive
+          return 3;
+        }
+
+        return fakePublicClient.readContract(input);
+      }),
+    };
+
+    (usePublicClient as Mock).mockImplementation(() => ({
+      publicClient: customFakePublicClient,
+    }));
+
+    const { result } = renderHook(() =>
+      useGetPools({
+        accountAddress: fakeAccountAddress,
+      }),
+    );
+
+    await waitFor(() => expect(result.current.data).toBeDefined());
+    expect(result.current.data).toMatchSnapshot();
+  });
 });

@@ -11,12 +11,14 @@ import { formatPercentageToReadableValue } from 'utilities';
 
 export interface AssetProps {
   eModeAssetSettings: EModeAssetSettings;
+  isEModeGroupActive: boolean;
   poolComptrollerAddress: Address;
   className?: string;
 }
 
 export const Asset: React.FC<AssetProps> = ({
   eModeAssetSettings,
+  isEModeGroupActive,
   poolComptrollerAddress,
   className,
 }) => {
@@ -56,6 +58,7 @@ export const Asset: React.FC<AssetProps> = ({
         />
 
         <MarketStatus
+          className={cn(!isEModeGroupActive && 'opacity-50')}
           isBorrowable={eModeAssetSettings.isBorrowable}
           canBeCollateral={eModeAssetSettings.collateralFactor > 0}
         />
@@ -64,7 +67,7 @@ export const Asset: React.FC<AssetProps> = ({
       <div className="space-y-2">
         {dataListItems.map(item => (
           <LabeledInlineContent key={item.label} label={item.label}>
-            {item.value}
+            <span className={cn(!isEModeGroupActive && 'text-grey opacity-50')}>{item.value}</span>
           </LabeledInlineContent>
         ))}
       </div>
