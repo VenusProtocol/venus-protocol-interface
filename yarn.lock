@@ -7225,10 +7225,10 @@
     loupe "^3.1.2"
     tinyrainbow "^1.2.0"
 
-"@wagmi/connectors@6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-6.0.1.tgz#bb4475b03e2df15be9ccf49ff7d7690a83d41759"
-  integrity sha512-ZHvC9GIncOViz6Fi+oCc+8oin+U+GfCKNLj90aNxve8CLw++vQBEcivPIq1mQq2QNo6lay7yjNyGInPoOEIkSg==
+"@wagmi/connectors@6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-6.1.1.tgz#eceb92c8180829e47aaf9348236465042f29c9ef"
+  integrity sha512-T5orLdX6Kz+UnJxy88aRnlSohnNCkP3KqWI3Hadho2uhFUqA87VWkE6+fD0TI4XA/pDA5wjI2EjCaGTmAxqDtQ==
   dependencies:
     "@base-org/account" "1.1.1"
     "@coinbase/wallet-sdk" "4.3.6"
@@ -7238,7 +7238,7 @@
     "@safe-global/safe-apps-sdk" "9.1.0"
     "@walletconnect/ethereum-provider" "2.21.1"
     cbw-sdk "npm:@coinbase/wallet-sdk@3.9.3"
-    porto "0.2.19"
+    porto "0.2.34"
 
 "@wagmi/core@2.22.1", "@wagmi/core@^2.16.4":
   version "2.22.1"
@@ -12226,10 +12226,10 @@ hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.3.0, hoist-non-react-
   dependencies:
     react-is "^16.7.0"
 
-hono@^4.9.6:
-  version "4.10.2"
-  resolved "https://registry.yarnpkg.com/hono/-/hono-4.10.2.tgz#a78d322f2c5fabebb1887f7ae1632a6524513e74"
-  integrity sha512-p6fyzl+mQo6uhESLxbF5WlBOAJMDh36PljwlKtP5V1v09NxlqGru3ShK+4wKhSuhuYf8qxMmrivHOa/M7q0sMg==
+hono@^4.10.3:
+  version "4.10.3"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-4.10.3.tgz#4e4063eebaac2b735ca4c7455b4d7a6339afc251"
+  integrity sha512-2LOYWUbnhdxdL8MNbNg9XZig6k+cZXm5IjHn2Aviv7honhBMOHb+jxrKIeJRZJRmn+htUCKhaicxwXuUDlchRA==
 
 hookable@^5.5.3:
   version "5.5.3"
@@ -15664,12 +15664,12 @@ popmotion@11.0.3:
     style-value-types "5.0.0"
     tslib "^2.1.0"
 
-porto@0.2.19:
-  version "0.2.19"
-  resolved "https://registry.yarnpkg.com/porto/-/porto-0.2.19.tgz#d19cd503be7867226407110fc69bdc4ac7b470e7"
-  integrity sha512-q1vEJgdtlEOf6byWgD31GHiMwpfLuxFSfx9f7Sw4RGdvpQs2ANBGfnzzardADZegr87ZXsebSp+3vaaznEUzPQ==
+porto@0.2.34:
+  version "0.2.34"
+  resolved "https://registry.yarnpkg.com/porto/-/porto-0.2.34.tgz#146611cbde1cd7a98c791d915513cbd9af4d2090"
+  integrity sha512-o+hK9r6a4j3EAFOkgNXtcwYc4vAMsmbVhRJHrBXXV/tGVLb2V2sVGLcCFFH3CLevRAyyUUKoT0KIaoQaro4saA==
   dependencies:
-    hono "^4.9.6"
+    hono "^4.10.3"
     idb-keyval "^6.2.1"
     mipd "^0.0.7"
     ox "^0.9.6"
@@ -19112,11 +19112,11 @@ w3c-xmlserializer@^5.0.0:
     xml-name-validator "^5.0.0"
 
 wagmi@^2.15.6:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.18.1.tgz#bc21ecc0c091a3d6b7880e338e78553a91dbc7e3"
-  integrity sha512-u+lzv7K7R5Gvw5P8vtmwQ96+tR2UGSJ/wNRrDAZH+2ikLqc6Dt8Lj8L8MaqI0v7+gnHOGh63cgeXAEjOWydsMg==
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.19.0.tgz#044d0ea76036cce5aa929d08c6e37ea565437cbb"
+  integrity sha512-0Ypzs5rkj1d6uBcz2PBGqAfk+r2TfsmPh4cMxoCJyFy5P1IL3FHY9lQLCu77NJZ8DlVl+dd9mdPZrQADb8sLcw==
   dependencies:
-    "@wagmi/connectors" "6.0.1"
+    "@wagmi/connectors" "6.1.1"
     "@wagmi/core" "2.22.1"
     use-sync-external-store "1.4.0"
 
