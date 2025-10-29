@@ -6056,6 +6056,11 @@
   resolved "https://registry.yarnpkg.com/@storybook/preview-api/-/preview-api-8.6.14.tgz#b4a1eda7ecf17c4d3a07aa9a42ed1251de121f74"
   integrity sha512-2GhcCd4dNMrnD7eooEfvbfL4I83qAqEyO0CO7JQAmIO6Rxb9BsOLLI/GD5HkvQB73ArTJ+PT50rfaO820IExOQ==
 
+"@storybook/react-dom-shim@10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-10.0.1.tgz#eaad5236bd48b70b6588bd0d28058273514c0e11"
+  integrity sha512-fK6SLWKK0wsnBVRAjWwf+T7cMHXdgQ34Xk18QeAAXWJyT8UAb7x1QwdepOWBG2Gs2hVjJjD5ky/sRzK1L3kA9A==
+
 "@storybook/react-dom-shim@8.6.14":
   version "8.6.14"
   resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-8.6.14.tgz#02fc8aeab701040744d93b6ef46b9e5727123370"
@@ -6075,6 +6080,14 @@
     react-docgen "^7.0.0"
     resolve "^1.22.8"
     tsconfig-paths "^4.2.0"
+
+"@storybook/react@10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-10.0.1.tgz#43ee6251f7dc69a864e8bb73297807700dcc75ec"
+  integrity sha512-MtQ4G8q2wTe2E9zeuyAP/pZgwZEI+ijHZo8spndLdNF1gj+ihsdJguDS+ZAbfZSMNz0s2zroX4t+SKDSBbqBdg==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+    "@storybook/react-dom-shim" "10.0.1"
 
 "@storybook/react@8.6.14":
   version "8.6.14"
