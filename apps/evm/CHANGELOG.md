@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.70.0
+
+### Minor Changes
+
+- 077eade: add support for isolated E-mode groups
+
 ## 3.69.0
 
 ### Minor Changes
