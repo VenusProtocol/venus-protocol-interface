@@ -36,8 +36,6 @@ export const formatEModeGroups = ({
         return acc;
       }
 
-      const isEModeGroupEnabled = pool.userEModeGroup && pool.userEModeGroup.id === eModeGroup.id;
-
       // These values are used to determine if a user can enable the E-mode group if it's not
       // enabled already, or disable it if it's enabled
       const userBlockingBorrowPositions: BlockingBorrowPosition[] = [];
@@ -50,19 +48,24 @@ export const formatEModeGroups = ({
           areTokensEqual(settings.vToken, asset.vToken),
         );
 
+        let fallbackLiquidationThresholdPercentage = asset.liquidationThresholdPercentage;
+        let fallbackCollateralFactor = asset.collateralFactor;
+
+        if (eModeGroup.isIsolated) {
+          fallbackLiquidationThresholdPercentage = 0;
+          fallbackCollateralFactor = 0;
+        }
+
         const { isBlocking, liquidationThresholdCents, borrowLimitCents, borrowBalanceCents } =
           getHypotheticalAssetValues({
             userSupplyBalanceCents: asset.userSupplyBalanceCents.toNumber(),
             userBorrowBalanceCents: asset.userBorrowBalanceCents.toNumber(),
             isCollateralOfUser: asset.isCollateralOfUser,
-            isBorrowable: isEModeGroupEnabled ? asset.isBorrowable : !!assetSettings?.isBorrowable,
-            collateralFactor: isEModeGroupEnabled
-              ? asset.collateralFactor
-              : assetSettings?.collateralFactor ?? asset.collateralFactor,
-            liquidationThresholdPercentage: isEModeGroupEnabled
-              ? asset.liquidationThresholdPercentage
-              : assetSettings?.liquidationThresholdPercentage ??
-                asset.liquidationThresholdPercentage,
+            isBorrowable: !!assetSettings?.isBorrowable,
+            collateralFactor: assetSettings?.collateralFactor ?? fallbackCollateralFactor,
+            liquidationThresholdPercentage:
+              assetSettings?.liquidationThresholdPercentage ??
+              fallbackLiquidationThresholdPercentage,
           });
 
         if (isBlocking) {
@@ -139,11 +142,6 @@ export const formatEModeGroups = ({
       const aCanBeEnabled = a.userBlockingBorrowPositions.length === 0 && a.userHasEnoughCollateral;
       const bCanBeEnabled = a.userBlockingBorrowPositions.length === 0 && a.userHasEnoughCollateral;
 
-      // Sort alphabetically if both groups can't be enabled
-      if (!aCanBeEnabled && !bCanBeEnabled) {
-        return a.name.localeCompare(b.name);
-      }
-
       // Sort groups that can't be enabled last
       if (!aCanBeEnabled) {
         return 1;
@@ -153,5 +151,5 @@ export const formatEModeGroups = ({
       }
 
       // Sort groups that can be enabled by hypothetical health factor, from highest to lowest
-      return a.hypotheticalUserHealthFactor - b.hypotheticalUserHealthFactor;
+      return b.hypotheticalUserHealthFactor - a.hypotheticalUserHealthFactor;
     });

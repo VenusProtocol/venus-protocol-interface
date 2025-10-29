@@ -545,6 +545,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
           },
         ],
         "id": 0,
+        "isIsolated": false,
         "name": "Stablecoins",
       },
       {
@@ -585,6 +586,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
           },
         ],
         "id": 1,
+        "isIsolated": false,
         "name": "DeFi",
       },
       {
@@ -608,6 +610,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
           },
         ],
         "id": 2,
+        "isIsolated": true,
         "name": "#ToTheMoon",
       },
     ],
@@ -615,6 +618,7 @@ exports[`useGetPool > returns the correct asset 1`] = `
     "name": "Venus",
     "userBorrowBalanceCents": "12333",
     "userBorrowLimitCents": "192673",
+    "userHealthFactor": 15.62,
     "userLiquidationThresholdCents": "192673",
     "userSupplyBalanceCents": "123879865",
     "userVaiBorrowBalanceCents": "1000",

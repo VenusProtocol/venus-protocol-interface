@@ -1,15 +1,17 @@
 import { useState } from 'react';
 
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
-import type { Asset } from 'types';
-import { isAssetPaused } from 'utilities';
+import type { Asset, EModeGroup } from 'types';
+import { areTokensEqual, isAssetPaused } from 'utilities';
 
 export const useControls = ({
   assets,
   applyUserSettings,
+  userEModeGroup,
 }: {
   assets: Asset[];
   applyUserSettings: boolean;
+  userEModeGroup?: EModeGroup;
 }) => {
   const [searchValue, setSearchValue] = useState('');
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
@@ -17,7 +19,6 @@ export const useControls = ({
   const { showPausedAssets, showUserAssetsOnly, showUserEModeAssetsOnly } = userChainSettings;
 
   let userHasAssets = false;
-  let userHasEModeGroup = false;
   let pausedAssetsExist = false;
 
   assets.forEach(asset => {
@@ -30,10 +31,6 @@ export const useControls = ({
     const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
     if (isPaused && !pausedAssetsExist) {
       pausedAssetsExist = true;
-    }
-
-    if (asset.userEModeGroupName) {
-      userHasEModeGroup = true;
     }
   });
 
@@ -54,12 +51,11 @@ export const useControls = ({
     }
 
     // Handle E-mode setting
-    if (
-      applyUserSettings &&
-      userHasEModeGroup &&
-      !asset.userEModeGroupName &&
-      showUserEModeAssetsOnly
-    ) {
+    const isInUserEModeGroup = (userEModeGroup?.assetSettings || []).some(a =>
+      areTokensEqual(a.vToken, asset.vToken),
+    );
+
+    if (applyUserSettings && userEModeGroup && !isInUserEModeGroup && showUserEModeAssetsOnly) {
       return;
     }
 
@@ -91,7 +87,6 @@ export const useControls = ({
     onSearchValueChange: setSearchValue,
     pausedAssetsExist,
     userHasAssets,
-    userHasEModeGroup,
     showPausedAssets,
     showUserAssetsOnly,
     showUserEModeAssetsOnly,

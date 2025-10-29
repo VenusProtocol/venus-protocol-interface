@@ -780,6 +780,10 @@
         "mobileSelectLabel": "Sort by:"
       }
     },
+    "isolatedEModeGroupTooltip": {
+      "content": "Your borrowing power is increased by supplying to assets from the {{ eModeGroupName }} group exclusively",
+      "label": "Isolated"
+    },
     "tabs": {
       "assets": {
         "title": "Assets"

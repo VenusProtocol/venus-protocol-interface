@@ -16,6 +16,7 @@ export const legacyCorePool: Pool = {
   userVaiBorrowBalanceCents: new BigNumber(1000),
   userBorrowLimitCents: new BigNumber(192673),
   userLiquidationThresholdCents: new BigNumber(192673),
+  userHealthFactor: 15.62,
 };
 
 export const isolatedPool: Pool = {
@@ -28,6 +29,7 @@ export const isolatedPool: Pool = {
   userBorrowBalanceCents: new BigNumber(0),
   userBorrowLimitCents: new BigNumber(0),
   userLiquidationThresholdCents: new BigNumber(0),
+  userHealthFactor: Number.POSITIVE_INFINITY,
 };
 
 export const poolData: Pool[] = [legacyCorePool, isolatedPool];

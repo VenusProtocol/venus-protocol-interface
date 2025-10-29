@@ -7,6 +7,7 @@ import type { Asset, ChainId, EModeGroup, Pool, Token, TokenBalance } from 'type
 import {
   areAddressesEqual,
   areTokensEqual,
+  calculateHealthFactor,
   convertDollarsToCents,
   convertFactorFromSmartContract,
   convertMantissaToTokens,
@@ -39,7 +40,6 @@ export const formatOutput = ({
   tokenPricesMapping: Record<string, ApiTokenPrice[]>;
   currentBlockNumber: bigint;
   apiPools: ApiPool[];
-  isEModeFeatureEnabled: boolean;
   userPoolEModeGroupIdMapping: Record<Address, number>;
   userPrimeApyMap?: Map<string, PrimeApy>;
   userCollateralVTokenAddresses?: string[];
@@ -68,6 +68,7 @@ export const formatOutput = ({
 
     const userEModeGroupId = userPoolEModeGroupIdMapping[apiPool.address.toLowerCase() as Address];
 
+    // The E-mode group with ID 0 corresponds to the pool itself
     if (userEModeGroupId > 0) {
       userEModeGroup = eModeGroups.find(e => e.id === userEModeGroupId);
     }
@@ -123,8 +124,6 @@ export const formatOutput = ({
         factor: new BigNumber(market.collateralFactorMantissa),
       });
 
-      let userCollateralFactor = collateralFactor;
-
       const isCollateralOfUser = !!userCollateralVTokenAddresses.some(address =>
         areAddressesEqual(address, vToken.address),
       );
@@ -137,31 +136,34 @@ export const formatOutput = ({
         new BigNumber(market.liquidationIncentiveMantissa).minus(COMPOUND_MANTISSA),
       );
 
-      let userLiquidationThresholdPercentage = liquidationThresholdPercentage;
+      const userEModeAssetSettings = userEModeGroup?.assetSettings.find(settings =>
+        areTokensEqual(settings.vToken, vToken),
+      );
 
       const isBorrowable = market.isBorrowable ?? true;
-      let isBorrowableByUser = isBorrowable;
-      let userEModeGroupName: undefined | string;
 
-      if (userEModeGroup) {
-        const eModeAssetSettings = userEModeGroup.assetSettings.find(settings =>
-          areTokensEqual(settings.vToken, vToken),
-        );
+      const isBorrowableByUser = userEModeAssetSettings
+        ? userEModeAssetSettings.isBorrowable
+        : isBorrowable;
 
-        const userEModeGroupCollateralFactor = eModeAssetSettings?.collateralFactor;
+      // If the user has enabled a non-isolated E-mode group and that asset is not in it, then it
+      // contributes towards that user's borrow limit using the pool settings
+      let userFallbackLiquidationThresholdPercentage = liquidationThresholdPercentage;
+      let userFallbackCollateralFactor = collateralFactor;
 
-        // Add name of E-mode group enabled by user if asset is part of it
-        userEModeGroupName = eModeAssetSettings ? userEModeGroup.name : undefined;
-
-        userCollateralFactor = userEModeGroupCollateralFactor ?? collateralFactor;
-
-        // If user has enabled an E-mode group and that asset is not in it, or is not borrowable in
-        // it, then it can't be borrowed by the user
-        isBorrowableByUser = eModeAssetSettings?.isBorrowable || false;
-
-        userLiquidationThresholdPercentage =
-          eModeAssetSettings?.liquidationThresholdPercentage ?? liquidationThresholdPercentage;
+      // If the user has enabled an isolated E-mode group and that asset is not in it, then it does
+      // not contribute towards that user's borrow limit
+      if (userEModeGroup?.isIsolated) {
+        userFallbackLiquidationThresholdPercentage = 0;
+        userFallbackCollateralFactor = 0;
       }
+
+      const userCollateralFactor =
+        userEModeAssetSettings?.collateralFactor ?? userFallbackCollateralFactor;
+
+      const userLiquidationThresholdPercentage =
+        userEModeAssetSettings?.liquidationThresholdPercentage ??
+        userFallbackLiquidationThresholdPercentage;
 
       const cashTokens = convertMantissaToTokens({
         value: new BigNumber(market.cashMantissa),
@@ -305,7 +307,6 @@ export const formatOutput = ({
         userLiquidationThresholdPercentage,
         isBorrowable,
         isBorrowableByUser,
-        userEModeGroupName,
         // This will be calculated after all assets have been formatted
         userPercentOfLimit: 0,
         isCollateralOfUser,
@@ -331,6 +332,11 @@ export const formatOutput = ({
       poolUserBorrowBalanceCents = poolUserBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
     }
 
+    const userHealthFactor = calculateHealthFactor({
+      liquidationThresholdCents: poolUserLiquidationThresholdCents.toNumber(),
+      borrowBalanceCents: poolUserBorrowBalanceCents.toNumber(),
+    });
+
     const pool: Pool = {
       comptrollerAddress: apiPool.address,
       name: apiPool.name === 'Core' ? 'Core pool' : apiPool.name,
@@ -344,6 +350,7 @@ export const formatOutput = ({
       userVaiBorrowBalanceCents,
       userLiquidationThresholdCents: poolUserLiquidationThresholdCents,
       userEModeGroup,
+      userHealthFactor,
     };
 
     // Calculate userPercentOfLimit for each asset

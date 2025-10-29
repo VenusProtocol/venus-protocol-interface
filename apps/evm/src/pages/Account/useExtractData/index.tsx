@@ -3,7 +3,6 @@ import BigNumber from 'bignumber.js';
 import type { Pool, Vault } from 'types';
 import {
   calculateDailyEarningsCents,
-  calculateHealthFactor,
   calculateYearlyEarningsForAssets,
   calculateYearlyInterests,
   convertMantissaToTokens,
@@ -25,32 +24,23 @@ export const useExtractData = ({
   xvsPriceCents = new BigNumber(0),
   vaiPriceCents = new BigNumber(0),
 }: UseExtractDataInput) => {
-  const {
-    totalBorrowCents,
-    totalSupplyCents,
-    totalBorrowLimitCents,
-    totalVaiBorrowBalanceCents,
-    liquidationThresholdCents,
-  } = pools.reduce(
-    (acc, pool) => ({
-      totalBorrowCents: acc.totalBorrowCents.plus(pool.userBorrowBalanceCents || 0),
-      totalSupplyCents: acc.totalSupplyCents.plus(pool.userSupplyBalanceCents || 0),
-      totalBorrowLimitCents: acc.totalBorrowLimitCents.plus(pool.userBorrowLimitCents || 0),
-      totalVaiBorrowBalanceCents: acc.totalVaiBorrowBalanceCents.plus(
-        pool.userVaiBorrowBalanceCents || 0,
-      ),
-      liquidationThresholdCents: acc.liquidationThresholdCents.plus(
-        pool.userLiquidationThresholdCents || 0,
-      ),
-    }),
-    {
-      totalSupplyCents: new BigNumber(0),
-      totalBorrowCents: new BigNumber(0),
-      totalBorrowLimitCents: new BigNumber(0),
-      totalVaiBorrowBalanceCents: new BigNumber(0),
-      liquidationThresholdCents: new BigNumber(0),
-    },
-  );
+  const { totalBorrowCents, totalSupplyCents, totalBorrowLimitCents, totalVaiBorrowBalanceCents } =
+    pools.reduce(
+      (acc, pool) => ({
+        totalBorrowCents: acc.totalBorrowCents.plus(pool.userBorrowBalanceCents || 0),
+        totalSupplyCents: acc.totalSupplyCents.plus(pool.userSupplyBalanceCents || 0),
+        totalBorrowLimitCents: acc.totalBorrowLimitCents.plus(pool.userBorrowLimitCents || 0),
+        totalVaiBorrowBalanceCents: acc.totalVaiBorrowBalanceCents.plus(
+          pool.userVaiBorrowBalanceCents || 0,
+        ),
+      }),
+      {
+        totalSupplyCents: new BigNumber(0),
+        totalBorrowCents: new BigNumber(0),
+        totalBorrowLimitCents: new BigNumber(0),
+        totalVaiBorrowBalanceCents: new BigNumber(0),
+      },
+    );
 
   let totalVaultStakeCents: BigNumber | undefined;
   let yearlyVaultEarningsCents: BigNumber | undefined;
@@ -108,11 +98,6 @@ export const useExtractData = ({
       yearlyEarningsCents,
     });
 
-  const healthFactor = calculateHealthFactor({
-    borrowBalanceCents: totalBorrowCents.toNumber(),
-    liquidationThresholdCents: liquidationThresholdCents.toNumber(),
-  });
-
   return {
     totalVaultStakeCents,
     totalBorrowCents,
@@ -121,6 +106,5 @@ export const useExtractData = ({
     totalVaiBorrowBalanceCents,
     dailyEarningsCents,
     netApyPercentage,
-    healthFactor,
   };
 };

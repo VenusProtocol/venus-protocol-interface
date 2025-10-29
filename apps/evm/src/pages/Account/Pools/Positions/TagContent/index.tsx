@@ -3,11 +3,7 @@ import type { Pool } from 'types';
 
 import { useHealthFactor } from 'hooks/useHealthFactor';
 import { useTranslation } from 'libs/translations';
-import {
-  calculateHealthFactor,
-  calculatePercentage,
-  formatPercentageToReadableValue,
-} from 'utilities';
+import { calculatePercentage, formatPercentageToReadableValue } from 'utilities';
 
 export interface TagContentProps {
   pool: Pool;
@@ -27,13 +23,7 @@ export const TagContent: React.FC<TagContentProps> = ({ pool }) => {
   const readableBorrowLimitUsedPercentage =
     formatPercentageToReadableValue(borrowLimitUsedPercentage);
 
-  const healthFactor =
-    pool.userBorrowBalanceCents && pool.userLiquidationThresholdCents
-      ? calculateHealthFactor({
-          borrowBalanceCents: pool.userBorrowBalanceCents.toNumber(),
-          liquidationThresholdCents: pool.userLiquidationThresholdCents.toNumber(),
-        })
-      : 0;
+  const healthFactor = pool.userHealthFactor ?? 0;
 
   const { color } = useHealthFactor({ value: healthFactor });
 

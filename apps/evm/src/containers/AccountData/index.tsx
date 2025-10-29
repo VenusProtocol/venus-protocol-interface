@@ -33,7 +33,6 @@ export const AccountData: React.FC<AccountDataProps> = ({
   const { t } = useTranslation();
 
   const {
-    poolUserHealthFactor,
     poolUserDailyEarningsCents,
     hypotheticalPoolUserHealthFactor,
     hypotheticalPoolUserDailyEarningsCents,
@@ -78,9 +77,9 @@ export const AccountData: React.FC<AccountDataProps> = ({
           >
             <ValueUpdate
               original={
-                poolUserHealthFactor !== undefined ? (
+                pool.userHealthFactor !== undefined ? (
                   <HealthFactorPill
-                    factor={poolUserHealthFactor}
+                    factor={pool.userHealthFactor}
                     showLabel={hypotheticalPoolUserHealthFactor === undefined}
                   />
                 ) : (

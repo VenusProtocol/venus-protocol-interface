@@ -142,7 +142,11 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                   }
                 />
 
-                <CartesianGrid vertical={false} stroke={theme.colors.lightGrey} />
+                <CartesianGrid
+                  vertical={false}
+                  stroke={theme.colors.lightGrey}
+                  strokeDasharray="2 2"
+                />
 
                 <Line
                   type="monotone"

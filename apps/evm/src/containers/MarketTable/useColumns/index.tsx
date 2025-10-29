@@ -14,8 +14,9 @@ import {
 import { Apy } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
-import type { Asset } from 'types';
+import type { Asset, EModeGroup } from 'types';
 import {
+  areTokensEqual,
   compareBigNumbers,
   compareBooleans,
   formatCentsToReadableValue,
@@ -62,9 +63,11 @@ import type { ColumnKey } from '../types';
 export const useColumns = ({
   columnKeys,
   collateralOnChange,
+  userEModeGroup,
 }: {
   columnKeys: ColumnKey[];
   collateralOnChange: (asset: Asset) => void;
+  userEModeGroup?: EModeGroup;
 }) => {
   const { t, Trans } = useTranslation();
   const styles = useStyles();
@@ -115,6 +118,10 @@ export const useColumns = ({
       selectOptionLabel: t(`marketTable.columnSelectOptionLabel.${column}`),
       align: index === 0 ? 'left' : 'right',
       renderCell: asset => {
+        const isInUserEModeGroup = (userEModeGroup?.assetSettings || []).some(a =>
+          areTokensEqual(a.vToken, asset.vToken),
+        );
+
         const isPaused = isAssetPaused({
           disabledTokenActions: asset.disabledTokenActions,
         });
@@ -124,11 +131,11 @@ export const useColumns = ({
             <div className="flex items-center space-x-2">
               <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
 
-              {!!asset.userEModeGroupName && (
+              {userEModeGroup && isInUserEModeGroup && (
                 <Tooltip
                   className="inline-flex items-center"
                   content={t('marketTable.assetColumn.eMode', {
-                    eModeGroupName: asset.userEModeGroupName,
+                    eModeGroupName: userEModeGroup.name,
                   })}
                 >
                   <EModeIcon className="w-4 h-4" />
@@ -171,13 +178,12 @@ export const useColumns = ({
             <Toggle
               onChange={() => collateralOnChange(asset)}
               value={
-                asset.isCollateralOfUser &&
-                (!asset.userEModeGroupName || asset.userCollateralFactor > 0)
+                asset.isCollateralOfUser && (!userEModeGroup || asset.userCollateralFactor > 0)
               }
               disabled={
                 isAccountOnWrongChain ||
                 collateralActionDisabled ||
-                (!!asset.userEModeGroupName && asset.userCollateralFactor === 0)
+                (userEModeGroup && asset.userCollateralFactor === 0)
               }
             />
           );

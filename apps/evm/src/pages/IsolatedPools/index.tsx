@@ -134,6 +134,7 @@ export const IsolatedPools: React.FC = () => {
         assets={selectedPool.assets}
         poolName={selectedPool.name}
         poolComptrollerContractAddress={selectedPool.comptrollerAddress}
+        userEModeGroup={selectedPool.userEModeGroup}
         isFetching={isGetPoolsLoading}
         breakpoint="lg"
         columns={columns}

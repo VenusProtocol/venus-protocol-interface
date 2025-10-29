@@ -1,6 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 import type { Address } from 'viem';
 
+import { IsolatedEModeGroupTooltip } from 'components';
 import { EModeIcon } from 'components/EModeIcon';
 import { Icon } from 'components/Icon';
 import { E_MODE_DOC_URL } from 'constants/production';
@@ -8,6 +9,7 @@ import { Link } from 'containers/Link';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
+import type { EModeGroup } from 'types';
 import { EModeButton } from './EModeButton';
 import illustrationSrc from './illustration.svg';
 
@@ -15,12 +17,12 @@ export interface EModeBannerProps {
   poolComptrollerContractAddress: Address;
   analyticVariant: string;
   variant?: 'primary' | 'secondary';
-  enabledEModeGroupName?: string;
+  enabledEModeGroup?: EModeGroup;
   className?: string;
 }
 
 export const EModeBanner: React.FC<EModeBannerProps> = ({
-  enabledEModeGroupName,
+  enabledEModeGroup,
   variant = 'primary',
   poolComptrollerContractAddress,
   analyticVariant,
@@ -39,18 +41,25 @@ export const EModeBanner: React.FC<EModeBannerProps> = ({
     <div
       className={cn(
         'rounded-lg bg-gradient-to-l from-[#071F39] to-[#1549A1] relative flex items-center before:content-[""] before:absolute before:inset-0 before:bg-[url("/images/noise.png")] before:bg-repeat before:mix-blend-soft-light overflow-hidden sm:pr-3',
-        enabledEModeGroupName ? 'pl-4 pr-2 lg:pr-2' : 'px-4 lg:pr-3',
+        enabledEModeGroup ? 'pl-4 pr-2 lg:pr-2' : 'px-4 lg:pr-3',
         variant === 'primary' ? 'py-2 lg:pl-6' : 'h-14',
         className,
       )}
     >
       <div className="relative flex-1">
-        {enabledEModeGroupName ? (
+        {enabledEModeGroup ? (
           <div className="flex items-center gap-x-4 justify-between">
             <div className="flex items-center gap-x-2">
               <EModeIcon />
 
-              <p className="font-semibold text-sm">{enabledEModeGroupName}</p>
+              <p className="font-semibold text-sm">{enabledEModeGroup.name}</p>
+
+              {enabledEModeGroup.isIsolated && (
+                <IsolatedEModeGroupTooltip
+                  eModeGroupName={enabledEModeGroup.name}
+                  variant="secondary"
+                />
+              )}
             </div>
 
             <EModeButton

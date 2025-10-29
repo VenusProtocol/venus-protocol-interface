@@ -142,7 +142,6 @@ export interface Asset {
   borrowCapTokens: BigNumber;
   supplyCapTokens: BigNumber;
   // User-specific props
-  userEModeGroupName?: string;
   // TODO: make these optional so they can be set to undefined when no wallet is
   // connected
   userSupplyBalanceTokens: BigNumber;
@@ -174,6 +173,7 @@ export interface EModeGroup {
   id: number;
   name: string;
   assetSettings: EModeAssetSettings[];
+  isIsolated: boolean;
 }
 
 export interface Pool {
@@ -189,6 +189,7 @@ export interface Pool {
   userVaiBorrowBalanceTokens?: BigNumber;
   userVaiBorrowBalanceCents?: BigNumber;
   userLiquidationThresholdCents?: BigNumber;
+  userHealthFactor?: number;
   userEModeGroup?: EModeGroup;
 }
 
