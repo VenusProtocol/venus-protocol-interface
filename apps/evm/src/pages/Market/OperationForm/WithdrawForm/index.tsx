@@ -421,7 +421,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
   const {
     isDelegateApproved,
     isDelegateApprovedLoading,
-    isUseUpdatePoolDelegateStatusLoading,
+    isDelegateStatusLoading,
     updatePoolDelegateStatus,
   } = useDelegateApproval({
     delegateeAddress: nativeTokenGatewayContractAddress || NULL_ADDRESS,
@@ -469,7 +469,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
       isSubmitting={isWithdrawLoading}
       isDelegateApproved={isDelegateApproved}
       isDelegateApprovedLoading={isDelegateApprovedLoading}
-      isApproveDelegateLoading={isUseUpdatePoolDelegateStatusLoading}
+      isApproveDelegateLoading={isDelegateStatusLoading}
       approveDelegateAction={() => updatePoolDelegateStatus({ approvedStatus: true })}
     />
   );

@@ -657,8 +657,17 @@
   },
   "operationForm": {
     "availableAmount": "Available",
+    "boost": {
+      "flows": {
+        "borrow": "Borrow {{ tokenSymbol }}",
+        "supply": "Supply {{ tokenSymbol }}",
+        "swap": "Swap"
+      },
+      "supply": "Supply"
+    },
     "boostTabAltText": "Rocket icon",
     "boostTabTitle": "Boost",
+    "borrowBalance": "Borrow balance ({{ tokenSymbol }})",
     "borrowTabTitle": "Borrow",
     "error": {
       "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
@@ -676,6 +685,10 @@
       "unwrappingUnsupported": "Unwrapping unsupported",
       "wrappingUnsupported": "Wrapping unsupported"
     },
+    "leverage": {
+      "label": "Leverage",
+      "tooltip": "TRANSLATION NEEDED"
+    },
     "receiveNativeToken": {
       "label": "Receive {{tokenSymbol}}",
       "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
@@ -692,8 +705,10 @@
     },
     "safeMaxButtonLabel": "SAFE MAX",
     "submitButtonLabel": {
+      "boost": "Boost",
       "borrow": "Borrow",
       "enterValidAmount": "Enter valid amount",
+      "pickLeverageFactor": "Pick leverage factor",
       "repay": "Repay",
       "supply": "Supply",
       "withdraw": "Withdraw"
@@ -701,6 +716,7 @@
     "supply": {
       "collateral": "Collateral"
     },
+    "supplyBalance": "Supply balance ({{ tokenSymbol }})",
     "supplyTabTitle": "Supply",
     "swapDetails": {
       "label": {

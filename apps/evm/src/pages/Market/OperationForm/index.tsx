@@ -7,6 +7,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import type { VToken } from 'types';
+import BoostForm from './BoostForm';
 import BorrowForm from './BorrowForm';
 import NativeTokenBalanceWrapper from './NativeTokenBalanceWrapper';
 import RepayForm from './RepayForm';
@@ -100,7 +101,17 @@ export const OperationForm: React.FC<OperationFormProps> = ({
           <span className="text-[#65EEE0]">{t('operationForm.boostTabTitle')}</span>
         </div>
       ),
-      content: <>Coming soon</>,
+      content: (
+        <AssetAccessor
+          vToken={vToken}
+          poolComptrollerAddress={poolComptrollerAddress}
+          action="borrow"
+        >
+          {({ asset, pool }) => (
+            <BoostForm asset={asset} pool={pool} onSubmitSuccess={onSubmitSuccess} />
+          )}
+        </AssetAccessor>
+      ),
     });
   }
 

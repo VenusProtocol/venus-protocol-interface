@@ -2,11 +2,11 @@
 import { Typography } from '@mui/material';
 import { useState } from 'react';
 
-import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import type { Token } from 'types';
 
-import { TertiaryButton } from '@venusprotocol/ui';
+import { TertiaryButton, cn } from '@venusprotocol/ui';
 import { Icon } from '../Icon';
+import { TokenIcon } from '../TokenIcon';
 import { TokenTextField, type TokenTextFieldProps } from '../TokenTextField';
 import TokenList from './TokenList';
 import { useStyles } from './styles';
@@ -18,9 +18,12 @@ import {
 import type { OptionalTokenBalance } from './types';
 
 export interface SelectTokenTextFieldProps extends Omit<TokenTextFieldProps, 'max' | 'token'> {
-  selectedToken: Token;
   tokenBalances: OptionalTokenBalance[];
+  selectedToken: Token;
   onChangeSelectedToken: (token: Token) => void;
+  token?: Token;
+  selectedTokenLabel?: string;
+  displayCommonTokenButtons?: boolean;
   'data-testid'?: string;
 }
 
@@ -35,6 +38,8 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
   rightMaxButton,
   'data-testid': testId,
   description,
+  selectedTokenLabel,
+  displayCommonTokenButtons = false,
   ...otherTokenTextFieldProps
 }) => {
   const styles = useStyles();
@@ -64,7 +69,19 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
               disabled={disabled}
               data-testid={!!testId && getTokenSelectButtonTestId({ parentTestId: testId })}
             >
-              <TokenIconWithSymbol token={selectedToken} css={styles.token} />
+              <div className="flex items-center gap-x-2">
+                <TokenIcon token={selectedToken} className="h-5 w-5" />
+
+                <div className="text-left">
+                  <div className={cn(!!selectedTokenLabel && 'leading-3')}>
+                    {selectedToken.symbol}
+                  </div>
+
+                  {!!selectedTokenLabel && (
+                    <p className="text-xs text-grey leading-3 font-normal">{selectedTokenLabel}</p>
+                  )}
+                </div>
+              </div>
 
               <Icon
                 css={styles.getArrowIcon({ isTokenListShown })}
@@ -95,6 +112,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
             tokenBalances={tokenBalances}
             data-testid={testId}
             onTokenClick={handleChangeSelectedToken}
+            displayCommonTokenButtons={displayCommonTokenButtons}
           />
         )}
       </div>
