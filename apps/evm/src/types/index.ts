@@ -172,6 +172,7 @@ export interface EModeAssetSettings {
 export interface EModeGroup {
   id: number;
   name: string;
+  isActive: boolean;
   assetSettings: EModeAssetSettings[];
   isIsolated: boolean;
 }

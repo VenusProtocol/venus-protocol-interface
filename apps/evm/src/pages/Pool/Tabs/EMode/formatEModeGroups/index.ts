@@ -21,6 +21,11 @@ export const formatEModeGroups = ({
 }: { pool: Pool; searchValue: string; formatTo: ({ to }: { to: To }) => To; vai?: Token }) =>
   pool.eModeGroups
     .reduce<ExtendedEModeGroup[]>((acc, eModeGroup) => {
+      // Filter out inactive E-mode groups, except the one enabled by the user
+      if (!eModeGroup.isActive && eModeGroup.id !== pool.userEModeGroup?.id) {
+        return acc;
+      }
+
       // Handle search
       const searchMatches = (value: string) =>
         value.toLowerCase().includes(searchValue.toLowerCase());

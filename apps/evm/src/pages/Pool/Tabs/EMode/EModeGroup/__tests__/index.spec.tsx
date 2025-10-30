@@ -113,6 +113,37 @@ describe('EModeGroup', () => {
     });
   });
 
+  it('lets user disable inactive E-mode group when they meet the criteria', async () => {
+    const fakeEModeGroup = fakePool.eModeGroups[3];
+
+    const customFakePool: Pool = {
+      ...baseProps.pool,
+      userEModeGroup: fakeEModeGroup,
+    };
+
+    const { queryAllByText, container } = renderComponent(
+      <EModeGroup {...baseProps} pool={customFakePool} eModeGroup={fakeEModeGroup} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(container.textContent).toMatchSnapshot();
+
+    const button = queryAllByText(en.pool.eMode.group.disableButtonLabel)[0].closest('button');
+
+    expect(button).toBeEnabled();
+    fireEvent.click(button as HTMLButtonElement);
+
+    await waitFor(() => expect(mockSetEModeGroup).toHaveBeenCalledTimes(1));
+    expect(mockSetEModeGroup).toHaveBeenCalledWith({
+      comptrollerContractAddress: customFakePool.comptrollerAddress,
+      userEModeGroupName: customFakePool.userEModeGroup?.name,
+      eModeGroupId: 0,
+      eModeGroupName: undefined,
+    });
+  });
+
   it('lets user switch E-mode group when they meet the criteria', async () => {
     const fakeEModeGroup = fakePool.eModeGroups[1];
 

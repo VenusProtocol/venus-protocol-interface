@@ -1,7 +1,7 @@
 import { Spinner, cn } from '@venusprotocol/ui';
 
 import { useSetEModeGroup } from 'clients/api';
-import { Button, EModeIcon, InfoIcon, IsolatedEModeGroupTooltip } from 'components';
+import { Button, EModeIcon, InfoIcon, IsolatedEModeGroupTooltip, NoticeWarning } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChain } from 'containers/SwitchChain';
 import { useAnalytics } from 'libs/analytics';
@@ -127,6 +127,10 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <div className={cn('space-y-3', className)}>
+        {!eModeGroup.isActive && (
+          <NoticeWarning description={t('pool.eMode.group.disabledNotice')} />
+        )}
+
         <div className="flex items-center justify-between gap-x-2">
           <div className="flex items-center flex-wrap gap-x-2">
             <h3 className="font-semibold lg:text-lg">{eModeGroup.name}</h3>
