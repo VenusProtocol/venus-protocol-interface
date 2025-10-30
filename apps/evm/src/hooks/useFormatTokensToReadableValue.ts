@@ -5,6 +5,9 @@ import { type FormatTokensToReadableValueInput, formatTokensToReadableValue } fr
 
 export type UseFormatTokensToReadableValueInput = FormatTokensToReadableValueInput;
 
+/**
+ * @deprecated Use formatTokensToReadableValue instead
+ */
 const useFormatTokensToReadableValue = (params: UseFormatTokensToReadableValueInput) =>
   useMemo(() => (params.value ? formatTokensToReadableValue(params) : PLACEHOLDER_KEY), [params]);
 
