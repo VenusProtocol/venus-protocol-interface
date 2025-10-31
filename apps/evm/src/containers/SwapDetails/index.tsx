@@ -1,6 +1,7 @@
 import { TertiaryButton, cn } from '@venusprotocol/ui';
 
 import { Icon, LabeledInlineContent, Modal, TextField, type TextFieldProps } from 'components';
+import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import {
   DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
@@ -19,16 +20,16 @@ export const slippageToleranceOptions = ['0.1', String(DEFAULT_SLIPPAGE_TOLERANC
 const MAX_SLIPPAGE_TOLERANCE_DECIMALS = 2;
 
 export interface SwapDetailsProps {
-  exchangeRate: BigNumber;
   fromToken: Token;
   toToken: Token;
-  priceImpactPercentage: number;
+  exchangeRate?: BigNumber;
+  priceImpactPercentage?: number;
 }
 
 export const SwapDetails: React.FC<SwapDetailsProps> = ({
-  exchangeRate,
   fromToken,
   toToken,
+  exchangeRate,
   priceImpactPercentage,
 }) => {
   const { t } = useTranslation();
@@ -78,13 +79,15 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
 
   return (
     <>
-      <div className="space-y-3">
+      <div className="space-y-2">
         <LabeledInlineContent label={t('swapDetails.exchangeRate.label')}>
-          {t('swapDetails.exchangeRate.value', {
-            fromTokenSymbol: fromToken.symbol,
-            toTokenSymbol: toToken.symbol,
-            rate: readableExchangeRate,
-          })}
+          {exchangeRate !== undefined
+            ? t('swapDetails.exchangeRate.value', {
+                fromTokenSymbol: fromToken.symbol,
+                toTokenSymbol: toToken.symbol,
+                rate: readableExchangeRate,
+              })
+            : PLACEHOLDER_KEY}
         </LabeledInlineContent>
 
         <LabeledInlineContent label={t('swapDetails.slippageTolerance.label')}>
@@ -106,7 +109,9 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
           <span
             className={cn(
               'align-sub',
-              priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE && 'text-red',
+              priceImpactPercentage !== undefined &&
+                priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+                'text-red',
             )}
           >
             {readablePriceImpact}

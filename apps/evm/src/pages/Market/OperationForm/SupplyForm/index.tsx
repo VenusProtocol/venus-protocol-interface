@@ -265,6 +265,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
               isApproveFromTokenLoading ||
               formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
             }
+            displayCommonTokenButtons
             onChange={amountTokens => {
               captureAmountSetAnalyticEvent({ amountTokens, maxSelected: false });
 

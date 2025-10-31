@@ -15,8 +15,8 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   hasError?: boolean;
   leftIconSrc?: IconName | Token;
   rightAdornment?: React.ReactElement;
-  size?: 'xs' | 'md';
-  variant?: 'primary' | 'secondary';
+  size?: 'xxs' | 'xs' | 'md';
+  variant?: 'primary' | 'secondary' | 'tertiary';
 }
 
 export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -70,6 +70,9 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
     let inputContainerCn = cn(
       'flex items-center h-15 pr-2 pl-4 py-2 border border-lightGrey rounded-xl bg-background transition-[border-color] hover:border-offWhite focus-within:border-blue focus-within:hover:border-blue',
       size === 'xs' && 'h-10 py-1 rounded-lg',
+      size === 'xxs' && 'h-8 py-1 rounded-[4px] px-3',
+      variant === 'tertiary' &&
+        'bg-lightGrey text-grey hover:text-offWhite hover:border-transparent focus-within:text-offWhite',
       disabled && 'border-lightGrey bg-cards',
       hasError && 'border-red focus-within:border-red',
     );
@@ -101,7 +104,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
             className={cn(
               'bg-transparent flex-1 h-full font-semibold leading-6 w-full placeholder:text-grey outline-none',
               !!rightAdornment && 'mr-1',
-              size === 'xs' && 'text-sm',
+              (size === 'xs' || size === 'xxs') && 'text-sm',
             )}
             max={max}
             min={min}

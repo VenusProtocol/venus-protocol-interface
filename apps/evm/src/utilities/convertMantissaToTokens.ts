@@ -30,7 +30,7 @@ export function convertMantissaToTokens({
   }
 
   const valueTokens = new BigNumber(typeof value === 'bigint' ? value.toString() : value.toFixed())
-    .dividedBy(10 ** token.decimals)
+    .shiftedBy(-token.decimals)
     .decimalPlaces(token.decimals);
 
   if (returnInReadableFormat) {
