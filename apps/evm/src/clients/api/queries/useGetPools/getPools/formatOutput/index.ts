@@ -141,10 +141,11 @@ export const formatOutput = ({
         : undefined;
 
       const isBorrowable = market.isBorrowable ?? true;
+      let isBorrowableByUser = isBorrowable;
 
-      const isBorrowableByUser = userEModeAssetSettings
-        ? userEModeAssetSettings.isBorrowable
-        : isBorrowable;
+      if (userEModeGroup) {
+        isBorrowableByUser = userEModeAssetSettings?.isBorrowable ?? false;
+      }
 
       // If the user has enabled a non-isolated E-mode group and that asset is not in it, then it
       // contributes towards that user's borrow limit using the pool settings. If the E-mode group
