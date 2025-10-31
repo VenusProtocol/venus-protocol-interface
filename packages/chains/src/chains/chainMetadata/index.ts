@@ -2,6 +2,11 @@ import { iconSrcs } from '../../generated/manifests/chainIcons';
 import { bnb, eth } from '../../tokens/nativeTokens';
 import { type Chain, ChainId } from '../../types';
 
+export const opBnbTestnetFourierForkTimestamp = new Date('2025-10-06 03:00:00 AM UTC');
+
+const now = new Date();
+const isPassedOpBnbTestnetFourierFork = now >= opBnbTestnetFourierForkTimestamp;
+
 export const chains: {
   [chainId in ChainId]: Chain;
 } = {
@@ -31,6 +36,7 @@ export const chains: {
     iconSrc: iconSrcs.opBnb,
     explorerUrl: 'https://opbnbscan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com',
+    // TODO: handle Fourier hard fork once we have a fixed date for it (https://github.com/bnb-chain/opbnb/releases/tag/v0.5.4)
     blockTimeMs: 500,
     blocksPerDay: 172800,
     corePoolComptrollerContractAddress: '0xD6e3E2A1d8d95caE355D15b3b9f8E5c2511874dd',
@@ -41,8 +47,8 @@ export const chains: {
     iconSrc: iconSrcs.opBnb,
     explorerUrl: 'https://testnet.opbnbscan.com',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    blockTimeMs: 500,
-    blocksPerDay: 172800,
+    blockTimeMs: isPassedOpBnbTestnetFourierFork ? 250 : 500,
+    blocksPerDay: isPassedOpBnbTestnetFourierFork ? 345600 : 172800,
     corePoolComptrollerContractAddress: '0x2FCABb31E57F010D623D8d68e1E18Aed11d5A388',
     nativeToken: bnb,
   },
