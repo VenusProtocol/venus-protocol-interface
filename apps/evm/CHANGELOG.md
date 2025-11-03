@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.72.0
+
+### Minor Changes
+
+- a402833: fix isBorrowableByUser prop for isolated E-mode groups
+
 ## 3.71.0
 
 ### Minor Changes
