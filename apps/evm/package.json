@@ -36,7 +36,7 @@
     "@lauriys/react-palette": "^1.0.5",
     "@metamask/delegation-toolkit": "0.11.0",
     "@mui/material": "^5.4.2",
-    "@mui/utils": "^5.4.2",
+    "@mui/utils": "^7.3.5",
     "@pancakeswap/sdk": "^3.1.0",
     "@radix-ui/react-slider": "^1.3.6",
     "@radix-ui/react-slot": "^1.0.2",
