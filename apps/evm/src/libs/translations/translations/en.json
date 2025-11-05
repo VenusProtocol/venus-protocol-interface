@@ -128,6 +128,10 @@
     }
   },
   "accountData": {
+    "balanceUpdate": {
+      "borrowBalance": "Borrow balance ({{ tokenSymbol }})",
+      "supplyBalance": "Supply balance ({{ tokenSymbol }})"
+    },
     "borrowBalance": {
       "label": "Borrow balance"
     },
@@ -613,7 +617,7 @@
       "supplyApy": "APY <InfoIcon />",
       "supplyBalance": "Total supply",
       "userBorrowBalance": "Balance",
-      "userPercentOfLimit": "% of limit",
+      "userBorrowLimitSharePercentage": "% of limit",
       "userSupplyBalance": "Balance",
       "userWalletBalance": "Wallet"
     },
@@ -629,7 +633,7 @@
       "supplyApy": "Supply APY / LTV",
       "supplyBalance": "Total supply",
       "userBorrowBalance": "Borrow balance",
-      "userPercentOfLimit": "% of limit",
+      "userBorrowLimitSharePercentage": "% of limit",
       "userSupplyBalance": "Supply balance",
       "userWalletBalance": "Wallet balance"
     },

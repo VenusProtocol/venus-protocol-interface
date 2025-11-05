@@ -12,7 +12,6 @@ export interface SummaryProps {
   vaults?: Vault[];
   xvsPriceCents?: BigNumber;
   vaiPriceCents?: BigNumber;
-  vaiBorrowAprPercentage?: BigNumber;
   className?: string;
 }
 
@@ -22,7 +21,6 @@ export const Summary: React.FC<SummaryProps> = ({
   vaults,
   xvsPriceCents,
   vaiPriceCents,
-  vaiBorrowAprPercentage,
 }) => {
   const { t } = useTranslation();
 
@@ -38,7 +36,6 @@ export const Summary: React.FC<SummaryProps> = ({
     vaults,
     xvsPriceCents,
     vaiPriceCents,
-    vaiBorrowAprPercentage,
   });
 
   const cells: CellProps[] = [

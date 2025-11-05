@@ -12,7 +12,6 @@ import {
   getVaiTreasuryPercentage,
   useGetMintableVai,
   useGetPool,
-  useGetTokenUsdPrice,
   useMintVai,
 } from 'clients/api';
 import { en } from 'libs/translations';
@@ -22,6 +21,8 @@ import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import type { BalanceMutation, Pool } from 'types';
 import { Borrow } from '..';
 
 const fakeGetMintableVaiOutput: GetMintableVaiOutput = {
@@ -32,9 +33,19 @@ const fakeGetMintableVaiOutput: GetMintableVaiOutput = {
 const fakeVaiTreasuryPercentage = 7.19;
 
 const fakeVaiPriceCents = 100;
-const fakeUserBorrowBalanceCents = new BigNumber(fakeVaiPriceCents * 5);
+const fakeUserBorrowBalanceTokens = new BigNumber(5);
+const fakeUserBorrowBalanceCents = new BigNumber(fakeVaiPriceCents).multipliedBy(
+  fakeUserBorrowBalanceTokens,
+);
 const fakeUserBorrowLimitCents = new BigNumber(fakeVaiPriceCents * 20);
 const fakeUserLiquidationThresholdCents = new BigNumber(fakeVaiPriceCents * 22);
+
+const fakePool: Pool = {
+  ...poolData[0],
+  userBorrowBalanceCents: fakeUserBorrowBalanceCents,
+  userBorrowLimitCents: fakeUserBorrowLimitCents,
+  userLiquidationThresholdCents: fakeUserLiquidationThresholdCents,
+};
 
 describe('Borrow', () => {
   beforeEach(() => {
@@ -46,19 +57,7 @@ describe('Borrow', () => {
     (useGetPool as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
-        pool: {
-          ...poolData[0],
-          userBorrowBalanceCents: fakeUserBorrowBalanceCents,
-          userBorrowLimitCents: fakeUserBorrowLimitCents,
-          userLiquidationThresholdCents: fakeUserLiquidationThresholdCents,
-        },
-      },
-    }));
-
-    (useGetTokenUsdPrice as Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        tokenPriceUsd: fakeVaiPriceCents / 100,
+        pool: fakePool,
       },
     }));
   });
@@ -172,6 +171,20 @@ describe('Borrow', () => {
   });
 
   it('prompts user to acknowledge risk if requested borrow lowers health factor to risky threshold', async () => {
+    const customFakePool: Pool = {
+      ...fakePool,
+      userHealthFactor: HEALTH_FACTOR_MODERATE_THRESHOLD - 0.01,
+    };
+
+    (useSimulateBalanceMutations as Mock).mockImplementation(
+      ({ balanceMutations }: { balanceMutations: BalanceMutation[] }) => ({
+        isLoading: false,
+        data: {
+          pool: balanceMutations.length > 0 ? customFakePool : fakePool,
+        },
+      }),
+    );
+
     const { getByText, getByPlaceholderText, getByRole } = renderComponent(<Borrow />, {
       accountAddress: fakeAccountAddress,
     });

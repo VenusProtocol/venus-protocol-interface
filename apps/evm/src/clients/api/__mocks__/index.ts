@@ -190,6 +190,13 @@ export const useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade = vi.fn(() =>
   }),
 );
 
+export const useGetPools = vi.fn(() => ({
+  isLoading: false,
+  data: {
+    pools: poolData,
+  },
+}));
+
 export const useGetPool = vi.fn(() => ({
   isLoading: false,
   data: {
@@ -197,10 +204,10 @@ export const useGetPool = vi.fn(() => ({
   },
 }));
 
-export const useGetPools = vi.fn(() => ({
+export const useGetSimulatedPool = vi.fn(() => ({
   isLoading: false,
   data: {
-    pools: poolData,
+    pool: undefined,
   },
 }));
 
@@ -385,14 +392,6 @@ export const useGetPancakeSwapPairs = vi.fn(() =>
   useQuery({
     queryKey: [FunctionKey.GET_PANCAKE_SWAP_PAIRS],
     queryFn: getPancakeSwapPairs,
-  }),
-);
-
-export const getVaiRepayApr = vi.fn();
-export const useGetVaiRepayApr = vi.fn(() =>
-  useQuery({
-    queryKey: [FunctionKey.GET_VAI_REPAY_APR],
-    queryFn: getVaiRepayApr,
   }),
 );
 

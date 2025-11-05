@@ -156,9 +156,6 @@ export * from './queries/getProposalEta/useGetProposalEta';
 export * from './queries/getPancakeSwapPairs';
 export * from './queries/getPancakeSwapPairs/useGetPancakeSwapPairs';
 
-export * from './queries/getVaiRepayApr';
-export * from './queries/getVaiRepayApr/useGetVaiRepayApr';
-
 export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
 export * from './queries/getXvsVaultUserPendingWithdrawalsFromBeforeUpgrade/useGetXvsVaultUserPendingWithdrawalsFromBeforeUpgrade';
 
@@ -226,3 +223,6 @@ export * from './queries/getAccountPerformanceHistory/useGetAccountPerformanceHi
 
 export * from './queries/getAccountTransactionHistory';
 export * from './queries/getAccountTransactionHistory/useGetAccountTransactionHistory';
+
+export * from './queries/getSimulatedPool';
+export * from './queries/getSimulatedPool/useGetSimulatedPool';

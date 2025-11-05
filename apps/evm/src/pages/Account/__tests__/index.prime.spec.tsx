@@ -2,7 +2,6 @@ import { screen, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { useGetVaiRepayApr } from 'clients/api';
 import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
@@ -27,13 +26,6 @@ describe('Account - Feature flag enabled: Prime', () => {
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'prime',
     );
-
-    (useGetVaiRepayApr as Mock).mockImplementation(() => ({
-      data: {
-        repayAprPercentage: new BigNumber(5.34),
-      },
-      isLoading: false,
-    }));
   });
 
   it('displays Prime banner if user is not Prime and Prime feature is enabled', async () => {
