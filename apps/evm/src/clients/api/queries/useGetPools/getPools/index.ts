@@ -1,7 +1,12 @@
 import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
-import { legacyPoolComptrollerAbi, primeAbi } from 'libs/contracts';
+import {
+  legacyPoolComptrollerAbi,
+  primeAbi,
+  resilientOracleAbi,
+  vaiControllerAbi,
+} from 'libs/contracts';
 import type { Asset, TokenBalance } from 'types';
 import type { GetPoolsInput, GetPoolsOutput, PrimeApy, VTokenBalance } from '../types';
 import { appendPrimeSimulationDistributions } from './appendPrimeSimulationDistributions';
@@ -20,16 +25,21 @@ export const getPools = async ({
   poolLensContractAddress,
   legacyPoolComptrollerContractAddress,
   vaiControllerContractAddress,
+  resilientOracleContractAddress,
   venusLensContractAddress,
   tokens,
   isEModeFeatureEnabled,
 }: GetPoolsInput) => {
+  const vai = tokens.find(token => token.symbol === 'VAI');
+
   const [
     { pools: apiPools, tokenPricesMapping },
     currentBlockNumber,
     unsafePrimeVTokenAddresses,
     primeMinimumXvsToStakeMantissa,
     userPrimeToken,
+    vaiPriceMantissa,
+    vaiRepayRateMantissa,
   ] = await Promise.all([
     getApiPools({ chainId }),
     // Fetch current block number
@@ -55,6 +65,22 @@ export const getPools = async ({
           address: primeContractAddress,
           functionName: 'tokens',
           args: [accountAddress],
+        })
+      : undefined,
+    // VAI related calls
+    resilientOracleContractAddress && vai
+      ? publicClient.readContract({
+          address: resilientOracleContractAddress,
+          abi: resilientOracleAbi,
+          functionName: 'getPrice',
+          args: [vai.address],
+        })
+      : undefined,
+    vaiControllerContractAddress
+      ? publicClient.readContract({
+          address: vaiControllerContractAddress,
+          abi: vaiControllerAbi,
+          functionName: 'getVAIRepayRate',
         })
       : undefined,
   ]);
@@ -148,11 +174,14 @@ export const getPools = async ({
     userTokenBalances,
     userVaiBorrowBalanceMantissa,
     userPoolEModeGroupIdMapping,
+    vaiRepayRateMantissa,
+    vaiPriceMantissa,
   });
 
   // Add Prime simulations
   // TODO: get Prime simulations from API
   const xvs = tokens.find(token => token.symbol === 'XVS');
+
   if (primeContractAddress && primeMinimumXvsToStakeMantissa && xvs) {
     await appendPrimeSimulationDistributions({
       assets: pools.reduce<Asset[]>((acc, pool) => acc.concat(pool.assets), []),

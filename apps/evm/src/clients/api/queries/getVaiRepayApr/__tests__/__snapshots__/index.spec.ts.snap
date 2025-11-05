@@ -1,7 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`getVaiRepayApr > returns VAI repay APR in the right format on success 1`] = `
-{
-  "repayAprPercentage": "100",
-}
-`;

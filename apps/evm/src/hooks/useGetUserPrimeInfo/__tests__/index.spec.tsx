@@ -13,7 +13,7 @@ import {
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetUserPrimeInfo } from '..';
 
-const MOCK_DEFAULT_PRIME_STATUS = {
+const fakePrimeStatus = {
   claimWaitingPeriodSeconds: 600,
   userClaimTimeRemainingSeconds: 600,
   claimedPrimeTokenCount: 0,
@@ -24,6 +24,8 @@ const MOCK_DEFAULT_PRIME_STATUS = {
   xvsVaultPoolId: 1,
   rewardTokenAddress: '',
 };
+
+vi.unmock('hooks/useGetUserPrimeInfo');
 
 describe('useGetUserPrimeInfo', () => {
   beforeEach(() => {
@@ -40,7 +42,7 @@ describe('useGetUserPrimeInfo', () => {
 
     (useGetPrimeStatus as Mock).mockImplementation(() => ({
       isLoading: false,
-      data: MOCK_DEFAULT_PRIME_STATUS,
+      data: fakePrimeStatus,
     }));
 
     (useGetXvsVaultUserInfo as Mock).mockImplementation(() => ({

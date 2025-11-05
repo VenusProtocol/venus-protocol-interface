@@ -33,7 +33,7 @@ export const useStyles = () => {
         }
       }
     `,
-    userPercentOfLimit: css`
+    userBorrowLimitSharePercentage: css`
       display: flex;
       align-items: center;
       justify-content: flex-end;

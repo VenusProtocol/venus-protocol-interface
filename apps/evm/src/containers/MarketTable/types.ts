@@ -11,5 +11,5 @@ export type ColumnKey =
   | 'borrowBalance'
   | 'supplyBalance'
   | 'liquidity'
-  | 'userPercentOfLimit'
+  | 'userBorrowLimitSharePercentage'
   | 'userWalletBalance';

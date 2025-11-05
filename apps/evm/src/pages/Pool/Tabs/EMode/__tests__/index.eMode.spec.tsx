@@ -11,8 +11,11 @@ import { EMode } from '..';
 
 const fakePool: Pool = {
   ...poolData[0],
-  userVaiBorrowBalanceTokens: new BigNumber(0),
-  userVaiBorrowBalanceCents: new BigNumber(0),
+  vai: {
+    ...poolData[0].vai!,
+    userBorrowBalanceTokens: new BigNumber(0),
+    userBorrowBalanceCents: new BigNumber(0),
+  },
 };
 
 describe('EMode', () => {
@@ -50,8 +53,11 @@ describe('EMode', () => {
     const customFakePool: Pool = {
       ...fakePool,
       userEModeGroup: fakePool.eModeGroups[0],
-      userVaiBorrowBalanceCents: new BigNumber(10000),
-      userVaiBorrowBalanceTokens: new BigNumber(100),
+      vai: {
+        ...poolData[0].vai!,
+        userBorrowBalanceTokens: new BigNumber(100),
+        userBorrowBalanceCents: new BigNumber(10000),
+      },
     };
 
     const { container } = renderComponent(

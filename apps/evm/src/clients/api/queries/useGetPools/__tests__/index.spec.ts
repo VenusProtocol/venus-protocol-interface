@@ -18,6 +18,7 @@ import {
   fakeLegacyPoolComptrollerContractAddress,
   fakePoolLensContractAddress,
   fakePublicClient,
+  fakeResilientOracleContractAddress,
   fakeVaiControllerContractAddress,
   fakeVenusLensContractAddress,
 } from '../__testUtils__/fakeData';
@@ -52,6 +53,10 @@ describe('useGetPools', () => {
 
       if (name === 'VaiController') {
         address = fakeVaiControllerContractAddress;
+      }
+
+      if (name === 'ResilientOracle') {
+        address = fakeResilientOracleContractAddress;
       }
 
       return {

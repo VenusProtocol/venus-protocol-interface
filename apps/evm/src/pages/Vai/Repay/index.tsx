@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 
-import { useGetBalanceOf, useGetPool, useGetVaiRepayApr, useRepayVai } from 'clients/api';
+import { useGetBalanceOf, useGetPool, useGetSimulatedPool, useRepayVai } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -11,25 +11,25 @@ import {
   SpendingLimit,
   Spinner,
 } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import MAX_UINT256 from 'constants/maxUint256';
+import { AccountData } from 'containers/AccountData2';
+import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
+import { useChain } from 'hooks/useChain';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
+import type { BalanceMutation } from 'types';
 import {
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,
   generatePseudoRandomRefetchInterval,
 } from 'utilities';
-
-import { NULL_ADDRESS } from 'constants/address';
-import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
-import { useChain } from 'hooks/useChain';
-import { useGetContractAddress } from 'hooks/useGetContractAddress';
-import { AccountVaiData } from '../AccountVaiData';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
 import { ErrorCode, useForm } from './useForm';
@@ -40,7 +40,6 @@ export const Repay: React.FC = () => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
-
   const chain = useChain();
 
   const vai = useGetToken({
@@ -90,16 +89,16 @@ export const Repay: React.FC = () => {
 
   const { mutateAsync: repayVai } = useRepayVai();
 
-  const { data: getVaiRepayAprData } = useGetVaiRepayApr();
-
-  const readableBorrowApr = formatPercentageToReadableValue(getVaiRepayAprData?.repayAprPercentage);
-
   const { data: getPoolData, isLoading: isGetPoolDataLoading } = useGetPool({
     poolComptrollerAddress: chain.corePoolComptrollerContractAddress,
     accountAddress,
   });
+  const legacyPool = getPoolData?.pool;
+  const userVaiBorrowBalanceTokens = legacyPool?.vai?.userBorrowBalanceTokens;
 
-  const userVaiBorrowBalanceTokens = getPoolData?.pool.userVaiBorrowBalanceTokens;
+  console.log(userVaiBorrowBalanceTokens?.toFixed());
+
+  const readableBorrowApr = formatPercentageToReadableValue(legacyPool?.vai?.borrowAprPercentage);
 
   const {
     limitTokens,
@@ -110,7 +109,24 @@ export const Repay: React.FC = () => {
     userWalletSpendingLimitTokens,
   });
 
-  const inputAmountTokens = watch('amountTokens');
+  const inputValue = watch('amountTokens');
+  const inputAmountTokens = new BigNumber(inputValue || 0);
+
+  const balanceMutations: BalanceMutation[] = [];
+
+  if (inputAmountTokens.isGreaterThan(0)) {
+    balanceMutations.push({
+      type: 'vai',
+      amountTokens: new BigNumber(inputAmountTokens),
+      action: 'repay',
+    });
+  }
+
+  const { data: getSimulatedPoolData } = useGetSimulatedPool({
+    pool: legacyPool,
+    balanceMutations,
+  });
+  const simulatedPool = getSimulatedPoolData?.pool;
 
   const isRepayingFullLoan = !!userVaiBorrowBalanceTokens?.isEqualTo(inputAmountTokens);
 
@@ -233,11 +249,11 @@ export const Repay: React.FC = () => {
         </LabeledInlineContent>
       </div>
 
-      {isUserConnected && (
+      {isUserConnected && legacyPool && (
         <>
           <Delimiter />
 
-          <AccountVaiData amountTokens={inputAmountTokens} action="repay" />
+          <AccountData pool={legacyPool} simulatedPool={simulatedPool} />
         </>
       )}
 

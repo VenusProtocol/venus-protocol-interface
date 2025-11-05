@@ -7,13 +7,7 @@ import { poolData } from '__mocks__/models/pools';
 import { vai } from '__mocks__/models/tokens';
 import { renderComponent } from 'testUtils/render';
 
-import {
-  useGetBalanceOf,
-  useGetPool,
-  useGetTokenUsdPrice,
-  useGetVaiRepayApr,
-  useRepayVai,
-} from 'clients/api';
+import { useGetBalanceOf, useGetPool, useRepayVai } from 'clients/api';
 import MAX_UINT256 from 'constants/maxUint256';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
@@ -34,8 +28,13 @@ const fakeUserBorrowLimitCents = new BigNumber(fakeVaiPriceCents * 20);
 
 const fakePool: Pool = {
   ...poolData[0],
-  userVaiBorrowBalanceTokens: fakeUserBorrowBalanceTokens,
-  userVaiBorrowBalanceCents: fakeUserBorrowBalanceCents,
+  vai: {
+    token: vai,
+    tokenPriceCents: new BigNumber(fakeVaiPriceCents),
+    borrowAprPercentage: new BigNumber(1.34),
+    userBorrowBalanceTokens: fakeUserBorrowBalanceTokens,
+    userBorrowBalanceCents: fakeUserBorrowBalanceCents,
+  },
   userBorrowBalanceCents: fakeUserBorrowBalanceCents,
   userBorrowLimitCents: fakeUserBorrowLimitCents,
 };
@@ -49,24 +48,10 @@ describe('Repay', () => {
       isLoading: false,
     }));
 
-    (useGetVaiRepayApr as Mock).mockImplementation(() => ({
-      data: {
-        repayAprPercentage: new BigNumber(1.34),
-      },
-      isLoading: false,
-    }));
-
     (useGetPool as Mock).mockImplementation(() => ({
       isLoading: false,
       data: {
         pool: fakePool,
-      },
-    }));
-
-    (useGetTokenUsdPrice as Mock).mockImplementation(() => ({
-      isLoading: false,
-      data: {
-        tokenPriceUsd: fakeVaiPriceCents / 100,
       },
     }));
   });

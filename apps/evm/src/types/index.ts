@@ -152,10 +152,25 @@ export interface Asset {
   userWalletBalanceCents: BigNumber;
   userCollateralFactor: number;
   userLiquidationThresholdPercentage: number;
-  userPercentOfLimit: number;
+  userBorrowLimitSharePercentage: number;
   isBorrowableByUser: boolean;
   isCollateralOfUser: boolean;
 }
+
+export interface AssetBalanceMutation {
+  type: 'asset';
+  vTokenAddress: Address;
+  amountTokens: BigNumber;
+  action: 'borrow' | 'repay' | 'withdraw' | 'supply';
+}
+
+export interface VaiBalanceMutation {
+  type: 'vai';
+  amountTokens: BigNumber;
+  action: 'borrow' | 'repay';
+}
+
+export type BalanceMutation = AssetBalanceMutation | VaiBalanceMutation;
 
 export interface SwapRouterAddressMapping {
   [poolComptrollerAddress: string]: string;
@@ -177,19 +192,27 @@ export interface EModeGroup {
   isIsolated: boolean;
 }
 
+export interface PoolVai {
+  token: Token;
+  tokenPriceCents: BigNumber;
+  borrowAprPercentage: BigNumber;
+  userBorrowBalanceTokens?: BigNumber;
+  userBorrowBalanceCents?: BigNumber;
+}
+
 export interface Pool {
   comptrollerAddress: Address;
   name: string;
   isIsolated: boolean;
   assets: Asset[];
   eModeGroups: EModeGroup[];
+  vai?: PoolVai;
   // User-specific props
   userSupplyBalanceCents?: BigNumber;
   userBorrowBalanceCents?: BigNumber;
   userBorrowLimitCents?: BigNumber;
-  userVaiBorrowBalanceTokens?: BigNumber;
-  userVaiBorrowBalanceCents?: BigNumber;
   userLiquidationThresholdCents?: BigNumber;
+  userYearlyEarningsCents?: BigNumber;
   userHealthFactor?: number;
   userEModeGroup?: EModeGroup;
 }
