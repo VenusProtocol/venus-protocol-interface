@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.73.0
+
+### Minor Changes
+
+- 773edf6: handle Fourier hardfork on opBNB testnet
+
+### Patch Changes
+
+- Updated dependencies [773edf6]
+  - @venusprotocol/chains@0.12.0
+
 ## 3.72.0
 
 ### Minor Changes

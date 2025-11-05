@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.12.0
+
+### Minor Changes
+
+- 773edf6: handle Fourier hardfork on opBNB testnet
+
 ## 0.11.0
 
 ### Minor Changes
