@@ -1,3 +1,5 @@
+import { opBnbTestnetFourierForkTimestamp } from '@venusprotocol/chains';
+
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from 'clients/api';
 import config from 'config';
@@ -9,6 +11,7 @@ import { Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { HashRouter } from 'react-router';
 import { safeLazyLoad } from 'utilities';
+import { ChainUpgradeHandler } from './ChainUpgradeHandler';
 import { MuiThemeProvider } from './MuiThemeProvider';
 import Routes from './Routes';
 import { ThemeHandler } from './ThemeHandler';
@@ -59,6 +62,12 @@ const App = () => (
                 </Suspense>
 
                 <ThemeHandler />
+
+                <ChainUpgradeHandler
+                  upgradeTimestamps={
+                    config.network === 'testnet' ? [opBnbTestnetFourierForkTimestamp] : []
+                  }
+                />
 
                 <SentryErrorInfo />
               </AnalyticProvider>
