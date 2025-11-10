@@ -1,5 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`AccountData > renders correctly 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.62HealthyDaily earnings$1"`;
-
-exports[`AccountData > renders correctly when passing a simulated pool 1`] = `"Borrow limit used:6.4%Limit:$1.92K.Health factor15.6215.62HealthyDaily earnings$1$1"`;

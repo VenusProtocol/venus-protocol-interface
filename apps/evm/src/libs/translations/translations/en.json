@@ -129,8 +129,8 @@
   },
   "accountData": {
     "balanceUpdate": {
-      "borrowBalance": "Borrow balance ({{ tokenSymbol }})",
-      "supplyBalance": "Supply balance ({{ tokenSymbol }})"
+      "borrowBalance": "Borrow balance",
+      "supplyBalance": "Supply balance"
     },
     "borrowBalance": {
       "label": "Borrow balance"
@@ -230,6 +230,26 @@
       }
     }
   },
+  "apyBreakdown": {
+    "borrowApy": "Borrow APY",
+    "distributionApy": "Distribution APY",
+    "distributionTooltip": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
+    "externalDistributionApy": "{{description}} APY",
+    "intrinsicApy": "Intrinsic APY",
+    "intrinsicApyTooltip": "APY earned directly from the asset itself (e.g. staking or external rewards), separate from Venus lending yield. The Venus protocol does not guarantee them and accepts no liability.",
+    "netApy": {
+      "label": "Net APY"
+    },
+    "offChainApy": "Off-chain APY",
+    "offChainApyTooltip": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. The Venus protocol does not guarantee them and accepts no liability.",
+    "primeApy": "Prime APY",
+    "supplyApy": "Supply APY",
+    "totalApy": {
+      "borrowApyTooltip": "Borrow APY - Distribution APYs",
+      "label": "Total APY",
+      "supplyApyTooltip": "Supply APY + Distribution APYs"
+    }
+  },
   "apyChart": {
     "tooltipItemLabels": {
       "borrowApy": "Borrow APY",
@@ -256,23 +276,6 @@
     },
     "eModeBlockedActionNotice": {
       "borrow": "Your E-mode settings do not allow you to borrow from this market. <Link>Manage E-mode</Link>"
-    }
-  },
-  "assetInfo": {
-    "borrowApy": "Borrow APY",
-    "distributionApy": "Distribution APY ({{tokenSymbol}})",
-    "distributionTooltip": "Distribution rewards are initiated and implemented by the decentralized Venus community. The Venus protocol does not guarantee them and accepts no liability.",
-    "externalDistributionApy": "{{description}} APY ({{tokenSymbol}})",
-    "intrinsicApy": "Intrinsic APY ({{tokenSymbol}})",
-    "intrinsicApyTooltip": "APY earned directly from the asset itself (e.g. staking or external rewards), separate from Venus lending yield. The Venus protocol does not guarantee them and accepts no liability.",
-    "offChainApy": "Off-chain APY ({{tokenSymbol}})",
-    "offChainApyTooltip": "Additional yield from off-chain activities, such as airdrop or promotional campaigns, managed by third parties. The Venus protocol does not guarantee them and accepts no liability.",
-    "primeApy": "Prime APY ({{tokenSymbol}})",
-    "supplyApy": "Supply APY",
-    "totalApy": {
-      "borrowApyTooltip": "Borrow APY - Distribution APYs",
-      "label": "Total APY",
-      "supplyApyTooltip": "Supply APY + Distribution APYs"
     }
   },
   "assetWarning": {

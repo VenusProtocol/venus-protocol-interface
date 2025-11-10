@@ -20,15 +20,16 @@ import useDelegateApproval from 'hooks/useDelegateApproval';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
-import type { Asset, Pool } from 'types';
+import type { Asset, BalanceMutation, Pool } from 'types';
 import { calculateHealthFactor, convertTokensToMantissa } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
 import { useAccountAddress } from 'libs/wallet';
-import { AssetInfo } from '../AssetInfo';
+import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
 import SubmitSection from './SubmitSection';
@@ -170,6 +171,21 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     token: asset.vToken.underlyingToken,
   });
 
+  const balanceMutations: BalanceMutation[] = [
+    {
+      type: 'asset',
+      vTokenAddress: asset.vToken.address,
+      action: 'borrow',
+      amountTokens: new BigNumber(formValues.amountTokens || 0),
+    },
+  ];
+
+  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+    pool,
+    balanceMutations,
+  });
+  const simulatedPool = getSimulatedPoolData?.pool;
+
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     pool,
@@ -298,7 +314,13 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           }
         />
 
-        {!isUserConnected && <AssetInfo asset={asset} action="borrow" />}
+        {!isUserConnected && (
+          <ApyBreakdown
+            pool={pool}
+            simulatedPool={simulatedPool}
+            balanceMutations={balanceMutations}
+          />
+        )}
       </div>
 
       <ConnectWallet
@@ -338,10 +360,10 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           )}
 
           <OperationDetails
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            asset={asset}
             action="borrow"
             pool={pool}
+            simulatedPool={simulatedPool}
+            balanceMutations={balanceMutations}
           />
 
           {shouldAskUserRiskAcknowledgement && (
