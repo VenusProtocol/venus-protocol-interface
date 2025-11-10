@@ -1,33 +1,29 @@
-import type BigNumber from 'bignumber.js';
-import { Delimiter } from 'components';
+import { BalanceUpdates, Delimiter } from 'components';
 import { AccountData } from 'containers/AccountData';
-import type { Asset, Pool, Swap, TokenAction } from 'types';
-import { AssetInfo } from '../AssetInfo';
+import type { BalanceMutation, Pool, Swap, TokenAction } from 'types';
+import { ApyBreakdown } from '../ApyBreakdown';
 import SwapDetails from './SwapDetails';
 
 export interface OperationDetailsProps {
-  amountTokens: BigNumber;
-  asset: Asset;
   action: TokenAction;
-  isUsingSwap?: boolean;
   pool: Pool;
+  balanceMutations: BalanceMutation[];
+  simulatedPool?: Pool;
+  isUsingSwap?: boolean;
   swap?: Swap;
 }
 
 export const OperationDetails: React.FC<OperationDetailsProps> = ({
   swap,
-  asset,
   action,
   isUsingSwap = false,
-  amountTokens,
   pool,
+  simulatedPool,
+  balanceMutations,
 }) => {
-  const shouldShowAccountData =
-    pool.userSupplyBalanceCents?.isGreaterThan(0) ||
-    (action === 'supply' && amountTokens.isGreaterThan(0));
-
   return (
     <div className="space-y-4">
+      {/* TODO: move to submit section */}
       {isUsingSwap && swap && (action === 'supply' || action === 'repay') && (
         <>
           <SwapDetails action={action} swap={swap} />
@@ -36,29 +32,24 @@ export const OperationDetails: React.FC<OperationDetailsProps> = ({
         </>
       )}
 
-      <AssetInfo
-        asset={asset}
-        action={action}
-        swap={swap}
-        isUsingSwap={isUsingSwap}
-        amountTokens={amountTokens}
+      <BalanceUpdates
+        pool={pool}
+        simulatedPool={simulatedPool}
+        balanceMutations={balanceMutations}
+      />
+
+      <Delimiter />
+
+      <ApyBreakdown
+        pool={pool}
+        simulatedPool={simulatedPool}
+        balanceMutations={balanceMutations}
         renderType="accordion"
       />
 
-      {shouldShowAccountData && (
-        <>
-          <Delimiter />
+      <Delimiter />
 
-          <AccountData
-            asset={asset}
-            pool={pool}
-            swap={swap}
-            amountTokens={amountTokens}
-            action={action}
-            isUsingSwap={isUsingSwap}
-          />
-        </>
-      )}
+      <AccountData pool={pool} simulatedPool={simulatedPool} />
     </div>
   );
 };

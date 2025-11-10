@@ -37,7 +37,7 @@ import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
-import { AccountData } from 'containers/AccountData2';
+import { AccountData } from 'containers/AccountData';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { useChain } from 'hooks/useChain';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
@@ -139,15 +139,13 @@ export const Borrow: React.FC = () => {
   const inputValue = watch('amountTokens');
   const inputAmountTokens = new BigNumber(inputValue || 0);
 
-  const balanceMutations: BalanceMutation[] = [];
-
-  if (inputAmountTokens.isGreaterThan(0)) {
-    balanceMutations.push({
+  const balanceMutations: BalanceMutation[] = [
+    {
       type: 'vai',
-      amountTokens: new BigNumber(inputAmountTokens),
+      amountTokens: inputAmountTokens,
       action: 'borrow',
-    });
-  }
+    },
+  ];
 
   const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
     pool: legacyPool,
