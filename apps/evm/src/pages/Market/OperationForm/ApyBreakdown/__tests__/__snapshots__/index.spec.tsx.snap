@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ApyBreakdown > renders correct values: 'multiple mutations' 1`] = `"Supply APY0.05%Distribution APY0.12%Borrow APY-4.97%Distribution APY0.52%Net APY7.67%"`;

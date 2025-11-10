@@ -19,19 +19,21 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
+import type { Asset, BalanceMutation, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,
+  getSwapToTokenAmountReceivedTokens,
   getUniqueTokenBalances,
 } from 'utilities';
 
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
-import { AssetInfo } from '../AssetInfo';
+import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
 import Notice from './Notice';
@@ -133,6 +135,25 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     isUsingSwap,
     isWrappingNativeToken,
   ]);
+
+  const toTokensAmountSuppliedTokens = isUsingSwap
+    ? getSwapToTokenAmountReceivedTokens(swap).swapToTokenAmountReceivedTokens
+    : formValues.amountTokens;
+
+  const balanceMutations: BalanceMutation[] = [
+    {
+      type: 'asset',
+      vTokenAddress: asset.vToken.address,
+      action: 'supply',
+      amountTokens: new BigNumber(toTokensAmountSuppliedTokens || 0),
+    },
+  ];
+
+  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+    pool,
+    balanceMutations,
+  });
+  const simulatedPool = getSimulatedPoolData?.pool;
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
@@ -355,7 +376,13 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           ))}
         </div>
 
-        {!isUserConnected && <AssetInfo asset={asset} action="repay" />}
+        {!isUserConnected && (
+          <ApyBreakdown
+            pool={pool}
+            simulatedPool={simulatedPool}
+            balanceMutations={balanceMutations}
+          />
+        )}
       </div>
 
       <ConnectWallet
@@ -385,11 +412,11 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           <Delimiter />
 
           <OperationDetails
-            isUsingSwap={isUsingSwap}
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            asset={asset}
             action="repay"
             pool={pool}
+            simulatedPool={simulatedPool}
+            balanceMutations={balanceMutations}
+            isUsingSwap={isUsingSwap}
             swap={swap}
           />
         </div>
