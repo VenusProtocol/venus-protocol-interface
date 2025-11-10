@@ -26,7 +26,7 @@ export const chains: {
     iconSrc: iconSrcs.bsc,
     explorerUrl: 'https://testnet.bscscan.com',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    blockTimeMs: 750,
+    blockTimeMs: 450,
     blocksPerDay: 115200,
     corePoolComptrollerContractAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
     nativeToken: bnb,
