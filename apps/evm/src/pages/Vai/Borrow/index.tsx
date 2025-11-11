@@ -149,10 +149,15 @@ export const Borrow: React.FC = () => {
     },
   ];
 
-  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
-    pool: legacyPool,
-    balanceMutations,
-  });
+  const { data: getSimulatedPoolData } = useSimulateBalanceMutations(
+    {
+      pool: legacyPool,
+      balanceMutations,
+    },
+    {
+      enabled: debouncedInputAmountTokens.isGreaterThan(0),
+    },
+  );
   const simulatedPool = getSimulatedPoolData?.pool;
 
   const feeTokens = useMemo(

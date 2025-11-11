@@ -264,6 +264,7 @@
   },
   "assetAccessor": {
     "disabledActionNotice": {
+      "boost": "Boosting has been disabled for this market",
       "borrow": "Borrowing has been disabled for this market",
       "repay": "Repaying has been disabled for this market",
       "supply": "Supplying has been disabled for this market",
@@ -659,6 +660,13 @@
   },
   "operationForm": {
     "availableAmount": "Available",
+    "boost": {
+      "flows": {
+        "borrow": "Borrow {{ tokenSymbol }}",
+        "supply": "Supply {{ tokenSymbol }}",
+        "swap": "Swap"
+      }
+    },
     "boostTabAltText": "Rocket icon",
     "boostTabTitle": "Boost",
     "borrowTabTitle": "Borrow",
@@ -675,6 +683,7 @@
       "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
       "priceImpactTooHigh": "Price impact too high",
       "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
+      "tooRisky": "This transaction would get your account liquidated",
       "unwrappingUnsupported": "Unwrapping unsupported",
       "wrappingUnsupported": "Wrapping unsupported"
     },
@@ -688,12 +697,17 @@
     },
     "repayTabTitle": "Repay",
     "rightMaxButtonLabel": "MAX",
+    "riskSlider": {
+      "highRisk": "High risk",
+      "lowRisk": "Low risk"
+    },
     "riskyOperation": {
       "toggleLabel": "I acknowledge the risks involved",
       "warning": "Your health factor will be low after this transaction, increasing the risk of liquidation"
     },
     "safeMaxButtonLabel": "SAFE MAX",
     "submitButtonLabel": {
+      "boost": "Boost",
       "borrow": "Borrow",
       "enterValidAmount": "Enter valid amount",
       "repay": "Repay",
