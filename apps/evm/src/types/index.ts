@@ -29,6 +29,7 @@ export type TokenAction =
   | 'supply'
   | 'withdraw'
   | 'borrow'
+  | 'boost'
   | 'repay'
   | 'enterMarket'
   | 'exitMarket';

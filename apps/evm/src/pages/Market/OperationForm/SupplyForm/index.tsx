@@ -286,6 +286,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
               isApproveFromTokenLoading ||
               formError?.code === 'SUPPLY_CAP_ALREADY_REACHED'
             }
+            displayCommonTokenButtons
             onChange={amountTokens => {
               captureAmountSetAnalyticEvent({ amountTokens, maxSelected: false });
 
@@ -346,13 +347,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           />
         )}
 
-        {!isUserConnected && (
-          <ApyBreakdown
-            pool={pool}
-            simulatedPool={simulatedPool}
-            balanceMutations={balanceMutations}
-          />
-        )}
+        {!isUserConnected && <ApyBreakdown pool={pool} balanceMutations={balanceMutations} />}
       </div>
 
       <ConnectWallet
@@ -380,8 +375,8 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           <Delimiter />
 
           <OperationDetails
-            isUsingSwap={isUsingSwap}
             action="supply"
+            isUsingSwap={isUsingSwap}
             pool={pool}
             balanceMutations={balanceMutations}
             simulatedPool={simulatedPool}

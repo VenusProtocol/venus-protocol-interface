@@ -278,6 +278,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
             value={formValues.amountTokens}
             hasError={!isSubmitting && !!formError && Number(formValues.amountTokens) > 0}
             disabled={!isUserConnected || isSubmitting}
+            displayCommonTokenButtons
             onChange={amountTokens => {
               captureAmountSetAnalyticEvent({
                 amountTokens,
@@ -376,13 +377,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
           ))}
         </div>
 
-        {!isUserConnected && (
-          <ApyBreakdown
-            pool={pool}
-            simulatedPool={simulatedPool}
-            balanceMutations={balanceMutations}
-          />
-        )}
+        {!isUserConnected && <ApyBreakdown pool={pool} balanceMutations={balanceMutations} />}
       </div>
 
       <ConnectWallet

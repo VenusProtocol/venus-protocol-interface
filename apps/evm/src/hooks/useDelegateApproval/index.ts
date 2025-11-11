@@ -11,7 +11,7 @@ export interface UseDelegateApprovalInput {
 
 export interface UseDelegateApprovalOutput {
   updatePoolDelegateStatus: ({ approvedStatus }: { approvedStatus: boolean }) => Promise<unknown>;
-  isUseUpdatePoolDelegateStatusLoading: boolean;
+  isDelegateStatusLoading: boolean;
   isDelegateApproved: boolean | undefined;
   isDelegateApprovedLoading: boolean;
 }
@@ -23,12 +23,10 @@ const useDelegateApproval = ({
 }: UseDelegateApprovalInput): UseDelegateApprovalOutput => {
   const { accountAddress } = useAccountAddress();
 
-  const {
-    mutateAsync: updatePoolDelegateStatusMutation,
-    isPending: isUseUpdatePoolDelegateStatusLoading,
-  } = useUpdatePoolDelegateStatus({
-    waitForConfirmation: true,
-  });
+  const { mutateAsync: updatePoolDelegateStatusMutation, isPending: isDelegateStatusLoading } =
+    useUpdatePoolDelegateStatus({
+      waitForConfirmation: true,
+    });
 
   const updatePoolDelegateStatus = (input: { approvedStatus: boolean }) =>
     updatePoolDelegateStatusMutation({
@@ -53,7 +51,7 @@ const useDelegateApproval = ({
 
   return {
     updatePoolDelegateStatus,
-    isUseUpdatePoolDelegateStatusLoading,
+    isDelegateStatusLoading,
     isDelegateApproved,
     isDelegateApprovedLoading,
   };
