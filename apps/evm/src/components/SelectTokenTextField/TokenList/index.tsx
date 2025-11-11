@@ -2,13 +2,13 @@
 import { Typography } from '@mui/material';
 import { type InputHTMLAttributes, useMemo, useState } from 'react';
 
-import { cn } from '@venusprotocol/ui';
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { useTranslation } from 'libs/translations';
 import type { Token, TokenBalance } from 'types';
-import { convertMantissaToTokens } from 'utilities';
+import { areTokensEqual, convertMantissaToTokens } from 'utilities';
 
 import { SenaryButton } from '@venusprotocol/ui';
+import { Icon } from 'components';
 import { TextField } from '../../TextField';
 import { useStyles as useParentStyles } from '../styles';
 import { getTokenListItemTestId } from '../testIdGetters';
@@ -18,6 +18,8 @@ import { useStyles } from './styles';
 export interface TokenListProps {
   tokenBalances: OptionalTokenBalance[];
   onTokenClick: (token: Token) => void;
+  displayCommonTokenButtons: boolean;
+  selectedToken: Token;
   'data-testid'?: string;
 }
 
@@ -26,17 +28,17 @@ const commonTokenSymbols = ['XVS', 'BNB', 'USDT', 'BTCB'];
 export const TokenList: React.FC<TokenListProps> = ({
   tokenBalances,
   onTokenClick,
+  displayCommonTokenButtons,
+  selectedToken,
   'data-testid': testId,
 }) => {
   const { t } = useTranslation();
   const parentStyles = useParentStyles();
   const styles = useStyles();
 
-  const commonTokenBalances = useMemo(
-    () =>
-      tokenBalances.filter(tokenBalance => commonTokenSymbols.includes(tokenBalance.token.symbol)),
-    [tokenBalances],
-  );
+  const commonTokenBalances = displayCommonTokenButtons
+    ? tokenBalances.filter(tokenBalance => commonTokenSymbols.includes(tokenBalance.token.symbol))
+    : [];
 
   const [searchValue, setSearchValue] = useState('');
 
@@ -85,30 +87,29 @@ export const TokenList: React.FC<TokenListProps> = ({
 
   return (
     <div css={styles.container}>
-      <div className={cn(commonTokenBalances.length > 2 && 'mb-5 pl-3 pr-3 pt-3')}>
+      <div className="mb-5 pl-3 pr-3 pt-3">
+        <TextField
+          css={styles.searchField}
+          size="xs"
+          autoFocus
+          value={searchValue}
+          onChange={handleSearchInputChange}
+          placeholder={t('selectTokenTextField.searchInput.placeholder')}
+          leftIconSrc="magnifier"
+        />
+
         {commonTokenBalances.length > 2 && (
-          <>
-            <TextField
-              css={styles.searchField}
-              size="xs"
-              autoFocus
-              value={searchValue}
-              onChange={handleSearchInputChange}
-              placeholder={t('selectTokenTextField.searchInput.placeholder')}
-              leftIconSrc="magnifier"
-            />
-            <div css={styles.commonTokenList}>
-              {commonTokenBalances.map(commonTokenBalance => (
-                <SenaryButton
-                  onClick={() => onTokenClick(commonTokenBalance.token)}
-                  css={styles.commonTokenButton}
-                  key={`select-token-text-field-common-token-${commonTokenBalance.token.symbol}`}
-                >
-                  <TokenIconWithSymbol css={parentStyles.token} token={commonTokenBalance.token} />
-                </SenaryButton>
-              ))}
-            </div>
-          </>
+          <div css={styles.commonTokenList}>
+            {commonTokenBalances.map(commonTokenBalance => (
+              <SenaryButton
+                onClick={() => onTokenClick(commonTokenBalance.token)}
+                css={styles.commonTokenButton}
+                key={`select-token-text-field-common-token-${commonTokenBalance.token.symbol}`}
+              >
+                <TokenIconWithSymbol css={parentStyles.token} token={commonTokenBalance.token} />
+              </SenaryButton>
+            ))}
+          </div>
         )}
       </div>
 
@@ -138,6 +139,10 @@ export const TokenList: React.FC<TokenListProps> = ({
                   addSymbol: false,
                 })}
               </Typography>
+            )}
+
+            {!tokenBalance.balanceMantissa && areTokensEqual(tokenBalance.token, selectedToken) && (
+              <Icon name="mark" className="text-green size-5" />
             )}
           </div>
         ))}

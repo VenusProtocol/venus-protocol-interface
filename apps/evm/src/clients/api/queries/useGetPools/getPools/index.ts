@@ -164,6 +164,7 @@ export const getPools = async ({
 
   const pools = formatOutput({
     chainId,
+    isUserConnected: !!accountAddress,
     tokens,
     currentBlockNumber,
     apiPools,

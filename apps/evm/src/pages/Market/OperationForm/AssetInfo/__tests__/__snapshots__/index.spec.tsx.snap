@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`y > renders correct values: { action: 'borrow' } 1`] = `"Borrow APY-2.3%Distribution APY (XVS)4.17%Total APY-6.48%"`;
-
-exports[`y > renders correct values: { action: 'repay' } 1`] = `"Borrow APY-2.3%Distribution APY (XVS)4.17%Total APY-6.48%"`;
-
-exports[`y > renders correct values: { action: 'supply' } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%"`;
-
-exports[`y > renders correct values: { action: 'withdraw' } 1`] = `"Supply APY0.05%Distribution APY (XVS)0.12%Total APY0.17%"`;

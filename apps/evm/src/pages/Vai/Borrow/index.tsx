@@ -37,9 +37,10 @@ import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
-import { AccountData } from 'containers/AccountData2';
+import { AccountData } from 'containers/AccountData';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { useChain } from 'hooks/useChain';
+import useDebounceValue from 'hooks/useDebounceValue';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import type { BalanceMutation } from 'types';
 import TEST_IDS from './testIds';
@@ -137,17 +138,16 @@ export const Borrow: React.FC = () => {
   });
 
   const inputValue = watch('amountTokens');
-  const inputAmountTokens = new BigNumber(inputValue || 0);
+  const _debouncedInputAmountTokens = useDebounceValue(inputValue);
+  const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);
 
-  const balanceMutations: BalanceMutation[] = [];
-
-  if (inputAmountTokens.isGreaterThan(0)) {
-    balanceMutations.push({
+  const balanceMutations: BalanceMutation[] = [
+    {
       type: 'vai',
-      amountTokens: new BigNumber(inputAmountTokens),
+      amountTokens: debouncedInputAmountTokens,
       action: 'borrow',
-    });
-  }
+    },
+  ];
 
   const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
     pool: legacyPool,
@@ -156,8 +156,8 @@ export const Borrow: React.FC = () => {
   const simulatedPool = getSimulatedPoolData?.pool;
 
   const feeTokens = useMemo(
-    () => feePercentage && inputAmountTokens.multipliedBy(feePercentage).dividedBy(100),
-    [feePercentage, inputAmountTokens],
+    () => feePercentage && debouncedInputAmountTokens.multipliedBy(feePercentage).dividedBy(100),
+    [feePercentage, debouncedInputAmountTokens],
   );
 
   const readableFee = useMemo(() => {

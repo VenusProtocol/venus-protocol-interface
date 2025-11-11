@@ -17,7 +17,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Asset, Pool } from 'types';
+import type { Asset, BalanceMutation, Pool } from 'types';
 import { calculateHealthFactor, convertTokensToMantissa } from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
@@ -26,9 +26,11 @@ import {
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
 import { ConnectWallet } from 'containers/ConnectWallet';
+import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
-import { AssetInfo } from '../AssetInfo';
+import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
 import SubmitSection from './SubmitSection';
@@ -140,6 +142,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
 
     if (
       !asset.isCollateralOfUser ||
+      asset.userCollateralFactor === 0 ||
       !pool.userBorrowLimitCents ||
       !pool.userLiquidationThresholdCents ||
       !pool.userBorrowBalanceCents ||
@@ -201,6 +204,24 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     return [maxTokens, safeMaxTokens, moderateRiskMaxTokens];
   }, [asset, pool]);
 
+  const _debouncedInputAmountTokens = useDebounceValue(formValues.amountTokens);
+  const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);
+
+  const balanceMutations: BalanceMutation[] = [
+    {
+      type: 'asset',
+      vTokenAddress: asset.vToken.address,
+      action: 'withdraw',
+      amountTokens: debouncedInputAmountTokens,
+    },
+  ];
+
+  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+    pool,
+    balanceMutations,
+  });
+  const simulatedPool = getSimulatedPoolData?.pool;
+
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     poolName: pool.name,
@@ -223,7 +244,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
     amountTokens,
     maxSelected,
   }: { amountTokens: BigNumber | string; maxSelected: boolean; selectedPercentage?: number }) => {
-    if (Number(amountTokens.toString()) > 0) {
+    if (Number(formValues.amountTokens) > 0) {
       captureAnalyticEvent(
         'withdraw_amount_set',
         {
@@ -303,7 +324,13 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           }
         />
 
-        {!isUserConnected && <AssetInfo asset={asset} action="withdraw" />}
+        {!isUserConnected && (
+          <ApyBreakdown
+            pool={pool}
+            simulatedPool={simulatedPool}
+            balanceMutations={balanceMutations}
+          />
+        )}
       </div>
 
       <ConnectWallet
@@ -343,10 +370,10 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           )}
 
           <OperationDetails
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            asset={asset}
             action="withdraw"
             pool={pool}
+            simulatedPool={simulatedPool}
+            balanceMutations={balanceMutations}
           />
 
           {shouldAskUserRiskAcknowledgement && (
@@ -421,7 +448,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
   const {
     isDelegateApproved,
     isDelegateApprovedLoading,
-    isUseUpdatePoolDelegateStatusLoading,
+    isDelegateStatusLoading,
     updatePoolDelegateStatus,
   } = useDelegateApproval({
     delegateeAddress: nativeTokenGatewayContractAddress || NULL_ADDRESS,
@@ -469,7 +496,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
       isSubmitting={isWithdrawLoading}
       isDelegateApproved={isDelegateApproved}
       isDelegateApprovedLoading={isDelegateApprovedLoading}
-      isApproveDelegateLoading={isUseUpdatePoolDelegateStatusLoading}
+      isApproveDelegateLoading={isDelegateStatusLoading}
       approveDelegateAction={() => updatePoolDelegateStatus({ approvedStatus: true })}
     />
   );

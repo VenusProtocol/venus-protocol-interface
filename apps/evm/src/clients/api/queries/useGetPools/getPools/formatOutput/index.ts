@@ -29,6 +29,7 @@ export const formatOutput = ({
   chainId,
   tokens,
   currentBlockNumber,
+  isUserConnected,
   userPrimeApyMap,
   userVTokenBalances = [],
   userTokenBalances = [],
@@ -44,6 +45,7 @@ export const formatOutput = ({
   currentBlockNumber: bigint;
   apiPools: ApiPool[];
   userPoolEModeGroupIdMapping: Record<Address, number>;
+  isUserConnected: boolean;
   userPrimeApyMap?: Map<string, PrimeApy>;
   userCollateralVTokenAddresses?: string[];
   userVTokenBalances?: VTokenBalance[];
@@ -147,17 +149,18 @@ export const formatOutput = ({
         isBorrowableByUser = userEModeAssetSettings?.isBorrowable ?? false;
       }
 
+      let userFallbackLiquidationThresholdPercentage = 0;
+      let userFallbackCollateralFactor = 0;
+
       // If the user has enabled a non-isolated E-mode group and that asset is not in it, then it
       // contributes towards that user's borrow limit using the pool settings. If the E-mode group
       // enabled by the user is inactive, we also fallback to using the pool settings
-      let userFallbackLiquidationThresholdPercentage = liquidationThresholdPercentage;
-      let userFallbackCollateralFactor = collateralFactor;
-
-      // If the user has enabled an isolated E-mode group and that asset is not in it, then it does
-      // not contribute towards that user's borrow limit
-      if (userEModeGroup?.isActive && userEModeGroup.isIsolated) {
-        userFallbackLiquidationThresholdPercentage = 0;
-        userFallbackCollateralFactor = 0;
+      if (
+        isUserConnected &&
+        (!userEModeGroup || !userEModeGroup.isActive || !userEModeGroup.isIsolated)
+      ) {
+        userFallbackLiquidationThresholdPercentage = liquidationThresholdPercentage;
+        userFallbackCollateralFactor = collateralFactor;
       }
 
       const userCollateralFactor =

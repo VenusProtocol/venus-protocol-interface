@@ -59,5 +59,3 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
     </Accordion>
   );
 };
-
-export default SwapDetails;

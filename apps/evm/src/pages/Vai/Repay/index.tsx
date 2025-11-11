@@ -13,10 +13,11 @@ import {
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import MAX_UINT256 from 'constants/maxUint256';
-import { AccountData } from 'containers/AccountData2';
+import { AccountData } from 'containers/AccountData';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { useChain } from 'hooks/useChain';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
+import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { handleError } from 'libs/errors';
@@ -108,25 +109,29 @@ export const Repay: React.FC = () => {
   });
 
   const inputValue = watch('amountTokens');
-  const inputAmountTokens = new BigNumber(inputValue || 0);
+  const _debouncedInputAmountTokens = useDebounceValue(inputValue);
+  const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);
 
-  const balanceMutations: BalanceMutation[] = [];
-
-  if (inputAmountTokens.isGreaterThan(0)) {
-    balanceMutations.push({
+  const balanceMutations: BalanceMutation[] = [
+    {
       type: 'vai',
-      amountTokens: new BigNumber(inputAmountTokens),
+      amountTokens: debouncedInputAmountTokens,
       action: 'repay',
-    });
-  }
+    },
+  ];
 
-  const { data: getSimulatedPoolData } = useGetSimulatedPool({
-    pool: legacyPool,
-    balanceMutations,
-  });
+  const { data: getSimulatedPoolData } = useGetSimulatedPool(
+    {
+      pool: legacyPool,
+      balanceMutations,
+    },
+    {
+      enabled: debouncedInputAmountTokens.isGreaterThan(0),
+    },
+  );
   const simulatedPool = getSimulatedPoolData?.pool;
 
-  const isRepayingFullLoan = !!userVaiBorrowBalanceTokens?.isEqualTo(inputAmountTokens);
+  const isRepayingFullLoan = !!userVaiBorrowBalanceTokens?.isEqualTo(debouncedInputAmountTokens);
 
   const errorMessage = useMemo(() => {
     const errorCode = formState.errors.amountTokens?.message;
