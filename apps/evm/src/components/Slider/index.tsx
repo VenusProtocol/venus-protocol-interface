@@ -7,6 +7,7 @@ export interface SliderProps {
   step: number;
   max: number;
   min?: number;
+  disabled?: boolean;
   className?: string;
 }
 
@@ -16,6 +17,7 @@ export const Slider: React.FC<SliderProps> = ({
   min = 0,
   max,
   step,
+  disabled = false,
   className,
 }) => (
   <SliderPrimitive.Root
@@ -27,6 +29,7 @@ export const Slider: React.FC<SliderProps> = ({
     step={step}
     onValueChange={([newValue]) => onChange(newValue)}
     className={cn('relative flex w-full touch-none items-center select-none', className)}
+    disabled={disabled}
   >
     <SliderPrimitive.Track
       data-slot="slider-track"
@@ -37,7 +40,10 @@ export const Slider: React.FC<SliderProps> = ({
 
     <SliderPrimitive.Thumb
       data-slot="slider-thumb"
-      className="block size-5 shrink-0 outline-none cursor-pointer rounded-full border-offWhite border-4 bg-blue shadow-sm transition-[color,box-shadow]"
+      className={cn(
+        'block size-5 shrink-0 outline-none rounded-full border-offWhite border-4 bg-blue shadow-sm transition-[color,box-shadow]',
+        !disabled && 'cursor-pointer',
+      )}
     />
   </SliderPrimitive.Root>
 );

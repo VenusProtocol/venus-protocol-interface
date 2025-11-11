@@ -19,8 +19,10 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
-import type { Asset, Swap, TokenBalance } from 'types';
+import type { Asset, BalanceMutation, Pool, Swap, TokenBalance } from 'types';
 
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { areTokensEqual } from 'utilities';
 import Supply from '..';
 import OPERATION_DETAILS_TEST_IDS from '../../OperationDetails/testIds';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
@@ -245,6 +247,32 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       error: undefined,
       isLoading: false,
     }));
+
+    const fakeSupplyBalanceTokens = fakeAsset.supplyCapTokens
+      // Add one token too many
+      .plus(1);
+
+    const fakeSimulatedPool: Pool = {
+      ...fakePool,
+      assets: fakePool.assets.map(a => ({
+        ...a,
+        supplyBalanceTokens: areTokensEqual(a.vToken, fakeAsset.vToken)
+          ? fakeSupplyBalanceTokens
+          : a.supplyBalanceTokens,
+      })),
+    };
+
+    (useSimulateBalanceMutations as Mock).mockImplementation(
+      ({ balanceMutations }: { balanceMutations: BalanceMutation[] }) => ({
+        isLoading: false,
+        data: {
+          pool:
+            balanceMutations.filter(b => b.amountTokens.isGreaterThan(0)).length > 0
+              ? fakeSimulatedPool
+              : undefined,
+        },
+      }),
+    );
 
     const { container, getByTestId, getByText } = renderComponent(
       <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,

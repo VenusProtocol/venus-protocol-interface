@@ -20,11 +20,12 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
-import type { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
+import type { Asset, BalanceMutation, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
   convertTokensToMantissa,
+  getSwapToTokenAmountReceivedTokens,
   getUniqueTokenBalances,
   isCollateralActionDisabled,
 } from 'utilities';
@@ -32,8 +33,9 @@ import {
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
-import { AssetInfo } from '../AssetInfo';
+import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
 import Notice from './Notice';
@@ -163,6 +165,25 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     fromTokenWalletSpendingLimitTokens,
     asset.supplyCapTokens,
   ]);
+
+  const toTokensAmountSuppliedTokens = isUsingSwap
+    ? getSwapToTokenAmountReceivedTokens(swap).swapToTokenAmountReceivedTokens
+    : formValues.amountTokens;
+
+  const balanceMutations: BalanceMutation[] = [
+    {
+      type: 'asset',
+      vTokenAddress: asset.vToken.address,
+      action: 'supply',
+      amountTokens: new BigNumber(toTokensAmountSuppliedTokens || 0),
+    },
+  ];
+
+  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+    pool,
+    balanceMutations,
+  });
+  const simulatedPool = getSimulatedPoolData?.pool;
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
@@ -325,7 +346,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           />
         )}
 
-        {!isUserConnected && <AssetInfo asset={asset} action="supply" />}
+        {!isUserConnected && <ApyBreakdown pool={pool} balanceMutations={balanceMutations} />}
       </div>
 
       <ConnectWallet
@@ -354,10 +375,10 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
           <OperationDetails
             isUsingSwap={isUsingSwap}
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            asset={asset}
             action="supply"
             pool={pool}
+            balanceMutations={balanceMutations}
+            simulatedPool={simulatedPool}
             swap={swap}
           />
         </div>
