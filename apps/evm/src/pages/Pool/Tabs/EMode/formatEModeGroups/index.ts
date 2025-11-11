@@ -98,14 +98,14 @@ export const formatEModeGroups = ({
 
       // Check if user is borrowing VAI
       if (
-        pool.userVaiBorrowBalanceTokens &&
-        pool.userVaiBorrowBalanceCents?.isGreaterThan(0) &&
+        pool.vai?.userBorrowBalanceTokens?.isGreaterThan(0) &&
+        pool.vai.userBorrowBalanceCents &&
         vai
       ) {
         const vaiBlockingBorrowPosition: BlockingBorrowPosition = {
           token: vai,
-          userBorrowBalanceTokens: pool.userVaiBorrowBalanceTokens,
-          userBorrowBalanceCents: pool.userVaiBorrowBalanceCents.toNumber(),
+          userBorrowBalanceTokens: pool.vai.userBorrowBalanceTokens,
+          userBorrowBalanceCents: pool.vai.userBorrowBalanceCents.toNumber(),
           to: formatTo({
             to: {
               pathname: routes.vai.path,

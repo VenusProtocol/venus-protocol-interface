@@ -23,6 +23,7 @@ export interface GetPoolsInput {
   venusLensContractAddress?: Address;
   vaiControllerContractAddress?: Address;
   primeContractAddress?: Address;
+  resilientOracleContractAddress?: Address;
 }
 
 export interface GetPoolsOutput {

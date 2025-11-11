@@ -6,8 +6,6 @@ import {
   useGetMintableVai,
   useGetPool,
   useGetPrimeToken,
-  useGetTokenUsdPrice,
-  useGetVaiRepayApr,
   useGetVaiTreasuryPercentage,
   useMintVai,
 } from 'clients/api';
@@ -22,15 +20,12 @@ import {
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import { PRIME_DOC_URL } from 'constants/prime';
 import { Link } from 'containers/Link';
-import useFormatPercentageToReadableValue from 'hooks/useFormatPercentageToReadableValue';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import {
-  calculateHealthFactor,
-  convertDollarsToCents,
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatPercentageToReadableValue,
@@ -42,10 +37,11 @@ import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
   HEALTH_FACTOR_SAFE_MAX_THRESHOLD,
 } from 'constants/healthFactor';
+import { AccountData } from 'containers/AccountData2';
 import { RhfSubmitButton, RhfTokenTextField } from 'containers/Form';
 import { useChain } from 'hooks/useChain';
-import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import { AccountVaiData } from '../AccountVaiData';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import type { BalanceMutation } from 'types';
 import TEST_IDS from './testIds';
 import type { FormValues } from './types';
 import { ErrorCode, useForm } from './useForm';
@@ -66,13 +62,6 @@ export const Borrow: React.FC = () => {
   });
   const legacyPool = getLegacyPoolData?.pool;
 
-  const { data: getVaiUsdPrice } = useGetTokenUsdPrice({
-    token: vai,
-  });
-  const vaiPriceCents = getVaiUsdPrice?.tokenPriceUsd
-    ? convertDollarsToCents(getVaiUsdPrice.tokenPriceUsd)
-    : undefined;
-
   const { data: getPrimeTokenData, isLoading: isGetPrimeTokenLoading } = useGetPrimeToken({
     accountAddress,
   });
@@ -88,11 +77,7 @@ export const Borrow: React.FC = () => {
   const { data: vaiTreasuryData } = useGetVaiTreasuryPercentage();
   const feePercentage = vaiTreasuryData?.percentage;
 
-  const { data: getVaiRepayAprData } = useGetVaiRepayApr();
-
-  const readableBorrowApr = useFormatPercentageToReadableValue({
-    value: getVaiRepayAprData?.repayAprPercentage,
-  });
+  const readableBorrowApr = formatPercentageToReadableValue(legacyPool?.vai?.borrowAprPercentage);
 
   const { data: mintableVaiData, isLoading: isGetMintableVaiLoading } = useGetMintableVai(
     {
@@ -106,7 +91,7 @@ export const Borrow: React.FC = () => {
   const [limitTokens, safeLimitTokens] = useMemo(() => {
     // Return 0 values while asset is loading or if borrow limit has been reached
     if (
-      !vaiPriceCents ||
+      !legacyPool?.vai?.tokenPriceCents ||
       !legacyPool ||
       legacyPool.userBorrowBalanceCents === undefined ||
       !legacyPool.userBorrowLimitCents ||
@@ -119,7 +104,7 @@ export const Borrow: React.FC = () => {
       .div(HEALTH_FACTOR_SAFE_MAX_THRESHOLD)
       .minus(legacyPool.userBorrowBalanceCents)
       // Convert to tokens
-      .dividedBy(vaiPriceCents);
+      .dividedBy(legacyPool.vai.tokenPriceCents);
 
     if (marginWithUserSafeBorrowLimitTokens.isLessThan(0)) {
       marginWithUserSafeBorrowLimitTokens = new BigNumber(0);
@@ -140,23 +125,38 @@ export const Borrow: React.FC = () => {
     );
 
     return [maxTokens, safeMaxTokens];
-  }, [vaiPriceCents, legacyPool, mintableVaiData, mintableVaiData, vai]);
+  }, [legacyPool?.vai?.tokenPriceCents, legacyPool, mintableVaiData, mintableVaiData, vai]);
 
   const {
     form: { control, handleSubmit, watch, formState, setValue, reset, trigger },
   } = useForm({
     ...mintableVaiData,
-    vaiPriceCents,
+    vaiPriceCents: legacyPool?.vai?.tokenPriceCents,
     userBorrowBalanceCents: legacyPool?.userBorrowBalanceCents,
     userLiquidationThresholdCents: legacyPool?.userLiquidationThresholdCents,
   });
 
-  const inputAmountTokens = watch('amountTokens');
+  const inputValue = watch('amountTokens');
+  const inputAmountTokens = new BigNumber(inputValue || 0);
+
+  const balanceMutations: BalanceMutation[] = [];
+
+  if (inputAmountTokens.isGreaterThan(0)) {
+    balanceMutations.push({
+      type: 'vai',
+      amountTokens: new BigNumber(inputAmountTokens),
+      action: 'borrow',
+    });
+  }
+
+  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+    pool: legacyPool,
+    balanceMutations,
+  });
+  const simulatedPool = getSimulatedPoolData?.pool;
 
   const feeTokens = useMemo(
-    () =>
-      feePercentage &&
-      new BigNumber(inputAmountTokens || 0).multipliedBy(feePercentage).dividedBy(100),
+    () => feePercentage && inputAmountTokens.multipliedBy(feePercentage).dividedBy(100),
     [feePercentage, inputAmountTokens],
   );
 
@@ -175,7 +175,7 @@ export const Borrow: React.FC = () => {
     return `${readableFeeVai} (${readableFeePercentage})`;
   }, [feePercentage, feeTokens, vai]);
 
-  const readableLimit = useFormatTokensToReadableValue({
+  const readableLimit = formatTokensToReadableValue({
     value: limitTokens,
     token: vai,
   });
@@ -194,31 +194,10 @@ export const Borrow: React.FC = () => {
     return undefined;
   }, [t, formState.errors.amountTokens]);
 
-  const hypotheticalHealthFactor = useMemo(() => {
-    if (
-      !Number(inputAmountTokens) ||
-      !vaiPriceCents ||
-      !legacyPool?.userLiquidationThresholdCents ||
-      !legacyPool?.userBorrowBalanceCents
-    ) {
-      return undefined;
-    }
-
-    const amountCents = new BigNumber(inputAmountTokens).multipliedBy(vaiPriceCents);
-
-    return calculateHealthFactor({
-      borrowBalanceCents: legacyPool.userBorrowBalanceCents.plus(amountCents).toNumber(),
-      liquidationThresholdCents: legacyPool.userLiquidationThresholdCents.toNumber(),
-    });
-  }, [legacyPool, vaiPriceCents, inputAmountTokens]);
-
-  const isRiskyOperation = useMemo(
-    () =>
-      hypotheticalHealthFactor !== undefined &&
-      hypotheticalHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
-      !formState.errors.amountTokens,
-    [hypotheticalHealthFactor, formState.errors.amountTokens],
-  );
+  const isRiskyOperation =
+    simulatedPool?.userHealthFactor !== undefined &&
+    simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
+    !formState.errors.amountTokens;
 
   // Trigger revalidation of acknowledgeRisk field when it is rendered or removed. This is a
   // workaround to make sure React Hook Form initializes the field correctly
@@ -329,11 +308,11 @@ export const Borrow: React.FC = () => {
         )}
       </div>
 
-      {isUserConnected && (
+      {isUserConnected && legacyPool && (
         <>
           <Delimiter />
 
-          <AccountVaiData amountTokens={inputAmountTokens} action="borrow" />
+          <AccountData pool={legacyPool} simulatedPool={simulatedPool} />
         </>
       )}
 

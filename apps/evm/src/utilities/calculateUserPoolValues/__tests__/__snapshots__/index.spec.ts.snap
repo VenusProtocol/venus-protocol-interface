@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`calculateUserPoolValues > returns the right data 1`] = `
+{
+  "userBorrowBalanceCents": "9000",
+  "userBorrowLimitCents": "13754",
+  "userHealthFactor": 1.52,
+  "userLiquidationThresholdCents": "13754",
+  "userSupplyBalanceCents": "31507",
+  "userYearlyEarningsCents": "1529",
+}
+`;
+
+exports[`calculateUserPoolValues > returns the right data including VAI 1`] = `
+{
+  "userBorrowBalanceCents": "9500",
+  "userBorrowLimitCents": "13754",
+  "userHealthFactor": 1.44,
+  "userLiquidationThresholdCents": "13754",
+  "userSupplyBalanceCents": "31507",
+  "userYearlyEarningsCents": "1509",
+}
+`;

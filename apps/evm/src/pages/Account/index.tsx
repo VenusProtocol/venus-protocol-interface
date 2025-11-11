@@ -1,6 +1,6 @@
 import { cn } from '@venusprotocol/ui';
 
-import { useGetPools, useGetTokenUsdPrice, useGetVaiRepayApr, useGetVaults } from 'clients/api';
+import { useGetPools, useGetTokenUsdPrice, useGetVaults } from 'clients/api';
 import { Page, Spinner, Tabs } from 'components';
 import { Redirect } from 'containers/Redirect';
 import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
@@ -63,9 +63,6 @@ export const Account: React.FC = () => {
   });
   const vaiPriceCents =
     getVaiUsdPriceData && convertDollarsToCents(getVaiUsdPriceData.tokenPriceUsd);
-
-  const { data: getVaiRepayAprData } = useGetVaiRepayApr();
-  const vaiBorrowAprPercentage = getVaiRepayAprData?.repayAprPercentage;
 
   const {
     isLoading: isGetUserPrimeInfoLoading,
@@ -168,7 +165,6 @@ export const Account: React.FC = () => {
           vaults={vaults}
           xvsPriceCents={xvsPriceCents}
           vaiPriceCents={vaiPriceCents}
-          vaiBorrowAprPercentage={vaiBorrowAprPercentage}
         />
       </div>
 

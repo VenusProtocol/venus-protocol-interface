@@ -21,6 +21,7 @@ import {
   fakePoolLensContractAddress,
   fakePrimeContractAddress,
   fakePublicClient,
+  fakeResilientOracleContractAddress,
   fakeVaiControllerContractAddress,
   fakeVenusLensContractAddress,
 } from '../__testUtils__/fakeData';
@@ -58,6 +59,10 @@ describe('useGetPools', () => {
 
       if (name === 'Prime') {
         address = fakePrimeContractAddress;
+      }
+
+      if (name === 'ResilientOracle') {
+        address = fakeResilientOracleContractAddress;
       }
 
       return {

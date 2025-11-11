@@ -21,6 +21,7 @@ type TrimmedInput = Omit<
   | 'legacyPoolComptrollerContractAddress'
   | 'venusLensContractAddress'
   | 'vaiControllerContractAddress'
+  | 'resilientOracleContractAddress'
   | 'isEModeFeatureEnabled'
 >;
 
@@ -71,6 +72,9 @@ export const useGetPools = (input?: TrimmedInput, options?: Options) => {
   const { address: vaiControllerContractAddress } = useGetContractAddress({
     name: 'VaiController',
   });
+  const { address: resilientOracleContractAddress } = useGetContractAddress({
+    name: 'ResilientOracle',
+  });
 
   return useQuery({
     queryKey: [FunctionKey.GET_POOLS, { ...input, chainId, accountAddress }],
@@ -83,6 +87,7 @@ export const useGetPools = (input?: TrimmedInput, options?: Options) => {
           legacyPoolComptrollerContractAddress,
           venusLensContractAddress,
           vaiControllerContractAddress,
+          resilientOracleContractAddress,
           primeContractAddress: isPrimeEnabled ? primeContractAddress : undefined,
           isEModeFeatureEnabled,
           ...params,

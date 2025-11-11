@@ -3,29 +3,24 @@ import type { Mock } from 'vitest';
 
 import { renderComponent } from 'testUtils/render';
 
-import {
-  useGetPools,
-  useGetPrimeStatus,
-  useGetPrimeToken,
-  useGetXvsVaultUserInfo,
-} from 'clients/api';
+import { useGetPools, useGetPrimeToken, useGetXvsVaultUserInfo } from 'clients/api';
 
 import { poolData } from '__mocks__/models/pools';
+import { useGetUserPrimeInfo } from 'hooks/useGetUserPrimeInfo';
 import { en } from 'libs/translations';
 import PrimeStatusBanner from '..';
 import TEST_IDS from '../testIds';
 
 describe('PrimeStatusBanner', () => {
-  const MOCK_DEFAULT_PRIME_STATUS = {
-    claimWaitingPeriodSeconds: 600,
+  const fakeUserPrimeInfo = {
+    isUserPrime: false,
+    claimWaitingPeriodSeconds: 10000,
     userClaimTimeRemainingSeconds: 600,
+    userHighestPrimeSimulationApyBoostPercentage: new BigNumber(10.34),
+    userStakedXvsTokens: new BigNumber(100),
+    minXvsToStakeForPrimeTokens: new BigNumber(10),
     claimedPrimeTokenCount: 0,
-    primeMarkets: [],
     primeTokenLimit: 1000,
-    primeMinimumStakedXvsMantissa: new BigNumber('1000000'),
-    xvsVault: '',
-    xvsVaultPoolId: 1,
-    rewardTokenAddress: '',
   };
 
   beforeEach(() => {
@@ -36,15 +31,12 @@ describe('PrimeStatusBanner', () => {
         pools: poolData,
       },
     }));
-    (useGetPrimeStatus as Mock).mockImplementation(() => ({
-      data: MOCK_DEFAULT_PRIME_STATUS,
+
+    (useGetUserPrimeInfo as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: fakeUserPrimeInfo,
     }));
-    (useGetXvsVaultUserInfo as Mock).mockImplementation(() => ({
-      data: {
-        stakedAmountMantissa: new BigNumber('0'),
-        pendingWithdrawalsTotalAmountMantissa: new BigNumber('0'),
-      },
-    }));
+
     (useGetPrimeToken as Mock).mockImplementation(() => ({
       data: {
         exists: false,
@@ -61,9 +53,10 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('renders nothing if user is Prime', () => {
-    (useGetPrimeToken as Mock).mockImplementation(() => ({
+    (useGetUserPrimeInfo as Mock).mockImplementation(() => ({
       data: {
-        exists: true,
+        ...fakeUserPrimeInfo,
+        isUserPrime: true,
       },
     }));
 
@@ -72,7 +65,14 @@ describe('PrimeStatusBanner', () => {
     expect(queryByTestId(TEST_IDS.primeStatusBannerContainer)).toBeNull();
   });
 
-  it('informs the user the requirements to be a Prime user', () => {
+  it('informs the user about the requirements to be a Prime user', () => {
+    (useGetUserPrimeInfo as Mock).mockImplementation(() => ({
+      data: {
+        ...fakeUserPrimeInfo,
+        userStakedXvsTokens: new BigNumber(0),
+      },
+    }));
+
     const { queryByTestId } = renderComponent(<PrimeStatusBanner />);
 
     expect(queryByTestId(TEST_IDS.stakeXvsButton)).toBeVisible();
@@ -81,9 +81,9 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('displays a warning when there are less than 5% of Prime tokens left', () => {
-    (useGetPrimeStatus as Mock).mockImplementation(() => ({
+    (useGetUserPrimeInfo as Mock).mockImplementation(() => ({
       data: {
-        ...MOCK_DEFAULT_PRIME_STATUS,
+        ...fakeUserPrimeInfo,
         claimedPrimeTokenCount: 999,
       },
     }));
@@ -101,9 +101,9 @@ describe('PrimeStatusBanner', () => {
         pendingWithdrawalsTotalAmountMantissa: new BigNumber('0'),
       },
     }));
-    (useGetPrimeStatus as Mock).mockImplementation(() => ({
+    (useGetUserPrimeInfo as Mock).mockImplementation(() => ({
       data: {
-        ...MOCK_DEFAULT_PRIME_STATUS,
+        ...fakeUserPrimeInfo,
         claimWaitingPeriodSeconds: 600,
         userClaimTimeRemainingSeconds: 600,
       },
@@ -122,9 +122,9 @@ describe('PrimeStatusBanner', () => {
         pendingWithdrawalsTotalAmountMantissa: new BigNumber('0'),
       },
     }));
-    (useGetPrimeStatus as Mock).mockImplementation(() => ({
+    (useGetUserPrimeInfo as Mock).mockImplementation(() => ({
       data: {
-        ...MOCK_DEFAULT_PRIME_STATUS,
+        ...fakeUserPrimeInfo,
         userClaimTimeRemainingSeconds: 0,
       },
     }));
@@ -136,9 +136,9 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('shows the all Prime tokens claimed warning if all Prime tokens have been claimed', () => {
-    (useGetPrimeStatus as Mock).mockImplementation(() => ({
+    (useGetUserPrimeInfo as Mock).mockImplementation(() => ({
       data: {
-        ...MOCK_DEFAULT_PRIME_STATUS,
+        ...fakeUserPrimeInfo,
         claimedPrimeTokenCount: 1000,
       },
     }));
@@ -148,9 +148,9 @@ describe('PrimeStatusBanner', () => {
   });
 
   it('does not show the all Prime tokens claimed warning if there are no tokens to be claimed', () => {
-    (useGetPrimeStatus as Mock).mockImplementation(() => ({
+    (useGetUserPrimeInfo as Mock).mockImplementation(() => ({
       data: {
-        ...MOCK_DEFAULT_PRIME_STATUS,
+        ...fakeUserPrimeInfo,
         primeTokenLimit: 0,
       },
     }));

@@ -61,3 +61,5 @@ export * from './EModeIcon';
 export * from './MarketStatus';
 export * from './Slider';
 export * from './IsolatedEModeGroupTooltip';
+export * from './TokenIcon';
+export * from './BalanceUpdates';

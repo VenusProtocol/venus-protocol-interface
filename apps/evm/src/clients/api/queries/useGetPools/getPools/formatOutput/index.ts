@@ -3,11 +3,12 @@ import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
 import { COMPOUND_DECIMALS, COMPOUND_MANTISSA } from 'constants/compoundMantissa';
-import type { Asset, ChainId, EModeGroup, Pool, Token, TokenBalance } from 'types';
+import type { Asset, ChainId, EModeGroup, Pool, PoolVai, Token, TokenBalance } from 'types';
 import {
+  addUserBorrowLimitShares,
   areAddressesEqual,
   areTokensEqual,
-  calculateHealthFactor,
+  calculateUserPoolValues,
   convertDollarsToCents,
   convertFactorFromSmartContract,
   convertMantissaToTokens,
@@ -34,6 +35,8 @@ export const formatOutput = ({
   userCollateralVTokenAddresses = [],
   userVaiBorrowBalanceMantissa,
   userPoolEModeGroupIdMapping,
+  vaiRepayRateMantissa,
+  vaiPriceMantissa,
 }: {
   chainId: ChainId;
   tokens: Token[];
@@ -46,6 +49,8 @@ export const formatOutput = ({
   userVTokenBalances?: VTokenBalance[];
   userTokenBalances?: TokenBalance[];
   userVaiBorrowBalanceMantissa?: BigNumber;
+  vaiRepayRateMantissa?: bigint;
+  vaiPriceMantissa?: bigint;
 }) => {
   const pools: Pool[] = apiPools.map(apiPool => {
     const { blocksPerDay } = chains[chainId];
@@ -54,11 +59,6 @@ export const formatOutput = ({
       chainId,
       comptrollerAddress: apiPool.address,
     });
-
-    let poolUserBorrowBalanceCents = new BigNumber(0);
-    let poolUserSupplyBalanceCents = new BigNumber(0);
-    let poolUserBorrowLimitCents = new BigNumber(0);
-    let poolUserLiquidationThresholdCents = new BigNumber(0);
 
     const eModeGroups = formatEModeGroups({
       apiPool,
@@ -259,19 +259,6 @@ export const formatOutput = ({
       const userBorrowBalanceCents = userBorrowBalanceTokens.multipliedBy(tokenPriceCents);
       const userWalletBalanceCents = userWalletBalanceTokens.multipliedBy(tokenPriceCents);
 
-      poolUserBorrowBalanceCents = poolUserBorrowBalanceCents.plus(userBorrowBalanceCents);
-      poolUserSupplyBalanceCents = poolUserSupplyBalanceCents.plus(userSupplyBalanceCents);
-
-      if (isCollateralOfUser) {
-        poolUserBorrowLimitCents = poolUserBorrowLimitCents.plus(
-          userSupplyBalanceCents.times(userCollateralFactor),
-        );
-
-        poolUserLiquidationThresholdCents = poolUserLiquidationThresholdCents.plus(
-          userSupplyBalanceCents.times(userLiquidationThresholdPercentage / 100),
-        );
-      }
-
       const asset: Asset = {
         vToken,
         disabledTokenActions,
@@ -310,69 +297,72 @@ export const formatOutput = ({
         isBorrowable,
         isBorrowableByUser,
         // This will be calculated after all assets have been formatted
-        userPercentOfLimit: 0,
+        userBorrowLimitSharePercentage: 0,
         isCollateralOfUser,
       };
 
       return [...acc, asset];
     }, []);
 
-    // Add user VAI loan to user borrow balance (only applies to legacy pool)
+    // Calculate user VAI loan (only applies to legacy pool)
     const vai = tokens.find(token => token.symbol === 'VAI');
-    let userVaiBorrowBalanceTokens: undefined | BigNumber;
-    let userVaiBorrowBalanceCents: undefined | BigNumber;
+    let poolVai: undefined | PoolVai;
 
-    if (!isIsolated && vai && userVaiBorrowBalanceMantissa) {
-      userVaiBorrowBalanceTokens = convertMantissaToTokens({
+    if (!isIsolated && vai && vaiPriceMantissa && vaiRepayRateMantissa) {
+      const vaiBorrowAprPercentage = new BigNumber(
+        convertPercentageFromSmartContract(vaiRepayRateMantissa.toString()),
+      );
+
+      const vaiPriceUsd = convertPriceMantissaToDollars({
+        priceMantissa: vaiPriceMantissa.toString(),
+        decimals: vai.decimals,
+      });
+
+      const vaiPriceCents = convertDollarsToCents(vaiPriceUsd);
+
+      poolVai = {
+        token: vai,
+        tokenPriceCents: vaiPriceCents,
+        borrowAprPercentage: vaiBorrowAprPercentage,
+      };
+    }
+
+    if (!isIsolated && poolVai?.tokenPriceCents && userVaiBorrowBalanceMantissa) {
+      const userVaiBorrowBalanceTokens = convertMantissaToTokens({
         value: userVaiBorrowBalanceMantissa,
         token: vai,
       });
 
-      // Convert VAI to dollar cents (we assume 1 VAI = 1 dollar)
-      userVaiBorrowBalanceCents = userVaiBorrowBalanceTokens.times(100);
-
-      poolUserBorrowBalanceCents = poolUserBorrowBalanceCents.plus(userVaiBorrowBalanceCents);
+      poolVai.userBorrowBalanceTokens = userVaiBorrowBalanceTokens;
+      poolVai.userBorrowBalanceCents = userVaiBorrowBalanceTokens.multipliedBy(
+        poolVai.tokenPriceCents,
+      );
     }
 
-    const userHealthFactor = calculateHealthFactor({
-      liquidationThresholdCents: poolUserLiquidationThresholdCents.toNumber(),
-      borrowBalanceCents: poolUserBorrowBalanceCents.toNumber(),
+    const userPoolValues = calculateUserPoolValues({
+      assets,
+      userVaiBorrowBalanceCents: poolVai?.userBorrowBalanceCents,
+      vaiBorrowAprPercentage: poolVai?.borrowAprPercentage,
+    });
+
+    // Calculate userBorrowLimitSharePercentage for each asset
+    const { assets: formattedAssets } = addUserBorrowLimitShares({
+      assets,
+      userBorrowLimitCents: userPoolValues.userBorrowLimitCents,
     });
 
     const pool: Pool = {
+      ...userPoolValues,
       comptrollerAddress: apiPool.address,
       name: apiPool.name === 'Core' ? 'Core pool' : apiPool.name,
       isIsolated,
-      assets,
       eModeGroups,
-      userBorrowBalanceCents: poolUserBorrowBalanceCents,
-      userSupplyBalanceCents: poolUserSupplyBalanceCents,
-      userBorrowLimitCents: poolUserBorrowLimitCents,
-      userVaiBorrowBalanceTokens,
-      userVaiBorrowBalanceCents,
-      userLiquidationThresholdCents: poolUserLiquidationThresholdCents,
       userEModeGroup,
-      userHealthFactor,
-    };
-
-    // Calculate userPercentOfLimit for each asset
-    const formattedAssets: Asset[] = assets.map(asset => ({
-      ...asset,
-      userPercentOfLimit:
-        asset.userBorrowBalanceCents?.isGreaterThan(0) &&
-        pool.userBorrowLimitCents?.isGreaterThan(0)
-          ? new BigNumber(asset.userBorrowBalanceCents)
-              .times(100)
-              .div(pool.userBorrowLimitCents)
-              .dp(2)
-              .toNumber()
-          : 0,
-    }));
-
-    return {
-      ...pool,
+      vai: poolVai,
       assets: formattedAssets,
     };
+
+    return pool;
   });
 
   return pools;

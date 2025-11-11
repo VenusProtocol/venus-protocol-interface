@@ -1,24 +1,13 @@
 import { screen, waitFor } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { useGetVaiRepayApr } from 'clients/api';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import { Account } from '..';
 
 describe('Account', () => {
-  beforeEach(() => {
-    (useGetVaiRepayApr as Mock).mockImplementation(() => ({
-      data: {
-        repayAprPercentage: new BigNumber(5.34),
-      },
-      isLoading: false,
-    }));
-  });
-
   it('displays content correctly', async () => {
     const { container } = renderComponent(<Account />, {
       accountAddress: fakeAccountAddress,

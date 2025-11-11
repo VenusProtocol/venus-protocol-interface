@@ -69,6 +69,7 @@ export const fakeVaiControllerContractAddress = '0xfakeVaiControllerContract';
 export const fakeLegacyPoolComptrollerContractAddress =
   '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D';
 export const fakePrimeContractAddress = '0xfakePrimeContractAddress';
+export const fakeResilientOracleContractAddress = '0xfakeResilientOracleContractAddress';
 
 export const fakePublicClient = {
   getBlockNumber: vi.fn(async () => 123456789),
@@ -127,6 +128,17 @@ export const fakePublicClient = {
       input.address === fakeLegacyPoolComptrollerContractAddress
     ) {
       return 1;
+    }
+
+    if (input.functionName === 'getPrice' && input.address === fakeResilientOracleContractAddress) {
+      return 1000000000000000000n;
+    }
+
+    if (
+      input.functionName === 'getVAIRepayRate' &&
+      input.address === fakeVaiControllerContractAddress
+    ) {
+      return 105190500000000000n;
     }
 
     throw new Error(

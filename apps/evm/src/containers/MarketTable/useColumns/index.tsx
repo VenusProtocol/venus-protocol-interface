@@ -41,7 +41,7 @@ import type { ColumnKey } from '../types';
 // t('marketTable.columnKeys.userBorrowBalance')
 // t('marketTable.columnKeys.userSupplyBalance')
 // t('marketTable.columnKeys.userWalletBalance')
-// t('marketTable.columnKeys.userPercentOfLimit')
+// t('marketTable.columnKeys.userBorrowLimitSharePercentage')
 // t('marketTable.columnKeys.liquidity')
 // t('marketTable.columnKeys.price')
 
@@ -56,7 +56,7 @@ import type { ColumnKey } from '../types';
 // t('marketTable.columnSelectOptionLabel.userBorrowBalance')
 // t('marketTable.columnSelectOptionLabel.userSupplyBalance')
 // t('marketTable.columnSelectOptionLabel.userWalletBalance')
-// t('marketTable.columnSelectOptionLabel.userPercentOfLimit')
+// t('marketTable.columnSelectOptionLabel.userBorrowLimitSharePercentage')
 // t('marketTable.columnSelectOptionLabel.liquidity')
 // t('marketTable.columnSelectOptionLabel.price')
 
@@ -279,19 +279,19 @@ export const useColumns = ({
           );
         }
 
-        if (column === 'userPercentOfLimit') {
+        if (column === 'userBorrowLimitSharePercentage') {
           return (
-            <div css={styles.userPercentOfLimit}>
+            <div css={styles.userBorrowLimitSharePercentage}>
               <span className={cn(isPaused ? 'text-grey' : 'text-offWhite')}>
-                {formatPercentageToReadableValue(asset.userPercentOfLimit)}
+                {formatPercentageToReadableValue(asset.userBorrowLimitSharePercentage)}
               </span>
 
               <ProgressBar
                 min={0}
                 max={100}
-                value={asset.userPercentOfLimit}
+                value={asset.userBorrowLimitSharePercentage}
                 step={1}
-                ariaLabel={t('marketTable.columnKeys.userPercentOfLimit')}
+                ariaLabel={t('marketTable.columnKeys.userBorrowLimitSharePercentage')}
                 css={styles.percentOfLimitProgressBar}
               />
             </div>
@@ -353,7 +353,7 @@ export const useColumns = ({
                 );
               }
 
-              if (column === 'userBorrowBalance' || column === 'userPercentOfLimit') {
+              if (column === 'userBorrowBalance' || column === 'userBorrowLimitSharePercentage') {
                 return compareBigNumbers(
                   rowA.userBorrowBalanceCents,
                   rowB.userBorrowBalanceCents,
