@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.74.0
+
+### Minor Changes
+
+- 54ff19b: refactor logic to simulate user operations
+
 ## 3.73.0
 
 ### Minor Changes
