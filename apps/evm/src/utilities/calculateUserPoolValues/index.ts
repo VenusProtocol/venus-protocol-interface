@@ -28,7 +28,7 @@ export const calculateUserPoolValues = ({
 
     if (asset.isCollateralOfUser) {
       userBorrowLimitCents = userBorrowLimitCents.plus(
-        asset.userSupplyBalanceCents.multipliedBy(asset.collateralFactor),
+        asset.userSupplyBalanceCents.multipliedBy(asset.userCollateralFactor),
       );
 
       userLiquidationThresholdCents = userLiquidationThresholdCents.plus(
