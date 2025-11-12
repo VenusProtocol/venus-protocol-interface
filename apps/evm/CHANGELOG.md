@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.74.1
+
+### Patch Changes
+
+- d186aaa: fix bug where incorrect collateral factor was being used when E-mode was activated
+
 ## 3.74.0
 
 ### Minor Changes
