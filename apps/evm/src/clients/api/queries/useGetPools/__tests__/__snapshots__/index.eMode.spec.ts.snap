@@ -1802,7 +1802,7 @@ exports[`useGetPools > returns pools with user data and E-mode group enabled in 
       "isIsolated": false,
       "name": "Core Pool",
       "userBorrowBalanceCents": "19999299932759.6580216",
-      "userBorrowLimitCents": "321988798902158.7477772",
+      "userBorrowLimitCents": "321988798486640.8408083",
       "userEModeGroup": {
         "assetSettings": [
           {
@@ -2802,7 +2802,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           "tokenPriceCents": "99.993",
           "userBorrowBalanceCents": "9999300000000",
           "userBorrowBalanceTokens": "100000000000",
-          "userBorrowLimitSharePercentage": 3.1,
+          "userBorrowLimitSharePercentage": 0,
           "userCollateralFactor": 0,
           "userLiquidationThresholdPercentage": 0,
           "userSupplyBalanceCents": "199986000000000",
@@ -2888,7 +2888,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
           "tokenPriceCents": "99.999999",
           "userBorrowBalanceCents": "9999999900000",
           "userBorrowBalanceTokens": "100000000000",
-          "userBorrowLimitSharePercentage": 3.1,
+          "userBorrowLimitSharePercentage": 0,
           "userCollateralFactor": 0,
           "userLiquidationThresholdPercentage": 0,
           "userSupplyBalanceCents": "199999998000000",
@@ -3042,7 +3042,7 @@ exports[`useGetPools > returns pools with user data and isolated E-mode group en
       "isIsolated": false,
       "name": "Core Pool",
       "userBorrowBalanceCents": "19999299932759.6580216",
-      "userBorrowLimitCents": "321988798902158.7477772",
+      "userBorrowLimitCents": "0",
       "userEModeGroup": {
         "assetSettings": [
           {
