@@ -21,6 +21,7 @@ export const Notice = ({
   description,
   variant = 'info',
   onClose,
+  size = 'md',
   ...otherProps
 }: NoticeProps) => (
   <div
@@ -36,7 +37,8 @@ export const Notice = ({
   >
     <div
       className={cn(
-        'flex transition-colors ease-linear px-3 py-2 md:px-4 md:py-3',
+        'flex transition-colors ease-linear px-3 py-2',
+        size === 'md' && 'md:px-4 md:py-3',
         variant === 'info' && 'bg-blue/5',
         variant === 'error' && 'bg-red/5',
         variant === 'success' && 'bg-green/5',
@@ -50,7 +52,8 @@ export const Notice = ({
           ) : (
             <Icon
               className={cn(
-                'h-4 w-4 md:h-5 md:w-5',
+                'h-4 w-4',
+                size === 'md' && 'md:h-5 md:w-5',
                 variant === 'info' && 'text-blue',
                 variant === 'error' && 'text-red',
                 variant === 'success' && 'text-green',
@@ -64,7 +67,9 @@ export const Notice = ({
         <div className="grow overflow-hidden break-words space-y-2">
           {title && <p className="text-sm font-semibold">{title}</p>}
 
-          {!!description && <p className="text-xs md:text-sm">{description}</p>}
+          {!!description && (
+            <p className={cn('text-xs', size === 'md' && 'md:text-sm')}>{description}</p>
+          )}
         </div>
       </div>
 
