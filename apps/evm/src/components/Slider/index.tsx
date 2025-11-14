@@ -9,6 +9,7 @@ export interface SliderProps {
   min?: number;
   disabled?: boolean;
   className?: string;
+  rangeClassName?: string;
 }
 
 export const Slider: React.FC<SliderProps> = ({
@@ -19,6 +20,7 @@ export const Slider: React.FC<SliderProps> = ({
   step,
   disabled = false,
   className,
+  rangeClassName,
 }) => (
   <SliderPrimitive.Root
     data-slot="slider"
@@ -35,7 +37,10 @@ export const Slider: React.FC<SliderProps> = ({
       data-slot="slider-track"
       className="bg-lightGrey relative grow overflow-hidden rounded-full h-2 w-full"
     >
-      <SliderPrimitive.Range data-slot="slider-range" className="bg-blue absolute h-full" />
+      <SliderPrimitive.Range
+        data-slot="slider-range"
+        className={cn('bg-blue absolute h-full', rangeClassName)}
+      />
     </SliderPrimitive.Track>
 
     <SliderPrimitive.Thumb

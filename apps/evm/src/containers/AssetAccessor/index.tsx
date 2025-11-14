@@ -36,11 +36,14 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
     return <Spinner />;
   }
 
-  if (asset.disabledTokenActions.includes(action) || (action === 'borrow' && !asset.isBorrowable)) {
+  if (
+    asset.disabledTokenActions.includes(action) ||
+    ((action === 'borrow' || action === 'boost') && !asset.isBorrowable)
+  ) {
     return <DisabledActionNotice token={vToken.underlyingToken} action={action} />;
   }
 
-  if (action === 'borrow' && !asset.isBorrowableByUser) {
+  if ((action === 'borrow' || action === 'boost') && !asset.isBorrowableByUser) {
     return (
       <NoticeWarning
         description={

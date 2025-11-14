@@ -1,7 +1,6 @@
 import { TertiaryButton, cn } from '@venusprotocol/ui';
 
 import { Icon, LabeledInlineContent, Modal, TextField, type TextFieldProps } from 'components';
-import PLACEHOLDER_KEY from 'constants/placeholderKey';
 import {
   DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
@@ -10,11 +9,7 @@ import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { Token } from 'types';
-import {
-  formatPercentageToReadableValue,
-  formatTokensToReadableValue,
-  getDecimals,
-} from 'utilities';
+import { formatPercentageToReadableValue, getDecimals } from 'utilities';
 
 export const slippageToleranceOptions = ['0.1', String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE), '1'];
 const MAX_SLIPPAGE_TOLERANCE_DECIMALS = 2;
@@ -22,14 +17,12 @@ const MAX_SLIPPAGE_TOLERANCE_DECIMALS = 2;
 export interface SwapDetailsProps extends React.HTMLAttributes<HTMLDivElement> {
   fromToken: Token;
   toToken: Token;
-  exchangeRate?: BigNumber;
   priceImpactPercentage?: number;
 }
 
 export const SwapDetails: React.FC<SwapDetailsProps> = ({
   fromToken,
   toToken,
-  exchangeRate,
   priceImpactPercentage,
   ...otherProps
 }) => {
@@ -37,12 +30,6 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
 
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
   const [isSlippageToleranceModalOpen, setIsSlippageToleranceModalOpen] = useState(false);
-
-  const readableExchangeRate = formatTokensToReadableValue({
-    value: exchangeRate,
-    token: toToken,
-    addSymbol: false,
-  });
 
   const readablePriceImpact = formatPercentageToReadableValue(priceImpactPercentage);
 
@@ -80,18 +67,11 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
 
   return (
     <>
-      <div className="space-y-2" {...otherProps}>
-        <LabeledInlineContent label={t('swapDetails.exchangeRate.label')}>
-          {exchangeRate !== undefined
-            ? t('swapDetails.exchangeRate.value', {
-                fromTokenSymbol: fromToken.symbol,
-                toTokenSymbol: toToken.symbol,
-                rate: readableExchangeRate,
-              })
-            : PLACEHOLDER_KEY}
-        </LabeledInlineContent>
-
-        <LabeledInlineContent label={t('swapDetails.slippageTolerance.label')}>
+      <div className="flex items-center justify-between gap-x-2" {...otherProps}>
+        <LabeledInlineContent
+          label={t('swapDetails.slippageTolerance.label')}
+          className="justify-start space-x-1 w-auto text-sm"
+        >
           <div className="flex items-center justify-center gap-x-1">
             {readableUserSlippageTolerance}
 
@@ -105,7 +85,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
 
         <LabeledInlineContent
           label={t('swapDetails.priceImpact.label')}
-          tooltip={t('swapDetails.priceImpact.tooltip')}
+          className="justify-start space-x-1 w-auto text-sm"
         >
           <span
             className={cn(

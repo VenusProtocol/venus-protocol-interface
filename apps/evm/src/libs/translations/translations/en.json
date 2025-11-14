@@ -660,16 +660,11 @@
   },
   "operationForm": {
     "availableAmount": "Available",
-    "boost": {
-      "flows": {
-        "borrow": "Borrow {{ tokenSymbol }}",
-        "supply": "Supply {{ tokenSymbol }}",
-        "swap": "Swap"
-      }
-    },
     "boostTabAltText": "Rocket icon",
     "boostTabTitle": "Boost",
+    "borrow": "Borrow",
     "borrowTabTitle": "Borrow",
+    "collateral": "Collateral",
     "error": {
       "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "higherThanAvailableAmount": "Amount entered higher than available amount",
@@ -714,9 +709,7 @@
       "supply": "Supply",
       "withdraw": "Withdraw"
     },
-    "supply": {
-      "collateral": "Collateral"
-    },
+    "supply": "Supply",
     "supplyTabTitle": "Supply",
     "swapDetails": {
       "label": {
@@ -989,13 +982,8 @@
     }
   },
   "swapDetails": {
-    "exchangeRate": {
-      "label": "Exchange rate",
-      "value": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}"
-    },
     "priceImpact": {
-      "label": "Price impact",
-      "tooltip": "Difference between the market price and estimated price due to trade size."
+      "label": "Price impact"
     },
     "slippageTolerance": {
       "label": "Slippage tolerance"

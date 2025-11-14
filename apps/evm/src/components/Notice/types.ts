@@ -6,5 +6,6 @@ export interface NoticeProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   description?: string | ReactElement;
   title?: string | ReactElement;
   variant?: NoticeVariant;
+  size?: 'sm' | 'md';
   onClose?: () => void;
 }

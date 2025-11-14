@@ -10,22 +10,6 @@ export const useStyles = () => {
       color: ${theme.palette.text.secondary};
       margin-top: ${theme.spacing(1)};
     `,
-    tokenListContainer: css`
-      position: relative;
-    `,
-    getBackdrop: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
-      display: none;
-      position: fixed;
-      z-index: 1;
-      inset: 0;
-
-      ${
-        isTokenListShown &&
-        css`
-        display: block;
-      `
-      }
-    `,
     getButton: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`
       > span {
         display: flex;
@@ -42,17 +26,6 @@ export const useStyles = () => {
           border-color: ${theme.palette.interactive.primary};
         }
       `
-      }
-    `,
-    token: css`
-      > img {
-        width: ${theme.shape.iconSize.large}px;
-        height: ${theme.shape.iconSize.large}px;
-      }
-
-      > span {
-        font-size: ${theme.typography.small1.fontSize};
-        font-weight: ${theme.typography.small1.fontWeight};
       }
     `,
     getArrowIcon: ({ isTokenListShown }: { isTokenListShown: boolean }) => css`

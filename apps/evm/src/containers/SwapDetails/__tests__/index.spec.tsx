@@ -1,5 +1,4 @@
 import { fireEvent } from '@testing-library/react';
-import BigNumber from 'bignumber.js';
 import type { Mock } from 'vitest';
 
 import { bnb, xvs } from '__mocks__/models/tokens';
@@ -11,7 +10,6 @@ import { SwapDetails, type SwapDetailsProps } from '..';
 const props: SwapDetailsProps = {
   fromToken: bnb,
   toToken: xvs,
-  exchangeRate: new BigNumber('1.754798655463432'),
   priceImpactPercentage: 0.871,
 };
 
