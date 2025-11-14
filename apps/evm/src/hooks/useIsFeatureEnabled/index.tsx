@@ -142,6 +142,9 @@ export const featureFlags = {
   ],
   transactionHistory: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.UNICHAIN_MAINNET],
   leveragedPositions: [
+    // DEV ONLY
+    ChainId.BSC_MAINNET,
+    // END DEV ONLY
     ChainId.BSC_TESTNET,
     ChainId.OPBNB_TESTNET,
     ChainId.SEPOLIA,
