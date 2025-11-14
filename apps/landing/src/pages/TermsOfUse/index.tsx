@@ -426,7 +426,7 @@ export const TermsOfUse: React.FC = () => (
     <h3>23.4 Arbitrator Selection</h3>
 
     <p>
-      The arbitral tribunal shall comprise one (1) arbitrator selected in accordance with the
+      The arbitrary tribunal shall comprise one (1) arbitrator selected in accordance with the
       applicable HKIAC Administered Arbitration Rules.
     </p>
 

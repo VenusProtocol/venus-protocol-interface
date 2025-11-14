@@ -58,7 +58,7 @@ export const useRepay = (options?: Partial<Options>) => {
         });
       }
 
-      // Handle repaying full BNB loan.  Note that we only check for the isNative prop; that's
+      // Handle repaying full BNB loan. Note that we only check for the isNative prop; that's
       // because at the moment BNB is the only native market we have
       if (
         input.vToken.underlyingToken.isNative &&

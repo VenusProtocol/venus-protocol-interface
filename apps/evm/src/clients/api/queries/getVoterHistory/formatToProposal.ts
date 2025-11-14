@@ -111,7 +111,7 @@ export const formatToProposal = ({
     abstainVotes,
     proposalType: proposalType ?? ProposalType.NORMAL,
     userVoteSupport,
-    remoteProposals: [], // This data isn't used in the UI but requires an extra call to be fetch, so we don't fetch it
+    remoteProposals: [], // This data isn't used in the UI but requires an extra call to be fetched, so we don't fetch it
   };
 
   return proposal;
