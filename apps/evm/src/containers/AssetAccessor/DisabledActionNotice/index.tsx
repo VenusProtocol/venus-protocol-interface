@@ -26,6 +26,10 @@ const DisabledActionNotice: React.FC<DisabledActionNoticeProps> = ({ token, acti
       return t('assetAccessor.disabledActionNotice.borrow');
     }
 
+    if (action === 'boost') {
+      return t('assetAccessor.disabledActionNotice.boost');
+    }
+
     if (action === 'repay') {
       return t('assetAccessor.disabledActionNotice.repay');
     }

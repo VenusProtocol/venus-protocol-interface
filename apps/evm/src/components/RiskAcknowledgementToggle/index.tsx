@@ -17,7 +17,7 @@ export const RiskAcknowledgementToggle: React.FC<RiskAcknowledgementToggleProps>
       <div className="flex gap-x-3">
         <Toggle {...toggleProps} />
 
-        <p>{t('operationForm.riskyOperation.toggleLabel')}</p>
+        <p className="text-sm">{t('operationForm.riskyOperation.toggleLabel')}</p>
       </div>
     </div>
   );

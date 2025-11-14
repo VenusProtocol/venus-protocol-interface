@@ -112,7 +112,7 @@ export const ApyBreakdown: React.FC<ApyBreakdownProps> = ({
     <Accordion
       title={
         <div className="flex items-center gap-x-2">
-          <p className="text-sm md:text-base">{label}</p>
+          <p className="text-sm">{label}</p>
 
           <InfoIcon className="inline-flex items-center" tooltip={tooltip} />
         </div>

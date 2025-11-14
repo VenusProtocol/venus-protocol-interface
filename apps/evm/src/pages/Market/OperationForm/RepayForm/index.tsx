@@ -384,7 +384,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
       </div>
 
       <ConnectWallet
-        className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}
+        className={cn('space-y-4', isUserConnected ? 'mt-4' : 'mt-6')}
         analyticVariant="repay_form"
       >
         <div className="space-y-4">
