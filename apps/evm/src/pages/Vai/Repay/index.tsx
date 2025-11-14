@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 
-import { useGetBalanceOf, useGetPool, useGetSimulatedPool, useRepayVai } from 'clients/api';
+import { useGetBalanceOf, useGetPool, useRepayVai } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -19,6 +19,7 @@ import { useChain } from 'hooks/useChain';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { handleError } from 'libs/errors';
 import { useGetToken } from 'libs/tokens';
@@ -120,15 +121,10 @@ export const Repay: React.FC = () => {
     },
   ];
 
-  const { data: getSimulatedPoolData } = useGetSimulatedPool(
-    {
-      pool: legacyPool,
-      balanceMutations,
-    },
-    {
-      enabled: debouncedInputAmountTokens.isGreaterThan(0),
-    },
-  );
+  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+    pool: legacyPool,
+    balanceMutations,
+  });
   const simulatedPool = getSimulatedPoolData?.pool;
 
   const isRepayingFullLoan = !!userVaiBorrowBalanceTokens?.isEqualTo(debouncedInputAmountTokens);
