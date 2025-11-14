@@ -20,20 +20,23 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
-import type { Asset, Pool, Swap, SwapError, TokenBalance } from 'types';
+import type { Asset, BalanceMutation, Pool, Swap, SwapError, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
   convertTokensToMantissa,
+  getSwapToTokenAmountReceivedTokens,
   getUniqueTokenBalances,
   isCollateralActionDisabled,
 } from 'utilities';
 
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
+import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
-import { AssetInfo } from '../AssetInfo';
+import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
 import Notice from './Notice';
@@ -164,6 +167,28 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     asset.supplyCapTokens,
   ]);
 
+  const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
+
+  let toTokenAmountTokens = isUsingSwap
+    ? getSwapToTokenAmountReceivedTokens(swap)
+    : debouncedFormAmountTokens;
+  toTokenAmountTokens = new BigNumber(toTokenAmountTokens || 0);
+
+  const balanceMutations: BalanceMutation[] = [
+    {
+      type: 'asset',
+      vTokenAddress: asset.vToken.address,
+      action: 'supply',
+      amountTokens: toTokenAmountTokens,
+    },
+  ];
+
+  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+    pool,
+    balanceMutations,
+  });
+  const simulatedPool = getSimulatedPoolData?.pool;
+
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
     fromTokenUserWalletBalanceTokens,
@@ -196,7 +221,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     amountTokens,
     maxSelected,
   }: { amountTokens: BigNumber | string; maxSelected: boolean }) => {
-    if (Number(amountTokens.toString()) > 0) {
+    if (Number(formValues.amountTokens) > 0) {
       captureAnalyticEvent(
         'supply_amount_set',
         {
@@ -325,7 +350,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           />
         )}
 
-        {!isUserConnected && <AssetInfo asset={asset} action="supply" />}
+        {!isUserConnected && <ApyBreakdown pool={pool} balanceMutations={balanceMutations} />}
       </div>
 
       <ConnectWallet
@@ -354,10 +379,10 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
           <OperationDetails
             isUsingSwap={isUsingSwap}
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            asset={asset}
             action="supply"
             pool={pool}
+            balanceMutations={balanceMutations}
+            simulatedPool={simulatedPool}
             swap={swap}
           />
         </div>
@@ -589,9 +614,11 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
     ],
   );
 
+  const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
+
   const swapInfo = useGetSwapInfo({
     fromToken: formValues.fromToken,
-    fromTokenAmountTokens: formValues.amountTokens,
+    fromTokenAmountTokens: debouncedFormAmountTokens,
     toToken: asset.vToken.underlyingToken,
     direction: 'exactAmountIn',
   });

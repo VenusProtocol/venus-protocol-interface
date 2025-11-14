@@ -17,18 +17,23 @@ import {
 } from 'constants/healthFactor';
 import { useChain } from 'hooks/useChain';
 import useDelegateApproval from 'hooks/useDelegateApproval';
-import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useTranslation } from 'libs/translations';
-import type { Asset, Pool } from 'types';
-import { calculateHealthFactor, convertTokensToMantissa } from 'utilities';
+import type { Asset, BalanceMutation, Pool } from 'types';
+import {
+  calculateHealthFactor,
+  convertTokensToMantissa,
+  formatTokensToReadableValue,
+} from 'utilities';
 
 import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
+import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
 import { useAccountAddress } from 'libs/wallet';
-import { AssetInfo } from '../AssetInfo';
+import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
 import SubmitSection from './SubmitSection';
@@ -165,10 +170,28 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     return [maxTokens, safeMaxTokens, moderateRiskMaxTokens];
   }, [asset, pool]);
 
-  const readableLimit = useFormatTokensToReadableValue({
+  const readableLimit = formatTokensToReadableValue({
     value: limitTokens,
     token: asset.vToken.underlyingToken,
   });
+
+  const _debouncedInputAmountTokens = useDebounceValue(formValues.amountTokens);
+  const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);
+
+  const balanceMutations: BalanceMutation[] = [
+    {
+      type: 'asset',
+      vTokenAddress: asset.vToken.address,
+      action: 'borrow',
+      amountTokens: debouncedInputAmountTokens,
+    },
+  ];
+
+  const { data: getSimulatedPoolData } = useSimulateBalanceMutations({
+    pool,
+    balanceMutations,
+  });
+  const simulatedPool = getSimulatedPoolData?.pool;
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
@@ -207,7 +230,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     amountTokens,
     maxSelected,
   }: { amountTokens: BigNumber | string; maxSelected: boolean; selectedPercentage?: number }) => {
-    if (Number(amountTokens.toString()) > 0) {
+    if (Number(formValues.amountTokens) > 0) {
       captureAnalyticEvent(
         'borrow_amount_set',
         {
@@ -298,7 +321,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           }
         />
 
-        {!isUserConnected && <AssetInfo asset={asset} action="borrow" />}
+        {!isUserConnected && <ApyBreakdown pool={pool} balanceMutations={balanceMutations} />}
       </div>
 
       <ConnectWallet
@@ -338,10 +361,10 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           )}
 
           <OperationDetails
-            amountTokens={new BigNumber(formValues.amountTokens || 0)}
-            asset={asset}
             action="borrow"
             pool={pool}
+            simulatedPool={simulatedPool}
+            balanceMutations={balanceMutations}
           />
 
           {shouldAskUserRiskAcknowledgement && (
@@ -407,7 +430,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
   const {
     isDelegateApproved,
     isDelegateApprovedLoading,
-    isUseUpdatePoolDelegateStatusLoading,
+    isDelegateStatusLoading,
     updatePoolDelegateStatus,
   } = useDelegateApproval({
     delegateeAddress: nativeTokenGatewayContractAddress || NULL_ADDRESS,
@@ -446,7 +469,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       isSubmitting={isSubmitting}
       isDelegateApproved={isDelegateApproved}
       isDelegateApprovedLoading={isDelegateApprovedLoading}
-      isApproveDelegateLoading={isUseUpdatePoolDelegateStatusLoading}
+      isApproveDelegateLoading={isDelegateStatusLoading}
       approveDelegateAction={() => updatePoolDelegateStatus({ approvedStatus: true })}
       isWrapUnwrapNativeTokenEnabled={isWrapUnwrapNativeTokenEnabled}
       isEModeFeatureEnabled={isEModeFeatureEnabled}

@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ApyBreakdown > renders correct values: 'borrow' 1`] = `"Borrow APY-4.97%Distribution APY0.52%Total APY6.50%"`;
+
+exports[`ApyBreakdown > renders correct values: 'multiple mutations' 1`] = `"Supply APY0.05%Distribution APY0.12%Borrow APY-4.97%Distribution APY0.52%Net APY7.67%"`;
+
+exports[`ApyBreakdown > renders correct values: 'no mutations' 1`] = `"Total APY0%"`;
+
+exports[`ApyBreakdown > renders correct values: 'repay' 1`] = `"Borrow APY-4.97%Distribution APY0.52%Total APY6.50%"`;
+
+exports[`ApyBreakdown > renders correct values: 'supply' 1`] = `"Supply APY0.05%Distribution APY0.12%Total APY1.17%"`;
+
+exports[`ApyBreakdown > renders correct values: 'withdraw' 1`] = `"Supply APY3.89%Distribution APY1.35%Prime APY0.75%1.75%Total APY7.99%"`;

@@ -12,10 +12,12 @@ import { useSupply } from 'clients/api';
 import { useCollateral } from 'hooks/useCollateral';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { en } from 'libs/translations';
-import { type Asset, ChainId } from 'types';
+import { type Asset, type BalanceMutation, ChainId, type Pool } from 'types';
 
 import { chains } from '@venusprotocol/chains';
 import MAX_UINT256 from 'constants/maxUint256';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { areTokensEqual } from 'utilities';
 import SupplyForm from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -153,6 +155,32 @@ describe('SupplyForm', () => {
       supplyBalanceTokens: new BigNumber(10),
     };
 
+    const fakeSupplyBalanceTokens = customFakeAsset.supplyCapTokens
+      // Add one token too many
+      .plus(1);
+
+    const fakeSimulatedPool: Pool = {
+      ...fakePool,
+      assets: fakePool.assets.map(a => ({
+        ...a,
+        supplyBalanceTokens: areTokensEqual(a.vToken, customFakeAsset.vToken)
+          ? fakeSupplyBalanceTokens
+          : a.supplyBalanceTokens,
+      })),
+    };
+
+    (useSimulateBalanceMutations as Mock).mockImplementation(
+      ({ balanceMutations }: { balanceMutations: BalanceMutation[] }) => ({
+        isLoading: false,
+        data: {
+          pool:
+            balanceMutations.filter(b => b.amountTokens.isGreaterThan(0)).length > 0
+              ? fakeSimulatedPool
+              : undefined,
+        },
+      }),
+    );
+
     const { getByTestId, getByText } = renderComponent(
       <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={customFakeAsset} />,
       {
@@ -160,11 +188,7 @@ describe('SupplyForm', () => {
       },
     );
 
-    const incorrectValueTokens = customFakeAsset
-      .supplyCapTokens!.minus(customFakeAsset.supplyBalanceTokens)
-      // Add one token too much
-      .plus(1)
-      .toFixed();
+    const incorrectValueTokens = fakeSupplyBalanceTokens.toFixed();
 
     // Enter amount in input
     const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));

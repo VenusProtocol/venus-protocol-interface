@@ -180,7 +180,10 @@ describe('Borrow', () => {
       ({ balanceMutations }: { balanceMutations: BalanceMutation[] }) => ({
         isLoading: false,
         data: {
-          pool: balanceMutations.length > 0 ? customFakePool : fakePool,
+          pool:
+            balanceMutations.filter(b => b.amountTokens.isGreaterThan(0)).length > 0
+              ? customFakePool
+              : undefined,
         },
       }),
     );

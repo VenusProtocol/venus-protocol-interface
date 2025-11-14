@@ -35,13 +35,16 @@ export const getSimulatedPool = async ({
   isUserPrime = false,
   userXvsStakedMantissa,
 }: GetSimulatedPoolInput): Promise<GetSimulatedPoolOutput> => {
-  if (!pool || balanceMutations.length === 0) {
+  // Filter out 0 balance mutations
+  const filteredBalanceMutations = balanceMutations.filter(b => !b.amountTokens.isEqualTo(0));
+
+  if (!pool || filteredBalanceMutations.length === 0) {
     return {
       pool: undefined,
     };
   }
 
-  const { vaiMutations, assetMutations } = balanceMutations.reduce<{
+  const { vaiMutations, assetMutations } = filteredBalanceMutations.reduce<{
     vaiMutations: VaiBalanceMutation[];
     assetMutations: AssetBalanceMutation[];
   }>(
@@ -93,7 +96,7 @@ export const getSimulatedPool = async ({
     let userBorrowBalanceTokens = asset.userBorrowBalanceTokens;
     let userBorrowBalanceCents = asset.userBorrowBalanceCents;
 
-    balanceMutations.forEach(({ action, amountTokens }) => {
+    filteredBalanceMutations.forEach(({ action, amountTokens }) => {
       const amountCents = amountTokens.multipliedBy(asset.tokenPriceCents);
 
       switch (action) {
