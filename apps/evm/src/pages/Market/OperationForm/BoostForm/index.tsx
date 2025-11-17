@@ -2,6 +2,7 @@ import { cn } from '@venusprotocol/ui';
 import BigNumber from 'bignumber.js';
 import { useEffect, useMemo, useState } from 'react';
 
+import { useGetSwapQuote } from 'clients/api';
 import {
   Delimiter,
   Icon,
@@ -11,20 +12,22 @@ import {
   TokenListWrapper,
   TokenTextField,
 } from 'components';
+import { NULL_ADDRESS } from 'constants/address';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwapDetails } from 'containers/SwapDetails';
 import useDebounceValue from 'hooks/useDebounceValue';
+import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { Asset, BalanceMutation, Pool, Swap, Token } from 'types';
+import type { Asset, BalanceMutation, Pool, Token } from 'types';
 import {
   areTokensEqual,
   compareNumbers,
   convertMantissaToTokens,
-  convertTokensToMantissa,
   formatTokensToReadableValue,
 } from 'utilities';
 import { ApyBreakdown } from '../ApyBreakdown';
@@ -32,12 +35,10 @@ import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
 import { RiskSlider } from './RiskSlider';
 import { SelectTokenField } from './SelectTokenField';
-import SubmitSection from './SubmitSection';
+import { SubmitSection } from './SubmitSection';
 import { calculateUserMaxBorrowTokens } from './calculateUserMaxBorrowTokens';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
-
-// TODO: add tests
 
 export interface BoostFormProps {
   asset: Asset;
@@ -48,27 +49,52 @@ export interface BoostFormProps {
 const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSubmitSuccess }) => {
   const { accountAddress } = useAccountAddress();
 
+  const { address: leverageManagerContractAddress } = useGetContractAddress({
+    name: 'LeverageManager',
+  });
+
+  const userBorrowingPowerCents = useMemo(
+    () => pool.userBorrowLimitCents?.minus(pool.userBorrowBalanceCents || 0),
+    [pool],
+  );
+
+  const tokenBalances = useMemo(
+    () =>
+      userBorrowingPowerCents
+        ? [...pool.assets]
+            // Sort by collateral factor
+            .sort((a, b) => compareNumbers(a.userCollateralFactor, b.userCollateralFactor, 'desc'))
+            .reduce<OptionalTokenBalance[]>((acc, asset) => {
+              if (
+                asset.userCollateralFactor === 0 ||
+                // Skip vBNB
+                asset.vToken.symbol === 'vBNB' ||
+                // Skip tokens that have reached their supply cap
+                asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens)
+              ) {
+                return acc;
+              }
+
+              const tokenBalance: OptionalTokenBalance = {
+                token: asset.vToken.underlyingToken,
+              };
+
+              return [...acc, tokenBalance];
+            }, [])
+        : [],
+    [pool.assets, userBorrowingPowerCents],
+  );
+
   const initialFormValues: FormValues = useMemo(() => {
-    let initialSuppliedAsset = borrowedAsset;
-
-    // Find asset with the highest collateral factor and initialize form with it
-    let highestCollateralFactor = 0;
-
-    pool.assets.forEach(a => {
-      if (a.userCollateralFactor > highestCollateralFactor) {
-        highestCollateralFactor = a.userCollateralFactor;
-        initialSuppliedAsset = a;
-      }
-    });
-
     const values: FormValues = {
       amountTokens: '',
-      suppliedToken: initialSuppliedAsset.vToken.underlyingToken,
+      suppliedToken:
+        tokenBalances.length > 0 ? tokenBalances[0].token : borrowedAsset.vToken.underlyingToken,
       acknowledgeRisk: false,
     };
 
     return values;
-  }, [borrowedAsset, pool.assets]);
+  }, [tokenBalances, borrowedAsset]);
 
   const [isTokenListShown, setIsTokenListShown] = useState(false);
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -93,10 +119,6 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
   const { t } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
 
-  const userBorrowingPowerCents = pool.userBorrowLimitCents?.minus(
-    pool.userBorrowBalanceCents || 0,
-  );
-
   // Calculate maximum amount of tokens user can borrow
   let limitTokens = new BigNumber(0);
 
@@ -111,70 +133,50 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
   const _debouncedInputAmountTokens = useDebounceValue(formValues.amountTokens);
   const debouncedInputAmountTokens = new BigNumber(_debouncedInputAmountTokens || 0);
 
-  // TODO: fetch
-  const swap: Swap | undefined = debouncedInputAmountTokens.isGreaterThan(0)
-    ? {
-        fromToken: borrowedAsset.vToken.underlyingToken,
-        toToken: suppliedAsset.vToken.underlyingToken,
-        exchangeRate: new BigNumber(1),
-        priceImpactPercentage: 0.08,
-        routePath: [],
-        fromTokenAmountSoldMantissa: convertTokensToMantissa({
-          value: debouncedInputAmountTokens,
-          token: borrowedAsset.vToken.underlyingToken,
-        }),
-        expectedToTokenAmountReceivedMantissa: convertTokensToMantissa({
-          value: new BigNumber(1000),
+  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
+
+  const { data: getSwapQuoteData, error: getSwapQuoteError } = useGetSwapQuote(
+    {
+      fromToken: borrowedAsset.vToken.underlyingToken,
+      fromTokenAmountTokens: debouncedInputAmountTokens,
+      toToken: formValues.suppliedToken,
+      direction: 'exact-in',
+      recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
+      slippagePercentage: userSlippageTolerancePercentage,
+    },
+    {
+      enabled: !!leverageManagerContractAddress && debouncedInputAmountTokens.isGreaterThan(0),
+    },
+  );
+  const swapQuote = getSwapQuoteData?.swapQuote;
+  const expectedSuppliedAmountTokens =
+    swapQuote?.direction === 'exact-in'
+      ? convertMantissaToTokens({
+          value: swapQuote.expectedToTokenAmountReceivedMantissa,
           token: suppliedAsset.vToken.underlyingToken,
-        }),
-        minimumToTokenAmountReceivedMantissa: convertTokensToMantissa({
-          value: new BigNumber(900),
-          token: suppliedAsset.vToken.underlyingToken,
-        }),
-        direction: 'exactAmountIn',
-      }
-    : undefined;
+        })
+      : undefined;
 
   const readableLimit = formatTokensToReadableValue({
     value: limitTokens,
     token: borrowedAsset.vToken.underlyingToken,
   });
 
-  const tokenBalances = userBorrowingPowerCents
-    ? [...pool.assets]
-        // Sort by collateral factor
-        .sort((a, b) => compareNumbers(a.userCollateralFactor, b.userCollateralFactor, 'desc'))
-        .reduce<OptionalTokenBalance[]>((acc, asset) => {
-          // Skip tokens that can't be collaterals
-          if (asset.userCollateralFactor === 0 || asset.vToken.symbol === 'vBNB') {
-            return acc;
-          }
-
-          const tokenBalance: OptionalTokenBalance = {
-            token: asset.vToken.underlyingToken,
-          };
-
-          return [...acc, tokenBalance];
-        }, [])
-    : [];
-
   const balanceMutations: BalanceMutation[] = [
     {
       type: 'asset',
       vTokenAddress: suppliedAsset.vToken.address,
       action: 'supply',
-      amountTokens: swap?.minimumToTokenAmountReceivedMantissa
-        ? convertMantissaToTokens({
-            value: swap.minimumToTokenAmountReceivedMantissa,
-            token: suppliedAsset.vToken.underlyingToken,
-          })
-        : new BigNumber(0),
+      amountTokens: expectedSuppliedAmountTokens || new BigNumber(0),
+      enableAsCollateralOfUser: true,
     },
     {
       type: 'asset',
       vTokenAddress: borrowedAsset.vToken.address,
       action: 'borrow',
-      amountTokens: debouncedInputAmountTokens,
+      amountTokens:
+        // Only simulate borrow if a swap quote was found
+        expectedSuppliedAmountTokens ? debouncedInputAmountTokens : new BigNumber(0),
     },
   ];
 
@@ -193,6 +195,8 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
     pool,
     simulatedPool,
     limitTokens,
+    getSwapQuoteError: getSwapQuoteError || undefined,
+    expectedSuppliedAmountTokens,
     onSubmitSuccess,
     onSubmit,
     formValues,
@@ -304,6 +308,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
           >
             <div className="flex gap-x-1">
               <TokenTextField
+                data-testid={TEST_IDS.tokenTextField}
                 className="flex-1"
                 label={t('operationForm.borrow')}
                 name="amountTokens"
@@ -317,7 +322,8 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
                   !isSubmitting &&
                   Number(formValues.amountTokens) > 0 &&
                   !!formError &&
-                  formError.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT'
+                  formError.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT' &&
+                  formError.code !== 'MISSING_DATA'
                 }
               />
 
@@ -368,8 +374,6 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
 
           <Delimiter />
 
-          {/* TODO: add step to allow Comptroller contract as delegate */}
-
           <OperationDetails
             action="borrow"
             pool={pool}
@@ -390,12 +394,13 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
             isFormSubmitting={isSubmitting}
             isFormValid={isFormValid}
             formErrorCode={formError?.code}
+            poolComptrollerContractAddress={pool.comptrollerAddress}
           />
 
           <SwapDetails
             fromToken={borrowedAsset.vToken.underlyingToken}
             toToken={suppliedAsset.vToken.underlyingToken}
-            priceImpactPercentage={swap?.priceImpactPercentage}
+            priceImpactPercentage={swapQuote?.priceImpactPercentage}
           />
         </div>
       </ConnectWallet>

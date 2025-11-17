@@ -1,4 +1,4 @@
-import { handleError } from 'libs/errors';
+import { type VError, handleError } from 'libs/errors';
 import type { Asset, Pool, Token } from 'types';
 
 import type BigNumber from 'bignumber.js';
@@ -16,6 +16,8 @@ export interface UseFormInput {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
   initialFormValues: FormValues;
+  getSwapQuoteError?: VError<'swapQuote' | 'interaction'>;
+  expectedSuppliedAmountTokens?: BigNumber;
   onSubmitSuccess?: () => void;
   simulatedPool?: Pool;
 }
@@ -35,6 +37,8 @@ const useForm = ({
   formValues,
   setFormValues,
   initialFormValues,
+  expectedSuppliedAmountTokens,
+  getSwapQuoteError,
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
     asset,
@@ -42,6 +46,8 @@ const useForm = ({
     limitTokens,
     simulatedPool,
     formValues,
+    expectedSuppliedAmountTokens,
+    getSwapQuoteError,
   });
 
   const handleSubmit = async (e?: React.SyntheticEvent) => {

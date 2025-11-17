@@ -19,7 +19,7 @@ export const TokenSelectField: React.FC<TokenSelectFieldProps> = ({
   className,
 }) => (
   <div className={className}>
-    <p className="text-sm font-semibold text-grey">{label}</p>
+    <p className="text-sm text-grey mb-1">{label}</p>
 
     <QuinaryButton
       className={cn(

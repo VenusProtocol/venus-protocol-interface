@@ -1,18 +1,18 @@
 import { fireEvent, waitFor } from '@testing-library/react';
+import { chains } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
-import { renderComponent } from 'testUtils/render';
-
-import { en } from 'libs/translations';
-import { type Asset, ChainId, type Pool } from 'types';
-
-import { chains } from '@venusprotocol/chains';
-import { useBorrow } from 'clients/api';
+import { type GetExactInSwapQuoteInput, useGetSwapQuote } from 'clients/api';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
-import BorrowForm from '..';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
+import { en } from 'libs/translations';
+import { renderComponent } from 'testUtils/render';
+import { type Asset, ChainId, type Pool } from 'types';
+import { convertTokensToMantissa } from 'utilities';
+import BoostForm from '..';
 import { checkSubmitButtonIsDisabled } from '../../__testUtils__/checkFns';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -30,12 +30,18 @@ const testCases = [
     {
       asset: {
         ...fakeAsset,
-        borrowCapTokens: new BigNumber(100),
+        borrowCapTokens: new BigNumber(1000),
         borrowBalanceTokens: new BigNumber(10),
+        cashTokens: new BigNumber(500000),
       },
-      pool: fakePool,
+      pool: {
+        ...fakePool,
+        userBorrowLimitCents: new BigNumber(1000000000),
+        userBorrowBalanceCents: new BigNumber(99),
+      },
     },
   ],
+
   [
     'user health factor',
     {
@@ -53,21 +59,46 @@ const testCases = [
     {
       asset: {
         ...fakeAsset,
-        liquidityCents: new BigNumber(50),
+        cashTokens: new BigNumber(1),
       },
       pool: fakePool,
     },
   ],
 ] as const;
 
-describe('BorrowForm', () => {
-  it('renders without crashing', () => {
-    renderComponent(<BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />);
+vi.mock('hooks/useSimulateBalanceMutations', () => ({
+  useSimulateBalanceMutations: vi.fn(() => ({
+    isLoading: false,
+    data: {
+      pool: fakePool,
+    },
+  })),
+}));
+
+describe('BoostForm', () => {
+  beforeEach(() => {
+    (useGetSwapQuote as Mock).mockImplementation((input: GetExactInSwapQuoteInput) => ({
+      isLoading: false,
+      data: {
+        swapQuote: {
+          fromToken: input.fromToken,
+          toToken: input.toToken,
+          direction: 'exact-in',
+          priceImpactPercentage: 0.1,
+          fromTokenAmountSoldMantissa: convertTokensToMantissa({
+            value: input.fromTokenAmountTokens,
+            token: input.fromToken,
+          }),
+          expectedToTokenAmountReceivedMantissa: new BigNumber('100000000'),
+          minimumToTokenAmountReceivedMantissa: new BigNumber('100000000'),
+        },
+      },
+    }));
   });
 
   it('prompts user to connect their wallet if they are not connected', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <BorrowForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <BoostForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
     );
 
     // Check "Connect wallet" button is displayed
@@ -81,34 +112,13 @@ describe('BorrowForm', () => {
     'renders correct available amount when %s is the limiting factor',
     async (_, { asset, pool }) => {
       const { getByTestId } = renderComponent(
-        <BorrowForm asset={asset} pool={pool} onSubmitSuccess={noop} />,
+        <BoostForm asset={asset} pool={pool} onSubmitSuccess={noop} />,
         {
           accountAddress: fakeAccountAddress,
         },
       );
 
       expect(getByTestId(TEST_IDS.availableAmount).textContent).toMatchSnapshot();
-    },
-  );
-
-  it.each(testCases)(
-    'updates input value correctly when clicking on max button and %s is the limiting factor',
-    async (_, { asset, pool }) => {
-      const { getByText, getByTestId } = renderComponent(
-        <BorrowForm asset={asset} pool={pool} onSubmitSuccess={noop} />,
-        {
-          accountAddress: fakeAccountAddress,
-        },
-      );
-
-      // Check input is empty
-      const input = getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement;
-      expect(input.value).toBe('');
-
-      // Press on max button
-      fireEvent.click(getByText(en.operationForm.safeMaxButtonLabel));
-
-      await waitFor(() => expect(input.value).toMatchSnapshot());
     },
   );
 
@@ -120,7 +130,7 @@ describe('BorrowForm', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <BorrowForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <BoostForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -151,7 +161,7 @@ describe('BorrowForm', () => {
     };
 
     const { getByText } = renderComponent(
-      <BorrowForm asset={fakeAsset} pool={customFakePool} onSubmitSuccess={noop} />,
+      <BoostForm asset={fakeAsset} pool={customFakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -172,14 +182,14 @@ describe('BorrowForm', () => {
     await checkSubmitButtonIsDisabled();
   });
 
-  it('disables submit button and displays a warning notice if an amount entered is higher than asset liquidity', async () => {
+  it('disables submit button and displays a warning notice if borrow amount entered is higher than asset liquidity', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       liquidityCents: new BigNumber(200),
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <BorrowForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <BoostForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -203,14 +213,10 @@ describe('BorrowForm', () => {
       expect(getByText(en.operationForm.error.higherThanAvailableLiquidity)).toBeInTheDocument(),
     );
 
-    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    await waitFor(() =>
-      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
-    );
-    expect(submitButton).toBeDisabled();
+    await checkSubmitButtonIsDisabled();
   });
 
-  it('disables submit button and displays a warning notice if an amount entered is higher than asset borrow cap', async () => {
+  it('disables submit button and displays a warning notice if borrow amount entered is higher than asset borrow cap', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       borrowCapTokens: new BigNumber(100),
@@ -218,7 +224,7 @@ describe('BorrowForm', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <BorrowForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <BoostForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -251,9 +257,9 @@ describe('BorrowForm', () => {
     await checkSubmitButtonIsDisabled();
   });
 
-  it('disables submit button if amount to borrow requested would make user borrow balance go higher than their borrow limit', async () => {
+  it('disables submit button if position would make user borrow balance go higher than their borrow limit', async () => {
     const { getByTestId, getByText } = renderComponent(
-      <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <BoostForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -282,9 +288,9 @@ describe('BorrowForm', () => {
     await checkSubmitButtonIsDisabled();
   });
 
-  it('disables submit button if amount to borrow requested would liquidate user', async () => {
+  it('disables submit button if position would liquidate user', async () => {
     const { getByTestId, getByText } = renderComponent(
-      <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <BoostForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -311,9 +317,37 @@ describe('BorrowForm', () => {
     await checkSubmitButtonIsDisabled();
   });
 
+  it('disables submit button if amount to supply to open position is higher than asset supply cap', async () => {
+    const customFakeAsset: Asset = {
+      ...fakeAsset,
+      supplyCapTokens: new BigNumber(1000),
+      supplyBalanceTokens: new BigNumber(999),
+    };
+
+    const { getByTestId } = renderComponent(
+      <BoostForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    // Enter amount in input
+    const tokenTextInput = await waitFor(
+      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+    );
+    fireEvent.change(tokenTextInput, {
+      target: { value: 100 },
+    });
+
+    await waitFor(() => expect(tokenTextInput.value).toEqual('100'));
+
+    // Check submit button is disabled
+    await checkSubmitButtonIsDisabled();
+  });
+
   it('prompts user to switch chain if they are connected to the wrong one', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <BorrowForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <BoostForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
         accountChainId: ChainId.ARBITRUM_ONE,
@@ -336,31 +370,33 @@ describe('BorrowForm', () => {
     );
   });
 
-  it('prompts user to acknowledge risk if requested borrow lowers health factor to risky threshold', async () => {
+  it('prompts user to acknowledge risk if position would lower health factor to risky threshold', async () => {
+    (useSimulateBalanceMutations as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        pool: {
+          ...fakePool,
+          userHealthFactor: HEALTH_FACTOR_MODERATE_THRESHOLD - 0.01,
+        },
+      },
+    }));
+
     const { getByText, getByTestId, getByRole } = renderComponent(
-      <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <BoostForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
     );
-
-    const marginWithRiskyThresholdTokens = fakePool
-      .userLiquidationThresholdCents!.div(HEALTH_FACTOR_MODERATE_THRESHOLD - 0.01)
-      .minus(fakePool.userBorrowBalanceCents!)
-      .plus(1)
-      // Convert cents to tokens
-      .dividedBy(fakeAsset.tokenPriceCents)
-      .toFixed(0, BigNumber.ROUND_CEIL);
 
     // Enter amount in input
     const tokenTextInput = await waitFor(
       () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
     );
     fireEvent.change(tokenTextInput, {
-      target: { value: marginWithRiskyThresholdTokens },
+      target: { value: 10 },
     });
 
-    await waitFor(() => expect(tokenTextInput.value).toBe(marginWithRiskyThresholdTokens));
+    await waitFor(() => expect(tokenTextInput.value).toEqual('10'));
 
     // Check warning is displayed
     expect(getByText(en.operationForm.riskyOperation.warning));
@@ -368,7 +404,7 @@ describe('BorrowForm', () => {
     // Check submit button is disabled
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
     await waitFor(() =>
-      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.borrow),
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.boost),
     );
     expect(submitButton).toBeDisabled();
 
@@ -379,49 +415,5 @@ describe('BorrowForm', () => {
     await waitFor(() => expect(document.querySelector('button[type="submit"]')).toBeEnabled());
   });
 
-  it('lets user borrow tokens then calls onClose callback on success', async () => {
-    const mockBorrow = vi.fn();
-    (useBorrow as Mock).mockImplementation(() => ({
-      mutateAsync: mockBorrow,
-      isPending: false,
-    }));
-
-    const onCloseMock = vi.fn();
-
-    const { getByTestId } = renderComponent(
-      <BorrowForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    // Enter amount in input
-    const correctAmountTokens = 1n;
-    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
-    fireEvent.change(tokenTextInput, {
-      target: { value: correctAmountTokens },
-    });
-
-    // Click on submit button
-    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-    await waitFor(() =>
-      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.borrow),
-    );
-    expect(submitButton).toBeEnabled();
-    fireEvent.click(submitButton);
-
-    const expectedAmountMantissa =
-      correctAmountTokens * 10n ** BigInt(fakeAsset.vToken.underlyingToken.decimals);
-
-    await waitFor(() => expect(mockBorrow).toHaveBeenCalledTimes(1));
-    expect(mockBorrow).toHaveBeenCalledWith({
-      amountMantissa: expectedAmountMantissa,
-      unwrap: false,
-      poolName: fakePool.name,
-      poolComptrollerAddress: fakePool.comptrollerAddress,
-      vToken: fakeAsset.vToken,
-    });
-
-    expect(onCloseMock).toHaveBeenCalledTimes(1);
-  });
+  it.todo('lets user open a leveraged position');
 });

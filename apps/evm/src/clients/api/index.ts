@@ -226,3 +226,6 @@ export * from './queries/getAccountTransactionHistory/useGetAccountTransactionHi
 
 export * from './queries/getSimulatedPool';
 export * from './queries/getSimulatedPool/useGetSimulatedPool';
+
+export * from './queries/getSwapQuote';
+export * from './queries/getSwapQuote/useGetSwapQuote';
