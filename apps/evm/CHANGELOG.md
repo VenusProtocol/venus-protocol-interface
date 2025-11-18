@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 3.75.0
+
+### Minor Changes
+
+- 1f0279f: refactor logic to simulate user operations
+- 1f0279f: streamline how balance updates are shown on forms
+
 ## 3.74.1
 
 ### Patch Changes
