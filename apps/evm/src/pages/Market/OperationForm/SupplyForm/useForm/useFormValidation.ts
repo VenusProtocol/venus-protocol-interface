@@ -98,7 +98,7 @@ const useFormValidation = ({
     }
 
     const toTokensAmountSuppliedTokens = isUsingSwap
-      ? getSwapToTokenAmountReceivedTokens(swap).swapToTokenAmountReceivedTokens
+      ? getSwapToTokenAmountReceivedTokens(swap)
       : fromTokenAmountTokens;
 
     if (

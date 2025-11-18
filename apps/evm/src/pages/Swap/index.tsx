@@ -231,6 +231,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           }
           data-testid={TEST_IDS.fromTokenSelectTokenTextField}
           disabled={isSubmitting}
+          displayCommonTokenButtons
           onChange={onFromInputChange}
           onChangeSelectedToken={token =>
             setFormValues(currentFormValues => ({
@@ -288,6 +289,7 @@ const SwapPageUi: React.FC<SwapPageUiProps> = ({
           value={formValues.toTokenAmountTokens}
           disabled={isSubmitting}
           data-testid={TEST_IDS.toTokenSelectTokenTextField}
+          displayCommonTokenButtons
           onChange={amount =>
             setFormValues(currentFormValues => ({
               ...currentFormValues,
