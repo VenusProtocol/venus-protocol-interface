@@ -690,7 +690,11 @@
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     },
-    "repayTabTitle": "Repay",
+    "repayTab": {
+      "collateralTabTitle": "Collateral",
+      "title": "Repay",
+      "walletBalanceTabTitle": "Wallet balance"
+    },
     "rightMaxButtonLabel": "MAX",
     "riskSlider": {
       "highRisk": "High risk",

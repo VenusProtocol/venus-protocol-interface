@@ -21,9 +21,9 @@ import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsF
 import { en } from 'libs/translations';
 import type { Asset, Swap, TokenBalance } from 'types';
 
-import Repay, { PRESET_PERCENTAGES } from '..';
-import SWAP_DETAILS_TEST_IDS from '../../OperationDetails/testIds';
-import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
+import RepayWithWalletBalanceForm, { PRESET_PERCENTAGES } from '..';
+import SWAP_DETAILS_TEST_IDS from '../../../OperationDetails/testIds';
+import SWAP_SUMMARY_TEST_IDS from '../../../SwapSummary/testIds';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import REPAY_FORM_TEST_IDS from '../testIds';
 
@@ -108,12 +108,14 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />);
+    renderComponent(
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+    );
   });
 
   it('displays correct wallet balance', async () => {
     const { getByText, container } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -129,9 +131,12 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('disables submit button if no amount was entered in input', async () => {
-    renderComponent(<Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />, {
-      accountAddress: fakeAccountAddress,
-    });
+    renderComponent(
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
 
     await checkSubmitButtonIsDisabled();
   });
@@ -152,7 +157,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     };
 
     const { getByText, container, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -197,7 +202,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     };
 
     const { getByText, container, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -234,7 +239,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     }));
 
     const { getByTestId, getByText, container } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -265,7 +270,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
   it('disables submit button if amount entered in input is higher than wallet balance', async () => {
     const { container, getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -312,7 +317,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     }));
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -355,7 +360,11 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const onCloseMock = vi.fn();
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
+      <RepayWithWalletBalanceForm
+        asset={fakeAsset}
+        pool={fakePool}
+        onSubmitSuccess={onCloseMock}
+      />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -397,7 +406,11 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const onCloseMock = vi.fn();
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
+      <RepayWithWalletBalanceForm
+        asset={fakeAsset}
+        pool={fakePool}
+        onSubmitSuccess={onCloseMock}
+      />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -435,7 +448,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     }));
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -479,7 +492,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     }));
 
     const { container, getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -511,7 +524,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
 
   it('updates input value to wallet balance when clicking on MAX button', async () => {
     const { container, getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -591,7 +604,7 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     }));
 
     const { container, getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -644,7 +657,11 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const onCloseMock = vi.fn();
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
+      <RepayWithWalletBalanceForm
+        asset={fakeAsset}
+        pool={fakePool}
+        onSubmitSuccess={onCloseMock}
+      />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -687,7 +704,11 @@ describe('RepayForm - Feature flag enabled: integratedSwap', () => {
     const onCloseMock = vi.fn();
 
     const { container, getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
+      <RepayWithWalletBalanceForm
+        asset={fakeAsset}
+        pool={fakePool}
+        onSubmitSuccess={onCloseMock}
+      />,
       {
         accountAddress: fakeAccountAddress,
       },

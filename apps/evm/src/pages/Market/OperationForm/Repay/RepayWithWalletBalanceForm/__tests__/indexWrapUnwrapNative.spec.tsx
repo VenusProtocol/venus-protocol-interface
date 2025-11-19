@@ -16,7 +16,7 @@ import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';
 
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
-import Repay from '..';
+import RepayWithWalletBalanceForm from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
@@ -60,7 +60,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('renders without crashing', () => {
     renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={fakeAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -74,7 +74,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('does not display the token selector if the underlying token does not wrap the chain native token', async () => {
     const { queryByTestId } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={fakeAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -91,7 +91,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('displays the token selector if the underlying token wraps the chain native token', async () => {
     const { queryByTestId } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={fakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -129,7 +129,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={customFakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -197,7 +197,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={customFakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -252,7 +252,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={fakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -295,7 +295,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
     const onCloseMock = vi.fn();
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={fakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={onCloseMock}

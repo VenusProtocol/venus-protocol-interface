@@ -7,8 +7,8 @@ import type { Asset, Swap, SwapError, Token, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities';
 
 import { useAnalytics } from 'libs/analytics';
-import { calculateAmountDollars } from '../../calculateAmountDollars';
-import type { FormError } from '../../types';
+import { calculateAmountDollars } from '../../../calculateAmountDollars';
+import type { FormError } from '../../../types';
 import calculatePercentageOfUserBorrowBalance from '../calculatePercentageOfUserBorrowBalance';
 import type { FormErrorCode, FormValues } from './types';
 import useFormValidation from './useFormValidation';
