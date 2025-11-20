@@ -9,7 +9,12 @@ import type {
   PoolVai,
   VaiBalanceMutation,
 } from 'types';
-import { addUserBorrowLimitShares, calculateUserPoolValues, clampToZero } from 'utilities';
+import {
+  addUserBorrowLimitShares,
+  areAddressesEqual,
+  calculateUserPoolValues,
+  clampToZero,
+} from 'utilities';
 import { addUserPrimeApys } from './addUserPrimeApys';
 
 export interface GetSimulatedPoolInput {
@@ -71,9 +76,11 @@ export const getSimulatedPool = async ({
   const mutatedPrimeVTokenAddresses: Address[] = [];
 
   let simulatedAssets: Asset[] = pool.assets.map(asset => {
-    const lowerCasedVTokenAddress = asset.vToken.address.toLowerCase() as Address;
+    const assetBalanceMutations = assetMutations.filter(balanceMutation =>
+      areAddressesEqual(balanceMutation.vTokenAddress, asset.vToken.address),
+    );
 
-    if (!mutatedVTokenAddresses.includes(lowerCasedVTokenAddress)) {
+    if (assetBalanceMutations.length === 0) {
       return asset;
     }
 
@@ -83,7 +90,7 @@ export const getSimulatedPool = async ({
     ].some(d => d.type === 'prime' || d.type === 'primeSimulation');
 
     if (isAssetPrime) {
-      mutatedPrimeVTokenAddresses.push(lowerCasedVTokenAddress);
+      mutatedPrimeVTokenAddresses.push(asset.vToken.address.toLowerCase() as Address);
     }
 
     let supplyBalanceTokens = asset.supplyBalanceTokens;
@@ -96,8 +103,14 @@ export const getSimulatedPool = async ({
     let userBorrowBalanceTokens = asset.userBorrowBalanceTokens;
     let userBorrowBalanceCents = asset.userBorrowBalanceCents;
 
-    filteredBalanceMutations.forEach(({ action, amountTokens }) => {
+    let isCollateralOfUser = asset.isCollateralOfUser;
+
+    assetBalanceMutations.forEach(({ action, amountTokens, enableAsCollateralOfUser }) => {
       const amountCents = amountTokens.multipliedBy(asset.tokenPriceCents);
+
+      if (enableAsCollateralOfUser) {
+        isCollateralOfUser = true;
+      }
 
       switch (action) {
         case 'supply':
@@ -149,6 +162,7 @@ export const getSimulatedPool = async ({
       userSupplyBalanceCents,
       userBorrowBalanceTokens,
       userBorrowBalanceCents,
+      isCollateralOfUser,
     };
 
     return simulatedAsset;

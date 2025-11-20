@@ -671,6 +671,14 @@ export const contracts: ContractConfig[] = [
       [ChainId.UNICHAIN_SEPOLIA]: '0x0000003eDf18913c01cBc482C978bBD3D6E8ffA3',
     },
   },
+  {
+    name: 'LeverageManager',
+    abi: nexusBoostrapAbi as Abi, // TODO: add correct ABI
+    address: {
+      [ChainId.BSC_MAINNET]: '0x0000000000000000000000000000000000000000', // TODO: add
+      [ChainId.BSC_TESTNET]: '0x0000000000000000000000000000000000000000', // TODO: add
+    },
+  },
   // Generic Contracts
   {
     name: 'IsolatedPoolComptroller',

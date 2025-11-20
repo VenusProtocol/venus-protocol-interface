@@ -430,7 +430,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
   const {
     isDelegateApproved,
     isDelegateApprovedLoading,
-    isDelegateStatusLoading,
+    isUpdateDelegateStatusLoading,
     updatePoolDelegateStatus,
   } = useDelegateApproval({
     delegateeAddress: nativeTokenGatewayContractAddress || NULL_ADDRESS,
@@ -469,7 +469,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ asset, pool, onSubmitSuccess })
       isSubmitting={isSubmitting}
       isDelegateApproved={isDelegateApproved}
       isDelegateApprovedLoading={isDelegateApprovedLoading}
-      isApproveDelegateLoading={isDelegateStatusLoading}
+      isApproveDelegateLoading={isUpdateDelegateStatusLoading}
       approveDelegateAction={() => updatePoolDelegateStatus({ approvedStatus: true })}
       isWrapUnwrapNativeTokenEnabled={isWrapUnwrapNativeTokenEnabled}
       isEModeFeatureEnabled={isEModeFeatureEnabled}

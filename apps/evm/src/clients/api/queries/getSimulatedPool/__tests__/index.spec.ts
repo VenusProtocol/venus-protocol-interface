@@ -12,13 +12,17 @@ import { getSimulatedPool } from '..';
 const fakeNonPrimeAsset = poolData[0].assets[0];
 const fakePrimeAsset = poolData[0].assets[1];
 
-const generateAssetBalanceMutations = ({ asset }: { asset: Asset }) => {
+const generateAssetBalanceMutations = ({
+  asset,
+  enableAsCollateralOfUser,
+}: { asset: Asset; enableAsCollateralOfUser?: boolean }) => {
   const balanceMutations: BalanceMutation[] = [
     {
       type: 'asset',
       action: 'supply',
       vTokenAddress: asset.vToken.address,
       amountTokens: new BigNumber(100),
+      enableAsCollateralOfUser,
     },
     {
       type: 'asset',
@@ -66,6 +70,21 @@ describe('getSimulatedPool', () => {
 
   it('returns simulated pool with updated asset balances when mutations are provided', async () => {
     const fakeBalanceMutations = generateAssetBalanceMutations({ asset: fakeNonPrimeAsset });
+
+    const result = await getSimulatedPool({
+      publicClient: {} as unknown as PublicClient,
+      pool: poolData[0],
+      balanceMutations: fakeBalanceMutations,
+    });
+
+    expect(result).toMatchSnapshot();
+  });
+
+  it('returns simulated pool with updated asset balances when mutations are provided, including enabling collateral', async () => {
+    const fakeBalanceMutations = generateAssetBalanceMutations({
+      asset: poolData[0].assets[1],
+      enableAsCollateralOfUser: true,
+    });
 
     const result = await getSimulatedPool({
       publicClient: {} as unknown as PublicClient,

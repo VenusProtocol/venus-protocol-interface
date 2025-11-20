@@ -1,13 +1,13 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import type { Asset, Pool } from 'types';
-
 import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
 } from 'constants/healthFactor';
+import type { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
+import type { Asset, Pool } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
@@ -17,6 +17,8 @@ interface UseFormValidationInput {
   pool: Pool;
   formValues: FormValues;
   limitTokens: BigNumber;
+  getSwapQuoteError?: VError<'swapQuote' | 'interaction'>;
+  expectedSuppliedAmountTokens?: BigNumber;
   simulatedPool?: Pool;
 }
 
@@ -31,6 +33,8 @@ const useFormValidation = ({
   limitTokens,
   simulatedPool,
   formValues,
+  getSwapQuoteError,
+  expectedSuppliedAmountTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
@@ -70,7 +74,6 @@ const useFormValidation = ({
     }
 
     if (
-      asset.borrowCapTokens &&
       asset.borrowBalanceTokens.plus(borrowedTokenAmountTokens).isGreaterThan(asset.borrowCapTokens)
     ) {
       return {
@@ -88,6 +91,34 @@ const useFormValidation = ({
           }),
           assetBorrowBalance: formatTokensToReadableValue({
             value: asset.borrowBalanceTokens,
+            token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+          }),
+        }),
+      };
+    }
+
+    if (
+      expectedSuppliedAmountTokens &&
+      asset.supplyBalanceTokens
+        .plus(expectedSuppliedAmountTokens)
+        .isGreaterThan(asset.supplyCapTokens)
+    ) {
+      return {
+        code: 'HIGHER_THAN_SUPPLY_CAP',
+        message: t('operationForm.error.higherThanSupplyCap', {
+          userMaxSupplyAmount: formatTokensToReadableValue({
+            value: asset.supplyCapTokens.minus(asset.supplyBalanceTokens),
+            token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+          }),
+          assetSupplyCap: formatTokensToReadableValue({
+            value: asset.supplyCapTokens,
+            token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+          }),
+          assetSupplyBalance: formatTokensToReadableValue({
+            value: asset.supplyBalanceTokens,
             token: asset.vToken.underlyingToken,
             maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
@@ -133,12 +164,27 @@ const useFormValidation = ({
         code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',
       };
     }
+
+    if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
+      return {
+        code: 'NO_SWAP_QUOTE_FOUND',
+        message: t('operationForm.error.noSwapQuoteFound'),
+      };
+    }
+
+    if (!simulatedPool || !expectedSuppliedAmountTokens) {
+      return {
+        code: 'MISSING_DATA',
+      };
+    }
   }, [
     asset,
     pool,
     limitTokens,
     simulatedPool,
     formValues.amountTokens,
+    expectedSuppliedAmountTokens,
+    getSwapQuoteError,
     formValues.acknowledgeRisk,
     t,
   ]);

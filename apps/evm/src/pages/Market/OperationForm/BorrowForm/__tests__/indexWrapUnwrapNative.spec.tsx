@@ -10,7 +10,8 @@ import { ChainId } from 'types';
 import { useBorrow } from 'clients/api';
 import { en } from 'libs/translations';
 import Borrow from '..';
-import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
+import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
+import { fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 describe('BorrowForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
