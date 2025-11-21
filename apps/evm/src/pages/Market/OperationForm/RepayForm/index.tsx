@@ -148,7 +148,7 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
     {
       type: 'asset',
       vTokenAddress: asset.vToken.address,
-      action: 'supply',
+      action: 'repay',
       amountTokens: toTokenAmountTokens,
     },
   ];
