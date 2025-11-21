@@ -15,15 +15,27 @@ import { en } from 'libs/translations';
 
 import { chains } from '@venusprotocol/chains';
 import { ChainId } from 'types';
-import Repay, { PRESET_PERCENTAGES } from '..';
-import {
-  checkSubmitButtonIsDisabled,
-  checkSubmitButtonIsEnabled,
-} from '../../__testUtils__/checkFns';
+import RepayWithWalletBalanceForm, { PRESET_PERCENTAGES } from '..';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useTokenApproval');
+
+const checkSubmitButtonIsDisabled = async () => {
+  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+  await waitFor(() =>
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
+  );
+  expect(submitButton).toBeDisabled();
+};
+
+const checkSubmitButtonIsEnabled = async () => {
+  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+  await waitFor(() =>
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.repay),
+  );
+  expect(submitButton).toBeEnabled();
+};
 
 const mockRepay = vi.fn();
 
@@ -35,12 +47,14 @@ describe('RepayForm', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />);
+    renderComponent(
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+    );
   });
 
   it('prompts user to connect their wallet if they are not connected', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Repay onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <RepayWithWalletBalanceForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
     );
 
     // Check "Connect wallet" button is displayed
@@ -52,7 +66,7 @@ describe('RepayForm', () => {
 
   it('displays correct wallet amount', async () => {
     const { getByText } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -68,7 +82,11 @@ describe('RepayForm', () => {
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={customFakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm
+        asset={customFakeAsset}
+        pool={customFakePool}
+        onSubmitSuccess={noop}
+      />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -99,7 +117,11 @@ describe('RepayForm', () => {
     customFakeAsset.userWalletBalanceTokens = new BigNumber(1);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={customFakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm
+        asset={customFakeAsset}
+        pool={customFakePool}
+        onSubmitSuccess={noop}
+      />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -145,7 +167,7 @@ describe('RepayForm', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <RepayWithWalletBalanceForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -174,7 +196,7 @@ describe('RepayForm', () => {
 
   it('prompts user to switch chain if they are connected to the wrong one', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Repay onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <RepayWithWalletBalanceForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
         accountChainId: ChainId.ARBITRUM_ONE,
@@ -214,7 +236,7 @@ describe('RepayForm', () => {
     }));
 
     const { getByTestId } = renderComponent(
-      <Repay onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <RepayWithWalletBalanceForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -236,7 +258,7 @@ describe('RepayForm', () => {
 
   it('enables repaying the full loan when clicking on MAX button if wallet balance is high enough', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -262,9 +284,7 @@ describe('RepayForm', () => {
     );
 
     // Check submit button is enabled
-    await checkSubmitButtonIsEnabled({
-      textContent: en.operationForm.submitButtonLabel.repay,
-    });
+    await checkSubmitButtonIsEnabled();
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet balance', async () => {
@@ -274,7 +294,11 @@ describe('RepayForm', () => {
     customFakeAsset.userWalletBalanceTokens = new BigNumber(10);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={customFakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm
+        asset={customFakeAsset}
+        pool={customFakePool}
+        onSubmitSuccess={noop}
+      />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -295,9 +319,7 @@ describe('RepayForm', () => {
     await waitFor(() => expect(tokenTextInput.value).toBe(expectedInputValue));
 
     // Check submit button is enabled
-    await checkSubmitButtonIsEnabled({
-      textContent: en.operationForm.submitButtonLabel.repay,
-    });
+    await checkSubmitButtonIsEnabled();
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet spending limit', async () => {
@@ -317,7 +339,7 @@ describe('RepayForm', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -338,9 +360,7 @@ describe('RepayForm', () => {
     await waitFor(() => expect(tokenTextInput.value).toBe(expectedInputValue));
 
     // Check submit button is enabled
-    await checkSubmitButtonIsEnabled({
-      textContent: en.operationForm.submitButtonLabel.repay,
-    });
+    await checkSubmitButtonIsEnabled();
   });
 
   it('updates input value to correct value when clicking on preset percentage buttons', async () => {
@@ -350,7 +370,11 @@ describe('RepayForm', () => {
     customFakeAsset.userWalletBalanceTokens = new BigNumber(100);
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={customFakeAsset} pool={customFakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm
+        asset={customFakeAsset}
+        pool={customFakePool}
+        onSubmitSuccess={noop}
+      />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -382,9 +406,7 @@ describe('RepayForm', () => {
       await waitFor(() => expect(tokenTextInput.value).toBe(expectedInputValue));
 
       // Check submit button is enabled
-      await checkSubmitButtonIsEnabled({
-        textContent: en.operationForm.submitButtonLabel.repay,
-      });
+      await checkSubmitButtonIsEnabled();
     }
   });
 
@@ -392,7 +414,11 @@ describe('RepayForm', () => {
     const onCloseMock = vi.fn();
 
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
+      <RepayWithWalletBalanceForm
+        asset={fakeAsset}
+        pool={fakePool}
+        onSubmitSuccess={onCloseMock}
+      />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -421,7 +447,7 @@ describe('RepayForm', () => {
 
   it('lets user repay full loan', async () => {
     const { getByText, getByTestId } = renderComponent(
-      <Repay asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
       {
         accountAddress: fakeAccountAddress,
       },

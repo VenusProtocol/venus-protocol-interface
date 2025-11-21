@@ -82,7 +82,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
     return (
       <div className={className}>
         {!!label && (
-          <label className="text-sm text-grey mb-1" htmlFor={inputProps.id}>
+          <label className="text-sm mb-1 text-grey" htmlFor={inputProps.id}>
             {label}
           </label>
         )}

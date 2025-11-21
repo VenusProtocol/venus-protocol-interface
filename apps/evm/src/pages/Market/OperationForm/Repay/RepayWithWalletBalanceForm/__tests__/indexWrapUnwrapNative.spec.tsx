@@ -16,14 +16,21 @@ import { en } from 'libs/translations';
 import { type Asset, ChainId } from 'types';
 
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
-import Repay from '..';
-import { checkSubmitButtonIsEnabled } from '../../__testUtils__/checkFns';
+import RepayWithWalletBalanceForm from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useGetSwapInfo');
 
 const fakeBalanceMantissa = new BigNumber('10000000000000000000');
+
+const checkSubmitButtonIsEnabled = async () => {
+  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+  await waitFor(() =>
+    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.repay),
+  );
+  expect(submitButton).toBeEnabled();
+};
 
 const mockRepay = vi.fn();
 
@@ -53,7 +60,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('renders without crashing', () => {
     renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={fakeAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -67,7 +74,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('does not display the token selector if the underlying token does not wrap the chain native token', async () => {
     const { queryByTestId } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={fakeAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -84,7 +91,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
   it('displays the token selector if the underlying token wraps the chain native token', async () => {
     const { queryByTestId } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={fakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -122,7 +129,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={customFakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -164,9 +171,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       expect(getByText(en.operationForm.repay.fullRepaymentWarning)).toBeTruthy(),
     );
 
-    await checkSubmitButtonIsEnabled({
-      textContent: en.operationForm.submitButtonLabel.repay,
-    });
+    await checkSubmitButtonIsEnabled();
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet balance', async () => {
@@ -192,7 +197,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={customFakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -227,9 +232,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       expect(selectTokenTextField.value).toBe(fakeUserWethWalletBalance.toFixed()),
     );
 
-    await checkSubmitButtonIsEnabled({
-      textContent: en.operationForm.submitButtonLabel.repay,
-    });
+    await checkSubmitButtonIsEnabled();
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet spending limit', async () => {
@@ -249,7 +252,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     }));
 
     const { container, getByText, getByTestId, queryByTestId } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={fakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={noop}
@@ -284,9 +287,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       expect(selectTokenTextField.value).toBe(fakeWalletSpendingLimitTokens.toFixed()),
     );
 
-    await checkSubmitButtonIsEnabled({
-      textContent: en.operationForm.submitButtonLabel.repay,
-    });
+    await checkSubmitButtonIsEnabled();
   });
 
   it('lets user wrap and repay, then calls onClose callback on success', async () => {
@@ -294,7 +295,7 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
     const onCloseMock = vi.fn();
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
-      <Repay
+      <RepayWithWalletBalanceForm
         asset={fakeWethAsset}
         pool={fakePool}
         onSubmitSuccess={onCloseMock}
