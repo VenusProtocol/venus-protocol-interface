@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.75.1
+
+### Patch Changes
+
+- eaa97f2: fix issue with repay form showing incorrect balance update
+
 ## 3.75.0
 
 ### Minor Changes
