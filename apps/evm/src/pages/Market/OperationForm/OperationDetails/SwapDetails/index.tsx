@@ -51,7 +51,6 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
       {...otherProps}
     >
       <SwapDetailsComp
-        exchangeRate={swap.exchangeRate}
         fromToken={swap.fromToken}
         toToken={swap.toToken}
         priceImpactPercentage={swap.priceImpactPercentage}

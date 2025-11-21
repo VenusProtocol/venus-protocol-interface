@@ -1,8 +1,8 @@
 import { fireEvent, getByTestId } from '@testing-library/react';
 
 import type { Token } from 'types';
-
-import { getTokenListItemTestId, getTokenSelectButtonTestId } from '../testIdGetters';
+import { getTokenListItemTestId } from '../../TokenListWrapper/testIdGetters';
+import { getTokenSelectButtonTestId } from '../testIdGetters';
 
 export const selectToken = ({
   token,

@@ -1,5 +1,3 @@
-import { cn } from '@venusprotocol/ui';
-
 import { useGetPools, useGetTokenUsdPrice, useGetVaults } from 'clients/api';
 import { Page, Spinner, Tabs } from 'components';
 import { Redirect } from 'containers/Redirect';
@@ -171,7 +169,7 @@ export const Account: React.FC = () => {
       <Tabs
         tabs={tabs}
         className="lg:space-y-8"
-        headerClassName={cn('text-md sm:text-lg')}
+        headerClassName="text-md sm:text-lg"
         navType="searchParam"
         variant="secondary"
       />

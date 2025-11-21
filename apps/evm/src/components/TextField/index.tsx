@@ -1,8 +1,7 @@
+import { cn } from '@venusprotocol/ui';
 import { type InputHTMLAttributes, forwardRef } from 'react';
 
 import type { Token } from 'types';
-
-import { cn } from '@venusprotocol/ui';
 import { Icon, type IconName } from '../Icon';
 import { TokenIcon } from '../TokenIcon';
 
@@ -68,7 +67,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
     const leftIconClassNames = cn('mr-2 mt-0', size === 'md' ? 'size-6' : 'size-5');
 
     let inputContainerCn = cn(
-      'flex items-center h-15 pr-2 pl-4 py-2 border border-lightGrey rounded-xl bg-background transition-[border-color] hover:border-offWhite focus-within:border-blue focus-within:hover:border-blue',
+      'flex items-center h-14 pr-2 pl-4 py-2 border border-lightGrey rounded-xl bg-background transition-[border-color] hover:border-offWhite focus-within:border-blue focus-within:hover:border-blue',
       size === 'xs' && 'h-10 py-1 rounded-lg',
       disabled && 'border-lightGrey bg-cards',
       hasError && 'border-red focus-within:border-red',

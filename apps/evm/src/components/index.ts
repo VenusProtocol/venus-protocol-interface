@@ -63,3 +63,4 @@ export * from './Slider';
 export * from './IsolatedEModeGroupTooltip';
 export * from './TokenIcon';
 export * from './BalanceUpdates';
+export * from './TokenListWrapper';

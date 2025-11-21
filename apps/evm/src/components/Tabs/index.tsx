@@ -61,19 +61,22 @@ export const Tabs = ({
             )}
           >
             {tabs.map((tab, index) => (
-              <button onClick={() => handleChange(index)} type="button" key={tab.id}>
-                <p
-                  className={cn(
-                    'mb-2 font-semibold whitespace-nowrap',
-                    activeTab.id === tab.id ? 'text-offWhite' : 'text-grey',
-                  )}
-                >
+              <button
+                onClick={() => handleChange(index)}
+                type="button"
+                key={tab.id}
+                className={cn(
+                  'hover:text-offWhite',
+                  activeTab.id === tab.id ? 'text-offWhite' : 'text-grey',
+                )}
+              >
+                <p className="mb-2 font-semibold whitespace-nowrap transition-colors text-inherit">
                   {tab.title}
                 </p>
 
                 <div
                   className={cn(
-                    'w-full h-[5px] rounded-t-[2px]',
+                    'w-full h-[3px] rounded-t-[2px]',
                     activeTab.id === tab.id ? 'bg-blue' : 'bg-transparent',
                   )}
                 />

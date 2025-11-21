@@ -26,6 +26,7 @@ export type TransactionType = 'chain' | 'layerZero' | 'biconomy';
 
 export type TokenAction =
   | 'swapAndSupply'
+  | 'boost'
   | 'supply'
   | 'withdraw'
   | 'borrow'
@@ -122,7 +123,7 @@ export interface Asset {
   badDebtMantissa: bigint;
   liquidityCents: BigNumber;
   reserveTokens: BigNumber;
-  cashTokens: BigNumber;
+  cashTokens: BigNumber; // TODO: rename to liquidityTokens
   exchangeRateVTokens: BigNumber;
   liquidationThresholdPercentage: number;
   liquidationPenaltyPercentage: number;
