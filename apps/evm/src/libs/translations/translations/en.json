@@ -666,10 +666,14 @@
     "borrow": "Borrow",
     "borrowTabTitle": "Borrow",
     "collateral": "Collateral",
+    "collateralField": {
+      "label": "Collateral"
+    },
     "error": {
       "borrowCapReached": "The borrow cap of {{assetBorrowCap}} has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
       "higherThanAvailableAmount": "Amount entered higher than available amount",
       "higherThanAvailableLiquidity": "Insufficient asset liquidity",
+      "higherThanBorrowBalance": "Amount entered higher than borrow balance",
       "higherThanBorrowCap": "You can not borrow more than {{userMaxBorrowAmount}} from this pool, as the borrow cap for this market is set at {{assetBorrowCap}} and {{assetBorrowBalance}} are currently being borrowed from it.",
       "higherThanRepayBalance": "Amount entered higher than repay balance",
       "higherThanSupplyCap": "You can not supply more than {{userMaxSupplyAmount}} to this pool, as the supply cap for this market is set at {{assetSupplyCap}} and {{assetSupplyBalance}} are currently being supplied to it.",
@@ -677,7 +681,7 @@
       "higherThanWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "insufficientSwapLiquidity": "Insufficient liquidity in PancakeSwap for this swap",
       "noCollateral": "You need to supply tokens and enable them as collateral before you can borrow {{tokenSymbol}} from this pool",
-      "noSwapQuoteFound": "No swap found. Please update the borrowed amount or the supply market.",
+      "noSwapQuoteFound": "No swap found. Please update the form.",
       "priceImpactTooHigh": "Price impact too high",
       "supplyCapReached": "The supply cap of {{assetSupplyCap}} has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
       "tooRisky": "This transaction would get your account liquidated",
@@ -688,11 +692,18 @@
       "label": "Receive {{tokenSymbol}}",
       "tooltip": "Unwrap borrowed {{wrappedNativeTokenSymbol}} to {{nativeTokenSymbol}}"
     },
+    "repaidField": {
+      "label": "Debt to repay"
+    },
     "repay": {
       "fullRepaymentWarning": "The transaction value might be slightly higher than the current borrow amount to cover any newly-accumulated interests",
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     },
-    "repayTabTitle": "Repay",
+    "repayTab": {
+      "collateralTabTitle": "Collateral",
+      "title": "Repay",
+      "walletBalanceTabTitle": "Wallet balance"
+    },
     "rightMaxButtonLabel": "MAX",
     "riskSlider": {
       "highRisk": "High risk",

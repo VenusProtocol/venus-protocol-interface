@@ -312,7 +312,6 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
                 className="flex-1"
                 label={t('operationForm.borrow')}
                 name="amountTokens"
-                displayTokenIcon
                 token={borrowedAsset.vToken.underlyingToken}
                 value={formValues.amountTokens}
                 onChange={handleAmountTokensFieldChange}
