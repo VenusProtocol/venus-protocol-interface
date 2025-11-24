@@ -21,7 +21,7 @@ export const logError = (error: string | unknown) => {
     Sentry.captureMessage(error);
   } else {
     const exception =
-      error instanceof VError && error.data.exception ? error.data.exception : error;
+      error instanceof VError && error.data?.exception ? error.data.exception : error;
 
     Sentry.captureException(exception, {
       extra:
