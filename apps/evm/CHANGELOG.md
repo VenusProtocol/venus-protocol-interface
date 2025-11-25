@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.75.2
+
+### Patch Changes
+
+- a1087fe: handle V errors with no exception property
+
 ## 3.75.1
 
 ### Patch Changes
