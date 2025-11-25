@@ -28,7 +28,7 @@ export const LabeledInlineContent = ({
     className={cn('flex w-full items-center justify-between space-x-4', className)}
     {...otherContainerProps}
   >
-    <div className="flex items-center text-sm md:text-base">
+    <div className="flex items-center text-sm">
       {typeof iconSrc === 'string' && (
         <Icon name={iconSrc} className={cn('-mt-[2px] mr-2 h-5 w-5', iconClassName)} />
       )}
@@ -37,18 +37,13 @@ export const LabeledInlineContent = ({
         <TokenIcon token={iconSrc} className="-mt-[2px] mr-2 h-5 w-5" />
       )}
 
-      <p className={cn('text-sm md:text-base', invertTextColors ? 'text-offWhite' : 'text-grey')}>
-        {label}
-      </p>
+      <p className={cn('text-sm', invertTextColors ? 'text-offWhite' : 'text-grey')}>{label}</p>
 
       {!!tooltip && <InfoIcon className="ml-2 inline-flex items-center" tooltip={tooltip} />}
     </div>
 
     <div
-      className={cn(
-        'flex items-center text-sm md:text-base',
-        invertTextColors ? 'text-grey' : 'text-offWhite',
-      )}
+      className={cn('flex items-center text-sm', invertTextColors ? 'text-grey' : 'text-offWhite')}
     >
       {children}
     </div>

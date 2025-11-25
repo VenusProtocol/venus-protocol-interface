@@ -334,7 +334,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
       </div>
 
       <ConnectWallet
-        className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}
+        className={cn('space-y-4', isUserConnected ? 'mt-2' : 'mt-6')}
         analyticVariant="withdraw_form"
       >
         <div className="space-y-4">

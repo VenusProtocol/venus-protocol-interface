@@ -268,7 +268,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           <>
             <SwitchChainNotice />
 
-            <LabeledInlineContent label={t('operationForm.supply.collateral')}>
+            <LabeledInlineContent label={t('operationForm.collateral')}>
               <Toggle
                 onChange={handleToggleCollateral}
                 value={asset.isCollateralOfUser}
@@ -354,7 +354,7 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
       </div>
 
       <ConnectWallet
-        className={cn('space-y-6', isUserConnected ? 'mt-4' : 'mt-6')}
+        className={cn('space-y-4', isUserConnected ? 'mt-2' : 'mt-6')}
         analyticVariant="supply_form"
       >
         <div className="space-y-4">

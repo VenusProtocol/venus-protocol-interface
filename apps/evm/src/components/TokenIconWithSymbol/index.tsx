@@ -6,11 +6,16 @@ import { TokenIcon } from '../TokenIcon';
 export interface TokenIconWithSymbolProps {
   token: Token;
   className?: string;
+  tokenIconClassName?: string;
 }
 
-export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({ token, className }) => (
+export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
+  token,
+  className,
+  tokenIconClassName,
+}) => (
   <div className={cn(className, 'flex items-center')}>
-    <TokenIcon token={token} className="mr-2 h-6 w-6" />
+    <TokenIcon token={token} className={cn('mr-2 h-6 w-6', tokenIconClassName)} />
 
     <div>{token.symbol}</div>
   </div>

@@ -6,11 +6,3 @@ export const getTokenSelectButtonTestId = ({ parentTestId }: { parentTestId: str
 
 export const getTokenMaxButtonTestId = ({ parentTestId }: { parentTestId: string }) =>
   `${parentTestId}-token-max-button`;
-
-export const getTokenListItemTestId = ({
-  parentTestId,
-  tokenAddress,
-}: {
-  parentTestId: string;
-  tokenAddress: string;
-}) => `${parentTestId}-token-select-button-${tokenAddress}`;
