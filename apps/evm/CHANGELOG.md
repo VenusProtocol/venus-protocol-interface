@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.76.0
+
+### Minor Changes
+
+- 7f260e5: add base Boost tab
+
 ## 3.75.2
 
 ### Patch Changes
