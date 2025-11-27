@@ -2,9 +2,6 @@
   "name": "@venusprotocol/evm",
   "version": "3.76.0",
   "private": true,
-  "engines": {
-    "node": ">=20.x.x"
-  },
   "scripts": {
     "start": "vite",
     "build": "NODE_OPTIONS=\"--max-old-space-size=16384\" && vite build",
