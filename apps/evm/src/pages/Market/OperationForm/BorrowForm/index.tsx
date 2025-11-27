@@ -5,7 +5,6 @@ import { cn } from '@venusprotocol/ui';
 import { useBorrow } from 'clients/api';
 import {
   Delimiter,
-  EModeBanner,
   LabeledInlineContent,
   RiskAcknowledgementToggle,
   Toggle,
@@ -36,6 +35,7 @@ import { useAccountAddress } from 'libs/wallet';
 import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
+import { EModeBanner } from './EModeBanner';
 import SubmitSection from './SubmitSection';
 import TEST_IDS from './testIds';
 import useForm, { type FormValues, type UseFormInput } from './useForm';
@@ -274,11 +274,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
     <form onSubmit={handleSubmit}>
       <div className="space-y-4">
         {isEModeFeatureEnabled && pool.eModeGroups.length > 0 && !pool.userEModeGroup && (
-          <EModeBanner
-            poolComptrollerContractAddress={pool.comptrollerAddress}
-            analyticVariant="market_borrow_banner"
-            variant="secondary"
-          />
+          <EModeBanner poolComptrollerContractAddress={pool.comptrollerAddress} />
         )}
 
         <TokenTextField
