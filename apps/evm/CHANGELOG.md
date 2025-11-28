@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.76.1
+
+### Patch Changes
+
+- bb50f79: remove engines settings from package files so nvmrc file version is used instead
+
 ## 3.76.0
 
 ### Minor Changes
