@@ -2,11 +2,12 @@
   "name": "venusprotocol",
   "version": "1.0.0",
   "private": true,
-  "engines": {
-    "node": ">=20.x.x"
-  },
   "packageManager": "yarn@1.22.21",
-  "workspaces": ["packages/*", "configs/*", "apps/*"],
+  "workspaces": [
+    "packages/*",
+    "configs/*",
+    "apps/*"
+  ],
   "scripts": {
     "start": "turbo run start",
     "generate": "turbo run generate",
