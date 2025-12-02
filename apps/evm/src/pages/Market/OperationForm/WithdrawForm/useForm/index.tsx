@@ -17,7 +17,7 @@ export interface UseFormInput {
   moderateRiskMaxTokens: BigNumber;
   onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
   formValues: FormValues;
-  setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
+  setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   userBorrowLimitCents?: number;
   onSubmitSuccess?: () => void;
 }

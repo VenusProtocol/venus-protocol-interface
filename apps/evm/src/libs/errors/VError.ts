@@ -1,5 +1,6 @@
 import type { importProposalErrorPhrases } from './importProposalErrorPhrases';
 import type { interactionErrorPhrases } from './interactionErrorPhrases';
+import type { swapQuoteErrorPhrases } from './swapQuoteErrorPhrases';
 import type { transactionErrorPhrases } from './transactionErrorPhrases';
 import type { unexpectedErrorPhrases } from './unexpectedErrorPhrases';
 
@@ -10,6 +11,7 @@ export interface VErrorParamMap {
   };
   unexpected: { exception?: unknown } | undefined;
   interaction: { assetName: string; exception?: unknown };
+  swapQuote: { exception?: unknown };
   proposal: {
     info?: string;
   };
@@ -20,6 +22,7 @@ export interface VErrorPhraseMap {
   unexpected: keyof typeof unexpectedErrorPhrases;
   interaction: keyof typeof interactionErrorPhrases;
   proposal: keyof typeof importProposalErrorPhrases;
+  swapQuote: keyof typeof swapQuoteErrorPhrases;
 }
 
 export type ErrorCodes = keyof VErrorParamMap;

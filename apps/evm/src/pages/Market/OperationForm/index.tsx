@@ -107,9 +107,7 @@ export const OperationForm: React.FC<OperationFormProps> = ({
           poolComptrollerAddress={poolComptrollerAddress}
           action="boost"
         >
-          {({ asset, pool }) => (
-            <BoostForm asset={asset} pool={pool} onSubmitSuccess={onSubmitSuccess} />
-          )}
+          {({ asset, pool }) => <BoostForm asset={asset} pool={pool} />}
         </AssetAccessor>
       ),
     });

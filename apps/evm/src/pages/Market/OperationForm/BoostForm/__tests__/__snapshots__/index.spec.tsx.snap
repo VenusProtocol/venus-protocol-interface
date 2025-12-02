@@ -1,0 +1,77 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BoostForm > lets user open a leveraged position using a swap 1`] = `
+[
+  {
+    "borrowedVToken": {
+      "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "decimals": 8,
+      "symbol": "vXVS",
+      "underlyingToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "decimals": 18,
+        "iconSrc": "fake-xvs-asset",
+        "symbol": "XVS",
+      },
+    },
+    "suppliedVToken": {
+      "address": "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+      "decimals": 8,
+      "symbol": "vUSDC",
+      "underlyingToken": {
+        "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+        "decimals": 6,
+        "iconSrc": "fake-usdc-asset",
+        "symbol": "USDC",
+      },
+    },
+    "swapQuote": {
+      "callData": "0x",
+      "direction": "exact-in",
+      "expectedToTokenAmountReceivedMantissa": 100000000n,
+      "fromToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "decimals": 18,
+        "iconSrc": "fake-xvs-asset",
+        "symbol": "XVS",
+      },
+      "fromTokenAmountSoldMantissa": 1000000000000000000n,
+      "minimumToTokenAmountReceivedMantissa": 100000000n,
+      "priceImpactPercentage": 0.1,
+      "toToken": {
+        "address": "0x16227D60f7a0e586C66B005219dfc887D13C9531",
+        "decimals": 6,
+        "iconSrc": "fake-usdc-asset",
+        "symbol": "USDC",
+      },
+    },
+  },
+]
+`;
+
+exports[`BoostForm > lets user open a leveraged position using the same supplied and borrowed market 1`] = `
+[
+  {
+    "amountMantissa": 1000000000000000000n,
+    "vToken": {
+      "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "decimals": 8,
+      "symbol": "vXVS",
+      "underlyingToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "decimals": 18,
+        "iconSrc": "fake-xvs-asset",
+        "symbol": "XVS",
+      },
+    },
+  },
+]
+`;
+
+exports[`BoostForm > renders correct available amount when asset borrow cap is the limiting factor 1`] = `"Available990 XVS"`;
+
+exports[`BoostForm > renders correct available amount when asset liquidity is the limiting factor 1`] = `"Available1 XVS"`;
+
+exports[`BoostForm > renders correct available amount when user borrow limit is the limiting factor 1`] = `"Available10 XVS"`;
+
+exports[`BoostForm > renders correct available amount when user health factor is the limiting factor 1`] = `"Available0.05 XVS"`;

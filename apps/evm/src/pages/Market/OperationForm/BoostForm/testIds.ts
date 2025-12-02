@@ -1,5 +1,6 @@
 const TEST_IDS = {
-  selectTokenTextField: 'select-token-text-field',
+  tokenTextField: 'token-text-field',
+  selectTokenField: 'select-token-field',
   availableAmount: 'available-amount',
 };
 

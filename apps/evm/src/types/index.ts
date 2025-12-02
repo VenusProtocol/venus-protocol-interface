@@ -163,6 +163,7 @@ export interface AssetBalanceMutation {
   vTokenAddress: Address;
   amountTokens: BigNumber;
   action: 'borrow' | 'repay' | 'withdraw' | 'supply';
+  enableAsCollateralOfUser?: boolean;
 }
 
 export interface VaiBalanceMutation {
@@ -552,6 +553,39 @@ export type SwapError =
   | 'UNWRAPPING_UNSUPPORTED';
 
 export type PSTokenCombination = [PSToken, PSToken];
+
+export type SwapQuoteDirection = 'exact-in' | 'exact-out' | 'approximate-out';
+
+interface SwapQuoteBase {
+  fromToken: Token;
+  toToken: Token;
+  direction: SwapQuoteDirection;
+  priceImpactPercentage: number;
+  callData: Hex;
+}
+
+export interface ExactInSwapQuote extends SwapQuoteBase {
+  fromTokenAmountSoldMantissa: bigint;
+  expectedToTokenAmountReceivedMantissa: bigint;
+  minimumToTokenAmountReceivedMantissa: bigint;
+  direction: 'exact-in';
+}
+
+export interface ExactOutSwapQuote extends SwapQuoteBase {
+  toTokenAmountReceivedMantissa: bigint;
+  expectedFromTokenAmountSoldMantissa: bigint;
+  maximumFromTokenAmountSoldMantissa: bigint;
+  direction: 'exact-out';
+}
+
+export interface ApproximateOutSwapQuote extends SwapQuoteBase {
+  fromTokenAmountSoldMantissa: bigint;
+  expectedToTokenAmountReceivedMantissa: bigint;
+  minimumToTokenAmountReceivedMantissa: bigint;
+  direction: 'approximate-out';
+}
+
+export type SwapQuote = ExactInSwapQuote | ExactOutSwapQuote | ApproximateOutSwapQuote;
 
 export type ImportableProtocol = 'aave';
 

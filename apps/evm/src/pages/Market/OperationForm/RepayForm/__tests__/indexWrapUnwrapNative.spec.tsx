@@ -17,20 +17,13 @@ import { type Asset, ChainId } from 'types';
 
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import Repay from '..';
+import { checkSubmitButtonIsEnabled } from '../../__testUtils__/checkFns';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useGetSwapInfo');
 
 const fakeBalanceMantissa = new BigNumber('10000000000000000000');
-
-const checkSubmitButtonIsEnabled = async () => {
-  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-  await waitFor(() =>
-    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.repay),
-  );
-  expect(submitButton).toBeEnabled();
-};
 
 const mockRepay = vi.fn();
 
@@ -171,7 +164,9 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       expect(getByText(en.operationForm.repay.fullRepaymentWarning)).toBeTruthy(),
     );
 
-    await checkSubmitButtonIsEnabled();
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.repay,
+    });
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet balance', async () => {
@@ -232,7 +227,9 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       expect(selectTokenTextField.value).toBe(fakeUserWethWalletBalance.toFixed()),
     );
 
-    await checkSubmitButtonIsEnabled();
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.repay,
+    });
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet spending limit', async () => {
@@ -287,7 +284,9 @@ describe('RepayForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       expect(selectTokenTextField.value).toBe(fakeWalletSpendingLimitTokens.toFixed()),
     );
 
-    await checkSubmitButtonIsEnabled();
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.repay,
+    });
   });
 
   it('lets user wrap and repay, then calls onClose callback on success', async () => {

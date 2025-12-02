@@ -27,7 +27,7 @@ export interface UseFormInput {
     fixedRepayPercentage?: number;
   }) => Promise<unknown>;
   formValues: FormValues;
-  setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
+  setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   onSubmitSuccess?: () => void;
   fromTokenUserBorrowBalanceTokens?: BigNumber;
   fromTokenUserWalletBalanceTokens?: BigNumber;

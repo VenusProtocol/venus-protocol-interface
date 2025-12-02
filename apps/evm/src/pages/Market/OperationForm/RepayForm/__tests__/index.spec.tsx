@@ -16,26 +16,14 @@ import { en } from 'libs/translations';
 import { chains } from '@venusprotocol/chains';
 import { ChainId } from 'types';
 import Repay, { PRESET_PERCENTAGES } from '..';
+import {
+  checkSubmitButtonIsDisabled,
+  checkSubmitButtonIsEnabled,
+} from '../../__testUtils__/checkFns';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useTokenApproval');
-
-const checkSubmitButtonIsDisabled = async () => {
-  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-  await waitFor(() =>
-    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
-  );
-  expect(submitButton).toBeDisabled();
-};
-
-const checkSubmitButtonIsEnabled = async () => {
-  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-  await waitFor(() =>
-    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.repay),
-  );
-  expect(submitButton).toBeEnabled();
-};
 
 const mockRepay = vi.fn();
 
@@ -274,7 +262,9 @@ describe('RepayForm', () => {
     );
 
     // Check submit button is enabled
-    await checkSubmitButtonIsEnabled();
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.repay,
+    });
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet balance', async () => {
@@ -305,7 +295,9 @@ describe('RepayForm', () => {
     await waitFor(() => expect(tokenTextInput.value).toBe(expectedInputValue));
 
     // Check submit button is enabled
-    await checkSubmitButtonIsEnabled();
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.repay,
+    });
   });
 
   it('updates input value to wallet balance when clicking on MAX button if user borrow balance is higher than wallet spending limit', async () => {
@@ -346,7 +338,9 @@ describe('RepayForm', () => {
     await waitFor(() => expect(tokenTextInput.value).toBe(expectedInputValue));
 
     // Check submit button is enabled
-    await checkSubmitButtonIsEnabled();
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.repay,
+    });
   });
 
   it('updates input value to correct value when clicking on preset percentage buttons', async () => {
@@ -388,7 +382,9 @@ describe('RepayForm', () => {
       await waitFor(() => expect(tokenTextInput.value).toBe(expectedInputValue));
 
       // Check submit button is enabled
-      await checkSubmitButtonIsEnabled();
+      await checkSubmitButtonIsEnabled({
+        textContent: en.operationForm.submitButtonLabel.repay,
+      });
     }
   });
 

@@ -1,13 +1,14 @@
 import { type ButtonProps, Icon, QuinaryButton, TokenIconWithSymbol, cn } from 'components';
+import { getTokenSelectButtonTestId } from 'components/SelectTokenTextField/testIdGetters';
 import type { Token } from 'types';
 
-export interface SelectTokenFieldProps {
+export interface SelectTokenFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   onButtonClick: ButtonProps['onClick'];
   token: Token;
   isActive: boolean;
   label: string;
   disabled?: boolean;
-  className?: string;
+  'data-testid'?: string;
 }
 
 export const SelectTokenField: React.FC<SelectTokenFieldProps> = ({
@@ -17,9 +18,11 @@ export const SelectTokenField: React.FC<SelectTokenFieldProps> = ({
   disabled,
   label,
   className,
+  'data-testid': testId,
+  ...otherProps
 }) => (
-  <div className={className}>
-    <p className="text-sm font-semibold text-grey">{label}</p>
+  <div className={className} data-testid={testId} {...otherProps}>
+    <p className="text-sm text-grey mb-1">{label}</p>
 
     <QuinaryButton
       className={cn(
@@ -29,6 +32,12 @@ export const SelectTokenField: React.FC<SelectTokenFieldProps> = ({
       contentClassName="w-full justify-between disabled:bg-transparent"
       onClick={onButtonClick}
       disabled={disabled}
+      data-testid={
+        !!testId &&
+        getTokenSelectButtonTestId({
+          parentTestId: testId,
+        })
+      }
     >
       <div className="flex items-center gap-x-2">
         <TokenIconWithSymbol token={token} />
