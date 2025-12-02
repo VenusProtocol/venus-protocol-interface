@@ -187,7 +187,7 @@ describe('getSwapQuote', () => {
             "symbol": "USDC",
           },
           "fromTokenAmountSoldMantissa": 1000000n,
-          "minimumToTokenAmountReceivedMantissa": 995000000000000000n,
+          "minimumToTokenAmountReceivedMantissa": 1000000000000000000n,
           "priceImpactPercentage": 0.8,
           "toToken": {
             "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",

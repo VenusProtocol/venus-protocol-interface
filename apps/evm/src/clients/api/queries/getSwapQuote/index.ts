@@ -19,7 +19,7 @@ export const getSwapQuote = async ({
     chainId,
     tokenInAddress: fromToken.address,
     tokenOutAddress: toToken.address,
-    slippagePercentage,
+    slippagePercentage: slippagePercentage / 100, // Slippage is expressed as a number between 0 and 1 on the backend
     recipientAddress,
     deadlineTimestampSecs: Number(transactionDeadline),
     type: swapSpecificProps.direction,

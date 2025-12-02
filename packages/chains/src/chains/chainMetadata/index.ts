@@ -13,7 +13,8 @@ export const chains: {
   [ChainId.BSC_MAINNET]: {
     name: 'BNB Chain',
     iconSrc: iconSrcs.bsc,
-    explorerUrl: 'https://bscscan.com',
+    explorerUrl:
+      'https://dashboard.tenderly.co/explorer/vnet/38b20827-5366-4340-99b9-5ea96650b3f0/',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-bsc.safe.global',
     blockTimeMs: 750,

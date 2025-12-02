@@ -441,11 +441,13 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
             poolComptrollerContractAddress={pool.comptrollerAddress}
           />
 
-          <SwapDetails
-            fromToken={borrowedAsset.vToken.underlyingToken}
-            toToken={suppliedAsset.vToken.underlyingToken}
-            priceImpactPercentage={swapQuote?.priceImpactPercentage}
-          />
+          {isUsingSwap && (
+            <SwapDetails
+              fromToken={borrowedAsset.vToken.underlyingToken}
+              toToken={suppliedAsset.vToken.underlyingToken}
+              priceImpactPercentage={swapQuote?.priceImpactPercentage}
+            />
+          )}
         </div>
       </ConnectWallet>
     </form>

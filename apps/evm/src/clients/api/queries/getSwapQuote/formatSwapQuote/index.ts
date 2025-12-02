@@ -6,7 +6,7 @@ import type {
   Token,
 } from 'types';
 import type { ApiSwapQuote } from '../types';
-import { subtractSlippagePercentage } from './subtractSlippagePercentage';
+import { applySlippagePercentage } from './applySlippagePercentage';
 
 export const formatSwapQuote = ({
   direction,
@@ -30,9 +30,9 @@ export const formatSwapQuote = ({
 
   if (direction === 'exact-in') {
     const expectedToTokenAmountReceivedMantissa = BigInt(apiSwapQuote.amountOut);
-    const minimumToTokenAmountReceivedMantissa = subtractSlippagePercentage({
+    const minimumToTokenAmountReceivedMantissa = applySlippagePercentage({
       amount: expectedToTokenAmountReceivedMantissa,
-      slippagePercentage,
+      slippagePercentage: -slippagePercentage,
     });
 
     const swapQuote: ExactInSwapQuote = {
@@ -48,7 +48,7 @@ export const formatSwapQuote = ({
 
   if (direction === 'exact-out') {
     const expectedFromTokenAmountSoldMantissa = BigInt(apiSwapQuote.amountIn);
-    const maximumFromTokenAmountSoldMantissa = subtractSlippagePercentage({
+    const maximumFromTokenAmountSoldMantissa = applySlippagePercentage({
       amount: expectedFromTokenAmountSoldMantissa,
       slippagePercentage,
     });
@@ -66,10 +66,9 @@ export const formatSwapQuote = ({
 
   // Approximate out swap
   const expectedToTokenAmountReceivedMantissa = BigInt(apiSwapQuote.amountOut);
-  const minimumToTokenAmountReceivedMantissa = subtractSlippagePercentage({
-    amount: expectedToTokenAmountReceivedMantissa,
-    slippagePercentage,
-  });
+  // We don't subtract the slippage tolerance from the minimum amount to receive in this case as the
+  // expected amount is already the minimum we'd accept
+  const minimumToTokenAmountReceivedMantissa = expectedToTokenAmountReceivedMantissa;
 
   const swapQuote: ApproximateOutSwapQuote = {
     ...sharedProps,
