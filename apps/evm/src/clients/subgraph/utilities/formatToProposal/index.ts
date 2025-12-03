@@ -1,4 +1,4 @@
-import { chains } from '@venusprotocol/chains';
+import { type Chain, chains } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 
 import type { BscProposalFragment } from 'clients/subgraph/gql/generated/governanceBsc';
@@ -26,7 +26,24 @@ import {
 import { formatToProposalActions } from './formatToProposalActions';
 import { formatToRemoteProposal } from './formatToRemoteProposal';
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChainId];
+const { blockTimes = [] } = chains[governanceChainId] ?? {};
+
+const getEstimateDateByBlockHeight = (
+  targetBlockHeight: number,
+  _blockTimes: Chain['blockTimes'] = [],
+) => {
+  let closestBlockTime: Chain['blockTimes'][number] | null = null;
+  _blockTimes.forEach((blockTime: Chain['blockTimes'][number]) => {
+    if (blockTime.blockHeight && blockTime.blockHeight < targetBlockHeight) {
+      closestBlockTime = blockTime;
+    }
+  });
+
+  if (!closestBlockTime) return undefined;
+
+  const diffHeight = targetBlockHeight - closestBlockTime.blockHeight;
+  return new Date(closestBlockTime.startTimestamp + diffHeight * closestBlockTime.blockTimeMs);
+};
 
 export const formatToProposal = ({
   gqlProposal,
@@ -47,13 +64,8 @@ export const formatToProposal = ({
     timestampSeconds: Number(gqlProposal.executionEta),
   });
 
-  const nowMs = new Date().getTime();
-  const startDate = new Date(
-    nowMs + (Number(gqlProposal.startBlock) - currentBlockNumber) * BSC_BLOCK_TIME_MS!,
-  );
-  const endDate = new Date(
-    nowMs + (Number(gqlProposal.endBlock) - currentBlockNumber) * BSC_BLOCK_TIME_MS!,
-  );
+  const startDate = getEstimateDateByBlockHeight(Number(gqlProposal.startBlock), blockTimes);
+  const endDate = getEstimateDateByBlockHeight(Number(gqlProposal.endBlock), blockTimes);
 
   // Extract votes
   const {
