@@ -5,7 +5,7 @@ import { useGetBlockNumber } from 'clients/api/queries/getBlockNumber/useGetBloc
 import { useGetProposalMinQuorumVotes } from 'clients/api/queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
 import FunctionKey from 'constants/functionKey';
 import { governanceChainId } from 'libs/wallet';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 import { type GetProposalsInput, type GetProposalsOutput, getProposals } from '.';
 
 type TrimmedGetProposalsInput = Omit<
@@ -27,7 +27,7 @@ type Options = QueryObserverOptions<
   ]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChainId];
+const refetchInterval = generatePseudoRandomRefetchInterval('FAST');
 
 export const useGetProposals = (
   input: TrimmedGetProposalsInput = {},
@@ -42,7 +42,7 @@ export const useGetProposals = (
       chainId: governanceChainId,
     },
     {
-      refetchInterval: BSC_BLOCK_TIME_MS,
+      refetchInterval,
     },
   );
   const currentBlockNumber = getBlockNumberData?.blockNumber;
@@ -82,7 +82,7 @@ export const useGetProposals = (
         total: 0,
         proposals: [],
       },
-    refetchInterval: sanitizedInput.page === 0 ? BSC_BLOCK_TIME_MS! * 5 : undefined,
+    refetchInterval: sanitizedInput.page === 0 ? refetchInterval : undefined,
     ...options,
     enabled:
       typeof currentBlockNumber === 'number' &&
