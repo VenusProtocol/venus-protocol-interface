@@ -42,6 +42,8 @@ export const getSwapQuote = async ({
       value: swapSpecificProps.minToTokenAmountTokens,
       token: fromToken,
     }).toFixed();
+
+    params.slippageSplitPercentage = 0.1; // Percentage of slippage percentage that will be added to the fromToken amount in order to find approximate-out swap
   }
 
   const txsResponse = await restService<SwapApiResponse>({
