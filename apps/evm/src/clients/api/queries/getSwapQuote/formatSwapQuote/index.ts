@@ -74,6 +74,8 @@ export const formatSwapQuote = ({
   // Approximate out swap
   const expectedToTokenAmountReceivedMantissa = BigInt(apiSwapQuote.amountOut);
 
+  console.log('api', apiSwapQuote);
+
   const swapQuote: ApproximateOutSwapQuote = {
     ...sharedProps,
     fromTokenAmountSoldMantissa: BigInt(apiSwapQuote.amountIn),
@@ -81,6 +83,8 @@ export const formatSwapQuote = ({
     minimumToTokenAmountReceivedMantissa: minAmountOutMantissa,
     direction: 'approximate-out',
   };
+
+  console.log('formatted quote', swapQuote);
 
   return swapQuote;
 };

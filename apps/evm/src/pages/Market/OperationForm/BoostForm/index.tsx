@@ -27,11 +27,10 @@ import { useAccountAddress } from 'libs/wallet';
 import type { Asset, BalanceMutation, Pool, Token } from 'types';
 import {
   areTokensEqual,
-  compareBigNumbers,
+  compareNumbers,
   convertMantissaToTokens,
   convertTokensToMantissa,
   formatTokensToReadableValue,
-  getCombinedDistributionApys,
 } from 'utilities';
 import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
@@ -64,17 +63,8 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
     () =>
       userBorrowingPowerCents
         ? [...pool.assets]
-            // Sort by supply APY
-            .sort((a, b) => {
-              const aApys = getCombinedDistributionApys({ asset: a });
-              const bApys = getCombinedDistributionApys({ asset: b });
-
-              return compareBigNumbers(
-                aApys.totalSupplyApyPercentage,
-                bApys.totalSupplyApyPercentage,
-                'desc',
-              );
-            })
+            // Sort by collateral factor
+            .sort((a, b) => compareNumbers(a.userCollateralFactor, b.userCollateralFactor, 'desc'))
             .reduce<OptionalTokenBalance[]>((acc, asset) => {
               if (
                 asset.userCollateralFactor === 0 ||
