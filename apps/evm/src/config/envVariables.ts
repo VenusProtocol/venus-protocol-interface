@@ -24,10 +24,6 @@ export const envVariables = {
     typeof process !== 'undefined'
       ? process.env.VITE_ALCHEMY_API_KEY
       : import.meta.env.VITE_ALCHEMY_API_KEY,
-  VITE_ALCHEMY_SUBGRAPH_QUERY_KEY:
-    typeof process !== 'undefined'
-      ? process.env.VITE_ALCHEMY_SUBGRAPH_QUERY_KEY
-      : import.meta.env.VITE_ALCHEMY_SUBGRAPH_QUERY_KEY,
   VITE_NODE_REAL_API_KEY:
     typeof process !== 'undefined'
       ? process.env.VITE_NODE_REAL_API_KEY
