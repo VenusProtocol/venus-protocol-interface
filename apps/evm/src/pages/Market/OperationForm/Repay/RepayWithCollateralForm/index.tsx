@@ -179,8 +179,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
       : {
           ...sharedSwapQuoteProps,
           minToTokenAmountTokens: formValues.repayFullLoan
-            ? // TODO: find prettier solution
-              convertMantissaToTokens({
+            ? convertMantissaToTokens({
                 value:
                   // Buff amount if we're repaying full loan to account for accrued interests while
                   // transaction is being mined
@@ -289,8 +288,12 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
       ...currentFormValues,
       // If user is repaying a debt using the same token as collateral, then the
       // amount to repay is the same as the amount of collateral to sell
-      repaidAmountTokens: isUsingSwap ? '' : limitTokens.toFixed(),
+      repaidAmountTokens: isUsingSwap
+        ? currentFormValues.repaidAmountTokens
+        : limitTokens.toFixed(),
       collateralAmountTokens: limitTokens.toFixed(),
+      repayFullLoan: false,
+      direction: 'exact-in',
     }));
   };
 

@@ -51,17 +51,6 @@ export const useRepayWithCollateral = (options?: Partial<Options>) => {
             ? input.swapQuote.minimumToTokenAmountReceivedMantissa
             : input.swapQuote.toTokenAmountReceivedMantissa;
 
-        console.log([
-          input.collateralVToken.address,
-          collateralAmountMantissa,
-          input.repaidVToken.address,
-          repaidAmountMantissa, // borrowedAmountToFlashLoan
-          repaidAmountMantissa, // minAmountOutAfterSwap: this needs to correspond to
-          // borrowedAmountToFlashLoan + swap fee (which is currently 0%, hence why it is
-          // currently equal to borrowedAmountToFlashLoan)
-          input.swapQuote.callData,
-        ]);
-
         return {
           abi: leverageManagerAbi,
           address: leverageManagerContractAddress,
