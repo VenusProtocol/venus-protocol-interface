@@ -287,6 +287,9 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
   const handleMaxCollateralButtonClick = () => {
     setFormValues(currentFormValues => ({
       ...currentFormValues,
+      // If user is repaying a debt using the same token as collateral, then the
+      // amount to repay is the same as the amount of collateral to sell
+      repaidAmountTokens: isUsingSwap ? '' : limitTokens.toFixed(),
       collateralAmountTokens: limitTokens.toFixed(),
     }));
   };

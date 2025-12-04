@@ -1,3 +1,4 @@
+import { VError } from 'libs/errors';
 import type {
   ApproximateOutSwapQuote,
   ExactInSwapQuote,
@@ -10,6 +11,7 @@ import { applySlippagePercentage } from './applySlippagePercentage';
 
 export const formatSwapQuote = ({
   direction,
+  minAmountOutMantissa,
   fromToken,
   toToken,
   apiSwapQuote,
@@ -20,6 +22,7 @@ export const formatSwapQuote = ({
   toToken: Token;
   apiSwapQuote: ApiSwapQuote;
   slippagePercentage: number;
+  minAmountOutMantissa?: bigint;
 }) => {
   const sharedProps = {
     fromToken,
@@ -64,17 +67,18 @@ export const formatSwapQuote = ({
     return swapQuote;
   }
 
+  if (!minAmountOutMantissa) {
+    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+  }
+
   // Approximate out swap
   const expectedToTokenAmountReceivedMantissa = BigInt(apiSwapQuote.amountOut);
-  // We don't subtract the slippage tolerance from the minimum amount to receive in this case as the
-  // expected amount is already the minimum we'd accept
-  const minimumToTokenAmountReceivedMantissa = expectedToTokenAmountReceivedMantissa;
 
   const swapQuote: ApproximateOutSwapQuote = {
     ...sharedProps,
     fromTokenAmountSoldMantissa: BigInt(apiSwapQuote.amountIn),
     expectedToTokenAmountReceivedMantissa,
-    minimumToTokenAmountReceivedMantissa,
+    minimumToTokenAmountReceivedMantissa: minAmountOutMantissa,
     direction: 'approximate-out',
   };
 
