@@ -16,7 +16,7 @@ export const getRpcUrls = ({
     // ],
     // DEV ONLY
     [ChainId.BSC_MAINNET]: [
-      'https://virtual.binance.eu.rpc.tenderly.co/362bf73b-be6f-48ba-8071-50ee25137de6',
+      'https://virtual.binance.eu.rpc.tenderly.co/22d6bce7-7f9a-4d18-bac5-4544cc4b1d79',
     ],
     // END DEV ONLY
     [ChainId.BSC_TESTNET]: [`https://bsc-testnet.nodereal.io/v1/${nodeRealApiKey}`],

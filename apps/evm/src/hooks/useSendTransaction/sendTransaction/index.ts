@@ -110,7 +110,7 @@ export const sendTransaction = async <
     // DEV ONLY
     const ts = (Math.floor(Date.now() / 1000) + 30).toString(16);
 
-    await fetch('https://virtual.binance.eu.rpc.tenderly.co/362bf73b-be6f-48ba-8071-50ee25137de6', {
+    await fetch('https://virtual.binance.eu.rpc.tenderly.co/22d6bce7-7f9a-4d18-bac5-4544cc4b1d79', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

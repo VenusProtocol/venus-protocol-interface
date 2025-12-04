@@ -16,7 +16,7 @@ export const chains: {
     // DEV ONLY
     // explorerUrl: 'https://bscscan.com',
     // END DEV ONLY
-    explorerUrl: 'https://virtual.binance.eu.rpc.tenderly.co/362bf73b-be6f-48ba-8071-50ee25137de6',
+    explorerUrl: 'https://virtual.binance.eu.rpc.tenderly.co/22d6bce7-7f9a-4d18-bac5-4544cc4b1d79',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-bsc.safe.global',
     blockTimeMs: 750,
