@@ -25,8 +25,6 @@ type RepayWithCollateralInput =
 
 type Options = UseSendTransactionOptions<RepayWithCollateralInput>;
 
-// TODO: add tests
-
 export const useRepayWithCollateral = (options?: Partial<Options>) => {
   const { address: leverageManagerContractAddress } = useGetContractAddress({
     name: 'LeverageManager',
