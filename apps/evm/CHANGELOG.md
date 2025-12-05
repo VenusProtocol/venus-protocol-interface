@@ -1,5 +1,12 @@
 # @venusprotocol/evm
 
+## 3.77.0
+
+### Minor Changes
+
+- 95bcede: Replaced Alchemy subgraphs
+- eaf9b9f: add base Boost tab
+
 ## 3.76.1
 
 ### Patch Changes
