@@ -51,6 +51,7 @@ export interface Chain {
   safeWalletApiUrl?: string;
   proposalExecutionGracePeriodMs?: number;
   blockTimeMs?: number;
+  blockTimes?: { startTimestamp: number; blockTimeMs: number; blockHeight?: number }[];
   blocksPerDay?: number;
 }
 

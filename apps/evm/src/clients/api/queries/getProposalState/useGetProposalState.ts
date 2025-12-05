@@ -5,7 +5,7 @@ import FunctionKey from 'constants/functionKey';
 import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';
 import { governanceChainId } from 'libs/wallet';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 import { type GetProposalStateInput, type GetProposalStateOutput, getProposalState } from '.';
 
 type TrimmedGetProposalStateInput = Omit<
@@ -21,7 +21,8 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PROPOSAL_STATE, TrimmedGetProposalStateInput]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChainId];
+const refetchInterval = generatePseudoRandomRefetchInterval('FAST');
+
 const governorBravoDelegateAddress = getContractAddress({
   name: 'GovernorBravoDelegate',
   chainId: governanceChainId,
@@ -45,7 +46,7 @@ export const useGetProposalState = (
           publicClient,
         }),
       ),
-    refetchInterval: BSC_BLOCK_TIME_MS,
+    refetchInterval,
     ...options,
   });
 };

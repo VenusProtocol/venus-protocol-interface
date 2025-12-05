@@ -1,6 +1,7 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
+import { getBlockTimeByChainId } from '@venusprotocol/chains';
 
-import { chains } from '@venusprotocol/chains';
+import { DEFAULT_REFETCH_INTERVAL_MS } from 'constants/defaultRefetchInterval';
 import FunctionKey from 'constants/functionKey';
 import { getContractAddress } from 'libs/contracts';
 import { governanceChainId, usePublicClient } from 'libs/wallet';
@@ -25,7 +26,7 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, Address]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChainId];
+const { blockTimeMs: BSC_BLOCK_TIME_MS } = getBlockTimeByChainId(governanceChainId) ?? {};
 
 const governorBravoDelegateContractAddress = getContractAddress({
   name: 'GovernorBravoDelegate',
@@ -50,7 +51,7 @@ export const useGetLatestProposalIdByProposer = (
           ...params,
         }),
       ),
-    staleTime: BSC_BLOCK_TIME_MS,
+    staleTime: BSC_BLOCK_TIME_MS || DEFAULT_REFETCH_INTERVAL_MS,
     ...options,
   });
 };
