@@ -695,6 +695,14 @@ export const useOpenLeveragedPosition = vi.fn(
     }),
 );
 
+export const useRepayWithCollateral = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
+);
+
 export const withdrawXvs = vi.fn();
 export const useWithdrawXvs = (options?: MutationObserverOptions) =>
   useMutation({

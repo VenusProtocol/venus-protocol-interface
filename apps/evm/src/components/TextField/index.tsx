@@ -70,7 +70,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
       'flex items-center h-14 pr-2 pl-4 py-2 border border-lightGrey rounded-xl bg-background transition-[border-color] hover:border-offWhite focus-within:border-blue focus-within:hover:border-blue',
       size === 'xs' && 'h-10 py-1 rounded-lg',
       disabled && 'border-lightGrey bg-cards',
-      hasError && 'border-red focus-within:border-red',
+      hasError && 'border-red focus-within:border-red focus-within:hover:border-red',
     );
 
     if (variant === 'secondary') {
@@ -114,7 +114,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
           {rightAdornment}
         </div>
 
-        {!!description && <p className="block mt-1 text-grey text-sm">{description}</p>}
+        {!!description && <div className="block mt-1 text-grey text-sm">{description}</div>}
       </div>
     );
   },

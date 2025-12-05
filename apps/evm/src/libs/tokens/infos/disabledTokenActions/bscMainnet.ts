@@ -5,7 +5,7 @@ export const disabledTokenActions: DisabledTokenAction[] = [
   // BNB
   {
     address: NATIVE_TOKEN_ADDRESS,
-    disabledActions: ['swapAndSupply', 'boost'],
+    disabledActions: ['swapAndSupply', 'boost', 'repayWithCollateral'],
   },
   // vAAVE - Core pool
   {

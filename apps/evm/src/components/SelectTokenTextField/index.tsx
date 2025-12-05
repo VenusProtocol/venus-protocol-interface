@@ -28,7 +28,6 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
   selectedToken,
   disabled,
   tokenBalances,
-  onChange,
   onChangeSelectedToken,
   className,
   value,
@@ -59,11 +58,9 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
         data-testid={testId}
       >
         <TokenTextField
-          displayTokenIcon={false}
           token={selectedToken}
           disabled={disabled}
           value={value}
-          onChange={onChange}
           rightAdornment={
             <>
               <TertiaryButton
