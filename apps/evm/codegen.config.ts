@@ -6,7 +6,6 @@ import { envVariables } from './src/config/envVariables';
 import { getGovernanceSubgraphUrls } from './src/config/subgraphUrls';
 
 const keys = {
-  alchemySubgraphQueryKey: envVariables.VITE_ALCHEMY_SUBGRAPH_QUERY_KEY,
   nodeRealApiKey: envVariables.VITE_NODE_REAL_API_KEY,
   theGraphApiKey: envVariables.VITE_THE_GRAPH_API_KEY,
 };
