@@ -1,5 +1,5 @@
-import { handleError } from 'libs/errors';
-import type { Asset, Pool, Token } from 'types';
+import { type VError, handleError } from 'libs/errors';
+import type { Asset, Pool, SwapQuote } from 'types';
 
 import type BigNumber from 'bignumber.js';
 import type { FormError } from '../../types';
@@ -9,14 +9,16 @@ import useFormValidation from './useFormValidation';
 export * from './types';
 
 export interface UseFormInput {
-  asset: Asset;
+  borrowedAsset: Asset;
   pool: Pool;
   limitTokens: BigNumber;
-  onSubmit: (input: { fromToken: Token; fromTokenAmountTokens: string }) => Promise<unknown>;
+  onSubmit: () => Promise<unknown>;
   formValues: FormValues;
-  setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
+  setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   initialFormValues: FormValues;
-  onSubmitSuccess?: () => void;
+  swapQuote?: SwapQuote;
+  getSwapQuoteError?: VError<'swapQuote' | 'interaction'>;
+  expectedSuppliedAmountTokens?: BigNumber;
   simulatedPool?: Pool;
 }
 
@@ -27,21 +29,27 @@ interface UseFormOutput {
 }
 
 const useForm = ({
-  asset,
+  borrowedAsset,
   pool,
   simulatedPool,
   limitTokens,
-  onSubmitSuccess,
   formValues,
   setFormValues,
   initialFormValues,
+  expectedSuppliedAmountTokens,
+  swapQuote,
+  getSwapQuoteError,
+  onSubmit,
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
-    asset,
+    asset: borrowedAsset,
     pool,
     limitTokens,
     simulatedPool,
     formValues,
+    swapQuote,
+    expectedSuppliedAmountTokens,
+    getSwapQuoteError,
   });
 
   const handleSubmit = async (e?: React.SyntheticEvent) => {
@@ -52,12 +60,13 @@ const useForm = ({
     }
 
     try {
-      // TODO: submit form
+      await onSubmit();
 
-      // Reset form and close modal on success only
-      setFormValues(() => initialFormValues);
-
-      onSubmitSuccess?.();
+      // Reset form
+      setFormValues(currentFormValues => ({
+        ...initialFormValues,
+        suppliedToken: currentFormValues.suppliedToken,
+      }));
     } catch (error) {
       handleError({ error });
     }

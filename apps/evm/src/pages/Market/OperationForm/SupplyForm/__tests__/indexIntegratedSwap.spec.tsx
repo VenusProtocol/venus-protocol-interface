@@ -26,6 +26,10 @@ import { areTokensEqual } from 'utilities';
 import Supply from '..';
 import OPERATION_DETAILS_TEST_IDS from '../../OperationDetails/testIds';
 import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
+import {
+  checkSubmitButtonIsDisabled,
+  checkSubmitButtonIsEnabled,
+} from '../../__testUtils__/checkFns';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import SUPPLY_FORM_TEST_IDS from '../testIds';
 
@@ -58,22 +62,6 @@ const fakeSwap: Swap = {
 vi.mock('hooks/useGetSwapTokenUserBalances');
 vi.mock('hooks/useGetSwapInfo');
 vi.mock('hooks/useGetSwapRouterContractAddress');
-
-const checkSubmitButtonIsDisabled = async () => {
-  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-  await waitFor(() =>
-    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
-  );
-  expect(submitButton).toBeDisabled();
-};
-
-const checkSubmitButtonIsEnabled = async () => {
-  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-  await waitFor(() =>
-    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.supply),
-  );
-  expect(submitButton).toBeEnabled();
-};
 
 describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   beforeEach(() => {
@@ -430,7 +418,9 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     await waitFor(() => expect(selectTokenTextField.value).toBe(FAKE_BUSD_BALANCE_TOKENS));
 
     // Check submit button is enabled
-    await checkSubmitButtonIsEnabled();
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.supply,
+    });
   });
 
   it('displays warning notice and set correct submit button label if the swap has a high price impact', async () => {
@@ -472,7 +462,9 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     await waitFor(() => getByText(en.operationForm.warning.swappingWithHighPriceImpactWarning));
 
     // Check submit button is enabled
-    await checkSubmitButtonIsEnabled();
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.supply,
+    });
   });
 
   it('disables submit button when price impact has reached the maximum tolerated', async () => {

@@ -31,6 +31,7 @@ export * from './mutations/useSwapTokens';
 export * from './mutations/useWithdraw';
 export * from './mutations/useImportSupplyPosition';
 export * from './mutations/useSetEModeGroup';
+export * from './mutations/useOpenLeveragedPosition';
 
 // Queries
 export * from './queries/getVaiTreasuryPercentage';
@@ -226,3 +227,6 @@ export * from './queries/getAccountTransactionHistory/useGetAccountTransactionHi
 
 export * from './queries/getSimulatedPool';
 export * from './queries/getSimulatedPool/useGetSimulatedPool';
+
+export * from './queries/getSwapQuote';
+export * from './queries/getSwapQuote/useGetSwapQuote';

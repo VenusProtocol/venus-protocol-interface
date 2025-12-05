@@ -111,6 +111,9 @@ vi.mock('@uiw/react-markdown-preview', () => ({
 // Mock chart library
 vi.mock('recharts');
 
+// Mock @radix-ui/react-slider library
+vi.mock('@radix-ui/react-slider');
+
 initializeLibraries();
 
 global.fetch = vi.fn();

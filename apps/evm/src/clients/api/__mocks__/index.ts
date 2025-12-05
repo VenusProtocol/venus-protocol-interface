@@ -613,6 +613,16 @@ export const useGetAccountTransactionHistory = vi.fn(() =>
   }),
 );
 
+export const getSwapQuote = vi.fn(async () => ({
+  swapQuote: undefined,
+}));
+export const useGetSwapQuote = vi.fn(() =>
+  useQuery({
+    queryKey: [FunctionKey.GET_SWAP_QUOTE],
+    queryFn: getSwapQuote,
+  }),
+);
+
 // Mutations
 export const useApproveToken = vi.fn((_variables: never, options?: MutationObserverOptions) =>
   useMutation({
@@ -675,6 +685,14 @@ export const useBorrow = vi.fn((_variables: never, options?: MutationObserverOpt
     mutationFn: vi.fn(),
     ...options,
   }),
+);
+
+export const useOpenLeveragedPosition = vi.fn(
+  (_variables: never, options?: MutationObserverOptions) =>
+    useMutation({
+      mutationFn: vi.fn(),
+      ...options,
+    }),
 );
 
 export const withdrawXvs = vi.fn();

@@ -20,7 +20,7 @@ export interface UseFormInput {
     swap?: Swap;
   }) => Promise<unknown>;
   formValues: FormValues;
-  setFormValues: (setter: (currentFormValues: FormValues) => FormValues | FormValues) => void;
+  setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   isUsingSwap: boolean;
   onSubmitSuccess?: () => void;
   isFromTokenApproved?: boolean;

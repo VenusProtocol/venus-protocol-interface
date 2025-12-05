@@ -19,27 +19,15 @@ import MAX_UINT256 from 'constants/maxUint256';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { areTokensEqual } from 'utilities';
 import SupplyForm from '..';
+import {
+  checkSubmitButtonIsDisabled,
+  checkSubmitButtonIsEnabled,
+} from '../../__testUtils__/checkFns';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
 
 vi.mock('hooks/useCollateral');
 vi.mock('hooks/useTokenApproval');
-
-const checkSubmitButtonIsDisabled = async () => {
-  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-  await waitFor(() =>
-    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
-  );
-  expect(submitButton).toBeDisabled();
-};
-
-const checkSubmitButtonIsEnabled = async () => {
-  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-  await waitFor(() =>
-    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.supply),
-  );
-  expect(submitButton).toBeEnabled();
-};
 
 const mockSupply = vi.fn();
 
@@ -373,7 +361,9 @@ describe('SupplyForm', () => {
     );
 
     // Check submit button is enabled
-    await checkSubmitButtonIsEnabled();
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.supply,
+    });
   });
 
   it('updates input value to maximum suppliable amount when clicking on max button if supply cap does not permit supplying the entire wallet balance', async () => {
@@ -406,7 +396,9 @@ describe('SupplyForm', () => {
     );
 
     // Check submit button is enabled
-    await checkSubmitButtonIsEnabled();
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.supply,
+    });
   });
 
   it('lets user supply BNB then calls onClose callback on success', async () => {

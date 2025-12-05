@@ -80,7 +80,9 @@ export const useSendTransaction = <
   const tryGasless = options?.tryGasless ?? true;
 
   const { accountAddress } = useAccountAddress();
-  const { data: walletClient } = useWalletClient({ account: accountAddress });
+  const { data: walletClient } = useWalletClient({
+    account: accountAddress,
+  });
   const { publicClient } = usePublicClient();
   const { chainId } = useChainId();
 

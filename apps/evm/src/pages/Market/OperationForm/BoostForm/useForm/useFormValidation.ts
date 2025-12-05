@@ -1,13 +1,14 @@
 import BigNumber from 'bignumber.js';
 import { useMemo } from 'react';
 
-import type { Asset, Pool } from 'types';
-
 import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
 } from 'constants/healthFactor';
+import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import type { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
+import type { Asset, Pool, SwapQuote } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
@@ -17,6 +18,9 @@ interface UseFormValidationInput {
   pool: Pool;
   formValues: FormValues;
   limitTokens: BigNumber;
+  swapQuote?: SwapQuote;
+  getSwapQuoteError?: VError<'swapQuote' | 'interaction'>;
+  expectedSuppliedAmountTokens?: BigNumber;
   simulatedPool?: Pool;
 }
 
@@ -31,6 +35,9 @@ const useFormValidation = ({
   limitTokens,
   simulatedPool,
   formValues,
+  swapQuote,
+  getSwapQuoteError,
+  expectedSuppliedAmountTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
@@ -59,6 +66,13 @@ const useFormValidation = ({
       };
     }
 
+    if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
+      return {
+        code: 'NO_SWAP_QUOTE_FOUND',
+        message: t('operationForm.error.noSwapQuoteFound'),
+      };
+    }
+
     const borrowedTokenAmountTokens = formValues.amountTokens
       ? new BigNumber(formValues.amountTokens)
       : undefined;
@@ -70,7 +84,6 @@ const useFormValidation = ({
     }
 
     if (
-      asset.borrowCapTokens &&
       asset.borrowBalanceTokens.plus(borrowedTokenAmountTokens).isGreaterThan(asset.borrowCapTokens)
     ) {
       return {
@@ -88,6 +101,34 @@ const useFormValidation = ({
           }),
           assetBorrowBalance: formatTokensToReadableValue({
             value: asset.borrowBalanceTokens,
+            token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+          }),
+        }),
+      };
+    }
+
+    if (
+      expectedSuppliedAmountTokens &&
+      asset.supplyBalanceTokens
+        .plus(expectedSuppliedAmountTokens)
+        .isGreaterThan(asset.supplyCapTokens)
+    ) {
+      return {
+        code: 'HIGHER_THAN_SUPPLY_CAP',
+        message: t('operationForm.error.higherThanSupplyCap', {
+          userMaxSupplyAmount: formatTokensToReadableValue({
+            value: asset.supplyCapTokens.minus(asset.supplyBalanceTokens),
+            token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+          }),
+          assetSupplyCap: formatTokensToReadableValue({
+            value: asset.supplyCapTokens,
+            token: asset.vToken.underlyingToken,
+            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+          }),
+          assetSupplyBalance: formatTokensToReadableValue({
+            value: asset.supplyBalanceTokens,
             token: asset.vToken.underlyingToken,
             maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
@@ -125,6 +166,16 @@ const useFormValidation = ({
     }
 
     if (
+      swapQuote &&
+      swapQuote?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
+    ) {
+      return {
+        code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
+        message: t('operationForm.error.priceImpactTooHigh'),
+      };
+    }
+
+    if (
       simulatedPool?.userHealthFactor !== undefined &&
       simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
       !formValues.acknowledgeRisk
@@ -133,13 +184,22 @@ const useFormValidation = ({
         code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',
       };
     }
+
+    if (!simulatedPool || !expectedSuppliedAmountTokens) {
+      return {
+        code: 'MISSING_DATA',
+      };
+    }
   }, [
     asset,
     pool,
     limitTokens,
     simulatedPool,
     formValues.amountTokens,
+    expectedSuppliedAmountTokens,
+    getSwapQuoteError,
     formValues.acknowledgeRisk,
+    swapQuote,
     t,
   ]);
 

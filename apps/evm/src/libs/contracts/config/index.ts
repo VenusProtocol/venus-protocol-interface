@@ -116,6 +116,7 @@ import aavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvid
 import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
 import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
 import erc20Abi from './externalAbis/Erc20.json';
+import leverageManagerAbi from './externalAbis/LeverageManager.json'; // TODO: get from package
 import maximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
 import nexusAbi from './externalAbis/Nexus.json';
@@ -669,6 +670,13 @@ export const contracts: ContractConfig[] = [
       [ChainId.OPBNB_TESTNET]: '0x0000003eDf18913c01cBc482C978bBD3D6E8ffA3',
       [ChainId.UNICHAIN_MAINNET]: '0x0000003eDf18913c01cBc482C978bBD3D6E8ffA3',
       [ChainId.UNICHAIN_SEPOLIA]: '0x0000003eDf18913c01cBc482C978bBD3D6E8ffA3',
+    },
+  },
+  {
+    name: 'LeverageManager',
+    abi: leverageManagerAbi as Abi,
+    address: {
+      [ChainId.BSC_MAINNET]: '0x3Ee4F1474A1071c5fAC97bd881eabcA2Cf8F6085', // TODO: get from package
     },
   },
   // Generic Contracts

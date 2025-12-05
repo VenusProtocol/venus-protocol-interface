@@ -13,16 +13,9 @@ import { chains } from '@venusprotocol/chains';
 import { useBorrow } from 'clients/api';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
 import BorrowForm from '..';
+import { checkSubmitButtonIsDisabled } from '../../__testUtils__/checkFns';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
-
-const checkSubmitButtonIsDisabled = async () => {
-  const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
-  await waitFor(() =>
-    expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.enterValidAmount),
-  );
-  expect(submitButton).toBeDisabled();
-};
 
 const testCases = [
   [

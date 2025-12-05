@@ -5,6 +5,7 @@ import {
   DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
 } from 'constants/swap';
+import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
@@ -31,15 +32,13 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
   const [isSlippageToleranceModalOpen, setIsSlippageToleranceModalOpen] = useState(false);
 
-  const readablePriceImpact = formatPercentageToReadableValue(priceImpactPercentage);
-
-  const userSlippageTolerancePercentage = userChainSettings.slippageTolerancePercentage
-    ? userChainSettings.slippageTolerancePercentage
-    : DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE;
+  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
 
   const readableUserSlippageTolerance = formatPercentageToReadableValue(
     userSlippageTolerancePercentage,
   );
+
+  const readablePriceImpact = formatPercentageToReadableValue(priceImpactPercentage);
 
   const openSlippageToleranceModal = () => setIsSlippageToleranceModalOpen(true);
   const closeSlippageToleranceModal = () => setIsSlippageToleranceModalOpen(false);
