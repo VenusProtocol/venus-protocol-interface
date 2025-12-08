@@ -27,7 +27,7 @@ type Options = QueryObserverOptions<
   ]
 >;
 
-const refetchInterval = generatePseudoRandomRefetchInterval('FAST');
+const refetchInterval = generatePseudoRandomRefetchInterval('fast');
 
 export const useGetProposals = (
   input: TrimmedGetProposalsInput = {},

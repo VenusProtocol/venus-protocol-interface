@@ -1,9 +1,9 @@
-export const generatePseudoRandomRefetchInterval = (speed?: 'FAST' | 'MODERATE') => {
-  if (speed === 'FAST') {
+export const generatePseudoRandomRefetchInterval = (speed?: 'fast' | 'moderate') => {
+  if (speed === 'fast') {
     // Return a refetch interval from 3000 to 6000 milliseconds
     return +(Math.random() * 3000 + 3000).toFixed(0);
   }
-  if (speed === 'MODERATE') {
+  if (speed === 'moderate') {
     // Return a refetch interval from 6000 to 9000 milliseconds
     return +(Math.random() * 6000 + 3000).toFixed(0);
   }
