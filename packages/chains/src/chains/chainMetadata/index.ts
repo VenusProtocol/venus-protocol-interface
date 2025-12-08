@@ -13,19 +13,19 @@ export const chains: Record<ChainId, Chain> = {
     safeWalletApiUrl: 'https://safe-transaction-bsc.safe.global',
     blockTimes: [
       {
-        startTimestamp: new Date('2020-04-20 01:46:54 PM UTC').getTime(), // Block #0
-        blockHeight: 0,
+        startTimestamp: new Date('2020-04-20 01:46:54 PM UTC').getTime(), // Genesis
         blockTimeMs: 3000,
+        // blockHeight: 0,
       },
       {
         startTimestamp: new Date('2025-04-29 05:05:00 AM UTC').getTime(), //  Lorentz Upgrade
-        blockHeight: 48773576,
         blockTimeMs: 1500,
+        // blockHeight: 48773576,
       },
       {
         startTimestamp: new Date('2025-06-30 02:30:00 AM UTC').getTime(), // Maxwell Upgrade
-        blockHeight: 52337091,
         blockTimeMs: 750,
+        // blockHeight: 52337091,
       },
       /*
       {
@@ -44,24 +44,24 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     blockTimes: [
       {
-        startTimestamp: new Date('2020-06-09 07:57:19 AM UTC').getTime(), // Block #0
-        blockHeight: 0,
+        startTimestamp: new Date('2020-06-09 07:57:19 AM UTC').getTime(), // Genesis
         blockTimeMs: 3000,
+        // blockHeight: 0,
       },
       {
         startTimestamp: new Date('2025-04-08 07:33:00 AM UTC').getTime(), // Lorentz Upgrade
-        blockHeight: 49791365,
         blockTimeMs: 1500,
+        // blockHeight: 49791365,
       },
       {
         startTimestamp: new Date('2025-05-26 07:05:00 AM UTC').getTime(), // Maxwell Upgrade
-        blockHeight: 52552978,
+        // blockHeight: 52552978,
         blockTimeMs: 750,
       },
       {
         startTimestamp: new Date('2025-11-10 02:25:00 AM UTC').getTime(), // Fermi Upgrade
-        blockHeight: 71859051,
         blockTimeMs: 450,
+        // blockHeight: 71859051,
       },
     ],
     corePoolComptrollerContractAddress: '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D',
@@ -74,14 +74,14 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://layerzeroscan.com',
     blockTimes: [
       {
-        startTimestamp: new Date('2023-08-11 11:35:23 AM UTC').getTime(), // Block #0
-        blockHeight: 0,
+        startTimestamp: new Date('2023-08-11 11:35:23 AM UTC').getTime(), // Genesis
         blockTimeMs: 1000,
+        // blockHeight: 0,
       },
       {
         startTimestamp: new Date('2025-04-21 03:00:00 AM UTC').getTime(), // Volta Upgrade
-        blockHeight: 53450677,
         blockTimeMs: 500,
+        // blockHeight: 53450677,
       },
       /*
       {
@@ -100,19 +100,19 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     blockTimes: [
       {
-        startTimestamp: new Date('2023-06-16 01:21:46 AM UTC').getTime(), // Block #0
-        blockHeight: 0,
+        startTimestamp: new Date('2023-06-16 01:21:46 AM UTC').getTime(), // Genesis
         blockTimeMs: 1000,
+        // blockHeight: 0,
       },
       {
         startTimestamp: new Date('2025-04-02 03:00:00 AM UTC').getTime(), // Volta Upgrade
-        blockHeight: 56684294,
         blockTimeMs: 500,
+        // blockHeight: 56684294,
       },
       {
         startTimestamp: new Date('2025-11-06 03:00:00 AM UTC').getTime(), // Fourier Upgrade
-        blockHeight: 94354694,
         blockTimeMs: 250,
+        // blockHeight: 94354694,
       },
     ],
     corePoolComptrollerContractAddress: '0x2FCABb31E57F010D623D8d68e1E18Aed11d5A388',
@@ -126,9 +126,9 @@ export const chains: Record<ChainId, Chain> = {
     safeWalletApiUrl: 'https://safe-transaction-mainnet.safe.global',
     blockTimes: [
       {
-        startTimestamp: new Date('2015-07-30 03:26:13 PM UTC').getTime(), // Block #0
-        blockHeight: 0,
+        startTimestamp: new Date('2015-07-30 03:26:13 PM UTC').getTime(), // Genesis
         blockTimeMs: 12000,
+        // blockHeight: 0,
       },
     ],
     corePoolComptrollerContractAddress: '0x687a01ecF6d3907658f7A7c714749fAC32336D1B',
@@ -142,9 +142,9 @@ export const chains: Record<ChainId, Chain> = {
     safeWalletApiUrl: 'https://safe-transaction-sepolia.safe.global',
     blockTimes: [
       {
-        startTimestamp: new Date('2015-07-30 03:26:13 PM UTC').getTime(), // Block #0
-        blockHeight: 0,
+        startTimestamp: new Date('2015-07-30 03:26:13 PM UTC').getTime(), // Genesis
         blockTimeMs: 12000,
+        // blockHeight: 0,
       },
     ],
     corePoolComptrollerContractAddress: '0x7Aa39ab4BcA897F403425C9C6FDbd0f882Be0D70',
@@ -255,12 +255,11 @@ export const getBlockTimeByChainId = (chainId: ChainId, targetTimestamp = new Da
     });
   }
 
-  const { blockTimeMs, blockHeight, startTimestamp } = blockTime;
+  const { blockTimeMs, startTimestamp } = blockTime;
 
   return {
     startTimestamp,
     blockTimeMs,
-    blockHeight,
     blocksPerDay: blockTime.blockTimeMs !== 0 ? MS_PER_DAY / blockTime.blockTimeMs : 0,
   };
 };
