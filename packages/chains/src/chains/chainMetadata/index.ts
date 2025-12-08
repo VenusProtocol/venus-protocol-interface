@@ -240,11 +240,11 @@ export const chains: Record<ChainId, Chain> = {
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
 export const getBlockTimeByChainId = (chainId: ChainId, targetTimestamp = new Date().getTime()) => {
-  const targetChain = chains?.[chainId ?? ''];
-  if (!targetChain || !Array.isArray(targetChain.blockTimes)) return null;
+  const targetChain = chains[chainId];
+  if (!Array.isArray(targetChain.blockTimes)) return undefined;
 
   // default to latest
-  let blockTime = targetChain.blockTimes?.slice(-1)?.[0];
+  let blockTime = targetChain.blockTimes[0];
 
   // Find the right blockTime based on targetTimestamp
   if (targetChain.blockTimes.length > 1) {

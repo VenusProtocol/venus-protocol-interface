@@ -21,7 +21,7 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_PROPOSAL_STATE, TrimmedGetProposalStateInput]
 >;
 
-const refetchInterval = generatePseudoRandomRefetchInterval('FAST');
+const refetchInterval = generatePseudoRandomRefetchInterval('fast');
 
 const governorBravoDelegateAddress = getContractAddress({
   name: 'GovernorBravoDelegate',
