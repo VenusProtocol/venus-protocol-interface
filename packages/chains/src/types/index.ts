@@ -41,6 +41,11 @@ export enum TestnetChainId {
   UNICHIAN_SEPOLIA = ChainId.UNICHAIN_SEPOLIA,
 }
 
+export interface BlockTime {
+  startTimestamp: number;
+  blockTimeMs: number;
+}
+
 export interface Chain {
   name: string;
   iconSrc: string;
@@ -50,8 +55,7 @@ export interface Chain {
   corePoolComptrollerContractAddress: Address;
   safeWalletApiUrl?: string;
   proposalExecutionGracePeriodMs?: number;
-  blockTimeMs?: number;
-  blockTimes?: { startTimestamp: number; blockTimeMs: number; blockHeight?: number }[];
+  blockTimes?: BlockTime[];
   blocksPerDay?: number;
 }
 

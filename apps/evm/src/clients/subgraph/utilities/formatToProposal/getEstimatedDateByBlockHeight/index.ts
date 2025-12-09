@@ -1,44 +1,49 @@
-import type { Chain } from '@venusprotocol/chains';
+import type { BlockTime } from '@venusprotocol/chains';
 
-export const getEstimateDateByBlockHeight = (
-  targetBlockHeight: number,
-  currentBlockHeight: number,
-  blockTimes: NonNullable<Chain['blockTimes']>,
-) => {
-  const blockTimesWithIndex = blockTimes.map((item, index) => ({
-    ...item,
-    index,
-  }));
+const getBlockTimeByTimestamp = ({
+  timestamp,
+  blockTimes = [],
+}: { timestamp: number; blockTimes: BlockTime[] }) => {
+  let targetBlockTime = blockTimes[0];
 
-  const getBlockTimeByTimestamp = (timestamp: number) => {
-    let targetBlockTime: (typeof blockTimes)[number] | undefined;
+  blockTimes.forEach(item => {
+    if (timestamp > item.startTimestamp) {
+      targetBlockTime = item;
+    }
+  });
+  return targetBlockTime;
+};
 
-    blockTimesWithIndex.forEach(item => {
-      if (timestamp > item.startTimestamp) {
-        targetBlockTime = item;
-      }
-    });
-    return targetBlockTime as (typeof blockTimes)[number] & { index: number };
-  };
-
+export const getEstimatedDateByBlockHeight = ({
+  targetBlockHeight,
+  currentBlockHeight,
+  blockTimes = [],
+}: {
+  targetBlockHeight: number;
+  currentBlockHeight: number;
+  blockTimes: BlockTime[];
+}) => {
   const now = new Date().getTime();
   const totalBlockDiff = currentBlockHeight - targetBlockHeight; // negative: target is in the future
-  const nowBlockTime = getBlockTimeByTimestamp(now);
+  const nowBlockTime = getBlockTimeByTimestamp({ timestamp: now, blockTimes });
 
   // Try to calculate target time using block time for now.
-  const estimateTargetTime = now - nowBlockTime.blockTimeMs * totalBlockDiff;
-  const estimateBlockTime = getBlockTimeByTimestamp(estimateTargetTime);
+  const estimatedTargetTime = now - nowBlockTime.blockTimeMs * totalBlockDiff;
+  const estimatedBlockTime = getBlockTimeByTimestamp({
+    timestamp: estimatedTargetTime,
+    blockTimes,
+  });
 
   // When target time falls in the same block time as now, no further calcuation required
-  if (estimateBlockTime.blockTimeMs === nowBlockTime.blockTimeMs) {
-    return new Date(estimateTargetTime);
+  if (estimatedBlockTime.blockTimeMs === nowBlockTime.blockTimeMs) {
+    return new Date(estimatedTargetTime);
   }
 
   // When target is earlier than now, remove the blockTimes after now and reverse; otherwise, remove the blockTimes before now.
   const amendedBlockTimes =
     totalBlockDiff > 0
-      ? blockTimesWithIndex.filter(item => item.index <= nowBlockTime.index).reverse()
-      : blockTimesWithIndex.filter(item => item.index >= nowBlockTime.index);
+      ? blockTimes.filter(item => item.startTimestamp <= nowBlockTime.startTimestamp).reverse()
+      : blockTimes.filter(item => item.startTimestamp >= nowBlockTime.startTimestamp);
 
   let ret: number;
 
@@ -57,7 +62,7 @@ export const getEstimateDateByBlockHeight = (
           };
         }
 
-        // need to go further blockTime
+        // need to traverse more block times
         return {
           timestamp: curr.startTimestamp,
           remainingBlockCount,

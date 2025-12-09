@@ -13,3 +13,4 @@ export * from './generated/vTokens';
 // Utilities
 export * from './utilities/getToken';
 export * from './utilities/getRpcUrls';
+export * from './utilities/getBlockTimeByChainId';
