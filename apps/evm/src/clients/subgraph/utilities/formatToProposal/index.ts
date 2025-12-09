@@ -25,7 +25,7 @@ import {
 } from 'utilities';
 import { formatToProposalActions } from './formatToProposalActions';
 import { formatToRemoteProposal } from './formatToRemoteProposal';
-import { getEstimateDateByBlockHeight } from './getEstimateDateByBlockHeight';
+import { getEstimatedDateByBlockHeight } from './getEstimatedDateByBlockHeight';
 
 const { blockTimes = [] } = chains[governanceChainId] ?? {};
 
@@ -48,16 +48,16 @@ export const formatToProposal = ({
     timestampSeconds: Number(gqlProposal.executionEta),
   });
 
-  const startDate = getEstimateDateByBlockHeight(
-    Number(gqlProposal.startBlock),
-    currentBlockNumber,
+  const startDate = getEstimatedDateByBlockHeight({
+    targetBlockHeight: Number(gqlProposal.startBlock),
+    currentBlockHeight: currentBlockNumber,
     blockTimes,
-  );
-  const endDate = getEstimateDateByBlockHeight(
-    Number(gqlProposal.endBlock),
-    currentBlockNumber,
+  });
+  const endDate = getEstimatedDateByBlockHeight({
+    targetBlockHeight: Number(gqlProposal.endBlock),
+    currentBlockHeight: currentBlockNumber,
     blockTimes,
-  );
+  });
 
   // Extract votes
   const {

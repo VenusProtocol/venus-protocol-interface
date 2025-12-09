@@ -26,7 +26,8 @@ type Options = QueryObserverOptions<
   [FunctionKey.GET_LATEST_PROPOSAL_ID_BY_PROPOSER, Address]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = getBlockTimeByChainId(governanceChainId) ?? {};
+const { blockTimeMs: BSC_BLOCK_TIME_MS } =
+  getBlockTimeByChainId({ chainId: governanceChainId }) ?? {};
 
 const governorBravoDelegateContractAddress = getContractAddress({
   name: 'GovernorBravoDelegate',
