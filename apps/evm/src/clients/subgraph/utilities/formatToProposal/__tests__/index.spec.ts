@@ -34,9 +34,11 @@ describe('getEstimatedDateByBlockHeight', () => {
   const maxwellBlockTime = blockTimes[2];
   const fermiBlockTime = blockTimes[3];
 
+  const LORENTZ_BLOCK_HEIGHT = 49791365;
+  const MAXWELL_BLOCK_HEIGHT = 52552978;
+
   // maxwell ->- target ->- current
   it('current time and target time (earlier) are both in the same block time range:', () => {
-    const MAXWELL_BLOCK_HEIGHT = 52552978;
     const nowDate = new Date('2025-05-26 07:05:16 AM UTC');
     vi.useFakeTimers().setSystemTime(nowDate);
 
@@ -54,8 +56,6 @@ describe('getEstimatedDateByBlockHeight', () => {
 
   //  target ->- maxwell ->- current
   it('current time and target time (earlier) are in different block time ranges (1 diff):', () => {
-    const MAXWELL_BLOCK_HEIGHT = 52552978;
-
     const currentBlock = MAXWELL_BLOCK_HEIGHT + 10; // now: maxwell upgrade block + 10
     const targetBlock = MAXWELL_BLOCK_HEIGHT - 10; // target: maxwell upgrade block - 10
 
@@ -75,8 +75,6 @@ describe('getEstimatedDateByBlockHeight', () => {
 
   // target ->- lorentz ->- maxwell ->- current
   it('current time and target time (earlier) are across two block time ranges:', () => {
-    const MAXWELL_BLOCK_HEIGHT = 52552978;
-
     const currentBlock = MAXWELL_BLOCK_HEIGHT + 10; // now: maxwell upgrade block + 10
 
     const lorentzEstimateHeight =
@@ -104,8 +102,6 @@ describe('getEstimatedDateByBlockHeight', () => {
 
   // target ->- maxwell ->- fermi ->- current
   it('current time (later after fermi) and target time (earlier) are across two block time ranges:', () => {
-    const MAXWELL_BLOCK_HEIGHT = 49791365;
-
     const fermiEstimateHeight =
       MAXWELL_BLOCK_HEIGHT +
       (fermiBlockTime.startTimestamp - maxwellBlockTime.startTimestamp) /
@@ -134,7 +130,6 @@ describe('getEstimatedDateByBlockHeight', () => {
 
   // maxwell ->- current ->- target -> fermi
   it('current time and target time (later) are both in the same block time range:', () => {
-    const MAXWELL_BLOCK_HEIGHT = 52552978;
     const nowDate = new Date('2025-05-26 07:05:08 AM UTC');
     vi.useFakeTimers().setSystemTime(nowDate);
 
@@ -152,8 +147,6 @@ describe('getEstimatedDateByBlockHeight', () => {
 
   // current ->- maxwell ->- target
   it('current time and target time (later) are in different block time ranges (1 diff):', () => {
-    const MAXWELL_BLOCK_HEIGHT = 52552978;
-
     const currentBlock = MAXWELL_BLOCK_HEIGHT - 10; // now: maxwell upgrade block - 10
     const targetBlock = MAXWELL_BLOCK_HEIGHT + 10; // target: maxwell upgrade block + 10
 
@@ -173,8 +166,6 @@ describe('getEstimatedDateByBlockHeight', () => {
 
   // current ->- lorentz ->- maxwell ->- target
   it('current time and target time (later) are across two block time ranges:', () => {
-    const LORENTZ_BLOCK_HEIGHT = 49791365;
-
     const currentBlock = LORENTZ_BLOCK_HEIGHT - 10; // now: lorentz upgrade block - 10
 
     const maxwellEstimateHeight =
@@ -203,8 +194,6 @@ describe('getEstimatedDateByBlockHeight', () => {
 
   // current ->- maxwell ->- fermi ->- target
   it('current time and target time (later after Fermi) are across two block time ranges:', () => {
-    const MAXWELL_BLOCK_HEIGHT = 49791365;
-
     const currentBlock = MAXWELL_BLOCK_HEIGHT - 10; // now: maxwell upgrade block - 10
 
     const fermiEstimateHeight =
