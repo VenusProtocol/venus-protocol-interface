@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.13.1
+
+### Patch Changes
+
+- 4ec9c9a: convert timestamps to ISO format
+
 ## 0.13.0
 
 ### Minor Changes
