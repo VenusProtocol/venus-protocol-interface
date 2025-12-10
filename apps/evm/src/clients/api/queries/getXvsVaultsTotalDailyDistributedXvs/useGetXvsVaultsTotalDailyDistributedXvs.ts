@@ -1,4 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
+import { getBlockTimeByChainId } from '@venusprotocol/chains';
 
 import {
   type GetXvsVaultsTotalDailyDistributedXvsInput,
@@ -6,7 +7,6 @@ import {
   getXvsVaultsTotalDailyDistributedXvs,
 } from 'clients/api/queries/getXvsVaultsTotalDailyDistributedXvs';
 import FunctionKey from 'constants/functionKey';
-import { useChain } from 'hooks/useChain';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useChainId, usePublicClient } from 'libs/wallet';
 import type { ChainId } from 'types';
@@ -37,7 +37,7 @@ export const useGetXvsVaultsTotalDailyDistributedXvs = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const { blocksPerDay } = useChain();
+  const { blocksPerDay } = getBlockTimeByChainId({ chainId }) ?? {};
   const { publicClient } = usePublicClient();
   const { address: xvsVaultContractAddress } = useGetContractAddress({
     name: 'XvsVault',
