@@ -24,12 +24,10 @@ export const chains: Record<ChainId, Chain> = {
         startTimestamp: new Date('2025-06-30 02:30:00 AM UTC').getTime(), // Maxwell Upgrade
         blockTimeMs: 750,
       },
-      /*
       {
-        startTimestamp: new Date('TBD').getTime(), // TBD Fermi Upgrade
-        blockTimeMs: 450, 
-      }
-      */
+        startTimestamp: new Date('2026-01-14 02:30:00 AM UTC').getTime(), // Fermi Upgrade
+        blockTimeMs: 450,
+      },
     ],
     corePoolComptrollerContractAddress: '0xfD36E2c2a6789Db23113685031d7F16329158384',
     nativeToken: bnb,
@@ -74,12 +72,10 @@ export const chains: Record<ChainId, Chain> = {
         startTimestamp: new Date('2025-04-21 03:00:00 AM UTC').getTime(), // Volta Upgrade
         blockTimeMs: 500,
       },
-      /*
       {
-        startTimestamp: new Date('TBD').getTime(), // Fourier Upgrade
+        startTimestamp: new Date('2026-01-07 03:00:00 AM UTC').getTime(), // Fourier Upgrade
         blockTimeMs: 250,
       },
-      */
     ],
     corePoolComptrollerContractAddress: '0xD6e3E2A1d8d95caE355D15b3b9f8E5c2511874dd',
     nativeToken: bnb,
