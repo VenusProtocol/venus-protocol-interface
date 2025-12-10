@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.13.0
+
+### Minor Changes
+
+- 525eb14: support dynamic block times and fermi hardfork/fourier upgrade
+
 ## 0.12.0
 
 ### Minor Changes

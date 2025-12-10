@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.78.0
+
+### Minor Changes
+
+- 525eb14: support dynamic block times and fermi hardfork/fourier upgrade
+
+### Patch Changes
+
+- Updated dependencies [525eb14]
+  - @venusprotocol/chains@0.13.0
+
 ## 3.77.0
 
 ### Minor Changes
