@@ -1,4 +1,4 @@
-import { chains, vTokens } from '@venusprotocol/chains';
+import { getBlockTimeByChainId, vTokens } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 import type { Address } from 'viem';
 
@@ -55,7 +55,7 @@ export const formatOutput = ({
   vaiPriceMantissa?: bigint;
 }) => {
   const pools: Pool[] = apiPools.map(apiPool => {
-    const { blocksPerDay } = chains[chainId];
+    const { blocksPerDay } = getBlockTimeByChainId({ chainId }) ?? {};
 
     const isIsolated = isPoolIsolated({
       chainId,

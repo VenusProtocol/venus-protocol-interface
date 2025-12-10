@@ -25,8 +25,9 @@ import {
 } from 'utilities';
 import { formatToProposalActions } from './formatToProposalActions';
 import { formatToRemoteProposal } from './formatToRemoteProposal';
+import { getEstimatedDateByBlockHeight } from './getEstimatedDateByBlockHeight';
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChainId];
+const { hardforks = [] } = chains[governanceChainId] ?? {};
 
 export const formatToProposal = ({
   gqlProposal,
@@ -47,13 +48,16 @@ export const formatToProposal = ({
     timestampSeconds: Number(gqlProposal.executionEta),
   });
 
-  const nowMs = new Date().getTime();
-  const startDate = new Date(
-    nowMs + (Number(gqlProposal.startBlock) - currentBlockNumber) * BSC_BLOCK_TIME_MS!,
-  );
-  const endDate = new Date(
-    nowMs + (Number(gqlProposal.endBlock) - currentBlockNumber) * BSC_BLOCK_TIME_MS!,
-  );
+  const startDate = getEstimatedDateByBlockHeight({
+    targetBlockHeight: Number(gqlProposal.startBlock),
+    currentBlockHeight: currentBlockNumber,
+    hardforks,
+  });
+  const endDate = getEstimatedDateByBlockHeight({
+    targetBlockHeight: Number(gqlProposal.endBlock),
+    currentBlockHeight: currentBlockNumber,
+    hardforks,
+  });
 
   // Extract votes
   const {

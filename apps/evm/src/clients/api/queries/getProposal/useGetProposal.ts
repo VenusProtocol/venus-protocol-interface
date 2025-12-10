@@ -1,9 +1,8 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-import { chains } from '@venusprotocol/chains';
 
 import FunctionKey from 'constants/functionKey';
 import { governanceChainId } from 'libs/wallet';
-import { callOrThrow } from 'utilities';
+import { callOrThrow, generatePseudoRandomRefetchInterval } from 'utilities';
 import { type GetProposalInput, type GetProposalOutput, getProposal } from '.';
 import { useGetBlockNumber } from '../getBlockNumber/useGetBlockNumber';
 import { useGetProposalMinQuorumVotes } from '../getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';
@@ -25,7 +24,7 @@ type Options = QueryObserverOptions<
   ]
 >;
 
-const { blockTimeMs: BSC_BLOCK_TIME_MS } = chains[governanceChainId];
+const refetchInterval = generatePseudoRandomRefetchInterval('fast');
 
 export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial<Options>) => {
   const { data: getProposalMinQuorumVotesData } = useGetProposalMinQuorumVotes();
@@ -37,7 +36,7 @@ export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial
       chainId: governanceChainId,
     },
     {
-      refetchInterval: BSC_BLOCK_TIME_MS,
+      refetchInterval,
     },
   );
   const currentBlockNumber = getBlockNumberData?.blockNumber;
@@ -68,7 +67,7 @@ export const useGetProposal = (input: TrimmedGetProposalInput, options?: Partial
             chainId: governanceChainId,
           }),
       ),
-    refetchInterval: BSC_BLOCK_TIME_MS,
+    refetchInterval,
     initialData: {
       proposal: cachedProposal,
     },
