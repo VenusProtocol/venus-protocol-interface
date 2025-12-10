@@ -1,6 +1,5 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -38,7 +37,7 @@ describe('SupplyForm', () => {
 
   it('prompts user to connect their wallet if they are not connected', async () => {
     const { getByText, getByTestId, getByRole } = renderComponent(
-      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm pool={fakePool} asset={fakeAsset} />,
     );
 
     // Check "Connect wallet" button is displayed
@@ -53,7 +52,7 @@ describe('SupplyForm', () => {
 
   it('displays correct wallet balance amount', async () => {
     const { getByText } = renderComponent(
-      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm pool={fakePool} asset={fakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -63,7 +62,7 @@ describe('SupplyForm', () => {
   });
 
   it('submit is disabled with no amount', async () => {
-    renderComponent(<SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />, {
+    renderComponent(<SupplyForm pool={fakePool} asset={fakeAsset} />, {
       accountAddress: fakeAccountAddress,
     });
 
@@ -77,7 +76,7 @@ describe('SupplyForm', () => {
     };
 
     const { getByTestId, getByText } = renderComponent(
-      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={customFakeAsset} />,
+      <SupplyForm pool={fakePool} asset={customFakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -116,7 +115,7 @@ describe('SupplyForm', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={customFakeAsset} />,
+      <SupplyForm pool={fakePool} asset={customFakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -170,7 +169,7 @@ describe('SupplyForm', () => {
     );
 
     const { getByTestId, getByText } = renderComponent(
-      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={customFakeAsset} />,
+      <SupplyForm pool={fakePool} asset={customFakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -216,7 +215,7 @@ describe('SupplyForm', () => {
     }));
 
     const { getByText, getByTestId } = renderComponent(
-      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm pool={fakePool} asset={fakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -245,7 +244,7 @@ describe('SupplyForm', () => {
 
   it('prompts user to switch chain if they are connected to the wrong one', async () => {
     const { queryAllByText, getByTestId } = renderComponent(
-      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm pool={fakePool} asset={fakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
         accountChainId: ChainId.ARBITRUM_ONE,
@@ -285,7 +284,7 @@ describe('SupplyForm', () => {
     }));
 
     const { getByTestId } = renderComponent(
-      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm pool={fakePool} asset={fakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -315,7 +314,7 @@ describe('SupplyForm', () => {
     const { toggleCollateral } = useCollateral();
 
     const { getByRole } = renderComponent(
-      <SupplyForm onSubmitSuccess={noop} pool={fakePool} asset={customFakeAsset} />,
+      <SupplyForm pool={fakePool} asset={customFakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -342,7 +341,7 @@ describe('SupplyForm', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <SupplyForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <SupplyForm asset={customFakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -375,7 +374,7 @@ describe('SupplyForm', () => {
     };
 
     const { getByText, getByTestId } = renderComponent(
-      <SupplyForm asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <SupplyForm asset={customFakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -401,16 +400,14 @@ describe('SupplyForm', () => {
     });
   });
 
-  it('lets user supply BNB then calls onClose callback on success', async () => {
+  it('lets user supply BNB', async () => {
     const customFakeAsset: Asset = {
       ...fakeAsset,
       vToken: vBnb,
     };
 
-    const onSubmitSuccessMock = vi.fn();
-
     const { getByTestId } = renderComponent(
-      <SupplyForm onSubmitSuccess={onSubmitSuccessMock} pool={fakePool} asset={customFakeAsset} />,
+      <SupplyForm pool={fakePool} asset={customFakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -453,14 +450,11 @@ describe('SupplyForm', () => {
         ]
       `),
     );
-    expect(onSubmitSuccessMock).toHaveBeenCalledTimes(1);
   });
 
-  it('lets user supply non-BNB tokens then calls onClose callback on success', async () => {
-    const onSubmitSuccessMock = vi.fn();
-
+  it('lets user supply non-BNB tokens', async () => {
     const { getByTestId } = renderComponent(
-      <SupplyForm onSubmitSuccess={onSubmitSuccessMock} pool={fakePool} asset={fakeAsset} />,
+      <SupplyForm pool={fakePool} asset={fakeAsset} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -502,7 +496,5 @@ describe('SupplyForm', () => {
         ]
       `),
     );
-
-    expect(onSubmitSuccessMock).toHaveBeenCalledTimes(1);
   });
 });

@@ -2,12 +2,13 @@ import { useTranslation } from 'libs/translations';
 
 import { ApprovalSteps, type ApprovalStepsProps } from 'components';
 
+// TODO: remove once all operation forms use Footer component
+
 export interface ApproveDelegateStepsProps
   extends Pick<ApprovalStepsProps, 'secondStepButtonLabel' | 'className' | 'children'> {
   approveDelegateeAction: () => Promise<unknown>;
   isDelegateeApprovedLoading: boolean;
   isApproveDelegateeLoading: boolean;
-  hideDelegateeApprovalStep?: boolean;
   isDelegateeApproved?: boolean;
 }
 
@@ -17,16 +18,12 @@ export const ApproveDelegateSteps: React.FC<ApproveDelegateStepsProps> = ({
   isDelegateeApprovedLoading,
   isApproveDelegateeLoading,
   children,
-  hideDelegateeApprovalStep,
   ...otherProps
 }) => {
   const { t } = useTranslation();
 
   const showApproveDelegateStep =
-    !isDelegateeApprovedLoading &&
-    isDelegateeApproved !== undefined &&
-    !isDelegateeApproved &&
-    !hideDelegateeApprovalStep;
+    !isDelegateeApprovedLoading && isDelegateeApproved !== undefined && !isDelegateeApproved;
 
   return (
     <ApprovalSteps

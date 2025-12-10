@@ -1,6 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -24,8 +23,6 @@ import type { Asset, BalanceMutation, Pool, Swap, TokenBalance } from 'types';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { areTokensEqual } from 'utilities';
 import Supply from '..';
-import OPERATION_DETAILS_TEST_IDS from '../../OperationDetails/testIds';
-import SWAP_SUMMARY_TEST_IDS from '../../SwapSummary/testIds';
 import {
   checkSubmitButtonIsDisabled,
   checkSubmitButtonIsEnabled,
@@ -81,7 +78,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('renders without crashing', () => {
-    renderComponent(<Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />);
+    renderComponent(<Supply asset={fakeAsset} pool={fakePool} />);
   });
 
   it('disables swap feature when swapAndSupply action of asset is disabled', async () => {
@@ -91,7 +88,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     };
 
     const { queryByTestId } = renderComponent(
-      <Supply asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <Supply asset={customFakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -102,7 +99,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
   it('displays correct wallet balance', async () => {
     const { getByText, container } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -118,7 +115,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('disables submit button if no amount was entered in input', async () => {
-    renderComponent(<Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />, {
+    renderComponent(<Supply asset={fakeAsset} pool={fakePool} />, {
       accountAddress: fakeAccountAddress,
     });
 
@@ -141,7 +138,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     };
 
     const { container, getByTestId } = renderComponent(
-      <Supply asset={customFakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <Supply asset={customFakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -173,7 +170,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     }));
 
     const { getByTestId, container } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -199,7 +196,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
   it('disables submit button if amount entered in input is higher than wallet balance', async () => {
     const { container, getByTestId } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -263,7 +260,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     );
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -299,44 +296,6 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     await checkSubmitButtonIsDisabled();
   });
 
-  it('displays correct swap details', async () => {
-    (useGetSwapInfo as Mock).mockImplementation(() => ({
-      swap: fakeSwap,
-      error: undefined,
-      isLoading: false,
-    }));
-
-    const { container, getByTestId, getByText } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
-      {
-        accountAddress: fakeAccountAddress,
-      },
-    );
-
-    selectToken({
-      container,
-      selectTokenTextFieldTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
-      token: busd,
-    });
-
-    const selectTokenTextField = getByTestId(
-      getTokenTextFieldTestId({
-        parentTestId: SUPPLY_FORM_TEST_IDS.selectTokenTextField,
-      }),
-    ) as HTMLInputElement;
-
-    // Enter valid amount in input
-    fireEvent.change(selectTokenTextField, { target: { value: FAKE_BUSD_BALANCE_TOKENS } });
-
-    await waitFor(() => getByTestId(OPERATION_DETAILS_TEST_IDS.swapDetails));
-
-    // Open swap details accordion
-    fireEvent.click(getByText(en.operationForm.swapDetails.label.supply).closest('button')!);
-
-    expect(getByTestId(OPERATION_DETAILS_TEST_IDS.swapDetails).textContent).toMatchSnapshot();
-    expect(getByTestId(SWAP_SUMMARY_TEST_IDS.swapSummary).textContent).toMatchSnapshot();
-  });
-
   it('updates input value to 0 when clicking on MAX button if wallet balance is 0', async () => {
     const customFakeTokenBalances: TokenBalance[] = fakeTokenBalances.map(tokenBalance => ({
       ...tokenBalance,
@@ -351,7 +310,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
     }));
 
     const { container, getByText, getByTestId } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -387,7 +346,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
 
   it('updates input value to wallet balance when clicking on MAX button', async () => {
     const { container, getByText, getByTestId } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      <Supply asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -434,10 +393,9 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       isLoading: false,
     }));
 
-    const onCloseMock = vi.fn();
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
+      <Supply asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -478,10 +436,9 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       isLoading: false,
     }));
 
-    const onCloseMock = vi.fn();
 
     const { container, getByTestId, getByText } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
+      <Supply asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -523,10 +480,9 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       mutateAsync: mockSwapTokensAndSupply,
     }));
 
-    const onCloseMock = vi.fn();
 
     const { container, getByText, getByTestId } = renderComponent(
-      <Supply asset={fakeAsset} pool={fakePool} onSubmitSuccess={onCloseMock} />,
+      <Supply asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
       },
@@ -559,6 +515,5 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
       swap: fakeSwap,
     });
 
-    await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
   });
 });

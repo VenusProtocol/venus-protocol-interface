@@ -22,7 +22,6 @@ export interface UseFormInput {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   isUsingSwap: boolean;
-  onSubmitSuccess?: () => void;
   isFromTokenApproved?: boolean;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   fromTokenUserWalletBalanceTokens?: BigNumber;
@@ -43,7 +42,6 @@ const useForm = ({
   fromTokenWalletSpendingLimitTokens,
   isFromTokenApproved,
   isUsingSwap,
-  onSubmitSuccess,
   swap,
   swapError,
   formValues,
@@ -95,7 +93,6 @@ const useForm = ({
         fromToken: asset.vToken.underlyingToken,
         amountTokens: '',
       }));
-      onSubmitSuccess?.();
     } catch (error) {
       if (isUserRejectedTxError({ error })) {
         captureAnalyticEvent('supply_rejected', analyticData);

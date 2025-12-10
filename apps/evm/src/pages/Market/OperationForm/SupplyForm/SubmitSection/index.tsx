@@ -25,8 +25,9 @@ export interface SubmitSectionProps {
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
   swap?: Swap;
   formError?: FormError<FormErrorCode>;
-  isUsingSwap: boolean;
 }
+
+// TODO: remove
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
@@ -39,7 +40,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isRevokeFromTokenWalletSpendingLimitLoading,
   swap,
   isSwapLoading,
-  isUsingSwap,
 }) => {
   const { t } = useTranslation();
 
@@ -87,7 +87,6 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       <SwitchChain>
         <ApproveTokenSteps
           token={fromToken}
-          isUsingSwap={isUsingSwap}
           isTokenApproved={isFromTokenApproved}
           approveToken={approveFromToken}
           isApproveTokenLoading={isApproveFromTokenLoading}
