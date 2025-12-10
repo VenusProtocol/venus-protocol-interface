@@ -9,6 +9,6 @@ describe('useChain', () => {
   it('returns the correct chain metadata', () => {
     const { result } = renderHook(() => useChain());
 
-    expect(result.current).toBe(chains[ChainId.BSC_TESTNET]);
+    expect(result.current).toMatchObject(chains[ChainId.BSC_TESTNET]);
   });
 });

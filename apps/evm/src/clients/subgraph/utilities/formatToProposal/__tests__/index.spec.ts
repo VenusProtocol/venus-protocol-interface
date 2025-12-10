@@ -27,12 +27,12 @@ describe('formatToProposal', () => {
 });
 
 describe('getEstimatedDateByBlockHeight', () => {
-  const { blockTimes = [] } = chains[governanceChainId] ?? {};
+  const { hardforks = [] } = chains[governanceChainId] ?? {};
 
-  const genesisBlockTime = blockTimes[0];
-  const lorentzBlockTime = blockTimes[1];
-  const maxwellBlockTime = blockTimes[2];
-  const fermiBlockTime = blockTimes[3];
+  const genesisBlockTime = hardforks[0];
+  const lorentzBlockTime = hardforks[1];
+  const maxwellBlockTime = hardforks[2];
+  const fermiBlockTime = hardforks[3];
 
   const LORENTZ_BLOCK_HEIGHT = 49791365;
   const MAXWELL_BLOCK_HEIGHT = 52552978;
@@ -48,7 +48,7 @@ describe('getEstimatedDateByBlockHeight', () => {
     const estimateTime = getEstimatedDateByBlockHeight({
       targetBlockHeight: targetBlock,
       currentBlockHeight: currentBlock,
-      blockTimes,
+      hardforks,
     });
 
     expect(estimateTime).toBeCloseTo(nowDate.getTime() - maxwellBlockTime.blockTimeMs * 10);
@@ -65,7 +65,7 @@ describe('getEstimatedDateByBlockHeight', () => {
     const estimateTime = getEstimatedDateByBlockHeight({
       targetBlockHeight: targetBlock,
       currentBlockHeight: currentBlock,
-      blockTimes,
+      hardforks,
     });
 
     expect(estimateTime).toBeCloseTo(
@@ -89,7 +89,7 @@ describe('getEstimatedDateByBlockHeight', () => {
     const estimateTime = getEstimatedDateByBlockHeight({
       targetBlockHeight: targetBlock,
       currentBlockHeight: currentBlock,
-      blockTimes,
+      hardforks,
     });
 
     expect(estimateTime).toBeCloseTo(
@@ -117,7 +117,7 @@ describe('getEstimatedDateByBlockHeight', () => {
     const estimateTime = getEstimatedDateByBlockHeight({
       targetBlockHeight: targetBlock,
       currentBlockHeight: currentBlock,
-      blockTimes,
+      hardforks,
     });
 
     expect(estimateTime).toBeCloseTo(
@@ -139,7 +139,7 @@ describe('getEstimatedDateByBlockHeight', () => {
     const estimateTime = getEstimatedDateByBlockHeight({
       targetBlockHeight: targetBlock,
       currentBlockHeight: currentBlock,
-      blockTimes,
+      hardforks,
     });
 
     expect(estimateTime).toBeCloseTo(nowDate.getTime() + maxwellBlockTime.blockTimeMs * 10);
@@ -156,7 +156,7 @@ describe('getEstimatedDateByBlockHeight', () => {
     const estimateTime = getEstimatedDateByBlockHeight({
       targetBlockHeight: targetBlock,
       currentBlockHeight: currentBlock,
-      blockTimes,
+      hardforks,
     });
 
     expect(estimateTime).toBeCloseTo(
@@ -181,7 +181,7 @@ describe('getEstimatedDateByBlockHeight', () => {
     const estimateTime = getEstimatedDateByBlockHeight({
       targetBlockHeight: targetBlock,
       currentBlockHeight: currentBlock,
-      blockTimes,
+      hardforks,
     });
 
     expect(estimateTime).toBeCloseTo(
@@ -209,7 +209,7 @@ describe('getEstimatedDateByBlockHeight', () => {
     const estimateTime = getEstimatedDateByBlockHeight({
       targetBlockHeight: targetBlock,
       currentBlockHeight: currentBlock,
-      blockTimes,
+      hardforks,
     });
 
     expect(estimateTime).toBeCloseTo(

@@ -1,5 +1,4 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-import { chains } from '@venusprotocol/chains';
 
 import { useGetBlockNumber } from 'clients/api/queries/getBlockNumber/useGetBlockNumber';
 import { useGetProposalMinQuorumVotes } from 'clients/api/queries/getProposalMinQuorumVotes/useGetProposalMinQuorumVotes';

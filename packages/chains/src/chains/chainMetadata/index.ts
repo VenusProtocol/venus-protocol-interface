@@ -11,7 +11,7 @@ export const chains: Record<ChainId, Chain> = {
     explorerUrl: 'https://bscscan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-bsc.safe.global',
-    blockTimes: [
+    hardforks: [
       {
         startTimestamp: new Date('2020-04-20 01:46:54 PM UTC').getTime(), // Genesis
         blockTimeMs: 3000,
@@ -37,7 +37,7 @@ export const chains: Record<ChainId, Chain> = {
     iconSrc: iconSrcs.bsc,
     explorerUrl: 'https://testnet.bscscan.com',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    blockTimes: [
+    hardforks: [
       {
         startTimestamp: new Date('2020-06-09 07:57:19 AM UTC').getTime(), // Genesis
         blockTimeMs: 3000,
@@ -63,7 +63,7 @@ export const chains: Record<ChainId, Chain> = {
     iconSrc: iconSrcs.opBnb,
     explorerUrl: 'https://opbnbscan.com',
     layerZeroScanUrl: 'https://layerzeroscan.com',
-    blockTimes: [
+    hardforks: [
       {
         startTimestamp: new Date('2023-08-11 11:35:23 AM UTC').getTime(), // Genesis
         blockTimeMs: 1000,
@@ -85,7 +85,7 @@ export const chains: Record<ChainId, Chain> = {
     iconSrc: iconSrcs.opBnb,
     explorerUrl: 'https://testnet.opbnbscan.com',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
-    blockTimes: [
+    hardforks: [
       {
         startTimestamp: new Date('2023-06-16 01:21:46 AM UTC').getTime(), // Genesis
         blockTimeMs: 1000,
@@ -108,7 +108,7 @@ export const chains: Record<ChainId, Chain> = {
     explorerUrl: 'https://etherscan.io',
     layerZeroScanUrl: 'https://layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-mainnet.safe.global',
-    blockTimes: [
+    hardforks: [
       {
         startTimestamp: new Date('2015-07-30 03:26:13 PM UTC').getTime(), // Genesis
         blockTimeMs: 12000,
@@ -123,7 +123,7 @@ export const chains: Record<ChainId, Chain> = {
     explorerUrl: 'https://sepolia.etherscan.io',
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     safeWalletApiUrl: 'https://safe-transaction-sepolia.safe.global',
-    blockTimes: [
+    hardforks: [
       {
         startTimestamp: new Date('2015-07-30 03:26:13 PM UTC').getTime(), // Genesis
         blockTimeMs: 12000,

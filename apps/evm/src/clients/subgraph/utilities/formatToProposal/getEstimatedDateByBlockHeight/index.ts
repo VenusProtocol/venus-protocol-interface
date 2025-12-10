@@ -1,12 +1,12 @@
-import type { BlockTime } from '@venusprotocol/chains';
+import type { Hardfork } from '@venusprotocol/chains';
 
 const getBlockTimeByTimestamp = ({
   timestamp,
-  blockTimes = [],
-}: { timestamp: number; blockTimes: BlockTime[] }) => {
-  let targetBlockTime = blockTimes[0];
+  hardforks = [],
+}: { timestamp: number; hardforks: Hardfork[] }) => {
+  let targetBlockTime = hardforks[0];
 
-  blockTimes.forEach(item => {
+  hardforks.forEach(item => {
     if (timestamp > item.startTimestamp) {
       targetBlockTime = item;
     }
@@ -17,21 +17,21 @@ const getBlockTimeByTimestamp = ({
 export const getEstimatedDateByBlockHeight = ({
   targetBlockHeight,
   currentBlockHeight,
-  blockTimes = [],
+  hardforks = [],
 }: {
   targetBlockHeight: number;
   currentBlockHeight: number;
-  blockTimes: BlockTime[];
+  hardforks: Hardfork[];
 }) => {
   const now = new Date().getTime();
   const totalBlockDiff = currentBlockHeight - targetBlockHeight; // negative: target is in the future
-  const nowBlockTime = getBlockTimeByTimestamp({ timestamp: now, blockTimes });
+  const nowBlockTime = getBlockTimeByTimestamp({ timestamp: now, hardforks });
 
   // Try to calculate target time using block time for now.
   const estimatedTargetTime = now - nowBlockTime.blockTimeMs * totalBlockDiff;
   const estimatedBlockTime = getBlockTimeByTimestamp({
     timestamp: estimatedTargetTime,
-    blockTimes,
+    hardforks,
   });
 
   // When target time falls in the same block time as now, no further calcuation required
@@ -39,11 +39,11 @@ export const getEstimatedDateByBlockHeight = ({
     return new Date(estimatedTargetTime);
   }
 
-  // When target is earlier than now, remove the blockTimes after now and reverse; otherwise, remove the blockTimes before now.
+  // When target is earlier than now, remove the hardforks after now and reverse; otherwise, remove the hardforks before now.
   const amendedBlockTimes =
     totalBlockDiff > 0
-      ? blockTimes.filter(item => item.startTimestamp <= nowBlockTime.startTimestamp).reverse()
-      : blockTimes.filter(item => item.startTimestamp >= nowBlockTime.startTimestamp);
+      ? hardforks.filter(item => item.startTimestamp <= nowBlockTime.startTimestamp).reverse()
+      : hardforks.filter(item => item.startTimestamp >= nowBlockTime.startTimestamp);
 
   let ret: number;
 

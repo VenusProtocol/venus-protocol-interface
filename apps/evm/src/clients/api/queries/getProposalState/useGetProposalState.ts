@@ -1,6 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
-import { chains } from '@venusprotocol/chains';
 import FunctionKey from 'constants/functionKey';
 import { getContractAddress } from 'libs/contracts';
 import { usePublicClient } from 'libs/wallet';

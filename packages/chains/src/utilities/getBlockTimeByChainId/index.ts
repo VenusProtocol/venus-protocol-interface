@@ -7,14 +7,14 @@ export const getBlockTimeByChainId = ({
   targetTimestamp = new Date().getTime(),
 }: { chainId: ChainId; targetTimestamp?: number }) => {
   const targetChain = chains[chainId];
-  if (!Array.isArray(targetChain.blockTimes)) return undefined;
+  if (!Array.isArray(targetChain.hardforks)) return undefined;
 
   // default to first item
-  let blockTime = targetChain.blockTimes[0];
+  let blockTime = targetChain.hardforks[0];
 
   // Find the right blockTime based on targetTimestamp
-  if (targetChain.blockTimes.length > 1) {
-    targetChain.blockTimes.forEach(item => {
+  if (targetChain.hardforks.length > 1) {
+    targetChain.hardforks.forEach(item => {
       if (item.startTimestamp <= targetTimestamp) {
         blockTime = item;
       }
