@@ -437,6 +437,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
           <SubmitSection
             isLoading={isSubmitting || isGetSwapQuoteLoading}
             isFormValid={isFormValid}
+            isRiskyOperation={isRiskyOperation}
             formErrorCode={formError?.code}
             poolComptrollerContractAddress={pool.comptrollerAddress}
           />
