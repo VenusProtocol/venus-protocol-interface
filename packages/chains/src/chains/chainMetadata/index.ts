@@ -2,7 +2,7 @@ import { iconSrcs } from '../../generated/manifests/chainIcons';
 import { bnb, eth } from '../../tokens/nativeTokens';
 import { type Chain, ChainId } from '../../types';
 
-export const opBnbTestnetFourierForkTimestamp = new Date('2025-11-06 03:00:00 AM UTC');
+export const opBnbTestnetFourierForkTimestamp = new Date('2025-11-06T03:00:00Z');
 
 export const chains: Record<ChainId, Chain> = {
   [ChainId.BSC_MAINNET]: {
@@ -13,19 +13,19 @@ export const chains: Record<ChainId, Chain> = {
     safeWalletApiUrl: 'https://safe-transaction-bsc.safe.global',
     hardforks: [
       {
-        startTimestamp: new Date('2020-04-20 01:46:54 PM UTC').getTime(), // Genesis
+        startTimestamp: new Date('2020-04-20T13:46:54Z').getTime(), // Genesis
         blockTimeMs: 3000,
       },
       {
-        startTimestamp: new Date('2025-04-29 05:05:00 AM UTC').getTime(), //  Lorentz Upgrade
+        startTimestamp: new Date('2025-04-29T05:05:00Z').getTime(), // Lorentz Upgrade
         blockTimeMs: 1500,
       },
       {
-        startTimestamp: new Date('2025-06-30 02:30:00 AM UTC').getTime(), // Maxwell Upgrade
+        startTimestamp: new Date('2025-06-30T02:30:00Z').getTime(), // Maxwell Upgrade
         blockTimeMs: 750,
       },
       {
-        startTimestamp: new Date('2026-01-14 02:30:00 AM UTC').getTime(), // Fermi Upgrade
+        startTimestamp: new Date('2026-01-14T02:30:00Z').getTime(), // Fermi Upgrade
         blockTimeMs: 450,
       },
     ],
@@ -39,19 +39,19 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     hardforks: [
       {
-        startTimestamp: new Date('2020-06-09 07:57:19 AM UTC').getTime(), // Genesis
+        startTimestamp: new Date('2020-06-09T07:57:19Z').getTime(), // Genesis
         blockTimeMs: 3000,
       },
       {
-        startTimestamp: new Date('2025-04-08 07:33:00 AM UTC').getTime(), // Lorentz Upgrade
+        startTimestamp: new Date('2025-04-08T07:33:00Z').getTime(), // Lorentz Upgrade
         blockTimeMs: 1500,
       },
       {
-        startTimestamp: new Date('2025-05-26 07:05:00 AM UTC').getTime(), // Maxwell Upgrade
+        startTimestamp: new Date('2025-05-26T07:05:00Z').getTime(), // Maxwell Upgrade
         blockTimeMs: 750,
       },
       {
-        startTimestamp: new Date('2025-11-10 02:25:00 AM UTC').getTime(), // Fermi Upgrade
+        startTimestamp: new Date('2025-11-10T02:25:00Z').getTime(), // Fermi Upgrade
         blockTimeMs: 450,
       },
     ],
@@ -65,15 +65,15 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://layerzeroscan.com',
     hardforks: [
       {
-        startTimestamp: new Date('2023-08-11 11:35:23 AM UTC').getTime(), // Genesis
+        startTimestamp: new Date('2023-08-11T11:35:23Z').getTime(), // Genesis
         blockTimeMs: 1000,
       },
       {
-        startTimestamp: new Date('2025-04-21 03:00:00 AM UTC').getTime(), // Volta Upgrade
+        startTimestamp: new Date('2025-04-21T03:00:00Z').getTime(), // Volta Upgrade
         blockTimeMs: 500,
       },
       {
-        startTimestamp: new Date('2026-01-07 03:00:00 AM UTC').getTime(), // Fourier Upgrade
+        startTimestamp: new Date('2026-01-07T03:00:00Z').getTime(), // Fourier Upgrade
         blockTimeMs: 250,
       },
     ],
@@ -87,15 +87,15 @@ export const chains: Record<ChainId, Chain> = {
     layerZeroScanUrl: 'https://testnet.layerzeroscan.com',
     hardforks: [
       {
-        startTimestamp: new Date('2023-06-16 01:21:46 AM UTC').getTime(), // Genesis
+        startTimestamp: new Date('2023-06-16T01:21:46Z').getTime(), // Genesis
         blockTimeMs: 1000,
       },
       {
-        startTimestamp: new Date('2025-04-02 03:00:00 AM UTC').getTime(), // Volta Upgrade
+        startTimestamp: new Date('2025-04-02T03:00:00Z').getTime(), // Volta Upgrade
         blockTimeMs: 500,
       },
       {
-        startTimestamp: new Date('2025-11-06 03:00:00 AM UTC').getTime(), // Fourier Upgrade
+        startTimestamp: new Date('2025-11-06T03:00:00Z').getTime(), // Fourier Upgrade
         blockTimeMs: 250,
       },
     ],
@@ -110,7 +110,7 @@ export const chains: Record<ChainId, Chain> = {
     safeWalletApiUrl: 'https://safe-transaction-mainnet.safe.global',
     hardforks: [
       {
-        startTimestamp: new Date('2015-07-30 03:26:13 PM UTC').getTime(), // Genesis
+        startTimestamp: new Date('2015-07-30T15:26:13Z').getTime(), // Genesis
         blockTimeMs: 12000,
       },
     ],
@@ -125,7 +125,7 @@ export const chains: Record<ChainId, Chain> = {
     safeWalletApiUrl: 'https://safe-transaction-sepolia.safe.global',
     hardforks: [
       {
-        startTimestamp: new Date('2015-07-30 03:26:13 PM UTC').getTime(), // Genesis
+        startTimestamp: new Date('2015-07-30T15:26:13Z').getTime(), // Genesis
         blockTimeMs: 12000,
       },
     ],
