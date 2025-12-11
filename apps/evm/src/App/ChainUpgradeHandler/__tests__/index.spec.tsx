@@ -1,7 +1,7 @@
 import { renderComponent } from 'testUtils/render';
 
-import { ChainUpgradeHandler } from 'App/ChainUpgradeHandler';
 import type { MockInstance } from 'vitest';
+import { ChainUpgradeHandler } from '../';
 
 const runtimeTimestamp = new Date().getTime();
 const upgradeTimestamps = [new Date(runtimeTimestamp + 2000)];
