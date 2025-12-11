@@ -6,7 +6,7 @@ import { AnalyticProvider } from 'libs/analytics';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
 import { Web3Wrapper } from 'libs/wallet';
-import { Suspense, useMemo } from 'react';
+import { Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { HashRouter } from 'react-router';
 import { safeLazyLoad } from 'utilities';
@@ -23,10 +23,7 @@ const ImportPositionsModal = safeLazyLoad(() => import('containers/ImportPositio
 
 const App = () => {
   const { hardforks } = useChain();
-  const upgradeTimestamps = useMemo(
-    () => hardforks?.map(hardfork => new Date(hardfork.startTimestamp)) ?? [],
-    [hardforks],
-  );
+  const upgradeTimestamps = (hardforks ?? []).map(hardfork => new Date(hardfork.startTimestamp));
 
   return (
     <>
