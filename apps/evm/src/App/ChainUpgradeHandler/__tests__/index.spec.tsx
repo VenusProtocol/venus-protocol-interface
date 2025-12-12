@@ -8,6 +8,7 @@ const upgradeTimestamps = [new Date(runtimeTimestamp + 2000)];
 const fakeNowMs = runtimeTimestamp + 12000;
 
 describe('ChainUpgradeHandler', () => {
+  const original = window.location;
   let reloadSpy: MockInstance;
 
   beforeEach(() => {
@@ -25,6 +26,10 @@ describe('ChainUpgradeHandler', () => {
 
     // 2. Create the spy on the now-configurable property.
     reloadSpy = vi.spyOn(window.location, 'reload');
+  });
+
+  afterAll(() => {
+    Object.defineProperty(window, 'location', { configurable: true, value: original });
   });
 
   it('auto reload after passing hardforks', () => {
