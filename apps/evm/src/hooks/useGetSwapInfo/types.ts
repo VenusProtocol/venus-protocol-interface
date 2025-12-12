@@ -6,6 +6,10 @@ import type {
 
 import type { Swap, SwapDirection, SwapError, Token } from 'types';
 
+export interface UseGetSwapInfoOptions {
+  enabled: boolean;
+}
+
 export interface UseGetSwapInfoInput {
   fromToken: Token;
   toToken: Token;

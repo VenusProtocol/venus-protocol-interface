@@ -427,7 +427,6 @@ export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUi
           isFormValid={isFormValid}
           swap={swap}
           isSwapLoading={isSwapLoading}
-          isUsingSwap={isUsingSwap}
           fromToken={formValues.fromToken}
           approveFromToken={approveFromToken}
           isApproveFromTokenLoading={isApproveFromTokenLoading}

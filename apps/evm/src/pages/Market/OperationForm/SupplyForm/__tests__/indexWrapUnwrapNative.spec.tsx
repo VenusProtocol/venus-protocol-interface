@@ -1,6 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -45,7 +44,6 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeAsset}
         pool={fakePool}
-        onSubmitSuccess={noop}
         userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
@@ -59,7 +57,6 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeAsset}
         pool={fakePool}
-        onSubmitSuccess={noop}
         userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
@@ -76,7 +73,6 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeWethAsset}
         pool={fakePool}
-        onSubmitSuccess={noop}
         userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
@@ -98,7 +94,6 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={customFakeAsset}
         pool={fakePool}
-        onSubmitSuccess={noop}
         userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
@@ -140,12 +135,10 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
   it('lets user wrap and supply, then calls onClose callback on success', async () => {
     const amountTokensToSupply = new BigNumber('1');
 
-    const onCloseMock = vi.fn();
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
       <Supply
         asset={fakeWethAsset}
         pool={fakePool}
-        onSubmitSuccess={onCloseMock}
         userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
@@ -206,6 +199,5 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       ]
     `);
 
-    await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
   });
 });
