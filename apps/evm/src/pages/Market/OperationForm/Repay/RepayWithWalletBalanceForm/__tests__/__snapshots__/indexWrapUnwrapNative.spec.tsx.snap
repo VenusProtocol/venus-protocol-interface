@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`RepayForm - Feature flag enabled: wrapUnwrapNativeToken > lets user wrap and repay, then calls onClose callback on success 1`] = `
+exports[`RepayWithWalletBalanceForm - Feature flag enabled: wrapUnwrapNativeToken > lets user wrap and repay, then calls onClose callback on success 1`] = `
 [
   {
     "amountMantissa": "1000000000000000000",

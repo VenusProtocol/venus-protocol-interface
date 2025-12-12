@@ -4,6 +4,7 @@ import { Icon, LabeledInlineContent, Modal, TextField, type TextFieldProps } fro
 import {
   DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
   HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  HIGH_SLIPPAGE_PERCENTAGE,
 } from 'constants/swap';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
@@ -72,7 +73,13 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
           className="justify-start space-x-1 w-auto text-sm"
         >
           <div className="flex items-center justify-center gap-x-1">
-            {readableUserSlippageTolerance}
+            <p
+              className={cn(
+                userSlippageTolerancePercentage >= HIGH_SLIPPAGE_PERCENTAGE && 'text-red',
+              )}
+            >
+              {readableUserSlippageTolerance}
+            </p>
 
             <div className="flex items-center justify-center gap-x-1">
               <button type="button" onClick={openSlippageToleranceModal}>
@@ -133,7 +140,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
                 placeholder={String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE)}
                 step={0.01}
                 min={0}
-                max={slippageToleranceOptions[slippageToleranceOptions.length - 1]}
+                max={100}
                 value={userChainSettings.slippageTolerancePercentage}
                 onChange={handlePriceImpactFieldChange}
                 type="number"

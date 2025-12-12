@@ -1,4 +1,4 @@
-import { type ButtonProps, Icon, QuinaryButton, TokenIconWithSymbol, cn } from 'components';
+import { type ButtonProps, Icon, TertiaryButton, TokenIconWithSymbol, cn } from 'components';
 import { getTokenSelectButtonTestId } from 'components/SelectTokenTextField/testIdGetters';
 import type { Token } from 'types';
 
@@ -24,10 +24,10 @@ export const SelectTokenField: React.FC<SelectTokenFieldProps> = ({
   <div className={className} data-testid={testId} {...otherProps}>
     <p className="text-sm text-grey mb-1">{label}</p>
 
-    <QuinaryButton
+    <TertiaryButton
       className={cn(
-        'px-4 h-14 w-full rounded-xl active:bg-lightGrey active:border-blue disabled:bg-transparent disabled:border-lightGrey',
-        isActive && 'border-blue bg-lightGrey',
+        'px-4 h-14 w-full rounded-xl disabled:bg-transparent disabled:border-lightGrey',
+        isActive && 'border-blue',
       )}
       contentClassName="w-full justify-between disabled:bg-transparent"
       onClick={onButtonClick}
@@ -51,6 +51,6 @@ export const SelectTokenField: React.FC<SelectTokenFieldProps> = ({
           disabled ? 'text-grey' : 'text-offWhite',
         )}
       />
-    </QuinaryButton>
+    </TertiaryButton>
   </div>
 );

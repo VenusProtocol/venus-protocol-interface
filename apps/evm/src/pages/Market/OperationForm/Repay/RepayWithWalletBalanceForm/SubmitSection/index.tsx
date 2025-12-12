@@ -8,7 +8,7 @@ import { useTranslation } from 'libs/translations';
 import type { Swap, Token } from 'types';
 
 import { SwitchChain } from 'containers/SwitchChain';
-import SwapSummary from '../../SwapSummary';
+import SwapSummary from '../../../SwapSummary';
 
 export interface SubmitSectionProps {
   isFormValid: boolean;

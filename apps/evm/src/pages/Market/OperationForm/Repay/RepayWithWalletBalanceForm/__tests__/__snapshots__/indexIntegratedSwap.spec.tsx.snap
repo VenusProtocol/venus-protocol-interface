@@ -1,10 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`RepayForm - Feature flag enabled: integratedSwap > displays correct swap details 1`] = `"You will repay≈ 999.999999 XVSSlippage tolerance0.5%Price impact< 0.01%"`;
+exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > displays correct swap details 1`] = `"You will repay≈ 999.999999 XVSSlippage tolerance0.5%Price impact< 0.01%"`;
 
-exports[`RepayForm - Feature flag enabled: integratedSwap > displays correct swap details 2`] = `"You will repay 999.999999 XVS using 299.99K BUSD"`;
+exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > displays correct swap details 2`] = `"You will repay 999.999999 XVS using 299.99K BUSD"`;
 
-exports[`RepayForm - Feature flag enabled: integratedSwap > lets user swap and repay full loan 1`] = `
+exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > lets user swap and repay full loan 1`] = `
 [
   {
     "poolComptrollerContractAddress": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",
@@ -49,7 +49,7 @@ exports[`RepayForm - Feature flag enabled: integratedSwap > lets user swap and r
 ]
 `;
 
-exports[`RepayForm - Feature flag enabled: integratedSwap > lets user swap and repay partial loan then calls onClose callback on success 1`] = `
+exports[`RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap > lets user swap and repay partial loan then calls onClose callback on success 1`] = `
 [
   {
     "poolComptrollerContractAddress": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",

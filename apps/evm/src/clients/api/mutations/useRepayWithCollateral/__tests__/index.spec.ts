@@ -1,3 +1,4 @@
+import fakeAccountAddress from '__mocks__/models/address';
 import { exactInSwapQuote as fakeSwapQuote } from '__mocks__/models/swap';
 import { vLisUSD, vUsdc } from '__mocks__/models/vTokens';
 import { queryClient } from 'clients/api';
@@ -5,17 +6,27 @@ import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSendTransaction } from 'hooks/useSendTransaction';
 import { renderHook } from 'testUtils/render';
 import type { Mock } from 'vitest';
-import { useOpenLeveragedPosition } from '..';
+import { useRepayWithCollateral } from '..';
 
 vi.mock('libs/contracts');
 
-describe('useOpenLeveragedPosition', () => {
+describe('useRepayWithCollateral', () => {
+  it('should throw error if LeverageManager contract address is not available', async () => {
+    (useGetContractAddress as Mock).mockReturnValue({ address: undefined });
+
+    renderHook(() => useRepayWithCollateral());
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    expect(async () => fn()).rejects.toThrow('somethingWentWrong');
+  });
+
   it.each([
     {
       label: 'with swapQuote',
       input: {
-        borrowedVToken: vUsdc,
-        suppliedVToken: vLisUSD,
+        collateralVToken: vUsdc,
+        repaidVToken: vLisUSD,
         swapQuote: fakeSwapQuote,
       },
     },
@@ -27,7 +38,9 @@ describe('useOpenLeveragedPosition', () => {
       },
     },
   ])('calls useSendTransaction with correct parameters $label', async ({ input }) => {
-    renderHook(() => useOpenLeveragedPosition());
+    renderHook(() => useRepayWithCollateral(), {
+      accountAddress: fakeAccountAddress,
+    });
 
     expect(useSendTransaction).toHaveBeenCalledWith({
       fn: expect.any(Function),
@@ -35,30 +48,15 @@ describe('useOpenLeveragedPosition', () => {
       options: undefined,
     });
 
-    const { fn } = (useSendTransaction as jest.Mock).mock.calls[0][0];
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
 
     expect(await fn(input)).toMatchSnapshot({
-      abi: expect.any(Array),
+      abi: expect.any(Object),
     });
 
-    const { onConfirmed } = (useSendTransaction as jest.Mock).mock.calls[0][0];
+    const { onConfirmed } = (useSendTransaction as Mock).mock.calls[0][0];
     await onConfirmed();
 
     expect((queryClient.invalidateQueries as Mock).mock.calls).toMatchSnapshot();
-  });
-
-  it('throws error when LeverageManager contract address is not found', async () => {
-    (useGetContractAddress as Mock).mockImplementation(() => ({ address: undefined }));
-
-    renderHook(() => useOpenLeveragedPosition());
-
-    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
-
-    await expect(async () =>
-      fn({
-        vToken: vUsdc,
-        amountMantissa: 100000000n,
-      }),
-    ).rejects.toThrow('somethingWentWrong');
   });
 });

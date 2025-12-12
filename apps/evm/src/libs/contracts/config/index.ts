@@ -676,7 +676,7 @@ export const contracts: ContractConfig[] = [
     name: 'LeverageManager',
     abi: leverageManagerAbi as Abi,
     address: {
-      [ChainId.BSC_MAINNET]: '0x3Ee4F1474A1071c5fAC97bd881eabcA2Cf8F6085', // TODO: get from package
+      [ChainId.BSC_MAINNET]: '0x03F079E809185a669Ca188676D0ADb09cbAd6dC1', // TODO: get from package
     },
   },
   // Generic Contracts

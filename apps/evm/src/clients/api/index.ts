@@ -32,6 +32,7 @@ export * from './mutations/useWithdraw';
 export * from './mutations/useImportSupplyPosition';
 export * from './mutations/useSetEModeGroup';
 export * from './mutations/useOpenLeveragedPosition';
+export * from './mutations/useRepayWithCollateral';
 
 // Queries
 export * from './queries/getVaiTreasuryPercentage';

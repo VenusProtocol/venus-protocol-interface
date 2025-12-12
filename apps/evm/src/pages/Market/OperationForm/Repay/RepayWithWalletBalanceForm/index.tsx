@@ -34,10 +34,10 @@ import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
-import { ApyBreakdown } from '../ApyBreakdown';
-import { OperationDetails } from '../OperationDetails';
-import { calculateAmountDollars } from '../calculateAmountDollars';
-import Notice from './Notice';
+import { ApyBreakdown } from '../../ApyBreakdown';
+import { OperationDetails } from '../../OperationDetails';
+import { calculateAmountDollars } from '../../calculateAmountDollars';
+import { Notice } from '../Notice';
 import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import calculatePercentageOfUserBorrowBalance from './calculatePercentageOfUserBorrowBalance';
 import TEST_IDS from './testIds';
@@ -45,7 +45,7 @@ import useForm, { type FormValues, type UseFormInput } from './useForm';
 
 export const PRESET_PERCENTAGES = [25, 50, 75, 100];
 
-export interface RepayFormUiProps
+export interface RepayWithWalletBalanceFormUiProps
   extends Pick<
     SubmitSectionProps,
     | 'approveFromToken'
@@ -75,7 +75,7 @@ export interface RepayFormUiProps
   swapError?: SwapError;
 }
 
-export const RepayFormUi: React.FC<RepayFormUiProps> = ({
+export const RepayWithWalletBalanceFormUi: React.FC<RepayWithWalletBalanceFormUiProps> = ({
   isUserConnected,
   asset,
   pool,
@@ -388,9 +388,12 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
         analyticVariant="repay_form"
       >
         <div className="space-y-4">
-          {!isSubmitting && !isSwapLoading && !formError && (
-            <Notice isRepayingFullLoan={isRepayingFullLoan} swap={swap} />
-          )}
+          <Notice
+            isFormValid={isFormValid}
+            isSubmitting={isSubmitting}
+            isRepayingFullLoan={isRepayingFullLoan}
+            priceImpactPercentage={swap?.priceImpactPercentage}
+          />
 
           <div className="space-y-2">
             <LabeledInlineContent label={t('operationForm.walletBalance')}>
@@ -437,14 +440,14 @@ export const RepayFormUi: React.FC<RepayFormUiProps> = ({
   );
 };
 
-export interface RepayFormProps {
+export interface RepayWithWalletBalanceFormProps {
   asset: Asset;
   pool: Pool;
   onSubmitSuccess?: () => void;
   userTokenWrappedBalanceMantissa?: BigNumber;
 }
 
-const RepayForm: React.FC<RepayFormProps> = ({
+const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   asset,
   pool,
   onSubmitSuccess,
@@ -587,7 +590,7 @@ const RepayForm: React.FC<RepayFormProps> = ({
     accountAddress,
   });
 
-  const onSubmit: RepayFormUiProps['onSubmit'] = useCallback(
+  const onSubmit: RepayWithWalletBalanceFormUiProps['onSubmit'] = useCallback(
     async ({ fromToken, fromTokenAmountTokens, swap, fixedRepayPercentage }) => {
       const repayFullLoan = fixedRepayPercentage === 100;
       const amountMantissa = convertTokensToMantissa({
@@ -655,7 +658,7 @@ const RepayForm: React.FC<RepayFormProps> = ({
   });
 
   return (
-    <RepayFormUi
+    <RepayWithWalletBalanceFormUi
       isUserConnected={!!accountAddress}
       asset={asset}
       pool={pool}
@@ -684,4 +687,4 @@ const RepayForm: React.FC<RepayFormProps> = ({
   );
 };
 
-export default RepayForm;
+export default RepayWithWalletBalanceForm;
