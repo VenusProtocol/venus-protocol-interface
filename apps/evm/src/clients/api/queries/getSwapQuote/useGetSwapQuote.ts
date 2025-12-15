@@ -13,7 +13,7 @@ import {
   getSwapQuote,
 } from '.';
 
-type TrimmedGetSwapQuoteInput =
+export type TrimmedGetSwapQuoteInput =
   | Omit<GetExactInSwapQuoteInput, 'chainId'>
   | Omit<GetExactOutSwapQuoteInput, 'chainId'>
   | Omit<GetApproximateOutSwapQuoteInput, 'chainId'>;

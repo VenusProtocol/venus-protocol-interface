@@ -5,7 +5,7 @@ import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
 import type { Swap, SwapError } from 'types';
 import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
-import type { FormError } from '../../types';
+import type { FormError } from '../../../types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {

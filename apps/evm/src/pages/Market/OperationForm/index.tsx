@@ -10,7 +10,7 @@ import type { VToken } from 'types';
 import BoostForm from './BoostForm';
 import BorrowForm from './BorrowForm';
 import NativeTokenBalanceWrapper from './NativeTokenBalanceWrapper';
-import RepayForm from './RepayForm';
+import { Repay } from './Repay';
 import SupplyForm from './SupplyForm';
 import WithdrawForm from './WithdrawForm';
 import rocketIconSrc from './rocket.svg';
@@ -115,21 +115,10 @@ export const OperationForm: React.FC<OperationFormProps> = ({
 
   tabs.push({
     id: 'repay',
-    title: t('operationForm.repayTabTitle'),
+    title: t('operationForm.repayTab.title'),
     content: (
       <AssetAccessor vToken={vToken} poolComptrollerAddress={poolComptrollerAddress} action="repay">
-        {({ asset, pool }) => (
-          <NativeTokenBalanceWrapper asset={asset} pool={pool}>
-            {({ asset, pool, userTokenWrappedBalanceMantissa }) => (
-              <RepayForm
-                asset={asset}
-                pool={pool}
-                userTokenWrappedBalanceMantissa={userTokenWrappedBalanceMantissa}
-                onSubmitSuccess={onSubmitSuccess}
-              />
-            )}
-          </NativeTokenBalanceWrapper>
-        )}
+        {({ asset, pool }) => <Repay pool={pool} asset={asset} />}
       </AssetAccessor>
     ),
   });

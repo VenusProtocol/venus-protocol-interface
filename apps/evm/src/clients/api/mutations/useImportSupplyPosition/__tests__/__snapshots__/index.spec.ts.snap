@@ -87,7 +87,7 @@ exports[`useImportSupplyPosition > returns a Fusion quote on success 6`] = `
       "sponsorship": true,
       "trigger": {
         "amount": 20000000000000000000n,
-        "approvalAmount": 24024000000000000000n,
+        "approvalAmount": 24000002400000000000n,
         "chainId": 97,
         "gasLimit": 500000n,
         "tokenAddress": "0xfakeAXVSAddress",

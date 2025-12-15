@@ -42,7 +42,10 @@ const useFormValidation = ({
   const { t } = useTranslation();
 
   const formError = useMemo<FormError<FormErrorCode> | undefined>(() => {
-    if (!pool?.userBorrowLimitCents || pool.userBorrowLimitCents.isEqualTo(0)) {
+    if (
+      (!pool?.userBorrowLimitCents || pool.userBorrowLimitCents.isEqualTo(0)) &&
+      asset.userSupplyBalanceCents.isEqualTo(0)
+    ) {
       return {
         code: 'NO_COLLATERALS',
         message: t('operationForm.error.noCollateral', {

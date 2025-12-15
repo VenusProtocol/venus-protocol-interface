@@ -6,6 +6,6 @@ export const disabledTokenActions: DisabledTokenAction[] = [
   // BNB
   {
     address: NATIVE_TOKEN_ADDRESS,
-    disabledActions: ['swapAndSupply'],
+    disabledActions: ['swapAndSupply', 'boost', 'repayWithCollateral'],
   },
 ];
