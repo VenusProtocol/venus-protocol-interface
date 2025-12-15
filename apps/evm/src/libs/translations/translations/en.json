@@ -146,6 +146,9 @@
     "limit": "Limit:",
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
   },
+  "adBanner": {
+    "learnMore": "Learn more"
+  },
   "announcements": {
     "bethUpdate": {
       "description": "Binance paused BETH withdrawals on 2023-04-26. We recommend users reduce their exposure to BETH on Venus. Borrowing has been paused. Convert BETH to WBETH on-chain at a 1:1 ratio <Link>here</Link>."
@@ -278,6 +281,16 @@
     "borrowDescription": "You may borrow {{tokenSymbol}} according to your collateralized supply in the {{poolName}} pool. <Button>Show all tokens</Button>",
     "modalTitle": "{{ poolName }} tokens",
     "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all markets</Button>"
+  },
+  "binanceWalletBanner": {
+    "binanceLogoAltText": "Binance logo",
+    "description": "Borrow USDT and share <Bold>$400,000</Bold> in rewards!",
+    "title": "Venus is live on Binance Wallet Earn."
+  },
+  "boostBanner": {
+    "description": "One-click leverage to boost your yield <White>up to 5x</White>.",
+    "rocketAltText": "Rocket illustration",
+    "title": "Boost is available now!"
   },
   "breadcrumbs": {
     "account": "Account",

@@ -1,3 +1,5 @@
+import type { Abi } from 'viem';
+
 import { abi as OmnichainGovernanceExecutorAbi } from '@venusprotocol/governance-contracts/artifacts/contracts/Cross-chain/OmnichainGovernanceExecutor.sol/OmnichainGovernanceExecutor.json';
 import { abi as GovernorBravoDelegateAbi } from '@venusprotocol/governance-contracts/artifacts/contracts/Governance/GovernorBravoDelegate.sol/GovernorBravoDelegate.json';
 import venusGovernanceArbitrumOneDeployments from '@venusprotocol/governance-contracts/deployments/arbitrumone_addresses.json';
@@ -75,6 +77,8 @@ import tokenBridgeUnichainMainnetDeployments from '@venusprotocol/token-bridge/d
 import tokenBridgeUnichainSepoliaDeployments from '@venusprotocol/token-bridge/deployments/unichainsepolia_addresses.json';
 import tokenBridgeZkSyncMainnetDeployments from '@venusprotocol/token-bridge/deployments/zksyncmainnet_addresses.json';
 import tokenBridgeZkSyncSepoliaDeployments from '@venusprotocol/token-bridge/deployments/zksyncsepolia_addresses.json';
+import { abi as leverageManagerAbi } from '@venusprotocol/venus-periphery/artifacts/contracts/LeverageManager/LeverageStrategiesManager.sol/LeverageStrategiesManager.json';
+import venusPeripheryBscMainnetDeployments from '@venusprotocol/venus-periphery/deployments/bscmainnet_addresses.json';
 import { abi as legacyPoolComptrollerAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Comptroller/Diamond/DiamondConsolidated.sol/DiamondConsolidated.json';
 import { abi as vTreasuryAbi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasury.sol/VTreasury.json';
 import { abi as vTreasuryV8Abi } from '@venusprotocol/venus-protocol/artifacts/contracts/Governance/VTreasuryV8.sol/VTreasuryV8.json';
@@ -107,7 +111,6 @@ import venusProtocolUnichainMainnetDeployments from '@venusprotocol/venus-protoc
 import venusProtocolUnichainSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/unichainsepolia_addresses.json';
 import venusProtocolZkSyncMainnetDeployments from '@venusprotocol/venus-protocol/deployments/zksyncmainnet_addresses.json';
 import venusProtocolZkSyncSepoliaDeployments from '@venusprotocol/venus-protocol/deployments/zksyncsepolia_addresses.json';
-import type { Abi } from 'viem';
 
 import { ChainId } from 'types';
 
@@ -116,7 +119,7 @@ import aavePoolAddressesProviderAbi from './externalAbis/AavePoolAddressesProvid
 import aaveUiPoolDataProviderAbi from './externalAbis/AaveUiPoolDataProvider.json';
 import aaveV3PoolAbi from './externalAbis/AaveV3Pool.json';
 import erc20Abi from './externalAbis/Erc20.json';
-import leverageManagerAbi from './externalAbis/LeverageManager.json'; // TODO: get from package
+
 import maximillionAbi from './externalAbis/Maximillion.json';
 import multicall3Abi from './externalAbis/Multicall3.json';
 import nexusAbi from './externalAbis/Nexus.json';
@@ -676,7 +679,8 @@ export const contracts: ContractConfig[] = [
     name: 'LeverageManager',
     abi: leverageManagerAbi as Abi,
     address: {
-      [ChainId.BSC_MAINNET]: '0x03F079E809185a669Ca188676D0ADb09cbAd6dC1', // TODO: get from package
+      [ChainId.BSC_MAINNET]: venusPeripheryBscMainnetDeployments.addresses
+        .LeverageStrategiesManager_Proxy as Address,
     },
   },
   // Generic Contracts

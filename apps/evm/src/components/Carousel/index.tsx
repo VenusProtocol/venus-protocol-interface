@@ -60,24 +60,24 @@ export const Carousel = forwardRef<
   return (
     <div
       ref={ref}
-      className={cn('relative select-none', className)}
+      className={cn('relative select-none overflow-hidden', className)}
       role="region"
       aria-roledescription="carousel"
       {...props}
     >
-      <div ref={carouselRef} className="overflow-hidden">
+      <div ref={carouselRef}>
         <div className="flex -ml-4">{children}</div>
       </div>
 
       {slidesCount > 1 && (
-        <div className="flex mx-auto gap-3 w-max mt-4">
+        <div className="flex mx-auto gap-x-[6px] w-max mt-3">
           {Array.from({ length: slidesCount }).map((_s, i) => (
             <button
               type="button"
               onClick={() => api?.scrollTo(i)}
               key={i}
               className={cn(
-                'w-2 h-2 rounded-full',
+                'size-[6px] rounded-full',
                 i === activeSlideIndex ? 'bg-offWhite' : 'bg-offWhite/30',
               )}
             />

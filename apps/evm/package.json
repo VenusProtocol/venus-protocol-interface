@@ -119,6 +119,7 @@
     "@venusprotocol/stylelint-config": "*",
     "@venusprotocol/token-bridge": "2.7.0",
     "@venusprotocol/typescript-config": "*",
+    "@venusprotocol/venus-periphery": "^1.1.0",
     "@venusprotocol/venus-protocol": "10.0.0",
     "@vitejs/plugin-react": "^4.3.3",
     "@vitest/coverage-v8": "^2.1.5",

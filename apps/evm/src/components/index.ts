@@ -55,7 +55,6 @@ export * from './AccountHealthBar';
 export * from './AreaChart';
 export * from './ChartTooltipContent';
 export * from './ChartYAxisTick';
-export * from './EModeBanner';
 export * from './InfoIcon';
 export * from './EModeIcon';
 export * from './MarketStatus';

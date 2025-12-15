@@ -67,10 +67,6 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
 
         <div className="flex items-baseline gap-x-1">
           <span>{tab.title}</span>
-
-          {tab.id === 'e-mode' && activeTabIndex !== index && (
-            <span className="text-xs text-green uppercase">{t('pool.tabs.eMode.new')}</span>
-          )}
         </div>
       </div>
     ),
