@@ -1,8 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`RepayForm > displays the wallet spending limit correctly and lets user revoke it 1`] = `"Spending limit10 XVS"`;
+exports[`RepayWithWalletBalanceForm > displays the wallet spending limit correctly and lets user revoke it 1`] = `"Spending limit10 XVS"`;
 
-exports[`RepayForm > lets user repay borrowed tokens then calls onClose callback on success 1`] = `
+exports[`RepayWithWalletBalanceForm > lets user repay borrowed tokens then calls onClose callback on success 1`] = `
 [
   {
     "amountMantissa": "1000000000000000000",
@@ -25,7 +25,7 @@ exports[`RepayForm > lets user repay borrowed tokens then calls onClose callback
 ]
 `;
 
-exports[`RepayForm > lets user repay full loan 1`] = `
+exports[`RepayWithWalletBalanceForm > lets user repay full loan 1`] = `
 [
   {
     "amountMantissa": "1e+21",

@@ -1,4 +1,3 @@
-import { cn } from '@venusprotocol/ui';
 import { useMemo } from 'react';
 
 import { PrimaryButton } from 'components';
@@ -8,13 +7,12 @@ import useDelegateApproval from 'hooks/useDelegateApproval';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useTranslation } from 'libs/translations';
 import type { Address } from 'viem';
-import { ApproveDelegateSteps } from '../../ApproveDelegateSteps';
+import { ApproveDelegateSteps } from '../../../ApproveDelegateSteps';
 import type { FormErrorCode } from '../useForm';
 
 export interface SubmitSectionProps {
   isFormValid: boolean;
   isLoading: boolean;
-  isRiskyOperation: boolean;
   poolComptrollerContractAddress: Address;
   formErrorCode?: FormErrorCode;
 }
@@ -22,7 +20,6 @@ export interface SubmitSectionProps {
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isLoading,
-  isRiskyOperation,
   formErrorCode,
   poolComptrollerContractAddress,
 }) => {
@@ -50,7 +47,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       return t('operationForm.submitButtonLabel.enterValidAmount');
     }
 
-    return t('operationForm.submitButtonLabel.boost');
+    return t('operationForm.submitButtonLabel.repay');
   }, [isFormValid, t, formErrorCode]);
 
   let dom = (
@@ -58,7 +55,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       type="submit"
       loading={isLoading}
       disabled={!isFormValid || isLoading}
-      className={cn('w-full', isRiskyOperation && 'border-red bg-red')}
+      className="w-full"
     >
       {submitButtonLabel}
     </PrimaryButton>

@@ -126,6 +126,20 @@ describe('BoostForm', () => {
     expect(getByTestId(TEST_IDS.tokenTextField).closest('input')).toBeDisabled();
   });
 
+  it('disables submit button if form is empty', async () => {
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: undefined,
+    }));
+
+    renderComponent(<BoostForm asset={fakeAsset} pool={fakePool} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    // Check submit button is disabled
+    await checkSubmitButtonIsDisabled();
+  });
+
   it.each(testCases)(
     'renders correct available amount when %s is the limiting factor',
     async (_, { asset, pool }) => {

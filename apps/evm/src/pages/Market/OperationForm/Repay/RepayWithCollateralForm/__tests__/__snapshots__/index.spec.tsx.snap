@@ -1,0 +1,181 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RepayWithCollateralForm > displays correct available collateral amount 1`] = `"Available90 XVS"`;
+
+exports[`RepayWithCollateralForm > lets user repay full loan using a swap 1`] = `
+{
+  "direction": "approximate-out",
+  "fromToken": {
+    "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+    "decimals": 6,
+    "iconSrc": "fake-usdt-asset",
+    "symbol": "USDT",
+  },
+  "minToTokenAmountTokens": "1001",
+  "recipientAddress": "0xfakeLeverageManagerContractAddress",
+  "slippagePercentage": 0.5,
+  "toToken": {
+    "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+    "decimals": 18,
+    "iconSrc": "fake-xvs-asset",
+    "symbol": "XVS",
+  },
+}
+`;
+
+exports[`RepayWithCollateralForm > lets user repay full loan using a swap 2`] = `
+[
+  {
+    "collateralVToken": {
+      "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+      "decimals": 8,
+      "symbol": "vUSDT",
+      "underlyingToken": {
+        "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "decimals": 6,
+        "iconSrc": "fake-usdt-asset",
+        "symbol": "USDT",
+      },
+    },
+    "repaidVToken": {
+      "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "decimals": 8,
+      "symbol": "vXVS",
+      "underlyingToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "decimals": 18,
+        "iconSrc": "fake-xvs-asset",
+        "symbol": "XVS",
+      },
+    },
+    "swapQuote": {
+      "callData": "0x",
+      "direction": "approximate-out",
+      "expectedToTokenAmountReceivedMantissa": 999000000n,
+      "fromToken": {
+        "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "decimals": 6,
+        "iconSrc": "fake-usdt-asset",
+        "symbol": "USDT",
+      },
+      "fromTokenAmountSoldMantissa": 100000000n,
+      "minimumToTokenAmountReceivedMantissa": 998000000000000000000n,
+      "priceImpactPercentage": 0.1,
+      "toToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "decimals": 18,
+        "iconSrc": "fake-xvs-asset",
+        "symbol": "XVS",
+      },
+    },
+  },
+]
+`;
+
+exports[`RepayWithCollateralForm > lets user repay full loan using the same collateral and repaid market 1`] = `
+[
+  {
+    "amountMantissa": 1001000000000000000n,
+    "vToken": {
+      "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "decimals": 8,
+      "symbol": "vXVS",
+      "underlyingToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "decimals": 18,
+        "iconSrc": "fake-xvs-asset",
+        "symbol": "XVS",
+      },
+    },
+  },
+]
+`;
+
+exports[`RepayWithCollateralForm > lets user repay partial loan using a swap 1`] = `
+{
+  "direction": "exact-in",
+  "fromToken": {
+    "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+    "decimals": 6,
+    "iconSrc": "fake-usdt-asset",
+    "symbol": "USDT",
+  },
+  "fromTokenAmountTokens": "1",
+  "recipientAddress": "0xfakeLeverageManagerContractAddress",
+  "slippagePercentage": 0.5,
+  "toToken": {
+    "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+    "decimals": 18,
+    "iconSrc": "fake-xvs-asset",
+    "symbol": "XVS",
+  },
+}
+`;
+
+exports[`RepayWithCollateralForm > lets user repay partial loan using a swap 2`] = `
+[
+  {
+    "collateralVToken": {
+      "address": "0xb7526572FFE56AB9D7489838Bf2E18e3323b441A",
+      "decimals": 8,
+      "symbol": "vUSDT",
+      "underlyingToken": {
+        "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "decimals": 6,
+        "iconSrc": "fake-usdt-asset",
+        "symbol": "USDT",
+      },
+    },
+    "repaidVToken": {
+      "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "decimals": 8,
+      "symbol": "vXVS",
+      "underlyingToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "decimals": 18,
+        "iconSrc": "fake-xvs-asset",
+        "symbol": "XVS",
+      },
+    },
+    "swapQuote": {
+      "callData": "0x",
+      "direction": "exact-in",
+      "expectedToTokenAmountReceivedMantissa": 999000000n,
+      "fromToken": {
+        "address": "0xA11c8D9DC9b66E209Ef60F0C8D969D3CD988782c",
+        "decimals": 6,
+        "iconSrc": "fake-usdt-asset",
+        "symbol": "USDT",
+      },
+      "fromTokenAmountSoldMantissa": 100000000n,
+      "minimumToTokenAmountReceivedMantissa": 998000000000000000000n,
+      "priceImpactPercentage": 0.1,
+      "toToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "decimals": 18,
+        "iconSrc": "fake-xvs-asset",
+        "symbol": "XVS",
+      },
+    },
+  },
+]
+`;
+
+exports[`RepayWithCollateralForm > lets user repay partial loan using the same collateral and repaid market 1`] = `
+[
+  {
+    "amountMantissa": 1000000000000000000n,
+    "vToken": {
+      "address": "0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+      "decimals": 8,
+      "symbol": "vXVS",
+      "underlyingToken": {
+        "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",
+        "decimals": 18,
+        "iconSrc": "fake-xvs-asset",
+        "symbol": "XVS",
+      },
+    },
+  },
+]
+`;
