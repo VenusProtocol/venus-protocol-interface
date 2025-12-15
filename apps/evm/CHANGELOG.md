@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.79.0
+
+### Minor Changes
+
+- ba8db91: add Repay with collateral UI
+
 ## 3.78.0
 
 ### Minor Changes
