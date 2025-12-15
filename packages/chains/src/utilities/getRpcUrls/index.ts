@@ -10,10 +10,15 @@ export const getRpcUrls = ({
   const rpcUrls: {
     [chainId in ChainId]: string[];
   } = {
+    // [ChainId.BSC_MAINNET]: [
+    //   `https://bsc-mainnet.nodereal.io/v1/${nodeRealApiKey}`,
+    //   `https://bnb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
+    // ],
+    // DEV ONLY
     [ChainId.BSC_MAINNET]: [
-      `https://bsc-mainnet.nodereal.io/v1/${nodeRealApiKey}`,
-      `https://bnb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`,
+      'https://virtual.binance.eu.rpc.tenderly.co/22d6bce7-7f9a-4d18-bac5-4544cc4b1d79',
     ],
+    // END DEV ONLY
     [ChainId.BSC_TESTNET]: [`https://bsc-testnet.nodereal.io/v1/${nodeRealApiKey}`],
     [ChainId.OPBNB_MAINNET]: [
       `https://opbnb-mainnet.nodereal.io/v1/${nodeRealApiKey}`,

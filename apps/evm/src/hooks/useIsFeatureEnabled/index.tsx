@@ -143,9 +143,15 @@ export const featureFlags = {
   transactionHistory: [ChainId.BSC_MAINNET, ChainId.ETHEREUM, ChainId.UNICHAIN_MAINNET],
   leveragedPositions: [
     ChainId.BSC_TESTNET,
+    // DEV ONLY
+    ChainId.BSC_MAINNET,
+    // DEV ONLY
   ],
   repayWithCollateral: [
     ChainId.BSC_TESTNET,
+    // DEV ONLY
+    ChainId.BSC_MAINNET,
+    // DEV ONLY
   ],
 };
 
