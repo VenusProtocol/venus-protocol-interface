@@ -1,0 +1,53 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useRepayWithCollateral > calls useSendTransaction with correct parameters 'with single asset' 1`] = `
+{
+  "abi": Any<Object>,
+  "address": "0xfakeLeverageManagerContractAddress",
+  "args": [
+    "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+    100000000n,
+  ],
+  "functionName": "exitSingleAssetLeverage",
+}
+`;
+
+exports[`useRepayWithCollateral > calls useSendTransaction with correct parameters 'with single asset' 2`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_POOLS",
+      ],
+    },
+  ],
+]
+`;
+
+exports[`useRepayWithCollateral > calls useSendTransaction with correct parameters 'with swapQuote' 1`] = `
+{
+  "abi": Any<Object>,
+  "address": "0xfakeLeverageManagerContractAddress",
+  "args": [
+    "0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7",
+    100000000n,
+    "0x170d3b2da05cc2124334240fB34ad1359e34C562",
+    100000000n,
+    100000000n,
+    "0x",
+  ],
+  "functionName": "exitLeverage",
+}
+`;
+
+exports[`useRepayWithCollateral > calls useSendTransaction with correct parameters 'with swapQuote' 2`] = `
+[
+  [
+    {
+      "queryKey": [
+        "GET_POOLS",
+      ],
+    },
+  ],
+]
+`;

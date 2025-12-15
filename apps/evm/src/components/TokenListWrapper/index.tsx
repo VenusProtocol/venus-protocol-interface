@@ -94,35 +94,37 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
       {isListShown && (
         <div className="relative">
           <div className="bg-cards border border-lightGrey absolute z-[2] left-0 right-0 top-2 rounded-xl overflow-hidden shadow-[0_4px_15px_0_#0d1017]">
-            <div className="mb-3 pl-3 pr-3 pt-3">
-              <TextField
-                size="xs"
-                variant="secondary"
-                autoFocus
-                value={searchValue}
-                onChange={handleSearchInputChange}
-                placeholder={t('selectTokenTextField.searchInput.placeholder')}
-                leftIconSrc="magnifier"
-              />
+            {tokenBalances.length > 5 && (
+              <div className="mb-3 pl-3 pr-3 pt-3 space-y-3">
+                <TextField
+                  size="xs"
+                  variant="secondary"
+                  autoFocus
+                  value={searchValue}
+                  onChange={handleSearchInputChange}
+                  placeholder={t('selectTokenTextField.searchInput.placeholder')}
+                  leftIconSrc="magnifier"
+                />
 
-              {commonTokenBalances.length > 2 && (
-                <div className="flex overflow-y-auto gap-x-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                  {commonTokenBalances.map(commonTokenBalance => (
-                    <SenaryButton
-                      onClick={() => onTokenClick(commonTokenBalance.token)}
-                      className="shrink-0"
-                      key={`select-token-text-field-common-token-${commonTokenBalance.token.symbol}`}
-                    >
-                      <TokenIconWithSymbol
-                        className="font-semibold text-sm"
-                        tokenIconClassName="size-5"
-                        token={commonTokenBalance.token}
-                      />
-                    </SenaryButton>
-                  ))}
-                </div>
-              )}
-            </div>
+                {commonTokenBalances.length > 2 && (
+                  <div className="flex overflow-y-auto gap-x-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    {commonTokenBalances.map(commonTokenBalance => (
+                      <SenaryButton
+                        onClick={() => onTokenClick(commonTokenBalance.token)}
+                        className="shrink-0"
+                        key={`select-token-text-field-common-token-${commonTokenBalance.token.symbol}`}
+                      >
+                        <TokenIconWithSymbol
+                          className="font-semibold text-sm"
+                          tokenIconClassName="size-5"
+                          token={commonTokenBalance.token}
+                        />
+                      </SenaryButton>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
             <div className="max-h-50 overflow-y-auto">
               {filteredTokenBalances.map(tokenBalance => (
@@ -145,7 +147,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
                   />
 
                   {tokenBalance.balanceMantissa && (
-                    <Typography variant="small2">
+                    <Typography variant="small2" className="text-offWhite">
                       {convertMantissaToTokens({
                         value: tokenBalance.balanceMantissa,
                         token: tokenBalance.token,

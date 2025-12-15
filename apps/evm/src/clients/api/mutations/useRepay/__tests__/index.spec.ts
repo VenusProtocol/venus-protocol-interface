@@ -102,7 +102,7 @@ describe('useRepay', () => {
           "0x2E7222e51c0f6e98610A1543Aa3836E092CDe62c",
         ],
         "functionName": "repayBehalfExplicit",
-        "value": 10010000000000000n,
+        "value": 10000001000000000n,
       }
     `,
     );
