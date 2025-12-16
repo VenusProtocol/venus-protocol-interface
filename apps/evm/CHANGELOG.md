@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.80.0
+
+### Minor Changes
+
+- ea8c0df: add auto-reload ui support for new hardforks config
+
+### Patch Changes
+
+- Updated dependencies [ea8c0df]
+  - @venusprotocol/chains@0.14.0
+
 ## 3.79.0
 
 ### Minor Changes

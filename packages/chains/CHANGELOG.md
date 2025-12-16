@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.14.0
+
+### Minor Changes
+
+- ea8c0df: add auto-reload ui support for new hardforks config
+
 ## 0.13.1
 
 ### Patch Changes
