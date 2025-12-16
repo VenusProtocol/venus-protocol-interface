@@ -1,76 +1,99 @@
-@import '@venusprotocol/ui/fonts/proximaNova';
-@import '@venusprotocol/ui/theme';
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tw-animate-css";
+@plugin 'tailwind-scrollbar';
 
-@layer utilities {
-  .scrollbar-hidden {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+@import '@venusprotocol/ui/fonts/proximaNova' layer(base);
+@import '@venusprotocol/ui/theme' layer(theme);
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
   }
 
-  .scrollbar-hidden::-webkit-scrollbar { 
-    display: none;
+  body {
+    font-family: var(--font-proxima-nova), sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-offWhite);
+  }
+
+
+  * {
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      border-radius: 4px;
+      background-color: var(--color-background);
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--color-grey);
+      border-radius: 4px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: var(--color-offWhite);
+    }
   }
 }
 
-body {
-  font-family: var(--font-proxima-nova), sans-serif;
-  background-color: theme('colors.background');
-  color: theme('colors.offWhite');
-}
+@layer components {
+  input {
+    color: inherit;
 
-input {
-  color: inherit;
+    &::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      padding-right: 22px;
+    }
 
-  &::-webkit-input-placeholder {
-    /* Chrome/Opera/Safari */
-    padding-right: 22px;
-  }
-  &::-moz-placeholder {
-    /* Firefox 19+ */
-    padding-right: 22px;
-  }
-  &:-moz-placeholder {
-    /* Firefox 18- */
-    padding-right: 22px;
-  }
+    &::-moz-placeholder {
+      /* Firefox 19+ */
+      padding-right: 22px;
+    }
 
-  /* Hide arrows from input number */
-  /* Chrome, Safari, Edge, Opera */
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+    &:-moz-placeholder {
+      /* Firefox 18- */
+      padding-right: 22px;
+    }
 
-  /* Firefox */
-  &[type='number'] {
-    -moz-appearance: textfield;
+    /* Hide arrows from input number */
+    /* Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
   }
 }
 
-* {
+@utility scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
   &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    border-radius: 4px;
-    background-color: theme('colors.background');
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background-color: theme('colors.grey');
-    border-radius: 4px;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: theme('colors.offWhite');
+    display: none;
   }
 }
