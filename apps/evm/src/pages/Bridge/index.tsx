@@ -441,7 +441,7 @@ const BridgePage: React.FC = () => {
             <LayerZeroLogo className="w-[80px]" />
           </div>
 
-          <div className="bg-lightGrey h-5 w-[1px]" />
+          <div className="bg-lightGrey h-5 w-px" />
 
           <Link href={BRIDGE_DOC_URL} className="flex items-center text-sm">
             {t('bridgePage.footer.bridgeDocLink')}

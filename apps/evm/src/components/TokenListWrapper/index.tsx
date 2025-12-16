@@ -168,7 +168,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
         </div>
       )}
 
-      <div className={cn('fixed inset-0 z-[1]', !isListShown && 'hidden')} onClick={onClose} />
+      <div className={cn('fixed inset-0 z-1', !isListShown && 'hidden')} onClick={onClose} />
     </div>
   );
 };

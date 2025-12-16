@@ -77,7 +77,7 @@ export const useStyles = () => {
       margin-right: ${theme.spacing(2)};
     `,
     reasonIcon: css`
-      flex-shrink: 0;
+      shrink: 0;
     `,
   };
 };

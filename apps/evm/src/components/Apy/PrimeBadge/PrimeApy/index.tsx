@@ -25,7 +25,7 @@ export const PrimeApy: React.FC<PrimeApyProps> = ({ apyPercentage, className, ..
     >
       <PrimeIcon className="mr-1" />
 
-      <span className="bg-[linear-gradient(26deg,_#674031_-49.72%,_#FFECE3_85.68%,_#6D4637_221.08%,_#FFECE3_383.56%)] bg-clip-text text-transparent">
+      <span className="bg-[linear-gradient(26deg,#674031_-49.72%,#FFECE3_85.68%,#6D4637_221.08%,#FFECE3_383.56%)] bg-clip-text text-transparent">
         {readableApy}
       </span>
     </SenaryButton>

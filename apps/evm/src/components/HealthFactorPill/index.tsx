@@ -28,7 +28,7 @@ export const HealthFactorPill: React.FC<HealthFactorPillProps> = ({
       {showLabel && (
         <div
           className={cn(
-            'pl-4 pr-2 -ml-3 text-xs font-[500] border border-l-0 rounded-r-full border-box h-[21px]',
+            'pl-4 pr-2 -ml-3 text-xs font-medium border border-l-0 rounded-r-full border-box h-[21px]',
             bgSemiTransparentClass,
             borderClass,
           )}

@@ -14,7 +14,7 @@ export const useStyles = () => {
       margin-right: ${theme.spacing(2)};
     `,
     getSwitch: ({ isDark }: { isDark: boolean }) => css`
-      flex-shrink: 0;
+      shrink: 0;
       width: calc(${thumbSize} * 2);
       height: ${thumbSize};
       padding: 0;
