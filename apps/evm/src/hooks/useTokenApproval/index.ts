@@ -14,6 +14,10 @@ export interface UseTokenApprovalInput {
   accountAddress?: Address;
 }
 
+export interface UseTokenApprovalOptions {
+  enabled?: boolean;
+}
+
 export interface UseTokenApprovalOutput {
   isTokenApproved: boolean | undefined;
   approveToken: () => Promise<void>;
@@ -26,11 +30,10 @@ export interface UseTokenApprovalOutput {
 
 // TODO: add tests
 
-const useTokenApproval = ({
-  token,
-  spenderAddress,
-  accountAddress,
-}: UseTokenApprovalInput): UseTokenApprovalOutput => {
+const useTokenApproval = (
+  { token, spenderAddress, accountAddress }: UseTokenApprovalInput,
+  options?: UseTokenApprovalOptions,
+): UseTokenApprovalOutput => {
   const { data: getTokenAllowanceData, isLoading: isWalletSpendingLimitLoading } = useGetAllowance(
     {
       accountAddress: accountAddress || NULL_ADDRESS,
@@ -38,7 +41,11 @@ const useTokenApproval = ({
       token,
     },
     {
-      enabled: !!spenderAddress && !!accountAddress && !token.isNative,
+      enabled:
+        (options?.enabled === undefined || options.enabled) &&
+        !!spenderAddress &&
+        !!accountAddress &&
+        !token.isNative,
     },
   );
 
