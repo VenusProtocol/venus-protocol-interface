@@ -98,7 +98,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
 
           <input
             className={cn(
-              'bg-transparent flex-1 h-full font-semibold leading-6 w-full placeholder:text-grey outline-none',
+              'bg-transparent flex-1 h-full font-semibold leading-6 w-full placeholder:text-grey outline-hidden',
               !!rightAdornment && 'mr-1',
               size === 'xs' && 'text-sm',
             )}

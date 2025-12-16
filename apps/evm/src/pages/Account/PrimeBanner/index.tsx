@@ -65,7 +65,7 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
       {...otherProps}
     >
       {canUserBecomePrime && (
-        <div className="absolute inset-0 opacity-80 bg-gradient-to-r from-[#FF8461] via-[rgba(249,196,60,0.4)] to-[#00A7FF] blur-md filter" />
+        <div className="absolute inset-0 opacity-80 bg-linear-to-r from-[#FF8461] via-[rgba(249,196,60,0.4)] to-[#00A7FF] blur-md filter" />
       )}
 
       <Card
