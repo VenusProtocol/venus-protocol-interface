@@ -1,7 +1,8 @@
+import { opBnbTestnetFourierForkTimestamp } from '@venusprotocol/chains';
+
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from 'clients/api';
 import config from 'config';
-import { useChain } from 'hooks/useChain';
 import { AnalyticProvider } from 'libs/analytics';
 import { ErrorBoundary } from 'libs/errors';
 import { SentryErrorInfo } from 'libs/errors/SentryErrorInfo';
@@ -21,62 +22,61 @@ const GaslessChecker = safeLazyLoad(() => import('containers/GaslessChecker'));
 const ResendPayingGasModal = safeLazyLoad(() => import('containers/ResendPayingGasModal'));
 const ImportPositionsModal = safeLazyLoad(() => import('containers/ImportPositionsModal'));
 
-const App = () => {
-  const { hardforks } = useChain();
-  const upgradeTimestamps = (hardforks ?? []).map(hardfork => new Date(hardfork.startTimestamp));
+const App = () => (
+  <>
+    {
+      // Only index production with search engines
+      config.environment !== 'production' && (
+        <Helmet>
+          <meta name="robots" content="noindex" />
+        </Helmet>
+      )
+    }
 
-  return (
-    <>
-      {
-        // Only index production with search engines
-        config.environment !== 'production' && (
-          <Helmet>
-            <meta name="robots" content="noindex" />
-          </Helmet>
-        )
-      }
+    <HashRouter>
+      <MuiThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ErrorBoundary>
+            <Web3Wrapper>
+              <AnalyticProvider>
+                <Routes />
 
-      <HashRouter>
-        <MuiThemeProvider>
-          <QueryClientProvider client={queryClient}>
-            <ErrorBoundary>
-              <Web3Wrapper>
-                <AnalyticProvider>
-                  <Routes />
+                <Suspense>
+                  <NotificationCenter />
+                </Suspense>
 
-                  <Suspense>
-                    <NotificationCenter />
-                  </Suspense>
+                <Suspense>
+                  <AppVersionChecker />
+                </Suspense>
 
-                  <Suspense>
-                    <AppVersionChecker />
-                  </Suspense>
+                <Suspense>
+                  <GaslessChecker />
+                </Suspense>
 
-                  <Suspense>
-                    <GaslessChecker />
-                  </Suspense>
+                <Suspense>
+                  <ResendPayingGasModal />
+                </Suspense>
 
-                  <Suspense>
-                    <ResendPayingGasModal />
-                  </Suspense>
+                <Suspense>
+                  <ImportPositionsModal />
+                </Suspense>
 
-                  <Suspense>
-                    <ImportPositionsModal />
-                  </Suspense>
+                <ThemeHandler />
 
-                  <ThemeHandler />
+                <ChainUpgradeHandler
+                  upgradeTimestamps={
+                    config.network === 'testnet' ? [opBnbTestnetFourierForkTimestamp] : []
+                  }
+                />
 
-                  <ChainUpgradeHandler upgradeTimestamps={upgradeTimestamps} />
-
-                  <SentryErrorInfo />
-                </AnalyticProvider>
-              </Web3Wrapper>
-            </ErrorBoundary>
-          </QueryClientProvider>
-        </MuiThemeProvider>
-      </HashRouter>
-    </>
-  );
-};
+                <SentryErrorInfo />
+              </AnalyticProvider>
+            </Web3Wrapper>
+          </ErrorBoundary>
+        </QueryClientProvider>
+      </MuiThemeProvider>
+    </HashRouter>
+  </>
+);
 
 export default App;

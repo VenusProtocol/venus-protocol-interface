@@ -2,6 +2,8 @@ import { iconSrcs } from '../../generated/manifests/chainIcons';
 import { bnb, eth } from '../../tokens/nativeTokens';
 import { type Chain, ChainId } from '../../types';
 
+export const opBnbTestnetFourierForkTimestamp = new Date('2025-11-06T03:00:00Z');
+
 export const chains: Record<ChainId, Chain> = {
   [ChainId.BSC_MAINNET]: {
     name: 'BNB Chain',
