@@ -1,8 +1,8 @@
 .content {
-  color: rgb(var(--color-grey));
+  color: var(--color-grey);
 
   h2, h3 {
-    color: rgb(var(--color-offWhite));
+    color: var(--color-offWhite);
   }
 
   h2 {
@@ -23,7 +23,7 @@
   }
 
   a {
-    color: rgb(var(--color-offWhite));
+    color: var(--color-offWhite);
     text-decoration: underline;
   }
 
@@ -36,11 +36,11 @@
     color: inherit;
 
     &::marker {
-      color: rgb(var(--color-offWhite));
+      color: var(--color-offWhite);
     }
 
     span {
-      color: rgb(var(--color-offWhite));
+      color: var(--color-offWhite);
       font-weight: 600;
     }
   }

@@ -22,7 +22,6 @@
     "axios": "^1.7.2",
     "date-fns": "^4.1.0",
     "genversion": "^3.2.0",
-    "normalize.css": "^8.0.1",
     "posthog-js": "^1.257.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
