@@ -1,10 +1,15 @@
-@import 'tailwindcss';
+@import 'tailwindcss' source("../../../src");
+
+/* let tailwindcss include ui components */
+@source "@venusprotocol/ui";
 
 @import "tw-animate-css";
 @plugin 'tailwind-scrollbar';
 
 @import '@venusprotocol/ui/fonts/proximaNova' layer(base);
 @import '@venusprotocol/ui/theme' layer(theme);
+
+@import './components.css' layer(components);
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,

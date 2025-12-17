@@ -1,0 +1,9 @@
+@layer components {
+	hr.comp-delimiter {
+		background-color: var(--color-lightGrey);
+		height: 1px;
+		border-width: 0;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
