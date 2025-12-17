@@ -1,7 +1,7 @@
 @import 'tailwindcss' source("../../../src");
 
 /* let tailwindcss include ui components */
-@source "@venusprotocol/ui";
+@source "../../../../../packages/ui";
 
 @import "tw-animate-css";
 @plugin 'tailwind-scrollbar';

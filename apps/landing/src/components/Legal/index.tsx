@@ -24,7 +24,7 @@ export const Legal: React.FC<LegalProps> = ({ children, title, lastUpdatedAt }) 
             <IconChevron className="w-6 h-6" />
           </button>
 
-          <h1 className="text-[2rem] font-[600]">{title}</h1>
+          <h1 className="text-[2rem] font-semibold">{title}</h1>
         </div>
 
         <p className="text-grey text-base ml-9 sm:pb-[6px]">
