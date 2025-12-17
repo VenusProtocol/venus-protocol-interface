@@ -20,7 +20,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   return (
     <div {...otherProps}>
       <button
-        className="flex items-center justify-between w-full h-6"
+        className="flex items-center justify-between w-full h-6 cursor-pointer"
         type="button"
         onClick={toggle}
       >

@@ -118,6 +118,7 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
             type="button"
             onClick={onHidePrimePromotionalBanner}
             data-testid={testIds.closeButton}
+            className='cursor-pointer'
           >
             <Icon name="close" className="w-5 h-5" />
           </button>
@@ -131,7 +132,7 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
       {/* XS view */}
       <div className="sm:hidden">
         {canUserBecomePrime ? (
-          <button onClick={() => claimPrimeToken()} type="button" className="w-full">
+          <button onClick={() => claimPrimeToken()} type="button" className="w-full cursor-pointer">
             {dom}
           </button>
         ) : (

@@ -126,10 +126,10 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
 
       amountMantissa = formValues.repayFullLoan
         ? // Buff amount to cover accrued interests while the transaction is being mined if we're
-          // repaying a full loan without using a swap
-          buffer({
-            amountMantissa,
-          })
+        // repaying a full loan without using a swap
+        buffer({
+          amountMantissa,
+        })
         : amountMantissa;
 
       return repayWithCollateral({
@@ -172,30 +172,30 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     | Omit<GetApproximateOutSwapQuoteInput, 'chainId'> =
     formValues.direction === 'exact-in'
       ? {
-          ...sharedSwapQuoteProps,
-          fromTokenAmountTokens: debouncedInputCollateralAmountTokens,
-          direction: 'exact-in',
-        }
+        ...sharedSwapQuoteProps,
+        fromTokenAmountTokens: debouncedInputCollateralAmountTokens,
+        direction: 'exact-in',
+      }
       : {
-          ...sharedSwapQuoteProps,
-          minToTokenAmountTokens: formValues.repayFullLoan
-            ? convertMantissaToTokens({
-                value:
-                  // Buff amount if we're repaying full loan to account for accrued interests while
-                  // transaction is being mined
-                  buffer({
-                    amountMantissa: BigInt(
-                      convertTokensToMantissa({
-                        value: repaidAsset.userBorrowBalanceTokens,
-                        token: repaidAsset.vToken.underlyingToken,
-                      }).toFixed(),
-                    ),
-                  }),
-                token: repaidAsset.vToken.underlyingToken,
-              })
-            : debouncedInputRepaidAmountTokens,
-          direction: 'approximate-out',
-        };
+        ...sharedSwapQuoteProps,
+        minToTokenAmountTokens: formValues.repayFullLoan
+          ? convertMantissaToTokens({
+            value:
+              // Buff amount if we're repaying full loan to account for accrued interests while
+              // transaction is being mined
+              buffer({
+                amountMantissa: BigInt(
+                  convertTokensToMantissa({
+                    value: repaidAsset.userBorrowBalanceTokens,
+                    token: repaidAsset.vToken.underlyingToken,
+                  }).toFixed(),
+                ),
+              }),
+            token: repaidAsset.vToken.underlyingToken,
+          })
+          : debouncedInputRepaidAmountTokens,
+        direction: 'approximate-out',
+      };
 
   const {
     data: getSwapQuoteData,
@@ -366,8 +366,8 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
                 tokenBalances={tokenBalances}
                 description={
                   !isSubmitting &&
-                  !!formError &&
-                  formError.code !== 'HIGHER_THAN_BORROW_BALANCE' ? (
+                    !!formError &&
+                    formError.code !== 'HIGHER_THAN_BORROW_BALANCE' ? (
                     <p className="text-red">{formError.message}</p>
                   ) : undefined
                 }
@@ -379,7 +379,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
                   data-testid={TEST_IDS.availableAmount}
                 >
                   <button
-                    className="transition-colors hover:text-blue"
+                    className="transition-colors cursor-pointer hover:text-blue"
                     type="button"
                     onClick={handleMaxCollateralButtonClick}
                   >
@@ -436,7 +436,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
 
       <ConnectWallet
         className={cn('space-y-4', accountAddress ? 'mt-4' : 'mt-6')}
-        // TODO: add analytic variant
+      // TODO: add analytic variant
       >
         <div className="space-y-4">
           <Notice

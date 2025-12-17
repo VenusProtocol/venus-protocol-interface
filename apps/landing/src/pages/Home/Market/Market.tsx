@@ -30,7 +30,7 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
       <Container className={cn(s.root, className)}>
         {getLegacyPoolMarketsError && <p>{getLegacyPoolMarketsError.message}</p>}
         {getTvlDataError && <p>{getTvlDataError.message}</p>}
-        <button className={s.btn} type="button" onClick={() => refetch()}>
+        <button className={cn(s.btn, 'cursor-pointer')} type="button" onClick={() => refetch()}>
           Try again
         </button>
       </Container>

@@ -64,7 +64,7 @@ const Header: React.FC<IHeaderProps> = ({ className }) => {
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           type="button"
-          className={s.menuMobileBtn}
+          className={cn(s.menuMobileBtn, 'cursor-pointer')}
         >
           {isMobileMenuOpen ? (
             <svg

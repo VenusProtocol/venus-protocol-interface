@@ -63,25 +63,25 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
     () =>
       userBorrowingPowerCents
         ? [...pool.assets]
-            // Sort by collateral factor
-            .sort((a, b) => compareNumbers(a.userCollateralFactor, b.userCollateralFactor, 'desc'))
-            .reduce<OptionalTokenBalance[]>((acc, asset) => {
-              if (
-                asset.userCollateralFactor === 0 ||
-                // Skip vBNB
-                asset.vToken.symbol === 'vBNB' ||
-                // Skip tokens that have reached their supply cap
-                asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens)
-              ) {
-                return acc;
-              }
+          // Sort by collateral factor
+          .sort((a, b) => compareNumbers(a.userCollateralFactor, b.userCollateralFactor, 'desc'))
+          .reduce<OptionalTokenBalance[]>((acc, asset) => {
+            if (
+              asset.userCollateralFactor === 0 ||
+              // Skip vBNB
+              asset.vToken.symbol === 'vBNB' ||
+              // Skip tokens that have reached their supply cap
+              asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens)
+            ) {
+              return acc;
+            }
 
-              const tokenBalance: OptionalTokenBalance = {
-                token: asset.vToken.underlyingToken,
-              };
+            const tokenBalance: OptionalTokenBalance = {
+              token: asset.vToken.underlyingToken,
+            };
 
-              return [...acc, tokenBalance];
-            }, [])
+            return [...acc, tokenBalance];
+          }, [])
         : [],
     [pool.assets, userBorrowingPowerCents],
   );
@@ -394,7 +394,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
 
       <ConnectWallet
         className={cn('space-y-4', accountAddress ? 'mt-2' : 'mt-6')}
-        // TODO: add analytic variant
+      // TODO: add analytic variant
       >
         <div className="space-y-4">
           <LabeledInlineContent
@@ -402,7 +402,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
             data-testid={TEST_IDS.availableAmount}
           >
             <button
-              className="transition-colors hover:text-blue"
+              className="transition-colors cursor-pointer hover:text-blue"
               type="button"
               onClick={handleMaxButtonClick}
             >

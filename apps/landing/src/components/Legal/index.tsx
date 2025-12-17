@@ -20,7 +20,7 @@ export const Legal: React.FC<LegalProps> = ({ children, title, lastUpdatedAt }) 
     <Container className="pt-15 pb-16 sm:pt-20">
       <div className="py-10 mb-10 border-b border-b-lightGrey space-y-1 sm:space-y-0 sm:flex sm:items-end sm:justify-between sm:py-16 sm:mb-16">
         <div className="flex items-center gap-x-3">
-          <button type="button" onClick={handleGoBack}>
+          <button type="button" onClick={handleGoBack} className='cursor-pointer'>
             <IconChevron className="w-6 h-6" />
           </button>
 

@@ -52,7 +52,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
   let xsDom = (
     <div className="space-y-4 md:hidden">
       <button
-        className="px-4 py-5 rounded-xl border border-lightGrey block w-full text-left"
+        className="px-4 py-5 rounded-xl border border-lightGrey block w-full text-left cursor-pointer"
         type="button"
         onClick={() => setIsAccordionOpen(c => !c)}
       >
