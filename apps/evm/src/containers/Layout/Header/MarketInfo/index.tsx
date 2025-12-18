@@ -39,13 +39,13 @@ export const MarketInfo = () => {
   const cells: CellProps[] = useMemo(() => {
     const readableMaxLtvPercentage = asset
       ? formatPercentageToReadableValue(
-        asset
-          ? // We use BigNumber to prevent issues with floating-point numbers
-          new BigNumber(asset.collateralFactor)
-            .multipliedBy(100)
-            .toNumber()
-          : undefined,
-      )
+          asset
+            ? // We use BigNumber to prevent issues with floating-point numbers
+              new BigNumber(asset.collateralFactor)
+                .multipliedBy(100)
+                .toNumber()
+            : undefined,
+        )
       : undefined;
 
     return [
@@ -92,7 +92,11 @@ export const MarketInfo = () => {
   return (
     <div className="pb-6 sm:pb-12 md:pb-10 border-b-lightGrey border-b space-y-6 sm:space-y-8">
       <div className="hidden sm:flex items-center h-8 mt-4 px-4 md:px-6 xl:px-10 max-w-[1360px] mx-auto">
-        <button type="button" onClick={handleGoBack} className="h-full pr-3 flex items-center cursor-pointer">
+        <button
+          type="button"
+          onClick={handleGoBack}
+          className="h-full pr-3 flex items-center cursor-pointer"
+        >
           <Icon name="chevronLeft" className="w-6 h-6 text-offWhite" />
         </button>
 
@@ -128,7 +132,11 @@ export const MarketInfo = () => {
           )}
         </div>
         <div className="flex flex-wrap gap-x-2 gap-y-1 items-center">
-          <button type="button" onClick={handleGoBack} className="h-full flex items-center cursor-pointer">
+          <button
+            type="button"
+            onClick={handleGoBack}
+            className="h-full flex items-center cursor-pointer"
+          >
             <Icon name="chevronLeft" className="w-6 h-6 text-offWhite" />
             {(!asset || !pool) && <Spinner className="h-full w-auto" />}
           </button>

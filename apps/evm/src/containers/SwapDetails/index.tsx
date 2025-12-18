@@ -82,7 +82,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
             </p>
 
             <div className="flex items-center justify-center gap-x-1">
-              <button type="button" onClick={openSlippageToleranceModal} className='cursor-pointer'>
+              <button type="button" onClick={openSlippageToleranceModal} className="cursor-pointer">
                 <Icon name="gear" className="size-5" />
               </button>
             </div>
@@ -97,8 +97,8 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
             className={cn(
               'align-sub',
               priceImpactPercentage !== undefined &&
-              priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
-              'text-red',
+                priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+                'text-red',
             )}
           >
             {readablePriceImpact}
@@ -123,7 +123,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
                     className={cn(
                       'flex-1 bg-transparent border-transparent text-grey hover:bg-lightGrey hover:border-lightGrey hover:text-offWhite active:bg-lightGrey active:border-lightGrey',
                       Number(value) === Number(userSlippageTolerancePercentage) &&
-                      'bg-lightGrey text-offWhite',
+                        'bg-lightGrey text-offWhite',
                     )}
                     onClick={() =>
                       handleSlippageToleranceModalFieldChange({

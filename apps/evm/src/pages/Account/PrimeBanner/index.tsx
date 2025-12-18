@@ -118,7 +118,7 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
             type="button"
             onClick={onHidePrimePromotionalBanner}
             data-testid={testIds.closeButton}
-            className='cursor-pointer'
+            className="cursor-pointer"
           >
             <Icon name="close" className="w-5 h-5" />
           </button>

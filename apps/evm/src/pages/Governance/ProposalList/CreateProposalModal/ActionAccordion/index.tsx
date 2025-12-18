@@ -58,7 +58,12 @@ const ActionAccordion: React.FC = () => {
                   title={action.signature || t('vote.createProposalForm.action')}
                   rightAdornment={
                     idx === 0 ? undefined : (
-                      <button onClick={() => remove(idx)} type="button" css={styles.iconButton} className='cursor-pointer'>
+                      <button
+                        onClick={() => remove(idx)}
+                        type="button"
+                        css={styles.iconButton}
+                        className="cursor-pointer"
+                      >
                         <Icon name="closeRounded" css={styles.closeIcon} />
                       </button>
                     )
