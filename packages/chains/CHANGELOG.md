@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.15.0
+
+### Minor Changes
+
+- 0c85f14: add auto-reload when passing hardforks (updated)
+
 ## 0.14.0
 
 ### Minor Changes

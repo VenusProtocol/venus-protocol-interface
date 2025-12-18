@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.81.0
+
+### Minor Changes
+
+- 0c85f14: add auto-reload when passing hardforks (updated)
+
+### Patch Changes
+
+- Updated dependencies [0c85f14]
+  - @venusprotocol/chains@0.15.0
+
 ## 3.80.0
 
 ### Minor Changes
