@@ -1,5 +1,3 @@
-import { opBnbTestnetFourierForkTimestamp } from '@venusprotocol/chains';
-
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from 'clients/api';
 import config from 'config';
@@ -63,11 +61,7 @@ const App = () => (
 
                 <ThemeHandler />
 
-                <ChainUpgradeHandler
-                  upgradeTimestamps={
-                    config.network === 'testnet' ? [opBnbTestnetFourierForkTimestamp] : []
-                  }
-                />
+                <ChainUpgradeHandler />
 
                 <SentryErrorInfo />
               </AnalyticProvider>
