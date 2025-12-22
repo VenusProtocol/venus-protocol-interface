@@ -1,7 +1,7 @@
-import { EModeBanner } from 'components';
 import { MarketTable } from 'containers/MarketTable';
 import { PoolStats } from 'containers/PoolStats';
 import type { Pool } from 'types';
+import { AdBanner } from './AdBanner';
 
 export interface AssetsProps {
   pool: Pool;
@@ -29,16 +29,7 @@ export const Assets: React.FC<AssetsProps> = ({ pool }) => (
         orderBy: 'labeledSupplyApy',
         orderDirection: 'desc',
       }}
-      header={
-        pool.eModeGroups.length > 0 && (
-          <EModeBanner
-            className="lg:mt-4"
-            poolComptrollerContractAddress={pool.comptrollerAddress}
-            analyticVariant="pool_banner"
-            enabledEModeGroup={pool.userEModeGroup}
-          />
-        )
-      }
+      header={<AdBanner />}
     />
   </div>
 );

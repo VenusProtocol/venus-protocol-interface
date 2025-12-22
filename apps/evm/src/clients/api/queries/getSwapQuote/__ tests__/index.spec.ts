@@ -54,7 +54,7 @@ describe('getSwapQuote', () => {
     expect(restService).toHaveBeenCalledTimes(1);
     expect((restService as Mock).mock.calls[0][0]).toMatchInlineSnapshot(`
       {
-        "endpoint": "/find-swap/pcs",
+        "endpoint": "/find-swap",
         "method": "GET",
         "params": {
           "chainId": 56,
@@ -106,7 +106,7 @@ describe('getSwapQuote', () => {
     expect(restService).toHaveBeenCalledTimes(1);
     expect((restService as Mock).mock.calls[0][0]).toMatchInlineSnapshot(`
       {
-        "endpoint": "/find-swap/pcs",
+        "endpoint": "/find-swap",
         "method": "GET",
         "params": {
           "chainId": 56,
@@ -158,7 +158,7 @@ describe('getSwapQuote', () => {
     expect(restService).toHaveBeenCalledTimes(1);
     expect((restService as Mock).mock.calls[0][0]).toMatchInlineSnapshot(`
       {
-        "endpoint": "/find-swap/pcs",
+        "endpoint": "/find-swap",
         "method": "GET",
         "params": {
           "chainId": 56,

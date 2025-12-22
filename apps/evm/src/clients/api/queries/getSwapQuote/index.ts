@@ -45,7 +45,7 @@ export const getSwapQuote = async ({
   }
 
   const txsResponse = await restService<SwapApiResponse>({
-    endpoint: '/find-swap/pcs',
+    endpoint: '/find-swap',
     method: 'GET',
     params,
   });
