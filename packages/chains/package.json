@@ -51,7 +51,7 @@
     "tsdown": "^0.18.0",
     "tsx": "^4.20.5",
     "viem": "^2.23.1",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.16"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.51.0"
