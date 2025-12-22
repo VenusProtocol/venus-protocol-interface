@@ -102,7 +102,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                   name="mark"
                   className={cn(
                     'text-green ml-4 w-5 h-5 shrink-0 opacity-0',
-                    value === option.value && 'opacity-1',
+                    value === option.value && 'opacity-100',
                   )}
                 />
               </button>

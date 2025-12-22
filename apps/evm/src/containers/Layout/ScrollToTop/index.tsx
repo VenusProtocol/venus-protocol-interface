@@ -15,7 +15,7 @@ const ScrollToTop = forwardRef<HTMLButtonElement>((_, ref) => {
       ref={ref}
       className={cn(
         'bg-lightGrey fixed bottom-3 right-3 h-10 w-10 rounded-full border-0 p-0 shadow transition-all lg:hidden',
-        isVisible ? 'opacity-1' : 'pointer-events-none opacity-0',
+        isVisible ? 'opacity-100' : 'pointer-events-none opacity-0',
         isCloseToBottom ? '-translate-y-[125%]' : 'translate-y-0',
       )}
       onClick={() => scrollElem?.scrollTo({ behavior: 'smooth', top: 0 })}

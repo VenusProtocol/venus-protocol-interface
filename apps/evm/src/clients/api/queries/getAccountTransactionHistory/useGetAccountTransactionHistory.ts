@@ -2,6 +2,7 @@ import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
 
 import FunctionKey from 'constants/functionKey';
 import { useChainId } from 'libs/wallet';
+import type { ChainId } from 'types';
 import {
   type GetAccountTransactionHistoryInput,
   type GetAccountTransactionHistoryOutput,
@@ -19,7 +20,12 @@ type Options = QueryObserverOptions<
   Error,
   GetAccountTransactionHistoryOutput,
   GetAccountTransactionHistoryOutput,
-  [FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY, TrimmedGetAccountTransactionHistoryInput]
+  [
+    FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY,
+    TrimmedGetAccountTransactionHistoryInput & {
+      chainId: ChainId;
+    },
+  ]
 >;
 
 export const useGetAccountTransactionHistory = (
@@ -35,7 +41,7 @@ export const useGetAccountTransactionHistory = (
   };
 
   return useQuery({
-    queryKey: [FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY, params],
+    queryKey: [FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY, { ...params, chainId }],
     queryFn: () => getAccountTransactionHistory(extendedParams),
     ...options,
   });
