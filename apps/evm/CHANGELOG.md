@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.82.0
+
+### Minor Changes
+
+- ce4bfe7: add Ad banner to Pool page
+
 ## 3.81.0
 
 ### Minor Changes
