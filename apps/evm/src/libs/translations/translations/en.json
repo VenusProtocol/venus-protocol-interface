@@ -283,6 +283,7 @@
     "supplyDescription": "Supplying {{tokenSymbol}} to the {{poolName}} pool will enable you to borrow tokens from this pool exclusively. <Button>Show all markets</Button>"
   },
   "binanceWalletBanner": {
+    "bgIllustrationAltText": "Background illustration",
     "binanceLogoAltText": "Binance logo",
     "description": "Borrow USDT and share <Bold>$400,000</Bold> in rewards!",
     "title": "Venus is live on Binance Wallet Earn."
@@ -393,7 +394,6 @@
     "connectButton": "Connect wallet"
   },
   "eModeBanner": {
-    "description": "E-Mode increases your LTV for a selected group of assets. <Link>Learn more</Link>",
     "exploreButtonLabel": "Explore",
     "illustrationAltText": "E-mode illustration",
     "manageEModeButtonLabel": "Manage E-mode",
@@ -518,6 +518,11 @@
       "supplyApy": "Supply APY",
       "utilizationRate": "Utilization rate"
     }
+  },
+  "isolatedPoolsSunsetBanner": {
+    "description": "Claim your rewards and close your positions within isolated pools",
+    "illustrationAltText": "Illustration",
+    "title": "Isolated pools are being sunsetted"
   },
   "layout": {
     "chainSelect": {
@@ -836,7 +841,6 @@
           "label": "Max LTV",
           "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
         },
-        "new": "New",
         "title": "E-mode"
       }
     }
