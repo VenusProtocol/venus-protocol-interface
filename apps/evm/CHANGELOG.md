@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 3.83.0
+
+### Minor Changes
+
+- 4e01834: only allow users with pre-existing collateral to open a leveraged position
+- 59d69a8: add banner announcing isolated pools sunsetting
+
+### Patch Changes
+
+- 2e7f952: fix issue with incorrect decimals used in approximate-out swaps
+
 ## 3.82.0
 
 ### Minor Changes
