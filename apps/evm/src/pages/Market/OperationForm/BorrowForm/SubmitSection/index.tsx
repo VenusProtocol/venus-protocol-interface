@@ -4,6 +4,7 @@ import { PrimaryButton } from 'components';
 import { SwitchChain } from 'containers/SwitchChain';
 import { useTranslation } from 'libs/translations';
 import { ApproveDelegateSteps, type ApproveDelegateStepsProps } from '../../ApproveDelegateSteps';
+import type { FormError } from '../../types';
 import type { FormErrorCode } from '../useForm';
 
 export interface SubmitSectionProps {
@@ -13,13 +14,13 @@ export interface SubmitSectionProps {
   isApproveDelegateLoading: ApproveDelegateStepsProps['isApproveDelegateeLoading'];
   isDelegateApproved: ApproveDelegateStepsProps['isDelegateeApproved'];
   isDelegateApprovedLoading: ApproveDelegateStepsProps['isDelegateeApprovedLoading'];
-  formErrorCode?: FormErrorCode;
+  formError?: FormError<FormErrorCode>;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isFormValid,
   isFormSubmitting,
-  formErrorCode,
+  formError,
   approveDelegateAction,
   isApproveDelegateLoading,
   isDelegateApproved,
@@ -28,12 +29,12 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   const { t } = useTranslation();
 
   const submitButtonLabel = useMemo(() => {
-    if (!isFormValid && formErrorCode !== 'REQUIRES_RISK_ACKNOWLEDGEMENT') {
+    if (!isFormValid && formError?.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT') {
       return t('operationForm.submitButtonLabel.enterValidAmount');
     }
 
     return t('operationForm.submitButtonLabel.borrow');
-  }, [isFormValid, t, formErrorCode]);
+  }, [isFormValid, t, formError?.code]);
 
   let dom = (
     <PrimaryButton

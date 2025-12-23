@@ -374,7 +374,7 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
         <SubmitSection
           isFormSubmitting={isSubmitting}
           isFormValid={isFormValid}
-          formErrorCode={formError?.code}
+          formError={formError}
           isDelegateApproved={isDelegateApproved}
           isDelegateApprovedLoading={isDelegateApprovedLoading}
           approveDelegateAction={approveDelegateAction}

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { handleError, isUserRejectedTxError } from 'libs/errors';
-import type { Asset, Swap, SwapError, Token } from 'types';
+import type { Asset, AssetBalanceMutation, Pool, Swap, SwapError, SwapQuote, Token } from 'types';
 
 import { useAnalytics } from 'libs/analytics';
 import { calculateAmountDollars } from '../../calculateAmountDollars';
@@ -13,7 +13,8 @@ export * from './types';
 
 export interface UseFormInput {
   asset: Asset;
-  poolName: string;
+  pool: Pool;
+  balanceMutations: AssetBalanceMutation[];
   onSubmit: (input: {
     fromToken: Token;
     fromTokenAmountTokens: string;
@@ -22,12 +23,14 @@ export interface UseFormInput {
   formValues: FormValues;
   setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
   isUsingSwap: boolean;
-  onSubmitSuccess?: () => void;
+  simulatedPool?: Pool;
   isFromTokenApproved?: boolean;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   fromTokenUserWalletBalanceTokens?: BigNumber;
-  swap?: Swap;
-  swapError?: SwapError;
+  swap?: Swap; // TODO: remove once swap and supply flow has been implemented
+  swapError?: SwapError; // TODO: remove once swap and supply flow has been implemented
+  swapQuote?: SwapQuote;
+  swapQuoteErrorCode?: string;
 }
 
 interface UseFormOutput {
@@ -38,23 +41,31 @@ interface UseFormOutput {
 
 const useForm = ({
   asset,
-  poolName,
+  pool,
+  simulatedPool,
+  balanceMutations,
   fromTokenUserWalletBalanceTokens = new BigNumber(0),
   fromTokenWalletSpendingLimitTokens,
   isFromTokenApproved,
   isUsingSwap,
-  onSubmitSuccess,
+  swapQuote,
   swap,
   swapError,
+  swapQuoteErrorCode,
   formValues,
   setFormValues,
   onSubmit,
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formError } = useFormValidation({
     asset,
+    pool,
+    simulatedPool,
+    balanceMutations,
     formValues,
+    swapQuote,
     swap,
     swapError,
+    swapQuoteErrorCode,
     isFromTokenApproved,
     isUsingSwap,
     fromTokenWalletSpendingLimitTokens,
@@ -71,7 +82,7 @@ const useForm = ({
     }
 
     const analyticData = {
-      poolName,
+      poolName: pool.name,
       assetSymbol: asset.vToken.underlyingToken.symbol,
       usdAmount: calculateAmountDollars({
         amountTokens: formValues.amountTokens,
@@ -95,7 +106,6 @@ const useForm = ({
         fromToken: asset.vToken.underlyingToken,
         amountTokens: '',
       }));
-      onSubmitSuccess?.();
     } catch (error) {
       if (isUserRejectedTxError({ error })) {
         captureAnalyticEvent('supply_rejected', analyticData);

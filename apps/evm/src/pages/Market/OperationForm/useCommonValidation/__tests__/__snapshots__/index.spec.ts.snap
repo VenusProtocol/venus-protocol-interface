@@ -1,0 +1,108 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'BORROW_CAP_ALREADY_REACHED' 1`] = `
+{
+  "current": {
+    "code": "BORROW_CAP_ALREADY_REACHED",
+    "message": "The borrow cap of 1 XVS has been reached for this pool. You can not borrow from this market anymore until loans are repaid or its borrow cap is increased.",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'HIGHER_THAN_AVAILABLE_AMOUNT' 1`] = `
+{
+  "current": {
+    "code": "HIGHER_THAN_AVAILABLE_AMOUNT",
+    "message": "Amount entered higher than available amount",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'HIGHER_THAN_BORROW_CAP' 1`] = `
+{
+  "current": {
+    "code": "HIGHER_THAN_BORROW_CAP",
+    "message": "You can not borrow more than 9 XVS from this pool, as the borrow cap for this market is set at 10 XVS and 1 XVS are currently being borrowed from it.",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'HIGHER_THAN_LIQUIDITY' 1`] = `
+{
+  "current": {
+    "code": "HIGHER_THAN_LIQUIDITY",
+    "message": "Insufficient asset liquidity",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'HIGHER_THAN_LIQUIDITY' 2`] = `
+{
+  "current": {
+    "code": "HIGHER_THAN_LIQUIDITY",
+    "message": "Insufficient asset liquidity",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'HIGHER_THAN_REPAY_BALANCE' 1`] = `
+{
+  "current": {
+    "code": "HIGHER_THAN_REPAY_BALANCE",
+    "message": "Amount entered higher than repay balance",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'HIGHER_THAN_SUPPLY_CAP' 1`] = `
+{
+  "current": {
+    "code": "HIGHER_THAN_SUPPLY_CAP",
+    "message": "You can not supply more than 9 XVS to this pool, as the supply cap for this market is set at 10 XVS and 1 XVS are currently being supplied to it.",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'NO_SWAP_QUOTE_FOUND' 1`] = `
+{
+  "current": {
+    "code": "NO_SWAP_QUOTE_FOUND",
+    "message": "No swap found. Please update the form.",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'REQUIRES_RISK_ACKNOWLEDGEMENT' 1`] = `
+{
+  "current": {
+    "code": "REQUIRES_RISK_ACKNOWLEDGEMENT",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'SUPPLY_CAP_ALREADY_REACHED' 1`] = `
+{
+  "current": {
+    "code": "SUPPLY_CAP_ALREADY_REACHED",
+    "message": "The supply cap of 1 XVS has been reached for this pool. You can not supply to this market anymore until withdraws are made or its supply cap is increased.",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'SWAP_PRICE_IMPACT_TOO_HIGH' 1`] = `
+{
+  "current": {
+    "code": "SWAP_PRICE_IMPACT_TOO_HIGH",
+    "message": "Price impact too high",
+  },
+}
+`;
+
+exports[`useCommonValidation > returns the right error based on passed arguments: 'TOO_RISKY' 1`] = `
+{
+  "current": {
+    "code": "TOO_RISKY",
+    "message": "This transaction would get your account liquidated",
+  },
+}
+`;

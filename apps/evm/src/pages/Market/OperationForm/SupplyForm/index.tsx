@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import type { Address, Hex } from 'viem';
 
-import { cn } from '@venusprotocol/ui';
 import { useSupply, useSwapTokensAndSupply } from 'clients/api';
 import {
   Delimiter,
@@ -12,7 +12,6 @@ import {
   TokenTextField,
 } from 'components';
 import { useCollateral } from 'hooks/useCollateral';
-import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
 import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
@@ -20,89 +19,283 @@ import useTokenApproval from 'hooks/useTokenApproval';
 import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
-import type { Asset, BalanceMutation, Pool, Swap, SwapError, TokenBalance } from 'types';
+import type { Asset, AssetBalanceMutation, Pool, SwapQuote, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
   convertTokensToMantissa,
+  formatTokensToReadableValue,
   getSwapToTokenAmountReceivedTokens,
   getUniqueTokenBalances,
   isCollateralActionDisabled,
 } from 'utilities';
 
-import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
-import { ApyBreakdown } from '../ApyBreakdown';
-import { OperationDetails } from '../OperationDetails';
+import { Footer } from '../Footer';
+import type { Approval } from '../Footer/types';
 import { calculateAmountDollars } from '../calculateAmountDollars';
-import Notice from './Notice';
-import SubmitSection, { type SubmitSectionProps } from './SubmitSection';
 import TEST_IDS from './testIds';
-import useForm, { type FormValues, type UseFormInput } from './useForm';
+import useForm, { type FormValues } from './useForm';
 
-export interface SupplyFormUiProps
-  extends Pick<
-    SubmitSectionProps,
-    | 'approveFromToken'
-    | 'isApproveFromTokenLoading'
-    | 'isFromTokenApproved'
-    | 'isFromTokenWalletSpendingLimitLoading'
-  > {
-  isUserConnected: boolean;
+export interface SupplyFormProps {
   asset: Asset;
   pool: Pool;
-  onSubmit: UseFormInput['onSubmit'];
-  isSubmitting: boolean;
-  nativeWrappedTokenBalances: TokenBalance[];
-  integratedSwapTokenBalances: TokenBalance[];
-  setFormValues: (setter: (currentFormValues: FormValues) => FormValues) => void;
-  formValues: FormValues;
-  isSwapLoading: boolean;
-  revokeFromTokenWalletSpendingLimit: () => Promise<unknown>;
-  isRevokeFromTokenWalletSpendingLimitLoading: boolean;
-  isIntegratedSwapFeatureEnabled: boolean;
-  canWrapNativeToken: boolean;
-  isWrappingNativeToken: boolean;
-  isUsingSwap: boolean;
-  onSubmitSuccess?: () => void;
-  fromTokenWalletSpendingLimitTokens?: BigNumber;
-  swap?: Swap;
-  swapError?: SwapError;
+  userTokenWrappedBalanceMantissa?: BigNumber;
 }
 
-export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
-  isUserConnected,
+const SupplyForm: React.FC<SupplyFormProps> = ({
   asset,
   pool,
-  onSubmitSuccess,
-  onSubmit,
-  isSubmitting,
-  nativeWrappedTokenBalances,
-  integratedSwapTokenBalances,
-  setFormValues,
-  formValues,
-  isSwapLoading,
-  approveFromToken,
-  isApproveFromTokenLoading,
-  isFromTokenApproved,
-  isFromTokenWalletSpendingLimitLoading,
-  fromTokenWalletSpendingLimitTokens,
-  revokeFromTokenWalletSpendingLimit,
-  isRevokeFromTokenWalletSpendingLimitLoading,
-  isIntegratedSwapFeatureEnabled,
-  canWrapNativeToken,
-  isWrappingNativeToken,
-  isUsingSwap,
-  swap,
-  swapError,
+  userTokenWrappedBalanceMantissa,
 }) => {
   const { t } = useTranslation();
-  const { toggleCollateral } = useCollateral();
   const { captureAnalyticEvent } = useAnalytics();
+
+  const { chainId: accountChainId } = useAccountChainId();
+  const { chainId } = useChainId();
+
+  const { accountAddress } = useAccountAddress();
+  const isUserConnected = !!accountAddress;
+
+  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
+  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
+  const isIntegratedSwapFeatureEnabled = useMemo(
+    () =>
+      isIntegratedSwapEnabled &&
+      // Check swap and supply action is enabled for underlying token
+      !asset.disabledTokenActions.includes('swapAndSupply'),
+    [asset.disabledTokenActions, isIntegratedSwapEnabled],
+  );
+
+  const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
+    name: 'NativeTokenGateway',
+    poolComptrollerContractAddress: pool.comptrollerAddress,
+  });
+
+  const { address: swapRouterContractAddress } = useGetContractAddress({
+    name: 'SwapRouter',
+    poolComptrollerContractAddress: pool.comptrollerAddress,
+  });
+
+  const { toggleCollateral } = useCollateral();
+
+  const canWrapNativeToken = useMemo(
+    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
+    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
+  );
+
+  const userWalletNativeTokenBalanceTokens = useMemo(() => {
+    return userTokenWrappedBalanceMantissa
+      ? convertMantissaToTokens({
+          token: asset.vToken.underlyingToken.tokenWrapped,
+          value: userTokenWrappedBalanceMantissa,
+        })
+      : undefined;
+  }, [asset.vToken.underlyingToken.tokenWrapped, userTokenWrappedBalanceMantissa]);
+
+  const shouldSelectNativeToken =
+    canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
+
+  const initialFormValues: FormValues = useMemo(
+    () => ({
+      amountTokens: '',
+      fromToken:
+        shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
+          ? asset.vToken.underlyingToken.tokenWrapped
+          : asset.vToken.underlyingToken,
+    }),
+    [asset, shouldSelectNativeToken],
+  );
+
+  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+
+  // Reset form when user disconnects their wallet
+  useEffect(() => {
+    if (!accountAddress) {
+      setFormValues(initialFormValues);
+    }
+  }, [accountAddress, initialFormValues]);
+
+  // a user is trying to wrap the chain's native token if
+  // 1) the wrap/unwrap feature is enabled
+  // 2) the selected form token is the native token
+  // 3) the market's underlying token wraps the native token
+  const isWrappingNativeToken = useMemo(
+    () => canWrapNativeToken && !!formValues.fromToken.isNative,
+    [canWrapNativeToken, formValues.fromToken],
+  );
+
+  const isUsingSwap = useMemo(
+    () =>
+      isIntegratedSwapFeatureEnabled &&
+      !isWrappingNativeToken &&
+      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
+    [
+      isIntegratedSwapFeatureEnabled,
+      formValues.fromToken,
+      asset.vToken.underlyingToken,
+      isWrappingNativeToken,
+    ],
+  );
+
+  let spenderAddress: undefined | Address = asset.vToken.address;
+
+  if (isWrappingNativeToken) {
+    spenderAddress = nativeTokenGatewayContractAddress;
+  } else if (isUsingSwap) {
+    spenderAddress = swapRouterContractAddress;
+  }
+
+  const {
+    isTokenApproved: isFromTokenApproved,
+    isApproveTokenLoading: isApproveFromTokenLoading,
+    walletSpendingLimitTokens: fromTokenWalletSpendingLimitTokens,
+    revokeWalletSpendingLimit: revokeFromTokenWalletSpendingLimit,
+    isRevokeWalletSpendingLimitLoading: isRevokeFromTokenWalletSpendingLimitLoading,
+  } = useTokenApproval({
+    token: formValues.fromToken,
+    spenderAddress,
+    accountAddress,
+  });
+
+  const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
+    if (asset.vToken.underlyingToken.tokenWrapped && userTokenWrappedBalanceMantissa) {
+      const marketTokenBalance: TokenBalance = {
+        token: asset.vToken.underlyingToken,
+        balanceMantissa: convertTokensToMantissa({
+          token: asset.vToken.underlyingToken,
+          value: asset.userWalletBalanceTokens,
+        }),
+      };
+      const nativeTokenBalance: TokenBalance = {
+        token: asset.vToken.underlyingToken.tokenWrapped,
+        balanceMantissa: userTokenWrappedBalanceMantissa,
+      };
+      return [marketTokenBalance, nativeTokenBalance];
+    }
+    return [];
+  }, [
+    asset.vToken.underlyingToken,
+    asset.userWalletBalanceTokens,
+    userTokenWrappedBalanceMantissa,
+  ]);
+
+  const { data: integratedSwapTokenBalances } = useGetSwapTokenUserBalances({
+    accountAddress,
+  });
+
+  const { mutateAsync: supply, isPending: isSupplyLoading } = useSupply();
+
+  const { mutateAsync: swapExactTokensForTokensAndSupply, isPending: isSwapAndSupplyLoading } =
+    useSwapTokensAndSupply({
+      poolName: pool.name,
+      poolComptrollerAddress: pool.comptrollerAddress,
+      vToken: asset.vToken,
+    });
+
+  const isSubmitting = isSupplyLoading || isSwapAndSupplyLoading;
+
+  const onSubmit = async () => {
+    const amountMantissa = convertTokensToMantissa({
+      value: new BigNumber(formValues.amountTokens.trim()),
+      token: formValues.fromToken,
+    });
+
+    // Handle supply flow
+    if (!isUsingSwap && !isWrappingNativeToken) {
+      return supply({ amountMantissa, poolName: pool.name, vToken: asset.vToken });
+    }
+
+    if (isWrappingNativeToken) {
+      return supply({
+        poolName: pool.name,
+        vToken: asset.vToken,
+        amountMantissa,
+        wrap: true,
+        poolComptrollerContractAddress: pool.comptrollerAddress,
+      });
+    }
+
+    // Throw an error if we're meant to execute a swap but no swap was
+    // passed through props. This should never happen since the form is
+    // disabled while swap infos are being fetched, but we add this logic
+    // as a safeguard
+    if (!swap) {
+      throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+    }
+
+    return swapExactTokensForTokensAndSupply({
+      swap,
+    });
+  };
+
+  const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
+
+  const {
+    swap,
+    error: swapError,
+    isLoading: isSwapLoading,
+  } = useGetSwapInfo(
+    {
+      fromToken: formValues.fromToken,
+      fromTokenAmountTokens: debouncedFormAmountTokens,
+      toToken: asset.vToken.underlyingToken,
+      direction: 'exactAmountIn',
+    },
+    {
+      enabled: isUsingSwap,
+    },
+  );
+
+  // Format swap into swap quote. This is a temporary code until we update the "swap and supply"
+  // feature to use the new API
+  let swapQuote: SwapQuote | undefined = undefined;
+
+  if (swap) {
+    const shareSwapQuoteProps = {
+      fromToken: swap.fromToken,
+      toToken: swap.toToken,
+      priceImpactPercentage: swap.priceImpactPercentage,
+      callData: '0x' as Hex, // Currently unused
+    };
+
+    swapQuote =
+      swap.direction === 'exactAmountIn'
+        ? {
+            ...shareSwapQuoteProps,
+            direction: 'exact-in',
+            fromTokenAmountSoldMantissa: BigInt(swap.fromTokenAmountSoldMantissa.toFixed()),
+            expectedToTokenAmountReceivedMantissa: BigInt(
+              swap.expectedToTokenAmountReceivedMantissa.toFixed(),
+            ),
+            minimumToTokenAmountReceivedMantissa: BigInt(
+              swap.expectedToTokenAmountReceivedMantissa.toFixed(),
+            ),
+          }
+        : {
+            ...shareSwapQuoteProps,
+            direction: 'exact-out',
+            toTokenAmountReceivedMantissa: BigInt(swap.toTokenAmountReceivedMantissa.toFixed()),
+            expectedFromTokenAmountSoldMantissa: BigInt(
+              swap.expectedFromTokenAmountSoldMantissa.toFixed(),
+            ),
+            maximumFromTokenAmountSoldMantissa: BigInt(
+              swap.maximumFromTokenAmountSoldMantissa.toFixed(),
+            ),
+          };
+  }
+
+  const approval: Approval | undefined = spenderAddress
+    ? {
+        type: 'token',
+        token: formValues.fromToken,
+        spenderAddress,
+      }
+    : undefined;
 
   const tokenBalances = useMemo(
     () => getUniqueTokenBalances(...integratedSwapTokenBalances, ...nativeWrappedTokenBalances),
@@ -167,14 +360,12 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
     asset.supplyCapTokens,
   ]);
 
-  const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
-
   let toTokenAmountTokens = isUsingSwap
     ? getSwapToTokenAmountReceivedTokens(swap)
     : debouncedFormAmountTokens;
   toTokenAmountTokens = new BigNumber(toTokenAmountTokens || 0);
 
-  const balanceMutations: BalanceMutation[] = [
+  const balanceMutations: AssetBalanceMutation[] = [
     {
       type: 'asset',
       vTokenAddress: asset.vToken.address,
@@ -191,26 +382,27 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
 
   const { handleSubmit, isFormValid, formError } = useForm({
     asset,
+    simulatedPool,
+    balanceMutations,
     fromTokenUserWalletBalanceTokens,
-    poolName: pool.name,
+    pool,
     fromTokenWalletSpendingLimitTokens,
     isFromTokenApproved,
     isUsingSwap,
     swap,
     swapError,
-    onSubmitSuccess,
+    swapQuote,
+    swapQuoteErrorCode: undefined, // TODO: pass when implementing swap and supply flow
     onSubmit,
     formValues,
     setFormValues,
   });
 
-  const readableFromTokenUserWalletBalanceTokens = useFormatTokensToReadableValue({
+  const readableFromTokenUserWalletBalanceTokens = formatTokensToReadableValue({
     value: fromTokenUserWalletBalanceTokens,
     token: formValues.fromToken,
   });
 
-  const { chainId: accountChainId } = useAccountChainId();
-  const { chainId } = useChainId();
   const isAccountOnWrongChain = accountChainId !== chainId;
   const isCollateralToggleDisabled = isCollateralActionDisabled({
     disabledTokenActions: asset.disabledTokenActions,
@@ -350,306 +542,42 @@ export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
           />
         )}
 
-        {!isUserConnected && <ApyBreakdown pool={pool} balanceMutations={balanceMutations} />}
-      </div>
+        {isUserConnected && (
+          <>
+            <div className="space-y-2">
+              <LabeledInlineContent label={t('operationForm.walletBalance')}>
+                {readableFromTokenUserWalletBalanceTokens}
+              </LabeledInlineContent>
 
-      <ConnectWallet
-        className={cn('space-y-4', isUserConnected ? 'mt-2' : 'mt-6')}
-        analyticVariant="supply_form"
-      >
-        <div className="space-y-4">
-          {!isSubmitting && !isSwapLoading && !formError && <Notice swap={swap} />}
+              <SpendingLimit
+                token={formValues.fromToken}
+                walletBalanceTokens={fromTokenUserWalletBalanceTokens}
+                walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
+                onRevoke={revokeFromTokenWalletSpendingLimit}
+                isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+                data-testid={TEST_IDS.spendingLimit}
+              />
+            </div>
 
-          <div className="space-y-2">
-            <LabeledInlineContent label={t('operationForm.walletBalance')}>
-              {readableFromTokenUserWalletBalanceTokens}
-            </LabeledInlineContent>
+            <Delimiter />
+          </>
+        )}
 
-            <SpendingLimit
-              token={formValues.fromToken}
-              walletBalanceTokens={fromTokenUserWalletBalanceTokens}
-              walletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
-              onRevoke={revokeFromTokenWalletSpendingLimit}
-              isRevokeLoading={isRevokeFromTokenWalletSpendingLimitLoading}
-              data-testid={TEST_IDS.spendingLimit}
-            />
-          </div>
-
-          <Delimiter />
-
-          <OperationDetails
-            isUsingSwap={isUsingSwap}
-            action="supply"
-            pool={pool}
-            balanceMutations={balanceMutations}
-            simulatedPool={simulatedPool}
-            swap={swap}
-          />
-        </div>
-
-        <SubmitSection
-          isFormSubmitting={isSubmitting}
+        <Footer
+          analyticVariant="supply_form"
+          balanceMutations={balanceMutations}
+          pool={pool}
+          submitButtonLabel={t('operationForm.submitButtonLabel.supply')}
           isFormValid={isFormValid}
-          isSwapLoading={isSwapLoading}
-          isUsingSwap={isUsingSwap}
-          swap={swap}
-          formError={formError}
-          fromToken={formValues.fromToken}
-          fromTokenAmountTokens={formValues.amountTokens}
-          approveFromToken={approveFromToken}
-          isApproveFromTokenLoading={isApproveFromTokenLoading}
-          isFromTokenApproved={isFromTokenApproved}
-          isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
-          isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
+          approval={approval}
+          simulatedPool={simulatedPool}
+          swapFromToken={isUsingSwap ? formValues.fromToken : undefined}
+          swapToToken={isUsingSwap ? asset.vToken.underlyingToken : undefined}
+          swapQuote={swapQuote}
+          isLoading={isSubmitting || isSwapLoading}
         />
-      </ConnectWallet>
+      </div>
     </form>
-  );
-};
-
-export interface SupplyFormProps {
-  asset: Asset;
-  pool: Pool;
-  onSubmitSuccess?: () => void;
-  userTokenWrappedBalanceMantissa?: BigNumber;
-}
-
-const SupplyForm: React.FC<SupplyFormProps> = ({
-  asset,
-  pool,
-  onSubmitSuccess,
-  userTokenWrappedBalanceMantissa,
-}) => {
-  const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
-  const isIntegratedSwapEnabled = useIsFeatureEnabled({ name: 'integratedSwap' });
-  const { accountAddress } = useAccountAddress();
-
-  const { address: nativeTokenGatewayContractAddress } = useGetContractAddress({
-    name: 'NativeTokenGateway',
-    poolComptrollerContractAddress: pool.comptrollerAddress,
-  });
-
-  const isIntegratedSwapFeatureEnabled = useMemo(
-    () =>
-      isIntegratedSwapEnabled &&
-      // Check swap and supply action is enabled for underlying token
-      !asset.disabledTokenActions.includes('swapAndSupply'),
-    [asset.disabledTokenActions, isIntegratedSwapEnabled],
-  );
-
-  const canWrapNativeToken = useMemo(
-    () => isWrapUnwrapNativeTokenEnabled && !!asset.vToken.underlyingToken.tokenWrapped,
-    [isWrapUnwrapNativeTokenEnabled, asset.vToken.underlyingToken.tokenWrapped],
-  );
-
-  const userWalletNativeTokenBalanceTokens = useMemo(() => {
-    return userTokenWrappedBalanceMantissa
-      ? convertMantissaToTokens({
-          token: asset.vToken.underlyingToken.tokenWrapped,
-          value: userTokenWrappedBalanceMantissa,
-        })
-      : undefined;
-  }, [asset.vToken.underlyingToken.tokenWrapped, userTokenWrappedBalanceMantissa]);
-
-  const shouldSelectNativeToken =
-    canWrapNativeToken && userWalletNativeTokenBalanceTokens?.gt(asset.userWalletBalanceTokens);
-
-  const initialFormValues: FormValues = useMemo(
-    () => ({
-      amountTokens: '',
-      fromToken:
-        shouldSelectNativeToken && asset.vToken.underlyingToken.tokenWrapped
-          ? asset.vToken.underlyingToken.tokenWrapped
-          : asset.vToken.underlyingToken,
-    }),
-    [asset, shouldSelectNativeToken],
-  );
-
-  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
-
-  // Reset form when user disconnects their wallet
-  useEffect(() => {
-    if (!accountAddress) {
-      setFormValues(initialFormValues);
-    }
-  }, [accountAddress, initialFormValues]);
-
-  // a user is trying to wrap the chain's native token if
-  // 1) the wrap/unwrap feature is enabled
-  // 2) the selected form token is the native token
-  // 3) the market's underlying token wraps the native token
-  const isWrappingNativeToken = useMemo(
-    () => canWrapNativeToken && !!formValues.fromToken.isNative,
-    [canWrapNativeToken, formValues.fromToken],
-  );
-
-  const isUsingSwap = useMemo(
-    () =>
-      isIntegratedSwapFeatureEnabled &&
-      !isWrappingNativeToken &&
-      !areTokensEqual(asset.vToken.underlyingToken, formValues.fromToken),
-    [
-      isIntegratedSwapFeatureEnabled,
-      formValues.fromToken,
-      asset.vToken.underlyingToken,
-      isWrappingNativeToken,
-    ],
-  );
-
-  const { address: swapRouterContractAddress } = useGetContractAddress({
-    name: 'SwapRouter',
-    poolComptrollerContractAddress: pool.comptrollerAddress,
-  });
-
-  const spenderAddress = useMemo(() => {
-    if (isWrappingNativeToken) {
-      return nativeTokenGatewayContractAddress;
-    }
-    if (isUsingSwap) {
-      return swapRouterContractAddress;
-    }
-
-    return asset.vToken.address;
-  }, [
-    isWrappingNativeToken,
-    isUsingSwap,
-    asset.vToken.address,
-    nativeTokenGatewayContractAddress,
-    swapRouterContractAddress,
-  ]);
-
-  const {
-    isTokenApproved: isFromTokenApproved,
-    approveToken: approveFromToken,
-    isApproveTokenLoading: isApproveFromTokenLoading,
-    isWalletSpendingLimitLoading: isFromTokenWalletSpendingLimitLoading,
-    walletSpendingLimitTokens: fromTokenWalletSpendingLimitTokens,
-    revokeWalletSpendingLimit: revokeFromTokenWalletSpendingLimit,
-    isRevokeWalletSpendingLimitLoading: isRevokeFromTokenWalletSpendingLimitLoading,
-  } = useTokenApproval({
-    token: formValues.fromToken,
-    spenderAddress,
-    accountAddress,
-  });
-
-  const nativeWrappedTokenBalances: TokenBalance[] = useMemo(() => {
-    if (asset.vToken.underlyingToken.tokenWrapped && userTokenWrappedBalanceMantissa) {
-      const marketTokenBalance: TokenBalance = {
-        token: asset.vToken.underlyingToken,
-        balanceMantissa: convertTokensToMantissa({
-          token: asset.vToken.underlyingToken,
-          value: asset.userWalletBalanceTokens,
-        }),
-      };
-      const nativeTokenBalance: TokenBalance = {
-        token: asset.vToken.underlyingToken.tokenWrapped,
-        balanceMantissa: userTokenWrappedBalanceMantissa,
-      };
-      return [marketTokenBalance, nativeTokenBalance];
-    }
-    return [];
-  }, [
-    asset.vToken.underlyingToken,
-    asset.userWalletBalanceTokens,
-    userTokenWrappedBalanceMantissa,
-  ]);
-
-  const { data: integratedSwapTokenBalancesData } = useGetSwapTokenUserBalances({
-    accountAddress,
-  });
-
-  const { mutateAsync: supply, isPending: isSupplyLoading } = useSupply();
-
-  const { mutateAsync: swapExactTokensForTokensAndSupply, isPending: isSwapAndSupplyLoading } =
-    useSwapTokensAndSupply({
-      poolName: pool.name,
-      poolComptrollerAddress: pool.comptrollerAddress,
-      vToken: asset.vToken,
-    });
-
-  const isSubmitting = isSupplyLoading || isSwapAndSupplyLoading;
-
-  const onSubmit: SupplyFormUiProps['onSubmit'] = useCallback(
-    async ({ fromToken, fromTokenAmountTokens, swap }) => {
-      const amountMantissa = convertTokensToMantissa({
-        value: new BigNumber(fromTokenAmountTokens.trim()),
-        token: fromToken,
-      });
-
-      // Handle supply flow
-      if (!isUsingSwap && !isWrappingNativeToken) {
-        return supply({ amountMantissa, poolName: pool.name, vToken: asset.vToken });
-      }
-
-      if (isWrappingNativeToken) {
-        return supply({
-          poolName: pool.name,
-          vToken: asset.vToken,
-          amountMantissa,
-          wrap: true,
-          poolComptrollerContractAddress: pool.comptrollerAddress,
-        });
-      }
-
-      // Throw an error if we're meant to execute a swap but no swap was
-      // passed through props. This should never happen since the form is
-      // disabled while swap infos are being fetched, but we add this logic
-      // as a safeguard
-      if (!swap) {
-        throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
-      }
-
-      return swapExactTokensForTokensAndSupply({
-        swap,
-      });
-    },
-    [
-      isUsingSwap,
-      isWrappingNativeToken,
-      supply,
-      swapExactTokensForTokensAndSupply,
-      pool.comptrollerAddress,
-      pool.name,
-      asset.vToken,
-    ],
-  );
-
-  const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
-
-  const swapInfo = useGetSwapInfo({
-    fromToken: formValues.fromToken,
-    fromTokenAmountTokens: debouncedFormAmountTokens,
-    toToken: asset.vToken.underlyingToken,
-    direction: 'exactAmountIn',
-  });
-
-  return (
-    <SupplyFormUi
-      isUserConnected={!!accountAddress}
-      asset={asset}
-      pool={pool}
-      isIntegratedSwapFeatureEnabled={isIntegratedSwapFeatureEnabled}
-      canWrapNativeToken={canWrapNativeToken}
-      isWrappingNativeToken={isWrappingNativeToken}
-      isUsingSwap={isUsingSwap}
-      formValues={formValues}
-      setFormValues={setFormValues}
-      onSubmitSuccess={onSubmitSuccess}
-      nativeWrappedTokenBalances={nativeWrappedTokenBalances}
-      integratedSwapTokenBalances={integratedSwapTokenBalancesData}
-      onSubmit={onSubmit}
-      isSubmitting={isSubmitting}
-      swap={swapInfo.swap}
-      swapError={swapInfo.error}
-      isSwapLoading={swapInfo.isLoading}
-      isFromTokenApproved={isFromTokenApproved}
-      approveFromToken={approveFromToken}
-      isApproveFromTokenLoading={isApproveFromTokenLoading}
-      isFromTokenWalletSpendingLimitLoading={isFromTokenWalletSpendingLimitLoading}
-      fromTokenWalletSpendingLimitTokens={fromTokenWalletSpendingLimitTokens}
-      revokeFromTokenWalletSpendingLimit={revokeFromTokenWalletSpendingLimit}
-      isRevokeFromTokenWalletSpendingLimitLoading={isRevokeFromTokenWalletSpendingLimitLoading}
-    />
   );
 };
 

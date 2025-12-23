@@ -387,7 +387,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
         <SubmitSection
           isFormSubmitting={isSubmitting}
           isFormValid={isFormValid}
-          formErrorCode={formError?.code}
+          formError={formError}
           isDelegateApproved={isDelegateApproved}
           isDelegateApprovedLoading={isDelegateApprovedLoading}
           approveDelegateAction={approveDelegateAction}

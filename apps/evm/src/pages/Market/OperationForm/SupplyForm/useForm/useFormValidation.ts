@@ -3,21 +3,25 @@ import { useMemo } from 'react';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import type { Asset, Swap, SwapError } from 'types';
-import { formatTokensToReadableValue } from 'utilities';
-import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
+import type { Asset, AssetBalanceMutation, Pool, Swap, SwapError, SwapQuote } from 'types';
 import type { FormError } from '../../types';
+import { useCommonValidation } from '../../useCommonValidation';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
   asset: Asset;
+  pool: Pool;
   formValues: FormValues;
+  balanceMutations: AssetBalanceMutation[];
+  isUsingSwap: boolean;
   fromTokenUserWalletBalanceTokens?: BigNumber;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   isFromTokenApproved?: boolean;
-  isUsingSwap: boolean;
-  swap?: Swap;
-  swapError?: SwapError;
+  simulatedPool?: Pool;
+  swap?: Swap; // TODO: remove once swap and supply flow has been implemented
+  swapError?: SwapError; // TODO: remove once swap and supply flow has been implemented
+  swapQuote?: SwapQuote;
+  swapQuoteErrorCode?: string;
 }
 
 interface UseFormValidationOutput {
@@ -27,17 +31,34 @@ interface UseFormValidationOutput {
 
 const useFormValidation = ({
   asset,
+  pool,
+  swapQuote,
+  swapQuoteErrorCode,
   swap,
   swapError,
   formValues,
+  balanceMutations,
   isFromTokenApproved,
   isUsingSwap,
+  simulatedPool,
   fromTokenUserWalletBalanceTokens,
   fromTokenWalletSpendingLimitTokens,
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
+  const commonFormError = useCommonValidation({
+    pool,
+    simulatedPool,
+    swapQuote,
+    balanceMutations,
+    swapQuoteErrorCode,
+  });
+
   const formError: FormError<FormErrorCode> | undefined = useMemo(() => {
+    if (commonFormError) {
+      return commonFormError;
+    }
+
     const swapErrorMapping: {
       [key: string]: FormError<FormErrorCode>;
     } = {
@@ -57,22 +78,6 @@ const useFormValidation = ({
 
     if (isUsingSwap && swapError && swapError in swapErrorMapping) {
       return swapErrorMapping[swapError];
-    }
-
-    if (
-      asset.supplyCapTokens &&
-      asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens)
-    ) {
-      return {
-        code: 'SUPPLY_CAP_ALREADY_REACHED',
-        message: t('operationForm.error.supplyCapReached', {
-          assetSupplyCap: formatTokensToReadableValue({
-            value: asset.supplyCapTokens,
-            token: asset.vToken.underlyingToken,
-            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
-          }),
-        }),
-      };
     }
 
     const fromTokenAmountTokens = formValues.amountTokens
@@ -97,39 +102,6 @@ const useFormValidation = ({
       };
     }
 
-    const toTokensAmountSuppliedTokens = isUsingSwap
-      ? getSwapToTokenAmountReceivedTokens(swap)
-      : fromTokenAmountTokens;
-
-    if (
-      toTokensAmountSuppliedTokens &&
-      asset.supplyCapTokens &&
-      asset.supplyBalanceTokens
-        .plus(toTokensAmountSuppliedTokens)
-        .isGreaterThan(asset.supplyCapTokens)
-    ) {
-      return {
-        code: 'HIGHER_THAN_SUPPLY_CAP',
-        message: t('operationForm.error.higherThanSupplyCap', {
-          userMaxSupplyAmount: formatTokensToReadableValue({
-            value: asset.supplyCapTokens.minus(asset.supplyBalanceTokens),
-            token: asset.vToken.underlyingToken,
-            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
-          }),
-          assetSupplyCap: formatTokensToReadableValue({
-            value: asset.supplyCapTokens,
-            token: asset.vToken.underlyingToken,
-            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
-          }),
-          assetSupplyBalance: formatTokensToReadableValue({
-            value: asset.supplyBalanceTokens,
-            token: asset.vToken.underlyingToken,
-            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
-          }),
-        }),
-      };
-    }
-
     if (
       isFromTokenApproved &&
       fromTokenWalletSpendingLimitTokens &&
@@ -141,6 +113,8 @@ const useFormValidation = ({
       };
     }
 
+    // TODO: remove once swap and supply flow has been implemented, this case is already covered by
+    // the useCommonValidation hook
     if (
       !!swap?.priceImpactPercentage &&
       swap?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
@@ -160,6 +134,7 @@ const useFormValidation = ({
     swap,
     swapError,
     t,
+    commonFormError,
   ]);
 
   return {

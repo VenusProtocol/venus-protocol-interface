@@ -1,6 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import BigNumber from 'bignumber.js';
-import noop from 'noop-ts';
 import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
@@ -12,9 +11,10 @@ import { selectToken } from 'components/SelectTokenTextField/__testUtils__/testU
 import { getTokenTextFieldTestId } from 'components/SelectTokenTextField/testIdGetters';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
-import { type Asset, ChainId } from 'types';
+import { type Asset, type AssetBalanceMutation, ChainId } from 'types';
 
 import MAX_UINT256 from 'constants/maxUint256';
+import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import Supply from '..';
 import { fakeAsset, fakePool, fakeWethAsset } from '../__testUtils__/fakeData';
 import TEST_IDS from '../testIds';
@@ -40,26 +40,11 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     (useSupply as Mock).mockReturnValue({ mutateAsync: mockSupply });
   });
 
-  it('renders without crashing', () => {
-    renderComponent(
-      <Supply
-        asset={fakeAsset}
-        pool={fakePool}
-        onSubmitSuccess={noop}
-        userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
-      />,
-      {
-        chainId: ChainId.SEPOLIA,
-      },
-    );
-  });
-
   it('does not display the token selector if the underlying token does not wrap the chain native token', async () => {
     const { queryByTestId } = renderComponent(
       <Supply
         asset={fakeAsset}
         pool={fakePool}
-        onSubmitSuccess={noop}
         userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
@@ -76,7 +61,6 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={fakeWethAsset}
         pool={fakePool}
-        onSubmitSuccess={noop}
         userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
@@ -98,7 +82,6 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
       <Supply
         asset={customFakeAsset}
         pool={fakePool}
-        onSubmitSuccess={noop}
         userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
@@ -137,15 +120,13 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(submitButton).toBeEnabled();
   });
 
-  it('lets user wrap and supply, then calls onClose callback on success', async () => {
+  it('lets user wrap and supply', async () => {
     const amountTokensToSupply = new BigNumber('1');
 
-    const onCloseMock = vi.fn();
     const { container, getByTestId, queryByTestId, getByText } = renderComponent(
       <Supply
         asset={fakeWethAsset}
         pool={fakePool}
-        onSubmitSuccess={onCloseMock}
         userTokenWrappedBalanceMantissa={fakeBalanceMantissa}
       />,
       {
@@ -170,6 +151,21 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
 
     // Enter valid amount in input
     fireEvent.change(selectTokenTextField, { target: { value: amountTokensToSupply.toString() } });
+
+    // Check generated balance mutations are accurate
+    const expectedBalanceMutations: AssetBalanceMutation[] = [
+      {
+        type: 'asset',
+        action: 'supply',
+        vTokenAddress: fakeAsset.vToken.address,
+        amountTokens: amountTokensToSupply,
+      },
+    ];
+
+    expect(useSimulateBalanceMutations).toHaveBeenCalledWith({
+      pool: fakePool,
+      balanceMutations: expectedBalanceMutations,
+    });
 
     // Click on submit button
     const submitButton = await waitFor(() => getByText(en.operationForm.submitButtonLabel.supply));
@@ -205,7 +201,5 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
         },
       ]
     `);
-
-    await waitFor(() => expect(onCloseMock).toHaveBeenCalledTimes(1));
   });
 });

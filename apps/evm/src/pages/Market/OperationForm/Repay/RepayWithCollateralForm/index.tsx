@@ -466,7 +466,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
           <SubmitSection
             isLoading={isSubmitting || isGetSwapQuoteLoading}
             isFormValid={isFormValid}
-            formErrorCode={formError?.code}
+            formError={formError}
             poolComptrollerContractAddress={pool.comptrollerAddress}
           />
 
