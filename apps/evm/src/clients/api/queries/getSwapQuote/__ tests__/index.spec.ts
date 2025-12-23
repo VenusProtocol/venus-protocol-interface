@@ -111,7 +111,7 @@ describe('getSwapQuote', () => {
         "params": {
           "chainId": 56,
           "deadlineTimestampSecs": 1747386407,
-          "exactAmountOutMantissa": "1000000",
+          "exactAmountOutMantissa": "1000000000000000000",
           "recipientAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "shouldTransferToReceiver": true,
           "slippagePercentage": 0.005,
@@ -163,7 +163,7 @@ describe('getSwapQuote', () => {
         "params": {
           "chainId": 56,
           "deadlineTimestampSecs": 1747386407,
-          "minAmountOutMantissa": "1000000",
+          "minAmountOutMantissa": "1000000000000000000",
           "recipientAddress": "0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
           "shouldTransferToReceiver": true,
           "slippagePercentage": 0.005,
@@ -187,7 +187,7 @@ describe('getSwapQuote', () => {
             "symbol": "USDC",
           },
           "fromTokenAmountSoldMantissa": 1000000n,
-          "minimumToTokenAmountReceivedMantissa": 1000000n,
+          "minimumToTokenAmountReceivedMantissa": 1000000000000000000n,
           "priceImpactPercentage": 0.8,
           "toToken": {
             "address": "0x8301F2213c0eeD49a7E28Ae4c3e91722919B8B47",
