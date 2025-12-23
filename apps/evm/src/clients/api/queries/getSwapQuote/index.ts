@@ -34,13 +34,13 @@ export const getSwapQuote = async ({
   } else if (swapSpecificProps.direction === 'exact-out') {
     params.exactAmountOutMantissa = convertTokensToMantissa({
       value: swapSpecificProps.toTokenAmountTokens,
-      token: fromToken,
+      token: toToken,
     }).toFixed();
   } else {
     // Approximate out swap
     params.minAmountOutMantissa = convertTokensToMantissa({
       value: swapSpecificProps.minToTokenAmountTokens,
-      token: fromToken,
+      token: toToken,
     }).toFixed();
   }
 
