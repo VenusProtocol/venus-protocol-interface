@@ -1,9 +1,14 @@
 import { Carousel, CarouselItem } from 'components';
 import { BinanceWalletBanner } from './BinanceWalletBanner';
 import { BoostBanner } from './BoostBanner';
+import { IsolatedPoolsSunsetBanner } from './IsolatedPoolsSunsetBanner';
 
 export const AdBanner: React.FC = () => {
-  const slides: React.ReactNode[] = [<BoostBanner />, <BinanceWalletBanner />];
+  const slides: React.ReactNode[] = [
+    <BoostBanner />,
+    <BinanceWalletBanner />,
+    <IsolatedPoolsSunsetBanner />,
+  ];
 
   const carouselDom =
     slides.length > 1 ? (
