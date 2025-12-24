@@ -27,7 +27,7 @@ export const formatSwapQuote = ({
   const sharedProps = {
     fromToken,
     toToken,
-    priceImpactPercentage: apiSwapQuote.priceImpact,
+    priceImpactPercentage: apiSwapQuote.priceImpact * 100,
     callData: apiSwapQuote.swapHelperMulticall.calldata.encodedCall,
   };
 
