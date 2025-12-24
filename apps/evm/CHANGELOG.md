@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.83.1
+
+### Patch Changes
+
+- 4c7fa86: fix price impact calculation
+
 ## 3.83.0
 
 ### Minor Changes
