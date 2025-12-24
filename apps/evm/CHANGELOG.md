@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.83.2
+
+### Patch Changes
+
+- a4ad098: remove paused assets from Boost feature
+
 ## 3.83.1
 
 ### Patch Changes
