@@ -66,7 +66,7 @@ export const Tabs = ({
                 type="button"
                 key={tab.id}
                 className={cn(
-                  'hover:text-offWhite',
+                  'hover:text-offWhite cursor-pointer',
                   activeTab.id === tab.id ? 'text-offWhite' : 'text-grey',
                 )}
               >
@@ -84,7 +84,7 @@ export const Tabs = ({
             ))}
           </div>
 
-          <Delimiter className="-mt-[1px] -z-[1]" />
+          <Delimiter className="-mt-px -z-1" />
         </div>
       )}
 

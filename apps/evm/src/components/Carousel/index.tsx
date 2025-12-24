@@ -70,14 +70,14 @@ export const Carousel = forwardRef<
       </div>
 
       {slidesCount > 1 && (
-        <div className="flex mx-auto gap-x-[6px] w-max mt-3">
+        <div className="flex mx-auto gap-x-1.5 w-max mt-3">
           {Array.from({ length: slidesCount }).map((_s, i) => (
             <button
               type="button"
               onClick={() => api?.scrollTo(i)}
               key={i}
               className={cn(
-                'size-[6px] rounded-full',
+                'size-1.5 rounded-full cursor-pointer',
                 i === activeSlideIndex ? 'bg-offWhite' : 'bg-offWhite/30',
               )}
             />

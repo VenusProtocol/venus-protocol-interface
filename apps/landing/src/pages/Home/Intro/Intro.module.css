@@ -51,6 +51,7 @@
 }
 
 .title {
+    margin: 0;
     margin-bottom: 16px;
     font-size: 2rem;
     font-variant: all-small-caps;
@@ -67,9 +68,10 @@
 }
 
 .description {
-    color: rgb(var(--color-offWhite));
+    color: var(--color-offWhite);
     font-size: 1rem;
     line-height: 150%;
+    margin: 0;
     margin-bottom: 40px;
     letter-spacing: 0.06em;
 

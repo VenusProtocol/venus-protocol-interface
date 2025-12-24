@@ -1,4 +1,3 @@
-import 'normalize.css';
 import { createRoot } from 'react-dom/client';
 import './assets/styles/index.css';
 

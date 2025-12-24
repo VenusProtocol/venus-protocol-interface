@@ -20,7 +20,7 @@ const Auditor: React.FC<ISafetyProps> = ({ auditor: { href, Logo, LogoHovered, a
         <LogoHovered className={s.logoHovered} />
       </div>
     </div>
-    <hr />
+    <hr className="m-0" />
     <div className={s.audits}>
       <p className={s.auditCompleted}>
         <span>{audits}</span> Audit{audits > 1 ? 's' : null}

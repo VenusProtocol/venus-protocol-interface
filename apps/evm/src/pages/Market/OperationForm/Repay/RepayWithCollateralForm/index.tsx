@@ -379,7 +379,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
                   data-testid={TEST_IDS.availableAmount}
                 >
                   <button
-                    className="transition-colors hover:text-blue"
+                    className="transition-colors cursor-pointer hover:text-blue"
                     type="button"
                     onClick={handleMaxCollateralButtonClick}
                   >

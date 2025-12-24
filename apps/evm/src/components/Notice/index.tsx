@@ -64,7 +64,7 @@ export const Notice = ({
           )}
         </div>
 
-        <div className="grow overflow-hidden break-words space-y-2">
+        <div className="grow overflow-hidden wrap-break-word space-y-2">
           {title && <p className="text-sm font-semibold">{title}</p>}
 
           {!!description && (

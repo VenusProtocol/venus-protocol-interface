@@ -71,7 +71,7 @@ const Footer: React.FC<IFooterProps> = ({ className }) => {
           <NavLinkList links={legalPages} />
         </div>
 
-        <hr className="text-lightGrey" />
+        <hr className="border-lightGrey m-0" />
 
         <div className="flex items-center justify-between py-10">
           <a href="/">

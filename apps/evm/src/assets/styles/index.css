@@ -1,76 +1,84 @@
-@import '@venusprotocol/ui/fonts/proximaNova';
-@import '@venusprotocol/ui/theme';
+@import 'tailwindcss' source("../../../src");
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* let tailwindcss include ui components */
+@source "../../../../../packages/ui";
 
-@layer utilities {
-  .scrollbar-hidden {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+@import "tw-animate-css";
+@plugin 'tailwind-scrollbar';
+
+@import '@venusprotocol/ui/fonts/proximaNova' layer(base);
+@import '@venusprotocol/ui/theme' layer(theme);
+
+@layer base {
+  body {
+    font-family: var(--font-proxima-nova), sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-offWhite);
   }
 
-  .scrollbar-hidden::-webkit-scrollbar { 
-    display: none;
-  }
-}
+  * {
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
 
-body {
-  font-family: var(--font-proxima-nova), sans-serif;
-  background-color: theme('colors.background');
-  color: theme('colors.offWhite');
-}
+    /* Track */
+    &::-webkit-scrollbar-track {
+      border-radius: 4px;
+      background-color: var(--color-background);
+    }
 
-input {
-  color: inherit;
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--color-grey);
+      border-radius: 4px;
+    }
 
-  &::-webkit-input-placeholder {
-    /* Chrome/Opera/Safari */
-    padding-right: 22px;
-  }
-  &::-moz-placeholder {
-    /* Firefox 19+ */
-    padding-right: 22px;
-  }
-  &:-moz-placeholder {
-    /* Firefox 18- */
-    padding-right: 22px;
-  }
-
-  /* Hide arrows from input number */
-  /* Chrome, Safari, Edge, Opera */
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Firefox */
-  &[type='number'] {
-    -moz-appearance: textfield;
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: var(--color-offWhite);
+    }
   }
 }
 
-* {
+@layer components {
+  input {
+    color: inherit;
+
+    &::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      padding-right: 22px;
+    }
+
+    &::-moz-placeholder {
+      /* Firefox 19+ */
+      padding-right: 22px;
+    }
+
+    &:-moz-placeholder {
+      /* Firefox 18- */
+      padding-right: 22px;
+    }
+
+    /* Hide arrows from input number */
+    /* Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
+  }
+}
+
+@utility scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
   &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    border-radius: 4px;
-    background-color: theme('colors.background');
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background-color: theme('colors.grey');
-    border-radius: 4px;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: theme('colors.offWhite');
+    display: none;
   }
 }

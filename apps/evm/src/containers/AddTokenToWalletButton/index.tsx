@@ -31,7 +31,7 @@ export const AddTokenToWalletButton: React.FC<AddTokenToWalletButtonProps> = ({
       onClick={() => (isUserConnected ? addTokenToWallet(token) : copyToClipboard(token.address))}
       {...otherProps}
     >
-      <Icon name={isUserConnected ? 'wallet' : 'copy'} className="ml-[1px] h-5 w-5 text-inherit " />
+      <Icon name={isUserConnected ? 'wallet' : 'copy'} className="ml-px h-5 w-5 text-inherit " />
     </TertiaryButton>
   );
 };

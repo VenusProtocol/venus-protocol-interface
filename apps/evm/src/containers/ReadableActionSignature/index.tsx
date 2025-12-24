@@ -29,7 +29,7 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
   });
 
   return (
-    <div className={cn('[overflow-wrap:anywhere]', className)} {...otherProps}>
+    <div className={cn('wrap-anywhere', className)} {...otherProps}>
       <a
         href={generateExplorerUrl({
           hash: action.target,

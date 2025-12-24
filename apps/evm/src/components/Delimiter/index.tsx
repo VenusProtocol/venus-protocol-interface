@@ -6,5 +6,5 @@ interface DelimiterProps {
 }
 
 export const Delimiter = ({ className }: DelimiterProps) => (
-  <hr className={cn('bg-lightGrey mb-0 mt-0 h-[1px] border-0', className)} />
+  <hr className={cn('border-lightGrey', className)} />
 );

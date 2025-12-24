@@ -9,7 +9,7 @@ export interface EModeIconProps {
 export const EModeIcon: React.FC<EModeIconProps> = ({ className }) => (
   <div
     className={cn(
-      'w-5 h-5 flex items-center justify-center rounded-full bg-gradient-to-r from-[#00F5A0] to-[#00D9F5]',
+      'w-5 h-5 flex items-center justify-center rounded-full bg-linear-to-r from-[#00F5A0] to-[#00D9F5]',
       className,
     )}
   >

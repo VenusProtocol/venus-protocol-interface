@@ -82,7 +82,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
             </p>
 
             <div className="flex items-center justify-center gap-x-1">
-              <button type="button" onClick={openSlippageToleranceModal}>
+              <button type="button" onClick={openSlippageToleranceModal} className="cursor-pointer">
                 <Icon name="gear" className="size-5" />
               </button>
             </div>

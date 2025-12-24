@@ -22,12 +22,14 @@
   },
   "devDependencies": {
     "@venusprotocol/typescript-config": "*",
-    "tailwindcss": ">=3.3.0"
+    "tailwindcss": ">=4.1.18"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.2"
+    "@radix-ui/react-slot": "^1.1.2",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0"
   },
   "peerDependencies": {
-    "tailwindcss": ">=3.3.0"
+    "tailwindcss": ">=4.0.0"
   }
 }

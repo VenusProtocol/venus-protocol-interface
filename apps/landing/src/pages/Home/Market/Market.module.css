@@ -13,15 +13,15 @@
     color: white;
     text-decoration: none;
     padding: 12px 32px;
-    background-color: rgb(var(--color-blue));
+    background-color: var(--color-blue);
     border-radius: 8px;
 
     &:hover {
-        background-color: rgb(var(--color-mediumBlue));
+        background-color: var(--color-mediumBlue);
     }
 
     &:active {
-        background-color: rgb(var(--color-darkBlue));
+        background-color: var(--color-darkBlue);
     }
 
 }
@@ -61,7 +61,7 @@
 
 .totalItem {
     &:not(&:first-child) {
-        border-top: 1px solid rgb(var(--color-lightGrey));
+        border-top: 1px solid var(--color-lightGrey);
         padding-top: 12px;
         margin-top: 16px;
         padding-top: 16px;
@@ -86,15 +86,17 @@
 }
 
 .totalTitle {
-    color: rgb(var(--color-grey));
+    color: var(--color-grey);
     font-size: 14px;
+    margin: 0;
     margin-bottom: 8px;
 }
 
 .totalSum {
-    color: rgb(var(--color-offWhite));
+    color: var(--color-offWhite);
     font-weight: 600;
     font-size: 24px;
+    margin: 0;
 
     @media (min-width: 640px) {
         font-size: 18px;
@@ -142,7 +144,7 @@
 .marketLabelDesktopItem {
     width: 20%;
     font-size: 14px;
-    color: rgb(var(--color-grey));
+    color: var(--color-grey);
     &:not(&:first-child) {
         text-align: right;
     }
@@ -193,7 +195,7 @@
     }
 }
 .marketItemLabel {
-    color: rgb(var(--color-grey));
+    color: var(--color-grey);
     font-size: 12px;
 
     @media (min-width: 640px) {
@@ -206,7 +208,8 @@
     flex-grow: 1;
 }
 .marketItemValue {
-    color: rgb(var(--color-offWhite));
+    margin: 0;
+    color: var(--color-offWhite);
     display: flex;
     flex-direction: column;
     width: 25%;

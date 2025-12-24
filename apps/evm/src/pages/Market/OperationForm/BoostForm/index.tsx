@@ -404,7 +404,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
             data-testid={TEST_IDS.availableAmount}
           >
             <button
-              className="transition-colors hover:text-blue"
+              className="transition-colors cursor-pointer hover:text-blue"
               type="button"
               onClick={handleMaxButtonClick}
             >

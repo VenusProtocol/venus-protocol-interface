@@ -28,9 +28,9 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
   if (getLegacyPoolMarketsError || getTvlDataError) {
     return (
       <Container className={cn(s.root, className)}>
-        {getLegacyPoolMarketsError && <p>{getLegacyPoolMarketsError.message}</p>}
-        {getTvlDataError && <p>{getTvlDataError.message}</p>}
-        <button className={s.btn} type="button" onClick={() => refetch()}>
+        {getLegacyPoolMarketsError && <p className="m-0">{getLegacyPoolMarketsError.message}</p>}
+        {getTvlDataError && <p className="m-0">{getTvlDataError.message}</p>}
+        <button className={cn(s.btn, 'cursor-pointer')} type="button" onClick={() => refetch()}>
           Try again
         </button>
       </Container>
@@ -65,7 +65,7 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
       </div>
 
       {isLoading ? (
-        <p>{loadingState}</p>
+        <p className="m-0">{loadingState}</p>
       ) : (
         <div className={s.marketsWrapper}>
           <div className={s.marketLabelsDesktop}>

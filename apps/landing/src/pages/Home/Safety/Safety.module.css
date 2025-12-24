@@ -192,7 +192,7 @@
     text-align: center;
 
     span {
-        color: rgb(var(--color-grey));
+        color: var(--color-grey);
         text-align: center;
         font-size: 0.625rem;
         font-style: normal;
@@ -209,6 +209,7 @@
 }
 
 .scored {
+    margin: 0;
     font-size: 1rem;
     line-height: 1.5rem;
     text-align: center;
@@ -228,12 +229,13 @@
     
     a {
         text-decoration: none;
-        color: rgb(var(--color-blue));
+        color: var(--color-blue);
     }
 }
 
 .auditCompleted {
-    color: rgb(var(--color-grey));
+    margin: 0;
+    color: var(--color-grey);
     text-decoration: none;
     display: flex;
     align-items: flex-end;
