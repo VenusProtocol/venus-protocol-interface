@@ -71,7 +71,9 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
                 // Skip vBNB
                 asset.vToken.symbol === 'vBNB' ||
                 // Skip tokens that have reached their supply cap
-                asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens)
+                asset.supplyBalanceTokens.isGreaterThanOrEqualTo(asset.supplyCapTokens) ||
+                // Skip paused tokens
+                asset.disabledTokenActions.includes('supply')
               ) {
                 return acc;
               }
