@@ -62,7 +62,6 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const {
     assets: filteredAssets,
     pausedAssetsExist,
-    userHasAssets,
     searchValue,
     onSearchValueChange,
     showPausedAssets,
@@ -152,13 +151,11 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                           />
                         )}
 
-                        {userHasAssets && (
-                          <Toggle
-                            onChange={() => setShowUserAssetsOnly(!showUserAssetsOnly)}
-                            value={showUserAssetsOnly}
-                            label={t('marketTable.userAssetsOnlyToggle.label')}
-                          />
-                        )}
+                        <Toggle
+                          onChange={() => setShowUserAssetsOnly(!showUserAssetsOnly)}
+                          value={showUserAssetsOnly}
+                          label={t('marketTable.userAssetsOnlyToggle.label')}
+                        />
 
                         {userEModeGroup && (
                           <Toggle

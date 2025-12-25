@@ -18,16 +18,9 @@ export const useControls = ({
 
   const { showPausedAssets, showUserAssetsOnly, showUserEModeAssetsOnly } = userChainSettings;
 
-  let userHasAssets = false;
   let pausedAssetsExist = false;
 
   assets.forEach(asset => {
-    const isUserAsset = asset.userWalletBalanceTokens.isGreaterThan(0);
-
-    if (isUserAsset && !userHasAssets) {
-      userHasAssets = true;
-    }
-
     const isPaused = isAssetPaused({ disabledTokenActions: asset.disabledTokenActions });
     if (isPaused && !pausedAssetsExist) {
       pausedAssetsExist = true;
@@ -86,7 +79,6 @@ export const useControls = ({
     setShowUserEModeAssetsOnly,
     onSearchValueChange: setSearchValue,
     pausedAssetsExist,
-    userHasAssets,
     showPausedAssets,
     showUserAssetsOnly,
     showUserEModeAssetsOnly,
