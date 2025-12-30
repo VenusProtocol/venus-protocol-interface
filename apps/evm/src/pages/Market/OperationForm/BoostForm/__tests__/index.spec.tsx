@@ -14,7 +14,10 @@ import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
 } from 'constants/healthFactor';
-import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
@@ -505,7 +508,63 @@ describe('BoostForm', () => {
     await waitFor(() => expect(tokenTextInput.value).toEqual('10'));
 
     // Check warning is displayed
-    expect(getByText(en.operationForm.riskyOperation.warning));
+    expect(getByText(en.operationForm.acknowledgements.riskyOperation.tooltip));
+
+    // Check submit button is disabled
+    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    await waitFor(() =>
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.boost),
+    );
+    expect(submitButton).toBeDisabled();
+
+    // Toggle acknowledgement
+    const toggle = getByRole('checkbox');
+    fireEvent.click(toggle);
+
+    await waitFor(() => expect(document.querySelector('button[type="submit"]')).toBeEnabled());
+  });
+
+  it('prompts user to acknowledge high price impact', async () => {
+    (useGetSwapQuote as Mock).mockImplementation((input: GetExactInSwapQuoteInput) => ({
+      isLoading: false,
+      data: {
+        swapQuote: {
+          fromToken: input.fromToken,
+          toToken: input.toToken,
+          direction: 'exact-in',
+          priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+          fromTokenAmountSoldMantissa: BigInt(
+            convertTokensToMantissa({
+              value: input.fromTokenAmountTokens,
+              token: input.fromToken,
+            }).toFixed(),
+          ),
+          expectedToTokenAmountReceivedMantissa: 100000000n,
+          minimumToTokenAmountReceivedMantissa: 100000000n,
+          callData: '0x',
+        },
+      },
+    }));
+
+    const { getByText, getByTestId, getByRole } = renderComponent(
+      <BoostForm asset={fakeAsset} pool={fakePool} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    // Enter amount in input
+    const tokenTextInput = await waitFor(
+      () => getByTestId(TEST_IDS.tokenTextField) as HTMLInputElement,
+    );
+    fireEvent.change(tokenTextInput, {
+      target: { value: 10 },
+    });
+
+    await waitFor(() => expect(tokenTextInput.value).toEqual('10'));
+
+    // Check warning is displayed
+    expect(getByText(en.operationForm.acknowledgements.highPriceImpact.tooltip));
 
     // Check submit button is disabled
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;

@@ -5,7 +5,10 @@ import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
 } from 'constants/healthFactor';
-import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import type { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool, SwapQuote } from 'types';
@@ -26,7 +29,7 @@ interface UseFormValidationInput {
 
 interface UseFormValidationOutput {
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formErrors: FormError<FormErrorCode>[];
 }
 
 const useFormValidation = ({
@@ -41,21 +44,23 @@ const useFormValidation = ({
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
-  const formError = useMemo<FormError<FormErrorCode> | undefined>(() => {
+  const formErrors = useMemo<FormError<FormErrorCode>[]>(() => {
+    const tmpErrors: FormError<FormErrorCode>[] = [];
+
     if (!pool?.userBorrowLimitCents || pool.userBorrowLimitCents.isEqualTo(0)) {
-      return {
+      tmpErrors.push({
         code: 'NO_COLLATERALS',
         message: t('operationForm.error.noCollateral', {
           tokenSymbol: asset.vToken.underlyingToken.symbol,
         }),
-      };
+      });
     }
 
     if (
       asset.borrowCapTokens &&
       asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
     ) {
-      return {
+      tmpErrors.push({
         code: 'BORROW_CAP_ALREADY_REACHED',
         message: t('operationForm.error.borrowCapReached', {
           assetBorrowCap: formatTokensToReadableValue({
@@ -63,14 +68,14 @@ const useFormValidation = ({
             token: asset.vToken.underlyingToken,
           }),
         }),
-      };
+      });
     }
 
     if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
-      return {
+      tmpErrors.push({
         code: 'NO_SWAP_QUOTE_FOUND',
         message: t('operationForm.error.noSwapQuoteFound'),
-      };
+      });
     }
 
     const borrowedTokenAmountTokens = formValues.amountTokens
@@ -78,15 +83,16 @@ const useFormValidation = ({
       : undefined;
 
     if (!borrowedTokenAmountTokens || borrowedTokenAmountTokens.isLessThanOrEqualTo(0)) {
-      return {
+      tmpErrors.push({
         code: 'EMPTY_TOKEN_AMOUNT',
-      };
+      });
     }
 
     if (
+      borrowedTokenAmountTokens &&
       asset.borrowBalanceTokens.plus(borrowedTokenAmountTokens).isGreaterThan(asset.borrowCapTokens)
     ) {
-      return {
+      tmpErrors.push({
         code: 'HIGHER_THAN_BORROW_CAP',
         message: t('operationForm.error.higherThanBorrowCap', {
           userMaxBorrowAmount: formatTokensToReadableValue({
@@ -105,7 +111,7 @@ const useFormValidation = ({
             maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
         }),
-      };
+      });
     }
 
     if (
@@ -114,7 +120,7 @@ const useFormValidation = ({
         .plus(expectedSuppliedAmountTokens)
         .isGreaterThan(asset.supplyCapTokens)
     ) {
-      return {
+      tmpErrors.push({
         code: 'HIGHER_THAN_SUPPLY_CAP',
         message: t('operationForm.error.higherThanSupplyCap', {
           userMaxSupplyAmount: formatTokensToReadableValue({
@@ -133,46 +139,57 @@ const useFormValidation = ({
             maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
           }),
         }),
-      };
+      });
     }
 
     const assetLiquidityTokens = new BigNumber(asset.liquidityCents).dividedBy(
       asset.tokenPriceCents,
     );
 
-    if (borrowedTokenAmountTokens.isGreaterThan(assetLiquidityTokens)) {
+    if (borrowedTokenAmountTokens?.isGreaterThan(assetLiquidityTokens)) {
       // User is trying to borrow more than available liquidity
-      return {
+      tmpErrors.push({
         code: 'HIGHER_THAN_LIQUIDITY',
         message: t('operationForm.error.higherThanAvailableLiquidity'),
-      };
+      });
     }
 
-    if (borrowedTokenAmountTokens.isGreaterThan(limitTokens)) {
-      return {
+    if (borrowedTokenAmountTokens?.isGreaterThan(limitTokens)) {
+      tmpErrors.push({
         code: 'HIGHER_THAN_AVAILABLE_AMOUNT',
         message: t('operationForm.error.higherThanAvailableAmount'),
-      };
+      });
     }
 
     if (
       simulatedPool?.userHealthFactor !== undefined &&
       simulatedPool.userHealthFactor <= HEALTH_FACTOR_LIQUIDATION_THRESHOLD
     ) {
-      return {
+      tmpErrors.push({
         code: 'TOO_RISKY',
         message: t('operationForm.error.tooRisky'),
-      };
+      });
     }
 
     if (
       swapQuote &&
       swapQuote?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
     ) {
-      return {
+      tmpErrors.push({
         code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
         message: t('operationForm.error.priceImpactTooHigh'),
-      };
+      });
+    }
+
+    if (
+      swapQuote &&
+      swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+      swapQuote?.priceImpactPercentage < MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+      !formValues.acknowledgeHighPriceImpact
+    ) {
+      tmpErrors.push({
+        code: 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT',
+      });
     }
 
     if (
@@ -180,16 +197,18 @@ const useFormValidation = ({
       simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
       !formValues.acknowledgeRisk
     ) {
-      return {
+      tmpErrors.push({
         code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',
-      };
+      });
     }
 
     if (!simulatedPool || !expectedSuppliedAmountTokens) {
-      return {
+      tmpErrors.push({
         code: 'MISSING_DATA',
-      };
+      });
     }
+
+    return tmpErrors;
   }, [
     asset,
     pool,
@@ -199,13 +218,14 @@ const useFormValidation = ({
     expectedSuppliedAmountTokens,
     getSwapQuoteError,
     formValues.acknowledgeRisk,
+    formValues.acknowledgeHighPriceImpact,
     swapQuote,
     t,
   ]);
 
   return {
-    isFormValid: !formError,
-    formError,
+    isFormValid: !formErrors.length,
+    formErrors,
   };
 };
 

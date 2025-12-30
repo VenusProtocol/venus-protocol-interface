@@ -9,10 +9,10 @@ import {
   useRepayWithCollateral,
 } from 'clients/api';
 import {
+  AcknowledgementToggle,
   Icon,
   LabeledInlineContent,
   type OptionalTokenBalance,
-  RiskAcknowledgementToggle,
   SelectTokenTextField,
   TokenTextField,
 } from 'components';
@@ -455,7 +455,9 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
           />
 
           {shouldAskUserRiskAcknowledgement && (
-            <RiskAcknowledgementToggle
+            <AcknowledgementToggle
+              label={t('operationForm.acknowledgements.riskyOperation.label')}
+              tooltip={t('operationForm.acknowledgements.riskyOperation.tooltip')}
               value={formValues.acknowledgeRisk}
               onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
             />

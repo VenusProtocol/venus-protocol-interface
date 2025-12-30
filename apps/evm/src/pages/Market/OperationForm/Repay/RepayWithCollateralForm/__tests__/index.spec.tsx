@@ -443,7 +443,7 @@ describe('RepayWithCollateralForm', () => {
     });
 
     // Check warning is displayed
-    expect(getByText(en.operationForm.riskyOperation.warning));
+    expect(getByText(en.operationForm.acknowledgements.riskyOperation.tooltip));
 
     // Check submit button is disabled
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;

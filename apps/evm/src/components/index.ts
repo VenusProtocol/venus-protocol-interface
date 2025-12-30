@@ -50,7 +50,7 @@ export * from './Apy';
 export * from './Page';
 export * from './Carousel';
 export * from './HealthFactorPill';
-export * from './RiskAcknowledgementToggle';
+export * from './AcknowledgementToggle';
 export * from './AccountHealthBar';
 export * from './AreaChart';
 export * from './ChartTooltipContent';
