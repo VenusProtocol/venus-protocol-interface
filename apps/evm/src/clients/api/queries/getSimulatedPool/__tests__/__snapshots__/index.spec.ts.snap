@@ -666,7 +666,7 @@ exports[`getSimulatedPool > recalculates Prime APYs when a Prime market is mutat
     "userHealthFactor": 1.34,
     "userLiquidationThresholdCents": "13754",
     "userSupplyBalanceCents": "40506.4276",
-    "userYearlyEarningsCents": "2070",
+    "userYearlyEarningsCents": "3981",
     "vai": {
       "borrowAprPercentage": "1.34",
       "token": {
