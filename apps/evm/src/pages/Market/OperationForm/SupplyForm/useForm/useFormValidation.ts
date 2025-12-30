@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import type { Asset, Swap, SwapError } from 'types';
+import type { Asset, SwapQuote, SwapQuoteError } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 import { getSwapToTokenAmountReceivedTokens } from 'utilities/getSwapToTokenAmountReceived';
 import type { FormError } from '../../types';
@@ -16,8 +16,8 @@ interface UseFormValidationInput {
   fromTokenWalletSpendingLimitTokens?: BigNumber;
   isFromTokenApproved?: boolean;
   isUsingSwap: boolean;
-  swap?: Swap;
-  swapError?: SwapError;
+  swap?: SwapQuote;
+  swapError?: SwapQuoteError;
 }
 
 interface UseFormValidationOutput {
@@ -38,25 +38,11 @@ const useFormValidation = ({
   const { t } = useTranslation();
 
   const formError: FormError<FormErrorCode> | undefined = useMemo(() => {
-    const swapErrorMapping: {
-      [key: string]: FormError<FormErrorCode>;
-    } = {
-      INSUFFICIENT_LIQUIDITY: {
-        code: 'SWAP_INSUFFICIENT_LIQUIDITY',
-        message: t('operationForm.error.insufficientSwapLiquidity'),
-      },
-      WRAPPING_UNSUPPORTED: {
-        code: 'SWAP_WRAPPING_UNSUPPORTED',
-        message: t('operationForm.error.wrappingUnsupported'),
-      },
-      UNWRAPPING_UNSUPPORTED: {
-        code: 'SWAP_UNWRAPPING_UNSUPPORTED',
-        message: t('operationForm.error.unwrappingUnsupported'),
-      },
-    };
-
-    if (isUsingSwap && swapError && swapError in swapErrorMapping) {
-      return swapErrorMapping[swapError];
+    if (isUsingSwap && swapError?.code === 'noSwapQuoteFound') {
+      return {
+        code: 'NO_SWAP_QUOTE_FOUND',
+        message: t('operationForm.error.noSwapQuoteFound'),
+      };
     }
 
     if (

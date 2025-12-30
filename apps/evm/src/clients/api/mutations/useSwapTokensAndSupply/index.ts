@@ -4,17 +4,16 @@ import { DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE } from 'constants/swap';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { type UseSendTransactionOptions, useSendTransaction } from 'hooks/useSendTransaction';
 import { useAnalytics } from 'libs/analytics';
-import { swapRouterAbi } from 'libs/contracts';
+import { swapRouterV2Abi } from 'libs/contracts';
 import { VError } from 'libs/errors';
 import { useAccountAddress, useChainId } from 'libs/wallet';
-import type { Swap, VToken } from 'types';
+import type { ExactInSwapQuote, ExactOutSwapQuote, SwapQuote, VToken } from 'types';
 import { convertMantissaToTokens } from 'utilities/convertMantissaToTokens';
-import { generateTransactionDeadline } from 'utilities/generateTransactionDeadline';
 import type { Address, ContractFunctionArgs } from 'viem';
 
 export interface SwapTokensAndSupplyInput {
   swapRouterContractAddress: Address;
-  swap: Swap;
+  swap: SwapQuote;
   vToken: VToken;
 }
 
@@ -37,22 +36,22 @@ export const useSwapTokensAndSupply = (
   const { captureAnalyticEvent } = useAnalytics();
 
   const { address: swapRouterContractAddress } = useGetContractAddress({
-    name: 'SwapRouter',
-    poolComptrollerContractAddress: poolComptrollerAddress,
+    name: 'SwapRouterV2',
+    // poolComptrollerContractAddress: poolComptrollerAddress,
   });
 
   return useSendTransaction<
     TrimmedSwapTokensAndSupplyInput,
-    typeof swapRouterAbi,
-    'swapExactTokensForTokensAndSupply' | 'swapExactBNBForTokensAndSupply',
+    typeof swapRouterV2Abi,
+    'swapAndSupply' | 'swapNativeAndSupply',
     ContractFunctionArgs<
-      typeof swapRouterAbi,
+      typeof swapRouterV2Abi,
       'nonpayable' | 'payable',
-      'swapExactTokensForTokensAndSupply' | 'swapExactBNBForTokensAndSupply'
+      'swapAndSupply' | 'swapNativeAndSupply'
     >
   >({
     fn: ({ swap }: TrimmedSwapTokensAndSupplyInput) => {
-      const transactionDeadline = generateTransactionDeadline();
+      // const transactionDeadline = generateTransactionDeadline();
 
       if (!swapRouterContractAddress) {
         throw new VError({
@@ -62,38 +61,34 @@ export const useSwapTokensAndSupply = (
       }
 
       // Sell fromTokens to supply as many toTokens as possible
-      if (
-        swap.direction === 'exactAmountIn' &&
-        !swap.fromToken.isNative &&
-        !swap.toToken.isNative
-      ) {
+      if (swap.direction === 'exact-in' && !swap.fromToken.isNative && !swap.toToken.isNative) {
         return {
-          abi: swapRouterAbi,
+          abi: swapRouterV2Abi,
           address: swapRouterContractAddress,
-          functionName: 'swapExactTokensForTokensAndSupply' as const,
+          functionName: 'swapAndSupply' as const,
           args: [
             vToken.address,
-            BigInt(swap.fromTokenAmountSoldMantissa.toFixed()),
-            BigInt(swap.minimumToTokenAmountReceivedMantissa.toFixed()),
-            swap.routePath as Address[],
-            transactionDeadline,
+            swap.fromTokenAmountSoldMantissa,
+            swap.minimumToTokenAmountReceivedMantissa,
+            swap.callData,
+            // transactionDeadline,
           ],
         } as const;
       }
 
       // Sell BNBs to supply as many toTokens as possible
-      if (swap.direction === 'exactAmountIn' && swap.fromToken.isNative && !swap.toToken.isNative) {
+      if (swap.direction === 'exact-in' && swap.fromToken.isNative && !swap.toToken.isNative) {
         return {
-          abi: swapRouterAbi,
+          abi: swapRouterV2Abi,
           address: swapRouterContractAddress,
-          functionName: 'swapExactBNBForTokensAndSupply' as const,
+          functionName: 'swapNativeAndSupply' as const,
           args: [
             vToken.address,
-            BigInt(swap.minimumToTokenAmountReceivedMantissa.toFixed()),
-            swap.routePath as Address[],
-            transactionDeadline,
+            swap.minimumToTokenAmountReceivedMantissa,
+            swap.callData,
+            // transactionDeadline,
           ],
-          value: BigInt(swap.fromTokenAmountSoldMantissa.toFixed()),
+          value: swap.fromTokenAmountSoldMantissa,
         } as const;
       }
 
@@ -103,27 +98,33 @@ export const useSwapTokensAndSupply = (
       });
     },
     onConfirmed: async ({ input }) => {
+      // TODO: resolve args
+      if (!input?.swap) return;
       captureAnalyticEvent('Tokens swapped and supplied', {
         poolName,
         fromTokenSymbol: input.swap.fromToken.symbol,
-        fromTokenAmountTokens: convertMantissaToTokens({
-          token: input.swap.fromToken,
-          value:
-            input.swap.direction === 'exactAmountIn'
-              ? input.swap.fromTokenAmountSoldMantissa
-              : input.swap.expectedFromTokenAmountSoldMantissa,
-        }).toNumber(),
+        fromTokenAmountTokens: (
+          convertMantissaToTokens({
+            token: input.swap.fromToken,
+            value:
+              input.swap.direction === 'exact-in'
+                ? (input.swap as ExactInSwapQuote).fromTokenAmountSoldMantissa
+                : (input.swap as ExactOutSwapQuote).expectedFromTokenAmountSoldMantissa,
+          }) ?? '0'
+        ).toNumber(),
         toTokenSymbol: input.swap.toToken.symbol,
-        toTokenAmountTokens: convertMantissaToTokens({
-          token: input.swap.toToken,
-          value:
-            input.swap.direction === 'exactAmountIn'
-              ? input.swap.expectedToTokenAmountReceivedMantissa
-              : input.swap.toTokenAmountReceivedMantissa,
-        }).toNumber(),
+        toTokenAmountTokens: (
+          convertMantissaToTokens({
+            token: input.swap.toToken,
+            value:
+              input.swap.direction === 'exact-in'
+                ? (input.swap as ExactInSwapQuote).expectedToTokenAmountReceivedMantissa
+                : (input.swap as ExactOutSwapQuote).toTokenAmountReceivedMantissa,
+          }) ?? '0'
+        ).toNumber(),
         priceImpactPercentage: input.swap.priceImpactPercentage,
         slippageTolerancePercentage: DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE,
-        exchangeRate: input.swap.exchangeRate.toNumber(),
+        // exchangeRate: input.swap.exchangeRate.toNumber(),
       });
 
       queryClient.invalidateQueries({
