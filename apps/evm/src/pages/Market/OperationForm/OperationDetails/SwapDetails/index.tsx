@@ -3,12 +3,12 @@ import { Accordion } from 'components';
 import { SwapDetails as SwapDetailsComp } from 'containers/SwapDetails';
 import useConvertMantissaToReadableTokenString from 'hooks/useConvertMantissaToReadableTokenString';
 import { useTranslation } from 'libs/translations';
-import type { Swap } from 'types';
+import type { ExactOutSwapQuote, Swap, SwapQuote } from 'types';
 import TEST_IDS from '../testIds';
 
 export interface SwapDetailsProps extends React.HTMLAttributes<HTMLDivElement> {
   action: 'repay' | 'supply';
-  swap: Swap;
+  swap: Swap | SwapQuote;
   className?: string;
 }
 
@@ -17,15 +17,15 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, action, ...other
 
   const readableToTokenAmountReceived = useConvertMantissaToReadableTokenString({
     value:
-      swap.direction === 'exactAmountIn'
+      swap.direction === 'exactAmountIn' || swap.direction === 'exact-in'
         ? swap.expectedToTokenAmountReceivedMantissa
-        : swap.toTokenAmountReceivedMantissa,
+        : (swap as ExactOutSwapQuote).toTokenAmountReceivedMantissa, // TODO: type check?
     token: swap.toToken,
   });
 
   const getAccordionTitle = () => {
     if (action === 'repay') {
-      return swap.direction === 'exactAmountIn'
+      return swap.direction === 'exactAmountIn' || swap.direction === 'exact-in'
         ? t('operationForm.swapDetails.value.estimatedAmount', {
             value: readableToTokenAmountReceived,
           })

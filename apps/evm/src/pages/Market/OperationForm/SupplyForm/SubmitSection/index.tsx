@@ -5,7 +5,7 @@ import { cn } from '@venusprotocol/ui';
 import { ApproveTokenSteps, type ApproveTokenStepsProps, PrimaryButton } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import type { Swap, Token } from 'types';
+import type { Swap, SwapQuote, Token } from 'types';
 
 import { SwitchChain } from 'containers/SwitchChain';
 import SwapSummary from '../../SwapSummary';
@@ -23,7 +23,7 @@ export interface SubmitSectionProps {
   isApproveFromTokenLoading: ApproveTokenStepsProps['isApproveTokenLoading'];
   isFromTokenWalletSpendingLimitLoading: ApproveTokenStepsProps['isWalletSpendingLimitLoading'];
   isRevokeFromTokenWalletSpendingLimitLoading: boolean;
-  swap?: Swap;
+  swap?: Swap | SwapQuote;
   formError?: FormError<FormErrorCode>;
   isUsingSwap: boolean;
 }

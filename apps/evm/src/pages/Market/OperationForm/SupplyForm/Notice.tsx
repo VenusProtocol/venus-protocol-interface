@@ -1,10 +1,10 @@
 import { NoticeWarning } from 'components';
 import { HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
 import { useTranslation } from 'libs/translations';
-import type { Swap } from 'types';
+import type { SwapQuote } from 'types';
 
 export interface NoticeProps {
-  swap?: Swap;
+  swap?: SwapQuote;
 }
 
 const Notice: React.FC<NoticeProps> = ({ swap }) => {
