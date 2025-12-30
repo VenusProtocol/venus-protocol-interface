@@ -6,9 +6,8 @@ import {
   HEALTH_FACTOR_MODERATE_THRESHOLD,
 } from 'constants/healthFactor';
 import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
-import type { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
-import type { Asset, Pool, SwapQuote } from 'types';
+import type { Asset, Pool, SwapQuote, SwapQuoteError } from 'types';
 import { formatTokensToReadableValue } from 'utilities';
 import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
@@ -19,7 +18,7 @@ interface UseFormValidationInput {
   formValues: FormValues;
   limitTokens: BigNumber;
   swapQuote?: SwapQuote;
-  getSwapQuoteError?: VError<'swapQuote' | 'interaction'>;
+  getSwapQuoteError?: SwapQuoteError;
   expectedSuppliedAmountTokens?: BigNumber;
   simulatedPool?: Pool;
 }

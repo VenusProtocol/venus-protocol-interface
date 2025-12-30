@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@venusprotocol/ui';
-import { useSupply, useSwapTokensAndSupply } from 'clients/api';
+import { useGetSwapQuote, useSupply, useSwapTokensAndSupply } from 'clients/api';
 import {
   Delimiter,
   LabeledInlineContent,
@@ -13,14 +13,13 @@ import {
 } from 'components';
 import { useCollateral } from 'hooks/useCollateral';
 import useFormatTokensToReadableValue from 'hooks/useFormatTokensToReadableValue';
-import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { VError, handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAccountChainId, useChainId } from 'libs/wallet';
-import type { Asset, BalanceMutation, Pool, Swap, SwapError, TokenBalance } from 'types';
+import type { Asset, BalanceMutation, Pool, SwapQuote, SwapQuoteError, TokenBalance } from 'types';
 import {
   areTokensEqual,
   convertMantissaToTokens,
@@ -30,10 +29,12 @@ import {
   isCollateralActionDisabled,
 } from 'utilities';
 
+import { NULL_ADDRESS } from 'constants/address';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import useDebounceValue from 'hooks/useDebounceValue';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
+import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { useAnalytics } from 'libs/analytics';
 import { ApyBreakdown } from '../ApyBreakdown';
@@ -70,8 +71,8 @@ export interface SupplyFormUiProps
   isUsingSwap: boolean;
   onSubmitSuccess?: () => void;
   fromTokenWalletSpendingLimitTokens?: BigNumber;
-  swap?: Swap;
-  swapError?: SwapError;
+  swap?: SwapQuote;
+  swapError?: SwapQuoteError;
 }
 
 export const SupplyFormUi: React.FC<SupplyFormUiProps> = ({
@@ -615,13 +616,31 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
   );
 
   const debouncedFormAmountTokens = useDebounceValue(formValues.amountTokens);
+  const fromTokenAmountTokens = new BigNumber(debouncedFormAmountTokens || 0);
 
-  const swapInfo = useGetSwapInfo({
-    fromToken: formValues.fromToken,
-    fromTokenAmountTokens: debouncedFormAmountTokens,
-    toToken: asset.vToken.underlyingToken,
-    direction: 'exactAmountIn',
+  const { address: leverageManagerContractAddress } = useGetContractAddress({
+    name: 'LeverageManager',
   });
+  const { userSlippageTolerancePercentage } = useGetUserSlippageTolerance();
+  const {
+    data: getSwapQuoteData,
+    error: getSwapQuoteError,
+    isLoading: isGetSwapQuoteLoading,
+  } = useGetSwapQuote(
+    {
+      fromToken: formValues.fromToken,
+      fromTokenAmountTokens,
+      toToken: asset.vToken.underlyingToken,
+      direction: 'exact-in',
+      recipientAddress: leverageManagerContractAddress || NULL_ADDRESS,
+      slippagePercentage: userSlippageTolerancePercentage,
+    },
+    {
+      enabled:
+        isUsingSwap && !!leverageManagerContractAddress && fromTokenAmountTokens.isGreaterThan(0),
+    },
+  );
+  const swapQuote = getSwapQuoteData?.swapQuote;
 
   return (
     <SupplyFormUi
@@ -639,9 +658,9 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
       integratedSwapTokenBalances={integratedSwapTokenBalancesData}
       onSubmit={onSubmit}
       isSubmitting={isSubmitting}
-      swap={swapInfo.swap}
-      swapError={swapInfo.error}
-      isSwapLoading={swapInfo.isLoading}
+      swap={swapQuote}
+      swapError={getSwapQuoteError}
+      isSwapLoading={isGetSwapQuoteLoading}
       isFromTokenApproved={isFromTokenApproved}
       approveFromToken={approveFromToken}
       isApproveFromTokenLoading={isApproveFromTokenLoading}
