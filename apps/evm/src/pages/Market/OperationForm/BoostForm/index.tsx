@@ -4,16 +4,20 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { useGetSwapQuote, useOpenLeveragedPosition } from 'clients/api';
 import {
+  AcknowledgementToggle,
   Delimiter,
   Icon,
   LabeledInlineContent,
   type OptionalTokenBalance,
-  RiskAcknowledgementToggle,
   TokenListWrapper,
   TokenTextField,
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwapDetails } from 'containers/SwapDetails';
 import useDebounceValue from 'hooks/useDebounceValue';
@@ -35,12 +39,13 @@ import {
 import { ApyBreakdown } from '../ApyBreakdown';
 import { OperationDetails } from '../OperationDetails';
 import { calculateAmountDollars } from '../calculateAmountDollars';
+import type { FormError } from '../types';
 import { RiskSlider } from './RiskSlider';
 import { SelectTokenField } from './SelectTokenField';
 import { SubmitSection } from './SubmitSection';
 import { calculateUserMaxBorrowTokens } from './calculateUserMaxBorrowTokens';
 import TEST_IDS from './testIds';
-import useForm, { type FormValues, type UseFormInput } from './useForm';
+import useForm, { type FormErrorCode, type FormValues, type UseFormInput } from './useForm';
 
 export interface BoostFormProps {
   asset: Asset;
@@ -94,6 +99,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
       suppliedToken:
         tokenBalances.length > 0 ? tokenBalances[0].token : borrowedAsset.vToken.underlyingToken,
       acknowledgeRisk: false,
+      acknowledgeHighPriceImpact: false,
     };
 
     return values;
@@ -234,7 +240,12 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
     simulatedPool?.userHealthFactor !== undefined &&
     simulatedPool?.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
 
-  const { handleSubmit, isFormValid, formError } = useForm({
+  const isHighPriceImpact =
+    swapQuote?.priceImpactPercentage !== undefined &&
+    swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+    swapQuote?.priceImpactPercentage < MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE;
+
+  const { handleSubmit, isFormValid, formErrors } = useForm({
     borrowedAsset,
     pool,
     simulatedPool,
@@ -247,6 +258,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
     setFormValues,
     initialFormValues,
   });
+  const formError: FormError<FormErrorCode> | undefined = formErrors[0];
 
   // Convert input amount to percentage of limit
   const riskSliderValue =
@@ -284,6 +296,13 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       acknowledgeRisk: checked,
+    }));
+  };
+
+  const handleToggleAcknowledgeHighPriceImpact = (checked: boolean) => {
+    setFormValues(currentFormValues => ({
+      ...currentFormValues,
+      acknowledgeHighPriceImpact: checked,
     }));
   };
 
@@ -329,8 +348,17 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
     // TODO: capture event
   };
 
-  const shouldAskUserRiskAcknowledgement =
-    isRiskyOperation && (!formError || formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT');
+  const shouldAskRiskAcknowledgement =
+    isRiskyOperation &&
+    (!formError ||
+      formError.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT' ||
+      formError.code === 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT');
+
+  const shouldAskPriceImpactAcknowledgement =
+    isHighPriceImpact &&
+    (!formError ||
+      formError.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT' ||
+      formError.code === 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT');
 
   const isDisabled =
     !accountAddress ||
@@ -368,6 +396,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
                   Number(formValues.amountTokens) > 0 &&
                   !!formError &&
                   formError.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT' &&
+                  formError.code !== 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT' &&
                   formError.code !== 'MISSING_DATA'
                 }
               />
@@ -427,10 +456,21 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
             balanceMutations={balanceMutations}
           />
 
-          {shouldAskUserRiskAcknowledgement && (
-            <RiskAcknowledgementToggle
+          {shouldAskRiskAcknowledgement && (
+            <AcknowledgementToggle
               value={formValues.acknowledgeRisk}
               onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
+              label={t('operationForm.acknowledgements.riskyOperation.label')}
+              tooltip={t('operationForm.acknowledgements.riskyOperation.tooltip')}
+            />
+          )}
+
+          {shouldAskPriceImpactAcknowledgement && (
+            <AcknowledgementToggle
+              value={formValues.acknowledgeHighPriceImpact}
+              onChange={(_, checked) => handleToggleAcknowledgeHighPriceImpact(checked)}
+              label={t('operationForm.acknowledgements.highPriceImpact.label')}
+              tooltip={t('operationForm.acknowledgements.highPriceImpact.tooltip')}
             />
           )}
         </div>
@@ -439,7 +479,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
           <SubmitSection
             isLoading={isSubmitting || isGetSwapQuoteLoading}
             isFormValid={isFormValid}
-            isRiskyOperation={isRiskyOperation}
+            isRiskyOperation={isRiskyOperation || isHighPriceImpact}
             formErrorCode={formError?.code}
             poolComptrollerContractAddress={pool.comptrollerAddress}
           />

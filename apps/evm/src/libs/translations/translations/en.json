@@ -734,10 +734,6 @@
       "highRisk": "High risk",
       "lowRisk": "Low risk"
     },
-    "riskyOperation": {
-      "toggleLabel": "I acknowledge the risks involved",
-      "warning": "Your health factor will be low after this transaction, increasing the risk of liquidation"
-    },
     "safeMaxButtonLabel": "SAFE MAX",
     "submitButtonLabel": {
       "boost": "Boost",
@@ -766,6 +762,16 @@
     "walletBalance": "Wallet balance",
     "warning": {
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
+    },
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "I acknowledge the risks involved",
+        "tooltip": "This swap is unfavorable"
+      },
+      "riskyOperation": {
+        "label": "I acknowledge the risks involved",
+        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
+      }
     },
     "withdrawTabTitle": "Withdraw"
   },

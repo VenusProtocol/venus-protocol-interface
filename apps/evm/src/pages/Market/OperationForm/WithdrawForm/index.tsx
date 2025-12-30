@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { cn } from '@venusprotocol/ui';
 import { useGetVTokenBalance, useWithdraw } from 'clients/api';
 import {
+  AcknowledgementToggle,
   Delimiter,
   LabeledInlineContent,
-  RiskAcknowledgementToggle,
   Toggle,
   TokenTextField,
 } from 'components';
@@ -377,7 +377,9 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           />
 
           {shouldAskUserRiskAcknowledgement && (
-            <RiskAcknowledgementToggle
+            <AcknowledgementToggle
+              label={t('operationForm.acknowledgements.riskyOperation.label')}
+              tooltip={t('operationForm.acknowledgements.riskyOperation.tooltip')}
               value={formValues.acknowledgeRisk}
               onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
             />
