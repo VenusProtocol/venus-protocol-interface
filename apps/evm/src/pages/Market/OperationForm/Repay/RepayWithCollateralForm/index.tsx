@@ -18,6 +18,10 @@ import {
 } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { HEALTH_FACTOR_MODERATE_THRESHOLD } from 'constants/healthFactor';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { SwapDetails } from 'containers/SwapDetails';
 import useDebounceValue from 'hooks/useDebounceValue';
@@ -25,6 +29,7 @@ import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useGetUserSlippageTolerance } from 'hooks/useGetUserSlippageTolerance';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { VError } from 'libs/errors';
+
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset, BalanceMutation, Pool } from 'types';
@@ -38,10 +43,11 @@ import {
 } from 'utilities';
 import { ApyBreakdown } from '../../ApyBreakdown';
 import { OperationDetails } from '../../OperationDetails';
+import type { FormError } from '../../types';
 import { Notice } from '../Notice';
 import { SubmitSection } from './SubmitSection';
 import TEST_IDS from './testIds';
-import useForm, { type FormValues, type UseFormInput } from './useForm';
+import useForm, { type FormErrorCode, type FormValues, type UseFormInput } from './useForm';
 
 export interface RepayWithCollateralFormProps {
   asset: Asset;
@@ -83,6 +89,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
       collateralAmountTokens: '',
       repaidAmountTokens: '',
       acknowledgeRisk: false,
+      acknowledgeHighPriceImpact: false,
       repayFullLoan: false,
     };
 
@@ -263,7 +270,12 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     simulatedPool?.userHealthFactor !== undefined &&
     simulatedPool?.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD;
 
-  const { handleSubmit, isFormValid, formError } = useForm({
+  const isHighPriceImpact =
+    swapQuote?.priceImpactPercentage !== undefined &&
+    swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+    swapQuote?.priceImpactPercentage < MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE;
+
+  const { handleSubmit, isFormValid, formErrors } = useForm({
     limitTokens,
     repaidAsset,
     simulatedPool,
@@ -276,10 +288,19 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     getSwapQuoteError: getSwapQuoteError || undefined,
   });
 
+  const formError: FormError<FormErrorCode> | undefined = formErrors[0];
+
   const handleToggleAcknowledgeRisk = (checked: boolean) => {
     setFormValues(currentFormValues => ({
       ...currentFormValues,
       acknowledgeRisk: checked,
+    }));
+  };
+
+  const handleToggleAcknowledgeHighPriceImpact = (checked: boolean) => {
+    setFormValues(currentFormValues => ({
+      ...currentFormValues,
+      acknowledgeHighPriceImpact: checked,
     }));
   };
 
@@ -306,8 +327,17 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     }));
   };
 
-  const shouldAskUserRiskAcknowledgement =
-    isRiskyOperation && (!formError || formError?.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT');
+  const shouldAskRiskAcknowledgement =
+    isRiskyOperation &&
+    (!formError ||
+      formError.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT' ||
+      formError.code === 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT');
+
+  const shouldAskPriceImpactAcknowledgement =
+    isHighPriceImpact &&
+    (!formError ||
+      formError.code === 'REQUIRES_RISK_ACKNOWLEDGEMENT' ||
+      formError.code === 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT');
 
   const isDisabled = !accountAddress || isSubmitting;
 
@@ -326,6 +356,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
                   !isSubmitting &&
                   !!formError &&
                   formError.code !== 'REQUIRES_RISK_ACKNOWLEDGEMENT' &&
+                  formError.code !== 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT' &&
                   formError.code !== 'MISSING_DATA' &&
                   formError.code !== 'EMPTY_TOKEN_AMOUNT' &&
                   formError.code !== 'HIGHER_THAN_BORROW_BALANCE'
@@ -454,12 +485,24 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
             showApyBreakdown={false}
           />
 
-          {shouldAskUserRiskAcknowledgement && (
+          {shouldAskRiskAcknowledgement && (
             <AcknowledgementToggle
               label={t('operationForm.acknowledgements.riskyOperation.label')}
               tooltip={t('operationForm.acknowledgements.riskyOperation.tooltip')}
               value={formValues.acknowledgeRisk}
               onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
+            />
+          )}
+
+          {shouldAskPriceImpactAcknowledgement && (
+            <AcknowledgementToggle
+              value={formValues.acknowledgeHighPriceImpact}
+              onChange={(_, checked) => handleToggleAcknowledgeHighPriceImpact(checked)}
+              label={t('operationForm.acknowledgements.highPriceImpact.label')}
+              tooltip={t('operationForm.acknowledgements.highPriceImpact.tooltip', {
+                priceImpactPercentage:
+                  swapQuote?.priceImpactPercentage ?? HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+              })}
             />
           )}
         </div>
