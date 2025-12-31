@@ -1,7 +1,12 @@
+import BigNumber from 'bignumber.js';
 import { LabeledInlineContent, type LabeledInlineContentProps, ValueUpdate } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { BalanceMutation, Pool } from 'types';
-import { areAddressesEqual, formatTokensToReadableValue } from 'utilities';
+import {
+  areAddressesEqual,
+  formatCentsToReadableValue,
+  formatTokensToReadableValue,
+} from 'utilities';
 
 export interface BalanceUpdatesProps {
   pool: Pool;
@@ -53,24 +58,43 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
       simulatedBalanceTokens = simulatedAsset?.userSupplyBalanceTokens;
     }
 
+    const original = formatTokensToReadableValue({
+      token: asset.vToken.underlyingToken,
+      value: balanceTokens,
+      addSymbol: false,
+    });
+
+    const update =
+      simulatedBalanceTokens &&
+      formatTokensToReadableValue({
+        token: asset.vToken.underlyingToken,
+        value: simulatedBalanceTokens,
+        addSymbol: false,
+      });
+
+    const tokenValue = formatCentsToReadableValue({
+      value:
+        simulatedBalanceTokens && asset.tokenPriceCents
+          ? asset.tokenPriceCents.times(new BigNumber(simulatedBalanceTokens))
+          : undefined,
+    });
+
     const row: LabeledInlineContentProps = {
       iconSrc: asset.vToken.underlyingToken,
       label,
       children: (
         <ValueUpdate
-          original={formatTokensToReadableValue({
-            token: asset.vToken.underlyingToken,
-            value: balanceTokens,
-            addSymbol: false,
-          })}
+          original={original}
           update={
-            simulatedBalanceTokens &&
-            formatTokensToReadableValue({
-              token: asset.vToken.underlyingToken,
-              value: simulatedBalanceTokens,
-              addSymbol: false,
-            })
+            update ? (
+              <div className="text-end w-min">
+                {update}
+                {tokenValue ? ` (+${tokenValue})` : ''}
+              </div>
+            ) : undefined
           }
+          className="items-start"
+          iconClassName="translate-y-0.5"
         />
       ),
     };
@@ -81,7 +105,7 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
   return (
     <div className="space-y-2">
       {balanceUpdateRows.map(row => (
-        <LabeledInlineContent {...row} key={row.label} />
+        <LabeledInlineContent {...row} key={row.label} className="items-start" />
       ))}
     </div>
   );

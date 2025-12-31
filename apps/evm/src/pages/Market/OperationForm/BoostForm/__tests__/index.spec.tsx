@@ -564,7 +564,14 @@ describe('BoostForm', () => {
     await waitFor(() => expect(tokenTextInput.value).toEqual('10'));
 
     // Check warning is displayed
-    expect(getByText(en.operationForm.acknowledgements.highPriceImpact.tooltip));
+    expect(
+      getByText(
+        en.operationForm.acknowledgements.highPriceImpact.tooltip.replace(
+          '{{priceImpactPercentage}}',
+          `${HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE}`,
+        ),
+      ),
+    );
 
     // Check submit button is disabled
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
