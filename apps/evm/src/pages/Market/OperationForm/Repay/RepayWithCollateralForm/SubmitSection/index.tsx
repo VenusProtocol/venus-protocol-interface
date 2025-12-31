@@ -1,3 +1,4 @@
+import { cn } from '@venusprotocol/ui';
 import { useMemo } from 'react';
 
 import { PrimaryButton } from 'components';
@@ -15,6 +16,7 @@ export interface SubmitSectionProps {
   isLoading: boolean;
   poolComptrollerContractAddress: Address;
   formErrorCode?: FormErrorCode;
+  isRiskyOperation: boolean;
 }
 
 export const SubmitSection: React.FC<SubmitSectionProps> = ({
@@ -22,6 +24,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   isLoading,
   formErrorCode,
   poolComptrollerContractAddress,
+  isRiskyOperation,
 }) => {
   const { t } = useTranslation();
 
@@ -59,7 +62,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       type="submit"
       loading={isLoading}
       disabled={!isFormValid || isLoading}
-      className="w-full"
+      className={cn('w-full', isRiskyOperation && 'border-red bg-red')}
     >
       {submitButtonLabel}
     </PrimaryButton>

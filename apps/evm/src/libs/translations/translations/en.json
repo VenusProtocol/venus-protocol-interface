@@ -765,8 +765,8 @@
     },
     "acknowledgements": {
       "highPriceImpact": {
-        "label": "I acknowledge the erosion involved",
-        "tooltip": "This transaction is expected to result in a value erosion of over {{priceImpactPercentage}}%."
+        "label": "I acknowledge the high price impact",
+        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
       },
       "riskyOperation": {
         "label": "I acknowledge the risks involved",
