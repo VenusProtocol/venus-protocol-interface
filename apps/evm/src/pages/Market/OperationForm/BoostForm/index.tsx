@@ -470,7 +470,10 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
               value={formValues.acknowledgeHighPriceImpact}
               onChange={(_, checked) => handleToggleAcknowledgeHighPriceImpact(checked)}
               label={t('operationForm.acknowledgements.highPriceImpact.label')}
-              tooltip={t('operationForm.acknowledgements.highPriceImpact.tooltip')}
+              tooltip={t('operationForm.acknowledgements.highPriceImpact.tooltip', {
+                priceImpactPercentage:
+                  swapQuote?.priceImpactPercentage ?? HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+              })}
             />
           )}
         </div>
