@@ -4,21 +4,15 @@ import { Icon } from '../Icon';
 export interface ValueUpdateProps extends React.HTMLAttributes<HTMLDivElement> {
   original: React.ReactNode;
   update?: React.ReactNode;
-  iconClassName?: string;
 }
 
-export const ValueUpdate: React.FC<ValueUpdateProps> = ({
-  className,
-  original,
-  update,
-  iconClassName,
-}) => (
+export const ValueUpdate: React.FC<ValueUpdateProps> = ({ className, original, update }) => (
   <div className={cn('flex items-center gap-x-2', className)}>
     {original}
 
     {update && (
       <>
-        <Icon name="arrowShaft" className={cn('w-4 h-4 text-offWhite', iconClassName)} />
+        <Icon name="arrowShaft" className="w-4 h-4 text-offWhite" />
 
         {update}
       </>

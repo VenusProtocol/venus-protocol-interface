@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import type BigNumber from 'bignumber.js';
 import { LabeledInlineContent, type LabeledInlineContentProps, ValueUpdate } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { BalanceMutation, Pool } from 'types';
@@ -7,6 +7,11 @@ import {
   formatCentsToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
+
+interface Row {
+  labeledInlineContentProps: LabeledInlineContentProps;
+  readableAmountDollars?: string;
+}
 
 export interface BalanceUpdatesProps {
   pool: Pool;
@@ -21,9 +26,7 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const balanceUpdateRows: LabeledInlineContentProps[] = balanceMutations.reduce<
-    LabeledInlineContentProps[]
-  >((acc, balanceMutation) => {
+  const balanceUpdateRows: Row[] = balanceMutations.reduce<Row[]>((acc, balanceMutation) => {
     // Skip VAI updates
     if (balanceMutation.type === 'vai') {
       return acc;
@@ -72,31 +75,28 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
         addSymbol: false,
       });
 
-    const tokenValue = formatCentsToReadableValue({
-      value:
-        simulatedBalanceTokens && asset.tokenPriceCents
-          ? asset.tokenPriceCents.times(new BigNumber(simulatedBalanceTokens))
-          : undefined,
-    });
+    const updateAmountTokens = simulatedBalanceTokens
+      ? simulatedBalanceTokens.minus(balanceTokens)
+      : undefined;
 
-    const row: LabeledInlineContentProps = {
-      iconSrc: asset.vToken.underlyingToken,
-      label,
-      children: (
-        <ValueUpdate
-          original={original}
-          update={
-            update ? (
-              <div className="text-end w-min">
-                {update}
-                {tokenValue ? ` (+${tokenValue})` : ''}
-              </div>
-            ) : undefined
-          }
-          className="items-start"
-          iconClassName="translate-y-0.5"
-        />
-      ),
+    let readableAmountDollars = updateAmountTokens
+      ? formatCentsToReadableValue({
+          value: asset.tokenPriceCents.times(updateAmountTokens).absoluteValue(),
+        })
+      : undefined;
+
+    if (readableAmountDollars && updateAmountTokens) {
+      const sign = updateAmountTokens.isLessThan(0) ? '-' : '+';
+      readableAmountDollars = `${sign} ${readableAmountDollars}`;
+    }
+
+    const row: Row = {
+      readableAmountDollars,
+      labeledInlineContentProps: {
+        iconSrc: asset.vToken.underlyingToken,
+        label,
+        children: <ValueUpdate original={original} update={update} />,
+      },
     };
 
     return [...acc, row];
@@ -104,8 +104,15 @@ export const BalanceUpdates: React.FC<BalanceUpdatesProps> = ({
 
   return (
     <div className="space-y-2">
-      {balanceUpdateRows.map(row => (
-        <LabeledInlineContent {...row} key={row.label} className="items-start" />
+      {balanceUpdateRows.map(({ labeledInlineContentProps, readableAmountDollars }) => (
+        <div className="flex flex-col items-end">
+          <LabeledInlineContent
+            {...labeledInlineContentProps}
+            key={labeledInlineContentProps.label}
+          />
+
+          {readableAmountDollars && <p className="text-grey text-sm">{readableAmountDollars}</p>}
+        </div>
       ))}
     </div>
   );

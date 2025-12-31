@@ -80,6 +80,16 @@ const useFormValidation = ({
     }
 
     if (
+      simulatedPool?.userHealthFactor !== undefined &&
+      simulatedPool.userHealthFactor <= HEALTH_FACTOR_LIQUIDATION_THRESHOLD
+    ) {
+      tmpErrors.push({
+        code: 'TOO_RISKY',
+        message: t('operationForm.error.tooRisky'),
+      });
+    }
+
+    if (
       swapQuote &&
       swapQuote?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
     ) {
@@ -97,16 +107,6 @@ const useFormValidation = ({
     ) {
       tmpErrors.push({
         code: 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT',
-      });
-    }
-
-    if (
-      simulatedPool?.userHealthFactor !== undefined &&
-      simulatedPool.userHealthFactor <= HEALTH_FACTOR_LIQUIDATION_THRESHOLD
-    ) {
-      tmpErrors.push({
-        code: 'TOO_RISKY',
-        message: t('operationForm.error.tooRisky'),
       });
     }
 

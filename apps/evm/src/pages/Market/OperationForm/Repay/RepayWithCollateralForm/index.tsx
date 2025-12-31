@@ -500,8 +500,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
               onChange={(_, checked) => handleToggleAcknowledgeHighPriceImpact(checked)}
               label={t('operationForm.acknowledgements.highPriceImpact.label')}
               tooltip={t('operationForm.acknowledgements.highPriceImpact.tooltip', {
-                priceImpactPercentage:
-                  swapQuote?.priceImpactPercentage ?? HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+                priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
               })}
             />
           )}
@@ -511,6 +510,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
           <SubmitSection
             isLoading={isSubmitting || isGetSwapQuoteLoading}
             isFormValid={isFormValid}
+            isRiskyOperation={isHighPriceImpact}
             formErrorCode={formError?.code}
             poolComptrollerContractAddress={pool.comptrollerAddress}
           />
