@@ -47,7 +47,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
       </div>
 
       {badgeNumber && (
-        <div className="flex-shrink-0 w-5 h-5 rounded-md bg-lightGrey items-center justify-center flex">
+        <div className="shrink-0 w-5 h-5 rounded-md bg-lightGrey items-center justify-center flex">
           <span className="text-xs text-offWhite">{badgeNumber}</span>
         </div>
       )}

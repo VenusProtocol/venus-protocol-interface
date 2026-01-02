@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
       className={cn(
         // The gradient will only be visible when a background color is applied. It is built this
         // way to support gradient background using a solid background color
-        'relative flex-shrink-0 transition-all duration-500 bg-gradient-to-b from-background/60 to-background',
+        'relative shrink-0 transition-all duration-500 bg-linear-to-b from-background/60 to-background',
       )}
       style={
         isOnMarketPage && gradientAccentColor

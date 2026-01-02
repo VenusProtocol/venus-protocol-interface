@@ -7,10 +7,10 @@ export const ThemeHandler: React.FC = () => {
 
   // Change theme based on active chain
   useEffect(() => {
-    document.body.classList.remove('unichain-theme');
+    document.documentElement.classList.remove('unichain-theme');
 
     if (isOnUnichain) {
-      document.body.classList.add('unichain-theme');
+      document.documentElement.classList.add('unichain-theme');
     }
   }, [isOnUnichain]);
 

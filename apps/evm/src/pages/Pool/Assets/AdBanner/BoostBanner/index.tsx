@@ -1,6 +1,6 @@
 import { useTranslation } from 'libs/translations';
 import { Banner } from '../Banner';
-import rocketIllustration from './rocket.svg';
+import rocketIllustration from './rocket.png';
 
 const LEARN_MORE_URL = 'https://docs-v4.venus.io/guides/leveraged-positions';
 

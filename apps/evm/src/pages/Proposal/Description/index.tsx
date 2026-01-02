@@ -26,7 +26,7 @@ export const Description: React.FC<DescriptionSummary> = ({ className, descripti
 
         <MarkdownViewer
           css={styles.markdown}
-          className="break-words"
+          className="wrap-break-word"
           content={description.description}
         />
 

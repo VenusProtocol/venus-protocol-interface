@@ -1,5 +1,6 @@
 import inject from '@rollup/plugin-inject';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, loadEnv } from 'vite';
@@ -13,7 +14,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: './',
-    plugins: [react(), viteTsConfigPaths(), svgrPlugin()],
+    plugins: [react(), viteTsConfigPaths(), svgrPlugin(), tailwindcss()],
     resolve: {
       alias: {
         // Import raw source so dApp is in charge of compiling token and chain icons

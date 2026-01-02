@@ -9,6 +9,7 @@ export const useStyles = ({
   progressBarColor: string;
 }) => {
   const theme = useTheme();
+
   return {
     slider: css`
       z-index: 0;
@@ -29,6 +30,11 @@ export const useStyles = ({
         height: ${theme.spacing(2)};
         color: ${theme.palette.secondary.light};
         opacity: 1;
+      }
+      .MuiSlider-thumb {
+        box-shadow: none;
+        width: 0;
+        height: 0;
       }
     `,
     trackWrapper: css`

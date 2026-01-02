@@ -13,6 +13,7 @@ import {
   addUserBorrowLimitShares,
   areAddressesEqual,
   calculateUserPoolValues,
+  calculateYearlyEarningsForAssets,
   clampToZero,
 } from 'utilities';
 import { addUserPrimeApys } from './addUserPrimeApys';
@@ -221,6 +222,11 @@ export const getSimulatedPool = async ({
     });
 
     simulatedAssets = assetsWithPrimeApys;
+
+    // Recalculate user earnings
+    userPoolValues.userYearlyEarningsCents = calculateYearlyEarningsForAssets({
+      assets: simulatedAssets,
+    });
   }
 
   const poolVai: undefined | PoolVai = pool.vai
@@ -231,7 +237,7 @@ export const getSimulatedPool = async ({
       }
     : undefined;
 
-  const simulatedPool = {
+  const simulatedPool: Pool = {
     ...pool,
     ...userPoolValues,
     assets: simulatedAssets,

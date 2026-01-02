@@ -20,7 +20,7 @@
     background-color: var(--color-background-secondary);
     border-radius: 8px;
     padding: 24px;
-    border: 1px solid rgb(var(--color-lightGrey));
+    border: 1px solid var(--color-lightGrey);
 
     &+& {
         margin-top: 16px;
@@ -56,8 +56,10 @@
 }
 .title {
     font-size: 24px;
+    margin: 0;
     margin-bottom: 8px;
 }
 .text {
-    color: rgb(var(--color-grey));
+    margin: 0;
+    color: var(--color-grey);
 }

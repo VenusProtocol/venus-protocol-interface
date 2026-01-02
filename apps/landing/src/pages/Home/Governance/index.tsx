@@ -11,12 +11,12 @@ const Governance: React.FC = () => {
       <div className={s.card} key="bounty">
         <div className={s.textWrapper}>
           <div>
-            <h2>
+            <h2 className="m-0">
               Money Markets governed
               <br />
               by community
             </h2>
-            <p>
+            <p className="m-0">
               Venus is a community-driven decentralized protocol delivering best-in-class
               functionality for crypto money markets.
             </p>

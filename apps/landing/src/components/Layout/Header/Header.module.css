@@ -33,7 +33,7 @@
 }
 
 .headerAfterScroll {
-    background-color: rgb(var(--color-background));
+    background-color: var(--color-background);
 }
 
 .logo {
@@ -60,7 +60,7 @@
     width: 100vw;
     left: 0;
     right: 0;
-    background-color: rgb(var(--color-background));
+    background-color: var(--color-background);
     top: 60px;
     height: calc(100vh - 60px);
     opacity: 0;

@@ -65,7 +65,7 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
       {...otherProps}
     >
       {canUserBecomePrime && (
-        <div className="absolute inset-0 opacity-80 bg-gradient-to-r from-[#FF8461] via-[rgba(249,196,60,0.4)] to-[#00A7FF] blur-md filter" />
+        <div className="absolute inset-0 opacity-80 bg-linear-to-r from-[#FF8461] via-[rgba(249,196,60,0.4)] to-[#00A7FF] blur-md filter" />
       )}
 
       <Card
@@ -118,6 +118,7 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
             type="button"
             onClick={onHidePrimePromotionalBanner}
             data-testid={testIds.closeButton}
+            className="cursor-pointer"
           >
             <Icon name="close" className="w-5 h-5" />
           </button>
@@ -131,7 +132,7 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
       {/* XS view */}
       <div className="sm:hidden">
         {canUserBecomePrime ? (
-          <button onClick={() => claimPrimeToken()} type="button" className="w-full">
+          <button onClick={() => claimPrimeToken()} type="button" className="w-full cursor-pointer">
             {dom}
           </button>
         ) : (

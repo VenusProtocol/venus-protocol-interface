@@ -1,32 +1,96 @@
 @layer base {
+
+  /* css-variables in rgb format: */
   :root {
     /* The next colors are taken from the UI kit in Figma */
-    --color-background: 24 29 39;
-    --color-cards: 30 36 49;
-    --color-grey: 170 179 202;
-    --color-lightGrey: 45 53 73;
-    --color-green: 0 195 142;
-    --color-red: 233 61 102;
-    --color-offWhite: 255 255 255;
-    --color-orange: 245 120 66;
-    --color-yellow: 245 178 66;
-    --color-blue: 58 120 255;
+    --color-background-rgb: 24 29 39;
+    --color-cards-rgb: 30 36 49;
+    --color-grey-rgb: 170 179 202;
+    --color-lightGrey-rgb: 45 53 73;
+    --color-green-rgb: 0 195 142;
+    --color-red-rgb: 233 61 102;
+    --color-offWhite-rgb: 255 255 255;
+    --color-orange-rgb: 245 120 66;
+    --color-yellow-rgb: 245 178 66;
+    --color-blue-rgb: 58 120 255;
     /* The next colors are not in the UI kit, but are used throughout the designs */
-    --color-mediumBlue: 38 90 204;
-    --color-darkBlue: 27 67 152;
-    --color-greyBlue: 42 52 77;
+    --color-mediumBlue-rgb: 38 90 204;
+    --color-darkBlue-rgb: 27 67 152;
+    --color-greyBlue-rgb: 42 52 77;
   }
 
   .unichain-theme {
     /* The next colors are taken from the UI kit in Figma */
-    --color-background: 19 19 19;
-    --color-cards: 27 27 27;
-    --color-grey: 179 185 202;
-    --color-lightGrey: 46 46 46;
-    --color-blue: 245 13 180;
+    --color-background-rgb: 19 19 19;
+    --color-cards-rgb: 27 27 27;
+    --color-grey-rgb: 179 185 202;
+    --color-lightGrey-rgb: 46 46 46;
+    --color-blue-rgb: 245 13 180;
     /* The next colors are not in the UI kit, but are used throughout the designs */
-    --color-mediumBlue: 198 7 145;
-    --color-darkBlue: 170 6 124;
-    --color-greyBlue: 65 31 69;
+    --color-mediumBlue-rgb: 198 7 145;
+    --color-darkBlue-rgb: 170 6 124;
+    --color-greyBlue-rgb: 65 31 69;
   }
+}
+
+@theme {
+  /* fontFamily: */
+  --font-display: 'var(--font-proxima-nova)', 'Arial', 'sans-serif';
+
+  /* screens: */
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-xxl: 1440px;
+
+  /* colors: */
+  --color-inherit: inherit;
+  --color-transparent: transparent;
+  --color-background: rgb(var(--color-background-rgb));
+  --color-cards: rgb(var(--color-cards-rgb));
+  --color-grey: rgb(var(--color-grey-rgb));
+  --color-lightGrey: rgb(var(--color-lightGrey-rgb));
+  --color-green: rgb(var(--color-green-rgb));
+  --color-red: rgb(var(--color-red-rgb));
+  --color-offWhite: rgb(var(--color-offWhite-rgb));
+  --color-orange: rgb(var(--color-orange-rgb));
+  --color-yellow: rgb(var(--color-yellow-rgb));
+  --color-blue: rgb(var(--color-blue-rgb));
+  /* The next colors are not in the UI kit, but are used throughout the designs */
+  --color-mediumBlue: rgb(var(--color-mediumBlue-rgb));
+  --color-darkBlue: rgb(var(--color-darkBlue-rgb));
+  --color-greyBlue: rgb(var(--color-greyBlue-rgb));
+
+  /* fontSize: */
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
+
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5;
+
+  --text-base: 1rem;
+  --text-base--line-height: 1.5;
+
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.5;
+  --text-lg--font-weight: 600;
+
+  --text-xl: 1.5rem;
+  --text-xl--line-height: 1.5;
+  --text-xl--font-weight: 700;
+
+  --text-2xl: 2rem;
+  --text-2xl--line-height: 1.5;
+  --text-2xl--font-weight: 600;
+
+  --text-3xl: 2.5rem;
+  --text-3xl--line-height: 1.2;
+  --text-3xl--font-weight: 600;
+
+  /* boxShadow: */
+  --shadow: 0px 4px 15px 0px #0D1017;
+
+  /* spacing: */
+  --spacing: 0.25rem;
 }
