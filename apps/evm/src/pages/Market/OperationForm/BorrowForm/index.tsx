@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { cn } from '@venusprotocol/ui';
 import { useBorrow } from 'clients/api';
 import {
+  AcknowledgementToggle,
   Delimiter,
   LabeledInlineContent,
-  RiskAcknowledgementToggle,
   Toggle,
   TokenTextField,
 } from 'components';
@@ -364,7 +364,9 @@ export const BorrowFormUi: React.FC<BorrowFormUiProps> = ({
           />
 
           {shouldAskUserRiskAcknowledgement && (
-            <RiskAcknowledgementToggle
+            <AcknowledgementToggle
+              label={t('operationForm.acknowledgements.riskyOperation.label')}
+              tooltip={t('operationForm.acknowledgements.riskyOperation.tooltip')}
               value={formValues.acknowledgeRisk}
               onChange={(_, checked) => handleToggleAcknowledgeRisk(checked)}
             />

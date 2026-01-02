@@ -18,7 +18,10 @@ import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
 } from 'constants/healthFactor';
-import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { VError } from 'libs/errors';
 import { en } from 'libs/translations';
@@ -413,6 +416,63 @@ describe('RepayWithCollateralForm', () => {
     await checkSubmitButtonIsDisabled();
   });
 
+  it('prompts user to acknowledge high price impact', async () => {
+    const customFakeSwapQuote: SwapQuote = {
+      ...fakeExactInSwapQuote,
+      priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+    };
+
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: {
+        swapQuote: customFakeSwapQuote,
+      },
+    }));
+
+    const { getByTestId, getByText, getByRole } = renderComponent(
+      <RepayWithCollateralForm asset={fakeAsset} pool={fakePool} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectCollateralTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    // Enter amount in input
+    fireEvent.change(selectTokenTextField, {
+      target: { value: 10 },
+    });
+
+    // Check warning is displayed
+    expect(
+      getByText(
+        en.operationForm.acknowledgements.highPriceImpact.tooltip.replace(
+          '{{priceImpactPercentage}}',
+          `${HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE}`,
+        ),
+      ),
+    );
+
+    // Check submit button is disabled
+    const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    await waitFor(() =>
+      expect(submitButton).toHaveTextContent(en.operationForm.submitButtonLabel.repay),
+    );
+    expect(submitButton).toBeDisabled();
+
+    // Toggle acknowledgement
+    const toggle = getByRole('checkbox');
+    fireEvent.click(toggle);
+
+    await checkSubmitButtonIsEnabled({
+      textContent: en.operationForm.submitButtonLabel.repay,
+    });
+  });
+
   it('prompts user to acknowledge risk if position would lower health factor to risky threshold', async () => {
     (useSimulateBalanceMutations as Mock).mockImplementation(() => ({
       isLoading: false,
@@ -443,7 +503,7 @@ describe('RepayWithCollateralForm', () => {
     });
 
     // Check warning is displayed
-    expect(getByText(en.operationForm.riskyOperation.warning));
+    expect(getByText(en.operationForm.acknowledgements.riskyOperation.tooltip));
 
     // Check submit button is disabled
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;

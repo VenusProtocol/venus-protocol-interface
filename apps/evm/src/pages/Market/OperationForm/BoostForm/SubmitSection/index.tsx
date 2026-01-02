@@ -46,7 +46,11 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
   const approveDelegate = () => updatePoolDelegateStatus({ approvedStatus: true });
 
   const submitButtonLabel = useMemo(() => {
-    if (!isFormValid && formErrorCode !== 'REQUIRES_RISK_ACKNOWLEDGEMENT') {
+    if (
+      !isFormValid &&
+      formErrorCode !== 'REQUIRES_RISK_ACKNOWLEDGEMENT' &&
+      formErrorCode !== 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT'
+    ) {
       return t('operationForm.submitButtonLabel.enterValidAmount');
     }
 

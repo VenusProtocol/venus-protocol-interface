@@ -27,7 +27,7 @@ export interface UseFormInput {
 interface UseFormOutput {
   handleSubmit: (e?: React.SyntheticEvent) => Promise<void>;
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formErrors: FormError<FormErrorCode>[];
 }
 
 const useForm = ({
@@ -42,7 +42,7 @@ const useForm = ({
   getSwapQuoteError,
   isUsingSwap,
 }: UseFormInput): UseFormOutput => {
-  const { isFormValid, formError } = useFormValidation({
+  const { isFormValid, formErrors } = useFormValidation({
     limitTokens,
     formValues,
     simulatedPool,
@@ -115,7 +115,7 @@ const useForm = ({
   return {
     handleSubmit,
     isFormValid,
-    formError,
+    formErrors,
   };
 };
 

@@ -10,11 +10,11 @@ import {
   useMintVai,
 } from 'clients/api';
 import {
+  AcknowledgementToggle,
   Delimiter,
   LabeledInlineContent,
   NoticeError,
   NoticeWarning,
-  RiskAcknowledgementToggle,
   Spinner,
 } from 'components';
 import PLACEHOLDER_KEY from 'constants/placeholderKey';
@@ -320,7 +320,13 @@ export const Borrow: React.FC = () => {
         <Controller
           name="acknowledgeRisk"
           control={control}
-          render={({ field }) => <RiskAcknowledgementToggle {...field} />}
+          render={({ field }) => (
+            <AcknowledgementToggle
+              label={t('operationForm.acknowledgements.riskyOperation.label')}
+              tooltip={t('operationForm.acknowledgements.riskyOperation.tooltip')}
+              {...field}
+            />
+          )}
         />
       )}
 
