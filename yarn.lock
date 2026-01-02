@@ -2560,18 +2560,6 @@
     lodash "~4.17.0"
     tslib "~2.6.0"
 
-"@graphql-codegen/plugin-helpers@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-6.0.0.tgz#8a913c82a95b9ff36b2180f7c56611cc56268625"
-  integrity sha512-Z7P89vViJvQakRyMbq/JF2iPLruRFOwOB6IXsuSvV/BptuuEd7fsGPuEf8bdjjDxUY0pJZnFN8oC7jIQ8p9GKA==
-  dependencies:
-    "@graphql-tools/utils" "^10.0.0"
-    change-case-all "1.0.15"
-    common-tags "1.8.2"
-    import-from "4.0.0"
-    lodash "~4.17.0"
-    tslib "~2.6.0"
-
 "@graphql-codegen/plugin-helpers@^6.1.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-6.1.0.tgz#251d76dac2801a4baaef5613b9a22698c1218c47"
@@ -3676,6 +3664,11 @@
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.0.tgz#3188bcb273a414b0d215fd22a58540b989b9409a"
   integrity sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==
+
+"@jridgewell/sourcemap-codec@^1.5.5":
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz#6912b00d2c631c0d15ce1a7ab57cd657f2a8f8ba"
+  integrity sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==
 
 "@jridgewell/trace-mapping@^0.3.12":
   version "0.3.18"
@@ -4945,10 +4938,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
-"@posthog/core@1.5.5":
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/@posthog/core/-/core-1.5.5.tgz#fc650389b4275cec73b2e64cc2642f709bd61c39"
-  integrity sha512-m7G1EQTgo9xrr3lZxCp9C2egP99MSRpIDD95wYzwUPxMesKxI0xEQ+TC5LS/XOXIdmsNvsx4UcxwmzhSwD2GWA==
+"@posthog/core@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@posthog/core/-/core-1.9.0.tgz#b0f3b2018e166dd47e8d5a38fbcf32c93ff384f7"
+  integrity sha512-j7KSWxJTUtNyKynLt/p0hfip/3I46dWU2dk+pt7dKRoz2l5CYueHuHK4EO7Wlgno5yo1HO4sc4s30MXMTICHJw==
   dependencies:
     cross-spawn "^7.0.6"
 
@@ -9897,7 +9890,7 @@ depd@2.0.0:
   resolved "https://registry.yarnpkg.com/depd/-/depd-2.0.0.tgz#b696163cc757560d09cf22cc8fad1571b79e76df"
   integrity sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==
 
-dependency-graph@1.0.0:
+dependency-graph@1.0.0, dependency-graph@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dependency-graph/-/dependency-graph-1.0.0.tgz#bb5e85aec1310bc13b22dbd76e3196c4ee4c10d2"
   integrity sha512-cW3gggJ28HZ/LExwxP2B++aiKxhJXMSIt9K48FOXQkm+vuG5gyatXnLsONRJdzO/7VfjDIiaOOa/bs4l464Lwg==
@@ -15881,11 +15874,11 @@ postcss@^8.4.28, postcss@^8.4.30, postcss@^8.4.33, postcss@^8.4.8, postcss@^8.5.
     source-map-js "^1.2.1"
 
 posthog-js@^1.257.0:
-  version "1.297.2"
-  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.297.2.tgz#708e77e9acc5bbaf35ec40261cfe0da3a1a7597e"
-  integrity sha512-pDtCKHpKegV1D5Yk9PBmkFwI9FMnLJm0TsBO5c5/PhPq5Om4y/t+1qqbNcLCdLajkuYl2px9UlRTzycQ6W7Vmw==
+  version "1.313.0"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.313.0.tgz#163c3a21bdde22cc6595b79604b83622731ce3b5"
+  integrity sha512-CL8RkC7m9BTZrix86w0fdnSCVqC/gxrfs6c4Wfkz/CldFD7f2912S2KqnWFmwRVDGIwm9IR82YhublQ88gdDKw==
   dependencies:
-    "@posthog/core" "1.5.5"
+    "@posthog/core" "1.9.0"
     core-js "^3.38.1"
     fflate "^0.4.8"
     preact "^10.19.3"
