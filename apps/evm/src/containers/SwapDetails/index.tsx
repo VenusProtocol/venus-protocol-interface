@@ -121,9 +121,9 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
                   <TertiaryButton
                     key={value}
                     className={cn(
-                      'flex-1 bg-transparent border-transparent text-grey hover:bg-lightGrey hover:border-lightGrey hover:text-offWhite active:bg-lightGrey active:border-lightGrey',
+                      'flex-1 bg-transparent border-transparent text-grey hover:bg-lightGrey hover:border-lightGrey hover:text-white active:bg-lightGrey active:border-lightGrey',
                       Number(value) === Number(userSlippageTolerancePercentage) &&
-                        'bg-lightGrey text-offWhite',
+                        'bg-lightGrey text-white',
                     )}
                     onClick={() =>
                       handleSlippageToleranceModalFieldChange({

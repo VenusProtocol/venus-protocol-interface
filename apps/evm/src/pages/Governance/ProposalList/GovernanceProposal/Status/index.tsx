@@ -75,7 +75,7 @@ export const Status: React.FC<StatusProps> = ({
   return (
     <div
       className={cn(
-        'flex items-center gap-3 overflow-hidden text-offWhite sm:flex-col sm:text-center',
+        'flex items-center gap-3 overflow-hidden text-white sm:flex-col sm:text-center',
         className,
       )}
       {...otherProps}

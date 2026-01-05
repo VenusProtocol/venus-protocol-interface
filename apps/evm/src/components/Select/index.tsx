@@ -59,7 +59,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
           );
         case 'tertiary':
           return cn(
-            'border-transparent bg-cards hover:bg-cards hover:border-offWhite active:bg-cards active:border-blue',
+            'border-transparent bg-cards hover:bg-cards hover:border-white active:bg-cards active:border-blue',
             isDropdownOpened && 'border-blue hover:border-blue',
           );
         case 'quaternary':
@@ -150,7 +150,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               <Icon
                 name="arrowUp"
                 className={cn(
-                  'text-offWhite ml-2 w-5 h-5 flex-none',
+                  'text-white ml-2 w-5 h-5 flex-none',
                   isDropdownOpened ? 'text-blue' : 'rotate-180',
                 )}
               />

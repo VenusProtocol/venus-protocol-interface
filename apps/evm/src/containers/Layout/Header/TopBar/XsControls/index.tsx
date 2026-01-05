@@ -68,7 +68,7 @@ export const XsControls: React.FC = () => {
         >
           <Icon
             name={isMobileMenuOpened ? 'closeRounded' : 'burger'}
-            className={cn('text-offWhite h-auto', isMobileMenuOpened ? 'w-[14px]' : 'w-[18px]')}
+            className={cn('text-white h-auto', isMobileMenuOpened ? 'w-[14px]' : 'w-[18px]')}
           />
         </button>
       </div>

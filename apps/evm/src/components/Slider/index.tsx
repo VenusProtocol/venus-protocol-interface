@@ -46,7 +46,7 @@ export const Slider: React.FC<SliderProps> = ({
     <SliderPrimitive.Thumb
       data-slot="slider-thumb"
       className={cn(
-        'block size-5 shrink-0 outline-hidden rounded-full border-offWhite border-4 bg-blue shadow-sm transition-[color,box-shadow]',
+        'block size-5 shrink-0 outline-hidden rounded-full border-white border-4 bg-blue shadow-sm transition-[color,box-shadow]',
         !disabled && 'cursor-pointer',
       )}
     />

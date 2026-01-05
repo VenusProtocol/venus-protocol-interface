@@ -96,7 +96,7 @@ export const ClaimRewardButtonUi: React.FC<ClaimRewardButtonUiProps> = ({
           className,
           'px-4',
           variant === 'secondary' &&
-            'border-transparent bg-offWhite text-background hover:border-transparent hover:bg-grey active:bg-grey active:border-transparent',
+            'border-transparent bg-white text-background hover:border-transparent hover:bg-grey active:bg-grey active:border-transparent',
         )}
         {...otherButtonProps}
       >

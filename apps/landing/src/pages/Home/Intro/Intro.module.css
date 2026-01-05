@@ -68,7 +68,7 @@
 }
 
 .description {
-    color: var(--color-offWhite);
+    color: var(--color-white);
     font-size: 1rem;
     line-height: 150%;
     margin: 0;

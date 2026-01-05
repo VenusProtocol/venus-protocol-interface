@@ -100,7 +100,7 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
             target="_blank"
             rel="noreferrer"
           >
-            <Icon name={socialLink.iconName} className="text-offWhite h-3 w-3" />
+            <Icon name={socialLink.iconName} className="text-white h-3 w-3" />
           </a>
         ))}
       </div>

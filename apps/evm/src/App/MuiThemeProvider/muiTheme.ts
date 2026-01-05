@@ -20,7 +20,7 @@ export const PALETTE = {
     main: theme.colors.background,
   },
   text: {
-    primary: theme.colors.offWhite,
+    primary: theme.colors.white,
     secondary: theme.colors.grey,
   },
   button: {
