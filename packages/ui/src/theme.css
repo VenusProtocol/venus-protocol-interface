@@ -4,32 +4,21 @@
   :root {
     /* The next colors are taken from the UI kit in Figma */
     --color-background-rgb: 24 29 39;
-    --color-cards-rgb: 30 36 49;
     --color-grey-rgb: 170 179 202;
-    --color-lightGrey-rgb: 45 53 73;
     --color-green-rgb: 0 195 142;
     --color-red-rgb: 233 61 102;
     --color-offWhite-rgb: 255 255 255;
     --color-orange-rgb: 245 120 66;
     --color-yellow-rgb: 245 178 66;
     --color-blue-rgb: 58 120 255;
-    /* The next colors are not in the UI kit, but are used throughout the designs */
+
+    /* The next colors are from the old UI kit */
+    /* TODO: remove once migration of the dApp is complete */
+    --color-cards-rgb: 30 36 49;
+    --color-lightGrey-rgb: 45 53 73;
     --color-mediumBlue-rgb: 38 90 204;
     --color-darkBlue-rgb: 27 67 152;
     --color-greyBlue-rgb: 42 52 77;
-  }
-
-  .unichain-theme {
-    /* The next colors are taken from the UI kit in Figma */
-    --color-background-rgb: 19 19 19;
-    --color-cards-rgb: 27 27 27;
-    --color-grey-rgb: 179 185 202;
-    --color-lightGrey-rgb: 46 46 46;
-    --color-blue-rgb: 245 13 180;
-    /* The next colors are not in the UI kit, but are used throughout the designs */
-    --color-mediumBlue-rgb: 198 7 145;
-    --color-darkBlue-rgb: 170 6 124;
-    --color-greyBlue-rgb: 65 31 69;
   }
 }
 
