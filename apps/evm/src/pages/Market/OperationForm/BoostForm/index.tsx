@@ -247,6 +247,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool }) => 
 
   const { handleSubmit, isFormValid, formErrors } = useForm({
     borrowedAsset,
+    suppliedAsset,
     pool,
     simulatedPool,
     limitTokens,

@@ -53,7 +53,6 @@ const testCases = [
       },
     },
   ],
-
   [
     'user health factor',
     {
@@ -398,14 +397,21 @@ describe('BoostForm', () => {
     await checkSubmitButtonIsDisabled();
   });
 
-  it('disables submit button if amount to supply to open position is higher than asset supply cap', async () => {
-    const customFakeAsset: Asset = {
-      ...fakeAsset,
-      supplyCapTokens: new BigNumber(1000),
-      supplyBalanceTokens: new BigNumber(999),
+  it('disables submit button if amount to supply to open position is higher than supplied asset supply cap', async () => {
+    const customFakePool: Pool = {
+      ...fakePool,
+      assets: fakePool.assets.map(asset =>
+        asset.vToken.symbol === 'vUSDT'
+          ? {
+              ...asset,
+              supplyCapTokens: new BigNumber(1000),
+              supplyBalanceTokens: new BigNumber(999),
+            }
+          : asset,
+      ),
     };
 
-    const { getByTestId } = renderComponent(<BoostForm asset={customFakeAsset} pool={fakePool} />, {
+    const { getByTestId } = renderComponent(<BoostForm asset={fakeAsset} pool={customFakePool} />, {
       accountAddress: fakeAccountAddress,
     });
 

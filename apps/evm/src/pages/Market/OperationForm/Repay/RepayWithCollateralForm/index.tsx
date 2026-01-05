@@ -70,22 +70,35 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
   const { mutateAsync: repayWithCollateral, isPending: isRepayWithCollateralLoading } =
     useRepayWithCollateral();
 
-  const initialFormValues: FormValues = useMemo(() => {
-    let initialCollateralAsset = repaidAsset;
-
-    // Find asset with the highest collateral factor and initialize form with it
-    let highestUserSupplyCents = new BigNumber(0);
-
-    pool.assets.forEach(a => {
-      if (a.userSupplyBalanceCents.isGreaterThan(highestUserSupplyCents)) {
-        highestUserSupplyCents = a.userSupplyBalanceCents;
-        initialCollateralAsset = a;
+  const tokenBalances = [...pool.assets]
+    // Sort by user supply balance
+    .sort((a, b) => compareBigNumbers(a.userSupplyBalanceCents, b.userSupplyBalanceCents, 'desc'))
+    .reduce<OptionalTokenBalance[]>((acc, asset) => {
+      if (
+        // Skip vBNB
+        asset.vToken.symbol === 'vBNB' ||
+        // Skip tokens for which user has no supply
+        asset.userSupplyBalanceCents.isEqualTo(0)
+      ) {
+        return acc;
       }
-    });
 
+      const tokenBalance: OptionalTokenBalance = {
+        token: asset.vToken.underlyingToken,
+        balanceMantissa: convertTokensToMantissa({
+          value: asset.userSupplyBalanceTokens,
+          token: asset.vToken.underlyingToken,
+        }),
+      };
+
+      return [...acc, tokenBalance];
+    }, []);
+
+  const initialFormValues: FormValues = useMemo(() => {
     const values: FormValues = {
       direction: 'exact-in',
-      collateralToken: initialCollateralAsset.vToken.underlyingToken,
+      collateralToken:
+        tokenBalances.length > 0 ? tokenBalances[0].token : repaidAsset.vToken.underlyingToken,
       collateralAmountTokens: '',
       repaidAmountTokens: '',
       acknowledgeRisk: false,
@@ -94,7 +107,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
     };
 
     return values;
-  }, [repaidAsset, pool.assets]);
+  }, [tokenBalances, repaidAsset]);
 
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
@@ -219,30 +232,6 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
       ) > 0,
   });
   const swapQuote = getSwapQuoteData?.swapQuote;
-
-  const tokenBalances = [...pool.assets]
-    // Sort by user supply balance
-    .sort((a, b) => compareBigNumbers(a.userSupplyBalanceCents, b.userSupplyBalanceCents, 'desc'))
-    .reduce<OptionalTokenBalance[]>((acc, asset) => {
-      if (
-        // Skip vBNB
-        asset.vToken.symbol === 'vBNB' ||
-        // Skip tokens for which user has no supply
-        asset.userSupplyBalanceCents.isEqualTo(0)
-      ) {
-        return acc;
-      }
-
-      const tokenBalance: OptionalTokenBalance = {
-        token: asset.vToken.underlyingToken,
-        balanceMantissa: convertTokensToMantissa({
-          value: asset.userSupplyBalanceTokens,
-          token: asset.vToken.underlyingToken,
-        }),
-      };
-
-      return [...acc, tokenBalance];
-    }, []);
 
   const balanceMutations: BalanceMutation[] = [
     {

@@ -10,6 +10,7 @@ export * from './types';
 
 export interface UseFormInput {
   borrowedAsset: Asset;
+  suppliedAsset: Asset;
   pool: Pool;
   limitTokens: BigNumber;
   onSubmit: () => Promise<unknown>;
@@ -30,6 +31,7 @@ interface UseFormOutput {
 
 const useForm = ({
   borrowedAsset,
+  suppliedAsset,
   pool,
   simulatedPool,
   limitTokens,
@@ -42,7 +44,8 @@ const useForm = ({
   onSubmit,
 }: UseFormInput): UseFormOutput => {
   const { isFormValid, formErrors } = useFormValidation({
-    asset: borrowedAsset,
+    borrowedAsset,
+    suppliedAsset,
     pool,
     limitTokens,
     simulatedPool,
