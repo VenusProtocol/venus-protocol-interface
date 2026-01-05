@@ -43,7 +43,7 @@ export const AssetSettings: React.FC<AssetSettingsProps> = ({
             <img
               src={lightningIllustrationSrc}
               className="h-3"
-              alt={t('pool.tabs.eMode.illustrationAltText')}
+              alt={t('markets.tabs.eMode.illustrationAltText')}
             />
           </div>
 
@@ -71,10 +71,10 @@ export const AssetSettings: React.FC<AssetSettingsProps> = ({
           )}
         >
           <Setting
-            label={t('pool.tabs.eMode.maxLtv.label')}
+            label={t('markets.tabs.eMode.maxLtv.label')}
             value={readableMaxLtvPercentage}
             className="whitespace-nowrap"
-            tooltip={t('pool.tabs.eMode.maxLtv.tooltip', {
+            tooltip={t('markets.tabs.eMode.maxLtv.tooltip', {
               maxLtv: readableMaxLtvPercentage,
               userCollateralFactor: collateralFactor,
               tokenSymbol: token.symbol,
@@ -82,13 +82,13 @@ export const AssetSettings: React.FC<AssetSettingsProps> = ({
           />
 
           <Setting
-            label={t('pool.tabs.eMode.liquidationThreshold.label')}
+            label={t('markets.tabs.eMode.liquidationThreshold.label')}
             value={formatPercentageToReadableValue(liquidationThresholdPercentage)}
             className="whitespace-nowrap"
           />
 
           <Setting
-            label={t('pool.tabs.eMode.liquidationPenalty.label')}
+            label={t('markets.tabs.eMode.liquidationPenalty.label')}
             value={formatPercentageToReadableValue(liquidationPenaltyPercentage)}
             className="whitespace-nowrap"
           />

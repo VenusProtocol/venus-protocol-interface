@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /account 1`] = `"Account"`;
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /dashboard 1`] = `"Dashboard"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /governance 1`] = `"Governance"`;
 
@@ -14,9 +14,9 @@ exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on th
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /isolated-pools 1`] = `"Isolated pools"`;
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `"Venus"`;
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `"Venus"`;
 
-exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /pool/0x3d759121234cd36F8124C21aFe1c6852d2bEd848/market/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E 1`] = `"Venus/XVS"`;
+exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E 1`] = `"Venus/XVS"`;
 
 exports[`component/Layout/Header/Breadcrumbs > outputs the right DOM based on the current path: /prime-calculator 1`] = `"Prime calculator"`;
 
