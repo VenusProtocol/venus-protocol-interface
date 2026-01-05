@@ -520,7 +520,7 @@
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "Claim your rewards and close your positions within isolated pools",
+    "description": "Claim your rewards and close your positions",
     "illustrationAltText": "Illustration",
     "title": "Isolated pools are being sunsetted"
   },
