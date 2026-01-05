@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.85.0
+
+### Minor Changes
+
+- fa54796: update description of isolated pools sunset bannet
+
 ## 3.84.0
 
 ### Minor Changes
