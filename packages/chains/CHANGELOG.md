@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.16.0
+
+### Minor Changes
+
+- fd57b15: tailwind css upgrade to v4
+
 ## 0.15.0
 
 ### Minor Changes

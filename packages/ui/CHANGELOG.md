@@ -1,5 +1,11 @@
 # @venusprotocol/ui
 
+## 0.7.0
+
+### Minor Changes
+
+- fd57b15: tailwind css upgrade to v4
+
 ## 0.6.0
 
 ### Minor Changes

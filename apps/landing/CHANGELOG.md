@@ -1,5 +1,17 @@
 # @venusprotocol/landing
 
+## 1.23.0
+
+### Minor Changes
+
+- fd57b15: tailwind css upgrade to v4
+
+### Patch Changes
+
+- Updated dependencies [fd57b15]
+  - @venusprotocol/chains@0.16.0
+  - @venusprotocol/ui@0.7.0
+
 ## 1.22.0
 
 ### Minor Changes

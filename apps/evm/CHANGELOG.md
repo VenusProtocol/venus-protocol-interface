@@ -1,5 +1,20 @@
 # @venusprotocol/evm
 
+## 3.84.0
+
+### Minor Changes
+
+- fd57b15: tailwind css upgrade to v4
+
+### Patch Changes
+
+- fd57b15: fix rocket illustration resolution
+- fd57b15: always show user assets only filter
+- fd57b15: improve hypothetical yearly earnings calculation
+- Updated dependencies [fd57b15]
+  - @venusprotocol/chains@0.16.0
+  - @venusprotocol/ui@0.7.0
+
 ## 3.83.2
 
 ### Patch Changes
