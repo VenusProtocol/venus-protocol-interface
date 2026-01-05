@@ -114,7 +114,7 @@ export const Breadcrumbs: React.FC = () => {
                 showProvider={false}
                 showTooltip={false}
                 showCopyAddress
-                ellipseBreakpoint="xxl"
+                ellipseBreakpoint="2xl"
               />
             </div>
           );

@@ -56,7 +56,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
   const { toggleCollateral } = useCollateral();
 
   // The fallback breakpoint is just to satisfy TS here, it is not actually used
-  const _isBreakpointUp = useBreakpointUp(breakpoint || 'xxl');
+  const _isBreakpointUp = useBreakpointUp(breakpoint || '2xl');
   const isBreakpointUp = !!breakpoint && _isBreakpointUp;
 
   const {

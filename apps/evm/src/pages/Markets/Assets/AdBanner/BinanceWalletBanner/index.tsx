@@ -43,7 +43,7 @@ export const BinanceWalletBanner: React.FC = () => {
           <img
             src={desktopBgIllustration}
             alt={t('binanceWalletBanner.bgIllustrationAltText')}
-            className="absolute top-0 right-5 h-full hidden sm:block lg:right-10 xl:right-40 xxl:right-78"
+            className="absolute top-0 right-5 h-full hidden sm:block lg:right-10 xl:right-40 2xl:right-78"
           />
         </>
       }

@@ -199,7 +199,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             <PrimeLogo />
           </div>
 
-          <div className="xxl:max-w-[39.75rem] xl:max-w-[31.25rem]">
+          <div className="2xl:max-w-[39.75rem] xl:max-w-[31.25rem]">
             {!!title && <h3 className={cn('text-lg', displayProgress && 'mb-2')}>{title}</h3>}
 
             {displayProgress && (
