@@ -19,7 +19,14 @@ import useGetSwapInfo from 'hooks/useGetSwapInfo';
 import useGetSwapTokenUserBalances from 'hooks/useGetSwapTokenUserBalances';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
-import type { Asset, BalanceMutation, Pool, Swap, TokenBalance } from 'types';
+import type {
+  Asset,
+  BalanceMutation,
+  ExactInSwapQuote,
+  Pool,
+  SwapQuote,
+  TokenBalance,
+} from 'types';
 
 import { useSimulateBalanceMutations } from 'hooks/useSimulateBalanceMutations';
 import { areTokensEqual } from 'utilities';
@@ -32,6 +39,8 @@ import {
 } from '../../__testUtils__/checkFns';
 import { fakeAsset, fakePool } from '../__testUtils__/fakeData';
 import SUPPLY_FORM_TEST_IDS from '../testIds';
+
+BigNumber.config({ EXPONENTIAL_AT: 1e9 });
 
 const fakeBusdWalletBalanceMantissa = new BigNumber(FAKE_BUSD_BALANCE_TOKENS).multipliedBy(
   new BigNumber(10).pow(busd.decimals),
@@ -47,16 +56,23 @@ const fakeMarginWithSupplyCapMantissa = fakeMarginWithSupplyCapTokens.multiplied
   new BigNumber(10).pow(xvs.decimals),
 );
 
-const fakeSwap: Swap = {
+const fakeSwap: SwapQuote = {
   fromToken: busd,
-  fromTokenAmountSoldMantissa: fakeBusdAmountBellowWalletBalanceMantissa,
+  fromTokenAmountSoldMantissa: BigInt(
+    fakeBusdAmountBellowWalletBalanceMantissa.integerValue().toString(),
+  ),
   toToken: xvs,
-  expectedToTokenAmountReceivedMantissa: fakeMarginWithSupplyCapMantissa,
-  minimumToTokenAmountReceivedMantissa: fakeMarginWithSupplyCapMantissa,
-  exchangeRate: fakeMarginWithSupplyCapMantissa.div(fakeBusdAmountBellowWalletBalanceMantissa),
-  routePath: [busd.address, xvs.address],
+  expectedToTokenAmountReceivedMantissa: BigInt(
+    fakeMarginWithSupplyCapMantissa.integerValue().toString(),
+  ),
+  minimumToTokenAmountReceivedMantissa: BigInt(
+    fakeMarginWithSupplyCapMantissa.integerValue().toString(),
+  ),
+  // exchangeRate: fakeMarginWithSupplyCapMantissa.div(fakeBusdAmountBellowWalletBalanceMantissa),
+  // routePath: [busd.address, xvs.address],
   priceImpactPercentage: 0.001,
-  direction: 'exactAmountIn',
+  direction: 'exact-in',
+  callData: '0x',
 };
 
 vi.mock('hooks/useGetSwapTokenUserBalances');
@@ -225,9 +241,11 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('disables submit button if amount entered in input would have a higher value than supply cap after swapping', async () => {
-    const customFakeSwap: Swap = {
+    const customFakeSwap: Partial<ExactInSwapQuote> = {
       ...fakeSwap,
-      expectedToTokenAmountReceivedMantissa: fakeMarginWithSupplyCapMantissa.plus(1),
+      expectedToTokenAmountReceivedMantissa: BigInt(
+        fakeMarginWithSupplyCapMantissa.plus(1).toString(),
+      ),
     };
 
     (useGetSwapInfo as Mock).mockImplementation(() => ({
@@ -424,7 +442,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('displays warning notice and set correct submit button label if the swap has a high price impact', async () => {
-    const customFakeSwap: Swap = {
+    const customFakeSwap: SwapQuote = {
       ...fakeSwap,
       priceImpactPercentage: HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     };
@@ -468,7 +486,7 @@ describe('SupplyForm - Feature flag enabled: integratedSwap', () => {
   });
 
   it('disables submit button when price impact has reached the maximum tolerated', async () => {
-    const customFakeSwap: Swap = {
+    const customFakeSwap: SwapQuote = {
       ...fakeSwap,
       priceImpactPercentage: MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
     };
