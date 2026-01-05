@@ -68,6 +68,7 @@ export const useSwapTokensAndSupply = (
           functionName: 'swapAndSupply' as const,
           args: [
             vToken.address,
+            swap.toToken.address,
             swap.fromTokenAmountSoldMantissa,
             swap.minimumToTokenAmountReceivedMantissa,
             swap.callData,

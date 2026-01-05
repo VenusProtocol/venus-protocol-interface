@@ -1,66 +1,270 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "_logic", "type": "address" },
-      { "internalType": "address", "name": "admin_", "type": "address" },
-      { "internalType": "bytes", "name": "_data", "type": "bytes" }
+      { "internalType": "contract IComptroller", "name": "_comptroller", "type": "address" },
+      { "internalType": "contract SwapHelper", "name": "_swapHelper", "type": "address" },
+      { "internalType": "contract IWBNB", "name": "_wrappedNative", "type": "address" },
+      { "internalType": "address", "name": "_nativeVToken", "type": "address" }
     ],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
-    "anonymous": false,
     "inputs": [
-      { "indexed": false, "internalType": "address", "name": "previousAdmin", "type": "address" },
-      { "indexed": false, "internalType": "address", "name": "newAdmin", "type": "address" }
+      { "internalType": "uint256", "name": "amountOut", "type": "uint256" },
+      { "internalType": "uint256", "name": "minAmountOut", "type": "uint256" }
     ],
-    "name": "AdminChanged",
+    "name": "InsufficientAmountOut",
+    "type": "error"
+  },
+  { "inputs": [], "name": "InsufficientBalance", "type": "error" },
+  {
+    "inputs": [{ "internalType": "address", "name": "vToken", "type": "address" }],
+    "name": "MarketNotListed",
+    "type": "error"
+  },
+  { "inputs": [], "name": "NativeTransferFailed", "type": "error" },
+  { "inputs": [], "name": "NoTokensReceived", "type": "error" },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "errorCode", "type": "uint256" }],
+    "name": "RepayFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "errorCode", "type": "uint256" }],
+    "name": "SupplyFailed",
+    "type": "error"
+  },
+  { "inputs": [], "name": "SwapFailed", "type": "error" },
+  {
+    "inputs": [{ "internalType": "address", "name": "sender", "type": "address" }],
+    "name": "UnauthorizedNativeSender",
+    "type": "error"
+  },
+  { "inputs": [], "name": "ZeroAddress", "type": "error" },
+  { "inputs": [], "name": "ZeroAmount", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": false, "internalType": "uint8", "name": "version", "type": "uint8" }],
+    "name": "Initialized",
     "type": "event"
   },
   {
     "anonymous": false,
-    "inputs": [{ "indexed": true, "internalType": "address", "name": "beacon", "type": "address" }],
-    "name": "BeaconUpgraded",
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "OwnershipTransferStarted",
     "type": "event"
   },
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": true, "internalType": "address", "name": "implementation", "type": "address" }
+      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
     ],
-    "name": "Upgraded",
+    "name": "OwnershipTransferred",
     "type": "event"
   },
-  { "stateMutability": "payable", "type": "fallback" },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "vToken", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "tokenIn", "type": "address" },
+      { "indexed": false, "internalType": "address", "name": "tokenOut", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "amountIn", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "amountOut", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "amountRepaid", "type": "uint256" }
+    ],
+    "name": "SwapAndRepay",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "vToken", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "tokenIn", "type": "address" },
+      { "indexed": false, "internalType": "address", "name": "tokenOut", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "amountIn", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "amountOut", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "amountSupplied", "type": "uint256" }
+    ],
+    "name": "SwapAndSupply",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "receiver", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "SweepNative",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "token", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "receiver", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "SweepToken",
+    "type": "event"
+  },
   {
     "inputs": [],
-    "name": "admin",
-    "outputs": [{ "internalType": "address", "name": "admin_", "type": "address" }],
+    "name": "COMPTROLLER",
+    "outputs": [{ "internalType": "contract IComptroller", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "NATIVE_TOKEN_ADDR",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "NATIVE_VTOKEN",
+    "outputs": [{ "internalType": "contract IVBNB", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "SWAP_HELPER",
+    "outputs": [{ "internalType": "contract SwapHelper", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "WRAPPED_NATIVE",
+    "outputs": [{ "internalType": "contract IWBNB", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "acceptOwnership",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "implementation",
-    "outputs": [{ "internalType": "address", "name": "implementation_", "type": "address" }],
+    "name": "initialize",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "newImplementation", "type": "address" }],
-    "name": "upgradeTo",
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pendingOwner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newImplementation", "type": "address" },
-      { "internalType": "bytes", "name": "data", "type": "bytes" }
+      { "internalType": "address", "name": "vToken", "type": "address" },
+      { "internalType": "address", "name": "tokenIn", "type": "address" },
+      { "internalType": "uint256", "name": "amountIn", "type": "uint256" },
+      { "internalType": "uint256", "name": "minAmountOut", "type": "uint256" },
+      { "internalType": "bytes", "name": "swapCallData", "type": "bytes" }
     ],
-    "name": "upgradeToAndCall",
+    "name": "swapAndRepay",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "vToken", "type": "address" },
+      { "internalType": "address", "name": "tokenIn", "type": "address" },
+      { "internalType": "uint256", "name": "maxAmountIn", "type": "uint256" },
+      { "internalType": "bytes", "name": "swapCallData", "type": "bytes" }
+    ],
+    "name": "swapAndRepayFull",
     "outputs": [],
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "vToken", "type": "address" },
+      { "internalType": "address", "name": "tokenIn", "type": "address" },
+      { "internalType": "uint256", "name": "amountIn", "type": "uint256" },
+      { "internalType": "uint256", "name": "minAmountOut", "type": "uint256" },
+      { "internalType": "bytes", "name": "swapCallData", "type": "bytes" }
+    ],
+    "name": "swapAndSupply",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "vToken", "type": "address" },
+      { "internalType": "uint256", "name": "minAmountOut", "type": "uint256" },
+      { "internalType": "bytes", "name": "swapCallData", "type": "bytes" }
+    ],
+    "name": "swapNativeAndRepay",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "vToken", "type": "address" },
+      { "internalType": "uint256", "name": "minAmountOut", "type": "uint256" },
+      { "internalType": "bytes", "name": "swapCallData", "type": "bytes" }
+    ],
+    "name": "swapNativeAndSupply",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "sweepNative",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "contract IERC20Upgradeable", "name": "token", "type": "address" }
+    ],
+    "name": "sweepToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   { "stateMutability": "payable", "type": "receive" }
