@@ -300,12 +300,11 @@
     "title": "Believe in something?"
   },
   "breadcrumbs": {
-    "account": "Account",
     "bridge": "Bridge",
+    "dashboard": "Dashboard",
     "governance": "Governance",
     "isolatedPools": "Isolated pools",
     "leaderboard": "Leaderboard",
-    "markets": "Markets",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
     "swap": "Swap",
@@ -553,11 +552,11 @@
       "venusLogoAlt": "Venus logo"
     },
     "menuItems": {
-      "account": "Account",
       "bridge": "Bridge",
-      "corePool": "Core pool",
+      "dashboard": "Dashboard",
       "governance": "Governance",
       "isolatedPools": "Isolated pools",
+      "markets": "Markets",
       "port": "Port",
       "swap": "Swap",
       "vai": "VAI",
@@ -618,11 +617,88 @@
     }
   },
   "markets": {
+    "eMode": {
+      "group": {
+        "cannotDisable": {
+          "tooltip": {
+            "blockingPositions": "You can't disable this e-mode group because you have borrow positions with assets that can't be borrowed from the pool. <Link>Show my positions</Link>",
+            "notEnoughCollateral": "You can't disable this e-mode group because your total collateral value would not cover your total borrow balance"
+          }
+        },
+        "cannotEnable": {
+          "modal": {
+            "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode group:",
+            "repayButtonLabel": "Repay",
+            "title": "Your positions"
+          },
+          "tooltip": {
+            "blockingPositions": "You can't enable this e-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>",
+            "notEnoughCollateral": "You can't enable this e-mode group because your total collateral value would not cover your total borrow balance"
+          }
+        },
+        "disableButtonLabel": "Disable",
+        "disabledNotice": "This E-Mode group is no longer supported. Your account now falls back to default parameters. Please switch to another available E-mode group or disable it.",
+        "enableButtonLabel": "Enable",
+        "healthFactor": "Health factor:",
+        "switchButtonLabel": "Switch"
+      },
+      "notice": "Enabling E-Mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected group. <Link>Learn more</Link>",
+      "search": {
+        "placeholder": "Search asset or group"
+      },
+      "table": {
+        "card": {
+          "header": {
+            "borrowable": "Borrowable",
+            "collateral": "Collateral"
+          },
+          "rows": {
+            "liquidationPenalty": "Liquidation penalty",
+            "liquidationThreshold": "Liquidation threshold",
+            "maxLtv": "Max LTV"
+          }
+        },
+        "columns": {
+          "asset": "Asset",
+          "collateral": "Collateral",
+          "isBorrowable": "Borrowable",
+          "liquidationPenalty": "Liquidation penalty",
+          "liquidationThreshold": "Liquidation threshold",
+          "maxLtv": "Max LTV",
+          "penalty": "Penalty",
+          "threshold": "Threshold"
+        },
+        "mobileSelectLabel": "Sort by:"
+      }
+    },
     "errors": {
       "accountError": "Account Required - Please connect your wallet.",
       "collateralDisableError": "Collateral Disable Error - There was a problem disabling {{assetName}} as a collateral. Please try again.",
       "collateralEnableError": "Collateral Enable Error - There was a problem enabling {{assetName}} as a collateral. Please try again.",
       "collateralRequired": "Collateral Required - Please repay all borrowed assets or set other assets as collateral."
+    },
+    "isolatedEModeGroupTooltip": {
+      "content": "Your borrowing power is increased by supplying to assets from the {{ eModeGroupName }} group exclusively",
+      "label": "Isolated"
+    },
+    "tabs": {
+      "assets": {
+        "title": "Assets"
+      },
+      "eMode": {
+        "illustrationAltText": "Lightning illustration",
+        "liquidationPenalty": {
+          "label": "Liquidation penalty"
+        },
+        "liquidationThreshold": {
+          "label": "Liquidation threshold"
+        },
+        "maxLtv": {
+          "label": "Max LTV",
+          "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
+        },
+        "title": "E-mode"
+      }
     }
   },
   "marketTable": {
@@ -779,85 +855,6 @@
   "pagination": {
     "itemOf": "Item {{currentPageLastIndex}} out of {{itemsCount}}",
     "itemsOf": "Items {{firstItemNumber}} - {{currentPageLastIndex}} out of {{itemsCount}}"
-  },
-  "pool": {
-    "eMode": {
-      "group": {
-        "cannotDisable": {
-          "tooltip": {
-            "blockingPositions": "You can't disable this e-mode group because you have borrow positions with assets that can't be borrowed from the pool. <Link>Show my positions</Link>",
-            "notEnoughCollateral": "You can't disable this e-mode group because your total collateral value would not cover your total borrow balance"
-          }
-        },
-        "cannotEnable": {
-          "modal": {
-            "description": "You will need to close the following borrow positions in order to enable the <WhiteText>{{ eModeGroupName }}</WhiteText> E-mode group:",
-            "repayButtonLabel": "Repay",
-            "title": "Your positions"
-          },
-          "tooltip": {
-            "blockingPositions": "You can't enable this e-mode group because you have borrow positions with assets that don't belong in that group. <Link>Show my positions</Link>",
-            "notEnoughCollateral": "You can't enable this e-mode group because your total collateral value would not cover your total borrow balance"
-          }
-        },
-        "disableButtonLabel": "Disable",
-        "disabledNotice": "This E-Mode group is no longer supported. Your account now falls back to Core Pool parameters. Please switch to another available E-mode group or disable it.",
-        "enableButtonLabel": "Enable",
-        "healthFactor": "Health factor:",
-        "switchButtonLabel": "Switch"
-      },
-      "notice": "Enabling E-Mode allows you to maximize your borrowing power, however, borrowing is restricted to assets within the selected group. <Link>Learn more</Link>",
-      "search": {
-        "placeholder": "Search asset or group"
-      },
-      "table": {
-        "card": {
-          "header": {
-            "borrowable": "Borrowable",
-            "collateral": "Collateral"
-          },
-          "rows": {
-            "liquidationPenalty": "Liquidation penalty",
-            "liquidationThreshold": "Liquidation threshold",
-            "maxLtv": "Max LTV"
-          }
-        },
-        "columns": {
-          "asset": "Asset",
-          "collateral": "Collateral",
-          "isBorrowable": "Borrowable",
-          "liquidationPenalty": "Liquidation penalty",
-          "liquidationThreshold": "Liquidation threshold",
-          "maxLtv": "Max LTV",
-          "penalty": "Penalty",
-          "threshold": "Threshold"
-        },
-        "mobileSelectLabel": "Sort by:"
-      }
-    },
-    "isolatedEModeGroupTooltip": {
-      "content": "Your borrowing power is increased by supplying to assets from the {{ eModeGroupName }} group exclusively",
-      "label": "Isolated"
-    },
-    "tabs": {
-      "assets": {
-        "title": "Assets"
-      },
-      "eMode": {
-        "illustrationAltText": "Lightning illustration",
-        "liquidationPenalty": {
-          "label": "Liquidation penalty"
-        },
-        "liquidationThreshold": {
-          "label": "Liquidation threshold"
-        },
-        "maxLtv": {
-          "label": "Max LTV",
-          "tooltip": "The maximum LTV is the borrowing limit. At {{maxLtv}} LTV, 1 {{tokenSymbol}} of collateral allows borrowing {{userCollateralFactor}} {{tokenSymbol}} worth of currency."
-        },
-        "title": "E-mode"
-      }
-    }
   },
   "pools": {
     "poolTable": {
@@ -1256,7 +1253,7 @@
       },
       "availableAmount": {
         "label": "Available",
-        "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied to the Core pool"
+        "tooltip": "The maximum amount of VAI you can borrow, based on the global limits and your collateral supplied"
       },
       "borrowApr": {
         "label": "Borrow APR",
@@ -1276,7 +1273,7 @@
       },
       "tabTitle": "Borrow"
     },
-    "headerMessage": "VAI is the primary stablecoin of the Venus Protocol. Borrow VAI using your collateral supplied to the Core pool. <Link>Learn more</Link>",
+    "headerMessage": "VAI is the primary stablecoin of the Venus Protocol. Borrow VAI using your collateral supplied. <Link>Learn more</Link>",
     "repay": {
       "amountTokensInput": {
         "limitButtonLabel": "MAX"
