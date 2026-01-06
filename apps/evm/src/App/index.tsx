@@ -12,7 +12,6 @@ import { safeLazyLoad } from 'utilities';
 import { ChainUpgradeHandler } from './ChainUpgradeHandler';
 import { MuiThemeProvider } from './MuiThemeProvider';
 import Routes from './Routes';
-import { ThemeHandler } from './ThemeHandler';
 
 const NotificationCenter = safeLazyLoad(() => import('libs/notifications/NotificationCenter'));
 const AppVersionChecker = safeLazyLoad(() => import('containers/AppVersionChecker'));
@@ -58,8 +57,6 @@ const App = () => (
                 <Suspense>
                   <ImportPositionsModal />
                 </Suspense>
-
-                <ThemeHandler />
 
                 <ChainUpgradeHandler />
 

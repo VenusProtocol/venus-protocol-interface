@@ -37,14 +37,12 @@ export const LabeledInlineContent = ({
         <TokenIcon token={iconSrc} className="-mt-[2px] mr-2 h-5 w-5" />
       )}
 
-      <p className={cn('text-sm', invertTextColors ? 'text-offWhite' : 'text-grey')}>{label}</p>
+      <p className={cn('text-sm', invertTextColors ? 'text-white' : 'text-grey')}>{label}</p>
 
       {!!tooltip && <InfoIcon className="ml-2 inline-flex items-center" tooltip={tooltip} />}
     </div>
 
-    <div
-      className={cn('flex items-center text-sm', invertTextColors ? 'text-grey' : 'text-offWhite')}
-    >
+    <div className={cn('flex items-center text-sm', invertTextColors ? 'text-grey' : 'text-white')}>
       {children}
     </div>
   </div>

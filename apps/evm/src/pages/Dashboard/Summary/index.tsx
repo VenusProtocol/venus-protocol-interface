@@ -106,14 +106,14 @@ export const Summary: React.FC<SummaryProps> = ({
           {cellRows.map((cellRow, cellRowIndex) => (
             <div
               key={cellRow[0].label}
-              className="flex border-b border-b-offWhite/10 pb-6 last-of-type:border-b-0 last-of-type:pb-0 sm:border-b-0 sm:pb-0 sm:grid sm:grid-cols-2 sm:gap-x-6 lg:border-b lg:flex lg:gap-x-0 lg:pb-6"
+              className="flex border-b border-b-white/10 pb-6 last-of-type:border-b-0 last-of-type:pb-0 sm:border-b-0 sm:pb-0 sm:grid sm:grid-cols-2 sm:gap-x-6 lg:border-b lg:flex lg:gap-x-0 lg:pb-6"
             >
               {cellRow.map(cell => (
                 <Cell
                   {...cell}
                   key={cell.label}
                   className={cn(
-                    'flex-1 sm:border-r sm:border-r-offWhite/10 lg:border-r-0',
+                    'flex-1 sm:border-r sm:border-r-white/10 lg:border-r-0',
                     (cellRowIndex % 2 !== 0 || cellRowIndex === cellRows.length - 1) &&
                       'sm:last-of-type:border-r-0',
                     cell.className,
