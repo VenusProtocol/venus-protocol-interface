@@ -97,7 +97,7 @@ export const MarketInfo = () => {
           onClick={handleGoBack}
           className="h-full pr-3 flex items-center cursor-pointer"
         >
-          <Icon name="chevronLeft" className="w-6 h-6 text-offWhite" />
+          <Icon name="chevronLeft" className="w-6 h-6 text-white" />
         </button>
 
         {asset && pool ? (
@@ -137,7 +137,7 @@ export const MarketInfo = () => {
             onClick={handleGoBack}
             className="h-full flex items-center cursor-pointer"
           >
-            <Icon name="chevronLeft" className="w-6 h-6 text-offWhite" />
+            <Icon name="chevronLeft" className="w-6 h-6 text-white" />
             {(!asset || !pool) && <Spinner className="h-full w-auto" />}
           </button>
           {asset && pool && (

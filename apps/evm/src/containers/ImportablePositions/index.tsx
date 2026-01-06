@@ -61,7 +61,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
 
           <Icon
             name="arrowUp"
-            className={cn('w-6 h-6 text-offWhite', !isAccordionOpen && 'rotate-180')}
+            className={cn('w-6 h-6 text-white', !isAccordionOpen && 'rotate-180')}
           />
         </div>
 

@@ -48,11 +48,11 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
           : t('account.primeBanner.button.stakeXvs')}
       </span>
 
-      <Icon className="text-offWhite w-6 h-6 sm:hidden" name="chevronRight" />
+      <Icon className="text-white w-6 h-6 sm:hidden" name="chevronRight" />
     </>
   );
 
-  const buttonClasses = cn('text-offWhite hover:no-underline shrink-0 w-8 p-0 sm:w-auto sm:px-5');
+  const buttonClasses = cn('text-white hover:no-underline shrink-0 w-8 p-0 sm:w-auto sm:px-5');
 
   // Hide banner if user previously closed it and they can't become Prime yet
   if (!canUserBecomePrime && doNotShowPrimePromotionalBanner) {

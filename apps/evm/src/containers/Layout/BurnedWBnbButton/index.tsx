@@ -38,7 +38,7 @@ export const BurnedWBnbButton: React.FC<BurnedWBnbButtonProps> = ({ className })
   return (
     <ButtonWrapper
       className={cn(
-        'px-3 underline text-offWhite font-normal bg-[#2A2529] border-[#2A2529] hover:bg-[#2A2529] hover:border-[#2A2529] active:bg-[#2A2529] active:border-[#2A2529]',
+        'px-3 underline text-white font-normal bg-[#2A2529] border-[#2A2529] hover:bg-[#2A2529] hover:border-[#2A2529] active:bg-[#2A2529] active:border-[#2A2529]',
         className,
       )}
       asChild

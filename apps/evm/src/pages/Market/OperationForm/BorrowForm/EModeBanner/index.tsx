@@ -78,7 +78,7 @@ export const EModeBanner: React.FC<EModeBannerProps> = ({
                 {isMdOrUp ? (
                   t('eModeBanner.exploreButtonLabel')
                 ) : (
-                  <Icon name="chevronRight" className="text-offWhite w-6 h-6" />
+                  <Icon name="chevronRight" className="text-white w-6 h-6" />
                 )}
               </EModeButton>
             </div>
