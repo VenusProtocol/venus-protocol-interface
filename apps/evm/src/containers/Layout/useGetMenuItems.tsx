@@ -3,11 +3,14 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 
 import { useGetPools } from 'clients/api';
+import { Icon, Tooltip, cn } from 'components';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useGetProfitableImports } from 'hooks/useGetProfitableImports';
+import { useTranslation } from 'libs/translations';
 import type { MenuItem } from './types';
 
 const useGetMenuItems = () => {
+  const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
@@ -34,6 +37,11 @@ const useGetMenuItems = () => {
       // t('layout.menuItems.isolatedPools')
       i18nKey: 'layout.menuItems.isolatedPools',
       iconName: 'fourDots',
+      suffixDom: (
+        <Tooltip content={t('isolatedPoolsSunsetBanner.tooltip')} className="hidden xl:block">
+          <Icon className={cn('h-4 w-4', 'text-orange')} name={'attention'} />
+        </Tooltip>
+      ),
     });
   }
 

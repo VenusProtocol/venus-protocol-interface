@@ -16,6 +16,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
   to,
   isNew = false,
   badgeNumber,
+  suffixDom = null,
   ...otherProps
 }) => {
   const { t } = useTranslation();
@@ -54,6 +55,8 @@ export const NavLink: React.FC<NavLinkProps> = ({
           <span className="text-xs text-offWhite">{badgeNumber}</span>
         </div>
       )}
+
+      {suffixDom}
     </RRNavLink>
   );
 };

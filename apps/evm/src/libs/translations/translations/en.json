@@ -147,7 +147,8 @@
     "tooltip": "Borrow balance:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} of your borrow limit)<LineBreak/><LineBreak/>Safe borrow limit:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% of your borrow limit)"
   },
   "adBanner": {
-    "learnMore": "Learn more"
+    "learnMore": "Learn more",
+    "startNow": "Start Now"
   },
   "announcements": {
     "bethUpdate": {
@@ -292,6 +293,11 @@
     "description": "One-click leverage to boost your yield <White>up to 5x</White>.",
     "rocketAltText": "Rocket illustration",
     "title": "Boost is available now!"
+  },
+  "probableBanner": {
+    "description": "Give your conviction a boost on probable.markets",
+    "probableAltText": "Probable illustration",
+    "title": "Believe in something?"
   },
   "breadcrumbs": {
     "bridge": "Bridge",
@@ -521,7 +527,8 @@
   "isolatedPoolsSunsetBanner": {
     "description": "Claim your rewards and close your positions",
     "illustrationAltText": "Illustration",
-    "title": "Isolated pools are being sunsetted"
+    "title": "Isolated pools are being sunsetted",
+    "tooltip": "Sunset"
   },
   "layout": {
     "chainSelect": {
