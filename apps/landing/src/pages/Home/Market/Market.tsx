@@ -47,14 +47,14 @@ const Market: React.FC<IMarketProps> = ({ className }) => {
               <p className={s.totalSum}>{isLoading ? loadingState : totalSupplyUsd}</p>
             </div>
           </li>
-          <span className={cn(s.divider, 'bg-offWhite/10')} />
+          <span className={cn(s.divider, 'bg-white/10')} />
           <li className={s.totalItem}>
             <div>
               <p className={s.totalTitle}>Total Borrowed</p>
               <p className={s.totalSum}>{isLoading ? loadingState : totalBorrowUsd}</p>
             </div>
           </li>
-          <span className={cn(s.divider, 'bg-offWhite/10')} />
+          <span className={cn(s.divider, 'bg-white/10')} />
           <li className={s.totalItem}>
             <div>
               <p className={s.totalTitle}>Total Liquidity</p>

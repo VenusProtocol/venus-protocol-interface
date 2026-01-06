@@ -135,7 +135,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       getRowHref={row =>
         routes.markets.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
       }
-      breakpoint="xxl"
+      breakpoint="2xl"
       css={styles.cardContentGrid}
       isFetching={isFetchingPools}
     />

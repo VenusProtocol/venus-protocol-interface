@@ -79,11 +79,11 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ transactionData,
         <div className="flex w-full items-center">
           {'iconSrc' in token && <TokenIcon className="mr-2 self-start" token={token} />}
           <TransactionDetails className="flex-1" transactionData={transactionData} />
-          <div className="hidden md:flex items-center text-grey md:group-hover:text-offWhite space-x-1 mt-1">
+          <div className="hidden md:flex items-center text-grey md:group-hover:text-white space-x-1 mt-1">
             <span className="hidden lg:block text-sm underline">
               {t('account.transactions.view')}
             </span>
-            <Icon className="md:group-hover:text-offWhite" name="transactionLink" />
+            <Icon className="md:group-hover:text-white" name="transactionLink" />
           </div>
         </div>
       </div>

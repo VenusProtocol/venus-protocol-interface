@@ -147,7 +147,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
                   />
 
                   {tokenBalance.balanceMantissa && (
-                    <Typography variant="small2" className="text-offWhite">
+                    <Typography variant="small2" className="text-white">
                       {convertMantissaToTokens({
                         value: tokenBalance.balanceMantissa,
                         token: tokenBalance.token,

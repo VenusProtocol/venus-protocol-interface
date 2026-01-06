@@ -33,12 +33,12 @@ export const AssetSettings: React.FC<AssetSettingsProps> = ({
   return (
     <div
       className={cn(
-        'space-y-4 md:flex md:justify-between md:items-start md:space-y-0 lg:space-y-4 lg:block xxl:flex xxl:space-y-0 xxl:justify-start xxl:gap-x-6',
+        'space-y-4 md:flex md:justify-between md:items-start md:space-y-0 lg:space-y-4 lg:block 2xl:flex 2xl:space-y-0 2xl:justify-start 2xl:gap-x-6',
         !isLast && 'border-lightGrey border-b pb-4 sm:pb-0 sm:border-none lg:border-b lg:pb-0',
       )}
     >
       <div className="flex items-center gap-x-4">
-        <div className="flex items-center gap-x-2 xxl:w-50">
+        <div className="flex items-center gap-x-2 2xl:w-50">
           <div className="w-5 h-5 rounded-full flex items-center justify-center bg-lightGrey">
             <img
               src={lightningIllustrationSrc}
@@ -53,7 +53,7 @@ export const AssetSettings: React.FC<AssetSettingsProps> = ({
         <MarketStatus
           isBorrowable={isBorrowable}
           canBeCollateral={collateralFactor > 0}
-          className="hidden sm:flex md:hidden lg:flex xxl:hidden"
+          className="hidden sm:flex md:hidden lg:flex 2xl:hidden"
         />
       </div>
 
@@ -61,7 +61,7 @@ export const AssetSettings: React.FC<AssetSettingsProps> = ({
         <MarketStatus
           isBorrowable={isBorrowable}
           canBeCollateral={collateralFactor > 0}
-          className="sm:hidden md:flex lg:hidden xxl:flex"
+          className="sm:hidden md:flex lg:hidden 2xl:flex"
         />
 
         <div

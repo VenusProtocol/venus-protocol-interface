@@ -36,11 +36,7 @@ export const TokenSelectField: React.FC<TokenSelectFieldProps> = ({
 
       <Icon
         name="arrowUp"
-        className={cn(
-          'w-5 h-5',
-          !isActive && 'rotate-180',
-          disabled ? 'text-grey' : 'text-offWhite',
-        )}
+        className={cn('w-5 h-5', !isActive && 'rotate-180', disabled ? 'text-grey' : 'text-white')}
       />
     </QuinaryButton>
   </div>

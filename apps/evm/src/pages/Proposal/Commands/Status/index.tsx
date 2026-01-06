@@ -28,7 +28,7 @@ export const Status: React.FC<StatusProps> = ({
       return ['text-red', 'close'];
     }
 
-    return ['text-offWhite', 'dots'];
+    return ['text-white', 'dots'];
   }, [type]);
 
   const statusDom = (

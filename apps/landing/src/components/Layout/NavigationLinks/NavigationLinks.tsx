@@ -14,7 +14,7 @@ interface INavigationLinksProps {
 const NavigationLinks: React.FC<INavigationLinksProps> = ({ classNames, content }) => (
   <div className={cn(s.root, classNames?.root)}>
     {content.map(({ href, text }) => (
-      <Link className={cn('text-offWhite', classNames?.link)} key={text} variant="text" href={href}>
+      <Link className={cn('text-white', classNames?.link)} key={text} variant="text" href={href}>
         {text}
       </Link>
     ))}

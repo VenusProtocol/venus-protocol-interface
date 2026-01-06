@@ -52,7 +52,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
               return (
                 <div css={styles.row}>
                   <div css={[styles.icon, styles.for]}>
-                    <Icon name="mark" className="text-offWhite" />
+                    <Icon name="mark" className="text-white" />
                   </div>
                   {t('voterDetail.votedFor')}
                 </div>
@@ -81,7 +81,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
               ':proposalId',
               transaction.proposalId.toString(),
             )}
-            className="text-offWhite underline hover:text-blue"
+            className="text-white underline hover:text-blue"
           >
             {transaction.proposalId}
           </Link>
@@ -123,7 +123,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
 
       <ButtonWrapper
         variant="secondary"
-        className="text-offWhite mt-4 hover:no-underline sm:mx-6 sm:mt-0"
+        className="text-white mt-4 hover:no-underline sm:mx-6 sm:mt-0"
         asChild
       >
         <Link

@@ -22,9 +22,7 @@ export const ActionsAccordion: React.FC<ActionsAccordionProps> = ({
         <div className="flex items-center">
           <Icon name="document" className="mr-2 w-5 h-5" />
 
-          <p className="text-offWhite font-semibold">
-            {t('voteProposalUi.command.operations.title')}
-          </p>
+          <p className="text-white font-semibold">{t('voteProposalUi.command.operations.title')}</p>
         </div>
 
         <div className="mt-1 break-all text-grey md:pl-7">

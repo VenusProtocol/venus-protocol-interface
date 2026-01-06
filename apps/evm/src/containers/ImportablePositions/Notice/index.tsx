@@ -30,7 +30,7 @@ export const Notice: React.FC<NoticeProps> = ({ className }) => {
         <Trans
           i18nKey="importPositionsModal.limitNotice"
           components={{
-            Number: <span className="text-offWhite" />,
+            Number: <span className="text-white" />,
           }}
           values={{
             min: minValueDollars,

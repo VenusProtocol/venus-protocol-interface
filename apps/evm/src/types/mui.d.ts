@@ -66,7 +66,7 @@ declare module '@mui/material/styles' {
     md: true;
     lg: true;
     xl: true;
-    xxl: true;
+    '2xl': true;
   }
 }
 

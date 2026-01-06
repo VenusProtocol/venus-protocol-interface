@@ -20,7 +20,7 @@ export const PALETTE = {
     main: theme.colors.background,
   },
   text: {
-    primary: theme.colors.offWhite,
+    primary: theme.colors.white,
     secondary: theme.colors.grey,
   },
   button: {
@@ -40,12 +40,12 @@ export const PALETTE = {
 
 export const BREAKPOINTS = {
   values: {
-    xs: 0,
-    sm: 576,
+    xs: 375,
+    sm: 640,
     md: 768,
-    lg: 992,
+    lg: 1024,
     xl: 1280,
-    xxl: 1440,
+    '2xl': 1440,
   },
 };
 

@@ -199,7 +199,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             <PrimeLogo />
           </div>
 
-          <div className="xxl:max-w-[39.75rem] xl:max-w-[31.25rem]">
+          <div className="2xl:max-w-[39.75rem] xl:max-w-[31.25rem]">
             {!!title && <h3 className={cn('text-lg', displayProgress && 'mb-2')}>{title}</h3>}
 
             {displayProgress && (
@@ -208,7 +208,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                   <Trans
                     i18nKey="primeStatusBanner.description.primeCalculator"
                     components={{
-                      WhiteText: <span className="text-offWhite" />,
+                      WhiteText: <span className="text-white" />,
                       Link: <Link to={routes.primeCalculator.path} />,
                     }}
                     values={{
@@ -220,7 +220,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                   <Trans
                     i18nKey="primeStatusBanner.description.primeDoc"
                     components={{
-                      WhiteText: <span className="text-offWhite" />,
+                      WhiteText: <span className="text-white" />,
                       Link: <Link href={PRIME_DOC_URL} />,
                     }}
                     values={{
@@ -249,7 +249,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
               <Trans
                 i18nKey="primeStatusBanner.progressBar.label"
                 components={{
-                  WhiteText: <span className="text-offWhite" />,
+                  WhiteText: <span className="text-white" />,
                 }}
                 values={{
                   minXvsToStakeForPrimeTokens: readableMinXvsToStakeForPrimeTokens,

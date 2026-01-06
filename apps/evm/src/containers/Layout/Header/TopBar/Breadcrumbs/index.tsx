@@ -114,7 +114,7 @@ export const Breadcrumbs: React.FC = () => {
                 showProvider={false}
                 showTooltip={false}
                 showCopyAddress
-                ellipseBreakpoint="xxl"
+                ellipseBreakpoint="2xl"
               />
             </div>
           );
@@ -162,7 +162,7 @@ export const Breadcrumbs: React.FC = () => {
           {pathNodes.length > 0 && index < pathNodes.length - 1 ? (
             <>
               <Link
-                className="text-grey hover:text-offWhite transition-colors hover:no-underline"
+                className="text-grey hover:text-white transition-colors hover:no-underline"
                 to={pathNode.href}
               >
                 {pathNode.dom}

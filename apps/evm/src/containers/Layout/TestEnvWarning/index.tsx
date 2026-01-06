@@ -11,14 +11,14 @@ export const TestEnvWarning: React.FC = () => {
   }
 
   return (
-    <div className="shrink-0 px-4 py-2 bg-red text-offWhite font-semibold text-center">
+    <div className="shrink-0 px-4 py-2 bg-red text-white font-semibold text-center">
       {
         <Trans
           i18nKey="layout.testEnvWarning"
           components={{
             Link: (
               <Link
-                className="text-offWhite underline"
+                className="text-white underline"
                 target="_self"
                 href={`https://${MAIN_PRODUCTION_HOST}`}
               />

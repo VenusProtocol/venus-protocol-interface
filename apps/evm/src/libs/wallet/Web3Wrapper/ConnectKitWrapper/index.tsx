@@ -41,13 +41,13 @@ export const ConnectKitWrapper: React.FC<ConnectKitWrapperProps> = ({ children }
         '--ck-body-action-color': theme.colors.grey,
         '--ck-body-background-secondary': theme.colors.cards,
         '--ck-tooltip-background': theme.colors.blue,
-        '--ck-tooltip-color': theme.colors.offWhite,
+        '--ck-tooltip-color': theme.colors.white,
         '--ck-body-color-muted': theme.colors.grey,
-        '--ck-body-color': theme.colors.offWhite,
+        '--ck-body-color': theme.colors.white,
         '--ck-body-background-tertiary': theme.colors.lightGrey,
         '--ck-body-background': theme.colors.cards,
         '--ck-qr-dot-color': 'rgba(0, 0, 0, 1)',
-        '--ck-qr-background': theme.colors.offWhite,
+        '--ck-qr-background': theme.colors.white,
       }}
     >
       <AuthHandler />

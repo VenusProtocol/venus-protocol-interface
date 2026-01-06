@@ -26,7 +26,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--color-background);
-    color: var(--color-offWhite);
+    color: var(--color-white);
   }
 }
 

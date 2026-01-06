@@ -13,9 +13,6 @@ export const Warning: React.FC<WarningProps> = ({ variant, ...otherProps }) => (
     )}
     {...otherProps}
   >
-    <Icon
-      name={variant === 'warning' ? 'exclamation' : 'close'}
-      className="w-2 h-2 text-offWhite"
-    />
+    <Icon name={variant === 'warning' ? 'exclamation' : 'close'} className="w-2 h-2 text-white" />
   </div>
 );
