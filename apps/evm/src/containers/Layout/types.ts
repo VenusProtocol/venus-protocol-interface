@@ -1,4 +1,5 @@
 import type { IconName } from 'components';
+import type { ReactNode } from 'react';
 
 export interface MenuItem {
   to: string;
@@ -6,4 +7,5 @@ export interface MenuItem {
   i18nKey: string;
   badgeNumber?: number;
   isNew?: boolean;
+  suffixDom?: ReactNode;
 }
