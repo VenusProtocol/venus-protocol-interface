@@ -1,5 +1,4 @@
-import { Tabs } from 'components';
-import DisabledActionNotice from 'containers/AssetAccessor/DisabledActionNotice';
+import { NoticeWarning, Tabs } from 'components';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
@@ -40,11 +39,7 @@ export const Repay: React.FC<RepayProps> = ({ asset, pool }) => {
     return repayWithWalletBalanceFormDom;
   }
 
-  const hasCollateral = pool.assets.some(
-    asset =>
-      // Skip vBNB && Skip tokens for which user has no supply
-      asset.vToken.symbol !== 'vBNB' && asset.userSupplyBalanceCents.isGreaterThan(0),
-  );
+  const hasCollateral = pool.userBorrowLimitCents?.isGreaterThan(0);
 
   const tabs: Tab[] = [
     {
@@ -58,7 +53,7 @@ export const Repay: React.FC<RepayProps> = ({ asset, pool }) => {
       content: hasCollateral ? (
         <RepayWithCollateralForm pool={pool} asset={asset} />
       ) : (
-        <DisabledActionNotice token={asset.vToken.underlyingToken} action={'repay'} />
+        <NoticeWarning description={t('operationForm.repayTab.noCollateralWarning')} />
       ),
     },
   ];

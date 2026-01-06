@@ -32,7 +32,7 @@ const formatPercentageToReadableValue = (value: number | string | BigNumber | un
 
     readableValue = `${isNegative ? '-' : ''}${absoluteValue.toFormat(
       decimalPlaces,
-      BigNumber.ROUND_HALF_UP,
+      BigNumber.ROUND_DOWN,
     )}`;
   }
 

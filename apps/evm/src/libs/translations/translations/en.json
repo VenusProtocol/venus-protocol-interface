@@ -726,6 +726,7 @@
     },
     "repayTab": {
       "collateralTabTitle": "Collateral",
+      "noCollateralWarning": "You do not have any collateral to repay with.",
       "title": "Repay",
       "walletBalanceTabTitle": "Wallet"
     },
