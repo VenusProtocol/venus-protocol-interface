@@ -282,7 +282,7 @@ export const useColumns = ({
         if (column === 'userBorrowLimitSharePercentage') {
           return (
             <div css={styles.userBorrowLimitSharePercentage}>
-              <span className={cn(isPaused ? 'text-grey' : 'text-offWhite')}>
+              <span className={cn(isPaused ? 'text-grey' : 'text-white')}>
                 {formatPercentageToReadableValue(asset.userBorrowLimitSharePercentage)}
               </span>
 

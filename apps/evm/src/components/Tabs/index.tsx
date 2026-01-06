@@ -66,8 +66,8 @@ export const Tabs = ({
                 type="button"
                 key={tab.id}
                 className={cn(
-                  'hover:text-offWhite cursor-pointer',
-                  activeTab.id === tab.id ? 'text-offWhite' : 'text-grey',
+                  'hover:text-white cursor-pointer',
+                  activeTab.id === tab.id ? 'text-white' : 'text-grey',
                 )}
               >
                 <p className="mb-2 font-semibold whitespace-nowrap transition-colors text-inherit">

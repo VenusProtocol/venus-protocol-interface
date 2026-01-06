@@ -56,7 +56,7 @@ export const Banner: React.FC<BannerProps> = ({
             <Link
               href={learnMoreUrl}
               target="_blank"
-              className="hover:no-underline active:no-underline text-offWhite"
+              className="hover:no-underline active:no-underline text-white"
             >
               {learnMoreLabel ?? t('adBanner.learnMore')}
             </Link>

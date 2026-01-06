@@ -10,13 +10,13 @@ export const IsolatedPoolsSunsetBanner: React.FC = () => {
   return (
     <Banner
       className="bg-gradient-to-r from-[#01193A] to-[#0D3CB1]"
-      title={<span className="text-offWhite">{t('isolatedPoolsSunsetBanner.title')}</span>}
+      title={<span className="text-white">{t('isolatedPoolsSunsetBanner.title')}</span>}
       description={
         <span className="text-grey">
           <Trans
             i18nKey="isolatedPoolsSunsetBanner.description"
             components={{
-              White: <span className="text-offWhite" />,
+              White: <span className="text-white" />,
             }}
           />
         </span>

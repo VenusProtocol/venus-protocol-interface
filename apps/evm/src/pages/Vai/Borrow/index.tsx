@@ -252,7 +252,7 @@ export const Borrow: React.FC = () => {
             <Trans
               i18nKey="vai.borrow.primeOnlyWarning"
               components={{
-                WhiteText: <span className="text-offWhite" />,
+                WhiteText: <span className="text-white" />,
                 Link: <Link href={PRIME_DOC_URL} />,
               }}
             />

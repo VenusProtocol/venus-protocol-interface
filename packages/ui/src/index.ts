@@ -1,6 +1,5 @@
-// Theme config
+// JS Theme config
 export * from './theme';
-export * from './tailwind.config';
 
 // Utilities
 export * from './utilities/cn';
