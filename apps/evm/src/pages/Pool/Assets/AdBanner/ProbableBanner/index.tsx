@@ -22,11 +22,11 @@ export const ProbableBanner: React.FC = () => {
         </span>
       }
       illustration={
-        <div className="h-10 w-14 sm:h-12 sm:w-[78px] lg:h-14">
+        <div className="h-10 w-14 sm:w-17 md:w-[70px] lg:w-[82px] lg:h-14">
           <img
             src={probaleIcon}
             alt={t('probableBanner.probableAltText')}
-            className="absolute size-14 -mt-4 sm:-mt-[22px] sm:size-[78px]"
+            className="absolute size-14 -mt-4 sm:size-17 sm:-mt-4 md:size-[70px] lg:-mt-[18px] lg:size-[82px]"
           />
         </div>
       }
