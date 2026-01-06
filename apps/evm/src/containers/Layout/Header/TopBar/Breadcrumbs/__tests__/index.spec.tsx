@@ -20,7 +20,7 @@ describe('component/Layout/Header/Breadcrumbs', () => {
   });
 
   it.each([
-    [routes.account.path, routes.account.path],
+    [routes.dashboard.path, routes.dashboard.path],
     [routes.governance.path, routes.governance.path],
     [routes.governanceLeaderBoard.path, routes.governanceLeaderBoard.path],
     [
@@ -30,7 +30,7 @@ describe('component/Layout/Header/Breadcrumbs', () => {
     [routes.governanceProposal.path.replace(':proposalId', '1'), routes.governanceProposal.path],
     [routes.governanceVoter.path.replace(':address', fakeAddress), routes.governanceVoter.path],
     [routes.isolatedPools.path, routes.isolatedPools.path],
-    [routes.pool.path.replace(':poolComptrollerAddress', fakeAddress), routes.pool.path],
+    [routes.markets.path.replace(':poolComptrollerAddress', fakeAddress), routes.markets.path],
     [
       routes.market.path
         .replace(':poolComptrollerAddress', fakeAddress)
