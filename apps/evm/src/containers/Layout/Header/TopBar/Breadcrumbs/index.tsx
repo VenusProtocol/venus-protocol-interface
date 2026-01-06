@@ -58,26 +58,18 @@ export const Breadcrumbs: React.FC = () => {
       let hrefFragment: string = subdirectory;
 
       switch (subdirectory) {
-        case Subdirectory.ACCOUNT:
-          dom = t('breadcrumbs.account');
-          break;
-        case Subdirectory.MARKETS:
-          hrefFragment = Subdirectory.MARKETS.replace(
-            ':poolComptrollerAddress',
-            params.poolComptrollerAddress || '',
-          );
-
-          dom = t('breadcrumbs.markets');
+        case Subdirectory.DASHBOARD:
+          dom = t('breadcrumbs.dashboard');
           break;
         case Subdirectory.ISOLATED_POOLS:
           dom = t('breadcrumbs.isolatedPools');
           break;
-        case Subdirectory.POOL:
+        case Subdirectory.MARKETS:
           if (
             params.poolComptrollerAddress &&
             areAddressesEqual(params.poolComptrollerAddress, corePoolComptrollerContractAddress)
           ) {
-            hrefFragment = Subdirectory.POOL.replace(
+            hrefFragment = Subdirectory.MARKETS.replace(
               ':poolComptrollerAddress',
               params.poolComptrollerAddress || '',
             );

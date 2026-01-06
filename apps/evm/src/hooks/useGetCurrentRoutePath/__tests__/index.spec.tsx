@@ -19,14 +19,14 @@ describe('useGetCurrentRoutePath', () => {
     (matchRoutes as Mock).mockImplementation(() => [
       {
         route: {
-          path: routes.account.path,
+          path: routes.dashboard.path,
         },
       },
     ]);
 
     const { result } = renderHook(() => useGetCurrentRoutePath());
 
-    expect(result.current).toEqual(routes.account.path);
+    expect(result.current).toEqual(routes.dashboard.path);
   });
 
   it('returns undefined if there is no matching route', () => {

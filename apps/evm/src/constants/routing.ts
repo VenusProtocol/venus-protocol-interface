@@ -1,10 +1,10 @@
 export enum Subdirectory {
+  LANDING = 'landing',
   ISOLATED_POOLS = 'isolated-pools',
-  POOL = 'pool/:poolComptrollerAddress',
   MARKETS = 'markets/:poolComptrollerAddress',
-  MARKET = 'market/:vTokenAddress',
+  MARKET = ':vTokenAddress',
   PRIME_CALCULATOR = 'prime-calculator',
-  ACCOUNT = 'account',
+  DASHBOARD = 'dashboard',
   PORT = 'port',
   VAULTS = 'vaults',
   GOVERNANCE = 'governance',
@@ -22,11 +22,12 @@ export enum Subdirectory {
 }
 
 const routeSubdirectories = {
+  landing: [Subdirectory.LANDING],
   isolatedPools: [Subdirectory.ISOLATED_POOLS],
-  pool: [Subdirectory.POOL],
-  market: [Subdirectory.POOL, Subdirectory.MARKET],
+  markets: [Subdirectory.MARKETS],
+  market: [Subdirectory.MARKETS, Subdirectory.MARKET],
   primeCalculator: [Subdirectory.PRIME_CALCULATOR],
-  account: [Subdirectory.ACCOUNT],
+  dashboard: [Subdirectory.DASHBOARD],
   port: [Subdirectory.PORT],
   governance: [Subdirectory.GOVERNANCE],
   governanceProposal: [Subdirectory.GOVERNANCE, Subdirectory.PROPOSAL],

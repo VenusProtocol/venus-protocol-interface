@@ -4,7 +4,7 @@ import { useAccountAddress } from 'libs/wallet';
 
 import { useGetPools } from 'clients/api';
 import { Icon, Tooltip, cn } from 'components';
-import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useGetProfitableImports } from 'hooks/useGetProfitableImports';
 import { useTranslation } from 'libs/translations';
 import type { MenuItem } from './types';
@@ -16,16 +16,16 @@ const useGetMenuItems = () => {
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const { importablePositionsCount } = useGetProfitableImports();
-  const { homePagePath } = useGetHomePagePath();
+  const { marketsPagePath } = useGetMarketsPagePath();
   const { data: getPoolsData } = useGetPools();
   const pools = getPoolsData?.pools || [];
 
   const menuItems: MenuItem[] = [
     {
-      to: homePagePath,
+      to: marketsPagePath,
       // Translation key: do not remove this comment
-      // t('layout.menuItems.corePool')
-      i18nKey: 'layout.menuItems.corePool',
+      // t('layout.menuItems.markets')
+      i18nKey: 'layout.menuItems.markets',
       iconName: 'venus',
     },
   ];
@@ -45,14 +45,14 @@ const useGetMenuItems = () => {
     });
   }
 
-  // Insert account page if wallet is connected
+  // Insert dashboard page if wallet is connected
   if (accountAddress) {
     menuItems.push(
       {
-        to: routes.account.path,
+        to: routes.dashboard.path,
         // Translation key: do not remove this comment
-        // t('layout.menuItems.account')
-        i18nKey: 'layout.menuItems.account',
+        // t('layout.menuItems.dashboard')
+        i18nKey: 'layout.menuItems.dashboard',
         iconName: 'person',
       },
       {
