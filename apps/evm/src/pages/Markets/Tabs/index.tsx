@@ -50,7 +50,7 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
           <div
             className={cn(
               'w-5 h-5 rounded-full flex items-center justify-center',
-              activeTabIndex === index ? 'bg-offWhite' : 'bg-lightGrey',
+              activeTabIndex === index ? 'bg-white' : 'bg-lightGrey',
             )}
           >
             {activeTabIndex === index ? (

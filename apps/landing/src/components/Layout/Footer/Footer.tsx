@@ -89,7 +89,7 @@ const Footer: React.FC<IFooterProps> = ({ className }) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Icon className="w-4 text-offWhite" />
+                <Icon className="w-4 text-white" />
               </a>
             ))}
           </div>

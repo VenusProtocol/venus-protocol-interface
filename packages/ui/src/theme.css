@@ -1,35 +1,61 @@
 @layer base {
-
-  /* css-variables in rgb format: */
   :root {
     /* The next colors are taken from the UI kit in Figma */
-    --color-background-rgb: 24 29 39;
-    --color-cards-rgb: 30 36 49;
-    --color-grey-rgb: 170 179 202;
-    --color-lightGrey-rgb: 45 53 73;
+    --color-background-rgb: 24 26 32;
+    --color-background-hover-rgb: 42 44 52;
+    --color-background-active-rgb: 16 18 24;
+    --color-background-disabled-rgb: 24 24 32;
+
+    --color-dark-blue-rgb: 30 36 49;
+    --color-dark-blue-hover-rgb: 48 53 74;
+    --color-dark-blue-active-rgb: 23 28 39;
+    --color-dark-blue-disabled-rgb: 30 36 49;
+
+    --color-dark-grey-rgb: 46 46 46;
+    --color-dark-grey-hover-rgb: 64 64 64;
+    --color-dark-grey-active-rgb: 34 34 34;
+    --color-dark-grey-disabled-rgb: 226 226 226;
+
+    --color-light-grey-rgb: 170 179 202;
+    --color-light-grey-hover-rgb: 183 192 212;
+    --color-light-grey-active-rgb: 255 255 255;
+    --color-light-grey-disabled-rgb: 170 179 202;
+
+    --color-white-rgb: 255 255 255;
+
+    --color-blue-rgb: 17 153 250;
+    --color-blue-hover-rgb: 52 169 255;
+    --color-blue-active-rgb: 58 120 255;
+    --color-blue-disabled-rgb: 17 153 250;
+
     --color-green-rgb: 0 195 142;
-    --color-red-rgb: 233 61 102;
-    --color-offWhite-rgb: 255 255 255;
-    --color-orange-rgb: 245 120 66;
-    --color-yellow-rgb: 245 178 66;
-    --color-blue-rgb: 58 120 255;
-    /* The next colors are not in the UI kit, but are used throughout the designs */
+    --color-green-hover-rgb: 26 208 160;
+    --color-green-active-rgb: 0 165 117;
+    --color-green-disabled-rgb: 0 195 142;
+
+    --color-red-rgb: 234 57 67;
+    --color-red-hover-rgb: 255 77 88;
+    --color-red-active-rgb: 211 47 47;
+    --color-red-disabled-rgb: 228 57 67;
+
+    --color-orange-rgb: 255 106 0;
+    --color-orange-hover-rgb: 255 136 51;
+    --color-orange-active-rgb: 229 95 0;
+    --color-orange-disabled-rgb: 255 106 0;
+
+    --color-yellow-rgb: 240 185 11;
+    --color-yellow-hover-rgb: 255 212 38;
+    --color-yellow-active-rgb: 217 162 10;
+    --color-yellow-disabled-rgb: 240 185 11;
+
+    /* The next colors are from the old UI kit */
+    /* TODO: remove once migration of the dApp is complete */
+    --color-cards-rgb: 30 36 49;
+    --color-lightGrey-rgb: 45 53 73;
+    --color-grey-rgb: 170 179 202;
     --color-mediumBlue-rgb: 38 90 204;
     --color-darkBlue-rgb: 27 67 152;
     --color-greyBlue-rgb: 42 52 77;
-  }
-
-  .unichain-theme {
-    /* The next colors are taken from the UI kit in Figma */
-    --color-background-rgb: 19 19 19;
-    --color-cards-rgb: 27 27 27;
-    --color-grey-rgb: 179 185 202;
-    --color-lightGrey-rgb: 46 46 46;
-    --color-blue-rgb: 245 13 180;
-    /* The next colors are not in the UI kit, but are used throughout the designs */
-    --color-mediumBlue-rgb: 198 7 145;
-    --color-darkBlue-rgb: 170 6 124;
-    --color-greyBlue-rgb: 65 31 69;
   }
 }
 
@@ -37,30 +63,67 @@
   /* fontFamily: */
   --font-display: 'var(--font-proxima-nova)', 'Arial', 'sans-serif';
 
-  /* screens: */
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-xxl: 1440px;
-
   /* colors: */
   --color-inherit: inherit;
   --color-transparent: transparent;
+
   --color-background: rgb(var(--color-background-rgb));
+  --color-background-hover: rgb(var(--color-background-hover-rgb));
+  --color-background-active: rgb(var(--color-background-active-rgb));
+  --color-background-disabled: rgb(var(--color-background-active-rgb));
+
+  --color-dark-blue: rgb(var(--color-dark-blue-rgb));
+  --color-dark-blue-hover: rgb(var(--color-dark-blue-hover-rgb));
+  --color-dark-blue-active: rgb(var(--color-dark-blue-active-rgb));
+  --color-dark-blue-disabled: rgb(var(--color-dark-blue-active-rgb));
+
+  --color-dark-grey: rgb(var(--color-dark-grey-rgb));
+  --color-dark-grey-hover: rgb(var(--color-dark-grey-hover-rgb));
+  --color-dark-grey-active: rgb(var(--color-dark-grey-active-rgb));
+  --color-dark-grey-disabled: rgb(var(--color-dark-grey-active-rgb));
+
+  --color-light-grey: rgb(var(--color-light-grey-rgb));
+  --color-light-grey-hover: rgb(var(--color-light-grey-hover-rgb));
+  --color-light-grey-active: rgb(var(--color-light-grey-active-rgb));
+  --color-light-grey-disabled: rgb(var(--color-light-grey-active-rgb));
+
+  --color-white: rgb(var(--color-white-rgb));
+
+  --color-blue: rgb(var(--color-blue-rgb));
+  --color-blue-hover: rgb(var(--color-blue-hover-rgb));
+  --color-blue-active: rgb(var(--color-blue-active-rgb));
+  --color-blue-disabled: rgb(var(--color-blue-disabled-rgb));
+
+  --color-green: rgb(var(--color-green-rgb));
+  --color-green-hover: rgb(var(--color-green-hover-rgb));
+  --color-green-active: rgb(var(--color-green-active-rgb));
+  --color-green-disabled: rgb(var(--color-green-disabled-rgb));
+
+  --color-red: rgb(var(--color-red-rgb));
+  --color-red-hover: rgb(var(--color-red-hover-rgb));
+  --color-red-active: rgb(var(--color-red-active-rgb));
+  --color-red-disabled: rgb(var(--color-red-disabled-rgb));
+
+  --color-orange: rgb(var(--color-orange-rgb));
+  --color-orange-hover: rgb(var(--color-orange-hover-rgb));
+  --color-orange-active: rgb(var(--color-orange-active-rgb));
+  --color-orange-disabled: rgb(var(--color-orange-disabled-rgb));
+
+  --color-yellow: rgb(var(--color-yellow-rgb));
+  --color-yellow-hover: rgb(var(--color-yellow-hover-rgb));
+  --color-yellow-active: rgb(var(--color-yellow-active-rgb));
+  --color-yellow-disabled: rgb(var(--color-yellow-disabled-rgb));
+
+  /* The next colors are not in the UI kit, but are used throughout the designs */
   --color-cards: rgb(var(--color-cards-rgb));
   --color-grey: rgb(var(--color-grey-rgb));
   --color-lightGrey: rgb(var(--color-lightGrey-rgb));
-  --color-green: rgb(var(--color-green-rgb));
-  --color-red: rgb(var(--color-red-rgb));
-  --color-offWhite: rgb(var(--color-offWhite-rgb));
-  --color-orange: rgb(var(--color-orange-rgb));
-  --color-yellow: rgb(var(--color-yellow-rgb));
-  --color-blue: rgb(var(--color-blue-rgb));
-  /* The next colors are not in the UI kit, but are used throughout the designs */
   --color-mediumBlue: rgb(var(--color-mediumBlue-rgb));
   --color-darkBlue: rgb(var(--color-darkBlue-rgb));
   --color-greyBlue: rgb(var(--color-greyBlue-rgb));
+
+  /* breakpoints */
+  --breakpoint-2xl: 360rem;
 
   /* fontSize: */
   --text-xs: 0.75rem;

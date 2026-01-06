@@ -2,7 +2,7 @@
   color: var(--color-grey);
 
   h2, h3 {
-    color: var(--color-offWhite);
+    color: var(--color-white);
   }
 
   h2 {
@@ -23,7 +23,7 @@
   }
 
   a {
-    color: var(--color-offWhite);
+    color: var(--color-white);
     text-decoration: underline;
   }
 
@@ -36,11 +36,11 @@
     color: inherit;
 
     &::marker {
-      color: var(--color-offWhite);
+      color: var(--color-white);
     }
 
     span {
-      color: var(--color-offWhite);
+      color: var(--color-white);
       font-weight: 600;
     }
   }

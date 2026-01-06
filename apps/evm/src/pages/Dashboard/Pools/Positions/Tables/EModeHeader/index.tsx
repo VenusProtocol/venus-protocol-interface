@@ -34,7 +34,7 @@ export const EModeHeader: React.FC<EModeHeaderProps> = ({
   return (
     <Link
       className={cn(
-        'flex items-center justify-center rounded-full border border-lightGrey bg-cards h-8 px-2 text-offWhite transition-colors duration-250 hover:no-underline hover:bg-lightGrey',
+        'flex items-center justify-center rounded-full border border-lightGrey bg-cards h-8 px-2 text-white transition-colors duration-250 hover:no-underline hover:bg-lightGrey',
         className,
       )}
       to={to}

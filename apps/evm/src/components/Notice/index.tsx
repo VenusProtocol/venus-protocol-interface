@@ -75,7 +75,7 @@ export const Notice = ({
 
       {onClose && (
         <TextButton className="group h-5 p-0" onClick={onClose}>
-          <Icon name="close" className="group-hover:text-offWhite h-5 w-5 transition-colors" />
+          <Icon name="close" className="group-hover:text-white h-5 w-5 transition-colors" />
         </TextButton>
       )}
     </div>

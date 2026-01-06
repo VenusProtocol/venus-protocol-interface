@@ -35,7 +35,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
       <Icon name={iconName} className="mr-4 h-6 w-6 text-inherit" />
 
       <div className="flex grow items-center">
-        <p className="text-offWhite overflow-hidden text-ellipsis xl:text-inherit">{t(i18nKey)}</p>
+        <p className="text-white overflow-hidden text-ellipsis xl:text-inherit">{t(i18nKey)}</p>
 
         {isNew && (
           <div className="border-green bg-green/10 ml-3 inline-flex rounded-[4px] border px-[4px] py-[2px]">
@@ -48,11 +48,11 @@ export const NavLink: React.FC<NavLinkProps> = ({
 
       {badgeNumber && (
         <div className="shrink-0 w-5 h-5 rounded-md bg-lightGrey items-center justify-center flex">
-          <span className="text-xs text-offWhite">{badgeNumber}</span>
+          <span className="text-xs text-white">{badgeNumber}</span>
         </div>
       )}
 
-      <Icon name="chevronRight" className="text-offWhite ml-4 h-6 w-6" />
+      <Icon name="chevronRight" className="text-white ml-4 h-6 w-6" />
     </RRNavLink>
   );
 };

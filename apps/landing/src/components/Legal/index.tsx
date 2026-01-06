@@ -28,7 +28,7 @@ export const Legal: React.FC<LegalProps> = ({ children, title, lastUpdatedAt }) 
         </div>
 
         <p className="text-grey text-base m-0 ml-9 sm:pb-[6px]">
-          Last updated: <span className="text-offWhite">{readableLastUpatedAt}</span>
+          Last updated: <span className="text-white">{readableLastUpatedAt}</span>
         </p>
       </div>
 

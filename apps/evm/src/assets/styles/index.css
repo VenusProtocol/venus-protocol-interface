@@ -13,7 +13,7 @@
   body {
     font-family: var(--font-proxima-nova), sans-serif;
     background-color: var(--color-background);
-    color: var(--color-offWhite);
+    color: var(--color-white);
   }
 
   * {
@@ -35,7 +35,7 @@
 
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
-      background-color: var(--color-offWhite);
+      background-color: var(--color-white);
     }
   }
 }
