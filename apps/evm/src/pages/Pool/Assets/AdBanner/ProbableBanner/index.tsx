@@ -32,7 +32,7 @@ export const ProbableBanner: React.FC = () => {
       }
       contentContainerClassName="gap-x-1"
       learnMoreUrl={LEARN_MORE_URL}
-      learnMoreText={t('adBanner.startNow')}
+      learnMoreLabel={t('adBanner.startNow')}
     />
   );
 };

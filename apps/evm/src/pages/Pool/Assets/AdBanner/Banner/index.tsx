@@ -10,7 +10,7 @@ export interface BannerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   description: React.ReactNode;
   illustration: React.ReactNode;
   learnMoreUrl: string;
-  learnMoreText?: string;
+  learnMoreLabel?: string;
   backgroundIllustration?: React.ReactNode;
   contentContainerClassName?: string;
 }
@@ -19,7 +19,7 @@ export const Banner: React.FC<BannerProps> = ({
   className,
   contentContainerClassName,
   learnMoreUrl,
-  learnMoreText,
+  learnMoreLabel,
   title,
   description,
   illustration,
@@ -58,7 +58,7 @@ export const Banner: React.FC<BannerProps> = ({
               target="_blank"
               className="hover:no-underline active:no-underline text-offWhite"
             >
-              {learnMoreText ?? t('adBanner.learnMore')}
+              {learnMoreLabel ?? t('adBanner.learnMore')}
             </Link>
           </ButtonWrapper>
         </div>
