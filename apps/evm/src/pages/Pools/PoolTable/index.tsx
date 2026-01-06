@@ -133,7 +133,7 @@ export const PoolTableUi: React.FC<PoolTableProps> = ({ pools, isFetchingPools }
       }}
       rowKeyExtractor={row => `pool-table-row-${row.pool.comptrollerAddress}`}
       getRowHref={row =>
-        routes.pool.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
+        routes.markets.path.replace(':poolComptrollerAddress', row.pool.comptrollerAddress)
       }
       breakpoint="xxl"
       css={styles.cardContentGrid}

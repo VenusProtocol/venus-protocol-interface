@@ -7,14 +7,14 @@ import { Layout } from 'containers/Layout';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 
 import { Redirect } from 'containers/Redirect';
-import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
 import { safeLazyLoad } from 'utilities';
 import PageSuspense from './PageSuspense';
 
+const Landing = safeLazyLoad(() => import('pages/Landing'));
 const IsolatedPools = safeLazyLoad(() => import('pages/IsolatedPools'));
-const Pool = safeLazyLoad(() => import('pages/Pool'));
+const Markets = safeLazyLoad(() => import('pages/Markets'));
 const Market = safeLazyLoad(() => import('pages/Market'));
-const Account = safeLazyLoad(() => import('pages/Account'));
+const Dashboard = safeLazyLoad(() => import('pages/Dashboard'));
 const Port = safeLazyLoad(() => import('pages/Port'));
 const Governance = safeLazyLoad(() => import('pages/Governance'));
 const Proposal = safeLazyLoad(() => import('pages/Proposal'));
@@ -34,7 +34,6 @@ const AppRoutes = () => {
   const primeCalculatorEnabled = useIsFeatureEnabled({
     name: 'primeCalculator',
   });
-  const { homePagePath } = useGetHomePagePath();
 
   // Scroll to the top of the page on route change
   // biome-ignore lint/correctness/useExhaustiveDependencies:
@@ -50,10 +49,19 @@ const AppRoutes = () => {
     <Routes>
       <Route element={<Layout />}>
         <Route
-          path={Subdirectory.ACCOUNT}
+          path={Subdirectory.LANDING}
           element={
             <PageSuspense>
-              <Account />
+              <Landing />
+            </PageSuspense>
+          }
+        />
+
+        <Route
+          path={Subdirectory.DASHBOARD}
+          element={
+            <PageSuspense>
+              <Dashboard />
             </PageSuspense>
           }
         />
@@ -78,12 +86,12 @@ const AppRoutes = () => {
           />
         </Route>
 
-        <Route path={Subdirectory.POOL}>
+        <Route path={Subdirectory.MARKETS}>
           <Route
             index
             element={
               <PageSuspense>
-                <Pool />
+                <Markets />
               </PageSuspense>
             }
           />
@@ -191,8 +199,8 @@ const AppRoutes = () => {
         )}
 
         {/* Redirect to Core pool if no route matches */}
-        <Route index element={<Redirect to={homePagePath} />} />
-        <Route path="*" element={<Redirect to={homePagePath} />} />
+        <Route index element={<Redirect to={Subdirectory.LANDING} />} />
+        <Route path="*" element={<Redirect to={Subdirectory.LANDING} />} />
       </Route>
     </Routes>
   );

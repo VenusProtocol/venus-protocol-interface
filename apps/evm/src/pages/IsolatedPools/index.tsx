@@ -7,7 +7,7 @@ import { MarketTable, type MarketTableProps } from 'containers/MarketTable';
 import { PoolStats } from 'containers/PoolStats';
 import { Redirect } from 'containers/Redirect';
 import { useChain } from 'hooks/useChain';
-import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
 import type { Pool } from 'types';
@@ -28,7 +28,7 @@ export const IsolatedPools: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { corePoolComptrollerContractAddress } = useChain();
-  const { homePagePath } = useGetHomePagePath();
+  const { marketsPagePath } = useGetMarketsPagePath();
 
   const columns: MarketTableProps['columns'] = [
     'asset',
@@ -110,7 +110,7 @@ export const IsolatedPools: React.FC = () => {
 
   // Redirect to Core pool page if there are no isolated pools to display
   if (pools.length === 0) {
-    return <Redirect to={homePagePath} />;
+    return <Redirect to={marketsPagePath} />;
   }
 
   return (

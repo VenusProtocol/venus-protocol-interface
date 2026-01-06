@@ -72,7 +72,7 @@ export const Position: React.FC<PropositionProps> = ({
 
         // Redirect to Account page if this was the last importable position
         if (importablePositionsCount === 1) {
-          navigate(routes.account.path);
+          navigate(routes.dashboard.path);
         }
       },
     });

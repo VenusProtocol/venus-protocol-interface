@@ -23,12 +23,12 @@ export const IsolatedEModeGroupTooltip: React.FC<IsolatedEModeGroupTooltipProps>
         variant === 'primary' ? 'text-yellow bg-yellow/[.07]' : 'text-offWhite bg-offWhite/15',
         className,
       )}
-      content={t('pool.isolatedEModeGroupTooltip.content', {
+      content={t('markets.isolatedEModeGroupTooltip.content', {
         eModeGroupName,
       })}
     >
       <span className="text-xs font-medium leading-[21px]">
-        {t('pool.isolatedEModeGroupTooltip.label')}
+        {t('markets.isolatedEModeGroupTooltip.label')}
       </span>
 
       <Icon name="info" className="text-inherit" />

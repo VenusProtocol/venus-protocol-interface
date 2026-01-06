@@ -4,13 +4,13 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { useGetPools } from 'clients/api';
-import { useGetHomePagePath } from 'hooks/useGetHomePagePath';
+import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
 import { Route } from 'react-router';
 import { renderComponent } from 'testUtils/render';
 import Dashboard from '..';
 import TEST_IDS from '../testIds';
 
-vi.mock('hooks/useGetHomePagePath');
+vi.mock('hooks/useGetMarketsPagePath');
 
 const FAKE_HOME_PAGE_PATH = '/home';
 
@@ -23,8 +23,8 @@ describe('Isolated Pools', () => {
       isLoading: false,
     }));
 
-    (useGetHomePagePath as Mock).mockImplementation(() => ({
-      homePagePath: FAKE_HOME_PAGE_PATH,
+    (useGetMarketsPagePath as Mock).mockImplementation(() => ({
+      marketsPagePath: FAKE_HOME_PAGE_PATH,
     }));
   });
 

@@ -24,7 +24,10 @@ export const EModeButton: React.FC<EModeButtonProps> = ({
   const { formatTo } = useFormatTo();
   const to = formatTo({
     to: {
-      pathname: routes.pool.path.replace(':poolComptrollerAddress', poolComptrollerContractAddress),
+      pathname: routes.markets.path.replace(
+        ':poolComptrollerAddress',
+        poolComptrollerContractAddress,
+      ),
       search: `${TAB_PARAM_KEY}=e-mode`,
     },
   });

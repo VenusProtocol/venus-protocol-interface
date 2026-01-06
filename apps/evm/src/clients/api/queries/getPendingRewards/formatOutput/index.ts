@@ -80,7 +80,7 @@ const formatOutput = ({
 }): PendingRewardGroup[] => {
   const pendingRewardGroups: PendingRewardGroup[] = [];
 
-  // Extract pending rewards from core pool
+  // Extract pending rewards from markets
   const legacyPoolPendingRewardGroup =
     venusLensPendingRewards && legacyPoolComptrollerContractAddress
       ? formatToLegacyPoolPendingRewardGroup({
