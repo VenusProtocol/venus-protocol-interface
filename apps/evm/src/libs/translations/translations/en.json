@@ -148,7 +148,7 @@
   },
   "adBanner": {
     "learnMore": "Learn more",
-    "startNow": "Start Now"
+    "startNow": "Start now"
   },
   "announcements": {
     "bethUpdate": {
@@ -294,11 +294,6 @@
     "rocketAltText": "Rocket illustration",
     "title": "Boost is available now!"
   },
-  "probableBanner": {
-    "description": "Give your conviction a boost on probable.markets",
-    "probableAltText": "Probable illustration",
-    "title": "Believe in something?"
-  },
   "breadcrumbs": {
     "bridge": "Bridge",
     "dashboard": "Dashboard",
@@ -307,9 +302,9 @@
     "leaderboard": "Leaderboard",
     "primeCalculator": "Prime calculator",
     "proposal": "Proposal #{{proposalId}}",
+    "staking": "Staking",
     "swap": "Swap",
-    "vai": "VAI",
-    "vaults": "Vaults"
+    "vai": "VAI"
   },
   "bridgePage": {
     "amountInput": {
@@ -527,8 +522,7 @@
   "isolatedPoolsSunsetBanner": {
     "description": "Claim your rewards and close your positions",
     "illustrationAltText": "Illustration",
-    "title": "Isolated pools are being sunsetted",
-    "tooltip": "Sunset"
+    "title": "Isolated pools are being sunsetted"
   },
   "layout": {
     "chainSelect": {
@@ -542,27 +536,66 @@
       },
       "price": "Price",
       "supply": "Supply",
-      "unichainBackgroundIllustrationAlt": "Background illustration",
       "utilizationRate": "Utilization rate"
     },
     "menu": {
-      "navLink": {
-        "new": "NEW"
+      "dashboard": {
+        "label": "Dashboard"
+      },
+      "label": "Menu",
+      "markets": {
+        "label": "Markets"
+      },
+      "others": {
+        "bridge": {
+          "description": "TRANSLATION NEEDED",
+          "label": "Bridge"
+        },
+        "governance": {
+          "description": "TRANSLATION NEEDED",
+          "label": "Governance"
+        },
+        "isolatedPools": {
+          "description": "TRANSLATION NEEDED",
+          "label": "Isolated pools"
+        },
+        "label": "Others",
+        "port": {
+          "label": "Port"
+        },
+        "swap": {
+          "label": "TRANSLATION NEEDED"
+        },
+        "vai": {
+          "description": "TRANSLATION NEEDED",
+          "label": "VAI"
+        }
+      },
+      "staking": {
+        "label": "Staking"
+      },
+      "subMenuItem": {
+        "button": {
+          "label": "Get started"
+        }
       },
       "venusLogoAlt": "Venus logo"
     },
-    "menuItems": {
-      "bridge": "Bridge",
-      "dashboard": "Dashboard",
-      "governance": "Governance",
-      "isolatedPools": "Isolated pools",
-      "markets": "Markets",
-      "port": "Port",
-      "swap": "Swap",
-      "vai": "VAI",
-      "vaults": "Vaults"
-    },
     "testEnvWarning": "This is a test environment. Do not interact with it for any purpose other than testing. <Link>Go to the official Venus Protocol website</Link>"
+  },
+  "layouts": {
+    "menu": {
+      "markets": {
+        "venusCore": {
+          "description": "TRANSLATION NEEDED",
+          "label": "Venus Core"
+        },
+        "venusX": {
+          "description": "TRANSLATION NEEDED",
+          "label": "Venus X"
+        }
+      }
+    }
   },
   "markdownEditor": {
     "markdownTabLabel": "Write",
@@ -761,6 +794,16 @@
     }
   },
   "operationForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "I acknowledge the high price impact",
+        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "I acknowledge the risks involved",
+        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
+      }
+    },
     "availableAmount": "Available",
     "boostTabAltText": "Rocket icon",
     "boostTabTitle": "Boost",
@@ -840,16 +883,6 @@
     "warning": {
       "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     },
-    "acknowledgements": {
-      "highPriceImpact": {
-        "label": "I acknowledge the high price impact",
-        "tooltip": "This transaction is expected to have a price impact of over {{priceImpactPercentage}}%"
-      },
-      "riskyOperation": {
-        "label": "I acknowledge the risks involved",
-        "tooltip": "Your health factor will be low after this transaction, increasing the risk of liquidation"
-      }
-    },
     "withdrawTabTitle": "Withdraw"
   },
   "pagination": {
@@ -859,11 +892,11 @@
   "pools": {
     "poolTable": {
       "columns": {
-        "assets": "Assets",
-        "liquidity": "Liquidity",
-        "pool": "Pool",
-        "totalBorrow": "Total borrow",
-        "totalSupply": "Total supply"
+        "assets": "TRANSLATION NEEDED",
+        "liquidity": "TRANSLATION NEEDED",
+        "pool": "TRANSLATION NEEDED",
+        "totalBorrow": "TRANSLATION NEEDED",
+        "totalSupply": "TRANSLATION NEEDED"
       }
     }
   },
@@ -877,7 +910,7 @@
       "treasuryLabel": "Treasury"
     }
   },
-  "PrimeButton": {
+  "primeButton": {
     "primeLogoAlt": "Venus Prime logo"
   },
   "primeCalculator": {
@@ -956,6 +989,11 @@
     "tokensLeft_many": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "tokensLeft_other": "<WhiteText>{{count}}</WhiteText> prime tokens left",
     "waitForPrimeTitle": "{{claimWaitingPeriod}} until you can claim Prime rewards"
+  },
+  "probableBanner": {
+    "description": "Give your conviction a boost on probable.markets",
+    "probableAltText": "Probable illustration",
+    "title": "Believe in something?"
   },
   "proposalList": {
     "selectOptions": {

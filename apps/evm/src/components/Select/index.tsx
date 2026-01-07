@@ -141,6 +141,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               }}
               {...otherProps}
             />
+
             <span className="grow overflow-hidden text-ellipsis whitespace-nowrap text-left">
               {selectedOption &&
                 renderLabel({ label: selectedOption.label, isRenderedInButton: true })}
@@ -148,10 +149,10 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
 
             {!disabled && (
               <Icon
-                name="arrowUp"
+                name="chevronDown"
                 className={cn(
-                  'text-white ml-2 w-5 h-5 flex-none',
-                  isDropdownOpened ? 'text-blue' : 'rotate-180',
+                  'text-grey ml-2 size-3 flex-none',
+                  isDropdownOpened && 'text-blue rotate-180',
                 )}
               />
             )}

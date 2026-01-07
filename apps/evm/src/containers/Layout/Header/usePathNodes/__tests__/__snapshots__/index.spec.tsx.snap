@@ -1,0 +1,158 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /dashboard 1`] = `
+[
+  {
+    "dom": "Dashboard",
+    "href": "dashboard",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /governance 1`] = `
+[
+  {
+    "dom": "Governance",
+    "href": "governance",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /governance/leaderboard 1`] = `
+[
+  {
+    "dom": "Governance",
+    "href": "governance",
+  },
+  {
+    "dom": "Leaderboard",
+    "href": "governanceleaderboard",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /governance/leaderboard/voter/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `
+[
+  {
+    "dom": "Governance",
+    "href": "governance",
+  },
+  {
+    "dom": "Leaderboard",
+    "href": "governanceleaderboard",
+  },
+  {
+    "dom": <div
+      className="inline-flex items-center gap-x-2"
+    >
+      <Username
+        address="0x3d759121234cd36F8124C21aFe1c6852d2bEd848"
+        ellipseBreakpoint="2xl"
+        showCopyAddress={true}
+        showProvider={false}
+        showTooltip={false}
+      />
+    </div>,
+    "href": "governanceleaderboardvoter/0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /governance/proposal/1 1`] = `
+[
+  {
+    "dom": "Governance",
+    "href": "governance",
+  },
+  {
+    "dom": "Proposal #1",
+    "href": "governanceproposal/:proposalId",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /governance/proposal/FAKE-PROPOSAL-ID 1`] = `
+[
+  {
+    "dom": "Governance",
+    "href": "governance",
+  },
+  {
+    "dom": "Proposal #",
+    "href": "governanceproposal/:proposalId",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /isolated-pools 1`] = `
+[
+  {
+    "dom": "Isolated pools",
+    "href": "isolated-pools",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848 1`] = `
+[
+  {
+    "dom": <PoolName
+      poolComptrollerAddress="0x3d759121234cd36F8124C21aFe1c6852d2bEd848"
+    />,
+    "href": "/isolated-pools/?pool=0x3d759121234cd36F8124C21aFe1c6852d2bEd848&undefined=97",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E 1`] = `
+[
+  {
+    "dom": <PoolName
+      poolComptrollerAddress="0x3d759121234cd36F8124C21aFe1c6852d2bEd848"
+    />,
+    "href": "/isolated-pools/?pool=0x3d759121234cd36F8124C21aFe1c6852d2bEd848&undefined=97",
+  },
+  {
+    "dom": <VTokenSymbol
+      vTokenAddress="0x6d6F697e34145Bb95c54E77482d97cc261Dc237E"
+    />,
+    "href": "/isolated-pools/?pool=0x3d759121234cd36F8124C21aFe1c6852d2bEd848&undefined=970x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /prime-calculator 1`] = `
+[
+  {
+    "dom": "Prime calculator",
+    "href": "prime-calculator",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /staking 1`] = `
+[
+  {
+    "dom": "Staking",
+    "href": "staking",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /swap 1`] = `
+[
+  {
+    "dom": "Swap",
+    "href": "swap",
+  },
+]
+`;
+
+exports[`usePathNodes > outputs the right DOM based on the current path: /vai 1`] = `
+[
+  {
+    "dom": "VAI",
+    "href": "vai",
+  },
+]
+`;
