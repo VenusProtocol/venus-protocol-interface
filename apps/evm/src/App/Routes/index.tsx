@@ -11,6 +11,8 @@ import { safeLazyLoad } from 'utilities';
 import PageSuspense from './PageSuspense';
 
 const Landing = safeLazyLoad(() => import('pages/Landing'));
+const LandingTerms = safeLazyLoad(() => import('pages/LandingTerms'));
+const LandingPolicy = safeLazyLoad(() => import('pages/LandingPolicy'));
 const IsolatedPools = safeLazyLoad(() => import('pages/IsolatedPools'));
 const Markets = safeLazyLoad(() => import('pages/Markets'));
 const Market = safeLazyLoad(() => import('pages/Market'));
@@ -48,6 +50,30 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<Layout />}>
+        <Route
+          path={Subdirectory.LANDING_TERMS}
+          element={
+            <PageSuspense>
+              <LandingTerms />
+            </PageSuspense>
+          }
+        />
+        <Route
+          path={Subdirectory.LANDING_POLICY}
+          element={
+            <PageSuspense>
+              <LandingPolicy />
+            </PageSuspense>
+          }
+        />
+        <Route
+          path={Subdirectory.LANDING_DISCORD}
+          element={
+            <PageSuspense>
+              <Landing />
+            </PageSuspense>
+          }
+        />
         <Route
           path={Subdirectory.LANDING}
           element={
