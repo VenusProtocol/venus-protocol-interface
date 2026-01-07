@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.87.0
+
+### Minor Changes
+
+- 55b887e: update banner icon style
+
 ## 3.86.0
 
 ### Minor Changes
