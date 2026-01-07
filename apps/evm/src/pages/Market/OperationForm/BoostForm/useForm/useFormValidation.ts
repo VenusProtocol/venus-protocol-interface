@@ -73,13 +73,6 @@ const useFormValidation = ({
       });
     }
 
-    if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
-      tmpErrors.push({
-        code: 'NO_SWAP_QUOTE_FOUND',
-        message: t('operationForm.error.noSwapQuoteFound'),
-      });
-    }
-
     const borrowedTokenAmountTokens = formValues.amountTokens
       ? new BigNumber(formValues.amountTokens)
       : undefined;
@@ -87,6 +80,13 @@ const useFormValidation = ({
     if (!borrowedTokenAmountTokens || borrowedTokenAmountTokens.isLessThanOrEqualTo(0)) {
       tmpErrors.push({
         code: 'EMPTY_TOKEN_AMOUNT',
+      });
+    }
+
+    if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
+      tmpErrors.push({
+        code: 'NO_SWAP_QUOTE_FOUND',
+        message: t('operationForm.error.noSwapQuoteFound'),
       });
     }
 

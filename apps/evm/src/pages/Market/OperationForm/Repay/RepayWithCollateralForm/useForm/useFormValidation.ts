@@ -66,16 +66,16 @@ const useFormValidation = ({
       });
     }
 
+    if (!collateralAmountTokens?.isGreaterThan(0) || !repaidAmountTokens?.isGreaterThan(0)) {
+      tmpErrors.push({
+        code: 'EMPTY_TOKEN_AMOUNT',
+      });
+    }
+
     if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
       tmpErrors.push({
         code: 'NO_SWAP_QUOTE_FOUND',
         message: t('operationForm.error.noSwapQuoteFound'),
-      });
-    }
-
-    if (!collateralAmountTokens?.isGreaterThan(0) || !repaidAmountTokens?.isGreaterThan(0)) {
-      tmpErrors.push({
-        code: 'EMPTY_TOKEN_AMOUNT',
       });
     }
 
