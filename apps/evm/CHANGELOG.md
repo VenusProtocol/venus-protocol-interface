@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 3.88.0
+
+### Minor Changes
+
+- 7634aa1: improve high price impact handling + display USD values of balance updates
+
 ## 3.87.0
 
 ### Minor Changes
