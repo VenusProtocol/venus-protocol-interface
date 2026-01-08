@@ -45,6 +45,7 @@ export const useGetSwapQuote = (input: TrimmedGetSwapQuoteInput, options?: Parti
           recipientAddress: params.leverageManagerContractAddress,
         }),
       ),
+    retry: false,
     refetchInterval,
     ...options,
   });

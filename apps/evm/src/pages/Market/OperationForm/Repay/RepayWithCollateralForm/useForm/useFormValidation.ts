@@ -5,7 +5,10 @@ import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
 } from 'constants/healthFactor';
-import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import type { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool, SwapQuote } from 'types';
@@ -24,7 +27,7 @@ interface UseFormValidationInput {
 
 interface UseFormValidationOutput {
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formErrors: FormError<FormErrorCode>[];
 }
 
 const useFormValidation = ({
@@ -38,7 +41,9 @@ const useFormValidation = ({
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
-  const formError = useMemo<FormError<FormErrorCode> | undefined>(() => {
+  const formErrors = useMemo<FormError<FormErrorCode>[]>(() => {
+    const tmpErrors: FormError<FormErrorCode>[] = [];
+
     const collateralAmountTokens = formValues.collateralAmountTokens
       ? new BigNumber(formValues.collateralAmountTokens)
       : undefined;
@@ -48,50 +53,61 @@ const useFormValidation = ({
       : undefined;
 
     if (collateralAmountTokens?.isGreaterThan(limitTokens)) {
-      return {
+      tmpErrors.push({
         code: 'HIGHER_THAN_AVAILABLE_AMOUNT',
         message: t('operationForm.error.higherThanAvailableAmount'),
-      };
+      });
     }
 
     if (repaidAmountTokens?.isGreaterThan(repaidAsset.userBorrowBalanceTokens)) {
-      return {
+      tmpErrors.push({
         code: 'HIGHER_THAN_BORROW_BALANCE',
         message: t('operationForm.error.higherThanBorrowBalance'),
-      };
-    }
-
-    if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
-      return {
-        code: 'NO_SWAP_QUOTE_FOUND',
-        message: t('operationForm.error.noSwapQuoteFound'),
-      };
+      });
     }
 
     if (!collateralAmountTokens?.isGreaterThan(0) || !repaidAmountTokens?.isGreaterThan(0)) {
-      return {
+      tmpErrors.push({
         code: 'EMPTY_TOKEN_AMOUNT',
-      };
+      });
     }
 
-    if (
-      swapQuote &&
-      swapQuote?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
-    ) {
-      return {
-        code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
-        message: t('operationForm.error.priceImpactTooHigh'),
-      };
+    if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
+      tmpErrors.push({
+        code: 'NO_SWAP_QUOTE_FOUND',
+        message: t('operationForm.error.noSwapQuoteFound'),
+      });
     }
 
     if (
       simulatedPool?.userHealthFactor !== undefined &&
       simulatedPool.userHealthFactor <= HEALTH_FACTOR_LIQUIDATION_THRESHOLD
     ) {
-      return {
+      tmpErrors.push({
         code: 'TOO_RISKY',
         message: t('operationForm.error.tooRisky'),
-      };
+      });
+    }
+
+    if (
+      swapQuote &&
+      swapQuote?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
+    ) {
+      tmpErrors.push({
+        code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
+        message: t('operationForm.error.priceImpactTooHigh'),
+      });
+    }
+
+    if (
+      swapQuote &&
+      swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+      swapQuote?.priceImpactPercentage < MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+      !formValues.acknowledgeHighPriceImpact
+    ) {
+      tmpErrors.push({
+        code: 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT',
+      });
     }
 
     if (
@@ -99,20 +115,23 @@ const useFormValidation = ({
       simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
       !formValues.acknowledgeRisk
     ) {
-      return {
+      tmpErrors.push({
         code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',
-      };
+      });
     }
 
     if (!simulatedPool || (!swapQuote && isUsingSwap)) {
-      return {
+      tmpErrors.push({
         code: 'MISSING_DATA',
-      };
+      });
     }
+
+    return tmpErrors;
   }, [
     limitTokens,
     formValues.collateralAmountTokens,
     formValues.acknowledgeRisk,
+    formValues.acknowledgeHighPriceImpact,
     formValues.repaidAmountTokens,
     repaidAsset.userBorrowBalanceTokens,
     t,
@@ -123,8 +142,8 @@ const useFormValidation = ({
   ]);
 
   return {
-    isFormValid: !formError,
-    formError,
+    isFormValid: !formErrors.length,
+    formErrors,
   };
 };
 

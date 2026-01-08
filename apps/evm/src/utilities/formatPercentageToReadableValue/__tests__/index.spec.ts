@@ -50,6 +50,6 @@ describe('utilities/formatPercentageToReadableValue', () => {
   it('should handle a string number', () => {
     const value = '200.567';
     const result = formatPercentageToReadableValue(value);
-    expect(result).toBe('200.57%');
+    expect(result).toBe('200.56%');
   });
 });

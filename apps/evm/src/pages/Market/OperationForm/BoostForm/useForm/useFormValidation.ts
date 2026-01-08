@@ -5,7 +5,10 @@ import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
   HEALTH_FACTOR_MODERATE_THRESHOLD,
 } from 'constants/healthFactor';
-import { MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE } from 'constants/swap';
+import {
+  HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+  MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE,
+} from 'constants/swap';
 import type { VError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import type { Asset, Pool, SwapQuote } from 'types';
@@ -14,7 +17,8 @@ import type { FormError } from '../../types';
 import type { FormErrorCode, FormValues } from './types';
 
 interface UseFormValidationInput {
-  asset: Asset;
+  borrowedAsset: Asset;
+  suppliedAsset: Asset;
   pool: Pool;
   formValues: FormValues;
   limitTokens: BigNumber;
@@ -26,11 +30,12 @@ interface UseFormValidationInput {
 
 interface UseFormValidationOutput {
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formErrors: FormError<FormErrorCode>[];
 }
 
 const useFormValidation = ({
-  asset,
+  borrowedAsset,
+  suppliedAsset,
   pool,
   limitTokens,
   simulatedPool,
@@ -41,36 +46,31 @@ const useFormValidation = ({
 }: UseFormValidationInput): UseFormValidationOutput => {
   const { t } = useTranslation();
 
-  const formError = useMemo<FormError<FormErrorCode> | undefined>(() => {
+  const formErrors = useMemo<FormError<FormErrorCode>[]>(() => {
+    const tmpErrors: FormError<FormErrorCode>[] = [];
+
     if (!pool?.userBorrowLimitCents || pool.userBorrowLimitCents.isEqualTo(0)) {
-      return {
+      tmpErrors.push({
         code: 'NO_COLLATERALS',
         message: t('operationForm.error.noCollateral', {
-          tokenSymbol: asset.vToken.underlyingToken.symbol,
+          tokenSymbol: borrowedAsset.vToken.underlyingToken.symbol,
         }),
-      };
+      });
     }
 
     if (
-      asset.borrowCapTokens &&
-      asset.borrowBalanceTokens.isGreaterThanOrEqualTo(asset.borrowCapTokens)
+      borrowedAsset.borrowCapTokens &&
+      borrowedAsset.borrowBalanceTokens.isGreaterThanOrEqualTo(borrowedAsset.borrowCapTokens)
     ) {
-      return {
+      tmpErrors.push({
         code: 'BORROW_CAP_ALREADY_REACHED',
         message: t('operationForm.error.borrowCapReached', {
           assetBorrowCap: formatTokensToReadableValue({
-            value: asset.borrowCapTokens,
-            token: asset.vToken.underlyingToken,
+            value: borrowedAsset.borrowCapTokens,
+            token: borrowedAsset.vToken.underlyingToken,
           }),
         }),
-      };
-    }
-
-    if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
-      return {
-        code: 'NO_SWAP_QUOTE_FOUND',
-        message: t('operationForm.error.noSwapQuoteFound'),
-      };
+      });
     }
 
     const borrowedTokenAmountTokens = formValues.amountTokens
@@ -78,101 +78,122 @@ const useFormValidation = ({
       : undefined;
 
     if (!borrowedTokenAmountTokens || borrowedTokenAmountTokens.isLessThanOrEqualTo(0)) {
-      return {
+      tmpErrors.push({
         code: 'EMPTY_TOKEN_AMOUNT',
-      };
+      });
+    }
+
+    if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
+      tmpErrors.push({
+        code: 'NO_SWAP_QUOTE_FOUND',
+        message: t('operationForm.error.noSwapQuoteFound'),
+      });
     }
 
     if (
-      asset.borrowBalanceTokens.plus(borrowedTokenAmountTokens).isGreaterThan(asset.borrowCapTokens)
+      borrowedTokenAmountTokens &&
+      borrowedAsset.borrowBalanceTokens
+        .plus(borrowedTokenAmountTokens)
+        .isGreaterThan(borrowedAsset.borrowCapTokens)
     ) {
-      return {
+      tmpErrors.push({
         code: 'HIGHER_THAN_BORROW_CAP',
         message: t('operationForm.error.higherThanBorrowCap', {
           userMaxBorrowAmount: formatTokensToReadableValue({
-            value: asset.borrowCapTokens.minus(asset.borrowBalanceTokens),
-            token: asset.vToken.underlyingToken,
-            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+            value: borrowedAsset.borrowCapTokens.minus(borrowedAsset.borrowBalanceTokens),
+            token: borrowedAsset.vToken.underlyingToken,
+            maxDecimalPlaces: borrowedAsset.vToken.underlyingToken.decimals,
           }),
           assetBorrowCap: formatTokensToReadableValue({
-            value: asset.borrowCapTokens,
-            token: asset.vToken.underlyingToken,
-            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+            value: borrowedAsset.borrowCapTokens,
+            token: borrowedAsset.vToken.underlyingToken,
+            maxDecimalPlaces: borrowedAsset.vToken.underlyingToken.decimals,
           }),
           assetBorrowBalance: formatTokensToReadableValue({
-            value: asset.borrowBalanceTokens,
-            token: asset.vToken.underlyingToken,
-            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+            value: borrowedAsset.borrowBalanceTokens,
+            token: borrowedAsset.vToken.underlyingToken,
+            maxDecimalPlaces: borrowedAsset.vToken.underlyingToken.decimals,
           }),
         }),
-      };
+      });
     }
 
     if (
       expectedSuppliedAmountTokens &&
-      asset.supplyBalanceTokens
+      suppliedAsset.supplyBalanceTokens
         .plus(expectedSuppliedAmountTokens)
-        .isGreaterThan(asset.supplyCapTokens)
+        .isGreaterThan(suppliedAsset.supplyCapTokens)
     ) {
-      return {
+      tmpErrors.push({
         code: 'HIGHER_THAN_SUPPLY_CAP',
         message: t('operationForm.error.higherThanSupplyCap', {
           userMaxSupplyAmount: formatTokensToReadableValue({
-            value: asset.supplyCapTokens.minus(asset.supplyBalanceTokens),
-            token: asset.vToken.underlyingToken,
-            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+            value: suppliedAsset.supplyCapTokens.minus(suppliedAsset.supplyBalanceTokens),
+            token: suppliedAsset.vToken.underlyingToken,
+            maxDecimalPlaces: suppliedAsset.vToken.underlyingToken.decimals,
           }),
           assetSupplyCap: formatTokensToReadableValue({
-            value: asset.supplyCapTokens,
-            token: asset.vToken.underlyingToken,
-            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+            value: suppliedAsset.supplyCapTokens,
+            token: suppliedAsset.vToken.underlyingToken,
+            maxDecimalPlaces: suppliedAsset.vToken.underlyingToken.decimals,
           }),
           assetSupplyBalance: formatTokensToReadableValue({
-            value: asset.supplyBalanceTokens,
-            token: asset.vToken.underlyingToken,
-            maxDecimalPlaces: asset.vToken.underlyingToken.decimals,
+            value: suppliedAsset.supplyBalanceTokens,
+            token: suppliedAsset.vToken.underlyingToken,
+            maxDecimalPlaces: suppliedAsset.vToken.underlyingToken.decimals,
           }),
         }),
-      };
+      });
     }
 
-    const assetLiquidityTokens = new BigNumber(asset.liquidityCents).dividedBy(
-      asset.tokenPriceCents,
+    const assetLiquidityTokens = new BigNumber(borrowedAsset.liquidityCents).dividedBy(
+      borrowedAsset.tokenPriceCents,
     );
 
-    if (borrowedTokenAmountTokens.isGreaterThan(assetLiquidityTokens)) {
+    if (borrowedTokenAmountTokens?.isGreaterThan(assetLiquidityTokens)) {
       // User is trying to borrow more than available liquidity
-      return {
+      tmpErrors.push({
         code: 'HIGHER_THAN_LIQUIDITY',
         message: t('operationForm.error.higherThanAvailableLiquidity'),
-      };
+      });
     }
 
-    if (borrowedTokenAmountTokens.isGreaterThan(limitTokens)) {
-      return {
+    if (borrowedTokenAmountTokens?.isGreaterThan(limitTokens)) {
+      tmpErrors.push({
         code: 'HIGHER_THAN_AVAILABLE_AMOUNT',
         message: t('operationForm.error.higherThanAvailableAmount'),
-      };
+      });
     }
 
     if (
       simulatedPool?.userHealthFactor !== undefined &&
       simulatedPool.userHealthFactor <= HEALTH_FACTOR_LIQUIDATION_THRESHOLD
     ) {
-      return {
+      tmpErrors.push({
         code: 'TOO_RISKY',
         message: t('operationForm.error.tooRisky'),
-      };
+      });
     }
 
     if (
       swapQuote &&
       swapQuote?.priceImpactPercentage >= MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE
     ) {
-      return {
+      tmpErrors.push({
         code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
         message: t('operationForm.error.priceImpactTooHigh'),
-      };
+      });
+    }
+
+    if (
+      swapQuote &&
+      swapQuote?.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+      swapQuote?.priceImpactPercentage < MAXIMUM_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+      !formValues.acknowledgeHighPriceImpact
+    ) {
+      tmpErrors.push({
+        code: 'REQUIRES_SWAP_PRICE_IMPACT_ACKNOWLEDGEMENT',
+      });
     }
 
     if (
@@ -180,18 +201,21 @@ const useFormValidation = ({
       simulatedPool.userHealthFactor < HEALTH_FACTOR_MODERATE_THRESHOLD &&
       !formValues.acknowledgeRisk
     ) {
-      return {
+      tmpErrors.push({
         code: 'REQUIRES_RISK_ACKNOWLEDGEMENT',
-      };
+      });
     }
 
     if (!simulatedPool || !expectedSuppliedAmountTokens) {
-      return {
+      tmpErrors.push({
         code: 'MISSING_DATA',
-      };
+      });
     }
+
+    return tmpErrors;
   }, [
-    asset,
+    borrowedAsset,
+    suppliedAsset,
     pool,
     limitTokens,
     simulatedPool,
@@ -199,13 +223,14 @@ const useFormValidation = ({
     expectedSuppliedAmountTokens,
     getSwapQuoteError,
     formValues.acknowledgeRisk,
+    formValues.acknowledgeHighPriceImpact,
     swapQuote,
     t,
   ]);
 
   return {
-    isFormValid: !formError,
-    formError,
+    isFormValid: !formErrors.length,
+    formErrors,
   };
 };
 

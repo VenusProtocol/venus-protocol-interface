@@ -1,12 +1,12 @@
 import type { Meta } from '@storybook/react';
 import { State } from 'react-powerplug';
 
-import { RiskAcknowledgementToggle } from '.';
+import { AcknowledgementToggle } from '.';
 
 export default {
-  title: 'Components/RiskAcknowledgementToggle',
-  component: RiskAcknowledgementToggle,
-} as Meta<typeof RiskAcknowledgementToggle>;
+  title: 'Components/AcknowledgementToggle',
+  component: AcknowledgementToggle,
+} as Meta<typeof AcknowledgementToggle>;
 
 const initialState: { value: boolean } = {
   value: false,
@@ -15,7 +15,9 @@ const initialState: { value: boolean } = {
 export const Default = () => (
   <State initial={initialState}>
     {({ state, setState }) => (
-      <RiskAcknowledgementToggle
+      <AcknowledgementToggle
+        tooltip="Fake tooltip"
+        label="Fake label"
         value={state.value}
         onChange={(_event, value) => setState({ value })}
       />

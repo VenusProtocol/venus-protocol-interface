@@ -291,7 +291,7 @@ const BridgePage: React.FC = () => {
         <Card>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-4">
-              <div className="md:flex md:items-end md:justify-between md:space-x-4 grow">
+              <div className="md:flex md:items-end md:justify-between md:gap-4 grow">
                 <Controller
                   name="fromChainId"
                   control={control}

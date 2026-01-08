@@ -1,4 +1,4 @@
-import { Tabs } from 'components';
+import { NoticeWarning, Tabs } from 'components';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import type { Tab } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
@@ -39,6 +39,8 @@ export const Repay: React.FC<RepayProps> = ({ asset, pool }) => {
     return repayWithWalletBalanceFormDom;
   }
 
+  const hasCollateral = pool.userBorrowLimitCents?.isGreaterThan(0);
+
   const tabs: Tab[] = [
     {
       id: 'repayWithWalletBalance',
@@ -48,7 +50,11 @@ export const Repay: React.FC<RepayProps> = ({ asset, pool }) => {
     {
       id: 'repayWithCollateral',
       title: t('operationForm.repayTab.collateralTabTitle'),
-      content: <RepayWithCollateralForm pool={pool} asset={asset} />,
+      content: hasCollateral ? (
+        <RepayWithCollateralForm pool={pool} asset={asset} />
+      ) : (
+        <NoticeWarning description={t('operationForm.repayTab.noCollateralWarning')} />
+      ),
     },
   ];
 

@@ -10,6 +10,7 @@ export * from './types';
 
 export interface UseFormInput {
   borrowedAsset: Asset;
+  suppliedAsset: Asset;
   pool: Pool;
   limitTokens: BigNumber;
   onSubmit: () => Promise<unknown>;
@@ -25,11 +26,12 @@ export interface UseFormInput {
 interface UseFormOutput {
   handleSubmit: (e?: React.SyntheticEvent) => Promise<void>;
   isFormValid: boolean;
-  formError?: FormError<FormErrorCode>;
+  formErrors: FormError<FormErrorCode>[];
 }
 
 const useForm = ({
   borrowedAsset,
+  suppliedAsset,
   pool,
   simulatedPool,
   limitTokens,
@@ -41,8 +43,9 @@ const useForm = ({
   getSwapQuoteError,
   onSubmit,
 }: UseFormInput): UseFormOutput => {
-  const { isFormValid, formError } = useFormValidation({
-    asset: borrowedAsset,
+  const { isFormValid, formErrors } = useFormValidation({
+    borrowedAsset,
+    suppliedAsset,
     pool,
     limitTokens,
     simulatedPool,
@@ -75,7 +78,7 @@ const useForm = ({
   return {
     handleSubmit,
     isFormValid,
-    formError,
+    formErrors,
   };
 };
 
