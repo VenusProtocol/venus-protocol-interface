@@ -108,7 +108,7 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
             </Button>
           ) : (
             <ButtonWrapper asChild small className={cn('hidden sm:flex', buttonClasses)}>
-              <Link to={routes.vaults.path}>{buttonContentDom}</Link>
+              <Link to={routes.staking.path}>{buttonContentDom}</Link>
             </ButtonWrapper>
           )}
         </div>
@@ -136,7 +136,7 @@ export const PrimeBanner: React.FC<PrimeBannerProps> = ({
             {dom}
           </button>
         ) : (
-          <Link className="text-inherit block hover:no-underline" to={routes.vaults.path}>
+          <Link className="text-inherit block hover:no-underline" to={routes.staking.path}>
             {dom}
           </Link>
         )}
