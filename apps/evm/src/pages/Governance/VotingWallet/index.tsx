@@ -188,7 +188,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
             className="text-white mt-6 hover:no-underline sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
             asChild
           >
-            <Link to={routes.vaults.path}>{t('vote.depositXvs')}</Link>
+            <Link to={routes.staking.path}>{t('vote.depositXvs')}</Link>
           </ButtonWrapper>
         )}
 
@@ -212,7 +212,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
               <Trans
                 i18nKey="vote.depositYourTokens"
                 components={{
-                  Link: <Link to={routes.vaults.path} data-testid={TEST_IDS.depositYourTokens} />,
+                  Link: <Link to={routes.staking.path} data-testid={TEST_IDS.depositYourTokens} />,
                 }}
               />
             </span>
