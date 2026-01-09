@@ -413,4 +413,10 @@ export const bscMainnet: Token[] = [
     symbol: 'UST',
     iconSrc: iconSrcs.ust,
   },
+  {
+    address: '0xcE24439F2D9C6a2289F741120FE202248B666666',
+    decimals: 18,
+    symbol: 'U',
+    iconSrc: iconSrcs.u,
+  },
 ];

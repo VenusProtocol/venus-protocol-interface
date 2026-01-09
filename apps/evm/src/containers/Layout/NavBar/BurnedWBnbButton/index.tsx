@@ -1,4 +1,4 @@
-import { ButtonWrapper, cn } from '@venusprotocol/ui';
+import { cn } from '@venusprotocol/ui';
 import { Link } from 'containers/Link';
 
 import { useGetBurnedWBnb } from 'clients/api';
@@ -7,6 +7,7 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { convertMantissaToTokens } from 'utilities';
+import { NavButtonWrapper } from '../NavButtonWrapper';
 import iconSrc from './icon.svg';
 
 export interface BurnedWBnbButtonProps {
@@ -36,13 +37,7 @@ export const BurnedWBnbButton: React.FC<BurnedWBnbButtonProps> = ({ className })
   });
 
   return (
-    <ButtonWrapper
-      className={cn(
-        'px-3 underline text-white font-normal bg-[#2A2529] border-[#2A2529] hover:bg-[#2A2529] hover:border-[#2A2529] active:bg-[#2A2529] active:border-[#2A2529]',
-        className,
-      )}
-      asChild
-    >
+    <NavButtonWrapper className={cn('flex items-center', className)} asChild>
       <Link href={BURNED_WBNB_SNAPSHOT_URL} target="_blank">
         <div className="flex justify-center gap-x-1">
           <img src={iconSrc} alt={t('burnedWBnbButton.iconAlt')} className="w-7" />
@@ -50,6 +45,6 @@ export const BurnedWBnbButton: React.FC<BurnedWBnbButtonProps> = ({ className })
           {readableBurnedWBnb}
         </div>
       </Link>
-    </ButtonWrapper>
+    </NavButtonWrapper>
   );
 };
