@@ -2,11 +2,12 @@ import { Outlet } from 'react-router';
 
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 
+import { Wrapper } from 'components';
 import { useRef } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { NavBar } from './NavBar';
 import ScrollToTop from './ScrollToTop';
-import { Sidebar } from './Sidebar';
 import { TestEnvWarning } from './TestEnvWarning';
 import { store } from './store';
 
@@ -54,25 +55,24 @@ export const Layout: React.FC = () => {
 
   return (
     <div className="h-dvh flex flex-col">
-      <TestEnvWarning />
+      <NavBar className="shrink-0" />
 
-      <div className="flex flex-1 flex-col overflow-hidden md:flex-row">
-        <Sidebar />
+      <div
+        className="flex flex-col grow gap-y-10 pt-10 overflow-x-hidden"
+        id={PAGE_CONTAINER_ID}
+        onScroll={handleScroll}
+      >
+        <TestEnvWarning className="shrink-0 -mt-10" />
 
-        <div
-          className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto"
-          id={PAGE_CONTAINER_ID}
-          onScroll={handleScroll}
-        >
-          <Header />
+        <Header />
 
-          <main className="relative w-full shrink-0 grow px-4 pb-4 md:px-6 xl:mx-auto xl:max-w-[1360px] xl:px-10">
-            <Outlet />
-            <ScrollToTop ref={scrollToTopRef} />
-          </main>
+        <Wrapper className="relative w-full shrink-0 grow">
+          <Outlet />
 
-          <Footer ref={footerRef} />
-        </div>
+          <ScrollToTop ref={scrollToTopRef} />
+        </Wrapper>
+
+        <Footer ref={footerRef} />
       </div>
     </div>
   );

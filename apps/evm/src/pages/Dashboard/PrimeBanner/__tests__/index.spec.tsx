@@ -40,7 +40,7 @@ describe('PrimeBanner', () => {
     const { container } = renderComponent(
       <PrimeBanner boostPercentage={fakeBoostPercentage} canUserBecomePrime={false} />,
       {
-        otherRoutes: <Route path={routes.vaults.path} element={<div>{fakeVaultPageTitle}</div>} />,
+        otherRoutes: <Route path={routes.staking.path} element={<div>{fakeVaultPageTitle}</div>} />,
       },
     );
 

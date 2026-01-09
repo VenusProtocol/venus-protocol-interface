@@ -20,7 +20,7 @@ const Governance = safeLazyLoad(() => import('pages/Governance'));
 const Proposal = safeLazyLoad(() => import('pages/Proposal'));
 const Swap = safeLazyLoad(() => import('pages/Swap'));
 const Vai = safeLazyLoad(() => import('pages/Vai'));
-const Vaults = safeLazyLoad(() => import('pages/Vaults'));
+const Staking = safeLazyLoad(() => import('pages/Staking'));
 const Voter = safeLazyLoad(() => import('pages/Voter'));
 const VoterLeaderboard = safeLazyLoad(() => import('pages/VoterLeaderboard'));
 const PrimeCalculator = safeLazyLoad(() => import('pages/PrimeCalculator'));
@@ -117,12 +117,12 @@ const AppRoutes = () => {
           />
         )}
 
-        <Route path={Subdirectory.VAULTS}>
+        <Route path={Subdirectory.STAKING}>
           <Route
             index
             element={
               <PageSuspense>
-                <Vaults />
+                <Staking />
               </PageSuspense>
             }
           />

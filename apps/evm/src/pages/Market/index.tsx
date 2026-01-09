@@ -20,7 +20,7 @@ const Page: React.FC = () => {
     <PageComp indexWithSearchEngines={false}>
       <MarketLoader poolComptrollerAddress={poolComptrollerAddress} vTokenAddress={vTokenAddress}>
         {({ asset, pool }) => (
-          <div className="py-6 md:py-8 xl:py-12">
+          <>
             <AssetWarning
               token={asset.vToken.underlyingToken}
               pool={pool}
@@ -50,7 +50,7 @@ const Page: React.FC = () => {
                 <MarketInfo asset={asset} />
               </div>
             </div>
-          </div>
+          </>
         )}
       </MarketLoader>
     </PageComp>
