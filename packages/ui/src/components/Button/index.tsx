@@ -48,8 +48,8 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
     // primary
     default:
       return cn(
-        'border-blue bg-blue active:border-darkBlue active:bg-darkBlue disabled:border-lightGrey disabled:bg-lightGrey hover:border-mediumBlue hover:bg-mediumBlue',
-        active ? 'border-mediumBlue bg-mediumBlue' : 'hover:border-mediumBlue hover:bg-mediumBlue',
+        'bg-clip-padding border-blue-disabled/50 bg-blue active:bg-blue-active disabled:bg-dark-blue-disabled disabled:border-dark-blue-disabled',
+        active ? 'bg-blue-active' : 'hover:bg-blue-hover',
       );
   }
 };
@@ -80,7 +80,7 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   return (
     <Comp
       className={cn(
-        'disabled:text-grey inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-all duration-250 disabled:cursor-default',
+        'disabled:text-light-grey inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-all duration-250 disabled:cursor-default',
         small ? 'h-8 px-5 py-1 text-sm rounded-md' : 'h-12 px-6 py-2 rounded-lg',
         getVariantClasses({ variant, active }),
         className,

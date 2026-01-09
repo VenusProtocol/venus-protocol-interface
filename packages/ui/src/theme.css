@@ -6,9 +6,9 @@
     --color-background-active-rgb: 16 18 24;
     --color-background-disabled-rgb: 24 24 32;
 
-    --color-dark-blue-rgb: 30 36 49;
+    --color-dark-blue-rgb: 24 29 39;
     --color-dark-blue-hover-rgb: 48 53 74;
-    --color-dark-blue-active-rgb: 23 28 39;
+    --color-dark-blue-active-rgb: 30 36 49;
     --color-dark-blue-disabled-rgb: 30 36 49;
 
     --color-dark-grey-rgb: 46 46 46;
@@ -123,7 +123,8 @@
   --color-greyBlue: rgb(var(--color-greyBlue-rgb));
 
   /* breakpoints */
-  --breakpoint-2xl: 360rem;
+  --breakpoint-xs: 375px;
+  --breakpoint-2xl: 1440px;
 
   /* fontSize: */
   --text-xs: 0.75rem;

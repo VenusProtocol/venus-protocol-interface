@@ -20,7 +20,7 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
         iconName="vault"
         title={t('account.vaults.placeholder.title')}
         description={t('account.vaults.placeholder.description')}
-        to={routes.vaults.path}
+        to={routes.staking.path}
       />
     );
   }
