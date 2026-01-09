@@ -55,7 +55,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({ className, ...othe
       <Button
         onClick={handleConnectButtonClick}
         className={cn(
-          accountAddress && 'bg-transparent hover:bg-dark-blue active:bg-dark-blue-active',
+          accountAddress && 'bg-transparent hover:bg-dark-blue-hover active:bg-dark-blue-active',
           accountAddress && !isAccountPrime && 'border-dark-blue-hover',
           accountAddress &&
             isAccountPrime &&

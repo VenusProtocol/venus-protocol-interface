@@ -14,6 +14,7 @@ export const Dropdown = ({
   children,
   optionsDom,
   optionClassName,
+  menuClassName,
   onBlur,
   label,
   placeLabelToLeft = false,
@@ -37,24 +38,25 @@ export const Dropdown = ({
         )}
 
         <div className="relative w-full">
-          {/* MD and up menu */}
+          {/* MD and up backdrop */}
           {isDropdownOpened && (
             <div
-              className="fixed bottom-0 left-0 right-0 top-0 hidden md:block z-10"
+              className="fixed bottom-0 left-0 right-0 top-0 hidden md:block z-50"
               onClick={() => setIsDropdownOpened(false)}
             />
           )}
 
           {children({ isDropdownOpened, handleToggleDropdown })}
 
-          {/* XS to MD backdrop */}
+          {/* XS to MD menu */}
           {isDropdownOpened && (
-            <div className="relative z-10 hidden min-w-full md:block">
+            <div className="relative z-50 hidden min-w-full md:block">
               <div
                 className={cn(
                   'border-lightGrey bg-cards absolute top-2 min-w-full overflow-hidden border shadow',
                   menuPosition === 'right' && 'right-0',
                   variant === 'quaternary' ? 'rounded-xl' : 'rounded-lg',
+                  menuClassName,
                 )}
               >
                 {!!menuTitle && (
