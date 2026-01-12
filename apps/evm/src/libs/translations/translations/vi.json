@@ -1,664 +1,664 @@
 {
   "account": {
-    "circularGradient": "TRANSLATION NEEDED",
+    "circularGradient": "Chuyển màu tròn",
     "marketBreakdown": {
       "tables": {
-        "borrowTableTitle": "TRANSLATION NEEDED",
+        "borrowTableTitle": "Đã vay",
         "eModeHeader": {
-          "illustrationAltText": "TRANSLATION NEEDED",
-          "title": "TRANSLATION NEEDED"
+          "illustrationAltText": "Hình minh họa E-mode",
+          "title": "Chế độ E: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
         },
-        "supplyTableTitle": "TRANSLATION NEEDED",
-        "tabletBorrowTabTitle": "TRANSLATION NEEDED",
-        "tabletSupplyTabTitle": "TRANSLATION NEEDED",
-        "tabletTitle": "TRANSLATION NEEDED"
+        "supplyTableTitle": "Đã cung cấp",
+        "tabletBorrowTabTitle": "Đã vay",
+        "tabletSupplyTabTitle": "Đã cung cấp",
+        "tabletTitle": "Tài sản"
       }
     },
     "performanceChart": {
-      "absolutePerformance": "TRANSLATION NEEDED",
+      "absolutePerformance": "Hiệu suất tuyệt đối",
       "errorState": {
-        "failedToFetchMessage": "TRANSLATION NEEDED",
-        "refetchButtonLabel": "TRANSLATION NEEDED"
+        "failedToFetchMessage": "Không thể lấy lịch sử tài khoản",
+        "refetchButtonLabel": "Thử lại"
       },
       "netWorth": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED",
-        "tooltipWithVai": "TRANSLATION NEEDED"
+        "label": "Giá trị ròng",
+        "tooltip": "Tài sản ròng khả dụng sau khi tính đến stake vault và các khoản vay",
+        "tooltipWithVai": "Tài sản ròng khả dụng sau khi tính đến stake vault, các khoản vay và VAI đã mint"
       },
       "periodOption": {
-        "oneYear": "TRANSLATION NEEDED",
-        "sixMonths": "TRANSLATION NEEDED",
-        "thirtyDays": "TRANSLATION NEEDED"
+        "oneYear": "1N",
+        "sixMonths": "6T",
+        "thirtyDays": "30N"
       },
-      "placeholderText": "TRANSLATION NEEDED",
-      "todaysChange": "TRANSLATION NEEDED"
+      "placeholderText": "Đang tạo báo cáo, có thể mất đến một phút",
+      "todaysChange": "Thay đổi hôm nay"
     },
     "placeholder": {
-      "buttonLabel": "TRANSLATION NEEDED"
+      "buttonLabel": "Duyệt"
     },
     "pools": {
       "placeholder": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Vị thế trong pool của bạn sẽ hiển thị ở đây",
+        "title": "Chưa có vị thế cung cấp hoặc vay"
       }
     },
     "poolsBreakdown": {
-      "poolTagTooltip": "TRANSLATION NEEDED"
+      "poolTagTooltip": "Mức sử dụng hạn mức vay: {{borrowLimitUsedPercentage}}"
     },
     "primeBanner": {
       "button": {
-        "becomePrime": "TRANSLATION NEEDED",
-        "stakeXvs": "TRANSLATION NEEDED"
+        "becomePrime": "Nhận token Prime",
+        "stakeXvs": "Đặt cọc XVS"
       },
-      "primeLogoAltText": "TRANSLATION NEEDED",
+      "primeLogoAltText": "Logo Prime",
       "text": {
-        "apyBoost": "TRANSLATION NEEDED",
-        "becomePrime": "TRANSLATION NEEDED"
+        "apyBoost": "Tăng thu nhập của bạn lên đến <GreenText>{{boost}}</GreenText> với Prime",
+        "becomePrime": "Bạn đã có thể trở thành người dùng Prime"
       }
     },
     "settings": {
       "gaslessTransactions": {
-        "switchLabel": "TRANSLATION NEEDED"
+        "switchLabel": "Bật giao dịch không gas trên {{chainName}}"
       }
     },
     "summary": {
       "cellGroup": {
-        "dailyEarnings": "TRANSLATION NEEDED",
-        "healthFactor": "TRANSLATION NEEDED",
-        "healthFactorTooltip": "TRANSLATION NEEDED",
-        "mintedVai": "TRANSLATION NEEDED",
-        "netApy": "TRANSLATION NEEDED",
-        "netApyTooltip": "TRANSLATION NEEDED",
-        "netApyWithVaultStakeTooltip": "TRANSLATION NEEDED",
-        "totalBorrow": "TRANSLATION NEEDED",
-        "totalSupply": "TRANSLATION NEEDED",
-        "totalVaultStake": "TRANSLATION NEEDED"
+        "dailyEarnings": "Thu nhập hằng ngày",
+        "healthFactor": "Hệ số an toàn",
+        "healthFactorTooltip": "Thanh lý tại < 1.0",
+        "mintedVai": "VAI đã mint",
+        "netApy": "APY ròng",
+        "netApyTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp của bạn nhận được dưới dạng lãi hằng năm",
+        "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm tổng số dư cung cấp và stake vault của bạn nhận được dưới dạng lãi hằng năm",
+        "totalBorrow": "Tổng vay",
+        "totalSupply": "Tổng cung cấp",
+        "totalVaultStake": "Tổng stake vault"
       },
-      "title": "TRANSLATION NEEDED"
+      "title": "Tóm tắt"
     },
     "tabs": {
-      "pools": "TRANSLATION NEEDED",
-      "settings": "TRANSLATION NEEDED",
-      "transactions": "TRANSLATION NEEDED",
-      "vaults": "TRANSLATION NEEDED"
+      "pools": "Bể",
+      "settings": "Cài đặt",
+      "transactions": "Giao dịch",
+      "vaults": "Kho"
     },
     "transactions": {
       "placeholder": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Giao dịch của bạn sẽ hiển thị ở đây",
+        "title": "Chưa có giao dịch"
       },
       "selects": {
         "source": {
-          "all": "TRANSLATION NEEDED"
+          "all": "Tất cả thị trường"
         },
         "txType": {
-          "all": "TRANSLATION NEEDED",
-          "approve": "TRANSLATION NEEDED",
-          "borrow": "TRANSLATION NEEDED",
-          "enterMarket": "TRANSLATION NEEDED",
-          "exitMarket": "TRANSLATION NEEDED",
-          "mint": "TRANSLATION NEEDED",
-          "redeem": "TRANSLATION NEEDED",
-          "repay": "TRANSLATION NEEDED"
+          "all": "Tất cả giao dịch",
+          "approve": "Phê duyệt",
+          "borrow": "Vay",
+          "enterMarket": "Bật tài sản thế chấp",
+          "exitMarket": "Tắt tài sản thế chấp",
+          "mint": "Cung cấp",
+          "redeem": "Rút",
+          "repay": "Hoàn trả"
         }
       },
-      "today": "TRANSLATION NEEDED",
+      "today": "Hôm nay",
       "txText": {
-        "approve": "TRANSLATION NEEDED",
-        "enterMarket": "TRANSLATION NEEDED",
-        "exitMarket": "TRANSLATION NEEDED"
+        "approve": "Đã phê duyệt chi {{tokenAmount}}",
+        "enterMarket": "<Styled>Đã bật</Styled> {{vTokenSymbol}} làm tài sản thế chấp",
+        "exitMarket": "<Styled>Đã tắt</Styled> {{vTokenSymbol}} làm tài sản thế chấp"
       },
       "txType": {
-        "approve": "TRANSLATION NEEDED",
-        "borrow": "TRANSLATION NEEDED",
-        "enterMarket": "TRANSLATION NEEDED",
-        "exitMarket": "TRANSLATION NEEDED",
-        "mint": "TRANSLATION NEEDED",
-        "redeem": "TRANSLATION NEEDED",
-        "repay": "TRANSLATION NEEDED"
+        "approve": "Phê duyệt",
+        "borrow": "Vay",
+        "enterMarket": "Bật tài sản thế chấp",
+        "exitMarket": "Tắt tài sản thế chấp",
+        "mint": "Cung cấp",
+        "redeem": "Rút",
+        "repay": "Hoàn trả"
       },
-      "view": "TRANSLATION NEEDED",
-      "yesterday": "TRANSLATION NEEDED"
+      "view": "Xem",
+      "yesterday": "Hôm qua"
     },
     "vaults": {
       "placeholder": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Vị thế vault của bạn sẽ hiển thị ở đây",
+        "title": "Chưa có vị thế staking"
       }
     }
   },
   "accountData": {
     "balanceUpdate": {
-      "borrowBalance": "TRANSLATION NEEDED",
-      "supplyBalance": "TRANSLATION NEEDED"
+      "borrowBalance": "Số dư vay",
+      "supplyBalance": "Số dư cung cấp"
     },
     "dailyEarnings": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Thu nhập hằng ngày"
     },
     "healthFactor": {
-      "label": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "label": "Hệ số an toàn",
+      "tooltip": "Thanh lý tại < 1.0"
     }
   },
   "accountHealth": {
-    "accessibilityLabel": "TRANSLATION NEEDED",
-    "borrowLimitUsed": "TRANSLATION NEEDED",
-    "limit": "TRANSLATION NEEDED",
-    "tooltip": "TRANSLATION NEEDED"
+    "accessibilityLabel": "Biểu diễn trạng thái hiện tại của tài khoản của bạn",
+    "borrowLimitUsed": "Mức sử dụng hạn mức vay:",
+    "limit": "Hạn mức:",
+    "tooltip": "Số dư vay:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} của hạn mức vay của bạn)<LineBreak/><LineBreak/>Hạn mức vay an toàn:<LineBreak/>{{safeBorrowLimit}} ({{safeBorrowLimitPercentage}}% của hạn mức vay của bạn)"
   },
   "adBanner": {
-    "learnMore": "TRANSLATION NEEDED",
-    "startNow": "TRANSLATION NEEDED"
+    "learnMore": "Tìm hiểu thêm",
+    "startNow": "Bắt đầu ngay"
   },
   "announcements": {
     "bethUpdate": {
-      "description": "TRANSLATION NEEDED"
+      "description": "Binance đã tạm dừng rút BETH vào 2023-04-26. Chúng tôi khuyến nghị người dùng giảm mức tiếp xúc với BETH trên Venus. Việc vay đã bị tạm dừng. Chuyển BETH sang WBETH on-chain theo tỷ lệ 1:1 <Link>tại đây</Link>."
     },
     "sxpDisabling": {
-      "description": "TRANSLATION NEEDED"
+      "description": "Theo khuyến nghị từ Gauntlet, việc vay và cung cấp SXP đã bị tạm dừng do lo ngại SXP chuyển sang chuỗi mới và dự kiến thanh khoản SXP giảm."
     },
     "trxMigration": {
-      "description": "TRANSLATION NEEDED"
+      "description": "Venus hỗ trợ token TRX mới trong một thị trường mới. Việc vay và cung cấp cho token TRX cũ đã bị tạm dừng. Xem thêm tại <Link>thông báo chính thức của Binance</Link>."
     },
     "tusdMigration": {
-      "description": "TRANSLATION NEEDED"
+      "description": "Venus hỗ trợ token TUSD mới trong một thị trường mới. Việc vay và cung cấp cho token TUSD cũ đã bị tạm dừng. Xem thêm tại <Link>thông báo chính thức của Binance</Link>."
     }
   },
   "approveDelegateSteps": {
     "approveDelegateButton": {
-      "text": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "text": "Phê duyệt hợp đồng ủy quyền",
+      "tooltip": "Chúng tôi cần phê duyệt hợp đồng ủy quyền để thực hiện thao tác này thay bạn."
     },
-    "step1": "TRANSLATION NEEDED"
+    "step1": "Bước 1"
   },
   "approveTokenSteps": {
     "approveTokenButton": {
-      "text": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "text": "Phê duyệt {{tokenSymbol}}",
+      "tooltip": "Chúng tôi cần quyền phê duyệt chi tiêu cho bất kỳ token nào bạn muốn sử dụng với giao thức Venus."
     },
-    "step1": "TRANSLATION NEEDED",
-    "step2": "TRANSLATION NEEDED"
+    "step1": "Bước 1",
+    "step2": "Bước 2"
   },
   "appVersionChecker": {
-    "newVersionMessage": "TRANSLATION NEEDED"
+    "newVersionMessage": "Có phiên bản mới của Venus. Tải lại trang để sử dụng ngay."
   },
   "apy": {
     "boost": {
-      "iconAlt": "TRANSLATION NEEDED",
+      "iconAlt": "Biểu tượng thị trường được boost",
       "tooltip": {
         "borrowApy": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Lãi tích lũy khi vay tài sản này từ Venus Protocol.",
+          "name": "APY vay"
         },
-        "defaultMerklRewardName": "TRANSLATION NEEDED",
-        "externalRewardDescription": "TRANSLATION NEEDED",
+        "defaultMerklRewardName": "Phần thưởng Merkl",
+        "externalRewardDescription": "Phần thưởng từ chương trình bên ngoài này có thể được nhận qua <AppLink>ứng dụng chính thức</AppLink> của họ. Venus protocol không đảm bảo và không chịu trách nhiệm.",
         "intrinsicApy": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Lợi suất nội tại từ chính tài sản cơ sở — ví dụ phần thưởng staking. Lợi suất này đến từ các nguồn bên ngoài và không được Venus Protocol đảm bảo.",
+          "name": "APY nội tại"
         },
         "offChainApy": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Lợi suất bổ sung từ các hoạt động off-chain như airdrop hoặc chiến dịch khuyến mãi do bên thứ ba quản lý. Lợi suất này không được Venus Protocol đảm bảo.",
+          "name": "APY off-chain"
         },
         "pointDistribution": {
-          "learnMore": "TRANSLATION NEEDED"
+          "learnMore": "Tìm hiểu thêm"
         },
         "primeDistribution": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Venus Prime thưởng cho người dùng tận tâm bằng phần thưởng được boost. Venus protocol không đảm bảo và không chịu trách nhiệm.",
+          "name": "APY Prime"
         },
         "supplyApy": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Tổng lợi suất nhận được khi cung cấp tài sản vào Venus Protocol.",
+          "name": "APY cung cấp"
         },
         "xvsDistribution": {
-          "description": "TRANSLATION NEEDED",
-          "name": "TRANSLATION NEEDED"
+          "description": "Phần thưởng phân phối được khởi xướng và triển khai bởi cộng đồng Venus phi tập trung. Venus protocol không đảm bảo và không chịu trách nhiệm.",
+          "name": "Phân phối XVS"
         }
       }
     },
     "primeBadge": {
-      "logoAlt": "TRANSLATION NEEDED",
+      "logoAlt": "Logo Prime",
       "tooltip": {
-        "calculatorLink": "TRANSLATION NEEDED",
-        "primeBorrowSimulation": "TRANSLATION NEEDED",
-        "primeDocLink": "TRANSLATION NEEDED",
-        "primeMarket": "TRANSLATION NEEDED",
-        "primeSupplySimulation": "TRANSLATION NEEDED"
+        "calculatorLink": "Tính phần thưởng Prime của bạn",
+        "primeBorrowSimulation": "APY được boost bởi Prime dựa trên mức vay trung vị của người dùng {{borrowBalance}} và stake vault {{xvsStaked}}.",
+        "primeDocLink": "Tìm hiểu thêm",
+        "primeMarket": "APY được boost bởi Prime.",
+        "primeSupplySimulation": "APY được boost bởi Prime dựa trên mức cung cấp trung vị của người dùng {{supplyBalance}} và stake vault {{xvsStaked}}."
       }
     }
   },
   "apyBreakdown": {
-    "borrowApy": "TRANSLATION NEEDED",
-    "distributionApy": "TRANSLATION NEEDED",
-    "distributionTooltip": "TRANSLATION NEEDED",
-    "externalDistributionApy": "TRANSLATION NEEDED",
-    "intrinsicApy": "TRANSLATION NEEDED",
-    "intrinsicApyTooltip": "TRANSLATION NEEDED",
+    "borrowApy": "APY vay",
+    "distributionApy": "APY phân phối",
+    "distributionTooltip": "Phần thưởng phân phối được khởi xướng và triển khai bởi cộng đồng Venus phi tập trung. Venus protocol không đảm bảo và không chịu trách nhiệm.",
+    "externalDistributionApy": "{{description}} APY",
+    "intrinsicApy": "APY nội tại",
+    "intrinsicApyTooltip": "APY nhận trực tiếp từ tài sản (ví dụ staking hoặc phần thưởng bên ngoài), tách biệt với lợi suất cho vay của Venus. Venus protocol không đảm bảo và không chịu trách nhiệm.",
     "netApy": {
-      "label": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "label": "APY ròng",
+      "tooltip": "Tổng APY của tất cả các thị trường liên quan"
     },
-    "offChainApy": "TRANSLATION NEEDED",
-    "offChainApyTooltip": "TRANSLATION NEEDED",
-    "primeApy": "TRANSLATION NEEDED",
-    "supplyApy": "TRANSLATION NEEDED",
+    "offChainApy": "APY off-chain",
+    "offChainApyTooltip": "Lợi suất bổ sung từ các hoạt động off-chain như airdrop hoặc chiến dịch khuyến mãi do bên thứ ba quản lý. Venus protocol không đảm bảo và không chịu trách nhiệm.",
+    "primeApy": "APY Prime",
+    "supplyApy": "APY cung cấp",
     "totalApy": {
-      "borrowApyTooltip": "TRANSLATION NEEDED",
-      "label": "TRANSLATION NEEDED",
-      "supplyApyTooltip": "TRANSLATION NEEDED"
+      "borrowApyTooltip": "APY vay - APY phân phối",
+      "label": "Tổng APY",
+      "supplyApyTooltip": "APY cung cấp + APY phân phối"
     }
   },
   "apyChart": {
     "tooltipItemLabels": {
-      "borrowApy": "TRANSLATION NEEDED",
-      "date": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "totalBorrow": "TRANSLATION NEEDED",
-      "totalSupply": "TRANSLATION NEEDED"
+      "borrowApy": "APY vay",
+      "date": "Ngày",
+      "supplyApy": "APY cung cấp",
+      "totalBorrow": "Tổng vay",
+      "totalSupply": "Tổng cung cấp"
     }
   },
   "asset": {
     "eModeInfo": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Thông tin E-mode"
     },
     "marketInfo": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Thông tin thị trường"
     }
   },
   "assetAccessor": {
     "disabledActionNotice": {
-      "boost": "TRANSLATION NEEDED",
-      "borrow": "TRANSLATION NEEDED",
-      "repay": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED",
-      "withdraw": "TRANSLATION NEEDED"
+      "boost": "Boost đã bị vô hiệu hóa cho thị trường này",
+      "borrow": "Vay đã bị vô hiệu hóa cho thị trường này",
+      "repay": "Hoàn trả đã bị vô hiệu hóa cho thị trường này",
+      "supply": "Cung cấp đã bị vô hiệu hóa cho thị trường này",
+      "withdraw": "Rút đã bị vô hiệu hóa cho thị trường này"
     },
     "eModeBlockedActionNotice": {
-      "borrow": "TRANSLATION NEEDED"
+      "borrow": "Cài đặt E-mode của bạn không cho phép vay từ thị trường này. <Link>Quản lý E-mode</Link>"
     }
   },
   "assetWarning": {
-    "borrowDescription": "TRANSLATION NEEDED",
-    "modalTitle": "TRANSLATION NEEDED",
-    "supplyDescription": "TRANSLATION NEEDED"
+    "borrowDescription": "Bạn có thể vay {{tokenSymbol}} theo mức cung cấp làm tài sản thế chấp trong pool {{poolName}}. <Button>Hiển thị tất cả token</Button>",
+    "modalTitle": "Token {{ poolName }}",
+    "supplyDescription": "Cung cấp {{tokenSymbol}} vào pool {{poolName}} sẽ cho phép bạn vay token chỉ từ pool này. <Button>Hiển thị tất cả thị trường</Button>"
   },
   "binanceWalletBanner": {
-    "bgIllustrationAltText": "TRANSLATION NEEDED",
-    "binanceLogoAltText": "TRANSLATION NEEDED",
-    "description": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "bgIllustrationAltText": "Hình minh họa nền",
+    "binanceLogoAltText": "Logo Binance",
+    "description": "Vay USDT và chia sẻ <Bold>$400,000</Bold> phần thưởng!",
+    "title": "Venus đã có trên Binance Wallet Earn."
   },
   "boostBanner": {
-    "description": "TRANSLATION NEEDED",
-    "rocketAltText": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "description": "Đòn bẩy một lần nhấp để tăng lợi suất <White>tối đa 5x</White>.",
+    "rocketAltText": "Hình minh họa tên lửa",
+    "title": "Boost đã khả dụng!"
   },
   "breadcrumbs": {
-    "bridge": "TRANSLATION NEEDED",
-    "dashboard": "TRANSLATION NEEDED",
-    "governance": "TRANSLATION NEEDED",
-    "isolatedPools": "TRANSLATION NEEDED",
-    "leaderboard": "TRANSLATION NEEDED",
-    "markets": "TRANSLATION NEEDED",
-    "primeCalculator": "TRANSLATION NEEDED",
-    "proposal": "TRANSLATION NEEDED",
-    "staking": "TRANSLATION NEEDED",
-    "swap": "TRANSLATION NEEDED",
-    "vai": "TRANSLATION NEEDED"
+    "bridge": "Cầu nối",
+    "dashboard": "Bảng điều khiển",
+    "governance": "Quản trị",
+    "isolatedPools": "Pools cô lập",
+    "leaderboard": "Bảng xếp hạng",
+    "markets": "Thị trường",
+    "primeCalculator": "Máy tính Prime",
+    "proposal": "Đề xuất #{{proposalId}}",
+    "staking": "Đặt cọc",
+    "swap": "Hoán đổi",
+    "vai": "VAI"
   },
   "bridgePage": {
     "amountInput": {
-      "label": "TRANSLATION NEEDED",
-      "maxButtonLabel": "TRANSLATION NEEDED"
+      "label": "Số lượng",
+      "maxButtonLabel": "TỐI ĐA"
     },
     "bridgeGasFee": {
-      "label": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "label": "Phí gas bridge",
+      "tooltip": "Dùng để trả chi phí gas khi gửi giao dịch trên chuỗi đích"
     },
     "errors": {
       "dailyTransactionLimitExceeded": {
-        "message": "TRANSLATION NEEDED",
-        "submitButton": "TRANSLATION NEEDED"
+        "message": "Bạn không thể bridge nhiều hơn {{readableAmountTokens}} ({{readableAmountUsd}}) trên chuỗi đích do giới hạn 24 giờ. Giới hạn này sẽ được đặt lại vào {{ date, dd MMM yyyy h:mm a }}",
+        "submitButton": "Số lượng nhập vượt quá giới hạn hàng ngày"
       },
-      "doesNotHaveEnoughNativeFunds": "TRANSLATION NEEDED",
-      "doesNotHaveEnoughXvs": "TRANSLATION NEEDED",
+      "doesNotHaveEnoughNativeFunds": "Không đủ số dư {{tokenSymbol}}",
+      "doesNotHaveEnoughXvs": "Không đủ số dư {{tokenSymbol}}",
       "mintCapReached": {
-        "message": "TRANSLATION NEEDED",
-        "submitButton": "TRANSLATION NEEDED"
+        "message": "Bạn không thể bridge nhiều hơn {{readableAmountTokens}} do giới hạn mint của bridge",
+        "submitButton": "Đã đạt giới hạn mint của bridge"
       },
       "singleTransactionLimitExceeded": {
-        "message": "TRANSLATION NEEDED",
-        "submitButton": "TRANSLATION NEEDED"
+        "message": "Bạn không thể bridge nhiều hơn {{readableAmountTokens}} ({{readableAmountUsd}}) trong một giao dịch trên chuỗi đích",
+        "submitButton": "Số lượng nhập vượt quá giới hạn"
       }
     },
     "footer": {
-      "bridgeDocLink": "TRANSLATION NEEDED",
-      "poweredBy": "TRANSLATION NEEDED"
+      "bridgeDocLink": "Cách bridge",
+      "poweredBy": "Được cung cấp bởi"
     },
     "fromChainSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Từ"
     },
     "submitButton": {
       "label": {
-        "enterValidAmount": "TRANSLATION NEEDED",
-        "submit": "TRANSLATION NEEDED"
+        "enterValidAmount": "Nhập số lượng hợp lệ",
+        "submit": "Xác nhận"
       }
     },
     "toChainSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Đến"
     },
     "walletBalance": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Số dư ví"
     }
   },
   "burnedWBnbButton": {
-    "iconAlt": "TRANSLATION NEEDED"
+    "iconAlt": "Biểu tượng BNB đã đốt"
   },
   "chainExplorerLink": {
-    "content": "TRANSLATION NEEDED"
+    "content": "Xem trên {{domainName}}"
   },
   "chip": {
     "proposalType": {
-      "critical": "TRANSLATION NEEDED",
-      "fastTrack": "TRANSLATION NEEDED"
+      "critical": "Nghiêm trọng",
+      "fastTrack": "Nhanh"
     }
   },
   "claimReward": {
     "modal": {
       "claimButton": {
-        "disabledLabel": "TRANSLATION NEEDED",
-        "enabledLabel": "TRANSLATION NEEDED"
+        "disabledLabel": "Chọn nhóm để nhận thưởng",
+        "enabledLabel": "Nhận"
       },
-      "claimOn": "TRANSLATION NEEDED",
-      "externalRewards": "TRANSLATION NEEDED",
+      "claimOn": "Nhận trên {{appName}}",
+      "externalRewards": "Phần thưởng bên ngoài",
       "primeGroup": {
-        "disabledContractWarningMessage": "TRANSLATION NEEDED",
-        "name": "TRANSLATION NEEDED"
+        "disabledContractWarningMessage": "Hợp đồng Prime hiện đang tạm dừng. Lãi từ Prime vẫn tích lũy nhưng không thể nhận cho đến khi hợp đồng được mở lại.",
+        "name": "Prime"
       },
-      "rewards": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED",
+      "rewards": "Phần thưởng",
+      "title": "Nhận phần thưởng ({{chainName}})",
       "vaultGroup": {
-        "disabledContractWarningMessage": "TRANSLATION NEEDED",
-        "name": "TRANSLATION NEEDED"
+        "disabledContractWarningMessage": "Vault này hiện đang tạm dừng. Lãi suất vẫn tích lũy nhưng không thể nhận cho đến khi vault được mở lại.",
+        "name": "{{stakedTokenSymbol}} vault"
       },
       "vestingVaultGroup": {
-        "name": "TRANSLATION NEEDED"
+        "name": "{{stakedTokenSymbol}} vesting vault"
       }
     }
   },
   "connectButton": {
-    "connect": "TRANSLATION NEEDED",
-    "disconnect": "TRANSLATION NEEDED"
+    "connect": "Kết nối ví",
+    "disconnect": "Ngắt kết nối"
   },
   "connectWallet": {
-    "connectButton": "TRANSLATION NEEDED"
+    "connectButton": "Kết nối ví"
   },
   "eModeBanner": {
-    "exploreButtonLabel": "TRANSLATION NEEDED",
-    "illustrationAltText": "TRANSLATION NEEDED",
-    "manageEModeButtonLabel": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "exploreButtonLabel": "Khám phá",
+    "illustrationAltText": "Hình minh họa E-mode",
+    "manageEModeButtonLabel": "Quản lý E-mode",
+    "title": "Tăng sức mạnh vay với E-Mode"
   },
   "errors": {
-    "couldNotRetrieveSigner": "TRANSLATION NEEDED",
-    "couldNotSwitchChain": "TRANSLATION NEEDED",
-    "missingAbstainDescription": "TRANSLATION NEEDED",
-    "missingAgainstDescription": "TRANSLATION NEEDED",
-    "missingDescription": "TRANSLATION NEEDED",
-    "missingForDescription": "TRANSLATION NEEDED",
-    "missingParamForSignature": "TRANSLATION NEEDED",
-    "missingSafeWalletApiUrl": "TRANSLATION NEEDED",
-    "missingTargetForSignature": "TRANSLATION NEEDED",
-    "missingTitle": "TRANSLATION NEEDED",
-    "noMetaKey": "TRANSLATION NEEDED",
-    "noParamsKey": "TRANSLATION NEEDED",
-    "noSignaturesKey": "TRANSLATION NEEDED",
-    "noSwapQuoteFound": "TRANSLATION NEEDED",
-    "noTargetsKey": "TRANSLATION NEEDED",
-    "noTypeKey": "TRANSLATION NEEDED",
-    "proposalNotFound": "TRANSLATION NEEDED",
-    "somethingWentWrong": "TRANSLATION NEEDED",
-    "somethingWentWrongRetrievingTransactions": "TRANSLATION NEEDED",
-    "somethingWentWrongRetrievingVoterAccounts": "TRANSLATION NEEDED",
-    "somethingWentWrongRetrievingVoterDetails": "TRANSLATION NEEDED",
-    "somethingWentWrongRetrievingVoterHistory": "TRANSLATION NEEDED",
-    "undefinedAccountErrorMessage": "TRANSLATION NEEDED",
-    "validationError": "TRANSLATION NEEDED",
-    "walletNotConnected": "TRANSLATION NEEDED"
+    "couldNotRetrieveSigner": "Không thể lấy signer, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
+    "couldNotSwitchChain": "Không thể chuyển chain, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
+    "missingAbstainDescription": "Đề xuất cần mô tả phiếu 'abstain'",
+    "missingAgainstDescription": "Đề xuất cần mô tả phiếu 'against'",
+    "missingDescription": "Không có mô tả đề xuất trong tệp",
+    "missingForDescription": "Đề xuất cần mô tả phiếu 'for'",
+    "missingParamForSignature": "Không có tham số tương ứng cho hàm",
+    "missingSafeWalletApiUrl": "Không thể lấy giao dịch Safe do cấu hình sai",
+    "missingTargetForSignature": "Không có mục tiêu tương ứng cho hàm",
+    "missingTitle": "Đề xuất cần có tiêu đề",
+    "noMetaKey": "Không có thông tin metadata trong tệp",
+    "noParamsKey": "Tệp không chứa danh sách tham số",
+    "noSignaturesKey": "Không có call signatures trong tệp",
+    "noSwapQuoteFound": "Không tìm thấy hoán đổi. Vui lòng cập nhật biểu mẫu.",
+    "noTargetsKey": "Tệp không chứa danh sách mục tiêu",
+    "noTypeKey": "Tệp không chỉ ra loại đề xuất",
+    "proposalNotFound": "Không tìm thấy đề xuất",
+    "somethingWentWrong": "Đã xảy ra lỗi",
+    "somethingWentWrongRetrievingTransactions": "Đã xảy ra lỗi khi lấy giao dịch",
+    "somethingWentWrongRetrievingVoterAccounts": "Đã xảy ra lỗi khi lấy tài khoản cử tri",
+    "somethingWentWrongRetrievingVoterDetails": "Đã xảy ra lỗi khi lấy chi tiết cử tri",
+    "somethingWentWrongRetrievingVoterHistory": "Đã xảy ra lỗi khi lấy lịch sử bỏ phiếu",
+    "undefinedAccountErrorMessage": "Tài khoản không xác định",
+    "validationError": "Xác thực thất bại cho đề xuất đã nhập:",
+    "walletNotConnected": "Ví chưa được kết nối"
   },
   "errorState": {
-    "defaultMessage": "TRANSLATION NEEDED"
+    "defaultMessage": "Đã xảy ra lỗi"
   },
   "footer": {
     "links": {
-      "documentation": "TRANSLATION NEEDED",
-      "privacyPolicy": "TRANSLATION NEEDED",
-      "termsOfUse": "TRANSLATION NEEDED"
+      "documentation": "Tài liệu",
+      "privacyPolicy": "Chính sách quyền riêng tư",
+      "termsOfUse": "Điều khoản sử dụng"
     }
   },
   "gaslessTransactions": {
-    "chainLabel": "TRANSLATION NEEDED",
+    "chainLabel": "Miễn phí",
     "errorModal": {
-      "cancel": "TRANSLATION NEEDED",
-      "description": "TRANSLATION NEEDED",
-      "resendButtonLabel": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "cancel": "Hủy",
+      "description": "Bạn vẫn có thể gửi giao dịch này bằng cách tự trả phí gas",
+      "resendButtonLabel": "Gửi lại với gas",
+      "title": "Giao dịch không gas hiện không khả dụng"
     },
     "tooltip": {
-      "disabled": "TRANSLATION NEEDED",
-      "enabled": "TRANSLATION NEEDED"
+      "disabled": "Mạng này hỗ trợ giao dịch không gas, không cần phí, nhưng tính năng này hiện bị tắt trong cài đặt. Thêm thông tin <Link>tại đây</Link>",
+      "enabled": "Giao dịch trên mạng này không cần gas, không mất phí. Thêm thông tin <Link>tại đây</Link>"
     }
   },
   "healthFactor": {
     "label": {
-      "healthy": "TRANSLATION NEEDED",
-      "liquidation": "TRANSLATION NEEDED",
-      "moderate": "TRANSLATION NEEDED",
-      "risky": "TRANSLATION NEEDED"
+      "healthy": "An toàn",
+      "liquidation": "Thanh lý",
+      "moderate": "Trung bình",
+      "risky": "Rủi ro"
     }
   },
   "importPositionsModal": {
     "aave": {
-      "logoAlt": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "logoAlt": "Logo Aave",
+      "title": "Aave"
     },
-    "emptyState": "TRANSLATION NEEDED",
+    "emptyState": "Không có vị thế bên ngoài để nhập",
     "gasLess": {
-      "label": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "label": "Miễn phí",
+      "tooltip": "Giao dịch để chuyển vị thế của bạn sang Venus được tài trợ bởi Venus Protocol"
     },
     "infoSection": {
       "1": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Nền tảng duy nhất với APY được boost từ lợi suất thực.",
+        "title": "Lợi suất tốt hơn"
       },
       "2": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Tham gia nền tảng DeFi tạo giá trị nhất với tăng trưởng ổn định.",
+        "title": "Hiệu quả vốn cao nhất"
       },
       "3": {
-        "description": "TRANSLATION NEEDED",
-        "title": "TRANSLATION NEEDED"
+        "description": "Hợp đồng đã được kiểm chứng và được audit nhiều nhất trong lĩnh vực cho vay.",
+        "title": "Bảo mật cao"
       },
-      "title": "TRANSLATION NEEDED"
+      "title": "Vì sao chọn Venus?"
     },
-    "limitNotice": "TRANSLATION NEEDED",
+    "limitNotice": "Chỉ các vị thế có giá trị giữa <Number>{{min}}</Number> và <Number>{{max}}</Number> mới có thể được nhập vào Venus hiện tại.",
     "position": {
       "currentApy": {
-        "label": "TRANSLATION NEEDED"
+        "label": "APY hiện tại"
       },
-      "importButtonLabel": "TRANSLATION NEEDED",
-      "missedYearlyGains": "TRANSLATION NEEDED",
+      "importButtonLabel": "Nhập",
+      "missedYearlyGains": "Bạn đang bỏ lỡ <Number><Gains /> / năm</Number>",
       "newApy": {
-        "label": "TRANSLATION NEEDED"
+        "label": "APY Venus"
       }
     },
-    "title": "TRANSLATION NEEDED"
+    "title": "Nhập vào Venus và kiếm nhiều hơn"
   },
   "interactive": {
     "addToWallet": {
-      "modalTitle": "TRANSLATION NEEDED"
+      "modalTitle": "Thêm token vào ví"
     },
     "copy": {
       "address": {
-        "modalTitle": "TRANSLATION NEEDED",
-        "name": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "modalTitle": "Sao chép địa chỉ token",
+        "name": "Địa chỉ",
+        "tooltip": "Sao chép địa chỉ"
       }
     },
-    "copyToClipboard": "TRANSLATION NEEDED",
+    "copyToClipboard": "Đã sao chép {{name}} vào clipboard",
     "goTo": {
-      "modalTitle": "TRANSLATION NEEDED"
+      "modalTitle": "Đi tới hợp đồng token"
     }
   },
   "interestRateChart": {
-    "currentUtilizationRateLabelValue": "TRANSLATION NEEDED",
+    "currentUtilizationRateLabelValue": "Hiện tại ({{percentage}})",
     "tooltipItemLabels": {
-      "borrowApy": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "utilizationRate": "TRANSLATION NEEDED"
+      "borrowApy": "APY vay",
+      "supplyApy": "APY cung cấp",
+      "utilizationRate": "Tỷ lệ sử dụng"
     }
   },
   "isolatedPoolsSunsetBanner": {
-    "description": "TRANSLATION NEEDED",
-    "illustrationAltText": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "description": "Nhận phần thưởng của bạn và đóng vị thế",
+    "illustrationAltText": "Hình minh họa",
+    "title": "Các pool cô lập đang được dừng"
   },
   "layout": {
     "chainSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Chọn chain"
     },
     "header": {
-      "liquidity": "TRANSLATION NEEDED",
+      "liquidity": "Thanh khoản",
       "maxLtv": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "LTV tối đa",
+        "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
       },
-      "price": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED",
-      "utilizationRate": "TRANSLATION NEEDED"
+      "price": "Giá",
+      "supply": "Cung cấp",
+      "utilizationRate": "Tỷ lệ sử dụng"
     },
     "menu": {
       "dashboard": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Bảng điều khiển"
       },
-      "label": "TRANSLATION NEEDED",
+      "label": "Trình đơn",
       "markets": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Thị trường"
       },
       "others": {
         "bridge": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "Cầu nối"
         },
         "governance": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "Quản trị"
         },
         "isolatedPools": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "Pools cô lập"
         },
-        "label": "TRANSLATION NEEDED",
+        "label": "Khác",
         "port": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Cổng"
         },
         "swap": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Hoán đổi"
         },
         "vai": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "VAI"
         }
       },
       "settings": {
         "gasLessTransactions": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Bật giao dịch không gas trên {{chainName}}"
         },
         "language": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Ngôn ngữ (beta)"
         }
       },
       "staking": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Đặt cọc"
       },
       "subMenuItem": {
         "button": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Bắt đầu"
         }
       },
-      "venusLogoAlt": "TRANSLATION NEEDED"
+      "venusLogoAlt": "Logo Venus"
     },
     "settingsModal": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Cài đặt"
     },
-    "testEnvWarning": "TRANSLATION NEEDED"
+    "testEnvWarning": "Đây là môi trường thử nghiệm. Không tương tác vì bất kỳ mục đích nào khác ngoài thử nghiệm. <Link>Truy cập trang web chính thức của Venus Protocol</Link>"
   },
   "layouts": {
     "menu": {
       "markets": {
         "venusCore": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "Venus Core"
         },
         "venusX": {
           "description": "TRANSLATION NEEDED",
-          "label": "TRANSLATION NEEDED"
+          "label": "Venus X"
         }
       }
     }
   },
   "markdownEditor": {
-    "markdownTabLabel": "TRANSLATION NEEDED",
-    "placeholder": "TRANSLATION NEEDED",
-    "previewTabLabel": "TRANSLATION NEEDED"
+    "markdownTabLabel": "Viết",
+    "placeholder": "Không có nội dung để xem trước",
+    "previewTabLabel": "Xem trước"
   },
   "market": {
     "borrowCapThreshold": {
-      "title": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "title": "Tổng vay",
+      "tooltip": "Số tiền tối đa có thể vay là {{amountDollars}} ({{amountTokens}})<br />Hạn mức vay: {{capTokens}}"
     },
     "borrowInfo": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Thông tin vay"
     },
     "interestRateModel": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Mô hình lãi suất"
     },
     "legends": {
-      "borrowApy": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "utilizationRate": "TRANSLATION NEEDED"
+      "borrowApy": "APY vay",
+      "supplyApy": "APY cung cấp",
+      "utilizationRate": "Tỷ lệ sử dụng"
     },
     "marketInfo": {
       "stats": {
-        "borrowerCountLabel": "TRANSLATION NEEDED",
-        "dailyBorrowingInterestsLabel": "TRANSLATION NEEDED",
-        "dailyDistribution": "TRANSLATION NEEDED",
-        "dailySupplyingInterestsLabel": "TRANSLATION NEEDED",
-        "exchangeRateLabel": "TRANSLATION NEEDED",
-        "exchangeRateValue": "TRANSLATION NEEDED",
-        "reserveFactorLabel": "TRANSLATION NEEDED",
-        "supplierCountLabel": "TRANSLATION NEEDED"
+        "borrowerCountLabel": "Số người vay",
+        "dailyBorrowingInterestsLabel": "Lãi vay hằng ngày",
+        "dailyDistribution": "Phân phối {{tokenSymbol}} hằng ngày",
+        "dailySupplyingInterestsLabel": "Lãi cung cấp hằng ngày",
+        "exchangeRateLabel": "Tỷ giá",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "reserveFactorLabel": "Hệ số dự trữ",
+        "supplierCountLabel": "Số người cung cấp"
       }
     },
     "periodOption": {
-      "oneYear": "TRANSLATION NEEDED",
-      "sixMonths": "TRANSLATION NEEDED",
-      "thirtyDays": "TRANSLATION NEEDED"
+      "oneYear": "1N",
+      "sixMonths": "6T",
+      "thirtyDays": "30N"
     },
     "stats": {
-      "apy": "TRANSLATION NEEDED",
-      "averageApy": "TRANSLATION NEEDED",
-      "liquidationPenalty": "TRANSLATION NEEDED",
-      "liquidationThreshold": "TRANSLATION NEEDED"
+      "apy": "APY hiện tại",
+      "averageApy": "APY trung bình",
+      "liquidationPenalty": "Phạt thanh lý",
+      "liquidationThreshold": "Ngưỡng thanh lý"
     },
     "supplyCapThreshold": {
-      "title": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "title": "Tổng cung cấp",
+      "tooltip": "Số tiền tối đa có thể cung cấp là {{amountDollars}} ({{amountTokens}})"
     },
     "supplyInfo": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Thông tin cung cấp"
     }
   },
   "markets": {
@@ -666,939 +666,944 @@
       "group": {
         "cannotDisable": {
           "tooltip": {
-            "blockingPositions": "TRANSLATION NEEDED",
-            "notEnoughCollateral": "TRANSLATION NEEDED"
+            "blockingPositions": "Bạn không thể tắt nhóm e-mode này vì bạn có vị thế vay với các tài sản không thể vay từ pool. <Link>Hiển thị vị thế của tôi</Link>",
+            "notEnoughCollateral": "Bạn không thể tắt nhóm e-mode này vì tổng giá trị tài sản thế chấp của bạn không đủ để bù tổng dư nợ"
           }
         },
         "cannotEnable": {
           "modal": {
-            "description": "TRANSLATION NEEDED",
-            "repayButtonLabel": "TRANSLATION NEEDED",
-            "title": "TRANSLATION NEEDED"
+            "description": "Bạn cần đóng các vị thế vay sau để bật nhóm E-mode <WhiteText>{{ eModeGroupName }}</WhiteText>:",
+            "repayButtonLabel": "Hoàn trả",
+            "title": "Vị thế của bạn"
           },
           "tooltip": {
-            "blockingPositions": "TRANSLATION NEEDED",
-            "notEnoughCollateral": "TRANSLATION NEEDED"
+            "blockingPositions": "Bạn không thể bật nhóm e-mode này vì có vị thế vay với tài sản không thuộc nhóm đó. <Link>Hiển thị vị thế của tôi</Link>",
+            "notEnoughCollateral": "Bạn không thể bật nhóm e-mode này vì tổng giá trị tài sản thế chấp của bạn không đủ để bù tổng dư nợ"
           }
         },
-        "disableButtonLabel": "TRANSLATION NEEDED",
-        "disabledNotice": "TRANSLATION NEEDED",
-        "enableButtonLabel": "TRANSLATION NEEDED",
-        "healthFactor": "TRANSLATION NEEDED",
-        "switchButtonLabel": "TRANSLATION NEEDED"
+        "disableButtonLabel": "Tắt",
+        "disabledNotice": "Nhóm E-Mode này không còn được hỗ trợ. Tài khoản của bạn đã quay về tham số mặc định. Vui lòng chuyển sang nhóm E-mode khác hoặc tắt nó.",
+        "enableButtonLabel": "Bật",
+        "healthFactor": "Hệ số an toàn:",
+        "switchButtonLabel": "Chuyển"
       },
-      "notice": "TRANSLATION NEEDED",
+      "notice": "Bật E-Mode giúp tối đa hóa sức mạnh vay, tuy nhiên việc vay bị giới hạn trong các tài sản thuộc nhóm đã chọn. <Link>Tìm hiểu thêm</Link>",
       "search": {
-        "placeholder": "TRANSLATION NEEDED"
+        "placeholder": "Tìm tài sản hoặc nhóm"
       },
       "table": {
         "card": {
           "header": {
-            "borrowable": "TRANSLATION NEEDED",
-            "collateral": "TRANSLATION NEEDED"
+            "borrowable": "Có thể vay",
+            "collateral": "Tài sản thế chấp"
           },
           "rows": {
-            "liquidationPenalty": "TRANSLATION NEEDED",
-            "liquidationThreshold": "TRANSLATION NEEDED",
-            "maxLtv": "TRANSLATION NEEDED"
+            "liquidationPenalty": "Phạt thanh lý",
+            "liquidationThreshold": "Ngưỡng thanh lý",
+            "maxLtv": "LTV tối đa"
           }
         },
         "columns": {
-          "asset": "TRANSLATION NEEDED",
-          "collateral": "TRANSLATION NEEDED",
-          "isBorrowable": "TRANSLATION NEEDED",
-          "liquidationPenalty": "TRANSLATION NEEDED",
-          "liquidationThreshold": "TRANSLATION NEEDED",
-          "maxLtv": "TRANSLATION NEEDED",
-          "penalty": "TRANSLATION NEEDED",
-          "threshold": "TRANSLATION NEEDED"
+          "asset": "Tài sản",
+          "collateral": "Tài sản thế chấp",
+          "isBorrowable": "Có thể vay",
+          "liquidationPenalty": "Phạt thanh lý",
+          "liquidationThreshold": "Ngưỡng thanh lý",
+          "maxLtv": "LTV tối đa",
+          "penalty": "Mức phạt",
+          "threshold": "Ngưỡng"
         },
-        "mobileSelectLabel": "TRANSLATION NEEDED"
+        "mobileSelectLabel": "Sắp xếp theo:"
       }
     },
     "errors": {
-      "accountError": "TRANSLATION NEEDED",
-      "collateralDisableError": "TRANSLATION NEEDED",
-      "collateralEnableError": "TRANSLATION NEEDED",
-      "collateralRequired": "TRANSLATION NEEDED"
+      "accountError": "Yêu cầu tài khoản - Vui lòng kết nối ví.",
+      "collateralDisableError": "Lỗi tắt tài sản thế chấp - Đã xảy ra sự cố khi tắt {{assetName}} làm tài sản thế chấp. Vui lòng thử lại.",
+      "collateralEnableError": "Lỗi bật tài sản thế chấp - Đã xảy ra sự cố khi bật {{assetName}} làm tài sản thế chấp. Vui lòng thử lại.",
+      "collateralRequired": "Yêu cầu tài sản thế chấp - Vui lòng hoàn trả tất cả tài sản đã vay hoặc đặt tài sản khác làm thế chấp."
     },
     "isolatedEModeGroupTooltip": {
-      "content": "TRANSLATION NEEDED",
-      "label": "TRANSLATION NEEDED"
+      "content": "Sức mạnh vay của bạn tăng lên khi chỉ cung cấp tài sản trong nhóm {{ eModeGroupName }}",
+      "label": "Cô lập"
     },
     "tabs": {
       "assets": {
-        "title": "TRANSLATION NEEDED"
+        "title": "Tài sản"
       },
       "eMode": {
-        "illustrationAltText": "TRANSLATION NEEDED",
+        "illustrationAltText": "Hình minh họa tia sét",
         "liquidationPenalty": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Phạt thanh lý"
         },
         "liquidationThreshold": {
-          "label": "TRANSLATION NEEDED"
+          "label": "Ngưỡng thanh lý"
         },
         "maxLtv": {
-          "label": "TRANSLATION NEEDED",
-          "tooltip": "TRANSLATION NEEDED"
+          "label": "LTV tối đa",
+          "tooltip": "LTV tối đa là hạn mức vay. Ở {{maxLtv}} LTV, 1 {{tokenSymbol}} làm tài sản thế chấp cho phép vay {{userCollateralFactor}} {{tokenSymbol}} giá trị tiền tệ."
         },
-        "title": "TRANSLATION NEEDED"
+        "title": "Chế độ E"
       }
     }
   },
   "marketTable": {
     "assetColumn": {
-      "eMode": "TRANSLATION NEEDED",
-      "pausedAssetTooltip": "TRANSLATION NEEDED"
+      "eMode": "Thị trường này thuộc nhóm E-mode {{eModeGroupName}}",
+      "pausedAssetTooltip": "Tài sản đã bị tạm dừng bởi Venus Governance. Việc vay và cung cấp đã bị vô hiệu hóa."
     },
     "columnKeys": {
-      "asset": "TRANSLATION NEEDED",
-      "borrowApy": "TRANSLATION NEEDED",
-      "borrowBalance": "TRANSLATION NEEDED",
-      "collateral": "TRANSLATION NEEDED",
-      "labeledBorrowApy": "TRANSLATION NEEDED",
-      "labeledSupplyApy": "TRANSLATION NEEDED",
-      "liquidity": "TRANSLATION NEEDED",
-      "price": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "supplyBalance": "TRANSLATION NEEDED",
-      "userBorrowBalance": "TRANSLATION NEEDED",
-      "userBorrowLimitSharePercentage": "TRANSLATION NEEDED",
-      "userSupplyBalance": "TRANSLATION NEEDED",
-      "userWalletBalance": "TRANSLATION NEEDED"
+      "asset": "Tài sản",
+      "borrowApy": "APY <InfoIcon />",
+      "borrowBalance": "Tổng vay",
+      "collateral": "Tài sản thế chấp",
+      "labeledBorrowApy": "APY vay <InfoIcon />",
+      "labeledSupplyApy": "APY cung cấp <InfoIcon />",
+      "liquidity": "Thanh khoản",
+      "price": "Giá",
+      "supplyApy": "APY <InfoIcon />",
+      "supplyBalance": "Tổng cung cấp",
+      "userBorrowBalance": "Số dư",
+      "userBorrowLimitSharePercentage": "% hạn mức",
+      "userSupplyBalance": "Số dư",
+      "userWalletBalance": "Ví"
     },
     "columnSelectOptionLabel": {
-      "asset": "TRANSLATION NEEDED",
-      "borrowApy": "TRANSLATION NEEDED",
-      "borrowBalance": "TRANSLATION NEEDED",
-      "collateral": "TRANSLATION NEEDED",
-      "labeledBorrowApy": "TRANSLATION NEEDED",
-      "labeledSupplyApy": "TRANSLATION NEEDED",
-      "liquidity": "TRANSLATION NEEDED",
-      "price": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED",
-      "supplyBalance": "TRANSLATION NEEDED",
-      "userBorrowBalance": "TRANSLATION NEEDED",
-      "userBorrowLimitSharePercentage": "TRANSLATION NEEDED",
-      "userSupplyBalance": "TRANSLATION NEEDED",
-      "userWalletBalance": "TRANSLATION NEEDED"
+      "asset": "Tài sản",
+      "borrowApy": "APY vay",
+      "borrowBalance": "Tổng vay",
+      "collateral": "Tài sản thế chấp",
+      "labeledBorrowApy": "APY vay",
+      "labeledSupplyApy": "APY cung cấp / LTV",
+      "liquidity": "Thanh khoản",
+      "price": "Giá",
+      "supplyApy": "APY cung cấp / LTV",
+      "supplyBalance": "Tổng cung cấp",
+      "userBorrowBalance": "Số dư vay",
+      "userBorrowLimitSharePercentage": "% hạn mức",
+      "userSupplyBalance": "Số dư cung cấp",
+      "userWalletBalance": "Số dư ví"
     },
     "columnTooltips": {
-      "borrowApy": "TRANSLATION NEEDED",
-      "supplyApy": "TRANSLATION NEEDED"
+      "borrowApy": "APY vay dương nghĩa là bạn sẽ trả lãi, âm nghĩa là bạn sẽ nhận lãi",
+      "supplyApy": "APY cung cấp dương nghĩa là bạn sẽ nhận lãi, âm nghĩa là bạn sẽ trả lãi"
     },
     "pausedAssetsPlaceholder": {
-      "description": "TRANSLATION NEEDED",
-      "imgAlt": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "description": "Vui lòng bật công tắc \"Tài sản tạm dừng\" để xem.",
+      "imgAlt": "Biểu tượng tạm dừng",
+      "title": "Tất cả tài sản trong pool này đã bị tạm dừng"
     },
     "pausedAssetsToggle": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Tài sản tạm dừng"
     },
     "searchInput": {
-      "placeholder": "TRANSLATION NEEDED"
+      "placeholder": "Tìm tài sản"
     },
     "userAssetsOnlyToggle": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Chỉ tài sản của tôi"
     },
     "userEModeAssetsOnlyToggle": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Chỉ tài sản E-mode"
     }
   },
   "operationForm": {
     "acknowledgements": {
       "highPriceImpact": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Tôi xác nhận tác động giá cao",
+        "tooltip": "Giao dịch này dự kiến có tác động giá trên {{priceImpactPercentage}}%"
       },
       "riskyOperation": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Tôi xác nhận rủi ro liên quan",
+        "tooltip": "Hệ số an toàn của bạn sẽ thấp sau giao dịch này, làm tăng rủi ro thanh lý"
       }
     },
-    "availableAmount": "TRANSLATION NEEDED",
-    "boostTabAltText": "TRANSLATION NEEDED",
-    "boostTabTitle": "TRANSLATION NEEDED",
-    "borrow": "TRANSLATION NEEDED",
-    "borrowTabTitle": "TRANSLATION NEEDED",
-    "collateral": "TRANSLATION NEEDED",
+    "availableAmount": "Có thể dùng",
+    "boostTabAltText": "Biểu tượng tên lửa",
+    "boostTabTitle": "Tăng cường",
+    "borrow": "Vay",
+    "borrowTabTitle": "Vay",
+    "collateral": "Tài sản thế chấp",
     "collateralField": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Tài sản thế chấp"
     },
     "error": {
-      "borrowCapReached": "TRANSLATION NEEDED",
-      "higherThanAvailableAmount": "TRANSLATION NEEDED",
-      "higherThanAvailableLiquidity": "TRANSLATION NEEDED",
-      "higherThanBorrowBalance": "TRANSLATION NEEDED",
-      "higherThanBorrowCap": "TRANSLATION NEEDED",
-      "higherThanRepayBalance": "TRANSLATION NEEDED",
-      "higherThanSupplyCap": "TRANSLATION NEEDED",
-      "higherThanWalletBalance": "TRANSLATION NEEDED",
-      "higherThanWalletSpendingLimit": "TRANSLATION NEEDED",
-      "insufficientSwapLiquidity": "TRANSLATION NEEDED",
-      "noCollateral": "TRANSLATION NEEDED",
-      "noSwapQuoteFound": "TRANSLATION NEEDED",
-      "priceImpactTooHigh": "TRANSLATION NEEDED",
-      "supplyCapReached": "TRANSLATION NEEDED",
-      "tooRisky": "TRANSLATION NEEDED",
-      "unwrappingUnsupported": "TRANSLATION NEEDED",
-      "wrappingUnsupported": "TRANSLATION NEEDED"
+      "borrowCapReached": "Hạn mức vay {{assetBorrowCap}} của pool này đã đạt. Bạn không thể vay từ thị trường này cho đến khi các khoản vay được hoàn trả hoặc hạn mức vay được tăng.",
+      "higherThanAvailableAmount": "Số lượng nhập vượt quá số lượng có thể dùng",
+      "higherThanAvailableLiquidity": "Thanh khoản tài sản không đủ",
+      "higherThanBorrowBalance": "Số lượng nhập vượt quá số dư vay",
+      "higherThanBorrowCap": "Bạn không thể vay nhiều hơn {{userMaxBorrowAmount}} từ pool này vì hạn mức vay của thị trường là {{assetBorrowCap}} và hiện đang có {{assetBorrowBalance}} được vay.",
+      "higherThanRepayBalance": "Số lượng nhập vượt quá số dư hoàn trả",
+      "higherThanSupplyCap": "Bạn không thể cung cấp nhiều hơn {{userMaxSupplyAmount}} vào pool này vì hạn mức cung cấp của thị trường là {{assetSupplyCap}} và hiện đang có {{assetSupplyBalance}} được cung cấp.",
+      "higherThanWalletBalance": "Không đủ số dư {{tokenSymbol}}",
+      "higherThanWalletSpendingLimit": "Bạn đã nhập số lượng vượt quá hạn mức chi tiêu cho tài sản này. Vui lòng hủy hạn mức và đặt lại để tiếp tục giao dịch.",
+      "insufficientSwapLiquidity": "Thanh khoản trên PancakeSwap không đủ cho giao dịch hoán đổi này",
+      "noCollateral": "Bạn cần cung cấp token và bật làm tài sản thế chấp trước khi có thể vay {{tokenSymbol}} từ pool này",
+      "noSwapQuoteFound": "Không tìm thấy hoán đổi. Vui lòng cập nhật biểu mẫu.",
+      "priceImpactTooHigh": "Tác động giá quá cao",
+      "supplyCapReached": "Hạn mức cung cấp {{assetSupplyCap}} của pool này đã đạt. Bạn không thể cung cấp vào thị trường này cho đến khi có rút hoặc hạn mức cung cấp được tăng.",
+      "tooRisky": "Giao dịch này sẽ khiến tài khoản của bạn bị thanh lý",
+      "unwrappingUnsupported": "Không hỗ trợ unwrapping",
+      "wrappingUnsupported": "Không hỗ trợ wrapping"
     },
     "receiveNativeToken": {
-      "label": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "label": "Nhận {{tokenSymbol}}",
+      "tooltip": "Unwrap {{wrappedNativeTokenSymbol}} đã vay sang {{nativeTokenSymbol}}"
     },
     "repaidField": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Khoản nợ cần trả"
     },
     "repay": {
-      "fullRepaymentWarning": "TRANSLATION NEEDED",
-      "swappingWithHighPriceImpactWarning": "TRANSLATION NEEDED"
+      "fullRepaymentWarning": "Giá trị giao dịch có thể cao hơn một chút so với số tiền vay hiện tại để bao gồm lãi phát sinh",
+      "swappingWithHighPriceImpactWarning": "Tác động giá của giao dịch này cao, có thể cho thấy hoán đổi bất lợi. Hãy đảm bảo tỷ giá và số lượng token trao đổi phù hợp kỳ vọng."
     },
     "repayTab": {
-      "collateralTabTitle": "TRANSLATION NEEDED",
-      "noCollateralWarning": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED",
-      "walletBalanceTabTitle": "TRANSLATION NEEDED"
+      "collateralTabTitle": "Tài sản thế chấp",
+      "noCollateralWarning": "Bạn không có tài sản thế chấp để hoàn trả.",
+      "title": "Hoàn trả",
+      "walletBalanceTabTitle": "Ví"
     },
-    "rightMaxButtonLabel": "TRANSLATION NEEDED",
+    "rightMaxButtonLabel": "TỐI ĐA",
     "riskSlider": {
-      "highRisk": "TRANSLATION NEEDED",
-      "lowRisk": "TRANSLATION NEEDED"
+      "highRisk": "Rủi ro cao",
+      "lowRisk": "Rủi ro thấp"
     },
-    "safeMaxButtonLabel": "TRANSLATION NEEDED",
+    "safeMaxButtonLabel": "TỐI ĐA AN TOÀN",
     "submitButtonLabel": {
-      "boost": "TRANSLATION NEEDED",
-      "borrow": "TRANSLATION NEEDED",
-      "enterValidAmount": "TRANSLATION NEEDED",
-      "repay": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED",
-      "withdraw": "TRANSLATION NEEDED"
+      "boost": "Tăng cường",
+      "borrow": "Vay",
+      "enterValidAmount": "Nhập số lượng hợp lệ",
+      "repay": "Hoàn trả",
+      "supply": "Cung cấp",
+      "withdraw": "Rút"
     },
-    "supply": "TRANSLATION NEEDED",
-    "supplyTabTitle": "TRANSLATION NEEDED",
+    "supply": "Cung cấp",
+    "supplyTabTitle": "Cung cấp",
     "swapDetails": {
       "label": {
-        "repay": "TRANSLATION NEEDED",
-        "supply": "TRANSLATION NEEDED"
+        "repay": "Bạn sẽ hoàn trả",
+        "supply": "Bạn sẽ cung cấp"
       },
       "value": {
-        "estimatedAmount": "TRANSLATION NEEDED",
-        "exactAmount": "TRANSLATION NEEDED"
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
       }
     },
     "swapSummary": {
-      "repay": "TRANSLATION NEEDED",
-      "supply": "TRANSLATION NEEDED"
+      "repay": "Bạn sẽ hoàn trả {{toTokenAmount}} bằng {{fromTokenAmount}}",
+      "supply": "Bạn sẽ cung cấp {{toTokenAmount}} bằng {{fromTokenAmount}}"
     },
-    "walletBalance": "TRANSLATION NEEDED",
+    "walletBalance": "Số dư ví",
     "warning": {
-      "swappingWithHighPriceImpactWarning": "TRANSLATION NEEDED"
+      "swappingWithHighPriceImpactWarning": "Tác động giá của giao dịch này cao, có thể cho thấy hoán đổi bất lợi. Hãy đảm bảo tỷ giá và số lượng token trao đổi phù hợp kỳ vọng."
     },
-    "withdrawTabTitle": "TRANSLATION NEEDED"
+    "withdrawTabTitle": "Rút"
   },
   "pagination": {
-    "itemOf": "TRANSLATION NEEDED",
-    "itemsOf": "TRANSLATION NEEDED"
+    "itemOf": "Mục {{currentPageLastIndex}} trong {{itemsCount}}",
+    "itemsOf": "Mục {{firstItemNumber}} - {{currentPageLastIndex}} trong {{itemsCount}}"
   },
   "poolsStats": {
     "cell": {
-      "assetsLabel": "TRANSLATION NEEDED",
-      "availableLiquidityLabel": "TRANSLATION NEEDED",
-      "dailyXvsDistributionLabel": "TRANSLATION NEEDED",
-      "totalBorrowLabel": "TRANSLATION NEEDED",
-      "totalSupplyLabel": "TRANSLATION NEEDED",
-      "treasuryLabel": "TRANSLATION NEEDED"
+      "assetsLabel": "Tài sản",
+      "availableLiquidityLabel": "Thanh khoản có sẵn",
+      "dailyXvsDistributionLabel": "Phân phối XVS hằng ngày",
+      "totalBorrowLabel": "Tổng vay",
+      "totalSupplyLabel": "Tổng cung cấp",
+      "treasuryLabel": "Kho bạc"
     }
   },
   "primeButton": {
-    "primeLogoAlt": "TRANSLATION NEEDED"
+    "primeLogoAlt": "Logo Venus Prime"
   },
   "primeCalculator": {
     "borrowedTokens": {
       "infos": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Vay {{tokenSymbol}} đủ điều kiện",
+        "tooltip": "Hạn mức vay: {{borrowCapTokens}} ({{borrowCapUsd}})",
+        "tooltip_empty": "Hạn mức vay: -"
       },
       "textField": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Đã vay {{tokenSymbol}}"
       }
     },
     "rewardDetails": {
-      "fromBorrowedTokens": "TRANSLATION NEEDED",
-      "fromSuppliedTokens": "TRANSLATION NEEDED",
+      "fromBorrowedTokens": "Từ vay {{tokenSymbol}}",
+      "fromSuppliedTokens": "Từ cung cấp {{tokenSymbol}}",
       "primeBorrowApy": {
-        "title": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "title": "APY vay Prime",
+        "tooltip": "Prime boost sẽ được thêm vào APY vay của thị trường. <Link>Tìm hiểu thêm</Link>"
       },
       "primeSupplyApy": {
-        "title": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "title": "APY cung cấp Prime",
+        "tooltip": "Prime boost sẽ được thêm vào APY cung cấp của thị trường. <Link>Tìm hiểu thêm</Link>"
       },
-      "title": "TRANSLATION NEEDED",
+      "title": "Chi tiết phần thưởng",
       "totalDailyRewards": {
-        "title": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "title": "Tổng phần thưởng hằng ngày",
+        "tooltip": "Tổng số phần thưởng phân phối cho người dùng Prime trong một ngày"
       },
-      "yourDailyRewards": "TRANSLATION NEEDED"
+      "yourDailyRewards": "Phần thưởng hằng ngày của bạn"
     },
     "stakedTokens": {
       "infos": {
-        "error": "TRANSLATION NEEDED",
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "error": "Để đủ điều kiện nhận thưởng Prime, cần stake tối thiểu {{minimumXvsStaked}} XVS.",
+        "label": "XVS stake đủ điều kiện",
+        "tooltip": "Tối đa {{maximumXvsStaked}} sẽ được tính cho phần thưởng Prime của bạn"
       },
       "textField": {
-        "label": "TRANSLATION NEEDED"
+        "label": "XVS đã stake"
       }
     },
     "suppliedTokens": {
       "infos": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Cung cấp {{tokenSymbol}} đủ điều kiện",
+        "tooltip": "Hạn mức cung cấp: {{supplyCapTokens}} ({{supplyCapUsd}})",
+        "tooltip_empty": "Hạn mức cung cấp: -"
       },
       "textField": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Đã cung cấp {{tokenSymbol}}"
       }
     },
     "tokenSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Mã thông báo"
     },
-    "topMessage": "TRANSLATION NEEDED"
+    "topMessage": "Bạn có thể dùng máy tính Prime để ước tính phần thưởng nhận được khi nắm giữ token Prime dựa trên vị thế của mình. <Link>Tìm hiểu thêm</Link>"
   },
   "primeStatusBanner": {
-    "becomePrimeTitle": "TRANSLATION NEEDED",
-    "claimButtonLabel": "TRANSLATION NEEDED",
+    "becomePrimeTitle": "Bạn đã có thể trở thành người dùng Prime",
+    "claimButtonLabel": "Nhận token Prime",
     "description": {
-      "primeCalculator": "TRANSLATION NEEDED",
-      "primeDoc": "TRANSLATION NEEDED"
+      "primeCalculator": "Stake thêm <WhiteText>{{stakeDelta}}</WhiteText> rồi đợi {{claimWaitingPeriod}} để nhận token Prime và tăng thu nhập. <Link>Tính phần thưởng Prime của bạn</Link>",
+      "primeDoc": "Stake thêm <WhiteText>{{stakeDelta}}</WhiteText> rồi đợi {{claimWaitingPeriod}} để nhận token Prime và tăng thu nhập. <Link>Tìm hiểu thêm</Link>"
     },
     "noPrimeTokenWarning": {
-      "text": "TRANSLATION NEEDED",
-      "tooltip": "TRANSLATION NEEDED"
+      "text": "Tất cả token Prime đã được nhận",
+      "tooltip": "Tất cả {{primeTokenLimit}} token Prime hiện đã được nhận. Một số có thể khả dụng nếu chủ sở hữu không còn đủ điều kiện hoặc nếu chúng tôi thêm số lượng."
     },
     "progressBar": {
-      "ariaLabel": "TRANSLATION NEEDED",
-      "label": "TRANSLATION NEEDED"
+      "ariaLabel": "Tiến trình Prime hiện tại của bạn",
+      "label": "Đã stake: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
     },
-    "promotionalTitle": "TRANSLATION NEEDED",
-    "stakeButtonLabel": "TRANSLATION NEEDED",
-    "tokensLeft": "TRANSLATION NEEDED",
-    "tokensLeft_one": "TRANSLATION NEEDED",
-    "tokensLeft_many": "TRANSLATION NEEDED",
-    "waitForPrimeTitle": "TRANSLATION NEEDED"
+    "promotionalTitle": "Tăng thu nhập lên đến <GreenText>{{percentage}}</GreenText>",
+    "stakeButtonLabel": "Đặt cọc XVS",
+    "tokensLeft": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
+    "tokensLeft_one": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
+    "tokensLeft_many": "Còn <WhiteText>{{count}}</WhiteText> token Prime",
+    "waitForPrimeTitle": "{{claimWaitingPeriod}} để có thể nhận thưởng Prime",
+    "tokensLeft_other": "Còn <WhiteText>{{count}}</WhiteText> token Prime"
   },
   "probableBanner": {
-    "description": "TRANSLATION NEEDED",
-    "probableAltText": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "description": "Tăng niềm tin của bạn trên probable.markets",
+    "probableAltText": "Hình minh họa Probable",
+    "title": "Bạn tin vào điều gì?"
   },
   "proposalList": {
     "selectOptions": {
       "all": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Tất cả"
       }
     }
   },
   "proposalState": {
-    "active": "TRANSLATION NEEDED",
-    "bridged": "TRANSLATION NEEDED",
-    "canceled": "TRANSLATION NEEDED",
-    "defeated": "TRANSLATION NEEDED",
-    "executed": "TRANSLATION NEEDED",
-    "expired": "TRANSLATION NEEDED",
-    "failed": "TRANSLATION NEEDED",
-    "pending": "TRANSLATION NEEDED",
-    "queued": "TRANSLATION NEEDED",
-    "succeeded": "TRANSLATION NEEDED"
+    "active": "Đang hoạt động",
+    "bridged": "Đã bridge",
+    "canceled": "Đã hủy",
+    "defeated": "Bị bác",
+    "executed": "Đã thực thi",
+    "expired": "Hết hạn",
+    "failed": "Thất bại",
+    "pending": "Đang chờ",
+    "queued": "Đang xếp hàng",
+    "succeeded": "Thành công"
   },
   "select": {
-    "defaultLabel": "TRANSLATION NEEDED"
+    "defaultLabel": "Chọn tùy chọn"
   },
   "selectTokenTextField": {
     "searchInput": {
-      "placeholder": "TRANSLATION NEEDED"
+      "placeholder": "Tìm tài sản"
     }
   },
   "spendingLimit": {
-    "label": "TRANSLATION NEEDED",
-    "labelTooltip": "TRANSLATION NEEDED",
-    "revokeButtonTooltip": "TRANSLATION NEEDED"
+    "label": "Hạn mức chi tiêu",
+    "labelTooltip": "Đây là hạn mức chi tiêu hiện tại của bạn cho tài sản này. Để chi tiêu nhiều hơn, hãy hủy hạn mức và đặt lại.",
+    "revokeButtonTooltip": "Hủy hạn mức chi tiêu"
   },
   "stakeModal": {
-    "availableTokensLabel": "TRANSLATION NEEDED",
-    "connectWalletMessage": "TRANSLATION NEEDED",
-    "submitButtonDisabledLabel": "TRANSLATION NEEDED",
-    "submitButtonLabel": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "availableTokensLabel": "{{tokenSymbol}} có thể dùng",
+    "connectWalletMessage": "Vui lòng kết nối ví để stake {{tokenSymbol}}",
+    "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để stake",
+    "submitButtonLabel": "Đặt cọc",
+    "title": "Đặt cọc {{tokenSymbol}}"
   },
   "swap": {
     "errors": {
-      "amountAboveWalletSpendingLimit": "TRANSLATION NEEDED",
-      "incorrectSwapInput": "TRANSLATION NEEDED"
+      "amountAboveWalletSpendingLimit": "Bạn đã nhập số lượng vượt quá hạn mức chi tiêu cho tài sản này. Vui lòng hủy hạn mức và đặt lại để tiếp tục giao dịch.",
+      "incorrectSwapInput": "Đầu vào hoán đổi không chính xác"
     },
     "swapDetails": {
       "label": {
-        "exchangeRate": "TRANSLATION NEEDED",
-        "maximumSold": "TRANSLATION NEEDED",
-        "minimumReceived": "TRANSLATION NEEDED",
-        "priceImpact": "TRANSLATION NEEDED",
-        "slippageTolerance": "TRANSLATION NEEDED"
+        "exchangeRate": "Tỷ giá",
+        "maximumSold": "Bán tối đa",
+        "minimumReceived": "Nhận tối thiểu",
+        "priceImpact": "Tác động giá",
+        "slippageTolerance": "Độ trượt giá"
       },
       "tooltip": {
-        "priceImpact": "TRANSLATION NEEDED"
+        "priceImpact": "Chênh lệch giữa giá thị trường và giá ước tính do quy mô giao dịch."
       },
       "value": {
-        "exactAmount": "TRANSLATION NEEDED",
-        "exchangeRate": "TRANSLATION NEEDED",
-        "priceImpact": "TRANSLATION NEEDED"
+        "exactAmount": "{{ value }}",
+        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
+        "priceImpact": "{{ priceImpact }}"
       }
     },
     "warning": {
-      "swappingWithHighPriceImpactWarning": "TRANSLATION NEEDED"
+      "swappingWithHighPriceImpactWarning": "Tác động giá của giao dịch này cao, có thể cho thấy hoán đổi bất lợi. Hãy đảm bảo tỷ giá và số lượng token trao đổi phù hợp kỳ vọng."
     }
   },
   "swapDetails": {
     "priceImpact": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Tác động giá"
     },
     "slippageTolerance": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Độ trượt giá"
     },
     "slippageToleranceModal": {
-      "description": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "description": "Thiết lập độ trượt giá cao có thể giúp giao dịch thành công, nhưng bạn có thể không nhận được giá tốt. Hãy thận trọng.",
+      "title": "Độ trượt giá"
     }
   },
   "swapPage": {
-    "connectWalletToSwap": "TRANSLATION NEEDED",
+    "connectWalletToSwap": "Vui lòng kết nối ví để hoán đổi token",
     "fromTokenAmountField": {
-      "label": "TRANSLATION NEEDED",
-      "max": "TRANSLATION NEEDED"
+      "label": "Từ",
+      "max": "Tối đa"
     },
     "submitButton": {
       "disabledLabels": {
-        "insufficientLiquidity": "TRANSLATION NEEDED",
-        "insufficientUserBalance": "TRANSLATION NEEDED",
-        "invalidFromTokenAmount": "TRANSLATION NEEDED",
-        "priceImpactHigherThanMaximumTolerated": "TRANSLATION NEEDED",
-        "processing": "TRANSLATION NEEDED",
-        "spendingLimitTooLow": "TRANSLATION NEEDED",
-        "unwrappingUnsupported": "TRANSLATION NEEDED",
-        "wrappingUnsupported": "TRANSLATION NEEDED"
+        "insufficientLiquidity": "Không đủ thanh khoản cho hoán đổi này",
+        "insufficientUserBalance": "Không đủ số dư {{tokenSymbol}}",
+        "invalidFromTokenAmount": "Nhập số lượng hợp lệ để hoán đổi",
+        "priceImpactHigherThanMaximumTolerated": "Tác động giá quá cao",
+        "processing": "Đang xử lý",
+        "spendingLimitTooLow": "Hạn mức chi tiêu quá thấp",
+        "unwrappingUnsupported": "Không hỗ trợ unwrapping",
+        "wrappingUnsupported": "Không hỗ trợ wrapping"
       },
       "enabledLabels": {
-        "swap": "TRANSLATION NEEDED",
-        "swapWithHighPriceImpact": "TRANSLATION NEEDED"
+        "swap": "Hoán đổi",
+        "swapWithHighPriceImpact": "Hoán đổi với tác động giá cao"
       }
     },
     "toTokenAmountField": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Đến"
     },
-    "walletBalance": "TRANSLATION NEEDED"
+    "walletBalance": "Số dư ví"
   },
   "switchChain": {
-    "switchButton": "TRANSLATION NEEDED"
+    "switchButton": "Chuyển sang {{chainName}}"
   },
   "switchChainNotice": {
-    "buttonLabel": "TRANSLATION NEEDED",
-    "description": "TRANSLATION NEEDED"
+    "buttonLabel": "Chuyển sang {{chainName}}",
+    "description": "Bạn cần chuyển ví sang {{chainName}} để bật hoặc tắt tài sản thế chấp"
   },
   "table": {
     "cardsSelect": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Sắp xếp theo"
     }
   },
   "transactionErrors": {
-    "acceptAdminPendingAdminCheck": "TRANSLATION NEEDED",
-    "acceptPendingImplementationAddressCheck": "TRANSLATION NEEDED",
-    "accrueInterestAccumulatedInterestCalculationFailed": "TRANSLATION NEEDED",
-    "accrueInterestBorrowRateCalculationFailed": "TRANSLATION NEEDED",
-    "accrueInterestNewBorrowIndexCalculationFailed": "TRANSLATION NEEDED",
-    "accrueInterestNewTotalBorrowsCalculationFailed": "TRANSLATION NEEDED",
-    "accrueInterestNewTotalReservesCalculationFailed": "TRANSLATION NEEDED",
-    "accrueInterestSimpleInterestFactorCalculationFailed": "TRANSLATION NEEDED",
-    "addReservesAccrueInterestFailed": "TRANSLATION NEEDED",
-    "addReservesFreshCheck": "TRANSLATION NEEDED",
-    "addReservesTransferInNotPossible": "TRANSLATION NEEDED",
-    "badInput": "TRANSLATION NEEDED",
-    "borrowAccrueInterestFailed": "TRANSLATION NEEDED",
-    "borrowAccumulatedBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "borrowCashNotAvailable": "TRANSLATION NEEDED",
-    "borrowComptrollerRejection": "TRANSLATION NEEDED",
-    "borrowFreshnessCheck": "TRANSLATION NEEDED",
-    "borrowMarketNotListed": "TRANSLATION NEEDED",
-    "borrowNewAccountBorrowBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "borrowNewTotalBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "comptrollerCalculationError": "TRANSLATION NEEDED",
-    "comptrollerMismatch": "TRANSLATION NEEDED",
-    "comptrollerRejection": "TRANSLATION NEEDED",
-    "exitMarketBalanceOwed": "TRANSLATION NEEDED",
-    "exitMarketRejection": "TRANSLATION NEEDED",
-    "gasEstimationFailed": "TRANSLATION NEEDED",
-    "gaslessTransactionNotAvailable": "TRANSLATION NEEDED",
-    "insufficientBalanceForVai": "TRANSLATION NEEDED",
-    "insufficientLiquidity": "TRANSLATION NEEDED",
-    "insufficientShortfall": "TRANSLATION NEEDED",
-    "interestRateModelError": "TRANSLATION NEEDED",
-    "invalidAccountPair": "TRANSLATION NEEDED",
-    "invalidCloseAmountRequested": "TRANSLATION NEEDED",
-    "invalidCloseFactor": "TRANSLATION NEEDED",
-    "invalidCollateralFactor": "TRANSLATION NEEDED",
-    "invalidLiquidationIncentive": "TRANSLATION NEEDED",
-    "liquidateAccrueBorrowInterestFailed": "TRANSLATION NEEDED",
-    "liquidateAccrueCollateralInterestFailed": "TRANSLATION NEEDED",
-    "liquidateCloseAmountIsUintMax": "TRANSLATION NEEDED",
-    "liquidateCloseAmountIsZero": "TRANSLATION NEEDED",
-    "liquidateCollateralFreshnessCheck": "TRANSLATION NEEDED",
-    "liquidateComptrollerCalculateAmountSeizeFailed": "TRANSLATION NEEDED",
-    "liquidateComptrollerRejection": "TRANSLATION NEEDED",
-    "liquidateFreshnessCheck": "TRANSLATION NEEDED",
-    "liquidateSeizeBalanceDecrementFailed": "TRANSLATION NEEDED",
-    "liquidateSeizeBalanceIncrementFailed": "TRANSLATION NEEDED",
-    "liquidateSeizeBorrowFreshFailed": "TRANSLATION NEEDED",
-    "liquidateSeizeComptrollerRejection": "TRANSLATION NEEDED",
-    "liquidateSeizeIsBorrower": "TRANSLATION NEEDED",
-    "liquidateSeizeLiquidatorIsBorrower": "TRANSLATION NEEDED",
-    "liquidateSeizeTooMuch": "TRANSLATION NEEDED",
-    "marketAlreadyListed": "TRANSLATION NEEDED",
-    "marketNotEntered": "TRANSLATION NEEDED",
-    "marketNotFresh": "TRANSLATION NEEDED",
-    "marketNotListed": "TRANSLATION NEEDED",
-    "mathError": "TRANSLATION NEEDED",
-    "mintAccrueInterestFailed": "TRANSLATION NEEDED",
-    "mintComptrollerRejection": "TRANSLATION NEEDED",
-    "mintExchangeRateReadFailed": "TRANSLATION NEEDED",
-    "mintFeeCalculationFailed": "TRANSLATION NEEDED",
-    "mintFreshnessCheck": "TRANSLATION NEEDED",
-    "mintNewAccountBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "mintNewTotalSupplyCalculationFailed": "TRANSLATION NEEDED",
-    "mintTransferInFailed": "TRANSLATION NEEDED",
-    "mintTransferNotPossible": "TRANSLATION NEEDED",
-    "noError": "TRANSLATION NEEDED",
-    "nonzeroBorrowBalance": "TRANSLATION NEEDED",
-    "priceError": "TRANSLATION NEEDED",
-    "redeemAccrueInterestFailed": "TRANSLATION NEEDED",
-    "redeemComptrollerRejection": "TRANSLATION NEEDED",
-    "redeemExchangeAmountCalculatioFailed": "TRANSLATION NEEDED",
-    "redeemExchangeRateReadFailed": "TRANSLATION NEEDED",
-    "redeemExchangeTokensCalculationFailed": "TRANSLATION NEEDED",
-    "redeemFeeCalculationFailed": "TRANSLATION NEEDED",
-    "redeemFreshnessCheck": "TRANSLATION NEEDED",
-    "redeemNewAccountBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "redeemNewTotalSupplyCalculationFailed": "TRANSLATION NEEDED",
-    "redeemTransferOutNotPossible": "TRANSLATION NEEDED",
-    "reduceReservesAccrueInterestFailed": "TRANSLATION NEEDED",
-    "reduceReservesAdminCheck": "TRANSLATION NEEDED",
-    "reduceReservesCashNotAvailable": "TRANSLATION NEEDED",
-    "reduceReservesFreshCheck": "TRANSLATION NEEDED",
-    "reduceReservesValidation": "TRANSLATION NEEDED",
-    "rejection": "TRANSLATION NEEDED",
-    "repayBehalfAccrueInterestFailed": "TRANSLATION NEEDED",
-    "repayBorrowAccrueInterestFailed": "TRANSLATION NEEDED",
-    "repayBorrowAccumulatedBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "repayBorrowComptrollerRejection": "TRANSLATION NEEDED",
-    "repayBorrowFreshnessCheck": "TRANSLATION NEEDED",
-    "repayBorrowNewAccountBorrowBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "repayBorrowTransferInNotPossible": "TRANSLATION NEEDED",
-    "repayBorrowTransferNotPossible": "TRANSLATION NEEDED",
-    "repayVaiComptrollerRejection": "TRANSLATION NEEDED",
-    "repayVaiFreshnessCheck": "TRANSLATION NEEDED",
-    "setCloseFactorOwnerCheck": "TRANSLATION NEEDED",
-    "setCloseFactorValidation": "TRANSLATION NEEDED",
-    "setCollateralFactorNoExists": "TRANSLATION NEEDED",
-    "setCollateralFactorOwnerCheck": "TRANSLATION NEEDED",
-    "setCollateralFactorValidation": "TRANSLATION NEEDED",
-    "setCollateralFactorWithoutPrice": "TRANSLATION NEEDED",
-    "setComptrollerOwnerCheck": "TRANSLATION NEEDED",
-    "setImplementationOwnerCheck": "TRANSLATION NEEDED",
-    "setInterestRateModelAccrueInterestFailed": "TRANSLATION NEEDED",
-    "setInterestRateModelFreshCheck": "TRANSLATION NEEDED",
-    "setInterestRateModelOwnerCheck": "TRANSLATION NEEDED",
-    "setLiquidationIncentiveOwnerCheck": "TRANSLATION NEEDED",
-    "setLiquidationIncentiveValidation": "TRANSLATION NEEDED",
-    "setMaxAssetsOwnerCheck": "TRANSLATION NEEDED",
-    "setMintedVaiRejection": "TRANSLATION NEEDED",
-    "setOracleMarketNotListed": "TRANSLATION NEEDED",
-    "setPauseGuardianOwnerCheck": "TRANSLATION NEEDED",
-    "setPendingAdminOwnerCheck": "TRANSLATION NEEDED",
-    "setPendingImplementationOwnerCheck": "TRANSLATION NEEDED",
-    "setPriceOracleOwnerCheck": "TRANSLATION NEEDED",
-    "setReserveFactorAccrueInterestFailed": "TRANSLATION NEEDED",
-    "setReserveFactorAdminCheck": "TRANSLATION NEEDED",
-    "setReserveFactorBoundsCheck": "TRANSLATION NEEDED",
-    "setReserveFactorFreshCheck": "TRANSLATION NEEDED",
-    "setTreasuryOwnerCheck": "TRANSLATION NEEDED",
-    "setVaiControllerOwnerCheck": "TRANSLATION NEEDED",
-    "setVaiMintRateCheck": "TRANSLATION NEEDED",
-    "sftMintNewAccountBalanceCalculationFailed": "TRANSLATION NEEDED",
-    "snapshotError": "TRANSLATION NEEDED",
-    "supportMarketExists": "TRANSLATION NEEDED",
-    "supportMarketOwnerCheck": "TRANSLATION NEEDED",
-    "tokenGetUnderlyingPriceError": "TRANSLATION NEEDED",
-    "tokenInsufficentCash": "TRANSLATION NEEDED",
-    "tokenInsufficientAllowance": "TRANSLATION NEEDED",
-    "tokenInsufficientBalance": "TRANSLATION NEEDED",
-    "tokenPriceError": "TRANSLATION NEEDED",
-    "tokenTransferInFailed": "TRANSLATION NEEDED",
-    "tokenTransferOutFailed": "TRANSLATION NEEDED",
-    "tooManyAssets": "TRANSLATION NEEDED",
-    "tooMuchRepay": "TRANSLATION NEEDED",
-    "transferComptrollerRejection": "TRANSLATION NEEDED",
-    "transferNotAllowed": "TRANSLATION NEEDED",
-    "transferNotEnough": "TRANSLATION NEEDED",
-    "transferTooMuch": "TRANSLATION NEEDED",
-    "unauthorized": "TRANSLATION NEEDED",
-    "vaiBurnRejection": "TRANSLATION NEEDED",
-    "vaiLiquidateAccrueBorrowInterestFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateAccrueCollateralInterestFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateCloseAmountIsUintMax": "TRANSLATION NEEDED",
-    "vaiLiquidateCloseAmountIsZero": "TRANSLATION NEEDED",
-    "vaiLiquidateCollateralFreshnessCheck": "TRANSLATION NEEDED",
-    "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateComptrollerRejection": "TRANSLATION NEEDED",
-    "vaiLiquidateFreshnessCheck": "TRANSLATION NEEDED",
-    "vaiLiquidateLiquidatorIsBorrower": "TRANSLATION NEEDED",
-    "vaiLiquidateRepayBorrowFreshFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateSeizeBalanceDecrementFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateSeizeBalanceIncrementFailed": "TRANSLATION NEEDED",
-    "vaiLiquidateSeizeComptrollerRejection": "TRANSLATION NEEDED",
-    "vaiLiquidateSeizeLiquidatorIsBorrower": "TRANSLATION NEEDED",
-    "vaiLiquidateSeizeTooMuch": "TRANSLATION NEEDED",
-    "vaiMintExchangeCalculationFailed": "TRANSLATION NEEDED",
-    "vaiMintRejection": "TRANSLATION NEEDED"
+    "acceptAdminPendingAdminCheck": "Chấp nhận Admin Đang chờ Kiểm tra",
+    "acceptPendingImplementationAddressCheck": "Chấp nhận địa chỉ triển khai đang chờ Kiểm tra",
+    "accrueInterestAccumulatedInterestCalculationFailed": "Tính lãi lũy kế thất bại",
+    "accrueInterestBorrowRateCalculationFailed": "Tính lãi suất vay thất bại",
+    "accrueInterestNewBorrowIndexCalculationFailed": "Tính chỉ số vay mới thất bại",
+    "accrueInterestNewTotalBorrowsCalculationFailed": "Tính tổng khoản vay mới thất bại",
+    "accrueInterestNewTotalReservesCalculationFailed": "Tính tổng dự trữ mới thất bại",
+    "accrueInterestSimpleInterestFactorCalculationFailed": "Tính hệ số lãi đơn giản thất bại",
+    "addReservesAccrueInterestFailed": "Thêm dự trữ và tính lãi thất bại",
+    "addReservesFreshCheck": "Kiểm tra mới của thêm dự trữ",
+    "addReservesTransferInNotPossible": "Không thể chuyển vào khi thêm dự trữ",
+    "badInput": "Đầu vào không hợp lệ",
+    "borrowAccrueInterestFailed": "Tính lãi vay thất bại",
+    "borrowAccumulatedBalanceCalculationFailed": "Tính số dư vay tích lũy thất bại",
+    "borrowCashNotAvailable": "Không đủ tiền mặt để vay",
+    "borrowComptrollerRejection": "Comptroller từ chối vay",
+    "borrowFreshnessCheck": "Kiểm tra độ mới khoản vay",
+    "borrowMarketNotListed": "Thị trường vay chưa được niêm yết",
+    "borrowNewAccountBorrowBalanceCalculationFailed": "Tính số dư vay mới của tài khoản thất bại",
+    "borrowNewTotalBalanceCalculationFailed": "Tính tổng số dư vay mới thất bại",
+    "comptrollerCalculationError": "Lỗi tính toán Comptroller",
+    "comptrollerMismatch": "Comptroller không khớp",
+    "comptrollerRejection": "Comptroller từ chối",
+    "exitMarketBalanceOwed": "Rời thị trường còn nợ số dư",
+    "exitMarketRejection": "Rời thị trường bị từ chối",
+    "gasEstimationFailed": "Ước tính gas thất bại",
+    "gaslessTransactionNotAvailable": "Giao dịch không gas không khả dụng",
+    "insufficientBalanceForVai": "Không đủ số dư cho VAI",
+    "insufficientLiquidity": "Không đủ thanh khoản",
+    "insufficientShortfall": "Thiếu hụt không đủ",
+    "interestRateModelError": "Lỗi mô hình lãi suất",
+    "invalidAccountPair": "Cặp tài khoản không hợp lệ",
+    "invalidCloseAmountRequested": "Yêu cầu số lượng đóng không hợp lệ",
+    "invalidCloseFactor": "Hệ số đóng không hợp lệ",
+    "invalidCollateralFactor": "Hệ số tài sản thế chấp không hợp lệ",
+    "invalidLiquidationIncentive": "Khuyến khích thanh lý không hợp lệ",
+    "liquidateAccrueBorrowInterestFailed": "Thanh lý: Tính lãi vay thất bại",
+    "liquidateAccrueCollateralInterestFailed": "Thanh lý: Tính lãi thế chấp thất bại",
+    "liquidateCloseAmountIsUintMax": "Thanh lý: Số lượng đóng là UINT tối đa",
+    "liquidateCloseAmountIsZero": "Thanh lý: Số lượng đóng bằng 0",
+    "liquidateCollateralFreshnessCheck": "Thanh lý: Kiểm tra độ mới của tài sản thế chấp",
+    "liquidateComptrollerCalculateAmountSeizeFailed": "Thanh lý: Comptroller tính số lượng tịch thu thất bại",
+    "liquidateComptrollerRejection": "Thanh lý: Comptroller từ chối",
+    "liquidateFreshnessCheck": "Thanh lý: Kiểm tra độ mới",
+    "liquidateSeizeBalanceDecrementFailed": "Thanh lý: Giảm số dư tịch thu thất bại",
+    "liquidateSeizeBalanceIncrementFailed": "Thanh lý: Tăng số dư tịch thu thất bại",
+    "liquidateSeizeBorrowFreshFailed": "Thanh lý: Kiểm tra độ mới của khoản vay thất bại",
+    "liquidateSeizeComptrollerRejection": "Thanh lý: Comptroller từ chối tịch thu",
+    "liquidateSeizeIsBorrower": "Thanh lý: Người tịch thu là người vay",
+    "liquidateSeizeLiquidatorIsBorrower": "Thanh lý: Người thanh lý là người vay",
+    "liquidateSeizeTooMuch": "Thanh lý: Tịch thu quá nhiều",
+    "marketAlreadyListed": "Thị trường đã được niêm yết",
+    "marketNotEntered": "Chưa tham gia thị trường",
+    "marketNotFresh": "Thị trường không mới",
+    "marketNotListed": "Thị trường chưa được niêm yết",
+    "mathError": "Lỗi toán học",
+    "mintAccrueInterestFailed": "Mint: Tính lãi thất bại",
+    "mintComptrollerRejection": "Mint: Comptroller từ chối",
+    "mintExchangeRateReadFailed": "Mint: Đọc tỷ giá thất bại",
+    "mintFeeCalculationFailed": "Mint: Tính phí thất bại",
+    "mintFreshnessCheck": "Mint: Kiểm tra độ mới",
+    "mintNewAccountBalanceCalculationFailed": "Mint: Tính số dư mới của tài khoản thất bại",
+    "mintNewTotalSupplyCalculationFailed": "Mint: Tính tổng cung cấp mới thất bại",
+    "mintTransferInFailed": "Mint: Chuyển vào thất bại",
+    "mintTransferNotPossible": "Mint: Không thể chuyển vào",
+    "noError": "Không có lỗi",
+    "nonzeroBorrowBalance": "Số dư vay không bằng 0",
+    "priceError": "Lỗi giá",
+    "redeemAccrueInterestFailed": "Rút: Tính lãi thất bại",
+    "redeemComptrollerRejection": "Rút: Comptroller từ chối",
+    "redeemExchangeAmountCalculatioFailed": "Rút: Tính số lượng quy đổi thất bại",
+    "redeemExchangeRateReadFailed": "Rút: Đọc tỷ giá thất bại",
+    "redeemExchangeTokensCalculationFailed": "Rút: Tính token quy đổi thất bại",
+    "redeemFeeCalculationFailed": "Rút: Tính phí thất bại",
+    "redeemFreshnessCheck": "Rút: Kiểm tra độ mới",
+    "redeemNewAccountBalanceCalculationFailed": "Rút: Tính số dư mới của tài khoản thất bại",
+    "redeemNewTotalSupplyCalculationFailed": "Rút: Tính tổng cung cấp mới thất bại",
+    "redeemTransferOutNotPossible": "Rút: Không thể chuyển ra",
+    "reduceReservesAccrueInterestFailed": "Giảm dự trữ: Tính lãi thất bại",
+    "reduceReservesAdminCheck": "Giảm dự trữ: Kiểm tra admin",
+    "reduceReservesCashNotAvailable": "Giảm dự trữ: Không đủ tiền mặt",
+    "reduceReservesFreshCheck": "Giảm dự trữ: Kiểm tra độ mới",
+    "reduceReservesValidation": "Giảm dự trữ: Xác thực",
+    "rejection": "Bị từ chối",
+    "repayBehalfAccrueInterestFailed": "Trả thay: Tính lãi thất bại",
+    "repayBorrowAccrueInterestFailed": "Hoàn trả: Tính lãi vay thất bại",
+    "repayBorrowAccumulatedBalanceCalculationFailed": "Hoàn trả: Tính số dư vay tích lũy thất bại",
+    "repayBorrowComptrollerRejection": "Hoàn trả: Comptroller từ chối",
+    "repayBorrowFreshnessCheck": "Hoàn trả: Kiểm tra độ mới",
+    "repayBorrowNewAccountBorrowBalanceCalculationFailed": "Hoàn trả: Tính số dư vay mới của tài khoản thất bại",
+    "repayBorrowTransferInNotPossible": "Hoàn trả: Không thể chuyển vào",
+    "repayBorrowTransferNotPossible": "Hoàn trả: Không thể chuyển",
+    "repayVaiComptrollerRejection": "Hoàn trả VAI: Comptroller từ chối",
+    "repayVaiFreshnessCheck": "Hoàn trả VAI: Kiểm tra độ mới",
+    "setCloseFactorOwnerCheck": "Thiết lập hệ số đóng: Kiểm tra chủ sở hữu",
+    "setCloseFactorValidation": "Thiết lập hệ số đóng: Xác thực",
+    "setCollateralFactorNoExists": "Thiết lập hệ số thế chấp: Không tồn tại",
+    "setCollateralFactorOwnerCheck": "Thiết lập hệ số thế chấp: Kiểm tra chủ sở hữu",
+    "setCollateralFactorValidation": "Thiết lập hệ số thế chấp: Xác thực",
+    "setCollateralFactorWithoutPrice": "Thiết lập hệ số thế chấp: Không có giá",
+    "setComptrollerOwnerCheck": "Thiết lập Comptroller: Kiểm tra chủ sở hữu",
+    "setImplementationOwnerCheck": "Thiết lập Implementation: Kiểm tra chủ sở hữu",
+    "setInterestRateModelAccrueInterestFailed": "Thiết lập mô hình lãi suất: Tính lãi thất bại",
+    "setInterestRateModelFreshCheck": "Thiết lập mô hình lãi suất: Kiểm tra độ mới",
+    "setInterestRateModelOwnerCheck": "Thiết lập mô hình lãi suất: Kiểm tra chủ sở hữu",
+    "setLiquidationIncentiveOwnerCheck": "Thiết lập khuyến khích thanh lý: Kiểm tra chủ sở hữu",
+    "setLiquidationIncentiveValidation": "Thiết lập khuyến khích thanh lý: Xác thực",
+    "setMaxAssetsOwnerCheck": "Thiết lập số tài sản tối đa: Kiểm tra chủ sở hữu",
+    "setMintedVaiRejection": "Thiết lập VAI đã mint: Bị từ chối",
+    "setOracleMarketNotListed": "Thiết lập oracle: Thị trường chưa niêm yết",
+    "setPauseGuardianOwnerCheck": "Thiết lập Pause Guardian: Kiểm tra chủ sở hữu",
+    "setPendingAdminOwnerCheck": "Thiết lập Pending Admin: Kiểm tra chủ sở hữu",
+    "setPendingImplementationOwnerCheck": "Thiết lập Pending Implementation: Kiểm tra chủ sở hữu",
+    "setPriceOracleOwnerCheck": "Thiết lập Price Oracle: Kiểm tra chủ sở hữu",
+    "setReserveFactorAccrueInterestFailed": "Thiết lập hệ số dự trữ: Tính lãi thất bại",
+    "setReserveFactorAdminCheck": "Thiết lập hệ số dự trữ: Kiểm tra admin",
+    "setReserveFactorBoundsCheck": "Thiết lập hệ số dự trữ: Kiểm tra giới hạn",
+    "setReserveFactorFreshCheck": "Thiết lập hệ số dự trữ: Kiểm tra độ mới",
+    "setTreasuryOwnerCheck": "Thiết lập kho bạc: Kiểm tra chủ sở hữu",
+    "setVaiControllerOwnerCheck": "Thiết lập VAI Controller: Kiểm tra chủ sở hữu",
+    "setVaiMintRateCheck": "Thiết lập tỷ lệ mint VAI: Kiểm tra",
+    "sftMintNewAccountBalanceCalculationFailed": "SFT Mint: Tính số dư mới của tài khoản thất bại",
+    "snapshotError": "Lỗi snapshot",
+    "supportMarketExists": "Hỗ trợ thị trường đã tồn tại",
+    "supportMarketOwnerCheck": "Hỗ trợ thị trường: Kiểm tra chủ sở hữu",
+    "tokenGetUnderlyingPriceError": "Lỗi lấy giá tài sản cơ sở",
+    "tokenInsufficentCash": "Token không đủ tiền mặt",
+    "tokenInsufficientAllowance": "Token không đủ allowance",
+    "tokenInsufficientBalance": "Token không đủ số dư",
+    "tokenPriceError": "Lỗi giá token",
+    "tokenTransferInFailed": "Chuyển vào token thất bại",
+    "tokenTransferOutFailed": "Chuyển ra token thất bại",
+    "tooManyAssets": "Quá nhiều tài sản",
+    "tooMuchRepay": "Hoàn trả quá nhiều",
+    "transferComptrollerRejection": "Chuyển: Comptroller từ chối",
+    "transferNotAllowed": "Chuyển không được phép",
+    "transferNotEnough": "Chuyển không đủ",
+    "transferTooMuch": "Chuyển quá nhiều",
+    "unauthorized": "Không được phép",
+    "vaiBurnRejection": "Đốt VAI bị từ chối",
+    "vaiLiquidateAccrueBorrowInterestFailed": "Thanh lý VAI: Tính lãi vay thất bại",
+    "vaiLiquidateAccrueCollateralInterestFailed": "Thanh lý VAI: Tính lãi thế chấp thất bại",
+    "vaiLiquidateCloseAmountIsUintMax": "Thanh lý VAI: Số lượng đóng là UINT tối đa",
+    "vaiLiquidateCloseAmountIsZero": "Thanh lý VAI: Số lượng đóng bằng 0",
+    "vaiLiquidateCollateralFreshnessCheck": "Thanh lý VAI: Kiểm tra độ mới của tài sản thế chấp",
+    "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "Thanh lý VAI: Comptroller tính số lượng tịch thu thất bại",
+    "vaiLiquidateComptrollerRejection": "Thanh lý VAI: Comptroller từ chối",
+    "vaiLiquidateFreshnessCheck": "Thanh lý VAI: Kiểm tra độ mới",
+    "vaiLiquidateLiquidatorIsBorrower": "Thanh lý VAI: Người thanh lý là người vay",
+    "vaiLiquidateRepayBorrowFreshFailed": "Thanh lý VAI: Kiểm tra độ mới hoàn trả vay thất bại",
+    "vaiLiquidateSeizeBalanceDecrementFailed": "Thanh lý VAI: Giảm số dư tịch thu thất bại",
+    "vaiLiquidateSeizeBalanceIncrementFailed": "Thanh lý VAI: Tăng số dư tịch thu thất bại",
+    "vaiLiquidateSeizeComptrollerRejection": "Thanh lý VAI: Comptroller từ chối tịch thu",
+    "vaiLiquidateSeizeLiquidatorIsBorrower": "Thanh lý VAI: Người tịch thu là người vay",
+    "vaiLiquidateSeizeTooMuch": "Thanh lý VAI: Tịch thu quá nhiều",
+    "vaiMintExchangeCalculationFailed": "Mint VAI: Tính toán quy đổi thất bại",
+    "vaiMintRejection": "Mint VAI bị từ chối"
   },
   "transactionNotification": {
     "couldNotFetchReceipt": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Không thể lấy trạng thái giao dịch"
     },
     "failed": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Giao dịch thất bại"
     },
     "pending": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Đang xác nhận giao dịch"
     },
     "success": {
-      "title": "TRANSLATION NEEDED"
+      "title": "Giao dịch đã được xác nhận"
     }
   },
   "vai": {
     "borrow": {
       "amountTokensInput": {
-        "limitButtonLabel": "TRANSLATION NEEDED"
+        "limitButtonLabel": "TỐI ĐA AN TOÀN"
       },
       "availableAmount": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "Có thể dùng",
+        "tooltip": "Số VAI tối đa bạn có thể vay dựa trên giới hạn toàn cầu và tài sản thế chấp bạn cung cấp"
       },
       "borrowApr": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "APR vay",
+        "tooltip": "Lãi suất hằng năm sẽ trả trong tương lai, ngoài VAI đã mint"
       },
       "fee": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Phí"
       },
       "notice": {
-        "amountHigherThanAccountMintableAmount": "TRANSLATION NEEDED",
-        "amountHigherThanLiquidity": "TRANSLATION NEEDED"
+        "amountHigherThanAccountMintableAmount": "Số lượng nhập vượt quá số lượng có thể dùng",
+        "amountHigherThanLiquidity": "Số lượng nhập vượt quá thanh khoản VAI khả dụng"
       },
-      "primeOnlyWarning": "TRANSLATION NEEDED",
+      "primeOnlyWarning": "Chỉ người dùng nắm giữ token Prime mới có thể vay VAI. Tìm hiểu thêm về Prime <Link>tại đây</Link>.",
       "submitButton": {
-        "borrowLabel": "TRANSLATION NEEDED",
-        "enterValidAmountLabel": "TRANSLATION NEEDED"
+        "borrowLabel": "Vay",
+        "enterValidAmountLabel": "Nhập số lượng hợp lệ để vay"
       },
-      "tabTitle": "TRANSLATION NEEDED"
+      "tabTitle": "Vay"
     },
-    "headerMessage": "TRANSLATION NEEDED",
+    "headerMessage": "VAI là stablecoin chính của Venus Protocol. Vay VAI bằng tài sản thế chấp bạn đã cung cấp. <Link>Tìm hiểu thêm</Link>",
     "repay": {
       "amountTokensInput": {
-        "limitButtonLabel": "TRANSLATION NEEDED"
+        "limitButtonLabel": "TỐI ĐA"
       },
       "borrowApr": {
-        "label": "TRANSLATION NEEDED",
-        "tooltip": "TRANSLATION NEEDED"
+        "label": "APR vay",
+        "tooltip": "Lãi suất hằng năm sẽ trả trong tương lai, ngoài VAI đã mint"
       },
       "notice": {
-        "amountHigherThanBorrowBalance": "TRANSLATION NEEDED",
-        "amountHigherThanWalletBalance": "TRANSLATION NEEDED",
-        "amountHigherThanWalletSpendingLimit": "TRANSLATION NEEDED",
-        "fullRepaymentWarning": "TRANSLATION NEEDED"
+        "amountHigherThanBorrowBalance": "Số lượng nhập vượt quá số dư hoàn trả",
+        "amountHigherThanWalletBalance": "Không đủ số dư {{tokenSymbol}}",
+        "amountHigherThanWalletSpendingLimit": "Bạn đã nhập số lượng vượt quá hạn mức chi tiêu cho tài sản này. Vui lòng hủy hạn mức và đặt lại để tiếp tục giao dịch.",
+        "fullRepaymentWarning": "Giá trị giao dịch có thể cao hơn một chút so với số tiền vay hiện tại để bao gồm lãi phát sinh"
       },
       "submitButton": {
-        "enterValidAmountLabel": "TRANSLATION NEEDED",
-        "repayLabel": "TRANSLATION NEEDED"
+        "enterValidAmountLabel": "Nhập số lượng hợp lệ để hoàn trả",
+        "repayLabel": "Hoàn trả"
       },
-      "tabTitle": "TRANSLATION NEEDED",
+      "tabTitle": "Hoàn trả",
       "walletBalance": {
-        "label": "TRANSLATION NEEDED"
+        "label": "Số dư ví"
       }
     }
   },
   "vault": {
-    "blockingPendingWithdrawalsWarning": "TRANSLATION NEEDED",
-    "dailyEmission": "TRANSLATION NEEDED",
-    "pausedWarning": "TRANSLATION NEEDED",
-    "stakeButton": "TRANSLATION NEEDED",
-    "stakingApr": "TRANSLATION NEEDED",
-    "totalStaked": "TRANSLATION NEEDED",
+    "blockingPendingWithdrawalsWarning": "Bạn phải hoàn tất các khoản rút đang chờ để tương tác với vault này.",
+    "dailyEmission": "Phát hành hằng ngày",
+    "pausedWarning": "Vault này hiện đang tạm dừng. Lãi suất vẫn tích lũy nhưng việc nhận, staking và rút bị vô hiệu hóa cho đến khi vault được mở lại",
+    "stakeButton": "Đặt cọc",
+    "stakingApr": "APR stake {{stakeTokenName}}",
+    "totalStaked": "Tổng đã stake",
     "transactionForm": {
       "lockingPeriod": {
-        "duration": "TRANSLATION NEEDED",
-        "label": "TRANSLATION NEEDED"
+        "duration": "{{date, distanceToNow}}",
+        "label": "Thời gian khóa"
       },
-      "rightMaxButtonLabel": "TRANSLATION NEEDED"
+      "rightMaxButtonLabel": "TỐI ĐA"
     },
-    "withdrawButton": "TRANSLATION NEEDED",
-    "youAreStake": "TRANSLATION NEEDED"
+    "withdrawButton": "Rút",
+    "youAreStake": "Bạn đang stake"
   },
   "vote": {
-    "abstain": "TRANSLATION NEEDED",
-    "addComment": "TRANSLATION NEEDED",
-    "against": "TRANSLATION NEEDED",
-    "comment": "TRANSLATION NEEDED",
+    "abstain": "Bỏ phiếu trắng",
+    "addComment": "Thêm bình luận",
+    "against": "Chống",
+    "comment": "Bình luận",
     "createProposalForm": {
-      "abstainOption": "TRANSLATION NEEDED",
-      "action": "TRANSLATION NEEDED",
-      "actions": "TRANSLATION NEEDED",
-      "addDescription": "TRANSLATION NEEDED",
-      "addOneMoreAction": "TRANSLATION NEEDED",
-      "address": "TRANSLATION NEEDED",
-      "againstOption": "TRANSLATION NEEDED",
-      "confirm": "TRANSLATION NEEDED",
-      "create": "TRANSLATION NEEDED",
-      "description": "TRANSLATION NEEDED",
-      "forOption": "TRANSLATION NEEDED",
-      "name": "TRANSLATION NEEDED",
-      "nextStep": "TRANSLATION NEEDED",
-      "proposalName": "TRANSLATION NEEDED",
-      "proposalType": "TRANSLATION NEEDED",
-      "signature": "TRANSLATION NEEDED",
-      "submitError": "TRANSLATION NEEDED",
-      "votingOptions": "TRANSLATION NEEDED"
+      "abstainOption": "Tùy chọn bỏ phiếu trắng",
+      "action": "Hành động",
+      "actions": "Hành động",
+      "addDescription": "Thêm mô tả (hỗ trợ định dạng Markdown cơ bản)",
+      "addOneMoreAction": "+ Thêm một hành động",
+      "address": "Địa chỉ",
+      "againstOption": "Tùy chọn chống",
+      "confirm": "Xác nhận",
+      "create": "Tạo",
+      "description": "Mô tả",
+      "forOption": "Tùy chọn ủng hộ",
+      "name": "Tên",
+      "nextStep": "Bước tiếp theo",
+      "proposalName": "Tên đề xuất",
+      "proposalType": "Loại đề xuất",
+      "signature": "Chữ ký",
+      "submitError": "Đã xảy ra lỗi khi tạo đề xuất của bạn",
+      "votingOptions": "Tùy chọn bỏ phiếu"
     },
     "createProposalModal": {
-      "createManually": "TRANSLATION NEEDED",
-      "createProposal": "TRANSLATION NEEDED",
-      "uploadFile": "TRANSLATION NEEDED",
-      "youCanEitherCreateManuallyOrUpload": "TRANSLATION NEEDED"
+      "createManually": "Tạo thủ công",
+      "createProposal": "Tạo đề xuất",
+      "uploadFile": "Tải lên tệp",
+      "youCanEitherCreateManuallyOrUpload": "Bạn có thể tạo đề xuất thủ công hoặc tải lên một tệp chứa chi tiết. Nếu chọn tải lên tệp, bạn có thể dùng mẫu này làm ví dụ: <Link>Github</Link>"
     },
-    "createProposalPlus": "TRANSLATION NEEDED",
-    "delegate": "TRANSLATION NEEDED",
-    "delegateAddress": "TRANSLATION NEEDED",
-    "delegateLeaderboard": "TRANSLATION NEEDED",
-    "delegateVotes": "TRANSLATION NEEDED",
-    "delegateVoting": "TRANSLATION NEEDED",
-    "delegateYourVoting": "TRANSLATION NEEDED",
-    "depositXvs": "TRANSLATION NEEDED",
-    "depositYourTokens": "TRANSLATION NEEDED",
-    "enterContactAddress": "TRANSLATION NEEDED",
+    "createProposalPlus": "+ Tạo đề xuất",
+    "delegate": "Ủy quyền",
+    "delegateAddress": "Địa chỉ ủy quyền",
+    "delegateLeaderboard": "Bảng xếp hạng ủy quyền",
+    "delegateVotes": "Phiếu ủy quyền",
+    "delegateVoting": "Bỏ phiếu ủy quyền",
+    "delegateYourVoting": "2. <Anchor>Ủy quyền quyền bỏ phiếu</Anchor> cho chính bạn hoặc người khác",
+    "depositXvs": "Gửi XVS",
+    "depositYourTokens": "1. <Link>Gửi token của bạn</Link> vào XVS Vault ",
+    "enterContactAddress": "Nhập địa chỉ liên hệ",
     "errorState": {
-      "buttonLabel": "TRANSLATION NEEDED",
-      "message": "TRANSLATION NEEDED"
+      "buttonLabel": "Thử lại",
+      "message": "Không thể lấy đề xuất"
     },
-    "for": "TRANSLATION NEEDED",
-    "goToXvsSnapshot": "TRANSLATION NEEDED",
+    "for": "Ủng hộ",
+    "goToXvsSnapshot": "Đi tới XVS Snapshot",
     "omnichain": {
-      "switchToBnb": "TRANSLATION NEEDED",
-      "votingOnlyEnabledOnBnb": "TRANSLATION NEEDED"
+      "switchToBnb": "Chuyển sang BNB Chain",
+      "votingOnlyEnabledOnBnb": "Bỏ phiếu chỉ khả dụng trên BNB Chain"
     },
     "pages": {
-      "actions": "TRANSLATION NEEDED",
-      "confirmation": "TRANSLATION NEEDED",
-      "proposalInformation": "TRANSLATION NEEDED",
-      "votingOptions": "TRANSLATION NEEDED"
+      "actions": "3 / 3 Hành động",
+      "confirmation": "Xác nhận",
+      "proposalInformation": "1 / 3 Thông tin đề xuất",
+      "votingOptions": "2 / 3 Tùy chọn bỏ phiếu"
     },
-    "pasteYourAddress": "TRANSLATION NEEDED",
-    "pleasePayAttention": "TRANSLATION NEEDED",
-    "proposals": "TRANSLATION NEEDED",
+    "pasteYourAddress": "Dán địa chỉ của bạn",
+    "pleasePayAttention": "Vui lòng chú ý",
+    "proposals": "Đề xuất",
     "proposalStateFilter": {
-      "label": "TRANSLATION NEEDED"
+      "label": "Trạng thái"
     },
     "proposalType": {
-      "critical": "TRANSLATION NEEDED",
-      "fastTrack": "TRANSLATION NEEDED",
-      "normal": "TRANSLATION NEEDED"
+      "critical": "Nghiêm trọng",
+      "fastTrack": "Nhanh",
+      "normal": "Bình thường"
     },
-    "redelegate": "TRANSLATION NEEDED",
-    "redelegateVoting": "TRANSLATION NEEDED",
-    "requiredVotingPower": "TRANSLATION NEEDED",
+    "redelegate": "Ủy quyền lại",
+    "redelegateVoting": "Bỏ phiếu ủy quyền lại",
+    "requiredVotingPower": "Bạn cần có 300k sức mạnh bỏ phiếu để tạo đề xuất",
     "searchInput": {
-      "placeholder": "TRANSLATION NEEDED"
+      "placeholder": "Tìm đề xuất"
     },
-    "summaryProgressBar": "TRANSLATION NEEDED",
-    "totalLocked": "TRANSLATION NEEDED",
-    "toVoteYouShould": "TRANSLATION NEEDED",
-    "voteAbstain": "TRANSLATION NEEDED",
-    "voteAgainst": "TRANSLATION NEEDED",
-    "voteFor": "TRANSLATION NEEDED",
-    "votingPower": "TRANSLATION NEEDED",
-    "votingWallet": "TRANSLATION NEEDED",
-    "votingWeight": "TRANSLATION NEEDED",
-    "youCanDelegateVotes": "TRANSLATION NEEDED",
-    "youDelegatedTo": "TRANSLATION NEEDED"
+    "summaryProgressBar": "Thanh tiến độ tóm tắt bỏ phiếu - {{voteType}}",
+    "totalLocked": "Tổng khóa",
+    "toVoteYouShould": "Để bỏ phiếu bạn nên:",
+    "voteAbstain": "Bỏ phiếu trắng",
+    "voteAgainst": "Bỏ phiếu chống",
+    "voteFor": "Bỏ phiếu ủng hộ",
+    "votingPower": "Sức mạnh bỏ phiếu",
+    "votingWallet": "Ví bỏ phiếu",
+    "votingWeight": "Trọng số bỏ phiếu",
+    "youCanDelegateVotes": "Bạn có thể ủy quyền phiếu bầu cho chính mình hoặc người khác. Nếu biết địa chỉ muốn ủy quyền, hãy nhập bên dưới. Nếu không, bạn có thể xem Bảng xếp hạng ủy quyền để tìm một đảng chính trị bạn muốn ủng hộ",
+    "youDelegatedTo": "Bạn đã ủy quyền token đã khóa cho {{delegate}}"
   },
   "voteProposalUi": {
-    "activeUntilDate": "TRANSLATION NEEDED",
-    "canceledDate": "TRANSLATION NEEDED",
+    "activeUntilDate": "Hiệu lực đến: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "canceledDate": "Đã hủy: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "command": {
       "actionButton": {
-        "cancel": "TRANSLATION NEEDED",
-        "execute": "TRANSLATION NEEDED",
-        "queue": "TRANSLATION NEEDED"
+        "cancel": "Hủy",
+        "execute": "Thực thi",
+        "queue": "Xếp hàng"
       },
       "dates": {
-        "activeAt": "TRANSLATION NEEDED",
-        "executableAt": "TRANSLATION NEEDED",
-        "previousStep": "TRANSLATION NEEDED",
-        "queueableAt": "TRANSLATION NEEDED"
+        "activeAt": "Đang chờ đến {{date, }}",
+        "executableAt": "Thực thi vào {{date, }}",
+        "previousStep": "{{date, }}",
+        "queueableAt": "Xếp hàng vào {{date, }}"
       },
       "description": {
-        "bridged": "TRANSLATION NEEDED",
-        "canceled": "TRANSLATION NEEDED",
-        "failed": "TRANSLATION NEEDED",
-        "pending": "TRANSLATION NEEDED",
-        "pendingBsc": "TRANSLATION NEEDED",
-        "waitingToBeExecutable": "TRANSLATION NEEDED",
-        "wrongChain": "TRANSLATION NEEDED"
+        "bridged": "Đang chờ bridge truyền giao dịch",
+        "canceled": "Thực thi payload bị hủy bởi governance guardian",
+        "failed": "Không thể gửi payload đến mạng đích",
+        "pending": "Đang chờ thực thi payload trên {{chainName}}",
+        "pendingBsc": "Đang chờ bắt đầu bỏ phiếu",
+        "waitingToBeExecutable": "Đang chờ kết thúc thời gian xếp hàng",
+        "wrongChain": "Payload này cần được thực thi trên chuỗi {{chainName}}"
       },
       "operations": {
-        "title": "TRANSLATION NEEDED"
+        "title": "Hoạt động"
       },
       "status": {
-        "pending": "TRANSLATION NEEDED"
+        "pending": "Đang chờ"
       }
     },
     "commands": {
-      "allPayloadsExecuted": "TRANSLATION NEEDED",
-      "somePayloadsExecuted": "TRANSLATION NEEDED",
-      "title": "TRANSLATION NEEDED"
+      "allPayloadsExecuted": "Tất cả payload đã được thực thi",
+      "somePayloadsExecuted": "Payload đã thực thi",
+      "title": "Lệnh"
     },
     "countdownFormat": {
-      "daysIncluded": "TRANSLATION NEEDED",
-      "hoursIncluded": "TRANSLATION NEEDED",
-      "minutesIncluded": "TRANSLATION NEEDED",
-      "secondsIncluded": "TRANSLATION NEEDED"
+      "daysIncluded": "{{days}}n : {{hours}}g : {{minutes}}p : {{seconds}}s",
+      "hoursIncluded": "{{hours}}g : {{minutes}}p : {{seconds}}s",
+      "minutesIncluded": "{{minutes}}p : {{seconds}}s",
+      "secondsIncluded": "{{seconds}}s"
     },
-    "defeatedDate": "TRANSLATION NEEDED",
-    "description": "TRANSLATION NEEDED",
-    "executedDate": "TRANSLATION NEEDED",
-    "expiredDate": "TRANSLATION NEEDED",
+    "defeatedDate": "Bị bác: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "description": "Mô tả",
+    "executedDate": "Đã thực thi: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "expiredDate": "Hết hạn: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "greenPulseAnimation": {
-      "altText": "TRANSLATION NEEDED"
+      "altText": "Hoạt ảnh nhịp xanh"
     },
     "proposalState": {
-      "activeTimestamp": "TRANSLATION NEEDED",
-      "canceledTimestamp": "TRANSLATION NEEDED",
-      "defeatedTimestamp": "TRANSLATION NEEDED",
-      "executedTimestamp": "TRANSLATION NEEDED",
-      "expiredTimestamp": "TRANSLATION NEEDED",
-      "queuedTimestamp": "TRANSLATION NEEDED",
-      "succeededTimestamp": "TRANSLATION NEEDED"
+      "activeTimestamp": "Hiệu lực từ: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "canceledTimestamp": "Đã hủy: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "defeatedTimestamp": "Bị bác: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "executedTimestamp": "Đã thực thi: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "expiredTimestamp": "Hết hạn: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "queuedTimestamp": "Xếp hàng: <Span>{{date, dd MMM yyyy HH:mm}}</Span>",
+      "succeededTimestamp": "Thành công: <Span>{{date, dd MMM yyyy HH:mm}}</Span>"
     },
-    "queuedUntilDate": "TRANSLATION NEEDED",
+    "queuedUntilDate": "Xếp hàng đến: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "status": {
-      "executedPayloads": "TRANSLATION NEEDED",
-      "readyForExecution": "TRANSLATION NEEDED",
-      "readyForQueuing": "TRANSLATION NEEDED"
+      "executedPayloads": "Payload đã thực thi",
+      "readyForExecution": "Sẵn sàng thực thi",
+      "readyForQueuing": "Sẵn sàng xếp hàng"
     },
     "statusCard": {
-      "ariaLabelAbstain": "TRANSLATION NEEDED",
-      "ariaLabelAgainst": "TRANSLATION NEEDED",
-      "ariaLabelFor": "TRANSLATION NEEDED"
+      "ariaLabelAbstain": "phiếu bỏ phiếu trắng",
+      "ariaLabelAgainst": "phiếu phản đối",
+      "ariaLabelFor": "phiếu ủng hộ"
     },
-    "timeUntilExecutable": "TRANSLATION NEEDED",
-    "timeUntilVotable": "TRANSLATION NEEDED",
+    "timeUntilExecutable": "Thực thi vào: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
+    "timeUntilVotable": "Bỏ phiếu bắt đầu: <Date>{{ date, dd MMM yyyy h:mm a }}</Date>",
     "voteStatus": {
-      "abstained": "TRANSLATION NEEDED",
-      "notVoted": "TRANSLATION NEEDED",
-      "votedAgainst": "TRANSLATION NEEDED",
-      "votedFor": "TRANSLATION NEEDED"
+      "abstained": "Bỏ phiếu trắng",
+      "notVoted": "Chưa bỏ phiếu",
+      "votedAgainst": "Bỏ phiếu chống",
+      "votedFor": "Bỏ phiếu ủng hộ"
     },
-    "votingOptions": "TRANSLATION NEEDED"
+    "votingOptions": "Tùy chọn bỏ phiếu"
   },
   "voterDetail": {
-    "actions": "TRANSLATION NEEDED",
-    "amount": "TRANSLATION NEEDED",
-    "delegated": "TRANSLATION NEEDED",
-    "delegatingTo": "TRANSLATION NEEDED",
-    "holding": "TRANSLATION NEEDED",
-    "proposalNumber": "TRANSLATION NEEDED",
-    "transactions": "TRANSLATION NEEDED",
-    "undelegated": "TRANSLATION NEEDED",
-    "venusBalance": "TRANSLATION NEEDED",
-    "viewAll": "TRANSLATION NEEDED",
-    "votedAbstain": "TRANSLATION NEEDED",
-    "votedAgainst": "TRANSLATION NEEDED",
-    "votedFor": "TRANSLATION NEEDED",
-    "votes": "TRANSLATION NEEDED",
-    "votingHistory": "TRANSLATION NEEDED"
+    "actions": "Hành động",
+    "amount": "Số lượng",
+    "delegated": "Đã ủy quyền",
+    "delegatingTo": "Ủy quyền cho",
+    "holding": "Nắm giữ",
+    "proposalNumber": "Đề xuất #",
+    "transactions": "Giao dịch",
+    "undelegated": "Chưa ủy quyền",
+    "venusBalance": "Số dư Venus",
+    "viewAll": "Xem tất cả",
+    "votedAbstain": "Đã bỏ phiếu trắng",
+    "votedAgainst": "Đã bỏ phiếu chống",
+    "votedFor": "Đã bỏ phiếu ủng hộ",
+    "votes": "Phiếu",
+    "votingHistory": "Lịch sử bỏ phiếu"
   },
   "voterLeaderboard": {
-    "addressesByVotingWeight": "TRANSLATION NEEDED",
+    "addressesByVotingWeight": "Địa chỉ theo trọng số bỏ phiếu",
     "columns": {
-      "proposalsVoted": "TRANSLATION NEEDED",
-      "rank": "TRANSLATION NEEDED",
-      "votes": "TRANSLATION NEEDED",
-      "voteWeight": "TRANSLATION NEEDED"
+      "proposalsVoted": "Đề xuất đã bỏ phiếu",
+      "rank": "Xếp hạng",
+      "votes": "Phiếu",
+      "voteWeight": "Trọng số bỏ phiếu"
     }
   },
   "voteSummary": {
-    "addresses_other": "TRANSLATION NEEDED",
-    "votes": "TRANSLATION NEEDED"
+    "addresses_other": "{{count}} địa chỉ",
+    "votes": "Phiếu",
+    "addresses_zero": "{{count}} địa chỉ",
+    "addresses_one": "{{count}} địa chỉ"
   },
   "wallets": {
     "errors": {
-      "noProvider": "TRANSLATION NEEDED"
+      "noProvider": "Không thể kết nối. Hãy đảm bảo ví bạn chọn đã được cài trong trình duyệt."
     }
   },
   "web3DomainNames": {
     "providers": {
-      "ens": "TRANSLATION NEEDED",
-      "spaceId": "TRANSLATION NEEDED"
+      "ens": "Tên ENS",
+      "spaceId": "Tên Space ID"
     },
     "tooltip": {
-      "address": "TRANSLATION NEEDED"
+      "address": "({{address}})"
     }
   },
   "withdrawFromVaiVaultModal": {
-    "availableTokensLabel": "TRANSLATION NEEDED",
-    "connectWalletMessage": "TRANSLATION NEEDED",
-    "submitButtonDisabledLabel": "TRANSLATION NEEDED",
-    "submitButtonLabel": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED"
+    "availableTokensLabel": "{{tokenSymbol}} có thể dùng",
+    "connectWalletMessage": "Vui lòng kết nối ví để rút {{tokenSymbol}}",
+    "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để rút",
+    "submitButtonLabel": "Rút",
+    "title": "Rút {{tokenSymbol}}"
   },
   "withdrawFromVestingVaultModalModal": {
-    "displayWithdrawalRequestListButton": "TRANSLATION NEEDED",
+    "displayWithdrawalRequestListButton": "Danh sách yêu cầu rút",
     "requestWithdrawalTab": {
       "approveToken": {
-        "connectWalletMessage": "TRANSLATION NEEDED"
+        "connectWalletMessage": "Vui lòng kết nối ví để rút"
       },
-      "availableTokensLabel": "TRANSLATION NEEDED",
-      "displayWithdrawalRequestListButton": "TRANSLATION NEEDED",
+      "availableTokensLabel": "{{tokenSymbol}} có thể yêu cầu",
+      "displayWithdrawalRequestListButton": "Danh sách yêu cầu rút",
       "primeLossWarning": {
-        "message": "TRANSLATION NEEDED",
-        "submitButtonLabel": "TRANSLATION NEEDED"
+        "message": "Bạn sẽ mất token Prime nếu rút số lượng này, vì stake trong XVS vault của bạn sẽ giảm xuống dưới mức tối thiểu {{minimumXvsStake}} để đủ điều kiện Prime.",
+        "submitButtonLabel": "Mất token Prime và yêu cầu rút"
       },
-      "submitButtonDisabledLabel": "TRANSLATION NEEDED",
-      "submitButtonLabel": "TRANSLATION NEEDED"
+      "submitButtonDisabledLabel": "Nhập số lượng hợp lệ để yêu cầu",
+      "submitButtonLabel": "Yêu cầu rút"
     },
-    "requestWithdrawalTabTitle": "TRANSLATION NEEDED",
-    "title": "TRANSLATION NEEDED",
+    "requestWithdrawalTabTitle": "Yêu cầu rút",
+    "title": "Rút {{tokenSymbol}}",
     "withdrawalRequestList": {
       "approveToken": {
-        "connectWalletMessage": "TRANSLATION NEEDED"
+        "connectWalletMessage": "Vui lòng kết nối ví để xem yêu cầu rút"
       },
-      "emptyState": "TRANSLATION NEEDED",
-      "itemContent": "TRANSLATION NEEDED"
+      "emptyState": "Bạn không có yêu cầu rút đang hoạt động",
+      "itemContent": "Khóa đến {{date, dd.MM.yy h:mm a}}"
     },
-    "withdrawalRequestListTitle": "TRANSLATION NEEDED",
+    "withdrawalRequestListTitle": "Danh sách yêu cầu rút",
     "withdrawTab": {
       "approveToken": {
-        "connectWalletMessage": "TRANSLATION NEEDED"
+        "connectWalletMessage": "Vui lòng kết nối ví để rút"
       },
-      "availableTokens": "TRANSLATION NEEDED",
-      "submitButton": "TRANSLATION NEEDED"
+      "availableTokens": "{{tokenSymbol}} có thể dùng",
+      "submitButton": "Rút"
     },
-    "withdrawTabTitle": "TRANSLATION NEEDED"
+    "withdrawTabTitle": "Rút"
   }
 }
