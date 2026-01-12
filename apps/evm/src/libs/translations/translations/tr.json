@@ -1,0 +1,1605 @@
+{
+  "account": {
+    "circularGradient": "TRANSLATION NEEDED",
+    "marketBreakdown": {
+      "tables": {
+        "borrowTableTitle": "TRANSLATION NEEDED",
+        "eModeHeader": {
+          "illustrationAltText": "TRANSLATION NEEDED",
+          "title": "TRANSLATION NEEDED"
+        },
+        "supplyTableTitle": "TRANSLATION NEEDED",
+        "tabletBorrowTabTitle": "TRANSLATION NEEDED",
+        "tabletSupplyTabTitle": "TRANSLATION NEEDED",
+        "tabletTitle": "TRANSLATION NEEDED"
+      }
+    },
+    "performanceChart": {
+      "absolutePerformance": "TRANSLATION NEEDED",
+      "errorState": {
+        "failedToFetchMessage": "TRANSLATION NEEDED",
+        "refetchButtonLabel": "TRANSLATION NEEDED"
+      },
+      "netWorth": {
+        "label": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED",
+        "tooltipWithVai": "TRANSLATION NEEDED"
+      },
+      "periodOption": {
+        "oneYear": "TRANSLATION NEEDED",
+        "sixMonths": "TRANSLATION NEEDED",
+        "thirtyDays": "TRANSLATION NEEDED"
+      },
+      "placeholderText": "TRANSLATION NEEDED",
+      "todaysChange": "TRANSLATION NEEDED"
+    },
+    "placeholder": {
+      "buttonLabel": "TRANSLATION NEEDED"
+    },
+    "pools": {
+      "placeholder": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      }
+    },
+    "poolsBreakdown": {
+      "poolTagTooltip": "TRANSLATION NEEDED"
+    },
+    "primeBanner": {
+      "button": {
+        "becomePrime": "TRANSLATION NEEDED",
+        "stakeXvs": "TRANSLATION NEEDED"
+      },
+      "primeLogoAltText": "TRANSLATION NEEDED",
+      "text": {
+        "apyBoost": "TRANSLATION NEEDED",
+        "becomePrime": "TRANSLATION NEEDED"
+      }
+    },
+    "settings": {
+      "gaslessTransactions": {
+        "switchLabel": "TRANSLATION NEEDED"
+      }
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "TRANSLATION NEEDED",
+        "healthFactor": "TRANSLATION NEEDED",
+        "healthFactorTooltip": "TRANSLATION NEEDED",
+        "mintedVai": "TRANSLATION NEEDED",
+        "netApy": "TRANSLATION NEEDED",
+        "netApyTooltip": "TRANSLATION NEEDED",
+        "netApyWithVaultStakeTooltip": "TRANSLATION NEEDED",
+        "totalBorrow": "TRANSLATION NEEDED",
+        "totalSupply": "TRANSLATION NEEDED",
+        "totalVaultStake": "TRANSLATION NEEDED"
+      },
+      "title": "TRANSLATION NEEDED"
+    },
+    "tabs": {
+      "pools": "TRANSLATION NEEDED",
+      "settings": "TRANSLATION NEEDED",
+      "transactions": "TRANSLATION NEEDED",
+      "vaults": "TRANSLATION NEEDED"
+    },
+    "transactions": {
+      "placeholder": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      },
+      "selects": {
+        "source": {
+          "all": "TRANSLATION NEEDED"
+        },
+        "txType": {
+          "all": "TRANSLATION NEEDED",
+          "approve": "TRANSLATION NEEDED",
+          "borrow": "TRANSLATION NEEDED",
+          "enterMarket": "TRANSLATION NEEDED",
+          "exitMarket": "TRANSLATION NEEDED",
+          "mint": "TRANSLATION NEEDED",
+          "redeem": "TRANSLATION NEEDED",
+          "repay": "TRANSLATION NEEDED"
+        }
+      },
+      "today": "TRANSLATION NEEDED",
+      "txText": {
+        "approve": "TRANSLATION NEEDED",
+        "enterMarket": "TRANSLATION NEEDED",
+        "exitMarket": "TRANSLATION NEEDED"
+      },
+      "txType": {
+        "approve": "TRANSLATION NEEDED",
+        "borrow": "TRANSLATION NEEDED",
+        "enterMarket": "TRANSLATION NEEDED",
+        "exitMarket": "TRANSLATION NEEDED",
+        "mint": "TRANSLATION NEEDED",
+        "redeem": "TRANSLATION NEEDED",
+        "repay": "TRANSLATION NEEDED"
+      },
+      "view": "TRANSLATION NEEDED",
+      "yesterday": "TRANSLATION NEEDED"
+    },
+    "vaults": {
+      "placeholder": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      }
+    }
+  },
+  "accountData": {
+    "balanceUpdate": {
+      "borrowBalance": "TRANSLATION NEEDED",
+      "supplyBalance": "TRANSLATION NEEDED"
+    },
+    "dailyEarnings": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "healthFactor": {
+      "label": "TRANSLATION NEEDED",
+      "tooltip": "TRANSLATION NEEDED"
+    }
+  },
+  "accountHealth": {
+    "accessibilityLabel": "TRANSLATION NEEDED",
+    "borrowLimitUsed": "TRANSLATION NEEDED",
+    "limit": "TRANSLATION NEEDED",
+    "tooltip": "TRANSLATION NEEDED"
+  },
+  "adBanner": {
+    "learnMore": "TRANSLATION NEEDED",
+    "startNow": "TRANSLATION NEEDED"
+  },
+  "announcements": {
+    "bethUpdate": {
+      "description": "TRANSLATION NEEDED"
+    },
+    "sxpDisabling": {
+      "description": "TRANSLATION NEEDED"
+    },
+    "trxMigration": {
+      "description": "TRANSLATION NEEDED"
+    },
+    "tusdMigration": {
+      "description": "TRANSLATION NEEDED"
+    }
+  },
+  "approveDelegateSteps": {
+    "approveDelegateButton": {
+      "text": "TRANSLATION NEEDED",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "step1": "TRANSLATION NEEDED"
+  },
+  "approveTokenSteps": {
+    "approveTokenButton": {
+      "text": "TRANSLATION NEEDED",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "step1": "TRANSLATION NEEDED",
+    "step2": "TRANSLATION NEEDED"
+  },
+  "appVersionChecker": {
+    "newVersionMessage": "TRANSLATION NEEDED"
+  },
+  "apy": {
+    "boost": {
+      "iconAlt": "TRANSLATION NEEDED",
+      "tooltip": {
+        "borrowApy": {
+          "description": "TRANSLATION NEEDED",
+          "name": "TRANSLATION NEEDED"
+        },
+        "defaultMerklRewardName": "TRANSLATION NEEDED",
+        "externalRewardDescription": "TRANSLATION NEEDED",
+        "intrinsicApy": {
+          "description": "TRANSLATION NEEDED",
+          "name": "TRANSLATION NEEDED"
+        },
+        "offChainApy": {
+          "description": "TRANSLATION NEEDED",
+          "name": "TRANSLATION NEEDED"
+        },
+        "pointDistribution": {
+          "learnMore": "TRANSLATION NEEDED"
+        },
+        "primeDistribution": {
+          "description": "TRANSLATION NEEDED",
+          "name": "TRANSLATION NEEDED"
+        },
+        "supplyApy": {
+          "description": "TRANSLATION NEEDED",
+          "name": "TRANSLATION NEEDED"
+        },
+        "xvsDistribution": {
+          "description": "TRANSLATION NEEDED",
+          "name": "TRANSLATION NEEDED"
+        }
+      }
+    },
+    "primeBadge": {
+      "logoAlt": "TRANSLATION NEEDED",
+      "tooltip": {
+        "calculatorLink": "TRANSLATION NEEDED",
+        "primeBorrowSimulation": "TRANSLATION NEEDED",
+        "primeDocLink": "TRANSLATION NEEDED",
+        "primeMarket": "TRANSLATION NEEDED",
+        "primeSupplySimulation": "TRANSLATION NEEDED"
+      }
+    }
+  },
+  "apyBreakdown": {
+    "borrowApy": "TRANSLATION NEEDED",
+    "distributionApy": "TRANSLATION NEEDED",
+    "distributionTooltip": "TRANSLATION NEEDED",
+    "externalDistributionApy": "TRANSLATION NEEDED",
+    "intrinsicApy": "TRANSLATION NEEDED",
+    "intrinsicApyTooltip": "TRANSLATION NEEDED",
+    "netApy": {
+      "label": "TRANSLATION NEEDED",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "offChainApy": "TRANSLATION NEEDED",
+    "offChainApyTooltip": "TRANSLATION NEEDED",
+    "primeApy": "TRANSLATION NEEDED",
+    "supplyApy": "TRANSLATION NEEDED",
+    "totalApy": {
+      "borrowApyTooltip": "TRANSLATION NEEDED",
+      "label": "TRANSLATION NEEDED",
+      "supplyApyTooltip": "TRANSLATION NEEDED"
+    }
+  },
+  "apyChart": {
+    "tooltipItemLabels": {
+      "borrowApy": "TRANSLATION NEEDED",
+      "date": "TRANSLATION NEEDED",
+      "supplyApy": "TRANSLATION NEEDED",
+      "totalBorrow": "TRANSLATION NEEDED",
+      "totalSupply": "TRANSLATION NEEDED"
+    }
+  },
+  "asset": {
+    "eModeInfo": {
+      "title": "TRANSLATION NEEDED"
+    },
+    "marketInfo": {
+      "title": "TRANSLATION NEEDED"
+    }
+  },
+  "assetAccessor": {
+    "disabledActionNotice": {
+      "boost": "TRANSLATION NEEDED",
+      "borrow": "TRANSLATION NEEDED",
+      "repay": "TRANSLATION NEEDED",
+      "supply": "TRANSLATION NEEDED",
+      "withdraw": "TRANSLATION NEEDED"
+    },
+    "eModeBlockedActionNotice": {
+      "borrow": "TRANSLATION NEEDED"
+    }
+  },
+  "assetWarning": {
+    "borrowDescription": "TRANSLATION NEEDED",
+    "modalTitle": "TRANSLATION NEEDED",
+    "supplyDescription": "TRANSLATION NEEDED"
+  },
+  "binanceWalletBanner": {
+    "bgIllustrationAltText": "TRANSLATION NEEDED",
+    "binanceLogoAltText": "TRANSLATION NEEDED",
+    "description": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
+  },
+  "boostBanner": {
+    "description": "TRANSLATION NEEDED",
+    "rocketAltText": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
+  },
+  "breadcrumbs": {
+    "bridge": "TRANSLATION NEEDED",
+    "dashboard": "TRANSLATION NEEDED",
+    "governance": "TRANSLATION NEEDED",
+    "isolatedPools": "TRANSLATION NEEDED",
+    "leaderboard": "TRANSLATION NEEDED",
+    "markets": "TRANSLATION NEEDED",
+    "primeCalculator": "TRANSLATION NEEDED",
+    "proposal": "TRANSLATION NEEDED",
+    "staking": "TRANSLATION NEEDED",
+    "swap": "TRANSLATION NEEDED",
+    "vai": "TRANSLATION NEEDED"
+  },
+  "bridgePage": {
+    "amountInput": {
+      "label": "TRANSLATION NEEDED",
+      "maxButtonLabel": "TRANSLATION NEEDED"
+    },
+    "bridgeGasFee": {
+      "label": "TRANSLATION NEEDED",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "errors": {
+      "dailyTransactionLimitExceeded": {
+        "message": "TRANSLATION NEEDED",
+        "submitButton": "TRANSLATION NEEDED"
+      },
+      "doesNotHaveEnoughNativeFunds": "TRANSLATION NEEDED",
+      "doesNotHaveEnoughXvs": "TRANSLATION NEEDED",
+      "mintCapReached": {
+        "message": "TRANSLATION NEEDED",
+        "submitButton": "TRANSLATION NEEDED"
+      },
+      "singleTransactionLimitExceeded": {
+        "message": "TRANSLATION NEEDED",
+        "submitButton": "TRANSLATION NEEDED"
+      }
+    },
+    "footer": {
+      "bridgeDocLink": "TRANSLATION NEEDED",
+      "poweredBy": "TRANSLATION NEEDED"
+    },
+    "fromChainSelect": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "submitButton": {
+      "label": {
+        "enterValidAmount": "TRANSLATION NEEDED",
+        "submit": "TRANSLATION NEEDED"
+      }
+    },
+    "toChainSelect": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "walletBalance": {
+      "label": "TRANSLATION NEEDED"
+    }
+  },
+  "burnedWBnbButton": {
+    "iconAlt": "TRANSLATION NEEDED"
+  },
+  "chainExplorerLink": {
+    "content": "TRANSLATION NEEDED"
+  },
+  "chip": {
+    "proposalType": {
+      "critical": "TRANSLATION NEEDED",
+      "fastTrack": "TRANSLATION NEEDED"
+    }
+  },
+  "claimReward": {
+    "modal": {
+      "claimButton": {
+        "disabledLabel": "TRANSLATION NEEDED",
+        "enabledLabel": "TRANSLATION NEEDED"
+      },
+      "claimOn": "TRANSLATION NEEDED",
+      "externalRewards": "TRANSLATION NEEDED",
+      "primeGroup": {
+        "disabledContractWarningMessage": "TRANSLATION NEEDED",
+        "name": "TRANSLATION NEEDED"
+      },
+      "rewards": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "vaultGroup": {
+        "disabledContractWarningMessage": "TRANSLATION NEEDED",
+        "name": "TRANSLATION NEEDED"
+      },
+      "vestingVaultGroup": {
+        "name": "TRANSLATION NEEDED"
+      }
+    }
+  },
+  "connectButton": {
+    "connect": "TRANSLATION NEEDED",
+    "disconnect": "TRANSLATION NEEDED"
+  },
+  "connectWallet": {
+    "connectButton": "TRANSLATION NEEDED"
+  },
+  "eModeBanner": {
+    "exploreButtonLabel": "TRANSLATION NEEDED",
+    "illustrationAltText": "TRANSLATION NEEDED",
+    "manageEModeButtonLabel": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
+  },
+  "errors": {
+    "couldNotRetrieveSigner": "TRANSLATION NEEDED",
+    "couldNotSwitchChain": "TRANSLATION NEEDED",
+    "missingAbstainDescription": "TRANSLATION NEEDED",
+    "missingAgainstDescription": "TRANSLATION NEEDED",
+    "missingDescription": "TRANSLATION NEEDED",
+    "missingForDescription": "TRANSLATION NEEDED",
+    "missingParamForSignature": "TRANSLATION NEEDED",
+    "missingSafeWalletApiUrl": "TRANSLATION NEEDED",
+    "missingTargetForSignature": "TRANSLATION NEEDED",
+    "missingTitle": "TRANSLATION NEEDED",
+    "noMetaKey": "TRANSLATION NEEDED",
+    "noParamsKey": "TRANSLATION NEEDED",
+    "noSignaturesKey": "TRANSLATION NEEDED",
+    "noSwapQuoteFound": "TRANSLATION NEEDED",
+    "noTargetsKey": "TRANSLATION NEEDED",
+    "noTypeKey": "TRANSLATION NEEDED",
+    "proposalNotFound": "TRANSLATION NEEDED",
+    "somethingWentWrong": "TRANSLATION NEEDED",
+    "somethingWentWrongRetrievingTransactions": "TRANSLATION NEEDED",
+    "somethingWentWrongRetrievingVoterAccounts": "TRANSLATION NEEDED",
+    "somethingWentWrongRetrievingVoterDetails": "TRANSLATION NEEDED",
+    "somethingWentWrongRetrievingVoterHistory": "TRANSLATION NEEDED",
+    "undefinedAccountErrorMessage": "TRANSLATION NEEDED",
+    "validationError": "TRANSLATION NEEDED",
+    "walletNotConnected": "TRANSLATION NEEDED"
+  },
+  "errorState": {
+    "defaultMessage": "TRANSLATION NEEDED"
+  },
+  "footer": {
+    "links": {
+      "documentation": "TRANSLATION NEEDED",
+      "privacyPolicy": "TRANSLATION NEEDED",
+      "termsOfUse": "TRANSLATION NEEDED"
+    }
+  },
+  "gaslessTransactions": {
+    "chainLabel": "TRANSLATION NEEDED",
+    "errorModal": {
+      "cancel": "TRANSLATION NEEDED",
+      "description": "TRANSLATION NEEDED",
+      "resendButtonLabel": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "tooltip": {
+      "disabled": "TRANSLATION NEEDED",
+      "enabled": "TRANSLATION NEEDED"
+    }
+  },
+  "healthFactor": {
+    "label": {
+      "healthy": "TRANSLATION NEEDED",
+      "liquidation": "TRANSLATION NEEDED",
+      "moderate": "TRANSLATION NEEDED",
+      "risky": "TRANSLATION NEEDED"
+    }
+  },
+  "importPositionsModal": {
+    "aave": {
+      "logoAlt": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "emptyState": "TRANSLATION NEEDED",
+    "gasLess": {
+      "label": "TRANSLATION NEEDED",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "infoSection": {
+      "1": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      },
+      "2": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      },
+      "3": {
+        "description": "TRANSLATION NEEDED",
+        "title": "TRANSLATION NEEDED"
+      },
+      "title": "TRANSLATION NEEDED"
+    },
+    "limitNotice": "TRANSLATION NEEDED",
+    "position": {
+      "currentApy": {
+        "label": "TRANSLATION NEEDED"
+      },
+      "importButtonLabel": "TRANSLATION NEEDED",
+      "missedYearlyGains": "TRANSLATION NEEDED",
+      "newApy": {
+        "label": "TRANSLATION NEEDED"
+      }
+    },
+    "title": "TRANSLATION NEEDED"
+  },
+  "interactive": {
+    "addToWallet": {
+      "modalTitle": "TRANSLATION NEEDED"
+    },
+    "copy": {
+      "address": {
+        "modalTitle": "TRANSLATION NEEDED",
+        "name": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      }
+    },
+    "copyToClipboard": "TRANSLATION NEEDED",
+    "goTo": {
+      "modalTitle": "TRANSLATION NEEDED"
+    }
+  },
+  "interestRateChart": {
+    "currentUtilizationRateLabelValue": "TRANSLATION NEEDED",
+    "tooltipItemLabels": {
+      "borrowApy": "TRANSLATION NEEDED",
+      "supplyApy": "TRANSLATION NEEDED",
+      "utilizationRate": "TRANSLATION NEEDED"
+    }
+  },
+  "isolatedPoolsSunsetBanner": {
+    "description": "TRANSLATION NEEDED",
+    "illustrationAltText": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
+  },
+  "layout": {
+    "chainSelect": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "header": {
+      "liquidity": "TRANSLATION NEEDED",
+      "maxLtv": {
+        "label": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "price": "TRANSLATION NEEDED",
+      "supply": "TRANSLATION NEEDED",
+      "utilizationRate": "TRANSLATION NEEDED"
+    },
+    "menu": {
+      "dashboard": {
+        "label": "TRANSLATION NEEDED"
+      },
+      "label": "TRANSLATION NEEDED",
+      "markets": {
+        "label": "TRANSLATION NEEDED"
+      },
+      "others": {
+        "bridge": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        },
+        "governance": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        },
+        "isolatedPools": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        },
+        "label": "TRANSLATION NEEDED",
+        "port": {
+          "label": "TRANSLATION NEEDED"
+        },
+        "swap": {
+          "label": "TRANSLATION NEEDED"
+        },
+        "vai": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        }
+      },
+      "settings": {
+        "gasLessTransactions": {
+          "label": "TRANSLATION NEEDED"
+        },
+        "language": {
+          "label": "TRANSLATION NEEDED"
+        }
+      },
+      "staking": {
+        "label": "TRANSLATION NEEDED"
+      },
+      "subMenuItem": {
+        "button": {
+          "label": "TRANSLATION NEEDED"
+        }
+      },
+      "venusLogoAlt": "TRANSLATION NEEDED"
+    },
+    "settingsModal": {
+      "title": "TRANSLATION NEEDED"
+    },
+    "testEnvWarning": "TRANSLATION NEEDED"
+  },
+  "layouts": {
+    "menu": {
+      "markets": {
+        "venusCore": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        },
+        "venusX": {
+          "description": "TRANSLATION NEEDED",
+          "label": "TRANSLATION NEEDED"
+        }
+      }
+    }
+  },
+  "markdownEditor": {
+    "markdownTabLabel": "TRANSLATION NEEDED",
+    "placeholder": "TRANSLATION NEEDED",
+    "previewTabLabel": "TRANSLATION NEEDED"
+  },
+  "market": {
+    "borrowCapThreshold": {
+      "title": "TRANSLATION NEEDED",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "borrowInfo": {
+      "title": "TRANSLATION NEEDED"
+    },
+    "interestRateModel": {
+      "title": "TRANSLATION NEEDED"
+    },
+    "legends": {
+      "borrowApy": "TRANSLATION NEEDED",
+      "supplyApy": "TRANSLATION NEEDED",
+      "utilizationRate": "TRANSLATION NEEDED"
+    },
+    "marketInfo": {
+      "stats": {
+        "borrowerCountLabel": "TRANSLATION NEEDED",
+        "dailyBorrowingInterestsLabel": "TRANSLATION NEEDED",
+        "dailyDistribution": "TRANSLATION NEEDED",
+        "dailySupplyingInterestsLabel": "TRANSLATION NEEDED",
+        "exchangeRateLabel": "TRANSLATION NEEDED",
+        "exchangeRateValue": "TRANSLATION NEEDED",
+        "reserveFactorLabel": "TRANSLATION NEEDED",
+        "supplierCountLabel": "TRANSLATION NEEDED"
+      }
+    },
+    "periodOption": {
+      "oneYear": "TRANSLATION NEEDED",
+      "sixMonths": "TRANSLATION NEEDED",
+      "thirtyDays": "TRANSLATION NEEDED"
+    },
+    "stats": {
+      "apy": "TRANSLATION NEEDED",
+      "averageApy": "TRANSLATION NEEDED",
+      "liquidationPenalty": "TRANSLATION NEEDED",
+      "liquidationThreshold": "TRANSLATION NEEDED"
+    },
+    "supplyCapThreshold": {
+      "title": "TRANSLATION NEEDED",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "supplyInfo": {
+      "title": "TRANSLATION NEEDED"
+    }
+  },
+  "markets": {
+    "eMode": {
+      "group": {
+        "cannotDisable": {
+          "tooltip": {
+            "blockingPositions": "TRANSLATION NEEDED",
+            "notEnoughCollateral": "TRANSLATION NEEDED"
+          }
+        },
+        "cannotEnable": {
+          "modal": {
+            "description": "TRANSLATION NEEDED",
+            "repayButtonLabel": "TRANSLATION NEEDED",
+            "title": "TRANSLATION NEEDED"
+          },
+          "tooltip": {
+            "blockingPositions": "TRANSLATION NEEDED",
+            "notEnoughCollateral": "TRANSLATION NEEDED"
+          }
+        },
+        "disableButtonLabel": "TRANSLATION NEEDED",
+        "disabledNotice": "TRANSLATION NEEDED",
+        "enableButtonLabel": "TRANSLATION NEEDED",
+        "healthFactor": "TRANSLATION NEEDED",
+        "switchButtonLabel": "TRANSLATION NEEDED"
+      },
+      "notice": "TRANSLATION NEEDED",
+      "search": {
+        "placeholder": "TRANSLATION NEEDED"
+      },
+      "table": {
+        "card": {
+          "header": {
+            "borrowable": "TRANSLATION NEEDED",
+            "collateral": "TRANSLATION NEEDED"
+          },
+          "rows": {
+            "liquidationPenalty": "TRANSLATION NEEDED",
+            "liquidationThreshold": "TRANSLATION NEEDED",
+            "maxLtv": "TRANSLATION NEEDED"
+          }
+        },
+        "columns": {
+          "asset": "TRANSLATION NEEDED",
+          "collateral": "TRANSLATION NEEDED",
+          "isBorrowable": "TRANSLATION NEEDED",
+          "liquidationPenalty": "TRANSLATION NEEDED",
+          "liquidationThreshold": "TRANSLATION NEEDED",
+          "maxLtv": "TRANSLATION NEEDED",
+          "penalty": "TRANSLATION NEEDED",
+          "threshold": "TRANSLATION NEEDED"
+        },
+        "mobileSelectLabel": "TRANSLATION NEEDED"
+      }
+    },
+    "errors": {
+      "accountError": "TRANSLATION NEEDED",
+      "collateralDisableError": "TRANSLATION NEEDED",
+      "collateralEnableError": "TRANSLATION NEEDED",
+      "collateralRequired": "TRANSLATION NEEDED"
+    },
+    "isolatedEModeGroupTooltip": {
+      "content": "TRANSLATION NEEDED",
+      "label": "TRANSLATION NEEDED"
+    },
+    "tabs": {
+      "assets": {
+        "title": "TRANSLATION NEEDED"
+      },
+      "eMode": {
+        "illustrationAltText": "TRANSLATION NEEDED",
+        "liquidationPenalty": {
+          "label": "TRANSLATION NEEDED"
+        },
+        "liquidationThreshold": {
+          "label": "TRANSLATION NEEDED"
+        },
+        "maxLtv": {
+          "label": "TRANSLATION NEEDED",
+          "tooltip": "TRANSLATION NEEDED"
+        },
+        "title": "TRANSLATION NEEDED"
+      }
+    }
+  },
+  "marketTable": {
+    "assetColumn": {
+      "eMode": "TRANSLATION NEEDED",
+      "pausedAssetTooltip": "TRANSLATION NEEDED"
+    },
+    "columnKeys": {
+      "asset": "TRANSLATION NEEDED",
+      "borrowApy": "TRANSLATION NEEDED",
+      "borrowBalance": "TRANSLATION NEEDED",
+      "collateral": "TRANSLATION NEEDED",
+      "labeledBorrowApy": "TRANSLATION NEEDED",
+      "labeledSupplyApy": "TRANSLATION NEEDED",
+      "liquidity": "TRANSLATION NEEDED",
+      "price": "TRANSLATION NEEDED",
+      "supplyApy": "TRANSLATION NEEDED",
+      "supplyBalance": "TRANSLATION NEEDED",
+      "userBorrowBalance": "TRANSLATION NEEDED",
+      "userBorrowLimitSharePercentage": "TRANSLATION NEEDED",
+      "userSupplyBalance": "TRANSLATION NEEDED",
+      "userWalletBalance": "TRANSLATION NEEDED"
+    },
+    "columnSelectOptionLabel": {
+      "asset": "TRANSLATION NEEDED",
+      "borrowApy": "TRANSLATION NEEDED",
+      "borrowBalance": "TRANSLATION NEEDED",
+      "collateral": "TRANSLATION NEEDED",
+      "labeledBorrowApy": "TRANSLATION NEEDED",
+      "labeledSupplyApy": "TRANSLATION NEEDED",
+      "liquidity": "TRANSLATION NEEDED",
+      "price": "TRANSLATION NEEDED",
+      "supplyApy": "TRANSLATION NEEDED",
+      "supplyBalance": "TRANSLATION NEEDED",
+      "userBorrowBalance": "TRANSLATION NEEDED",
+      "userBorrowLimitSharePercentage": "TRANSLATION NEEDED",
+      "userSupplyBalance": "TRANSLATION NEEDED",
+      "userWalletBalance": "TRANSLATION NEEDED"
+    },
+    "columnTooltips": {
+      "borrowApy": "TRANSLATION NEEDED",
+      "supplyApy": "TRANSLATION NEEDED"
+    },
+    "pausedAssetsPlaceholder": {
+      "description": "TRANSLATION NEEDED",
+      "imgAlt": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "pausedAssetsToggle": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "searchInput": {
+      "placeholder": "TRANSLATION NEEDED"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "userEModeAssetsOnlyToggle": {
+      "label": "TRANSLATION NEEDED"
+    }
+  },
+  "operationForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "riskyOperation": {
+        "label": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      }
+    },
+    "availableAmount": "TRANSLATION NEEDED",
+    "boostTabAltText": "TRANSLATION NEEDED",
+    "boostTabTitle": "TRANSLATION NEEDED",
+    "borrow": "TRANSLATION NEEDED",
+    "borrowTabTitle": "TRANSLATION NEEDED",
+    "collateral": "TRANSLATION NEEDED",
+    "collateralField": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "error": {
+      "borrowCapReached": "TRANSLATION NEEDED",
+      "higherThanAvailableAmount": "TRANSLATION NEEDED",
+      "higherThanAvailableLiquidity": "TRANSLATION NEEDED",
+      "higherThanBorrowBalance": "TRANSLATION NEEDED",
+      "higherThanBorrowCap": "TRANSLATION NEEDED",
+      "higherThanRepayBalance": "TRANSLATION NEEDED",
+      "higherThanSupplyCap": "TRANSLATION NEEDED",
+      "higherThanWalletBalance": "TRANSLATION NEEDED",
+      "higherThanWalletSpendingLimit": "TRANSLATION NEEDED",
+      "insufficientSwapLiquidity": "TRANSLATION NEEDED",
+      "noCollateral": "TRANSLATION NEEDED",
+      "noSwapQuoteFound": "TRANSLATION NEEDED",
+      "priceImpactTooHigh": "TRANSLATION NEEDED",
+      "supplyCapReached": "TRANSLATION NEEDED",
+      "tooRisky": "TRANSLATION NEEDED",
+      "unwrappingUnsupported": "TRANSLATION NEEDED",
+      "wrappingUnsupported": "TRANSLATION NEEDED"
+    },
+    "receiveNativeToken": {
+      "label": "TRANSLATION NEEDED",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "repaidField": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "repay": {
+      "fullRepaymentWarning": "TRANSLATION NEEDED",
+      "swappingWithHighPriceImpactWarning": "TRANSLATION NEEDED"
+    },
+    "repayTab": {
+      "collateralTabTitle": "TRANSLATION NEEDED",
+      "noCollateralWarning": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED",
+      "walletBalanceTabTitle": "TRANSLATION NEEDED"
+    },
+    "rightMaxButtonLabel": "TRANSLATION NEEDED",
+    "riskSlider": {
+      "highRisk": "TRANSLATION NEEDED",
+      "lowRisk": "TRANSLATION NEEDED"
+    },
+    "safeMaxButtonLabel": "TRANSLATION NEEDED",
+    "submitButtonLabel": {
+      "boost": "TRANSLATION NEEDED",
+      "borrow": "TRANSLATION NEEDED",
+      "enterValidAmount": "TRANSLATION NEEDED",
+      "repay": "TRANSLATION NEEDED",
+      "supply": "TRANSLATION NEEDED",
+      "withdraw": "TRANSLATION NEEDED"
+    },
+    "supply": "TRANSLATION NEEDED",
+    "supplyTabTitle": "TRANSLATION NEEDED",
+    "swapDetails": {
+      "label": {
+        "repay": "TRANSLATION NEEDED",
+        "supply": "TRANSLATION NEEDED"
+      },
+      "value": {
+        "estimatedAmount": "TRANSLATION NEEDED",
+        "exactAmount": "TRANSLATION NEEDED"
+      }
+    },
+    "swapSummary": {
+      "repay": "TRANSLATION NEEDED",
+      "supply": "TRANSLATION NEEDED"
+    },
+    "walletBalance": "TRANSLATION NEEDED",
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "TRANSLATION NEEDED"
+    },
+    "withdrawTabTitle": "TRANSLATION NEEDED"
+  },
+  "pagination": {
+    "itemOf": "TRANSLATION NEEDED",
+    "itemsOf": "TRANSLATION NEEDED"
+  },
+  "poolsStats": {
+    "cell": {
+      "assetsLabel": "TRANSLATION NEEDED",
+      "availableLiquidityLabel": "TRANSLATION NEEDED",
+      "dailyXvsDistributionLabel": "TRANSLATION NEEDED",
+      "totalBorrowLabel": "TRANSLATION NEEDED",
+      "totalSupplyLabel": "TRANSLATION NEEDED",
+      "treasuryLabel": "TRANSLATION NEEDED"
+    }
+  },
+  "primeButton": {
+    "primeLogoAlt": "TRANSLATION NEEDED"
+  },
+  "primeCalculator": {
+    "borrowedTokens": {
+      "infos": {
+        "label": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "textField": {
+        "label": "TRANSLATION NEEDED"
+      }
+    },
+    "rewardDetails": {
+      "fromBorrowedTokens": "TRANSLATION NEEDED",
+      "fromSuppliedTokens": "TRANSLATION NEEDED",
+      "primeBorrowApy": {
+        "title": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "primeSupplyApy": {
+        "title": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "title": "TRANSLATION NEEDED",
+      "totalDailyRewards": {
+        "title": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "yourDailyRewards": "TRANSLATION NEEDED"
+    },
+    "stakedTokens": {
+      "infos": {
+        "error": "TRANSLATION NEEDED",
+        "label": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "textField": {
+        "label": "TRANSLATION NEEDED"
+      }
+    },
+    "suppliedTokens": {
+      "infos": {
+        "label": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "textField": {
+        "label": "TRANSLATION NEEDED"
+      }
+    },
+    "tokenSelect": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "topMessage": "TRANSLATION NEEDED"
+  },
+  "primeStatusBanner": {
+    "becomePrimeTitle": "TRANSLATION NEEDED",
+    "claimButtonLabel": "TRANSLATION NEEDED",
+    "description": {
+      "primeCalculator": "TRANSLATION NEEDED",
+      "primeDoc": "TRANSLATION NEEDED"
+    },
+    "noPrimeTokenWarning": {
+      "text": "TRANSLATION NEEDED",
+      "tooltip": "TRANSLATION NEEDED"
+    },
+    "progressBar": {
+      "ariaLabel": "TRANSLATION NEEDED",
+      "label": "TRANSLATION NEEDED"
+    },
+    "promotionalTitle": "TRANSLATION NEEDED",
+    "stakeButtonLabel": "TRANSLATION NEEDED",
+    "tokensLeft": "TRANSLATION NEEDED",
+    "tokensLeft_one": "TRANSLATION NEEDED",
+    "tokensLeft_many": "TRANSLATION NEEDED",
+    "waitForPrimeTitle": "TRANSLATION NEEDED"
+  },
+  "probableBanner": {
+    "description": "TRANSLATION NEEDED",
+    "probableAltText": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
+  },
+  "proposalList": {
+    "selectOptions": {
+      "all": {
+        "label": "TRANSLATION NEEDED"
+      }
+    }
+  },
+  "proposalState": {
+    "active": "TRANSLATION NEEDED",
+    "bridged": "TRANSLATION NEEDED",
+    "canceled": "TRANSLATION NEEDED",
+    "defeated": "TRANSLATION NEEDED",
+    "executed": "TRANSLATION NEEDED",
+    "expired": "TRANSLATION NEEDED",
+    "failed": "TRANSLATION NEEDED",
+    "pending": "TRANSLATION NEEDED",
+    "queued": "TRANSLATION NEEDED",
+    "succeeded": "TRANSLATION NEEDED"
+  },
+  "select": {
+    "defaultLabel": "TRANSLATION NEEDED"
+  },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "TRANSLATION NEEDED"
+    }
+  },
+  "spendingLimit": {
+    "label": "TRANSLATION NEEDED",
+    "labelTooltip": "TRANSLATION NEEDED",
+    "revokeButtonTooltip": "TRANSLATION NEEDED"
+  },
+  "stakeModal": {
+    "availableTokensLabel": "TRANSLATION NEEDED",
+    "connectWalletMessage": "TRANSLATION NEEDED",
+    "submitButtonDisabledLabel": "TRANSLATION NEEDED",
+    "submitButtonLabel": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
+  },
+  "swap": {
+    "errors": {
+      "amountAboveWalletSpendingLimit": "TRANSLATION NEEDED",
+      "incorrectSwapInput": "TRANSLATION NEEDED"
+    },
+    "swapDetails": {
+      "label": {
+        "exchangeRate": "TRANSLATION NEEDED",
+        "maximumSold": "TRANSLATION NEEDED",
+        "minimumReceived": "TRANSLATION NEEDED",
+        "priceImpact": "TRANSLATION NEEDED",
+        "slippageTolerance": "TRANSLATION NEEDED"
+      },
+      "tooltip": {
+        "priceImpact": "TRANSLATION NEEDED"
+      },
+      "value": {
+        "exactAmount": "TRANSLATION NEEDED",
+        "exchangeRate": "TRANSLATION NEEDED",
+        "priceImpact": "TRANSLATION NEEDED"
+      }
+    },
+    "warning": {
+      "swappingWithHighPriceImpactWarning": "TRANSLATION NEEDED"
+    }
+  },
+  "swapDetails": {
+    "priceImpact": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "slippageTolerance": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "slippageToleranceModal": {
+      "description": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    }
+  },
+  "swapPage": {
+    "connectWalletToSwap": "TRANSLATION NEEDED",
+    "fromTokenAmountField": {
+      "label": "TRANSLATION NEEDED",
+      "max": "TRANSLATION NEEDED"
+    },
+    "submitButton": {
+      "disabledLabels": {
+        "insufficientLiquidity": "TRANSLATION NEEDED",
+        "insufficientUserBalance": "TRANSLATION NEEDED",
+        "invalidFromTokenAmount": "TRANSLATION NEEDED",
+        "priceImpactHigherThanMaximumTolerated": "TRANSLATION NEEDED",
+        "processing": "TRANSLATION NEEDED",
+        "spendingLimitTooLow": "TRANSLATION NEEDED",
+        "unwrappingUnsupported": "TRANSLATION NEEDED",
+        "wrappingUnsupported": "TRANSLATION NEEDED"
+      },
+      "enabledLabels": {
+        "swap": "TRANSLATION NEEDED",
+        "swapWithHighPriceImpact": "TRANSLATION NEEDED"
+      }
+    },
+    "toTokenAmountField": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "walletBalance": "TRANSLATION NEEDED"
+  },
+  "switchChain": {
+    "switchButton": "TRANSLATION NEEDED"
+  },
+  "switchChainNotice": {
+    "buttonLabel": "TRANSLATION NEEDED",
+    "description": "TRANSLATION NEEDED"
+  },
+  "table": {
+    "cardsSelect": {
+      "label": "TRANSLATION NEEDED"
+    }
+  },
+  "transactionErrors": {
+    "acceptAdminPendingAdminCheck": "TRANSLATION NEEDED",
+    "acceptPendingImplementationAddressCheck": "TRANSLATION NEEDED",
+    "accrueInterestAccumulatedInterestCalculationFailed": "TRANSLATION NEEDED",
+    "accrueInterestBorrowRateCalculationFailed": "TRANSLATION NEEDED",
+    "accrueInterestNewBorrowIndexCalculationFailed": "TRANSLATION NEEDED",
+    "accrueInterestNewTotalBorrowsCalculationFailed": "TRANSLATION NEEDED",
+    "accrueInterestNewTotalReservesCalculationFailed": "TRANSLATION NEEDED",
+    "accrueInterestSimpleInterestFactorCalculationFailed": "TRANSLATION NEEDED",
+    "addReservesAccrueInterestFailed": "TRANSLATION NEEDED",
+    "addReservesFreshCheck": "TRANSLATION NEEDED",
+    "addReservesTransferInNotPossible": "TRANSLATION NEEDED",
+    "badInput": "TRANSLATION NEEDED",
+    "borrowAccrueInterestFailed": "TRANSLATION NEEDED",
+    "borrowAccumulatedBalanceCalculationFailed": "TRANSLATION NEEDED",
+    "borrowCashNotAvailable": "TRANSLATION NEEDED",
+    "borrowComptrollerRejection": "TRANSLATION NEEDED",
+    "borrowFreshnessCheck": "TRANSLATION NEEDED",
+    "borrowMarketNotListed": "TRANSLATION NEEDED",
+    "borrowNewAccountBorrowBalanceCalculationFailed": "TRANSLATION NEEDED",
+    "borrowNewTotalBalanceCalculationFailed": "TRANSLATION NEEDED",
+    "comptrollerCalculationError": "TRANSLATION NEEDED",
+    "comptrollerMismatch": "TRANSLATION NEEDED",
+    "comptrollerRejection": "TRANSLATION NEEDED",
+    "exitMarketBalanceOwed": "TRANSLATION NEEDED",
+    "exitMarketRejection": "TRANSLATION NEEDED",
+    "gasEstimationFailed": "TRANSLATION NEEDED",
+    "gaslessTransactionNotAvailable": "TRANSLATION NEEDED",
+    "insufficientBalanceForVai": "TRANSLATION NEEDED",
+    "insufficientLiquidity": "TRANSLATION NEEDED",
+    "insufficientShortfall": "TRANSLATION NEEDED",
+    "interestRateModelError": "TRANSLATION NEEDED",
+    "invalidAccountPair": "TRANSLATION NEEDED",
+    "invalidCloseAmountRequested": "TRANSLATION NEEDED",
+    "invalidCloseFactor": "TRANSLATION NEEDED",
+    "invalidCollateralFactor": "TRANSLATION NEEDED",
+    "invalidLiquidationIncentive": "TRANSLATION NEEDED",
+    "liquidateAccrueBorrowInterestFailed": "TRANSLATION NEEDED",
+    "liquidateAccrueCollateralInterestFailed": "TRANSLATION NEEDED",
+    "liquidateCloseAmountIsUintMax": "TRANSLATION NEEDED",
+    "liquidateCloseAmountIsZero": "TRANSLATION NEEDED",
+    "liquidateCollateralFreshnessCheck": "TRANSLATION NEEDED",
+    "liquidateComptrollerCalculateAmountSeizeFailed": "TRANSLATION NEEDED",
+    "liquidateComptrollerRejection": "TRANSLATION NEEDED",
+    "liquidateFreshnessCheck": "TRANSLATION NEEDED",
+    "liquidateSeizeBalanceDecrementFailed": "TRANSLATION NEEDED",
+    "liquidateSeizeBalanceIncrementFailed": "TRANSLATION NEEDED",
+    "liquidateSeizeBorrowFreshFailed": "TRANSLATION NEEDED",
+    "liquidateSeizeComptrollerRejection": "TRANSLATION NEEDED",
+    "liquidateSeizeIsBorrower": "TRANSLATION NEEDED",
+    "liquidateSeizeLiquidatorIsBorrower": "TRANSLATION NEEDED",
+    "liquidateSeizeTooMuch": "TRANSLATION NEEDED",
+    "marketAlreadyListed": "TRANSLATION NEEDED",
+    "marketNotEntered": "TRANSLATION NEEDED",
+    "marketNotFresh": "TRANSLATION NEEDED",
+    "marketNotListed": "TRANSLATION NEEDED",
+    "mathError": "TRANSLATION NEEDED",
+    "mintAccrueInterestFailed": "TRANSLATION NEEDED",
+    "mintComptrollerRejection": "TRANSLATION NEEDED",
+    "mintExchangeRateReadFailed": "TRANSLATION NEEDED",
+    "mintFeeCalculationFailed": "TRANSLATION NEEDED",
+    "mintFreshnessCheck": "TRANSLATION NEEDED",
+    "mintNewAccountBalanceCalculationFailed": "TRANSLATION NEEDED",
+    "mintNewTotalSupplyCalculationFailed": "TRANSLATION NEEDED",
+    "mintTransferInFailed": "TRANSLATION NEEDED",
+    "mintTransferNotPossible": "TRANSLATION NEEDED",
+    "noError": "TRANSLATION NEEDED",
+    "nonzeroBorrowBalance": "TRANSLATION NEEDED",
+    "priceError": "TRANSLATION NEEDED",
+    "redeemAccrueInterestFailed": "TRANSLATION NEEDED",
+    "redeemComptrollerRejection": "TRANSLATION NEEDED",
+    "redeemExchangeAmountCalculatioFailed": "TRANSLATION NEEDED",
+    "redeemExchangeRateReadFailed": "TRANSLATION NEEDED",
+    "redeemExchangeTokensCalculationFailed": "TRANSLATION NEEDED",
+    "redeemFeeCalculationFailed": "TRANSLATION NEEDED",
+    "redeemFreshnessCheck": "TRANSLATION NEEDED",
+    "redeemNewAccountBalanceCalculationFailed": "TRANSLATION NEEDED",
+    "redeemNewTotalSupplyCalculationFailed": "TRANSLATION NEEDED",
+    "redeemTransferOutNotPossible": "TRANSLATION NEEDED",
+    "reduceReservesAccrueInterestFailed": "TRANSLATION NEEDED",
+    "reduceReservesAdminCheck": "TRANSLATION NEEDED",
+    "reduceReservesCashNotAvailable": "TRANSLATION NEEDED",
+    "reduceReservesFreshCheck": "TRANSLATION NEEDED",
+    "reduceReservesValidation": "TRANSLATION NEEDED",
+    "rejection": "TRANSLATION NEEDED",
+    "repayBehalfAccrueInterestFailed": "TRANSLATION NEEDED",
+    "repayBorrowAccrueInterestFailed": "TRANSLATION NEEDED",
+    "repayBorrowAccumulatedBalanceCalculationFailed": "TRANSLATION NEEDED",
+    "repayBorrowComptrollerRejection": "TRANSLATION NEEDED",
+    "repayBorrowFreshnessCheck": "TRANSLATION NEEDED",
+    "repayBorrowNewAccountBorrowBalanceCalculationFailed": "TRANSLATION NEEDED",
+    "repayBorrowTransferInNotPossible": "TRANSLATION NEEDED",
+    "repayBorrowTransferNotPossible": "TRANSLATION NEEDED",
+    "repayVaiComptrollerRejection": "TRANSLATION NEEDED",
+    "repayVaiFreshnessCheck": "TRANSLATION NEEDED",
+    "setCloseFactorOwnerCheck": "TRANSLATION NEEDED",
+    "setCloseFactorValidation": "TRANSLATION NEEDED",
+    "setCollateralFactorNoExists": "TRANSLATION NEEDED",
+    "setCollateralFactorOwnerCheck": "TRANSLATION NEEDED",
+    "setCollateralFactorValidation": "TRANSLATION NEEDED",
+    "setCollateralFactorWithoutPrice": "TRANSLATION NEEDED",
+    "setComptrollerOwnerCheck": "TRANSLATION NEEDED",
+    "setImplementationOwnerCheck": "TRANSLATION NEEDED",
+    "setInterestRateModelAccrueInterestFailed": "TRANSLATION NEEDED",
+    "setInterestRateModelFreshCheck": "TRANSLATION NEEDED",
+    "setInterestRateModelOwnerCheck": "TRANSLATION NEEDED",
+    "setLiquidationIncentiveOwnerCheck": "TRANSLATION NEEDED",
+    "setLiquidationIncentiveValidation": "TRANSLATION NEEDED",
+    "setMaxAssetsOwnerCheck": "TRANSLATION NEEDED",
+    "setMintedVaiRejection": "TRANSLATION NEEDED",
+    "setOracleMarketNotListed": "TRANSLATION NEEDED",
+    "setPauseGuardianOwnerCheck": "TRANSLATION NEEDED",
+    "setPendingAdminOwnerCheck": "TRANSLATION NEEDED",
+    "setPendingImplementationOwnerCheck": "TRANSLATION NEEDED",
+    "setPriceOracleOwnerCheck": "TRANSLATION NEEDED",
+    "setReserveFactorAccrueInterestFailed": "TRANSLATION NEEDED",
+    "setReserveFactorAdminCheck": "TRANSLATION NEEDED",
+    "setReserveFactorBoundsCheck": "TRANSLATION NEEDED",
+    "setReserveFactorFreshCheck": "TRANSLATION NEEDED",
+    "setTreasuryOwnerCheck": "TRANSLATION NEEDED",
+    "setVaiControllerOwnerCheck": "TRANSLATION NEEDED",
+    "setVaiMintRateCheck": "TRANSLATION NEEDED",
+    "sftMintNewAccountBalanceCalculationFailed": "TRANSLATION NEEDED",
+    "snapshotError": "TRANSLATION NEEDED",
+    "supportMarketExists": "TRANSLATION NEEDED",
+    "supportMarketOwnerCheck": "TRANSLATION NEEDED",
+    "tokenGetUnderlyingPriceError": "TRANSLATION NEEDED",
+    "tokenInsufficentCash": "TRANSLATION NEEDED",
+    "tokenInsufficientAllowance": "TRANSLATION NEEDED",
+    "tokenInsufficientBalance": "TRANSLATION NEEDED",
+    "tokenPriceError": "TRANSLATION NEEDED",
+    "tokenTransferInFailed": "TRANSLATION NEEDED",
+    "tokenTransferOutFailed": "TRANSLATION NEEDED",
+    "tooManyAssets": "TRANSLATION NEEDED",
+    "tooMuchRepay": "TRANSLATION NEEDED",
+    "transferComptrollerRejection": "TRANSLATION NEEDED",
+    "transferNotAllowed": "TRANSLATION NEEDED",
+    "transferNotEnough": "TRANSLATION NEEDED",
+    "transferTooMuch": "TRANSLATION NEEDED",
+    "unauthorized": "TRANSLATION NEEDED",
+    "vaiBurnRejection": "TRANSLATION NEEDED",
+    "vaiLiquidateAccrueBorrowInterestFailed": "TRANSLATION NEEDED",
+    "vaiLiquidateAccrueCollateralInterestFailed": "TRANSLATION NEEDED",
+    "vaiLiquidateCloseAmountIsUintMax": "TRANSLATION NEEDED",
+    "vaiLiquidateCloseAmountIsZero": "TRANSLATION NEEDED",
+    "vaiLiquidateCollateralFreshnessCheck": "TRANSLATION NEEDED",
+    "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "TRANSLATION NEEDED",
+    "vaiLiquidateComptrollerRejection": "TRANSLATION NEEDED",
+    "vaiLiquidateFreshnessCheck": "TRANSLATION NEEDED",
+    "vaiLiquidateLiquidatorIsBorrower": "TRANSLATION NEEDED",
+    "vaiLiquidateRepayBorrowFreshFailed": "TRANSLATION NEEDED",
+    "vaiLiquidateSeizeBalanceDecrementFailed": "TRANSLATION NEEDED",
+    "vaiLiquidateSeizeBalanceIncrementFailed": "TRANSLATION NEEDED",
+    "vaiLiquidateSeizeComptrollerRejection": "TRANSLATION NEEDED",
+    "vaiLiquidateSeizeLiquidatorIsBorrower": "TRANSLATION NEEDED",
+    "vaiLiquidateSeizeTooMuch": "TRANSLATION NEEDED",
+    "vaiMintExchangeCalculationFailed": "TRANSLATION NEEDED",
+    "vaiMintRejection": "TRANSLATION NEEDED"
+  },
+  "transactionNotification": {
+    "couldNotFetchReceipt": {
+      "title": "TRANSLATION NEEDED"
+    },
+    "failed": {
+      "title": "TRANSLATION NEEDED"
+    },
+    "pending": {
+      "title": "TRANSLATION NEEDED"
+    },
+    "success": {
+      "title": "TRANSLATION NEEDED"
+    }
+  },
+  "vai": {
+    "borrow": {
+      "amountTokensInput": {
+        "limitButtonLabel": "TRANSLATION NEEDED"
+      },
+      "availableAmount": {
+        "label": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "borrowApr": {
+        "label": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "fee": {
+        "label": "TRANSLATION NEEDED"
+      },
+      "notice": {
+        "amountHigherThanAccountMintableAmount": "TRANSLATION NEEDED",
+        "amountHigherThanLiquidity": "TRANSLATION NEEDED"
+      },
+      "primeOnlyWarning": "TRANSLATION NEEDED",
+      "submitButton": {
+        "borrowLabel": "TRANSLATION NEEDED",
+        "enterValidAmountLabel": "TRANSLATION NEEDED"
+      },
+      "tabTitle": "TRANSLATION NEEDED"
+    },
+    "headerMessage": "TRANSLATION NEEDED",
+    "repay": {
+      "amountTokensInput": {
+        "limitButtonLabel": "TRANSLATION NEEDED"
+      },
+      "borrowApr": {
+        "label": "TRANSLATION NEEDED",
+        "tooltip": "TRANSLATION NEEDED"
+      },
+      "notice": {
+        "amountHigherThanBorrowBalance": "TRANSLATION NEEDED",
+        "amountHigherThanWalletBalance": "TRANSLATION NEEDED",
+        "amountHigherThanWalletSpendingLimit": "TRANSLATION NEEDED",
+        "fullRepaymentWarning": "TRANSLATION NEEDED"
+      },
+      "submitButton": {
+        "enterValidAmountLabel": "TRANSLATION NEEDED",
+        "repayLabel": "TRANSLATION NEEDED"
+      },
+      "tabTitle": "TRANSLATION NEEDED",
+      "walletBalance": {
+        "label": "TRANSLATION NEEDED"
+      }
+    }
+  },
+  "vault": {
+    "blockingPendingWithdrawalsWarning": "TRANSLATION NEEDED",
+    "dailyEmission": "TRANSLATION NEEDED",
+    "pausedWarning": "TRANSLATION NEEDED",
+    "stakeButton": "TRANSLATION NEEDED",
+    "stakingApr": "TRANSLATION NEEDED",
+    "totalStaked": "TRANSLATION NEEDED",
+    "transactionForm": {
+      "lockingPeriod": {
+        "duration": "TRANSLATION NEEDED",
+        "label": "TRANSLATION NEEDED"
+      },
+      "rightMaxButtonLabel": "TRANSLATION NEEDED"
+    },
+    "withdrawButton": "TRANSLATION NEEDED",
+    "youAreStake": "TRANSLATION NEEDED"
+  },
+  "vote": {
+    "abstain": "TRANSLATION NEEDED",
+    "addComment": "TRANSLATION NEEDED",
+    "against": "TRANSLATION NEEDED",
+    "comment": "TRANSLATION NEEDED",
+    "createProposalForm": {
+      "abstainOption": "TRANSLATION NEEDED",
+      "action": "TRANSLATION NEEDED",
+      "actions": "TRANSLATION NEEDED",
+      "addDescription": "TRANSLATION NEEDED",
+      "addOneMoreAction": "TRANSLATION NEEDED",
+      "address": "TRANSLATION NEEDED",
+      "againstOption": "TRANSLATION NEEDED",
+      "confirm": "TRANSLATION NEEDED",
+      "create": "TRANSLATION NEEDED",
+      "description": "TRANSLATION NEEDED",
+      "forOption": "TRANSLATION NEEDED",
+      "name": "TRANSLATION NEEDED",
+      "nextStep": "TRANSLATION NEEDED",
+      "proposalName": "TRANSLATION NEEDED",
+      "proposalType": "TRANSLATION NEEDED",
+      "signature": "TRANSLATION NEEDED",
+      "submitError": "TRANSLATION NEEDED",
+      "votingOptions": "TRANSLATION NEEDED"
+    },
+    "createProposalModal": {
+      "createManually": "TRANSLATION NEEDED",
+      "createProposal": "TRANSLATION NEEDED",
+      "uploadFile": "TRANSLATION NEEDED",
+      "youCanEitherCreateManuallyOrUpload": "TRANSLATION NEEDED"
+    },
+    "createProposalPlus": "TRANSLATION NEEDED",
+    "delegate": "TRANSLATION NEEDED",
+    "delegateAddress": "TRANSLATION NEEDED",
+    "delegateLeaderboard": "TRANSLATION NEEDED",
+    "delegateVotes": "TRANSLATION NEEDED",
+    "delegateVoting": "TRANSLATION NEEDED",
+    "delegateYourVoting": "TRANSLATION NEEDED",
+    "depositXvs": "TRANSLATION NEEDED",
+    "depositYourTokens": "TRANSLATION NEEDED",
+    "enterContactAddress": "TRANSLATION NEEDED",
+    "errorState": {
+      "buttonLabel": "TRANSLATION NEEDED",
+      "message": "TRANSLATION NEEDED"
+    },
+    "for": "TRANSLATION NEEDED",
+    "goToXvsSnapshot": "TRANSLATION NEEDED",
+    "omnichain": {
+      "switchToBnb": "TRANSLATION NEEDED",
+      "votingOnlyEnabledOnBnb": "TRANSLATION NEEDED"
+    },
+    "pages": {
+      "actions": "TRANSLATION NEEDED",
+      "confirmation": "TRANSLATION NEEDED",
+      "proposalInformation": "TRANSLATION NEEDED",
+      "votingOptions": "TRANSLATION NEEDED"
+    },
+    "pasteYourAddress": "TRANSLATION NEEDED",
+    "pleasePayAttention": "TRANSLATION NEEDED",
+    "proposals": "TRANSLATION NEEDED",
+    "proposalStateFilter": {
+      "label": "TRANSLATION NEEDED"
+    },
+    "proposalType": {
+      "critical": "TRANSLATION NEEDED",
+      "fastTrack": "TRANSLATION NEEDED",
+      "normal": "TRANSLATION NEEDED"
+    },
+    "redelegate": "TRANSLATION NEEDED",
+    "redelegateVoting": "TRANSLATION NEEDED",
+    "requiredVotingPower": "TRANSLATION NEEDED",
+    "searchInput": {
+      "placeholder": "TRANSLATION NEEDED"
+    },
+    "summaryProgressBar": "TRANSLATION NEEDED",
+    "totalLocked": "TRANSLATION NEEDED",
+    "toVoteYouShould": "TRANSLATION NEEDED",
+    "voteAbstain": "TRANSLATION NEEDED",
+    "voteAgainst": "TRANSLATION NEEDED",
+    "voteFor": "TRANSLATION NEEDED",
+    "votingPower": "TRANSLATION NEEDED",
+    "votingWallet": "TRANSLATION NEEDED",
+    "votingWeight": "TRANSLATION NEEDED",
+    "youCanDelegateVotes": "TRANSLATION NEEDED",
+    "youDelegatedTo": "TRANSLATION NEEDED"
+  },
+  "voteProposalUi": {
+    "activeUntilDate": "TRANSLATION NEEDED",
+    "canceledDate": "TRANSLATION NEEDED",
+    "command": {
+      "actionButton": {
+        "cancel": "TRANSLATION NEEDED",
+        "execute": "TRANSLATION NEEDED",
+        "queue": "TRANSLATION NEEDED"
+      },
+      "dates": {
+        "activeAt": "TRANSLATION NEEDED",
+        "executableAt": "TRANSLATION NEEDED",
+        "previousStep": "TRANSLATION NEEDED",
+        "queueableAt": "TRANSLATION NEEDED"
+      },
+      "description": {
+        "bridged": "TRANSLATION NEEDED",
+        "canceled": "TRANSLATION NEEDED",
+        "failed": "TRANSLATION NEEDED",
+        "pending": "TRANSLATION NEEDED",
+        "pendingBsc": "TRANSLATION NEEDED",
+        "waitingToBeExecutable": "TRANSLATION NEEDED",
+        "wrongChain": "TRANSLATION NEEDED"
+      },
+      "operations": {
+        "title": "TRANSLATION NEEDED"
+      },
+      "status": {
+        "pending": "TRANSLATION NEEDED"
+      }
+    },
+    "commands": {
+      "allPayloadsExecuted": "TRANSLATION NEEDED",
+      "somePayloadsExecuted": "TRANSLATION NEEDED",
+      "title": "TRANSLATION NEEDED"
+    },
+    "countdownFormat": {
+      "daysIncluded": "TRANSLATION NEEDED",
+      "hoursIncluded": "TRANSLATION NEEDED",
+      "minutesIncluded": "TRANSLATION NEEDED",
+      "secondsIncluded": "TRANSLATION NEEDED"
+    },
+    "defeatedDate": "TRANSLATION NEEDED",
+    "description": "TRANSLATION NEEDED",
+    "executedDate": "TRANSLATION NEEDED",
+    "expiredDate": "TRANSLATION NEEDED",
+    "greenPulseAnimation": {
+      "altText": "TRANSLATION NEEDED"
+    },
+    "proposalState": {
+      "activeTimestamp": "TRANSLATION NEEDED",
+      "canceledTimestamp": "TRANSLATION NEEDED",
+      "defeatedTimestamp": "TRANSLATION NEEDED",
+      "executedTimestamp": "TRANSLATION NEEDED",
+      "expiredTimestamp": "TRANSLATION NEEDED",
+      "queuedTimestamp": "TRANSLATION NEEDED",
+      "succeededTimestamp": "TRANSLATION NEEDED"
+    },
+    "queuedUntilDate": "TRANSLATION NEEDED",
+    "status": {
+      "executedPayloads": "TRANSLATION NEEDED",
+      "readyForExecution": "TRANSLATION NEEDED",
+      "readyForQueuing": "TRANSLATION NEEDED"
+    },
+    "statusCard": {
+      "ariaLabelAbstain": "TRANSLATION NEEDED",
+      "ariaLabelAgainst": "TRANSLATION NEEDED",
+      "ariaLabelFor": "TRANSLATION NEEDED"
+    },
+    "timeUntilExecutable": "TRANSLATION NEEDED",
+    "timeUntilVotable": "TRANSLATION NEEDED",
+    "voteStatus": {
+      "abstained": "TRANSLATION NEEDED",
+      "notVoted": "TRANSLATION NEEDED",
+      "votedAgainst": "TRANSLATION NEEDED",
+      "votedFor": "TRANSLATION NEEDED"
+    },
+    "votingOptions": "TRANSLATION NEEDED"
+  },
+  "voterDetail": {
+    "actions": "TRANSLATION NEEDED",
+    "amount": "TRANSLATION NEEDED",
+    "delegated": "TRANSLATION NEEDED",
+    "delegatingTo": "TRANSLATION NEEDED",
+    "holding": "TRANSLATION NEEDED",
+    "proposalNumber": "TRANSLATION NEEDED",
+    "transactions": "TRANSLATION NEEDED",
+    "undelegated": "TRANSLATION NEEDED",
+    "venusBalance": "TRANSLATION NEEDED",
+    "viewAll": "TRANSLATION NEEDED",
+    "votedAbstain": "TRANSLATION NEEDED",
+    "votedAgainst": "TRANSLATION NEEDED",
+    "votedFor": "TRANSLATION NEEDED",
+    "votes": "TRANSLATION NEEDED",
+    "votingHistory": "TRANSLATION NEEDED"
+  },
+  "voterLeaderboard": {
+    "addressesByVotingWeight": "TRANSLATION NEEDED",
+    "columns": {
+      "proposalsVoted": "TRANSLATION NEEDED",
+      "rank": "TRANSLATION NEEDED",
+      "votes": "TRANSLATION NEEDED",
+      "voteWeight": "TRANSLATION NEEDED"
+    }
+  },
+  "voteSummary": {
+    "addresses_one": "TRANSLATION NEEDED",
+    "addresses_other": "TRANSLATION NEEDED",
+    "votes": "TRANSLATION NEEDED"
+  },
+  "wallets": {
+    "errors": {
+      "noProvider": "TRANSLATION NEEDED"
+    }
+  },
+  "web3DomainNames": {
+    "providers": {
+      "ens": "TRANSLATION NEEDED",
+      "spaceId": "TRANSLATION NEEDED"
+    },
+    "tooltip": {
+      "address": "TRANSLATION NEEDED"
+    }
+  },
+  "withdrawFromVaiVaultModal": {
+    "availableTokensLabel": "TRANSLATION NEEDED",
+    "connectWalletMessage": "TRANSLATION NEEDED",
+    "submitButtonDisabledLabel": "TRANSLATION NEEDED",
+    "submitButtonLabel": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED"
+  },
+  "withdrawFromVestingVaultModalModal": {
+    "displayWithdrawalRequestListButton": "TRANSLATION NEEDED",
+    "requestWithdrawalTab": {
+      "approveToken": {
+        "connectWalletMessage": "TRANSLATION NEEDED"
+      },
+      "availableTokensLabel": "TRANSLATION NEEDED",
+      "displayWithdrawalRequestListButton": "TRANSLATION NEEDED",
+      "primeLossWarning": {
+        "message": "TRANSLATION NEEDED",
+        "submitButtonLabel": "TRANSLATION NEEDED"
+      },
+      "submitButtonDisabledLabel": "TRANSLATION NEEDED",
+      "submitButtonLabel": "TRANSLATION NEEDED"
+    },
+    "requestWithdrawalTabTitle": "TRANSLATION NEEDED",
+    "title": "TRANSLATION NEEDED",
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "TRANSLATION NEEDED"
+      },
+      "emptyState": "TRANSLATION NEEDED",
+      "itemContent": "TRANSLATION NEEDED"
+    },
+    "withdrawalRequestListTitle": "TRANSLATION NEEDED",
+    "withdrawTab": {
+      "approveToken": {
+        "connectWalletMessage": "TRANSLATION NEEDED"
+      },
+      "availableTokens": "TRANSLATION NEEDED",
+      "submitButton": "TRANSLATION NEEDED"
+    },
+    "withdrawTabTitle": "TRANSLATION NEEDED"
+  }
+}
