@@ -577,7 +577,7 @@
           "label": "Enable gasless transactions on {{chainName}}"
         },
         "language": {
-          "label": "Language"
+          "label": "Language (beta)"
         }
       },
       "staking": {

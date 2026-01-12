@@ -10,8 +10,8 @@ import jaLocales from './translations/ja.json';
 import thLocales from './translations/th.json';
 import trLocales from './translations/tr.json';
 import viLocales from './translations/vi.json';
-import zhHansLocales from './translations/zh-Hans.json';
-import zhHantLocales from './translations/zh-Hant.json';
+import zhHansLocales from './translations/zhHans.json';
+import zhHantLocales from './translations/zhHant.json';
 
 export { default as en } from './translations/en.json';
 
@@ -44,8 +44,6 @@ const init = () => {
         },
       },
       supportedLngs: supportedLanguages.map(language => language.tag),
-      nonExplicitSupportedLngs: true,
-      load: 'languageOnly',
       fallbackLng: 'en',
       detection: {
         order: ['localStorage', 'navigator'],
