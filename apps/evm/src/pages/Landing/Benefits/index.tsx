@@ -1,4 +1,5 @@
 import { cn } from 'components';
+import { Container } from 'containers/Container';
 import Octahedron from './assets/1.svg?react';
 import Shield from './assets/2.svg?react';
 import Dots from './assets/3.svg?react';
@@ -28,12 +29,12 @@ const content = [
 ];
 
 const Benefits: React.FC<IBenefitsProps> = ({ className }) => (
-  <div className={cn('Container', 'mt-15 md:mt-20 xl:mt-25', className)}>
+  <Container className={cn('mt-15 md:mt-20 xl:mt-25', className)}>
     <ul className="md:flex md:gap-6">
       {content.map(({ icon, title, text }) => (
         <li
           className={
-            'bg-background-secondary rounded-lg p-6 border border-solid border-lightGrey mt-4 first:mt-0 sm:flex sm:items-center md:w-1/3 md:flex-col md:items-start md:rounded-3xl md:mt-0'
+            'bg-[#1E2431] rounded-lg p-6 border border-solid border-lightGrey mt-4 first:mt-0 sm:flex sm:items-center md:w-1/3 md:flex-col md:items-start md:rounded-3xl md:mt-0'
           }
           key={text}
         >
@@ -45,7 +46,7 @@ const Benefits: React.FC<IBenefitsProps> = ({ className }) => (
         </li>
       ))}
     </ul>
-  </div>
+  </Container>
 );
 
 export default Benefits;

@@ -1,3 +1,4 @@
+import { Container } from 'containers/Container';
 import binanceLogoSrc from './assets/binance.svg';
 import braveLogoSrc from './assets/brave.svg';
 import foxWalletLogoSrc from './assets/foxWallet.svg';
@@ -69,17 +70,17 @@ const wallets: Wallet[] = [
 
 const Wallets: React.FC = () => (
   <section className="my-15 md:my-20 xl:my-25">
-    <div className="Container">
+    <Container>
       <h2 className="text-[2rem] text-center mx-auto mb-10">Trusted by many</h2>
 
       <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 xl:gap-6">
         {wallets.map(({ logoSrc, name }) => (
           <div className="flex justify-center items-center" key={name}>
-            <img src={logoSrc} className="w-full" alt={name} />
+            <img loading="lazy" src={logoSrc} className="w-full" alt={name} />
           </div>
         ))}
       </div>
-    </div>
+    </Container>
   </section>
 );
 

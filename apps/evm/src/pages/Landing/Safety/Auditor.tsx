@@ -14,7 +14,7 @@ interface ISafetyProps {
 const Auditor: React.FC<ISafetyProps> = ({ auditor: { href, Logo, LogoHovered, audits } }) => (
   <a
     className={cn(
-      'relative flex flex-col items-center bg-background-secondary no-underline hover:no-underline overflow-hidden p-4 rounded-2xl cursor-pointer',
+      'relative flex flex-col items-center bg-[#1E2431] no-underline hover:no-underline overflow-hidden p-4 rounded-2xl cursor-pointer',
     )}
     href={href}
   >
@@ -24,7 +24,7 @@ const Auditor: React.FC<ISafetyProps> = ({ auditor: { href, Logo, LogoHovered, a
         <LogoHovered className="opacity-0 hover:opacity-100 absolute inset-0 w-full transition-opacity duration-250 ease-linear" />
       </div>
     </div>
-    <hr className="w-full border-0 h-px bg-icon-background my-4 mx-0" />
+    <hr className="w-full border-0 h-px bg-[#2D3549] my-4 mx-0" />
     <div className="flex justify-between items-center w-full">
       <p className="m-0 text-[0.8rem] leading-5.25 md:text-[0.875rem] flex items-end flex-1 text-grey no-underline">
         <span className="font-semibold text-white me-2">{audits}</span> Audit

@@ -1,15 +1,23 @@
 import { cn } from 'components';
+import { Container } from 'containers/Container';
+import bugBountyImg from './assets/bugBounty.png';
+import protectionImg from './assets/protection.png';
 
 interface IProtectionProps {
   className?: string;
 }
 
 const itemClassName =
-  'flex flex-1 flex-col min-h-105 justify-between p-6 pb-0 border border-solid border-lightGrey rounded-3xl sm:min-h-100 xl:min-h-139 xl:p-10 xl:pb-0';
-const bgImgClassName = 'bg-contain bg-bottom bg-no-repeat flex-1';
+  'relative flex flex-1 flex-col min-h-105 justify-between p-6 pb-0 border border-solid border-lightGrey rounded-3xl sm:min-h-100 xl:min-h-139 xl:p-10 xl:pb-0';
+const bgImgClassName = 'w-full bottom-0';
+
+const textClassName = cn(
+  '[&_h2]:text-[1.5rem] [&_h2]:font-semibold xl:[&_h2]:text-[2rem]',
+  '[&_p]:text-grey [&_p]:text-[1rem] xl:[&_p]:text-[1.125rem]',
+);
 
 const Protection: React.FC<IProtectionProps> = ({ className }) => (
-  <div className={cn('Container', 'mt-15 md:mt-20 lg:mt-25', className)}>
+  <Container className={cn('mt-15 md:mt-20 lg:mt-25', textClassName, className)}>
     <ul className={'flex flex-col justify-between gap-6 sm:flex-row xl:gap-8'}>
       <li
         className={cn(
@@ -25,7 +33,7 @@ const Protection: React.FC<IProtectionProps> = ({ className }) => (
             bug bounty rewards, and please submit any bug you identify.
           </p>
         </div>
-        <div className={cn(bgImgClassName, 'bg-[url(/images/landing/protection/bugBounty.png)]')} />
+        <img loading="lazy" className={cn(bgImgClassName)} src={bugBountyImg} alt="bugBounty" />
       </li>
       <li
         className={cn(
@@ -40,12 +48,10 @@ const Protection: React.FC<IProtectionProps> = ({ className }) => (
             Maintaining a fallback pool to keep us all safe in the case of outlier events
           </p>
         </div>
-        <div
-          className={cn(bgImgClassName, 'bg-[url(/images/landing/protection/protection.png)]')}
-        />
+        <img loading="lazy" className={cn(bgImgClassName)} src={protectionImg} alt="protection" />
       </li>
     </ul>
-  </div>
+  </Container>
 );
 
 export default Protection;

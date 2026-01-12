@@ -1,16 +1,23 @@
 import { useProposalsCountFromApi } from 'clients/api/queries/getProposalsCountFromApi/useGetProposalsCountFromApi';
-import { cn } from 'components';
+import { Button, cn } from 'components';
 import { COMMUNITY_URL } from 'constants/landing';
+import { Container } from 'containers/Container';
 import { Link } from 'containers/Link';
+import plantsImg from './assets/planets.png';
+
+const textClassName = cn(
+  '[&_h2]:text-[1.5rem] [&_h2]:font-semibold xl:[&_h2]:text-[2rem]',
+  '[&_p]:text-grey [&_p]:text-[1rem] xl:[&_p]:text-[1.125rem]',
+);
 
 const Governance: React.FC = () => {
   const { data: proposalsCount, isLoading } = useProposalsCountFromApi();
 
   return !isLoading && proposalsCount ? (
-    <div className={cn('Container', 'mt-15 md:mt-20 xl:mt-25')}>
+    <Container className={cn('mt-15 md:mt-20 xl:mt-25', textClassName)}>
       <div
         className={
-          'flex flex-col-reverse justify-between overflow-y-hidden border border-solid border-lightGrey rounded-3xl h-135.5 bg-background-secondary sm:h-94 sm:flex-row xl:gap-6 xl:h-125'
+          'flex flex-col-reverse justify-between overflow-y-hidden border border-solid border-lightGrey rounded-3xl h-135.5 bg-[#1E2431] sm:h-94 sm:flex-row xl:gap-6 xl:h-125'
         }
         key="bounty"
       >
@@ -29,16 +36,22 @@ const Governance: React.FC = () => {
               Venus is a community-driven decentralized protocol delivering best-in-class
               functionality for crypto money markets.
             </p>
-            <Link className={'w-fit mb-6 LandingLink'} href={COMMUNITY_URL}>
-              Governance forum
-            </Link>
+            <a className={'w-fit mb-6'} href={COMMUNITY_URL}>
+              <Button className="w-fit">Governance forum</Button>
+            </a>
           </div>
         </div>
         <div
           className={
-            'relative flex flex-col justify-center items-center min-h-62.5 bg-[url(/images/landing/governance/planets.png)] bg-position-[center,-100px] bg-no-repeat bg-size-[352px] sm:bg-position-[-5px] sm:w-73.75 sm:max-w-110 sm:bg-size-[360px] sm:[background-position-x:35px] md:w-108 md:max-w-108 md:ps-13 md:bg-size-[445px] md:[background-position-x:27px] md:[background-position-y:-34px] xl:ms-0 xl:ps-2.5 xl:w-147.5 xl:max-w-147.5 xl:bg-size-[605px] xl:bg-position-center xl:[background-position-x-0]'
+            'relative flex flex-col justify-center items-center min-h-62.5 bg-position-[center,-100px] bg-no-repeat bg-size-[352px] sm:bg-position-[-5px] sm:w-73.75 sm:max-w-110 sm:bg-size-[360px] sm:[background-position-x:35px] md:w-108 md:max-w-108 md:ps-13 md:bg-size-[445px] md:[background-position-x:27px] md:[background-position-y:-34px] xl:ms-0 xl:ps-2.5 xl:w-147.5 xl:max-w-147.5 xl:bg-size-[605px] xl:bg-position-center xl:[background-position-x-0] overflow-hidden'
           }
         >
+          <img
+            loading="lazy"
+            className="absolute h-[352px] -top-25 sm:-right-24 sm:top-0 sm:h-[360px] max-w-[unset] md:h-[445px] md:-top-8 md:-right-7 lg:-right-9.5 xl:h-[605px] xl:left-0 xl:-top-13"
+            src={plantsImg}
+            alt="plants"
+          />
           <div
             className={
               'absolute top-[50%] -translate-y-full flex flex-col sm:end-0 sm:me-3.5 sm:translate-y-[-50%] md:me-0 md:end-[unset] lg:ms-7.5 lg:me-3.5 xl:ms-4.5'
@@ -61,7 +74,7 @@ const Governance: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   ) : null;
 };
 

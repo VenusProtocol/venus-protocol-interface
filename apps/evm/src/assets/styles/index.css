@@ -9,13 +9,6 @@
 @import '@venusprotocol/ui/fonts/proximaNova' layer(base);
 @import '@venusprotocol/ui/theme' layer(theme);
 
-@theme {
-  /* Legacy colors which is used by old landing: */
-  --color-background-secondary: #1E2431;
-  --color-icon-background: #2D3549;
-  --global-max-width: 1280px;
-}
-
 @layer base {
   body {
     font-family: var(--font-proxima-nova), sans-serif;
@@ -78,14 +71,6 @@
     &[type='number'] {
       -moz-appearance: textfield;
     }
-  }
-
-  .Container {
-    @apply w-full px-4 sm:px-6 md:px-8 lg:px-12 lg:mx-auto
-  }
-
-  .LandingLink {
-    @apply hover:no-underline! hover:text-blue-hover! duration-250;
   }
 }
 

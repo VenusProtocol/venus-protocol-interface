@@ -1,20 +1,47 @@
-import { cn } from 'components';
+import { Button, cn } from 'components';
+import { Container } from 'containers/Container';
 import { Link } from 'containers/Link';
 
+import venuePrimeXs from './assets/venusPrimeLogo375.png';
+import venuePrimeSm from './assets/venusPrimeLogo640.png';
+import venuePrimeMd from './assets/venusPrimeLogo840.png';
+import venuePrimeXl from './assets/venusPrimeLogo1280.png';
+
+const textClassName = cn(
+  '[&_h2]:text-[1.5rem] [&_h2]:font-semibold xl:[&_h2]:text-[2rem]',
+  '[&_p]:text-grey [&_p]:text-[1rem] xl:[&_p]:text-[1.125rem]',
+);
+
 const VenusPrime: React.FC = () => (
-  <div className="Container mt-15 md:mt-20 xl:mt-25">
+  <div className={cn('mt-15 md:mt-20 xl:mt-25', textClassName)}>
     <div
       className={cn(
-        'flex flex-col border border-solid border-lightGrey rounded-3xl bg-background-secondary p-6',
-        "sm:bg-[url('/images/landing/venusPrime/venusPrimeLogo640.png')] sm:flex-row sm:h-100",
-        "md:bg-[url('/images/landing/venusPrime/venusPrimeLogo840.png')]",
-        "xl:bg-[url('/images/landing/venusPrime/venusPrimeLogo1280.png')]",
-        'bg-left bg-no-repeat bg-contain',
+        'relative overflow-hidden flex border border-solid border-lightGrey rounded-3xl bg-[#1E2431] p-6 sm:h-100',
       )}
       key="bounty"
     >
-      <div className="hidden sm:flex min-h-50 w-full flex-1 bg-[url('/images/landing/venusPrime/venusPrimeLogo375.png')] bg-left bg-no-repeat bg-contain" />
-      <div className={cn('flex flex-col', 'sm:ms-60 md:ms-105 xl:ms-147.5')}>
+      <div className="absolute sm:top-0 sm:-left-1 md:top-2 md:left-0 xl:-top-0.5 xl:-left-1.5">
+        <img
+          loading="lazy"
+          className="hidden max-sm:flex h-50"
+          src={venuePrimeXs}
+          alt="venusPrime"
+        />
+        <img
+          loading="lazy"
+          className="hidden sm:max-md:flex h-100"
+          src={venuePrimeSm}
+          alt="venusPrime"
+        />
+        <img
+          loading="lazy"
+          className="hidden md:max-xl:flex h-100"
+          src={venuePrimeMd}
+          alt="venusPrime"
+        />
+        <img loading="lazy" className="hidden xl:flex h-100" src={venuePrimeXl} alt="venusPrime" />
+      </div>
+      <div className={cn('flex flex-col', 'max-md:mt-50 sm:ms-60 md:ms-105 xl:ms-147.5')}>
         <h2 className="m-0 mt-7.5 mb-6">
           <span className="bg-linear-to-t from-[#8E6150] to-[#F2E3DB] bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] text-[#8E6150]">
             Venus Prime
@@ -26,9 +53,10 @@ const VenusPrime: React.FC = () => (
           With Venus Prime, dedicated users obtain boosted rewards when they lend and borrow on
           Venus while staking in the governance vault.
         </p>
-        <Link className="w-fit LandingLink" href="https://docs-v4.venus.io/whats-new/prime-yield">
-          Learn more
-        </Link>
+
+        <a className="w-fit" href="https://docs-v4.venus.io/whats-new/prime-yield">
+          <Button className="w-fit">Learn more</Button>
+        </a>
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
 import { cn } from 'components';
+import { Container } from 'containers/Container';
 import Auditor from './Auditor';
 import OtherAuditors from './OtherAuditors';
 import SafetyScore from './SafetyScore';
@@ -68,7 +69,7 @@ const auditors = [
 
 const Safety: React.FC<ISafetyProps> = ({ className }) => (
   <section className={cn('mt-15 md:mt-20 xl:mt-25', className)}>
-    <div className="Container flex flex-col flex-wrap items-center">
+    <Container className="flex flex-col flex-wrap items-center">
       <h2 className="text-[2rem]">Safety before all</h2>
       <p className="text-center max-w-162.5 mt-4 mb-10">
         Transact with confidence, knowing Venus places nothing before the security of your assets
@@ -83,7 +84,7 @@ const Safety: React.FC<ISafetyProps> = ({ className }) => (
         </div>
         <SafetyScore className="hidden xl:flex" />
       </div>
-    </div>
+    </Container>
   </section>
 );
 
